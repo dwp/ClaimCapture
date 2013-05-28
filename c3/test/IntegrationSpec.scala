@@ -1,28 +1,19 @@
-package test
+import collection.mutable.Stack
+import org.scalatest._
+import org.scalatest.matchers._
 
-import org.specs2.mutable._
+class IntegrationSpec extends FlatSpec with ShouldMatchers {
 
-import play.api.test._
-import play.api.test.Helpers._
-
-/**
- * add your integration spec here.
- * An integration test will fire up a whole play application in a real (or headless) browser
- */
-class IntegrationSpec extends Specification {
-  
-  "Application" should {
-    
-    "work from within a browser" in {
-      running(TestServer(3333), HTMLUNIT) { browser =>
-
-        browser.goTo("http://localhost:3333/")
-
-        browser.pageSource must contain("Carers Claim Capture")
-       
-      }
-    }
-    
+  "A Stack" should "pop values in last-in-first-out order" in {
+    val stack = new Stack[Int]
+    stack.push(1)
+    stack.push(2)
+    stack.pop() should equal (2)
+    stack.pop() should equal (1)
   }
-  
+
+  it should "throw NoSuchElementException if an empty stack is popped" in {
+    val emptyStack = new Stack[String]
+    evaluating { emptyStack.pop() } should produce [NoSuchElementException]
+  }
 }
