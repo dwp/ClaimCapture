@@ -15,10 +15,10 @@ object ApplicationBuild extends Build {
     "org.scalatest" %% "scalatest" % "1.9.1" % "test"
   )
 
-  var appSettings : Seq[Project.Setting[_]] = Seq(testOptions in Test := Nil) ++ Seq(SassPlugin.sassOptions := Seq("--compass","-C"))
+  var appSettings : Seq[Project.Setting[_]] = Seq(testOptions in Test := Nil) ++ Seq(SassPlugin.sassOptions := Seq("--compass"))
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
-    appSettings ++ SassPlugin.sassSettings :_*
+    testOptions in Test := Nil
   )
 
 }
