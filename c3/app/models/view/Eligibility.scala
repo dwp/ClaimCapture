@@ -1,24 +1,20 @@
 package models.view
 
 class Eligibility() extends Section {
-  val questionGroups: Seq[QuestionGroup] = Seq(new Benefits, new HoursCaring)
   def name: String = "Eligibility"
+  val questionGroups: Seq[QuestionGroup] = Seq(new Benefits, new HoursCaring)
 }
 
 class Benefits() extends QuestionGroup {
-  val questions: Seq[Question] = Seq(new HasBenefits)
+  def name: String = "Benefits"
+  val benefits = BenefitsForm()
 }
+case class BenefitsForm(hasBenefits: Option[Boolean] = None)
 
 class HoursCaring() extends QuestionGroup {
-  val questions: Seq[Question] = Seq(new EnoughHours)
+  def name: String = "HoursCaring"
+  val enoughHours = HoursCaringForm()
 }
-
-class HasBenefits extends Question {
-  val label = "Has benefits"
-}
-
-class EnoughHours extends Question {
-  val label = "Enough hours"
-}
+case class HoursCaringForm(enoughHours: Option[Boolean] = None)
 
 

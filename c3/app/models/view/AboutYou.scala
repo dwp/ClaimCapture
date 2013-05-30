@@ -1,20 +1,24 @@
 package models.view
 
-import models.view.common.{FirstName, Postcode, ClaimDate}
-
 class AboutYou extends Section {
   def name: String = "AboutYou"
   val questionGroups: Seq[QuestionGroup] = Seq(new Details, new ContactDetails, new ClaimStartDate)
 }
 
 class Details extends QuestionGroup {
-  val questions: Seq[Question] = Seq(new FirstName)
+  def name: String = "Details"
+  val detailsForm = DetailsForm
 }
+case class DetailsForm(firstName : Option[String] = None, lastName: Option[String] = None)
 
 class ContactDetails extends QuestionGroup {
-  val questions: Seq[Question] = Seq(new Postcode)
+  def name: String = "contactDetails"
+  val contactDetailsForm = ContactDetailsForm()
 }
+case class ContactDetailsForm(postCode : Option[String] = None)
 
 class ClaimStartDate extends QuestionGroup {
-  val questions: Seq[Question] = Seq(new ClaimDate)
+  def name: String = "claimStartDate"
+  val claimStartDateForm = ClaimStartDateForm()
 }
+case class ClaimStartDateForm(claimStart: Option[String] = None)

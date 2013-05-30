@@ -1,10 +1,12 @@
 package models.view
 
-class Claim {
-  def sections : Seq[Section] = {
-    Seq(
+case class Claim(sections : Seq[Section])
+
+object Claim {
+  def apply() = {
+    new Claim(Seq(
       new Eligibility,
       new AboutYou
-    )
+    ))
   }
 }
