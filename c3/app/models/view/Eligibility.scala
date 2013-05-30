@@ -11,7 +11,7 @@ object Eligibility {
 }
 
 
-class Benefits(val form : CarersForm) extends QuestionGroup {
+class Benefits(val form : BenefitsForm) extends QuestionGroup {
   def name: String = "Benefits"
 }
 object Benefits {
@@ -23,7 +23,7 @@ case class BenefitsForm(hasBenefits: Option[Boolean] = None) extends CarersForm
 
 
 
-class HoursCaring(val form : CarersForm) extends QuestionGroup {
+class HoursCaring(val form : HoursCaringForm) extends QuestionGroup {
   def name: String = "HoursCaring"
 }
 object HoursCaring {
