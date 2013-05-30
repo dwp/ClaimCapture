@@ -21,11 +21,9 @@ object Application extends Controller {
       val model = loadFromCache(key)
 
       if (model.isEmpty) {
-        val claim =  Claim()
-
         val exampleClaim = models.view.example.ExampleClaim()
 
-//        val claim = new Claim(Seq{ } )
+        val claim =  Claim()
         updateCache(key, claim)
       }
 
