@@ -14,12 +14,19 @@ object Application extends Controller {
 
   def cookies = Action { request =>
 
+
+
     request.session.get("connected").map { key =>
 
       val model = loadFromCache(key)
 
       if (model.isEmpty) {
-        updateCache(key, new Claim(Seq{ new Eligibility()}))
+        val claim =  Claim()
+
+        val exampleClaim = models.view.example.ExampleClaim()
+
+//        val claim = new Claim(Seq{ } )
+        updateCache(key, claim)
       }
 
       Logger.debug("Session Key from cookie. " )

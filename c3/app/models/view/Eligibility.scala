@@ -1,5 +1,7 @@
 package models.view
 
+import example.{HoursCaringForm, BenefitsForm}
+
 class Eligibility() extends Section {
   def name: String = "Eligibility"
   val questionGroups: Seq[QuestionGroup] = Seq(new Benefits, new HoursCaring)

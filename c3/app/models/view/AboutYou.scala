@@ -18,7 +18,7 @@ class ContactDetails extends QuestionGroup {
 case class ContactDetailsForm(postCode : Option[String] = None)
 
 class ClaimStartDate extends QuestionGroup {
-  def name: String = "claimStartDate"
+  def name: String = "contactDetails"
   val claimStartDateForm = ClaimStartDateForm()
 }
 case class ClaimStartDateForm(claimStart: Option[String] = None)
