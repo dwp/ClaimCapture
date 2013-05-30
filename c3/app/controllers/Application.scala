@@ -2,7 +2,7 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import models.view.{Claim}
+import models.view.{Eligibility, Claim}
 import play.api.cache.Cache
 import play.api.Play.current
 
@@ -19,7 +19,7 @@ object Application extends Controller {
       val model = loadFromCache(key)
 
       if (model.isEmpty) {
-        updateCache(key, new Claim())
+        updateCache(key, new Claim(Seq{ new Eligibility()}))
       }
 
       Logger.debug("Session Key from cookie. " )
