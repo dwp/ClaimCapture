@@ -1,20 +1,36 @@
 package models.view
 
-class Eligibility() extends Section {
+class Eligibility(val questionGroups: Seq[QuestionGroup]) extends Section {
   def name: String = "Eligibility"
-  val questionGroups: Seq[QuestionGroup] = Seq(new Benefits, new HoursCaring)
 }
 
-class Benefits() extends QuestionGroup {
+object Eligibility {
+  def apply() = {
+     new Eligibility(Seq(Benefits(), HoursCaring()))
+  }
+}
+
+
+class Benefits(val form : CarersForm) extends QuestionGroup {
   def name: String = "Benefits"
-  val benefits = BenefitsForm()
 }
-case class BenefitsForm(hasBenefits: Option[Boolean] = None)
+object Benefits {
+  def apply() = {
+    new Benefits(BenefitsForm())
+  }
+}
+case class BenefitsForm(hasBenefits: Option[Boolean] = None) extends CarersForm
 
-class HoursCaring() extends QuestionGroup {
+
+
+class HoursCaring(val form : CarersForm) extends QuestionGroup {
   def name: String = "HoursCaring"
-  val enoughHours = HoursCaringForm()
 }
-case class HoursCaringForm(enoughHours: Option[Boolean] = None)
+object HoursCaring {
+  def apply() = {
+    new HoursCaring(HoursCaringForm())
+  }
+}
+case class HoursCaringForm(enoughHours: Option[Boolean] = None) extends CarersForm
 
 

@@ -11,18 +11,34 @@ class QuestionsSpec extends FunSpec with MustMatchers {
       section.get.name must equal("Eligibility")
       val qg = section.get.questionGroups.find(qg => !qg.answered)
       qg.get.name must equal("Benefits")
+      qg.get.form
     }
 
     it("must allow the value of a question to be changed") {
-      val sectionName = "Eligibility"
+      val sectionName = "AboutYou"
       val claim = Claim()
       val newClaim = Claim(claim.sections.map {
         section => {
           section.name match {
+            case "AboutYou" => {
+              new AboutYou(section.questionGroups.map {
+                questionGroup => {
+                  questionGroup.name match {
+                    case "contactDetails" => {
+                      new ContactDetails(ContactDetailsForm(postCode = Some("value")))
+                    }
+                    case _ => questionGroup
+                  }
+                }
+              })
+            }
             case _ => section
           }
         }
       })
+      val qg = newClaim.sections.find(s => s.name.equals("AboutYou")).
+        get.questionGroups.find(g => g.name.equals("contactDetails")).
+        get
     }
   }
 }

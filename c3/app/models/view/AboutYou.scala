@@ -1,24 +1,46 @@
 package models.view
 
-class AboutYou extends Section {
+
+class AboutYou(val questionGroups: Seq[QuestionGroup]) extends Section {
   def name: String = "AboutYou"
-  val questionGroups: Seq[QuestionGroup] = Seq(new Details, new ContactDetails, new ClaimStartDate)
 }
 
-class Details extends QuestionGroup {
+object AboutYou {
+  def apply() = {
+    new AboutYou(Seq(Details(), ContactDetails(), ClaimStartDate()))
+  }
+}
+
+class Details(val form : CarersForm) extends QuestionGroup {
   def name: String = "Details"
   val detailsForm = DetailsForm
 }
-case class DetailsForm(firstName : Option[String] = None, lastName: Option[String] = None)
-
-class ContactDetails extends QuestionGroup {
-  def name: String = "contactDetails"
-  val contactDetailsForm = ContactDetailsForm()
+object Details {
+  def apply() = {
+    new Details(DetailsForm())
+  }
 }
-case class ContactDetailsForm(postCode : Option[String] = None)
+case class DetailsForm(firstName : Option[String] = None, lastName: Option[String] = None) extends CarersForm
 
-class ClaimStartDate extends QuestionGroup {
+
+class ContactDetails(val form : CarersForm) extends QuestionGroup {
+  def name: String = "contactDetails"
+}
+object ContactDetails {
+  def apply() = {
+    new ContactDetails(ContactDetailsForm())
+  }
+}
+case class ContactDetailsForm(postCode : Option[String] = None) extends CarersForm
+
+
+class ClaimStartDate(val form : CarersForm) extends QuestionGroup {
   def name: String = "claimStartDate"
   val claimStartDateForm = ClaimStartDateForm()
 }
-case class ClaimStartDateForm(claimStart: Option[String] = None)
+object ClaimStartDate {
+  def apply() = {
+    new ClaimStartDate(ClaimStartDateForm())
+  }
+}
+case class ClaimStartDateForm(claimStart: Option[String] = None) extends CarersForm
