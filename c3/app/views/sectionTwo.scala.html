@@ -1,0 +1,28 @@
+@(section: models.view.example.GenericSection, simpleForm: Form[models.view.example.SingleStringInputForm])
+
+@import helper._
+
+
+@main("Carers Allowance") {
+
+<h1>Section 2 template</h1>
+
+@for(answeredQuestionGroup <- section.getAnsweredQuestionGroups) {
+<div>@answeredQuestionGroup.name : @answeredQuestionGroup.form.answerToString</div>
+}
+
+@if(simpleForm.hasErrors) {
+<div class="alert-message error">
+    <p><strong>Oops</strong> Please fix all errors</p>
+</div>
+}
+
+<form action="/sections/@section.name">
+
+@inputText(
+simpleForm("answer"), '_label -> section.getNextUnansweredQuestionGroup.get.name
+)
+
+<button class="btn" type="submit">Next</button>
+</form>
+}

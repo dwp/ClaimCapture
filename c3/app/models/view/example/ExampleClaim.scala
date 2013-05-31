@@ -6,6 +6,10 @@ case class ExampleClaim(sections : Seq[GenericSection]) {
     sections.find(section => !section.isComplete)
   }
 
+  def getSectionWithId(sectionId:String):Option[GenericSection] = {
+    sections.find(section => section.name.equals(sectionId))
+  }
+
 }
 
 object ExampleClaim {

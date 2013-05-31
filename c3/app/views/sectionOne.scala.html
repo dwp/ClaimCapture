@@ -1,12 +1,13 @@
-@(answeredQuestionGroups: Seq[models.view.example.GenericQuestionGroup], nextQuestionGroup:models.view.example.GenericQuestionGroup, simpleForm: Form[models.view.example.SingleStringInputForm])
+@(section: models.view.example.GenericSection, simpleForm: Form[models.view.example.SingleStringInputForm])
 
 @import helper._
 
 
 @main("Carers Allowance") {
 
+    <h1>Section 1 template</h1>
 
-    @for(answeredQuestionGroup <- answeredQuestionGroups) {
+    @for(answeredQuestionGroup <- section.getAnsweredQuestionGroups) {
     <div>@answeredQuestionGroup.name : @answeredQuestionGroup.form.answerToString</div>
     }
 
@@ -16,12 +17,12 @@
     </div>
     }
 
-    @helper.form(action = routes.SectionController.command) {
+    <form action="/sections/@section.name">
 
         @inputText(
-            simpleForm("answer"), '_label -> nextQuestionGroup.name
+            simpleForm("answer"), '_label -> section.getNextUnansweredQuestionGroup.get.name
             )
 
     <button class="btn" type="submit">Next</button>
-    }
+    </form>
 }

@@ -4,12 +4,9 @@ import play.api.mvc._
 import models.view.example.{ExampleClaim, SingleStringInputForm}
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.Logger
-import play.api.cache.Cache
-import play.api.Play.current
+import utils.CacheUtil
 
 object CommandController extends Controller {
-
 
   val form =
     Form(
@@ -19,50 +16,102 @@ object CommandController extends Controller {
     )
 
 
-  def command = Action { implicit request =>
+  def command(sessionId:String) = Action { implicit request =>
 
-    request.session.get("connected").map { key =>
+      request.session.get("connected").map { key =>
 
-    val claim =  loadFromCache(key).get
-    val sectionOption = claim.getNextIncompleteSection()
-    val answeredQuestionGroups = sectionOption.get.getAnsweredQuestionGroups()
-    val nextQuestionGroup = sectionOption.get.getNextUnansweredQuestionGroup.get
+        val claim =  CacheUtil.loadFromCache(key).get
+        val section = claim.sections(0)
+        val answeredQuestionGroups = section.getAnsweredQuestionGroups()
+        val nextQuestionGroupOption = section.getNextUnansweredQuestionGroup
 
-    form.bindFromRequest.fold(
-      errors => BadRequest(views.html.simple(answeredQuestionGroups, nextQuestionGroup, errors)),
-      singleStringInputForm =>
-        {
-        nextQuestionGroup.updateForm(singleStringInputForm)
-        nextQuestionGroup.answered = true
-        updateCache(key, claim)
-        Redirect(routes.SectionController.presenter())
+        if(nextQuestionGroupOption.isDefined) {
+          val nextQuestionGroup = nextQuestionGroupOption.get
+          form.bindFromRequest.fold(
+            errors => BadRequest(views.html.sectionOne(section, errors)),
+//            errors => BadRequest(views.html.sectionOne(answeredQuestionGroups, nextQuestionGroup, errors)),
+            singleStringInputForm =>
+            {
+              nextQuestionGroup.updateForm(singleStringInputForm)
+              nextQuestionGroup.answered = true
+              CacheUtil.updateCache(key, claim)
+              Redirect(routes.PresenterController.present(section.name))
+            }
+          )
         }
-    )
+        else {
+         Ok("No Questions")
+        }
 
-    }.getOrElse {
-      val key = java.util.UUID.randomUUID().toString
-      Redirect(routes.SectionController.presenter()).withSession("connected" -> key)
-    }
-
-  }
-
-  private def loadFromCache(key:String): Option[ExampleClaim] = {
-    Logger.debug("loadFromCache: " + key )
-    var claimOption:Option[ExampleClaim] = Cache.getAs[ExampleClaim](key)
-
-    if(claimOption.isEmpty) {
-      val claim =  ExampleClaim()
-      Cache.set(key, claim)
-      claimOption = Option(claim)
-    }
-    claimOption
+      }.getOrElse {
+        val key = java.util.UUID.randomUUID().toString
+        Redirect(routes.PresenterController.present(sessionId)).withSession("connected" -> key)
+      }
   }
 
 
-  private def updateCache(key:String, model:ExampleClaim) = {
-    Logger.debug("updateCache: " + key + " " + model )
-    Cache.set(key, model)
-  }
+//    def sectionOne = Action { implicit request =>
+//
+//    request.session.get("connected").map { key =>
+//
+//    val claim =  CacheUtil.loadFromCache(key).get
+//    val section = claim.sections(0)
+//    val answeredQuestionGroups = section.getAnsweredQuestionGroups()
+//    val nextQuestionGroupOption = section.getNextUnansweredQuestionGroup
+//
+//    if(nextQuestionGroupOption.isDefined) {
+//      val nextQuestionGroup = nextQuestionGroupOption.get
+//      form.bindFromRequest.fold(
+//        errors => BadRequest(views.html.sectionOne(answeredQuestionGroups, nextQuestionGroup, errors)),
+//        singleStringInputForm =>
+//        {
+//          nextQuestionGroup.updateForm(singleStringInputForm)
+//          nextQuestionGroup.answered = true
+//          CacheUtil.updateCache(key, claim)
+//          Redirect(routes.PresenterController.present())
+//        }
+//      )
+//    }
+//    else {
+//      Redirect(routes.CommandController.sectionTwo())
+//    }
+//
+//
+//
+//    }.getOrElse {
+//      val key = java.util.UUID.randomUUID().toString
+//      Redirect(routes.PresenterController.present()).withSession("connected" -> key)
+//    }
+//
+//  }
+//
+//  def sectionTwo = Action { implicit request =>
+//
+//    request.session.get("connected").map { key =>
+//
+//      val claim =  CacheUtil.loadFromCache(key).get
+//      val section = claim.sections(1)
+//      val answeredQuestionGroups = section.getAnsweredQuestionGroups()
+//      val nextQuestionGroup = section.getNextUnansweredQuestionGroup.get
+//
+//      form.bindFromRequest.fold(
+//        errors => BadRequest(views.html.sectionTwo(answeredQuestionGroups, nextQuestionGroup, errors)),
+//        singleStringInputForm =>
+//        {
+//          nextQuestionGroup.updateForm(singleStringInputForm)
+//          nextQuestionGroup.answered = true
+//          CacheUtil.updateCache(key, claim)
+//          Redirect(routes.PresenterController.present())
+//        }
+//      )
+//
+//    }.getOrElse {
+//      val key = java.util.UUID.randomUUID().toString
+//      Redirect(routes.PresenterController.present()).withSession("connected" -> key)
+//    }
+//
+//  }
+
 
 
 }
