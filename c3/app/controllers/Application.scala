@@ -2,7 +2,7 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import models.view.{Eligibility, Claim}
+import models.view.{Claim}
 import play.api.cache.Cache
 import play.api.Play.current
 
@@ -14,18 +14,7 @@ object Application extends Controller {
 
   def cookies = Action { request =>
 
-
-
     request.session.get("connected").map { key =>
-
-      val model = loadFromCache(key)
-
-      if (model.isEmpty) {
-        val exampleClaim = models.view.example.ExampleClaim()
-
-        val claim =  Claim()
-        updateCache(key, claim)
-      }
 
       Logger.debug("Session Key from cookie. " )
 

@@ -1,0 +1,27 @@
+@(answeredQuestionGroups: Seq[models.view.example.GenericQuestionGroup], nextQuestionGroup:models.view.example.GenericQuestionGroup, simpleForm: Form[models.view.example.SingleStringInputForm])
+
+@import helper._
+
+
+@main("Carers Allowance") {
+
+
+    @for(answeredQuestionGroup <- answeredQuestionGroups) {
+    <div>@answeredQuestionGroup.name : @answeredQuestionGroup.form.answerToString</div>
+    }
+
+    @if(simpleForm.hasErrors) {
+    <div class="alert-message error">
+        <p><strong>Oops</strong> Please fix all errors</p>
+    </div>
+    }
+
+    @helper.form(action = routes.SimpleSection.command) {
+
+        @inputText(
+            simpleForm("answer"), '_label -> nextQuestionGroup.name
+            )
+
+    <button class="btn" type="submit">Next</button>
+    }
+}

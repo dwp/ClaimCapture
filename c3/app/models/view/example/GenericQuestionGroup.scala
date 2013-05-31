@@ -1,10 +1,10 @@
 package models.view.example
 
-class GenericQuestionGroup(var name:String, var form:Form) {
+class GenericQuestionGroup(var name:String, var form:AbstractForm) {
 
-  var answered = false
+  var answered:Boolean = false
 
-  def updateForm(form:Form) = {
+  def updateForm(form:AbstractForm) = {
     this.form = form
   }
 }

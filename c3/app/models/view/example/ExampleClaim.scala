@@ -1,13 +1,18 @@
 package models.view.example
 
-case class ExampleClaim(sections : Seq[GenericSection])
+case class ExampleClaim(sections : Seq[GenericSection]) {
+
+  def getFirstIncompleteSection():Option[GenericSection] = {
+    sections.find(section => !section.complete)
+  }
+
+}
 
 object ExampleClaim {
 
   def apply() = {
     new ExampleClaim(Seq(
-      Section.eligibility(),
-      Section.aboutYou()
+      Section.simple()
     ))
   }
 
@@ -24,7 +29,7 @@ object ExampleClaim {
     findQuestionGroupForSection(sectionId, questionGroupId, claim).get.form
   }
 
-  def updateFormForQuestionGroup(sectionId:String, questionGroupId:String, form:Form, claim:ExampleClaim) = {
+  def updateFormForQuestionGroup(sectionId:String, questionGroupId:String, form:AbstractForm, claim:ExampleClaim) = {
     val section = findSectionForClaim(sectionId, claim).get
     val nrOfQuestionGroups = section.questionGroups.length
     var i = 0
