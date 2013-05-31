@@ -2,11 +2,20 @@ package models.view.example
 
 object Section {
 
-  def simple():GenericSection = {
-    new GenericSection("simpleSection", Array (
-      new GenericQuestionGroup("questionGroupOne", SingleStringInputForm()),
-      new GenericQuestionGroup("questionGroupTwo", SingleStringInputForm()),
-      new GenericQuestionGroup("questionGroupThree", SingleStringInputForm())
+  def sectionOne():GenericSection = {
+    new GenericSection("sectionOne", Array (
+      new GenericQuestionGroup("s1.questionGroupOne", SingleStringInputForm()),
+      new GenericQuestionGroup("s1.questionGroupTwo", SingleStringInputForm()),
+      new GenericQuestionGroup("s1.questionGroupThree", SingleStringInputForm())
+    )
+    )
+  }
+
+  def sectionTwo():GenericSection = {
+    new GenericSection("sectionTwo", Array (
+      new GenericQuestionGroup("s2.questionGroupOne", SingleStringInputForm()),
+      new GenericQuestionGroup("s2.questionGroupTwo", SingleStringInputForm()),
+      new GenericQuestionGroup("s2.questionGroupThree", SingleStringInputForm())
     )
     )
   }

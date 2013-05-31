@@ -7,4 +7,5 @@ class GenericQuestionGroup(var name:String, var form:AbstractForm) {
   def updateForm(form:AbstractForm) = {
     this.form = form
   }
+
 }

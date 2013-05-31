@@ -2,8 +2,8 @@ package models.view.example
 
 case class ExampleClaim(sections : Seq[GenericSection]) {
 
-  def getFirstIncompleteSection():Option[GenericSection] = {
-    sections.find(section => !section.complete)
+  def getNextIncompleteSection():Option[GenericSection] = {
+    sections.find(section => !section.isComplete)
   }
 
 }
@@ -12,7 +12,8 @@ object ExampleClaim {
 
   def apply() = {
     new ExampleClaim(Seq(
-      Section.simple()
+      Section.sectionOne(),
+      Section.sectionTwo()
     ))
   }
 

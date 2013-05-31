@@ -1,14 +1,14 @@
 package controllers
 
 import play.api.mvc._
-import models.view.example.{GenericQuestionGroup, ExampleClaim, SingleStringInputForm}
+import models.view.example.{ExampleClaim, SingleStringInputForm}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.Logger
 import play.api.cache.Cache
 import play.api.Play.current
 
-object SimpleSection extends Controller {
+object SectionController extends Controller {
 
 
   val form =
@@ -23,14 +23,21 @@ object SimpleSection extends Controller {
     request => request.session.get("connected").map { key =>
 
     val claim =  loadFromCache(key).get
-    val sectionOption = claim.getFirstIncompleteSection()
-    val answeredQuestionGroups = sectionOption.get.getAnsweredQuestionGroups()
-    val nextQuestionGroup = sectionOption.get.getNextUnansweredQuestionGroup.getOrElse(answeredQuestionGroups.last)
-    Ok(views.html.simple(answeredQuestionGroups, nextQuestionGroup, form))
+    val sectionOption = claim.getNextIncompleteSection()
+
+    if(sectionOption.isDefined) {
+      val answeredQuestionGroups = sectionOption.get.getAnsweredQuestionGroups()
+      val nextQuestionGroup = sectionOption.get.getNextUnansweredQuestionGroup.getOrElse(answeredQuestionGroups.last)
+      Ok(views.html.simple(answeredQuestionGroups, nextQuestionGroup, form))
+    }
+    else {
+      Ok(views.html.index("Thank you"))
+    }
+
 
     }.getOrElse {
       val key = java.util.UUID.randomUUID().toString
-      Redirect(routes.SimpleSection.presenter()).withSession("connected" -> key)
+      Redirect(routes.SectionController.presenter()).withSession("connected" -> key)
     }
 
 
@@ -41,9 +48,9 @@ object SimpleSection extends Controller {
     request.session.get("connected").map { key =>
 
     val claim =  loadFromCache(key).get
-    val sectionOption = claim.getFirstIncompleteSection()
+    val sectionOption = claim.getNextIncompleteSection()
     val answeredQuestionGroups = sectionOption.get.getAnsweredQuestionGroups()
-    val nextQuestionGroup:GenericQuestionGroup = sectionOption.get.getNextUnansweredQuestionGroup.getOrElse(answeredQuestionGroups.last)
+    val nextQuestionGroup = sectionOption.get.getNextUnansweredQuestionGroup.get
 
     form.bindFromRequest.fold(
       errors => BadRequest(views.html.simple(answeredQuestionGroups, nextQuestionGroup, errors)),
@@ -52,12 +59,13 @@ object SimpleSection extends Controller {
         nextQuestionGroup.updateForm(singleStringInputForm)
         nextQuestionGroup.answered = true
         updateCache(key, claim)
-        Redirect(routes.SimpleSection.presenter())
+        Redirect(routes.SectionController.presenter())
         }
     )
+
     }.getOrElse {
       val key = java.util.UUID.randomUUID().toString
-      Redirect(routes.SimpleSection.presenter()).withSession("connected" -> key)
+      Redirect(routes.SectionController.presenter()).withSession("connected" -> key)
     }
 
   }
