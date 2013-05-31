@@ -8,7 +8,7 @@ import play.api.Logger
 import play.api.cache.Cache
 import play.api.Play.current
 
-object SectionController extends Controller {
+object CommandController extends Controller {
 
 
   val form =
@@ -18,30 +18,6 @@ object SectionController extends Controller {
       )(SingleStringInputForm.apply)(SingleStringInputForm.unapply)
     )
 
-
-  def presenter() = Action {
-    request => request.session.get("connected").map { key =>
-
-    val claim =  loadFromCache(key).get
-    val sectionOption = claim.getNextIncompleteSection()
-
-    if(sectionOption.isDefined) {
-      val answeredQuestionGroups = sectionOption.get.getAnsweredQuestionGroups()
-      val nextQuestionGroup = sectionOption.get.getNextUnansweredQuestionGroup.getOrElse(answeredQuestionGroups.last)
-      Ok(views.html.simple(answeredQuestionGroups, nextQuestionGroup, form))
-    }
-    else {
-      Ok(views.html.index("Thank you"))
-    }
-
-
-    }.getOrElse {
-      val key = java.util.UUID.randomUUID().toString
-      Redirect(routes.SectionController.presenter()).withSession("connected" -> key)
-    }
-
-
-  }
 
   def command = Action { implicit request =>
 
