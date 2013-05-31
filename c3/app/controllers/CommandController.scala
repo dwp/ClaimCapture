@@ -19,19 +19,16 @@ object CommandController extends Controller {
 
   def command(sectionId:String) = Action { implicit request =>
 
-    println("command: " + sectionId)
-
     request.session.get("connected").map { key =>
-
-      println("KEY: " + key)
 
       val claim =  CacheUtil.loadFromCache(key).get
       val sectionOption = claim.getSectionWithId(sectionId)
+
       var sectionToNavigateTo = "";
 
       if (sectionOption.isDefined) {
         val section = sectionOption.get
-
+        sectionToNavigateTo = section.name
         val nextQuestionGroupOption = section.getNextUnansweredQuestionGroup
 
         if(nextQuestionGroupOption.isDefined) {
@@ -45,18 +42,20 @@ object CommandController extends Controller {
                 CacheUtil.updateCache(key, claim)
 
               }
+
             )
 
-          sectionToNavigateTo = section.name
           if(section.isComplete) {
             val nextSectionOption = claim.getNextIncompleteSection()
-            val nextSection = nextSectionOption.get
-
-            Redirect(routes.PresenterController.present(nextSection.name))
+            if(nextSectionOption.isDefined) {
+              val nextSection = nextSectionOption.get
+              sectionToNavigateTo = nextSection.name
+            }
           }
         }
       }
-      Redirect(routes.PresenterController.present(sectionId))
+
+      Redirect(routes.PresenterController.present(sectionToNavigateTo))
 
     }.getOrElse {
       val key = java.util.UUID.randomUUID().toString
