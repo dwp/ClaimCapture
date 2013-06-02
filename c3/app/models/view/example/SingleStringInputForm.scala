@@ -6,6 +6,7 @@ case class SingleStringInputForm(answer: String = "") extends AbstractForm {
         answer
   }
 
+  override def toString: String = answer
 }
 
 

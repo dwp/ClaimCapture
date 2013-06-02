@@ -1,4 +1,4 @@
-@(section: models.view.example.GenericSection, simpleForm: Form[models.view.example.SingleStringInputForm])
+@(section: models.view.example.Section, simpleForm: Form[models.view.example.SingleStringInputForm])
 
 @import helper._
 
@@ -8,7 +8,7 @@
 <h1>Section 2 template</h1>
 
 @for(answeredQuestionGroup <- section.getAnsweredQuestionGroups) {
-<div>@answeredQuestionGroup.name : @answeredQuestionGroup.form.answerToString</div>
+<div>@answeredQuestionGroup.label : @answeredQuestionGroup.form.answerToString</div>
 }
 
 @if(simpleForm.hasErrors) {
@@ -20,7 +20,7 @@
 <form action="/sections/@section.name" method="POST">
 
 @inputText(
-simpleForm("answer"), '_label -> section.getNextUnansweredQuestionGroup.get.name
+simpleForm("answer"), '_label -> section.getNextUnansweredQuestionGroup.get.label
 )
 
 <button class="btn" type="submit">Next</button>

@@ -1,4 +1,4 @@
-package models.view
+package models.view.trash
 
 abstract class Section {
   var complete = false

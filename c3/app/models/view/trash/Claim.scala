@@ -1,4 +1,4 @@
-package models.view
+package models.view.trash
 
 case class Claim(sections : Seq[Section])
 

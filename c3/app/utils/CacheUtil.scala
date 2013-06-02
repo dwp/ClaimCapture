@@ -1,18 +1,18 @@
 package utils
 
-import models.view.example.ExampleClaim
+import models.view.example.Claim
 import play.api.Logger
 import play.api.cache.Cache
 import play.api.Play.current
 
 object CacheUtil {
 
-  def loadFromCache(key:String): Option[ExampleClaim] = {
+  def loadFromCache(key:String): Option[Claim] = {
     Logger.debug("loadFromCache: " + key )
-    var claimOption:Option[ExampleClaim] = Cache.getAs[ExampleClaim](key)
+    var claimOption:Option[Claim] = Cache.getAs[Claim](key)
 
     if(claimOption.isEmpty) {
-      val claim =  ExampleClaim()
+      val claim =  Claim()
       Cache.set(key, claim)
       claimOption = Option(claim)
     }
@@ -20,7 +20,7 @@ object CacheUtil {
   }
 
 
-  def updateCache(key:String, model:ExampleClaim) = {
+  def updateCache(key:String, model:Claim) = {
     Logger.debug("updateCache: " + key + " " + model )
     Cache.set(key, model)
   }

@@ -1,4 +1,4 @@
-package models.view
+package models.view.trash
 
 class Eligibility(val questionGroups: Seq[QuestionGroup]) extends Section {
   def name: String = "Eligibility"

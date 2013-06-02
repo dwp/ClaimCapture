@@ -1,5 +1,4 @@
-package models.view
-
+package models.view.trash
 
 class AboutYou(val questionGroups: Seq[QuestionGroup]) extends Section {
   def name: String = "AboutYou"

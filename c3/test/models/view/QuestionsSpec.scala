@@ -2,6 +2,7 @@ package models.view
 
 import org.scalatest._
 import org.scalatest.matchers.MustMatchers
+import models.view.trash.{Claim, ContactDetailsForm, ContactDetails, AboutYou}
 
 class QuestionsSpec extends FunSpec with MustMatchers {
   describe("Questions structure") {

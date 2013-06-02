@@ -2,9 +2,9 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import models.view.{Claim}
 import play.api.cache.Cache
 import play.api.Play.current
+import models.view.trash.Claim
 
 object Application extends Controller {
   
