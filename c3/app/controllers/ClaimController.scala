@@ -69,7 +69,7 @@ object ClaimController extends Controller {
                         questionGroup => {
                           questionGroup.label match {
                             case nextQuestionGroup.label => {
-                              new QuestionGroup(questionGroup.label, true, singleStringInputForm)
+                              new QuestionGroup(questionGroup.label, singleStringInputForm, true)
                             }
                             case _ => questionGroup
                           }
