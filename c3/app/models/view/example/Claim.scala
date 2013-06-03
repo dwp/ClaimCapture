@@ -30,6 +30,7 @@ object Claim {
     ))
   }
 
+
   def findSectionForClaim(sectionId: String, claim: Claim) = {
     claim.sections.find(section => section.name.equals(sectionId))
   }
@@ -42,19 +43,4 @@ object Claim {
   def findFormForQuestionGroup(sectionId: String, questionGroupId: String, claim: Claim) = {
     findQuestionGroupForSection(sectionId, questionGroupId, claim).get.form
   }
-
-//  def updateFormForQuestionGroup(sectionId: String, questionGroupId: String, form: AbstractForm, claim: Claim) = {
-//    val section = findSectionForClaim(sectionId, claim).get
-//    val nrOfQuestionGroups = section.questionGroups.length
-//    var i = 0
-//    while (i < nrOfQuestionGroups) {
-//      val questionGroup = section.questionGroups(i)
-//
-//      if (questionGroup.label.equals(questionGroupId)) {
-//        section.questionGroups(i).form = form
-//      }
-//
-//      i += 1
-//    }
-//  }
 }
