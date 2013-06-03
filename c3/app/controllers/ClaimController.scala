@@ -1,14 +1,17 @@
 package controllers
 
 import play.api.mvc._
-import models.view.example.{Claim, SingleStringInputForm}
+import models.view.example._
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.CacheUtil
 import scala.Predef._
-import models.view.example.SingleStringInputForm
 import play.api.data._
 import play.api.data.Forms._
+import models.view.trash.{ContactDetailsForm, ContactDetails, AboutYou}
+import models.view.trash.ContactDetailsForm
+import models.view.example.SingleStringInputForm
+import scala.Some
 
 object ClaimController extends Controller {
 
@@ -66,18 +69,41 @@ object ClaimController extends Controller {
               var sectionToNavigateTo = sectionId
               val nextQuestionGroupOption = section.getNextUnansweredQuestionGroup
               val nextQuestionGroup = nextQuestionGroupOption.get
-              nextQuestionGroup.updateForm(singleStringInputForm)
-              nextQuestionGroup.answered = true
-              CacheUtil.updateCache(key, claim)
 
-              if (section.isComplete) {
-                val nextSectionOption = claim.getNextIncompleteSection
+              val newClaim = Claim(claim.sections.map {
+                section => {
+                  section.name match {
+                    case sectionId => {
+                      new Section(sectionId, section.questionGroups.map {
+                        questionGroup => {
+                          questionGroup.label match {
+                            case nextQuestionGroup.label => {
+                              new QuestionGroup(questionGroup.label, true, singleStringInputForm)
+                            }
+                            case _ => questionGroup
+                          }
+                        }
+                      })
+                    }
+                    case _ => section
+                  }
+                }
+              }
+              )
+
+              CacheUtil.updateCache(key, newClaim)
+
+              val updatedSectionOption =  newClaim.getSectionWithId(sectionId)
+
+              if (updatedSectionOption.isDefined && updatedSectionOption.get.isComplete) {
+                val nextSectionOption = newClaim.getNextIncompleteSection
                 if (nextSectionOption.isDefined) {
                   val nextSection = nextSectionOption.get
                   sectionToNavigateTo = nextSection.name
                 }
               }
-              if(claim.getNextIncompleteSection.isEmpty) {
+
+              if(newClaim.getNextIncompleteSection.isEmpty) {
                 CacheUtil.updateCache(key, Claim())
                 Ok(views.html.index("Thank you for filling in the Carers Claim"))
               }

@@ -1,11 +1,6 @@
 package models.view.example
 
-class QuestionGroup(val label:String, var form:AbstractForm) {
+class QuestionGroup(val label:String, val answered:Boolean, val form:AbstractForm) {
 
-  var answered:Boolean = false
-
-  def updateForm(form:AbstractForm) {
-    this.form = form
-  }
 
 }

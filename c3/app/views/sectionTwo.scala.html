@@ -2,13 +2,12 @@
 
 @import helper._
 
-
 @common.govMain("Carers Allowance") {
 
 <h1>Section 2 template</h1>
 
 @for(answeredQuestionGroup <- section.getAnsweredQuestionGroups) {
-<div>@answeredQuestionGroup.label : @answeredQuestionGroup.form.answerToString</div>
+<div>@answeredQuestionGroup.label : @answeredQuestionGroup.form.toString</div>
 }
 
 @if(simpleForm.hasErrors) {
@@ -19,10 +18,10 @@
 
 <form action="/sections/@section.name" method="POST">
 
-@inputText(
-simpleForm("answer"), '_label -> section.getNextUnansweredQuestionGroup.get.label
-)
+    @inputText(
+    simpleForm("answer"), '_label -> section.getNextUnansweredQuestionGroup.get.label
+    )
 
-<button class="btn" type="submit">Next</button>
+    <input type="submit" value="next">
 </form>
 }

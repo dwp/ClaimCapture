@@ -18,14 +18,14 @@ object Claim {
   def apply() = {
     new Claim(Seq(
       new Section("sectionOne", Seq(
-        new QuestionGroup(Messages("s1_g1"), SingleStringInputForm()),
-        new QuestionGroup("s1.questionGroupTwo", SingleStringInputForm()),
-        new QuestionGroup("s1.questionGroupThree", SingleStringInputForm())
+        new QuestionGroup(Messages("s1_g1"), false, SingleStringInputForm()),
+        new QuestionGroup("s1.questionGroupTwo", false, SingleStringInputForm()),
+        new QuestionGroup("s1.questionGroupThree", false, SingleStringInputForm())
       )),
       new Section("sectionTwo", Seq(
-        new QuestionGroup("s2.questionGroupOne", SingleStringInputForm()),
-        new QuestionGroup("s2.questionGroupTwo", SingleStringInputForm()),
-        new QuestionGroup("s2.questionGroupThree", SingleStringInputForm())
+        new QuestionGroup("s2.questionGroupOne", false, SingleStringInputForm()),
+        new QuestionGroup("s2.questionGroupTwo", false, SingleStringInputForm()),
+        new QuestionGroup("s2.questionGroupThree", false, SingleStringInputForm())
       ))
     ))
   }
@@ -43,18 +43,18 @@ object Claim {
     findQuestionGroupForSection(sectionId, questionGroupId, claim).get.form
   }
 
-  def updateFormForQuestionGroup(sectionId: String, questionGroupId: String, form: AbstractForm, claim: Claim) = {
-    val section = findSectionForClaim(sectionId, claim).get
-    val nrOfQuestionGroups = section.questionGroups.length
-    var i = 0
-    while (i < nrOfQuestionGroups) {
-      val questionGroup = section.questionGroups(i)
-
-      if (questionGroup.label.equals(questionGroupId)) {
-        section.questionGroups(i).form = form
-      }
-
-      i += 1
-    }
-  }
+//  def updateFormForQuestionGroup(sectionId: String, questionGroupId: String, form: AbstractForm, claim: Claim) = {
+//    val section = findSectionForClaim(sectionId, claim).get
+//    val nrOfQuestionGroups = section.questionGroups.length
+//    var i = 0
+//    while (i < nrOfQuestionGroups) {
+//      val questionGroup = section.questionGroups(i)
+//
+//      if (questionGroup.label.equals(questionGroupId)) {
+//        section.questionGroups(i).form = form
+//      }
+//
+//      i += 1
+//    }
+//  }
 }
