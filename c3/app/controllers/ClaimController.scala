@@ -2,16 +2,11 @@ package controllers
 
 import play.api.mvc._
 import models.view.example._
-import play.api.data.Form
-import play.api.data.Forms._
 import utils.CacheUtil
 import scala.Predef._
 import play.api.data._
 import play.api.data.Forms._
-import models.view.trash.{ContactDetailsForm, ContactDetails, AboutYou}
-import models.view.trash.ContactDetailsForm
 import models.view.example.SingleStringInputForm
-import scala.Some
 
 object ClaimController extends Controller {
 
@@ -26,9 +21,6 @@ object ClaimController extends Controller {
 
     request => request.session.get("connected").map {
       key =>
-
-        println("present: " + sectionId)
-
         val claim = CacheUtil.loadFromCache(key)
         val sectionOption = claim.getSectionWithId(sectionId)
 
@@ -47,8 +39,7 @@ object ClaimController extends Controller {
   }
 
 
-
-  def command(sectionId:String) = Action {
+  def command(sectionId: String) = Action {
     implicit request =>
 
       request.session.get("connected").map {
@@ -93,7 +84,7 @@ object ClaimController extends Controller {
 
               CacheUtil.updateCache(key, newClaim)
 
-              val updatedSectionOption =  newClaim.getSectionWithId(sectionId)
+              val updatedSectionOption = newClaim.getSectionWithId(sectionId)
 
               if (updatedSectionOption.isDefined && updatedSectionOption.get.isComplete) {
                 val nextSectionOption = newClaim.getNextIncompleteSection
@@ -103,7 +94,7 @@ object ClaimController extends Controller {
                 }
               }
 
-              if(newClaim.getNextIncompleteSection.isEmpty) {
+              if (newClaim.getNextIncompleteSection.isEmpty) {
                 CacheUtil.updateCache(key, Claim())
                 Ok(views.html.index("Thank you for filling in the Carers Claim"))
               }
