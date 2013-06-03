@@ -7,21 +7,19 @@ import play.api.Play.current
 
 object CacheUtil {
 
-  def loadFromCache(key:String): Option[Claim] = {
-    Logger.debug("loadFromCache: " + key )
-    var claimOption:Option[Claim] = Cache.getAs[Claim](key)
+  def loadFromCache(key: String): Claim = {
+    Logger.debug("loadFromCache: " + key)
 
-    if(claimOption.isEmpty) {
-      val claim =  Claim()
+    Cache.getAs[Claim](key).getOrElse({
+      val claim = Claim()
       Cache.set(key, claim)
-      claimOption = Option(claim)
-    }
-    claimOption
+      claim
+    })
   }
 
 
-  def updateCache(key:String, model:Claim) = {
-    Logger.debug("updateCache: " + key + " " + model )
+  def updateCache(key: String, model: Claim) {
+    Logger.debug("updateCache: " + key + " " + model)
     Cache.set(key, model)
   }
 
