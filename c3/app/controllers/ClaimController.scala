@@ -24,7 +24,7 @@ object ClaimController extends Controller {
 
         println("present: " + sectionId)
 
-        val claim = CacheUtil.loadFromCache(key).get
+        val claim = CacheUtil.loadFromCache(key)
         val sectionOption = claim.getSectionWithId(sectionId)
 
         if (sectionOption.isDefined) {
@@ -47,7 +47,7 @@ object ClaimController extends Controller {
       request.session.get("connected").map {
         key =>
 
-          val claim = CacheUtil.loadFromCache(key).get
+          val claim = CacheUtil.loadFromCache(key)
           val sectionOption = claim.getSectionWithId(sectionId)
 
           var sectionToNavigateTo = "";
