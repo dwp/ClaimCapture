@@ -1,6 +1,6 @@
 package models.view.example
 
-class QuestionGroup(var label:String, var form:AbstractForm) {
+class QuestionGroup(val label:String, var form:AbstractForm) {
 
   var answered:Boolean = false
 
