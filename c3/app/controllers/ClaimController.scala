@@ -7,6 +7,8 @@ import play.api.data.Forms._
 import utils.CacheUtil
 import scala.Predef._
 import models.view.example.SingleStringInputForm
+import play.api.data._
+import play.api.data.Forms._
 
 object ClaimController extends Controller {
 
@@ -41,7 +43,9 @@ object ClaimController extends Controller {
     }
   }
 
-  def command(sectionId: String) = Action {
+
+
+  def command(sectionId:String) = Action {
     implicit request =>
 
       request.session.get("connected").map {
@@ -49,26 +53,22 @@ object ClaimController extends Controller {
 
           val claim = CacheUtil.loadFromCache(key)
           val sectionOption = claim.getSectionWithId(sectionId)
+          val section = sectionOption.get
+          form.bindFromRequest.fold(
+            formWithErrors => {
+              section.name match {
+                case "sectionOne" => BadRequest(views.html.sectionOne(section, formWithErrors))
+                case "sectionTwo" => BadRequest(views.html.sectionTwo(section, formWithErrors))
+              }
+            },
 
-          var sectionToNavigateTo = "";
-
-          if (sectionOption.isDefined) {
-            val section = sectionOption.get
-            sectionToNavigateTo = section.name
-            val nextQuestionGroupOption = section.getNextUnansweredQuestionGroup
-
-            if (nextQuestionGroupOption.isDefined) {
+            singleStringInputForm => {
+              var sectionToNavigateTo = sectionId
+              val nextQuestionGroupOption = section.getNextUnansweredQuestionGroup
               val nextQuestionGroup = nextQuestionGroupOption.get
-              form.bindFromRequest.fold(
-                errors => BadRequest(views.html.sectionOne(section, errors)),
-                singleStringInputForm => {
-                  nextQuestionGroup.updateForm(singleStringInputForm)
-                  nextQuestionGroup.answered = true
-                  CacheUtil.updateCache(key, claim)
-
-                }
-
-              )
+              nextQuestionGroup.updateForm(singleStringInputForm)
+              nextQuestionGroup.answered = true
+              CacheUtil.updateCache(key, claim)
 
               if (section.isComplete) {
                 val nextSectionOption = claim.getNextIncompleteSection
@@ -77,15 +77,19 @@ object ClaimController extends Controller {
                   sectionToNavigateTo = nextSection.name
                 }
               }
+              if(claim.getNextIncompleteSection.isEmpty) {
+                CacheUtil.updateCache(key, Claim())
+                Ok(views.html.index("Thank you for filling in the Carers Claim"))
+              }
+              else {
+                Redirect(routes.ClaimController.presenter(sectionToNavigateTo))
+              }
+
             }
-          }
-
-          Redirect(routes.ClaimController.presenter(sectionToNavigateTo))
-
+          )
       }.getOrElse {
         val key = java.util.UUID.randomUUID().toString
-        Ok("Session key:" + key)
+        Redirect(routes.ClaimController.presenter(sectionId)).withSession("connected" -> key)
       }
-
   }
 }
