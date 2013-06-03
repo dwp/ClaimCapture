@@ -12,7 +12,7 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     jdbc,
     anorm,
-    "org.scalatest" %% "scalatest" % "1.9.1" % "test"
+    "org.scalatest" %% "scalatest" % "2.0.M5b" % "test"
   )
 
   var appSettings : Seq[Project.Setting[_]] = SassPlugin.sassSettings ++ Seq(SassPlugin.sassOptions := Seq("--compass"))
