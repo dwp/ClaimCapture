@@ -2,18 +2,12 @@ package controllers
 
 import play.api.mvc._
 import models.view.example._
-import play.api.data.Form
-import play.api.data.Forms._
-import utils.CacheUtil
 import scala.Predef._
 import play.api.data._
 import play.api.data.Forms._
-import models.view.trash.{ContactDetailsForm, ContactDetails, AboutYou}
-import models.view.trash.ContactDetailsForm
 import models.view.example.SingleStringInputForm
-import scala.Some
 
-object ClaimController extends Controller {
+object ClaimController extends Controller with CachedClaim {
 
   val form =
     Form(
@@ -22,14 +16,13 @@ object ClaimController extends Controller {
       )(SingleStringInputForm.apply)(SingleStringInputForm.unapply)
     )
 
-  def presenter(sectionId: String) = Action {
-
-    request => request.session.get("connected").map {
-      key =>
-
+  def presenter(sectionId: String) = ActionWithClaim {
+    claimHolder =>
+      request =>
         println("present: " + sectionId)
 
-        val claim = CacheUtil.loadFromCache(key)
+        val claim = claimHolder.claim
+
         val sectionOption = claim.getSectionWithId(sectionId)
 
         if (sectionOption.isDefined) {
@@ -40,82 +33,67 @@ object ClaimController extends Controller {
         } else {
           NotFound
         }
-    }.getOrElse {
-      val key = java.util.UUID.randomUUID().toString
-      Redirect(routes.ClaimController.presenter(sectionId)).withSession("connected" -> key)
-    }
   }
 
-
-
-  def command(sectionId:String) = Action {
-    implicit request =>
-
-      request.session.get("connected").map {
-        key =>
-
-          val claim = CacheUtil.loadFromCache(key)
-          val sectionOption = claim.getSectionWithId(sectionId)
-          val section = sectionOption.get
-          form.bindFromRequest.fold(
-            formWithErrors => {
-              section.name match {
-                case "sectionOne" => BadRequest(views.html.sectionOne(section, formWithErrors))
-                case "sectionTwo" => BadRequest(views.html.sectionTwo(section, formWithErrors))
-              }
-            },
-
-            singleStringInputForm => {
-              var sectionToNavigateTo = sectionId
-              val nextQuestionGroupOption = section.getNextUnansweredQuestionGroup
-              val nextQuestionGroup = nextQuestionGroupOption.get
-
-              val newClaim = Claim(claim.sections.map {
-                section => {
-                  section.name match {
-                    case sectionId => {
-                      new Section(sectionId, section.questionGroups.map {
-                        questionGroup => {
-                          questionGroup.label match {
-                            case nextQuestionGroup.label => {
-                              new QuestionGroup(questionGroup.label, true, singleStringInputForm)
-                            }
-                            case _ => questionGroup
-                          }
-                        }
-                      })
-                    }
-                    case _ => section
-                  }
-                }
-              }
-              )
-
-              CacheUtil.updateCache(key, newClaim)
-
-              val updatedSectionOption =  newClaim.getSectionWithId(sectionId)
-
-              if (updatedSectionOption.isDefined && updatedSectionOption.get.isComplete) {
-                val nextSectionOption = newClaim.getNextIncompleteSection
-                if (nextSectionOption.isDefined) {
-                  val nextSection = nextSectionOption.get
-                  sectionToNavigateTo = nextSection.name
-                }
-              }
-
-              if(newClaim.getNextIncompleteSection.isEmpty) {
-                CacheUtil.updateCache(key, Claim())
-                Ok(views.html.index("Thank you for filling in the Carers Claim"))
-              }
-              else {
-                Redirect(routes.ClaimController.presenter(sectionToNavigateTo))
-              }
-
+  def command(sectionId: String) = ActionWithClaim {
+    claimHolder =>
+      implicit request =>
+        val claim = claimHolder.claim
+        val sectionOption = claim.getSectionWithId(sectionId)
+        val section = sectionOption.get
+        form.bindFromRequest.fold(
+          formWithErrors => {
+            section.name match {
+              case "sectionOne" => BadRequest(views.html.sectionOne(section, formWithErrors))
+              case "sectionTwo" => BadRequest(views.html.sectionTwo(section, formWithErrors))
             }
-          )
-      }.getOrElse {
-        val key = java.util.UUID.randomUUID().toString
-        Redirect(routes.ClaimController.presenter(sectionId)).withSession("connected" -> key)
-      }
+          },
+          singleStringInputForm => {
+            var sectionToNavigateTo = sectionId
+            val nextQuestionGroupOption = section.getNextUnansweredQuestionGroup
+            val nextQuestionGroup = nextQuestionGroupOption.get
+
+            val newClaim = Claim(claim.sections.map {
+              section => {
+                section.name match {
+                  case sid => {
+                    new Section(sid, section.questionGroups.map {
+                      questionGroup => {
+                        questionGroup.label match {
+                          case nextQuestionGroup.label => {
+                            new QuestionGroup(questionGroup.label, true, singleStringInputForm)
+                          }
+                          case _ => questionGroup
+                        }
+                      }
+                    })
+                  }
+                  case _ => section
+                }
+              }
+            }
+            )
+
+            claimHolder.claim = newClaim
+
+            val updatedSectionOption = newClaim.getSectionWithId(sectionId)
+
+            if (updatedSectionOption.isDefined && updatedSectionOption.get.isComplete) {
+              val nextSectionOption = newClaim.getNextIncompleteSection
+              if (nextSectionOption.isDefined) {
+                val nextSection = nextSectionOption.get
+                sectionToNavigateTo = nextSection.name
+              }
+            }
+
+            if (newClaim.getNextIncompleteSection.isEmpty) {
+              Ok(views.html.index("Thank you for filling in the Carers Claim"))
+            }
+            else {
+              Redirect(routes.ClaimController.presenter(sectionToNavigateTo))
+            }
+
+          }
+        )
   }
 }
