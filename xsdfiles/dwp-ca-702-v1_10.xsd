@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Date = 20 March 2006 Version = 1.9 -->
+<!-- Schema for the Carers Allowance 702 form -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gds="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcq="http://purl.org/dc/terms/" xmlns:gms="http://www.govtalk.gov.uk/CM/gms" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.7" id="dwp-ca-702">
+	<xsd:annotation>
+		<xsd:appinfo>
+			<dc:contributor>???</dc:contributor>
+			<dc:creator>???
+                <dcq:owner>???</dcq:owner>
+				<dcq:contact>???</dcq:contact>
+			</dc:creator>
+			<dc:date>
+				<dcq:created>2003-04-04</dcq:created>
+			</dc:date>
+			<dc:date>
+				<dcq:modified>2006-03-20</dcq:modified>
+			</dc:date>
+			<dc:format>text</dc:format>
+			<dc:format>
+				<dc:medium>http://www.w3.org/2001/XMLSchema</dc:medium>
+			</dc:format>
+			<dc:format>
+				<dc:medium>XML Schema (.xsd) file, W3C Recommendation 2001</dc:medium>
+			</dc:format>
+			<dc:identifier>dwp-ca-702</dc:identifier>
+			<dc:language>en</dc:language>
+			<dc:publisher>???</dc:publisher>
+			<dc:rights>
+				<dcq:copyright>???</dcq:copyright>
+				<gms:SecurityClassification>Unclassified</gms:SecurityClassification>
+			</dc:rights>
+			<dc:subject>
+				<gms:Category>???</gms:Category>
+			</dc:subject>
+			<dc:subject>
+				<gms:Project>DWP Carers Allowance</gms:Project>
+			</dc:subject>
+			<dc:title>DWP Carers Allowance 702 schema</dc:title>
+			<dc:description>
+				<dcq:abstract>Schema for the DWP Carers Allowance 702 form</dcq:abstract>
+			</dc:description>
+			<dc:relation>
+				<gms:IsPartOf>dwp-ca-claim-v1_9</gms:IsPartOf>
+			</dc:relation>
+			<dc:relation>
+				<gms:IsPartOf>dwp-ca-coc-v1_9</gms:IsPartOf>
+			</dc:relation>
+			<dc:relation>
+				<dcq:requires>dwp-ca-gds-v1_9</dcq:requires>
+			</dc:relation>
+			<dc:relation>
+				<gms:HasPart>dwp-ca-core-v1_9</gms:HasPart>
+			</dc:relation>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<!-- include the core schema which imports types and structures from Technology Policy Team, Office of the e-Envoy, Cabinet Office -->
+	<xsd:include schemaLocation="schema/ca/dwp-ca-core-v1_10.xsd"/>
+	<!-- import types and structures from Technology Policy Team, Office of the e-Envoy, Cabinet Office -->
+	<xsd:import namespace="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" schemaLocation="schema/ca/dwp-ca-gds-v1_9.xsd"/>
+	<!-- start of CA702 type definition -->
+	<xsd:complexType name="CA702">
+		<xsd:sequence>
+			<xsd:element name="ExtraMoneyAdult" type="ExtraMoneyAdultStructure"/>
+			<xsd:element name="PartnerSelfEmployed" type="gds:YesNoType"/>
+			<xsd:element name="PartnerSelfEmployment" type="PartnerSelfEmploymentStructure" minOccurs="0"/>
+			<xsd:element name="PartnerEmployment" type="PartnerEmploymentStructure"/>
+			<xsd:element name="PartnerOtherIncome" type="PartnerOtherIncomeStructure"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of ExtraMoneyAdultChangeStructure type definition -->
+	<!-- start of ExtraMoneyAdultStructure definition -->
+	<xsd:complexType name="ExtraMoneyAdultStructure">
+		<xsd:sequence>
+			<xsd:element name="ClaimStartDate" type="gds:DateType"/>
+			<xsd:element name="RelationshipClaimantToAdult" type="RelationshipClaimantToAdultType"/>
+			<xsd:element name="AdultDetails" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Surname" type="gds:CitizenNameSurnameType"/>
+						<xsd:element name="OtherNames" type="gds:CitizenNameForenameType"/>
+						<xsd:element name="NationalInsuranceNumber" type="gds:OptionalNationalInsuranceNumberType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GetOccupationalPension" type="gds:YesNoType" minOccurs="0"/>
+			<xsd:element name="PensionScheme" type="PensionSchemeStructure" minOccurs="0"/>
+			<xsd:element name="GetPrivatePension" type="gds:YesNoType" minOccurs="0"/>
+			<xsd:element name="PensionScheme" type="PensionSchemeStructure" minOccurs="0"/>
+			<xsd:element name="ChildrenDetails" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ChildDetails" maxOccurs="6">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="Surname" type="gds:CitizenNameSurnameType"/>
+									<xsd:element name="OtherNames" type="gds:CitizenNameForenameType"/>
+									<xsd:element name="DateOfBirth" type="gds:DateType"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="ChildBenefitNumber" type="OptionalChildBenefitNumberType"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of ExtraMoneyAdultStructure definition -->
+	<!-- start of PartnerSelfEmploymentStructure definition -->
+	<xsd:complexType name="PartnerSelfEmploymentStructure">
+		<xsd:sequence>
+			<xsd:element name="SelfEmployedNow" type="gds:YesNoType"/>
+			<xsd:choice>
+				<xsd:element name="RecentJobDetails" type="RecentTradingStructure"/>
+				<xsd:element name="CurrentJobDetails" type="TradingStructure"/>
+			</xsd:choice>
+			<xsd:element name="PayNationalInsuranceContributions" type="gds:OptionalYesNoType" minOccurs="0"/>
+			<xsd:element name="HasAccountant" type="gds:OptionalYesNoType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of PartnerSelfEmploymentStructure definition -->
+	<!-- start of PartnerEmploymentStructure definition -->
+	<xsd:complexType name="PartnerEmploymentStructure">
+		<xsd:sequence>
+			<xsd:element name="HasBeenEmployed" type="gds:YesNoType"/>
+			<xsd:element name="HasJobNow" type="gds:YesNoType" minOccurs="0"/>
+			<xsd:element name="DateLastWorked" type="gds:OptionalDateType" minOccurs="0"/>
+			<xsd:element name="JobDetails" minOccurs="0" maxOccurs="2">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Employer" type="EmployerDetailsStructure"/>
+						<xsd:element name="Pay" type="PayStructure"/>
+						<xsd:element name="OtherThanMoney" type="gds:YesNoType"/>
+						<xsd:element name="PayOtherThanMoney" type="LongTextType" minOccurs="0"/>
+						<xsd:element name="OweMoney" type="gds:YesNoType"/>
+						<xsd:element name="MoneyOwed" type="MoneyOwedStructure" minOccurs="0"/>
+						<xsd:element name="CareExpensesChildren" type="gds:YesNoType"/>
+						<xsd:element name="ChildCareExpenses" type="ChildCareExpensesStructure" minOccurs="0"/>
+						<xsd:element name="PaidForOccupationalPension" type="gds:YesNoType"/>
+						<xsd:element name="PensionScheme" type="PensionSchemeStructure" minOccurs="0"/>
+						<xsd:element name="PaidForPersonalPension" type="gds:YesNoType"/>
+						<xsd:element name="PensionScheme" type="PensionSchemeStructure" minOccurs="0"/>
+						<xsd:element name="PaidForJobExpenses" type="gds:YesNoType"/>
+						<xsd:element name="JobExpenses" type="JobExpensesStructure" minOccurs="0" maxOccurs="4"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of PartnerEmploymentStructure definition -->
+	<!-- start of PartnerOtherIncomeStructure definition -->
+	<xsd:complexType name="PartnerOtherIncomeStructure">
+		<xsd:sequence>
+			<xsd:element name="RentOutProperty" type="gds:YesNoType"/>
+			<xsd:element name="PropertyDetails" type="PartnerPropertyDetailsStructure" minOccurs="0"/>
+			<xsd:element name="CareExpensesChildren" type="gds:YesNoType" minOccurs="0"/>
+			<xsd:element name="ChildCareExpenses" type="ChildCareExpensesStructure" minOccurs="0"/>
+			<xsd:element name="PaidForPension" type="gds:YesNoType" minOccurs="0"/>
+			<xsd:element name="PensionScheme" type="PensionSchemeStructure" minOccurs="0"/>
+			<xsd:element name="OtherIncomeSSP" type="gds:YesNoType"/>
+			<xsd:element name="OtherIncomeSSPDetails" type="SSPSMPStructure" minOccurs="0"/>
+			<xsd:element name="OtherIncomeSMP" type="gds:YesNoType"/>
+			<xsd:element name="OtherIncomeSMPDetails" type="SSPSMPStructure" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of PartnerOtherIncomeStructure definition -->
+	<!-- SSPSMPStructure -->
+	<xsd:complexType name="SSPSMPStructure">
+		<xsd:sequence>
+			<xsd:element name="Name" type="ShortTextType"/>
+			<xsd:element name="Address" type="gds:OptionalUKPostalAddressStructure"/>
+			<xsd:element name="ConfirmAddress" type="gds:YesNoType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end SSPSMPStructure -->
+</xsd:schema>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp1 (http://www.altova.com) by Vinh Ta (Ezgov) -->
+<!-- Date = 20 March 2006 Version = 1.8 -->
+<!-- Schema for the DWP Carers Allowance Change of Circumstances form -->
+<xsd:schema xmlns="http://www.govtalk.gov.uk/dwp/ca/coc" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:gds="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcq="http://purl.org/dc/terms/" xmlns:gms="http://www.govtalk.gov.uk/CM/gms" targetNamespace="http://www.govtalk.gov.uk/dwp/ca/coc" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.7" id="dwp-ca-coc">
+	<xsd:annotation>
+		<xsd:appinfo>
+			<dc:contributor>???</dc:contributor>
+			<dc:creator>???
+                <dcq:owner>???</dcq:owner>
+				<dcq:contact>???</dcq:contact>
+			</dc:creator>
+			<dc:date>
+				<dcq:created>2003-04-04</dcq:created>
+			</dc:date>
+			<dc:date>
+				<dcq:modified>2006-03-20</dcq:modified>
+			</dc:date>
+			<dc:format>text</dc:format>
+			<dc:format>
+				<dc:medium>http://www.w3.org/2001/XMLSchema</dc:medium>
+			</dc:format>
+			<dc:format>
+				<dc:medium>XML Schema (.xsd) file, W3C Recommendation 2001</dc:medium>
+			</dc:format>
+			<dc:identifier>dwp-ca-coc</dc:identifier>
+			<dc:language>en</dc:language>
+			<dc:publisher>???</dc:publisher>
+			<dc:rights>
+				<dcq:copyright>???</dcq:copyright>
+				<gms:SecurityClassification>Unclassified</gms:SecurityClassification>
+			</dc:rights>
+			<dc:subject>
+				<gms:Category>???</gms:Category>
+			</dc:subject>
+			<dc:subject>
+				<gms:Project>DWP Carers Allowance</gms:Project>
+			</dc:subject>
+			<dc:title>DWP Carers Allowance Coc schema</dc:title>
+			<dc:description>
+				<dcq:abstract>Schema for the DWP Carers Allowance Coc form</dcq:abstract>
+			</dc:description>
+			<dc:relation>
+				<dcq:requires>xmldsig-core-schema</dcq:requires>
+			</dc:relation>
+			<dc:relation>
+				<dcq:requires>dwp-ca-gds-v1_9</dcq:requires>
+			</dc:relation>
+			<dc:relation>
+				<gms:HasPart>dwp-ca-702-v1_9</gms:HasPart>
+			</dc:relation>
+			<dc:relation>
+				<gms:HasPart>dwp-ca-core-v1_9</gms:HasPart>
+			</dc:relation>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<!-- include the 702 schema -->
+	<xsd:include schemaLocation="schema/ca/dwp-ca-702-v1_10.xsd"/>
+	<!-- include the core schema -->
+	<xsd:include schemaLocation="schema/ca/dwp-ca-core-v1_10.xsd"/>
+	<!-- import types and structures from Technology Policy Team, Office of the e-Envoy, Cabinet Office -->
+	<xsd:import namespace="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" schemaLocation="schema/ca/dwp-ca-gds-v1_10.xsd"/>
+	<!-- import types and structures from W3C with respect to digital signatures -->
+	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="schema/ca/xmldsig-core-schema.xsd"/>
+	<!-- start of DWPBody type definition -->
+	<xsd:element name="DWPBody" type="DWPBodyStructure"/>
+	<xsd:complexType name="DWPBodyStructure">
+		<xsd:sequence>
+			<xsd:element name="DWPEnvelope">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="DWPCAHeader" type="DWPCAHeaderStructure"/>
+						<xsd:element name="DWPCAChangeOfCircumstances" type="DWPCAChangeOfCircumstancesStructure"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element ref="dsig:Signature"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DWPCAChangeOfCircumstancesStructure">
+		<xsd:sequence>
+			<xsd:element name="InitialQuestions" type="InitialQuestionsStructure"/>
+			<xsd:element name="Claim" type="ClaimStructure"/>
+			<xsd:element name="AddressChange" type="AddressChangeStructure" minOccurs="0"/>
+			<xsd:element name="NameChange" type="NameChangeStructure" minOccurs="0"/>
+			<xsd:element name="PaymentChange" type="PaymentChangeStructure" minOccurs="0"/>
+			<xsd:element name="CareeDied" type="CareeDiedStructure" minOccurs="0"/>
+			<xsd:element name="StoppedCaring" type="StoppedCaringStructure" minOccurs="0"/>
+			<xsd:element name="CareBreakChange" type="CareBreakChangeStructure" minOccurs="0"/>
+			<xsd:element name="CareeChange" type="CareeChangeStructure" minOccurs="0"/>
+			<xsd:element name="SelfEmploymentChange" type="SelfEmploymentChangeStructure" minOccurs="0"/>
+			<xsd:element name="EmploymentChange" type="EmploymentChangeStructure" minOccurs="0"/>
+			<xsd:element name="ExtraMoneyForAdultChange" type="CA702" minOccurs="0"/>
+			<xsd:element name="OtherChanges" type="gds:RestrictedStringType" minOccurs="0"/>
+			<xsd:element name="ThirdParty" type="gds:YesNoType"/>
+			<xsd:element name="ThirdPartyDetails" type="ThirdPartyStructure" minOccurs="0"/>
+			<xsd:element name="Declaration" type="TextBlockStructure"/>
+			<xsd:element name="EvidenceList" type="TextBlockStructure"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="gds:RestrictedStringType"/>
+	</xsd:complexType>
+	<!-- end of CarersAllowanceEnvelope type definition -->
+	<!-- start of InitialQuestionsStructure type definition -->
+	<xsd:complexType name="InitialQuestionsStructure">
+		<xsd:sequence>
+			<xsd:element name="ChangeAddress" type="gds:YesNoType"/>
+			<xsd:element name="ChangeName" type="gds:YesNoType"/>
+			<xsd:element name="ChangePayment" type="gds:YesNoType"/>
+			<xsd:element name="ChangeBankDetails" type="gds:YesNoType"/>
+			<xsd:element name="PersonDied" type="gds:YesNoType"/>
+			<xsd:element name="PermanentlyStoppedCaring" type="gds:YesNoType"/>
+			<xsd:element name="BreakInCaring" type="gds:YesNoType"/>
+			<xsd:element name="CaringForDifferentPerson" type="gds:YesNoType"/>
+			<xsd:element name="StartedEmployment" type="gds:YesNoType"/>
+			<xsd:element name="StartedSelfEmployment" type="gds:YesNoType"/>
+			<xsd:element name="ClaimADI" type="gds:YesNoType"/>
+			<xsd:element name="AnyOtherChanges" type="gds:YesNoType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of InitialQuestionsStructure type definition -->
+	<!-- start of ClaimStructure type definition -->
+	<xsd:complexType name="ClaimStructure">
+		<xsd:sequence>
+			<xsd:element name="ClaimantDetails" type="ClaimantDetailsStructure"/>
+			<xsd:element name="CareeDetails" type="CareeDetailsStructure"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ClaimantDetailsStructure">
+		<xsd:sequence>
+			<xsd:element name="Surname" type="gds:CitizenNameSurnameType"/>
+			<xsd:element name="OtherNames" type="gds:CitizenNameForenameType"/>
+			<xsd:element name="DateOfBirth" type="gds:DateType"/>
+			<xsd:element name="NationalInsuranceNumber" type="gds:NationalInsuranceNumberType"/>
+			<xsd:element name="Title" type="CitizenTitleType"/>
+			<xsd:element name="Address" type="gds:OptionalUKPostalAddressStructure"/>
+			<xsd:element name="ConfirmAddress" type="gds:YesNoType"/>
+			<xsd:element name="HomePhone" type="TelephoneNumberType"/>
+			<xsd:element name="DaytimePhone" type="TelephoneDetailsStructure"/>
+			<xsd:element name="EmailAddress" type="OptionalEmailAddressType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CareeDetailsStructure">
+		<xsd:sequence>
+			<xsd:element name="Surname" type="gds:CitizenNameSurnameType"/>
+			<xsd:element name="OtherNames" type="gds:CitizenNameForenameType"/>
+			<xsd:element name="DateOfBirth" type="gds:DateType"/>
+			<xsd:element name="NationalInsuranceNumber" type="gds:NationalInsuranceNumberType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of ClaimStructure type definition -->
+	<!-- start of AddressChangeStructure type definition -->
+	<xsd:complexType name="AddressChangeStructure">
+		<xsd:sequence>
+			<xsd:element name="Address" type="gds:OptionalUKPostalAddressStructure"/>
+			<xsd:element name="ConfirmAddress" type="gds:YesNoType"/>
+			<xsd:element name="HomePhone" type="TelephoneNumberType"/>
+			<xsd:element name="DaytimePhone" type="TelephoneDetailsStructure"/>
+			<xsd:element name="EmailAddress" type="OptionalEmailAddressType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of AddressChangeStructure type definition -->
+	<!-- start of NameChangeStructure type definition -->
+	<xsd:complexType name="NameChangeStructure">
+		<xsd:sequence>
+			<xsd:element name="Surname" type="gds:OptionalCitizenNameSurnameType"/>
+			<xsd:element name="OtherNames" type="gds:OptionalCitizenNameForenameType"/>
+			<xsd:element name="Title" type="OptionalCitizenTitleType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of NameChangeStructure type definition -->
+	<!-- start of PaymentChangeStructure type definition -->
+	<xsd:complexType name="PaymentChangeStructure">
+		<xsd:sequence>
+			<xsd:element name="Account" type="AccountStructure"/>
+			<xsd:element name="PaymentFrequency" type="PaymentFrequencyType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of PaymentChangeStructure type definition -->
+	<!-- start of CareeDiedStructure type definition -->
+	<xsd:complexType name="CareeDiedStructure">
+		<xsd:sequence>
+			<xsd:element name="DateOfDeath" type="gds:DateType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of CareeDiedStructure type definition -->
+	<!-- start of StoppedCaringStructure type definition -->
+	<xsd:complexType name="StoppedCaringStructure">
+		<xsd:sequence>
+			<xsd:element name="DateStoppedCaring" type="gds:DateType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of StoppedCaringStructure type definition -->
+	<!-- start of CareBreakChangeStructure type definition -->
+	<xsd:complexType name="CareBreakChangeStructure">
+		<xsd:sequence>
+			<xsd:element name="CurrentCareBreak" type="gds:YesNoType"/>
+			<xsd:element name="CurrentBreak" type="CareBreakStructure" minOccurs="0"/>
+			<xsd:element name="PreviousCareBreaks" type="gds:YesNoType"/>
+			<xsd:element name="PreviousBreak" type="CareBreakStructure" minOccurs="0" maxOccurs="10"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of CareBreakChangeStructure type definition -->
+	<!-- start of CareeChangeStructure type definition -->
+	<xsd:complexType name="CareeChangeStructure">
+		<xsd:sequence>
+			<xsd:element name="ChangeReason" type="CareeChangeReasonType"/>
+			<xsd:element name="ChangeDate" type="gds:DateType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of CareeChangeStructure type definition -->
+	<!-- start of SelfEmploymentChangeStructure type definition -->
+	<xsd:complexType name="SelfEmploymentChangeStructure">
+		<xsd:sequence>
+			<xsd:element name="BusinessType" type="ShortTextType"/>
+			<xsd:element name="DateStartedBusiness" type="gds:DateType"/>
+			<xsd:element name="RunningBusinessFromHome" type="gds:YesNoType"/>
+			<xsd:element name="BusinessName" type="OptionalShortTextType"/>
+			<xsd:element name="BusinessAddress" type="gds:OptionalUKPostalAddressStructure"/>
+			<xsd:element name="ConfirmAddress" type="gds:YesNoType"/>
+			<xsd:element name="BusinessPartners" type="gds:YesNoType"/>
+			<xsd:element name="PercentageShare" type="PercentageType" minOccurs="0"/>
+			<xsd:element name="OtherWorkers" type="gds:YesNoType"/>
+			<xsd:element name="NumberOfOtherPeople" type="ThreeDigitNumberType" minOccurs="0"/>
+			<xsd:element name="VATregistered" type="gds:YesNoType"/>
+			<xsd:element name="VATnumber" type="VATnumberType" minOccurs="0"/>
+			<xsd:element name="PayNationalInsuranceContributions" type="gds:OptionalYesNoType" minOccurs="0"/>
+			<xsd:element name="SmallEarningsExemptionCertificate" type="gds:YesNoType"/>
+			<xsd:element name="CurrentTradingYear" type="PeriodStructure"/>
+			<xsd:element name="MoneyReceivedByBusiness" type="MoneyStructure"/>
+			<xsd:element name="GetVATrefunds" type="gds:YesNoType"/>
+			<xsd:element name="VATrefund" type="VATrefundStructure" minOccurs="0"/>
+			<xsd:element name="GetEnterpriseAllowance" type="gds:YesNoType"/>
+			<xsd:element name="EnterpriseAllowance" type="EnterpriseAllowanceStructure" minOccurs="0"/>
+			<xsd:element name="GoodsForOwnUse" type="gds:YesNoType"/>
+			<xsd:element name="ValueOfGoods" type="MoneyStructure" minOccurs="0"/>
+			<xsd:element name="PayForPension" type="gds:YesNoType"/>
+			<xsd:element name="PensionScheme" type="PensionSchemeStructure" minOccurs="0"/>
+			<xsd:element name="BusinessExpenses" type="BusinessExpensesStructure" minOccurs="0" maxOccurs="34"/>
+			<xsd:element name="CareExpensesChildren" type="gds:YesNoType"/>
+			<xsd:element name="ChildCareExpenses" type="ChildCareExpensesStructure" minOccurs="0"/>
+			<xsd:element name="CareExpensesCaree" type="gds:YesNoType"/>
+			<xsd:element name="CareExpenses" type="CareExpensesStructure" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VATrefundStructure">
+		<xsd:sequence>
+			<xsd:element name="VAT" type="MoneyStructure"/>
+			<xsd:element name="DateReceived" type="gds:DateType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EnterpriseAllowanceStructure">
+		<xsd:sequence>
+			<xsd:element name="Period" type="PeriodStructure"/>
+			<xsd:element name="Allowance" type="MoneyStructure"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BusinessExpensesStructure">
+		<xsd:sequence>
+			<xsd:element name="ExpenseType" type="OptionalShortTextType"/>
+			<xsd:element name="TotalExpenses" type="OptionalMoneyStructure"/>
+			<xsd:element name="PrivateUse" type="OptionalMoneyStructure"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of SelfEmploymentChangeStructure type definition -->
+	<!-- start of EmploymentChangeStructure type definition -->
+	<xsd:complexType name="EmploymentChangeStructure">
+		<xsd:sequence>
+			<xsd:element name="Employer" type="EmployerDetailsStructure"/>
+			<xsd:element name="Pay" type="PayStructure"/>
+			<xsd:element name="OtherThanMoney" type="gds:YesNoType"/>
+			<xsd:element name="PayOtherThanMoney" type="LongTextType" minOccurs="0"/>
+			<xsd:element name="OweMoney" type="gds:YesNoType"/>
+			<xsd:element name="MoneyOwed" type="MoneyOwedStructure" minOccurs="0"/>
+			<xsd:element name="CareExpensesChildren" type="gds:YesNoType"/>
+			<xsd:element name="ChildCareExpenses" type="ChildCareExpensesStructure" minOccurs="0"/>
+			<xsd:element name="CareExpensesCaree" type="gds:YesNoType"/>
+			<xsd:element name="CareExpenses" type="CareExpensesStructure" minOccurs="0"/>
+			<xsd:element name="PaidForOccupationalPension" type="gds:YesNoType"/>
+			<xsd:element name="PensionScheme" type="PensionSchemeStructure" minOccurs="0"/>
+			<xsd:element name="PaidForPersonalPension" type="gds:YesNoType"/>
+			<xsd:element name="PensionScheme" type="PensionSchemeStructure" minOccurs="0"/>
+			<xsd:element name="PaidForJobExpenses" type="gds:YesNoType"/>
+			<xsd:element name="JobExpenses" type="JobExpensesStructure" minOccurs="0" maxOccurs="4"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end of EmploymentChangeStructure type definition -->
+</xsd:schema>

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Date = 20 March 2006 Version = 1.9 -->
+<!-- Schema that is a container for the GDS top level schemas -->
+<!-- Also defines optional versions of several gds datatypes -->
+<xsd:schema targetNamespace="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns:bs7666="http://www.govtalk.gov.uk/people/bs7666" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.7" id="dwp-ca-gds">
+    <xsd:annotation>
+        <xsd:appinfo xmlns:gms="http://www.govtalk.gov.uk/CM/gms" xmlns:dcq="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+            <dc:contributor>???</dc:contributor>
+            <dc:creator>???
+                <dcq:owner>???</dcq:owner>
+                <dcq:contact>???</dcq:contact>
+            </dc:creator>
+            <dc:date>
+                <dcq:created>2003-04-04</dcq:created>
+            </dc:date>
+            <dc:date>
+                <dcq:modified>2006-03-20</dcq:modified>
+            </dc:date>
+            <dc:format>text</dc:format>
+            <dc:format>
+                <dc:medium>http://www.w3.org/2001/XMLSchema</dc:medium>
+            </dc:format>
+            <dc:format>
+                <dc:medium>XML Schema (.xsd) file, W3C Recommendation 2001</dc:medium>
+            </dc:format>
+            <dc:identifier>dwp-ca-gds</dc:identifier>
+            <dc:language>en</dc:language>
+            <dc:publisher>???</dc:publisher>
+            <dc:rights>
+                <dcq:copyright>???</dcq:copyright>
+                <gms:SecurityClassification>Unclassified</gms:SecurityClassification>
+            </dc:rights>
+            <dc:subject>
+                <gms:Category>???</gms:Category>
+            </dc:subject>
+            <dc:subject>
+                <gms:Project>DWP Carers Allowance</gms:Project>
+            </dc:subject>
+            <dc:title>Government Data Standards schema</dc:title>
+            <dc:description>
+                <dcq:abstract>Container for GDS top level schemas</dcq:abstract>
+            </dc:description>
+                        <dc:relation>
+                                <gms:IsPartOf>dwp-ca-claim-v1_9</gms:IsPartOf>
+                        </dc:relation>
+                        <dc:relation>
+                                <gms:IsPartOf>dwp-ca-coc-v1_9</gms:IsPartOf>
+                        </dc:relation>
+                        <dc:relation>
+                                <gms:IsPartOf>dwp-ca-702-v1_9</gms:IsPartOf>
+                        </dc:relation>
+                        <dc:relation>
+                                <gms:IsPartOf>dwp-ca-core-v1_9</gms:IsPartOf>
+                        </dc:relation>
+                        <dc:relation>
+                                <dcq:requires>BS7666-v1</dcq:requires>
+                        </dc:relation>
+            <dc:relation>
+                <gms:HasPart>PersonalDetailsTypes-v1</gms:HasPart>
+            </dc:relation>
+            <dc:relation>
+                <gms:HasPart>AddressTypes-v1</gms:HasPart>
+            </dc:relation>
+        </xsd:appinfo>
+    </xsd:annotation>
+
+    <!-- include types and structures from Technology Policy Team, Office of the e-Envoy, Cabinet Office -->
+    <xsd:include schemaLocation="schema/ca/PersonalDetailsTypes-v1.xsd"/>
+    <xsd:include schemaLocation="schema/ca/AddressTypes-v1.xsd"/>
+
+    <!-- import types and structures from Technology Policy Team, Office of the e-Envoy, Cabinet Office -->
+        <xsd:import namespace="http://www.govtalk.gov.uk/people/bs7666" schemaLocation="schema/ca/BS7666-v1.xsd"/>
+
+    <!-- start of empty string type definition -->
+    <xsd:simpleType name="EmptyStringType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="0"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <!-- end of empty string type definition -->
+    
+    <!-- start of optional Types -->
+        <xsd:simpleType name="OptionalAddressLineType">
+        <xsd:union memberTypes="AddressLineType EmptyStringType"/>
+    </xsd:simpleType>
+        <xsd:simpleType name="OptionalCitizenNameForenameType">
+        <xsd:union memberTypes="CitizenNameForenameType EmptyStringType"/>
+    </xsd:simpleType>
+        <xsd:simpleType name="OptionalCitizenNameSurnameType">
+        <xsd:union memberTypes="CitizenNameSurnameType EmptyStringType"/>
+    </xsd:simpleType>
+        <xsd:simpleType name="OptionalCitizenNameRequestedNameType">
+        <xsd:union memberTypes="CitizenNameRequestedNameType EmptyStringType"/>
+    </xsd:simpleType>
+        <xsd:simpleType name="OptionalDateType">
+        <xsd:union memberTypes="DateType EmptyStringType"/>
+    </xsd:simpleType>
+        <xsd:simpleType name="OptionalMaritalStatusType">
+        <xsd:union memberTypes="MaritalStatusType EmptyStringType"/>
+    </xsd:simpleType>
+        <xsd:simpleType name="OptionalNationalInsuranceNumberType">
+        <xsd:union memberTypes="NationalInsuranceNumberType EmptyStringType"/>
+    </xsd:simpleType>
+        <xsd:simpleType name="OptionalPostCodeType">
+        <xsd:union memberTypes="bs7666:PostCodeType EmptyStringType"/>
+    </xsd:simpleType>
+        <xsd:complexType name="OptionalUKPostalAddressStructure">
+                <xsd:sequence>
+                        <xsd:element name="Line" type="OptionalAddressLineType" minOccurs="3" maxOccurs="4"/>
+                        <xsd:element name="PostCode" type="OptionalPostCodeType"/>
+                </xsd:sequence>
+        </xsd:complexType>
+        <xsd:simpleType name="OptionalYesNoType">
+        <xsd:union memberTypes="YesNoType EmptyStringType"/>
+    </xsd:simpleType>
+    <!-- end of optional Types -->
+</xsd:schema>
