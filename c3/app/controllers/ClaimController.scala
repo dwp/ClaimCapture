@@ -19,7 +19,6 @@ object ClaimController extends Controller with CachedClaim {
   def presenter(sectionId: String) = ActionWithClaim {
     claimHolder =>
       request =>
-        println("present: " + sectionId)
 
         val claim = claimHolder.claim
 
