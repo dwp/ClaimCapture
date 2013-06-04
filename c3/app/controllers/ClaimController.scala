@@ -55,7 +55,7 @@ object ClaimController extends Controller with CachedClaim {
             val newClaim = Claim(claim.sections.map {
               section => {
                 section.name match {
-                  case sectionId => {
+                  case `sectionId` => {
                     new Section(sectionId, section.questionGroups.map {
                       questionGroup => {
                         questionGroup.label match {
