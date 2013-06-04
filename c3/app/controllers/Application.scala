@@ -2,45 +2,31 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import play.api.cache.Cache
-import play.api.Play.current
-import models.view.trash.Claim
 
 object Application extends Controller {
-  
+
   def index = Action {
     Ok(views.html.index("Carers Claim Capture"))
   }
 
-  def cookies = Action { request =>
+  def cookies = Action {
+    request =>
 
-    request.session.get("connected").map { key =>
+      request.session.get("connected").map {
+        key =>
 
-      Logger.debug("Session Key from cookie. " )
+          Logger.debug("Session Key from cookie. ")
 
-      Ok(views.html.index("Key : " + key))
+          Ok(views.html.index("Key : " + key))
 
-    }.getOrElse {
+      }.getOrElse {
 
-      val key = java.util.UUID.randomUUID().toString
+        val key = java.util.UUID.randomUUID().toString
 
-      Logger.debug("Generating new Session Key: " + key)
+        Logger.debug("Generating new Session Key: " + key)
 
-      Ok(views.html.index("New Session Key:" + key)).withSession("connected" -> key)
-    }
+        Ok(views.html.index("New Session Key:" + key)).withSession("connected" -> key)
+      }
 
   }
-
-  private def loadFromCache(key:String): Option[Claim] = {
-    Logger.debug("loadFromCache: " + key )
-    Cache.getAs[Claim](key)
-  }
-
-
-  private def updateCache(key:String, model:Claim) = {
-    Logger.debug("updateCache: " + key + " " + model )
-    Cache.set(key, model)
-  }
-
-
 }

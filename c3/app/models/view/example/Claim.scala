@@ -18,17 +18,18 @@ object Claim {
   def apply() = {
     new Claim(Seq(
       new Section("sectionOne", Seq(
-        new QuestionGroup(Messages("s1_g1"), false, SingleStringInputForm()),
-        new QuestionGroup("s1.questionGroupTwo", false, SingleStringInputForm()),
-        new QuestionGroup("s1.questionGroupThree", false, SingleStringInputForm())
+        new QuestionGroup(Messages("s1_g1"), SingleStringInputForm()),
+        new QuestionGroup("s1.questionGroupTwo", SingleStringInputForm()),
+        new QuestionGroup("s1.questionGroupThree", SingleStringInputForm())
       )),
       new Section("sectionTwo", Seq(
-        new QuestionGroup("s2.questionGroupOne", false, SingleStringInputForm()),
-        new QuestionGroup("s2.questionGroupTwo", false, SingleStringInputForm()),
-        new QuestionGroup("s2.questionGroupThree", false, SingleStringInputForm())
+        new QuestionGroup("s2.questionGroupOne", SingleStringInputForm()),
+        new QuestionGroup("s2.questionGroupTwo", SingleStringInputForm()),
+        new QuestionGroup("s2.questionGroupThree", SingleStringInputForm())
       ))
     ))
   }
+
 
   def findSectionForClaim(sectionId: String, claim: Claim) = {
     claim.sections.find(section => section.name.equals(sectionId))
