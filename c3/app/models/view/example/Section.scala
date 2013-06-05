@@ -1,17 +1,10 @@
 package models.view.example
 
-case class Section(name: String, questionGroups: Seq[QuestionGroup]) {
+case class Section(id: String, forms: Seq[CarersAllowanceForm]) {
 
-  def isComplete = {
-    getNextUnansweredQuestionGroup.isEmpty
+  def isComplete() = false
+
+  def form(id: String): Option[CarersAllowanceForm] = {
+    forms.find(form => form.id.equals(id))
   }
-
-  def getNextUnansweredQuestionGroup: Option[QuestionGroup] = {
-    questionGroups.find(questionGroup => !questionGroup.answered)
-  }
-
-  def getAnsweredQuestionGroups: Seq[QuestionGroup] = {
-    questionGroups.filter(questionGroup => questionGroup.answered)
-  }
-
 }
