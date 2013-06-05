@@ -7,5 +7,3 @@ case class SingleStringInputForm(answer: String = "") extends CarersAllowanceFor
 
   override def toString: String = answer
 }
-
-

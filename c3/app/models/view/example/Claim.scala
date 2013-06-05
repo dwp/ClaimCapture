@@ -1,8 +1,6 @@
 package models.view.example
 
-
 case class Claim(sections: Seq[Section]) extends CreationTimeStamp {
-
   def getNextIncompleteSection: Option[Section] = {
     sections.find(section => !section.isComplete)
   }
@@ -10,7 +8,6 @@ case class Claim(sections: Seq[Section]) extends CreationTimeStamp {
   def getSectionWithId(sectionId: String): Option[Section] = {
     sections.find(section => section.id.equals(sectionId))
   }
-
 }
 
 object Claim {
@@ -29,7 +26,6 @@ object Claim {
     ))
   }
 
-
   def findSectionForClaim(sectionId: String, claim: Claim) = {
     claim.sections.find(section => section.id.equals(sectionId))
   }
@@ -43,5 +39,3 @@ object Claim {
     findQuestionGroupForSection(sectionId, questionGroupId, claim).get
   }
 }
-
-

@@ -25,6 +25,7 @@ object CarersAllowance extends Controller {
     implicit claim =>
       implicit request =>
         val key = request.session.get("connected").get
+
         benefitsForm.bindFromRequest.fold(
           formWithErrors => BadRequest(views.html.carersAllowance("test")),
           inputForm => {
@@ -32,7 +33,6 @@ object CarersAllowance extends Controller {
             Ok("Carer's Allowance - Command")
           })
   }
-
 
   def updateClaim(claim: Claim, form: BenefitsForm) = {
     Claim(claim.sections.map {
@@ -48,11 +48,10 @@ object CarersAllowance extends Controller {
               }
             })
           }
+
           case _ => section
         }
       }
-
     })
-
   }
 }
