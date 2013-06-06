@@ -8,14 +8,17 @@ GET     /cookies                    controllers.Application.cookies
 GET     /canYouGetCA                    controllers.Application.s01
 
 #Allowance
-GET     /sections/allowance/benefits    controllers.CarersAllowance.benefits
-POST    /sections/allowance/benefits    controllers.CarersAllowance.benefitsSubmit
+GET     /sections/allowance/benefits        controllers.CarersAllowance.benefits
+POST    /sections/allowance/benefits        controllers.CarersAllowance.benefitsSubmit
 
-GET     /sections/allowance/hours       controllers.CarersAllowance.hours
-POST    /sections/allowance/hours       controllers.CarersAllowance.hoursSubmit
+GET     /sections/allowance/hours           controllers.CarersAllowance.hours
+POST    /sections/allowance/hours           controllers.CarersAllowance.hoursSubmit
 
-GET     /sections/allowance/livesInGB   controllers.CarersAllowance.livesInGB
-POST    /sections/allowance/livesInGB   controllers.CarersAllowance.livesInGBSubmit
+GET     /sections/allowance/livesInGB       controllers.CarersAllowance.livesInGB
+POST    /sections/allowance/livesInGB       controllers.CarersAllowance.livesInGBSubmit
+
+GET     /sections/allowance/over16          controllers.CarersAllowance.over16
+POST    /sections/allowance/over16Submit    controllers.CarersAllowance.over16Submit
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                   controllers.Assets.at(path="/public", file)
+GET     /assets/*file                       controllers.Assets.at(path="/public", file)

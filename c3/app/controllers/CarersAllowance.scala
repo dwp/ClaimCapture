@@ -26,6 +26,13 @@ object CarersAllowance extends Controller with CachedClaim {
     )(LivesInGBForm.apply)(LivesInGBForm.unapply)
   )
 
+  val over16Form = Form(
+    mapping(
+      "answer" -> boolean
+    )(Over16Form.apply)(Over16Form.unapply)
+  )
+
+
   def benefits = newClaim { implicit claim => implicit request =>
     val answeredForms = claim.answeredFormsForSection("s1")
     Ok(views.html.carersallowance.benefits(answeredForms, benefitsForm))
@@ -63,5 +70,18 @@ object CarersAllowance extends Controller with CachedClaim {
     livesInGBForm.bindFromRequest.fold(
       formWithErrors => Left(BadRequest(views.html.carersallowance.livesInGB(answeredForms, formWithErrors))),
       inputForm => Right(claim.update(inputForm) -> Redirect(routes.CarersAllowance.livesInGB)))
+  }
+
+  def over16 = claiming { implicit claim => implicit request =>
+    val answeredForms = claim.answeredFormsForSection("s1")
+    Right(claim -> Ok(views.html.carersallowance.over16(answeredForms, over16Form)))
+  }
+
+  def over16Submit = claiming { implicit claim => implicit request =>
+    val answeredForms = claim.answeredFormsForSection("s1")
+
+    over16Form.bindFromRequest.fold(
+      formWithErrors => Left(BadRequest(views.html.carersallowance.over16(answeredForms, formWithErrors))),
+      inputForm => Right(claim.update(inputForm) -> Redirect(routes.CarersAllowance.over16)))
   }
 }

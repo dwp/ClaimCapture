@@ -54,7 +54,7 @@ class CarersAllowanceSpec extends Specification {
     "present the hours form" in new WithApplication {
       val request = FakeRequest().withSession("connected" -> "claim")
 
-      val claim = Claim().update(BenefitsForm(answer=true))
+      val claim = Claim().update(BenefitsForm(answer = true))
       Cache.set("claim", claim)
 
       val result = CarersAllowance.hours(request)
@@ -62,7 +62,7 @@ class CarersAllowanceSpec extends Specification {
       status(result) mustEqual OK
 
       val answeredForms = claim.answeredFormsForSection(BenefitsForm().section).dropWhile(_.id != BenefitsForm().id)
-      answeredForms(0) mustEqual BenefitsForm(answer=true)
+      answeredForms(0) mustEqual BenefitsForm(answer = true)
     }
 
     "acknowledge that you spend 35 hours or more each week caring for the person you look after" in new WithApplication {
@@ -96,8 +96,8 @@ class CarersAllowanceSpec extends Specification {
     "present the lives in GB form" in new WithApplication {
       val request = FakeRequest().withSession("connected" -> "claim")
 
-      val claimWithBenefitFrom = Claim().update(BenefitsForm(answer=true))
-      val claimWithHoursForm = claimWithBenefitFrom.update(HoursForm(answer=true))
+      val claimWithBenefitFrom = Claim().update(BenefitsForm(answer = true))
+      val claimWithHoursForm = claimWithBenefitFrom.update(HoursForm(answer = true))
       Cache.set("claim", claimWithHoursForm)
 
       val result = CarersAllowance.hours(request)
@@ -106,8 +106,8 @@ class CarersAllowanceSpec extends Specification {
 
       val answeredForms = claimWithHoursForm.answeredFormsForSection(LivesInGBForm().section)
 
-      answeredForms(0) mustEqual BenefitsForm(answer=true)
-      answeredForms(1) mustEqual HoursForm(answer=true)
+      answeredForms(0) mustEqual BenefitsForm(answer = true)
+      answeredForms(1) mustEqual HoursForm(answer = true)
     }
 
     "acknowledge that carer lives in Great Britain" in new WithApplication {
@@ -121,6 +121,37 @@ class CarersAllowanceSpec extends Specification {
         case Some(f: LivesInGBForm) => f.answer mustEqual true
       }
 
+    }
+
+    "present the Are you aged 16 or over form" in new WithApplication {
+      val request = FakeRequest().withSession("connected" -> "claim")
+
+      val claimWithBenefit = Claim().update(BenefitsForm(answer = true))
+      val claimWithHours = claimWithBenefit.update(HoursForm(answer = true))
+      val claimWithLivesInGB = claimWithHours.update(LivesInGBForm(answer = true))
+      Cache.set("claim", claimWithLivesInGB)
+
+      val result = CarersAllowance.hours(request)
+
+      status(result) mustEqual OK
+
+      val answeredForms = claimWithLivesInGB.answeredFormsForSection(Over16Form().section)
+
+      answeredForms(0) mustEqual BenefitsForm(answer = true)
+      answeredForms(1) mustEqual HoursForm(answer = true)
+      answeredForms(2) mustEqual LivesInGBForm(answer = true)
+    }
+
+    "acknowledge that carer is aged 16 or over" in new WithApplication {
+      val request = FakeRequest().withFormUrlEncodedBody("answer" -> "true").withSession("connected" -> "claim")
+      CarersAllowance.over16Submit(request)
+
+      val claim = Cache.getAs[Claim]("claim").get
+      val section: Section = claim.section("s1").get
+
+      section.form("s1.q4") must beLike {
+        case Some(f: Over16Form) => f.answer mustEqual true
+      }
     }
   }
 }

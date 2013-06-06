@@ -1,4 +1,4 @@
-@(answeredForms: List[CarersAllowanceForm], hoursForm: Form[HoursForm])
+@(answeredForms: List[CarersAllowanceForm], over16Form: Form[Over16Form])
 
 @import helper._
 
@@ -10,9 +10,9 @@
         <div>@answeredForm.id : @answeredForm.answerToString</div>
     }
 
-    @form(action = routes.CarersAllowance.hoursSubmit) {
+    @form(action = routes.CarersAllowance.over16Submit) {
 
-        @inputText(hoursForm("answer"), '_label -> "HoursForm")
+        @inputText(over16Form("answer"), '_label -> "Over16Form")
 
         <input type="submit" value="next">
     }
