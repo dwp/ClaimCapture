@@ -9,5 +9,4 @@ resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/reposi
 // Use the Play sbt plugin for Play projects
 addSbtPlugin("play" % "sbt-plugin" % "2.1.1")
 
-
 addSbtPlugin("net.litola" % "play-sass" % "0.2.0")

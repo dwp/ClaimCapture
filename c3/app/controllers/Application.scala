@@ -29,4 +29,9 @@ object Application extends Controller {
       }
 
   }
+
+  def s01 = Action {
+    Ok(views.html.s01.section())
+  }
+
 }
