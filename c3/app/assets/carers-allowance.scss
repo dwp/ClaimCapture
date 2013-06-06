@@ -1,0 +1,286 @@
+/* == sass globals == */
+$button-green: #006435;
+$button-green-hover: #004b27;
+
+
+.carers-allowance {
+   background: #eaedef;
+   
+   section {
+  	   padding: 2em 1em 3em 1em;
+	   margin: 0 auto;
+	   max-width: 990px;
+	   background: #fff;
+	   position: relative;
+	   @media screen and (max-width: 640px) {padding-left: 0; padding-right: 1em;}
+	   header {
+		   margin-right: 20%;
+		   padding-left: 1em;
+		   @media screen and (max-width: 700px) {margin-right: 0;}
+		   	
+		   h1 {
+			   font-size: 4.8rem;
+			   font-weight: 700;
+			   line-height: 1.2em;
+			   margin-bottom: .25em;
+			    @media screen and (max-width: 500px) {font-size: 3.8rem;}
+			   span {
+				   display: block;
+				   font-size: 1.7rem;
+				   line-height: 1em;
+				   font-weight: 400;
+				   margin-bottom: .5em;
+			   }
+		   }
+	   }
+	   p {
+		   margin: 0;
+		   font-size: 1.9rem;
+		   font-weight: 400;
+		   line-height: 1.4em;
+	   }
+	   ul {
+		   margin: 0;
+		   padding: 0;
+		   list-style: none;
+	   }
+   }
+   
+   .completed {
+   	   margin-top: 1em;
+   	   .start-again {
+	   	   text-align: right;
+	   	   a {
+		   	   display: inline-block;
+		   	   background: $button-green;
+		   	   font-size: 1.9rem;
+		   	   padding: .7em 1.75em;
+		   	   color: #fff;
+		   	   line-height: 1em;
+		   	   text-decoration: none;
+		   	   &:hover {
+			   	   background: #004b27;
+		   	   }
+	   	   }
+   	   }
+	   ul {
+		   li {
+			   background: #D5ECEA url('../img/progress-tick.png') 1.4em 1.3em no-repeat;
+			   border-bottom: 1px solid #b6d6d2;
+			   padding: 1em 9em 1em 3.6em;
+			   position: relative;
+			   @media screen and (max-width: 760px) {padding-right: 1em;}
+			   h3 {
+				   font-size: 1.6rem;
+				   font-weight: 300;
+				   line-height: 1.25;
+			   }
+			   p {
+			   	   font-size: 1.6rem;
+				   font-weight: 700;
+				   color: #315843;
+				   line-height: 1em;
+				   margin-top: .4em;
+			   }
+			   a {
+				   position: absolute;
+				   right: 1em;
+				   top: 1.95em;
+				   margin-top: -10px;
+				   color: inherit;
+				   font-size: 1.4rem;
+				   font-weight: 300;
+				   &:hover {
+					   color: #315843;
+				   }
+				   @media screen and (max-width: 760px) {position: relative; right: auto; top: auto; margin-top: 1em; display: inline-block;}
+			   }
+		   }
+	   }
+   }
+   
+   .form-elements {
+   	   margin: 2em 20% 0 0;
+   	   padding-left: 1em;
+   	    @media screen and (max-width: 750px) {margin-right: 0;}
+   	    &.form-eligibility {
+	   	    padding-left: 3.6em;
+	   	    legend {
+		   	    padding-left: 1.8em;
+		   	    margin-left: -1.8em;
+		   	    color: inherit;
+	   	    }
+	   	    ul {
+		   	    margin-top: 1.6em;
+	   	    }
+   	    }
+   	   legend {
+	   	   font-weight: 600; 
+	   	   font-size: 2.4rem;
+	   	   padding: .12em 0 1em 0;
+	   	   position: relative;
+	   	   line-height: 1.2em;
+	   	   color: #333399;
+	   	   span {
+		   	   background: #000;
+		   	   display: block;
+		   	   border-radius: 100px;
+		   	   width: 30px;
+		   	   height: 22px;
+		   	   color: #fff;
+		   	   font-size: 1.5rem;
+		   	   text-align: center;
+		   	   padding-top: 8px;
+		   	   line-height: 1em;
+		   	   position: absolute;
+		   	   top: 1px; 
+		   	   left: 0;
+	   	   }
+   	   }
+   	   h2 {
+	   	   font-size: 1.9rem;
+	   	   font-weight: 600;
+	   	   line-height: 1.4em;
+	   	   padding-top: 1em;
+	   	   &.first {
+		   	   padding-top: 0;
+	   	   }
+   	   }
+	   ul {
+		   margin-top: 0;
+		   li {
+			   display: block;
+			   margin-top: 1em;
+			   &:first-child {
+				   margin: 0;
+			   }
+			   label, p {
+				   display: block;
+				   font-size: 1.9rem;
+				   font-weight: 400;
+			   }
+			   input {
+				    background: #f9f9f9;
+					border: 2px inset;
+					font-size: 19px;
+					font-size: 1.9rem;
+					line-height: 1.31579;
+					font-weight: 400;
+					text-transform: none;
+					padding: 0.1em 0 0.1em 0.4em;
+					width: 15em;
+			   }
+		   }
+		   &.radio {
+			   input {
+				   width: auto;
+			   }   
+		   }
+		   &.inline {
+			   li {
+				   display: inline;
+				   margin: 0 0 0 1.2em;
+				   &:first-child {margin-left: 0;}
+				   label {
+					   padding-left: 0.25em;
+					   display: inline-block;
+				   }
+			   }
+		   }
+		   ul {
+			   margin-top: .2em;
+			   li {
+				   margin-left: .5em!important;
+				   &:first-child {
+					   margin-left: 0!important;
+				   }
+				   label {
+					   font-size: 1.6rem;
+					   position: absolute;
+					   left: -9999px;
+				   }
+				   select {
+					   width: 8.4em;
+				   }
+				   &.year input {
+					   width: 5em;
+					   font-size: 1.4rem;
+					   padding: .5rem .75rem;
+				   }
+			   }
+		   }
+	   }
+	   .info {
+	       background: #bde4f6;
+		   border: 1px solid #015399;
+		   padding: 1em 1.25em;
+		   margin-top: 1.6em;
+	   }
+   }
+   
+   .prompt {
+	   background: #d5e8f3;
+	   padding: 1.4em 1em;
+	   margin-top: 1em;
+	   &.error {
+		   background: #f2f2f2;
+	   }
+   }
+   
+   
+   .form-steps {
+	   margin-top: 2em;
+	   padding-left: 1em;
+	   p {
+		   padding-bottom: .6em;
+		   clear: both;
+	   }
+	   .button {
+		   font-size: 2rem;
+		   line-height: 1.25;
+		   color: #fff;
+		   border-radius: 3px;
+		   box-shadow: 0 3px 0 #000;
+		   border: 0;
+		   padding: 0.35em 0.5em 0.15em 0.5em;
+		   cursor: pointer;
+		   -webkit-appearance: none;
+		   display: inline-block;
+		   margin-right: .25em;
+		   background: $button-green;
+		   font-weight: 400;
+		   position: relative;
+		   top: -3px;
+		   &:hover {
+			   background: $button-green-hover;
+		   }
+		   &:active {	
+		   	   top: 0;
+			   background: $button-green-hover;
+			   box-shadow: 0 0 0 transparent;
+		   }
+		   &.secondary {
+			   background: #dee0e2;
+			   color: #0b0c0c;
+			   &:hover {
+				   background: #d0d3d6;
+			   }
+		   }
+		   &.warning {
+			   background: #b10e1e;
+			   &:hover {
+				   background: #990c1a;
+			   }
+		   }
+	   }
+   }
+       
+}
+
+
+/* Footer Overrides */
+#footer .carers-allowance-footer {padding-top: 0;}
+#footer .carers-allowance-footer .footer-meta {margin-top: 0; border-top: 0;}
+
+/* temp beta styling */
+.beta {position: absolute; top: 1.5em; right: 1.5em; background: #f47738; padding: 5px 10px; text-align: center; color: #fff; font-size: 1.4rem; font-weight: 700; letter-spacing: .2em; line-height: 1.4em;}

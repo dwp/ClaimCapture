@@ -3,13 +3,9 @@
 # ~~~~
 
 # Home page
-GET     /                                   controllers.Application.index
-GET     /cookies                            controllers.Application.cookies
-
-
-#Sections
-#GET    /sections/:id                       controllers.ClaimController.presenter(id: String)
-#POST   /sections/:id                       controllers.ClaimController.command(id:String)
+GET     /                           controllers.Application.index
+GET     /cookies                    controllers.Application.cookies
+GET     /canYouGetCA                    controllers.Application.s01
 
 #Allowance
 GET     /sections/allowance/benefits        controllers.CarersAllowance.benefits
