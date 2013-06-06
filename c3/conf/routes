@@ -3,17 +3,23 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
-GET     /cookies                    controllers.Application.cookies
+GET     /                               controllers.Application.index
+GET     /cookies                        controllers.Application.cookies
 
 
 #Sections
-#GET     /sections/:id               controllers.ClaimController.presenter(id: String)
-#POST    /sections/:id               controllers.ClaimController.command(id:String)
+#GET    /sections/:id                   controllers.ClaimController.presenter(id: String)
+#POST   /sections/:id                   controllers.ClaimController.command(id:String)
 
 #Allowance
-GET     /sections/allowance/benefits  controllers.CarersAllowance.benefits
-POST    /sections/allowance/benefits  controllers.CarersAllowance.benefitsSubmit
+GET     /sections/allowance/benefits    controllers.CarersAllowance.benefits
+POST    /sections/allowance/benefits    controllers.CarersAllowance.benefitsSubmit
+
+GET     /sections/allowance/hours       controllers.CarersAllowance.hours
+POST    /sections/allowance/hours       controllers.CarersAllowance.hoursSubmit
+
+GET     /sections/allowance/livesInGB   controllers.CarersAllowance.livesInGB
+POST    /sections/allowance/livesInGB   controllers.CarersAllowance.livesInGBSubmit
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                   controllers.Assets.at(path="/public", file)

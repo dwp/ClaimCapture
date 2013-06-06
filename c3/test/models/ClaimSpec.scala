@@ -40,6 +40,8 @@ class ClaimSpec extends Specification {
       section.form(trueForm.id) must beSome(BenefitsForm(true))
     }
 
+    //"return the answered form"
+
   }
 
 }

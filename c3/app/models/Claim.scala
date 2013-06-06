@@ -26,6 +26,11 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
     findQuestionGroupForSection(sectionId, questionGroupId, claim).get
   }*/
 
+  def answeredFormsForSection(sectionID: String) = sections.get(sectionID) match {
+    case Some(s: Section) => s.forms.filter(form => true)
+    case _ => Nil
+  }
+
   def update(form: CarersAllowanceForm): Claim = {
     val section = sections.get(form.section) match {
       case None => Section(form.section, form :: Nil)
