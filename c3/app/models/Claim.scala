@@ -27,14 +27,14 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
   }*/
 
   def answeredFormsForSection(sectionID: String) = sections.get(sectionID) match {
-    case Some(s: Section) => s.forms.filter(form => true)
+    case Some(s: Section) => s.forms.filter(form => form.section == sectionID)
     case _ => Nil
   }
 
   def update(form: CarersAllowanceForm): Claim = {
     val section = sections.get(form.section) match {
-      case None => Section(form.section, form :: Nil)
-      case Some(section) => Section(form.section, form :: section.forms.filterNot(_.id == form.id))
+      case None => Section(form.section, List(form))
+      case Some(s) => Section(form.section, s.forms.filterNot(_.id == form.id) :+ form  )
     }
 
     Claim(sections.updated(section.id, section))
