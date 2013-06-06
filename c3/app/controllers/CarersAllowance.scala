@@ -20,7 +20,7 @@ object CarersAllowance extends Controller with CachedClaim {
     )(HoursForm.apply)(HoursForm.unapply)
   )
 
-  def benefits = newClaim { claim => request =>
+  def benefits = newClaim { implicit claim => implicit request =>
     Ok("")
   }
 
