@@ -42,8 +42,11 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
 }
 
 trait CachedClaim {
-
   import play.api.Play.current
+
+  implicit def unexpectedToLeft(result: Result) = Left(result)
+
+  implicit def expectedToRight(claimingResult: (Claim, Result))  = Right(claimingResult._1, claimingResult._2)
 
   def newClaim(f: => Claim => Request[AnyContent] => Result) = Action {
     implicit request => {
