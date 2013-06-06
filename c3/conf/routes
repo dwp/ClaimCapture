@@ -12,8 +12,8 @@ GET     /cookies                    controllers.Application.cookies
 #POST    /sections/:id               controllers.ClaimController.command(id:String)
 
 #Allowance
-GET     /sections/allowance/benefits  controllers.CarersAllowance.questionGroup1
-POST    /sections/allowance/benefits  controllers.CarersAllowance.questionGroup1Submit
+GET     /sections/allowance/benefits  controllers.CarersAllowance.benefits
+POST    /sections/allowance/benefits  controllers.CarersAllowance.benefitsSubmit
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -1,4 +1,4 @@
-package models.view.example
+package models
 
 case class SingleStringInputForm(answer: String = "") extends CarersAllowanceForm {
   override val id = "remove generic"

@@ -1,54 +1,38 @@
 package controllers
 
 import play.api.mvc._
-import models.view.example._
 import play.api.data.Form
 import play.api.data.Forms._
-import models.view.example.Section
-import play.api.cache.Cache
-import play.api.Play.current
+import models._
+import models.BenefitsForm
 
 object CarersAllowance extends Controller with CachedClaim {
 
-  val benefitsForm =
-    Form(
-      mapping(
-        "answer" -> boolean
-      )(BenefitsForm.apply)(BenefitsForm.unapply)
-    )
+  val benefitsForm = Form(
+    mapping(
+      "answer" -> boolean
+    )(BenefitsForm.apply)(BenefitsForm.unapply)
+  )
 
-  def questionGroup1 = newClaim { claim => request =>
-      Ok("")
+  val hoursForm = Form(
+    mapping(
+      "answer" -> boolean
+    )(HoursForm.apply)(HoursForm.unapply)
+  )
+
+  def benefits = newClaim { claim => request =>
+    Ok("")
   }
 
-  def questionGroup1Submit = ActionWithClaim { implicit claim => implicit request =>
-        val key = request.session.get("connected").get
-        benefitsForm.bindFromRequest.fold(
-          formWithErrors => BadRequest(views.html.carersAllowance("test")),
-          inputForm => {
-            Cache.set(key, updateClaim(claim, inputForm), 3600)
-            Ok("Carer's Allowance - Command")
-          })
+  def benefitsSubmit = claiming { implicit claim => implicit request =>
+    benefitsForm.bindFromRequest.fold(
+      formWithErrors => Left(BadRequest(views.html.carersAllowance("test"))),
+      inputForm => Right(claim.update(inputForm.copy()) -> Ok("Carer's Allowance - Command")))
   }
 
-  def updateClaim(claim: Claim, form: BenefitsForm) = {
-    Claim(claim.sections.map {
-      section => {
-        section.id match {
-          case "s1" => {
-            new Section("s1", section.forms.map {
-              questionGroup => {
-                questionGroup.id match {
-                  case form.id => form.copy()
-                  case _ => questionGroup
-                }
-              }
-            })
-          }
-
-          case _ => section
-        }
-      }
-    })
+  def hoursSubmit = claiming { implicit claim => implicit request =>
+    hoursForm.bindFromRequest.fold(
+      formWithErrors => Left(BadRequest(views.html.carersAllowance("test"))),
+      inputForm => Right(claim.update(inputForm.copy()) -> Ok("Carer's Allowance - Command")))
   }
 }
