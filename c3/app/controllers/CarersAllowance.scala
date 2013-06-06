@@ -16,16 +16,12 @@ object CarersAllowance extends Controller {
       )(BenefitsForm.apply)(BenefitsForm.unapply)
     )
 
-  def questionGroup1 = newClaim {
-    implicit claim => implicit request =>
+  def questionGroup1 = newClaim { claim => request =>
       Ok("")
   }
 
-  def questionGroup1Submit = ActionWithClaim {
-    implicit claim =>
-      implicit request =>
+  def questionGroup1Submit = ActionWithClaim { claim => request =>
         val key = request.session.get("connected").get
-
         benefitsForm.bindFromRequest.fold(
           formWithErrors => BadRequest(views.html.carersAllowance("test")),
           inputForm => {
