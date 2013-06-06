@@ -1,7 +1,0 @@
-package controllers
-
-class packageSpec {
-
-
-
-}

@@ -1,4 +1,4 @@
-package models.view.example
+package models
 
 trait CreationTimeStamp {
  val created = System.currentTimeMillis()

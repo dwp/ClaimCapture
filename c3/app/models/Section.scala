@@ -1,6 +1,6 @@
-package models.view.example
+package models
 
-case class Section(id: String, forms: Seq[CarersAllowanceForm]) {
+case class Section(id: String, forms: List[CarersAllowanceForm]) {
   def isComplete() = false
 
   def form(id: String): Option[CarersAllowanceForm] = {
