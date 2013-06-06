@@ -23,3 +23,7 @@ case class HoursForm(answer: Boolean = false) extends BooleanAnswer(answer) with
 case class LivesInGBForm(answer: Boolean = false) extends BooleanAnswer(answer) with CarersAllowanceForm {
   override val id = "s1.q3"
 }
+
+case class Over16Form(answer: Boolean = false) extends BooleanAnswer(answer) with CarersAllowanceForm {
+  override val id = "s1.q4"
+}

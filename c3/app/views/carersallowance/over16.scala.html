@@ -1,0 +1,19 @@
+@(answeredForms:List[CarersAllowanceForm], over16Form:Form[Over16Form])
+
+@import helper._
+
+@common.govMain("Carers Allowance") {
+
+    <h1>Can you get Carer’s Allowance?</h1>
+
+    @for(answeredForm <- answeredForms) {
+        <div>@answeredForm.id : @answeredForm.answerToString</div>
+    }
+
+    @form(action = routes.CarersAllowance.over16Submit) {
+
+        @inputText(over16Form("answer"), '_label -> "Over16Form")
+
+        <input type="submit" value="next">
+    }
+}
