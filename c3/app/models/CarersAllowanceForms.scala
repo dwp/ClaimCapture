@@ -1,10 +1,9 @@
 package models
 
 abstract class CarersAllowanceForm(val id: String, val answer: Boolean = false) {
+  val section = id.split('.')(0)
 
   def answerToString = if (answer) "Yes" else "No"
-
-  val section = id.split('.')(0)
 }
 
 case class BenefitsForm(override val answer: Boolean = false) extends CarersAllowanceForm("s1.q1", answer)
