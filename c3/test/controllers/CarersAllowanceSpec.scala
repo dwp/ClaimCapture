@@ -120,7 +120,6 @@ class CarersAllowanceSpec extends Specification {
       section.form("s1.q3") must beLike {
         case Some(f: LivesInGBForm) => f.answer mustEqual true
       }
-
     }
 
     "present the Are you aged 16 or over form" in new WithApplication {
@@ -170,9 +169,9 @@ class CarersAllowanceSpec extends Specification {
       val request = FakeRequest().withSession("connected" -> "claim")
 
       val claim = Claim().update(BenefitsForm(answer = true))
-        .update(HoursForm(answer = true))
-        .update(LivesInGBForm(answer = false))
-        .update(Over16Form(answer = true))
+                         .update(HoursForm(answer = true))
+                         .update(LivesInGBForm(answer = false))
+                         .update(Over16Form(answer = true))
 
       Cache.set("claim", claim)
 
