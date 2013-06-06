@@ -6,8 +6,9 @@ import play.api.data.Form
 import play.api.data.Forms._
 import models.view.example.Section
 import play.api.cache.Cache
+import play.api.Play.current
 
-object CarersAllowance extends Controller {
+object CarersAllowance extends Controller with CachedClaim {
 
   val benefitsForm =
     Form(
@@ -20,7 +21,7 @@ object CarersAllowance extends Controller {
       Ok("")
   }
 
-  def questionGroup1Submit = ActionWithClaim { claim => request =>
+  def questionGroup1Submit = ActionWithClaim { implicit claim => implicit request =>
         val key = request.session.get("connected").get
         benefitsForm.bindFromRequest.fold(
           formWithErrors => BadRequest(views.html.carersAllowance("test")),
