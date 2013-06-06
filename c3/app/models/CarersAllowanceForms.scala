@@ -1,29 +1,16 @@
 package models
 
-trait CarersAllowanceForm {
-  val id: String
+abstract class CarersAllowanceForm(val id: String, val answer: Boolean = false) {
 
-  def answerToString(): String
-
-  lazy val section = id.split('.')(0)
-}
-
-abstract class BooleanAnswer(answer: Boolean) {
   def answerToString = if (answer) "Yes" else "No"
+
+  val section = id.split('.')(0)
 }
 
-case class BenefitsForm(answer: Boolean = false) extends BooleanAnswer(answer) with CarersAllowanceForm {
-  override val id = "s1.q1"
-}
+case class BenefitsForm(override val answer: Boolean = false) extends CarersAllowanceForm("s1.q1", answer)
 
-case class HoursForm(answer: Boolean = false) extends BooleanAnswer(answer) with CarersAllowanceForm {
-  override val id = "s1.q2"
-}
+case class HoursForm(override val answer: Boolean = false) extends CarersAllowanceForm("s1.q2", answer)
 
-case class LivesInGBForm(answer: Boolean = false) extends BooleanAnswer(answer) with CarersAllowanceForm {
-  override val id = "s1.q3"
-}
+case class LivesInGBForm(override val answer: Boolean = false) extends CarersAllowanceForm("s1.q3", answer)
 
-case class Over16Form(answer: Boolean = false) extends BooleanAnswer(answer) with CarersAllowanceForm {
-  override val id = "s1.q4"
-}
+case class Over16Form(override val answer: Boolean = false) extends CarersAllowanceForm("s1.q4", answer)

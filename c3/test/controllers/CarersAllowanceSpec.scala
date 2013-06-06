@@ -153,5 +153,32 @@ class CarersAllowanceSpec extends Specification {
         case Some(f: Over16Form) => f.answer mustEqual true
       }
     }
+
+    "acknowledge that the carer is eligible for allowance" in new WithApplication {
+      val claim = Claim().update(BenefitsForm(answer = true))
+                         .update(HoursForm(answer = true))
+                         .update(LivesInGBForm(answer = true))
+                         .update(Over16Form(answer = true))
+
+      Cache.set("claim", claim)
+
+      val result = CarersAllowance.approve(FakeRequest())
+      contentAsString(result) must contain("Based on your answers you may be entitled to Carer’s Allowance.")
+    }
+
+    "note that the carer is not eligible for allowance" in new WithApplication {
+      val request = FakeRequest().withSession("connected" -> "claim")
+
+      val claim = Claim().update(BenefitsForm(answer = true))
+        .update(HoursForm(answer = true))
+        .update(LivesInGBForm(answer = false))
+        .update(Over16Form(answer = true))
+
+      Cache.set("claim", claim)
+
+      val result = CarersAllowance.approve(request)
+
+      contentAsString(result) must contain("Based on your answers you may not be entitled  to  Carer’s Allowance.")
+    }
   }
 }
