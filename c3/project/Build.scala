@@ -15,12 +15,11 @@ object ApplicationBuild extends Build {
     anorm
   )
 
-  var appSettings : Seq[Project.Setting[_]] = Seq(SassPlugin.sassSettings :_*)
+  var appSettings : Seq[Project.Setting[_]] = SassPlugin.sassSettings
 
-  val main = play.Project(appName, appVersion, appDependencies).settings(
+  val main = play.Project(appName, appVersion, appDependencies, appSettings).settings(
     scalaVersion := "2.10.0"
     , scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature", "-Xlint")
-
   )
 
 }
