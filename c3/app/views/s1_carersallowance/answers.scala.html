@@ -1,0 +1,17 @@
+@(answeredForms: List[CarersAllowanceForm])
+
+<div class="completed">
+    <div class="start-again">
+        <a href="#">Start again</a>
+    </div>
+
+    <ul>
+        @for(answeredForm <- answeredForms) {
+            <li style="margin-bottom: 5px">
+                <h3>@Messages(answeredForm.id)</h3>
+                <p>@answeredForm.answerToString</p>
+                <a href="#">Change this answer</a>
+            </li>
+        }
+    </ul>
+</div>

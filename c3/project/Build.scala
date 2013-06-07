@@ -1,9 +1,3 @@
-import _root_.sbt.Keys._
-import sbt._
-import sbt.Keys._
-import play.Project._
-import net.litola.SassPlugin
-
 
 object ApplicationBuild extends Build {
 
@@ -15,7 +9,6 @@ object ApplicationBuild extends Build {
     jdbc,
     anorm
   )
-
 
   var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint"))
 
