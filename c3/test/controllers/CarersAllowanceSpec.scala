@@ -34,7 +34,7 @@ class CarersAllowanceSpec extends Specification {
       val claim = Cache.getAs[Claim]("claim").get
       val section: Section = claim.section("s1").get
 
-      section.form("s1.q1") must beLike {
+      section.form("s1.g1") must beLike {
         case Some(f: BenefitsForm) => f.answer mustEqual true
       }
     }
@@ -46,7 +46,7 @@ class CarersAllowanceSpec extends Specification {
       val claim = Cache.getAs[Claim]("claim").get
       val section: Section = claim.section("s1").get
 
-      section.form("s1.q1") must beLike {
+      section.form("s1.g1") must beLike {
         case Some(f: BenefitsForm) => f.answer mustEqual false
       }
     }
@@ -71,7 +71,7 @@ class CarersAllowanceSpec extends Specification {
       val claim = Cache.getAs[Claim]("claim").get
       val section: Section = claim.section("s1").get
 
-      section.form("s1.q2") must beLike {
+      section.form("s1.g2") must beLike {
         case Some(f: HoursForm) => f.answer mustEqual true
       }
     }
@@ -88,7 +88,7 @@ class CarersAllowanceSpec extends Specification {
 
       section.forms.size mustEqual 2
 
-      section.form("s1.q2") must beLike {
+      section.form("s1.g2") must beLike {
         case Some(f: HoursForm) => f.answer mustEqual true
       }
     }
@@ -117,7 +117,7 @@ class CarersAllowanceSpec extends Specification {
       val claim = Cache.getAs[Claim]("claim").get
       val section: Section = claim.section("s1").get
 
-      section.form("s1.q3") must beLike {
+      section.form("s1.g3") must beLike {
         case Some(f: LivesInGBForm) => f.answer mustEqual true
       }
     }
@@ -148,7 +148,7 @@ class CarersAllowanceSpec extends Specification {
       val claim = Cache.getAs[Claim]("claim").get
       val section: Section = claim.section("s1").get
 
-      section.form("s1.q4") must beLike {
+      section.form("s1.g4") must beLike {
         case Some(f: Over16Form) => f.answer mustEqual true
       }
     }
