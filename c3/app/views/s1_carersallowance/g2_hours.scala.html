@@ -15,19 +15,18 @@
 
             <div class="beta">BETA</div>
 
-
             <div class="completed">
                 <div class="start-again">
                     <a href="#">Start again</a>
                 </div>
                 <ul>
                     @for(answeredForm <- answeredForms) {
-                    <li>
-                        <h3>@Messages(answeredForm.id)</h3>
+                        <li>
+                            <h3>@Messages(answeredForm.id)</h3>
 
-                        <p>@answeredForm.answerToString</p>
-                        <a href="#">Change this answer</a>
-                    </li>
+                            <p>@answeredForm.answerToString</p>
+                            <a href="#">Change this answer</a>
+                        </li>
                     }
                 </ul>
             </div>
@@ -40,8 +39,8 @@
                         their shopping.</p>
 
                     <ul class="group inline radio">
-                        <li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
-                        <li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
+                        <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
+                        <li><input type="radio" name="answer" id="q3-no" value="false"><label for="q3-no">No</label></li>
                     </ul>
                 </fieldset>
 
