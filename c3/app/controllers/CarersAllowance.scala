@@ -32,7 +32,6 @@ object CarersAllowance extends Controller with CachedClaim {
     )(Over16Form.apply)(Over16Form.unapply)
   )
 
-
   def benefits = newClaim { implicit claim => implicit request =>
     val answeredForms = claim.answeredFormsForSection("s1")
     Ok(views.html.carersallowance.benefits(answeredForms, benefitsForm))
