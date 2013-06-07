@@ -2,52 +2,38 @@
 
 @import helper._
 
-@common.govMain("Benefits - Carers Allowance") {
+@main("Benefits - Carers Allowance", answeredForms) {
 
-    <div id="wrapper" class="carers-allowance">
+    @form(action = routes.CarersAllowance.benefitsSubmit) {
+        <fieldset class="form-elements form-eligibility">
+            <legend><span>Q1</span>Does the person you look after get one of these benefits?</legend>
 
-        <section>
+            <h2 class="first">Personal Independence Payment (PIP)</h2>
 
-            <header>
-                <h1><span>Quick Answer</span>Can you get Carer's Allowance?</h1>
+            <p>At either rate of Daily Living Component.</p>
 
-                <p>Please answer <strong>all</strong> 4 questions.</p>
-            </header>
+            <h2>The care component of Disability Living Allowance (DLA)</h2>
 
-            <div class="beta">BETA</div>
+            <p>At middle or highest rate. The mobility component is not qualifying benefit for Carer's Allowance.</p>
 
-            @form(action = routes.CarersAllowance.benefitsSubmit) {
-                <fieldset class="form-elements form-eligibility">
-                    <legend><span>Q1</span>Does the person you look after get one of these benefits?</legend>
+            <h2>Attendance Allowance (AA)</h2>
 
-                    <h2 class="first">Personal Independence Payment (PIP)</h2>
+            <h2>Constant Attendance Allowance (CAA)</h2>
 
-                    <p>At either rate of Daily Living Component.</p>
+            <p>&#45; At or above the normal maximum rate as an additional to Industrial Injuries Disablement (IID), or</p>
 
-                    <h2>The care component of Disability Living Allowance (DLA)</h2>
+            <p>&#45; basic, full day rate as an addition to War Disablement Pension (WDP)</p>
 
-                    <p>At middle or highest rate. The mobility component is not qualifying benefit for Carer's Allowance.</p>
+            <h2>Armed Forces Independence Payment (AFP)</h2>
 
-                    <h2>Attendance Allowance (AA)</h2>
+            <ul class="group inline radio">
+                <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
+                <li><input type="radio" name="answer" id="q3-no" value="false"><label for="q3-no">No</label></li>
+            </ul>
+        </fieldset>
 
-                    <h2>Constant Attendance Allowance (CAA)</h2>
-
-                    <p>&#45; At or above the normal maximum rate as an additional to Industrial Injuries Disablement (IID), or</p>
-
-                    <p>&#45; basic, full day rate as an addition to War Disablement Pension (WDP)</p>
-
-                    <h2>Armed Forces Independence Payment (AFP)</h2>
-
-                    <ul class="group inline radio">
-                        <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
-                        <li><input type="radio" name="answer" id="q3-no" value="false"><label for="q3-no">No</label></li>
-                    </ul>
-                </fieldset>
-
-                <div class="form-steps">
-                    <input type="submit" value="Next step" class="button">
-                </div>
-            }
-        </section>
-    </div>
+        <div class="form-steps">
+            <input type="submit" value="Next step" class="button">
+        </div>
+    }
 }

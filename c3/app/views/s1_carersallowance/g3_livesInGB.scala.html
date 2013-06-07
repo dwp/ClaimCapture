@@ -2,40 +2,27 @@
 
 @import helper._
 
-@common.govMain("Lives in GB - Carers Allowance") {
+@main("Lives in GB - Carers Allowance", answeredForms) {
 
-    <div id="wrapper" class="carers-allowance">
+    @form(action = routes.CarersAllowance.livesInGBSubmit) {
 
-        <section>
+        <fieldset class="form-elements form-eligibility">
+            <legend><span>Q3</span>Do you normally live in Great Britain?</legend>
 
-            <header>
-                <h1><span>Quick Answer</span>Can you get Carer’s Allowance?</h1>
-            </header>
+            <p>By Great Britain we mean England, Scotland and Wales. You should also answer 'Yes' if you are part of a family living overseas with HM forces.</p>
 
-            <div class="beta">BETA</div>
+            <div class="info">
+                <p>If you live outside Great Britain, but in the European Economic Area (EEA) or Switzerland, and you have answered 'Yes' to the first two questions above, please go to www.gov.uk/carers-allowance for the latest information on whether you can get Carer’s Allowance.</p>
+            </div>
 
-            @answers(answeredForms)
+            <ul class="group inline radio">
+                <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
+                <li><input type="radio" name="answer" id="q3-no" value="false"><label for="q3-no">No</label></li>
+            </ul>
+        </fieldset>
 
-            @form(action = routes.CarersAllowance.livesInGBSubmit) {
-                <fieldset class="form-elements form-eligibility">
-                    <legend><span>Q3</span>Do you normally live in Great Britain?</legend>
-
-                    <p>By Great Britain we mean England, Scotland and Wales. You should also answer 'Yes' if you are part of a family living overseas with HM forces.</p>
-
-                    <div class="info">
-                        <p>If you live outside Great Britain, but in the European Economic Area (EEA) or Switzerland, and you have answered 'Yes' to the first two questions above, please go to www.gov.uk/carers-allowance for the latest information on whether you can get Carer’s Allowance.</p>
-                    </div>
-
-                    <ul class="group inline radio">
-                        <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
-                        <li><input type="radio" name="answer" id="q3-no" value="false"><label for="q3-no">No</label></li>
-                    </ul>
-                </fieldset>
-
-                <div class="form-steps">
-                    <input type="submit" value="Next step" class="button">
-                </div>
-            }
-        </section>
-    </div>
+        <div class="form-steps">
+            <input type="submit" value="Next step" class="button">
+        </div>
+    }
 }

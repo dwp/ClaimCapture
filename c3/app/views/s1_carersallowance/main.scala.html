@@ -1,0 +1,40 @@
+@(title: String, answeredForms: List[CarersAllowanceForm])(content: Html)
+
+@import helper._
+
+@common.govMain(title) {
+
+    <div id="wrapper" class="carers-allowance">
+
+        <section>
+
+            <header>
+                <h1><span>Quick Answer</span>Can you get Carer's Allowance?</h1>
+
+                <p>Please answer <strong>all</strong> 4 questions.</p>
+            </header>
+
+            <div class="beta">BETA</div>
+
+            @if(answeredForms.size > 0) {
+                <div class="completed">
+                    <div class="start-again">
+                        <a href="#">Start again</a>
+                    </div>
+
+                    <ul>
+                        @for(answeredForm <- answeredForms) {
+                        <li style="margin-bottom: 5px">
+                            <h3>@Messages(answeredForm.id)</h3>
+                            <p>@answeredForm.answerToString</p>
+                            <a href="#">Change this answer</a>
+                        </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            @content
+        </section>
+    </div>
+}
