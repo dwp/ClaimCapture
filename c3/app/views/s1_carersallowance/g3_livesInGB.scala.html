@@ -14,21 +14,7 @@
 
             <div class="beta">BETA</div>
 
-            <div class="completed">
-                <div class="start-again">
-                    <a href="#">Start again</a>
-                </div>
-
-                <ul>
-                    @for(answeredForm <- answeredForms) {
-                        <li>
-                            <h3>@Messages(answeredForm.id)</h3>
-                            <p>@answeredForm.answerToString</p>
-                            <a href="#">Change this answer</a>
-                        </li>
-                    }
-                </ul>
-            </div>
+            @answers(answeredForms)
 
             @form(action = routes.CarersAllowance.livesInGBSubmit) {
                 <fieldset class="form-elements form-eligibility">
