@@ -2,18 +2,52 @@
 
 @import helper._
 
-@common.govMain("Carers Allowance") {
+@common.govMain("Hours - Carers Allowance") {
 
-    <h1>Can you get Carer’s Allowance?</h1>
+<div id="wrapper" class="carers-allowance">
 
-    @for(answeredForm <- answeredForms) {
-        <div>@answeredForm.id : @answeredForm.answerToString</div>
-    }
+    <section>
 
-    @form(action = routes.CarersAllowance.hoursSubmit) {
+        <header>
+            <h1><span>Quick Answer</span>Can you get Carer's Allowance?</h1>
+        </header>
 
-        @inputText(hoursForm("answer"), '_label -> "HoursForm")
+        <div class="beta">BETA</div>
 
-        <input type="submit" value="next">
-    }
+
+        <div class="completed">
+            <div class="start-again">
+                <a href="#">Start again</a>
+            </div>
+            <ul>
+                @for(answeredForm <- answeredForms) {
+                <li>
+                    <h3>@answeredForm.id</h3>
+
+                    <p>@answeredForm.answerToString</p>
+                    <a href="#">Change this answer</a>
+                </li>
+                }
+            </ul>
+        </div>
+
+        @form(action = routes.CarersAllowance.hoursSubmit) {
+        <fieldset class="form-elements form-eligibility">
+            <legend><span>Q2</span>Do you spend 35 hours or more each week caring for the person you look after?
+            </legend>
+            <p>Looking after someone can mean many things. It includes things like cooking meals, or helping them with
+                their shopping.</p>
+
+            <ul class="group inline radio">
+                <li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
+                <li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <input type="submit" value="Next step" class="button">
+        </div>
+        }
+    </section>
+</div>
 }

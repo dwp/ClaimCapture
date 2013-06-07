@@ -34,7 +34,7 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
   def update(form: CarersAllowanceForm): Claim = {
     val section = sections.get(form.section) match {
       case None => Section(form.section, List(form))
-      case Some(s) => Section(form.section, s.forms.filterNot(_.id == form.id) :+ form  )
+      case Some(s) => Section(form.section, s.forms.filterNot(_.id == form.id) :+ form)
     }
 
     Claim(sections.updated(section.id, section))
@@ -42,11 +42,13 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
 }
 
 trait CachedClaim {
+
   import play.api.Play.current
+  import scala.language.implicitConversions
 
   implicit def defaultResultToLeft(result: Result) = Left(result)
 
-  implicit def claimAndResultToRight(claimingResult: (Claim, Result)) = Right(claimingResult._1, claimingResult._2)
+  implicit def claimAndResultToRight(claimingResult: (Claim, Result)) = Right(claimingResult)
 
   def newClaim(f: => Claim => Request[AnyContent] => Result) = Action {
     implicit request => {
