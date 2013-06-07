@@ -13,7 +13,7 @@ class G1BenefitsSpec extends Specification {
     }
   }
 
-  "Does the person look after get one of required benefits" should {
+  "Does the person being cared for get one of required benefits" should {
     "acknowledge yes" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
@@ -24,12 +24,12 @@ class G1BenefitsSpec extends Specification {
     }
 
     "acknowledge no" in new WithBrowser {
-        browser.goTo("/")
-        browser.click("#q3-no")
-        browser.submit("input[type='submit']")
-        browser.title() mustEqual "Hours - Carers Allowance"
-        browser.find("div[class=carers-allowance]").getText must contain("Q2")
-        browser.find("div[class=completed] ul li").getText must contain("No")
-      }
+      browser.goTo("/")
+      browser.click("#q3-no")
+      browser.submit("input[type='submit']")
+      browser.title() mustEqual "Hours - Carers Allowance"
+      browser.find("div[class=carers-allowance]").getText must contain("Q2")
+      browser.find("div[class=completed] ul li").getText must contain("No")
+    }
   }
 }
