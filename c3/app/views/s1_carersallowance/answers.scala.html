@@ -7,13 +7,11 @@
 
     <ul>
         @for(answeredForm <- answeredForms) {
-            <li>
+            <li style="margin-bottom: 5px">
                 <h3>@Messages(answeredForm.id)</h3>
                 <p>@answeredForm.answerToString</p>
                 <a href="#">Change this answer</a>
             </li>
-
-            <br/>
         }
     </ul>
 </div>
