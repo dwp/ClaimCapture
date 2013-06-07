@@ -1,3 +1,4 @@
+import _root_.sbt.Keys._
 import sbt._
 import sbt.Keys._
 import play.Project._
@@ -11,14 +12,15 @@ object ApplicationBuild extends Build {
   val appDependencies = Seq(
     // Add your project dependencies here,
     jdbc,
-    anorm,
-    "org.scalatest" %% "scalatest" % "2.0.M5b" % "test"
+    anorm
   )
 
-  var appSettings : Seq[Project.Setting[_]] = Seq(testOptions in Test := Nil)
+  var appSettings : Seq[Project.Setting[_]] = Seq(SassPlugin.sassSettings :_*)
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
-    appSettings ++ SassPlugin.sassSettings :_*
+    scalaVersion := "2.10.0"
+    , scalacOptions ++= Seq("-feature")
+
   )
 
 }
