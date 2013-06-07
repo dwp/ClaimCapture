@@ -19,11 +19,11 @@
                 <div class="start-again">
                     <a href="#">Start again</a>
                 </div>
+
                 <ul>
                     @for(answeredForm <- answeredForms) {
                         <li>
                             <h3>@Messages(answeredForm.id)</h3>
-
                             <p>@answeredForm.answerToString</p>
                             <a href="#">Change this answer</a>
                         </li>
@@ -33,10 +33,9 @@
 
             @form(action = routes.CarersAllowance.hoursSubmit) {
                 <fieldset class="form-elements form-eligibility">
-                    <legend><span>Q2</span>Do you spend 35 hours or more each week caring for the person you look after?
-                    </legend>
-                    <p>Looking after someone can mean many things. It includes things like cooking meals, or helping them with
-                        their shopping.</p>
+                    <legend><span>Q2</span>Do you spend 35 hours or more each week caring for the person you look after?</legend>
+
+                    <p>Looking after someone can mean many things. It includes things like cooking meals, or helping them with their shopping.</p>
 
                     <ul class="group inline radio">
                         <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>

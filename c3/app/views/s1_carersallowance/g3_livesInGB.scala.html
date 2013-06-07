@@ -4,7 +4,6 @@
 
 @common.govMain("Lives in GB - Carers Allowance") {
 
-
     <div id="wrapper" class="carers-allowance">
 
         <section>
@@ -19,23 +18,24 @@
                 <div class="start-again">
                     <a href="#">Start again</a>
                 </div>
+
                 <ul>
                     @for(answeredForm <- answeredForms) {
-                    <li>
-                        <h3>@Messages(answeredForm.id)</h3>
-
-                        <p>@answeredForm.answerToString</p>
-                        <a href="#">Change this answer</a>
-                    </li>
+                        <li>
+                            <h3>@Messages(answeredForm.id)</h3>
+                            <p>@answeredForm.answerToString</p>
+                            <a href="#">Change this answer</a>
+                        </li>
                     }
                 </ul>
             </div>
-            <!-- / completed questions -->
 
             @form(action = routes.CarersAllowance.livesInGBSubmit) {
                 <fieldset class="form-elements form-eligibility">
                     <legend><span>Q3</span>Do you normally live in Great Britain?</legend>
+
                     <p>By Great Britain we mean England, Scotland and Wales. You should also answer 'Yes' if you are part of a family living overseas with HM forces.</p>
+
                     <div class="info">
                         <p>If you live outside Great Britain, but in the European Economic Area (EEA) or Switzerland, and you have answered 'Yes' to the first two questions above, please go to www.gov.uk/carers-allowance for the latest information on whether you can get Carer’s Allowance.</p>
                     </div>
@@ -45,16 +45,11 @@
                         <li><input type="radio" name="answer" id="q3-no" value="false"><label for="q3-no">No</label></li>
                     </ul>
                 </fieldset>
-                <!-- / form elements -->
-
 
                 <div class="form-steps">
                     <input type="submit" value="Next step" class="button">
                 </div>
             }
         </section>
-
-
     </div>
-
 }
