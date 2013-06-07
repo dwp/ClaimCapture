@@ -1,3 +1,8 @@
+import _root_.sbt.Keys._
+import sbt._
+import sbt.Keys._
+import play.Project._
+import net.litola.SassPlugin
 
 object ApplicationBuild extends Build {
 
