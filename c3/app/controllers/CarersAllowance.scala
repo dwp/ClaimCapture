@@ -10,6 +10,7 @@ import models.claim.LivesInGBForm
 import models.claim.Over16Form
 
 object CarersAllowance extends Controller with CachedClaim {
+  val sectionID = "s1"
 
   val benefitsForm = Form(
     mapping(
@@ -49,52 +50,52 @@ object CarersAllowance extends Controller with CachedClaim {
 
   def hours = claiming {
     implicit claim => implicit request =>
-      val answeredForms = claim.completedFormsForSection("s1")
-      claim -> Ok(views.html.s1_carersallowance.g2_hours(answeredForms, hoursForm))
+      val completedForms = claim.completedFormsForSection(sectionID)
+      claim -> Ok(views.html.s1_carersallowance.g2_hours(completedForms, hoursForm))
   }
 
   def hoursSubmit = claiming {
     implicit claim => implicit request =>
-      val answeredForms = claim.completedFormsForSection("s1")
+      val completedForms = claim.completedFormsForSection(sectionID)
 
       hoursForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s1_carersallowance.g2_hours(answeredForms, formWithErrors)),
+        formWithErrors => BadRequest(views.html.s1_carersallowance.g2_hours(completedForms, formWithErrors)),
         inputForm => claim.update(inputForm) -> Redirect(routes.CarersAllowance.livesInGB()))
   }
 
   def livesInGB = claiming {
     implicit claim => implicit request =>
-      val answeredForms = claim.completedFormsForSection("s1")
-      claim -> Ok(views.html.s1_carersallowance.g3_livesInGB(answeredForms, livesInGBForm))
+      val completedForms = claim.completedFormsForSection(sectionID)
+      claim -> Ok(views.html.s1_carersallowance.g3_livesInGB(completedForms, livesInGBForm))
   }
 
   def livesInGBSubmit = claiming {
     implicit claim => implicit request =>
-      val answeredForms = claim.completedFormsForSection("s1")
+      val completedForms = claim.completedFormsForSection(sectionID)
 
       livesInGBForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s1_carersallowance.g3_livesInGB(answeredForms, formWithErrors)),
+        formWithErrors => BadRequest(views.html.s1_carersallowance.g3_livesInGB(completedForms, formWithErrors)),
         inputForm => claim.update(inputForm) -> Redirect(routes.CarersAllowance.over16()))
   }
 
   def over16 = claiming {
     implicit claim => implicit request =>
-      val answeredForms = claim.completedFormsForSection("s1")
-      claim -> Ok(views.html.s1_carersallowance.g4_over16(answeredForms, over16Form))
+      val completedForms = claim.completedFormsForSection(sectionID)
+      claim -> Ok(views.html.s1_carersallowance.g4_over16(completedForms, over16Form))
   }
 
   def over16Submit = claiming {
     implicit claim => implicit request =>
-      val answeredForms = claim.completedFormsForSection("s1")
+      val completedForms = claim.completedFormsForSection(sectionID)
 
       over16Form.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s1_carersallowance.g4_over16(answeredForms, formWithErrors)),
-        inputForm => claim.update(inputForm) -> Redirect(routes.CarersAllowance.over16()))
+        formWithErrors => BadRequest(views.html.s1_carersallowance.g4_over16(completedForms, formWithErrors)),
+        inputForm => claim.update(inputForm) -> Redirect(routes.CarersAllowance.approve()))
   }
 
   def approve = claiming {
     implicit claim => implicit request =>
-      claim -> approved(claim.completedFormsForSection("s1").forall(_.approved))
+      claim -> approved(claim.completedFormsForSection(sectionID).forall(_.approved))
   }
 
   def approved(yes: Boolean) = {
