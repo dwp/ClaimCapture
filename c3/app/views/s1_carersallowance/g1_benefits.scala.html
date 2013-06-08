@@ -1,8 +1,8 @@
-@(answeredForms: List[CarersAllowanceForm], benefitsForm: Form[BenefitsForm])
+@(benefitsForm: Form[models.claim.BenefitsForm])
 
 @import helper._
 
-@main("Benefits - Carers Allowance", answeredForms) {
+@main("Benefits - Carers Allowance") {
 
     @form(action = routes.CarersAllowance.benefitsSubmit) {
         <fieldset class="form-elements form-eligibility">

@@ -1,4 +1,4 @@
-package models
+package models.claim
 
 import org.specs2.mutable.Specification
 

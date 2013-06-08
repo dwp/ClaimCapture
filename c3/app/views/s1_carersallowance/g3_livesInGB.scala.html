@@ -1,8 +1,8 @@
-@(answeredForms: List[CarersAllowanceForm], livesInGBForm: Form[LivesInGBForm])
+@(completedForms: List[models.claim.Form], livesInGBForm: Form[models.claim.LivesInGBForm])
 
 @import helper._
 
-@main("Lives in GB - Carers Allowance", answeredForms) {
+@main("Lives in GB - Carers Allowance", completedForms) {
 
     @form(action = routes.CarersAllowance.livesInGBSubmit) {
 

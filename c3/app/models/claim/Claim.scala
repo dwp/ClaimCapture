@@ -1,14 +1,29 @@
-package models
+package models.claim
 
 import play.api.cache.Cache
 import play.api.mvc.{Action, Result, AnyContent, Request}
+import models.CreationTimeStamp
 
 case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeStamp {
-
   def section(sectionId: String): Option[Section] = {
     sections.get(sectionId)
   }
 
+  def completedFormsForSection(sectionID: String) = sections.get(sectionID) match {
+    case Some(s: Section) => s.forms.filter(form => form.section == sectionID)
+    case _ => Nil
+  }
+
+  def update(form: Form): Claim = {
+    val section = sections.get(form.section) match {
+      case None => Section(form.section, List(form))
+      case Some(s) => Section(form.section, s.forms.filterNot(_.id == form.id) :+ form)
+    }
+
+    Claim(sections.updated(section.id, section))
+  }
+
+  // TODO Do we still need these?
   /*def getNextIncompleteSection: Option[Section] = {
     sections.find(section => !section.isComplete)
   }
@@ -25,24 +40,9 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
   def findFormForQuestionGroup(sectionId: String, questionGroupId: String, claim: Claim) = {
     findQuestionGroupForSection(sectionId, questionGroupId, claim).get
   }*/
-
-  def answeredFormsForSection(sectionID: String) = sections.get(sectionID) match {
-    case Some(s: Section) => s.forms.filter(form => form.section == sectionID)
-    case _ => Nil
-  }
-
-  def update(form: CarersAllowanceForm): Claim = {
-    val section = sections.get(form.section) match {
-      case None => Section(form.section, List(form))
-      case Some(s) => Section(form.section, s.forms.filterNot(_.id == form.id) :+ form)
-    }
-
-    Claim(sections.updated(section.id, section))
-  }
 }
 
 trait CachedClaim {
-
   import play.api.Play.current
   import scala.language.implicitConversions
 

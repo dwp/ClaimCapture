@@ -5,11 +5,12 @@ import play.api.test.{WithApplication, FakeRequest}
 import play.api.test.Helpers._
 
 import play.api.cache.Cache
-import models._
-import models.BenefitsForm
-import models.HoursForm
-import models.Section
-import models.Claim
+import models.claim.BenefitsForm
+import models.claim.HoursForm
+import models.claim.Section
+import models.claim.LivesInGBForm
+import models.claim.Over16Form
+import models.claim.Claim
 import scala.Some
 
 class CarersAllowanceSpec extends Specification {
@@ -61,7 +62,7 @@ class CarersAllowanceSpec extends Specification {
 
       status(result) mustEqual OK
 
-      val answeredForms = claim.answeredFormsForSection(BenefitsForm().section).dropWhile(_.id != BenefitsForm().id)
+      val answeredForms = claim.completedFormsForSection(BenefitsForm().section).dropWhile(_.id != BenefitsForm().id)
       answeredForms(0) mustEqual BenefitsForm(answer = true)
     }
 
@@ -104,7 +105,7 @@ class CarersAllowanceSpec extends Specification {
 
       status(result) mustEqual OK
 
-      val answeredForms = claimWithHoursForm.answeredFormsForSection(LivesInGBForm().section)
+      val answeredForms = claimWithHoursForm.completedFormsForSection(LivesInGBForm().section)
 
       answeredForms(0) mustEqual BenefitsForm(answer = true)
       answeredForms(1) mustEqual HoursForm(answer = true)
@@ -134,7 +135,7 @@ class CarersAllowanceSpec extends Specification {
 
       status(result) mustEqual OK
 
-      val answeredForms = claimWithLivesInGB.answeredFormsForSection(Over16Form().section)
+      val answeredForms = claimWithLivesInGB.completedFormsForSection(Over16Form().section)
 
       answeredForms(0) mustEqual BenefitsForm(answer = true)
       answeredForms(1) mustEqual HoursForm(answer = true)

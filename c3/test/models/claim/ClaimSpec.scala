@@ -1,4 +1,4 @@
-package models
+package models.claim
 
 import org.specs2.mutable.Specification
 
@@ -22,7 +22,7 @@ class ClaimSpec extends Specification {
       }
 
       val section = sectionOption.get
-      section.form(form.id) must beSome(BenefitsForm(answer=false))
+      section.form(form.id) must beSome(BenefitsForm(answer = false))
     }
 
     "contain the section with the form after updating" in {
@@ -31,15 +31,13 @@ class ClaimSpec extends Specification {
       val falseForm = BenefitsForm(answer=false)
 
       val claimWithFalseForm = claim.update(falseForm)
-
       val claimWithTrueForm = claimWithFalseForm.update(trueForm)
 
       val sectionId = trueForm.section
       val sectionOption = claimWithTrueForm.section(sectionId)
       val section = sectionOption.get
-      section.form(trueForm.id) must beSome(BenefitsForm(answer=true))
+
+      section.form(trueForm.id) must beSome(BenefitsForm(answer = true))
     }
-
   }
-
 }
