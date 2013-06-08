@@ -102,10 +102,10 @@ object CarersAllowance extends Controller with CachedClaim {
     if (yes) {
       Ok("Based on your answers you may be entitled to Carer’s Allowance.")
     } else {
-      Ok( """Based on your answers you may not be entitled  to  Carer’s Allowance.
-               If your circumstances change, you may be entitled to Carer’s Allowance.
-               Find out more about Carer’s Allowance
-               https://www.gov.uk/carers-allowance/how-to-claim""")
+      Ok("""Based on your answers you may not be entitled  to  Carer’s Allowance.
+           |If your circumstances change, you may be entitled to Carer’s Allowance.
+           |Find out more about Carer’s Allowance
+           |https://www.gov.uk/carers-allowance/how-to-claim""".stripMargin)
     }
   }
 }
