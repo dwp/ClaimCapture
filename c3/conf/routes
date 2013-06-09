@@ -17,7 +17,7 @@ GET     /sections/allowance/livesInGB       controllers.CarersAllowance.livesInG
 POST    /sections/allowance/livesInGB       controllers.CarersAllowance.livesInGBSubmit
 
 GET     /sections/allowance/over16          controllers.CarersAllowance.over16
-POST    /sections/allowance/over16Submit    controllers.CarersAllowance.over16Submit
+POST    /sections/allowance/over16          controllers.CarersAllowance.over16Submit
 
 GET     /sections/allowance/approve         controllers.CarersAllowance.approve
 
