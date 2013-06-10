@@ -2,7 +2,7 @@ package models.claim
 
 import org.specs2.mutable.Specification
 
-class BenefitsFormSpec extends Specification {
+class xBenefitsFormSpec extends Specification {
 
   "BenefitsForm" should {
     "return the section id" in {

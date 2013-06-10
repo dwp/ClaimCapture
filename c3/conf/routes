@@ -3,23 +3,22 @@
 # ~~~~
 
 # Home page
-GET     /                                   controllers.CarersAllowance.benefits
-GET     /canYouGetCA                        controllers.Application.s01
+GET     /                          controllers.Application.index
 
 #Allowance
-GET     /sections/allowance/benefits        controllers.CarersAllowance.benefits
-POST    /sections/allowance/benefits        controllers.CarersAllowance.benefitsSubmit
+GET     /allowance/benefits        controllers.CarersAllowance.benefits
+POST    /allowance/benefits        controllers.CarersAllowance.benefitsSubmit
 
-GET     /sections/allowance/hours           controllers.CarersAllowance.hours
-POST    /sections/allowance/hours           controllers.CarersAllowance.hoursSubmit
+GET     /allowance/hours           controllers.CarersAllowance.hours
+POST    /allowance/hours           controllers.CarersAllowance.hoursSubmit
 
-GET     /sections/allowance/livesInGB       controllers.CarersAllowance.livesInGB
-POST    /sections/allowance/livesInGB       controllers.CarersAllowance.livesInGBSubmit
+GET     /allowance/livesInGB       controllers.CarersAllowance.livesInGB
+POST    /allowance/livesInGB       controllers.CarersAllowance.livesInGBSubmit
 
-GET     /sections/allowance/over16          controllers.CarersAllowance.over16
-POST    /sections/allowance/over16Submit    controllers.CarersAllowance.over16Submit
+GET     /allowance/over16          controllers.CarersAllowance.over16
+POST    /allowance/over16          controllers.CarersAllowance.over16Submit
 
-GET     /sections/allowance/approve         controllers.CarersAllowance.approve
+GET     /allowance/approve         controllers.CarersAllowance.approve
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                       controllers.Assets.at(path="/public", file)

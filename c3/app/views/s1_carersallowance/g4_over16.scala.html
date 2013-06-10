@@ -2,21 +2,21 @@
 
 @import helper._
 
-@main("Over 16 - Carers Allowance", completedForms) {
+@main("Over 16 - Carer's Allowance", completedForms) {
 
-    @form(action = routes.CarersAllowance.over16Submit) {
+@form(action = routes.CarersAllowance.over16Submit) {
 
-        <fieldset class="form-elements form-eligibility">
-            <legend><span>Q4</span>Are you aged 16 or over?</legend>
+<fieldset class="form-elements form-eligibility">
+    <legend><span>Q4</span>Are you aged 16 or over?</legend>
 
-            <ul class="group inline radio">
-                <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
-                <li><input type="radio" name="answer" id="q3-no" value="false"><label for="q3-no">No</label></li>
-            </ul>
-        </fieldset>
+    <ul class="group inline radio">
+        <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
+        <li><input type="radio" name="answer" id="q3-no" value="false"><label for="q3-no">No</label></li>
+    </ul>
+</fieldset>
 
-        <div class="form-steps">
-            <input type="submit" value="Next step" class="button">
-        </div>
-    }
+<div class="form-steps">
+    <input type="submit" value="Next step" class="button">
+</div>
+}
 }

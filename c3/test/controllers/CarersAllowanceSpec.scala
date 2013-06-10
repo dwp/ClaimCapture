@@ -23,6 +23,8 @@ class CarersAllowanceSpec extends Specification {
 
       val result = CarersAllowance.benefits(request)
 
+      header(CACHE_CONTROL, result) must beSome("no-store")
+
       Cache.get("claim") must beLike {
         case Some(c: Claim) => c.created mustNotEqual claim.created
       }
@@ -155,14 +157,15 @@ class CarersAllowanceSpec extends Specification {
     }
 
     "acknowledge that the carer is eligible for allowance" in new WithApplication {
+      val request = FakeRequest().withSession("connected" -> "claim")
       val claim = Claim().update(BenefitsForm(answer = true))
-                         .update(HoursForm(answer = true))
-                         .update(LivesInGBForm(answer = true))
-                         .update(Over16Form(answer = true))
+        .update(HoursForm(answer = true))
+        .update(LivesInGBForm(answer = true))
+        .update(Over16Form(answer = true))
 
       Cache.set("claim", claim)
 
-      val result = CarersAllowance.approve(FakeRequest())
+      val result = CarersAllowance.approve(request)
       contentAsString(result) must contain("Based on your answers you may be entitled to Carer’s Allowance.")
     }
 
@@ -170,9 +173,9 @@ class CarersAllowanceSpec extends Specification {
       val request = FakeRequest().withSession("connected" -> "claim")
 
       val claim = Claim().update(BenefitsForm(answer = true))
-                         .update(HoursForm(answer = true))
-                         .update(LivesInGBForm(answer = false))
-                         .update(Over16Form(answer = true))
+        .update(HoursForm(answer = true))
+        .update(LivesInGBForm(answer = false))
+        .update(Over16Form(answer = true))
 
       Cache.set("claim", claim)
 
@@ -180,5 +183,6 @@ class CarersAllowanceSpec extends Specification {
 
       contentAsString(result) must contain("Based on your answers you may not be entitled  to  Carer’s Allowance.")
     }
+
   }
 }
