@@ -9,7 +9,34 @@ class G2HoursSpec extends Specification with Tags {
     "be presented" in new WithBrowser {
       browser.goTo("/allowance/hours")
       browser.title() mustEqual "Hours - Carer's Allowance"
-      browser.find("div[class=carers-allowance]").getText must contain("Q2")
+    }
+  } section ("integration")
+
+
+  "Do you spend 35 hours or more each week caring" should {
+    "acknowledge yes" in new WithBrowser {
+      browser.goTo("/")
+      browser.click("#q3-yes")
+      browser.submit("input[type='submit']")
+      browser.title() mustEqual "Hours - Carer's Allowance"
+      browser.click("#q3-yes")
+      browser.submit("input[type='submit']")
+
+      browser.title() mustEqual "Lives in GB - Carer's Allowance"
+      browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")
+      browser.find("div[class=completed] ul li").get(1).getText must contain("Yes")
+    }
+    "acknowledge no" in new WithBrowser {
+      browser.goTo("/")
+      browser.click("#q3-yes")
+      browser.submit("input[type='submit']")
+      browser.title() mustEqual "Hours - Carer's Allowance"
+      browser.click("#q3-no")
+      browser.submit("input[type='submit']")
+
+      browser.title() mustEqual "Lives in GB - Carer's Allowance"
+      browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")
+      browser.find("div[class=completed] ul li").get(1).getText must contain("No")
     }
   } section ("integration")
 }
