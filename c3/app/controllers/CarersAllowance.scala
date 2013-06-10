@@ -51,7 +51,8 @@ object CarersAllowance extends Controller with CachedClaim {
   def hours = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(sectionID)
-      claim -> Ok(views.html.s1_carersallowance.g2_hours(completedForms, hoursForm))
+
+      claim -> Ok(views.html.s1_carersallowance.g2_hours(hoursForm, completedForms.takeWhile(_.id != HoursForm().id)))
   }
 
   def hoursSubmit = claiming {
@@ -59,14 +60,15 @@ object CarersAllowance extends Controller with CachedClaim {
       val completedForms = claim.completedFormsForSection(sectionID)
 
       hoursForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s1_carersallowance.g2_hours(completedForms, formWithErrors)),
+        formWithErrors => BadRequest(views.html.s1_carersallowance.g2_hours(formWithErrors, completedForms)),
         inputForm => claim.update(inputForm) -> Redirect(routes.CarersAllowance.livesInGB()))
   }
 
   def livesInGB = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(sectionID)
-      claim -> Ok(views.html.s1_carersallowance.g3_livesInGB(completedForms, livesInGBForm))
+
+      claim -> Ok(views.html.s1_carersallowance.g3_livesInGB(livesInGBForm, completedForms.takeWhile(_.id != LivesInGBForm().id)))
   }
 
   def livesInGBSubmit = claiming {
@@ -74,14 +76,15 @@ object CarersAllowance extends Controller with CachedClaim {
       val completedForms = claim.completedFormsForSection(sectionID)
 
       livesInGBForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s1_carersallowance.g3_livesInGB(completedForms, formWithErrors)),
+        formWithErrors => BadRequest(views.html.s1_carersallowance.g3_livesInGB(formWithErrors, completedForms)),
         inputForm => claim.update(inputForm) -> Redirect(routes.CarersAllowance.over16()))
   }
 
   def over16 = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(sectionID)
-      claim -> Ok(views.html.s1_carersallowance.g4_over16(completedForms, over16Form))
+
+      claim -> Ok(views.html.s1_carersallowance.g4_over16(over16Form, completedForms.takeWhile(_.id != Over16Form().id)))
   }
 
   def over16Submit = claiming {
@@ -89,7 +92,7 @@ object CarersAllowance extends Controller with CachedClaim {
       val completedForms = claim.completedFormsForSection(sectionID)
 
       over16Form.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s1_carersallowance.g4_over16(completedForms, formWithErrors)),
+        formWithErrors => BadRequest(views.html.s1_carersallowance.g4_over16(formWithErrors, completedForms)),
         inputForm => claim.update(inputForm) -> Redirect(routes.CarersAllowance.approve()))
   }
 
@@ -98,6 +101,6 @@ object CarersAllowance extends Controller with CachedClaim {
       val completedForms = claim.completedFormsForSection(sectionID)
       val approved = claim.completedFormsForSection(sectionID).forall(_.approved) && completedForms.length == 4
 
-      claim -> Ok(views.html.s1_carersallowance.g5_approve(completedForms, approved))
+      claim -> Ok(views.html.s1_carersallowance.g5_approve(approved, completedForms))
   }
 }
