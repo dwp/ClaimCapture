@@ -4,9 +4,8 @@ import play.api._
 import play.api.mvc._
 
 object Application extends Controller {
-
   def index = Action {
-    Ok(views.html.index("Carers Claim Capture"))
+    Redirect(routes.CarersAllowance.benefits())
   }
 
   def cookies = Action { request =>

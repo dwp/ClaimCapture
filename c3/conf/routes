@@ -3,8 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                                   controllers.CarersAllowance.benefits
-GET     /canYouGetCA                        controllers.Application.s01
+GET     /                                   controllers.Application.index
 
 #Allowance
 GET     /sections/allowance/benefits        controllers.CarersAllowance.benefits
