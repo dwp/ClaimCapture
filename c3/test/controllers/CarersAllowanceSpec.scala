@@ -182,7 +182,7 @@ class CarersAllowanceSpec extends Specification {
 
       val result = CarersAllowance.approve(request)
 
-      contentAsString(result) must contain("Based on your answers you may not be entitled  to  Carer’s Allowance.")
+      contentAsString(result) must contain("Based on your answers you may not be entitled to Carer’s Allowance.")
     }
   }
 }

@@ -2,22 +2,21 @@
 
 @main("Can you get Carer's Allowance?", completedForms, scrollFormSubmitIntoView = false) {
 
-@if(approved) {
-<div class="prompt">
-    <p>Based on your answers you may be entitled to Carer’s Allowance.</p>
-</div>
-} else {
-<div class="prompt error">
-    <h3>Based on your answers you may not be entitled to Carer’s Allowance.</h3>
+    @if(approved) {
+        <div class="prompt">
+            <p>Based on your answers you may be entitled to Carer’s Allowance.</p>
+        </div>
+        } else {
+        <div class="prompt error">
+            <h3>Based on your answers you may not be entitled to Carer’s Allowance.</h3>
 
-    <p>Please click on the link below to find out more on how to qualify: <a href="#">https://www.gov.uk/carers-allowance/how-to-claim</a>
-    </p>
-</div>
-}
+            <p>Please click on the link below to find out more on how to qualify: <a href="#">https://www.gov.uk/carers-allowance/how-to-claim</a>
+            </p>
+        </div>
+    }
 
-<div class="form-steps">
-    <p>Please click the <strong>'Next Step'</strong> button below.</p>
-    <input type="submit" value="Next step" class="button">
-</div>
-
+    <div class="form-steps">
+        <p>Please click the <strong>'Next Step'</strong> button below.</p>
+        <input type="submit" value="Next step" class="button">
+    </div>
 }
