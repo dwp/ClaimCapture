@@ -10,7 +10,7 @@ class G3LivesInGBSpec extends Specification with Tags {
       browser.goTo("/allowance/livesInGB")
       browser.title() mustEqual "Lives in GB - Carer's Allowance"
     }
-  } section ("integration")
+  } section "integration"
 
 
   "Do you normally live in Great Britain" should {
@@ -27,6 +27,7 @@ class G3LivesInGBSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").get(2).getText must contain("Q3")
       browser.find("div[class=completed] ul li").get(2).getText must contain("Yes")
     }
+
     "acknowledge no" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
@@ -41,5 +42,5 @@ class G3LivesInGBSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").get(2).getText must contain("No")
     }
 
-  } section ("integration")
+  } section "integration"
 }

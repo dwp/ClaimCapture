@@ -4,28 +4,28 @@
 
 @main("Lives in GB - Carer's Allowance", completedForms) {
 
-@form(action = routes.CarersAllowance.livesInGBSubmit) {
+    @form(action = routes.CarersAllowance.livesInGBSubmit) {
 
-<fieldset class="form-elements form-eligibility">
-    <legend><span>Q3</span>Do you normally live in Great Britain?</legend>
+        <fieldset class="form-elements form-eligibility">
+            <legend><span>Q3</span>Do you normally live in Great Britain?</legend>
 
-    <p>By Great Britain we mean England, Scotland and Wales. You should also answer 'Yes' if you are part of a family
-        living overseas with HM forces.</p>
+            <p>By Great Britain we mean England, Scotland and Wales. You should also answer 'Yes' if you are part of a family
+                living overseas with HM forces.</p>
 
-    <div class="info">
-        <p>If you live outside Great Britain, but in the European Economic Area (EEA) or Switzerland, and you have
-            answered 'Yes' to the first two questions above, please go to www.gov.uk/carers-allowance for the latest
-            information on whether you can get Carer’s Allowance.</p>
-    </div>
+            <div class="info">
+                <p>If you live outside Great Britain, but in the European Economic Area (EEA) or Switzerland, and you have
+                    answered 'Yes' to the first two questions above, please go to www.gov.uk/carers-allowance for the latest
+                    information on whether you can get Carer’s Allowance.</p>
+            </div>
 
-    <ul class="group inline radio">
-        <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
-        <li><input type="radio" name="answer" id="q3-no" value="false"><label for="q3-no">No</label></li>
-    </ul>
-</fieldset>
+            <ul class="group inline radio">
+                <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
+                <li><input type="radio" name="answer" id="q3-no" value="false"><label for="q3-no">No</label></li>
+            </ul>
+        </fieldset>
 
-<div class="form-steps">
-    <input type="submit" value="Next step" class="button">
-</div>
-}
+        <div class="form-steps">
+            <input type="submit" value="Next step" class="button">
+        </div>
+    }
 }

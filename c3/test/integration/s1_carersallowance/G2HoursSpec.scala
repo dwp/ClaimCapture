@@ -10,7 +10,7 @@ class G2HoursSpec extends Specification with Tags {
       browser.goTo("/allowance/hours")
       browser.title() mustEqual "Hours - Carer's Allowance"
     }
-  } section ("integration")
+  } section "integration"
 
 
   "Do you spend 35 hours or more each week caring" should {
@@ -26,6 +26,7 @@ class G2HoursSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")
       browser.find("div[class=completed] ul li").get(1).getText must contain("Yes")
     }
+
     "acknowledge no" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
@@ -38,5 +39,5 @@ class G2HoursSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")
       browser.find("div[class=completed] ul li").get(1).getText must contain("No")
     }
-  } section ("integration")
+  } section "integration"
 }

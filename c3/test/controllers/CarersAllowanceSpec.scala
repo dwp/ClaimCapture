@@ -15,7 +15,6 @@ import scala.Some
 import org.specs2.specification.Scope
 
 class CarersAllowanceSpec extends Specification {
-  sequential
 
   trait ClaimKey extends Scope {
     val claimKey = java.util.UUID.randomUUID().toString
@@ -25,15 +24,14 @@ class CarersAllowanceSpec extends Specification {
     "start with a new Claim" in new WithApplication with ClaimKey {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val claim = Claim()
-      Cache.set(claimKey, claim)
+      CarersAllowance.benefits(request)
+      val claim = Cache.getAs[Claim](claimKey)
 
       val result = CarersAllowance.benefits(request)
+      header(CACHE_CONTROL, result) must beSome("no-cache, no-store")
 
-      header(CACHE_CONTROL, result) must beSome("no-store")
-
-      Cache.get(claimKey) must beLike {
-        case Some(c: Claim) => c.created mustNotEqual claim.created
+      Cache.getAs[Claim](claimKey) must beLike {
+        case Some(c: Claim) => c.created mustNotEqual claim.get.created
       }
     }
 

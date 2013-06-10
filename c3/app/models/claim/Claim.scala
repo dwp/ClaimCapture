@@ -45,7 +45,7 @@ trait CachedClaim {
       val claim = Claim()
       Cache.set(key, claim, expiration)
 
-      f(claim)(request).withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-store")
+      f(claim)(request).withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
     }
   }
 
@@ -56,10 +56,11 @@ trait CachedClaim {
       val claim = Cache.getOrElse(key, expiration)(Claim())
 
       f(claim)(request) match {
-        case Left(r: Result) => r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-store")
+        case Left(r: Result) => r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+
         case Right((c: Claim, r: Result)) => {
           Cache.set(key, c, expiration)
-          r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-store")
+          r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
         }
       }
     }
