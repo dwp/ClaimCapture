@@ -105,11 +105,22 @@
     		<header>
     			<h1>About you - the Carer</h1>
     		</header>
-
-    			
+			
+			
     	
 			<fieldset class="form-elements">
 				<legend>Your details</legend>
+				
+				<div class="validation-summary">
+				<h2>There was a problem submitting the form</h2>
+				<p>Please fix the following:</p>
+				<ol>
+					<li><a href="#surname">Surname or family name</a></li>
+					<li><a href="#nationality">Enter your nationality</a></li>
+				</ol>
+					
+			</div>
+			<!-- / validation message -->
 				
 				<ul class="group">
 					<li>
@@ -127,7 +138,8 @@
 						<label for="middle-name">Middle Name</label>
 						<input type="text" name="middle-name" id="middle-name">
 					</li>
-					<li>
+					<li class="validation">
+						<p class="error">Enter your surname or family name</p>
 						<label for="surname"><em>*</em>Surname or family name</label>
 						<input type="text" name="surname" id="surname">
 					</li>
