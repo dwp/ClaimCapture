@@ -134,7 +134,7 @@ $button-green-hover: #004b27;
    	    &.form-eligibility {
 	   	    padding-left: 3em;
 	   	    legend {
-		   	    padding-left: 1.8em;
+		   	    padding: .12em 0 1em 1.8em;
 		   	    margin-left: -1.8em;
 		   	    color: inherit;
 	   	    }
@@ -145,7 +145,7 @@ $button-green-hover: #004b27;
    	   legend {
 	   	   font-weight: 600; 
 	   	   font-size: 2.4rem;
-	   	   padding: .12em 0 1em 0;
+	   	   padding: .12em 0 .5em 0;
 	   	   position: relative;
 	   	   line-height: 1.2em;
 	   	   color: #333399;
@@ -232,8 +232,8 @@ $button-green-hover: #004b27;
 				   display: block;
 				   font-size: 1.9rem;
 				   font-weight: 400;
-				   line-height: 1.4em;
-				   padding-bottom: .2em;
+				   line-height: 1.3em;
+				   padding-bottom: .3em;
 				    @media screen and (max-width: 600px) {line-height: 1.2em;}
 				   .ie & {
 					   font-size: 19px;
