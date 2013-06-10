@@ -2,7 +2,6 @@ package models.claim
 
 import play.api.cache.Cache
 import play.api.mvc.{Action, Result, AnyContent, Request}
-import play.api.http.HeaderNames._
 import models.CreationTimeStamp
 
 case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeStamp {
@@ -16,20 +15,24 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
   }
 
   def update(form: Form): Claim = {
+    def update(form: Form, forms: List[Form]) = {
+      val updated = forms.map(f => if (f.id == form.id) form else f)
+      if (updated.contains(form)) updated else updated :+ form
+    }
+
     val section = sections.get(form.section) match {
       case None => Section(form.section, List(form))
-      case Some(s) => Section(form.section, s.forms.takeWhile(_.id != form.id) :+ form)
+      case Some(s) => Section(form.section, update(form, s.forms))
     }
 
     Claim(sections.updated(section.id, section))
   }
-
 }
 
 trait CachedClaim {
-
   import play.api.Play.current
   import scala.language.implicitConversions
+  import play.api.http.HeaderNames._
 
   implicit def defaultResultToLeft(result: Result) = Left(result)
 
