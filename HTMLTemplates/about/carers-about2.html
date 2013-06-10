@@ -115,10 +115,23 @@
     			</ul>
     		</div>
     		<!-- / completed questions -->
+    		
+   
     			
     	
 			<fieldset class="form-elements">
 				<legend>Your contact details</legend>
+				
+				<div class="validation-summary">
+				<h2>There was a problem submitting the form</h2>
+				<p>Please fix the following:</p>
+				<ol>
+					<li><a href="#postcode">Postcode</a></li>
+				</ol>
+					
+			</div>
+			<!-- / validation message -->
+				
 				
 				<ul class="group">
 		
@@ -140,8 +153,9 @@
 						</ul>
 					</li>
 					
-					<li>
-						<label for="postcode">Postcode</label>
+					<li class="validation">
+						<p class="error">Enter your postcode</p>
+						<label for="postcode"><em>*</em>Postcode</label>
 						<input type="text" name="postcode" id="postcode">
 					</li>
 					

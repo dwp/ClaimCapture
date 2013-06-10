@@ -127,6 +127,36 @@ $button-green-hover: #004b27;
 	   }
    }
    
+   .validation-summary {
+	   background: #fef7f7;
+	   border: 3px solid #df3034;
+	   padding: 1rem;
+	   margin: 1em 0 1em -0.9em;
+	   .ie & {
+		   padding: 10px;
+	   }
+	   h2 {
+		   font-size: 2.4rem;
+		   font-weight: 700;
+	   }
+	   p {
+		   margin-top: .75em;
+	   }
+	   ol {
+		   list-style: decimal;
+		   padding-left: 1.45em;
+		   margin: .75em 0 0 0;
+		   color: #df3034;
+		   a {
+			   color: #df3034;
+			   text-decoration: none;
+			   &:hover {
+				   text-decoration: underline;
+			   }
+		   }
+	   }
+   }
+   
    .form-elements {
    	   margin: 2em 20% 0 0;
    	   padding-left: 1em;
@@ -198,8 +228,8 @@ $button-green-hover: #004b27;
 			   
 			   &.validation {
 				   background: #fef7f7;
-				   padding: .6em 1em;
-				   margin-left: -2.1rem;
+				   padding: .6em .7em;
+				   margin-left: -1.5rem;
 				   border-left: 5px solid #df3034;
 			       position: relative;
 			       overflow: hidden;
