@@ -20,8 +20,4 @@ object Application extends Controller {
       Ok(views.html.index("New Session Key:" + key)).withSession("connected" -> key)
     }
   }
-
-  def s01 = Action {
-    Ok(views.html.s01.section())
-  }
 }
