@@ -4,23 +4,20 @@
 
 @common.govMain(title) {
 
-    <div id="wrapper" class="carers-allowance">
+<div id="wrapper" class="carers-allowance">
+    <div class="carers-container">
+    
+    	<section>
+    	
+    		<header>
+    			<h1><span>Quick Answer</span>Can you get Carer's Allowance?</h1>
+  
+    		</header>
 
-        <section>
-
-            <header>
-                <h1><span>Quick Answer</span>Can you get Carer's Allowance?</h1>
-
-                <p>Please answer <strong>all</strong> 4 questions.</p>
-            </header>
-
-            <div class="beta">BETA</div>
 
             @if(completedForms.size > 0) {
                 <div class="completed">
-                    <div class="start-again">
-                        <a href="#">Start again</a>
-                    </div>
+
 
                     <ul>
                         @for(completedForm <- completedForms) {
@@ -37,6 +34,7 @@
             @content
 
         </section>
+    </div>
     </div>
 }
 

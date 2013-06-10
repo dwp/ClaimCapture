@@ -1,9 +1,10 @@
 @(title: String)(content: Html)
 <!DOCTYPE html>
-<!--[if lt IE 9]><html class="lte-ie8 " lang="en"><![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" class=""><!--<![endif]-->
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<!--[if IE 7]>         <html class="ie ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="ie ie8"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
         <title>@title</title>
 
@@ -94,14 +95,6 @@
         </div>
 
 
-
-        <div id="global-breadcrumb" class="header-context">
-            <nav role="navigation">
-                <ol class="group">
-                    <li><a href="/">Home</a></li>
-                </ol>
-            </nav>
-        </div>
 
         <div id="wrapper" class="group">
             @content
