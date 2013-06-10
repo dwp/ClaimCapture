@@ -7,5 +7,4 @@ object Application extends Controller {
   def index = Action {
     Redirect(routes.CarersAllowance.benefits())
   }
-
 }

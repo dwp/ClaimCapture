@@ -97,7 +97,7 @@ object CarersAllowance extends Controller with CachedClaim {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(sectionID)
       val approved = claim.completedFormsForSection(sectionID).forall(_.approved) && completedForms.length == 4
+
       claim -> Ok(views.html.s1_carersallowance.g5_approve(completedForms, approved))
   }
-
 }

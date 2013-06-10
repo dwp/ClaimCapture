@@ -34,5 +34,4 @@ class NavigationSpec extends Specification with Tags {
       completed.getText must contain("Q1")
     }
   } section ("integration")
-
 }

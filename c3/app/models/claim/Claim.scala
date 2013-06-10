@@ -2,7 +2,6 @@ package models.claim
 
 import play.api.cache.Cache
 import play.api.mvc.{Action, Result, AnyContent, Request}
-import play.api.http.HeaderNames._
 import models.CreationTimeStamp
 
 case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeStamp {
@@ -27,9 +26,9 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
 }
 
 trait CachedClaim {
-
   import play.api.Play.current
   import scala.language.implicitConversions
+  import play.api.http.HeaderNames._
 
   implicit def defaultResultToLeft(result: Result) = Left(result)
 
