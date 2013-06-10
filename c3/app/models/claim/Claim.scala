@@ -15,14 +15,18 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
   }
 
   def update(form: Form): Claim = {
+    def update(form: Form, forms: List[Form]) = {
+      val updated = forms.map(f => if (f.id == form.id) form else f)
+      if (updated.contains(form)) updated else updated :+ form
+    }
+
     val section = sections.get(form.section) match {
       case None => Section(form.section, List(form))
-      case Some(s) => Section(form.section, s.forms.takeWhile(_.id != form.id) :+ form)
+      case Some(s) => Section(form.section, update(form, s.forms))
     }
 
     Claim(sections.updated(section.id, section))
   }
-
 }
 
 trait CachedClaim {
