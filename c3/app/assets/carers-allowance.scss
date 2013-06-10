@@ -135,6 +135,9 @@ $button-green-hover: #004b27;
 	   .ie & {
 		   padding: 10px;
 	   }
+	   .ie7 & {
+		   padding-top: 0;
+	   }
 	   h2 {
 		   font-size: 2.4rem;
 		   font-weight: 700;
@@ -167,6 +170,10 @@ $button-green-hover: #004b27;
 		   	    padding: .12em 0 1em 1.8em;
 		   	    margin-left: -1.8em;
 		   	    color: inherit;
+		   	    .ie7 & {
+			   	    display: block;
+			   	    line-height: 1.1em;
+		   	    }
 	   	    }
 	   	    ul {
 		   	    margin-top: 1.6em;
@@ -200,6 +207,9 @@ $button-green-hover: #004b27;
 			   	   font-size: 15px;
 		   	   }
 	   	   }
+	   	   div {
+		   	   width: 100%;
+		   }
    	   }
    	   h2 {
 	   	   font-size: 1.9rem;
@@ -298,6 +308,9 @@ $button-green-hover: #004b27;
 			   }
 			   input[type="radio"] {
 				   font-size: 1em;
+				   .ie7 & {
+					   margin-top: -26px;
+				   }
 			   }
 			   select {
 				   padding: 0.1em 0.4em;
