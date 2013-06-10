@@ -115,6 +115,8 @@
     margin: 1em 0 1em -0.9em; }
     .ie .carers-allowance .validation-summary {
       padding: 10px; }
+    .ie7 .carers-allowance .validation-summary {
+      padding-top: 0; }
     .carers-allowance .validation-summary h2 {
       font-size: 2.4rem;
       font-weight: 700; }
@@ -142,6 +144,9 @@
         padding: 0.12em 0 1em 1.8em;
         margin-left: -1.8em;
         color: inherit; }
+        .ie7 .carers-allowance .form-elements.form-eligibility legend {
+          display: block;
+          line-height: 1.1em; }
       .carers-allowance .form-elements.form-eligibility ul {
         margin-top: 1.6em; }
     .carers-allowance .form-elements legend {
@@ -169,6 +174,8 @@
         left: 0; }
         .ie .carers-allowance .form-elements legend span {
           font-size: 15px; }
+      .carers-allowance .form-elements legend div {
+        width: 100%; }
     .carers-allowance .form-elements h2 {
       font-size: 1.9rem;
       font-weight: 600;
@@ -248,6 +255,8 @@
             width: 283px; }
         .carers-allowance .form-elements ul li input[type="radio"] {
           font-size: 1em; }
+          .ie7 .carers-allowance .form-elements ul li input[type="radio"] {
+            margin-top: -26px; }
         .carers-allowance .form-elements ul li select {
           padding: 0.1em 0.4em;
           min-width: 15rem;
