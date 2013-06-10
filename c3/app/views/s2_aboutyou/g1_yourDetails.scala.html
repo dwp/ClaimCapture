@@ -1,0 +1,122 @@
+@(benefitsForm: Form)
+
+@import helper._
+
+@main("Benefits - Carer's Allowance", scrollFormSubmitIntoView = false) {
+
+    <fieldset class="form-elements">
+        <legend>Your details</legend>
+
+        <div class="validation-summary">
+            <h2>There was a problem submitting the form</h2>
+            <p>Please fix the following:</p>
+            <ol>
+                <li><a href="#surname">Surname or family name</a></li>
+                <li><a href="#nationality">Enter your nationality</a></li>
+            </ol>
+
+        </div>
+            <!-- / validation message -->
+
+        <ul class="group">
+            <li>
+                <label for="title"><em>*</em>Title</label>
+                <select name="title" id="title">
+                    <option value="#">Mr</option>
+                    <option value="#">Mrs</option>
+                </select>
+            </li>
+            <li>
+                <label for="first-name"><em>*</em>First Name</label>
+                <input type="text" name="first-name" id="first-name">
+            </li>
+            <li>
+                <label for="middle-name">Middle Name</label>
+                <input type="text" name="middle-name" id="middle-name">
+            </li>
+            <li class="validation">
+                <p class="error">Enter your surname or family name</p>
+                <label for="surname"><em>*</em>Surname or family name</label>
+                <input type="text" name="surname" id="surname">
+            </li>
+            <li>
+                <label for="other-name">All other surnames or family names you have used or have been known by</label>
+                <input type="text" name="other-name" id="other-name">
+            </li>
+                <!-- <li>
+						<p>National Insurance Number</p>
+						<ul class="inline ni-number label-strip">
+							<li>
+								<label for="ni-1">NI part one</label>
+								<input type="text" name="ni-1" id="ni-1" maxlength="2">
+							</li>
+							<li>
+								<label for="ni-2">NI part two</label>
+								<input type="tel" name="ni-2" id="ni-2" maxlength="2">
+							</li>
+							<li>
+								<label for="ni-3">NI part three</label>
+								<input type="tel" name="ni-3" id="ni-3" maxlength="2">
+							</li>
+							<li>
+								<label for="ni-4">NI part four</label>
+								<input type="tel" name="ni-4" id="ni-4" maxlength="2">
+							</li>
+							<li>
+								<label for="ni-5">NI part five</label>
+								<input type="text" name="ni-5" id="ni-5" class="single" maxlength="1">
+							</li>
+						</ul>
+					</li> -->
+
+            <li>
+                <label for="ni-alt">National Insurance Number</label>
+                <input type="text" name="ni-alt" id="ni-alt" placeholder="eg: JW-41-54-67-B">
+                <p class="helper">Lorem ipsum dolor sit amet, JW-42-56-98-A</p>
+            </li>
+
+            <li>
+                <p><em>*</em>Date of birth</p>
+                <ul class="inline year label-strip">
+                    <li>
+                        <label for="day">Day</label>
+                        <select name="day" id="day">
+                            <option value="#">1</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="month">Month</label>
+                        <select name="month" id="month">
+                            <option value="#">January</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="year">Year</label>
+                        <input type="tel" name="year" id="year" placeholder="eg 1980">
+                    </li>
+                </ul>
+            </li>
+            <li class="validation">
+                <p class="error">Enter your nationality</p>
+                <label for="nationality"><em>*</em>Nationality</label>
+                <input type="text" name="nationality" id="nationality">
+            </li>
+            <li>
+                <label for="marital"><em>*</em>What is your marital or civil partnership status?</label>
+                <select name="marital" id="marital">
+                    <option value="#">Single</option>
+                    <option value="#">Married</option>
+                </select>
+            </li>
+            <li>
+                <p>Have you always lived in the United Kingdom?</p>
+                <ul class="inline">
+                    <li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
+                    <li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
+                </ul>
+            </li>
+        </ul>
+
+    </fieldset>
+
+}
