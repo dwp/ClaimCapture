@@ -77,7 +77,7 @@ $button-green-hover: #004b27;
    
    /* completed questions */
    .completed {
-   	   margin-top: 2em;
+   	   margin-top: 1.4em;
    	   .start-again {
 	   	   text-align: right;
 	   	   a {
@@ -200,8 +200,10 @@ $button-green-hover: #004b27;
 	   	    }
    	    }
    	    &.results-detail {
-	   	    margin-right: 1em;
+	   	    margin-right: 0;
+	   	    padding-left: 0;
 	   	    legend {
+	   	    	margin-left: .5em;
 		   	    padding-bottom: .8em;
 	   	    }
 	   	    @media screen and (max-width: 750px) {margin-right: 0;}

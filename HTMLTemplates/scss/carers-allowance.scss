@@ -13,12 +13,18 @@ $button-green-hover: #004b27;
 	   max-width: 960px;
 	   @media screen and (max-width: 500px) {padding-left: .75em; padding-right: .75em;}
    }
+   
+   
+   
+   /* section */
    section {
    	   border-top: 10px solid #f47738;
 	   background: #fff;
 	   position: relative;
 	   padding-top: 1.6em;
 	   @media screen and (max-width: 640px) {padding-left: 0; padding-right: 0; border-top: 0;}
+	   
+	   /* section header */
 	   header {
 		   margin-right: 20%;
 		   @media screen and (max-width: 700px) {margin-right: 0;}
@@ -49,6 +55,7 @@ $button-green-hover: #004b27;
 		   }
 	   }
 	   /* section header */
+	   
 	   p {
 		   margin: 0;
 		   font-size: 1.9rem;
@@ -64,10 +71,13 @@ $button-green-hover: #004b27;
 		   list-style: none;
 	   }
    }
-   /* section */
+   /* section end */
    
+   
+   
+   /* completed questions */
    .completed {
-   	   margin-top: 2em;
+   	   margin-top: 1.4em;
    	   .start-again {
 	   	   text-align: right;
 	   	   a {
@@ -130,8 +140,11 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
-   /* completed questions */
+   /* completed questions end */
    
+   
+   
+   /* Validation panel */
    .validation-summary {
 	   background: #fef7f7;
 	   border: 3px solid #df3034;
@@ -162,8 +175,11 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
-   /* Validation panel */
+   /* Validation panel end */
    
+   
+   
+   /* form elements */
    .form-elements {
    	   margin: 2em 20% 0 0;
    	   padding-left: 1em;
@@ -184,7 +200,12 @@ $button-green-hover: #004b27;
 	   	    }
    	    }
    	    &.results-detail {
-	   	    margin-right: 1em;
+	   	    margin-right: 0;
+	   	    padding-left: 0;
+	   	    legend {
+	   	    	margin-left: .5em;
+		   	    padding-bottom: .8em;
+	   	    }
 	   	    @media screen and (max-width: 750px) {margin-right: 0;}
    	    }
    	   legend {
@@ -234,6 +255,8 @@ $button-green-hover: #004b27;
 		   	   padding-top: 0;
 	   	   }
    	   }
+   	   
+   	   
    	   
    	   /* form list start */
 	   ul {
@@ -349,8 +372,11 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }
+		   /* form list end */
 		   
-		   /* fully inline with label */
+		   
+		   
+		   /* list display - fully inline with label */
 		   &.inline {
 			   li {
 				   display: inline;
@@ -368,8 +394,11 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }	
+		   /* list display - fully inline with label end */
 		   
-		   /* stacked list with label inline */	   
+		   
+		   
+		   /* list display - stacked list with label inline */	   
 		   &.inline-stack {
 			   li {
 				   display: block;
@@ -394,8 +423,11 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }	
+		   /* list display - stacked list with label inline end */
 		   
-		   /* date format layout */   
+		   
+		   
+		   /* list display - date format layout */   
 		   &.year {
 			   li {
 				   select {
@@ -421,7 +453,11 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }
-		   /* inline with labels stripped */
+		   /* list display - date format layout end */   
+		   
+		   
+		   
+		   /* list display - inline with labels stripped */
 		   &.label-strip {
 		   	   li {
 			   	   margin-left: .5em;
@@ -434,8 +470,11 @@ $button-green-hover: #004b27;
 				   left: -9999px;
 			   }
 		   }
+		   /* list display - inline with labels stripped end */
 		   
-		   /* national insurance number */
+		   
+		   
+		   /* list display - national insurance number */
 		   &.ni-number {
 			   input[type="text"], input[type="tel"] {
 				   width: 4.3rem;
@@ -456,40 +495,64 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }
+		   /* list display - national insurance number end */
+		   
 	   }
 	   /* form list end */
 	   
+	   
+	   
+	   /* info panel */
 	   .info {
 	       background: #bde4f6;
 		   border: 1px solid #015399;
 		   padding: 1em 1.25em;
 		   margin-top: 1.6em;
 	   } 
+	   
+	   
+	   
+	   /* table styling */
 	   table {
 			width: 100%;
 			text-align: left;
 			border-collapse: collapse;
-			border: 1px solid #333;
+			thead {
+				border: 1px solid #bfc1c3;
+			}
+			tbody {
+				border: 1px dotted #bfc1c3;
+			}
 			tr {
-				border-top: 1px solid #333;
+				border-top: 1px dotted #bfc1c3;
+				&:first-child {
+					border-top: 0;
+				}
+				&:nth-child(odd) {
+					background: #f8f8f8;
+				}
 			}
 			th {
-				font-size: 1.4rem;
+				font-size: 1.6rem;
 				font-weight: 600;
-				background: #f2f2f2;
-				padding: 1em ;
+				background: #dee0e2;
+				padding: .8em;
 				vertical-align: middle;
-				border-left: 1px solid #333;
+				border-left: 1px solid #bfc1c3;
+				line-height: 1.4em;
 				&:first-child {
 					width: 22%;
 					border-left: 0;
 					text-align: center;
 				}
+				.ie & {
+					font-size: 16px;
+				}
 			}
 			td {
-				font-size: 1.4rem;
-				padding: 1em;
-				border-left: 1px solid #333;
+				font-size: 1.6rem;
+				padding: .8em;
+				border-left: 1px dotted #bfc1c3;
 				line-height: 1em;
 				span {
 					display: block;
@@ -499,15 +562,26 @@ $button-green-hover: #004b27;
 					border-left: 0;
 					text-align: center;
 				}
+				.ie & {
+					font-size: 16px;
+				}
 			}
 			caption {
 				text-indent: -9999px;
 				font-size: 0;
 			}
 	   }
+	   /* table styling end */
+	   
+	   
+	   
    }
-   /* form elements */
+   /* form elements end */
    
+   
+   
+   
+   /* prompt panel */
    .prompt {
 	   background: #d5e8f3;
 	   padding: 1.4em 1em;
@@ -541,9 +615,11 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
-   /* prompt panel */
+   /* prompt panel end */
    
    
+   
+   /* button panel */
    .form-steps {
 	   margin-top: 1.2em;
 	   padding-left: 1em;
@@ -553,8 +629,9 @@ $button-green-hover: #004b27;
 		   clear: both;
 	   }
    }
-   /* form buttons panel */ 
+ 
    
+   /* button styling */
    .button {
 		   font-size: 2rem;
 		   line-height: 1.25;
@@ -598,9 +675,14 @@ $button-green-hover: #004b27;
 		   &.row {
 			   font-size: 1.6rem;
 			   margin: 0;
+			   .ie & {
+					font-size: 16px;
+				}
 		   }
 	}
-	/* button styling */
+	/* button styling end */
+	
+	
 }
 /* carers wrapper */
 
