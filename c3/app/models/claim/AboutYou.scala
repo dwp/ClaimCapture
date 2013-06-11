@@ -12,8 +12,6 @@ case class YourDetails(title: String, firstName: String, middleName: Option[Stri
   val id = YourDetails.id
 
   val url = routes.AboutYou.yourDetails()
-
-  def approved: Boolean = true
 }
 
 object YourDetails {

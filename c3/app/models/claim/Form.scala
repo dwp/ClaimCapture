@@ -4,6 +4,7 @@ import play.api.mvc.Call
 
 trait Form extends Confirmation with Approved {
   val id: String
+
   val url: Call
 }
 
@@ -12,7 +13,7 @@ trait Confirmation {
 }
 
 trait Approved {
-  def approved: Boolean
+  def approved = false
 }
 
 trait BooleanConfirmation extends Confirmation with Approved {
