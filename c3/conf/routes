@@ -21,9 +21,9 @@ GET     /allowance/over16          controllers.CarersAllowance.over16
 POST    /allowance/over16          controllers.CarersAllowance.over16Submit
 
 GET     /allowance/approve         controllers.CarersAllowance.approve
+POST    /allowance/approve         controllers.CarersAllowance.approveSubmit
 
 #AboutYou
-
 GET     /aboutyou/yourDetails      controllers.AboutYou.yourDetails
 POST    /aboutyou/yourDetails      controllers.AboutYou.yourDetailsSubmit
 

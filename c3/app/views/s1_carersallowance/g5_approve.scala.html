@@ -1,5 +1,7 @@
 @(approved: Boolean, completedForms: List[models.claim.Form])
 
+@import helper._
+
 @main("Can you get Carer's Allowance?", completedForms, scrollFormSubmitIntoView = false) {
 
     @if(approved) {
@@ -15,8 +17,10 @@
         </div>
     }
 
-    <div class="form-steps">
-        <p>Please click the <strong>'Next Step'</strong> button below.</p>
-        <input type="submit" value="Next step" class="button">
-    </div>
+    @form(action = routes.CarersAllowance.approveSubmit) {
+        <div class="form-steps">
+            <p>Please click the <strong>'Next Step'</strong> button below.</p>
+            <input type="submit" value="Next step" class="button">
+        </div>
+    }
 }

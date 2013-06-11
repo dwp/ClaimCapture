@@ -100,4 +100,8 @@ object CarersAllowance extends Controller with CachedClaim {
 
       claim -> Ok(views.html.s1_carersallowance.g5_approve(approved, completedForms))
   }
+
+  def approveSubmit = Action {
+    Redirect(routes.AboutYou.yourDetails())
+  }
 }

@@ -47,5 +47,23 @@ class G5ApproveSpec extends Specification with Tags {
       browser.find(".prompt.error").size mustEqual 1
     }
 
+    "navigate to next section" in new WithBrowser {
+      browser.goTo("/")
+      browser.click("#q3-yes")
+      browser.submit("input[type='submit']")
+      browser.click("#q3-yes")
+      browser.submit("input[type='submit']")
+      browser.click("#q3-yes")
+      browser.submit("input[type='submit']")
+      browser.click("#q3-no")
+      browser.submit("input[type='submit']")
+      browser.title() mustEqual "Can you get Carer's Allowance?"
+
+      browser.submit("input[type='submit']")
+
+      browser.title() mustEqual "Your Details - Carer's Allowance"
+
+    }
+
   } section "integration"
 }
