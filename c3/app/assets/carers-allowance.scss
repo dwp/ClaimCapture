@@ -314,6 +314,7 @@ $button-green-hover: #004b27;
 			   input[type="radio"] {
 				   width: auto;
 				   vertical-align: top;
+				   margin-top: .4em;
 				   &[type=radio]:checked + label {color: #0b0c0c;}
 				   .ie7 & {
 					   margin-top: -26px;
@@ -341,7 +342,7 @@ $button-green-hover: #004b27;
 				   label {
 					   padding-left: 0.25em;
 					   display: inline-block;
-					   line-height: 1em;
+					   line-height: 1.2em;
 					   font-size: 1.7rem;
 					   color: #6f777b;
 					   .ie & {
