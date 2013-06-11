@@ -5,7 +5,3 @@ case class Section(id: String, forms: List[Form]) {
     forms.find(form => form.id == formId)
   }
 }
-
-object Section {
-  val allowanceId = "s1"
-}

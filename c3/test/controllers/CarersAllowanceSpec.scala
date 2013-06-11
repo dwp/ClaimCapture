@@ -35,7 +35,7 @@ class CarersAllowanceSpec extends Specification {
       CarersAllowance.benefitsSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(Section.allowanceId).get
+      val section: Section = claim.section(CarersAllowance.id).get
 
       section.form(Benefits.id) must beLike {
         case Some(f: Benefits) => f.answer mustEqual true
@@ -47,7 +47,7 @@ class CarersAllowanceSpec extends Specification {
       CarersAllowance.benefitsSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(Section.allowanceId).get
+      val section: Section = claim.section(CarersAllowance.id).get
 
       section.form(Benefits.id) must beLike {
         case Some(f: Benefits) => f.answer mustEqual false
@@ -73,7 +73,7 @@ class CarersAllowanceSpec extends Specification {
       val request = FakeRequest().withFormUrlEncodedBody("answer" -> "true").withSession("connected" -> claimKey)
       CarersAllowance.hoursSubmit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(Section.allowanceId).get
+      val section: Section = claim.section(CarersAllowance.id).get
 
       section.form(Hours.id) must beLike {
         case Some(f: Hours) => f.answer mustEqual true
@@ -88,7 +88,7 @@ class CarersAllowanceSpec extends Specification {
       val hoursRequest = FakeRequest().withFormUrlEncodedBody("answer" -> "true").withSession("connected" -> claimKey)
       CarersAllowance.hoursSubmit(hoursRequest)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(Section.allowanceId).get
+      val section: Section = claim.section(CarersAllowance.id).get
 
       section.forms.size mustEqual 2
 
@@ -120,7 +120,7 @@ class CarersAllowanceSpec extends Specification {
       CarersAllowance.livesInGBSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(Section.allowanceId).get
+      val section: Section = claim.section(CarersAllowance.id).get
 
       section.form(LivesInGB.id) must beLike {
         case Some(f: LivesInGB) => f.answer mustEqual true
@@ -152,7 +152,7 @@ class CarersAllowanceSpec extends Specification {
       CarersAllowance.over16Submit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(Section.allowanceId).get
+      val section: Section = claim.section(CarersAllowance.id).get
 
       section.form(Over16.id) must beLike {
         case Some(f: Over16) => f.answer mustEqual true

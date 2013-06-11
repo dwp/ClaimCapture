@@ -43,10 +43,10 @@ class ClaimSpec extends Specification {
 
     "return the correct section" in {
       val claim = MockObjects.claim
-      val sectionOneOption = claim.section(Section.allowanceId)
+      val sectionOneOption = claim.section(CarersAllowance.id)
 
       sectionOneOption must beLike {
-        case Some(section: Section) => section.id mustEqual Section.allowanceId
+        case Some(section: Section) => section.id mustEqual CarersAllowance.id
       }
     }
 

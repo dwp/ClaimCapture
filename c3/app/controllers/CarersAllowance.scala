@@ -10,7 +10,7 @@ import models.claim.LivesInGB
 import models.claim.Over16
 
 object CarersAllowance extends Controller with CachedClaim {
-  val Section.allowanceId = Section.allowanceId
+  val id = models.claim.CarersAllowance.id
 
   val benefitsForm = Form(
     mapping(
@@ -39,6 +39,7 @@ object CarersAllowance extends Controller with CachedClaim {
   def benefits = newClaim {
     implicit claim => implicit request =>
       val formModel = claim.form(Benefits.id).getOrElse(Benefits())
+
       Ok(views.html.s1_carersallowance.g1_benefits(formModel))
   }
 
@@ -51,8 +52,9 @@ object CarersAllowance extends Controller with CachedClaim {
 
   def hours = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(Section.allowanceId)
+      val completedForms = claim.completedFormsForSection(id)
       val formModel = claim.form(Hours.id).getOrElse(Hours())
+
       claim -> Ok(views.html.s1_carersallowance.g2_hours(formModel, completedForms.takeWhile(_.id != Hours.id)))
   }
 
@@ -66,8 +68,9 @@ object CarersAllowance extends Controller with CachedClaim {
 
   def livesInGB = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(Section.allowanceId)
+      val completedForms = claim.completedFormsForSection(id)
       val formModel = claim.form(LivesInGB.id).getOrElse(LivesInGB())
+
       claim -> Ok(views.html.s1_carersallowance.g3_livesInGB(formModel, completedForms.takeWhile(_.id != LivesInGB.id)))
   }
 
@@ -80,7 +83,7 @@ object CarersAllowance extends Controller with CachedClaim {
 
   def over16 = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(Section.allowanceId)
+      val completedForms = claim.completedFormsForSection(id)
       val formModel = claim.form(Over16.id).getOrElse(Over16())
       claim -> Ok(views.html.s1_carersallowance.g4_over16(formModel, completedForms.takeWhile(_.id != Over16.id)))
   }
@@ -94,8 +97,8 @@ object CarersAllowance extends Controller with CachedClaim {
 
   def approve = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(Section.allowanceId)
-      val approved = claim.completedFormsForSection(Section.allowanceId).forall(_.approved) && completedForms.length == 4
+      val completedForms = claim.completedFormsForSection(models.claim.CarersAllowance.id)
+      val approved = claim.completedFormsForSection(id).forall(_.approved) && completedForms.length == 4
 
       claim -> Ok(views.html.s1_carersallowance.g5_approve(approved, completedForms))
   }
