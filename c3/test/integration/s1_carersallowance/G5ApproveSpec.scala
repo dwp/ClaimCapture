@@ -61,7 +61,7 @@ class G5ApproveSpec extends Specification with Tags {
 
       browser.submit("input[type='submit']")
 
-      browser.title() mustEqual "Your Details - Carer's Allowance"
+      browser.title() mustEqual "Your Details - About You"
 
     }
 
