@@ -7,7 +7,7 @@ trait Form extends Confirmation with Approved {
 }
 
 trait Confirmation {
-  def confirmation: String
+  def confirmation: String = ""
 }
 
 trait Approved {
