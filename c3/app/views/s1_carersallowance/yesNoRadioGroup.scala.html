@@ -1,0 +1,9 @@
+@(model:models.claim.Form)
+
+<ul class="group inline radio">
+    <li><input type="radio" name="answer" id="q3-yes" value="true" @(if(model.approved) "checked" else "") ><label for="q3-yes">Yes</label></li>
+    <li><input type="radio" name="answer" id="q3-no" value="false" @(if(!model.approved) "checked" else "")><label for="q3-no">No</label></li>
+</ul>
+
+
+

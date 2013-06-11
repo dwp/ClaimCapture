@@ -19,10 +19,15 @@
                     <div class="completed">
                         <ul>
                             @for(completedForm <- completedForms) {
+
+
                                 <li>
                                     <h3>@Messages(completedForm.id)</h3>
                                     <p>@completedForm.confirmation</p>
-                                    <a href="#">Change this answer</a>
+
+                                    @defining(completedForm.id + ".url") { urlKey =>
+                                    <a href="@completedForm.url"> Change this answer</a>
+                                    }
                                 </li>
                             }
                         </ul>

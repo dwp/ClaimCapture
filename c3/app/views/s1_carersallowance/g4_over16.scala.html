@@ -1,4 +1,4 @@
-@(over16Form: Form[models.claim.Over16Form], completedForms: List[models.claim.Form])
+@(model:models.claim.Form, completedForms: List[models.claim.Form])
 
 @import helper._
 
@@ -9,10 +9,8 @@
         <fieldset class="form-elements form-eligibility">
             <legend><span>Q4</span>Are you aged 16 or over?</legend>
 
-            <ul class="group inline radio">
-                <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
-                <li><input type="radio" name="answer" id="q3-no" value="false" checked="checked"><label for="q3-no">No</label></li>
-            </ul>
+            @yesNoRadioGroup(model)
+
         </fieldset>
 
         <div class="form-steps">

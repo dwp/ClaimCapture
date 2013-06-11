@@ -1,4 +1,4 @@
-@(livesInGBForm: Form[models.claim.LivesInGBForm], completedForms: List[models.claim.Form])
+@(model:models.claim.Form, completedForms: List[models.claim.Form])
 
 @import helper._
 
@@ -18,10 +18,8 @@
                     information on whether you can get Carer’s Allowance.</p>
             </div>
 
-            <ul class="group inline radio">
-                <li><input type="radio" name="answer" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
-                <li><input type="radio" name="answer" id="q3-no" value="false" checked="checked"><label for="q3-no">No</label></li>
-            </ul>
+            @yesNoRadioGroup(model)
+
         </fieldset>
 
         <div class="form-steps">

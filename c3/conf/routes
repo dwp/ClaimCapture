@@ -22,5 +22,12 @@ POST    /allowance/over16          controllers.CarersAllowance.over16Submit
 
 GET     /allowance/approve         controllers.CarersAllowance.approve
 
+#AboutYou
+
+GET     /aboutyou/yourDetails      controllers.AboutYou.yourDetails
+POST    /aboutyou/yourDetails      controllers.AboutYou.yourDetailsSubmit
+
+GET     /aboutyou/contactDetails   controllers.AboutYou.contactDetails
+
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                       controllers.Assets.at(path="/public", file)
+GET     /assets/*file              controllers.Assets.at(path="/public", file)

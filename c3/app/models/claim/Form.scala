@@ -1,13 +1,14 @@
 package models.claim
 
+import play.api.mvc.Call
+
 trait Form extends Confirmation with Approved {
   val id: String
-
-  def section = id.split('.')(0)
+  val url: Call
 }
 
 trait Confirmation {
-  def confirmation: String
+  def confirmation: String = ""
 }
 
 trait Approved {
