@@ -85,7 +85,7 @@ $button-green-hover: #004b27;
    	   }
 	   ul {
 		   li {
-			   background: #D5ECEA url('images/progress-tick.png') 1em 1.3em no-repeat;
+			   background: #D5ECEA url('../img/progress-tick.png') 1em 1.3em no-repeat;
 			   border-bottom: 1px solid #b6d6d2;
 			   padding: 1em 9em 1em 2.8em;
 			   position: relative;
@@ -131,8 +131,9 @@ $button-green-hover: #004b27;
    .validation-summary {
 	   background: #fef7f7;
 	   border: 3px solid #df3034;
-	   padding: 1rem;
+	   padding: 0 1rem 1rem 1rem;
 	   margin: 1em 0 1em -0.9em;
+	   @media screen and (max-width: 750px) {margin-left: 0;}
 	   .ie & {
 		   padding: 10px;
 	   }
@@ -164,7 +165,7 @@ $button-green-hover: #004b27;
    .form-elements {
    	   margin: 2em 20% 0 0;
    	   padding-left: 1em;
-   	    @media screen and (max-width: 750px) {margin-right: 0;}
+   	    @media screen and (max-width: 750px) {margin-right: 0; padding-left: 0;}
    	    &.form-eligibility {
 	   	    padding-left: 3em;
 	   	    legend {
@@ -175,13 +176,6 @@ $button-green-hover: #004b27;
 			   	    display: block;
 			   	    line-height: 1.1em;
 		   	    }
-	   	    }
-	   	    .error {
-		   	    margin: 1em 0 -1em 0;
-		   	    padding: 0;
-		   	    color: #de3134;
-				font-weight: 300;
-				font-size: 1.6rem;
 	   	    }
 	   	    ul {
 		   	    margin-top: 1.6em;
@@ -251,6 +245,7 @@ $button-green-hover: #004b27;
 				   border-left: 5px solid #df3034;
 			       position: relative;
 			       overflow: hidden;
+			       @media screen and (max-width: 500px) {margin-left: 0; border-left: 0; padding: .6em 0;}
 			       .error {
 				       color: #de3134;
 				       font-weight: 300;
@@ -300,7 +295,7 @@ $button-green-hover: #004b27;
 					   }
 				   }
 			   }
-			   input[type="text"], input[type="number"], input[type="tel"] {
+			   input[type="text"], input[type="number"], input[type="tel"], textarea {
 				    background: #f9f9f9;
 					border: 2px inset;
 					font-size: 1.9rem;
@@ -309,17 +304,21 @@ $button-green-hover: #004b27;
 					text-transform: none;
 					padding: 0.25em 0 0.1em 0.4em;
 					width: 28.3rem;
-					@media screen and (max-width: 500px) {width: 90%;}
+					@media screen and (max-width: 500px) {width: 96%;}
 					.ie & {
 						font-size: 19px;
 						width: 283px;
 					}
 			   }
 			   input[type="radio"] {
-				   font-size: 1em;
+				   width: auto;
+				   vertical-align: top;
 				   .ie7 & {
 					   margin-top: -26px;
 				   }
+			   }
+			   textarea {
+				   height: 6em;
 			   }
 			   select {
 				   padding: 0.1em 0.4em;
@@ -340,6 +339,25 @@ $button-green-hover: #004b27;
 				   label {
 					   padding-left: 0.25em;
 					   display: inline-block;
+					   line-height: 1em;
+				   }
+			   }
+		   }
+		   
+		   &.inline-stack {
+			   li {
+				   display: block;
+				   margin: 0;
+				   padding: .2em 0;
+				   input {
+				   		width: auto;
+				   		vertical-align: top;
+				   }
+				   label {
+					   width: 90%;
+					   margin-left: .25em;
+					   line-height: 1em;
+					   padding: 0;
 				   }
 			   }
 		   }
@@ -417,12 +435,38 @@ $button-green-hover: #004b27;
 	   &.error {
 		   background: #f2f2f2;
 	   }
+	   &.helper-prompt {
+		   margin: .5em 0 1em 0;
+		   border: 1px solid #a2a2a2;
+		   background: #fff;
+		   p {
+			   font-size: 1.6rem;
+			   margin-top: 1em;
+			   &:first-child {
+				   margin: 0;
+			   }
+			   &.intro {
+			   font-weight: 700;
+			   }
+		   }
+		   ul {
+			   margin-top: 1em;
+			   padding-left: 1.4em;
+			   list-style: disc;
+			   li {
+				   display: list-item;
+				   padding: 0;
+				   margin: 0;
+			   }
+		   }
+	   }
    }
    
    
    .form-steps {
 	   margin-top: 2em;
 	   padding-left: 1em;
+	   @media screen and (max-width: 750px) {padding-left: 0;}
 	   p {
 		   padding-bottom: .6em;
 		   clear: both;
