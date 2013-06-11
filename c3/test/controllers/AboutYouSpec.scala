@@ -11,7 +11,15 @@ class AboutYouSpec extends Specification {
     "accept all initial mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest()
                       .withSession("connected" -> claimKey)
-                      .withFormUrlEncodedBody("firstName" -> "Scooby")
+                      .withFormUrlEncodedBody(
+                        "firstName" -> "Scooby",
+                        "title" -> "Mr",
+                        "surname" -> "Doo",
+                        "nationality" -> "US",
+                        "birthDate" -> "Dunno",
+                        "maritalStatus" -> "Single"
+                        )
+                      
 
       val result = AboutYou.yourDetailsSubmit(request)
       redirectLocation(result) must beSome("/aboutyou/contactDetails")
@@ -22,6 +30,22 @@ class AboutYouSpec extends Specification {
       section.form("s2.g1") must beLike {
         case Some(f: YourDetailsForm) => f.firstName mustEqual "Scooby"
       }
+    }
+
+    "highlight missing mandatory data" in new WithApplication with Claiming{
+      val request = FakeRequest()
+        .withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(
+        "firstName" -> "Scooby"
+        )
+
+
+      val result = AboutYou.yourDetailsSubmit(request)
+      status(result) mustEqual BAD_REQUEST
+
+      val claim = Cache.getAs[Claim](claimKey).get
+      claim.section("s2") must beNone
+
     }
   }
 }

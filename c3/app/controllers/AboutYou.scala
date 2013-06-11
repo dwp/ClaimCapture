@@ -9,7 +9,16 @@ object AboutYou extends Controller with CachedClaim {
 
   var yourDetailsForm = Form(
     mapping(
-      "firstName" -> nonEmptyText
+      "title" -> nonEmptyText,
+      "firstName" -> nonEmptyText,
+      "middleName" -> optional(text),
+      "surname" -> nonEmptyText,
+      "otherSurnames" -> optional(text),
+      "nationalInsuranceNo" -> optional(text),
+      "nationality" -> nonEmptyText,
+      "birthDate" -> nonEmptyText,
+      "maritalStatus" -> nonEmptyText,
+      "alwaysLivedUK" -> boolean
     )(YourDetailsForm.apply)(YourDetailsForm.unapply)
   )
 
