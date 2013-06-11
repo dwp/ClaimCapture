@@ -12,7 +12,6 @@ class G4Over16Spec extends Specification with Tags {
     }
   } section "integration"
 
-
   "Are you aged 16 or over" should {
     "acknowledge yes" in new WithBrowser {
       browser.goTo("/")

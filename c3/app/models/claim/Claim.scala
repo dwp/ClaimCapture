@@ -12,6 +12,7 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
 
   def form(formId: String): Option[Form] = {
     val sectionId = ClaimUtils.sectionId(formId)
+
     section(sectionId) match {
       case Some(s: Section) => s.form(formId)
       case _ => None
@@ -28,7 +29,9 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
       val updated = forms.map(f => if (f.id == form.id) form else f)
       if (updated.contains(form)) updated else updated :+ form
     }
+
     val sectionId = ClaimUtils.sectionId(form.id)
+
     val section = sections.get(sectionId) match {
       case None => Section(sectionId, List(form))
       case Some(s) => Section(sectionId, update(form, s.forms))

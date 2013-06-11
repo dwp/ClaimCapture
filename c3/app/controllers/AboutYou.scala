@@ -1,6 +1,6 @@
 package controllers
 
-import models.claim.{YourDetailsForm, CachedClaim}
+import models.claim.{YourDetails, CachedClaim}
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -19,7 +19,7 @@ object AboutYou extends Controller with CachedClaim {
       "dateOfBirth" -> nonEmptyText,
       "maritalStatus" -> nonEmptyText,
       "alwaysLivedUK" -> boolean
-    )(YourDetailsForm.apply)(YourDetailsForm.unapply)
+    )(YourDetails.apply)(YourDetails.unapply)
   )
 
   def yourDetails = claiming {

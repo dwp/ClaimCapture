@@ -13,7 +13,7 @@ class ClaimSpec extends Specification {
 
     "contain the sectionId with the form after adding" in {
       val claim = Claim()
-      val form = BenefitsForm()
+      val form = Benefits()
       val updatedClaim = claim.update(form)
       val sectionId = ClaimUtils.sectionId(form.id)
       val sectionOption = updatedClaim.section(sectionId)
@@ -23,13 +23,13 @@ class ClaimSpec extends Specification {
       }
 
       val section = sectionOption.get
-      section.form(form.id) must beSome(BenefitsForm(answer = false))
+      section.form(form.id) must beSome(Benefits(answer = false))
     }
 
     "contain the sectionId with the form after updating" in {
       val claim = Claim()
-      val trueForm = BenefitsForm(answer = true)
-      val falseForm = BenefitsForm(answer = false)
+      val trueForm = Benefits(answer = true)
+      val falseForm = Benefits(answer = false)
 
       val claimWithFalseForm = claim.update(falseForm)
       val claimWithTrueForm = claimWithFalseForm.update(trueForm)
@@ -38,7 +38,7 @@ class ClaimSpec extends Specification {
       val sectionOption = claimWithTrueForm.section(sectionId)
       val section = sectionOption.get
 
-      section.form(trueForm.id) must beSome(BenefitsForm(answer = true))
+      section.form(trueForm.id) must beSome(Benefits(answer = true))
     }
 
     "return the correct section" in {
@@ -52,7 +52,7 @@ class ClaimSpec extends Specification {
 
     "return the correct form" in {
       val claim = MockObjects.claim
-      val formId = LivesInGBForm.id
+      val formId = LivesInGB.id
       val formOption = claim.form(formId)
 
       formOption must beLike {

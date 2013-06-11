@@ -11,7 +11,7 @@ class G1BenefitsSpec extends Specification with Tags {
       browser.title() mustEqual "Benefits - Carer's Allowance"
       browser.find("div[class=carers-allowance]").getText must contain("Q1")
     }
-  } section ("integration")
+  } section "integration"
 
   "Does the person being cared for get one of required benefits" should {
     "acknowledge yes" in new WithBrowser {
@@ -31,5 +31,5 @@ class G1BenefitsSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").get(0).getText must contain("Q1")
       browser.find("div[class=completed] ul li").get(0).getText must contain("No")
     }
-  } section ("integration")
+  } section "integration"
 }

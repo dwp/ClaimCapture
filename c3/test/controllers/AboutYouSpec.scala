@@ -3,7 +3,7 @@ package controllers
 import org.specs2.mutable.Specification
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.cache.Cache
-import models.claim.{YourDetailsForm, Section, Claim}
+import models.claim.{YourDetails, Section, Claim}
 import play.api.test.Helpers._
 
 class AboutYouSpec extends Specification {
@@ -22,10 +22,10 @@ class AboutYouSpec extends Specification {
       redirectLocation(result) must beSome("/aboutyou/contactDetails")
 
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section("s2").get
+      val section: Section = claim.section(models.claim.AboutYou.id).get
 
-      section.form("s2.g1") must beLike {
-        case Some(f: YourDetailsForm) => f.firstName mustEqual "Scooby"
+      section.form(YourDetails.id) must beLike {
+        case Some(f: YourDetails) => f.firstName mustEqual "Scooby"
       }
     }
 
@@ -37,7 +37,7 @@ class AboutYouSpec extends Specification {
       status(result) mustEqual BAD_REQUEST
 
       val claim = Cache.getAs[Claim](claimKey).get
-      claim.section("s2") must beNone
+      claim.section(models.claim.AboutYou.id) must beNone
     }
   }
 }
