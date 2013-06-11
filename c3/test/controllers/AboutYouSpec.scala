@@ -9,17 +9,14 @@ import play.api.test.Helpers._
 class AboutYouSpec extends Specification {
   "About you" should {
     "accept all initial mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest()
-                      .withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession("connected" -> claimKey)
                       .withFormUrlEncodedBody(
                         "firstName" -> "Scooby",
                         "title" -> "Mr",
                         "surname" -> "Doo",
                         "nationality" -> "US",
-                        "birthDate" -> "Dunno",
-                        "maritalStatus" -> "Single"
-                        )
-                      
+                        "dateOfBirth" -> "Dunno",
+                        "maritalStatus" -> "Single")
 
       val result = AboutYou.yourDetailsSubmit(request)
       redirectLocation(result) must beSome("/aboutyou/contactDetails")
@@ -32,20 +29,15 @@ class AboutYouSpec extends Specification {
       }
     }
 
-    "highlight missing mandatory data" in new WithApplication with Claiming{
-      val request = FakeRequest()
-        .withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(
-        "firstName" -> "Scooby"
-        )
-
+    "highlight missing mandatory data" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+                      .withFormUrlEncodedBody("firstName" -> "Scooby")
 
       val result = AboutYou.yourDetailsSubmit(request)
       status(result) mustEqual BAD_REQUEST
 
       val claim = Cache.getAs[Claim](claimKey).get
       claim.section("s2") must beNone
-
     }
   }
 }

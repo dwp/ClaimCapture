@@ -13,10 +13,10 @@ object AboutYou extends Controller with CachedClaim {
       "firstName" -> nonEmptyText,
       "middleName" -> optional(text),
       "surname" -> nonEmptyText,
-      "otherSurnames" -> optional(text),
-      "nationalInsuranceNo" -> optional(text),
+      "otherNames" -> optional(text),
+      "nationalInsuranceNumber" -> optional(text),
       "nationality" -> nonEmptyText,
-      "birthDate" -> nonEmptyText,
+      "dateOfBirth" -> nonEmptyText,
       "maritalStatus" -> nonEmptyText,
       "alwaysLivedUK" -> boolean
     )(YourDetailsForm.apply)(YourDetailsForm.unapply)
