@@ -48,6 +48,7 @@ $button-green-hover: #004b27;
 			   }
 		   }
 	   }
+	   /* section header */
 	   p {
 		   margin: 0;
 		   font-size: 1.9rem;
@@ -63,6 +64,7 @@ $button-green-hover: #004b27;
 		   list-style: none;
 	   }
    }
+   /* section */
    
    .completed {
    	   margin-top: 2em;
@@ -128,6 +130,7 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
+   /* completed questions */
    
    .validation-summary {
 	   background: #fef7f7;
@@ -159,6 +162,7 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
+   /* Validation panel */
    
    .form-elements {
    	   margin: 2em 20% 0 0;
@@ -178,6 +182,10 @@ $button-green-hover: #004b27;
 	   	    ul {
 		   	    margin-top: 1.6em;
 	   	    }
+   	    }
+   	    &.results-detail {
+	   	    margin-right: 1em;
+	   	    @media screen and (max-width: 750px) {margin-right: 0;}
    	    }
    	   legend {
 	   	   font-weight: 600; 
@@ -226,6 +234,8 @@ $button-green-hover: #004b27;
 		   	   padding-top: 0;
 	   	   }
    	   }
+   	   
+   	   /* form list start */
 	   ul {
 		   margin-top: 0;
 		   li {
@@ -317,7 +327,7 @@ $button-green-hover: #004b27;
 			   input[type="radio"] {
 				   width: auto;
 				   vertical-align: top;
-				   margin-top: .4em;
+				   margin-top: .38em;
 				   &[type=radio]:checked + label {color: #0b0c0c;}
 				   .ie7 & {
 					   margin-top: 0;
@@ -339,7 +349,8 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }
-
+		   
+		   /* fully inline with label */
 		   &.inline {
 			   li {
 				   display: inline;
@@ -356,8 +367,9 @@ $button-green-hover: #004b27;
 					   }
 				   }
 			   }
-		   }
+		   }	
 		   
+		   /* stacked list with label inline */	   
 		   &.inline-stack {
 			   li {
 				   display: block;
@@ -366,7 +378,7 @@ $button-green-hover: #004b27;
 				   input {
 				   		width: auto;
 				   		vertical-align: top;
-				   		margin-top: .4rem;
+				   		margin-top: .38rem;
 				   		&[type=checkbox]:checked + label, &[type=radio]:checked + label {color: #0b0c0c;}
 				   }
 				   label {
@@ -381,8 +393,9 @@ $button-green-hover: #004b27;
 					   }
 				   }
 			   }
-		   }
+		   }	
 		   
+		   /* date format layout */   
 		   &.year {
 			   li {
 				   select {
@@ -408,6 +421,7 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }
+		   /* inline with labels stripped */
 		   &.label-strip {
 		   	   li {
 			   	   margin-left: .5em;
@@ -420,6 +434,8 @@ $button-green-hover: #004b27;
 				   left: -9999px;
 			   }
 		   }
+		   
+		   /* national insurance number */
 		   &.ni-number {
 			   input[type="text"], input[type="tel"] {
 				   width: 4.3rem;
@@ -441,13 +457,56 @@ $button-green-hover: #004b27;
 			   }
 		   }
 	   }
+	   /* form list end */
+	   
 	   .info {
 	       background: #bde4f6;
 		   border: 1px solid #015399;
 		   padding: 1em 1.25em;
 		   margin-top: 1.6em;
+	   } 
+	   table {
+			width: 100%;
+			text-align: left;
+			border-collapse: collapse;
+			border: 1px solid #333;
+			tr {
+				border-top: 1px solid #333;
+			}
+			th {
+				font-size: 1.4rem;
+				font-weight: 600;
+				background: #f2f2f2;
+				padding: 1em ;
+				vertical-align: middle;
+				border-left: 1px solid #333;
+				&:first-child {
+					width: 22%;
+					border-left: 0;
+					text-align: center;
+				}
+			}
+			td {
+				font-size: 1.4rem;
+				padding: 1em;
+				border-left: 1px solid #333;
+				line-height: 1em;
+				span {
+					display: block;
+					padding: .35em 0;
+				}
+				&:first-child {
+					border-left: 0;
+					text-align: center;
+				}
+			}
+			caption {
+				text-indent: -9999px;
+				font-size: 0;
+			}
 	   }
    }
+   /* form elements */
    
    .prompt {
 	   background: #d5e8f3;
@@ -482,6 +541,7 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
+   /* prompt panel */
    
    
    .form-steps {
@@ -492,7 +552,10 @@ $button-green-hover: #004b27;
 		   padding-bottom: .6em;
 		   clear: both;
 	   }
-	   .button {
+   }
+   /* form buttons panel */ 
+   
+   .button {
 		   font-size: 2rem;
 		   line-height: 1.25;
 		   color: #fff;
@@ -532,10 +595,14 @@ $button-green-hover: #004b27;
 				   background: #990c1a;
 			   }
 		   }
-	   }
-   }
-       
+		   &.row {
+			   font-size: 1.6rem;
+			   margin: 0;
+		   }
+	}
+	/* button styling */
 }
+/* carers wrapper */
 
 
 
