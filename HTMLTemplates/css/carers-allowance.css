@@ -6,6 +6,10 @@
     padding: 0 1em 3em 1em;
     margin: 0 auto;
     max-width: 960px; }
+    @media screen and (max-width: 500px) {
+      .carers-allowance .carers-container {
+        padding-left: .5em;
+        padding-right: .5em; } }
   .carers-allowance section {
     border-top: 10px solid #f47738;
     background: #fff;
@@ -147,6 +151,12 @@
         .ie7 .carers-allowance .form-elements.form-eligibility legend {
           display: block;
           line-height: 1.1em; }
+      .carers-allowance .form-elements.form-eligibility .error {
+        margin: 1em 0 -1em 0;
+        padding: 0;
+        color: #de3134;
+        font-weight: 300;
+        font-size: 1.6rem; }
       .carers-allowance .form-elements.form-eligibility ul {
         margin-top: 1.6em; }
     .carers-allowance .form-elements legend {
@@ -250,6 +260,9 @@
           text-transform: none;
           padding: 0.25em 0 0.1em 0.4em;
           width: 28.3rem; }
+          @media screen and (max-width: 500px) {
+            .carers-allowance .form-elements ul li input[type="text"], .carers-allowance .form-elements ul li input[type="number"], .carers-allowance .form-elements ul li input[type="tel"] {
+              width: 90%; } }
           .ie .carers-allowance .form-elements ul li input[type="text"], .ie .carers-allowance .form-elements ul li input[type="number"], .ie .carers-allowance .form-elements ul li input[type="tel"] {
             font-size: 19px;
             width: 283px; }
@@ -275,6 +288,10 @@
       .carers-allowance .form-elements ul.year li select {
         width: 9rem;
         min-width: 9rem; }
+        @media screen and (max-width: 500px) {
+          .carers-allowance .form-elements ul.year li select {
+            width: auto;
+            min-width: 1rem; } }
         .ie .carers-allowance .form-elements ul.year li select {
           width: 90px;
           min-width: 90px; }
