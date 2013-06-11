@@ -1,5 +1,5 @@
 package models
 
 trait CreationTimeStamp {
- val created = System.currentTimeMillis()
+  val created = System.currentTimeMillis()
 }
