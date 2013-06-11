@@ -10,6 +10,7 @@ $button-green-hover: #004b27;
 	   padding: 0 1em 3em 1em;
 	   margin: 0 auto;
 	   max-width: 960px;
+	   @media screen and (max-width: 500px) {padding-left: .5em; padding-right: .5em;}
    }
    section {
    	   border-top: 10px solid #f47738;
@@ -84,7 +85,7 @@ $button-green-hover: #004b27;
    	   }
 	   ul {
 		   li {
-			   background: #D5ECEA url('images/progress-tick.png') 1em 1.3em no-repeat;
+			   background: #D5ECEA url('../img/progress-tick.png') 1em 1.3em no-repeat;
 			   border-bottom: 1px solid #b6d6d2;
 			   padding: 1em 9em 1em 2.8em;
 			   position: relative;
@@ -174,6 +175,13 @@ $button-green-hover: #004b27;
 			   	    display: block;
 			   	    line-height: 1.1em;
 		   	    }
+	   	    }
+	   	    .error {
+		   	    margin: 1em 0 -1em 0;
+		   	    padding: 0;
+		   	    color: #de3134;
+				font-weight: 300;
+				font-size: 1.6rem;
 	   	    }
 	   	    ul {
 		   	    margin-top: 1.6em;
@@ -301,6 +309,7 @@ $button-green-hover: #004b27;
 					text-transform: none;
 					padding: 0.25em 0 0.1em 0.4em;
 					width: 28.3rem;
+					@media screen and (max-width: 500px) {width: 90%;}
 					.ie & {
 						font-size: 19px;
 						width: 283px;
@@ -340,6 +349,7 @@ $button-green-hover: #004b27;
 				   select {
 					   width: 9rem;
 					   min-width: 9rem;
+					   @media screen and (max-width: 500px) {width: auto; min-width: 1rem;}
 					   .ie & {
 						   width: 90px;
 						   min-width: 90px;
@@ -461,6 +471,8 @@ $button-green-hover: #004b27;
    }
        
 }
+
+
 
 
 /* Footer Overrides */
