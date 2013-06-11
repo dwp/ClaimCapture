@@ -1,0 +1,10 @@
+@(elements: helper.FieldElements)
+
+<li class="@if(elements.hasErrors) {validation}">
+    @if(elements.hasErrors) {
+        <p class="error">@elements.errors.mkString(", ")</p>
+    }
+
+    <label for="@elements.id"><em>*</em>@elements.label</label>
+    @elements.input
+</li>
