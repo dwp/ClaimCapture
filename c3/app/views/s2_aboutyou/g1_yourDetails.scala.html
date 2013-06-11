@@ -9,15 +9,19 @@
         <fieldset class="form-elements">
             <legend>Your details</legend>
 
-            <div class="validation-summary">
-                <h2>There was a problem submitting the form</h2>
-                <p>Please fix the following:</p>
-                <ol>
-                    <li><a href="#surname">Surname or family name</a></li>
-                    <li><a href="#nationality">Enter your nationality</a></li>
-                </ol>
 
-            </div>
+            @if(yourDetailsForm.hasErrors){
+                <div class="validation-summary">
+                    <h2>There was a problem submitting the form</h2>
+                    <p>Please fix the following:</p>
+                    <ol>
+                        @for(error <- yourDetailsForm.errors){
+                            <li><a href="#@error.key">@Messages(error.key+"_error")</a></li>
+                        }
+                    </ol>
+
+                </div>
+            }
 
 
 
