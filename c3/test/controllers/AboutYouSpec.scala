@@ -16,7 +16,8 @@ class AboutYouSpec extends Specification {
                         "surname" -> "Doo",
                         "nationality" -> "US",
                         "dateOfBirth" -> "Dunno",
-                        "maritalStatus" -> "Single")
+                        "maritalStatus" -> "Single",
+                        "action" -> "next")
 
       val result = AboutYou.yourDetailsSubmit(request)
       redirectLocation(result) must beSome("/aboutyou/contactDetails")
@@ -31,7 +32,7 @@ class AboutYouSpec extends Specification {
 
     "highlight missing mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-                      .withFormUrlEncodedBody("firstName" -> "Scooby")
+                      .withFormUrlEncodedBody("firstName" -> "Scooby", "action" -> "next")
 
       val result = AboutYou.yourDetailsSubmit(request)
       status(result) mustEqual BAD_REQUEST

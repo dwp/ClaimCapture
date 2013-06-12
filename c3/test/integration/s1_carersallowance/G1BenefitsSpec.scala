@@ -15,7 +15,7 @@ class G1BenefitsSpec extends Specification with Tags {
     "allow changing answer" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.goTo("/allowance/benefits?changing=true")
       browser.find("#q3-yes").getAttribute("value") mustEqual "true"
@@ -26,7 +26,7 @@ class G1BenefitsSpec extends Specification with Tags {
     "acknowledge yes" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.title() mustEqual "Hours - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(0).getText must contain("Q1")
       browser.find("div[class=completed] ul li").get(0).getText must contain("Yes")
@@ -35,7 +35,7 @@ class G1BenefitsSpec extends Specification with Tags {
     "acknowledge no" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-no")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.title() mustEqual "Hours - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(0).getText must contain("Q1")
       browser.find("div[class=completed] ul li").get(0).getText must contain("No")

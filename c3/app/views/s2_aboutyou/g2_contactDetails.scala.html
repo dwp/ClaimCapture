@@ -5,29 +5,32 @@
 @import views.html.common._
 
 @main("Contact Details - About You",formsList) {
-    <fieldset class="form-elements">
-        <legend>Your contact details</legend>
 
-        @errorsSummary(contactDetailsForm)
+    @form(action = routes.AboutYou.contactDetailsSubmit) {
+        <fieldset class="form-elements">
+            <legend>Your contact details</legend>
+
+            @errorsSummary(contactDetailsForm)
 
 
-        <ul class="group">
-            @inputText(contactDetailsForm("address"))
+            <ul class="group">
+                @inputText(contactDetailsForm("address"))
 
-            @inputText(contactDetailsForm("postcode"))
+                @inputText(contactDetailsForm("postcode"))
 
-            @inputText(contactDetailsForm("phoneNumber"))
+                @inputText(contactDetailsForm("phoneNumber"))
 
-            @inputText(contactDetailsForm("mobileNumber"))
+                @inputText(contactDetailsForm("mobileNumber"))
 
-        </ul>
+            </ul>
 
-    </fieldset>
+        </fieldset>
 
-    <div class="form-steps">
-        <input type="submit" value="Back" class="button secondary">
-        <input type="submit" value="Next" class="button">
-    </div>
+        <div class="form-steps">
+            <button type="submit" name="action" value="back" class="button secondary">Back</button>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
 }
 			
 			

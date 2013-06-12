@@ -17,10 +17,10 @@ class G2HoursSpec extends Specification with Tags {
     "acknowledge yes" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.title() mustEqual "Hours - Carer's Allowance"
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.title() mustEqual "Lives in GB - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")
@@ -30,10 +30,10 @@ class G2HoursSpec extends Specification with Tags {
     "acknowledge no" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.title() mustEqual "Hours - Carer's Allowance"
       browser.click("#q3-no")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.title() mustEqual "Lives in GB - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")

@@ -18,7 +18,8 @@ object AboutYou extends Controller with CachedClaim {
       "nationality" -> nonEmptyText,
       "dateOfBirth" -> nonEmptyText,
       "maritalStatus" -> nonEmptyText,
-      "alwaysLivedUK" -> nonEmptyText
+      "alwaysLivedUK" -> nonEmptyText,
+      "action" -> text
     )(YourDetails.apply)(YourDetails.unapply)
   )
 

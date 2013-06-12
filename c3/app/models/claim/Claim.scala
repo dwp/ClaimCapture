@@ -6,6 +6,7 @@ import models.CreationTimeStamp
 import utils.ClaimUtils
 
 case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeStamp {
+
   def section(sectionId: String): Option[Section] = {
     sections.get(sectionId)
   }
@@ -70,6 +71,25 @@ trait CachedClaim {
       val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID().toString)
       val expiration: Int = 3600
       val claim = Cache.getOrElse(key, expiration)(Claim())
+
+      f(claim)(request) match {
+        case Left(r: Result) => r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+
+        case Right((c: Claim, r: Result)) => {
+          Cache.set(key, c, expiration)
+          r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+        }
+      }
+    }
+  }
+
+  def claimingWithAction(f: => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
+    request => {
+      val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID().toString)
+      val expiration: Int = 3600
+      val claim = Cache.getOrElse(key, expiration)(Claim())
+
+      val action = request.body.asFormUrlEncoded.get("action")(0)
 
       f(claim)(request) match {
         case Left(r: Result) => r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
