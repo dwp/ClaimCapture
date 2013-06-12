@@ -33,13 +33,8 @@
 
                 @common.maritalStatusSelect(yourDetailsForm("maritalStatus"), "s2_g1_q9")
 
-                <li>
-                    <p>Have you always lived in the United Kingdom?</p>
-                    <ul class="inline">
-                        <li><input type="radio" name="alwaysLivedUK" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
-                        <li><input type="radio" name="alwaysLivedUK" id="q3-no" value="false"><label for="q3-no">No</label></li>
-                    </ul>
-                </li>
+                @common.yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"), "s2_g1_q10", "Have you always lived in the United Kingdom?")
+
             </ul>
         </fieldset>
 

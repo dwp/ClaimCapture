@@ -8,7 +8,7 @@ object AboutYou {
 
 case class YourDetails(title: String, firstName: String, middleName: Option[String], surname: String,
                            otherNames: Option[String], nationalInsuranceNumber: Option[String], nationality: String,
-                           dateOfBirth: String, maritalStatus: String, alwaysLivedUK: Boolean) extends Form {
+                           dateOfBirth: String, maritalStatus: String, alwaysLivedUK: String) extends Form {
   val id = YourDetails.id
 
   val url = routes.AboutYou.yourDetails()
