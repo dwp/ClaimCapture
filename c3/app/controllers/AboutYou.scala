@@ -28,7 +28,8 @@ object AboutYou extends Controller with CachedClaim {
       "address" -> nonEmptyText,
       "postcode" -> nonEmptyText,
       "phoneNumber" -> optional(text),
-      "mobileNumber" -> optional(text)
+      "mobileNumber" -> optional(text)  ,
+      "action" -> text
     )(ContactDetails.apply)(ContactDetails.unapply)
   )
 

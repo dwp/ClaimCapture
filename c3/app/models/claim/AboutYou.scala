@@ -1,7 +1,6 @@
 package models.claim
 
 import controllers.routes
-import play.api.data.Form
 
 object AboutYou {
   val id = "s2"

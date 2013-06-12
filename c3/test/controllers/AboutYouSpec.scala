@@ -17,6 +17,7 @@ class AboutYouSpec extends Specification {
                         "nationality" -> "US",
                         "dateOfBirth" -> "Dunno",
                         "maritalStatus" -> "Single",
+                        "alwaysLivedUK" -> "yes",
                         "action" -> "next")
 
       val result = AboutYou.yourDetailsSubmit(request)
