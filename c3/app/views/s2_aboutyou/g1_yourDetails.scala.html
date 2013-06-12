@@ -26,14 +26,8 @@
 
 
             <ul class="group">
-                <li>
-                    <label for="title"><em>*</em>Title</label>
-                    <select name="title" id="title">
-                        <option value="#">Mr</option>
-                        <option value="#">Mrs</option>
-                    </select>
-                </li>
 
+                @common.titleSelect(yourDetailsForm("title"), "s2_g1_q1")
 
                 @inputText(yourDetailsForm("firstName"))
 
@@ -49,13 +43,7 @@
 
                 @inputText(yourDetailsForm("nationality"))
 
-                <li>
-                    <label for="maritalStatus"><em>*</em>What is your marital or civil partnership status?</label>
-                    <select name="maritalStatus" id="maritalStatus">
-                        <option value="#">Single</option>
-                        <option value="#">Married</option>
-                    </select>
-                </li>
+                @common.maritalStatusSelect(yourDetailsForm("maritalStatus"), "s2_g1_q9")
 
                 <li>
                     <p>Have you always lived in the United Kingdom?</p>
