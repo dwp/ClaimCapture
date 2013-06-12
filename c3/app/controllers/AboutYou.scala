@@ -35,7 +35,17 @@ object AboutYou extends Controller with CachedClaim {
 
   def yourDetails = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s2_aboutyou.g1_yourDetails(yourDetailsForm))
+
+
+      val formContentOption = claim.form(YourDetails.id)
+      var filledForm: Form[YourDetails] = yourDetailsForm
+      formContentOption match {
+        case Some(n) =>  filledForm = yourDetailsForm.fill(n.asInstanceOf[YourDetails])
+        case _ =>
+      }
+
+      Ok(views.html.s2_aboutyou.g1_yourDetails(filledForm))
+
   }
 
   def yourDetailsSubmit = claimingWithAction {
