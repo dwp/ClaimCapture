@@ -2,28 +2,16 @@
 
 @import helper._
 @import utils.helpers.ClaimHelpers._
+@import views.html.common._
 
-@main("Your Details - About You", scrollFormSubmitIntoView = false) {
+@main("Your Details - About You") {
 
     @form(action = routes.AboutYou.yourDetailsSubmit) {
         <fieldset class="form-elements">
             <legend>Your details</legend>
 
 
-            @if(yourDetailsForm.hasErrors){
-                <div class="validation-summary">
-                    <h2>There was a problem submitting the form</h2>
-                    <p>Please fix the following:</p>
-                    <ol>
-                        @for(error <- yourDetailsForm.errors){
-                            <li><a href="#@error.key">@Messages(error.key+"_error")</a></li>
-                        }
-                    </ol>
-
-                </div>
-            }
-
-
+            @errorsSummary(yourDetailsForm)
 
             <ul class="group">
                 <li>
@@ -43,7 +31,7 @@
 
                 @inputText(yourDetailsForm("otherNames"))
 
-                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsurance.placeHolder"), 'helper -> Messages("nationalInsurance.helper"))
+                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"), 'helper -> Messages("nationalInsuranceNumber.helper"))
 
                 @inputText(yourDetailsForm("dateOfBirth"))
 

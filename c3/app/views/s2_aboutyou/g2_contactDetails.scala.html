@@ -1,57 +1,24 @@
-@()
+@(contactDetailsForm :Form[models.claim.ContactDetails],formsList :List[models.claim.Form])
 
 @import helper._
+@import utils.helpers.ClaimHelpers._
+@import views.html.common._
 
-@main("Contact Details - About You", scrollFormSubmitIntoView = false) {
+@main("Contact Details - About You",formsList) {
     <fieldset class="form-elements">
         <legend>Your contact details</legend>
 
-        <div class="validation-summary">
-        <h2>There was a problem submitting the form</h2>
-        <p>Please fix the following:</p>
-        <ol>
-            <li><a href="#postcode">Postcode</a></li>
-        </ol>
-
-    </div>
+        @errorsSummary(contactDetailsForm)
 
 
         <ul class="group">
+            @inputText(contactDetailsForm("address"))
 
-            <li>
-                <p><em>*</em>Address</p>
-                <ul class="group">
-                    <li class="address-stack first">
-                        <label for="address1"><em>*</em>Address</label>
-                        <input type="text" name="address1" id="address1">
-                    </li>
-                    <li class="address-stack">
-                        <label for="address1">Address 2</label>
-                        <input type="text" name="address1" id="address1">
-                    </li>
-                    <li class="address-stack">
-                        <label for="address1">Address 3</label>
-                        <input type="text" name="address1" id="address1">
-                    </li>
-                </ul>
-            </li>
+            @inputText(contactDetailsForm("postcode"))
 
-            <li class="validation">
-                <p class="error">Enter your postcode</p>
-                <label for="postcode"><em>*</em>Postcode</label>
-                <input type="text" name="postcode" id="postcode">
-            </li>
+            @inputText(contactDetailsForm("phoneNumber"))
 
-            <li>
-                <label for="daytime-tel">Daytime phone number</label>
-                <input type="tel" name="daytime-tel" id="daytime-tel">
-            </li>
-
-            <li>
-                <label for="mobile">Mobile number</label>
-                <input type="text" name="mobile" id="mobile">
-            </li>
-
+            @inputText(contactDetailsForm("mobileNumber"))
 
         </ul>
 
