@@ -39,4 +39,16 @@ object AboutYou extends Controller with CachedClaim {
     implicit claim => implicit request =>
       Ok(views.html.s2_aboutyou.g2_contactDetails())
   }
+
+  def contactDetailsSubmit = TODO 
+  def claimDate = TODO 
+  def claimDateSubmit = TODO 
+  def moreAboutYou = TODO 
+  def moreAboutYouSubmit = TODO 
+  def employment = TODO 
+  def employmentSubmit = TODO 
+  def propertyAndRent = TODO 
+  def propertyAndRentSubmit = TODO 
+  def completed = TODO 
+  def completedSubmit = TODO 
 }

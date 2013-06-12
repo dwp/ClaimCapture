@@ -5,6 +5,13 @@
         <p class="error">@elements.errors.mkString(", ")</p>
     }
 
-    <label for="@elements.id"><em>*</em>@elements.label</label>
+
+        <label for="@(elements.id)">@{if(elements.field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) Html("<em>*</em>")} @elements.label</label>
+
     @elements.input
+
+    @if(elements.args.contains('helper)){
+        <p class="helper">@Messages(elements.args.get('helper).get.toString)</p>
+
+    }
 </li>

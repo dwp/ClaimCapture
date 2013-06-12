@@ -8,6 +8,7 @@ GET     /spike                     controllers.SpikeController.spike
 POST    /spikeSubmit               controllers.SpikeController.spikeSubmit
 
 #Allowance
+###############
 GET     /allowance/benefits        controllers.CarersAllowance.benefits
 POST    /allowance/benefits        controllers.CarersAllowance.benefitsSubmit
 
@@ -24,10 +25,29 @@ GET     /allowance/approve         controllers.CarersAllowance.approve
 POST    /allowance/approve         controllers.CarersAllowance.approveSubmit
 
 #AboutYou
+###############
 GET     /aboutyou/yourDetails      controllers.AboutYou.yourDetails
 POST    /aboutyou/yourDetails      controllers.AboutYou.yourDetailsSubmit
 
 GET     /aboutyou/contactDetails   controllers.AboutYou.contactDetails
+POST    /aboutyou/contactDetails   controllers.AboutYou.contactDetailsSubmit
+
+GET     /aboutyou/claimDate        controllers.AboutYou.claimDate
+POST    /aboutyou/claimDate        controllers.AboutYou.claimDateSubmit
+
+GET     /aboutyou/moreAboutYou     controllers.AboutYou.moreAboutYou
+POST    /aboutyou/moreAboutYou     controllers.AboutYou.moreAboutYouSubmit
+
+GET     /aboutyou/employment       controllers.AboutYou.employment
+POST    /aboutyou/employment       controllers.AboutYou.employmentSubmit
+
+GET     /aboutyou/propertyAndRent  controllers.AboutYou.propertyAndRent
+POST    /aboutyou/propertyAndRent  controllers.AboutYou.propertyAndRentSubmit
+
+GET     /aboutyou/completed        controllers.AboutYou.completed
+POST    /aboutyou/completed        controllers.AboutYou.completedSubmit
+
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file              controllers.Assets.at(path="/public", file)

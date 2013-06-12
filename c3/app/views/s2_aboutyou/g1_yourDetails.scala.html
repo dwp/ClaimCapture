@@ -36,44 +36,18 @@
 
 
                 @inputText(yourDetailsForm("firstName"))
-                <!--<li>
-                    <label for="firstName"><em>*</em>First NameOld</label>
-                    <input type="text" name="firstName" id="firstName">
-                </li>-->
 
-                <li>
-                    <label for="middleName">Middle Name</label>
-                    <input type="text" name="middleName" id="middleName">
-                </li>
+                @inputText(yourDetailsForm("middleName"))
 
-                <li>
-                    <p class="error">Enter your surname or family name</p>
-                    <label for="surname"><em>*</em>Surname or family name</label>
-                    <input type="text" name="surname" id="surname">
-                </li>
+                @inputText(yourDetailsForm("surname"))
 
-                <li>
-                    <label for="otherNames">All other surnames or family names you have used or have been known by</label>
-                    <input type="text" name="otherNames" id="otherNames">
-                </li>
+                @inputText(yourDetailsForm("otherNames"))
 
-                <li>
-                    <label for="nationalInsuranceNumber">National Insurance Number</label>
-                    <input type="text" name="nationalInsuranceNumber" id="nationalInsuranceNumber" placeholder="eg: JW-41-54-67-B">
-                    <p class="helper">Lorem ipsum dolor sit amet, JW-42-56-98-A</p>
-                </li>
+                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsurance.placeHolder"), 'helper -> Messages("nationalInsurance.helper"))
 
-                <li>
-                    <label for="dateOfBirth"><em>*</em>Date of birth</label>
-                    <input type="text" name="dateOfBirth" id="dateOfBirth">
-                </li>
+                @inputText(yourDetailsForm("dateOfBirth"))
 
-
-                <li>
-                    <p class="error">Enter your nationality</p>
-                    <label for="nationality"><em>*</em>Nationality</label>
-                    <input type="text" name="nationality" id="nationality">
-                </li>
+                @inputText(yourDetailsForm("nationality"))
 
                 <li>
                     <label for="maritalStatus"><em>*</em>What is your marital or civil partnership status?</label>
