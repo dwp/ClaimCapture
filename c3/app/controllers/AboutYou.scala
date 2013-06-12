@@ -39,8 +39,8 @@ object AboutYou extends Controller with CachedClaim {
   def yourDetailsSubmit = claiming {
     implicit claim => implicit request =>
 
-      val action = request.body.asFormUrlEncoded.get("action")(0)
-      println(action)
+//      val action = request.body.asFormUrlEncoded.get("action")(0)
+//      println(action)
 
       yourDetailsForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g1_yourDetails(formWithErrors)),
