@@ -18,15 +18,12 @@ class CarersAllowanceSpec extends Specification {
   """Can you get Carer's Allowance""" should {
     "start with a new Claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-
-      CarersAllowance.benefits(request)
-      val claim = Cache.getAs[Claim](claimKey)
-
       val result = CarersAllowance.benefits(request)
+
       header(CACHE_CONTROL, result) must beSome("no-cache, no-store")
 
       Cache.getAs[Claim](claimKey) must beLike {
-        case Some(c: Claim) => c.created mustNotEqual claim.get.created
+        case Some(c: Claim) => c.sections.size mustEqual 0
       }
     }
 

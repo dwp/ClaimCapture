@@ -1,4 +1,4 @@
-@(model: models.claim.Form, completedForms: List[models.claim.Form])
+@(confirmed: Boolean, completedForms: List[models.claim.Form])
 
 @import helper._
 
@@ -18,7 +18,7 @@
                     information on whether you can get Carer’s Allowance.</p>
             </div>
 
-            @yesNoRadioGroup(model)
+            @yesNoRadioGroup(confirmed)
 
         </fieldset>
 

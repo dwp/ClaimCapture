@@ -36,11 +36,10 @@ object CarersAllowance extends Controller with CachedClaim {
     )(Over16.apply)(Over16.unapply)
   )
 
-  def benefits = newClaim {
+  def benefits = claiming {
     implicit claim => implicit request =>
-      val formModel = claim.form(Benefits.id).getOrElse(Benefits())
-
-      Ok(views.html.s1_carersallowance.g1_benefits(formModel))
+      if (claiming(Benefits.id, claim)) Ok(views.html.s1_carersallowance.g1_benefits(confirmed = true, claim))
+      else Ok(views.html.s1_carersallowance.g1_benefits(confirmed = false, claim))
   }
 
   def benefitsSubmit = claiming {
@@ -53,9 +52,9 @@ object CarersAllowance extends Controller with CachedClaim {
   def hours = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(id)
-      val formModel = claim.form(Hours.id).getOrElse(Hours())
 
-      claim -> Ok(views.html.s1_carersallowance.g2_hours(formModel, completedForms.takeWhile(_.id != Hours.id)))
+      if (claiming(Hours.id, claim)) Ok(views.html.s1_carersallowance.g2_hours(confirmed = true, completedForms.takeWhile(_.id != Hours.id)))
+      else Ok(views.html.s1_carersallowance.g2_hours(confirmed = false, completedForms.takeWhile(_.id != Hours.id)))
   }
 
   def hoursSubmit = claiming {
@@ -69,9 +68,9 @@ object CarersAllowance extends Controller with CachedClaim {
   def livesInGB = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(id)
-      val formModel = claim.form(LivesInGB.id).getOrElse(LivesInGB())
 
-      claim -> Ok(views.html.s1_carersallowance.g3_livesInGB(formModel, completedForms.takeWhile(_.id != LivesInGB.id)))
+      if (claiming(LivesInGB.id, claim)) Ok(views.html.s1_carersallowance.g3_livesInGB(confirmed = true, completedForms.takeWhile(_.id != LivesInGB.id)))
+      else Ok(views.html.s1_carersallowance.g3_livesInGB(confirmed = false, completedForms.takeWhile(_.id != LivesInGB.id)))
   }
 
   def livesInGBSubmit = claiming {
@@ -84,8 +83,9 @@ object CarersAllowance extends Controller with CachedClaim {
   def over16 = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(id)
-      val formModel = claim.form(Over16.id).getOrElse(Over16())
-      claim -> Ok(views.html.s1_carersallowance.g4_over16(formModel, completedForms.takeWhile(_.id != Over16.id)))
+
+      if (claiming(Over16.id, claim)) Ok(views.html.s1_carersallowance.g4_over16(confirmed = true, completedForms.takeWhile(_.id != Over16.id)))
+      else Ok(views.html.s1_carersallowance.g4_over16(confirmed = false, completedForms.takeWhile(_.id != Over16.id)))
   }
 
   def over16Submit = claiming {
@@ -98,12 +98,17 @@ object CarersAllowance extends Controller with CachedClaim {
   def approve = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(models.claim.CarersAllowance.id)
-      val approved = claim.completedFormsForSection(id).forall(_.approved) && completedForms.length == 4
+      val approved = claim.completedFormsForSection(id).forall(_.asInstanceOf[BooleanConfirmation].answer) && completedForms.length == 4
 
-      claim -> Ok(views.html.s1_carersallowance.g5_approve(approved, completedForms))
+      Ok(views.html.s1_carersallowance.g5_approve(approved, completedForms))
   }
 
   def approveSubmit = Action {
     Redirect(routes.AboutYou.yourDetails())
+  }
+
+  private def claiming(formID: String, claim: Claim) = claim.form(formID) match {
+    case Some(b: BooleanConfirmation) => b.answer
+    case _ => false
   }
 }

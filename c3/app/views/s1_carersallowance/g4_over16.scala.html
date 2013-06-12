@@ -1,4 +1,4 @@
-@(model: models.claim.Form, completedForms: List[models.claim.Form])
+@(confirmed: Boolean, completedForms: List[models.claim.Form])
 
 @import helper._
 
@@ -9,7 +9,7 @@
         <fieldset class="form-elements form-eligibility">
             <legend><span>Q4</span>Are you aged 16 or over?</legend>
 
-            @yesNoRadioGroup(model)
+            @yesNoRadioGroup(confirmed)
 
         </fieldset>
 

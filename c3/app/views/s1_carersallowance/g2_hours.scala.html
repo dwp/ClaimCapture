@@ -1,4 +1,4 @@
-@(model: models.claim.Form, completedForms: List[models.claim.Form])
+@(confirmed: Boolean, completedForms: List[models.claim.Form])
 
 @import helper._
 
@@ -12,7 +12,7 @@
             <p>Looking after someone can mean many things. It includes things like cooking meals, or helping them with their
                 shopping.</p>
 
-            @yesNoRadioGroup(model)
+            @yesNoRadioGroup(confirmed)
 
         </fieldset>
 
