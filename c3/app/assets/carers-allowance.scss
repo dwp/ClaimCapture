@@ -204,6 +204,12 @@ $button-green-hover: #004b27;
 		   	    margin-top: 1.6em;
 	   	    }
    	    }
+   	    &.q1 {
+	   	    p {
+		   	    padding-right: 2em;
+		   	    @media screen and (max-width: 750px) {padding-right: 0;}
+	   	    }
+   	    }
    	    &.results-detail {
 	   	    margin-right: 0;
 	   	    padding-left: 0;
@@ -566,7 +572,7 @@ $button-green-hover: #004b27;
 				border-left: 1px solid #bfc1c3;
 				line-height: 1.4em;
 				&:first-child {
-					width: 22%;
+					width: 18%;
 					border-left: 0;
 					text-align: center;
 				}

@@ -17,3 +17,13 @@ case class YourDetails(title: String, firstName: String, middleName: Option[Stri
 object YourDetails {
   val id = s"${AboutYou.id}.g1"
 }
+
+case class ContactDetails(address: String, postcode: String, phoneNumber: Option[String], mobileNumber: Option[String]) extends Form{
+  val id = ContactDetails.id
+
+  val url = routes.AboutYou.contactDetails()
+}
+
+object ContactDetails {
+  val id = s"${AboutYou.id}.g2"
+}

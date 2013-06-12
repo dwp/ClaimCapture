@@ -36,10 +36,10 @@ object CarersAllowance extends Controller with CachedClaim {
     )(Over16.apply)(Over16.unapply)
   )
 
-  def benefits = claiming {
+  def benefits = newClaim {
     implicit claim => implicit request =>
-      if (claiming(Benefits.id, claim)) Ok(views.html.s1_carersallowance.g1_benefits(confirmed = true, claim))
-      else Ok(views.html.s1_carersallowance.g1_benefits(confirmed = false, claim))
+      if (claiming(Benefits.id, claim)) Ok(views.html.s1_carersallowance.g1_benefits(confirmed = true))
+      else Ok(views.html.s1_carersallowance.g1_benefits(confirmed = false))
   }
 
   def benefitsSubmit = claiming {
