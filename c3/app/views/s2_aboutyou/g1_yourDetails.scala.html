@@ -46,7 +46,7 @@
                     <input type="text" name="middleName" id="middleName">
                 </li>
 
-                <li class="validation">
+                <li>
                     <p class="error">Enter your surname or family name</p>
                     <label for="surname"><em>*</em>Surname or family name</label>
                     <input type="text" name="surname" id="surname">
@@ -67,8 +67,31 @@
                     <label for="dateOfBirth"><em>*</em>Date of birth</label>
                     <input type="text" name="dateOfBirth" id="dateOfBirth">
                 </li>
+                
+                <li>
+						<p><em>*</em>Date of birth</p>
+						<ul class="inline year label-strip">
+							<li>
+								<label for="day">Day</label>
+								<select name="day" id="day">
+									<option value="#">1</option>
+								</select>
+							</li>
+							<li>
+								<label for="month">Month</label>
+								<select name="month" id="month">
+									<option value="#">January</option>
+								</select>
+							</li>
+							<li>
+								<label for="year">Year</label>
+								<input type="tel" name="year" id="year" placeholder="eg 1980">
+							</li>
+						</ul>
+						<p class="helper">DOB should be a 3 field layout?</p>
+					</li>
 
-                <li class="validation">
+                <li>
                     <p class="error">Enter your nationality</p>
                     <label for="nationality"><em>*</em>Nationality</label>
                     <input type="text" name="nationality" id="nationality">
