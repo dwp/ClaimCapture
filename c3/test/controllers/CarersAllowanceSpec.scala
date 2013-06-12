@@ -167,7 +167,7 @@ class CarersAllowanceSpec extends Specification {
       Cache.set(claimKey, claim)
 
       val result = CarersAllowance.approve(request)
-      contentAsString(result) must contain("Based on your answers you may be entitled to Carer’s Allowance.")
+      contentAsString(result) must contain("div class=\"prompt\"")
     }
 
     "note that the carer is not eligible for allowance" in new WithApplication with Claiming {
@@ -182,7 +182,7 @@ class CarersAllowanceSpec extends Specification {
 
       val result = CarersAllowance.approve(request)
 
-      contentAsString(result) must contain("Based on your answers you may not be entitled to Carer’s Allowance.")
+      contentAsString(result) must contain("div class=\"prompt error\"")
     }
   }
 }
