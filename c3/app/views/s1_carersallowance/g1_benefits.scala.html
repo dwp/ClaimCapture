@@ -1,4 +1,4 @@
-@(confirmed: Boolean, claim: models.claim.Claim)
+@(confirmed: Boolean)
 
 @import helper._
 
@@ -34,8 +34,4 @@
             <input type="submit" value="Next step" class="button">
         </div>
     }
-}
-
-@if(claim.sections.size > 0) {
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/claim-restart-warning.js")'></script>
 }

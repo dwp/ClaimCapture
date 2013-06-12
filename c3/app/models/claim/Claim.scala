@@ -50,6 +50,21 @@ trait CachedClaim {
 
   implicit def claimAndResultToRight(claimingResult: (Claim, Result)) = Right(claimingResult)
 
+  def newClaim(f: => Claim => Request[AnyContent] => Result) = Action {
+    implicit request => {
+      val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID().toString)
+      val expiration: Int = 3600
+
+      if (request.getQueryString("changing").getOrElse("false") == "false") {
+        Cache.set(key, Claim(), expiration)
+      }
+
+      val claim = Cache.getOrElse(key, expiration)(Claim())
+
+      f(claim)(request).withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+    }
+  }
+
   def claiming(f: => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
     request => {
       val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID().toString)
