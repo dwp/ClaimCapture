@@ -187,8 +187,8 @@ $button-green-hover: #004b27;
    	    &.form-eligibility {
 	   	    padding-left: 2.9em;
 	   	    legend {
-		   	    padding: .12em 0 1em 1.6em;
-		   	    margin-left: -1.7em;
+		   	    padding: .12em 0 1em 1.64em;
+		   	    margin-left: -1.72em;
 		   	    color: inherit;
 		   	    .ie7 & {
 			   	    display: block;
@@ -517,6 +517,12 @@ $button-green-hover: #004b27;
 		   border: 1px solid #015399;
 		   padding: 1em 1.25em;
 		   margin-top: 1.6em;
+		   p {
+			   font-size: 1.6rem;
+			   .ie & {
+				   font-size: 16px;
+			   }
+		   }
 	   } 
 	   
 	   
@@ -603,13 +609,16 @@ $button-green-hover: #004b27;
 		   border: 1px solid #a2a2a2;
 		   background: #fff;
 		   p {
-			   font-size: 1.8rem;
+			   font-size: 1.6rem;
 			   margin-top: 1em;
 			   &:first-child {
 				   margin: 0;
 			   }
 			   &.intro {
 			   font-weight: 600;
+			   }
+			   .ie & {
+				   font-size: 16px;
 			   }
 		   }
 		   ul {
