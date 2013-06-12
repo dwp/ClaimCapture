@@ -98,7 +98,7 @@ $button-green-hover: #004b27;
    	   }
 	   ul {
 		   li {
-			   background: #D5ECEA url('images/progress-tick.png') 1em 1.3em no-repeat;
+			   background: #D5ECEA url('../img/progress-tick.png') 1em 1.3em no-repeat;
 			   border-bottom: 1px solid #b6d6d2;
 			   padding: 1em 9em 1em 2.8em;
 			   position: relative;
@@ -185,10 +185,10 @@ $button-green-hover: #004b27;
    	   padding-left: 1em;
    	    @media screen and (max-width: 750px) {margin-right: 0; padding-left: 0;}
    	    &.form-eligibility {
-	   	    padding-left: 3em;
+	   	    padding-left: 2.9em;
 	   	    legend {
-		   	    padding: .12em 0 1em 1.8em;
-		   	    margin-left: -1.8em;
+		   	    padding: .12em 0 1em 1.6em;
+		   	    margin-left: -1.7em;
 		   	    color: inherit;
 		   	    .ie7 & {
 			   	    display: block;
