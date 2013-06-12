@@ -10,13 +10,13 @@ class NavigationSpec extends Specification with Tags {
     "not cache pages" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.title() mustEqual "Over 16 - Carer's Allowance"
 
@@ -27,7 +27,7 @@ class NavigationSpec extends Specification with Tags {
       browser.title() mustEqual "Benefits - Carer's Allowance"
 
       browser.click("#q3-no")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       val completed = browser.find("div[class=completed] ul li")
       completed.size() mustEqual 1

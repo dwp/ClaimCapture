@@ -13,25 +13,29 @@ object CarersAllowance extends Controller with CachedClaim {
 
   val benefitsForm = Form(
     mapping(
-      "answer" -> boolean
+      "answer" -> boolean,
+      "action" -> text
     )(Benefits.apply)(Benefits.unapply)
   )
 
   val hoursForm = Form(
     mapping(
-      "answer" -> boolean
+      "answer" -> boolean,
+      "action" -> text
     )(Hours.apply)(Hours.unapply)
   )
 
   val livesInGBForm = Form(
     mapping(
-      "answer" -> boolean
+      "answer" -> boolean,
+      "action" -> text
     )(LivesInGB.apply)(LivesInGB.unapply)
   )
 
   val over16Form = Form(
     mapping(
-      "answer" -> boolean
+      "answer" -> boolean,
+      "action" -> text
     )(Over16.apply)(Over16.unapply)
   )
 

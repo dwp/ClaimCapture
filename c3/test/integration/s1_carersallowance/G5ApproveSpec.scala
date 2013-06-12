@@ -16,13 +16,13 @@ class G5ApproveSpec extends Specification with Tags {
     "be approved" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.title() mustEqual "Can you get Carer's Allowance?"
       browser.find("div[class=prompt]").size mustEqual 1
@@ -32,13 +32,13 @@ class G5ApproveSpec extends Specification with Tags {
     "be declined" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-no")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.title() mustEqual "Can you get Carer's Allowance?"
       browser.find("div[class=prompt]").size mustEqual 0
@@ -48,16 +48,16 @@ class G5ApproveSpec extends Specification with Tags {
     "navigate to next section" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-no")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.title() mustEqual "Can you get Carer's Allowance?"
 
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.title() mustEqual "Your Details - About You"
     }
