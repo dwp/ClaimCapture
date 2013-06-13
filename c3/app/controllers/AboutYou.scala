@@ -135,7 +135,12 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         case _ => moreAboutYouForm
       }
 
-      Ok(views.html.s2_aboutyou.g5_moreAboutYou(moreAboutYouFormParam,completedForms.takeWhile(_.id != MoreAboutYou.id)))
+      claim.form(models.claim.ClaimDate.id) match{
+        case Some(n) => Ok(views.html.s2_aboutyou.g5_moreAboutYou(moreAboutYouFormParam,completedForms.takeWhile(_.id != MoreAboutYou.id)))
+        case _ => Redirect(routes.CarersAllowance.benefits())
+      }
+
+
   }
 
 
@@ -158,7 +163,12 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         case _ => employmentForm
       }
 
-      Ok(views.html.s2_aboutyou.g6_employment(employmentFormParam,completedForms.takeWhile(_.id != Employment.id)))
+      claim.form(models.claim.ClaimDate.id) match{
+        case Some(n) => Ok(views.html.s2_aboutyou.g6_employment(employmentFormParam,completedForms.takeWhile(_.id != Employment.id)))
+        case _ => Redirect(routes.CarersAllowance.benefits())
+
+      }
+
   }
 
   def employmentSubmit = claiming {
