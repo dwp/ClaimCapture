@@ -8,11 +8,9 @@ object CarersAllowance {
 
 case class Benefits(answer: Boolean = false, action:Option[String] = NavAction.nextAction) extends Form with BooleanConfirmation {
   val id = Benefits.id
-  val url = routes.CarersAllowance.benefits()
 
   val next = routes.CarersAllowance.hours()
-  val previous = url
-
+  val previous = routes.CarersAllowance.benefits()
 }
 
 object Benefits {
@@ -21,7 +19,7 @@ object Benefits {
 
 case class Hours(answer: Boolean = false, action:Option[String] = NavAction.nextAction) extends Form with BooleanConfirmation {
   val id = Hours.id
-  val url = routes.CarersAllowance.hours()
+
   val next = routes.CarersAllowance.livesInGB()
   val previous = routes.CarersAllowance.benefits()
 }
@@ -32,7 +30,7 @@ object Hours {
 
 case class LivesInGB(answer: Boolean = false, action:Option[String] = NavAction.nextAction) extends Form with BooleanConfirmation {
   val id = LivesInGB.id
-  val url = routes.CarersAllowance.livesInGB()
+
   val next = routes.CarersAllowance.over16()
   val previous = routes.CarersAllowance.hours()
 }
@@ -43,7 +41,7 @@ object LivesInGB {
 
 case class Over16(answer: Boolean = false, action:Option[String] = NavAction.nextAction) extends Form with BooleanConfirmation {
   val id = Over16.id
-  val url = routes.CarersAllowance.over16()
+
   val next = routes.CarersAllowance.approve()
   val previous = routes.CarersAllowance.livesInGB()
 }

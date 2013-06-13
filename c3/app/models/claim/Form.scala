@@ -4,9 +4,6 @@ import play.api.mvc.Call
 
 trait Form extends Confirmation with NavAction {
   val id: String
-
-  val url: Call
-
 }
 
 trait NavAction {

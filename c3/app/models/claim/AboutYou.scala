@@ -12,8 +12,6 @@ case class YourDetails(title: String, firstName: String, middleName: Option[Stri
                        dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String, action:Option[String]) extends Form {
   val id = YourDetails.id
 
-  val url = routes.AboutYou.yourDetails()
-
   val next = routes.AboutYou.contactDetails()
 
   val previous = routes.CarersAllowance.approve()
@@ -26,8 +24,6 @@ object YourDetails {
 case class ContactDetails(address: String, postcode: String, phoneNumber: Option[String], mobileNumber: Option[String], action:Option[String]) extends Form {
   val id = ContactDetails.id
 
-  val url = routes.AboutYou.contactDetails()
-
   val next = routes.AboutYou.contactDetails()
 
   val previous = routes.AboutYou.yourDetails()
@@ -36,4 +32,15 @@ case class ContactDetails(address: String, postcode: String, phoneNumber: Option
 
 object ContactDetails {
   val id = s"${AboutYou.id}.g2"
+}
+
+case class ClaimDate(dateOfClaim: DayMonthYear,action: Option[String]) extends Form {
+  val id = ClaimDate.id
+
+  val next = routes.AboutYou.moreAboutYou()
+  val previous = routes.AboutYou.contactDetails()
+}
+
+object ClaimDate {
+  val id = s"${AboutYou.id}.g3"
 }
