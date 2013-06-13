@@ -31,7 +31,7 @@ class CarersAllowanceSpec extends Specification {
     }
 
     "acknowledge that the person looks after get one of the required benefits" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action"->"next")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
       CarersAllowance.benefitsSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -43,7 +43,7 @@ class CarersAllowanceSpec extends Specification {
     }
 
     "acknowledge that the person looks after does not get one of the required benefits " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "false", "action"->"next")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "false", "action" -> "next")
       CarersAllowance.benefitsSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -70,7 +70,7 @@ class CarersAllowanceSpec extends Specification {
     }
 
     "acknowledge that you spend 35 hours or more each week caring for the person you look after" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action"->"next")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
       CarersAllowance.hoursSubmit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.claim.CarersAllowance.id).get
@@ -82,10 +82,10 @@ class CarersAllowanceSpec extends Specification {
 
     """acknowledge that the person looks after get one of the required benefits AND (proving that previous steps are cached)
        acknowledge that you spend 35 hours or more each week caring for the person you look after""" in new WithApplication with Claiming {
-      val benefitsRequest = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action"->"next")
+      val benefitsRequest = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
       CarersAllowance.benefitsSubmit(benefitsRequest)
 
-      val hoursRequest = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action"->"next")
+      val hoursRequest = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
       CarersAllowance.hoursSubmit(hoursRequest)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.claim.CarersAllowance.id).get
@@ -116,7 +116,7 @@ class CarersAllowanceSpec extends Specification {
     }
 
     "acknowledge that carer lives in Great Britain" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action"->"next")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
       CarersAllowance.livesInGBSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -148,7 +148,7 @@ class CarersAllowanceSpec extends Specification {
     }
 
     "acknowledge that carer is aged 16 or over" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action"->"next")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
       CarersAllowance.over16Submit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get

@@ -10,16 +10,16 @@ class AboutYouSpec extends Specification {
   "About you" should {
     "accept all initial mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-                      .withFormUrlEncodedBody(
-                        "firstName" -> "Scooby",
-                        "title" -> "Mr",
-                        "surname" -> "Doo",
-                        "nationality" -> "US",
-                        "dateOfBirth.day" -> "5",
-                        "dateOfBirth.month" -> "12",
-                        "dateOfBirth.year" -> "1990",
-                        "maritalStatus" -> "Single",
-                        "alwaysLivedUK" -> "yes")
+        .withFormUrlEncodedBody(
+        "firstName" -> "Scooby",
+        "title" -> "Mr",
+        "surname" -> "Doo",
+        "nationality" -> "US",
+        "dateOfBirth.day" -> "5",
+        "dateOfBirth.month" -> "12",
+        "dateOfBirth.year" -> "1990",
+        "maritalStatus" -> "Single",
+        "alwaysLivedUK" -> "yes")
 
       val result = AboutYou.yourDetailsSubmit(request)
       redirectLocation(result) must beSome("/aboutyou/contactDetails")
@@ -34,7 +34,7 @@ class AboutYouSpec extends Specification {
 
     "highlight missing mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-                      .withFormUrlEncodedBody("firstName" -> "Scooby", "action" -> "next")
+        .withFormUrlEncodedBody("firstName" -> "Scooby", "action" -> "next")
 
       val result = AboutYou.yourDetailsSubmit(request)
       status(result) mustEqual BAD_REQUEST

@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 
 class G1YourDetailsSpec extends Specification with Tags {
 
-  "Your Details" should{
+  "Your Details" should {
     "be presented" in new WithBrowser {
       browser.goTo("/aboutyou/yourDetails")
       browser.title() mustEqual "Your Details - About You"

@@ -27,7 +27,9 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
 
   def update(form: Form): Claim = {
     def update(form: Form, forms: List[Form]) = {
-      val updated = forms map { f => if (f.id == form.id) form else f }
+      val updated = forms map {
+        f => if (f.id == form.id) form else f
+      }
       if (updated.contains(form)) updated else updated :+ form
     }
 
@@ -43,6 +45,7 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
 }
 
 trait CachedClaim {
+
   import play.api.Play.current
   import scala.language.implicitConversions
   import play.api.http.HeaderNames._
@@ -74,25 +77,6 @@ trait CachedClaim {
       val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID().toString)
       val expiration = 3600
       val claim = Cache.getOrElse(key, expiration)(Claim())
-
-      f(claim)(request) match {
-        case Left(r: Result) => r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
-
-        case Right((c: Claim, r: Result)) => {
-          Cache.set(key, c, expiration)
-          r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
-        }
-      }
-    }
-  }
-
-  def claimingWithAction(f: => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
-    request => {
-      val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID().toString)
-      val expiration: Int = 3600
-      val claim = Cache.getOrElse(key, expiration)(Claim())
-
-      val action = request.body.asFormUrlEncoded.get("action")(0)
 
       f(claim)(request) match {
         case Left(r: Result) => r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")

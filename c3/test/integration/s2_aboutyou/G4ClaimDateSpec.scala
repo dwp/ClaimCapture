@@ -6,7 +6,7 @@ import integration.Helper
 
 class G4ClaimDateSpec extends Specification with Tags {
 
-  "Claim Date" should{
+  "Claim Date" should {
     "be presented" in new WithBrowser {
       browser.goTo("/aboutyou/claimDate")
       browser.title() mustEqual "Claim Date - About You"
@@ -18,8 +18,7 @@ class G4ClaimDateSpec extends Specification with Tags {
 
       browser.title() mustEqual "Claim Date - About You"
       browser.find("div[class=completed] ul li").size() mustEqual 2
-
-
     }
+
   } section "integration"
 }
