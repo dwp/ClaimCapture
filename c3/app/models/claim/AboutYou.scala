@@ -8,25 +8,19 @@ object AboutYou {
 
 case class YourDetails(title: String, firstName: String, middleName: Option[String], surname: String,
                        otherNames: Option[String], nationalInsuranceNumber: Option[String], nationality: String,
-                       dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends Form {
-  val id = YourDetails.id
-}
+                       dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends Form(YourDetails.id)
 
 object YourDetails {
   val id = s"${AboutYou.id}.g1"
 }
 
-case class ContactDetails(address: String, postcode: String, phoneNumber: Option[String], mobileNumber: Option[String]) extends Form {
-  val id = ContactDetails.id
-}
+case class ContactDetails(address: String, postcode: String, phoneNumber: Option[String], mobileNumber: Option[String]) extends Form(ContactDetails.id)
 
 object ContactDetails {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class ClaimDate(dateOfClaim: DayMonthYear) extends Form {
-  val id = ClaimDate.id
-}
+case class ClaimDate(dateOfClaim: DayMonthYear) extends Form(ClaimDate.id)
 
 object ClaimDate {
   val id = s"${AboutYou.id}.g3"

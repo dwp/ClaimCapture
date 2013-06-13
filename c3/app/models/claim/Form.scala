@@ -1,8 +1,6 @@
 package models.claim
 
-trait Form extends Confirmation {
-  val id: String
-}
+abstract class Form(val id: String) extends Confirmation
 
 trait Confirmation {
   def confirmation: String = ""
