@@ -4,19 +4,7 @@ import models.claim._
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.validation._
-import models.DayMonthYear
-import play.api.data.validation.ValidationError
-import models.DayMonthYear
 import scala.Some
-import play.api.data.validation.ValidationError
-import play.api.http.HeaderNames._
-import models.claim.Claim
-import scala.Some
-import play.api.data.validation.ValidationError
-import models.DayMonthYear
-import play.api.cache.Cache
-import utils.AppConfigs
 
 object AboutYou extends Controller with CachedClaim with FormMappings {
   val yourDetailsForm = Form(
@@ -30,8 +18,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "nationality" -> nonEmptyText,
       "dateOfBirth" -> date.verifying(validDate),
       "maritalStatus" -> nonEmptyText,
-      "alwaysLivedUK" -> nonEmptyText,
-      "action" -> optional(text)
+      "alwaysLivedUK" -> nonEmptyText
     )(YourDetails.apply)(YourDetails.unapply)
   )
 
@@ -40,15 +27,13 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "address" -> nonEmptyText,
       "postcode" -> nonEmptyText,
       "phoneNumber" -> optional(text),
-      "mobileNumber" -> optional(text),
-      "action" -> optional(text)
+      "mobileNumber" -> optional(text)
     )(ContactDetails.apply)(ContactDetails.unapply)
   )
 
   val claimDateForm = Form(
     mapping(
-      "dateOfClaim" -> date.verifying(validDate),
-      "action" -> optional(text)
+      "dateOfClaim" -> date.verifying(validDate)
     )(ClaimDate.apply)(ClaimDate.unapply)
   )
 
@@ -75,6 +60,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
   def contactDetails = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
       val contactDetailsFormParam: Form[ContactDetails]=  claim.form(ContactDetails.id) match {
         case Some(n) =>  contactDetailsForm.fill(n.asInstanceOf[ContactDetails])
         case _ => contactDetailsForm
@@ -95,7 +81,8 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def claimDate = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(models.claim.ClaimDate.id)
+
       val claimDateFormParam: Form[ClaimDate] = claim.form(ClaimDate.id) match {
         case Some(n) =>  claimDateForm.fill(n.asInstanceOf[ClaimDate])
         case _ => claimDateForm
@@ -113,6 +100,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.moreAboutYou())
       )
   }
+
   def moreAboutYou = TODO 
   def moreAboutYouSubmit = TODO 
   def employment = TODO 
