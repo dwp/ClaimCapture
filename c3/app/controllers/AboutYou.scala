@@ -53,9 +53,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         case Some(n: YourDetails) => yourDetailsForm.fill(n)
         case _ => yourDetailsForm
       }
-
       Ok(views.html.s2_aboutyou.g1_yourDetails(yourDetailsFormParam))
-
   }
 
   def yourDetailsSubmit = claiming {
@@ -74,7 +72,6 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         case Some(n: ContactDetails) =>  contactDetailsForm.fill(n)
         case _ => contactDetailsForm
       }
-
       Ok(views.html.s2_aboutyou.g2_contactDetails(contactDetailsFormParam,completedForms.takeWhile(_.id != ContactDetails.id)))
   }
 

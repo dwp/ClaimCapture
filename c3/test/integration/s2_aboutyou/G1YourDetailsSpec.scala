@@ -9,7 +9,6 @@ class G1YourDetailsSpec extends Specification with Tags {
     "be presented" in new WithBrowser {
       browser.goTo("/aboutyou/yourDetails")
       browser.title() mustEqual "Your Details - About You"
-      browser.find("div[class=carers-allowance]").getText must contain("Title")
     }
   } section "integration"
 }
