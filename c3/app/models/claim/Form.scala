@@ -10,14 +10,22 @@ trait Form extends Confirmation with NavAction {
 }
 
 trait NavAction {
-  val action:String
+  val action:Option[String]
 
   val next: Call
 
   val previous:Call
 
-  def findNext = if(action == "next") { next } else previous
+  def findNext = {
+    action match {
+      case Some(action) => if(action == "next") { next } else previous
+      case _ => next
+    }
+  }
+}
 
+object NavAction {
+  val nextAction = Some("next")
 }
 
 trait Confirmation {

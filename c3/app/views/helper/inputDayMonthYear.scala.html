@@ -2,13 +2,13 @@
 
 @input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
     <p>
-        <select id="@{name}-day" name="@{name}.day" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;>
+        <select id="@{name}-day" name="@{name}.day" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;">
             @for(d <- 1 to 31) {
                 <option value="@d">@d</option>
             }
         </select>
 
-        <select id="@{name}-month" name="@{name}.month" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;>
+        <select id="@{name}-month" name="@{name}.month" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;">
             @for(d <- 1 to 12) {
                 <option value="@d">@d</option>
             }
