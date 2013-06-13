@@ -60,7 +60,7 @@ trait CachedClaim {
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         val claim = Claim()
-        Cache.set(key, Claim(), expiration)
+        Cache.set(key, claim, expiration)
         apply(claim)
       } else {
         val claim = Cache.getOrElse(key, expiration)(Claim())
