@@ -14,7 +14,7 @@
             @errorsSummary(yourDetailsForm)
 
             <ul class="group">
-                @titleSelect(yourDetailsForm("title"), "s2_g1_q1")
+                @titleSelect(yourDetailsForm("title"))
 
                 @inputText(yourDetailsForm("firstName"))
 
@@ -30,9 +30,9 @@
 
                 @inputText(yourDetailsForm("nationality"))
 
-                @maritalStatusSelect(yourDetailsForm("maritalStatus"), "s2_g1_q9")
+                @maritalStatusSelect(yourDetailsForm("maritalStatus"))
 
-                @common.yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"), "s2_g1_q10", Messages("s2_g1_q10"))
+                @common.yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"), '_label -> Messages("s2_g1_q10"))
             </ul>
         </fieldset>
 

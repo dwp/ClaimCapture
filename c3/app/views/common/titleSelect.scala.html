@@ -1,4 +1,4 @@
-@(field: Field, id: String)
+@(field: Field)
 @import helper._
 @import utils.helpers.ClaimHelpers._
 @{
@@ -17,7 +17,6 @@
             "rev" ->"Rev" ,
             "sir" ->"Sir"
         ),
-        '_id -> id,
         '_label -> label
     )
 }
