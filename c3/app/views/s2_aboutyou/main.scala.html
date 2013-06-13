@@ -1,4 +1,4 @@
-@(title: String, completedForms: List[models.claim.Form] = Nil)(content: Html)
+@(title: String, completedForms: List[models.claim.Form] = Nil)(content: Html)(implicit claim: models.claim.Claim)
 
 @import helper._
 
@@ -20,7 +20,16 @@
                     <ul>
                         @for(completedForm <- completedForms) {
                             <li style="margin-top: 5px">
-                                <h3>@Messages(completedForm.id)</h3>
+                                @if(completedForm.id == "s2.g4"){
+                                    @defining(claim.form(models.claim.ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim){ dateOfClaim =>
+                                        <h3>@Messages(completedForm.id,s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}") </h3>
+                                    }
+                                }else{
+                                    <h3>@Messages(completedForm.id) </h3>
+                                }
+
+
+
                                 <p>@completedForm.confirmation</p>
 
                                 @defining(completedForm.id + ".url") { urlKey =>

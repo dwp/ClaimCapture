@@ -1,4 +1,4 @@
-@(contactDetailsForm :Form[models.claim.ContactDetails], completedForms:List[models.claim.Form])
+@(contactDetailsForm :Form[models.claim.ContactDetails], completedForms:List[models.claim.Form])(implicit claim: models.claim.Claim)
 
 @import helper._
 @import utils.helpers.ClaimHelpers._
