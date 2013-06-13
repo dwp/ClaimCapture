@@ -4,6 +4,7 @@ import models.claim._
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.data.validation.Constraints._
 
 object AboutYou extends Controller with CachedClaim with FormMappings {
   val yourDetailsForm = Form(
@@ -13,7 +14,8 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "middleName" -> optional(text),
       "surname" -> nonEmptyText,
       "otherNames" -> optional(text),
-      "nationalInsuranceNumber" -> optional(text),
+      "nationalInsuranceNumber" -> optional(text verifying(pattern( """^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$""".r,
+        "constraint.nationalInsuranceNumber", "error.nationalInsuranceNumber"), maxLength(10))),
       "nationality" -> nonEmptyText,
       "dateOfBirth" -> date.verifying(validDate),
       "maritalStatus" -> nonEmptyText,

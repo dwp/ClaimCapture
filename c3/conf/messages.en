@@ -27,8 +27,8 @@ maritalStatus = What is your marital or civil partnership status?
 alwaysLivedUK = Have you always lived in the United Kingdom?
 
 firstName.error = Please fill your first name
-nationalInsuranceNumber.placeHolder = eg: JW-41-54-67-B
-nationalInsuranceNumber.helper = Lorem ipsum dolor sit amet, JW-42-56-98-A
+nationalInsuranceNumber.placeHolder = eg: JW415467B
+error.nationalInsuranceNumber = A National insurance number must be in the format AB123456Z
 
 #  CONTACT DETAILS
 address = Address
