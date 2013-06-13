@@ -1,17 +1,18 @@
-@(field: Field, id: String, label:String = "Title")
+@(field: Field, id: String, label: String = "Marital Status")
+
 @import helper._
 @import utils.helpers.ClaimHelpers._
 
 @select(field,
-        options = options(
-            "" -> "Please select",
-            "m" -> "Married or civil partner",
-            "s" -> "Single",
-            "d" -> "Divorced or civil partnership dissolved",
-            "w" -> "Widowed or surviving civil partner",
-            "n" -> "Separated",
-            "p" -> "Living with partner"
-        ),
-        '_id -> id,
-        '_label -> label
+    options = options(
+        "" -> "Please select",
+        "m" -> "Married or civil partner",
+        "s" -> "Single",
+        "d" -> "Divorced or civil partnership dissolved",
+        "w" -> "Widowed or surviving civil partner",
+        "n" -> "Separated",
+        "p" -> "Living with partner"
+    ),
+    '_id -> id,
+    '_label -> label
 )

@@ -4,6 +4,7 @@ import models.claim.{ContactDetails, YourDetails, CachedClaim}
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
+import models.DayMonthYear
 
 object AboutYou extends Controller with CachedClaim {
 
@@ -16,7 +17,11 @@ object AboutYou extends Controller with CachedClaim {
       "otherNames" -> optional(text),
       "nationalInsuranceNumber" -> optional(text),
       "nationality" -> nonEmptyText,
-      "dateOfBirth" -> nonEmptyText,
+      "dateOfBirth" -> mapping(
+        "day" -> number,
+        "month" -> number,
+        "year" -> number
+      )(DayMonthYear.apply)(DayMonthYear.unapply),
       "maritalStatus" -> nonEmptyText,
       "alwaysLivedUK" -> nonEmptyText,
       "action" -> text
@@ -40,10 +45,6 @@ object AboutYou extends Controller with CachedClaim {
 
   def yourDetailsSubmit = claiming {
     implicit claim => implicit request =>
-
-//      val action = request.body.asFormUrlEncoded.get("action")(0)
-//      println(action)
-
       yourDetailsForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g1_yourDetails(formWithErrors)),
         inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.contactDetails())
@@ -53,12 +54,14 @@ object AboutYou extends Controller with CachedClaim {
   def contactDetails = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
       Ok(views.html.s2_aboutyou.g2_contactDetails(contactDetailsForm,completedForms.takeWhile(_.id != ContactDetails.id)))
   }
 
   def contactDetailsSubmit = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
       contactDetailsForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g2_contactDetails(formWithErrors,completedForms.takeWhile(_.id != ContactDetails.id))),
         inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.claimDate())

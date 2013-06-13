@@ -1,14 +1,15 @@
 package models.claim
 
 import controllers.routes
+import models.DayMonthYear
 
 object AboutYou {
   val id = "s2"
 }
 
 case class YourDetails(title: String, firstName: String, middleName: Option[String], surname: String,
-                           otherNames: Option[String], nationalInsuranceNumber: Option[String], nationality: String,
-                           dateOfBirth: String, maritalStatus: String, alwaysLivedUK: String, action:String) extends Form with NavAction {
+                       otherNames: Option[String], nationalInsuranceNumber: Option[String], nationality: String,
+                       dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String, action:String) extends Form with NavAction {
   val id = YourDetails.id
 
   val url = routes.AboutYou.yourDetails()

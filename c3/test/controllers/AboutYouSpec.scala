@@ -15,7 +15,9 @@ class AboutYouSpec extends Specification {
                         "title" -> "Mr",
                         "surname" -> "Doo",
                         "nationality" -> "US",
-                        "dateOfBirth" -> "Dunno",
+                        "dateOfBirth.day" -> "5",
+                        "dateOfBirth.month" -> "12",
+                        "dateOfBirth.year" -> "1990",
                         "maritalStatus" -> "Single",
                         "alwaysLivedUK" -> "yes",
                         "action" -> "next")

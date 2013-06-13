@@ -1,38 +1,27 @@
-@**
-* Generate an HTML input text.
-*
-* Example:
-* {{{
-* @inputText(field = myForm("name"), args = 'size -> 10, 'placeholder -> "Your name")
-* }}}
-*
-* @param field The form field.
-* @param args Set of extra attributes.
-* @param handler The field constructor.
-* input type="@inputType" id="@id" name="@name" value="@value" @toHtmlArgs(htmlArgs)>
-*@
-@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit handler: FieldConstructor, lang: play.api.i18n.Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: FieldConstructor, lang: play.api.i18n.Lang)
 
-@inputType = @{ args.toMap.get('type).map(_.toString).getOrElse("text") }
-
-@input(field, args.filter(_._1 != 'type):_*) { (id, name, value, htmlArgs) =>
+@input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
     <p>
-        <select id="day" name="day" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;>
+        <select id="@{name}-day" name="@{name}.day" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;>
             @for(d <- 1 to 31) {
                 <option value="@d">@d</option>
             }
         </select>
 
-        <!-- month -->
+        <select id="@{name}-month" name="@{name}.month" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;>
+            @for(d <- 1 to 12) {
+                <option value="@d">@d</option>
+            }
+        </select>
 
         <span style="position: relative; vertical-align: baseline;">
-            <select id="yearSelect" name="yearSelect" style="position: absolute; top: 5px; left: 10px; width: 172px; height: 25px;">
+            <select id="@{name}-yearSelect" name="@{name}.yearSelect" style="position: absolute; top: 5px; left: 10px; width: 172px; height: 25px;">
                 @for(d <- 1900 to 1997) {
                     <option value="@d">@d</option>
                 }
             </select>
 
-            <input id="year" name="year" type="text" placeholder="Edit/Select year" style="position: absolute; top: 0px; left: 0px; width: 150px;">
+            <input id="@{name}-year" name="@{name}.year" type="text" placeholder="Edit/Select year" style="position: absolute; top: 0px; left: 0px; width: 150px;">
         </span>
     </p>
 
@@ -40,11 +29,11 @@
 
     <script type="text/javascript">
         $(function() {
-            $("#yearSelect").change(function() {
-                $("#year").attr("value", this.options[this.selectedIndex].text);
+            $("#@{name}-yearSelect").change(function() {
+                $("#@{name}-year").attr("value", this.options[this.selectedIndex].text);
             });
 
-            $("#year").focus(function() {
+            $("#@{name}-year").focus(function() {
                 this.select();
             });
         });
