@@ -101,7 +101,7 @@ object AboutYou extends Controller with CachedClaim {
         case Some(n) =>  claimDateForm.fill(n.asInstanceOf[ClaimDate])
         case _ => claimDateForm
       }
-      Ok(views.html.s2_aboutyou.g3_claimDate(claimDateFormParam,completedForms.takeWhile(_.id != ClaimDate.id)))
+      Ok(views.html.s2_aboutyou.g4_claimDate(claimDateFormParam,completedForms.takeWhile(_.id != ClaimDate.id)))
   }
 
 
@@ -110,7 +110,7 @@ object AboutYou extends Controller with CachedClaim {
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
 
       claimDateForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s2_aboutyou.g3_claimDate(formWithErrors,completedForms.takeWhile(_.id != ClaimDate.id))),
+        formWithErrors => BadRequest(views.html.s2_aboutyou.g4_claimDate(formWithErrors,completedForms.takeWhile(_.id != ClaimDate.id))),
         inputForm => claim.update(inputForm) -> Redirect(inputForm.findNext)
       )
   }
