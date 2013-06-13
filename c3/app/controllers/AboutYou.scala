@@ -49,7 +49,7 @@ object AboutYou extends Controller with CachedClaim {
 
   val claimDateForm = Form(
     mapping(
-      "claimDate" -> (date verifying nonEmptyDateConstraint),
+      "dateOfClaim" -> (date verifying nonEmptyDateConstraint),
       "action" -> optional(text)
     )(ClaimDate.apply)(ClaimDate.unapply)
   )
