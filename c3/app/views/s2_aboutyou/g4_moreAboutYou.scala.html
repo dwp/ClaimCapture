@@ -9,38 +9,14 @@
 
             <ul class="group">
 
-                <li>
-                    <p><em>*</em>Have you had a partner/spouse at any time since your claim date: 01/02/2013?</p>
-                    <ul class="inline">
-                        <li><input type="radio" name="q1-yes" id="q1-yes"><label for="q1-yes">Yes</label></li>
-                        <li><input type="radio" name="q1-no" id="q1-no"><label for="q1-no">No</label></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <p><em>*</em>Have you or your partner/spouse claimed or received any other benefits since your claim date: 01/02/2013?</p>
-                    <ul class="inline">
-                        <li><input type="radio" name="q2-yes" id="q2-yes"><label for="q2-yes">Yes</label></li>
-                        <li><input type="radio" name="q2-no" id="q2-no"><label for="q2-no">No</label></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <p><em>*</em>Have you been on a course of education since your claim date: 01/02/2013?</p>
-                    <ul class="inline">
-                        <li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
-                        <li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <p><em>*</em>Do you receive State Pension?</p>
-                    <ul class="inline">
-                        <li><input type="radio" name="q4-yes" id="q4-yes"><label for="q4-yes">Yes</label></li>
-                        <li><input type="radio" name="q4-no" id="q4-no"><label for="q4-no">No</label></li>
-                    </ul>
-                </li>
-
+                @common.yesNoRadioGroup(contactDetailsForm("hadPartnerSinceClaimDate"),
+                    '_label -> "Have you had a partner/spouse at any time since your claim date: 01/02/2013?")
+                @common.yesNoRadioGroup(contactDetailsForm("eitherClaimedBenefitSinceClaimDate"),
+                    '_label -> "Have you or your partner/spouse claimed or received any other benefits since your claim date: 01/02/2013?")
+                @common.yesNoRadioGroup(contactDetailsForm("beenInEducationSinceClaimDate"),
+                    '_label -> "Have you been on a course of education since your claim date: 01/02/2013?")
+                @common.yesNoRadioGroup(contactDetailsForm("receiveStatePension"),
+                    '_label -> "Do you receive State Pension?")
 
             </ul>
 
