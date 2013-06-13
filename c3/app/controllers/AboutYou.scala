@@ -1,12 +1,22 @@
 package controllers
 
-import models.claim.{ClaimDate, ContactDetails, YourDetails, CachedClaim}
+import models.claim._
 import play.api.mvc._
 import play.api.data.{Mapping, Form}
 import play.api.data.Forms._
 import play.api.data.validation._
 import models.DayMonthYear
 import play.api.data.validation.ValidationError
+import models.DayMonthYear
+import scala.Some
+import play.api.data.validation.ValidationError
+import play.api.http.HeaderNames._
+import models.claim.Claim
+import scala.Some
+import play.api.data.validation.ValidationError
+import models.DayMonthYear
+import play.api.cache.Cache
+import utils.AppConfigs
 
 object AboutYou extends Controller with CachedClaim {
 
@@ -31,8 +41,7 @@ object AboutYou extends Controller with CachedClaim {
       "nationality" -> nonEmptyText,
       "dateOfBirth" -> (date verifying nonEmptyDateConstraint),
       "maritalStatus" -> nonEmptyText,
-      "alwaysLivedUK" -> nonEmptyText,
-      "action" -> optional(text)
+      "alwaysLivedUK" -> nonEmptyText
     )(YourDetails.apply)(YourDetails.unapply)
   )
 
@@ -41,15 +50,13 @@ object AboutYou extends Controller with CachedClaim {
       "address" -> nonEmptyText,
       "postcode" -> nonEmptyText,
       "phoneNumber" -> optional(text),
-      "mobileNumber" -> optional(text),
-      "action" -> optional(text)
+      "mobileNumber" -> optional(text)
     )(ContactDetails.apply)(ContactDetails.unapply)
   )
 
   val claimDateForm = Form(
     mapping(
-      "dateOfClaim" -> (date verifying nonEmptyDateConstraint),
-      "action" -> optional(text)
+      "dateOfClaim" -> (date verifying nonEmptyDateConstraint)
     )(ClaimDate.apply)(ClaimDate.unapply)
   )
 
@@ -60,7 +67,6 @@ object AboutYou extends Controller with CachedClaim {
         case Some(n) =>  yourDetailsForm.fill(n.asInstanceOf[YourDetails])
         case _ => yourDetailsForm
       }
-
       Ok(views.html.s2_aboutyou.g1_yourDetails(yourDetailsFormParam))
 
   }
@@ -69,7 +75,7 @@ object AboutYou extends Controller with CachedClaim {
     implicit claim => implicit request =>
       yourDetailsForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g1_yourDetails(formWithErrors)),
-        inputForm => claim.update(inputForm) -> Redirect(inputForm.findNext)
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.contactDetails())
       )
   }
 
@@ -90,7 +96,7 @@ object AboutYou extends Controller with CachedClaim {
 
       contactDetailsForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g2_contactDetails(formWithErrors,completedForms.takeWhile(_.id != ContactDetails.id))),
-        inputForm => claim.update(inputForm) -> Redirect(inputForm.findNext)
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.claimDate())
       )
   }
 
@@ -111,7 +117,7 @@ object AboutYou extends Controller with CachedClaim {
 
       claimDateForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g4_claimDate(formWithErrors,completedForms.takeWhile(_.id != ClaimDate.id))),
-        inputForm => claim.update(inputForm) -> Redirect(inputForm.findNext)
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.moreAboutYou())
       )
   }
   def moreAboutYou = TODO 

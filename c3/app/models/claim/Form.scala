@@ -2,29 +2,11 @@ package models.claim
 
 import play.api.mvc.Call
 
-trait Form extends Confirmation with NavAction {
+trait Form extends Confirmation {
   val id: String
 }
 
-trait NavAction {
-  val action:Option[String]
 
-  val next: Call
-
-  val previous:Call
-
-  def findNext = {
-
-    action match {
-      case Some(action) => if(action == "next") { next } else previous
-      case _ => next
-    }
-  }
-}
-
-object NavAction {
-  val nextAction = Some("next")
-}
 
 trait Confirmation {
   def confirmation: String = ""

@@ -13,29 +13,25 @@ object CarersAllowance extends Controller with CachedClaim {
 
   val benefitsForm = Form(
     mapping(
-      "answer" -> boolean,
-      "action" -> optional(text)
+      "answer" -> boolean
     )(Benefits.apply)(Benefits.unapply)
   )
 
   val hoursForm = Form(
     mapping(
-      "answer" -> boolean,
-      "action" -> optional(text)
+      "answer" -> boolean
     )(Hours.apply)(Hours.unapply)
   )
 
   val livesInGBForm = Form(
     mapping(
-      "answer" -> boolean,
-      "action" -> optional(text)
+      "answer" -> boolean
     )(LivesInGB.apply)(LivesInGB.unapply)
   )
 
   val over16Form = Form(
     mapping(
-      "answer" -> boolean,
-      "action" -> optional(text)
+      "answer" -> boolean
     )(Over16.apply)(Over16.unapply)
   )
 
@@ -49,7 +45,7 @@ object CarersAllowance extends Controller with CachedClaim {
     implicit claim => implicit request =>
       benefitsForm.bindFromRequest.fold(
         formWithErrors => Redirect(routes.CarersAllowance.benefits()),
-        model => claim.update(model) -> Redirect(model.findNext))
+        model => claim.update(model) -> Redirect(routes.CarersAllowance.hours()))
   }
 
   def hours = claiming {
@@ -64,7 +60,7 @@ object CarersAllowance extends Controller with CachedClaim {
     implicit claim => implicit request =>
       hoursForm.bindFromRequest.fold(
         formWithErrors => Redirect(routes.CarersAllowance.hours()),
-        model => claim.update(model) -> Redirect(model.findNext))
+        model => claim.update(model) -> Redirect(routes.CarersAllowance.livesInGB()))
   }
 
   def livesInGB = claiming {
@@ -79,7 +75,7 @@ object CarersAllowance extends Controller with CachedClaim {
     implicit claim => implicit request =>
       livesInGBForm.bindFromRequest.fold(
         formWithErrors => Redirect(routes.CarersAllowance.livesInGB()),
-        model => claim.update(model) -> Redirect(model.findNext))
+        model => claim.update(model) -> Redirect(routes.CarersAllowance.over16()))
   }
 
   def over16 = claiming {
@@ -94,7 +90,7 @@ object CarersAllowance extends Controller with CachedClaim {
     implicit claim => implicit request =>
       over16Form.bindFromRequest.fold(
         formWithErrors => Redirect(routes.CarersAllowance.over16()),
-        model => claim.update(model) -> Redirect(model.findNext))
+        model => claim.update(model) -> Redirect(routes.CarersAllowance.approve()))
   }
 
   def approve = claiming {
