@@ -1,10 +1,9 @@
-@(claimDateForm :Form[models.claim.ClaimDate], completedForms:List[models.claim.Form])
+@(claimDateForm: Form[models.claim.ClaimDate], completedForms: List[models.claim.Form])
 
 @import models.claim.ContactDetails
 @import helper._
 @import utils.helpers.ClaimHelpers._
 @import views.html.common._
-@import utils.AppConfigs
 
 @main("Claim Date - About You", completedForms) {
     @form(action = routes.AboutYou.claimDateSubmit()) {
@@ -22,7 +21,7 @@
 
 
         <div class="form-steps">
-            <a href="@AppConfigs.formUrl(ContactDetails.id)" class="button secondary">Back</a>
+            <a href="@routes.CarersAllowance.goto(ContactDetails.id)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

@@ -3,49 +3,51 @@
 # ~~~~
 
 # Home page
-GET     /                          controllers.Application.index
+GET     /                               controllers.Application.index
 
 #Allowance
 ###############
-GET     /allowance/benefits        controllers.CarersAllowance.benefits
-POST    /allowance/benefits        controllers.CarersAllowance.benefitsSubmit
+GET     /allowance/goto/:formID         controllers.CarersAllowance.goto(formID: String)
 
-GET     /allowance/hours           controllers.CarersAllowance.hours
-POST    /allowance/hours           controllers.CarersAllowance.hoursSubmit
+GET     /allowance/benefits             controllers.CarersAllowance.benefits
+POST    /allowance/benefits             controllers.CarersAllowance.benefitsSubmit
 
-GET     /allowance/livesInGB       controllers.CarersAllowance.livesInGB
-POST    /allowance/livesInGB       controllers.CarersAllowance.livesInGBSubmit
+GET     /allowance/hours                controllers.CarersAllowance.hours
+POST    /allowance/hours                controllers.CarersAllowance.hoursSubmit
 
-GET     /allowance/over16          controllers.CarersAllowance.over16
-POST    /allowance/over16          controllers.CarersAllowance.over16Submit
+GET     /allowance/livesInGB            controllers.CarersAllowance.livesInGB
+POST    /allowance/livesInGB            controllers.CarersAllowance.livesInGBSubmit
 
-GET     /allowance/approve         controllers.CarersAllowance.approve
-POST    /allowance/approve         controllers.CarersAllowance.approveSubmit
+GET     /allowance/over16               controllers.CarersAllowance.over16
+POST    /allowance/over16               controllers.CarersAllowance.over16Submit
+
+GET     /allowance/approve              controllers.CarersAllowance.approve
+POST    /allowance/approve              controllers.CarersAllowance.approveSubmit
 
 #AboutYou
 ###############
-GET     /aboutyou/yourDetails      controllers.AboutYou.yourDetails
-POST    /aboutyou/yourDetails      controllers.AboutYou.yourDetailsSubmit
+GET     /aboutyour/goto/:formID         controllers.AboutYou.goto(formID: String)
 
-GET     /aboutyou/contactDetails   controllers.AboutYou.contactDetails
-POST    /aboutyou/contactDetails   controllers.AboutYou.contactDetailsSubmit
+GET     /aboutyou/yourDetails           controllers.AboutYou.yourDetails
+POST    /aboutyou/yourDetails           controllers.AboutYou.yourDetailsSubmit
 
-GET     /aboutyou/claimDate        controllers.AboutYou.claimDate
-POST    /aboutyou/claimDate        controllers.AboutYou.claimDateSubmit
+GET     /aboutyou/contactDetails        controllers.AboutYou.contactDetails
+POST    /aboutyou/contactDetails        controllers.AboutYou.contactDetailsSubmit
 
-GET     /aboutyou/moreAboutYou     controllers.AboutYou.moreAboutYou
-POST    /aboutyou/moreAboutYou     controllers.AboutYou.moreAboutYouSubmit
+GET     /aboutyou/claimDate             controllers.AboutYou.claimDate
+POST    /aboutyou/claimDate             controllers.AboutYou.claimDateSubmit
 
-GET     /aboutyou/employment       controllers.AboutYou.employment
-POST    /aboutyou/employment       controllers.AboutYou.employmentSubmit
+GET     /aboutyou/moreAboutYou          controllers.AboutYou.moreAboutYou
+POST    /aboutyou/moreAboutYou          controllers.AboutYou.moreAboutYouSubmit
 
-GET     /aboutyou/propertyAndRent  controllers.AboutYou.propertyAndRent
-POST    /aboutyou/propertyAndRent  controllers.AboutYou.propertyAndRentSubmit
+GET     /aboutyou/employment            controllers.AboutYou.employment
+POST    /aboutyou/employment            controllers.AboutYou.employmentSubmit
 
-GET     /aboutyou/completed        controllers.AboutYou.completed
-POST    /aboutyou/completed        controllers.AboutYou.completedSubmit
+GET     /aboutyou/propertyAndRent       controllers.AboutYou.propertyAndRent
+POST    /aboutyou/propertyAndRent       controllers.AboutYou.propertyAndRentSubmit
 
-
+GET     /aboutyou/completed             controllers.AboutYou.completed
+POST    /aboutyou/completed             controllers.AboutYou.completedSubmit
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file              controllers.Assets.at(path="/public", file)
+GET     /assets/*file                   controllers.Assets.at(path="/public", file)

@@ -36,7 +36,6 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
     )(ClaimDate.apply)(ClaimDate.unapply)
   )
 
-
   val moreAboutYouForm = Form(
     mapping(
       "hadPartnerSinceClaimDate" -> nonEmptyText,
@@ -45,6 +44,15 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "receiveStatePension" -> nonEmptyText
     )(MoreAboutYou.apply)(MoreAboutYou.unapply)
   )
+
+  def goto(formID: String) = Action {
+    formID match {
+      case YourDetails.id => Redirect(routes.AboutYou.yourDetails())
+      case ContactDetails.id => Redirect(routes.AboutYou.contactDetails())
+      case ClaimDate.id => Redirect(routes.AboutYou.claimDate())
+      case MoreAboutYou.id => Redirect(routes.AboutYou.moreAboutYou())
+    }
+  }
 
   def yourDetails = claiming {
     implicit claim => implicit request =>
@@ -116,11 +124,11 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
 
       val moreAboutYouFormParam: Form[MoreAboutYou] = claim.form(MoreAboutYou.id) match {
-        case Some(n: MoreAboutYou) =>  moreAboutYouForm.fill(n)
+        case Some(n: MoreAboutYou) => moreAboutYouForm.fill(n)
         case _ => moreAboutYouForm
       }
 
-      Ok(views.html.s2_aboutyou.g5_moreAboutYou(moreAboutYouFormParam,completedForms.takeWhile(_.id != MoreAboutYou.id)))
+      Ok(views.html.s2_aboutyou.g5_moreAboutYou(moreAboutYouFormParam, completedForms.takeWhile(_.id != MoreAboutYou.id)))
   }
 
 

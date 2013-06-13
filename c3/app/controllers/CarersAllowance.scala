@@ -35,6 +35,15 @@ object CarersAllowance extends Controller with CachedClaim {
     )(Over16.apply)(Over16.unapply)
   )
 
+  def goto(formID: String) = Action {
+    formID match {
+      case Benefits.id => Redirect(routes.CarersAllowance.benefits())
+      case Hours.id => Redirect(routes.CarersAllowance.hours())
+      case LivesInGB.id => Redirect(routes.CarersAllowance.livesInGB())
+      case Over16.id => Redirect(routes.CarersAllowance.over16())
+    }
+  }
+
   def benefits = newClaim {
     implicit claim => implicit request =>
       if (claiming(Benefits.id, claim)) Ok(views.html.s1_carersallowance.g1_benefits(confirmed = true))
