@@ -11,6 +11,7 @@ object AppConfigs {
     , Over16.id ->  controllers.routes.CarersAllowance.over16()
     , YourDetails.id -> controllers.routes.AboutYou.yourDetails()
     , ContactDetails.id -> controllers.routes.AboutYou.contactDetails()
+    , ClaimDate.id -> controllers.routes.AboutYou.claimDate()
   )
 
   lazy val submissionMap = Map(Benefits.id -> controllers.routes.CarersAllowance.benefitsSubmit()
@@ -19,6 +20,7 @@ object AppConfigs {
     , Over16.id ->  controllers.routes.CarersAllowance.over16Submit()
     , YourDetails.id -> controllers.routes.AboutYou.yourDetailsSubmit()
     , ContactDetails.id -> controllers.routes.AboutYou.contactDetailsSubmit()
+    , ClaimDate.id -> controllers.routes.AboutYou.claimDateSubmit()
   )
 
   def formUrl(formId:String): Call = {

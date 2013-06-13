@@ -4,7 +4,6 @@ import models.claim.{ClaimDate, ContactDetails, YourDetails, CachedClaim}
 import play.api.mvc._
 import play.api.data.{Mapping, Form}
 import play.api.data.Forms._
-import models.DayMonthYear
 import play.api.data.validation._
 import models.DayMonthYear
 import play.api.data.validation.ValidationError
