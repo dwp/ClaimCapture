@@ -36,6 +36,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
     )(ClaimDate.apply)(ClaimDate.unapply)
   )
 
+
   val moreAboutYouForm = Form(
     mapping(
       "hadPartnerSinceClaimDate" -> nonEmptyText,
@@ -53,6 +54,13 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       case MoreAboutYou.id => Redirect(routes.AboutYou.moreAboutYou())
     }
   }
+
+  val employmentForm = Form(
+    mapping(
+      "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText,
+      "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText
+    )(Employment.apply)(Employment.unapply)
+  )
 
   def yourDetails = claiming {
     implicit claim => implicit request =>
@@ -121,11 +129,11 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
 
       val moreAboutYouFormParam: Form[MoreAboutYou] = claim.form(MoreAboutYou.id) match {
-        case Some(n: MoreAboutYou) => moreAboutYouForm.fill(n)
+        case Some(n: MoreAboutYou) =>  moreAboutYouForm.fill(n)
         case _ => moreAboutYouForm
       }
 
-      Ok(views.html.s2_aboutyou.g5_moreAboutYou(moreAboutYouFormParam, completedForms.takeWhile(_.id != MoreAboutYou.id)))
+      Ok(views.html.s2_aboutyou.g5_moreAboutYou(moreAboutYouFormParam,completedForms.takeWhile(_.id != MoreAboutYou.id)))
   }
 
 
@@ -139,8 +147,28 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       )
   }
 
-  def employment = TODO 
-  def employmentSubmit = TODO 
+  def employment = claiming {
+    implicit claim => implicit request =>
+      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
+      val employmentFormParam: Form[Employment] = claim.form(Employment.id) match {
+        case Some(n: Employment) =>  employmentForm.fill(n)
+        case _ => employmentForm
+      }
+
+      Ok(views.html.s2_aboutyou.g6_employment(employmentFormParam,completedForms.takeWhile(_.id != Employment.id)))
+  }
+
+  def employmentSubmit = claiming {
+    implicit claim => implicit request =>
+      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
+      employmentForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(views.html.s2_aboutyou.g6_employment(formWithErrors,completedForms.takeWhile(_.id != Employment.id))),
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.propertyAndRent())
+      )
+  }
+
   def propertyAndRent = TODO 
   def propertyAndRentSubmit = TODO 
   def completed = TODO 

@@ -13,11 +13,11 @@
             <ul class="group">
                 @defining(claim.form(models.claim.ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim){ dateOfClaim =>
 
-                    @common.yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("s2_g5_q1", dateOfClaim))
+                    @common.yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("s2_g5_q1", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
 
-                    @common.yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("s2_g5_q2", dateOfClaim))
+                    @common.yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("s2_g5_q2", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
 
-                    @common.yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("s2_g5_q3", dateOfClaim))
+                    @common.yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("s2_g5_q3", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
 
                 }
                 @common.yesNoRadioGroup(moreAboutYouForm("receiveStatePension"),'_label -> Messages("s2_g5_q4"))
