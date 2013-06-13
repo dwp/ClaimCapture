@@ -4,10 +4,10 @@ s1.g3 = Q3.  Do you normally live in Great Britain?
 s1.g4 = Q4.  Are you aged 16 or over?
 s2.g1 = 1  Your Details
 s2.g2 = 2  Your contact details
-s2.g3 = 3 Your claim date: xxxxxx
-s2.g4 = 4  More about you
-s2.g5 = 5  Employment
-s2.g6 = 6  Property and rent
+s2.g4 = 4  Your claim date: xxxxxx
+s2.g5 = 5  More about you
+s2.g6 = 6  Employment
+s2.g7 = 7  Property and rent
 
 ## ABOUT YOU
 

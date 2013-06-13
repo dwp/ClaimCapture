@@ -31,3 +31,9 @@ case class MoreAboutYou(hadPartnerSinceClaimDate: String,eitherClaimedBenefitSin
 object MoreAboutYou {
   val id = s"${AboutYou.id}.g5"
 }
+
+case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String,beenEmployedSince6MonthsBeforeClaim: String) extends Form(Employment.id)
+
+object Employment {
+  val id = s"${AboutYou.id}.g6"
+}
