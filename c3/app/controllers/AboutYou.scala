@@ -2,11 +2,24 @@ package controllers
 
 import models.claim.{ContactDetails, YourDetails, CachedClaim}
 import play.api.mvc._
-import play.api.data.Form
+import play.api.data.{Mapping, Form}
 import play.api.data.Forms._
 import models.DayMonthYear
+import play.api.data.validation._
+import models.DayMonthYear
+import play.api.data.validation.ValidationError
 
 object AboutYou extends Controller with CachedClaim {
+
+
+  def nonEmptyDateConstraint: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") { o =>
+    if (o.year == 0) Invalid(ValidationError("error.required")) else Valid
+  }
+
+  val date: Mapping[DayMonthYear] = (mapping(
+                                        "day" -> number,
+                                        "month" -> number,
+                                        "year" -> number)(DayMonthYear.apply)(DayMonthYear.unapply))
 
   var yourDetailsForm = Form(
     mapping(
@@ -17,11 +30,7 @@ object AboutYou extends Controller with CachedClaim {
       "otherNames" -> optional(text),
       "nationalInsuranceNumber" -> optional(text),
       "nationality" -> nonEmptyText,
-      "dateOfBirth" -> mapping(
-        "day" -> number,
-        "month" -> number,
-        "year" -> number
-      )(DayMonthYear.apply)(DayMonthYear.unapply),
+      "dateOfBirth" -> date.verifying(nonEmptyDateConstraint),
       "maritalStatus" -> nonEmptyText,
       "alwaysLivedUK" -> nonEmptyText,
       "action" -> optional(text)
