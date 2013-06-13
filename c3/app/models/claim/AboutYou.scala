@@ -9,7 +9,7 @@ object AboutYou {
 
 case class YourDetails(title: String, firstName: String, middleName: Option[String], surname: String,
                        otherNames: Option[String], nationalInsuranceNumber: Option[String], nationality: String,
-                       dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String, action:Option[String]) extends Form {
+                       dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends Form {
   val id = YourDetails.id
 
   val next = routes.AboutYou.contactDetails()
@@ -21,7 +21,7 @@ object YourDetails {
   val id = s"${AboutYou.id}.g1"
 }
 
-case class ContactDetails(address: String, postcode: String, phoneNumber: Option[String], mobileNumber: Option[String], action:Option[String]) extends Form {
+case class ContactDetails(address: String, postcode: String, phoneNumber: Option[String], mobileNumber: Option[String]) extends Form {
   val id = ContactDetails.id
 
   val next = routes.AboutYou.claimDate()
@@ -34,7 +34,7 @@ object ContactDetails {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class ClaimDate(dateOfClaim: DayMonthYear,action: Option[String]) extends Form {
+case class ClaimDate(dateOfClaim: DayMonthYear) extends Form {
   val id = ClaimDate.id
 
   val next = routes.AboutYou.moreAboutYou()

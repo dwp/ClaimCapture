@@ -1,0 +1,34 @@
+@(contactDetailsForm :Form[models.claim.ContactDetails], completedForms :List[models.claim.Form])
+
+@import helper._
+
+@main("More About You - About You") {
+    			
+    	
+        <fieldset class="form-elements">
+            <legend>More about you</legend>
+
+            <ul class="group">
+
+                @common.yesNoRadioGroup(contactDetailsForm("hadPartnerSinceClaimDate"),
+                    '_label -> "Have you had a partner/spouse at any time since your claim date: 01/02/2013?")
+                @common.yesNoRadioGroup(contactDetailsForm("eitherClaimedBenefitSinceClaimDate"),
+                    '_label -> "Have you or your partner/spouse claimed or received any other benefits since your claim date: 01/02/2013?")
+                @common.yesNoRadioGroup(contactDetailsForm("beenInEducationSinceClaimDate"),
+                    '_label -> "Have you been on a course of education since your claim date: 01/02/2013?")
+                @common.yesNoRadioGroup(contactDetailsForm("receiveStatePension"),
+                    '_label -> "Do you receive State Pension?")
+
+            </ul>
+
+        </fieldset>
+        <!-- / form elements -->
+
+
+        <div class="form-steps">
+            <input type="submit" value="Back" class="button secondary">
+            <input type="submit" value="Next" class="button">
+        </div>
+        <!-- / form steps -->
+			
+}
