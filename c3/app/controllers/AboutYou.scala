@@ -1,6 +1,6 @@
 package controllers
 
-import models.claim.{Hours, ContactDetails, YourDetails, CachedClaim}
+import models.claim.{ContactDetails, YourDetails, CachedClaim}
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._

@@ -3,13 +3,13 @@
 @import helper._
 @import utils.helpers.ClaimHelpers._
 @import views.html.common._
+@import views.html.helper._
 
 @main("Your Details - About You") {
 
     @form(action = routes.AboutYou.yourDetailsSubmit) {
         <fieldset class="form-elements">
             <legend>Your details</legend>
-
 
             @errorsSummary(yourDetailsForm)
 
@@ -27,7 +27,7 @@
 
                 @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"), 'helper -> Messages("nationalInsuranceNumber.helper"))
 
-                @inputText(yourDetailsForm("dateOfBirth"))
+                @inputDayMonthYear(yourDetailsForm("dateOfBirth"))
 
                 @inputText(yourDetailsForm("nationality"))
 

@@ -7,12 +7,12 @@ import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.claim.Benefits
 import models.claim.Hours
-import models.claim.Section
 import models.claim.LivesInGB
 import models.claim.Over16
+import utils.ClaimUtils
+import models.claim.Section
 import models.claim.Claim
 import scala.Some
-import utils.ClaimUtils
 
 class CarersAllowanceSpec extends Specification {
   """Can you get Carer's Allowance""" should {

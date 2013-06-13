@@ -1,0 +1,52 @@
+@**
+* Generate an HTML input text.
+*
+* Example:
+* {{{
+* @inputText(field = myForm("name"), args = 'size -> 10, 'placeholder -> "Your name")
+* }}}
+*
+* @param field The form field.
+* @param args Set of extra attributes.
+* @param handler The field constructor.
+* input type="@inputType" id="@id" name="@name" value="@value" @toHtmlArgs(htmlArgs)>
+*@
+@(field: play.api.data.Field, args: (Symbol,Any)*)(implicit handler: FieldConstructor, lang: play.api.i18n.Lang)
+
+@inputType = @{ args.toMap.get('type).map(_.toString).getOrElse("text") }
+
+@input(field, args.filter(_._1 != 'type):_*) { (id, name, value, htmlArgs) =>
+    <p>
+        <select id="day" name="day" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;>
+            @for(d <- 1 to 31) {
+                <option value="@d">@d</option>
+            }
+        </select>
+
+        <!-- month -->
+
+        <span style="position: relative; vertical-align: baseline;">
+            <select id="yearSelect" name="yearSelect" style="position: absolute; top: 5px; left: 10px; width: 172px; height: 25px;">
+                @for(d <- 1900 to 1997) {
+                    <option value="@d">@d</option>
+                }
+            </select>
+
+            <input id="year" name="year" type="text" placeholder="Edit/Select year" style="position: absolute; top: 0px; left: 0px; width: 150px;">
+        </span>
+    </p>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $("#yearSelect").change(function() {
+                $("#year").attr("value", this.options[this.selectedIndex].text);
+            });
+
+            $("#year").focus(function() {
+                this.select();
+            });
+        });
+    </script>
+}

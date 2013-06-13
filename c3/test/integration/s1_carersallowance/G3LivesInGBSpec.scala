@@ -12,7 +12,6 @@ class G3LivesInGBSpec extends Specification with Tags {
     }
   } section "integration"
 
-
   "Do you normally live in Great Britain" should {
     "acknowledge yes" in new WithBrowser {
       browser.goTo("/")

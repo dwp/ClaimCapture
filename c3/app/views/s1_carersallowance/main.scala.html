@@ -11,23 +11,16 @@
 
                 <header>
                     <h1><span>Quick Answer</span>Can you get Carer's Allowance?</h1>
-
                 </header>
-
 
                 @if(completedForms.size > 0) {
                     <div class="completed">
                         <ul>
                             @for(completedForm <- completedForms) {
-
-
                                 <li>
                                     <h3>@Messages(completedForm.id)</h3>
                                     <p>@completedForm.confirmation</p>
-
-                                    @defining(completedForm.id + ".url") { urlKey =>
-                                        <a href="@completedForm.url?changing=true"> Change this answer</a>
-                                    }
+                                    <a href="@completedForm.url?changing=true"> Change this answer</a>
                                 </li>
                             }
                         </ul>

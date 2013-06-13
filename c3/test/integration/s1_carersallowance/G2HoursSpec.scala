@@ -12,7 +12,6 @@ class G2HoursSpec extends Specification with Tags {
     }
   } section "integration"
 
-
   "Do you spend 35 hours or more each week caring" should {
     "acknowledge yes" in new WithBrowser {
       browser.goTo("/")

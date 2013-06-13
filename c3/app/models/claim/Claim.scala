@@ -27,7 +27,7 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
 
   def update(form: Form): Claim = {
     def update(form: Form, forms: List[Form]) = {
-      val updated = forms.map(f => if (f.id == form.id) form else f)
+      val updated = forms map { f => if (f.id == form.id) form else f }
       if (updated.contains(form)) updated else updated :+ form
     }
 
@@ -56,13 +56,16 @@ trait CachedClaim {
       val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID().toString)
       val expiration: Int = 3600
 
+      def apply(claim: Claim) = f(claim)(request).withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+
       if (request.getQueryString("changing").getOrElse("false") == "false") {
+        val claim = Claim()
         Cache.set(key, Claim(), expiration)
+        apply(claim)
+      } else {
+        val claim = Cache.getOrElse(key, expiration)(Claim())
+        apply(claim)
       }
-
-      val claim = Cache.getOrElse(key, expiration)(Claim())
-
-      f(claim)(request).withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
     }
   }
 
