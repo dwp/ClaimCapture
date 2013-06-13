@@ -1,12 +1,8 @@
-@(field: Field, id: String, label:String)
+@(field: play.api.data.Field, args: (Symbol, Any)*)
 
-@import helper._
 @import utils.helpers.ClaimHelpers._
 
-@helper.input(field,
-              '_id -> id,
-              '_label -> label,
-              '_error -> field.error.map(_.withMessage("Please select Yes or No"))) { (id, name, value, htmlArgs) =>
+@helper.input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
         <span class="buttonset" id="@id">
             <ul class="inline">
                 @Seq("yes" -> "Yes", "no" -> "No").map { v =>

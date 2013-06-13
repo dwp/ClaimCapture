@@ -14,17 +14,17 @@
 
             <ul class="group">
 
-                @common.yesNoRadioGroup(contactDetailsForm("currentlyLivingInUK"), "s2_g1_q11", Messages("s2_g1_q11"))
+                @common.yesNoRadioGroup(contactDetailsForm("currentlyLivingInUK"), '_label -> Messages("s2_g3_q1"))
 
                 @inputDayMonthYear(contactDetailsForm("arrivedInUK"))
 
                 @inputText(contactDetailsForm("originCountry"))
 
-                @common.yesNoRadioGroup(contactDetailsForm("planToGoBack"), "s2_g1_q11", Messages("s2_g1_q11"))
+                @common.yesNoRadioGroup(contactDetailsForm("planToGoBack"), '_label -> Messages("s2_g3_q4"))
 
-                @inputDayMonthYear(contactDetailsForm("whenPlanToGoBack"))
+                @inputDayMonthYear(contactDetailsForm("whenPlanToGoBack"), '_label -> Messages("s2_g3_q5"))
 
-                @inputText(contactDetailsForm("visaReference"))
+                @inputText(contactDetailsForm("visaReference"), '_label -> Messages("s2_g3_q6"))
 
             </ul>
 
