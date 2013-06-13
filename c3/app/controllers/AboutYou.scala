@@ -4,7 +4,6 @@ import models.claim._
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
-import scala.Some
 
 object AboutYou extends Controller with CachedClaim with FormMappings {
   val yourDetailsForm = Form(
@@ -41,7 +40,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
     implicit claim => implicit request =>
 
       val yourDetailsFormParam: Form[YourDetails] = claim.form(YourDetails.id) match {
-        case Some(n) =>  yourDetailsForm.fill(n.asInstanceOf[YourDetails])
+        case Some(n: YourDetails) => yourDetailsForm.fill(n)
         case _ => yourDetailsForm
       }
 
@@ -62,7 +61,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
 
       val contactDetailsFormParam: Form[ContactDetails]=  claim.form(ContactDetails.id) match {
-        case Some(n) =>  contactDetailsForm.fill(n.asInstanceOf[ContactDetails])
+        case Some(n: ContactDetails) =>  contactDetailsForm.fill(n)
         case _ => contactDetailsForm
       }
 
@@ -84,7 +83,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       val completedForms = claim.completedFormsForSection(models.claim.ClaimDate.id)
 
       val claimDateFormParam: Form[ClaimDate] = claim.form(ClaimDate.id) match {
-        case Some(n) =>  claimDateForm.fill(n.asInstanceOf[ClaimDate])
+        case Some(n: ClaimDate) =>  claimDateForm.fill(n)
         case _ => claimDateForm
       }
       Ok(views.html.s2_aboutyou.g4_claimDate(claimDateFormParam,completedForms.takeWhile(_.id != ClaimDate.id)))
