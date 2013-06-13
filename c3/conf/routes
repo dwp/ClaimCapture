@@ -4,8 +4,6 @@
 
 # Home page
 GET     /                          controllers.Application.index
-GET     /spike                     controllers.SpikeController.spike
-POST    /spikeSubmit               controllers.SpikeController.spikeSubmit
 
 #Allowance
 ###############
