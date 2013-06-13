@@ -2,34 +2,11 @@ package controllers
 
 import models.claim._
 import play.api.mvc._
-import play.api.data.{Mapping, Form}
+import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.validation._
-import models.DayMonthYear
-import play.api.data.validation.ValidationError
-import models.DayMonthYear
 import scala.Some
-import play.api.data.validation.ValidationError
-import play.api.http.HeaderNames._
-import models.claim.Claim
-import scala.Some
-import play.api.data.validation.ValidationError
-import models.DayMonthYear
-import play.api.cache.Cache
-import utils.AppConfigs
 
-object AboutYou extends Controller with CachedClaim {
-
-
-  def nonEmptyDateConstraint: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") { o =>
-    if (o.year == 0) Invalid(ValidationError("error.required")) else Valid
-  }
-
-  val date: Mapping[DayMonthYear] = (mapping(
-                                        "day" -> number,
-                                        "month" -> number,
-                                        "year" -> number)(DayMonthYear.apply)(DayMonthYear.unapply))
-
+object AboutYou extends Controller with CachedClaim with FormMappings {
   val yourDetailsForm = Form(
     mapping(
       "title" -> nonEmptyText,
@@ -39,7 +16,7 @@ object AboutYou extends Controller with CachedClaim {
       "otherNames" -> optional(text),
       "nationalInsuranceNumber" -> optional(text),
       "nationality" -> nonEmptyText,
-      "dateOfBirth" -> (date verifying nonEmptyDateConstraint),
+      "dateOfBirth" -> date.verifying(validDate),
       "maritalStatus" -> nonEmptyText,
       "alwaysLivedUK" -> nonEmptyText
     )(YourDetails.apply)(YourDetails.unapply)
@@ -56,7 +33,7 @@ object AboutYou extends Controller with CachedClaim {
 
   val claimDateForm = Form(
     mapping(
-      "dateOfClaim" -> (date verifying nonEmptyDateConstraint)
+      "dateOfClaim" -> date.verifying(validDate)
     )(ClaimDate.apply)(ClaimDate.unapply)
   )
 
@@ -67,6 +44,7 @@ object AboutYou extends Controller with CachedClaim {
         case Some(n) =>  yourDetailsForm.fill(n.asInstanceOf[YourDetails])
         case _ => yourDetailsForm
       }
+
       Ok(views.html.s2_aboutyou.g1_yourDetails(yourDetailsFormParam))
 
   }
@@ -82,6 +60,7 @@ object AboutYou extends Controller with CachedClaim {
   def contactDetails = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
       val contactDetailsFormParam: Form[ContactDetails]=  claim.form(ContactDetails.id) match {
         case Some(n) =>  contactDetailsForm.fill(n.asInstanceOf[ContactDetails])
         case _ => contactDetailsForm
@@ -102,7 +81,8 @@ object AboutYou extends Controller with CachedClaim {
 
   def claimDate = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(models.claim.ClaimDate.id)
+
       val claimDateFormParam: Form[ClaimDate] = claim.form(ClaimDate.id) match {
         case Some(n) =>  claimDateForm.fill(n.asInstanceOf[ClaimDate])
         case _ => claimDateForm
@@ -120,6 +100,7 @@ object AboutYou extends Controller with CachedClaim {
         inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.moreAboutYou())
       )
   }
+
   def moreAboutYou = TODO 
   def moreAboutYouSubmit = TODO 
   def employment = TODO 

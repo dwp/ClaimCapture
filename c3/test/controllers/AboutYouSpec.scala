@@ -19,8 +19,7 @@ class AboutYouSpec extends Specification {
                         "dateOfBirth.month" -> "12",
                         "dateOfBirth.year" -> "1990",
                         "maritalStatus" -> "Single",
-                        "alwaysLivedUK" -> "yes",
-                        "action" -> "next")
+                        "alwaysLivedUK" -> "yes")
 
       val result = AboutYou.yourDetailsSubmit(request)
       redirectLocation(result) must beSome("/aboutyou/contactDetails")

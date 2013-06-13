@@ -27,7 +27,6 @@ case class ContactDetails(address: String, postcode: String, phoneNumber: Option
   val next = routes.AboutYou.claimDate()
 
   val previous = routes.AboutYou.yourDetails()
-
 }
 
 object ContactDetails {
