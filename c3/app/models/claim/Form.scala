@@ -1,12 +1,8 @@
 package models.claim
 
-import play.api.mvc.Call
-
 trait Form extends Confirmation {
   val id: String
 }
-
-
 
 trait Confirmation {
   def confirmation: String = ""

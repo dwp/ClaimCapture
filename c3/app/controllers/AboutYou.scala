@@ -86,6 +86,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         case Some(n: ClaimDate) =>  claimDateForm.fill(n)
         case _ => claimDateForm
       }
+
       Ok(views.html.s2_aboutyou.g4_claimDate(claimDateFormParam,completedForms.takeWhile(_.id != ClaimDate.id)))
   }
 
