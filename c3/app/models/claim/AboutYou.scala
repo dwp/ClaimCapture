@@ -1,6 +1,5 @@
 package models.claim
 
-import controllers.routes
 import models.DayMonthYear
 
 object AboutYou {
@@ -11,10 +10,6 @@ case class YourDetails(title: String, firstName: String, middleName: Option[Stri
                        otherNames: Option[String], nationalInsuranceNumber: Option[String], nationality: String,
                        dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends Form {
   val id = YourDetails.id
-
-  val next = routes.AboutYou.contactDetails()
-
-  val previous = routes.CarersAllowance.approve()
 }
 
 object YourDetails {
@@ -23,10 +18,6 @@ object YourDetails {
 
 case class ContactDetails(address: String, postcode: String, phoneNumber: Option[String], mobileNumber: Option[String]) extends Form {
   val id = ContactDetails.id
-
-  val next = routes.AboutYou.claimDate()
-
-  val previous = routes.AboutYou.yourDetails()
 }
 
 object ContactDetails {
@@ -35,9 +26,6 @@ object ContactDetails {
 
 case class ClaimDate(dateOfClaim: DayMonthYear) extends Form {
   val id = ClaimDate.id
-
-  val next = routes.AboutYou.moreAboutYou()
-  val previous = routes.AboutYou.contactDetails()
 }
 
 object ClaimDate {
