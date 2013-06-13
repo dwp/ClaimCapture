@@ -5,6 +5,7 @@ import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
+import scala.Some
 
 object AboutYou extends Controller with CachedClaim with FormMappings {
   val yourDetailsForm = Form(
@@ -62,6 +63,13 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText,
       "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText
     )(Employment.apply)(Employment.unapply)
+  )
+
+  val propertyAndRentForm = Form(
+    mapping(
+      "ownProperty" -> nonEmptyText,
+      "hasSublet" -> nonEmptyText
+    )(PropertyAndRent.apply)(PropertyAndRent.unapply)
   )
 
   def yourDetails = claiming {
@@ -181,8 +189,33 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       )
   }
 
-  def propertyAndRent = TODO 
-  def propertyAndRentSubmit = TODO 
+  def propertyAndRent = claiming {
+    implicit claim => implicit request =>
+      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
+      val propertyAndRentFormParam: Form[PropertyAndRent] = claim.form(PropertyAndRent.id) match {
+        case Some(n: PropertyAndRent) =>  propertyAndRentForm.fill(n)
+        case _ => propertyAndRentForm
+      }
+
+      claim.form(models.claim.ClaimDate.id) match{
+        case Some(n) => Ok(views.html.s2_aboutyou.g7_propertyAndRent(propertyAndRentFormParam,completedForms.takeWhile(_.id != PropertyAndRent.id)))
+        case _ => Redirect(routes.CarersAllowance.benefits())
+
+      }
+
+  }
+
+  def propertyAndRentSubmit = claiming {
+    implicit claim => implicit request =>
+      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
+      propertyAndRentForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(views.html.s2_aboutyou.g7_propertyAndRent(formWithErrors,completedForms.takeWhile(_.id != PropertyAndRent.id))),
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.completed())
+      )
+  }
+
   def completed = TODO 
   def completedSubmit = TODO 
 }

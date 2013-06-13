@@ -37,3 +37,9 @@ case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String,beenEmployed
 object Employment {
   val id = s"${AboutYou.id}.g6"
 }
+
+case class PropertyAndRent(ownProperty: String,hasSublet: String) extends Form(PropertyAndRent.id)
+
+object PropertyAndRent {
+  val id = s"${AboutYou.id}.g7"
+}

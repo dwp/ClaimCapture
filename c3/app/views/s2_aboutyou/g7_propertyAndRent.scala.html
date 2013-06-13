@@ -1,26 +1,30 @@
-@(contactDetailsForm :Form[models.claim.ContactDetails], completedForms :List[models.claim.Form])
+@(propertyAndRentForm :Form[models.claim.PropertyAndRent], completedForms :List[models.claim.Form])(implicit claim: models.claim.Claim)
 
 @import helper._
+@import views.html.common._
 
-@main("Property and Rent - About You") {
-    			
-    <fieldset class="form-elements">
-        <legend>Property and rent</legend>
+@main("Property and Rent - About You",completedForms) {
+    @form(action = routes.AboutYou.propertyAndRentSubmit()) {
+        <fieldset class="form-elements">
+            <legend>Property and rent</legend>
 
-        <ul class="group">
+            @errorsSummary(propertyAndRentForm)
 
-            @common.yesNoRadioGroup(contactDetailsForm("ownProperty"),
-            '_label ->  Messages("s2_g7_q1", "01/01/2012", "01/02/2012"))
+            <ul class="group">
+            @defining(claim.form(models.claim.ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim){ dateOfClaim =>
+                @common.yesNoRadioGroup(propertyAndRentForm("ownProperty"),
+                    '_label ->  Messages("s2_g7_q1", "01/01/2012", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
 
-            @common.yesNoRadioGroup(contactDetailsForm("hasSublet"),
-            '_label ->  Messages("s2_g7_q2", "01/01/2012", "01/02/2012"))
+                @common.yesNoRadioGroup(propertyAndRentForm("hasSublet"),
+                    '_label ->  Messages("s2_g7_q2", "01/01/2012", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
+            }
+            </ul>
 
-        </ul>
+        </fieldset>
 
-    </fieldset>
-
-    <div class="form-steps">
-        <input type="submit" value="Back" class="button secondary">
-        <input type="submit" value="Next" class="button">
-    </div>
+        <div class="form-steps">
+            <a href="@routes.AboutYou.employment()" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
 }
