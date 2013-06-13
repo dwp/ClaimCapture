@@ -24,7 +24,7 @@
 
                 @inputText(yourDetailsForm("otherNames"))
 
-                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"), 'helper -> Messages("nationalInsuranceNumber.helper"))
+                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"))
 
                 @inputDayMonthYear(yourDetailsForm("dateOfBirth"))
 
@@ -32,7 +32,7 @@
 
                 @maritalStatusSelect(yourDetailsForm("maritalStatus"))
 
-                @common.yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"), '_label -> Messages("s2_g1_q10"))
+                @common.yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"))
             </ul>
         </fieldset>
 

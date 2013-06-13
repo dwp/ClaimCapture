@@ -24,7 +24,7 @@ dateOfBirth.month = Date of Birth (Month)
 dateOfBirth.year = Date of Birth (Year)
 nationality = Nationality
 maritalStatus = What is your marital or civil partnership status?
-s2_g1_q10 = Have you always lived in the United Kingdom?
+alwaysLivedUK = Have you always lived in the United Kingdom?
 
 firstName.error = Please fill your first name
 nationalInsuranceNumber.placeHolder = eg: JW-41-54-67-B
