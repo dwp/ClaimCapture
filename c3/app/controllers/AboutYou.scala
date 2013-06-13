@@ -1,6 +1,6 @@
 package controllers
 
-import models.claim.{ContactDetails, YourDetails, CachedClaim}
+import models.claim.{ClaimDate, ContactDetails, YourDetails, CachedClaim}
 import play.api.mvc._
 import play.api.data.{Mapping, Form}
 import play.api.data.Forms._
@@ -21,7 +21,7 @@ object AboutYou extends Controller with CachedClaim {
                                         "month" -> number,
                                         "year" -> number)(DayMonthYear.apply)(DayMonthYear.unapply))
 
-  var yourDetailsForm = Form(
+  val yourDetailsForm = Form(
     mapping(
       "title" -> nonEmptyText,
       "firstName" -> nonEmptyText,
@@ -30,14 +30,14 @@ object AboutYou extends Controller with CachedClaim {
       "otherNames" -> optional(text),
       "nationalInsuranceNumber" -> optional(text),
       "nationality" -> nonEmptyText,
-      "dateOfBirth" -> date.verifying(nonEmptyDateConstraint),
+      "dateOfBirth" -> (date verifying nonEmptyDateConstraint),
       "maritalStatus" -> nonEmptyText,
       "alwaysLivedUK" -> nonEmptyText,
       "action" -> optional(text)
     )(YourDetails.apply)(YourDetails.unapply)
   )
 
-  var contactDetailsForm = Form(
+  val contactDetailsForm = Form(
     mapping(
       "address" -> nonEmptyText,
       "postcode" -> nonEmptyText,
@@ -47,16 +47,22 @@ object AboutYou extends Controller with CachedClaim {
     )(ContactDetails.apply)(ContactDetails.unapply)
   )
 
+  val claimDateForm = Form(
+    mapping(
+      "claimDate" -> (date verifying nonEmptyDateConstraint),
+      "action" -> optional(text)
+    )(ClaimDate.apply)(ClaimDate.unapply)
+  )
+
   def yourDetails = claiming {
     implicit claim => implicit request =>
-      val formContentOption = claim.form(YourDetails.id)
-      var filledForm: Form[YourDetails] = yourDetailsForm
-      formContentOption match {
-        case Some(n) =>  filledForm = yourDetailsForm.fill(n.asInstanceOf[YourDetails])
-        case _ =>
+
+      val yourDetailsFormParam: Form[YourDetails] = claim.form(YourDetails.id) match {
+        case Some(n) =>  yourDetailsForm.fill(n.asInstanceOf[YourDetails])
+        case _ => yourDetailsForm
       }
 
-      Ok(views.html.s2_aboutyou.g1_yourDetails(filledForm))
+      Ok(views.html.s2_aboutyou.g1_yourDetails(yourDetailsFormParam))
 
   }
 
@@ -71,8 +77,12 @@ object AboutYou extends Controller with CachedClaim {
   def contactDetails = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val contactDetailsFormParam: Form[ContactDetails]=  claim.form(ContactDetails.id) match {
+        case Some(n) =>  contactDetailsForm.fill(n.asInstanceOf[ContactDetails])
+        case _ => contactDetailsForm
+      }
 
-      Ok(views.html.s2_aboutyou.g2_contactDetails(contactDetailsForm,completedForms.takeWhile(_.id != ContactDetails.id)))
+      Ok(views.html.s2_aboutyou.g2_contactDetails(contactDetailsFormParam,completedForms.takeWhile(_.id != ContactDetails.id)))
   }
 
   def contactDetailsSubmit = claiming {
@@ -85,8 +95,26 @@ object AboutYou extends Controller with CachedClaim {
       )
   }
 
-  def claimDate = TODO 
-  def claimDateSubmit = TODO 
+  def claimDate = claiming {
+    implicit claim => implicit request =>
+      val completedForms = claim.completedFormsForSection(models.claim.ClaimDate.id)
+      val claimDateFormParam: Form[ClaimDate] = claim.form(ClaimDate.id) match {
+        case Some(n) =>  claimDateForm.fill(n.asInstanceOf[ClaimDate])
+        case _ => claimDateForm
+      }
+      Ok(views.html.s2_aboutyou.g3_claimDate(claimDateFormParam,completedForms.takeWhile(_.id != ContactDetails.id)))
+  }
+
+
+  def claimDateSubmit = claiming {
+    implicit claim => implicit request =>
+      val completedForms = claim.completedFormsForSection(models.claim.ClaimDate.id)
+
+      claimDateForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(views.html.s2_aboutyou.g3_claimDate(formWithErrors,completedForms.takeWhile(_.id != ClaimDate.id))),
+        inputForm => claim.update(inputForm) -> Redirect(inputForm.findNext)
+      )
+  }
   def moreAboutYou = TODO 
   def moreAboutYouSubmit = TODO 
   def employment = TODO 

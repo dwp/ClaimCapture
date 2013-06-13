@@ -33,3 +33,14 @@ case class ContactDetails(address: String, postcode: String, phoneNumber: Option
 object ContactDetails {
   val id = s"${AboutYou.id}.g2"
 }
+
+case class ClaimDate(dateOfClaim: DayMonthYear,action: Option[String]) extends Form {
+  val id = ClaimDate.id
+
+  val next = routes.AboutYou.moreAboutYou()
+  val previous = routes.AboutYou.contactDetails()
+}
+
+object ClaimDate {
+  val id = s"${AboutYou.id}.g3"
+}
