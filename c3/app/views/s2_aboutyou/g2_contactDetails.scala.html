@@ -1,10 +1,10 @@
-@(contactDetailsForm :Form[models.claim.ContactDetails],formsList :List[models.claim.Form])
+@(contactDetailsForm :Form[models.claim.ContactDetails], completedForms :List[models.claim.Form])
 
 @import helper._
 @import utils.helpers.ClaimHelpers._
 @import views.html.common._
 
-@main("Contact Details - About You",formsList) {
+@main("Contact Details - About You", completedForms) {
 
     @form(action = routes.AboutYou.contactDetailsSubmit) {
         <fieldset class="form-elements">

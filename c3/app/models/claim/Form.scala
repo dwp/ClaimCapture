@@ -14,6 +14,7 @@ trait NavAction {
   val previous:Call
 
   def findNext = {
+
     action match {
       case Some(action) => if(action == "next") { next } else previous
       case _ => next

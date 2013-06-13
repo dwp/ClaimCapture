@@ -4,7 +4,6 @@ import models.claim.{ClaimDate, ContactDetails, YourDetails, CachedClaim}
 import play.api.mvc._
 import play.api.data.{Mapping, Form}
 import play.api.data.Forms._
-import models.DayMonthYear
 import play.api.data.validation._
 import models.DayMonthYear
 import play.api.data.validation.ValidationError
@@ -97,18 +96,18 @@ object AboutYou extends Controller with CachedClaim {
 
   def claimDate = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.ClaimDate.id)
+      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
       val claimDateFormParam: Form[ClaimDate] = claim.form(ClaimDate.id) match {
         case Some(n) =>  claimDateForm.fill(n.asInstanceOf[ClaimDate])
         case _ => claimDateForm
       }
-      Ok(views.html.s2_aboutyou.g3_claimDate(claimDateFormParam,completedForms.takeWhile(_.id != ContactDetails.id)))
+      Ok(views.html.s2_aboutyou.g3_claimDate(claimDateFormParam,completedForms.takeWhile(_.id != ClaimDate.id)))
   }
 
 
   def claimDateSubmit = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.ClaimDate.id)
+      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
 
       claimDateForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g3_claimDate(formWithErrors,completedForms.takeWhile(_.id != ClaimDate.id))),

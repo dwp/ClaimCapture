@@ -24,7 +24,7 @@ object YourDetails {
 case class ContactDetails(address: String, postcode: String, phoneNumber: Option[String], mobileNumber: Option[String], action:Option[String]) extends Form {
   val id = ContactDetails.id
 
-  val next = routes.AboutYou.contactDetails()
+  val next = routes.AboutYou.claimDate()
 
   val previous = routes.AboutYou.yourDetails()
 
