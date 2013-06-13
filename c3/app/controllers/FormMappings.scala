@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.data.{Form, Mapping}
+import play.api.data.Mapping
 import play.api.data.Forms._
 import models.DayMonthYear
 import play.api.data.validation.{ValidationError, Invalid, Valid, Constraint}
@@ -8,8 +8,6 @@ import scala.util.{Failure, Success, Try}
 import org.joda.time.DateTime
 
 trait FormMappings {
-  val form = Form("id" -> text)
-
   val date: Mapping[DayMonthYear] = (mapping(
     "day" -> number,
     "month" -> number,
