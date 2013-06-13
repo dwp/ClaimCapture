@@ -35,3 +35,17 @@ mobileNumber = MobileNumber
 
 #  CLAIM DATE
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
+
+# MORE ABOUT YOU
+s2_g5_q1 = Have you had a partner/spouse at any time since your claim date: {0}?
+s2_g5_q2 = Have you or your partner/spouse claimed or received any other benefits since your claim date: {0}?
+s2_g5_q3 = Have you been on a course of education since your claim date: {0}?
+s2_g5_q4 = Do you receive State Pension?
+
+# EMPLOYMENT
+s2_g6_q1 = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
+s2_g6_q2 = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
+
+#PROPERTY AND RENT
+s2_g7_q1 = Do you or your partner own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
+s2_g7_q2 = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?

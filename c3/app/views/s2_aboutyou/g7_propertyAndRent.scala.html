@@ -1,40 +1,26 @@
+@(contactDetailsForm :Form[models.claim.ContactDetails], completedForms :List[models.claim.Form])
 
 @import helper._
 
-@main("Benefits - Carer's Allowance") {
+@main("Property and Rent - About You") {
     			
-    	
     <fieldset class="form-elements">
         <legend>Property and rent</legend>
 
         <ul class="group">
 
-            <li>
-                <p><em>*</em>Do you or your partner own property or land in the UK or abroad, that you have rented out since the week before your claim date: 01/02/2013?</p>
-                <ul class="inline">
-                    <li><input type="radio" name="q1-yes" id="q1-yes"><label for="q1-yes">Yes</label></li>
-                    <li><input type="radio" name="q1-no" id="q1-no"><label for="q1-no">No</label></li>
-                </ul>
-            </li>
+            @common.yesNoRadioGroup(contactDetailsForm("ownProperty"),
+            '_label ->  Messages("s2_g7_q1", "01/01/2012", "01/02/2012"))
 
-            <li>
-                <p><em>*</em>Have you sublet your home, or provided board and lodgings, since your claim date: 01/02/2013?</p>
-                <ul class="inline">
-                    <li><input type="radio" name="q2-yes" id="q2-yes"><label for="q2-yes">Yes</label></li>
-                    <li><input type="radio" name="q2-no" id="q2-no"><label for="q2-no">No</label></li>
-                </ul>
-            </li>
+            @common.yesNoRadioGroup(contactDetailsForm("hasSublet"),
+            '_label ->  Messages("s2_g7_q2", "01/01/2012", "01/02/2012"))
 
         </ul>
 
     </fieldset>
-    <!-- / form elements -->
-
 
     <div class="form-steps">
         <input type="submit" value="Back" class="button secondary">
         <input type="submit" value="Next" class="button">
     </div>
-    <!-- / form steps -->
-			
 }
