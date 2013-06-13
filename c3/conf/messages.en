@@ -9,7 +9,8 @@ s2.g4 = 4  More about you
 s2.g5 = 5  Employment
 s2.g6 = 6  Property and rent
 
-## ABOUT YOU ==============================
+## ABOUT YOU
+
 #  YOUR DETAILS
 title = Title
 firstName = First Name
@@ -17,7 +18,10 @@ middleName = Middle Name
 surname = Surname or family name
 otherNames = All other surnames or family names you have used or have been known by
 nationalInsuranceNumber = National Insurance Number
-dateOfBirth = Date of Birth
+dateOfBirth.error = Date of Birth invalid
+dateOfBirth.day = Date of Birth (Day)
+dateOfBirth.month = Date of Birth (Month)
+dateOfBirth.year = Date of Birth (Year)
 nationality = Nationality
 maritalStatus = What is your marital or civil partnership status?
 s2_g1_q10 = Have you always lived in the United Kingdom?
@@ -31,7 +35,3 @@ address = Address
 postcode = Postcode
 phoneNumber = Daytime phone number
 mobileNumber = MobileNumber
-
-
-#  CLAIM DATE
-dateOfClaim = When do you want your Carer''s Allowance claim to start?

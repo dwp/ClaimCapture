@@ -1,41 +1,33 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: FieldConstructor, lang: play.api.i18n.Lang)
+@(field: play.api.data.Field, args: (Symbol, Any)*)
+
+@import utils.helpers.ClaimHelpers._
 
 @input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
     <p>
         <select id="@{name}-day" name="@{name}.day" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;">
+            <option value="d" selected>Day</option>
+
             @for(d <- 1 to 31) {
-                <option value="@d">@d</option>
+                <option value="@d">@if(d < 10) {0}@d</option>
             }
         </select>
 
         <select id="@{name}-month" name="@{name}.month" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;">
-            @for(d <- 1 to 12) {
-                <option value="@d">@d</option>
-            }
+            <option value="m" selected>Month</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
         </select>
 
-        <span style="position: relative; vertical-align: baseline;">
-            <select id="@{name}-yearSelect" name="@{name}.yearSelect" style="position: absolute; top: 5px; left: 10px; width: 172px; height: 25px;">
-                @for(d <- 1900 to 1997) {
-                    <option value="@d">@d</option>
-                }
-            </select>
-
-            <input id="@{name}-year" name="@{name}.year" type="text" placeholder="Edit/Select year" style="position: absolute; top: 0px; left: 0px; width: 150px;">
-        </span>
+        <input id="@{name}-year" name="@{name}.year" type="text" placeholder="Year e.g. 1980" style="width: 150px; margin: 2px; vertical-align: baseline;">
     </p>
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        $(function() {
-            $("#@{name}-yearSelect").change(function() {
-                $("#@{name}-year").attr("value", this.options[this.selectedIndex].text);
-            });
-
-            $("#@{name}-year").focus(function() {
-                this.select();
-            });
-        });
-    </script>
 }

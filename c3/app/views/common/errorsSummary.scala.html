@@ -7,7 +7,7 @@
 
         <ol>
             @for(error <- formElement.errors) {
-                <li><a href="#@error.key">@Messages(error.key)</a></li>
+                <li><a href="#@error.key">@Messages(error.key) - @Messages(error.message)</a></li>
             }
         </ol>
     </div>
