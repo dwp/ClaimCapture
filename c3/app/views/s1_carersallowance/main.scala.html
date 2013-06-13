@@ -1,6 +1,7 @@
 @(title: String, completedForms: List[models.claim.Form] = Nil)(content: Html)
 
 @import helper._
+@import utils.AppConfigs
 
 @common.govMain(title) {
 
@@ -20,7 +21,7 @@
                                 <li>
                                     <h3>@Messages(completedForm.id)</h3>
                                     <p>@completedForm.confirmation</p>
-                                    <a href="@completedForm.url?changing=true"> Change this answer</a>
+                                    <a href="@AppConfigs.formUrl(completedForm.id)"> Change this answer</a>
                                 </li>
                             }
                         </ul>
