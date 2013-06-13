@@ -23,5 +23,11 @@ object ContactDetails {
 case class ClaimDate(dateOfClaim: DayMonthYear) extends Form(ClaimDate.id)
 
 object ClaimDate {
-  val id = s"${AboutYou.id}.g3"
+  val id = s"${AboutYou.id}.g4"
+}
+
+case class MoreAboutYou(hadPartnerSinceClaimDate: String,eitherClaimedBenefitSinceClaimDate: String,beenInEducationSinceClaimDate: String,receiveStatePension: String) extends Form(MoreAboutYou.id)
+
+object MoreAboutYou {
+  val id = s"${AboutYou.id}.g5"
 }

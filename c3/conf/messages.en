@@ -36,6 +36,9 @@ postcode = Postcode
 phoneNumber = Daytime phone number
 mobileNumber = MobileNumber
 
+#  CLAIM DATE
+dateOfClaim = When do you want your Carer?s Allowance claim to start?
+
 # MORE ABOUT YOU
 s2_g5_q1 = Have you had a partner/spouse at any time since your claim date: {0}?
 s2_g5_q2 = Have you or your partner/spouse claimed or received any other benefits since your claim date: {0}?

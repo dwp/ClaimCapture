@@ -1,32 +1,35 @@
-@(contactDetailsForm :Form[models.claim.ContactDetails], completedForms :List[models.claim.Form])
+@(moreAboutYouForm :Form[models.claim.MoreAboutYou], completedForms :List[models.claim.Form])(implicit claim: models.claim.Claim)
 
 @import helper._
+@import views.html.common._
 
-@main("More About You - About You") {
-    			
+@main("More About You - About You",completedForms) {
+    @form(action = routes.AboutYou.moreAboutYouSubmit()) {
         <fieldset class="form-elements">
             <legend>More about you</legend>
 
+            @errorsSummary(moreAboutYouForm)
+
             <ul class="group">
+                @defining(claim.form(models.claim.ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim){ dateOfClaim =>
 
-                @common.yesNoRadioGroup(contactDetailsForm("hadPartnerSinceClaimDate"),
-                    '_label -> Messages("s2_g5_q1", "01/02/2013"))
+                    @common.yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("s2_g5_q1", dateOfClaim))
 
-                @common.yesNoRadioGroup(contactDetailsForm("eitherClaimedBenefitSinceClaimDate"),
-                    '_label -> Messages("s2_g5_q2", "01/02/2013"))
+                    @common.yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("s2_g5_q2", dateOfClaim))
 
-                @common.yesNoRadioGroup(contactDetailsForm("beenInEducationSinceClaimDate"),
-                    '_label -> Messages("s2_g5_q3", "01/02/2013"))
+                    @common.yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("s2_g5_q3", dateOfClaim))
 
-                @common.yesNoRadioGroup(contactDetailsForm("receiveStatePension"),
-                    '_label -> Messages("s2_g5_q4"))
+                }
+                @common.yesNoRadioGroup(moreAboutYouForm("receiveStatePension"),'_label -> Messages("s2_g5_q4"))
+
 
             </ul>
 
         </fieldset>
 
         <div class="form-steps">
-            <input type="submit" value="Back" class="button secondary">
-            <input type="submit" value="Next" class="button">
+            <a href="@routes.AboutYou.claimDate()" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
+    }
 }
