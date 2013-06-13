@@ -1,6 +1,5 @@
 @(claimDateForm: Form[models.claim.ClaimDate], completedForms: List[models.claim.Form])(implicit claim: models.claim.Claim)
 
-@import models.claim.ContactDetails
 @import helper._
 @import views.html.common._
 
@@ -14,13 +13,10 @@
             <ul class="group">
                 @inputDayMonthYear(claimDateForm("dateOfClaim"))
             </ul>
-
         </fieldset>
-        <!-- / form elements -->
-
 
         <div class="form-steps">
-            <a href="@routes.CarersAllowance.goto(ContactDetails.id)" class="button secondary">Back</a>
+            <a href="@routes.AboutYou.contactDetails" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

@@ -1,6 +1,5 @@
 @(contactDetailsForm: Form[models.claim.ContactDetails], completedForms: List[models.claim.Form])(implicit claim: models.claim.Claim)
 
-@import models.claim.YourDetails
 @import helper._
 @import utils.helpers.ClaimHelpers._
 @import views.html.common._
@@ -25,7 +24,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a href="@routes.CarersAllowance.goto(YourDetails.id)" class="button secondary">Back</a>
+            <a href="@routes.AboutYou.yourDetails" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

@@ -26,13 +26,13 @@ object ClaimDate {
   val id = s"${AboutYou.id}.g4"
 }
 
-case class MoreAboutYou(hadPartnerSinceClaimDate: String,eitherClaimedBenefitSinceClaimDate: String,beenInEducationSinceClaimDate: String,receiveStatePension: String) extends Form(MoreAboutYou.id)
+case class MoreAboutYou(hadPartnerSinceClaimDate: String, eitherClaimedBenefitSinceClaimDate: String, beenInEducationSinceClaimDate: String, receiveStatePension: String) extends Form(MoreAboutYou.id)
 
 object MoreAboutYou {
   val id = s"${AboutYou.id}.g5"
 }
 
-case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String,beenEmployedSince6MonthsBeforeClaim: String) extends Form(Employment.id)
+case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String, beenEmployedSince6MonthsBeforeClaim: String) extends Form(Employment.id)
 
 object Employment {
   val id = s"${AboutYou.id}.g6"

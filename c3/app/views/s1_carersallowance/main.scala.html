@@ -17,10 +17,10 @@
                     <div class="completed">
                         <ul>
                             @for(completedForm <- completedForms) {
-                                <li>
+                                <li style="margin-top: 5px">
                                     <h3>@Messages(completedForm.id)</h3>
                                     <p>@completedForm.confirmation</p>
-                                    <a href="@routes.CarersAllowance.goto(completedForm.id)"> Change this answer</a>
+                                    <a href="@CarersAllowance.route(completedForm.id)">Change this answer</a>
                                 </li>
                             }
                         </ul>

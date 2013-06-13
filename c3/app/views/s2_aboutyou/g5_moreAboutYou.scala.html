@@ -1,5 +1,6 @@
-@(moreAboutYouForm :Form[models.claim.MoreAboutYou], completedForms :List[models.claim.Form])(implicit claim: models.claim.Claim)
+@(moreAboutYouForm: Form[models.claim.MoreAboutYou], completedForms: List[models.claim.Form])(implicit claim: models.claim.Claim)
 
+@import common._
 @import helper._
 @import views.html.common._
 
@@ -13,22 +14,19 @@
             <ul class="group">
                 @defining(claim.form(models.claim.ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim){ dateOfClaim =>
 
-                    @common.yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("s2_g5_q1", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
+                    @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("s2_g5_q1", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
 
-                    @common.yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("s2_g5_q2", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
+                    @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("s2_g5_q2", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
 
-                    @common.yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("s2_g5_q3", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
-
+                    @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("s2_g5_q3", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
                 }
+
                 @common.yesNoRadioGroup(moreAboutYouForm("receiveStatePension"),'_label -> Messages("s2_g5_q4"))
-
-
             </ul>
-
         </fieldset>
 
         <div class="form-steps">
-            <a href="@routes.AboutYou.claimDate()" class="button secondary">Back</a>
+            <a href="@routes.AboutYou.claimDate" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

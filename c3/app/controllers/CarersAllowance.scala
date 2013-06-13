@@ -9,7 +9,11 @@ import models.claim.Benefits
 import models.claim.LivesInGB
 import models.claim.Over16
 
-object CarersAllowance extends Controller with CachedClaim {
+object CarersAllowance extends Controller with CachedClaim with FormMappings {
+  val route = Map(Benefits.id -> routes.CarersAllowance.benefits,
+                  Hours.id -> routes.CarersAllowance.hours,
+                  LivesInGB.id -> routes.CarersAllowance.livesInGB,
+                  Over16.id -> routes.CarersAllowance.over16)
 
   val benefitsForm = Form(
     mapping(
@@ -34,15 +38,6 @@ object CarersAllowance extends Controller with CachedClaim {
       "answer" -> boolean
     )(Over16.apply)(Over16.unapply)
   )
-
-  def goto(formID: String) = Action {
-    formID match {
-      case Benefits.id => Redirect(routes.CarersAllowance.benefits())
-      case Hours.id => Redirect(routes.CarersAllowance.hours())
-      case LivesInGB.id => Redirect(routes.CarersAllowance.livesInGB())
-      case Over16.id => Redirect(routes.CarersAllowance.over16())
-    }
-  }
 
   def benefits = newClaim {
     implicit claim => implicit request =>

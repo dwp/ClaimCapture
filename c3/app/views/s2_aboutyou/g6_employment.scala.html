@@ -8,21 +8,20 @@
         <fieldset class="form-elements">
             <legend>Employment</legend>
             @errorsSummary(employmentForm)
+
             <ul class="group">
+                @defining(claim.form(models.claim.ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim) { dateOfClaim =>
+                    @common.yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
+                        '_label -> Messages("s2_g6_q1", "01/02/2012", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
 
-            @defining(claim.form(models.claim.ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim){ dateOfClaim =>
-                @common.yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
-                    '_label ->  Messages("s2_g6_q1", "01/02/2012", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
-
-                @common.yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
-                    '_label ->  Messages("s2_g6_q2", "01/02/2012", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
-            }
+                    @common.yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
+                        '_label -> Messages("s2_g6_q2", "01/02/2012", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
+                }
             </ul>
-
         </fieldset>
 
         <div class="form-steps">
-            <a href="@routes.AboutYou.moreAboutYou()" class="button secondary">Back</a>
+            <a href="@routes.AboutYou.moreAboutYou" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

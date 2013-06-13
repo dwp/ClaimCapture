@@ -5,10 +5,8 @@
 # Home page
 GET     /                               controllers.Application.index
 
-#Allowance
+# Allowance
 ###############
-GET     /allowance/goto/:formID         controllers.CarersAllowance.goto(formID: String)
-
 GET     /allowance/benefits             controllers.CarersAllowance.benefits
 POST    /allowance/benefits             controllers.CarersAllowance.benefitsSubmit
 
@@ -24,10 +22,8 @@ POST    /allowance/over16               controllers.CarersAllowance.over16Submit
 GET     /allowance/approve              controllers.CarersAllowance.approve
 POST    /allowance/approve              controllers.CarersAllowance.approveSubmit
 
-#AboutYou
+# About you
 ###############
-GET     /aboutyour/goto/:formID         controllers.AboutYou.goto(formID: String)
-
 GET     /aboutyou/yourDetails           controllers.AboutYou.yourDetails
 POST    /aboutyou/yourDetails           controllers.AboutYou.yourDetailsSubmit
 
@@ -48,6 +44,10 @@ POST    /aboutyou/propertyAndRent       controllers.AboutYou.propertyAndRentSubm
 
 GET     /aboutyou/completed             controllers.AboutYou.completed
 POST    /aboutyou/completed             controllers.AboutYou.completedSubmit
+
+# Your partner
+###############
+GET     /yourpartner/yourpartner        controllers.YourPartner.yourPartner
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                   controllers.Assets.at(path="/public", file)

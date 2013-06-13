@@ -42,5 +42,19 @@ class AboutYouSpec extends Specification {
       val claim = Cache.getAs[Claim](claimKey).get
       claim.section(models.claim.AboutYou.id) must beNone
     }
+
+    """present first "benefits" page upon unexpected forms""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+
+      val result = AboutYou.completed(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "continue to partner/spouse upon section completion" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+
+      val result = AboutYou.completedSubmit(request)
+      redirectLocation(result) must beSome("/yourpartner/yourpartner")
+    }
   }
 }
