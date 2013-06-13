@@ -10,5 +10,10 @@ class G1YourDetailsSpec extends Specification with Tags {
       browser.goTo("/aboutyou/yourDetails")
       browser.title() mustEqual "Your Details - About You"
     }
+    "navigate back to approve page" in new WithBrowser {
+      browser.goTo("/aboutyou/yourDetails")
+      browser.click(".form-steps a")
+      browser.title() mustEqual "Can you get Carer's Allowance?"
+    }
   } section "integration"
 }
