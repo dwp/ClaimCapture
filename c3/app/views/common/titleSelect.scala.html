@@ -1,8 +1,9 @@
-@(field: Field, id: String, label:String = "Title")
+@(field: Field, id: String)
 @import helper._
 @import utils.helpers.ClaimHelpers._
-
-@select(field,
+@{
+    val label = Messages("title")
+    select(field,
         options = options(
             "" -> "Please select",
             "mrs" ->"Mrs",
@@ -18,4 +19,5 @@
         ),
         '_id -> id,
         '_label -> label
-)
+    )
+}
