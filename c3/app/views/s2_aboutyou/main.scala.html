@@ -18,7 +18,7 @@
                     <div class="completed">
                         <ul>
                             @for(completedForm <- completedForms) {
-                                <li style="margin-top: 5px">
+                                <li>
                                     @if(completedForm.id == ClaimDate.id){
                                         @defining(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim) { dateOfClaim =>
                                             <h3>@Messages(completedForm.id, s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}") </h3>
