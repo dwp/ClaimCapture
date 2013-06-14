@@ -4,7 +4,7 @@
 @import util.Try
 
 @input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
-    <p>
+    <p id="@field.id">
         <select id="@{name}-day" name="@{name}.day" style="width: 10px; margin: 2px; vertical-align: baseline;">
             <option value="" selected>Day</option>
 

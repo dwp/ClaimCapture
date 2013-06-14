@@ -25,4 +25,12 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
+  def fillClaimDate(browser: TestBrowser) = {
+    browser.goTo("/aboutyou/claimDate")
+    browser.click("#dateOfClaim-day option[value='1']")
+    browser.click("#dateOfClaim-month option[value='1']")
+    browser.fill("#dateOfClaim-year") `with` ("2001")
+    browser.submit("button[type='submit']")
+  }
+
 }
