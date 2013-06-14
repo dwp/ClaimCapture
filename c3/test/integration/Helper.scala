@@ -20,7 +20,7 @@ object Helper {
 
   def fillContactDetails(browser: TestBrowser) = {
     browser.goTo("/aboutyou/contactDetails")
-    browser.fill("#address") `with` ("My Address")
+    browser.fill("#address-lineOne") `with` ("My Address")
     browser.fill("#postcode") `with` ("SE1 6EH")
     browser.submit("button[type='submit']")
   }

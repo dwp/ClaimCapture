@@ -146,7 +146,7 @@ class AboutYouSpec extends Specification with Mockito {
   "not complain about a valid Postcode" in new WithApplication with Claiming {
     val request = FakeRequest().withSession("connected" -> claimKey)
       .withFormUrlEncodedBody(
-      "address" -> "123 Street",
+      "address.lineOne" -> "123 Street",
       "postcode" -> "PR2 8AE")
 
     val result = AboutYou.contactDetailsSubmit(request)
@@ -156,8 +156,19 @@ class AboutYouSpec extends Specification with Mockito {
   "complain about an invalid Postcode" in new WithApplication with Claiming {
     val request = FakeRequest().withSession("connected" -> claimKey)
       .withFormUrlEncodedBody(
-      "address" -> "123 Street",
+      "address.lineOne" -> "123 Street",
       "postcode" -> "PR2")
+
+    val result = AboutYou.contactDetailsSubmit(request)
+    status(result) mustEqual BAD_REQUEST
+  }
+
+  "complain about an empty Address" in new WithApplication with Claiming {
+    val request = FakeRequest().withSession("connected" -> claimKey)
+      .withFormUrlEncodedBody(
+      "address.lineOne" -> "",
+      "address.lineTwo" -> "",
+      "address.lineThree" -> "")
 
     val result = AboutYou.contactDetailsSubmit(request)
     status(result) mustEqual BAD_REQUEST
