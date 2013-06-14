@@ -13,9 +13,9 @@ import models.MultiLineAddress
 
 trait FormMappings {
   val date: Mapping[DayMonthYear] = (mapping(
-    "day" -> number,
-    "month" -> number,
-    "year" -> number)(DayMonthYear.apply)(DayMonthYear.unapply))
+    "day" -> optional(number),
+    "month" -> optional(number),
+    "year" -> optional(number))(DayMonthYear.apply)(DayMonthYear.unapply))
 
   val address: Mapping[MultiLineAddress] = (mapping(
     "lineOne" -> optional(text),
@@ -23,11 +23,15 @@ trait FormMappings {
     "lineThree" -> optional(text))(MultiLineAddress.apply)(MultiLineAddress.unapply))
 
   def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
-    dmy =>
-      Try(new DateTime(dmy.year, dmy.month, dmy.day, 0, 0)) match {
-        case Success(_) => Valid
-        case Failure(_) => Invalid(ValidationError("error.invalid"))
-      }
+    dmy => dmy match{
+      case DayMonthYear(None,None,None) => Invalid(ValidationError("error.required"))
+      case DayMonthYear(_,_,_) =>
+            Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
+              case Success(_) => Valid
+              case Failure(_) => Invalid(ValidationError("error.invalid"))
+            }
+    }
+
   }
 
   def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") {
