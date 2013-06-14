@@ -112,12 +112,6 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
   def claimDate = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
-
-      val details = claim.form(ContactDetails.id).get.asInstanceOf[ContactDetails]
-
-      println(details)
-
-
       val claimDateFormParam: Form[ClaimDate] = claim.form(ClaimDate.id) match {
         case Some(n: ClaimDate) => claimDateForm.fill(n)
         case _ => claimDateForm
