@@ -7,19 +7,20 @@
     @if(approved) {
         <div class="prompt">
             <p>Based on your answers you may be entitled to Carer's Allowance.</p>
+            <p>Please click the <strong>'Next Step'</strong> button below.</p>
         </div>
         } else {
         <div class="prompt error">
             <h3>Based on your answers you may not be entitled to Carer's Allowance.</h3>
 
             <p>If your circumstances change, you may be entitled to Carer's Allowance <a href="#">Find out more about Carer's Allowance</a>.</p>
-            <p>However, if you wish to continue, click the Next Step button below.</p>
+            <p>However, if you wish to continue, click the <strong>'Next Step'</strong> button below.</p>
         </div>
     }
 
     @form(action = routes.CarersAllowance.approveSubmit) {
         <div class="form-steps">
-            <p>Please click the <strong>'Next Step'</strong> button below.</p>
+
             <input type="submit" value="Next step" class="button">
         </div>
     }
