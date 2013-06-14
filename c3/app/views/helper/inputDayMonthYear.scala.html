@@ -4,7 +4,7 @@
 
 @input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
     <p>
-        <select id="@{name}-day" name="@{name}.day" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;">
+        <select id="@{name}-day" name="@{name}.day" style="width: 10px; margin: 2px; vertical-align: baseline;">
             <option value="d" selected>Day</option>
 
             @for(d <- 1 to 31) {
@@ -12,7 +12,7 @@
             }
         </select>
 
-        <select id="@{name}-month" name="@{name}.month" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;">
+        <select id="@{name}-month" name="@{name}.month" style="width: 10px; margin: 2px; vertical-align: baseline;">
             <option value="m" selected>Month</option>
             <option value="1">January</option>
             <option value="2">February</option>
@@ -28,6 +28,6 @@
             <option value="12">December</option>
         </select>
 
-        <input id="@{name}-year" name="@{name}.year" type="text" placeholder="Year e.g. 1980" style="width: 150px; margin: 2px; vertical-align: baseline;">
+        <input id="@{name}-year" name="@{name}.year" value='@{field("year").value}' type="text" placeholder="Year e.g. 1980" style="width: 150px; margin: 2px; vertical-align: baseline;">
     </p>
 }
