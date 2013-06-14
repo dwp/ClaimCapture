@@ -4,32 +4,32 @@
 @import util.Try
 
 @input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
-    <p id="@field.id">
+    <p id="@id">
         <select id="@{name}-day" name="@{name}.day" style="width: 10px; margin: 2px; vertical-align: baseline;">
             <option value="" selected>Day</option>
 
-            @for(d <- 1 to 31) {
-                @defining(field("day").value match { case Some(s) if Try(s.toInt).getOrElse(0) == d => "selected" case _ => "" }) { selected =>
-                    <option value="@d" @selected>@if(d < 10) {0}@d</option>
+            @defining(Try(field("day").value.get.toInt).getOrElse(0)) { day =>
+                @for(d <- 1 to 31) {
+                    <option value="@d" @if(d == day) { selected }>@if(d < 10) {0}@d</option>
                 }
             }
         </select>
 
         <select id="@{name}-month" name="@{name}.month" style="width: 10px; margin: 2px; vertical-align: baseline;">
-            @defining(field("month").value match { case Some(s) => Try(s.toInt).getOrElse(0) case _ => 0 }) { selection =>
+            @defining(Try(field("month").value.get.toInt).getOrElse(0)) { month =>
                 <option value="" selected>Month</option>
-                <option value="1" @if(selection == 1) {selected}>January</option>
-                <option value="2" @if(selection == 2) {selected}>February</option>
-                <option value="3" @if(selection == 3) {selected}>March</option>
-                <option value="4" @if(selection == 4) {selected}>April</option>
-                <option value="5" @if(selection == 5) {selected}>May</option>
-                <option value="6" @if(selection == 6) {selected}>June</option>
-                <option value="7" @if(selection == 7) {selected}>July</option>
-                <option value="8" @if(selection == 8) {selected}>August</option>
-                <option value="9" @if(selection == 9) {selected}>September</option>
-                <option value="10" @if(selection == 10) {selected}>October</option>
-                <option value="11" @if(selection == 11) {selected}>November</option>
-                <option value="12" @if(selection == 12) {selected}>December</option>
+                <option value="1" @if(month == 1) { selected }>January</option>
+                <option value="2" @if(month == 2) { selected }>February</option>
+                <option value="3" @if(month == 3) { selected }>March</option>
+                <option value="4" @if(month == 4) { selected }>April</option>
+                <option value="5" @if(month == 5) { selected }>May</option>
+                <option value="6" @if(month == 6) { selected }>June</option>
+                <option value="7" @if(month == 7) { selected }>July</option>
+                <option value="8" @if(month == 8) { selected }>August</option>
+                <option value="9" @if(month == 9) { selected }>September</option>
+                <option value="10" @if(month == 10) {selected }>October</option>
+                <option value="11" @if(month == 11) {selected }>November</option>
+                <option value="12" @if(month == 12) {selected }>December</option>
             }
         </select>
 
