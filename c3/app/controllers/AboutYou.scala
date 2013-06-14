@@ -32,7 +32,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   val contactDetailsForm = Form(
     mapping(
-      "address" -> nonEmptyText,
+      "address" -> address.verifying(requiredAddress),
       "postcode" -> optional(text verifying(pattern( """^(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})$""".r,
         "constraint.postcode", "error.postcode"), maxLength(10))),
       "phoneNumber" -> optional(text),
@@ -93,7 +93,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
 
       val contactDetailsFormParam: Form[ContactDetails] = claim.form(ContactDetails.id) match {
-        case Some(n: ContactDetails) =>  contactDetailsForm.fill(n)
+        case Some(n: ContactDetails) => contactDetailsForm.fill(n)
         case _ => contactDetailsForm
       }
 
@@ -113,9 +113,8 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
   def claimDate = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
-
       val claimDateFormParam: Form[ClaimDate] = claim.form(ClaimDate.id) match {
-        case Some(n: ClaimDate) =>  claimDateForm.fill(n)
+        case Some(n: ClaimDate) => claimDateForm.fill(n)
         case _ => claimDateForm
       }
 
@@ -141,7 +140,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         case _ => moreAboutYouForm
       }
 
-      claim.form(models.claim.ClaimDate.id) match{
+      claim.form(models.claim.ClaimDate.id) match {
         case Some(n) => Ok(views.html.s2_aboutyou.g5_moreAboutYou(moreAboutYouFormParam, completedForms.takeWhile(_.id != MoreAboutYou.id)))
         case _ => Redirect(routes.CarersAllowance.benefits())
       }
@@ -166,7 +165,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         case _ => employmentForm
       }
 
-      claim.form(models.claim.ClaimDate.id) match{
+      claim.form(models.claim.ClaimDate.id) match {
         case Some(n) => Ok(views.html.s2_aboutyou.g6_employment(employmentFormParam, completedForms.takeWhile(_.id != Employment.id)))
         case _ => Redirect(routes.CarersAllowance.benefits())
       }
@@ -191,7 +190,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         case _ => propertyAndRentForm
       }
 
-      claim.form(models.claim.ClaimDate.id) match{
+      claim.form(models.claim.ClaimDate.id) match {
         case Some(n) => Ok(views.html.s2_aboutyou.g7_propertyAndRent(propertyAndRentFormParam, completedForms.takeWhile(_.id != PropertyAndRent.id)))
         case _ => Redirect(routes.CarersAllowance.benefits())
       }
@@ -209,7 +208,9 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def completed = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s2_aboutyou.g8_completed())
+      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
+      Ok(views.html.s2_aboutyou.g8_completed(completedForms))
   }
 
   def completedSubmit = claiming {
