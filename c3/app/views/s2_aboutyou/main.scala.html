@@ -20,8 +20,9 @@
                             @for(completedForm <- completedForms) {
                                 <li>
                                     @if(completedForm.id == ClaimDate.id){
-                                        @defining(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim) { dateOfClaim =>
-                                            <h3>@Messages(completedForm.id, s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}") </h3>
+                                        @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
+
+                                            <h3>@Messages(completedForm.id, dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)) </h3>
                                         }
                                     }else{
                                         <h3>@Messages(completedForm.id) </h3>
