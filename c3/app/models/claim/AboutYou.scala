@@ -14,7 +14,7 @@ object YourDetails {
   val id = s"${AboutYou.id}.g1"
 }
 
-case class ContactDetails(address: String, postcode: String, phoneNumber: Option[String], mobileNumber: Option[String]) extends Form(ContactDetails.id)
+case class ContactDetails(address: String, postcode: Option[String], phoneNumber: Option[String], mobileNumber: Option[String]) extends Form(ContactDetails.id)
 
 object ContactDetails {
   val id = s"${AboutYou.id}.g2"

@@ -35,6 +35,8 @@ address = Address
 postcode = Postcode
 phoneNumber = Daytime phone number
 mobileNumber = MobileNumber
+postcode.placeHolder = eg: PR2 8AE
+error.postcode = A post code must be in the format PR2 8AE
 
 #  CLAIM DATE
 dateOfClaim = When do you want your Carer?s Allowance claim to start?

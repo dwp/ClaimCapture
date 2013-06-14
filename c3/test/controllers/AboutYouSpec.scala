@@ -8,6 +8,10 @@ import play.api.test.Helpers._
 import models.claim.Section
 import models.claim.Claim
 import org.specs2.mock.Mockito
+import play.api.data.Forms._
+import models.claim.Section
+import models.claim.Claim
+import scala.Some
 
 class AboutYouSpec extends Specification with Mockito {
   "About you" should {
@@ -136,6 +140,26 @@ class AboutYouSpec extends Specification with Mockito {
       "nationalInsuranceNumber" -> "AB123456")
 
     val result = AboutYou.yourDetailsSubmit(request)
+    status(result) mustEqual BAD_REQUEST
+  }
+
+  "not complain about a valid Postcode" in new WithApplication with Claiming {
+    val request = FakeRequest().withSession("connected" -> claimKey)
+      .withFormUrlEncodedBody(
+      "address" -> "123 Street",
+      "postcode" -> "PR2 8AE")
+
+    val result = AboutYou.contactDetailsSubmit(request)
+    status(result) mustNotEqual BAD_REQUEST
+  }
+
+  "complain about an invalid Postcode" in new WithApplication with Claiming {
+    val request = FakeRequest().withSession("connected" -> claimKey)
+      .withFormUrlEncodedBody(
+      "address" -> "123 Street",
+      "postcode" -> "PR2")
+
+    val result = AboutYou.contactDetailsSubmit(request)
     status(result) mustEqual BAD_REQUEST
   }
 }
