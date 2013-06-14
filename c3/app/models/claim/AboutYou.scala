@@ -1,6 +1,6 @@
 package models.claim
 
-import models.DayMonthYear
+import models.{MultiLineAddress, DayMonthYear}
 
 object AboutYou {
   val id = "s2"
@@ -14,7 +14,7 @@ object YourDetails {
   val id = s"${AboutYou.id}.g1"
 }
 
-case class ContactDetails(address: String, postcode: String, phoneNumber: Option[String], mobileNumber: Option[String]) extends Form(ContactDetails.id)
+case class ContactDetails(address: MultiLineAddress, postcode: String, phoneNumber: Option[String], mobileNumber: Option[String]) extends Form(ContactDetails.id)
 
 object ContactDetails {
   val id = s"${AboutYou.id}.g2"

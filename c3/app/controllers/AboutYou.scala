@@ -8,11 +8,11 @@ import play.api.data.validation.Constraints._
 
 object AboutYou extends Controller with CachedClaim with FormMappings {
   val route = Map(YourDetails.id -> routes.AboutYou.yourDetails,
-                  ContactDetails.id -> routes.AboutYou.contactDetails,
-                  ClaimDate.id -> routes.AboutYou.claimDate,
-                  MoreAboutYou.id -> routes.AboutYou.moreAboutYou,
-                  Employment.id -> routes.AboutYou.employment,
-                  PropertyAndRent.id -> routes.AboutYou.propertyAndRent)
+    ContactDetails.id -> routes.AboutYou.contactDetails,
+    ClaimDate.id -> routes.AboutYou.claimDate,
+    MoreAboutYou.id -> routes.AboutYou.moreAboutYou,
+    Employment.id -> routes.AboutYou.employment,
+    PropertyAndRent.id -> routes.AboutYou.propertyAndRent)
 
   val yourDetailsForm = Form(
     mapping(
@@ -22,7 +22,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "surname" -> nonEmptyText,
       "otherNames" -> optional(text),
       "nationalInsuranceNumber" -> optional(text verifying(pattern( """^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$""".r,
-                                                          "constraint.nationalInsuranceNumber", "error.nationalInsuranceNumber"), maxLength(10))),
+        "constraint.nationalInsuranceNumber", "error.nationalInsuranceNumber"), maxLength(10))),
       "nationality" -> nonEmptyText,
       "dateOfBirth" -> date.verifying(validDate),
       "maritalStatus" -> nonEmptyText,
@@ -32,7 +32,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   val contactDetailsForm = Form(
     mapping(
-      "address" -> nonEmptyText,
+      "address" -> address.verifying(requiredAddress),
       "postcode" -> nonEmptyText,
       "phoneNumber" -> optional(text),
       "mobileNumber" -> optional(text)
@@ -92,7 +92,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
 
       val contactDetailsFormParam: Form[ContactDetails] = claim.form(ContactDetails.id) match {
-        case Some(n: ContactDetails) =>  contactDetailsForm.fill(n)
+        case Some(n: ContactDetails) => contactDetailsForm.fill(n)
         case _ => contactDetailsForm
       }
 
@@ -113,8 +113,13 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
 
+      val details = claim.form(ContactDetails.id).get.asInstanceOf[ContactDetails]
+
+      println(details)
+
+
       val claimDateFormParam: Form[ClaimDate] = claim.form(ClaimDate.id) match {
-        case Some(n: ClaimDate) =>  claimDateForm.fill(n)
+        case Some(n: ClaimDate) => claimDateForm.fill(n)
         case _ => claimDateForm
       }
 
@@ -140,7 +145,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         case _ => moreAboutYouForm
       }
 
-      claim.form(models.claim.ClaimDate.id) match{
+      claim.form(models.claim.ClaimDate.id) match {
         case Some(n) => Ok(views.html.s2_aboutyou.g5_moreAboutYou(moreAboutYouFormParam, completedForms.takeWhile(_.id != MoreAboutYou.id)))
         case _ => Redirect(routes.CarersAllowance.benefits())
       }
@@ -165,7 +170,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         case _ => employmentForm
       }
 
-      claim.form(models.claim.ClaimDate.id) match{
+      claim.form(models.claim.ClaimDate.id) match {
         case Some(n) => Ok(views.html.s2_aboutyou.g6_employment(employmentFormParam, completedForms.takeWhile(_.id != Employment.id)))
         case _ => Redirect(routes.CarersAllowance.benefits())
       }
@@ -190,7 +195,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         case _ => propertyAndRentForm
       }
 
-      claim.form(models.claim.ClaimDate.id) match{
+      claim.form(models.claim.ClaimDate.id) match {
         case Some(n) => Ok(views.html.s2_aboutyou.g7_propertyAndRent(propertyAndRentFormParam, completedForms.takeWhile(_.id != PropertyAndRent.id)))
         case _ => Redirect(routes.CarersAllowance.benefits())
       }
