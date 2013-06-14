@@ -16,13 +16,13 @@ class G4Over16Spec extends Specification with Tags {
     "acknowledge yes" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.title() mustEqual "Can you get Carer's Allowance?"
       browser.find("div[class=completed] ul li").get(3).getText must contain("Q4")
@@ -32,13 +32,13 @@ class G4Over16Spec extends Specification with Tags {
     "acknowledge no" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-no")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.title() mustEqual "Can you get Carer's Allowance?"
       browser.find("div[class=completed] ul li").get(3).getText must contain("Q4")

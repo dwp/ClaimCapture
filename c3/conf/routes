@@ -3,51 +3,51 @@
 # ~~~~
 
 # Home page
-GET     /                          controllers.Application.index
-GET     /spike                     controllers.SpikeController.spike
-POST    /spikeSubmit               controllers.SpikeController.spikeSubmit
+GET     /                               controllers.Application.index
 
-#Allowance
+# Allowance
 ###############
-GET     /allowance/benefits        controllers.CarersAllowance.benefits
-POST    /allowance/benefits        controllers.CarersAllowance.benefitsSubmit
+GET     /allowance/benefits             controllers.CarersAllowance.benefits
+POST    /allowance/benefits             controllers.CarersAllowance.benefitsSubmit
 
-GET     /allowance/hours           controllers.CarersAllowance.hours
-POST    /allowance/hours           controllers.CarersAllowance.hoursSubmit
+GET     /allowance/hours                controllers.CarersAllowance.hours
+POST    /allowance/hours                controllers.CarersAllowance.hoursSubmit
 
-GET     /allowance/livesInGB       controllers.CarersAllowance.livesInGB
-POST    /allowance/livesInGB       controllers.CarersAllowance.livesInGBSubmit
+GET     /allowance/livesInGB            controllers.CarersAllowance.livesInGB
+POST    /allowance/livesInGB            controllers.CarersAllowance.livesInGBSubmit
 
-GET     /allowance/over16          controllers.CarersAllowance.over16
-POST    /allowance/over16          controllers.CarersAllowance.over16Submit
+GET     /allowance/over16               controllers.CarersAllowance.over16
+POST    /allowance/over16               controllers.CarersAllowance.over16Submit
 
-GET     /allowance/approve         controllers.CarersAllowance.approve
-POST    /allowance/approve         controllers.CarersAllowance.approveSubmit
+GET     /allowance/approve              controllers.CarersAllowance.approve
+POST    /allowance/approve              controllers.CarersAllowance.approveSubmit
 
-#AboutYou
+# About you
 ###############
-GET     /aboutyou/yourDetails      controllers.AboutYou.yourDetails
-POST    /aboutyou/yourDetails      controllers.AboutYou.yourDetailsSubmit
+GET     /aboutyou/yourDetails           controllers.AboutYou.yourDetails
+POST    /aboutyou/yourDetails           controllers.AboutYou.yourDetailsSubmit
 
-GET     /aboutyou/contactDetails   controllers.AboutYou.contactDetails
-POST    /aboutyou/contactDetails   controllers.AboutYou.contactDetailsSubmit
+GET     /aboutyou/contactDetails        controllers.AboutYou.contactDetails
+POST    /aboutyou/contactDetails        controllers.AboutYou.contactDetailsSubmit
 
-GET     /aboutyou/claimDate        controllers.AboutYou.claimDate
-POST    /aboutyou/claimDate        controllers.AboutYou.claimDateSubmit
+GET     /aboutyou/claimDate             controllers.AboutYou.claimDate
+POST    /aboutyou/claimDate             controllers.AboutYou.claimDateSubmit
 
-GET     /aboutyou/moreAboutYou     controllers.AboutYou.moreAboutYou
-POST    /aboutyou/moreAboutYou     controllers.AboutYou.moreAboutYouSubmit
+GET     /aboutyou/moreAboutYou          controllers.AboutYou.moreAboutYou
+POST    /aboutyou/moreAboutYou          controllers.AboutYou.moreAboutYouSubmit
 
-GET     /aboutyou/employment       controllers.AboutYou.employment
-POST    /aboutyou/employment       controllers.AboutYou.employmentSubmit
+GET     /aboutyou/employment            controllers.AboutYou.employment
+POST    /aboutyou/employment            controllers.AboutYou.employmentSubmit
 
-GET     /aboutyou/propertyAndRent  controllers.AboutYou.propertyAndRent
-POST    /aboutyou/propertyAndRent  controllers.AboutYou.propertyAndRentSubmit
+GET     /aboutyou/propertyAndRent       controllers.AboutYou.propertyAndRent
+POST    /aboutyou/propertyAndRent       controllers.AboutYou.propertyAndRentSubmit
 
-GET     /aboutyou/completed        controllers.AboutYou.completed
-POST    /aboutyou/completed        controllers.AboutYou.completedSubmit
+GET     /aboutyou/completed             controllers.AboutYou.completed
+POST    /aboutyou/completed             controllers.AboutYou.completedSubmit
 
-
+# Your partner
+###############
+GET     /yourpartner/yourpartner        controllers.YourPartner.yourPartner
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file              controllers.Assets.at(path="/public", file)
+GET     /assets/*file                   controllers.Assets.at(path="/public", file)

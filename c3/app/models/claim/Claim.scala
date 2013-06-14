@@ -6,6 +6,7 @@ import models.CreationTimeStamp
 import utils.ClaimUtils
 
 case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeStamp {
+
   def section(sectionId: String): Option[Section] = {
     sections.get(sectionId)
   }
@@ -26,7 +27,9 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
 
   def update(form: Form): Claim = {
     def update(form: Form, forms: List[Form]) = {
-      val updated = forms.map(f => if (f.id == form.id) form else f)
+      val updated = forms map {
+        f => if (f.id == form.id) form else f
+      }
       if (updated.contains(form)) updated else updated :+ form
     }
 
@@ -42,6 +45,7 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
 }
 
 trait CachedClaim {
+
   import play.api.Play.current
   import scala.language.implicitConversions
   import play.api.http.HeaderNames._
@@ -53,22 +57,25 @@ trait CachedClaim {
   def newClaim(f: => Claim => Request[AnyContent] => Result) = Action {
     implicit request => {
       val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID().toString)
-      val expiration: Int = 3600
+      val expiration = 3600
+
+      def apply(claim: Claim) = f(claim)(request).withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
-        Cache.set(key, Claim(), expiration)
+        val claim = Claim()
+        Cache.set(key, claim, expiration)
+        apply(claim)
+      } else {
+        val claim = Cache.getOrElse(key, expiration)(Claim())
+        apply(claim)
       }
-
-      val claim = Cache.getOrElse(key, expiration)(Claim())
-
-      f(claim)(request).withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
     }
   }
 
   def claiming(f: => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
     request => {
       val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID().toString)
-      val expiration: Int = 3600
+      val expiration = 3600
       val claim = Cache.getOrElse(key, expiration)(Claim())
 
       f(claim)(request) match {

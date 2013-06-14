@@ -1,0 +1,38 @@
+@(contactDetailsForm :Form[models.claim.ContactDetails], completedForms:List[models.claim.Form])(implicit claim: models.claim.Claim)
+
+@import helper._
+@import utils.helpers.ClaimHelpers._
+@import views.html.common._
+
+@main("Contact Details - About You", completedForms) {
+
+    @form(action = routes.AboutYou.contactDetailsSubmit) {
+        <fieldset class="form-elements">
+            <legend>About your time outside the UK</legend>
+
+            @errorsSummary(contactDetailsForm)
+
+            <ul class="group">
+                @common.yesNoRadioGroup(contactDetailsForm("currentlyLivingInUK"), '_label -> Messages("s2_g3_q1"))
+
+                @inputDayMonthYear(contactDetailsForm("arrivedInUK"))
+
+                @inputText(contactDetailsForm("originCountry"))
+
+                @common.yesNoRadioGroup(contactDetailsForm("planToGoBack"), '_label -> Messages("s2_g3_q4"))
+
+                @inputDayMonthYear(contactDetailsForm("whenPlanToGoBack"), '_label -> Messages("s2_g3_q5"))
+
+                @inputText(contactDetailsForm("visaReference"), '_label -> Messages("s2_g3_q6"))
+            </ul>
+
+        </fieldset>
+
+        <div class="form-steps">
+            <button type="submit" name="action" value="back" class="button secondary">Back</button>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}
+			
+			

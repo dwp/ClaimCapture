@@ -1,0 +1,30 @@
+@(propertyAndRentForm: Form[models.claim.PropertyAndRent], completedForms: List[models.claim.Form])(implicit claim: models.claim.Claim)
+
+@import helper._
+@import views.html.common._
+
+@main("Property and Rent - About You",completedForms) {
+    @form(action = routes.AboutYou.propertyAndRentSubmit()) {
+        <fieldset class="form-elements">
+            <legend>Property and rent</legend>
+
+            @errorsSummary(propertyAndRentForm)
+
+            <ul class="group">
+                @defining(claim.form(models.claim.ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim) { dateOfClaim =>
+                    @common.yesNoRadioGroup(propertyAndRentForm("ownProperty"),
+                        '_label -> Messages("s2_g7_q1", "01/01/2012", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
+
+                    @common.yesNoRadioGroup(propertyAndRentForm("hasSublet"),
+                        '_label -> Messages("s2_g7_q2", "01/01/2012", s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}"))
+                }
+            </ul>
+
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="@routes.AboutYou.employment" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}

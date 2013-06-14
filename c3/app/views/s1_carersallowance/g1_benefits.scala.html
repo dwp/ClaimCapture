@@ -1,8 +1,8 @@
-@(confirmed: Boolean)
+@(confirmed: Boolean = false)
 
 @import helper._
 
-@main("Benefits - Carer's Allowance", scrollFormSubmitIntoView = false) {
+@main("Benefits - Carer's Allowance") {
 
     @form(action = routes.CarersAllowance.benefitsSubmit) {
         <fieldset class="form-elements form-eligibility q1">
@@ -27,11 +27,10 @@
             <h2>Armed Forces Independence Payment (AFP)</h2>
 
             @yesNoRadioGroup(confirmed)
-
         </fieldset>
 
         <div class="form-steps">
-            <input type="submit" value="Next step" class="button">
+            <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
 }

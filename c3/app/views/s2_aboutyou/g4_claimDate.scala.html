@@ -1,0 +1,23 @@
+@(claimDateForm: Form[models.claim.ClaimDate], completedForms: List[models.claim.Form])(implicit claim: models.claim.Claim)
+
+@import helper._
+@import views.html.common._
+
+@main("Claim Date - About You", completedForms) {
+    @form(action = routes.AboutYou.claimDateSubmit()) {
+        <fieldset class="form-elements">
+            <legend>Your claim date</legend>
+
+            @errorsSummary(claimDateForm)
+
+            <ul class="group">
+                @inputDayMonthYear(claimDateForm("dateOfClaim"))
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="@routes.AboutYou.contactDetails" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}

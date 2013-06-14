@@ -2,7 +2,7 @@
 
 @import helper._
 
-@main("Can you get Carer's Allowance?", completedForms, scrollFormSubmitIntoView = false) {
+@main("Can you get Carer's Allowance?", completedForms) {
 
     @if(approved) {
         <div class="prompt">
@@ -20,8 +20,13 @@
 
     @form(action = routes.CarersAllowance.approveSubmit) {
         <div class="form-steps">
+<<<<<<< HEAD
 
             <input type="submit" value="Next step" class="button">
+=======
+            <p>Please click the <strong>'Next Step'</strong> button below.</p>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+>>>>>>> 863999e1122d4bb7758cd2834730ba71443a1550
         </div>
     }
 }

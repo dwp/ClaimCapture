@@ -1,8 +1,9 @@
-@(yourDetailsForm: Form[models.claim.YourDetails])
+@(yourDetailsForm: Form[models.claim.YourDetails])(implicit claim: models.claim.Claim)
 
 @import helper._
 @import utils.helpers.ClaimHelpers._
 @import views.html.common._
+@import views.html.helper._
 
 @main("Your Details - About You") {
 
@@ -10,18 +11,10 @@
         <fieldset class="form-elements">
             <legend>Your details</legend>
 
-
             @errorsSummary(yourDetailsForm)
 
             <ul class="group">
-                <li>
-                    <label for="title"><em>*</em>Title</label>
-                    <select name="title" id="title">
-                        <option value="#">Mr</option>
-                        <option value="#">Mrs</option>
-                    </select>
-                </li>
-
+                @titleSelect(yourDetailsForm("title"))
 
                 @inputText(yourDetailsForm("firstName"))
 
@@ -31,33 +24,21 @@
 
                 @inputText(yourDetailsForm("otherNames"))
 
-                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"), 'helper -> Messages("nationalInsuranceNumber.helper"))
+                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"))
 
-                @inputText(yourDetailsForm("dateOfBirth"))
+                @inputDayMonthYear(yourDetailsForm("dateOfBirth"))
 
                 @inputText(yourDetailsForm("nationality"))
 
-                <li>
-                    <label for="maritalStatus"><em>*</em>What is your marital or civil partnership status?</label>
-                    <select name="maritalStatus" id="maritalStatus">
-                        <option value="#">Single</option>
-                        <option value="#">Married</option>
-                    </select>
-                </li>
+                @maritalStatusSelect(yourDetailsForm("maritalStatus"))
 
-                <li>
-                    <p>Have you always lived in the United Kingdom?</p>
-                    <ul class="inline">
-                        <li><input type="radio" name="alwaysLivedUK" id="q3-yes" value="true"><label for="q3-yes">Yes</label></li>
-                        <li><input type="radio" name="alwaysLivedUK" id="q3-no" value="false"><label for="q3-no">No</label></li>
-                    </ul>
-                </li>
+                @common.yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"))
             </ul>
         </fieldset>
 
         <div class="form-steps">
-            <input type="submit" value="Back" class="button secondary">
-            <input type="submit" value="Next" class="button">
+            <a href="@routes.CarersAllowance.approve" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
 }

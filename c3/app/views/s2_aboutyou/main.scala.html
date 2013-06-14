@@ -1,42 +1,44 @@
-@(title: String, completedForms: List[models.claim.Form] = Nil, scrollFormSubmitIntoView: Boolean = true)(content: Html)
+@(title: String, completedForms: List[models.claim.Form] = Nil)(content: Html)(implicit claim: models.claim.Claim)
 
+@import models.claim.ClaimDate
 @import helper._
 
 @common.govMain(title) {
 
-<div id="wrapper" class="carers-allowance">
-    <div class="carers-container">
-    
-    	<section>
+    <div id="wrapper" class="carers-allowance">
+        <div class="carers-container">
 
-            <header>
-                <h1>About you - the Carer</h1>
-            </header>
+            <section>
 
+                <header>
+                    <h1>About you - the Carer</h1>
+                </header>
 
-            @if(completedForms.size > 0) {
-                <div class="completed">
+                @if(completedForms.size > 0) {
+                    <div class="completed">
+                        <ul>
+                            @for(completedForm <- completedForms) {
+                                <li style="margin-top: 5px">
+                                    @if(completedForm.id == ClaimDate.id){
+                                        @defining(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim) { dateOfClaim =>
+                                            <h3>@Messages(completedForm.id, s"${dateOfClaim.day}/${dateOfClaim.month}/${dateOfClaim.year}") </h3>
+                                        }
+                                    }else{
+                                        <h3>@Messages(completedForm.id) </h3>
+                                    }
 
+                                    <p>@completedForm.confirmation</p>
 
-                    <ul>
-                        @for(completedForm <- completedForms) {
-                            <li style="margin-top: 5px">
-                                <h3>@Messages(completedForm.id)</h3>
-                                <p>@completedForm.confirmation</p>
-                                <a href="#">Change this answer</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            }
+                                    <a href="@AboutYou.route(completedForm.id)">Change this answer</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
 
-            @content
+                @content
 
-        </section>
+            </section>
+        </div>
     </div>
-    </div>
-}
-
-@if(scrollFormSubmitIntoView) {
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/scroll-form-submit-into-view.js")'></script>
 }

@@ -12,16 +12,15 @@ class G3LivesInGBSpec extends Specification with Tags {
     }
   } section "integration"
 
-
   "Do you normally live in Great Britain" should {
     "acknowledge yes" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.title() mustEqual "Over 16 - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(2).getText must contain("Q3")
@@ -31,11 +30,11 @@ class G3LivesInGBSpec extends Specification with Tags {
     "acknowledge no" in new WithBrowser {
       browser.goTo("/")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-yes")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
       browser.click("#q3-no")
-      browser.submit("input[type='submit']")
+      browser.submit("button[type='submit']")
 
       browser.title() mustEqual "Over 16 - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(2).getText must contain("Q3")

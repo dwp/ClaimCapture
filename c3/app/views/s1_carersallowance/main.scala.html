@@ -1,4 +1,4 @@
-@(title: String, completedForms: List[models.claim.Form] = Nil, scrollFormSubmitIntoView: Boolean = true)(content: Html)
+@(title: String, completedForms: List[models.claim.Form] = Nil)(content: Html)
 
 @import helper._
 
@@ -11,23 +11,16 @@
 
                 <header>
                     <h1><span>Quick Answer</span>Can you get Carer's Allowance?</h1>
-
                 </header>
-
 
                 @if(completedForms.size > 0) {
                     <div class="completed">
                         <ul>
                             @for(completedForm <- completedForms) {
-
-
-                                <li>
+                                <li style="margin-top: 5px">
                                     <h3>@Messages(completedForm.id)</h3>
                                     <p>@completedForm.confirmation</p>
-
-                                    @defining(completedForm.id + ".url") { urlKey =>
-                                        <a href="@completedForm.url?changing=true"> Change this answer</a>
-                                    }
+                                    <a href="@CarersAllowance.route(completedForm.id)">Change this answer</a>
                                 </li>
                             }
                         </ul>
@@ -39,8 +32,4 @@
             </section>
         </div>
     </div>
-}
-
-@if(scrollFormSubmitIntoView) {
-    <script type="text/javascript" src='@routes.Assets.at("javascripts/scroll-form-submit-into-view.js")'></script>
 }

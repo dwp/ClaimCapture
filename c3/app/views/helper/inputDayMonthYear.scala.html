@@ -1,0 +1,33 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)
+
+@import utils.helpers.ClaimHelpers._
+
+@input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
+    <p>
+        <select id="@{name}-day" name="@{name}.day" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;">
+            <option value="d" selected>Day</option>
+
+            @for(d <- 1 to 31) {
+                <option value="@d">@if(d < 10) {0}@d</option>
+            }
+        </select>
+
+        <select id="@{name}-month" name="@{name}.month" width="10px" style="width: 10px; margin: 2px; vertical-align: baseline;">
+            <option value="m" selected>Month</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+
+        <input id="@{name}-year" name="@{name}.year" type="text" placeholder="Year e.g. 1980" style="width: 150px; margin: 2px; vertical-align: baseline;">
+    </p>
+}
