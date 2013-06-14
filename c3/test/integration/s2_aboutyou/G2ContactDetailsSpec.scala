@@ -6,7 +6,6 @@ import integration.Helper
 
 class G2ContactDetailsSpec extends Specification with Tags {
 
-
   "Contact Details" should {
 
     "be presented" in new WithBrowser {
@@ -28,9 +27,6 @@ class G2ContactDetailsSpec extends Specification with Tags {
 
       browser.click("div[class=completed] ul li a")
       browser.title() mustEqual "Your Details - About You"
-
     }
-
   } section "integration"
-
 }

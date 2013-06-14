@@ -1,4 +1,3 @@
-import _root_.sbt.Keys._
 import sbt._
 import sbt.Keys._
 import play.Project._
@@ -12,7 +11,8 @@ object ApplicationBuild extends Build {
   val appDependencies = Seq(
     // Add your project dependencies here,
     jdbc,
-    anorm
+    anorm,
+    "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc()
   )
 
   var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint"))
