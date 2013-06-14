@@ -8,7 +8,9 @@
             <option value="" selected>Day</option>
 
             @for(d <- 1 to 31) {
-                <option value="@d">@if(d < 10) {0}@d</option>
+                @defining(field("day").value match { case Some(s) if s.toInt == d => "selected" case _ => "" }) { selected =>
+                    <option value="@d" @selected>@if(d < 10) {0}@d</option>
+                }
             }
         </select>
 
