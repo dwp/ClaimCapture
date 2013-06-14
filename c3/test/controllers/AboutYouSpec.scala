@@ -57,4 +57,40 @@ class AboutYouSpec extends Specification {
       redirectLocation(result) must beSome("/yourpartner/yourpartner")
     }
   }
+
+  "not complain about a valid NI" in new WithApplication with Claiming {
+    val request = FakeRequest().withSession("connected" -> claimKey)
+      .withFormUrlEncodedBody(
+      "firstName" -> "Scooby",
+      "title" -> "Mr",
+      "surname" -> "Doo",
+      "nationality" -> "US",
+      "dateOfBirth.day" -> "5",
+      "dateOfBirth.month" -> "12",
+      "dateOfBirth.year" -> "1990",
+      "maritalStatus" -> "Single",
+      "alwaysLivedUK" -> "yes",
+      "nationalInsuranceNumber" -> "aB123456A")
+
+    val result = AboutYou.yourDetailsSubmit(request)
+    status(result) mustNotEqual BAD_REQUEST
+  }
+
+  "complain about an invalid NI" in new WithApplication with Claiming {
+    val request = FakeRequest().withSession("connected" -> claimKey)
+      .withFormUrlEncodedBody(
+      "firstName" -> "Scooby",
+      "title" -> "Mr",
+      "surname" -> "Doo",
+      "nationality" -> "US",
+      "dateOfBirth.day" -> "5",
+      "dateOfBirth.month" -> "12",
+      "dateOfBirth.year" -> "1990",
+      "maritalStatus" -> "Single",
+      "alwaysLivedUK" -> "yes",
+      "nationalInsuranceNumber" -> "AB123456")
+
+    val result = AboutYou.yourDetailsSubmit(request)
+    status(result) mustEqual BAD_REQUEST
+  }
 }
