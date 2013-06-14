@@ -208,7 +208,9 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def completed = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s2_aboutyou.g8_completed())
+      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
+      Ok(views.html.s2_aboutyou.g8_completed(completedForms))
   }
 
   def completedSubmit = claiming {
