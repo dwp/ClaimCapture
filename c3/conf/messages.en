@@ -34,6 +34,7 @@ postcode.placeHolder = eg: PR2 8AE
 error.postcode = A post code must be in the format PR2 8AE
 
 # TIME OUTSIDE UK
+s2.g3 = 3  About your time outside the UK
 s2_g3_q1 = Are you currently living in the UK?
 s2_g3_q2 = When did you arrive in the UK?
 s2_g3_q3 = What country did you come from?
