@@ -3,9 +3,9 @@ package controllers
 import org.specs2.mutable.Specification
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.cache.Cache
-import models.claim._
 import play.api.test.Helpers._
 import org.specs2.mock.Mockito
+import models.claim._
 import models.claim.Section
 import models.claim.Claim
 import scala.Some
@@ -25,7 +25,7 @@ class AboutYouSpec extends Specification with Mockito {
         "maritalStatus" -> "Single",
         "alwaysLivedUK" -> "yes")
 
-      val result = AboutYou.yourDetailsSubmit(request)
+      val result = controllers.AboutYou.yourDetailsSubmit(request)
       redirectLocation(result) must beSome("/aboutyou/contactDetails")
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -40,7 +40,7 @@ class AboutYouSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("firstName" -> "Scooby", "action" -> "next")
 
-      val result = AboutYou.yourDetailsSubmit(request)
+      val result = controllers.AboutYou.yourDetailsSubmit(request)
       status(result) mustEqual BAD_REQUEST
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -61,7 +61,7 @@ class AboutYouSpec extends Specification with Mockito {
         "alwaysLivedUK" -> "yes",
         "nationalInsuranceNumber" -> "aB123456A")
 
-      val result = AboutYou.yourDetailsSubmit(request)
+      val result = controllers.AboutYou.yourDetailsSubmit(request)
       status(result) mustNotEqual BAD_REQUEST
     }
 
@@ -79,7 +79,7 @@ class AboutYouSpec extends Specification with Mockito {
         "alwaysLivedUK" -> "yes",
         "nationalInsuranceNumber" -> "AB123456")
 
-      val result = AboutYou.yourDetailsSubmit(request)
+      val result = controllers.AboutYou.yourDetailsSubmit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -89,7 +89,7 @@ class AboutYouSpec extends Specification with Mockito {
         "address.lineOne" -> "123 Street",
         "postcode" -> "PR2 8AE")
 
-      val result = AboutYou.contactDetailsSubmit(request)
+      val result = controllers.AboutYou.contactDetailsSubmit(request)
       status(result) mustNotEqual BAD_REQUEST
     }
 
@@ -99,7 +99,7 @@ class AboutYouSpec extends Specification with Mockito {
         "address.lineOne" -> "123 Street",
         "postcode" -> "PR2")
 
-      val result = AboutYou.contactDetailsSubmit(request)
+      val result = controllers.AboutYou.contactDetailsSubmit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -110,14 +110,14 @@ class AboutYouSpec extends Specification with Mockito {
         "address.lineTwo" -> "",
         "address.lineThree" -> "")
 
-      val result = AboutYou.contactDetailsSubmit(request)
+      val result = controllers.AboutYou.contactDetailsSubmit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """present completion""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = AboutYou.completed(request)
+      val result = controllers.AboutYou.completed(request)
       status(result) mustEqual OK
     }
 
@@ -128,7 +128,7 @@ class AboutYouSpec extends Specification with Mockito {
 
       Cache.set(claimKey, claim)
 
-      val result = AboutYou.completedSubmit(request)
+      val result = controllers.AboutYou.completedSubmit(request)
       redirectLocation(result) must beSome("/aboutyou/yourDetails")
     }
 
@@ -145,10 +145,8 @@ class AboutYouSpec extends Specification with Mockito {
 
       Cache.set(claimKey, claim)
 
-      val result = AboutYou.completedSubmit(request)
+      val result = controllers.AboutYou.completedSubmit(request)
       redirectLocation(result) must beSome("/yourpartner/yourpartner")
     }
   }
-
-
 }

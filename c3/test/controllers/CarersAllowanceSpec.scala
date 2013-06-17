@@ -10,16 +10,19 @@ import utils.ClaimUtils
 import models.claim.Section
 import models.claim.Claim
 import scala.Some
+import java.util.concurrent.TimeUnit
 
 class CarersAllowanceSpec extends Specification {
   """Can you get Carer's Allowance""" should {
     "start with a new Claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      CarersAllowance.benefits(request)
+      controllers.CarersAllowance.benefits(request)
       val claim = Cache.getAs[Claim](claimKey)
 
-      val result = CarersAllowance.benefits(request)
+      TimeUnit.MILLISECONDS.sleep(100)
+
+      val result = controllers.CarersAllowance.benefits(request)
       header(CACHE_CONTROL, result) must beSome("no-cache, no-store")
 
       Cache.getAs[Claim](claimKey) must beLike {
@@ -29,7 +32,7 @@ class CarersAllowanceSpec extends Specification {
 
     "acknowledge that the person looks after get one of the required benefits" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
-      CarersAllowance.benefitsSubmit(request)
+      controllers.CarersAllowance.benefitsSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.claim.CarersAllowance.id).get
@@ -41,7 +44,7 @@ class CarersAllowanceSpec extends Specification {
 
     "acknowledge that the person looks after does not get one of the required benefits " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "false", "action" -> "next")
-      CarersAllowance.benefitsSubmit(request)
+      controllers.CarersAllowance.benefitsSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.claim.CarersAllowance.id).get
@@ -57,7 +60,7 @@ class CarersAllowanceSpec extends Specification {
       val claim = Claim().update(Benefits(answer = true))
       Cache.set(claimKey, claim)
 
-      val result = CarersAllowance.hours(request)
+      val result = controllers.CarersAllowance.hours(request)
 
       status(result) mustEqual OK
 
@@ -68,7 +71,7 @@ class CarersAllowanceSpec extends Specification {
 
     "acknowledge that you spend 35 hours or more each week caring for the person you look after" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
-      CarersAllowance.hoursSubmit(request)
+      controllers.CarersAllowance.hoursSubmit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.claim.CarersAllowance.id).get
 
@@ -80,10 +83,10 @@ class CarersAllowanceSpec extends Specification {
     """acknowledge that the person looks after get one of the required benefits AND (proving that previous steps are cached)
        acknowledge that you spend 35 hours or more each week caring for the person you look after""" in new WithApplication with Claiming {
       val benefitsRequest = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
-      CarersAllowance.benefitsSubmit(benefitsRequest)
+      controllers.CarersAllowance.benefitsSubmit(benefitsRequest)
 
       val hoursRequest = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
-      CarersAllowance.hoursSubmit(hoursRequest)
+      controllers.CarersAllowance.hoursSubmit(hoursRequest)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.claim.CarersAllowance.id).get
 
@@ -101,7 +104,7 @@ class CarersAllowanceSpec extends Specification {
       val claimWithHoursForm = claimWithBenefitFrom.update(Hours(answer = true))
       Cache.set(claimKey, claimWithHoursForm)
 
-      val result = CarersAllowance.hours(request)
+      val result = controllers.CarersAllowance.hours(request)
 
       status(result) mustEqual OK
 
@@ -114,7 +117,7 @@ class CarersAllowanceSpec extends Specification {
 
     "acknowledge that carer lives in Great Britain" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
-      CarersAllowance.livesInGBSubmit(request)
+      controllers.CarersAllowance.livesInGBSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.claim.CarersAllowance.id).get
@@ -132,7 +135,7 @@ class CarersAllowanceSpec extends Specification {
       val claimWithLivesInGB = claimWithHours.update(LivesInGB(answer = true))
       Cache.set(claimKey, claimWithLivesInGB)
 
-      val result = CarersAllowance.hours(request)
+      val result = controllers.CarersAllowance.hours(request)
 
       status(result) mustEqual OK
 
@@ -146,7 +149,7 @@ class CarersAllowanceSpec extends Specification {
 
     "acknowledge that carer is aged 16 or over" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
-      CarersAllowance.over16Submit(request)
+      controllers.CarersAllowance.over16Submit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.claim.CarersAllowance.id).get
@@ -166,7 +169,7 @@ class CarersAllowanceSpec extends Specification {
 
       Cache.set(claimKey, claim)
 
-      val result = CarersAllowance.approve(request)
+      val result = controllers.CarersAllowance.approve(request)
       contentAsString(result) must contain("div class=\"prompt\"")
     }
 
@@ -180,7 +183,7 @@ class CarersAllowanceSpec extends Specification {
 
       Cache.set(claimKey, claim)
 
-      val result = CarersAllowance.approve(request)
+      val result = controllers.CarersAllowance.approve(request)
 
       contentAsString(result) must contain("div class=\"prompt error\"")
     }
