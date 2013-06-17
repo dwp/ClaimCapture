@@ -16,7 +16,6 @@
         </select>
 
         <select id="@{name}-month" name="@{name}.month" style="width: 10px; margin: 2px; vertical-align: baseline;">
-            @field("month").value
             @defining(Try(field("month").value.get.toInt).getOrElse(0)) { month =>
                 <option value="" selected>Month</option>
                 <option value="1" @if(month == 1) { selected }>January</option>

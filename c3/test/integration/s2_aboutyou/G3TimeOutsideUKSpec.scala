@@ -5,12 +5,12 @@ import org.specs2.mutable.{Tags, Specification}
 class G3TimeOutsideUKSpec extends Specification with Tags {
 
   "Time outside UK" should {
-
-
     /*"""not include "time outside UK" when "always lived in UK" has not been answered (yet)""" in new WithBrowser {
       browser.goTo("/aboutyou/yourDetails")
       browser.$("#timeOutsideUK").getAttribute("style") must contain("none")
-    }
+    }*/
+
+    /*
 
     """not include "time outside UK" when said carer has "always lived in UK"""" in new WithBrowser {
       browser.goTo("/aboutyou/yourDetails")
