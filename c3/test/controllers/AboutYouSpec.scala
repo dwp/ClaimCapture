@@ -149,6 +149,4 @@ class AboutYouSpec extends Specification with Mockito {
       redirectLocation(result) must beSome("/yourpartner/yourpartner")
     }
   }
-
-
 }
