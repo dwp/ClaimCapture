@@ -11,6 +11,12 @@ class G6EmploymentSpec extends Specification with Tags {
       Helper.fillClaimDate(browser)
       browser.goTo("/aboutyou/employment")
 
+      browser.title() mustEqual "Benefits - Carer's Allowance"
+    }
+
+    "be presented without claim date" in new WithBrowser {
+      browser.goTo("/aboutyou/employment")
+
       browser.title() mustEqual "Employment - About You"
     }
 
