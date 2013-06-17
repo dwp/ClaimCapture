@@ -13,21 +13,21 @@
             @errorsSummary(timeOutsideUKForm)
 
             <ul class="group">
-                @yesNoRadioGroup(timeOutsideUKForm("currentlyLivingInUK"), '_label -> Messages("s2_g3_q1"))
+                @yesNoRadioGroup(timeOutsideUKForm("currentlyLivingInUK"))
 
                 <div id="livingInUK" style='display: @if(timeOutsideUKForm("currentlyLivingInUK").value.getOrElse("yes") == "yes") { none; } else { block; }'>
-                    @inputDayMonthYear(timeOutsideUKForm("arrivedInUK"), '_label -> Messages("s2_g3_q2"))
+                    @inputDayMonthYear(timeOutsideUKForm("arrivedInUK"))
 
-                    @inputText(timeOutsideUKForm("originCountry"), '_label -> Messages("s2_g3_q3"))
+                    @inputText(timeOutsideUKForm("originCountry"))
                 </div>
 
-                @yesNoRadioGroup(timeOutsideUKForm("planToGoBack"), '_label -> Messages("s2_g3_q4"))
+                @yesNoRadioGroup(timeOutsideUKForm("planToGoBack"))
 
                 <div id="planingToGoBack" style='display: @if(timeOutsideUKForm("planToGoBack").value.getOrElse("yes") == "yes") { none; } else { block; }'>
-                    @inputDayMonthYear(timeOutsideUKForm("whenPlanToGoBack"), '_label -> Messages("s2_g3_q5"))
+                    @inputDayMonthYear(timeOutsideUKForm("whenPlanToGoBack"))
                 </div>
 
-                @inputText(timeOutsideUKForm("visaReference"), '_label -> Messages("s2_g3_q6"))
+                @inputText(timeOutsideUKForm("visaReference"))
             </ul>
 
         </fieldset>

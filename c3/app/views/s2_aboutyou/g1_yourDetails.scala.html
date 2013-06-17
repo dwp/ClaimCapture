@@ -16,23 +16,23 @@
             <ul class="group">
                 @titleSelect(yourDetailsForm("title"))
 
-                @inputText(yourDetailsForm("firstName"), '_label -> Messages("s2_g1_q2"))
+                @inputText(yourDetailsForm("firstName"))
 
-                @inputText(yourDetailsForm("middleName"), '_label -> Messages("s2_g1_q3"))
+                @inputText(yourDetailsForm("middleName"))
 
-                @inputText(yourDetailsForm("surname"), '_label -> Messages("s2_g1_q4"))
+                @inputText(yourDetailsForm("surname"))
 
-                @inputText(yourDetailsForm("otherNames"), '_label -> Messages("s2_g1_q5"))
+                @inputText(yourDetailsForm("otherNames"))
 
-                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"), '_label -> Messages("s2_g1_q6"))
+                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"))
 
-                @inputDayMonthYear(yourDetailsForm("dateOfBirth"), '_label -> Messages("s2_g1_q7"))
+                @inputDayMonthYear(yourDetailsForm("dateOfBirth"))
 
-                @inputText(yourDetailsForm("nationality"), '_label -> Messages("s2_g1_q8"))
+                @inputText(yourDetailsForm("nationality"))
 
                 @maritalStatusSelect(yourDetailsForm("maritalStatus"))
 
-                @yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"), '_label -> Messages("s2_g1_q10"))
+                @yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"))
             </ul>
         </fieldset>
 

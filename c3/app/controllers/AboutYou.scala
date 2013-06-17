@@ -2,7 +2,7 @@ package controllers
 
 import models.claim._
 import play.api.mvc._
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
@@ -229,6 +229,8 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
   def propertyAndRentSubmit = claiming {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
+      FormError
 
       propertyAndRentForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g7_propertyAndRent(formWithErrors, completedForms.takeWhile(_.id != PropertyAndRent.id))),
