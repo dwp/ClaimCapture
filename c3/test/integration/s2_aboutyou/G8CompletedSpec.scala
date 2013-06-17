@@ -14,9 +14,6 @@ class G8CompletedSpec extends Specification with Tags {
     """be submitted to "your partner" page.""" in new WithBrowser {
       browser.goTo("/aboutyou/completed")
       browser.submit("button[type='submit']")
-
-      // browser.title() mustEqual "Your Partner - Your Partner"
-      // browser.pageSource() must contain ("BLAH")
     }
 
   } section "integration"

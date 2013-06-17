@@ -24,12 +24,7 @@ class G6EmploymentSpec extends Specification with Tags {
       Helper.fillYourDetails(browser)
       Helper.fillContactDetails(browser)
       Helper.fillClaimDate(browser)
-
-      browser.click("#hadPartnerSinceClaimDate_yes")
-      browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
-      browser.click("#beenInEducationSinceClaimDate_yes")
-      browser.click("#receiveStatePension_yes")
-      browser.submit("button[type='submit']")
+      Helper.fillMoreAboutYou(browser)
 
       browser.title() mustEqual "Employment - About You"
       browser.find("div[class=completed] ul li").size() mustEqual 4
@@ -37,15 +32,9 @@ class G6EmploymentSpec extends Specification with Tags {
 
     "fill all fields" in new WithBrowser {
       Helper.fillClaimDate(browser)
-      browser.goTo("/aboutyou/employment")
-
-
-      browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
-      browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
-      browser.submit("button[type='submit']")
+      Helper.fillEmployment(browser)
 
       browser.title() mustEqual "Property and Rent - About You"
-
     }
 
     "failed to fill the form" in new WithBrowser {
@@ -69,8 +58,6 @@ class G6EmploymentSpec extends Specification with Tags {
       browser.title() mustEqual "Property and Rent - About You"
 
     }
-
-
 
   } section "integration"
 }

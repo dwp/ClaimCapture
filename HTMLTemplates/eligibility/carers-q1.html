@@ -2,7 +2,7 @@
 <!--[if IE 7]>         <html class="ie ie7"> <![endif]-->
 <!--[if IE 8]>         <html class="ie ie8"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
+<head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
     <title>GOV.UK - The best place to find government services and information</title>
@@ -11,10 +11,10 @@
   (function(){if(navigator.userAgent.match(/IEMobile\/10\.0/)){var d=document,c="appendChild",a=d.createElement("style");a[c](d.createTextNode("@-ms-viewport{width:auto!important}"));d.getElementsByTagName("head")[0][c](a);}})();
 </script>
 
-<!--[if gt IE 8]><!--><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-dd07ebece57f6837682d304d58d525fd.css" media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
-<!--[if IE 6]><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-ie6-2146054bb41b9533a070daa18801359c.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
-<!--[if IE 7]><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-ie7-f4557bba26ac1ad2f71d1c93df6e1100.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
-<!--[if IE 8]><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-ie8-557e276442cba9c0ede68e1b2e6522a7.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+<!--[if gt IE 8]><!--><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-6363f06b59a02988b1299b1615c3770d.css" media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
+<!--[if IE 6]><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-ie6-f89d1600c7ecc7974a4fbdc53c708507.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+<!--[if IE 7]><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-ie7-f329b3efbfe96ce05d6a056e25d541fd.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+<!--[if IE 8]><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-ie8-9041d7cd1f997e07d1acb218cda67944.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
 
 <link href="https://assets.digital.cabinet-office.gov.uk/static/print-0d9fb31f928fd75de11684e3753752fc.css" media="print" rel="stylesheet" type="text/css" />
 
@@ -50,10 +50,11 @@
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://assets.digital.cabinet-office.gov.uk/static/apple-touch-icon-72x72-2ddbe540853e3ba0d30fbad2a95eab3c.png">
 <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
 <link rel="apple-touch-icon-precomposed" href="https://assets.digital.cabinet-office.gov.uk/static/apple-touch-icon-57x57-37527434942ed8407b091aae5feff3f3.png">
+
 <!-- / New -->
 <link rel="stylesheet" href="../css/carers-allowance.css">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta name="og:image" content="https://assets.digital.cabinet-office.gov.uk/static/opengraph-image-4e469785ca4cc8f8dd18d0627bc43d19.png">
 
 
@@ -65,15 +66,17 @@
 
     <a href="#content" class="visuallyhidden">Skip to main content</a>
 
-    <header role="banner" id="global-header">
+   <header role="banner" id="global-header">
       <div class="header-wrapper">
         <div class="header-global">
           <div class="header-logo">
             <a href="/" title="Go to the gov.uk homepage" id="logo" class="content">
               <img src="https://assets.digital.cabinet-office.gov.uk/static/gov.uk_logotype-2x-24145374d271079f08d96c618cc8d4a5.png" alt="GOV.UK">
             </a>
-            <a href="#search" class="search-toggle js-header-toggle">Search</a>
           </div>
+          
+          <h1 class="page-title beta"><strong>Carer's Allowance</strong> <span>beta</span></h1>
+
         </div>
       </div>
     </header>
@@ -98,7 +101,7 @@
       </div>  -->
 
     <!-- carers allowance -->
-    <div id="wrapper" class="carers-allowance">
+    <div id="wrapper content" class="carers-allowance">
     <div class="carers-container">
     
     	<section>
@@ -109,7 +112,7 @@
     		</header>
     			
     	
-			<fieldset class="form-elements form-eligibility">
+			<fieldset class="form-elements form-eligibility q1">
 				<legend><span>Q1</span>Does the person you look after get one of these benefits?</legend>
 				
 				<h2 class="first">Personal Independence Payment (PIP)</h2>
@@ -126,7 +129,7 @@
 				
 				<h2>Armed Forces Independence Payment (AFP)</h2>
 
-				<ul class="group inline">
+				<ul class="group radio">
 					<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
 					<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
 				</ul>

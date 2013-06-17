@@ -42,4 +42,18 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
+  def fillEmployment(browser:TestBrowser) = {
+    browser.goTo("/aboutyou/employment")
+    browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
+    browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
+    browser.submit("button[type='submit']")
+  }
+
+  def fillPropertyAndRent(browser:TestBrowser) = {
+    browser.goTo("/aboutyou/propertyAndRent")
+    browser.click("#ownProperty_yes")
+    browser.click("#hasSublet_yes")
+    browser.submit("button[type='submit']")
+  }
+
 }
