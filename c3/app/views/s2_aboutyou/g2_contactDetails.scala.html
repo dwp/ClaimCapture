@@ -13,13 +13,13 @@
             @errorsSummary(contactDetailsForm)
 
             <ul class="group">
-                @inputAddress(contactDetailsForm("address"))
+                @inputAddress(contactDetailsForm("address"), '_label -> Messages("s2_g2_q1"))
 
-                @inputText(contactDetailsForm("postcode"))
+                @inputText(contactDetailsForm("postcode"), '_label -> Messages("s2_g2_q2"))
 
-                @inputText(contactDetailsForm("phoneNumber"))
+                @inputText(contactDetailsForm("phoneNumber"), '_label -> Messages("s2_g2_q3"))
 
-                @inputText(contactDetailsForm("mobileNumber"))
+                @inputText(contactDetailsForm("mobileNumber"), '_label -> Messages("s2_g2_q4"))
             </ul>
         </fieldset>
 

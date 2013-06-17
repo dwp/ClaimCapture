@@ -2,7 +2,6 @@
 @import helper._
 @import utils.helpers.ClaimHelpers._
 @{
-    val label = Messages("title")
     select(field,
         options = options(
             "" -> "Please select",
@@ -17,6 +16,6 @@
             "rev" ->"Rev" ,
             "sir" ->"Sir"
         ),
-        '_label -> label
+        '_label -> Messages("s2_g1_q1")
     )
 }

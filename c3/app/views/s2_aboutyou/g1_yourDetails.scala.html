@@ -16,23 +16,23 @@
             <ul class="group">
                 @titleSelect(yourDetailsForm("title"))
 
-                @inputText(yourDetailsForm("firstName"))
+                @inputText(yourDetailsForm("firstName"), '_label -> Messages("s2_g1_q2"))
 
-                @inputText(yourDetailsForm("middleName"))
+                @inputText(yourDetailsForm("middleName"), '_label -> Messages("s2_g1_q3"))
 
-                @inputText(yourDetailsForm("surname"))
+                @inputText(yourDetailsForm("surname"), '_label -> Messages("s2_g1_q4"))
 
-                @inputText(yourDetailsForm("otherNames"))
+                @inputText(yourDetailsForm("otherNames"), '_label -> Messages("s2_g1_q5"))
 
-                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"))
+                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"), '_label -> Messages("s2_g1_q6"))
 
-                @inputDayMonthYear(yourDetailsForm("dateOfBirth"))
+                @inputDayMonthYear(yourDetailsForm("dateOfBirth"), '_label -> Messages("s2_g1_q7"))
 
-                @inputText(yourDetailsForm("nationality"))
+                @inputText(yourDetailsForm("nationality"), '_label -> Messages("s2_g1_q8"))
 
                 @maritalStatusSelect(yourDetailsForm("maritalStatus"))
 
-                @yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"))
+                @yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"), '_label -> Messages("s2_g1_q10"))
             </ul>
         </fieldset>
 

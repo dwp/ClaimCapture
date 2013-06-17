@@ -2,39 +2,34 @@ s1.g1 = Q1.  Does the person you look after get one of these benefits?
 s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?
 s1.g3 = Q3.  Do you normally live in Great Britain?
 s1.g4 = Q4.  Are you aged 16 or over?
-s2.g1 = 1  Your Details
-s2.g2 = 2  Your contact details
-s2.g4 = 4  Your claim date: {0}
-s2.g5 = 5  More about you
-s2.g6 = 6  Employment
-s2.g7 = 7  Property and rent
 
-## ABOUT YOU
 
+#  SECTION ABOUT YOU
 #  YOUR DETAILS
-title = Title
-firstName = First Name
-middleName = Middle Name
-surname = Surname or family name
-otherNames = All other surnames or family names you have used or have been known by
-nationalInsuranceNumber = National Insurance Number
-dateOfBirth = Date of Birth
+s2.g1 = 1  Your Details
+s2_g1_q1 = Title
+s2_g1_q2 = First Name
+s2_g1_q3 = Middle Name
+s2_g1_q4 = Surname or family name
+s2_g1_q5 = All other surnames or family names you have used or have been known by
+s2_g1_q6 = National Insurance Number
+s2_g1_q7 = Date of Birth
+s2_g1_q8 = Nationality
+s2_g1_q9 = What is your marital or civil partnership status?
+s2_g1_q10 = Have you always lived in the United Kingdom?
 dateOfBirth.day = Date of Birth (Day)
 dateOfBirth.month = Date of Birth (Month)
 dateOfBirth.year = Date of Birth (Year)
-nationality = Nationality
-maritalStatus = What is your marital or civil partnership status?
-alwaysLivedUK = Have you always lived in the United Kingdom?
-
 firstName.error = Please fill your first name
 nationalInsuranceNumber.placeHolder = eg: JW415467B
 error.nationalInsuranceNumber = A National insurance number must be in the format AB123456Z
 
 #  CONTACT DETAILS
-address = Address
-postcode = Postcode
-phoneNumber = Daytime phone number
-mobileNumber = MobileNumber
+s2.g2 = 2  Your contact details
+s2_g2_q1 = Address
+s2_g2_q2 = Postcode
+s2_g2_q3 = Daytime phone number
+s2_g2_q4 = MobileNumber
 postcode.placeHolder = eg: PR2 8AE
 error.postcode = A post code must be in the format PR2 8AE
 
@@ -47,18 +42,22 @@ s2_g3_q5 = When do you plan to go back?
 s2_g3_q6 = What is your visa reference number in your passport?
 
 #  CLAIM DATE
+s2.g4 = 4  Your claim date: {0}
 s2_g4_q1 = When do you want your Carer''s Allowance claim to start?
 
 # MORE ABOUT YOU
+s2.g5 = 5  More about you
 s2_g5_q1 = Have you had a partner/spouse at any time since your claim date: {0}?
 s2_g5_q2 = Have you or your partner/spouse claimed or received any other benefits since your claim date: {0}?
 s2_g5_q3 = Have you been on a course of education since your claim date: {0}?
 s2_g5_q4 = Do you receive State Pension?
 
 # EMPLOYMENT
+s2.g6 = 6  Employment
 s2_g6_q1 = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
 s2_g6_q2 = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
 
 #PROPERTY AND RENT
+s2.g7 = 7  Property and rent
 s2_g7_q1 = Do you or your partner own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
 s2_g7_q2 = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
