@@ -51,6 +51,11 @@ $button-green-hover: #004b27;
 				   .ie & {
 					   font-size: 17px;
 				   }
+				   @media screen and (max-width: 500px) {font-size: 2rem;
+					   .ie & {
+						   font-size: 20px;
+					   }
+				   }
 			   }
 		   }
 	   }
@@ -98,9 +103,9 @@ $button-green-hover: #004b27;
    	   }
 	   ul {
 		   li {
-			   background: #D5ECEA url('images/progress-tick.png') 1em 1.3em no-repeat;
+			   background: #d5e8f3 url('../img/progress-tick.png') 1em 1.3em no-repeat;
 			   border-bottom: 1px solid #b6d6d2;
-			   padding: 1em 9em 1em 2.8em;
+			   padding: 1em 11em 1em 2.8em;
 			   position: relative;
 			   @media screen and (max-width: 760px) {padding-right: 1em;}
 			   h3 {
@@ -139,6 +144,11 @@ $button-green-hover: #004b27;
 			   }
 		   }
 	   }
+	   &.eligibility-completed {
+		   li {
+			   background-color: #D5ECEA;
+		   }
+	   }
    }
    /* completed questions end */
    
@@ -148,22 +158,22 @@ $button-green-hover: #004b27;
    .validation-summary {
 	   background: #fef7f7;
 	   border: 3px solid #df3034;
-	   padding: 0 1rem 1rem 1rem;
-	   margin: 1em 0 1em -0.9em;
-	   @media screen and (max-width: 750px) {margin-left: 0;}
-	   .ie & {
-		   padding: 0 10px 10px 10px;
-	   }
+	   padding: 1em .7em;
+	   margin: 1em 0;
 	   h2 {
 		   font-size: 2.4rem;
 		   font-weight: 700;
+		   line-height: 1.2em;
+		   .ie & {
+			   font-size: 24px;
+		   }
 	   }
 	   p {
 		   margin-top: .75em;
 	   }
 	   ol {
-		   list-style: decimal;
-		   padding-left: 1.45em;
+		   list-style: disc;
+		   padding-left: 1.25em;
 		   margin: .75em 0 0 0;
 		   color: #df3034;
 		   a {
@@ -185,10 +195,10 @@ $button-green-hover: #004b27;
    	   padding-left: 1em;
    	    @media screen and (max-width: 750px) {margin-right: 0; padding-left: 0;}
    	    &.form-eligibility {
-	   	    padding-left: 3em;
+	   	    padding-left: 2.9em;
 	   	    legend {
-		   	    padding: .12em 0 1em 1.8em;
-		   	    margin-left: -1.8em;
+		   	    padding: .12em 0 1em 1.64em;
+		   	    margin-left: -1.72em;
 		   	    color: inherit;
 		   	    .ie7 & {
 			   	    display: block;
@@ -196,7 +206,13 @@ $button-green-hover: #004b27;
 		   	    }
 	   	    }
 	   	    ul {
-		   	    margin-top: 1.6em;
+		   	    margin-top: 1.6em!important;
+	   	    }
+   	    }
+   	    &.q1 {
+	   	    p {
+		   	    padding-right: 2em;
+		   	    @media screen and (max-width: 750px) {padding-right: 0;}
 	   	    }
    	    }
    	    &.results-detail {
@@ -264,7 +280,8 @@ $button-green-hover: #004b27;
 		   li {
 			   display: block;
 			   margin-top: .4rem;
-			   padding: .6em 0;
+			   padding: .8em 0;
+			   position: relative;
 			   &:first-child {
 				   margin: 0;
 			   }
@@ -293,6 +310,20 @@ $button-green-hover: #004b27;
 				       }
 			       }
 			   }
+			   &.short-field {
+				   input[type="text"], input[type="tel"] {
+					   width: 12rem;
+					   .ie & {
+						   width: 120px;
+					   }
+					   @media screen and (max-width: 500px) {
+						   width: 11.8rem;
+						   .ie & {
+							   width: 118px;
+						   }
+					   }
+				   }
+			   }
 			   &.address-stack {
 			   	   margin-top: .4em;
 			   	   padding: 0 0 0 0;
@@ -304,11 +335,38 @@ $button-green-hover: #004b27;
 					   left: -9999px;
 				   }
 			   }
+			   &.other-detail {
+				   margin: -0.8em 0 0 0;
+				   padding: 0;
+				   label {
+					   position: absolute;
+					   left: -9999px;
+				   }
+			   }
 			   .helper {
 				   font-size: 1.6rem;
 				   margin-top: .4em;
 				   font-weight: 300;
 				   color: #6f777b;
+				   .ie & {
+					   font-size: 16px;
+				   }
+				   &.above {
+					   margin-top: 0;
+				   }
+				   &.right {
+					   position: absolute;
+					   top: 45px;
+					   left: 30rem;
+					   .ie & {
+						   left: 305px;
+					   }
+					    @media screen and (max-width: 600px) {
+						    position: relative;
+						    top: auto;
+						    left: auto;
+					    }
+				   }
 			   }
 			  
 			   label, p {
@@ -334,7 +392,7 @@ $button-green-hover: #004b27;
 			   }
 			   input[type="text"], input[type="number"], input[type="tel"], textarea {
 				    background: #f9f9f9;
-					border: 2px inset;
+					border: 1px solid #a2a2a2;
 					font-size: 1.9rem;
 					line-height: 1.31579;
 					font-weight: 400;
@@ -350,7 +408,6 @@ $button-green-hover: #004b27;
 			   input[type="radio"] {
 				   width: auto;
 				   vertical-align: top;
-				   margin-top: .38em;
 				   &[type=radio]:checked + label {color: #0b0c0c;}
 				   .ie7 & {
 					   margin-top: 0;
@@ -363,16 +420,88 @@ $button-green-hover: #004b27;
 				   height: 6em;
 			   }
 			   select {
-				   padding: 0.1em 0.4em;
+				   padding: 2px;
 				   min-width: 15rem;
 				   max-width: 29.3rem;
+				   position: relative;
+				   font-size: 13px;
+				   height: 30px;
+				   top: 2px;
+				   background: #fafafa;
+				   border: 1px solid #a2a2a2;
 				   .ie & {
 					   min-width: 150px;
 					   max-width: 293px;
+					   height: auto;
+					   padding: 5px;
 				   }
 			   }
 		   }
+		   
 		   /* form list end */
+		   
+		   
+		   /* radio list - includes hit areas */
+		   &.radio {
+		   		   margin-top: 3px;	
+		   		   overflow: hidden;
+				   li {
+					   position: relative;
+					   float: left;
+					   margin: 0;
+					   padding: 0;
+					   border: 1px solid #ddd;
+					   &:first-child {
+						   border-right: 0;
+					   }
+					   input[type="radio"] {
+						   position: absolute;
+						   top: 34%;
+						   left: 1.2em;
+						   margin: 0;
+						   cursor: pointer;
+						   .ie & {
+							   left: 10px;
+							   top: 11px;
+						   }
+					   }
+					   label {
+						   display: block;
+						   background: #eee;
+						   padding: .5em 1em .4em 2.2em;
+						   font-size: 1.7rem;
+						   color: #666;
+						   cursor: pointer;
+						   line-height: inherit;
+						   .ie & {
+							   font-size: 17px;
+							   padding-left: 2em;
+						   }
+					   }
+					   input[type="radio"]:checked + label {
+						   background: #fff;
+						   color: #0b0c0c;
+						   -webkit-transition: all 200ms ease-in;
+						   -moz-transition: all 200ms ease-in;
+						   -ms-transition: all 200ms ease-in;
+						   -o-transition: all 200ms ease-in;
+						   transition: all 200ms ease-in;
+					   }
+				   }
+			 }
+			 /* radio */
+			 
+			 
+			 
+			 /* sort code */
+			 &.sort-code {
+				   input[type="tel"] {
+					   width: 8.1rem;
+					   .ie & {
+						   width: 81px;
+					   }
+				   }
+			   }
 		   
 		   
 		   
@@ -387,10 +516,16 @@ $button-green-hover: #004b27;
 					   display: inline-block;
 					   line-height: 1.2em;
 					   font-size: 1.7rem;
-					   color: #6f777b;
+					   color: #555;
+					   &:hover {
+						   color: #0b0c0c;
+					   }
 					   .ie & {
 						   font-size: 17px;
 					   }
+				   }
+				   select {
+					   top: -3px;
 				   }
 			   }
 		   }	
@@ -408,17 +543,23 @@ $button-green-hover: #004b27;
 				   		width: auto;
 				   		vertical-align: top;
 				   		margin-top: .38rem;
+				   		.ie & {
+					   		margin-top: 38px;
+				   		}
 				   		&[type=checkbox]:checked + label, &[type=radio]:checked + label {color: #0b0c0c;}
 				   }
 				   label {
-					   width: 90%;
+				   	   width: auto;
+					   max-width: 90%;
 					   margin-left: .25em;
 					   line-height: 1.2em;
 					   padding: 0;
 					   font-size: 1.7rem;
-					   color: #6f777b;
+					   color: #555;
+					   cursor: pointer;
 					   .ie & {
 						   font-size: 17px;
+						   width: 90%;
 					   }
 				   }
 			   }
@@ -431,22 +572,21 @@ $button-green-hover: #004b27;
 		   &.year {
 			   li {
 				   select {
-					   width: 9rem;
-					   min-width: 9rem;
+				   	  margin: 0;
+					   min-width: 8.6rem;
+					   top: -2px;
 					   @media screen and (max-width: 500px) {width: auto; min-width: 1rem;}
 					   .ie & {
-						   width: 90px;
-						   min-width: 90px;
+						   width: 86px;
+						   min-width: 86px;
+						   top: 2px;
 					   }
 				   }
 				   input {
-					   width: 7.3rem;
-					   font-size: 1.4rem;
-					   padding: .5rem .75rem;
+					   width: 7.6rem;
 					   background: #f9f9f9;
-					   border: 2px inset;
 					   .ie & {
-						   width: 73px;
+						   width: 76px;
 						   font-size: 14px;
 						   padding: 5px 8px;
 					   }
@@ -477,15 +617,15 @@ $button-green-hover: #004b27;
 		   /* list display - national insurance number */
 		   &.ni-number {
 			   input[type="text"], input[type="tel"] {
-				   width: 4.3rem;
+				   width: 4.4rem;
 				   text-transform: uppercase;
 				   .ie & {
-					   width: 43px;
+					   width: 44px;
 				   }
 				   &.single {
-					   width: 2.2rem;
+					   width: 2.6rem;
 					   .ie & {
-						   width: 22px;
+						   width: 26px;
 					   }
 				   }
 				   @media screen and (max-width: 750px) {width: 4.2rem;
@@ -507,9 +647,84 @@ $button-green-hover: #004b27;
 	       background: #bde4f6;
 		   border: 1px solid #015399;
 		   padding: 1em 1.25em;
-		   margin-top: 1.6em;
+		   margin-top: 1.2em;
+		   p {
+			   font-size: 1.6rem;
+			   .ie & {
+				   font-size: 16px;
+			   }
+		   }
 	   } 
 	   
+	   
+	   /* declaration */
+	   .declaration {
+		   border: 1px solid #a2a2a2;
+		   padding: 1em 1.5em 1em 1em;
+		   height: 14rem;
+		   overflow: scroll;
+		   overflow-x: hidden;
+		   .ie & {
+			   height: 140px;
+		   }
+		   p {
+			   font-size: 1.6rem;
+			   line-height: 1.25em;
+			   margin-top: 1em;
+			   &:first-child {
+				   margin-top: 0;
+			   }
+			   .ie & {
+				   font-size: 16px;
+			   }
+		   }
+	   }
+	   article {
+		   margin-top: 2em;
+		   line-height: 1em;
+		   p, h3 {
+			   display: inline;
+			   font-size: 1.9rem;
+			   line-height: 1.25em;
+			   .ie & {
+				   font-size: 19px;
+			   }
+		   }
+		   .ie & {
+			   h3 {
+				   margin-right: .25em;
+			   }
+		   }
+	   }
+	   .declare {
+		   margin-top: 2em;
+		   position: relative;
+		   label {
+			   display: block;
+			   padding: 1em 1em 1em 2.3em;
+			   background: #eee;
+			   font-size: 1.9rem;
+			   line-height: 1.25em;
+			   cursor: pointer;
+			   border: 1px solid #a2a2a2;
+			   .ie & {
+				   font-size: 19px;
+			   }
+		   }
+		   input {
+			   position: absolute;
+			   top: 24%;
+			   left: 1.4em;
+			   &[type=checkbox]:checked + label {
+				   background: #fff;
+				   -webkit-transition: all 200ms ease-in;
+				   -moz-transition: all 200ms ease-in;
+				   -ms-transition: all 200ms ease-in;
+				   -o-transition: all 200ms ease-in;
+				   transition: all 200ms ease-in;
+			   }
+		   }
+	   }
 	   
 	   
 	   /* table styling */
@@ -541,9 +756,12 @@ $button-green-hover: #004b27;
 				border-left: 1px solid #bfc1c3;
 				line-height: 1.4em;
 				&:first-child {
-					width: 22%;
+					width: 18%;
 					border-left: 0;
 					text-align: center;
+					@media screen and (max-width: 600px) {
+						width: auto;
+					}
 				}
 				.ie & {
 					font-size: 16px;
@@ -566,6 +784,11 @@ $button-green-hover: #004b27;
 					font-size: 16px;
 				}
 			}
+			.desc {
+				 @media screen and (max-width: 660px) {
+					 display: none;
+				 }
+			}
 			caption {
 				text-indent: -9999px;
 				font-size: 0;
@@ -586,6 +809,12 @@ $button-green-hover: #004b27;
 	   background: #d5e8f3;
 	   padding: 1.4em 1em;
 	   margin-top: 1em;
+	   p {
+		   margin-top: .25em;
+		   &:first-child {
+			   margin-top: 0;
+		   }
+	   }
 	   &.error {
 		   background: #f2f2f2;
 	   }
@@ -594,13 +823,16 @@ $button-green-hover: #004b27;
 		   border: 1px solid #a2a2a2;
 		   background: #fff;
 		   p {
-			   font-size: 1.8rem;
+			   font-size: 1.6rem;
 			   margin-top: 1em;
 			   &:first-child {
 				   margin: 0;
 			   }
 			   &.intro {
 			   font-weight: 600;
+			   }
+			   .ie & {
+				   font-size: 16px;
 			   }
 		   }
 		   ul {
@@ -625,7 +857,7 @@ $button-green-hover: #004b27;
 	   padding-left: 1em;
 	   @media screen and (max-width: 750px) {padding-left: 0;}
 	   p {
-		   padding-bottom: .6em;
+		   padding-bottom: 0.2em;
 		   clear: both;
 	   }
    }
@@ -687,8 +919,49 @@ $button-green-hover: #004b27;
 /* carers wrapper */
 
 
+/* Header title */
+.header-global {
+	.page-title {
+		color: #fff;
+		font-weight: 600;
+		font-size: 2rem;
+		padding: .3em 1.5rem 0 0;
+		overflow: hidden;
+		width: auto;
+		text-align: right;
+		.ie & {
+			font-size: 20px;
+			padding-right: 15px;
+		}
+		span {
+			width: auto;
+			margin-left: .75em;
+			letter-spacing: 0.2em;
+			font-weight: 700;
+			font-size: 1.4rem;
+			text-transform: uppercase;
+			padding: 6px 10px 4px 10px;
+			position: relative;
+			top: -2px;
+			.ie & {
+				font-size: 14px;
+			}
+		}
+		&.beta {
+			span {
+				background: #f47738;
+			}
+		}
+		@media screen and (max-width: 480px) {
+			strong {
+				display: none;
+			}
+		}
+	}
+}
 
 
-/* Footer Overrides */
+/* Header - Footer Overrides */
+#global-header .header-wrapper {padding: 0.5em 0;}
 #footer .carers-allowance-footer {padding-top: 0;}
 #footer .carers-allowance-footer .footer-meta {margin-top: 0; border-top: 0;}

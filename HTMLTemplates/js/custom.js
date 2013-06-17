@@ -14,7 +14,7 @@ $('a[href^="#"]').bind('click.smoothscroll',function (e) {
  
     $('html, body').stop().animate({
         'scrollTop': $target.offset().top
-    }, 1200, 'swing', function () {
+    }, 1000, 'swing', function () {
         window.location.hash = target;
     });
 });    
