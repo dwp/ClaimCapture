@@ -15,7 +15,7 @@
             <ul class="group">
                 @yesNoRadioGroup(timeOutsideUKForm("currentlyLivingInUK"), '_label -> Messages("s2_g3_q1"))
 
-                <div style='display: @if(timeOutsideUKForm("currentlyLivingInUK").value.getOrElse("yes") == "yes") { none; } else { block; }'>
+                <div id="livingInUK" style='display: @if(timeOutsideUKForm("currentlyLivingInUK").value.getOrElse("yes") == "yes") { none; } else { block; }'>
                     @inputDayMonthYear(timeOutsideUKForm("arrivedInUK"), '_label -> Messages("s2_g3_q2"))
 
                     @inputText(timeOutsideUKForm("originCountry"), '_label -> Messages("s2_g3_q3"))
@@ -23,7 +23,7 @@
 
                 @yesNoRadioGroup(timeOutsideUKForm("planToGoBack"), '_label -> Messages("s2_g3_q4"))
 
-                <div style='display: @if(timeOutsideUKForm("planToGoBack").value.getOrElse("yes") == "yes") { none; } else { block; }'>
+                <div id="planingToGoBack" style='display: @if(timeOutsideUKForm("planToGoBack").value.getOrElse("yes") == "yes") { none; } else { block; }'>
                     @inputDayMonthYear(timeOutsideUKForm("whenPlanToGoBack"), '_label -> Messages("s2_g3_q5"))
                 </div>
 

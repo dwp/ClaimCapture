@@ -28,8 +28,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "dateOfBirth" -> date.verifying(validDate),
       "maritalStatus" -> nonEmptyText,
       "alwaysLivedUK" -> nonEmptyText
-    )(YourDetails.apply)(YourDetails.unapply)
-  )
+    )(YourDetails.apply)(YourDetails.unapply))
 
   val contactDetailsForm = Form(
     mapping(
@@ -38,25 +37,22 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         "constraint.postcode", "error.postcode"), maxLength(10))),
       "phoneNumber" -> optional(text),
       "mobileNumber" -> optional(text)
-    )(ContactDetails.apply)(ContactDetails.unapply)
-  )
+    )(ContactDetails.apply)(ContactDetails.unapply))
 
   val timeOutsideUKForm = Form(
     mapping(
       "currentlyLivingInUK" -> nonEmptyText(),
       "arrivedInUK" -> optional(date.verifying(validDate)),
       "originCountry" -> optional(text),
-      "planToGoBack" -> text,
+      "planToGoBack" -> optional(text),
       "whenPlanToGoBack"-> optional(date.verifying(validDate)),
       "visaReference" -> optional(text)
-    )(TimeOutsideUK.apply)(TimeOutsideUK.unapply)
-  )
+    )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
 
   val claimDateForm = Form(
     mapping(
       "dateOfClaim" -> date.verifying(validDate)
-    )(ClaimDate.apply)(ClaimDate.unapply)
-  )
+    )(ClaimDate.apply)(ClaimDate.unapply))
 
   val moreAboutYouForm = Form(
     mapping(
@@ -64,22 +60,19 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "eitherClaimedBenefitSinceClaimDate" -> nonEmptyText,
       "beenInEducationSinceClaimDate" -> nonEmptyText,
       "receiveStatePension" -> nonEmptyText
-    )(MoreAboutYou.apply)(MoreAboutYou.unapply)
-  )
+    )(MoreAboutYou.apply)(MoreAboutYou.unapply))
 
   val employmentForm = Form(
     mapping(
       "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText,
       "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText
-    )(Employment.apply)(Employment.unapply)
-  )
+    )(Employment.apply)(Employment.unapply))
 
   val propertyAndRentForm = Form(
     mapping(
       "ownProperty" -> nonEmptyText,
       "hasSublet" -> nonEmptyText
-    )(PropertyAndRent.apply)(PropertyAndRent.unapply)
-  )
+    )(PropertyAndRent.apply)(PropertyAndRent.unapply))
 
   def yourDetails = claiming {
     implicit claim => implicit request =>
@@ -142,7 +135,12 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
       timeOutsideUKForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g3_timeOutsideUK(formWithErrors, completedForms.takeWhile(_.id != TimeOutsideUK.id))),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.claimDate()))
+        timeOutsideUK =>
+          if (timeOutsideUK.currentlyLivingInUK == "no" && timeOutsideUK.arrivedInUK == None) {
+            BadRequest(views.html.s2_aboutyou.g3_timeOutsideUK(timeOutsideUKForm.fill(timeOutsideUK).withError("arrivedInUK", "error.required"), completedForms.takeWhile(_.id != TimeOutsideUK.id)))
+          } else {
+            claim.update(timeOutsideUK) -> Redirect(routes.AboutYou.claimDate())
+          })
   }
 
   def claimDate = claiming {

@@ -21,7 +21,7 @@ object ContactDetails {
 }
 
 case class TimeOutsideUK(currentlyLivingInUK: String, arrivedInUK: Option[DayMonthYear],
-                         originCountry: Option[String], planToGoBack: String, whenPlanToGoBack: Option[DayMonthYear],
+                         originCountry: Option[String], planToGoBack: Option[String], whenPlanToGoBack: Option[DayMonthYear],
                          visaReference: Option[String]) extends Form(TimeOutsideUK.id)
 
 object TimeOutsideUK {
