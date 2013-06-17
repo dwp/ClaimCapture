@@ -30,6 +30,9 @@ POST    /aboutyou/yourDetails           controllers.AboutYou.yourDetailsSubmit
 GET     /aboutyou/contactDetails        controllers.AboutYou.contactDetails
 POST    /aboutyou/contactDetails        controllers.AboutYou.contactDetailsSubmit
 
+GET     /aboutyou/timeOutsideUK         controllers.AboutYou.timeOutsideUK
+POST    /aboutyou/timeOutsideUK         controllers.AboutYou.timeOutsideUKSubmit
+
 GET     /aboutyou/claimDate             controllers.AboutYou.claimDate
 POST    /aboutyou/claimDate             controllers.AboutYou.claimDateSubmit
 

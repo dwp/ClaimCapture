@@ -9,6 +9,7 @@ import play.api.data.validation.Constraints._
 object AboutYou extends Controller with CachedClaim with FormMappings {
   val route = Map(YourDetails.id -> routes.AboutYou.yourDetails,
                   ContactDetails.id -> routes.AboutYou.contactDetails,
+                  TimeOutsideUK.id -> routes.AboutYou.timeOutsideUK(),
                   ClaimDate.id -> routes.AboutYou.claimDate,
                   MoreAboutYou.id -> routes.AboutYou.moreAboutYou,
                   Employment.id -> routes.AboutYou.employment,
@@ -38,6 +39,17 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "phoneNumber" -> optional(text),
       "mobileNumber" -> optional(text)
     )(ContactDetails.apply)(ContactDetails.unapply)
+  )
+
+  val timeOutsideUKForm = Form(
+    mapping(
+      "currentlyLivingInUK" -> nonEmptyText(),
+      "arrivedInUK" -> optional(date.verifying(validDate)),
+      "originCountry" -> optional(text),
+      "planToGoBack" -> text,
+      "whenPlanToGoBack"-> optional(date.verifying(validDate)),
+      "visaReference" -> optional(text)
+    )(TimeOutsideUK.apply)(TimeOutsideUK.unapply)
   )
 
   val claimDateForm = Form(
@@ -84,8 +96,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
     implicit claim => implicit request =>
       yourDetailsForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g1_yourDetails(formWithErrors)),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.contactDetails())
-      )
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.contactDetails()))
   }
 
   def contactDetails = claiming {
@@ -106,8 +117,32 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
       contactDetailsForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g2_contactDetails(formWithErrors, completedForms.takeWhile(_.id != ContactDetails.id))),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.claimDate())
-      )
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.timeOutsideUK()))
+  }
+
+  def timeOutsideUK = claiming {
+    implicit claim => implicit request =>
+      claim.form(YourDetails.id) match {
+        case Some(YourDetails(_, _, _, _, _, _, _, _, _, "yes")) => Redirect(routes.AboutYou.claimDate())
+        case _ =>
+          val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
+          val timeOutsideUKFormParam: Form[TimeOutsideUK] = claim.form(TimeOutsideUK.id) match {
+            case Some(n: TimeOutsideUK) => timeOutsideUKForm.fill(n)
+            case _ => timeOutsideUKForm
+          }
+
+          Ok(views.html.s2_aboutyou.g3_timeOutsideUK(timeOutsideUKFormParam, completedForms.takeWhile(_.id != TimeOutsideUK.id)))
+      }
+  }
+
+  def timeOutsideUKSubmit = claiming {
+    implicit claim => implicit request =>
+      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+
+      timeOutsideUKForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(views.html.s2_aboutyou.g3_timeOutsideUK(formWithErrors, completedForms.takeWhile(_.id != TimeOutsideUK.id))),
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.claimDate()))
   }
 
   def claimDate = claiming {
@@ -127,8 +162,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
       claimDateForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g4_claimDate(formWithErrors, completedForms.takeWhile(_.id != ClaimDate.id))),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.moreAboutYou())
-      )
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.moreAboutYou()))
   }
 
   def moreAboutYou = claiming {
@@ -152,8 +186,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
       moreAboutYouForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g5_moreAboutYou(formWithErrors, completedForms.takeWhile(_.id != MoreAboutYou.id))),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.employment())
-      )
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.employment()))
   }
 
   def employment = claiming {
@@ -177,8 +210,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
       employmentForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g6_employment(formWithErrors, completedForms.takeWhile(_.id != Employment.id))),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.propertyAndRent())
-      )
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.propertyAndRent()))
   }
 
   def propertyAndRent = claiming {
@@ -202,8 +234,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
       propertyAndRentForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g7_propertyAndRent(formWithErrors, completedForms.takeWhile(_.id != PropertyAndRent.id))),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.completed())
-      )
+        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.completed()))
   }
 
   def completed = claiming {

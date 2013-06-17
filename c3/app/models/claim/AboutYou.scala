@@ -20,6 +20,14 @@ object ContactDetails {
   val id = s"${AboutYou.id}.g2"
 }
 
+case class TimeOutsideUK(currentlyLivingInUK: String, arrivedInUK: Option[DayMonthYear],
+                         originCountry: Option[String], planToGoBack: String, whenPlanToGoBack: Option[DayMonthYear],
+                         visaReference: Option[String]) extends Form(TimeOutsideUK.id)
+
+object TimeOutsideUK {
+  val id = s"${AboutYou.id}.g3"
+}
+
 case class ClaimDate(dateOfClaim: DayMonthYear) extends Form(ClaimDate.id)
 
 object ClaimDate {
