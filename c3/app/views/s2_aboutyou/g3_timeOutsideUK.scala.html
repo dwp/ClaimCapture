@@ -23,7 +23,7 @@
 
                 @yesNoRadioGroup(timeOutsideUKForm("planToGoBack"))
 
-                <div id="planingToGoBack" style='display: @if(timeOutsideUKForm("planToGoBack").value.getOrElse("yes") == "yes") { none; } else { block; }'>
+                <div id="planingToGoBack" style='display: @if(timeOutsideUKForm("planToGoBack").value.getOrElse("no") == "no") { none; } else { block; }'>
                     @inputDayMonthYear(timeOutsideUKForm("whenPlanToGoBack"))
                 </div>
 
