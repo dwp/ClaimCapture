@@ -440,59 +440,7 @@ $button-green-hover: #004b27;
 		   
 		   /* form list end */
 		   
-		   
-		   /* radio list - includes hit areas */
-		   &.radio {
-		   		   margin-top: 3px;	
-		   		   overflow: hidden;
-				   li {
-					   position: relative;
-					   float: left;
-					   margin: 0;
-					   padding: 0;
-					   border: 1px solid #ddd;
-					   &:first-child {
-						   border-right: 0;
-					   }
-					   input[type="radio"] {
-						   position: absolute;
-						   top: 34%;
-						   left: 1.2em;
-						   margin: 0;
-						   cursor: pointer;
-						   .ie & {
-							   left: 10px;
-							   top: 11px;
-						   }
-					   }
-					   label {
-						   display: block;
-						   background: #eee;
-						   padding: .5em 1em .4em 2.2em;
-						   font-size: 1.7rem;
-						   color: #666;
-						   cursor: pointer;
-						   line-height: inherit;
-						   .ie & {
-							   font-size: 17px;
-							   padding-left: 2em;
-						   }
-					   }
-					   input[type="radio"]:checked + label {
-						   background: #fff;
-						   color: #0b0c0c;
-						   -webkit-transition: all 200ms ease-in-out;
-						   -moz-transition: all 200ms ease-in-out;
-						   -ms-transition: all 200ms ease-in-out;
-						   -o-transition: all 200ms ease-in-out;
-						   transition: all 200ms ease-in-out;
-					   }
-				   }
-			 }
-			 /* radio */
-			 
-			 
-			 
+					 
 			 /* sort code */
 			 &.sort-code {
 				   input[type="tel"] {
