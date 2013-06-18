@@ -57,6 +57,5 @@ class G4ClaimDateSpec extends Specification with Tags {
       browser.click(".form-steps a")
       browser.title() mustEqual "Contact Details - About You"
     }
-
   } section "integration"
 }

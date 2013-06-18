@@ -18,26 +18,22 @@ object CarersAllowance extends Controller with CachedClaim with FormMappings {
   val benefitsForm = Form(
     mapping(
       "answer" -> boolean
-    )(Benefits.apply)(Benefits.unapply)
-  )
+    )(Benefits.apply)(Benefits.unapply))
 
   val hoursForm = Form(
     mapping(
       "answer" -> boolean
-    )(Hours.apply)(Hours.unapply)
-  )
+    )(Hours.apply)(Hours.unapply))
 
   val livesInGBForm = Form(
     mapping(
       "answer" -> boolean
-    )(LivesInGB.apply)(LivesInGB.unapply)
-  )
+    )(LivesInGB.apply)(LivesInGB.unapply))
 
   val over16Form = Form(
     mapping(
       "answer" -> boolean
-    )(Over16.apply)(Over16.unapply)
-  )
+    )(Over16.apply)(Over16.unapply))
 
   def benefits = newClaim {
     implicit claim => implicit request =>

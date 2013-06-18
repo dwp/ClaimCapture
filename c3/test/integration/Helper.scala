@@ -7,12 +7,12 @@ object Helper {
   def fillYourDetails(browser: TestBrowser) = {
     browser.goTo("/aboutyou/yourDetails")
     browser.click("#title option[value='mr']")
-    browser.fill("#firstName") `with` ("John")
-    browser.fill("#surname") `with` ("Appleseed")
+    browser.fill("#firstName") `with` "John"
+    browser.fill("#surname") `with` "Appleseed"
     browser.click("#dateOfBirth-day option[value='3']")
     browser.click("#dateOfBirth-month option[value='4']")
-    browser.fill("#dateOfBirth-year") `with` ("1950")
-    browser.fill("#nationality") `with` ("English")
+    browser.fill("#dateOfBirth-year") `with` "1950"
+    browser.fill("#nationality") `with` "English"
     browser.click("#maritalStatus option[value='s']")
     browser.click("#alwaysLivedUK_yes")
     browser.submit("button[type='submit']")
@@ -21,12 +21,12 @@ object Helper {
   def fillYourDetailsEnablingTimeOutsideUK(browser:TestBrowser) ={
     browser.goTo("/aboutyou/yourDetails")
     browser.click("#title option[value='mr']")
-    browser.fill("#firstName") `with` ("John")
-    browser.fill("#surname") `with` ("Appleseed")
+    browser.fill("#firstName") `with` "John"
+    browser.fill("#surname") `with` "Appleseed"
     browser.click("#dateOfBirth-day option[value='3']")
     browser.click("#dateOfBirth-month option[value='4']")
-    browser.fill("#dateOfBirth-year") `with` ("1950")
-    browser.fill("#nationality") `with` ("English")
+    browser.fill("#dateOfBirth-year") `with` "1950"
+    browser.fill("#nationality") `with` "English"
     browser.click("#maritalStatus option[value='s']")
     browser.click("#alwaysLivedUK_no")
     browser.submit("button[type='submit']")
@@ -34,8 +34,8 @@ object Helper {
 
   def fillContactDetails(browser: TestBrowser) = {
     browser.goTo("/aboutyou/contactDetails")
-    browser.fill("#address-lineOne") `with` ("My Address")
-    browser.fill("#postcode") `with` ("SE1 6EH")
+    browser.fill("#address-lineOne") `with` "My Address"
+    browser.fill("#postcode") `with` "SE1 6EH"
     browser.submit("button[type='submit']")
   }
 
@@ -49,7 +49,7 @@ object Helper {
     browser.goTo("/aboutyou/claimDate")
     browser.click("#dateOfClaim-day option[value='3']")
     browser.click("#dateOfClaim-month option[value='4']")
-    browser.fill("#dateOfClaim-year") `with` ("1950")
+    browser.fill("#dateOfClaim-year") `with` "1950"
     browser.submit("button[type='submit']")
   }
 
@@ -75,5 +75,4 @@ object Helper {
     browser.click("#hasSublet_yes")
     browser.submit("button[type='submit']")
   }
-
 }
