@@ -51,8 +51,5 @@ class G5MoreAboutYouSpec extends Specification with Tags {
       Helper.fillMoreAboutYou(browser)
       browser.title() mustEqual "Employment - About You"
     }
-
   } section "integration"
-
 }
-

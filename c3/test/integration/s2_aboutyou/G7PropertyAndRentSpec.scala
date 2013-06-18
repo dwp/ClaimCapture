@@ -56,8 +56,5 @@ class G7PropertyAndRentSpec extends Specification with Tags {
       Helper.fillPropertyAndRent(browser)
       browser.title() mustEqual "Completion - About You"
     }
-
-
   } section "integration"
-
 }
