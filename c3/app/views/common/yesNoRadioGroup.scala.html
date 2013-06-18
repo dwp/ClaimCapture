@@ -4,7 +4,7 @@
 
 @helper.input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
     <span class="buttonset" id="@id">
-        <ul class="radio">
+        <ul class="inline">
             @Seq("yes" -> "Yes", "no" -> "No").map { v =>
 
             <li><input type="radio" id="@(id)_@v._1" name="@name" value="@v._1" @(if(value == Some(v._1)) "checked"
