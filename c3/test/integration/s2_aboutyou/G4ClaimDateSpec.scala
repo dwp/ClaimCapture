@@ -24,7 +24,7 @@ class G4ClaimDateSpec extends Specification with Tags {
       Helper.fillClaimDate(browser)
 
       browser.title() mustEqual "More About You - About You"
-      browser.find("div[class=completed] ul li h3").get(0).getText mustEqual "4 Your claim date: 03/04/1950"
+      browser.find("div[class=completed] ul li h3").get(0).getText mustEqual "Your claim date: 03/04/1950"
     }
 
     "failed to fill the form" in new WithBrowser {
