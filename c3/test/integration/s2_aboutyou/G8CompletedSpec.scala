@@ -15,6 +15,5 @@ class G8CompletedSpec extends Specification with Tags {
       browser.goTo("/aboutyou/completed")
       browser.submit("button[type='submit']")
     }
-
   } section "integration"
 }
