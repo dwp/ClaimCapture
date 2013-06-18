@@ -677,7 +677,8 @@
     background: #006435;
     font-weight: 400;
     position: relative;
-    top: -3px; }
+    top: -3px;
+    text-decoration: none; }
     .ie .carers-allowance .button {
       font-size: 20px; }
     .carers-allowance .button:hover {
