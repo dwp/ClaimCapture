@@ -6,7 +6,7 @@ $ ->
     $("#livingInUK").slideDown 500
 
   $("#planToGoBack_yes").on "click", ->
-    $("#planingToGoBack").slideUp 500
+    $("#planingToGoBack").slideDown 500
 
   $("#planToGoBack_no").on "click", ->
-    $("#planingToGoBack").slideDown 500
+    $("#planingToGoBack").slideUp 500
