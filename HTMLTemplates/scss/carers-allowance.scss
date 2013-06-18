@@ -289,6 +289,15 @@ $button-green-hover: #004b27;
 				   margin-top: 4px;
 			   }
 			   
+			   .other-detail {
+				   margin: 1em 0 0 0;
+				   padding: 0;
+				   label {
+					   position: absolute;
+					   left: -9999px;
+				   }
+			   }
+			   
 			   &.validation {
 				   background: #fef7f7;
 				   padding: .6em .7em;
@@ -330,14 +339,6 @@ $button-green-hover: #004b27;
 			   	   &.first {
 				   	   margin: 0;
 			   	   }
-				   label {
-					   position: absolute;
-					   left: -9999px;
-				   }
-			   }
-			   &.other-detail {
-				   margin: -0.8em 0 0 0;
-				   padding: 0;
 				   label {
 					   position: absolute;
 					   left: -9999px;
@@ -403,6 +404,9 @@ $button-green-hover: #004b27;
 					.ie & {
 						font-size: 19px;
 						width: 283px;
+					}
+					&.postcode {
+						text-transform: uppercase;
 					}
 			   }
 			   input[type="radio"] {
@@ -959,6 +963,8 @@ $button-green-hover: #004b27;
 		}
 	}
 }
+
+textarea.demo {text-align: left!important; width: 98%!important; font-size: 1.5rem!important; height: 15rem!important; margin-top: 1em; border-color: red!important; padding: 1rem!important; background: #eee!important; margin-bottom: 3em!important}
 
 
 /* Header - Footer Overrides */

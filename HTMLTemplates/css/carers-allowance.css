@@ -262,6 +262,12 @@
           margin: 0; }
         .ie .carers-allowance .form-elements ul li {
           margin-top: 4px; }
+        .carers-allowance .form-elements ul li .other-detail {
+          margin: 1em 0 0 0;
+          padding: 0; }
+          .carers-allowance .form-elements ul li .other-detail label {
+            position: absolute;
+            left: -9999px; }
         .carers-allowance .form-elements ul li.validation {
           background: #fef7f7;
           padding: 0.6em 0.7em;
@@ -298,12 +304,6 @@
           .carers-allowance .form-elements ul li.address-stack.first {
             margin: 0; }
           .carers-allowance .form-elements ul li.address-stack label {
-            position: absolute;
-            left: -9999px; }
-        .carers-allowance .form-elements ul li.other-detail {
-          margin: -0.8em 0 0 0;
-          padding: 0; }
-          .carers-allowance .form-elements ul li.other-detail label {
             position: absolute;
             left: -9999px; }
         .carers-allowance .form-elements ul li .helper {
@@ -360,6 +360,8 @@
           .ie .carers-allowance .form-elements ul li input[type="text"], .ie .carers-allowance .form-elements ul li input[type="number"], .ie .carers-allowance .form-elements ul li input[type="tel"], .ie .carers-allowance .form-elements ul li textarea {
             font-size: 19px;
             width: 283px; }
+          .carers-allowance .form-elements ul li input[type="text"].postcode, .carers-allowance .form-elements ul li input[type="number"].postcode, .carers-allowance .form-elements ul li input[type="tel"].postcode, .carers-allowance .form-elements ul li textarea.postcode {
+            text-transform: uppercase; }
         .carers-allowance .form-elements ul li input[type="radio"] {
           width: auto;
           vertical-align: top; }
@@ -729,6 +731,17 @@
   @media screen and (max-width: 480px) {
     .header-global .page-title strong {
       display: none; } }
+
+textarea.demo {
+  text-align: left!important;
+  width: 98%!important;
+  font-size: 1.5rem!important;
+  height: 15rem!important;
+  margin-top: 1em;
+  border-color: red!important;
+  padding: 1rem!important;
+  background: #eee!important;
+  margin-bottom: 3em!important; }
 
 /* Header - Footer Overrides */
 #global-header .header-wrapper {

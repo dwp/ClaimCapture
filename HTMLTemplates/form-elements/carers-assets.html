@@ -106,13 +106,13 @@
     	<section>
     	
     		<header>
-    			<h1>About you - the Carer</h1>
+    			<h1>Form Elements</h1>
     		</header>
 			
 			
     	
 			<fieldset class="form-elements">
-				<legend>Your details</legend>
+				<legend>Layout examples</legend>
 				
 
 				
@@ -130,18 +130,56 @@
 							<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
 							<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
 						</ul>
-					</li>
+						<p class="helper">Example yes/no question area with helper prompt box</p>
+
+<textarea class="demo">
+<li>
+	<p>Have you had any breaks in caring for this person since 01/08/2012?</p>
+	<div class="prompt helper-prompt">
+		<p class="intro">By break we mean time when, for any reason, you spent less than 35 hours a week caring for the person you look after. For example, if:</p>
+		<ul>
+			<li>They were in respite care, in hospital or on holiday without you, or</li>
+			<li>You were in hospital or on holiday without them.</li>
+		</ul>
+	</div>
+	<ul class="radio">
+		<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
+		<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
+	</ul>
+</li>
+</textarea>	
+<!-- / demo -->	
+
+					</li>			
 					
 					<li>
 						<label for="first-name"><em>*</em>First Name</label>
-						<p class="helper above">This is helper text placed above the input</p>
 						<input type="text" name="first-name" id="first-name" placeholder="Enter your first name">
 						<p class="helper">This is helper text placed below all fields</p>
+						
+<textarea class="demo">
+<li>
+	<label for="first-name"><em>*</em>First Name</label>
+	<input type="text" name="first-name" id="first-name" placeholder="Enter your first name">
+	<p class="helper">This is helper text placed below all fields</p>
+</li>
+</textarea>
+<!-- / demo -->			
 					</li>
 					
 					<li>
 						<label for="pay-included">What was included in this pay?</label>
 						<textarea name="pay-included" id="pay-included" placeholder="Please specify..."></textarea>
+						<p class="helper">Example of a standard textarea field. Note: closing tag is missing for textarea</p>
+<textarea class="demo">
+<li>
+	<label for="pay-included">What was included in this pay?</label>
+	<textarea name="pay-included" id="pay-included" placeholder="Please specify...">
+</li>
+</textarea>
+<!-- / demo -->	
+						
+						
 					</li>
 					
 					<li>
@@ -151,6 +189,21 @@
 							<li><input type="checkbox" name="check2" id="check2"><label for="check2">Child/Children - is the person I'm claiming for Carer's Allowance</label></li>
 							<li><input type="checkbox" name="check3" id="check3"><label for="check3">Person you care you</label></li>
 						</ul>
+						<p class="helper">Example of a stacked list with the inline class within</p>
+						
+						
+<textarea class="demo">
+<li>
+	<p>Please select who they look after</p>
+	<ul class="inline inline-stack">
+		<li><input type="checkbox" name="check1" id="check1"><label for="check1">Child/Children - is not the person I'm claiming for Carer's Allowance</label></li>
+		<li><input type="checkbox" name="check2" id="check2"><label for="check2">Child/Children - is the person I'm claiming for Carer's Allowance</label></li>
+		<li><input type="checkbox" name="check3" id="check3"><label for="check3">Person you care you</label></li>
+	</ul>
+</li>
+</textarea>
+<!-- / demo -->							
+						
 					</li>
 					
 					<li>
@@ -161,6 +214,22 @@
 							<li><input type="radio" name="paid3" id="paid3"><label for="paid3">You don't have an account but intend to open one</label></li>
 							<li><input type="radio" name="paid4" id="paid4"><label for="paid4">Other - you would like more information</label></li>
 						</ul>
+						<p class="helper">Example of a stacked list with the inline class within</p>
+						
+<textarea class="demo">
+<li>
+	<p>How would you like to be paid?</p>
+	<ul class="inline inline-stack">
+		<li><input type="radio" name="paid1" id="paid1"><label for="paid1">UK bank or building society account</label></li>
+		<li><input type="radio" name="paid2" id="paid2"><label for="paid2">International bank account for residents outside UK but within European Economic Area</label></li>
+		<li><input type="radio" name="paid3" id="paid3"><label for="paid3">You don't have an account but intend to open one</label></li>
+		<li><input type="radio" name="paid4" id="paid4"><label for="paid4">Other - you would like more information</label></li>
+	</ul>
+</li>
+</textarea>
+<!-- / demo -->							
+						
+						
 					</li>
 					<li>
 						<p>How much do you get, and how often?</p>
@@ -179,10 +248,46 @@
 								</select>
 							</li>
 						</ul>
+						<p class="helper">Short input field example with accompanying select dropdown</p>
+						
+<textarea class="demo">
+<li>
+	<p>How much do you get, and how often?</p>
+	<ul class="inline label-strip">
+		<li class="short-field">
+			<label for="amount">Amount</label>
+			<input type="tel" name="amount" id="amount" placeholder="£">
+		</li>
+		<li>
+			<label for="often">How often?</label>
+			<select name="often" id="often">
+				<option value="#">How often?</option>
+				<option value="#">Weekly</option>
+				<option value="#">Fortnightly</option>
+				<option value="#">Monthly</option>
+			</select>
+		</li>
+	</ul>
+</li>
+</textarea>
+<!-- / demo -->						
+						
+						
 					</li>
 					<li class="short-field">
 						<label for="childcare"><em>*</em>How much did you pay for childcare each week?</label>
 						<input type="tel" name="childcare" id="childcare" placeholder="£">
+						<p class="helper">Example of short input field</p>
+		
+<textarea class="demo">
+<li class="short-field">
+	<label for="childcare"><em>*</em>How much did you pay for childcare each week?</label>
+	<input type="tel" name="childcare" id="childcare" placeholder="£">
+</li>
+</textarea>
+<!-- / demo -->							
+						
+						
 					</li>
 					<li>
 						<p>Sort code</p>
@@ -200,8 +305,563 @@
 								<input type="tel" name="sort1" id="sort1">
 							</li>
 						</ul>
+						<p class="helper">3 field sort code example with hidden labels for each input</p>
+						
+						
+<textarea class="demo">
+<li>
+	<p>Sort code</p>
+	<ul class="inline label-strip sort-code">
+		<li>
+			<label for="sort1">Sort code</label>
+			<input type="tel" name="sort1" id="sort1">
+		</li>
+		<li>
+			<label for="sort1">Sort code</label>
+			<input type="tel" name="sort1" id="sort1">
+		</li>
+		<li>
+			<label for="sort1">Sort code</label>
+			<input type="tel" name="sort1" id="sort1">
+		</li>
+	</ul>
+</li>
+</textarea>
+<!-- / demo -->							
+						
+						
+					</li>
+					
+					<li>
+						<label for="title"><em>*</em>Title</label>
+						<select name="title" id="title">
+							<option value="#">Mr</option>
+							<option value="#">Mrs</option>
+						</select>
+						<p class="helper">Example of standard select dropdown</p>
+						
+						
+<textarea class="demo">
+<li>
+	<label for="title"><em>*</em>Title</label>
+	<select name="title" id="title">
+		<option value="#">Mr</option>
+		<option value="#">Mrs</option>
+	</select>
+</li>
+</textarea>
+<!-- / demo -->							
+						
+						
+					</li>
+					
+					
+					<li>
+						<p>National Insurance (NI) number</p>
+						<ul class="inline ni-number label-strip">
+							<li>
+								<label for="ni-1">NI part one</label>
+								<input type="text" name="ni-1" id="ni-1" maxlength="2" placeholder="JW">
+							</li>
+							<li>
+								<label for="ni-2">NI part two</label>
+								<input type="tel" name="ni-2" id="ni-2" maxlength="2" placeholder="31">
+							</li>
+							<li>
+								<label for="ni-3">NI part three</label>
+								<input type="tel" name="ni-3" id="ni-3" maxlength="2" placeholder="90">
+							</li>
+							<li>
+								<label for="ni-4">NI part four</label>
+								<input type="tel" name="ni-4" id="ni-4" maxlength="2" placeholder="67">
+							</li>
+							<li>
+								<label for="ni-5">NI part five</label>
+								<input type="text" name="ni-5" id="ni-5" class="single" maxlength="1" placeholder="A">
+							</li>
+						</ul>
+						<p class="helper">eg: JW-41-68-56-A</p>
+						
+<textarea class="demo">
+<li>
+	<p>National Insurance (NI) number</p>
+	<ul class="inline ni-number label-strip">
+		<li>
+			<label for="ni-1">NI part one</label>
+			<input type="text" name="ni-1" id="ni-1" maxlength="2" placeholder="JW">
+		</li>
+		<li>
+			<label for="ni-2">NI part two</label>
+			<input type="tel" name="ni-2" id="ni-2" maxlength="2" placeholder="31">
+		</li>
+		<li>
+			<label for="ni-3">NI part three</label>
+			<input type="tel" name="ni-3" id="ni-3" maxlength="2" placeholder="90">
+		</li>
+		<li>
+			<label for="ni-4">NI part four</label>
+			<input type="tel" name="ni-4" id="ni-4" maxlength="2" placeholder="67">
+		</li>
+		<li>
+			<label for="ni-5">NI part five</label>
+			<input type="text" name="ni-5" id="ni-5" class="single" maxlength="1" placeholder="A">
+		</li>
+	</ul>
+	<p class="helper">eg: JW-41-68-56-A</p>
+</li>
+</textarea>
+<!-- / demo -->							
+						
+						
+						
+					</li> 
+					
+					
+					
+					<li>
+						<p><em>*</em>Date of birth</p>
+						<ul class="inline year label-strip">
+							<li>
+								<label for="day">Day</label>
+								<select name="day" id="day">
+									<option value="#">1</option>
+									<option value="#">2</option>
+									<option value="#">3</option>
+									<option value="#">4</option>
+									<option value="#">5</option>
+									<option value="#">6</option>
+									<option value="#">7</option>
+									<option value="#">8</option>
+									<option value="#">9</option>
+									<option value="#">10</option>
+									<option value="#">11</option>
+									<option value="#">12</option>
+									<option value="#">13</option>
+									<option value="#">14</option>
+									<option value="#">15</option>
+									<option value="#">16</option>
+									<option value="#">17</option>
+									<option value="#">18</option>
+									<option value="#">19</option>
+									<option value="#">20</option>
+									<option value="#">21</option>
+									<option value="#">22</option>
+									<option value="#">23</option>
+									<option value="#">24</option>
+									<option value="#">25</option>
+									<option value="#">26</option>
+									<option value="#">27</option>
+									<option value="#">28</option>
+									<option value="#">29</option>
+									<option value="#">30</option>
+									<option value="#">31</option>
+								</select>
+							</li>
+							<li>
+								<label for="month">Month</label>
+								<select name="month" id="month">
+									<option value="#">January</option>
+									<option value="#">February</option>
+									<option value="#">March</option>
+									<option value="#">April</option>
+									<option value="#">May</option>
+									<option value="#">June</option>
+									<option value="#">July</option>
+									<option value="#">August</option>
+									<option value="#">September</option>
+									<option value="#">October</option>
+									<option value="#">November</option>
+									<option value="#">December</option>
+								</select>
+							</li>
+							<li>
+								<label for="year">Year</label>
+								<input type="tel" name="year" id="year" placeholder="eg 1980">
+							</li>
+						</ul>
+						<p class="helper right">eg: 1980</p>
+						
+						
+<textarea class="demo">
+<li>
+	<p><em>*</em>Date of birth</p>
+	<ul class="inline year label-strip">
+	<li>
+		<label for="day">Day</label>
+		<select name="day" id="day">
+			<option value="#">1</option>
+			<option value="#">2</option>
+			<option value="#">3</option>
+			<option value="#">4</option>
+			<option value="#">5</option>
+			<option value="#">6</option>
+			<option value="#">7</option>
+			<option value="#">8</option>
+			<option value="#">9</option>
+			<option value="#">10</option>
+			<option value="#">11</option>
+			<option value="#">12</option>
+			<option value="#">13</option>
+			<option value="#">14</option>
+			<option value="#">15</option>
+			<option value="#">16</option>
+			<option value="#">17</option>
+			<option value="#">18</option>
+			<option value="#">19</option>
+			<option value="#">20</option>
+			<option value="#">21</option>
+			<option value="#">22</option>
+			<option value="#">23</option>
+			<option value="#">24</option>
+			<option value="#">25</option>
+			<option value="#">26</option>
+			<option value="#">27</option>
+			<option value="#">28</option>
+			<option value="#">29</option>
+			<option value="#">30</option>
+			<option value="#">31</option>
+		</select>
+	</li>
+	<li>
+		<label for="month">Month</label>
+		<select name="month" id="month">
+			<option value="#">January</option>
+			<option value="#">February</option>
+			<option value="#">March</option>
+			<option value="#">April</option>
+			<option value="#">May</option>
+			<option value="#">June</option>
+			<option value="#">July</option>
+			<option value="#">August</option>
+			<option value="#">September</option>
+			<option value="#">October</option>
+			<option value="#">November</option>
+			<option value="#">December</option>
+		</select>
+	</li>
+	<li>
+		<label for="year">Year</label>
+		<input type="tel" name="year" id="year" placeholder="eg 1980">
+	</li>
+	</ul>
+	<p class="helper right">eg: 1980</p>
+</li>
+</textarea>
+<!-- / demo -->				
+						
+						
+						
 					</li>
 								
+								
+					<li>
+						<p>Have you always lived in the United Kingdom?</p>
+						<ul class="radio">
+							<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
+							<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
+						</ul>
+						<p class="helper">Example of standard yes/no buttons</p>
+						
+<textarea class="demo">
+<li>
+	<p>Have you always lived in the United Kingdom?</p>
+	<ul class="radio">
+		<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
+		<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
+	</ul>
+</li>
+</textarea>
+<!-- / demo -->						
+						
+						
+					</li>		
+					
+					
+					<li>
+						<p>Have you always lived in the United Kingdom?</p>
+						<ul class="radio">
+							<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
+							<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
+							<li><input type="radio" name="q3-dont" id="q3-dont"><label for="q3-dont">Don't know</label></li>
+						</ul>
+						<p class="helper">Example of 3 question alignment</p>
+						
+<textarea class="demo">
+<li>
+	<p>Have you always lived in the United Kingdom?</p>
+	<ul class="radio">
+		<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
+		<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
+		<li><input type="radio" name="q3-dont" id="q3-dont"><label for="q3-dont">Don't know</label></li>
+	</ul>
+</li>
+</textarea>
+<!-- / demo -->						
+						
+						
+					</li>
+					
+					
+					<li>
+						<p><em>*</em>Address</p>
+						<ul class="group">
+							<li class="address-stack first">
+								<label for="address1"><em>*</em>Address</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+							<li class="address-stack">
+								<label for="address1">Address 2</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+							<li class="address-stack">
+								<label for="address1">Address 3</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+						</ul>
+						<p class="helper">This the 3 input address stack</p>
+						
+<textarea class="demo">
+<li>
+	<p><em>*</em>Address</p>
+	<ul class="group">
+		<li class="address-stack first">
+			<label for="address1"><em>*</em>Address</label>
+			<input type="text" name="address1" id="address1">
+		</li>
+		<li class="address-stack">
+			<label for="address1">Address 2</label>
+			<input type="text" name="address1" id="address1">
+		</li>
+		<li class="address-stack">
+			<label for="address1">Address 3</label>
+			<input type="text" name="address1" id="address1">
+		</li>
+	</ul>
+</li>
+</textarea>
+<!-- / demo -->							
+						
+						
+					</li>	
+					
+					<li>
+						<label for="postcode"><em>*</em>Postcode</label>
+						<input type="text" name="postcode" id="postcode" class="postcode">
+						<p class="helper">This shows the postcode field with added class="postcode"</p>
+						
+<textarea class="demo">
+<li>
+	<label for="postcode"><em>*</em>Postcode</label>
+	<input type="text" name="postcode" id="postcode" class="postcode">
+</li>
+</textarea>
+<!-- / demo -->							
+						
+						
+					</li>
+					
+					
+					<li>
+						<label for="mobile">Mobile number</label>
+						<input type="tel" name="mobile" id="mobile">
+						<p class="helper">This input shows the type="tel" field</p>
+				
+<textarea class="demo">
+<li>
+	<label for="mobile">Mobile number</label>
+	<input type="tel" name="mobile" id="mobile">
+</li>
+</textarea>
+<!-- / demo -->							
+						
+						
+					</li>
+					
+					
+					<li>
+						<label for="break">Where were you during the above break?</label>
+						<select name="break" id="break">
+							<option value="#">Holiday</option>
+							<option value="#">Hospital</option>
+							<option value="#">Other</option>
+						</select>
+						<p class="helper">e.g. Hospital or holiday</p>
+						<div class="other-detail">
+							<label for="other-detail">Other</label>
+							<textarea name="other-detail" id="other-detail" placeholder="If other please specify..."></textarea>
+						</div>
+						<p class="helper">Example of hidden textarea. Note: Closing tag for textarea is missing</p>
+						
+<textarea class="demo">
+<li>
+	<label for="break">Where were you during the above break?</label>
+	<select name="break" id="break">
+		<option value="#">Holiday</option>
+		<option value="#">Hospital</option>
+		<option value="#">Other</option>
+	</select>
+	<p class="helper">e.g. Hospital or holiday</p>
+	<div class="other-detail">
+		<label for="other-detail">Other</label>
+		<textarea name="other-detail" id="other-detail" placeholder="If other please specify...">
+	</div>
+</li>
+</textarea>
+<!-- / demo -->							
+						
+						
+					</li>
+			
+					
+					
+					<li>
+						<p>Have you always lived in the United Kingdom?</p>
+							<ul class="radio">
+								<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
+								<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
+							</ul>
+
+							<div class="other-detail">
+								<p><em>*</em>Date of birth</p>
+								<ul class="inline year label-strip">
+								<li>
+									<label for="day">Day</label>
+									<select name="day" id="day">
+										<option value="#">1</option>
+										<option value="#">2</option>
+										<option value="#">3</option>
+										<option value="#">4</option>
+										<option value="#">5</option>
+										<option value="#">6</option>
+										<option value="#">7</option>
+										<option value="#">8</option>
+										<option value="#">9</option>
+										<option value="#">10</option>
+										<option value="#">11</option>
+										<option value="#">12</option>
+										<option value="#">13</option>
+										<option value="#">14</option>
+										<option value="#">15</option>
+										<option value="#">16</option>
+										<option value="#">17</option>
+										<option value="#">18</option>
+										<option value="#">19</option>
+										<option value="#">20</option>
+										<option value="#">21</option>
+										<option value="#">22</option>
+										<option value="#">23</option>
+										<option value="#">24</option>
+										<option value="#">25</option>
+										<option value="#">26</option>
+										<option value="#">27</option>
+										<option value="#">28</option>
+										<option value="#">29</option>
+										<option value="#">30</option>
+										<option value="#">31</option>
+									</select>
+								</li>
+								<li>
+									<label for="month">Month</label>
+									<select name="month" id="month">
+										<option value="#">January</option>
+										<option value="#">February</option>
+										<option value="#">March</option>
+										<option value="#">April</option>
+										<option value="#">May</option>
+										<option value="#">June</option>
+										<option value="#">July</option>
+										<option value="#">August</option>
+										<option value="#">September</option>
+										<option value="#">October</option>
+										<option value="#">November</option>
+										<option value="#">December</option>
+									</select>
+								</li>
+								<li>
+									<label for="year">Year</label>
+									<input type="tel" name="year" id="year" placeholder="eg 1980">
+								</li>
+								</ul>
+							</div>
+							<p class="helper">Example of hidden date field</p>
+							
+<textarea class="demo">
+<li>
+	<p>Have you always lived in the United Kingdom?</p>
+	<ul class="radio">
+		<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
+		<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
+	</ul>
+
+	<div class="other-detail">
+		<p><em>*</em>Date of birth</p>
+		<ul class="inline year label-strip">
+		<li>
+			<label for="day">Day</label>
+			<select name="day" id="day">
+				<option value="#">1</option>
+				<option value="#">2</option>
+				<option value="#">3</option>
+				<option value="#">4</option>
+				<option value="#">5</option>
+				<option value="#">6</option>
+				<option value="#">7</option>
+				<option value="#">8</option>
+				<option value="#">9</option>
+				<option value="#">10</option>
+				<option value="#">11</option>
+				<option value="#">12</option>
+				<option value="#">13</option>
+				<option value="#">14</option>
+				<option value="#">15</option>
+				<option value="#">16</option>
+				<option value="#">17</option>
+				<option value="#">18</option>
+				<option value="#">19</option>
+				<option value="#">20</option>
+				<option value="#">21</option>
+				<option value="#">22</option>
+				<option value="#">23</option>
+				<option value="#">24</option>
+				<option value="#">25</option>
+				<option value="#">26</option>
+				<option value="#">27</option>
+				<option value="#">28</option>
+				<option value="#">29</option>
+				<option value="#">30</option>
+				<option value="#">31</option>
+			</select>
+		</li>
+		<li>
+			<label for="month">Month</label>
+			<select name="month" id="month">
+				<option value="#">January</option>
+				<option value="#">February</option>
+				<option value="#">March</option>
+				<option value="#">April</option>
+				<option value="#">May</option>
+				<option value="#">June</option>
+				<option value="#">July</option>
+				<option value="#">August</option>
+				<option value="#">September</option>
+				<option value="#">October</option>
+				<option value="#">November</option>
+				<option value="#">December</option>
+			</select>
+		</li>
+		<li>
+			<label for="year">Year</label>
+			<input type="tel" name="year" id="year" placeholder="eg 1980">
+		</li>
+		</ul>
+	</div>
+</li>
+</textarea>
+<!-- / demo -->								
+							
+							
+					</li>
+					
 					
 					
 				</ul>
