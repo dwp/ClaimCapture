@@ -33,8 +33,6 @@ trait FormMappings {
         }
     }
   }
-
-
   def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") {
     a =>
       if (a.lineOne.isEmpty && a.lineTwo.isEmpty && a.lineThree.isEmpty) Invalid(ValidationError("error.required")) else Valid

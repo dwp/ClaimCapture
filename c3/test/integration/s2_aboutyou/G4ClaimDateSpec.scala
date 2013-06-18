@@ -43,5 +43,20 @@ class G4ClaimDateSpec extends Specification with Tags {
       browser.find("p[class=error]").get(0).getText mustEqual "Invalid value"
     }
 
+    "navigate back to Time Outside UK" in new WithBrowser {
+      Helper.fillYourDetailsEnablingTimeOutsideUK(browser)
+      Helper.fillContactDetails(browser)
+      Helper.fillTimeOutsideUK(browser)
+      browser.click(".form-steps a")
+      browser.title() mustEqual "Time Outside UK - About You"
+    }
+
+    "navigate back to Contact Details" in new WithBrowser {
+      Helper.fillYourDetails(browser)
+      Helper.fillContactDetails(browser)
+      browser.click(".form-steps a")
+      browser.title() mustEqual "Contact Details - About You"
+    }
+
   } section "integration"
 }

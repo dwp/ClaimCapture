@@ -16,7 +16,11 @@
         </fieldset>
 
         <div class="form-steps">
-            <a href="@routes.AboutYou.contactDetails" class="button secondary">Back</a>
+            @if(completedForms.isEmpty) {
+                <a href="@routes.AboutYou.contactDetails" class="button secondary">Back</a>
+            } else {
+                <a href="@AboutYou.route(completedForms.last.id)" class="button secondary">Back</a>
+            }
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
