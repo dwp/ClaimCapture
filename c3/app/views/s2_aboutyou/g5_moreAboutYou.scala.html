@@ -14,15 +14,14 @@
 
             <ul class="group">
                 @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
+                    @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("hadPartnerSinceClaimDate.label", dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
 
-                    @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("s2_g5_q1", dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                    @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("eitherClaimedBenefitSinceClaimDate.label", dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
 
-                    @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("s2_g5_q2", dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
-
-                    @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("s2_g5_q3", dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                    @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("beenInEducationSinceClaimDate.label", dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
                 }
 
-                @common.yesNoRadioGroup(moreAboutYouForm("receiveStatePension"),'_label -> Messages("s2_g5_q4"))
+                @common.yesNoRadioGroup(moreAboutYouForm("receiveStatePension"),'_label -> Messages("receiveStatePension"))
             </ul>
         </fieldset>
 

@@ -16,10 +16,10 @@
 
 
                     @common.yesNoRadioGroup(propertyAndRentForm("ownProperty"),
-                        '_label -> Messages("s2_g7_q1", dateOfClaim.minusWeeks(1).toString(utils.ClaimUtils.dateFormatPrint), dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                        '_label -> Messages("ownProperty.label", dateOfClaim.minusWeeks(1).toString(utils.ClaimUtils.dateFormatPrint), dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
 
                     @common.yesNoRadioGroup(propertyAndRentForm("hasSublet"),
-                        '_label -> Messages("s2_g7_q2", dateOfClaim.minusWeeks(1).toString(utils.ClaimUtils.dateFormatPrint), dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                        '_label -> Messages("hasSublet.label", dateOfClaim.minusWeeks(1).toString(utils.ClaimUtils.dateFormatPrint), dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
                 }
             </ul>
 

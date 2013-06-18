@@ -13,10 +13,10 @@
             <ul class="group">
             @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
                     @common.yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
-                        '_label -> Messages("s2_g6_q1", dateOfClaim.minusMonths(6).toString(utils.ClaimUtils.dateFormatPrint), dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                        '_label -> Messages("beenEmployedSince6MonthsBeforeClaim.label", dateOfClaim.minusMonths(6).toString(utils.ClaimUtils.dateFormatPrint), dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
 
                     @common.yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
-                        '_label -> Messages("s2_g6_q2", dateOfClaim.minusWeeks(1).toString(utils.ClaimUtils.dateFormatPrint),  dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                        '_label -> Messages("beenSelfEmployedSince1WeekBeforeClaim.label", dateOfClaim.minusWeeks(1).toString(utils.ClaimUtils.dateFormatPrint),  dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
                 }
             </ul>
         </fieldset>

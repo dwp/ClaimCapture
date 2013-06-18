@@ -51,15 +51,22 @@ visaReference = What is your visa reference number in your passport?
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
 
 # MORE ABOUT YOU
-s2_g5_q1 = Have you had a partner/spouse at any time since your claim date: {0}?
-s2_g5_q2 = Have you or your partner/spouse claimed or received any other benefits since your claim date: {0}?
-s2_g5_q3 = Have you been on a course of education since your claim date: {0}?
-s2_g5_q4 = Do you receive State Pension?
+hadPartnerSinceClaimDate.label = Have you had a partner/spouse at any time since your claim date: {0}?
+hadPartnerSinceClaimDate = Have you had a partner/spouse at any time since your claim date?
+eitherClaimedBenefitSinceClaimDate.label = Have you or your partner/spouse claimed or received any other benefits since your claim date: {0}?
+eitherClaimedBenefitSinceClaimDate = Have you or your partner/spouse claimed or received any other benefits since your claim date?
+beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
+beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
+receiveStatePension = Do you receive State Pension?
 
 # EMPLOYMENT
-s2_g6_q1 = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
-s2_g6_q2 = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
+beenEmployedSince6MonthsBeforeClaim.label = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
+beenEmployedSince6MonthsBeforeClaim = Have you been employed at any time since six months before your claim date?
+beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
+beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
 
 #PROPERTY AND RENT
-s2_g7_q1 = Do you or your partner own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
-s2_g7_q2 = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
+ownProperty.label = Do you or your partner own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
+ownProperty = Do you or your partner own property or land in the UK or abroad that you have rented out since one week before your claim date?
+hasSublet.label = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
+hasSublet = Have you sublet your home, or provided board and lodgings, since one week before your claim date?
