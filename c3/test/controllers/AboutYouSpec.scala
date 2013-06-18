@@ -154,12 +154,33 @@ class AboutYouSpec extends Specification with Mockito {
       redirectLocation(result) must beSome("/aboutyou/yourDetails")
     }
 
-    "continue to partner/spouse upon section completion" in new WithApplication with Claiming {
+    "continue to partner/spouse upon section completion when all forms are done" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val claim = Claim()
         .update(mockForm[YourDetails](YourDetails.id))
         .update(mockForm[ContactDetails](ContactDetails.id))
+        .update(mockForm[ClaimDate](ClaimDate.id))
+        .update(mockForm[MoreAboutYou](MoreAboutYou.id))
+        .update(mockForm[Employment](Employment.id))
+        .update(mockForm[PropertyAndRent](PropertyAndRent.id))
+
+      Cache.set(claimKey, claim)
+
+      val result = controllers.AboutYou.completedSubmit(request)
+      redirectLocation(result) must beSome("/yourpartner/yourpartner")
+    }
+
+    "continue to partner/spouse upon section completion when all forms are done including 'time outside UK'" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+
+      val yourDetails = mockForm[YourDetails](YourDetails.id)
+      yourDetails.alwaysLivedUK returns "no"
+
+      val claim = Claim()
+        .update(yourDetails)
+        .update(mockForm[ContactDetails](ContactDetails.id))
+        .update(mockForm[TimeOutsideUK](TimeOutsideUK.id))
         .update(mockForm[ClaimDate](ClaimDate.id))
         .update(mockForm[MoreAboutYou](MoreAboutYou.id))
         .update(mockForm[Employment](Employment.id))

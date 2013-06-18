@@ -259,7 +259,14 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
     implicit claim => implicit request =>
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
 
-      if (completedForms.distinct.size == 6) Redirect(routes.YourPartner.yourPartner())
-      else Redirect(routes.AboutYou.yourDetails())
+      claim.form(YourDetails.id) match {
+        case Some(YourDetails(_, _, _, _, _, _, _, _, _, "no")) if completedForms.distinct.size == 7 =>
+          Redirect(routes.YourPartner.yourPartner())
+
+        case Some(YourDetails(_, _, _, _, _, _, _, _, _, _)) if completedForms.distinct.size == 6 =>
+          Redirect(routes.YourPartner.yourPartner())
+
+        case _ => Redirect(routes.AboutYou.yourDetails())
+      }
   }
 }
