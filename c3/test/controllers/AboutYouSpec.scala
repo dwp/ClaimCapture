@@ -47,6 +47,26 @@ class AboutYouSpec extends Specification with Mockito {
       claim.section(models.claim.AboutYou.id) must beNone
     }
 
+    "highlight invalid date" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(
+        "firstName" -> "Scooby",
+        "title" -> "Mr",
+        "surname" -> "Doo",
+        "nationality" -> "US",
+        "dateOfBirth.day" -> "5",
+        "dateOfBirth.month" -> "12",
+        "dateOfBirth.year" -> "199000001",
+        "maritalStatus" -> "Single",
+        "alwaysLivedUK" -> "yes")
+
+      val result = controllers.AboutYou.yourDetailsSubmit(request)
+      status(result) mustEqual BAD_REQUEST
+
+      val claim = Cache.getAs[Claim](claimKey).get
+      claim.section(models.claim.AboutYou.id) must beNone
+    }
+
     "not complain about a valid NI" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
