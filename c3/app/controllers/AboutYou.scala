@@ -131,16 +131,27 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def timeOutsideUKSubmit = claiming {
     implicit claim => implicit request =>
+      def livingInUK(timeOutsideUKForm: Form[TimeOutsideUK])(implicit timeOutsideUK: TimeOutsideUK): Form[TimeOutsideUK] = {
+        if (timeOutsideUK.currentlyLivingInUK == "no" && timeOutsideUK.arrivedInUK == None) timeOutsideUKForm.fill(timeOutsideUK).withError("arrivedInUK", "error.required")
+        else timeOutsideUKForm
+      }
+
+      def planToGoBack(timeOutsideUKForm: Form[TimeOutsideUK])(implicit timeOutsideUK: TimeOutsideUK): Form[TimeOutsideUK] = {
+        if (timeOutsideUK.planToGoBack.getOrElse("no") == "yes" && timeOutsideUK.whenPlanToGoBack == None) timeOutsideUKForm.fill(timeOutsideUK).withError("whenPlanToGoBack", "error.required")
+        else timeOutsideUKForm
+      }
+
       val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
 
       timeOutsideUKForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g3_timeOutsideUK(formWithErrors, completedForms.takeWhile(_.id != TimeOutsideUK.id))),
-        timeOutsideUK =>
-          if (timeOutsideUK.currentlyLivingInUK == "no" && timeOutsideUK.arrivedInUK == None) {
-            BadRequest(views.html.s2_aboutyou.g3_timeOutsideUK(timeOutsideUKForm.fill(timeOutsideUK).withError("arrivedInUK", "error.required"), completedForms.takeWhile(_.id != TimeOutsideUK.id)))
-          } else {
-            claim.update(timeOutsideUK) -> Redirect(routes.AboutYou.claimDate())
-          })
+        implicit timeOutsideUK => {
+          val formValidations = livingInUK _ andThen planToGoBack _
+          val timeOutsideUKFormValidated = formValidations(timeOutsideUKForm)
+
+          if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s2_aboutyou.g3_timeOutsideUK(timeOutsideUKFormValidated, completedForms.takeWhile(_.id != TimeOutsideUK.id)))
+          else claim.update(timeOutsideUK) -> Redirect(routes.AboutYou.claimDate())
+        })
   }
 
   def claimDate = claiming {
