@@ -159,7 +159,7 @@ $button-green-hover: #004b27;
 	   background: #fef7f7;
 	   border: 3px solid #df3034;
 	   padding: 1em .7em;
-	   margin: 1em 0 1em -0.9em;
+	   margin: 1em 0;
 	   h2 {
 		   font-size: 2.4rem;
 		   font-weight: 700;
@@ -289,6 +289,15 @@ $button-green-hover: #004b27;
 				   margin-top: 4px;
 			   }
 			   
+			   .other-detail {
+				   margin: 1em 0 0 0;
+				   padding: 0;
+				   label {
+					   position: absolute;
+					   left: -9999px;
+				   }
+			   }
+			   
 			   &.validation {
 				   background: #fef7f7;
 				   padding: .6em .7em;
@@ -330,14 +339,6 @@ $button-green-hover: #004b27;
 			   	   &.first {
 				   	   margin: 0;
 			   	   }
-				   label {
-					   position: absolute;
-					   left: -9999px;
-				   }
-			   }
-			   &.other-detail {
-				   margin: -0.8em 0 0 0;
-				   padding: 0;
 				   label {
 					   position: absolute;
 					   left: -9999px;
@@ -404,6 +405,9 @@ $button-green-hover: #004b27;
 						font-size: 19px;
 						width: 283px;
 					}
+					&.postcode {
+						text-transform: uppercase;
+					}
 			   }
 			   input[type="radio"] {
 				   width: auto;
@@ -440,7 +444,59 @@ $button-green-hover: #004b27;
 		   
 		   /* form list end */
 		   
-					 
+		   
+		   /* radio list - includes hit areas */
+		   &.radio {
+		   		   margin-top: 3px;	
+		   		   overflow: hidden;
+				   li {
+					   position: relative;
+					   float: left;
+					   margin: 0;
+					   padding: 0;
+					   border: 1px solid #ddd;
+					   &:first-child {
+						   border-right: 0;
+					   }
+					   input[type="radio"] {
+						   position: absolute;
+						   top: 34%;
+						   left: 1.2em;
+						   margin: 0;
+						   cursor: pointer;
+						   .ie & {
+							   left: 10px;
+							   top: 11px;
+						   }
+					   }
+					   label {
+						   display: block;
+						   background: #eee;
+						   padding: .5em 1em .4em 2.2em;
+						   font-size: 1.7rem;
+						   color: #666;
+						   cursor: pointer;
+						   line-height: inherit;
+						   .ie & {
+							   font-size: 17px;
+							   padding-left: 2em;
+						   }
+					   }
+					   input[type="radio"]:checked + label {
+						   background: #fff;
+						   color: #0b0c0c;
+						   -webkit-transition: all 200ms ease-in;
+						   -moz-transition: all 200ms ease-in;
+						   -ms-transition: all 200ms ease-in;
+						   -o-transition: all 200ms ease-in;
+						   transition: all 200ms ease-in;
+					   }
+				   }
+			 }
+			 /* radio */
+			 
+			 
+			 
 			 /* sort code */
 			 &.sort-code {
 				   input[type="tel"] {
@@ -828,7 +884,6 @@ $button-green-hover: #004b27;
 		   font-weight: 400;
 		   position: relative;
 		   top: -3px;
-		   text-decoration: none;
 		   .ie & {
 			   font-size: 20px;
 		   }
@@ -909,8 +964,10 @@ $button-green-hover: #004b27;
 	}
 }
 
+textarea.demo {text-align: left!important; width: 120%!important; font-size: 1.5rem!important; height: 15rem!important; margin-top: 1em; border-color: red!important; padding: 1rem!important; background: #eee!important; margin-bottom: 3em!important}
+
 
 /* Header - Footer Overrides */
-#global-header .header-wrapper {padding: 0.5em 0!important;}
-#footer .carers-allowance-footer {padding-top: 0!important;}
-#footer .carers-allowance-footer .footer-meta {margin-top: 0!important; border-top: 0!important;}
+#global-header .header-wrapper {padding: 0.5em 0;}
+#footer .carers-allowance-footer {padding-top: 0;}
+#footer .carers-allowance-footer .footer-meta {margin-top: 0; border-top: 0;}
