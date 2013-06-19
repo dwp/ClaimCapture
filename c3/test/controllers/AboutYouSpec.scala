@@ -5,8 +5,11 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.cache.Cache
 import play.api.test.Helpers._
 import org.specs2.mock.Mockito
-import models.claim._
-import models.claim.Claim
+import models.view._
+import scala.Some
+import models.domain
+import models.domain._
+import models.domain.Claim
 import scala.Some
 
 class AboutYouSpec extends Specification with Mockito {
@@ -42,7 +45,7 @@ class AboutYouSpec extends Specification with Mockito {
       status(result) mustEqual BAD_REQUEST
 
       val claim = Cache.getAs[Claim](claimKey).get
-      claim.section(models.claim.AboutYou.id) must beNone
+      claim.section(domain.AboutYou.id) must beNone
     }
 
     "highlight invalid date" in new WithApplication with Claiming {
@@ -62,7 +65,7 @@ class AboutYouSpec extends Specification with Mockito {
       status(result) mustEqual BAD_REQUEST
 
       val claim = Cache.getAs[Claim](claimKey).get
-      claim.section(models.claim.AboutYou.id) must beNone
+      claim.section(domain.AboutYou.id) must beNone
     }
 
     "not complain about a valid NI" in new WithApplication with Claiming {

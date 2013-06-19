@@ -1,0 +1,43 @@
+@(theirPersonalDetailsForm: Form[models.domain.TheirPersonalDetails])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.ClaimHelpers._
+@import views.html.common._
+@import views.html.helper._
+
+@common.main("Their Contact Details - Care You Provide") {
+
+    @form(action = routes.CareYouProvide.theirPersonalDetailsSubmit) {
+    
+    
+    	@errorsSummary(theirPersonalDetailsForm)
+
+        <fieldset class="form-elements">
+            <legend>Details of the person you care for</legend>
+
+
+            <ul class="group">
+                @titleSelect(theirPersonalDetailsForm("title"))
+
+                @inputText(theirPersonalDetailsForm("firstName"))
+
+                @inputText(theirPersonalDetailsForm("middleName"))
+
+                @inputText(theirPersonalDetailsForm("surname"))
+
+                @inputText(theirPersonalDetailsForm("otherNames"))
+
+                @inputText(theirPersonalDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"))
+
+                @inputDayMonthYear(theirPersonalDetailsForm("dateOfBirth"))
+
+                @yesNoRadioGroup(theirPersonalDetailsForm("liveAtSameAddress"))
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}

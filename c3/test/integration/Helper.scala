@@ -14,9 +14,9 @@ object Helper {
     browser.fill("#ni-3") `with` "34"
     browser.fill("#ni-1") `with` "56"
     browser.fill("#ni-1") `with` "C"
-    browser.click("#dateOfBirth-day option[value='3']")
-    browser.click("#dateOfBirth-month option[value='4']")
-    browser.fill("#dateOfBirth-year") `with` "1950"
+    browser.click("#dateOfBirth_day option[value='3']")
+    browser.click("#dateOfBirth_month option[value='4']")
+    browser.fill("#dateOfBirth_year") `with` "1950"
     browser.fill("#nationality") `with` "English"
     browser.click("#maritalStatus option[value='s']")
     browser.click("#alwaysLivedUK_yes")
@@ -33,9 +33,9 @@ object Helper {
     browser.fill("#ni-3") `with` "34"
     browser.fill("#ni-1") `with` "56"
     browser.fill("#ni-1") `with` "C"
-    browser.click("#dateOfBirth-day option[value='3']")
-    browser.click("#dateOfBirth-month option[value='4']")
-    browser.fill("#dateOfBirth-year") `with` "1950"
+    browser.click("#dateOfBirth_day option[value='3']")
+    browser.click("#dateOfBirth_month option[value='4']")
+    browser.fill("#dateOfBirth_year") `with` "1950"
     browser.fill("#nationality") `with` "English"
     browser.click("#maritalStatus option[value='s']")
     browser.click("#alwaysLivedUK_no")
@@ -57,9 +57,9 @@ object Helper {
 
   def fillClaimDate(browser:TestBrowser) = {
     browser.goTo("/aboutyou/claimDate")
-    browser.click("#dateOfClaim-day option[value='3']")
-    browser.click("#dateOfClaim-month option[value='4']")
-    browser.fill("#dateOfClaim-year") `with` "1950"
+    browser.click("#dateOfClaim_day option[value='3']")
+    browser.click("#dateOfClaim_month option[value='4']")
+    browser.fill("#dateOfClaim_year") `with` "1950"
     browser.submit("button[type='submit']")
   }
 
@@ -83,6 +83,18 @@ object Helper {
     browser.goTo("/aboutyou/propertyAndRent")
     browser.click("#ownProperty_yes")
     browser.click("#hasSublet_yes")
+    browser.submit("button[type='submit']")
+  }
+
+  def fillTheirDetails(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/theirPersonalDetails")
+    browser.click("#title option[value='mr']")
+    browser.fill("#firstName") `with` "John"
+    browser.fill("#surname") `with` "Appleseed"
+    browser.click("#dateOfBirth_day option[value='3']")
+    browser.click("#dateOfBirth_month option[value='4']")
+    browser.fill("#dateOfBirth_year") `with` "1950"
+    browser.click("#liveAtSameAddress_yes]")
     browser.submit("button[type='submit']")
   }
 }

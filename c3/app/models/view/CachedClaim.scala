@@ -1,48 +1,8 @@
-package models.claim
+package models.view
 
+import play.api.mvc.{Action, AnyContent, Request, Result}
 import play.api.cache.Cache
-import play.api.mvc.{Action, Result, AnyContent, Request}
-import models.CreationTimeStamp
-import utils.ClaimUtils
-
-case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeStamp {
-
-  def section(sectionId: String): Option[Section] = {
-    sections.get(sectionId)
-  }
-
-  def form(formId: String): Option[Form] = {
-    val sectionId = ClaimUtils.sectionId(formId)
-
-    section(sectionId) match {
-      case Some(s: Section) => s.form(formId)
-      case _ => None
-    }
-  }
-
-  def completedFormsForSection(sectionID: String) = sections.get(sectionID) match {
-    case Some(s: Section) => s.forms
-    case _ => Nil
-  }
-
-  def update(form: Form): Claim = {
-    def update(form: Form, forms: List[Form]) = {
-      val updated = forms map {
-        f => if (f.id == form.id) form else f
-      }
-      if (updated.contains(form)) updated else updated :+ form
-    }
-
-    val sectionId = ClaimUtils.sectionId(form.id)
-
-    val section = sections.get(sectionId) match {
-      case None => Section(sectionId, List(form))
-      case Some(s) => Section(sectionId, update(form, s.forms))
-    }
-
-    Claim(sections.updated(section.id, section))
-  }
-}
+import models.domain.Claim
 
 trait CachedClaim {
 

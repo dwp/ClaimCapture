@@ -1,7 +1,10 @@
-package models.claim
+package models.view
 
 import org.specs2.mutable.Specification
 import utils.ClaimUtils
+import models.domain._
+import models.domain.Claim
+import scala.Some
 
 class ClaimSpec extends Specification {
 
@@ -23,7 +26,7 @@ class ClaimSpec extends Specification {
       }
 
       val section = sectionOption.get
-      section.form(form.id) must beSome(Benefits(answer = false))
+      section.questionGroup(form.id) must beSome(Benefits(answer = false))
     }
 
     "contain the sectionId with the form after updating" in {
@@ -38,7 +41,7 @@ class ClaimSpec extends Specification {
       val sectionOption = claimWithTrueForm.section(sectionId)
       val section = sectionOption.get
 
-      section.form(trueForm.id) must beSome(Benefits(answer = true))
+      section.questionGroup(trueForm.id) must beSome(Benefits(answer = true))
     }
 
     "return the correct section" in {
@@ -56,7 +59,7 @@ class ClaimSpec extends Specification {
       val formOption = claim.form(formId)
 
       formOption must beLike {
-        case Some(form: Form) => form.id mustEqual formId
+        case Some(form: QuestionGroup) => form.id mustEqual formId
       }
     }
   }

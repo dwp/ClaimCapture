@@ -1,4 +1,4 @@
-@(confirmed: Boolean, completedForms: List[models.claim.Form])
+@(confirmed: Boolean, completedForms: List[models.domain.QuestionGroup])
 
 @import helper._
 
@@ -9,7 +9,7 @@
         <fieldset class="form-elements form-eligibility">
             <legend><span>Q2</span>Do you spend 35 hours or more each week caring for the person you look after?</legend>
 
-            <p>Looking after someone can mean many things. It includes things like cooking meals, or helping them with their shopping.</p>
+            <p>For example, cooking meals, or helping them with their shopping.</p>
 
             @yesNoRadioGroupS1(confirmed)
         </fieldset>

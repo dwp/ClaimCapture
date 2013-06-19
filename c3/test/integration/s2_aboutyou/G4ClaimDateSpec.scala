@@ -35,7 +35,7 @@ class G4ClaimDateSpec extends Specification with Tags {
       browser.find("p[class=error]").size() must beGreaterThan(0)
       browser.find("p[class=error]").get(0).getText mustEqual "This field is required"
 
-      browser.fill("#dateOfClaim-year") `with` ("1950")
+      browser.fill("#dateOfClaim_year") `with` ("1950")
       browser.submit("button[type='submit']")
 
       browser.title() mustEqual "Claim Date - About You"

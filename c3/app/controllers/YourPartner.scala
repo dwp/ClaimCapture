@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.mvc._
-import models.claim._
+import models.view._
 
 object YourPartner extends Controller with CachedClaim {
   def yourPartner = claiming {
@@ -11,7 +11,7 @@ object YourPartner extends Controller with CachedClaim {
           <title>End of Sprint</title>
 
           <ul>
-            {claim.completedFormsForSection(models.claim.AboutYou.id).map(f => <li>{f}</li>)}
+            {claim.completedFormsForSection(models.domain.AboutYou.id).map(f => <li>{f}</li>)}
           </ul>
         </endOfSprint>
 

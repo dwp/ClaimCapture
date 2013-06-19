@@ -3,13 +3,12 @@ package controllers
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
-import models.claim._
-import models.claim.Hours
-import models.claim.Benefits
-import models.claim.LivesInGB
-import models.claim.Over16
+import models.view._
+import models.domain
+import models.domain._
+import scala.Some
 
-object CarersAllowance extends Controller with CachedClaim with FormMappings {
+object CarersAllowance extends Controller with CachedClaim {
   val route = Map(Benefits.id -> routes.CarersAllowance.benefits,
                   Hours.id -> routes.CarersAllowance.hours,
                   LivesInGB.id -> routes.CarersAllowance.livesInGB,
@@ -50,7 +49,7 @@ object CarersAllowance extends Controller with CachedClaim with FormMappings {
 
   def hours = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.CarersAllowance.id)
+      val completedForms = claim.completedFormsForSection(domain.CarersAllowance.id)
 
       if (claiming(Hours.id, claim)) Ok(views.html.s1_carersallowance.g2_hours(confirmed = true, completedForms.takeWhile(_.id != Hours.id)))
       else Ok(views.html.s1_carersallowance.g2_hours(confirmed = false, completedForms.takeWhile(_.id != Hours.id)))
@@ -65,7 +64,7 @@ object CarersAllowance extends Controller with CachedClaim with FormMappings {
 
   def livesInGB = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.CarersAllowance.id)
+      val completedForms = claim.completedFormsForSection(domain.CarersAllowance.id)
 
       if (claiming(LivesInGB.id, claim)) Ok(views.html.s1_carersallowance.g3_livesInGB(confirmed = true, completedForms.takeWhile(_.id != LivesInGB.id)))
       else Ok(views.html.s1_carersallowance.g3_livesInGB(confirmed = false, completedForms.takeWhile(_.id != LivesInGB.id)))
@@ -80,7 +79,7 @@ object CarersAllowance extends Controller with CachedClaim with FormMappings {
 
   def over16 = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.CarersAllowance.id)
+      val completedForms = claim.completedFormsForSection(domain.CarersAllowance.id)
 
       if (claiming(Over16.id, claim)) Ok(views.html.s1_carersallowance.g4_over16(confirmed = true, completedForms.takeWhile(_.id != Over16.id)))
       else Ok(views.html.s1_carersallowance.g4_over16(confirmed = false, completedForms.takeWhile(_.id != Over16.id)))
@@ -95,7 +94,7 @@ object CarersAllowance extends Controller with CachedClaim with FormMappings {
 
   def approve = claiming {
     implicit claim => implicit request =>
-      val sectionId = models.claim.CarersAllowance.id
+      val sectionId = domain.CarersAllowance.id
       val completedForms = claim.completedFormsForSection(sectionId)
       val approved = claim.completedFormsForSection(sectionId).forall(_.asInstanceOf[BooleanConfirmation].answer) && completedForms.length == 4
 
