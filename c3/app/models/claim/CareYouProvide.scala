@@ -19,3 +19,9 @@ case class Breaks(breaks: String) extends Form(Breaks.id)
 object Breaks {
   val id = s"${CareYouProvide.id}.g9"
 }
+
+case class BreaksInCare(moreBreaks: String) extends Form(BreaksInCare.id)
+
+object BreaksInCare {
+  val id = s"${CareYouProvide.id}.g10"
+}
