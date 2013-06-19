@@ -1,7 +1,7 @@
-@(title: String, completedForms: List[models.claim.Form] = Nil)(content: Html)
+@(title: String, completedForms: List[models.domain.QuestionGroup] = Nil)(content: Html)
 
 @import helper._
-@import models.claim.BooleanConfirmation
+@import models.domain.BooleanConfirmation
 
 @common.govMain(title) {
 

@@ -1,9 +1,9 @@
-@(moreAboutYouForm: Form[models.claim.MoreAboutYou], completedForms: List[models.claim.Form])(implicit claim: models.claim.Claim)
+@(moreAboutYouForm: Form[models.domain.MoreAboutYou], completedForms: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import common._
 @import helper._
 @import views.html.common._
-@import models.claim.ClaimDate
+@import models.domain.ClaimDate
 
 @main("More About You - About You",completedForms) {
     @form(action = routes.AboutYou.moreAboutYouSubmit()) {
@@ -14,7 +14,7 @@
             <legend>More about you</legend>
 
             <ul class="group">
-                @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
+                @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
                     @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("hadPartnerSinceClaimDate.label", dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
 
                     @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("eitherClaimedBenefitSinceClaimDate.label", dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))

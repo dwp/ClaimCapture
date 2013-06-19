@@ -1,7 +1,4 @@
-package models.claim
-
-import models.DayMonthYear
-import models.domain.DayMonthYear
+package models.domain
 
 object CareYouProvide {
   val id = "s4"
@@ -9,7 +6,7 @@ object CareYouProvide {
 
 case class TheirPersonalDetails(title: String, firstName: String, middleName: Option[String], surname: String,
                                 nationalInsuranceNumber: Option[String],
-                                dateOfBirth: DayMonthYear, liveAtSameAddress: String) extends Form(TheirPersonalDetails.id)
+                                dateOfBirth: DayMonthYear, liveAtSameAddress: String) extends QuestionGroup(TheirPersonalDetails.id)
 
 object TheirPersonalDetails {
   val id = s"${CareYouProvide.id}.g1"

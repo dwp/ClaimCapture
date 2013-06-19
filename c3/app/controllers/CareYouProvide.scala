@@ -1,17 +1,15 @@
 package controllers
 
 import play.api.mvc.Controller
-import models.view._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 import models.view.CachedClaim
-import models.domain.{BreakInCare, Break, HasBreaks, TheirPersonalDetails}
-import models.domain._
-import models.domain.BreakInCare
+import Forms._
 import scala.Some
+import models.domain.{HasBreaks, TheirPersonalDetails, BreakInCare, Break, BreaksInCare}
 
-object CareYouProvide extends Controller with CachedClaim with FormMappings {
+object CareYouProvide extends Controller with CachedClaim {
 
   val theirPersonalDetailsForm = Form(
     mapping(
@@ -64,7 +62,7 @@ object CareYouProvide extends Controller with CachedClaim with FormMappings {
   def hasBreaks = claiming {
     implicit claim => implicit request =>
 
-      /*claim.form(models.claim.ClaimDate.id) match {
+      /*claim.form(models.domain.ClaimDate.id) match {
         case Some(n) => Ok(views.html.s4_careYouProvide.g9_breaks(breaksForm))
         case _ => Redirect(routes.CarersAllowance.benefits())
       }*/
