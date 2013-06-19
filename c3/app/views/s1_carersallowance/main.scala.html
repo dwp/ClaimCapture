@@ -1,6 +1,7 @@
 @(title: String, completedForms: List[models.claim.Form] = Nil)(content: Html)
 
 @import helper._
+@import models.claim.BooleanConfirmation
 
 @common.govMain(title) {
 
@@ -19,7 +20,7 @@
                             @for(completedForm <- completedForms) {
                                 <li>
                                     <h3>@Messages(completedForm.id)</h3>
-                                    <p>@completedForm.confirmation</p>
+                                    <p>@{completedForm.asInstanceOf[BooleanConfirmation].confirmation}</p>
                                     <a href="@CarersAllowance.route(completedForm.id)">Change this answer</a>
                                 </li>
                             }

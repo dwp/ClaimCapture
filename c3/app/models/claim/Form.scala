@@ -1,13 +1,8 @@
 package models.claim
 
-abstract class Form(val id: String) extends Confirmation
+abstract class Form(val id: String)
 
-trait Confirmation {
-  def confirmation: String = ""
-}
-
-trait BooleanConfirmation extends Confirmation {
+trait BooleanConfirmation {
   val answer: Boolean
-
-  override def confirmation = if (answer) "Yes" else "No"
+  def confirmation = if (answer) "Yes" else "No"
 }
