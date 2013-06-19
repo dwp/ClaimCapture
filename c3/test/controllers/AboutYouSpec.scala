@@ -134,8 +134,6 @@ class AboutYouSpec extends Specification with Mockito {
       status(result) mustEqual BAD_REQUEST
     }
 
-
-
     """present completion""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
