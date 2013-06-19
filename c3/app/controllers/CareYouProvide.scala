@@ -40,13 +40,19 @@ object CareYouProvide extends Controller with CachedClaim with FormMappings {
 
   def breaks = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s4_careYouProvide.g9_breaks(breaksForm))
+
+      /*claim.form(models.claim.ClaimDate.id) match {
+        case Some(n) => Ok(views.html.s4_careYouProvide.g9_breaks(breaksForm))
+        case _ => Redirect(routes.CarersAllowance.benefits())
+      }*/
+
+      Ok(views.html.s4_careYouProvide.g10_breaks(breaksForm))
   }
 
   def breaksSubmit = claiming {
     implicit claim => implicit request =>
       breaksForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_breaks(formWithErrors)),
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g10_breaks(formWithErrors)),
         inputForm =>
           if (inputForm.breaks == "yes") claim.update(inputForm) -> Redirect(routes.CareYouProvide.breaksInCare())
           else claim.update(inputForm) -> Redirect(routes.CareYouProvide.completed()))
@@ -60,7 +66,7 @@ object CareYouProvide extends Controller with CachedClaim with FormMappings {
   def breaksInCareSubmit = claiming {
     implicit claim => implicit request =>
       breaksInCareForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s4_careYouProvide.g10_breaksInCare(formWithErrors)),
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_breaksInCare(formWithErrors)),
         inputForm =>
           if (inputForm.moreBreaks == "yes") claim.update(inputForm) -> Redirect(routes.CareYouProvide.breaksInCare())
           else claim.update(inputForm) -> Redirect(routes.CareYouProvide.completed()))
