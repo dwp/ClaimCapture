@@ -26,6 +26,29 @@
       .carers-allowance .carers-container {
         padding-left: .75em;
         padding-right: .75em; } }
+    .carers-allowance .carers-container .prototype {
+      background: #f47738;
+      padding: 0.7em 1em 0 1em; }
+      @media screen and (max-width: 640px) {
+        .carers-allowance .carers-container .prototype {
+          padding-bottom: .7em; } }
+      .carers-allowance .carers-container .prototype p {
+        margin: 0;
+        padding: 0;
+        line-height: 1.2em;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.5rem; }
+        .ie .carers-allowance .carers-container .prototype p {
+          font-size: 15px; }
+        .carers-allowance .carers-container .prototype p strong {
+          letter-spacing: 0.2em;
+          font-size: 1.5rem; }
+          .ie .carers-allowance .carers-container .prototype p strong {
+            font-size: 15px; }
+        .carers-allowance .carers-container .prototype p a {
+          color: #fff;
+          margin-left: .25em; }
   .carers-allowance section {
     border-top: 10px solid #f47738;
     background: #fff;

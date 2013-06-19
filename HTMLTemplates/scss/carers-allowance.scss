@@ -12,6 +12,33 @@ $button-green-hover: #004b27;
 	   margin: 0 auto;
 	   max-width: 960px;
 	   @media screen and (max-width: 500px) {padding-left: .75em; padding-right: .75em;}
+	   .prototype {
+		   background: #f47738;
+		   padding: 0.7em 1em 0 1em;
+		   @media screen and (max-width: 640px) {padding-bottom: .7em;}
+		   p {
+			   margin: 0;
+			   padding: 0;
+			   line-height: 1.2em;
+			   color: #fff;
+			   font-weight: 600;
+			   font-size: 1.5rem;
+			   .ie & {
+				   font-size: 15px;
+			   }
+			   strong {
+				   letter-spacing: 0.2em;
+				    font-size: 1.5rem;
+				    .ie & {
+					    font-size: 15px;
+				    }
+			   }
+			   a {
+				   color: #fff;
+				   margin-left: .25em;
+			   }
+		   }
+	   }
    }
    
    

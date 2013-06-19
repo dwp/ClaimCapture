@@ -69,5 +69,32 @@ class CareYouProvideSpec extends Specification with Mockito {
       val result = controllers.CareYouProvide.breaksSubmit(request)
       redirectLocation(result) must beSome("/careYouProvide/completed")
     }
+
+    """present "breaks in care" """ in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+
+      val result = controllers.CareYouProvide.breaksInCare(request)
+      status(result) mustEqual OK
+    }
+
+    "complete upon indicating that there are no more breaks having provided zero break details" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("moreBreaks" -> "no")
+
+      val result = controllers.CareYouProvide.breaksInCareSubmit(request)
+      redirectLocation(result) must beSome("/careYouProvide/completed")
+
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      claim.form(BreaksInCare.id) must beLike {
+        case Some(f: BreaksInCare) => f.moreBreaks mustEqual "no"
+      }
+    }
+
+    /*"""allow more breaks to be added (answer "yes" to ""Have you had any more breaks) """ in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("moreBreaks" -> "yes")
+
+      val result = controllers.CareYouProvide.breaksInCareSubmit(request)
+      status(result) mustEqual OK
+    }*/
   }
 }
