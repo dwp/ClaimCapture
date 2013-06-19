@@ -6,7 +6,6 @@ import play.api.cache.Cache
 import play.api.test.Helpers._
 import org.specs2.mock.Mockito
 import models.claim._
-import models.claim.Section
 import models.claim.Claim
 import scala.Some
 
@@ -29,9 +28,8 @@ class AboutYouSpec extends Specification with Mockito {
       redirectLocation(result) must beSome("/aboutyou/contactDetails")
 
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(models.claim.AboutYou.id).get
 
-      section.form(YourDetails.id) must beLike {
+      claim.form(YourDetails.id) must beLike {
         case Some(f: YourDetails) => f.firstName mustEqual "Scooby"
       }
     }

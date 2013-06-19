@@ -35,9 +35,8 @@ class CarersAllowanceSpec extends Specification {
       controllers.CarersAllowance.benefitsSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(models.claim.CarersAllowance.id).get
 
-      section.form(Benefits.id) must beLike {
+      claim.form(Benefits.id) must beLike {
         case Some(f: Benefits) => f.answer mustEqual true
       }
     }
@@ -47,9 +46,8 @@ class CarersAllowanceSpec extends Specification {
       controllers.CarersAllowance.benefitsSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(models.claim.CarersAllowance.id).get
 
-      section.form(Benefits.id) must beLike {
+      claim.form(Benefits.id) must beLike {
         case Some(f: Benefits) => f.answer mustEqual false
       }
     }
@@ -72,10 +70,10 @@ class CarersAllowanceSpec extends Specification {
     "acknowledge that you spend 35 hours or more each week caring for the person you look after" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
       controllers.CarersAllowance.hoursSubmit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(models.claim.CarersAllowance.id).get
 
-      section.form(Hours.id) must beLike {
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      claim.form(Hours.id) must beLike {
         case Some(f: Hours) => f.answer mustEqual true
       }
     }
@@ -120,9 +118,8 @@ class CarersAllowanceSpec extends Specification {
       controllers.CarersAllowance.livesInGBSubmit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(models.claim.CarersAllowance.id).get
 
-      section.form(LivesInGB.id) must beLike {
+      claim.form(LivesInGB.id) must beLike {
         case Some(f: LivesInGB) => f.answer mustEqual true
       }
     }
@@ -152,9 +149,8 @@ class CarersAllowanceSpec extends Specification {
       controllers.CarersAllowance.over16Submit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(models.claim.CarersAllowance.id).get
 
-      section.form(Over16.id) must beLike {
+      claim.form(Over16.id) must beLike {
         case Some(f: Over16) => f.answer mustEqual true
       }
     }
