@@ -22,7 +22,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "middleName" -> optional(text),
       "surname" -> nonEmptyText,
       "otherNames" -> optional(text),
-      "nationalInsuranceNumber" -> optional(Validation.nationalInsuranceNumber.verifying(Validation.validNationalInsuranceNumber)),
+      "nationalInsuranceNumber" -> optional(Forms.nationalInsuranceNumber.verifying(Forms.validNationalInsuranceNumber)),
       "nationality" -> nonEmptyText,
       "dateOfBirth" -> date.verifying(validDate),
       "maritalStatus" -> nonEmptyText,

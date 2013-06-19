@@ -9,19 +9,20 @@ import util.Failure
 import play.api.data.validation.ValidationError
 import models.{DayMonthYear, MultiLineAddress, NationalInsuranceNumber}
 import util.Success
+import play.api.data.validation.Constraints._
 
-object Validation {
+object Forms {
   def nationalInsuranceNumber: Mapping[NationalInsuranceNumber] = mapping(
-    "ni1" -> optional(text),
-    "ni2" -> optional(number),
-    "ni3" -> optional(number),
-    "ni4" -> optional(number),
-    "ni5" -> optional(text))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
+    "ni1" -> optional(nonEmptyText verifying (minLength(2), maxLength(2), pattern ("[A-Z]+".r, name = "constraint.pattern", error = "error.pattern"))),
+    "ni2" -> optional(number(0, 99)),
+    "ni3" -> optional(number(0, 99)),
+    "ni4" -> optional(number(0, 99)),
+    "ni5" -> optional(nonEmptyText verifying (maxLength(1), pattern ("[A-Z]".r, name = "constraint.pattern", error = "error.pattern"))))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
 
     
   def validNationalInsuranceNumber: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.required") {
     dmy => dmy match {
-      case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid // TODO: [SKW] validate number and letter rules. AB123456C
+      case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid
       case _ => Invalid(ValidationError("error.invalid"))
     }
   }
