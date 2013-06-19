@@ -9,25 +9,22 @@
             <p>Based on your answers you may be entitled to Carer's Allowance.</p>
             
         </div>
-        } else {
+    } else {
         <div class="prompt error">
             <h3>Based on your answers you may not be entitled to Carer's Allowance.</h3>
-
             <p>If your circumstances change, you may be entitled to Carer's Allowance <a href="#">Find out more about Carer's Allowance</a>.</p>
-       
         </div>
     }
 
     @form(action = routes.CarersAllowance.approveSubmit) {
         <div class="form-steps">
         	@if(approved == false) {
-        	 <p>However, if you wish to continue, click the <strong>'Next Step'</strong> button below.</p>
-        	 } else {
-        	 <p>Please click the <strong>'Next Step'</strong> button below.</p>
-        	 }
+        	    <p>However, if you wish to continue, click the <strong>'Next Step'</strong> button below.</p>
+            } else {
+        	    <p>Please click the <strong>'Next Step'</strong> button below.</p>
+            }
+
             <button type="submit" name="action" value="next" class="button">Next Step</button>
-            
-            
         </div>
     }
 }
