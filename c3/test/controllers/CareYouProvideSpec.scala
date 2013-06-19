@@ -111,11 +111,17 @@ class CareYouProvideSpec extends Specification with Mockito {
       }
     }
 
-    /*"""allow more breaks to be added (answer "yes" to ""Have you had any more breaks) """ in new WithApplication with Claiming {
+    """allow more breaks to be added (answer "yes" to ""Have you had any more breaks) """ in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("moreBreaks" -> "yes")
 
       val result = controllers.CareYouProvide.breaksInCareSubmit(request)
-      status(result) mustEqual OK
-    }*/
+      redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
+
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      claim.form(BreaksInCare.id) must beLike {
+        case Some(b: BreaksInCare) => b.breaks mustEqual Nil
+      }
+    }
   }
 }
