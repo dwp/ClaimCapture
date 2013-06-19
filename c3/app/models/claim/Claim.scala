@@ -30,6 +30,7 @@ case class Claim(sections: Map[String, Section] = Map()) extends CreationTimeSta
       val updated = forms map {
         f => if (f.id == form.id) form else f
       }
+
       if (updated.contains(form)) updated else updated :+ form
     }
 

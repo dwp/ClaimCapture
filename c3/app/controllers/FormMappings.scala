@@ -4,7 +4,6 @@ import play.api.data.Mapping
 import play.api.data.Forms._
 import play.api.data.validation.{Invalid, Valid, Constraint}
 import scala.util.Try
-import org.joda.time.DateTime
 import util.Failure
 import play.api.data.validation.ValidationError
 import models.DayMonthYear
@@ -27,14 +26,15 @@ trait FormMappings {
       case DayMonthYear(None, None, None) => Invalid(ValidationError("error.required"))
       case DayMonthYear(_, _, _) =>
 
-        Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
-          case Success(dt:DateTime) => if (dt.getYear > 9999) Invalid(ValidationError("error.invalid")) else Valid
+        Try(new org.joda.time.DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
+          case Success(dt: org.joda.time.DateTime) if dt.getYear > 9999 => Invalid(ValidationError("error.invalid"))
+          case Success(dt: org.joda.time.DateTime) => Valid
           case Failure(_) => Invalid(ValidationError("error.invalid"))
         }
     }
   }
-  def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") {
-    a =>
-      if (a.lineOne.isEmpty && a.lineTwo.isEmpty && a.lineThree.isEmpty) Invalid(ValidationError("error.required")) else Valid
+
+  def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
+    if (a.lineOne.isEmpty && a.lineTwo.isEmpty && a.lineThree.isEmpty) Invalid(ValidationError("error.required")) else Valid
   }
 }

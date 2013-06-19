@@ -45,28 +45,28 @@ class CareYouProvideSpec extends Specification with Mockito {
     """present "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.CareYouProvide.breaks(request)
+      val result = controllers.CareYouProvide.hasBreaks(request)
       status(result) mustEqual OK
     }
 
     """enforce answer to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.CareYouProvide.breaksSubmit(request)
+      val result = controllers.CareYouProvide.hasBreaksSubmit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """accept "yes" to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("breaks" -> "yes")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "yes")
 
-      val result = controllers.CareYouProvide.breaksSubmit(request)
+      val result = controllers.CareYouProvide.hasBreaksSubmit(request)
       redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
     }
 
     """accept "no" to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("breaks" -> "no")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "no")
 
-      val result = controllers.CareYouProvide.breaksSubmit(request)
+      val result = controllers.CareYouProvide.hasBreaksSubmit(request)
       redirectLocation(result) must beSome("/careYouProvide/completed")
     }
 
@@ -86,7 +86,28 @@ class CareYouProvideSpec extends Specification with Mockito {
       val claim = Cache.getAs[Claim](claimKey).get
 
       claim.form(BreaksInCare.id) must beLike {
-        case Some(f: BreaksInCare) => f.moreBreaks mustEqual "no"
+        case Some(b: BreaksInCare) => b.breaks mustEqual Nil
+      }
+    }
+
+    "complete upon indicating that there are no more breaks having now provided one break" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(
+          "moreBreaks" -> "no",
+          "break.start.day" -> "1",
+          "break.start.month" -> "1",
+          "break.start.year" -> "2001",
+          "break.end.day" -> "1",
+          "break.end.month" -> "1",
+          "break.end.year" -> "2001")
+
+      val result = controllers.CareYouProvide.breaksInCareSubmit(request)
+      redirectLocation(result) must beSome("/careYouProvide/completed")
+
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      claim.form(BreaksInCare.id) must beLike {
+        case Some(b: BreaksInCare) => b.breaks.size mustEqual 1
       }
     }
 

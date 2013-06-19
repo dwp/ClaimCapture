@@ -15,7 +15,7 @@ $button-green-hover: #004b27;
 	   .prototype {
 		   background: #f47738;
 		   padding: 0.7em 1em 0 1em;
-		   @media screen and (max-width: 640px) {padding-bottom: .7em;}
+		   @media screen and (max-width: 640px) {padding-bottom: .7em; margin-top: .9em;}
 		   p {
 			   margin: 0;
 			   padding: 0;
@@ -27,7 +27,6 @@ $button-green-hover: #004b27;
 				   font-size: 15px;
 			   }
 			   strong {
-				   letter-spacing: 0.2em;
 				    font-size: 1.5rem;
 				    .ie & {
 					    font-size: 15px;
@@ -447,6 +446,12 @@ $button-green-hover: #004b27;
 			   }
 			   textarea {
 				   height: 6em;
+				   width: 56.6rem;
+				   background: #f9f9f9;
+				   @media screen and (max-width: 620px) {width: 96%;}
+				   .ie & {
+					   width: 566px;
+				   }
 			   }
 			   select {
 				   padding: 2px;
@@ -496,7 +501,7 @@ $button-green-hover: #004b27;
 					   }
 					   label {
 						   display: block;
-						   background: #eee;
+						   background: #f3f3f3;
 						   padding: .5em 1em .4em 2.2em;
 						   font-size: 1.7rem;
 						   color: #666;
@@ -510,11 +515,11 @@ $button-green-hover: #004b27;
 					   input[type="radio"]:checked + label {
 						   background: #fff;
 						   color: #0b0c0c;
-						   -webkit-transition: all 100ms ease-in;
-						   -moz-transition: all 100ms ease-in;
-						   -ms-transition: all 100ms ease-in;
-						   -o-transition: all 100ms ease-in;
-						   transition: all 100ms ease-in;
+						   -webkit-transition: all 200ms ease-in;
+						   -moz-transition: all 200ms ease-in;
+						   -ms-transition: all 200ms ease-in;
+						   -o-transition: all 200ms ease-in;
+						   transition: all 200ms ease-in;
 					   }
 				   }
 			 }
@@ -1032,14 +1037,22 @@ $button-green-hover: #004b27;
 			strong {
 				display: none;
 			}
+			span {
+				position: absolute;
+				top: 13px;
+				right: 13px;
+			}
 		}
 	}
 }
 
+
+
+/* temp styling */
 textarea.demo {text-align: left!important; width: 120%!important; font-size: 1.5rem!important; height: 20rem!important; margin-top: 1em; border-color: red!important; padding: 1rem!important; background: #eee!important; margin-bottom: 3em!important}
 
 
 /* Header - Footer Overrides */
-#global-header .header-wrapper {padding: 0.5em 0;}
+#global-header .header-wrapper {padding: 0.5em 1px!important;}
 #footer .carers-allowance-footer {padding-top: 0;}
 #footer .carers-allowance-footer .footer-meta {margin-top: 0; border-top: 0;}
