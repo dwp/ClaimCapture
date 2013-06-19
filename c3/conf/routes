@@ -52,10 +52,17 @@ POST    /aboutyou/completed                         controllers.AboutYou.complet
 ###############
 GET     /yourpartner/yourpartner                    controllers.YourPartner.yourPartner
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                               controllers.Assets.at(path="/public", file)
-
 # Care You Provide
 ###############
-#GET     /careYouProvide/theirPersonalDetails       controllers.CareYouProvide.theirPersonalDetails
+#GET    /careYouProvide/theirPersonalDetails        controllers.CareYouProvide.theirPersonalDetails
 POST    /careYouProvide/theirPersonalDetailsSubmit  controllers.CareYouProvide.theirPersonalDetailsSubmit
+
+GET     /careYouProvide/breaks                      controllers.CareYouProvide.breaks
+POST    /careYouProvide/breaks                      controllers.CareYouProvide.breaksSubmit
+
+GET     /careYouProvide/breaksInCare                controllers.CareYouProvide.breaksInCare
+
+GET     /careYouProvide/completed                   controllers.CareYouProvide.completed
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                               controllers.Assets.at(path="/public", file)

@@ -13,3 +13,9 @@ case class TheirPersonalDetails(title: String, firstName: String, middleName: Op
 object TheirPersonalDetails {
   val id = s"${CareYouProvide.id}.g1"
 }
+
+case class Breaks(breaks: String) extends Form(Breaks.id)
+
+object Breaks {
+  val id = s"${CareYouProvide.id}.g9"
+}

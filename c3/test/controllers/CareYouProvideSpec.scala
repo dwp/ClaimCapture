@@ -5,6 +5,7 @@ import org.specs2.mock.Mockito
 import play.api.test.{FakeRequest, WithApplication}
 import models.claim._
 import play.api.cache.Cache
+import play.api.test.Helpers._
 import models.claim.Section
 import models.claim.Claim
 import scala.Some
@@ -37,6 +38,36 @@ class CareYouProvideSpec extends Specification with Mockito {
           f.liveAtSameAddress mustEqual "yes"
         }
       }
+    }
+  }
+
+  "Care You Provide for breaks" should {
+    """present "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+
+      val result = controllers.CareYouProvide.breaks(request)
+      status(result) mustEqual OK
+    }
+
+    """enforce answer to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+
+      val result = controllers.CareYouProvide.breaksSubmit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    """accept "yes" to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("breaks" -> "yes")
+
+      val result = controllers.CareYouProvide.breaksSubmit(request)
+      redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
+    }
+
+    """accept "no" to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("breaks" -> "no")
+
+      val result = controllers.CareYouProvide.breaksSubmit(request)
+      redirectLocation(result) must beSome("/careYouProvide/completed")
     }
   }
 }
