@@ -96,7 +96,7 @@
         .carers-allowance .completed .start-again a:hover {
           background: #004b27; }
     .carers-allowance .completed ul li {
-      background: #d5e8f3 url("images/progress-tick.png") 1em 1.3em no-repeat;
+      background: #d5e8f3 url("../img/progress-tick.png") 1em 1.3em no-repeat;
       border-bottom: 1px solid #b6d6d2;
       padding: 1em 11em 1em 2.8em;
       position: relative; }
