@@ -510,11 +510,11 @@ $button-green-hover: #004b27;
 					   input[type="radio"]:checked + label {
 						   background: #fff;
 						   color: #0b0c0c;
-						   -webkit-transition: all 200ms ease-in;
-						   -moz-transition: all 200ms ease-in;
-						   -ms-transition: all 200ms ease-in;
-						   -o-transition: all 200ms ease-in;
-						   transition: all 200ms ease-in;
+						   -webkit-transition: all 100ms ease-in;
+						   -moz-transition: all 100ms ease-in;
+						   -ms-transition: all 100ms ease-in;
+						   -o-transition: all 100ms ease-in;
+						   transition: all 100ms ease-in;
 					   }
 				   }
 			 }
