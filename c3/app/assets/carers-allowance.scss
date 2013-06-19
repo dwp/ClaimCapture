@@ -333,17 +333,6 @@ $button-green-hover: #004b27;
 					   }
 				   }
 			   }
-			   &.address-stack {
-			   	   margin-top: .4em;
-			   	   padding: 0 0 0 0;
-			   	   &.first {
-				   	   margin: 0;
-			   	   }
-				   label {
-					   position: absolute;
-					   left: -9999px;
-				   }
-			   }
 			   .helper {
 				   font-size: 1.6rem;
 				   margin-top: .4em;
@@ -494,6 +483,23 @@ $button-green-hover: #004b27;
 				   }
 			 }
 			 /* radio */
+			 
+			 
+			 
+			 /* Address stack */
+			 &.address-stack {
+				   label {
+					   position: absolute;
+					   left: -9999px;
+				   }
+				   li {
+					   margin-top: .4em;
+					   padding: 0 0 0 0;
+					   &:first-child {
+						   margin: 0;
+					   }
+				   }
+			   }
 			 
 			 
 			 

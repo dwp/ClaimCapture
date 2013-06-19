@@ -4,18 +4,18 @@
 
 @input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
 
-    <ul class="group">
+    <ul class="address-stack">
         @if(field("lineOne").hasErrors) {
             <p class="error">@Messages( field("lineOne").error.get.message ) </p>
         }
 
-        <li class="address-stack first">
+        <li>
             <input id="@{name}-lineOne" name="@{name}.lineOne" type="text" value="@{field("lineOne").value}">
         </li>
 
-        <li class="address-stack">
+        <li>
             <input id="@{name}-lineTwo" name="@{name}.lineTwo" type="text" value="@{field("lineTwo").value}">
-        <li class="address-stack">
+        <li>
             <input id="@{name}-lineThree" name="@{name}.lineThree" type="text" value="@{field("lineThree").value}">
         </li>
     </ul>
