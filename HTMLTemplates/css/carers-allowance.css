@@ -273,10 +273,10 @@
           margin: 0; }
         .ie .carers-allowance .form-elements ul li {
           margin-top: 4px; }
-        .carers-allowance .form-elements ul li .other-detail {
-          margin: 1em 0 0 0;
-          padding: 0; }
-          .carers-allowance .form-elements ul li .other-detail label {
+        .carers-allowance .form-elements ul li.other-detail {
+          margin: 0;
+          padding-top: 0; }
+          .carers-allowance .form-elements ul li.other-detail label {
             position: absolute;
             left: -9999px; }
         .carers-allowance .form-elements ul li.validation {
