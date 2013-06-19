@@ -70,3 +70,10 @@ ownProperty.label = Do you or your partner own property or land in the UK or abr
 ownProperty = Do you or your partner own property or land in the UK or abroad that you have rented out since one week before your claim date?
 hasSublet.label = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
 hasSublet = Have you sublet your home, or provided board and lodgings, since one week before your claim date?
+
+
+#CARE YOU PROVIDE
+
+#BREAKS
+breaks = Have you had any breaks in caring since {0}?
+breaks.prompt = <p class="intro">By break we mean time when, for any reason, you spent less than 35 hours a week caring for the person you look after. For example, if:</p><ul><li>They were in respite care, in hospital or on holiday without you, or</li><li>You were in hospital or on holiday without them.</li></ul>
