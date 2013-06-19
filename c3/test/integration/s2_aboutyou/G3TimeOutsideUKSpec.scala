@@ -23,9 +23,9 @@ class G3TimeOutsideUKSpec extends Specification with Tags {
       browser.goTo("/aboutyou/timeOutsideUK")
       browser.click("#currentlyLivingInUK_no")
 
-      browser.click("#arrivedInUK-day option[value='1']")
-      browser.click("#arrivedInUK-month option[value='1']")
-      browser.fill("#arrivedInUK-year") `with` "2001"
+      browser.click("#arrivedInUK_day option[value='1']")
+      browser.click("#arrivedInUK_month option[value='1']")
+      browser.fill("#arrivedInUK_year") `with` "2001"
 
       browser.submit("button[value='next']")
       browser.title() mustEqual "Claim Date - About You"
@@ -44,9 +44,9 @@ class G3TimeOutsideUKSpec extends Specification with Tags {
       browser.click("#currentlyLivingInUK_yes")
       browser.click("#planToGoBack_yes")
 
-      browser.click("#whenPlanToGoBack-day option[value='1']")
-      browser.click("#whenPlanToGoBack-month option[value='1']")
-      browser.fill("#whenPlanToGoBack-year") `with` "2001"
+      browser.click("#whenPlanToGoBack_day option[value='1']")
+      browser.click("#whenPlanToGoBack_month option[value='1']")
+      browser.fill("#whenPlanToGoBack_year") `with` "2001"
 
       browser.submit("button[value='next']")
       browser.title() mustEqual "Claim Date - About You"

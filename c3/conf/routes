@@ -61,6 +61,7 @@ GET     /careYouProvide/hasBreaks                   controllers.CareYouProvide.h
 POST    /careYouProvide/hasBreaks                   controllers.CareYouProvide.hasBreaksSubmit
 
 GET     /careYouProvide/breaksInCare                controllers.CareYouProvide.breaksInCare
+POST     /careYouProvide/breaksInCare                controllers.CareYouProvide.breaksInCareSubmit
 
 GET     /careYouProvide/completed                   controllers.CareYouProvide.completed
 

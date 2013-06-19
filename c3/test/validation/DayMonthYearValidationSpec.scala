@@ -12,7 +12,7 @@ class DayMonthYearValidationSpec extends Specification {
     "accept valid input" in {
       Form( "date" -> ( dayMonthYear.verifying(validDate) ) ).bind( Map( "date.day" -> "1", "date.month" -> "2", "date.year" -> "1980") ).fold(
         formWithErrors => "The mapping should not fail." must equalTo("Error"),
-        dateMonthYear => dateMonthYear must equalTo( DayMonthYear(Some(1),Some(2),Some(1980)) )
+        dateMonthYear => dateMonthYear must equalTo( DayMonthYear(Some(1),Some(2),Some(1980),None,None) )
       )
     }
 
