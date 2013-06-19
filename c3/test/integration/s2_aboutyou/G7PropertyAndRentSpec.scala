@@ -37,9 +37,9 @@ class G7PropertyAndRentSpec extends Specification with Tags {
       val h3 = browser.find("div[class=completed] ul li h3")
       h3.getText.contains(dateString) mustEqual true
 
-      val questionLabels = browser.find("fieldset[class=form-elements] ul > li > label")
+      val questionLabels = browser.find("fieldset[class=form-elements] ul > li > p")
       questionLabels.get(0).getText must contain(dateString)
-      questionLabels.get(3).getText must contain(dateString)
+      questionLabels.get(1).getText must contain(dateString)
     }
 
     "contain errors on invalid submission" in new WithBrowser {

@@ -25,18 +25,16 @@
 
                 @inputText(theirPersonalDetailsForm("surname"))
 
-                @inputText(theirPersonalDetailsForm("otherNames"))
-
                 @inputText(theirPersonalDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"))
 
-                @inputDayMonthYear(theirPersonalDetailsForm("dateOfBirth"))
+                @inputDayMonthYear(theirPersonalDetailsForm("dateOfBirth"), 'helper-> Messages("dateOfBirth.helper"))
 
                 @yesNoRadioGroup(theirPersonalDetailsForm("liveAtSameAddress"))
             </ul>
         </fieldset>
 
         <div class="form-steps">
-            <a href="" class="button secondary">Back</a>
+            <a href="@routes.AboutYou.completed" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

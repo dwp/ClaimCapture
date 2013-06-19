@@ -7,7 +7,7 @@ object CareYouProvide {
 }
 
 case class TheirPersonalDetails(title: String, firstName: String, middleName: Option[String], surname: String,
-                                otherNames: Option[String], nationalInsuranceNumber: Option[String],
+                                nationalInsuranceNumber: Option[String],
                                 dateOfBirth: DayMonthYear, liveAtSameAddress: String) extends Form(TheirPersonalDetails.id)
 
 object TheirPersonalDetails {
