@@ -9,7 +9,7 @@ import models.claim.Benefits
 import models.claim.LivesInGB
 import models.claim.Over16
 
-object CarersAllowance extends Controller with CachedClaim with FormMappings {
+object CarersAllowance extends Controller with CachedClaim {
   val route = Map(Benefits.id -> routes.CarersAllowance.benefits,
                   Hours.id -> routes.CarersAllowance.hours,
                   LivesInGB.id -> routes.CarersAllowance.livesInGB,

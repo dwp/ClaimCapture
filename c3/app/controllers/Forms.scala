@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.data.validation.{Valid, ValidationError, Invalid, Constraint}
-import models.DayMonthYear
+import models.{MultiLineAddress, DayMonthYear}
 import util.{Failure, Success, Try}
 import org.joda.time.DateTime
 import play.api.data.Mapping
@@ -14,6 +14,11 @@ object Forms {
     "month" -> optional(number),
     "year" -> optional(number))(DayMonthYear.apply)(DayMonthYear.unapply)
 
+  val address: Mapping[MultiLineAddress] = mapping(
+    "lineOne" -> optional(text),
+    "lineTwo" -> optional(text),
+    "lineThree" -> optional(text))(MultiLineAddress.apply)(MultiLineAddress.unapply)
+
   def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
     dmy => dmy match {
       case DayMonthYear(None, None, None) => Invalid(ValidationError("error.required"))
@@ -24,6 +29,10 @@ object Forms {
           case Failure(_) => Invalid(ValidationError("error.invalid"))
         }
     }
+  }
+
+  def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
+    if (a.lineOne.isEmpty && a.lineTwo.isEmpty && a.lineThree.isEmpty) Invalid(ValidationError("error.required")) else Valid
   }
 
 }

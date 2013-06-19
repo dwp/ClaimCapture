@@ -5,8 +5,9 @@ import play.api.mvc._
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
+import Forms._
 
-object AboutYou extends Controller with CachedClaim with FormMappings {
+object AboutYou extends Controller with CachedClaim {
   val route = Map(YourDetails.id -> routes.AboutYou.yourDetails,
                   ContactDetails.id -> routes.AboutYou.contactDetails,
                   TimeOutsideUK.id -> routes.AboutYou.timeOutsideUK(),
@@ -25,7 +26,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "nationalInsuranceNumber" -> optional(text verifying(pattern( """^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$""".r,
                                                           "constraint.nationalInsuranceNumber", "error.nationalInsuranceNumber"), maxLength(10))),
       "nationality" -> nonEmptyText,
-      "dateOfBirth" -> date.verifying(validDate),
+      "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "maritalStatus" -> nonEmptyText,
       "alwaysLivedUK" -> nonEmptyText
     )(YourDetails.apply)(YourDetails.unapply))
@@ -42,16 +43,16 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
   val timeOutsideUKForm = Form(
     mapping(
       "currentlyLivingInUK" -> nonEmptyText(),
-      "arrivedInUK" -> optional(date.verifying(validDate)),
+      "arrivedInUK" -> optional(dayMonthYear.verifying(validDate)),
       "originCountry" -> optional(text),
       "planToGoBack" -> optional(text),
-      "whenPlanToGoBack"-> optional(date.verifying(validDate)),
+      "whenPlanToGoBack"-> optional(dayMonthYear.verifying(validDate)),
       "visaReference" -> optional(text)
     )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
 
   val claimDateForm = Form(
     mapping(
-      "dateOfClaim" -> date.verifying(validDate)
+      "dateOfClaim" -> dayMonthYear.verifying(validDate)
     )(ClaimDate.apply)(ClaimDate.unapply))
 
   val moreAboutYouForm = Form(

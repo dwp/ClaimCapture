@@ -64,9 +64,6 @@ GET     /careYouProvide/breaksInCare                controllers.CareYouProvide.b
 
 GET     /careYouProvide/completed                   controllers.CareYouProvide.completed
 
-GET     /careYouProvide/theirPersonalDetails        controllers.CareYouProvide.theirPersonalDetails
-POST    /careYouProvide/theirPersonalDetailsSubmit  controllers.CareYouProvide.theirPersonalDetailsSubmit
-
 GET     /careYouProvide/theirContactDetails        controllers.CareYouProvide.theirContactDetails
 
 # Map static resources from the /public folder to the /assets URL path
