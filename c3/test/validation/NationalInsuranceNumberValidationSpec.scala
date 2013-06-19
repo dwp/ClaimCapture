@@ -16,8 +16,6 @@ class NationalInsuranceNumberValidationSpec extends Specification {
   
 "NI validation" should{
   "not complain about a valid NI" in {
-
-
     Form( "nationalInsuranceNumber" -> Validation.nationalInsuranceNumber.verifying( Validation.validNationalInsuranceNumber) ).bind( Map(
         "nationalInsuranceNumber.ni1" -> "AB",
         "nationalInsuranceNumber.ni2" -> "12",
@@ -33,8 +31,68 @@ class NationalInsuranceNumberValidationSpec extends Specification {
           number.ni5 must equalTo(Some("C"))
         }
     )
-
   }
+
+  "complain  when field 1 missing" in {
+    Form( "nationalInsuranceNumber" -> Validation.nationalInsuranceNumber.verifying( Validation.validNationalInsuranceNumber) ).bind( Map(
+        
+        "nationalInsuranceNumber.ni2" -> "12",
+        "nationalInsuranceNumber.ni3" -> "34",
+        "nationalInsuranceNumber.ni4" -> "56",
+        "nationalInsuranceNumber.ni5" -> "C") ).fold(
+        formWithErrors => { formWithErrors.errors.head.message must equalTo("error.invalid") },
+        { number => "The mapping should fail." must equalTo("Error") }
+    )
+  }
+  
+
+  "complain  when field 2 missing" in {
+    Form( "nationalInsuranceNumber" -> Validation.nationalInsuranceNumber.verifying( Validation.validNationalInsuranceNumber) ).bind( Map(
+        "nationalInsuranceNumber.ni1" -> "AB",
+
+        "nationalInsuranceNumber.ni3" -> "34",
+        "nationalInsuranceNumber.ni4" -> "56",
+        "nationalInsuranceNumber.ni5" -> "C") ).fold(
+        formWithErrors => { formWithErrors.errors.head.message must equalTo("error.invalid") },
+        { number => "The mapping should fail." must equalTo("Error") }
+    )
+  }
+
+  "complain when field 3 missing" in {
+    Form( "nationalInsuranceNumber" -> Validation.nationalInsuranceNumber.verifying( Validation.validNationalInsuranceNumber) ).bind( Map(
+        "nationalInsuranceNumber.ni1" -> "AB",
+        "nationalInsuranceNumber.ni2" -> "12",
+
+        "nationalInsuranceNumber.ni4" -> "56",
+        "nationalInsuranceNumber.ni5" -> "C") ).fold(
+        formWithErrors => { formWithErrors.errors.head.message must equalTo("error.invalid") },
+        { number => "The mapping should fail." must equalTo("Error") }
+    )
+  }
+  
+  "complain when field 4 missing" in {
+    Form( "nationalInsuranceNumber" -> Validation.nationalInsuranceNumber.verifying( Validation.validNationalInsuranceNumber) ).bind( Map(
+        "nationalInsuranceNumber.ni1" -> "AB",
+        "nationalInsuranceNumber.ni2" -> "12",
+        "nationalInsuranceNumber.ni3" -> "34",
+
+        "nationalInsuranceNumber.ni5" -> "C") ).fold(
+        formWithErrors => { formWithErrors.errors.head.message must equalTo("error.invalid") },
+        { number => "The mapping should fail." must equalTo("Error") }
+    )
+  }
+  
+  "complain when field 5 missing" in {
+    Form( "nationalInsuranceNumber" -> Validation.nationalInsuranceNumber.verifying( Validation.validNationalInsuranceNumber) ).bind( Map(
+        "nationalInsuranceNumber.ni1" -> "AB",
+        "nationalInsuranceNumber.ni2" -> "12",
+        "nationalInsuranceNumber.ni3" -> "34",
+        "nationalInsuranceNumber.ni4" -> "56") ).fold(
+        formWithErrors => { formWithErrors.errors.head.message must equalTo("error.invalid") },
+        { number => "The mapping should fail." must equalTo("Error") }
+    )
+  }
+  
 }
   
 }

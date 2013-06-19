@@ -21,7 +21,7 @@ object Validation {
     
   def validNationalInsuranceNumber: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.required") {
     dmy => dmy match {
-      case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid // TODO: [SKW] validate AB123456C
+      case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid // TODO: [SKW] validate number and letter rules. AB123456C
       case _ => Invalid(ValidationError("error.invalid"))
     }
   }
