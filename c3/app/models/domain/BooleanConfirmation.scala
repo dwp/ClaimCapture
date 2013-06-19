@@ -1,6 +1,4 @@
-package models.claim
-
-abstract class Form(val id: String)
+package models.domain
 
 trait BooleanConfirmation {
   val answer: Boolean

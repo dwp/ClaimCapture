@@ -1,6 +1,4 @@
-package models.claim
-
-import models.DayMonthYear
+package models.domain
 
 object CareYouProvide {
   val id = "s4"
@@ -8,19 +6,19 @@ object CareYouProvide {
 
 case class TheirPersonalDetails(title: String, firstName: String, middleName: Option[String], surname: String,
                                 otherNames: Option[String], nationalInsuranceNumber: Option[String],
-                                dateOfBirth: DayMonthYear, liveAtSameAddress: String) extends Form(TheirPersonalDetails.id)
+                                dateOfBirth: DayMonthYear, liveAtSameAddress: String) extends QuestionGroup(TheirPersonalDetails.id)
 
 object TheirPersonalDetails {
   val id = s"${CareYouProvide.id}.g1"
 }
 
-case class HasBreaks(breaks: String) extends Form(HasBreaks.id)
+case class HasBreaks(breaks: String) extends QuestionGroup(HasBreaks.id)
 
 object HasBreaks {
   val id = s"${CareYouProvide.id}.g10"
 }
 
-case class BreaksInCare(breaks: List[Break] = Nil) extends Form(BreaksInCare.id) {
+case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare.id) {
   def update(break: Break) = BreaksInCare(breaks :+ break)
 }
 

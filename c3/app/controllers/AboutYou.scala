@@ -1,10 +1,14 @@
 package controllers
 
-import models.claim._
+import models.view._
 import play.api.mvc._
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
+import models.domain
+import models.domain._
+import play.api.data.FormError
+import scala.Some
 
 object AboutYou extends Controller with CachedClaim with FormMappings {
   val route = Map(YourDetails.id -> routes.AboutYou.yourDetails,
@@ -94,7 +98,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def contactDetails = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       val contactDetailsFormParam: Form[ContactDetails] = claim.form(ContactDetails.id) match {
         case Some(n: ContactDetails) => contactDetailsForm.fill(n)
@@ -106,7 +110,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def contactDetailsSubmit = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       contactDetailsForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g2_contactDetails(formWithErrors, completedForms.takeWhile(_.id != ContactDetails.id))),
@@ -118,7 +122,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       claim.form(YourDetails.id) match {
         case Some(YourDetails(_, _, _, _, _, _, _, _, _, "yes")) => Redirect(routes.AboutYou.claimDate())
         case _ =>
-          val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+          val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
           val timeOutsideUKFormParam: Form[TimeOutsideUK] = claim.form(TimeOutsideUK.id) match {
             case Some(n: TimeOutsideUK) => timeOutsideUKForm.fill(n)
@@ -141,7 +145,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
         else timeOutsideUKForm
       }
 
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       timeOutsideUKForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g3_timeOutsideUK(formWithErrors, completedForms.takeWhile(_.id != TimeOutsideUK.id))),
@@ -156,7 +160,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def claimDate = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
       val claimDateFormParam: Form[ClaimDate] = claim.form(ClaimDate.id) match {
         case Some(n: ClaimDate) => claimDateForm.fill(n)
         case _ => claimDateForm
@@ -167,7 +171,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def claimDateSubmit = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       claimDateForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g4_claimDate(formWithErrors, completedForms.takeWhile(_.id != ClaimDate.id))),
@@ -176,14 +180,14 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def moreAboutYou = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       val moreAboutYouFormParam: Form[MoreAboutYou] = claim.form(MoreAboutYou.id) match {
         case Some(n: MoreAboutYou) => moreAboutYouForm.fill(n)
         case _ => moreAboutYouForm
       }
 
-      claim.form(models.claim.ClaimDate.id) match {
+      claim.form(models.domain.ClaimDate.id) match {
         case Some(n) => Ok(views.html.s2_aboutyou.g5_moreAboutYou(moreAboutYouFormParam, completedForms.takeWhile(_.id != MoreAboutYou.id)))
         case _ => Redirect(routes.CarersAllowance.benefits())
       }
@@ -191,7 +195,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def moreAboutYouSubmit = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       moreAboutYouForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g5_moreAboutYou(formWithErrors, completedForms.takeWhile(_.id != MoreAboutYou.id))),
@@ -200,14 +204,14 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def employment = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       val employmentFormParam: Form[Employment] = claim.form(Employment.id) match {
         case Some(n: Employment) => employmentForm.fill(n)
         case _ => employmentForm
       }
 
-      claim.form(models.claim.ClaimDate.id) match {
+      claim.form(domain.ClaimDate.id) match {
         case Some(n) => Ok(views.html.s2_aboutyou.g6_employment(employmentFormParam, completedForms.takeWhile(_.id != Employment.id)))
         case _ => Redirect(routes.CarersAllowance.benefits())
       }
@@ -215,7 +219,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def employmentSubmit = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       employmentForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s2_aboutyou.g6_employment(formWithErrors, completedForms.takeWhile(_.id != Employment.id))),
@@ -224,14 +228,14 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def propertyAndRent = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       val propertyAndRentFormParam: Form[PropertyAndRent] = claim.form(PropertyAndRent.id) match {
         case Some(n: PropertyAndRent) => propertyAndRentForm.fill(n)
         case _ => propertyAndRentForm
       }
 
-      claim.form(models.claim.ClaimDate.id) match {
+      claim.form(domain.ClaimDate.id) match {
         case Some(n) => Ok(views.html.s2_aboutyou.g7_propertyAndRent(propertyAndRentFormParam, completedForms.takeWhile(_.id != PropertyAndRent.id)))
         case _ => Redirect(routes.CarersAllowance.benefits())
       }
@@ -239,7 +243,7 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def propertyAndRentSubmit = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       FormError
 
@@ -250,14 +254,14 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
 
   def completed = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       Ok(views.html.s2_aboutyou.g8_completed(completedForms))
   }
 
   def completedSubmit = claiming {
     implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+      val completedForms = claim.completedFormsForSection(domain.AboutYou.id)
 
       claim.form(YourDetails.id) match {
         case Some(YourDetails(_, _, _, _, _, _, _, _, _, "no")) if completedForms.distinct.size == 7 =>

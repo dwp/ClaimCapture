@@ -3,12 +3,12 @@ package controllers
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
 import play.api.test.{FakeRequest, WithApplication}
-import models.claim._
+import models.view._
 import play.api.cache.Cache
 import play.api.test.Helpers._
-import models.claim.Section
-import models.claim.Claim
 import scala.Some
+import models.domain
+import models.domain.{BreaksInCare, TheirPersonalDetails, Section, Claim}
 
 class CareYouProvideSpec extends Specification with Mockito {
 
@@ -28,9 +28,9 @@ class CareYouProvideSpec extends Specification with Mockito {
       //      redirectLocation(result) must beSome("/careYouProvide/theirContactDetails")
 
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(models.claim.CareYouProvide.id).get
+      val section: Section = claim.section(domain.CareYouProvide.id).get
 
-      section.form(TheirPersonalDetails.id) must beLike {
+      section.questionGroup(TheirPersonalDetails.id) must beLike {
         case Some(f: TheirPersonalDetails) => {
           f.title mustEqual "Mr"
           f.firstName mustEqual "John"

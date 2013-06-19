@@ -5,12 +5,15 @@ import play.api.test.{WithApplication, FakeRequest}
 import play.api.test.Helpers._
 
 import play.api.cache.Cache
-import models.claim._
+import models.view._
 import utils.ClaimUtils
-import models.claim.Section
-import models.claim.Claim
 import scala.Some
 import java.util.concurrent.TimeUnit
+import models.domain
+import models.domain._
+import models.domain.Section
+import models.domain.Claim
+import scala.Some
 
 class CarersAllowanceSpec extends Specification {
   """Can you get Carer's Allowance""" should {
@@ -86,11 +89,11 @@ class CarersAllowanceSpec extends Specification {
       val hoursRequest = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
       controllers.CarersAllowance.hoursSubmit(hoursRequest)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(models.claim.CarersAllowance.id).get
+      val section: Section = claim.section(domain.CarersAllowance.id).get
 
-      section.forms.size mustEqual 2
+      section.questionGroups.size mustEqual 2
 
-      section.form(Hours.id) must beLike {
+      section.questionGroup(Hours.id) must beLike {
         case Some(f: Hours) => f.answer mustEqual true
       }
     }

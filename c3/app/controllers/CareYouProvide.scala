@@ -1,10 +1,13 @@
 package controllers
 
 import play.api.mvc.Controller
-import models.claim._
+import models.view._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
+import models.domain._
+import models.domain.BreakInCare
+import scala.Some
 
 object CareYouProvide extends Controller with CachedClaim with FormMappings {
 

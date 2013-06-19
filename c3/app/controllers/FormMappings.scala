@@ -6,9 +6,8 @@ import play.api.data.validation.{Invalid, Valid, Constraint}
 import scala.util.Try
 import util.Failure
 import play.api.data.validation.ValidationError
-import models.DayMonthYear
 import util.Success
-import models.MultiLineAddress
+import models.domain.{MultiLineAddress, DayMonthYear}
 
 trait FormMappings {
   val date: Mapping[DayMonthYear] = mapping(

@@ -1,9 +1,11 @@
-package models.claim
+package models.view
+
+import models.domain._
 
 object MockObjects {
 
   val sectionOne: Section = {
-    val forms = List[Form](Benefits(), Hours(), LivesInGB(), Over16())
+    val forms = List[QuestionGroup](Benefits(), Hours(), LivesInGB(), Over16())
     Section(CarersAllowance.id, forms)
   }
 
