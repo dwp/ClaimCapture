@@ -57,8 +57,8 @@ GET     /yourpartner/yourpartner                    controllers.YourPartner.your
 #GET    /careYouProvide/theirPersonalDetails        controllers.CareYouProvide.theirPersonalDetails
 POST    /careYouProvide/theirPersonalDetailsSubmit  controllers.CareYouProvide.theirPersonalDetailsSubmit
 
-GET     /careYouProvide/breaks                      controllers.CareYouProvide.breaks
-POST    /careYouProvide/breaks                      controllers.CareYouProvide.breaksSubmit
+GET     /careYouProvide/hasBreaks                   controllers.CareYouProvide.hasBreaks
+POST    /careYouProvide/hasBreaks                   controllers.CareYouProvide.hasBreaksSubmit
 
 GET     /careYouProvide/breaksInCare                controllers.CareYouProvide.breaksInCare
 
