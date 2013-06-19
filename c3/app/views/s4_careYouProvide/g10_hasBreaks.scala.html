@@ -1,0 +1,26 @@
+@(hasBreaksForm: Form[models.claim.HasBreaks])(implicit claim: models.claim.Claim)
+
+@import helper._
+@import utils.helpers.ClaimHelpers._
+@import views.html.common._
+@import views.html.helper._
+
+@main("Has Breaks - Care You Provide") {
+
+    @form(action = routes.CareYouProvide.hasBreaksSubmit()) {
+
+        <fieldset class="form-elements">
+            <legend>Breaks in Care</legend>
+
+
+            <ul class="group">
+                @yesNoRadioGroup(hasBreaksForm("answer"), 'prompt -> "breaks.prompt")
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="#" class="button secondary">Back TODO</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}

@@ -7,10 +7,11 @@
 
 @main("More About You - About You",completedForms) {
     @form(action = routes.AboutYou.moreAboutYouSubmit()) {
+    
+    @errorsSummary(moreAboutYouForm)
+    
         <fieldset class="form-elements">
             <legend>More about you</legend>
-
-            @errorsSummary(moreAboutYouForm)
 
             <ul class="group">
                 @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>

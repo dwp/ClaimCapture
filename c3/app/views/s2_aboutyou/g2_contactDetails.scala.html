@@ -7,10 +7,12 @@
 @main("Contact Details - About You", completedForms) {
 
     @form(action = routes.AboutYou.contactDetailsSubmit) {
+    
+     @errorsSummary(contactDetailsForm)
+    
         <fieldset class="form-elements">
             <legend>Your contact details</legend>
 
-            @errorsSummary(contactDetailsForm)
 
             <ul class="group">
                 @inputAddress(contactDetailsForm("address"))

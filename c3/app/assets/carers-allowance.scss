@@ -12,6 +12,32 @@ $button-green-hover: #004b27;
 	   margin: 0 auto;
 	   max-width: 960px;
 	   @media screen and (max-width: 500px) {padding-left: .75em; padding-right: .75em;}
+	   .prototype {
+		   background: #f47738;
+		   padding: 0.7em 1em 0 1em;
+		   @media screen and (max-width: 640px) {padding-bottom: .7em; margin-top: .9em;}
+		   p {
+			   margin: 0;
+			   padding: 0;
+			   line-height: 1.2em;
+			   color: #fff;
+			   font-weight: 600;
+			   font-size: 1.5rem;
+			   .ie & {
+				   font-size: 15px;
+			   }
+			   strong {
+				    font-size: 1.5rem;
+				    .ie & {
+					    font-size: 15px;
+				    }
+			   }
+			   a {
+				   color: #fff;
+				   margin-left: .25em;
+			   }
+		   }
+	   }
    }
    
    
@@ -159,13 +185,19 @@ $button-green-hover: #004b27;
 	   background: #fef7f7;
 	   border: 3px solid #df3034;
 	   padding: 1em .7em;
-	   margin: 1em 0;
+	   margin: 1em 20% 1em 0;
+	   @media screen and (max-width: 780px) {margin-right: 0;}
 	   h2 {
 		   font-size: 2.4rem;
 		   font-weight: 700;
 		   line-height: 1.2em;
 		   .ie & {
 			   font-size: 24px;
+		   }
+		   @media screen and (max-width: 500px) {font-size: 2rem;
+			   .ie & {
+				   font-size: 20px;
+			   }
 		   }
 	   }
 	   p {
@@ -193,7 +225,8 @@ $button-green-hover: #004b27;
    .form-elements {
    	   margin: 2em 20% 0 0;
    	   padding-left: 1em;
-   	    @media screen and (max-width: 750px) {margin-right: 0; padding-left: 0;}
+   	    @media screen and (max-width: 780px) {margin-right: 0;}
+   	    @media screen and (max-width: 500px) {padding-left: 0;}
    	    &.form-eligibility {
 	   	    padding-left: 2.9em;
 	   	    legend {
@@ -289,9 +322,9 @@ $button-green-hover: #004b27;
 				   margin-top: 4px;
 			   }
 			   
-			   .other-detail {
-				   margin: 1em 0 0 0;
-				   padding: 0;
+			   &.other-detail {
+				   margin: 0;
+				   padding-top: 0;
 				   label {
 					   position: absolute;
 					   left: -9999px;
@@ -300,7 +333,7 @@ $button-green-hover: #004b27;
 			   
 			   &.validation {
 				   background: #fef7f7;
-				   padding: .6em .7em;
+				   padding: .7em;
 				   margin-left: -1.5rem;
 				   border-left: 5px solid #df3034;
 			       position: relative;
@@ -308,7 +341,9 @@ $button-green-hover: #004b27;
 			       .ie & {
 				       margin-left: -15px;
 			       }
-			       @media screen and (max-width: 500px) {margin-left: 0; border-left: 0; padding: .6em 0;}
+
+			       @media screen and (max-width: 780px) {margin-left: -0.95em; padding-right: 0;}
+			       @media screen and (max-width: 500px) {margin-left: 0; padding-top: 1em; padding-bottom: 1em;} 
 			       .error {
 				       color: #de3134;
 				       font-weight: 300;
@@ -411,6 +446,12 @@ $button-green-hover: #004b27;
 			   }
 			   textarea {
 				   height: 6em;
+				   width: 56.6rem;
+				   background: #f9f9f9;
+				   @media screen and (max-width: 620px) {width: 96%;}
+				   .ie & {
+					   width: 566px;
+				   }
 			   }
 			   select {
 				   padding: 2px;
@@ -460,7 +501,7 @@ $button-green-hover: #004b27;
 					   }
 					   label {
 						   display: block;
-						   background: #eee;
+						   background: #f3f3f3;
 						   padding: .5em 1em .4em 2.2em;
 						   font-size: 1.7rem;
 						   color: #666;
@@ -502,18 +543,7 @@ $button-green-hover: #004b27;
 			   }
 			 
 			 
-			 
-			 /* sort code */
-			 &.sort-code {
-				   input[type="tel"] {
-					   width: 8.1rem;
-					   .ie & {
-						   width: 81px;
-					   }
-				   }
-			   }
-		   
-		   
+				   
 		   
 		   /* list display - fully inline with label */
 		   &.inline {
@@ -581,6 +611,14 @@ $button-green-hover: #004b27;
 		   /* list display - date format layout */   
 		   &.year {
 			   li {
+			   	   margin-left: .5em;
+				   &:first-child {
+					   margin-left: 0;
+				   }
+			   	   label {
+				   position: absolute;
+				   left: -9999px;
+				   }
 				   select {
 				   	  margin: 0;
 					   min-width: 8.6rem;
@@ -603,7 +641,29 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }
-		   /* list display - date format layout end */   
+		   /* list display - date format layout end */ 
+		   
+		   
+		   
+		   /* sort code */
+			 &.sort-code {
+			 	   li {
+				 	   margin-left: .5em;
+				 	   &:first-child {
+					   margin-left: 0;
+					   }
+			 	   }
+			 	   label {
+				 	   position: absolute;
+				 	   left: -9999px;
+			 	   }
+				   input[type="tel"] {
+					   width: 8.1rem;
+					   .ie & {
+						   width: 81px;
+					   }
+				   }
+			   }  
 		   
 		   
 		   
@@ -626,6 +686,16 @@ $button-green-hover: #004b27;
 		   
 		   /* list display - national insurance number */
 		   &.ni-number {
+		   	   li {
+			   	   margin-left: .5em;
+				   &:first-child {
+					   margin-left: 0;
+				   }
+		   	   }
+		   	   label {
+			   	   position: absolute;
+			   	   left: -9999px;
+		   	   }
 			   input[type="text"], input[type="tel"] {
 				   width: 4.4rem;
 				   text-transform: uppercase;
@@ -865,7 +935,7 @@ $button-green-hover: #004b27;
    .form-steps {
 	   margin-top: 1.2em;
 	   padding-left: 1em;
-	   @media screen and (max-width: 750px) {padding-left: 0;}
+	   @media screen and (max-width: 500px) {padding-left: 0;}
 	   p {
 		   padding-bottom: 0.2em;
 		   clear: both;
@@ -967,14 +1037,22 @@ $button-green-hover: #004b27;
 			strong {
 				display: none;
 			}
+			span {
+				position: absolute;
+				top: 13px;
+				right: 13px;
+			}
 		}
 	}
 }
 
+
+
+/* temp styling */
 textarea.demo {text-align: left!important; width: 120%!important; font-size: 1.5rem!important; height: 20rem!important; margin-top: 1em; border-color: red!important; padding: 1rem!important; background: #eee!important; margin-bottom: 3em!important}
 
 
 /* Header - Footer Overrides */
-#global-header .header-wrapper {padding: 0.5em 0;}
+#global-header .header-wrapper {padding: 0.5em 1px!important;}
 #footer .carers-allowance-footer {padding-top: 0;}
 #footer .carers-allowance-footer .footer-meta {margin-top: 0; border-top: 0;}

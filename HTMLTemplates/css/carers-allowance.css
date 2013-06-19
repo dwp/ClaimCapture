@@ -26,6 +26,29 @@
       .carers-allowance .carers-container {
         padding-left: .75em;
         padding-right: .75em; } }
+    .carers-allowance .carers-container .prototype {
+      background: #f47738;
+      padding: 0.7em 1em 0 1em; }
+      @media screen and (max-width: 640px) {
+        .carers-allowance .carers-container .prototype {
+          padding-bottom: .7em;
+          margin-top: .9em; } }
+      .carers-allowance .carers-container .prototype p {
+        margin: 0;
+        padding: 0;
+        line-height: 1.2em;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.5rem; }
+        .ie .carers-allowance .carers-container .prototype p {
+          font-size: 15px; }
+        .carers-allowance .carers-container .prototype p strong {
+          font-size: 1.5rem; }
+          .ie .carers-allowance .carers-container .prototype p strong {
+            font-size: 15px; }
+        .carers-allowance .carers-container .prototype p a {
+          color: #fff;
+          margin-left: .25em; }
   .carers-allowance section {
     border-top: 10px solid #f47738;
     background: #fff;
@@ -96,7 +119,7 @@
         .carers-allowance .completed .start-again a:hover {
           background: #004b27; }
     .carers-allowance .completed ul li {
-      background: #d5e8f3 url("images/progress-tick.png") 1em 1.3em no-repeat;
+      background: #d5e8f3 url("../img/progress-tick.png") 1em 1.3em no-repeat;
       border-bottom: 1px solid #b6d6d2;
       padding: 1em 11em 1em 2.8em;
       position: relative; }
@@ -142,13 +165,21 @@
     background: #fef7f7;
     border: 3px solid #df3034;
     padding: 1em 0.7em;
-    margin: 1em 0; }
+    margin: 1em 20% 1em 0; }
+    @media screen and (max-width: 780px) {
+      .carers-allowance .validation-summary {
+        margin-right: 0; } }
     .carers-allowance .validation-summary h2 {
       font-size: 2.4rem;
       font-weight: 700;
       line-height: 1.2em; }
       .ie .carers-allowance .validation-summary h2 {
         font-size: 24px; }
+      @media screen and (max-width: 500px) {
+        .carers-allowance .validation-summary h2 {
+          font-size: 2rem; }
+          .ie .carers-allowance .validation-summary h2 {
+            font-size: 20px; } }
     .carers-allowance .validation-summary p {
       margin-top: .75em; }
     .carers-allowance .validation-summary ol {
@@ -170,9 +201,11 @@
     /* declaration */
     /* table styling */
     /* table styling end */ }
-    @media screen and (max-width: 750px) {
+    @media screen and (max-width: 780px) {
       .carers-allowance .form-elements {
-        margin-right: 0;
+        margin-right: 0; } }
+    @media screen and (max-width: 500px) {
+      .carers-allowance .form-elements {
         padding-left: 0; } }
     .carers-allowance .form-elements.form-eligibility {
       padding-left: 2.9em; }
@@ -243,13 +276,13 @@
       /* radio list - includes hit areas */
       /* radio */
       /* Address stack */
-      /* sort code */
       /* list display - fully inline with label */
       /* list display - fully inline with label end */
       /* list display - stacked list with label inline */
       /* list display - stacked list with label inline end */
       /* list display - date format layout */
       /* list display - date format layout end */
+      /* sort code */
       /* list display - inline with labels stripped */
       /* list display - inline with labels stripped end */
       /* list display - national insurance number */
@@ -263,26 +296,30 @@
           margin: 0; }
         .ie .carers-allowance .form-elements ul li {
           margin-top: 4px; }
-        .carers-allowance .form-elements ul li .other-detail {
-          margin: 1em 0 0 0;
-          padding: 0; }
-          .carers-allowance .form-elements ul li .other-detail label {
+        .carers-allowance .form-elements ul li.other-detail {
+          margin: 0;
+          padding-top: 0; }
+          .carers-allowance .form-elements ul li.other-detail label {
             position: absolute;
             left: -9999px; }
         .carers-allowance .form-elements ul li.validation {
           background: #fef7f7;
-          padding: 0.6em 0.7em;
+          padding: .7em;
           margin-left: -1.5rem;
           border-left: 5px solid #df3034;
           position: relative;
           overflow: hidden; }
           .ie .carers-allowance .form-elements ul li.validation {
             margin-left: -15px; }
+          @media screen and (max-width: 780px) {
+            .carers-allowance .form-elements ul li.validation {
+              margin-left: -0.95em;
+              padding-right: 0; } }
           @media screen and (max-width: 500px) {
             .carers-allowance .form-elements ul li.validation {
               margin-left: 0;
-              border-left: 0;
-              padding: 0.6em 0; } }
+              padding-top: 1em;
+              padding-bottom: 1em; } }
           .carers-allowance .form-elements ul li.validation .error {
             color: #de3134;
             font-weight: 300;
@@ -365,7 +402,14 @@
           .ie8 .carers-allowance .form-elements ul li input[type="radio"] {
             margin-top: 1px; }
         .carers-allowance .form-elements ul li textarea {
-          height: 6em; }
+          height: 6em;
+          width: 56.6rem;
+          background: #f9f9f9; }
+          @media screen and (max-width: 620px) {
+            .carers-allowance .form-elements ul li textarea {
+              width: 96%; } }
+          .ie .carers-allowance .form-elements ul li textarea {
+            width: 566px; }
         .carers-allowance .form-elements ul li select {
           padding: 2px;
           min-width: 15rem;
@@ -403,7 +447,7 @@
               top: 11px; }
           .carers-allowance .form-elements ul.radio li label {
             display: block;
-            background: #eee;
+            background: #f3f3f3;
             padding: 0.5em 1em 0.4em 2.2em;
             font-size: 1.7rem;
             color: #666;
@@ -428,10 +472,6 @@
         padding: 0 0 0 0; }
         .carers-allowance .form-elements ul.address-stack li:first-child {
           margin: 0; }
-      .carers-allowance .form-elements ul.sort-code input[type="tel"] {
-        width: 8.1rem; }
-        .ie .carers-allowance .form-elements ul.sort-code input[type="tel"] {
-          width: 81px; }
       .carers-allowance .form-elements ul.inline li {
         display: inline;
         margin: 0 0 0 1.2em; }
@@ -473,30 +513,55 @@
           .ie .carers-allowance .form-elements ul.inline-stack li label {
             font-size: 17px;
             width: 90%; }
-      .carers-allowance .form-elements ul.year li select {
-        margin: 0;
-        min-width: 8.6rem;
-        top: -2px; }
-        @media screen and (max-width: 500px) {
-          .carers-allowance .form-elements ul.year li select {
-            width: auto;
-            min-width: 1rem; } }
-        .ie .carers-allowance .form-elements ul.year li select {
-          width: 86px;
-          min-width: 86px;
-          top: 2px; }
-      .carers-allowance .form-elements ul.year li input {
-        width: 7.6rem;
-        background: #f9f9f9; }
-        .ie .carers-allowance .form-elements ul.year li input {
-          width: 76px;
-          font-size: 14px;
-          padding: 5px 8px; }
+      .carers-allowance .form-elements ul.year li {
+        margin-left: .5em; }
+        .carers-allowance .form-elements ul.year li:first-child {
+          margin-left: 0; }
+        .carers-allowance .form-elements ul.year li label {
+          position: absolute;
+          left: -9999px; }
+        .carers-allowance .form-elements ul.year li select {
+          margin: 0;
+          min-width: 8.6rem;
+          top: -2px; }
+          @media screen and (max-width: 500px) {
+            .carers-allowance .form-elements ul.year li select {
+              width: auto;
+              min-width: 1rem; } }
+          .ie .carers-allowance .form-elements ul.year li select {
+            width: 86px;
+            min-width: 86px;
+            top: 2px; }
+        .carers-allowance .form-elements ul.year li input {
+          width: 7.6rem;
+          background: #f9f9f9; }
+          .ie .carers-allowance .form-elements ul.year li input {
+            width: 76px;
+            font-size: 14px;
+            padding: 5px 8px; }
+      .carers-allowance .form-elements ul.sort-code li {
+        margin-left: .5em; }
+        .carers-allowance .form-elements ul.sort-code li:first-child {
+          margin-left: 0; }
+      .carers-allowance .form-elements ul.sort-code label {
+        position: absolute;
+        left: -9999px; }
+      .carers-allowance .form-elements ul.sort-code input[type="tel"] {
+        width: 8.1rem; }
+        .ie .carers-allowance .form-elements ul.sort-code input[type="tel"] {
+          width: 81px; }
       .carers-allowance .form-elements ul.label-strip li {
         margin-left: .5em; }
         .carers-allowance .form-elements ul.label-strip li:first-child {
           margin-left: 0; }
       .carers-allowance .form-elements ul.label-strip label {
+        position: absolute;
+        left: -9999px; }
+      .carers-allowance .form-elements ul.ni-number li {
+        margin-left: .5em; }
+        .carers-allowance .form-elements ul.ni-number li:first-child {
+          margin-left: 0; }
+      .carers-allowance .form-elements ul.ni-number label {
         position: absolute;
         left: -9999px; }
       .carers-allowance .form-elements ul.ni-number input[type="text"], .carers-allowance .form-elements ul.ni-number input[type="tel"] {
@@ -657,7 +722,7 @@
   .carers-allowance .form-steps {
     margin-top: 1.2em;
     padding-left: 1em; }
-    @media screen and (max-width: 750px) {
+    @media screen and (max-width: 500px) {
       .carers-allowance .form-steps {
         padding-left: 0; } }
     .carers-allowance .form-steps p {
@@ -732,7 +797,11 @@
     background: #f47738; }
   @media screen and (max-width: 480px) {
     .header-global .page-title strong {
-      display: none; } }
+      display: none; }
+    .header-global .page-title span {
+      position: absolute;
+      top: 13px;
+      right: 13px; } }
 
 textarea.demo {
   text-align: left!important;
