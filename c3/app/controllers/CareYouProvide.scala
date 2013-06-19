@@ -21,11 +21,35 @@ object CareYouProvide extends Controller with CachedClaim with FormMappings {
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
+
+  def theirPersonalDetails = claiming {
+    implicit claim => implicit request =>
+
+      val theirPersonalDetailsFormParam: Form[TheirPersonalDetails] = claim.form(TheirPersonalDetails.id) match {
+        case Some(n: TheirPersonalDetails) => theirPersonalDetailsForm.fill(n)
+        case _ => theirPersonalDetailsForm
+      }
+      Ok(views.html.s4_careyouprovide.g1_theirPersonalDetails(theirPersonalDetailsFormParam))
+  }
+
   def theirPersonalDetailsSubmit = claiming {
     implicit claim => implicit request =>
       theirPersonalDetailsForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(""),
-        inputForm => claim.update(inputForm) -> Ok(""))
+        formWithErrors => BadRequest(views.html.s4_careyouprovide.g1_theirPersonalDetails(formWithErrors)),
+        inputForm => claim.update(inputForm) -> Redirect(routes.CareYouProvide.theirContactDetails()))
+  }
+
+
+
+  def theirContactDetails = claiming {
+    implicit claim => implicit request =>
+                 /*
+      val theirPersonalDetailsFormParam: Form[TheirPersonalDetails] = claim.form(TheirPersonalDetails.id) match {
+        case Some(n: TheirPersonalDetails) => theirPersonalDetailsForm.fill(n)
+        case _ => theirPersonalDetailsForm
+      }
+      Ok(views.html.s4_careyouprovide.g1_theirPersonalDetails(theirPersonalDetailsFormParam))  */
+      Ok(views.html.s4_careyouprovide.g2_theirContactDetails(theirPersonalDetailsForm))
   }
 
 }

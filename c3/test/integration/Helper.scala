@@ -75,4 +75,27 @@ object Helper {
     browser.click("#hasSublet_yes")
     browser.submit("button[type='submit']")
   }
+                  /*
+                  *
+                  *       "title" -> nonEmptyText,
+      "firstName" -> nonEmptyText,
+      "middleName" -> optional(text),
+      "surname" -> nonEmptyText,
+      "otherNames" -> optional(text),
+      "nationalInsuranceNumber" -> optional(text verifying(pattern( """^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$""".r,
+        "constraint.nationalInsuranceNumber", "error.nationalInsuranceNumber"), maxLength(10))),
+      "dateOfBirth" -> date.verifying(validDate),
+      "liveAtSameAddress" -> nonEmptyText
+      */
+  def fillTheirDetails(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/theirPersonalDetails")
+    browser.click("#title option[value='mr']")
+    browser.fill("#firstName") `with` "John"
+    browser.fill("#surname") `with` "Appleseed"
+    browser.click("#dateOfBirth-day option[value='3']")
+    browser.click("#dateOfBirth-month option[value='4']")
+    browser.fill("#dateOfBirth-year") `with` "1950"
+    browser.click("#liveAtSameAddress_yes]")
+    browser.submit("button[type='submit']")
+  }
 }

@@ -57,5 +57,7 @@ GET     /assets/*file                               controllers.Assets.at(path="
 
 # Care You Provide
 ###############
-#GET     /careYouProvide/theirPersonalDetails       controllers.CareYouProvide.theirPersonalDetails
+GET     /careYouProvide/theirPersonalDetails        controllers.CareYouProvide.theirPersonalDetails
 POST    /careYouProvide/theirPersonalDetailsSubmit  controllers.CareYouProvide.theirPersonalDetailsSubmit
+
+GET     /careYouProvide/theirContactDetails        controllers.CareYouProvide.theirContactDetails
