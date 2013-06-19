@@ -5,6 +5,8 @@ import models.view._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
+import models.view.CachedClaim
+import models.domain.{BreakInCare, Break, HasBreaks, TheirPersonalDetails}
 import models.domain._
 import models.domain.BreakInCare
 import scala.Some
@@ -17,10 +19,9 @@ object CareYouProvide extends Controller with CachedClaim with FormMappings {
       "firstName" -> nonEmptyText,
       "middleName" -> optional(text),
       "surname" -> nonEmptyText,
-      "otherNames" -> optional(text),
       "nationalInsuranceNumber" -> optional(text verifying(pattern( """^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$""".r,
         "constraint.nationalInsuranceNumber", "error.nationalInsuranceNumber"), maxLength(10))),
-      "dateOfBirth" -> date.verifying(validDate),
+      "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
@@ -33,16 +34,31 @@ object CareYouProvide extends Controller with CachedClaim with FormMappings {
     mapping(
       "moreBreaks" -> nonEmptyText,
       "break" -> optional(mapping(
-        "start" -> date.verifying(validDate),
-        "end" -> date.verifying(validDate)
+        "start" -> dayMonthYear.verifying(validDate),
+        "end" -> dayMonthYear.verifying(validDate)
       )(Break.apply)(Break.unapply))
     )(BreakInCare.apply)(BreakInCare.unapply))
+
+  def theirPersonalDetails = claiming {
+    implicit claim => implicit request =>
+
+      val theirPersonalDetailsFormParam: Form[TheirPersonalDetails] = claim.form(TheirPersonalDetails.id) match {
+        case Some(n: TheirPersonalDetails) => theirPersonalDetailsForm.fill(n)
+        case _ => theirPersonalDetailsForm
+      }
+      Ok(views.html.s4_careYouProvide.g1_theirPersonalDetails(theirPersonalDetailsFormParam))
+  }
 
   def theirPersonalDetailsSubmit = claiming {
     implicit claim => implicit request =>
       theirPersonalDetailsForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(""),
-        inputForm => claim.update(inputForm) -> Ok(""))
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g1_theirPersonalDetails(formWithErrors)),
+        inputForm => claim.update(inputForm) -> Redirect(routes.CareYouProvide.theirContactDetails()))
+  }
+
+  def theirContactDetails = claiming {
+    implicit claim => implicit request =>
+      Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirPersonalDetailsForm))
   }
 
   def hasBreaks = claiming {

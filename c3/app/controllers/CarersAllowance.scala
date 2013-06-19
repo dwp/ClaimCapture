@@ -8,7 +8,7 @@ import models.domain
 import models.domain._
 import scala.Some
 
-object CarersAllowance extends Controller with CachedClaim with FormMappings {
+object CarersAllowance extends Controller with CachedClaim {
   val route = Map(Benefits.id -> routes.CarersAllowance.benefits,
                   Hours.id -> routes.CarersAllowance.hours,
                   LivesInGB.id -> routes.CarersAllowance.livesInGB,
