@@ -6,9 +6,12 @@
 
 @main("Employment - About You",completedForms) {
     @form(action = routes.AboutYou.employmentSubmit()) {
+    
+    @errorsSummary(employmentForm)
+    
         <fieldset class="form-elements">
             <legend>Employment</legend>
-            @errorsSummary(employmentForm)
+ 
 
             <ul class="group">
             @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>

@@ -5,10 +5,12 @@
 
 @main("Claim Date - About You", completedForms) {
     @form(action = routes.AboutYou.claimDateSubmit()) {
+    
+    @errorsSummary(claimDateForm)
+    
+    
         <fieldset class="form-elements">
             <legend>Your claim date</legend>
-
-            @errorsSummary(claimDateForm)
 
             <ul class="group">
                 @inputDayMonthYear(claimDateForm("dateOfClaim"))

@@ -6,10 +6,11 @@
 
 @main("Property and Rent - About You", completedForms) {
     @form(action = routes.AboutYou.propertyAndRentSubmit()) {
+    
+    @errorsSummary(propertyAndRentForm)
+    
         <fieldset class="form-elements">
             <legend>Property and rent</legend>
-
-            @errorsSummary(propertyAndRentForm)
 
             <ul class="group">
                 @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>

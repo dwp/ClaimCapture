@@ -7,10 +7,13 @@
 @main("Time Outside UK - About You", completedForms) {
 
     @form(action = routes.AboutYou.timeOutsideUKSubmit) {
+    
+     @errorsSummary(timeOutsideUKForm)
+    
         <fieldset class="form-elements">
             <legend>About your time outside the UK</legend>
 
-            @errorsSummary(timeOutsideUKForm)
+ 
 
             <ul class="group">
                 @yesNoRadioGroup(timeOutsideUKForm("currentlyLivingInUK"))

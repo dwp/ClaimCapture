@@ -8,11 +8,13 @@
 @main("Your Details - About You") {
 
     @form(action = routes.AboutYou.yourDetailsSubmit) {
+    
+    
+    	@errorsSummary(yourDetailsForm)
 
         <fieldset class="form-elements">
             <legend>Your details</legend>
 
-			   @errorsSummary(yourDetailsForm)
 
             <ul class="group">
                 @titleSelect(yourDetailsForm("title"))
