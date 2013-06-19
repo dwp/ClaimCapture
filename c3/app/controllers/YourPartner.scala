@@ -11,7 +11,7 @@ object YourPartner extends Controller with CachedClaim {
           <title>End of Sprint</title>
 
           <ul>
-            {claim.completedFormsForSection(models.domain.AboutYou.id).map(f => <li>{f}</li>)}
+            {claim.completedQuestionGroups(models.domain.AboutYou.id).map(f => <li>{f}</li>)}
           </ul>
         </endOfSprint>
 

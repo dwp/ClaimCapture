@@ -1,28 +1,27 @@
-@(breaksInCareForm: Form[models.domain.BreakInCare])(implicit claim: models.domain.Claim)
+@(breakInCareForm: Form[models.domain.BreakInCare])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.ClaimHelpers._
 @import views.html.common._
 @import views.html.helper._
 
-@main("About the breaks in care - Care You Provide") {
+@main("Breaks in Care - Care You Provide") {
 
-    @form(action = routes.CareYouProvide.breaksInCareSubmit()) {
+    @form(action = routes.CareYouProvide.breaksInCareSubmit) {
 
         <fieldset class="form-elements">
             <legend>About the breaks in care</legend>
 
-
             <ul class="group">
+                inputDayMonthYearHM(breakInCareForm("date1"))
+                inputDayMonthYear(breakInCareForm("date1"))
 
-                @inputDayMonthYearHM(breaksInCareForm("date1"))
-                @inputDayMonthYear(breaksInCareForm("date1"))
-                @defining('options -> Seq("Respite"->"Respite","Care home"->"Care home","Nursing home"->"Nursing home","Residential school"->"Residential school","Holiday"->"Holiday","Prison"->"Prison","Other"->"Other")){ opts =>
-                    @selectWithOther(breaksInCareForm("doing1"),'helper -> "Some helper",opts)
-                    @selectWithOther(breaksInCareForm("doing2"),'helper -> "Other helper",opts)
+                defining('options -> Seq("Respite"->"Respite","Care home"->"Care home","Nursing home"->"Nursing home","Residential school"->"Residential school","Holiday"->"Holiday","Prison"->"Prison","Other"->"Other")){ opts =>
+                    selectWithOther(breaksInCareForm("doing1"),'helper -> "Some helper",opts)
+                    selectWithOther(breakInCareForm("doing2"),'helper -> "Other helper",opts)
                 }
-                @yesNoRadioGroup(breaksInCareForm("yn1"))
-                @yesNoRadioGroup(breaksInCareForm("yn2"))
+                yesNoRadioGroup(breakInCareForm("yn1"))
+                yesNoRadioGroup(breakInCareForm("yn2"))
             </ul>
         </fieldset>
 
@@ -30,6 +29,5 @@
             <a href="#" class="button secondary">Back TODO</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
-
     }
 }

@@ -6,7 +6,6 @@ import play.api.cache.Cache
 import play.api.test.Helpers._
 import org.specs2.mock.Mockito
 import models.view._
-import scala.Some
 import models.domain
 import models.domain._
 import models.domain.Claim
@@ -32,7 +31,7 @@ class AboutYouSpec extends Specification with Mockito {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(YourDetails.id) must beLike {
+      claim.questionGroup(YourDetails.id) must beLike {
         case Some(f: YourDetails) => f.firstName mustEqual "Scooby"
       }
     }
@@ -145,7 +144,7 @@ class AboutYouSpec extends Specification with Mockito {
     """present first "about you" page upon completing with missing forms""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val claim = Claim().update(mockForm[YourDetails](YourDetails.id))
+      val claim = Claim().update(mockQuestionGroup[YourDetails](YourDetails.id))
 
       Cache.set(claimKey, claim)
 
@@ -157,12 +156,12 @@ class AboutYouSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val claim = Claim()
-        .update(mockForm[YourDetails](YourDetails.id))
-        .update(mockForm[ContactDetails](ContactDetails.id))
-        .update(mockForm[ClaimDate](ClaimDate.id))
-        .update(mockForm[MoreAboutYou](MoreAboutYou.id))
-        .update(mockForm[Employment](Employment.id))
-        .update(mockForm[PropertyAndRent](PropertyAndRent.id))
+        .update(mockQuestionGroup[YourDetails](YourDetails.id))
+        .update(mockQuestionGroup[ContactDetails](ContactDetails.id))
+        .update(mockQuestionGroup[ClaimDate](ClaimDate.id))
+        .update(mockQuestionGroup[MoreAboutYou](MoreAboutYou.id))
+        .update(mockQuestionGroup[Employment](Employment.id))
+        .update(mockQuestionGroup[PropertyAndRent](PropertyAndRent.id))
 
       Cache.set(claimKey, claim)
 
@@ -173,17 +172,17 @@ class AboutYouSpec extends Specification with Mockito {
     "continue to partner/spouse upon section completion when all forms are done including 'time outside UK'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val yourDetails = mockForm[YourDetails](YourDetails.id)
+      val yourDetails = mockQuestionGroup[YourDetails](YourDetails.id)
       yourDetails.alwaysLivedUK returns "no"
 
       val claim = Claim()
         .update(yourDetails)
-        .update(mockForm[ContactDetails](ContactDetails.id))
-        .update(mockForm[TimeOutsideUK](TimeOutsideUK.id))
-        .update(mockForm[ClaimDate](ClaimDate.id))
-        .update(mockForm[MoreAboutYou](MoreAboutYou.id))
-        .update(mockForm[Employment](Employment.id))
-        .update(mockForm[PropertyAndRent](PropertyAndRent.id))
+        .update(mockQuestionGroup[ContactDetails](ContactDetails.id))
+        .update(mockQuestionGroup[TimeOutsideUK](TimeOutsideUK.id))
+        .update(mockQuestionGroup[ClaimDate](ClaimDate.id))
+        .update(mockQuestionGroup[MoreAboutYou](MoreAboutYou.id))
+        .update(mockQuestionGroup[Employment](Employment.id))
+        .update(mockQuestionGroup[PropertyAndRent](PropertyAndRent.id))
 
       Cache.set(claimKey, claim)
 

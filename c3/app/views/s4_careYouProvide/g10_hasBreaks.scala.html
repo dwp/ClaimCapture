@@ -7,11 +7,10 @@
 
 @main("Has Breaks - Care You Provide") {
 
-    @form(action = routes.CareYouProvide.hasBreaksSubmit()) {
+    @form(action = routes.CareYouProvide.hasBreaksSubmit) {
 
         <fieldset class="form-elements">
             <legend>Breaks in Care</legend>
-
 
             <ul class="group">
                 @yesNoRadioGroup(hasBreaksForm("answer"), 'prompt -> "breaks.prompt")

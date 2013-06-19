@@ -85,7 +85,7 @@ class CareYouProvideSpec extends Specification with Mockito {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(BreaksInCare.id) must beLike {
+      claim.questionGroup(BreaksInCare.id) must beLike {
         case Some(b: BreaksInCare) => b.breaks mustEqual Nil
       }
     }
@@ -106,12 +106,12 @@ class CareYouProvideSpec extends Specification with Mockito {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(BreaksInCare.id) must beLike {
+      claim.questionGroup(BreaksInCare.id) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 1
       }
     }
 
-    """allow more breaks to be added (answer "yes" to ""Have you had any more breaks) """ in new WithApplication with Claiming {
+    """allow more breaks to be added (answer "yes" to "Have you had any more breaks")""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("moreBreaks" -> "yes")
 
       val result = controllers.CareYouProvide.breaksInCareSubmit(request)
@@ -119,7 +119,7 @@ class CareYouProvideSpec extends Specification with Mockito {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(BreaksInCare.id) must beLike {
+      claim.questionGroup(BreaksInCare.id) must beLike {
         case Some(b: BreaksInCare) => b.breaks mustEqual Nil
       }
     }

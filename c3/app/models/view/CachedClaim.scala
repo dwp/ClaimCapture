@@ -5,7 +5,6 @@ import play.api.cache.Cache
 import models.domain.Claim
 
 trait CachedClaim {
-
   import play.api.Play.current
   import scala.language.implicitConversions
   import play.api.http.HeaderNames._

@@ -1,46 +1,52 @@
 package models.domain
 
-import utils.ClaimUtils
+import models.Created
 
-case class Claim(sections: Map[String, Section] = Map()) {
-  val created = System.currentTimeMillis()
+object Claim {
+  import org.joda.time.format.{DateTimeFormatter, DateTimeFormat}
 
+  val dateFormatGeneration: DateTimeFormatter = DateTimeFormat.forPattern("'DayMonthYear'('Some'(dd),'Some'(M),'Some'(yyyy),'None','None')")
 
-  def section(sectionId: String): Option[Section] = {
-    sections.get(sectionId)
+  val dateFormatPrint: DateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy")
+
+  def sectionId(formId: String) = {
+    formId.split('.')(0)
   }
+}
 
-  def form(formId: String): Option[QuestionGroup] = {
-    val sectionId = ClaimUtils.sectionId(formId)
+case class Claim(sections: Map[String, Section] = Map()) extends Created {
+  def section(sectionId: String): Option[Section] = sections.get(sectionId)
+
+  def questionGroup(questionGroupID: String): Option[QuestionGroup] = {
+    val sectionId = Claim.sectionId(questionGroupID)
 
     section(sectionId) match {
-      case Some(s: Section) => s.questionGroup(formId)
+      case Some(s: Section) => s.questionGroup(questionGroupID)
       case _ => None
     }
   }
 
-  def completedFormsForSection(sectionID: String) = sections.get(sectionID) match {
+  def completedQuestionGroups(sectionID: String) = sections.get(sectionID) match {
     case Some(s: Section) => s.questionGroups
     case _ => Nil
   }
 
-  def update(form: QuestionGroup): Claim = {
-    def update(form: QuestionGroup, forms: List[QuestionGroup]) = {
-      val updated = forms map {
-        f => if (f.id == form.id) form else f
+  def update(questionGroup: QuestionGroup): Claim = {
+    def update(questionGroup: QuestionGroup, questionGroups: List[QuestionGroup]) = {
+      val updated = questionGroups map {
+        qg => if (qg.id == questionGroup.id) questionGroup else qg
       }
 
-      if (updated.contains(form)) updated else updated :+ form
+      if (updated.contains(questionGroup)) updated else updated :+ questionGroup
     }
 
-    val sectionId = ClaimUtils.sectionId(form.id)
+    val sectionId = Claim.sectionId(questionGroup.id)
 
     val section = sections.get(sectionId) match {
-      case None => Section(sectionId, List(form))
-      case Some(s) => Section(sectionId, update(form, s.questionGroups))
+      case None => Section(sectionId, List(questionGroup))
+      case Some(s) => Section(sectionId, update(questionGroup, s.questionGroups))
     }
 
     Claim(sections.updated(section.id, section))
   }
 }
-
