@@ -152,6 +152,11 @@
       line-height: 1.2em; }
       .ie .carers-allowance .validation-summary h2 {
         font-size: 24px; }
+      @media screen and (max-width: 500px) {
+        .carers-allowance .validation-summary h2 {
+          font-size: 2rem; }
+          .ie .carers-allowance .validation-summary h2 {
+            font-size: 20px; } }
     .carers-allowance .validation-summary p {
       margin-top: .75em; }
     .carers-allowance .validation-summary ol {

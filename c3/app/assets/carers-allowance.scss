@@ -168,6 +168,11 @@ $button-green-hover: #004b27;
 		   .ie & {
 			   font-size: 24px;
 		   }
+		   @media screen and (max-width: 500px) {font-size: 2rem;
+			   .ie & {
+				   font-size: 20px;
+			   }
+		   }
 	   }
 	   p {
 		   margin-top: .75em;
