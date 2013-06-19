@@ -5,6 +5,10 @@
         <p class="error">@elements.errors.mkString(", ")</p>
     }
 
+    @if(elements.args.contains('prompt)){
+        <div class="prompt helper-prompt">@Html(Messages(elements.args.get('prompt).get.toString))</div>
+    }
+
     @defining(elements.field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
        <label for="@(elements.id)">@if(required) { @Html("<em>*</em>") }@elements.label</label>
     }

@@ -21,6 +21,11 @@ object CareYouProvide extends Controller with CachedClaim with FormMappings {
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
+  val breaksForm = Form(
+    mapping(
+      "breaks" -> nonEmptyText
+    )(Breaks.apply)(Breaks.unapply))
+
 
   def theirPersonalDetails = claiming {
     implicit claim => implicit request =>
@@ -52,4 +57,27 @@ object CareYouProvide extends Controller with CachedClaim with FormMappings {
       Ok(views.html.s4_careyouprovide.g2_theirContactDetails(theirPersonalDetailsForm))
   }
 
+  def breaks = claiming {
+    implicit claim => implicit request =>
+      Ok(views.html.s4_careYouProvide.g9_breaks(breaksForm))
+  }
+
+  def breaksSubmit = claiming {
+    implicit claim => implicit request =>
+      breaksForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_breaks(formWithErrors)),
+        inputForm =>
+          if (inputForm.breaks == "yes") claim.update(inputForm) -> Redirect(routes.CareYouProvide.breaksInCare())
+          else claim.update(inputForm) -> Redirect(routes.CareYouProvide.completed()))
+  }
+
+  def breaksInCare = claiming {
+    implicit claim => implicit request =>
+      Ok("")
+  }
+
+  def completed = claiming {
+    implicit claim => implicit request =>
+      Ok("")
+  }
 }
