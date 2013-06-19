@@ -511,18 +511,7 @@ $button-green-hover: #004b27;
 			   }
 			 
 			 
-			 
-			 /* sort code */
-			 &.sort-code {
-				   input[type="tel"] {
-					   width: 8.1rem;
-					   .ie & {
-						   width: 81px;
-					   }
-				   }
-			   }
-		   
-		   
+				   
 		   
 		   /* list display - fully inline with label */
 		   &.inline {
@@ -590,6 +579,14 @@ $button-green-hover: #004b27;
 		   /* list display - date format layout */   
 		   &.year {
 			   li {
+			   	   margin-left: .5em;
+				   &:first-child {
+					   margin-left: 0;
+				   }
+			   	   label {
+				   position: absolute;
+				   left: -9999px;
+				   }
 				   select {
 				   	  margin: 0;
 					   min-width: 8.6rem;
@@ -612,7 +609,29 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }
-		   /* list display - date format layout end */   
+		   /* list display - date format layout end */ 
+		   
+		   
+		   
+		   /* sort code */
+			 &.sort-code {
+			 	   li {
+				 	   margin-left: .5em;
+				 	   &:first-child {
+					   margin-left: 0;
+					   }
+			 	   }
+			 	   label {
+				 	   position: absolute;
+				 	   left: -9999px;
+			 	   }
+				   input[type="tel"] {
+					   width: 8.1rem;
+					   .ie & {
+						   width: 81px;
+					   }
+				   }
+			   }  
 		   
 		   
 		   
@@ -635,6 +654,16 @@ $button-green-hover: #004b27;
 		   
 		   /* list display - national insurance number */
 		   &.ni-number {
+		   	   li {
+			   	   margin-left: .5em;
+				   &:first-child {
+					   margin-left: 0;
+				   }
+		   	   }
+		   	   label {
+			   	   position: absolute;
+			   	   left: -9999px;
+		   	   }
 			   input[type="text"], input[type="tel"] {
 				   width: 4.4rem;
 				   text-transform: uppercase;

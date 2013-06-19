@@ -253,13 +253,13 @@
       /* radio list - includes hit areas */
       /* radio */
       /* Address stack */
-      /* sort code */
       /* list display - fully inline with label */
       /* list display - fully inline with label end */
       /* list display - stacked list with label inline */
       /* list display - stacked list with label inline end */
       /* list display - date format layout */
       /* list display - date format layout end */
+      /* sort code */
       /* list display - inline with labels stripped */
       /* list display - inline with labels stripped end */
       /* list display - national insurance number */
@@ -442,10 +442,6 @@
         padding: 0 0 0 0; }
         .carers-allowance .form-elements ul.address-stack li:first-child {
           margin: 0; }
-      .carers-allowance .form-elements ul.sort-code input[type="tel"] {
-        width: 8.1rem; }
-        .ie .carers-allowance .form-elements ul.sort-code input[type="tel"] {
-          width: 81px; }
       .carers-allowance .form-elements ul.inline li {
         display: inline;
         margin: 0 0 0 1.2em; }
@@ -487,30 +483,55 @@
           .ie .carers-allowance .form-elements ul.inline-stack li label {
             font-size: 17px;
             width: 90%; }
-      .carers-allowance .form-elements ul.year li select {
-        margin: 0;
-        min-width: 8.6rem;
-        top: -2px; }
-        @media screen and (max-width: 500px) {
-          .carers-allowance .form-elements ul.year li select {
-            width: auto;
-            min-width: 1rem; } }
-        .ie .carers-allowance .form-elements ul.year li select {
-          width: 86px;
-          min-width: 86px;
-          top: 2px; }
-      .carers-allowance .form-elements ul.year li input {
-        width: 7.6rem;
-        background: #f9f9f9; }
-        .ie .carers-allowance .form-elements ul.year li input {
-          width: 76px;
-          font-size: 14px;
-          padding: 5px 8px; }
+      .carers-allowance .form-elements ul.year li {
+        margin-left: .5em; }
+        .carers-allowance .form-elements ul.year li:first-child {
+          margin-left: 0; }
+        .carers-allowance .form-elements ul.year li label {
+          position: absolute;
+          left: -9999px; }
+        .carers-allowance .form-elements ul.year li select {
+          margin: 0;
+          min-width: 8.6rem;
+          top: -2px; }
+          @media screen and (max-width: 500px) {
+            .carers-allowance .form-elements ul.year li select {
+              width: auto;
+              min-width: 1rem; } }
+          .ie .carers-allowance .form-elements ul.year li select {
+            width: 86px;
+            min-width: 86px;
+            top: 2px; }
+        .carers-allowance .form-elements ul.year li input {
+          width: 7.6rem;
+          background: #f9f9f9; }
+          .ie .carers-allowance .form-elements ul.year li input {
+            width: 76px;
+            font-size: 14px;
+            padding: 5px 8px; }
+      .carers-allowance .form-elements ul.sort-code li {
+        margin-left: .5em; }
+        .carers-allowance .form-elements ul.sort-code li:first-child {
+          margin-left: 0; }
+      .carers-allowance .form-elements ul.sort-code label {
+        position: absolute;
+        left: -9999px; }
+      .carers-allowance .form-elements ul.sort-code input[type="tel"] {
+        width: 8.1rem; }
+        .ie .carers-allowance .form-elements ul.sort-code input[type="tel"] {
+          width: 81px; }
       .carers-allowance .form-elements ul.label-strip li {
         margin-left: .5em; }
         .carers-allowance .form-elements ul.label-strip li:first-child {
           margin-left: 0; }
       .carers-allowance .form-elements ul.label-strip label {
+        position: absolute;
+        left: -9999px; }
+      .carers-allowance .form-elements ul.ni-number li {
+        margin-left: .5em; }
+        .carers-allowance .form-elements ul.ni-number li:first-child {
+          margin-left: 0; }
+      .carers-allowance .form-elements ul.ni-number label {
         position: absolute;
         left: -9999px; }
       .carers-allowance .form-elements ul.ni-number input[type="text"], .carers-allowance .form-elements ul.ni-number input[type="tel"] {
