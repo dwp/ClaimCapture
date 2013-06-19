@@ -35,7 +35,7 @@ object CareYouProvide extends Controller with CachedClaim with FormMappings {
 
   def breaks = claiming {
     implicit claim => implicit request =>
-      Ok("")
+      Ok(views.html.s4_careYouProvide.g9_breaks(breaksForm))
   }
 
   def breaksSubmit = claiming {
