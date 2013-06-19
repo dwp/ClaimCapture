@@ -447,6 +447,12 @@ $button-green-hover: #004b27;
 			   }
 			   textarea {
 				   height: 6em;
+				   width: 56.6rem;
+				   background: #f9f9f9;
+				   @media screen and (max-width: 620px) {width: 96%;}
+				   .ie & {
+					   width: 566px;
+				   }
 			   }
 			   select {
 				   padding: 2px;
@@ -510,11 +516,11 @@ $button-green-hover: #004b27;
 					   input[type="radio"]:checked + label {
 						   background: #fff;
 						   color: #0b0c0c;
-						   -webkit-transition: all 100ms ease-in;
-						   -moz-transition: all 100ms ease-in;
-						   -ms-transition: all 100ms ease-in;
-						   -o-transition: all 100ms ease-in;
-						   transition: all 100ms ease-in;
+						   -webkit-transition: all 200ms ease-in;
+						   -moz-transition: all 200ms ease-in;
+						   -ms-transition: all 200ms ease-in;
+						   -o-transition: all 200ms ease-in;
+						   transition: all 200ms ease-in;
 					   }
 				   }
 			 }
@@ -1031,6 +1037,11 @@ $button-green-hover: #004b27;
 		@media screen and (max-width: 480px) {
 			strong {
 				display: none;
+			}
+			span {
+				position: absolute;
+				top: 13px;
+				right: 13px;
 			}
 		}
 	}

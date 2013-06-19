@@ -402,7 +402,14 @@
           .ie8 .carers-allowance .form-elements ul li input[type="radio"] {
             margin-top: 1px; }
         .carers-allowance .form-elements ul li textarea {
-          height: 6em; }
+          height: 6em;
+          width: 56.6rem;
+          background: #f9f9f9; }
+          @media screen and (max-width: 620px) {
+            .carers-allowance .form-elements ul li textarea {
+              width: 96%; } }
+          .ie .carers-allowance .form-elements ul li textarea {
+            width: 566px; }
         .carers-allowance .form-elements ul li select {
           padding: 2px;
           min-width: 15rem;
@@ -790,7 +797,11 @@
     background: #f47738; }
   @media screen and (max-width: 480px) {
     .header-global .page-title strong {
-      display: none; } }
+      display: none; }
+    .header-global .page-title span {
+      position: absolute;
+      top: 13px;
+      right: 13px; } }
 
 textarea.demo {
   text-align: left!important;
