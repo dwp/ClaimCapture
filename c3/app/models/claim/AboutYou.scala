@@ -1,13 +1,13 @@
 package models.claim
 
-import models.{MultiLineAddress, DayMonthYear}
+import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
 object AboutYou {
   val id = "s2"
 }
 
 case class YourDetails(title: String, firstName: String, middleName: Option[String], surname: String,
-                       otherNames: Option[String], nationalInsuranceNumber: Option[String], nationality: String,
+                       otherNames: Option[String], nationalInsuranceNumber: Option[NationalInsuranceNumber], nationality: String,
                        dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends Form(YourDetails.id)
 
 object YourDetails {

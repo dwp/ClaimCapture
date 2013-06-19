@@ -9,6 +9,11 @@ object Helper {
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
+    browser.fill("#ni-1") `with` "AB" // Pattern AB123456C
+    browser.fill("#ni-2") `with` "12"
+    browser.fill("#ni-3") `with` "34"
+    browser.fill("#ni-1") `with` "56"
+    browser.fill("#ni-1") `with` "C"
     browser.click("#dateOfBirth-day option[value='3']")
     browser.click("#dateOfBirth-month option[value='4']")
     browser.fill("#dateOfBirth-year") `with` "1950"
@@ -23,6 +28,11 @@ object Helper {
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
+    browser.fill("#ni-1") `with` "AB" // Pattern AB123456C
+    browser.fill("#ni-2") `with` "12"
+    browser.fill("#ni-3") `with` "34"
+    browser.fill("#ni-1") `with` "56"
+    browser.fill("#ni-1") `with` "C"
     browser.click("#dateOfBirth-day option[value='3']")
     browser.click("#dateOfBirth-month option[value='4']")
     browser.fill("#dateOfBirth-year") `with` "1950"

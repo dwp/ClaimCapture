@@ -1,13 +1,14 @@
 package models.claim
 
 import models.DayMonthYear
+import models.NationalInsuranceNumber
 
 object CareYouProvide {
   val id = "s4"
 }
 
 case class TheirPersonalDetails(title: String, firstName: String, middleName: Option[String], surname: String,
-                                otherNames: Option[String], nationalInsuranceNumber: Option[String],
+                                otherNames: Option[String], nationalInsuranceNumber: Option[NationalInsuranceNumber],
                                 dateOfBirth: DayMonthYear, liveAtSameAddress: String) extends Form(TheirPersonalDetails.id)
 
 object TheirPersonalDetails {

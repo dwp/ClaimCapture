@@ -27,7 +27,8 @@
 
                 @inputText(yourDetailsForm("otherNames"))
 
-                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"))
+                <!-- @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder")) -->
+                @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"))
 
                 @inputDayMonthYear(yourDetailsForm("dateOfBirth"))
 

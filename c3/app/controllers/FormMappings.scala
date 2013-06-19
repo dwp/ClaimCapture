@@ -7,9 +7,8 @@ import scala.util.Try
 import org.joda.time.DateTime
 import util.Failure
 import play.api.data.validation.ValidationError
-import models.DayMonthYear
+import models.{DayMonthYear, MultiLineAddress, NationalInsuranceNumber}
 import util.Success
-import models.MultiLineAddress
 
 trait FormMappings {
   val date: Mapping[DayMonthYear] = mapping(
@@ -21,6 +20,7 @@ trait FormMappings {
     "lineOne" -> optional(text),
     "lineTwo" -> optional(text),
     "lineThree" -> optional(text))(MultiLineAddress.apply)(MultiLineAddress.unapply)
+    
 
   def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
     dmy => dmy match {

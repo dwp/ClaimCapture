@@ -15,8 +15,7 @@ object CareYouProvide extends Controller with CachedClaim with FormMappings {
       "middleName" -> optional(text),
       "surname" -> nonEmptyText,
       "otherNames" -> optional(text),
-      "nationalInsuranceNumber" -> optional(text verifying(pattern( """^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$""".r,
-        "constraint.nationalInsuranceNumber", "error.nationalInsuranceNumber"), maxLength(10))),
+      "nationalInsuranceNumber" -> optional(Validation.nationalInsuranceNumber.verifying(Validation.validNationalInsuranceNumber)),
       "dateOfBirth" -> date.verifying(validDate),
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
