@@ -12,13 +12,16 @@ class G11BreaksInCare extends Specification with Tags {
 
      """present "completed" when no more breaks are required""" in new WithBrowser {
        browser.goTo("/careYouProvide/breaksInCare")
-       browser.click("#moreBreaks_no")
+
        browser.click("#break_start_day option[value='1']")
        browser.click("#break_start_month option[value='1']")
        browser.fill("#break_start_year") `with` "2001"
        browser.click("#break_whereYou_location option[value='Holiday']")
        browser.click("#break_wherePerson_location option[value='Holiday']")
+       browser.click("#moreBreaks_no")
+
        browser.submit("button[value='next']")
+
        browser.pageSource() must contain("Completed - Care You Provide")
      }
 
@@ -41,7 +44,11 @@ class G11BreaksInCare extends Specification with Tags {
          browser.click("#break_end_month option[value='1']")
          browser.fill("#break_end_year") `with` "2001"
 
+         browser.click("#break_whereYou_location option[value='Holiday']")
+         browser.click("#break_wherePerson_location option[value='Holiday']")
+
          browser.click("#moreBreaks_yes")
+
          browser.submit("button[value='next']")
        }
 
