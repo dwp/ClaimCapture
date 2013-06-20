@@ -494,7 +494,6 @@ $button-green-hover: #004b27;
 					   float: left;
 					   margin: 0;
 					   padding: 0;
-					   border: 1px solid #ddd;
 					   &:first-child {
 						   border-right: 0;
 					   }
@@ -511,12 +510,13 @@ $button-green-hover: #004b27;
 					   }
 					   label {
 						   display: block;
-						   background: #f3f3f3;
+						   background: #fafafa;
 						   padding: .5em 1em .4em 2.2em;
 						   font-size: 1.7rem;
 						   color: #888;
 						   cursor: pointer;
 						   line-height: inherit;
+						   border: 1px solid transparent;
 						   .ie & {
 							   font-size: 17px;
 							   padding-left: 2em;
@@ -530,6 +530,7 @@ $button-green-hover: #004b27;
 						   -ms-transition: all 200ms ease-in;
 						   -o-transition: all 200ms ease-in;
 						   transition: all 200ms ease-in;
+						   border: 1px solid #a2a2a2;
 					   }
 				   }
 			 }
