@@ -23,27 +23,15 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>01/01/2013<span>to</span>07/01/2013</td>
-                    <td class="desc">WWW WWW WW W WWW WWWWWW WWW...</td>
-                    <td class="desc">WWW WWW WW W WWW WWW WWWWWW...</td>
-                    <td><input type="button" class="button row secondary" value="Edit"></td>
-                    <td><input type="button" class="button row warning" value="Delete"></td>
-                </tr>
-                <tr>
-                    <td>01/01/2013<span>to</span>07/01/2013</td>
-                    <td class="desc">New York City</td>
-                    <td class="desc">Visting family and relatives</td>
-                    <td><input type="button" class="button row secondary" value="Edit"></td>
-                    <td><input type="button" class="button row warning" value="Delete"></td>
-                </tr>
-                <tr>
-                    <td>01/01/2013<span>to</span>07/01/2013</td>
-                    <td class="desc">New York City</td>
-                    <td class="desc">Visting family and relatives</td>
-                    <td><input type="button" class="button row secondary" value="Edit"></td>
-                    <td><input type="button" class="button row warning" value="Delete"></td>
-                </tr>
+                @for(break <- breaksInCare.breaks) {
+                    <tr>
+                        <td>01/01/2013<span>to</span>07/01/2013</td>
+                        <td class="desc">WWW WWW WW W WWW WWWWWW WWW...</td>
+                        <td class="desc">WWW WWW WW W WWW WWW WWWWWW...</td>
+                        <td><input type="button" class="button row secondary" value="Edit"></td>
+                        <td><input type="button" class="button row warning" value="Delete"></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </fieldset>
