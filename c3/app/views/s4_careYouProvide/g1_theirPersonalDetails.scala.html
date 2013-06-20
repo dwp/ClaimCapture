@@ -5,6 +5,7 @@
 @import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dates._
+@import controllers.Mappings
 
 @common.main("Their Personal Details - Care You Provide") {
 
@@ -20,11 +21,11 @@
             <ul class="group">
                 @titleSelect(theirPersonalDetailsForm("title"))
 
-                @inputText(theirPersonalDetailsForm("firstName"))
+                @inputText(theirPersonalDetailsForm("firstName"), 'maxLength -> Mappings.maxNrOfChars)
 
-                @inputText(theirPersonalDetailsForm("middleName"))
+                @inputText(theirPersonalDetailsForm("middleName"), 'maxLength -> Mappings.maxNrOfChars)
 
-                @inputText(theirPersonalDetailsForm("surname"))
+                @inputText(theirPersonalDetailsForm("surname"), 'maxLength -> Mappings.maxNrOfChars)
 
                 @nationalInsuranceNumber(theirPersonalDetailsForm("nationalInsuranceNumber"), 'helper-> Messages("nationalInsuranceNumber.helper"))
 
