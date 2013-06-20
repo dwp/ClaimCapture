@@ -21,7 +21,7 @@ case class ClaimSubmission(aboutYou:AboutYou) {
           <gds:Line>Anyplace Street</gds:Line>
           <gds:Line/>
           <gds:Line/>
-          <gds:PostCode/>
+          <gds:PostCode>{aboutYou.contactDetails.postcode.orNull}</gds:PostCode>
         </Address>
         <ConfirmAddress>yes</ConfirmAddress>
         <HomePhoneNumber/>

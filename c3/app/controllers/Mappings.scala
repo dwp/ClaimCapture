@@ -40,7 +40,7 @@ object Mappings {
       case Failure(_) => Invalid(ValidationError("error.invalid"))
     }
   }
-  def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
+  def  validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
     dmy => dmy match {
       case DayMonthYear(None ,None ,None ,_ ,_) => Invalid(ValidationError("error.required"))
       case DayMonthYear(_ ,_ ,_ ,_ ,_) => dateTimeValidation(dmy)
