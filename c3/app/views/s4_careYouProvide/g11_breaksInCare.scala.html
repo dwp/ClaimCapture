@@ -1,4 +1,4 @@
-@(breakInCareForm: Form[models.domain.BreakInCare])(implicit claim: models.domain.Claim)
+@(breakInCareForm: Form[models.domain.BreakInCare], breaksInCare: models.domain.BreaksInCare)(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -6,7 +6,7 @@
 @import views.html.helper.dates._
 
 @main("Breaks in Care - Care You Provide", breakInCareForm) {
-    <fieldset class="form-elements results-detail">
+    <fieldset class="form-elements results-detail" id="trips" style='display: @if(breaksInCare.breaks.foldLeft(0)((a, _) => a + 1) == 0) { none; } else { block; }'>
         <legend>Trips you have added</legend>
 
         <table>
