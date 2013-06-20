@@ -23,7 +23,7 @@ class AboutYouSpec extends Specification with Mockito {
         "dateOfBirth.day" -> "5",
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "1990",
-        "maritalStatus" -> "Single",
+        "maritalStatus" -> "s",
         "alwaysLivedUK" -> "yes")
 
       val result = controllers.AboutYou.yourDetailsSubmit(request)
@@ -57,7 +57,7 @@ class AboutYouSpec extends Specification with Mockito {
         "dateOfBirth.day" -> "5",
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "199000001",
-        "maritalStatus" -> "Single",
+        "maritalStatus" -> "s",
         "alwaysLivedUK" -> "yes")
 
       val result = controllers.AboutYou.yourDetailsSubmit(request)
@@ -84,7 +84,7 @@ class AboutYouSpec extends Specification with Mockito {
         "dateOfBirth.day" -> "5",
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "1990",
-        "maritalStatus" -> "Single",
+        "maritalStatus" -> "s",
         "alwaysLivedUK" -> "yes")
 
       val result = controllers.AboutYou.yourDetailsSubmit(request)
@@ -108,7 +108,7 @@ class AboutYouSpec extends Specification with Mockito {
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "1990",
         "nationality" -> "US",
-        "maritalStatus" -> "Single",
+        "maritalStatus" -> "s",
         "alwaysLivedUK" -> "yes"
         )
 
