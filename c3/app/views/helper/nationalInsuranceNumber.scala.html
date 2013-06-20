@@ -3,31 +3,27 @@
 @import utils.helpers.CarersTemplate._
 
 @input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
-	<li>
-	  <p>National Insurance (NI) number</p>
-	  <ul class="inline ni-number label-strip">
-	    <li>
-	      <label for="ni-1">NI part one</label>
-	      <input type="text" name="ni-1" id="ni-1" maxlength="2" placeholder="JW">
-	    </li>
-	    <li>
-	      <label for="ni-2">NI part two</label>
-	      <input type="tel" name="ni-2" id="ni-2" maxlength="2" placeholder="31">
-	    </li>
-	    <li>
-	      <label for="ni-3">NI part three</label>
-	      <input type="tel" name="ni-3" id="ni-3" maxlength="2" placeholder="90">
-	    </li>
-	    <li>
-	      <label for="ni-4">NI part four</label>
-	      <input type="tel" name="ni-4" id="ni-4" maxlength="2" placeholder="67">
-	    </li>
-	    <li>
-	      <label for="ni-5">NI part five</label>
-	      <input type="text" name="ni-5" id="ni-5" class="single" maxlength="1" placeholder="A">
-	    </li>
-	  </ul>
-	  <p class="helper">eg: JW-41-68-56-A</p>
-	</li>
-
+  <ul class="inline ni-number label-strip">
+    <li>
+      <label for="ni-1">NI part one</label>
+      <input type="text" name="@{name}.ni-1" id="@{name}-ni-1" maxlength="2" placeholder="JW" value="@{field("ni-1").value}">
+    </li>
+    <li>
+      <label for="ni-2">NI part two</label>
+      <input type="tel" name="@{name}.ni-2" id="@{name}-ni-2" maxlength="2" placeholder="31" value="@{field("ni-2").value}">
+    </li>
+    <li>
+      <label for="ni-3">NI part three</label>
+      <input type="tel" name="@{name}.ni-3" id="@{name}-ni-3" maxlength="2" placeholder="90" value="@{field("ni-3").value}">
+    </li>
+    <li>
+      <label for="ni-4">NI part four</label>
+      <input type="tel" name="@{name}.ni-4" id="@{name}-ni-4" maxlength="2" placeholder="67" value="@{field("ni-4").value}">
+    </li>
+    <li>
+      <label for="ni-5">NI part five</label>
+      <input type="text" name="@{name}.ni-5" id="@{name}-ni-5" class="single" maxlength="1" placeholder="A" value="@{field("ni-5").value}">
+    </li>
+  </ul>
+  
 }

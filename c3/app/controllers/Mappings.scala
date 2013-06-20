@@ -43,11 +43,11 @@ object Mappings {
   }
 
   def nationalInsuranceNumber: Mapping[NationalInsuranceNumber] = mapping(
-    "ni1" -> optional(nonEmptyText verifying (minLength(2), maxLength(2), pattern ("""[A-CEGHJ-PR-TW-Z]{2}""".r, name = "constraint.pattern", error = "error.pattern"))),
-    "ni2" -> optional(number(0, 99)),
-    "ni3" -> optional(number(0, 99)),
-    "ni4" -> optional(number(0, 99)),
-    "ni5" -> optional(nonEmptyText verifying (maxLength(1), pattern ("""[ABCD\S]{1}""".r, name = "constraint.pattern", error = "error.pattern"))))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
+    "ni-1" -> optional(nonEmptyText verifying (minLength(2), maxLength(2), pattern ("""[A-CEGHJ-PR-TW-Z]{2}""".r, name = "constraint.pattern", error = "error.pattern"))),
+    "ni-2" -> optional(number(0, 99)),
+    "ni-3" -> optional(number(0, 99)),
+    "ni-4" -> optional(number(0, 99)),
+    "ni-5" -> optional(nonEmptyText verifying (maxLength(1), pattern ("""[ABCD\S]{1}""".r, name = "constraint.pattern", error = "error.pattern"))))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
 
     
   def validNationalInsuranceNumber: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.required") {
