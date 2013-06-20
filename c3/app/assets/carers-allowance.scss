@@ -129,7 +129,7 @@ $button-green-hover: #004b27;
    	   }
 	   ul {
 		   li {
-			   background: #d5e8f3 url('../img/progress-tick.png') 1em 1.3em no-repeat;
+			   background: #d5e8f3 url('images/progress-tick.png') 1em 1.3em no-repeat;
 			   border-bottom: 1px solid #b6d6d2;
 			   padding: 1em 11em 1em 2.8em;
 			   position: relative;
@@ -483,7 +483,7 @@ $button-green-hover: #004b27;
 		   }
 		   
 		   /* form list end */
-		   
+		  
 		   
 		   /* radio list - includes hit areas */
 		   &.radio {
@@ -513,7 +513,6 @@ $button-green-hover: #004b27;
 						   background: #fafafa;
 						   padding: .5em 1em .4em 2.2em;
 						   font-size: 1.7rem;
-						   color: #888;
 						   cursor: pointer;
 						   line-height: inherit;
 						   border: 1px solid transparent;
@@ -524,7 +523,6 @@ $button-green-hover: #004b27;
 					   }
 					   input[type="radio"]:checked + label {
 						   background: #fff;
-						   color: #0b0c0c;
 						   -webkit-transition: all 200ms ease-in;
 						   -moz-transition: all 200ms ease-in;
 						   -ms-transition: all 200ms ease-in;

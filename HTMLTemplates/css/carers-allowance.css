@@ -454,7 +454,6 @@
             background: #fafafa;
             padding: 0.5em 1em 0.4em 2.2em;
             font-size: 1.7rem;
-            color: #888;
             cursor: pointer;
             line-height: inherit;
             border: 1px solid transparent; }
@@ -463,7 +462,6 @@
               padding-left: 2em; }
           .carers-allowance .form-elements ul.radio li input[type="radio"]:checked + label {
             background: #fff;
-            color: #0b0c0c;
             -webkit-transition: all 200ms ease-in;
             -moz-transition: all 200ms ease-in;
             -ms-transition: all 200ms ease-in;

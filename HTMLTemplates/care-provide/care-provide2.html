@@ -52,9 +52,9 @@
 <link rel="apple-touch-icon-precomposed" href="https://assets.digital.cabinet-office.gov.uk/static/apple-touch-icon-57x57-37527434942ed8407b091aae5feff3f3.png">
 
 <!-- / New -->
-<link rel="stylesheet" href="css/carers-allowance.css">
+<link rel="stylesheet" href="../css/carers-allowance.css">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="og:image" content="https://assets.digital.cabinet-office.gov.uk/static/opengraph-image-4e469785ca4cc8f8dd18d0627bc43d19.png">
 
 
@@ -106,39 +106,67 @@
     	<section>
     	
     		<header>
-    			<h1>Carers Allowance</h1>
+    			<h1>About the care you provide</h1>
     		</header>
-
-    		<ul>
-    			<li><a href="eligibility/carers-q1.html">Question 1</a></li>
-    			<li><a href="eligibility/carers-q2.html">Question 2</a></li>
-    			<li><a href="eligibility/carers-q3.html">Question 3</a></li>
-    			<li><a href="eligibility/carers-q4.html">Question 4</a></li>
-    			<li><a href="eligibility/carers-approval.html">Approval</a></li>
-    			<li><a href="eligibility/carers-declined.html">Declined</a></li>
-    			<li><h2>About</h2></li>
-    			<li><a href="about/carers-about1.html">About 1</a></li>
-    			<li><a href="about/carers-about2.html">About 2</a></li>
-    			<li><a href="about/carers-about3.html">About 3</a></li>
-    			<li><a href="about/carers-about4.html">About 4</a></li>
-    			<li><a href="about/carers-about5.html">About 5</a></li>
-    			<li><a href="about/carers-about6.html">About 6</a></li>
-    			<li><a href="about/carers-about-complete.html">About - Complete</a></li>
-    			<li><h2>Care you provide</h2></li>
-    			<li><a href="care-provide/care-provide1.html">Care Provide 1</a></li>
-    			<li><a href="care-provide/care-provide2.html">Care Provide 2</a></li>
-    			<li><a href="care-provide/care-provide3.html">Care Provide 3</a></li>
-    			<li><a href="care-provide/care-breaks1.html">Care Breaks 1</a></li>
-    			<li><a href="care-provide/care-breaks2.html">Care Breaks 2</a></li>
-    			<li><a href="care-provide/care-breaks3.html">Care Breaks 3</a></li>
-    			<li><a href="care-provide/care-breaks-complete.html">Care Breaks Complete</a></li>
-    			<li><h2>Form Elements</h2></li>
-    			<li><a href="form-elements/carers-assets.html">Assets</a></li>
-    			<li><a href="form-elements/carers-time.html">Time Entry</a></li>
-    			<li><a href="form-elements/declaration.html">Declaration</a></li>
-    		</ul>	
-    	
+    		
+    		
+    		<div class="completed">
+    			<ul>
+    				<li>
+    					<h3>Details of the person you care for</h3>
+    					<a href="#">Change these answers</a>
+    				</li>
+    			</ul>
+    		</div>
+    		<!-- / completed questions -->
 			
+    	
+			<fieldset class="form-elements">
+				<legend>Their contact details</legend>
+				
+
+				
+				<ul class="group">
+					<li>
+						<p><em>*</em>Their address</p>
+						<ul class="address-stack">
+							<li>
+								<label for="address1"><em>*</em>Address</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+							<li>
+								<label for="address1">Address 2</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+							<li>
+								<label for="address1">Address 3</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+						</ul>
+					</li>
+					<li>
+						<label for="postcode"><em>*</em>Postcode</label>
+						<input type="text" name="postcode" id="postcode" class="postcode">
+					</li>
+					<li>
+						<label for="phone">Their daytime phone number</label>
+						<input type="tel" name="phone" id="phone">
+					</li>
+					<li>
+						<label for="mobile">Mobile number</label>
+						<input type="tel" name="mobile" id="mobile">
+					</li>
+				</ul>
+				
+			</fieldset>
+			<!-- / form elements -->
+			
+			
+			<div class="form-steps">
+				<input type="submit" value="Back" class="button secondary">
+				<input type="submit" value="Next" class="button">
+			</div>
+			<!-- / form steps -->
 			
     	</section>
     
@@ -146,7 +174,7 @@
     </div>
     <!-- / carers allowance end -->
 
-     <footer class="group js-footer" id="footer" role="contentinfo">
+    <footer class="group js-footer" id="footer" role="contentinfo">
 
       <div class="footer-wrapper carers-allowance-footer">
  
@@ -203,6 +231,9 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+<script src="../js/custom.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 
   </body>
