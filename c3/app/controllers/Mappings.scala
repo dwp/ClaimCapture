@@ -13,6 +13,9 @@ import play.api.data.validation.Constraints._
 import models.{MultiLineAddress, DayMonthYear}
 
 object Mappings {
+
+  val maxNrOfChars = 60
+
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
     "day" -> optional(number),
     "month" -> optional(number),
