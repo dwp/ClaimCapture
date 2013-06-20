@@ -1,6 +1,6 @@
 package models.domain
 
-import models.{MultiLineAddress, NationalInsuranceNumber, DayMonthYear}
+import models.{MultiLineAddress, Whereabouts, NationalInsuranceNumber, DayMonthYear}
 
 object CareYouProvide {
   val id = "s4"
@@ -38,4 +38,4 @@ object BreaksInCare {
 
 case class BreakInCare(moreBreaks: String, break: Option[Break])
 
-case class Break(start: DayMonthYear, end: DayMonthYear)
+case class Break(start: DayMonthYear, end: Option[DayMonthYear], whereYou: Whereabouts, wherePerson: Whereabouts)

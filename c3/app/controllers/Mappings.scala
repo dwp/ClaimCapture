@@ -7,9 +7,12 @@ import play.api.data.validation._
 import scala.util.Try
 import util.Failure
 import util.Success
-import models.NationalInsuranceNumber
+import models._
 import play.api.data.validation.Constraints._
-import models.{MultiLineAddress, DayMonthYear}
+import scala.util.Success
+import scala.util.Failure
+import scala.Some
+import play.api.data.validation.ValidationError
 import scala.util.Success
 import models.MultiLineAddress
 import scala.util.Failure
@@ -33,6 +36,16 @@ object Mappings {
     "lineTwo" -> optional(text),
     "lineThree" -> optional(text))(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
+  val whereabouts: Mapping[Whereabouts] = mapping(
+    "location" -> nonEmptyText,
+    "other" -> optional(text)
+  )(Whereabouts.apply)(Whereabouts.unapply)
+
+  def requiredWhereabouts: Constraint[Whereabouts] = Constraint[Whereabouts]("constraint.required"){
+    whereabouts => whereabouts match {
+      case Whereabouts(s,_) => if (s.isEmpty()) Invalid(ValidationError("error.required")) else Valid
+    }
+  }
   def dateTimeValidation(dmy: DayMonthYear): ValidationResult = {
     Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
       case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError("error.invalid"))

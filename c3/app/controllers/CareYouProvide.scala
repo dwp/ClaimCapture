@@ -9,8 +9,8 @@ import play.api.data.validation.Constraints._
 import models.domain._
 import models.domain.BreakInCare
 import scala.Some
-import models.domain.Break
-
+import models.domain.{HasBreaks, BreakInCare, Break, BreaksInCare}
+import models.Whereabouts._
 
 object CareYouProvide extends Controller with CachedClaim  {
   val route = Map(HasBreaks.id -> routes.CareYouProvide.hasBreaks)
@@ -46,8 +46,10 @@ object CareYouProvide extends Controller with CachedClaim  {
     mapping(
       "moreBreaks" -> nonEmptyText,
       "break" -> optional(mapping(
-        "start" -> (dayMonthYear verifying validDateOnly),
-        "end"   -> (dayMonthYear verifying validDateOnly)
+        "start" -> (dayMonthYear verifying validDate),
+        "end"   -> optional(dayMonthYear verifying validDateOnly),
+        "whereYou"    -> whereabouts.verifying(requiredWhereabouts),
+        "wherePerson" -> whereabouts.verifying(requiredWhereabouts)
       )(Break.apply)(Break.unapply))
     )(BreakInCare.apply)(BreakInCare.unapply))
 
