@@ -14,5 +14,8 @@
     @if(elements.args.contains('helper)){
         <p class="helper right">@elements.args.get('helper).get.toString</p>
     }
+    @if(elements.args.contains('helperBelow)){
+    <p class="helper">@Html(elements.args.get('helperBelow).get.toString)</p>
+    }
 
 </li>

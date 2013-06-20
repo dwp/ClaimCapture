@@ -1,7 +1,6 @@
 package models.domain
 
-import models.NationalInsuranceNumber
-import models.DayMonthYear
+import models.{MultiLineAddress, NationalInsuranceNumber, DayMonthYear}
 
 object CareYouProvide {
   val id = "s4"
@@ -13,6 +12,12 @@ case class TheirPersonalDetails(title: String, firstName: String, middleName: Op
 
 object TheirPersonalDetails {
   val id = s"${CareYouProvide.id}.g1"
+}
+
+case class TheirContactDetails(address: MultiLineAddress, postcode: Option[String], phoneNumber: Option[String] = None) extends QuestionGroup(TheirContactDetails.id)
+
+object TheirContactDetails {
+  val id = s"${CareYouProvide.id}.g2"
 }
 
 case class HasBreaks(answer: String) extends QuestionGroup(HasBreaks.id)

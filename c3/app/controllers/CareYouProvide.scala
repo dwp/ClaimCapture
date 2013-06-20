@@ -6,13 +6,17 @@ import play.api.data.Forms._
 import models.view.CachedClaim
 import Mappings._
 import scala.Some
-import models.domain.{HasBreaks, TheirPersonalDetails, BreakInCare, Break, BreaksInCare}
+import play.api.data.validation.Constraints._
+import models.domain._
+import models.domain.BreakInCare
+import scala.Some
+import models.domain.Break
 
 
 object CareYouProvide extends Controller with CachedClaim  {
   val route = Map(HasBreaks.id -> routes.CareYouProvide.hasBreaks)
 
-  val theirPersonalDetailsForm = Form(
+    val theirPersonalDetailsForm = Form(
     mapping(
       "title" -> nonEmptyText,
       "firstName" -> nonEmptyText(maxLength = maxNrOfChars),
@@ -23,6 +27,16 @@ object CareYouProvide extends Controller with CachedClaim  {
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
     
+
+
+  val theirContactDetailsForm = Form(
+    mapping(
+      "address" -> address.verifying(requiredAddress),
+      "postcode" -> optional(text verifying(pattern( """^(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})$""".r,
+        "constraint.postcode", "error.postcode"), maxLength(10))),
+      "phoneNumber" -> optional(text)
+    )(TheirContactDetails.apply)(TheirContactDetails.unapply))
+
 
   val hasBreaksForm = Form(
     mapping(
@@ -58,9 +72,34 @@ object CareYouProvide extends Controller with CachedClaim  {
 
   def theirContactDetails = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirPersonalDetailsForm))
-  }
 
+      val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
+        case Some(t: TheirPersonalDetails) => if(t.liveAtSameAddress == "yes") true else false
+        case _ => false
+
+      }
+
+      val theirContactDetailsPrePopulatedForm: Form[TheirContactDetails] = if (liveAtSameAddress) {
+        claim.questionGroup(ContactDetails.id) match {
+          case Some(cd: ContactDetails) =>
+            claim.questionGroup(TheirContactDetails.id) match {
+              case Some(t: TheirContactDetails) => theirContactDetailsForm.fill(t)
+              case _ => {
+                val tcd =  TheirContactDetails(address = cd.address, postcode = cd.postcode)
+                theirContactDetailsForm.fill(tcd)
+              }
+            }
+          case _ => theirContactDetailsForm
+        }
+      } else {
+        claim.questionGroup(TheirContactDetails.id) match {
+          case Some(t: TheirContactDetails) => theirContactDetailsForm.fill(t)
+          case _ => theirContactDetailsForm
+        }
+      }
+
+      Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm))
+  }
   def hasBreaks = claiming {
     implicit claim => implicit request =>
       val hasBreaksQGForm = claim.questionGroup(HasBreaks.id) match {

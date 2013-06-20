@@ -1,4 +1,4 @@
-@(theirPersonalDetailsForm: Form[models.domain.TheirPersonalDetails])(implicit claim: models.domain.Claim)
+@(theirContactDetailsForm: Form[models.domain.TheirContactDetails])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -11,28 +11,18 @@
     @form(action = routes.CareYouProvide.theirPersonalDetailsSubmit) {
     
     
-    	@errorsSummary(theirPersonalDetailsForm)
+    	@errorsSummary(theirContactDetailsForm)
 
         <fieldset class="form-elements">
             <legend>Details of the person you care for</legend>
 
 
             <ul class="group">
-                @titleSelect(theirPersonalDetailsForm("title"))
+                @inputAddress(theirContactDetailsForm("address"))
 
-                @inputText(theirPersonalDetailsForm("firstName"))
+                @inputText(theirContactDetailsForm("postcode"))
 
-                @inputText(theirPersonalDetailsForm("middleName"))
-
-                @inputText(theirPersonalDetailsForm("surname"))
-
-                @inputText(theirPersonalDetailsForm("otherNames"))
-
-                @inputText(theirPersonalDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"))
-
-                @inputDayMonthYear(theirPersonalDetailsForm("dateOfBirth"))
-
-                @yesNoRadioGroup(theirPersonalDetailsForm("liveAtSameAddress"))
+                @inputText(theirContactDetailsForm("phoneNumber"))
             </ul>
         </fieldset>
 
