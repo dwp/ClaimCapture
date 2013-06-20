@@ -49,7 +49,8 @@ object CareYouProvide extends Controller with CachedClaim  {
         "start" -> (dayMonthYear verifying validDate),
         "end"   -> optional(dayMonthYear verifying validDateOnly),
         "whereYou"    -> whereabouts.verifying(requiredWhereabouts),
-        "wherePerson" -> whereabouts.verifying(requiredWhereabouts)
+        "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
+        "medicalDuringBreak" -> optional(text)
       )(Break.apply)(Break.unapply))
     )(BreakInCare.apply)(BreakInCare.unapply))
 
