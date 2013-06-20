@@ -17,7 +17,7 @@ class G11BreaksInCare extends Specification with Tags {
        browser.pageSource() must contain("Completed - Care You Provide")
      }
 
-     """represent when more breaks are required""" in new WithBrowser {
+     """re-present when more breaks are required""" in new WithBrowser {
        browser.goTo("/careYouProvide/breaksInCare")
        browser.click("#moreBreaks_yes")
        browser.submit("button[value='next']")

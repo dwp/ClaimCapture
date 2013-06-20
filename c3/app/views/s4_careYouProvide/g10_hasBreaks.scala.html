@@ -2,14 +2,10 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
-@import views.html.common._
 @import views.html.helper._
-@import views.html.helper.dates._
 
-@main("Has Breaks - Care You Provide") {
-
+@main("Has Breaks - Care You Provide", hasBreaksForm) {
     @form(action = routes.CareYouProvide.hasBreaksSubmit) {
-
         <fieldset class="form-elements">
             <legend>Breaks in Care</legend>
 

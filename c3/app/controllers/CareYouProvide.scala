@@ -10,8 +10,9 @@ import models.domain.{HasBreaks, TheirPersonalDetails, BreakInCare, Break, Break
 
 
 object CareYouProvide extends Controller with CachedClaim  {
+  val route = Map(HasBreaks.id -> routes.CareYouProvide.hasBreaks)
 
-    val theirPersonalDetailsForm = Form(
+  val theirPersonalDetailsForm = Form(
     mapping(
       "title" -> nonEmptyText,
       "firstName" -> nonEmptyText(maxLength = maxNrOfChars),

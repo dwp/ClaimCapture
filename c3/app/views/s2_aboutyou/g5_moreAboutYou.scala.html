@@ -8,10 +8,9 @@
 @import utils.helpers.CarersTemplate._
 
 @main("More About You - About You",completedForms) {
+    @errorsSummary(moreAboutYouForm)
+
     @form(action = routes.AboutYou.moreAboutYouSubmit) {
-    
-        @errorsSummary(moreAboutYouForm)
-    
         <fieldset class="form-elements">
             <legend>More about you</legend>
 

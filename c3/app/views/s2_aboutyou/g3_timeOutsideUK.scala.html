@@ -6,11 +6,9 @@
 @import views.html.helper.dates._
 
 @main("Time Outside UK - About You", completedForms) {
+    @errorsSummary(timeOutsideUKForm)
 
     @form(action = routes.AboutYou.timeOutsideUKSubmit) {
-    
-        @errorsSummary(timeOutsideUKForm)
-    
         <fieldset class="form-elements">
             <legend>About your time outside the UK</legend>
 

@@ -2,14 +2,11 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
-@import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dates._
 
-@main("Breaks in Care - Care You Provide") {
-
+@main("Breaks in Care - Care You Provide", breakInCareForm) {
     @form(action = routes.CareYouProvide.breaksInCareSubmit) {
-
         <fieldset class="form-elements">
             <legend>About the breaks in care</legend>
 
@@ -22,6 +19,7 @@
                     selectWithOther(breaksInCareForm("doing1"),'helper -> "Some helper",opts)
                     selectWithOther(breakInCareForm("doing2"),'helper -> "Other helper",opts)
                 }
+
                 yesNoRadioGroup(breakInCareForm("yn1"))
                 @yesNoRadioGroup(breakInCareForm("moreBreaks"), 'prompt -> "breaks.prompt")
             </ul>
