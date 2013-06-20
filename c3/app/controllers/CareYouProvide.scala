@@ -90,14 +90,15 @@ object CareYouProvide extends Controller with CachedClaim  {
         formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_breaksInCare(formWithErrors)),
         breakInCare => {
           val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
-            case Some(b: BreaksInCare) if breakInCare.break.isDefined => b.update(Break(breakInCare.break.get.start, breakInCare.break.get.end))
-            case Some(b: BreaksInCare) => b
-            case _ if breakInCare.break.isDefined => BreaksInCare().update(Break(breakInCare.break.get.start, breakInCare.break.get.end))
-            case _ => BreaksInCare()
+            case Some(b: BreaksInCare) => breakInCare.break.fold(b)(break => if (b.breaks.size == 10) b else b.update(break))
+            case _ => breakInCare.break.fold(BreaksInCare())(BreaksInCare().update)
           }
 
-          if (breakInCare.moreBreaks == "yes") claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.breaksInCare())
-          else claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed())
+          breakInCare.moreBreaks match {
+            case "no" => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed())
+            case "yes" if breaksInCare.breaks.size == 10 => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed(/* TODO WARNING FEEDBACK MESSAGE*/))
+            case _ => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.breaksInCare())
+          }
         })
   }
 

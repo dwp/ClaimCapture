@@ -53,7 +53,7 @@ class CareYouProvideSpec extends Specification with Mockito {
     }
   }
 
-  "Care You Provide for breaks" should {
+  "Care You Provide with breaks" should {
     """present "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
@@ -167,6 +167,44 @@ class CareYouProvideSpec extends Specification with Mockito {
 
       claim.questionGroup(BreaksInCare.id) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 2
+      }
+    }
+
+    "allow no more than 10 breaks" in new WithApplication with Claiming {
+      for (i <- 1 to 9) {
+        val request = FakeRequest().withSession("connected" -> claimKey)
+          .withFormUrlEncodedBody(
+          "moreBreaks" -> "yes",
+          "break.start.day" -> "1",
+          "break.start.month" -> "1",
+          "break.start.year" -> "2001",
+          "break.end.day" -> "1",
+          "break.end.month" -> "1",
+          "break.end.year" -> "2001")
+
+        val result = controllers.CareYouProvide.breaksInCareSubmit(request)
+        redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
+      }
+
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+        case Some(b: BreaksInCare) => b.breaks.size mustEqual 9
+      }
+
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(
+        "moreBreaks" -> "yes",
+        "break.start.day" -> "1",
+        "break.start.month" -> "1",
+        "break.start.year" -> "2001",
+        "break.end.day" -> "1",
+        "break.end.month" -> "1",
+        "break.end.year" -> "2001")
+
+      val result = controllers.CareYouProvide.breaksInCareSubmit(request)
+      redirectLocation(result) must beSome("/careYouProvide/completed")
+
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+        case Some(b: BreaksInCare) => b.breaks.size mustEqual 10
       }
     }
   }
