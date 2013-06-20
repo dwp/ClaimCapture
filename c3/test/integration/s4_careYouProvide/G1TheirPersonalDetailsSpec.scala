@@ -24,7 +24,7 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
 
 
     "navigate to next page on valid submission" in new WithBrowser {
-      Helper.fillTheirDetails(browser)
+      Helper.fillTheirPersonalDetails(browser)
       browser.title() mustEqual "Their Contact Details - Care You Provide"
     }
 

@@ -5,7 +5,6 @@ import play.api.data.Form
 import play.api.data.Forms._
 import models.view.CachedClaim
 import Mappings._
-import scala.Some
 import play.api.data.validation.Constraints._
 import models.domain._
 import models.domain.BreakInCare
@@ -13,10 +12,10 @@ import scala.Some
 import models.domain.Break
 
 
-object CareYouProvide extends Controller with CachedClaim  {
+object CareYouProvide extends Controller with CachedClaim {
   val route = Map(HasBreaks.id -> routes.CareYouProvide.hasBreaks)
 
-    val theirPersonalDetailsForm = Form(
+  val theirPersonalDetailsForm = Form(
     mapping(
       "title" -> nonEmptyText,
       "firstName" -> nonEmptyText(maxLength = maxNrOfChars),
@@ -26,7 +25,6 @@ object CareYouProvide extends Controller with CachedClaim  {
       "dateOfBirth" -> Mappings.dayMonthYear.verifying(Mappings.validDate),
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
-    
 
 
   val theirContactDetailsForm = Form(
@@ -48,7 +46,7 @@ object CareYouProvide extends Controller with CachedClaim  {
       "moreBreaks" -> nonEmptyText,
       "break" -> optional(mapping(
         "start" -> (dayMonthYear verifying validDateOnly),
-        "end"   -> (dayMonthYear verifying validDateOnly)
+        "end" -> (dayMonthYear verifying validDateOnly)
       )(Break.apply)(Break.unapply))
     )(BreakInCare.apply)(BreakInCare.unapply))
 
@@ -74,21 +72,14 @@ object CareYouProvide extends Controller with CachedClaim  {
     implicit claim => implicit request =>
 
       val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
-        case Some(t: TheirPersonalDetails) => if(t.liveAtSameAddress == "yes") true else false
+        case Some(t: TheirPersonalDetails) => if (t.liveAtSameAddress == "yes") true else false
         case _ => false
 
       }
 
       val theirContactDetailsPrePopulatedForm: Form[TheirContactDetails] = if (liveAtSameAddress) {
         claim.questionGroup(ContactDetails.id) match {
-          case Some(cd: ContactDetails) =>
-            claim.questionGroup(TheirContactDetails.id) match {
-              case Some(t: TheirContactDetails) => theirContactDetailsForm.fill(t)
-              case _ => {
-                val tcd =  TheirContactDetails(address = cd.address, postcode = cd.postcode)
-                theirContactDetailsForm.fill(tcd)
-              }
-            }
+          case Some(cd: ContactDetails) => theirContactDetailsForm.fill(TheirContactDetails(address = cd.address, postcode = cd.postcode))
           case _ => theirContactDetailsForm
         }
       } else {
@@ -100,6 +91,21 @@ object CareYouProvide extends Controller with CachedClaim  {
 
       Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm))
   }
+
+  def theirContactDetailsSubmit = claiming {
+    implicit claim => implicit request =>
+
+      theirContactDetailsForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors)),
+        theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.CareYouProvide.moreAboutThePerson)
+      )
+  }
+
+  def moreAboutThePerson = claiming {
+    implicit claim => implicit request =>
+      Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(theirContactDetailsForm))
+  }
+
   def hasBreaks = claiming {
     implicit claim => implicit request =>
       val hasBreaksQGForm = claim.questionGroup(HasBreaks.id) match {
@@ -154,7 +160,9 @@ object CareYouProvide extends Controller with CachedClaim  {
             <h1>End of Sprint 2</h1>
 
             <ul>
-              {claim.completedQuestionGroups(models.domain.CareYouProvide.id).map(f => <li>{f}</li>)}
+              {claim.completedQuestionGroups(models.domain.CareYouProvide.id).map(f => <li>
+              {f}
+            </li>)}
             </ul>
           </body>
         </html>

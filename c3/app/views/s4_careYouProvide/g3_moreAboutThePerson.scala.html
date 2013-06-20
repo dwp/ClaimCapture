@@ -6,12 +6,12 @@
 @import views.html.helper._
 @import views.html.helper.dates._
 
-@common.main("Their Contact Details - Care You Provide") {
+@common.main("More About The Person - Care You Provide") {
 
-    @form(action = routes.CareYouProvide.theirContactDetailsSubmit) {
-    
-    
-    	@errorsSummary(theirContactDetailsForm)
+    @form(action = routes.CareYouProvide.theirPersonalDetailsSubmit) {
+
+
+        @errorsSummary(theirContactDetailsForm)
 
         <fieldset class="form-elements">
             <legend>Details of the person you care for</legend>
@@ -27,7 +27,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a id="backButton" href="@routes.CareYouProvide.theirPersonalDetails" class="button secondary">Back</a>
+            <a id="backButton" href="@routes.CareYouProvide.theirContactDetails" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

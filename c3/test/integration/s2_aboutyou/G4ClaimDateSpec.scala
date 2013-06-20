@@ -14,7 +14,7 @@ class G4ClaimDateSpec extends Specification with Tags {
 
     "contain 2 completed forms" in new WithBrowser {
       Helper.fillYourDetails(browser)
-      Helper.fillContactDetails(browser)
+      Helper.fillYourContactDetails(browser)
 
       browser.title() mustEqual "Claim Date - About You"
       browser.find("div[class=completed] ul li").size() mustEqual 2
@@ -45,7 +45,7 @@ class G4ClaimDateSpec extends Specification with Tags {
 
     "navigate back to Time Outside UK" in new WithBrowser {
       Helper.fillYourDetailsEnablingTimeOutsideUK(browser)
-      Helper.fillContactDetails(browser)
+      Helper.fillYourContactDetails(browser)
       Helper.fillTimeOutsideUK(browser)
       browser.click(".form-steps a")
       browser.title() mustEqual "Time Outside UK - About You"
@@ -53,7 +53,7 @@ class G4ClaimDateSpec extends Specification with Tags {
 
     "navigate back to Contact Details" in new WithBrowser {
       Helper.fillYourDetails(browser)
-      Helper.fillContactDetails(browser)
+      Helper.fillYourContactDetails(browser)
       browser.click(".form-steps a")
       browser.title() mustEqual "Contact Details - About You"
     }

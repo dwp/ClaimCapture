@@ -22,7 +22,7 @@ class G6EmploymentSpec extends Specification with Tags {
 
     "contain 4 completed forms" in new WithBrowser {
       Helper.fillYourDetails(browser)
-      Helper.fillContactDetails(browser)
+      Helper.fillYourContactDetails(browser)
       Helper.fillClaimDate(browser)
       Helper.fillMoreAboutYou(browser)
 

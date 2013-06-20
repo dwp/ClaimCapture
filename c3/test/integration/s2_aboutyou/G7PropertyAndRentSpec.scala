@@ -21,7 +21,7 @@ class G7PropertyAndRentSpec extends Specification with Tags {
 
     "contain the completed forms" in new WithBrowser {
       Helper.fillYourDetails(browser)
-      Helper.fillContactDetails(browser)
+      Helper.fillYourContactDetails(browser)
       Helper.fillClaimDate(browser)
       Helper.fillMoreAboutYou(browser)
       Helper.fillEmployment(browser)

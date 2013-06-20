@@ -19,7 +19,7 @@ class G5MoreAboutYouSpec extends Specification with Tags {
 
     "contain the completed forms" in new WithBrowser {
       Helper.fillYourDetails(browser)
-      Helper.fillContactDetails(browser)
+      Helper.fillYourContactDetails(browser)
       Helper.fillClaimDate(browser)
       browser.title() mustEqual "More About You - About You"
       browser.find("div[class=completed] ul li").size() mustEqual 3

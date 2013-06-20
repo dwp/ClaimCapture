@@ -42,7 +42,7 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
-  def fillContactDetails(browser: TestBrowser) = {
+  def fillYourContactDetails(browser: TestBrowser) = {
     browser.goTo("/aboutyou/contactDetails")
     browser.fill("#address-lineOne") `with` "My Address"
     browser.fill("#postcode") `with` "SE1 6EH"
@@ -86,7 +86,7 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
-  def fillTheirDetails(browser: TestBrowser) = {
+  def fillTheirPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/theirPersonalDetails")
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
@@ -97,4 +97,12 @@ object Helper {
     browser.click("#liveAtSameAddress_yes]")
     browser.submit("button[type='submit']")
   }
+
+  def fillTheirContactDetails(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/theirContactDetails")
+    browser.fill("#address-lineOne") `with` "Their Address"
+    browser.fill("#postcode") `with` "RM11 1DA"
+    browser.submit("button[type='submit']")
+  }
+
 }
