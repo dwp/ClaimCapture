@@ -330,6 +330,7 @@ $button-green-hover: #004b27;
 					   left: -9999px;
 				   }
 			   }
+			  
 			   
 			   &.validation {
 				   background: #fef7f7;
@@ -354,6 +355,15 @@ $button-green-hover: #004b27;
 				       }
 			       }
 			   }
+			   
+			   &.date-time {
+				   padding-top: 0;
+				   padding-bottom: 0;
+				   margin-top: 0;
+				   margin-bottom: 0;
+			   }
+			  
+			   
 			   &.short-field {
 				   input[type="text"], input[type="tel"] {
 					   width: 12rem;
@@ -504,7 +514,7 @@ $button-green-hover: #004b27;
 						   background: #f3f3f3;
 						   padding: .5em 1em .4em 2.2em;
 						   font-size: 1.7rem;
-						   color: #666;
+						   color: #888;
 						   cursor: pointer;
 						   line-height: inherit;
 						   .ie & {
