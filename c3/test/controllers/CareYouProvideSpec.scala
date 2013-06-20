@@ -123,5 +123,39 @@ class CareYouProvideSpec extends Specification with Mockito {
         case Some(b: BreaksInCare) => b.breaks mustEqual Nil
       }
     }
+
+    "add 2 breaks" in new WithApplication with Claiming {
+      val request1 = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(
+        "moreBreaks" -> "yes",
+        "break.start.day" -> "1",
+        "break.start.month" -> "1",
+        "break.start.year" -> "2001",
+        "break.end.day" -> "1",
+        "break.end.month" -> "1",
+        "break.end.year" -> "2001")
+
+      val result1 = controllers.CareYouProvide.breaksInCareSubmit(request1)
+      redirectLocation(result1) must beSome("/careYouProvide/breaksInCare")
+
+      val request2 = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(
+        "moreBreaks" -> "no",
+        "break.start.day" -> "1",
+        "break.start.month" -> "1",
+        "break.start.year" -> "2001",
+        "break.end.day" -> "1",
+        "break.end.month" -> "1",
+        "break.end.year" -> "2001")
+
+      val result2 = controllers.CareYouProvide.breaksInCareSubmit(request2)
+      redirectLocation(result2) must beSome("/careYouProvide/completed")
+
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      claim.questionGroup(BreaksInCare.id) must beLike {
+        case Some(b: BreaksInCare) => b.breaks.size mustEqual 2
+      }
+    }
   }
 }

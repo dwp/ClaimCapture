@@ -40,12 +40,12 @@ object CareYouProvide extends Controller with CachedClaim {
   def theirPersonalDetails = claiming {
     implicit claim => implicit request =>
 
-      val theirPersonalDetailsFormParam: Form[TheirPersonalDetails] = claim.questionGroup(TheirPersonalDetails.id) match {
+      val theirPersonalDetailsQGForm: Form[TheirPersonalDetails] = claim.questionGroup(TheirPersonalDetails.id) match {
         case Some(t: TheirPersonalDetails) => theirPersonalDetailsForm.fill(t)
         case _ => theirPersonalDetailsForm
       }
 
-      Ok(views.html.s4_careYouProvide.g1_theirPersonalDetails(theirPersonalDetailsFormParam))
+      Ok(views.html.s4_careYouProvide.g1_theirPersonalDetails(theirPersonalDetailsQGForm))
   }
 
   def theirPersonalDetailsSubmit = claiming {
@@ -63,12 +63,12 @@ object CareYouProvide extends Controller with CachedClaim {
   def hasBreaks = claiming {
     implicit claim => implicit request =>
 
-      /*claim.form(models.domain.ClaimDate.id) match {
-        case Some(n) => Ok(views.html.s4_careYouProvide.g9_breaks(breaksForm))
-        case _ => Redirect(routes.CarersAllowance.benefits())
-      }*/
+      val hasBreaksQGForm = claim.questionGroup(models.domain.HasBreaks.id) match {
+        case Some(h: HasBreaks) => hasBreaksForm.fill(h)
+        case _ => hasBreaksForm
+      }
 
-      Ok(views.html.s4_careYouProvide.g10_hasBreaks(hasBreaksForm))
+      Ok(views.html.s4_careYouProvide.g10_hasBreaks(hasBreaksQGForm))
   }
 
   def hasBreaksSubmit = claiming {

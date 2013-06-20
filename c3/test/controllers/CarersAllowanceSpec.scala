@@ -27,7 +27,7 @@ class CarersAllowanceSpec extends Specification {
       header(CACHE_CONTROL, result) must beSome("no-cache, no-store")
 
       Cache.getAs[Claim](claimKey) must beLike {
-        case Some(c: Claim) => c.timeStamp mustNotEqual claim.get.timeStamp
+        case Some(c: Claim) => c.created mustNotEqual claim.get.created
       }
     }
 
