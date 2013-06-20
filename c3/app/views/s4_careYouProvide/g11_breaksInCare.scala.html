@@ -14,8 +14,9 @@
             <legend>About the breaks in care</legend>
 
             <ul class="group">
-                @inputDayMonthYearHM(breakInCareForm("date1"))
-                @inputDayMonthYearHM(breakInCareForm("date2"))
+
+                @inputDayMonthYearHM(breakInCareForm("break.start"))
+                @inputDayMonthYearHM(breakInCareForm("break.end"))
 
                 defining('options -> Seq("Respite"->"Respite","Care home"->"Care home","Nursing home"->"Nursing home","Residential school"->"Residential school","Holiday"->"Holiday","Prison"->"Prison","Other"->"Other")){ opts =>
                     selectWithOther(breaksInCareForm("doing1"),'helper -> "Some helper",opts)
