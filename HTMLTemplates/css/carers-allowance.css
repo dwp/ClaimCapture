@@ -816,7 +816,7 @@ textarea.demo {
 
 /* Header - Footer Overrides */
 #global-header .header-wrapper {
-  padding: 0.5em 0; }
+  padding: 0.5em 1px !important; }
 
 #footer .carers-allowance-footer {
   padding-top: 0; }

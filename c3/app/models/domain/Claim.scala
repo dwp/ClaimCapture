@@ -1,6 +1,6 @@
 package models.domain
 
-import models.Created
+import models.Timestamped
 
 object Claim {
   import org.joda.time.format.{DateTimeFormatter, DateTimeFormat}
@@ -16,7 +16,7 @@ object Claim {
   }
 }
 
-case class Claim(sections: Map[String, Section] = Map()) extends Created {
+case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   def section(sectionId: String): Option[Section] = sections.get(sectionId)
 
   def questionGroup(questionGroupID: String): Option[QuestionGroup] = {
