@@ -1,6 +1,6 @@
 @(elements: helper.FieldElements)
 
-@import views.html.helper._
+@import views.html.helper.dates._
 
 @if(elements.hasErrors){
   <li class="validation">
@@ -19,6 +19,7 @@
     <p class="helper right">@elements.args.get('helper).get.toString</p>
 }
 
+<p>@elements.args.get('timeLabel).getOrElse(Messages(elements.label+".time"))</p>
 
 @timePlaceholder(elements.field)
 

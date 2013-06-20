@@ -1,6 +1,6 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)
 
-@import utils.helpers.ClaimHelpers._
+@import utils.helpers.CarersTemplate._
 
 @input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
 	<li>
