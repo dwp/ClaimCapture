@@ -17,16 +17,15 @@ case class ClaimSubmission(aboutYou:AboutYou) {
         <DateOfBirth>{aboutYou.yourDetails.dateOfBirth.toXmlString}</DateOfBirth>
         <NationalInsuranceNumber>{aboutYou.yourDetails.nationalInsuranceNumber.orNull}</NationalInsuranceNumber>
         <Address>
-          <gds:Line>1</gds:Line>
-          <gds:Line>Anyplace Street</gds:Line>
-          <gds:Line/>
-          <gds:Line/>
+          <gds:Line>{aboutYou.contactDetails.address.lineOne.orNull}</gds:Line>
+          <gds:Line>{aboutYou.contactDetails.address.lineTwo.orNull}</gds:Line>
+          <gds:Line>{aboutYou.contactDetails.address.lineThree.orNull}</gds:Line>
           <gds:PostCode>{aboutYou.contactDetails.postcode.orNull}</gds:PostCode>
         </Address>
         <ConfirmAddress>yes</ConfirmAddress>
-        <HomePhoneNumber/>
+        <HomePhoneNumber>{aboutYou.contactDetails.mobileNumber.orNull}</HomePhoneNumber>
         <DaytimePhoneNumber>
-          <Number/>
+          <Number>{aboutYou.contactDetails.phoneNumber.orNull}</Number>
           <Qualifier/>
         </DaytimePhoneNumber>
         <EmailAddress/>
