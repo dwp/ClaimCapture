@@ -6,6 +6,48 @@
 @import views.html.helper.dates._
 
 @main("Breaks in Care - Care You Provide", breakInCareForm) {
+    <fieldset class="form-elements results-detail">
+        <legend>Trips you have added</legend>
+
+        <table>
+            <caption>Trip details</caption>
+
+            <thead>
+                <tr>
+                    <th>Dates</th>
+                    <th class="desc">Where did you go?</th>
+                    <th class="desc">Why Did you go?</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>01/01/2013<span>to</span>07/01/2013</td>
+                    <td class="desc">WWW WWW WW W WWW WWWWWW WWW...</td>
+                    <td class="desc">WWW WWW WW W WWW WWW WWWWWW...</td>
+                    <td><input type="button" class="button row secondary" value="Edit"></td>
+                    <td><input type="button" class="button row warning" value="Delete"></td>
+                </tr>
+                <tr>
+                    <td>01/01/2013<span>to</span>07/01/2013</td>
+                    <td class="desc">New York City</td>
+                    <td class="desc">Visting family and relatives</td>
+                    <td><input type="button" class="button row secondary" value="Edit"></td>
+                    <td><input type="button" class="button row warning" value="Delete"></td>
+                </tr>
+                <tr>
+                    <td>01/01/2013<span>to</span>07/01/2013</td>
+                    <td class="desc">New York City</td>
+                    <td class="desc">Visting family and relatives</td>
+                    <td><input type="button" class="button row secondary" value="Edit"></td>
+                    <td><input type="button" class="button row warning" value="Delete"></td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
     @form(action = routes.CareYouProvide.breaksInCareSubmit) {
         <fieldset class="form-elements">
             <legend>About the breaks in care</legend>
