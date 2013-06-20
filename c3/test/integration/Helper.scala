@@ -81,7 +81,7 @@ object Helper {
       "firstName" -> nonEmptyText,
       "middleName" -> optional(text),
       "surname" -> nonEmptyText,
-      "otherNames" -> optional(text),
+      "otherSurnames" -> optional(text),
       "nationalInsuranceNumber" -> optional(text verifying(pattern( """^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$""".r,
         "constraint.nationalInsuranceNumber", "error.nationalInsuranceNumber"), maxLength(10))),
       "dateOfBirth" -> date.verifying(validDate),

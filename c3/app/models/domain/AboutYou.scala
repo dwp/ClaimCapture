@@ -2,12 +2,17 @@ package models.domain
 
 import models.{MultiLineAddress, DayMonthYear}
 
+case class AboutYou(yourDetails: YourDetails,
+                    contactDetails: ContactDetails,
+                    timeOutsideUK : TimeOutsideUK,
+                    claimDate : ClaimDate)
+
 object AboutYou {
   val id = "s2"
 }
 
 case class YourDetails(title: String, firstName: String, middleName: Option[String], surname: String,
-                       otherNames: Option[String], nationalInsuranceNumber: Option[String], nationality: String,
+                       otherSurnames: Option[String], nationalInsuranceNumber: Option[String], nationality: String,
                        dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends QuestionGroup(YourDetails.id)
 
 object YourDetails {
