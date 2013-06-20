@@ -7,13 +7,11 @@
 @import utils.helpers.CarersTemplate._
 
 @main("Employment - About You",completedForms) {
+    @errorsSummary(employmentForm)
+
     @form(action = routes.AboutYou.employmentSubmit) {
-    
-        @errorsSummary(employmentForm)
-    
         <fieldset class="form-elements">
             <legend>Employment</legend>
- 
 
             <ul class="group">
             @defining(Claim.dateFormatGeneration.parseDateTime(claim.questionGroup(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>

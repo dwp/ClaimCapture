@@ -6,10 +6,9 @@
 @import views.html.helper.dates._
 
 @main("Claim Date - About You", completedForms) {
-    @form(action = routes.AboutYou.claimDateSubmit) {
-    
-        @errorsSummary(claimDateForm)
+    @errorsSummary(claimDateForm)
 
+    @form(action = routes.AboutYou.claimDateSubmit) {
         <fieldset class="form-elements">
             <legend>Your claim date</legend>
 

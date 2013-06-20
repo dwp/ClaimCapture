@@ -1,12 +1,12 @@
-@(formElement: Form[_])
+@(form: Form[_])
 
-@if(formElement.hasErrors) {
+@if(form.hasErrors) {
     <div class="validation-summary">
         <h2>There was a problem submitting the form</h2>
         <p>Please fix the following:</p>
 
         <ol>
-            @for(error <- formElement.errors) {
+            @for(error <- form.errors) {
                 <li><a href="#@error.key">@Messages(error.key) - @Messages(error.message)</a></li>
             }
         </ol>

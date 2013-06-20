@@ -7,15 +7,11 @@
 @import views.html.helper.dates._
 
 @main("Your Details - About You") {
+    @errorsSummary(yourDetailsForm)
 
     @form(action = routes.AboutYou.yourDetailsSubmit) {
-    
-    
-    	@errorsSummary(yourDetailsForm)
-
         <fieldset class="form-elements">
             <legend>Your details</legend>
-
 
             <ul class="group">
                 @titleSelect(yourDetailsForm("title"))

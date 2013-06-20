@@ -7,10 +7,9 @@
 @import utils.helpers.CarersTemplate._
 
 @main("Property and Rent - About You", completedForms) {
+    @errorsSummary(propertyAndRentForm)
+
     @form(action = routes.AboutYou.propertyAndRentSubmit) {
-    
-        @errorsSummary(propertyAndRentForm)
-    
         <fieldset class="form-elements">
             <legend>Property and rent</legend>
 
