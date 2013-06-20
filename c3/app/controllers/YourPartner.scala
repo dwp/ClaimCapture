@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 import models.view._
+import services.submission.ClaimSubmissionService
 
 object YourPartner extends Controller with CachedClaim {
   def yourPartner = claiming {
@@ -20,7 +21,7 @@ object YourPartner extends Controller with CachedClaim {
             </ul>
           </body>
       </html>
-
+      ClaimSubmissionService.submitClaim(claim)  // Temporary
       Ok(outcome)
   }
 }
