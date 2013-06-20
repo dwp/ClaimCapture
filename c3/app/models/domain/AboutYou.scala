@@ -1,14 +1,18 @@
 package models.domain
 
-import models.NationalInsuranceNumber
-import models.{MultiLineAddress, DayMonthYear}
+import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
+
+case class AboutYou(yourDetails: YourDetails,
+                    contactDetails: ContactDetails,
+                    timeOutsideUK : TimeOutsideUK,
+                    claimDate : ClaimDate)
 
 object AboutYou {
   val id = "s2"
 }
 
 case class YourDetails(title: String, firstName: String, middleName: Option[String], surname: String,
-                       otherNames: Option[String], nationalInsuranceNumber: Option[NationalInsuranceNumber], nationality: String,
+                       otherSurnames: Option[String], nationalInsuranceNumber: Option[NationalInsuranceNumber], nationality: String,
                        dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends QuestionGroup(YourDetails.id)
 
 object YourDetails {

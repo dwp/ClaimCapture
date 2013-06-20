@@ -3,16 +3,24 @@ package controllers
 import org.joda.time.DateTime
 import play.api.data.Mapping
 import play.api.data.Forms._
-import play.api.data.validation.{Invalid, Valid, Constraint}
+import play.api.data.validation._
 import scala.util.Try
 import util.Failure
-import play.api.data.validation.ValidationError
 import util.Success
 import models.NationalInsuranceNumber
 import play.api.data.validation.Constraints._
 import models.{MultiLineAddress, DayMonthYear}
+import scala.util.Success
+import models.MultiLineAddress
+import scala.util.Failure
+import models.NationalInsuranceNumber
+import scala.Some
+import play.api.data.validation.ValidationError
 
 object Mappings {
+
+  val maxNrOfChars = 60
+
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
     "day" -> optional(number),
     "month" -> optional(number),
@@ -25,17 +33,22 @@ object Mappings {
     "lineTwo" -> optional(text),
     "lineThree" -> optional(text))(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
+  def dateTimeValidation(dmy: DayMonthYear): ValidationResult = {
+    Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
+      case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError("error.invalid"))
+      case Success(dt: DateTime) => Valid
+      case Failure(_) => Invalid(ValidationError("error.invalid"))
+    }
+  }
   def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
     dmy => dmy match {
-      case DayMonthYear(None, None, None,_,_) => Invalid(ValidationError("error.required"))
-      case DayMonthYear(_, _, _,_,_) =>
-
-        Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
-          case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError("error.invalid"))
-          case Success(dt: DateTime) => Valid
-          case Failure(_) => Invalid(ValidationError("error.invalid"))
-        }
+      case DayMonthYear(None ,None ,None ,_ ,_) => Invalid(ValidationError("error.required"))
+      case DayMonthYear(_ ,_ ,_ ,_ ,_) => dateTimeValidation(dmy)
     }
+  }
+
+  def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
+    dmy => dateTimeValidation(dmy)
   }
 
   def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>

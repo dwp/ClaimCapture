@@ -14,10 +14,10 @@ object CareYouProvide extends Controller with CachedClaim  {
     val theirPersonalDetailsForm = Form(
     mapping(
       "title" -> nonEmptyText,
-      "firstName" -> nonEmptyText,
-      "middleName" -> optional(text),
-      "surname" -> nonEmptyText,
-      "nationalInsuranceNumber" -> optional(Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)),
+      "firstName" -> nonEmptyText(maxLength = maxNrOfChars),
+      "middleName" -> optional(text(maxLength = maxNrOfChars)),
+      "surname" -> nonEmptyText(maxLength = maxNrOfChars),
+      "nationalInsuranceNumber" -> optional(nationalInsuranceNumber verifying validNationalInsuranceNumber),
       "dateOfBirth" -> Mappings.dayMonthYear.verifying(Mappings.validDate),
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
@@ -32,8 +32,8 @@ object CareYouProvide extends Controller with CachedClaim  {
     mapping(
       "moreBreaks" -> nonEmptyText,
       "break" -> optional(mapping(
-        "start" -> Mappings.dayMonthYear.verifying(Mappings.validDate),
-        "end" -> dayMonthYear.verifying(validDate)
+        "start" -> (dayMonthYear verifying validDateOnly),
+        "end"   -> (dayMonthYear verifying validDateOnly)
       )(Break.apply)(Break.unapply))
     )(BreakInCare.apply)(BreakInCare.unapply))
 
@@ -90,14 +90,15 @@ object CareYouProvide extends Controller with CachedClaim  {
         formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_breaksInCare(formWithErrors)),
         breakInCare => {
           val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
-            case Some(b: BreaksInCare) if breakInCare.break.isDefined => b.update(Break(breakInCare.break.get.start, breakInCare.break.get.end))
-            case Some(b: BreaksInCare) => b
-            case _ if breakInCare.break.isDefined => BreaksInCare().update(Break(breakInCare.break.get.start, breakInCare.break.get.end))
-            case _ => BreaksInCare()
+            case Some(b: BreaksInCare) => breakInCare.break.fold(b)(break => if (b.breaks.size == 10) b else b.update(break))
+            case _ => breakInCare.break.fold(BreaksInCare())(BreaksInCare().update)
           }
 
-          if (breakInCare.moreBreaks == "yes") claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.breaksInCare())
-          else claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed())
+          breakInCare.moreBreaks match {
+            case "no" => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed())
+            case "yes" if breaksInCare.breaks.size == 10 => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed(/* TODO WARNING FEEDBACK MESSAGE*/))
+            case _ => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.breaksInCare())
+          }
         })
   }
 

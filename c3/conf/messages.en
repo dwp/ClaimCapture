@@ -81,3 +81,9 @@ liveAtSameAddress = Do they live at the same address as you?
 #BREAKS
 breaks = Have you had any breaks in caring since {0}?
 breaks.prompt = <p class="intro">By break we mean time when, for any reason, you spent less than 35 hours a week caring for the person you look after. For example, if:</p><ul><li>They were in respite care, in hospital or on holiday without you, or</li><li>You were in hospital or on holiday without them.</li></ul>
+
+#BREAKS IN CARE
+break.start = Break start date?
+break.start.time = Break start time?
+break.end = Break end date?
+break.end.time = Break end time?

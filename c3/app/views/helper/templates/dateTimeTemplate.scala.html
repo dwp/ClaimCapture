@@ -19,7 +19,7 @@
     <p class="helper right">@elements.args.get('helper).get.toString</p>
 }
 
-<p>@elements.args.get('timeLabel).getOrElse(Messages(elements.label+".time"))</p>
+<p>@elements.args.get('timeLabel).getOrElse(Messages(elements.field.name+".time"))</p>
 
 @timePlaceholder(elements.field)
 
