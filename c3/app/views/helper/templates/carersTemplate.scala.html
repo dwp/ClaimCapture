@@ -1,20 +1,18 @@
 @(elements: helper.FieldElements)
 
-@if(elements.hasErrors){
-  <li class="validation">
-      <p class="error">@elements.errors.mkString(", ")</p>
-}else {
-  <li>
-}
+<li class="@defining(if (elements.hasErrors) "validation" else ""){ v => @v}">
+    @if(elements.hasErrors){
+        <p class="error">@elements.errors.mkString(", ")</p>
+    }
 
-@defining(elements.field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
-    <p>@if(required){@Html("<em>*</em>")}@elements.label</p>
-}
+    @defining(elements.field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
+        <p>@if(required){@Html("<em>*</em>")}@elements.label</p>
+    }
 
-@elements.input
+    @elements.input
 
-@if(elements.args.contains('helper)){
-    <p class="helper right">@elements.args.get('helper).get.toString</p>
-}
+    @if(elements.args.contains('helper)){
+        <p class="helper right">@elements.args.get('helper).get.toString</p>
+    }
 
 </li>

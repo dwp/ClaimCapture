@@ -47,7 +47,7 @@ object Mappings {
     }
   }
 
-  def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
+  def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") {
     dmy => dateTimeValidation(dmy)
   }
 
