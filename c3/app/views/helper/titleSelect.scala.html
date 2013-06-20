@@ -6,17 +6,17 @@
     select(field,
         options = options(
             "" -> "Please select",
-            "mrs" ->"Mrs",
             "mr" -> "Mr",
-            "dame"->"Dame",
-            "dr"  ->"Dr"  ,
-            "lady"->"Lady",
+            "mrs" -> "Mrs",
+            "miss" -> "Miss",
+            "ms" -> "Ms",
+            "master" -> "Master",
+            "dr"  ->"Dr",
+            "rev" ->"Rev",
+            "sir" ->"Sir",
             "lord"->"Lord",
-            "miss"->"Miss",
-            "ms"  ->"Ms"  ,
-            "rev" ->"Rev" ,
-            "sir" ->"Sir"
-        ),
+            "lady"->"Lady",
+            "dame"->"Dame"),
         '_label -> Messages("title")
     )
 }
