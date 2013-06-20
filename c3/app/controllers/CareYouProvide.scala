@@ -3,7 +3,6 @@ package controllers
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.validation.Constraints._
 import models.view.CachedClaim
 import Mappings._
 import scala.Some
@@ -63,8 +62,7 @@ object CareYouProvide extends Controller with CachedClaim  {
 
   def hasBreaks = claiming {
     implicit claim => implicit request =>
-
-      val hasBreaksQGForm = claim.questionGroup(models.domain.HasBreaks.id) match {
+      val hasBreaksQGForm = claim.questionGroup(HasBreaks.id) match {
         case Some(h: HasBreaks) => hasBreaksForm.fill(h)
         case _ => hasBreaksForm
       }
@@ -105,6 +103,21 @@ object CareYouProvide extends Controller with CachedClaim  {
 
   def completed = claiming {
     implicit claim => implicit request =>
-      Ok("")
+      val outcome =
+        <html>
+          <head>
+            <title>Completed - Care You Provide</title>
+          </head>
+
+          <body>
+            <h1>End of Sprint 2</h1>
+
+            <ul>
+              {claim.completedQuestionGroups(models.domain.CareYouProvide.id).map(f => <li>{f}</li>)}
+            </ul>
+          </body>
+        </html>
+
+      Ok(outcome)
   }
 }
