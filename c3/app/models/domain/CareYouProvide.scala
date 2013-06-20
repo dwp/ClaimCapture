@@ -38,4 +38,4 @@ object BreaksInCare {
 
 case class BreakInCare(moreBreaks: String, break: Option[Break])
 
-case class Break(start: DayMonthYear, end: Option[DayMonthYear], whereYou: Whereabouts, wherePerson: Whereabouts)
+case class Break(start: DayMonthYear, end: Option[DayMonthYear], whereYou: Whereabouts, wherePerson: Whereabouts,medicalDuringBreak:Option[String])

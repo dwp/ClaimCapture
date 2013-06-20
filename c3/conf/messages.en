@@ -89,3 +89,5 @@ break.end = Break end date?
 break.end.time = Break end time?
 break.whereYou = Where were you during the above break?
 break.wherePerson = Where was the person you care for during the above break?
+moreBreaks = Have you had any more breaks in care for this person since your claim date: {0}
+medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
