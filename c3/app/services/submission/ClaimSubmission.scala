@@ -22,14 +22,14 @@ case class ClaimSubmission(aboutYou:AboutYou) {
           <gds:Line>{aboutYou.contactDetails.address.lineThree.orNull}</gds:Line>
           <gds:PostCode>{aboutYou.contactDetails.postcode.orNull}</gds:PostCode>
         </Address>
-        <ConfirmAddress>yes</ConfirmAddress>
+        <ConfirmAddress>yes</ConfirmAddress> // Always default to yes
         <HomePhoneNumber>{aboutYou.contactDetails.mobileNumber.orNull}</HomePhoneNumber>
         <DaytimePhoneNumber>
           <Number>{aboutYou.contactDetails.phoneNumber.orNull}</Number>
           <Qualifier/>
         </DaytimePhoneNumber>
         <EmailAddress/>
-        <ClaimedBefore>no</ClaimedBefore>
+        <ClaimedBefore>no</ClaimedBefore>  // Default to no
       </Claimant>
 
       <Caree>
@@ -45,7 +45,7 @@ case class ClaimSubmission(aboutYou:AboutYou) {
           <gds:Line/>
           <gds:PostCode/>
         </Address>
-        <ConfirmAddress>yes</ConfirmAddress>
+        <ConfirmAddress>yes</ConfirmAddress> // Always default to yes
         <HomePhoneNumber/>
         <DaytimePhoneNumber>
           <Number/>
@@ -71,7 +71,7 @@ case class ClaimSubmission(aboutYou:AboutYou) {
               <gds:Line/>
               <gds:PostCode/>
             </Address>
-            <ConfirmAddress>yes</ConfirmAddress>
+            <ConfirmAddress>yes</ConfirmAddress> // Always default to yes
           </BreakAddress>
         </CareBreak>
         <Cared35hoursBefore>yes</Cared35hoursBefore>
@@ -140,7 +140,7 @@ case class ClaimSubmission(aboutYou:AboutYou) {
               <gds:Line/>
               <gds:PostCode/>
             </Address>
-            <ConfirmAddress>yes</ConfirmAddress>
+            <ConfirmAddress>yes</ConfirmAddress> // Always default to yes
             <EmployersPhoneNumber>08907 1234567</EmployersPhoneNumber>
             <EmployersFaxNumber/>
             <WagesDepartment/>
@@ -197,7 +197,7 @@ case class ClaimSubmission(aboutYou:AboutYou) {
           <gds:Line/>
           <gds:PostCode/>
         </Address>
-        <ConfirmAddress>yes</ConfirmAddress>
+        <ConfirmAddress>yes</ConfirmAddress> // Always default to yes
         <RelationshipStatus>
           <JoinedHouseholdAfterDateOfClaim>no</JoinedHouseholdAfterDateOfClaim>
           <JoinedHouseholdDate/>
@@ -269,7 +269,7 @@ case class ClaimSubmission(aboutYou:AboutYou) {
               <gds:Line/>
               <gds:PostCode/>
             </Address>
-            <ConfirmAddress>yes</ConfirmAddress>
+            <ConfirmAddress>yes</ConfirmAddress> // Always default to yes
           </BankDetails>
         </Account>
       </Payment>
