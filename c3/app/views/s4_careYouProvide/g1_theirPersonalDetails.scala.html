@@ -26,7 +26,7 @@
 
                 @inputText(theirPersonalDetailsForm("surname"))
 
-                @inputText(theirPersonalDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"))
+                @nationalInsuranceNumber(theirPersonalDetailsForm("nationalInsuranceNumber"), 'helper-> Messages("nationalInsuranceNumber.helper"))
 
                 @inputDayMonthYear(theirPersonalDetailsForm("dateOfBirth"), 'helper-> Messages("dateOfBirth.helper"))
 

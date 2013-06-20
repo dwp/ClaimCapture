@@ -75,18 +75,17 @@ class AboutYouSpec extends Specification with Mockito {
         "surname" -> "Doo",
         "nationality" -> "US",
         
-        "nationalInsuranceNumber.ni1" -> "AB",
-        "nationalInsuranceNumber.ni2" -> "12",
-        "nationalInsuranceNumber.ni3" -> "34",
-        "nationalInsuranceNumber.ni4" -> "56",
-        "nationalInsuranceNumber.ni5" -> "C",
+        "nationalInsuranceNumber.ni-1" -> "JW",
+        "nationalInsuranceNumber.ni-2" -> "12",
+        "nationalInsuranceNumber.ni-3" -> "34",
+        "nationalInsuranceNumber.ni-4" -> "56",
+        "nationalInsuranceNumber.ni-5" -> "C",
         
         "dateOfBirth.day" -> "5",
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "1990",
         "maritalStatus" -> "Single",
-        "alwaysLivedUK" -> "yes",
-        "nationalInsuranceNumber" -> "aB123456A")
+        "alwaysLivedUK" -> "yes")
 
       val result = controllers.AboutYou.yourDetailsSubmit(request)
       status(result) mustNotEqual BAD_REQUEST
