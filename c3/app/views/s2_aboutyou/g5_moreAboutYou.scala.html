@@ -3,24 +3,25 @@
 @import common._
 @import helper._
 @import views.html.common._
+@import models.domain.Claim
 @import models.domain.ClaimDate
 @import utils.helpers.ClaimHelpers._
 
 @main("More About You - About You",completedForms) {
-    @form(action = routes.AboutYou.moreAboutYouSubmit()) {
+    @form(action = routes.AboutYou.moreAboutYouSubmit) {
     
-    @errorsSummary(moreAboutYouForm)
+        @errorsSummary(moreAboutYouForm)
     
         <fieldset class="form-elements">
             <legend>More about you</legend>
 
             <ul class="group">
-                @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
-                    @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("hadPartnerSinceClaimDate.label", dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                @defining(Claim.dateFormatGeneration.parseDateTime(claim.questionGroup(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
+                    @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("hadPartnerSinceClaimDate.label", dateOfClaim.toString(Claim.dateFormatPrint)))
 
-                    @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("eitherClaimedBenefitSinceClaimDate.label", dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                    @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("eitherClaimedBenefitSinceClaimDate.label", dateOfClaim.toString(Claim.dateFormatPrint)))
 
-                    @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("beenInEducationSinceClaimDate.label", dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                    @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("beenInEducationSinceClaimDate.label", dateOfClaim.toString(Claim.dateFormatPrint)))
                 }
 
                 @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"),'_label -> Messages("receiveStatePension"))

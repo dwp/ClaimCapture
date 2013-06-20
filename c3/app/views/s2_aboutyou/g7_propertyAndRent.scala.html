@@ -2,25 +2,26 @@
 
 @import helper._
 @import views.html.common._
+@import models.domain.Claim
 @import models.domain.ClaimDate
 @import utils.helpers.ClaimHelpers._
 
 @main("Property and Rent - About You", completedForms) {
-    @form(action = routes.AboutYou.propertyAndRentSubmit()) {
+    @form(action = routes.AboutYou.propertyAndRentSubmit) {
     
-    @errorsSummary(propertyAndRentForm)
+        @errorsSummary(propertyAndRentForm)
     
         <fieldset class="form-elements">
             <legend>Property and rent</legend>
 
             <ul class="group">
-                @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
+                @defining(Claim.dateFormatGeneration.parseDateTime(claim.questionGroup(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
 
                     @yesNoRadioGroup(propertyAndRentForm("ownProperty"),
-                        '_label -> Messages("ownProperty.label", dateOfClaim.minusWeeks(1).toString(utils.ClaimUtils.dateFormatPrint), dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                        '_label -> Messages("ownProperty.label", dateOfClaim.minusWeeks(1).toString(Claim.dateFormatPrint), dateOfClaim.toString(Claim.dateFormatPrint)))
 
                     @yesNoRadioGroup(propertyAndRentForm("hasSublet"),
-                        '_label -> Messages("hasSublet.label", dateOfClaim.minusWeeks(1).toString(utils.ClaimUtils.dateFormatPrint), dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                        '_label -> Messages("hasSublet.label", dateOfClaim.minusWeeks(1).toString(Claim.dateFormatPrint), dateOfClaim.toString(Claim.dateFormatPrint)))
                 }
             </ul>
 

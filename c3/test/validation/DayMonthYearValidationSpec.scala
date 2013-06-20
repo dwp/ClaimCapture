@@ -2,8 +2,8 @@ package validation
 
 import play.api.data.Form
 import org.specs2.mutable.Specification
-import controllers.Forms._
-import models.domain.DayMonthYear
+import controllers.Mappings._
+import models.DayMonthYear
 
 class DayMonthYearValidationSpec extends Specification {
 

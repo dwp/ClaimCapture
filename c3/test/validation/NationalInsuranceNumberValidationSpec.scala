@@ -10,10 +10,10 @@ import play.api.data.Form
 import play.api.data.Mapping
 import play.api.data.validation.Constraints._
 import play.api.data.Forms._
-import controllers.Forms
+import controllers.Mappings
 
 class NationalInsuranceNumberValidationSpec extends Specification {
-  def createNationalInsuranceNumberForm(ni1: String, ni2: String, ni3: String, ni4: String, ni5: String) = Form("nationalInsuranceNumber" -> Forms.nationalInsuranceNumber.verifying(Forms.validNationalInsuranceNumber)).bind(Map(
+  def createNationalInsuranceNumberForm(ni1: String, ni2: String, ni3: String, ni4: String, ni5: String) = Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
     "nationalInsuranceNumber.ni1" -> ni1,
     "nationalInsuranceNumber.ni2" -> ni2,
     "nationalInsuranceNumber.ni3" -> ni3,
@@ -35,7 +35,7 @@ class NationalInsuranceNumberValidationSpec extends Specification {
 
     "detect missing fields" in {
       "complain when field 1 missing" in {
-        Form("nationalInsuranceNumber" -> Forms.nationalInsuranceNumber.verifying(Forms.validNationalInsuranceNumber)).bind(Map(
+        Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
 
           "nationalInsuranceNumber.ni2" -> "12",
           "nationalInsuranceNumber.ni3" -> "34",
@@ -46,7 +46,7 @@ class NationalInsuranceNumberValidationSpec extends Specification {
       }
 
       "complain when field 2 missing" in {
-        Form("nationalInsuranceNumber" -> Forms.nationalInsuranceNumber.verifying(Forms.validNationalInsuranceNumber)).bind(Map(
+        Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
           "nationalInsuranceNumber.ni1" -> "AB",
 
           "nationalInsuranceNumber.ni3" -> "34",
@@ -57,7 +57,7 @@ class NationalInsuranceNumberValidationSpec extends Specification {
       }
 
       "complain when field 3 missing" in {
-        Form("nationalInsuranceNumber" -> Forms.nationalInsuranceNumber.verifying(Forms.validNationalInsuranceNumber)).bind(Map(
+        Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
           "nationalInsuranceNumber.ni1" -> "AB",
           "nationalInsuranceNumber.ni2" -> "12",
 
@@ -68,7 +68,7 @@ class NationalInsuranceNumberValidationSpec extends Specification {
       }
 
       "complain when field 4 missing" in {
-        Form("nationalInsuranceNumber" -> Forms.nationalInsuranceNumber.verifying(Forms.validNationalInsuranceNumber)).bind(Map(
+        Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
           "nationalInsuranceNumber.ni1" -> "AB",
           "nationalInsuranceNumber.ni2" -> "12",
           "nationalInsuranceNumber.ni3" -> "34",
@@ -79,7 +79,7 @@ class NationalInsuranceNumberValidationSpec extends Specification {
       }
 
       "complain when field 5 missing" in {
-        Form("nationalInsuranceNumber" -> Forms.nationalInsuranceNumber.verifying(Forms.validNationalInsuranceNumber)).bind(Map(
+        Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
           "nationalInsuranceNumber.ni1" -> "AB",
           "nationalInsuranceNumber.ni2" -> "12",
           "nationalInsuranceNumber.ni3" -> "34",

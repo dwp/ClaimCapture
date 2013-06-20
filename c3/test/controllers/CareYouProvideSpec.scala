@@ -85,7 +85,7 @@ class CareYouProvideSpec extends Specification with Mockito {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(BreaksInCare.id) must beLike {
+      claim.questionGroup(BreaksInCare.id) must beLike {
         case Some(b: BreaksInCare) => b.breaks mustEqual Nil
       }
     }
@@ -106,12 +106,12 @@ class CareYouProvideSpec extends Specification with Mockito {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(BreaksInCare.id) must beLike {
+      claim.questionGroup(BreaksInCare.id) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 1
       }
     }
 
-    """allow more breaks to be added (answer "yes" to ""Have you had any more breaks) """ in new WithApplication with Claiming {
+    """allow more breaks to be added (answer "yes" to "Have you had any more breaks")""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("moreBreaks" -> "yes")
 
       val result = controllers.CareYouProvide.breaksInCareSubmit(request)
@@ -119,8 +119,42 @@ class CareYouProvideSpec extends Specification with Mockito {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(BreaksInCare.id) must beLike {
+      claim.questionGroup(BreaksInCare.id) must beLike {
         case Some(b: BreaksInCare) => b.breaks mustEqual Nil
+      }
+    }
+
+    "add 2 breaks" in new WithApplication with Claiming {
+      val request1 = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(
+        "moreBreaks" -> "yes",
+        "break.start.day" -> "1",
+        "break.start.month" -> "1",
+        "break.start.year" -> "2001",
+        "break.end.day" -> "1",
+        "break.end.month" -> "1",
+        "break.end.year" -> "2001")
+
+      val result1 = controllers.CareYouProvide.breaksInCareSubmit(request1)
+      redirectLocation(result1) must beSome("/careYouProvide/breaksInCare")
+
+      val request2 = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(
+        "moreBreaks" -> "no",
+        "break.start.day" -> "1",
+        "break.start.month" -> "1",
+        "break.start.year" -> "2001",
+        "break.end.day" -> "1",
+        "break.end.month" -> "1",
+        "break.end.year" -> "2001")
+
+      val result2 = controllers.CareYouProvide.breaksInCareSubmit(request2)
+      redirectLocation(result2) must beSome("/careYouProvide/completed")
+
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      claim.questionGroup(BreaksInCare.id) must beLike {
+        case Some(b: BreaksInCare) => b.breaks.size mustEqual 2
       }
     }
   }

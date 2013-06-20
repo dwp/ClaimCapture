@@ -1,6 +1,7 @@
 package models.domain
 
 import models.NationalInsuranceNumber
+import models.DayMonthYear
 
 object CareYouProvide {
   val id = "s4"
@@ -14,7 +15,7 @@ object TheirPersonalDetails {
   val id = s"${CareYouProvide.id}.g1"
 }
 
-case class HasBreaks(breaks: String) extends QuestionGroup(HasBreaks.id)
+case class HasBreaks(answer: String) extends QuestionGroup(HasBreaks.id)
 
 object HasBreaks {
   val id = s"${CareYouProvide.id}.g10"

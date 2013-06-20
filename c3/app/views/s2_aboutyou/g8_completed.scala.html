@@ -3,7 +3,7 @@
 @import helper._
 
 @main("Completion - About You", completedForms) {
-    @form(action = routes.AboutYou.completedSubmit()) {
+    @form(action = routes.AboutYou.completedSubmit) {
         <div class="form-steps">
             <a href="@routes.AboutYou.propertyAndRent" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next Step</button>

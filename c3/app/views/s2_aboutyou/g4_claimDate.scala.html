@@ -5,11 +5,10 @@
 @import utils.helpers.ClaimHelpers._
 
 @main("Claim Date - About You", completedForms) {
-    @form(action = routes.AboutYou.claimDateSubmit()) {
+    @form(action = routes.AboutYou.claimDateSubmit) {
     
-    @errorsSummary(claimDateForm)
-    
-    
+        @errorsSummary(claimDateForm)
+
         <fieldset class="form-elements">
             <legend>Your claim date</legend>
 

@@ -1,7 +1,7 @@
 package models.domain
 
 import models.NationalInsuranceNumber
-
+import models.{MultiLineAddress, DayMonthYear}
 
 object AboutYou {
   val id = "s2"

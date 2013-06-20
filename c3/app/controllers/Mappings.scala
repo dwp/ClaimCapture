@@ -8,12 +8,11 @@ import scala.util.Try
 import util.Failure
 import play.api.data.validation.ValidationError
 import util.Success
-import models.domain.{MultiLineAddress, DayMonthYear}
 import models.NationalInsuranceNumber
 import play.api.data.validation.Constraints._
+import models.{MultiLineAddress, DayMonthYear}
 
-object Forms {
-
+object Mappings {
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
     "day" -> optional(number),
     "month" -> optional(number),
@@ -32,7 +31,8 @@ object Forms {
       case DayMonthYear(_, _, _,_,_) =>
 
         Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
-          case Success(dt:DateTime) => if (dt.getYear > 9999 || dt.getYear < 999) Invalid(ValidationError("error.invalid")) else Valid
+          case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError("error.invalid"))
+          case Success(dt: DateTime) => Valid
           case Failure(_) => Invalid(ValidationError("error.invalid"))
         }
     }

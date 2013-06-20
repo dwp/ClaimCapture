@@ -9,9 +9,9 @@ import models.domain.QuestionGroup
 trait Claiming extends Scope with Mockito {
   val claimKey = randomUUID().toString
 
-  def mockForm[F <: QuestionGroup](formID: String)(implicit classTag: ClassTag[F]) = {
-    val form = mock[F]
-    form.id returns formID
-    form
+  def mockQuestionGroup[Q <: QuestionGroup](questionGroupID: String)(implicit classTag: ClassTag[Q]) = {
+    val questionGroup = mock[Q]
+    questionGroup.id returns questionGroupID
+    questionGroup
   }
 }

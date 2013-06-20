@@ -1,7 +1,6 @@
 package models.view
 
 import org.specs2.mutable.Specification
-import utils.ClaimUtils
 import models.domain._
 import models.domain.Claim
 import scala.Some
@@ -18,7 +17,7 @@ class ClaimSpec extends Specification {
       val claim = Claim()
       val form = Benefits()
       val updatedClaim = claim.update(form)
-      val sectionId = ClaimUtils.sectionId(form.id)
+      val sectionId = Claim.sectionId(form.id)
       val sectionOption = updatedClaim.section(sectionId)
 
       sectionOption must beLike {
@@ -37,7 +36,7 @@ class ClaimSpec extends Specification {
       val claimWithFalseForm = claim.update(falseForm)
       val claimWithTrueForm = claimWithFalseForm.update(trueForm)
 
-      val sectionId = ClaimUtils.sectionId(trueForm.id)
+      val sectionId = Claim.sectionId(trueForm.id)
       val sectionOption = claimWithTrueForm.section(sectionId)
       val section = sectionOption.get
 
@@ -56,7 +55,7 @@ class ClaimSpec extends Specification {
     "return the correct form" in {
       val claim = MockObjects.claim
       val formId = LivesInGB.id
-      val formOption = claim.form(formId)
+      val formOption = claim.questionGroup(formId)
 
       formOption must beLike {
         case Some(form: QuestionGroup) => form.id mustEqual formId

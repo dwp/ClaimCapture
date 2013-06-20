@@ -6,8 +6,6 @@ import play.api.test.Helpers._
 
 import play.api.cache.Cache
 import models.view._
-import utils.ClaimUtils
-import scala.Some
 import java.util.concurrent.TimeUnit
 import models.domain
 import models.domain._
@@ -39,7 +37,7 @@ class CarersAllowanceSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(Benefits.id) must beLike {
+      claim.questionGroup(Benefits.id) must beLike {
         case Some(f: Benefits) => f.answer mustEqual true
       }
     }
@@ -50,7 +48,7 @@ class CarersAllowanceSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(Benefits.id) must beLike {
+      claim.questionGroup(Benefits.id) must beLike {
         case Some(f: Benefits) => f.answer mustEqual false
       }
     }
@@ -65,8 +63,8 @@ class CarersAllowanceSpec extends Specification {
 
       status(result) mustEqual OK
 
-      val sectionId = ClaimUtils.sectionId(Benefits.id)
-      val answeredForms = claim.completedFormsForSection(sectionId).dropWhile(_.id != Benefits.id)
+      val sectionId = Claim.sectionId(Benefits.id)
+      val answeredForms = claim.completedQuestionGroups(sectionId).dropWhile(_.id != Benefits.id)
       answeredForms(0) mustEqual Benefits(answer = true)
     }
 
@@ -76,7 +74,7 @@ class CarersAllowanceSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(Hours.id) must beLike {
+      claim.questionGroup(Hours.id) must beLike {
         case Some(f: Hours) => f.answer mustEqual true
       }
     }
@@ -109,8 +107,8 @@ class CarersAllowanceSpec extends Specification {
 
       status(result) mustEqual OK
 
-      val sectionId = ClaimUtils.sectionId(LivesInGB.id)
-      val answeredForms = claimWithHoursForm.completedFormsForSection(sectionId)
+      val sectionId = Claim.sectionId(LivesInGB.id)
+      val answeredForms = claimWithHoursForm.completedQuestionGroups(sectionId)
 
       answeredForms(0) mustEqual Benefits(answer = true)
       answeredForms(1) mustEqual Hours(answer = true)
@@ -122,7 +120,7 @@ class CarersAllowanceSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(LivesInGB.id) must beLike {
+      claim.questionGroup(LivesInGB.id) must beLike {
         case Some(f: LivesInGB) => f.answer mustEqual true
       }
     }
@@ -139,8 +137,8 @@ class CarersAllowanceSpec extends Specification {
 
       status(result) mustEqual OK
 
-      val sectionId = ClaimUtils.sectionId(Over16.id)
-      val answeredForms = claimWithLivesInGB.completedFormsForSection(sectionId)
+      val sectionId = Claim.sectionId(Over16.id)
+      val answeredForms = claimWithLivesInGB.completedQuestionGroups(sectionId)
 
       answeredForms(0) mustEqual Benefits(answer = true)
       answeredForms(1) mustEqual Hours(answer = true)
@@ -153,7 +151,7 @@ class CarersAllowanceSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.form(Over16.id) must beLike {
+      claim.questionGroup(Over16.id) must beLike {
         case Some(f: Over16) => f.answer mustEqual true
       }
     }

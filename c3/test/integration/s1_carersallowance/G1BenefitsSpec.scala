@@ -20,6 +20,15 @@ class G1BenefitsSpec extends Specification with Tags {
       browser.goTo("/allowance/benefits?changing=true")
       browser.find("#q3-yes").getAttribute("value") mustEqual "true"
     }
+
+    "allow changing answer via given link" in new WithBrowser {
+      browser.goTo("/")
+      browser.click("#q3-yes")
+      browser.submit("button[type='submit']")
+      browser.click("div[class=completed] a")
+      browser.title() mustEqual "Benefits - Carer's Allowance"
+      browser.find("#q3-yes").getAttribute("value") mustEqual "true"
+    }
   } section "integration"
 
   "Does the person being cared for get one of required benefits" should {
