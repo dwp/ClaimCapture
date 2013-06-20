@@ -14,6 +14,12 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
 
      }
 
+     "contain errors on invalid submission" in new WithBrowser {
+       browser.goTo("/careYouProvide/theirContactDetails")
+       browser.submit("button[type='submit']")
+       browser.find("div[class=validation-summary] ol li").size mustEqual 1
+     }
+
      "be prepopulated if they live at same address" in new WithBrowser {
         Helper.fillYourContactDetails(browser)
         Helper.fillTheirPersonalDetails(browser)
@@ -43,7 +49,7 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
        browser.find("#postcode").getValue mustEqual("")
      }
 
-     "navigate back to Their Contact Details" in new WithBrowser {
+     "navigate back to Their Personal Details" in new WithBrowser {
        browser.goTo("/careYouProvide/theirContactDetails")
        browser.click("#backButton")
        browser.title() mustEqual "Their Personal Details - Care You Provide"
