@@ -1,6 +1,6 @@
 package models.domain
 
-import models.{MultiLineAddress, DayMonthYear}
+import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 
 case class AboutYou(yourDetails: YourDetails,
                     contactDetails: ContactDetails,
@@ -12,7 +12,7 @@ object AboutYou {
 }
 
 case class YourDetails(title: String, firstName: String, middleName: Option[String], surname: String,
-                       otherSurnames: Option[String], nationalInsuranceNumber: Option[String], nationality: String,
+                       otherSurnames: Option[String], nationalInsuranceNumber: Option[NationalInsuranceNumber], nationality: String,
                        dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends QuestionGroup(YourDetails.id)
 
 object YourDetails {

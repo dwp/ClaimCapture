@@ -3,25 +3,25 @@ package controllers
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.validation.Constraints._
 import models.view.CachedClaim
 import Mappings._
 import scala.Some
 import models.domain.{HasBreaks, TheirPersonalDetails, BreakInCare, Break, BreaksInCare}
 
-object CareYouProvide extends Controller with CachedClaim {
 
-  val theirPersonalDetailsForm = Form(
+object CareYouProvide extends Controller with CachedClaim  {
+
+    val theirPersonalDetailsForm = Form(
     mapping(
       "title" -> nonEmptyText,
-      "firstName" -> nonEmptyText,
-      "middleName" -> optional(text),
-      "surname" -> nonEmptyText,
-      "nationalInsuranceNumber" -> optional(text verifying(pattern( """^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$""".r,
-        "constraint.nationalInsuranceNumber", "error.nationalInsuranceNumber"), maxLength(10))),
-      "dateOfBirth" -> dayMonthYear.verifying(validDate),
+      "firstName" -> nonEmptyText(maxLength = maxNrOfChars),
+      "middleName" -> optional(text(maxLength = maxNrOfChars)),
+      "surname" -> nonEmptyText(maxLength = maxNrOfChars),
+      "nationalInsuranceNumber" -> optional(nationalInsuranceNumber.verifying(validNationalInsuranceNumber)),
+      "dateOfBirth" -> Mappings.dayMonthYear.verifying(Mappings.validDate),
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
+    
 
   val hasBreaksForm = Form(
     mapping(
@@ -32,7 +32,7 @@ object CareYouProvide extends Controller with CachedClaim {
     mapping(
       "moreBreaks" -> nonEmptyText,
       "break" -> optional(mapping(
-        "start" -> dayMonthYear.verifying(validDate),
+        "start" -> Mappings.dayMonthYear.verifying(Mappings.validDate),
         "end" -> dayMonthYear.verifying(validDate)
       )(Break.apply)(Break.unapply))
     )(BreakInCare.apply)(BreakInCare.unapply))
@@ -62,8 +62,7 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def hasBreaks = claiming {
     implicit claim => implicit request =>
-
-      val hasBreaksQGForm = claim.questionGroup(models.domain.HasBreaks.id) match {
+      val hasBreaksQGForm = claim.questionGroup(HasBreaks.id) match {
         case Some(h: HasBreaks) => hasBreaksForm.fill(h)
         case _ => hasBreaksForm
       }
@@ -104,6 +103,21 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def completed = claiming {
     implicit claim => implicit request =>
-      Ok("")
+      val outcome =
+        <html>
+          <head>
+            <title>Completed - Care You Provide</title>
+          </head>
+
+          <body>
+            <h1>End of Sprint 2</h1>
+
+            <ul>
+              {claim.completedQuestionGroups(models.domain.CareYouProvide.id).map(f => <li>{f}</li>)}
+            </ul>
+          </body>
+        </html>
+
+      Ok(outcome)
   }
 }

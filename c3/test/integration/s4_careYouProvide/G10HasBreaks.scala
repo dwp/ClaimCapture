@@ -3,7 +3,7 @@ package integration.s4_careYouProvide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 
-class G10Breaks extends Specification with Tags {
+class G10HasBreaks extends Specification with Tags {
   "Care you provide" should {
     "present breaks" in new WithBrowser {
       browser.goTo("/careYouProvide/hasBreaks")
@@ -12,9 +12,9 @@ class G10Breaks extends Specification with Tags {
 
     """present "completed" when no more breaks are required""" in new WithBrowser {
       browser.goTo("/careYouProvide/hasBreaks")
-      browser.click("#answer_yes")
+      browser.click("#answer_no")
       browser.submit("button[value='next']")
-      browser.title() mustEqual "Breaks in Care - Care You Provide"
+      browser.pageSource() must contain("Completed - Care You Provide")
     }
   } section "integration"
 }

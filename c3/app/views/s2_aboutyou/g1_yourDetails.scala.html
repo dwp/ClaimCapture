@@ -1,9 +1,10 @@
 @(yourDetailsForm: Form[models.domain.YourDetails])(implicit claim: models.domain.Claim)
 
 @import helper._
-@import utils.helpers.ClaimHelpers._
+@import utils.helpers.CarersTemplate._
 @import views.html.common._
 @import views.html.helper._
+@import views.html.helper.dates._
 
 @main("Your Details - About You") {
 
@@ -27,7 +28,8 @@
 
                 @inputText(yourDetailsForm("otherNames"))
 
-                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"))
+                <!-- @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder")) -->
+                @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"))
 
                 @inputDayMonthYear(yourDetailsForm("dateOfBirth"))
 

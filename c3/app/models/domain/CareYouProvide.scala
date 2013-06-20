@@ -1,5 +1,6 @@
 package models.domain
 
+import models.NationalInsuranceNumber
 import models.DayMonthYear
 
 object CareYouProvide {
@@ -7,7 +8,7 @@ object CareYouProvide {
 }
 
 case class TheirPersonalDetails(title: String, firstName: String, middleName: Option[String], surname: String,
-                                nationalInsuranceNumber: Option[String],
+                                nationalInsuranceNumber: Option[NationalInsuranceNumber],
                                 dateOfBirth: DayMonthYear, liveAtSameAddress: String) extends QuestionGroup(TheirPersonalDetails.id)
 
 object TheirPersonalDetails {

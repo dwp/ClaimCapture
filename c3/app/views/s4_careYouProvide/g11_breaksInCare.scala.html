@@ -1,9 +1,10 @@
 @(breakInCareForm: Form[models.domain.BreakInCare])(implicit claim: models.domain.Claim)
 
 @import helper._
-@import utils.helpers.ClaimHelpers._
+@import utils.helpers.CarersTemplate._
 @import views.html.common._
 @import views.html.helper._
+@import views.html.helper.dates._
 
 @main("Breaks in Care - Care You Provide") {
 
@@ -13,15 +14,15 @@
             <legend>About the breaks in care</legend>
 
             <ul class="group">
-                inputDayMonthYearHM(breakInCareForm("date1"))
-                inputDayMonthYear(breakInCareForm("date1"))
+                @inputDayMonthYearHM(breakInCareForm("date1"))
+                @inputDayMonthYearHM(breakInCareForm("date2"))
 
                 defining('options -> Seq("Respite"->"Respite","Care home"->"Care home","Nursing home"->"Nursing home","Residential school"->"Residential school","Holiday"->"Holiday","Prison"->"Prison","Other"->"Other")){ opts =>
                     selectWithOther(breaksInCareForm("doing1"),'helper -> "Some helper",opts)
                     selectWithOther(breakInCareForm("doing2"),'helper -> "Other helper",opts)
                 }
                 yesNoRadioGroup(breakInCareForm("yn1"))
-                yesNoRadioGroup(breakInCareForm("yn2"))
+                @yesNoRadioGroup(breakInCareForm("moreBreaks"), 'prompt -> "breaks.prompt")
             </ul>
         </fieldset>
 

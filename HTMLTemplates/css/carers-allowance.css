@@ -327,6 +327,11 @@
             padding-bottom: .6em; }
             .ie .carers-allowance .form-elements ul li.validation .error {
               font-size: 16px; }
+        .carers-allowance .form-elements ul li.date-time {
+          padding-top: 0;
+          padding-bottom: 0;
+          margin-top: 0;
+          margin-bottom: 0; }
         .carers-allowance .form-elements ul li.short-field input[type="text"], .carers-allowance .form-elements ul li.short-field input[type="tel"] {
           width: 12rem; }
           .ie .carers-allowance .form-elements ul li.short-field input[type="text"], .ie .carers-allowance .form-elements ul li.short-field input[type="tel"] {
@@ -432,8 +437,7 @@
           position: relative;
           float: left;
           margin: 0;
-          padding: 0;
-          border: 1px solid #dddddd; }
+          padding: 0; }
           .carers-allowance .form-elements ul.radio li:first-child {
             border-right: 0; }
           .carers-allowance .form-elements ul.radio li input[type="radio"] {
@@ -447,12 +451,13 @@
               top: 11px; }
           .carers-allowance .form-elements ul.radio li label {
             display: block;
-            background: #f3f3f3;
+            background: #fafafa;
             padding: 0.5em 1em 0.4em 2.2em;
             font-size: 1.7rem;
-            color: #666;
+            color: #888;
             cursor: pointer;
-            line-height: inherit; }
+            line-height: inherit;
+            border: 1px solid transparent; }
             .ie .carers-allowance .form-elements ul.radio li label {
               font-size: 17px;
               padding-left: 2em; }
@@ -463,7 +468,8 @@
             -moz-transition: all 200ms ease-in;
             -ms-transition: all 200ms ease-in;
             -o-transition: all 200ms ease-in;
-            transition: all 200ms ease-in; }
+            transition: all 200ms ease-in;
+            border: 1px solid #a2a2a2; }
       .carers-allowance .form-elements ul.address-stack label {
         position: absolute;
         left: -9999px; }
