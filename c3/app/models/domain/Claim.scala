@@ -9,6 +9,8 @@ object Claim {
 
   val dateFormatPrint: DateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy")
 
+  val dateFormatXml : DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
+
   def sectionId(formId: String) = {
     formId.split('.')(0)
   }
