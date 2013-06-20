@@ -1,0 +1,26 @@
+@(elements: helper.FieldElements)
+
+@import views.html.helper._
+
+@if(elements.hasErrors){
+  <li class="validation">
+      <p class="error">@elements.errors.mkString(", ")</p>
+}else {
+  <li>
+}
+
+@defining(elements.field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
+    <p>@if(required){@Html("<em>*</em>")}@elements.label</p>
+}
+
+@elements.input
+
+@if(elements.args.contains('helper)){
+    <p class="helper right">@elements.args.get('helper).get.toString</p>
+}
+
+
+@timePlaceholder(elements.field)
+
+
+</li>
