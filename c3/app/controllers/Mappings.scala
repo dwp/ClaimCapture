@@ -76,7 +76,7 @@ object Mappings {
     "ni-5" -> optional(nonEmptyText verifying (maxLength(1), pattern ("""[ABCD\S]{1}""".r, name = "constraint.pattern", error = "error.pattern"))))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
 
     
-  def validNationalInsuranceNumber: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.required") {
+  def validNationalInsuranceNumber: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.ni") {
     dmy => dmy match {
       case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid
       case _ => Invalid(ValidationError("error.invalid"))
