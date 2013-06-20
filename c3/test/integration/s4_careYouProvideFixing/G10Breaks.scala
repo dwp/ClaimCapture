@@ -1,4 +1,4 @@
-package integration.s4_careYouProvide
+package integration.s4_careYouProvideFixing
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
