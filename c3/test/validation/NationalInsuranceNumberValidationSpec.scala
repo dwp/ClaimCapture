@@ -113,9 +113,15 @@ class NationalInsuranceNumberValidationSpec extends Specification {
           formWithErrors => { formWithErrors.errors.head.message must equalTo("error.number") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
-
+      /* // The .xsd uses \S in the regex patter, so will match any non-whitespace. If this is wrong and it should have been a lowercase \s meaning match whitespace, then uncomment this test, delete the test below and change the regex. 
       "complain when number entered in text field 5" in {
         createNationalInsuranceNumberForm(ni1 = "AB", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = "8").fold(
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.pattern") },
+          { number => "The mapping should fail." must equalTo("Error") })
+      }
+      */
+      "complain when whitespace entered in text field 5" in {
+        createNationalInsuranceNumberForm(ni1 = "AB", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = " ").fold(
           formWithErrors => { formWithErrors.errors.head.message must equalTo("error.pattern") },
           { number => "The mapping should fail." must equalTo("Error") })
       }

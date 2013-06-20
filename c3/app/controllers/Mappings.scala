@@ -47,7 +47,7 @@ object Mappings {
     "ni2" -> optional(number(0, 99)),
     "ni3" -> optional(number(0, 99)),
     "ni4" -> optional(number(0, 99)),
-    "ni5" -> optional(nonEmptyText verifying (maxLength(1), pattern ("""[ABCD\s]{1}""".r, name = "constraint.pattern", error = "error.pattern"))))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
+    "ni5" -> optional(nonEmptyText verifying (maxLength(1), pattern ("""[ABCD\S]{1}""".r, name = "constraint.pattern", error = "error.pattern"))))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
 
     
   def validNationalInsuranceNumber: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.required") {
