@@ -9,8 +9,8 @@ import play.api.data.validation.Constraints._
 import models.domain._
 import models.domain.BreakInCare
 import scala.Some
-import models.domain.Break
-
+import models.domain.{HasBreaks, BreakInCare, Break, BreaksInCare}
+import models.Whereabouts._
 
 object CareYouProvide extends Controller with CachedClaim {
   val route = Map(HasBreaks.id -> routes.CareYouProvide.hasBreaks)
@@ -45,8 +45,10 @@ object CareYouProvide extends Controller with CachedClaim {
     mapping(
       "moreBreaks" -> nonEmptyText,
       "break" -> optional(mapping(
-        "start" -> (dayMonthYear verifying validDateOnly),
-        "end" -> (dayMonthYear verifying validDateOnly)
+        "start" -> (dayMonthYear verifying validDate),
+        "end"   -> optional(dayMonthYear verifying validDateOnly),
+        "whereYou"    -> whereabouts.verifying(requiredWhereabouts),
+        "wherePerson" -> whereabouts.verifying(requiredWhereabouts)
       )(Break.apply)(Break.unapply))
     )(BreakInCare.apply)(BreakInCare.unapply))
 
@@ -127,23 +129,30 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def breaksInCare = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s4_careYouProvide.g11_breaksInCare(breakInCareForm))
+      val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
+        case Some(b: BreaksInCare) => b
+        case _ => BreaksInCare()
+      }
+
+      Ok(views.html.s4_careYouProvide.g11_breaksInCare(breakInCareForm, breaksInCare))
   }
 
   def breaksInCareSubmit = claiming {
     implicit claim => implicit request =>
+      val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
+        case Some(b: BreaksInCare) => b
+        case _ => BreaksInCare()
+      }
+
       breakInCareForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_breaksInCare(formWithErrors)),
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_breaksInCare(formWithErrors, breaksInCare)),
         breakInCare => {
-          val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
-            case Some(b: BreaksInCare) => breakInCare.break.fold(b)(break => if (b.breaks.size == 10) b else b.update(break))
-            case _ => breakInCare.break.fold(BreaksInCare())(BreaksInCare().update)
-          }
+          val updatedBreaksInCare = breakInCare.break.fold(breaksInCare)(break => if (breaksInCare.breaks.size == 10) breaksInCare else breaksInCare.update(break))
 
           breakInCare.moreBreaks match {
-            case "no" => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed())
-            case "yes" if breaksInCare.breaks.size == 10 => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed(/* TODO WARNING FEEDBACK MESSAGE*/))
-            case _ => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.breaksInCare())
+            case "no" => claim.update(updatedBreaksInCare) -> Redirect(routes.CareYouProvide.completed())
+            case "yes" if updatedBreaksInCare.breaks.size == 10 => claim.update(updatedBreaksInCare) -> Redirect(routes.CareYouProvide.completed(/* TODO WARNING FEEDBACK MESSAGE*/))
+            case _ => claim.update(updatedBreaksInCare) -> Redirect(routes.CareYouProvide.breaksInCare())
           }
         })
   }

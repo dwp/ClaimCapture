@@ -1,4 +1,4 @@
-@(breakInCareForm: Form[models.domain.BreakInCare])(implicit claim: models.domain.Claim)
+@(breakInCareForm: Form[models.domain.BreakInCare], breaksInCare: models.domain.BreaksInCare)(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -6,7 +6,7 @@
 @import views.html.helper.dates._
 
 @main("Breaks in Care - Care You Provide", breakInCareForm) {
-    <fieldset class="form-elements results-detail">
+    <fieldset class="form-elements results-detail" id="trips" style='display: @if(breaksInCare.breaks.foldLeft(0)((a, _) => a + 1) == 0) { none; } else { block; }'>
         <legend>Trips you have added</legend>
 
         <table>
@@ -23,27 +23,15 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>01/01/2013<span>to</span>07/01/2013</td>
-                    <td class="desc">WWW WWW WW W WWW WWWWWW WWW...</td>
-                    <td class="desc">WWW WWW WW W WWW WWW WWWWWW...</td>
-                    <td><input type="button" class="button row secondary" value="Edit"></td>
-                    <td><input type="button" class="button row warning" value="Delete"></td>
-                </tr>
-                <tr>
-                    <td>01/01/2013<span>to</span>07/01/2013</td>
-                    <td class="desc">New York City</td>
-                    <td class="desc">Visting family and relatives</td>
-                    <td><input type="button" class="button row secondary" value="Edit"></td>
-                    <td><input type="button" class="button row warning" value="Delete"></td>
-                </tr>
-                <tr>
-                    <td>01/01/2013<span>to</span>07/01/2013</td>
-                    <td class="desc">New York City</td>
-                    <td class="desc">Visting family and relatives</td>
-                    <td><input type="button" class="button row secondary" value="Edit"></td>
-                    <td><input type="button" class="button row warning" value="Delete"></td>
-                </tr>
+                @for(break <- breaksInCare.breaks) {
+                    <tr>
+                        <td>01/01/2013<span>to</span>07/01/2013</td>
+                        <td class="desc">WWW WWW WW W WWW WWWWWW WWW...</td>
+                        <td class="desc">WWW WWW WW W WWW WWW WWWWWW...</td>
+                        <td><input type="button" class="button row secondary" value="Edit"></td>
+                        <td><input type="button" class="button row warning" value="Delete"></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </fieldset>
@@ -57,13 +45,11 @@
                 @inputDayMonthYearHM(breakInCareForm("break.start"))
                 @inputDayMonthYearHM(breakInCareForm("break.end"))
 
-                defining('options -> Seq("Respite"->"Respite","Care home"->"Care home","Nursing home"->"Nursing home","Residential school"->"Residential school","Holiday"->"Holiday","Prison"->"Prison","Other"->"Other")){ opts =>
-                    selectWithOther(breaksInCareForm("doing1"),'helper -> "Some helper",opts)
-                    selectWithOther(breakInCareForm("doing2"),'helper -> "Other helper",opts)
-                }
+                @whereabouts(breakInCareForm("break.whereYou"))
+                @whereabouts(breakInCareForm("break.wherePerson"))
 
                 yesNoRadioGroup(breakInCareForm("yn1"))
-                @yesNoRadioGroup(breakInCareForm("moreBreaks"), 'prompt -> "breaks.prompt")
+                @yesNoRadioGroup(breakInCareForm("moreBreaks"))
             </ul>
         </fieldset>
 

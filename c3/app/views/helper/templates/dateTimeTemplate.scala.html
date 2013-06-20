@@ -8,7 +8,7 @@
     <ul>
         <li>
             @defining(elements.field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
-                <p>@if(required){@Html("<em>*</em>")}@elements.label</p>
+                <label >@if(required){@Html("<em>*</em>")}@elements.label</label>
             }
 
             @elements.input
