@@ -436,10 +436,10 @@
         .carers-allowance .form-elements ul.radio li {
           position: relative;
           float: left;
-          margin: 0;
+          margin: 0 0 0 2px;
           padding: 0; }
           .carers-allowance .form-elements ul.radio li:first-child {
-            border-right: 0; }
+            margin-left: 0; }
           .carers-allowance .form-elements ul.radio li input[type="radio"] {
             position: absolute;
             top: 34%;
