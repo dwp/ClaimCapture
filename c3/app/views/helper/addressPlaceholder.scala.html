@@ -1,0 +1,22 @@
+@(field: play.api.data.Field)
+
+
+@import views.html.helper.carersInputText
+
+<ul class="address-stack">
+    @if(field("lineOne").hasErrors) {
+        <li class="error">@Messages( field("lineOne").error.get.message )</li>
+    }
+
+<li>
+    @carersInputText(field("lineOne"))
+</li>
+
+<li>
+    @carersInputText(field("lineTwo"))
+</li>
+
+<li>
+    @carersInputText(field("lineThree"))
+</li>
+</ul>

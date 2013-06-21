@@ -24,7 +24,7 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
         Helper.fillYourContactDetails(browser)
         Helper.fillTheirPersonalDetails(browser)
         browser.title() mustEqual "Their Contact Details - Care You Provide"
-        browser.find("#address-lineOne").getValue mustEqual("My Address")
+        browser.find("#address_lineOne").getValue mustEqual("My Address")
         browser.find("#postcode").getValue mustEqual("SE1 6EH")
      }
 
@@ -39,13 +39,13 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
        browser.fill("#dateOfBirth_year") `with` "1950"
        browser.click("#liveAtSameAddress_no]")
        browser.submit("button[type='submit']")
-       browser.find("#address-lineOne").getValue mustEqual("")
+       browser.find("#address_lineOne").getValue mustEqual("")
        browser.find("#postcode").getValue mustEqual("")
      }
 
      "be blank if they live at same address but did not enter one" in new WithBrowser {
        Helper.fillTheirPersonalDetails(browser)
-       browser.find("#address-lineOne").getValue mustEqual("")
+       browser.find("#address_lineOne").getValue mustEqual("")
        browser.find("#postcode").getValue mustEqual("")
      }
 
@@ -63,13 +63,13 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
      "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {
        Helper.fillTheirContactDetails(browser)
        browser.click("#backButton")
-       browser.find("#address-lineOne").getValue mustEqual("Their Address")
+       browser.find("#address_lineOne").getValue mustEqual("Their Address")
        browser.click("#backButton")
        Helper.fillYourContactDetails(browser)
        Helper.fillTheirPersonalDetails(browser)
 
        browser.title() mustEqual "Their Contact Details - Care You Provide"
-       browser.find("#address-lineOne").getValue mustEqual("My Address")
+       browser.find("#address_lineOne").getValue mustEqual("My Address")
        browser.find("#postcode").getValue mustEqual("SE1 6EH")
      }
 
