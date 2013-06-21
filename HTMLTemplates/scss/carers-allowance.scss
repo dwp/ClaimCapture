@@ -401,6 +401,30 @@ $button-green-hover: #004b27;
 					    }
 				   }
 			   }
+			   
+			   &.helper-more {
+					color: #2e3191;
+					text-decoration: underline;
+					cursor: pointer;
+					&:hover {
+						color: inherit;
+					}
+					@media screen and (max-width: 330px) {
+						position: relative;
+						top: 3px;
+						padding: 0;
+						float: right;
+					}
+				}
+				.helper-info {
+					display: none;
+					padding: 1em;
+					background: #bde4f6;
+					margin-top: .25em;
+					p {
+						font-size: 1.6rem;
+					}
+				}
 			  
 			   label, p {
 				   display: block;
@@ -591,7 +615,7 @@ $button-green-hover: #004b27;
 				   		vertical-align: top;
 				   		margin-top: .38rem;
 				   		.ie & {
-					   		margin-top: 38px;
+					   		margin-top: 0;
 				   		}
 				   		&[type=checkbox]:checked + label, &[type=radio]:checked + label {color: #0b0c0c;}
 				   }
@@ -640,8 +664,8 @@ $button-green-hover: #004b27;
 				   input {
 					   width: 7.6rem;
 					   background: #f9f9f9;
-					   .ie & {
-						   width: 76px;
+					   .ie8 &, .ie7 & {
+						   width: 60px;
 						   font-size: 14px;
 						   padding: 5px 8px;
 					   }
@@ -953,7 +977,7 @@ $button-green-hover: #004b27;
    /* button styling */
    .button {
 		   font-size: 2rem;
-		   line-height: 1.25;
+		   line-height: 1.25em;
 		   color: #fff;
 		   border-radius: 3px;
 		   box-shadow: 0 3px 0 #000;
@@ -1005,6 +1029,8 @@ $button-green-hover: #004b27;
 	
 }
 /* carers wrapper */
+
+
 
 
 /* Header title */
