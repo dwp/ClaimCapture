@@ -1,4 +1,4 @@
-@(employmentForm :Form[models.domain.Employment], completedQuestionGroups :List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(employmentForm: Form[models.domain.Employment], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import views.html.common._
@@ -14,7 +14,7 @@
             <legend>Employment</legend>
 
             <ul class="group">
-            @defining(Claim.dateFormatGeneration.parseDateTime(claim.questionGroup(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
+                @defining(Claim.dateFormatGeneration.parseDateTime(claim.questionGroup(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
                     @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
                         '_label -> Messages("beenEmployedSince6MonthsBeforeClaim.label", dateOfClaim.minusMonths(6).toString(Claim.dateFormatPrint), dateOfClaim.toString(Claim.dateFormatPrint)))
 

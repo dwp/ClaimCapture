@@ -1,5 +1,6 @@
-@(routes: scala.collection.immutable.ListMap[String,Call], completedQuestionGroups: List[models.domain.QuestionGroup])
-@if(completedQuestionGroups.isEmpty){
+@(routes: scala.collection.immutable.ListMap[String, Call], completedQuestionGroups: List[models.domain.QuestionGroup])
+
+@if(completedQuestionGroups.isEmpty) {
     @routes.head._2
 }else{
     @routes(completedQuestionGroups.last.id)
