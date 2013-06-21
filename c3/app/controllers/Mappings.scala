@@ -24,6 +24,10 @@ object Mappings {
 
   val maxNrOfChars = 60
 
+  val yes = "yes"
+
+  val no = "no"
+
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
     "day" -> optional(number),
     "month" -> optional(number),
@@ -32,9 +36,9 @@ object Mappings {
     "minutes" -> optional(number))(DayMonthYear.apply)(DayMonthYear.unapply)
 
   val address: Mapping[MultiLineAddress] = mapping(
-    "lineOne" -> optional(text),
-    "lineTwo" -> optional(text),
-    "lineThree" -> optional(text))(MultiLineAddress.apply)(MultiLineAddress.unapply)
+    "lineOne" -> optional(text(maxLength = maxNrOfChars)),
+    "lineTwo" -> optional(text(maxLength = maxNrOfChars)),
+    "lineThree" -> optional(text(maxLength = maxNrOfChars)))(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> nonEmptyText,
@@ -69,11 +73,11 @@ object Mappings {
   }
 
   def nationalInsuranceNumber: Mapping[NationalInsuranceNumber] = mapping(
-    "ni-1" -> optional(nonEmptyText verifying (minLength(2), maxLength(2), pattern ("""[A-CEGHJ-PR-TW-Z]{2}""".r, name = "constraint.pattern", error = "The first field of the National Insurance number is not valid"))),
-    "ni-2" -> optional(number(0, 99)),
-    "ni-3" -> optional(number(0, 99)),
-    "ni-4" -> optional(number(0, 99)),
-    "ni-5" -> optional(nonEmptyText verifying (maxLength(1), pattern ("""[ABCD\S]{1}""".r, name = "constraint.pattern", error = "The fifth field of the National Insurance number is not valid"))))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
+    "ni1" -> optional(nonEmptyText verifying (minLength(2), maxLength(2), pattern ("""[A-CEGHJ-PR-TW-Z]{2}""".r, name = "constraint.pattern", error = "error.nationalInsuranceNumber"))),
+    "ni2" -> optional(number(0, 99)),
+    "ni3" -> optional(number(0, 99)),
+    "ni4" -> optional(number(0, 99)),
+    "ni5" -> optional(nonEmptyText verifying (maxLength(1), pattern ("""[ABCD\S]{1}""".r, name = "constraint.pattern", error = "error.nationalInsuranceNumber"))))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
 
     
   def validNationalInsuranceNumber: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.ni") {

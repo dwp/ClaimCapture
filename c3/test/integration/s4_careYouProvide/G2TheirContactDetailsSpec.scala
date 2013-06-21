@@ -57,7 +57,7 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
 
      "navigate to next page on valid submission" in new WithBrowser {
        Helper.fillTheirContactDetails(browser)
-       browser.title() mustEqual "More About The Person - Care You Provide"
+       browser.title() mustEqual "More About The Person You Care For - Care You Provide"
      }
 
      "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {

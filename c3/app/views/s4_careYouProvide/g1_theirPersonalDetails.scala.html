@@ -1,37 +1,32 @@
-@(theirPersonalDetailsForm: Form[models.domain.TheirPersonalDetails])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.TheirPersonalDetails])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
-@import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dates._
-@import controllers.Mappings
 
-@common.main("Their Personal Details - Care You Provide") {
+@main("Their Personal Details - Care You Provide", currentForm) {
 
     @form(action = routes.CareYouProvide.theirPersonalDetailsSubmit) {
     
-    
-    	@errorsSummary(theirPersonalDetailsForm)
-
         <fieldset class="form-elements">
             <legend>Details of the person you care for</legend>
 
 
             <ul class="group">
-                @titleSelect(theirPersonalDetailsForm("title"))
+                @titleSelect(currentForm("title"))
 
-                @inputText(theirPersonalDetailsForm("firstName"), 'maxLength -> Mappings.maxNrOfChars)
+                @inputText(currentForm("firstName"), 'maxLength -> Mappings.maxNrOfChars)
 
-                @inputText(theirPersonalDetailsForm("middleName"), 'maxLength -> Mappings.maxNrOfChars)
+                @inputText(currentForm("middleName"), 'maxLength -> Mappings.maxNrOfChars)
 
-                @inputText(theirPersonalDetailsForm("surname"), 'maxLength -> Mappings.maxNrOfChars)
+                @inputText(currentForm("surname"), 'maxLength -> Mappings.maxNrOfChars)
 
-                @nationalInsuranceNumber(theirPersonalDetailsForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
+                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
 
-                @inputDayMonthYear(theirPersonalDetailsForm("dateOfBirth"), 'helper-> Messages("dateOfBirth.helper"))
+                @inputDayMonthYear(currentForm("dateOfBirth"), 'helper-> Messages("dateOfBirth.helper"))
 
-                @yesNoRadioGroup(theirPersonalDetailsForm("liveAtSameAddress"))
+                @yesNoRadioGroup(currentForm("liveAtSameAddress"))
             </ul>
         </fieldset>
 
