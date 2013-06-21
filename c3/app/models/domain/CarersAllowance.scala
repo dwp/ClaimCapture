@@ -16,14 +16,14 @@ object Hours {
   val id = s"${CarersAllowance.id}.g2"
 }
 
-case class LivesInGB(answer: Boolean = false) extends QuestionGroup(LivesInGB.id) with BooleanConfirmation
-
-object LivesInGB {
-  val id = s"${CarersAllowance.id}.g3"
-}
-
 case class Over16(answer: Boolean = false) extends QuestionGroup(Over16.id) with BooleanConfirmation
 
 object Over16 {
+  val id = s"${CarersAllowance.id}.g3"
+}
+
+case class LivesInGB(answer: Boolean = false) extends QuestionGroup(LivesInGB.id) with BooleanConfirmation
+
+object LivesInGB {
   val id = s"${CarersAllowance.id}.g4"
 }

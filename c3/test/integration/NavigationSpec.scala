@@ -18,7 +18,7 @@ class NavigationSpec extends Specification with Tags {
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
 
-      browser.title() mustEqual "Over 16 - Carer's Allowance"
+      browser.title() mustEqual "Lives in GB - Carer's Allowance"
 
       browser.webDriver.navigate().back()
       browser.webDriver.navigate().back()

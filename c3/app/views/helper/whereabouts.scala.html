@@ -5,9 +5,7 @@
 @import helper._
 @import utils.helpers.SelectOtherTemplate._
 
-@input(field, args++Seq('helper->"e.g. Hospital or Holiday"): _*) { (id, name, value, htmlArgs) =>
+@input(field, args ++ Seq('helper -> "e.g. Hospital or Holiday"): _*) { (id, name, value, htmlArgs) =>
 
-        @selectWithOtherPlaceholder(field("location"),Seq("Holiday","Hospital","Other").map(v => v->v),args:_*)
-
+    @selectWithOtherPlaceholder(field("location"), Seq("Holiday", "Hospital", "Other").map(v => v -> v), args:_*)
 }
-

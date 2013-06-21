@@ -7,15 +7,13 @@ import models.view.CachedClaim
 import Mappings._
 import play.api.data.validation.Constraints._
 import models.domain._
-import models.domain.BreakInCare
 import scala.Some
 import models.domain.{HasBreaks, BreakInCare, Break, BreaksInCare}
-import models.Whereabouts._
 
 object CareYouProvide extends Controller with CachedClaim {
   val route = Map(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
-    TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
-    HasBreaks.id -> routes.CareYouProvide.hasBreaks)
+                  TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
+                  HasBreaks.id -> routes.CareYouProvide.hasBreaks)
 
   val theirPersonalDetailsForm = Form(
     mapping(
@@ -28,14 +26,12 @@ object CareYouProvide extends Controller with CachedClaim {
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
-
   val theirContactDetailsForm = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),
       "postcode" -> optional(text verifying(pattern( """^(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})$""".r,
         "constraint.invalid", "error.postcode"), maxLength(10))),
-      "phoneNumber" -> optional(text verifying(pattern( """[0-9 \-]{1,20}""".r,
-        "constraint.invalid", "error.invalid")))
+      "phoneNumber" -> optional(text verifying pattern("""[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid"))
     )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
   val hasBreaksForm = Form(
@@ -77,7 +73,7 @@ object CareYouProvide extends Controller with CachedClaim {
     implicit claim => implicit request =>
 
       val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
-        case Some(t: TheirPersonalDetails) => if (t.liveAtSameAddress == yes) true else false
+        case Some(t: TheirPersonalDetails) => t.liveAtSameAddress == yes
         case _ => false
       }
 
@@ -98,10 +94,9 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def theirContactDetailsSubmit = claiming {
     implicit claim => implicit request =>
-
       theirContactDetailsForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors)),
-        theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.CareYouProvide.moreAboutThePerson)
+        theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.CareYouProvide.moreAboutThePerson())
       )
   }
 
@@ -116,6 +111,7 @@ object CareYouProvide extends Controller with CachedClaim {
         case Some(h: HasBreaks) => hasBreaksForm.fill(h)
         case _ => hasBreaksForm
       }
+
       Ok(views.html.s4_careYouProvide.g10_hasBreaks(hasBreaksQGForm))
   }
 
@@ -134,6 +130,7 @@ object CareYouProvide extends Controller with CachedClaim {
         case Some(b: BreaksInCare) => b
         case _ => BreaksInCare()
       }
+
       Ok(views.html.s4_careYouProvide.g11_breaksInCare(breakInCareForm, breaksInCare))
   }
 
@@ -155,6 +152,13 @@ object CareYouProvide extends Controller with CachedClaim {
             case _ => claim.update(updatedBreaksInCare) -> Redirect(routes.CareYouProvide.breaksInCare())
           }
         })
+  }
+
+  def deleteBreak(id: String) = claiming {
+    implicit claim => implicit request =>
+      import play.api.libs.json.Json
+
+      Ok(Json.obj("id" -> 99999999))
   }
 
   def completed = claiming {

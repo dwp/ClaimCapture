@@ -21,7 +21,7 @@ class G2HoursSpec extends Specification with Tags {
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
 
-      browser.title() mustEqual "Lives in GB - Carer's Allowance"
+      browser.title() mustEqual "Over 16 - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")
       browser.find("div[class=completed] ul li").get(1).getText must contain("Yes")
     }
@@ -34,7 +34,7 @@ class G2HoursSpec extends Specification with Tags {
       browser.click("#q3-no")
       browser.submit("button[type='submit']")
 
-      browser.title() mustEqual "Lives in GB - Carer's Allowance"
+      browser.title() mustEqual "Over 16 - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")
       browser.find("div[class=completed] ul li").get(1).getText must contain("No")
     }

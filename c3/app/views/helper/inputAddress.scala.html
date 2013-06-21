@@ -6,17 +6,19 @@
 
     <ul class="address-stack">
         @if(field("lineOne").hasErrors) {
-            <p class="error">@Messages( field("lineOne").error.get.message ) </p>
+            <li class="error">@Messages( field("lineOne").error.get.message )</li>
         }
 
         <li>
-            <input id="@{name}-lineOne" name="@{name}.lineOne" type="text" value="@{field("lineOne").value}" autocomplete="off">
+            <input id="@{name}-lineOne" name="@{name}.lineOne" type="text" value='@{field("lineOne").value}' autocomplete="off">
         </li>
 
         <li>
-            <input id="@{name}-lineTwo" name="@{name}.lineTwo" type="text" value="@{field("lineTwo").value}" autocomplete="off">
+            <input id="@{name}-lineTwo" name="@{name}.lineTwo" type="text" value='@{field("lineTwo").value}' autocomplete="off">
+        </li>
+
         <li>
-            <input id="@{name}-lineThree" name="@{name}.lineThree" type="text" value="@{field("lineThree").value}" autocomplete="off">
+            <input id="@{name}-lineThree" name="@{name}.lineThree" type="text" value='@{field("lineThree").value}' autocomplete="off">
         </li>
     </ul>
 }

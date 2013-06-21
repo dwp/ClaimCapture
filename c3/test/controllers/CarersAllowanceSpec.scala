@@ -96,53 +96,22 @@ class CarersAllowanceSpec extends Specification {
       }
     }
 
-    "present the lives in GB form" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-
-      val claimWithBenefitFrom = Claim().update(Benefits(answer = true))
-      val claimWithHoursForm = claimWithBenefitFrom.update(Hours(answer = true))
-      Cache.set(claimKey, claimWithHoursForm)
-
-      val result = controllers.CarersAllowance.hours(request)
-
-      status(result) mustEqual OK
-
-      val sectionId = Claim.sectionId(LivesInGB.id)
-      val answeredForms = claimWithHoursForm.completedQuestionGroups(sectionId)
-
-      answeredForms(0) mustEqual Benefits(answer = true)
-      answeredForms(1) mustEqual Hours(answer = true)
-    }
-
-    "acknowledge that carer lives in Great Britain" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
-      controllers.CarersAllowance.livesInGBSubmit(request)
-
-      val claim = Cache.getAs[Claim](claimKey).get
-
-      claim.questionGroup(LivesInGB.id) must beLike {
-        case Some(f: LivesInGB) => f.answer mustEqual true
-      }
-    }
-
     "present the Are you aged 16 or over form" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val claimWithBenefit = Claim().update(Benefits(answer = true))
       val claimWithHours = claimWithBenefit.update(Hours(answer = true))
-      val claimWithLivesInGB = claimWithHours.update(LivesInGB(answer = true))
-      Cache.set(claimKey, claimWithLivesInGB)
+      Cache.set(claimKey, claimWithHours)
 
       val result = controllers.CarersAllowance.hours(request)
 
       status(result) mustEqual OK
 
       val sectionId = Claim.sectionId(Over16.id)
-      val answeredForms = claimWithLivesInGB.completedQuestionGroups(sectionId)
+      val answeredForms = claimWithHours.completedQuestionGroups(sectionId)
 
       answeredForms(0) mustEqual Benefits(answer = true)
       answeredForms(1) mustEqual Hours(answer = true)
-      answeredForms(2) mustEqual LivesInGB(answer = true)
     }
 
     "acknowledge that carer is aged 16 or over" in new WithApplication with Claiming {
@@ -156,13 +125,44 @@ class CarersAllowanceSpec extends Specification {
       }
     }
 
+    "present the lives in GB form" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+
+      val claimWithBenefitFrom = Claim().update(Benefits(answer = true))
+      val claimWithHoursForm = claimWithBenefitFrom.update(Hours(answer = true))
+      val claimWithOver16Form = claimWithHoursForm.update(Over16(answer = true))
+      Cache.set(claimKey, claimWithOver16Form)
+
+      val result = controllers.CarersAllowance.hours(request)
+
+      status(result) mustEqual OK
+
+      val sectionId = Claim.sectionId(LivesInGB.id)
+      val answeredForms = claimWithOver16Form.completedQuestionGroups(sectionId)
+
+      answeredForms(0) mustEqual Benefits(answer = true)
+      answeredForms(1) mustEqual Hours(answer = true)
+      answeredForms(2) mustEqual Over16(answer = true)
+    }
+
+    "acknowledge that carer lives in Great Britain" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
+      controllers.CarersAllowance.livesInGBSubmit(request)
+
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      claim.questionGroup(LivesInGB.id) must beLike {
+        case Some(f: LivesInGB) => f.answer mustEqual true
+      }
+    }
+
     "acknowledge that the carer is eligible for allowance" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val claim = Claim().update(Benefits(answer = true))
         .update(Hours(answer = true))
-        .update(LivesInGB(answer = true))
         .update(Over16(answer = true))
+        .update(LivesInGB(answer = true))
 
       Cache.set(claimKey, claim)
 
@@ -175,8 +175,8 @@ class CarersAllowanceSpec extends Specification {
 
       val claim = Claim().update(Benefits(answer = true))
         .update(Hours(answer = true))
-        .update(LivesInGB(answer = false))
-        .update(Over16(answer = true))
+        .update(Over16(answer = false))
+        .update(LivesInGB(answer = true))
 
       Cache.set(claimKey, claim)
 
