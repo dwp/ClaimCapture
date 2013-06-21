@@ -46,6 +46,7 @@ object CareYouProvide extends Controller with CachedClaim {
     mapping(
       "moreBreaks" -> nonEmptyText,
       "break" -> optional(mapping(
+        "breakID" -> ignored(java.util.UUID.randomUUID.toString),
         "start" -> (dayMonthYear verifying validDate),
         "end"   -> optional(dayMonthYear verifying validDateOnly),
         "whereYou"    -> whereabouts.verifying(requiredWhereabouts),

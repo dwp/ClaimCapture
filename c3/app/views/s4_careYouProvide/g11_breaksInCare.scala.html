@@ -26,7 +26,7 @@
             <tbody>
                 @for(break <- breaksInCare.breaks) {
                     <tr>
-                        <td>
+                        <td class="desc">
                             @break.start.day/@break.start.month/@break.start.year
 
                             @for(end <- break.end;
@@ -42,7 +42,7 @@
                         <td class="desc">@break.wherePerson.location</td>
                         <td class="desc">@break.medicalDuringBreak</td>
                         <td><input type="button" class="button row secondary" value="Edit"></td>
-                        <td><input id="TEST" type="button" class="button row warning TEST" value="Delete"></td>
+                        <td><input id="@break.id" type="button" class="button row warning @break.id" value="Delete"></td>
                     </tr>
                 }
             </tbody>
@@ -74,27 +74,31 @@
 
 <script type="text/javascript">
     $(function() {
-        $("#TEST").on("click", function() {
-            var tr = $(this).closest("tr");
-            var tbody = $(this).closest("tbody")
+        $("input[value='Delete']").each(function(index, value) {
+            $(this).on("click", function() {
+                var tr = $(this).closest("tr");
+                var tbody = $(this).closest("tbody")
 
-            $.ajax({
-                type: "DELETE",
-                url: "@routes.CareYouProvide.breaksInCare/12345",
-                success: function() {
-                    if (tbody.children().length == 1) {
-                        $("#trips").slideUp();
-                    } else {
+                $.ajax({
+                    type: "DELETE",
+                    url: "@routes.CareYouProvide.breaksInCare/12345",
+                    success: function() {
                         tr.children("td")
                             .animate({ padding: 0 })
                             .wrapInner("<div />")
                             .children()
-                            .slideUp(function() { tr.remove(); });
+                            .slideUp(function() {
+                                tr.remove();
+
+                                if (tbody.children().length == 0) {
+                                    $("#trips").slideUp();
+                                }
+                        });
+                    },
+                    error: function() {
+                        alert("WHOOPS!");
                     }
-                },
-                error: function() {
-                    alert("WHOOPS!");
-                }
+                });
             });
         });
     });

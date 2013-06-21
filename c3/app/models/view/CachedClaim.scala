@@ -15,7 +15,7 @@ trait CachedClaim {
 
   def newClaim(f: => Claim => Request[AnyContent] => Result) = Action {
     implicit request => {
-      val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID().toString)
+      val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID.toString)
       val expiration = 3600
 
       def apply(claim: Claim) = f(claim)(request).withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
@@ -33,7 +33,7 @@ trait CachedClaim {
 
   def claiming(f: => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
     request => {
-      val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID().toString)
+      val key = request.session.get("connected").getOrElse(java.util.UUID.randomUUID.toString)
       val expiration = 3600
       val claim = Cache.getOrElse(key, expiration)(Claim())
 

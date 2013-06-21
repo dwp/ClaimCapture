@@ -7,7 +7,7 @@ import org.specs2.mock.Mockito
 import models.domain.QuestionGroup
 
 trait Claiming extends Scope with Mockito {
-  val claimKey = randomUUID().toString
+  val claimKey = randomUUID.toString
 
   def mockQuestionGroup[Q <: QuestionGroup](questionGroupID: String)(implicit classTag: ClassTag[Q]) = {
     val questionGroup = mock[Q]

@@ -2,20 +2,6 @@ package models.domain
 
 import models.Timestamped
 
-object Claim {
-  import org.joda.time.format.{DateTimeFormatter, DateTimeFormat}
-
-  val dateFormatGeneration: DateTimeFormatter = DateTimeFormat.forPattern("'DayMonthYear'('Some'(dd),'Some'(M),'Some'(yyyy),'None','None')")
-
-  val dateFormatPrint: DateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy")
-
-  val dateFormatXml : DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
-
-  def sectionId(formId: String) = {
-    formId.split('.')(0)
-  }
-}
-
 case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   def section(sectionId: String): Option[Section] = sections.get(sectionId)
 
@@ -50,5 +36,19 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     }
 
     Claim(sections.updated(section.id, section))
+  }
+}
+
+object Claim {
+  import org.joda.time.format.{DateTimeFormatter, DateTimeFormat}
+
+  val dateFormatGeneration: DateTimeFormatter = DateTimeFormat.forPattern("'DayMonthYear'('Some'(dd),'Some'(M),'Some'(yyyy),'None','None')")
+
+  val dateFormatPrint: DateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy")
+
+  val dateFormatXml : DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
+
+  def sectionId(formId: String) = {
+    formId.split('.')(0)
   }
 }
