@@ -14,11 +14,11 @@ import controllers.Mappings
 
 class NationalInsuranceNumberValidationSpec extends Specification {
   def createNationalInsuranceNumberForm(ni1: String, ni2: String, ni3: String, ni4: String, ni5: String) = Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
-    "nationalInsuranceNumber.ni-1" -> ni1,
-    "nationalInsuranceNumber.ni-2" -> ni2,
-    "nationalInsuranceNumber.ni-3" -> ni3,
-    "nationalInsuranceNumber.ni-4" -> ni4,
-    "nationalInsuranceNumber.ni-5" -> ni5))
+    "nationalInsuranceNumber.ni1" -> ni1,
+    "nationalInsuranceNumber.ni2" -> ni2,
+    "nationalInsuranceNumber.ni3" -> ni3,
+    "nationalInsuranceNumber.ni4" -> ni4,
+    "nationalInsuranceNumber.ni5" -> ni5))
 
   "NI validation" should {
     "not complain about a valid NI" in {
@@ -92,7 +92,7 @@ class NationalInsuranceNumberValidationSpec extends Specification {
     "validate format" in {
       "complain when number entered in text field 1" in {
         createNationalInsuranceNumberForm(ni1 = "X8", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = "C").fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.pattern") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
 
@@ -122,7 +122,7 @@ class NationalInsuranceNumberValidationSpec extends Specification {
       */
       "complain when whitespace entered in text field 5" in {
         createNationalInsuranceNumberForm(ni1 = "JW", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = " ").fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.pattern") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
     }

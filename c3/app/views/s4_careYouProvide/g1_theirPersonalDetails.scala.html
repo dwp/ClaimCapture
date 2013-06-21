@@ -2,18 +2,13 @@
 
 @import helper._
 @import utils.helpers.CarersTemplate._
-@import views.html.common._
 @import views.html.helper._
 @import views.html.helper.dates._
-@import controllers.Mappings
 
-@common.main("Their Personal Details - Care You Provide") {
+@main("Their Personal Details - Care You Provide", theirPersonalDetailsForm) {
 
     @form(action = routes.CareYouProvide.theirPersonalDetailsSubmit) {
     
-    
-    	@errorsSummary(theirPersonalDetailsForm)
-
         <fieldset class="form-elements">
             <legend>Details of the person you care for</legend>
 
