@@ -1,10 +1,12 @@
 @(elements: helper.FieldElements)
 
 @import views.html.helper.dates._
+
 <li class="date-time @defining(if (elements.hasErrors) "validation" else ""){ v => @v}">
-    @if(elements.hasErrors){
+    @if(elements.hasErrors) {
         <p class="error">@elements.errors.mkString(", ")</p>
     }
+
     <ul>
         <li>
             @defining(elements.field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
@@ -16,6 +18,7 @@
                 <p class="helper right">@elements.args.get('helper).get.toString</p>
             }
         </li>
+
         <li>
             <p>@elements.args.get('timeLabel).getOrElse(Messages(elements.field.name+".time"))</p>
 

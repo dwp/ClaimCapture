@@ -29,7 +29,7 @@
                         <td class="desc">WWW WWW WW W WWW WWWWWW WWW...</td>
                         <td class="desc">WWW WWW WW W WWW WWW WWWWWW...</td>
                         <td><input type="button" class="button row secondary" value="Edit"></td>
-                        <td><input type="button" class="button row warning" value="Delete"></td>
+                        <td><input id="TEST" type="button" class="button row warning TEST" value="Delete"></td>
                     </tr>
                 }
             </tbody>
@@ -59,3 +59,24 @@
         </div>
     }
 }
+
+<script>
+    $(function() {
+        $("#TEST").on("click", function() {
+            var tr = $(this).closest("tr")
+
+            $.ajax({
+                type: "DELETE",
+                url: "@routes.CareYouProvide.breaksInCare/12345",
+                success: function() {
+                    tr.slideUp(500, function() {
+                        tr.remove();
+                    });
+                },
+                error: function() {
+                    alert("WHOOPS!");
+                }
+            });
+        });
+    });
+</script>

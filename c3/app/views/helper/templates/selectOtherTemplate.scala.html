@@ -9,7 +9,7 @@
     }
 
     @defining(elements.field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
-        <label for="@elements.field("location").id">@if(required){@Html("<em>*</em>")}@elements.label</label>
+        <label for='@elements.field("location").id'>@if(required){@Html("<em>*</em>")}@elements.label</label>
     }
 
     @if(elements.args.contains('prompt)){
@@ -18,13 +18,12 @@
 
     @elements.input
 
-
     @if(elements.args.contains('helper)){
         <p class="helper">@elements.args.get('helper).get.toString</p>
     }
 </li>
 
 <li class="other-detail">
-    @textarea(elements.field("other"),'placeholder->"If other please specify...")
+    @textarea(elements.field("other"), 'placeholder -> "If other please specify...")
 </li>
 

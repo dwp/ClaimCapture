@@ -11,8 +11,8 @@ import scala.Some
 object CarersAllowance extends Controller with CachedClaim {
   val route = Map(Benefits.id -> routes.CarersAllowance.benefits,
                   Hours.id -> routes.CarersAllowance.hours,
-                  LivesInGB.id -> routes.CarersAllowance.livesInGB,
-                  Over16.id -> routes.CarersAllowance.over16)
+                  Over16.id -> routes.CarersAllowance.over16,
+                  LivesInGB.id -> routes.CarersAllowance.livesInGB)
 
   val benefitsForm = Form(
     mapping(
@@ -24,15 +24,15 @@ object CarersAllowance extends Controller with CachedClaim {
       "answer" -> boolean
     )(Hours.apply)(Hours.unapply))
 
-  val livesInGBForm = Form(
-    mapping(
-      "answer" -> boolean
-    )(LivesInGB.apply)(LivesInGB.unapply))
-
   val over16Form = Form(
     mapping(
       "answer" -> boolean
     )(Over16.apply)(Over16.unapply))
+
+  val livesInGBForm = Form(
+    mapping(
+      "answer" -> boolean
+    )(LivesInGB.apply)(LivesInGB.unapply))
 
   def benefits = newClaim {
     implicit claim => implicit request =>
@@ -59,37 +59,37 @@ object CarersAllowance extends Controller with CachedClaim {
     implicit claim => implicit request =>
       hoursForm.bindFromRequest.fold(
         formWithErrors => Redirect(routes.CarersAllowance.hours()),
-        hours => claim.update(hours) -> Redirect(routes.CarersAllowance.livesInGB()))
-  }
-
-  def livesInGB = claiming {
-    implicit claim => implicit request =>
-      val completedQuestionGroups = claim.completedQuestionGroups(domain.CarersAllowance.id)
-
-      if (claiming(LivesInGB.id, claim)) Ok(views.html.s1_carersallowance.g3_livesInGB(confirmed = true, completedQuestionGroups.takeWhile(_.id != LivesInGB.id)))
-      else Ok(views.html.s1_carersallowance.g3_livesInGB(confirmed = false, completedQuestionGroups.takeWhile(_.id != LivesInGB.id)))
-  }
-
-  def livesInGBSubmit = claiming {
-    implicit claim => implicit request =>
-      livesInGBForm.bindFromRequest.fold(
-        formWithErrors => Redirect(routes.CarersAllowance.livesInGB()),
-        livesInGB => claim.update(livesInGB) -> Redirect(routes.CarersAllowance.over16()))
+        hours => claim.update(hours) -> Redirect(routes.CarersAllowance.over16()))
   }
 
   def over16 = claiming {
     implicit claim => implicit request =>
       val completedQuestionGroups = claim.completedQuestionGroups(domain.CarersAllowance.id)
 
-      if (claiming(Over16.id, claim)) Ok(views.html.s1_carersallowance.g4_over16(confirmed = true, completedQuestionGroups.takeWhile(_.id != Over16.id)))
-      else Ok(views.html.s1_carersallowance.g4_over16(confirmed = false, completedQuestionGroups.takeWhile(_.id != Over16.id)))
+      if (claiming(Over16.id, claim)) Ok(views.html.s1_carersallowance.g3_over16(confirmed = true, completedQuestionGroups.takeWhile(_.id != Over16.id)))
+      else Ok(views.html.s1_carersallowance.g3_over16(confirmed = false, completedQuestionGroups.takeWhile(_.id != Over16.id)))
   }
 
   def over16Submit = claiming {
     implicit claim => implicit request =>
       over16Form.bindFromRequest.fold(
         formWithErrors => Redirect(routes.CarersAllowance.over16()),
-        over16 => claim.update(over16) -> Redirect(routes.CarersAllowance.approve()))
+        over16 => claim.update(over16) -> Redirect(routes.CarersAllowance.livesInGB()))
+  }
+
+  def livesInGB = claiming {
+    implicit claim => implicit request =>
+      val completedQuestionGroups = claim.completedQuestionGroups(domain.CarersAllowance.id)
+
+      if (claiming(LivesInGB.id, claim)) Ok(views.html.s1_carersallowance.g4_livesInGB(confirmed = true, completedQuestionGroups.takeWhile(_.id != LivesInGB.id)))
+      else Ok(views.html.s1_carersallowance.g4_livesInGB(confirmed = false, completedQuestionGroups.takeWhile(_.id != LivesInGB.id)))
+  }
+
+  def livesInGBSubmit = claiming {
+    implicit claim => implicit request =>
+      livesInGBForm.bindFromRequest.fold(
+        formWithErrors => Redirect(routes.CarersAllowance.livesInGB()),
+        livesInGB => claim.update(livesInGB) -> Redirect(routes.CarersAllowance.approve()))
   }
 
   def approve = claiming {
