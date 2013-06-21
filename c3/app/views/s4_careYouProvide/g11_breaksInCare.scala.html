@@ -72,8 +72,6 @@
     }
 }
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/trSlideUp.js")'></script>
-
 <script type="text/javascript">
     $(function() {
         $("#TEST").on("click", function() {
@@ -87,7 +85,11 @@
                     if (tbody.children().length == 1) {
                         $("#trips").slideUp();
                     } else {
-                        tr.trSlideUp();
+                        tr.children("td")
+                            .animate({ padding: 0 })
+                            .wrapInner("<div />")
+                            .children()
+                            .slideUp(function() { tr.remove(); });
                     }
                 },
                 error: function() {
