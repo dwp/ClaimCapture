@@ -1,13 +1,14 @@
 package services.submission
 
 import models.domain._
+import play.Logger
 
 object ClaimSubmissionService {
 
   def submitClaim(claim:Claim) = {
     val aboutYou = buildAboutYou(claim)
     val claimSubmission = ClaimSubmission(aboutYou).createClaimSubmission
-    println(claimSubmission)
+    Logger.debug(claimSubmission.toString())
     true
   }
 
