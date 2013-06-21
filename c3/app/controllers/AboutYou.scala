@@ -11,13 +11,13 @@ import Mappings._
 import scala.collection.immutable.ListMap
 
 object AboutYou extends Controller with CachedClaim {
-  val route: ListMap[String,Call] = ListMap(YourDetails.id -> routes.AboutYou.yourDetails,
-                  ContactDetails.id -> routes.AboutYou.contactDetails,
-                  TimeOutsideUK.id -> routes.AboutYou.timeOutsideUK(),
-                  ClaimDate.id -> routes.AboutYou.claimDate,
-                  MoreAboutYou.id -> routes.AboutYou.moreAboutYou,
-                  Employment.id -> routes.AboutYou.employment,
-                  PropertyAndRent.id -> routes.AboutYou.propertyAndRent)
+  val route = ListMap(YourDetails.id -> routes.AboutYou.yourDetails,
+                      ContactDetails.id -> routes.AboutYou.contactDetails,
+                      TimeOutsideUK.id -> routes.AboutYou.timeOutsideUK(),
+                      ClaimDate.id -> routes.AboutYou.claimDate,
+                      MoreAboutYou.id -> routes.AboutYou.moreAboutYou,
+                      Employment.id -> routes.AboutYou.employment,
+                      PropertyAndRent.id -> routes.AboutYou.propertyAndRent)
 
   val yourDetailsForm = Form(
     mapping(
