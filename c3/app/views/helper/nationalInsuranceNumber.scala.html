@@ -1,31 +1,8 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)
 
 @import utils.helpers.CarersTemplate._
+@import views.html.helper._
 
 @input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
-  <ul class="inline ni-number label-strip">
-    <li>
-      <label for="ni-1">NI part one</label>
-      <input type="text" name="@{name}.ni-1" id="@{name}-ni-1" maxlength="2" placeholder="AA" value='@{field("ni-1").value}' autocomplete="off">
-    </li>
-
-    <li>
-      <label for="ni-2">NI part two</label>
-      <input type="tel" name="@{name}.ni-2" id="@{name}-ni-2" maxlength="2" placeholder="12" value='@{field("ni-2").value}' autocomplete="off">
-    </li>
-
-    <li>
-      <label for="ni-3">NI part three</label>
-      <input type="tel" name="@{name}.ni-3" id="@{name}-ni-3" maxlength="2" placeholder="34" value='@{field("ni-3").value}' autocomplete="off">
-    </li>
-
-    <li>
-      <label for="ni-4">NI part four</label>
-      <input type="tel" name="@{name}.ni-4" id="@{name}-ni-4" maxlength="2" placeholder="56" value='@{field("ni-4").value}' autocomplete="off">
-    </li>
-
-    <li>
-      <label for="ni-5">NI part five</label>
-      <input type="text" name="@{name}.ni-5" id="@{name}-ni-5" class="single" maxlength="1" placeholder="A" value='@{field("ni-5").value}' autocomplete="off">
-  </ul>
+    @nationalInsurancePlaceholder(field)
 }
