@@ -77,13 +77,18 @@
 <script type="text/javascript">
     $(function() {
         $("#TEST").on("click", function() {
-            var tr = $(this).closest("tr")
+            var tr = $(this).closest("tr");
+            var tbody = $(this).closest("tbody")
 
             $.ajax({
                 type: "DELETE",
                 url: "@routes.CareYouProvide.breaksInCare/12345",
                 success: function() {
-                    tr.trSlideUp();
+                    if (tbody.children().length == 1) {
+                        $("#trips").slideUp(500);
+                    } else {
+                        tr.trSlideUp();
+                    }
                 },
                 error: function() {
                     alert("WHOOPS!");
