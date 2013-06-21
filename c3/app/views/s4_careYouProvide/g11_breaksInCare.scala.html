@@ -26,7 +26,18 @@
             <tbody>
                 @for(break <- breaksInCare.breaks) {
                     <tr>
-                        <td>@break.start<span>to</span>@break.end</td>
+                        <td>
+                            @break.start.day/@break.start.month/@break.start.year
+
+                            @for(end <- break.end;
+                                 endDay <- end.day;
+                                 endMonth <- end.month;
+                                 endYear <- end.year) {
+                                <span>to</span>
+                                @endDay/@endMonth/@endYear
+                            }
+                        </td>
+
                         <td class="desc">@break.whereYou</td>
                         <td class="desc">@break.wherePerson</td>
                         <td class="desc">@break.medicalDuringBreak</td>
