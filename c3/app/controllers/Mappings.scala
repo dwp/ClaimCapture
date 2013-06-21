@@ -24,6 +24,10 @@ object Mappings {
 
   val maxNrOfChars = 60
 
+  val yes = "yes"
+
+  val no = "no"
+
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
     "day" -> optional(number),
     "month" -> optional(number),
@@ -32,9 +36,9 @@ object Mappings {
     "minutes" -> optional(number))(DayMonthYear.apply)(DayMonthYear.unapply)
 
   val address: Mapping[MultiLineAddress] = mapping(
-    "lineOne" -> optional(text),
-    "lineTwo" -> optional(text),
-    "lineThree" -> optional(text))(MultiLineAddress.apply)(MultiLineAddress.unapply)
+    "lineOne" -> optional(text(maxLength = maxNrOfChars)),
+    "lineTwo" -> optional(text(maxLength = maxNrOfChars)),
+    "lineThree" -> optional(text(maxLength = maxNrOfChars)))(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> nonEmptyText,

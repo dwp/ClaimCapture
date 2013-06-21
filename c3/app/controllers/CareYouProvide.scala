@@ -13,7 +13,9 @@ import models.domain.{HasBreaks, BreakInCare, Break, BreaksInCare}
 import models.Whereabouts._
 
 object CareYouProvide extends Controller with CachedClaim {
-  val route = Map(HasBreaks.id -> routes.CareYouProvide.hasBreaks)
+  val route = Map(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
+    TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
+    HasBreaks.id -> routes.CareYouProvide.hasBreaks)
 
   val theirPersonalDetailsForm = Form(
     mapping(
@@ -31,10 +33,10 @@ object CareYouProvide extends Controller with CachedClaim {
     mapping(
       "address" -> address.verifying(requiredAddress),
       "postcode" -> optional(text verifying(pattern( """^(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})$""".r,
-        "constraint.postcode", "error.postcode"), maxLength(10))),
-      "phoneNumber" -> optional(text)
+        "constraint.invalid", "error.postcode"), maxLength(10))),
+      "phoneNumber" -> optional(text verifying(pattern( """[0-9 \-]{1,20}""".r,
+        "constraint.invalid", "error.invalid")))
     )(TheirContactDetails.apply)(TheirContactDetails.unapply))
-
 
   val hasBreaksForm = Form(
     mapping(
@@ -75,12 +77,11 @@ object CareYouProvide extends Controller with CachedClaim {
     implicit claim => implicit request =>
 
       val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
-        case Some(t: TheirPersonalDetails) => if (t.liveAtSameAddress == "yes") true else false
+        case Some(t: TheirPersonalDetails) => if (t.liveAtSameAddress == yes) true else false
         case _ => false
-
       }
 
-      val theirContactDetailsPrePopulatedForm: Form[TheirContactDetails] = if (liveAtSameAddress) {
+      val theirContactDetailsPrePopulatedForm = if (liveAtSameAddress) {
         claim.questionGroup(ContactDetails.id) match {
           case Some(cd: ContactDetails) => theirContactDetailsForm.fill(TheirContactDetails(address = cd.address, postcode = cd.postcode))
           case _ => theirContactDetailsForm
@@ -115,7 +116,6 @@ object CareYouProvide extends Controller with CachedClaim {
         case Some(h: HasBreaks) => hasBreaksForm.fill(h)
         case _ => hasBreaksForm
       }
-
       Ok(views.html.s4_careYouProvide.g10_hasBreaks(hasBreaksQGForm))
   }
 
@@ -124,7 +124,7 @@ object CareYouProvide extends Controller with CachedClaim {
       hasBreaksForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s4_careYouProvide.g10_hasBreaks(formWithErrors)),
         hasBreaks =>
-          if (hasBreaks.answer == "yes") claim.update(hasBreaks) -> Redirect(routes.CareYouProvide.breaksInCare())
+          if (hasBreaks.answer == yes) claim.update(hasBreaks) -> Redirect(routes.CareYouProvide.breaksInCare())
           else claim.update(hasBreaks) -> Redirect(routes.CareYouProvide.completed()))
   }
 
@@ -134,7 +134,6 @@ object CareYouProvide extends Controller with CachedClaim {
         case Some(b: BreaksInCare) => b
         case _ => BreaksInCare()
       }
-
       Ok(views.html.s4_careYouProvide.g11_breaksInCare(breakInCareForm, breaksInCare))
   }
 

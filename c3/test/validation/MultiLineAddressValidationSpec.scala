@@ -37,6 +37,33 @@ class MultiLineAddressValidationSpec extends Specification {
         address => address must equalTo( MultiLineAddress( None, None, Some("line3")) )
       )
     }
+
+    "have a maxLength constraint for lineOne" in {
+      Form( "address" -> ( address.verifying(requiredAddress) ) ).bind(
+        Map( "address.lineOne" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS")
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
+        address => "This mapping should not happen." must equalTo ("Valid")
+      )
+    }
+
+    "have a maxLength constraint for lineTwo" in {
+      Form( "address" -> ( address.verifying(requiredAddress) ) ).bind(
+        Map( "address.lineTwo" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS")
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
+        address => "This mapping should not happen." must equalTo ("Valid")
+      )
+    }
+
+    "have a maxLength constraint for lineThree" in {
+      Form( "address" -> ( address.verifying(requiredAddress) ) ).bind(
+        Map( "address.lineThree" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS")
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
+        address => "This mapping should not happen." must equalTo ("Valid")
+      )
+    }
   }
 
 }

@@ -1,23 +1,23 @@
-@(theirContactDetailsForm: Form[models.domain.TheirContactDetails])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.TheirContactDetails])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 
-@main("More About The Person - Care You Provide", theirContactDetailsForm) {
+@main("More About The Person You Care For - Care You Provide", currentForm) {
 
     @form(action = routes.CareYouProvide.theirPersonalDetailsSubmit) {
 
         <fieldset class="form-elements">
-            <legend>Details of the person you care for</legend>
+            <legend>Relationship and other claims</legend>
 
 
             <ul class="group">
-                @inputAddress(theirContactDetailsForm("address"))
+                @inputAddress(currentForm("address"))
 
-                @inputText(theirContactDetailsForm("postcode"))
+                @yesNoRadioGroup(currentForm("liveAtSameAddress"))
 
-                @inputText(theirContactDetailsForm("phoneNumber"))
+                @yesNoRadioGroup(currentForm("liveAtSameAddress"))
             </ul>
         </fieldset>
 
