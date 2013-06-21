@@ -15,8 +15,9 @@
             <thead>
                 <tr>
                     <th>Dates</th>
-                    <th class="desc">Where did you go?</th>
-                    <th class="desc">Why Did you go?</th>
+                    <th class="desc">Where were you?</th>
+                    <th class="desc">Where was the person you look after?</th>
+                    <th class="desc">Received medical treatment / professional care</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -25,9 +26,10 @@
             <tbody>
                 @for(break <- breaksInCare.breaks) {
                     <tr>
-                        <td>01/01/2013<span>to</span>07/01/2013</td>
-                        <td class="desc">WWW WWW WW W WWW WWWWWW WWW...</td>
-                        <td class="desc">WWW WWW WW W WWW WWW WWWWWW...</td>
+                        <td>@break.start<span>to</span>@break.end</td>
+                        <td class="desc">@break.whereYou</td>
+                        <td class="desc">@break.wherePerson</td>
+                        <td class="desc">@break.medicalDuringBreak</td>
                         <td><input type="button" class="button row secondary" value="Edit"></td>
                         <td><input id="TEST" type="button" class="button row warning TEST" value="Delete"></td>
                     </tr>
@@ -41,7 +43,6 @@
             <legend>About the breaks in care</legend>
 
             <ul class="group">
-
                 @inputDayMonthYearHM(breakInCareForm("break.start"))
                 @inputDayMonthYearHM(breakInCareForm("break.end"))
 
@@ -60,7 +61,9 @@
     }
 }
 
-<script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/trSlideUp.js")'></script>
+
+<script type="text/javascript">
     $(function() {
         $("#TEST").on("click", function() {
             var tr = $(this).closest("tr")
@@ -69,9 +72,7 @@
                 type: "DELETE",
                 url: "@routes.CareYouProvide.breaksInCare/12345",
                 success: function() {
-                    tr.slideUp(500, function() {
-                        tr.remove();
-                    });
+                    tr.trSlideUp();
                 },
                 error: function() {
                     alert("WHOOPS!");

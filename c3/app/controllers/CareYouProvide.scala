@@ -7,18 +7,15 @@ import models.view.CachedClaim
 import Mappings._
 import play.api.data.validation.Constraints._
 import models.domain._
-import models.domain.BreakInCare
 import scala.Some
 import models.domain.{HasBreaks, BreakInCare, Break, BreaksInCare}
-import models.Whereabouts._
 import scala.collection.immutable.ListMap
-import play.api.mvc.Call
 
 object CareYouProvide extends Controller with CachedClaim {
-  val route: ListMap[String,Call] = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
-                  TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
-                  HasBreaks.id -> routes.CareYouProvide.hasBreaks,
-    BreaksInCare.id -> routes.CareYouProvide.breaksInCare)
+  val route = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
+                      TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
+                      HasBreaks.id -> routes.CareYouProvide.hasBreaks,
+                      BreaksInCare.id -> routes.CareYouProvide.breaksInCare)
 
   val theirPersonalDetailsForm = Form(
     mapping(
@@ -112,22 +109,22 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def hasBreaks = claiming {
     implicit claim => implicit request =>
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(q => q.id != HasBreaks.id)
 
-      val completedForms = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(q => q.id != HasBreaks.id)
       val hasBreaksQGForm = claim.questionGroup(HasBreaks.id) match {
         case Some(h: HasBreaks) => hasBreaksForm.fill(h)
         case _ => hasBreaksForm
       }
 
-      Ok(views.html.s4_careYouProvide.g10_hasBreaks(hasBreaksQGForm,completedForms))
+      Ok(views.html.s4_careYouProvide.g10_hasBreaks(hasBreaksQGForm, completedQuestionGroups))
   }
 
   def hasBreaksSubmit = claiming {
     implicit claim => implicit request =>
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(q => q.id != HasBreaks.id)
 
-      val completedForms = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(q => q.id != HasBreaks.id)
       hasBreaksForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s4_careYouProvide.g10_hasBreaks(formWithErrors,completedForms)),
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g10_hasBreaks(formWithErrors, completedQuestionGroups)),
         hasBreaks =>
           if (hasBreaks.answer == yes) claim.update(hasBreaks) -> Redirect(routes.CareYouProvide.breaksInCare())
           else claim.update(hasBreaks) -> Redirect(routes.CareYouProvide.completed()))
