@@ -108,19 +108,7 @@
     		<header>
     			<h1>About you - the Carer</h1>
     		</header>
-			
-			
-			<div class="validation-summary">
-				<h2>There was a problem submitting the form</h2>
-				<p>Please fix the following:</p>
-				<ol>
-					<li><a href="#middle-name">Middle name</a></li>
-					<li><a href="#ni-1">NI number</a></li>
-				</ol>
-					
-			</div>
-			<!-- / validation message -->
-			
+
     	
 			<fieldset class="form-elements">
 				<legend>Your details</legend>
@@ -139,8 +127,7 @@
 						<label for="first-name"><em>*</em>First Name</label>
 						<input type="text" name="first-name" id="first-name">
 					</li>
-					<li class="validation">
-						<p class="error">Enter your middle name</p>
+					<li>
 						<label for="middle-name">Middle Name</label>
 						<input type="text" name="middle-name" id="middle-name">
 					</li>
@@ -148,12 +135,12 @@
 						<label for="surname"><em>*</em>Surname or family name</label>
 						<input type="text" name="surname" id="surname">
 					</li>
-					<li class="validation">
+					<li>
 						<label for="other-name">All other surnames or family names you have used or have been known by</label>
 						<input type="text" name="other-name" id="other-name">
 					</li>
 
-					<li class="validation">
+					<li>
 						<p>National Insurance (NI) number</p>
 						<ul class="inline ni-number">
 							<li>
@@ -176,8 +163,14 @@
 								<label for="ni-5">NI part five</label>
 								<input type="text" name="ni-5" id="ni-5" class="single" maxlength="1" placeholder="A">
 							</li>
+							<li class="helper-more">Help</li>
+							
 						</ul>
 						<p class="helper">eg: JW-41-68-56-A</p>
+						<div class="helper-info">
+							<p>This is on your NI number card, benefit letter, payslip or P60.</p>
+							<p>Not providing this may delay your claim.</p>
+						</div>
 					</li> 
 					<li>
 						<p><em>*</em>Date of birth</p>

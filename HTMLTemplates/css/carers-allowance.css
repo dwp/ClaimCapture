@@ -359,6 +359,25 @@
                 position: relative;
                 top: auto;
                 left: auto; } }
+        .carers-allowance .form-elements ul li.helper-more {
+          color: #2e3191;
+          text-decoration: underline;
+          cursor: pointer; }
+          .carers-allowance .form-elements ul li.helper-more:hover {
+            color: inherit; }
+          @media screen and (max-width: 330px) {
+            .carers-allowance .form-elements ul li.helper-more {
+              position: relative;
+              top: 3px;
+              padding: 0;
+              float: right; } }
+        .carers-allowance .form-elements ul li .helper-info {
+          display: none;
+          padding: 1em;
+          background: #bde4f6;
+          margin-top: .25em; }
+          .carers-allowance .form-elements ul li .helper-info p {
+            font-size: 1.6rem; }
         .carers-allowance .form-elements ul li label, .carers-allowance .form-elements ul li p {
           display: block;
           font-size: 1.9rem;
@@ -500,7 +519,7 @@
           vertical-align: top;
           margin-top: .38rem; }
           .ie .carers-allowance .form-elements ul.inline-stack li input {
-            margin-top: 38px; }
+            margin-top: 0; }
           .carers-allowance .form-elements ul.inline-stack li input[type=checkbox]:checked + label, .carers-allowance .form-elements ul.inline-stack li input[type=radio]:checked + label {
             color: #0b0c0c; }
         .carers-allowance .form-elements ul.inline-stack li label {
@@ -537,8 +556,8 @@
         .carers-allowance .form-elements ul.year li input {
           width: 7.6rem;
           background: #f9f9f9; }
-          .ie .carers-allowance .form-elements ul.year li input {
-            width: 76px;
+          .ie8 .carers-allowance .form-elements ul.year li input, .ie7 .carers-allowance .form-elements ul.year li input {
+            width: 60px;
             font-size: 14px;
             padding: 5px 8px; }
       .carers-allowance .form-elements ul.sort-code li {
@@ -732,7 +751,7 @@
       clear: both; }
   .carers-allowance .button {
     font-size: 2rem;
-    line-height: 1.25;
+    line-height: 1.25em;
     color: #fff;
     border-radius: 3px;
     box-shadow: 0 3px 0 black;
