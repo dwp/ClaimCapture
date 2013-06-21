@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc.Controller
 import play.api.data.Form
+import play.api.mvc.Call
 import play.api.data.Forms._
 import models.view.CachedClaim
 import Mappings._
@@ -12,7 +13,7 @@ import models.domain.{HasBreaks, BreakInCare, Break, BreaksInCare}
 import scala.collection.immutable.ListMap
 
 object CareYouProvide extends Controller with CachedClaim {
-  val route = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
+  val route: ListMap[String,Call] = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
                       TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
                       HasBreaks.id -> routes.CareYouProvide.hasBreaks,
                       BreaksInCare.id -> routes.CareYouProvide.breaksInCare)
