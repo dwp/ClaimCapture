@@ -1,8 +1,8 @@
-@(completedForms: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 
-@main("Completion - About You", completedForms) {
+@main("Completion - About You", completedQuestionGroups) {
     @form(action = routes.AboutYou.completedSubmit) {
         <div class="form-steps">
             <a href="@routes.AboutYou.propertyAndRent" class="button secondary">Back</a>
