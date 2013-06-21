@@ -74,31 +74,29 @@
 
 <script type="text/javascript">
     $(function() {
-        $("input[value='Delete']").each(function(index, value) {
-            $(this).on("click", function() {
-                var tr = $(this).closest("tr");
-                var tbody = $(this).closest("tbody")
+        $("tbody").on("click", "input[value='Delete']", function() {
+            var tr = $(this).closest("tr");
+            var tbody = $(this).closest("tbody")
 
-                $.ajax({
-                    type: "DELETE",
-                    url: "@routes.CareYouProvide.breaksInCare/12345",
-                    success: function() {
-                        tr.children("td")
-                            .animate({ padding: 0 })
-                            .wrapInner("<div />")
-                            .children()
-                            .slideUp(function() {
-                                tr.remove();
+            $.ajax({
+                type: "DELETE",
+                url: "@routes.CareYouProvide.breaksInCare/" + $(this).attr("id"),
+                success: function() {
+                    tr.children("td")
+                    .animate({ padding: 0 })
+                    .wrapInner("<div />")
+                    .children()
+                    .slideUp(function() {
+                        tr.remove();
 
-                                if (tbody.children().length == 0) {
-                                    $("#trips").slideUp();
-                                }
-                        });
-                    },
-                    error: function() {
-                        alert("WHOOPS!");
-                    }
-                });
+                        if (tbody.children().length == 0) {
+                            $("#trips").slideUp();
+                        }
+                    });
+                },
+                error: function() {
+                    alert("WHOOPS!");
+                }
             });
         });
     });
