@@ -14,9 +14,9 @@ import scala.collection.immutable.ListMap
 
 object CareYouProvide extends Controller with CachedClaim {
   val route: ListMap[String,Call] = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
-                      TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
-                      HasBreaks.id -> routes.CareYouProvide.hasBreaks,
-                      BreaksInCare.id -> routes.CareYouProvide.breaksInCare)
+                                            TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
+                                            HasBreaks.id -> routes.CareYouProvide.hasBreaks,
+                                            BreaksInCare.id -> routes.CareYouProvide.breaksInCare)
 
   val theirPersonalDetailsForm = Form(
     mapping(
@@ -180,9 +180,7 @@ object CareYouProvide extends Controller with CachedClaim {
             <h1>End of Sprint 2</h1>
 
             <ul>
-              {claim.completedQuestionGroups(models.domain.CareYouProvide.id).map(f => <li>
-              {f}
-            </li>)}
+              {claim.completedQuestionGroups(models.domain.CareYouProvide.id).map(f => <li>{f}</li>)}
             </ul>
           </body>
         </html>

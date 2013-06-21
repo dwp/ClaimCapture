@@ -38,8 +38,8 @@
                             }
                         </td>
 
-                        <td class="desc">@break.whereYou</td>
-                        <td class="desc">@break.wherePerson</td>
+                        <td class="desc">@break.whereYou.location</td>
+                        <td class="desc">@break.wherePerson.location</td>
                         <td class="desc">@break.medicalDuringBreak</td>
                         <td><input type="button" class="button row secondary" value="Edit"></td>
                         <td><input id="TEST" type="button" class="button row warning TEST" value="Delete"></td>
@@ -85,7 +85,7 @@
                 url: "@routes.CareYouProvide.breaksInCare/12345",
                 success: function() {
                     if (tbody.children().length == 1) {
-                        $("#trips").slideUp(500);
+                        $("#trips").slideUp();
                     } else {
                         tr.trSlideUp();
                     }
