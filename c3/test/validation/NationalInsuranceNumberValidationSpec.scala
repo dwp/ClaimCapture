@@ -92,7 +92,7 @@ class NationalInsuranceNumberValidationSpec extends Specification {
     "validate format" in {
       "complain when number entered in text field 1" in {
         createNationalInsuranceNumberForm(ni1 = "X8", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = "C").fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.pattern") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("The first field of the National Insurance number is not valid") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
 
@@ -122,7 +122,7 @@ class NationalInsuranceNumberValidationSpec extends Specification {
       */
       "complain when whitespace entered in text field 5" in {
         createNationalInsuranceNumberForm(ni1 = "JW", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = " ").fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.pattern") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("The fifth field of the National Insurance number is not valid") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
     }
