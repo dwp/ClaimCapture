@@ -4,12 +4,13 @@ import org.specs2.mutable.Specification
 import models.domain._
 import services.submission.ClaimSubmission
 import helpers.ClaimBuilder._
+import play.api.test.WithApplication
 
 class ClaimSubmissionSpec extends Specification {
 
 
   "Claim Submission" should {
-    "build and confirm normal AboutYou input" in {
+    "build and confirm normal AboutYou input" in new WithApplication {
       val claimSub = ClaimSubmission(aboutYou)
       val claimXml = claimSub.createClaimSubmission
 

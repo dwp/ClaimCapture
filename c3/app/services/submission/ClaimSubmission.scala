@@ -2,6 +2,7 @@ package services.submission
 
 import scala.xml.Elem
 import models.domain.AboutYou
+import services.util.XmlValidator
 
 case class ClaimSubmission(aboutYou: AboutYou, transactionId : String = "Don't know how to generate yet?") {
 
@@ -391,7 +392,7 @@ case class ClaimSubmission(aboutYou: AboutYou, transactionId : String = "Don't k
   }
 
   def validateDwpClaim(dwpClaim : Elem) : Boolean = {
-    true
+    new XmlValidator(dwpClaim.toString(), "").validate
   }
 
   def buildClaimant = {
