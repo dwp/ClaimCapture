@@ -1,4 +1,4 @@
-@(employmentForm :Form[models.domain.Employment], completedForms :List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(employmentForm :Form[models.domain.Employment], completedQuestionGroups :List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import views.html.common._
@@ -6,7 +6,7 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main("Employment - About You",completedForms) {
+@main("Employment - About You",completedQuestionGroups) {
     @errorsSummary(employmentForm)
 
     @form(action = routes.AboutYou.employmentSubmit) {

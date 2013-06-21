@@ -1,10 +1,11 @@
-@(contactDetailsForm: Form[models.domain.ContactDetails], completedForms: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(contactDetailsForm: Form[models.domain.ContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.common._
+@import views.html.helper._
 
-@main("Contact Details - About You", completedForms) {
+@main("Contact Details - About You", completedQuestionGroups) {
     @errorsSummary(contactDetailsForm)
 
     @form(action = routes.AboutYou.contactDetailsSubmit) {
@@ -14,11 +15,11 @@
             <ul class="group">
                 @inputAddress(contactDetailsForm("address"))
 
-                @inputText(contactDetailsForm("postcode"))
+                @carersInputText(contactDetailsForm("postcode"))
 
-                @inputText(contactDetailsForm("phoneNumber"))
+                @carersInputText(contactDetailsForm("phoneNumber"))
 
-                @inputText(contactDetailsForm("mobileNumber"))
+                @carersInputText(contactDetailsForm("mobileNumber"))
             </ul>
         </fieldset>
 

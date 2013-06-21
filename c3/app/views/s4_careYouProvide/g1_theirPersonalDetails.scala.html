@@ -16,11 +16,11 @@
             <ul class="group">
                 @titleSelect(currentForm("title"))
 
-                @inputText(currentForm("firstName"), 'maxLength -> Mappings.maxNrOfChars)
+                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.maxNrOfChars)
 
-                @inputText(currentForm("middleName"), 'maxLength -> Mappings.maxNrOfChars)
+                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.maxNrOfChars)
 
-                @inputText(currentForm("surname"), 'maxLength -> Mappings.maxNrOfChars)
+                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.maxNrOfChars)
 
                 @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
 

@@ -4,6 +4,7 @@
 @import utils.helpers.CarersTemplate._
 @import common._
 @import views.html.helper.dates._
+@import views.html.helper._
 
 @main("Time Outside UK - About You", completedQuestionGroups) {
     @errorsSummary(timeOutsideUKForm)
@@ -18,7 +19,7 @@
                 <ul id="livingInUK" style='display: @if(timeOutsideUKForm("currentlyLivingInUK").value.getOrElse("yes") == "yes") { none; } else { block; }'>
                     @inputDayMonthYear(timeOutsideUKForm("arrivedInUK"))
 
-                    @inputText(timeOutsideUKForm("originCountry"))
+                    @carersInputText(timeOutsideUKForm("originCountry"))
                 </ul>
 
                 @yesNoRadioGroup(timeOutsideUKForm("planToGoBack"))
@@ -27,7 +28,7 @@
                     @inputDayMonthYear(timeOutsideUKForm("whenPlanToGoBack"))
                 </ul>
 
-                @inputText(timeOutsideUKForm("visaReference"))
+                @carersInputText(timeOutsideUKForm("visaReference"))
             </ul>
 
         </fieldset>

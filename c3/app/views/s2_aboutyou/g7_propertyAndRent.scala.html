@@ -1,4 +1,4 @@
-@(propertyAndRentForm: Form[models.domain.PropertyAndRent], completedForms: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(propertyAndRentForm: Form[models.domain.PropertyAndRent], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import views.html.common._
@@ -6,7 +6,7 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main("Property and Rent - About You", completedForms) {
+@main("Property and Rent - About You", completedQuestionGroups) {
     @errorsSummary(propertyAndRentForm)
 
     @form(action = routes.AboutYou.propertyAndRentSubmit) {
