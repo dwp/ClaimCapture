@@ -75,11 +75,11 @@ class AboutYouSpec extends Specification with Mockito {
         "surname" -> "Doo",
         "nationality" -> "US",
         
-        "nationalInsuranceNumber.ni-1" -> "JW",
-        "nationalInsuranceNumber.ni-2" -> "12",
-        "nationalInsuranceNumber.ni-3" -> "34",
-        "nationalInsuranceNumber.ni-4" -> "56",
-        "nationalInsuranceNumber.ni-5" -> "C",
+        "nationalInsuranceNumber.ni1" -> "JW",
+        "nationalInsuranceNumber.ni2" -> "12",
+        "nationalInsuranceNumber.ni3" -> "34",
+        "nationalInsuranceNumber.ni4" -> "56",
+        "nationalInsuranceNumber.ni5" -> "C",
         
         "dateOfBirth.day" -> "5",
         "dateOfBirth.month" -> "12",
