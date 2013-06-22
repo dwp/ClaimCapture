@@ -6,7 +6,7 @@
 @import views.html.helper.dates._
 
 @main("Breaks in Care - Care You Provide", breakInCareForm) {
-    <fieldset class="form-elements results-detail" id="trips" style='display: @if(breaksInCare.breaks.foldLeft(0)((a, _) => a + 1) == 0) { none; } else { block; }'>
+    <fieldset class="form-elements results-detail" id="trips">
         <legend>Trips you have added</legend>
 
         <table>
@@ -74,6 +74,10 @@
 
 <script type="text/javascript">
     $(function() {
+        @if(breaksInCare.breaks.foldLeft(0)((a, _) => a + 1) == 0) {
+            $("#trips").hide();
+        }
+
         $("tbody").on("click", "input[value='Delete']", function() {
             var tr = $(this).closest("tr");
             var tbody = $(this).closest("tbody")
@@ -81,19 +85,25 @@
             $.ajax({
                 type: "DELETE",
                 url: "@routes.CareYouProvide.breaksInCare/" + $(this).attr("id"),
-                success: function() {
-                    tr.children("td")
-                    .animate({ padding: 0 })
-                    .wrapInner("<div />")
-                    .children()
-                    .slideUp(function() {
-                        tr.remove();
 
-                        if (tbody.children().length == 0) {
-                            $("#trips").slideUp();
-                        }
-                    });
+                success: function() {
+                    var element;
+
+                    if (tbody.children().length == 1) {
+                        element = $("#trips")
+                    } else {
+                        element = tr.children("td")
+                    }
+
+                    element
+                        .animate({ padding: 0, margin: 0 })
+                        .wrapInner("<div />")
+                        .children()
+                        .slideUp(function() {
+                            tr.remove();
+                        });
                 },
+
                 error: function() {
                     alert("WHOOPS!");
                 }
