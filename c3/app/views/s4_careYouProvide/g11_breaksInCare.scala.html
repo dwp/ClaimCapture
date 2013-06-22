@@ -89,11 +89,8 @@
                 success: function() {
                     var element;
 
-                    if (tbody.children().length == 1) {
-                        element = $("#trips")
-                    } else {
-                        element = tr.children("td")
-                    }
+                    if (tbody.children().length == 1) element = $("#trips");
+                    else element = tr.children("td");
 
                     element
                         .animate({ padding: 0, margin: 0 })
