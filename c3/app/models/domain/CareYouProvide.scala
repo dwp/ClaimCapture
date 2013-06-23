@@ -28,6 +28,8 @@ object HasBreaks {
 
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare.id) {
   def update(break: Break) = BreaksInCare(breaks :+ break)
+
+  def delete(breakID: String) = BreaksInCare(breaks.filterNot(_.id == breakID))
 }
 
 object BreaksInCare {

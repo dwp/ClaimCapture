@@ -166,7 +166,10 @@ object CareYouProvide extends Controller with CachedClaim {
     implicit claim => implicit request =>
       import play.api.libs.json.Json
 
-      Ok(Json.obj("id" -> 99999999))
+      claim.questionGroup(BreaksInCare.id) match {
+        case Some(b: BreaksInCare) => claim.update(b.delete(id)) -> Ok(Json.obj("id" -> id))
+        case _ => BadRequest(s"""Failed to delete break with ID "$id" as claim currently has no breaks""")
+      }
   }
 
   def completed = claiming {
