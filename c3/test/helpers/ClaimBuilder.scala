@@ -21,5 +21,5 @@ object ClaimBuilder {
 
   val claimDate = ClaimDate(dateOfClaim = DayMonthYear(1, 1, 2013))
 
-  val aboutYou = AboutYou(yourDetails, contactDetails, timeOutsideUK, claimDate)
+  val aboutYou = AboutYou(yourDetails, contactDetails, Some(timeOutsideUK), claimDate)
 }

@@ -5,7 +5,7 @@ import models.Postcode
 
 case class AboutYou(yourDetails: YourDetails,
                     contactDetails: ContactDetails,
-                    timeOutsideUK : TimeOutsideUK,
+                    timeOutsideUK : Option[TimeOutsideUK],
                     claimDate : ClaimDate)
 
 object AboutYou {
