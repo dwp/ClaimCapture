@@ -2,13 +2,11 @@ package controllers
 
 import play.api.mvc.Controller
 import play.api.data.Form
-import play.api.mvc.Call
 import play.api.data.Forms._
 import models.view.CachedClaim
 import Mappings._
 import models.domain._
-import scala.Some
-import models.domain.{HasBreaks, BreakInCare, Break, BreaksInCare}
+import models.domain.{HasBreaks, BreaksInCare}
 import scala.collection.immutable.ListMap
 import scala.Some
 import play.api.mvc.Call
@@ -258,7 +256,10 @@ object CareYouProvide extends Controller with CachedClaim {
         })
   }
 
-  def break(id: String) = TODO
+  def break(id: String) = claiming {
+    implicit claim => implicit request =>
+      Ok(views.html.s4_careYouProvide.g11_break(breakForm))
+  }
 
   def breakSubmit = claiming {
     implicit claim => implicit request =>
