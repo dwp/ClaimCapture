@@ -120,7 +120,7 @@ class AboutYouSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
         "address.lineOne" -> "123 Street",
-        "postcode.content" -> "PR2 8AE")
+        "postcode" -> "PR2 8AE")
 
       val result = controllers.AboutYou.contactDetailsSubmit(request)
       status(result) mustNotEqual BAD_REQUEST
@@ -130,7 +130,7 @@ class AboutYouSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
         "address.lineOne" -> "123 Street",
-        "postcode.content" -> "1234567890")
+        "postcode" -> "1234567890")
 
       val result = controllers.AboutYou.contactDetailsSubmit(request)
       status(result) mustEqual BAD_REQUEST

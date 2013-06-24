@@ -32,8 +32,8 @@ object CareYouProvide extends Controller with CachedClaim {
   val theirContactDetailsForm = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),
-      "postcode" -> optional(postcode.verifying(validPostcode)),
-      "phoneNumber" -> optional(text verifying pattern("""[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid"))
+      "postcode" -> optional(text verifying(validPostcode)),
+      "phoneNumber" -> optional(text verifying(validPhoneNumber))
     )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
   val moreAboutThePersonForm = Form(

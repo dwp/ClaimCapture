@@ -1,0 +1,53 @@
+@(field: Field)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+
+@{
+    carersSelect(field,
+        options = options(
+            "" -> "Please select",
+            "adoptedDaughter" -> "Adopted Daughter",
+            "adoptedSon" -> "Adopted Son",
+            "aunt" -> "Aunt",
+            "brother" -> "Brother",
+            "brotherInLaw"  ->"Brother-In-Law",
+            "daughter" ->"Daughter",
+            "daughterInLaw" ->"Daughter-In-Law",
+            "father"->"Father",
+            "fatherInLaw"->"Father-In-Law",
+            "friend"->"Friend",
+            "grandDaughter"->"Granddaughter",
+            "grandFather"->"Grandfather",
+            "grandMother"->"Grandmother",
+            "grandSon"->"Grand Son",
+            "greatGrandDaughter"->"Great-Granddaughter",
+            "greatGrandFather"->"Great-Grandfather",
+            "greatGrandMother"->"Great-Grandmother",
+            "greatGrandSon"->"Great-Grandson",
+            "halfBrother"->"Half Brother",
+            "halfSister"->"Half Sister",
+            "husband"->"Husband",
+            "mother"->"Mother",
+            "motherInLaw"->"Mother-In-Law",
+            "nephew"->"Nephew",
+            "niece"->"Niece",
+            "partner"->"Partner",
+            "sister"->"Sister",
+            "sisterInLaw"->"Sister-In-Law",
+            "son"->"Son",
+            "sonInLaw"->"Son-In-Law",
+            "stepBrother"->"Stepbrother",
+            "stepDaughter"->"Stepsister",
+            "stepFather"->"Stepfather",
+            "stepMother"->"Stepmother",
+            "stepSister"->"Stepsister",
+            "stepSon"->"Stepson",
+            "uncle"->"Uncle",
+            "wife"->"Wife",
+            "other"->"Other"
+            ),
+        '_label -> Messages("relationship")
+    )
+}

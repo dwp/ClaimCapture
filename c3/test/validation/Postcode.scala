@@ -11,10 +11,16 @@ import play.api.data.Mapping
 import play.api.data.validation.Constraints._
 import play.api.data.Forms._
 import controllers.Mappings
+import scala.Some
+import controllers.Mappings._
+import scala.Some
 
 class PostcodeValidationSpec extends Specification {
-  def createPostcodeForm(postcode: String) = Form("postcode" -> Mappings.postcode.verifying(Mappings.validPostcode)).bind(Map(
-    "postcode.content" -> postcode))
+
+
+
+  def createPostcodeForm(postcode: String) = Form("postcode" -> optional(play.api.data.Forms.text verifying(validPostcode))).bind(Map(
+    "postcode" -> postcode))
 
   "Postcode" should {
 
@@ -23,7 +29,7 @@ class PostcodeValidationSpec extends Specification {
       createPostcodeForm(validPostcode).fold(
         formWithErrors => { "The mapping should not fail." must equalTo("Error") },
         { postcode =>
-          postcode.content must equalTo(Some(validPostcode))
+          postcode must equalTo(Some(validPostcode))
         })
     }
     
@@ -32,7 +38,7 @@ class PostcodeValidationSpec extends Specification {
       createPostcodeForm(validPostcodeWithSpace).fold(
         formWithErrors => { "The mapping should not fail." must equalTo("Error") },
         { postcode =>
-          postcode.content must equalTo(Some(validPostcodeWithSpace))
+          postcode must equalTo(Some(validPostcodeWithSpace))
         })
     }
 
@@ -41,7 +47,7 @@ class PostcodeValidationSpec extends Specification {
       createPostcodeForm(validPostcodeLowercase).fold(
         formWithErrors => { "The mapping should not fail." must equalTo("Error") },
         { postcode =>
-          postcode.content must equalTo(Some(validPostcodeLowercase))
+          postcode must equalTo(Some(validPostcodeLowercase))
         })
     }
 
