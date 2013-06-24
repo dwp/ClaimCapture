@@ -1,5 +1,4 @@
 package integration.s4_careYouProvide
-// change to force git update
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser

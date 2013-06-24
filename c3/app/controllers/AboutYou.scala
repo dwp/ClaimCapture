@@ -26,7 +26,7 @@ object AboutYou extends Controller with CachedClaim {
       "middleName" -> optional(text(maxLength = maxNrOfChars)),
       "surname" -> nonEmptyText(maxLength = maxNrOfChars),
       "otherNames" -> optional(text(maxLength = maxNrOfChars)),
-      "nationalInsuranceNumber" -> optional(Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)),
+      "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "nationality" -> nonEmptyText(maxLength = maxNrOfChars),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "maritalStatus" -> nonEmptyText(maxLength = 1),

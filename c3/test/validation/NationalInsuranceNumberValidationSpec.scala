@@ -10,10 +10,10 @@ import play.api.data.Form
 import play.api.data.Mapping
 import play.api.data.validation.Constraints._
 import play.api.data.Forms._
-import controllers.Mappings
+import controllers.Mappings._
 
 class NationalInsuranceNumberValidationSpec extends Specification {
-  def createNationalInsuranceNumberForm(ni1: String, ni2: String, ni3: String, ni4: String, ni5: String) = Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
+  def createNationalInsuranceNumberForm(ni1: String, ni2: String, ni3: String, ni4: String, ni5: String) = Form("nationalInsuranceNumber" -> nino.verifying(validNino)).bind(Map(
     "nationalInsuranceNumber.ni1" -> ni1,
     "nationalInsuranceNumber.ni2" -> ni2,
     "nationalInsuranceNumber.ni3" -> ni3,
@@ -35,56 +35,56 @@ class NationalInsuranceNumberValidationSpec extends Specification {
 
     "detect missing fields" in {
       "complain when field 1 missing" in {
-        Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
+        Form("nationalInsuranceNumber" -> nino.verifying(validNino)).bind(Map(
 
           "nationalInsuranceNumber.ni2" -> "12",
           "nationalInsuranceNumber.ni3" -> "34",
           "nationalInsuranceNumber.ni4" -> "56",
           "nationalInsuranceNumber.ni5" -> "C")).fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.invalid") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
 
       "complain when field 2 missing" in {
-        Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
+        Form("nationalInsuranceNumber" -> nino.verifying(validNino)).bind(Map(
           "nationalInsuranceNumber.ni1" -> "JW",
 
           "nationalInsuranceNumber.ni3" -> "34",
           "nationalInsuranceNumber.ni4" -> "56",
           "nationalInsuranceNumber.ni5" -> "C")).fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.invalid") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
 
       "complain when field 3 missing" in {
-        Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
+        Form("nationalInsuranceNumber" -> nino.verifying(validNino)).bind(Map(
           "nationalInsuranceNumber.ni1" -> "JW",
           "nationalInsuranceNumber.ni2" -> "12",
 
           "nationalInsuranceNumber.ni4" -> "56",
           "nationalInsuranceNumber.ni5" -> "C")).fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.invalid") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
 
       "complain when field 4 missing" in {
-        Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
+        Form("nationalInsuranceNumber" -> nino.verifying(validNino)).bind(Map(
           "nationalInsuranceNumber.ni1" -> "JW",
           "nationalInsuranceNumber.ni2" -> "12",
           "nationalInsuranceNumber.ni3" -> "34",
 
           "nationalInsuranceNumber.ni5" -> "C")).fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.invalid") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
 
       "complain when field 5 missing" in {
-        Form("nationalInsuranceNumber" -> Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)).bind(Map(
+        Form("nationalInsuranceNumber" -> nino.verifying(validNino)).bind(Map(
           "nationalInsuranceNumber.ni1" -> "JW",
           "nationalInsuranceNumber.ni2" -> "12",
           "nationalInsuranceNumber.ni3" -> "34",
           "nationalInsuranceNumber.ni4" -> "56")).fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.invalid") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
     }
@@ -130,39 +130,41 @@ class NationalInsuranceNumberValidationSpec extends Specification {
     "validate boundaries" in {
       "complain when number entered is > 99 in number field 2" in {
         createNationalInsuranceNumberForm(ni1 = "JW", ni2 = "100", ni3 = "34", ni4 = "56", ni5 = "C").fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.max") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
 
       "complain when number entered is < 0 in number field 2" in {
         createNationalInsuranceNumberForm(ni1 = "JW", ni2 = "-1", ni3 = "34", ni4 = "56", ni5 = "C").fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.min") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
 
       "complain when not enough characters entered in text field 1" in {
         createNationalInsuranceNumberForm(ni1 = "X", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = "C").fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.minLength") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
 
       "complain when too many characters entered in text field 1" in {
         createNationalInsuranceNumberForm(ni1 = "XXX", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = "C").fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.maxLength") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
 
       "complain when not enough characters entered in text field 5" in {
         createNationalInsuranceNumberForm(ni1 = "JW", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = "").fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.invalid") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
 
       "complain when too many enough characters entered in text field 5" in {
         createNationalInsuranceNumberForm(ni1 = "JW", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = "XXX").fold(
-          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.maxLength") },
+          formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }
     }
+    
+    
   }
 }

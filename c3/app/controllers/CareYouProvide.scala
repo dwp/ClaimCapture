@@ -24,7 +24,7 @@ object CareYouProvide extends Controller with CachedClaim {
       "firstName" -> nonEmptyText(maxLength = maxNrOfChars),
       "middleName" -> optional(text(maxLength = maxNrOfChars)),
       "surname" -> nonEmptyText(maxLength = maxNrOfChars),
-      "nationalInsuranceNumber" -> optional(nationalInsuranceNumber verifying validNationalInsuranceNumber),
+      "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "dateOfBirth" -> Mappings.dayMonthYear.verifying(Mappings.validDate),
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
