@@ -31,6 +31,9 @@ nationalInsuranceNumber.ni2 = National Insurance (NI) number second field
 nationalInsuranceNumber.ni3 = National Insurance (NI) number third field
 nationalInsuranceNumber.ni4 = National Insurance (NI) number fourth field
 nationalInsuranceNumber.ni5 = National Insurance (NI) number fifth field
+error.nationalInsuranceNumber = A National insurance number must be in the format AB123456Z
+nationalInsuranceNumber.helper = e.g. AA 12 34 56 A<br>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.
+
 dateOfBirth = Date of birth
 dateOfBirth.day = Date of birth (Day)
 dateOfBirth.month = Date of birth (Month)
@@ -39,10 +42,8 @@ dateOfBirth.helper = eg: 1980
 nationality = Nationality
 maritalStatus = What is your marital or civil partnership status?
 alwaysLivedUK = Have you always lived in the United Kingdom?
-
 firstName.error = Please fill your first name
-nationalInsuranceNumber.helper = e.g. AA 12 34 56 A<br>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.
-error.nationalInsuranceNumber = A National insurance number must be in the format AB123456Z
+
 
 #  CONTACT DETAILS
 address = Address

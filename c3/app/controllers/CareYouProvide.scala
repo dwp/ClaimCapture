@@ -19,6 +19,7 @@ object CareYouProvide extends Controller with CachedClaim {
   val route: ListMap[String,Call] = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
                                             TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
                                             RepresentativesForPerson.id -> routes.CareYouProvide.representativesForPerson,
+                                            MoreAboutThePerson.id -> routes.CareYouProvide.moreAboutThePerson,
                                             HasBreaks.id -> routes.CareYouProvide.hasBreaks,
                                             BreaksInCare.id -> routes.CareYouProvide.breaksInCare)
 
@@ -66,13 +67,13 @@ object CareYouProvide extends Controller with CachedClaim {
     mapping(
       "moreBreaks" -> nonEmptyText,
       "break" -> optional(mapping(
+        "breakID" -> ignored(java.util.UUID.randomUUID.toString),
         "start" -> (dayMonthYear verifying validDate),
         "end"   -> optional(dayMonthYear verifying validDateOnly),
         "whereYou"    -> whereabouts.verifying(requiredWhereabouts),
         "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
         "medicalDuringBreak" -> optional(text)
-      )((start, end, whereYou, wherePerson, medicalDuringBreak) => Break(java.util.UUID.randomUUID.toString, start, end, whereYou, wherePerson, medicalDuringBreak))
-        ((b: Break) => Some(b.start, b.end, b.whereYou, b.wherePerson, b.medicalDuringBreak)))
+      )(Break.apply)(Break.unapply))
     )(BreakInCare.apply)(BreakInCare.unapply))
 
   val breakForm = Form(
@@ -139,7 +140,13 @@ object CareYouProvide extends Controller with CachedClaim {
   def moreAboutThePerson = claiming {
     implicit claim => implicit request =>
       val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
-      Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(moreAboutThePersonForm, completedQuestionGroups))
+
+      val moreAboutThePersonFilledForm: Form[MoreAboutThePerson] = claim.questionGroup(MoreAboutThePerson.id) match {
+        case Some(t: MoreAboutThePerson) => moreAboutThePersonForm.fill(t)
+        case _ => moreAboutThePersonForm
+      }
+
+      Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(moreAboutThePersonFilledForm, completedQuestionGroups))
   }
 
   def moreAboutThePersonSubmit = claiming {
