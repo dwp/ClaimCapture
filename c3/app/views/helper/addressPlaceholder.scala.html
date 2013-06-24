@@ -1,20 +1,18 @@
 @(field: play.api.data.Field)
 
-
 @import views.html.helper.base.carersInputText
 @import utils.helpers.EmptyTemplate._
 
 <ul class="address-stack">
+    <li>
+        @carersInputText(field("lineOne"))
+    </li>
 
-<li>
-    @carersInputText(field("lineOne"))
-</li>
+    <li>
+        @carersInputText(field("lineTwo"))
+    </li>
 
-<li>
-    @carersInputText(field("lineTwo"))
-</li>
-
-<li>
-    @carersInputText(field("lineThree"))
-</li>
+    <li>
+        @carersInputText(field("lineThree"))
+    </li>
 </ul>

@@ -1,7 +1,6 @@
 package models.domain
 
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
-import models.Postcode
 
 case class AboutYou(yourDetails: YourDetails,
                     contactDetails: ContactDetails,

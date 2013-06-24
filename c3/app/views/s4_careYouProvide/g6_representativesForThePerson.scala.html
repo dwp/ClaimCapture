@@ -13,14 +13,15 @@
         <fieldset class="form-elements">
             <legend>Representatives for the person you care for</legend>
 
-
             <ul class="group">
                 @yesNoRadioGroup(currentForm("actForPerson"))
+
                 <div id="actWrap">
                     @actSelect(currentForm("actAs"))
                 </div>
 
                 @yesNoRadioGroup(currentForm("someoneElseActForPerson"))
+
                 <div id="someoneElseWrap">
                     @actSelect(currentForm("someoneElseActAs"))
                     @carersInputText(currentForm("someoneElseFullName"))
@@ -28,10 +29,10 @@
             </ul>
         </fieldset>
 
-    <div class="form-steps">
-        <a id="backButton" href="@backHref(CareYouProvide.route, completedQuestionGroups)"class="button secondary">Back</a>
-        <button type="submit" name="action" value="next" class="button">Next</button>
-    </div>
+        <div class="form-steps">
+            <a id="backButton" href="@backHref(CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
     }
 }
 <script type="text/javascript">
@@ -39,10 +40,11 @@
         @if(currentForm("actForPerson").value.getOrElse("no") == "no") {
             $("#actWrap").hide();
         }
+
         @if(currentForm("someoneElseActForPerson").value.getOrElse("no") == "no") {
             $("#someoneElseWrap").hide();
         }
     });
-
 </script>
+
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g6_representativesForThePerson.js")'></script>

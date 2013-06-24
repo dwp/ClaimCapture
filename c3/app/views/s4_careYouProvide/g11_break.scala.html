@@ -14,11 +14,11 @@
             <legend>Edit break in care</legend>
 
             <ul class="group">
-                @inputDayMonthYearHM(breakForm("break.start"))
-                @inputDayMonthYearHM(breakForm("break.end"))
+                @inputDayMonthYearHM(breakForm("start"))
+                @inputDayMonthYearHM(breakForm("end"))
 
-                @whereabouts(breakForm("break.whereYou"))
-                @whereabouts(breakForm("break.wherePerson"))
+                @whereabouts(breakForm("whereYou"))
+                @whereabouts(breakForm("wherePerson"))
 
                 @yesNoRadioGroup(breakForm("medicalDuringBreak"))
             </ul>

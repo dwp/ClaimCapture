@@ -35,8 +35,8 @@ object CareYouProvide extends Controller with CachedClaim {
   val theirContactDetailsForm = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),
-      "postcode" -> optional(text verifying(validPostcode)),
-      "phoneNumber" -> optional(text verifying(validPhoneNumber))
+      "postcode" -> optional(text verifying validPostcode),
+      "phoneNumber" -> optional(text verifying validPhoneNumber)
     )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
   val moreAboutThePersonForm = Form(
@@ -83,7 +83,6 @@ object CareYouProvide extends Controller with CachedClaim {
       "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
       "medicalDuringBreak" -> optional(text)
     )(Break.apply)(Break.unapply))
-
 
   def theirPersonalDetails = claiming {
     implicit claim => implicit request =>
@@ -266,7 +265,13 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def break(id: String) = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s4_careYouProvide.g11_break(breakForm))
+      claim.questionGroup(BreaksInCare.id) match {
+        case Some(b: BreaksInCare) => b.breaks.find(_.id == id) match {
+          case Some(b: Break) => Ok(views.html.s4_careYouProvide.g11_break(breakForm.fill(b)))
+          case _ => Redirect(routes.CareYouProvide.breaksInCare())
+        }
+        case _ => Redirect(routes.CareYouProvide.breaksInCare())
+      }
   }
 
   def breakSubmit = claiming {

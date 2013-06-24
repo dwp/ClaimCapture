@@ -1,7 +1,5 @@
 @(field: play.api.data.Field, options: Seq[(String,String)], args: (Symbol,Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang)
 
-
-
 @helper.input(field, args:_*) { (id, name, value, htmlArgs) =>
 
     @options.map { v =>

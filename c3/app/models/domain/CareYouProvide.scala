@@ -32,8 +32,6 @@ object RepresentativesForPerson {
   val id = s"${CareYouProvide.id}.g6"
 }
 
-
-
 case class HasBreaks(answer: String) extends QuestionGroup(HasBreaks.id)
 
 object HasBreaks {

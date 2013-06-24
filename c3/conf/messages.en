@@ -19,7 +19,7 @@ s4.g5 = More about the care you provide
 
 ## ABOUT YOU
 
-#  YOUR DETAILS
+# YOUR DETAILS
 title = Title
 firstName = First name
 middleName = Middle name
@@ -45,7 +45,7 @@ alwaysLivedUK = Have you always lived in the United Kingdom?
 firstName.error = Please fill your first name
 
 
-#  CONTACT DETAILS
+# CONTACT DETAILS
 address = Address
 postcode = Postcode
 postcode.content = Postcode
@@ -80,17 +80,15 @@ beenEmployedSince6MonthsBeforeClaim = Have you been employed at any time since s
 beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
 beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
 
-#PROPERTY AND RENT
+# PROPERTY AND RENT
 ownProperty.label = Do you or your partner own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
 ownProperty = Do you or your partner own property or land in the UK or abroad that you have rented out since one week before your claim date?
 hasSublet.label = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
 hasSublet = Have you sublet your home, or provided board and lodgings, since one week before your claim date?
 
+## CARE YOU PROVIDE
 
-
-
-#CARE YOU PROVIDE
-#THEIR PERSONAL DETAILS
+# THEIR PERSONAL DETAILS
 liveAtSameAddress = Do they live at the same address as you?
 
 # MORE ABOUT THE PERSON
@@ -98,24 +96,29 @@ relationship = What's their relationship to you?
 armedForcesPayment = Does this person get Armed Forces Independence Payment?
 claimedAllowanceBefore = Has anyone else claimed Carer's Allowance for this person before?
 
-
-#REPRESENTATIVES FOR THE PERSON
+# REPRESENTATIVES FOR THE PERSON
 actForPerson = Do you act for the person you care for?
 actAs = You act as
 someoneElseActForPerson = Do someone else act for the person you care for?
 someoneElseActAs = Person acts as
 someoneElseFullName = Full name
 
-#BREAKS
+# BREAKS
 answer = Have you had any breaks in caring since {0}?
 breaks.answer.prompt = <p class="intro">By break we mean time when, for any reason, you spent less than 35 hours a week caring for the person you look after. For example, if:</p><ul><li>They were in respite care, in hospital or on holiday without you, or</li><li>You were in hospital or on holiday without them.</li></ul>
 
-#BREAKS IN CARE
+# BREAKS IN CARE
 break.start = Break start date?
+start = Break start date?
 break.start.time = Break start time?
+start.time = Break start time?
 break.end = Break end date?
+end = Break end date?
 break.end.time = Break end time?
+end.time = Break end time?
 break.whereYou = Where were you during the above break?
+whereYou = Where were you during the above break?
 break.wherePerson = Where was the person you care for during the above break?
+wherePerson = Where was the person you care for during the above break?
 moreBreaks = Have you had any more breaks in care for this person since your claim date: {0}
 medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
