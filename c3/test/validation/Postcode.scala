@@ -40,5 +40,16 @@ class PostcodeValidationSpec extends Specification {
         postcode => "This mapping should not happen." must equalTo("Valid"))
     }
 
+    "reject input that is too short" in {
+      createPostcodeForm("RM11").fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.postcode"),
+        postcode => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+    "reject input that is too long" in {
+      createPostcodeForm("RM11 1DAAAAAAAA").fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.postcode"),
+        postcode => "This mapping should not happen." must equalTo("Valid"))
+    }
   }
 }
