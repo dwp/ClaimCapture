@@ -12,6 +12,10 @@ s2.g6 = Employment
 s2.g7 = Property and rent
 
 s4.g1 = Details of the person you are for
+s4.g2 = Their contact details
+s4.g3 = More about the person you care for
+s4.g4 = About the previous Carer
+s4.g5 = More about the care you provide
 
 ## ABOUT YOU
 
@@ -86,6 +90,10 @@ liveAtSameAddress = Do they live at the same address as you?
 
 
 #CARE YOU PROVIDE
+# MORE ABOUT THE PERSON
+relationship = What's their relationship to you?
+armedForcesPayment = Does this person get Armed Forces Independence Payment?
+claimedAllowanceBefore = Has anyone else claimed Carer's Allowance for this person before?
 
 #BREAKS
 answer = Have you had any breaks in caring since {0}?

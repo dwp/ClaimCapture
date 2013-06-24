@@ -22,7 +22,6 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
       browser.find("div[class=validation-summary] ol li").size mustEqual 5
     }
 
-
     "navigate to next page on valid submission" in new WithBrowser {
       Helper.fillTheirPersonalDetails(browser)
       browser.title() mustEqual "Their Contact Details - Care You Provide"
