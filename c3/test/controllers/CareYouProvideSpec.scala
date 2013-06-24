@@ -233,7 +233,7 @@ class CareYouProvideSpec extends Specification with Mockito {
       }
     }
 
-    /*"update existing break" in new WithApplication with Claiming {
+    "update existing break" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
         "break.start.day" -> "1",
@@ -253,11 +253,11 @@ class CareYouProvideSpec extends Specification with Mockito {
           val request = FakeRequest().withSession("connected" -> claimKey)
             .withFormUrlEncodedBody(
             "breakID" -> breakID,
-            "break.start.day" -> "1",
-            "break.start.month" -> "1",
-            "break.start.year" -> updatedYear.toString,
-            "break.whereYou.location" -> "Holiday",
-            "break.wherePerson.location" -> "Holiday")
+            "start.day" -> "1",
+            "start.month" -> "1",
+            "start.year" -> updatedYear.toString,
+            "whereYou.location" -> "Holiday",
+            "wherePerson.location" -> "Holiday")
 
           controllers.CareYouProvide.breakSubmit(request)
 
@@ -266,6 +266,6 @@ class CareYouProvideSpec extends Specification with Mockito {
               b.breaks.head.start.year must beSome(updatedYear)
           }
       }
-    }*/
+    }
   }
 }
