@@ -65,13 +65,13 @@ object CareYouProvide extends Controller with CachedClaim {
     mapping(
       "moreBreaks" -> nonEmptyText,
       "break" -> optional(mapping(
-        "breakID" -> ignored(java.util.UUID.randomUUID.toString),
         "start" -> (dayMonthYear verifying validDate),
         "end"   -> optional(dayMonthYear verifying validDateOnly),
         "whereYou"    -> whereabouts.verifying(requiredWhereabouts),
         "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
         "medicalDuringBreak" -> optional(text)
-      )(Break.apply)(Break.unapply))
+      )((start, end, whereYou, wherePerson, medicalDuringBreak) => Break(java.util.UUID.randomUUID.toString, start, end, whereYou, wherePerson, medicalDuringBreak))
+        ((b: Break) => Some(b.start, b.end, b.whereYou, b.wherePerson, b.medicalDuringBreak)))
     )(BreakInCare.apply)(BreakInCare.unapply))
 
   val breakForm = Form(
@@ -83,6 +83,7 @@ object CareYouProvide extends Controller with CachedClaim {
       "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
       "medicalDuringBreak" -> optional(text)
     )(Break.apply)(Break.unapply))
+
 
   def theirPersonalDetails = claiming {
     implicit claim => implicit request =>
@@ -205,7 +206,7 @@ object CareYouProvide extends Controller with CachedClaim {
         }
       )
   }
-  
+
   def hasBreaks = claiming {
     implicit claim => implicit request =>
       val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != HasBreaks.id)
