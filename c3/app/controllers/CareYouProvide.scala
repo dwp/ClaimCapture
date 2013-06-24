@@ -36,6 +36,13 @@ object CareYouProvide extends Controller with CachedClaim {
       "phoneNumber" -> optional(text verifying pattern("""[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid"))
     )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
+  val moreAboutThePersonForm = Form(
+    mapping(
+      "relationship" -> nonEmptyText,
+      "armedForcesPayment" -> optional(text),
+      "claimedAllowanceBefore" -> nonEmptyText
+    )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
+
   val hasBreaksForm = Form(
     mapping(
       "answer" -> nonEmptyText
@@ -85,7 +92,7 @@ object CareYouProvide extends Controller with CachedClaim {
   def theirContactDetails = claiming {
     implicit claim => implicit request =>
 
-      val completedForms = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
 
       val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
         case Some(t: TheirPersonalDetails) => t.liveAtSameAddress == yes
@@ -104,7 +111,7 @@ object CareYouProvide extends Controller with CachedClaim {
         }
       }
 
-      Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm, completedForms))
+      Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm, completedQuestionGroups))
   }
 
   def theirContactDetailsSubmit = claiming {
@@ -117,7 +124,16 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def moreAboutThePerson = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(theirContactDetailsForm))
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+      Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(moreAboutThePersonForm, completedQuestionGroups))
+  }
+
+  def moreAboutThePersonSubmit = claiming {
+    implicit claim => implicit request =>
+      moreAboutThePersonForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g3_moreAboutThePerson(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
+        moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.CareYouProvide.theirContactDetails())
+      )
   }
 
   def hasBreaks = claiming {

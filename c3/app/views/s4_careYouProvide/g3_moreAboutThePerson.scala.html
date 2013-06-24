@@ -1,30 +1,30 @@
-@(currentForm: Form[models.domain.TheirContactDetails])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.MoreAboutThePerson], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("More About The Person You Care For - Care You Provide", currentForm) {
+@main("More About The Person You Care For - Care You Provide", currentForm, completedQuestionGroups) {
 
-    @form(action = routes.CareYouProvide.theirPersonalDetailsSubmit) {
+    @form(action = routes.CareYouProvide.moreAboutThePersonSubmit) {
 
         <fieldset class="form-elements">
             <legend>Relationship and other claims</legend>
 
 
             <ul class="group">
-                @inputAddress(currentForm("address"))
+                @carersSelect(currentForm("relationship"), options = Seq(""->"Relationship", "father"->"Father", "mother"->"Mother") )
 
-                @postcode(currentForm("postcode"))
+                @yesNoRadioGroup(currentForm("armedForcesPayment"))
 
-                @carersInputText(currentForm("phoneNumber"))
+                @yesNoRadioGroup(currentForm("claimedAllowanceBefore"))
             </ul>
         </fieldset>
 
-        <div class="form-steps">
-            <a id="backButton" href="@routes.CareYouProvide.theirContactDetails" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Next</button>
-        </div>
+    <div class="form-steps">
+        <a id="backButton" href="@backHref(CareYouProvide.route, completedQuestionGroups)"class="button secondary">Back</a>
+        <button type="submit" name="action" value="next" class="button">Next</button>
+    </div>
     }
 }
