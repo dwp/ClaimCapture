@@ -1,0 +1,12 @@
+@(field: play.api.data.Field)
+
+
+@import views.html.helper.base.carersInputText
+@import utils.helpers.EmptyTemplate._
+
+<ul class="inline postcode label-strip">
+    <li>
+        <label for="@field("content").id">Postcode</label>
+        @carersInputText(field("content"),'maxlength->10)
+    </li>
+</ul>

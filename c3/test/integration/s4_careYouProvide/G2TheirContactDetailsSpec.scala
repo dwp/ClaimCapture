@@ -25,7 +25,7 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
         Helper.fillTheirPersonalDetails(browser)
         browser.title() mustEqual "Their Contact Details - Care You Provide"
         browser.find("#address_lineOne").getValue mustEqual("My Address")
-        browser.find("#postcode").getValue mustEqual("SE1 6EH")
+        browser.find("#postcode_content").getValue mustEqual("SE1 6EH")
      }
 
      "be blank if they live at different address" in new WithBrowser {
@@ -40,13 +40,13 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
        browser.click("#liveAtSameAddress_no]")
        browser.submit("button[type='submit']")
        browser.find("#address_lineOne").getValue mustEqual("")
-       browser.find("#postcode").getValue mustEqual("")
+       browser.find("#postcode_content").getValue mustEqual("")
      }
 
      "be blank if they live at same address but did not enter one" in new WithBrowser {
        Helper.fillTheirPersonalDetails(browser)
        browser.find("#address_lineOne").getValue mustEqual("")
-       browser.find("#postcode").getValue mustEqual("")
+       browser.find("#postcode_content").getValue mustEqual("")
      }
 
      "navigate back to Their Personal Details" in new WithBrowser {
@@ -57,6 +57,7 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
 
      "navigate to next page on valid submission" in new WithBrowser {
        Helper.fillTheirContactDetails(browser)
+
        browser.title() mustEqual "More About The Person You Care For - Care You Provide"
      }
 
@@ -70,7 +71,7 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
 
        browser.title() mustEqual "Their Contact Details - Care You Provide"
        browser.find("#address_lineOne").getValue mustEqual("My Address")
-       browser.find("#postcode").getValue mustEqual("SE1 6EH")
+       browser.find("#postcode_content").getValue mustEqual("SE1 6EH")
      }
 
    }

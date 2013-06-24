@@ -1,6 +1,7 @@
 package models.domain
 
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
+import models.Postcode
 
 case class AboutYou(yourDetails: YourDetails,
                     contactDetails: ContactDetails,
@@ -19,7 +20,7 @@ object YourDetails {
   val id = s"${AboutYou.id}.g1"
 }
 
-case class ContactDetails(address: MultiLineAddress, postcode: Option[String], phoneNumber: Option[String], mobileNumber: Option[String]) extends QuestionGroup(ContactDetails.id)
+case class ContactDetails(address: MultiLineAddress, postcode: Option[Postcode], phoneNumber: Option[String], mobileNumber: Option[String]) extends QuestionGroup(ContactDetails.id)
 
 object ContactDetails {
   val id = s"${AboutYou.id}.g2"
