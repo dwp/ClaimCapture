@@ -26,7 +26,7 @@
 
             <tbody>
                 @for(break <- breaksInCare.breaks) {
-                    <tr>
+                    <tr id="@break.id" class="@break.id">
                         <td class="desc">
                             @break.start.day/@break.start.month/@break.start.year
 
@@ -43,7 +43,7 @@
                         <td class="desc">@break.wherePerson.location</td>
                         <td class="desc">@break.medicalDuringBreak</td>
                         <td><input type="button" class="button row secondary" value="Edit"></td>
-                        <td><input id="@break.id" type="button" class="button row warning @break.id" value="Delete"></td>
+                        <td><input type="button" class="button row warning" value="Delete"></td>
                     </tr>
                 }
             </tbody>
@@ -79,13 +79,18 @@
             $("#trips").hide();
         }
 
+        $("tbody").on("click", "input[value='Edit']", function() {
+            var tr = $(this).closest("tr");
+            window.location.href = "@routes.CareYouProvide.breaksInCare/" + tr.attr("id");
+        });
+
         $("tbody").on("click", "input[value='Delete']", function() {
             var tr = $(this).closest("tr");
             var tbody = $(this).closest("tbody")
 
             $.ajax({
                 type: "DELETE",
-                url: "@routes.CareYouProvide.breaksInCare/" + $(this).attr("id"),
+                url: "@routes.CareYouProvide.breaksInCare/" + tr.attr("id"),
 
                 success: function() {
                     var element;
