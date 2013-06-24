@@ -54,6 +54,16 @@ object CareYouProvide extends Controller with CachedClaim {
       )(Break.apply)(Break.unapply))
     )(BreakInCare.apply)(BreakInCare.unapply))
 
+  val breakForm = Form(
+    mapping(
+      "breakID" -> nonEmptyText,
+      "start" -> (dayMonthYear verifying validDate),
+      "end"   -> optional(dayMonthYear verifying validDateOnly),
+      "whereYou"    -> whereabouts.verifying(requiredWhereabouts),
+      "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
+      "medicalDuringBreak" -> optional(text)
+    )(Break.apply)(Break.unapply))
+
   def theirPersonalDetails = claiming {
     implicit claim => implicit request =>
 
@@ -161,6 +171,22 @@ object CareYouProvide extends Controller with CachedClaim {
             case _ => claim.update(updatedBreaksInCare) -> Redirect(routes.CareYouProvide.breaksInCare())
           }
         })
+  }
+
+  def break(id: String) = TODO
+
+  def breakSubmit = claiming {
+    implicit claim => implicit request =>
+      breakForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_break(formWithErrors)),
+        break => {
+          Ok("Working on it")
+        })
+
+
+      /*claim.questionGroup(BreaksInCare.id) match {
+        case Some(b: BreaksInCare) => claim.update(b.update())
+      }*/
   }
 
   def deleteBreak(id: String) = claiming {
