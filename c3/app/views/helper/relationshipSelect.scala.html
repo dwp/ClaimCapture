@@ -5,8 +5,19 @@
 @import views.html.helper.base._
 
 @{
-    carersSelect(field,
-        options = options(
+                  // optGroups: Seq[(String, Seq(String,String))]
+    carersOptGroupSelect(field,
+        optGroups = Seq(
+                "Parents" -> Seq("father"->"Father"),
+                "Dependant" -> Seq("son"->"Son"),
+                "Partner" -> Seq("wife"->"Wife"),
+                "Grandparents" -> Seq("grandMother"->"Grandmother"),
+                "Grandchildren" -> Seq("grandSon"->"Grand Son"),
+                "Other" -> Seq("brotherInLaw"->"Brother-In-Law")
+            ),
+
+                  /*
+options(
             "" -> "Please select",
             "adoptedDaughter" -> "Adopted Daughter",
             "adoptedSon" -> "Adopted Son",
@@ -47,7 +58,7 @@
             "uncle"->"Uncle",
             "wife"->"Wife",
             "other"->"Other"
-            ),
+            ), */
         '_label -> Messages("relationship")
     )
 }
