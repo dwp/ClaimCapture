@@ -7,7 +7,7 @@
 @import views.html.helper.dates._
 
 @main("Break Edit - Care You Provide", breakForm) {
-    @form(action = routes.CareYouProvide.breaksInCareSubmit) {
+    @form(action = routes.CareYouProvide.breakSubmit) {
         <input type="hidden" value='@breakForm("breakID")'>
 
         <fieldset class="form-elements">

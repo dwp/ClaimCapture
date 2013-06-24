@@ -1,7 +1,6 @@
 package models.domain
 
 import models.{MultiLineAddress, Whereabouts, NationalInsuranceNumber, DayMonthYear}
-import models.Postcode
 
 object CareYouProvide {
   val id = "s4"
@@ -34,7 +33,11 @@ object HasBreaks {
 }
 
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare.id) {
-  def update(break: Break) = BreaksInCare(breaks :+ break)
+  def update(break: Break) = {
+    val updated = breaks map { b => if (b.id == break.id) break else b }
+
+    if (updated.contains(break)) BreaksInCare(updated) else BreaksInCare(breaks :+ break)
+  }
 
   def delete(breakID: String) = BreaksInCare(breaks.filterNot(_.id == breakID))
 }
