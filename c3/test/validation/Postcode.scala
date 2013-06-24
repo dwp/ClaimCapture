@@ -18,19 +18,30 @@ class PostcodeValidationSpec extends Specification {
 
   "Postcode" should {
 
-    "accept valid input" in {
-      createPostcodeForm("PR2 8AE").fold(
+    "accept valid input with space" in {
+      val validPostcode = "RM111DA"
+      createPostcodeForm(validPostcode).fold(
         formWithErrors => { "The mapping should not fail." must equalTo("Error") },
         { postcode =>
-          postcode.content must equalTo(Some("PR2 8AE"))
+          postcode.content must equalTo(Some(validPostcode))
+        })
+    }
+    
+    "accept valid input" in {
+      val validPostcodeWithSpace = "RM11 1DA"
+      createPostcodeForm(validPostcodeWithSpace).fold(
+        formWithErrors => { "The mapping should not fail." must equalTo("Error") },
+        { postcode =>
+          postcode.content must equalTo(Some(validPostcodeWithSpace))
         })
     }
 
     "accept valid input in lowercase" in {
-      createPostcodeForm("rm11 1da").fold(
+      val validPostcodeLowercase = "rm11 1da"
+      createPostcodeForm(validPostcodeLowercase).fold(
         formWithErrors => { "The mapping should not fail." must equalTo("Error") },
         { postcode =>
-          postcode.content must equalTo(Some("rm11 1da"))
+          postcode.content must equalTo(Some(validPostcodeLowercase))
         })
     }
 
