@@ -32,8 +32,7 @@ object CareYouProvide extends Controller with CachedClaim {
   val theirContactDetailsForm = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),
-      "postcode" -> optional(text verifying(pattern( """^(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})$""".r,
-        "constraint.invalid", "error.postcode"), maxLength(10))),
+      "postcode" -> optional(Mappings.postcode.verifying(Mappings.validPostcode)),
       "phoneNumber" -> optional(text verifying pattern("""[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid"))
     )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
@@ -76,6 +75,8 @@ object CareYouProvide extends Controller with CachedClaim {
   def theirContactDetails = claiming {
     implicit claim => implicit request =>
 
+      val completedForms = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+
       val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
         case Some(t: TheirPersonalDetails) => t.liveAtSameAddress == yes
         case _ => false
@@ -93,13 +94,13 @@ object CareYouProvide extends Controller with CachedClaim {
         }
       }
 
-      Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm))
+      Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm, completedForms))
   }
 
   def theirContactDetailsSubmit = claiming {
     implicit claim => implicit request =>
       theirContactDetailsForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors)),
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
         theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.CareYouProvide.moreAboutThePerson())
       )
   }

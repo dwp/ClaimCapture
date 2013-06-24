@@ -13,6 +13,7 @@ import scala.util.Failure
 import models.NationalInsuranceNumber
 import scala.Some
 import play.api.data.validation.ValidationError
+import models.Postcode
 
 object Mappings {
 
@@ -79,6 +80,18 @@ object Mappings {
     dmy match {
       case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid
       case _ => Invalid(ValidationError("error.invalid"))
+    }
+  }
+  
+  def postcode: Mapping[Postcode] = mapping(
+  "content" -> optional(text verifying(pattern( """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})$""".r,
+      "constraint.postcode", "error.postcode"), maxLength(10)))
+      )(Postcode.apply)(Postcode.unapply)
+    
+  def validPostcode: Constraint[Postcode] = Constraint[Postcode]("constraint.postcode") {
+    p => p match {
+      case Postcode(Some(_)) => Valid
+      case _ => Invalid(ValidationError("error.postcode"))
     }
   }
 }

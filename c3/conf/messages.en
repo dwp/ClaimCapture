@@ -11,6 +11,8 @@ s2.g5 = More about you
 s2.g6 = Employment
 s2.g7 = Property and rent
 
+s4.g1 = Details of the person you are for
+
 ## ABOUT YOU
 
 #  YOUR DETAILS
@@ -40,7 +42,7 @@ error.nationalInsuranceNumber = A National insurance number must be in the forma
 
 #  CONTACT DETAILS
 address = Address
-postcode = Postcode
+postcode.content = Postcode
 phoneNumber = Daytime phone number
 mobileNumber = Mobile number
 postcode.placeHolder = eg: PR2 8AE
