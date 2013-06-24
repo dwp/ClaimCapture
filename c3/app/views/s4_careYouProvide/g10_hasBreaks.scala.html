@@ -1,10 +1,12 @@
 @(hasBreaksForm: Form[models.domain.HasBreaks],completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
+@import models.domain.BreaksInCare
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 
-@main("Has Breaks - Care You Provide", hasBreaksForm) {
+
+@views.html.s4_careYouProvide.main("Has Breaks - Care You Provide", hasBreaksForm,completedQuestionGroups) {
     @form(action = routes.CareYouProvide.hasBreaksSubmit) {
         <fieldset class="form-elements">
             <legend>Breaks in Care</legend>
@@ -14,9 +16,16 @@
             </ul>
         </fieldset>
 
+        @if(!claim.questionGroup(BreaksInCare.id).isEmpty && claim.questionGroup(BreaksInCare.id).get.asInstanceOf[BreaksInCare].breaks.size > 0){
+            <div id="hasBreaksNoMessage" class="prompt helper-prompt" style="display:none">
+                <p class="intro">You are changing your anwser, you will lose all breaks added previously.</p>
+            </div>
+        }
+
         <div class="form-steps">
             <a href="@backHref(CareYouProvide.route,completedQuestionGroups)"class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
 }
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g10_hasBreaks.js")'></script>

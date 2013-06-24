@@ -122,7 +122,7 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def hasBreaks = claiming {
     implicit claim => implicit request =>
-      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(q => q.id != HasBreaks.id)
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != HasBreaks.id)
 
       val hasBreaksQGForm = claim.questionGroup(HasBreaks.id) match {
         case Some(h: HasBreaks) => hasBreaksForm.fill(h)
@@ -134,34 +134,38 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def hasBreaksSubmit = claiming {
     implicit claim => implicit request =>
-      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(q => q.id != HasBreaks.id)
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != HasBreaks.id)
 
       hasBreaksForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s4_careYouProvide.g10_hasBreaks(formWithErrors, completedQuestionGroups)),
         hasBreaks =>
           if (hasBreaks.answer == yes) claim.update(hasBreaks) -> Redirect(routes.CareYouProvide.breaksInCare())
-          else claim.update(hasBreaks) -> Redirect(routes.CareYouProvide.completed()))
+          else claim.update(hasBreaks).delete(BreaksInCare.id) -> Redirect(routes.CareYouProvide.completed()))
   }
 
   def breaksInCare = claiming {
     implicit claim => implicit request =>
+
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != BreaksInCare.id)
       val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
         case Some(b: BreaksInCare) => b
         case _ => BreaksInCare()
       }
 
-      Ok(views.html.s4_careYouProvide.g11_breaksInCare(breakInCareForm, breaksInCare))
+      Ok(views.html.s4_careYouProvide.g11_breaksInCare(breakInCareForm, breaksInCare,completedQuestionGroups))
   }
 
   def breaksInCareSubmit = claiming {
     implicit claim => implicit request =>
+
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != BreaksInCare.id)
       val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
         case Some(b: BreaksInCare) => b
         case _ => BreaksInCare()
       }
 
       breakInCareForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_breaksInCare(formWithErrors, breaksInCare)),
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_breaksInCare(formWithErrors, breaksInCare,completedQuestionGroups)),
         breakInCare => {
           val updatedBreaksInCare = breakInCare.break.fold(breaksInCare)(break => if (breaksInCare.breaks.size == 10) breaksInCare else breaksInCare.update(break))
 
