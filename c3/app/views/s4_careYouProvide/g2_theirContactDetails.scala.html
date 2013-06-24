@@ -1,11 +1,11 @@
-@(currentForm: Form[models.domain.TheirContactDetails])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.TheirContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("Their Contact Details - Care You Provide", currentForm) {
+@main("Their Contact Details - Care You Provide", currentForm, completedQuestionGroups) {
 
     @form(action = routes.CareYouProvide.theirContactDetailsSubmit) {
     

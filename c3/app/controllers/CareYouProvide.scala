@@ -75,6 +75,8 @@ object CareYouProvide extends Controller with CachedClaim {
   def theirContactDetails = claiming {
     implicit claim => implicit request =>
 
+      val completedForms = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+
       val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
         case Some(t: TheirPersonalDetails) => t.liveAtSameAddress == yes
         case _ => false
@@ -92,13 +94,13 @@ object CareYouProvide extends Controller with CachedClaim {
         }
       }
 
-      Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm))
+      Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm, completedForms))
   }
 
   def theirContactDetailsSubmit = claiming {
     implicit claim => implicit request =>
       theirContactDetailsForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors)),
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
         theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.CareYouProvide.moreAboutThePerson())
       )
   }
@@ -165,7 +167,10 @@ object CareYouProvide extends Controller with CachedClaim {
     implicit claim => implicit request =>
       import play.api.libs.json.Json
 
-      Ok(Json.obj("id" -> 99999999))
+      claim.questionGroup(BreaksInCare.id) match {
+        case Some(b: BreaksInCare) => claim.update(b.delete(id)) -> Ok(Json.obj("id" -> id))
+        case _ => BadRequest(s"""Failed to delete break with ID "$id" as claim currently has no breaks""")
+      }
   }
 
   def completed = claiming {

@@ -33,6 +33,11 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
       browser.click(".form-steps a")
       browser.title() mustEqual "Completion - About You"
     }
+
+    "contain the completed forms" in new WithBrowser {
+      Helper.fillTheirPersonalDetails(browser)
+      browser.find("div[class=completed] ul li").size() mustEqual 1
+    }
   }
 
 }

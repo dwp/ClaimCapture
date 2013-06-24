@@ -89,7 +89,7 @@ class CareYouProvideSpec extends Specification with Mockito {
       status(result) mustEqual OK
     }
 
-    /*"complete upon indicating that there are no more breaks having provided zero break details" in new WithApplication with Claiming {
+    "complete upon indicating that there are no more breaks having provided zero break details" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("moreBreaks" -> "no")
 
@@ -101,17 +101,17 @@ class CareYouProvideSpec extends Specification with Mockito {
       claim.questionGroup(BreaksInCare.id) must beLike {
         case Some(b: BreaksInCare) => b.breaks mustEqual Nil
       }
-    }*/
+    }
 
     "complete upon indicating that there are no more breaks having now provided one break" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-          "moreBreaks" -> "no",
           "break.start.day" -> "1",
           "break.start.month" -> "1",
           "break.start.year" -> "2001",
           "break.whereYou.location" -> "Holiday",
-          "break.wherePerson.location" -> "Holiday")
+          "break.wherePerson.location" -> "Holiday",
+          "moreBreaks" -> "no")
 
       val result = controllers.CareYouProvide.breaksInCareSubmit(request)
       redirectLocation(result) must beSome("/careYouProvide/completed")
@@ -139,24 +139,24 @@ class CareYouProvideSpec extends Specification with Mockito {
     "add 2 breaks" in new WithApplication with Claiming {
       val request1 = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-        "moreBreaks" -> "yes",
         "break.start.day" -> "1",
         "break.start.month" -> "1",
         "break.start.year" -> "2001",
         "break.whereYou.location" -> "Holiday",
-        "break.wherePerson.location" -> "Holiday")
+        "break.wherePerson.location" -> "Holiday",
+        "moreBreaks" -> "yes")
 
       val result1 = controllers.CareYouProvide.breaksInCareSubmit(request1)
       redirectLocation(result1) must beSome("/careYouProvide/breaksInCare")
 
       val request2 = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-        "moreBreaks" -> "no",
         "break.start.day" -> "1",
         "break.start.month" -> "1",
         "break.start.year" -> "2001",
         "break.whereYou.location" -> "Holiday",
-        "break.wherePerson.location" -> "Holiday")
+        "break.wherePerson.location" -> "Holiday",
+        "moreBreaks" -> "no")
 
       val result2 = controllers.CareYouProvide.breaksInCareSubmit(request2)
       redirectLocation(result2) must beSome("/careYouProvide/completed")
@@ -172,7 +172,6 @@ class CareYouProvideSpec extends Specification with Mockito {
       for (i <- 1 to 9) {
         val request = FakeRequest().withSession("connected" -> claimKey)
           .withFormUrlEncodedBody(
-          "moreBreaks" -> "yes",
           "break.start.day" -> "1",
           "break.start.month" -> "1",
           "break.start.year" -> "2001",
@@ -180,7 +179,8 @@ class CareYouProvideSpec extends Specification with Mockito {
           "break.end.month" -> "1",
           "break.end.year" -> "2001",
           "break.whereYou.location" -> "Holiday",
-          "break.wherePerson.location" -> "Holiday")
+          "break.wherePerson.location" -> "Holiday",
+          "moreBreaks" -> "yes")
 
         val result = controllers.CareYouProvide.breaksInCareSubmit(request)
         redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
@@ -192,7 +192,6 @@ class CareYouProvideSpec extends Specification with Mockito {
 
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-        "moreBreaks" -> "yes",
         "break.start.day" -> "1",
         "break.start.month" -> "1",
         "break.start.year" -> "2001",
@@ -200,13 +199,37 @@ class CareYouProvideSpec extends Specification with Mockito {
         "break.end.month" -> "1",
         "break.end.year" -> "2001",
         "break.whereYou.location" -> "Holiday",
-        "break.wherePerson.location" -> "Holiday")
+        "break.wherePerson.location" -> "Holiday",
+        "moreBreaks" -> "yes")
 
       val result = controllers.CareYouProvide.breaksInCareSubmit(request)
       redirectLocation(result) must beSome("/careYouProvide/completed")
 
       Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 10
+      }
+    }
+
+    "have no breaks upon deleting a break" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(
+        "break.start.day" -> "1",
+        "break.start.month" -> "1",
+        "break.start.year" -> "2001",
+        "break.whereYou.location" -> "Holiday",
+        "break.wherePerson.location" -> "Holiday",
+        "moreBreaks" -> "yes")
+
+      controllers.CareYouProvide.breaksInCareSubmit(request)
+
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+        case Some(b: BreaksInCare) =>
+          val breakID = b.breaks.head.id
+          controllers.CareYouProvide.deleteBreak(breakID)(FakeRequest().withSession("connected" -> claimKey))
+
+          Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+            case Some(b: BreaksInCare) => b.breaks.size mustEqual 0
+          }
       }
     }
   }
