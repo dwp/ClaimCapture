@@ -1,4 +1,4 @@
-package integration.s4_careYouProvide
+package integration.s4_care_you_provide
 
 import org.specs2.mutable.Specification
 import controllers.CareYouProvide

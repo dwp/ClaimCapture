@@ -21,6 +21,12 @@ object TheirContactDetails {
   val id = s"${CareYouProvide.id}.g2"
 }
 
+case class MoreAboutThePerson(relationship:String, armedForcesPayment:Option[String], claimedAllowanceBefore:String) extends QuestionGroup(MoreAboutThePerson.id)
+
+object MoreAboutThePerson {
+  val id = s"${CareYouProvide.id}.g3"
+}
+
 case class HasBreaks(answer: String) extends QuestionGroup(HasBreaks.id)
 
 object HasBreaks {
