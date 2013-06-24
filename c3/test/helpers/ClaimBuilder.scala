@@ -12,7 +12,7 @@ object ClaimBuilder {
     dateOfBirth = DayMonthYear(1, 1, 1963), maritalStatus = "m", alwaysLivedUK = "yes")
 
   val contactDetails = ContactDetails(address = MultiLineAddress(Some("Line1"), None, None),
-    postcode = Some(Postcode(Some("PR2 8AE"))),
+    postcode = Some("PR2 8AE"),
     phoneNumber = Some("01772 700806"), None)
 
   val timeOutsideUK = TimeOutsideUK(currentlyLivingInUK = "no", arrivedInUK = Some(DayMonthYear()),

@@ -1,8 +1,0 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)
-
-@import utils.helpers.CarersTemplate._
-@import views.html.helper._
-
-@input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
-    @postcodePlaceholder(field)
-}

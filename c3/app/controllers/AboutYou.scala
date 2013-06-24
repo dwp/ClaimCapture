@@ -26,7 +26,7 @@ object AboutYou extends Controller with CachedClaim {
       "middleName" -> optional(text(maxLength = maxNrOfChars)),
       "surname" -> nonEmptyText(maxLength = maxNrOfChars),
       "otherNames" -> optional(text(maxLength = maxNrOfChars)),
-      "nationalInsuranceNumber" -> optional(Mappings.nationalInsuranceNumber.verifying(Mappings.validNationalInsuranceNumber)),
+      "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "nationality" -> nonEmptyText(maxLength = maxNrOfChars),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "maritalStatus" -> nonEmptyText(maxLength = 1),
@@ -36,7 +36,7 @@ object AboutYou extends Controller with CachedClaim {
   val contactDetailsForm = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),
-      "postcode" -> optional(Mappings.postcode.verifying(Mappings.validPostcode)),
+      "postcode" -> optional(text verifying(validPostcode)),
       "phoneNumber" -> optional(text verifying(pattern( """[0-9 \-]{1,20}""".r,
         "constraint.invalid", "error.invalid"))),
       "mobileNumber" -> optional(text)

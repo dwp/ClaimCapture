@@ -1,4 +1,4 @@
-package integration.s4_careYouProvide
+package integration.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
@@ -21,7 +21,6 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
 
       browser.find("div[class=validation-summary] ol li").size mustEqual 5
     }
-
 
     "navigate to next page on valid submission" in new WithBrowser {
       Helper.fillTheirPersonalDetails(browser)

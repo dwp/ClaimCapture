@@ -11,26 +11,43 @@ import play.api.data.Mapping
 import play.api.data.validation.Constraints._
 import play.api.data.Forms._
 import controllers.Mappings
+import scala.Some
+import controllers.Mappings._
+import scala.Some
 
 class PostcodeValidationSpec extends Specification {
-  def createPostcodeForm(postcode: String) = Form("postcode" -> Mappings.postcode.verifying(Mappings.validPostcode)).bind(Map(
-    "postcode.content" -> postcode))
+
+
+
+  def createPostcodeForm(postcode: String) = Form("postcode" -> optional(play.api.data.Forms.text verifying(validPostcode))).bind(Map(
+    "postcode" -> postcode))
 
   "Postcode" should {
 
-    "accept valid input" in {
-      createPostcodeForm("PR2 8AE").fold(
+    "accept valid input with space" in {
+      val validPostcode = "RM111DA"
+      createPostcodeForm(validPostcode).fold(
         formWithErrors => { "The mapping should not fail." must equalTo("Error") },
         { postcode =>
-          postcode.content must equalTo(Some("PR2 8AE"))
+          postcode must equalTo(Some(validPostcode))
+        })
+    }
+    
+    "accept valid input" in {
+      val validPostcodeWithSpace = "RM11 1DA"
+      createPostcodeForm(validPostcodeWithSpace).fold(
+        formWithErrors => { "The mapping should not fail." must equalTo("Error") },
+        { postcode =>
+          postcode must equalTo(Some(validPostcodeWithSpace))
         })
     }
 
     "accept valid input in lowercase" in {
-      createPostcodeForm("rm11 1da").fold(
+      val validPostcodeLowercase = "rm11 1da"
+      createPostcodeForm(validPostcodeLowercase).fold(
         formWithErrors => { "The mapping should not fail." must equalTo("Error") },
         { postcode =>
-          postcode.content must equalTo(Some("rm11 1da"))
+          postcode must equalTo(Some(validPostcodeLowercase))
         })
     }
 
@@ -40,5 +57,16 @@ class PostcodeValidationSpec extends Specification {
         postcode => "This mapping should not happen." must equalTo("Valid"))
     }
 
+    "reject input that is too short" in {
+      createPostcodeForm("RM11").fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.postcode"),
+        postcode => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+    "reject input that is too long" in {
+      createPostcodeForm("RM11 1DAAAAAAAA").fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.postcode"),
+        postcode => "This mapping should not happen." must equalTo("Valid"))
+    }
   }
 }

@@ -12,9 +12,8 @@
         <fieldset class="form-elements">
             <legend>Relationship and other claims</legend>
 
-
             <ul class="group">
-                @carersSelect(currentForm("relationship"), options = Seq(""->"Relationship", "father"->"Father", "mother"->"Mother") )
+                @relationshipSelect(currentForm("relationship"))
 
                 @yesNoRadioGroup(currentForm("armedForcesPayment"))
 

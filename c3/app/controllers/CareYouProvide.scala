@@ -24,7 +24,7 @@ object CareYouProvide extends Controller with CachedClaim {
       "firstName" -> nonEmptyText(maxLength = maxNrOfChars),
       "middleName" -> optional(text(maxLength = maxNrOfChars)),
       "surname" -> nonEmptyText(maxLength = maxNrOfChars),
-      "nationalInsuranceNumber" -> optional(nationalInsuranceNumber verifying validNationalInsuranceNumber),
+      "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "dateOfBirth" -> Mappings.dayMonthYear.verifying(Mappings.validDate),
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
@@ -32,8 +32,8 @@ object CareYouProvide extends Controller with CachedClaim {
   val theirContactDetailsForm = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),
-      "postcode" -> optional(Mappings.postcode.verifying(Mappings.validPostcode)),
-      "phoneNumber" -> optional(text verifying pattern("""[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid"))
+      "postcode" -> optional(text verifying(validPostcode)),
+      "phoneNumber" -> optional(text verifying(validPhoneNumber))
     )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
   val moreAboutThePersonForm = Form(
@@ -134,6 +134,19 @@ object CareYouProvide extends Controller with CachedClaim {
         formWithErrors => BadRequest(views.html.s4_careYouProvide.g3_moreAboutThePerson(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
         moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.CareYouProvide.theirContactDetails())
       )
+  }
+
+  def previousCarerPersonalDetails = claiming {
+    implicit claim => implicit request =>
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+      Ok(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(moreAboutThePersonForm, completedQuestionGroups))
+
+  }
+
+  def previousCarerContactDetails = claiming {
+    implicit claim => implicit request =>
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+      Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(moreAboutThePersonForm, completedQuestionGroups))
   }
 
   def hasBreaks = claiming {
