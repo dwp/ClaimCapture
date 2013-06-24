@@ -61,5 +61,15 @@ class ClaimSpec extends Specification {
         case Some(form: QuestionGroup) => form.id mustEqual formId
       }
     }
+
+    "delete a question group from section" in {
+      val claim = MockObjects.claim
+      val formId = LivesInGB.id
+
+      val c = claim.delete(formId)
+      claim.questionGroup(formId) must be
+      c.questionGroup(formId) must beNone
+
+    }
   }
 }

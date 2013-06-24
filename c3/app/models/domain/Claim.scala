@@ -37,6 +37,18 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
 
     Claim(sections.updated(section.id, section))
   }
+
+  def delete(questionGroupId: String): Claim = {
+
+    val sectionId = Claim.sectionId(questionGroupId)
+
+    val section = sections.get(sectionId) match {
+      case None => Section(sectionId, List())
+      case Some(s) => Section(sectionId, s.questionGroups.filterNot(q => q.id == questionGroupId))
+    }
+
+    Claim(sections.updated(section.id, section))
+  }
 }
 
 object Claim {

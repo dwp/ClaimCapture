@@ -4,6 +4,7 @@ import models.domain._
 import models.DayMonthYear
 import models.MultiLineAddress
 import scala.Some
+import models.Postcode
 
 object ClaimBuilder {
   val yourDetails = YourDetails(title = "mr", firstName = "Phil", middleName = None, surname = "Smith",
@@ -11,7 +12,7 @@ object ClaimBuilder {
     dateOfBirth = DayMonthYear(1, 1, 1963), maritalStatus = "m", alwaysLivedUK = "yes")
 
   val contactDetails = ContactDetails(address = MultiLineAddress(Some("Line1"), None, None),
-    postcode = Some("PR2 8AE"),
+    postcode = Some(Postcode(Some("PR2 8AE"))),
     phoneNumber = Some("01772 700806"), None)
 
   val timeOutsideUK = TimeOutsideUK(currentlyLivingInUK = "no", arrivedInUK = Some(DayMonthYear()),
