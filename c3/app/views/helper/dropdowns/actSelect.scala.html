@@ -1,0 +1,18 @@
+@(field: Field)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+
+@{
+    carersSelect(field,
+        options = options(
+            "" -> "Please select",
+            "guardian" -> "Parent or guardian",
+            "attorney" -> "Attorney",
+            "appointee" -> "Appointee",
+            "judicial" -> "Judicial factor",
+            "deputy" -> "Deputy",
+            "curator" -> "curator bonis")
+    )
+}
