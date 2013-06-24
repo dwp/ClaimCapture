@@ -67,6 +67,8 @@ POST    /careYouProvide/hasBreaks                       controllers.CareYouProvi
 
 GET     /careYouProvide/breaksInCare                    controllers.CareYouProvide.breaksInCare
 POST    /careYouProvide/breaksInCare                    controllers.CareYouProvide.breaksInCareSubmit
+GET     /careYouProvide/breaksInCare/:id                controllers.CareYouProvide.break(id: String)
+PUT     /careYouProvide/breaksInCare                    controllers.CareYouProvide.breakSubmit
 DELETE  /careYouProvide/breaksInCare/:id                controllers.CareYouProvide.deleteBreak(id: String)
 
 GET     /careYouProvide/completed                       controllers.CareYouProvide.completed

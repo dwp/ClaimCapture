@@ -30,7 +30,7 @@ class CareYouProvideSpec extends Specification with Mockito {
           f.title mustEqual "Mr"
           f.firstName mustEqual "John"
           f.surname mustEqual "Doo"
-          f.dateOfBirth mustEqual(DayMonthYear(Some(5), Some(12), Some(1990), None, None))
+          f.dateOfBirth mustEqual DayMonthYear(Some(5), Some(12), Some(1990), None, None)
           f.liveAtSameAddress mustEqual "yes"
         }
       }
@@ -232,5 +232,40 @@ class CareYouProvideSpec extends Specification with Mockito {
           }
       }
     }
+
+    /*"update existing break" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(
+        "break.start.day" -> "1",
+        "break.start.month" -> "1",
+        "break.start.year" -> "2001",
+        "break.whereYou.location" -> "Holiday",
+        "break.wherePerson.location" -> "Holiday",
+        "moreBreaks" -> "yes")
+
+      controllers.CareYouProvide.breaksInCareSubmit(request)
+
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+        case Some(b: BreaksInCare) =>
+          val breakID = b.breaks.head.id
+          val updatedYear = 2005
+
+          val request = FakeRequest().withSession("connected" -> claimKey)
+            .withFormUrlEncodedBody(
+            "breakID" -> breakID,
+            "break.start.day" -> "1",
+            "break.start.month" -> "1",
+            "break.start.year" -> updatedYear.toString,
+            "break.whereYou.location" -> "Holiday",
+            "break.wherePerson.location" -> "Holiday")
+
+          controllers.CareYouProvide.breakSubmit(request)
+
+          Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+            case Some(b: BreaksInCare) =>
+              b.breaks.head.start.year must beSome(updatedYear)
+          }
+      }
+    }*/
   }
 }
