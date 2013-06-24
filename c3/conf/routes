@@ -67,6 +67,9 @@ GET     /careYouProvide/previousCarerPersonalDetails    controllers.CareYouProvi
 
 GET     /careYouProvide/previousCarerContactDetails     controllers.CareYouProvide.previousCarerContactDetails
 
+GET     /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPerson
+POST    /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPersonSubmit
+
 GET     /careYouProvide/hasBreaks                       controllers.CareYouProvide.hasBreaks
 POST    /careYouProvide/hasBreaks                       controllers.CareYouProvide.hasBreaksSubmit
 
@@ -80,3 +83,6 @@ GET     /careYouProvide/completed                       controllers.CareYouProvi
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                   controllers.Assets.at(path="/public", file)
+
+# Temporary submission service
+POST    /submit                                         controllers.SubmissionService.submit

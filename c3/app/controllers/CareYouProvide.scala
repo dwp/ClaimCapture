@@ -6,15 +6,19 @@ import play.api.mvc.Call
 import play.api.data.Forms._
 import models.view.CachedClaim
 import Mappings._
-import play.api.data.validation.Constraints._
 import models.domain._
 import scala.Some
 import models.domain.{HasBreaks, BreakInCare, Break, BreaksInCare}
 import scala.collection.immutable.ListMap
+import scala.Some
+import play.api.mvc.Call
+import models.domain.BreakInCare
+import models.domain.Break
 
 object CareYouProvide extends Controller with CachedClaim {
   val route: ListMap[String,Call] = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
                                             TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
+                                            RepresentativesForPerson.id -> routes.CareYouProvide.representativesForPerson,
                                             HasBreaks.id -> routes.CareYouProvide.hasBreaks,
                                             BreaksInCare.id -> routes.CareYouProvide.breaksInCare)
 
@@ -43,6 +47,16 @@ object CareYouProvide extends Controller with CachedClaim {
       "claimedAllowanceBefore" -> nonEmptyText
     )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
 
+  val representativesForPersonForm = Form(
+    mapping(
+      "actForPerson" -> nonEmptyText,
+      "actAs" -> optional(text),
+      "someoneElseActForPerson" -> nonEmptyText,
+      "someoneElseActAs" -> optional(text),
+      "someoneElseFullName" -> optional(text)
+    )(RepresentativesForPerson.apply)(RepresentativesForPerson.unapply)
+  )
+
   val hasBreaksForm = Form(
     mapping(
       "answer" -> nonEmptyText
@@ -52,13 +66,13 @@ object CareYouProvide extends Controller with CachedClaim {
     mapping(
       "moreBreaks" -> nonEmptyText,
       "break" -> optional(mapping(
-        "breakID" -> ignored(java.util.UUID.randomUUID.toString),
         "start" -> (dayMonthYear verifying validDate),
         "end"   -> optional(dayMonthYear verifying validDateOnly),
         "whereYou"    -> whereabouts.verifying(requiredWhereabouts),
         "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
         "medicalDuringBreak" -> optional(text)
-      )(Break.apply)(Break.unapply))
+      )((start, end, whereYou, wherePerson, medicalDuringBreak) => Break(java.util.UUID.randomUUID.toString, start, end, whereYou, wherePerson, medicalDuringBreak))
+        ((b: Break) => Some(b.start, b.end, b.whereYou, b.wherePerson, b.medicalDuringBreak)))
     )(BreakInCare.apply)(BreakInCare.unapply))
 
   val breakForm = Form(
@@ -149,6 +163,44 @@ object CareYouProvide extends Controller with CachedClaim {
       Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(moreAboutThePersonForm, completedQuestionGroups))
   }
 
+  def representativesForPerson = claiming {
+    implicit claim => implicit request =>
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != RepresentativesForPerson.id)
+
+      val currentForm = claim.questionGroup(RepresentativesForPerson.id) match {
+        case Some(h: RepresentativesForPerson) => representativesForPersonForm.fill(h)
+        case _ => representativesForPersonForm
+      }
+
+      Ok(views.html.s4_careYouProvide.g6_representativesForThePerson(currentForm, completedQuestionGroups))
+  }
+
+  def representativesForPersonSubmit = claiming {
+    implicit claim => implicit request =>
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != RepresentativesForPerson.id)
+
+      def actAs(form: Form[RepresentativesForPerson])(implicit rfp: RepresentativesForPerson): Form[RepresentativesForPerson] = {
+        if (rfp.actForPerson == "yes" && rfp.actAs == None) form.fill(rfp).withError("actAs","error.required")
+        else form
+      }
+
+      def someoneElseActAs(form: Form[RepresentativesForPerson])(implicit rfp: RepresentativesForPerson): Form[RepresentativesForPerson] = {
+        if (rfp.someoneElseActForPerson == "yes" && rfp.someoneElseActAs == None) form.fill(rfp).withError("someoneElseActAs","error.required")
+        else form
+      }
+
+      representativesForPersonForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g6_representativesForThePerson(formWithErrors, completedQuestionGroups)),
+        implicit representativesForPerson => {
+          val formValidations = actAs _ andThen someoneElseActAs _
+          val timeOutsideUKFormValidated = formValidations(representativesForPersonForm)
+
+          if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g6_representativesForThePerson(timeOutsideUKFormValidated, completedQuestionGroups))
+          else claim.update(representativesForPerson) -> Redirect(routes.CareYouProvide.hasBreaks())
+        }
+      )
+  }
+  
   def hasBreaks = claiming {
     implicit claim => implicit request =>
       val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != HasBreaks.id)
@@ -186,15 +238,15 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def breaksInCareSubmit = claiming {
     implicit claim => implicit request =>
-
       val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != BreaksInCare.id)
+
       val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
         case Some(b: BreaksInCare) => b
         case _ => BreaksInCare()
       }
 
       breakInCareForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_breaksInCare(formWithErrors, breaksInCare,completedQuestionGroups)),
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_breaksInCare(formWithErrors, breaksInCare, completedQuestionGroups)),
         breakInCare => {
           val updatedBreaksInCare = breakInCare.break.fold(breaksInCare)(break => if (breaksInCare.breaks.size == 10) breaksInCare else breaksInCare.update(break))
 
@@ -213,13 +265,13 @@ object CareYouProvide extends Controller with CachedClaim {
       breakForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_break(formWithErrors)),
         break => {
-          Ok("Working on it")
+          val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
+            case Some(b: BreaksInCare) => b
+            case _ => BreaksInCare()
+          }
+
+          claim.update(breaksInCare.update(break)) -> Redirect(routes.CareYouProvide.breaksInCare())
         })
-
-
-      /*claim.questionGroup(BreaksInCare.id) match {
-        case Some(b: BreaksInCare) => claim.update(b.update())
-      }*/
   }
 
   def deleteBreak(id: String) = claiming {
