@@ -67,6 +67,9 @@ GET     /careYouProvide/previousCarerPersonalDetails    controllers.CareYouProvi
 
 GET     /careYouProvide/previousCarerContactDetails     controllers.CareYouProvide.previousCarerContactDetails
 
+GET     /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPerson
+POST    /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPersonSubmit
+
 GET     /careYouProvide/hasBreaks                       controllers.CareYouProvide.hasBreaks
 POST    /careYouProvide/hasBreaks                       controllers.CareYouProvide.hasBreaksSubmit
 

@@ -85,15 +85,25 @@ ownProperty = Do you or your partner own property or land in the UK or abroad th
 hasSublet.label = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
 hasSublet = Have you sublet your home, or provided board and lodgings, since one week before your claim date?
 
-#THEIR PERSONAL DETAILS
-liveAtSameAddress = Do they live at the same address as you?
+
 
 
 #CARE YOU PROVIDE
+#THEIR PERSONAL DETAILS
+liveAtSameAddress = Do they live at the same address as you?
+
 # MORE ABOUT THE PERSON
 relationship = What's their relationship to you?
 armedForcesPayment = Does this person get Armed Forces Independence Payment?
 claimedAllowanceBefore = Has anyone else claimed Carer's Allowance for this person before?
+
+
+#REPRESENTATIVES FOR THE PERSON
+actForPerson = Do you act for the person you care for?
+actAs = You act as
+someoneElseActForPerson = Do someone else act for the person you care for?
+someoneElseActAs = Person acts as
+someoneElseFullName = Full name
 
 #BREAKS
 answer = Have you had any breaks in caring since {0}?
