@@ -71,18 +71,16 @@ object Mappings {
     if (a.lineOne.isEmpty && a.lineTwo.isEmpty && a.lineThree.isEmpty) Invalid(ValidationError("error.required")) else Valid
   }
 
-  
-  
-  
+
+
   def nino: Mapping[NationalInsuranceNumber] = mapping(
     "ni1" -> optional(nonEmptyText),
     "ni2" -> optional(number),
     "ni3" -> optional(number),
     "ni4" -> optional(number),
     "ni5" -> optional(nonEmptyText))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
-
     
-  def ninoValidation(nino: NationalInsuranceNumber): ValidationResult = {
+  private def ninoValidation(nino: NationalInsuranceNumber): ValidationResult = {
     val ninoPattern = """[A-CEGHJ-PR-TW-Z]{2}[0-9]{6}[ABCD\S]{1}""".r
     val ninoConcatenated = nino.ni1.get + nino.ni2.get + nino.ni3.get + nino.ni4.get + nino.ni5.get
     ninoPattern.pattern.matcher(ninoConcatenated).matches match {
@@ -103,15 +101,29 @@ object Mappings {
     ninoValidation(nino)
   }
 
-  def postcode: Mapping[Postcode] = mapping(
-    "content" -> optional(text verifying (pattern("""^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})$""".r,
-      "constraint.postcode", "error.postcode"), maxLength(10))))(Postcode.apply)(Postcode.unapply)
 
-  def validPostcode: Constraint[Postcode] = Constraint[Postcode]("constraint.postcode") {
+
+  def postcode: Mapping[Postcode] = mapping(
+    "content" -> optional(text))(Postcode.apply)(Postcode.unapply)
+    
+  private def postcodeValidation(nino: Postcode): ValidationResult = {
+    val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})$""".r
+    val postcodeConcatenated = nino.content.get
+    postcodePattern.pattern.matcher(postcodeConcatenated).matches match {
+      case true => Valid
+      case false => Invalid(ValidationError("error.postcode"))
+    }
+  }
+
+  def validPostcode: Constraint[Postcode] = Constraint[Postcode]("constraint.required") {
     p =>
       p match {
-        case Postcode(Some(_)) => Valid
+        case Postcode(Some(_)) => postcodeValidation(p)
         case _ => Invalid(ValidationError("error.postcode"))
       }
+  }
+
+  def validPostcodeOnly: Constraint[Postcode] = Constraint[Postcode]("constraint.postcode") { p =>
+    postcodeValidation(p)
   }
 }
