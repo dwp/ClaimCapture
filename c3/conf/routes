@@ -73,3 +73,6 @@ GET     /careYouProvide/completed                       controllers.CareYouProvi
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                   controllers.Assets.at(path="/public", file)
+
+# Temporary submission service
+POST    /submit                                         controllers.SubmissionService.submit
