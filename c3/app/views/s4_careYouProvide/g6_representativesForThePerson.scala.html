@@ -5,20 +5,16 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("More About The Person You Care For - Care You Provide", currentForm, completedQuestionGroups) {
+@main("Representatives For The Person - Care You Provide", currentForm, completedQuestionGroups) {
 
     @form(action = routes.CareYouProvide.moreAboutThePersonSubmit) {
 
         <fieldset class="form-elements">
-            <legend>Relationship and other claims</legend>
+            <legend>Representatives for the person you care for</legend>
 
 
             <ul class="group">
-                @carersSelect(currentForm("relationship"), options = Seq(""->"Relationship", "father"->"Father", "mother"->"Mother") )
 
-                @yesNoRadioGroup(currentForm("armedForcesPayment"))
-
-                @yesNoRadioGroup(currentForm("claimedAllowanceBefore"))
             </ul>
         </fieldset>
 

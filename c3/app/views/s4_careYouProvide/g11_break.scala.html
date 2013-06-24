@@ -1,0 +1,31 @@
+@(breakForm: Form[models.domain.Break])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.dates._
+
+@main("Break Edit - Care You Provide", breakForm) {
+    @form(action = routes.CareYouProvide.breaksInCareSubmit) {
+        <input type="hidden" value='@breakForm("breakID")'>
+
+        <fieldset class="form-elements">
+            <legend>Edit break in care</legend>
+
+            <ul class="group">
+                @inputDayMonthYearHM(breakForm("break.start"))
+                @inputDayMonthYearHM(breakForm("break.end"))
+
+                @whereabouts(breakForm("break.whereYou"))
+                @whereabouts(breakForm("break.wherePerson"))
+
+                @yesNoRadioGroup(breakForm("medicalDuringBreak"))
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="#" class="button secondary">Cancel TODO</a>
+            <button type="submit" name="action" value="next" class="button">Save</button>
+        </div>
+    }
+}

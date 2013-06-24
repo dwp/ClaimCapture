@@ -1,11 +1,11 @@
-@(breakInCareForm: Form[models.domain.BreakInCare], breaksInCare: models.domain.BreaksInCare)(implicit claim: models.domain.Claim)
+@(breakInCareForm: Form[models.domain.BreakInCare], breaksInCare: models.domain.BreaksInCare,completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.dates._
 
-@main("Breaks in Care - Care You Provide", breakInCareForm) {
+@views.html.s4_careYouProvide.main("Breaks in Care - Care You Provide", breakInCareForm,completedQuestionGroups) {
     <fieldset class="form-elements results-detail" id="trips">
         <legend>Trips you have added</legend>
 
