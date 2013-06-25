@@ -72,6 +72,9 @@ POST     /careYouProvide/previousCarerContactDetails     controllers.CareYouProv
 GET     /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPerson
 POST    /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPersonSubmit
 
+GET     /careYouProvide/oneWhoPaysPersonalDetails       controllers.CareYouProvide.oneWhoPaysPersonalDetails
+POST    /careYouProvide/oneWhoPaysPersonalDetails       controllers.CareYouProvide.oneWhoPaysPersonalDetailsSubmit
+
 GET     /careYouProvide/moreAboutTheCare                controllers.CareYouProvide.moreAboutTheCare
 POST    /careYouProvide/moreAboutTheCare                controllers.CareYouProvide.moreAboutTheCareSubmit
 
