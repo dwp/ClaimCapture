@@ -363,25 +363,31 @@
           display: inline-block;
           cursor: pointer;
           color: #2e3191;
-          text-decoration: underline; }
-          .carers-allowance .form-elements ul li .helper-more em {
-            color: #2e3191;
+          text-decoration: underline;
+          font-size: 1.6rem;
+          margin-top: .5em; }
+          .carers-allowance .form-elements ul li .helper-more:hover {
+            color: inherit; }
+          .ie .carers-allowance .form-elements ul li .helper-more {
+            font-size: 16px; }
+          .carers-allowance .form-elements ul li .helper-more span {
             display: inline-block;
-            height: 19px;
-            width: 12px;
-            margin: 0 5px;
-            text-align: center;
-            padding: 5px 6px 0 6px;
-            font-weight: 500;
+            background: #f3f3f3;
             line-height: 1em;
-            font-style: normal;
-            background: #f9f9f9;
-            border-radius: 100px; }
+            color: #2e3191;
+            padding: 0 3px 3px 3px;
+            font-size: 1.4rem;
+            font-family: verdana;
+            margin-right: 5px;
+            position: relative;
+            top: -1px; }
+            .ie .carers-allowance .form-elements ul li .helper-more span {
+              font-size: 14px; }
         .carers-allowance .form-elements ul li .helper-info {
           display: none;
-          padding: 1em;
+          padding: .75em;
           background: #bde4f6;
-          margin-top: .25em; }
+          margin-top: .35em; }
           .carers-allowance .form-elements ul li .helper-info p {
             font-size: 1.6rem; }
         .carers-allowance .form-elements ul li label, .carers-allowance .form-elements ul li p {

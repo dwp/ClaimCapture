@@ -403,31 +403,40 @@ $button-green-hover: #004b27;
 			   }
 			   
 			   .helper-more {
-			   display: inline-block;
-			   cursor: pointer;
-			   color: #2e3191;
-			   text-decoration: underline;
-			   		em {
-					color: #2e3191;
-					display: inline-block;
-					height: 19px;
-					width: 12px;
-					margin: 0 5px;
-					text-align: center;
-					padding: 5px 6px 0 6px;
-					font-weight: 500;
-					line-height: 1em;
-					font-style: normal;
-					background: #f9f9f9;
-					border-radius: 100px;
-					}
+				   display: inline-block;
+				   cursor: pointer;
+				   color: #2e3191;
+				   text-decoration: underline;
+				   font-size: 1.6rem;
+				   margin-top: .5em;
+				   &:hover {
+					   color: inherit;
+				   }
+				   .ie & {
+					   font-size: 16px;
+				   }
+				   span {
+					   display: inline-block;
+					   background: #f3f3f3;
+					   line-height: 1em;
+					   color: #2e3191;
+					   padding: 0 3px 3px 3px;
+					   font-size: 1.4rem;
+					   font-family: verdana;
+					   margin-right: 5px;
+					   position: relative;
+					   top: -1px;
+					   .ie & {
+						   font-size: 14px;
+					   }
+				   }
 				}
 			   
 				.helper-info {
 					display: none;
-					padding: 1em;
+					padding: .75em;
 					background: #bde4f6;
-					margin-top: .25em;
+					margin-top: .35em;
 					p {
 						font-size: 1.6rem;
 					}
