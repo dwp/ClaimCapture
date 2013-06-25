@@ -151,7 +151,7 @@ object CareYouProvide extends Controller with CachedClaim {
     implicit claim => implicit request =>
       moreAboutThePersonForm.bindFromRequest.fold(
         formWithErrors => BadRequest(views.html.s4_careYouProvide.g3_moreAboutThePerson(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
-        moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.CareYouProvide.theirContactDetails())
+        moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.CareYouProvide.previousCarerPersonalDetails)
       )
   }
 

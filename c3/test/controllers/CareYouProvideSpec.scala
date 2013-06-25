@@ -53,6 +53,8 @@ class CareYouProvideSpec extends Specification with Mockito {
     }
   }
 
+
+
   val representativesForThePersonInput = Seq("actForPerson" -> "no", "someoneElseActForPerson" -> "no")
   "Representatives for the person" should {
 
