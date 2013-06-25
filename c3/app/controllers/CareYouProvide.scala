@@ -113,7 +113,19 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def previousCarerContactDetails = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
-    Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(moreAboutThePersonForm, completedQuestionGroups))
+    
+    val currentForm = claim.questionGroup(PreviousCarerContactDetails.id) match {
+      case Some(h: PreviousCarerContactDetails) => previousCarerContactDetailsForm.fill(h)
+      case _ => previousCarerContactDetailsForm
+    }
+    
+    Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
+  }
+
+  def previousCarerContactDetailsSubmit = claiming { implicit claim => implicit request =>
+    previousCarerContactDetailsForm.bindFromRequest.fold(
+      formWithErrors => BadRequest(views.html.s4_careYouProvide.g5_previousCarerContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
+      theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.CareYouProvide.representativesForPerson))
   }
   
   def representativesForPerson = claiming { implicit claim => implicit request =>

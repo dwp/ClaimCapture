@@ -36,9 +36,16 @@ object RepresentativesForPerson {
 
 case class PreviousCarerPersonalDetails(firstName: Option[String], middleName: Option[String], surname: Option[String],
                                 nationalInsuranceNumber: Option[NationalInsuranceNumber],
-                                dateOfBirth: Option[DayMonthYear]) extends QuestionGroup(TheirPersonalDetails.id)
+                                dateOfBirth: Option[DayMonthYear]) extends QuestionGroup(PreviousCarerPersonalDetails.id)
 
 object PreviousCarerPersonalDetails {
+  val id = s"${CareYouProvide.id}.g1"
+}
+
+case class PreviousCarerContactDetails(address: MultiLineAddress, postcode: Option[String], phoneNumber: Option[String] = None, 
+    mobileNumber: Option[String] = None) extends QuestionGroup(PreviousCarerContactDetails.id)
+
+object PreviousCarerContactDetails {
   val id = s"${CareYouProvide.id}.g1"
 }
 
