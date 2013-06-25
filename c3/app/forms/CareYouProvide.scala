@@ -12,6 +12,7 @@ import scala.Some
 import play.api.mvc.Call
 import models.domain.BreakInCare
 import models.domain.Break
+import models.DayMonthYear
 
 object CareYouProvide {
 
@@ -69,6 +70,15 @@ object CareYouProvide {
       "startDatePayment" -> optional(dayMonthYear.verifying(validDate))
     )(OneWhoPaysPersonalDetails.apply)(OneWhoPaysPersonalDetails.unapply))
 
+  val moreAboutTheCareForm = Form(
+    mapping(
+      "spent35HoursCaring" -> nonEmptyText,
+      "spent35HoursCaringBeforeClaim" -> nonEmptyText,
+      "careStartDate" -> optional(dayMonthYear verifying validDateOnly),
+      "hasSomeonePaidYou" -> nonEmptyText
+    )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply)
+  )
+  
   val hasBreaksForm = Form(
     mapping(
       "answer" -> nonEmptyText

@@ -18,8 +18,9 @@ object CareYouProvide extends Controller with CachedClaim {
                                              RepresentativesForPerson.id -> routes.CareYouProvide.representativesForPerson,
                                              MoreAboutThePerson.id -> routes.CareYouProvide.moreAboutThePerson,
                                              PreviousCarerPersonalDetails.id -> routes.CareYouProvide.previousCarerPersonalDetails,
+                                             MoreAboutTheCare.id -> routes.CareYouProvide.moreAboutTheCare,
                                              HasBreaks.id -> routes.CareYouProvide.hasBreaks,
-                                             BreaksInCare.id -> routes.CareYouProvide.breaksInCare)
+                                             BreaksInCare.id -> routes.CareYouProvide.breaksInCare).asInstanceOf[ListMap[String,Call]]
 
 
   def theirPersonalDetails = claiming { implicit claim => implicit request =>
@@ -157,7 +158,37 @@ object CareYouProvide extends Controller with CachedClaim {
         val timeOutsideUKFormValidated = formValidations(representativesForPersonForm)
 
         if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g6_representativesForThePerson(timeOutsideUKFormValidated, completedQuestionGroups))
-        else claim.update(representativesForPerson) -> Redirect(routes.CareYouProvide.hasBreaks())
+        else claim.update(representativesForPerson) -> Redirect(routes.CareYouProvide.moreAboutTheCare())
+      })
+  }
+
+  def moreAboutTheCare = claiming {implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != MoreAboutTheCare.id)
+
+    val currentForm = claim.questionGroup(MoreAboutTheCare.id) match {
+      case Some(h: MoreAboutTheCare) => moreAboutTheCareForm.fill(h)
+      case _ => moreAboutTheCareForm
+    }
+
+    Ok(views.html.s4_careYouProvide.g7_moreAboutTheCare(currentForm, completedQuestionGroups))
+  }
+
+  def moreAboutTheCareSubmit = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != MoreAboutTheCare.id)
+
+    def actAs(form: Form[MoreAboutTheCare])(implicit matc: MoreAboutTheCare): Form[MoreAboutTheCare] = {
+      if (matc.spent35HoursCaringBeforeClaim == "yes" && matc.careStartDate == None) form.fill(matc).withError("careStartDate", "error.required")
+      else form
+    }
+
+    moreAboutTheCareForm.bindFromRequest.fold(
+      formWithErrors => BadRequest(views.html.s4_careYouProvide.g7_moreAboutTheCare(formWithErrors, completedQuestionGroups)),
+      implicit moreAboutTheCare => {
+        val formValidations: (Form[MoreAboutTheCare]) => Form[MoreAboutTheCare] = actAs
+        val moreAboutTheCareFormValidated = formValidations(moreAboutTheCareForm)
+
+        if (moreAboutTheCareFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g7_moreAboutTheCare(moreAboutTheCareFormValidated, completedQuestionGroups))
+        else claim.update(moreAboutTheCare) -> Redirect(routes.CareYouProvide.hasBreaks())
       })
   }
 
