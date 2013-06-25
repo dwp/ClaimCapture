@@ -1,11 +1,15 @@
 package forms
 
+import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
+import models.view.CachedClaim
 import controllers.Mappings._
 import models.domain._
-import models.domain.HasBreaks
+import models.domain.{ HasBreaks, BreaksInCare }
+import scala.collection.immutable.ListMap
 import scala.Some
+import play.api.mvc.Call
 import models.domain.BreakInCare
 import models.domain.Break
 
@@ -19,19 +23,22 @@ object CareYouProvide {
       "surname" -> nonEmptyText(maxLength = maxNrOfChars),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
-      "liveAtSameAddress" -> nonEmptyText)(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
+      "liveAtSameAddress" -> nonEmptyText
+    )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
   val theirContactDetailsForm = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),
       "postcode" -> optional(text verifying validPostcode),
-      "phoneNumber" -> optional(text verifying validPhoneNumber))(TheirContactDetails.apply)(TheirContactDetails.unapply))
+      "phoneNumber" -> optional(text verifying validPhoneNumber)
+    )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
   val moreAboutThePersonForm = Form(
     mapping(
       "relationship" -> nonEmptyText,
       "armedForcesPayment" -> optional(text),
-      "claimedAllowanceBefore" -> nonEmptyText)(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
+      "claimedAllowanceBefore" -> nonEmptyText
+    )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
 
   val previousCarerPersonalDetailsForm = Form(
     mapping(
@@ -39,14 +46,8 @@ object CareYouProvide {
       "middleName" -> optional(text(maxLength = maxNrOfChars)),
       "surname" -> optional(text(maxLength = maxNrOfChars)),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-      "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOnly)))(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))
-
-  val previousCarerContactDetailsForm = Form(
-    mapping(
-      "address" -> optional(address.verifying(requiredAddress)),
-      "postcode" -> optional(text verifying validPostcode),
-      "phoneNumber" -> optional(text verifying validPhoneNumber),
-      "mobileNumber" -> optional(text verifying validPhoneNumber))(PreviousCarerContactDetails.apply)(PreviousCarerContactDetails.unapply))
+      "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOnly))
+    )(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))
 
   val representativesForPersonForm = Form(
     mapping(
@@ -54,11 +55,24 @@ object CareYouProvide {
       "actAs" -> optional(text),
       "someoneElseActForPerson" -> nonEmptyText,
       "someoneElseActAs" -> optional(text),
-      "someoneElseFullName" -> optional(text))(RepresentativesForPerson.apply)(RepresentativesForPerson.unapply))
+      "someoneElseFullName" -> optional(text)
+    )(RepresentativesForPerson.apply)(RepresentativesForPerson.unapply))
+
+  val oneWhoPaysPersonalDetailsFrom = Form(
+    mapping(
+      "organisation" -> optional(text(maxLength = hundred)),
+      "title" -> optional(text),
+      "firstName" -> optional(text(maxLength = maxNrOfChars)),
+      "middleName" -> optional(text(maxLength = maxNrOfChars)),
+      "surname" -> optional(text(maxLength = maxNrOfChars)),
+      "amount" -> optional(text),
+      "startDatePayment" -> optional(dayMonthYear.verifying(validDate))
+    )(OneWhoPaysPersonalDetails.apply)(OneWhoPaysPersonalDetails.unapply))
 
   val hasBreaksForm = Form(
     mapping(
-      "answer" -> nonEmptyText)(HasBreaks.apply)(HasBreaks.unapply))
+      "answer" -> nonEmptyText
+    )(HasBreaks.apply)(HasBreaks.unapply))
 
   val breakInCareForm = Form(
     mapping(
@@ -68,7 +82,10 @@ object CareYouProvide {
         "end" -> optional(dayMonthYear verifying validDateOnly),
         "whereYou" -> whereabouts.verifying(requiredWhereabouts),
         "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
-        "medicalDuringBreak" -> optional(text))((start, end, whereYou, wherePerson, medicalDuringBreak) => Break(java.util.UUID.randomUUID.toString, start, end, whereYou, wherePerson, medicalDuringBreak))((b: Break) => Some(b.start, b.end, b.whereYou, b.wherePerson, b.medicalDuringBreak))))(BreakInCare.apply)(BreakInCare.unapply))
+        "medicalDuringBreak" -> optional(text)
+      )((start, end, whereYou, wherePerson, medicalDuringBreak) => Break(java.util.UUID.randomUUID.toString, start, end, whereYou, wherePerson, medicalDuringBreak))
+        ((b: Break) => Some(b.start, b.end, b.whereYou, b.wherePerson, b.medicalDuringBreak)))
+    )(BreakInCare.apply)(BreakInCare.unapply))
 
   val breakForm = Form(
     mapping(
@@ -79,4 +96,5 @@ object CareYouProvide {
       "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
       "medicalDuringBreak" -> optional(text)
     )(Break.apply)(Break.unapply))
+
 }

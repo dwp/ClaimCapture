@@ -161,6 +161,18 @@ object CareYouProvide extends Controller with CachedClaim {
       })
   }
 
+  def oneWhoPaysPersonalDetails = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+
+    Ok(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(oneWhoPaysPersonalDetailsFrom, completedQuestionGroups))
+  }
+
+  def oneWhoPaysPersonalDetailsSubmit = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+
+    Ok(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(oneWhoPaysPersonalDetailsFrom, completedQuestionGroups))
+  }
+
   def hasBreaks = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != HasBreaks.id)
 

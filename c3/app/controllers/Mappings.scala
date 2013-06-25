@@ -17,6 +17,8 @@ object Mappings {
 
   val maxNrOfChars = 60
 
+  val hundred = 100
+
   val yes = "yes"
 
   val no = "no"
