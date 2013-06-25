@@ -1,6 +1,7 @@
 @(elements: helper.FieldElements)
 
-<li class="@defining(if (elements.hasErrors) "validation" else ""){ v => @v}">
+@if(elements.hasErrors){ <li class="validation"> } else { <li> }
+
     @if(elements.hasErrors){
         <p class="error">@elements.errors.mkString(", ")</p>
     }
