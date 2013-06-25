@@ -19,16 +19,17 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Tags {
        browser.submit("button[type='submit']")
        browser.find("div[class=validation-summary] ol li").size mustEqual 1
      }
-/*
+
      "be prepopulated if they live at same address" in new WithBrowser {
         Helper.fillYourContactDetails(browser)
         Helper.fillTheirPersonalDetails(browser)
+        Helper.fillTheirContactDetails(browser)
         browser.goTo("/careYouProvide/previousCarerContactDetails")
         browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
         browser.find("#address_lineOne").getValue mustEqual("My Address")
         browser.find("#postcode").getValue mustEqual("SE1 6EH")
      }
-
+/*
      "be blank if they live at different address" in new WithBrowser {
        Helper.fillYourContactDetails(browser)
        browser.goTo("/careYouProvide/theirPersonalDetails")
