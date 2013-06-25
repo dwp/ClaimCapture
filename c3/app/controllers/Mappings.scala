@@ -65,11 +65,11 @@ object Mappings {
   }
 
   def nino: Mapping[NationalInsuranceNumber] = mapping(
-    "ni1" -> optional(nonEmptyText),
-    "ni2" -> optional(number),
-    "ni3" -> optional(number),
-    "ni4" -> optional(number),
-    "ni5" -> optional(nonEmptyText))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
+    "ni1" -> optional(text),
+    "ni2" -> optional(text),
+    "ni3" -> optional(text),
+    "ni4" -> optional(text),
+    "ni5" -> optional(text))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
     
   private def ninoValidation(nino: NationalInsuranceNumber): ValidationResult = {
     val ninoPattern = """[A-CEGHJ-PR-TW-Z]{2}[0-9]{6}[ABCD\S]{1}""".r
@@ -83,7 +83,7 @@ object Mappings {
   def validNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.nino") {
     nino =>
       nino match {
-        case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => ninoValidation(nino)
+        case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid //ninoValidation(nino)
         case _ => Invalid(ValidationError("error.nationalInsuranceNumber"))
       }
   }

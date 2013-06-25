@@ -3,7 +3,7 @@
 @import views.html.helper.base.carersInputText
 @import utils.helpers.EmptyTemplate._
 
-<ul class="inline ni-number label-strip">
+<ul class="inline ni-number label-strip" id="@field.id">
     <li>
         <label for='@field("ni1").id'>NI part one</label>
         @carersInputText(field("ni1"),'placeholder->"AA",'maxlength->2)
