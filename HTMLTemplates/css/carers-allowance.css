@@ -837,6 +837,9 @@ textarea.demo {
   margin-bottom: 3em!important; }
 
 /* Header - Footer Overrides */
+#global-header #logo img {
+  left: -213px!important; }
+
 #global-header .header-wrapper {
   padding: 0.5em 1px !important; }
 
