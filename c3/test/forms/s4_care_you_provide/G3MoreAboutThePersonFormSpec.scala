@@ -1,7 +1,7 @@
-package integration.s4_care_you_provide
+package forms.s4_care_you_provide
 
 import org.specs2.mutable.Specification
-import controllers.CareYouProvide
+import forms.CareYouProvide
 
 class G3MoreAboutThePersonFormSpec extends Specification {
 

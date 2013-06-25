@@ -75,10 +75,10 @@ object Mappings {
     "ni5" -> optional(text))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
     
   private def ninoValidation(nino: NationalInsuranceNumber): ValidationResult = {
-    val ninoPattern = """[A-CEGHJ-PR-TW-Z]{2}[0-9]{6}[ABCD\S]{1}""".r
+    val ninoPattern = """[A-CEGHJ-PR-TW-Z]{2}[0-9]{6}[ABCD]""".r
     val ninoConcatenated = nino.ni1.get + nino.ni2.get + nino.ni3.get + nino.ni4.get + nino.ni5.get
 
-    ninoPattern.pattern.matcher(ninoConcatenated).matches match {
+    ninoPattern.pattern.matcher(ninoConcatenated.toUpperCase).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.nationalInsuranceNumber"))
     }
@@ -87,7 +87,7 @@ object Mappings {
   def validNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.nino") {
     nino =>
       nino match {
-        case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid //ninoValidation(nino)
+        case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => ninoValidation(nino)
         case _ => Invalid(ValidationError("error.nationalInsuranceNumber"))
       }
   }

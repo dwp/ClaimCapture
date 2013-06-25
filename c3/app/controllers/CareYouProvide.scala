@@ -12,85 +12,17 @@ import scala.Some
 import play.api.mvc.Call
 import models.domain.BreakInCare
 import models.domain.Break
+import forms.CareYouProvide._
 
 object CareYouProvide extends Controller with CachedClaim {
   val route: ListMap[String, Call] = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
                                              TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
                                              RepresentativesForPerson.id -> routes.CareYouProvide.representativesForPerson,
                                              MoreAboutThePerson.id -> routes.CareYouProvide.moreAboutThePerson,
+                                             PreviousCarerPersonalDetails.id -> routes.CareYouProvide.previousCarerPersonalDetails,
                                              HasBreaks.id -> routes.CareYouProvide.hasBreaks,
                                              BreaksInCare.id -> routes.CareYouProvide.breaksInCare)
 
-  val theirPersonalDetailsForm = Form(
-    mapping(
-      "title" -> nonEmptyText,
-      "firstName" -> nonEmptyText(maxLength = maxNrOfChars),
-      "middleName" -> optional(text(maxLength = maxNrOfChars)),
-      "surname" -> nonEmptyText(maxLength = maxNrOfChars),
-      "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-      "dateOfBirth" -> Mappings.dayMonthYear.verifying(Mappings.validDate),
-      "liveAtSameAddress" -> nonEmptyText
-    )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
-
-  val theirContactDetailsForm = Form(
-    mapping(
-      "address" -> address.verifying(requiredAddress),
-      "postcode" -> optional(text verifying validPostcode),
-      "phoneNumber" -> optional(text verifying validPhoneNumber)
-    )(TheirContactDetails.apply)(TheirContactDetails.unapply))
-
-  val moreAboutThePersonForm = Form(
-    mapping(
-      "relationship" -> nonEmptyText,
-      "armedForcesPayment" -> optional(text),
-      "claimedAllowanceBefore" -> nonEmptyText
-    )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
-
-  val representativesForPersonForm = Form(
-    mapping(
-      "actForPerson" -> nonEmptyText,
-      "actAs" -> optional(text),
-      "someoneElseActForPerson" -> nonEmptyText,
-      "someoneElseActAs" -> optional(text),
-      "someoneElseFullName" -> optional(text)
-    )(RepresentativesForPerson.apply)(RepresentativesForPerson.unapply))
-
-  val previousCarerPersonalDetailsForm = Form(
-    mapping(
-      "firstName" -> nonEmptyText(maxLength = maxNrOfChars),
-      "middleName" -> optional(text(maxLength = maxNrOfChars)),
-      "surname" -> nonEmptyText(maxLength = maxNrOfChars),
-      "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-      "dateOfBirth" -> Mappings.dayMonthYear.verifying(Mappings.validDate)
-    )(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))
-
-  val hasBreaksForm = Form(
-    mapping(
-      "answer" -> nonEmptyText
-    )(HasBreaks.apply)(HasBreaks.unapply))
-
-  val breakInCareForm = Form(
-    mapping(
-      "moreBreaks" -> nonEmptyText,
-      "break" -> optional(mapping(
-        "start" -> (dayMonthYear verifying validDate),
-        "end" -> optional(dayMonthYear verifying validDateOnly),
-        "whereYou" -> whereabouts.verifying(requiredWhereabouts),
-        "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
-        "medicalDuringBreak" -> optional(text)
-      )((start, end, whereYou, wherePerson, medicalDuringBreak) => Break(java.util.UUID.randomUUID.toString, start, end, whereYou, wherePerson, medicalDuringBreak))
-        ((b: Break) => Some(b.start, b.end, b.whereYou, b.wherePerson, b.medicalDuringBreak)))
-    )(BreakInCare.apply)(BreakInCare.unapply))
-
-  val breakForm = Form(
-    mapping(
-      "breakID" -> nonEmptyText,
-      "start" -> (dayMonthYear verifying validDate),
-      "end" -> optional(dayMonthYear verifying validDateOnly),
-      "whereYou" -> whereabouts.verifying(requiredWhereabouts),
-      "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
-      "medicalDuringBreak" -> optional(text)
-    )(Break.apply)(Break.unapply))
 
   def theirPersonalDetails = claiming { implicit claim => implicit request =>
     val theirPersonalDetailsQGForm: Form[TheirPersonalDetails] = claim.questionGroup(TheirPersonalDetails.id) match {
@@ -153,6 +85,37 @@ object CareYouProvide extends Controller with CachedClaim {
       moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.CareYouProvide.previousCarerPersonalDetails))
   }
 
+  def previousCarerPersonalDetails = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+
+    val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson.id) match {
+      case Some(t: MoreAboutThePerson) => if (t.claimedAllowanceBefore == Mappings.yes) true else false
+      case _ => false
+    }
+
+    if (claimedAllowanceBefore) {
+      val currentForm = claim.questionGroup(PreviousCarerPersonalDetails.id) match {
+        case Some(h: PreviousCarerPersonalDetails) => previousCarerPersonalDetailsForm.fill(h)
+        case _ => previousCarerPersonalDetailsForm
+      }
+
+      Ok(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(currentForm, completedQuestionGroups))
+    } else Redirect(routes.CareYouProvide.representativesForPerson)
+  }
+  
+  def previousCarerPersonalDetailsSubmit = claiming {
+    implicit claim =>
+      implicit request =>
+        previousCarerPersonalDetailsForm.bindFromRequest.fold(
+          formWithErrors => BadRequest(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
+          currentForm => claim.update(currentForm) -> Redirect(routes.CareYouProvide.previousCarerContactDetails))
+  }
+
+  def previousCarerContactDetails = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+    Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(moreAboutThePersonForm, completedQuestionGroups))
+  }
+  
   def representativesForPerson = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != RepresentativesForPerson.id)
 
@@ -186,29 +149,6 @@ object CareYouProvide extends Controller with CachedClaim {
         if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g6_representativesForThePerson(timeOutsideUKFormValidated, completedQuestionGroups))
         else claim.update(representativesForPerson) -> Redirect(routes.CareYouProvide.hasBreaks())
       })
-  }
-
-  def previousCarerPersonalDetails = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
-
-    val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson.id) match {
-      case Some(t: MoreAboutThePerson) => if (t.claimedAllowanceBefore == Mappings.yes) true else false
-      case _ => false
-    }
-
-    if (claimedAllowanceBefore) {
-      val currentForm = claim.questionGroup(PreviousCarerPersonalDetails.id) match {
-        case Some(h: PreviousCarerPersonalDetails) => previousCarerPersonalDetailsForm.fill(h)
-        case _ => previousCarerPersonalDetailsForm
-      }
-
-      Ok(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(currentForm, completedQuestionGroups))
-    } else Redirect(routes.CareYouProvide.representativesForPerson)
-  }
-
-  def previousCarerContactDetails = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
-    Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(moreAboutThePersonForm, completedQuestionGroups))
   }
 
   def hasBreaks = claiming { implicit claim => implicit request =>
