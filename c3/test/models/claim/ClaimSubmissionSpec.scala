@@ -8,11 +8,15 @@ import play.api.test.WithApplication
 
 class ClaimSubmissionSpec extends Specification {
 
-
   "Claim Submission" should {
     "build and confirm normal AboutYou input" in new WithApplication {
-      val claimSub = ClaimSubmission(aboutYou)
-      val claimXml = claimSub.createClaimSubmission
+      val claim = Claim()
+        .update(aboutYou.yourDetails)
+        .update(aboutYou.claimDate)
+        .update(aboutYou.contactDetails)
+      val claimSub = ClaimSubmission(claim)
+
+      val claimXml = claimSub.buildDwpClaim
 
       (claimXml \\ "Claimant" \\ "Title").text mustEqual yourDetails.title
       (claimXml \\ "Claimant" \\ "OtherNames").text mustEqual s"${yourDetails.firstName} "
