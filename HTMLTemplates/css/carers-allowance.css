@@ -750,6 +750,8 @@
     .carers-allowance .form-steps p {
       padding-bottom: 0.2em;
       clear: both; }
+    .carers-allowance .form-steps a {
+      font-weight: bold; }
   .carers-allowance .button {
     font-size: 2rem;
     line-height: 1.25em;
@@ -763,7 +765,7 @@
     display: inline-block;
     margin: 0.8em 0.25em 0 0;
     background: #006435;
-    font-weight: 600;
+    font-weight: 400;
     position: relative;
     top: -3px;
     text-decoration: none; }
