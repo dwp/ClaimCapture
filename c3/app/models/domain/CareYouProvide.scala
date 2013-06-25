@@ -40,7 +40,7 @@ object PreviousCarerPersonalDetails {
   val id = s"${CareYouProvide.id}.g1"
 }
 
-case class PreviousCarerContactDetails(address: MultiLineAddress, postcode: Option[String], phoneNumber: Option[String] = None, 
+case class PreviousCarerContactDetails(address: Option[MultiLineAddress], postcode: Option[String], phoneNumber: Option[String] = None, 
     mobileNumber: Option[String] = None) extends QuestionGroup(PreviousCarerContactDetails.id)
 
 object PreviousCarerContactDetails {

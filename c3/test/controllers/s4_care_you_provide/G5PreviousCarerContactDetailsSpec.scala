@@ -30,7 +30,7 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
       
       section.questionGroup(PreviousCarerContactDetails.id) must beLike {
         case Some(f: PreviousCarerContactDetails) => {
-          f.address.lineOne mustEqual Some("123 Street")
+          f.address.get.lineOne mustEqual Some("123 Street")
           f.postcode mustEqual Some("PR2 8AE")
           f.phoneNumber mustEqual Some("02076541058")
           f.phoneNumber mustEqual Some("02076541058")

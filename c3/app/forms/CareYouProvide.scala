@@ -43,7 +43,7 @@ object CareYouProvide {
 
   val previousCarerContactDetailsForm = Form(
     mapping(
-      "address" -> address.verifying(requiredAddress),
+      "address" -> optional(address.verifying(requiredAddress)),
       "postcode" -> optional(text verifying validPostcode),
       "phoneNumber" -> optional(text verifying validPhoneNumber),
       "mobileNumber" -> optional(text verifying validPhoneNumber))(PreviousCarerContactDetails.apply)(PreviousCarerContactDetails.unapply))
