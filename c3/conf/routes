@@ -55,7 +55,7 @@ GET     /yourpartner/yourpartner                        controllers.YourPartner.
 # Care You Provide
 ###############
 GET     /careYouProvide/theirPersonalDetails            controllers.CareYouProvide.theirPersonalDetails
-POST    /careYouProvide/theirPersonalDetailsSubmit      controllers.CareYouProvide.theirPersonalDetailsSubmit
+POST    /careYouProvide/theirPersonalDetails      controllers.CareYouProvide.theirPersonalDetailsSubmit
 
 GET     /careYouProvide/theirContactDetails             controllers.CareYouProvide.theirContactDetails
 POST    /careYouProvide/theirContactDetails             controllers.CareYouProvide.theirContactDetailsSubmit
@@ -64,6 +64,8 @@ GET     /careYouProvide/moreAboutThePerson              controllers.CareYouProvi
 POST    /careYouProvide/moreAboutThePerson              controllers.CareYouProvide.moreAboutThePersonSubmit
 
 GET     /careYouProvide/previousCarerPersonalDetails    controllers.CareYouProvide.previousCarerPersonalDetails
+POST    /careYouProvide/previousCarerPersonalDetails              controllers.CareYouProvide.previousCarerPersonalDetailsSubmit
+
 
 GET     /careYouProvide/previousCarerContactDetails     controllers.CareYouProvide.previousCarerContactDetails
 

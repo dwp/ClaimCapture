@@ -147,7 +147,7 @@ class NationalInsuranceNumberValidationSpec extends Specification {
       }
 
       "complain when too many characters entered in text field 1" in {
-        createNationalInsuranceNumberForm(ni1 = "XXX", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = "C").fold(
+        createNationalInsuranceNumberForm(ni1 = "INVALID", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = "C").fold(
           formWithErrors => { formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber") },
           { number => "The mapping should fail." must equalTo("Error") })
       }

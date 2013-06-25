@@ -9,11 +9,11 @@ object Helper {
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
-    browser.fill("#ni1") `with` "AB" // Pattern AB123456C
-    browser.fill("#ni2") `with` "12"
-    browser.fill("#ni3") `with` "34"
-    browser.fill("#ni4") `with` "56"
-    browser.fill("#ni5") `with` "C"
+    browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
+    browser.fill("#nationalInsuranceNumber_ni2") `with` "12"
+    browser.fill("#nationalInsuranceNumber_ni3") `with` "34"
+    browser.fill("#nationalInsuranceNumber_ni4") `with` "56"
+    browser.fill("#nationalInsuranceNumber_ni5") `with` "C"
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
@@ -28,11 +28,11 @@ object Helper {
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
-    browser.fill("#ni1") `with` "AB" // Pattern AB123456C
-    browser.fill("#ni2") `with` "12"
-    browser.fill("#ni3") `with` "34"
-    browser.fill("#ni1") `with` "56"
-    browser.fill("#ni1") `with` "C"
+    browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
+    browser.fill("#nationalInsuranceNumber_ni2") `with` "12"
+    browser.fill("#nationalInsuranceNumber_ni3") `with` "34"
+    browser.fill("#nationalInsuranceNumber_ni4") `with` "56"
+    browser.fill("#nationalInsuranceNumber_ni5") `with` "C"
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"

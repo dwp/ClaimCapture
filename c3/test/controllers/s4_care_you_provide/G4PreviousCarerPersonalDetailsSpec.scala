@@ -28,25 +28,29 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
       
       section.questionGroup(PreviousCarerPersonalDetails.id) must beLike {
         case Some(f: PreviousCarerPersonalDetails) => {
-          f.firstName mustEqual "John"
-          f.surname mustEqual "Doo"
-          f.dateOfBirth.day mustEqual Some(5)
-          f.dateOfBirth.month mustEqual Some(12)
-          f.dateOfBirth.year mustEqual Some(1990)
+          f.firstName mustEqual Some("John")
+          f.surname mustEqual Some("Doo")
+          f.dateOfBirth.get.day mustEqual Some(5)
+          f.dateOfBirth.get.month mustEqual Some(12)
+          f.dateOfBirth.get.year mustEqual Some(1990)
         }
       }
     }
 
     "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("firstName" -> "")
+        .withFormUrlEncodedBody("dateOfBirth.day" -> "INVALID")
 
       val result = controllers.CareYouProvide.previousCarerPersonalDetailsSubmit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      pending("todo")
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(previousCarerPersonalDetailsInput: _*)
+
+      val result = controllers.CareYouProvide.previousCarerPersonalDetailsSubmit(request)
+      status(result) mustEqual SEE_OTHER
     }
   }
 }

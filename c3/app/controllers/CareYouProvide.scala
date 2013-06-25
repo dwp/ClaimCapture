@@ -53,11 +53,11 @@ object CareYouProvide extends Controller with CachedClaim {
 
   val previousCarerPersonalDetailsForm = Form(
     mapping(
-      "firstName" -> nonEmptyText(maxLength = maxNrOfChars),
+      "firstName" -> optional(text(maxLength = maxNrOfChars)),
       "middleName" -> optional(text(maxLength = maxNrOfChars)),
-      "surname" -> nonEmptyText(maxLength = maxNrOfChars),
+      "surname" -> optional(text(maxLength = maxNrOfChars)),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-      "dateOfBirth" -> Mappings.dayMonthYear.verifying(Mappings.validDate))(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))
+      "dateOfBirth" -> optional(Mappings.dayMonthYear.verifying(Mappings.validDate)))(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))
 
   val hasBreaksForm = Form(
     mapping(
