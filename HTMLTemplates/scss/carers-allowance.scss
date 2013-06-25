@@ -339,7 +339,7 @@ $button-green-hover: #004b27;
 				   border-left: 5px solid #df3034;
 			       position: relative;
 			       overflow: hidden;
-			       .ie & {
+			       .ie7 &, .ie8 & {
 				       margin-left: -15px;
 			       }
 
@@ -538,8 +538,10 @@ $button-green-hover: #004b27;
 						   cursor: pointer;
 						   line-height: inherit;
 						   border: 1px solid transparent;
-						   .ie & {
+						   .ie {
 							   font-size: 17px;
+						   }
+						   .ie7 &, .ie8 & {
 							   padding-left: 2em;
 						   }
 					   }

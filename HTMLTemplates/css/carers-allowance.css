@@ -309,7 +309,7 @@
           border-left: 5px solid #df3034;
           position: relative;
           overflow: hidden; }
-          .ie .carers-allowance .form-elements ul li.validation {
+          .ie7 .carers-allowance .form-elements ul li.validation, .ie8 .carers-allowance .form-elements ul li.validation {
             margin-left: -15px; }
           @media screen and (max-width: 780px) {
             .carers-allowance .form-elements ul li.validation {
@@ -474,8 +474,9 @@
             cursor: pointer;
             line-height: inherit;
             border: 1px solid transparent; }
-            .ie .carers-allowance .form-elements ul.radio li label {
-              font-size: 17px;
+            .carers-allowance .form-elements ul.radio li label .ie {
+              font-size: 17px; }
+            .ie7 .carers-allowance .form-elements ul.radio li label, .ie8 .carers-allowance .form-elements ul.radio li label {
               padding-left: 2em; }
           .carers-allowance .form-elements ul.radio li input[type="radio"]:checked + label {
             background: #fff;
@@ -762,7 +763,7 @@
     display: inline-block;
     margin: 0.8em 0.25em 0 0;
     background: #006435;
-    font-weight: 400;
+    font-weight: 600;
     position: relative;
     top: -3px;
     text-decoration: none; }
