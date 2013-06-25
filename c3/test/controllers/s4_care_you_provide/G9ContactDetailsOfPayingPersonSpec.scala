@@ -34,5 +34,9 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification {
       val result = controllers.CareYouProvide.contactDetailsOfPayingPerson(request)
       status(result) mustEqual OK
     }
+
+    """be submitted and proceed to "breaks" """ in new WithApplication with Claiming {
+
+    }
   }
 }

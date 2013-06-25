@@ -245,14 +245,24 @@ object CareYouProvide extends Controller with CachedClaim {
       case _ => hasBreaksForm
     }
 
-    Ok(views.html.s4_careYouProvide.g10_hasBreaks(hasBreaksQGForm, completedQuestionGroups))
+    val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
+      case Some(b: BreaksInCare) => b
+      case _ => BreaksInCare()
+    }
+
+    Ok(views.html.s4_careYouProvide.g10_hasBreaks(hasBreaksQGForm, breaksInCare, completedQuestionGroups))
   }
 
   def hasBreaksSubmit = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != HasBreaks.id)
 
+    val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
+      case Some(b: BreaksInCare) => b
+      case _ => BreaksInCare()
+    }
+
     hasBreaksForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g10_hasBreaks(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s4_careYouProvide.g10_hasBreaks(formWithErrors, breaksInCare, completedQuestionGroups)),
       hasBreaks =>
         if (hasBreaks.answer == yes) claim.update(hasBreaks) -> Redirect(routes.CareYouProvide.breaksInCare())
         else claim.update(hasBreaks).delete(BreaksInCare.id) -> Redirect(routes.CareYouProvide.completed()))
