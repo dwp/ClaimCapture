@@ -50,7 +50,8 @@ object CareYouProvide {
       "address" -> optional(address.verifying(requiredAddress)),
       "postcode" -> optional(text verifying validPostcode),
       "phoneNumber" -> optional(text verifying validPhoneNumber),
-      "mobileNumber" -> optional(text verifying validPhoneNumber))(PreviousCarerContactDetails.apply)(PreviousCarerContactDetails.unapply))
+      "mobileNumber" -> optional(text verifying validPhoneNumber)
+    )(PreviousCarerContactDetails.apply)(PreviousCarerContactDetails.unapply))
 
   val representativesForPersonForm = Form(
     mapping(
@@ -78,8 +79,13 @@ object CareYouProvide {
       "spent35HoursCaringBeforeClaim" -> nonEmptyText,
       "careStartDate" -> optional(dayMonthYear verifying validDateOnly),
       "hasSomeonePaidYou" -> nonEmptyText
-    )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply)
-  )
+    )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
+
+  val contactDetailsOfPayingPersonForm = Form(
+    mapping(
+      "address" -> optional(address),
+      "postcode" -> optional(text)
+    )(ContactDetailsOfPayingPerson.apply)(ContactDetailsOfPayingPerson.unapply))
 
   val hasBreaksForm = Form(
     mapping(
@@ -108,5 +114,4 @@ object CareYouProvide {
       "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
       "medicalDuringBreak" -> optional(text)
     )(Break.apply)(Break.unapply))
-
 }

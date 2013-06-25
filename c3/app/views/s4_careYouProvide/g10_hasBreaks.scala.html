@@ -1,11 +1,11 @@
-@(hasBreaksForm: Form[models.domain.HasBreaks],completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(hasBreaksForm: Form[models.domain.HasBreaks], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import models.domain.BreaksInCare
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 
-@views.html.s4_careYouProvide.main("Has Breaks - Care You Provide", hasBreaksForm,completedQuestionGroups) {
+@main("Has Breaks - Care You Provide", hasBreaksForm, completedQuestionGroups) {
     @form(action = routes.CareYouProvide.hasBreaksSubmit) {
         <fieldset class="form-elements">
             <legend>Breaks in Care</legend>

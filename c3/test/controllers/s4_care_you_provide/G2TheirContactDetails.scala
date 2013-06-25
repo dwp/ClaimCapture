@@ -5,7 +5,7 @@ import org.specs2.mock.Mockito
 import play.api.test.{ WithApplication, FakeRequest }
 import models.view.Claiming
 import play.api.cache.Cache
-import models.domain.{ MoreAboutThePerson, Claim }
+import models.domain.Claim
 import models.domain
 import play.api.test.Helpers._
 import models.domain.Section
@@ -18,7 +18,6 @@ class G2TheirContactDetails extends Specification with Mockito {
         "postcode" -> "PR2 8AE", 
         "phoneNumber" -> "02076541058")
 
-  
   "Their Contact Details - Controller" should {
 
     "add their contect details to the cached claim" in new WithApplication with Claiming {
@@ -54,5 +53,4 @@ class G2TheirContactDetails extends Specification with Mockito {
       status(result) mustEqual SEE_OTHER
     }
   }
-
 }

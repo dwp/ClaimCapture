@@ -32,7 +32,7 @@ object RepresentativesForPerson {
   val id = s"${CareYouProvide.id}.g6"
 }
 
-case class MoreAboutTheCare(spent35HoursCaring: String,spent35HoursCaringBeforeClaim:String,careStartDate:Option[DayMonthYear],hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare.id)
+case class MoreAboutTheCare(spent35HoursCaring: String, spent35HoursCaringBeforeClaim: String, careStartDate:Option[DayMonthYear], hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare.id)
 
 object MoreAboutTheCare {
   val id = s"${CareYouProvide.id}.g7"
@@ -57,6 +57,12 @@ case class OneWhoPaysPersonalDetails(organisation:Option[String], title:Option[S
 
 object OneWhoPaysPersonalDetails {
   val id = s"${CareYouProvide.id}.g8"
+}
+
+case class ContactDetailsOfPayingPerson(address: Option[MultiLineAddress], postcode: Option[String]) extends QuestionGroup(ContactDetailsOfPayingPerson.id)
+
+object ContactDetailsOfPayingPerson {
+  val id = s"${CareYouProvide.id}.g9"
 }
 
 case class HasBreaks(answer: String) extends QuestionGroup(HasBreaks.id)

@@ -134,7 +134,6 @@ object CareYouProvide extends Controller with CachedClaim {
       }
     }
     
-
     Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
   }
 
@@ -219,6 +218,23 @@ object CareYouProvide extends Controller with CachedClaim {
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
 
     Ok(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(oneWhoPaysPersonalDetailsFrom, completedQuestionGroups))
+  }
+
+  def contactDetailsOfPayingPerson = claiming { implicit claim => implicit request =>
+    claim.questionGroup(MoreAboutTheCare.id) match {
+      case Some(MoreAboutTheCare(_, _, _, "yes")) => {
+        val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
+
+        val contactDetailsOfPayingPersonQGForm: Form[ContactDetailsOfPayingPerson] = claim.questionGroup(ContactDetailsOfPayingPerson.id) match {
+          case Some(c: ContactDetailsOfPayingPerson) => contactDetailsOfPayingPersonForm.fill(c)
+          case _ => contactDetailsOfPayingPersonForm
+        }
+
+        Ok(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(contactDetailsOfPayingPersonQGForm, completedQuestionGroups))
+      }
+
+      case _ => Redirect(routes.CareYouProvide.hasBreaks())
+    }
   }
 
   def hasBreaks = claiming { implicit claim => implicit request =>
