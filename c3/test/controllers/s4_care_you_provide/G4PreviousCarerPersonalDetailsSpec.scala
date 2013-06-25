@@ -38,7 +38,11 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
     }
 
     "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
-      pending("todo")
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody("firstName" -> "")
+
+      val result = controllers.CareYouProvide.previousCarerPersonalDetailsSubmit(request)
+      status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
