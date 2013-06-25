@@ -6,7 +6,7 @@ import play.api.test.{WithApplication, FakeRequest}
 import models.view.Claiming
 import play.api.cache.Cache
 import models.domain.{PreviousCarerPersonalDetails, Claim}
-import models.domain
+import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Section
 import scala.Some
@@ -30,9 +30,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
         case Some(f: PreviousCarerPersonalDetails) => {
           f.firstName mustEqual Some("John")
           f.surname mustEqual Some("Doo")
-          f.dateOfBirth.get.day mustEqual Some(5)
-          f.dateOfBirth.get.month mustEqual Some(12)
-          f.dateOfBirth.get.year mustEqual Some(1990)
+          f.dateOfBirth mustEqual DayMonthYear(Some(5), Some(12), Some(1990), None, None)
         }
       }
     }
