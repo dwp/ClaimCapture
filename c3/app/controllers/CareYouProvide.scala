@@ -85,6 +85,37 @@ object CareYouProvide extends Controller with CachedClaim {
       moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.CareYouProvide.previousCarerPersonalDetails))
   }
 
+  def previousCarerPersonalDetails = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+
+    val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson.id) match {
+      case Some(t: MoreAboutThePerson) => if (t.claimedAllowanceBefore == Mappings.yes) true else false
+      case _ => false
+    }
+
+    if (claimedAllowanceBefore) {
+      val currentForm = claim.questionGroup(PreviousCarerPersonalDetails.id) match {
+        case Some(h: PreviousCarerPersonalDetails) => previousCarerPersonalDetailsForm.fill(h)
+        case _ => previousCarerPersonalDetailsForm
+      }
+
+      Ok(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(currentForm, completedQuestionGroups))
+    } else Redirect(routes.CareYouProvide.representativesForPerson)
+  }
+  
+  def previousCarerPersonalDetailsSubmit = claiming {
+    implicit claim =>
+      implicit request =>
+        previousCarerPersonalDetailsForm.bindFromRequest.fold(
+          formWithErrors => BadRequest(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
+          currentForm => claim.update(currentForm) -> Redirect(routes.CareYouProvide.previousCarerContactDetails))
+  }
+
+  def previousCarerContactDetails = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+    Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(moreAboutThePersonForm, completedQuestionGroups))
+  }
+  
   def representativesForPerson = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != RepresentativesForPerson.id)
 
@@ -118,37 +149,6 @@ object CareYouProvide extends Controller with CachedClaim {
         if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g6_representativesForThePerson(timeOutsideUKFormValidated, completedQuestionGroups))
         else claim.update(representativesForPerson) -> Redirect(routes.CareYouProvide.hasBreaks())
       })
-  }
-
-  def previousCarerPersonalDetails = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
-
-    val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson.id) match {
-      case Some(t: MoreAboutThePerson) => if (t.claimedAllowanceBefore == Mappings.yes) true else false
-      case _ => false
-    }
-
-    if (claimedAllowanceBefore) {
-      val currentForm = claim.questionGroup(PreviousCarerPersonalDetails.id) match {
-        case Some(h: PreviousCarerPersonalDetails) => previousCarerPersonalDetailsForm.fill(h)
-        case _ => previousCarerPersonalDetailsForm
-      }
-
-      Ok(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(currentForm, completedQuestionGroups))
-    } else Redirect(routes.CareYouProvide.representativesForPerson)
-  }
-  
-  def previousCarerPersonalDetailsSubmit = claiming {
-    implicit claim =>
-      implicit request =>
-        previousCarerPersonalDetailsForm.bindFromRequest.fold(
-          formWithErrors => BadRequest(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
-          currentForm => claim.update(currentForm) -> Redirect(routes.CareYouProvide.previousCarerContactDetails))
-  }
-
-  def previousCarerContactDetails = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
-    Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(moreAboutThePersonForm, completedQuestionGroups))
   }
 
   def hasBreaks = claiming { implicit claim => implicit request =>
