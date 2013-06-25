@@ -30,7 +30,7 @@ class G4PreviousCarerPersonalDetailsFormSpec extends Specification {
             f.middleName must equalTo(Some("Mc"))
             f.surname must equalTo(Some("Donald"))
             f.dateOfBirth must equalTo(Some(DayMonthYear(Some(3), Some(4), Some(1980), None, None)))
-            f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some("AB"), Some(12), Some(34), Some(56), Some("C"))))
+            f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some("AB"), Some("12"), Some("34"), Some("56"), Some("C"))))
           })
     }
 
