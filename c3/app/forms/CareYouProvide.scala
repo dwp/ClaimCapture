@@ -8,6 +8,7 @@ import models.domain.HasBreaks
 import scala.Some
 import models.domain.BreakInCare
 import models.domain.Break
+import models.DayMonthYear
 
 object CareYouProvide {
 
@@ -56,6 +57,15 @@ object CareYouProvide {
       "someoneElseActAs" -> optional(text),
       "someoneElseFullName" -> optional(text))(RepresentativesForPerson.apply)(RepresentativesForPerson.unapply))
 
+  val moreAboutTheCareForm = Form(
+    mapping(
+      "spent35HoursCaring" -> nonEmptyText,
+      "spent35HoursCaringBeforeClaim" -> nonEmptyText,
+      "careStartDate" -> optional(dayMonthYear verifying validDateOnly),
+      "hasSomeonePaidYou" -> nonEmptyText
+    )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply)
+  )
+  
   val hasBreaksForm = Form(
     mapping(
       "answer" -> nonEmptyText)(HasBreaks.apply)(HasBreaks.unapply))
@@ -79,4 +89,5 @@ object CareYouProvide {
       "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
       "medicalDuringBreak" -> optional(text)
     )(Break.apply)(Break.unapply))
+
 }
