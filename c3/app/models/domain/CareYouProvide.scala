@@ -37,14 +37,14 @@ case class PreviousCarerPersonalDetails(firstName: Option[String], middleName: O
                                 dateOfBirth: Option[DayMonthYear]) extends QuestionGroup(PreviousCarerPersonalDetails.id)
 
 object PreviousCarerPersonalDetails {
-  val id = s"${CareYouProvide.id}.g1"
+  val id = s"${CareYouProvide.id}.g4"
 }
 
 case class PreviousCarerContactDetails(address: Option[MultiLineAddress], postcode: Option[String], phoneNumber: Option[String] = None, 
     mobileNumber: Option[String] = None) extends QuestionGroup(PreviousCarerContactDetails.id)
 
 object PreviousCarerContactDetails {
-  val id = s"${CareYouProvide.id}.g1"
+  val id = s"${CareYouProvide.id}.g5"
 }
 
 case class HasBreaks(answer: String) extends QuestionGroup(HasBreaks.id)
