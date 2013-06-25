@@ -215,6 +215,14 @@ object CareYouProvide extends Controller with CachedClaim {
           Ok(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(currentForm, completedQuestionGroups))
         } else Redirect(routes.CareYouProvide.representativesForPerson)
   }
+  
+  def previousCarerPersonalDetailsSubmit = claiming {
+    implicit claim =>
+      implicit request =>
+        previousCarerPersonalDetailsForm.bindFromRequest.fold(
+          formWithErrors => BadRequest(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
+          currentForm => claim.update(currentForm) -> Redirect(routes.CareYouProvide.previousCarerContactDetails))
+  }
 
   def previousCarerContactDetails = claiming {
     implicit claim =>
