@@ -359,18 +359,24 @@
                 position: relative;
                 top: auto;
                 left: auto; } }
-        .carers-allowance .form-elements ul li.helper-more {
+        .carers-allowance .form-elements ul li .helper-more {
+          display: inline-block;
+          cursor: pointer;
           color: #2e3191;
-          text-decoration: underline;
-          cursor: pointer; }
-          .carers-allowance .form-elements ul li.helper-more:hover {
-            color: inherit; }
-          @media screen and (max-width: 330px) {
-            .carers-allowance .form-elements ul li.helper-more {
-              position: relative;
-              top: 3px;
-              padding: 0;
-              float: right; } }
+          text-decoration: underline; }
+          .carers-allowance .form-elements ul li .helper-more em {
+            color: #2e3191;
+            display: inline-block;
+            height: 19px;
+            width: 12px;
+            margin: 0 5px;
+            text-align: center;
+            padding: 5px 6px 0 6px;
+            font-weight: 500;
+            line-height: 1em;
+            font-style: normal;
+            background: #f9f9f9;
+            border-radius: 100px; }
         .carers-allowance .form-elements ul li .helper-info {
           display: none;
           padding: 1em;
@@ -592,9 +598,9 @@
         .ie .carers-allowance .form-elements ul.ni-number input[type="text"], .ie .carers-allowance .form-elements ul.ni-number input[type="tel"] {
           width: 44px; }
         .carers-allowance .form-elements ul.ni-number input[type="text"].single, .carers-allowance .form-elements ul.ni-number input[type="tel"].single {
-          width: 2.6rem; }
+          width: 2.7rem; }
           .ie .carers-allowance .form-elements ul.ni-number input[type="text"].single, .ie .carers-allowance .form-elements ul.ni-number input[type="tel"].single {
-            width: 26px; }
+            width: 27px; }
         @media screen and (max-width: 750px) {
           .carers-allowance .form-elements ul.ni-number input[type="text"], .carers-allowance .form-elements ul.ni-number input[type="tel"] {
             width: 4.2rem; }
