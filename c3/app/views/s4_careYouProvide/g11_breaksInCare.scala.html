@@ -75,6 +75,21 @@
 
 <script type="text/javascript">
     $(function() {
+        $("select[selectWithOther=true]").each(function(){
+        if ($(this).val() == "Other"){
+            $(this).parent().next().toggle()
+        }else{
+            $(this).parent().next().toggle()
+        }
+        });
+        $("select[selectWithOther=true]").change(function(){
+            if ($(this).val() == "Other"){
+                $(this).parent().next().slideDown(500)
+            }else{
+                var textArea =  $(this).parent().next().find("textarea");
+                $(this).parent().next().slideUp(500,function(){textArea.val("")})
+            }
+        });
         @if(breaksInCare.breaks.foldLeft(0)((a, _) => a + 1) == 0) {
             $("#trips").hide();
         }
