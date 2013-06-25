@@ -30,15 +30,7 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
 
      "be blank if they live at different address" in new WithBrowser {
        Helper.fillYourContactDetails(browser)
-       browser.goTo("/careYouProvide/theirPersonalDetails")
-       browser.click("#title option[value='mr']")
-       browser.fill("#firstName") `with` "John"
-       browser.fill("#surname") `with` "Appleseed"
-       browser.click("#dateOfBirth_day option[value='3']")
-       browser.click("#dateOfBirth_month option[value='4']")
-       browser.fill("#dateOfBirth_year") `with` "1950"
-       browser.click("#liveAtSameAddress_no]")
-       browser.submit("button[type='submit']")
+       Helper.fillTheirPersonalDetailsNotLiveAtSameAddress(browser)
        browser.find("#address_lineOne").getValue mustEqual("")
        browser.find("#postcode").getValue mustEqual("")
      }
