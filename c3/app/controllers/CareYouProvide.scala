@@ -223,7 +223,7 @@ object CareYouProvide extends Controller with CachedClaim {
   def contactDetailsOfPayingPerson = claiming { implicit claim => implicit request =>
     claim.questionGroup(MoreAboutTheCare.id) match {
       case Some(MoreAboutTheCare(_, _, _, "yes")) => {
-        val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
+        val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
 
         val contactDetailsOfPayingPersonQGForm: Form[ContactDetailsOfPayingPerson] = claim.questionGroup(ContactDetailsOfPayingPerson.id) match {
           case Some(c: ContactDetailsOfPayingPerson) => contactDetailsOfPayingPersonForm.fill(c)
@@ -235,6 +235,14 @@ object CareYouProvide extends Controller with CachedClaim {
 
       case _ => Redirect(routes.CareYouProvide.hasBreaks())
     }
+  }
+
+  def contactDetailsOfPayingPersonSubmit = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
+
+    contactDetailsOfPayingPersonForm.bindFromRequest.fold(
+      formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),
+      contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(routes.CareYouProvide.hasBreaks))
   }
 
   def hasBreaks = claiming { implicit claim => implicit request =>

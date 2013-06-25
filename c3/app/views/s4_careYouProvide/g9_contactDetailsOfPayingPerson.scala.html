@@ -1,1 +1,20 @@
 @(contactDetailsOfPayingPersonForm: Form[models.domain.ContactDetailsOfPayingPerson], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import models.domain.ContactDetailsOfPayingPerson
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+
+@main("Contact Details of Paying Person - Care You Provide", contactDetailsOfPayingPersonForm, completedQuestionGroups) {
+    @form(action = routes.CareYouProvide.hasBreaksSubmit) {
+        <fieldset class="form-elements">
+            <legend>Contact Details of Paying Person</legend>
+
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="#" class="button secondary">Back TODO</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}

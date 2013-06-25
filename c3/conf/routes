@@ -55,7 +55,7 @@ GET     /yourpartner/yourpartner                        controllers.YourPartner.
 # Care You Provide
 ###############
 GET     /careYouProvide/theirPersonalDetails            controllers.CareYouProvide.theirPersonalDetails
-POST    /careYouProvide/theirPersonalDetails      controllers.CareYouProvide.theirPersonalDetailsSubmit
+POST    /careYouProvide/theirPersonalDetails            controllers.CareYouProvide.theirPersonalDetailsSubmit
 
 GET     /careYouProvide/theirContactDetails             controllers.CareYouProvide.theirContactDetails
 POST    /careYouProvide/theirContactDetails             controllers.CareYouProvide.theirContactDetailsSubmit
@@ -64,10 +64,10 @@ GET     /careYouProvide/moreAboutThePerson              controllers.CareYouProvi
 POST    /careYouProvide/moreAboutThePerson              controllers.CareYouProvide.moreAboutThePersonSubmit
 
 GET     /careYouProvide/previousCarerPersonalDetails    controllers.CareYouProvide.previousCarerPersonalDetails
-POST    /careYouProvide/previousCarerPersonalDetails              controllers.CareYouProvide.previousCarerPersonalDetailsSubmit
+POST    /careYouProvide/previousCarerPersonalDetails    controllers.CareYouProvide.previousCarerPersonalDetailsSubmit
 
 GET     /careYouProvide/previousCarerContactDetails     controllers.CareYouProvide.previousCarerContactDetails
-POST     /careYouProvide/previousCarerContactDetails     controllers.CareYouProvide.previousCarerContactDetailsSubmit
+POST     /careYouProvide/previousCarerContactDetails    controllers.CareYouProvide.previousCarerContactDetailsSubmit
 
 GET     /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPerson
 POST    /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPersonSubmit
@@ -78,6 +78,8 @@ POST    /careYouProvide/oneWhoPaysPersonalDetails       controllers.CareYouProvi
 GET     /careYouProvide/moreAboutTheCare                controllers.CareYouProvide.moreAboutTheCare
 POST    /careYouProvide/moreAboutTheCare                controllers.CareYouProvide.moreAboutTheCareSubmit
 
+GET     /careYouProvide/contactDetailsOfPayingPerson    controllers.CareYouProvide.contactDetailsOfPayingPerson
+POST    /careYouProvide/contactDetailsOfPayingPerson    controllers.CareYouProvide.contactDetailsOfPayingPersonSubmit
 
 GET     /careYouProvide/hasBreaks                       controllers.CareYouProvide.hasBreaks
 POST    /careYouProvide/hasBreaks                       controllers.CareYouProvide.hasBreaksSubmit
