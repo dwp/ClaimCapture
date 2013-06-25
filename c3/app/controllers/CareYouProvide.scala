@@ -18,6 +18,7 @@ object CareYouProvide extends Controller with CachedClaim {
                                              RepresentativesForPerson.id -> routes.CareYouProvide.representativesForPerson,
                                              MoreAboutThePerson.id -> routes.CareYouProvide.moreAboutThePerson,
                                              PreviousCarerPersonalDetails.id -> routes.CareYouProvide.previousCarerPersonalDetails,
+                                             PreviousCarerContactDetails.id -> routes.CareYouProvide.previousCarerContactDetails,
                                              MoreAboutTheCare.id -> routes.CareYouProvide.moreAboutTheCare,
                                              HasBreaks.id -> routes.CareYouProvide.hasBreaks,
                                              BreaksInCare.id -> routes.CareYouProvide.breaksInCare).asInstanceOf[ListMap[String,Call]]
