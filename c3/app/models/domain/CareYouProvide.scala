@@ -32,6 +32,12 @@ object RepresentativesForPerson {
   val id = s"${CareYouProvide.id}.g6"
 }
 
+case class MoreAboutTheCare(spent35HoursCaring: String,spent35HoursCaringBeforeClaim:String,careStartDate:Option[DayMonthYear],hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare.id)
+
+object MoreAboutTheCare {
+  val id = s"${CareYouProvide.id}.g7"
+}
+
 case class PreviousCarerPersonalDetails(firstName: Option[String], middleName: Option[String], surname: Option[String],
                                 nationalInsuranceNumber: Option[NationalInsuranceNumber],
                                 dateOfBirth: Option[DayMonthYear]) extends QuestionGroup(PreviousCarerPersonalDetails.id)
