@@ -26,7 +26,7 @@
 
                 @carersInputText(currentForm("surname"), 'maxLength -> Mappings.maxNrOfChars)
 
-                @carersInputText(currentForm("amount"), 'type -> "tel", 'placeholder -> "£", 'maxLength -> Mappings.maxNrOfChars)
+                @carersShortInputText(currentForm("amount"), 'type -> "tel", 'placeholder -> "£", 'maxLength -> Mappings.maxNrOfChars)
 
                 @inputDayMonthYear(currentForm("startDatePayment"), 'helper-> Messages("dateOfBirth.helper"))
 
