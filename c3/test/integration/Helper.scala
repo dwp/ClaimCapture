@@ -115,4 +115,19 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
+  def fillMoreAboutThePersonWithClaimedAllowanceBefore(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/moreAboutThePerson")
+    browser.click("#relationship option[value='father']")
+    browser.click("#armedForcesPayment_yes")
+    browser.click("#claimedAllowanceBefore_yes")
+    browser.submit("button[type='submit']")
+  }
+    
+  def fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/moreAboutThePerson")
+    browser.click("#relationship option[value='father']")
+    browser.click("#armedForcesPayment_no")
+    browser.click("#claimedAllowanceBefore_no")
+    browser.submit("button[type='submit']")
+  }
 }

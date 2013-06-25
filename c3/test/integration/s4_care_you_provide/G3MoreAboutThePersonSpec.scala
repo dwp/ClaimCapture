@@ -23,21 +23,23 @@ class G3MoreAboutThePersonSpec extends Specification with Tags {
        browser.click("#backButton")
        browser.title() mustEqual "Their Contact Details - Care You Provide"
      }
-
-     "navigate to Previous Carer Details, if anyone else claimed allowance for this person before" in new WithBrowser {
-       pending("Once 'Contact details' are done, this example must be written")
-     }
-
-     "navigate to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser {
-       pending("Once 'Contact details' are done, this example must be written")
-     }
-
-
+     
      "contain the completed forms" in new WithBrowser {
        Helper.fillTheirPersonalDetails(browser)
        Helper.fillTheirContactDetails(browser)
        browser.find("div[class=completed] ul li").size() mustEqual 2
      }
+     
+     "navigate to Previous Carer Details, if anyone else claimed allowance for this person before" in new WithBrowser {
+       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+       browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide"
+     }
+
+     "navigate to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser {
+       Helper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
+       browser.title() mustEqual "Representatives For The Person - Care You Provide"
+     }
+
 
    }
  }

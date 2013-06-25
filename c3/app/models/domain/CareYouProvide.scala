@@ -32,6 +32,16 @@ object RepresentativesForPerson {
   val id = s"${CareYouProvide.id}.g6"
 }
 
+
+
+case class PreviousCarerPersonalDetails(firstName: String, middleName: Option[String], surname: String,
+                                nationalInsuranceNumber: Option[NationalInsuranceNumber],
+                                dateOfBirth: DayMonthYear) extends QuestionGroup(TheirPersonalDetails.id)
+
+object PreviousCarerPersonalDetails {
+  val id = s"${CareYouProvide.id}.g1"
+}
+
 case class HasBreaks(answer: String) extends QuestionGroup(HasBreaks.id)
 
 object HasBreaks {
