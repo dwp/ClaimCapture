@@ -30,7 +30,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
         case Some(f: PreviousCarerPersonalDetails) => {
           f.firstName mustEqual Some("John")
           f.surname mustEqual Some("Doo")
-          f.dateOfBirth mustEqual DayMonthYear(Some(5), Some(12), Some(1990), None, None)
+          f.dateOfBirth mustEqual Some(DayMonthYear(Some(5), Some(12), Some(1990), None, None))
         }
       }
     }
