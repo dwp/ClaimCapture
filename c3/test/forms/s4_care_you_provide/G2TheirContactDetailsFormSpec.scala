@@ -34,7 +34,7 @@ class G2TheirContactDetailsFormSpec extends Specification {
 
     "reject an invalid postcode" in {
       CareYouProvide.theirContactDetailsForm.bind(
-        Map("address.lineOne" -> "lineOne", "address.lineTwo" -> "", "address.lineThree" -> "", "postcode" -> "1234567890")
+        Map("address.lineOne" -> "lineOne", "address.lineTwo" -> "", "address.lineThree" -> "", "postcode" -> "INVALID")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.postcode"),
         theirContactDetails => "This mapping should not happen." must equalTo("Valid")
