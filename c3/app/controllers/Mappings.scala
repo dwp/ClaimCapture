@@ -98,23 +98,6 @@ object Mappings {
     ninoValidation(nino)
   }
 
-//  def postcode: Mapping[Postcode] = mapping(
-//    "content" -> optional(text))(Postcode.apply)(Postcode.unapply)
-//
-//  private def postcodeValidation(nino: Postcode): ValidationResult = {
-//    val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z]))))[ ]?[0-9][A-Z]{2})$""".r
-//    val postcodeConcatenated = nino.content.get
-//    postcodePattern.pattern.matcher(postcodeConcatenated).matches match {
-//      case true => Valid
-//      case false => Invalid(ValidationError("error.postcode"))
-//    }
-//  }
-//
-//
-//  def validPostcodeOnly: Constraint[Postcode] = Constraint[Postcode]("constraint.postcode") { p =>
-//    postcodeValidation(p)
-//  }
-
   def validPostcode:Constraint[String]= Constraint[String]("constraint.postcode") { postcode  =>
     val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z]))))[ ]?[0-9][A-Z]{2})$""".r
     postcodePattern.pattern.matcher(postcode).matches match {
@@ -126,6 +109,14 @@ object Mappings {
   def validPhoneNumber:Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
     val phoneNumberPattern = """[0-9 \-]{1,20}""".r
     phoneNumberPattern.pattern.matcher(phoneNumber).matches match {
+      case true => Valid
+      case false => Invalid(ValidationError("error.invalid"))
+    }
+  }
+
+  def validDecimal:Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
+    val decimalPattern = """^[0-9]{1,12}[.][0-9]{1}$""".r
+    decimalPattern.pattern.matcher(decimal).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.invalid"))
     }
