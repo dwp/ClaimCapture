@@ -46,11 +46,17 @@ object PreviousCarerPersonalDetails {
   val id = s"${CareYouProvide.id}.g4"
 }
 
-case class PreviousCarerContactDetails(address: Option[MultiLineAddress], postcode: Option[String], phoneNumber: Option[String] = None, 
-    mobileNumber: Option[String] = None) extends QuestionGroup(PreviousCarerContactDetails.id)
+case class PreviousCarerContactDetails(address: Option[MultiLineAddress], postcode: Option[String], phoneNumber: Option[String] = None,
+                                       mobileNumber: Option[String] = None) extends QuestionGroup(PreviousCarerContactDetails.id)
 
 object PreviousCarerContactDetails {
   val id = s"${CareYouProvide.id}.g5"
+}
+
+case class OneWhoPaysPersonalDetails(organisation:Option[String], title:Option[String], firstName:Option[String], middleName:Option[String], surname:Option[String], amount:Option[String], startDatePayment:Option[DayMonthYear]) extends QuestionGroup(OneWhoPaysPersonalDetails.id)
+
+object OneWhoPaysPersonalDetails {
+  val id = s"${CareYouProvide.id}.g8"
 }
 
 case class HasBreaks(answer: String) extends QuestionGroup(HasBreaks.id)

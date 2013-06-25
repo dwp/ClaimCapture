@@ -50,6 +50,13 @@ object CareYouProvide {
       "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOnly))
     )(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))
 
+  val previousCarerContactDetailsForm = Form(
+    mapping(
+      "address" -> optional(address.verifying(requiredAddress)),
+      "postcode" -> optional(text verifying validPostcode),
+      "phoneNumber" -> optional(text verifying validPhoneNumber),
+      "mobileNumber" -> optional(text verifying validPhoneNumber))(PreviousCarerContactDetails.apply)(PreviousCarerContactDetails.unapply))
+
   val representativesForPersonForm = Form(
     mapping(
       "actForPerson" -> nonEmptyText,
