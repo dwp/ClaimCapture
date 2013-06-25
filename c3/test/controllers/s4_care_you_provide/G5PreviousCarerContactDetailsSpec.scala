@@ -5,7 +5,7 @@ import org.specs2.mock.Mockito
 import play.api.test.{WithApplication, FakeRequest}
 import models.view.Claiming
 import play.api.cache.Cache
-import models.domain.{PreviousCarerPersonalDetails, Claim}
+import models.domain.{PreviousCarerContactDetails, Claim}
 import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Section
@@ -13,41 +13,44 @@ import scala.Some
 
 class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
 
-  val previousCarerPersonalDetailsInput = Seq("firstName" -> "John", "surname" -> "Doo",
-    "dateOfBirth.day" -> "5", "dateOfBirth.month" -> "12", "dateOfBirth.year" -> "1990")
+  val previousCarerContactDetailsInput = Seq("address.lineOne" -> "123 Street",
+        "postcode" -> "PR2 8AE", 
+        "phoneNumber" -> "02076541058",
+        "mobileNumber" -> "02076541058")
 
   "Previous Carer Personal Details - Controller" should {
 
     "add previous carer personal details to the cached claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(previousCarerPersonalDetailsInput: _*)
+        .withFormUrlEncodedBody(previousCarerContactDetailsInput: _*)
         
-      val result = controllers.CareYouProvide.previousCarerPersonalDetailsSubmit(request)
+      val result = controllers.CareYouProvide.previousCarerContactDetailsSubmit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
       
-      section.questionGroup(PreviousCarerPersonalDetails.id) must beLike {
-        case Some(f: PreviousCarerPersonalDetails) => {
-          f.firstName mustEqual Some("John")
-          f.surname mustEqual Some("Doo")
-          f.dateOfBirth mustEqual Some(DayMonthYear(Some(5), Some(12), Some(1990), None, None))
+      section.questionGroup(PreviousCarerContactDetails.id) must beLike {
+        case Some(f: PreviousCarerContactDetails) => {
+          f.address.lineOne mustEqual Some("123 Street")
+          f.postcode mustEqual Some("PR2 8AE")
+          f.phoneNumber mustEqual Some("02076541058")
+          f.phoneNumber mustEqual Some("02076541058")
         }
       }
     }
 
     "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("dateOfBirth.day" -> "INVALID")
+        .withFormUrlEncodedBody("postcode" -> "INVALID")
 
-      val result = controllers.CareYouProvide.previousCarerPersonalDetailsSubmit(request)
+      val result = controllers.CareYouProvide.previousCarerContactDetailsSubmit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(previousCarerPersonalDetailsInput: _*)
+        .withFormUrlEncodedBody(previousCarerContactDetailsInput: _*)
 
-      val result = controllers.CareYouProvide.previousCarerPersonalDetailsSubmit(request)
+      val result = controllers.CareYouProvide.previousCarerContactDetailsSubmit(request)
       status(result) mustEqual SEE_OTHER
     }
   }
