@@ -98,6 +98,18 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
+  def fillTheirPersonalDetailsNotLiveAtSameAddress(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/theirPersonalDetails")
+    browser.click("#title option[value='mr']")
+    browser.fill("#firstName") `with` "John"
+    browser.fill("#surname") `with` "Appleseed"
+    browser.click("#dateOfBirth_day option[value='3']")
+    browser.click("#dateOfBirth_month option[value='4']")
+    browser.fill("#dateOfBirth_year") `with` "1950"
+    browser.click("#liveAtSameAddress_no]")
+    browser.submit("button[type='submit']")
+  }
+    
   def fillTheirContactDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/theirContactDetails")
     browser.fill("#address_lineOne") `with` "Their Address"
