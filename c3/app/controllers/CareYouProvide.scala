@@ -2,7 +2,6 @@ package controllers
 
 import play.api.mvc.Controller
 import play.api.data.Form
-import play.api.data.Forms._
 import models.view.CachedClaim
 import Mappings._
 import models.domain._
@@ -10,7 +9,6 @@ import models.domain.{ HasBreaks, BreaksInCare }
 import scala.collection.immutable.ListMap
 import scala.Some
 import play.api.mvc.Call
-import models.domain.BreakInCare
 import models.domain.Break
 import forms.CareYouProvide._
 

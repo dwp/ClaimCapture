@@ -4,5 +4,5 @@
 @import views.html.helper._
 
 @helper.input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
-    @yesNoPlaceholder(field,Seq("yes" -> "Yes", "no" -> "No"), args:_*)
+    @yesNoPlaceholder(field, Seq("yes" -> "Yes", "no" -> "No"), args:_*)
 }
