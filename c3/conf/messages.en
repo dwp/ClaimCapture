@@ -47,7 +47,6 @@ maritalStatus = What is your marital or civil partnership status?
 alwaysLivedUK = Have you always lived in the United Kingdom?
 firstName.error = Please fill your first name
 
-
 # CONTACT DETAILS
 address = Address
 postcode = Postcode
@@ -65,7 +64,7 @@ planToGoBack = Do you plan to go back to that country?
 whenPlanToGoBack = When do you plan to go back?
 visaReference = What is your visa reference number in your passport?
 
-#  CLAIM DATE
+# CLAIM DATE
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
 
 # MORE ABOUT YOU
@@ -124,4 +123,5 @@ whereYou = Where were you during the above break?
 break.wherePerson = Where was the person you care for during the above break?
 wherePerson = Where was the person you care for during the above break?
 moreBreaks = Have you had any more breaks in care for this person since your claim date: {0}
+break.medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
 medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
