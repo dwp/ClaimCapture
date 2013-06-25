@@ -85,5 +85,5 @@ GET     /careYouProvide/completed                       controllers.CareYouProvi
 GET     /assets/*file                                   controllers.Assets.at(path="/public", file)
 
 # Temporary submission service
-GET     /submit                                         controllers.SubmissionService.submit
-POST    /submit                                         controllers.Submission.submit
+GET     /submit                                         controllers.Submission.submit
+POST    /submit                                         controllers.SubmissionService.submit
