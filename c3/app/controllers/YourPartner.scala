@@ -7,13 +7,12 @@ import scala.concurrent.ExecutionContext
 import ExecutionContext.Implicits.global
 
 object YourPartner extends Controller with CachedClaim {
-  def yourPartner = claiming {
-    implicit claim => implicit request =>
-      Async {
-        ClaimSubmissionService.submitClaim(claim).map {
-          response =>
-            Ok(response.xml.toString())
-        }
+  def yourPartner = claiming { implicit claim => implicit request =>
+    Async {
+      ClaimSubmissionService.submitClaim(claim).map {
+        response =>
+          Ok(response.xml.toString())
       }
+    }
   }
 }

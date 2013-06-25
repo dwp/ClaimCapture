@@ -1,6 +1,6 @@
 @(breakForm: Form[models.domain.Break])(implicit claim: models.domain.Claim)
-@import models.domain.BreaksInCare
 
+@import models.domain.BreaksInCare
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
@@ -8,7 +8,7 @@
 
 @main("Break Edit - Care You Provide", breakForm) {
     @form(action = routes.CareYouProvide.breakSubmit) {
-        <input type="hidden" value='@breakForm("breakID")'>
+        <input type="hidden" name="breakID" value='@breakForm("breakID").value.get'>
 
         <fieldset class="form-elements">
             <legend>Edit break in care</legend>
