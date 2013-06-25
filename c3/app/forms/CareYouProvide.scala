@@ -55,7 +55,7 @@ object CareYouProvide {
       "middleName" -> optional(text(maxLength = maxNrOfChars)),
       "surname" -> optional(text(maxLength = maxNrOfChars)),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-      "dateOfBirth" -> optional(dayMonthYear.verifying(validDate))
+      "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOnly))
     )(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))
 
   val hasBreaksForm = Form(
