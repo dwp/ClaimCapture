@@ -18,7 +18,16 @@ class G1TheirPersonalDetailsSpec extends Specification with Mockito {
 
   "Their Personal Details - Controller" should {
 
-    "add their personal details to the cached claim" in new WithApplication with Claiming {
+
+    "present 'Their Personal Details' " in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+
+      val result = controllers.CareYouProvide.theirPersonalDetails(request)
+      status(result) mustEqual OK
+    }
+
+
+    "add 'Their Personal Details' to the cached claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(theirPersonalDetailsInput:_*)
 

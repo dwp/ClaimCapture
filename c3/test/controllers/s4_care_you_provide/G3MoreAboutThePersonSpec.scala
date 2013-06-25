@@ -17,6 +17,14 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito {
 
   "More About The Person - Controller" should {
 
+    "present 'More About The Person' " in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+
+      val result = controllers.CareYouProvide.moreAboutThePerson(request)
+      status(result) mustEqual OK
+    }
+
+
     "add more about the person details to the cached claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(moreAboutThePersonInput: _*)
