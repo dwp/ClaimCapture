@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import java.util.concurrent.TimeUnit
 
-class G11BreaksInCare extends Specification with Tags {
+class G11BreaksInCareSpec extends Specification with Tags {
   class BreakWithBrowser extends WithBrowser {
     def break = {
       browser.click("#break_start_day option[value='1']")
@@ -100,6 +100,13 @@ class G11BreaksInCare extends Specification with Tags {
       browser.findFirst("input[value='Edit']").click()
       browser.title() mustEqual "Break Edit - Care You Provide"
       browser.$("#start_year").getValue mustEqual 2001.toString
+
+      browser.fill("#start_year") `with` "1999"
+      browser.submit("button[type='submit']")
+
+      browser.title() mustEqual "Breaks in Care - Care You Provide"
+      browser.$("tbody tr").size() mustEqual 2
+      browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
     }
   } section "integration"
 }

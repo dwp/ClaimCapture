@@ -26,16 +26,19 @@ object Mappings {
     "month" -> optional(number),
     "year" -> optional(number),
     "hour" -> optional(number),
-    "minutes" -> optional(number))(DayMonthYear.apply)(DayMonthYear.unapply)
+    "minutes" -> optional(number)
+  )(DayMonthYear.apply)(DayMonthYear.unapply)
 
   val address: Mapping[MultiLineAddress] = mapping(
     "lineOne" -> optional(text(maxLength = maxNrOfChars)),
     "lineTwo" -> optional(text(maxLength = maxNrOfChars)),
-    "lineThree" -> optional(text(maxLength = maxNrOfChars)))(MultiLineAddress.apply)(MultiLineAddress.unapply)
+    "lineThree" -> optional(text(maxLength = maxNrOfChars))
+  )(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> nonEmptyText,
-    "other" -> optional(text))(Whereabouts.apply)(Whereabouts.unapply)
+    "other" -> optional(text)
+  )(Whereabouts.apply)(Whereabouts.unapply)
 
   def requiredWhereabouts: Constraint[Whereabouts] = Constraint[Whereabouts]("constraint.required") { whereabouts =>
     whereabouts match {
@@ -74,6 +77,7 @@ object Mappings {
   private def ninoValidation(nino: NationalInsuranceNumber): ValidationResult = {
     val ninoPattern = """[A-CEGHJ-PR-TW-Z]{2}[0-9]{6}[ABCD\S]{1}""".r
     val ninoConcatenated = nino.ni1.get + nino.ni2.get + nino.ni3.get + nino.ni4.get + nino.ni5.get
+
     ninoPattern.pattern.matcher(ninoConcatenated).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.nationalInsuranceNumber"))

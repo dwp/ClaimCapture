@@ -3,7 +3,7 @@ package integration.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 
-class G10HasBreaks extends Specification with Tags {
+class G10HasBreaksSpec extends Specification with Tags {
   "Care you provide" should {
     """present "has breaks" """ in new WithBrowser {
       browser.goTo("/careYouProvide/hasBreaks")
