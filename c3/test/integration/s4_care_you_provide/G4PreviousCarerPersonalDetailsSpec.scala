@@ -24,7 +24,13 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Tags {
       browser.submit("button[type='submit']")
       browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
     }
-    
+
+    "navigate to Previous Carer Contact Details on submission of completed form" in new WithBrowser {
+      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Helper.fillPreviousCarerPersonalDetails(browser)
+      browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
+    }
+
     "contain errors on invalid submission" in new WithBrowser {
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       browser.goTo("/careYouProvide/previousCarerPersonalDetails")
@@ -32,7 +38,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Tags {
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
-    
+
     /*
 
      

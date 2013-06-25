@@ -130,4 +130,20 @@ object Helper {
     browser.click("#claimedAllowanceBefore_no")
     browser.submit("button[type='submit']")
   }
+  
+  def fillPreviousCarerPersonalDetails(browser:TestBrowser) ={
+    browser.goTo("/careYouProvide/previousCarerPersonalDetails")
+    browser.fill("#firstName") `with` "John"
+    browser.fill("#middleName") `with` "Joe"
+    browser.fill("#surname") `with` "Appleseed"
+    browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
+    browser.fill("#nationalInsuranceNumber_ni2") `with` "12"
+    browser.fill("#nationalInsuranceNumber_ni3") `with` "34"
+    browser.fill("#nationalInsuranceNumber_ni4") `with` "56"
+    browser.fill("#nationalInsuranceNumber_ni5") `with` "C"
+    browser.click("#dateOfBirth_day option[value='3']")
+    browser.click("#dateOfBirth_month option[value='4']")
+    browser.fill("#dateOfBirth_year") `with` "1950"
+    browser.submit("button[type='submit']")
+  }
 }
