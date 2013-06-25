@@ -2,4 +2,4 @@
 
 @import utils.helpers.EmptyTemplate._
 
-@views.html.helper.base.carersSelect(field, options, args: _*)
+@views.html.helper.base.carersSelect(field, options, args++Seq('selectWithOther->"true"): _*)

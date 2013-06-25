@@ -751,7 +751,7 @@
       padding-bottom: 0.2em;
       clear: both; }
     .carers-allowance .form-steps a {
-      font-weight: bold; }
+      font-weight: 400; }
   .carers-allowance .button {
     font-size: 2rem;
     line-height: 1.25em;
@@ -840,7 +840,7 @@ textarea.demo {
 
 /* Header - Footer Overrides */
 #global-header #logo img {
-  left: -213px!important; }
+  left: -211px!important; }
 
 #global-header .header-wrapper {
   padding: 0.5em 1px !important; }
