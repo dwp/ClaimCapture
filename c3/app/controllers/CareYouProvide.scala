@@ -112,12 +112,24 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def previousCarerContactDetails = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
-    
-    val currentForm = claim.questionGroup(PreviousCarerContactDetails.id) match {
-      case Some(h: PreviousCarerContactDetails) => previousCarerContactDetailsForm.fill(h)
-      case _ => previousCarerContactDetailsForm
+
+    val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
+      case Some(t: TheirPersonalDetails) => t.liveAtSameAddress == yes
+      case _ => false
     }
-    
+
+    val currentForm = if (liveAtSameAddress) {
+      claim.questionGroup(PreviousCarerContactDetails.id) match {
+        case Some(cd: PreviousCarerContactDetails) =>  previousCarerContactDetailsForm.fill(PreviousCarerContactDetails(address = cd.address, postcode = cd.postcode, cd.phoneNumber, cd.mobileNumber))
+        case _ => previousCarerContactDetailsForm
+      }
+    } else {
+      claim.questionGroup(PreviousCarerContactDetails.id) match {
+        case Some(t: PreviousCarerContactDetails) => previousCarerContactDetailsForm.fill(t)
+        case _ => previousCarerContactDetailsForm
+      }
+    }
+
     Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
   }
 

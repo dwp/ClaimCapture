@@ -7,6 +7,7 @@ import integration.Helper
 class G5PreviousCarerContactDetailsSpec extends Specification with Tags {
 
    "Previous Carer Contact Details" should {
+
      "be presented" in new WithBrowser {
        browser.goTo("/careYouProvide/previousCarerContactDetails")
        browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
@@ -22,6 +23,7 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Tags {
      "be prepopulated if they live at same address" in new WithBrowser {
         Helper.fillYourContactDetails(browser)
         Helper.fillTheirPersonalDetails(browser)
+        browser.goTo("/careYouProvide/previousCarerContactDetails")
         browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
         browser.find("#address_lineOne").getValue mustEqual("My Address")
         browser.find("#postcode").getValue mustEqual("SE1 6EH")
