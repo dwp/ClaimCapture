@@ -1,8 +1,7 @@
-package integration.s4_care_you_provide
+package forms.s4_care_you_provide
 
 import org.specs2.mutable.Specification
-import controllers.CareYouProvide
-import models.Postcode
+import forms.CareYouProvide
 
 class G2TheirContactDetailsFormSpec extends Specification {
   val validPostcode: String = "SE1 6EH"
