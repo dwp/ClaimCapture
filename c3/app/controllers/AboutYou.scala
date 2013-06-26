@@ -247,10 +247,10 @@ object AboutYou extends Controller with CachedClaim {
 
     claim.questionGroup(YourDetails.id) match {
       case Some(YourDetails(_, _, _, _, _, _, _, _, _, "no")) if completedQuestionGroups.distinct.size == 7 =>
-        Redirect(routes.CareYouProvide.theirPersonalDetails())
+        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
 
       case Some(YourDetails(_, _, _, _, _, _, _, _, _, _)) if completedQuestionGroups.distinct.size == 6 =>
-        Redirect(routes.CareYouProvide.theirPersonalDetails())
+        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
 
       case _ => Redirect(routes.AboutYou.yourDetails())
     }

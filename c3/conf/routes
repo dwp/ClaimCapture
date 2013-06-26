@@ -54,8 +54,8 @@ GET     /yourpartner/yourpartner                        controllers.YourPartner.
 
 # Care You Provide
 ###############
-GET     /careYouProvide/theirPersonalDetails            controllers.CareYouProvide.theirPersonalDetails
-POST    /careYouProvide/theirPersonalDetails            controllers.CareYouProvide.theirPersonalDetailsSubmit
+GET     /careYouProvide/theirPersonalDetails            controllers.s4_care_you_provide.G1TheirPersonalDetails.present
+POST    /careYouProvide/theirPersonalDetails            controllers.s4_care_you_provide.G1TheirPersonalDetails.submit
 
 GET     /careYouProvide/theirContactDetails             controllers.CareYouProvide.theirContactDetails
 POST    /careYouProvide/theirContactDetails             controllers.CareYouProvide.theirContactDetailsSubmit

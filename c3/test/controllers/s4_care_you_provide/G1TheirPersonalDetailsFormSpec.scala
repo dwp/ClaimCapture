@@ -1,7 +1,6 @@
-package forms.s4_care_you_provide
+package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
-import forms.CareYouProvide
 import models.DayMonthYear
 
 class G1TheirPersonalDetailsFormSpec extends Specification {
@@ -9,7 +8,7 @@ class G1TheirPersonalDetailsFormSpec extends Specification {
   "Their Personal Details Form" should {
 
     "map data into case class" in {
-      CareYouProvide.theirPersonalDetailsForm.bind(
+      G1TheirPersonalDetails.form.bind(
         Map("title" -> "Mr",
           "firstName" -> "Ronald",
           "middleName" -> "Mc",
@@ -33,7 +32,7 @@ class G1TheirPersonalDetailsFormSpec extends Specification {
     }
 
     "reject too long firstName, middleName or surname" in {
-      CareYouProvide.theirPersonalDetailsForm.bind(
+      G1TheirPersonalDetails.form.bind(
         Map("title" -> "Mr",
           "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
@@ -54,7 +53,7 @@ class G1TheirPersonalDetailsFormSpec extends Specification {
     }
 
     "have 5 mandatory fields" in {
-      CareYouProvide.theirPersonalDetailsForm.bind(
+      G1TheirPersonalDetails.form.bind(
         Map("middleName" -> "middle name is optional")
       ).fold(
         formWithErrors => {

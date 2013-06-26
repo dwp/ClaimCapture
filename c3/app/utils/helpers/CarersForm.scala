@@ -35,5 +35,7 @@ object CarersForm {
       )
     }
   }
+
   implicit def formBinding[T](form: Form[T])(implicit request: Request[_]) = new FormCryptBind[T](form)
+
 }
