@@ -8,6 +8,7 @@ import models.domain._
 import scala.collection.immutable.ListMap
 import play.api.mvc.Call
 import forms.CareYouProvide._
+import utils.helpers.CarersForm._
 import controllers.s4_care_you_provide.{G11BreaksInCare, G10HasBreaks, G9ContactDetailsOfPayingPerson}
 
 object CareYouProvide extends Controller with CachedClaim {
@@ -64,7 +65,7 @@ object CareYouProvide extends Controller with CachedClaim {
   }
 
   def theirContactDetailsSubmit = claiming { implicit claim => implicit request =>
-    theirContactDetailsForm.bindFromRequest.fold(
+    theirContactDetailsForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
       theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.CareYouProvide.moreAboutThePerson()))
   }
@@ -81,7 +82,7 @@ object CareYouProvide extends Controller with CachedClaim {
   }
 
   def moreAboutThePersonSubmit = claiming { implicit claim => implicit request =>
-    moreAboutThePersonForm.bindFromRequest.fold(
+    moreAboutThePersonForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g3_moreAboutThePerson(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
       moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.CareYouProvide.previousCarerPersonalDetails))
   }
@@ -107,7 +108,7 @@ object CareYouProvide extends Controller with CachedClaim {
   def previousCarerPersonalDetailsSubmit = claiming {
     implicit claim =>
       implicit request =>
-        previousCarerPersonalDetailsForm.bindFromRequest.fold(
+        previousCarerPersonalDetailsForm.bindEncrypted.fold(
           formWithErrors => BadRequest(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
           currentForm => claim.update(currentForm) -> Redirect(routes.CareYouProvide.previousCarerContactDetails))
   }
@@ -124,7 +125,7 @@ object CareYouProvide extends Controller with CachedClaim {
   }
 
   def previousCarerContactDetailsSubmit = claiming { implicit claim => implicit request =>
-    previousCarerContactDetailsForm.bindFromRequest.fold(
+    previousCarerContactDetailsForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g5_previousCarerContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
       previousCarerContactDetails => claim.update(previousCarerContactDetails) -> Redirect(routes.CareYouProvide.representativesForPerson))
   }
@@ -153,7 +154,7 @@ object CareYouProvide extends Controller with CachedClaim {
       else form
     }
 
-    representativesForPersonForm.bindFromRequest.fold(
+    representativesForPersonForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g6_representativesForThePerson(formWithErrors, completedQuestionGroups)),
       implicit representativesForPerson => {
         val formValidations = actAs _ andThen someoneElseActAs _
@@ -190,7 +191,7 @@ object CareYouProvide extends Controller with CachedClaim {
         val moreAboutTheCareFormValidated = formValidations(moreAboutTheCareForm)
 
         if (moreAboutTheCareFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g7_moreAboutTheCare(moreAboutTheCareFormValidated, completedQuestionGroups))
-        else claim.update(moreAboutTheCare) -> Redirect(s4_care_you_provide.routes.G10HasBreaks.present())
+        else claim.update(moreAboutTheCare) -> Redirect(controllers.s4_care_you_provide.routes.G9ContactDetailsOfPayingPerson.present())
       })
   }
 

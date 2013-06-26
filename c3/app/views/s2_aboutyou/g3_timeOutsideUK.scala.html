@@ -6,6 +6,7 @@
 @import views.html.helper.dates._
 @import views.html.helper._
 @import views.html.helper.base._
+@import utils.helpers.CarersCrypto
 
 @main("Time Outside UK - About You", completedQuestionGroups) {
     @errorsSummary(timeOutsideUKForm)
@@ -42,3 +43,11 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s2_aboutyou/g3_timeOutsideUK.js")'></script>
+<script type="text/javascript">
+    $(function(){
+        window.initEvents( "@CarersCrypto.encryptAES("currentlyLivingInUK_yes")",
+        "@CarersCrypto.encryptAES("currentlyLivingInUK_no")",
+        "@CarersCrypto.encryptAES("planToGoBack_yes")",
+        "@CarersCrypto.encryptAES("planToGoBack_no")");
+    })
+</script>

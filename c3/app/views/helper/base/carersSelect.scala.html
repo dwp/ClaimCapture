@@ -1,3 +1,14 @@
-@(field: play.api.data.Field,options:Seq[(String, String)], args: (Symbol, Any)*)(implicit handler: views.html.helper.FieldConstructor, lang: play.api.i18n.Lang)
+@(field: play.api.data.Field, options: Seq[(String,String)], args: (Symbol,Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang)
 
-@helper.select(field, options, args: _*)
+@import utils.helpers.CarersCrypto
+
+@helper.input(field, args:_*) { (id, name, value, htmlArgs) =>
+    <select id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>
+        @args.toMap.get('_default).map { defaultValue =>
+            <option class="blank" value="">@defaultValue</option>
+        }
+        @options.map { v =>
+            <option value="@v._1" @(if(value == Some(v._1)) "selected" else "")>@v._2</option>
+        }
+    </select>
+}

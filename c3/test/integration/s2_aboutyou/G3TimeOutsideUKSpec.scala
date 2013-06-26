@@ -19,9 +19,9 @@ class G3TimeOutsideUKSpec extends Specification with Tags {
       browser.title() mustEqual "Time Outside UK - About You"
     }
 
-    "accept a valid date when not currently living in UK" in new WithBrowser {
+    "accept a valid date when currently living in UK" in new WithBrowser {
       browser.goTo("/aboutyou/timeOutsideUK")
-      browser.click("#currentlyLivingInUK_no")
+      browser.click("#currentlyLivingInUK_yes")
 
       browser.click("#arrivedInUK_day option[value='1']")
       browser.click("#arrivedInUK_month option[value='1']")
