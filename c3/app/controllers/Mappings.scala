@@ -15,7 +15,7 @@ import play.api.data.validation.ValidationError
 
 object Mappings {
 
-  val maxNrOfChars = 60
+  val sixty = 60
 
   val hundred = 100
 
@@ -32,9 +32,9 @@ object Mappings {
   )(DayMonthYear.apply)(DayMonthYear.unapply)
 
   val address: Mapping[MultiLineAddress] = mapping(
-    "lineOne" -> optional(text(maxLength = maxNrOfChars)),
-    "lineTwo" -> optional(text(maxLength = maxNrOfChars)),
-    "lineThree" -> optional(text(maxLength = maxNrOfChars))
+    "lineOne" -> optional(text(maxLength = sixty)),
+    "lineTwo" -> optional(text(maxLength = sixty)),
+    "lineThree" -> optional(text(maxLength = sixty))
   )(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
   val whereabouts: Mapping[Whereabouts] = mapping(

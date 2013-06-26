@@ -22,12 +22,12 @@ object AboutYou extends Controller with CachedClaim {
   val yourDetailsForm = Form(
     mapping(
       "title" -> nonEmptyText(maxLength = 4),
-      "firstName" -> nonEmptyText(maxLength = maxNrOfChars),
-      "middleName" -> optional(text(maxLength = maxNrOfChars)),
-      "surname" -> nonEmptyText(maxLength = maxNrOfChars),
-      "otherNames" -> optional(text(maxLength = maxNrOfChars)),
+      "firstName" -> nonEmptyText(maxLength = sixty),
+      "middleName" -> optional(text(maxLength = sixty)),
+      "surname" -> nonEmptyText(maxLength = sixty),
+      "otherNames" -> optional(text(maxLength = sixty)),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-      "nationality" -> nonEmptyText(maxLength = maxNrOfChars),
+      "nationality" -> nonEmptyText(maxLength = sixty),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "maritalStatus" -> nonEmptyText(maxLength = 1),
       "alwaysLivedUK" -> nonEmptyText
@@ -46,10 +46,10 @@ object AboutYou extends Controller with CachedClaim {
     mapping(
       "currentlyLivingInUK" -> nonEmptyText(),
       "arrivedInUK" -> optional(dayMonthYear.verifying(validDate)),
-      "originCountry" -> optional(text(maxLength = maxNrOfChars)),
+      "originCountry" -> optional(text(maxLength = sixty)),
       "planToGoBack" -> optional(text),
       "whenPlanToGoBack"-> optional(dayMonthYear.verifying(validDate)),
-      "visaReference" -> optional(text(maxLength = maxNrOfChars))
+      "visaReference" -> optional(text(maxLength = sixty))
     )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
 
   val claimDateForm = Form(

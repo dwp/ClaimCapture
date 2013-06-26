@@ -14,9 +14,9 @@ object CareYouProvide {
   val theirPersonalDetailsForm = Form(
     mapping(
       "title" -> nonEmptyText,
-      "firstName" -> nonEmptyText(maxLength = maxNrOfChars),
-      "middleName" -> optional(text(maxLength = maxNrOfChars)),
-      "surname" -> nonEmptyText(maxLength = maxNrOfChars),
+      "firstName" -> nonEmptyText(maxLength = sixty),
+      "middleName" -> optional(text(maxLength = sixty)),
+      "surname" -> nonEmptyText(maxLength = sixty),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "liveAtSameAddress" -> nonEmptyText
@@ -38,9 +38,9 @@ object CareYouProvide {
 
   val previousCarerPersonalDetailsForm = Form(
     mapping(
-      "firstName" -> optional(text(maxLength = maxNrOfChars)),
-      "middleName" -> optional(text(maxLength = maxNrOfChars)),
-      "surname" -> optional(text(maxLength = maxNrOfChars)),
+      "firstName" -> optional(text(maxLength = sixty)),
+      "middleName" -> optional(text(maxLength = sixty)),
+      "surname" -> optional(text(maxLength = sixty)),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOnly))
     )(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))
@@ -66,9 +66,9 @@ object CareYouProvide {
     mapping(
       "organisation" -> optional(text(maxLength = hundred)),
       "title" -> optional(text),
-      "firstName" -> optional(text(maxLength = maxNrOfChars)),
-      "middleName" -> optional(text(maxLength = maxNrOfChars)),
-      "surname" -> optional(text(maxLength = maxNrOfChars)),
+      "firstName" -> optional(text(maxLength = sixty)),
+      "middleName" -> optional(text(maxLength = sixty)),
+      "surname" -> optional(text(maxLength = sixty)),
       "amount" -> optional(text),
       "startDatePayment" -> optional(dayMonthYear.verifying(validDate))
     )(OneWhoPaysPersonalDetails.apply)(OneWhoPaysPersonalDetails.unapply))

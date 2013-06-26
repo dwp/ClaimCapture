@@ -20,13 +20,13 @@
 
                 @titleSelect(currentForm("title"))
 
-                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.maxNrOfChars)
+                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.sixty)
 
-                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.maxNrOfChars)
+                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.sixty)
 
-                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.maxNrOfChars)
+                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.sixty)
 
-                @carersShortInputText(currentForm("amount"), 'type -> "tel", 'placeholder -> "£", 'maxLength -> Mappings.maxNrOfChars)
+                @carersShortInputText(currentForm("amount"), 'type -> "tel", 'placeholder -> "£", 'maxLength -> Mappings.sixty)
 
                 @inputDayMonthYear(currentForm("startDatePayment"), 'helper-> Messages("dateOfBirth.helper"))
 

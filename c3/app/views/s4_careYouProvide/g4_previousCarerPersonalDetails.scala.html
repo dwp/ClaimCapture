@@ -13,11 +13,11 @@
             <legend>Details of the person who claimed Carer's Allowance Before</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.maxNrOfChars)
+                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.sixty)
 
-                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.maxNrOfChars)
+                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.sixty)
 
-                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.maxNrOfChars)
+                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.sixty)
 
                 @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
 
