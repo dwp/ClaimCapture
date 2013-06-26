@@ -7,24 +7,6 @@ import models.domain._
 
 object CareYouProvide {
 
-  val theirPersonalDetailsForm = Form(
-    mapping(
-      "title" -> nonEmptyText,
-      "firstName" -> nonEmptyText(maxLength = sixty),
-      "middleName" -> optional(text(maxLength = sixty)),
-      "surname" -> nonEmptyText(maxLength = sixty),
-      "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-      "dateOfBirth" -> dayMonthYear.verifying(validDate),
-      "liveAtSameAddress" -> nonEmptyText
-    )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
-
-  val theirContactDetailsForm = Form(
-    mapping(
-      "address" -> address.verifying(requiredAddress),
-      "postcode" -> optional(text verifying validPostcode),
-      "phoneNumber" -> optional(text verifying validPhoneNumber)
-    )(TheirContactDetails.apply)(TheirContactDetails.unapply))
-
   val moreAboutThePersonForm = Form(
     mapping(
       "relationship" -> nonEmptyText,

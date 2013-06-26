@@ -11,6 +11,7 @@ import utils.helpers.CarersForm._
 import scala.collection.immutable.ListMap
 
 object CarersAllowance extends Controller with CachedClaim {
+
   val route: ListMap[String, Call] = ListMap(Benefits.id -> routes.CarersAllowance.benefits,
                                              Hours.id -> routes.CarersAllowance.hours,
                                              Over16.id -> routes.CarersAllowance.over16,

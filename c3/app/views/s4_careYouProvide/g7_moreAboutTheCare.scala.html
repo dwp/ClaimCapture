@@ -1,10 +1,10 @@
 @(currentForm: Form[models.domain.MoreAboutTheCare], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
-@import helper._
-@import utils.helpers.CarersTemplate._
+@import models.domain.{Claim,ClaimDate}
 @import views.html.helper._
-@import views.html.helper.base._
 @import views.html.helper.dates._
+@import utils.helpers.CarersTemplate._
+
 
 @main("More about the care you provide - Care You Provide", currentForm, completedQuestionGroups) {
 
@@ -15,12 +15,16 @@
 
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("spent35HoursCaring"))
-                @yesNoRadioGroup(currentForm("spent35HoursCaringBeforeClaim"))
-                <div id="careStartDateWrap">
-                    @inputDayMonthYear(currentForm("careStartDate"))
-                </div>
-                @yesNoRadioGroup(currentForm("hasSomeonePaidYou"))
+
+                @defining(claim.questionGroup(ClaimDate.id) match{ case Some(s) => Claim.dateFormatGeneration.parseDateTime(s.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString).toString(Claim.dateFormatPrint) case None =>  "{NO CLAIM DATE}"}) { dateOfClaim =>
+
+                    @yesNoRadioGroup(currentForm("spent35HoursCaring"))
+                    @yesNoRadioGroup(currentForm("spent35HoursCaringBeforeClaim"),'_label -> Messages("spent35HoursCaringBeforeClaim.label",dateOfClaim))
+                    <div id="careStartDateWrap">
+                        @inputDayMonthYear(currentForm("careStartDate"))
+                    </div>
+                    @yesNoRadioGroup(currentForm("hasSomeonePaidYou"), '_label->Messages("hasSomeonePaidYou.label",dateOfClaim))
+                }
 
             </ul>
         </fieldset>
