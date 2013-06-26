@@ -24,7 +24,7 @@ object CareYouProvide extends Controller with CachedClaim {
                                              G8OneWhoPaysPersonalDetails,
                                              G9ContactDetailsOfPayingPerson,
                                              G10HasBreaks,
-                                             G11BreaksInCare)
+                                             G11BreaksInCare).asInstanceOf[ListMap[String,Call]]
 
 
   def theirPersonalDetails = claiming { implicit claim => implicit request =>
