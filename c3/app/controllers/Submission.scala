@@ -5,12 +5,14 @@ import models.view._
 import services.submission.{ClaimSubmission, ClaimSubmissionService}
 import scala.concurrent.ExecutionContext
 import ExecutionContext.Implicits.global
+import play.api.Logger
 
 object Submission extends Controller with CachedClaim {
   def submit = claiming {
     implicit claim => implicit request =>
       Async {
         val claimXml = ClaimSubmission(claim).buildDwpClaim
+        Logger.debug(s"Claim submitting transactionId : ${claimXml \\ "DWPCAClaim" \ "@id" toString()}")
         ClaimSubmissionService.submitClaim(claimXml).map(
           response => {
             println(response.status)

@@ -92,4 +92,3 @@ GET     /assets/*file                                   controllers.Assets.at(pa
 
 # Temporary submission service
 GET     /submit                                         controllers.Submission.submit
-POST    /submit                                         controllers.SubmissionService.submit
