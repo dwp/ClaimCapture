@@ -8,10 +8,8 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
 
    "Their Contact Details" should {
      "be presented" in new WithBrowser {
-
        browser.goTo("/careYouProvide/theirContactDetails")
        browser.title() mustEqual "Their Contact Details - Care You Provide"
-
      }
 
      "contain errors on invalid submission" in new WithBrowser {
@@ -65,6 +63,5 @@ class G2TheirContactDetailsSpec extends Specification with Tags {
        browser.find("#address_lineOne").getValue mustEqual("My Address")
        browser.find("#postcode").getValue mustEqual("SE1 6EH")
      }
-
    }
  }

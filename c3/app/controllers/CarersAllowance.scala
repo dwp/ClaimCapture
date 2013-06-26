@@ -7,12 +7,13 @@ import models.view._
 import models.domain
 import models.domain._
 import scala.Some
+import scala.collection.immutable.ListMap
 
 object CarersAllowance extends Controller with CachedClaim {
-  val route = Map(Benefits.id -> routes.CarersAllowance.benefits,
-                  Hours.id -> routes.CarersAllowance.hours,
-                  Over16.id -> routes.CarersAllowance.over16,
-                  LivesInGB.id -> routes.CarersAllowance.livesInGB)
+  val route: ListMap[String, Call] = ListMap(Benefits.id -> routes.CarersAllowance.benefits,
+                                             Hours.id -> routes.CarersAllowance.hours,
+                                             Over16.id -> routes.CarersAllowance.over16,
+                                             LivesInGB.id -> routes.CarersAllowance.livesInGB)
 
   val benefitsForm = Form(
     mapping(

@@ -81,12 +81,6 @@ object CareYouProvide {
       "hasSomeonePaidYou" -> nonEmptyText
     )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
 
-  val contactDetailsOfPayingPersonForm = Form(
-    mapping(
-      "address" -> optional(address),
-      "postcode" -> optional(text)
-    )(ContactDetailsOfPayingPerson.apply)(ContactDetailsOfPayingPerson.unapply))
-
   val hasBreaksForm = Form(
     mapping(
       "answer" -> nonEmptyText

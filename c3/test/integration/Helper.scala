@@ -49,13 +49,13 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
-  def fillTimeOutsideUK(browser:TestBrowser) = {
+  def fillTimeOutsideUK(browser: TestBrowser) = {
     browser.goTo("/aboutyou/timeOutsideUK")
     browser.click("#currentlyLivingInUK_yes")
     browser.submit("button[value='next']")
   }
 
-  def fillClaimDate(browser:TestBrowser) = {
+  def fillClaimDate(browser: TestBrowser) = {
     browser.goTo("/aboutyou/claimDate")
     browser.click("#dateOfClaim_day option[value='3']")
     browser.click("#dateOfClaim_month option[value='4']")
@@ -63,7 +63,7 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
-  def fillMoreAboutYou(browser:TestBrowser) = {
+  def fillMoreAboutYou(browser: TestBrowser) = {
     browser.goTo("/aboutyou/moreAboutYou")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
@@ -72,14 +72,14 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
-  def fillEmployment(browser:TestBrowser) = {
+  def fillEmployment(browser: TestBrowser) = {
     browser.goTo("/aboutyou/employment")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
     browser.submit("button[type='submit']")
   }
 
-  def fillPropertyAndRent(browser:TestBrowser) = {
+  def fillPropertyAndRent(browser: TestBrowser) = {
     browser.goTo("/aboutyou/propertyAndRent")
     browser.click("#ownProperty_yes")
     browser.click("#hasSublet_yes")
@@ -154,7 +154,7 @@ object Helper {
     browser.submit("button[type='submit']")
   }
   
-  def fillPreviousCarerPersonalDetails(browser:TestBrowser) ={
+  def fillPreviousCarerPersonalDetails(browser: TestBrowser) ={
     browser.goTo("/careYouProvide/previousCarerPersonalDetails")
     browser.fill("#firstName") `with` "John"
     browser.fill("#middleName") `with` "Joe"

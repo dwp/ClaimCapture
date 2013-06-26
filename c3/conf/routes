@@ -78,8 +78,8 @@ POST    /careYouProvide/oneWhoPaysPersonalDetails       controllers.CareYouProvi
 GET     /careYouProvide/moreAboutTheCare                controllers.CareYouProvide.moreAboutTheCare
 POST    /careYouProvide/moreAboutTheCare                controllers.CareYouProvide.moreAboutTheCareSubmit
 
-GET     /careYouProvide/contactDetailsOfPayingPerson    controllers.CareYouProvide.contactDetailsOfPayingPerson
-POST    /careYouProvide/contactDetailsOfPayingPerson    controllers.CareYouProvide.contactDetailsOfPayingPersonSubmit
+GET     /careYouProvide/contactDetailsOfPayingPerson    controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.present
+POST    /careYouProvide/contactDetailsOfPayingPerson    controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.submit
 
 GET     /careYouProvide/hasBreaks                       controllers.CareYouProvide.hasBreaks
 POST    /careYouProvide/hasBreaks                       controllers.CareYouProvide.hasBreaksSubmit

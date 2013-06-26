@@ -11,7 +11,6 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
 
       browser.goTo("/careYouProvide/theirPersonalDetails")
       browser.title() mustEqual "Their Personal Details - Care You Provide"
-
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -38,5 +37,4 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
   }
-
 }

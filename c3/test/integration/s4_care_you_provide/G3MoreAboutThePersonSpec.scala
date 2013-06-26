@@ -39,7 +39,5 @@ class G3MoreAboutThePersonSpec extends Specification with Tags {
        Helper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
        browser.title() mustEqual "Representatives For The Person - Care You Provide"
      }
-
-
    }
  }
