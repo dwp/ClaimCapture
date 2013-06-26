@@ -527,7 +527,6 @@ $button-green-hover: #004b27;
 						   cursor: pointer;
 						   .ie7 &, .ie8 & {
 							   left: 10px;
-							   top: 16px;
 						   }
 					   }
 					   label {
@@ -1013,7 +1012,6 @@ $button-green-hover: #004b27;
 		   }
 		   .ie7 &, .ie8 & {
 			   padding-top: 0;
-			   background: red;
 		   }
 		   &:hover {
 			   background: $button-green-hover;
