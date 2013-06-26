@@ -169,4 +169,11 @@ object Helper {
     browser.fill("#dateOfBirth_year") `with` "1950"
     browser.submit("button[type='submit']")
   }
+  
+  def fillPreviousCarerContactDetails(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/previousCarerContactDetails")
+    browser.fill("#address_lineOne") `with` "My Address"
+    browser.fill("#postcode") `with` "SE1 6EH"
+    browser.submit("button[type='submit']")
+  }
 }

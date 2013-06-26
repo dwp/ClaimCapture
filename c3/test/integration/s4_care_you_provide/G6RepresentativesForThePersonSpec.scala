@@ -26,9 +26,35 @@ class G6RepresentativesForThePersonSpec extends Specification with Tags {
        browser.find("div[class=validation-summary] ol li").size mustEqual 2
      }
 
-     "navigate back to Their Contact Details" in new WithBrowser {
-       pending("Once G5 is done we will be able to do this")
+     "navigate back to More About The Person" in new WithBrowser {
+       Helper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
+       browser.goTo("/careYouProvide/representativesForPerson")
+       browser.click("#backButton")
+       browser.title() mustEqual "More About The Person You Care For - Care You Provide"
      }
+     
+     "navigate back to Previous Carer Contact Details" in new WithBrowser {
+      //Helper.fillTheirPersonalDetails(browser)
+      //Helper.fillTheirContactDetails(browser)
+      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Helper.fillPreviousCarerPersonalDetails(browser)
+      Helper.fillPreviousCarerContactDetails(browser)
+      browser.title() mustEqual "Representatives For The Person - Care You Provide" // Landed on S4 G6
+      browser.click("#backButton")
+      browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G5
+    }
+
+    "navigate back twice to Previous Carer Personal Details" in new WithBrowser { // [SKW] This tests a problem I was having where pressing back twice wasn't getting back passed the S4 G4, the problem was with Controller action fetching previous question groups being different for pages using backHref.
+      Helper.fillTheirPersonalDetails(browser)
+      Helper.fillTheirContactDetails(browser)
+      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Helper.fillPreviousCarerPersonalDetails(browser)
+      Helper.fillPreviousCarerContactDetails(browser)
+      browser.title() mustEqual "Representatives For The Person - Care You Provide" // Landed on S4 G6
+      browser.click("#backButton")
+      browser.click("#backButton")
+      browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G4
+    }
 
      "contain the completed forms" in new WithBrowser {
        Helper.fillRepresentativesForThePerson(browser)

@@ -19,10 +19,10 @@ object CareYouProvide extends Controller with CachedClaim {
 
   val route: ListMap[String, Call] = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
                                              TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
-                                             RepresentativesForPerson.id -> routes.CareYouProvide.representativesForPerson,
                                              MoreAboutThePerson.id -> routes.CareYouProvide.moreAboutThePerson,
                                              PreviousCarerPersonalDetails.id -> routes.CareYouProvide.previousCarerPersonalDetails,
                                              PreviousCarerContactDetails.id -> routes.CareYouProvide.previousCarerContactDetails,
+                                             RepresentativesForPerson.id -> routes.CareYouProvide.representativesForPerson,
                                              MoreAboutTheCare.id -> routes.CareYouProvide.moreAboutTheCare,
                                              G9ContactDetailsOfPayingPerson,
                                              HasBreaks.id -> routes.CareYouProvide.hasBreaks,
@@ -117,14 +117,21 @@ object CareYouProvide extends Controller with CachedClaim {
   }
 
   def previousCarerContactDetails = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
-    
-    val currentForm: Form[PreviousCarerContactDetails] = claim.questionGroup(PreviousCarerContactDetails.id) match {
-      case Some(t: PreviousCarerContactDetails) => previousCarerContactDetailsForm.fill(t)
-      case _ => previousCarerContactDetailsForm
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != PreviousCarerContactDetails.id)
+
+    val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson.id) match {
+      case Some(t: MoreAboutThePerson) => if (t.claimedAllowanceBefore == Mappings.yes) true else false
+      case _ => false
     }
     
-    Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
+    if (claimedAllowanceBefore) {
+      val currentForm: Form[PreviousCarerContactDetails] = claim.questionGroup(PreviousCarerContactDetails.id) match {
+        case Some(t: PreviousCarerContactDetails) => previousCarerContactDetailsForm.fill(t)
+        case _ => previousCarerContactDetailsForm
+      }
+      
+      Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
+    } else Redirect(routes.CareYouProvide.representativesForPerson)
   }
 
   def previousCarerContactDetailsSubmit = claiming { implicit claim => implicit request =>
