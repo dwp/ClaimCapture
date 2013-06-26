@@ -14,7 +14,7 @@ class ClaimSubmissionSpec extends Specification {
         .update(aboutYou.yourDetails)
         .update(aboutYou.claimDate)
         .update(aboutYou.contactDetails)
-      val claimSub = ClaimSubmission(claim)
+      val claimSub = ClaimSubmission(claim, "TY6TV9G")
 
       val claimXml = claimSub.buildDwpClaim
 
