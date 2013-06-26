@@ -5,6 +5,7 @@
 @import views.html.helper._
 @import views.html.helper.dropdowns._
 @import views.html.helper.base._
+@import utils.helpers.CarersCrypto
 
 @main("Representatives For The Person - Care You Provide", currentForm, completedQuestionGroups) {
 
@@ -35,6 +36,9 @@
         </div>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g6_representativesForThePerson.js")'></script>
+
 <script type="text/javascript">
     $(function() {
         @if(currentForm("actForPerson").value.getOrElse("no") == "no") {
@@ -47,4 +51,13 @@
     });
 </script>
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g6_representativesForThePerson.js")'></script>
+<script type="text/javascript">
+    $(function(){
+        window.initEvents( "@CarersCrypto.encryptAES("actForPerson_yes")",
+        "@CarersCrypto.encryptAES("actForPerson_no")",
+        "@CarersCrypto.encryptAES("someoneElseActForPerson_yes")",
+        "@CarersCrypto.encryptAES("someoneElseActForPerson_no")",
+        "@CarersCrypto.encryptAES("someoneElseActAs")",
+        "@CarersCrypto.encryptAES("someoneElseFullName")");
+    })
+</script>

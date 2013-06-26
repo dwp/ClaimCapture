@@ -1,15 +1,15 @@
-$ ->
-  $("#actForPerson_yes").on "click", ->
+window.initEvents = (actForPersonY,actForPersonN,someoneElseActForPersonY,someoneElseActForPersonN, someoneElseActAsID, someoneElseFullNameID)->
+  $("#" +actForPersonY).on "click", ->
     $("#actWrap").slideDown 500
 
-  $("#actForPerson_no").on "click", ->
+  $("#" +actForPersonN).on "click", ->
     $("#actWrap").slideUp 500, -> $("#actAs").val("")
 
 
-  $("#someoneElseActForPerson_yes").on "click", ->
+  $("#" +someoneElseActForPersonY).on "click", ->
     $("#someoneElseWrap").slideDown 500
 
-  $("#someoneElseActForPerson_no").on "click", ->
+  $("#" +someoneElseActForPersonN).on "click", ->
     $("#someoneElseWrap").slideUp 500, ->
-      $("#someoneElseActAs").val("")
-      $("#someoneElseFullName").val("")
+      $("#" + someoneElseActAsID).val("")
+      $("#" + someoneElseFullNameID).val("")
