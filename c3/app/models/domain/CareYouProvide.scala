@@ -26,12 +26,6 @@ object MoreAboutThePerson {
   val id = s"${CareYouProvide.id}.g3"
 }
 
-case class RepresentativesForPerson(actForPerson: String,actAs: Option[String],someoneElseActForPerson: String,someoneElseActAs: Option[String], someoneElseFullName: Option[String]) extends QuestionGroup(RepresentativesForPerson.id)
-
-object RepresentativesForPerson {
-  val id = s"${CareYouProvide.id}.g6"
-}
-
 case class MoreAboutTheCare(spent35HoursCaring: String, spent35HoursCaringBeforeClaim: String, careStartDate:Option[DayMonthYear], hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare.id)
 
 object MoreAboutTheCare {
@@ -51,6 +45,12 @@ case class PreviousCarerContactDetails(address: Option[MultiLineAddress], postco
 
 object PreviousCarerContactDetails {
   val id = s"${CareYouProvide.id}.g5"
+}
+
+case class RepresentativesForPerson(actForPerson: String,actAs: Option[String],someoneElseActForPerson: String,someoneElseActAs: Option[String], someoneElseFullName: Option[String]) extends QuestionGroup(RepresentativesForPerson.id)
+
+object RepresentativesForPerson {
+  val id = s"${CareYouProvide.id}.g6"
 }
 
 case class OneWhoPaysPersonalDetails(organisation:Option[String], title:Option[String], firstName:Option[String], middleName:Option[String], surname:Option[String], amount:Option[String], startDatePayment:Option[DayMonthYear]) extends QuestionGroup(OneWhoPaysPersonalDetails.id)
