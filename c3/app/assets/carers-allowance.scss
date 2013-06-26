@@ -236,6 +236,7 @@ $button-green-hover: #004b27;
 		   	    .ie7 & {
 			   	    display: block;
 			   	    line-height: 1.1em;
+			   	    margin-left: -48px;
 		   	    }
 	   	    }
 	   	    ul {
@@ -525,8 +526,13 @@ $button-green-hover: #004b27;
 						   left: 1.2em;
 						   margin: 0;
 						   cursor: pointer;
-						   .ie7 &, .ie8 & {
+						   .ie7 & {
 							   left: 10px;
+							   top: 25%;
+						   }
+						   .ie8 & {
+							   left: 10px;
+							   top: 28%;
 						   }
 					   }
 					   label {
@@ -537,11 +543,11 @@ $button-green-hover: #004b27;
 						   cursor: pointer;
 						   line-height: inherit;
 						   border: 1px solid transparent;
-						   .ie {
+						   .ie & {
 							   font-size: 17px;
 						   }
 						   .ie7 &, .ie8 & {
-							   padding-left: 2em;
+							   padding: .4em 1em .3em 2em;
 						   }
 					   }
 					   input[type="radio"]:checked + label {
@@ -667,7 +673,7 @@ $button-green-hover: #004b27;
 					   background: #f9f9f9;
 					   .ie8 &, .ie7 & {
 					   	   position: relative;
-					   	   top: 5px;
+					   	   top: 3px;
 						   width: 60px;
 						   font-size: 14px;
 						   padding: 5px 8px;
@@ -1012,8 +1018,11 @@ $button-green-hover: #004b27;
 		   .ie & {
 			   font-size: 19px;
 		   }
-		   .ie7 &, .ie8 & {
-			   padding: .25em 1em;
+		   .ie7 & {
+			   padding: .2em 1em;
+		   }
+		   .ie8 & {
+			   padding: .4em 1em;
 		   }
 		   &:hover {
 			   background: $button-green-hover;
