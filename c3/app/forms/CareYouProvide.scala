@@ -58,16 +58,6 @@ object CareYouProvide {
       "someoneElseFullName" -> optional(text)
     )(RepresentativesForPerson.apply)(RepresentativesForPerson.unapply))
 
-  val oneWhoPaysPersonalDetailsFrom = Form(
-    mapping(
-      "organisation" -> optional(text(maxLength = hundred)),
-      "title" -> optional(text),
-      "firstName" -> optional(text(maxLength = sixty)),
-      "middleName" -> optional(text(maxLength = sixty)),
-      "surname" -> optional(text(maxLength = sixty)),
-      "amount" -> optional(text verifying(validDecimalNumber)),
-      "startDatePayment" -> optional(dayMonthYear.verifying(validDate))
-    )(OneWhoPaysPersonalDetails.apply)(OneWhoPaysPersonalDetails.unapply))
 
   val moreAboutTheCareForm = Form(
     mapping(

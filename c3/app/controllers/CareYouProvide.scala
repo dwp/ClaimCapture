@@ -8,7 +8,7 @@ import models.domain._
 import scala.collection.immutable.ListMap
 import play.api.mvc.Call
 import forms.CareYouProvide._
-import controllers.s4_care_you_provide.{G11BreaksInCare, G10HasBreaks, G9ContactDetailsOfPayingPerson}
+import s4_care_you_provide.{G8OneWhoPaysPersonalDetails, G11BreaksInCare, G10HasBreaks, G9ContactDetailsOfPayingPerson}
 
 object CareYouProvide extends Controller with CachedClaim {
   import Routing._
@@ -20,6 +20,7 @@ object CareYouProvide extends Controller with CachedClaim {
                                              PreviousCarerPersonalDetails.id -> routes.CareYouProvide.previousCarerPersonalDetails,
                                              PreviousCarerContactDetails.id -> routes.CareYouProvide.previousCarerContactDetails,
                                              MoreAboutTheCare.id -> routes.CareYouProvide.moreAboutTheCare,
+                                             G8OneWhoPaysPersonalDetails,
                                              G9ContactDetailsOfPayingPerson,
                                              G10HasBreaks,
                                              G11BreaksInCare)
@@ -190,20 +191,8 @@ object CareYouProvide extends Controller with CachedClaim {
         val moreAboutTheCareFormValidated = formValidations(moreAboutTheCareForm)
 
         if (moreAboutTheCareFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g7_moreAboutTheCare(moreAboutTheCareFormValidated, completedQuestionGroups))
-        else claim.update(moreAboutTheCare) -> Redirect(s4_care_you_provide.routes.G10HasBreaks.present())
+        else claim.update(moreAboutTheCare) -> Redirect(s4_care_you_provide.routes.G8OneWhoPaysPersonalDetails.present)
       })
-  }
-
-  def oneWhoPaysPersonalDetails = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
-
-    Ok(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(oneWhoPaysPersonalDetailsFrom, completedQuestionGroups))
-  }
-
-  def oneWhoPaysPersonalDetailsSubmit = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
-
-    Ok(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(oneWhoPaysPersonalDetailsFrom, completedQuestionGroups))
   }
 
   def completed = claiming { implicit claim => implicit request =>
