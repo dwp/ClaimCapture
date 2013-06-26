@@ -44,7 +44,7 @@ dateOfBirth = Date of birth
 dateOfBirth.day = Date of birth (Day)
 dateOfBirth.month = Date of birth (Month)
 dateOfBirth.year = Date of birth (Year)
-dateOfBirth.helper = eg: 1980
+dateOfBirth.helper = eg: 2013
 nationality = Nationality
 maritalStatus = What is your marital or civil partnership status?
 alwaysLivedUK = Have you always lived in the United Kingdom?
@@ -118,12 +118,15 @@ decimal.invalid = The amount must be in the format 500 or 500.5
 
 # MORE ABOUT THE CARE
 spent35HoursCaring = Do you spend 35 hours or more each week caring for this person?
-spent35HoursCaringBeforeClaim = Did you care for this person for 35 hours or more each week before your claim date: {0}?
+spent35HoursCaringBeforeClaim = Did you care for this person for 35 hours or more each week before your claim date?
+spent35HoursCaringBeforeClaim.label = Did you care for this person for 35 hours or more each week before your claim date: {0}?
 careStartDate = When did you start to care for this person?
-hasSomeonePaidYou = Has someone paid you to care for this person since your claim date: : {0}?
+hasSomeonePaidYou = Has someone paid you to care for this person since your claim date?
+hasSomeonePaidYou.label = Has someone paid you to care for this person since your claim date: {0}?
 
 # BREAKS
-answer = Have you had any breaks in caring since {0}?
+answer = Have you had any breaks in caring since claim date?
+answer.label = Have you had any breaks in caring since {0}?
 breaks.answer.prompt = <p class="intro">By break we mean time when, for any reason, you spent less than 35 hours a week caring for the person you look after. For example, if:</p><ul><li>They were in respite care, in hospital or on holiday without you, or</li><li>You were in hospital or on holiday without them.</li></ul>
 
 # BREAKS IN CARE

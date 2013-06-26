@@ -1,9 +1,8 @@
 @(hasBreaksForm: Form[models.domain.HasBreaks], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import models.domain.BreaksInCare
-@import helper._
-@import utils.helpers.CarersTemplate._
 @import views.html.helper._
+@import models.domain.{Claim,ClaimDate}
 
 @main("Has Breaks - Care You Provide", hasBreaksForm, completedQuestionGroups) {
     <fieldset class="form-elements results-detail" id="trips">
@@ -50,7 +49,10 @@
             <legend>Breaks in Care</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(hasBreaksForm("answer"), 'prompt -> "breaks.answer.prompt")
+            @defining(claim.questionGroup(ClaimDate.id) match{ case Some(s) => Claim.dateFormatGeneration.parseDateTime(s.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString).toString(Claim.dateFormatPrint) case None => "{NO CLAIM DATE}"}) { dateOfClaim =>
+                @yesNoRadioGroup(hasBreaksForm("answer"),'_label -> Messages("answer.label",dateOfClaim))
+            }
+
             </ul>
         </fieldset>
 
