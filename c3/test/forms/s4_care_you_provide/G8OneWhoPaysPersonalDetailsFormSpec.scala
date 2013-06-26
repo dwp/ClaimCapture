@@ -1,16 +1,16 @@
 package forms.s4_care_you_provide
 
 import org.specs2.mutable.Specification
-import forms.CareYouProvide
 import models.DayMonthYear
 import scala.Some
+import controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails
 
 class G8OneWhoPaysPersonalDetailsFormSpec extends Specification {
 
   "One Who Pays Personal Details Form" should {
 
     "map data into case class" in {
-      CareYouProvide.oneWhoPaysPersonalDetailsFrom.bind(
+      G8OneWhoPaysPersonalDetails.form.bind(
         Map("organisation" -> "DWP",
           "title" -> "mr",
           "firstName" -> "Ronald",
@@ -36,42 +36,42 @@ class G8OneWhoPaysPersonalDetailsFormSpec extends Specification {
     }
 
     "reject organisation name of over 100 characters" in {
-      CareYouProvide.oneWhoPaysPersonalDetailsFrom.bind(
+      G8OneWhoPaysPersonalDetails.form.bind(
         Map("organisation" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS")).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject first name of over 60 characters" in {
-      CareYouProvide.oneWhoPaysPersonalDetailsFrom.bind(
+      G8OneWhoPaysPersonalDetails.form.bind(
         Map("firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS")).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject middle name of over 60 characters" in {
-      CareYouProvide.oneWhoPaysPersonalDetailsFrom.bind(
+      G8OneWhoPaysPersonalDetails.form.bind(
         Map("middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS")).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject surname of over 60 characters" in {
-      CareYouProvide.oneWhoPaysPersonalDetailsFrom.bind(
+      G8OneWhoPaysPersonalDetails.form.bind(
         Map("middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS")).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.maxLength"),
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject two decimal amount" in {
-      CareYouProvide.oneWhoPaysPersonalDetailsFrom.bind(
+      G8OneWhoPaysPersonalDetails.form.bind(
         Map("amount" -> "500.50")).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("decimal.invalid"),
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject invalid date" in {
-      CareYouProvide.oneWhoPaysPersonalDetailsFrom.bind(
+      G8OneWhoPaysPersonalDetails.form.bind(
         Map("startDatePayment.year" -> "12345")).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
         f => "This mapping should not happen." must equalTo("Valid"))
