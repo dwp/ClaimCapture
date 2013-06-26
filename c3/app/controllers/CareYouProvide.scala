@@ -72,7 +72,7 @@ object CareYouProvide extends Controller with CachedClaim {
   }
 
   def moreAboutThePerson = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != MoreAboutThePerson.id)
 
     val currentForm: Form[MoreAboutThePerson] = claim.questionGroup(MoreAboutThePerson.id) match {
       case Some(t: MoreAboutThePerson) => moreAboutThePersonForm.fill(t)
@@ -89,7 +89,7 @@ object CareYouProvide extends Controller with CachedClaim {
   }
 
   def previousCarerPersonalDetails = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != PreviousCarerPersonalDetails.id)
 
     val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson.id) match {
       case Some(t: MoreAboutThePerson) => if (t.claimedAllowanceBefore == Mappings.yes) true else false
