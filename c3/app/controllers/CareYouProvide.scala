@@ -7,20 +7,26 @@ import Mappings._
 import models.domain._
 import models.domain.{ HasBreaks, BreaksInCare }
 import scala.collection.immutable.ListMap
-import scala.Some
 import play.api.mvc.Call
 import models.domain.Break
 import forms.CareYouProvide._
+import controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson
 
 object CareYouProvide extends Controller with CachedClaim {
+  import scala.language.implicitConversions
+
+  implicit def controllerToRouting(c: Controller) = c.asInstanceOf[Routing].route
+
   val route: ListMap[String, Call] = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
                                              TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
                                              RepresentativesForPerson.id -> routes.CareYouProvide.representativesForPerson,
                                              MoreAboutThePerson.id -> routes.CareYouProvide.moreAboutThePerson,
                                              PreviousCarerPersonalDetails.id -> routes.CareYouProvide.previousCarerPersonalDetails,
+                                             PreviousCarerContactDetails.id -> routes.CareYouProvide.previousCarerContactDetails,
                                              MoreAboutTheCare.id -> routes.CareYouProvide.moreAboutTheCare,
+                                             G9ContactDetailsOfPayingPerson,
                                              HasBreaks.id -> routes.CareYouProvide.hasBreaks,
-                                             BreaksInCare.id -> routes.CareYouProvide.breaksInCare).asInstanceOf[ListMap[String,Call]]
+                                             BreaksInCare.id -> routes.CareYouProvide.breaksInCare)
 
 
   def theirPersonalDetails = claiming { implicit claim => implicit request =>
@@ -70,12 +76,12 @@ object CareYouProvide extends Controller with CachedClaim {
   def moreAboutThePerson = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
 
-    val moreAboutThePersonFilledForm: Form[MoreAboutThePerson] = claim.questionGroup(MoreAboutThePerson.id) match {
+    val currentForm: Form[MoreAboutThePerson] = claim.questionGroup(MoreAboutThePerson.id) match {
       case Some(t: MoreAboutThePerson) => moreAboutThePersonForm.fill(t)
       case _ => moreAboutThePersonForm
     }
 
-    Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(moreAboutThePersonFilledForm, completedQuestionGroups))
+    Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(currentForm, completedQuestionGroups))
   }
 
   def moreAboutThePersonSubmit = claiming { implicit claim => implicit request =>
@@ -113,8 +119,8 @@ object CareYouProvide extends Controller with CachedClaim {
   def previousCarerContactDetails = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
     
-    val currentForm = claim.questionGroup(PreviousCarerContactDetails.id) match {
-      case Some(h: PreviousCarerContactDetails) => previousCarerContactDetailsForm.fill(h)
+    val currentForm: Form[PreviousCarerContactDetails] = claim.questionGroup(PreviousCarerContactDetails.id) match {
+      case Some(t: PreviousCarerContactDetails) => previousCarerContactDetailsForm.fill(t)
       case _ => previousCarerContactDetailsForm
     }
     
@@ -124,7 +130,7 @@ object CareYouProvide extends Controller with CachedClaim {
   def previousCarerContactDetailsSubmit = claiming { implicit claim => implicit request =>
     previousCarerContactDetailsForm.bindFromRequest.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g5_previousCarerContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
-      theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.CareYouProvide.representativesForPerson))
+      previousCarerContactDetails => claim.update(previousCarerContactDetails) -> Redirect(routes.CareYouProvide.representativesForPerson))
   }
   
   def representativesForPerson = claiming { implicit claim => implicit request =>
@@ -192,6 +198,18 @@ object CareYouProvide extends Controller with CachedClaim {
       })
   }
 
+  def oneWhoPaysPersonalDetails = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+
+    Ok(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(oneWhoPaysPersonalDetailsFrom, completedQuestionGroups))
+  }
+
+  def oneWhoPaysPersonalDetailsSubmit = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+
+    Ok(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(oneWhoPaysPersonalDetailsFrom, completedQuestionGroups))
+  }
+
   def hasBreaks = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != HasBreaks.id)
 
@@ -200,14 +218,24 @@ object CareYouProvide extends Controller with CachedClaim {
       case _ => hasBreaksForm
     }
 
-    Ok(views.html.s4_careYouProvide.g10_hasBreaks(hasBreaksQGForm, completedQuestionGroups))
+    val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
+      case Some(b: BreaksInCare) => b
+      case _ => BreaksInCare()
+    }
+
+    Ok(views.html.s4_careYouProvide.g10_hasBreaks(hasBreaksQGForm, breaksInCare, completedQuestionGroups))
   }
 
   def hasBreaksSubmit = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != HasBreaks.id)
 
+    val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
+      case Some(b: BreaksInCare) => b
+      case _ => BreaksInCare()
+    }
+
     hasBreaksForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g10_hasBreaks(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s4_careYouProvide.g10_hasBreaks(formWithErrors, breaksInCare, completedQuestionGroups)),
       hasBreaks =>
         if (hasBreaks.answer == yes) claim.update(hasBreaks) -> Redirect(routes.CareYouProvide.breaksInCare())
         else claim.update(hasBreaks).delete(BreaksInCare.id) -> Redirect(routes.CareYouProvide.completed()))

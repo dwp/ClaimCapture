@@ -5,7 +5,6 @@ import play.api.test.{ FakeRequest, WithApplication }
 import play.api.cache.Cache
 import play.api.test.Helpers._
 import org.specs2.mock.Mockito
-import models.Postcode
 import play.api.data.Form
 import play.api.data.Mapping
 import play.api.data.validation.Constraints._

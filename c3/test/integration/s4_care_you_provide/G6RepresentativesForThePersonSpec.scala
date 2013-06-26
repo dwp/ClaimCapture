@@ -30,12 +30,9 @@ class G6RepresentativesForThePersonSpec extends Specification with Tags {
        pending("Once G5 is done we will be able to do this")
      }
 
-
-
      "contain the completed forms" in new WithBrowser {
        Helper.fillRepresentativesForThePerson(browser)
        browser.find("div[class=completed] ul li").size() mustEqual 1
      }
-
    }
  }

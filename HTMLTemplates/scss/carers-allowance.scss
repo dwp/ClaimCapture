@@ -407,13 +407,14 @@ $button-green-hover: #004b27;
 				   cursor: pointer;
 				   color: #2e3191;
 				   text-decoration: underline;
-				   font-size: 1.5rem;
+				   font-size: 1.6rem;
 				   margin-top: .5em;
+				   font-weight: 300;
 				   &:hover {
 					   color: inherit;
 				   }
 				   .ie & {
-					   font-size: 15px;
+					   font-size: 16px;
 				   }
 				   span {
 					   display: inline-block;
@@ -1106,5 +1107,5 @@ textarea.demo {text-align: left!important; width: 120%!important; font-size: 1.5
 /* Header - Footer Overrides */
 #global-header #logo img {left: -211px!important;}
 #global-header .header-wrapper {padding: 0.5em 1px!important;}
-#footer .carers-allowance-footer {padding-top: 0;}
+#footer .carers-allowance-footer {padding-top: 0!important;}
 #footer .carers-allowance-footer .footer-meta {margin-top: 0; border-top: 0;}

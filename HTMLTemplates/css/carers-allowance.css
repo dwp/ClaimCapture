@@ -364,12 +364,13 @@
           cursor: pointer;
           color: #2e3191;
           text-decoration: underline;
-          font-size: 1.5rem;
-          margin-top: .5em; }
+          font-size: 1.6rem;
+          margin-top: .5em;
+          font-weight: 300; }
           .carers-allowance .form-elements ul li .helper-more:hover {
             color: inherit; }
           .ie .carers-allowance .form-elements ul li .helper-more {
-            font-size: 15px; }
+            font-size: 16px; }
           .carers-allowance .form-elements ul li .helper-more span {
             display: inline-block;
             background: #f3f3f3;
@@ -858,7 +859,7 @@ textarea.demo {
   padding: 0.5em 1px !important; }
 
 #footer .carers-allowance-footer {
-  padding-top: 0; }
+  padding-top: 0!important; }
 
 #footer .carers-allowance-footer .footer-meta {
   margin-top: 0;

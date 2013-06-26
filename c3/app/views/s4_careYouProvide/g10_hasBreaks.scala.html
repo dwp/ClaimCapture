@@ -1,11 +1,50 @@
-@(hasBreaksForm: Form[models.domain.HasBreaks],completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(hasBreaksForm: Form[models.domain.HasBreaks], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import models.domain.BreaksInCare
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 
-@views.html.s4_careYouProvide.main("Has Breaks - Care You Provide", hasBreaksForm,completedQuestionGroups) {
+@main("Has Breaks - Care You Provide", hasBreaksForm, completedQuestionGroups) {
+    <fieldset class="form-elements results-detail" id="trips">
+        <legend>Trips you have added</legend>
+
+        <table>
+            <caption>Trip details</caption>
+
+            <thead>
+                <tr>
+                    <th>Dates</th>
+                    <th class="desc">Where were you?</th>
+                    <th class="desc">Where was the person you look after?</th>
+                    <th class="desc">Received medical treatment / professional care</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for(break <- breaksInCare.breaks) {
+                    <tr id="@break.id" class="@break.id">
+                        <td class="desc">
+                            @break.start.day/@break.start.month/@break.start.year
+
+                            @for(end <- break.end;
+                                 endDay <- end.day;
+                                 endMonth <- end.month;
+                                 endYear <- end.year) {
+                                <span>to</span>
+                                @endDay/@endMonth/@endYear
+                            }
+                        </td>
+
+                        <td class="desc">@break.whereYou.location</td>
+                        <td class="desc">@break.wherePerson.location</td>
+                        <td class="desc">@break.medicalDuringBreak</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </fieldset>
+
     @form(action = routes.CareYouProvide.hasBreaksSubmit) {
         <fieldset class="form-elements">
             <legend>Breaks in Care</legend>
@@ -22,10 +61,18 @@
         }
 
         <div class="form-steps">
-            <a href="@backHref(CareYouProvide.route,completedQuestionGroups)" class="button secondary">Back</a>
+            <a href="@backHref(CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g10_hasBreaks.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        @if(breaksInCare.breaks.foldLeft(0)((a, _) => a + 1) == 0) {
+            $("#trips").hide();
+        }
+    });
+</script>

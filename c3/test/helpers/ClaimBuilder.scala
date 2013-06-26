@@ -4,7 +4,6 @@ import models.domain._
 import models.DayMonthYear
 import models.MultiLineAddress
 import scala.Some
-import models.Postcode
 
 object ClaimBuilder {
   val yourDetails = YourDetails(title = "mr", firstName = "Phil", middleName = None, surname = "Smith",

@@ -106,6 +106,14 @@ someoneElseActForPerson = Do someone else act for the person you care for?
 someoneElseActAs = Person acts as
 someoneElseFullName = Full name
 
+# ONE WHO PAYS PERSONAL DETAILS
+organisation = Organisation
+amount = How much do you get paid a week?
+startDatePayment = When did the payments start?
+poundSign = £
+decimal.invalid = The amount must be in the format 500 or 500.5
+
+
 # MORE ABOUT THE CARE
 spent35HoursCaring = Do you spend 35 hours or more each week caring for this person?
 spent35HoursCaringBeforeClaim = Did you care for this person for 35 hours or more each week before your claim date: {0}?
@@ -131,4 +139,5 @@ break.wherePerson = Where was the person you care for during the above break?
 wherePerson = Where was the person you care for during the above break?
 moreBreaks = Have you had any more breaks in care for this person since your claim date: {0}
 break.medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
+medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
 medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?

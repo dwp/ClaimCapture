@@ -17,3 +17,7 @@ object DateTimeTemplate {
 object SelectOtherTemplate {
   implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.selectOtherTemplate.f)
 }
+
+object ShortFieldTemplate {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.shortFieldTemplate.f)
+}
