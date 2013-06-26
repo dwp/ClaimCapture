@@ -69,7 +69,7 @@ object CareYouProvide {
       "firstName" -> optional(text(maxLength = sixty)),
       "middleName" -> optional(text(maxLength = sixty)),
       "surname" -> optional(text(maxLength = sixty)),
-      "amount" -> optional(text),
+      "amount" -> optional(text verifying(validDecimalNumber)),
       "startDatePayment" -> optional(dayMonthYear.verifying(validDate))
     )(OneWhoPaysPersonalDetails.apply)(OneWhoPaysPersonalDetails.unapply))
 
