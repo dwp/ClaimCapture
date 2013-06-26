@@ -8,6 +8,7 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import controllers.{Mappings, Routing}
 import scala.Some
+import utils.helpers.CarersForm._
 
 object G8OneWhoPaysPersonalDetails extends Controller with Routing with CachedClaim {
 
@@ -48,7 +49,7 @@ object G8OneWhoPaysPersonalDetails extends Controller with Routing with CachedCl
   def submit = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != OneWhoPaysPersonalDetails.id)
 
-    form.bindFromRequest.fold(
+    form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(formWithErrors, completedQuestionGroups)),
       oneWhoPaysPersonalDetails => claim.update(oneWhoPaysPersonalDetails) -> Redirect(controllers.s4_care_you_provide.routes.G9ContactDetailsOfPayingPerson.present))
   }

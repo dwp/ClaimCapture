@@ -7,6 +7,7 @@ import models.view._
 import models.domain
 import models.domain._
 import scala.Some
+import utils.helpers.CarersForm._
 import scala.collection.immutable.ListMap
 
 object CarersAllowance extends Controller with CachedClaim {
@@ -41,7 +42,7 @@ object CarersAllowance extends Controller with CachedClaim {
   }
 
   def benefitsSubmit = claiming { implicit claim => implicit request =>
-    benefitsForm.bindFromRequest.fold(
+    benefitsForm.bindEncrypted.fold(
       formWithErrors => Redirect(routes.CarersAllowance.benefits()),
       benefits => claim.update(benefits) -> Redirect(routes.CarersAllowance.hours()))
   }
@@ -54,7 +55,7 @@ object CarersAllowance extends Controller with CachedClaim {
   }
 
   def hoursSubmit = claiming { implicit claim => implicit request =>
-    hoursForm.bindFromRequest.fold(
+    hoursForm.bindEncrypted.fold(
       formWithErrors => Redirect(routes.CarersAllowance.hours()),
       hours => claim.update(hours) -> Redirect(routes.CarersAllowance.over16()))
   }
@@ -67,7 +68,7 @@ object CarersAllowance extends Controller with CachedClaim {
   }
 
   def over16Submit = claiming { implicit claim => implicit request =>
-    over16Form.bindFromRequest.fold(
+    over16Form.bindEncrypted.fold(
       formWithErrors => Redirect(routes.CarersAllowance.over16()),
       over16 => claim.update(over16) -> Redirect(routes.CarersAllowance.livesInGB()))
   }
@@ -80,7 +81,7 @@ object CarersAllowance extends Controller with CachedClaim {
   }
 
   def livesInGBSubmit = claiming { implicit claim => implicit request =>
-    livesInGBForm.bindFromRequest.fold(
+    livesInGBForm.bindEncrypted.fold(
       formWithErrors => Redirect(routes.CarersAllowance.livesInGB()),
       livesInGB => claim.update(livesInGB) -> Redirect(routes.CarersAllowance.approve()))
   }

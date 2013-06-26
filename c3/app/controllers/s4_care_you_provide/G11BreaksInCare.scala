@@ -7,6 +7,7 @@ import models.domain._
 import controllers.Routing
 import play.api.data.Forms._
 import controllers.Mappings._
+import utils.helpers.CarersForm._
 
 object G11BreaksInCare extends Controller with Routing with CachedClaim {
   override val route = BreaksInCare.id -> controllers.s4_care_you_provide.routes.G11BreaksInCare.present
@@ -53,7 +54,7 @@ object G11BreaksInCare extends Controller with Routing with CachedClaim {
       case _ => BreaksInCare()
     }
 
-    breakInCareForm.bindFromRequest.fold(
+    breakInCareForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_breaksInCare(formWithErrors, breaksInCare, completedQuestionGroups)),
       breakInCare => {
         val updatedBreaksInCare = breakInCare.break.fold(breaksInCare)(break => if (breaksInCare.breaks.size == 10) breaksInCare else breaksInCare.update(break))
@@ -78,7 +79,7 @@ object G11BreaksInCare extends Controller with Routing with CachedClaim {
   }
 
   def breakSubmit = claiming { implicit claim => implicit request =>
-    breakForm.bindFromRequest.fold(
+    breakForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g11_break(formWithErrors)),
       break => {
         val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
