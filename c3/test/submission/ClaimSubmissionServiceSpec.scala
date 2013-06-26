@@ -18,7 +18,7 @@ class ClaimSubmissionServiceSpec extends Specification with Tags {
         .update(aboutYou.claimDate)
         .update(aboutYou.contactDetails)
 
-      val claimSub = ClaimSubmission(claim)
+      val claimSub = ClaimSubmission(claim, "TY6TV9G")
       val claimXml = claimSub.buildDwpClaim
       val futureResp = ClaimSubmissionService.submitClaim(claimXml)
       val resp = Await.result(futureResp, Duration("10 seconds"))

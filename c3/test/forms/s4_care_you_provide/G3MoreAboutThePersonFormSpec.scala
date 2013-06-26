@@ -21,20 +21,20 @@ class G3MoreAboutThePersonFormSpec extends Specification {
     }
 
     "have a mandatory relationship" in {
-      CareYouProvide.theirContactDetailsForm.bind(
+      CareYouProvide.moreAboutThePersonForm.bind(
         Map("relationship" -> "", "" -> "", "claimedAllowanceBefore" -> "yes")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
-        theirContactDetails => "This mapping should not happen." must equalTo("Valid")
+        moreAboutThePerson => "This mapping should not happen." must equalTo("Valid")
       )
     }
 
     "have a mandatory 'has claimed Carer's Allowance before' question" in {
-      CareYouProvide.theirContactDetailsForm.bind(
+      CareYouProvide.moreAboutThePersonForm.bind(
         Map("relationship" -> "father", "" -> "", "claimedAllowanceBefore" -> "")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
-        theirContactDetails => "This mapping should not happen." must equalTo("Valid")
+        moreAboutThePerson => "This mapping should not happen." must equalTo("Valid")
       )
     }
   }

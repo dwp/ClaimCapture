@@ -1,9 +1,8 @@
 package services.submission
 
-import scala.xml.Elem
 import models.domain._
 
-case class ClaimSubmission(claim: Claim, transactionId : String = "Don't know how to generate yet?") {
+case class ClaimSubmission(claim: Claim, transactionId : String) {
   val aboutYou = buildAboutYou(claim)
 
   def buildDwpClaim = {
@@ -294,7 +293,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String = "Don't know ho
   }
 
   private def buildClaimant = {
-    <Claimant>                                               
+    <Claimant>
       <DateOfClaim>{aboutYou.claimDate.dateOfClaim.toXmlString}</DateOfClaim>
       <Surname>{aboutYou.yourDetails.surname}</Surname>
       <OtherNames>{s"${aboutYou.yourDetails.firstName} ${aboutYou.yourDetails.middleName.getOrElse("")}"}</OtherNames>

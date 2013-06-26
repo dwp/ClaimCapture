@@ -57,8 +57,8 @@ GET     /yourpartner/yourpartner                        controllers.YourPartner.
 GET     /careYouProvide/theirPersonalDetails            controllers.s4_care_you_provide.G1TheirPersonalDetails.present
 POST    /careYouProvide/theirPersonalDetails            controllers.s4_care_you_provide.G1TheirPersonalDetails.submit
 
-GET     /careYouProvide/theirContactDetails             controllers.CareYouProvide.theirContactDetails
-POST    /careYouProvide/theirContactDetails             controllers.CareYouProvide.theirContactDetailsSubmit
+GET     /careYouProvide/theirContactDetails             controllers.s4_care_you_provide.G2TheirContactDetails.present
+POST    /careYouProvide/theirContactDetails             controllers.s4_care_you_provide.G2TheirContactDetails.submit
 
 GET     /careYouProvide/moreAboutThePerson              controllers.CareYouProvide.moreAboutThePerson
 POST    /careYouProvide/moreAboutThePerson              controllers.CareYouProvide.moreAboutThePersonSubmit

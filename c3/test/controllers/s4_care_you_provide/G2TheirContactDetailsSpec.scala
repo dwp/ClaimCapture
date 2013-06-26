@@ -12,7 +12,7 @@ import models.domain.Section
 import scala.Some
 import models.domain.TheirContactDetails
 
-class G2TheirContactDetails extends Specification with Mockito {
+class G2TheirContactDetailsSpec extends Specification with Mockito {
 
   val theirContactDetailsInput = Seq("address.lineOne" -> "123 Street",
         "postcode" -> "PR2 8AE", 
@@ -24,7 +24,7 @@ class G2TheirContactDetails extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(theirContactDetailsInput: _*)
 
-      val result = controllers.CareYouProvide.theirContactDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G2TheirContactDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
@@ -41,7 +41,7 @@ class G2TheirContactDetails extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
-      val result = controllers.CareYouProvide.theirContactDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G2TheirContactDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -49,7 +49,7 @@ class G2TheirContactDetails extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(theirContactDetailsInput: _*)
 
-      val result = controllers.CareYouProvide.theirContactDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G2TheirContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   }

@@ -1,15 +1,14 @@
-package forms.s4_care_you_provide
+package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
-import forms.CareYouProvide
 
-class G2TheirContactDetailsFormSpec extends Specification {
+  class G2TheirContactDetailsFormSpec extends Specification {
   val validPostcode: String = "SE1 6EH"
   
   "Their Contact Details Form" should {
 
     "map data into case class" in {
-      CareYouProvide.theirContactDetailsForm.bind(
+      G2TheirContactDetails.form.bind(
         Map("address.lineOne" -> "lineOne", "address.lineTwo" -> "lineTwo", "address.lineThree" -> "lineThree", "postcode" -> validPostcode, "phoneNumber" -> "020-76542059")
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
@@ -24,7 +23,7 @@ class G2TheirContactDetailsFormSpec extends Specification {
     }
 
     "have a mandatory address" in {
-      CareYouProvide.theirContactDetailsForm.bind(
+      G2TheirContactDetails.form.bind(
         Map("address.lineOne" -> "", "address.lineTwo" -> "", "address.lineThree" -> "", "postcode" -> "", "phoneNumber" -> "")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
@@ -33,7 +32,7 @@ class G2TheirContactDetailsFormSpec extends Specification {
     }
 
     "reject an invalid postcode" in {
-      CareYouProvide.theirContactDetailsForm.bind(
+      G2TheirContactDetails.form.bind(
         Map("address.lineOne" -> "lineOne", "address.lineTwo" -> "", "address.lineThree" -> "", "postcode" -> "INVALID")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.postcode"),
@@ -42,7 +41,7 @@ class G2TheirContactDetailsFormSpec extends Specification {
     }
 
     "reject an invalid phone number" in {
-      CareYouProvide.theirContactDetailsForm.bind(
+      G2TheirContactDetails.form.bind(
         Map("address.lineOne" -> "lineOne", "address.lineTwo" -> "", "address.lineThree" -> "", "phoneNumber" -> "abcdef")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
