@@ -23,7 +23,7 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
 
   def present = claiming { implicit claim => implicit request =>
 
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != TheirContactDetails.id)
 
     val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
       case Some(t: TheirPersonalDetails) => t.liveAtSameAddress == yes
@@ -48,7 +48,7 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
+      formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != TheirContactDetails.id))),
       theirContactDetails => claim.update(theirContactDetails) -> Redirect(controllers.routes.CareYouProvide.moreAboutThePerson()))
   }
 
