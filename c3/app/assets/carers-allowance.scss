@@ -527,7 +527,6 @@ $button-green-hover: #004b27;
 						   cursor: pointer;
 						   .ie7 &, .ie8 & {
 							   left: 10px;
-							   top: 16px;
 						   }
 					   }
 					   label {
@@ -667,6 +666,8 @@ $button-green-hover: #004b27;
 					   width: 7.6rem;
 					   background: #f9f9f9;
 					   .ie8 &, .ie7 & {
+					   	   position: relative;
+					   	   top: 5px;
 						   width: 60px;
 						   font-size: 14px;
 						   padding: 5px 8px;
@@ -1013,7 +1014,6 @@ $button-green-hover: #004b27;
 		   }
 		   .ie7 &, .ie8 & {
 			   padding-top: 0;
-			   background: red;
 		   }
 		   &:hover {
 			   background: $button-green-hover;
@@ -1022,6 +1022,9 @@ $button-green-hover: #004b27;
 		   	   top: 3px;
 			   background: $button-green-hover;
 			   box-shadow: 0 0 0 transparent;
+			   .ie7 &, .ie8 & {
+				   top: 0;
+			   }
 		   }
 		   &.secondary {
 			   background: #dee0e2;
