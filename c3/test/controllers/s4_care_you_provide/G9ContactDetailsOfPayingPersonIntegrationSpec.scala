@@ -19,5 +19,17 @@ class G9ContactDetailsOfPayingPersonIntegrationSpec extends Specification with T
 
       browser.title() mustEqual "Has Breaks - Care You Provide"
     }
+
+    """be submitted with data, proceed to "breaks" and go back""" in new WithBrowser {
+      Helper.fillMoreAboutTheCare(browser)
+
+      browser.goTo("/careYouProvide/contactDetailsOfPayingPerson")
+      browser.fill("#postcode") `with` "BLAH"
+      browser.submit("button[value='next']")
+      browser.title() mustEqual "Has Breaks - Care You Provide"
+
+      browser.click(".form-steps a")
+      browser.$("#postcode").getValue mustEqual "BLAH"
+    }
   } section "integration"
 }

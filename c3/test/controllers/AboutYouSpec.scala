@@ -179,7 +179,7 @@ class AboutYouSpec extends Specification with Mockito {
       Cache.set(claimKey, claim)
 
       val result = controllers.AboutYou.completedSubmit(request)
-      redirectLocation(result) must beSome("/yourpartner/yourpartner")
+      redirectLocation(result) must beSome("/careYouProvide/theirPersonalDetails")
     }
 
     "continue to partner/spouse upon section completion when all forms are done including 'time outside UK'" in new WithApplication with Claiming {
@@ -200,7 +200,7 @@ class AboutYouSpec extends Specification with Mockito {
       Cache.set(claimKey, claim)
 
       val result = controllers.AboutYou.completedSubmit(request)
-      redirectLocation(result) must beSome("/yourpartner/yourpartner")
+      redirectLocation(result) must beSome("/careYouProvide/theirPersonalDetails")
     }
   }
 }
