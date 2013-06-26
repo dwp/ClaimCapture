@@ -4,27 +4,30 @@ import org.specs2.mutable.Specification
 import forms.CareYouProvide.previousCarerContactDetailsForm
 
 class G5PreviousCarerContactDetailsFormSpec extends Specification {
-  val validPostcode: String = "SE1 6EH"
+  val addressLineOne = "123 Street"
+  val postcode: String = "SE1 6EH"
+  val phoneNumber = "02076541058"
+  val mobileNumber = "01818118181"
   
   "Previous Carer Contact Details Form" should {
 
     "map data into case class" in {
       previousCarerContactDetailsForm.bind(
-        Map("address.lineOne" -> "lineOne", 
+        Map("address.lineOne" -> addressLineOne, 
             "address.lineTwo" -> "lineTwo", 
             "address.lineThree" -> "lineThree", 
-            "postcode" -> validPostcode, 
-            "phoneNumber" -> "020-76542059",
-            "mobileNumber" -> "020-76542059")
+            "postcode" -> postcode, 
+            "phoneNumber" -> phoneNumber,
+            "mobileNumber" -> mobileNumber)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.address.get.lineOne must equalTo(Some("lineOne"))
+          f.address.get.lineOne must equalTo(Some(addressLineOne))
           f.address.get.lineTwo must equalTo(Some("lineTwo"))
           f.address.get.lineThree must equalTo(Some("lineThree"))
-          f.postcode must equalTo(Some(validPostcode))
-          f.phoneNumber must equalTo(Some("020-76542059"))
-          f.mobileNumber must equalTo(Some("020-76542059"))
+          f.postcode must equalTo(Some(postcode))
+          f.phoneNumber must equalTo(Some(phoneNumber))
+          f.mobileNumber must equalTo(Some(mobileNumber))
         }
       )
     }
