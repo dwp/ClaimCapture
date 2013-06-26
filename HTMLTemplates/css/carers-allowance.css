@@ -13,6 +13,7 @@
   /* prompt panel */
   /* prompt panel end */
   /* button panel */
+  /* button panel */
   /* button styling */
   /* button styling end */ }
   @media screen and (max-width: 640px) {
@@ -765,29 +766,50 @@
       clear: both; }
     .carers-allowance .form-steps a {
       font-weight: 400; }
+  .carers-allowance .form-steps {
+    margin-top: 1.2em;
+    padding-left: 1em; }
+    @media screen and (max-width: 500px) {
+      .carers-allowance .form-steps {
+        padding-left: 0; } }
+    .carers-allowance .form-steps p {
+      padding-bottom: 0.2em;
+      clear: both; }
+    .carers-allowance .form-steps a {
+      font-weight: 500; }
   .carers-allowance .button {
-    font-size: 2rem;
-    line-height: 1.25em;
+    font-size: 1.9rem;
+    line-height: 1em;
     color: #fff;
     border-radius: 3px;
     box-shadow: 0 3px 0 black;
     border: 0;
-    padding: 0.35em 1em 0.15em 1em;
+    padding: 0.4em 1em 0.25em 1em;
     cursor: pointer;
     -webkit-appearance: none;
     display: inline-block;
     margin: 0.8em 0.25em 0 0;
     background: #006435;
-    font-weight: 400;
+    font-weight: 500;
+    text-decoration: none;
+    top: 0;
     position: relative;
-    top: -3px;
-    text-decoration: none; }
+    overflow: visible; }
+    .carers-allowance .button:before {
+      content: "";
+      background: transparent;
+      width: 100%;
+      height: 40px;
+      display: block;
+      position: absolute;
+      top: -3px;
+      left: 0; }
     .ie .carers-allowance .button {
-      font-size: 20px; }
+      font-size: 19px; }
     .carers-allowance .button:hover {
       background: #004b27; }
     .carers-allowance .button:active {
-      top: 0;
+      top: 3px;
       background: #004b27;
       box-shadow: 0 0 0 transparent; }
     .carers-allowance .button.secondary {
