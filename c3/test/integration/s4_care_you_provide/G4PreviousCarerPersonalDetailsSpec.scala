@@ -46,5 +46,17 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Tags {
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
+    
+    "navigating forward and back presents the same completed question list" in new WithBrowser {
+      Helper.fillTheirPersonalDetails(browser)
+      Helper.fillTheirContactDetails(browser)
+      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      browser.find("div[class=completed] ul li").size mustEqual 3
+      Helper.fillPreviousCarerPersonalDetails(browser)
+      browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // DELETE
+      browser.find("div[class=completed] ul li").size mustEqual 4
+      browser.click("#backButton")
+      browser.find("div[class=completed] ul li").size mustEqual 3
+    }
   } section "integration"
 }

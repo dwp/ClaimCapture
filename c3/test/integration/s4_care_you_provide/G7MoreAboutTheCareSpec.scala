@@ -39,5 +39,36 @@ class G7MoreAboutTheCareSpec extends Specification with Tags {
        browser.find("div[class=completed] ul li").size() mustEqual 1
      }
 
+     "chose no options navigate back twice to Previous Carer Contact Details" in new WithBrowser { // [SKW] This tests a problem I was having where pressing back twice wasn't getting back passed the S4 G4, the problem was with Controller action fetching previous question groups being different for pages using backHref.
+      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Helper.fillPreviousCarerPersonalDetails(browser)
+      Helper.fillPreviousCarerContactDetails(browser)
+      browser.title() mustEqual "Representatives For The Person - Care You Provide"
+      browser.click("#actForPerson_no")
+      browser.click("#someoneElseActForPerson_no")
+      browser.submit("button[type='submit']")
+      browser.title() mustEqual "More about the care you provide - Care You Provide" // Landed on S4 G6
+      browser.click("#backButton")
+      browser.title() mustEqual "Representatives For The Person - Care You Provide"
+      browser.click("#backButton")
+      browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G4
+    }
+
+   "choose yes options navigate back twice to Previous Carer Contact Details" in new WithBrowser { // [SKW] This tests a problem I was having where pressing back twice wasn't getting back passed the S4 G4, the problem was with Controller action fetching previous question groups being different for pages using backHref.
+     Helper.fillTheirPersonalDetails(browser)
+     Helper.fillTheirContactDetails(browser)
+     Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Helper.fillPreviousCarerPersonalDetails(browser)
+      Helper.fillPreviousCarerContactDetails(browser)
+      browser.click("#actForPerson_yes")
+      browser.click("#actAs option[value='guardian']")
+      browser.click("#someoneElseActForPerson_yes")
+      browser.click("#someoneElseActAs option[value='attorney']")
+      browser.submit("button[type='submit']")
+      browser.title() mustEqual "More about the care you provide - Care You Provide" // Landed on S4 G7
+      browser.click("#backButton")
+      browser.click("#backButton")
+      browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G4
+    }
    }
  }

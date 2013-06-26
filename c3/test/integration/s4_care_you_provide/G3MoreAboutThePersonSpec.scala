@@ -39,5 +39,32 @@ class G3MoreAboutThePersonSpec extends Specification with Tags {
       Helper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       browser.title() mustEqual "Representatives For The Person - Care You Provide"
     }
+    
+    "navigating forward and back presents the same completed question list" in new WithBrowser {
+      Helper.fillTheirPersonalDetails(browser)
+      Helper.fillTheirContactDetails(browser)
+      browser.find("div[class=completed] ul li").size mustEqual 2
+      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide" // DELETE
+      browser.find("div[class=completed] ul li").size mustEqual 3
+      browser.click("#backButton")
+      browser.find("div[class=completed] ul li").size mustEqual 2
+    }
+    
+    "navigating forward and back and change answer to nobody claimed allowance for this person before presents the completed question list without the invalidated history" in new WithBrowser {
+      Helper.fillTheirPersonalDetails(browser)
+      Helper.fillTheirContactDetails(browser)
+      browser.find("div[class=completed] ul li").size mustEqual 2
+      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide" // DELETE
+      browser.find("div[class=completed] ul li").size mustEqual 3
+      Helper.fillPreviousCarerPersonalDetails(browser)
+      browser.click("#backButton")
+      browser.click("#backButton")
+      browser.find("div[class=completed] ul li").size mustEqual 2
+      Helper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
+      browser.title() mustEqual "Representatives For The Person - Care You Provide"
+      browser.find("div[class=completed] ul li").size mustEqual 3
+    }
   } section "integration"
 }
