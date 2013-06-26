@@ -27,13 +27,13 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Tags {
       browser.click("#backButton")
       browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G4
     }
-    
+
     "navigate to next page on valid submission" in new WithBrowser {
       browser.goTo("/careYouProvide/previousCarerContactDetails")
       browser.submit("button[type='submit']")
       browser.title() mustEqual "Representatives For The Person - Care You Provide"
     }
-    
+
     "contain the completed forms" in new WithBrowser {
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       Helper.fillPreviousCarerPersonalDetails(browser)

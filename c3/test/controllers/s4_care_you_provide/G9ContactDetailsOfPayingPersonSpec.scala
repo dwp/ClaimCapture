@@ -18,7 +18,7 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification {
       val claim = Claim().update(moreAboutTheCare)
       Cache.set(claimKey, claim)
 
-      val result = controllers.CareYouProvide.contactDetailsOfPayingPerson(request)
+      val result = G9ContactDetailsOfPayingPerson.present(request)
       redirectLocation(result) must beSome("/careYouProvide/hasBreaks")
     }
 
@@ -31,12 +31,19 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification {
       val claim = Claim().update(moreAboutTheCare)
       Cache.set(claimKey, claim)
 
-      val result = controllers.CareYouProvide.contactDetailsOfPayingPerson(request)
+      val result = G9ContactDetailsOfPayingPerson.present(request)
       status(result) mustEqual OK
     }
 
-    """be submitted and proceed to "breaks" """ in new WithApplication with Claiming {
+    "be added to claim" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
 
+      val result = G9ContactDetailsOfPayingPerson.submit(request)
+      redirectLocation(result) must beSome("/careYouProvide/hasBreaks")
+
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      claim.questionGroup(ContactDetailsOfPayingPerson.id) must beSome(ContactDetailsOfPayingPerson(None, None))
     }
   }
 }

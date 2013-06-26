@@ -7,12 +7,16 @@ import Mappings._
 import models.domain._
 import models.domain.{ HasBreaks, BreaksInCare }
 import scala.collection.immutable.ListMap
-import scala.Some
 import play.api.mvc.Call
 import models.domain.Break
 import forms.CareYouProvide._
+import controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson
 
 object CareYouProvide extends Controller with CachedClaim {
+  import scala.language.implicitConversions
+
+  implicit def controllerToRouting(c: Controller) = c.asInstanceOf[Routing].route
+
   val route: ListMap[String, Call] = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
                                              TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
                                              RepresentativesForPerson.id -> routes.CareYouProvide.representativesForPerson,
@@ -20,8 +24,9 @@ object CareYouProvide extends Controller with CachedClaim {
                                              PreviousCarerPersonalDetails.id -> routes.CareYouProvide.previousCarerPersonalDetails,
                                              PreviousCarerContactDetails.id -> routes.CareYouProvide.previousCarerContactDetails,
                                              MoreAboutTheCare.id -> routes.CareYouProvide.moreAboutTheCare,
+                                             G9ContactDetailsOfPayingPerson,
                                              HasBreaks.id -> routes.CareYouProvide.hasBreaks,
-                                             BreaksInCare.id -> routes.CareYouProvide.breaksInCare).asInstanceOf[ListMap[String,Call]]
+                                             BreaksInCare.id -> routes.CareYouProvide.breaksInCare)
 
 
   def theirPersonalDetails = claiming { implicit claim => implicit request =>
@@ -203,31 +208,6 @@ object CareYouProvide extends Controller with CachedClaim {
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
 
     Ok(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(oneWhoPaysPersonalDetailsFrom, completedQuestionGroups))
-  }
-
-  def contactDetailsOfPayingPerson = claiming { implicit claim => implicit request =>
-    claim.questionGroup(MoreAboutTheCare.id) match {
-      case Some(MoreAboutTheCare(_, _, _, "yes")) => {
-        val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
-
-        val contactDetailsOfPayingPersonQGForm: Form[ContactDetailsOfPayingPerson] = claim.questionGroup(ContactDetailsOfPayingPerson.id) match {
-          case Some(c: ContactDetailsOfPayingPerson) => contactDetailsOfPayingPersonForm.fill(c)
-          case _ => contactDetailsOfPayingPersonForm
-        }
-
-        Ok(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(contactDetailsOfPayingPersonQGForm, completedQuestionGroups))
-      }
-
-      case _ => Redirect(routes.CareYouProvide.hasBreaks())
-    }
-  }
-
-  def contactDetailsOfPayingPersonSubmit = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
-
-    contactDetailsOfPayingPersonForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),
-      contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(routes.CareYouProvide.hasBreaks))
   }
 
   def hasBreaks = claiming { implicit claim => implicit request =>
