@@ -30,7 +30,7 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
         Ok(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(contactDetailsOfPayingPersonForm, completedQuestionGroups))
       }
 
-      case _ => Redirect(controllers.routes.CareYouProvide.hasBreaks())
+      case _ => Redirect(routes.G10HasBreaks.present)
     }
   }
 
@@ -39,6 +39,6 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
 
     form.bindFromRequest.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),
-      contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(controllers.routes.CareYouProvide.hasBreaks))
+      contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(routes.G10HasBreaks.present))
   }
 }
