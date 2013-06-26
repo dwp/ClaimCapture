@@ -8,7 +8,7 @@ import models.domain._
 import scala.collection.immutable.ListMap
 import play.api.mvc.Call
 import forms.CareYouProvide._
-import s4_care_you_provide.{G8OneWhoPaysPersonalDetails, G11BreaksInCare, G10HasBreaks, G9ContactDetailsOfPayingPerson}
+import controllers.s4_care_you_provide.{G8OneWhoPaysPersonalDetails,G11BreaksInCare, G10HasBreaks, G9ContactDetailsOfPayingPerson}
 
 object CareYouProvide extends Controller with CachedClaim {
   import Routing._

@@ -4,9 +4,10 @@
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
+@import utils.helpers.CarersCrypto
 @import scala.language.postfixOps
 
-<ul class="inline year" id="@id">
+<ul class="inline year" id="@CarersCrypto.encryptAES(id)">
     <li>
         @carersSelect(field("day"), options = Seq("" -> "Day") ++ ((1 to 31) map(v => (v toString) -> (if (v < 10) "0" + v else (v toString)))).asInstanceOf[Seq[(String, String)]])
     </li>

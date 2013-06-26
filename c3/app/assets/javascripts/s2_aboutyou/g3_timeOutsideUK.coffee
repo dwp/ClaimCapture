@@ -1,12 +1,11 @@
-$ ->
-  $("#currentlyLivingInUK_yes").on "click", ->
+window.initEvents = (currentlyLivingUKIDY,currentlyLivingUKIDN,planGoBackY,planGoBackN)->
+  $("#"+currentlyLivingUKIDY).on "click", ->
+    $("#livingInUK").slideDown 500
+  $("#"+currentlyLivingUKIDN).on "click", ->
     $("#livingInUK").slideUp 500
 
-  $("#currentlyLivingInUK_no").on "click", ->
-    $("#livingInUK").slideDown 500
-
-  $("#planToGoBack_yes").on "click", ->
+  $("#"+planGoBackY).on "click", ->
     $("#planingToGoBack").slideDown 500
 
-  $("#planToGoBack_no").on "click", ->
+  $("#"+planGoBackN).on "click", ->
     $("#planingToGoBack").slideUp 500

@@ -7,6 +7,7 @@ import models.domain._
 import controllers.Routing
 import play.api.data.Forms._
 import controllers.Mappings._
+import utils.helpers.CarersForm._
 
 object G9ContactDetailsOfPayingPerson extends Controller with Routing with CachedClaim {
 
@@ -38,7 +39,7 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
   def submit = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
 
-    form.bindFromRequest.fold(
+    form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),
       contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(routes.G10HasBreaks.present))
   }
