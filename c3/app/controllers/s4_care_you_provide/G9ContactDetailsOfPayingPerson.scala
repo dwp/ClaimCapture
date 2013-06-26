@@ -10,6 +10,7 @@ import controllers.Mappings._
 import utils.helpers.CarersForm._
 
 object G9ContactDetailsOfPayingPerson extends Controller with Routing with CachedClaim {
+
   override val route = ContactDetailsOfPayingPerson.id -> controllers.s4_care_you_provide.routes.G9ContactDetailsOfPayingPerson.present
 
   val form = Form(

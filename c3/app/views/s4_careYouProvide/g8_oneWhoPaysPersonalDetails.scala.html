@@ -9,7 +9,7 @@
 
 @main("One Who Pays You - Care You Provide", currentForm, completedQuestionGroups) {
 
-    @form(action = routes.CareYouProvide.oneWhoPaysPersonalDetailsSubmit) {
+    @form(action = controllers.s4_care_you_provide.routes.G8OneWhoPaysPersonalDetails.submit) {
     
         <fieldset class="form-elements">
             <legend>Details of the person/organisation who pays you</legend>
@@ -34,7 +34,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a href="@routes.AboutYou.completed" class="button secondary">Back</a>
+            <a id="backButton" href="@backHref(CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
