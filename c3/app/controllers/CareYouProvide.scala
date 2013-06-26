@@ -88,7 +88,7 @@ object CareYouProvide extends Controller with CachedClaim {
       }
 
       Ok(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(currentForm, completedQuestionGroups))
-    } else Redirect(routes.CareYouProvide.representativesForPerson)
+    } else claim.delete(PreviousCarerPersonalDetails.id) -> Redirect(routes.CareYouProvide.previousCarerContactDetails)
   }
   
   def previousCarerPersonalDetailsSubmit = claiming {implicit claim =>implicit request =>
@@ -113,7 +113,7 @@ object CareYouProvide extends Controller with CachedClaim {
       }
       
       Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
-    } else Redirect(routes.CareYouProvide.representativesForPerson)
+    } else claim.delete(PreviousCarerContactDetails.id) -> Redirect(routes.CareYouProvide.representativesForPerson)
   }
 
   def previousCarerContactDetailsSubmit = claiming { implicit claim => implicit request =>
