@@ -46,5 +46,5 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Tags {
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
-  }
+  } section "integration"
 }
