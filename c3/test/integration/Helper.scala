@@ -138,6 +138,17 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
+  def fillMoreAboutTheCareWithNotPaying(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/moreAboutTheCare")
+    browser.click("#spent35HoursCaring_yes")
+    browser.click("#spent35HoursCaringBeforeClaim_yes")
+    browser.click("#hasSomeonePaidYou_no")
+    browser.click("#careStartDate_day option[value='3']")
+    browser.click("#careStartDate_month option[value='4']")
+    browser.fill("#careStartDate_year") `with` "1950"
+    browser.submit("button[type='submit']")
+  }
+
   def fillMoreAboutThePersonWithClaimedAllowanceBefore(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/moreAboutThePerson")
     browser.click("#relationship option[value='father']")
@@ -167,6 +178,13 @@ object Helper {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillPreviousCarerContactDetails(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/previousCarerContactDetails")
+    browser.fill("#address_lineOne") `with` "My Address"
+    browser.fill("#postcode") `with` "SE1 6EH"
     browser.submit("button[type='submit']")
   }
 }

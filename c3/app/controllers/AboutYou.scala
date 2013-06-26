@@ -9,6 +9,7 @@ import models.domain._
 import scala.Some
 import Mappings._
 import scala.collection.immutable.ListMap
+import utils.helpers.CarersForm._
 
 object AboutYou extends Controller with CachedClaim {
   val route: ListMap[String, Call] = ListMap(YourDetails.id -> routes.AboutYou.yourDetails,
@@ -17,7 +18,7 @@ object AboutYou extends Controller with CachedClaim {
                                             ClaimDate.id -> routes.AboutYou.claimDate,
                                             MoreAboutYou.id -> routes.AboutYou.moreAboutYou,
                                             Employment.id -> routes.AboutYou.employment,
-                                            PropertyAndRent.id -> routes.AboutYou.propertyAndRent)
+                                            PropertyAndRent.id -> routes.AboutYou.propertyAndRent).asInstanceOf[ListMap[String,Call]]
 
   val yourDetailsForm = Form(
     mapping(
@@ -87,7 +88,7 @@ object AboutYou extends Controller with CachedClaim {
   }
 
   def yourDetailsSubmit = claiming { implicit claim => implicit request =>
-    yourDetailsForm.bindFromRequest.fold(
+    yourDetailsForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_aboutyou.g1_yourDetails(formWithErrors)),
       yourDetails => claim.update(yourDetails) -> Redirect(routes.AboutYou.contactDetails()))
   }
@@ -106,7 +107,7 @@ object AboutYou extends Controller with CachedClaim {
   def contactDetailsSubmit = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-    contactDetailsForm.bindFromRequest.fold(
+    contactDetailsForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_aboutyou.g2_contactDetails(formWithErrors, completedQuestionGroups.takeWhile(_.id != ContactDetails.id))),
       contactDetails => claim.update(contactDetails) -> Redirect(routes.AboutYou.timeOutsideUK()))
   }
@@ -139,7 +140,7 @@ object AboutYou extends Controller with CachedClaim {
 
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-    timeOutsideUKForm.bindFromRequest.fold(
+    timeOutsideUKForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_aboutyou.g3_timeOutsideUK(formWithErrors, completedQuestionGroups.takeWhile(_.id != TimeOutsideUK.id))),
       implicit timeOutsideUK => {
         val formValidations = livingInUK _ andThen planToGoBack _
@@ -164,7 +165,7 @@ object AboutYou extends Controller with CachedClaim {
   def claimDateSubmit = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-    claimDateForm.bindFromRequest.fold(
+    claimDateForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_aboutyou.g4_claimDate(formWithErrors, completedQuestionGroups.takeWhile(_.id != ClaimDate.id))),
       claimDate => claim.update(claimDate) -> Redirect(routes.AboutYou.moreAboutYou()))
   }
@@ -186,7 +187,7 @@ object AboutYou extends Controller with CachedClaim {
   def moreAboutYouSubmit = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-    moreAboutYouForm.bindFromRequest.fold(
+    moreAboutYouForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_aboutyou.g5_moreAboutYou(formWithErrors, completedQuestionGroups.takeWhile(_.id != MoreAboutYou.id))),
       moreAboutYou => claim.update(moreAboutYou) -> Redirect(routes.AboutYou.employment()))
   }
@@ -208,7 +209,7 @@ object AboutYou extends Controller with CachedClaim {
   def employmentSubmit = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-    employmentForm.bindFromRequest.fold(
+    employmentForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_aboutyou.g6_employment(formWithErrors, completedQuestionGroups.takeWhile(_.id != Employment.id))),
       employment => claim.update(employment) -> Redirect(routes.AboutYou.propertyAndRent()))
   }
@@ -230,7 +231,7 @@ object AboutYou extends Controller with CachedClaim {
   def propertyAndRentSubmit = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-    propertyAndRentForm.bindFromRequest.fold(
+    propertyAndRentForm.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_aboutyou.g7_propertyAndRent(formWithErrors, completedQuestionGroups.takeWhile(_.id != PropertyAndRent.id))),
       propertyAndRent => claim.update(propertyAndRent) -> Redirect(routes.AboutYou.completed()))
   }
@@ -246,10 +247,10 @@ object AboutYou extends Controller with CachedClaim {
 
     claim.questionGroup(YourDetails.id) match {
       case Some(YourDetails(_, _, _, _, _, _, _, _, _, "no")) if completedQuestionGroups.distinct.size == 7 =>
-        Redirect(routes.YourPartner.yourPartner())
+        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
 
       case Some(YourDetails(_, _, _, _, _, _, _, _, _, _)) if completedQuestionGroups.distinct.size == 6 =>
-        Redirect(routes.YourPartner.yourPartner())
+        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
 
       case _ => Redirect(routes.AboutYou.yourDetails())
     }

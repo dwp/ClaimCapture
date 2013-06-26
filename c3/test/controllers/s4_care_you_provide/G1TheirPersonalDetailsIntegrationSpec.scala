@@ -1,10 +1,10 @@
-package integration.s4_care_you_provide
+package controllers.s4_care_you_provide
 
-import org.specs2.mutable.{ Tags, Specification }
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import integration.Helper
 
-class G1TheirPersonalDetailsSpec extends Specification with Tags {
+class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
 
   "Their Personal Details" should {
     "be presented" in new WithBrowser {

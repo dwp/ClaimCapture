@@ -50,7 +50,7 @@
         </table>
     </fieldset>
 
-    @form(action = routes.CareYouProvide.breaksInCareSubmit) {
+    @form(action = s4_care_you_provide.routes.G11BreaksInCare.submit) {
         <fieldset class="form-elements">
             <legend>About the breaks in care</legend>
 
@@ -67,7 +67,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a href="@backHref(CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <a href="@backHref(controllers.CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
@@ -98,7 +98,7 @@
 
         $("tbody").on("click", "input[value='Edit']", function() {
             var tr = $(this).closest("tr");
-            window.location.href = "@routes.CareYouProvide.breaksInCare/" + tr.attr("id");
+            window.location.href = "@s4_care_you_provide.routes.G11BreaksInCare.present/" + tr.attr("id");
         });
 
         $("tbody").on("click", "input[value='Delete']", function() {
@@ -107,7 +107,7 @@
 
             $.ajax({
                 type: "DELETE",
-                url: "@routes.CareYouProvide.breaksInCare/" + tr.attr("id"),
+                url: "@s4_care_you_provide.routes.G11BreaksInCare.present/" + tr.attr("id"),
 
                 success: function() {
                     var element;

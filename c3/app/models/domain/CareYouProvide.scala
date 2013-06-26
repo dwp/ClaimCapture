@@ -53,7 +53,7 @@ object RepresentativesForPerson {
   val id = s"${CareYouProvide.id}.g6"
 }
 
-case class OneWhoPaysPersonalDetails(organisation:Option[String], title:Option[String], firstName:Option[String], middleName:Option[String], surname:Option[String], amount:Option[String], startDatePayment:Option[DayMonthYear]) extends QuestionGroup(OneWhoPaysPersonalDetails.id)
+case class OneWhoPaysPersonalDetails(organisation:Option[String] = None, title:Option[String] = None, firstName:Option[String] = None, middleName:Option[String] = None, surname:Option[String] = None, amount:Option[String] = None, startDatePayment:Option[DayMonthYear] = None) extends QuestionGroup(OneWhoPaysPersonalDetails.id)
 
 object OneWhoPaysPersonalDetails {
   val id = s"${CareYouProvide.id}.g8"
