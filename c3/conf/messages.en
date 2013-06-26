@@ -110,6 +110,7 @@ someoneElseFullName = Full name
 organisation = Organisation
 amount = How much do you get paid a week?
 startDatePayment = When did the payments start?
+poundSign = £
 
 
 # MORE ABOUT THE CARE
