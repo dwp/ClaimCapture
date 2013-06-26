@@ -7,7 +7,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String = "Don't know ho
   val aboutYou = buildAboutYou(claim)
 
   def buildDwpClaim = {
-    val dwpClaim = <DWPCAClaim id={transactionId}>
+    <DWPCAClaim id={transactionId}>
       {buildClaimant}
       <Caree>
         <Surname>Mouse</Surname>
@@ -283,16 +283,6 @@ case class ClaimSubmission(claim: Claim, transactionId : String = "Don't know ho
         <TextLine>PR1 1HN</TextLine>
       </EvidenceList>
     </DWPCAClaim>
-
-    validateDwpClaim(dwpClaim)
-
-    dwpClaim
-  }
-
-  def validateDwpClaim(dwpClaim : Elem) : Boolean = {
-    val xml = dwpClaim.buildString(stripComments = true)
-    //new XmlValidator(xml, "").validate
-    true
   }
 
   private def buildAboutYou(claim: Claim) = {
