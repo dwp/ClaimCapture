@@ -71,12 +71,12 @@ object CareYouProvide extends Controller with CachedClaim {
   def moreAboutThePerson = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
 
-    val moreAboutThePersonFilledForm: Form[MoreAboutThePerson] = claim.questionGroup(MoreAboutThePerson.id) match {
+    val currentForm: Form[MoreAboutThePerson] = claim.questionGroup(MoreAboutThePerson.id) match {
       case Some(t: MoreAboutThePerson) => moreAboutThePersonForm.fill(t)
       case _ => moreAboutThePersonForm
     }
 
-    Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(moreAboutThePersonFilledForm, completedQuestionGroups))
+    Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(currentForm, completedQuestionGroups))
   }
 
   def moreAboutThePersonSubmit = claiming { implicit claim => implicit request =>
@@ -114,24 +114,9 @@ object CareYouProvide extends Controller with CachedClaim {
   def previousCarerContactDetails = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
     
-    val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
-      case Some(t: TheirPersonalDetails) => t.liveAtSameAddress == yes
-      case _ => false
-    }
-
-    val currentForm = if (liveAtSameAddress) {
-      claim.questionGroup(ContactDetails.id) match {
-        case Some(cd: ContactDetails) => previousCarerContactDetailsForm.fill(PreviousCarerContactDetails(address = Some(cd.address), 
-            postcode = cd.postcode, 
-            phoneNumber = cd.phoneNumber, 
-            mobileNumber = cd.mobileNumber))
-        case _ => previousCarerContactDetailsForm
-      }
-    } else {
-      claim.questionGroup(PreviousCarerContactDetails.id) match {
-        case Some(t: PreviousCarerContactDetails) => previousCarerContactDetailsForm.fill(t)
-        case _ => previousCarerContactDetailsForm
-      }
+    val currentForm: Form[PreviousCarerContactDetails] = claim.questionGroup(PreviousCarerContactDetails.id) match {
+      case Some(t: PreviousCarerContactDetails) => previousCarerContactDetailsForm.fill(t)
+      case _ => previousCarerContactDetailsForm
     }
     
     Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
@@ -140,7 +125,7 @@ object CareYouProvide extends Controller with CachedClaim {
   def previousCarerContactDetailsSubmit = claiming { implicit claim => implicit request =>
     previousCarerContactDetailsForm.bindFromRequest.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g5_previousCarerContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
-      theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.CareYouProvide.representativesForPerson))
+      previousCarerContactDetails => claim.update(previousCarerContactDetails) -> Redirect(routes.CareYouProvide.representativesForPerson))
   }
   
   def representativesForPerson = claiming { implicit claim => implicit request =>
