@@ -75,7 +75,7 @@ class G11BreaksInCareIntegrationSpec extends Specification with Tags {
       browser.$("tbody tr").size() mustEqual 1
 
       browser.click("input[value='Delete']")
-      browser.await().atMost(5, TimeUnit.SECONDS).until("tbody tr").hasSize(0)
+      browser.await().atMost(30, TimeUnit.SECONDS).until("tbody tr").hasSize(0)
     }
 
     "show two breaks after creating three and then deleting one" in new BreakWithBrowser {
