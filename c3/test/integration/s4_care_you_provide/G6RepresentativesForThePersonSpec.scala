@@ -34,8 +34,6 @@ class G6RepresentativesForThePersonSpec extends Specification with Tags {
      }
      
      "navigate back to Previous Carer Contact Details" in new WithBrowser {
-      //Helper.fillTheirPersonalDetails(browser)
-      //Helper.fillTheirContactDetails(browser)
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       Helper.fillPreviousCarerPersonalDetails(browser)
       Helper.fillPreviousCarerContactDetails(browser)
@@ -45,8 +43,6 @@ class G6RepresentativesForThePersonSpec extends Specification with Tags {
     }
 
     "navigate back twice to Previous Carer Personal Details" in new WithBrowser { // [SKW] This tests a problem I was having where pressing back twice wasn't getting back passed the S4 G4, the problem was with Controller action fetching previous question groups being different for pages using backHref.
-      Helper.fillTheirPersonalDetails(browser)
-      Helper.fillTheirContactDetails(browser)
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       Helper.fillPreviousCarerPersonalDetails(browser)
       Helper.fillPreviousCarerContactDetails(browser)

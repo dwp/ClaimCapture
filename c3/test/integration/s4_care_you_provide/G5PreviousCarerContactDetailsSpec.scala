@@ -9,7 +9,6 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Tags {
   "Previous Carer Contact Details" should {
     "be presented" in new WithBrowser {
       Helper.fillTheirPersonalDetails(browser)
-      Helper.fillTheirContactDetails(browser)
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       Helper.fillPreviousCarerPersonalDetails(browser)
       browser.goTo("/careYouProvide/previousCarerContactDetails")
@@ -18,7 +17,6 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in new WithBrowser {
       Helper.fillTheirPersonalDetails(browser)
-      Helper.fillTheirContactDetails(browser)
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       Helper.fillPreviousCarerPersonalDetails(browser)
       browser.goTo("/careYouProvide/previousCarerContactDetails")
@@ -30,7 +28,6 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Tags {
 
     "navigate back to Previous Carer Person Details" in new WithBrowser {
       Helper.fillTheirPersonalDetails(browser)
-      Helper.fillTheirContactDetails(browser)
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       Helper.fillPreviousCarerPersonalDetails(browser)
       browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // Landed on S4 G5
