@@ -8,13 +8,13 @@ import models.domain._
 import scala.collection.immutable.ListMap
 import play.api.mvc.Call
 import forms.CareYouProvide._
-import controllers.s4_care_you_provide.{G8OneWhoPaysPersonalDetails,G11BreaksInCare, G10HasBreaks, G9ContactDetailsOfPayingPerson}
+import controllers.s4_care_you_provide.{G1TheirPersonalDetails, G8OneWhoPaysPersonalDetails,G11BreaksInCare, G10HasBreaks, G9ContactDetailsOfPayingPerson}
 import utils.helpers.CarersForm._
 
 object CareYouProvide extends Controller with CachedClaim {
   import Routing._
 
-  val route: ListMap[String, Call] = ListMap(TheirPersonalDetails.id -> routes.CareYouProvide.theirPersonalDetails,
+  val route: ListMap[String, Call] = ListMap(G1TheirPersonalDetails,
                                              TheirContactDetails.id -> routes.CareYouProvide.theirContactDetails,
                                              MoreAboutThePerson.id -> routes.CareYouProvide.moreAboutThePerson,
                                              PreviousCarerPersonalDetails.id -> routes.CareYouProvide.previousCarerPersonalDetails,
@@ -25,22 +25,6 @@ object CareYouProvide extends Controller with CachedClaim {
                                              G9ContactDetailsOfPayingPerson,
                                              G10HasBreaks,
                                              G11BreaksInCare).asInstanceOf[ListMap[String,Call]]
-
-
-  def theirPersonalDetails = claiming { implicit claim => implicit request =>
-    val theirPersonalDetailsQGForm: Form[TheirPersonalDetails] = claim.questionGroup(TheirPersonalDetails.id) match {
-      case Some(t: TheirPersonalDetails) => theirPersonalDetailsForm.fill(t)
-      case _ => theirPersonalDetailsForm
-    }
-
-    Ok(views.html.s4_careYouProvide.g1_theirPersonalDetails(theirPersonalDetailsQGForm))
-  }
-
-  def theirPersonalDetailsSubmit = claiming { implicit claim => implicit request =>
-    theirPersonalDetailsForm.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g1_theirPersonalDetails(formWithErrors)),
-      theirPersonalDetails => claim.update(theirPersonalDetails) -> Redirect(routes.CareYouProvide.theirContactDetails()))
-  }
 
   def theirContactDetails = claiming { implicit claim => implicit request =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id)

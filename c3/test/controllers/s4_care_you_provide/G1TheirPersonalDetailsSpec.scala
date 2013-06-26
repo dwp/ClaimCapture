@@ -22,16 +22,16 @@ class G1TheirPersonalDetailsSpec extends Specification with Mockito {
     "present 'Their Personal Details' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.CareYouProvide.theirPersonalDetails(request)
+      val result = controllers.s4_care_you_provide.G1TheirPersonalDetails.present(request)
       status(result) mustEqual OK
     }
 
 
     "add 'Their Personal Details' to the cached claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(theirPersonalDetailsInput:_*)
+        .withFormUrlEncodedBody(theirPersonalDetailsInput: _*)
 
-      val result = controllers.CareYouProvide.theirPersonalDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G1TheirPersonalDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
@@ -50,15 +50,15 @@ class G1TheirPersonalDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("title" -> "Mr")
 
-      val result = controllers.CareYouProvide.theirPersonalDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G1TheirPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(theirPersonalDetailsInput:_*)
+        .withFormUrlEncodedBody(theirPersonalDetailsInput: _*)
 
-      val result = controllers.CareYouProvide.theirPersonalDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G1TheirPersonalDetails.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/theirContactDetails")
     }
   }
