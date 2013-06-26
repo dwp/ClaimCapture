@@ -6,31 +6,40 @@ import models.DayMonthYear
 import models.NationalInsuranceNumber
 
 class G4PreviousCarerPersonalDetailsFormSpec extends Specification {
-
+  val firstName = "John"
+  val middleName = "Mc"
+  val surname = "Doe"
+  val ni1 = "AB"
+  val ni2 = 12
+  val ni3 = 34
+  val ni4 = 56
+  val ni5 = "C"
+  val dateOfBirthDay = 5
+  val dateOfBirthMonth = 12
+  val dateOfBirthYear = 1990
+  
   "More About The Person Form" should {
 
     "map data into case class" in {
       CareYouProvide.previousCarerPersonalDetailsForm.bind(
-        Map("title" -> "Mr",
-          "firstName" -> "Ronald",
-          "middleName" -> "Mc",
-          "surname" -> "Donald",
+        Map("firstName" -> firstName,
+          "middleName" -> middleName,
+          "surname" -> surname,
           "nationalInsuranceNumber.ni1" -> "AB",
           "nationalInsuranceNumber.ni2" -> "12",
           "nationalInsuranceNumber.ni3" -> "34",
           "nationalInsuranceNumber.ni4" -> "56",
           "nationalInsuranceNumber.ni5" -> "C",
-          "dateOfBirth.day" -> "3",
-          "dateOfBirth.month" -> "4",
-          "dateOfBirth.year" -> "1980",
-          "liveAtSameAddress" -> "yes")).fold(
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString)).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
-            f.firstName must equalTo(Some("Ronald"))
-            f.middleName must equalTo(Some("Mc"))
-            f.surname must equalTo(Some("Donald"))
-            f.dateOfBirth must equalTo(Some(DayMonthYear(Some(3), Some(4), Some(1980), None, None)))
-            f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some("AB"), Some("12"), Some("34"), Some("56"), Some("C"))))
+            f.firstName must equalTo(Some(firstName))
+            f.middleName must equalTo(Some(middleName))
+            f.surname must equalTo(Some(surname))
+            f.dateOfBirth must equalTo(Some(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None)))
+            f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5))))
           })
     }
 
