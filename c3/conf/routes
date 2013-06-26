@@ -72,8 +72,8 @@ POST     /careYouProvide/previousCarerContactDetails    controllers.CareYouProvi
 GET     /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPerson
 POST    /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPersonSubmit
 
-GET     /careYouProvide/oneWhoPaysPersonalDetails       controllers.CareYouProvide.oneWhoPaysPersonalDetails
-POST    /careYouProvide/oneWhoPaysPersonalDetails       controllers.CareYouProvide.oneWhoPaysPersonalDetailsSubmit
+GET     /careYouProvide/oneWhoPaysPersonalDetails       controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.present
+POST    /careYouProvide/oneWhoPaysPersonalDetails       controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.submit
 
 GET     /careYouProvide/moreAboutTheCare                controllers.CareYouProvide.moreAboutTheCare
 POST    /careYouProvide/moreAboutTheCare                controllers.CareYouProvide.moreAboutTheCareSubmit

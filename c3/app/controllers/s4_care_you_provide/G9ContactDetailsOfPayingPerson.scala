@@ -9,6 +9,7 @@ import play.api.data.Forms._
 import controllers.Mappings._
 
 object G9ContactDetailsOfPayingPerson extends Controller with Routing with CachedClaim {
+
   override val route = ContactDetailsOfPayingPerson.id -> controllers.s4_care_you_provide.routes.G9ContactDetailsOfPayingPerson.present
 
   val form = Form(
