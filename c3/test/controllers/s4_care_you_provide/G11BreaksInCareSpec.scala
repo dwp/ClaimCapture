@@ -1,50 +1,19 @@
-package controllers
+package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
-import org.specs2.mock.Mockito
 import play.api.test.{FakeRequest, WithApplication}
-import models.view._
-import play.api.cache.Cache
+import models.view.Claiming
 import play.api.test.Helpers._
-import scala.Some
-import models.{DayMonthYear, domain}
-import models.domain.{BreaksInCare, TheirPersonalDetails, Section, Claim}
+import play.api.cache.Cache
+import models.domain.{BreaksInCare, Claim}
+import org.specs2.mock.Mockito
 
-class CareYouProvideSpec extends Specification with Mockito {
-
-  "Care You Provide with breaks" should {
-    """present "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+class G11BreaksInCareSpec extends Specification with Mockito {
+  "Breaks in care" should {
+    "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.CareYouProvide.hasBreaks(request)
-      status(result) mustEqual OK
-    }
-
-    """enforce answer to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-
-      val result = controllers.CareYouProvide.hasBreaksSubmit(request)
-      status(result) mustEqual BAD_REQUEST
-    }
-
-    """accept "yes" to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "yes")
-
-      val result = controllers.CareYouProvide.hasBreaksSubmit(request)
-      redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
-    }
-
-    """accept "no" to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "no")
-
-      val result = controllers.CareYouProvide.hasBreaksSubmit(request)
-      redirectLocation(result) must beSome("/careYouProvide/completed")
-    }
-
-    """present "breaks in care" """ in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-
-      val result = controllers.CareYouProvide.breaksInCare(request)
+      val result = G11BreaksInCare.present(request)
       status(result) mustEqual OK
     }
 
@@ -52,7 +21,7 @@ class CareYouProvideSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("moreBreaks" -> "no")
 
-      val result = controllers.CareYouProvide.breaksInCareSubmit(request)
+      val result = G11BreaksInCare.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/completed")
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -65,14 +34,14 @@ class CareYouProvideSpec extends Specification with Mockito {
     "complete upon indicating that there are no more breaks having now provided one break" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-          "break.start.day" -> "1",
-          "break.start.month" -> "1",
-          "break.start.year" -> "2001",
-          "break.whereYou.location" -> "Holiday",
-          "break.wherePerson.location" -> "Holiday",
-          "moreBreaks" -> "no")
+        "break.start.day" -> "1",
+        "break.start.month" -> "1",
+        "break.start.year" -> "2001",
+        "break.whereYou.location" -> "Holiday",
+        "break.wherePerson.location" -> "Holiday",
+        "moreBreaks" -> "no")
 
-      val result = controllers.CareYouProvide.breaksInCareSubmit(request)
+      val result = G11BreaksInCare.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/completed")
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -85,7 +54,7 @@ class CareYouProvideSpec extends Specification with Mockito {
     """allow more breaks to be added (answer "yes" to "Have you had any more breaks")""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("moreBreaks" -> "yes")
 
-      val result = controllers.CareYouProvide.breaksInCareSubmit(request)
+      val result = G11BreaksInCare.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -105,7 +74,7 @@ class CareYouProvideSpec extends Specification with Mockito {
         "break.wherePerson.location" -> "Holiday",
         "moreBreaks" -> "yes")
 
-      val result1 = controllers.CareYouProvide.breaksInCareSubmit(request1)
+      val result1 = G11BreaksInCare.submit(request1)
       redirectLocation(result1) must beSome("/careYouProvide/breaksInCare")
 
       val request2 = FakeRequest().withSession("connected" -> claimKey)
@@ -117,7 +86,7 @@ class CareYouProvideSpec extends Specification with Mockito {
         "break.wherePerson.location" -> "Holiday",
         "moreBreaks" -> "no")
 
-      val result2 = controllers.CareYouProvide.breaksInCareSubmit(request2)
+      val result2 = G11BreaksInCare.submit(request2)
       redirectLocation(result2) must beSome("/careYouProvide/completed")
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -141,7 +110,7 @@ class CareYouProvideSpec extends Specification with Mockito {
           "break.wherePerson.location" -> "Holiday",
           "moreBreaks" -> "yes")
 
-        val result = controllers.CareYouProvide.breaksInCareSubmit(request)
+        val result = G11BreaksInCare.submit(request)
         redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
       }
 
@@ -161,7 +130,7 @@ class CareYouProvideSpec extends Specification with Mockito {
         "break.wherePerson.location" -> "Holiday",
         "moreBreaks" -> "yes")
 
-      val result = controllers.CareYouProvide.breaksInCareSubmit(request)
+      val result = G11BreaksInCare.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/completed")
 
       Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
@@ -179,12 +148,12 @@ class CareYouProvideSpec extends Specification with Mockito {
         "break.wherePerson.location" -> "Holiday",
         "moreBreaks" -> "yes")
 
-      controllers.CareYouProvide.breaksInCareSubmit(request)
+      G11BreaksInCare.submit(request)
 
       Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
         case Some(b: BreaksInCare) =>
           val breakID = b.breaks.head.id
-          controllers.CareYouProvide.deleteBreak(breakID)(FakeRequest().withSession("connected" -> claimKey))
+          G11BreaksInCare.deleteBreak(breakID)(FakeRequest().withSession("connected" -> claimKey))
 
           Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
             case Some(b: BreaksInCare) => b.breaks.size mustEqual 0
@@ -202,7 +171,7 @@ class CareYouProvideSpec extends Specification with Mockito {
         "break.wherePerson.location" -> "Holiday",
         "moreBreaks" -> "yes")
 
-      controllers.CareYouProvide.breaksInCareSubmit(request)
+      G11BreaksInCare.submit(request)
 
       Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
         case Some(b: BreaksInCare) =>
@@ -218,7 +187,7 @@ class CareYouProvideSpec extends Specification with Mockito {
             "whereYou.location" -> "Holiday",
             "wherePerson.location" -> "Holiday")
 
-          controllers.CareYouProvide.breakSubmit(request)
+          G11BreaksInCare.breakSubmit(request)
 
           Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
             case Some(b: BreaksInCare) =>

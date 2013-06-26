@@ -1,16 +1,16 @@
-package integration.s4_care_you_provide
+package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 
-class G10HasBreaksSpec extends Specification with Tags {
-  "Care you provide" should {
-    """present "has breaks" """ in new WithBrowser {
+class G10HasBreaksIntegrationSpec extends Specification with Tags {
+  "Has breaks" should {
+    "present" in new WithBrowser {
       browser.goTo("/careYouProvide/hasBreaks")
       browser.title() mustEqual "Has Breaks - Care You Provide"
     }
 
-    """re-present "has breaks" upon missing mandatory data""" in new WithBrowser {
+    "re-present upon missing mandatory data" in new WithBrowser {
       browser.goTo("/careYouProvide/hasBreaks")
       browser.submit("button[value='next']")
       browser.title() mustEqual "Has Breaks - Care You Provide"

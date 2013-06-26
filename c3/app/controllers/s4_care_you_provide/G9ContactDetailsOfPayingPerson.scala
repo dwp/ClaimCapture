@@ -4,7 +4,6 @@ import play.api.mvc.Controller
 import play.api.data.Form
 import models.view.CachedClaim
 import models.domain._
-import models.domain
 import controllers.Routing
 import play.api.data.Forms._
 import controllers.Mappings._
@@ -21,9 +20,9 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(MoreAboutTheCare.id) match {
       case Some(MoreAboutTheCare(_, _, _, "yes")) => {
-        val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != domain.ContactDetailsOfPayingPerson.id)
+        val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
 
-        val contactDetailsOfPayingPersonForm: Form[ContactDetailsOfPayingPerson] = claim.questionGroup(domain.ContactDetailsOfPayingPerson.id) match {
+        val contactDetailsOfPayingPersonForm: Form[ContactDetailsOfPayingPerson] = claim.questionGroup(ContactDetailsOfPayingPerson.id) match {
           case Some(c: ContactDetailsOfPayingPerson) => form.fill(c)
           case _ => form
         }
@@ -31,15 +30,15 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
         Ok(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(contactDetailsOfPayingPersonForm, completedQuestionGroups))
       }
 
-      case _ => Redirect(controllers.routes.CareYouProvide.hasBreaks())
+      case _ => Redirect(routes.G10HasBreaks.present)
     }
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != domain.ContactDetailsOfPayingPerson.id)
+    val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
 
     form.bindFromRequest.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),
-      contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(controllers.routes.CareYouProvide.hasBreaks))
+      contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(routes.G10HasBreaks.present))
   }
 }

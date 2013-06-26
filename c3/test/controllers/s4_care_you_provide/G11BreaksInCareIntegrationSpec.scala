@@ -1,10 +1,10 @@
-package integration.s4_care_you_provide
+package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import java.util.concurrent.TimeUnit
 
-class G11BreaksInCareSpec extends Specification with Tags {
+class G11BreaksInCareIntegrationSpec extends Specification with Tags {
   class BreakWithBrowser extends WithBrowser {
     def break = {
       browser.click("#break_start_day option[value='1']")
