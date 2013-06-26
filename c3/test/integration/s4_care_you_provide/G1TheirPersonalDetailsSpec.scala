@@ -1,6 +1,6 @@
 package integration.s4_care_you_provide
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable.{ Tags, Specification }
 import play.api.test.WithBrowser
 import integration.Helper
 
@@ -8,7 +8,6 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
 
   "Their Personal Details" should {
     "be presented" in new WithBrowser {
-
       browser.goTo("/careYouProvide/theirPersonalDetails")
       browser.title() mustEqual "Their Personal Details - Care You Provide"
     }
@@ -36,5 +35,5 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
       Helper.fillTheirPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
-  }
+  } section "integration"
 }
