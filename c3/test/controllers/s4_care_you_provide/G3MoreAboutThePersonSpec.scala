@@ -2,10 +2,10 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
-import play.api.test.{ WithApplication, FakeRequest }
+import play.api.test.{WithApplication, FakeRequest}
 import models.view.Claiming
 import play.api.cache.Cache
-import models.domain.{ MoreAboutThePerson, Claim }
+import models.domain.{MoreAboutThePerson, Claim}
 import models.domain
 import play.api.test.Helpers._
 import models.domain.Section

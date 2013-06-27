@@ -15,21 +15,21 @@ class G6RepresentativesForThePersonSpec extends Specification with Mockito {
     """present "Representatives for the person you care for""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.CareYouProvide.representativesForPerson(request)
+      val result = controllers.s4_care_you_provide.G6RepresentativesForThePerson.present(request)
       status(result) mustEqual OK
     }
 
     "fail submit for no input" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.CareYouProvide.representativesForPersonSubmit(request)
+      val result = controllers.s4_care_you_provide.G6RepresentativesForThePerson.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "success for minimal input without optional fields" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(representativesForThePersonInput:_*)
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(representativesForThePersonInput: _*)
 
-      val result = controllers.CareYouProvide.representativesForPersonSubmit(request)
+      val result = controllers.s4_care_you_provide.G6RepresentativesForThePerson.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   }

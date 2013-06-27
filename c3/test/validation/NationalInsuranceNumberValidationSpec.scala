@@ -1,15 +1,7 @@
 package validation
 
 import org.specs2.mutable.Specification
-import play.api.test.{ FakeRequest, WithApplication }
-import play.api.cache.Cache
-import play.api.test.Helpers._
-import org.specs2.mock.Mockito
-import models.NationalInsuranceNumber
 import play.api.data.Form
-import play.api.data.Mapping
-import play.api.data.validation.Constraints._
-import play.api.data.Forms._
 import controllers.Mappings._
 
 class NationalInsuranceNumberValidationSpec extends Specification {
@@ -23,14 +15,16 @@ class NationalInsuranceNumberValidationSpec extends Specification {
   "NI validation" should {
     "not complain about a valid NI" in {
       createNationalInsuranceNumberForm(ni1 = "JW", ni2 = "12", ni3 = "34", ni4 = "56", ni5 = "C").fold(
-        formWithErrors => { "The mapping should not fail." must equalTo("Error") },
-        { number =>
+      formWithErrors => {
+        "The mapping should not fail." must equalTo("Error")
+      }, {
+        number =>
           number.ni1 must equalTo(Some("JW"))
           number.ni2 must equalTo(Some("12"))
           number.ni3 must equalTo(Some("34"))
           number.ni4 must equalTo(Some("56"))
           number.ni5 must equalTo(Some("C"))
-        })
+      })
     }
     /*
     "detect missing fields" in {
@@ -166,7 +160,7 @@ class NationalInsuranceNumberValidationSpec extends Specification {
           { number => "The mapping should fail." must equalTo("Error") })
       }
     } */
-    
-    
+
+
   }
 }

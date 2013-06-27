@@ -1,6 +1,6 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.{ Tags, Specification }
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import integration.Helper
 

@@ -115,7 +115,6 @@ object Mappings {
   }
 
   def validDecimalNumber:Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
-//    val decimalPattern = """^[0-9]{1,12}[.][0-9]{1}$""".r
     val decimalPattern = """^[0-9]{1,12}(\.[0-9])?$""".r
     decimalPattern.pattern.matcher(decimal).matches match {
       case true => Valid

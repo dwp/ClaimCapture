@@ -17,7 +17,7 @@ class G9ContactDetailsOfPayingPersonIntegrationSpec extends Specification with T
       browser.goTo("/careYouProvide/contactDetailsOfPayingPerson")
       browser.submit("button[value='next']")
 
-      browser.title() mustEqual "Has Breaks - Care You Provide"
+      browser.title() mustEqual "Breaks in Care - Care You Provide"
     }
 
     """be submitted with data, proceed to "breaks" and go back""" in new WithBrowser {
@@ -26,7 +26,7 @@ class G9ContactDetailsOfPayingPersonIntegrationSpec extends Specification with T
       browser.goTo("/careYouProvide/contactDetailsOfPayingPerson")
       browser.fill("#postcode") `with` "BLAH"
       browser.submit("button[value='next']")
-      browser.title() mustEqual "Has Breaks - Care You Provide"
+      browser.title() mustEqual "Breaks in Care - Care You Provide"
 
       browser.click(".form-steps a")
       browser.$("#postcode").getValue mustEqual "BLAH"
