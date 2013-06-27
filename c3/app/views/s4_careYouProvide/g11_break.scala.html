@@ -6,19 +6,19 @@
 @import views.html.helper._
 @import views.html.helper.dates._
 
-@main("Break Edit - Care You Provide", breakForm) {
-    @form(action = s4_care_you_provide.routes.G11BreaksInCare.breakSubmit) {
-        <input type="hidden" name="breakID" value='@breakForm("breakID").value.get'>
+@main("Break - Care You Provide", breakForm) {
+    @form(action = s4_care_you_provide.routes.G11Break.submit) {
+        <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
         <fieldset class="form-elements">
-            <legend>Edit break in care</legend>
+            <legend>About your break in care</legend>
 
             <ul class="group">
-                @inputDayMonthYearHM(breakForm("start"), 'helperBelow-> Messages("dateOfBirth.helper"))
-                @inputDayMonthYearHM(breakForm("end"), 'helperBelow-> Messages("dateOfBirth.helper"))
+                @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
+                @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-                @whereabouts(breakForm("whereYou"),Seq("Home","Hospital","Holiday","Respite Care","Other").map(v => v -> v))
-                @whereabouts(breakForm("wherePerson"),Seq("Hospital","Respite Care","Care Home","Nursing Home","Other").map(v => v -> v))
+                @whereabouts(breakForm("whereYou"), Seq("Home", "Hospital", "Holiday", "Respite Care", "Other").map(v => v -> v))
+                @whereabouts(breakForm("wherePerson"), Seq("Hospital", "Respite Care", "Care Home", "Nursing Home", "Other").map(v => v -> v))
 
                 @yesNoRadioGroup(breakForm("medicalDuringBreak"))
             </ul>
@@ -30,3 +30,5 @@
         </div>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g11_break.js")'></script>

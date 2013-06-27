@@ -2,9 +2,9 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
 
-  class G2TheirContactDetailsFormSpec extends Specification {
+class G2TheirContactDetailsFormSpec extends Specification {
   val validPostcode: String = "SE1 6EH"
-  
+
   "Their Contact Details Form" should {
 
     "map data into case class" in {

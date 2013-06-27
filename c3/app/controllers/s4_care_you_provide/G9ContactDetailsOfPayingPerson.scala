@@ -19,28 +19,30 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
       "postcode" -> optional(text)
     )(ContactDetailsOfPayingPerson.apply)(ContactDetailsOfPayingPerson.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
-    claim.questionGroup(MoreAboutTheCare.id) match {
-      case Some(MoreAboutTheCare(_, _, _, "yes")) => {
-        val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
+  def present = claiming {
+    implicit claim => implicit request =>
+      claim.questionGroup(MoreAboutTheCare.id) match {
+        case Some(MoreAboutTheCare(_, _, _, "yes")) => {
+          val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
 
-        val contactDetailsOfPayingPersonForm: Form[ContactDetailsOfPayingPerson] = claim.questionGroup(ContactDetailsOfPayingPerson.id) match {
-          case Some(c: ContactDetailsOfPayingPerson) => form.fill(c)
-          case _ => form
+          val contactDetailsOfPayingPersonForm: Form[ContactDetailsOfPayingPerson] = claim.questionGroup(ContactDetailsOfPayingPerson.id) match {
+            case Some(c: ContactDetailsOfPayingPerson) => form.fill(c)
+            case _ => form
+          }
+
+          Ok(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(contactDetailsOfPayingPersonForm, completedQuestionGroups))
         }
 
-        Ok(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(contactDetailsOfPayingPersonForm, completedQuestionGroups))
+        case _ => Redirect(routes.G10BreaksInCare.present)
       }
-
-      case _ => Redirect(routes.G10HasBreaks.present)
-    }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
+  def submit = claiming {
+    implicit claim => implicit request =>
+      val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
 
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),
-      contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(routes.G10HasBreaks.present))
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),
+        contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(routes.G10BreaksInCare.present))
   }
 }
