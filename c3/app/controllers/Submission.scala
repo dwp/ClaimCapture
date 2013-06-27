@@ -18,23 +18,23 @@ object Submission extends Controller with CachedClaim {
             // What we'll really do with the response is redirect to relevant page
             response.status match {
               case http.Status.ACCEPTED =>
-                Ok(response.xml)
+                Ok(s"ACCEPTED : ${response.status} : ${response.toString}")
               case http.Status.BAD_REQUEST =>
-                Ok("BAD_REQUEST")
+                Ok(s"BAD_REQUEST : ${response.status} : ${response.toString}")
               case http.Status.REQUEST_TIMEOUT =>
-                Ok("REQUEST_TIMEOUT")
+                Ok(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}")
               case http.Status.INTERNAL_SERVER_ERROR =>
-                Ok("INTERNAL_SERVER_ERROR")
+                Ok(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}")
               case _ =>
                 Ok(s"Unexpected response ! ${response.status} : ${response.toString}")
             }
           }
         ).recover {
           case e : java.net.ConnectException => {
-            ServiceUnavailable(e.getMessage)
+            ServiceUnavailable(s"ServiceUnavailable ! ${e.getMessage}")
           }
           case e : java.lang.Exception  => {
-            ServiceUnavailable(e.getMessage)
+            InternalServerError(s"InternalServerError ! ${e.getMessage}")
           }
         }
       }
