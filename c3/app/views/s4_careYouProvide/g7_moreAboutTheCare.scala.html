@@ -4,6 +4,7 @@
 @import views.html.helper._
 @import views.html.helper.dates._
 @import utils.helpers.CarersTemplate._
+@import utils.helpers.CarersCrypto
 
 
 @main("More about the care you provide - Care You Provide", currentForm, completedQuestionGroups) {
@@ -21,7 +22,7 @@
                     @yesNoRadioGroup(currentForm("spent35HoursCaring"))
                     @yesNoRadioGroup(currentForm("spent35HoursCaringBeforeClaim"),'_label -> Messages("spent35HoursCaringBeforeClaim.label",dateOfClaim))
                     <div id="careStartDateWrap">
-                        @inputDayMonthYear(currentForm("careStartDate"))
+                        @inputDayMonthYear(currentForm("careStartDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
                     </div>
                     @yesNoRadioGroup(currentForm("hasSomeonePaidYou"), '_label->Messages("hasSomeonePaidYou.label",dateOfClaim))
                 }
@@ -35,13 +36,18 @@
         </div>
     }
 }
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g7_moreAboutTheCare.js")'></script>
 
 <script type="text/javascript">
     $(function() {
         @if(currentForm("spent35HoursCaringBeforeClaim").value.getOrElse("no") == "no") {
             $("#careStartDateWrap").hide();
         }
+        window.initEvents( "@CarersCrypto.encryptAES("spent35HoursCaringBeforeClaim_yes")",
+        "@CarersCrypto.encryptAES("spent35HoursCaringBeforeClaim_no")",
+        "@CarersCrypto.encryptAES("careStartDate_day")",
+        "@CarersCrypto.encryptAES("careStartDate_month")",
+        "@CarersCrypto.encryptAES("careStartDate_year")");
     });
 </script>
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g7_moreAboutTheCare.js")'></script>
