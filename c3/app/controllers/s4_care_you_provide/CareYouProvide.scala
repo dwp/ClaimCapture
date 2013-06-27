@@ -28,7 +28,7 @@ object CareYouProvide extends Controller with CachedClaim {
             <title>Completed - Care You Provide</title>
           </head>
           <body>
-            <h1>End of Sprint 2</h1>
+            <h1>End of Sprint 3</h1>
             <ul>
               {claim.completedQuestionGroups(models.domain.CareYouProvide.id).map(f => <li>
               {f}
