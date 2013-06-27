@@ -7,7 +7,7 @@ import controllers.Mappings._
 
 class PhoneNumberValidationSpec extends Specification {
 
-  def createPhoneNumberForm(phoneNumber: String) = Form("phoneNumber" -> optional(play.api.data.Forms.text verifying(validPhoneNumber))).bind(Map(
+  def createPhoneNumberForm(phoneNumber: String) = Form("phoneNumber" -> optional(play.api.data.Forms.text verifying (validPhoneNumber))).bind(Map(
     "phoneNumber" -> phoneNumber))
 
   "Phone Number" should {
