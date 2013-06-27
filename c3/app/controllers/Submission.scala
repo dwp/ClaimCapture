@@ -17,8 +17,8 @@ object Submission extends Controller with CachedClaim {
           response => {
             // What we'll really do with the response is redirect to relevant page
             response.status match {
-              case http.Status.ACCEPTED =>
-                Ok(s"ACCEPTED : ${response.status} : ${response.toString}")
+              case http.Status.OK =>
+                Ok(s"OK : ${response.status} : ${response.xml}")
               case http.Status.BAD_REQUEST =>
                 Ok(s"BAD_REQUEST : ${response.status} : ${response.toString}")
               case http.Status.REQUEST_TIMEOUT =>
