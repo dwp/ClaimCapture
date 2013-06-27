@@ -49,6 +49,8 @@
         .carers-allowance .carers-container .prototype p a {
           color: #fff;
           margin-left: .25em; }
+          .carers-allowance .carers-container .prototype p a:hover {
+            color: #000; }
   .carers-allowance section {
     border-top: 10px solid #f47738;
     background: #fff;
@@ -792,6 +794,10 @@
       clear: both; }
     .carers-allowance .form-steps a {
       font-weight: 500; }
+      .ie7 .carers-allowance .form-steps a {
+        width: auto;
+        display: block;
+        padding: 0.4em 1em; }
   .carers-allowance .button {
     font-size: 1.9rem;
     line-height: 1em;
@@ -822,7 +828,8 @@
     .ie .carers-allowance .button {
       font-size: 19px; }
     .ie7 .carers-allowance .button {
-      padding: 0.2em 1em; }
+      padding: 0.2em 1em;
+      float: left; }
     .ie8 .carers-allowance .button {
       padding: 0.4em 1em; }
     .carers-allowance .button:hover {

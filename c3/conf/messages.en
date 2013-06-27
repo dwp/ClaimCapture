@@ -3,7 +3,7 @@ s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you l
 s1.g3 = Q3.  Are you aged 16 or over?
 s1.g4 = Q4.  Do you normally live in Great Britain?
 
-s2.g1 = Your Details
+s2.g1 = Your details
 s2.g2 = Your contact details
 s2.g3 = About your time outside the UK
 s2.g4 = Your claim date: {0}

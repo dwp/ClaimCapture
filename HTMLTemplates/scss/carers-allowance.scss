@@ -35,6 +35,9 @@ $button-green-hover: #004b27;
 			   a {
 				   color: #fff;
 				   margin-left: .25em;
+				   &:hover {
+					   color: #000;
+				   }
 			   }
 		   }
 	   }
@@ -1015,6 +1018,11 @@ $button-green-hover: #004b27;
 	   }
 	   a {
 		   font-weight: 500;
+		   .ie7 & {
+			   width: auto;
+			   display: block;
+			   padding: .4em 1em;
+		   }
 	   }
    }
  
@@ -1053,6 +1061,7 @@ $button-green-hover: #004b27;
 		   }
 		   .ie7 & {
 			   padding: .2em 1em;
+			   float: left;
 		   }
 		   .ie8 & {
 			   padding: .4em 1em;
