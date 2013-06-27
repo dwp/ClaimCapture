@@ -4,11 +4,9 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import scala.collection.immutable.ListMap
 import play.api.mvc.Call
-import controllers.Routing
+import controllers.Routing._
 
 object CareYouProvide extends Controller with CachedClaim {
-
-  import Routing._
 
   val route: ListMap[String, Call] = ListMap(
     G1TheirPersonalDetails,
