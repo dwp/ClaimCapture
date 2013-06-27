@@ -17,8 +17,8 @@
                 @inputDayMonthYearHM(breakForm("start"))
                 @inputDayMonthYearHM(breakForm("end"))
 
-                @whereabouts(breakForm("whereYou"))
-                @whereabouts(breakForm("wherePerson"))
+                @whereabouts(breakForm("whereYou"),Seq("Home","Hospital","Holiday","Respite Care","Other").map(v => v -> v))
+                @whereabouts(breakForm("wherePerson"),Seq("Hospital","Respite Care","Care Home","Nursing Home","Other").map(v => v -> v))
 
                 @yesNoRadioGroup(breakForm("medicalDuringBreak"))
             </ul>
