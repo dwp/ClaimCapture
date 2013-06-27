@@ -21,7 +21,7 @@
                     @yesNoRadioGroup(currentForm("spent35HoursCaring"))
                     @yesNoRadioGroup(currentForm("spent35HoursCaringBeforeClaim"),'_label -> Messages("spent35HoursCaringBeforeClaim.label",dateOfClaim))
                     <div id="careStartDateWrap">
-                        @inputDayMonthYear(currentForm("careStartDate"))
+                        @inputDayMonthYear(currentForm("careStartDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
                     </div>
                     @yesNoRadioGroup(currentForm("hasSomeonePaidYou"), '_label->Messages("hasSomeonePaidYou.label",dateOfClaim))
                 }

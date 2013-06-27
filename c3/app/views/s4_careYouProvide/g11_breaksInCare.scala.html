@@ -55,8 +55,8 @@
             <legend>About the breaks in care</legend>
 
             <ul class="group">
-                @inputDayMonthYearHM(breakInCareForm("break.start"))
-                @inputDayMonthYearHM(breakInCareForm("break.end"))
+                @inputDayMonthYearHM(breakInCareForm("break.start"), 'helperBelow-> Messages("dateOfBirth.helper"))
+                @inputDayMonthYearHM(breakInCareForm("break.end"), 'helperBelow-> Messages("dateOfBirth.helper"))
 
                 @whereabouts(breakInCareForm("break.whereYou"))
                 @whereabouts(breakInCareForm("break.wherePerson"))
