@@ -1,7 +1,6 @@
 $ ->
-  $("select[selectWithOther=true]").each ->
-    if $(this).val() is "Other" and $(this).selected()
-      $(this).parent().next().hide()
+  $("select[selectWithOther=true] option:selected").each ->
+    $(this).closest("li").next().hide() if ($(this).text() != "Other")
 
   $("select[selectWithOther=true]").change ->
     if $(this).val() is "Other"

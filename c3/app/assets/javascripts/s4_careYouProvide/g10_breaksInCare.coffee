@@ -1,5 +1,5 @@
 $ ->
-  $("#trips").hide()  if $("tbody").children().length is 0
+  $("#trips").hide() if $("tbody").children().length is 0
 
   $("tbody").on "click", "input[value='Edit']", ->
     tr = $(this).closest("tr")
