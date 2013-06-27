@@ -1,6 +1,6 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.{ Tags, Specification }
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import integration.Helper
 
@@ -62,14 +62,14 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       browser.find("#address_lineOne").getValue mustEqual ("My Address")
       browser.find("#postcode").getValue mustEqual ("SE1 6EH")
     }
-       /* 
-    "navigating forward and back presents the same completed question list" in new WithBrowser {
-      Helper.fillTheirPersonalDetails(browser)
-      browser.find("div[class=completed] ul li").size mustEqual 1
-      Helper.fillTheirContactDetails(browser)
-      browser.find("div[class=completed] ul li").size mustEqual 2
-      browser.click("#backButton")
-      browser.find("div[class=completed] ul li").size mustEqual 1
-    }*/
+    /*
+ "navigating forward and back presents the same completed question list" in new WithBrowser {
+   Helper.fillTheirPersonalDetails(browser)
+   browser.find("div[class=completed] ul li").size mustEqual 1
+   Helper.fillTheirContactDetails(browser)
+   browser.find("div[class=completed] ul li").size mustEqual 2
+   browser.click("#backButton")
+   browser.find("div[class=completed] ul li").size mustEqual 1
+ }*/
   } section "integration"
 }

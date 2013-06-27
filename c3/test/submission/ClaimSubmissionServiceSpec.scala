@@ -3,11 +3,9 @@ package submission
 import org.specs2.mutable.{Tags, Specification}
 import models.domain.Claim
 import helpers.ClaimBuilder._
-import play.api.test.{WithServer, WithApplication}
+import play.api.test.WithServer
 import scala.concurrent._
-import ExecutionContext.Implicits.global
 import scala.concurrent.duration._
-import play.Configuration
 import services.submission.{ClaimSubmissionService, ClaimSubmission}
 
 class ClaimSubmissionServiceSpec extends Specification with Tags {

@@ -2,7 +2,7 @@
 
 @import models.domain.BreaksInCare
 @import views.html.helper._
-@import models.domain.{Claim,ClaimDate}
+@import models.domain.{Claim, ClaimDate}
 
 @main("Breaks in Care - Care You Provide", hasBreaksForm, completedQuestionGroups) {
     <fieldset class="form-elements results-detail" id="trips">
@@ -53,15 +53,15 @@
             <legend>Breaks in Care</legend>
 
             <ul class="group">
-            @defining(claim.questionGroup(ClaimDate.id) match{ case Some(s) => Claim.dateFormatGeneration.parseDateTime(s.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString).toString(Claim.dateFormatPrint) case None => "{NO CLAIM DATE}"}) { dateOfClaim =>
-                @yesNoRadioGroup(hasBreaksForm("answer"),'_label -> Messages("answer.label",dateOfClaim))
+            @defining(claim.questionGroup(ClaimDate.id) match { case Some(s) => Claim.dateFormatGeneration.parseDateTime(s.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString).toString(Claim.dateFormatPrint) case None => "{NO CLAIM DATE}"}) { dateOfClaim =>
+                @yesNoRadioGroup(hasBreaksForm("answer"), '_label -> Messages("answer.label", breaksInCare.breaks.fold("")((_, _) => "more "), dateOfClaim), 'prompt -> Messages("answer.prompt"))
             }
 
             </ul>
         </fieldset>
 
         <div class="form-steps">
-            <a href="@backHref(controllers.CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <a id="backButton" href="@backHref(controllers.CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

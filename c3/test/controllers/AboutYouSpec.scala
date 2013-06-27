@@ -74,13 +74,13 @@ class AboutYouSpec extends Specification with Mockito {
         "title" -> "Mr",
         "surname" -> "Doo",
         "nationality" -> "US",
-        
+
         "nationalInsuranceNumber.ni1" -> "JW",
         "nationalInsuranceNumber.ni2" -> "12",
         "nationalInsuranceNumber.ni3" -> "34",
         "nationalInsuranceNumber.ni4" -> "56",
         "nationalInsuranceNumber.ni5" -> "C",
-        
+
         "dateOfBirth.day" -> "5",
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "1990",
@@ -97,20 +97,20 @@ class AboutYouSpec extends Specification with Mockito {
         "firstName" -> "Scooby",
         "title" -> "Mr",
         "surname" -> "Doo",
-        
+
         // Missing first field 
         "nationalInsuranceNumber.ni2" -> "12",
         "nationalInsuranceNumber.ni3" -> "34",
         "nationalInsuranceNumber.ni4" -> "56",
         "nationalInsuranceNumber.ni5" -> "C",
-        
+
         "dateOfBirth.day" -> "5",
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "1990",
         "nationality" -> "US",
         "maritalStatus" -> "s",
         "alwaysLivedUK" -> "yes"
-        )
+      )
 
       val result = controllers.AboutYou.yourDetailsSubmit(request)
       status(result) mustEqual BAD_REQUEST

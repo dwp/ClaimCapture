@@ -2,11 +2,11 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
-import play.api.test.{ WithApplication, FakeRequest }
+import play.api.test.{WithApplication, FakeRequest}
 import models.view.Claiming
 import play.api.cache.Cache
-import models.domain.{ PreviousCarerContactDetails, Claim }
-import models.{ DayMonthYear, domain }
+import models.domain.{PreviousCarerContactDetails, Claim}
+import models.domain
 import play.api.test.Helpers._
 import models.domain.Section
 import scala.Some
@@ -28,7 +28,7 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerContactDetailsInput: _*)
 
-      val result = controllers.CareYouProvide.previousCarerContactDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
@@ -46,7 +46,7 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
-      val result = controllers.CareYouProvide.previousCarerContactDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -54,7 +54,7 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerContactDetailsInput: _*)
 
-      val result = controllers.CareYouProvide.previousCarerContactDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   }

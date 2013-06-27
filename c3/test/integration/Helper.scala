@@ -23,7 +23,7 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
-  def fillYourDetailsEnablingTimeOutsideUK(browser:TestBrowser) ={
+  def fillYourDetailsEnablingTimeOutsideUK(browser: TestBrowser) = {
     browser.goTo("/aboutyou/yourDetails")
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
@@ -109,7 +109,7 @@ object Helper {
     browser.click("#liveAtSameAddress_no]")
     browser.submit("button[type='submit']")
   }
-    
+
   def fillTheirContactDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/theirContactDetails")
     browser.fill("#address_lineOne") `with` "Their Address"
@@ -156,7 +156,7 @@ object Helper {
     browser.click("#claimedAllowanceBefore_yes")
     browser.submit("button[type='submit']")
   }
-    
+
   def fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/moreAboutThePerson")
     browser.click("#relationship option[value='father']")
@@ -164,8 +164,8 @@ object Helper {
     browser.click("#claimedAllowanceBefore_no")
     browser.submit("button[type='submit']")
   }
-  
-  def fillPreviousCarerPersonalDetails(browser: TestBrowser) ={
+
+  def fillPreviousCarerPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/previousCarerPersonalDetails")
     browser.fill("#firstName") `with` "John"
     browser.fill("#middleName") `with` "Joe"
@@ -180,7 +180,7 @@ object Helper {
     browser.fill("#dateOfBirth_year") `with` "1950"
     browser.submit("button[type='submit']")
   }
-  
+
   def fillPreviousCarerContactDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/previousCarerContactDetails")
     browser.fill("#address_lineOne") `with` "My Address"
