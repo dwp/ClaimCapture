@@ -13,19 +13,19 @@
         <fieldset class="form-elements">
             <legend>More about the care you provide</legend>
 
-
             <ul class="group">
 
                 @defining(claim.questionGroup(ClaimDate.id) match{ case Some(s) => Claim.dateFormatGeneration.parseDateTime(s.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString).toString(Claim.dateFormatPrint) case None =>  "{NO CLAIM DATE}"}) { dateOfClaim =>
 
                     @yesNoRadioGroup(currentForm("spent35HoursCaring"))
-                    @yesNoRadioGroup(currentForm("spent35HoursCaringBeforeClaim"),'_label -> Messages("spent35HoursCaringBeforeClaim.label",dateOfClaim))
+                    @yesNoRadioGroup(currentForm("spent35HoursCaringBeforeClaim"), '_label -> Messages("spent35HoursCaringBeforeClaim.label", dateOfClaim))
+
                     <div id="careStartDateWrap">
                         @inputDayMonthYear(currentForm("careStartDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
                     </div>
+
                     @yesNoRadioGroup(currentForm("hasSomeonePaidYou"), '_label->Messages("hasSomeonePaidYou.label",dateOfClaim))
                 }
-
             </ul>
         </fieldset>
 
@@ -43,11 +43,10 @@
             $("#careStartDateWrap").hide();
         }
 
-        window.initEvents( "@CarersCrypto.encryptAES("spent35HoursCaringBeforeClaim_yes")",
+        window.initEvents("@CarersCrypto.encryptAES("spent35HoursCaringBeforeClaim_yes")",
         "@CarersCrypto.encryptAES("spent35HoursCaringBeforeClaim_no")",
         "@CarersCrypto.encryptAES("careStartDate_day")",
         "@CarersCrypto.encryptAES("careStartDate_month")",
         "@CarersCrypto.encryptAES("careStartDate_year")");
     });
 </script>
-

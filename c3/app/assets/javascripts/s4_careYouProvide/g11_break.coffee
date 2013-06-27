@@ -4,7 +4,7 @@ $ ->
 
   $("select[selectWithOther=true]").change ->
     if $(this).val() is "Other"
-      $(this).parent().next().slideDown()
+      $(this).parent().next().slideDown
     else
       textArea = $(this).parent().next().find("textarea")
       $(this).parent().next().slideUp ->
