@@ -54,7 +54,7 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").get(3).getText must contain("Representatives for the person you care for")
     }
     
-    "remove invalidated history when the user completes the S4G3 ClaimedAllowanceBefore postive answer path but goes back and changes to the negative answer path" in new WithBrowser {
+    "remove invalidated history after completing the S4G3 ClaimedAllowanceBefore postive answer path but goes back and changes to the negative answer path" in new WithBrowser {
       Helper.fillTheirPersonalDetails(browser)
       Helper.fillTheirContactDetails(browser)
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)

@@ -30,12 +30,12 @@ class G3MoreAboutThePersonIntegrationSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
 
-    "navigate to Previous Carer Details, if anyone else claimed allowance for this person before" in new WithBrowser {
+    "navigate to Previous Carer Details when submitting with claimedAllowanceBefore positive" in new WithBrowser {
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide"
     }
 
-    "navigate to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser {
+    "navigate to Representatives For The Person when submitting with claimedAllowanceBefore negative" in new WithBrowser {
       Helper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       browser.title() mustEqual "Representatives For The Person - Care You Provide"
     }

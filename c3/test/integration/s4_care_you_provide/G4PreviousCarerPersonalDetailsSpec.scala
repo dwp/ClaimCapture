@@ -12,7 +12,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Tags {
       browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide"
     }
 
-    "navigate to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser {
+    "redirect to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser {
       browser.goTo("/careYouProvide/previousCarerPersonalDetails")
       browser.title() mustEqual "Representatives For The Person - Care You Provide"
     }
