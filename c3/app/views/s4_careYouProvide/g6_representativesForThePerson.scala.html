@@ -48,16 +48,11 @@
         @if(currentForm("someoneElseActForPerson").value.getOrElse("no") == "no") {
             $("#someoneElseWrap").hide();
         }
-    });
-</script>
-
-<script type="text/javascript">
-    $(function(){
         window.initEvents( "@CarersCrypto.encryptAES("actForPerson_yes")",
         "@CarersCrypto.encryptAES("actForPerson_no")",
         "@CarersCrypto.encryptAES("someoneElseActForPerson_yes")",
         "@CarersCrypto.encryptAES("someoneElseActForPerson_no")",
         "@CarersCrypto.encryptAES("someoneElseActAs")",
         "@CarersCrypto.encryptAES("someoneElseFullName")");
-    })
+    });
 </script>

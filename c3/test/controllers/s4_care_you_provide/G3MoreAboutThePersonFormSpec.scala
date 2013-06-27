@@ -1,4 +1,4 @@
-package forms.s4_care_you_provide
+package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
 import forms.CareYouProvide
@@ -8,7 +8,7 @@ class G3MoreAboutThePersonFormSpec extends Specification {
   "More About The Person Form" should {
 
     "map data into case class" in {
-      CareYouProvide.moreAboutThePersonForm.bind(
+      G3MoreAboutThePerson.form.bind(
         Map("relationship" -> "father", "armedForcesPayment" -> "yes", "claimedAllowanceBefore" -> "no")
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
@@ -21,7 +21,7 @@ class G3MoreAboutThePersonFormSpec extends Specification {
     }
 
     "have a mandatory relationship" in {
-      CareYouProvide.moreAboutThePersonForm.bind(
+      G3MoreAboutThePerson.form.bind(
         Map("relationship" -> "", "" -> "", "claimedAllowanceBefore" -> "yes")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
@@ -30,7 +30,7 @@ class G3MoreAboutThePersonFormSpec extends Specification {
     }
 
     "have a mandatory 'has claimed Carer's Allowance before' question" in {
-      CareYouProvide.moreAboutThePersonForm.bind(
+      G3MoreAboutThePerson.form.bind(
         Map("relationship" -> "father", "" -> "", "claimedAllowanceBefore" -> "")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),

@@ -58,8 +58,8 @@
                 @inputDayMonthYearHM(breakInCareForm("break.start"), 'helperBelow-> Messages("dateOfBirth.helper"))
                 @inputDayMonthYearHM(breakInCareForm("break.end"), 'helperBelow-> Messages("dateOfBirth.helper"))
 
-                @whereabouts(breakInCareForm("break.whereYou"))
-                @whereabouts(breakInCareForm("break.wherePerson"))
+                @whereabouts(breakInCareForm("break.whereYou"),Seq("Home","Hospital","Holiday","Respite Care","Other").map(v => v -> v))
+                @whereabouts(breakInCareForm("break.wherePerson"),Seq("Hospital","Respite Care","Care Home","Nursing Home","Other").map(v => v -> v))
 
                 @yesNoRadioGroup(breakInCareForm("break.medicalDuringBreak"))
                 @yesNoRadioGroup(breakInCareForm("moreBreaks"))

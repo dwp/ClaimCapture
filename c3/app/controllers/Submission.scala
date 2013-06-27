@@ -18,7 +18,7 @@ object Submission extends Controller with CachedClaim {
             // What we'll really do with the response is redirect to relevant page
             response.status match {
               case http.Status.ACCEPTED =>
-                Ok("ACCEPTED")
+                Ok(response.xml)
               case http.Status.BAD_REQUEST =>
                 Ok("BAD_REQUEST")
               case http.Status.REQUEST_TIMEOUT =>
@@ -26,7 +26,7 @@ object Submission extends Controller with CachedClaim {
               case http.Status.INTERNAL_SERVER_ERROR =>
                 Ok("INTERNAL_SERVER_ERROR")
               case _ =>
-                Ok(s"Unexpected response ! ${response.status}")
+                Ok(s"Unexpected response ! ${response.status} : ${response.toString}")
             }
           }
         ).recover {

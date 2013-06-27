@@ -17,7 +17,7 @@ object CareYouProvide extends Controller with CachedClaim {
 
   val route: ListMap[String, Call] = ListMap(G1TheirPersonalDetails,
     G2TheirContactDetails,
-    MoreAboutThePerson.id -> routes.CareYouProvide.moreAboutThePerson,
+    G3MoreAboutThePerson,
     PreviousCarerPersonalDetails.id -> routes.CareYouProvide.previousCarerPersonalDetails,
     PreviousCarerContactDetails.id -> routes.CareYouProvide.previousCarerContactDetails,
     RepresentativesForPerson.id -> routes.CareYouProvide.representativesForPerson,
@@ -26,26 +26,6 @@ object CareYouProvide extends Controller with CachedClaim {
     G9ContactDetailsOfPayingPerson,
     G10HasBreaks,
     G11BreaksInCare).asInstanceOf[ListMap[String, Call]]
-
-
-  def moreAboutThePerson = claiming {
-    implicit claim => implicit request =>
-      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != MoreAboutThePerson.id)
-
-      val currentForm: Form[MoreAboutThePerson] = claim.questionGroup(MoreAboutThePerson.id) match {
-        case Some(t: MoreAboutThePerson) => moreAboutThePersonForm.fill(t)
-        case _ => moreAboutThePersonForm
-      }
-
-      Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(currentForm, completedQuestionGroups))
-  }
-
-  def moreAboutThePersonSubmit = claiming {
-    implicit claim => implicit request =>
-      moreAboutThePersonForm.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s4_careYouProvide.g3_moreAboutThePerson(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
-        moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.CareYouProvide.previousCarerPersonalDetails))
-  }
 
   def previousCarerPersonalDetails = claiming {
     implicit claim => implicit request =>

@@ -60,8 +60,8 @@ POST    /careYouProvide/theirPersonalDetails            controllers.s4_care_you_
 GET     /careYouProvide/theirContactDetails             controllers.s4_care_you_provide.G2TheirContactDetails.present
 POST    /careYouProvide/theirContactDetails             controllers.s4_care_you_provide.G2TheirContactDetails.submit
 
-GET     /careYouProvide/moreAboutThePerson              controllers.CareYouProvide.moreAboutThePerson
-POST    /careYouProvide/moreAboutThePerson              controllers.CareYouProvide.moreAboutThePersonSubmit
+GET     /careYouProvide/moreAboutThePerson              controllers.s4_care_you_provide.G3MoreAboutThePerson.present
+POST    /careYouProvide/moreAboutThePerson              controllers.s4_care_you_provide.G3MoreAboutThePerson.submit
 
 GET     /careYouProvide/previousCarerPersonalDetails    controllers.CareYouProvide.previousCarerPersonalDetails
 POST    /careYouProvide/previousCarerPersonalDetails    controllers.CareYouProvide.previousCarerPersonalDetailsSubmit
