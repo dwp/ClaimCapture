@@ -7,12 +7,7 @@ import models.domain._
 
 object CareYouProvide {
 
-  val moreAboutThePersonForm = Form(
-    mapping(
-      "relationship" -> nonEmptyText,
-      "armedForcesPayment" -> optional(text),
-      "claimedAllowanceBefore" -> nonEmptyText
-    )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
+
 
   val previousCarerPersonalDetailsForm = Form(
     mapping(

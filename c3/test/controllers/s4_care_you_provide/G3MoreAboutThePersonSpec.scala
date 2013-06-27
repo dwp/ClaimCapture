@@ -20,7 +20,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito {
     "present 'More About The Person' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.CareYouProvide.moreAboutThePerson(request)
+      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.present(request)
       status(result) mustEqual OK
     }
 
@@ -29,7 +29,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(moreAboutThePersonInput: _*)
 
-      val result = controllers.CareYouProvide.moreAboutThePersonSubmit(request)
+      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
@@ -46,7 +46,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("relationship" -> "")
 
-      val result = controllers.CareYouProvide.moreAboutThePersonSubmit(request)
+      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -54,7 +54,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(moreAboutThePersonInput: _*)
 
-      val result = controllers.CareYouProvide.moreAboutThePersonSubmit(request)
+      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   }
