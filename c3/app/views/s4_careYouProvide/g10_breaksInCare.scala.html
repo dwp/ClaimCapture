@@ -39,7 +39,7 @@
 
                         <td class="desc">@break.whereYou.location</td>
                         <td class="desc">@break.wherePerson.location</td>
-                        <td class="desc">@break.medicalDuringBreak</td>
+                        <td class="desc">@if("yes" == break.medicalDuringBreak) { Yes } else { No }</td>
                         <td><input type="button" class="button row secondary" value="Edit"></td>
                         <td><input type="button" class="button row warning" value="Delete"></td>
                     </tr>

@@ -58,7 +58,8 @@ class G10BreaksInCareSpec extends Specification {
         "start.month" -> "1",
         "start.year" -> "2001",
         "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday")
+        "wherePerson.location" -> "Holiday",
+        "medicalDuringBreak" -> "no")
 
       val result1 = G11Break.submit(request1)
       redirectLocation(result1) must beSome("/careYouProvide/breaksInCare")
@@ -84,7 +85,8 @@ class G10BreaksInCareSpec extends Specification {
           "start.month" -> "1",
           "start.year" -> "2001",
           "whereYou.location" -> "Holiday",
-          "wherePerson.location" -> "Holiday")
+          "wherePerson.location" -> "Holiday",
+          "medicalDuringBreak" -> "no")
 
         val result = G11Break.submit(request)
         redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
@@ -101,7 +103,8 @@ class G10BreaksInCareSpec extends Specification {
         "start.month" -> "1",
         "start.year" -> "2001",
         "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday")
+        "wherePerson.location" -> "Holiday",
+        "medicalDuringBreak" -> "no")
 
       val result = G11Break.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
@@ -121,7 +124,8 @@ class G10BreaksInCareSpec extends Specification {
         "start.month" -> "1",
         "start.year" -> "2001",
         "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday")
+        "wherePerson.location" -> "Holiday",
+        "medicalDuringBreak" -> "no")
 
       G11Break.submit(request)
 
