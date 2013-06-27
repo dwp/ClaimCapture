@@ -60,7 +60,5 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
           if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g6_representativesForThePerson(timeOutsideUKFormValidated, completedQuestionGroups))
           else claim.update(representativesForPerson) -> Redirect(controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.present)
         })
-
   }
-
 }

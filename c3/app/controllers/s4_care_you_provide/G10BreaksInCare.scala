@@ -17,7 +17,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
     )(HasBreaks.apply)(HasBreaks.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(q => q.id != BreaksInCare.id)
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != BreaksInCare.id)
 
     val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
       case Some(b: BreaksInCare) => b
@@ -28,7 +28,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(q => q.id != BreaksInCare.id)
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != BreaksInCare.id)
 
     val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
       case Some(b: BreaksInCare) => b
@@ -40,7 +40,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
       hasBreaks => hasBreaks.answer match {
         case "yes" if breaksInCare.breaks.size < 10 => claim.update(breaksInCare) -> Redirect(routes.G11Break.present)
         case "yes" => claim.update(breaksInCare) -> Redirect(routes.G10BreaksInCare.present)
-        case _ => claim.update(breaksInCare) -> Redirect(controllers.routes.CareYouProvide.completed)
+        case _ => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed)
       }
     )
   }

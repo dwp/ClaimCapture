@@ -25,7 +25,6 @@ object G8OneWhoPaysPersonalDetails extends Controller with Routing with CachedCl
       "startDatePayment" -> optional(dayMonthYear.verifying(validDateOnly))
     )(OneWhoPaysPersonalDetails.apply)(OneWhoPaysPersonalDetails.unapply))
 
-
   def present = claiming {
     implicit claim => implicit request =>
 
@@ -39,7 +38,7 @@ object G8OneWhoPaysPersonalDetails extends Controller with Routing with CachedCl
           case Some(t: OneWhoPaysPersonalDetails) => form.fill(t)
           case _ => form
         }
-        val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != OneWhoPaysPersonalDetails.id)
+        val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != OneWhoPaysPersonalDetails.id)
         Ok(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(currentForm, completedQuestionGroups))
       }
       else {
@@ -49,7 +48,7 @@ object G8OneWhoPaysPersonalDetails extends Controller with Routing with CachedCl
 
   def submit = claiming {
     implicit claim => implicit request =>
-      val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != OneWhoPaysPersonalDetails.id)
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != OneWhoPaysPersonalDetails.id)
 
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(formWithErrors, completedQuestionGroups)),

@@ -53,7 +53,5 @@ object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
           if (moreAboutTheCareFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g7_moreAboutTheCare(moreAboutTheCareFormValidated, completedQuestionGroups))
           else claim.update(moreAboutTheCare) -> Redirect(s4_care_you_provide.routes.G8OneWhoPaysPersonalDetails.present)
         })
-
   }
-
 }

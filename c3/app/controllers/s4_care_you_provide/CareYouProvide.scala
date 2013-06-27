@@ -1,16 +1,17 @@
-package controllers
+package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import scala.collection.immutable.ListMap
-import s4_care_you_provide._
 import play.api.mvc.Call
+import controllers.Routing
 
 object CareYouProvide extends Controller with CachedClaim {
 
   import Routing._
 
-  val route: ListMap[String, Call] = ListMap(G1TheirPersonalDetails,
+  val route: ListMap[String, Call] = ListMap(
+    G1TheirPersonalDetails,
     G2TheirContactDetails,
     G3MoreAboutThePerson,
     G4PreviousCarerPersonalDetails,
@@ -20,7 +21,6 @@ object CareYouProvide extends Controller with CachedClaim {
     G8OneWhoPaysPersonalDetails,
     G9ContactDetailsOfPayingPerson,
     G10BreaksInCare).asInstanceOf[ListMap[String, Call]]
-
 
   def completed = claiming {
     implicit claim => implicit request =>

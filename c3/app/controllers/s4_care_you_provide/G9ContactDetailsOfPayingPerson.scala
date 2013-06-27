@@ -23,7 +23,7 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
     implicit claim => implicit request =>
       claim.questionGroup(MoreAboutTheCare.id) match {
         case Some(MoreAboutTheCare(_, _, _, "yes")) => {
-          val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
+          val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
 
           val contactDetailsOfPayingPersonForm: Form[ContactDetailsOfPayingPerson] = claim.questionGroup(ContactDetailsOfPayingPerson.id) match {
             case Some(c: ContactDetailsOfPayingPerson) => form.fill(c)
@@ -39,7 +39,7 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
 
   def submit = claiming {
     implicit claim => implicit request =>
-      val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
+      val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
 
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),

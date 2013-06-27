@@ -20,7 +20,6 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
       "phoneNumber" -> optional(text verifying validPhoneNumber)
     )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
-
   def present = claiming {
     implicit claim => implicit request =>
 
@@ -44,7 +43,6 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
       }
 
       Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm, completedQuestionGroups))
-
   }
 
   def submit = claiming {
@@ -53,6 +51,4 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
         formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != TheirContactDetails.id))),
         theirContactDetails => claim.update(theirContactDetails) -> Redirect(controllers.s4_care_you_provide.routes.G3MoreAboutThePerson.present))
   }
-
-
 }

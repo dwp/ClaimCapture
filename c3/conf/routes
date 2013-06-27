@@ -89,7 +89,7 @@ GET     /careYouProvide/breaks/:id                      controllers.s4_care_you_
 GET     /careYouProvide/break                           controllers.s4_care_you_provide.G11Break.present
 POST    /careYouProvide/break                           controllers.s4_care_you_provide.G11Break.submit
 
-GET     /careYouProvide/completed                       controllers.CareYouProvide.completed
+GET     /careYouProvide/completed                       controllers.s4_care_you_provide.CareYouProvide.completed
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                   controllers.Assets.at(path="/public", file)

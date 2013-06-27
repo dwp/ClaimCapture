@@ -1,9 +1,9 @@
 window.initEvents = (spent35HoursCaringBeforeClaimY,spent35HoursCaringBeforeClaimN,day,month,year)->
   $("#"+spent35HoursCaringBeforeClaimY).on "click", ->
-    $("#careStartDateWrap").slideDown 500
+    $("#careStartDateWrap").slideDown
 
   $("#"+spent35HoursCaringBeforeClaimN).on "click", ->
-    $("#careStartDateWrap").slideUp 500, ->
+    $("#careStartDateWrap").slideUp, ->
       $("#"+day).val("")
       $("#"+month).val("")
       $("#"+year).val("")

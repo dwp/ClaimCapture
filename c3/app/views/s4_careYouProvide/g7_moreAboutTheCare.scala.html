@@ -6,7 +6,6 @@
 @import utils.helpers.CarersTemplate._
 @import utils.helpers.CarersCrypto
 
-
 @main("More about the care you provide - Care You Provide", currentForm, completedQuestionGroups) {
 
     @form(action = controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.submit) {
@@ -31,7 +30,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a id="backButton" href="@backHref(CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <a id="backButton" href="@backHref(controllers.s4_care_you_provide.CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
@@ -43,6 +42,7 @@
         @if(currentForm("spent35HoursCaringBeforeClaim").value.getOrElse("no") == "no") {
             $("#careStartDateWrap").hide();
         }
+
         window.initEvents( "@CarersCrypto.encryptAES("spent35HoursCaringBeforeClaim_yes")",
         "@CarersCrypto.encryptAES("spent35HoursCaringBeforeClaim_no")",
         "@CarersCrypto.encryptAES("careStartDate_day")",
