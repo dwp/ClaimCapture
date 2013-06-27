@@ -15,7 +15,8 @@ object CareYouProvide extends Controller with CachedClaim {
 
   import Routing._
 
-  val route: ListMap[String, Call] = ListMap(G1TheirPersonalDetails,
+  val route: ListMap[String, Call] = ListMap(
+    G1TheirPersonalDetails,
     G2TheirContactDetails,
     G3MoreAboutThePerson,
     PreviousCarerPersonalDetails.id -> routes.CareYouProvide.previousCarerPersonalDetails,
@@ -24,8 +25,7 @@ object CareYouProvide extends Controller with CachedClaim {
     MoreAboutTheCare.id -> routes.CareYouProvide.moreAboutTheCare,
     G8OneWhoPaysPersonalDetails,
     G9ContactDetailsOfPayingPerson,
-    G10HasBreaks,
-    G11BreaksInCare).asInstanceOf[ListMap[String, Call]]
+    G10BreaksInCare).asInstanceOf[ListMap[String, Call]]
 
   def previousCarerPersonalDetails = claiming {
     implicit claim => implicit request =>

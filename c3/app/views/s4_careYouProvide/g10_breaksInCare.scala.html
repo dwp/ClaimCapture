@@ -4,7 +4,7 @@
 @import views.html.helper._
 @import models.domain.{Claim,ClaimDate}
 
-@main("Has Breaks - Care You Provide", hasBreaksForm, completedQuestionGroups) {
+@main("Breaks in Care - Care You Provide", hasBreaksForm, completedQuestionGroups) {
     <fieldset class="form-elements results-detail" id="trips">
         <legend>Trips you have added</legend>
 
@@ -17,13 +17,15 @@
                     <th class="desc">Where were you?</th>
                     <th class="desc">Where was the person you look after?</th>
                     <th class="desc">Received medical treatment / professional care</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
 
             <tbody>
                 @for(break <- breaksInCare.breaks) {
                     <tr id="@break.id" class="@break.id">
-                        <td class="desc">
+                        <td>
                             @break.start.day/@break.start.month/@break.start.year
 
                             @for(end <- break.end;
@@ -38,13 +40,15 @@
                         <td class="desc">@break.whereYou.location</td>
                         <td class="desc">@break.wherePerson.location</td>
                         <td class="desc">@break.medicalDuringBreak</td>
+                        <td><input type="button" class="button row secondary" value="Edit"></td>
+                        <td><input type="button" class="button row warning" value="Delete"></td>
                     </tr>
                 }
             </tbody>
         </table>
     </fieldset>
 
-    @form(action = s4_care_you_provide.routes.G10HasBreaks.submit) {
+    @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit) {
         <fieldset class="form-elements">
             <legend>Breaks in Care</legend>
 
@@ -56,12 +60,6 @@
             </ul>
         </fieldset>
 
-        @if(!claim.questionGroup(BreaksInCare.id).isEmpty && claim.questionGroup(BreaksInCare.id).get.asInstanceOf[BreaksInCare].breaks.size > 0){
-            <div id="hasBreaksNoMessage" class="prompt helper-prompt" style="display:none">
-                <p class="intro">You are changing your anwser, you will lose all breaks added previously.</p>
-            </div>
-        }
-
         <div class="form-steps">
             <a href="@backHref(controllers.CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
@@ -69,12 +67,4 @@
     }
 }
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g10_hasBreaks.js")'></script>
-
-<script type="text/javascript">
-    $(function() {
-        @if(breaksInCare.breaks.foldLeft(0)((a, _) => a + 1) == 0) {
-            $("#trips").hide();
-        }
-    });
-</script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g10_breaksInCare.js")'></script>

@@ -65,11 +65,7 @@ object ContactDetailsOfPayingPerson {
   val id = s"${CareYouProvide.id}.g9"
 }
 
-case class HasBreaks(answer: String) extends QuestionGroup(HasBreaks.id)
-
-object HasBreaks {
-  val id = s"${CareYouProvide.id}.g10"
-}
+case class HasBreaks(answer: String)
 
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare.id) {
   def update(break: Break) = {
@@ -86,7 +82,5 @@ object BreaksInCare {
 
   def apply() = new BreaksInCare()
 }
-
-case class BreakInCare(moreBreaks: String, break: Option[Break])
 
 case class Break(id: String, start: DayMonthYear, end: Option[DayMonthYear], whereYou: Whereabouts, wherePerson: Whereabouts, medicalDuringBreak: Option[String])

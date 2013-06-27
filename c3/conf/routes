@@ -81,14 +81,13 @@ POST    /careYouProvide/moreAboutTheCare                controllers.CareYouProvi
 GET     /careYouProvide/contactDetailsOfPayingPerson    controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.present
 POST    /careYouProvide/contactDetailsOfPayingPerson    controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.submit
 
-GET     /careYouProvide/hasBreaks                       controllers.s4_care_you_provide.G10HasBreaks.present
-POST    /careYouProvide/hasBreaks                       controllers.s4_care_you_provide.G10HasBreaks.submit
+GET     /careYouProvide/breaksInCare                    controllers.s4_care_you_provide.G10BreaksInCare.present
+POST    /careYouProvide/breaksInCare                    controllers.s4_care_you_provide.G10BreaksInCare.submit
+DELETE  /careYouProvide/breaksInCare/:id                controllers.s4_care_you_provide.G10BreaksInCare.delete(id: String)
 
-GET     /careYouProvide/breaksInCare                    controllers.s4_care_you_provide.G11BreaksInCare.present
-POST    /careYouProvide/breaksInCare                    controllers.s4_care_you_provide.G11BreaksInCare.submit
-GET     /careYouProvide/breaksInCare/:id                controllers.s4_care_you_provide.G11BreaksInCare.break(id: String)
-POST    /careYouProvide/break                           controllers.s4_care_you_provide.G11BreaksInCare.breakSubmit
-DELETE  /careYouProvide/breaksInCare/:id                controllers.s4_care_you_provide.G11BreaksInCare.deleteBreak(id: String)
+GET     /careYouProvide/breaks/:id                      controllers.s4_care_you_provide.G11Break.break(id: String)
+GET     /careYouProvide/break                           controllers.s4_care_you_provide.G11Break.present
+POST    /careYouProvide/break                           controllers.s4_care_you_provide.G11Break.submit
 
 GET     /careYouProvide/completed                       controllers.CareYouProvide.completed
 
