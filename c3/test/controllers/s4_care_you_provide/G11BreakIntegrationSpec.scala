@@ -80,6 +80,9 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.$("tbody tr").size() mustEqual 1
 
       browser.click("input[value='Delete']")
+      TimeUnit.SECONDS.sleep(3)
+      browser.click("input[value='Yes']")
+
       browser.await().atMost(30, TimeUnit.SECONDS).until("tbody tr").hasSize(0)
     }
 
@@ -101,6 +104,9 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.$("tbody tr").size() mustEqual 3
 
       browser.findFirst("tbody tr input[value='Delete']").click()
+      TimeUnit.SECONDS.sleep(3)
+      browser.click("input[value='Yes']")
+
       browser.await().atMost(30, TimeUnit.SECONDS).until("tbody tr").hasSize(2)
     }
 

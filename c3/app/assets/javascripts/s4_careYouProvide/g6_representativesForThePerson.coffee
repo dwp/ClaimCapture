@@ -1,4 +1,4 @@
-window.initEvents = (actForPersonY,actForPersonN,someoneElseActForPersonY,someoneElseActForPersonN, someoneElseActAsID, someoneElseFullNameID)->
+window.initEvents = (actForPersonY, actForPersonN, someoneElseActForPersonY, someoneElseActForPersonN, someoneElseActAsID, someoneElseFullNameID) ->
   $("#" +actForPersonY).on "click", ->
     $("#actWrap").slideDown 500
 
