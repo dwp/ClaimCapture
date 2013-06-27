@@ -12,7 +12,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Tags {
       browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide"
     }
 
-    "navigate to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser {
+    "redirect to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser {
       browser.goTo("/careYouProvide/previousCarerPersonalDetails")
       browser.title() mustEqual "Representatives For The Person - Care You Provide"
     }
@@ -45,18 +45,6 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Tags {
     "contain the completed forms" in new WithBrowser {
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
-    }
-    
-    "navigating forward and back presents the same completed question list" in new WithBrowser {
-      Helper.fillTheirPersonalDetails(browser)
-      Helper.fillTheirContactDetails(browser)
-      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      browser.find("div[class=completed] ul li").size mustEqual 3
-      Helper.fillPreviousCarerPersonalDetails(browser)
-      browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // DELETE
-      browser.find("div[class=completed] ul li").size mustEqual 4
-      browser.click("#backButton")
-      browser.find("div[class=completed] ul li").size mustEqual 3
     }
   } section "integration"
 }
