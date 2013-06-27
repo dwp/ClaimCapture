@@ -117,16 +117,6 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
-  def fillRepresentativesForThePerson(browser: TestBrowser) = {
-    browser.goTo("/careYouProvide/representativesForPerson")
-    browser.click("#actForPerson_yes")
-    browser.click("#someoneElseActForPerson_yes")
-    browser.click("#actAs option[value='guardian']")
-    browser.click("#someoneElseActAs option[value='judicial']")
-    browser.fill("#someoneElseFullName") `with` "John"
-    browser.submit("button[type='submit']")
-  }
-
   def fillMoreAboutTheCare(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/moreAboutTheCare")
     browser.click("#spent35HoursCaring_yes")
@@ -185,6 +175,23 @@ object Helper {
     browser.goTo("/careYouProvide/previousCarerContactDetails")
     browser.fill("#address_lineOne") `with` "My Address"
     browser.fill("#postcode") `with` "SE1 6EH"
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillRepresentativesForThePerson(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/representativesForPerson")
+    browser.click("#actForPerson_yes")
+    browser.click("#someoneElseActForPerson_yes")
+    browser.click("#actAs option[value='guardian']")
+    browser.click("#someoneElseActAs option[value='judicial']")
+    browser.fill("#someoneElseFullName") `with` "John"
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillRepresentativesForThePersonNegativeAnswers(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/representativesForPerson")
+    browser.click("#actForPerson_no")
+    browser.click("#someoneElseActForPerson_no")
     browser.submit("button[type='submit']")
   }
 }
