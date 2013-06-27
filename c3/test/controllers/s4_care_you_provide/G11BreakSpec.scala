@@ -17,6 +17,13 @@ class G11BreakSpec extends Specification with Mockito {
       status(result) mustEqual OK
     }
 
+    "be rejected for missing mandatory data" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+
+      val result = G11Break.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
     "add 2 breaks" in new WithApplication with Claiming {
       val request1 = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
@@ -25,7 +32,8 @@ class G11BreakSpec extends Specification with Mockito {
         "start.month" -> "1",
         "start.year" -> "2001",
         "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday")
+        "wherePerson.location" -> "Holiday",
+        "medicalDuringBreak" -> "no")
 
       G11Break.submit(request1)
 
@@ -36,7 +44,8 @@ class G11BreakSpec extends Specification with Mockito {
         "start.month" -> "1",
         "start.year" -> "2001",
         "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday")
+        "wherePerson.location" -> "Holiday",
+        "medicalDuringBreak" -> "no")
 
       G11Break.submit(request2)
 
@@ -57,7 +66,8 @@ class G11BreakSpec extends Specification with Mockito {
         "start.month" -> "1",
         "start.year" -> "2001",
         "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday")
+        "wherePerson.location" -> "Holiday",
+        "medicalDuringBreak" -> "no")
 
       G11Break.submit(requestNew)
 
@@ -70,7 +80,8 @@ class G11BreakSpec extends Specification with Mockito {
         "start.month" -> "1",
         "start.year" -> yearUpdate.toString,
         "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday")
+        "wherePerson.location" -> "Holiday",
+        "medicalDuringBreak" -> "no")
 
       G11Break.submit(requestUpdate)
 

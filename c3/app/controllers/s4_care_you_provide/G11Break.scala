@@ -16,7 +16,7 @@ object G11Break extends Controller with CachedClaim {
       "end" -> optional(dayMonthYear verifying validDateOnly),
       "whereYou" -> whereabouts.verifying(requiredWhereabouts),
       "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
-      "medicalDuringBreak" -> optional(text)
+      "medicalDuringBreak" -> nonEmptyText
     )(Break.apply)(Break.unapply))
 
   def present = claiming { implicit claim => implicit request =>
