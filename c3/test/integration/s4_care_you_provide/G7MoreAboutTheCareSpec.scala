@@ -44,7 +44,7 @@ class G7MoreAboutTheCareSpec extends Specification with Tags {
       browser.title() mustEqual "One Who Pays You - Care You Provide"
     }
 
-    "navigate to Has Breaks when submitting with hasSomeonePaidYou negative" in new WithBrowser {
+    """navigate to "breaks in care" when submitting with hasSomeonePaidYou negative""" in new WithBrowser {
       Helper.fillMoreAboutTheCareWithNotPaying(browser)
       browser.title() mustEqual "Breaks in Care - Care You Provide"
     }
