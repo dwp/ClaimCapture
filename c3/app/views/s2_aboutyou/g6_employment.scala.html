@@ -1,22 +1,25 @@
-@(employmentForm :Form[models.claim.Employment], completedForms :List[models.claim.Form])(implicit claim: models.claim.Claim)
+@(employmentForm: Form[models.domain.Employment], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import views.html.common._
-@import models.claim.ClaimDate
+@import models.domain.Claim
+@import models.domain.ClaimDate
+@import utils.helpers.CarersTemplate._
 
-@main("Employment - About You",completedForms) {
-    @form(action = routes.AboutYou.employmentSubmit()) {
+@main("Employment - About You",completedQuestionGroups) {
+    @errorsSummary(employmentForm)
+
+    @form(action = routes.AboutYou.employmentSubmit) {
         <fieldset class="form-elements">
             <legend>Employment</legend>
-            @errorsSummary(employmentForm)
 
             <ul class="group">
-            @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
-                    @common.yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
-                        '_label -> Messages("s2_g6_q1", dateOfClaim.minusMonths(6).toString(utils.ClaimUtils.dateFormatPrint), dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                @defining(Claim.dateFormatGeneration.parseDateTime(claim.questionGroup(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
+                    @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
+                        '_label -> Messages("beenEmployedSince6MonthsBeforeClaim.label", dateOfClaim.minusMonths(6).toString(Claim.dateFormatPrint), dateOfClaim.toString(Claim.dateFormatPrint)))
 
-                    @common.yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
-                        '_label -> Messages("s2_g6_q2", dateOfClaim.minusWeeks(1).toString(utils.ClaimUtils.dateFormatPrint),  dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                    @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
+                        '_label -> Messages("beenSelfEmployedSince1WeekBeforeClaim.label", dateOfClaim.minusWeeks(1).toString(Claim.dateFormatPrint), dateOfClaim.toString(Claim.dateFormatPrint)))
                 }
             </ul>
         </fieldset>

@@ -1,0 +1,17 @@
+@(confirmed: Boolean, completedForms: List[models.domain.QuestionGroup])
+
+@import helper._
+
+@main("Over 16 - Carer's Allowance", completedForms) {
+    @form(action = routes.CarersAllowance.over16Submit) {
+        <fieldset class="form-elements form-eligibility">
+            <legend><span>Q3</span>Are you aged 16 or over?</legend>
+
+            @yesNoRadioGroupS1(confirmed)
+        </fieldset>
+
+        <div class="form-steps">
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}

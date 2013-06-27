@@ -1,6 +1,0 @@
-@(yes: Boolean)
-
-<ul class="group inline radio">
-    <li><input type="radio" name="answer" id="q3-yes" value="true" @(if(yes) "checked" else "") ><label for="q3-yes">Yes</label></li>
-    <li><input type="radio" name="answer" id="q3-no" value="false" @(if(!yes) "checked" else "") ><label for="q3-no">No</label></li>
-</ul>

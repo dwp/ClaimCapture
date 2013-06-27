@@ -1,25 +1,26 @@
-@(contactDetailsForm: Form[models.claim.ContactDetails], completedForms: List[models.claim.Form])(implicit claim: models.claim.Claim)
+@(contactDetailsForm: Form[models.domain.ContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
-@import utils.helpers.ClaimHelpers._
+@import utils.helpers.CarersTemplate._
 @import views.html.common._
+@import views.html.helper._
+@import views.html.helper.base._
 
-@main("Contact Details - About You", completedForms) {
+@main("Contact Details - About You", completedQuestionGroups) {
+    @errorsSummary(contactDetailsForm)
 
     @form(action = routes.AboutYou.contactDetailsSubmit) {
         <fieldset class="form-elements">
             <legend>Your contact details</legend>
 
-            @errorsSummary(contactDetailsForm)
-
             <ul class="group">
                 @inputAddress(contactDetailsForm("address"))
 
-                @inputText(contactDetailsForm("postcode"))
+                @carersInputText(contactDetailsForm("postcode"))
 
-                @inputText(contactDetailsForm("phoneNumber"))
+                @carersInputText(contactDetailsForm("phoneNumber"))
 
-                @inputText(contactDetailsForm("mobileNumber"))
+                @carersInputText(contactDetailsForm("mobileNumber"))
             </ul>
         </fieldset>
 

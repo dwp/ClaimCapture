@@ -1,38 +1,53 @@
-@(contactDetailsForm :Form[models.claim.ContactDetails], completedForms:List[models.claim.Form])(implicit claim: models.claim.Claim)
+@(timeOutsideUKForm: Form[models.domain.TimeOutsideUK], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
-@import utils.helpers.ClaimHelpers._
-@import views.html.common._
+@import utils.helpers.CarersTemplate._
+@import common._
+@import views.html.helper.dates._
+@import views.html.helper._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
 
-@main("Contact Details - About You", completedForms) {
+@main("Time Outside UK - About You", completedQuestionGroups) {
+    @errorsSummary(timeOutsideUKForm)
 
-    @form(action = routes.AboutYou.contactDetailsSubmit) {
+    @form(action = routes.AboutYou.timeOutsideUKSubmit) {
         <fieldset class="form-elements">
             <legend>About your time outside the UK</legend>
 
-            @errorsSummary(contactDetailsForm)
-
             <ul class="group">
-                @common.yesNoRadioGroup(contactDetailsForm("currentlyLivingInUK"), '_label -> Messages("s2_g3_q1"))
+                @yesNoRadioGroup(timeOutsideUKForm("currentlyLivingInUK"))
 
-                @inputDayMonthYear(contactDetailsForm("arrivedInUK"))
+                <ul id="livingInUK" style='display: @if(timeOutsideUKForm("currentlyLivingInUK").value.getOrElse("yes") == "yes") { none; } else { block; }'>
+                    @inputDayMonthYear(timeOutsideUKForm("arrivedInUK"), 'helperBelow-> Messages("dateOfBirth.helper"))
 
-                @inputText(contactDetailsForm("originCountry"))
+                    @carersInputText(timeOutsideUKForm("originCountry"))
+                </ul>
 
-                @common.yesNoRadioGroup(contactDetailsForm("planToGoBack"), '_label -> Messages("s2_g3_q4"))
+                @yesNoRadioGroup(timeOutsideUKForm("planToGoBack"))
 
-                @inputDayMonthYear(contactDetailsForm("whenPlanToGoBack"), '_label -> Messages("s2_g3_q5"))
+                <ul id="planingToGoBack" style='display: @if(timeOutsideUKForm("planToGoBack").value.getOrElse("no") == "no") { none; } else { block; }'>
+                    @inputDayMonthYear(timeOutsideUKForm("whenPlanToGoBack"), 'helperBelow-> Messages("dateOfBirth.helper"))
+                </ul>
 
-                @inputText(contactDetailsForm("visaReference"), '_label -> Messages("s2_g3_q6"))
+                @carersInputText(timeOutsideUKForm("visaReference"))
             </ul>
 
         </fieldset>
 
         <div class="form-steps">
-            <button type="submit" name="action" value="back" class="button secondary">Back</button>
+            <a href="@routes.AboutYou.contactDetails" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
 }
-			
-			
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s2_aboutyou/g3_timeOutsideUK.js")'></script>
+<script type="text/javascript">
+    $(function(){
+        window.initEvents( "@CarersCrypto.encryptAES("currentlyLivingInUK_yes")",
+        "@CarersCrypto.encryptAES("currentlyLivingInUK_no")",
+        "@CarersCrypto.encryptAES("planToGoBack_yes")",
+        "@CarersCrypto.encryptAES("planToGoBack_no")");
+    })
+</script>

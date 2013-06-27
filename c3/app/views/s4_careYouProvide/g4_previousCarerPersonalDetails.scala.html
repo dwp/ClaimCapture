@@ -1,0 +1,33 @@
+@(currentForm: Form[models.domain.PreviousCarerPersonalDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+
+@main("Details Of The Person Who Claimed Before - Care You Provide", currentForm, completedQuestionGroups) {
+
+    @form(action = routes.CareYouProvide.previousCarerPersonalDetailsSubmit) {
+        <fieldset class="form-elements">
+            <legend>Details of the person who claimed Carer's Allowance Before</legend>
+
+            <ul class="group">
+                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.sixty)
+
+                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.sixty)
+
+                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.sixty)
+
+                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
+
+                @inputDayMonthYear(currentForm("dateOfBirth"), 'helper-> Messages("dateOfBirth.helper"))
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a id="backButton" href="@backHref(CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}

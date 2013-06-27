@@ -1,19 +1,25 @@
 package controllers
 
 import play.api.mvc._
-import models.claim._
+import models.view._
 
 object YourPartner extends Controller with CachedClaim {
   def yourPartner = claiming {
     implicit claim => implicit request =>
       val outcome =
-        <endOfSprint>
-          <title>End of Sprint</title>
+        <html>
+          <head>
+            <title>Completed - About You</title>
+          </head>
 
-          <ul>
-            {claim.completedFormsForSection(models.claim.AboutYou.id).map(f => <li>{f}</li>)}
-          </ul>
-        </endOfSprint>
+          <body>
+            <h1>End of Sprint 1</h1>
+
+            <ul>
+              {claim.completedQuestionGroups(models.domain.AboutYou.id).map(f => <li>{f}</li>)}
+            </ul>
+          </body>
+      </html>
 
       Ok(outcome)
   }

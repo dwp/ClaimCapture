@@ -1,0 +1,32 @@
+@(currentForm: Form[models.domain.PreviousCarerContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+
+@main("Contact Details Of The Person Who Claimed Before - Care You Provide", currentForm, completedQuestionGroups) {
+
+    @form(action = routes.CareYouProvide.previousCarerContactDetailsSubmit) {
+
+        <fieldset class="form-elements">
+            <legend>Contact Details of the person who claimed Carer's Allowance Before</legend>
+
+
+            <ul class="group">
+                @inputAddress(currentForm("address"))
+
+                @carersInputText(currentForm("postcode"))
+
+                @carersInputText(currentForm("phoneNumber"))
+                
+                @carersInputText(currentForm("mobileNumber"))
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a id="backButton" href="@backHref(CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}

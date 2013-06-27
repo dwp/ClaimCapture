@@ -1,0 +1,22 @@
+@(field: play.api.data.Field, optGroups: Seq[(String, Seq[(String,String)])], args: (Symbol,Any)*)(implicit handler: views.html.helper.FieldConstructor, lang: play.api.i18n.Lang)
+
+@import utils.helpers.CarersCrypto
+
+@helper.input(field, args:_*) { (id, name, value, htmlArgs) =>
+
+    <select id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>
+        <option value="">Please Select</option>
+
+        @for((groupLabel: String, groupOptions: Seq[(String,String)]) <-  optGroups){
+            <optgroup label="@groupLabel">
+                @subgroup(value, groupOptions)
+            </optgroup>
+        }
+    </select>
+}
+
+@subgroup(selectedValue: Option[String], groupOptions: Seq[(String,String)]) = {
+    @for((optionValue:String, name:String) <- groupOptions){
+        <option value="@optionValue" @(if(selectedValue == Some(optionValue)) "selected" else "")>@name</option>
+    }
+}

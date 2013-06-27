@@ -1,26 +1,29 @@
-@(approved: Boolean, completedForms: List[models.claim.Form])
+@(approved: Boolean, completedForms: List[models.domain.QuestionGroup])
 
 @import helper._
 
 @main("Can you get Carer's Allowance?", completedForms) {
-
     @if(approved) {
         <div class="prompt">
             <p>Based on your answers you may be entitled to Carer's Allowance.</p>
-            <p>Please click the <strong>'Next Step'</strong> button below.</p>
+            
         </div>
-        } else {
+    } else {
         <div class="prompt error">
             <h3>Based on your answers you may not be entitled to Carer's Allowance.</h3>
-
-            <p>If your circumstances change, you may be entitled to Carer's Allowance <a href="#">Find out more about Carer's Allowance</a>.</p>
-            <p>However, if you wish to continue, click the <strong>'Next Step'</strong> button below.</p>
+            <p>If your circumstances change, you may be entitled to Carer's Allowance <a href="https://www.gov.uk/carers-allowance/how-to-claim" target="_blank">Find out more about Carer's Allowance</a>.</p>
         </div>
     }
 
     @form(action = routes.CarersAllowance.approveSubmit) {
         <div class="form-steps">
-            <button type="submit" name="action" value="next" class="button">Next Step</button>
+        	@if(approved == false) {
+        	    <p>However, if you wish to continue, click the <strong>'Next Step'</strong> button below.</p>
+            } else {
+        	    <p>Please click the <strong>'Next Step'</strong> button below.</p>
+            }
+
+            <button type="submit" name="action" value="next" class="button">Next step</button>
         </div>
     }
 }

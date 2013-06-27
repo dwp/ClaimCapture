@@ -14,48 +14,48 @@
             (function(){if(navigator.userAgent.match(/IEMobile\/10\.0/)){var d=document,c="appendChild",a=d.createElement("style");a[c](d.createTextNode("@@-ms-viewport{width:auto!important}"));d.getElementsByTagName("head")[0][c](a);}})();
         </script>
 
-            <!--[if gt IE 8]><!--> <link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-dd07ebece57f6837682d304d58d525fd.css" media="screen" rel="stylesheet" type="text/css" /> <!--<![endif]-->
-        <!--[if IE 6]><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-ie6-2146054bb41b9533a070daa18801359c.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
-        <!--[if IE 7]><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-ie7-f4557bba26ac1ad2f71d1c93df6e1100.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
-        <!--[if IE 8]><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-ie8-557e276442cba9c0ede68e1b2e6522a7.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+                <!--[if gt IE 8]><!--> <link href="@routes.Assets.at("stylesheets/header-footer-only.css")" media="screen" rel="stylesheet" type="text/css" /> <!--<![endif]-->
+              <!--[if IE 6]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie6.css")" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+              <!--[if IE 7]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie7.css")" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+              <!--[if IE 8]><link href="@routes.Assets.at("stylesheets/header-footer-only-ie8.css")" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
 
-        <link href="https://assets.digital.cabinet-office.gov.uk/static/print-0d9fb31f928fd75de11684e3753752fc.css" media="print" rel="stylesheet" type="text/css" />
-
-
-            <!--[if IE 8]>
-            <script type="text/javascript">
-              (function(){if(window.opera){return;}
-              setTimeout(function(){var a=document,g,b={families:(g=
-              ["nta"]),urls:["https://assets.digital.cabinet-office.gov.uk/static/fonts-ie8-beb10cbc00c9b7dcdbdee824962bc5f6.css"]},
-              c="https://assets.digital.cabinet-office.gov.uk/static/libs/goog/webfont-debug-96870cf9f159ed811fd43c39bdf4656b.js",d="script",
-              e=a.createElement(d),f=a.getElementsByTagName(d)[0],h=g.length;WebFontConfig
-              ={custom:b},e.src=c,f.parentNode.insertBefore(e,f);for(;h=h-1;a.documentElement
-              .className+=' wf-'+g[h].replace(/\s/g,'').toLowerCase()+'-n4-loading');},0)
-              })()
-            </script>
-            <![endif]-->
-            <!--[if gte IE 9]><!-->
-        <link href="https://assets.digital.cabinet-office.gov.uk/static/fonts-0fb6b917e34e45c93a44eec72dcc21de.css" media="all" rel="stylesheet" type="text/css" />
-            <!--<![endif]-->
+              <link href="@routes.Assets.at("stylesheets/print.css")" media="print" rel="stylesheet" type="text/css" />
 
 
-            <!--[if lt IE 9]>
-      <script src="https://assets.digital.cabinet-office.gov.uk/static/ie-27ccded64045ab36dbfb67c2f47c362b.js" type="text/javascript"></script>
-    <![endif]-->
+                  <!--[if IE 8]>
+                  <script type="text/javascript">
+                        (function(){if(window.opera){return;}
+                        setTimeout(function(){var a=document,g,b={families:(g=
+                        ["nta"]),urls:["<link href="@routes.Assets.at("stylesheets/fonts-ie8.css")"]},
+                        c="@routes.Assets.at("javascripts/webfont-debug.js")",d="script",
+                        e=a.createElement(d),f=a.getElementsByTagName(d)[0],h=g.length;WebFontConfig
+                        ={custom:b},e.src=c,f.parentNode.insertBefore(e,f);for(;h=h-1;a.documentElement
+                        .className+=' wf-'+g[h].replace(/\s/g,'').toLowerCase()+'-n4-loading');},0)
+                        })()
+                      </script>
+                  <![endif]-->
+                  <!--[if gte IE 9]><!-->
+               <link href="@routes.Assets.at("stylesheets/fonts.css")" media="all" rel="stylesheet" type="text/css" />
+                  <!--<![endif]-->
 
-        <link rel="shortcut icon" href="https://assets.digital.cabinet-office.gov.uk/static/favicon-447e4ac1ab790342660eacfe3dcce264.ico" type="image/x-icon" />
 
-            <!-- For third-generation iPad with high-resolution Retina display: -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://assets.digital.cabinet-office.gov.uk/static/apple-touch-icon-144x144-4e306e01c31e237722b82b7aa7130082.png">
-            <!-- For iPhone with high-resolution Retina display: -->
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://assets.digital.cabinet-office.gov.uk/static/apple-touch-icon-114x114-f1d7ccdc7b86d923386b373a9ba5e3db.png">
-            <!-- For first- and second-generation iPad: -->
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://assets.digital.cabinet-office.gov.uk/static/apple-touch-icon-72x72-2ddbe540853e3ba0d30fbad2a95eab3c.png">
-            <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-        <link rel="apple-touch-icon-precomposed" href="https://assets.digital.cabinet-office.gov.uk/static/apple-touch-icon-57x57-37527434942ed8407b091aae5feff3f3.png">
+                  <!--[if lt IE 9]>
+            <script src="@routes.Assets.at("javascripts/ie.js")" type="text/javascript"></script>
+          <![endif]-->
 
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <meta name="og:image" content="https://assets.digital.cabinet-office.gov.uk/static/opengraph-image-4e469785ca4cc8f8dd18d0627bc43d19.png">
+              <link rel="shortcut icon" href="https://assets.digital.cabinet-office.gov.uk/static/favicon-447e4ac1ab790342660eacfe3dcce264.ico" type="image/x-icon" />
+
+                  <!-- For third-generation iPad with high-resolution Retina display: -->
+              <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://assets.digital.cabinet-office.gov.uk/static/apple-touch-icon-144x144-4e306e01c31e237722b82b7aa7130082.png">
+                  <!-- For iPhone with high-resolution Retina display: -->
+              <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://assets.digital.cabinet-office.gov.uk/static/apple-touch-icon-114x114-f1d7ccdc7b86d923386b373a9ba5e3db.png">
+                  <!-- For first- and second-generation iPad: -->
+              <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://assets.digital.cabinet-office.gov.uk/static/apple-touch-icon-72x72-2ddbe540853e3ba0d30fbad2a95eab3c.png">
+                  <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+              <link rel="apple-touch-icon-precomposed" href="https://assets.digital.cabinet-office.gov.uk/static/apple-touch-icon-57x57-37527434942ed8407b091aae5feff3f3.png">
+
+              <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+              <meta name="og:image" content="https://assets.digital.cabinet-office.gov.uk/static/opengraph-image-4e469785ca4cc8f8dd18d0627bc43d19.png">
 
     </head>
 
@@ -64,26 +64,22 @@
 
         <a href="#content" class="visuallyhidden">Skip to main content</a>
 
-        <header role="banner" id="global-header">
-            <div class="header-wrapper">
-                <div class="header-global">
-                    <div class="header-logo">
-                        <a href="/" title="Go to the gov.uk homepage" id="logo" class="content">
-                            <img src="https://assets.digital.cabinet-office.gov.uk/static/gov.uk_logotype-2x-24145374d271079f08d96c618cc8d4a5.png" alt="GOV.UK">
-                        </a>
-                        <a href="#search" class="search-toggle js-header-toggle">Search</a>
-                    </div>
 
-                    <!--<form id="search" class="site-search" action="/search" method="get" role="search">
-                        <div class="content">
-                            <label for="site-search-text">Search</label>
-                            <input type="search" name="q" id="site-search-text" title="Search" class="js-search-focus">
-                            <input class="submit" type="submit" value="Search" />
-                        </div>
-                    </form>-->
-                </div>
-            </div>
-        </header>
+     <header role="banner" id="global-header">
+      <div class="header-wrapper">
+        <div class="header-global">
+          <div class="header-logo">
+            <a href="/" title="Go to the gov.uk homepage" id="logo" class="content">
+                            <img src="@routes.Assets.at("images/gov.uk_logotype-2x.png")" alt="GOV.UK">
+                        </a>
+          </div>
+          
+          <h1 class="page-title beta"><strong>Carer's Allowance</strong> <span>beta</span></h1>
+
+        </div>
+      </div>
+    </header>
+
             <!--end header-->
 
         <div id="global-cookie-message">
@@ -96,105 +92,92 @@
 
 
 
-        <div id="wrapper" class="group">
+        <div id="wrapper content" class="group">
             @content
         </div>
 
-        <footer class="group js-footer" id="footer" role="contentinfo">
+       
+       
+      <footer class="group js-footer" id="footer" role="contentinfo">
 
-            <div class="footer-wrapper">
-                <nav class="footer-categories">
-                    <div class="footer-explore">
-                        <h2>Explore GOV.UK</h2>
+      <div class="footer-wrapper carers-allowance-footer">
+ 
 
-                        <ul>
-                            <li><a href="/browse/driving">Driving and transport</a></li>
-                            <li><a href="/browse/benefits">Benefits</a></li>
-                            <li><a href="/browse/business">Businesses and self-employed</a></li>
-                            <li><a href="/browse/employing-people">Employing people</a></li>
-                            <li><a href="/browse/abroad">Passports, travel and living abroad</a></li>
-                            <li><a href="/browse/education">Education and learning</a></li>
-                            <li><a href="/browse/working">Working, jobs and pensions</a></li>
-                            <li><a href="/browse/housing">Housing and local services</a></li>
-                            <li><a href="/browse/justice">Crime, justice and the law</a></li>
-                            <li><a href="/browse/tax">Money and tax</a></li>
-                            <li><a href="/browse/births-deaths-marriages">Births, deaths, marriages and care</a></li>
-                            <li><a href="/browse/disabilities">Disabled people</a></li>
-                            <li><a href="/browse/citizenship">Citizenship and life in the UK</a></li>
-                        </ul>
-                    </div>
+        <nav class="footer-categories">
+          <div class="footer-explore">
+            <h2>Explore GOV.UK</h2>
 
-                    <div class="footer-inside-government">
-                        <h2><a href="/government">Inside Government</a></h2>
+            <ul>
+              <li><a href="http://www.gov.uk/browse/driving" target="_blank">Driving and transport</a></li>
+              <li><a href="http://www.gov.uk/browse/benefits" target="_blank">Benefits</a></li>
+              <li><a href="http://www.gov.uk/browse/business" target="_blank">Businesses and self-employed</a></li>
+              <li><a href="http://www.gov.uk/browse/employing-people" target="_blank">Employing people</a></li>
+              <li><a href="http://www.gov.uk/browse/abroad" target="_blank">Passports, travel and living abroad</a></li>
+              <li><a href="http://www.gov.uk/browse/education" target="_blank">Education and learning</a></li>
+              <li><a href="http://www.gov.uk/browse/working" target="_blank">Working, jobs and pensions</a></li>
+              <li><a href="http://www.gov.uk/browse/housing" target="_blank">Housing and local services</a></li>
+              <li><a href="http://www.gov.uk/browse/justice" target="_blank">Crime, justice and the law</a></li>
+              <li><a href="http://www.gov.uk/browse/tax" target="_blank">Money and tax</a></li>
+              <li><a href="http://www.gov.uk/browse/births-deaths-marriages" target="_blank">Births, deaths, marriages and care</a></li>
+              <li><a href="http://www.gov.uk/browse/disabilities" target="_blank">Disabled people</a></li>
+              <li><a href="http://www.gov.uk/browse/citizenship" target="_blank">Citizenship and life in the UK</a></li>
+            </ul>
+          </div>
 
-                        <ul>
-                            <li><a href="/government/how-government-works">How government works</a></li>
-                            <li><a href="/government/organisations">Departments</a></li>
-                            <li><a href="/government/world">Worldwide</a></li>
-                            <li><a href="/government/topics">Topics</a></li>
-                            <li><a href="/government/policies">Policies</a></li>
-                            <li><a href="/government/publications">Publications</a></li>
-                            <li><a href="/government/announcements">Announcements</a></li>
-                        </ul>
-                    </div>
+          <div class="footer-inside-government">
+            <h2><a href="http://www.gov.uk/government" target="_blank">Inside Government</a></h2>
 
-                </nav>
+            <ul>
+              <li><a href="http://www.gov.uk/government/how-government-works" target="_blank">How government works</a></li>
+              <li><a href="http://www.gov.uk/government/organisations" target="_blank">Departments</a></li>
+              <li><a href="http://www.gov.uk/government/world" target="_blank">Worldwide</a></li>
+              <li><a href="http://www.gov.uk/government/topics" target="_blank">Topics</a></li>
+              <li><a href="http://www.gov.uk/government/policies" target="_blank">Policies</a></li>
+              <li><a href="http://www.gov.uk/government/publications" target="_blank">Publications</a></li>
+              <li><a href="http://www.gov.uk/government/announcements" target="_blank">Announcements</a></li>
+            </ul>
+          </div>
 
-                <div class="footer-meta">
-                    <nav>
-                        <ul>
-                            <li><a href="/support">Support</a></li>
-                            <li><a href="/support/cookies">Cookies</a></li>
-                            <li><a href="/feedback">Feedback</a></li>
-                            <li><a href="/cymraeg">Cymraeg</a></li>
-                            <li>Built by the <a href="http://digital.cabinetoffice.gov.uk/">Government Digital Service</a></li>
-                        </ul>
+        </nav>
 
-                        <p>All content is available under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/">Open Government Licence</a>
-                            , except where otherwise stated</p>
-                    </nav>
+        <div class="footer-meta">
+  <nav>
+    <ul>
+      <li><a href="http://www.gov.uk/support" target="_blank">Support</a></li>
+      <li><a href="http://www.gov.uk/support/cookies" target="_blank">Cookies</a></li>
+      <li><a href="http://www.gov.uk/feedback" target="_blank">Feedback</a></li>
+      <li><a href="http://www.gov.uk/cymraeg" target="_blank">Cymraeg</a></li>
+      <li>Built by the <a href="http://digital.cabinetoffice.gov.uk/" target="_blank">Government Digital Service</a></li>
+    </ul>
 
-                    <div class="copyright">
-                        <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm">&copy;
-                            Crown Copyright</a>
-                    </div>
-                </div>
+    <p>All content is available under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/" target="_blank">Open Government Licence</a>, except where otherwise stated</p>
+  </nav>
 
-            </div>
-        </footer>
+  <div class="copyright">
+    <a href="http://www.nationalarchives.gov.uk/information-management/our-services/crown-copyright.htm" target="_blank">&copy; Crown Copyright</a>
+  </div>
+</div>
 
-            <!--end footer-->
+      </div>
+    </footer>
+
+    <!--end footer-->
 
         <div id="global-app-error" class="app-error hidden"></div>
 
-        <script src="https://assets.digital.cabinet-office.gov.uk/static/libs/jquery/jquery-1.7.2-2ce4706f8f7193defaa9e7df2b641e9a.js" type="text/javascript"></script>
-        <script defer="defer" src="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-597bdeb43191ea19b4f63233807d51f3.js" type="text/javascript"></script>
-        <script id="ga-params" type="text/javascript">
-  var GOVUK = GOVUK || {};
-            GOVUK.Analytics = GOVUK.Analytics || {};
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-26179049-1']);
-            if(document.domain=='www.gov.uk') {
-            _gaq.push(['_setDomainName', '.www.gov.uk']);
-            } else {
-            _gaq.push(['_setDomainName', document.domain]);
-            }
-            _gaq.push(['_setAllowLinker', true]);
-            // track pixel density ratio
-            if (window.devicePixelRatio) {
-            _gaq.push(['_setCustomVar', 11, 'Pixel Ratio', String(window.devicePixelRatio), 2 ]);
-            }
-        </script>
-        <script type="text/javascript">
-  _gaq.push(['_gat._anonymizeIp']);
-            _gaq.push(['_trackPageview']);
-            (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-        </script>
+        <script src="@routes.Assets.at("javascripts/jquery/jquery-1.7.2.js")" type="text/javascript"></script>
+        <script defer="defer" src="@routes.Assets.at("javascripts/gov/header-footer-only.js")" type="text/javascript"></script>
         <script src='@routes.Assets.at("javascripts/custom.js")'></script>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-41778491-1', '3cbeta.co.uk');
+          ga('send', '@title');
+
+        </script>
 
     </body>
 </html>

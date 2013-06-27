@@ -1,0 +1,34 @@
+@(breakForm: Form[models.domain.Break])(implicit claim: models.domain.Claim)
+
+@import models.domain.BreaksInCare
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.dates._
+
+@main("Break - Care You Provide", breakForm) {
+    @form(action = s4_care_you_provide.routes.G11Break.submit) {
+        <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
+
+        <fieldset class="form-elements">
+            <legend>About your break in care</legend>
+
+            <ul class="group">
+                @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
+                @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
+
+                @whereabouts(breakForm("whereYou"), Seq("Home", "Hospital", "Holiday", "Respite Care", "Other").map(v => v -> v))
+                @whereabouts(breakForm("wherePerson"), Seq("Hospital", "Respite Care", "Care Home", "Nursing Home", "Other").map(v => v -> v))
+
+                @yesNoRadioGroup(breakForm("medicalDuringBreak"))
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="@CareYouProvide.route(BreaksInCare.id)" class="button secondary">Cancel</a>
+            <button type="submit" name="action" value="next" class="button">Save</button>
+        </div>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g11_break.js")'></script>

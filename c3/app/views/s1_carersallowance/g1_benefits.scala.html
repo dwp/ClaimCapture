@@ -3,30 +3,29 @@
 @import helper._
 
 @main("Benefits - Carer's Allowance") {
-
     @form(action = routes.CarersAllowance.benefitsSubmit) {
         <fieldset class="form-elements form-eligibility q1">
             <legend><span>Q1</span>Does the person you look after get one of these benefits?</legend>
 
             <h2 class="first">Personal Independence Payment (PIP)</h2>
 
-            <p>At either rate of Daily Living Component.</p>
+            <p>At either the standard or enhanced rate of the Daily Living Component. The mobility component is not a qualifying benefit for Carer's Allowance.</p>
 
             <h2>The care component of Disability Living Allowance (DLA)</h2>
 
-            <p>At middle or highest rate. The mobility component is not qualifying benefit for Carer's Allowance.</p>
+            <p>At the middle or highest rate. The mobility component is not a qualifying benefit for Carer's Allowance.</p>
 
             <h2>Attendance Allowance (AA)</h2>
 
             <h2>Constant Attendance Allowance (CAA)hh</h2>
 
-            <p>At or above the normal maximum rate as an additional to Industrial Injuries Disablement (IID), or;</p>
+            <p>At or above the normal maximum rate as an addition to Industrial Injuries Disablement Benefit (IID);</p>
 
-            <p>basic, full day rate as an addition to War Disablement Pension (WDP)</p>
+            <p>or the basic, full day rate as an addition to War Disablement Pension (WDP)</p>
 
-            <h2>Armed Forces Independence Payment (AFP)</h2>
+            <h2>Armed Forces Independence Payment (AFIP)</h2>
 
-            @yesNoRadioGroup(confirmed)
+            @yesNoRadioGroupS1(confirmed)
         </fieldset>
 
         <div class="form-steps">

@@ -1,0 +1,70 @@
+@(hasBreaksForm: Form[models.domain.HasBreaks], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import models.domain.BreaksInCare
+@import views.html.helper._
+@import models.domain.{Claim,ClaimDate}
+
+@main("Breaks in Care - Care You Provide", hasBreaksForm, completedQuestionGroups) {
+    <fieldset class="form-elements results-detail" id="trips">
+        <legend>Trips you have added</legend>
+
+        <table>
+            <caption>Trip details</caption>
+
+            <thead>
+                <tr>
+                    <th>Dates</th>
+                    <th class="desc">Where were you?</th>
+                    <th class="desc">Where was the person you look after?</th>
+                    <th class="desc">Received medical treatment / professional care</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for(break <- breaksInCare.breaks) {
+                    <tr id="@break.id" class="@break.id">
+                        <td>
+                            @break.start.day/@break.start.month/@break.start.year
+
+                            @for(end <- break.end;
+                                 endDay <- end.day;
+                                 endMonth <- end.month;
+                                 endYear <- end.year) {
+                                <span>to</span>
+                                @endDay/@endMonth/@endYear
+                            }
+                        </td>
+
+                        <td class="desc">@break.whereYou.location</td>
+                        <td class="desc">@break.wherePerson.location</td>
+                        <td class="desc">@break.medicalDuringBreak</td>
+                        <td><input type="button" class="button row secondary" value="Edit"></td>
+                        <td><input type="button" class="button row warning" value="Delete"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </fieldset>
+
+    @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit) {
+        <fieldset class="form-elements">
+            <legend>Breaks in Care</legend>
+
+            <ul class="group">
+            @defining(claim.questionGroup(ClaimDate.id) match{ case Some(s) => Claim.dateFormatGeneration.parseDateTime(s.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString).toString(Claim.dateFormatPrint) case None => "{NO CLAIM DATE}"}) { dateOfClaim =>
+                @yesNoRadioGroup(hasBreaksForm("answer"),'_label -> Messages("answer.label",dateOfClaim))
+            }
+
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="@backHref(controllers.CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g10_breaksInCare.js")'></script>

@@ -14,3 +14,6 @@ dist
 /RUNNING_PID
 /.settings
 /.sass-cache
+bin
+.cache
+.target

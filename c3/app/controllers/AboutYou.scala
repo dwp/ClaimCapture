@@ -1,50 +1,62 @@
 package controllers
 
-import models.claim._
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.validation.Constraints._
+import models.view.CachedClaim
+import models.domain._
+import scala.Some
+import Mappings._
+import scala.collection.immutable.ListMap
+import utils.helpers.CarersForm._
 
-object AboutYou extends Controller with CachedClaim with FormMappings {
-  val route = Map(YourDetails.id -> routes.AboutYou.yourDetails,
-                  ContactDetails.id -> routes.AboutYou.contactDetails,
-                  ClaimDate.id -> routes.AboutYou.claimDate,
-                  MoreAboutYou.id -> routes.AboutYou.moreAboutYou,
-                  Employment.id -> routes.AboutYou.employment,
-                  PropertyAndRent.id -> routes.AboutYou.propertyAndRent)
+object AboutYou extends Controller with CachedClaim {
+  val route: ListMap[String, Call] = ListMap(YourDetails.id -> routes.AboutYou.yourDetails,
+                                            ContactDetails.id -> routes.AboutYou.contactDetails,
+                                            TimeOutsideUK.id -> routes.AboutYou.timeOutsideUK(),
+                                            ClaimDate.id -> routes.AboutYou.claimDate,
+                                            MoreAboutYou.id -> routes.AboutYou.moreAboutYou,
+                                            Employment.id -> routes.AboutYou.employment,
+                                            PropertyAndRent.id -> routes.AboutYou.propertyAndRent).asInstanceOf[ListMap[String,Call]]
 
   val yourDetailsForm = Form(
     mapping(
-      "title" -> nonEmptyText,
-      "firstName" -> nonEmptyText,
-      "middleName" -> optional(text),
-      "surname" -> nonEmptyText,
-      "otherNames" -> optional(text),
-      "nationalInsuranceNumber" -> optional(text verifying(pattern( """^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$""".r,
-                                                          "constraint.nationalInsuranceNumber", "error.nationalInsuranceNumber"), maxLength(10))),
-      "nationality" -> nonEmptyText,
-      "dateOfBirth" -> date.verifying(validDate),
-      "maritalStatus" -> nonEmptyText,
+      "title" -> nonEmptyText(maxLength = 4),
+      "firstName" -> nonEmptyText(maxLength = sixty),
+      "middleName" -> optional(text(maxLength = sixty)),
+      "surname" -> nonEmptyText(maxLength = sixty),
+      "otherNames" -> optional(text(maxLength = sixty)),
+      "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
+      "nationality" -> nonEmptyText(maxLength = sixty),
+      "dateOfBirth" -> dayMonthYear.verifying(validDate),
+      "maritalStatus" -> nonEmptyText(maxLength = 1),
       "alwaysLivedUK" -> nonEmptyText
-    )(YourDetails.apply)(YourDetails.unapply)
-  )
+    )(YourDetails.apply)(YourDetails.unapply))
 
   val contactDetailsForm = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),
-      "postcode" -> optional(text verifying(pattern( """^(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})$""".r,
-        "constraint.postcode", "error.postcode"), maxLength(10))),
-      "phoneNumber" -> optional(text),
+      "postcode" -> optional(text verifying(validPostcode)),
+      "phoneNumber" -> optional(text verifying(pattern( """[0-9 \-]{1,20}""".r,
+        "constraint.invalid", "error.invalid"))),
       "mobileNumber" -> optional(text)
-    )(ContactDetails.apply)(ContactDetails.unapply)
-  )
+    )(ContactDetails.apply)(ContactDetails.unapply))
+
+  val timeOutsideUKForm = Form(
+    mapping(
+      "currentlyLivingInUK" -> nonEmptyText(),
+      "arrivedInUK" -> optional(dayMonthYear.verifying(validDate)),
+      "originCountry" -> optional(text(maxLength = sixty)),
+      "planToGoBack" -> optional(text),
+      "whenPlanToGoBack"-> optional(dayMonthYear.verifying(validDate)),
+      "visaReference" -> optional(text(maxLength = sixty))
+    )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
 
   val claimDateForm = Form(
     mapping(
-      "dateOfClaim" -> date.verifying(validDate)
-    )(ClaimDate.apply)(ClaimDate.unapply)
-  )
+      "dateOfClaim" -> dayMonthYear.verifying(validDate)
+    )(ClaimDate.apply)(ClaimDate.unapply))
 
   val moreAboutYouForm = Form(
     mapping(
@@ -52,172 +64,195 @@ object AboutYou extends Controller with CachedClaim with FormMappings {
       "eitherClaimedBenefitSinceClaimDate" -> nonEmptyText,
       "beenInEducationSinceClaimDate" -> nonEmptyText,
       "receiveStatePension" -> nonEmptyText
-    )(MoreAboutYou.apply)(MoreAboutYou.unapply)
-  )
+    )(MoreAboutYou.apply)(MoreAboutYou.unapply))
 
   val employmentForm = Form(
     mapping(
       "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText,
       "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText
-    )(Employment.apply)(Employment.unapply)
-  )
+    )(Employment.apply)(Employment.unapply))
 
   val propertyAndRentForm = Form(
     mapping(
       "ownProperty" -> nonEmptyText,
       "hasSublet" -> nonEmptyText
-    )(PropertyAndRent.apply)(PropertyAndRent.unapply)
-  )
+    )(PropertyAndRent.apply)(PropertyAndRent.unapply))
 
-  def yourDetails = claiming {
-    implicit claim => implicit request =>
+  def yourDetails = claiming { implicit claim => implicit request =>
+    val yourDetailsFormParam: Form[YourDetails] = claim.questionGroup(YourDetails.id) match {
+      case Some(n: YourDetails) => yourDetailsForm.fill(n)
+      case _ => yourDetailsForm
+    }
 
-      val yourDetailsFormParam: Form[YourDetails] = claim.form(YourDetails.id) match {
-        case Some(n: YourDetails) => yourDetailsForm.fill(n)
-        case _ => yourDetailsForm
-      }
-
-      Ok(views.html.s2_aboutyou.g1_yourDetails(yourDetailsFormParam))
+    Ok(views.html.s2_aboutyou.g1_yourDetails(yourDetailsFormParam))
   }
 
-  def yourDetailsSubmit = claiming {
-    implicit claim => implicit request =>
-      yourDetailsForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s2_aboutyou.g1_yourDetails(formWithErrors)),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.contactDetails())
-      )
+  def yourDetailsSubmit = claiming { implicit claim => implicit request =>
+    yourDetailsForm.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s2_aboutyou.g1_yourDetails(formWithErrors)),
+      yourDetails => claim.update(yourDetails) -> Redirect(routes.AboutYou.contactDetails()))
   }
 
-  def contactDetails = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+  def contactDetails = claiming { implicit claim => implicit request =>
+    val completedForms = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-      val contactDetailsFormParam: Form[ContactDetails] = claim.form(ContactDetails.id) match {
-        case Some(n: ContactDetails) => contactDetailsForm.fill(n)
-        case _ => contactDetailsForm
-      }
+    val contactDetailsQGForm: Form[ContactDetails] = claim.questionGroup(ContactDetails.id) match {
+      case Some(c: ContactDetails) => contactDetailsForm.fill(c)
+      case _ => contactDetailsForm
+    }
 
-      Ok(views.html.s2_aboutyou.g2_contactDetails(contactDetailsFormParam, completedForms.takeWhile(_.id != ContactDetails.id)))
+    Ok(views.html.s2_aboutyou.g2_contactDetails(contactDetailsQGForm, completedForms.takeWhile(_.id != ContactDetails.id)))
   }
 
-  def contactDetailsSubmit = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+  def contactDetailsSubmit = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-      contactDetailsForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s2_aboutyou.g2_contactDetails(formWithErrors, completedForms.takeWhile(_.id != ContactDetails.id))),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.claimDate())
-      )
+    contactDetailsForm.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s2_aboutyou.g2_contactDetails(formWithErrors, completedQuestionGroups.takeWhile(_.id != ContactDetails.id))),
+      contactDetails => claim.update(contactDetails) -> Redirect(routes.AboutYou.timeOutsideUK()))
   }
 
-  def claimDate = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
-      val claimDateFormParam: Form[ClaimDate] = claim.form(ClaimDate.id) match {
-        case Some(n: ClaimDate) => claimDateForm.fill(n)
-        case _ => claimDateForm
-      }
+  def timeOutsideUK = claiming { implicit claim => implicit request =>
+    claim.questionGroup(YourDetails.id) match {
+      case Some(YourDetails(_, _, _, _, _, _, _, _, _, "yes")) => Redirect(routes.AboutYou.claimDate())
+      case _ =>
+        val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-      Ok(views.html.s2_aboutyou.g4_claimDate(claimDateFormParam, completedForms.takeWhile(_.id != ClaimDate.id)))
+        val timeOutsideUKQGForm: Form[TimeOutsideUK] = claim.questionGroup(TimeOutsideUK.id) match {
+          case Some(t: TimeOutsideUK) => timeOutsideUKForm.fill(t)
+          case _ => timeOutsideUKForm
+        }
+
+        Ok(views.html.s2_aboutyou.g3_timeOutsideUK(timeOutsideUKQGForm, completedQuestionGroups.takeWhile(_.id != TimeOutsideUK.id)))
+    }
   }
 
-  def claimDateSubmit = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+  def timeOutsideUKSubmit = claiming { implicit claim => implicit request =>
+    def livingInUK(timeOutsideUKForm: Form[TimeOutsideUK])(implicit timeOutsideUK: TimeOutsideUK): Form[TimeOutsideUK] = {
+      if (timeOutsideUK.currentlyLivingInUK == "no" && timeOutsideUK.arrivedInUK == None) timeOutsideUKForm.fill(timeOutsideUK).withError("arrivedInUK", "error.required")
+      else timeOutsideUKForm
+    }
 
-      claimDateForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s2_aboutyou.g4_claimDate(formWithErrors, completedForms.takeWhile(_.id != ClaimDate.id))),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.moreAboutYou())
-      )
+    def planToGoBack(timeOutsideUKForm: Form[TimeOutsideUK])(implicit timeOutsideUK: TimeOutsideUK): Form[TimeOutsideUK] = {
+      if (timeOutsideUK.planToGoBack.getOrElse("no") == "yes" && timeOutsideUK.whenPlanToGoBack == None) timeOutsideUKForm.fill(timeOutsideUK).withError("whenPlanToGoBack", "error.required")
+      else timeOutsideUKForm
+    }
+
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
+
+    timeOutsideUKForm.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s2_aboutyou.g3_timeOutsideUK(formWithErrors, completedQuestionGroups.takeWhile(_.id != TimeOutsideUK.id))),
+      implicit timeOutsideUK => {
+        val formValidations = livingInUK _ andThen planToGoBack _
+        val timeOutsideUKFormValidated = formValidations(timeOutsideUKForm)
+
+        if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s2_aboutyou.g3_timeOutsideUK(timeOutsideUKFormValidated, completedQuestionGroups.takeWhile(_.id != TimeOutsideUK.id)))
+        else claim.update(timeOutsideUK) -> Redirect(routes.AboutYou.claimDate())
+      })
   }
 
-  def moreAboutYou = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+  def claimDate = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-      val moreAboutYouFormParam: Form[MoreAboutYou] = claim.form(MoreAboutYou.id) match {
-        case Some(n: MoreAboutYou) => moreAboutYouForm.fill(n)
-        case _ => moreAboutYouForm
-      }
+    val claimDateQGForm: Form[ClaimDate] = claim.questionGroup(ClaimDate.id) match {
+      case Some(c: ClaimDate) => claimDateForm.fill(c)
+      case _ => claimDateForm
+    }
 
-      claim.form(models.claim.ClaimDate.id) match {
-        case Some(n) => Ok(views.html.s2_aboutyou.g5_moreAboutYou(moreAboutYouFormParam, completedForms.takeWhile(_.id != MoreAboutYou.id)))
-        case _ => Redirect(routes.CarersAllowance.benefits())
-      }
+    Ok(views.html.s2_aboutyou.g4_claimDate(claimDateQGForm, completedQuestionGroups.takeWhile(_.id != ClaimDate.id)))
   }
 
-  def moreAboutYouSubmit = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+  def claimDateSubmit = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-      moreAboutYouForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s2_aboutyou.g5_moreAboutYou(formWithErrors, completedForms.takeWhile(_.id != MoreAboutYou.id))),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.employment())
-      )
+    claimDateForm.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s2_aboutyou.g4_claimDate(formWithErrors, completedQuestionGroups.takeWhile(_.id != ClaimDate.id))),
+      claimDate => claim.update(claimDate) -> Redirect(routes.AboutYou.moreAboutYou()))
   }
 
-  def employment = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+  def moreAboutYou = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-      val employmentFormParam: Form[Employment] = claim.form(Employment.id) match {
-        case Some(n: Employment) => employmentForm.fill(n)
-        case _ => employmentForm
-      }
+    val moreAboutYouQGForm: Form[MoreAboutYou] = claim.questionGroup(MoreAboutYou.id) match {
+      case Some(m: MoreAboutYou) => moreAboutYouForm.fill(m)
+      case _ => moreAboutYouForm
+    }
 
-      claim.form(models.claim.ClaimDate.id) match {
-        case Some(n) => Ok(views.html.s2_aboutyou.g6_employment(employmentFormParam, completedForms.takeWhile(_.id != Employment.id)))
-        case _ => Redirect(routes.CarersAllowance.benefits())
-      }
+    claim.questionGroup(models.domain.ClaimDate.id) match {
+      case Some(n) => Ok(views.html.s2_aboutyou.g5_moreAboutYou(moreAboutYouQGForm, completedQuestionGroups.takeWhile(_.id != MoreAboutYou.id)))
+      case _ => Redirect(routes.CarersAllowance.benefits())
+    }
   }
 
-  def employmentSubmit = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+  def moreAboutYouSubmit = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-      employmentForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s2_aboutyou.g6_employment(formWithErrors, completedForms.takeWhile(_.id != Employment.id))),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.propertyAndRent())
-      )
+    moreAboutYouForm.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s2_aboutyou.g5_moreAboutYou(formWithErrors, completedQuestionGroups.takeWhile(_.id != MoreAboutYou.id))),
+      moreAboutYou => claim.update(moreAboutYou) -> Redirect(routes.AboutYou.employment()))
   }
 
-  def propertyAndRent = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+  def employment = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-      val propertyAndRentFormParam: Form[PropertyAndRent] = claim.form(PropertyAndRent.id) match {
-        case Some(n: PropertyAndRent) => propertyAndRentForm.fill(n)
-        case _ => propertyAndRentForm
-      }
+    val employmentQGForm: Form[Employment] = claim.questionGroup(Employment.id) match {
+      case Some(e: Employment) => employmentForm.fill(e)
+      case _ => employmentForm
+    }
 
-      claim.form(models.claim.ClaimDate.id) match {
-        case Some(n) => Ok(views.html.s2_aboutyou.g7_propertyAndRent(propertyAndRentFormParam, completedForms.takeWhile(_.id != PropertyAndRent.id)))
-        case _ => Redirect(routes.CarersAllowance.benefits())
-      }
+    claim.questionGroup(models.domain.ClaimDate.id) match {
+      case Some(n) => Ok(views.html.s2_aboutyou.g6_employment(employmentQGForm, completedQuestionGroups.takeWhile(_.id != Employment.id)))
+      case _ => Redirect(routes.CarersAllowance.benefits())
+    }
   }
 
-  def propertyAndRentSubmit = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+  def employmentSubmit = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-      propertyAndRentForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.s2_aboutyou.g7_propertyAndRent(formWithErrors, completedForms.takeWhile(_.id != PropertyAndRent.id))),
-        inputForm => claim.update(inputForm) -> Redirect(routes.AboutYou.completed())
-      )
+    employmentForm.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s2_aboutyou.g6_employment(formWithErrors, completedQuestionGroups.takeWhile(_.id != Employment.id))),
+      employment => claim.update(employment) -> Redirect(routes.AboutYou.propertyAndRent()))
   }
 
-  def completed = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+  def propertyAndRent = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-      Ok(views.html.s2_aboutyou.g8_completed(completedForms))
+    val propertyAndRentQGForm: Form[PropertyAndRent] = claim.questionGroup(PropertyAndRent.id) match {
+      case Some(p: PropertyAndRent) => propertyAndRentForm.fill(p)
+      case _ => propertyAndRentForm
+    }
+
+    claim.questionGroup(models.domain.ClaimDate.id) match {
+      case Some(n) => Ok(views.html.s2_aboutyou.g7_propertyAndRent(propertyAndRentQGForm, completedQuestionGroups.takeWhile(_.id != PropertyAndRent.id)))
+      case _ => Redirect(routes.CarersAllowance.benefits())
+    }
   }
 
-  def completedSubmit = claiming {
-    implicit claim => implicit request =>
-      val completedForms = claim.completedFormsForSection(models.claim.AboutYou.id)
+  def propertyAndRentSubmit = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
-      if (completedForms.distinct.size == 6) Redirect(routes.YourPartner.yourPartner())
-      else Redirect(routes.AboutYou.yourDetails())
+    propertyAndRentForm.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s2_aboutyou.g7_propertyAndRent(formWithErrors, completedQuestionGroups.takeWhile(_.id != PropertyAndRent.id))),
+      propertyAndRent => claim.update(propertyAndRent) -> Redirect(routes.AboutYou.completed()))
+  }
+
+  def completed = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
+
+    Ok(views.html.s2_aboutyou.g8_completed(completedQuestionGroups))
+  }
+
+  def completedSubmit = claiming { implicit claim => implicit request =>
+    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou.id)
+
+    claim.questionGroup(YourDetails.id) match {
+      case Some(YourDetails(_, _, _, _, _, _, _, _, _, "no")) if completedQuestionGroups.distinct.size == 7 =>
+        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+
+      case Some(YourDetails(_, _, _, _, _, _, _, _, _, _)) if completedQuestionGroups.distinct.size == 6 =>
+        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+
+      case _ => Redirect(routes.AboutYou.yourDetails())
+    }
   }
 }

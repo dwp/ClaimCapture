@@ -1,38 +1,40 @@
-@(yourDetailsForm: Form[models.claim.YourDetails])(implicit claim: models.claim.Claim)
+@(yourDetailsForm: Form[models.domain.YourDetails])(implicit claim: models.domain.Claim)
 
 @import helper._
-@import utils.helpers.ClaimHelpers._
+@import utils.helpers.CarersTemplate._
 @import views.html.common._
 @import views.html.helper._
+@import views.html.helper.dropdowns._
+@import views.html.helper.base._
+@import views.html.helper.dates._
 
 @main("Your Details - About You") {
+    @errorsSummary(yourDetailsForm)
 
     @form(action = routes.AboutYou.yourDetailsSubmit) {
         <fieldset class="form-elements">
             <legend>Your details</legend>
 
-            @errorsSummary(yourDetailsForm)
-
             <ul class="group">
                 @titleSelect(yourDetailsForm("title"))
 
-                @inputText(yourDetailsForm("firstName"))
+                @carersInputText(yourDetailsForm("firstName"))
 
-                @inputText(yourDetailsForm("middleName"))
+                @carersInputText(yourDetailsForm("middleName"))
 
-                @inputText(yourDetailsForm("surname"))
+                @carersInputText(yourDetailsForm("surname"))
 
-                @inputText(yourDetailsForm("otherNames"))
+                @carersInputText(yourDetailsForm("otherNames"))
 
-                @inputText(yourDetailsForm("nationalInsuranceNumber"), 'placeholder -> Messages("nationalInsuranceNumber.placeHolder"))
+                @nationalInsuranceNumber(yourDetailsForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
 
-                @inputDayMonthYear(yourDetailsForm("dateOfBirth"))
+                @inputDayMonthYear(yourDetailsForm("dateOfBirth"), 'helperBelow-> Messages("dateOfBirth.helper"))
 
-                @inputText(yourDetailsForm("nationality"))
+                @carersInputText(yourDetailsForm("nationality"))
 
                 @maritalStatusSelect(yourDetailsForm("maritalStatus"))
 
-                @common.yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"))
+                @yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"))
             </ul>
         </fieldset>
 

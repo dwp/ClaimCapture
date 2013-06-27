@@ -1,56 +1,148 @@
 s1.g1 = Q1.  Does the person you look after get one of these benefits?
 s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?
-s1.g3 = Q3.  Do you normally live in Great Britain?
-s1.g4 = Q4.  Are you aged 16 or over?
-s2.g1 = 1  Your Details
-s2.g2 = 2  Your contact details
-s2.g4 = 4  Your claim date: {0}
-s2.g5 = 5  More about you
-s2.g6 = 6  Employment
-s2.g7 = 7  Property and rent
+s1.g3 = Q3.  Are you aged 16 or over?
+s1.g4 = Q4.  Do you normally live in Great Britain?
+
+s2.g1 = Your Details
+s2.g2 = Your contact details
+s2.g3 = About your time outside the UK
+s2.g4 = Your claim date: {0}
+s2.g5 = More about you
+s2.g6 = Employment
+s2.g7 = Property and rent
+
+s4.g1 = Details of the person you care for
+s4.g2 = Their contact details
+s4.g3 = More about the person you care for
+s4.g4 = About the previous Carer
+s4.g5 = More about the care you provide
+s4.g6 = Representatives for the person you care for
+s4.g7 = More about the care you provide
+s4.g8 = Details of the person / organisation who pays you
+s4.g9 = Contact details of the person who pays you
+s4.g10 = Breaks in Care
+s4.g11 = About the breaks in care
 
 ## ABOUT YOU
 
-#  YOUR DETAILS
+# YOUR DETAILS
 title = Title
-firstName = First Name
-middleName = Middle Name
+firstName = First name
+middleName = Middle name
 surname = Surname or family name
 otherNames = All other surnames or family names you have used or have been known by
-nationalInsuranceNumber = National Insurance Number
-dateOfBirth = Date of Birth
-dateOfBirth.day = Date of Birth (Day)
-dateOfBirth.month = Date of Birth (Month)
-dateOfBirth.year = Date of Birth (Year)
+nationalInsuranceNumber = National Insurance (NI) number
+nationalInsuranceNumber.ni1 = National Insurance (NI) number first field
+nationalInsuranceNumber.ni2 = National Insurance (NI) number second field
+nationalInsuranceNumber.ni3 = National Insurance (NI) number third field
+nationalInsuranceNumber.ni4 = National Insurance (NI) number fourth field
+nationalInsuranceNumber.ni5 = National Insurance (NI) number fifth field
+error.nationalInsuranceNumber = A National insurance number must be in the format AB 12 34 56 Z
+nationalInsuranceNumber.helper = e.g. AA 12 34 56 A<br>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.
+
+dateOfBirth = Date of birth
+dateOfBirth.day = Date of birth (Day)
+dateOfBirth.month = Date of birth (Month)
+dateOfBirth.year = Date of birth (Year)
+dateOfBirth.helper = eg: 27 June 2013
 nationality = Nationality
 maritalStatus = What is your marital or civil partnership status?
 alwaysLivedUK = Have you always lived in the United Kingdom?
-
 firstName.error = Please fill your first name
-nationalInsuranceNumber.placeHolder = eg: JW415467B
-error.nationalInsuranceNumber = A National insurance number must be in the format AB123456Z
 
-#  CONTACT DETAILS
+# CONTACT DETAILS
 address = Address
 postcode = Postcode
+postcode.content = Postcode
 phoneNumber = Daytime phone number
-mobileNumber = MobileNumber
+mobileNumber = Mobile number
 postcode.placeHolder = eg: PR2 8AE
 error.postcode = A post code must be in the format PR2 8AE
 
-#  CLAIM DATE
+# TIME OUTSIDE UK
+currentlyLivingInUK = Are you currently living in the UK?
+arrivedInUK = When did you arrive in the UK?
+originCountry = What country did you come from?
+planToGoBack = Do you plan to go back to that country?
+whenPlanToGoBack = When do you plan to go back?
+visaReference = What is your visa reference number in your passport?
+
+# CLAIM DATE
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
 
 # MORE ABOUT YOU
-s2_g5_q1 = Have you had a partner/spouse at any time since your claim date: {0}?
-s2_g5_q2 = Have you or your partner/spouse claimed or received any other benefits since your claim date: {0}?
-s2_g5_q3 = Have you been on a course of education since your claim date: {0}?
-s2_g5_q4 = Do you receive State Pension?
+hadPartnerSinceClaimDate.label = Have you had a partner/spouse at any time since your claim date: {0}?
+hadPartnerSinceClaimDate = Have you had a partner/spouse at any time since your claim date?
+eitherClaimedBenefitSinceClaimDate.label = Have you or your partner/spouse claimed or received any other benefits since your claim date: {0}?
+eitherClaimedBenefitSinceClaimDate = Have you or your partner/spouse claimed or received any other benefits since your claim date?
+beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
+beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
+receiveStatePension = Do you receive State Pension?
 
 # EMPLOYMENT
-s2_g6_q1 = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
-s2_g6_q2 = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
+beenEmployedSince6MonthsBeforeClaim.label = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
+beenEmployedSince6MonthsBeforeClaim = Have you been employed at any time since six months before your claim date?
+beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
+beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
 
-#PROPERTY AND RENT
-s2_g7_q1 = Do you or your partner own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
-s2_g7_q2 = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
+# PROPERTY AND RENT
+ownProperty.label = Do you or your partner own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
+ownProperty = Do you or your partner own property or land in the UK or abroad that you have rented out since one week before your claim date?
+hasSublet.label = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
+hasSublet = Have you sublet your home, or provided board and lodgings, since one week before your claim date?
+
+## CARE YOU PROVIDE
+
+# THEIR PERSONAL DETAILS
+liveAtSameAddress = Do they live at the same address as you?
+
+# MORE ABOUT THE PERSON
+relationship = What's their relationship to you?
+armedForcesPayment = Does this person get Armed Forces Independence Payment?
+claimedAllowanceBefore = Has anyone else claimed Carer's Allowance for this person before?
+
+# REPRESENTATIVES FOR THE PERSON
+actForPerson = Do you act for the person you care for?
+actAs = You act as
+someoneElseActForPerson = Do someone else act for the person you care for?
+someoneElseActAs = Person acts as
+someoneElseFullName = Full name
+
+# ONE WHO PAYS PERSONAL DETAILS
+organisation = Organisation
+amount = How much do you get paid a week?
+startDatePayment = When did the payments start?
+poundSign = £
+decimal.invalid = The amount must be in the format 500 or 500.5
+
+
+# MORE ABOUT THE CARE
+spent35HoursCaring = Do you spend 35 hours or more each week caring for this person?
+spent35HoursCaringBeforeClaim = Did you care for this person for 35 hours or more each week before your claim date?
+spent35HoursCaringBeforeClaim.label = Did you care for this person for 35 hours or more each week before your claim date: {0}?
+careStartDate = When did you start to care for this person?
+hasSomeonePaidYou = Has someone paid you to care for this person since your claim date?
+hasSomeonePaidYou.label = Has someone paid you to care for this person since your claim date: {0}?
+
+# BREAKS
+answer = Have you had any breaks in caring since claim date?
+answer.label = Have you had any breaks in caring since {0}?
+breaks.answer.prompt = <p class="intro">By break we mean time when, for any reason, you spent less than 35 hours a week caring for the person you look after. For example, if:</p><ul><li>They were in respite care, in hospital or on holiday without you, or</li><li>You were in hospital or on holiday without them.</li></ul>
+
+# BREAKS IN CARE
+break.start = Break start date?
+start = Break start date?
+break.start.time = Break start time?
+start.time = Break start time?
+break.end = Break end date?
+end = Break end date?
+break.end.time = Break end time?
+end.time = Break end time?
+break.whereYou = Where were you during the above break?
+whereYou = Where were you during the above break?
+break.wherePerson = Where was the person you care for during the above break?
+wherePerson = Where was the person you care for during the above break?
+moreBreaks = Have you had any more breaks in care for this person since your claim date: {0}
+break.medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
+medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
+medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?

@@ -3,51 +3,96 @@
 # ~~~~
 
 # Home page
-GET     /                               controllers.Application.index
+GET     /                                               controllers.Application.index
 
 # Allowance
 ###############
-GET     /allowance/benefits             controllers.CarersAllowance.benefits
-POST    /allowance/benefits             controllers.CarersAllowance.benefitsSubmit
+GET     /allowance/benefits                             controllers.CarersAllowance.benefits
+POST    /allowance/benefits                             controllers.CarersAllowance.benefitsSubmit
 
-GET     /allowance/hours                controllers.CarersAllowance.hours
-POST    /allowance/hours                controllers.CarersAllowance.hoursSubmit
+GET     /allowance/hours                                controllers.CarersAllowance.hours
+POST    /allowance/hours                                controllers.CarersAllowance.hoursSubmit
 
-GET     /allowance/livesInGB            controllers.CarersAllowance.livesInGB
-POST    /allowance/livesInGB            controllers.CarersAllowance.livesInGBSubmit
+GET     /allowance/livesInGB                            controllers.CarersAllowance.livesInGB
+POST    /allowance/livesInGB                            controllers.CarersAllowance.livesInGBSubmit
 
-GET     /allowance/over16               controllers.CarersAllowance.over16
-POST    /allowance/over16               controllers.CarersAllowance.over16Submit
+GET     /allowance/over16                               controllers.CarersAllowance.over16
+POST    /allowance/over16                               controllers.CarersAllowance.over16Submit
 
-GET     /allowance/approve              controllers.CarersAllowance.approve
-POST    /allowance/approve              controllers.CarersAllowance.approveSubmit
+GET     /allowance/approve                              controllers.CarersAllowance.approve
+POST    /allowance/approve                              controllers.CarersAllowance.approveSubmit
 
 # About you
 ###############
-GET     /aboutyou/yourDetails           controllers.AboutYou.yourDetails
-POST    /aboutyou/yourDetails           controllers.AboutYou.yourDetailsSubmit
+GET     /aboutyou/yourDetails                           controllers.AboutYou.yourDetails
+POST    /aboutyou/yourDetails                           controllers.AboutYou.yourDetailsSubmit
 
-GET     /aboutyou/contactDetails        controllers.AboutYou.contactDetails
-POST    /aboutyou/contactDetails        controllers.AboutYou.contactDetailsSubmit
+GET     /aboutyou/contactDetails                        controllers.AboutYou.contactDetails
+POST    /aboutyou/contactDetails                        controllers.AboutYou.contactDetailsSubmit
 
-GET     /aboutyou/claimDate             controllers.AboutYou.claimDate
-POST    /aboutyou/claimDate             controllers.AboutYou.claimDateSubmit
+GET     /aboutyou/timeOutsideUK                         controllers.AboutYou.timeOutsideUK
+POST    /aboutyou/timeOutsideUK                         controllers.AboutYou.timeOutsideUKSubmit
 
-GET     /aboutyou/moreAboutYou          controllers.AboutYou.moreAboutYou
-POST    /aboutyou/moreAboutYou          controllers.AboutYou.moreAboutYouSubmit
+GET     /aboutyou/claimDate                             controllers.AboutYou.claimDate
+POST    /aboutyou/claimDate                             controllers.AboutYou.claimDateSubmit
 
-GET     /aboutyou/employment            controllers.AboutYou.employment
-POST    /aboutyou/employment            controllers.AboutYou.employmentSubmit
+GET     /aboutyou/moreAboutYou                          controllers.AboutYou.moreAboutYou
+POST    /aboutyou/moreAboutYou                          controllers.AboutYou.moreAboutYouSubmit
 
-GET     /aboutyou/propertyAndRent       controllers.AboutYou.propertyAndRent
-POST    /aboutyou/propertyAndRent       controllers.AboutYou.propertyAndRentSubmit
+GET     /aboutyou/employment                            controllers.AboutYou.employment
+POST    /aboutyou/employment                            controllers.AboutYou.employmentSubmit
 
-GET     /aboutyou/completed             controllers.AboutYou.completed
-POST    /aboutyou/completed             controllers.AboutYou.completedSubmit
+GET     /aboutyou/propertyAndRent                       controllers.AboutYou.propertyAndRent
+POST    /aboutyou/propertyAndRent                       controllers.AboutYou.propertyAndRentSubmit
+
+GET     /aboutyou/completed                             controllers.AboutYou.completed
+POST    /aboutyou/completed                             controllers.AboutYou.completedSubmit
 
 # Your partner
 ###############
-GET     /yourpartner/yourpartner        controllers.YourPartner.yourPartner
+GET     /yourpartner/yourpartner                        controllers.YourPartner.yourPartner
+
+# Care You Provide
+###############
+GET     /careYouProvide/theirPersonalDetails            controllers.s4_care_you_provide.G1TheirPersonalDetails.present
+POST    /careYouProvide/theirPersonalDetails            controllers.s4_care_you_provide.G1TheirPersonalDetails.submit
+
+GET     /careYouProvide/theirContactDetails             controllers.s4_care_you_provide.G2TheirContactDetails.present
+POST    /careYouProvide/theirContactDetails             controllers.s4_care_you_provide.G2TheirContactDetails.submit
+
+GET     /careYouProvide/moreAboutThePerson              controllers.s4_care_you_provide.G3MoreAboutThePerson.present
+POST    /careYouProvide/moreAboutThePerson              controllers.s4_care_you_provide.G3MoreAboutThePerson.submit
+
+GET     /careYouProvide/previousCarerPersonalDetails    controllers.CareYouProvide.previousCarerPersonalDetails
+POST    /careYouProvide/previousCarerPersonalDetails    controllers.CareYouProvide.previousCarerPersonalDetailsSubmit
+
+GET     /careYouProvide/previousCarerContactDetails     controllers.CareYouProvide.previousCarerContactDetails
+POST     /careYouProvide/previousCarerContactDetails    controllers.CareYouProvide.previousCarerContactDetailsSubmit
+
+GET     /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPerson
+POST    /careYouProvide/representativesForPerson        controllers.CareYouProvide.representativesForPersonSubmit
+
+GET     /careYouProvide/oneWhoPaysPersonalDetails       controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.present
+POST    /careYouProvide/oneWhoPaysPersonalDetails       controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.submit
+
+GET     /careYouProvide/moreAboutTheCare                controllers.CareYouProvide.moreAboutTheCare
+POST    /careYouProvide/moreAboutTheCare                controllers.CareYouProvide.moreAboutTheCareSubmit
+
+GET     /careYouProvide/contactDetailsOfPayingPerson    controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.present
+POST    /careYouProvide/contactDetailsOfPayingPerson    controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.submit
+
+GET     /careYouProvide/breaksInCare                    controllers.s4_care_you_provide.G10BreaksInCare.present
+POST    /careYouProvide/breaksInCare                    controllers.s4_care_you_provide.G10BreaksInCare.submit
+DELETE  /careYouProvide/breaksInCare/:id                controllers.s4_care_you_provide.G10BreaksInCare.delete(id: String)
+
+GET     /careYouProvide/breaks/:id                      controllers.s4_care_you_provide.G11Break.break(id: String)
+GET     /careYouProvide/break                           controllers.s4_care_you_provide.G11Break.present
+POST    /careYouProvide/break                           controllers.s4_care_you_provide.G11Break.submit
+
+GET     /careYouProvide/completed                       controllers.CareYouProvide.completed
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                   controllers.Assets.at(path="/public", file)
+GET     /assets/*file                                   controllers.Assets.at(path="/public", file)
+
+# Temporary submission service
+GET     /submit                                         controllers.Submission.submit

@@ -1,25 +1,26 @@
-@(propertyAndRentForm: Form[models.claim.PropertyAndRent], completedForms: List[models.claim.Form])(implicit claim: models.claim.Claim)
+@(propertyAndRentForm: Form[models.domain.PropertyAndRent], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import views.html.common._
-@import models.claim.ClaimDate
+@import models.domain.Claim
+@import models.domain.ClaimDate
+@import utils.helpers.CarersTemplate._
 
-@main("Property and Rent - About You", completedForms) {
-    @form(action = routes.AboutYou.propertyAndRentSubmit()) {
+@main("Property and Rent - About You", completedQuestionGroups) {
+    @errorsSummary(propertyAndRentForm)
+
+    @form(action = routes.AboutYou.propertyAndRentSubmit) {
         <fieldset class="form-elements">
             <legend>Property and rent</legend>
 
-            @errorsSummary(propertyAndRentForm)
-
             <ul class="group">
-                @defining(utils.ClaimUtils.dateFormatGeneration.parseDateTime(claim.form(ClaimDate.id).get.asInstanceOf[models.claim.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
+                @defining(Claim.dateFormatGeneration.parseDateTime(claim.questionGroup(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
 
+                    @yesNoRadioGroup(propertyAndRentForm("ownProperty"),
+                        '_label -> Messages("ownProperty.label", dateOfClaim.minusWeeks(1).toString(Claim.dateFormatPrint), dateOfClaim.toString(Claim.dateFormatPrint)))
 
-                    @common.yesNoRadioGroup(propertyAndRentForm("ownProperty"),
-                        '_label -> Messages("s2_g7_q1", dateOfClaim.minusWeeks(1).toString(utils.ClaimUtils.dateFormatPrint), dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
-
-                    @common.yesNoRadioGroup(propertyAndRentForm("hasSublet"),
-                        '_label -> Messages("s2_g7_q2", dateOfClaim.minusWeeks(1).toString(utils.ClaimUtils.dateFormatPrint), dateOfClaim.toString(utils.ClaimUtils.dateFormatPrint)))
+                    @yesNoRadioGroup(propertyAndRentForm("hasSublet"),
+                        '_label -> Messages("hasSublet.label", dateOfClaim.minusWeeks(1).toString(Claim.dateFormatPrint), dateOfClaim.toString(Claim.dateFormatPrint)))
                 }
             </ul>
 

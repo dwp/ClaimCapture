@@ -1,0 +1,58 @@
+@(currentForm: Form[models.domain.RepresentativesForPerson], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.dropdowns._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+
+@main("Representatives For The Person - Care You Provide", currentForm, completedQuestionGroups) {
+
+    @form(action = routes.CareYouProvide.representativesForPersonSubmit) {
+
+        <fieldset class="form-elements">
+            <legend>Representatives for the person you care for</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("actForPerson"))
+
+                <div id="actWrap">
+                    @actSelect(currentForm("actAs"))
+                </div>
+
+                @yesNoRadioGroup(currentForm("someoneElseActForPerson"))
+
+                <div id="someoneElseWrap">
+                    @actSelect(currentForm("someoneElseActAs"))
+                    @carersInputText(currentForm("someoneElseFullName"))
+                </div>
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a id="backButton" href="@backHref(CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g6_representativesForThePerson.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        @if(currentForm("actForPerson").value.getOrElse("no") == "no") {
+            $("#actWrap").hide();
+        }
+
+        @if(currentForm("someoneElseActForPerson").value.getOrElse("no") == "no") {
+            $("#someoneElseWrap").hide();
+        }
+        window.initEvents( "@CarersCrypto.encryptAES("actForPerson_yes")",
+        "@CarersCrypto.encryptAES("actForPerson_no")",
+        "@CarersCrypto.encryptAES("someoneElseActForPerson_yes")",
+        "@CarersCrypto.encryptAES("someoneElseActForPerson_no")",
+        "@CarersCrypto.encryptAES("someoneElseActAs")",
+        "@CarersCrypto.encryptAES("someoneElseFullName")");
+    });
+</script>
