@@ -68,7 +68,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.submit("button[value='next']")
       break
 
-      browser.$("#trips table tbody tr").size() mustEqual 2
+      browser.$("#breaks table tbody tr").size() mustEqual 2
     }
 
     "show zero breaks after creating one and then deleting" in new BreakWithBrowser {

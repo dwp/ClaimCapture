@@ -1,5 +1,5 @@
 $ ->
-  $("#trips").hide() if $("tbody").children().length is 0
+  $("#breaks").hide() if $("tbody").children().length is 0
 
   $("tbody").on "click", "input[value='Edit']", ->
     tr = $(this).closest("tr")
@@ -17,7 +17,7 @@ $ ->
         element = undefined
 
         if tbody.children().length is 1
-          element = $("#trips")
+          element = $("#breaks")
         else
           element = tr.children("td")
 
