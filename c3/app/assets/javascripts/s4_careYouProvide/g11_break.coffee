@@ -7,5 +7,4 @@ $ ->
       $(this).parent().next().slideDown()
     else
       textArea = $(this).parent().next().find("textarea")
-      $(this).parent().next().slideUp() ->
-        textArea.val ""
+      $(this).parent().next().slideUp -> textArea.val("")
