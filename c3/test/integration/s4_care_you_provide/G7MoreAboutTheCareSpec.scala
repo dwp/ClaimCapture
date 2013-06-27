@@ -46,7 +46,7 @@ class G7MoreAboutTheCareSpec extends Specification with Tags {
 
     "navigate to Has Breaks when submitting with hasSomeonePaidYou negative" in new WithBrowser {
       Helper.fillMoreAboutTheCareWithNotPaying(browser)
-      browser.title() mustEqual "Has Breaks - Care You Provide"
+      browser.title() mustEqual "Breaks in Care - Care You Provide"
     }
 
     "navigate back to the start of the positive path navigate after completing the S4G3 ClaimedAllowanceBefore positive answer path and navigating back twice" in new WithBrowser { // [SKW] This tests a problem where history was stuck in a loop and would only go back once.
