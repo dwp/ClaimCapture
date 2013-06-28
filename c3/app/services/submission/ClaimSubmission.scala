@@ -302,6 +302,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
       <MaritalStatus>{aboutYou.yourDetails.maritalStatus}</MaritalStatus>
       <DateOfBirth>{aboutYou.yourDetails.dateOfBirth.toXmlString}</DateOfBirth>
       <NationalInsuranceNumber>{aboutYou.yourDetails.nationalInsuranceNumber.orNull}</NationalInsuranceNumber>
+      <ExistingNationalInsuranceNumber>no</ExistingNationalInsuranceNumber>
       <Address>
         <gds:Line>{aboutYou.contactDetails.address.lineOne.orNull}</gds:Line>
         <gds:Line>{aboutYou.contactDetails.address.lineTwo.orNull}</gds:Line>

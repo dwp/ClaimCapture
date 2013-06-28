@@ -15,8 +15,8 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.click("#end_month option[value='1']")
       browser.fill("#end_year") `with` "2001"
 
-      browser.click("#whereYou_location option[value='Holiday']")
-      browser.click("#wherePerson_location option[value='Holiday']")
+      browser.click("#whereYou_location option[value='Hospital']")
+      browser.click("#wherePerson_location option[value='Hospital']")
 
       browser.click("#medicalDuringBreak_no")
 
@@ -41,15 +41,14 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new WithBrowser {
       browser.goTo("/careYouProvide/breaksInCare")
-
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
 
       browser.click("#start_day option[value='1']")
       browser.click("#start_month option[value='1']")
 
-      browser.click("#whereYou_location option[value='Holiday']")
-      browser.click("#wherePerson_location option[value='Holiday']")
+      browser.click("#whereYou_location option[value='Hospital']")
+      browser.click("#wherePerson_location option[value='Hospital']")
 
       browser.submit("button[value='next']")
 
