@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit
 
 class G11BreakIntegrationSpec extends Specification with Tags {
   class BreakWithBrowser extends WithBrowser {
-    def break = {
+    def break(): Unit = {
       browser.click("#start_day option[value='1']")
       browser.click("#start_month option[value='1']")
       browser.fill("#start_year") `with` "2001"
@@ -21,6 +21,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.click("#medicalDuringBreak_no")
 
       browser.submit("button[value='next']")
+      TimeUnit.SECONDS.sleep(2)
     }
   }
 
@@ -61,11 +62,11 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
-      break
+      break()
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
-      break
+      break()
 
       browser.$("#breaks table tbody tr").size() mustEqual 2
     }
@@ -75,11 +76,11 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
-      break
+      break()
       browser.$("tbody tr").size() mustEqual 1
 
       browser.click("input[value='Delete']")
-      TimeUnit.SECONDS.sleep(3)
+      TimeUnit.SECONDS.sleep(2)
       browser.click("input[value='Yes']")
 
       browser.await().atMost(30, TimeUnit.SECONDS).until("tbody tr").hasSize(0)
@@ -90,20 +91,20 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
-      break
+      break()
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
-      break
+      break()
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
-      break
+      break()
 
       browser.$("tbody tr").size() mustEqual 3
 
       browser.findFirst("tbody tr input[value='Delete']").click()
-      TimeUnit.SECONDS.sleep(3)
+      TimeUnit.SECONDS.sleep(2)
       browser.click("input[value='Yes']")
 
       browser.await().atMost(30, TimeUnit.SECONDS).until("tbody tr").hasSize(2)
@@ -114,11 +115,11 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
-      break
+      break()
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
-      break
+      break()
 
       browser.findFirst("input[value='Edit']").click()
       browser.title() mustEqual "Break - Care You Provide"

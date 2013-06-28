@@ -3,6 +3,7 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import integration.Helper
+import java.util.concurrent.TimeUnit
 
 class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with Tags {
 
@@ -56,6 +57,8 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // DELETE
       browser.find("div[class=completed] ul li").size mustEqual 4
       browser.click("#backButton")
+
+      TimeUnit.SECONDS.sleep(2)
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
   } section "integration"

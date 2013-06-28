@@ -9,6 +9,7 @@ $ ->
 
     $("tbody").on "click", "input[value='Delete']", ->
         $("tr input[type='button']").attr("disabled", "true")
+        $("tr input[type='button']").addClass("disabled")
         $(".form-steps").hide()
 
         tr = $(this).closest("tr")
@@ -17,6 +18,7 @@ $ ->
         $(".breaks-prompt").slideDown ->
             $("input[value='No']").on "click", ->
                 $("tr input[type='button']").removeAttr("disabled")
+                $("tr input[type='button']").removeClass("disabled")
                 $(".form-steps").slideDown()
                 $(".breaks-prompt").slideUp()
 
@@ -25,10 +27,13 @@ $ ->
                     type: "DELETE"
                     url: "/careYouProvide/breaksInCare/" + tr.attr("id")
 
-                    success: ->
+                    success: (data) ->
+                        $("label[for='answer']").text(data.answer)
                         $("tr input[type='button']").removeAttr("disabled")
+                        $("tr input[type='button']").removeClass("disabled")
                         $(".form-steps").slideDown()
                         $(".breaks-prompt").slideUp()
+
                         element = undefined
 
                         if tbody.children().length is 1
@@ -43,6 +48,7 @@ $ ->
 
                     error: ->
                         $("tr input[type='button']").removeAttr("disabled")
+                        $("tr input[type='button']").removeClass("disabled")
                         $(".form-steps").slideDown()
                         $(".breaks-prompt").slideUp()
                         alert "Failed to delete break - Contact Support"

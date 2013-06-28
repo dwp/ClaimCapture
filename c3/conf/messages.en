@@ -115,7 +115,6 @@ startDatePayment = When did the payments start?
 poundSign = £
 decimal.invalid = The amount must be in the format 500 or 500.5
 
-
 # MORE ABOUT THE CARE
 spent35HoursCaring = Do you spend 35 hours or more each week caring for this person?
 spent35HoursCaringBeforeClaim = Did you care for this person for 35 hours or more each week before your claim date?
@@ -124,12 +123,11 @@ careStartDate = When did you start to care for this person?
 hasSomeonePaidYou = Has someone paid you to care for this person since your claim date?
 hasSomeonePaidYou.label = Has someone paid you to care for this person since your claim date: {0}?
 
-# BREAKS
-answer = Have you had any breaks in caring since claim date?
-answer.label = Have you had any {0}breaks in caring since {1}?
-
-
 # BREAKS IN CARE
+answer = Have you had any breaks in caring since claim date?
+answer.label = Have you had any breaks in caring since {0}?
+answer.more.label = Have you had any more breaks in caring since {0}?
+
 start = Break start date?
 start.time = Break start time?
 end = Break end date?

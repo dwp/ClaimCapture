@@ -7,6 +7,7 @@ import models.domain._
 import controllers.Routing
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
+import play.api.i18n.Messages
 
 object G10BreaksInCare extends Controller with Routing with CachedClaim {
   override val route = BreaksInCare.id -> routes.G10BreaksInCare.present
@@ -49,7 +50,14 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
     import play.api.libs.json.Json
 
     claim.questionGroup(BreaksInCare.id) match {
-      case Some(b: BreaksInCare) => claim.update(b.delete(id)) -> Ok(Json.obj("id" -> id))
+      case Some(b: BreaksInCare) => {
+        val updatedBreaksInCare = b.delete(id)
+        val dateOfClaim = claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.ddMMyyyy)
+
+        if (updatedBreaksInCare.breaks.isEmpty) claim.update(updatedBreaksInCare) -> Ok(Json.obj("answer" -> Messages("answer.label", dateOfClaim)))
+        else claim.update(updatedBreaksInCare) -> Ok(Json.obj("answer" -> Messages("answer.more.label", dateOfClaim)))
+      }
+
       case _ => BadRequest(s"""Failed to delete break with ID "$id" as claim currently has no breaks""")
     }
   }

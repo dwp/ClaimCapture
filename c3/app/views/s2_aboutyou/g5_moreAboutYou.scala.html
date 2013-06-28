@@ -15,13 +15,11 @@
             <legend>More about you</legend>
 
             <ul class="group">
-                @defining(Claim.dateFormatGeneration.parseDateTime(claim.questionGroup(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
-                    @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("hadPartnerSinceClaimDate.label", dateOfClaim.toString(Claim.dateFormatPrint)))
+                @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
 
-                    @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("eitherClaimedBenefitSinceClaimDate.label", dateOfClaim.toString(Claim.dateFormatPrint)))
+                @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("eitherClaimedBenefitSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
 
-                    @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("beenInEducationSinceClaimDate.label", dateOfClaim.toString(Claim.dateFormatPrint)))
-                }
+                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
 
                 @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"),'_label -> Messages("receiveStatePension"))
             </ul>

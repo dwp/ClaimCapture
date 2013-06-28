@@ -62,10 +62,21 @@
             <legend>Breaks in Care</legend>
 
             <ul class="group">
-                @defining(claim.questionGroup(ClaimDate.id) match { case Some(s) => Claim.dateFormatGeneration.parseDateTime(s.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString).toString(Claim.dateFormatPrint) case None => "{NO CLAIM DATE}"}) { dateOfClaim =>
-                    @yesNoRadioGroup(hasBreaksForm("answer"), '_label -> Messages("answer.label", breaksInCare.breaks.fold("")((_, _) => "more "), dateOfClaim))
+                @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
+                    @yesNoRadioGroup(hasBreaksForm("answer"), '_label -> Messages(answerLabel, claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.ddMMyyyy)))
                 }
             </ul>
+
+            <div class="prompt helper-prompt">
+                <p class="intro">
+                    By break we mean time when, for any reason, you spent less than 35 hours a week caring for the person you look after. For example, if:
+                </p>
+
+                <ul>
+                    <li>They were in respite care, in hospital or on holiday without you, or</li>
+                    <li>You were in hospital or on holiday without them.</li>
+                </ul>
+            </div>
         </fieldset>
 
         <div class="form-steps">
