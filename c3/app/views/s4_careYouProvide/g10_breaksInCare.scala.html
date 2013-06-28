@@ -61,7 +61,7 @@
 
             <ul class="group">
                 @defining(claim.questionGroup(ClaimDate.id) match { case Some(s) => Claim.dateFormatGeneration.parseDateTime(s.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString).toString(Claim.dateFormatPrint) case None => "{NO CLAIM DATE}"}) { dateOfClaim =>
-                    @yesNoRadioGroup(hasBreaksForm("answer"), '_label -> Messages("answer.label", breaksInCare.breaks.fold("")((_, _) => "more "), dateOfClaim), 'prompt -> Messages("answer.prompt"))
+                    @yesNoRadioGroup(hasBreaksForm("answer"), '_label -> Messages("answer.label", breaksInCare.breaks.fold("")((_, _) => "more "), dateOfClaim))
                 }
             </ul>
         </fieldset>

@@ -469,6 +469,9 @@ $button-green-hover: #004b27;
 					&.postcode {
 						text-transform: uppercase;
 					}
+					.ie7 &, .ie8 & {
+						padding: 0.2em 0 0.4em 0.4em;
+					}
 			   }
 			   input[type="radio"] {
 				   width: auto;
@@ -505,6 +508,9 @@ $button-green-hover: #004b27;
 					   max-width: 293px;
 					   height: auto;
 					   padding: 5px;
+				   }
+				   .ie8 & {
+					   min-width: 0;
 				   }
 			   }
 		   }
@@ -735,6 +741,9 @@ $button-green-hover: #004b27;
 				   &:first-child {
 					   margin-left: 0;
 				   }
+				   .ie7 & {
+					   margin-left: 0.15em;
+				   }
 		   	   }
 		   	   label {
 			   	   position: absolute;
@@ -745,6 +754,9 @@ $button-green-hover: #004b27;
 				   text-transform: uppercase;
 				   .ie & {
 					   width: 44px;
+				   }
+				   .ie7 & {
+					   width: 43px;
 				   }
 				   &.single {
 					   width: 2.6rem;
@@ -890,6 +902,15 @@ $button-green-hover: #004b27;
 				.ie & {
 					font-size: 16px;
 				}
+				.ie7 & {
+					border-top: 1px solid #bfc1c3;
+					border-bottom: 1px solid #bfc1c3;
+					border-left: 0;
+					border-right: 1px solid #bec0c2;
+					&:first-child {
+						border-left: 1px solid #bec0c2;
+					}
+				}
 			}
 			td {
 				font-size: 1.6rem;
@@ -906,6 +927,14 @@ $button-green-hover: #004b27;
 				}
 				.ie & {
 					font-size: 16px;
+				}
+				.ie7 & {
+					border-left: 0;
+					border-bottom: 1px dotted #bfc1c3;
+					border-right: 1px dotted #bfc1c3;
+					&:first-child {
+						border-left: 1px dotted #bfc1c3;
+					}
 				}
 			}
 			.desc {
@@ -946,6 +975,9 @@ $button-green-hover: #004b27;
 		   background: #fef7f7;
 		   border: 3px solid #df3034;
 		   position: relative;
+		   .ie7 & {
+			   overflow: hidden;
+		   }
 		   p {
 			   padding-right: 5em;
 			   margin-bottom: .35em;
