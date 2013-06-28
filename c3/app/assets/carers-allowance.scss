@@ -437,7 +437,7 @@ $button-green-hover: #004b27;
 				   font-weight: 400;
 				   line-height: 1.3em;
 				   padding-bottom: .3em;
-				    @media screen and (max-width: 600px) {line-height: 1.2em;}
+				   @media screen and (max-width: 600px) {line-height: 1.2em;}
 				   .ie & {
 					   font-size: 19px;
 				   }
@@ -1188,10 +1188,12 @@ $button-green-hover: #004b27;
 	}
 }
 
+
+/* Purely for demo purposes - can be deleted later on */
 textarea.demo {text-align: left!important; width: 120%!important; font-size: 1.5rem!important; height: 20rem!important; margin-top: 1em; border-color: red!important; padding: 1rem!important; background: #eee!important; margin-bottom: 3em!important}
 
 
-/* Header - Global Overrides */
+/* Header - Global Overrides - inc important overrides */
 html {background: #dee0e2!important;}
 #global-header #logo img {left: -211px!important;}
 #global-header .header-wrapper {padding: 0.5em 1px!important;}

@@ -915,6 +915,7 @@
       top: 13px;
       right: 13px; } }
 
+/* Purely for demo purposes - can be deleted later on */
 textarea.demo {
   text-align: left!important;
   width: 120%!important;
@@ -926,7 +927,7 @@ textarea.demo {
   background: #eee!important;
   margin-bottom: 3em!important; }
 
-/* Header - Global Overrides */
+/* Header - Global Overrides - inc important overrides */
 html {
   background: #dee0e2!important; }
 
