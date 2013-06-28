@@ -127,7 +127,7 @@ hasSomeonePaidYou.label = Has someone paid you to care for this person since you
 # BREAKS
 answer = Have you had any breaks in caring since claim date?
 answer.label = Have you had any {0}breaks in caring since {1}?
-answer.prompt = <p class="intro">By break we mean time when, for any reason, you spent less than 35 hours a week caring for the person you look after. For example, if:</p><ul><li>They were in respite care, in hospital or on holiday without you, or</li><li>You were in hospital or on holiday without them.</li></ul>
+
 
 # BREAKS IN CARE
 start = Break start date?
