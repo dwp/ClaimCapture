@@ -8,7 +8,6 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import controllers.Routing
 import utils.helpers.CarersForm._
-import scala.Some
 
 object G1TheirPersonalDetails extends Controller with Routing with CachedClaim {
 
@@ -32,13 +31,13 @@ object G1TheirPersonalDetails extends Controller with Routing with CachedClaim {
         case Some(t: TheirPersonalDetails) => form.fill(t)
         case _ => form
       }
+
       Ok(views.html.s4_careYouProvide.g1_theirPersonalDetails(currentForm))
   }
 
-  def submit = claiming {
-    implicit claim => implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s4_careYouProvide.g1_theirPersonalDetails(formWithErrors)),
-        theirPersonalDetails => claim.update(theirPersonalDetails) -> Redirect(routes.G2TheirContactDetails.present))
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s4_careYouProvide.g1_theirPersonalDetails(formWithErrors)),
+      theirPersonalDetails => claim.update(theirPersonalDetails) -> Redirect(routes.G2TheirContactDetails.present))
   }
 }
