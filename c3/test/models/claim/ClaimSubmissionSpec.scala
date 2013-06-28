@@ -56,8 +56,6 @@ class ClaimSubmissionSpec extends Specification {
 
       val fullXml = buildFullClaim(claimXml)
 
-      Logger.debug(fullXml.buildString(stripComments = true))
-
       val validator = XmlValidatorFactory.buildCaValidator()
 
       validator.validate(fullXml.buildString(stripComments = true)) must beFalse
