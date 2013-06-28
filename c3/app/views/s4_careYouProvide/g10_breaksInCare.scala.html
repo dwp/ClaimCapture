@@ -4,6 +4,8 @@
 @import views.html.helper._
 @import models.domain.{Claim, ClaimDate}
 
+@pad(int: Int) = {@if(int < 10){0}@int}
+
 @main("Breaks in Care - Care You Provide", hasBreaksForm, completedQuestionGroups) {
     <fieldset class="form-elements results-detail" id="breaks">
         <legend>Breaks you have added</legend>
@@ -26,14 +28,14 @@
                 @for(break <- breaksInCare.breaks) {
                     <tr id="@break.id" class="@break.id">
                         <td>
-                            @break.start.day/@break.start.month/@break.start.year
+                            @pad(break.start.day.get)/@pad(break.start.month.get)/@break.start.year
 
                             @for(end <- break.end;
                                  endDay <- end.day;
                                  endMonth <- end.month;
                                  endYear <- end.year) {
                                 <span>to</span>
-                                @endDay/@endMonth/@endYear
+                                @pad(endDay)/@pad(endMonth)/@endYear
                             }
                         </td>
 
