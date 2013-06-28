@@ -477,6 +477,8 @@
             .ie8 .carers-allowance .form-elements ul.radio li input[type="radio"] {
               left: 10px;
               top: 28%; }
+            .carers-allowance .form-elements ul.radio li input[type="radio"]:focus {
+              outline: none!important; }
           .carers-allowance .form-elements ul.radio li label {
             display: block;
             background: #eee;
