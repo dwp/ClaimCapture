@@ -14,6 +14,7 @@ $ ->
         $(".breaks-prompt").slideDown ->
             $("input[value='No']").on "click", ->
                 $(".breaks-prompt").slideUp()
+
             $("input[value='Yes']").on "click", ->
                 $.ajax
                     type: "DELETE"
