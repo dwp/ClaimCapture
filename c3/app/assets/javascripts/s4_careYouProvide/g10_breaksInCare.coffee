@@ -8,11 +8,16 @@ $ ->
         window.location.href = "/careYouProvide/breaks/" + tr.attr("id")
 
     $("tbody").on "click", "input[value='Delete']", ->
+        $("tr input[type='button']").attr("disabled", "true")
+        $(".form-steps").hide()
+
         tr = $(this).closest("tr")
         tbody = $(this).closest("tbody")
 
         $(".breaks-prompt").slideDown ->
             $("input[value='No']").on "click", ->
+                $("tr input[type='button']").removeAttr("disabled")
+                $(".form-steps").slideDown()
                 $(".breaks-prompt").slideUp()
 
             $("input[value='Yes']").on "click", ->
@@ -21,6 +26,9 @@ $ ->
                     url: "/careYouProvide/breaksInCare/" + tr.attr("id")
 
                     success: ->
+                        $("tr input[type='button']").removeAttr("disabled")
+                        $(".form-steps").slideDown()
+                        $(".breaks-prompt").slideUp()
                         element = undefined
 
                         if tbody.children().length is 1
@@ -33,4 +41,8 @@ $ ->
                             margin: 0
                         ).wrapInner("<div />").children().slideUp -> tr.remove()
 
-                    error: -> alert "Failed to delete break - Contact Support"
+                    error: ->
+                        $("tr input[type='button']").removeAttr("disabled")
+                        $(".form-steps").slideDown()
+                        $(".breaks-prompt").slideUp()
+                        alert "Failed to delete break - Contact Support"
