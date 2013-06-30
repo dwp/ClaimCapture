@@ -11,7 +11,7 @@ object Submission extends Controller with CachedClaim {
   def submit = claiming {
     implicit claim => implicit request =>
       Async {
-        val claimXml = ClaimSubmission(claim, "TY6TV9G").buildDwpClaim
+        val claimXml = ClaimSubmission(claim, "TY2TV9G").buildDwpClaim
         Logger.debug(s"Claim submitting transactionId : ${claimXml \\ "DWPCAClaim" \ "@id" toString()}")
         ClaimSubmissionService.submitClaim(claimXml).map(
           response => {
