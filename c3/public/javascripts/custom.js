@@ -11,7 +11,7 @@ $('a[href^="#"]').bind('click.smoothscroll',function (e) {
     var target = this.hash,
         $target = $(target);
     $('html, body').animate({
-        scrollTop: $(target).position().top - 70
+        scrollTop: $(target).offset().top - 70
     }, 1000, 'swing', function () {
         window.location.hash = target;
     });
