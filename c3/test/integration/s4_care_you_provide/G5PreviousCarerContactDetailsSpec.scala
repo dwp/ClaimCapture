@@ -15,6 +15,11 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Tags {
       browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
     }
 
+    "redirect to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser {
+      browser.goTo("/careYouProvide/previousCarerContactDetails")
+      browser.title() mustEqual "Representatives For The Person - Care You Provide"
+    }
+        
     "contain errors on invalid submission" in new WithBrowser {
       Helper.fillTheirPersonalDetails(browser)
       Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
@@ -35,9 +40,8 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Tags {
       browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G4
     }
 
-    "navigate to next page on valid submission" in new WithBrowser {
-      browser.goTo("/careYouProvide/previousCarerContactDetails")
-      browser.submit("button[type='submit']")
+    "navigate to Representatives For The Person on submission of completed form" in new WithBrowser {
+      Helper.fillPreviousCarerContactDetails(browser)
       browser.title() mustEqual "Representatives For The Person - Care You Provide"
     }
 

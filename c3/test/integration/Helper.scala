@@ -23,7 +23,7 @@ object Helper {
     browser.submit("button[type='submit']")
   }
 
-  def fillYourDetailsEnablingTimeOutsideUK(browser:TestBrowser) ={
+  def fillYourDetailsEnablingTimeOutsideUK(browser: TestBrowser) = {
     browser.goTo("/aboutyou/yourDetails")
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
@@ -109,21 +109,11 @@ object Helper {
     browser.click("#liveAtSameAddress_no]")
     browser.submit("button[type='submit']")
   }
-    
+
   def fillTheirContactDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/theirContactDetails")
     browser.fill("#address_lineOne") `with` "Their Address"
     browser.fill("#postcode") `with` "RM11 1DA"
-    browser.submit("button[type='submit']")
-  }
-
-  def fillRepresentativesForThePerson(browser: TestBrowser) = {
-    browser.goTo("/careYouProvide/representativesForPerson")
-    browser.click("#actForPerson_yes")
-    browser.click("#someoneElseActForPerson_yes")
-    browser.click("#actAs option[value='guardian']")
-    browser.click("#someoneElseActAs option[value='judicial']")
-    browser.fill("#someoneElseFullName") `with` "John"
     browser.submit("button[type='submit']")
   }
 
@@ -156,7 +146,7 @@ object Helper {
     browser.click("#claimedAllowanceBefore_yes")
     browser.submit("button[type='submit']")
   }
-    
+
   def fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/moreAboutThePerson")
     browser.click("#relationship option[value='father']")
@@ -164,8 +154,8 @@ object Helper {
     browser.click("#claimedAllowanceBefore_no")
     browser.submit("button[type='submit']")
   }
-  
-  def fillPreviousCarerPersonalDetails(browser: TestBrowser) ={
+
+  def fillPreviousCarerPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/previousCarerPersonalDetails")
     browser.fill("#firstName") `with` "John"
     browser.fill("#middleName") `with` "Joe"
@@ -180,11 +170,28 @@ object Helper {
     browser.fill("#dateOfBirth_year") `with` "1950"
     browser.submit("button[type='submit']")
   }
-  
+
   def fillPreviousCarerContactDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/previousCarerContactDetails")
     browser.fill("#address_lineOne") `with` "My Address"
     browser.fill("#postcode") `with` "SE1 6EH"
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillRepresentativesForThePerson(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/representativesForPerson")
+    browser.click("#actForPerson_yes")
+    browser.click("#someoneElseActForPerson_yes")
+    browser.click("#actAs option[value='guardian']")
+    browser.click("#someoneElseActAs option[value='judicial']")
+    browser.fill("#someoneElseFullName") `with` "John"
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillRepresentativesForThePersonNegativeAnswers(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/representativesForPerson")
+    browser.click("#actForPerson_no")
+    browser.click("#someoneElseActForPerson_no")
     browser.submit("button[type='submit']")
   }
 }

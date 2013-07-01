@@ -1,13 +1,13 @@
 package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
-import controllers.{Routing}
+import controllers.Routing
 import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
-import models.domain.{ContactDetails, TheirPersonalDetails, TheirContactDetails}
+import models.domain.{Claim, ContactDetails, TheirPersonalDetails, TheirContactDetails}
 
 object G2TheirContactDetails extends Controller with Routing with CachedClaim {
 
@@ -20,11 +20,9 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
       "phoneNumber" -> optional(text verifying validPhoneNumber)
     )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != TheirContactDetails.id)
 
   def present = claiming { implicit claim => implicit request =>
-
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != TheirContactDetails.id)
-
     val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
       case Some(t: TheirPersonalDetails) => t.liveAtSameAddress == yes
       case _ => false
@@ -43,7 +41,6 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
     }
 
     Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm, completedQuestionGroups))
-
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -51,6 +48,4 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != TheirContactDetails.id))),
       theirContactDetails => claim.update(theirContactDetails) -> Redirect(controllers.s4_care_you_provide.routes.G3MoreAboutThePerson.present))
   }
-
-
 }

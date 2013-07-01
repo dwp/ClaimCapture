@@ -6,9 +6,8 @@ import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.{Routing}
+import controllers.Routing
 import utils.helpers.CarersForm._
-import scala.Some
 
 object G1TheirPersonalDetails extends Controller with Routing with CachedClaim {
 
@@ -25,18 +24,20 @@ object G1TheirPersonalDetails extends Controller with Routing with CachedClaim {
       "liveAtSameAddress" -> nonEmptyText
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claiming {
+    implicit claim => implicit request =>
 
-    val currentForm: Form[TheirPersonalDetails] = claim.questionGroup(TheirPersonalDetails.id) match {
-      case Some(t: TheirPersonalDetails) => form.fill(t)
-      case _ => form
-    }
-    Ok(views.html.s4_careYouProvide.g1_theirPersonalDetails(currentForm))
+      val currentForm: Form[TheirPersonalDetails] = claim.questionGroup(TheirPersonalDetails.id) match {
+        case Some(t: TheirPersonalDetails) => form.fill(t)
+        case _ => form
+      }
+
+      Ok(views.html.s4_careYouProvide.g1_theirPersonalDetails(currentForm))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g1_theirPersonalDetails(formWithErrors)),
-      theirPersonalDetails => claim.update(theirPersonalDetails) -> Redirect(controllers.s4_care_you_provide.routes.G2TheirContactDetails.present))
+      theirPersonalDetails => claim.update(theirPersonalDetails) -> Redirect(routes.G2TheirContactDetails.present))
   }
 }

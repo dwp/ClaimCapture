@@ -1,6 +1,6 @@
 package models.domain
 
-import models.Timestamped
+import models.{DayMonthYear, Timestamped}
 
 case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   def section(sectionId: String): Option[Section] = sections.get(sectionId)
@@ -39,7 +39,6 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   }
 
   def delete(questionGroupId: String): Claim = {
-
     val sectionId = Claim.sectionId(questionGroupId)
 
     val section = sections.get(sectionId) match {
@@ -48,6 +47,11 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     }
 
     Claim(sections.updated(section.id, section))
+  }
+
+  def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate.id) match {
+    case Some(c: ClaimDate) => Some(c.dateOfClaim)
+    case _ => None
   }
 }
 

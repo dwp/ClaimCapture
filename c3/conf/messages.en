@@ -3,7 +3,7 @@ s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you l
 s1.g3 = Q3.  Are you aged 16 or over?
 s1.g4 = Q4.  Do you normally live in Great Britain?
 
-s2.g1 = Your Details
+s2.g1 = Your details
 s2.g2 = Your contact details
 s2.g3 = About your time outside the UK
 s2.g4 = Your claim date: {0}
@@ -20,7 +20,7 @@ s4.g6 = Representatives for the person you care for
 s4.g7 = More about the care you provide
 s4.g8 = Details of the person / organisation who pays you
 s4.g9 = Contact details of the person who pays you
-s4.g10 = Breaks in Care
+s4.g10 = Breaks in care
 s4.g11 = About the breaks in care
 
 ## ABOUT YOU
@@ -68,7 +68,7 @@ whenPlanToGoBack = When do you plan to go back?
 visaReference = What is your visa reference number in your passport?
 
 # CLAIM DATE
-dateOfClaim = When do you want your Carer''s Allowance claim to start?
+dateOfClaim = When do you want your Carer's Allowance claim to start?
 
 # MORE ABOUT YOU
 hadPartnerSinceClaimDate.label = Have you had a partner/spouse at any time since your claim date: {0}?
@@ -115,7 +115,6 @@ startDatePayment = When did the payments start?
 poundSign = £
 decimal.invalid = The amount must be in the format 500 or 500.5
 
-
 # MORE ABOUT THE CARE
 spent35HoursCaring = Do you spend 35 hours or more each week caring for this person?
 spent35HoursCaringBeforeClaim = Did you care for this person for 35 hours or more each week before your claim date?
@@ -124,25 +123,17 @@ careStartDate = When did you start to care for this person?
 hasSomeonePaidYou = Has someone paid you to care for this person since your claim date?
 hasSomeonePaidYou.label = Has someone paid you to care for this person since your claim date: {0}?
 
-# BREAKS
+# BREAKS IN CARE
 answer = Have you had any breaks in caring since claim date?
 answer.label = Have you had any breaks in caring since {0}?
-breaks.answer.prompt = <p class="intro">By break we mean time when, for any reason, you spent less than 35 hours a week caring for the person you look after. For example, if:</p><ul><li>They were in respite care, in hospital or on holiday without you, or</li><li>You were in hospital or on holiday without them.</li></ul>
+answer.more.label = Have you had any more breaks in caring since {0}?
 
-# BREAKS IN CARE
-break.start = Break start date?
 start = Break start date?
-break.start.time = Break start time?
 start.time = Break start time?
-break.end = Break end date?
 end = Break end date?
-break.end.time = Break end time?
 end.time = Break end time?
-break.whereYou = Where were you during the above break?
 whereYou = Where were you during the above break?
-break.wherePerson = Where was the person you care for during the above break?
+whereYou.location = Where were you during the above break?
 wherePerson = Where was the person you care for during the above break?
-moreBreaks = Have you had any more breaks in care for this person since your claim date: {0}
-break.medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
-medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
+wherePerson.location = Where was the person you care for during the above break?
 medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?

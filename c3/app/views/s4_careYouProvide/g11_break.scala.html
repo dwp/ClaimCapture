@@ -17,15 +17,15 @@
                 @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
                 @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-                @whereabouts(breakForm("whereYou"), Seq("Home", "Hospital", "Holiday", "Respite Care", "Other").map(v => v -> v))
-                @whereabouts(breakForm("wherePerson"), Seq("Hospital", "Respite Care", "Care Home", "Nursing Home", "Other").map(v => v -> v))
+                @whereabouts(breakForm("whereYou"), Seq("", "Home", "Hospital", "Holiday", "Respite Care", "Other").map(v => if (v == "") "" -> "Please select" else v -> v))
+                @whereabouts(breakForm("wherePerson"), Seq("", "Hospital", "Respite Care", "Care Home", "Nursing Home", "Other").map(v => if (v == "") "" -> "Please select" else v -> v))
 
                 @yesNoRadioGroup(breakForm("medicalDuringBreak"))
             </ul>
         </fieldset>
 
         <div class="form-steps">
-            <a href="@CareYouProvide.route(BreaksInCare.id)" class="button secondary">Cancel</a>
+            <a href="@controllers.s4_care_you_provide.CareYouProvide.route(BreaksInCare.id)" class="button secondary">Cancel</a>
             <button type="submit" name="action" value="next" class="button">Save</button>
         </div>
     }

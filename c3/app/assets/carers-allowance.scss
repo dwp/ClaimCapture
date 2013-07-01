@@ -2,7 +2,6 @@
 $button-green: #006435;
 $button-green-hover: #004b27;
 
-html {background: #dee0e2;}
 
 .carers-allowance {
    background: #fff;
@@ -36,6 +35,9 @@ html {background: #dee0e2;}
 			   a {
 				   color: #fff;
 				   margin-left: .25em;
+				   &:hover {
+					   color: #000;
+				   }
 			   }
 		   }
 	   }
@@ -50,6 +52,21 @@ html {background: #dee0e2;}
 	   position: relative;
 	   padding-top: 1.6em;
 	   @media screen and (max-width: 640px) {padding-left: 0; padding-right: 0; border-top: 0;}
+	   
+	   &.error-statement {
+		margin: 0;
+		padding: 5em 0;
+			p {
+				margin: 2em 40% 0 0;
+				@media screen and (max-width: 700px) {margin-right: 0;}
+			}
+			h1 {
+				font-size: 5rem;
+				.ie & {
+					font-size: 50px;
+				}
+			}
+   	   }
 	   
 	   /* section header */
 	   header {
@@ -435,7 +452,7 @@ html {background: #dee0e2;}
 				   font-weight: 400;
 				   line-height: 1.3em;
 				   padding-bottom: .3em;
-				    @media screen and (max-width: 600px) {line-height: 1.2em;}
+				   @media screen and (max-width: 600px) {line-height: 1.2em;}
 				   .ie & {
 					   font-size: 19px;
 				   }
@@ -466,6 +483,9 @@ html {background: #dee0e2;}
 					}
 					&.postcode {
 						text-transform: uppercase;
+					}
+					.ie7 &, .ie8 & {
+						padding: 0.2em 0 0.4em 0.4em;
 					}
 			   }
 			   input[type="radio"] {
@@ -504,6 +524,9 @@ html {background: #dee0e2;}
 					   height: auto;
 					   padding: 5px;
 				   }
+				   .ie8 & {
+					   min-width: 0;
+				   }
 			   }
 		   }
 		   
@@ -517,7 +540,7 @@ html {background: #dee0e2;}
 				   li {
 					   position: relative;
 					   float: left;
-					   margin: 0 0 0 2px;
+					   margin: 0 0 0 1px;
 					   padding: 0;
 					   &:first-child {
 						   margin-left: 0;
@@ -536,6 +559,9 @@ html {background: #dee0e2;}
 							   left: 10px;
 							   top: 28%;
 						   }
+					   &:focus {
+							   outline: none;
+						   } 
 					   }
 					   label {
 						   display: block;
@@ -544,7 +570,7 @@ html {background: #dee0e2;}
 						   font-size: 1.7rem;
 						   cursor: pointer;
 						   line-height: inherit;
-						   border: 1px solid transparent;
+						   border: 1px solid #fff;
 						   .ie & {
 							   font-size: 17px;
 						   }
@@ -733,6 +759,9 @@ html {background: #dee0e2;}
 				   &:first-child {
 					   margin-left: 0;
 				   }
+				   .ie7 & {
+					   margin-left: 0.15em;
+				   }
 		   	   }
 		   	   label {
 			   	   position: absolute;
@@ -744,10 +773,13 @@ html {background: #dee0e2;}
 				   .ie & {
 					   width: 44px;
 				   }
+				   .ie7 & {
+					   width: 43px;
+				   }
 				   &.single {
-					   width: 2.6rem;
+					   width: 2.7rem;
 					   .ie & {
-						   width: 26px;
+						   width: 27px;
 					   }
 				   }
 				   @media screen and (max-width: 750px) {width: 4.2rem;
@@ -888,6 +920,15 @@ html {background: #dee0e2;}
 				.ie & {
 					font-size: 16px;
 				}
+				.ie7 & {
+					border-top: 1px solid #bfc1c3;
+					border-bottom: 1px solid #bfc1c3;
+					border-left: 0;
+					border-right: 1px solid #bec0c2;
+					&:first-child {
+						border-left: 1px solid #bec0c2;
+					}
+				}
 			}
 			td {
 				font-size: 1.6rem;
@@ -904,6 +945,14 @@ html {background: #dee0e2;}
 				}
 				.ie & {
 					font-size: 16px;
+				}
+				.ie7 & {
+					border-left: 0;
+					border-bottom: 1px dotted #bfc1c3;
+					border-right: 1px dotted #bfc1c3;
+					&:first-child {
+						border-left: 1px dotted #bfc1c3;
+					}
 				}
 			}
 			.desc {
@@ -926,6 +975,7 @@ html {background: #dee0e2;}
    
    
    
+   
    /* prompt panel */
    .prompt {
 	   background: #d5e8f3;
@@ -941,9 +991,13 @@ html {background: #dee0e2;}
 		   background: #f2f2f2;
 	   }
 	   &.breaks-prompt {
-		   background: #f8f8f8;
-		   border: 1px dotted #bfc1c3;
+		   background: #fef7f7;
+		   border: 3px solid #df3034;
 		   position: relative;
+		   display: none;
+		   .ie7 & {
+			   overflow: hidden;
+		   }
 		   p {
 			   padding-right: 5em;
 			   margin-bottom: .35em;
@@ -1016,6 +1070,11 @@ html {background: #dee0e2;}
 	   }
 	   a {
 		   font-weight: 500;
+		   .ie7 & {
+			   width: auto;
+			   display: block;
+			   padding: .4em 1em;
+		   }
 	   }
    }
  
@@ -1054,6 +1113,7 @@ html {background: #dee0e2;}
 		   }
 		   .ie7 & {
 			   padding: .2em 1em;
+			   float: left;
 		   }
 		   .ie8 & {
 			   padding: .4em 1em;
@@ -1081,6 +1141,9 @@ html {background: #dee0e2;}
 			   &:hover {
 				   background: #990c1a;
 			   }
+		   }
+		   &.disabled {
+			   opacity: .3;
 		   }
 		   &.row {
 			   font-size: 1.6rem;
@@ -1145,11 +1208,17 @@ html {background: #dee0e2;}
 	}
 }
 
+
+
+/* Purely for demo purposes - can be deleted later on */
 textarea.demo {text-align: left!important; width: 120%!important; font-size: 1.5rem!important; height: 20rem!important; margin-top: 1em; border-color: red!important; padding: 1rem!important; background: #eee!important; margin-bottom: 3em!important}
 
 
-/* Header - Footer Global Overrides */
+/* Header - Global Overrides - inc important overrides */
 html {background: #dee0e2!important;}
 #global-header #logo img {left: -211px!important;}
 #global-header .header-wrapper {padding: 0.5em 1px!important;}
 
+.carers-allowance-footer {padding-top: 30px!important; padding-bottom: 30px!important;}
+.carers-allowance-footer .footer-meta {border-top: none!important; padding-top: 0!important; padding-bottom: 0!important; margin-top: 0!important;}
+.carers-allowance-footer .footer-meta .copyright {position: relative; top: 2px;}

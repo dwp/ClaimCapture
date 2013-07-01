@@ -10,7 +10,9 @@ import play.api.Logger
 object ClaimSubmissionService {
   def submitClaim(claimSubmission: Elem): Future[ws.Response] = {
     Logger.debug(s"Claim submitting transactionId : ${claimSubmission \\ "DWPCAClaim" \ "@id" toString()}")
-    val result = WS.url(Configuration.root().getString("submissionServerUrl"))
+    val submissionServerEndpoint: String = Configuration.root().getString("submissionServerUrl")
+    Logger.debug(s"Submission Server : $submissionServerEndpoint")
+    val result = WS.url(submissionServerEndpoint)
       .withHeaders(("Content-Type", "text/xml"))
       .post(claimSubmission.buildString(stripComments = true))
     result

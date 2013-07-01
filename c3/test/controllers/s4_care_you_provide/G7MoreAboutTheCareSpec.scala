@@ -15,21 +15,21 @@ class G7MoreAboutTheCareSpec extends Specification with Mockito {
     """present More about the care""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.CareYouProvide.moreAboutTheCare(request)
+      val result = controllers.s4_care_you_provide.G7MoreAboutTheCare.present(request)
       status(result) mustEqual OK
     }
 
     "fail submit for no input" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.CareYouProvide.moreAboutTheCareSubmit(request)
+      val result = controllers.s4_care_you_provide.G7MoreAboutTheCare.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "success for minimal input without optional fields" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(moreAboutTheCareInput:_*)
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(moreAboutTheCareInput: _*)
 
-      val result = controllers.CareYouProvide.moreAboutTheCareSubmit(request)
+      val result = controllers.s4_care_you_provide.G7MoreAboutTheCare.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   }

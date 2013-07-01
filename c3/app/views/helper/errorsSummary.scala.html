@@ -8,7 +8,7 @@
 
         <ol>
             @for(error <- form.errors) {
-                <li><a href="#@CarersCrypto.encryptAES(error.key)">@Messages(error.key) - @Messages(error.message)</a></li>
+                <li><a href="#@CarersCrypto.encryptAES(error.key)">@Messages(error.key) - @Messages(error.message,error.args:_*)</a></li>
             }
         </ol>
     </div>

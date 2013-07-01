@@ -10,7 +10,8 @@ import controllers.Mappings._
 import utils.helpers.CarersForm._
 
 object G9ContactDetailsOfPayingPerson extends Controller with Routing with CachedClaim {
-  override val route = ContactDetailsOfPayingPerson.id -> routes.G9ContactDetailsOfPayingPerson.present
+
+  override val route = ContactDetailsOfPayingPerson.id -> controllers.s4_care_you_provide.routes.G9ContactDetailsOfPayingPerson.present
 
   val form = Form(
     mapping(
@@ -18,11 +19,11 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
       "postcode" -> optional(text)
     )(ContactDetailsOfPayingPerson.apply)(ContactDetailsOfPayingPerson.unapply))
 
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
+
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(MoreAboutTheCare.id) match {
       case Some(MoreAboutTheCare(_, _, _, "yes")) => {
-        val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
-
         val contactDetailsOfPayingPersonForm: Form[ContactDetailsOfPayingPerson] = claim.questionGroup(ContactDetailsOfPayingPerson.id) match {
           case Some(c: ContactDetailsOfPayingPerson) => form.fill(c)
           case _ => form
@@ -36,8 +37,6 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
-
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),
       contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(routes.G10BreaksInCare.present))

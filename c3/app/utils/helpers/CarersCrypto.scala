@@ -1,16 +1,36 @@
 package utils.helpers
 
-import play.api.{Logger, Play}
+import play.Configuration
+import java.util.UUID
 
 object CarersCrypto {
+  val encrypt = Configuration.root().getBoolean("encryptFields", false)
+  val staticSecret = Configuration.root().getBoolean("staticSecret", false)
 
-  def encryptAES(v: String) = {
+  val secretKey = if (staticSecret) {
+    "1234567890123456"
+  } else {
+    generateKey
+  }
 
-    Play.current.mode match{
-      case play.api.Mode.Dev => v
-      case play.api.Mode.Test => v
-      case _ => play.api.libs.Crypto.encryptAES(v)
-
+  def decryptAES(v: String): String = {
+    if (encrypt) {
+      play.api.libs.Crypto.decryptAES(v, secretKey)
+    } else {
+      v
     }
   }
+
+  def encryptAES(v: String) = {
+    if (encrypt) {
+      play.api.libs.Crypto.encryptAES(v, secretKey)
+    } else {
+      v
+    }
+  }
+
+  def generateKey: String = {
+    UUID.randomUUID().toString.substring(0, 16)
+  }
+
 }

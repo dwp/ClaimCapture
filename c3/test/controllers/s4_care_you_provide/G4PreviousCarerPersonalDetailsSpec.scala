@@ -2,11 +2,11 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
-import play.api.test.{ WithApplication, FakeRequest }
+import play.api.test.{WithApplication, FakeRequest}
 import models.view.Claiming
 import play.api.cache.Cache
-import models.domain.{ PreviousCarerPersonalDetails, Claim }
-import models.{ DayMonthYear, domain }
+import models.domain.{PreviousCarerPersonalDetails, Claim}
+import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Section
 import scala.Some
@@ -27,7 +27,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerPersonalDetailsInput: _*)
 
-      val result = controllers.CareYouProvide.previousCarerPersonalDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
@@ -44,7 +44,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("dateOfBirth.day" -> "INVALID")
 
-      val result = controllers.CareYouProvide.previousCarerPersonalDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -52,7 +52,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerPersonalDetailsInput: _*)
 
-      val result = controllers.CareYouProvide.previousCarerPersonalDetailsSubmit(request)
+      val result = controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   }

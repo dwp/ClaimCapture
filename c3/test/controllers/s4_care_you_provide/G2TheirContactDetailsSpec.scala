@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
-import play.api.test.{ WithApplication, FakeRequest }
+import play.api.test.{WithApplication, FakeRequest}
 import models.view.Claiming
 import play.api.cache.Cache
 import models.domain.Claim
@@ -15,8 +15,8 @@ import models.domain.TheirContactDetails
 class G2TheirContactDetailsSpec extends Specification with Mockito {
 
   val theirContactDetailsInput = Seq("address.lineOne" -> "123 Street",
-        "postcode" -> "PR2 8AE", 
-        "phoneNumber" -> "02076541058")
+    "postcode" -> "PR2 8AE",
+    "phoneNumber" -> "02076541058")
 
   "Their Contact Details - Controller" should {
 
@@ -36,7 +36,7 @@ class G2TheirContactDetailsSpec extends Specification with Mockito {
         }
       }
     }
-    
+
     "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
