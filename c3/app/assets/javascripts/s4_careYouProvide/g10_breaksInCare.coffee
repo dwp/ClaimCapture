@@ -13,6 +13,7 @@ $ ->
 
     $("tbody").on "click", "input[value='Delete']", ->
         $("tr input[type='button']").attr("disabled", "true").addClass("disabled")
+        $("input[type='radio']").attr("disabled", "true").addClass("disabled")
         $(".form-steps").children().attr("disabled", "true").addClass("disabled")
 
         tr = $(this).closest("tr")
@@ -21,6 +22,7 @@ $ ->
         $(".breaks-prompt").slideDown ->
             $("input[value='No']").on "click", ->
                 $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
+                $("input[type='radio']").removeAttr("disabled", "true").removeClass("disabled")
                 $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
 
                 $(".breaks-prompt").slideUp()
@@ -33,6 +35,7 @@ $ ->
                     success: (data) ->
                         $("label[for='answer']").text(data.answer)
                         $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
+                        $("input[type='radio']").removeAttr("disabled", "true").removeClass("disabled")
                         $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
 
                         $(".breaks-prompt").slideUp()
@@ -51,6 +54,7 @@ $ ->
 
                     error: ->
                         $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
+                        $("input[type='radio']").removeAttr("disabled", "true").removeClass("disabled")
                         $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
 
                         $(".breaks-prompt").slideUp()
