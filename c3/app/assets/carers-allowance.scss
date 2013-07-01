@@ -993,6 +993,7 @@ $button-green-hover: #004b27;
 		   background: #fef7f7;
 		   border: 3px solid #df3034;
 		   position: relative;
+		   display: none;
 		   .ie7 & {
 			   overflow: hidden;
 		   }

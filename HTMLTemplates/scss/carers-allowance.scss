@@ -993,6 +993,7 @@ $button-green-hover: #004b27;
 		   background: #fef7f7;
 		   border: 3px solid #df3034;
 		   position: relative;
+		   display: none;
 		   .ie7 & {
 			   overflow: hidden;
 		   }
@@ -1217,3 +1218,6 @@ html {background: #dee0e2!important;}
 #global-header #logo img {left: -211px!important;}
 #global-header .header-wrapper {padding: 0.5em 1px!important;}
 
+.carers-allowance-footer {padding: 30px 0!important;}
+.carers-allowance-footer .footer-meta {border-top: none!important; padding: 0!important; margin-top: 0!important;}
+.carers-allowance-footer .footer-meta .copyright {position: relative; top: 2px;}
