@@ -7,19 +7,22 @@ $ ->
         tr = $(this).closest("tr")
         window.location.href = "/careYouProvide/breaks/" + tr.attr("id")
 
+    $("#backButton").on "click", (event) ->
+        if ($("#backButton").attr("disabled") == "disabled")
+            event.preventDefault()
+
     $("tbody").on "click", "input[value='Delete']", ->
-        $("tr input[type='button']").attr("disabled", "true")
-        $("tr input[type='button']").addClass("disabled")
-        $(".form-steps").hide()
+        $("tr input[type='button']").attr("disabled", "true").addClass("disabled")
+        $(".form-steps").children().attr("disabled", "true").addClass("disabled")
 
         tr = $(this).closest("tr")
         tbody = $(this).closest("tbody")
 
         $(".breaks-prompt").slideDown ->
             $("input[value='No']").on "click", ->
-                $("tr input[type='button']").removeAttr("disabled")
-                $("tr input[type='button']").removeClass("disabled")
-                $(".form-steps").slideDown()
+                $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
+                $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
+
                 $(".breaks-prompt").slideUp()
 
             $("input[value='Yes']").on "click", ->
@@ -29,9 +32,9 @@ $ ->
 
                     success: (data) ->
                         $("label[for='answer']").text(data.answer)
-                        $("tr input[type='button']").removeAttr("disabled")
-                        $("tr input[type='button']").removeClass("disabled")
-                        $(".form-steps").slideDown()
+                        $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
+                        $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
+
                         $(".breaks-prompt").slideUp()
 
                         element = undefined
@@ -47,8 +50,8 @@ $ ->
                         ).wrapInner("<div />").children().slideUp -> tr.remove()
 
                     error: ->
-                        $("tr input[type='button']").removeAttr("disabled")
-                        $("tr input[type='button']").removeClass("disabled")
-                        $(".form-steps").slideDown()
+                        $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
+                        $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
+
                         $(".breaks-prompt").slideUp()
                         alert "Failed to delete break - Contact Support"
