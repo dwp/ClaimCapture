@@ -3,7 +3,9 @@
 @import helper.base._
 @import utils.helpers.CarersCrypto
 @import utils.helpers.EmptyTemplate._
+@import views.html.helper.checkConstraintRequired
 
+@checkConstraintRequired(field)
 <ul class="radio" id="@CarersCrypto.encryptAES(field.id)">
     @carersRadio(field, options, args:_*)
 </ul>

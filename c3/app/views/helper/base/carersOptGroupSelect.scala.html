@@ -1,9 +1,12 @@
 @(field: play.api.data.Field, optGroups: Seq[(String, Seq[(String,String)])], args: (Symbol,Any)*)(implicit handler: views.html.helper.FieldConstructor, lang: play.api.i18n.Lang)
 
 @import utils.helpers.CarersCrypto
+@import utils.helpers._
 
 @helper.input(field, args:_*) { (id, name, value, htmlArgs) =>
-
+    @defining(field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
+    <label for="@CarersCrypto.encryptAES(field.id)">@if(required){@Html("<em>*</em>")}@{Space.*} @Html(Messages(field.id))</label>
+    }
     <select id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>
         <option value="">Please Select</option>
 

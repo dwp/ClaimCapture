@@ -15,7 +15,7 @@ object G5PreviousCarerContactDetails extends Controller with Routing with Cached
 
   val form = Form(
     mapping(
-      "address" -> optional(address.verifying(requiredAddress)),
+      "address" -> optional(address),
       "postcode" -> optional(text verifying validPostcode),
       "phoneNumber" -> optional(text verifying validPhoneNumber),
       "mobileNumber" -> optional(text verifying validPhoneNumber)

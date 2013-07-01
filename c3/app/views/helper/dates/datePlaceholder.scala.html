@@ -6,7 +6,9 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import scala.language.postfixOps
+@import views.html.helper.checkConstraintRequired
 
+@checkConstraintRequired(field) <!-- datePlaceholder -->
 <ul class="inline year" id="@CarersCrypto.encryptAES(id)">
     <li>
         @carersSelect(field("day"), options = Seq("" -> "Day") ++ ((1 to 31) map(v => (v toString) -> (if (v < 10) "0" + v else (v toString)))).asInstanceOf[Seq[(String, String)]])

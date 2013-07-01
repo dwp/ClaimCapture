@@ -4,13 +4,9 @@
 @import utils.helpers.CarersCrypto
 @import utils.helpers.EmptyTemplate._
 
-<li class="@defining(if (elements.hasErrors) "validation" else ""){ v => @v}">
+@if(elements.hasErrors){ <li class="validation"> } else { <li> }
     @if(elements.hasErrors){
         <p class="error">@elements.errors.mkString(", ")</p>
-    }
-
-    @defining(elements.field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
-        <label for='@CarersCrypto.encryptAES(elements.field("location").id)'>@if(required){@Html("<em>*</em>")}@elements.label</label>
     }
 
     @if(elements.args.contains('prompt)){
