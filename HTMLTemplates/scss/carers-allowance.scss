@@ -540,7 +540,7 @@ $button-green-hover: #004b27;
 				   li {
 					   position: relative;
 					   float: left;
-					   margin: 0 0 0 2px;
+					   margin: 0 0 0 1px;
 					   padding: 0;
 					   &:first-child {
 						   margin-left: 0;
@@ -570,7 +570,7 @@ $button-green-hover: #004b27;
 						   font-size: 1.7rem;
 						   cursor: pointer;
 						   line-height: inherit;
-						   border: 1px solid transparent;
+						   border: 1px solid #fff;
 						   .ie & {
 							   font-size: 17px;
 						   }
@@ -971,6 +971,7 @@ $button-green-hover: #004b27;
 	   
    }
    /* form elements end */
+   
    
    
    

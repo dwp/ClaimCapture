@@ -473,7 +473,7 @@
         .carers-allowance .form-elements ul.radio li {
           position: relative;
           float: left;
-          margin: 0 0 0 2px;
+          margin: 0 0 0 1px;
           padding: 0; }
           .carers-allowance .form-elements ul.radio li:first-child {
             margin-left: 0; }
@@ -498,7 +498,7 @@
             font-size: 1.7rem;
             cursor: pointer;
             line-height: inherit;
-            border: 1px solid transparent; }
+            border: 1px solid white; }
             .ie .carers-allowance .form-elements ul.radio li label {
               font-size: 17px; }
             .ie7 .carers-allowance .form-elements ul.radio li label, .ie8 .carers-allowance .form-elements ul.radio li label {
