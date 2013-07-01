@@ -22,7 +22,7 @@ object G4PreviousCarerPersonalDetails extends Controller with Routing with Cache
       "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOnly))
     )(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id < PreviousCarerPersonalDetails.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != PreviousCarerPersonalDetails.id)
 
   def present = claiming { implicit claim => implicit request =>
     val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson.id) match {
@@ -42,7 +42,7 @@ object G4PreviousCarerPersonalDetails extends Controller with Routing with Cache
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).filter(q => q.id < PreviousCarerPersonalDetails.id))),
+      formWithErrors => BadRequest(views.html.s4_careYouProvide.g4_previousCarerPersonalDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).filter(q => q.id != PreviousCarerPersonalDetails.id))),
       currentForm => claim.update(currentForm) -> Redirect(controllers.s4_care_you_provide.routes.G5PreviousCarerContactDetails.present))
   }
 }

@@ -1,6 +1,7 @@
 @(field: play.api.data.Field)
 
 @import views.html.helper.base.carersInputText
+@import views.html.helper.base.carersInputTel
 @import utils.helpers.CarersCrypto
 @import utils.helpers.EmptyTemplate._
 @import views.html.helper.checkConstraintRequired
@@ -14,17 +15,17 @@
 
     <li>
         <label for='@CarersCrypto.encryptAES(field("ni2").id)'>NI part two</label>
-        @carersInputText(field("ni2"), 'placeholder -> "12", 'maxlength -> 2)
+        @carersInputTel(field("ni2"), 'placeholder -> "12", 'maxlength -> 2)
     </li>
 
     <li>
         <label for='@CarersCrypto.encryptAES(field("ni3").id)'>NI part three</label>
-        @carersInputText(field("ni3"), 'placeholder -> "34", 'maxlength -> 2)
+        @carersInputTel(field("ni3"), 'placeholder -> "34", 'maxlength -> 2)
     </li>
 
     <li>
         <label for='@CarersCrypto.encryptAES(field("ni4").id)'>NI part four</label>
-        @carersInputText(field("ni4"), 'placeholder -> "56", 'maxlength -> 2)
+        @carersInputTel(field("ni4"), 'placeholder -> "56", 'maxlength -> 2)
     </li>
 
     <li>

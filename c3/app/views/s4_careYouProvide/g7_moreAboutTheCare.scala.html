@@ -15,17 +15,15 @@
 
             <ul class="group">
 
-                @defining(claim.questionGroup(ClaimDate.id) match{ case Some(s) => Claim.dateFormatGeneration.parseDateTime(s.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString).toString(Claim.dateFormatPrint) case None =>  "{NO CLAIM DATE}"}) { dateOfClaim =>
+                @yesNoRadioGroup(currentForm("spent35HoursCaring"))
+                @yesNoRadioGroup(currentForm("spent35HoursCaringBeforeClaim"), '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.ddMMyyyy)))
 
-                    @yesNoRadioGroup(currentForm("spent35HoursCaring"))
-                    @yesNoRadioGroup(currentForm("spent35HoursCaringBeforeClaim"), '_label -> Messages("spent35HoursCaringBeforeClaim.label", dateOfClaim))
+                <div id="careStartDateWrap">
+                    @inputDayMonthYear(currentForm("careStartDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
+                </div>
 
-                    <div id="careStartDateWrap">
-                        @inputDayMonthYear(currentForm("careStartDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
-                    </div>
+                @yesNoRadioGroup(currentForm("hasSomeonePaidYou"), '_label->Messages("hasSomeonePaidYou.label",claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.ddMMyyyy)))
 
-                    @yesNoRadioGroup(currentForm("hasSomeonePaidYou"), '_label->Messages("hasSomeonePaidYou.label",dateOfClaim))
-                }
             </ul>
         </fieldset>
 
