@@ -22,7 +22,7 @@ object CarersForm {
       form.bind(
         map.foldLeft(Map.empty[String, String]) {
           case (s, (key, values)) =>
-            val cKey = Try(play.api.libs.Crypto.decryptAES(key)) match {
+            val cKey = Try(CarersCrypto.decryptAES(key)) match {
               case Success(s) =>
                 Logger.info(s"Field decryption: $key -> $s")
                 s
