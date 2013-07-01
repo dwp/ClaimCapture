@@ -63,6 +63,18 @@
         padding-left: 0;
         padding-right: 0;
         border-top: 0; } }
+    .carers-allowance section.error-statement {
+      margin: 0;
+      padding: 5em 0; }
+      .carers-allowance section.error-statement p {
+        margin: 2em 40% 0 0; }
+        @media screen and (max-width: 700px) {
+          .carers-allowance section.error-statement p {
+            margin-right: 0; } }
+      .carers-allowance section.error-statement h1 {
+        font-size: 5rem; }
+        .ie .carers-allowance section.error-statement h1 {
+          font-size: 50px; }
     .carers-allowance section header {
       margin-right: 20%; }
       @media screen and (max-width: 700px) {
@@ -478,7 +490,7 @@
               left: 10px;
               top: 28%; }
             .carers-allowance .form-elements ul.radio li input[type="radio"]:focus {
-              outline: none!important; }
+              outline: none; }
           .carers-allowance .form-elements ul.radio li label {
             display: block;
             background: #eee;
@@ -611,9 +623,9 @@
         .ie7 .carers-allowance .form-elements ul.ni-number input[type="text"], .ie7 .carers-allowance .form-elements ul.ni-number input[type="tel"] {
           width: 43px; }
         .carers-allowance .form-elements ul.ni-number input[type="text"].single, .carers-allowance .form-elements ul.ni-number input[type="tel"].single {
-          width: 2.6rem; }
+          width: 2.7rem; }
           .ie .carers-allowance .form-elements ul.ni-number input[type="text"].single, .ie .carers-allowance .form-elements ul.ni-number input[type="tel"].single {
-            width: 26px; }
+            width: 27px; }
         @media screen and (max-width: 750px) {
           .carers-allowance .form-elements ul.ni-number input[type="text"], .carers-allowance .form-elements ul.ni-number input[type="tel"] {
             width: 4.2rem; }
@@ -755,7 +767,8 @@
     .carers-allowance .prompt.breaks-prompt {
       background: #fef7f7;
       border: 3px solid #df3034;
-      position: relative; }
+      position: relative;
+      display: none; }
       .ie7 .carers-allowance .prompt.breaks-prompt {
         overflow: hidden; }
       .carers-allowance .prompt.breaks-prompt p {
@@ -938,3 +951,15 @@ html {
 
 #global-header .header-wrapper {
   padding: 0.5em 1px !important; }
+
+.carers-allowance-footer {
+  padding: 30px 0 !important; }
+
+.carers-allowance-footer .footer-meta {
+  border-top: none!important;
+  padding: 0!important;
+  margin-top: 0!important; }
+
+.carers-allowance-footer .footer-meta .copyright {
+  position: relative;
+  top: 2px; }

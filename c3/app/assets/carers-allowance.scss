@@ -53,6 +53,21 @@ $button-green-hover: #004b27;
 	   padding-top: 1.6em;
 	   @media screen and (max-width: 640px) {padding-left: 0; padding-right: 0; border-top: 0;}
 	   
+	   &.error-statement {
+		margin: 0;
+		padding: 5em 0;
+			p {
+				margin: 2em 40% 0 0;
+				@media screen and (max-width: 700px) {margin-right: 0;}
+			}
+			h1 {
+				font-size: 5rem;
+				.ie & {
+					font-size: 50px;
+				}
+			}
+   	   }
+	   
 	   /* section header */
 	   header {
 		   margin-right: 20%;
@@ -762,9 +777,9 @@ $button-green-hover: #004b27;
 					   width: 43px;
 				   }
 				   &.single {
-					   width: 2.6rem;
+					   width: 2.7rem;
 					   .ie & {
-						   width: 26px;
+						   width: 27px;
 					   }
 				   }
 				   @media screen and (max-width: 750px) {width: 4.2rem;
@@ -978,6 +993,7 @@ $button-green-hover: #004b27;
 		   background: #fef7f7;
 		   border: 3px solid #df3034;
 		   position: relative;
+		   display: none;
 		   .ie7 & {
 			   overflow: hidden;
 		   }
@@ -1192,6 +1208,7 @@ $button-green-hover: #004b27;
 }
 
 
+
 /* Purely for demo purposes - can be deleted later on */
 textarea.demo {text-align: left!important; width: 120%!important; font-size: 1.5rem!important; height: 20rem!important; margin-top: 1em; border-color: red!important; padding: 1rem!important; background: #eee!important; margin-bottom: 3em!important}
 
@@ -1201,3 +1218,6 @@ html {background: #dee0e2!important;}
 #global-header #logo img {left: -211px!important;}
 #global-header .header-wrapper {padding: 0.5em 1px!important;}
 
+.carers-allowance-footer {padding: 30px 0!important;}
+.carers-allowance-footer .footer-meta {border-top: none!important; padding: 0!important; margin-top: 0!important;}
+.carers-allowance-footer .footer-meta .copyright {position: relative; top: 2px;}
