@@ -77,7 +77,7 @@ eitherClaimedBenefitSinceClaimDate.label = Have you or your partner/spouse claim
 eitherClaimedBenefitSinceClaimDate = Have you or your partner/spouse claimed or received any other benefits since your claim date?
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
-receiveStatePension = Do you receive State Pension?
+receiveStatePension = Do you get State Pension?
 
 # EMPLOYMENT
 beenEmployedSince6MonthsBeforeClaim.label = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
