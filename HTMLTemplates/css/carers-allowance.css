@@ -315,9 +315,6 @@
         .carers-allowance .form-elements ul li.other-detail {
           margin: 0;
           padding-top: 0; }
-          .carers-allowance .form-elements ul li.other-detail label {
-            position: absolute;
-            left: -9999px; }
         .carers-allowance .form-elements ul li.validation {
           background: #fef7f7;
           padding: .7em;
@@ -364,34 +361,18 @@
             font-size: 16px; }
           .carers-allowance .form-elements ul li .helper.above {
             margin-top: 0; }
-          .carers-allowance .form-elements ul li .helper.right {
-            position: absolute;
-            top: 45px;
-            left: 30rem; }
-            .ie .carers-allowance .form-elements ul li .helper.right {
-              left: 305px; }
-            @media screen and (max-width: 600px) {
-              .carers-allowance .form-elements ul li .helper.right {
-                position: relative;
-                top: auto;
-                left: auto; } }
-        .carers-allowance .form-elements ul li.helper-more {
-          color: #2e3191;
-          text-decoration: underline;
-          cursor: pointer; }
-          .carers-allowance .form-elements ul li.helper-more:hover {
-            color: inherit; }
-          @media screen and (max-width: 330px) {
-            .carers-allowance .form-elements ul li.helper-more {
-              position: relative;
-              top: 3px;
-              padding: 0;
-              float: right; } }
+        .carers-allowance .form-elements ul li .helper-more {
+          cursor: pointer;
+          display: inline-block;
+          font-size: 1.6rem;
+          margin-top: .4em;
+          font-weight: 300;
+          color: #333399;
+          overflow: hidden; }
         .carers-allowance .form-elements ul li .helper-info {
           display: none;
           padding: 1em;
-          background: #bde4f6;
-          margin-top: .25em; }
+          background: #bde4f6; }
           .carers-allowance .form-elements ul li .helper-info p {
             font-size: 1.6rem; }
         .carers-allowance .form-elements ul li label, .carers-allowance .form-elements ul li p {
@@ -854,6 +835,8 @@
     top: 0;
     position: relative;
     overflow: visible; }
+    .carers-allowance .button:focus {
+      outline: none; }
     .carers-allowance .button:before {
       content: "";
       background: transparent;

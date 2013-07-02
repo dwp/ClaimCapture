@@ -2,8 +2,8 @@ $(document).ready(function() {
 
 // view more / view less
     $('.helper-more').click(function(){
-       $(this).toggleClass("helper-less");
-       $('.helper-info').slideToggle('slow');
+       $('.helper-more').toggleClass("helper-less");
+       $(this).next(".helper-info").slideToggle("medium");
        if($(this).text() === 'Close')
        {
            $(this).text('Show example');
@@ -13,7 +13,8 @@ $(document).ready(function() {
        $(this).text('Close');
        }
 	 });
-	 
+
+
 	 
 // smooth scroll    
 $('a[href^="#"]').bind('click.smoothscroll',function (e) {
