@@ -104,7 +104,7 @@ claimedAllowanceBefore = Has anyone else claimed Carer's Allowance for this pers
 # REPRESENTATIVES FOR THE PERSON
 actForPerson = Do you act for the person you care for?
 actAs = You act as
-someoneElseActForPerson = Do someone else act for the person you care for?
+someoneElseActForPerson = Does someone else act for the person you care for?
 someoneElseActAs = Person acts as
 someoneElseFullName = Full name
 
