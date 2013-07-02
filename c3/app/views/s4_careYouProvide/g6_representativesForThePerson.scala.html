@@ -19,14 +19,16 @@
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(actSelect(currentForm("actAs"))),
-                    'id->"actWrap"
+                    'id->"actWrap",
+                    'display -> currentForm("actForPerson").value.getOrElse("no")
                 )
 
                 @yesNoRadioGroup(currentForm("someoneElseActForPerson"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(actSelect(currentForm("someoneElseActAs")), carersInputText(currentForm("someoneElseFullName"))),
-                    'id->"someoneElseWrap"
+                    'id->"someoneElseWrap",
+                    'display -> currentForm("someoneElseActForPerson").value.getOrElse("no")
                 )
 
 
