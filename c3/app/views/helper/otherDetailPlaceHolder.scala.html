@@ -1,12 +1,12 @@
-@(inputDef:Html)
+@(id:String, inputDef:List[Html])
 
-<li id="someoneElseWrap" class="other-detail">
+<li id="@id" class="other-detail">
 
     <ul>
-
-            @inputDef
-
-   </ul>
+       @for(html <- inputDef) {
+            @html
+       }
+    </ul>
 
 </li>
 

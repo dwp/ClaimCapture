@@ -23,10 +23,10 @@
 
                 @yesNoRadioGroup(currentForm("someoneElseActForPerson"))
 
-                @otherDetailPlaceHolder {
-                    @actSelect(currentForm("someoneElseActAs"))
-                    @carersInputText(currentForm("someoneElseFullName"))
-                }
+                @otherDetailPlaceHolder(
+                    id="someoneElseWrap",
+                    inputDef = List(actSelect(currentForm("someoneElseActAs")), carersInputText(currentForm("someoneElseFullName")))
+                )
 
 
             </ul>
