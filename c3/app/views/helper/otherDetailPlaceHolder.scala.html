@@ -1,7 +1,7 @@
 @(inputDef:Seq[Html], args: (Symbol,Any)*)
 
-<li id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}" class="other-detail">
-
+@defining(args.toMap.get('display).map(_.toString).getOrElse("no") match {case "yes" => "block" case _ => "none"}) { styleDisplay =>
+<li id="@{args.toMap.get('id).map(_.toString).getOrElse("no-id")}" class="other-detail" style="display: @styleDisplay;">
     <ul>
        @for(html <- inputDef) {
             @html
@@ -9,5 +9,4 @@
     </ul>
 
 </li>
-
-
+}

@@ -46,10 +46,10 @@ object AboutYou extends Controller with CachedClaim {
   val timeOutsideUKForm = Form(
     mapping(
       "currentlyLivingInUK" -> nonEmptyText(),
-      "arrivedInUK" -> optional(dayMonthYear.verifying(validDate)),
+      "arrivedInUK" -> optional(dayMonthYear.verifying(validDateOnly)),
       "originCountry" -> optional(text(maxLength = sixty)),
       "planToGoBack" -> optional(text),
-      "whenPlanToGoBack"-> optional(dayMonthYear.verifying(validDate)),
+      "whenPlanToGoBack"-> optional(dayMonthYear.verifying(validDateOnly)),
       "visaReference" -> optional(text(maxLength = sixty))
     )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
 

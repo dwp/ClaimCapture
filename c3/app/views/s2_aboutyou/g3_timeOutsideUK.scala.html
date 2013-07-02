@@ -18,18 +18,20 @@
             <ul class="group">
                 @yesNoRadioGroup(timeOutsideUKForm("currentlyLivingInUK"))
 
-                <ul id="livingInUK" style='display: @if(timeOutsideUKForm("currentlyLivingInUK").value.getOrElse("yes") == "yes") { none; } else { block; }'>
-                    @inputDayMonthYear(timeOutsideUKForm("arrivedInUK"), 'helperBelow -> Messages("dateOfBirth.helper"))
-
-                    @carersInputText(timeOutsideUKForm("originCountry"))
-                </ul>
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(inputDayMonthYear(timeOutsideUKForm("arrivedInUK"), 'helperBelow -> Messages("dateOfBirth.helper")), carersInputText(timeOutsideUKForm("originCountry"))),
+                    'id->"livingInUK",
+                    'display -> timeOutsideUKForm("currentlyLivingInUK").value.getOrElse("no")
+                )
 
                 @yesNoRadioGroup(timeOutsideUKForm("planToGoBack"))
 
-                <ul id="planingToGoBack" style='display: @if(timeOutsideUKForm("planToGoBack").value.getOrElse("no") == "no") { none; } else { block; }'>
-                    @inputDayMonthYear(timeOutsideUKForm("whenPlanToGoBack"), 'helperBelow -> Messages("dateOfBirth.helper"))
-                </ul>
-
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(inputDayMonthYear(timeOutsideUKForm("whenPlanToGoBack"), 'helperBelow -> Messages("dateOfBirth.helper"))),
+                    'id->"planingToGoBack",
+                    'display -> timeOutsideUKForm("planToGoBack").value.getOrElse("no")
+                )
+                
                 @carersInputText(timeOutsideUKForm("visaReference"))
             </ul>
 
