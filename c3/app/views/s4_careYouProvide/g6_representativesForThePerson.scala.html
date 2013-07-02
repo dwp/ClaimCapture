@@ -17,15 +17,16 @@
             <ul class="group">
                 @yesNoRadioGroup(currentForm("actForPerson"))
 
-                <div id="actWrap">
-                    @actSelect(currentForm("actAs"))
-                </div>
+                @otherDetailPlaceHolder(
+                    id="actWrap",
+                    inputDef = Seq(actSelect(currentForm("actAs")))
+                )
 
                 @yesNoRadioGroup(currentForm("someoneElseActForPerson"))
 
                 @otherDetailPlaceHolder(
                     id="someoneElseWrap",
-                    inputDef = List(actSelect(currentForm("someoneElseActAs")), carersInputText(currentForm("someoneElseFullName")))
+                    inputDef = Seq(actSelect(currentForm("someoneElseActAs")), carersInputText(currentForm("someoneElseFullName")))
                 )
 
 
