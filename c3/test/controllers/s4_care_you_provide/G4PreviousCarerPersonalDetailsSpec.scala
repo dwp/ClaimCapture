@@ -9,7 +9,6 @@ import models.domain.{PreviousCarerPersonalDetails, Claim}
 import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Section
-import scala.Some
 
 class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
   val firstName = "John"
@@ -56,5 +55,4 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
       status(result) mustEqual SEE_OTHER
     }
   }
-
 }

@@ -11,7 +11,7 @@
 @main("Time Outside UK - About You", completedQuestionGroups) {
     @errorsSummary(timeOutsideUKForm)
 
-    @form(action = routes.AboutYou.timeOutsideUKSubmit) {
+    @form(action = controllers.s2_about_you.routes.G3TimeOutsideUK.submit) {
         <fieldset class="form-elements">
             <legend>About your time outside the UK</legend>
 
@@ -38,7 +38,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a href="@routes.AboutYou.contactDetails" class="button secondary">Back</a>
+            <a href="@controllers.s2_about_you.routes.G2ContactDetails.present" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

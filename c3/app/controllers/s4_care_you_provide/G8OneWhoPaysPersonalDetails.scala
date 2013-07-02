@@ -20,8 +20,8 @@ object G8OneWhoPaysPersonalDetails extends Controller with Routing with CachedCl
       "firstName" -> optional(text(maxLength = sixty)),
       "middleName" -> optional(text(maxLength = sixty)),
       "surname" -> optional(text(maxLength = sixty)),
-      "amount" -> optional(text verifying (validDecimalNumber)),
-      "startDatePayment" -> optional(dayMonthYear.verifying(validDateOnly))
+      "amount" -> optional(text verifying validDecimalNumber),
+      "startDatePayment" -> optional(dayMonthYear.verifying(validDate))
     )(OneWhoPaysPersonalDetails.apply)(OneWhoPaysPersonalDetails.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != OneWhoPaysPersonalDetails.id)

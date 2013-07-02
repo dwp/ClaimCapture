@@ -1,31 +1,30 @@
 @(employmentForm: Form[models.domain.Employment], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
+@import scala.language.postfixOps
 @import helper._
 @import views.html.common._
 @import models.domain.Claim
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main("Employment - About You",completedQuestionGroups) {
+@main("Employment - About You", completedQuestionGroups) {
     @errorsSummary(employmentForm)
 
-    @form(action = routes.AboutYou.employmentSubmit) {
+    @form(action = controllers.s2_about_you.routes.G6Employment.submit) {
         <fieldset class="form-elements">
             <legend>Employment</legend>
 
             <ul class="group">
-                @defining(Claim.dateFormatGeneration.parseDateTime(claim.questionGroup(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
-                    @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
-                        '_label -> Messages("beenEmployedSince6MonthsBeforeClaim.label", dateOfClaim.minusMonths(6).toString(Claim.dateFormatPrint), dateOfClaim.toString(Claim.dateFormatPrint)))
+                @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
+                    '_label -> Messages("beenEmployedSince6MonthsBeforeClaim.label", (claim.dateOfClaim.get - 6 months) ddMMyyyy, claim.dateOfClaim.get.ddMMyyyy))
 
-                    @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
-                        '_label -> Messages("beenSelfEmployedSince1WeekBeforeClaim.label", dateOfClaim.minusWeeks(1).toString(Claim.dateFormatPrint), dateOfClaim.toString(Claim.dateFormatPrint)))
-                }
+                @yesNoRadioGroup(employmentForm("beenSelfEmployedSince1WeekBeforeClaim"),
+                    '_label -> Messages("beenSelfEmployedSince1WeekBeforeClaim.label", (claim.dateOfClaim.get - 1 week) ddMMyyyy, claim.dateOfClaim.get.ddMMyyyy))
             </ul>
         </fieldset>
 
         <div class="form-steps">
-            <a href="@routes.AboutYou.moreAboutYou" class="button secondary">Back</a>
+            <a href="@controllers.s2_about_you.routes.G5MoreAboutYou.present" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

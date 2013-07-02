@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, optGroups: Seq[(String, Seq[(String,String)])], args: (Symbol,Any)*)(implicit handler: views.html.helper.FieldConstructor, lang: play.api.i18n.Lang)
+@(field: play.api.data.Field, optGroups: Seq[(String, Seq[(String,String)])], args: (Symbol, Any)*)(implicit handler: views.html.helper.FieldConstructor, lang: play.api.i18n.Lang)
 
 @import utils.helpers.CarersCrypto
 @import utils.helpers._
@@ -10,7 +10,7 @@
     <select id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>
         <option value="">Please Select</option>
 
-        @for((groupLabel: String, groupOptions: Seq[(String,String)]) <-  optGroups){
+        @for((groupLabel: String, groupOptions: Seq[(String, String)]) <- optGroups){
             <optgroup label="@groupLabel">
                 @subgroup(value, groupOptions)
             </optgroup>

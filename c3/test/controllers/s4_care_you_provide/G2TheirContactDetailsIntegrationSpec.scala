@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import integration.Helper
+import controllers.FormHelper
 
 class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
 
@@ -19,24 +19,24 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "be prepopulated if they live at same address" in new WithBrowser {
-      Helper.fillYourContactDetails(browser)
-      Helper.fillTheirPersonalDetails(browser)
+      FormHelper.fillYourContactDetails(browser)
+      FormHelper.fillTheirPersonalDetails(browser)
       browser.title() mustEqual "Their Contact Details - Care You Provide"
-      browser.find("#address_lineOne").getValue mustEqual ("My Address")
-      browser.find("#postcode").getValue mustEqual ("SE1 6EH")
+      browser.find("#address_lineOne").getValue mustEqual "My Address"
+      browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
 
     "be blank if they live at different address" in new WithBrowser {
-      Helper.fillYourContactDetails(browser)
-      Helper.fillTheirPersonalDetailsNotLiveAtSameAddress(browser)
-      browser.find("#address_lineOne").getValue mustEqual ("")
-      browser.find("#postcode").getValue mustEqual ("")
+      FormHelper.fillYourContactDetails(browser)
+      FormHelper.fillTheirPersonalDetailsNotLiveAtSameAddress(browser)
+      browser.find("#address_lineOne").getValue mustEqual ""
+      browser.find("#postcode").getValue mustEqual ""
     }
 
     "be blank if they live at same address but did not enter one" in new WithBrowser {
-      Helper.fillTheirPersonalDetails(browser)
-      browser.find("#address_lineOne").getValue mustEqual ("")
-      browser.find("#postcode").getValue mustEqual ("")
+      FormHelper.fillTheirPersonalDetails(browser)
+      browser.find("#address_lineOne").getValue mustEqual ""
+      browser.find("#postcode").getValue mustEqual ""
     }
 
     "navigate back to Their Personal Details" in new WithBrowser {
@@ -46,21 +46,21 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
-      Helper.fillTheirContactDetails(browser)
+      FormHelper.fillTheirContactDetails(browser)
       browser.title() mustEqual "More About The Person You Care For - Care You Provide"
     }
 
     "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {
-      Helper.fillTheirContactDetails(browser)
+      FormHelper.fillTheirContactDetails(browser)
       browser.click("#backButton")
-      browser.find("#address_lineOne").getValue mustEqual ("Their Address")
+      browser.find("#address_lineOne").getValue mustEqual "Their Address"
       browser.click("#backButton")
-      Helper.fillYourContactDetails(browser)
-      Helper.fillTheirPersonalDetails(browser)
+      FormHelper.fillYourContactDetails(browser)
+      FormHelper.fillTheirPersonalDetails(browser)
 
       browser.title() mustEqual "Their Contact Details - Care You Provide"
-      browser.find("#address_lineOne").getValue mustEqual ("My Address")
-      browser.find("#postcode").getValue mustEqual ("SE1 6EH")
+      browser.find("#address_lineOne").getValue mustEqual "My Address"
+      browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
     /*
  "navigating forward and back presents the same completed question list" in new WithBrowser {

@@ -17,7 +17,7 @@ object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
     mapping(
       "spent35HoursCaring" -> nonEmptyText,
       "spent35HoursCaringBeforeClaim" -> nonEmptyText,
-      "careStartDate" -> optional(dayMonthYear verifying validDateOnly),
+      "careStartDate" -> optional(dayMonthYear verifying validDate),
       "hasSomeonePaidYou" -> nonEmptyText
     )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
 

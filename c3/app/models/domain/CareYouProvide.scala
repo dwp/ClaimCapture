@@ -26,7 +26,8 @@ object MoreAboutThePerson {
   val id = s"${CareYouProvide.id}.g3"
 }
 
-case class MoreAboutTheCare(spent35HoursCaring: String, spent35HoursCaringBeforeClaim: String, careStartDate:Option[DayMonthYear], hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare.id)
+case class MoreAboutTheCare(spent35HoursCaring: String, spent35HoursCaringBeforeClaim: String,
+                            careStartDate:Option[DayMonthYear], hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare.id)
 
 object MoreAboutTheCare {
   val id = s"${CareYouProvide.id}.g7"
@@ -47,13 +48,16 @@ object PreviousCarerContactDetails {
   val id = s"${CareYouProvide.id}.g5"
 }
 
-case class RepresentativesForPerson(actForPerson: String,actAs: Option[String],someoneElseActForPerson: String,someoneElseActAs: Option[String], someoneElseFullName: Option[String]) extends QuestionGroup(RepresentativesForPerson.id)
+case class RepresentativesForPerson(actForPerson: String, actAs: Option[String],
+                                    someoneElseActForPerson: String, someoneElseActAs: Option[String], someoneElseFullName: Option[String]) extends QuestionGroup(RepresentativesForPerson.id)
 
 object RepresentativesForPerson {
   val id = s"${CareYouProvide.id}.g6"
 }
 
-case class OneWhoPaysPersonalDetails(organisation:Option[String] = None, title:Option[String] = None, firstName:Option[String] = None, middleName:Option[String] = None, surname:Option[String] = None, amount:Option[String] = None, startDatePayment:Option[DayMonthYear] = None) extends QuestionGroup(OneWhoPaysPersonalDetails.id)
+case class OneWhoPaysPersonalDetails(organisation:Option[String] = None, title:Option[String] = None,
+                                     firstName:Option[String] = None, middleName:Option[String] = None, surname:Option[String] = None,
+                                     amount:Option[String] = None, startDatePayment:Option[DayMonthYear] = None) extends QuestionGroup(OneWhoPaysPersonalDetails.id)
 
 object OneWhoPaysPersonalDetails {
   val id = s"${CareYouProvide.id}.g8"
