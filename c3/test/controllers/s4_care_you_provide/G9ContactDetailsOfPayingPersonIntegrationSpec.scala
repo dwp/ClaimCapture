@@ -28,7 +28,7 @@ class G9ContactDetailsOfPayingPersonIntegrationSpec extends Specification with T
       browser.submit("button[value='next']")
       browser.title() mustEqual "Breaks in Care - Care You Provide"
 
-      browser.click(".form-steps a")
+      browser.click("#backButton")
       browser.$("#postcode").getValue mustEqual "BLAH"
     }
   } section "integration"
