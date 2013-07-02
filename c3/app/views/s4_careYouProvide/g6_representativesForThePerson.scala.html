@@ -18,15 +18,15 @@
                 @yesNoRadioGroup(currentForm("actForPerson"))
 
                 @otherDetailPlaceHolder(
-                    id="actWrap",
-                    inputDef = Seq(actSelect(currentForm("actAs")))
+                    inputDef = Seq(actSelect(currentForm("actAs"))),
+                    'id->"actWrap"
                 )
 
                 @yesNoRadioGroup(currentForm("someoneElseActForPerson"))
 
                 @otherDetailPlaceHolder(
-                    id="someoneElseWrap",
-                    inputDef = Seq(actSelect(currentForm("someoneElseActAs")), carersInputText(currentForm("someoneElseFullName")))
+                    inputDef = Seq(actSelect(currentForm("someoneElseActAs")), carersInputText(currentForm("someoneElseFullName"))),
+                    'id->"someoneElseWrap"
                 )
 
 
