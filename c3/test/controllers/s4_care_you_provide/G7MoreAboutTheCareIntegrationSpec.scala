@@ -43,7 +43,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
     "chose no options navigate back twice to Previous Carer Contact Details" in new WithBrowser {
       def titleMustEqual(title: String) = {
         browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
-          browser.title() mustEqual title
+          browser.title mustEqual title
         }
       }
 

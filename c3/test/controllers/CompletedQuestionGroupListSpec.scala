@@ -58,7 +58,7 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
     "remove invalidated history after completing the S4G3 ClaimedAllowanceBefore postive answer path but goes back and changes to the negative answer path" in new WithBrowser {
       def titleMustEqual(title: String) = {
         browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
-          browser.title() mustEqual title
+          browser.title mustEqual title
         }
       }
 
