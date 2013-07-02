@@ -10,7 +10,7 @@ class NavigationSpec extends Specification with Tags {
     "not cache pages" in new WithBrowser {
       def titleMustEqual(title: String) = {
         browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
-          browser.title() mustEqual title
+          browser.title mustEqual title
         }
       }
 
