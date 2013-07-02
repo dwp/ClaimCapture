@@ -6,9 +6,9 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   def section(sectionId: String): Option[Section] = sections.get(sectionId)
 
   def questionGroup(questionGroupID: String): Option[QuestionGroup] = {
-    val sectionId = Claim.sectionId(questionGroupID)
+    val sectionID = Section.sectionID(questionGroupID)
 
-    section(sectionId) match {
+    section(sectionID) match {
       case Some(s: Section) => s.questionGroup(questionGroupID)
       case _ => None
     }
@@ -28,22 +28,22 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
       if (updated.contains(questionGroup)) updated else updated :+ questionGroup
     }
 
-    val sectionId = Claim.sectionId(questionGroup.id)
+    val sectionID = Section.sectionID(questionGroup.id)
 
-    val section = sections.get(sectionId) match {
-      case None => Section(sectionId, List(questionGroup))
-      case Some(s) => Section(sectionId, update(questionGroup, s.questionGroups))
+    val section = sections.get(sectionID) match {
+      case None => Section(sectionID, List(questionGroup))
+      case Some(s) => Section(sectionID, update(questionGroup, s.questionGroups))
     }
 
     Claim(sections.updated(section.id, section))
   }
 
   def delete(questionGroupId: String): Claim = {
-    val sectionId = Claim.sectionId(questionGroupId)
+    val sectionID = Section.sectionID(questionGroupId)
 
-    val section = sections.get(sectionId) match {
-      case None => Section(sectionId, List())
-      case Some(s) => Section(sectionId, s.questionGroups.filterNot(q => q.id == questionGroupId))
+    val section = sections.get(sectionID) match {
+      case None => Section(sectionID, List())
+      case Some(s) => Section(sectionID, s.questionGroups.filterNot(q => q.id == questionGroupId))
     }
 
     Claim(sections.updated(section.id, section))
@@ -52,19 +52,5 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate.id) match {
     case Some(c: ClaimDate) => Some(c.dateOfClaim)
     case _ => None
-  }
-}
-
-object Claim {
-  import org.joda.time.format.{DateTimeFormatter, DateTimeFormat}
-
-  val dateFormatGeneration: DateTimeFormatter = DateTimeFormat.forPattern("'DayMonthYear'('Some'(dd),'Some'(M),'Some'(yyyy),'None','None')")
-
-  val dateFormatPrint: DateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy")
-
-  val dateFormatXml : DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
-
-  def sectionId(formId: String) = {
-    formId.split('.')(0)
   }
 }

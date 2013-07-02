@@ -1,15 +1,14 @@
 package models.claim
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import models.domain._
 import services.submission.ClaimSubmission
 import helpers.ClaimBuilder._
 import play.api.test.WithApplication
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import scala.xml.Elem
-import play.api.Logger
 
-class ClaimSubmissionSpec extends Specification {
+class ClaimSubmissionSpec extends Specification with Tags {
 
   "Claim Submission" should {
     "build and confirm normal AboutYou input" in new WithApplication {
@@ -60,7 +59,7 @@ class ClaimSubmissionSpec extends Specification {
 
       validator.validate(fullXml.buildString(stripComments = true)) must beFalse
     }
-  }
+  } section "s2"
 
   def buildFullClaim(claimXml:Elem) = {
 

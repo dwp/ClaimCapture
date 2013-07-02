@@ -3,9 +3,9 @@
 @import helper._
 
 @main("Completion - About You", completedQuestionGroups) {
-    @form(action = routes.AboutYou.completedSubmit) {
+    @form(action = controllers.s2_about_you.routes.AboutYou.completedSubmit) {
         <div class="form-steps">
-            <a href="@routes.AboutYou.propertyAndRent" class="button secondary">Back</a>
+            <a href="@controllers.s2_about_you.routes.G7PropertyAndRent.present" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Continue to Partner / Spouse</button>
         </div>
     }

@@ -4,7 +4,6 @@
 @import models.domain.BooleanConfirmation
 
 @common.govMain(title) {
-
     <div id="wrapper" class="carers-allowance">
         <div class="carers-container">
 
@@ -25,7 +24,7 @@
                                 <li>
                                     <h3>@Messages(completedForm.id)</h3>
                                     <p>@{completedForm.asInstanceOf[BooleanConfirmation].confirmation}</p>
-                                    <a href="@CarersAllowance.route(completedForm.id)?changing=true">Change this answer</a>
+                                    <a href="@controllers.s1_carers_allowance.CarersAllowance.route(completedForm.id)?changing=true">Change this answer</a>
                                 </li>
                             }
                         </ul>

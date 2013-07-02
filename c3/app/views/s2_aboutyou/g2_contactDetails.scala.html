@@ -9,7 +9,7 @@
 @main("Contact Details - About You", completedQuestionGroups) {
     @errorsSummary(contactDetailsForm)
 
-    @form(action = routes.AboutYou.contactDetailsSubmit) {
+    @form(action = controllers.s2_about_you.routes.G2ContactDetails.submit) {
         <fieldset class="form-elements">
             <legend>Your contact details</legend>
 
@@ -25,7 +25,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a href="@routes.AboutYou.yourDetails" class="button secondary">Back</a>
+            <a href="@controllers.s2_about_you.routes.G1YourDetails.present" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

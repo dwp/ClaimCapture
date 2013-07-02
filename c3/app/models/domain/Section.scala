@@ -5,3 +5,9 @@ case class Section(id: String, questionGroups: List[QuestionGroup]) {
     questionGroups.find(qg => qg.id == questionGroupID)
   }
 }
+
+object Section {
+  def sectionID(questionGroupID: String) = {
+    questionGroupID.split('.')(0)
+  }
+}

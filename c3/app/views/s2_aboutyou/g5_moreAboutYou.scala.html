@@ -10,7 +10,7 @@
 @main("More About You - About You",completedQuestionGroups) {
     @errorsSummary(moreAboutYouForm)
 
-    @form(action = routes.AboutYou.moreAboutYouSubmit) {
+    @form(action = controllers.s2_about_you.routes.G5MoreAboutYou.submit) {
         <fieldset class="form-elements">
             <legend>More about you</legend>
 
@@ -26,7 +26,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a href="@routes.AboutYou.claimDate" class="button secondary">Back</a>
+            <a href="@controllers.s2_about_you.routes.G4ClaimDate.present" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

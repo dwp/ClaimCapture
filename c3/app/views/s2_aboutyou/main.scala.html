@@ -25,15 +25,12 @@
                             @for(completedForm <- completedForms) {
                                 <li>
                                     @if(completedForm.id == ClaimDate.id){
-                                        @defining(Claim.dateFormatGeneration.parseDateTime(claim.questionGroup(ClaimDate.id).get.asInstanceOf[models.domain.ClaimDate].dateOfClaim.toString)) { dateOfClaim =>
-
-                                            <h3>@Messages(completedForm.id, dateOfClaim.toString(Claim.dateFormatPrint)) </h3>
-                                        }
+                                        <h3>@Messages(completedForm.id, claim.dateOfClaim.get.ddMMyyyy)</h3>
                                     }else{
-                                        <h3>@Messages(completedForm.id) </h3>
+                                        <h3>@Messages(completedForm.id)</h3>
                                     }
 
-                                    <a href="@AboutYou.route(completedForm.id)">Change these answers</a>
+                                    <a href="@controllers.s2_about_you.AboutYou.route(completedForm.id)">Change these answers</a>
                                 </li>
                             }
                         </ul>

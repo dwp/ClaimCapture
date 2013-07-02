@@ -68,6 +68,4 @@ class G1TheirPersonalDetailsFormSpec extends Specification {
       )
     }
   }
-
-
 }

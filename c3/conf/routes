@@ -7,50 +7,50 @@ GET     /                                               controllers.Application.
 
 # Allowance
 ###############
-GET     /allowance/benefits                             controllers.CarersAllowance.benefits
-POST    /allowance/benefits                             controllers.CarersAllowance.benefitsSubmit
+GET     /allowance/benefits                             controllers.s1_carers_allowance.G1Benefits.present
+POST    /allowance/benefits                             controllers.s1_carers_allowance.G1Benefits.submit
 
-GET     /allowance/hours                                controllers.CarersAllowance.hours
-POST    /allowance/hours                                controllers.CarersAllowance.hoursSubmit
+GET     /allowance/hours                                controllers.s1_carers_allowance.G2Hours.present
+POST    /allowance/hours                                controllers.s1_carers_allowance.G2Hours.submit
 
-GET     /allowance/livesInGB                            controllers.CarersAllowance.livesInGB
-POST    /allowance/livesInGB                            controllers.CarersAllowance.livesInGBSubmit
+GET     /allowance/over16                               controllers.s1_carers_allowance.G3Over16.present
+POST    /allowance/over16                               controllers.s1_carers_allowance.G3Over16.submit
 
-GET     /allowance/over16                               controllers.CarersAllowance.over16
-POST    /allowance/over16                               controllers.CarersAllowance.over16Submit
+GET     /allowance/livesInGB                            controllers.s1_carers_allowance.G4LivesInGB.present
+POST    /allowance/livesInGB                            controllers.s1_carers_allowance.G4LivesInGB.submit
 
-GET     /allowance/approve                              controllers.CarersAllowance.approve
-POST    /allowance/approve                              controllers.CarersAllowance.approveSubmit
+GET     /allowance/approve                              controllers.s1_carers_allowance.CarersAllowance.approve
+POST    /allowance/approve                              controllers.s1_carers_allowance.CarersAllowance.approveSubmit
 
 # About you
 ###############
-GET     /aboutyou/yourDetails                           controllers.AboutYou.yourDetails
-POST    /aboutyou/yourDetails                           controllers.AboutYou.yourDetailsSubmit
+GET     /aboutyou/yourDetails                           controllers.s2_about_you.G1YourDetails.present
+POST    /aboutyou/yourDetails                           controllers.s2_about_you.G1YourDetails.submit
 
-GET     /aboutyou/contactDetails                        controllers.AboutYou.contactDetails
-POST    /aboutyou/contactDetails                        controllers.AboutYou.contactDetailsSubmit
+GET     /aboutyou/contactDetails                        controllers.s2_about_you.G2ContactDetails.present
+POST    /aboutyou/contactDetails                        controllers.s2_about_you.G2ContactDetails.submit
 
-GET     /aboutyou/timeOutsideUK                         controllers.AboutYou.timeOutsideUK
-POST    /aboutyou/timeOutsideUK                         controllers.AboutYou.timeOutsideUKSubmit
+GET     /aboutyou/timeOutsideUK                         controllers.s2_about_you.G3TimeOutsideUK.present
+POST    /aboutyou/timeOutsideUK                         controllers.s2_about_you.G3TimeOutsideUK.submit
 
-GET     /aboutyou/claimDate                             controllers.AboutYou.claimDate
-POST    /aboutyou/claimDate                             controllers.AboutYou.claimDateSubmit
+GET     /aboutyou/claimDate                             controllers.s2_about_you.G4ClaimDate.present
+POST    /aboutyou/claimDate                             controllers.s2_about_you.G4ClaimDate.submit
 
-GET     /aboutyou/moreAboutYou                          controllers.AboutYou.moreAboutYou
-POST    /aboutyou/moreAboutYou                          controllers.AboutYou.moreAboutYouSubmit
+GET     /aboutyou/moreAboutYou                          controllers.s2_about_you.G5MoreAboutYou.present
+POST    /aboutyou/moreAboutYou                          controllers.s2_about_you.G5MoreAboutYou.submit
 
-GET     /aboutyou/employment                            controllers.AboutYou.employment
-POST    /aboutyou/employment                            controllers.AboutYou.employmentSubmit
+GET     /aboutyou/employment                            controllers.s2_about_you.G6Employment.present
+POST    /aboutyou/employment                            controllers.s2_about_you.G6Employment.submit
 
-GET     /aboutyou/propertyAndRent                       controllers.AboutYou.propertyAndRent
-POST    /aboutyou/propertyAndRent                       controllers.AboutYou.propertyAndRentSubmit
+GET     /aboutyou/propertyAndRent                       controllers.s2_about_you.G7PropertyAndRent.present
+POST    /aboutyou/propertyAndRent                       controllers.s2_about_you.G7PropertyAndRent.submit
 
-GET     /aboutyou/completed                             controllers.AboutYou.completed
-POST    /aboutyou/completed                             controllers.AboutYou.completedSubmit
+GET     /aboutyou/completed                             controllers.s2_about_you.AboutYou.completed
+POST    /aboutyou/completed                             controllers.s2_about_you.AboutYou.completedSubmit
 
 # Your partner
 ###############
-GET     /yourpartner/yourpartner                        controllers.YourPartner.yourPartner
+GET     /yourpartner/yourpartner                        controllers.s3_your_partner.YourPartner.yourPartner
 
 # Care You Provide
 ###############
@@ -67,7 +67,7 @@ GET     /careYouProvide/previousCarerPersonalDetails    controllers.s4_care_you_
 POST    /careYouProvide/previousCarerPersonalDetails    controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit
 
 GET     /careYouProvide/previousCarerContactDetails     controllers.s4_care_you_provide.G5PreviousCarerContactDetails.present
-POST     /careYouProvide/previousCarerContactDetails    controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit
+POST    /careYouProvide/previousCarerContactDetails     controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit
 
 GET     /careYouProvide/representativesForPerson        controllers.s4_care_you_provide.G6RepresentativesForThePerson.present
 POST    /careYouProvide/representativesForPerson        controllers.s4_care_you_provide.G6RepresentativesForThePerson.submit

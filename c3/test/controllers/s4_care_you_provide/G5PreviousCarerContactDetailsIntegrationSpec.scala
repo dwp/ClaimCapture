@@ -2,23 +2,23 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import integration.Helper
+import controllers.FormHelper
 
 class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Tags {
 
   "Previous Carer Contact Details" should {
     "be presented" in new WithBrowser {
-      Helper.fillTheirPersonalDetails(browser)
-      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      Helper.fillPreviousCarerPersonalDetails(browser)
+      FormHelper.fillTheirPersonalDetails(browser)
+      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      FormHelper.fillPreviousCarerPersonalDetails(browser)
       browser.goTo("/careYouProvide/previousCarerContactDetails")
       browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
-      Helper.fillTheirPersonalDetails(browser)
-      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      Helper.fillPreviousCarerPersonalDetails(browser)
+      FormHelper.fillTheirPersonalDetails(browser)
+      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      FormHelper.fillPreviousCarerPersonalDetails(browser)
       browser.goTo("/careYouProvide/previousCarerContactDetails")
       browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
       browser.fill("#postcode") `with` "INVALID"
@@ -27,9 +27,9 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
     }
 
     "navigate back to Previous Carer Person Details" in new WithBrowser {
-      Helper.fillTheirPersonalDetails(browser)
-      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      Helper.fillPreviousCarerPersonalDetails(browser)
+      FormHelper.fillTheirPersonalDetails(browser)
+      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      FormHelper.fillPreviousCarerPersonalDetails(browser)
       browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // Landed on S4 G5
       browser.click("#backButton")
       browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G4
@@ -42,8 +42,8 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
     }
 
     "contain the completed forms" in new WithBrowser {
-      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      Helper.fillPreviousCarerPersonalDetails(browser)
+      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      FormHelper.fillPreviousCarerPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
   } section "integration"

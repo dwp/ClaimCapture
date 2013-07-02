@@ -5,6 +5,7 @@ import models.view.CachedClaim
 import scala.collection.immutable.ListMap
 import play.api.mvc.Call
 import controllers.Routing._
+import play.api.templates.Html
 
 object CareYouProvide extends Controller with CachedClaim {
 
@@ -24,19 +25,16 @@ object CareYouProvide extends Controller with CachedClaim {
     implicit claim => implicit request =>
       val outcome =
         <html>
-          <head>
-            <title>Completed - Care You Provide</title>
-          </head>
           <body>
             <h1>End of Sprint 3</h1>
+            <h2>Completed - Care You Provide</h2>
+
             <ul>
-              {claim.completedQuestionGroups(models.domain.CareYouProvide.id).map(f => <li>
-              {f}
-            </li>)}
+              {claim.completedQuestionGroups(models.domain.CareYouProvide.id).map(f => <li>{f}</li>)}
             </ul>
           </body>
         </html>
 
-      Ok(outcome)
+      Ok(Html(outcome.toString))
   }
 }

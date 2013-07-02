@@ -17,11 +17,11 @@ class ClaimSpec extends Specification {
       val claim = Claim()
       val form = Benefits()
       val updatedClaim = claim.update(form)
-      val sectionId = Claim.sectionId(form.id)
-      val sectionOption = updatedClaim.section(sectionId)
+      val sectionID = Section.sectionID(form.id)
+      val sectionOption = updatedClaim.section(sectionID)
 
       sectionOption must beLike {
-        case Some(section: Section) => section.id mustEqual sectionId
+        case Some(section: Section) => section.id mustEqual sectionID
       }
 
       val section = sectionOption.get
@@ -36,8 +36,8 @@ class ClaimSpec extends Specification {
       val claimWithFalseForm = claim.update(falseForm)
       val claimWithTrueForm = claimWithFalseForm.update(trueForm)
 
-      val sectionId = Claim.sectionId(trueForm.id)
-      val sectionOption = claimWithTrueForm.section(sectionId)
+      val sectionID = Section.sectionID(trueForm.id)
+      val sectionOption = claimWithTrueForm.section(sectionID)
       val section = sectionOption.get
 
       section.questionGroup(trueForm.id) must beSome(Benefits(answer = true))

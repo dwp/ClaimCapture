@@ -9,7 +9,7 @@
 @main("Claim Date - About You", completedQuestionGroups) {
     @errorsSummary(claimDateForm)
 
-    @form(action = routes.AboutYou.claimDateSubmit) {
+    @form(action = controllers.s2_about_you.routes.G4ClaimDate.submit) {
         <fieldset class="form-elements">
             <legend>Your claim date</legend>
 
@@ -19,7 +19,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a href="@backHref(AboutYou.route,completedQuestionGroups)" class="button secondary">Back</a>
+            <a href="@backHref(controllers.s2_about_you.AboutYou.route, completedQuestionGroups)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

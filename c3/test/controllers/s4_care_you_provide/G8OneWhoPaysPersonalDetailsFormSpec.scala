@@ -75,7 +75,5 @@ class G8OneWhoPaysPersonalDetailsFormSpec extends Specification {
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-
-
   }
 }
