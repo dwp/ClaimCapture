@@ -6,8 +6,7 @@
     @if(elements.hasErrors){
         <p class="error">@elements.errors.mkString(", ")</p>
     }
-
-    @if(elements.args.contains('prompt)){
+       @if(elements.args.contains('prompt)){
         <div class="prompt helper-prompt">@Html(Messages(elements.args.get('prompt).get.toString))</div>
     }
 

@@ -23,10 +23,12 @@
 
                 @yesNoRadioGroup(currentForm("someoneElseActForPerson"))
 
-                <div id="someoneElseWrap">
+                @otherDetailPlaceHolder {
                     @actSelect(currentForm("someoneElseActAs"))
                     @carersInputText(currentForm("someoneElseFullName"))
-                </div>
+                }
+
+
             </ul>
         </fieldset>
 
