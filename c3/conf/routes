@@ -53,6 +53,9 @@ POST    /aboutyou/completed                             controllers.s2_about_you
 GET     /yourPartner/personalDetails                    controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
 GET     /yourPartner/personalDetails                    controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
 
+GET     /yourPartner/contactDetails                     controllers.s3_your_partner.G2YourPartnerContactDetails.present
+GET     /yourPartner/contactDetails                     controllers.s3_your_partner.G2YourPartnerContactDetails.submit
+
 
 # Care You Provide
 ###############
