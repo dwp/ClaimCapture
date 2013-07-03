@@ -6,7 +6,15 @@ import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import models.domain.YourPartnerPersonalDetails
+
+import models.domain._
+import play.api.data.Form
+import play.api.data.Forms._
+import controllers.Mappings._
+import play.api.mvc.Controller
+import models.view.CachedClaim
+import controllers.Routing
+import utils.helpers.CarersForm._
 
 
 object G1YourPartnerPersonalDetails extends Controller with Routing with CachedClaim {
@@ -29,12 +37,19 @@ object G1YourPartnerPersonalDetails extends Controller with Routing with CachedC
 
   def present = claiming {
     implicit claim => implicit request =>
-      Ok("present")
+
+      val currentForm: Form[YourPartnerPersonalDetails] = claim.questionGroup(YourPartnerPersonalDetails.id) match {
+        case Some(t: YourPartnerPersonalDetails) => form.fill(t)
+        case _ => form
+      }
+
+      Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(currentForm))
   }
 
-  def submit = claiming {
-    implicit claim => implicit request =>
-      Ok("submit")
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => ???, //BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
+      f => claim.update(f) -> Ok("present")) //Redirect(routes.G2YourPartnerContactDetails.present))
   }
 
 }
