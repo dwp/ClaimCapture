@@ -23,7 +23,7 @@ $('a[href^="#"]').bind('click.smoothscroll',function (e) {
         $target = $(target);
     $('html, body').animate({
         scrollTop: $(target).offset().top - 40
-    }, 1200, 'swing', function () {
+    }, 750, 'swing', function () {
         window.location.hash = target;
     });
 }); 	 
