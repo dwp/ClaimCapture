@@ -128,7 +128,7 @@ object FormHelper {
 
   def fillYourPartnerContactDetails(browser: TestBrowser) = {
     browser.goTo("/yourPartner/contactDetails")
-    browser.fill("#address_lineOne") `with` "My Address"
+    browser.fill("#address_lineOne") `with` "Partner Address"
     browser.fill("#postcode") `with` "SE1 6EH"
     browser.submit("button[type='submit']")
   }
