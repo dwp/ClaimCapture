@@ -33,7 +33,7 @@ class AboutYouSpec extends Specification with Mockito {
       val claim = Cache.getAs[Claim](claimKey).get
 
       claim.questionGroup(YourDetails.id) must beLike {
-        case Some(f: YourDetails) => f.firstName mustEqual "Scooby"
+        case Some(y: YourDetails) => y.firstName mustEqual "Scooby"
       }
     }
 
