@@ -19,7 +19,7 @@ object G5MoreAboutYou extends Controller with Routing with CachedClaim {
       "receiveStatePension" -> nonEmptyText
     )(MoreAboutYou.apply)(MoreAboutYou.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(_.id != MoreAboutYou.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutYou)
 
   def present = claiming { implicit claim => implicit request =>
     val moreAboutYouForm: Form[MoreAboutYou] = claim.questionGroup(MoreAboutYou.id) match {

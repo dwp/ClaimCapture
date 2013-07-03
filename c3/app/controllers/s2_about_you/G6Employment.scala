@@ -17,7 +17,7 @@ object G6Employment extends Controller with Routing with CachedClaim {
       "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText
     )(Employment.apply)(Employment.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(_.id != Employment.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Employment)
 
   def present = claiming { implicit claim => implicit request =>
     val employmentForm: Form[Employment] = claim.questionGroup(Employment.id) match {

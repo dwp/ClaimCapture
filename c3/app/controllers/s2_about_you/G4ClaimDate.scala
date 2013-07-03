@@ -17,7 +17,7 @@ object G4ClaimDate extends Controller with Routing with CachedClaim {
       "dateOfClaim" -> dayMonthYear.verifying(validDate)
     )(ClaimDate.apply)(ClaimDate.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(_.id != ClaimDate.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ClaimDate)
 
   def present = claiming { implicit claim => implicit request =>
     val claimDateForm: Form[ClaimDate] = claim.questionGroup(ClaimDate.id) match {

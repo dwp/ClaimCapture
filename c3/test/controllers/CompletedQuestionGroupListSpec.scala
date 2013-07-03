@@ -17,13 +17,19 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
 
-    "decrease when navigating backwards" in new WithBrowser {
+    "decrease when navigating backwards" in new WithBrowserAndMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
+      titleMustEqual("Their Contact Details - Care You Provide")
+
       FormHelper.fillTheirContactDetails(browser)
+      titleMustEqual("More About The Person You Care For - Care You Provide")
+
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
 
       browser.click("#backButton")
+      titleMustEqual("More About The Person You Care For - Care You Provide")
 
       browser.find("div[class=completed] ul li").size mustEqual 2
     }

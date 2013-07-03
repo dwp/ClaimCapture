@@ -22,7 +22,7 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
     )(MoreAboutYourPartner.apply)(MoreAboutYourPartner.unapply))
 
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.YourPartner.id).filter(q => q.id < MoreAboutYourPartner.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutYourPartner)
 
   def present = claiming { implicit claim => implicit request =>
     val currentForm: Form[MoreAboutYourPartner] = claim.questionGroup(MoreAboutYourPartner.id) match {

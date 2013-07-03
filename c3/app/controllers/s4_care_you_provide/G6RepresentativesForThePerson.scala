@@ -21,7 +21,7 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
       "someoneElseFullName" -> optional(text)
     )(RepresentativesForPerson.apply)(RepresentativesForPerson.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).filter(q => q.id != RepresentativesForPerson.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(RepresentativesForPerson)
 
   def present = claiming { implicit claim => implicit request =>
     val currentForm = claim.questionGroup(RepresentativesForPerson.id) match {

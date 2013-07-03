@@ -42,7 +42,7 @@ class DayMonthYearSpec extends Specification {
 
     "subtract 2 days, 4 months and 1 year from 26-6-2010 to give 24-2-2009" in {
       val dmy = DayMonthYear(26, 6, 2010)
-      (((dmy - 2 days) - 4 months) - 1 years) mustEqual DayMonthYear(24, 2, 2009)
+      (((dmy - 2 days) - 4 months) - 1 year) mustEqual DayMonthYear(24, 2, 2009)
     }
   }
 }

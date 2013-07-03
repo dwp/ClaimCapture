@@ -17,7 +17,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
       "answer" -> nonEmptyText
     )(HasBreaks.apply)(HasBreaks.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != BreaksInCare.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(BreaksInCare)
 
   def present = claiming { implicit claim => implicit request =>
     val breaksInCare = claim.questionGroup(BreaksInCare.id) match {

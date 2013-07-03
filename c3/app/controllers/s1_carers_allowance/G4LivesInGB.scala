@@ -16,7 +16,7 @@ object G4LivesInGB extends Controller with Routing with CachedClaim {
       "answer" -> boolean
     )(LivesInGB.apply)(LivesInGB.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CarersAllowance.id).takeWhile(_.id != LivesInGB.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(LivesInGB)
 
   def present = claiming { implicit claim => implicit request =>
     if (CarersAllowance.claiming(LivesInGB.id, claim)) Ok(views.html.s1_carers_allowance.g4_livesInGB(confirmed = true, completedQuestionGroups))

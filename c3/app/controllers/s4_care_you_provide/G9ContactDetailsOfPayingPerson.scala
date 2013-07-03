@@ -19,7 +19,7 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
       "postcode" -> optional(text)
     )(ContactDetailsOfPayingPerson.apply)(ContactDetailsOfPayingPerson.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != ContactDetailsOfPayingPerson.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ContactDetailsOfPayingPerson)
 
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(MoreAboutTheCare.id) match {

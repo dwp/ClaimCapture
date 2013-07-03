@@ -22,7 +22,7 @@ object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
       "visaReference" -> optional(text(maxLength = sixty))
     )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(_.id < TimeOutsideUK.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(TimeOutsideUK)
 
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(YourDetails.id) match {

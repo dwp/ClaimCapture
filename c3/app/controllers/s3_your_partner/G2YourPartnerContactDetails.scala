@@ -21,7 +21,7 @@ object G2YourPartnerContactDetails extends Controller with Routing with CachedCl
       "postcode" -> optional(text verifying validPostcode)
     )(YourPartnerContactDetails.apply)(YourPartnerContactDetails.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.YourPartner.id).filter(q => q.id < YourPartnerContactDetails.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(YourPartnerContactDetails)
 
   def present = claiming {
     implicit claim => implicit request =>

@@ -24,7 +24,7 @@ object G8OneWhoPaysPersonalDetails extends Controller with Routing with CachedCl
       "startDatePayment" -> optional(dayMonthYear.verifying(validDate))
     )(OneWhoPaysPersonalDetails.apply)(OneWhoPaysPersonalDetails.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(_.id != OneWhoPaysPersonalDetails.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(OneWhoPaysPersonalDetails)
 
   def present = claiming { implicit claim => implicit request =>
     val hasSomeonePaidYou: Boolean = claim.questionGroup(MoreAboutTheCare.id) match {

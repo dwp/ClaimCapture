@@ -20,7 +20,7 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
       "phoneNumber" -> optional(text verifying validPhoneNumber)
     )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != TheirContactDetails.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(TheirContactDetails)
 
   def present = claiming { implicit claim => implicit request =>
     val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {

@@ -21,7 +21,7 @@ object G5PreviousCarerContactDetails extends Controller with Routing with Cached
       "mobileNumber" -> optional(text verifying validPhoneNumber)
     )(PreviousCarerContactDetails.apply)(PreviousCarerContactDetails.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).filter(q => q.id < PreviousCarerContactDetails.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PreviousCarerContactDetails)
 
   def present = claiming { implicit claim => implicit request =>
     val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson.id) match {
@@ -41,7 +41,7 @@ object G5PreviousCarerContactDetails extends Controller with Routing with Cached
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g5_previousCarerContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).filter(q => q.id < PreviousCarerContactDetails.id))),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g5_previousCarerContactDetails(formWithErrors, completedQuestionGroups)),
       previousCarerContactDetails => claim.update(previousCarerContactDetails) -> Redirect(routes.G6RepresentativesForThePerson.present()))
   }
 }

@@ -17,7 +17,7 @@ object G7PropertyAndRent extends Controller with Routing with CachedClaim {
       "hasSublet" -> nonEmptyText
     )(PropertyAndRent.apply)(PropertyAndRent.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(_.id != PropertyAndRent.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PropertyAndRent)
 
   def present = claiming { implicit claim => implicit request =>
     val propertyAndRentForm: Form[PropertyAndRent] = claim.questionGroup(PropertyAndRent.id) match {

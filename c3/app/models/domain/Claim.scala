@@ -19,6 +19,11 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     case _ => Nil
   }
 
+  def completedQuestionGroups(qg: QuestionGroup) = sections.get(Section.sectionID(qg.id)) match {
+    case Some(s: Section) => s.questionGroups.takeWhile(_.index < qg.index)
+    case _ => Nil
+  }
+
   def update(questionGroup: QuestionGroup): Claim = {
     def update(questionGroup: QuestionGroup, questionGroups: List[QuestionGroup]): List[QuestionGroup] = {
       questionGroups.takeWhile(_.index < questionGroup.index) ::: List(questionGroup) ::: questionGroups.dropWhile(_.index <= questionGroup.index)
