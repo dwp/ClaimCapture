@@ -19,7 +19,7 @@ object YourPartnerContactDetails {
 }
 
 
-case class MoreAboutYourPartner(toBeDone:String) extends QuestionGroup(MoreAboutYourPartner.id)
+case class MoreAboutYourPartner(dateStartedLivingTogether: DayMonthYear, separatedFromPartner: String) extends QuestionGroup(MoreAboutYourPartner.id)
 
 object MoreAboutYourPartner {
   val id = s"${YourPartner.id}.g3"

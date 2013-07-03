@@ -23,7 +23,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     "navigate to next page on valid submission" in new WithBrowser {
       FormHelper.fillYourPartnerPersonalDetails(browser)
       browser.title mustEqual "Contact Details - Your Partner"
-    }.pendingUntilFixed("when view S3G2 is created")
+    }
 
     "navigate back to About You - Completed" in new WithBrowser {
       browser.goTo("/yourPartner/personalDetails")
@@ -34,6 +34,6 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     "contain the completed forms" in new WithBrowser {
       FormHelper.fillYourPartnerPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
-    }.pendingUntilFixed("when view S3G2 is created")
+    }
   } section "integration"
 }
