@@ -81,7 +81,11 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       titleMustEqual("More about the care you provide - Care You Provide")
 
       browser.click("#backButton")
+      titleMustEqual("Representatives For The Person - Care You Provide")
+
       browser.click("#backButton")
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+
       FormHelper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       titleMustEqual("Representatives For The Person - Care You Provide")
 
