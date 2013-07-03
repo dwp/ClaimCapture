@@ -242,7 +242,6 @@ $button-green-hover: #004b27;
    /* form elements */
    .form-elements {
    	   margin: 2em 20% 0 0;
-   	   padding-left: 1em;
    	    @media screen and (max-width: 780px) {margin-right: 0;}
    	    @media screen and (max-width: 500px) {padding-left: 0;}
    	    &.form-eligibility {
@@ -1042,7 +1041,6 @@ $button-green-hover: #004b27;
    /* button panel */
    .form-steps {
 	   margin-top: 1.2em;
-	   padding-left: 1em;
 	   @media screen and (max-width: 500px) {padding-left: 0;}
 	   p {
 		   padding-bottom: 0.2em;

@@ -208,7 +208,6 @@
           text-decoration: underline; }
   .carers-allowance .form-elements {
     margin: 2em 20% 0 0;
-    padding-left: 1em;
     /* form list start */
     /* form list end */
     /* info panel */
@@ -806,8 +805,7 @@
           padding: 0;
           margin: 0; }
   .carers-allowance .form-steps {
-    margin-top: 1.2em;
-    padding-left: 1em; }
+    margin-top: 1.2em; }
     @media screen and (max-width: 500px) {
       .carers-allowance .form-steps {
         padding-left: 0; } }
