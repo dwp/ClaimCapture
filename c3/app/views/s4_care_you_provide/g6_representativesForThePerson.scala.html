@@ -31,7 +31,6 @@
                     'display -> currentForm("someoneElseActForPerson").value.getOrElse("no")
                 )
 
-
             </ul>
         </fieldset>
 
@@ -46,14 +45,6 @@
 
 <script type="text/javascript">
     $(function() {
-        @if(currentForm("actForPerson").value.getOrElse("no") == "no") {
-            $("#actWrap").hide();
-        }
-
-        @if(currentForm("someoneElseActForPerson").value.getOrElse("no") == "no") {
-            $("#someoneElseWrap").hide();
-        }
-
         window.initEvents( "@CarersCrypto.encryptAES("actForPerson_yes")",
         "@CarersCrypto.encryptAES("actForPerson_no")",
         "@CarersCrypto.encryptAES("someoneElseActForPerson_yes")",
