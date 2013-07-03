@@ -41,13 +41,12 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Break - Care You Provide"
     }
 
-    """present "completed" when no more breaks are required""" in new WithBrowser {
+    """present "completed" when no more breaks are required""" in new BreakWithBrowser {
       browser.goTo("/careYouProvide/breaksInCare")
 
       browser.click("#answer_no")
       browser.submit("button[value='next']")
-
-      browser.pageSource must contain("Completed - Care You Provide")
+      titleMustEqual("Completed - Care You Provide")
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new WithBrowser {

@@ -11,7 +11,7 @@ import models.domain.{Claim, ContactDetails, TheirPersonalDetails, TheirContactD
 
 object G2TheirContactDetails extends Controller with Routing with CachedClaim {
 
-  override val route = TheirContactDetails.id -> controllers.s4_care_you_provide.routes.G2TheirContactDetails.present
+  override val route = TheirContactDetails.id -> routes.G2TheirContactDetails.present
 
   val form = Form(
     mapping(
@@ -45,7 +45,7 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g2_theirContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != TheirContactDetails.id))),
-      theirContactDetails => claim.update(theirContactDetails) -> Redirect(controllers.s4_care_you_provide.routes.G3MoreAboutThePerson.present))
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g2_theirContactDetails(formWithErrors, completedQuestionGroups)),
+      theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.G3MoreAboutThePerson.present()))
   }
 }

@@ -3,6 +3,7 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.FormHelper
+import java.util.concurrent.TimeUnit
 
 class G4ClaimDateIntegrationSpec extends Specification with Tags {
 
@@ -21,9 +22,15 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
     }
 
     "fill date" in new WithBrowser {
+      def titleMustEqual(title: String) = {
+        browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
+          browser.title mustEqual title
+        }
+      }
+
       FormHelper.fillClaimDate(browser)
 
-      browser.title mustEqual "More About You - About You"
+      titleMustEqual("More About You - About You")
       browser.find("div[class=completed] ul li h3").get(0).getText mustEqual "Your claim date: 03/04/1950"
     }
 

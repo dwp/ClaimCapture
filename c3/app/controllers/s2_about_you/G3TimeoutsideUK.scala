@@ -26,7 +26,7 @@ object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
 
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(YourDetails.id) match {
-      case Some(YourDetails(_, _, _, _, _, _, _, _, _, "yes")) => Redirect(routes.G4ClaimDate.present)
+      case Some(YourDetails(_, _, _, _, _, _, _, _, _, "yes")) => Redirect(routes.G4ClaimDate.present())
       case _ =>
         val timeOutsideUKForm: Form[TimeOutsideUK] = claim.questionGroup(TimeOutsideUK.id) match {
           case Some(t: TimeOutsideUK) => form.fill(t)
@@ -55,7 +55,7 @@ object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
         val timeOutsideUKFormValidated = formValidations(form)
 
         if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKFormValidated, completedQuestionGroups))
-        else claim.update(timeOutsideUK) -> Redirect(routes.G4ClaimDate.present)
+        else claim.update(timeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
       })
   }
 }

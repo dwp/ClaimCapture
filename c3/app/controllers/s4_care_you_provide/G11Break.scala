@@ -33,7 +33,7 @@ object G11Break extends Controller with CachedClaim {
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g11_break(formWithErrors)),
       break => {
         val updatedBreaksInCare = if (breaksInCare.breaks.size >= 10) breaksInCare else breaksInCare.update(break)
-        claim.update(updatedBreaksInCare) -> Redirect(routes.G10BreaksInCare.present)
+        claim.update(updatedBreaksInCare) -> Redirect(routes.G10BreaksInCare.present())
       })
   }
 
@@ -41,10 +41,10 @@ object G11Break extends Controller with CachedClaim {
     claim.questionGroup(BreaksInCare.id) match {
       case Some(b: BreaksInCare) => b.breaks.find(_.id == id) match {
         case Some(b: Break) => Ok(views.html.s4_care_you_provide.g11_break(form.fill(b)))
-        case _ => Redirect(routes.G10BreaksInCare.present)
+        case _ => Redirect(routes.G10BreaksInCare.present())
       }
 
-      case _ => Redirect(routes.G10BreaksInCare.present)
+      case _ => Redirect(routes.G10BreaksInCare.present())
     }
   }
 }

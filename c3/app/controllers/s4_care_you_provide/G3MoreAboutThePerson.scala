@@ -10,7 +10,7 @@ import utils.helpers.CarersForm._
 
 object G3MoreAboutThePerson extends Controller with Routing with CachedClaim {
 
-  override val route = MoreAboutThePerson.id -> controllers.s4_care_you_provide.routes.G3MoreAboutThePerson.present
+  override val route = MoreAboutThePerson.id -> routes.G3MoreAboutThePerson.present
 
   val form = Form(
     mapping(
@@ -33,6 +33,6 @@ object G3MoreAboutThePerson extends Controller with Routing with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g3_moreAboutThePerson(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
-      moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(controllers.s4_care_you_provide.routes.G4PreviousCarerPersonalDetails.present))
+      moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.G4PreviousCarerPersonalDetails.present()))
   }
 }

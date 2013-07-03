@@ -37,9 +37,9 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrors, breaksInCare, completedQuestionGroups)),
       hasBreaks => hasBreaks.answer match {
-        case "yes" if breaksInCare.breaks.size < 10 => claim.update(breaksInCare) -> Redirect(routes.G11Break.present)
-        case "yes" => claim.update(breaksInCare) -> Redirect(routes.G10BreaksInCare.present)
-        case _ => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed)
+        case "yes" if breaksInCare.breaks.size < 10 => claim.update(breaksInCare) -> Redirect(routes.G11Break.present())
+        case "yes" => claim.update(breaksInCare) -> Redirect(routes.G10BreaksInCare.present())
+        case _ => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed())
       }
     )
   }

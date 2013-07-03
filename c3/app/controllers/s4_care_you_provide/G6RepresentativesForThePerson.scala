@@ -10,7 +10,7 @@ import play.api.data.Forms._
 
 object G6RepresentativesForThePerson extends Controller with Routing with CachedClaim {
 
-  override val route = RepresentativesForPerson.id -> controllers.s4_care_you_provide.routes.G6RepresentativesForThePerson.present
+  override val route = RepresentativesForPerson.id -> routes.G6RepresentativesForThePerson.present
 
   val form = Form(
     mapping(
@@ -50,7 +50,7 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
         val timeOutsideUKFormValidated = formValidations(form)
 
         if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s4_care_you_provide.g6_representativesForThePerson(timeOutsideUKFormValidated, completedQuestionGroups))
-        else claim.update(representativesForPerson) -> Redirect(controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.present)
+        else claim.update(representativesForPerson) -> Redirect(routes.G7MoreAboutTheCare.present())
       })
   }
 }
