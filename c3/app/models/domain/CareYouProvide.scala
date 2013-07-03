@@ -2,6 +2,13 @@ package models.domain
 
 import models.{MultiLineAddress, Whereabouts, NationalInsuranceNumber, DayMonthYear}
 
+case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails,theirContactDetails: TheirContactDetails,
+                          moreAboutThePerson: MoreAboutThePerson,representatives: RepresentativesForPerson,
+                          previousCarerContactDetails: Option[PreviousCarerContactDetails], previousCarerPersonalDetails: Option[PreviousCarerPersonalDetails],
+                          moreAboutTheCare: MoreAboutTheCare, oneWhoPays: Option[OneWhoPaysPersonalDetails],
+                          contactDetailsPayingPerson: Option[ContactDetailsOfPayingPerson],breaksInCare: BreaksInCare)
+
+
 object CareYouProvide {
   val id = "s4"
 }
