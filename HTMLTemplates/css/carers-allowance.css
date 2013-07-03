@@ -365,14 +365,19 @@
           cursor: pointer;
           display: inline-block;
           font-size: 1.6rem;
-          margin-top: .4em;
-          font-weight: 300;
+          margin: 0.4em 0 0 0;
+          font-weight: 500;
           color: #333399;
-          overflow: hidden; }
+          overflow: hidden;
+          line-height: 1em;
+          background: #f3f3f3;
+          padding: 5px;
+          border-left: 3px solid #333399; }
         .carers-allowance .form-elements ul li .helper-info {
           display: none;
-          padding: 1em;
-          background: #bde4f6; }
+          padding: 1em 0.7em;
+          background: #bde4f6;
+          border-left: 3px solid #333399; }
           .carers-allowance .form-elements ul li .helper-info p {
             font-size: 1.6rem; }
         .carers-allowance .form-elements ul li label, .carers-allowance .form-elements ul li p {
