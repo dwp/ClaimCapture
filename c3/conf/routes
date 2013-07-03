@@ -51,10 +51,13 @@ POST    /aboutyou/completed                             controllers.s2_about_you
 # Your partner
 ###############
 GET     /yourPartner/personalDetails                    controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
-POST     /yourPartner/personalDetails                    controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
+POST    /yourPartner/personalDetails                    controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
 
 GET     /yourPartner/contactDetails                     controllers.s3_your_partner.G2YourPartnerContactDetails.present
-POST     /yourPartner/contactDetails                     controllers.s3_your_partner.G2YourPartnerContactDetails.submit
+POST    /yourPartner/contactDetails                     controllers.s3_your_partner.G2YourPartnerContactDetails.submit
+
+GET     /yourPartner/moreAboutYourPartner               controllers.s3_your_partner.G3MoreAboutYourPartner.present
+POST    /yourPartner/moreAboutYourPartner               controllers.s3_your_partner.G3MoreAboutYourPartner.submit
 
 
 # Care You Provide

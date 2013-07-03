@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.TheirContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.YourPartnerContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,22 +7,20 @@
 
 @main("Contact Details - Your Partner", currentForm, completedQuestionGroups) {
 
-    @form(action = controllers.s4_care_you_provide.routes.G2TheirContactDetails.submit) {
+    @form(action = controllers.s3_your_partner.routes.G2YourPartnerContactDetails.submit) {
 
         <fieldset class="form-elements">
-            <legend>Contact details of the person you care for</legend>
+            <legend>Contact details of your partner</legend>
 
             <ul class="group">
                 @inputAddress(currentForm("address"))
 
                 @carersInputText(currentForm("postcode"))
-
-                @carersInputText(currentForm("phoneNumber"))
             </ul>
         </fieldset>
 
         <div class="form-steps">
-            <a id="backButton" href="@backHref(controllers.s4_care_you_provide.CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <a id="backButton" href="@backHref(controllers.s3_your_partner.YourPartner.route, completedQuestionGroups)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
