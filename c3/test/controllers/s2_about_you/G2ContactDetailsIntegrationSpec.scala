@@ -10,13 +10,13 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
 
     "be presented" in new WithBrowser {
       browser.goTo("/aboutyou/contactDetails")
-      browser.title() mustEqual "Contact Details - About You"
+      browser.title mustEqual "Contact Details - About You"
     }
 
     "contain 1 completed form" in new WithBrowser {
       FormHelper.fillYourDetails(browser)
 
-      browser.title() mustEqual "Contact Details - About You"
+      browser.title mustEqual "Contact Details - About You"
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
 
@@ -26,7 +26,7 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       browser.title() mustEqual "Contact Details - About You"
 
       browser.click("div[class=completed] ul li a")
-      browser.title() mustEqual "Your Details - About You"
+      browser.title mustEqual "Your Details - About You"
     }
   } section "integration"
 }

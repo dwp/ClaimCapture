@@ -8,7 +8,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
   "Benefits" should {
     "be presented" in new WithBrowser {
       browser.goTo("/")
-      browser.title() mustEqual "Benefits - Carer's Allowance"
+      browser.title mustEqual "Benefits - Carer's Allowance"
       browser.find("div[class=carers-allowance]").getText must contain("Q1")
     }
 
@@ -26,7 +26,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
       browser.click("div[class=completed] a")
-      browser.title() mustEqual "Benefits - Carer's Allowance"
+      browser.title mustEqual "Benefits - Carer's Allowance"
       browser.find("#q3-yes").getAttribute("value") mustEqual "true"
     }
   } section "integration"
@@ -36,7 +36,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
-      browser.title() mustEqual "Hours - Carer's Allowance"
+      browser.title mustEqual "Hours - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(0).getText must contain("Q1")
       browser.find("div[class=completed] ul li").get(0).getText must contain("Yes")
     }
@@ -45,7 +45,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       browser.goTo("/")
       browser.click("#q3-no")
       browser.submit("button[type='submit']")
-      browser.title() mustEqual "Hours - Carer's Allowance"
+      browser.title mustEqual "Hours - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(0).getText must contain("Q1")
       browser.find("div[class=completed] ul li").get(0).getText must contain("No")
     }

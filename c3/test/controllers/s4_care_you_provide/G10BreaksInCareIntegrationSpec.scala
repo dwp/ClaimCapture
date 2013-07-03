@@ -7,14 +7,14 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
   "Has breaks" should {
     "present" in new WithBrowser {
       browser.goTo("/careYouProvide/breaksInCare")
-      browser.title() mustEqual "Breaks in Care - Care You Provide"
+      browser.title mustEqual "Breaks in Care - Care You Provide"
     }
 
     """present "completed" when no more breaks are required""" in new WithBrowser {
       browser.goTo("/careYouProvide/breaksInCare")
       browser.click("#answer_no")
       browser.submit("button[value='next']")
-      browser.pageSource() must contain("Completed - Care You Provide")
+      browser.pageSource must contain("Completed - Care You Provide")
     }
 
     "go back to contact details" in new WithBrowser {

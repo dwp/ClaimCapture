@@ -10,13 +10,13 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
 
     "present Benefits when there is no claim date" in new WithBrowser {
       browser.goTo("/aboutyou/propertyAndRent")
-      browser.title() mustEqual "Benefits - Carer's Allowance"
+      browser.title mustEqual "Benefits - Carer's Allowance"
     }
 
     "be presented when there is a claim date" in new WithBrowser {
       FormHelper.fillClaimDate(browser)
       browser.goTo("/aboutyou/propertyAndRent")
-      browser.title() mustEqual "Property and Rent - About You"
+      browser.title mustEqual "Property and Rent - About You"
     }
 
     "contain the completed forms" in new WithBrowser {
@@ -26,7 +26,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       FormHelper.fillMoreAboutYou(browser)
       FormHelper.fillEmployment(browser)
 
-      browser.title() mustEqual "Property and Rent - About You"
+      browser.title mustEqual "Property and Rent - About You"
       browser.find("div[class=completed] ul li").size() mustEqual 5
     }
 
@@ -45,7 +45,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in new WithBrowser {
       FormHelper.fillClaimDate(browser)
       browser.goTo("/aboutyou/propertyAndRent")
-      browser.title() mustEqual "Property and Rent - About You"
+      browser.title mustEqual "Property and Rent - About You"
       browser.submit("button[type='submit']")
 
       browser.find("p[class=error]").size mustEqual 2
@@ -54,7 +54,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
     "navigate to next page on valid submission" in new WithBrowser {
       FormHelper.fillClaimDate(browser)
       FormHelper.fillPropertyAndRent(browser)
-      browser.title() mustEqual "Completion - About You"
+      browser.title mustEqual "Completion - About You"
     }
   } section "integration"
 }

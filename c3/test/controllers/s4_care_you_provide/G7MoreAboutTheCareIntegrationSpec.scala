@@ -10,7 +10,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
   "Representatives For The Person" should {
     "be presented" in new WithBrowser {
       browser.goTo("/careYouProvide/moreAboutTheCare")
-      browser.title() mustEqual "More about the care you provide - Care You Provide"
+      browser.title mustEqual "More about the care you provide - Care You Provide"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -32,7 +32,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
     "navigate back" in new WithBrowser {
       FormHelper.fillRepresentativesForThePerson(browser)
       browser.click("#backButton")
-      browser.title() mustEqual "Representatives For The Person - Care You Provide"
+      browser.title mustEqual "Representatives For The Person - Care You Provide"
     }
 
     "contain the completed forms" in new WithBrowser {
@@ -81,10 +81,10 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       browser.click("#someoneElseActForPerson_yes")
       browser.click("#someoneElseActAs option[value='attorney']")
       browser.submit("button[type='submit']")
-      browser.title() mustEqual "More about the care you provide - Care You Provide" // Landed on S4 G7
+      browser.title mustEqual "More about the care you provide - Care You Provide" // Landed on S4 G7
       browser.click("#backButton")
       browser.click("#backButton")
-      browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G4
+      browser.title mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G4
     }
   }
 }

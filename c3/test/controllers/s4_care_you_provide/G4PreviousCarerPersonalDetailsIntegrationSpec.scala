@@ -10,24 +10,24 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
   "Previous Carer Personal Details" should {
     "navigate to Previous Carer Details, if anyone else claimed allowance for this person before" in new WithBrowser {
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide"
+      browser.title mustEqual "Details Of The Person Who Claimed Before - Care You Provide"
     }
 
     "navigate to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser {
       browser.goTo("/careYouProvide/previousCarerPersonalDetails")
-      browser.title() mustEqual "Representatives For The Person - Care You Provide"
+      browser.title mustEqual "Representatives For The Person - Care You Provide"
     }
 
     "navigate to Previous Carer Contact Details on submission of empty form" in new WithBrowser {
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       browser.submit("button[type='submit']")
-      browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
+      browser.title mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
     }
 
     "navigate to Previous Carer Contact Details on submission of completed form" in new WithBrowser {
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       FormHelper.fillPreviousCarerPersonalDetails(browser)
-      browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
+      browser.title mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -40,7 +40,7 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
     "navigate back to More About The Person You Care For" in new WithBrowser {
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       browser.click("#backButton")
-      browser.title() mustEqual "More About The Person You Care For - Care You Provide"
+      browser.title mustEqual "More About The Person You Care For - Care You Provide"
     }
 
     "contain the completed forms" in new WithBrowser {
@@ -54,7 +54,7 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       browser.find("div[class=completed] ul li").size mustEqual 3
       FormHelper.fillPreviousCarerPersonalDetails(browser)
-      browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // DELETE
+      browser.title mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // DELETE
       browser.find("div[class=completed] ul li").size mustEqual 4
       browser.click("#backButton")
 
