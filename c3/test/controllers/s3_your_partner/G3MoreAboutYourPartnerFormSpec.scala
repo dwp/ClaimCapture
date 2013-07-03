@@ -40,5 +40,20 @@ class G3MoreAboutYourPartnerFormSpec extends Specification {
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
+    
+    
+    "reject invalid date" in {
+      G3MoreAboutYourPartner.form.bind(
+        Map("dateStartedLivingTogether.day" -> dateStartedLivingTogetherDay.toString,
+          "dateStartedLivingTogether.month" -> dateStartedLivingTogetherMonth.toString,
+          "dateStartedLivingTogether.year" -> "123456789",
+          "separatedFromPartner" -> separatedFromPartner)
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.head.message must equalTo("error.invalid")
+          formWithErrors.errors.length must equalTo(1)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
   }
 }

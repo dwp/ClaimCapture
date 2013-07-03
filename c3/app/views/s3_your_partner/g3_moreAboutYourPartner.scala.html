@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.YourPartnerPersonalDetails])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.MoreAboutYourPartner])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,12 +7,12 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 
-@main("Personal Details - Your Partner", currentForm) {
+@main("More about your partner - Your Partner", currentForm) {
 
     @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit) {
     
         <fieldset class="form-elements">
-            <legend>Partner/Spouse details</legend>
+            <legend>More about your partner</legend>
 
             <ul class="group">
                 @titleSelect(currentForm("title"))
