@@ -8,7 +8,7 @@ class G3Over16IntegrationSpec extends Specification with Tags {
   "Over 16" should {
     "be presented" in new WithBrowser {
       browser.goTo("/allowance/over16")
-      browser.title() mustEqual "Over 16 - Carer's Allowance"
+      browser.title mustEqual "Over 16 - Carer's Allowance"
     }
   } section "integration"
 
@@ -22,7 +22,7 @@ class G3Over16IntegrationSpec extends Specification with Tags {
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
 
-      browser.title() mustEqual "Lives in GB - Carer's Allowance"
+      browser.title mustEqual "Lives in GB - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(2).getText must contain("Q3")
       browser.find("div[class=completed] ul li").get(2).getText must contain("Yes")
     }
@@ -36,7 +36,7 @@ class G3Over16IntegrationSpec extends Specification with Tags {
       browser.click("#q3-no")
       browser.submit("button[type='submit']")
 
-      browser.title() mustEqual "Lives in GB - Carer's Allowance"
+      browser.title mustEqual "Lives in GB - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(2).getText must contain("Q3")
       browser.find("div[class=completed] ul li").get(2).getText must contain("No")
     }

@@ -8,7 +8,7 @@ class G2HoursIntegrationSpec extends Specification with Tags {
   "Hours" should {
     "be presented" in new WithBrowser {
       browser.goTo("/allowance/hours")
-      browser.title() mustEqual "Hours - Carer's Allowance"
+      browser.title mustEqual "Hours - Carer's Allowance"
     }
   } section "integration"
 
@@ -17,11 +17,11 @@ class G2HoursIntegrationSpec extends Specification with Tags {
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
-      browser.title() mustEqual "Hours - Carer's Allowance"
+      browser.title mustEqual "Hours - Carer's Allowance"
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
 
-      browser.title() mustEqual "Over 16 - Carer's Allowance"
+      browser.title mustEqual "Over 16 - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")
       browser.find("div[class=completed] ul li").get(1).getText must contain("Yes")
     }
@@ -30,11 +30,11 @@ class G2HoursIntegrationSpec extends Specification with Tags {
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
-      browser.title() mustEqual "Hours - Carer's Allowance"
+      browser.title mustEqual "Hours - Carer's Allowance"
       browser.click("#q3-no")
       browser.submit("button[type='submit']")
 
-      browser.title() mustEqual "Over 16 - Carer's Allowance"
+      browser.title mustEqual "Over 16 - Carer's Allowance"
       browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")
       browser.find("div[class=completed] ul li").get(1).getText must contain("No")
     }
