@@ -57,28 +57,33 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification {
         }
       )
     }
-    /*
-    "reject too long firstName, middleName or surname" in {
+
+    "reject too many characters in text fields" in {
       G1YourPartnerPersonalDetails.form.bind(
-        Map("title" -> "Mr",
+        Map("title" -> title,
           "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "surname" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
-          "dateOfBirth.day" -> "1",
-          "dateOfBirth.month" -> "1",
-          "dateOfBirth.year" -> "1980",
-          "liveAtSameAddress" -> "yes"
+          "otherNames" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "nationality" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
+          "liveAtSameAddress" -> liveAtSameAddress
         )
       ).fold(
         formWithErrors => {
+          formWithErrors.errors.length must equalTo(5)
           formWithErrors.errors(0).message must equalTo("error.maxLength")
           formWithErrors.errors(1).message must equalTo("error.maxLength")
           formWithErrors.errors(2).message must equalTo("error.maxLength")
+          formWithErrors.errors(3).message must equalTo("error.maxLength")
+          formWithErrors.errors(4).message must equalTo("error.maxLength")
         },
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
-*/
+
     "have 5 mandatory fields" in {
       G1YourPartnerPersonalDetails.form.bind(
         Map("middleName" -> "middle name is optional")
