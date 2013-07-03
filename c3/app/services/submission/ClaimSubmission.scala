@@ -3,59 +3,13 @@ package services.submission
 import models.domain._
 
 case class ClaimSubmission(claim: Claim, transactionId : String) {
-  val aboutYou = buildAboutYou(claim)
+  val aboutYou = AboutYouSubmission.buildAboutYou(claim)
+  val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)
 
   def buildDwpClaim = {
     <DWPCAClaim id={transactionId}>
-      {buildClaimant}
-      <Caree>
-        <Surname>Mouse</Surname>
-        <OtherNames>Minnie</OtherNames>
-        <Title>mrs</Title>
-        <DateOfBirth>1956-03-03</DateOfBirth>
-        <NationalInsuranceNumber>AB000000B</NationalInsuranceNumber>
-        <Address>
-          <gds:Line>10</gds:Line>
-          <gds:Line>Anyplace Street</gds:Line>
-          <gds:Line/>
-          <gds:Line/>
-          <gds:PostCode/>
-        </Address>
-        <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
-        <HomePhoneNumber/>
-        <DaytimePhoneNumber>
-          <Number/>
-          <Qualifier/>
-        </DaytimePhoneNumber>
-        <RelationToClaimant>wife</RelationToClaimant>
-        <Cared35hours>yes</Cared35hours>
-        <CanCareeSign>yes</CanCareeSign>
-        <CanSomeoneElseSign>no</CanSomeoneElseSign>
-        <CanClaimantSign>no</CanClaimantSign>
-        <BreaksSinceClaim>yes</BreaksSinceClaim>
-        <CareBreak>
-          <StartDateTime>2013-05-11T08:00:00</StartDateTime>
-          <EndDateTime>2013-05-17T21:00:00</EndDateTime>
-          <Reason>Minnie was in hospital</Reason>
-          <MedicalCare>yes</MedicalCare>
-          <AwayFromHome>yes</AwayFromHome>
-          <BreakAddress>
-            <Address>
-              <gds:Line>Western Infirmary</gds:Line>
-              <gds:Line>West Street</gds:Line>
-              <gds:Line/>
-              <gds:Line/>
-              <gds:PostCode/>
-            </Address>
-            <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
-          </BreakAddress>
-        </CareBreak>
-        <Cared35hoursBefore>yes</Cared35hoursBefore>
-        <DateStartedCaring>2012-10-03</DateStartedCaring>
-        <BreaksBeforeClaim>no</BreaksBeforeClaim>
-        <PaidForCaring>no</PaidForCaring>
-        <ClaimedPreviously>no</ClaimedPreviously>
-      </Caree>
+      {AboutYouSubmission.buildClaimant(aboutYou)}
+      {CareYouProvideSubmission.buildCaree(careYouProvide)}
       <ClaimADI>no</ClaimADI>
       <Residency>
         <Nationality>British</Nationality>
@@ -284,39 +238,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
     </DWPCAClaim>
   }
 
-  private def buildAboutYou(claim: Claim) = {
-    val yourDetails = claim.questionGroup(YourDetails.id).asInstanceOf[Option[YourDetails]].get
-    val contactDetails = claim.questionGroup(ContactDetails.id).asInstanceOf[Option[ContactDetails]].get
-    val timeOutsideUK = claim.questionGroup(TimeOutsideUK.id).asInstanceOf[Option[TimeOutsideUK]]
-    val claimDate = claim.questionGroup(ClaimDate.id).asInstanceOf[Option[ClaimDate]].get
-    AboutYou(yourDetails, contactDetails, timeOutsideUK, claimDate)
-  }
 
-  private def buildClaimant = {
-    <Claimant>
-      <DateOfClaim>{aboutYou.claimDate.dateOfClaim.toXmlString}</DateOfClaim>
-      <Surname>{aboutYou.yourDetails.surname}</Surname>
-      <OtherNames>{s"${aboutYou.yourDetails.firstName} ${aboutYou.yourDetails.middleName.getOrElse("")}"}</OtherNames>
-      <OtherSurnames>{aboutYou.yourDetails.otherSurnames.orNull}</OtherSurnames>
-      <Title>{aboutYou.yourDetails.title}</Title>
-      <MaritalStatus>{aboutYou.yourDetails.maritalStatus}</MaritalStatus>
-      <DateOfBirth>{aboutYou.yourDetails.dateOfBirth.toXmlString}</DateOfBirth>
-      <NationalInsuranceNumber>{aboutYou.yourDetails.nationalInsuranceNumber.orNull}</NationalInsuranceNumber>
-      <ExistingNationalInsuranceNumber>no</ExistingNationalInsuranceNumber>
-      <Address>
-        <gds:Line>{aboutYou.contactDetails.address.lineOne.orNull}</gds:Line>
-        <gds:Line>{aboutYou.contactDetails.address.lineTwo.orNull}</gds:Line>
-        <gds:Line>{aboutYou.contactDetails.address.lineThree.orNull}</gds:Line>
-        <gds:PostCode>{aboutYou.contactDetails.postcode.orNull}</gds:PostCode>
-      </Address>
-      <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
-      <HomePhoneNumber>{aboutYou.contactDetails.mobileNumber.orNull}</HomePhoneNumber>
-      <DaytimePhoneNumber>
-        <Number>{aboutYou.contactDetails.phoneNumber.orNull}</Number>
-        <Qualifier/>
-      </DaytimePhoneNumber>
-      <EmailAddress/>
-      <ClaimedBefore>no</ClaimedBefore> <!--  Default to no -->
-    </Claimant>
-  }
+
+
 }
