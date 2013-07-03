@@ -22,32 +22,8 @@ class G1YourPartnerPersonalDetailsSpec extends Specification {
 
 
 
-    "add 'Their Personal Details' to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(theirPersonalDetailsInput: _*)
 
-      val result = controllers.s4_care_you_provide.G1TheirPersonalDetails.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id).get
 
-      section.questionGroup(TheirPersonalDetails.id) must beLike {
-        case Some(f: TheirPersonalDetails) => {
-          f.title mustEqual "Mr"
-          f.firstName mustEqual "John"
-          f.surname mustEqual "Doo"
-          f.dateOfBirth mustEqual DayMonthYear(Some(5), Some(12), Some(1990), None, None)
-          f.liveAtSameAddress mustEqual "yes"
-        }
-      }
-    }
-
-    "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("title" -> "Mr")
-
-      val result = controllers.s4_care_you_provide.G1TheirPersonalDetails.submit(request)
-      status(result) mustEqual BAD_REQUEST
-    }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -120,6 +96,14 @@ class G1YourPartnerPersonalDetailsSpec extends Specification {
           f.liveAtSameAddress must equalTo(liveAtSameAddress)
         }
       }
+    }
+    
+    "return a bad request after an invalid submission" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody("foo" -> "bar")
+
+      val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
+      status(result) mustEqual BAD_REQUEST
     }
   }
 }
