@@ -24,13 +24,13 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       FormHelper.fillYourPartnerPersonalDetails(browser)
       browser.title mustEqual "Contact Details - Your Partner"
     }.pendingUntilFixed("when view S3G2 is created")
-/*
+
     "navigate back to About You - Completed" in new WithBrowser {
-      browser.goTo("/careYouProvide/theirPersonalDetails")
-      browser.click(".form-steps a")
+      browser.goTo("/yourPartner/personalDetails")
+      browser.click("#backButton")
       browser.title mustEqual "Completion - About You"
     }
-
+/*
     "contain the completed forms" in new WithBrowser {
       FormHelper.fillTheirPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
