@@ -50,14 +50,14 @@ POST    /aboutyou/completed                                     controllers.s2_a
 
 # Your partner
 ###############
-GET     /yourPartner/personalDetails                    controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
-POST    /yourPartner/personalDetails                    controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
+GET     /yourPartner/personalDetails                            controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
+POST    /yourPartner/personalDetails                            controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
 
-GET     /yourPartner/contactDetails                     controllers.s3_your_partner.G2YourPartnerContactDetails.present
-POST    /yourPartner/contactDetails                     controllers.s3_your_partner.G2YourPartnerContactDetails.submit
+GET     /yourPartner/contactDetails                             controllers.s3_your_partner.G2YourPartnerContactDetails.present
+POST    /yourPartner/contactDetails                             controllers.s3_your_partner.G2YourPartnerContactDetails.submit
 
-GET     /yourPartner/moreAboutYourPartner               controllers.s3_your_partner.G3MoreAboutYourPartner.present
-POST    /yourPartner/moreAboutYourPartner               controllers.s3_your_partner.G3MoreAboutYourPartner.submit
+GET     /yourPartner/moreAboutYourPartner                       controllers.s3_your_partner.G3MoreAboutYourPartner.present
+POST    /yourPartner/moreAboutYourPartner                       controllers.s3_your_partner.G3MoreAboutYourPartner.submit
 
 
 # Care You Provide
