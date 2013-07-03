@@ -1,20 +1,20 @@
 package models
 
 import scala.util.{Failure, Success, Try}
-import org.joda.time.{DateMidnight,DateTime}
-import models.domain.Claim
 import org.joda.time.{DateTime, DateMidnight}
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
 
 case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
                         hour: Option[Int] = Some(0), minutes: Option[Int] = Some(0)) {
   val dateFormatXml: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
-  val timeFormatXml : DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:MM:00")
+
+  val timeFormatXml: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:MM:00")
   
   def toXmlString = Try(new DateMidnight(year.get, month.get, day.get)) match {
     case Success(dt: DateMidnight) => dateFormatXml.print(dt)
     case Failure(_) => "Invalid Date"
   }
+
   def toXmlTimeString = Try(new DateTime(year.get, month.get, day.get,hour.get,minutes.get)) match {
     case Success(dt: DateTime) => timeFormatXml.print(dt)
     case Failure(_) => "Invalid Date"

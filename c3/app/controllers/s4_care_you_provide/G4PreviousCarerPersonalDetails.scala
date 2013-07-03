@@ -11,7 +11,7 @@ import controllers.Mappings._
 
 object G4PreviousCarerPersonalDetails extends Controller with Routing with CachedClaim {
 
-  override val route = PreviousCarerPersonalDetails.id -> controllers.s4_care_you_provide.routes.G4PreviousCarerPersonalDetails.present
+  override val route = PreviousCarerPersonalDetails.id -> routes.G4PreviousCarerPersonalDetails.present
 
   val form = Form(
     mapping(
@@ -37,12 +37,12 @@ object G4PreviousCarerPersonalDetails extends Controller with Routing with Cache
       }
 
       Ok(views.html.s4_care_you_provide.g4_previousCarerPersonalDetails(currentForm, completedQuestionGroups))
-    } else claim.delete(PreviousCarerPersonalDetails.id) -> Redirect(controllers.s4_care_you_provide.routes.G5PreviousCarerContactDetails.present)
+    } else claim.delete(PreviousCarerPersonalDetails.id) -> Redirect(routes.G5PreviousCarerContactDetails.present())
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g4_previousCarerPersonalDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).filter(q => q.id != PreviousCarerPersonalDetails.id))),
-      currentForm => claim.update(currentForm) -> Redirect(controllers.s4_care_you_provide.routes.G5PreviousCarerContactDetails.present))
+      currentForm => claim.update(currentForm) -> Redirect(routes.G5PreviousCarerContactDetails.present()))
   }
 }

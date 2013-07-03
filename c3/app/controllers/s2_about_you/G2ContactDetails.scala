@@ -35,6 +35,6 @@ object G2ContactDetails extends Controller with Routing with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g2_contactDetails(formWithErrors, completedQuestionGroups)),
-      contactDetails => claim.update(contactDetails) -> Redirect(routes.G3TimeOutsideUK.present))
+      contactDetails => claim.update(contactDetails) -> Redirect(routes.G3TimeOutsideUK.present()))
   }
 }

@@ -26,12 +26,12 @@ object AboutYou extends Controller with CachedClaim {
   def completedSubmit = claiming { implicit claim => implicit request =>
     claim.questionGroup(YourDetails.id) match {
       case Some(YourDetails(_, _, _, _, _, _, _, _, _, "no")) if completedQuestionGroups.distinct.size == 7 =>
-        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present)
+        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
 
       case Some(YourDetails(_, _, _, _, _, _, _, _, _, _)) if completedQuestionGroups.distinct.size == 6 =>
-        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present)
+        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
 
-      case _ => Redirect(routes.G1YourDetails.present)
+      case _ => Redirect(routes.G1YourDetails.present())
     }
   }
 }

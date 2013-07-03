@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import models.domain.{Claim, MoreAboutTheCare}
 import play.api.data.Form
-import controllers.{Routing, s4_care_you_provide}
+import controllers.Routing
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
@@ -11,7 +11,7 @@ import play.api.mvc.Controller
 
 object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
 
-  override val route = MoreAboutTheCare.id -> controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.present
+  override val route = MoreAboutTheCare.id -> routes.G7MoreAboutTheCare.present
 
   val form = Form(
     mapping(
@@ -45,7 +45,7 @@ object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
         val moreAboutTheCareFormValidated = formValidations(form)
 
         if (moreAboutTheCareFormValidated.hasErrors) BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(moreAboutTheCareFormValidated, completedQuestionGroups))
-        else claim.update(moreAboutTheCare) -> Redirect(s4_care_you_provide.routes.G8OneWhoPaysPersonalDetails.present)
+        else claim.update(moreAboutTheCare) -> Redirect(routes.G8OneWhoPaysPersonalDetails.present())
       })
   }
 }
