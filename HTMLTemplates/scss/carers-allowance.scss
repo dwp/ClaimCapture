@@ -533,11 +533,10 @@ $button-green-hover: #004b27;
 						   cursor: pointer;
 
 						   .ie & {
-							   left: 10px;
+							   left: .7em;
 							   top: 28%;
 						   }
 						   .ie7 & {
-							   left: 10px;
 							   top: 25%;
 						   }
 					   &:focus {

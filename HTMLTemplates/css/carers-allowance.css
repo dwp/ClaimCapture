@@ -469,10 +469,9 @@
             margin: 0;
             cursor: pointer; }
             .ie .carers-allowance .form-elements ul.radio li input[type="radio"] {
-              left: 10px;
+              left: .7em;
               top: 28%; }
             .ie7 .carers-allowance .form-elements ul.radio li input[type="radio"] {
-              left: 10px;
               top: 25%; }
             .carers-allowance .form-elements ul.radio li input[type="radio"]:focus {
               outline: none; }
