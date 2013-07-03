@@ -79,11 +79,23 @@ class G4PreviousCarerPersonalDetailsFormSpec extends Specification {
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject invalid date" in {
+    "reject invalid date that has characters instead of numbers" in {
       G4PreviousCarerPersonalDetails.form.bind(
         Map("dateOfBirth.day" -> "INVALID")).fold(
         formWithErrors => {
           formWithErrors.errors.head.message must equalTo("error.number")
+          formWithErrors.errors.length must equalTo(1)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
+    
+    "reject invalid date that has year higher than maximum allowed" in {
+      G4PreviousCarerPersonalDetails.form.bind(
+        Map("dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> "123456789")).fold(
+        formWithErrors => {
+          formWithErrors.errors.head.message must equalTo("error.invalid")
           formWithErrors.errors.length must equalTo(1)
         },
         f => "This mapping should not happen." must equalTo("Valid"))

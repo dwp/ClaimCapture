@@ -99,6 +99,55 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification {
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
+    
+    "reject invalid national insurance number" in {
+      G1YourPartnerPersonalDetails.form.bind(
+        Map("title" -> title,
+          "firstName" -> firstName,
+          "middleName" -> middleName,
+          "surname" -> surname,
+          "otherNames" -> otherNames,
+          "nationalInsuranceNumber.ni1" -> "INVALID",
+          "nationalInsuranceNumber.ni2" -> ni2.toString,
+          "nationalInsuranceNumber.ni3" -> ni3.toString,
+          "nationalInsuranceNumber.ni4" -> ni4.toString,
+          "nationalInsuranceNumber.ni5" -> ni5,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "nationality" -> nationality,
+          "liveAtSameAddress" -> liveAtSameAddress)).fold(
+        formWithErrors => {
+          formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber")
+          formWithErrors.errors.length must equalTo(1)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+    "reject invalid date" in {
+      G1YourPartnerPersonalDetails.form.bind(
+        Map("title" -> title,
+          "firstName" -> firstName,
+          "middleName" -> middleName,
+          "surname" -> surname,
+          "otherNames" -> otherNames,
+          "nationalInsuranceNumber.ni1" -> ni1,
+          "nationalInsuranceNumber.ni2" -> ni2.toString,
+          "nationalInsuranceNumber.ni3" -> ni3.toString,
+          "nationalInsuranceNumber.ni4" -> ni4.toString,
+          "nationalInsuranceNumber.ni5" -> ni5,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> "123456789",
+          "nationality" -> nationality,
+          "liveAtSameAddress" -> liveAtSameAddress)
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.head.message must equalTo("error.invalid")
+          formWithErrors.errors.length must equalTo(1)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
   }
 
 }
