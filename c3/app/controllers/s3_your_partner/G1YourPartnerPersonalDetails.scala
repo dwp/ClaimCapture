@@ -1,20 +1,20 @@
 package controllers.s3_your_partner
 
-import play.api.mvc.Controller
+import controllers.Mappings.dayMonthYear
+import controllers.Mappings.nino
+import controllers.Mappings.sixty
+import controllers.Mappings.validDate
+import controllers.Mappings.validNinoOnly
 import controllers.Routing
+import models.domain.YourPartnerPersonalDetails
 import models.view.CachedClaim
 import play.api.data.Form
-import play.api.data.Forms._
-import controllers.Mappings._
-
-import models.domain._
-import play.api.data.Form
-import play.api.data.Forms._
-import controllers.Mappings._
+import play.api.data.Forms.mapping
+import play.api.data.Forms.nonEmptyText
+import play.api.data.Forms.optional
+import play.api.data.Forms.text
 import play.api.mvc.Controller
-import models.view.CachedClaim
-import controllers.Routing
-import utils.helpers.CarersForm._
+import utils.helpers.CarersForm.formBinding
 
 
 object G1YourPartnerPersonalDetails extends Controller with Routing with CachedClaim {
