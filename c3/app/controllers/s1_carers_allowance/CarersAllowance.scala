@@ -17,7 +17,7 @@ object CarersAllowance extends Controller with CachedClaim {
     val completedQuestionGroups = claim.completedQuestionGroups(sectionId)
     val approved = claim.completedQuestionGroups(sectionId).forall(_.asInstanceOf[BooleanConfirmation].answer) && completedQuestionGroups.length == 4
 
-    Ok(views.html.s1_carersallowance.g5_approve(approved, completedQuestionGroups))
+    Ok(views.html.s1_carers_allowance.g5_approve(approved, completedQuestionGroups))
   }
 
   def approveSubmit = Action {

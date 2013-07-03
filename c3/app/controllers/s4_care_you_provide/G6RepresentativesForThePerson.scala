@@ -29,7 +29,7 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
       case _ => form
     }
 
-    Ok(views.html.s4_careYouProvide.g6_representativesForThePerson(currentForm, completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g6_representativesForThePerson(currentForm, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -44,12 +44,12 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g6_representativesForThePerson(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g6_representativesForThePerson(formWithErrors, completedQuestionGroups)),
       implicit representativesForPerson => {
         val formValidations = actAs _ andThen someoneElseActAs _
         val timeOutsideUKFormValidated = formValidations(form)
 
-        if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g6_representativesForThePerson(timeOutsideUKFormValidated, completedQuestionGroups))
+        if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s4_care_you_provide.g6_representativesForThePerson(timeOutsideUKFormValidated, completedQuestionGroups))
         else claim.update(representativesForPerson) -> Redirect(controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.present)
       })
   }

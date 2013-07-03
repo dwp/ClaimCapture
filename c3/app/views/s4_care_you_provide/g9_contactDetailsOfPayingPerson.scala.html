@@ -7,7 +7,7 @@
 @import views.html.helper.base._
 
 @main("Contact Details of Paying Person - Care You Provide", contactDetailsOfPayingPersonForm, completedQuestionGroups) {
-    @form(action = s4_care_you_provide.routes.G9ContactDetailsOfPayingPerson.submit) {
+    @form(action = controllers.s4_care_you_provide.routes.G9ContactDetailsOfPayingPerson.submit) {
         <fieldset class="form-elements">
             <legend>@Messages(ContactDetailsOfPayingPerson.id)</legend>
 

@@ -25,7 +25,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
       case _ => BreaksInCare()
     }
 
-    Ok(views.html.s4_careYouProvide.g10_breaksInCare(form, breaksInCare, completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g10_breaksInCare(form, breaksInCare, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -35,7 +35,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g10_breaksInCare(formWithErrors, breaksInCare, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrors, breaksInCare, completedQuestionGroups)),
       hasBreaks => hasBreaks.answer match {
         case "yes" if breaksInCare.breaks.size < 10 => claim.update(breaksInCare) -> Redirect(routes.G11Break.present)
         case "yes" => claim.update(breaksInCare) -> Redirect(routes.G10BreaksInCare.present)

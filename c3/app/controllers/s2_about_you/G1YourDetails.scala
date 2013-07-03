@@ -33,12 +33,12 @@ object G1YourDetails extends Controller with Routing with CachedClaim {
       case _ => form
     }
 
-    Ok(views.html.s2_aboutyou.g1_yourDetails(yourDetailsForm))
+    Ok(views.html.s2_about_you.g1_yourDetails(yourDetailsForm))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_aboutyou.g1_yourDetails(formWithErrors)),
+      formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
       yourDetails => claim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present))
   }
 }

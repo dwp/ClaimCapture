@@ -38,7 +38,7 @@ object G8OneWhoPaysPersonalDetails extends Controller with Routing with CachedCl
         case _ => form
       }
 
-      Ok(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(currentForm, completedQuestionGroups))
+      Ok(views.html.s4_care_you_provide.g8_oneWhoPaysPersonalDetails(currentForm, completedQuestionGroups))
     } else {
       claim.delete(OneWhoPaysPersonalDetails.id) -> Redirect(controllers.s4_care_you_provide.routes.G9ContactDetailsOfPayingPerson.present)
     }
@@ -46,7 +46,7 @@ object G8OneWhoPaysPersonalDetails extends Controller with Routing with CachedCl
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g8_oneWhoPaysPersonalDetails(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g8_oneWhoPaysPersonalDetails(formWithErrors, completedQuestionGroups)),
       oneWhoPaysPersonalDetails => claim.update(oneWhoPaysPersonalDetails) -> Redirect(controllers.s4_care_you_provide.routes.G9ContactDetailsOfPayingPerson.present))
   }
 }

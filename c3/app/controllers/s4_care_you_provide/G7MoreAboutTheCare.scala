@@ -29,7 +29,7 @@ object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
       case _ => form
     }
 
-    Ok(views.html.s4_careYouProvide.g7_moreAboutTheCare(currentForm, completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g7_moreAboutTheCare(currentForm, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -39,12 +39,12 @@ object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g7_moreAboutTheCare(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrors, completedQuestionGroups)),
       implicit moreAboutTheCare => {
         val formValidations: (Form[MoreAboutTheCare]) => Form[MoreAboutTheCare] = actAs
         val moreAboutTheCareFormValidated = formValidations(form)
 
-        if (moreAboutTheCareFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g7_moreAboutTheCare(moreAboutTheCareFormValidated, completedQuestionGroups))
+        if (moreAboutTheCareFormValidated.hasErrors) BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(moreAboutTheCareFormValidated, completedQuestionGroups))
         else claim.update(moreAboutTheCare) -> Redirect(s4_care_you_provide.routes.G8OneWhoPaysPersonalDetails.present)
       })
   }
