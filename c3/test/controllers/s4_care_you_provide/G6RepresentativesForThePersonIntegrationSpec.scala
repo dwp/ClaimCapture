@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import integration.Helper
+import controllers.FormHelper
 
 class G6RepresentativesForThePersonIntegrationSpec extends Specification with Tags {
 
@@ -27,16 +27,16 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
     }
 
     "navigate back to More About The Person" in new WithBrowser {
-      Helper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
+      FormHelper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       browser.goTo("/careYouProvide/representativesForPerson")
       browser.click("#backButton")
       browser.title() mustEqual "More About The Person You Care For - Care You Provide"
     }
 
     "navigate back to Previous Carer Contact Details" in new WithBrowser {
-      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      Helper.fillPreviousCarerPersonalDetails(browser)
-      Helper.fillPreviousCarerContactDetails(browser)
+      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      FormHelper.fillPreviousCarerPersonalDetails(browser)
+      FormHelper.fillPreviousCarerContactDetails(browser)
       browser.title() mustEqual "Representatives For The Person - Care You Provide" // Landed on S4 G6
       browser.click("#backButton")
       browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G5
@@ -44,9 +44,9 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
 
     "navigate back twice to Previous Carer Personal Details" in new WithBrowser {
       // [SKW] This tests a problem I was having where pressing back twice wasn't getting back passed the S4 G4, the problem was with Controller action fetching previous question groups being different for pages using backHref.
-      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      Helper.fillPreviousCarerPersonalDetails(browser)
-      Helper.fillPreviousCarerContactDetails(browser)
+      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      FormHelper.fillPreviousCarerPersonalDetails(browser)
+      FormHelper.fillPreviousCarerContactDetails(browser)
       browser.title() mustEqual "Representatives For The Person - Care You Provide" // Landed on S4 G6
       browser.click("#backButton")
       browser.click("#backButton")
@@ -54,7 +54,7 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
     }
 
     "contain the completed forms" in new WithBrowser {
-      Helper.fillRepresentativesForThePerson(browser)
+      FormHelper.fillRepresentativesForThePerson(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
   }

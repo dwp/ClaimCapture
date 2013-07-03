@@ -1,13 +1,13 @@
 @(elements: helper.FieldElements)
 
 @import utils.helpers.CarersCrypto
+
 @if(elements.hasErrors){ <li class="short-field validation"> } else { <li class="short-field"> }
 
     @if(elements.hasErrors){
         <p class="error">@elements.errors.mkString(", ")</p>
     }
-
-    @if(elements.args.contains('prompt)){
+       @if(elements.args.contains('prompt)){
         <div class="prompt helper-prompt">@Html(Messages(elements.args.get('prompt).get.toString))</div>
     }
 

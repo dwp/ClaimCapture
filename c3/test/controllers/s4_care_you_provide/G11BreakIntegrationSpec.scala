@@ -6,7 +6,11 @@ import java.util.concurrent.TimeUnit
 
 class G11BreakIntegrationSpec extends Specification with Tags {
   class BreakWithBrowser extends WithBrowser {
-    def break(): Unit = {
+    def break() {
+      browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
+        browser.title() mustEqual "Break - Care You Provide"
+      }
+
       browser.click("#start_day option[value='1']")
       browser.click("#start_month option[value='1']")
       browser.fill("#start_year") `with` "2001"
@@ -21,7 +25,10 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.click("#medicalDuringBreak_no")
 
       browser.submit("button[value='next']")
-      TimeUnit.SECONDS.sleep(2)
+
+      browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
+        browser.title() mustEqual "Breaks in Care - Care You Provide"
+      }
     }
   }
 

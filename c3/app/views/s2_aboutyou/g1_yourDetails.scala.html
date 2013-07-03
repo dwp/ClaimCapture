@@ -11,7 +11,7 @@
 @main("Your Details - About You") {
     @errorsSummary(yourDetailsForm)
 
-    @form(action = routes.AboutYou.yourDetailsSubmit) {
+    @form(action = controllers.s2_about_you.routes.G1YourDetails.submit) {
         <fieldset class="form-elements">
             <legend>Your details</legend>
 
@@ -39,7 +39,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a href="@routes.CarersAllowance.approve" class="button secondary">Back</a>
+            <a href="@controllers.s1_carers_allowance.routes.CarersAllowance.approve" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

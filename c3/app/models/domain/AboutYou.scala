@@ -39,7 +39,8 @@ object ClaimDate {
   val id = s"${AboutYou.id}.g4"
 }
 
-case class MoreAboutYou(hadPartnerSinceClaimDate: String, eitherClaimedBenefitSinceClaimDate: String, beenInEducationSinceClaimDate: String, receiveStatePension: String) extends QuestionGroup(MoreAboutYou.id)
+case class MoreAboutYou(hadPartnerSinceClaimDate: String, eitherClaimedBenefitSinceClaimDate: String,
+                        beenInEducationSinceClaimDate: String, receiveStatePension: String) extends QuestionGroup(MoreAboutYou.id)
 
 object MoreAboutYou {
   val id = s"${AboutYou.id}.g5"

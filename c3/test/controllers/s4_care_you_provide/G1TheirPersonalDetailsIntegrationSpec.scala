@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import integration.Helper
+import controllers.FormHelper
 
 class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
 
@@ -21,7 +21,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
-      Helper.fillTheirPersonalDetails(browser)
+      FormHelper.fillTheirPersonalDetails(browser)
       browser.title() mustEqual "Their Contact Details - Care You Provide"
     }
 
@@ -32,7 +32,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "contain the completed forms" in new WithBrowser {
-      Helper.fillTheirPersonalDetails(browser)
+      FormHelper.fillTheirPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
   } section "integration"

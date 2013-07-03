@@ -13,7 +13,7 @@ object G11Break extends Controller with CachedClaim {
     mapping(
       "breakID" -> nonEmptyText,
       "start" -> (dayMonthYear verifying validDate),
-      "end" -> optional(dayMonthYear verifying validDateOnly),
+      "end" -> optional(dayMonthYear verifying validDate),
       "whereYou" -> whereabouts.verifying(requiredWhereabouts),
       "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
       "medicalDuringBreak" -> nonEmptyText

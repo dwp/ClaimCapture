@@ -17,16 +17,21 @@
             <ul class="group">
                 @yesNoRadioGroup(currentForm("actForPerson"))
 
-                <div id="actWrap">
-                    @actSelect(currentForm("actAs"))
-                </div>
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(actSelect(currentForm("actAs"))),
+                    'id->"actWrap",
+                    'display -> currentForm("actForPerson").value.getOrElse("no")
+                )
 
                 @yesNoRadioGroup(currentForm("someoneElseActForPerson"))
 
-                <div id="someoneElseWrap">
-                    @actSelect(currentForm("someoneElseActAs"))
-                    @carersInputText(currentForm("someoneElseFullName"))
-                </div>
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(actSelect(currentForm("someoneElseActAs")), carersInputText(currentForm("someoneElseFullName"))),
+                    'id->"someoneElseWrap",
+                    'display -> currentForm("someoneElseActForPerson").value.getOrElse("no")
+                )
+
+
             </ul>
         </fieldset>
 

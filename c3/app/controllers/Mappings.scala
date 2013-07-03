@@ -75,7 +75,7 @@ object Mappings {
     "ni3" -> optional(text),
     "ni4" -> optional(text),
     "ni5" -> optional(text))(NationalInsuranceNumber.apply)(NationalInsuranceNumber.unapply)
-    
+
   private def ninoValidation(nino: NationalInsuranceNumber): ValidationResult = {
     val ninoPattern = """[A-CEGHJ-PR-TW-Z]{2}[0-9]{6}[ABCD]""".r
     val ninoConcatenated = nino.ni1.get + nino.ni2.get + nino.ni3.get + nino.ni4.get + nino.ni5.get
