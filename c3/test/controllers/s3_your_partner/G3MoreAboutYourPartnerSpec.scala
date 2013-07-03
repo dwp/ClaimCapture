@@ -1,7 +1,6 @@
 package controllers.s3_your_partner
 
 import org.specs2.mutable.Specification
-import org.specs2.mock.Mockito
 import play.api.test.{FakeRequest, WithApplication}
 import models.view.Claiming
 import play.api.cache.Cache
@@ -10,7 +9,6 @@ import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Section
 import scala.Some
-import models.NationalInsuranceNumber
 
 class G3MoreAboutYourPartnerSpec extends Specification {
   val dateStartedLivingTogetherDay = 5

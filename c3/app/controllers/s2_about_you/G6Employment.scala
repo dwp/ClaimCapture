@@ -19,23 +19,21 @@ object G6Employment extends Controller with Routing with CachedClaim {
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(_.id != Employment.id)
 
-  def present = claiming {
-    implicit claim => implicit request =>
-      val employmentForm: Form[Employment] = claim.questionGroup(Employment.id) match {
-        case Some(e: Employment) => form.fill(e)
-        case _ => form
-      }
+  def present = claiming { implicit claim => implicit request =>
+    val employmentForm: Form[Employment] = claim.questionGroup(Employment.id) match {
+      case Some(e: Employment) => form.fill(e)
+      case _ => form
+    }
 
-      claim.questionGroup(models.domain.ClaimDate.id) match {
-        case Some(n) => Ok(views.html.s2_about_you.g6_employment(employmentForm, completedQuestionGroups))
-        case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
-      }
+    claim.questionGroup(models.domain.ClaimDate.id) match {
+      case Some(n) => Ok(views.html.s2_about_you.g6_employment(employmentForm, completedQuestionGroups))
+      case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
+    }
   }
 
-  def submit = claiming {
-    implicit claim => implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s2_about_you.g6_employment(formWithErrors, completedQuestionGroups)),
-        employment => claim.update(employment) -> Redirect(routes.G7PropertyAndRent.present()))
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s2_about_you.g6_employment(formWithErrors, completedQuestionGroups)),
+      employment => claim.update(employment) -> Redirect(routes.G7PropertyAndRent.present()))
   }
 }

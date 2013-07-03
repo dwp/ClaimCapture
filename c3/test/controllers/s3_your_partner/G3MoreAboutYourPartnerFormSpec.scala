@@ -40,8 +40,7 @@ class G3MoreAboutYourPartnerFormSpec extends Specification {
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
-    
-    
+
     "reject invalid date" in {
       G3MoreAboutYourPartner.form.bind(
         Map("dateStartedLivingTogether.day" -> dateStartedLivingTogetherDay.toString,

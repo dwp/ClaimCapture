@@ -27,20 +27,18 @@ object G1YourDetails extends Controller with Routing with CachedClaim {
     )(YourDetails.apply)(YourDetails.unapply))
 
 
-  def present = claiming {
-    implicit claim => implicit request =>
-      val yourDetailsForm: Form[YourDetails] = claim.questionGroup(YourDetails.id) match {
-        case Some(n: YourDetails) => form.fill(n)
-        case _ => form
-      }
+  def present = claiming { implicit claim => implicit request =>
+    val yourDetailsForm: Form[YourDetails] = claim.questionGroup(YourDetails.id) match {
+      case Some(n: YourDetails) => form.fill(n)
+      case _ => form
+    }
 
-      Ok(views.html.s2_about_you.g1_yourDetails(yourDetailsForm))
+    Ok(views.html.s2_about_you.g1_yourDetails(yourDetailsForm))
   }
 
-  def submit = claiming {
-    implicit claim => implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
-        yourDetails => claim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present()))
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
+      yourDetails => claim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present()))
   }
 }

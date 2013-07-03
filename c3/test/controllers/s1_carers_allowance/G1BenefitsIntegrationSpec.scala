@@ -2,6 +2,7 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
+import java.util.concurrent.TimeUnit
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
 
@@ -33,10 +34,16 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
 
   "Does the person being cared for get one of required benefits" should {
     "acknowledge yes" in new WithBrowser {
+      def titleMustEqual(title: String) = {
+        browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
+          browser.title mustEqual title
+        }
+      }
+
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
-      browser.title mustEqual "Hours - Carer's Allowance"
+      titleMustEqual("Hours - Carer's Allowance")
       browser.find("div[class=completed] ul li").get(0).getText must contain("Q1")
       browser.find("div[class=completed] ul li").get(0).getText must contain("Yes")
     }

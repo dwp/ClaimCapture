@@ -41,23 +41,14 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
   }
 
   case class DayMonthYearSubtraction(dmy: DayMonthYear, amount: Int) extends Period {
-    override def days = adjust {
-      dt: DateTime => dt.minusDays(amount)
-    }
+    override def days = adjust { _.minusDays(amount) }
 
-    override def weeks = adjust {
-      dt: DateTime => dt.minusWeeks(amount)
-    }
+    override def weeks = adjust { _.minusWeeks(amount) }
 
-    override def months = adjust {
-      dt: DateTime => dt.minusMonths(amount)
-    }
+    override def months = adjust { _.minusMonths(amount) }
 
-    override def years = adjust {
-      dt: DateTime => dt.minusYears(amount)
-    }
+    override def years = adjust { _.minusYears(amount) }
   }
-
 }
 
 object DayMonthYear {

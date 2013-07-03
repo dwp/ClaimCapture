@@ -20,12 +20,8 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   }
 
   def update(questionGroup: QuestionGroup): Claim = {
-    def update(questionGroup: QuestionGroup, questionGroups: List[QuestionGroup]) = {
-      val updated = questionGroups map {
-        qg => if (qg.id == questionGroup.id) questionGroup else qg
-      }
-
-      if (updated.contains(questionGroup)) updated else updated :+ questionGroup
+    def update(questionGroup: QuestionGroup, questionGroups: List[QuestionGroup]): List[QuestionGroup] = {
+      questionGroups.takeWhile(_.index < questionGroup.index) ::: List(questionGroup) ::: questionGroups.dropWhile(_.index <= questionGroup.index)
     }
 
     val sectionID = Section.sectionID(questionGroup.id)

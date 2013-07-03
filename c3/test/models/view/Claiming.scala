@@ -12,6 +12,7 @@ trait Claiming extends Scope with Mockito {
   def mockQuestionGroup[Q <: QuestionGroup](questionGroupID: String)(implicit classTag: ClassTag[Q]) = {
     val questionGroup = mock[Q]
     questionGroup.id returns questionGroupID
+    questionGroup.index returns questionGroupID.dropWhile(!_.equals('g')).drop(1).toInt
     questionGroup
   }
 }
