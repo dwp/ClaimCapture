@@ -1,6 +1,6 @@
 package models.domain
 
-import models.{DayMonthYear, NationalInsuranceNumber}
+import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
 object YourPartner {
   val id = "s3"
@@ -10,6 +10,12 @@ case class YourPartnerPersonalDetails(title: String, firstName: String, middleNa
 
 object YourPartnerPersonalDetails {
   val id = s"${YourPartner.id}.g1"
+}
+
+case class YourPartnerContactDetails(address: Option[MultiLineAddress]) extends QuestionGroup(YourPartnerContactDetails.id)
+
+object YourPartnerContactDetails {
+  val id = s"${YourPartner.id}.g2"
 }
 
 
