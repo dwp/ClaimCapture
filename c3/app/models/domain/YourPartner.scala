@@ -12,10 +12,17 @@ object YourPartnerPersonalDetails {
   val id = s"${YourPartner.id}.g1"
 }
 
-case class YourPartnerContactDetails(address: Option[MultiLineAddress]) extends QuestionGroup(YourPartnerContactDetails.id)
+case class YourPartnerContactDetails(address: Option[MultiLineAddress], postcode: Option[String]) extends QuestionGroup(YourPartnerContactDetails.id)
 
 object YourPartnerContactDetails {
   val id = s"${YourPartner.id}.g2"
+}
+
+
+case class MoreAboutYourPartner(dateStartedLivingTogether: DayMonthYear, separatedFromPartner: String) extends QuestionGroup(MoreAboutYourPartner.id)
+
+object MoreAboutYourPartner {
+  val id = s"${YourPartner.id}.g3"
 }
 
 

@@ -5,7 +5,6 @@ import play.api.test.WithBrowser
 import controllers.FormHelper
 
 class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
-
   "Their Personal Details" should {
     "be presented" in new WithBrowser {
       browser.goTo("/careYouProvide/theirPersonalDetails")

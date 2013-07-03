@@ -9,7 +9,6 @@ import models.domain._
 import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Section
-import scala.Some
 
 class G1TheirPersonalDetailsSpec extends Specification with Mockito {
 
@@ -18,14 +17,12 @@ class G1TheirPersonalDetailsSpec extends Specification with Mockito {
 
   "Their Personal Details - Controller" should {
 
-
     "present 'Their Personal Details' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = controllers.s4_care_you_provide.G1TheirPersonalDetails.present(request)
       status(result) mustEqual OK
     }
-
 
     "add 'Their Personal Details' to the cached claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -62,6 +59,4 @@ class G1TheirPersonalDetailsSpec extends Specification with Mockito {
       redirectLocation(result) must beSome("/careYouProvide/theirContactDetails")
     }
   }
-
-
 }

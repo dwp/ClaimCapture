@@ -7,9 +7,10 @@ import scala.collection.immutable.ListMap
 
 object YourPartner extends Controller with CachedClaim {
   val route: ListMap[String, Call] = ListMap(
-    G1YourPartnerPersonalDetails)
-  
-  
+    G1YourPartnerPersonalDetails,
+    G2YourPartnerContactDetails)
+
+
   def yourPartner = claiming {
     implicit claim => implicit request =>
       val outcome =
@@ -19,7 +20,9 @@ object YourPartner extends Controller with CachedClaim {
             <h2>Completed - Your Partner</h2>
 
             <ul>
-              {claim.completedQuestionGroups(models.domain.YourPartner.id).map(f => <li>{f}</li>)}
+              {claim.completedQuestionGroups(models.domain.YourPartner.id).map(f => <li>
+              {f}
+            </li>)}
             </ul>
           </body>
         </html>

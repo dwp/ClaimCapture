@@ -11,7 +11,7 @@ import controllers.Mappings._
 
 object G5PreviousCarerContactDetails extends Controller with Routing with CachedClaim {
 
-  override val route = PreviousCarerContactDetails.id -> controllers.s4_care_you_provide.routes.G5PreviousCarerContactDetails.present
+  override val route = PreviousCarerContactDetails.id -> routes.G5PreviousCarerContactDetails.present
 
   val form = Form(
     mapping(
@@ -23,25 +23,27 @@ object G5PreviousCarerContactDetails extends Controller with Routing with Cached
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).filter(q => q.id < PreviousCarerContactDetails.id)
 
-  def present = claiming { implicit claim => implicit request =>
-    val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson.id) match {
-      case Some(m: MoreAboutThePerson) => m.claimedAllowanceBefore == Mappings.yes
-      case _ => false
-    }
-
-    if (claimedAllowanceBefore) {
-      val currentForm: Form[PreviousCarerContactDetails] = claim.questionGroup(PreviousCarerContactDetails.id) match {
-        case Some(p: PreviousCarerContactDetails) => form.fill(p)
-        case _ => form
+  def present = claiming {
+    implicit claim => implicit request =>
+      val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson.id) match {
+        case Some(m: MoreAboutThePerson) => m.claimedAllowanceBefore == Mappings.yes
+        case _ => false
       }
 
-      Ok(views.html.s4_care_you_provide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
-    } else claim.delete(PreviousCarerContactDetails.id) -> Redirect(controllers.s4_care_you_provide.routes.G6RepresentativesForThePerson.present)
+      if (claimedAllowanceBefore) {
+        val currentForm: Form[PreviousCarerContactDetails] = claim.questionGroup(PreviousCarerContactDetails.id) match {
+          case Some(p: PreviousCarerContactDetails) => form.fill(p)
+          case _ => form
+        }
+
+        Ok(views.html.s4_care_you_provide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
+      } else claim.delete(PreviousCarerContactDetails.id) -> Redirect(routes.G6RepresentativesForThePerson.present())
   }
 
-  def submit = claiming { implicit claim => implicit request =>
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g5_previousCarerContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).filter(q => q.id < PreviousCarerContactDetails.id))),
-      previousCarerContactDetails => claim.update(previousCarerContactDetails) -> Redirect(controllers.s4_care_you_provide.routes.G6RepresentativesForThePerson.present))
+  def submit = claiming {
+    implicit claim => implicit request =>
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.s4_care_you_provide.g5_previousCarerContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).filter(q => q.id < PreviousCarerContactDetails.id))),
+        previousCarerContactDetails => claim.update(previousCarerContactDetails) -> Redirect(routes.G6RepresentativesForThePerson.present()))
   }
 }

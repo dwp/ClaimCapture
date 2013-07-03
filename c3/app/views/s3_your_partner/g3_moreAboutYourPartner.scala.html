@@ -1,16 +1,16 @@
-@(currentForm: Form[models.domain.YourPartnerContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.MoreAboutYourPartner], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("Contact Details - Your Partner", currentForm, completedQuestionGroups) {
+@main("More About Your Partner - Your Partner", currentForm, completedQuestionGroups) {
 
-    @form(action = controllers.s3_your_partner.routes.G2YourPartnerContactDetails.submit) {
+    @form(action = controllers.s3_your_partner.routes.G3MoreAboutYourPartner.submit) {
 
         <fieldset class="form-elements">
-            <legend>Contact details of your partner</legend>
+            <legend>More about your partner/spouse</legend>
 
             <ul class="group">
                 @inputAddress(currentForm("address"))

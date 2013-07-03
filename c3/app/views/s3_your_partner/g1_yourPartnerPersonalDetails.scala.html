@@ -22,17 +22,21 @@
                 @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.sixty)
 
                 @carersInputText(currentForm("surname"), 'maxLength -> Mappings.sixty)
+                
+                @carersInputText(currentForm("otherNames"), 'maxLength -> Mappings.sixty)
 
                 @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
 
                 @inputDayMonthYear(currentForm("dateOfBirth"), 'helperBelow-> Messages("dateOfBirth.helper"))
+                
+                @carersInputText(currentForm("nationality"), 'maxLength -> Mappings.sixty)
 
                 @yesNoRadioGroup(currentForm("liveAtSameAddress"))
             </ul>
         </fieldset>
 
         <div class="form-steps">
-            <a href="@controllers.s2_about_you.routes.AboutYou.completed" class="button secondary">Back</a>
+            <a id="backButton" href="@controllers.s2_about_you.routes.AboutYou.completed" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
