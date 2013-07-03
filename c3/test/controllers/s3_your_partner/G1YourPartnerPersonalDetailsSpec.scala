@@ -90,6 +90,6 @@ class G1YourPartnerPersonalDetailsSpec extends Specification {
 
       val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
-    }.pendingUntilFixed("requires next view to exist")
+    }
   }
 }
