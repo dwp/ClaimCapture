@@ -19,8 +19,8 @@ object G2Hours extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CarersAllowance.id).takeWhile(_.id != Hours.id)
 
   def present = claiming { implicit claim => implicit request =>
-    if (CarersAllowance.claiming(Hours.id, claim)) Ok(views.html.s1_carersallowance.g2_hours(confirmed = true, completedQuestionGroups))
-    else Ok(views.html.s1_carersallowance.g2_hours(confirmed = false, completedQuestionGroups))
+    if (CarersAllowance.claiming(Hours.id, claim)) Ok(views.html.s1_carers_allowance.g2_hours(confirmed = true, completedQuestionGroups))
+    else Ok(views.html.s1_carers_allowance.g2_hours(confirmed = false, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

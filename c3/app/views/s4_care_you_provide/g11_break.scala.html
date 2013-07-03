@@ -7,7 +7,7 @@
 @import views.html.helper.dates._
 
 @main("Break - Care You Provide", breakForm) {
-    @form(action = s4_care_you_provide.routes.G11Break.submit) {
+    @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
         <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
         <fieldset class="form-elements">
@@ -31,4 +31,4 @@
     }
 }
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g11_break.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g11_break.js")'></script>

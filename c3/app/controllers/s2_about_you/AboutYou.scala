@@ -20,7 +20,7 @@ object AboutYou extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
   def completed = claiming { implicit claim => implicit request =>
-    Ok(views.html.s2_aboutyou.g8_completed(completedQuestionGroups))
+    Ok(views.html.s2_about_you.g8_completed(completedQuestionGroups))
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>

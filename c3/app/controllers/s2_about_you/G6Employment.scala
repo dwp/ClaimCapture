@@ -26,14 +26,14 @@ object G6Employment extends Controller with Routing with CachedClaim {
     }
 
     claim.questionGroup(models.domain.ClaimDate.id) match {
-      case Some(n) => Ok(views.html.s2_aboutyou.g6_employment(employmentForm, completedQuestionGroups))
+      case Some(n) => Ok(views.html.s2_about_you.g6_employment(employmentForm, completedQuestionGroups))
       case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present)
     }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_aboutyou.g6_employment(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s2_about_you.g6_employment(formWithErrors, completedQuestionGroups)),
       employment => claim.update(employment) -> Redirect(routes.G7PropertyAndRent.present))
   }
 }

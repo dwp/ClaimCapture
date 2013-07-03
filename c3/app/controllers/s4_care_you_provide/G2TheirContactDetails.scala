@@ -40,12 +40,12 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
       }
     }
 
-    Ok(views.html.s4_careYouProvide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm, completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g2_theirContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != TheirContactDetails.id))),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g2_theirContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != TheirContactDetails.id))),
       theirContactDetails => claim.update(theirContactDetails) -> Redirect(controllers.s4_care_you_provide.routes.G3MoreAboutThePerson.present))
   }
 }

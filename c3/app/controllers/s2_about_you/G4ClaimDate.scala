@@ -25,12 +25,12 @@ object G4ClaimDate extends Controller with Routing with CachedClaim {
       case _ => form
     }
 
-    Ok(views.html.s2_aboutyou.g4_claimDate(claimDateForm, completedQuestionGroups))
+    Ok(views.html.s2_about_you.g4_claimDate(claimDateForm, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_aboutyou.g4_claimDate(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s2_about_you.g4_claimDate(formWithErrors, completedQuestionGroups)),
       claimDate => claim.update(claimDate) -> Redirect(routes.G5MoreAboutYou.present))
   }
 }

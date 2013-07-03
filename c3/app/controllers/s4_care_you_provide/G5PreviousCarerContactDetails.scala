@@ -35,13 +35,13 @@ object G5PreviousCarerContactDetails extends Controller with Routing with Cached
         case _ => form
       }
 
-      Ok(views.html.s4_careYouProvide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
+      Ok(views.html.s4_care_you_provide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
     } else claim.delete(PreviousCarerContactDetails.id) -> Redirect(controllers.s4_care_you_provide.routes.G6RepresentativesForThePerson.present)
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g5_previousCarerContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).filter(q => q.id < PreviousCarerContactDetails.id))),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g5_previousCarerContactDetails(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id).filter(q => q.id < PreviousCarerContactDetails.id))),
       previousCarerContactDetails => claim.update(previousCarerContactDetails) -> Redirect(controllers.s4_care_you_provide.routes.G6RepresentativesForThePerson.present))
   }
 }
