@@ -39,10 +39,6 @@
 
 <script type="text/javascript">
     $(function() {
-        @if(currentForm("spent35HoursCaringBeforeClaim").value.getOrElse("no") == "no") {
-            $("#careStartDateWrap").hide();
-        }
-
         window.initEvents("@CarersCrypto.encryptAES("spent35HoursCaringBeforeClaim_yes")",
         "@CarersCrypto.encryptAES("spent35HoursCaringBeforeClaim_no")",
         "@CarersCrypto.encryptAES("careStartDate_day")",
