@@ -27,12 +27,12 @@ object G3MoreAboutThePerson extends Controller with Routing with CachedClaim {
       case _ => form
     }
 
-    Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(currentForm, completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g3_moreAboutThePerson(currentForm, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g3_moreAboutThePerson(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g3_moreAboutThePerson(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
       moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(controllers.s4_care_you_provide.routes.G4PreviousCarerPersonalDetails.present))
   }
 }

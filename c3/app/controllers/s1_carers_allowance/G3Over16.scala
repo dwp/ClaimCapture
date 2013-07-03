@@ -19,8 +19,8 @@ object G3Over16 extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CarersAllowance.id).takeWhile(_.id != Over16.id)
 
   def present = claiming { implicit claim => implicit request =>
-    if (CarersAllowance.claiming(Over16.id, claim)) Ok(views.html.s1_carersallowance.g3_over16(confirmed = true, completedQuestionGroups))
-    else Ok(views.html.s1_carersallowance.g3_over16(confirmed = false, completedQuestionGroups))
+    if (CarersAllowance.claiming(Over16.id, claim)) Ok(views.html.s1_carers_allowance.g3_over16(confirmed = true, completedQuestionGroups))
+    else Ok(views.html.s1_carers_allowance.g3_over16(confirmed = false, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

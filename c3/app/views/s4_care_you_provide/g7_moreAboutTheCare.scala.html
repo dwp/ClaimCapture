@@ -18,9 +18,11 @@
 
                 @yesNoRadioGroup(currentForm("spent35HoursCaringBeforeClaim"), '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.ddMMyyyy)))
 
-                <div id="careStartDateWrap">
-                    @inputDayMonthYear(currentForm("careStartDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
-                </div>
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(inputDayMonthYear(currentForm("careStartDate"), 'helperBelow-> Messages("dateOfBirth.helper"))),
+                    'id->"careStartDateWrap",
+                    'display -> currentForm("spent35HoursCaringBeforeClaim").value.getOrElse("no")
+                )
 
                 @yesNoRadioGroup(currentForm("hasSomeonePaidYou"), '_label->Messages("hasSomeonePaidYou.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.ddMMyyyy)))
 
@@ -33,7 +35,7 @@
         </div>
     }
 }
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_careYouProvide/g7_moreAboutTheCare.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g7_moreAboutTheCare.js")'></script>
 
 <script type="text/javascript">
     $(function() {

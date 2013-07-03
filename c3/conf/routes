@@ -50,7 +50,9 @@ POST    /aboutyou/completed                             controllers.s2_about_you
 
 # Your partner
 ###############
-GET     /yourpartner/yourpartner                        controllers.s3_your_partner.YourPartner.yourPartner
+GET     /yourPartner/personalDetails                    controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
+GET     /yourPartner/personalDetails                    controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
+
 
 # Care You Provide
 ###############

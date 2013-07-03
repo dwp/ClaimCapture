@@ -29,7 +29,7 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
           case _ => form
         }
 
-        Ok(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(contactDetailsOfPayingPersonForm, completedQuestionGroups))
+        Ok(views.html.s4_care_you_provide.g9_contactDetailsOfPayingPerson(contactDetailsOfPayingPersonForm, completedQuestionGroups))
       }
 
       case _ => Redirect(routes.G10BreaksInCare.present)
@@ -38,7 +38,7 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),
       contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(routes.G10BreaksInCare.present))
   }
 }

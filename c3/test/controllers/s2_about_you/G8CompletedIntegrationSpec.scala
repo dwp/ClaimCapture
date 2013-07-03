@@ -14,6 +14,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
     """be submitted to "your partner" page.""" in new WithBrowser {
       browser.goTo("/aboutyou/completed")
       browser.submit("button[type='submit']")
+      pending("Assert title of next page")
     }
   } section "integration"
 }
