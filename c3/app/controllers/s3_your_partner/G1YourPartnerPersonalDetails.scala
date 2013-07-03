@@ -51,5 +51,4 @@ object G1YourPartnerPersonalDetails extends Controller with Routing with CachedC
       formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
       f => claim.update(f) -> Ok("present")) //Redirect(routes.G2YourPartnerContactDetails.present))
   }
-
 }

@@ -13,28 +13,6 @@ import scala.Some
 import models.NationalInsuranceNumber
 
 class G1YourPartnerPersonalDetailsSpec extends Specification {
-/*
-  val theirPersonalDetailsInput = Seq("title" -> "Mr", "firstName" -> "John", "surname" -> "Doo",
-    "dateOfBirth.day" -> "5", "dateOfBirth.month" -> "12", "dateOfBirth.year" -> "1990", "liveAtSameAddress" -> "yes")
-
-  "Their Personal Details - Controller" should {
-
-
-
-
-
-
-
-    "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(theirPersonalDetailsInput: _*)
-
-      val result = controllers.s4_care_you_provide.G1TheirPersonalDetails.submit(request)
-      redirectLocation(result) must beSome("/careYouProvide/theirContactDetails")
-    }
-  }
-
-*/
   val title = "Mr"
   val firstName = "John"
   val middleName = "Mc"
@@ -105,5 +83,13 @@ class G1YourPartnerPersonalDetailsSpec extends Specification {
       val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
+    
+    "redirect to the next page after a valid submission" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
+
+      val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
+      status(result) mustEqual SEE_OTHER
+    }.pendingUntilFixed("requires next view to exist")
   }
 }
