@@ -21,6 +21,11 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
+    "contain the completed forms" in new WithBrowser {
+      FormHelper.fillYourPartnerPersonalDetails(browser)
+      browser.find("div[class=completed] ul li").size() mustEqual 1
+    }
+
     "be prepopulated if they live at same address" in new WithBrowser {
       FormHelper.fillYourContactDetails(browser)
       FormHelper.fillYourPartnerPersonalDetails(browser)
@@ -53,19 +58,19 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
       FormHelper.fillYourPartnerContactDetails(browser)
       browser.title mustEqual "More About Your Partner - Your Partner"
     }
-//
-//    "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {
-//      FormHelper.fillTheirContactDetails(browser)
-//      browser.click("#backButton")
-//      browser.find("#address_lineOne").getValue mustEqual "Their Address"
-//      browser.click("#backButton")
-//      FormHelper.fillYourContactDetails(browser)
-//      FormHelper.fillTheirPersonalDetails(browser)
-//
-//      browser.title mustEqual "Their Contact Details - Care You Provide"
-//      browser.find("#address_lineOne").getValue mustEqual "My Address"
-//      browser.find("#postcode").getValue mustEqual "SE1 6EH"
-//    }
+
+    "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {
+      FormHelper.fillYourPartnerContactDetails(browser)
+      browser.click("#backButton")
+      browser.find("#address_lineOne").getValue mustEqual "Partner Address"
+      browser.click("#backButton")
+      FormHelper.fillYourContactDetails(browser)
+      FormHelper.fillYourPartnerPersonalDetails(browser)
+
+      browser.title mustEqual "Contact Details - Your Partner"
+      browser.find("#address_lineOne").getValue mustEqual "My Address"
+      browser.find("#postcode").getValue mustEqual "SE1 6EH"
+    }
   }
 
 }
