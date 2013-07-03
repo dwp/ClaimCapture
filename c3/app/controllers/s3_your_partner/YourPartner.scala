@@ -8,7 +8,8 @@ import scala.collection.immutable.ListMap
 object YourPartner extends Controller with CachedClaim {
   val route: ListMap[String, Call] = ListMap(
     G1YourPartnerPersonalDetails,
-    G2YourPartnerContactDetails)
+    G2YourPartnerContactDetails,
+    G3MoreAboutYourPartner)
 
 
   def yourPartner = claiming {

@@ -1,20 +1,17 @@
 package controllers.s3_your_partner
 
-import controllers.Mappings.dayMonthYear
-import controllers.Mappings.nino
-import controllers.Mappings.sixty
-import controllers.Mappings.validDate
-import controllers.Mappings.validNinoOnly
-import controllers.Routing
+import models.domain.Claim
+import controllers.{Routing}
+import controllers.Mappings._
 import models.domain.MoreAboutYourPartner
-import models.domain.YourPartnerPersonalDetails
 import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms.mapping
 import play.api.data.Forms.nonEmptyText
-import play.api.data.Forms.optional
-import play.api.data.Forms.text
+import play.api.data.Form
+import play.api.data.Forms._
 import play.api.mvc.Controller
+import utils.helpers.CarersForm.formBinding
 
 object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
 
@@ -26,6 +23,9 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
       "separatedFromPartner" -> nonEmptyText
     )(MoreAboutYourPartner.apply)(MoreAboutYourPartner.unapply))
 
+
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.YourPartner.id).filter(q => q.id < MoreAboutYourPartner.id)
+
   def present = claiming {
     implicit claim => implicit request =>
 
@@ -34,13 +34,13 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
         case _ => form
       }
 
-      Ok(views.html.s3_your_partner.g3_moreAboutYourPartner(currentForm))
+      Ok(views.html.s3_your_partner.g3_moreAboutYourPartner(currentForm, completedQuestionGroups))
   }
 
   def submit = claiming {
     implicit claim => implicit request =>
-
-      Ok("submit")
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.s3_your_partner.g3_moreAboutYourPartner(formWithErrors, completedQuestionGroups)),
+        f => claim.update(f) -> Ok("submit"))//Redirect(controllers.s3_your_partner.routes.G3MoreAboutYourPartner.present))
   }
-
 }

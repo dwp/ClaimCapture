@@ -5,6 +5,7 @@ import play.api.test.WithBrowser
 import java.util.concurrent.TimeUnit
 
 class G11BreakIntegrationSpec extends Specification with Tags {
+
   class BreakWithBrowser extends WithBrowser {
     def titleMustEqual(title: String) = {
       browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {

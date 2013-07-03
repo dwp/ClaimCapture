@@ -17,24 +17,26 @@ object G2ContactDetails extends Controller with Routing with CachedClaim {
     mapping(
       "address" -> address.verifying(requiredAddress),
       "postcode" -> optional(text verifying validPostcode),
-      "phoneNumber" -> optional(text verifying pattern("""[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid")),
+      "phoneNumber" -> optional(text verifying pattern( """[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid")),
       "mobileNumber" -> optional(text)
     )(ContactDetails.apply)(ContactDetails.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(_.id != ContactDetails.id)
 
-  def present = claiming { implicit claim => implicit request =>
-    val contactDetailsForm: Form[ContactDetails] = claim.questionGroup(ContactDetails.id) match {
-      case Some(c: ContactDetails) => form.fill(c)
-      case _ => form
-    }
+  def present = claiming {
+    implicit claim => implicit request =>
+      val contactDetailsForm: Form[ContactDetails] = claim.questionGroup(ContactDetails.id) match {
+        case Some(c: ContactDetails) => form.fill(c)
+        case _ => form
+      }
 
-    Ok(views.html.s2_about_you.g2_contactDetails(contactDetailsForm, completedQuestionGroups))
+      Ok(views.html.s2_about_you.g2_contactDetails(contactDetailsForm, completedQuestionGroups))
   }
 
-  def submit = claiming { implicit claim => implicit request =>
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g2_contactDetails(formWithErrors, completedQuestionGroups)),
-      contactDetails => claim.update(contactDetails) -> Redirect(routes.G3TimeOutsideUK.present()))
+  def submit = claiming {
+    implicit claim => implicit request =>
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.s2_about_you.g2_contactDetails(formWithErrors, completedQuestionGroups)),
+        contactDetails => claim.update(contactDetails) -> Redirect(routes.G3TimeOutsideUK.present()))
   }
 }
