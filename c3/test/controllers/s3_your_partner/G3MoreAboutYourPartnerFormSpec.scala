@@ -1,7 +1,7 @@
 package controllers.s3_your_partner
 
 import org.specs2.mutable.Specification
-import models.{NationalInsuranceNumber, DayMonthYear}
+import models.DayMonthYear
 import scala.Some
 
 class G3MoreAboutYourPartnerFormSpec extends Specification {
@@ -9,7 +9,7 @@ class G3MoreAboutYourPartnerFormSpec extends Specification {
   val dateStartedLivingTogetherMonth = 12
   val dateStartedLivingTogetherYear = 1990
   val separatedFromPartner = "yes"
-    
+
   "More About Your Partner Form" should {
     "map data into case class" in {
       G3MoreAboutYourPartner.form.bind(
@@ -27,7 +27,7 @@ class G3MoreAboutYourPartnerFormSpec extends Specification {
         }
       )
     }
-    
+
     "have 2 mandatory fields" in {
       G3MoreAboutYourPartner.form.bind(
         Map("foo" -> "bar")

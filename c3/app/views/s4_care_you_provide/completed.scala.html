@@ -3,33 +3,35 @@
 @import helper._
 
 @common.govMain("Completed - Care You Provide") {
-    <div id="wrapper" class="carers-allowance">
-        <div class="carers-container">
-            <section>
-                <header>
-                    <h1>About the care you provide</h1>
-                </header>
+<div id="wrapper" class="carers-allowance">
+    <div class="carers-container">
+        <section>
+            <header>
+                <h1>About the care you provide</h1>
+            </header>
 
-                @if(completedQuestionGroups.size > 0) {
-                    <div class="completed">
-                        <ul>
-                            @for(completedQuestionGroup <- completedQuestionGroups) {
-                            <li>
-                                <h3>@Messages(completedQuestionGroup.id)</h3>
-                                <a href="@controllers.s4_care_you_provide.CareYouProvide.route(completedQuestionGroup.id)">Change these answers</a>
-                            </li>
-                            }
-                        </ul>
-                    </div>
-                }
+            @if(completedQuestionGroups.size > 0) {
+            <div class="completed">
+                <ul>
+                    @for(completedQuestionGroup <- completedQuestionGroups) {
+                    <li>
+                        <h3>@Messages(completedQuestionGroup.id)</h3>
+                        <a href="@controllers.s4_care_you_provide.CareYouProvide.route(completedQuestionGroup.id)">Change
+                            these answers</a>
+                    </li>
+                    }
+                </ul>
+            </div>
+            }
 
-                @form(action = controllers.s4_care_you_provide.routes.CareYouProvide.submit) {
-                    <div class="form-steps">
-                        <a href="@controllers.s4_care_you_provide.routes.G10BreaksInCare.present" class="button secondary">Back</a>
-                        <button type="submit" name="action" value="next" class="button">Continue to Time Spent Abroad</button>
-                    </div>
-                }
-            </section>
-        </div>
+            @form(action = controllers.s4_care_you_provide.routes.CareYouProvide.submit) {
+            <div class="form-steps">
+                <a href="@controllers.s4_care_you_provide.routes.G10BreaksInCare.present"
+                   class="button secondary">Back</a>
+                <button type="submit" name="action" value="next" class="button">Continue to Time Spent Abroad</button>
+            </div>
+            }
+        </section>
     </div>
+</div>
 }

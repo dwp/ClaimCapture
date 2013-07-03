@@ -1,19 +1,13 @@
 package controllers.s3_your_partner
 
-import controllers.Mappings.dayMonthYear
-import controllers.Mappings.nino
-import controllers.Mappings.sixty
-import controllers.Mappings.validDate
-import controllers.Mappings.validNinoOnly
-import controllers.Routing
+import models.domain.Claim
+import controllers.{Routing}
+import controllers.Mappings._
 import models.domain.MoreAboutYourPartner
-import models.domain.YourPartnerPersonalDetails
 import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms.mapping
 import play.api.data.Forms.nonEmptyText
-import play.api.data.Forms.optional
-import play.api.data.Forms.text
 import play.api.mvc.Controller
 
 object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
@@ -26,10 +20,13 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
       "separatedFromPartner" -> nonEmptyText
     )(MoreAboutYourPartner.apply)(MoreAboutYourPartner.unapply))
 
+
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.YourPartner.id).filter(q => q.id < MoreAboutYourPartner.id)
+
   def present = claiming {
     implicit claim => implicit request =>
 
-      Ok("present")
+      Ok(views.html.s3_your_partner.g3_moreAboutYourPartner(form, completedQuestionGroups))
   }
 
   def submit = claiming {

@@ -106,6 +106,32 @@ object FormHelper {
     browser.click("#liveAtSameAddress_yes]")
     browser.submit("button[type='submit']")
   }
+
+  def fillYourPartnerPersonalDetailsNotLiveAtSameAddress(browser:TestBrowser) = {
+    browser.goTo("/yourPartner/personalDetails")
+    browser.click("#title option[value='mr']")
+    browser.fill("#firstName") `with` "John"
+    browser.fill("#middleName") `with` "Dave"
+    browser.fill("#surname") `with` "Appleseed"
+    browser.fill("#otherNames") `with` "Roberts"
+    browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
+    browser.fill("#nationalInsuranceNumber_ni2") `with` "12"
+    browser.fill("#nationalInsuranceNumber_ni3") `with` "34"
+    browser.fill("#nationalInsuranceNumber_ni4") `with` "56"
+    browser.fill("#nationalInsuranceNumber_ni5") `with` "C"
+    browser.click("#dateOfBirth_day option[value='3']")
+    browser.click("#dateOfBirth_month option[value='4']")
+    browser.fill("#dateOfBirth_year") `with` "1950"
+    browser.click("#liveAtSameAddress_no]")
+    browser.submit("button[type='submit']")
+  }
+
+  def fillYourPartnerContactDetails(browser: TestBrowser) = {
+    browser.goTo("/yourPartner/contactDetails")
+    browser.fill("#address_lineOne") `with` "My Address"
+    browser.fill("#postcode") `with` "SE1 6EH"
+    browser.submit("button[type='submit']")
+  }
     
   // Care You Provide
   def fillTheirPersonalDetails(browser: TestBrowser) = {
