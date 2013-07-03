@@ -6,9 +6,15 @@ import java.util.concurrent.TimeUnit
 
 class G11BreakIntegrationSpec extends Specification with Tags {
   class BreakWithBrowser extends WithBrowser {
+    def titleMustEqual(title: String) = {
+      browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
+        browser.title mustEqual title
+      }
+    }
+
     def break() {
       browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
-        browser.title() mustEqual "Break - Care You Provide"
+        browser.title mustEqual "Break - Care You Provide"
       }
 
       browser.click("#start_day option[value='1']")
@@ -25,17 +31,14 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.click("#medicalDuringBreak_no")
 
       browser.submit("button[value='next']")
-
-      browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
-        browser.title() mustEqual "Breaks in Care - Care You Provide"
-      }
+      titleMustEqual("Breaks in Care - Care You Provide")
     }
   }
 
   "Break" should {
     "be presented" in new WithBrowser {
       browser.goTo("/careYouProvide/break")
-      browser.title() mustEqual "Break - Care You Provide"
+      browser.title mustEqual "Break - Care You Provide"
     }
 
     """present "completed" when no more breaks are required""" in new WithBrowser {
@@ -44,7 +47,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.click("#answer_no")
       browser.submit("button[value='next']")
 
-      browser.pageSource() must contain("Completed - Care You Provide")
+      browser.pageSource must contain("Completed - Care You Provide")
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new WithBrowser {
@@ -129,13 +132,13 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       break()
 
       browser.findFirst("input[value='Edit']").click()
-      browser.title() mustEqual "Break - Care You Provide"
+      titleMustEqual("Break - Care You Provide")
       browser.$("#start_year").getValue mustEqual 2001.toString
 
       browser.fill("#start_year") `with` "1999"
       browser.submit("button[type='submit']")
+      titleMustEqual("Breaks in Care - Care You Provide")
 
-      browser.title() mustEqual "Breaks in Care - Care You Provide"
       browser.$("tbody tr").size() mustEqual 2
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
     }

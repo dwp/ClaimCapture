@@ -9,7 +9,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
   "Their Contact Details" should {
     "be presented" in new WithBrowser {
       browser.goTo("/careYouProvide/theirContactDetails")
-      browser.title() mustEqual "Their Contact Details - Care You Provide"
+      browser.title mustEqual "Their Contact Details - Care You Provide"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -21,7 +21,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
     "be prepopulated if they live at same address" in new WithBrowser {
       FormHelper.fillYourContactDetails(browser)
       FormHelper.fillTheirPersonalDetails(browser)
-      browser.title() mustEqual "Their Contact Details - Care You Provide"
+      browser.title mustEqual "Their Contact Details - Care You Provide"
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
@@ -42,12 +42,12 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
     "navigate back to Their Personal Details" in new WithBrowser {
       browser.goTo("/careYouProvide/theirContactDetails")
       browser.click("#backButton")
-      browser.title() mustEqual "Their Personal Details - Care You Provide"
+      browser.title mustEqual "Their Personal Details - Care You Provide"
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
       FormHelper.fillTheirContactDetails(browser)
-      browser.title() mustEqual "More About The Person You Care For - Care You Provide"
+      browser.title mustEqual "More About The Person You Care For - Care You Provide"
     }
 
     "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {
@@ -58,7 +58,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       FormHelper.fillYourContactDetails(browser)
       FormHelper.fillTheirPersonalDetails(browser)
 
-      browser.title() mustEqual "Their Contact Details - Care You Provide"
+      browser.title mustEqual "Their Contact Details - Care You Provide"
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }

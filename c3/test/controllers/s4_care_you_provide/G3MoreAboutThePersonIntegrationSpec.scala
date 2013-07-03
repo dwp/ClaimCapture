@@ -9,7 +9,7 @@ class G3MoreAboutThePersonIntegrationSpec extends Specification with Tags {
   "More About The Person" should {
     "be presented" in new WithBrowser {
       browser.goTo("/careYouProvide/moreAboutThePerson")
-      browser.title() mustEqual "More About The Person You Care For - Care You Provide"
+      browser.title mustEqual "More About The Person You Care For - Care You Provide"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -21,7 +21,7 @@ class G3MoreAboutThePersonIntegrationSpec extends Specification with Tags {
     "navigate back to Their Contact Details" in new WithBrowser {
       FormHelper.fillTheirContactDetails(browser)
       browser.click("#backButton")
-      browser.title() mustEqual "Their Contact Details - Care You Provide"
+      browser.title mustEqual "Their Contact Details - Care You Provide"
     }
 
     "contain the completed forms" in new WithBrowser {
@@ -32,12 +32,12 @@ class G3MoreAboutThePersonIntegrationSpec extends Specification with Tags {
 
     "navigate to Previous Carer Details when submitting with claimedAllowanceBefore positive" in new WithBrowser {
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide"
+      browser.title mustEqual "Details Of The Person Who Claimed Before - Care You Provide"
     }
 
     "navigate to Representatives For The Person when submitting with claimedAllowanceBefore negative" in new WithBrowser {
       FormHelper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
-      browser.title() mustEqual "Representatives For The Person - Care You Provide"
+      browser.title mustEqual "Representatives For The Person - Care You Provide"
     }
   } section "integration"
 }
