@@ -30,10 +30,10 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       browser.click("#backButton")
       browser.title mustEqual "Completion - About You"
     }
-/*
+
     "contain the completed forms" in new WithBrowser {
-      FormHelper.fillTheirPersonalDetails(browser)
+      FormHelper.fillYourPartnerPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
-    }*/
+    }.pendingUntilFixed("when view S3G2 is created")
   } section "integration"
 }
