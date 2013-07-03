@@ -22,10 +22,14 @@
                 @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.sixty)
 
                 @carersInputText(currentForm("surname"), 'maxLength -> Mappings.sixty)
+                
+                @carersInputText(currentForm("otherNames"), 'maxLength -> Mappings.sixty)
 
                 @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
 
                 @inputDayMonthYear(currentForm("dateOfBirth"), 'helperBelow-> Messages("dateOfBirth.helper"))
+                
+                @carersInputText(currentForm("nationality"), 'maxLength -> Mappings.sixty)
 
                 @yesNoRadioGroup(currentForm("liveAtSameAddress"))
             </ul>

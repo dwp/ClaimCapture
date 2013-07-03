@@ -3,28 +3,28 @@ package controllers.s3_your_partner
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.FormHelper
+import org.specs2.execute.PendingUntilFixed
 
-class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags {
+class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags with PendingUntilFixed {
 
   "Your Partner Personal Details" should {
     "be presented" in new WithBrowser {
       browser.goTo("/yourPartner/personalDetails")
       browser.title mustEqual "Personal Details - Your Partner"
     }
-/*
+
     "contain errors on invalid submission" in new WithBrowser {
-      browser.goTo("/careYouProvide/theirPersonalDetails")
-      browser.title mustEqual "Their Personal Details - Care You Provide"
+      browser.goTo("/yourPartner/personalDetails")
       browser.submit("button[type='submit']")
 
       browser.find("div[class=validation-summary] ol li").size mustEqual 5
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
-      FormHelper.fillTheirPersonalDetails(browser)
-      browser.title mustEqual "Their Contact Details - Care You Provide"
-    }
-
+      FormHelper.fillYourPartnerPersonalDetails(browser)
+      browser.title mustEqual "Contact Details - Your Partner"
+    }.pendingUntilFixed("when view S3G2 is created")
+/*
     "navigate back to About You - Completed" in new WithBrowser {
       browser.goTo("/careYouProvide/theirPersonalDetails")
       browser.click(".form-steps a")
