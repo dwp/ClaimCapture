@@ -14,9 +14,8 @@ set_global_variables() {
   # We shall reapply them at the end of the script
   _OLDSPS4=${PS4}
   _PROCESS=$$ 
-  _DATABASENAME = ''
   # Info
-  _VERSION='0.1' 
+  _VERSION='1.0' 
   _LASTUPDATE='03/07/2013'  
   _NAMESCRIPT=$0 
   
@@ -73,7 +72,7 @@ function usage {
   print "  ${_NAMESCRIPT} -v"
   print "  Display the version number of the script.\n"
   print "  ${_NAMESCRIPT} -d carerstransactions_db"
-  print "  Connects to database carerstransactions_db, create table, install stored procedure and run smke test..\n"
+  print "  Connects to database carerstransactions_db, create table, install stored procedure and run smoke test..\n"
   stop_batch                 
 }  
 
