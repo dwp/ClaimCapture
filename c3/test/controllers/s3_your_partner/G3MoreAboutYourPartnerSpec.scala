@@ -46,15 +46,15 @@ class G3MoreAboutYourPartnerSpec extends Specification {
         }
       }
     }
-    /*
+    
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("foo" -> "bar")
 
-      val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
+      val result = controllers.s3_your_partner.G3MoreAboutYourPartner.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
-    
+    /*
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
