@@ -320,7 +320,8 @@
           margin-left: -1.5rem;
           border-left: 5px solid #df3034;
           position: relative;
-          overflow: hidden; }
+          overflow: hidden;
+          width: 102%; }
           .ie7 .carers-allowance .form-elements ul li.validation, .ie8 .carers-allowance .form-elements ul li.validation {
             margin-left: -15px; }
           @media screen and (max-width: 780px) {
@@ -331,7 +332,8 @@
             .carers-allowance .form-elements ul li.validation {
               margin-left: 0;
               padding-top: 1em;
-              padding-bottom: 1em; } }
+              padding-bottom: 1em;
+              width: auto; } }
           .carers-allowance .form-elements ul li.validation .error {
             color: #de3134;
             font-weight: 300;
@@ -466,12 +468,12 @@
             left: 1.2em;
             margin: 0;
             cursor: pointer; }
+            .ie .carers-allowance .form-elements ul.radio li input[type="radio"] {
+              left: 10px;
+              top: 28%; }
             .ie7 .carers-allowance .form-elements ul.radio li input[type="radio"] {
               left: 10px;
               top: 25%; }
-            .ie8 .carers-allowance .form-elements ul.radio li input[type="radio"] {
-              left: 10px;
-              top: 28%; }
             .carers-allowance .form-elements ul.radio li input[type="radio"]:focus {
               outline: none; }
           .carers-allowance .form-elements ul.radio li label {

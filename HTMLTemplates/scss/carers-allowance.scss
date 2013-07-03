@@ -354,12 +354,13 @@ $button-green-hover: #004b27;
 				   border-left: 5px solid #df3034;
 			       position: relative;
 			       overflow: hidden;
+			       width: 102%;
 			       .ie7 &, .ie8 & {
 				       margin-left: -15px;
 			       }
 
 			       @media screen and (max-width: 780px) {margin-left: -0.95em; padding-right: 0;}
-			       @media screen and (max-width: 500px) {margin-left: 0; padding-top: 1em; padding-bottom: 1em;} 
+			       @media screen and (max-width: 500px) {margin-left: 0; padding-top: 1em; padding-bottom: 1em; width: auto;} 
 			       .error {
 				       color: #de3134;
 				       font-weight: 300;
@@ -530,13 +531,14 @@ $button-green-hover: #004b27;
 						   left: 1.2em;
 						   margin: 0;
 						   cursor: pointer;
+
+						   .ie & {
+							   left: 10px;
+							   top: 28%;
+						   }
 						   .ie7 & {
 							   left: 10px;
 							   top: 25%;
-						   }
-						   .ie8 & {
-							   left: 10px;
-							   top: 28%;
 						   }
 					   &:focus {
 							   outline: none;
