@@ -54,13 +54,13 @@ class G3MoreAboutYourPartnerSpec extends Specification {
       val result = controllers.s3_your_partner.G3MoreAboutYourPartner.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
-    /*
+    
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
+        .withFormUrlEncodedBody(moreAboutYourPartnerInput: _*)
 
-      val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
+      val result = controllers.s3_your_partner.G3MoreAboutYourPartner.submit(request)
       status(result) mustEqual SEE_OTHER
-    }*/
+    }
   }
 }

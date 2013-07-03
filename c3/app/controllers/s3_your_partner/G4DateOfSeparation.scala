@@ -13,9 +13,9 @@ import play.api.data.Forms._
 import play.api.mvc.Controller
 import utils.helpers.CarersForm.formBinding
 
-object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
+object G4DateOfSeparation extends Controller with Routing with CachedClaim {
 
-  override val route = MoreAboutYourPartner.id -> routes.G3MoreAboutYourPartner.present
+  override val route = MoreAboutYourPartner.id -> routes.G4DateOfSeparation.present
 
   val form = Form(
     mapping(
@@ -40,7 +40,7 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
   def submit = claiming {
     implicit claim => implicit request =>
       form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s3_your_partner.g3_moreAboutYourPartner(formWithErrors, completedQuestionGroups)),
-        f => claim.update(f) -> Redirect(routes.G4DateOfSeparation.present))
+        formWithErrors => ???,//BadRequest(views.html.s3_your_partner.g3_moreAboutYourPartner(formWithErrors, completedQuestionGroups)),
+        f => claim.update(f) -> ???)//Redirect(controllers.s4_your_partner.routes.G4DateOfSeparation.present))
   }
 }

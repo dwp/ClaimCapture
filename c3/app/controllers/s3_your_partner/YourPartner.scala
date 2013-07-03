@@ -9,7 +9,8 @@ object YourPartner extends Controller with CachedClaim {
   val route: ListMap[String, Call] = ListMap(
     G1YourPartnerPersonalDetails,
     G2YourPartnerContactDetails,
-    G3MoreAboutYourPartner)
+    G3MoreAboutYourPartner,
+    G4DateOfSeparation)
 
 
   def yourPartner = claiming {
