@@ -25,20 +25,20 @@ object G4PreviousCarerPersonalDetails extends Controller with Routing with Cache
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PreviousCarerPersonalDetails)
 
   def present = claiming { implicit claim => implicit request =>
-    val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson.id) match {
+    val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson) match {
       case Some(m: MoreAboutThePerson) => m.claimedAllowanceBefore == Mappings.yes
       case _ => false
     }
 
     if (claimedAllowanceBefore) {
-      val currentForm = claim.questionGroup(PreviousCarerPersonalDetails.id) match {
+      val currentForm = claim.questionGroup(PreviousCarerPersonalDetails) match {
         case Some(p: PreviousCarerPersonalDetails) => form.fill(p)
         case _ => form
       }
 
       Ok(views.html.s4_care_you_provide.g4_previousCarerPersonalDetails(currentForm, completedQuestionGroups))
     } else {
-      claim.delete(PreviousCarerPersonalDetails.id) -> Redirect(routes.G5PreviousCarerContactDetails.present())
+      claim.delete(PreviousCarerPersonalDetails) -> Redirect(routes.G5PreviousCarerContactDetails.present())
     }
   }
 

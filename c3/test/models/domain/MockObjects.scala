@@ -1,6 +1,4 @@
-package models.view
-
-import models.domain._
+package models.domain
 
 object MockObjects {
 

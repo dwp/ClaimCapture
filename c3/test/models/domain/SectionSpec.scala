@@ -1,7 +1,6 @@
-package models.view
+package models.domain
 
 import org.specs2.mutable.Specification
-import models.domain.{Section, QuestionGroup, Hours}
 
 class SectionSpec extends Specification {
 

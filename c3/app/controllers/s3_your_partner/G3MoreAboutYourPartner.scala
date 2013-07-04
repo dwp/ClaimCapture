@@ -25,7 +25,7 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutYourPartner)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[MoreAboutYourPartner] = claim.questionGroup(MoreAboutYourPartner.id) match {
+    val currentForm: Form[MoreAboutYourPartner] = claim.questionGroup(MoreAboutYourPartner) match {
       case Some(t: MoreAboutYourPartner) => form.fill(t)
       case _ => form
     }
@@ -36,6 +36,6 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s3_your_partner.g3_moreAboutYourPartner(formWithErrors, completedQuestionGroups)),
-      f => claim.update(f) -> Redirect(routes.G4DateOfSeparation.present))
+      f => claim.update(f) -> Redirect(routes.G4DateOfSeparation.present()))
   }
 }

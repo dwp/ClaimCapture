@@ -35,7 +35,7 @@ object G1YourPartnerPersonalDetails extends Controller with Routing with CachedC
 
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[YourPartnerPersonalDetails] = claim.questionGroup(YourPartnerPersonalDetails.id) match {
+    val currentForm: Form[YourPartnerPersonalDetails] = claim.questionGroup(YourPartnerPersonalDetails) match {
       case Some(t: YourPartnerPersonalDetails) => form.fill(t)
       case _ => form
     }
@@ -46,6 +46,6 @@ object G1YourPartnerPersonalDetails extends Controller with Routing with CachedC
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
-      f => claim.update(f) -> Redirect(routes.G2YourPartnerContactDetails.present))
+      f => claim.update(f) -> Redirect(routes.G2YourPartnerContactDetails.present()))
   }
 }

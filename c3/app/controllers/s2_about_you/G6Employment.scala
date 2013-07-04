@@ -20,12 +20,12 @@ object G6Employment extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Employment)
 
   def present = claiming { implicit claim => implicit request =>
-    val employmentForm: Form[Employment] = claim.questionGroup(Employment.id) match {
+    val employmentForm: Form[Employment] = claim.questionGroup(Employment) match {
       case Some(e: Employment) => form.fill(e)
       case _ => form
     }
 
-    claim.questionGroup(models.domain.ClaimDate.id) match {
+    claim.questionGroup(ClaimDate) match {
       case Some(n) => Ok(views.html.s2_about_you.g6_employment(employmentForm, completedQuestionGroups))
       case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
     }

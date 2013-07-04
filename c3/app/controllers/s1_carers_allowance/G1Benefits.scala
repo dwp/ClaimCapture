@@ -17,13 +17,13 @@ object G1Benefits extends Controller with Routing with CachedClaim {
     )(Benefits.apply)(Benefits.unapply))
 
   def present = newClaim { implicit claim => implicit request =>
-    if (CarersAllowance.claiming(Benefits.id, claim)) Ok(views.html.s1_carers_allowance.g1_benefits(confirmed = true))
+    if (CarersAllowance.claiming(Benefits, claim)) Ok(views.html.s1_carers_allowance.g1_benefits(confirmed = true))
     else Ok(views.html.s1_carers_allowance.g1_benefits(confirmed = false))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => Redirect(routes.G1Benefits.present),
-      benefits => claim.update(benefits) -> Redirect(routes.G2Hours.present))
+      formWithErrors => Redirect(routes.G1Benefits.present()),
+      benefits => claim.update(benefits) -> Redirect(routes.G2Hours.present()))
   }
 }

@@ -4,24 +4,24 @@ import models.domain._
 
 object CareYouProvideSubmission {
 
-  private def getQuestionGroup[T](claim:Claim,id: String) = {
-    claim.questionGroup(id).asInstanceOf[Option[T]].get
+  private def getQuestionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
+    claim.questionGroup(questionGroup).asInstanceOf[Option[T]].get
   }
-  private def questionGroup[T](claim:Claim,id: String) = {
-    claim.questionGroup(id).asInstanceOf[Option[T]]
+  private def questionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
+    claim.questionGroup(questionGroup).asInstanceOf[Option[T]]
   }
 
   def buildCareYouProvide(claim: Claim) = {
-    val theirPersonalDetails =          getQuestionGroup[TheirPersonalDetails](claim,TheirPersonalDetails.id)
-    val theirContactDetails =           getQuestionGroup[TheirContactDetails](claim,TheirContactDetails.id)
-    val moreAboutThePerson =            getQuestionGroup[MoreAboutThePerson](claim,MoreAboutThePerson.id)
-    val previousCarerContactDetails =   questionGroup[PreviousCarerContactDetails](claim,PreviousCarerContactDetails.id)
-    val previousCarerPersonalDetails =  questionGroup[PreviousCarerPersonalDetails](claim,PreviousCarerPersonalDetails.id)
-    val representatives =               getQuestionGroup[RepresentativesForPerson](claim,RepresentativesForPerson.id)
-    val moreAboutTheCare =              getQuestionGroup[MoreAboutTheCare](claim,MoreAboutTheCare.id)
-    val oneWhoPays =                    questionGroup[OneWhoPaysPersonalDetails](claim,OneWhoPaysPersonalDetails.id)
-    val contactDetailsPayingPerson =    questionGroup[ContactDetailsOfPayingPerson](claim,ContactDetailsOfPayingPerson.id)
-    val breaksInCare =                  getQuestionGroup[BreaksInCare](claim,BreaksInCare.id)
+    val theirPersonalDetails =          getQuestionGroup[TheirPersonalDetails](claim, TheirPersonalDetails)
+    val theirContactDetails =           getQuestionGroup[TheirContactDetails](claim, TheirContactDetails)
+    val moreAboutThePerson =            getQuestionGroup[MoreAboutThePerson](claim, MoreAboutThePerson)
+    val previousCarerContactDetails =   questionGroup[PreviousCarerContactDetails](claim, PreviousCarerContactDetails)
+    val previousCarerPersonalDetails =  questionGroup[PreviousCarerPersonalDetails](claim, PreviousCarerPersonalDetails)
+    val representatives =               getQuestionGroup[RepresentativesForPerson](claim, RepresentativesForPerson)
+    val moreAboutTheCare =              getQuestionGroup[MoreAboutTheCare](claim, MoreAboutTheCare)
+    val oneWhoPays =                    questionGroup[OneWhoPaysPersonalDetails](claim, OneWhoPaysPersonalDetails)
+    val contactDetailsPayingPerson =    questionGroup[ContactDetailsOfPayingPerson](claim, ContactDetailsOfPayingPerson)
+    val breaksInCare =                  getQuestionGroup[BreaksInCare](claim, BreaksInCare)
 
     CareYouProvide(theirPersonalDetails,theirContactDetails,moreAboutThePerson,representatives,previousCarerContactDetails,previousCarerPersonalDetails,moreAboutTheCare,oneWhoPays,contactDetailsPayingPerson,breaksInCare)
   }

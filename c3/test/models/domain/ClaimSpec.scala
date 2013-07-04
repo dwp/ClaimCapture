@@ -1,9 +1,6 @@
-package models.view
+package models.domain
 
 import org.specs2.mutable.Specification
-import models.domain._
-import models.domain.Claim
-import scala.Some
 
 class ClaimSpec extends Specification {
 
@@ -54,22 +51,18 @@ class ClaimSpec extends Specification {
 
     "return the correct form" in {
       val claim = MockObjects.claim
-      val formId = LivesInGB.id
-      val formOption = claim.questionGroup(formId)
+      val formOption = claim.questionGroup(LivesInGB)
 
       formOption must beLike {
-        case Some(form: QuestionGroup) => form.id mustEqual formId
+        case Some(qg: QuestionGroup) => qg.id mustEqual LivesInGB.id
       }
     }
 
     "delete a question group from section" in {
       val claim = MockObjects.claim
-      val formId = LivesInGB.id
-
-      val c = claim.delete(formId)
-      claim.questionGroup(formId) must be
-      c.questionGroup(formId) must beNone
-
+      val c = claim.delete(LivesInGB)
+      claim.questionGroup(LivesInGB) must be
+      c.questionGroup(LivesInGB) must beNone
     }
   }
 }

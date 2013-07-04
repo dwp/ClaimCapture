@@ -20,7 +20,7 @@ object G4ClaimDate extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ClaimDate)
 
   def present = claiming { implicit claim => implicit request =>
-    val claimDateForm: Form[ClaimDate] = claim.questionGroup(ClaimDate.id) match {
+    val claimDateForm: Form[ClaimDate] = claim.questionGroup(ClaimDate) match {
       case Some(c: ClaimDate) => form.fill(c)
       case _ => form
     }

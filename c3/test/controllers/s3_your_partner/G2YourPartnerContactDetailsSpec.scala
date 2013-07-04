@@ -2,10 +2,9 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.Specification
 import play.api.test.{FakeRequest, WithApplication}
-import models.view.Claiming
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.domain.{YourPartnerContactDetails, Section, Claim}
+import models.domain.{Claiming, YourPartnerContactDetails, Section, Claim}
 import models.{MultiLineAddress, domain}
 
 class G2YourPartnerContactDetailsSpec extends Specification {

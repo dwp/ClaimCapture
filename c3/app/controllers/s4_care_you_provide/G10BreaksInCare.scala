@@ -20,7 +20,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(BreaksInCare)
 
   def present = claiming { implicit claim => implicit request =>
-    val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
+    val breaksInCare = claim.questionGroup(BreaksInCare) match {
       case Some(b: BreaksInCare) => b
       case _ => BreaksInCare()
     }
@@ -29,7 +29,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
+    val breaksInCare = claim.questionGroup(BreaksInCare) match {
       case Some(b: BreaksInCare) => b
       case _ => BreaksInCare()
     }
@@ -46,7 +46,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
   def delete(id: String) = claiming { implicit claim => implicit request =>
     import play.api.libs.json.Json
 
-    claim.questionGroup(BreaksInCare.id) match {
+    claim.questionGroup(BreaksInCare) match {
       case Some(b: BreaksInCare) => {
         val updatedBreaksInCare = b.delete(id)
         val dateOfClaim = claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.ddMMyyyy)

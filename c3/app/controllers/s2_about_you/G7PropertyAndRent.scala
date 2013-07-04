@@ -20,12 +20,12 @@ object G7PropertyAndRent extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PropertyAndRent)
 
   def present = claiming { implicit claim => implicit request =>
-    val propertyAndRentForm: Form[PropertyAndRent] = claim.questionGroup(PropertyAndRent.id) match {
+    val propertyAndRentForm: Form[PropertyAndRent] = claim.questionGroup(PropertyAndRent) match {
       case Some(p: PropertyAndRent) => form.fill(p)
       case _ => form
     }
 
-    claim.questionGroup(models.domain.ClaimDate.id) match {
+    claim.questionGroup(models.domain.ClaimDate) match {
       case Some(n) => Ok(views.html.s2_about_you.g7_propertyAndRent(propertyAndRentForm, completedQuestionGroups))
       case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
     }
