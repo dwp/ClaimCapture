@@ -14,7 +14,7 @@ class ClaimSpec extends Specification with Mockito {
       val claim = Claim()
       val questionGroup = Benefits()
       val updatedClaim = claim.update(questionGroup)
-      val sectionID = Section.sectionID(questionGroup.id)
+      val sectionID = Section.sectionID(questionGroup)
       val sectionOption = updatedClaim.section(sectionID)
 
       sectionOption must beLike {
@@ -33,7 +33,7 @@ class ClaimSpec extends Specification with Mockito {
       val claimWithFalseQuestionGroup = claim.update(falseQuestionGroup)
       val claimWithTrueQuestionGroup = claimWithFalseQuestionGroup.update(trueQuestionGroup)
 
-      val sectionID = Section.sectionID(trueQuestionGroup.id)
+      val sectionID = Section.sectionID(trueQuestionGroup)
       val sectionOption = claimWithTrueQuestionGroup.section(sectionID)
       val section = sectionOption.get
 
