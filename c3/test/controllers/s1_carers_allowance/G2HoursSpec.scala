@@ -50,7 +50,7 @@ class G2HoursSpec extends Specification {
 
       section.questionGroups.size mustEqual 2
 
-      section.questionGroup(Hours.id) must beLike {
+      section.questionGroup(Hours) must beLike {
         case Some(f: Hours) => f.answer mustEqual true
       }
     }

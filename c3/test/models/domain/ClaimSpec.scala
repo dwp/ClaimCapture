@@ -1,20 +1,20 @@
 package models.domain
 
 import org.specs2.mutable.Specification
+import org.specs2.mock.Mockito
 
-class ClaimSpec extends Specification {
-
+class ClaimSpec extends Specification with Mockito {
   "Claim" should {
     "initially be empty" in {
       val newClaim = Claim()
       newClaim.sections.size mustEqual 0
     }
 
-    "contain the sectionId with the form after adding" in {
+    "contain the sectionId with the question group after adding" in {
       val claim = Claim()
-      val form = Benefits()
-      val updatedClaim = claim.update(form)
-      val sectionID = Section.sectionID(form.id)
+      val questionGroup = Benefits()
+      val updatedClaim = claim.update(questionGroup)
+      val sectionID = Section.sectionID(questionGroup.id)
       val sectionOption = updatedClaim.section(sectionID)
 
       sectionOption must beLike {
@@ -22,47 +22,48 @@ class ClaimSpec extends Specification {
       }
 
       val section = sectionOption.get
-      section.questionGroup(form.id) must beSome(Benefits(answer = false))
+      section.questionGroup(questionGroup) must beSome(Benefits(answer = false))
     }
 
-    "contain the sectionId with the form after updating" in {
+    "contain the sectionId with the question group after updating" in {
       val claim = Claim()
-      val trueForm = Benefits(answer = true)
-      val falseForm = Benefits(answer = false)
+      val trueQuestionGroup = Benefits(answer = true)
+      val falseQuestionGroup = Benefits(answer = false)
 
-      val claimWithFalseForm = claim.update(falseForm)
-      val claimWithTrueForm = claimWithFalseForm.update(trueForm)
+      val claimWithFalseQuestionGroup = claim.update(falseQuestionGroup)
+      val claimWithTrueQuestionGroup = claimWithFalseQuestionGroup.update(trueQuestionGroup)
 
-      val sectionID = Section.sectionID(trueForm.id)
-      val sectionOption = claimWithTrueForm.section(sectionID)
+      val sectionID = Section.sectionID(trueQuestionGroup.id)
+      val sectionOption = claimWithTrueQuestionGroup.section(sectionID)
       val section = sectionOption.get
 
-      section.questionGroup(trueForm.id) must beSome(Benefits(answer = true))
+      section.questionGroup(trueQuestionGroup) must beSome(Benefits(answer = true))
     }
 
     "return the correct section" in {
-      val claim = MockObjects.claim
-      val sectionOneOption = claim.section(CarersAllowance.id)
+      val claim = Claim().update(Benefits()).update(Hours()).update(LivesInGB()).update(Over16())
 
-      sectionOneOption must beLike {
+      claim.section(CarersAllowance.id) must beLike {
         case Some(section: Section) => section.id mustEqual CarersAllowance.id
       }
     }
 
-    "return the correct form" in {
-      val claim = MockObjects.claim
-      val formOption = claim.questionGroup(LivesInGB)
+    "return the correct question group" in {
+      val claim = Claim().update(Benefits()).update(Hours()).update(LivesInGB()).update(Over16())
 
-      formOption must beLike {
+      claim.questionGroup(LivesInGB) must beLike {
         case Some(qg: QuestionGroup) => qg.id mustEqual LivesInGB.id
       }
     }
 
     "delete a question group from section" in {
-      val claim = MockObjects.claim
-      val c = claim.delete(LivesInGB)
-      claim.questionGroup(LivesInGB) must be
-      c.questionGroup(LivesInGB) must beNone
+      val claim = Claim().update(Benefits()).update(Hours()).update(LivesInGB()).update(Over16())
+      claim.completedQuestionGroups(CarersAllowance.id).size mustEqual 4
+
+      val updatedClaim = claim.delete(LivesInGB)
+      updatedClaim.questionGroup(LivesInGB) must beNone
+      updatedClaim.completedQuestionGroups(CarersAllowance.id).size mustEqual 3
+      claim.completedQuestionGroups(CarersAllowance.id).size mustEqual 4
     }
   }
 }

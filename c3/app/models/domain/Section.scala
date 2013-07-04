@@ -1,8 +1,8 @@
 package models.domain
 
 case class Section(id: String, questionGroups: List[QuestionGroup]) {
-  def questionGroup(questionGroupID: String): Option[QuestionGroup] = {
-    questionGroups.find(qg => qg.id == questionGroupID)
+  def questionGroup(questionGroup: QuestionGroup): Option[QuestionGroup] = {
+    questionGroups.find(qg => qg.id == questionGroup.id)
   }
 }
 

@@ -7,7 +7,6 @@ import play.api.cache.Cache
 import models.domain.{Claiming, Claim, Section, TheirContactDetails}
 import models.domain
 import play.api.test.Helpers._
-import scala.Some
 
 class G2TheirContactDetailsSpec extends Specification with Mockito {
 
@@ -25,7 +24,7 @@ class G2TheirContactDetailsSpec extends Specification with Mockito {
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
-      section.questionGroup(TheirContactDetails.id) must beLike {
+      section.questionGroup(TheirContactDetails) must beLike {
         case Some(f: TheirContactDetails) => {
           f.address.lineOne mustEqual Some("123 Street")
           f.postcode mustEqual Some("PR2 8AE")

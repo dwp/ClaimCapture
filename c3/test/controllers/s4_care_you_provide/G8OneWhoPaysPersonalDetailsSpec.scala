@@ -9,7 +9,6 @@ import models.domain
 
 class G8OneWhoPaysPersonalDetailsSpec extends Specification {
 
-
   "G8OneWhoPaysPersonalDetails - Controller" should {
 
     "add 'one who pays personal details' to the cached claim" in new WithApplication with Claiming {
@@ -20,7 +19,7 @@ class G8OneWhoPaysPersonalDetailsSpec extends Specification {
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
-      section.questionGroup(OneWhoPaysPersonalDetails.id) must beLike {
+      section.questionGroup(OneWhoPaysPersonalDetails) must beLike {
         case Some(f: OneWhoPaysPersonalDetails) => {
           f.firstName mustEqual Some("John")
         }

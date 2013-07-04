@@ -9,7 +9,7 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     val sectionID = Section.sectionID(questionGroup.id)
 
     section(sectionID) match {
-      case Some(s: Section) => s.questionGroup(questionGroup.id)
+      case Some(s: Section) => s.questionGroup(questionGroup)
       case _ => None
     }
   }
