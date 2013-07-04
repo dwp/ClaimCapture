@@ -8,28 +8,28 @@ import models.domain.{Claiming, BreaksInCare, Claim}
 
 class G10BreaksInCareSpec extends Specification {
   "Breaks in care" should {
-    """present "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+    """present "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G10BreaksInCare.present(request)
       status(result) mustEqual OK
     }
 
-    """enforce answer to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+    """enforce answer to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G10BreaksInCare.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
-    """accept "yes" to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+    """accept "yes" to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "yes")
 
       val result = G10BreaksInCare.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/break")
     }
 
-    """accept "no" to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+    """accept "no" to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "no")
 
       val result = G10BreaksInCare.submit(request)
