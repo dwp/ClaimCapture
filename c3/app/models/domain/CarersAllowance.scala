@@ -1,21 +1,21 @@
 package models.domain
 
-object CarersAllowance {
+case object CarersAllowance {
   val id = "s1"
 }
 
 case class Benefits(answer: Boolean = false) extends QuestionGroup(Benefits.id) with BooleanConfirmation
 
-object Benefits extends QuestionGroup(s"${CarersAllowance.id}.g1")
+case object Benefits extends QuestionGroup(s"${CarersAllowance.id}.g1")
 
 case class Hours(answer: Boolean = false) extends QuestionGroup(Hours.id) with BooleanConfirmation
 
-object Hours extends QuestionGroup(s"${CarersAllowance.id}.g2")
+case object Hours extends QuestionGroup(s"${CarersAllowance.id}.g2")
 
 case class Over16(answer: Boolean = false) extends QuestionGroup(Over16.id) with BooleanConfirmation
 
-object Over16 extends QuestionGroup(s"${CarersAllowance.id}.g3")
+case object Over16 extends QuestionGroup(s"${CarersAllowance.id}.g3")
 
 case class LivesInGB(answer: Boolean = false) extends QuestionGroup(LivesInGB.id) with BooleanConfirmation
 
-object LivesInGB extends QuestionGroup(s"${CarersAllowance.id}.g4")
+case object LivesInGB extends QuestionGroup(s"${CarersAllowance.id}.g4")

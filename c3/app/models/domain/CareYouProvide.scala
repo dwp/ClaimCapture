@@ -9,7 +9,7 @@ case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails,theirContac
                           contactDetailsPayingPerson: Option[ContactDetailsOfPayingPerson],breaksInCare: BreaksInCare)
 
 
-object CareYouProvide {
+case object CareYouProvide {
   val id = "s4"
 }
 
@@ -17,46 +17,46 @@ case class TheirPersonalDetails(title: String, firstName: String, middleName: Op
                                 nationalInsuranceNumber: Option[NationalInsuranceNumber],
                                 dateOfBirth: DayMonthYear, liveAtSameAddress: String) extends QuestionGroup(TheirPersonalDetails.id)
 
-object TheirPersonalDetails extends QuestionGroup(s"${CareYouProvide.id}.g1")
+case object TheirPersonalDetails extends QuestionGroup(s"${CareYouProvide.id}.g1")
 
 case class TheirContactDetails(address: MultiLineAddress, postcode: Option[String], phoneNumber: Option[String] = None) extends QuestionGroup(TheirContactDetails.id)
 
-object TheirContactDetails extends QuestionGroup(s"${CareYouProvide.id}.g2")
+case object TheirContactDetails extends QuestionGroup(s"${CareYouProvide.id}.g2")
 
 case class MoreAboutThePerson(relationship:String, armedForcesPayment:Option[String], claimedAllowanceBefore:String) extends QuestionGroup(MoreAboutThePerson.id)
 
-object MoreAboutThePerson extends QuestionGroup(s"${CareYouProvide.id}.g3")
+case object MoreAboutThePerson extends QuestionGroup(s"${CareYouProvide.id}.g3")
 
 case class PreviousCarerPersonalDetails(firstName: Option[String], middleName: Option[String], surname: Option[String],
                                 nationalInsuranceNumber: Option[NationalInsuranceNumber],
                                 dateOfBirth: Option[DayMonthYear]) extends QuestionGroup(PreviousCarerPersonalDetails.id)
 
-object PreviousCarerPersonalDetails extends QuestionGroup(s"${CareYouProvide.id}.g4")
+case object PreviousCarerPersonalDetails extends QuestionGroup(s"${CareYouProvide.id}.g4")
 
 case class PreviousCarerContactDetails(address: Option[MultiLineAddress], postcode: Option[String], phoneNumber: Option[String] = None,
                                        mobileNumber: Option[String] = None) extends QuestionGroup(PreviousCarerContactDetails.id)
 
-object PreviousCarerContactDetails extends QuestionGroup(s"${CareYouProvide.id}.g5")
+case object PreviousCarerContactDetails extends QuestionGroup(s"${CareYouProvide.id}.g5")
 
 case class RepresentativesForPerson(actForPerson: String, actAs: Option[String],
                                     someoneElseActForPerson: String, someoneElseActAs: Option[String], someoneElseFullName: Option[String]) extends QuestionGroup(RepresentativesForPerson.id)
 
-object RepresentativesForPerson extends QuestionGroup(s"${CareYouProvide.id}.g6")
+case object RepresentativesForPerson extends QuestionGroup(s"${CareYouProvide.id}.g6")
 
 case class MoreAboutTheCare(spent35HoursCaring: String, spent35HoursCaringBeforeClaim: String,
                             careStartDate:Option[DayMonthYear], hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare.id)
 
-object MoreAboutTheCare extends QuestionGroup(s"${CareYouProvide.id}.g7")
+case object MoreAboutTheCare extends QuestionGroup(s"${CareYouProvide.id}.g7")
 
 case class OneWhoPaysPersonalDetails(organisation:Option[String] = None, title:Option[String] = None,
                                      firstName:Option[String] = None, middleName:Option[String] = None, surname:Option[String] = None,
                                      amount:Option[String] = None, startDatePayment:Option[DayMonthYear] = None) extends QuestionGroup(OneWhoPaysPersonalDetails.id)
 
-object OneWhoPaysPersonalDetails extends QuestionGroup(s"${CareYouProvide.id}.g8")
+case object OneWhoPaysPersonalDetails extends QuestionGroup(s"${CareYouProvide.id}.g8")
 
 case class ContactDetailsOfPayingPerson(address: Option[MultiLineAddress], postcode: Option[String]) extends QuestionGroup(ContactDetailsOfPayingPerson.id)
 
-object ContactDetailsOfPayingPerson extends QuestionGroup(s"${CareYouProvide.id}.g9")
+case object ContactDetailsOfPayingPerson extends QuestionGroup(s"${CareYouProvide.id}.g9")
 
 case class HasBreaks(answer: String)
 
@@ -70,7 +70,7 @@ case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksI
   def delete(breakID: String) = BreaksInCare(breaks.filterNot(_.id == breakID))
 }
 
-object BreaksInCare extends QuestionGroup(s"${CareYouProvide.id}.g10") {
+case object BreaksInCare extends QuestionGroup(s"${CareYouProvide.id}.g10") {
   def apply() = new BreaksInCare()
 }
 
