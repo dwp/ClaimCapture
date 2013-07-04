@@ -3,14 +3,11 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
 import play.api.test.{WithApplication, FakeRequest}
-import models.view.Claiming
 import play.api.cache.Cache
-import models.domain.Claim
+import models.domain.{Claiming, Claim, Section, TheirContactDetails}
 import models.domain
 import play.api.test.Helpers._
-import models.domain.Section
 import scala.Some
-import models.domain.TheirContactDetails
 
 class G2TheirContactDetailsSpec extends Specification with Mockito {
 

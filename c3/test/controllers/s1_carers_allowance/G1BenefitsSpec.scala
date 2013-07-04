@@ -5,7 +5,6 @@ import play.api.test.{WithApplication, FakeRequest}
 import play.api.test.Helpers._
 
 import play.api.cache.Cache
-import models.view._
 import java.util.concurrent.TimeUnit
 import models.domain._
 import models.domain.Claim
@@ -36,7 +35,7 @@ class G1BenefitsSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(Benefits.id) must beLike {
+      claim.questionGroup(Benefits) must beLike {
         case Some(f: Benefits) => f.answer mustEqual true
       }
     }
@@ -47,7 +46,7 @@ class G1BenefitsSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(Benefits.id) must beLike {
+      claim.questionGroup(Benefits) must beLike {
         case Some(f: Benefits) => f.answer mustEqual false
       }
     }

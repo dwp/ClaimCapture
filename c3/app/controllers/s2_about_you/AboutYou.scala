@@ -24,7 +24,7 @@ object AboutYou extends Controller with CachedClaim {
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    claim.questionGroup(YourDetails.id) match {
+    claim.questionGroup(YourDetails) match {
       case Some(y: YourDetails) if y.alwaysLivedUK == "no" && completedQuestionGroups.distinct.size == 7 =>
         Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
 

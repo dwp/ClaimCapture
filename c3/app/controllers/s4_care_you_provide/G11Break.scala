@@ -24,7 +24,7 @@ object G11Break extends Controller with CachedClaim {
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    val breaksInCare = claim.questionGroup(BreaksInCare.id) match {
+    val breaksInCare = claim.questionGroup(BreaksInCare) match {
       case Some(b: BreaksInCare) => b
       case _ => BreaksInCare()
     }
@@ -38,7 +38,7 @@ object G11Break extends Controller with CachedClaim {
   }
 
   def break(id: String) = claiming { implicit claim => implicit request =>
-    claim.questionGroup(BreaksInCare.id) match {
+    claim.questionGroup(BreaksInCare) match {
       case Some(b: BreaksInCare) => b.breaks.find(_.id == id) match {
         case Some(b: Break) => Ok(views.html.s4_care_you_provide.g11_break(form.fill(b)))
         case _ => Redirect(routes.G10BreaksInCare.present())

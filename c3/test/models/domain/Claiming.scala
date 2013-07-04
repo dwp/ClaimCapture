@@ -1,10 +1,9 @@
-package models.view
+package models.domain
 
 import java.util.UUID._
 import org.specs2.specification.Scope
 import scala.reflect.ClassTag
 import org.specs2.mock.Mockito
-import models.domain.QuestionGroup
 
 trait Claiming extends Scope with Mockito {
   val claimKey = randomUUID.toString

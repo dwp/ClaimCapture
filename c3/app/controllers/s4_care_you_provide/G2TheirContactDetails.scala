@@ -23,18 +23,18 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(TheirContactDetails)
 
   def present = claiming { implicit claim => implicit request =>
-    val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails.id) match {
+    val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails) match {
       case Some(t: TheirPersonalDetails) => t.liveAtSameAddress == yes
       case _ => false
     }
 
     val theirContactDetailsPrePopulatedForm = if (liveAtSameAddress) {
-      claim.questionGroup(ContactDetails.id) match {
+      claim.questionGroup(ContactDetails) match {
         case Some(cd: ContactDetails) => form.fill(TheirContactDetails(address = cd.address, postcode = cd.postcode))
         case _ => form
       }
     } else {
-      claim.questionGroup(TheirContactDetails.id) match {
+      claim.questionGroup(TheirContactDetails) match {
         case Some(t: TheirContactDetails) => form.fill(t)
         case _ => form
       }

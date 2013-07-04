@@ -2,10 +2,9 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
 import play.api.test.{FakeRequest, WithApplication}
-import models.view.Claiming
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.domain.{BreaksInCare, Claim}
+import models.domain.{Claiming, BreaksInCare, Claim}
 import org.specs2.mock.Mockito
 
 class G11BreakSpec extends Specification with Mockito {
@@ -51,7 +50,7 @@ class G11BreakSpec extends Specification with Mockito {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(BreaksInCare.id) must beLike {
+      claim.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 2
       }
     }
@@ -85,7 +84,7 @@ class G11BreakSpec extends Specification with Mockito {
 
       G11Break.submit(requestUpdate)
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) =>
           b.breaks.head.start.year must beSome(yearUpdate)
       }

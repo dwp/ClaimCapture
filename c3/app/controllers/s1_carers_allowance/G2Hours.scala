@@ -19,13 +19,13 @@ object G2Hours extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Hours)
 
   def present = claiming { implicit claim => implicit request =>
-    if (CarersAllowance.claiming(Hours.id, claim)) Ok(views.html.s1_carers_allowance.g2_hours(confirmed = true, completedQuestionGroups))
+    if (CarersAllowance.claiming(Hours, claim)) Ok(views.html.s1_carers_allowance.g2_hours(confirmed = true, completedQuestionGroups))
     else Ok(views.html.s1_carers_allowance.g2_hours(confirmed = false, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => Redirect(routes.G2Hours.present),
-      hours => claim.update(hours) -> Redirect(routes.G3Over16.present))
+      formWithErrors => Redirect(routes.G2Hours.present()),
+      hours => claim.update(hours) -> Redirect(routes.G3Over16.present()))
   }
 }

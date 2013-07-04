@@ -27,20 +27,20 @@ object G8OneWhoPaysPersonalDetails extends Controller with Routing with CachedCl
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(OneWhoPaysPersonalDetails)
 
   def present = claiming { implicit claim => implicit request =>
-    val hasSomeonePaidYou: Boolean = claim.questionGroup(MoreAboutTheCare.id) match {
+    val hasSomeonePaidYou: Boolean = claim.questionGroup(MoreAboutTheCare) match {
       case Some(m: MoreAboutTheCare) => m.hasSomeonePaidYou == Mappings.yes
       case _ => false
     }
 
     if (hasSomeonePaidYou) {
-      val currentForm = claim.questionGroup(OneWhoPaysPersonalDetails.id) match {
+      val currentForm = claim.questionGroup(OneWhoPaysPersonalDetails) match {
         case Some(o: OneWhoPaysPersonalDetails) => form.fill(o)
         case _ => form
       }
 
       Ok(views.html.s4_care_you_provide.g8_oneWhoPaysPersonalDetails(currentForm, completedQuestionGroups))
     } else {
-      claim.delete(OneWhoPaysPersonalDetails.id) -> Redirect(routes.G9ContactDetailsOfPayingPerson.present())
+      claim.delete(OneWhoPaysPersonalDetails) -> Redirect(routes.G9ContactDetailsOfPayingPerson.present())
     }
   }
 
