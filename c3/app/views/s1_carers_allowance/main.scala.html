@@ -1,4 +1,4 @@
-@(title: String, completedForms: List[models.domain.QuestionGroup] = Nil, completedSections: Seq[String] = Seq("CompletedSection1", "CompletedSection2"), activeSection: String = "ActiveSection", futureSections: Seq[String] = Seq("FutureSection1", "FutureSection2"))(content: Html)
+@(title: String, completedForms: List[models.domain.QuestionGroup] = Nil, completedSections: Seq[String] = Nil, activeSection: String = "", futureSections: Seq[String] = Nil)(content: Html)
 
 @import helper._
 @import models.domain.BooleanConfirmation
