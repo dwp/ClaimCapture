@@ -1,17 +1,17 @@
 window.initEvents = (actForPersonY, actForPersonN, someoneElseActForPersonY, someoneElseActForPersonN, someoneElseActAsID, someoneElseFullNameID) ->
-  $("#" +actForPersonY).on "click", ->
+  $("#" + actForPersonY).on "click", ->
     $("#actWrap").slideDown 500
     $("#actWrap").css('display',"block")
 
-  $("#" +actForPersonN).on "click", ->
+  $("#" + actForPersonN).on "click", ->
     $("#actWrap").slideUp 500, -> $("#actAs").val("")
 
 
-  $("#" +someoneElseActForPersonY).on "click", ->
+  $("#" + someoneElseActForPersonY).on "click", ->
     $("#someoneElseWrap").slideDown 500
     $("#someoneElseWrap").css('display',"block")
 
-  $("#" +someoneElseActForPersonN).on "click", ->
+  $("#" + someoneElseActForPersonN).on "click", ->
     $("#someoneElseWrap").slideUp 500, ->
       $("#" + someoneElseActAsID).val("")
       $("#" + someoneElseFullNameID).val("")
