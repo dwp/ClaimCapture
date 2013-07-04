@@ -7,7 +7,5 @@ case class Section(id: String, questionGroups: List[QuestionGroup]) {
 }
 
 object Section {
-  def sectionID(questionGroupID: String) = {
-    questionGroupID.split('.')(0)
-  }
+  def sectionID(questionGroup: QuestionGroup): String = questionGroup.id.split('.')(0)
 }

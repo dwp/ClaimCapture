@@ -22,7 +22,7 @@ class G2HoursSpec extends Specification {
 
       status(result) mustEqual OK
 
-      val sectionID = Section.sectionID(Benefits.id)
+      val sectionID = Section.sectionID(Benefits)
       val answeredForms = claim.completedQuestionGroups(sectionID).dropWhile(_.id != Benefits.id)
       answeredForms(0) mustEqual Benefits(answer = true)
     }

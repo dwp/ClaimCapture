@@ -22,7 +22,7 @@ class G3Over16Spec extends Specification {
 
       status(result) mustEqual OK
 
-      val sectionID = Section.sectionID(Over16.id)
+      val sectionID = Section.sectionID(Over16)
       val answeredForms = claimWithHours.completedQuestionGroups(sectionID)
 
       answeredForms(0) mustEqual Benefits(answer = true)
