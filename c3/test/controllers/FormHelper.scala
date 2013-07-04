@@ -132,6 +132,15 @@ object FormHelper {
     browser.fill("#postcode") `with` "SE1 6EH"
     browser.submit("button[type='submit']")
   }
+  
+  def fillMoreAboutYourPartner(browser: TestBrowser) = {
+    browser.goTo("/yourPartner/moreAboutYourPartner")
+    browser.click("#dateStartedLivingTogether_day option[value='3']")
+    browser.click("#dateStartedLivingTogether_month option[value='4']")
+    browser.fill("#dateStartedLivingTogether_year") `with` "1950"
+    browser.click("#separatedFromPartner_yes]")
+    browser.submit("button[type='submit']")
+  }
     
   // Care You Provide
   def fillTheirPersonalDetails(browser: TestBrowser) = {
