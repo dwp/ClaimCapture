@@ -23,6 +23,10 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     case Some(s: Section) => s.questionGroups.takeWhile(_.index < questionGroup.index)
     case _ => Nil
   }
+  
+  def completedSections(currentSection: QuestionGroup) = sections.takeWhile(s => s._1 < Section.sectionID(currentSection)).map(f => f._1).toSeq
+  
+  def futureSections(currentSection: QuestionGroup) = sections.dropWhile(s => s._1 <= Section.sectionID(currentSection)).map(f => f._1).toSeq
 
   def update(questionGroup: QuestionGroup): Claim = {
     def update(questionGroup: QuestionGroup, questionGroups: List[QuestionGroup]): List[QuestionGroup] = {
