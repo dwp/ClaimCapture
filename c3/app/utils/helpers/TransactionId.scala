@@ -11,7 +11,7 @@ import play.api.Play.current
 object TransactionId {
 
   def getUniqueTransactionIt(): String = {
-    DB.withConnection { connection =>
+    DB.withConnection("carers") { connection =>
       val statement = connection.prepareCall("select get_new_transaction_id();")
       statement.execute()
       val result = statement.getResultSet()
