@@ -1,21 +1,20 @@
-@(currentForm: Form[models.domain.YourPartnerContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.PersonYouCareFor], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
+@import views.html.helper.dates._
 
-@main("Contact Details - Your Partner", Some(currentForm), completedQuestionGroups) {
+@main("Person You Care For - Your Partner", Some(currentForm), completedQuestionGroups) {
 
-    @form(action = controllers.s3_your_partner.routes.G2YourPartnerContactDetails.submit) {
+    @form(action = controllers.s3_your_partner.routes.G4PersonYouCareFor.submit) {
 
         <fieldset class="form-elements">
-            <legend>Contact details of your partner</legend>
+            <legend>Person you care for</legend>
 
             <ul class="group">
-                @inputAddress(currentForm("address"))
-
-                @carersInputText(currentForm("postcode"))
+                @yesNoRadioGroup(currentForm("isPartnerPersonYouCareFor"))
             </ul>
         </fieldset>
 

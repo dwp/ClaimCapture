@@ -133,12 +133,15 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
   
-  def fillMoreAboutYourPartner(browser: TestBrowser) = {
+  def fillMoreAboutYourPartnerSeparated(browser: TestBrowser) = {
     browser.goTo("/yourPartner/moreAboutYourPartner")
     browser.click("#dateStartedLivingTogether_day option[value='3']")
     browser.click("#dateStartedLivingTogether_month option[value='4']")
     browser.fill("#dateStartedLivingTogether_year") `with` "1950"
     browser.click("#separatedFromPartner_yes]")
+    browser.click("#separationDate_day option[value='3']")
+    browser.click("#separationDate_month option[value='8']")
+    browser.fill("#separationDate_year") `with` "2005"
     browser.submit("button[type='submit']")
   }
   
@@ -148,6 +151,12 @@ object FormHelper {
     browser.click("#dateStartedLivingTogether_month option[value='4']")
     browser.fill("#dateStartedLivingTogether_year") `with` "1950"
     browser.click("#separatedFromPartner_no]")
+    browser.submit("button[type='submit']")
+  }
+
+  def fillPersonYouCareFor(browser: TestBrowser) = {
+    browser.goTo("/yourPartner/personYouCareFor")
+    browser.click("#isPartnerPersonYouCareFor_yes]")
     browser.submit("button[type='submit']")
   }
     

@@ -7,6 +7,9 @@ import models.domain.{Claim, RepresentativesForPerson}
 import play.api.data.Form
 import utils.helpers.CarersForm._
 import play.api.data.Forms._
+import controllers.Mappings._
+import models.domain.Claim
+import scala.Some
 
 object G6RepresentativesForThePerson extends Controller with Routing with CachedClaim {
 
@@ -14,9 +17,9 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
 
   val form = Form(
     mapping(
-      "actForPerson" -> nonEmptyText,
+      "actForPerson" -> nonEmptyText.verifying(validYesNo),
       "actAs" -> optional(text),
-      "someoneElseActForPerson" -> nonEmptyText,
+      "someoneElseActForPerson" -> nonEmptyText.verifying(validYesNo),
       "someoneElseActAs" -> optional(text),
       "someoneElseFullName" -> optional(text)
     )(RepresentativesForPerson.apply)(RepresentativesForPerson.unapply))

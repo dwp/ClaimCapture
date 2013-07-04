@@ -20,22 +20,21 @@ class G3MoreAboutYourPartnerFormSpec extends Specification {
           "separatedFromPartner" -> separatedFromPartner
         )
       ).fold(
-        formWithErrors => "This mapping should not happen." must equalTo("Error"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("Error"),
         f => {
-          f.dateStartedLivingTogether must equalTo(DayMonthYear(Some(dateStartedLivingTogetherDay), Some(dateStartedLivingTogetherMonth), Some(dateStartedLivingTogetherYear), None, None))
+          f.dateStartedLivingTogether must equalTo(Some(DayMonthYear(Some(dateStartedLivingTogetherDay), Some(dateStartedLivingTogetherMonth), Some(dateStartedLivingTogetherYear), None, None)))
           f.separatedFromPartner must equalTo(separatedFromPartner)
         }
       )
     }
 
-    "have 2 mandatory fields" in {
+    "have 1 mandatory field" in {
       G3MoreAboutYourPartner.form.bind(
         Map("foo" -> "bar")
       ).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(2)
+          formWithErrors.errors.length must equalTo(1)
           formWithErrors.errors(0).message must equalTo("error.required")
-          formWithErrors.errors(1).message must equalTo("error.required")
         },
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )

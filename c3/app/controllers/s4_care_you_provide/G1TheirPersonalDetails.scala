@@ -21,7 +21,7 @@ object G1TheirPersonalDetails extends Controller with Routing with CachedClaim {
       "surname" -> nonEmptyText(maxLength = sixty),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
-      "liveAtSameAddress" -> nonEmptyText
+      "liveAtSameAddress" -> nonEmptyText.verifying(validYesNo)
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>

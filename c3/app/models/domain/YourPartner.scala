@@ -2,18 +2,22 @@ package models.domain
 
 import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
-case object YourPartner {
+object YourPartner {
   val id = "s3"
 }
 
 case class YourPartnerPersonalDetails(title: String, firstName: String, middleName: Option[String], surname: String, otherNames: Option[String], nationalInsuranceNumber: Option[NationalInsuranceNumber], dateOfBirth: DayMonthYear, nationality: Option[String], liveAtSameAddress: String) extends QuestionGroup(YourPartnerPersonalDetails.id)
 
-case object YourPartnerPersonalDetails extends QuestionGroup(s"${YourPartner.id}.g1")
+object YourPartnerPersonalDetails extends QuestionGroup(s"${YourPartner.id}.g1")
 
 case class YourPartnerContactDetails(address: Option[MultiLineAddress], postcode: Option[String]) extends QuestionGroup(YourPartnerContactDetails.id)
 
-case object YourPartnerContactDetails extends QuestionGroup(s"${YourPartner.id}.g2")
+object YourPartnerContactDetails extends QuestionGroup(s"${YourPartner.id}.g2")
 
-case class MoreAboutYourPartner(dateStartedLivingTogether: DayMonthYear, separatedFromPartner: String) extends QuestionGroup(MoreAboutYourPartner.id)
+case class MoreAboutYourPartner(dateStartedLivingTogether: Option[DayMonthYear], separatedFromPartner: String, separationDate: Option[DayMonthYear]) extends QuestionGroup(MoreAboutYourPartner.id)
 
-case object MoreAboutYourPartner extends QuestionGroup(s"${YourPartner.id}.g3")
+object MoreAboutYourPartner extends QuestionGroup(s"${YourPartner.id}.g3")
+
+case class PersonYouCareFor(isPartnerPersonYouCareFor:String) extends QuestionGroup(PersonYouCareFor.id)
+
+object PersonYouCareFor extends QuestionGroup(s"${YourPartner.id}.g4")

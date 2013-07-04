@@ -14,6 +14,7 @@ s2.g7 = Property and rent
 s3.g1 = Your partner details
 s3.g2 = Your partner contact details
 s3.g3 = More about your partner
+s3.g4 = Person you care for
 
 s4.g1 = Details of the person you care for
 s4.g2 = Their contact details
@@ -94,6 +95,16 @@ ownProperty.label = Do you or your partner own property or land in the UK or abr
 ownProperty = Do you or your partner own property or land in the UK or abroad that you have rented out since one week before your claim date?
 hasSublet.label = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
 hasSublet = Have you sublet your home, or provided board and lodgings, since one week before your claim date?
+
+## YOUR PARTNER
+
+# MORE ABOUT YOUR PARTNER
+dateStartedLivingTogether = Please enter the date when you and your partner/spouse started living together, if the date is after the date you want to claim from
+separatedFromPartner = Have you separated from your partner/spouse since the date you want to claim from?
+separationDate = When did you separate?
+
+# PERSON YOU CARE FOR
+isPartnerPersonYouCareFor = Is your partner/spouse the person you are claiming Carer's Allowance for?
 
 ## CARE YOU PROVIDE
 
