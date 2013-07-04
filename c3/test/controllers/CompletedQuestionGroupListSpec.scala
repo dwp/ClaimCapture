@@ -3,7 +3,6 @@ package controllers
 import play.api.test.WithBrowser
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
-import java.util.concurrent.TimeUnit
 
 class CompletedQuestionGroupListSpec extends Specification with Tags {
 
@@ -18,13 +17,19 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
 
-    "decrease when navigating backwards" in new WithBrowser {
+    "decrease when navigating backwards" in new WithBrowserAndMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
+      titleMustEqual("Their Contact Details - Care You Provide")
+
       FormHelper.fillTheirContactDetails(browser)
+      titleMustEqual("More About The Person You Care For - Care You Provide")
+
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
 
       browser.click("#backButton")
+      titleMustEqual("More About The Person You Care For - Care You Provide")
 
       browser.find("div[class=completed] ul li").size mustEqual 2
     }
@@ -55,13 +60,8 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").get(3).getText must contain("Representatives for the person you care for")
     }
 
-    "remove invalidated history after completing the S4G3 ClaimedAllowanceBefore postive answer path but goes back and changes to the negative answer path" in new WithBrowser {
-      def titleMustEqual(title: String) = {
-        browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
-          browser.title mustEqual title
-        }
-      }
-
+    """remove invalidated history after completing the S4G3 ClaimedAllowanceBefore postive answer path
+       but goes back and changes to the negative answer path""" in new WithBrowserAndMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 

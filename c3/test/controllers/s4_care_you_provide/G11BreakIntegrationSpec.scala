@@ -3,16 +3,11 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import java.util.concurrent.TimeUnit
+import controllers.WithBrowserAndMatchers
 
 class G11BreakIntegrationSpec extends Specification with Tags {
 
-  class BreakWithBrowser extends WithBrowser {
-    def titleMustEqual(title: String) = {
-      browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
-        browser.title mustEqual title
-      }
-    }
-
+  class BreakWithBrowser extends WithBrowserAndMatchers {
     def break() {
       browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
         browser.title mustEqual "Break - Care You Provide"

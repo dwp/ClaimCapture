@@ -22,42 +22,40 @@ object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
       "visaReference" -> optional(text(maxLength = sixty))
     )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou.id).takeWhile(_.id != TimeOutsideUK.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(TimeOutsideUK)
 
-  def present = claiming {
-    implicit claim => implicit request =>
-      claim.questionGroup(YourDetails.id) match {
-        case Some(YourDetails(_, _, _, _, _, _, _, _, _, "yes")) => Redirect(routes.G4ClaimDate.present())
-        case _ =>
-          val timeOutsideUKForm: Form[TimeOutsideUK] = claim.questionGroup(TimeOutsideUK.id) match {
-            case Some(t: TimeOutsideUK) => form.fill(t)
-            case _ => form
-          }
+  def present = claiming { implicit claim => implicit request =>
+    claim.questionGroup(YourDetails) match {
+      case Some(y: YourDetails) if y.alwaysLivedUK == "yes" => claim.delete(TimeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
+      case _ =>
+        val timeOutsideUKForm: Form[TimeOutsideUK] = claim.questionGroup(TimeOutsideUK) match {
+          case Some(t: TimeOutsideUK) => form.fill(t)
+          case _ => form
+        }
 
-          Ok(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKForm, completedQuestionGroups))
-      }
+        Ok(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKForm, completedQuestionGroups))
+    }
   }
 
-  def submit = claiming {
-    implicit claim => implicit request =>
-      def livingInUK(timeOutsideUKForm: Form[TimeOutsideUK])(implicit timeOutsideUK: TimeOutsideUK): Form[TimeOutsideUK] = {
-        if (timeOutsideUK.currentlyLivingInUK == "yes" && timeOutsideUK.arrivedInUK == None) timeOutsideUKForm.fill(timeOutsideUK).withError("arrivedInUK", "error.required")
-        else timeOutsideUKForm
-      }
+  def submit = claiming { implicit claim => implicit request =>
+    def livingInUK(timeOutsideUKForm: Form[TimeOutsideUK])(implicit timeOutsideUK: TimeOutsideUK): Form[TimeOutsideUK] = {
+      if (timeOutsideUK.currentlyLivingInUK == "yes" && timeOutsideUK.arrivedInUK == None) timeOutsideUKForm.fill(timeOutsideUK).withError("arrivedInUK", "error.required")
+      else timeOutsideUKForm
+    }
 
-      def planToGoBack(timeOutsideUKForm: Form[TimeOutsideUK])(implicit timeOutsideUK: TimeOutsideUK): Form[TimeOutsideUK] = {
-        if (timeOutsideUK.planToGoBack.getOrElse("no") == "yes" && timeOutsideUK.whenPlanToGoBack == None) timeOutsideUKForm.fill(timeOutsideUK).withError("whenPlanToGoBack", "error.required")
-        else timeOutsideUKForm
-      }
+    def planToGoBack(timeOutsideUKForm: Form[TimeOutsideUK])(implicit timeOutsideUK: TimeOutsideUK): Form[TimeOutsideUK] = {
+      if (timeOutsideUK.planToGoBack.getOrElse("no") == "yes" && timeOutsideUK.whenPlanToGoBack == None) timeOutsideUKForm.fill(timeOutsideUK).withError("whenPlanToGoBack", "error.required")
+      else timeOutsideUKForm
+    }
 
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s2_about_you.g3_timeOutsideUK(formWithErrors, completedQuestionGroups)),
-        implicit timeOutsideUK => {
-          val formValidations = livingInUK _ andThen planToGoBack _
-          val timeOutsideUKFormValidated = formValidations(form)
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s2_about_you.g3_timeOutsideUK(formWithErrors, completedQuestionGroups)),
+      implicit timeOutsideUK => {
+        val formValidations = livingInUK _ andThen planToGoBack _
+        val timeOutsideUKFormValidated = formValidations(form)
 
-          if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKFormValidated, completedQuestionGroups))
-          else claim.update(timeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
-        })
+        if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKFormValidated, completedQuestionGroups))
+        else claim.update(timeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
+      })
   }
 }

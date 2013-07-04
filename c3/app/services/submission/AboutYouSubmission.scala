@@ -6,10 +6,10 @@ object AboutYouSubmission {
 
 
   def buildAboutYou(claim: Claim) = {
-    val yourDetails = claim.questionGroup(YourDetails.id).asInstanceOf[Option[YourDetails]].get
-    val contactDetails = claim.questionGroup(ContactDetails.id).asInstanceOf[Option[ContactDetails]].get
-    val timeOutsideUK = claim.questionGroup(TimeOutsideUK.id).asInstanceOf[Option[TimeOutsideUK]]
-    val claimDate = claim.questionGroup(ClaimDate.id).asInstanceOf[Option[ClaimDate]].get
+    val yourDetails = claim.questionGroup(YourDetails).asInstanceOf[Option[YourDetails]].get
+    val contactDetails = claim.questionGroup(ContactDetails).asInstanceOf[Option[ContactDetails]].get
+    val timeOutsideUK = claim.questionGroup(TimeOutsideUK).asInstanceOf[Option[TimeOutsideUK]]
+    val claimDate = claim.questionGroup(ClaimDate).asInstanceOf[Option[ClaimDate]].get
     AboutYou(yourDetails, contactDetails, timeOutsideUK, claimDate)
   }
 

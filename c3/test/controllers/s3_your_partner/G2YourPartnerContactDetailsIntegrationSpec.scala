@@ -6,8 +6,6 @@ import controllers.FormHelper
 
 class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags {
 
-
-
   "Your Partner Contact Details" should {
     "be presented" in new WithBrowser {
       browser.goTo("/yourPartner/contactDetails")
@@ -72,5 +70,4 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
   }
-
 }

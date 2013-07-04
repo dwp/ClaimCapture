@@ -3,13 +3,10 @@ package controllers.s1_carers_allowance
 import org.specs2.mutable.Specification
 import play.api.test.{WithApplication, FakeRequest}
 import play.api.test.Helpers._
-
 import play.api.cache.Cache
-import models.view._
 import models.domain._
 import models.domain.Section
 import models.domain.Claim
-import scala.Some
 import controllers.s1_carers_allowance
 
 class G3Over16Spec extends Specification {
@@ -25,7 +22,7 @@ class G3Over16Spec extends Specification {
 
       status(result) mustEqual OK
 
-      val sectionID = Section.sectionID(Over16.id)
+      val sectionID = Section.sectionID(Over16)
       val answeredForms = claimWithHours.completedQuestionGroups(sectionID)
 
       answeredForms(0) mustEqual Benefits(answer = true)
@@ -38,7 +35,7 @@ class G3Over16Spec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(Over16.id) must beLike {
+      claim.questionGroup(Over16) must beLike {
         case Some(f: Over16) => f.answer mustEqual true
       }
     }

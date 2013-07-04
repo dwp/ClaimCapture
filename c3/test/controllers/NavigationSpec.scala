@@ -1,19 +1,11 @@
 package controllers
 
-import play.api.test.WithBrowser
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
-import java.util.concurrent.TimeUnit
 
 class NavigationSpec extends Specification with Tags {
   "Browser" should {
-    "not cache pages" in new WithBrowser {
-      def titleMustEqual(title: String) = {
-        browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
-          browser.title mustEqual title
-        }
-      }
-
+    "not cache pages" in new WithBrowserAndMatchers {
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")

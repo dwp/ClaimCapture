@@ -16,16 +16,16 @@ object G3Over16 extends Controller with Routing with CachedClaim {
       "answer" -> boolean
     )(Over16.apply)(Over16.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CarersAllowance.id).takeWhile(_.id != Over16.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Over16)
 
   def present = claiming { implicit claim => implicit request =>
-    if (CarersAllowance.claiming(Over16.id, claim)) Ok(views.html.s1_carers_allowance.g3_over16(confirmed = true, completedQuestionGroups))
+    if (CarersAllowance.claiming(Over16, claim)) Ok(views.html.s1_carers_allowance.g3_over16(confirmed = true, completedQuestionGroups))
     else Ok(views.html.s1_carers_allowance.g3_over16(confirmed = false, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => Redirect(routes.G3Over16.present),
+      formWithErrors => Redirect(routes.G3Over16.present()),
       over16 => claim.update(over16) -> Redirect(routes.G4LivesInGB.present()))
   }
 }

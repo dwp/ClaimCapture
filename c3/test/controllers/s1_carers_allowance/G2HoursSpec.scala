@@ -3,14 +3,11 @@ package controllers.s1_carers_allowance
 import org.specs2.mutable.Specification
 import play.api.test.{WithApplication, FakeRequest}
 import play.api.test.Helpers._
-
 import play.api.cache.Cache
-import models.view._
 import models.domain
 import models.domain._
 import models.domain.Section
 import models.domain.Claim
-import scala.Some
 import controllers.s1_carers_allowance
 
 class G2HoursSpec extends Specification {
@@ -25,7 +22,7 @@ class G2HoursSpec extends Specification {
 
       status(result) mustEqual OK
 
-      val sectionID = Section.sectionID(Benefits.id)
+      val sectionID = Section.sectionID(Benefits)
       val answeredForms = claim.completedQuestionGroups(sectionID).dropWhile(_.id != Benefits.id)
       answeredForms(0) mustEqual Benefits(answer = true)
     }
@@ -36,7 +33,7 @@ class G2HoursSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(Hours.id) must beLike {
+      claim.questionGroup(Hours) must beLike {
         case Some(f: Hours) => f.answer mustEqual true
       }
     }
@@ -53,7 +50,7 @@ class G2HoursSpec extends Specification {
 
       section.questionGroups.size mustEqual 2
 
-      section.questionGroup(Hours.id) must beLike {
+      section.questionGroup(Hours) must beLike {
         case Some(f: Hours) => f.answer mustEqual true
       }
     }

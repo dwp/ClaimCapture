@@ -2,10 +2,9 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.Specification
 import play.api.test.{FakeRequest, WithApplication}
-import models.view.Claiming
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.domain.{YourPartnerContactDetails, Section, Claim}
+import models.domain.{Claiming, YourPartnerContactDetails, Section, Claim}
 import models.{MultiLineAddress, domain}
 
 class G2YourPartnerContactDetailsSpec extends Specification {
@@ -28,7 +27,7 @@ class G2YourPartnerContactDetailsSpec extends Specification {
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.YourPartner.id).get
 
-      section.questionGroup(YourPartnerContactDetails.id) must beLike {
+      section.questionGroup(YourPartnerContactDetails) must beLike {
         case Some(f: YourPartnerContactDetails) => {
           f.address must equalTo(Some(MultiLineAddress(Some("123 Street"), None, None)))
           f.postcode must equalTo(Some("PR2 8AE"))
