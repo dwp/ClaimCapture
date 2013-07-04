@@ -3,10 +3,10 @@ package models.domain
 import org.specs2.mutable.Specification
 import org.specs2.execute.PendingUntilFixed
 
-class BreadcrumbsSpec extends Specification with PendingUntilFixed {
+class ProgressBarSpec extends Specification with PendingUntilFixed {
   "Breadcrumbs" should {
     "not display completed sections when in the first section" in {
-      val breadcrumbs = Breadcrumbs(currentSectionId = CarersAllowance.id)
+      val breadcrumbs = ProgressBar(currentSectionId = CarersAllowance.id)
 
       breadcrumbs.completedSections mustEqual (Nil)
       breadcrumbs.activeSection mustEqual "CarersAllowance"
@@ -14,7 +14,7 @@ class BreadcrumbsSpec extends Specification with PendingUntilFixed {
     }
         
     "display completed and future sections when in the middle section" in {
-      val breadcrumbs = Breadcrumbs(currentSectionId = AboutYou.id)
+      val breadcrumbs = ProgressBar(currentSectionId = AboutYou.id)
 
       breadcrumbs.completedSections mustEqual (Seq("CarersAllowance"))
       breadcrumbs.activeSection mustEqual "AboutYou"
@@ -22,7 +22,7 @@ class BreadcrumbsSpec extends Specification with PendingUntilFixed {
     }
     
     "not display future sections when in the last section" in {
-      val breadcrumbs = Breadcrumbs(currentSectionId = CareYouProvide.id)
+      val breadcrumbs = ProgressBar(currentSectionId = CareYouProvide.id)
 
       breadcrumbs.completedSections mustEqual (Seq("CarersAllowance", "AboutYou", "YourPartner"))
       breadcrumbs.activeSection mustEqual "CareYouProvide"

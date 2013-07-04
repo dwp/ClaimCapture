@@ -7,7 +7,7 @@ import models.view.CachedClaim
 import controllers.Routing
 import utils.helpers.CarersForm._
 import models.domain.Benefits
-import models.domain.Breadcrumbs
+import models.domain.ProgressBar
 
 object G1Benefits extends Controller with Routing with CachedClaim {
   override val route = Benefits.id -> routes.G1Benefits.present
@@ -18,7 +18,7 @@ object G1Benefits extends Controller with Routing with CachedClaim {
     )(Benefits.apply)(Benefits.unapply))
 
   def present = newClaim { implicit claim => implicit request =>
-    val breadcrumbs = Breadcrumbs(models.domain.CarersAllowance.id)
+    val breadcrumbs = ProgressBar(models.domain.CarersAllowance.id)
     if (CarersAllowance.claiming(Benefits, claim)) Ok(views.html.s1_carers_allowance.g1_benefits(confirmed = true, completedSections = breadcrumbs.completedSections, activeSection = breadcrumbs.activeSection, futureSections = breadcrumbs.futureSections))
     else Ok(views.html.s1_carers_allowance.g1_benefits(confirmed = false, completedSections = breadcrumbs.completedSections, activeSection = breadcrumbs.activeSection, futureSections = breadcrumbs.futureSections))
   }

@@ -1,6 +1,6 @@
 package models.domain
 
-case class Breadcrumbs(currentSectionId: String) {
+case class ProgressBar(currentSectionId: String) {
   private case class Crumb(val id: String, val name: String)
 
   private val allSections: Seq[Crumb] = Seq(
