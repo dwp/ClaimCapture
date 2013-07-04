@@ -1,8 +1,8 @@
-@(completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(completedQuestionGroups: List[models.domain.QuestionGroup], completedSections: Seq[String], activeSection: String, futureSections: Seq[String])(implicit claim: models.domain.Claim)
 
 @import helper._
 
-@main("Completion - About You", completedQuestionGroups) {
+@main("Completion - About You", completedQuestionGroups, completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
     @form(action = controllers.s2_about_you.routes.AboutYou.completedSubmit) {
         <div class="form-steps">
             <a href="@controllers.s2_about_you.routes.G7PropertyAndRent.present" class="button secondary">Back</a>

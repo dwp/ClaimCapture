@@ -20,9 +20,8 @@ object G2Hours extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Hours)
 
   def present = claiming { implicit claim => implicit request =>
-    val progressBar = ProgressBar(models.domain.CarersAllowance.id)
-    if (CarersAllowance.claiming(Hours, claim)) Ok(views.html.s1_carers_allowance.g2_hours(confirmed = true, completedQuestionGroups, completedSections = progressBar.completedSections, activeSection = progressBar.activeSection, futureSections = progressBar.futureSections))
-    else Ok(views.html.s1_carers_allowance.g2_hours(confirmed = false, completedQuestionGroups, completedSections = progressBar.completedSections, activeSection = progressBar.activeSection, futureSections = progressBar.futureSections))
+    if (CarersAllowance.claiming(Hours, claim)) Ok(views.html.s1_carers_allowance.g2_hours(confirmed = true, completedQuestionGroups, completedSections = CarersAllowance.progressBar.completedSections, activeSection = CarersAllowance.progressBar.activeSection, futureSections = CarersAllowance.progressBar.futureSections))
+    else Ok(views.html.s1_carers_allowance.g2_hours(confirmed = false, completedQuestionGroups, completedSections = CarersAllowance.progressBar.completedSections, activeSection = CarersAllowance.progressBar.activeSection, futureSections = CarersAllowance.progressBar.futureSections))
   }
 
   def submit = claiming { implicit claim => implicit request =>

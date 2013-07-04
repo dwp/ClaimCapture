@@ -1,4 +1,4 @@
-@(timeOutsideUKForm: Form[models.domain.TimeOutsideUK], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(timeOutsideUKForm: Form[models.domain.TimeOutsideUK], completedQuestionGroups: List[models.domain.QuestionGroup], completedSections: Seq[String], activeSection: String, futureSections: Seq[String])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,7 +8,7 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 
-@main("Time Outside UK - About You", completedQuestionGroups) {
+@main("Time Outside UK - About You", completedQuestionGroups, completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
     @errorsSummary(timeOutsideUKForm)
 
     @form(action = controllers.s2_about_you.routes.G3TimeOutsideUK.submit) {

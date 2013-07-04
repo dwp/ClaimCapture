@@ -1,8 +1,8 @@
-@(confirmed: Boolean, completedForms: List[models.domain.QuestionGroup])
+@(confirmed: Boolean, completedForms: List[models.domain.QuestionGroup], completedSections: Seq[String], activeSection: String, futureSections: Seq[String])
 
 @import helper._
 
-@main("Over 16 - Carer's Allowance", completedForms) {
+@main("Over 16 - Carer's Allowance", completedForms, completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
     @form(action = controllers.s1_carers_allowance.routes.G3Over16.submit) {
         <fieldset class="form-elements form-eligibility">
             <legend><span>Q3</span>Are you aged 16 or over?</legend>
