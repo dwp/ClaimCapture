@@ -11,6 +11,7 @@
               <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
             </div>
       
+            @if(completedSections.length > 0 || futureSections.length > 0){<!-- Progress bar is hidden if there is nothing to display -->
             <ol>
             @for(completedSection <- completedSections) {
               <li class="complete"><span>@completedSection</span></li>
@@ -20,7 +21,7 @@
               <li><span>@futureSection</span></li> <!-- Use the default class -->
             }
             </ol>
-            
+            }
             
             <section>
 
