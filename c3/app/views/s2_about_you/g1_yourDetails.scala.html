@@ -1,4 +1,4 @@
-@(yourDetailsForm: Form[models.domain.YourDetails])(implicit claim: models.domain.Claim)
+@(yourDetailsForm: Form[models.domain.YourDetails], completedSections: Seq[String], activeSection: String, futureSections: Seq[String])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,7 +8,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 
-@main("Your Details - About You") {
+@main("Your Details - About You", completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
     @errorsSummary(yourDetailsForm)
 
     @form(action = controllers.s2_about_you.routes.G1YourDetails.submit) {

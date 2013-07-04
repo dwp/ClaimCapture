@@ -7,6 +7,7 @@ import models.view.CachedClaim
 import controllers.Routing
 import utils.helpers.CarersForm._
 import models.domain.{Over16, Claim}
+import models.domain.ProgressBar
 
 object G3Over16 extends Controller with Routing with CachedClaim {
   override val route = Over16.id -> routes.G3Over16.present
@@ -19,8 +20,8 @@ object G3Over16 extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Over16)
 
   def present = claiming { implicit claim => implicit request =>
-    if (CarersAllowance.claiming(Over16, claim)) Ok(views.html.s1_carers_allowance.g3_over16(confirmed = true, completedQuestionGroups))
-    else Ok(views.html.s1_carers_allowance.g3_over16(confirmed = false, completedQuestionGroups))
+    if (CarersAllowance.claiming(Over16, claim)) Ok(views.html.s1_carers_allowance.g3_over16(confirmed = true, completedQuestionGroups, completedSections = CarersAllowance.progressBar.completedSections, activeSection = CarersAllowance.progressBar.activeSection, futureSections = CarersAllowance.progressBar.futureSections))
+    else Ok(views.html.s1_carers_allowance.g3_over16(confirmed = false, completedQuestionGroups, completedSections = CarersAllowance.progressBar.completedSections, activeSection = CarersAllowance.progressBar.activeSection, futureSections = CarersAllowance.progressBar.futureSections))
   }
 
   def submit = claiming { implicit claim => implicit request =>

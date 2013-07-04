@@ -1,8 +1,8 @@
-@(approved: Boolean, completedForms: List[models.domain.QuestionGroup])
+@(approved: Boolean, completedForms: List[models.domain.QuestionGroup], completedSections: Seq[String], activeSection: String, futureSections: Seq[String])
 
 @import helper._
 
-@main("Can you get Carer's Allowance?", completedForms) {
+@main("Can you get Carer's Allowance?", completedForms, completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
     @if(approved) {
         <div class="prompt">
             <p>Based on your answers you may be entitled to Carer's Allowance.</p>

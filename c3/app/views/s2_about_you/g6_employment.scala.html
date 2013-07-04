@@ -1,4 +1,4 @@
-@(employmentForm: Form[models.domain.Employment], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(employmentForm: Form[models.domain.Employment], completedQuestionGroups: List[models.domain.QuestionGroup], completedSections: Seq[String], activeSection: String, futureSections: Seq[String])(implicit claim: models.domain.Claim)
 
 @import scala.language.postfixOps
 @import helper._
@@ -7,7 +7,7 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main("Employment - About You", completedQuestionGroups) {
+@main("Employment - About You", completedQuestionGroups, completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
     @errorsSummary(employmentForm)
 
     @form(action = controllers.s2_about_you.routes.G6Employment.submit) {

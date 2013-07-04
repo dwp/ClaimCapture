@@ -16,11 +16,13 @@ object AboutYou extends Controller with CachedClaim {
     G5MoreAboutYou,
     G6Employment,
     G7PropertyAndRent)
+    
+  val progressBar = ProgressBar(models.domain.AboutYou.id)
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
   def completed = claiming { implicit claim => implicit request =>
-    Ok(views.html.s2_about_you.g8_completed(completedQuestionGroups))
+    Ok(views.html.s2_about_you.g8_completed(completedQuestionGroups, completedSections = AboutYou.progressBar.completedSections, activeSection = AboutYou.progressBar.activeSection, futureSections = AboutYou.progressBar.futureSections))
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>

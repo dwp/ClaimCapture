@@ -1,4 +1,4 @@
-@(moreAboutYouForm: Form[models.domain.MoreAboutYou], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(moreAboutYouForm: Form[models.domain.MoreAboutYou], completedQuestionGroups: List[models.domain.QuestionGroup], completedSections: Seq[String], activeSection: String, futureSections: Seq[String])(implicit claim: models.domain.Claim)
 
 @import common._
 @import helper._
@@ -7,7 +7,7 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main("More About You - About You",completedQuestionGroups) {
+@main("More About You - About You",completedQuestionGroups, completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
     @errorsSummary(moreAboutYouForm)
 
     @form(action = controllers.s2_about_you.routes.G5MoreAboutYou.submit) {

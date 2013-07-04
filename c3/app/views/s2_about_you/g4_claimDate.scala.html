@@ -1,4 +1,4 @@
-@(claimDateForm: Form[models.domain.ClaimDate], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(claimDateForm: Form[models.domain.ClaimDate], completedQuestionGroups: List[models.domain.QuestionGroup], completedSections: Seq[String], activeSection: String, futureSections: Seq[String])(implicit claim: models.domain.Claim)
 
 @import scala.collection.immutable.ListMap
 @import helper._
@@ -6,7 +6,7 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.dates._
 
-@main("Claim Date - About You", completedQuestionGroups) {
+@main("Claim Date - About You", completedQuestionGroups, completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
     @errorsSummary(claimDateForm)
 
     @form(action = controllers.s2_about_you.routes.G4ClaimDate.submit) {

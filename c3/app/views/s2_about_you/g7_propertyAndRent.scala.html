@@ -1,4 +1,4 @@
-@(propertyAndRentForm: Form[models.domain.PropertyAndRent], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(propertyAndRentForm: Form[models.domain.PropertyAndRent], completedQuestionGroups: List[models.domain.QuestionGroup], completedSections: Seq[String], activeSection: String, futureSections: Seq[String])(implicit claim: models.domain.Claim)
 
 @import scala.language.postfixOps
 @import helper._
@@ -7,7 +7,7 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main("Property and Rent - About You", completedQuestionGroups) {
+@main("Property and Rent - About You", completedQuestionGroups, completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
     @errorsSummary(propertyAndRentForm)
 
     @form(action = controllers.s2_about_you.routes.G7PropertyAndRent.submit) {
