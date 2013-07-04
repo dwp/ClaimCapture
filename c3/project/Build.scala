@@ -22,7 +22,9 @@ object ApplicationBuild extends Build {
 
   var sR: Seq[Project.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
 
-  var appSettings: Seq[Project.Setting[_]] = SassPlugin.sassSettings ++ sV ++ sO ++ sR
+  var testSettings: Seq[Project.Setting[_]] = Seq(javaOptions in Test += ("-Dconfig.file=conf/test-application.conf"))
+
+  var appSettings: Seq[Project.Setting[_]] = SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ testSettings
 
   val main = play.Project(appName, appVersion, appDependencies).settings(appSettings: _*)
 }
