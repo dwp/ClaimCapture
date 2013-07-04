@@ -1,13 +1,11 @@
 package models.domain
 
 case class Section(id: String, questionGroups: List[QuestionGroup]) {
-  def questionGroup(questionGroupID: String): Option[QuestionGroup] = {
-    questionGroups.find(qg => qg.id == questionGroupID)
+  def questionGroup(questionGroup: QuestionGroup): Option[QuestionGroup] = {
+    questionGroups.find(qg => qg.id == questionGroup.id)
   }
 }
 
 object Section {
-  def sectionID(questionGroupID: String) = {
-    questionGroupID.split('.')(0)
-  }
+  def sectionID(questionGroup: QuestionGroup): String = questionGroup.id.split('.')(0)
 }

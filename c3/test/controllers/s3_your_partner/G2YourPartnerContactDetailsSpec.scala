@@ -27,7 +27,7 @@ class G2YourPartnerContactDetailsSpec extends Specification {
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.YourPartner.id).get
 
-      section.questionGroup(YourPartnerContactDetails.id) must beLike {
+      section.questionGroup(YourPartnerContactDetails) must beLike {
         case Some(f: YourPartnerContactDetails) => {
           f.address must equalTo(Some(MultiLineAddress(Some("123 Street"), None, None)))
           f.postcode must equalTo(Some("PR2 8AE"))

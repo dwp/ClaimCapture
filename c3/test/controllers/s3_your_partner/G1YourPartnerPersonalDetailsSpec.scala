@@ -59,7 +59,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification {
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.YourPartner.id).get
 
-      section.questionGroup(YourPartnerPersonalDetails.id) must beLike {
+      section.questionGroup(YourPartnerPersonalDetails) must beLike {
         case Some(f: YourPartnerPersonalDetails) => {
           f.title must equalTo(title)
           f.firstName must equalTo(firstName)

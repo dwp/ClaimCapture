@@ -28,7 +28,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
-      section.questionGroup(PreviousCarerPersonalDetails.id) must beLike {
+      section.questionGroup(PreviousCarerPersonalDetails) must beLike {
         case Some(f: PreviousCarerPersonalDetails) => {
           f.firstName mustEqual Some(firstName)
           f.surname mustEqual Some(surname)

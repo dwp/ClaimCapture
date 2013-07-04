@@ -8,7 +8,6 @@ import models.domain._
 import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Claim
-import scala.Some
 
 class G1TheirPersonalDetailsSpec extends Specification with Mockito {
 
@@ -32,7 +31,7 @@ class G1TheirPersonalDetailsSpec extends Specification with Mockito {
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
-      section.questionGroup(TheirPersonalDetails.id) must beLike {
+      section.questionGroup(TheirPersonalDetails) must beLike {
         case Some(f: TheirPersonalDetails) => {
           f.title mustEqual "Mr"
           f.firstName mustEqual "John"

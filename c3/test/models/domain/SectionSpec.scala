@@ -3,14 +3,12 @@ package models.domain
 import org.specs2.mutable.Specification
 
 class SectionSpec extends Specification {
-
   "Section" should {
     "return the correct form" in {
-      val section: Section = MockObjects.sectionOne
-      val formOption = section.questionGroup(Hours.id)
+      val section = Section(CarersAllowance.id, Benefits() :: Hours() :: LivesInGB() :: Over16() :: Nil)
 
-      formOption must beLike {
-        case Some(form: QuestionGroup) => form.id mustEqual Hours.id
+      section.questionGroup(Hours) must beLike {
+        case Some(qg: QuestionGroup) => qg.id mustEqual Hours.id
       }
     }
   }

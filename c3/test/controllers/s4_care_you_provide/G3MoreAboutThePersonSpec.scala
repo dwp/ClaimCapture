@@ -7,7 +7,6 @@ import play.api.cache.Cache
 import models.domain.{Claiming, MoreAboutThePerson, Claim, Section}
 import models.domain
 import play.api.test.Helpers._
-import scala.Some
 
 class G3MoreAboutThePersonSpec extends Specification with Mockito {
 
@@ -31,7 +30,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito {
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
-      section.questionGroup(MoreAboutThePerson.id) must beLike {
+      section.questionGroup(MoreAboutThePerson) must beLike {
         case Some(f: MoreAboutThePerson) => {
           f.relationship mustEqual "father"
           f.armedForcesPayment mustEqual Some("yes")

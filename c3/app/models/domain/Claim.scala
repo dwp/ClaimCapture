@@ -6,10 +6,10 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   def section(sectionId: String): Option[Section] = sections.get(sectionId)
 
   def questionGroup(questionGroup: QuestionGroup): Option[QuestionGroup] = {
-    val sectionID = Section.sectionID(questionGroup.id)
+    val sectionID = Section.sectionID(questionGroup)
 
     section(sectionID) match {
-      case Some(s: Section) => s.questionGroup(questionGroup.id)
+      case Some(s: Section) => s.questionGroup(questionGroup)
       case _ => None
     }
   }
@@ -19,7 +19,7 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     case _ => Nil
   }
 
-  def completedQuestionGroups(questionGroup: QuestionGroup) = sections.get(Section.sectionID(questionGroup.id)) match {
+  def completedQuestionGroups(questionGroup: QuestionGroup) = sections.get(Section.sectionID(questionGroup)) match {
     case Some(s: Section) => s.questionGroups.takeWhile(_.index < questionGroup.index)
     case _ => Nil
   }
@@ -29,7 +29,7 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
       questionGroups.takeWhile(_.index < questionGroup.index) ::: List(questionGroup) ::: questionGroups.dropWhile(_.index <= questionGroup.index)
     }
 
-    val sectionID = Section.sectionID(questionGroup.id)
+    val sectionID = Section.sectionID(questionGroup)
 
     val section = sections.get(sectionID) match {
       case None => Section(sectionID, List(questionGroup))
@@ -40,7 +40,7 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   }
 
   def delete(questionGroup: QuestionGroup): Claim = {
-    val sectionID = Section.sectionID(questionGroup.id)
+    val sectionID = Section.sectionID(questionGroup)
 
     val section = sections.get(sectionID) match {
       case None => Section(sectionID, List())

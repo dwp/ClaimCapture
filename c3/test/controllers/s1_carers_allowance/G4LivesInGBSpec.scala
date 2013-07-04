@@ -24,7 +24,7 @@ class G4LivesInGBSpec extends Specification {
 
       status(result) mustEqual OK
 
-      val sectionID = Section.sectionID(LivesInGB.id)
+      val sectionID = Section.sectionID(LivesInGB)
       val answeredForms = claimWithOver16Form.completedQuestionGroups(sectionID)
 
       answeredForms(0) mustEqual Benefits(answer = true)
