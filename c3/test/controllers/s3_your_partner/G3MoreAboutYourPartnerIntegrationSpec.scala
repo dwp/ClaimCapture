@@ -16,7 +16,17 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags with
     "contain errors on invalid submission" in new WithBrowser {
       browser.goTo("/yourPartner/moreAboutYourPartner")
       browser.submit("button[type='submit']")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 2
+      browser.find("div[class=validation-summary] ol li").size mustEqual 1
+    }
+
+    "contain error on missing separation date when separated" in new WithBrowser {
+      browser.goTo("/yourPartner/moreAboutYourPartner")
+      browser.click("#dateStartedLivingTogether_day option[value='3']")
+      browser.click("#dateStartedLivingTogether_month option[value='4']")
+      browser.fill("#dateStartedLivingTogether_year") `with` "1950"
+      browser.click("#separatedFromPartner_yes]")
+      browser.submit("button[type='submit']")
+      browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
     "navigate back to Your Partner Personal Details" in new WithBrowser {
@@ -29,29 +39,13 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags with
     "navigate to next page on valid submission" in new WithBrowser {
       FormHelper.fillYourPartnerPersonalDetails(browser)
       FormHelper.fillYourPartnerContactDetails(browser)
-      FormHelper.fillMoreAboutYourPartner(browser)
-      browser.title mustEqual "Date of Separation - Your Partner"
-    }.pendingUntilFixed("Needs S3G4 view to exist and for the controller to be wired up")
+      FormHelper.fillMoreAboutYourPartnerSeparated(browser)
+      browser.title mustEqual "Person You Care For - Your Partner"
+    }
     
     "contain the completed forms" in new WithBrowser {
-      FormHelper.fillYourPartnerPersonalDetails(browser)
       FormHelper.fillYourPartnerContactDetails(browser)
-      FormHelper.fillMoreAboutYourPartner(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
-    }.pendingUntilFixed("Needs S3G4 view to exist and for the controller to be wired up")
-    
-    "navigate to Date of Separation when submitting with separated positive" in new WithBrowser {
-      FormHelper.fillYourPartnerPersonalDetails(browser)
-      FormHelper.fillYourPartnerContactDetails(browser)
-      FormHelper.fillMoreAboutYourPartner(browser)
-      browser.title mustEqual "Date Of Separation - Your Partner"
-    }.pendingUntilFixed("Needs S3G4 view to exist and for the controller to be wired up")
-
-    "navigate to Date of Separation when submitting with separated negative" in new WithBrowser {
-      FormHelper.fillYourPartnerPersonalDetails(browser)
-      FormHelper.fillYourPartnerContactDetails(browser)
-      FormHelper.fillMoreAboutYourPartnerNotSeparated(browser)
-      browser.title mustEqual "Person Tou Care For - Your Partner"
-    }.pendingUntilFixed("Needs S3G4 Controller to redirect to S3G5 and for S3G5 view to exist and for the controller to be wired up")
+    }
   }
 }

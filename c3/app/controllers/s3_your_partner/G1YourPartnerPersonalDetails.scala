@@ -5,6 +5,7 @@ import controllers.Mappings.nino
 import controllers.Mappings.sixty
 import controllers.Mappings.validDate
 import controllers.Mappings.validNinoOnly
+import controllers.Mappings.validYesNo
 import controllers.Routing
 import models.domain.YourPartnerPersonalDetails
 import models.view.CachedClaim
@@ -30,7 +31,7 @@ object G1YourPartnerPersonalDetails extends Controller with Routing with CachedC
       "nationalInsuranceNumber" -> optional(nino.verifying(validNinoOnly)),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "nationality" -> optional(text(maxLength = sixty)),
-      "liveAtSameAddress" -> nonEmptyText
+      "liveAtSameAddress" -> nonEmptyText.verifying(validYesNo)
     )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
 
 

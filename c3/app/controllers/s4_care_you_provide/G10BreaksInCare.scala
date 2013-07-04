@@ -8,13 +8,17 @@ import controllers.Routing
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages
+import controllers.Mappings._
+import models.domain.HasBreaks
+import models.domain.Claim
+import scala.Some
 
 object G10BreaksInCare extends Controller with Routing with CachedClaim {
   override val route = BreaksInCare.id -> routes.G10BreaksInCare.present
 
   val form = Form(
     mapping(
-      "answer" -> nonEmptyText
+      "answer" -> nonEmptyText.verifying(validYesNo)
     )(HasBreaks.apply)(HasBreaks.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(BreaksInCare)

@@ -1,4 +1,4 @@
-@(title: String, currentForm: Form[_], completedQuestionGroups: List[models.domain.QuestionGroup] = Nil, completedSections: Seq[String] = Nil, activeSection: String = "", futureSections: Seq[String] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, currentFormOption: Option[Form[_]], completedQuestionGroups: List[models.domain.QuestionGroup] = Nil, completedSections: Seq[String] = Nil, activeSection: String = "", futureSections: Seq[String] = Nil)(content: Html)(implicit claim: models.domain.Claim)
 
 @import models.domain.ClaimDate
 @import helper._
@@ -41,7 +41,12 @@
                     </div>
                 }
 
-                @errorsSummary(currentForm)
+
+                @{ currentFormOption match {
+                    case Some(n) => errorsSummary(n)
+                    case _ => ""
+                   }
+                }
 
                 @content
             </section>

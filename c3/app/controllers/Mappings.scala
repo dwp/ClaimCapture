@@ -6,6 +6,7 @@ import play.api.data.Forms._
 import play.api.data.validation._
 import scala.util.Try
 import models._
+import domain.MoreAboutYourPartner
 import scala.util.Success
 import models.MultiLineAddress
 import scala.util.Failure
@@ -121,4 +122,13 @@ object Mappings {
       case false => Invalid(ValidationError("decimal.invalid"))
     }
   }
+
+  def validYesNo:Constraint[String] = Constraint[String]("constraint.yesNo") { answer =>
+    answer match {
+      case `yes` => Valid
+      case `no` => Valid
+      case _ =>  Invalid(ValidationError("yesNo.invalid"))
+    }
+  }
+
 }

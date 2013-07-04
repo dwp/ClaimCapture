@@ -9,15 +9,18 @@ import play.api.test.Helpers._
 import models.domain.Claim
 
 class G3MoreAboutYourPartnerSpec extends Specification {
-  val dateStartedLivingTogetherDay = 5
-  val dateStartedLivingTogetherMonth = 12
-  val dateStartedLivingTogetherYear = 1990
+  val dateDay = 5
+  val dateMonth = 12
+  val dateYear = 1990
   val separatedFromPartner = "yes"
   
-  val moreAboutYourPartnerInput = Seq("dateStartedLivingTogether.day" -> dateStartedLivingTogetherDay.toString,
-          "dateStartedLivingTogether.month" -> dateStartedLivingTogetherMonth.toString,
-          "dateStartedLivingTogether.year" -> dateStartedLivingTogetherYear.toString,
-          "separatedFromPartner" -> separatedFromPartner)
+  val moreAboutYourPartnerInput = Seq("dateStartedLivingTogether.day" -> dateDay.toString,
+          "dateStartedLivingTogether.month" -> dateMonth.toString,
+          "dateStartedLivingTogether.year" -> dateYear.toString,
+          "separatedFromPartner" -> separatedFromPartner,
+          "separationDate.day" -> dateDay.toString,
+          "separationDate.month" -> dateMonth.toString,
+          "separationDate.year" -> dateYear.toString)
     
   "More About Your Partner - Controller" should {
     "present 'More About Your Partner'" in new WithApplication with Claiming {
@@ -37,7 +40,7 @@ class G3MoreAboutYourPartnerSpec extends Specification {
 
       section.questionGroup(MoreAboutYourPartner) must beLike {
         case Some(f: MoreAboutYourPartner) => {
-          f.dateStartedLivingTogether must equalTo(DayMonthYear(Some(dateStartedLivingTogetherDay), Some(dateStartedLivingTogetherMonth), Some(dateStartedLivingTogetherYear), None, None))
+          f.dateStartedLivingTogether must equalTo(Some(DayMonthYear(Some(dateDay), Some(dateMonth), Some(dateYear), None, None)))
           f.separatedFromPartner must equalTo(separatedFromPartner)
         }
       }

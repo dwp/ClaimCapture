@@ -7,16 +7,17 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import controllers.Routing
 import utils.helpers.CarersForm._
+import controllers.Mappings.validYesNo
 
 object G5MoreAboutYou extends Controller with Routing with CachedClaim {
   override val route = MoreAboutYou.id -> routes.G5MoreAboutYou.present
 
   val form = Form(
     mapping(
-      "hadPartnerSinceClaimDate" -> nonEmptyText,
-      "eitherClaimedBenefitSinceClaimDate" -> nonEmptyText,
-      "beenInEducationSinceClaimDate" -> nonEmptyText,
-      "receiveStatePension" -> nonEmptyText
+      "hadPartnerSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
+      "eitherClaimedBenefitSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
+      "beenInEducationSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
+      "receiveStatePension" -> nonEmptyText.verifying(validYesNo)
     )(MoreAboutYou.apply)(MoreAboutYou.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutYou)

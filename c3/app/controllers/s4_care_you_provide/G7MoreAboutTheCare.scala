@@ -15,10 +15,10 @@ object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
 
   val form = Form(
     mapping(
-      "spent35HoursCaring" -> nonEmptyText,
-      "spent35HoursCaringBeforeClaim" -> nonEmptyText,
+      "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
+      "spent35HoursCaringBeforeClaim" -> nonEmptyText.verifying(validYesNo),
       "careStartDate" -> optional(dayMonthYear verifying validDate),
-      "hasSomeonePaidYou" -> nonEmptyText
+      "hasSomeonePaidYou" -> nonEmptyText.verifying(validYesNo)
     )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutTheCare)

@@ -59,8 +59,11 @@ POST    /yourPartner/contactDetails                             controllers.s3_y
 GET     /yourPartner/moreAboutYourPartner                       controllers.s3_your_partner.G3MoreAboutYourPartner.present
 POST    /yourPartner/moreAboutYourPartner                       controllers.s3_your_partner.G3MoreAboutYourPartner.submit
 
-GET     /yourPartner/dateOfSeparation                           controllers.s3_your_partner.G4DateOfSeparation.present
-POST    /yourPartner/dateOfSeparation                           controllers.s3_your_partner.G4DateOfSeparation.submit
+GET     /yourPartner/personYouCareFor                           controllers.s3_your_partner.G4PersonYouCareFor.present
+POST    /yourPartner/personYouCareFor                           controllers.s3_your_partner.G4PersonYouCareFor.submit
+
+GET     /yourPartner/completed                                  controllers.s3_your_partner.YourPartner.completed
+POST    /yourPartner/completed                                  controllers.s3_your_partner.YourPartner.completedSubmit
 
 
 # Care You Provide
