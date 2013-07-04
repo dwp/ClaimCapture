@@ -24,7 +24,7 @@ object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutTheCare)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm = claim.questionGroup(MoreAboutTheCare.id) match {
+    val currentForm = claim.questionGroup(MoreAboutTheCare) match {
       case Some(m: MoreAboutTheCare) => form.fill(m)
       case _ => form
     }

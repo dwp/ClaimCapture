@@ -5,11 +5,9 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.cache.Cache
 import play.api.test.Helpers._
 import org.specs2.mock.Mockito
-import models.view._
 import models.domain
 import models.domain._
 import models.domain.Claim
-import scala.Some
 import controllers.s2_about_you
 
 class AboutYouSpec extends Specification with Mockito {
@@ -32,7 +30,7 @@ class AboutYouSpec extends Specification with Mockito {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(YourDetails.id) must beLike {
+      claim.questionGroup(YourDetails) must beLike {
         case Some(y: YourDetails) => y.firstName mustEqual "Scooby"
       }
     }

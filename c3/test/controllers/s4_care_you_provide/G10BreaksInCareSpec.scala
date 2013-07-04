@@ -2,10 +2,9 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
 import play.api.test.{FakeRequest, WithApplication}
-import models.view.Claiming
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.domain.{BreaksInCare, Claim}
+import models.domain.{Claiming, BreaksInCare, Claim}
 
 class G10BreaksInCareSpec extends Specification {
   "Breaks in care" should {
@@ -45,7 +44,7 @@ class G10BreaksInCareSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(BreaksInCare.id) must beLike {
+      claim.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) => b.breaks mustEqual Nil
       }
     }
@@ -71,7 +70,7 @@ class G10BreaksInCareSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(BreaksInCare.id) must beLike {
+      claim.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 1
       }
     }
@@ -92,7 +91,7 @@ class G10BreaksInCareSpec extends Specification {
         redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
       }
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 10
       }
 
@@ -109,7 +108,7 @@ class G10BreaksInCareSpec extends Specification {
       val result = G11Break.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 10
       }
     }
@@ -131,7 +130,7 @@ class G10BreaksInCareSpec extends Specification {
 
       G10BreaksInCare.delete(breakID)(FakeRequest().withSession("connected" -> claimKey))
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 0
       }
     }

@@ -1,15 +1,13 @@
 package controllers.s4_care_you_provide
 
 import play.api.test.{FakeRequest, WithApplication}
-import models.view.Claiming
 import play.api.test.Helpers._
 import org.specs2.mutable.Specification
 import play.api.cache.Cache
-import models.domain.{OneWhoPaysPersonalDetails, Section, Claim}
+import models.domain.{Claiming, OneWhoPaysPersonalDetails, Section, Claim}
 import models.domain
 
 class G8OneWhoPaysPersonalDetailsSpec extends Specification {
-
 
   "G8OneWhoPaysPersonalDetails - Controller" should {
 
@@ -21,7 +19,7 @@ class G8OneWhoPaysPersonalDetailsSpec extends Specification {
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
-      section.questionGroup(OneWhoPaysPersonalDetails.id) must beLike {
+      section.questionGroup(OneWhoPaysPersonalDetails) must beLike {
         case Some(f: OneWhoPaysPersonalDetails) => {
           f.firstName mustEqual Some("John")
         }

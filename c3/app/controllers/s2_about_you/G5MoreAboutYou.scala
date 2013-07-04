@@ -22,12 +22,12 @@ object G5MoreAboutYou extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutYou)
 
   def present = claiming { implicit claim => implicit request =>
-    val moreAboutYouForm: Form[MoreAboutYou] = claim.questionGroup(MoreAboutYou.id) match {
+    val moreAboutYouForm: Form[MoreAboutYou] = claim.questionGroup(MoreAboutYou) match {
       case Some(m: MoreAboutYou) => form.fill(m)
       case _ => form
     }
 
-    claim.questionGroup(models.domain.ClaimDate.id) match {
+    claim.questionGroup(ClaimDate) match {
       case Some(n) => Ok(views.html.s2_about_you.g5_moreAboutYou(moreAboutYouForm, completedQuestionGroups))
       case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
     }

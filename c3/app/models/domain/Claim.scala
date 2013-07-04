@@ -5,11 +5,11 @@ import models.{DayMonthYear, Timestamped}
 case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   def section(sectionId: String): Option[Section] = sections.get(sectionId)
 
-  def questionGroup(questionGroupID: String): Option[QuestionGroup] = {
-    val sectionID = Section.sectionID(questionGroupID)
+  def questionGroup(questionGroup: QuestionGroup): Option[QuestionGroup] = {
+    val sectionID = Section.sectionID(questionGroup.id)
 
     section(sectionID) match {
-      case Some(s: Section) => s.questionGroup(questionGroupID)
+      case Some(s: Section) => s.questionGroup(questionGroup)
       case _ => None
     }
   }
@@ -19,8 +19,8 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     case _ => Nil
   }
 
-  def completedQuestionGroups(qg: QuestionGroup) = sections.get(Section.sectionID(qg.id)) match {
-    case Some(s: Section) => s.questionGroups.takeWhile(_.index < qg.index)
+  def completedQuestionGroups(questionGroup: QuestionGroup) = sections.get(Section.sectionID(questionGroup.id)) match {
+    case Some(s: Section) => s.questionGroups.takeWhile(_.index < questionGroup.index)
     case _ => Nil
   }
 
@@ -39,18 +39,18 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     Claim(sections.updated(section.id, section))
   }
 
-  def delete(questionGroupId: String): Claim = {
-    val sectionID = Section.sectionID(questionGroupId)
+  def delete(questionGroup: QuestionGroup): Claim = {
+    val sectionID = Section.sectionID(questionGroup.id)
 
     val section = sections.get(sectionID) match {
       case None => Section(sectionID, List())
-      case Some(s) => Section(sectionID, s.questionGroups.filterNot(q => q.id == questionGroupId))
+      case Some(s) => Section(sectionID, s.questionGroups.filterNot(q => q.id == questionGroup.id))
     }
 
     Claim(sections.updated(section.id, section))
   }
 
-  def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate.id) match {
+  def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate) match {
     case Some(c: ClaimDate) => Some(c.dateOfClaim)
     case _ => None
   }

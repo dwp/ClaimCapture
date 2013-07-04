@@ -3,9 +3,7 @@ package controllers.s1_carers_allowance
 import org.specs2.mutable.Specification
 import play.api.test.{WithApplication, FakeRequest}
 import play.api.test.Helpers._
-
 import play.api.cache.Cache
-import models.view._
 import models.domain._
 import models.domain.Section
 import models.domain.Claim
@@ -40,7 +38,7 @@ class G4LivesInGBSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(LivesInGB.id) must beLike {
+      claim.questionGroup(LivesInGB) must beLike {
         case Some(f: LivesInGB) => f.answer mustEqual true
       }
     }

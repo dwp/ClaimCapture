@@ -3,12 +3,11 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
 import play.api.test.{FakeRequest, WithApplication}
-import models.view.Claiming
 import play.api.cache.Cache
 import models.domain._
 import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
-import models.domain.Section
+import models.domain.Claim
 
 class G1TheirPersonalDetailsSpec extends Specification with Mockito {
 
@@ -32,7 +31,7 @@ class G1TheirPersonalDetailsSpec extends Specification with Mockito {
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide.id).get
 
-      section.questionGroup(TheirPersonalDetails.id) must beLike {
+      section.questionGroup(TheirPersonalDetails) must beLike {
         case Some(f: TheirPersonalDetails) => {
           f.title mustEqual "Mr"
           f.firstName mustEqual "John"

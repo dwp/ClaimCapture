@@ -2,10 +2,10 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.Specification
 import play.api.test.{FakeRequest, WithApplication}
-import models.view.Claiming
 import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
+import models.domain.Claim
 
 class G9ContactDetailsOfPayingPersonSpec extends Specification {
   "Contact details of paying person" should {
@@ -43,7 +43,7 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(ContactDetailsOfPayingPerson.id) must beSome(ContactDetailsOfPayingPerson(None, None))
+      claim.questionGroup(ContactDetailsOfPayingPerson) must beSome(ContactDetailsOfPayingPerson(None, None))
     }
   }
 }

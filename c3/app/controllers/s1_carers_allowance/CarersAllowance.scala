@@ -21,10 +21,10 @@ object CarersAllowance extends Controller with CachedClaim {
   }
 
   def approveSubmit = Action {
-    Redirect(controllers.s2_about_you.routes.G1YourDetails.present)
+    Redirect(controllers.s2_about_you.routes.G1YourDetails.present())
   }
 
-  def claiming(formID: String, claim: Claim) = claim.questionGroup(formID) match {
+  def claiming(questionGroup: QuestionGroup, claim: Claim) = claim.questionGroup(questionGroup) match {
     case Some(b: BooleanConfirmation) => b.answer
     case _ => false
   }

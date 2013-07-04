@@ -24,7 +24,7 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(RepresentativesForPerson)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm = claim.questionGroup(RepresentativesForPerson.id) match {
+    val currentForm = claim.questionGroup(RepresentativesForPerson) match {
       case Some(r: RepresentativesForPerson) => form.fill(r)
       case _ => form
     }

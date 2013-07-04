@@ -24,7 +24,7 @@ object G2ContactDetails extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ContactDetails)
 
   def present = claiming { implicit claim => implicit request =>
-    val contactDetailsForm: Form[ContactDetails] = claim.questionGroup(ContactDetails.id) match {
+    val contactDetailsForm: Form[ContactDetails] = claim.questionGroup(ContactDetails) match {
       case Some(c: ContactDetails) => form.fill(c)
       case _ => form
     }

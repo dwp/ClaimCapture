@@ -25,7 +25,7 @@ object G4DateOfSeparation extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutYourPartner)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[MoreAboutYourPartner] = claim.questionGroup(MoreAboutYourPartner.id) match {
+    val currentForm: Form[MoreAboutYourPartner] = claim.questionGroup(MoreAboutYourPartner) match {
       case Some(t: MoreAboutYourPartner) => form.fill(t)
       case _ => form
     }
