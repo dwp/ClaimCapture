@@ -28,6 +28,10 @@ s4.g9 = Contact details of the person who pays you
 s4.g10 = Breaks in care
 s4.g11 = About the breaks in care
 
+
+s6.g1 = How would you like to get paid?
+s6.g2 = Bank / building society details
+
 ## ABOUT YOU
 
 # YOUR DETAILS
@@ -152,3 +156,15 @@ whereYou_location = Where were you during the above break?
 wherePerson = Where was the person you care for during the above break?
 wherePerson_location = Where was the person you care for during the above break?
 medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
+
+##  PAY DETAILS
+# HOW WE PAY YOU
+likeToPay =  How would you like to be paid?
+paymentFrequency = How often do you want to get paid?
+
+# BANK BUILDING SOCIETY DETAILS
+accountHolderName =  Name of account holder
+bankFullName = Full name of bank or building society
+sortCode = Sort code
+accountName = Account number
+rollOrReferenceNumber = Building society roll or reference number

@@ -18,6 +18,8 @@ object Mappings {
 
   val sixty = 60
 
+  val two = 2
+
   val hundred = 100
 
   val yes = "yes"
@@ -42,6 +44,22 @@ object Mappings {
     "location" -> nonEmptyText,
     "other" -> optional(text)
   )(Whereabouts.apply)(Whereabouts.unapply)
+
+  val sortCode: Mapping[SortCode] = mapping(
+    "sort1" -> text( maxLength = two),
+    "sort2" -> text( maxLength = two),
+    "sort3" -> text( maxLength = two)
+  )(SortCode.apply)(SortCode.unapply)
+
+  def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required"){ sortCode =>
+    sortCode match {
+      case SortCode(s1,s2,s3) => if (s1.isEmpty || s2.isEmpty || s3.isEmpty) Invalid(ValidationError("error.required"))
+                                 else if (!(areAllDigits(s1) && areAllDigits(s2) && areAllDigits(s3))) Invalid(ValidationError("error.number"))
+                                 else Valid
+    }
+  }
+
+  def areAllDigits(x: String) = x forall Character.isDigit
 
   def requiredWhereabouts: Constraint[Whereabouts] = Constraint[Whereabouts]("constraint.required") { whereabouts =>
     whereabouts match {
