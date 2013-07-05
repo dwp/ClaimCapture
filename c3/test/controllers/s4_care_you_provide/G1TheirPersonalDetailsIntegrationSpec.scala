@@ -24,12 +24,22 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Their Contact Details - Care You Provide"
     }
 
-    "navigate back to About You - Completed" in new WithBrowser {
+    """navigate back to "Completion - Your Partner" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser {
+      FormHelper.fillClaimDate(browser)
+      FormHelper.fillMoreAboutYou(browser)
+      browser.goTo("/careYouProvide/theirPersonalDetails")
+      browser.click(".form-steps a")
+      browser.title mustEqual "Completion - Your Partner"
+    }
+        
+    """navigate back to "About You - Completed" when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser {
+      FormHelper.fillClaimDate(browser)
+      FormHelper.fillMoreAboutYouNotHadPartnerSinceClaimDate(browser)
       browser.goTo("/careYouProvide/theirPersonalDetails")
       browser.click(".form-steps a")
       browser.title mustEqual "Completion - About You"
     }
-
+    
     "contain the completed forms" in new WithBrowser {
       FormHelper.fillTheirPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
