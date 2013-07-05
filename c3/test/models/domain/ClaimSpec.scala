@@ -65,5 +65,26 @@ class ClaimSpec extends Specification with Mockito {
       updatedClaim.completedQuestionGroups(CarersAllowance.id).size mustEqual 3
       claim.completedQuestionGroups(CarersAllowance.id).size mustEqual 4
     }
+
+    "be able hide a section" in {
+      val updatedClaim = new Claim().showHideSection(YourPartner.id, false)
+      updatedClaim.isSectionVisible(YourPartner.id) mustEqual false
+    }
+
+    "be able show a section" in {
+      val updatedClaim = new Claim().showHideSection(YourPartner.id, true)
+      updatedClaim.isSectionVisible(YourPartner.id) mustEqual true
+    }
+
+    "be able to update a section" in {
+      val claim = Claim().update(Benefits()).update(Hours()).update(LivesInGB()).update(Over16())
+      val section = claim.section(CarersAllowance.id).get
+
+      val updatedClaim = claim.update(section.hide())
+
+      val updatedSection = updatedClaim.section(CarersAllowance.id).get
+
+      updatedSection.visible mustEqual false
+    }
   }
 }

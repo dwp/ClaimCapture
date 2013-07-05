@@ -11,5 +11,15 @@ class SectionSpec extends Specification {
         case Some(qg: QuestionGroup) => qg.id mustEqual Hours.id
       }
     }
+
+    "be able to show/hide" in {
+      val section = Section(CarersAllowance.id, Benefits() :: Hours() :: LivesInGB() :: Over16() :: Nil)
+      section.visible mustEqual true
+      val hiddenSection = section.hide()
+      hiddenSection.visible mustEqual false
+
+      val visibleSection = hiddenSection.show()
+      visibleSection.visible mustEqual true
+    }
   }
 }
