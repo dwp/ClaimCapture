@@ -12,18 +12,14 @@ $ ->
             event.preventDefault()
 
     $("tbody").on "click", "input[value='Delete']", ->
-        $("tr input[type='button']").attr("disabled", "true").addClass("disabled")
-        $("input[type='radio']").attr("disabled", "true").addClass("disabled")
-        $(".form-steps").children().attr("disabled", "true").addClass("disabled")
+        disable()
 
         tr = $(this).closest("tr")
         tbody = $(this).closest("tbody")
 
         $(".breaks-prompt").slideDown ->
             $("input[value='No']").on "click", ->
-                $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
-                $("input[type='radio']").removeAttr("disabled", "true").removeClass("disabled")
-                $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
+                enable()
 
                 $(".breaks-prompt").slideUp()
 
@@ -34,9 +30,7 @@ $ ->
 
                     success: (data) ->
                         $("label[for='answer']").text(data.answer)
-                        $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
-                        $("input[type='radio']").removeAttr("disabled", "true").removeClass("disabled")
-                        $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
+                        enable()
 
                         $(".breaks-prompt").slideUp()
 
@@ -53,9 +47,17 @@ $ ->
                         ).wrapInner("<div />").children().slideUp -> tr.remove()
 
                     error: ->
-                        $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
-                        $("input[type='radio']").removeAttr("disabled", "true").removeClass("disabled")
-                        $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
+                        enable()
 
                         $(".breaks-prompt").slideUp()
                         alert "Failed to delete break - Contact Support"
+
+enable = ->
+    $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
+    $("input[type='radio']").removeAttr("disabled", "true").removeClass("disabled")
+    $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
+
+disable = ->
+    $("tr input[type='button']").attr("disabled", "true").addClass("disabled")
+    $("input[type='radio']").attr("disabled", "true").addClass("disabled")
+    $(".form-steps").children().attr("disabled", "true").addClass("disabled")
