@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags,Specification}
 import play.api.test.{FakeApplication, WithApplication}
 
 /**
- * To change this template use Preferences | File and Code Templates.
+ * Test generation of unique transaction id.
  * @author Jorge Migueis
  *         Date: 03/07/2013
  */
