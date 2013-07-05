@@ -24,6 +24,28 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     case _ => Nil
   }
 
+  def completedSections(currentSection: QuestionGroup) = sections.takeWhile(s => s._1 < Section.sectionID(currentSection)).map(f => f._1).toSeq
+
+  def futureSections(currentSection: QuestionGroup) = sections.dropWhile(s => s._1 <= Section.sectionID(currentSection)).map(f => f._1).toSeq
+
+  def update(section: Section): Claim = {
+    Claim(sections.updated(section.id, section))
+  }
+
+  def isSectionVisible(sectionID: String) = {
+    section(sectionID) match {
+      case Some(s) => s.visible
+      case _ => false
+    }
+  }
+
+  def showHideSection(sectionID: String, show: Boolean): Claim = {
+    section(sectionID) match {
+      case Some(s: Section) => update(s.hide())
+      case _ => update(Section(sectionID, List(), show))
+    }
+  }
+
   def update(questionGroup: QuestionGroup): Claim = {
     def update(questionGroup: QuestionGroup, questionGroups: List[QuestionGroup]): List[QuestionGroup] = {
       questionGroups.takeWhile(_.index < questionGroup.index) ::: List(questionGroup) ::: questionGroups.dropWhile(_.index <= questionGroup.index)
