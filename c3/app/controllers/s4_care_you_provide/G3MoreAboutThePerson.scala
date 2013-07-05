@@ -3,13 +3,12 @@ package controllers.s4_care_you_provide
 import play.api.mvc.Controller
 import controllers.Routing
 import models.view.CachedClaim
-import models.domain.{Claim, MoreAboutThePerson}
+import models.domain.MoreAboutThePerson
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import models.domain.Claim
-import scala.Some
 
 object G3MoreAboutThePerson extends Controller with Routing with CachedClaim {
 
