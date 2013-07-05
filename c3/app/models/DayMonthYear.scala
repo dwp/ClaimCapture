@@ -30,6 +30,8 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
 
   def yyyyMMdd: String = yyyyMMdd("-")
 
+  def `yyyy-MM-dd`: String = yyyyMMdd("-")
+
   def yyyyMMdd(separator: String): String = year.fold("")(_.toString) + separator + pad(month) + separator + pad(day)
 
   def pad(i: Option[Int]): String = i.fold("")(i => if (i < 10) s"0$i" else s"$i")
