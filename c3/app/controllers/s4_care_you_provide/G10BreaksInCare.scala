@@ -11,7 +11,6 @@ import play.api.i18n.Messages
 import controllers.Mappings._
 import models.domain.HasBreaks
 import models.domain.Claim
-import scala.Some
 
 object G10BreaksInCare extends Controller with Routing with CachedClaim {
   override val route = BreaksInCare.id -> routes.G10BreaksInCare.present
