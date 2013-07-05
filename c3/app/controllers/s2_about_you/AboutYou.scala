@@ -28,7 +28,7 @@ object AboutYou extends Controller with CachedClaim {
       case Some(m: MoreAboutYou) => m.hadPartnerSinceClaimDate == "yes"
       case _ => false
     }
-println(hadPartnerSinceClaimDate)
+
     claim.questionGroup(YourDetails) match { 
       case Some(y: YourDetails) if y.alwaysLivedUK == "no" && completedQuestionGroups.distinct.size == 7 =>
         if (hadPartnerSinceClaimDate) Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
