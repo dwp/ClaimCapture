@@ -24,12 +24,19 @@ object AboutYou extends Controller with CachedClaim {
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    claim.questionGroup(YourDetails) match {
+    val hadPartnerSinceClaimDate = claim.questionGroup(MoreAboutYou) match { 
+      case Some(m: MoreAboutYou) => m.hadPartnerSinceClaimDate == "yes"
+      case _ => false
+    }
+println(hadPartnerSinceClaimDate)
+    claim.questionGroup(YourDetails) match { 
       case Some(y: YourDetails) if y.alwaysLivedUK == "no" && completedQuestionGroups.distinct.size == 7 =>
-        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+        if (hadPartnerSinceClaimDate) Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
+        else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
 
       case Some(_: YourDetails) if completedQuestionGroups.distinct.size == 6 =>
-        Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+        if (hadPartnerSinceClaimDate) Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
+        else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
 
       case _ => Redirect(routes.G1YourDetails.present())
     }

@@ -72,6 +72,15 @@ object FormHelper {
     browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
   }
+  
+  def fillMoreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
+    browser.goTo("/aboutyou/moreAboutYou")
+    browser.click("#hadPartnerSinceClaimDate_no")
+    browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
+    browser.click("#beenInEducationSinceClaimDate_yes")
+    browser.click("#receiveStatePension_yes")
+    browser.submit("button[type='submit']")
+  }
 
   def fillEmployment(browser: TestBrowser) = {
     browser.goTo("/aboutyou/employment")
