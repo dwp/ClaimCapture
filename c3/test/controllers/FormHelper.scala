@@ -282,4 +282,24 @@ object FormHelper {
     browser.click("#someoneElseActForPerson_no")
     browser.submit("button[type='submit']")
   }
+
+
+  def fillHowWePayYou(browser: TestBrowser) = {
+    browser.goTo("/payDetails/howWePayYou")
+    browser.click("#likeToPay_01")
+    browser.click("#paymentFrequency option[value='1W']")
+    browser.submit("button[type='submit']")
+  }
+
+  def fillBankBuildingSocietyDetails(browser: TestBrowser) = {
+    browser.goTo("/payDetails/bankBuildingSocietyDetails")
+    browser.fill("#accountHolderName") `with` "holder name"
+    browser.fill("#bankFullName") `with` "bank name"
+    browser.fill("#sortCode_sort1") `with` "10"
+    browser.fill("#sortCode_sort2") `with` "11"
+    browser.fill("#sortCode_sort3") `with` "12"
+    browser.fill("#accountName") `with` "account"
+    browser.fill("#rollOrReferenceNumber") `with` "1234567"
+    browser.submit("button[type='submit']")
+  }
 }
