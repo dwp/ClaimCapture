@@ -11,15 +11,13 @@ object CarersAllowance extends Controller with CachedClaim {
     G2Hours,
     G3Over16,
     G4LivesInGB)
-    
-  val progressBar = ProgressBar(models.domain.CarersAllowance.id)
 
   def approve = claiming { implicit claim => implicit request =>
     val sectionId = models.domain.CarersAllowance.id
     val completedQuestionGroups = claim.completedQuestionGroups(sectionId)
     val approved = claim.completedQuestionGroups(sectionId).forall(_.asInstanceOf[BooleanConfirmation].answer) && completedQuestionGroups.length == 4
 
-    Ok(views.html.s1_carers_allowance.g5_approve(approved, completedQuestionGroups, completedSections = progressBar.completedSections, activeSection = progressBar.activeSection, futureSections = progressBar.futureSections))
+    Ok(views.html.s1_carers_allowance.g5_approve(approved, completedQuestionGroups))
   }
 
   def approveSubmit = Action {

@@ -33,7 +33,7 @@ object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
           case _ => form
         }
 
-        Ok(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKForm, completedQuestionGroups, completedSections = AboutYou.progressBar.completedSections, activeSection = AboutYou.progressBar.activeSection, futureSections = AboutYou.progressBar.futureSections))
+        Ok(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKForm, completedQuestionGroups))
     }
   }
 
@@ -49,12 +49,12 @@ object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g3_timeOutsideUK(formWithErrors, completedQuestionGroups, completedSections = AboutYou.progressBar.completedSections, activeSection = AboutYou.progressBar.activeSection, futureSections = AboutYou.progressBar.futureSections)),
+      formWithErrors => BadRequest(views.html.s2_about_you.g3_timeOutsideUK(formWithErrors, completedQuestionGroups)),
       implicit timeOutsideUK => {
         val formValidations = livingInUK _ andThen planToGoBack _
         val timeOutsideUKFormValidated = formValidations(form)
 
-        if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKFormValidated, completedQuestionGroups, completedSections = AboutYou.progressBar.completedSections, activeSection = AboutYou.progressBar.activeSection, futureSections = AboutYou.progressBar.futureSections))
+        if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKFormValidated, completedQuestionGroups))
         else claim.update(timeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
       })
   }

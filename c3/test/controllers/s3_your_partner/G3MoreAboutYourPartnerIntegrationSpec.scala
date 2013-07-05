@@ -44,8 +44,9 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags with
     }
     
     "contain the completed forms" in new WithBrowser {
+      FormHelper.fillYourPartnerPersonalDetails(browser)
       FormHelper.fillYourPartnerContactDetails(browser)
-      browser.find("div[class=completed] ul li").size() mustEqual 1
+      browser.find("div[class=completed] ul li").size() mustEqual 2
     }
   }
 }

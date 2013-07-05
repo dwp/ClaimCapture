@@ -17,11 +17,9 @@ object G1Benefits extends Controller with Routing with CachedClaim {
       "answer" -> boolean
     )(Benefits.apply)(Benefits.unapply))
 
-  val progressBar = ProgressBar(models.domain.CarersAllowance.id)
-    
   def present = newClaim { implicit claim => implicit request =>
-    if (CarersAllowance.claiming(Benefits, claim)) Ok(views.html.s1_carers_allowance.g1_benefits(confirmed = true, completedSections = CarersAllowance.progressBar.completedSections, activeSection = CarersAllowance.progressBar.activeSection, futureSections = CarersAllowance.progressBar.futureSections))
-    else Ok(views.html.s1_carers_allowance.g1_benefits(confirmed = false, completedSections = CarersAllowance.progressBar.completedSections, activeSection = CarersAllowance.progressBar.activeSection, futureSections = CarersAllowance.progressBar.futureSections))
+    if (CarersAllowance.claiming(Benefits, claim)) Ok(views.html.s1_carers_allowance.g1_benefits(confirmed = true))
+    else Ok(views.html.s1_carers_allowance.g1_benefits(confirmed = false))
   }
 
   def submit = claiming { implicit claim => implicit request =>

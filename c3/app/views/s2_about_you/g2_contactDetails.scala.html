@@ -1,4 +1,4 @@
-@(contactDetailsForm: Form[models.domain.ContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup], completedSections: Seq[String], activeSection: String, futureSections: Seq[String])(implicit claim: models.domain.Claim)
+@(contactDetailsForm: Form[models.domain.ContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -6,7 +6,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("Contact Details - About You", completedQuestionGroups, completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
+@main("Contact Details - About You", completedQuestionGroups) {
     @errorsSummary(contactDetailsForm)
 
     @form(action = controllers.s2_about_you.routes.G2ContactDetails.submit) {
