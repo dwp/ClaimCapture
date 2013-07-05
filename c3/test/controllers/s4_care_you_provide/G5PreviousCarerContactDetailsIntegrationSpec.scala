@@ -9,6 +9,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
   "Previous Carer Contact Details" should {
     "be presented" in new WithBrowserAndMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
+      titleMustEqual("Their Personal Details - Care You Provide")
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       FormHelper.fillPreviousCarerPersonalDetails(browser)
       browser.goTo("/careYouProvide/previousCarerContactDetails")
@@ -17,7 +18,9 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
 
     "contain errors on invalid submission" in new WithBrowserAndMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
+      titleMustEqual("Their Personal Details - Care You Provide")
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      titleMustEqual("More About The Person You Care For - Care You Provide")
       FormHelper.fillPreviousCarerPersonalDetails(browser)
       browser.goTo("/careYouProvide/previousCarerContactDetails")
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
