@@ -9,7 +9,6 @@ import controllers.Routing
 import utils.helpers.CarersForm._
 import controllers.Mappings.validYesNo
 import models.domain.Claim
-import scala.Some
 
 object G6Employment extends Controller with Routing with CachedClaim {
   override val route = Employment.id -> routes.G6Employment.present

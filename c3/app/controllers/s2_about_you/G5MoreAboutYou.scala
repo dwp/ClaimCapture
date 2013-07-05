@@ -42,14 +42,12 @@ object G5MoreAboutYou extends Controller with Routing with CachedClaim {
         formWithErrors => BadRequest(views.html.s2_about_you.g5_moreAboutYou(formWithErrors, completedQuestionGroups)),
         moreAboutYou => {
           val updatedClaim = showHideYourPartnerSection(claim, moreAboutYou.hadPartnerSinceClaimDate)
-          updatedClaim.update(moreAboutYou)
-        } -> Redirect(routes.G6Employment.present()))
+          updatedClaim.update(moreAboutYou) -> Redirect(routes.G6Employment.present())
+        })
   }
 
-  def showHideYourPartnerSection(claim: Claim, hadPartner:String): Claim = {
-    hadPartner match {
-      case `yes` => claim.showHideSection(YourPartner.id, true)
-      case _ =>  claim.showHideSection(YourPartner.id, false)
-    }
+  def showHideYourPartnerSection(claim: Claim, hadPartner:String): Claim = hadPartner match {
+    case `yes` => claim.showHideSection(YourPartner.id, true)
+    case _ =>  claim.showHideSection(YourPartner.id, false)
   }
 }

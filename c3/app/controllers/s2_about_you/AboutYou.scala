@@ -4,7 +4,6 @@ import play.api.mvc._
 import models.view.CachedClaim
 import models.domain._
 import scala.collection.immutable.ListMap
-import scala.Some
 import play.api.mvc.Call
 
 object AboutYou extends Controller with CachedClaim {
