@@ -17,7 +17,11 @@ object YourPartner extends Controller with CachedClaim {
 
   def completed = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s3_your_partner.g5_completed(completedQuestionGroups))
+
+      if (claim.isSectionVisible(models.domain.YourPartner.id)) {
+        Ok(views.html.s3_your_partner.g5_completed(completedQuestionGroups))
+      }
+      else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }
 
   def completedSubmit = claiming {

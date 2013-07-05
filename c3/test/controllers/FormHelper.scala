@@ -72,7 +72,7 @@ object FormHelper {
     browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
   }
-  
+
   def fillMoreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
     browser.goTo("/aboutyou/moreAboutYou")
     browser.click("#hadPartnerSinceClaimDate_no")

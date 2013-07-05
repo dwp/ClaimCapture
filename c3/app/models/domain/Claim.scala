@@ -35,7 +35,7 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   def isSectionVisible(sectionID: String) = {
     section(sectionID) match {
       case Some(s) => s.visible
-      case _ => false
+      case _ => true
     }
   }
 

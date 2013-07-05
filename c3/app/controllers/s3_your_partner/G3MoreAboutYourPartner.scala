@@ -25,12 +25,17 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
 
   def present = claiming {
     implicit claim => implicit request =>
-      val currentForm: Form[MoreAboutYourPartner] = claim.questionGroup(MoreAboutYourPartner) match {
-        case Some(t: MoreAboutYourPartner) => form.fill(t)
-        case _ => form
-      }
 
-      Ok(views.html.s3_your_partner.g3_moreAboutYourPartner(currentForm, completedQuestionGroups))
+      if (claim.isSectionVisible(models.domain.YourPartner.id)) {
+
+        val currentForm: Form[MoreAboutYourPartner] = claim.questionGroup(MoreAboutYourPartner) match {
+          case Some(t: MoreAboutYourPartner) => form.fill(t)
+          case _ => form
+        }
+
+        Ok(views.html.s3_your_partner.g3_moreAboutYourPartner(currentForm, completedQuestionGroups))
+      }
+      else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }
 
   def submit = claiming {

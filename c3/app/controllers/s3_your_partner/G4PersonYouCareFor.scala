@@ -22,12 +22,16 @@ object G4PersonYouCareFor extends Controller with Routing with CachedClaim {
 
   def present = claiming {
     implicit claim => implicit request =>
-      val currentForm: Form[PersonYouCareFor] = claim.questionGroup(PersonYouCareFor) match {
-        case Some(t: PersonYouCareFor) => form.fill(t)
-        case _ => form
-      }
 
-      Ok(views.html.s3_your_partner.g4_personYouCareFor(currentForm, completedQuestionGroups))
+      if (claim.isSectionVisible(models.domain.YourPartner.id)) {
+        val currentForm: Form[PersonYouCareFor] = claim.questionGroup(PersonYouCareFor) match {
+          case Some(t: PersonYouCareFor) => form.fill(t)
+          case _ => form
+        }
+
+        Ok(views.html.s3_your_partner.g4_personYouCareFor(currentForm, completedQuestionGroups))
+      }
+      else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }
 
   def submit = claiming {
