@@ -116,7 +116,6 @@ GET     /timeSpentAbroad/abroadForMoreThan4Weeks                controllers.s5_t
 
 # Pay Details
 ###############
-
 GET     /payDetails/howWePayYou                                 controllers.s6_pay_details.G1HowWePayYou.present
 POST    /payDetails/howWePayYou                                 controllers.s6_pay_details.G1HowWePayYou.submit
 
@@ -124,7 +123,7 @@ GET     /payDetails/bankBuildingSocietyDetails                  controllers.s6_p
 POST    /payDetails/bankBuildingSocietyDetails                  controllers.s6_pay_details.G2BankBuildingSocietyDetails.submit
 
 GET     /payDetails/completed                                   controllers.s6_pay_details.PayDetails.completed
-POST    /payDetails/completed                                  controllers.s6_pay_details.PayDetails.completedSubmit
+POST    /payDetails/completed                                   controllers.s6_pay_details.PayDetails.completedSubmit
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                           controllers.Assets.at(path="/public", file)

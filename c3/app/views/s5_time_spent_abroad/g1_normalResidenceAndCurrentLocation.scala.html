@@ -1,11 +1,41 @@
 @(normalResidenceAndCurrentLocationForm: Form[models.domain.NormalResidenceAndCurrentLocation])(implicit claim: models.domain.Claim)
 
-<html>
-    <head>
-        <title>Normal Residence and Current Location - Time Spent Abroad</title>
-    </head>
+@import helper._
 
-    <body>
-        Normal Residence and Current Location - Time Spent Abroad
-    </body>
-</html>
+@main("Normal Residence and Current Location - Time Spent Abroad", normalResidenceAndCurrentLocationForm) {
+    @form(action = controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.submit) {
+        <fieldset class="form-elements">
+            <legend>Your normal residence &amp; current location</legend>
+
+            <ul class="group">
+                <li>
+                    <p>Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?</p>
+
+                    <ul class="radio">
+                        <li><input type="radio" name="q1-yes" id="q1-yes"><label for="q1-yes">Yes</label></li>
+                        <li><input type="radio" name="q1-no" id="q1-no"><label for="q1-no">No</label></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <label for="live">Where do you normally live?</label>
+                    <input type="text" name="live" id="live">
+                </li>
+
+                <li>
+                    <p>Are you in Great Britain now?</p>
+
+                    <ul class="radio">
+                        <li><input type="radio" name="q2-yes" id="q2-yes"><label for="q2-yes">Yes</label></li>
+                        <li><input type="radio" name="q2-no" id="q2-no"><label for="q2-no">No</label></li>
+                    </ul>
+                </li>
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="../about/carers-about1.html" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}
