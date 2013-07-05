@@ -11,12 +11,18 @@ import play.api.Play.current
 object TransactionId {
 
   def getUniqueTransactionIt(): String = {
-    DB.withConnection("carers") { connection =>
-      val statement = connection.prepareCall("select get_new_transaction_id();")
-      statement.execute()
-      val result = statement.getResultSet()
-      result.next
-      result.getString("get_new_transaction_id")
+    DB.withConnection("carers") {
+      connection =>
+        try {
+          val statement = connection.prepareCall("select get_new_transaction_id();")
+          statement.execute()
+          val result = statement.getResultSet()
+          result.next
+          result.getString("get_new_transaction_id")
+        }
+        catch {
+          case e: java.lang.Exception => throw new RuntimeException("Cannot generate an unique transaction ID.", e)
+        }
     }
   }
 
