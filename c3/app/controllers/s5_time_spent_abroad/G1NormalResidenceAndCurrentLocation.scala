@@ -14,7 +14,8 @@ object G1NormalResidenceAndCurrentLocation extends Controller with Routing with 
   implicit val form = Form(
     mapping(
       "normallyLiveInUK" -> nonEmptyText,
-      "whereDoYouNormallyLive" -> optional(nonEmptyText)
+      "whereDoYouNormallyLive" -> optional(nonEmptyText),
+      "inGBNow" -> nonEmptyText
     )(NormalResidenceAndCurrentLocation.apply)(NormalResidenceAndCurrentLocation.unapply))
 
   def present = claiming { implicit claim => implicit request =>

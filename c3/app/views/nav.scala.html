@@ -1,0 +1,38 @@
+@(sectionID: String)(implicit claim: models.domain.Claim)
+
+@import models.domain._
+
+<style>
+    .nav {
+        list-style: none;
+        text-align: center;
+    }
+
+    .nav li {
+        display: inline;
+        color: white;
+        background: grey;
+        font-size: 20px;
+        text-align: center;
+        margin: 5px;
+        padding: 5px 10px 5px 10px;
+    }
+</style>
+
+@background(currentSectionID: String) = {
+    @if(currentSectionID == sectionID) {
+        style="background: red"
+    } else {
+        @if(Section.index(currentSectionID) < Section.index(sectionID)) {
+            style="background: black"
+        }
+    }
+}
+
+<ul class="nav">
+    <li @background(CarersAllowance.id)>Get Carer's Allowance</li>
+    <li @background(AboutYou.id)>About You</li>
+    <li @background(YourPartner.id)>Your Partner</li>
+    <li @background(CareYouProvide.id)>Care You Provide</li>
+    <li @background(TimeSpentAbroad.id)>Time Abroad</li>
+</ul>
