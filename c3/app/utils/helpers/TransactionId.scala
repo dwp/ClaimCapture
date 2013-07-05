@@ -16,7 +16,7 @@ object TransactionId {
         try {
           val statement = connection.prepareCall("select get_new_transaction_id();")
           statement.execute()
-          val result = statement.getResultSet()
+          val result = statement getResultSet()
           result.next
           result.getString("get_new_transaction_id")
         }
