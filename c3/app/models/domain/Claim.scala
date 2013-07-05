@@ -29,10 +29,11 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     case _ => true
   }
 
-
-  def showHideSection(sectionID: String, show: Boolean): Claim = section(sectionID) match {
-    case Some(s: Section) => update(s.hide())
-    case _ => update(Section(sectionID, List(), show))
+  def showHideSection(sectionID: String, show: Boolean): Claim = {
+    section(sectionID) match {
+      case Some(s: Section) => update(s.copy(visible = show))
+      case _ => update(Section(sectionID, List(), show))
+    }
   }
 
   def update(section: Section): Claim = Claim(sections.updated(section.id, section))

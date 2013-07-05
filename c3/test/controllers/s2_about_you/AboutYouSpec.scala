@@ -167,18 +167,21 @@ class AboutYouSpec extends Specification with Mockito {
     "continue to partner/spouse upon section completion when all forms are done" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
+      val moreAboutYou = mockQuestionGroup[MoreAboutYou](MoreAboutYou.id)
+      moreAboutYou.hadPartnerSinceClaimDate returns "yes"
+
       val claim = Claim()
         .update(mockQuestionGroup[YourDetails](YourDetails.id))
         .update(mockQuestionGroup[ContactDetails](ContactDetails.id))
         .update(mockQuestionGroup[ClaimDate](ClaimDate.id))
-        .update(mockQuestionGroup[MoreAboutYou](MoreAboutYou.id))
+        .update(moreAboutYou)
         .update(mockQuestionGroup[Employment](Employment.id))
         .update(mockQuestionGroup[PropertyAndRent](PropertyAndRent.id))
 
       Cache.set(claimKey, claim)
 
       val result = s2_about_you.AboutYou.completedSubmit(request)
-      redirectLocation(result) must beSome("/careYouProvide/theirPersonalDetails")
+      redirectLocation(result) must beSome("/yourPartner/personalDetails")
     }
 
     "continue to partner/spouse upon section completion when all forms are done including 'time outside UK'" in new WithApplication with Claiming {
@@ -187,19 +190,22 @@ class AboutYouSpec extends Specification with Mockito {
       val yourDetails = mockQuestionGroup[YourDetails](YourDetails.id)
       yourDetails.alwaysLivedUK returns "no"
 
+      val moreAboutYou = mockQuestionGroup[MoreAboutYou](MoreAboutYou.id)
+      moreAboutYou.hadPartnerSinceClaimDate returns "yes"
+
       val claim = Claim()
         .update(yourDetails)
         .update(mockQuestionGroup[ContactDetails](ContactDetails.id))
         .update(mockQuestionGroup[TimeOutsideUK](TimeOutsideUK.id))
         .update(mockQuestionGroup[ClaimDate](ClaimDate.id))
-        .update(mockQuestionGroup[MoreAboutYou](MoreAboutYou.id))
+        .update(moreAboutYou)
         .update(mockQuestionGroup[Employment](Employment.id))
         .update(mockQuestionGroup[PropertyAndRent](PropertyAndRent.id))
 
       Cache.set(claimKey, claim)
 
       val result = s2_about_you.AboutYou.completedSubmit(request)
-      redirectLocation(result) must beSome("/careYouProvide/theirPersonalDetails")
+      redirectLocation(result) must beSome("/yourPartner/personalDetails")
     }
   }
 }
