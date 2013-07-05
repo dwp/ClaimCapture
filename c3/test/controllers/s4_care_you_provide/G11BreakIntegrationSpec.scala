@@ -124,11 +124,13 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.submit("button[value='next']")
       titleMustEqual("Break - Care You Provide")
       break()
+      titleMustEqual("Breaks in Care - Care You Provide")
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
       titleMustEqual("Break - Care You Provide")
       break()
+      titleMustEqual("Breaks in Care - Care You Provide")
 
       browser.findFirst("input[value='Edit']").click()
       titleMustEqual("Break - Care You Provide")

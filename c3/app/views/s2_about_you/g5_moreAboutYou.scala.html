@@ -7,7 +7,7 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main("More About You - About You",completedQuestionGroups) {
+@main("More About You - About You", completedQuestionGroups) {
     @errorsSummary(moreAboutYouForm)
 
     @form(action = controllers.s2_about_you.routes.G5MoreAboutYou.submit) {
@@ -15,13 +15,13 @@
             <legend>More about you</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"),'_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
+                @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
 
-                @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"),'_label -> Messages("eitherClaimedBenefitSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
+                @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"), '_label -> Messages("eitherClaimedBenefitSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
 
-                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"),'_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
+                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
 
-                @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"),'_label -> Messages("receiveStatePension"))
+                @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"))
             </ul>
         </fieldset>
 

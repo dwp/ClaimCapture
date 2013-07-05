@@ -1,8 +1,8 @@
-@(approved: Boolean, completedForms: List[models.domain.QuestionGroup])
+@(approved: Boolean, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 
-@main("Can you get Carer's Allowance?", completedForms) {
+@main("Can you get Carer's Allowance?", completedQuestionGroups) {
     @if(approved) {
         <div class="prompt">
             <p>Based on your answers you may be entitled to Carer's Allowance.</p>

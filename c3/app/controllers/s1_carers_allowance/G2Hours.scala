@@ -7,7 +7,6 @@ import models.view.CachedClaim
 import controllers.Routing
 import utils.helpers.CarersForm._
 import models.domain.{Claim, Hours}
-import models.domain.ProgressBar
 
 object G2Hours extends Controller with Routing with CachedClaim {
   override val route = Hours.id -> routes.G2Hours.present
