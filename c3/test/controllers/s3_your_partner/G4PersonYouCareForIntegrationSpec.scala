@@ -31,8 +31,10 @@ class G4PersonYouCareForIntegrationSpec extends Specification with Tags with Pen
     }
     
     "contain the completed forms" in new WithBrowser {
+      FormHelper.fillYourPartnerPersonalDetails(browser)
+      FormHelper.fillYourPartnerContactDetails(browser)
       FormHelper.fillMoreAboutYourPartnerSeparated(browser)
-      browser.find("div[class=completed] ul li").size() mustEqual 1
+      browser.find("div[class=completed] ul li").size() mustEqual 3
     }
   }
 }
