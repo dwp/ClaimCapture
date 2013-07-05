@@ -29,14 +29,14 @@ object G7PropertyAndRent extends Controller with Routing with CachedClaim {
     }
 
     claim.questionGroup(models.domain.ClaimDate) match {
-      case Some(n) => Ok(views.html.s2_about_you.g7_propertyAndRent(propertyAndRentForm, completedQuestionGroups, completedSections = AboutYou.progressBar.completedSections, activeSection = AboutYou.progressBar.activeSection, futureSections = AboutYou.progressBar.futureSections))
+      case Some(n) => Ok(views.html.s2_about_you.g7_propertyAndRent(propertyAndRentForm, completedQuestionGroups))
       case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
     }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g7_propertyAndRent(formWithErrors, completedQuestionGroups, completedSections = AboutYou.progressBar.completedSections, activeSection = AboutYou.progressBar.activeSection, futureSections = AboutYou.progressBar.futureSections)),
+      formWithErrors => BadRequest(views.html.s2_about_you.g7_propertyAndRent(formWithErrors, completedQuestionGroups)),
       propertyAndRent => claim.update(propertyAndRent) -> Redirect(routes.AboutYou.completed()))
   }
 }

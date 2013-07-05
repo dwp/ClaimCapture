@@ -1,8 +1,8 @@
-@(confirmed: Boolean = false, completedSections: Seq[String], activeSection: String, futureSections: Seq[String])
+@(confirmed: Boolean = false)
 
 @import helper._
 
-@main(title = "Benefits - Carer's Allowance", completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
+@main(title = "Benefits - Carer's Allowance") {
     @form(action = controllers.s1_carers_allowance.routes.G1Benefits.submit) {
         <fieldset class="form-elements form-eligibility q1">
             <legend><span>Q1</span>Does the person you look after get one of these benefits?</legend>

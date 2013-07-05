@@ -29,14 +29,14 @@ object G5MoreAboutYou extends Controller with Routing with CachedClaim {
     }
 
     claim.questionGroup(ClaimDate) match {
-      case Some(n) => Ok(views.html.s2_about_you.g5_moreAboutYou(moreAboutYouForm, completedQuestionGroups, completedSections = AboutYou.progressBar.completedSections, activeSection = AboutYou.progressBar.activeSection, futureSections = AboutYou.progressBar.futureSections))
+      case Some(n) => Ok(views.html.s2_about_you.g5_moreAboutYou(moreAboutYouForm, completedQuestionGroups))
       case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
     }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g5_moreAboutYou(formWithErrors, completedQuestionGroups, completedSections = AboutYou.progressBar.completedSections, activeSection = AboutYou.progressBar.activeSection, futureSections = AboutYou.progressBar.futureSections)),
+      formWithErrors => BadRequest(views.html.s2_about_you.g5_moreAboutYou(formWithErrors, completedQuestionGroups)),
       moreAboutYou => claim.update(moreAboutYou) -> Redirect(routes.G6Employment.present()))
   }
 }

@@ -1,8 +1,8 @@
-@(confirmed: Boolean, completedForms: List[models.domain.QuestionGroup], completedSections: Seq[String], activeSection: String, futureSections: Seq[String])
+@(confirmed: Boolean, completedForms: List[models.domain.QuestionGroup])
 
 @import helper._
 
-@main("Lives in GB - Carer's Allowance", completedForms, completedSections = completedSections, activeSection = activeSection, futureSections = futureSections) {
+@main("Lives in GB - Carer's Allowance", completedForms) {
     @form(action = controllers.s1_carers_allowance.routes.G4LivesInGB.submit) {
         <fieldset class="form-elements form-eligibility">
             <legend><span>Q4</span>Do you normally live in Great Britain?</legend>
