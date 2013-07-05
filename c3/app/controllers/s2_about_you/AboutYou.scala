@@ -20,7 +20,11 @@ object AboutYou extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou.id)
 
   def completed = claiming { implicit claim => implicit request =>
-    Ok(views.html.s2_about_you.g8_completed(completedQuestionGroups))
+    val hadPartnerSinceClaimDate = claim.questionGroup(MoreAboutYou) match { 
+      case Some(m: MoreAboutYou) => m.hadPartnerSinceClaimDate == "yes"
+      case _ => false
+    }
+    Ok(views.html.s2_about_you.g8_completed(completedQuestionGroups, hadPartnerSinceClaimDate))
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
