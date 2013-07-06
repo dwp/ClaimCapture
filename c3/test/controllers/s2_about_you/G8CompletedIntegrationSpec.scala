@@ -21,8 +21,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       FormHelper.fillEmployment(browser)
       FormHelper.fillPropertyAndRent(browser)
       
-      pending("TODO test submit button text")
-      browser.find("#submit").getValue mustEqual "Continue to Partner / Spouse"
+      browser.find("#submit").getText mustEqual "Continue to Partner / Spouse"
     }
     
     """show the text "Continue to Care You Provide" on the submit button when next section is "Care You Provide"""" in new WithBrowser {
@@ -33,8 +32,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       FormHelper.fillEmployment(browser)
       FormHelper.fillPropertyAndRent(browser)
       
-      pending("TODO test submit button text")
-      browser.find("#submit").getValue mustEqual "Continue to Care You Provide"
+      browser.find("#submit").getText mustEqual "Continue to Care You Provide"
     }
 
     """be submitted to "Personal Details - Your Partner" page when they have had a partner/spouse at any time since the claim date""" in new WithBrowser {

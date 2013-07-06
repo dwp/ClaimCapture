@@ -1,7 +1,6 @@
 package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.test.WithBrowser
 import controllers.{WithBrowserAndMatchers, FormHelper}
 
 class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Tags {
@@ -9,21 +8,31 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
   "Previous Carer Contact Details" should {
     "be presented" in new WithBrowserAndMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
-      titleMustEqual("Their Personal Details - Care You Provide")
+      titleMustEqual("Their Contact Details - Care You Provide")
+
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+
       FormHelper.fillPreviousCarerPersonalDetails(browser)
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+
       browser.goTo("/careYouProvide/previousCarerContactDetails")
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
     }
 
     "contain errors on invalid submission" in new WithBrowserAndMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
-      titleMustEqual("Their Personal Details - Care You Provide")
+      titleMustEqual("Their Contact Details - Care You Provide")
+
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+
       FormHelper.fillPreviousCarerPersonalDetails(browser)
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+
       browser.goTo("/careYouProvide/previousCarerContactDetails")
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+
       browser.fill("#postcode") `with` "INVALID"
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
@@ -38,6 +47,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
 
       FormHelper.fillPreviousCarerPersonalDetails(browser)
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+
       browser.click("#backButton")
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
     }
@@ -48,8 +58,10 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
       titleMustEqual("Representatives For The Person - Care You Provide")
     }
 
-    "contain the completed forms" in new WithBrowser {
+    "contain the completed forms" in new WithBrowserAndMatchers {
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+
       FormHelper.fillPreviousCarerPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
