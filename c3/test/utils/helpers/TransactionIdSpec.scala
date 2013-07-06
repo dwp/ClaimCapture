@@ -16,14 +16,14 @@ class TransactionIdSpec extends Specification with Tags {
       "db.carers.url" -> """jdbc:postgresql://localhost:5432/carerstransactions_db""",
        "db.carers.user" -> "carers_c3",
       "db.carers.password" -> "claimant23"))) {
-      TransactionId getUniqueTransactionIt() must have size(7)
+      getUniqueTransactionId() must have size(7)
     }
 
     "Should comply with regular expression [2-9A-HJ-NP-Z]{7}" in new WithApplication(FakeApplication(additionalConfiguration=Map("db.carers.driver" ->"org.postgresql.Driver",
       "db.carers.url" -> """jdbc:postgresql://localhost:5432/carerstransactions_db""",
       "db.carers.user" -> "carers_c3",
       "db.carers.password" -> "claimant23"))) {
-      TransactionId getUniqueTransactionIt() matches("[2-9A-HJ-NP-Z]{7}")
+      getUniqueTransactionId() matches("[2-9A-HJ-NP-Z]{7}")
     }
 
   } section "database"

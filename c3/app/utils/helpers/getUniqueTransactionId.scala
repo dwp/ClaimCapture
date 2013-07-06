@@ -8,9 +8,9 @@ import play.api.Play.current
  * @author Jorge Migueis
  *         Date: 03/07/2013
  */
-object TransactionId {
+object getUniqueTransactionId {
 
-  def getUniqueTransactionIt(): String = {
+  def apply(): String = {
     DB.withConnection("carers") {
       connection =>
         try {
