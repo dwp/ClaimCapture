@@ -15,6 +15,10 @@ case class Section(id: String, questionGroups: List[QuestionGroup], visible: Boo
     copy(questionGroups = questionGroups.filterNot(q => q.id == questionGroup.id))
   }
 
+  def precedingQuestionGroups(questionGroup: QuestionGroup) = {
+    questionGroups.takeWhile(_.index < questionGroup.index)
+  }
+
   def show(): Section = {
     copy(visible = true)
   }

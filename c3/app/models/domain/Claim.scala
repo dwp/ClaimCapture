@@ -17,14 +17,12 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     section(sectionID).questionGroup(questionGroup)
   }
 
-  def completedQuestionGroups(sectionID: String) = sections.get(sectionID) match {
-    case Some(s: Section) => s.questionGroups
-    case _ => Nil
-  }
+  def completedQuestionGroups(sectionID: String) = section(sectionID).questionGroups
 
-  def completedQuestionGroups(questionGroup: QuestionGroup) = sections.get(Section.sectionID(questionGroup)) match {
-    case Some(s: Section) => s.questionGroups.takeWhile(_.index < questionGroup.index)
-    case _ => Nil
+  def completedQuestionGroups(questionGroup: QuestionGroup) = {
+    val sectionID = Section.sectionID(questionGroup)
+
+    section(sectionID).precedingQuestionGroups(questionGroup)
   }
 
   def isSectionVisible(sectionID: String) = section(sectionID).visible
@@ -46,7 +44,6 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     val sectionID = Section.sectionID(questionGroup)
 
     update(section(sectionID).delete(questionGroup))
-
   }
 
   def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate) match {
