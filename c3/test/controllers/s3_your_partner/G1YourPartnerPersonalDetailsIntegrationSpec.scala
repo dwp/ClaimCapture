@@ -52,5 +52,19 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       FormHelper.fillYourPartnerPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
+        
+    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser {
+      FormHelper.fillYourDetails(browser)
+      FormHelper.fillYourContactDetails(browser)
+      FormHelper.fillTimeOutsideUK(browser)
+      FormHelper.fillClaimDate(browser)
+      FormHelper.fillMoreAboutYou(browser)
+      FormHelper.fillEmployment(browser)
+      FormHelper.fillPropertyAndRent(browser)
+      FormHelper.fillYourPartnerPersonalDetails(browser)
+      
+      browser.find("#address_lineOne").getValue mustEqual "My Address"
+      browser.find("#postcode").getValue mustEqual "SE1 6EH"
+    }
   } section "integration"
 }
