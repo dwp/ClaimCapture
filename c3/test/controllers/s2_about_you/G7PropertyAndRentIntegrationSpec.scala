@@ -19,15 +19,14 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Property and Rent - About You"
     }
 
-    "contain the completed forms" in new WithBrowser {
+    "contain the completed forms" in new WithBrowserAndMatchers {
       FormHelper.fillYourDetails(browser)
       FormHelper.fillYourContactDetails(browser)
       FormHelper.fillClaimDate(browser)
       FormHelper.fillMoreAboutYou(browser)
       FormHelper.fillEmployment(browser)
 
-      browser.title mustEqual "Property and Rent - About You"
-      browser.find("div[class=completed] ul li").size() mustEqual 5
+      findMustEqualSize("div[class=completed] ul li", 5)
     }
 
     "contain questions with claim dates" in new WithBrowser {

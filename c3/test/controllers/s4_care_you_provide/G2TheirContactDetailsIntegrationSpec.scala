@@ -3,6 +3,7 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.FormHelper
+import controllers.WithBrowserAndMatchers
 
 class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
 
@@ -58,12 +59,11 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       FormHelper.fillYourContactDetails(browser)
       FormHelper.fillTheirPersonalDetails(browser)
 
-      browser.title mustEqual "Their Contact Details - Care You Provide"
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
     
-    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser {
+    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowserAndMatchers {
       FormHelper.fillYourDetails(browser)
       FormHelper.fillYourContactDetails(browser)
       FormHelper.fillTimeOutsideUK(browser)
@@ -77,7 +77,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       browser.submit("button[type='submit']")
       browser.submit("button[type='submit']")
 
-      browser.find("#address_lineOne").getValue mustEqual "My Address"
+      findMustEqualValue("#address_lineOne", "My Address")
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
   } section "integration"
