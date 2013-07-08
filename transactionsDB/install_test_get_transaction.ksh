@@ -15,8 +15,8 @@ set_global_variables() {
   _OLDSPS4=${PS4}
   _PROCESS=$$ 
   # Info
-  _VERSION='1.0' 
-  _LASTUPDATE='03/07/2013'  
+  _VERSION='1.1' 
+  _LASTUPDATE='04/07/2013'  
   _NAMESCRIPT=$0 
   
   # Misc
@@ -61,8 +61,9 @@ function usage {
   print "\nUsage"
   arguments
   print "\nDescription"
-  print "  This script connects to specified database, creates the transacionids table,"
-  print "  install the function get_new_transaction_id() and run a test to check installation."
+  print "  This script connects to specified database, creates carers_c3 user," 
+  print "  creates the transacionids table,installs the function get_new_transaction_id()"
+  print "  and runs a test to check installation."
   print "  "
   print "\nOptions"
   print "  -d <database name>  Name of the database where the new table and function must be created."            
@@ -124,6 +125,7 @@ set_global_variables
 check_parameters $@
 run_psql_command '\i create_transactionids_table.sql;'
 run_psql_command '\i get_transaction.sql;'
+run_psql_command '\i create_users.sql;'   
 run_psql_command '\x \\ select get_new_transaction_id();' 
 echo 'Installation and smoke test successful'
 

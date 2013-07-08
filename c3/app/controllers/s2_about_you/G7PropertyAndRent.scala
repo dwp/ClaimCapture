@@ -7,14 +7,16 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import controllers.Routing
 import utils.helpers.CarersForm._
+import controllers.Mappings.validYesNo
+import models.domain.Claim
 
 object G7PropertyAndRent extends Controller with Routing with CachedClaim {
   override val route = PropertyAndRent.id -> routes.G7PropertyAndRent.present
 
   val form = Form(
     mapping(
-      "ownProperty" -> nonEmptyText,
-      "hasSublet" -> nonEmptyText
+      "ownProperty" -> nonEmptyText.verifying(validYesNo),
+      "hasSublet" -> nonEmptyText.verifying(validYesNo)
     )(PropertyAndRent.apply)(PropertyAndRent.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PropertyAndRent)

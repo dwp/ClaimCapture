@@ -5,6 +5,7 @@ import controllers.Mappings.nino
 import controllers.Mappings.sixty
 import controllers.Mappings.validDate
 import controllers.Mappings.validNinoOnly
+import controllers.Mappings.validYesNo
 import controllers.Routing
 import models.domain.YourPartnerPersonalDetails
 import models.view.CachedClaim
@@ -30,22 +31,29 @@ object G1YourPartnerPersonalDetails extends Controller with Routing with CachedC
       "nationalInsuranceNumber" -> optional(nino.verifying(validNinoOnly)),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "nationality" -> optional(text(maxLength = sixty)),
-      "liveAtSameAddress" -> nonEmptyText
+      "liveAtSameAddress" -> nonEmptyText.verifying(validYesNo)
     )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
 
 
-  def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[YourPartnerPersonalDetails] = claim.questionGroup(YourPartnerPersonalDetails) match {
-      case Some(t: YourPartnerPersonalDetails) => form.fill(t)
-      case _ => form
-    }
+  def present = claiming {
+    implicit claim => implicit request =>
 
-    Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(currentForm))
+      if (claim.isSectionVisible(models.domain.YourPartner.id)) {
+        val currentForm: Form[YourPartnerPersonalDetails] = claim.questionGroup(YourPartnerPersonalDetails) match {
+          case Some(t: YourPartnerPersonalDetails) => form.fill(t)
+          case _ => form
+        }
+
+        Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(currentForm))
+      }
+
+      else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }
 
-  def submit = claiming { implicit claim => implicit request =>
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
-      f => claim.update(f) -> Redirect(routes.G2YourPartnerContactDetails.present()))
+  def submit = claiming {
+    implicit claim => implicit request =>
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
+        f => claim.update(f) -> Redirect(routes.G2YourPartnerContactDetails.present()))
   }
 }

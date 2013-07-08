@@ -1,8 +1,8 @@
-@(confirmed: Boolean, completedForms: List[models.domain.QuestionGroup])
+@(confirmed: Boolean, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 
-@main("Hours - Carer's Allowance", completedForms) {
+@main("Hours - Carer's Allowance", completedQuestionGroups) {
     @form(action = controllers.s1_carers_allowance.routes.G2Hours.submit) {
         <fieldset class="form-elements form-eligibility">
             <legend><span>Q2</span>Do you spend 35 hours or more each week caring for the person you look after?</legend>

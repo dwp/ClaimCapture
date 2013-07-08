@@ -73,6 +73,15 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
+  def fillMoreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
+    browser.goTo("/aboutyou/moreAboutYou")
+    browser.click("#hadPartnerSinceClaimDate_no")
+    browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
+    browser.click("#beenInEducationSinceClaimDate_yes")
+    browser.click("#receiveStatePension_yes")
+    browser.submit("button[type='submit']")
+  }
+
   def fillEmployment(browser: TestBrowser) = {
     browser.goTo("/aboutyou/employment")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
@@ -130,6 +139,33 @@ object FormHelper {
     browser.goTo("/yourPartner/contactDetails")
     browser.fill("#address_lineOne") `with` "Partner Address"
     browser.fill("#postcode") `with` "SE1 6EH"
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillMoreAboutYourPartnerSeparated(browser: TestBrowser) = {
+    browser.goTo("/yourPartner/moreAboutYourPartner")
+    browser.click("#dateStartedLivingTogether_day option[value='3']")
+    browser.click("#dateStartedLivingTogether_month option[value='4']")
+    browser.fill("#dateStartedLivingTogether_year") `with` "1950"
+    browser.click("#separatedFromPartner_yes]")
+    browser.click("#separationDate_day option[value='3']")
+    browser.click("#separationDate_month option[value='8']")
+    browser.fill("#separationDate_year") `with` "2005"
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillMoreAboutYourPartnerNotSeparated(browser: TestBrowser) = {
+    browser.goTo("/yourPartner/moreAboutYourPartner")
+    browser.click("#dateStartedLivingTogether_day option[value='3']")
+    browser.click("#dateStartedLivingTogether_month option[value='4']")
+    browser.fill("#dateStartedLivingTogether_year") `with` "1950"
+    browser.click("#separatedFromPartner_no]")
+    browser.submit("button[type='submit']")
+  }
+
+  def fillPersonYouCareFor(browser: TestBrowser) = {
+    browser.goTo("/yourPartner/personYouCareFor")
+    browser.click("#isPartnerPersonYouCareFor_yes]")
     browser.submit("button[type='submit']")
   }
     
@@ -244,6 +280,26 @@ object FormHelper {
     browser.goTo("/careYouProvide/representativesForPerson")
     browser.click("#actForPerson_no")
     browser.click("#someoneElseActForPerson_no")
+    browser.submit("button[type='submit']")
+  }
+
+
+  def fillHowWePayYou(browser: TestBrowser) = {
+    browser.goTo("/payDetails/howWePayYou")
+    browser.click("#likeToPay_01")
+    browser.click("#paymentFrequency option[value='1W']")
+    browser.submit("button[type='submit']")
+  }
+
+  def fillBankBuildingSocietyDetails(browser: TestBrowser) = {
+    browser.goTo("/payDetails/bankBuildingSocietyDetails")
+    browser.fill("#accountHolderName") `with` "holder name"
+    browser.fill("#bankFullName") `with` "bank name"
+    browser.fill("#sortCode_sort1") `with` "10"
+    browser.fill("#sortCode_sort2") `with` "11"
+    browser.fill("#sortCode_sort3") `with` "12"
+    browser.fill("#accountName") `with` "account"
+    browser.fill("#rollOrReferenceNumber") `with` "1234567"
     browser.submit("button[type='submit']")
   }
 }

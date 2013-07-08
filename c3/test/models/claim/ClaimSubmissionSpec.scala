@@ -52,8 +52,6 @@ class ClaimSubmissionSpec extends Specification with Tags {
 
       val fullXml = buildFullClaim(claimXml)
 
-      print(fullXml)
-
       val validator = XmlValidatorFactory.buildCaValidator()
 
       validator.validate(fullXml.buildString(stripComments = true)) must beTrue

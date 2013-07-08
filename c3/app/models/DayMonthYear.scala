@@ -24,9 +24,13 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
 
   def ddMMyyyy: String = ddMMyyyy("/")
 
+  def `dd/MM/yyyy`: String = ddMMyyyy("/")
+
   def ddMMyyyy(separator: String): String = pad(day) + separator + pad(month) + separator + year.fold("")(_.toString)
 
   def yyyyMMdd: String = yyyyMMdd("-")
+
+  def `yyyy-MM-dd`: String = yyyyMMdd("-")
 
   def yyyyMMdd(separator: String): String = year.fold("")(_.toString) + separator + pad(month) + separator + pad(day)
 

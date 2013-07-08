@@ -24,6 +24,20 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     case _ => Nil
   }
 
+  def isSectionVisible(sectionID: String) = section(sectionID) match {
+    case Some(s) => s.visible
+    case _ => true
+  }
+
+  def showHideSection(sectionID: String, show: Boolean): Claim = {
+    section(sectionID) match {
+      case Some(s: Section) => update(s.copy(visible = show))
+      case _ => update(Section(sectionID, List(), show))
+    }
+  }
+
+  def update(section: Section): Claim = Claim(sections.updated(section.id, section))
+
   def update(questionGroup: QuestionGroup): Claim = {
     def update(questionGroup: QuestionGroup, questionGroups: List[QuestionGroup]): List[QuestionGroup] = {
       questionGroups.takeWhile(_.index < questionGroup.index) ::: List(questionGroup) ::: questionGroups.dropWhile(_.index <= questionGroup.index)

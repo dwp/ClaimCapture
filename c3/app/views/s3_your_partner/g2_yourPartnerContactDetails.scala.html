@@ -5,7 +5,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("Contact Details - Your Partner", currentForm, completedQuestionGroups) {
+@main("Contact Details - Your Partner", Some(currentForm), completedQuestionGroups) {
 
     @form(action = controllers.s3_your_partner.routes.G2YourPartnerContactDetails.submit) {
 

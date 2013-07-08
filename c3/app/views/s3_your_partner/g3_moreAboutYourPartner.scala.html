@@ -5,8 +5,9 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
 
-@main("More About Your Partner - Your Partner", currentForm, completedQuestionGroups) {
+@main("More About Your Partner - Your Partner", Some(currentForm), completedQuestionGroups) {
 
     @form(action = controllers.s3_your_partner.routes.G3MoreAboutYourPartner.submit) {
 
@@ -17,6 +18,12 @@
                 @inputDayMonthYear(currentForm("dateStartedLivingTogether"), 'helperBelow-> Messages("dateOfBirth.helper"))
                 
                 @yesNoRadioGroup(currentForm("separatedFromPartner"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(inputDayMonthYear(currentForm("separationDate"), 'helperBelow -> Messages("dateOfBirth.helper") )),
+                    'id->"separatedInfo",
+                    'display -> currentForm("separatedFromPartner").value.getOrElse("no")
+                )
             </ul>
         </fieldset>
 
@@ -26,3 +33,11 @@
         </div>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s3_your_partner/g3_moreAboutYourPartner.js")'></script>
+
+<script type="text/javascript">
+    $(function(){
+        window.initEvents( "@CarersCrypto.encryptAES("separatedFromPartner_yes")","@CarersCrypto.encryptAES("separatedFromPartner_no")");
+    })
+</script>

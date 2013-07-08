@@ -3,10 +3,12 @@ package controllers.s4_care_you_provide
 import play.api.mvc.Controller
 import controllers.Routing
 import models.view.CachedClaim
-import models.domain.{Claim, MoreAboutThePerson}
+import models.domain.MoreAboutThePerson
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
+import controllers.Mappings._
+import models.domain.Claim
 
 object G3MoreAboutThePerson extends Controller with Routing with CachedClaim {
 
@@ -16,7 +18,7 @@ object G3MoreAboutThePerson extends Controller with Routing with CachedClaim {
     mapping(
       "relationship" -> nonEmptyText,
       "armedForcesPayment" -> optional(text),
-      "claimedAllowanceBefore" -> nonEmptyText
+      "claimedAllowanceBefore" -> nonEmptyText.verifying(validYesNo)
     )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutThePerson)

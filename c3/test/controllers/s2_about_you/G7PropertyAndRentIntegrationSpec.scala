@@ -2,7 +2,7 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.FormHelper
+import controllers.{WithBrowserAndMatchers, FormHelper}
 
 class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
 
@@ -42,7 +42,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       questionLabels.get(1).getText must contain(dateString)
     }
 
-    "contain errors on invalid submission" in new WithBrowser {
+    "contain errors on invalid submission" in new WithBrowserAndMatchers {
       FormHelper.fillClaimDate(browser)
       browser.goTo("/aboutyou/propertyAndRent")
       browser.title mustEqual "Property and Rent - About You"

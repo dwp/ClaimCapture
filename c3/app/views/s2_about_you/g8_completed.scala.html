@@ -1,4 +1,4 @@
-@(completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(completedQuestionGroups: List[models.domain.QuestionGroup], showYourPartnerSection: Boolean)(implicit claim: models.domain.Claim)
 
 @import helper._
 
@@ -6,7 +6,7 @@
     @form(action = controllers.s2_about_you.routes.AboutYou.completedSubmit) {
         <div class="form-steps">
             <a href="@controllers.s2_about_you.routes.G7PropertyAndRent.present" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Continue to Partner / Spouse</button>
+            <button id="submit" type="submit" name="action" value="next" class="button">@{if(showYourPartnerSection)"Continue to Partner / Spouse" else "Continue to Care You Provide" }</button>
         </div>
     }
 }

@@ -14,6 +14,10 @@ case class YourPartnerContactDetails(address: Option[MultiLineAddress], postcode
 
 object YourPartnerContactDetails extends QuestionGroup(s"${YourPartner.id}.g2")
 
-case class MoreAboutYourPartner(dateStartedLivingTogether: DayMonthYear, separatedFromPartner: String) extends QuestionGroup(MoreAboutYourPartner.id)
+case class MoreAboutYourPartner(dateStartedLivingTogether: Option[DayMonthYear], separatedFromPartner: String, separationDate: Option[DayMonthYear]) extends QuestionGroup(MoreAboutYourPartner.id)
 
 object MoreAboutYourPartner extends QuestionGroup(s"${YourPartner.id}.g3")
+
+case class PersonYouCareFor(isPartnerPersonYouCareFor:String) extends QuestionGroup(PersonYouCareFor.id)
+
+object PersonYouCareFor extends QuestionGroup(s"${YourPartner.id}.g4")

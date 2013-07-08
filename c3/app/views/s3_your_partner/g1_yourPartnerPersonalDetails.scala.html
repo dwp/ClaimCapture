@@ -7,7 +7,7 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 
-@main("Personal Details - Your Partner", currentForm) {
+@main("Personal Details - Your Partner", Some(currentForm)) {
 
     @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit) {
     

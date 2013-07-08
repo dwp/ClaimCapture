@@ -12,7 +12,7 @@ BEGIN
     FOR attemps IN 1..5 LOOP
         <<GENERATION>> FOR i IN 1..7
         LOOP
-            pos := ROUND(32 * random()) ;
+            pos := FLOOR(32 * random()) + 1 ;
             id := concat(id, SUBSTR(allowed, pos, 1)) ;
         END LOOP GENERATION;
         BEGIN

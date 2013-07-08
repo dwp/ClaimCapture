@@ -1,0 +1,35 @@
+@(currentForm: Form[models.domain.BankBuildingSocietyDetails],completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import controllers.s6_pay_details._
+
+@main("Bank Building Society Details - Pay Details", Some(currentForm),completedQuestionGroups) {
+
+    @form(action = controllers.s6_pay_details.routes.G2BankBuildingSocietyDetails.submit) {
+        <fieldset class="form-elements">
+            <legend>Bank / building society details</legend>
+
+            <ul class="group">
+
+                @carersInputText(currentForm("accountHolderName"))
+                @carersInputText(currentForm("bankFullName"))
+                @sortCode(currentForm("sortCode"))
+                @carersInputText(currentForm("accountName"),'maxLength -> "10")
+                @carersInputText(currentForm("rollOrReferenceNumber"),'maxLength -> "18")
+
+
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="@backHref(PayDetails.route,completedQuestionGroups)" id="backButton" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+
+}
