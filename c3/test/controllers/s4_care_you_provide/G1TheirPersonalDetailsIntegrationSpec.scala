@@ -58,10 +58,8 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       FormHelper.fillPersonYouCareFor(browser)
       browser.submit("button[type='submit']")
       
-      browser.title mustEqual "Their Personal Details - Care You Provide"
       browser.find("#firstName").getValue mustEqual "John"
       browser.find("#surname").getValue mustEqual "Appleseed"
-
     }
   } section "integration"
 }
