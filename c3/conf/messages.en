@@ -16,6 +16,13 @@ s3.g2 = Your partner contact details
 s3.g3 = More about your partner
 s3.g4 = Person you care for
 
+s1.progressBar = Allowance
+s2.progressBar = About you
+s3.progressBar = Your partner
+s4.progressBar = Care you provide
+s5.progressBar = Time abroad
+s6.progressBar = Pay details
+
 s4.g1 = Details of the person you care for
 s4.g2 = Their contact details
 s4.g3 = More about the person you care for

@@ -7,7 +7,7 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 
-@main("One Who Pays You - Care You Provide", currentForm, completedQuestionGroups) {
+@main("One Who Pays You - Care You Provide", Some(currentForm), completedQuestionGroups) {
 
     @form(action = controllers.s4_care_you_provide.routes.G8OneWhoPaysPersonalDetails.submit) {
     
