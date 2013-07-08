@@ -3,12 +3,19 @@ package models.domain
 import models.{DayMonthYear, Timestamped}
 
 case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
-  def section(sectionId: String): Option[Section] = sections.get(sectionId)
+
+  def section(sectionID: String): Section = {
+    sections.get(sectionID) match {
+      case Some(s: Section) => s
+      case _ => Section(sectionID, List())
+    }
+
+  }
 
   def questionGroup(questionGroup: QuestionGroup): Option[QuestionGroup] = {
     val sectionID = Section.sectionID(questionGroup)
 
-    section(sectionID) match {
+    sections.get(sectionID) match {
       case Some(s: Section) => s.questionGroup(questionGroup)
       case _ => None
     }
@@ -24,17 +31,11 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     case _ => Nil
   }
 
-  def isSectionVisible(sectionID: String) = section(sectionID) match {
-    case Some(s) => s.visible
-    case _ => true
-  }
+  def isSectionVisible(sectionID: String) = section(sectionID).visible
 
-  def showHideSection(sectionID: String, show: Boolean): Claim = {
-    section(sectionID) match {
-      case Some(s: Section) => update(s.copy(visible = show))
-      case _ => update(Section(sectionID, List(), show))
-    }
-  }
+  def hideSection(sectionID: String): Claim = update(section(sectionID).hide())
+
+  def showSection(sectionID: String): Claim = update(section(sectionID).show())
 
   def update(section: Section): Claim = Claim(sections.updated(section.id, section))
 

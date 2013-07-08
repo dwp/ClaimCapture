@@ -28,7 +28,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       FormHelper.fillClaimDate(browser)
       FormHelper.fillMoreAboutYou(browser)
       browser.goTo("/careYouProvide/theirPersonalDetails")
-      browser.click(".form-steps a")
+      browser.click("#backButton")
       browser.title mustEqual "Completion - Your Partner"
     }
         
@@ -36,13 +36,30 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       FormHelper.fillClaimDate(browser)
       FormHelper.fillMoreAboutYouNotHadPartnerSinceClaimDate(browser)
       browser.goTo("/careYouProvide/theirPersonalDetails")
-      browser.click(".form-steps a")
+      browser.click("#backButton")
       browser.title mustEqual "Completion - About You"
     }
     
     "contain the completed forms" in new WithBrowser {
       FormHelper.fillTheirPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
+    }
+    
+    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser {
+      FormHelper.fillYourDetails(browser)
+      FormHelper.fillYourContactDetails(browser)
+      FormHelper.fillTimeOutsideUK(browser)
+      FormHelper.fillClaimDate(browser)
+      FormHelper.fillMoreAboutYou(browser)
+      FormHelper.fillEmployment(browser)
+      FormHelper.fillYourPartnerPersonalDetails(browser)
+      FormHelper.fillYourPartnerContactDetails(browser)
+      FormHelper.fillMoreAboutYourPartnerNotSeparated(browser)
+      FormHelper.fillPersonYouCareFor(browser)
+      browser.submit("button[type='submit']")
+      
+      browser.find("#firstName").getValue mustEqual "John"
+      browser.find("#surname").getValue mustEqual "Appleseed"
     }
   } section "integration"
 }

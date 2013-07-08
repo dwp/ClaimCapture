@@ -14,9 +14,16 @@
 
 <div class="progress-steps">
 	<ol>
-	    <li @progress(CarersAllowance.id)><span>Eligibility</span></li>
+	    @if( claim.isSectionVisible(CarersAllowance.id) ) {
+            <li @progress(CarersAllowance.id)><span>Eligibility</span></li>
+        }
+
+
 	    <li @progress(AboutYou.id)><span>About you</span></li>
-	    <li @progress(YourPartner.id)><span>Your partner</span></li>
+        @if( claim.isSectionVisible(YourPartner.id) ) {
+            <li @progress(YourPartner.id)><span>Your partner</span></li>
+        }
+
 	    <li @progress(CareYouProvide.id)><span>Care you provide</span></li>
 	    <li @progress(TimeSpentAbroad.id)><span>Abroad</span></li>
 	</ol>

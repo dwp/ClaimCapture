@@ -10,4 +10,10 @@ abstract class WithBrowserAndMatchers extends WithBrowser with MustMatchers {
       browser.title mustEqual title
     }
   }
+  
+  def findMustEqualSize(searchFor: String, expectedSize: Integer) = {
+    browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
+      browser.find(searchFor).size() mustEqual expectedSize
+    }
+  }
 }
