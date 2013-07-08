@@ -82,7 +82,7 @@ $button-green-hover: #004b27;
 			   text-align: center;
 			   padding: 35px 0 0 0;
 			   line-height: 1em;
-			   .ie7 &, .ie8 & {
+			   .ie7 & {
 				   background: url('images/nav-default.png') center 0 no-repeat;
 				   padding-bottom: 5px;
 			   }
@@ -99,6 +99,9 @@ $button-green-hover: #004b27;
 				     &:first-child {
 					     margin-left: 0;
 				     }
+			     }
+			     @media screen and (max-width: 330px) {
+				     width: 26px;
 			     }
 			   span {
 				   font-size: 1.3rem;
@@ -125,12 +128,18 @@ $button-green-hover: #004b27;
 					   display: block;
 					   line-height: 1em;
 					   padding: 5px 0 0 0;
+					   @media screen and (max-width: 330px) {
+						   width: 26px;
+						   height: 23px;
+						   margin-left: -13px;
+						   padding-top: 3px
+					   }
 				   }
 			   }
 			   
 			   &.active {
 			   	padding-top: 48px;
-			   	.ie7 &, .ie8 & {
+			   	.ie7 & {
 				   background: url('images/nav-active.png') center 0 no-repeat;
 				   top: -8px;
 				   padding-top: 55px;
@@ -158,12 +167,18 @@ $button-green-hover: #004b27;
 							   margin: 0 0 0 -15px;
 							   padding: 1px 0 0 0;
 						   }
+						   @media screen and (max-width: 330px) {
+							   height: 26px;
+							   width: 26px;
+							   padding-top: 0;
+							   margin-left: -13px;
+						   }
 					   }
 				   }
 			   } 
 			   
 			   &.complete {
-			   .ie7 &, .ie8 & {
+			   .ie7 & {
 				   background: url('images/nav-complete.png') center 0 no-repeat;
 			   }
 				   span {
@@ -172,6 +187,9 @@ $button-green-hover: #004b27;
 						   content:"\203a";
 						   padding-left: 0;
 						   width: 30px;
+						   @media screen and (max-width: 330px) {
+							   width: 26px;
+						   }
 					   }
 				   }
 			   }
