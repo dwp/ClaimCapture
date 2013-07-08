@@ -19,7 +19,7 @@ object G4PreviousCarerPersonalDetails extends Controller with Routing with Cache
       "middleName" -> optional(text(maxLength = sixty)),
       "surname" -> optional(text(maxLength = sixty)),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-      "dateOfBirth" -> optional(dayMonthYear.verifying(validDate))
+      "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOnly))
     )(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PreviousCarerPersonalDetails)
