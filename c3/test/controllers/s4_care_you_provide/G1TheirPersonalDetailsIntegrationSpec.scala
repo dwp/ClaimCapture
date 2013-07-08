@@ -29,7 +29,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       FormHelper.fillClaimDate(browser)
       FormHelper.fillMoreAboutYou(browser)
       browser.goTo("/careYouProvide/theirPersonalDetails")
-      browser.click(".form-steps a")
+      browser.click("#backButton")
       browser.title mustEqual "Completion - Your Partner"
     }
         
@@ -37,7 +37,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       FormHelper.fillClaimDate(browser)
       FormHelper.fillMoreAboutYouNotHadPartnerSinceClaimDate(browser)
       browser.goTo("/careYouProvide/theirPersonalDetails")
-      browser.click(".form-steps a")
+      browser.click("#backButton")
       browser.title mustEqual "Completion - About You"
     }
     

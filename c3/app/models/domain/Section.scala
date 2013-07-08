@@ -1,8 +1,22 @@
 package models.domain
 
 case class Section(id: String, questionGroups: List[QuestionGroup], visible: Boolean = true) {
+
   def questionGroup(questionGroup: QuestionGroup): Option[QuestionGroup] = {
     questionGroups.find(qg => qg.id == questionGroup.id)
+  }
+
+  def update(questionGroup: QuestionGroup): Section = {
+    val updatedQuestionGroups = questionGroups.takeWhile(_.index < questionGroup.index) ::: List(questionGroup) ::: questionGroups.dropWhile(_.index <= questionGroup.index)
+    copy(questionGroups = updatedQuestionGroups)
+  }
+
+  def delete(questionGroup: QuestionGroup): Section = {
+    copy(questionGroups = questionGroups.filterNot(q => q.id == questionGroup.id))
+  }
+
+  def precedingQuestionGroups(questionGroup: QuestionGroup) = {
+    questionGroups.takeWhile(_.index < questionGroup.index)
   }
 
   def show(): Section = {

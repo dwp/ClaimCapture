@@ -28,7 +28,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito {
 
       val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id).get
+      val section: Section = claim.section(domain.CareYouProvide.id)
 
       section.questionGroup(MoreAboutThePerson) must beLike {
         case Some(f: MoreAboutThePerson) => {
