@@ -15,13 +15,9 @@ class ClaimSpec extends Specification with Mockito {
       val questionGroup = Benefits()
       val updatedClaim = claim.update(questionGroup)
       val sectionID = Section.sectionID(questionGroup)
-      val sectionOption = updatedClaim.section(sectionID)
 
-      sectionOption must beLike {
-        case Some(section: Section) => section.id mustEqual sectionID
-      }
-
-      val section = sectionOption.get
+      val section = updatedClaim.section(sectionID)
+      section.id mustEqual sectionID
       section.questionGroup(questionGroup) must beSome(Benefits(answer = false))
     }
 
@@ -34,8 +30,7 @@ class ClaimSpec extends Specification with Mockito {
       val claimWithTrueQuestionGroup = claimWithFalseQuestionGroup.update(trueQuestionGroup)
 
       val sectionID = Section.sectionID(trueQuestionGroup)
-      val sectionOption = claimWithTrueQuestionGroup.section(sectionID)
-      val section = sectionOption.get
+      val section = claimWithTrueQuestionGroup.section(sectionID)
 
       section.questionGroup(trueQuestionGroup) must beSome(Benefits(answer = true))
     }
@@ -43,9 +38,8 @@ class ClaimSpec extends Specification with Mockito {
     "return the correct section" in {
       val claim = Claim().update(Benefits()).update(Hours()).update(LivesInGB()).update(Over16())
 
-      claim.section(CarersAllowance.id) must beLike {
-        case Some(section: Section) => section.id mustEqual CarersAllowance.id
-      }
+      val section =  claim.section(CarersAllowance.id)
+      section.id mustEqual CarersAllowance.id
     }
 
     "return the correct question group" in {
@@ -67,22 +61,22 @@ class ClaimSpec extends Specification with Mockito {
     }
 
     "be able hide a section" in {
-      val updatedClaim = new Claim().showHideSection(YourPartner.id, false)
+      val updatedClaim = new Claim().hideSection(YourPartner.id)
       updatedClaim.isSectionVisible(YourPartner.id) mustEqual false
     }
 
     "be able show a section" in {
-      val updatedClaim = new Claim().showHideSection(YourPartner.id, true)
+      val updatedClaim = new Claim().showSection(YourPartner.id)
       updatedClaim.isSectionVisible(YourPartner.id) mustEqual true
     }
 
     "be able to update a section" in {
       val claim = Claim().update(Benefits()).update(Hours()).update(LivesInGB()).update(Over16())
-      val section = claim.section(CarersAllowance.id).get
+      val section = claim.section(CarersAllowance.id)
 
       val updatedClaim = claim.update(section.hide())
 
-      val updatedSection = updatedClaim.section(CarersAllowance.id).get
+      val updatedSection = updatedClaim.section(CarersAllowance.id)
 
       updatedSection.visible mustEqual false
     }

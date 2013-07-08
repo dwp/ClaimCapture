@@ -29,7 +29,7 @@ class G1TheirPersonalDetailsSpec extends Specification with Mockito {
 
       val result = controllers.s4_care_you_provide.G1TheirPersonalDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id).get
+      val section: Section = claim.section(domain.CareYouProvide.id)
 
       section.questionGroup(TheirPersonalDetails) must beLike {
         case Some(f: TheirPersonalDetails) => {

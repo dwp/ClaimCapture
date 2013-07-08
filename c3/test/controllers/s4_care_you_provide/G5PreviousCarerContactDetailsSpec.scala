@@ -27,7 +27,7 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
 
       val result = controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id).get
+      val section: Section = claim.section(domain.CareYouProvide.id)
 
       section.questionGroup(PreviousCarerContactDetails) must beLike {
         case Some(f: PreviousCarerContactDetails) => {

@@ -46,8 +46,8 @@ object G5MoreAboutYou extends Controller with Routing with CachedClaim {
         })
   }
 
-  def showHideYourPartnerSection(claim: Claim, hadPartner:String): Claim = hadPartner match {
-    case `yes` => claim.showHideSection(YourPartner.id, true)
-    case _ =>  claim.showHideSection(YourPartner.id, false)
+  def showHideYourPartnerSection(claim: Claim, hadPartner: String): Claim = hadPartner match {
+    case `yes` => claim.showSection(YourPartner.id)
+    case _ => claim.hideSection(YourPartner.id)
   }
 }

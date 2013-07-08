@@ -43,7 +43,7 @@ class AboutYouSpec extends Specification with Mockito {
       status(result) mustEqual BAD_REQUEST
 
       val claim = Cache.getAs[Claim](claimKey).get
-      claim.section(domain.AboutYou.id) must beNone
+      claim.sections.get(domain.AboutYou.id) must beNone
     }
 
     "highlight invalid date" in new WithApplication with Claiming {
@@ -63,7 +63,7 @@ class AboutYouSpec extends Specification with Mockito {
       status(result) mustEqual BAD_REQUEST
 
       val claim = Cache.getAs[Claim](claimKey).get
-      claim.section(domain.AboutYou.id) must beNone
+      claim.sections.get(domain.AboutYou.id) must beNone
     }
 
     "not complain about a valid NI" in new WithApplication with Claiming {

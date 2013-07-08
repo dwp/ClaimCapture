@@ -46,7 +46,7 @@ class G2HoursSpec extends Specification {
       val hoursRequest = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
       s1_carers_allowance.G2Hours.submit(hoursRequest)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CarersAllowance.id).get
+      val section: Section = claim.section(domain.CarersAllowance.id)
 
       section.questionGroups.size mustEqual 2
 

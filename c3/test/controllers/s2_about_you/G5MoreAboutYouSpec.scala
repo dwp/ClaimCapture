@@ -21,7 +21,7 @@ class G5MoreAboutYouSpec extends Specification {
       val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
 
-      val section: Section = claim.section(domain.YourPartner.id).get
+      val section: Section = claim.section(domain.YourPartner.id)
       section.visible mustEqual true
     }
 
@@ -35,7 +35,7 @@ class G5MoreAboutYouSpec extends Specification {
       val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
 
-      val section: Section = claim.section(domain.YourPartner.id).get
+      val section: Section = claim.section(domain.YourPartner.id)
       section.visible mustEqual false
     }
 
