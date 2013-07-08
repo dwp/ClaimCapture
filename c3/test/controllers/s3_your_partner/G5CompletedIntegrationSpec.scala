@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.FormHelper
 
-class G8CompletedIntegrationSpec extends Specification with Tags {
+class G5CompletedIntegrationSpec extends Specification with Tags {
 
   "Your Partner" should {
     "be presented" in new WithBrowser {
