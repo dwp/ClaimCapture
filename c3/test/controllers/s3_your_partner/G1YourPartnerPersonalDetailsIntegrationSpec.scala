@@ -4,6 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.FormHelper
 import org.specs2.execute.PendingUntilFixed
+import controllers.WithBrowserAndMatchers
 
 class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags with PendingUntilFixed {
 
@@ -46,11 +47,12 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       browser.title mustEqual "Completion - About You"
     }
 
-    "contain the completed forms" in new WithBrowser {
+    "contain the completed forms" in new WithBrowserAndMatchers {
       FormHelper.fillClaimDate(browser)
       FormHelper.fillMoreAboutYou(browser)
       FormHelper.fillYourPartnerPersonalDetails(browser)
-      browser.find("div[class=completed] ul li").size() mustEqual 1
+
+      findMustEqualSize("div[class=completed] ul li", 1)
     }
         
     "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser {
