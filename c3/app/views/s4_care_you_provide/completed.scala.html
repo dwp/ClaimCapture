@@ -1,10 +1,14 @@
 @(completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
+@import models.domain.CareYouProvide
 
 @common.govMain("Completed - Care You Provide") {
     <div id="wrapper" class="carers-allowance">
         <div class="carers-container">
+
+            @progressBar(CareYouProvide.id)
+
             <section>
                 <header>
                     <h1>About the care you provide</h1>

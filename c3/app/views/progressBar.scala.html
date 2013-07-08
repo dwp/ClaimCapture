@@ -1,0 +1,30 @@
+@(sectionID: String)(implicit claim: models.domain.Claim)
+
+@import models.domain._
+
+@addClass(currentSectionID: String) = {
+    @if(currentSectionID == sectionID) {
+        class="active"
+    } else {
+        @if(Section.index(currentSectionID) < Section.index(sectionID)) {
+            class="complete"
+        }
+    }
+}
+
+@renderListItem(currentSectionID: String) = {
+    @if( claim.isSectionVisible(currentSectionID) ) {
+        <li @addClass(currentSectionID)><span>@Messages(currentSectionID + ".progressBar")</span></li>
+    }
+}
+
+<div class="progress-steps">
+	<ol>
+	    @renderListItem(CarersAllowance.id)
+        @renderListItem(AboutYou.id)
+        @renderListItem(YourPartner.id)
+        @renderListItem(CareYouProvide.id)
+        @renderListItem(TimeSpentAbroad.id)
+        @renderListItem(PayDetails.id)
+    </ol>
+</div>
