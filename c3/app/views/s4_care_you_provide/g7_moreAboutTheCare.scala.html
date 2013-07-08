@@ -6,7 +6,7 @@
 @import utils.helpers.CarersTemplate._
 @import utils.helpers.CarersCrypto
 
-@main("More about the care you provide - Care You Provide", currentForm, completedQuestionGroups) {
+@main("More about the care you provide - Care You Provide", Some(currentForm), completedQuestionGroups) {
 
     @form(action = controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.submit) {
 

@@ -6,7 +6,7 @@
 @import views.html.helper._
 @import views.html.helper.dates._
 
-@main("Break - Care You Provide", breakForm) {
+@main("Break - Care You Provide", Some(breakForm)) {
     @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
         <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 

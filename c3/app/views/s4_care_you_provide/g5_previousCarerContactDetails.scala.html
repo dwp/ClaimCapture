@@ -5,7 +5,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("Contact Details Of The Person Who Claimed Before - Care You Provide", currentForm, completedQuestionGroups) {
+@main("Contact Details Of The Person Who Claimed Before - Care You Provide", Some(currentForm), completedQuestionGroups) {
 
     @form(action = controllers.s4_care_you_provide.routes.G5PreviousCarerContactDetails.submit) {
 
