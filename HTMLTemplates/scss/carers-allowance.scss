@@ -62,7 +62,7 @@ $button-green-hover: #004b27;
 			   background: url('images/nav-line.png') 0 47px repeat-x;
 			   margin-bottom: -12px;
 		   }
-		   @media screen and (max-width: 680px) {
+		   @media screen and (max-width: 640px) {
 			   padding-bottom: 0;
 		   }
 		   &:after {
@@ -86,7 +86,7 @@ $button-green-hover: #004b27;
 				   background: url('images/nav-default.png') center 0 no-repeat;
 				   padding-bottom: 5px;
 			   }
-			    @media screen and (max-width: 680px) {
+			    @media screen and (max-width: 640px) {
 				    text-indent: -9999px;
 				    padding: 15px 0 0 0;
 				    span {
@@ -128,20 +128,24 @@ $button-green-hover: #004b27;
 				   top: -8px;
 				   padding-top: 55px;
 			   }
-			   	@media screen and (max-width: 680px) {
+			   	@media screen and (max-width: 640px) {
 				   	padding: 0;
 			   	}
 				   span {
 				   	font-weight: 700;
 					   &:before {
 						   background: #000;
-						   height: 40px;
+						   padding: 0;
+						   height: 39px;
 						   width: 50px;
 						   margin: -8px 0 0 -25px;
 						   font-weight: 300;
-						   padding-top: 10px;
+						   padding-top: 11px;
 						   font-size: 2.6rem;
-						   @media screen and (max-width: 680px) {
+						   .ie & {
+							   font-size: 26px;
+						   }
+						   @media screen and (max-width: 640px) {
 							   width: 30px;
 							   height: 29px;
 							   margin: 0 0 0 -15px;
@@ -282,8 +286,7 @@ $button-green-hover: #004b27;
 	   background: #fff;
 	   position: relative;
 	   padding: 1.6em 0 0 1em;
-
-	   @media screen and (max-width: 640px) {padding-left: 0; padding-right: 0; }
+	   @media screen and (max-width: 640px) {padding-left: 0; padding-right: 0; border: 0;}
 	   
 	   &.error-statement {
 		margin: 0;
@@ -945,7 +948,7 @@ $button-green-hover: #004b27;
 				 	   position: absolute;
 				 	   left: -9999px;
 			 	   }
-				   input[type="tel"], input[type="text"] {
+                   input[type="tel"],input[type="text"] {
 					   width: 8.1rem;
 					   .ie & {
 						   width: 81px;
