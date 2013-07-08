@@ -2,23 +2,22 @@
 
 @import models.domain._
 
-
-@background(currentSectionID: String) = {
+@progress(currentSectionID: String) = {
     @if(currentSectionID == sectionID) {
-        style="background: red"
+        class="active"
     } else {
         @if(Section.index(currentSectionID) < Section.index(sectionID)) {
-            style="background: black"
+            class="complete"
         }
     }
 }
 
 <div class="progress-steps">
 	<ol>
-	    <li @background(CarersAllowance.id)><span>Eligibility</span></li>
-	    <li @background(AboutYou.id)><span>About you</span></li>
-	    <li @background(YourPartner.id)><span>Your partner</span></li>
-	    <li @background(CareYouProvide.id)><span>Care you provide</span></li>
-	    <li @background(TimeSpentAbroad.id)><span>Abroad</span></li>
+	    <li @progress(CarersAllowance.id)><span>Eligibility</span></li>
+	    <li @progress(AboutYou.id)><span>About you</span></li>
+	    <li @progress(YourPartner.id)><span>Your partner</span></li>
+	    <li @progress(CareYouProvide.id)><span>Care you provide</span></li>
+	    <li @progress(TimeSpentAbroad.id)><span>Abroad</span></li>
 	</ol>
 </div>
