@@ -1,10 +1,12 @@
-@(hasBreaksForm: Form[models.domain.HasBreaks], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(hasBreaksForm: Form[models.domain.HasBreaks], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[models.domain.QuestionGroup], dateOfClaimFormatted: String)(implicit claim: models.domain.Claim)
 
 @import models.domain.BreaksInCare
 @import views.html.helper._
 @import models.domain.{Claim, ClaimDate}
 
 @pad(int: Int) = {@if(int < 10){0}@int}
+
+
 
 @main("Breaks in Care - Care You Provide", hasBreaksForm, completedQuestionGroups) {
     <fieldset class="form-elements results-detail" id="breaks">
@@ -63,7 +65,7 @@
 
             <ul class="group">
                 @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
-                    @yesNoRadioGroup(hasBreaksForm("answer"), '_label -> Messages(answerLabel, claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.ddMMyyyy)))
+                    @yesNoRadioGroup(hasBreaksForm("answer"), '_label -> Messages(answerLabel, dateOfClaimFormatted))
                 }
             </ul>
 

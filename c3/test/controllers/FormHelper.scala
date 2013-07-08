@@ -226,6 +226,14 @@ object FormHelper {
     browser.fill("#careStartDate_year") `with` "1950"
     browser.submit("button[type='submit']")
   }
+  
+  def fillMoreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/moreAboutTheCare")
+    browser.click("#spent35HoursCaring_yes")
+    browser.click("#spent35HoursCaringBeforeClaim_no")
+    browser.click("#hasSomeonePaidYou_yes")
+    browser.submit("button[type='submit']")
+  }
 
   def fillMoreAboutThePersonWithClaimedAllowanceBefore(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/moreAboutThePerson")
