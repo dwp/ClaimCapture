@@ -164,6 +164,13 @@ wherePerson = Where was the person you care for during the above break?
 wherePerson_location = Where was the person you care for during the above break?
 medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
 
+## TIME SPENT ABROAD
+
+# NORMAL RESIDENCE AND CURRENT LOCATION
+normallyLiveInUK = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
+whereDoYouNormallyLive = Where do you normally live?
+inGBNow = Are you in Great Britain now?
+
 ##  PAY DETAILS
 # HOW WE PAY YOU
 likeToPay =  How would you like to be paid?

@@ -1,6 +1,8 @@
 @(normalResidenceAndCurrentLocationForm: Form[models.domain.NormalResidenceAndCurrentLocation])(implicit claim: models.domain.Claim)
 
 @import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
 
 @main("Normal Residence and Current Location - Time Spent Abroad", normalResidenceAndCurrentLocationForm) {
     @form(action = controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.submit) {
@@ -8,28 +10,11 @@
             <legend>Your normal residence &amp; current location</legend>
 
             <ul class="group">
-                <li>
-                    <p>Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?</p>
+                @yesNoRadioGroup(normalResidenceAndCurrentLocationForm("normallyLiveInUK"))
 
-                    <ul class="radio">
-                        <li><input type="radio" name="q1-yes" id="q1-yes"><label for="q1-yes">Yes</label></li>
-                        <li><input type="radio" name="q1-no" id="q1-no"><label for="q1-no">No</label></li>
-                    </ul>
-                </li>
+                @carersInputText(normalResidenceAndCurrentLocationForm("whereDoYouNormallyLive"), 'maxLength -> "60")
 
-                <li>
-                    <label for="live">Where do you normally live?</label>
-                    <input type="text" name="live" id="live">
-                </li>
-
-                <li>
-                    <p>Are you in Great Britain now?</p>
-
-                    <ul class="radio">
-                        <li><input type="radio" name="q2-yes" id="q2-yes"><label for="q2-yes">Yes</label></li>
-                        <li><input type="radio" name="q2-no" id="q2-no"><label for="q2-no">No</label></li>
-                    </ul>
-                </li>
+                @yesNoRadioGroup(normalResidenceAndCurrentLocationForm("inGBNow"))
             </ul>
         </fieldset>
 
@@ -39,3 +24,23 @@
         </div>
     }
 }
+
+<script type="text/javascript">
+    $(function() {
+        @if(normalResidenceAndCurrentLocationForm("normallyLiveInUK").value.getOrElse("") != "no") {
+            $("#whereDoYouNormallyLive").closest("li").hide();
+        }
+
+        $("#normallyLiveInUK_no").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#normallyLiveInUK_yes").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+</script>

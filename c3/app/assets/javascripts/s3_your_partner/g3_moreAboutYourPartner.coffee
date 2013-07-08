@@ -1,7 +1,7 @@
-window.initEvents = (separatedFromPartnerIDYes,separatedFromPartnerIDNo)->
-  $("#"+separatedFromPartnerIDYes).on "click", ->
+window.initEvents = (separatedFromPartnerIDYes, separatedFromPartnerIDNo) ->
+  $("#" + separatedFromPartnerIDYes).on "click", ->
     $("#separatedInfo").slideDown 500
-    $("#separatedInfo").css('display',"block")
+    $("#separatedInfo").css('display', "block")
     
-  $("#"+separatedFromPartnerIDNo).on "click", ->
+  $("#" + separatedFromPartnerIDNo).on "click", ->
     $("#separatedInfo").slideUp 500
