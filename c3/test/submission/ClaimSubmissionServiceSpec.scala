@@ -22,5 +22,5 @@ class ClaimSubmissionServiceSpec extends Specification with Tags {
       val resp = Await.result(futureResp, Duration("10 seconds"))
       (resp.xml \\ "Claimant" \\ "OtherNames").text mustEqual s"${yourDetails.firstName} "
     }
-  } section "s2"
+  } section "externalDependency"
 }
