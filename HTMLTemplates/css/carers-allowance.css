@@ -70,7 +70,7 @@
         padding-bottom: 0;
         background: url("images/nav-line.png") 0 47px repeat-x;
         margin-bottom: -12px; }
-      @media screen and (max-width: 680px) {
+      @media screen and (max-width: 640px) {
         .carers-allowance .progress-steps ol {
           padding-bottom: 0; } }
       .carers-allowance .progress-steps ol:after {
@@ -92,12 +92,18 @@
         .ie7 .carers-allowance .progress-steps ol li, .ie8 .carers-allowance .progress-steps ol li {
           background: url("images/nav-default.png") center 0 no-repeat;
           padding-bottom: 5px; }
-        @media screen and (max-width: 680px) {
+        @media screen and (max-width: 640px) {
           .carers-allowance .progress-steps ol li {
             text-indent: -9999px;
             padding: 15px 0 0 0; }
             .carers-allowance .progress-steps ol li span {
               text-indent: 0; } }
+        @media screen and (max-width: 480px) {
+          .carers-allowance .progress-steps ol li {
+            width: 30px;
+            margin-left: 4px; }
+            .carers-allowance .progress-steps ol li:first-child {
+              margin-left: 0; } }
         .carers-allowance .progress-steps ol li span {
           font-size: 1.3rem; }
           .ie .carers-allowance .progress-steps ol li span {
@@ -127,20 +133,23 @@
             background: url("images/nav-active.png") center 0 no-repeat;
             top: -8px;
             padding-top: 55px; }
-          @media screen and (max-width: 680px) {
+          @media screen and (max-width: 640px) {
             .carers-allowance .progress-steps ol li.active {
               padding: 0; } }
           .carers-allowance .progress-steps ol li.active span {
             font-weight: 700; }
             .carers-allowance .progress-steps ol li.active span:before {
               background: #000;
-              height: 40px;
+              padding: 0;
+              height: 39px;
               width: 50px;
               margin: -8px 0 0 -25px;
               font-weight: 300;
-              padding-top: 10px;
+              padding-top: 11px;
               font-size: 2.6rem; }
-              @media screen and (max-width: 680px) {
+              .ie .carers-allowance .progress-steps ol li.active span:before {
+                font-size: 26px; }
+              @media screen and (max-width: 640px) {
                 .carers-allowance .progress-steps ol li.active span:before {
                   width: 30px;
                   height: 29px;
@@ -236,7 +245,8 @@
     @media screen and (max-width: 640px) {
       .carers-allowance section {
         padding-left: 0;
-        padding-right: 0; } }
+        padding-right: 0;
+        border: 0; } }
     .carers-allowance section.error-statement {
       margin: 0;
       padding: 5em 0; }
@@ -312,7 +322,7 @@
         .carers-allowance .completed .start-again a:hover {
           background: #004b27; }
     .carers-allowance .completed ul li {
-      background: #d5e8f3 url("../img/progress-tick.png") 1.2em 1.3em no-repeat;
+      background: #d5e8f3 url("images/progress-tick.png") 1.2em 1.3em no-repeat;
       border-bottom: 1px solid #b6d6d2;
       padding: 1em 11em 1em 2.9em;
       position: relative; }

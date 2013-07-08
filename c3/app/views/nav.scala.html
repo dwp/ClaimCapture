@@ -2,37 +2,22 @@
 
 @import models.domain._
 
-<style>
-    .nav {
-        list-style: none;
-        text-align: center;
-    }
-
-    .nav li {
-        display: inline;
-        color: white;
-        background: grey;
-        font-size: 20px;
-        text-align: center;
-        margin: 5px;
-        padding: 5px 10px 5px 10px;
-    }
-</style>
-
-@background(currentSectionID: String) = {
+@progress(currentSectionID: String) = {
     @if(currentSectionID == sectionID) {
-        style="background: red"
+        class="active"
     } else {
         @if(Section.index(currentSectionID) < Section.index(sectionID)) {
-            style="background: black"
+            class="complete"
         }
     }
 }
 
-<ul class="nav">
-    <li @background(CarersAllowance.id)>Get Carer's Allowance</li>
-    <li @background(AboutYou.id)>About You</li>
-    <li @background(YourPartner.id)>Your Partner</li>
-    <li @background(CareYouProvide.id)>Care You Provide</li>
-    <li @background(TimeSpentAbroad.id)>Time Abroad</li>
-</ul>
+<div class="progress-steps">
+	<ol>
+	    <li @progress(CarersAllowance.id)><span>Eligibility</span></li>
+	    <li @progress(AboutYou.id)><span>About you</span></li>
+	    <li @progress(YourPartner.id)><span>Your partner</span></li>
+	    <li @progress(CareYouProvide.id)><span>Care you provide</span></li>
+	    <li @progress(TimeSpentAbroad.id)><span>Abroad</span></li>
+	</ol>
+</div>

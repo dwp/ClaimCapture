@@ -93,6 +93,13 @@ $button-green-hover: #004b27;
 					    text-indent: 0;
 				    }
 			    }
+			     @media screen and (max-width: 480px) {
+				     width: 30px;
+				     margin-left: 4px;
+				     &:first-child {
+					     margin-left: 0;
+				     }
+			     }
 			   span {
 				   font-size: 1.3rem;
 				   .ie & {
@@ -104,20 +111,20 @@ $button-green-hover: #004b27;
 					   top: 0;
 					   left: 50%;
 					   width: 30px;
-					   height: 29px;
+					   height: 25px;
 					   border-radius: 100px;
 					   margin: 0 0 0 -15px;
 					   background: #afafaf;
 					   color: #fff;
 					   font-weight: 300;
-					   font-size: 2.6rem;
+					   font-size: 2rem;
 					   .ie & {
-						   font-size: 26px;
+						   font-size: 20px;
 					   }
 					   text-align: center;
 					   display: block;
 					   line-height: 1em;
-					   padding: 1px 0 0 0;
+					   padding: 5px 0 0 0;
 				   }
 			   }
 			   
@@ -136,11 +143,15 @@ $button-green-hover: #004b27;
 					   &:before {
 						   background: #000;
 						   padding: 0;
-						   height: 40px;
+						   height: 39px;
 						   width: 50px;
 						   margin: -8px 0 0 -25px;
 						   font-weight: 300;
-						   padding-top: 10px;
+						   padding-top: 11px;
+						   font-size: 2.6rem;
+						   .ie & {
+							   font-size: 26px;
+						   }
 						   @media screen and (max-width: 640px) {
 							   width: 30px;
 							   height: 29px;
@@ -282,7 +293,6 @@ $button-green-hover: #004b27;
 	   background: #fff;
 	   position: relative;
 	   padding: 1.6em 0 0 1em;
-	   border-top: 10px solid #f47738;
 	   @media screen and (max-width: 640px) {padding-left: 0; padding-right: 0; border: 0;}
 	   
 	   &.error-statement {
@@ -382,7 +392,7 @@ $button-green-hover: #004b27;
    	   }
 	   ul {
 		   li {
-			   background: #d5e8f3 url('../img/progress-tick.png') 1.2em 1.3em no-repeat;
+			   background: #d5e8f3 url('images/progress-tick.png') 1.2em 1.3em no-repeat;
 			   border-bottom: 1px solid #b6d6d2;
 			   padding: 1em 11em 1em 2.9em;
 			   position: relative;
