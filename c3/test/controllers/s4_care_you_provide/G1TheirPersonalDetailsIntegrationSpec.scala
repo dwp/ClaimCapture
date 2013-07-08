@@ -44,5 +44,24 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       FormHelper.fillTheirPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
+    
+    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser {
+      FormHelper.fillYourDetails(browser)
+      FormHelper.fillYourContactDetails(browser)
+      FormHelper.fillTimeOutsideUK(browser)
+      FormHelper.fillClaimDate(browser)
+      FormHelper.fillMoreAboutYou(browser)
+      FormHelper.fillEmployment(browser)
+      FormHelper.fillYourPartnerPersonalDetails(browser)
+      FormHelper.fillYourPartnerContactDetails(browser)
+      FormHelper.fillMoreAboutYourPartnerNotSeparated(browser)
+      FormHelper.fillPersonYouCareFor(browser)
+      browser.submit("button[type='submit']")
+      
+      browser.title mustEqual "Their Personal Details - Care You Provide"
+      browser.find("#firstName").getValue mustEqual "John"
+      browser.find("#surname").getValue mustEqual "Appleseed"
+
+    }
   } section "integration"
 }
