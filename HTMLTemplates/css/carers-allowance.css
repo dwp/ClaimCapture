@@ -2,6 +2,9 @@
 .carers-allowance {
   background: #fff;
   border-bottom: 10px solid #f47738;
+  /* progress steps */
+  /* progress bar */
+  /* div */
   /* section */
   /* section end */
   /* completed questions */
@@ -42,6 +45,8 @@
         font-size: 1.5rem; }
         .ie .carers-allowance .carers-container .prototype p {
           font-size: 15px; }
+        .ie7 .carers-allowance .carers-container .prototype p {
+          font-size: 13px; }
         .carers-allowance .carers-container .prototype p strong {
           font-size: 1.5rem; }
           .ie .carers-allowance .carers-container .prototype p strong {
@@ -51,8 +56,178 @@
           margin-left: .25em; }
           .carers-allowance .carers-container .prototype p a:hover {
             color: #000; }
-  .carers-allowance section {
+  .carers-allowance .progress-steps {
+    border-top: 10px solid #f47738; }
+    @media screen and (max-width: 640px) {
+      .carers-allowance .progress-steps {
+        border-top: 0; } }
+    .carers-allowance .progress-steps ol {
+      list-style: none;
+      margin: 0;
+      overflow: hidden;
+      padding: 2em 0 0.3em 0; }
+      .ie7 .carers-allowance .progress-steps ol, .ie8 .carers-allowance .progress-steps ol {
+        padding-bottom: 0;
+        background: url("images/nav-line.png") 0 47px repeat-x;
+        margin-bottom: -12px; }
+      @media screen and (max-width: 680px) {
+        .carers-allowance .progress-steps ol {
+          padding-bottom: 0; } }
+      .carers-allowance .progress-steps ol:after {
+        content: "";
+        display: block;
+        height: 10px;
+        border-bottom: 1px dotted #e3e3e3;
+        margin-top: 6px; }
+        @media screen and (max-width: 500px) {
+          .carers-allowance .progress-steps ol:after {
+            display: none; } }
+      .carers-allowance .progress-steps ol li {
+        float: left;
+        width: 10%;
+        position: relative;
+        text-align: center;
+        padding: 35px 0 0 0;
+        line-height: 1em; }
+        .ie7 .carers-allowance .progress-steps ol li, .ie8 .carers-allowance .progress-steps ol li {
+          background: url("images/nav-default.png") center 0 no-repeat;
+          padding-bottom: 5px; }
+        @media screen and (max-width: 680px) {
+          .carers-allowance .progress-steps ol li {
+            text-indent: -9999px;
+            padding: 15px 0 0 0; }
+            .carers-allowance .progress-steps ol li span {
+              text-indent: 0; } }
+        .carers-allowance .progress-steps ol li span {
+          font-size: 1.3rem; }
+          .ie .carers-allowance .progress-steps ol li span {
+            font-size: 13px; }
+          .carers-allowance .progress-steps ol li span:before {
+            position: absolute;
+            content: "\203a";
+            top: 0;
+            left: 50%;
+            width: 30px;
+            height: 25px;
+            border-radius: 100px;
+            margin: 0 0 0 -15px;
+            background: #afafaf;
+            color: #fff;
+            font-weight: 300;
+            font-size: 2rem;
+            text-align: center;
+            display: block;
+            line-height: 1em;
+            padding: 5px 0 0 0; }
+            .ie .carers-allowance .progress-steps ol li span:before {
+              font-size: 20px; }
+        .carers-allowance .progress-steps ol li.active {
+          padding-top: 48px; }
+          .ie7 .carers-allowance .progress-steps ol li.active, .ie8 .carers-allowance .progress-steps ol li.active {
+            background: url("images/nav-active.png") center 0 no-repeat;
+            top: -8px;
+            padding-top: 55px; }
+          @media screen and (max-width: 680px) {
+            .carers-allowance .progress-steps ol li.active {
+              padding: 0; } }
+          .carers-allowance .progress-steps ol li.active span {
+            font-weight: 700; }
+            .carers-allowance .progress-steps ol li.active span:before {
+              background: #000;
+              height: 40px;
+              width: 50px;
+              margin: -8px 0 0 -25px;
+              font-weight: 300;
+              padding-top: 10px;
+              font-size: 2.6rem; }
+              @media screen and (max-width: 680px) {
+                .carers-allowance .progress-steps ol li.active span:before {
+                  width: 30px;
+                  height: 29px;
+                  margin: 0 0 0 -15px;
+                  padding: 1px 0 0 0; } }
+        .ie7 .carers-allowance .progress-steps ol li.complete, .ie8 .carers-allowance .progress-steps ol li.complete {
+          background: url("images/nav-complete.png") center 0 no-repeat; }
+        .carers-allowance .progress-steps ol li.complete span:before {
+          background: #006435;
+          content: "\203a";
+          padding-left: 0;
+          width: 30px; }
+  .carers-allowance .progress-bar {
     border-top: 10px solid #f47738;
+    /* ol */ }
+    @media screen and (max-width: 640px) {
+      .carers-allowance .progress-bar {
+        border-top: 0; } }
+    .carers-allowance .progress-bar ol {
+      list-style: none;
+      margin: 1em 0 0 0;
+      padding: 0;
+      overflow: hidden;
+      /* li */ }
+      .carers-allowance .progress-bar ol li {
+        float: left;
+        position: relative;
+        background: #ccc;
+        position: relative;
+        height: 40px;
+        font-size: 1.3rem;
+        font-weight: 700; }
+        .ie .carers-allowance .progress-bar ol li {
+          font-size: 13px; }
+        .carers-allowance .progress-bar ol li:after {
+          content: "";
+          border-style: solid;
+          border-width: 20px 0 20px 20px;
+          border-color: transparent transparent transparent #cccccc;
+          position: absolute;
+          top: 0;
+          right: 3px; }
+        .carers-allowance .progress-bar ol li span {
+          padding: 11px 25px 0 25px;
+          text-align: center;
+          margin-left: -17px;
+          display: block; }
+          .carers-allowance .progress-bar ol li span:after {
+            content: "";
+            border-style: solid;
+            border-width: 20px 0 20px 20px;
+            border-color: transparent transparent transparent white;
+            position: absolute;
+            top: 0;
+            right: 0; }
+        .carers-allowance .progress-bar ol li.active {
+          background: #008670;
+          color: #fff; }
+          .carers-allowance .progress-bar ol li.active:after {
+            border-color: transparent transparent transparent #008670;
+            right: 2px; }
+          .carers-allowance .progress-bar ol li.active:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -20px;
+            border-style: solid;
+            border-width: 20px 0 20px 20px;
+            border-color: #008670 #008670 #008670 transparent; }
+          .carers-allowance .progress-bar ol li.active span:after {
+            border-color: #cccccc #cccccc #cccccc white; }
+        .carers-allowance .progress-bar ol li.complete {
+          background: #000;
+          color: #fff; }
+          .carers-allowance .progress-bar ol li.complete:after {
+            border-color: transparent transparent transparent black; }
+          .carers-allowance .progress-bar ol li.complete:before {
+            border-color: black black black transparent; }
+          .carers-allowance .progress-bar ol li.complete span:after {
+            border-color: transparent transparent transparent white; }
+        .carers-allowance .progress-bar ol li.last:after {
+          border: none; }
+        .carers-allowance .progress-bar ol li.last span {
+          padding-right: 10px; }
+          .carers-allowance .progress-bar ol li.last span:after {
+            border: none; }
+  .carers-allowance section {
     background: #fff;
     position: relative;
     padding: 1.6em 0 0 1em;
@@ -61,8 +236,7 @@
     @media screen and (max-width: 640px) {
       .carers-allowance section {
         padding-left: 0;
-        padding-right: 0;
-        border-top: 0; } }
+        padding-right: 0; } }
     .carers-allowance section.error-statement {
       margin: 0;
       padding: 5em 0; }
@@ -138,7 +312,7 @@
         .carers-allowance .completed .start-again a:hover {
           background: #004b27; }
     .carers-allowance .completed ul li {
-      background: #d5e8f3 url("images/progress-tick.png") 1.2em 1.3em no-repeat;
+      background: #d5e8f3 url("../img/progress-tick.png") 1.2em 1.3em no-repeat;
       border-bottom: 1px solid #b6d6d2;
       padding: 1em 11em 1em 2.9em;
       position: relative; }
@@ -377,6 +551,8 @@
           line-height: 1em;
           padding: 0.35em 0.7em;
           border-left: 3px solid #006435; }
+          .ie .carers-allowance .form-elements ul li .helper-more {
+            font-size: 16px; }
         .carers-allowance .form-elements ul li .helper-info {
           display: none;
           padding: .7em;
@@ -384,6 +560,8 @@
           border-left: 3px solid #006435; }
           .carers-allowance .form-elements ul li .helper-info p {
             font-size: 1.6rem; }
+            .ie .carers-allowance .form-elements ul li .helper-info p {
+              font-size: 16px; }
         .carers-allowance .form-elements ul li label, .carers-allowance .form-elements ul li p {
           display: block;
           font-size: 1.9rem;
@@ -584,9 +762,9 @@
       .carers-allowance .form-elements ul.sort-code label {
         position: absolute;
         left: -9999px; }
-      .carers-allowance .form-elements ul.sort-code input[type="tel"] {
+      .carers-allowance .form-elements ul.sort-code input[type="tel"], .carers-allowance .form-elements ul.sort-code input[type="text"] {
         width: 8.1rem; }
-        .ie .carers-allowance .form-elements ul.sort-code input[type="tel"] {
+        .ie .carers-allowance .form-elements ul.sort-code input[type="tel"], .ie .carers-allowance .form-elements ul.sort-code input[type="text"] {
           width: 81px; }
       .carers-allowance .form-elements ul.label-strip li {
         margin-left: .5em; }
