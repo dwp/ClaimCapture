@@ -2,7 +2,7 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.WithBrowserAndMatchers
+import controllers.BrowserMatchers
 
 class G5ApproveIntegrationSpec extends Specification with Tags {
 
@@ -14,7 +14,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
   } section "integration"
 
   "Carer's Allowance" should {
-    "be approved" in new WithBrowserAndMatchers {
+    "be approved" in new WithBrowser with BrowserMatchers {
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
@@ -35,7 +35,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       browser.find(".prompt.error").size mustEqual 0
     }
 
-    "be declined" in new WithBrowserAndMatchers {
+    "be declined" in new WithBrowser with BrowserMatchers {
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
@@ -56,7 +56,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       browser.find(".prompt.error").size mustEqual 1
     }
 
-    "navigate to next section" in new WithBrowserAndMatchers {
+    "navigate to next section" in new WithBrowser with BrowserMatchers {
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")

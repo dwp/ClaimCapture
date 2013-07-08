@@ -2,12 +2,12 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{WithBrowserAndMatchers, FormHelper}
+import controllers.{BrowserMatchers, FormHelper}
 
 class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
 
   "Representatives For The Person" should {
-    "be presented" in new WithBrowserAndMatchers {
+    "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/moreAboutTheCare")
       titleMustEqual("More about the care you provide - Care You Provide")
     }
@@ -27,7 +27,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
-    "navigate back" in new WithBrowserAndMatchers {
+    "navigate back" in new WithBrowser with BrowserMatchers {
       FormHelper.fillRepresentativesForThePerson(browser)
       browser.click("#backButton")
       titleMustEqual("Representatives For The Person - Care You Provide")
@@ -38,7 +38,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
 
-    "chose no options navigate back twice to Previous Carer Contact Details" in new WithBrowserAndMatchers {
+    "chose no options navigate back twice to Previous Carer Contact Details" in new WithBrowser with BrowserMatchers {
       // [SKW] This tests a problem I was having where pressing back twice wasn't getting back passed the S4 G4, the problem was with Controller action fetching previous question groups being different for pages using backHref.
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
@@ -61,7 +61,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
     }
 
-    "choose yes options navigate back twice to Previous Carer Contact Details" in new WithBrowserAndMatchers {
+    "choose yes options navigate back twice to Previous Carer Contact Details" in new WithBrowser with BrowserMatchers {
       // [SKW] This tests a problem I was having where pressing back twice wasn't getting back passed the S4 G4, the problem was with Controller action fetching previous question groups being different for pages using backHref.
       FormHelper.fillTheirPersonalDetails(browser)
       FormHelper.fillTheirContactDetails(browser)

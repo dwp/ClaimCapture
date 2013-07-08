@@ -15,7 +15,6 @@
             @progressBar(CareYouProvide.id)
             
             <section>
-
                 <header>
                     <h1>About the care you provide</h1>
                 </header>
@@ -34,7 +33,7 @@
                 }
 
                 @{ currentFormOption match {
-                    case Some(n) => errorsSummary(n)
+                    case Some(e) => errorsSummary(e)
                     case _ => ""
                   }
                 }

@@ -2,11 +2,12 @@ package controllers
 
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
+import play.api.test.WithBrowser
 
 class CompletedQuestionGroupListSpec extends Specification with Tags {
 
   "Completed Question Group List" should {
-    "increase when navigating forwards" in new WithBrowserAndMatchers {
+    "increase when navigating forwards" in new WithBrowser with BrowserMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
@@ -19,7 +20,7 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
 
-    "decrease when navigating backwards" in new WithBrowserAndMatchers {
+    "decrease when navigating backwards" in new WithBrowser with BrowserMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
@@ -36,7 +37,7 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").size mustEqual 2
     }
 
-    "contain the correct items when navigating S4G3 ClaimedAllowanceBefore positive answer path" in new WithBrowserAndMatchers {
+    "contain the correct items when navigating S4G3 ClaimedAllowanceBefore positive answer path" in new WithBrowser with BrowserMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
@@ -62,7 +63,7 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").get(5).getText must contain("Representatives for the person you care for")
     }
 
-    "contain the correct items when navigating S4G3 ClaimedAllowanceBefore negative answer path" in new WithBrowserAndMatchers {
+    "contain the correct items when navigating S4G3 ClaimedAllowanceBefore negative answer path" in new WithBrowser with BrowserMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
@@ -81,7 +82,7 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
     }
 
     """remove invalidated history after completing the S4G3 ClaimedAllowanceBefore postive answer path
-       but goes back and changes to the negative answer path""" in new WithBrowserAndMatchers {
+       but goes back and changes to the negative answer path""" in new WithBrowser with BrowserMatchers {
       FormHelper.fillTheirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
