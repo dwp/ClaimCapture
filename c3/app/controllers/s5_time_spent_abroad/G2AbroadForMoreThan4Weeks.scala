@@ -35,21 +35,3 @@ object G2AbroadForMoreThan4Weeks extends Controller with Routing with CachedClai
       })
   }
 }
-
-
-/*
-def submit = claiming { implicit claim => implicit request =>
-  val breaksInCare = claim.questionGroup(BreaksInCare) match {
-    case Some(b: BreaksInCare) => b
-    case _ => BreaksInCare()
-  }
-
-  form.bindEncrypted.fold(
-    formWithErrors => BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrors, breaksInCare, completedQuestionGroups, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim))),
-    hasBreaks => hasBreaks.answer match {
-      case "yes" if breaksInCare.breaks.size < 10 => claim.update(breaksInCare) -> Redirect(routes.G11Break.present())
-      case "yes" => claim.update(breaksInCare) -> Redirect(routes.G10BreaksInCare.present())
-      case _ => claim.update(breaksInCare) -> Redirect(routes.CareYouProvide.completed())
-    })
-}
-*/

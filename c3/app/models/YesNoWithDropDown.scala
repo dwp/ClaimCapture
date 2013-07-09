@@ -1,3 +1,3 @@
 package models
 
-case class YesNoWithDropDown(answer:String, dropDownValue:Option[String])
+case class YesNoWithDropDown(answer: String, dropDownValue: Option[String])

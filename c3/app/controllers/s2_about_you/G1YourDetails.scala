@@ -27,7 +27,6 @@ object G1YourDetails extends Controller with Routing with CachedClaim {
     )(YourDetails.apply)(YourDetails.unapply)
   )
 
-
   def present = claiming { implicit claim => implicit request =>
     val yourDetailsForm: Form[YourDetails] = claim.questionGroup(YourDetails) match {
       case Some(y: YourDetails) => form.fill(y)

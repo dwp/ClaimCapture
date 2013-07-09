@@ -6,7 +6,6 @@ window.initEvents = (actForPersonY, actForPersonN, someoneElseActForPersonY, som
   $("#" + actForPersonN).on "click", ->
     $("#actWrap").slideUp 500, -> $("#you_actAs").val("")
 
-
   $("#" + someoneElseActForPersonY).on "click", ->
     $("#someoneElseWrap").slideDown 500
     $("#someoneElseWrap").css('display', "block")
