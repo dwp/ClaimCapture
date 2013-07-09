@@ -5,6 +5,7 @@ import models.domain._
 case class ClaimSubmission(claim: Claim, transactionId : String) {
   val aboutYou = AboutYouSubmission.buildAboutYou(claim)
   val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)
+  val yourPartner = YourPartnerSubmission.buildYourPartner(claim)
 
   def buildDwpClaim = {
     <DWPCAClaim id={transactionId}>
