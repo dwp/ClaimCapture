@@ -34,18 +34,18 @@ case object Trips extends QuestionGroup(s"${TimeSpentAbroad.id}.g4") {
   def apply() = new Trips()
 }
 
-trait Trip {
-  val id: String
-
-  val start: DayMonthYear
-
-  val end: DayMonthYear
-
-  val where: String
-
-  val why: Option[String]
+case class Trip(val id: String, start: DayMonthYear, end: DayMonthYear, where: String, why: Option[String] = None) extends FourWeeksTrip with FiftyTwoWeeksTrip {
+  def as[T >: Trip]: T = asInstanceOf[T]
 }
 
-case class FourWeeksTrip(id: String, start: DayMonthYear, end: DayMonthYear, where: String, why: Option[String] = None) extends Trip
+trait FourWeeksTrip {
+  this: Trip =>
 
-case class FiftyTwoWeeksTrip(id: String, start: DayMonthYear, end: DayMonthYear, where: String, why: Option[String] = None) extends Trip
+  val id: String
+}
+
+trait FiftyTwoWeeksTrip {
+  this: Trip =>
+
+  val id: String
+}

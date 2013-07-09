@@ -5,18 +5,18 @@ import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import models.domain.{FourWeeksTrip, Trips}
+import models.domain.{Trip, FourWeeksTrip, Trips}
 import utils.helpers.CarersForm._
 
 object G4Trip extends Controller with CachedClaim {
-  val fourWeeksTripForm = Form(
+  val form = Form(
     mapping(
       "tripID" -> nonEmptyText,
       "start" -> (dayMonthYear verifying validDateOnly),
       "end" -> (dayMonthYear verifying validDateOnly),
       "where" -> nonEmptyText,
       "why" -> optional(text)
-    )(FourWeeksTrip.apply)(FourWeeksTrip.unapply))
+    )(Trip.apply)(Trip.unapply))
 
   def fourWeeks = claiming { implicit claim => implicit request =>
     Ok("")
@@ -28,10 +28,10 @@ object G4Trip extends Controller with CachedClaim {
       case _ => Trips()
     }
 
-    fourWeeksTripForm.bindEncrypted.fold(
+    form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip()),
-      fourWeeksTrip => {
-        val updatedTrips = trips.update(fourWeeksTrip)
+      trip => {
+        val updatedTrips = trips.update(trip.as[FourWeeksTrip])
         claim.update(updatedTrips) -> Redirect(routes.G2AbroadForMoreThan4Weeks.present())
       })
   }
