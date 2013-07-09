@@ -22,17 +22,9 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
 
   def -(amount: Int) = DayMonthYearSubtraction(copy(), amount)
 
-  def ddMMyyyy: String = ddMMyyyy("/")
+  def `dd/MM/yyyy`: String = pad(day) + "/" + pad(month) + "/" + year.fold("")(_.toString)
 
-  def `dd/MM/yyyy`: String = ddMMyyyy("/")
-
-  def ddMMyyyy(separator: String): String = pad(day) + separator + pad(month) + separator + year.fold("")(_.toString)
-
-  def yyyyMMdd: String = yyyyMMdd("-")
-
-  def `yyyy-MM-dd`: String = yyyyMMdd("-")
-
-  def yyyyMMdd(separator: String): String = year.fold("")(_.toString) + separator + pad(month) + separator + pad(day)
+  def `yyyy-MM-dd`: String = year.fold("")(_.toString) + "-" + pad(month) + "-" + pad(day)
 
   def pad(i: Option[Int]): String = i.fold("")(i => if (i < 10) s"0$i" else s"$i")
 

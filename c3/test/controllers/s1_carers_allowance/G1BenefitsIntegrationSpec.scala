@@ -2,12 +2,12 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.WithBrowserAndMatchers
+import controllers.BrowserMatchers
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
 
   "Benefits" should {
-    "be presented" in new WithBrowserAndMatchers {
+    "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/")
       titleMustEqual("Benefits - Carer's Allowance")
       browser.find("div[class=carers-allowance]").getText must contain("Q1")
@@ -22,7 +22,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       browser.find("#q3-yes").getAttribute("value") mustEqual "true"
     }
 
-    "allow changing answer via given link" in new WithBrowserAndMatchers {
+    "allow changing answer via given link" in new WithBrowser with BrowserMatchers {
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
@@ -33,7 +33,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
   } section "integration"
 
   "Does the person being cared for get one of required benefits" should {
-    "acknowledge yes" in new WithBrowserAndMatchers {
+    "acknowledge yes" in new WithBrowser with BrowserMatchers {
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
@@ -42,7 +42,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").get(0).getText must contain("Yes")
     }
 
-    "acknowledge no" in new WithBrowserAndMatchers {
+    "acknowledge no" in new WithBrowser with BrowserMatchers {
       browser.goTo("/")
       browser.click("#q3-no")
       browser.submit("button[type='submit']")

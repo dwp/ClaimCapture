@@ -2,10 +2,11 @@ package controllers
 
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
+import play.api.test.WithBrowser
 
 class NavigationSpec extends Specification with Tags {
   "Browser" should {
-    "not cache pages" in new WithBrowserAndMatchers {
+    "not cache pages" in new WithBrowser with BrowserMatchers {
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")

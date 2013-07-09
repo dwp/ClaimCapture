@@ -35,25 +35,22 @@ object G1YourPartnerPersonalDetails extends Controller with Routing with CachedC
     )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
 
 
-  def present = claiming {
-    implicit claim => implicit request =>
-
-      if (claim.isSectionVisible(models.domain.YourPartner.id)) {
-        val currentForm: Form[YourPartnerPersonalDetails] = claim.questionGroup(YourPartnerPersonalDetails) match {
-          case Some(t: YourPartnerPersonalDetails) => form.fill(t)
-          case _ => form
-        }
-
-        Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(currentForm))
+  def present = claiming { implicit claim => implicit request =>
+    if (claim.isSectionVisible(models.domain.YourPartner.id)) {
+      val currentForm: Form[YourPartnerPersonalDetails] = claim.questionGroup(YourPartnerPersonalDetails) match {
+        case Some(t: YourPartnerPersonalDetails) => form.fill(t)
+        case _ => form
       }
 
-      else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+      Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(currentForm))
+    }
+
+    else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }
 
-  def submit = claiming {
-    implicit claim => implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
-        f => claim.update(f) -> Redirect(routes.G2YourPartnerContactDetails.present()))
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
+      f => claim.update(f) -> Redirect(routes.G2YourPartnerContactDetails.present()))
   }
 }

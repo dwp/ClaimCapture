@@ -25,7 +25,7 @@
                             @for(completedForm <- completedForms) {
                                 <li>
                                     @if(completedForm.id == ClaimDate.id){
-                                        <h3>@Messages(completedForm.id, claim.dateOfClaim.get.ddMMyyyy)</h3>
+                                        <h3>@Messages(completedForm.id, claim.dateOfClaim.get.`dd/MM/yyyy`)</h3>
                                     }else{
                                         <h3>@Messages(completedForm.id)</h3>
                                     }

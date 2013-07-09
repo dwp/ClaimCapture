@@ -2,12 +2,12 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.WithBrowserAndMatchers
 import java.util.concurrent.TimeUnit
+import controllers.BrowserMatchers
 
 class G11BreakIntegrationSpec extends Specification with Tags {
 
-  class BreakWithBrowser extends WithBrowserAndMatchers {
+  class BreakWithBrowser extends WithBrowser with BrowserMatchers {
     def break() {
       browser.click("#start_day option[value='1']")
       browser.click("#start_month option[value='1']")

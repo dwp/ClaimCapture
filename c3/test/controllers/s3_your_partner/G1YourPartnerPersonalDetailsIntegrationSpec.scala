@@ -2,9 +2,8 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.FormHelper
+import controllers.{BrowserMatchers, FormHelper}
 import org.specs2.execute.PendingUntilFixed
-import controllers.WithBrowserAndMatchers
 
 class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags with PendingUntilFixed {
 
@@ -47,7 +46,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       browser.title mustEqual "Completion - About You"
     }
 
-    "contain the completed forms" in new WithBrowserAndMatchers {
+    "contain the completed forms" in new WithBrowser with BrowserMatchers {
       FormHelper.fillClaimDate(browser)
       FormHelper.fillMoreAboutYou(browser)
       FormHelper.fillYourPartnerPersonalDetails(browser)

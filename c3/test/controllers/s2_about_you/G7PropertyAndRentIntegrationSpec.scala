@@ -2,7 +2,7 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{WithBrowserAndMatchers, FormHelper}
+import controllers.{BrowserMatchers, FormHelper}
 
 class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
 
@@ -19,7 +19,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Property and Rent - About You"
     }
 
-    "contain the completed forms" in new WithBrowserAndMatchers {
+    "contain the completed forms" in new WithBrowser with BrowserMatchers {
       FormHelper.fillYourDetails(browser)
       FormHelper.fillYourContactDetails(browser)
       FormHelper.fillClaimDate(browser)
@@ -41,7 +41,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       questionLabels.get(1).getText must contain(dateString)
     }
 
-    "contain errors on invalid submission" in new WithBrowserAndMatchers {
+    "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       FormHelper.fillClaimDate(browser)
       browser.goTo("/aboutyou/propertyAndRent")
       browser.title mustEqual "Property and Rent - About You"

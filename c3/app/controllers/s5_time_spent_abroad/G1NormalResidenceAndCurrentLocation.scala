@@ -9,27 +9,41 @@ import utils.helpers.CarersForm._
 import models.domain.NormalResidenceAndCurrentLocation
 
 object G1NormalResidenceAndCurrentLocation extends Controller with Routing with CachedClaim {
-  override val route = "TODO" -> routes.G1NormalResidenceAndCurrentLocation.present
+  override val route = NormalResidenceAndCurrentLocation.id -> routes.G1NormalResidenceAndCurrentLocation.present
 
   implicit val form = Form(
     mapping(
       "normallyLiveInUK" -> nonEmptyText,
-      "whereDoYouNormallyLive" -> optional(nonEmptyText),
+      "whereDoYouNormallyLive" -> optional(nonEmptyText(maxLength = 60)),
       "inGBNow" -> nonEmptyText
     )(NormalResidenceAndCurrentLocation.apply)(NormalResidenceAndCurrentLocation.unapply))
+
+  val whereDoYouNormallyLiveForm = Form(
+    single(
+      "whereDoYouNormallyLive" -> nonEmptyText(maxLength = 60)
+    ))
 
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(form))
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    def normallyLiveInUK(implicit normalResidenceAndCurrentLocation: NormalResidenceAndCurrentLocation): Form[NormalResidenceAndCurrentLocation] = {
-      if (normalResidenceAndCurrentLocation.normallyLiveInUK == "no" && normalResidenceAndCurrentLocation.whereDoYouNormallyLive == None) form.fill(normalResidenceAndCurrentLocation).withError("whereDoYouNormallyLive", "error.required")
+    def normallyLiveInUK(implicit n: NormalResidenceAndCurrentLocation): Form[NormalResidenceAndCurrentLocation] = {
+      if (n.normallyLiveInUK == "no" && n.whereDoYouNormallyLive == None) form.fill(n).withError("whereDoYouNormallyLive", "error.required")
       else form
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(formWithErrors)),
+      formWithErrors => {
+        if (formWithErrors("normallyLiveInUK").value.getOrElse("yes") == "no") {
+          whereDoYouNormallyLiveForm.bindFromRequest.fold(
+            whereDoYouNormallyLiveForm => BadRequest(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(formWithErrors.withError("whereDoYouNormallyLive", "error.required"))),
+            value => BadRequest(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(formWithErrors))
+          )
+        } else {
+          BadRequest(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(formWithErrors))
+        }
+      },
       implicit normalResidenceAndCurrentLocation => {
         if (normallyLiveInUK.hasErrors) BadRequest(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(normallyLiveInUK))
         else claim.update(normalResidenceAndCurrentLocation) -> Redirect(routes.G2AbroadForMoreThan4Weeks.present())
