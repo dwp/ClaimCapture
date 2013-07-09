@@ -1,0 +1,28 @@
+@(currentForm: Form[models.domain.AdditionalInfo],completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import controllers.s7_consent_and_declaration._
+
+@main("Additional Information - Consent And Declaration", Some(currentForm),completedQuestionGroups) {
+    @form(action = controllers.s7_consent_and_declaration.routes.G4AdditionalInfo.submit) {
+        <fieldset class="form-elements">
+            <legend>Additional Information</legend>
+
+            <ul class="group">
+                @carersInputTextArea(currentForm("anythingElse"),'placeholder->Messages("anythingElse.placeholder"),'helper->"2000 characters left")
+                @yesNoRadioGroup(currentForm("welshCommunication"))
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="@backHref(ConsentAndDeclaration.route,completedQuestionGroups)" id="backButton" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+
+}

@@ -1,0 +1,29 @@
+@(currentForm: Form[models.domain.Consent])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+
+@main("Consent - Consent And Declaration", Some(currentForm)) {
+    @form(action = controllers.s7_consent_and_declaration.routes.G1Consent.submit) {
+        <fieldset class="form-elements">
+            <legend>Consent</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("informationFromEmployer"))
+                @carersInputTextArea(currentForm("why"),'placeholder->Messages("why_placeholder"))
+                @yesNoRadioGroup(currentForm("informationFromPerson"))
+
+            </ul>
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="@controllers.s6_pay_details.PayDetails.completed" id="backButton" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+
+}
