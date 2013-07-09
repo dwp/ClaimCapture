@@ -289,11 +289,11 @@ object FormHelper {
   
   def fillRepresentativesForThePerson(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/representativesForPerson")
-    browser.click("#actForPerson_yes")
-    browser.click("#someoneElseActForPerson_yes")
-    browser.click("#actAs option[value='guardian']")
-    browser.click("#someoneElseActAs option[value='judicial']")
-    browser.fill("#someoneElseFullName") `with` "John"
+    browser.click("#you_actForPerson_yes")
+    browser.click("#someoneElse_actForPerson_yes")
+    browser.click("#you_actAs option[value='guardian']")
+    browser.click("#someoneElse_actAs option[value='judicial']")
+    browser.fill("#someoneElse_fullName") `with` "John"
     browser.submit("button[type='submit']")
   }
   

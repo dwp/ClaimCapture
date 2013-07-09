@@ -1,6 +1,9 @@
 package models.domain
 
-import models.{MultiLineAddress, Whereabouts, NationalInsuranceNumber, DayMonthYear}
+import models._
+import models.Whereabouts
+import models.MultiLineAddress
+import models.NationalInsuranceNumber
 
 case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails, theirContactDetails: TheirContactDetails,
                           moreAboutThePerson: MoreAboutThePerson, representatives: RepresentativesForPerson,
@@ -38,8 +41,7 @@ case class PreviousCarerContactDetails(address: Option[MultiLineAddress], postco
 
 case object PreviousCarerContactDetails extends QuestionGroup(s"${CareYouProvide.id}.g5")
 
-case class RepresentativesForPerson(actForPerson: String, actAs: Option[String],
-                                    someoneElseActForPerson: String, someoneElseActAs: Option[String], someoneElseFullName: Option[String]) extends QuestionGroup(RepresentativesForPerson.id)
+case class RepresentativesForPerson(youAct: YesNoWithDropDown, someoneElseAct:YesNoWithDropDownAndText) extends QuestionGroup(RepresentativesForPerson.id)
 
 case object RepresentativesForPerson extends QuestionGroup(s"${CareYouProvide.id}.g6")
 
