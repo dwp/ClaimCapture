@@ -79,5 +79,23 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       findMustEqualValue("#address_lineOne", "My Address")
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
+    
+    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section but not at same address" in new WithBrowser with BrowserMatchers {
+      FormHelper.fillYourDetails(browser)
+      FormHelper.fillYourContactDetails(browser)
+      FormHelper.fillTimeOutsideUK(browser)
+      FormHelper.fillClaimDate(browser)
+      FormHelper.fillMoreAboutYou(browser)
+      FormHelper.fillEmployment(browser)
+      FormHelper.fillYourPartnerPersonalDetailsNotLiveAtSameAddress(browser)
+      FormHelper.fillYourPartnerContactDetails(browser)
+      FormHelper.fillMoreAboutYourPartnerNotSeparated(browser)
+      FormHelper.fillPersonYouCareFor(browser)
+      FormHelper.fillYourPartnerCompleted(browser)
+      browser.submit("button[type='submit']") // S4G1 go to S4G2 without changing any of the details onscreen.
+
+      findMustEqualValue("#address_lineOne", FormHelper.partnerAddress)
+      browser.find("#postcode").getValue mustEqual FormHelper.partnerPostcode
+    }
   } section "integration"
 }

@@ -2,6 +2,9 @@ package models.domain
 
 import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
+case class YourPartner(yourPartnerPersonalDetails: YourPartnerPersonalDetails, yourPartnerContactDetails: YourPartnerContactDetails,
+                          moreAboutYourPartner: MoreAboutYourPartner, personYouCareFore: PersonYouCareFor)
+                          
 object YourPartner {
   val id = "s3"
 }
