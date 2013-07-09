@@ -15,7 +15,7 @@ object YourPartnerSubmission {
     val yourPartnerPersonalDetails = getQuestionGroup[YourPartnerPersonalDetails](claim, YourPartnerPersonalDetails)
     val yourPartnerContactDetails = getQuestionGroup[YourPartnerContactDetails](claim, YourPartnerContactDetails)
     val moreAboutYourPartner = getQuestionGroup[MoreAboutYourPartner](claim, MoreAboutYourPartner)
-    val personYouCareFor = getQuestionGroup[PersonYouCareFor](claim, PersonYouCareFor)
+    val personYouCareFor = questionGroup[PersonYouCareFor](claim, PersonYouCareFor) // New to schema
     YourPartner(yourPartnerPersonalDetails, yourPartnerContactDetails, moreAboutYourPartner, personYouCareFor)
   }
 
