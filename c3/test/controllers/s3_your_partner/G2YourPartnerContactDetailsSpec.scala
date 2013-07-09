@@ -1,13 +1,13 @@
 package controllers.s3_your_partner
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.{Claiming, YourPartnerContactDetails, Section, Claim}
 import models.{MultiLineAddress, domain}
 
-class G2YourPartnerContactDetailsSpec extends Specification {
+class G2YourPartnerContactDetailsSpec extends Specification with Tags {
 
   val yourPartnerContactDetailsInput = Seq("address.lineOne" -> "123 Street", "postcode" -> "PR2 8AE")
 
@@ -50,6 +50,6 @@ class G2YourPartnerContactDetailsSpec extends Specification {
       val result = controllers.s3_your_partner.G2YourPartnerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
+  } section "unit"
 
 }

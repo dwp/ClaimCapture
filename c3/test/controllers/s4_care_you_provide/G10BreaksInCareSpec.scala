@@ -1,12 +1,12 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.{Claiming, BreaksInCare, Claim}
 
-class G10BreaksInCareSpec extends Specification {
+class G10BreaksInCareSpec extends Specification with Tags {
   "Breaks in care" should {
     """present "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -134,5 +134,5 @@ class G10BreaksInCareSpec extends Specification {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 0
       }
     }
-  }
+  } section "unit"
 }

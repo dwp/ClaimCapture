@@ -1,6 +1,6 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.cache.Cache
@@ -9,7 +9,7 @@ import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Claim
 
-class G1TheirPersonalDetailsSpec extends Specification with Mockito {
+class G1TheirPersonalDetailsSpec extends Specification with Mockito with Tags {
 
   val theirPersonalDetailsInput = Seq("title" -> "Mr", "firstName" -> "John", "surname" -> "Doo",
     "dateOfBirth.day" -> "5", "dateOfBirth.month" -> "12", "dateOfBirth.year" -> "1990", "liveAtSameAddress" -> "yes")
@@ -57,5 +57,5 @@ class G1TheirPersonalDetailsSpec extends Specification with Mockito {
       val result = controllers.s4_care_you_provide.G1TheirPersonalDetails.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/theirContactDetails")
     }
-  }
+  } section "unit"
 }

@@ -1,11 +1,11 @@
 package controllers.s5_time_spent_abroad
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
 
-class G1NormalResidenceAndCurrentLocationSpec extends Specification {
+class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
   "Normal residence and current location" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -76,7 +76,7 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification {
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan4Weeks")
     }
-  }
+  } section "unit"
 }
 
 

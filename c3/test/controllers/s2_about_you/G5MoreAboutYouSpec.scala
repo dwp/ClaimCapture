@@ -5,9 +5,9 @@ import models.domain._
 import play.api.cache.Cache
 import models.domain
 import models.domain.Claim
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 
-class G5MoreAboutYouSpec extends Specification {
+class G5MoreAboutYouSpec extends Specification with Tags {
 
   "More About You - Controller" should {
 
@@ -39,6 +39,6 @@ class G5MoreAboutYouSpec extends Specification {
       section.visible mustEqual false
     }
 
-  }
+  } section "unit"
 
 }

@@ -1,11 +1,11 @@
 package controllers.s6_pay_details
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
 
-class G2BankBuildingSocietyDetailsSpec extends Specification {
+class G2BankBuildingSocietyDetailsSpec extends Specification with Tags {
   "Bank building society details" should {
     "present after correct details in How We Pay You" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -65,5 +65,5 @@ class G2BankBuildingSocietyDetailsSpec extends Specification {
 
 
 
-  }
+  } section "unit"
 }

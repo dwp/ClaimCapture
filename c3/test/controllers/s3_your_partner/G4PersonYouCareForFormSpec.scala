@@ -1,8 +1,8 @@
 package controllers.s3_your_partner
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 
-class G4PersonYouCareForFormSpec extends Specification {
+class G4PersonYouCareForFormSpec extends Specification with Tags {
 
   "Person You Care For" should {
 
@@ -33,5 +33,5 @@ class G4PersonYouCareForFormSpec extends Specification {
       )
     }
 
-  }
+  } section "unit"
 }

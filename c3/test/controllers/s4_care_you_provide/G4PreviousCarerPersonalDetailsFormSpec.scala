@@ -1,10 +1,10 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 import models.NationalInsuranceNumber
 
-class G4PreviousCarerPersonalDetailsFormSpec extends Specification {
+class G4PreviousCarerPersonalDetailsFormSpec extends Specification with Tags {
   val firstName = "John"
   val middleName = "Mc"
   val surname = "Doe"
@@ -100,5 +100,5 @@ class G4PreviousCarerPersonalDetailsFormSpec extends Specification {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-  }
+  } section "unit"
 }

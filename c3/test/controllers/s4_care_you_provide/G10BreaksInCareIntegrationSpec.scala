@@ -16,7 +16,6 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       browser.click("#answer_no")
       browser.submit("button[value='next']")
       browser.title mustEqual "Completion - Care You Provide"
-      browser.pageSource must contain("Completion - Care You Provide")
     }
 
     "go back to contact details" in new WithBrowser {

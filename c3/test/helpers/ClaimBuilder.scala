@@ -3,6 +3,7 @@ package helpers
 import models.domain._
 import models.{Whereabouts, DayMonthYear, MultiLineAddress}
 import scala.Some
+import models.NationalInsuranceNumber
 
 object ClaimBuilder {
   val yourDetails = YourDetails(title = "mr", firstName = "Phil", middleName = None, surname = "Smith",
@@ -55,9 +56,9 @@ object ClaimBuilder {
     Some(previousCarerContactDetails), Some(previousCarerPersonalDetails),
     moreAboutTheCare,Some(oneWhoPays),Some(contactDetailsPayingPerson),breaksInCare)
     
-  val yourPartnerPersonalDetails = YourPartnerPersonalDetails(title = "mr", firstName = "Michael", middleName = None, surname = "Mouse", otherNames = Some("Oswald"), nationalInsuranceNumber= None, dateOfBirth = DayMonthYear(1, 1, 1930), nationality = None, liveAtSameAddress = "yes")
-  val yourPartnerContactDetails = YourPartnerContactDetails(address = Some(MultiLineAddress(Some("Line1"),None,None)),postcode = Some("PR2 8AE"))
-  val moreAboutYourPartner = MoreAboutYourPartner(dateStartedLivingTogether = Some(DayMonthYear(1,1,1940)), separatedFromPartner = "no", separationDate = None)
+  val yourPartnerPersonalDetails = YourPartnerPersonalDetails(title = "mrs", firstName = "Minnie", middleName = None, surname = "Mouse", otherNames = Some("Oswald"), nationalInsuranceNumber= Some(NationalInsuranceNumber(Some("AB"),Some("00"),Some("00"),Some("00"),Some("B"))), dateOfBirth = DayMonthYear(3, 3, 1956), nationality = Some("British"), liveAtSameAddress = "yes")
+  val yourPartnerContactDetails = YourPartnerContactDetails(address = Some(MultiLineAddress(Some("10"),Some("Anyplace Street"),None)),postcode = Some("PR2 8AE"))
+  val moreAboutYourPartner = MoreAboutYourPartner(dateStartedLivingTogether = Some(DayMonthYear(1,1,1960)), separatedFromPartner = "no", separationDate = None)
   val personYouCareFor = PersonYouCareFor(isPartnerPersonYouCareFor = "yes")
   val yourPartner = YourPartner(yourPartnerPersonalDetails, yourPartnerContactDetails,
                           moreAboutYourPartner, Some(personYouCareFor))

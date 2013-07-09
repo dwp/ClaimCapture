@@ -1,10 +1,10 @@
 package controllers.s3_your_partner
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import models.{NationalInsuranceNumber, DayMonthYear}
 import scala.Some
 
-class G1YourPartnerPersonalDetailsFormSpec extends Specification {
+class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
 
 
   val title = "Mr"
@@ -148,6 +148,6 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-  }
+  } section "unit"
 
 }

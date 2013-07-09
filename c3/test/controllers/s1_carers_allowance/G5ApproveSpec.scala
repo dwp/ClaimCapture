@@ -1,6 +1,6 @@
 package controllers.s1_carers_allowance
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{WithApplication, FakeRequest}
 import play.api.test.Helpers._
 
@@ -10,7 +10,7 @@ import models.domain._
 import models.domain.Claim
 import controllers.s1_carers_allowance
 
-class G5ApproveSpec extends Specification {
+class G5ApproveSpec extends Specification with Tags {
   """Can you get Carer's Allowance""" should {
     "acknowledge that the carer is eligible for allowance" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -40,5 +40,5 @@ class G5ApproveSpec extends Specification {
 
       contentAsString(result) must contain("div class=\"prompt error\"")
     }
-  }
+  } section "unit"
 }
