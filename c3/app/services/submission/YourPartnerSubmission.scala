@@ -39,10 +39,10 @@ object YourPartnerSubmission {
         }
         <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
         <RelationshipStatus>
-          <JoinedHouseholdAfterDateOfClaim>no</JoinedHouseholdAfterDateOfClaim>
-          <JoinedHouseholdDate/>
-          <SeparatedFromPartner>no</SeparatedFromPartner>
-          <SeparationDate/>
+          <JoinedHouseholdAfterDateOfClaim>{if(yourPartner.moreAboutYourPartner.dateStartedLivingTogether.isDefined) "yes" else "no"}</JoinedHouseholdAfterDateOfClaim>
+          <JoinedHouseholdDate>{yourPartner.moreAboutYourPartner.dateStartedLivingTogether.getOrElse("")}</JoinedHouseholdDate>
+          <SeparatedFromPartner>{yourPartner.moreAboutYourPartner.separatedFromPartner}</SeparatedFromPartner>
+          <SeparationDate>{if(yourPartner.moreAboutYourPartner.separatedFromPartner == "yes") yourPartner.moreAboutYourPartner.separationDate.getOrElse("") else ""}</SeparationDate>
         </RelationshipStatus>
       </Partner>
   }
