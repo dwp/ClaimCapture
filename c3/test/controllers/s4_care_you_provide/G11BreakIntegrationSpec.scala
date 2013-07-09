@@ -3,6 +3,7 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import java.util.concurrent.TimeUnit
+import controllers.FormHelper
 
 class G11BreakIntegrationSpec extends Specification with Tags {
 
@@ -41,11 +42,12 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     }
 
     """present "completed" when no more breaks are required""" in new BreakWithBrowser {
+      FormHelper.fillTheirPersonalDetails(browser)
       browser.goTo("/careYouProvide/breaksInCare")
 
       browser.click("#answer_no")
       browser.submit("button[value='next']")
-      titleMustEqual("Completion - Your Partner")
+      titleMustEqual("Completion - Care You Provide")
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new BreakWithBrowser {
