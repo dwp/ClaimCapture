@@ -34,7 +34,18 @@ object CarersForm {
         }
       )
     }
+
+    def replaceError(key:String, newError:play.api.data.FormError):Form[T] = {
+
+      val updatedForm = form.error(key) match {
+        case Some(s) => form.withError(newError)
+        case None => form
+      }
+      updatedForm.copy(errors = updatedForm.errors.filter(p => p.key != key))
+    }
   }
 
+
   implicit def formBinding[T](form: Form[T])(implicit request: Request[_]) = new FormCryptBind[T](form)
+
 }

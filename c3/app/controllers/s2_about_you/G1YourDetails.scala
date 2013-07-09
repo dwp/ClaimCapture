@@ -24,7 +24,9 @@ object G1YourDetails extends Controller with Routing with CachedClaim {
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "maritalStatus" -> nonEmptyText(maxLength = 1),
       "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo)
-    )(YourDetails.apply)(YourDetails.unapply))
+    )(YourDetails.apply)(YourDetails.unapply)
+  )
+
 
   def present = claiming { implicit claim => implicit request =>
     val yourDetailsForm: Form[YourDetails] = claim.questionGroup(YourDetails) match {

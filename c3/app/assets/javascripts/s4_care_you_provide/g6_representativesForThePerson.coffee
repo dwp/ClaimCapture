@@ -4,7 +4,7 @@ window.initEvents = (actForPersonY, actForPersonN, someoneElseActForPersonY, som
     $("#actWrap").css('display', "block")
 
   $("#" + actForPersonN).on "click", ->
-    $("#actWrap").slideUp 500, -> $("#actAs").val("")
+    $("#actWrap").slideUp 500, -> $("#you_actAs").val("")
 
 
   $("#" + someoneElseActForPersonY).on "click", ->
