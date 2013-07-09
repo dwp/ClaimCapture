@@ -36,5 +36,5 @@ class G4PersonYouCareForIntegrationSpec extends Specification with Tags with Pen
       FormHelper.fillMoreAboutYourPartnerSeparated(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 3
     }
-  }
+  } section "integration"
 }
