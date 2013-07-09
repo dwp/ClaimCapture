@@ -5,7 +5,7 @@ import models.domain._
 case class ClaimSubmission(claim: Claim, transactionId : String) {
   val aboutYou = AboutYouSubmission.buildAboutYou(claim)
   val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)
-  val yourPartner = YourPartnerSubmission.buildYourPartner(claim)
+  //val yourPartner = YourPartnerSubmission.buildYourPartner(claim)
 
   def buildDwpClaim = {
     <DWPCAClaim id={transactionId}>
@@ -105,7 +105,29 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
         <SubletHome>no</SubletHome>
       </PropertyRentedOut>
       <HavePartner>yes</HavePartner>
-      {YourPartnerSubmission.buildYourPartner(yourPartner)}
+      <Partner>
+        <NationalityPartner>British</NationalityPartner>
+        <Surname>Mouse</Surname>
+        <OtherNames>Minnie</OtherNames>
+        <OtherSurnames/>
+        <Title>mrs</Title>
+        <DateOfBirth>1956-03-03</DateOfBirth>
+        <NationalInsuranceNumber>AB000000B</NationalInsuranceNumber>
+        <Address>
+          <gds:Line>10</gds:Line>
+          <gds:Line>Anyplace Street</gds:Line>
+          <gds:Line/>
+          <gds:Line/>
+          <gds:PostCode/>
+        </Address>
+        <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
+        <RelationshipStatus>
+          <JoinedHouseholdAfterDateOfClaim>no</JoinedHouseholdAfterDateOfClaim>
+          <JoinedHouseholdDate/>
+          <SeparatedFromPartner>no</SeparatedFromPartner>
+          <SeparationDate/>
+        </RelationshipStatus>
+      </Partner>
       <OtherBenefits>
         <ClaimantBenefits>
           <JobseekersAllowance>no</JobseekersAllowance>

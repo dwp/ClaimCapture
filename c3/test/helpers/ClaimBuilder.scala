@@ -54,4 +54,8 @@ object ClaimBuilder {
     moreAboutThePerson,representatives,
     Some(previousCarerContactDetails), Some(previousCarerPersonalDetails),
     moreAboutTheCare,Some(oneWhoPays),Some(contactDetailsPayingPerson),breaksInCare)
+    
+    
+  /*val yourPartner = YourPartner(yourPartnerPersonalDetails, yourPartnerContactDetails,
+                          moreAboutYourPartner, personYouCareFore)*/
 }
