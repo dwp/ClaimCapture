@@ -28,15 +28,12 @@ object YourPartnerSubmission {
         <Title>${yourPartner.yourPartnerPersonalDetails.title}</Title>
         <DateOfBirth>${yourPartner.yourPartnerPersonalDetails.dateOfBirth.toXmlString}</DateOfBirth>
         <NationalInsuranceNumber>${yourPartner.yourPartnerPersonalDetails.nationalInsuranceNumber.orNull}</NationalInsuranceNumber>
-        {if(yourPartner.yourPartnerContactDetails.address.isDefined){
         <Address>
-          <gds:Line>{yourPartner.yourPartnerContactDetails.address.get.lineOne.getOrElse("")}</gds:Line>
-          <gds:Line>{yourPartner.yourPartnerContactDetails.address.get.lineTwo.getOrElse("")}</gds:Line>
-          <gds:Line>{yourPartner.yourPartnerContactDetails.address.get.lineThree.getOrElse("")}</gds:Line>
-          <gds:PostCode>{yourPartner.yourPartnerContactDetails.postcode.getOrElse("")}</gds:PostCode>
+          <gds:Line>{if(yourPartner.yourPartnerContactDetails.address.isDefined) yourPartner.yourPartnerContactDetails.address.get.lineOne.getOrElse("") else ""}</gds:Line>
+          <gds:Line>{if(yourPartner.yourPartnerContactDetails.address.isDefined)yourPartner.yourPartnerContactDetails.address.get.lineTwo.getOrElse("") else ""}</gds:Line>
+          <gds:Line>{if(yourPartner.yourPartnerContactDetails.address.isDefined)yourPartner.yourPartnerContactDetails.address.get.lineThree.getOrElse("") else ""}</gds:Line>
+          <gds:PostCode>{if(yourPartner.yourPartnerContactDetails.address.isDefined)yourPartner.yourPartnerContactDetails.postcode.getOrElse("") else ""}</gds:PostCode>
         </Address>
-        }
-        }
         <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
         <RelationshipStatus>
           <JoinedHouseholdAfterDateOfClaim>{if(yourPartner.moreAboutYourPartner.dateStartedLivingTogether.isDefined) "yes" else "no"}</JoinedHouseholdAfterDateOfClaim>
