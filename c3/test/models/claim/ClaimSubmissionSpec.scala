@@ -70,7 +70,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
 
       validator.validate(fullXml.buildString(stripComments = true)) must beFalse
     }
-  } section "s2"
+  } section "externalDependency"
 
   def buildFullClaim(claimXml:Elem) = {
 

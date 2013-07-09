@@ -36,7 +36,7 @@ class G3MoreAboutYourPartnerSpec extends Specification {
 
       val result = controllers.s3_your_partner.G3MoreAboutYourPartner.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.YourPartner.id).get
+      val section: Section = claim.section(domain.YourPartner.id)
 
       section.questionGroup(MoreAboutYourPartner) must beLike {
         case Some(f: MoreAboutYourPartner) => {

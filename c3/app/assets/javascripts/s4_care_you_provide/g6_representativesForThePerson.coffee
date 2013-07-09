@@ -1,7 +1,7 @@
 window.initEvents = (actForPersonY, actForPersonN, someoneElseActForPersonY, someoneElseActForPersonN, someoneElseActAsID, someoneElseFullNameID) ->
   $("#" + actForPersonY).on "click", ->
     $("#actWrap").slideDown 500
-    $("#actWrap").css('display',"block")
+    $("#actWrap").css('display', "block")
 
   $("#" + actForPersonN).on "click", ->
     $("#actWrap").slideUp 500, -> $("#actAs").val("")
@@ -9,7 +9,7 @@ window.initEvents = (actForPersonY, actForPersonN, someoneElseActForPersonY, som
 
   $("#" + someoneElseActForPersonY).on "click", ->
     $("#someoneElseWrap").slideDown 500
-    $("#someoneElseWrap").css('display',"block")
+    $("#someoneElseWrap").css('display', "block")
 
   $("#" + someoneElseActForPersonN).on "click", ->
     $("#someoneElseWrap").slideUp 500, ->

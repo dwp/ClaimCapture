@@ -7,7 +7,7 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 
-@main("Their Personal Details - Care You Provide", currentForm) {
+@main("Their Personal Details - Care You Provide", Some(currentForm)) {
 
     @form(action = controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.submit) {
     
@@ -32,7 +32,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a href="@{if(showYourPartnerSection) controllers.s3_your_partner.routes.YourPartner.completed else controllers.s2_about_you.routes.AboutYou.completed}" class="button secondary">Back</a>
+            <a id="backButton" href="@{if(showYourPartnerSection) controllers.s3_your_partner.routes.YourPartner.completed else controllers.s2_about_you.routes.AboutYou.completed}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

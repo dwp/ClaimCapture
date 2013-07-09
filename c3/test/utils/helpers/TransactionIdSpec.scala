@@ -26,6 +26,6 @@ class TransactionIdSpec extends Specification with Tags {
       UniqueTransactionId() matches("[2-9A-HJ-NP-Z]{7}")
     }
 
-  } section "database"
+  } section "externalDependency"
 
 }

@@ -57,7 +57,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification {
 
       val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.YourPartner.id).get
+      val section: Section = claim.section(domain.YourPartner.id)
 
       section.questionGroup(YourPartnerPersonalDetails) must beLike {
         case Some(f: YourPartnerPersonalDetails) => {

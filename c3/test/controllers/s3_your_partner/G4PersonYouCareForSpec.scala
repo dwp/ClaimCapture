@@ -26,7 +26,7 @@ class G4PersonYouCareForSpec extends Specification {
 
       val result = controllers.s3_your_partner.G4PersonYouCareFor.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.YourPartner.id).get
+      val section: Section = claim.section(domain.YourPartner.id)
 
       section.questionGroup(PersonYouCareFor) must beLike {
         case Some(f: PersonYouCareFor) => f.isPartnerPersonYouCareFor must equalTo("yes")

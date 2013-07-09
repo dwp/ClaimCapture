@@ -8,6 +8,7 @@ import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
 import models.domain.{Claim, ContactDetails, TheirPersonalDetails, TheirContactDetails}
+import models.domain.YourPartnerContactDetails
 
 object G2TheirContactDetails extends Controller with Routing with CachedClaim {
 
@@ -36,7 +37,10 @@ object G2TheirContactDetails extends Controller with Routing with CachedClaim {
     } else {
       claim.questionGroup(TheirContactDetails) match {
         case Some(t: TheirContactDetails) => form.fill(t)
-        case _ => form
+        case _ => claim.questionGroup(YourPartnerContactDetails) match {// Get YourPartner address
+            case Some(cd: YourPartnerContactDetails) => form.fill(TheirContactDetails(address = cd.address.get, postcode =  cd.postcode))
+            case _ => form
+          }
       }
     }
 

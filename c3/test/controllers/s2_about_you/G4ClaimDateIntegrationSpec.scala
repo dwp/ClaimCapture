@@ -1,17 +1,18 @@
 package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
-import controllers.{WithBrowserAndMatchers, FormHelper}
+import controllers.{BrowserMatchers, FormHelper}
+import play.api.test.WithBrowser
 
 class G4ClaimDateIntegrationSpec extends Specification with Tags {
 
   "Claim Date" should {
-    "be presented" in new WithBrowserAndMatchers {
+    "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/aboutyou/claimDate")
       titleMustEqual("Claim Date - About You")
     }
 
-    "contain 2 completed forms" in new WithBrowserAndMatchers {
+    "contain 2 completed forms" in new WithBrowser with BrowserMatchers {
       FormHelper.fillYourDetails(browser)
       FormHelper.fillYourContactDetails(browser)
 
@@ -19,14 +20,14 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
 
-    "fill date" in new WithBrowserAndMatchers {
+    "fill date" in new WithBrowser with BrowserMatchers {
       FormHelper.fillClaimDate(browser)
 
       titleMustEqual("More About You - About You")
       browser.find("div[class=completed] ul li h3").get(0).getText mustEqual "Your claim date: 03/04/1950"
     }
 
-    "failed to fill the form" in new WithBrowserAndMatchers {
+    "failed to fill the form" in new WithBrowser with BrowserMatchers {
       browser.goTo("/aboutyou/claimDate")
       browser.submit("button[type='submit']")
 
@@ -42,7 +43,7 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
       browser.find("p[class=error]").get(0).getText mustEqual "Invalid value"
     }
 
-    "navigate back to Time Outside UK" in new WithBrowserAndMatchers {
+    "navigate back to Time Outside UK" in new WithBrowser with BrowserMatchers {
       FormHelper.fillYourDetailsEnablingTimeOutsideUK(browser)
       FormHelper.fillYourContactDetails(browser)
       FormHelper.fillTimeOutsideUK(browser)
@@ -50,7 +51,7 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
       titleMustEqual("Time Outside UK - About You")
     }
 
-    "navigate back to Contact Details" in new WithBrowserAndMatchers {
+    "navigate back to Contact Details" in new WithBrowser with BrowserMatchers {
       FormHelper.fillYourDetails(browser)
       FormHelper.fillYourContactDetails(browser)
       browser.click(".form-steps a")

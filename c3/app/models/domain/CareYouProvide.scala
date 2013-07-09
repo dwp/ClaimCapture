@@ -2,11 +2,11 @@ package models.domain
 
 import models.{MultiLineAddress, Whereabouts, NationalInsuranceNumber, DayMonthYear}
 
-case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails,theirContactDetails: TheirContactDetails,
-                          moreAboutThePerson: MoreAboutThePerson,representatives: RepresentativesForPerson,
+case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails, theirContactDetails: TheirContactDetails,
+                          moreAboutThePerson: MoreAboutThePerson, representatives: RepresentativesForPerson,
                           previousCarerContactDetails: Option[PreviousCarerContactDetails], previousCarerPersonalDetails: Option[PreviousCarerPersonalDetails],
                           moreAboutTheCare: MoreAboutTheCare, oneWhoPays: Option[OneWhoPaysPersonalDetails],
-                          contactDetailsPayingPerson: Option[ContactDetailsOfPayingPerson],breaksInCare: BreaksInCare)
+                          contactDetailsPayingPerson: Option[ContactDetailsOfPayingPerson], breaksInCare: BreaksInCare)
 
 
 case object CareYouProvide {
@@ -23,13 +23,13 @@ case class TheirContactDetails(address: MultiLineAddress, postcode: Option[Strin
 
 case object TheirContactDetails extends QuestionGroup(s"${CareYouProvide.id}.g2")
 
-case class MoreAboutThePerson(relationship:String, armedForcesPayment:Option[String], claimedAllowanceBefore:String) extends QuestionGroup(MoreAboutThePerson.id)
+case class MoreAboutThePerson(relationship: String, armedForcesPayment: Option[String], claimedAllowanceBefore: String) extends QuestionGroup(MoreAboutThePerson.id)
 
 case object MoreAboutThePerson extends QuestionGroup(s"${CareYouProvide.id}.g3")
 
 case class PreviousCarerPersonalDetails(firstName: Option[String], middleName: Option[String], surname: Option[String],
-                                nationalInsuranceNumber: Option[NationalInsuranceNumber],
-                                dateOfBirth: Option[DayMonthYear]) extends QuestionGroup(PreviousCarerPersonalDetails.id)
+                                        nationalInsuranceNumber: Option[NationalInsuranceNumber],
+                                        dateOfBirth: Option[DayMonthYear]) extends QuestionGroup(PreviousCarerPersonalDetails.id)
 
 case object PreviousCarerPersonalDetails extends QuestionGroup(s"${CareYouProvide.id}.g4")
 
@@ -44,13 +44,13 @@ case class RepresentativesForPerson(actForPerson: String, actAs: Option[String],
 case object RepresentativesForPerson extends QuestionGroup(s"${CareYouProvide.id}.g6")
 
 case class MoreAboutTheCare(spent35HoursCaring: String, spent35HoursCaringBeforeClaim: String,
-                            careStartDate:Option[DayMonthYear], hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare.id)
+                            careStartDate: Option[DayMonthYear], hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare.id)
 
 case object MoreAboutTheCare extends QuestionGroup(s"${CareYouProvide.id}.g7")
 
-case class OneWhoPaysPersonalDetails(organisation:Option[String] = None, title:Option[String] = None,
-                                     firstName:Option[String] = None, middleName:Option[String] = None, surname:Option[String] = None,
-                                     amount:Option[String] = None, startDatePayment:Option[DayMonthYear] = None) extends QuestionGroup(OneWhoPaysPersonalDetails.id)
+case class OneWhoPaysPersonalDetails(organisation: Option[String] = None, title: Option[String] = None,
+                                     firstName: Option[String] = None, middleName: Option[String] = None, surname: Option[String] = None,
+                                     amount: Option[String] = None, startDatePayment: Option[DayMonthYear] = None) extends QuestionGroup(OneWhoPaysPersonalDetails.id)
 
 case object OneWhoPaysPersonalDetails extends QuestionGroup(s"${CareYouProvide.id}.g8")
 
@@ -58,11 +58,11 @@ case class ContactDetailsOfPayingPerson(address: Option[MultiLineAddress], postc
 
 case object ContactDetailsOfPayingPerson extends QuestionGroup(s"${CareYouProvide.id}.g9")
 
-case class HasBreaks(answer: String)
-
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare.id) {
   def update(break: Break) = {
-    val updated = breaks map { b => if (b.id == break.id) break else b }
+    val updated = breaks map {
+      b => if (b.id == break.id) break else b
+    }
 
     if (updated.contains(break)) BreaksInCare(updated) else BreaksInCare(breaks :+ break)
   }

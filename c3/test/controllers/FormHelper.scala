@@ -4,7 +4,9 @@ import play.api.test.TestBrowser
 import java.util.concurrent.TimeUnit
 
 object FormHelper {
-
+  val partnerAddress = "Partner Address"
+  val partnerPostcode = "RM11 1AA"
+    
   def fillYourDetails(browser: TestBrowser) = {
     browser.goTo("/aboutyou/yourDetails")
     browser.click("#title option[value='mr']")
@@ -137,8 +139,8 @@ object FormHelper {
 
   def fillYourPartnerContactDetails(browser: TestBrowser) = {
     browser.goTo("/yourPartner/contactDetails")
-    browser.fill("#address_lineOne") `with` "Partner Address"
-    browser.fill("#postcode") `with` "SE1 6EH"
+    browser.fill("#address_lineOne") `with` partnerAddress
+    browser.fill("#postcode") `with` partnerPostcode
     browser.submit("button[type='submit']")
   }
   
@@ -166,6 +168,17 @@ object FormHelper {
   def fillPersonYouCareFor(browser: TestBrowser) = {
     browser.goTo("/yourPartner/personYouCareFor")
     browser.click("#isPartnerPersonYouCareFor_yes]")
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillPersonYouCareForNotPartner(browser: TestBrowser) = {
+    browser.goTo("/yourPartner/personYouCareFor")
+    browser.click("#isPartnerPersonYouCareFor_no]")
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillYourPartnerCompleted(browser: TestBrowser) = {
+    browser.goTo("/yourPartner/completed")
     browser.submit("button[type='submit']")
   }
     
@@ -224,6 +237,14 @@ object FormHelper {
     browser.click("#careStartDate_day option[value='3']")
     browser.click("#careStartDate_month option[value='4']")
     browser.fill("#careStartDate_year") `with` "1950"
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillMoreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser: TestBrowser) = {
+    browser.goTo("/careYouProvide/moreAboutTheCare")
+    browser.click("#spent35HoursCaring_yes")
+    browser.click("#spent35HoursCaringBeforeClaim_no")
+    browser.click("#hasSomeonePaidYou_yes")
     browser.submit("button[type='submit']")
   }
 

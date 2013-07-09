@@ -17,7 +17,7 @@ class G8OneWhoPaysPersonalDetailsSpec extends Specification {
 
       val result = controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id).get
+      val section: Section = claim.section(domain.CareYouProvide.id)
 
       section.questionGroup(OneWhoPaysPersonalDetails) must beLike {
         case Some(f: OneWhoPaysPersonalDetails) => {

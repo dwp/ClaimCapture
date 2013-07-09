@@ -11,14 +11,21 @@ s2.g5 = More about you
 s2.g6 = Employment
 s2.g7 = Property and rent
 
-s3.g1 = Your partner details
-s3.g2 = Your partner contact details
-s3.g3 = More about your partner
+s3.g1 = Your Partner/Spouse details
+s3.g2 = Your Partner/Spouse contact details
+s3.g3 = More about your Partner/Spouse
 s3.g4 = Person you care for
+
+s1.progressBar = Eligibility
+s2.progressBar = About you
+s3.progressBar = Your Partner
+s4.progressBar = Care you provide
+s5.progressBar = Time abroad
+s6.progressBar = Pay details
 
 s4.g1 = Details of the person you care for
 s4.g2 = Their contact details
-s4.g3 = More about the person you care for
+s4.g3 = Relationship and other claims
 s4.g4 = About the previous Carer
 s4.g5 = More about the care you provide
 s4.g6 = Representatives for the person you care for
@@ -80,10 +87,10 @@ visaReference = What is your visa reference number in your passport?
 dateOfClaim = When do you want your Carer's Allowance claim to start?
 
 # MORE ABOUT YOU
-hadPartnerSinceClaimDate.label = Have you had a partner/spouse at any time since your claim date: {0}?
-hadPartnerSinceClaimDate = Have you had a partner/spouse at any time since your claim date?
-eitherClaimedBenefitSinceClaimDate.label = Have you or your partner/spouse claimed or received any other benefits since your claim date: {0}?
-eitherClaimedBenefitSinceClaimDate = Have you or your partner/spouse claimed or received any other benefits since your claim date?
+hadPartnerSinceClaimDate.label = Have you had a Partner/Spouse at any time since your claim date: {0}?
+hadPartnerSinceClaimDate = Have you had a Partner/Spouse at any time since your claim date?
+eitherClaimedBenefitSinceClaimDate.label = Have you or your Partner/Spouse claimed or received any other benefits since your claim date: {0}?
+eitherClaimedBenefitSinceClaimDate = Have you or your Partner/Spouse claimed or received any other benefits since your claim date?
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
 receiveStatePension = Do you get State Pension?
@@ -95,20 +102,20 @@ beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any
 beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
 
 # PROPERTY AND RENT
-ownProperty.label = Do you or your partner own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
-ownProperty = Do you or your partner own property or land in the UK or abroad that you have rented out since one week before your claim date?
+ownProperty.label = Do you or your Partner/Spouse own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
+ownProperty = Do you or your Partner/Spouse own property or land in the UK or abroad that you have rented out since one week before your claim date?
 hasSublet.label = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
 hasSublet = Have you sublet your home, or provided board and lodgings, since one week before your claim date?
 
 ## YOUR PARTNER
 
 # MORE ABOUT YOUR PARTNER
-dateStartedLivingTogether = Please enter the date when you and your partner/spouse started living together, if the date is after the date you want to claim from
-separatedFromPartner = Have you separated from your partner/spouse since the date you want to claim from?
+dateStartedLivingTogether = Please enter the date when you and your Partner/Spouse started living together, if the date is after the date you want to claim from
+separatedFromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
 separationDate = When did you separate?
 
 # PERSON YOU CARE FOR
-isPartnerPersonYouCareFor = Is your partner/spouse the person you are claiming Carer's Allowance for?
+isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming Carer's Allowance for?
 
 ## CARE YOU PROVIDE
 
@@ -156,6 +163,13 @@ whereYou_location = Where were you during the above break?
 wherePerson = Where was the person you care for during the above break?
 wherePerson_location = Where was the person you care for during the above break?
 medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
+
+## TIME SPENT ABROAD
+
+# NORMAL RESIDENCE AND CURRENT LOCATION
+normallyLiveInUK = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
+whereDoYouNormallyLive = Where do you normally live?
+inGBNow = Are you in Great Britain now?
 
 ##  PAY DETAILS
 # HOW WE PAY YOU

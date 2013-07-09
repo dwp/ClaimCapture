@@ -60,7 +60,8 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
     "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {
       FormHelper.fillYourPartnerContactDetails(browser)
       browser.click("#backButton")
-      browser.find("#address_lineOne").getValue mustEqual "Partner Address"
+      browser.find("#address_lineOne").getValue mustEqual FormHelper.partnerAddress
+      browser.find("#postcode").getValue mustEqual FormHelper.partnerPostcode
       browser.click("#backButton")
       FormHelper.fillYourContactDetails(browser)
       FormHelper.fillYourPartnerPersonalDetails(browser)

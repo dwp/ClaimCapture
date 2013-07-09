@@ -15,11 +15,11 @@
             <legend>More about you</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
+                @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
-                @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"), '_label -> Messages("eitherClaimedBenefitSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
+                @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"), '_label -> Messages("eitherClaimedBenefitSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
-                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.ddMMyyyy)))
+                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
                 @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"))
             </ul>
