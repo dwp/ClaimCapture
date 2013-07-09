@@ -346,7 +346,7 @@
         .carers-allowance .completed .start-again a:hover {
           background: #004b27; }
     .carers-allowance .completed ul li {
-      background: #d5e8f3 url("images/progress-tick.png") 1.2em 1.3em no-repeat;
+      background: #d5e8f3 url("../img/progress-tick.png") 1.2em 1.3em no-repeat;
       border-bottom: 1px solid #b6d6d2;
       padding: 1em 11em 1em 2.9em;
       position: relative; }
@@ -584,7 +584,8 @@
           overflow: hidden;
           line-height: 1em;
           padding: 0.35em 0.7em;
-          border-left: 3px solid #006435; }
+          border-left: 3px solid #006435;
+          width: 120px; }
           .ie .carers-allowance .form-elements ul li .helper-more {
             font-size: 16px; }
         .carers-allowance .form-elements ul li .helper-info {
@@ -1102,6 +1103,33 @@
       margin: 0; }
       .ie .carers-allowance .button.row {
         font-size: 16px; }
+  .carers-allowance .send-info {
+    margin: 2em 0 0 -1em;
+    padding: 1em;
+    border: 1px solid #a2a2a2; }
+    @media screen and (max-width: 640px) {
+      .carers-allowance .send-info {
+        margin-left: 0; } }
+    .carers-allowance .send-info article {
+      margin-top: 1.25em; }
+      .carers-allowance .send-info article:first-child {
+        margin: 0; }
+      .carers-allowance .send-info article p {
+        font-size: 1.7rem; }
+      .carers-allowance .send-info article ul li {
+        color: #555;
+        padding: 0 0 2px 20px;
+        line-height: 1.4em;
+        font-size: 1.7rem;
+        background: url("../img/progress-tick.png") 0 3px no-repeat; }
+      .carers-allowance .send-info article.address {
+        margin-top: 1.25em; }
+        .carers-allowance .send-info article.address span {
+          display: block;
+          font-size: 1.7rem;
+          color: #555; }
+        .carers-allowance .send-info article.address p {
+          margin-top: 1.25em; }
 
 /* carers wrapper */
 /* Header title */
