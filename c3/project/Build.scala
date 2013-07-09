@@ -22,7 +22,16 @@ object ApplicationBuild extends Build {
 
   var sR: Seq[Project.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
 
-  var appSettings: Seq[Project.Setting[_]] = SassPlugin.sassSettings ++ sV ++ sO ++ sR
+  var sTest: Seq[Project.Setting[_]] = Seq()
+
+  if (System.getProperty("include") != null ){
+    println(System.getProperty("include"))
+    sTest = Seq(testOptions in Test += Tests.Argument("include", System.getProperty("include")))
+  }
+
+  var gS: Seq[Project.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 1),Tags.limit(Tags.Network, 10),Tags.limit(Tags.Test, 1)))
+
+  var appSettings: Seq[Project.Setting[_]] = SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest
 
   val main = play.Project(appName, appVersion, appDependencies).settings(appSettings: _*)
 }
