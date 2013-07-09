@@ -8,7 +8,7 @@ import models.domain.Claiming
 
 class G6RepresentativesForThePersonSpec extends Specification with Mockito with Tags {
 
-  val representativesForThePersonInput = Seq("actForPerson" -> "no", "someoneElseActForPerson" -> "no")
+  val representativesForThePersonInput = Seq("you.actForPerson" -> "no", "someoneElse.actForPerson" -> "no")
 
   "Representatives for the person" should {
 
