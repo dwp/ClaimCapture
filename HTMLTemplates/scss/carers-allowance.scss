@@ -69,7 +69,7 @@ $button-green-hover: #004b27;
 		   	   content: "";
 		   	   display: block;
 		   	   height: 10px;
-		   	   border-bottom: 1px dotted #e3e3e3;
+		   	   border-bottom: 1px dotted #afafaf;
 		   	   margin-top: 6px;
 		   	   @media screen and (max-width: 500px) {
 			   	   display: none;
@@ -419,7 +419,7 @@ $button-green-hover: #004b27;
    	   }
 	   ul {
 		   li {
-			   background: #d5e8f3 url('../img/progress-tick.png') 1.2em 1.3em no-repeat;
+			   background: #d5e8f3 url('images/progress-tick.png') 1.2em 1.3em no-repeat;
 			   border-bottom: 1px solid #b6d6d2;
 			   padding: 1em 11em 1em 2.9em;
 			   position: relative;
@@ -1439,7 +1439,7 @@ $button-green-hover: #004b27;
 					padding: 0 0 2px 20px;
 					line-height: 1.4em;
 					font-size: 1.7rem;
-					background: url('../img/progress-tick.png') 0 3px no-repeat;
+					background: url('images/progress-tick.png') 0 3px no-repeat;
 				}
 			}
 			&.address {
