@@ -2,7 +2,7 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.{BenefitsPageContext, HoursPage}
+import utils.pageobjects.s1_carers_allowance.{BenefitsPageContext, HoursPage}
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
 
@@ -27,7 +27,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
   "Does the person being cared for get one of required benefits" should {
 
     "acknowledge yes" in new WithBrowser with BenefitsPageContext {
-      page.goToThePage()
+      page.goToThePage() must beTrue
       page clickPersonGetsBenefits()
       val nextPage = page.submitPage()
       nextPage match {

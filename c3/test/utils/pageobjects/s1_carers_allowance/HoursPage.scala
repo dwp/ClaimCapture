@@ -1,6 +1,7 @@
-package utils.pageobjects
+package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.TestBrowser
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * PageObject pattern associated to S1 carers allowance G2 Hours page.
