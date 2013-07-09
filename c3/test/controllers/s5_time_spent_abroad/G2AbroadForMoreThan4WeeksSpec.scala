@@ -1,11 +1,11 @@
 package controllers.s5_time_spent_abroad
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
 
-class G2AbroadForMoreThan4WeeksSpec extends Specification {
+class G2AbroadForMoreThan4WeeksSpec extends Specification with Tags {
   "Normal residence and current location" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -50,5 +50,5 @@ class G2AbroadForMoreThan4WeeksSpec extends Specification {
     "have no trips upon deleting a 4 week trip" in new WithApplication with Claiming {
       pending
     }
-  }
+  } section "unit"
 }

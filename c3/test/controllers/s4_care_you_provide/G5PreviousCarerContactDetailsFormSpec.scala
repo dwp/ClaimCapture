@@ -1,9 +1,9 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 
 
-class G5PreviousCarerContactDetailsFormSpec extends Specification {
+class G5PreviousCarerContactDetailsFormSpec extends Specification with Tags {
   val addressLineOne = "123 Street"
   val postcode: String = "SE1 6EH"
   val phoneNumber = "02076541058"
@@ -72,6 +72,6 @@ class G5PreviousCarerContactDetailsFormSpec extends Specification {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  }
+  }  section "unit"
 
 }

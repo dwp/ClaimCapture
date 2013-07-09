@@ -1,6 +1,6 @@
 package controllers.s1_carers_allowance
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{WithApplication, FakeRequest}
 import play.api.test.Helpers._
 
@@ -11,7 +11,7 @@ import models.domain.Claim
 import scala.Some
 import controllers.s1_carers_allowance
 
-class G1BenefitsSpec extends Specification {
+class G1BenefitsSpec extends Specification with Tags {
   """Can you get Carer's Allowance""" should {
     "start with a new Claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -50,5 +50,5 @@ class G1BenefitsSpec extends Specification {
         case Some(f: Benefits) => f.answer mustEqual false
       }
     }
-  }
+  } section "unit"
 }

@@ -1,12 +1,12 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.{Claiming, BreaksInCare, Claim}
 
-class G11BreakSpec extends Specification {
+class G11BreakSpec extends Specification with Tags {
   "Break" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -88,5 +88,5 @@ class G11BreakSpec extends Specification {
           b.breaks.head.start.year must beSome(yearUpdate)
       }
     }
-  }
+  } section "unit"
 }

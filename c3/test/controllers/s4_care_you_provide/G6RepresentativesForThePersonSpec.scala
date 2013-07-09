@@ -1,12 +1,12 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
 
-class G6RepresentativesForThePersonSpec extends Specification with Mockito {
+class G6RepresentativesForThePersonSpec extends Specification with Mockito with Tags {
 
   val representativesForThePersonInput = Seq("actForPerson" -> "no", "someoneElseActForPerson" -> "no")
 
@@ -32,6 +32,6 @@ class G6RepresentativesForThePersonSpec extends Specification with Mockito {
       val result = controllers.s4_care_you_provide.G6RepresentativesForThePerson.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
+  } section "unit"
 
 }

@@ -1,6 +1,6 @@
 package controllers.s3_your_partner
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.cache.Cache
 import models.domain._
@@ -8,7 +8,7 @@ import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Claim
 
-class G3MoreAboutYourPartnerSpec extends Specification {
+class G3MoreAboutYourPartnerSpec extends Specification with Tags {
   val dateDay = 5
   val dateMonth = 12
   val dateYear = 1990
@@ -61,5 +61,5 @@ class G3MoreAboutYourPartnerSpec extends Specification {
       val result = controllers.s3_your_partner.G3MoreAboutYourPartner.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
+  } section "unit"
 }

@@ -1,10 +1,10 @@
 package controllers.s3_your_partner
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 import scala.Some
 
-class G3MoreAboutYourPartnerFormSpec extends Specification {
+class G3MoreAboutYourPartnerFormSpec extends Specification with Tags {
   val dateStartedLivingTogetherDay = 5
   val dateStartedLivingTogetherMonth = 12
   val dateStartedLivingTogetherYear = 1990
@@ -53,5 +53,5 @@ class G3MoreAboutYourPartnerFormSpec extends Specification {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-  }
+  } section "unit"
 }

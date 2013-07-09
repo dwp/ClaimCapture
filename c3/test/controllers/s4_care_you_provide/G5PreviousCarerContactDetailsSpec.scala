@@ -1,6 +1,6 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{WithApplication, FakeRequest}
 import play.api.cache.Cache
@@ -8,7 +8,7 @@ import models.domain.{Claiming, PreviousCarerContactDetails, Claim, Section}
 import models.domain
 import play.api.test.Helpers._
 
-class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
+class G5PreviousCarerContactDetailsSpec extends Specification with Mockito with Tags {
   val addressLineOne = "123 Street"
   val postcode = "PR2 8AE"
   val phoneNumber = "02076541058"
@@ -54,6 +54,6 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
       val result = controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
+  } section "unit"
 
 }
