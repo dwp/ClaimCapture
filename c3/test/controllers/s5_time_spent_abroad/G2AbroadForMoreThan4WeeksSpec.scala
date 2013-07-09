@@ -6,7 +6,7 @@ import play.api.test.Helpers._
 import models.domain.Claiming
 import org.specs2.execute.PendingUntilFixed
 
-class G2AbroadForMoreThan4WeeksSpec extends Specification with with Tags PendingUntilFixed {
+class G2AbroadForMoreThan4WeeksSpec extends Specification with Tags with PendingUntilFixed {
   "Normal residence and current location" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -51,5 +51,5 @@ class G2AbroadForMoreThan4WeeksSpec extends Specification with with Tags Pending
     "have no trips upon deleting a 4 week trip" in new WithApplication with Claiming {
       pending
     }
-  }
+  } section "unit"
 }
