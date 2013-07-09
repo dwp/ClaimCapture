@@ -4,7 +4,9 @@ import play.api.test.TestBrowser
 import java.util.concurrent.TimeUnit
 
 object FormHelper {
-
+  val partnerAddress = "Partner Address"
+  val partnerPostcode = "RM11 1AA"
+    
   def fillYourDetails(browser: TestBrowser) = {
     browser.goTo("/aboutyou/yourDetails")
     browser.click("#title option[value='mr']")
@@ -137,8 +139,8 @@ object FormHelper {
 
   def fillYourPartnerContactDetails(browser: TestBrowser) = {
     browser.goTo("/yourPartner/contactDetails")
-    browser.fill("#address_lineOne") `with` "Partner Address"
-    browser.fill("#postcode") `with` "SE1 6EH"
+    browser.fill("#address_lineOne") `with` partnerAddress
+    browser.fill("#postcode") `with` partnerPostcode
     browser.submit("button[type='submit']")
   }
   
@@ -166,6 +168,17 @@ object FormHelper {
   def fillPersonYouCareFor(browser: TestBrowser) = {
     browser.goTo("/yourPartner/personYouCareFor")
     browser.click("#isPartnerPersonYouCareFor_yes]")
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillPersonYouCareForNotPartner(browser: TestBrowser) = {
+    browser.goTo("/yourPartner/personYouCareFor")
+    browser.click("#isPartnerPersonYouCareFor_no]")
+    browser.submit("button[type='submit']")
+  }
+  
+  def fillYourPartnerCompleted(browser: TestBrowser) = {
+    browser.goTo("/yourPartner/completed")
     browser.submit("button[type='submit']")
   }
     
