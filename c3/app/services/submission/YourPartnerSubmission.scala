@@ -19,15 +19,15 @@ object YourPartnerSubmission {
     YourPartner(yourPartnerPersonalDetails, yourPartnerContactDetails, moreAboutYourPartner, personYouCareFor)
   }
 
-  def buildYourPartner(yourPartner: YourPartner) = {
+  def buildClaimant(yourPartner: YourPartner) = {
       <Partner> 
-        <NationalityPartner>${yourPartner.yourPartnerPersonalDetails.nationality.getOrElse("")}</NationalityPartner>
-        <Surname>${yourPartner.yourPartnerPersonalDetails.surname}</Surname>
-        <OtherNames>${yourPartner.yourPartnerPersonalDetails.otherNames.getOrElse("")}</OtherNames>
+        <NationalityPartner>{yourPartner.yourPartnerPersonalDetails.nationality.getOrElse("")}</NationalityPartner>
+        <Surname>{yourPartner.yourPartnerPersonalDetails.surname}</Surname>
+        <OtherNames>{s"${yourPartner.yourPartnerPersonalDetails.firstName} ${yourPartner.yourPartnerPersonalDetails.middleName.getOrElse("")}"}</OtherNames>
         <OtherSurnames/>
-        <Title>${yourPartner.yourPartnerPersonalDetails.title}</Title>
-        <DateOfBirth>${yourPartner.yourPartnerPersonalDetails.dateOfBirth.toXmlString}</DateOfBirth>
-        <NationalInsuranceNumber>${yourPartner.yourPartnerPersonalDetails.nationalInsuranceNumber.orNull}</NationalInsuranceNumber>
+        <Title>{yourPartner.yourPartnerPersonalDetails.title}</Title>
+        <DateOfBirth>{yourPartner.yourPartnerPersonalDetails.dateOfBirth.toXmlString}</DateOfBirth>
+        <NationalInsuranceNumber>{if(yourPartner.yourPartnerPersonalDetails.nationalInsuranceNumber.isDefined) yourPartner.yourPartnerPersonalDetails.nationalInsuranceNumber.get.toXmlString else ""}</NationalInsuranceNumber>
         <Address>
           <gds:Line>{if(yourPartner.yourPartnerContactDetails.address.isDefined) yourPartner.yourPartnerContactDetails.address.get.lineOne.getOrElse("") else ""}</gds:Line>
           <gds:Line>{if(yourPartner.yourPartnerContactDetails.address.isDefined)yourPartner.yourPartnerContactDetails.address.get.lineTwo.getOrElse("") else ""}</gds:Line>
@@ -37,7 +37,7 @@ object YourPartnerSubmission {
         <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
         <RelationshipStatus>
           <JoinedHouseholdAfterDateOfClaim>{if(yourPartner.moreAboutYourPartner.dateStartedLivingTogether.isDefined) "yes" else "no"}</JoinedHouseholdAfterDateOfClaim>
-          <JoinedHouseholdDate>{yourPartner.moreAboutYourPartner.dateStartedLivingTogether.getOrElse("")}</JoinedHouseholdDate>
+          <JoinedHouseholdDate>{if(yourPartner.moreAboutYourPartner.dateStartedLivingTogether.isDefined) yourPartner.moreAboutYourPartner.dateStartedLivingTogether.get.toXmlString else ""}</JoinedHouseholdDate>
           <SeparatedFromPartner>{yourPartner.moreAboutYourPartner.separatedFromPartner}</SeparatedFromPartner>
           <SeparationDate>{if(yourPartner.moreAboutYourPartner.separatedFromPartner == "yes") yourPartner.moreAboutYourPartner.separationDate.getOrElse("") else ""}</SeparationDate>
         </RelationshipStatus>
