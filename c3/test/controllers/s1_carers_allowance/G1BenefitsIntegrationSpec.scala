@@ -26,6 +26,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       browser.goTo("/")
       browser.click("#q3-yes")
       browser.submit("button[type='submit']")
+      titleMustEqual("Hours - Carer's Allowance")
       browser.click("div[class=completed] a")
       titleMustEqual("Benefits - Carer's Allowance")
       browser.find("#q3-yes").getAttribute("value") mustEqual "true"
