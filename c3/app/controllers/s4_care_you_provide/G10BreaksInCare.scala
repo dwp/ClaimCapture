@@ -9,7 +9,7 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages
 import controllers.Mappings._
-import models.domain.HasBreaks
+import models.YesNo
 import models.domain.Claim
 
 object G10BreaksInCare extends Controller with Routing with CachedClaim {
@@ -18,7 +18,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
   val form = Form(
     mapping(
       "answer" -> nonEmptyText.verifying(validYesNo)
-  )(HasBreaks.apply)(HasBreaks.unapply))
+  )(YesNo.apply)(YesNo.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(BreaksInCare)
 

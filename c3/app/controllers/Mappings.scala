@@ -6,12 +6,10 @@ import play.api.data.Forms._
 import play.api.data.validation._
 import scala.util.Try
 import models._
-import domain.MoreAboutYourPartner
 import scala.util.Success
 import models.MultiLineAddress
 import scala.util.Failure
 import models.NationalInsuranceNumber
-import scala.Some
 import play.api.data.validation.ValidationError
 
 object Mappings {
@@ -117,36 +115,38 @@ object Mappings {
     ninoValidation(nino)
   }
 
-  def validPostcode:Constraint[String]= Constraint[String]("constraint.postcode") { postcode  =>
+  def validPostcode: Constraint[String]= Constraint[String]("constraint.postcode") { postcode  =>
     val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z]))))[ ]?[0-9][A-Z]{2})$""".r
+
     postcodePattern.pattern.matcher(postcode).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.postcode"))
     }
   }
 
-  def validPhoneNumber:Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
+  def validPhoneNumber: Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
     val phoneNumberPattern = """[0-9 \-]{1,20}""".r
+
     phoneNumberPattern.pattern.matcher(phoneNumber).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.invalid"))
     }
   }
 
-  def validDecimalNumber:Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
+  def validDecimalNumber: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
     val decimalPattern = """^[0-9]{1,12}(\.[0-9])?$""".r
+
     decimalPattern.pattern.matcher(decimal).matches match {
       case true => Valid
       case false => Invalid(ValidationError("decimal.invalid"))
     }
   }
 
-  def validYesNo:Constraint[String] = Constraint[String]("constraint.yesNo") { answer =>
+  def validYesNo: Constraint[String] = Constraint[String]("constraint.yesNo") { answer =>
     answer match {
       case `yes` => Valid
       case `no` => Valid
-      case _ =>  Invalid(ValidationError("yesNo.invalid"))
+      case _ => Invalid(ValidationError("yesNo.invalid"))
     }
   }
-
 }

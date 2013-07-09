@@ -58,8 +58,6 @@ case class ContactDetailsOfPayingPerson(address: Option[MultiLineAddress], postc
 
 case object ContactDetailsOfPayingPerson extends QuestionGroup(s"${CareYouProvide.id}.g9")
 
-case class HasBreaks(answer: String)
-
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare.id) {
   def update(break: Break) = {
     val updated = breaks map {

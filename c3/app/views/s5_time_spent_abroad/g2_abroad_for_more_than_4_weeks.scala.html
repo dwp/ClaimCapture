@@ -1,0 +1,72 @@
+@(yesNoForm: Form[models.YesNo])(implicit claim: models.domain.Claim)
+
+@import views.html.helper._
+
+@main("Abroad for more than 4 weeks - Time Spent Abroad", Some(yesNoForm)) {
+    <fieldset class="form-elements results-detail">
+        <legend>Trips you have added</legend>
+
+        <table>
+            <caption>Trips you have added data</caption>
+
+            <thead>
+                <tr>
+                    <th>Dates</th>
+                    <th class="desc">Where did you go?</th>
+                    <th class="desc">Why did you go?</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>01/01/2013<span>to</span>07/01/2013</td>
+                    <td class="desc">Brazil</td>
+                    <td class="desc">Holiday</td>
+                    <td><input type="button" class="button row secondary" value="Edit"></td>
+                    <td><input type="button" class="button row warning" value="Delete"></td>
+                </tr>
+
+                <tr>
+                    <td>01/01/2013<span>to</span>07/01/2013</td>
+                    <td class="desc">New York City</td>
+                    <td class="desc">Business trip</td>
+                    <td><input type="button" class="button row secondary" value="Edit"></td>
+                    <td><input type="button" class="button row warning" value="Delete"></td>
+                </tr>
+
+                <tr>
+                    <td>01/01/2013<span>to</span>07/01/2013</td>
+                    <td class="desc">Mongolia</td>
+                    <td class="desc">Vacation</td>
+                    <td><input type="button" class="button row secondary" value="Edit"></td>
+                    <td><input type="button" class="button row warning" value="Delete"></td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+    @form(action = controllers.s5_time_spent_abroad.routes.G2AbroadForMoreThan4Weeks.submit) {
+        <fieldset class="form-elements">
+            <legend>Additional trips abroad for more than 4 weeks</legend>
+
+            <ul class="group">
+                <li>
+                    <p>Have you been out of Great Britain with the person you look after for more than 4 weeks at a time, since 2010 (this is 3 years from today)?</p>
+
+                    <ul class="radio">
+                        <li><input type="radio" name="q1-yes" id="q1-yes"><label for="q1-yes">Yes</label></li>
+                        <li><input type="radio" name="q1-no" id="q1-no"><label for="q1-no">No</label></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </fieldset>
+
+        <div class="form-steps">
+            <a href="#" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </div>
+    }
+}

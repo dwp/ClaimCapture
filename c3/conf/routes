@@ -112,7 +112,11 @@ GET     /timeSpentAbroad/normalResidenceAndCurrentLocation      controllers.s5_t
 POST    /timeSpentAbroad/normalResidenceAndCurrentLocation      controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.submit
 
 GET     /timeSpentAbroad/abroadForMoreThan4Weeks                controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.present
+POST    /timeSpentAbroad/abroadForMoreThan4Weeks                controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.submit
 
+# GET     /timeSpentAbroad/abroadForMoreThan52Weeks               controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.present
+
+GET     /timeSpentAbroad/trip/4Weeks                            controllers.s5_time_spent_abroad.G4Trip.fourWeeks
 
 # Pay Details
 ###############
