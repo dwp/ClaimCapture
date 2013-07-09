@@ -4,7 +4,7 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
 
-@main("Normal Residence and Current Location - Time Spent Abroad", normalResidenceAndCurrentLocationForm) {
+@main("Normal Residence and Current Location - Time Spent Abroad", Some(normalResidenceAndCurrentLocationForm)) {
     @form(action = controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.submit) {
         <fieldset class="form-elements">
             <legend>Your normal residence &amp; current location</legend>
