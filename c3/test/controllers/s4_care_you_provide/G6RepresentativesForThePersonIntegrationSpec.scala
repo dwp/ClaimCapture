@@ -57,5 +57,5 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       FormHelper.fillRepresentativesForThePerson(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
-  }
+  } section "integration"
 }
