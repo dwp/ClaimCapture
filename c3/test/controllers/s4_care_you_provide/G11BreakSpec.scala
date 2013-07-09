@@ -5,9 +5,8 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.{Claiming, BreaksInCare, Claim}
-import org.specs2.mock.Mockito
 
-class G11BreakSpec extends Specification with Mockito {
+class G11BreakSpec extends Specification {
   "Break" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
