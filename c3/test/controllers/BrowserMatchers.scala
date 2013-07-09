@@ -8,7 +8,9 @@ trait BrowserMatchers extends MustMatchers {
   this: { val browser: TestBrowser }  =>
 
   def titleMustEqual(title: String) = {
-    browser.await().atMost(30, TimeUnit.SECONDS).until("title").equals(title)
+    browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
+      browser.title mustEqual title
+    }
   }
 
   def findMustEqualSize(searchFor: String, expectedSize: Integer) = {
