@@ -1,11 +1,11 @@
 package controllers
 
 import java.util.concurrent.TimeUnit
-import play.api.test.TestBrowser
+import play.api.test.WithBrowser
 import org.specs2.matcher.MustMatchers
 
 trait BrowserMatchers extends MustMatchers {
-  this: { val browser: TestBrowser }  =>
+  this: WithBrowser[_] =>
 
   def titleMustEqual(title: String)(implicit seconds: Int = 30) = {
     browser.waitUntil[Boolean](seconds, TimeUnit.SECONDS) {

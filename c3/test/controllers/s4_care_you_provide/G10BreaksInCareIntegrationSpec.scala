@@ -33,7 +33,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       FormHelper.fillMoreAboutTheCare(browser)
       browser.goTo("/careYouProvide/breaksInCare")
       
-      browser.find("ul[class=group] li p").getText() mustEqual "* Have you had any breaks in caring since 03/10/1949?"
+      browser.find("ul[class=group] li p").getText mustEqual "* Have you had any breaks in caring since 03/10/1949?"
     }
     
     "display dynamic question text if user answered that they did NOT care for this person for 35 hours or more each week before your claim date" in new WithBrowser {
@@ -47,7 +47,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       FormHelper.fillMoreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
       browser.goTo("/careYouProvide/breaksInCare")
       
-      browser.find("ul[class=group] li p").getText() mustEqual "* Have you had any breaks in caring since 03/04/1950?"
+      browser.find("ul[class=group] li p").getText mustEqual "* Have you had any breaks in caring since 03/04/1950?"
     }
   } section "integration"
 }

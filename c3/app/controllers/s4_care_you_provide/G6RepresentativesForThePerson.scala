@@ -4,7 +4,7 @@ import play.api.mvc.Controller
 import controllers.Routing
 import models.view.CachedClaim
 import models.domain.RepresentativesForPerson
-import play.api.data.{Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import models.{YesNoWithDropDownAndText, YesNoWithDropDown}
@@ -31,21 +31,20 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
     }
   }
 
-  val youActMapping = (
+  val youActMapping =
     "you" -> mapping(
       "actForPerson" -> nonEmptyText.verifying(validYesNo),
       "actAs" -> optional(nonEmptyText))(YesNoWithDropDown.apply)(YesNoWithDropDown.unapply)
       .verifying("required", validateYouAct _)
-    )
 
-  val someoneElseMapping = {
+
+  val someoneElseMapping =
     "someoneElse" -> mapping(
       "actForPerson" -> nonEmptyText.verifying(validYesNo),
       "actAs" -> optional(nonEmptyText),
       "fullName" -> optional(text)
     )(YesNoWithDropDownAndText.apply)(YesNoWithDropDownAndText.unapply)
       .verifying("required", validateSomeoneElseAct _)
-  }
 
   val form = Form(
     mapping(
@@ -55,28 +54,24 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(RepresentativesForPerson)
 
-  def present = claiming {
-    implicit claim => implicit request =>
-      val currentForm = claim.questionGroup(RepresentativesForPerson) match {
-        case Some(r: RepresentativesForPerson) => form.fill(r)
-        case _ => form
-      }
+  def present = claiming { implicit claim => implicit request =>
+    val currentForm = claim.questionGroup(RepresentativesForPerson) match {
+      case Some(r: RepresentativesForPerson) => form.fill(r)
+      case _ => form
+    }
 
-      Ok(views.html.s4_care_you_provide.g6_representativesForThePerson(currentForm, completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g6_representativesForThePerson(currentForm, completedQuestionGroups))
   }
 
-  def submit = claiming {
-    implicit claim => implicit request =>
-
-      form.bindEncrypted.fold(
-        formWithErrors => {
-          val formWithErrorsUpdate = formWithErrors
-            .replaceError("you", FormError("you.actAs", "error.required"))
-            .replaceError("someoneElse", FormError("someoneElse.actAs", "error.required"))
-          BadRequest(views.html.s4_care_you_provide.g6_representativesForThePerson(formWithErrorsUpdate, completedQuestionGroups))
-        },
-        representativesForPerson => claim.update(representativesForPerson) -> Redirect(routes.G7MoreAboutTheCare.present())
-      )
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("you", FormError("you.actAs", "error.required"))
+          .replaceError("someoneElse", FormError("someoneElse.actAs", "error.required"))
+        BadRequest(views.html.s4_care_you_provide.g6_representativesForThePerson(formWithErrorsUpdate, completedQuestionGroups))
+      },
+      representativesForPerson => claim.update(representativesForPerson) -> Redirect(routes.G7MoreAboutTheCare.present())
+    )
   }
-
 }

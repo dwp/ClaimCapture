@@ -4,10 +4,9 @@
 
 @main("Completion - Care You Provide", None, completedQuestionGroups) {
     @form(action = controllers.s4_care_you_provide.routes.CareYouProvide.submit) {
-    <div class="form-steps">
-        <a href="@controllers.s4_care_you_provide.routes.G10BreaksInCare.present" class="button secondary">Back</a>
-        <button type="submit" name="action" value="next" class="button">Continue to time spent abroad</button>
-    </div>
+        <div class="form-steps">
+            <a href="@controllers.s4_care_you_provide.routes.G10BreaksInCare.present" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Continue to time spent abroad</button>
+        </div>
     }
 }
-

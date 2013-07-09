@@ -1,9 +1,8 @@
 package models.domain
 
 import org.specs2.mutable.Specification
-import org.specs2.mock.Mockito
 
-class ClaimSpec extends Specification with Mockito {
+class ClaimSpec extends Specification {
   "Claim" should {
     "initially be empty" in {
       val newClaim = Claim()
@@ -38,7 +37,7 @@ class ClaimSpec extends Specification with Mockito {
     "return the correct section" in {
       val claim = Claim().update(Benefits()).update(Hours()).update(LivesInGB()).update(Over16())
 
-      val section =  claim.section(CarersAllowance.id)
+      val section = claim.section(CarersAllowance.id)
       section.id mustEqual CarersAllowance.id
     }
 

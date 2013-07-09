@@ -11,7 +11,6 @@ case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails, theirConta
                           moreAboutTheCare: MoreAboutTheCare, oneWhoPays: Option[OneWhoPaysPersonalDetails],
                           contactDetailsPayingPerson: Option[ContactDetailsOfPayingPerson], breaksInCare: BreaksInCare)
 
-
 case object CareYouProvide {
   val id = "s4"
 }
