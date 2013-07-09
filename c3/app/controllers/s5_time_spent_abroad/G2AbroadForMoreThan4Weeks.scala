@@ -18,7 +18,13 @@ object G2AbroadForMoreThan4Weeks extends Controller with Routing with CachedClai
     )(YesNo.apply)(YesNo.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok("")
+    /*val breaksInCare = claim.questionGroup(BreaksInCare) match {
+      case Some(b: BreaksInCare) => b
+      case _ => BreaksInCare()
+    }
+
+    Ok(views.html.s4_care_you_provide.g10_breaksInCare(form, breaksInCare, completedQuestionGroups, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim)))*/
+    Ok(views.html.s5_time_spent_abroad.g2_abroad_for_more_than_4_weeks(form))
   }
 
   def submit = claiming { implicit claim => implicit request =>

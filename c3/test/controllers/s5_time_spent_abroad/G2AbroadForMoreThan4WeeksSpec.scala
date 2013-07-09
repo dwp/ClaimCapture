@@ -34,16 +34,21 @@ class G2AbroadForMoreThan4WeeksSpec extends Specification {
       val result = G2AbroadForMoreThan4Weeks.submit(request)
       redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan52Weeks")
     }
+
+    "complete upon indicating that there are no more 4 week trips having provided zero trip details" in new WithApplication with Claiming {
+      pending
+    }
+
+    "complete upon indicating that there are no more 4 week trips having now provided one trip" in new WithApplication with Claiming {
+      pending
+    }
+
+    "allow no more than 10 trips" in new WithApplication with Claiming {
+      pending
+    }
+
+    "have no trips upon deleting a 4 week trip" in new WithApplication with Claiming {
+      pending
+    }
   }
 }
-
-/*
-Have you been out of Great Britain with the person you care for, for more than four weeks at a time,
-since [[Claim Date - 3 years]] (this is 3 years before your claim date)?
-Yes / No
-Mandatory
-If answered 'Yes', show the "Details of trips abroad with the person you look after (4 weeks)' section directly
-after this question
-
-
-*/
