@@ -49,11 +49,9 @@ class ClaimSubmissionSpec extends Specification with Tags {
     "build and confirm contains YourPartner input" in new WithApplication {
       val claim = updateClaim(Claim())
       val claimSub = ClaimSubmission(claim, "TY6TV9G")
-
+      
       val claimXml = claimSub.buildDwpClaim
-      
-      println(claimXml)
-      
+
       (claimXml \\ "Partner" \\ "NationalityPartner").text mustEqual yourPartnerPersonalDetails.nationality.get
       (claimXml \\ "Partner" \\ "Surname").text mustEqual yourPartnerPersonalDetails.surname
       (claimXml \\ "Partner" \\ "OtherNames").text mustEqual s"${yourPartnerPersonalDetails.firstName} ${yourPartner.yourPartnerPersonalDetails.middleName.getOrElse("")}"
@@ -61,6 +59,10 @@ class ClaimSubmissionSpec extends Specification with Tags {
       (claimXml \\ "Partner" \\ "DateOfBirth").text mustEqual yourPartnerPersonalDetails.dateOfBirth.toXmlString
       (claimXml \\ "Partner" \\ "NationalInsuranceNumber").text mustEqual yourPartnerPersonalDetails.nationalInsuranceNumber.get.toXmlString
       (claimXml \\ "Partner" \\ "Address" \\ "PostCode").text mustEqual yourPartnerContactDetails.postcode.get
+      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdAfterDateOfClaim").text mustEqual "yes"
+      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdDate").text mustEqual moreAboutYourPartner.dateStartedLivingTogether.get.toXmlString
+      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "SeparatedFromPartner").text mustEqual moreAboutYourPartner.separatedFromPartner
+      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "SeparationDate").text mustEqual ""
     }
 
     "validate a good claim" in new WithApplication {
