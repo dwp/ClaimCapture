@@ -86,12 +86,12 @@ Your normal residence & current location
 Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
 Yes / No
 Mandatory
-If answered ‘No’, show the ‘Where do you normally live’ field.
+If answered 'No', show the 'Where do you normally live' field.
 
 Where do you normally live?
 Free text
 Mandatory
-Becomes enabled when question above=‘No’
+Becomes enabled when question above='No'
 
 Are you in Great Britain now?
 Yes / No
