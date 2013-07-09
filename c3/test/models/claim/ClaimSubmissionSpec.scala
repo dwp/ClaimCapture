@@ -46,7 +46,22 @@ class ClaimSubmissionSpec extends Specification with Tags {
       (claimXml \\ "Claimant" \\ "HomePhoneNumber").text mustEqual contactDetails.mobileNumber.getOrElse("") // holds mobile
     }
 
+    "build and confirm contains YourPartner input" in new WithApplication {
+      val claim = updateClaim(Claim())
+      val claimSub = ClaimSubmission(claim, "TY6TV9G")
 
+      val claimXml = claimSub.buildDwpClaim
+      
+      println(claimXml)
+      
+      (claimXml \\ "Partner" \\ "NationalityPartner").text mustEqual yourPartnerPersonalDetails.nationality.get
+      (claimXml \\ "Partner" \\ "Surname").text mustEqual yourPartnerPersonalDetails.surname
+      (claimXml \\ "Partner" \\ "OtherNames").text mustEqual s"${yourPartnerPersonalDetails.firstName} ${yourPartner.yourPartnerPersonalDetails.middleName.getOrElse("")}"
+      (claimXml \\ "Partner" \\ "Title").text mustEqual yourPartnerPersonalDetails.title
+      (claimXml \\ "Partner" \\ "DateOfBirth").text mustEqual yourPartnerPersonalDetails.dateOfBirth.toXmlString
+      (claimXml \\ "Partner" \\ "NationalInsuranceNumber").text mustEqual yourPartnerPersonalDetails.nationalInsuranceNumber.get.toXmlString
+      (claimXml \\ "Partner" \\ "Address" \\ "PostCode").text mustEqual yourPartnerContactDetails.postcode.get
+    }
 
     "validate a good claim" in new WithApplication {
       val claim = updateClaim(Claim())

@@ -30,8 +30,8 @@ object YourPartnerSubmission {
         <NationalInsuranceNumber>{if(yourPartner.yourPartnerPersonalDetails.nationalInsuranceNumber.isDefined) yourPartner.yourPartnerPersonalDetails.nationalInsuranceNumber.get.toXmlString else ""}</NationalInsuranceNumber>
         <Address>
           <gds:Line>{if(yourPartner.yourPartnerContactDetails.address.isDefined) yourPartner.yourPartnerContactDetails.address.get.lineOne.getOrElse("") else ""}</gds:Line>
-          <gds:Line>{if(yourPartner.yourPartnerContactDetails.address.isDefined)yourPartner.yourPartnerContactDetails.address.get.lineTwo.getOrElse("") else ""}</gds:Line>
-          <gds:Line>{if(yourPartner.yourPartnerContactDetails.address.isDefined)yourPartner.yourPartnerContactDetails.address.get.lineThree.getOrElse("") else ""}</gds:Line>
+          <gds:Line>{if(yourPartner.yourPartnerContactDetails.address.isDefined) yourPartner.yourPartnerContactDetails.address.get.lineTwo.getOrElse("") else ""}</gds:Line>
+          <gds:Line>{if(yourPartner.yourPartnerContactDetails.address.isDefined) yourPartner.yourPartnerContactDetails.address.get.lineThree.getOrElse("") else ""}</gds:Line>
           <gds:PostCode>{if(yourPartner.yourPartnerContactDetails.address.isDefined)yourPartner.yourPartnerContactDetails.postcode.getOrElse("") else ""}</gds:PostCode>
         </Address>
         <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
