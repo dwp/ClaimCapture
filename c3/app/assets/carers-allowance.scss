@@ -69,7 +69,7 @@ $button-green-hover: #004b27;
 		   	   content: "";
 		   	   display: block;
 		   	   height: 10px;
-		   	   border-bottom: 1px dotted #e3e3e3;
+		   	   border-bottom: 1px dotted #afafaf;
 		   	   margin-top: 6px;
 		   	   @media screen and (max-width: 500px) {
 			   	   display: none;
@@ -624,7 +624,7 @@ $button-green-hover: #004b27;
 				   background: #fef7f7;
 				   padding: .7em;
 				   margin-left: -1.5rem;
-				   border-left: 5px solid #df3034;
+				   border-left: 3px solid #df3034;
 			       position: relative;
 			       overflow: hidden;
 			       .ie7 &, .ie8 & {
@@ -685,6 +685,7 @@ $button-green-hover: #004b27;
 				   line-height: 1em;
 				   padding: .35em .7em;
 				   border-left: 3px solid #006435;
+				   width: 120px;
 				   .ie & {
 					   font-size: 16px;
 				   }
@@ -1415,6 +1416,45 @@ $button-green-hover: #004b27;
 		   }
 	}
 	/* button styling end */
+	
+	
+	.send-info {
+		margin: 2em 0 0 -1em;
+		padding: 1em;
+		border: 1px solid #a2a2a2;
+		 @media screen and (max-width: 640px) {
+			 margin-left: 0;
+		 }
+		article {
+			margin-top: 1.25em;
+			&:first-child {
+				margin: 0;
+			}
+			p {
+				font-size: 1.7rem;
+			}
+			ul {
+				li {
+					color: #555;
+					padding: 0 0 2px 20px;
+					line-height: 1.4em;
+					font-size: 1.7rem;
+					background: url('images/progress-tick.png') 0 3px no-repeat;
+				}
+			}
+			&.address {
+				margin-top: 1.25em;
+				span {
+					display: block;
+					font-size: 1.7rem;
+					color: #555;
+				}	
+				p {
+					margin-top: 1.25em;
+				}
+			}
+		}
+	}
 	
 	
 }

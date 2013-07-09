@@ -32,7 +32,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       FormHelper.fillEmployment(browser)
       FormHelper.fillPropertyAndRent(browser)
       
-      browser.find("#submit").getText mustEqual "Continue to Care You Provide"
+      browser.find("#submit").getText mustEqual "Continue to care you provide"
     }
 
     """be submitted to "Personal Details - Your Partner" page when they have had a partner/spouse at any time since the claim date""" in new WithBrowser {

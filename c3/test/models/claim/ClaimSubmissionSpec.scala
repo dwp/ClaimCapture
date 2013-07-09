@@ -14,6 +14,12 @@ class ClaimSubmissionSpec extends Specification with Tags {
     claim.update(aboutYou.yourDetails)
       .update(aboutYou.claimDate)
       .update(aboutYou.contactDetails)
+      
+      .update(yourPartner.yourPartnerPersonalDetails)
+      .update(yourPartner.yourPartnerContactDetails)
+      .update(yourPartner.moreAboutYourPartner)
+      .update(yourPartner.personYouCareFor.get)
+      
       .update(careYouProvide.theirPersonalDetails)
       .update(careYouProvide.theirContactDetails)
       .update(careYouProvide.moreAboutThePerson)
