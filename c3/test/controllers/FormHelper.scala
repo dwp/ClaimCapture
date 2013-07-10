@@ -149,10 +149,10 @@ object FormHelper {
     browser.click("#dateStartedLivingTogether_day option[value='3']")
     browser.click("#dateStartedLivingTogether_month option[value='4']")
     browser.fill("#dateStartedLivingTogether_year") `with` "1950"
-    browser.click("#separatedFromPartner_yes]")
-    browser.click("#separationDate_day option[value='3']")
-    browser.click("#separationDate_month option[value='8']")
-    browser.fill("#separationDate_year") `with` "2005"
+    browser.click("#separated_fromPartner_yes]")
+    browser.click("#separated_date_day option[value='3']")
+    browser.click("#separated_date_month option[value='8']")
+    browser.fill("#separated_date_year") `with` "2005"
     browser.submit("button[type='submit']")
   }
   
@@ -161,7 +161,7 @@ object FormHelper {
     browser.click("#dateStartedLivingTogether_day option[value='3']")
     browser.click("#dateStartedLivingTogether_month option[value='4']")
     browser.fill("#dateStartedLivingTogether_year") `with` "1950"
-    browser.click("#separatedFromPartner_no]")
+    browser.click("#separated_fromPartner_no]")
     browser.submit("button[type='submit']")
   }
 

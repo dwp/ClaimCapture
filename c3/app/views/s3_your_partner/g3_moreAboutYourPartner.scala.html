@@ -17,12 +17,12 @@
             <ul class="group">
                 @inputDayMonthYear(currentForm("dateStartedLivingTogether"), 'helperBelow-> Messages("dateOfBirth.helper"))
                 
-                @yesNoRadioGroup(currentForm("separatedFromPartner"))
+                @yesNoRadioGroup(currentForm("separated.fromPartner"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(inputDayMonthYear(currentForm("separationDate"), 'helperBelow -> Messages("dateOfBirth.helper") )),
+                    inputDef = Seq(inputDayMonthYear(currentForm("separated.date"), 'helperBelow -> Messages("dateOfBirth.helper") )),
                     'id->"separatedInfo",
-                    'display -> currentForm("separatedFromPartner").value.getOrElse("no")
+                    'display -> currentForm("separated.fromPartner").value.getOrElse("no")
                 )
             </ul>
         </fieldset>
@@ -38,6 +38,6 @@
 
 <script type="text/javascript">
     $(function(){
-        window.initEvents( "@CarersCrypto.encryptAES("separatedFromPartner_yes")","@CarersCrypto.encryptAES("separatedFromPartner_no")");
+        window.initEvents( "@CarersCrypto.encryptAES("separated_fromPartner_yes")","@CarersCrypto.encryptAES("separated_fromPartner_no")");
     })
 </script>
