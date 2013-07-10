@@ -138,3 +138,6 @@ GET     /assets/*file                                           controllers.Asse
 
 # Temporary submission service
 GET     /submit                                                 controllers.Submission.submit
+
+# Thank you
+GET     /thankYou                                               controllers.ThankYou.present
