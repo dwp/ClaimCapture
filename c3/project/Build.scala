@@ -24,6 +24,7 @@ object ApplicationBuild extends Build {
 
   var sTest: Seq[Project.Setting[_]] = Seq()
 
+  print()
   if (System.getProperty("include") != null ){
     sTest = Seq(testOptions in Test += Tests.Argument("include", System.getProperty("include")))
   }
