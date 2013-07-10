@@ -49,7 +49,7 @@ object YourPartnerSubmission {
           </RelationshipStatus>
         </Partner>
       }
-      case None => {}
+      case None => {} // dwp-ca-claim-v1_10.xsd specifies minOccurs=0, so we have to deal with the situation where there is no Partner.
     }
   }
 }
