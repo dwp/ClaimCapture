@@ -1,14 +1,14 @@
-package utils.pageobjects.s2_about_you
+package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 /**
- * To change this template use Preferences | File and Code Templates.
+ * PageObject pattern associated to S1 carers allowance G5 approve page.
  * @author Jorge Migueis
- *         Date: 09/07/2013
+ *         Date: 10/07/2013
  */
-class YourDetailsPage(browser: TestBrowser, title: String) extends Page(browser, "/aboutyou/yourDetails", title) {
+class ApprovePage(browser: TestBrowser, title: String) extends Page(browser, "/allowance/approve", title) {
   /**
    * Sub-class reads theClaim and interact with browser to populate page.
    * @param theClaim   Data to use to fill page
@@ -20,13 +20,13 @@ class YourDetailsPage(browser: TestBrowser, title: String) extends Page(browser,
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object YourDetailsPage {
-  val title = "Your Details - About You"
-  def buildPage(browser: TestBrowser) = new YourDetailsPage(browser, title)
+object ApprovePage {
+  val title = "Can you get Carer's Allowance?"
+  def buildPage(browser: TestBrowser) = new ApprovePage(browser, title)
 }
 
 /** The context for Specs tests */
-trait YourDetailsPageContext extends PageContext {
+trait ApprovePageContext extends PageContext {
   this: {val browser: TestBrowser} =>
-  val page = YourDetailsPage buildPage (browser)
+  val page = ApprovePage buildPage (browser)
 }

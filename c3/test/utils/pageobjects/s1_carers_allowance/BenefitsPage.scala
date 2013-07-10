@@ -1,7 +1,7 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 /**
  * PageObject pattern associated to S1 carers allowance G1 Benefits page.
@@ -19,11 +19,22 @@ class BenefitsPage(browser: TestBrowser, title: String) extends Page(browser, "/
   def isInBenefitsPage(): Boolean = titleMatch()
 
   def hasQ1() = browser.find("div[class=carers-allowance]").getText contains "Q1"
+
+  /**
+   * Sub-class reads theClaim and interact with browser to populate page.
+   * @param theClaim   Data to use to fill page
+   */
+  def fillPageWith(theClaim: ClaimScenario) {
+    theClaim.`Can you get allowance - does person get benefits?` match {
+      case "Yes" => browser.click("#q3-yes")
+      case "No" => browser.click("#q3-no")
+    }
+  }
 }
 
 /**
  * Companion object that integrates factory method.
- * It is used by PageBuilder object defined in Page.scala
+ * It is used by PageFactory object defined in Page.scala
  */
 object BenefitsPage {
   val title = "Benefits - Carer's Allowance"
