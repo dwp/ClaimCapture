@@ -7,8 +7,8 @@ import controllers.Routing
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import models.YesNo
 import models.domain.{Claim, Trips}
+import models.yesNo.YesNo
 
 object G2AbroadForMoreThan4Weeks extends Controller with Routing with CachedClaim {
   override val route = "TODO" -> routes.G2AbroadForMoreThan4Weeks.present

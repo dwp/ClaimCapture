@@ -5,13 +5,11 @@
 @import utils.helpers._
 @import views.html.helper.base._
 
-
 @input(field, args ++ Seq('autocomplete -> "off"):_*) { (id, name, value, htmlArgs) =>
 
     @defining(field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
-    <label for="@CarersCrypto.encryptAES(field.id)">@if(required){@Html("<em>*</em>")}@{Space.*} @labelOrId(field.id,args:_*)</label>
+        <label for="@CarersCrypto.encryptAES(field.id)">@if(required){@Html("<em>*</em>")}@{Space.*} @labelOrId(field.id,args:_*)</label>
     }
-
 
     <input type="text" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" value="@value" @toHtmlArgs(htmlArgs)>
 }

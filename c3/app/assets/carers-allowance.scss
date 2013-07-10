@@ -56,7 +56,8 @@ $button-green-hover: #004b27;
 		   list-style: none;
 		   margin: 0;
 		   overflow: hidden;
-		   padding: 2em 0 0.3em 0;
+		   padding: 2.5em 0 0.3em 0;
+		    @media screen and (max-width: 640px) {padding-top: 2em;}
 		   .ie7 &, .ie8 & {
 			   padding-bottom: 0;
 			   background: url('images/nav-line.png') 0 47px repeat-x;
@@ -1452,7 +1453,11 @@ $button-green-hover: #004b27;
 			p {
 				font-size: 1.7rem;
 			}
+			h2 {
+				line-height: 1.2em;
+			}
 			ul {
+				margin-top: .35em;
 				li {
 					color: #555;
 					padding: 0 0 2px 20px;

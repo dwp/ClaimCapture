@@ -19,13 +19,12 @@
                 @yesNoRadioGroup(currentForm("spent35HoursCaringBeforeClaim"), '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(inputDayMonthYear(currentForm("careStartDate"), 'helperBelow-> Messages("dateOfBirth.helper"))),
-                    'id->"careStartDateWrap",
+                    inputDef = Seq(inputDayMonthYear(currentForm("careStartDate"), 'helperBelow -> Messages("dateOfBirth.helper"))),
+                    'id -> "careStartDateWrap",
                     'display -> currentForm("spent35HoursCaringBeforeClaim").value.getOrElse("no")
                 )
 
-                @yesNoRadioGroup(currentForm("hasSomeonePaidYou"), '_label->Messages("hasSomeonePaidYou.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
-
+                @yesNoRadioGroup(currentForm("hasSomeonePaidYou"), '_label -> Messages("hasSomeonePaidYou.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
             </ul>
         </fieldset>
 
