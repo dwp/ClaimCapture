@@ -136,5 +136,9 @@ POST    /payDetails/completed                                   controllers.s6_p
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                           controllers.Assets.at(path="/public", file)
 
+# Cache Timeout
+GET           /timeout                                                  controllers.Application.timeout
+
 # Temporary submission service
-GET     /submit                                                 controllers.Submission.submit
+GET           /submit                                                   controllers.Submission.submit
+
