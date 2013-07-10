@@ -21,40 +21,41 @@
   @media screen and (max-width: 640px) {
     .carers-allowance {
       border-top: 10px solid #f47738; } }
-  .carers-allowance .carers-container {
+  .carers-allowance main {
     padding: 0 1em 2em 1em;
     margin: 0 auto;
-    max-width: 980px; }
+    max-width: 980px;
+    display: block; }
     @media screen and (max-width: 500px) {
-      .carers-allowance .carers-container {
+      .carers-allowance main {
         padding-left: .75em;
         padding-right: .75em; } }
-    .carers-allowance .carers-container .prototype {
+    .carers-allowance main .prototype {
       background: #f47738;
       padding: 0.7em 1em 0 1em; }
       @media screen and (max-width: 640px) {
-        .carers-allowance .carers-container .prototype {
+        .carers-allowance main .prototype {
           padding-bottom: .7em;
           margin-top: .9em; } }
-      .carers-allowance .carers-container .prototype p {
+      .carers-allowance main .prototype p {
         margin: 0;
         padding: 0;
         line-height: 1.2em;
         color: #fff;
         font-weight: 600;
         font-size: 1.5rem; }
-        .ie .carers-allowance .carers-container .prototype p {
+        .ie .carers-allowance main .prototype p {
           font-size: 15px; }
-        .ie7 .carers-allowance .carers-container .prototype p {
+        .ie7 .carers-allowance main .prototype p {
           font-size: 13px; }
-        .carers-allowance .carers-container .prototype p strong {
+        .carers-allowance main .prototype p strong {
           font-size: 1.5rem; }
-          .ie .carers-allowance .carers-container .prototype p strong {
+          .ie .carers-allowance main .prototype p strong {
             font-size: 15px; }
-        .carers-allowance .carers-container .prototype p a {
+        .carers-allowance main .prototype p a {
           color: #fff;
           margin-left: .25em; }
-          .carers-allowance .carers-container .prototype p a:hover {
+          .carers-allowance main .prototype p a:hover {
             color: #000; }
   .carers-allowance .progress-steps {
     border-top: 10px solid #f47738; }
@@ -1202,9 +1203,7 @@ textarea.demo {
 html {
   background: #dee0e2!important; }
 
-#global-header #logo img {
-  left: -211px!important; }
-
+/* #global-header #logo img {left: -211px!important;} */
 #global-header .header-wrapper {
   padding: 0.5em 1px !important; }
 
