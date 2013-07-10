@@ -179,6 +179,11 @@ inGBNow = Are you in Great Britain now?
 4Weeks.label = Have you been out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
 4Weeks.more.label = Have you had any more trips out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
 
+start.trip = Date you left Great Britain
+end.trip = Date you returned to Great Britain
+where.trip = Where did you go?
+why.trip = Why did you go?
+
 ##  PAY DETAILS
 # HOW WE PAY YOU
 likeToPay =  How would you like to be paid?

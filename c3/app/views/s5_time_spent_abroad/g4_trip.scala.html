@@ -3,6 +3,7 @@
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
+@import views.html.helper.base._
 @import views.html.helper.dates._
 
 @main("Trip - Time Spent Abroad", Some(tripForm)) {
@@ -13,151 +14,13 @@
             <legend>Details of trip abroad with the person you look after</legend>
 
             <ul class="group">
-                <li>
-                    <p>Date you left Great Britain</p>
+                @inputDayMonthYear(tripForm("start"), '_label -> Messages("start.trip"))
 
-                    <ul class="inline year">
-                        <li>
-                            <label for="day">Day</label>
-                            <select name="day" id="day">
-                                <option value="#">1</option>
-                                <option value="#">2</option>
-                                <option value="#">3</option>
-                                <option value="#">4</option>
-                                <option value="#">5</option>
-                                <option value="#">6</option>
-                                <option value="#">7</option>
-                                <option value="#">8</option>
-                                <option value="#">9</option>
-                                <option value="#">10</option>
-                                <option value="#">11</option>
-                                <option value="#">12</option>
-                                <option value="#">13</option>
-                                <option value="#">14</option>
-                                <option value="#">15</option>
-                                <option value="#">16</option>
-                                <option value="#">17</option>
-                                <option value="#">18</option>
-                                <option value="#">19</option>
-                                <option value="#">20</option>
-                                <option value="#">21</option>
-                                <option value="#">22</option>
-                                <option value="#">23</option>
-                                <option value="#">24</option>
-                                <option value="#">25</option>
-                                <option value="#">26</option>
-                                <option value="#">27</option>
-                                <option value="#">28</option>
-                                <option value="#">29</option>
-                                <option value="#">30</option>
-                                <option value="#">31</option>
-                            </select>
-                        </li>
+                @inputDayMonthYear(tripForm("end"), '_label -> Messages("end.trip"))
 
-                        <li>
-                            <label for="month">Month</label>
-                            <select name="month" id="month">
-                                <option value="#">January</option>
-                                <option value="#">February</option>
-                                <option value="#">March</option>
-                                <option value="#">April</option>
-                                <option value="#">May</option>
-                                <option value="#">June</option>
-                                <option value="#">July</option>
-                                <option value="#">August</option>
-                                <option value="#">September</option>
-                                <option value="#">October</option>
-                                <option value="#">November</option>
-                                <option value="#">December</option>
-                            </select>
-                        </li>
+                @carersInputText(tripForm("where"), '_label -> Messages("where.trip"))
 
-                        <li>
-                            <label for="year">Year</label>
-                            <input type="tel" name="year" id="year">
-                        </li>
-                    </ul>
-
-                    <p class="helper">eg: 26 June 2013</p>
-                </li>
-
-                <li>
-                    <p>Date you returned to Great Britain</p>
-
-                    <ul class="inline year">
-                        <li>
-                            <label for="day2">Day</label>
-                            <select name="day2" id="day2">
-                                <option value="#">1</option>
-                                <option value="#">2</option>
-                                <option value="#">3</option>
-                                <option value="#">4</option>
-                                <option value="#">5</option>
-                                <option value="#">6</option>
-                                <option value="#">7</option>
-                                <option value="#">8</option>
-                                <option value="#">9</option>
-                                <option value="#">10</option>
-                                <option value="#">11</option>
-                                <option value="#">12</option>
-                                <option value="#">13</option>
-                                <option value="#">14</option>
-                                <option value="#">15</option>
-                                <option value="#">16</option>
-                                <option value="#">17</option>
-                                <option value="#">18</option>
-                                <option value="#">19</option>
-                                <option value="#">20</option>
-                                <option value="#">21</option>
-                                <option value="#">22</option>
-                                <option value="#">23</option>
-                                <option value="#">24</option>
-                                <option value="#">25</option>
-                                <option value="#">26</option>
-                                <option value="#">27</option>
-                                <option value="#">28</option>
-                                <option value="#">29</option>
-                                <option value="#">30</option>
-                                <option value="#">31</option>
-                            </select>
-                        </li>
-
-                        <li>
-                            <label for="month2">Month</label>
-                            <select name="month2" id="month2">
-                                <option value="#">January</option>
-                                <option value="#">February</option>
-                                <option value="#">March</option>
-                                <option value="#">April</option>
-                                <option value="#">May</option>
-                                <option value="#">June</option>
-                                <option value="#">July</option>
-                                <option value="#">August</option>
-                                <option value="#">September</option>
-                                <option value="#">October</option>
-                                <option value="#">November</option>
-                                <option value="#">December</option>
-                            </select>
-                        </li>
-
-                        <li>
-                            <label for="year2">Year</label>
-                            <input type="tel" name="year2" id="year2">
-                        </li>
-                    </ul>
-
-                    <p class="helper">eg: 26 June 2013</p>
-                </li>
-
-                <li>
-                    <label for="destination">Where did you go?</label>
-                    <input type="text" name="destination" id="destination">
-                </li>
-
-                <li>
-                    <label for="destination-reason">Why did you go?</label>
-                    <input type="text" name="destination-reason" id="destination-reason">
-                </li>
+                @carersInputText(tripForm("why"), '_label -> Messages("why.trip"))
             </ul>
         </fieldset>
 

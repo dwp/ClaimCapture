@@ -10,6 +10,38 @@ class G4TripIntegrationSpec extends Specification with Tags {
       browser.goTo("/timeSpentAbroad/trip/4Weeks")
       titleMustEqual("Trip - Time Spent Abroad")
     }
+
+    "be submitted with all mandatory data" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/timeSpentAbroad/trip/4Weeks")
+
+      browser.click("#start_day option[value='1']")
+      browser.click("#start_month option[value='1']")
+      browser.fill("#start_year") `with` "2000"
+
+      browser.click("#end_day option[value='1']")
+      browser.click("#end_month option[value='1']")
+      browser.fill("#end_year") `with` "2000"
+
+      browser.fill("#where") `with` "Scotland"
+
+      browser.submit("button[value='next']")
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+    }
+
+    """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "where".""" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/timeSpentAbroad/trip/4Weeks")
+
+      browser.click("#start_day option[value='1']")
+      browser.click("#start_month option[value='1']")
+
+      browser.click("#end_day option[value='1']")
+      browser.click("#end_month option[value='1']")
+      browser.fill("#end_year") `with` "2000"
+
+      browser.submit("button[value='next']")
+      titleMustEqual("Trip - Time Spent Abroad")
+      browser.find("div[class=validation-summary] ol li").size mustEqual 2
+    }
   }
 }
 
@@ -49,39 +81,6 @@ class G11BreakIntegrationSpec extends Specification with Tags {
   }
 
   "Break" should {
-    sequential
-
-    "be presented" in new BreakWithBrowser {
-      browser.goTo("/careYouProvide/break")
-      titleMustEqual("Break - Care You Provide")
-    }
-
-    """present "completed" when no more breaks are required""" in new BreakWithBrowser {
-      FormHelper.fillTheirPersonalDetails(browser)
-      browser.goTo("/careYouProvide/breaksInCare")
-
-      browser.click("#answer_no")
-      browser.submit("button[value='next']")
-      titleMustEqual("Completion - Care You Provide")
-    }
-
-    """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new BreakWithBrowser {
-      browser.goTo("/careYouProvide/breaksInCare")
-      browser.click("#answer_yes")
-      browser.submit("button[value='next']")
-      titleMustEqual("Break - Care You Provide")
-
-      browser.click("#start_day option[value='1']")
-      browser.click("#start_month option[value='1']")
-
-      browser.click("#whereYou_location option[value='Hospital']")
-      browser.click("#wherePerson_location option[value='Hospital']")
-
-      browser.submit("button[value='next']")
-
-      titleMustEqual("Break - Care You Provide")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 2
-    }
 
     """show 2 breaks in "break table" upon providing 2 breaks""" in new BreakWithBrowser {
       browser.goTo("/careYouProvide/breaksInCare")
