@@ -4,8 +4,6 @@
 @import views.html.helper._
 @import models.domain.{Claim, ClaimDate}
 
-@pad(int: Int) = {@if(int < 10){0}@int}
-
 @main("Breaks in Care - Care You Provide", Some(yesNoForm), completedQuestionGroups) {
     <fieldset id="breaks" class="form-elements results-detail">
         <legend>Breaks you have added</legend>
@@ -28,15 +26,9 @@
                 @for(break <- breaksInCare.breaks) {
                     <tr id="@break.id" class="@break.id">
                         <td>
-                            @pad(break.start.day.get)/@pad(break.start.month.get)/@break.start.year
-
-                            @for(end <- break.end;
-                                 endDay <- end.day;
-                                 endMonth <- end.month;
-                                 endYear <- end.year) {
-                                <span>to</span>
-                                @pad(endDay)/@pad(endMonth)/@endYear
-                            }
+                            @{break.start.`dd/MM/yyyy`}
+                            @if(break.end.isDefined){<span>to</span>}
+                            @{break.end.fold("")(_.`dd/MM/yyyy`)}
                         </td>
 
                         <td class="desc">@break.whereYou.location</td>
