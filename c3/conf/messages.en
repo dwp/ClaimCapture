@@ -19,8 +19,8 @@ s3.g4 = Person you care for
 s1.progressBar = Eligibility
 s2.progressBar = About you
 s3.progressBar = Your Partner
-s4.progressBar = Care
-s5.progressBar = Time abroad
+s4.progressBar = Care you provide
+s5.progressBar = Abroad
 s6.progressBar = Pay details
 
 s4.g1 = Details of the person you care for
@@ -182,6 +182,11 @@ inGBNow = Are you in Great Britain now?
 # 4 WEEKS
 4Weeks.label = Have you been out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
 4Weeks.more.label = Have you had any more trips out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
+
+start.trip = Date you left Great Britain
+end.trip = Date you returned to Great Britain
+where.trip = Where did you go?
+why.trip = Why did you go?
 
 ##  PAY DETAILS
 # HOW WE PAY YOU
