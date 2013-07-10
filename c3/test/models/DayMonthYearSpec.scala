@@ -46,12 +46,12 @@ class DayMonthYearSpec extends Specification {
     }
 
     "Format to dd/MM/yyyy of 26-6-2010 should give 26/06/2010" in {
-      val dmy =  DayMonthYear(26, 6, 2010)
+      val dmy = DayMonthYear(26, 6, 2010)
       dmy.`dd/MM/yyyy` mustEqual "26/06/2010"
     }
 
     "Format to yyyy-MM-dd of 26-6-2010 should give 2010-06-26" in {
-      val dmy =  DayMonthYear(26, 6, 2010)
+      val dmy = DayMonthYear(26, 6, 2010)
       dmy.`yyyy-MM-dd` mustEqual "2010-06-26"
     }
   }

@@ -5,8 +5,6 @@
 @import models.domain.Trips
 @import models.DayMonthYear
 
-@pad(int: Int) = {@if(int < 10){0}@int}
-
 @main("Abroad for more than 4 weeks - Time Spent Abroad", Some(yesNoForm)) {
     <fieldset id="trips" class="form-elements results-detail">
         <legend>Trips you have added</legend>
@@ -28,9 +26,9 @@
                 @for(trip <- trips.fourWeeksTrips) {
                     <tr id="@trip.id" class="@trip.id">
                         <td>
-                            @pad(trip.start.day.get)/@pad(trip.start.month.get)/@trip.start.year
+                            @{trip.start.`dd/MM/yyyy`}
                             <span>to</span>
-                            @pad(trip.end.day.get)/@pad(trip.end.month.get)/@trip.end.year
+                            @{trip.end.`dd/MM/yyyy`}
                         </td>
 
                         <td class="desc">@trip.where</td>
@@ -55,8 +53,8 @@
             <legend>Additional trips abroad for more than 4 weeks</legend>
 
             <ul class="group">
-                @defining(if(trips.fourWeeksTrips == Nil || trips.fourWeeksTrips.isEmpty) {"4Weeks.label"} else {"4Weeks.more.label"}) { answerLabel =>
-                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, (DayMonthYear.today - 3 years).`dd/MM/yyyy`))
+                @defining(if(trips.fourWeeksTrips == Nil || trips.fourWeeksTrips.isEmpty) {"4Weeks.label"} else {"4Weeks.more.label"}) { label =>
+                    @yesNoRadioGroup(yesNoForm("trips"), '_label -> Messages(label, (DayMonthYear.today - 3 years).`dd/MM/yyyy`))
                 }
             </ul>
         </fieldset>
@@ -67,3 +65,5 @@
         </div>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s5_time_spent_abroad/g4_trip.js")'></script>
