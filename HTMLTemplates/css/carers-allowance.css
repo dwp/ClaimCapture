@@ -1132,12 +1132,16 @@
         margin: 0; }
       .carers-allowance .send-info article p {
         font-size: 1.7rem; }
-      .carers-allowance .send-info article ul li {
-        color: #555;
-        padding: 0 0 2px 20px;
-        line-height: 1.4em;
-        font-size: 1.7rem;
-        background: url("images/progress-tick.png") 0 3px no-repeat; }
+      .carers-allowance .send-info article h2 {
+        line-height: 1.2em; }
+      .carers-allowance .send-info article ul {
+        margin-top: .35em; }
+        .carers-allowance .send-info article ul li {
+          color: #555;
+          padding: 0 0 2px 20px;
+          line-height: 1.4em;
+          font-size: 1.7rem;
+          background: url("images/progress-tick.png") 0 3px no-repeat; }
       .carers-allowance .send-info article.address {
         margin-top: 1.25em; }
         .carers-allowance .send-info article.address span {
