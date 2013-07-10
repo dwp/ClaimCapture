@@ -1,6 +1,6 @@
 package controllers.s3_your_partner
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.cache.Cache
 import models.domain._
@@ -10,7 +10,7 @@ import models.domain.Claim
 import models.NationalInsuranceNumber
 import scala.Some
 
-class G1YourPartnerPersonalDetailsSpec extends Specification {
+class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
   val title = "Mr"
   val firstName = "John"
   val middleName = "Mc"
@@ -89,5 +89,5 @@ class G1YourPartnerPersonalDetailsSpec extends Specification {
       val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
+  }  section "unit"
 }

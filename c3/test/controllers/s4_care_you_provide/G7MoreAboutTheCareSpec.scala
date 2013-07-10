@@ -1,12 +1,12 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
 
-class G7MoreAboutTheCareSpec extends Specification with Mockito {
+class G7MoreAboutTheCareSpec extends Specification with Mockito with Tags {
 
   val moreAboutTheCareInput = Seq("spent35HoursCaring" -> "no", "spent35HoursCaringBeforeClaim" -> "no", "hasSomeonePaidYou" -> "no")
 
@@ -32,6 +32,6 @@ class G7MoreAboutTheCareSpec extends Specification with Mockito {
       val result = controllers.s4_care_you_provide.G7MoreAboutTheCare.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
+  } section "unit"
 
 }

@@ -1,6 +1,6 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{WithApplication, FakeRequest}
 import play.api.cache.Cache
@@ -8,7 +8,7 @@ import models.domain.{Claiming, Claim, Section, TheirContactDetails}
 import models.domain
 import play.api.test.Helpers._
 
-class G2TheirContactDetailsSpec extends Specification with Mockito {
+class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
 
   val theirContactDetailsInput = Seq("address.lineOne" -> "123 Street",
     "postcode" -> "PR2 8AE",
@@ -48,5 +48,5 @@ class G2TheirContactDetailsSpec extends Specification with Mockito {
       val result = controllers.s4_care_you_provide.G2TheirContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
+  } section "unit"
 }

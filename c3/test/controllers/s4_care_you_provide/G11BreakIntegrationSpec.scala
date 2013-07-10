@@ -3,11 +3,11 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import java.util.concurrent.TimeUnit
-import controllers.BrowserMatchers
+import controllers.FormHelper
 
 class G11BreakIntegrationSpec extends Specification with Tags {
 
-  class BreakWithBrowser extends WithBrowser with BrowserMatchers {
+  class BreakWithBrowser extends WithBrowser {
     def break() {
       browser.click("#start_day option[value='1']")
       browser.click("#start_month option[value='1']")
@@ -25,26 +25,36 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.submit("button[value='next']")
       titleMustEqual("Breaks in Care - Care You Provide")
     }
+
+    def titleMustEqual(title: String)(implicit seconds: Int = 30) = {
+      browser.waitUntil[Boolean](seconds, TimeUnit.SECONDS) {
+        browser.title mustEqual title
+      }
+    }
   }
 
   "Break" should {
-    "be presented" in new WithBrowser {
+    sequential
+
+    "be presented" in new BreakWithBrowser {
       browser.goTo("/careYouProvide/break")
-      browser.title mustEqual "Break - Care You Provide"
+      titleMustEqual("Break - Care You Provide")
     }
 
     """present "completed" when no more breaks are required""" in new BreakWithBrowser {
+      FormHelper.fillTheirPersonalDetails(browser)
       browser.goTo("/careYouProvide/breaksInCare")
 
       browser.click("#answer_no")
       browser.submit("button[value='next']")
-      titleMustEqual("Completed - Care You Provide")
+      titleMustEqual("Completion - Care You Provide")
     }
 
-    """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new WithBrowser {
+    """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new BreakWithBrowser {
       browser.goTo("/careYouProvide/breaksInCare")
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
+      titleMustEqual("Break - Care You Provide")
 
       browser.click("#start_day option[value='1']")
       browser.click("#start_month option[value='1']")
@@ -54,7 +64,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       browser.submit("button[value='next']")
 
-      browser.title() mustEqual "Break - Care You Provide"
+      titleMustEqual("Break - Care You Provide")
       browser.find("div[class=validation-summary] ol li").size mustEqual 2
     }
 

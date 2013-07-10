@@ -1,9 +1,9 @@
 package controllers.s3_your_partner
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import models.MultiLineAddress
 
-class G2YourPartnerContactDetailsFormSpec extends Specification {
+class G2YourPartnerContactDetailsFormSpec extends Specification with Tags {
 
   "Your Partner Contact Details Form" should {
 
@@ -40,6 +40,6 @@ class G2YourPartnerContactDetailsFormSpec extends Specification {
       )
     }
 
-  }
+  } section "unit"
 
 }

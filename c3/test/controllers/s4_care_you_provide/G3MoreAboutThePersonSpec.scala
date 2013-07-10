@@ -1,6 +1,6 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{WithApplication, FakeRequest}
 import play.api.cache.Cache
@@ -8,7 +8,7 @@ import models.domain.{Claiming, MoreAboutThePerson, Claim, Section}
 import models.domain
 import play.api.test.Helpers._
 
-class G3MoreAboutThePersonSpec extends Specification with Mockito {
+class G3MoreAboutThePersonSpec extends Specification with Mockito with Tags {
 
   val moreAboutThePersonInput = Seq("relationship" -> "father", "armedForcesPayment" -> "yes", "claimedAllowanceBefore" -> "yes")
 
@@ -54,5 +54,5 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito {
       val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
+  } section "unit"
 }

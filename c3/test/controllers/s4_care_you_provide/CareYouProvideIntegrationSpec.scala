@@ -12,7 +12,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Their Contact Details - Care You Provide")
 
       browser.goTo("/careYouProvide/completed")
-      titleMustEqual("Completion - Your Partner")
+      titleMustEqual("Completion - Care You Provide")
     }
 
     /*"""restart when attempting to "complete" with missing "question groups".""" in new WithBrowser {

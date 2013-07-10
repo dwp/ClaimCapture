@@ -48,5 +48,5 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags with
       FormHelper.fillYourPartnerContactDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
-  }
+  } section "integration"
 }

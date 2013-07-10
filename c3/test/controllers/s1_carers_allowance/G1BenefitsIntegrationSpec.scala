@@ -2,54 +2,49 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.BrowserMatchers
+import utils.pageobjects.s1_carers_allowance.{BenefitsPageContext, HoursPage}
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
 
   "Benefits" should {
-    "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/")
-      titleMustEqual("Benefits - Carer's Allowance")
-      browser.find("div[class=carers-allowance]").getText must contain("Q1")
+
+    "be presented" in new WithBrowser with BenefitsPageContext {
+      page.goToThePage()
+      page.hasQ1 must beTrue
     }
 
-    "allow changing answer" in new WithBrowser {
-      browser.goTo("/")
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-
+    "allow changing answer" in new WithBrowser with BenefitsPageContext {
+      page.goToThePage()
+      page clickPersonGetsBenefits()
+      val nextPage = page submitPage()
       browser.goTo("/allowance/benefits?changing=true")
-      browser.find("#q3-yes").getAttribute("value") mustEqual "true"
+      page.doesPersonGetBenefit must beSome(true)
     }
 
-    "allow changing answer via given link" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/")
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Hours - Carer's Allowance")
-      browser.click("div[class=completed] a")
-      titleMustEqual("Benefits - Carer's Allowance")
-      browser.find("#q3-yes").getAttribute("value") mustEqual "true"
-    }
   } section "integration"
 
+
   "Does the person being cared for get one of required benefits" should {
-    "acknowledge yes" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/")
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Hours - Carer's Allowance")
-      browser.find("div[class=completed] ul li").get(0).getText must contain("Q1")
-      browser.find("div[class=completed] ul li").get(0).getText must contain("Yes")
+
+    "acknowledge yes" in new WithBrowser with BenefitsPageContext {
+      page.goToThePage() must beTrue
+      page clickPersonGetsBenefits()
+      val nextPage = page.submitPage()
+      nextPage match {
+        case p: HoursPage => p.isQ1Yes must beTrue
+        case _ => failure
+      }
     }
 
-    "acknowledge no" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/")
-      browser.click("#q3-no")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Hours - Carer's Allowance")
-      browser.find("div[class=completed] ul li").get(0).getText must contain("Q1")
-      browser.find("div[class=completed] ul li").get(0).getText must contain("No")
+    "acknowledge no" in new WithBrowser with BenefitsPageContext {
+      page.goToThePage()
+      page clickPersonDoesNotGetBenefits()
+      val nextPage = page submitPage()
+      nextPage match {
+        case p: HoursPage => p.isQ1No() must beTrue
+        case _ => failure
+      }
     }
+
   } section "integration"
 }

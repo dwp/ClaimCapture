@@ -15,20 +15,21 @@
             <legend>Representatives for the person you care for</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("actForPerson"))
+                @yesNoRadioGroup(currentForm("you.actForPerson"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(actSelect(currentForm("actAs"))),
+                    inputDef = Seq(actSelect(currentForm("you.actAs"))),
                     'id->"actWrap",
-                    'display -> currentForm("actForPerson").value.getOrElse("no")
+                    'display -> currentForm("you.actForPerson").value.getOrElse("no")
                 )
 
-                @yesNoRadioGroup(currentForm("someoneElseActForPerson"))
+
+                @yesNoRadioGroup(currentForm("someoneElse.actForPerson"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(actSelect(currentForm("someoneElseActAs")), carersInputText(currentForm("someoneElseFullName"))),
+                    inputDef = Seq(actSelect(currentForm("someoneElse.actAs")), carersInputText(currentForm("someoneElse.fullName"))),
                     'id->"someoneElseWrap",
-                    'display -> currentForm("someoneElseActForPerson").value.getOrElse("no")
+                    'display -> currentForm("someoneElse.actForPerson").value.getOrElse("no")
                 )
 
             </ul>
@@ -45,11 +46,11 @@
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents( "@CarersCrypto.encryptAES("actForPerson_yes")",
-        "@CarersCrypto.encryptAES("actForPerson_no")",
-        "@CarersCrypto.encryptAES("someoneElseActForPerson_yes")",
-        "@CarersCrypto.encryptAES("someoneElseActForPerson_no")",
-        "@CarersCrypto.encryptAES("someoneElseActAs")",
-        "@CarersCrypto.encryptAES("someoneElseFullName")");
+        window.initEvents( "@CarersCrypto.encryptAES("you_actForPerson_yes")",
+        "@CarersCrypto.encryptAES("you_actForPerson_no")",
+        "@CarersCrypto.encryptAES("someoneElse_actForPerson_yes")",
+        "@CarersCrypto.encryptAES("someoneElse_actForPerson_no")",
+        "@CarersCrypto.encryptAES("someoneElse_actAs")",
+        "@CarersCrypto.encryptAES("someoneElse_fullName")");
     });
 </script>

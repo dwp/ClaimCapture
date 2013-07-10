@@ -2,12 +2,12 @@ package controllers.s4_care_you_provide
 
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.cache.Cache
 import models.domain.{Claiming, OneWhoPaysPersonalDetails, Section, Claim}
 import models.domain
 
-class G8OneWhoPaysPersonalDetailsSpec extends Specification {
+class G8OneWhoPaysPersonalDetailsSpec extends Specification with Tags {
 
   "G8OneWhoPaysPersonalDetails - Controller" should {
 
@@ -42,5 +42,5 @@ class G8OneWhoPaysPersonalDetailsSpec extends Specification {
       status(result) mustEqual SEE_OTHER
     }
 
-  }
+  } section "unit"
 }

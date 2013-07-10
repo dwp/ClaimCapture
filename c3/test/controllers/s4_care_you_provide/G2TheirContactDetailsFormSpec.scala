@@ -1,8 +1,8 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 
-class G2TheirContactDetailsFormSpec extends Specification {
+class G2TheirContactDetailsFormSpec extends Specification with Tags {
   val validPostcode: String = "SE1 6EH"
 
   "Their Contact Details Form" should {
@@ -48,6 +48,6 @@ class G2TheirContactDetailsFormSpec extends Specification {
         theirContactDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  }
+  } section "unit"
 
 }

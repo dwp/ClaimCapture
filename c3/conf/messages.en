@@ -128,11 +128,15 @@ armedForcesPayment = Does this person get Armed Forces Independence Payment?
 claimedAllowanceBefore = Has anyone else claimed Carer's Allowance for this person before?
 
 # REPRESENTATIVES FOR THE PERSON
-actForPerson = Do you act for the person you care for?
-actAs = You act as
-someoneElseActForPerson = Does someone else act for the person you care for?
-someoneElseActAs = Person acts as
-someoneElseFullName = Full name
+you_actForPerson = Do you act for the person you care for?
+you.actForPerson = Do you act for the person you care for?
+you_actAs = You act as
+you.actAs = You act as
+someoneElse_actForPerson = Does someone else act for the person you care for?
+someoneElse.actForPerson = Does someone else act for the person you care for?
+someoneElse_actAs = Person acts as
+someoneElse.actAs = Person acts as
+someoneElse_fullName = Full name
 
 # ONE WHO PAYS PERSONAL DETAILS
 organisation = Organisation

@@ -48,8 +48,8 @@ object CareYouProvideSubmission {
       <RelationToClaimant>{careYouProvide.moreAboutThePerson.relationship}</RelationToClaimant>
       <Cared35hours>{careYouProvide.moreAboutTheCare.spent35HoursCaring}</Cared35hours>
       <CanCareeSign>yes</CanCareeSign>
-      <CanSomeoneElseSign>{careYouProvide.representatives.someoneElseActForPerson}</CanSomeoneElseSign>
-      <CanClaimantSign>{careYouProvide.representatives.actForPerson}</CanClaimantSign>
+      <CanSomeoneElseSign>{careYouProvide.representatives.someoneElseAct.answer}</CanSomeoneElseSign>
+      <CanClaimantSign>{careYouProvide.representatives.youAct.answer}</CanClaimantSign>
       <ClaimantActingType>
         <ParentOrGuardian></ParentOrGuardian>
         <PowerOfAttorney></PowerOfAttorney>

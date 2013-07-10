@@ -1,11 +1,11 @@
 package controllers.s6_pay_details
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
 
-class G1HowWePayYouSpec extends Specification {
+class G1HowWePayYouSpec extends Specification with Tags {
   "How we pay you" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -29,5 +29,5 @@ class G1HowWePayYouSpec extends Specification {
       val result = G1HowWePayYou.submit(request)
       redirectLocation(result) must beSome("/payDetails/bankBuildingSocietyDetails")
     }
-  }
+  } section "unit"
 }

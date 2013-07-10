@@ -1,6 +1,6 @@
 package utils.helpers
 
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.mvc.Request
 import scala.util.{Failure, Success, Try}
 import play.api.Logger
@@ -33,6 +33,16 @@ object CarersForm {
             else s + (cKey -> values.headOption.getOrElse(""))
         }
       )
+    }
+
+    def replaceError(key: String, newError: FormError): Form[T] = {
+
+      val updatedForm = form.error(key) match {
+        case Some(s) => form.withError(newError)
+        case None => form
+      }
+
+      updatedForm.copy(errors = updatedForm.errors.filter(p => p.key != key))
     }
   }
 

@@ -1,59 +1,63 @@
-package controllers.s4_care_you_provide
+package controllers.s5_time_spent_abroad
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable.Specification
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.domain.{Claiming, BreaksInCare, Claim}
+import models.domain.{Trips, Claiming, Claim}
 
-class G11BreakSpec extends Specification with Tags {
-  "Break" should {
+class G4TripSpec extends Specification {
+  "4 week trip" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = G11Break.present(request)
+      val result = G4Trip.fourWeeks(request)
       status(result) mustEqual OK
     }
 
     "be rejected for missing mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = G11Break.submit(request)
+      val result = G4Trip.fourWeeksSubmit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
-    "add 2 breaks" in new WithApplication with Claiming {
+    "add two 4 week trips" in new WithApplication with Claiming {
       val request1 = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-        "breakID" -> "1",
+        "tripID" -> "1",
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
-        "medicalDuringBreak" -> "no")
+        "end.day" -> "1",
+        "end.month" -> "1",
+        "end.year" -> "2001",
+        "where" -> "Scotland",
+        "why" -> "For the sun")
 
-      G11Break.submit(request1)
+      G4Trip.fourWeeksSubmit(request1)
 
       val request2 = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-        "breakID" -> "2",
+        "tripID" -> "2",
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
-        "medicalDuringBreak" -> "no")
+        "end.day" -> "1",
+        "end.month" -> "1",
+        "end.year" -> "2001",
+        "where" -> "Greenland")
 
-      G11Break.submit(request2)
+      G4Trip.fourWeeksSubmit(request2)
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(BreaksInCare) must beLike {
-        case Some(b: BreaksInCare) => b.breaks.size mustEqual 2
+      claim.questionGroup(Trips) must beLike {
+        case Some(t: Trips) => t.fourWeeksTrips.size mustEqual 2
       }
     }
 
+    /*
     "update existing break" in new WithApplication with Claiming {
       val breakID = "1"
 
@@ -87,6 +91,6 @@ class G11BreakSpec extends Specification with Tags {
         case Some(b: BreaksInCare) =>
           b.breaks.head.start.year must beSome(yearUpdate)
       }
-    }
-  } section "unit"
+    }*/
+  }
 }
