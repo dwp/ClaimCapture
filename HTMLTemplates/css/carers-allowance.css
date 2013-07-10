@@ -845,11 +845,11 @@
     .carers-allowance .form-elements .declaration {
       border: 1px solid #a2a2a2;
       padding: 1em 1.5em 1em 1em;
-      height: 14rem;
+      height: 22rem;
       overflow: scroll;
       overflow-x: hidden; }
       .ie .carers-allowance .form-elements .declaration {
-        height: 140px; }
+        height: 220px; }
       .carers-allowance .form-elements .declaration p {
         font-size: 1.6rem;
         line-height: 1.25em;
@@ -876,15 +876,15 @@
         display: block;
         padding: 1em 1em 1em 2.3em;
         background: #eee;
-        font-size: 1.9rem;
+        font-size: 1.6rem;
         line-height: 1.25em;
         cursor: pointer;
         border: 1px solid #a2a2a2; }
         .ie .carers-allowance .form-elements .declare label {
-          font-size: 19px; }
+          font-size: 16px; }
       .carers-allowance .form-elements .declare input {
         position: absolute;
-        top: 24%;
+        top: 17px;
         left: 1.4em; }
         .carers-allowance .form-elements .declare input[type=checkbox]:checked + label {
           background: #fff;
@@ -893,6 +893,19 @@
           -ms-transition: all 200ms ease-in;
           -o-transition: all 200ms ease-in;
           transition: all 200ms ease-in; }
+      .carers-allowance .form-elements .declare.secondary {
+        margin-top: 1em; }
+    .carers-allowance .form-elements .dec ul {
+      margin: 0 0 0 1.3em;
+      list-style: disc; }
+      .carers-allowance .form-elements .dec ul li {
+        line-height: 1.4em;
+        padding: 0;
+        margin: 1em 0 0 0;
+        font-size: 1.7rem;
+        display: list-item; }
+        .carers-allowance .form-elements .dec ul li:first-child {
+          margin-top: 1em; }
     .carers-allowance .form-elements table {
       text-align: left;
       border-collapse: collapse;
