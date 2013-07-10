@@ -17,9 +17,7 @@ object ClaimBuilder {
     postcode = Some("PR2 8AE"),
     phoneNumber = Some("01772 700806"), None)
 
-  val timeOutsideUK = TimeOutsideUK(currentlyLivingInUK = "no", arrivedInUK = Some(DayMonthYear()),
-    originCountry = None, planToGoBack = Some("yes"), whenPlanToGoBack = None,
-    visaReference = None)
+  val timeOutsideUK = TimeOutsideUK(livingInUK = LivingInUK("yes", Some(DayMonthYear()), Some(""), Some(YesNoWithDate("yes", Some(DayMonthYear())))), visaReference = None)
 
   val claimDate = ClaimDate(dateOfClaim = DayMonthYear(1, 1, 2013))
 

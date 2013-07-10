@@ -46,7 +46,7 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
     "navigate back to Time Outside UK" in new WithBrowser with BrowserMatchers {
       FormHelper.fillYourDetailsEnablingTimeOutsideUK(browser)
       FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillTimeOutsideUK(browser)
+      FormHelper.fillTimeOutsideUKNotLivingInUK(browser)
       browser.click(".form-steps a")
       titleMustEqual("Time Outside UK - About You")
     }

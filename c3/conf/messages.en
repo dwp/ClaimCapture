@@ -80,12 +80,17 @@ postcode.placeHolder = eg: PR2 8AE
 error.postcode = A post code must be in the format PR2 8AE
 
 # TIME OUTSIDE UK
-currentlyLivingInUK = Are you currently living in the UK?
-arrivedInUK = When did you arrive in the UK?
-originCountry = What country did you come from?
-planToGoBack = Do you plan to go back to that country?
-whenPlanToGoBack = When do you plan to go back?
+livingInUK_answer = Are you currently living in the UK?
+livingInUK_arrivalDate = When did you arrive in the UK?
+livingInUK.arrivalDate = When did you arrive in the UK?
+livingInUK_originCountry = What country did you come from?
+livingInUK_goBack_date = When do you plan to go back?
 visaReference = What is your visa reference number in your passport?
+
+
+
+livingInUK_goBack_answer = Do you plan to go back to that country?
+livingInUK.goBack.answer = Do you plan to go back to that country?
 
 # CLAIM DATE
 dateOfClaim = When do you want your Carer's Allowance claim to start?

@@ -1,6 +1,6 @@
 package models.domain
 
-import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
+import models.{LivingInUK, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 
 case class AboutYou(yourDetails: YourDetails,
                     contactDetails: ContactDetails,
@@ -21,9 +21,7 @@ case class ContactDetails(address: MultiLineAddress, postcode: Option[String], p
 
 case object ContactDetails extends QuestionGroup(s"${AboutYou.id}.g2")
 
-case class TimeOutsideUK(currentlyLivingInUK: String, arrivedInUK: Option[DayMonthYear],
-                         originCountry: Option[String], planToGoBack: Option[String], whenPlanToGoBack: Option[DayMonthYear],
-                         visaReference: Option[String]) extends QuestionGroup(TimeOutsideUK.id)
+case class TimeOutsideUK(livingInUK:LivingInUK, visaReference: Option[String]) extends QuestionGroup(TimeOutsideUK.id)
 
 case object TimeOutsideUK extends QuestionGroup(s"${AboutYou.id}.g3")
 

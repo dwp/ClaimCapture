@@ -1,61 +1,66 @@
 package controllers.s2_about_you
 
 import models.domain._
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import controllers.Routing
 import utils.helpers.CarersForm._
+import models.yesNo.YesNoWithDate
+import models.LivingInUK
 
 object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
   override val route = TimeOutsideUK.id -> routes.G3TimeOutsideUK.present
 
+  val goBackMapping =
+    "goBack" -> optional(
+      mapping(
+        "answer" -> nonEmptyText.verifying(validYesNo),
+        "date" -> optional(dayMonthYear.verifying(validDateOnly)))(YesNoWithDate.apply)(YesNoWithDate.unapply)
+    )
+
+  val livingInUKMapping =
+    "livingInUK" -> mapping(
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "arrivalDate" -> optional(dayMonthYear.verifying(validDate)),
+      "originCountry" -> optional(text(maxLength = sixty)),
+      goBackMapping)(LivingInUK.apply)(LivingInUK.unapply)
+      .verifying("arrivalDate", LivingInUK.validateDate _)
+      .verifying("goBack", LivingInUK.validateGoBack _)
+
   val form = Form(
     mapping(
-      "currentlyLivingInUK" -> nonEmptyText(),
-      "arrivedInUK" -> optional(dayMonthYear.verifying(validDate)),
-      "originCountry" -> optional(text(maxLength = sixty)),
-      "planToGoBack" -> optional(text),
-      "whenPlanToGoBack" -> optional(dayMonthYear.verifying(validDate)),
+      livingInUKMapping,
       "visaReference" -> optional(text(maxLength = sixty))
     )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(TimeOutsideUK)
 
-  def present = claiming { implicit claim => implicit request =>
-    claim.questionGroup(YourDetails) match {
-      case Some(y: YourDetails) if y.alwaysLivedUK == "yes" => claim.delete(TimeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
-      case _ =>
-        val timeOutsideUKForm: Form[TimeOutsideUK] = claim.questionGroup(TimeOutsideUK) match {
-          case Some(t: TimeOutsideUK) => form.fill(t)
-          case _ => form
-        }
-
-        Ok(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKForm, completedQuestionGroups))
-    }
+  def present = claiming {
+    implicit claim => implicit request =>
+      claim.questionGroup(YourDetails) match {
+        case Some(y: YourDetails) if y.alwaysLivedUK == "yes" => claim.delete(TimeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
+        case _ =>
+          val timeOutsideUKForm: Form[TimeOutsideUK] = claim.questionGroup(TimeOutsideUK) match {
+            case Some(t: TimeOutsideUK) => form.fill(t)
+            case _ => form
+          }
+          Ok(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKForm, completedQuestionGroups))
+      }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
-    def livingInUK(timeOutsideUKForm: Form[TimeOutsideUK])(implicit timeOutsideUK: TimeOutsideUK): Form[TimeOutsideUK] = {
-      if (timeOutsideUK.currentlyLivingInUK == "yes" && timeOutsideUK.arrivedInUK == None) timeOutsideUKForm.fill(timeOutsideUK).withError("arrivedInUK", "error.required")
-      else timeOutsideUKForm
-    }
-
-    def planToGoBack(timeOutsideUKForm: Form[TimeOutsideUK])(implicit timeOutsideUK: TimeOutsideUK): Form[TimeOutsideUK] = {
-      if (timeOutsideUK.planToGoBack.getOrElse("no") == "yes" && timeOutsideUK.whenPlanToGoBack == None) timeOutsideUKForm.fill(timeOutsideUK).withError("whenPlanToGoBack", "error.required")
-      else timeOutsideUKForm
-    }
-
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g3_timeOutsideUK(formWithErrors, completedQuestionGroups)),
-      implicit timeOutsideUK => {
-        val formValidations = livingInUK _ andThen planToGoBack _
-        val timeOutsideUKFormValidated = formValidations(form)
-
-        if (timeOutsideUKFormValidated.hasErrors) BadRequest(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKFormValidated, completedQuestionGroups))
-        else claim.update(timeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
-      })
+  def submit = claiming {
+    implicit claim => implicit request =>
+      form.bindEncrypted.fold(
+        formWithErrors => {
+          val formWithErrorsUpdate = formWithErrors
+            .replaceError("livingInUK", "arrivalDate", FormError("livingInUK.arrivalDate", "error.required"))
+            .replaceError("livingInUK", "goBack", FormError("livingInUK.goBack.answer", "error.required"))
+          BadRequest(views.html.s2_about_you.g3_timeOutsideUK(formWithErrorsUpdate, completedQuestionGroups))
+        },
+        timeOutsideUK => claim.update(timeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
+      )
   }
 }

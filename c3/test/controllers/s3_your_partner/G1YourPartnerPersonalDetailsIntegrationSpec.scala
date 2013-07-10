@@ -83,7 +83,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser {
       FormHelper.fillYourDetails(browser)
       FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillTimeOutsideUK(browser)
+      FormHelper.fillTimeOutsideUKNotLivingInUK(browser)
       FormHelper.fillClaimDate(browser)
       FormHelper.fillMoreAboutYou(browser)
       FormHelper.fillEmployment(browser)
