@@ -14,16 +14,11 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
 
   override val route = MoreAboutYourPartner.id -> routes.G3MoreAboutYourPartner.present
 
-  def validateSeparation(input: YesNoWithDate): Boolean = input.answer match {
-    case `yes` => input.date.isDefined
-    case `no` => true
-  }
-
   val separationMapping =
     "separated" -> mapping(
       "fromPartner" -> nonEmptyText.verifying(validYesNo),
       "date" -> optional(dayMonthYear.verifying(validDate)))(YesNoWithDate.apply)(YesNoWithDate.unapply)
-      .verifying("required", validateSeparation _)
+      .verifying("required", YesNoWithDate.validate _)
 
   val form = Form(
     mapping(

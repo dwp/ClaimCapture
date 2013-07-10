@@ -54,7 +54,20 @@ object FormHelper {
 
   def fillTimeOutsideUK(browser: TestBrowser) = {
     browser.goTo("/aboutyou/timeOutsideUK")
-    browser.click("#currentlyLivingInUK_no")
+    browser.click("#livingInUK_answer_yes")
+
+    browser.click("#livingInUK_arrivalDate_day option[value='1']")
+    browser.click("#livingInUK_arrivalDate_month option[value='1']")
+    browser.fill("#livingInUK_arrivalDate_year") `with` "2001"
+
+    browser.click("#livingInUK_goBack_answer_no")
+
+    browser.submit("button[value='next']")
+  }
+
+  def fillTimeOutsideUKNotLivingInUK(browser: TestBrowser) = {
+    browser.goTo("/aboutyou/timeOutsideUK")
+    browser.click("#livingInUK_answer_no")
     browser.submit("button[value='next']")
   }
 

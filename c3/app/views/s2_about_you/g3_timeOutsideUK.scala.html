@@ -16,22 +16,22 @@
             <legend>About your time outside the UK</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(timeOutsideUKForm("currentlyLivingInUK"))
+                @yesNoRadioGroup(timeOutsideUKForm("livingInUK.answer"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(inputDayMonthYear(timeOutsideUKForm("arrivedInUK"), 'helperBelow -> Messages("dateOfBirth.helper")), carersInputText(timeOutsideUKForm("originCountry"))),
+                    inputDef = Seq(inputDayMonthYear(timeOutsideUKForm("livingInUK.arrivalDate"), 'helperBelow -> Messages("dateOfBirth.helper")),
+                                    carersInputText(timeOutsideUKForm("livingInUK.originCountry")),
+                                    yesNoRadioGroup(timeOutsideUKForm("livingInUK.goBack.answer")),
+                                    otherDetailPlaceHolder(
+                                        inputDef = Seq(inputDayMonthYear(timeOutsideUKForm("livingInUK.goBack.date"), 'helperBelow -> Messages("dateOfBirth.helper"))),
+                                        'id->"planingToGoBack",
+                                        'display -> timeOutsideUKForm("livingInUK.goBack.answer").value.getOrElse("no")
+                                    )
+                                ),
                     'id -> "livingInUK",
-                    'display -> timeOutsideUKForm("currentlyLivingInUK").value.getOrElse("no")
+                    'display -> timeOutsideUKForm("livingInUK.answer").value.getOrElse("no")
                 )
 
-                @yesNoRadioGroup(timeOutsideUKForm("planToGoBack"))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(inputDayMonthYear(timeOutsideUKForm("whenPlanToGoBack"), 'helperBelow -> Messages("dateOfBirth.helper"))),
-                    'id->"planingToGoBack",
-                    'display -> timeOutsideUKForm("planToGoBack").value.getOrElse("no")
-                )
-                
                 @carersInputText(timeOutsideUKForm("visaReference"))
             </ul>
 
@@ -48,9 +48,9 @@
 
 <script type="text/javascript">
     $(function(){
-        window.initEvents( "@CarersCrypto.encryptAES("currentlyLivingInUK_yes")",
-        "@CarersCrypto.encryptAES("currentlyLivingInUK_no")",
-        "@CarersCrypto.encryptAES("planToGoBack_yes")",
-        "@CarersCrypto.encryptAES("planToGoBack_no")");
+        window.initEvents( "@CarersCrypto.encryptAES("livingInUK_answer_yes")",
+        "@CarersCrypto.encryptAES("livingInUK_answer_no")",
+        "@CarersCrypto.encryptAES("livingInUK_goBack_answer_yes")",
+        "@CarersCrypto.encryptAES("livingInUK_goBack_answer_no")");
     })
 </script>
