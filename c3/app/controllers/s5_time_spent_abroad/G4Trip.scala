@@ -39,4 +39,22 @@ object G4Trip extends Controller with CachedClaim {
   /*def fiftyTwoWeeks = claiming { implicit claim => implicit request =>
     Ok("")
   }*/
+
+  def trip(id: String) = claiming { implicit claim => implicit request =>
+    claim.questionGroup(Trips) match {
+      case Some(ts: Trips) => ts.fourWeeksTrips.find(_.id == id) match {
+        case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t)))
+        case _ => Redirect(routes.G2AbroadForMoreThan4Weeks.present())
+      }
+
+      /*
+      52 WEEKS
+      case Some(ts: Trips) => ts.fourWeeksTrips.find(_.id == id) match {
+        case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t)))
+        case _ => Redirect(routes.G2AbroadForMoreThan4Weeks.present())
+      }*/
+
+      case _ => Redirect(routes.G1NormalResidenceAndCurrentLocation.present())
+    }
+  }
 }

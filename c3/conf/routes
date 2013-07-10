@@ -116,9 +116,10 @@ POST    /timeSpentAbroad/abroadForMoreThan4Weeks                controllers.s5_t
 
 # GET   /timeSpentAbroad/abroadForMoreThan52Weeks               controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.present
 
-#GET    /timeSpentAbroad/trip/4Weeks/:id                        controllers.s5_time_spent_abroad.G4Trip.fourWeeks(id: String)
 GET     /timeSpentAbroad/trip/4Weeks                            controllers.s5_time_spent_abroad.G4Trip.fourWeeks
 POST    /timeSpentAbroad/trip/4Weeks                            controllers.s5_time_spent_abroad.G4Trip.fourWeeksSubmit
+
+GET     /timeSpentAbroad/trip/:id                               controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
 
 GET     /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
 
@@ -150,14 +151,18 @@ POST    /consentAndDeclaration/additionalInfo                   controllers.s7_c
 GET     /consentAndDeclaration/submit                           controllers.s7_consent_and_declaration.G5Submit.present
 POST    /consentAndDeclaration/submit                           controllers.s7_consent_and_declaration.G5Submit.submit
 
-GET     /consentAndDeclaration/error                           controllers.s7_consent_and_declaration.G6Error.present
+GET     /consentAndDeclaration/error                            controllers.s7_consent_and_declaration.G6Error.present
 
-
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                                           controllers.Assets.at(path="/public", file)
+# Cache Timeout
+GET     /timeout                                                controllers.Application.timeout
 
 # Temporary submission service
 GET     /submit                                                 controllers.Submission.submit
 
 # Thank you
 GET     /thankYou                                               controllers.ThankYou.present
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                                           controllers.Assets.at(path="/public", file)
+
