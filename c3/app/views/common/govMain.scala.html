@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String)(content: Html)(footerCategories: Html)
 <!DOCTYPE html>
 <!--[if IE 7]>         <html class="ie ie7"> <![endif]-->
 <!--[if IE 8]>         <html class="ie ie8"> <![endif]-->
@@ -105,8 +105,13 @@
        
        
       <footer class="group js-footer" id="footer" role="contentinfo">
+      
+      
 
       <div class="footer-wrapper carers-allowance-footer">
+      
+         @footerCategories
+      
          <div class="footer-meta">
   <nav>
     <ul>
