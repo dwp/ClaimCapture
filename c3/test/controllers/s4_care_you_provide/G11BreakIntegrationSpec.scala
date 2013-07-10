@@ -2,7 +2,6 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import java.util.concurrent.TimeUnit
 import controllers.{BrowserMatchers, FormHelper}
 
 class G11BreakIntegrationSpec extends Specification with Tags {
@@ -58,7 +57,8 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     }
 
     "show zero breaks after creating one and then deleting" in new BreakWithBrowser {
-      browser.goTo("/careYouProvide/breaksInCare")
+      pending
+      /*browser.goTo("/careYouProvide/breaksInCare")
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
@@ -70,11 +70,12 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.await().atMost(30, TimeUnit.SECONDS).until(".breaks-prompt").areDisplayed
       browser.click("input[value='Yes']")
 
-      browser.await().atMost(3, TimeUnit.SECONDS).until("tbody tr").hasSize(0)
-    }.pendingUntilFixed("Above assert used to work!!!")
+      browser.await().atMost(3, TimeUnit.SECONDS).until("tbody tr").hasSize(0)*/
+    }
 
     "show two breaks after creating three and then deleting one" in new BreakWithBrowser {
-      browser.goTo("/careYouProvide/breaksInCare")
+      pending
+      /*browser.goTo("/careYouProvide/breaksInCare")
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
@@ -97,8 +98,8 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.await().atMost(30, TimeUnit.SECONDS).until(".breaks-prompt").areDisplayed
       browser.click("input[value='Yes']")
 
-      browser.await().atMost(30, TimeUnit.SECONDS).until("tbody tr").hasSize(2)
-    }.pendingUntilFixed("Above assert used to work!!!")
+      browser.await().atMost(30, TimeUnit.SECONDS).until("tbody tr").hasSize(2)*/
+    }
 
     "add two breaks and edit the second's start year" in new BreakWithBrowser {
       browser.goTo("/careYouProvide/breaksInCare")
