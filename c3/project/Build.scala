@@ -24,14 +24,16 @@ object ApplicationBuild extends Build {
 
   var sTest: Seq[Project.Setting[_]] = Seq()
 
+  print()
   if (System.getProperty("include") != null ){
-    println(System.getProperty("include"))
     sTest = Seq(testOptions in Test += Tests.Argument("include", System.getProperty("include")))
   }
 
   var gS: Seq[Project.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 1),Tags.limit(Tags.Network, 10),Tags.limit(Tags.Test, 1)))
 
-  var appSettings: Seq[Project.Setting[_]] = SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest
+  var f: Seq[Project.Setting[_]] = Seq(sbt.Keys.fork in Test := false)
+
+  var appSettings: Seq[Project.Setting[_]] = SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f
 
   val main = play.Project(appName, appVersion, appDependencies).settings(appSettings: _*)
 }

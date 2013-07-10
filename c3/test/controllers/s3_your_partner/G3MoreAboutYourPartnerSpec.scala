@@ -17,10 +17,10 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
   val moreAboutYourPartnerInput = Seq("dateStartedLivingTogether.day" -> dateDay.toString,
           "dateStartedLivingTogether.month" -> dateMonth.toString,
           "dateStartedLivingTogether.year" -> dateYear.toString,
-          "separatedFromPartner" -> separatedFromPartner,
-          "separationDate.day" -> dateDay.toString,
-          "separationDate.month" -> dateMonth.toString,
-          "separationDate.year" -> dateYear.toString)
+          "separated.fromPartner" -> separatedFromPartner,
+          "separated.date.day" -> dateDay.toString,
+          "separated.date.month" -> dateMonth.toString,
+          "separated.date.year" -> dateYear.toString)
     
   "More About Your Partner - Controller" should {
     "present 'More About Your Partner'" in new WithApplication with Claiming {
@@ -41,7 +41,7 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
       section.questionGroup(MoreAboutYourPartner) must beLike {
         case Some(f: MoreAboutYourPartner) => {
           f.dateStartedLivingTogether must equalTo(Some(DayMonthYear(Some(dateDay), Some(dateMonth), Some(dateYear), None, None)))
-          f.separatedFromPartner must equalTo(separatedFromPartner)
+          f.separated.answer must equalTo(separatedFromPartner)
         }
       }
     }

@@ -11,6 +11,14 @@ class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
       titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
     }
 
+    "provide for trip entry" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/timeSpentAbroad/abroadForMoreThan4Weeks")
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+
+      browser.click("#answer_yes")
+      browser.submit("button[value='next']")
+    }
+
     """present "completed" when no more 4 week trips are required""" in new WithBrowser {
       pending
     }

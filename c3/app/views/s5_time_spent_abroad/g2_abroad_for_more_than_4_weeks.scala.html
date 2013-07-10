@@ -1,9 +1,12 @@
-@(yesNoForm: Form[models.YesNo])(implicit claim: models.domain.Claim)
+@(yesNoForm: Form[models.yesNo.YesNo], trips: models.domain.Trips, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
+@import scala.language.postfixOps
 @import views.html.helper._
+@import models.domain.Trips
+@import models.DayMonthYear
 
 @main("Abroad for more than 4 weeks - Time Spent Abroad", Some(yesNoForm)) {
-    <fieldset class="form-elements results-detail">
+    <fieldset id="trips" class="form-elements results-detail">
         <legend>Trips you have added</legend>
 
         <table>
@@ -20,31 +23,29 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>01/01/2013<span>to</span>07/01/2013</td>
-                    <td class="desc">Brazil</td>
-                    <td class="desc">Holiday</td>
-                    <td><input type="button" class="button row secondary" value="Edit"></td>
-                    <td><input type="button" class="button row warning" value="Delete"></td>
-                </tr>
+                @for(trip <- trips.fourWeeksTrips) {
+                    <tr id="@trip.id" class="@trip.id">
+                        <td>
+                            @{trip.start.`dd/MM/yyyy`}
+                            <span>to</span>
+                            @{trip.end.`dd/MM/yyyy`}
+                        </td>
 
-                <tr>
-                    <td>01/01/2013<span>to</span>07/01/2013</td>
-                    <td class="desc">New York City</td>
-                    <td class="desc">Business trip</td>
-                    <td><input type="button" class="button row secondary" value="Edit"></td>
-                    <td><input type="button" class="button row warning" value="Delete"></td>
-                </tr>
-
-                <tr>
-                    <td>01/01/2013<span>to</span>07/01/2013</td>
-                    <td class="desc">Mongolia</td>
-                    <td class="desc">Vacation</td>
-                    <td><input type="button" class="button row secondary" value="Edit"></td>
-                    <td><input type="button" class="button row warning" value="Delete"></td>
-                </tr>
+                        <td class="desc">@trip.where</td>
+                        <td class="desc">@trip.why</td>
+                        <td><input type="button" class="button row secondary" value="Edit"></td>
+                        <td><input type="button" class="button row warning" value="Delete"></td>
+                    </tr>
+                }
             </tbody>
         </table>
+
+        <div class="prompt breaks-prompt">
+            <p>Are you sure you want to delete this trip?</p>
+            <input type="button" class="button row secondary" value="No">
+            <input type="button" class="button row warning" value="Yes">
+            <span>&#33;</span>
+        </div>
     </fieldset>
 
     @form(action = controllers.s5_time_spent_abroad.routes.G2AbroadForMoreThan4Weeks.submit) {
@@ -52,16 +53,10 @@
             <legend>Additional trips abroad for more than 4 weeks</legend>
 
             <ul class="group">
-                <li>
-                    <p>Have you been out of Great Britain with the person you look after for more than 4 weeks at a time, since 2010 (this is 3 years from today)?</p>
-
-                    <ul class="radio">
-                        <li><input type="radio" name="q1-yes" id="q1-yes"><label for="q1-yes">Yes</label></li>
-                        <li><input type="radio" name="q1-no" id="q1-no"><label for="q1-no">No</label></li>
-                    </ul>
-                </li>
+                @defining(if(trips.fourWeeksTrips == Nil || trips.fourWeeksTrips.isEmpty) {"4Weeks.label"} else {"4Weeks.more.label"}) { label =>
+                    @yesNoRadioGroup(yesNoForm("trips"), '_label -> Messages(label, (DayMonthYear.today - 3 years).`dd/MM/yyyy`))
+                }
             </ul>
-
         </fieldset>
 
         <div class="form-steps">
@@ -70,3 +65,5 @@
         </div>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s5_time_spent_abroad/g4_trip.js")'></script>

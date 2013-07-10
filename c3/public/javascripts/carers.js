@@ -14,7 +14,7 @@ $(document).ready(function() {
     if ($(".completed li:last").length > 0 && $(".completed li:last").offset() != null){
         $("html, body").animate({
             scrollTop: $(".completed li:last").offset().top+$(".completed li:last").height()
-        }, 2000);
+        },1500);
     }
 
 });

@@ -4,9 +4,8 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
-import org.specs2.execute.PendingUntilFixed
 
-class G2AbroadForMoreThan4WeeksSpec extends Specification with Tags with PendingUntilFixed {
+class G2AbroadForMoreThan4WeeksSpec extends Specification with Tags {
   "Normal residence and current location" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -23,18 +22,19 @@ class G2AbroadForMoreThan4WeeksSpec extends Specification with Tags with Pending
     }
 
     """accept "yes" to "abroad for more than 4 weeks".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "yes")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("trips" -> "yes")
 
       val result = G2AbroadForMoreThan4Weeks.submit(request)
       redirectLocation(result) must beSome("/timeSpentAbroad/trip/4Weeks")
     }
 
     """accept "no" to "abroad for more than 4 weeks".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "no")
+      pending
+      /*val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("trips" -> "no")
 
       val result = G2AbroadForMoreThan4Weeks.submit(request)
-      redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan52Weeks")
-    }.pendingUntilFixed("need to implement this in the controller")
+      redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan52Weeks")*/
+    }
 
     "complete upon indicating that there are no more 4 week trips having provided zero trip details" in new WithApplication with Claiming {
       pending

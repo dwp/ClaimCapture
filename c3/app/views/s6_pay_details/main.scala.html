@@ -6,7 +6,7 @@
 
 @common.govMain(title) {
     <div id="wrapper" class="carers-allowance">
-        <div class="carers-container">
+        <main role="main">
 
             @progressBar(PayDetails.id)
 
@@ -34,6 +34,8 @@
 
                 @content
             </section>
-        </div>
+        </main>
     </div>
+} {
+  <!-- Empty -->
 }

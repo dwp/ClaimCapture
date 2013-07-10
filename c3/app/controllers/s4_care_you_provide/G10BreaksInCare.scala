@@ -9,8 +9,8 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages
 import controllers.Mappings._
-import models.YesNo
 import models.domain.Claim
+import models.yesNo.YesNo
 
 object G10BreaksInCare extends Controller with Routing with CachedClaim {
   override val route = BreaksInCare.id -> routes.G10BreaksInCare.present

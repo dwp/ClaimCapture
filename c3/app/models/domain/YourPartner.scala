@@ -1,6 +1,7 @@
 package models.domain
 
 import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
+import models.yesNo.YesNoWithDate
 
 case class YourPartner(yourPartnerPersonalDetails: YourPartnerPersonalDetails, yourPartnerContactDetails: YourPartnerContactDetails,
                           moreAboutYourPartner: MoreAboutYourPartner, personYouCareFor: Option[PersonYouCareFor])
@@ -17,7 +18,7 @@ case class YourPartnerContactDetails(address: Option[MultiLineAddress], postcode
 
 object YourPartnerContactDetails extends QuestionGroup(s"${YourPartner.id}.g2")
 
-case class MoreAboutYourPartner(dateStartedLivingTogether: Option[DayMonthYear], separatedFromPartner: String, separationDate: Option[DayMonthYear]) extends QuestionGroup(MoreAboutYourPartner.id)
+case class MoreAboutYourPartner(dateStartedLivingTogether: Option[DayMonthYear], separated:YesNoWithDate) extends QuestionGroup(MoreAboutYourPartner.id)
 
 object MoreAboutYourPartner extends QuestionGroup(s"${YourPartner.id}.g3")
 

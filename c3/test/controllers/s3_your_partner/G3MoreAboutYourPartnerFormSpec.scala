@@ -5,25 +5,29 @@ import models.DayMonthYear
 import scala.Some
 
 class G3MoreAboutYourPartnerFormSpec extends Specification with Tags {
-  val dateStartedLivingTogetherDay = 5
-  val dateStartedLivingTogetherMonth = 12
-  val dateStartedLivingTogetherYear = 1990
-  val separatedFromPartner = "yes"
+  val day = 5
+  val month = 12
+  val year = 1990
+  val yes = "yes"
 
   "More About Your Partner Form" should {
     "map data into case class" in {
       G3MoreAboutYourPartner.form.bind(
         Map(
-          "dateStartedLivingTogether.day" -> dateStartedLivingTogetherDay.toString,
-          "dateStartedLivingTogether.month" -> dateStartedLivingTogetherMonth.toString,
-          "dateStartedLivingTogether.year" -> dateStartedLivingTogetherYear.toString,
-          "separatedFromPartner" -> separatedFromPartner
+          "dateStartedLivingTogether.day" -> day.toString,
+          "dateStartedLivingTogether.month" -> month.toString,
+          "dateStartedLivingTogether.year" -> year.toString,
+          "separated.fromPartner" -> yes,
+          "separated.date.day" -> day.toString,
+          "separated.date.month" -> month.toString,
+          "separated.date.year" -> year.toString
         )
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("Error"),
+        formWithErrors => "This mapping should not happen."  must equalTo("Error"),
         f => {
-          f.dateStartedLivingTogether must equalTo(Some(DayMonthYear(Some(dateStartedLivingTogetherDay), Some(dateStartedLivingTogetherMonth), Some(dateStartedLivingTogetherYear), None, None)))
-          f.separatedFromPartner must equalTo(separatedFromPartner)
+          f.dateStartedLivingTogether must equalTo(Some(DayMonthYear(Some(day), Some(month), Some(year), None, None)))
+          f.separated.answer must equalTo(yes)
+          f.separated.date must equalTo(Some(DayMonthYear(Some(day), Some(month), Some(year), None, None)))
         }
       )
     }
@@ -42,10 +46,10 @@ class G3MoreAboutYourPartnerFormSpec extends Specification with Tags {
 
     "reject invalid date" in {
       G3MoreAboutYourPartner.form.bind(
-        Map("dateStartedLivingTogether.day" -> dateStartedLivingTogetherDay.toString,
-          "dateStartedLivingTogether.month" -> dateStartedLivingTogetherMonth.toString,
-          "dateStartedLivingTogether.year" -> "123456789",
-          "separatedFromPartner" -> separatedFromPartner)
+        Map("dateStartedLivingTogether.day" -> day.toString,
+          "dateStartedLivingTogether.month" -> month.toString,
+          "dateStartedLivingTogether.year" -> "0",
+          "separated.fromPartner" -> "no")
       ).fold(
         formWithErrors => {
           formWithErrors.errors.head.message must equalTo("error.invalid")
@@ -53,5 +57,17 @@ class G3MoreAboutYourPartnerFormSpec extends Specification with Tags {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
+
+    "have mandatory separation date when separated" in {
+      G3MoreAboutYourPartner.form.bind(
+        Map("separated.fromPartner" -> yes)
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.head.message must equalTo("required")
+          formWithErrors.errors.length must equalTo(1)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
   } section "unit"
 }
