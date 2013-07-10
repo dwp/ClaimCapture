@@ -12,8 +12,8 @@ object G4Trip extends Controller with CachedClaim {
   val form = Form(
     mapping(
       "tripID" -> nonEmptyText,
-      "start" -> (dayMonthYear verifying validDateOnly),
-      "end" -> (dayMonthYear verifying validDateOnly),
+      "start" -> (dayMonthYear verifying validDate),
+      "end" -> (dayMonthYear verifying validDate),
       "where" -> nonEmptyText,
       "why" -> optional(text)
     )(Trip.apply)(Trip.unapply))
