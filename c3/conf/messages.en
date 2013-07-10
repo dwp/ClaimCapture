@@ -20,7 +20,7 @@ s1.progressBar = Eligibility
 s2.progressBar = About you
 s3.progressBar = Your Partner
 s4.progressBar = Care
-s5.progressBar = Time abroad
+s5.progressBar = Abroad
 s6.progressBar = Pay details
 
 s4.g1 = Details of the person you care for
@@ -110,7 +110,7 @@ hasSublet = Have you sublet your home, or provided board and lodgings, since one
 ## YOUR PARTNER
 
 # MORE ABOUT YOUR PARTNER
-dateStartedLivingTogether = Please enter the date when you and your Partner/Spouse started living together, if the date is after the date you want to claim from
+dateStartedLivingTogether = Please enter the date when you and your Partner/Spouse started living together
 separatedFromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
 separationDate = When did you separate?
 
