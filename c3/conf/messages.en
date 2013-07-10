@@ -111,8 +111,12 @@ hasSublet = Have you sublet your home, or provided board and lodgings, since one
 
 # MORE ABOUT YOUR PARTNER
 dateStartedLivingTogether = Please enter the date when you and your Partner/Spouse started living together, if the date is after the date you want to claim from
-separatedFromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
-separationDate = When did you separate?
+separated_fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
+separated.fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
+separated_date = When did you separate?
+separated.date = When did you separate?
+
+
 
 # PERSON YOU CARE FOR
 isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming Carer's Allowance for?

@@ -61,7 +61,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
       (claimXml \\ "Partner" \\ "Address" \\ "PostCode").text mustEqual yourPartnerContactDetails.postcode.get
       (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdAfterDateOfClaim").text mustEqual "yes"
       (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdDate").text mustEqual moreAboutYourPartner.dateStartedLivingTogether.get.toXmlString
-      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "SeparatedFromPartner").text mustEqual moreAboutYourPartner.separatedFromPartner
+      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "SeparatedFromPartner").text mustEqual moreAboutYourPartner.separated.answer
       (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "SeparationDate").text mustEqual ""
     }
 

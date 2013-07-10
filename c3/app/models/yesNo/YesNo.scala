@@ -1,3 +1,3 @@
-package models
+package models.yesNo
 
 case class YesNo(answer: String)

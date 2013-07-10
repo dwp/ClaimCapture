@@ -7,11 +7,11 @@ import models.domain.RepresentativesForPerson
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import models.{YesNoWithDropDownAndText, YesNoWithDropDown}
 import models.domain.Claim
 import scala.Some
 import utils.helpers.CarersForm._
 import play.api.data.FormError
+import models.yesNo.{YesNoWithDropDownAndText, YesNoWithDropDown}
 
 object G6RepresentativesForThePerson extends Controller with Routing with CachedClaim {
 

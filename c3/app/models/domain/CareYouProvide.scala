@@ -4,6 +4,7 @@ import models._
 import models.Whereabouts
 import models.MultiLineAddress
 import models.NationalInsuranceNumber
+import yesNo.{YesNoWithDropDownAndText, YesNoWithDropDown}
 
 case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails, theirContactDetails: TheirContactDetails,
                           moreAboutThePerson: MoreAboutThePerson, representatives: RepresentativesForPerson,

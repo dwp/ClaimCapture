@@ -38,8 +38,8 @@ object YourPartnerSubmission {
         <RelationshipStatus>
           <JoinedHouseholdAfterDateOfClaim>{if(yourPartner.moreAboutYourPartner.dateStartedLivingTogether.isDefined) "yes" else "no"}</JoinedHouseholdAfterDateOfClaim>
           <JoinedHouseholdDate>{if(yourPartner.moreAboutYourPartner.dateStartedLivingTogether.isDefined) yourPartner.moreAboutYourPartner.dateStartedLivingTogether.get.toXmlString else ""}</JoinedHouseholdDate>
-          <SeparatedFromPartner>{yourPartner.moreAboutYourPartner.separatedFromPartner}</SeparatedFromPartner>
-          <SeparationDate>{if(yourPartner.moreAboutYourPartner.separatedFromPartner == "yes") yourPartner.moreAboutYourPartner.separationDate.getOrElse("") else ""}</SeparationDate>
+          <SeparatedFromPartner>{yourPartner.moreAboutYourPartner.separated.answer}</SeparatedFromPartner>
+          <SeparationDate>{if(yourPartner.moreAboutYourPartner.separated.answer == "yes") yourPartner.moreAboutYourPartner.separated.date.getOrElse("") else ""}</SeparationDate>
         </RelationshipStatus>
       </Partner>
   }
