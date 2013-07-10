@@ -6,27 +6,6 @@ import java.util.concurrent.TimeUnit
 import controllers.{BrowserMatchers, FormHelper}
 
 class G11BreakIntegrationSpec extends Specification with Tags {
-
-  class BreakWithBrowser extends WithBrowser with BrowserMatchers {
-    def break() {
-      browser.click("#start_day option[value='1']")
-      browser.click("#start_month option[value='1']")
-      browser.fill("#start_year") `with` "2001"
-
-      browser.click("#end_day option[value='1']")
-      browser.click("#end_month option[value='1']")
-      browser.fill("#end_year") `with` "2001"
-
-      browser.click("#whereYou_location option[value='Hospital']")
-      browser.click("#wherePerson_location option[value='Hospital']")
-
-      browser.click("#medicalDuringBreak_no")
-
-      browser.submit("button[value='next']")
-      titleMustEqual("Breaks in Care - Care You Provide")
-    }
-  }
-
   "Break" should {
     sequential
 
@@ -148,4 +127,24 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
     }
   } section "integration"
+
+  class BreakWithBrowser extends WithBrowser with BrowserMatchers {
+    def break() {
+      browser.click("#start_day option[value='1']")
+      browser.click("#start_month option[value='1']")
+      browser.fill("#start_year") `with` "2001"
+
+      browser.click("#end_day option[value='1']")
+      browser.click("#end_month option[value='1']")
+      browser.fill("#end_year") `with` "2001"
+
+      browser.click("#whereYou_location option[value='Hospital']")
+      browser.click("#wherePerson_location option[value='Hospital']")
+
+      browser.click("#medicalDuringBreak_no")
+
+      browser.submit("button[value='next']")
+      titleMustEqual("Breaks in Care - Care You Provide")
+    }
+  }
 }
