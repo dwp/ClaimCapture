@@ -1,4 +1,4 @@
-@(yesNoForm: Form[models.YesNo], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[models.domain.QuestionGroup], dateOfClaimFormatted: String)(implicit claim: models.domain.Claim)
+@(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[models.domain.QuestionGroup], dateOfClaimFormatted: String)(implicit claim: models.domain.Claim)
 
 @import models.domain.BreaksInCare
 @import views.html.helper._
@@ -7,7 +7,7 @@
 @pad(int: Int) = {@if(int < 10){0}@int}
 
 @main("Breaks in Care - Care You Provide", Some(yesNoForm), completedQuestionGroups) {
-    <fieldset class="form-elements results-detail" id="breaks">
+    <fieldset id="breaks" class="form-elements results-detail">
         <legend>Breaks you have added</legend>
 
         <table>

@@ -13,13 +13,11 @@ case object NormalResidenceAndCurrentLocation extends QuestionGroup(s"${TimeSpen
 case class Trips(fourWeeksTrips: List[FourWeeksTrip] = Nil, fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips.id) {
   def update(trip: FourWeeksTrip) = {
     val updated = fourWeeksTrips map { t => if (t.id == trip.id) trip else t }
-
     if (updated.contains(trip)) Trips(updated, fiftyTwoWeeksTrips) else Trips(fourWeeksTrips :+ trip, fiftyTwoWeeksTrips)
   }
 
   def update(trip: FiftyTwoWeeksTrip) = {
     val updated = fiftyTwoWeeksTrips map { t => if (t.id == trip.id) trip else t }
-
     if (updated.contains(trip)) Trips(fourWeeksTrips, updated) else Trips(fourWeeksTrips, fiftyTwoWeeksTrips :+ trip)
   }
 
@@ -34,7 +32,7 @@ case class Trip(id: String, start: DayMonthYear, end: DayMonthYear, where: Strin
   def as[T >: Trip]: T = asInstanceOf[T]
 }
 
-trait TripPeriod {
+sealed trait TripPeriod {
   val id: String
 
   val start: DayMonthYear

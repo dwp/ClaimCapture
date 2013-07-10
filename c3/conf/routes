@@ -133,6 +133,26 @@ POST    /payDetails/bankBuildingSocietyDetails                  controllers.s6_p
 GET     /payDetails/completed                                   controllers.s6_pay_details.PayDetails.completed
 POST    /payDetails/completed                                   controllers.s6_pay_details.PayDetails.completedSubmit
 
+# Consent And Declaration
+###############
+GET     /consentAndDeclaration/consent                          controllers.s7_consent_and_declaration.G1Consent.present
+POST    /consentAndDeclaration/consent                          controllers.s7_consent_and_declaration.G1Consent.submit
+
+GET     /consentAndDeclaration/disclaimer                       controllers.s7_consent_and_declaration.G2Disclaimer.present
+POST    /consentAndDeclaration/disclaimer                       controllers.s7_consent_and_declaration.G2Disclaimer.submit
+
+GET     /consentAndDeclaration/declaration                      controllers.s7_consent_and_declaration.G3Declaration.present
+POST    /consentAndDeclaration/declaration                      controllers.s7_consent_and_declaration.G3Declaration.submit
+
+GET     /consentAndDeclaration/additionalInfo                   controllers.s7_consent_and_declaration.G4AdditionalInfo.present
+POST    /consentAndDeclaration/additionalInfo                   controllers.s7_consent_and_declaration.G4AdditionalInfo.submit
+
+GET     /consentAndDeclaration/submit                           controllers.s7_consent_and_declaration.G5Submit.present
+POST    /consentAndDeclaration/submit                           controllers.s7_consent_and_declaration.G5Submit.submit
+
+GET     /consentAndDeclaration/error                           controllers.s7_consent_and_declaration.G6Error.present
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                           controllers.Assets.at(path="/public", file)
 

@@ -37,8 +37,8 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About You")
 
       browser.goTo("/yourPartner/personalDetails")
-      browser.submit("button[type='submit']")
       titleMustEqual("Personal Details - Your Partner")
+      browser.submit("button[type='submit']")
 
       browser.find("div[class=validation-summary] ol li").size mustEqual 5
     }
