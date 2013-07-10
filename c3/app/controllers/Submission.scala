@@ -18,7 +18,8 @@ object Submission extends Controller with CachedClaim {
             // What we'll really do with the response is redirect to relevant page
             response.status match {
               case http.Status.OK =>
-                Ok(response.xml).withHeaders("Content-Type" -> "application/xhtml+xml")
+                //Ok(response.xml).withHeaders("Content-Type" -> "application/xhtml+xml")
+                Redirect(routes.ThankYou.present())
               case http.Status.BAD_REQUEST =>
                 Ok(s"BAD_REQUEST : ${response.status} : ${response.toString}")
               case http.Status.REQUEST_TIMEOUT =>
