@@ -15,7 +15,7 @@ object G2AbroadForMoreThan4Weeks extends Controller with Routing with CachedClai
 
   val form = Form(
     mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo)
+      "trips" -> nonEmptyText.verifying(validYesNo)
     )(YesNo.apply)(YesNo.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Trips)

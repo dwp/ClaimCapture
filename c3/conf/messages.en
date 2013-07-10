@@ -1,3 +1,10 @@
+s1.progressBar = Eligibility
+s2.progressBar = About you
+s3.progressBar = Your Partner
+s4.progressBar = Care you provide
+s5.progressBar = Abroad
+s6.progressBar = Pay details
+
 s1.g1 = Q1.  Does the person you look after get one of these benefits?
 s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?
 s1.g3 = Q3.  Are you aged 16 or over?
@@ -16,13 +23,6 @@ s3.g2 = Your Partner/Spouse contact details
 s3.g3 = More about your Partner/Spouse
 s3.g4 = Person you care for
 
-s1.progressBar = Eligibility
-s2.progressBar = About you
-s3.progressBar = Your Partner
-s4.progressBar = Care you provide
-s5.progressBar = Abroad
-s6.progressBar = Pay details
-
 s4.g1 = Details of the person you care for
 s4.g2 = Their contact details
 s4.g3 = Relationship and other claims
@@ -35,7 +35,6 @@ s4.g9 = Contact details of the person who pays you
 s4.g10 = Breaks in care
 s4.g11 = About the breaks in care
 
-
 s6.g1 = How would you like to get paid?
 s6.g2 = Bank / building society details
 
@@ -43,8 +42,6 @@ s7.g1 = Consent
 s7.g2 = Disclaimer
 s7.g3 = Declaration
 s7.g4 = Additional Information
-
-
 
 ## ABOUT YOU
 
@@ -187,11 +184,18 @@ normallyLiveInUK = Do you normally live in the UK, Republic of Ireland, Isle of 
 whereDoYouNormallyLive = Where do you normally live?
 inGBNow = Are you in Great Britain now?
 
+trips = Have you been out of Great Britain
+
 # 4 WEEKS
 4Weeks.label = Have you been out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
 4Weeks.more.label = Have you had any more trips out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
 
-##  PAY DETAILS
+start.trip = Date you left Great Britain
+end.trip = Date you returned to Great Britain
+where.trip = Where did you go?
+why.trip = Why did you go?
+
+## PAY DETAILS
 # HOW WE PAY YOU
 likeToPay =  How would you like to be paid?
 paymentFrequency = How often do you want to get paid?
@@ -210,7 +214,7 @@ why = Please tell us why
 why_placeholder = Enter text...
 informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
 
-#DISCLAIMER
+# DISCLAIMER
 disclaimerHtml = <p>I understand that if I am paid Carer's Allowance it may affect the benefits paid to [[first name, middle name, surname]].</p><p>In addition please show the notes below to the person you are caring for, or their representative.</p><p>If the person you are caring for receives certain benefits, the amount they receive may be affected by your claim for Carer's Allowance. Because of this we need both of you to understand the potential consequences of your claim to Carer's Allowance.</p><p>If [[first name, middle name, surname]] gets a Severe Disability Premium with their income-based Jobseeker's Allowance, Income Support, income-related Employment and Support Allowance, Housing Benefit or Council Tax Benefit, they may no longer get that premium if we pay Carer's Allowance to you.</p><p>If [[first name, middle name, surname]]'s Pension Credit includes an extra amount for severe disability, they may no longer get that extra amount if we pay Carer's Allowance to you.</p><p>We will need to check [[first name, middle name, surname]] entitlement to Disability Living Allowance, Personal Independence Payment, Attendance Allowance, Constant Attendance Allowance or Armed Forces Independence Payment when considering your claim.</p><p>We may contact [[first name, middle name, surname]] or their representative to establish whether 35 hours caring per week is taking place.</p>
 disclaimer.read = Please tick this box to declare that you have read the Disclaimer text and have shown the Notes to the person you are looking after.
 
