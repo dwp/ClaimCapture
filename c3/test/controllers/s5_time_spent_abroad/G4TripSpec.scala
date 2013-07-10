@@ -50,47 +50,45 @@ class G4TripSpec extends Specification {
 
       G4Trip.fourWeeksSubmit(request2)
 
-      val claim = Cache.getAs[Claim](claimKey).get
-
-      claim.questionGroup(Trips) must beLike {
+      Cache.getAs[Claim](claimKey).get.questionGroup(Trips) must beLike {
         case Some(t: Trips) => t.fourWeeksTrips.size mustEqual 2
       }
     }
 
-    /*
-    "update existing break" in new WithApplication with Claiming {
-      val breakID = "1"
+    "update existing trip" in new WithApplication with Claiming {
+      val tripID = "1"
 
       val requestNew = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-        "breakID" -> breakID,
+        "tripID" -> tripID,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
-        "medicalDuringBreak" -> "no")
+        "end.day" -> "1",
+        "end.month" -> "1",
+        "end.year" -> "2001",
+        "where" -> "Greenland")
 
-      G11Break.submit(requestNew)
+      G4Trip.fourWeeksSubmit(requestNew)
 
       val yearUpdate = 2005
 
       val requestUpdate = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-        "breakID" -> breakID,
+        "tripID" -> tripID,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> yearUpdate.toString,
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
-        "medicalDuringBreak" -> "no")
+        "end.day" -> "1",
+        "end.month" -> "1",
+        "end.year" -> "2001",
+        "where" -> "Greenland")
 
-      G11Break.submit(requestUpdate)
+      G4Trip.fourWeeksSubmit(requestUpdate)
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
-        case Some(b: BreaksInCare) =>
-          b.breaks.head.start.year must beSome(yearUpdate)
+      Cache.getAs[Claim](claimKey).get.questionGroup(Trips) must beLike {
+        case Some(t: Trips) => t.fourWeeksTrips.head.start.year must beSome(yearUpdate)
       }
-    }*/
+    }
   }
 }

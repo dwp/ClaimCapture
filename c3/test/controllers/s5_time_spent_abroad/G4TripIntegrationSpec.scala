@@ -1,13 +1,28 @@
-package controllers.s4_care_you_provide
+package controllers.s5_time_spent_abroad
 
+import org.specs2.mutable.{Specification, Tags}
+import play.api.test.WithBrowser
+import controllers.BrowserMatchers
+
+class G4TripIntegrationSpec extends Specification with Tags {
+  "4 weeks trip" should {
+    "be presented" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/timeSpentAbroad/trip/4Weeks")
+      titleMustEqual("Trip - Time Spent Abroad")
+    }
+  }
+}
+
+
+/*
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import java.util.concurrent.TimeUnit
-import controllers.{BrowserMatchers, FormHelper}
+import controllers.FormHelper
 
 class G11BreakIntegrationSpec extends Specification with Tags {
 
-  class BreakWithBrowser extends WithBrowser with BrowserMatchers {
+  class BreakWithBrowser extends WithBrowser {
     def break() {
       browser.click("#start_day option[value='1']")
       browser.click("#start_month option[value='1']")
@@ -24,6 +39,12 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       browser.submit("button[value='next']")
       titleMustEqual("Breaks in Care - Care You Provide")
+    }
+
+    def titleMustEqual(title: String)(implicit seconds: Int = 30) = {
+      browser.waitUntil[Boolean](seconds, TimeUnit.SECONDS) {
+        browser.title mustEqual title
+      }
     }
   }
 
@@ -149,3 +170,4 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     }
   } section "integration"
 }
+*/

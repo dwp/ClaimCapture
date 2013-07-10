@@ -19,7 +19,7 @@ object G4Trip extends Controller with CachedClaim {
     )(Trip.apply)(Trip.unapply))
 
   def fourWeeks = claiming { implicit claim => implicit request =>
-    Ok("")
+    Ok(views.html.s5_time_spent_abroad.g4_trip(form))
   }
 
   def fourWeeksSubmit = claiming { implicit claim => implicit request =>
@@ -29,9 +29,9 @@ object G4Trip extends Controller with CachedClaim {
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip()),
+      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors)),
       trip => {
-        val updatedTrips = trips.update(trip.as[FourWeeksTrip])
+        val updatedTrips = if (trips.fourWeeksTrips.size >= 10) trips else trips.update(trip.as[FourWeeksTrip])
         claim.update(updatedTrips) -> Redirect(routes.G2AbroadForMoreThan4Weeks.present())
       })
   }
@@ -40,19 +40,3 @@ object G4Trip extends Controller with CachedClaim {
     Ok("")
   }*/
 }
-
-
-/*
-val breaksInCare = claim.questionGroup(BreaksInCare) match {
-      case Some(b: BreaksInCare) => b
-      case _ => BreaksInCare()
-    }
-
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g11_break(formWithErrors)),
-      break => {
-        val updatedBreaksInCare = if (breaksInCare.breaks.size >= 10) breaksInCare else breaksInCare.update(break)
-        claim.update(updatedBreaksInCare) -> Redirect(routes.G10BreaksInCare.present())
-      })
-
-*/
