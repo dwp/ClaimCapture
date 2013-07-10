@@ -51,6 +51,11 @@ object DayMonthYear {
   def apply() = new DayMonthYear(Some(1), Some(1), Some(1970))
 
   def apply(day: Int, month: Int, year: Int) = new DayMonthYear(Some(day), Some(month), Some(year))
+
+  def today = {
+    val now = DateTime.now()
+    new DayMonthYear(Some(now.dayOfMonth().get), Some(now.monthOfYear().get), Some(now.year().get))
+  }
 }
 
 sealed trait Period {

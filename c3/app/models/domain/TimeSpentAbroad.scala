@@ -12,17 +12,13 @@ case object NormalResidenceAndCurrentLocation extends QuestionGroup(s"${TimeSpen
 
 case class Trips(fourWeeksTrips: List[FourWeeksTrip] = Nil, fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips.id) {
   def update(trip: FourWeeksTrip) = {
-    val updated = fourWeeksTrips map {
-      t => if (t.id == trip.id) trip else t
-    }
+    val updated = fourWeeksTrips map { t => if (t.id == trip.id) trip else t }
 
     if (updated.contains(trip)) Trips(updated, fiftyTwoWeeksTrips) else Trips(fourWeeksTrips :+ trip, fiftyTwoWeeksTrips)
   }
 
   def update(trip: FiftyTwoWeeksTrip) = {
-    val updated = fiftyTwoWeeksTrips map {
-      t => if (t.id == trip.id) trip else t
-    }
+    val updated = fiftyTwoWeeksTrips map { t => if (t.id == trip.id) trip else t }
 
     if (updated.contains(trip)) Trips(fourWeeksTrips, updated) else Trips(fourWeeksTrips, fiftyTwoWeeksTrips :+ trip)
   }
@@ -34,18 +30,26 @@ case object Trips extends QuestionGroup(s"${TimeSpentAbroad.id}.g4") {
   def apply() = new Trips()
 }
 
-case class Trip(val id: String, start: DayMonthYear, end: DayMonthYear, where: String, why: Option[String] = None) extends FourWeeksTrip with FiftyTwoWeeksTrip {
+case class Trip(id: String, start: DayMonthYear, end: DayMonthYear, where: String, why: Option[String] = None) extends FourWeeksTrip with FiftyTwoWeeksTrip {
   def as[T >: Trip]: T = asInstanceOf[T]
 }
 
-trait FourWeeksTrip {
-  this: Trip =>
-
+trait TripPeriod {
   val id: String
+
+  val start: DayMonthYear
+
+  val end: DayMonthYear
+
+  val where: String
+
+  val why: Option[String]
 }
 
-trait FiftyTwoWeeksTrip {
+trait FourWeeksTrip extends TripPeriod {
   this: Trip =>
+}
 
-  val id: String
+trait FiftyTwoWeeksTrip extends TripPeriod {
+  this: Trip =>
 }
