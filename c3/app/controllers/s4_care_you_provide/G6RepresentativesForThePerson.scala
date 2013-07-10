@@ -17,18 +17,14 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
 
   override val route = RepresentativesForPerson.id -> routes.G6RepresentativesForThePerson.present
 
-  def validateYouAct(input: YesNoWithDropDown): Boolean = {
-    input.answer match {
-      case `yes` => input.dropDownValue.isDefined
-      case `no` => true
-    }
+  def validateYouAct(input: YesNoWithDropDown): Boolean = input.answer match {
+    case `yes` => input.dropDownValue.isDefined
+    case `no` => true
   }
 
-  def validateSomeoneElseAct(input: YesNoWithDropDownAndText): Boolean = {
-    input.answer match {
-      case `yes` => input.dropDownValue.isDefined
-      case `no` => true
-    }
+  def validateSomeoneElseAct(input: YesNoWithDropDownAndText): Boolean = input.answer match {
+    case `yes` => input.dropDownValue.isDefined
+    case `no` => true
   }
 
   val youActMapping =
