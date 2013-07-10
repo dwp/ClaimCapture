@@ -4,15 +4,13 @@ import play.api.mvc.{Action, AnyContent, Request, Result}
 import play.api.cache.Cache
 import models.domain.Claim
 import play.Configuration
-import play.api.{Play, Logger}
+import play.api.Play
 
 trait CachedClaim {
-
-import play.api.Play.current
-import scala.language.implicitConversions
-import play.api.http.HeaderNames._
-import java.util.UUID._
-
+  import play.api.Play.current
+  import scala.language.implicitConversions
+  import play.api.http.HeaderNames._
+  import java.util.UUID._
 
   implicit def defaultResultToLeft(result: Result) = Left(result)
 

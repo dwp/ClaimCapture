@@ -45,15 +45,14 @@ object CarersForm {
       }
 
       updatedForm.copy(errors = updatedForm.errors.filter(p => p.key != key))
-
     }
 
     def replaceError(key: String, message: String, newError: FormError): Form[T] = {
 
       def matchingError(e:FormError) = e.key == key && e.message == message
 
-      if( form.errors.exists(matchingError) ) {
-          form.copy(errors = form.errors.filterNot(e => e.key == key && e.message == message)).withError(newError)
+      if (form.errors.exists(matchingError)) {
+        form.copy(errors = form.errors.filterNot(e => e.key == key && e.message == message)).withError(newError)
       }
       else form
     }

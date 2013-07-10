@@ -120,6 +120,7 @@ GET     /timeSpentAbroad/trip/4Weeks                            controllers.s5_t
 POST    /timeSpentAbroad/trip/4Weeks                            controllers.s5_time_spent_abroad.G4Trip.fourWeeksSubmit
 
 GET     /timeSpentAbroad/trip/:id                               controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
+DELETE  /timeSpentAbroad/trip/:id                               controllers.s5_time_spent_abroad.G4Trip.delete(id: String)
 
 GET     /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
 

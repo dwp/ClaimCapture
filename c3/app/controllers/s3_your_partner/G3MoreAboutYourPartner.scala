@@ -17,7 +17,8 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
   val separationMapping =
     "separated" -> mapping(
       "fromPartner" -> nonEmptyText.verifying(validYesNo),
-      "date" -> optional(dayMonthYear.verifying(validDate)))(YesNoWithDate.apply)(YesNoWithDate.unapply)
+      "date" -> optional(dayMonthYear.verifying(validDate))
+    )(YesNoWithDate.apply)(YesNoWithDate.unapply)
       .verifying("required", YesNoWithDate.validate _)
 
   val form = Form(

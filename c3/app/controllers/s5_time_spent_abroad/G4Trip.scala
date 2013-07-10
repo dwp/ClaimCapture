@@ -7,6 +7,8 @@ import play.api.data.Forms._
 import controllers.Mappings._
 import models.domain.{Trip, FourWeeksTrip, Trips}
 import utils.helpers.CarersForm._
+import play.api.i18n.Messages
+import models.DayMonthYear
 
 object G4Trip extends Controller with CachedClaim {
   val form = Form(
@@ -31,7 +33,7 @@ object G4Trip extends Controller with CachedClaim {
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors)),
       trip => {
-        val updatedTrips = if (trips.fourWeeksTrips.size >= 10) trips else trips.update(trip.as[FourWeeksTrip])
+        val updatedTrips = if (trips.fourWeeksTrips.size >= 5) trips else trips.update(trip.as[FourWeeksTrip])
         claim.update(updatedTrips) -> Redirect(routes.G2AbroadForMoreThan4Weeks.present())
       })
   }
@@ -55,6 +57,22 @@ object G4Trip extends Controller with CachedClaim {
       }*/
 
       case _ => Redirect(routes.G1NormalResidenceAndCurrentLocation.present())
+    }
+  }
+
+  def delete(id: String) = claiming { implicit claim => implicit request =>
+    import play.api.libs.json.Json
+    import language.postfixOps
+
+    claim.questionGroup(Trips) match {
+      case Some(ts: Trips) => {
+        val updatedTrips = ts.delete(id)
+
+        if (updatedTrips.fourWeeksTrips.isEmpty) claim.update(updatedTrips) -> Ok(Json.obj("anyTrips" -> Messages("4Weeks.label", (DayMonthYear.today - 3 years).`dd/MM/yyyy`)))
+        else claim.update(updatedTrips) -> Ok(Json.obj("anyTrips" -> Messages("4Weeks.more.label", (DayMonthYear.today - 3 years).`dd/MM/yyyy`)))
+      }
+
+      case _ => BadRequest(s"""Failed to delete trip with ID "$id" as claim currently has no trips""")
     }
   }
 }
