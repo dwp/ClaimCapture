@@ -1,14 +1,14 @@
 package utils.pageobjects.s1_carers_allowance
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{ComponentObject, ClaimScenario, PageContext, Page}
 
 /**
  * PageObject pattern associated to S1 carers allowance G1 Benefits page.
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-class BenefitsPage(browser: TestBrowser, title: String) extends Page(browser, "/", title) {
+class BenefitsPage(browser: TestBrowser) extends Page(browser, "/", BenefitsPage.title) with ComponentObject {
 
   def clickPersonGetsBenefits() = browser.click("#q3-yes")
 
@@ -38,11 +38,11 @@ class BenefitsPage(browser: TestBrowser, title: String) extends Page(browser, "/
  */
 object BenefitsPage {
   val title = "Benefits - Carer's Allowance"
-  def buildPage(browser: TestBrowser) = new BenefitsPage(browser, title)
+  def buildPage(browser: TestBrowser) = new BenefitsPage(browser)
 }
 
 /** The context for Specs tests */
 trait BenefitsPageContext extends PageContext {
-  this: {val browser: TestBrowser} =>
+  this: {val browser:TestBrowser}  =>
   val page = BenefitsPage buildPage (browser)
 }

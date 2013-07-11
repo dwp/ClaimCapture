@@ -23,7 +23,6 @@ class MockPage (browser: TestBrowser, title: String) extends Page(browser, "/", 
 
 /**
  * Companion object that integrates factory method.
- * It is used by PageFactory object defined in Page.scala
  */
 object MockPage {
   val title = "Mock Page"
@@ -32,7 +31,7 @@ object MockPage {
 
 /** The context for Specs tests */
 trait MockPageContext extends PageContext with Mockito {
-  val browser = {
+    val browser = {
     val mockedBrowser = mock[play.api.test.TestBrowser]
     mockedBrowser.title returns  MockPage.title
     mockedBrowser.submit("button[type='submit']") returns mockedBrowser

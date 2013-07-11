@@ -8,7 +8,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-class ApprovePage(browser: TestBrowser, title: String) extends Page(browser, "/allowance/approve", title) {
+class ApprovePage(browser: TestBrowser) extends Page(browser, "/allowance/approve", ApprovePage.title) {
   /**
    * Sub-class reads theClaim and interact with browser to populate page.
    * @param theClaim   Data to use to fill page
@@ -22,11 +22,11 @@ class ApprovePage(browser: TestBrowser, title: String) extends Page(browser, "/a
  */
 object ApprovePage {
   val title = "Can you get Carer's Allowance?"
-  def buildPage(browser: TestBrowser) = new ApprovePage(browser, title)
+  def buildPage(browser: TestBrowser) = new ApprovePage(browser)
 }
 
 /** The context for Specs tests */
-trait ApprovePageContext extends PageContext {
-  this: {val browser: TestBrowser} =>
+class ApprovePageContext extends PageContext {
+  this: {val browser:TestBrowser}  =>
   val page = ApprovePage buildPage (browser)
 }

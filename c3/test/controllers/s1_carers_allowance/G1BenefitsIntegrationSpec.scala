@@ -15,7 +15,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       page.hasQ1 must beTrue
     }
 
-    "allow changing answer" in new WithBrowser with BenefitsPageContext {
+    "allow changing answer" in new WithBrowser with  BenefitsPageContext {
       page.goToThePage()
       page clickPersonGetsBenefits()
       val nextPage = page submitPage()
@@ -38,7 +38,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "acknowledge yes 2" in new WithBrowser with BenefitsPageContext {
+    "acknowledge yes 2" in new WithBrowser with  BenefitsPageContext {
       val claim = new ClaimScenario
       claim.`Can you get allowance - does person get benefits?` = "Yes"
       page.goToThePage()

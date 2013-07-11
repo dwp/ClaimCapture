@@ -1,6 +1,6 @@
 package utils.pageobjects
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import org.specs2.specification.Scope
 import java.util.concurrent.TimeUnit
 
@@ -66,22 +66,6 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
     browser.goTo(nextUrl)
     waitForPage()
   }
-
-  // ========================================
-  // Component Management
-  // ========================================
-  protected def isCompletedYesNo(location: String, index: Integer, name: String, value: String) = {
-    val completed = browser.find(location).get(index).getText()
-    completed.contains(name) && completed.contains(value)
-  }
-
-  protected def valueOfYesNo(location: String): Option[Boolean] = {
-    browser.find(location).getAttribute("value") match {
-      case "true" => Some(true)
-      case "false" => Some(false)
-      case _ => None
-    }
-  }
 }
 
 /**
@@ -93,7 +77,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
 final class UnknownPage(browser: TestBrowser, pageTitle: String) extends Page(browser, null, pageTitle) {
   protected def createNextPage(): Page = this
 
-  override def submitPage() = throw new PageObjectException("Cannot submit unknown page " + pageTitle)
+  override def submitPage() = throw new PageObjectException("Cannot submit an unknown page: " + pageTitle)
 
   /**
    * Sub-class reads theClaim and interact with browser to populate page.
@@ -104,5 +88,4 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String) extends Page(br
 
 
 trait PageContext extends Scope {
-
 }
