@@ -7,11 +7,11 @@ import controllers.Routing
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import models.domain.{Claim, Trips}
+import models.domain.{AbroadForMoreThan4Weeks, Claim, Trips}
 import models.yesNo.YesNo
 
 object G2AbroadForMoreThan4Weeks extends Controller with Routing with CachedClaim {
-  override val route = Trips.id -> routes.G2AbroadForMoreThan4Weeks.present
+  override val route = AbroadForMoreThan4Weeks.id -> routes.G2AbroadForMoreThan4Weeks.present
 
   val form = Form(
     mapping(
@@ -22,7 +22,7 @@ object G2AbroadForMoreThan4Weeks extends Controller with Routing with CachedClai
 
   def present = claiming { implicit claim => implicit request =>
     val trips = claim.questionGroup(Trips) match {
-      case Some(t: Trips) => t
+      case Some(ts: Trips) => ts
       case _ => Trips()
     }
 
@@ -31,7 +31,7 @@ object G2AbroadForMoreThan4Weeks extends Controller with Routing with CachedClai
 
   def submit = claiming { implicit claim => implicit request =>
     val trips = claim.questionGroup(Trips) match {
-      case Some(t: Trips) => t
+      case Some(ts: Trips) => ts
       case _ => Trips()
     }
 
@@ -40,7 +40,7 @@ object G2AbroadForMoreThan4Weeks extends Controller with Routing with CachedClai
       abroadForMoreThan4Weeks => abroadForMoreThan4Weeks.answer match {
         case "yes" if trips.fourWeeksTrips.size < 10 => claim.update(trips) -> Redirect(routes.G4Trip.fourWeeks())
         case "yes" => claim.update(trips) -> Redirect(routes.G2AbroadForMoreThan4Weeks.present())
-        case _ => claim.update(trips) -> Redirect(routes.TimeSpentAbroad.completed())
+        case _ => claim.update(trips) -> Redirect(routes.G3AbroadForMoreThan52Weeks.present())
       })
   }
 }

@@ -1,14 +1,19 @@
 package models.domain
 
 import models.DayMonthYear
+import models.yesNo.YesNoWithText
 
 case object TimeSpentAbroad {
   val id = "s5"
 }
 
-case class NormalResidenceAndCurrentLocation(normallyLiveInUK: String, whereDoYouNormallyLive: Option[String] = None, inGBNow: String) extends QuestionGroup(NormalResidenceAndCurrentLocation.id)
+case class NormalResidenceAndCurrentLocation(whereDoYouLive:YesNoWithText, inGBNow: String) extends QuestionGroup(NormalResidenceAndCurrentLocation.id)
 
 case object NormalResidenceAndCurrentLocation extends QuestionGroup(s"${TimeSpentAbroad.id}.g1")
+
+case object AbroadForMoreThan4Weeks extends QuestionGroup(s"${TimeSpentAbroad.id}.g2")
+
+case object AbroadForMoreThan52Weeks extends QuestionGroup(s"${TimeSpentAbroad.id}.g3")
 
 case class Trips(fourWeeksTrips: List[FourWeeksTrip] = Nil, fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips.id) {
   def update(trip: FourWeeksTrip) = {

@@ -114,10 +114,13 @@ POST    /timeSpentAbroad/normalResidenceAndCurrentLocation      controllers.s5_t
 GET     /timeSpentAbroad/abroadForMoreThan4Weeks                controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.present
 POST    /timeSpentAbroad/abroadForMoreThan4Weeks                controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.submit
 
-# GET   /timeSpentAbroad/abroadForMoreThan52Weeks               controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.present
+GET     /timeSpentAbroad/abroadForMoreThan52Weeks               controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.present
+POST    /timeSpentAbroad/abroadForMoreThan52Weeks               controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.submit
 
 GET     /timeSpentAbroad/trip/4Weeks                            controllers.s5_time_spent_abroad.G4Trip.fourWeeks
 POST    /timeSpentAbroad/trip/4Weeks                            controllers.s5_time_spent_abroad.G4Trip.fourWeeksSubmit
+GET     /timeSpentAbroad/trip/52Weeks                           controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeks
+POST    /timeSpentAbroad/trip/52Weeks                           controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeksSubmit
 
 GET     /timeSpentAbroad/trip/:id                               controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
 DELETE  /timeSpentAbroad/trip/:id                               controllers.s5_time_spent_abroad.G4Trip.delete(id: String)

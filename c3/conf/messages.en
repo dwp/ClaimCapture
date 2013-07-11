@@ -35,6 +35,8 @@ s4.g9 = Contact details of the person who pays you
 s4.g10 = Breaks in care
 s4.g11 = About the breaks in care
 
+s5.g1 = Your normal residence & current location
+
 s6.g1 = How would you like to get paid?
 s6.g2 = Bank / building society details
 
@@ -182,8 +184,10 @@ medicalDuringBreak = Did you or the person you look after received any medical t
 ## TIME SPENT ABROAD
 
 # NORMAL RESIDENCE AND CURRENT LOCATION
-normallyLiveInUK = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
-whereDoYouNormallyLive = Where do you normally live?
+liveInUK.answer = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
+liveInUK_answer = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
+liveInUK.whereDoYouLive = Where do you normally live?
+liveInUK_whereDoYouLive = Where do you normally live?
 inGBNow = Are you in Great Britain now?
 
 trips = Have you been out of Great Britain
@@ -191,6 +195,10 @@ trips = Have you been out of Great Britain
 # 4 WEEKS
 4Weeks.label = Have you been out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
 4Weeks.more.label = Have you had any more trips out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
+
+# 52 WEEKS
+52Weeks.label = Have you been out of Great Britain for more than 52 weeks, since {0} (this is 156 weeks before your claim date)?
+52Weeks.more.label = Have you had any more trips out of Great Britain for more than 52 weeks, since {0} (this is 156 weeks before your claim date)?
 
 start.trip = Date you left Great Britain
 end.trip = Date you returned to Great Britain

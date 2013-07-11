@@ -33,7 +33,7 @@ class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification w
       browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
       browser.title mustEqual "Normal Residence and Current Location - Time Spent Abroad"
 
-      browser.click("#normallyLiveInUK_no")
+      browser.click("#liveInUK_answer_no")
       browser.submit("button[value='next']")
       browser.title mustEqual "Normal Residence and Current Location - Time Spent Abroad"
       browser.find("div[class=validation-summary] ol li").size mustEqual 2

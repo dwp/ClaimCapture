@@ -23,7 +23,7 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
 
     """reject "yes" to "Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?".
        having not answered "Are you in Great Britain now?".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("normallyLiveInUK" -> "yes")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "yes")
 
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -33,7 +33,7 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
        "yes" to "Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?" and
        "yes" to "Are you in Great Britain now?".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("normallyLiveInUK" -> "yes", "inGBNow" -> "yes")
+        .withFormUrlEncodedBody("liveInUK.answer" -> "yes", "inGBNow" -> "yes")
 
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan4Weeks")
@@ -43,7 +43,7 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
        "yes" to "Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?" and
        "no" to "Are you in Great Britain now?".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("normallyLiveInUK" -> "yes", "inGBNow" -> "no")
+        .withFormUrlEncodedBody("liveInUK.answer" -> "yes", "inGBNow" -> "no")
 
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan4Weeks")
@@ -51,7 +51,7 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
 
     """reject "no" to "Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?"
        having not answered "Where do you normally live?".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("normallyLiveInUK" -> "no")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "no")
 
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -61,7 +61,7 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
        having answered "Where do you normally live?"
        but not answered "Are you in Great Britain now?".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("normallyLiveInUK" -> "no", "whereDoYouNormallyLive" -> "Acapulco")
+        .withFormUrlEncodedBody("liveInUK.answer" -> "no", "liveInUK.whereDoYouLive" -> "Acapulco")
 
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -71,7 +71,7 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
        having answered "Where do you normally live?"
        and answered "Are you in Great Britain now?".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("normallyLiveInUK" -> "no", "whereDoYouNormallyLive" -> "Acapulco", "inGBNow" -> "no")
+        .withFormUrlEncodedBody("liveInUK.answer" -> "no", "liveInUK.whereDoYouLive" -> "Acapulco", "inGBNow" -> "no")
 
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan4Weeks")

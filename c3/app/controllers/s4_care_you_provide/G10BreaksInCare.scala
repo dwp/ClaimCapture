@@ -63,13 +63,15 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
   }
 
   private def dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim: Claim): String = {
+    import language.postfixOps
+
     val spent35HoursCaringBeforeClaim = claim.questionGroup(MoreAboutTheCare) match {
       case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim == "yes"
       case _ => false
     }
 
-    claim.dateOfClaim.fold("{NO CLAIM DATE}")(d =>
-      if (spent35HoursCaringBeforeClaim) (d.adjust { _.minusMonths(6) }).`dd/MM/yyyy`
-      else d.`dd/MM/yyyy`)
+    claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+      if (spent35HoursCaringBeforeClaim) (dmy - 6 months) `dd/MM/yyyy`
+      else dmy `dd/MM/yyyy`)
   }
 }

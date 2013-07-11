@@ -5,7 +5,7 @@
 @import models.domain.Trips
 @import models.DayMonthYear
 
-@main("Abroad for more than 4 weeks - Time Spent Abroad", Some(yesNoForm), completedQuestionGroups) {
+@main("Abroad for more than 52 weeks - Time Spent Abroad", Some(yesNoForm), completedQuestionGroups) {
     <fieldset id="trips" class="form-elements results-detail">
         <legend>Trips you have added</legend>
 
@@ -23,7 +23,7 @@
             </thead>
 
             <tbody>
-                @for(trip <- trips.fourWeeksTrips) {
+                @for(trip <- trips.fiftyTwoWeeksTrips) {
                     <tr id="@trip.id" class="@trip.id">
                         <td>
                             @{trip.start.`dd/MM/yyyy`}
@@ -48,19 +48,19 @@
         </div>
     </fieldset>
 
-    @form(action = controllers.s5_time_spent_abroad.routes.G2AbroadForMoreThan4Weeks.submit) {
+    @form(action = controllers.s5_time_spent_abroad.routes.G3AbroadForMoreThan52Weeks.submit) {
         <fieldset class="form-elements">
-            <legend>When you went abroad for more than 4 weeks</legend>
+            <legend>When you went abroad for more than 52 weeks</legend>
 
             <ul class="group">
-                @defining(if(trips.fourWeeksTrips == Nil || trips.fourWeeksTrips.isEmpty) {"4Weeks.label"} else {"4Weeks.more.label"}) { label =>
-                    @yesNoRadioGroup(yesNoForm("anyTrips"), '_label -> Messages(label, (DayMonthYear.today - 3 years).`dd/MM/yyyy`))
+                @defining(if(trips.fiftyTwoWeeksTrips == Nil || trips.fiftyTwoWeeksTrips.isEmpty) {"52Weeks.label"} else {"52Weeks.more.label"}) { label =>
+                    @yesNoRadioGroup(yesNoForm("anyTrips"), '_label -> Messages(label, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 156 weeks).`dd/MM/yyyy`)))
                 }
             </ul>
         </fieldset>
 
         <div class="form-steps">
-            <a id="backButton" href="@controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.present" class="button secondary">Back</a>
+            <a id="backButton" href="@controllers.s5_time_spent_abroad.routes.G2AbroadForMoreThan4Weeks.present" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }

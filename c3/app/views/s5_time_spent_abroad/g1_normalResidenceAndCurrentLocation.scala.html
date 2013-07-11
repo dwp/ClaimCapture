@@ -3,6 +3,7 @@
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
+@import utils.helpers.CarersCrypto
 
 @main("Normal Residence and Current Location - Time Spent Abroad", Some(normalResidenceAndCurrentLocationForm)) {
     @form(action = controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.submit) {
@@ -10,9 +11,14 @@
             <legend>Your normal residence &amp; current location</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(normalResidenceAndCurrentLocationForm("normallyLiveInUK"))
+                @yesNoRadioGroup(normalResidenceAndCurrentLocationForm("liveInUK.answer"))
 
-                @carersInputText(normalResidenceAndCurrentLocationForm("whereDoYouNormallyLive"), 'maxLength -> "60")
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputText(normalResidenceAndCurrentLocationForm("liveInUK.whereDoYouLive"), 'maxLength -> Mappings.sixty)),
+                    'id -> "liveInUK",
+                    'visibleOn -> "no",
+                    'display -> normalResidenceAndCurrentLocationForm("liveInUK.answer").value.getOrElse("yes")
+                )
 
                 @yesNoRadioGroup(normalResidenceAndCurrentLocationForm("inGBNow"))
             </ul>
@@ -25,22 +31,11 @@
     }
 }
 
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s5_time_spent_abroad/g1_normalResidenceAndCurrentLocation.js")'></script>
+
 <script type="text/javascript">
     $(function() {
-        @if(normalResidenceAndCurrentLocationForm("normallyLiveInUK").value.getOrElse("") != "no") {
-            $("#whereDoYouNormallyLive").closest("li").hide();
-        }
-
-        $("#normallyLiveInUK_no").change(function() {
-            if ($(this).val() === "no") {
-                return $(this).closest("ul").parent().next().slideDown();
-            }
-        });
-
-        return $("#normallyLiveInUK_yes").change(function() {
-            if ($(this).val() === "yes") {
-                return $(this).closest("ul").parent().next().slideUp();
-            }
-        });
+        window.initEvents("@CarersCrypto.encryptAES("liveInUK_answer_yes")",
+        "@CarersCrypto.encryptAES("liveInUK_answer_no")");
     });
 </script>
