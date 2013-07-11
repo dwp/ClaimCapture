@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, FormHelper}
+import controllers.{BrowserMatchers, Formulate}
 
 class G11BreakIntegrationSpec extends Specification with Tags {
   "Break" should {
@@ -14,7 +14,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     }
 
     """present "completed" when no more breaks are required""" in new BreakWithBrowser {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       browser.goTo("/careYouProvide/breaksInCare")
 
       browser.click("#answer_no")

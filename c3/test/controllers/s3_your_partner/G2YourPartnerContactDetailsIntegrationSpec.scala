@@ -2,7 +2,7 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.FormHelper
+import controllers.Formulate
 
 class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags {
 
@@ -20,28 +20,28 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
     }
 
     "contain the completed forms" in new WithBrowser {
-      FormHelper.fillYourPartnerPersonalDetails(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
 
     "be prepopulated if they live at same address" in new WithBrowser {
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillYourPartnerPersonalDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
       browser.title mustEqual "Contact Details - Your Partner"
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
 
     "be blank if they live at different address" in new WithBrowser {
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillYourPartnerPersonalDetailsNotLiveAtSameAddress(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.yourPartnerPersonalDetailsNotLiveAtSameAddress(browser)
       browser.title mustEqual "Contact Details - Your Partner"
       browser.find("#address_lineOne").getValue mustEqual ""
       browser.find("#postcode").getValue mustEqual ""
     }
 
     "be blank if they live at same address but did not enter one" in new WithBrowser {
-      FormHelper.fillYourPartnerPersonalDetails(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
       browser.find("#address_lineOne").getValue mustEqual ""
       browser.find("#postcode").getValue mustEqual ""
     }
@@ -53,18 +53,18 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
-      FormHelper.fillYourPartnerContactDetails(browser)
+      Formulate.yourPartnerContactDetails(browser)
       browser.title mustEqual "More About Your Partner - Your Partner"
     }
 
     "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {
-      FormHelper.fillYourPartnerContactDetails(browser)
+      Formulate.yourPartnerContactDetails(browser)
       browser.click("#backButton")
-      browser.find("#address_lineOne").getValue mustEqual FormHelper.partnerAddress
-      browser.find("#postcode").getValue mustEqual FormHelper.partnerPostcode
+      browser.find("#address_lineOne").getValue mustEqual Formulate.partnerAddress
+      browser.find("#postcode").getValue mustEqual Formulate.partnerPostcode
       browser.click("#backButton")
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillYourPartnerPersonalDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
 
       browser.title mustEqual "Contact Details - Your Partner"
       browser.find("#address_lineOne").getValue mustEqual "My Address"

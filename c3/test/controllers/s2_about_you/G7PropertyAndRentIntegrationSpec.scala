@@ -2,7 +2,7 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, FormHelper}
+import controllers.{BrowserMatchers, Formulate}
 
 class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
 
@@ -14,24 +14,24 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
     }
 
     "be presented when there is a claim date" in new WithBrowser {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       browser.goTo("/aboutyou/propertyAndRent")
       browser.title mustEqual "Property and Rent - About You"
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillYourDetails(browser)
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillMoreAboutYou(browser)
-      FormHelper.fillEmployment(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYou(browser)
+      Formulate.employment(browser)
 
       findMustEqualSize("div[class=completed] ul li", 5)
     }
 
     "contain questions with claim dates" in new WithBrowser {
       val dateString = "03/04/1950"
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       browser.goTo("/aboutyou/propertyAndRent")
       val h3 = browser.find("div[class=completed] ul li h3")
       h3.getText.contains(dateString) mustEqual true
@@ -42,7 +42,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       browser.goTo("/aboutyou/propertyAndRent")
       browser.title mustEqual "Property and Rent - About You"
       browser.submit("button[type='submit']")
@@ -51,8 +51,8 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillPropertyAndRent(browser)
+      Formulate.claimDate(browser)
+      Formulate.propertyAndRent(browser)
       browser.title mustEqual "Completion - About You"
     }
   } section "integration"

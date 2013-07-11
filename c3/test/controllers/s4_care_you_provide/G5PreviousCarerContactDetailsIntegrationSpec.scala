@@ -1,20 +1,20 @@
 package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
-import controllers.{BrowserMatchers, FormHelper}
+import controllers.{BrowserMatchers, Formulate}
 import play.api.test.WithBrowser
 
 class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Tags {
 
   "Previous Carer Contact Details" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
-      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
 
-      FormHelper.fillPreviousCarerPersonalDetails(browser)
+      Formulate.previousCarerPersonalDetails(browser)
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
 
       browser.goTo("/careYouProvide/previousCarerContactDetails")
@@ -22,13 +22,13 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
-      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
 
-      FormHelper.fillPreviousCarerPersonalDetails(browser)
+      Formulate.previousCarerPersonalDetails(browser)
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
 
       browser.goTo("/careYouProvide/previousCarerContactDetails")
@@ -40,13 +40,13 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
     }
 
     "navigate back to Previous Carer Person Details" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
-      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
 
-      FormHelper.fillPreviousCarerPersonalDetails(browser)
+      Formulate.previousCarerPersonalDetails(browser)
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
 
       browser.click("#backButton")
@@ -60,10 +60,10 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
 
-      FormHelper.fillPreviousCarerPersonalDetails(browser)
+      Formulate.previousCarerPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
   } section "integration"

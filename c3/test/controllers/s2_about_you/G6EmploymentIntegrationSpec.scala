@@ -2,13 +2,13 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.FormHelper
+import controllers.Formulate
 
 class G6EmploymentIntegrationSpec extends Specification with Tags {
 
   "Employment" should {
     "be presented" in new WithBrowser {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       browser.goTo("/aboutyou/employment")
 
       browser.title mustEqual "Employment - About You"
@@ -21,24 +21,24 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
     }
 
     "contain 4 completed forms" in new WithBrowser {
-      FormHelper.fillYourDetails(browser)
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillMoreAboutYou(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYou(browser)
 
       browser.title mustEqual "Employment - About You"
       browser.find("div[class=completed] ul li").size() mustEqual 4
     }
 
     "fill all fields" in new WithBrowser {
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillEmployment(browser)
+      Formulate.claimDate(browser)
+      Formulate.employment(browser)
 
       browser.title mustEqual "Property and Rent - About You"
     }
 
     "failed to fill the form" in new WithBrowser {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       browser.goTo("/aboutyou/employment")
 
       browser.title mustEqual "Employment - About You"

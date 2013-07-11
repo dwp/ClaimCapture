@@ -2,7 +2,7 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.FormHelper
+import controllers.Formulate
 import org.specs2.execute.PendingUntilFixed
 
 class G4PersonYouCareForIntegrationSpec extends Specification with Tags with PendingUntilFixed {
@@ -26,14 +26,14 @@ class G4PersonYouCareForIntegrationSpec extends Specification with Tags with Pen
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
-      FormHelper.fillPersonYouCareFor(browser)
+      Formulate.personYouCareFor(browser)
       browser.title mustEqual "Completion - Your Partner"
     }
     
     "contain the completed forms" in new WithBrowser {
-      FormHelper.fillYourPartnerPersonalDetails(browser)
-      FormHelper.fillYourPartnerContactDetails(browser)
-      FormHelper.fillMoreAboutYourPartnerSeparated(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
+      Formulate.yourPartnerContactDetails(browser)
+      Formulate.moreAboutYourPartnerSeparated(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 3
     }
   } section "integration"
