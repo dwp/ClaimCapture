@@ -54,7 +54,7 @@
 
             <ul class="group">
                 @defining(if(trips.fourWeeksTrips == Nil || trips.fourWeeksTrips.isEmpty) {"4Weeks.label"} else {"4Weeks.more.label"}) { label =>
-                    @yesNoRadioGroup(yesNoForm("trips"), '_label -> Messages(label, (DayMonthYear.today - 3 years).`dd/MM/yyyy`))
+                    @yesNoRadioGroup(yesNoForm("anyTrips"), '_label -> Messages(label, (DayMonthYear.today - 3 years).`dd/MM/yyyy`))
                 }
             </ul>
         </fieldset>

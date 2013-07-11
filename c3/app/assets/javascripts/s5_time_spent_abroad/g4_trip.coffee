@@ -29,7 +29,7 @@ $ ->
                     url: "/timeSpentAbroad/trip/" + tr.attr("id")
 
                     success: (data) ->
-                        $("label[for='trips']").text(data.trips)
+                        $("#anyTrips").parent().children().eq(0).text(data.anyTrips)
                         enable()
 
                         $(".breaks-prompt").slideUp()
