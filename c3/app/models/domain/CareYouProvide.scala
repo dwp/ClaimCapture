@@ -4,7 +4,7 @@ import models._
 import models.Whereabouts
 import models.MultiLineAddress
 import models.NationalInsuranceNumber
-import yesNo.{YesNoWithDropDownAndText, YesNoWithDropDown}
+import yesNo.{YesNoWithDate, YesNoWithDropDownAndText, YesNoWithDropDown}
 
 case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails, theirContactDetails: TheirContactDetails,
                           moreAboutThePerson: MoreAboutThePerson, representatives: RepresentativesForPerson,
@@ -45,8 +45,7 @@ case class RepresentativesForPerson(youAct: YesNoWithDropDown, someoneElseAct:Ye
 
 case object RepresentativesForPerson extends QuestionGroup(s"${CareYouProvide.id}.g6")
 
-case class MoreAboutTheCare(spent35HoursCaring: String, spent35HoursCaringBeforeClaim: String,
-                            careStartDate: Option[DayMonthYear], hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare.id)
+case class MoreAboutTheCare(spent35HoursCaring: String, spent35HoursCaringBeforeClaim:YesNoWithDate, hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare.id)
 
 case object MoreAboutTheCare extends QuestionGroup(s"${CareYouProvide.id}.g7")
 

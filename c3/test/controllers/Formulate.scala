@@ -232,11 +232,11 @@ object Formulate {
     browser.goTo("/careYouProvide/moreAboutTheCare")
     browser.click("#spent35HoursCaring_yes")
 
-    browser.click("#spent35HoursCaringBeforeClaim_yes")
-    browser.await().atMost(30, TimeUnit.SECONDS).until("#careStartDate_year").areDisplayed
-    browser.click("#careStartDate_day option[value='3']")
-    browser.click("#careStartDate_month option[value='4']")
-    browser.fill("#careStartDate_year") `with` "1950"
+    browser.click("#beforeClaimCaring_answer_yes")
+    browser.await().atMost(30, TimeUnit.SECONDS).until("#beforeClaimCaring_date_year").areDisplayed
+    browser.click("#beforeClaimCaring_date_day option[value='3']")
+    browser.click("#beforeClaimCaring_date_month option[value='4']")
+    browser.fill("#beforeClaimCaring_date_year") `with` "1950"
 
     browser.click("#hasSomeonePaidYou_yes")
 
