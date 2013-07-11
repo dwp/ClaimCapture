@@ -25,7 +25,7 @@ class BenefitsPage(browser: TestBrowser) extends Page(browser, "/", BenefitsPage
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) {
-    theClaim.`Can you get allowance - does person get benefits?` match {
+    theClaim.`Can you get Carers Allowance? - Does the person you care for get one of these benefits?` match {
       case "Yes" => browser.click("#q3-yes")
       case "No" => browser.click("#q3-no")
     }

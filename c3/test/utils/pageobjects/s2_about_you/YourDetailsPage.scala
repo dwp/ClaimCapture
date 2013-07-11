@@ -28,5 +28,5 @@ object YourDetailsPage {
 /** The context for Specs tests */
 trait YourDetailsPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = YourDetailsPage buildPage (browser)
+  val page = YourDetailsPage buildPage(browser)
 }

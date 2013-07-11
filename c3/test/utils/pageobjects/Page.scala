@@ -3,6 +3,7 @@ package utils.pageobjects
 import play.api.test.{WithBrowser, TestBrowser}
 import org.specs2.specification.Scope
 import java.util.concurrent.TimeUnit
+import scala.collection.convert.Wrappers._
 
 
 /**
@@ -11,10 +12,6 @@ import java.util.concurrent.TimeUnit
  *         Date: 08/07/2013
  */
 abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
-
-  // ========================================
-  // Page Management
-  // ========================================
 
   def goToThePage() = goToUrl(url)
 
@@ -39,7 +36,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
 
   def submitPage() = {
     val nextPageTile = browser.submit("button[type='submit']").title()
-    if (hasErrors()) throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed.""")
+    checkNoErrorsForPage(nextPageTile)
     createPageWithTitle(nextPageTile)
   }
 
@@ -54,7 +51,12 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
 
   protected def titleMatch(): Boolean = browser.title == this.pageTitle
 
-  protected def hasErrors() = !browser.find("div[class=validation-summary] ol li").isEmpty
+  protected def checkNoErrorsForPage(nextPageTile: String) = {
+    val rawErrors = browser.find("div[class=validation-summary] ol li")
+    if (!rawErrors.isEmpty) {
+      throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed""",  (new JListWrapper(rawErrors.getTexts)).toList)
+    }
+  }
 
   private def createPageWithTitle(title: String) = {
     val newPage = PageFactory createPageFromTitle(browser, title)
