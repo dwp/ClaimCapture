@@ -3,7 +3,7 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import org.specs2.execute.PendingUntilFixed
-import controllers.FormHelper
+import controllers.Formulate
 
 class G8CompletedIntegrationSpec extends Specification with Tags {
 
@@ -14,34 +14,34 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
     }
     
     """show the text "Continue to Partner / Spouse" on the submit button when next section is "Your Partner"""" in new WithBrowser {
-      FormHelper.fillYourDetails(browser)
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillMoreAboutYou(browser)
-      FormHelper.fillEmployment(browser)
-      FormHelper.fillPropertyAndRent(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYou(browser)
+      Formulate.employment(browser)
+      Formulate.propertyAndRent(browser)
       
       browser.find("#submit").getText mustEqual "Continue to Partner / Spouse"
     }
     
     """show the text "Continue to Care You Provide" on the submit button when next section is "Care You Provide"""" in new WithBrowser {
-      FormHelper.fillYourDetails(browser)
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillMoreAboutYouNotHadPartnerSinceClaimDate(browser)
-      FormHelper.fillEmployment(browser)
-      FormHelper.fillPropertyAndRent(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
+      Formulate.employment(browser)
+      Formulate.propertyAndRent(browser)
       
       browser.find("#submit").getText mustEqual "Continue to care you provide"
     }
 
     """be submitted to "Personal Details - Your Partner" page when they have had a partner/spouse at any time since the claim date""" in new WithBrowser {
-      FormHelper.fillYourDetails(browser)
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillMoreAboutYou(browser)
-      FormHelper.fillEmployment(browser)
-      FormHelper.fillPropertyAndRent(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYou(browser)
+      Formulate.employment(browser)
+      Formulate.propertyAndRent(browser)
       
       browser.submit("button[type='submit']")
       
@@ -49,12 +49,12 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
     }
 
     """be submitted to "Their Personal Details - Care You Provide" page when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser {
-      FormHelper.fillYourDetails(browser)
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillMoreAboutYouNotHadPartnerSinceClaimDate(browser)
-      FormHelper.fillEmployment(browser)
-      FormHelper.fillPropertyAndRent(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
+      Formulate.employment(browser)
+      Formulate.propertyAndRent(browser)
       
       browser.submit("button[type='submit']")
       

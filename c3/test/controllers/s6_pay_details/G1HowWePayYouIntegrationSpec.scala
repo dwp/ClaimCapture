@@ -2,7 +2,7 @@ package controllers.s6_pay_details
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.FormHelper
+import controllers.Formulate
 
 class G1HowWePayYouIntegrationSpec extends Specification with Tags {
   "How we pay you" should {
@@ -20,7 +20,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
-      FormHelper.fillHowWePayYou(browser)
+      Formulate.howWePayYou(browser)
       browser.title mustEqual "Bank Building Society Details - Pay Details"
     }
 
@@ -31,7 +31,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
     }*/
 
     "contain the completed forms" in new WithBrowser {
-      FormHelper.fillHowWePayYou(browser)
+      Formulate.howWePayYou(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
   } section "integration"

@@ -52,6 +52,18 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
   }
 
+  "52 weeks trip" should {
+    "be presented" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/timeSpentAbroad/trip/52Weeks")
+      titleMustEqual("Trip - Time Spent Abroad")
+    }
+
+    "be submitted with all mandatory data" in new TripWithBrowser {
+      trip(fiftyTwoWeeks)
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+    }
+  }
+
   def fourWeeks(browser: TestBrowser) = browser.goTo("/timeSpentAbroad/trip/4Weeks")
 
   def fiftyTwoWeeks(browser: TestBrowser) = browser.goTo("/timeSpentAbroad/trip/52Weeks")

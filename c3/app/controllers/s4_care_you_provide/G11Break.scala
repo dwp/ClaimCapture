@@ -7,6 +7,7 @@ import models.domain._
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
+import controllers.s4_care_you_provide.CareYouProvide.breaksInCare
 
 object G11Break extends Controller with CachedClaim {
   val form = Form(
@@ -24,11 +25,6 @@ object G11Break extends Controller with CachedClaim {
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    val breaksInCare = claim.questionGroup(BreaksInCare) match {
-      case Some(b: BreaksInCare) => b
-      case _ => BreaksInCare()
-    }
-
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g11_break(formWithErrors)),
       break => {

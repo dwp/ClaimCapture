@@ -8,26 +8,26 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
 
   "Completed Question Group List" should {
     "increase when navigating forwards" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
-      FormHelper.fillTheirContactDetails(browser)
+      Formulate.theirContactDetails(browser)
       titleMustEqual("More About The Person You Care For - Care You Provide")
       browser.find("div[class=completed] ul li").size mustEqual 2
 
-      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
 
     "decrease when navigating backwards" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
-      FormHelper.fillTheirContactDetails(browser)
+      Formulate.theirContactDetails(browser)
       titleMustEqual("More About The Person You Care For - Care You Provide")
 
-      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
 
@@ -38,22 +38,22 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
     }
 
     "contain the correct items when navigating S4G3 ClaimedAllowanceBefore positive answer path" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
-      FormHelper.fillTheirContactDetails(browser)
+      Formulate.theirContactDetails(browser)
       titleMustEqual("More About The Person You Care For - Care You Provide")
 
-      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
 
-      FormHelper.fillPreviousCarerPersonalDetails(browser)
+      Formulate.previousCarerPersonalDetails(browser)
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
 
-      FormHelper.fillPreviousCarerContactDetails(browser)
+      Formulate.previousCarerContactDetails(browser)
       titleMustEqual("Representatives For The Person - Care You Provide")
 
-      FormHelper.fillRepresentativesForThePerson(browser)
+      Formulate.representativesForThePerson(browser)
       titleMustEqual("More about the care you provide - Care You Provide")
 
       browser.find("div[class=completed] ul li").size mustEqual 6
@@ -64,16 +64,16 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
     }
 
     "contain the correct items when navigating S4G3 ClaimedAllowanceBefore negative answer path" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
-      FormHelper.fillTheirContactDetails(browser)
+      Formulate.theirContactDetails(browser)
       titleMustEqual("More About The Person You Care For - Care You Provide")
 
-      FormHelper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       titleMustEqual("Representatives For The Person - Care You Provide")
 
-      FormHelper.fillRepresentativesForThePerson(browser)
+      Formulate.representativesForThePerson(browser)
       titleMustEqual("More about the care you provide - Care You Provide")
 
       browser.find("div[class=completed] ul li").size mustEqual 4
@@ -83,22 +83,22 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
 
     """remove invalidated history after completing the S4G3 ClaimedAllowanceBefore postive answer path
        but goes back and changes to the negative answer path""" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
-      FormHelper.fillTheirContactDetails(browser)
+      Formulate.theirContactDetails(browser)
       titleMustEqual("More About The Person You Care For - Care You Provide")
 
-      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
 
-      FormHelper.fillPreviousCarerPersonalDetails(browser)
+      Formulate.previousCarerPersonalDetails(browser)
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
 
-      FormHelper.fillPreviousCarerContactDetails(browser)
+      Formulate.previousCarerContactDetails(browser)
       titleMustEqual("Representatives For The Person - Care You Provide")
 
-      FormHelper.fillRepresentativesForThePerson(browser)
+      Formulate.representativesForThePerson(browser)
       titleMustEqual("More about the care you provide - Care You Provide")
 
       browser.click("#backButton")
@@ -107,10 +107,10 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       browser.click("#backButton")
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
 
-      FormHelper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       titleMustEqual("Representatives For The Person - Care You Provide")
 
-      FormHelper.fillRepresentativesForThePerson(browser)
+      Formulate.representativesForThePerson(browser)
       titleMustEqual("More about the care you provide - Care You Provide")
 
       browser.find("div[class=completed] ul li").size mustEqual 4

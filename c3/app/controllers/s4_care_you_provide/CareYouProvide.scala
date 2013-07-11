@@ -5,7 +5,7 @@ import models.view.CachedClaim
 import scala.collection.immutable.ListMap
 import play.api.mvc.Call
 import controllers.Routing._
-import models.domain.Claim
+import models.domain.{BreaksInCare, Claim}
 
 object CareYouProvide extends Controller with CachedClaim {
 
@@ -22,6 +22,11 @@ object CareYouProvide extends Controller with CachedClaim {
     G10BreaksInCare)
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+
+  def breaksInCare(implicit claim: Claim) = claim.questionGroup(BreaksInCare) match {
+    case Some(bs: BreaksInCare) => bs
+    case _ => BreaksInCare()
+  }
 
   def completed = claiming { implicit claim => implicit request =>
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())

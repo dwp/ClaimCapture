@@ -79,7 +79,7 @@ class ClaimSubmissionSpec extends Specification with Tags with PendingUntilFixed
       val validator = XmlValidatorFactory.buildCaValidator()
 
       validator.validate(fullXml.buildString(stripComments = true)) must beTrue
-    }.pendingUntilFixed("FAILS to find xsd schema file in .jar")
+    }
 
     "validate a bad claim" in new WithApplication {
       val claim = updateClaim(Claim())

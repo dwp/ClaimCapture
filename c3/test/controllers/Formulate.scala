@@ -3,11 +3,12 @@ package controllers
 import play.api.test.TestBrowser
 import java.util.concurrent.TimeUnit
 
-object FormHelper {
+object Formulate {
   val partnerAddress = "Partner Address"
+
   val partnerPostcode = "RM11 1AA"
     
-  def fillYourDetails(browser: TestBrowser) = {
+  def yourDetails(browser: TestBrowser) = {
     browser.goTo("/aboutyou/yourDetails")
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
@@ -26,7 +27,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillYourDetailsEnablingTimeOutsideUK(browser: TestBrowser) = {
+  def yourDetailsEnablingTimeOutsideUK(browser: TestBrowser) = {
     browser.goTo("/aboutyou/yourDetails")
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
@@ -45,14 +46,14 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillYourContactDetails(browser: TestBrowser) = {
+  def yourContactDetails(browser: TestBrowser) = {
     browser.goTo("/aboutyou/contactDetails")
     browser.fill("#address_lineOne") `with` "My Address"
     browser.fill("#postcode") `with` "SE1 6EH"
     browser.submit("button[type='submit']")
   }
 
-  def fillTimeOutsideUK(browser: TestBrowser) = {
+  def timeOutsideUK(browser: TestBrowser) = {
     browser.goTo("/aboutyou/timeOutsideUK")
     browser.click("#livingInUK_answer_yes")
 
@@ -65,13 +66,13 @@ object FormHelper {
     browser.submit("button[value='next']")
   }
 
-  def fillTimeOutsideUKNotLivingInUK(browser: TestBrowser) = {
+  def timeOutsideUKNotLivingInUK(browser: TestBrowser) = {
     browser.goTo("/aboutyou/timeOutsideUK")
     browser.click("#livingInUK_answer_no")
     browser.submit("button[value='next']")
   }
 
-  def fillClaimDate(browser: TestBrowser) = {
+  def claimDate(browser: TestBrowser) = {
     browser.goTo("/aboutyou/claimDate")
     browser.click("#dateOfClaim_day option[value='3']")
     browser.click("#dateOfClaim_month option[value='4']")
@@ -79,7 +80,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillMoreAboutYou(browser: TestBrowser) = {
+  def moreAboutYou(browser: TestBrowser) = {
     browser.goTo("/aboutyou/moreAboutYou")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
@@ -88,7 +89,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillMoreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
+  def moreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
     browser.goTo("/aboutyou/moreAboutYou")
     browser.click("#hadPartnerSinceClaimDate_no")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
@@ -97,14 +98,14 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillEmployment(browser: TestBrowser) = {
+  def employment(browser: TestBrowser) = {
     browser.goTo("/aboutyou/employment")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
     browser.submit("button[type='submit']")
   }
 
-  def fillPropertyAndRent(browser: TestBrowser) = {
+  def propertyAndRent(browser: TestBrowser) = {
     browser.goTo("/aboutyou/propertyAndRent")
     browser.click("#ownProperty_yes")
     browser.click("#hasSublet_yes")
@@ -112,7 +113,7 @@ object FormHelper {
   }
 
   // Your partner
-  def fillYourPartnerPersonalDetails(browser: TestBrowser) = {
+  def yourPartnerPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/yourPartner/personalDetails")
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
@@ -131,7 +132,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillYourPartnerPersonalDetailsNotLiveAtSameAddress(browser:TestBrowser) = {
+  def yourPartnerPersonalDetailsNotLiveAtSameAddress(browser: TestBrowser) = {
     browser.goTo("/yourPartner/personalDetails")
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
@@ -150,14 +151,14 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillYourPartnerContactDetails(browser: TestBrowser) = {
+  def yourPartnerContactDetails(browser: TestBrowser) = {
     browser.goTo("/yourPartner/contactDetails")
     browser.fill("#address_lineOne") `with` partnerAddress
     browser.fill("#postcode") `with` partnerPostcode
     browser.submit("button[type='submit']")
   }
   
-  def fillMoreAboutYourPartnerSeparated(browser: TestBrowser) = {
+  def moreAboutYourPartnerSeparated(browser: TestBrowser) = {
     browser.goTo("/yourPartner/moreAboutYourPartner")
     browser.click("#dateStartedLivingTogether_day option[value='3']")
     browser.click("#dateStartedLivingTogether_month option[value='4']")
@@ -169,7 +170,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
   
-  def fillMoreAboutYourPartnerNotSeparated(browser: TestBrowser) = {
+  def moreAboutYourPartnerNotSeparated(browser: TestBrowser) = {
     browser.goTo("/yourPartner/moreAboutYourPartner")
     browser.click("#dateStartedLivingTogether_day option[value='3']")
     browser.click("#dateStartedLivingTogether_month option[value='4']")
@@ -178,25 +179,25 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillPersonYouCareFor(browser: TestBrowser) = {
+  def personYouCareFor(browser: TestBrowser) = {
     browser.goTo("/yourPartner/personYouCareFor")
     browser.click("#isPartnerPersonYouCareFor_yes]")
     browser.submit("button[type='submit']")
   }
   
-  def fillPersonYouCareForNotPartner(browser: TestBrowser) = {
+  def personYouCareForNotPartner(browser: TestBrowser) = {
     browser.goTo("/yourPartner/personYouCareFor")
     browser.click("#isPartnerPersonYouCareFor_no]")
     browser.submit("button[type='submit']")
   }
   
-  def fillYourPartnerCompleted(browser: TestBrowser) = {
+  def yourPartnerCompleted(browser: TestBrowser) = {
     browser.goTo("/yourPartner/completed")
     browser.submit("button[type='submit']")
   }
     
   // Care You Provide
-  def fillTheirPersonalDetails(browser: TestBrowser) = {
+  def theirPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/theirPersonalDetails")
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
@@ -208,7 +209,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillTheirPersonalDetailsNotLiveAtSameAddress(browser: TestBrowser) = {
+  def theirPersonalDetailsNotLiveAtSameAddress(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/theirPersonalDetails")
     browser.click("#title option[value='mr']")
     browser.fill("#firstName") `with` "John"
@@ -220,14 +221,14 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillTheirContactDetails(browser: TestBrowser) = {
+  def theirContactDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/theirContactDetails")
     browser.fill("#address_lineOne") `with` "Their Address"
     browser.fill("#postcode") `with` "RM11 1DA"
     browser.submit("button[type='submit']")
   }
 
-  def fillMoreAboutTheCare(browser: TestBrowser) = {
+  def moreAboutTheCare(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/moreAboutTheCare")
     browser.click("#spent35HoursCaring_yes")
 
@@ -242,7 +243,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillMoreAboutTheCareWithNotPaying(browser: TestBrowser) = {
+  def moreAboutTheCareWithNotPaying(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/moreAboutTheCare")
     browser.click("#spent35HoursCaring_yes")
     browser.click("#spent35HoursCaringBeforeClaim_yes")
@@ -253,7 +254,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
   
-  def fillMoreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser: TestBrowser) = {
+  def moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/moreAboutTheCare")
     browser.click("#spent35HoursCaring_yes")
     browser.click("#spent35HoursCaringBeforeClaim_no")
@@ -261,7 +262,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillMoreAboutThePersonWithClaimedAllowanceBefore(browser: TestBrowser) = {
+  def moreAboutThePersonWithClaimedAllowanceBefore(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/moreAboutThePerson")
     browser.click("#relationship option[value='father']")
     browser.click("#armedForcesPayment_yes")
@@ -269,7 +270,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser: TestBrowser) = {
+  def moreAboutThePersonWithNotClaimedAllowanceBefore(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/moreAboutThePerson")
     browser.click("#relationship option[value='father']")
     browser.click("#armedForcesPayment_no")
@@ -277,7 +278,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillPreviousCarerPersonalDetails(browser: TestBrowser) = {
+  def previousCarerPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/previousCarerPersonalDetails")
     browser.fill("#firstName") `with` "John"
     browser.fill("#middleName") `with` "Joe"
@@ -293,14 +294,14 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillPreviousCarerContactDetails(browser: TestBrowser) = {
+  def previousCarerContactDetails(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/previousCarerContactDetails")
     browser.fill("#address_lineOne") `with` "My Address"
     browser.fill("#postcode") `with` "SE1 6EH"
     browser.submit("button[type='submit']")
   }
   
-  def fillRepresentativesForThePerson(browser: TestBrowser) = {
+  def representativesForThePerson(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/representativesForPerson")
     browser.click("#you_actForPerson_yes")
     browser.click("#someoneElse_actForPerson_yes")
@@ -310,22 +311,21 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
   
-  def fillRepresentativesForThePersonNegativeAnswers(browser: TestBrowser) = {
+  def representativesForThePersonNegativeAnswers(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/representativesForPerson")
     browser.click("#actForPerson_no")
     browser.click("#someoneElseActForPerson_no")
     browser.submit("button[type='submit']")
   }
 
-
-  def fillHowWePayYou(browser: TestBrowser) = {
+  def howWePayYou(browser: TestBrowser) = {
     browser.goTo("/payDetails/howWePayYou")
     browser.click("#likeToPay_01")
     browser.click("#paymentFrequency option[value='1W']")
     browser.submit("button[type='submit']")
   }
 
-  def fillBankBuildingSocietyDetails(browser: TestBrowser) = {
+  def bankBuildingSocietyDetails(browser: TestBrowser) = {
     browser.goTo("/payDetails/bankBuildingSocietyDetails")
     browser.fill("#accountHolderName") `with` "holder name"
     browser.fill("#bankFullName") `with` "bank name"
@@ -337,7 +337,7 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillConsent(browser: TestBrowser) = {
+  def consent(browser: TestBrowser) = {
     browser.goTo("/consentAndDeclaration/consent")
     browser.click("#informationFromEmployer_yes")
     browser.fill("#why") `with` "some reason"
@@ -345,19 +345,19 @@ object FormHelper {
     browser.submit("button[type='submit']")
   }
 
-  def fillDisclaimer(browser: TestBrowser) = {
+  def disclaimer(browser: TestBrowser) = {
     browser.goTo("/consentAndDeclaration/disclaimer")
     browser.click("#read")
     browser.submit("button[type='submit']")
   }
 
-  def fillDeclaration(browser: TestBrowser) = {
+  def declaration(browser: TestBrowser) = {
     browser.goTo("/consentAndDeclaration/declaration")
     browser.click("#read")
     browser.submit("button[type='submit']")
   }
 
-  def fillAdditionalInfo(browser: TestBrowser) = {
+  def additionalInfo(browser: TestBrowser) = {
     browser.goTo("/consentAndDeclaration/additionalInfo")
     browser.click("#welshCommunication_yes")
     browser.submit("button[type='submit']")

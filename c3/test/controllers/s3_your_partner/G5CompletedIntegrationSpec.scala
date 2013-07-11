@@ -2,7 +2,7 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.FormHelper
+import controllers.Formulate
 
 class G5CompletedIntegrationSpec extends Specification with Tags {
 
@@ -19,10 +19,10 @@ class G5CompletedIntegrationSpec extends Specification with Tags {
     }
     
     "contain the completed forms" in new WithBrowser {
-      FormHelper.fillYourPartnerPersonalDetails(browser)
-      FormHelper.fillYourPartnerContactDetails(browser)
-      FormHelper.fillMoreAboutYourPartnerSeparated(browser)
-      FormHelper.fillPersonYouCareFor(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
+      Formulate.yourPartnerContactDetails(browser)
+      Formulate.moreAboutYourPartnerSeparated(browser)
+      Formulate.personYouCareFor(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 4
     }
   } section "integration"

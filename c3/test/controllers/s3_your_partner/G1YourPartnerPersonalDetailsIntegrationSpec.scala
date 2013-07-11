@@ -2,16 +2,16 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, FormHelper}
+import controllers.{BrowserMatchers, Formulate}
 
 class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tags {
 
   "Your Partner Personal Details" should {
     "be presented if carer has partner" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       titleMustEqual("More About You - About You")
 
-      FormHelper.fillMoreAboutYou(browser)
+      Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About You")
 
       browser.goTo("/yourPartner/personalDetails")
@@ -19,10 +19,10 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     }
 
     "navigate to next section if carer has no partner" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       titleMustEqual("More About You - About You")
 
-      FormHelper.fillMoreAboutYouNotHadPartnerSinceClaimDate(browser)
+      Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       titleMustEqual("Employment - About You")
 
       browser.goTo("/yourPartner/personalDetails")
@@ -30,10 +30,10 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       titleMustEqual("More About You - About You")
 
-      FormHelper.fillMoreAboutYou(browser)
+      Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About You")
 
       browser.goTo("/yourPartner/personalDetails")
@@ -44,21 +44,21 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       titleMustEqual("More About You - About You")
 
-      FormHelper.fillMoreAboutYou(browser)
+      Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About You")
 
-      FormHelper.fillYourPartnerPersonalDetails(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
       titleMustEqual("Contact Details - Your Partner")
     }
 
     "navigate back to About You - Completed" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       titleMustEqual("More About You - About You")
 
-      FormHelper.fillMoreAboutYou(browser)
+      Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About You")
 
       browser.goTo("/yourPartner/personalDetails")
@@ -69,26 +69,26 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       titleMustEqual("More About You - About You")
 
-      FormHelper.fillMoreAboutYou(browser)
+      Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About You")
 
-      FormHelper.fillYourPartnerPersonalDetails(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
       titleMustEqual("Contact Details - Your Partner")
       findMustEqualSize("div[class=completed] ul li", 1)
     }
         
     "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser {
-      FormHelper.fillYourDetails(browser)
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillTimeOutsideUKNotLivingInUK(browser)
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillMoreAboutYou(browser)
-      FormHelper.fillEmployment(browser)
-      FormHelper.fillPropertyAndRent(browser)
-      FormHelper.fillYourPartnerPersonalDetails(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.timeOutsideUKNotLivingInUK(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYou(browser)
+      Formulate.employment(browser)
+      Formulate.propertyAndRent(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
       
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"

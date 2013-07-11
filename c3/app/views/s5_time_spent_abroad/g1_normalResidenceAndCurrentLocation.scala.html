@@ -25,7 +25,7 @@
         </fieldset>
 
         <div class="form-steps">
-            <a href="../about/carers-about1.html" class="button secondary">Back</a>
+            <a id="backButton" href="@controllers.s4_care_you_provide.routes.CareYouProvide.completed" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </div>
     }
@@ -35,7 +35,6 @@
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("liveInUK_answer_yes")",
-        "@CarersCrypto.encryptAES("liveInUK_answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("liveInUK_answer_yes")", "@CarersCrypto.encryptAES("liveInUK_answer_no")");
     });
 </script>

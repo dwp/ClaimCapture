@@ -2,12 +2,12 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.FormHelper
+import controllers.Formulate
 
 class G3TimeOutsideUKIntegrationSpec extends Specification with Tags {
   "Time outside UK" should {
     "accept the minimal mandatory data" in new WithBrowser {
-      FormHelper.fillTimeOutsideUKNotLivingInUK(browser)
+      Formulate.timeOutsideUKNotLivingInUK(browser)
       browser.title mustEqual "Claim Date - About You"
     }
 
@@ -19,7 +19,7 @@ class G3TimeOutsideUKIntegrationSpec extends Specification with Tags {
     }
 
     "accept a valid date when currently living in UK" in new WithBrowser {
-      FormHelper.fillTimeOutsideUK(browser)
+      Formulate.timeOutsideUK(browser)
       browser.title mustEqual "Claim Date - About You"
     }
 

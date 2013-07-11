@@ -1,7 +1,7 @@
 package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
-import controllers.{BrowserMatchers, FormHelper}
+import controllers.{BrowserMatchers, Formulate}
 import play.api.test.WithBrowser
 
 class G4ClaimDateIntegrationSpec extends Specification with Tags {
@@ -13,15 +13,15 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
     }
 
     "contain 2 completed forms" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillYourDetails(browser)
-      FormHelper.fillYourContactDetails(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
 
       titleMustEqual("Claim Date - About You")
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
 
     "fill date" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
 
       titleMustEqual("More About You - About You")
       browser.find("div[class=completed] ul li h3").get(0).getText mustEqual "Your claim date: 03/04/1950"
@@ -44,16 +44,16 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to Time Outside UK" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillYourDetailsEnablingTimeOutsideUK(browser)
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillTimeOutsideUKNotLivingInUK(browser)
+      Formulate.yourDetailsEnablingTimeOutsideUK(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.timeOutsideUKNotLivingInUK(browser)
       browser.click(".form-steps a")
       titleMustEqual("Time Outside UK - About You")
     }
 
     "navigate back to Contact Details" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillYourDetails(browser)
-      FormHelper.fillYourContactDetails(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
       browser.click(".form-steps a")
       titleMustEqual("Contact Details - About You")
     }
