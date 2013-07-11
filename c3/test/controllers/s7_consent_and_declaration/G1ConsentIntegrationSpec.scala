@@ -2,7 +2,7 @@ package controllers.s7_consent_and_declaration
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.FormHelper
+import controllers.Formulate
 
 class G1ConsentIntegrationSpec extends Specification with Tags {
   "Consent" should {
@@ -20,7 +20,7 @@ class G1ConsentIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
-      FormHelper.fillConsent(browser)
+      Formulate.consent(browser)
       browser.title mustEqual "Disclaimer - Consent And Declaration"
     }
 
@@ -31,7 +31,7 @@ class G1ConsentIntegrationSpec extends Specification with Tags {
     }
 
     "contain the completed forms" in new WithBrowser {
-      FormHelper.fillConsent(browser)
+      Formulate.consent(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
   } section "integration"

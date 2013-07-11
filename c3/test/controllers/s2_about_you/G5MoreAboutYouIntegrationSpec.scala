@@ -2,7 +2,7 @@ package controllers.s2_about_you
 
 import play.api.test.WithBrowser
 import org.specs2.mutable.{Tags, Specification}
-import controllers.FormHelper
+import controllers.Formulate
 
 class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
@@ -13,21 +13,21 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
     }
 
     "be presented when there is a claim date" in new WithBrowser {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       browser.title mustEqual "More About You - About You"
     }
 
     "contain the completed forms" in new WithBrowser {
-      FormHelper.fillYourDetails(browser)
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillClaimDate(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.claimDate(browser)
       browser.title mustEqual "More About You - About You"
       browser.find("div[class=completed] ul li").size() mustEqual 3
     }
 
     "contain questions with claim dates" in new WithBrowser {
       val dateString = "03/04/1950"
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       val h3 = browser.find("div[class=completed] ul li h3")
       h3.getText.contains(dateString) mustEqual true
 
@@ -38,7 +38,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in new WithBrowser {
-      FormHelper.fillClaimDate(browser)
+      Formulate.claimDate(browser)
       browser.goTo("/aboutyou/moreAboutYou")
       browser.title mustEqual "More About You - About You"
       browser.submit("button[type='submit']")
@@ -47,8 +47,8 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillMoreAboutYou(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYou(browser)
       browser.title mustEqual "Employment - About You"
     }
   } section "integration"

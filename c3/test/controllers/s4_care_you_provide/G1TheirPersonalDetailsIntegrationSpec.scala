@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, FormHelper}
+import controllers.{BrowserMatchers, Formulate}
 
 class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Their Personal Details" should {
@@ -20,42 +20,42 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       browser.title mustEqual "Their Contact Details - Care You Provide"
     }
 
     """navigate back to "Completion - Your Partner" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser {
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillMoreAboutYou(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYou(browser)
       browser.goTo("/careYouProvide/theirPersonalDetails")
       browser.click("#backButton")
       browser.title mustEqual "Completion - Your Partner"
     }
         
     """navigate back to "About You - Completed" when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser {
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillMoreAboutYouNotHadPartnerSinceClaimDate(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       browser.goTo("/careYouProvide/theirPersonalDetails")
       browser.click("#backButton")
       browser.title mustEqual "Completion - About You"
     }
     
     "contain the completed forms" in new WithBrowser {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
     
     "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillYourDetails(browser)
-      FormHelper.fillYourContactDetails(browser)
-      FormHelper.fillTimeOutsideUKNotLivingInUK(browser)
-      FormHelper.fillClaimDate(browser)
-      FormHelper.fillMoreAboutYou(browser)
-      FormHelper.fillEmployment(browser)
-      FormHelper.fillYourPartnerPersonalDetails(browser)
-      FormHelper.fillYourPartnerContactDetails(browser)
-      FormHelper.fillMoreAboutYourPartnerNotSeparated(browser)
-      FormHelper.fillPersonYouCareFor(browser)
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.timeOutsideUKNotLivingInUK(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYou(browser)
+      Formulate.employment(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
+      Formulate.yourPartnerContactDetails(browser)
+      Formulate.moreAboutYourPartnerNotSeparated(browser)
+      Formulate.personYouCareFor(browser)
       browser.submit("button[type='submit']")
       
       findMustEqualValue("#firstName","John")

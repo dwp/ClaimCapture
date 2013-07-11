@@ -2,7 +2,7 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.FormHelper
+import controllers.Formulate
 
 class G2ContactDetailsIntegrationSpec extends Specification with Tags {
 
@@ -14,14 +14,14 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "contain 1 completed form" in new WithBrowser {
-      FormHelper.fillYourDetails(browser)
+      Formulate.yourDetails(browser)
 
       browser.title mustEqual "Contact Details - About You"
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
 
     "be able to navigate back to a completed form" in new WithBrowser {
-      FormHelper.fillYourDetails(browser)
+      Formulate.yourDetails(browser)
 
       browser.title() mustEqual "Contact Details - About You"
 

@@ -2,13 +2,13 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, FormHelper}
+import controllers.{BrowserMatchers, Formulate}
 
 class CareYouProvideIntegrationSpec extends Specification with Tags {
 
   "Care you provide" should {
     """present "completion".""" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
 
       browser.goTo("/careYouProvide/completed")

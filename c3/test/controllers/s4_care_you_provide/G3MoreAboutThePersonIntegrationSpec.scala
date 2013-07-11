@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{ Tags, Specification }
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, FormHelper}
+import controllers.{BrowserMatchers, Formulate}
 
 class G3MoreAboutThePersonIntegrationSpec extends Specification with Tags {
 
@@ -20,27 +20,27 @@ class G3MoreAboutThePersonIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to Their Contact Details" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillTheirContactDetails(browser)
+      Formulate.theirContactDetails(browser)
       titleMustEqual("More About The Person You Care For - Care You Provide")
       browser.click("#backButton")
       titleMustEqual("Their Contact Details - Care You Provide")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillTheirPersonalDetails(browser)
+      Formulate.theirPersonalDetails(browser)
       titleMustEqual("Their Contact Details - Care You Provide")
-      FormHelper.fillTheirContactDetails(browser)
+      Formulate.theirContactDetails(browser)
       titleMustEqual("More About The Person You Care For - Care You Provide")
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
 
     "navigate to Previous Carer Details when submitting with claimedAllowanceBefore positive" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
     }
 
     "navigate to Representatives For The Person when submitting with claimedAllowanceBefore negative" in new WithBrowser with BrowserMatchers {
-      FormHelper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
+      Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       titleMustEqual("Representatives For The Person - Care You Provide")
     }
   } section "integration"

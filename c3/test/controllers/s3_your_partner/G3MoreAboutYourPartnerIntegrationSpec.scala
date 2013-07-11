@@ -2,7 +2,7 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.FormHelper
+import controllers.Formulate
 import org.specs2.execute.PendingUntilFixed
 
 class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags with PendingUntilFixed {
@@ -30,22 +30,22 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags with
     }
 
     "navigate back to Your Partner Personal Details" in new WithBrowser {
-      FormHelper.fillYourPartnerPersonalDetails(browser)
-      FormHelper.fillYourPartnerContactDetails(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
+      Formulate.yourPartnerContactDetails(browser)
       browser.click("#backButton")
       browser.title mustEqual "Contact Details - Your Partner"
     }
     
     "navigate to next page on valid submission" in new WithBrowser {
-      FormHelper.fillYourPartnerPersonalDetails(browser)
-      FormHelper.fillYourPartnerContactDetails(browser)
-      FormHelper.fillMoreAboutYourPartnerSeparated(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
+      Formulate.yourPartnerContactDetails(browser)
+      Formulate.moreAboutYourPartnerSeparated(browser)
       browser.title mustEqual "Person You Care For - Your Partner"
     }
     
     "contain the completed forms" in new WithBrowser {
-      FormHelper.fillYourPartnerPersonalDetails(browser)
-      FormHelper.fillYourPartnerContactDetails(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
+      Formulate.yourPartnerContactDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
   } section "integration"
