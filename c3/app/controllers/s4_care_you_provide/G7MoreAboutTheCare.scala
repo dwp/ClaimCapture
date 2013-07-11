@@ -42,8 +42,7 @@ object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val formWithErrorsUpdate = formWithErrors
-          .replaceError("beforeClaimCaring", FormError("beforeClaimCaring.date", "error.required"))
+        val formWithErrorsUpdate = formWithErrors.replaceError("beforeClaimCaring", FormError("beforeClaimCaring.date", "error.required"))
         BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrorsUpdate, completedQuestionGroups))
       },
       moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(routes.G8OneWhoPaysPersonalDetails.present())

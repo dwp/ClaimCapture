@@ -2,7 +2,6 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import org.specs2.execute.PendingUntilFixed
 import controllers.Formulate
 
 class G8CompletedIntegrationSpec extends Specification with Tags {

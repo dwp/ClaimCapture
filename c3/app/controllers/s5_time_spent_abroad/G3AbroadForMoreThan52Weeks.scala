@@ -31,7 +31,7 @@ object G3AbroadForMoreThan52Weeks extends Controller with Routing with CachedCla
       abroadForMoreThan52Weeks => abroadForMoreThan52Weeks.answer match {
         case `yes` if trips.fiftyTwoWeeksTrips.size < 10 => claim.update(trips) -> Redirect(routes.G4Trip.fiftyTwoWeeks())
         case `yes` => claim.update(trips) -> Redirect(routes.G3AbroadForMoreThan52Weeks.present())
-        case _ => claim.update(trips) -> Redirect(routes.TimeSpentAbroad.completed())
+        case _ => claim.update(trips) -> Redirect(routes.G5otherEEAStateOrSwitzerland.present())
       })
   }
 }
