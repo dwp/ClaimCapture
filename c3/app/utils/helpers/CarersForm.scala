@@ -10,10 +10,10 @@ object CarersForm {
 
   class FormCryptBind[T](form: Form[T])(implicit request: Request[_]) {
     def bindEncrypted: Form[T] = {
-      bindDecrypt (
+      bindDecrypt(
         (request.body match {
           case body: play.api.mvc.AnyContent if body.asFormUrlEncoded.isDefined => body.asFormUrlEncoded.get
-          case _ => Map.empty[String,Seq[String]]
+          case _ => Map.empty[String, Seq[String]]
         }) ++ request.queryString, form
       )
     }
@@ -29,7 +29,9 @@ object CarersForm {
               case Failure(_) => key
             }
 
-            if (cKey.endsWith("[]")) s ++ values.zipWithIndex.map { case (v, i) => (cKey.dropRight(2) + "[" + i + "]") -> v }
+            if (cKey.endsWith("[]")) s ++ values.zipWithIndex.map {
+              case (v, i) => (cKey.dropRight(2) + "[" + i + "]") -> v
+            }
             else s + (cKey -> values.headOption.getOrElse(""))
         }
       )
@@ -43,6 +45,16 @@ object CarersForm {
       }
 
       updatedForm.copy(errors = updatedForm.errors.filter(p => p.key != key))
+    }
+
+    def replaceError(key: String, message: String, newError: FormError): Form[T] = {
+
+      def matchingError(e:FormError) = e.key == key && e.message == message
+
+      if (form.errors.exists(matchingError)) {
+        form.copy(errors = form.errors.filterNot(e => e.key == key && e.message == message)).withError(newError)
+      }
+      else form
     }
   }
 

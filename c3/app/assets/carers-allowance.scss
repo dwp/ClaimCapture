@@ -326,7 +326,9 @@ $button-green-hover: #004b27;
 	   
 	   &.error-statement {
 		margin: 0;
-		padding: 5em 0;
+		padding: 5em 0 5em 1em;
+		border-top: 10px solid #f47738;
+		@media screen and (max-width: 640px) {border-top: 0; padding-left: 0; padding-right: 0;}
 			p {
 				margin: 2em 40% 0 0;
 				@media screen and (max-width: 700px) {margin-right: 0;}
@@ -1270,6 +1272,45 @@ $button-green-hover: #004b27;
 	   }
 	   &.error {
 		   background: #f2f2f2;
+	   }
+	   &.submitting {
+	   	   position: relative;
+	   	    @media screen and (max-width: 660px) {
+		   	    padding-right: 4em;
+	   	    }
+		   p {
+			   margin: .5em 0 0 0;
+			   font-weight: 600;
+			   font-size: 1.7rem;
+			   &:first-child {
+				   margin: 0;
+			   }
+			   @media screen and (max-width: 660px) {
+				   margin-top: 1em;
+			   }
+		   }
+		   span {
+			   position: absolute;
+			   top: 1.4em; 
+			   right: 1em;
+			   width: 36px;
+			   height: 36px;
+			   margin-top: -18px;
+			   border-radius: 100px;
+			   background: #008bc2;
+			   color: #fff;
+			   text-align: center;
+			   font-size: 2.6rem;
+			   font-weight: 700;
+			   .ie & {
+				   font-size: 26px;
+			   }
+			    @media screen and (max-width: 660px) {width: 50px; height: 50px; font-size: 3.8rem; top: 1em; right: .5em;
+				    .ie & {
+					    font-size: 38px;
+				    }
+			    }
+		   }
 	   }
 	   &.breaks-prompt {
 		   background: #fef7f7;

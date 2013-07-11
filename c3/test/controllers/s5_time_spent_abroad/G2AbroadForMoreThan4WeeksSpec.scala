@@ -22,7 +22,7 @@ class G2AbroadForMoreThan4WeeksSpec extends Specification with Tags {
     }
 
     """accept "yes" to "abroad for more than 4 weeks".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("trips" -> "yes")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("anyTrips" -> "yes")
 
       val result = G2AbroadForMoreThan4Weeks.submit(request)
       redirectLocation(result) must beSome("/timeSpentAbroad/trip/4Weeks")
@@ -30,7 +30,7 @@ class G2AbroadForMoreThan4WeeksSpec extends Specification with Tags {
 
     """accept "no" to "abroad for more than 4 weeks".""" in new WithApplication with Claiming {
       pending
-      /*val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("trips" -> "no")
+      /*val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("anyTrips" -> "no")
 
       val result = G2AbroadForMoreThan4Weeks.submit(request)
       redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan52Weeks")*/
@@ -41,10 +41,6 @@ class G2AbroadForMoreThan4WeeksSpec extends Specification with Tags {
     }
 
     "complete upon indicating that there are no more 4 week trips having now provided one trip" in new WithApplication with Claiming {
-      pending
-    }
-
-    "allow no more than 10 trips" in new WithApplication with Claiming {
       pending
     }
 
