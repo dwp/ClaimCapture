@@ -1,13 +1,13 @@
 package models.domain
 
 import models.DayMonthYear
-import models.yesNo.YesNoWithText
+import models.yesNo.{YesNo, YesNoWithText}
 
 case object TimeSpentAbroad {
   val id = "s5"
 }
 
-case class NormalResidenceAndCurrentLocation(whereDoYouLive:YesNoWithText, inGBNow: String) extends QuestionGroup(NormalResidenceAndCurrentLocation.id)
+case class NormalResidenceAndCurrentLocation(whereDoYouLive: YesNoWithText, inGBNow: String) extends QuestionGroup(NormalResidenceAndCurrentLocation.id)
 
 case object NormalResidenceAndCurrentLocation extends QuestionGroup(s"${TimeSpentAbroad.id}.g1")
 
@@ -56,3 +56,7 @@ trait FourWeeksTrip extends TripPeriod {
 trait FiftyTwoWeeksTrip extends TripPeriod {
   this: Trip =>
 }
+
+case class OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland: YesNoWithText, workingForOtherEEAStateOrSwitzerland: String) extends QuestionGroup(OtherEEAStateOrSwitzerland.id)
+
+case object OtherEEAStateOrSwitzerland extends QuestionGroup(s"${TimeSpentAbroad.id}.g5")

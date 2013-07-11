@@ -1,7 +1,6 @@
 package controllers.s5_time_spent_abroad
 
 import org.specs2.mutable.{Tags, Specification}
-import scala.Some
 
 class G1NormalResidenceAndCurrentLocationFormSpec extends Specification with Tags {
 
@@ -12,7 +11,7 @@ class G1NormalResidenceAndCurrentLocationFormSpec extends Specification with Tag
       formWithErrors => "This mapping should not happen." must equalTo("Error"),
       caseClass => {
         caseClass.whereDoYouLive.answer must equalTo("no")
-        caseClass.whereDoYouLive.text must equalTo(Some("Italy"))
+        caseClass.whereDoYouLive.text must beSome("Italy")
         caseClass.inGBNow must equalTo("no")
       }
     )
@@ -72,5 +71,4 @@ class G1NormalResidenceAndCurrentLocationFormSpec extends Specification with Tag
       }
     )
   } section "unit"
-
 }

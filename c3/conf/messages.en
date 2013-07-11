@@ -206,6 +206,13 @@ end.trip = Date you returned to Great Britain
 where.trip = Where did you go?
 why.trip = Why did you go?
 
+# OTHER EEA STATE OR SWITZERLAND
+benefitsFromOtherEEAStateOrSwitzerland.answer = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
+benefitsFromOtherEEAStateOrSwitzerland_answer = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
+benefitsFromOtherEEAStateOrSwitzerland.details = Provide details
+benefitsFromOtherEEAStateOrSwitzerland_details = Provide details
+workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?
+
 ## PAY DETAILS
 # HOW WE PAY YOU
 likeToPay =  How would you like to be paid?

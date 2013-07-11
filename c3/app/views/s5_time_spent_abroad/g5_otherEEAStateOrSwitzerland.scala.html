@@ -1,40 +1,25 @@
-@()(implicit claim: models.domain.Claim)
+@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 
-@main("Other EEA State or Switzerland - Time Spent Abroad") {
+@main("Other EEA State or Switzerland - Time Spent Abroad", Some(otherEEAStateOrSwitzerlandForm), completedQuestionGroups) {
     @form(action = controllers.s5_time_spent_abroad.routes.G5otherEEAStateOrSwitzerland.submit) {
         <fieldset class="form-elements">
             <legend>Other EEA State or Switzerland</legend>
 
             <ul class="group">
-                <li>
-                    <p>Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?</p>
+                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland.answer"))
 
-                    <ul class="radio">
-                        <li><input type="radio" name="q1-yes" id="q1-yes"><label for="q1-yes">Yes</label></li>
-                        <li><input type="radio" name="q1-no" id="q1-no"><label for="q1-no">No</label></li>
-                        <li><input type="radio" name="q1-dont" id="q1-dont"><label for="q1-dont">Don't know</label></li>
-                    </ul>
-                </li>
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland.details"), 'maxLength -> 200)),
+                    'id -> "benefitsFromOtherEEAStateOrSwitzerland",
+                    'visibleOn -> "no",
+                    'display -> otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland.answer").value.getOrElse("yes"))
 
-                <li>
-                    <label for="details">Please provide details</label>
-                    <textarea name="details" id="details" placeholder="Please specify..."></textarea>
-                </li>
-
-                <li>
-                    <p>Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?</p>
-
-                    <ul class="radio">
-                        <li><input type="radio" name="q2-yes" id="q2-yes"><label for="q2-yes">Yes</label></li>
-                        <li><input type="radio" name="q2-no" id="q2-no"><label for="q2-no">No</label></li>
-                        <li><input type="radio" name="q2-dont" id="q2-dont"><label for="q2-dont">Don't know</label></li>
-                    </ul>
-                </li>
+                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForOtherEEAStateOrSwitzerland"))
             </ul>
         </fieldset>
 
@@ -44,3 +29,19 @@
         </div>
     }
 }
+
+<script type="text/javascript">
+    $(function() {
+        $("#@CarersCrypto.encryptAES("benefitsFromOtherEEAStateOrSwitzerland_answer_yes")").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#@CarersCrypto.encryptAES("benefitsFromOtherEEAStateOrSwitzerland_answer_no")").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+</script>
