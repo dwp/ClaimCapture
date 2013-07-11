@@ -20,30 +20,28 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
     case Failure(_) => "Invalid Date"
   }
 
-  def -(amount: Int) = DayMonthYearSubtraction(copy(), amount)
+  def -(amount: Int) = new DayMonthYear(day, month, year, hour, minutes) with Period {
+    override def Days = adjust { _.minusDays(amount) }
+
+    override def Weeks = adjust { _.minusWeeks(amount) }
+
+    override def Months = adjust { _.minusMonths(amount) }
+
+    override def Years = adjust { _.minusYears(amount) }
+  }
 
   def `dd/MM/yyyy`: String = pad(day) + "/" + pad(month) + "/" + year.fold("")(_.toString)
 
   def `yyyy-MM-dd`: String = year.fold("")(_.toString) + "-" + pad(month) + "-" + pad(day)
 
-  def pad(i: Option[Int]): String = i.fold("")(i => if (i < 10) s"0$i" else s"$i")
+  private def pad(i: Option[Int]): String = i.fold("")(i => if (i < 10) s"0$i" else s"$i")
 
-  def adjust(f: DateTime => DateTime) = Try(new DateTime(year.get, month.get, day.get, 0, 0)) match {
+  private def adjust(f: DateTime => DateTime) = Try(new DateTime(year.get, month.get, day.get, 0, 0)) match {
     case Success(dt: DateTime) => {
       val newDateTime = f(dt)
       DayMonthYear(Some(newDateTime.dayOfMonth().get), Some(newDateTime.monthOfYear().get), Some(newDateTime.year().get), hour, minutes)
     }
     case Failure(_) => this
-  }
-
-  case class DayMonthYearSubtraction(dmy: DayMonthYear, amount: Int) extends Period {
-    override def days = adjust { _.minusDays(amount) }
-
-    override def weeks = adjust { _.minusWeeks(amount) }
-
-    override def months = adjust { _.minusMonths(amount) }
-
-    override def years = adjust { _.minusYears(amount) }
   }
 }
 
@@ -59,19 +57,21 @@ object DayMonthYear {
 }
 
 sealed trait Period {
-  def day: DayMonthYear = days
+  this: DayMonthYear =>
 
-  def days: DayMonthYear
+  def Day: DayMonthYear = Days
 
-  def week: DayMonthYear = weeks
+  def Days: DayMonthYear
 
-  def weeks: DayMonthYear
+  def Week: DayMonthYear = Weeks
 
-  def month: DayMonthYear = months
+  def Weeks: DayMonthYear
 
-  def months: DayMonthYear
+  def Month: DayMonthYear = Months
 
-  def year: DayMonthYear = years
+  def Months: DayMonthYear
 
-  def years: DayMonthYear
+  def Year: DayMonthYear = Years
+
+  def Years: DayMonthYear
 }
