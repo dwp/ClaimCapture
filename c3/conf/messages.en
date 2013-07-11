@@ -184,8 +184,10 @@ medicalDuringBreak = Did you or the person you look after received any medical t
 ## TIME SPENT ABROAD
 
 # NORMAL RESIDENCE AND CURRENT LOCATION
-normallyLiveInUK = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
-whereDoYouNormallyLive = Where do you normally live?
+liveInUK.answer = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
+liveInUK_answer = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
+liveInUK.whereDoYouLive = Where do you normally live?
+liveInUK_whereDoYouLive = Where do you normally live?
 inGBNow = Are you in Great Britain now?
 
 trips = Have you been out of Great Britain

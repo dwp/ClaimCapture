@@ -17,22 +17,11 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
 
   override val route = RepresentativesForPerson.id -> routes.G6RepresentativesForThePerson.present
 
-  def validateYouAct(input: YesNoWithDropDown): Boolean = input.answer match {
-    case `yes` => input.dropDownValue.isDefined
-    case `no` => true
-  }
-
-  def validateSomeoneElseAct(input: YesNoWithDropDownAndText): Boolean = input.answer match {
-    case `yes` => input.dropDownValue.isDefined
-    case `no` => true
-  }
-
   val youActMapping =
     "you" -> mapping(
       "actForPerson" -> nonEmptyText.verifying(validYesNo),
       "actAs" -> optional(nonEmptyText))(YesNoWithDropDown.apply)(YesNoWithDropDown.unapply)
-      .verifying("required", validateYouAct _)
-
+      .verifying("required", YesNoWithDropDown.validate _)
 
   val someoneElseMapping =
     "someoneElse" -> mapping(
@@ -40,7 +29,7 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
       "actAs" -> optional(nonEmptyText),
       "fullName" -> optional(text)
     )(YesNoWithDropDownAndText.apply)(YesNoWithDropDownAndText.unapply)
-      .verifying("required", validateSomeoneElseAct _)
+      .verifying("required", YesNoWithDropDownAndText.validate _)
 
   val form = Form(
     mapping(
