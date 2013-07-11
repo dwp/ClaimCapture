@@ -31,7 +31,6 @@ object G2Disclaimer extends Controller with Routing with CachedClaim{
         case _ => form
       }
       val completed = completedQuestionGroups
-      Logger.info(completed.toString)
       Ok(views.html.s7_consent_and_declaration.g2_disclaimer(currentForm,completed))
   }
 

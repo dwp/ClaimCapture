@@ -336,4 +336,30 @@ object FormHelper {
     browser.fill("#rollOrReferenceNumber") `with` "1234567"
     browser.submit("button[type='submit']")
   }
+
+  def fillConsent(browser: TestBrowser) = {
+    browser.goTo("/consentAndDeclaration/consent")
+    browser.click("#informationFromEmployer_yes")
+    browser.fill("#why") `with` "some reason"
+    browser.click("#informationFromPerson_yes")
+    browser.submit("button[type='submit']")
+  }
+
+  def fillDisclaimer(browser: TestBrowser) = {
+    browser.goTo("/consentAndDeclaration/disclaimer")
+    browser.click("#read")
+    browser.submit("button[type='submit']")
+  }
+
+  def fillDeclaration(browser: TestBrowser) = {
+    browser.goTo("/consentAndDeclaration/declaration")
+    browser.click("#read")
+    browser.submit("button[type='submit']")
+  }
+
+  def fillAdditionalInfo(browser: TestBrowser) = {
+    browser.goTo("/consentAndDeclaration/additionalInfo")
+    browser.click("#welshCommunication_yes")
+    browser.submit("button[type='submit']")
+  }
 }

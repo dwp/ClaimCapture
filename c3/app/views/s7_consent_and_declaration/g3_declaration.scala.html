@@ -14,11 +14,14 @@
         <fieldset class="form-elements">
             <legend>Declaration</legend>
 
-            @for(i <- 1 to 3){
-                <article>
-                    @Html(Messages(s"declaration.$i"))
-                </article>
-            }
+            <article class="dec">
+                <h3>@Messages("declaration.title")</h3>
+                <ul>
+                @for(i <- 1 to 4){
+                        @Html(Messages(s"declaration.$i"))
+                }
+                </ul>
+            </article>
             <div class="group declare">
                 @carersDeclareCheck(currentForm("read"),'_label -> "declaration.read")
             </div>
