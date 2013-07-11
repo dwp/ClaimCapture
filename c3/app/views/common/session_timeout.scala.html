@@ -1,16 +1,30 @@
 
 @common.govMain("Session has timed out") {
     <div id="wrapper" class="carers-allowance">
-        <div class="carers-container">
+        <main role="main">
 
 
         <div class="prototype">
     		<p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
     	</div>
-            <p>Session has timed out !</p>
-
-            <button type="submit" name="action" value="next" class="button" onClick="location.href='/allowance/benefits'">Restart Claim</button>
-        </div>
+    	
+    	
+    	<section class="error-statement">
+    	
+    		<header>
+    			<h1>Your session has timed out!</h1>
+    		</header>
+       
+            
+            <div class="form-steps">
+				<button type="submit" name="action" value="next" class="button" onClick="location.href='/allowance/benefits'">Restart claim</button>
+			</div>
+			<!-- / form steps -->
+			
+    	</section>
+            
+            
+        </main>
     </div>
 } {
     <!-- Empty -->
