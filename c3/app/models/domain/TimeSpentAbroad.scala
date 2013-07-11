@@ -10,6 +10,10 @@ case class NormalResidenceAndCurrentLocation(normallyLiveInUK: String, whereDoYo
 
 case object NormalResidenceAndCurrentLocation extends QuestionGroup(s"${TimeSpentAbroad.id}.g1")
 
+case object AbroadForMoreThan4Weeks extends QuestionGroup(s"${TimeSpentAbroad.id}.g2")
+
+case object AbroadForMoreThan52Weeks extends QuestionGroup(s"${TimeSpentAbroad.id}.g3")
+
 case class Trips(fourWeeksTrips: List[FourWeeksTrip] = Nil, fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips.id) {
   def update(trip: FourWeeksTrip) = {
     val updated = fourWeeksTrips map { t => if (t.id == trip.id) trip else t }

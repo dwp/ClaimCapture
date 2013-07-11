@@ -26,7 +26,7 @@ object G4Trip extends Controller with CachedClaim {
 
   def fourWeeksSubmit = claiming { implicit claim => implicit request =>
     val trips = claim.questionGroup(Trips) match {
-      case Some(t: Trips) => t
+      case Some(ts: Trips) => ts
       case _ => Trips()
     }
 
@@ -38,9 +38,13 @@ object G4Trip extends Controller with CachedClaim {
       })
   }
 
-  /*def fiftyTwoWeeks = claiming { implicit claim => implicit request =>
+  def fiftyTwoWeeks = claiming { implicit claim => implicit request =>
+    Ok(views.html.s5_time_spent_abroad.g4_trip(form))
+  }
+
+  def fiftyTwoWeeksSubmit = claiming { implicit claim => implicit request =>
     Ok("")
-  }*/
+  }
 
   def trip(id: String) = claiming { implicit claim => implicit request =>
     claim.questionGroup(Trips) match {

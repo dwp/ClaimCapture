@@ -46,6 +46,10 @@ class G4TripIntegrationSpec extends Specification with Tags {
     "add two trips and edit the second's start year" in new TripWithBrowser {
       pending
     }
+
+    "allow cancellation" in new TripWithBrowser {
+      pending
+    }
   }
 
   def fourWeeks(browser: TestBrowser) = browser.goTo("/timeSpentAbroad/trip/4Weeks")

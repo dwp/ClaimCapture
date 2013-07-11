@@ -22,9 +22,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       browser.goTo("/allowance/benefits?changing=true")
       page.doesPersonGetBenefit must beSome(true)
     }
-
   } section "integration"
-
 
   "Does the person being cared for get one of required benefits" should {
 

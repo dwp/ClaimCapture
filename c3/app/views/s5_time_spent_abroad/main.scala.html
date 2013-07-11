@@ -25,7 +25,7 @@
                             @for(completedQuestionGroup <- completedQuestionGroups) {
                                 <li>
                                     <h3>@Messages(completedQuestionGroup.id)</h3>
-                                    <a href="controllers.s4_care_you_provide.CareYouProvide.route(completedQuestionGroup.id)">Change these answers</a>
+                                    <a href="@controllers.s5_time_spent_abroad.TimeSpentAbroad.route(completedQuestionGroup.id)">Change these answers</a>
                                 </li>
                             }
                         </ul>

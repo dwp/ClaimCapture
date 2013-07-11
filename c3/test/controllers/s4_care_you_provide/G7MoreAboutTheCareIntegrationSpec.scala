@@ -41,24 +41,24 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
     "choose no options navigate back twice to Previous Carer Contact Details" in new WithBrowser with BrowserMatchers {
       // [SKW] This tests a problem I was having where pressing back twice wasn't getting back passed the S4 G4, the problem was with Controller action fetching previous question groups being different for pages using backHref.
       FormHelper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(1)
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
 
       FormHelper.fillPreviousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(1)
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
 
       FormHelper.fillPreviousCarerContactDetails(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")(1)
+      titleMustEqual("Representatives For The Person - Care You Provide")
 
       browser.click("#actForPerson_no")
       browser.click("#someoneElseActForPerson_no")
       browser.submit("button[type='submit']")
-      titleMustEqual("More about the care you provide - Care You Provide")(1)
+      titleMustEqual("More about the care you provide - Care You Provide")
 
       browser.click("#backButton")
-      titleMustEqual("Representatives For The Person - Care You Provide")(1)
+      titleMustEqual("Representatives For The Person - Care You Provide")
 
       browser.click("#backButton")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(1)
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
     }.pendingUntilFixed("GET A TIMEOUT")
 
     "choose yes options navigate back twice to Previous Carer Contact Details" in new WithBrowser with BrowserMatchers {
@@ -73,10 +73,10 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       browser.click("#someoneElseActForPerson_yes")
       browser.click("#someoneElseActAs option[value='attorney']")
       browser.submit("button[type='submit']")
-      titleMustEqual("More about the care you provide - Care You Provide")(1) // Landed on S4 G7
+      titleMustEqual("More about the care you provide - Care You Provide") // Landed on S4 G7
       browser.click("#backButton")
       browser.click("#backButton")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(1) // Back to S4 G4
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide") // Back to S4 G4
     }.pendingUntilFixed("GET A TIMEOUT")
   }
 }
