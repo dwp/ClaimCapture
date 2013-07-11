@@ -13,7 +13,7 @@ object ApplicationBuild extends Build {
     jdbc,
     anorm,
     "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
-    "com.dwp.carers" % "carersXMLValidation" % "0.3", "postgresql" % "postgresql" % "9.1-901.jdbc4"
+    "com.dwp.carers" % "carersXMLValidation" % "0.4", "postgresql" % "postgresql" % "9.1-901.jdbc4"
   )
 
   var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint"))
