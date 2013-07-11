@@ -88,7 +88,7 @@ $button-green-hover: #004b27;
 			   line-height: 1em;
 			   .ie7 &, .ie8 & {
 				   background: url('images/nav-default.png') center 0 no-repeat;
-				   padding-bottom: 5px;
+				   padding-bottom: 8px;
 			   }
 			    @media screen and (max-width: 640px) {
 				    text-indent: -9999px;
@@ -1159,6 +1159,9 @@ $button-green-hover: #004b27;
 				   &:first-child {
 					   margin-top: 1em;
 				   }
+				   .ie & {
+					   font-size: 17px;
+				   }
 			   }
 		   }
 	   }
@@ -1286,6 +1289,9 @@ $button-green-hover: #004b27;
 			   font-size: 1.7rem;
 			   &:first-child {
 				   margin: 0;
+			   }
+			   .ie & {
+				   font-size: 17px;
 			   }
 			   @media screen and (max-width: 660px) {
 				   margin-top: 1em;
@@ -1496,6 +1502,9 @@ $button-green-hover: #004b27;
 			}
 			p {
 				font-size: 1.7rem;
+				.ie & {
+					font-size: 17px;
+				}
 			}
 			h2 {
 				line-height: 1.2em;
@@ -1508,6 +1517,9 @@ $button-green-hover: #004b27;
 					line-height: 1.4em;
 					font-size: 1.7rem;
 					background: url('images/progress-tick.png') 0 3px no-repeat;
+					.ie & {
+						font-size: 17px;
+					}
 				}
 			}
 			&.address {
@@ -1516,6 +1528,9 @@ $button-green-hover: #004b27;
 					display: block;
 					font-size: 1.7rem;
 					color: #555;
+					.ie & {
+						font-size: 17px;
+					}
 				}	
 				p {
 					margin-top: 1.25em;

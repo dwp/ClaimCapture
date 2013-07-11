@@ -1,4 +1,7 @@
 /* == sass globals == */
+.warning {
+  color: red !important; }
+
 .carers-allowance {
   background: #fff;
   border-bottom: 10px solid #f47738;
@@ -95,7 +98,7 @@
         line-height: 1em; }
         .ie7 .carers-allowance .progress-steps ol li, .ie8 .carers-allowance .progress-steps ol li {
           background: url("images/nav-default.png") center 0 no-repeat;
-          padding-bottom: 5px; }
+          padding-bottom: 8px; }
         @media screen and (max-width: 640px) {
           .carers-allowance .progress-steps ol li {
             text-indent: -9999px;
@@ -916,6 +919,8 @@
         display: list-item; }
         .carers-allowance .form-elements .dec ul li:first-child {
           margin-top: 1em; }
+        .ie .carers-allowance .form-elements .dec ul li {
+          font-size: 17px; }
     .carers-allowance .form-elements table {
       text-align: left;
       border-collapse: collapse;
@@ -1006,6 +1011,8 @@
         font-size: 1.7rem; }
         .carers-allowance .prompt.submitting p:first-child {
           margin: 0; }
+        .ie .carers-allowance .prompt.submitting p {
+          font-size: 17px; }
         @media screen and (max-width: 660px) {
           .carers-allowance .prompt.submitting p {
             margin-top: 1em; } }
@@ -1177,6 +1184,8 @@
         margin: 0; }
       .carers-allowance .send-info article p {
         font-size: 1.7rem; }
+        .ie .carers-allowance .send-info article p {
+          font-size: 17px; }
       .carers-allowance .send-info article h2 {
         line-height: 1.2em; }
       .carers-allowance .send-info article ul {
@@ -1187,12 +1196,16 @@
           line-height: 1.4em;
           font-size: 1.7rem;
           background: url("images/progress-tick.png") 0 3px no-repeat; }
+          .ie .carers-allowance .send-info article ul li {
+            font-size: 17px; }
       .carers-allowance .send-info article.address {
         margin-top: 1.25em; }
         .carers-allowance .send-info article.address span {
           display: block;
           font-size: 1.7rem;
           color: #555; }
+          .ie .carers-allowance .send-info article.address span {
+            font-size: 17px; }
         .carers-allowance .send-info article.address p {
           margin-top: 1.25em; }
 
