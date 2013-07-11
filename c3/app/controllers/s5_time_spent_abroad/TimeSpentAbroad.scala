@@ -4,7 +4,7 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import scala.collection.immutable.ListMap
 import play.api.mvc.Call
-import models.domain.Claim
+import models.domain.{Trips, Claim}
 
 object TimeSpentAbroad extends Controller with CachedClaim {
 
@@ -13,6 +13,11 @@ object TimeSpentAbroad extends Controller with CachedClaim {
     G2AbroadForMoreThan4Weeks)
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+
+  def trips(implicit claim: Claim) = claim.questionGroup(Trips) match {
+    case Some(ts: Trips) => ts
+    case _ => Trips()
+  }
 
   def completed = claiming { implicit claim => implicit request =>
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1NormalResidenceAndCurrentLocation.present())

@@ -1,4 +1,4 @@
-@(tripForm: Form[models.domain.Trip])(implicit claim: models.domain.Claim)
+@(tripForm: Form[models.domain.Trip], actionCall: Call)(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,7 +7,7 @@
 @import views.html.helper.dates._
 
 @main("Trip - Time Spent Abroad", Some(tripForm)) {
-    @form(action = controllers.s5_time_spent_abroad.routes.G4Trip.fourWeeksSubmit) {
+    @form(action = actionCall) {
         <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
         <fieldset class="form-elements">
@@ -30,5 +30,3 @@
         </div>
     }
 }
-
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g11_break.js")'></script>

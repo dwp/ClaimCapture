@@ -11,6 +11,7 @@ import play.api.i18n.Messages
 import controllers.Mappings._
 import models.domain.Claim
 import models.yesNo.YesNo
+import controllers.s4_care_you_provide.CareYouProvide.breaksInCare
 
 object G10BreaksInCare extends Controller with Routing with CachedClaim {
   override val route = BreaksInCare.id -> routes.G10BreaksInCare.present
@@ -23,20 +24,10 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(BreaksInCare)
 
   def present = claiming { implicit claim => implicit request =>
-    val breaksInCare = claim.questionGroup(BreaksInCare) match {
-      case Some(b: BreaksInCare) => b
-      case _ => BreaksInCare()
-    }
-
     Ok(views.html.s4_care_you_provide.g10_breaksInCare(form, breaksInCare, completedQuestionGroups, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    val breaksInCare = claim.questionGroup(BreaksInCare) match {
-      case Some(b: BreaksInCare) => b
-      case _ => BreaksInCare()
-    }
-
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrors, breaksInCare, completedQuestionGroups, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim))),
       hasBreaks => hasBreaks.answer match {
@@ -71,7 +62,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
     }
 
     claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-      if (spent35HoursCaringBeforeClaim) (dmy - 6 months) `dd/MM/yyyy`
-      else dmy `dd/MM/yyyy`)
+      if (spent35HoursCaringBeforeClaim) (dmy - 6 months).`dd/MM/yyyy`
+      else dmy.`dd/MM/yyyy`)
   }
 }

@@ -9,6 +9,7 @@ import models.domain.{Trip, FourWeeksTrip, Trips}
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages
 import models.DayMonthYear
+import TimeSpentAbroad.trips
 
 object G4Trip extends Controller with CachedClaim {
   val form = Form(
@@ -21,17 +22,12 @@ object G4Trip extends Controller with CachedClaim {
     )(Trip.apply)(Trip.unapply))
 
   def fourWeeks = claiming { implicit claim => implicit request =>
-    Ok(views.html.s5_time_spent_abroad.g4_trip(form))
+    Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fourWeeksSubmit))
   }
 
   def fourWeeksSubmit = claiming { implicit claim => implicit request =>
-    val trips = claim.questionGroup(Trips) match {
-      case Some(ts: Trips) => ts
-      case _ => Trips()
-    }
-
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors)),
+      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, routes.G4Trip.fourWeeksSubmit)),
       trip => {
         val updatedTrips = if (trips.fourWeeksTrips.size >= 5) trips else trips.update(trip.as[FourWeeksTrip])
         claim.update(updatedTrips) -> Redirect(routes.G2AbroadForMoreThan4Weeks.present())
@@ -39,7 +35,7 @@ object G4Trip extends Controller with CachedClaim {
   }
 
   def fiftyTwoWeeks = claiming { implicit claim => implicit request =>
-    Ok(views.html.s5_time_spent_abroad.g4_trip(form))
+    Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fiftyTwoWeeksSubmit))
   }
 
   def fiftyTwoWeeksSubmit = claiming { implicit claim => implicit request =>
@@ -49,7 +45,7 @@ object G4Trip extends Controller with CachedClaim {
   def trip(id: String) = claiming { implicit claim => implicit request =>
     claim.questionGroup(Trips) match {
       case Some(ts: Trips) => ts.fourWeeksTrips.find(_.id == id) match {
-        case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t)))
+        case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t), routes.G4Trip.fourWeeksSubmit))
         case _ => Redirect(routes.G2AbroadForMoreThan4Weeks.present())
       }
 
