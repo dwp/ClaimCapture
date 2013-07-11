@@ -1,9 +1,8 @@
 package utils.pageobjects
 
-import play.api.test.TestBrowser
-import java.util.concurrent.TimeUnit
+import play.api.test.{WithBrowser, TestBrowser}
 import org.specs2.specification.Scope
-import utils.pageobjects.s1_carers_allowance.{HoursPage, BenefitsPage}
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -17,69 +16,76 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
   // Page Management
   // ========================================
 
-  def goToThePage() = {
-    browser.goTo(url)
-    waitForPage()
-  }
+  def goToThePage() = goToUrl(url)
 
-  def goToPage(page: Page) = browser.goTo(page.url)
+  def goToPage(page: Page) = goToUrl(page.url)
+
+  /**
+   * Sub-class reads theClaim and interacts with browser to populate page.
+   * @param theClaim   Data to use to fill page
+   */
+  def fillPageWith(theClaim: ClaimScenario)
+
+  /**
+   * Reads theClaim, interacts with browser to populate the page, submit the page and
+   * asks next page to run the claim.
+   * @param theClaim  Data to use to populate all the pages relevant to the scenario tested.
+   */
+  def runClaimWith(theClaim: ClaimScenario): Unit = {
+    fillPageWith(theClaim)
+    val nextPage = submitPage
+    nextPage runClaimWith(theClaim)
+  }
 
   def submitPage() = {
     val nextPageTile = browser.submit("button[type='submit']").title()
+    if (hasErrors()) throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed.""")
     createPageWithTitle(nextPageTile)
   }
 
   def goBack() = {
     val backPageTile = browser.click(".form-steps a").title()
     createPageWithTitle(backPageTile)
-
   }
+
   def waitForPage() = browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
     browser.title == pageTitle
   }
 
   protected def titleMatch(): Boolean = browser.title == this.pageTitle
 
+  protected def hasErrors() = !browser.find("div[class=validation-summary] ol li").isEmpty
+
   private def createPageWithTitle(title: String) = {
-    val newPage = PageBuilder createPageFromTitle(browser, title)
+    val newPage = PageFactory createPageFromTitle(browser, title)
     newPage.waitForPage()
     newPage
   }
 
-  // ========================================
-  // Component Management
-  // ========================================
-  protected def isCompletedYesNo(location: String, index: Integer, name: String, value: String) = {
-    val completed = browser.find(location).get(index).getText()
-    completed.contains(name) && completed.contains(value)
-  }
-
-  protected def valueOfYesNo(location: String): Option[Boolean] = {
-    browser.find(location).getAttribute("value") match {
-      case "true" => Some(true)
-      case "false" => Some(false)
-      case _ => None
-    }
+  private def goToUrl(nextUrl: String) = {
+    browser.goTo(nextUrl)
+    waitForPage()
   }
 }
 
-
-final class UnknownPage(browser: TestBrowser,pageTitle: String) extends Page(browser, null, pageTitle) {
+/**
+ * A page object that represents an unknown html page, i.e. a page that is not covered by the framework.
+ * A developer should create a new sub-class of Page to handle this "unknown" page.
+ * @param browser  webDriver browser
+ * @param pageTitle  Title of the unknown page
+ */
+final class UnknownPage(browser: TestBrowser, pageTitle: String) extends Page(browser, null, pageTitle) {
   protected def createNextPage(): Page = this
+
+  override def submitPage() = throw new PageObjectException("Cannot submit an unknown page: " + pageTitle)
+
+  /**
+   * Sub-class reads theClaim and interact with browser to populate page.
+   * @param theClaim   Data to use to fill page
+   */
+  def fillPageWith(theClaim: ClaimScenario) {}
 }
 
-object PageBuilder {
-
-  def createPageFromTitle(browser: TestBrowser, title: String) = {
-    title match {
-      case HoursPage.title => HoursPage buildPage (browser)
-      case BenefitsPage.title => BenefitsPage buildPage (browser)
-      case _ => new UnknownPage(browser, title)
-    }
-
-  }
-}
 
 trait PageContext extends Scope {
-
 }

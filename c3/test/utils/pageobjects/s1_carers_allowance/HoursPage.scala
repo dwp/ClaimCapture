@@ -1,14 +1,14 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ComponentObject, ClaimScenario, PageContext, Page}
 
 /**
  * PageObject pattern associated to S1 carers allowance G2 Hours page.
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-class HoursPage(browser: TestBrowser) extends Page(browser, "/allowance/hours", "Hours - Carer's Allowance") {
+class HoursPage(browser: TestBrowser) extends Page(browser, "/allowance/hours", HoursPage.title) with ComponentObject {
 
   def clickChangeBenefitsDetails() = browser.click("div[class=completed] a")
 
@@ -18,11 +18,16 @@ class HoursPage(browser: TestBrowser) extends Page(browser, "/allowance/hours", 
 
   def isQ1No(): Boolean = isCompletedYesNo("div[class=completed] ul li", 0, "Q1", "No")
 
+  /**
+   * Sub-class reads theClaim and interact with browser to populate page.
+   * @param theClaim   Data to use to fill page
+   */
+  def fillPageWith(theClaim: ClaimScenario) {}
 }
 
 /**
  * Companion object that integrates factory method.
- * It is used by PageBuilder object defined in Page.scala
+ * It is used by PageFactory object defined in Page.scala
  */
 object HoursPage {
   val title = "Hours - Carer's Allowance"
@@ -31,6 +36,6 @@ object HoursPage {
 
 /** The context for Specs tests */
 trait HoursPageContext extends PageContext {
-  this: {val browser: TestBrowser} =>
+  this: {val browser:TestBrowser}  =>
   val page = new HoursPage(browser)
 }

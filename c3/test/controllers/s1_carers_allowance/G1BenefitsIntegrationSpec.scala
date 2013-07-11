@@ -3,8 +3,10 @@ package controllers.s1_carers_allowance
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s1_carers_allowance.{BenefitsPageContext, HoursPage}
+import utils.pageobjects.ClaimScenario
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
+  sequential
 
   "Benefits" should {
 
@@ -13,7 +15,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       page.hasQ1 must beTrue
     }
 
-    "allow changing answer" in new WithBrowser with BenefitsPageContext {
+    "allow changing answer" in new WithBrowser with  BenefitsPageContext {
       page.goToThePage()
       page clickPersonGetsBenefits()
       val nextPage = page submitPage()
@@ -32,7 +34,19 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       val nextPage = page.submitPage()
       nextPage match {
         case p: HoursPage => p.isQ1Yes must beTrue
-        case _ => failure
+        case _ => false must beTrue
+      }
+    }
+
+    "acknowledge yes 2" in new WithBrowser with  BenefitsPageContext {
+      val claim = new ClaimScenario
+      claim.`Can you get allowance - does person get benefits?` = "Yes"
+      page.goToThePage()
+      page.fillPageWith(claim)
+      val nextPage = page.submitPage()
+      nextPage match {
+        case p: HoursPage => p.isQ1Yes must beTrue
+        case _ => false must beTrue
       }
     }
 
