@@ -6,6 +6,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
   val aboutYou = AboutYouSubmission.buildAboutYou(claim)
   val yourPartner = YourPartnerSubmission.buildYourPartner(claim)
   val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)
+  val payDetails = PayDetailsSubmission.buildPayDetails(claim)
 
   
   
@@ -148,31 +149,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
         <OtherMoneySSP>no</OtherMoneySSP>
         <OtherMoneySMP>no</OtherMoneySMP>
       </OtherBenefits>
-      <Payment>
-        <PaymentFrequency>everyWeek</PaymentFrequency>
-        <InitialAccountQuestion>bankBuildingAccount</InitialAccountQuestion>
-        <Account>
-          <DirectPayment>yes</DirectPayment>
-          <AccountHolder>yourName</AccountHolder>
-          <HolderName>Mickey Mouse</HolderName>
-          <SecondHolderName/>
-          <AccountType>bank</AccountType>
-          <OtherBenefitsToBePaidDirect/>
-          <BankDetails>
-            <AccountNumber>12345678</AccountNumber>
-            <SortCode>010101</SortCode>
-            <Name>Toytown Bank</Name>
-            <Branch/>
-            <Address>
-              <gds:Line/>
-              <gds:Line/>
-              <gds:Line/>
-              <gds:PostCode/>
-            </Address>
-            <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
-          </BankDetails>
-        </Account>
-      </Payment>
+      {PayDetailsSubmission.buildCaree(payDetails)}
       <ThirdParty>no</ThirdParty>
       <Declaration>
         <TextLine>I declare</TextLine>
