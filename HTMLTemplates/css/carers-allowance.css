@@ -277,7 +277,13 @@
         border: 0; } }
     .carers-allowance section.error-statement {
       margin: 0;
-      padding: 5em 0; }
+      padding: 5em 0 5em 1em;
+      border-top: 10px solid #f47738; }
+      @media screen and (max-width: 640px) {
+        .carers-allowance section.error-statement {
+          border-top: 0;
+          padding-left: 0;
+          padding-right: 0; } }
       .carers-allowance section.error-statement p {
         margin: 2em 40% 0 0; }
         @media screen and (max-width: 700px) {
@@ -989,6 +995,44 @@
         margin-top: 0; }
     .carers-allowance .prompt.error {
       background: #f2f2f2; }
+    .carers-allowance .prompt.submitting {
+      position: relative; }
+      @media screen and (max-width: 660px) {
+        .carers-allowance .prompt.submitting {
+          padding-right: 4em; } }
+      .carers-allowance .prompt.submitting p {
+        margin: 0.5em 0 0 0;
+        font-weight: 600;
+        font-size: 1.7rem; }
+        .carers-allowance .prompt.submitting p:first-child {
+          margin: 0; }
+        @media screen and (max-width: 660px) {
+          .carers-allowance .prompt.submitting p {
+            margin-top: 1em; } }
+      .carers-allowance .prompt.submitting span {
+        position: absolute;
+        top: 1.4em;
+        right: 1em;
+        width: 36px;
+        height: 36px;
+        margin-top: -18px;
+        border-radius: 100px;
+        background: #008bc2;
+        color: #fff;
+        text-align: center;
+        font-size: 2.6rem;
+        font-weight: 700; }
+        .ie .carers-allowance .prompt.submitting span {
+          font-size: 26px; }
+        @media screen and (max-width: 660px) {
+          .carers-allowance .prompt.submitting span {
+            width: 50px;
+            height: 50px;
+            font-size: 3.8rem;
+            top: 1em;
+            right: .5em; }
+            .ie .carers-allowance .prompt.submitting span {
+              font-size: 38px; } }
     .carers-allowance .prompt.breaks-prompt {
       background: #fef7f7;
       border: 3px solid #df3034;
