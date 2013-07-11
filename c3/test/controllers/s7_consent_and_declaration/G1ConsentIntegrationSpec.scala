@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import controllers.FormHelper
 
 class G1ConsentIntegrationSpec extends Specification with Tags {
-  "Consent and declaration" should {
+  "Consent" should {
     "be presented" in new WithBrowser {
       browser.goTo("/consentAndDeclaration/consent")
       browser.title mustEqual "Consent - Consent And Declaration"
@@ -19,20 +19,20 @@ class G1ConsentIntegrationSpec extends Specification with Tags {
       browser.find("div[class=validation-summary] ol li").size mustEqual 3
     }
 
-    /*"navigate to next page on valid submission" in new WithBrowser {
-      FormHelper.fillHowWePayYou(browser)
-      browser.title mustEqual "Bank Building Society Details - Pay Details"
+    "navigate to next page on valid submission" in new WithBrowser {
+      FormHelper.fillConsent(browser)
+      browser.title mustEqual "Disclaimer - Consent And Declaration"
     }
 
-    "navigate back to About You - Completed" in new WithBrowser {
-      browser.goTo("/payDetails/howWePayYou")
+    "navigate back to Pay Details - Completed" in new WithBrowser {
+      browser.goTo("/consentAndDeclaration/consent")
       browser.click(".form-steps a")
-      browser.title mustEqual "Completion - About You"
+      browser.title mustEqual "Completion - Pay Details"
     }
 
     "contain the completed forms" in new WithBrowser {
-      FormHelper.fillHowWePayYou(browser)
+      FormHelper.fillConsent(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
-    }*/
+    }
   } section "integration"
 }
