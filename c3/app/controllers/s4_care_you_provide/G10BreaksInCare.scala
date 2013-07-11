@@ -57,7 +57,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
     import language.postfixOps
 
     val spent35HoursCaringBeforeClaim = claim.questionGroup(MoreAboutTheCare) match {
-      case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim == "yes"
+      case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim.answer == "yes"
       case _ => false
     }
 
