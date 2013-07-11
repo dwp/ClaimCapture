@@ -321,7 +321,7 @@ object Formulate {
   def howWePayYou(browser: TestBrowser) = {
     browser.goTo("/payDetails/howWePayYou")
     browser.click("#likeToPay_01")
-    browser.click("#paymentFrequency option[value='1W']")
+    browser.click("#paymentFrequency option[value='fourWeekly']")
     browser.submit("button[type='submit']")
   }
 
@@ -332,7 +332,7 @@ object Formulate {
     browser.fill("#sortCode_sort1") `with` "10"
     browser.fill("#sortCode_sort2") `with` "11"
     browser.fill("#sortCode_sort3") `with` "12"
-    browser.fill("#accountName") `with` "account"
+    browser.fill("#accountNumber") `with` "account"
     browser.fill("#rollOrReferenceNumber") `with` "1234567"
     browser.submit("button[type='submit']")
   }

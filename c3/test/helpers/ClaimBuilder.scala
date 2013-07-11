@@ -63,4 +63,9 @@ object ClaimBuilder {
   val personYouCareFor = PersonYouCareFor(isPartnerPersonYouCareFor = "yes")
   val yourPartner = YourPartner(yourPartnerPersonalDetails, yourPartnerContactDetails,
     moreAboutYourPartner, Some(personYouCareFor))
+
+  val howWePayYou = HowWePayYou("01","everyWeek")
+  val bank = BankBuildingSocietyDetails("Holder","Bank name",SortCode("12","34","56"),"1234567890","1234")
+
+  val payDetails = PayDetails(howWePayYou,bank)
 }
