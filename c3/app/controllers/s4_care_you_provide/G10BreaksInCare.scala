@@ -62,7 +62,7 @@ object G10BreaksInCare extends Controller with Routing with CachedClaim {
     }
 
     claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-      if (spent35HoursCaringBeforeClaim) (dmy - 6 Months).`dd/MM/yyyy`
+      if (spent35HoursCaringBeforeClaim) (dmy - 6 months).`dd/MM/yyyy`
       else dmy.`dd/MM/yyyy`)
   }
 }
