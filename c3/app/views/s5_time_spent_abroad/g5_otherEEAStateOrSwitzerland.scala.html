@@ -16,7 +16,7 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland.details"), 'maxLength -> 200)),
                     'id -> "benefitsFromOtherEEAStateOrSwitzerland",
-                    'visibleOn -> "no",
+                    'visibleOn -> "yes",
                     'display -> otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland.answer").value.getOrElse("yes"))
 
                 @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForOtherEEAStateOrSwitzerland"))
@@ -32,6 +32,10 @@
 
 <script type="text/javascript">
     $(function() {
+        @if(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland.answer").value.getOrElse("") != "yes") {
+            $("#@CarersCrypto.encryptAES("benefitsFromOtherEEAStateOrSwitzerland_answer_yes")").closest("ul").parent().next().hide();
+        }
+
         $("#@CarersCrypto.encryptAES("benefitsFromOtherEEAStateOrSwitzerland_answer_yes")").change(function() {
             if ($(this).val() === "yes") {
                 return $(this).closest("ul").parent().next().slideDown();

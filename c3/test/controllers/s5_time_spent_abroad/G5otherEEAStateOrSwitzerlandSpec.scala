@@ -6,7 +6,6 @@ import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
 import models.domain.Claim
-import scala.Some
 
 class G5otherEEAStateOrSwitzerlandSpec extends Specification with Tags {
   "Other EEA State of Switzerland" should {
@@ -25,10 +24,9 @@ class G5otherEEAStateOrSwitzerlandSpec extends Specification with Tags {
     }
 
     """be added to cached claim upon answering "no" to "benefits from other EEA state or Switzerland".""" in new WithApplication with Claiming {
-      pending
-      /*val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("benefitsFromOtherEEAStateOrSwitzerland.answer" -> "no",
-                                "workingForOtherEEAStateOrSwitzerland.answer" -> "no")
+                                "workingForOtherEEAStateOrSwitzerland" -> "no")
 
       val result = controllers.s5_time_spent_abroad.G5otherEEAStateOrSwitzerland.submit(request)
 
@@ -40,7 +38,7 @@ class G5otherEEAStateOrSwitzerlandSpec extends Specification with Tags {
           o.benefitsFromOtherEEAStateOrSwitzerland.text should beNone
           o.workingForOtherEEAStateOrSwitzerland shouldEqual "no"
         }
-      }*/
+      }
     }
   } section "unit"
 }
