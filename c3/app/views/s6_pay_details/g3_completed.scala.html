@@ -4,9 +4,9 @@
 
 @main("Completion - Pay Details",None, completedQuestionGroups) {
     @form(action = controllers.s6_pay_details.routes.PayDetails.completedSubmit()) {
-        <div class="form-steps">
+        <nav class="form-steps">
             <a href="@backHref(controllers.s6_pay_details.PayDetails.route,completedQuestionGroups)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
-        </div>
+        </nav>
     }
 }
