@@ -42,8 +42,8 @@ object YourPartnerSubmission {
           </Address>
           <ConfirmAddress>yes</ConfirmAddress><!-- Always default to yes -->
           <RelationshipStatus>
-            <JoinedHouseholdAfterDateOfClaim>{ if (y.moreAboutYourPartner.dateStartedLivingTogether.isDefined) "yes" else "no" }</JoinedHouseholdAfterDateOfClaim>
-            <JoinedHouseholdDate>{ if (y.moreAboutYourPartner.dateStartedLivingTogether.isDefined) y.moreAboutYourPartner.dateStartedLivingTogether.get.toXmlString else "" }</JoinedHouseholdDate>
+            <JoinedHouseholdAfterDateOfClaim>{ if (y.moreAboutYourPartner.startedLivingTogether.isDefined) y.moreAboutYourPartner.startedLivingTogether.get.answer }</JoinedHouseholdAfterDateOfClaim>
+            <JoinedHouseholdDate>{ if (y.moreAboutYourPartner.startedLivingTogether.isDefined && y.moreAboutYourPartner.startedLivingTogether.get.answer == "yes") y.moreAboutYourPartner.startedLivingTogether.get.date.get.toXmlString else "" }</JoinedHouseholdDate>
             <SeparatedFromPartner>{ y.moreAboutYourPartner.separated.answer }</SeparatedFromPartner>
             <SeparationDate>{ if (y.moreAboutYourPartner.separated.answer == "yes") y.moreAboutYourPartner.separated.date.getOrElse("") else "" }</SeparationDate>
           </RelationshipStatus>

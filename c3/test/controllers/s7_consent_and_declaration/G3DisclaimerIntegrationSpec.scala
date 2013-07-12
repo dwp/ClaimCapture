@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.Formulate
 
-class G2DisclaimerIntegrationSpec extends Specification with Tags {
+class G3DisclaimerIntegrationSpec extends Specification with Tags {
   "Disclaimer" should {
     "be presented" in new WithBrowser {
       browser.goTo("/consentAndDeclaration/disclaimer")

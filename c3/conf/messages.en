@@ -44,10 +44,11 @@ s5.g5 = Other EEA State or Switzerland
 s6.g1 = How would you like to get paid?
 s6.g2 = Bank / building society details
 
-s7.g1 = Consent
-s7.g2 = Disclaimer
-s7.g3 = Declaration
-s7.g4 = Additional Information
+s7.g1 = Additional Information
+s7.g2 = Consent
+s7.g3 = Disclaimer
+s7.g4 = Declaration
+
 
 ## ABOUT YOU
 
@@ -125,8 +126,10 @@ hasSublet = Have you sublet your home, or provided board and lodgings, since one
 ## YOUR PARTNER
 
 # MORE ABOUT YOUR PARTNER
-dateStartedLivingTogether = Please enter the date when you and your Partner/Spouse started living together, if the date is after the date you want to claim from
-separated_fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
+startedLivingTogether_afterClaimDate.label = Did you and your partner/spouse start living together, after your claim date: {0}?
+startedLivingTogether_date = What date did you start living together?
+startedLivingTogether.date = What date did you start living together?
+separated_fromPartner.label = Have you separated from your partner/spouse since the date you want to claim from: {0}?
 separated.fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
 separated.date = When did you separate?
 separated_date = When did you separate?
@@ -244,10 +247,10 @@ disclaimerHtml = <p>I understand that if I am paid Carer's Allowance it may affe
 disclaimer.read = Please tick this box to declare that you have read the Disclaimer text and have shown the Notes to the person you are looking after.
 
 #DECLARATION
-declaration.1 = <li>I declare that I understand the Cares's Allowance Claim Notes and that the information provided on this claim form is correct and complete.</li>
-declaration.2 = <li>I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.</li>
-declaration.3 = <li>I will phone 08456084321 or write to Carer's allowance Unit, Palantine House,Lancaster, Preston, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.</li>
-declaration.4 = <li>If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Cares Allowance may be stopped or reduced and any overpayment of Cares Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.</li>
+declaration.1 = I declare that I understand the Cares's Allowance Claim Notes and that the information provided on this claim form is correct and complete.
+declaration.2 = I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
+declaration.3 = I will phone 08456084321 or write to Carer's allowance Unit, Palantine House,Lancaster, Preston, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
+declaration.4 = If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Cares Allowance may be stopped or reduced and any overpayment of Cares Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.
 declaration.read = Please tick this box to declare that you and the person you are looking after have read these notes.
 declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.
 

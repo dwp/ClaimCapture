@@ -18,7 +18,7 @@ case class YourPartnerContactDetails(address: Option[MultiLineAddress], postcode
 
 object YourPartnerContactDetails extends QuestionGroup(s"${YourPartner.id}.g2")
 
-case class MoreAboutYourPartner(dateStartedLivingTogether: Option[DayMonthYear], separated:YesNoWithDate) extends QuestionGroup(MoreAboutYourPartner.id)
+case class MoreAboutYourPartner(startedLivingTogether: Option[YesNoWithDate], separated:YesNoWithDate) extends QuestionGroup(MoreAboutYourPartner.id)
 
 object MoreAboutYourPartner extends QuestionGroup(s"${YourPartner.id}.g3")
 

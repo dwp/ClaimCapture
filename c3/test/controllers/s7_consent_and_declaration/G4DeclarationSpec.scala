@@ -5,27 +5,27 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
 
-class G4AdditionalInformationSpec extends Specification with Tags {
-  "Additional Information" should {
+class G4DeclarationSpec extends Specification with Tags {
+  "Declaration" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = G4AdditionalInfo.present(request)
+      val result = G4Declaration.present(request)
       status(result) mustEqual OK
     }
 
-    """enforce answer to all questions""" in new WithApplication with Claiming {
+    """enforce answer""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = G4AdditionalInfo.submit(request)
+      val result = G4Declaration.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """accept answers""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-                                 .withFormUrlEncodedBody("welshCommunication" -> "yes")
+                                 .withFormUrlEncodedBody("read" -> "yes")
 
-      val result = G4AdditionalInfo.submit(request)
+      val result = G4Declaration.submit(request)
       redirectLocation(result) must beSome("/consentAndDeclaration/submit")
     }
   } section "unit"

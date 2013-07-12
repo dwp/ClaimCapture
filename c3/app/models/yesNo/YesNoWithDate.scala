@@ -9,7 +9,7 @@ object YesNoWithDate {
 
   def validate(input: YesNoWithDate): Boolean = input.answer match {
     case `yes` => input.date.isDefined
-    case `no` => true
+    case _ => true
   }
 
   def validateAnswerNotEmpty(input: YesNoWithDate): Boolean = !input.answer.isEmpty

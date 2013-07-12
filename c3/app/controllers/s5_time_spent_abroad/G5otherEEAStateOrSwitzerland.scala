@@ -18,7 +18,7 @@ object G5otherEEAStateOrSwitzerland extends Controller with Routing with CachedC
       "answer" -> nonEmptyText.verifying(validYesNo),
       "details" -> optional(nonEmptyText(maxLength = 200))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("required", YesNoWithText.validateOnNo _)
+      .verifying("required", YesNoWithText.validateOnYes _)
 
   val form = Form(
     mapping(
@@ -43,6 +43,6 @@ object G5otherEEAStateOrSwitzerland extends Controller with Routing with CachedC
         val formWithErrorsUpdate = formWithErrors.replaceError("benefitsFromOtherEEAStateOrSwitzerland", FormError("benefitsFromOtherEEAStateOrSwitzerland.details", "error.required"))
         BadRequest(views.html.s5_time_spent_abroad.g5_otherEEAStateOrSwitzerland(formWithErrorsUpdate, completedQuestionGroups))
       },
-      benefitsFromOtherEEAStateOrSwitzerland => claim.update(benefitsFromOtherEEAStateOrSwitzerland) -> Redirect(routes.G5otherEEAStateOrSwitzerland.present())) // TODO COMPLETED
+      benefitsFromOtherEEAStateOrSwitzerland => claim.update(benefitsFromOtherEEAStateOrSwitzerland) -> Redirect(routes.TimeSpentAbroad.completed()))
   }
 }

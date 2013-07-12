@@ -59,7 +59,7 @@ object ClaimBuilder {
 
   val yourPartnerPersonalDetails = YourPartnerPersonalDetails(title = "mr", firstName = "Michael", middleName = None, surname = "Mouse", otherNames = Some("Oswald"), nationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA"), Some("12"), Some("34"), Some("56"), Some("A"))), dateOfBirth = DayMonthYear(1, 1, 1930), nationality = Some("British"), liveAtSameAddress = "yes")
   val yourPartnerContactDetails = YourPartnerContactDetails(address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
-  val moreAboutYourPartner = MoreAboutYourPartner(dateStartedLivingTogether = Some(DayMonthYear(1, 1, 1940)), separated = YesNoWithDate("no",None))
+  val moreAboutYourPartner = MoreAboutYourPartner(startedLivingTogether = Some(YesNoWithDate("yes", Some(DayMonthYear(1, 1, 1940)))), separated = YesNoWithDate("no",None))
   val personYouCareFor = PersonYouCareFor(isPartnerPersonYouCareFor = "yes")
   val yourPartner = YourPartner(yourPartnerPersonalDetails, yourPartnerContactDetails,
     moreAboutYourPartner, Some(personYouCareFor))

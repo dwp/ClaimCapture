@@ -12,9 +12,9 @@ import models.domain.Claim
 import scala.Some
 import play.api.Logger
 
-object G2Disclaimer extends Controller with Routing with CachedClaim{
+object G3Disclaimer extends Controller with Routing with CachedClaim{
 
-  override val route = Disclaimer.id -> controllers.s7_consent_and_declaration.routes.G2Disclaimer.present
+  override val route = Disclaimer.id -> controllers.s7_consent_and_declaration.routes.G3Disclaimer.present
 
   val form = Form(
     mapping(
@@ -31,13 +31,13 @@ object G2Disclaimer extends Controller with Routing with CachedClaim{
         case _ => form
       }
       val completed = completedQuestionGroups
-      Ok(views.html.s7_consent_and_declaration.g2_disclaimer(currentForm,completed))
+      Ok(views.html.s7_consent_and_declaration.g3_disclaimer(currentForm,completed))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_consent_and_declaration.g2_disclaimer(formWithErrors,completedQuestionGroups)),
-      disclaimer => claim.update(disclaimer) -> Redirect(routes.G3Declaration.present()))
+      formWithErrors => BadRequest(views.html.s7_consent_and_declaration.g3_disclaimer(formWithErrors,completedQuestionGroups)),
+      disclaimer => claim.update(disclaimer) -> Redirect(routes.G4Declaration.present()))
   }
 
 

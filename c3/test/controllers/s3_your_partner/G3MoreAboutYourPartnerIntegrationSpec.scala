@@ -3,9 +3,8 @@ package controllers.s3_your_partner
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.Formulate
-import org.specs2.execute.PendingUntilFixed
 
-class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags with PendingUntilFixed {
+class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags {
 
   "More About Your Partner" should {
     "be presented" in new WithBrowser {
@@ -21,9 +20,6 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags with
 
     "contain error on missing separation date when separated" in new WithBrowser {
       browser.goTo("/yourPartner/moreAboutYourPartner")
-      browser.click("#dateStartedLivingTogether_day option[value='3']")
-      browser.click("#dateStartedLivingTogether_month option[value='4']")
-      browser.fill("#dateStartedLivingTogether_year") `with` "1950"
       browser.click("#separatedFromPartner_yes]")
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
@@ -35,14 +31,14 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags with
       browser.click("#backButton")
       browser.title mustEqual "Contact Details - Your Partner"
     }
-    
+
     "navigate to next page on valid submission" in new WithBrowser {
       Formulate.yourPartnerPersonalDetails(browser)
       Formulate.yourPartnerContactDetails(browser)
       Formulate.moreAboutYourPartnerSeparated(browser)
       browser.title mustEqual "Person You Care For - Your Partner"
     }
-    
+
     "contain the completed forms" in new WithBrowser {
       Formulate.yourPartnerPersonalDetails(browser)
       Formulate.yourPartnerContactDetails(browser)

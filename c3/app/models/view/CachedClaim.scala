@@ -7,6 +7,7 @@ import play.Configuration
 import play.api.Play
 
 trait CachedClaim {
+
   import play.api.Play.current
   import scala.language.implicitConversions
   import play.api.http.HeaderNames._
@@ -21,7 +22,9 @@ trait CachedClaim {
       val key = request.session.get("connected").getOrElse(randomUUID.toString)
       val expiration = Configuration.root().getInt("cache.expiry", 3600)
 
-      def apply(claim: Claim) = f(claim)(request).withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+      def apply(claim: Claim) = f(claim)(request).withSession("connected" -> key)
+        .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+        .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         val claim = Claim()
@@ -43,11 +46,15 @@ trait CachedClaim {
 
       def action(claim: Claim): Result = {
         f(claim)(request) match {
-          case Left(r: Result) => r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+          case Left(r: Result) => r.withSession("connected" -> key)
+            .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+            .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
 
           case Right((c: Claim, r: Result)) => {
             Cache.set(key, c, expiration)
-            r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+            r.withSession("connected" -> key)
+              .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+              .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
           }
         }
       }
