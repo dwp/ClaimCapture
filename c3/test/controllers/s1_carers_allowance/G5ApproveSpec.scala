@@ -5,7 +5,6 @@ import play.api.test.{WithApplication, FakeRequest}
 import play.api.test.Helpers._
 
 import play.api.cache.Cache
-import models.view._
 import models.domain._
 import models.domain.Claim
 import controllers.s1_carers_allowance
