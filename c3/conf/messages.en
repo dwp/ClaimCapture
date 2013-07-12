@@ -37,6 +37,9 @@ s4.g10 = Breaks in care
 s4.g11 = About the breaks in care
 
 s5.g1 = Your normal residence & current location
+s5.g2 = When you went abroad for more than 4 weeks
+s5.g3 = When you went abroad for more than 52 weeks
+s5.g5 = Other EEA State or Switzerland
 
 s6.g1 = How would you like to get paid?
 s6.g2 = Bank / building society details
@@ -123,8 +126,10 @@ hasSublet = Have you sublet your home, or provided board and lodgings, since one
 
 # MORE ABOUT YOUR PARTNER
 dateStartedLivingTogether = Please enter the date when you and your Partner/Spouse started living together, if the date is after the date you want to claim from
-separatedFromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
-separationDate = When did you separate?
+separated_fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
+separated.fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
+separated.date = When did you separate?
+separated_date = When did you separate?
 
 # PERSON YOU CARE FOR
 isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming Carer's Allowance for?
@@ -159,11 +164,13 @@ decimal.invalid = The amount must be in the format 500 or 500.5
 
 # MORE ABOUT THE CARE
 spent35HoursCaring = Do you spend 35 hours or more each week caring for this person?
-spent35HoursCaringBeforeClaim = Did you care for this person for 35 hours or more each week before your claim date?
+beforeClaimCaring.answer = Did you care for this person for 35 hours or more each week before your claim date?
 spent35HoursCaringBeforeClaim.label = Did you care for this person for 35 hours or more each week before your claim date: {0}?
-careStartDate = When did you start to care for this person?
+beforeClaimCaring_date = When did you start to care for this person?
+beforeClaimCaring.date = When did you start to care for this person?
 hasSomeonePaidYou = Has someone paid you to care for this person since your claim date?
 hasSomeonePaidYou.label = Has someone paid you to care for this person since your claim date: {0}?
+
 
 # BREAKS IN CARE
 answer = Have you had any breaks in caring since claim date?

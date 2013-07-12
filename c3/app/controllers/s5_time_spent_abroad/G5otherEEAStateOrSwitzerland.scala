@@ -34,8 +34,6 @@ object G5otherEEAStateOrSwitzerland extends Controller with Routing with CachedC
       case _ => form
     }
 
-  println(completedQuestionGroups)
-
     Ok(views.html.s5_time_spent_abroad.g5_otherEEAStateOrSwitzerland(currentForm, completedQuestionGroups))
   }
 

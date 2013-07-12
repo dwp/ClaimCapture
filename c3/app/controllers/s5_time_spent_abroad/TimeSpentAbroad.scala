@@ -12,7 +12,6 @@ object TimeSpentAbroad extends Controller with CachedClaim {
     G1NormalResidenceAndCurrentLocation,
     G2AbroadForMoreThan4Weeks,
     G3AbroadForMoreThan52Weeks,
-    Trips.id -> routes.TimeSpentAbroad.completed(), // TODO NOT CORRECT
     G5otherEEAStateOrSwitzerland)
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.TimeSpentAbroad.id)

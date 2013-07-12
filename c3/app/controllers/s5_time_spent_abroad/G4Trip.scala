@@ -69,8 +69,8 @@ object G4Trip extends Controller with CachedClaim {
       case Some(ts: Trips) => {
         val updatedTrips = ts.delete(id)
 
-        if (updatedTrips.fourWeeksTrips.isEmpty) claim.update(updatedTrips) -> Ok(Json.obj("anyTrips" -> Messages("4Weeks.label", (DayMonthYear.today - 3 Years).`dd/MM/yyyy`)))
-        else claim.update(updatedTrips) -> Ok(Json.obj("anyTrips" -> Messages("4Weeks.more.label", (DayMonthYear.today - 3 Years).`dd/MM/yyyy`)))
+        if (updatedTrips.fourWeeksTrips.isEmpty) claim.update(updatedTrips) -> Ok(Json.obj("anyTrips" -> Messages("4Weeks.label", (DayMonthYear.today - 3 years).`dd/MM/yyyy`)))
+        else claim.update(updatedTrips) -> Ok(Json.obj("anyTrips" -> Messages("4Weeks.more.label", (DayMonthYear.today - 3 years).`dd/MM/yyyy`)))
       }
 
       case _ => BadRequest(s"""Failed to delete trip with ID "$id" as claim currently has no trips""")

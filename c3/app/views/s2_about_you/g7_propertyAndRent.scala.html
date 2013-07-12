@@ -16,10 +16,10 @@
 
             <ul class="group">
                 @yesNoRadioGroup(propertyAndRentForm("ownProperty"),
-                    '_label -> Messages("ownProperty.label", (claim.dateOfClaim.get - 1 Week).`dd/MM/yyyy`, claim.dateOfClaim.get.`dd/MM/yyyy`))
+                    '_label -> Messages("ownProperty.label", (claim.dateOfClaim.get - 1 week).`dd/MM/yyyy`, claim.dateOfClaim.get.`dd/MM/yyyy`))
 
                 @yesNoRadioGroup(propertyAndRentForm("hasSublet"),
-                    '_label -> Messages("hasSublet.label", (claim.dateOfClaim.get - 1 Week).`dd/MM/yyyy`, claim.dateOfClaim.get.`dd/MM/yyyy`))
+                    '_label -> Messages("hasSublet.label", (claim.dateOfClaim.get - 1 week).`dd/MM/yyyy`, claim.dateOfClaim.get.`dd/MM/yyyy`))
             </ul>
         </fieldset>
 

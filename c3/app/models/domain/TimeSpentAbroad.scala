@@ -1,7 +1,7 @@
 package models.domain
 
 import models.DayMonthYear
-import models.yesNo.{YesNo, YesNoWithText}
+import models.yesNo.YesNoWithText
 
 case object TimeSpentAbroad {
   val id = "s5"

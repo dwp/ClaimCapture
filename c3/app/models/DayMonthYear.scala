@@ -20,14 +20,14 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
     case Failure(_) => "Invalid Date"
   }
 
-  def -(amount: Int) = new DayMonthYear(day, month, year, hour, minutes) with Period {
-    override def Days = adjust { _.minusDays(amount) }
+  def -(amount: Int) = new Period {
+    override def days = adjust { _.minusDays(amount) }
 
-    override def Weeks = adjust { _.minusWeeks(amount) }
+    override def weeks = adjust { _.minusWeeks(amount) }
 
-    override def Months = adjust { _.minusMonths(amount) }
+    override def months = adjust { _.minusMonths(amount) }
 
-    override def Years = adjust { _.minusYears(amount) }
+    override def years = adjust { _.minusYears(amount) }
   }
 
   def `dd/MM/yyyy`: String = pad(day) + "/" + pad(month) + "/" + year.fold("")(_.toString)
@@ -57,21 +57,19 @@ object DayMonthYear {
 }
 
 sealed trait Period {
-  this: DayMonthYear =>
+  def day: DayMonthYear = days
 
-  def Day: DayMonthYear = Days
+  def days: DayMonthYear
 
-  def Days: DayMonthYear
+  def week: DayMonthYear = weeks
 
-  def Week: DayMonthYear = Weeks
+  def weeks: DayMonthYear
 
-  def Weeks: DayMonthYear
+  def month: DayMonthYear = months
 
-  def Month: DayMonthYear = Months
+  def months: DayMonthYear
 
-  def Months: DayMonthYear
+  def year: DayMonthYear = years
 
-  def Year: DayMonthYear = Years
-
-  def Years: DayMonthYear
+  def years: DayMonthYear
 }
