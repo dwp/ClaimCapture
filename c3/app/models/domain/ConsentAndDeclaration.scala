@@ -1,5 +1,6 @@
 package models.domain
 
+case class ConsentAndDeclaration(additionalInfo: AdditionalInfo,consent: Consent)
 object ConsentAndDeclaration {
   val id = "s7"
 }
