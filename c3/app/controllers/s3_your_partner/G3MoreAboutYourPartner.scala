@@ -14,6 +14,13 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
 
   override val route = MoreAboutYourPartner.id -> routes.G3MoreAboutYourPartner.present
 
+  val startedLivingTogetherMapping =
+    "startedLivingTogether" -> optional(
+      mapping(
+        "afterClaimDate" -> text.verifying(validYesNo),
+        "date" -> optional(dayMonthYear.verifying(validDateOnly))
+      )(YesNoWithDate.apply)(YesNoWithDate.unapply))
+
   val separationMapping =
     "separated" -> mapping(
       "fromPartner" -> nonEmptyText.verifying(validYesNo),
@@ -23,7 +30,7 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
 
   val form = Form(
     mapping(
-      "dateStartedLivingTogether" -> optional(dayMonthYear verifying validDateOnly),
+      startedLivingTogetherMapping,
       separationMapping
     )(MoreAboutYourPartner.apply)(MoreAboutYourPartner.unapply))
 

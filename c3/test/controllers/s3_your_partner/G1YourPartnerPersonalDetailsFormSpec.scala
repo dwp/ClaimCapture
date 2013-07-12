@@ -138,7 +138,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "nationalInsuranceNumber.ni5" -> ni5,
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
-          "dateOfBirth.year" -> "123456789",
+          "dateOfBirth.year" -> "12345",
           "nationality" -> nationality,
           "liveAtSameAddress" -> liveAtSameAddress)
       ).fold(

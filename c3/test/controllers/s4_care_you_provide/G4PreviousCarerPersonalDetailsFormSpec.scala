@@ -93,7 +93,7 @@ class G4PreviousCarerPersonalDetailsFormSpec extends Specification with Tags {
       G4PreviousCarerPersonalDetails.form.bind(
         Map("dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
-          "dateOfBirth.year" -> "123456789")).fold(
+          "dateOfBirth.year" -> "12345")).fold(
         formWithErrors => {
           formWithErrors.errors.head.message must equalTo("error.invalid")
           formWithErrors.errors.length must equalTo(1)

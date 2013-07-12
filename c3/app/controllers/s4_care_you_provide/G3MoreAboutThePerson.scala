@@ -16,7 +16,7 @@ object G3MoreAboutThePerson extends Controller with Routing with CachedClaim {
 
   val form = Form(
     mapping(
-      "relationship" -> nonEmptyText,
+      "relationship" -> nonEmptyText(maxLength = 20),
       "armedForcesPayment" -> optional(text),
       "claimedAllowanceBefore" -> nonEmptyText.verifying(validYesNo)
     )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))

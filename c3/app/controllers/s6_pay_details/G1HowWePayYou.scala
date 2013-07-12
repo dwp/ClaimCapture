@@ -15,8 +15,8 @@ object G1HowWePayYou extends Controller with Routing with CachedClaim{
 
   val form = Form(
     mapping(
-      "likeToPay" -> nonEmptyText,
-      "paymentFrequency" -> nonEmptyText
+      "likeToPay" -> nonEmptyText(maxLength = 5),
+      "paymentFrequency" -> nonEmptyText(maxLength = 15)
     )(HowWePayYou.apply)(HowWePayYou.unapply))
 
   def present = claiming {
