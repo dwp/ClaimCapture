@@ -8,7 +8,7 @@ import models.domain.Claiming
 
 class G7MoreAboutTheCareSpec extends Specification with Mockito with Tags {
 
-  val moreAboutTheCareInput = Seq("spent35HoursCaring" -> "no", "spent35HoursCaringBeforeClaim" -> "no", "hasSomeonePaidYou" -> "no")
+  val moreAboutTheCareInput = Seq("spent35HoursCaring" -> "no", "beforeClaimCaring.answer" -> "no", "hasSomeonePaidYou" -> "no")
 
   "More about the care" should {
 

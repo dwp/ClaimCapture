@@ -57,25 +57,25 @@ object CareYouProvideSubmission {
         <JudicialFactor></JudicialFactor>
         <Receiver></Receiver>
       </ClaimantActingType>
-      <BreaksSinceClaim>{if (careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim == "no" && careYouProvide.breaksInCare.breaks.size > 0) "yes" else "no"}</BreaksSinceClaim>
+      <BreaksSinceClaim>{if (careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == "no" && careYouProvide.breaksInCare.breaks.size > 0) "yes" else "no"}</BreaksSinceClaim>
       {
-        for(break <- careYouProvide.breaksInCare.breaks) yield{
-          <CareBreak>
-            <StartDateTime>{break.start.toXmlTimeString}</StartDateTime>
-            <EndDateTime>{break.end.fold("")(d => d.toXmlTimeString)}</EndDateTime>
-            <Reason>{if(break.whereYou.location != "Other") break.whereYou.location else break.whereYou.other.getOrElse("Other")}</Reason>
-            <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
-            <AwayFromHome>yes</AwayFromHome>
-          </CareBreak>
-        }
+      for(break <- careYouProvide.breaksInCare.breaks) yield{
+        <CareBreak>
+          <StartDateTime>{break.start.toXmlTimeString}</StartDateTime>
+          <EndDateTime>{break.end.fold("")(d => d.toXmlTimeString)}</EndDateTime>
+          <Reason>{if(break.whereYou.location != "Other") break.whereYou.location else break.whereYou.other.getOrElse("Other")}</Reason>
+          <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
+          <AwayFromHome>yes</AwayFromHome>
+        </CareBreak>
       }
-      <Cared35hoursBefore>{careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim}</Cared35hoursBefore>
-      <BreaksBeforeClaim>{if (careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim == "yes" && careYouProvide.breaksInCare.breaks.size > 0) "yes" else "no"}</BreaksBeforeClaim>
+      }
+      <Cared35hoursBefore>{careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.answer}</Cared35hoursBefore>
+      <BreaksBeforeClaim>{if (careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == "yes" && careYouProvide.breaksInCare.breaks.size > 0) "yes" else "no"}</BreaksBeforeClaim>
 
       {
-        if (careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim == "yes"){
-          <DateStartedCaring>{careYouProvide.moreAboutTheCare.careStartDate.fold("")(d => d.toXmlString)}</DateStartedCaring>
-        }
+      if (careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == "yes"){
+        <DateStartedCaring>{careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.date.fold("")(d => d.toXmlString)}</DateStartedCaring>
+      }
       }
       <PaidForCaring>{careYouProvide.moreAboutTheCare.hasSomeonePaidYou}</PaidForCaring>
       {

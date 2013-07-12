@@ -10,9 +10,11 @@ object TimeSpentAbroad extends Controller with CachedClaim {
 
   val route: ListMap[String, Call] = ListMap(
     G1NormalResidenceAndCurrentLocation,
-    G2AbroadForMoreThan4Weeks)
+    G2AbroadForMoreThan4Weeks,
+    G3AbroadForMoreThan52Weeks,
+    G5otherEEAStateOrSwitzerland)
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.TimeSpentAbroad.id)
 
   def trips(implicit claim: Claim) = claim.questionGroup(Trips) match {
     case Some(ts: Trips) => ts

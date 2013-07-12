@@ -63,8 +63,8 @@ class ClaimSubmissionSpec extends Specification with Tags with PendingUntilFixed
       (claimXml \\ "Partner" \\ "DateOfBirth").text mustEqual yourPartnerPersonalDetails.dateOfBirth.toXmlString
       (claimXml \\ "Partner" \\ "NationalInsuranceNumber").text mustEqual yourPartnerPersonalDetails.nationalInsuranceNumber.get.toXmlString
       (claimXml \\ "Partner" \\ "Address" \\ "PostCode").text mustEqual yourPartnerContactDetails.postcode.get
-      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdAfterDateOfClaim").text mustEqual "yes"
-      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdDate").text mustEqual moreAboutYourPartner.dateStartedLivingTogether.get.toXmlString
+      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdAfterDateOfClaim").text mustEqual moreAboutYourPartner.startedLivingTogether.get.answer
+      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdDate").text mustEqual moreAboutYourPartner.startedLivingTogether.get.date.get.toXmlString
       (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "SeparatedFromPartner").text mustEqual moreAboutYourPartner.separated.answer
       (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "SeparationDate").text mustEqual ""
     }

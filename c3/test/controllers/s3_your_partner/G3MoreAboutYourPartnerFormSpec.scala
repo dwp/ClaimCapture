@@ -14,9 +14,10 @@ class G3MoreAboutYourPartnerFormSpec extends Specification with Tags {
     "map data into case class" in {
       G3MoreAboutYourPartner.form.bind(
         Map(
-          "dateStartedLivingTogether.day" -> day.toString,
-          "dateStartedLivingTogether.month" -> month.toString,
-          "dateStartedLivingTogether.year" -> year.toString,
+          "startedLivingTogether.afterClaimDate" -> yes,
+          "startedLivingTogether.date.day" -> day.toString,
+          "startedLivingTogether.date.month" -> month.toString,
+          "startedLivingTogether.date.year" -> year.toString,
           "separated.fromPartner" -> yes,
           "separated.date.day" -> day.toString,
           "separated.date.month" -> month.toString,
@@ -25,7 +26,8 @@ class G3MoreAboutYourPartnerFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => "This mapping should not happen."  must equalTo("Error"),
         f => {
-          f.dateStartedLivingTogether must equalTo(Some(DayMonthYear(Some(day), Some(month), Some(year), None, None)))
+          f.startedLivingTogether.get.answer must equalTo(yes)
+          f.startedLivingTogether.get.date must equalTo(Some(DayMonthYear(Some(day), Some(month), Some(year), None, None)))
           f.separated.answer must equalTo(yes)
           f.separated.date must equalTo(Some(DayMonthYear(Some(day), Some(month), Some(year), None, None)))
         }
@@ -46,9 +48,11 @@ class G3MoreAboutYourPartnerFormSpec extends Specification with Tags {
 
     "reject invalid date" in {
       G3MoreAboutYourPartner.form.bind(
-        Map("dateStartedLivingTogether.day" -> day.toString,
-          "dateStartedLivingTogether.month" -> month.toString,
-          "dateStartedLivingTogether.year" -> "0",
+        Map(
+          "startedLivingTogether.afterClaimDate" -> yes,
+          "startedLivingTogether.date.day" -> day.toString,
+          "startedLivingTogether.date.month" -> month.toString,
+          "startedLivingTogether.date.year" -> "0",
           "separated.fromPartner" -> "no")
       ).fold(
         formWithErrors => {
@@ -63,7 +67,7 @@ class G3MoreAboutYourPartnerFormSpec extends Specification with Tags {
         Map("separated.fromPartner" -> yes)
       ).fold(
         formWithErrors => {
-          formWithErrors.errors.head.message must equalTo("required")
+          formWithErrors.errors.head.key must equalTo("separated")
           formWithErrors.errors.length must equalTo(1)
         },
         f => "This mapping should not happen." must equalTo("Valid"))

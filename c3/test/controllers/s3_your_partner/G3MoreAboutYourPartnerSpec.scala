@@ -12,12 +12,13 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
   val dateDay = 5
   val dateMonth = 12
   val dateYear = 1990
-  val separatedFromPartner = "yes"
+  val yes = "yes"
   
-  val moreAboutYourPartnerInput = Seq("dateStartedLivingTogether.day" -> dateDay.toString,
-          "dateStartedLivingTogether.month" -> dateMonth.toString,
-          "dateStartedLivingTogether.year" -> dateYear.toString,
-          "separated.fromPartner" -> separatedFromPartner,
+  val moreAboutYourPartnerInput = Seq("startedLivingTogether.afterClaimDate" -> yes,
+          "startedLivingTogether.date.day" -> dateDay.toString,
+          "startedLivingTogether.date.month" -> dateMonth.toString,
+          "startedLivingTogether.date.year" -> dateYear.toString,
+          "separated.fromPartner" -> yes,
           "separated.date.day" -> dateDay.toString,
           "separated.date.month" -> dateMonth.toString,
           "separated.date.year" -> dateYear.toString)
@@ -40,8 +41,9 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
 
       section.questionGroup(MoreAboutYourPartner) must beLike {
         case Some(f: MoreAboutYourPartner) => {
-          f.dateStartedLivingTogether must equalTo(Some(DayMonthYear(Some(dateDay), Some(dateMonth), Some(dateYear), None, None)))
-          f.separated.answer must equalTo(separatedFromPartner)
+          f.startedLivingTogether.get.answer must equalTo(yes)
+          f.startedLivingTogether.get.date must equalTo(Some(DayMonthYear(Some(dateDay), Some(dateMonth), Some(dateYear), None, None)))
+          f.separated.answer must equalTo(yes)
         }
       }
     }

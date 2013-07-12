@@ -15,8 +15,15 @@
             <legend>More about your Partner/Spouse</legend>
 
             <ul class="group">
-                @inputDayMonthYear(currentForm("dateStartedLivingTogether"), 'helperBelow-> Messages("dateOfBirth.helper"))
-                
+
+                @yesNoRadioGroup(currentForm("startedLivingTogether.afterClaimDate"), '_label -> Messages("startedLivingTogether_afterClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(inputDayMonthYear(currentForm("startedLivingTogether.date"), 'helperBelow -> Messages("dateOfBirth.helper") )),
+                    'id->"startedLivingTogetherInfo",
+                    'display -> currentForm("startedLivingTogether.afterClaimDate").value.getOrElse("no")
+                )
+
                 @yesNoRadioGroup(currentForm("separated.fromPartner"))
 
                 @otherDetailPlaceHolder(
@@ -27,17 +34,22 @@
             </ul>
         </fieldset>
 
-        <div class="form-steps">
+        <nav class="form-steps">
             <a id="backButton" href="@backHref(controllers.s3_your_partner.YourPartner.route, completedQuestionGroups)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
-        </div>
+        </nav>
     }
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s3_your_partner/g3_moreAboutYourPartner.js")'></script>
 
 <script type="text/javascript">
+
     $(function(){
-        window.initEvents( "@CarersCrypto.encryptAES("separated_fromPartner_yes")","@CarersCrypto.encryptAES("separated_fromPartner_no")");
+        window.initEvents( "@CarersCrypto.encryptAES("startedLivingTogether_afterClaimDate_yes")",
+        "@CarersCrypto.encryptAES("startedLivingTogether_afterClaimDate_no")",
+        "@CarersCrypto.encryptAES("separated_fromPartner_yes")",
+        "@CarersCrypto.encryptAES("separated_fromPartner_no")");
     })
+
 </script>
