@@ -44,10 +44,11 @@ s5.g5 = Other EEA State or Switzerland
 s6.g1 = How would you like to get paid?
 s6.g2 = Bank / building society details
 
-s7.g1 = Consent
-s7.g2 = Disclaimer
-s7.g3 = Declaration
-s7.g4 = Additional Information
+s7.g1 = Additional Information
+s7.g2 = Consent
+s7.g3 = Disclaimer
+s7.g4 = Declaration
+
 
 ## ABOUT YOU
 

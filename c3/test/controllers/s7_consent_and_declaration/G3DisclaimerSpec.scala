@@ -5,30 +5,28 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
 
-class G1ConsentSpec extends Specification with Tags {
-  "Consent" should {
+class G3DisclaimerSpec extends Specification with Tags {
+  "Disclaimer" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = G1Consent.present(request)
+      val result = G3Disclaimer.present(request)
       status(result) mustEqual OK
     }
 
-    """enforce answer to all questions""" in new WithApplication with Claiming {
+    """enforce answer""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = G1Consent.submit(request)
+      val result = G3Disclaimer.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """accept answers""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-                                 .withFormUrlEncodedBody("informationFromEmployer" -> "yes",
-                                                         "why"->"reason",
-                                                         "informationFromPerson"->"yes")
+                                 .withFormUrlEncodedBody("read" -> "yes")
 
-      val result = G1Consent.submit(request)
-      redirectLocation(result) must beSome("/consentAndDeclaration/disclaimer")
+      val result = G3Disclaimer.submit(request)
+      redirectLocation(result) must beSome("/consentAndDeclaration/declaration")
     }
   } section "unit"
 }

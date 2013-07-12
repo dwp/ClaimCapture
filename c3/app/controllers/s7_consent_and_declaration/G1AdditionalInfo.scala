@@ -11,9 +11,9 @@ import utils.helpers.CarersForm._
 import models.domain.Claim
 import scala.Some
 
-object G4AdditionalInfo extends Controller with Routing with CachedClaim{
+object G1AdditionalInfo extends Controller with Routing with CachedClaim{
 
-  override val route = AdditionalInfo.id -> controllers.s7_consent_and_declaration.routes.G4AdditionalInfo.present
+  override val route = AdditionalInfo.id -> controllers.s7_consent_and_declaration.routes.G1AdditionalInfo.present
 
   val form = Form(
     mapping(
@@ -21,7 +21,6 @@ object G4AdditionalInfo extends Controller with Routing with CachedClaim{
       "welshCommunication" -> nonEmptyText
     )(AdditionalInfo.apply)(AdditionalInfo.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(AdditionalInfo)
 
   def present = claiming {
     implicit claim => implicit request =>
@@ -31,13 +30,13 @@ object G4AdditionalInfo extends Controller with Routing with CachedClaim{
         case _ => form
       }
 
-      Ok(views.html.s7_consent_and_declaration.g4_additionalInfo(currentForm,completedQuestionGroups))
+      Ok(views.html.s7_consent_and_declaration.g1_additionalInfo(currentForm))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_consent_and_declaration.g4_additionalInfo(formWithErrors,completedQuestionGroups)),
-      additionalInfo => claim.update(additionalInfo) -> Redirect(routes.G5Submit.present()))
+      formWithErrors => BadRequest(views.html.s7_consent_and_declaration.g1_additionalInfo(formWithErrors)),
+      additionalInfo => claim.update(additionalInfo) -> Redirect(routes.G2Consent.present()))
   }
 
 

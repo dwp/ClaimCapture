@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.Formulate
 
-class G3DeclarationIntegrationSpec extends Specification with Tags {
+class G4DeclarationIntegrationSpec extends Specification with Tags {
   "Declaration" should {
     "be presented" in new WithBrowser {
       browser.goTo("/consentAndDeclaration/declaration")
@@ -19,9 +19,11 @@ class G3DeclarationIntegrationSpec extends Specification with Tags {
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
+
+
     "navigate to next page on valid submission" in new WithBrowser {
       Formulate.declaration(browser)
-      browser.title mustEqual "Additional Information - Consent And Declaration"
+      browser.title mustEqual "Submit - Consent And Declaration"
     }
 
     "navigate back to Disclaimer" in new WithBrowser {

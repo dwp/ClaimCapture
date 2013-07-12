@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.Formulate
 
-class G4AdditionalInformationIntegrationSpec extends Specification with Tags {
+class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
   "Additional Information" should {
     "be presented" in new WithBrowser {
       browser.goTo("/consentAndDeclaration/additionalInfo")
@@ -21,14 +21,15 @@ class G4AdditionalInformationIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser {
       Formulate.additionalInfo(browser)
-      browser.title mustEqual "Submit - Consent And Declaration"
+      browser.title mustEqual "Consent - Consent And Declaration"
     }
 
-    "navigate back to Declaration" in new WithBrowser {
-      Formulate.declaration(browser)
+    "navigate back to Pay Details - Completed" in new WithBrowser {
+      browser.goTo("/consentAndDeclaration/additionalInfo")
       browser.click(".form-steps a")
-      browser.title mustEqual "Declaration - Consent And Declaration"
+      browser.title mustEqual "Completion - Pay Details"
     }
+
 
     "contain the completed forms" in new WithBrowser {
       Formulate.additionalInfo(browser)

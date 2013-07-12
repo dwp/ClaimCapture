@@ -12,7 +12,7 @@ import scala.Some
 
 object G5Submit extends Controller with Routing with CachedClaim{
 
-  override val route = AdditionalInfo.id -> controllers.s7_consent_and_declaration.routes.G5Submit.present
+  override val route = Submit.id -> controllers.s7_consent_and_declaration.routes.G5Submit.present
 
 
 
