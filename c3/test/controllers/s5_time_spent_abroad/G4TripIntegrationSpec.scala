@@ -61,7 +61,14 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
 
     "allow cancellation" in new TripWithBrowser {
-      pending
+      browser.goTo("/timeSpentAbroad/abroadForMoreThan4Weeks")
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+
+      browser.goTo("/timeSpentAbroad/trip/4Weeks")
+      titleMustEqual("Trip - Time Spent Abroad")
+
+      browser.click("#backButton")
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
     }
   }
 
@@ -117,6 +124,17 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
       browser.$("tbody tr").size() shouldEqual 2
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
+    }
+
+    "allow cancellation" in new TripWithBrowser {
+      browser.goTo("/timeSpentAbroad/abroadForMoreThan52Weeks")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+
+      browser.goTo("/timeSpentAbroad/trip/52Weeks")
+      titleMustEqual("Trip - Time Spent Abroad")
+
+      browser.click("#backButton")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
     }
   }
 
