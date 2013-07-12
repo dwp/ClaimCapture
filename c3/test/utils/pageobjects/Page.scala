@@ -13,15 +13,15 @@ import scala.collection.convert.Wrappers._
  */
 abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
 
-  def goToThePage() = goToUrl(url)
+  def goToThePage() = goToUrl(this)
 
-  def goToPage(page: Page) = goToUrl(page.url)
+  def goToPage(page: Page) = goToUrl(page)
 
   /**
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario)
+  protected def fillPageWith(theClaim: ClaimScenario)
 
   /**
    * Reads theClaim, interacts with browser to populate the page, submit the page and
@@ -59,14 +59,15 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
   }
 
   private def createPageWithTitle(title: String) = {
-    val newPage = PageFactory createPageFromTitle(browser, title)
+    val newPage = PageFactory buildPageFromTitle(browser, title)
     newPage.waitForPage()
     newPage
   }
 
-  private def goToUrl(nextUrl: String) = {
-    browser.goTo(nextUrl)
-    waitForPage()
+  private def goToUrl(page: Page) = {
+    browser.goTo(page.url)
+    page.waitForPage()
+    if (page.pageTitle != browser.title) throw new PageObjectException("Could not go to page " + page.pageTitle + " - Page loaded " + browser.title)
   }
 }
 

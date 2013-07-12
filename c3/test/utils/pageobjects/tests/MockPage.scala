@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-class MockPage (browser: TestBrowser, title: String) extends Page(browser, "/", title){
+class MockPage (browser: TestBrowser, title: String) extends Page(browser, "/mock", title){
   /**
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
@@ -38,7 +38,8 @@ trait MockPageContext extends PageContext with Mockito {
     mockedBrowser.click(".form-steps a") returns mockedBrowser
     mockedBrowser.find("div[class=validation-summary] ol li")  returns new FluentList[FluentWebElement](new util.ArrayList[FluentWebElement]())
     mockedBrowser.goTo(anyString) returns mockedBrowser
-//    mockedBrowser.waitUntil[Boolean](30, TimeUnit.SECONDS) {true} returns true
+    val test = (x:Boolean) => true
+    mockedBrowser.waitUntil[Boolean](30, TimeUnit.SECONDS)(_:Boolean) returns true
     mockedBrowser
   }
   val page = MockPage buildPage(browser)
