@@ -29,7 +29,7 @@ object ApplicationBuild extends Build {
     sTest = Seq(testOptions in Test += Tests.Argument("include", System.getProperty("include")))
   }
 
-  var gS: Seq[Project.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 1),Tags.limit(Tags.Network, 10),Tags.limit(Tags.Test, 1)))
+  var gS: Seq[Project.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 4),Tags.limit(Tags.Network, 10),Tags.limit(Tags.Test, 4)))
 
   var f: Seq[Project.Setting[_]] = Seq(sbt.Keys.fork in Test := false)
 
