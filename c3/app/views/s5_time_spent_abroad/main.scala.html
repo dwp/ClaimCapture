@@ -8,7 +8,7 @@
         <div class="carers-container">
         
             <div class="prototype">
-              <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
+                <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
             </div>
 
             @progressBar(TimeSpentAbroad.id)
@@ -22,7 +22,7 @@
                 @if(completedQuestionGroups.size > 0) {
                     <div class="completed">
                         <ul>
-                            @for(completedQuestionGroup <- completedQuestionGroups) {
+                            @for(completedQuestionGroup <- completedQuestionGroups; if controllers.s5_time_spent_abroad.TimeSpentAbroad.route.get(completedQuestionGroup.id).isDefined) {
                                 <li>
                                     <h3>@Messages(completedQuestionGroup.id)</h3>
                                     <a href="@controllers.s5_time_spent_abroad.TimeSpentAbroad.route(completedQuestionGroup.id)">Change these answers</a>
