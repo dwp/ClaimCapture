@@ -4,14 +4,14 @@ import play.api.test.{WithBrowser, TestBrowser}
 import org.specs2.specification.Scope
 import java.util.concurrent.TimeUnit
 import scala.collection.convert.Wrappers._
-
+import org.openqa.selenium._
 
 /**
  * Super-class of all the PageObject pattern compliant classes representing an application page.
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
+abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) extends Object with ComponentObject {
 
   def goToThePage() = goToUrl(this)
 
@@ -31,7 +31,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
   def runClaimWith(theClaim: ClaimScenario): Unit = {
     fillPageWith(theClaim)
     val nextPage = submitPage
-    nextPage runClaimWith(theClaim)
+    nextPage runClaimWith (theClaim)
   }
 
   def submitPage() = {
@@ -54,7 +54,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
   protected def checkNoErrorsForPage(nextPageTile: String) = {
     val rawErrors = browser.find("div[class=validation-summary] ol li")
     if (!rawErrors.isEmpty) {
-      throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed""",  (new JListWrapper(rawErrors.getTexts)).toList)
+      throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed""", (new JListWrapper(rawErrors.getTexts)).toList)
     }
   }
 

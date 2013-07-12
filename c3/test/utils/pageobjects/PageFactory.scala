@@ -27,11 +27,6 @@ object PageFactory {
     Source.fromURL(getClass getResource (fileName)).getLines() foreach {
       line =>
         claim.updateDynamic(line)("= oops")
-        println(line + claim.selectDynamic(line))
     }
-    println("----------------")
-    val read = claim.AboutYouHaveyousubletyourhome
-    println(read)
-
   }
 }

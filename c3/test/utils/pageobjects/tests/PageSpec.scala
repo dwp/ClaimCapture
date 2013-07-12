@@ -33,5 +33,9 @@ class PageSpec extends Specification {
       there was one(browser).submit("button[type='submit']")
       there was one(browser).find("div[class=validation-summary] ol li")
     }
+
+    "Throw exception if cannot go to the write page" in new MockPageWrongTitleContext {
+      page.goToThePage must throwA[PageObjectException]
+    }
   }
 }
