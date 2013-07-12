@@ -38,7 +38,7 @@ object ClaimBuilder {
   val previousCarerPersonalDetails = PreviousCarerPersonalDetails(firstName = Some("Some"), middleName = None, surname = Some("One"),
     None, dateOfBirth = Some(DayMonthYear(1, 1, 1963)))
 
-  val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaring = "yes", spent35HoursCaringBeforeClaim = "no", careStartDate = Some(DayMonthYear(1, 1, 2013)), hasSomeonePaidYou = "yes")
+  val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaring = "yes", spent35HoursCaringBeforeClaim = YesNoWithDate("no", Some(DayMonthYear(1, 1, 2013))), hasSomeonePaidYou = "yes")
 
   val oneWhoPays = OneWhoPaysPersonalDetails(organisation = Some("SomeOrg Inc."), amount = Some("300"), startDatePayment = Some(DayMonthYear(1, 1, 2012)))
 
@@ -63,4 +63,9 @@ object ClaimBuilder {
   val personYouCareFor = PersonYouCareFor(isPartnerPersonYouCareFor = "yes")
   val yourPartner = YourPartner(yourPartnerPersonalDetails, yourPartnerContactDetails,
     moreAboutYourPartner, Some(personYouCareFor))
+
+  val howWePayYou = HowWePayYou("01","everyWeek")
+  val bank = BankBuildingSocietyDetails("Holder","Bank name",SortCode("12","34","56"),"1234567890","1234")
+
+  val payDetails = PayDetails(howWePayYou,bank)
 }

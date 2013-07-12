@@ -7,7 +7,7 @@ import scala.collection.immutable.ListMap
 
 object ConsentAndDeclaration extends Controller with CachedClaim {
 
-  val route: ListMap[String, Call] = ListMap(G1Consent,G2Disclaimer,G3Declaration,G4AdditionalInfo,G5Submit)
+  val route: ListMap[String, Call] = ListMap(G1AdditionalInfo,G2Consent,G3Disclaimer,G4Declaration,G5Submit)
 
 
   def completed = claiming { implicit claim => implicit request =>

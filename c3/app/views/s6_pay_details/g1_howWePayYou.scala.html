@@ -15,14 +15,14 @@
             <ul class="group">
 
                 @listRadioGroup(currentForm("likeToPay"),'items -> Seq("01"->"UK bank or building society account","02"->"You don't have an account but intend to open one","03"->"Other - you would like more information"))
-                @carersSelect(currentForm("paymentFrequency"),Seq(""->"Please Select","1W"->"Every week","4W"->"Every four weeks","13W"->"Every 13 weeks"))
+                @carersSelect(currentForm("paymentFrequency"),Seq(""->"Please Select","everyWeek"->"Every week","fourWeekly"->"Every four weeks"/*,"13W"->"Every 13 weeks"*/))
             </ul>
         </fieldset>
 
-        <div class="form-steps">
+        <nav class="form-steps">
             <a href="@controllers.s4_care_you_provide.routes.CareYouProvide.completed" id="backButton" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
-        </div>
+        </nav>
     }
 
 }

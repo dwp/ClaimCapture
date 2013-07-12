@@ -12,7 +12,7 @@
 
 @main("Disclaimer - Consent And Declaration", Some(currentForm),completedQuestionGroups) {
 
-    @form(action = controllers.s7_consent_and_declaration.routes.G2Disclaimer.submit) {
+    @form(action = controllers.s7_consent_and_declaration.routes.G3Disclaimer.submit) {
         <fieldset class="form-elements">
             <legend>Disclaimer</legend>
 
@@ -29,10 +29,10 @@
             </div>
         </fieldset>
 
-        <div class="form-steps">
+        <nav class="form-steps">
             <a href="@backHref(ConsentAndDeclaration.route,completedQuestionGroups)" id="backButton" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">I have read the notes</button>
-        </div>
+        </nav>
     }
 
 }

@@ -37,14 +37,18 @@ s4.g10 = Breaks in care
 s4.g11 = About the breaks in care
 
 s5.g1 = Your normal residence & current location
+s5.g2 = When you went abroad for more than 4 weeks
+s5.g3 = When you went abroad for more than 52 weeks
+s5.g5 = Other EEA State or Switzerland
 
 s6.g1 = How would you like to get paid?
 s6.g2 = Bank / building society details
 
-s7.g1 = Consent
-s7.g2 = Disclaimer
-s7.g3 = Declaration
-s7.g4 = Additional Information
+s7.g1 = Additional Information
+s7.g2 = Consent
+s7.g3 = Disclaimer
+s7.g4 = Declaration
+
 
 ## ABOUT YOU
 
@@ -123,8 +127,10 @@ hasSublet = Have you sublet your home, or provided board and lodgings, since one
 
 # MORE ABOUT YOUR PARTNER
 dateStartedLivingTogether = Please enter the date when you and your Partner/Spouse started living together, if the date is after the date you want to claim from
-separatedFromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
-separationDate = When did you separate?
+separated_fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
+separated.fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
+separated.date = When did you separate?
+separated_date = When did you separate?
 
 # PERSON YOU CARE FOR
 isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming Carer's Allowance for?
@@ -159,11 +165,13 @@ decimal.invalid = The amount must be in the format 500 or 500.5
 
 # MORE ABOUT THE CARE
 spent35HoursCaring = Do you spend 35 hours or more each week caring for this person?
-spent35HoursCaringBeforeClaim = Did you care for this person for 35 hours or more each week before your claim date?
+beforeClaimCaring.answer = Did you care for this person for 35 hours or more each week before your claim date?
 spent35HoursCaringBeforeClaim.label = Did you care for this person for 35 hours or more each week before your claim date: {0}?
-careStartDate = When did you start to care for this person?
+beforeClaimCaring_date = When did you start to care for this person?
+beforeClaimCaring.date = When did you start to care for this person?
 hasSomeonePaidYou = Has someone paid you to care for this person since your claim date?
 hasSomeonePaidYou.label = Has someone paid you to care for this person since your claim date: {0}?
+
 
 # BREAKS IN CARE
 answer = Have you had any breaks in caring since claim date?
@@ -191,7 +199,7 @@ liveInUK.whereDoYouLive = Where do you normally live?
 liveInUK_whereDoYouLive = Where do you normally live?
 inGBNow = Are you in Great Britain now?
 
-trips = Have you been out of Great Britain
+anyTrips = Have you been out of Great Britain
 
 # 4 WEEKS
 4Weeks.label = Have you been out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
@@ -205,6 +213,13 @@ start.trip = Date you left Great Britain
 end.trip = Date you returned to Great Britain
 where.trip = Where did you go?
 why.trip = Why did you go?
+
+# OTHER EEA STATE OR SWITZERLAND
+benefitsFromOtherEEAStateOrSwitzerland.answer = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
+benefitsFromOtherEEAStateOrSwitzerland_answer = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
+benefitsFromOtherEEAStateOrSwitzerland.details = Provide details
+benefitsFromOtherEEAStateOrSwitzerland_details = Provide details
+workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?
 
 ## PAY DETAILS
 # HOW WE PAY YOU
@@ -230,10 +245,10 @@ disclaimerHtml = <p>I understand that if I am paid Carer's Allowance it may affe
 disclaimer.read = Please tick this box to declare that you have read the Disclaimer text and have shown the Notes to the person you are looking after.
 
 #DECLARATION
-declaration.1 = <li>I declare that I understand the Cares's Allowance Claim Notes and that the information provided on this claim form is correct and complete.</li>
-declaration.2 = <li>I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.</li>
-declaration.3 = <li>I will phone 08456084321 or write to Carer's allowance Unit, Palantine House,Lancaster, Preston, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.</li>
-declaration.4 = <li>If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Cares Allowance may be stopped or reduced and any overpayment of Cares Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.</li>
+declaration.1 = I declare that I understand the Cares's Allowance Claim Notes and that the information provided on this claim form is correct and complete.
+declaration.2 = I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
+declaration.3 = I will phone 08456084321 or write to Carer's allowance Unit, Palantine House,Lancaster, Preston, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
+declaration.4 = If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Cares Allowance may be stopped or reduced and any overpayment of Cares Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.
 declaration.read = Please tick this box to declare that you and the person you are looking after have read these notes.
 declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.
 

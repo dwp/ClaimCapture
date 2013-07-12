@@ -21,7 +21,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
     "contains errors for optional mandatory data" in new WithBrowser {
       browser.goTo("/careYouProvide/moreAboutTheCare")
       browser.click("#spent35HoursCaring_yes")
-      browser.click("#spent35HoursCaringBeforeClaim_yes")
+      browser.click("#beforeClaimCaring_answer_yes")
       browser.click("#hasSomeonePaidYou_yes")
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1

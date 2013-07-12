@@ -22,7 +22,7 @@ object G2BankBuildingSocietyDetails extends Controller with Routing with CachedC
       "accountHolderName" -> nonEmptyText,
       "bankFullName" -> nonEmptyText,
       "sortCode" -> (sortCode verifying requiredSortCode),
-      "accountName" -> nonEmptyText(minLength = 6,maxLength = 10),
+      "accountNumber" -> nonEmptyText(minLength = 6,maxLength = 10),
       "rollOrReferenceNumber" -> nonEmptyText( maxLength = 18)
     )(BankBuildingSocietyDetails.apply)(BankBuildingSocietyDetails.unapply))
 

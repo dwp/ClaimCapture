@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Consent])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.Consent],completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,8 +7,8 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 
-@main("Consent - Consent And Declaration", Some(currentForm)) {
-    @form(action = controllers.s7_consent_and_declaration.routes.G1Consent.submit) {
+@main("Consent - Consent And Declaration", Some(currentForm),completedQuestionGroups) {
+    @form(action = controllers.s7_consent_and_declaration.routes.G2Consent.submit) {
         <fieldset class="form-elements">
             <legend>Consent</legend>
 
@@ -20,10 +20,10 @@
             </ul>
         </fieldset>
 
-        <div class="form-steps">
-            <a href="@controllers.s6_pay_details.routes.PayDetails.completed" id="backButton" class="button secondary">Back</a>
+        <nav class="form-steps">
+            <a href="@backHref(controllers.s7_consent_and_declaration.ConsentAndDeclaration.route,completedQuestionGroups)" id="backButton" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
-        </div>
+        </nav>
     }
 
 }

@@ -125,6 +125,9 @@ POST    /timeSpentAbroad/trip/52Weeks                           controllers.s5_t
 GET     /timeSpentAbroad/trip/:id                               controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
 DELETE  /timeSpentAbroad/trip/:id                               controllers.s5_time_spent_abroad.G4Trip.delete(id: String)
 
+GET     /timeSpentAbroad/otherEEAStateOrSwitzerland             controllers.s5_time_spent_abroad.G5otherEEAStateOrSwitzerland.present
+POST    /timeSpentAbroad/otherEEAStateOrSwitzerland             controllers.s5_time_spent_abroad.G5otherEEAStateOrSwitzerland.submit
+
 GET     /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
 
 # Pay Details
@@ -140,17 +143,18 @@ POST    /payDetails/completed                                   controllers.s6_p
 
 # Consent And Declaration
 ###############
-GET     /consentAndDeclaration/consent                          controllers.s7_consent_and_declaration.G1Consent.present
-POST    /consentAndDeclaration/consent                          controllers.s7_consent_and_declaration.G1Consent.submit
 
-GET     /consentAndDeclaration/disclaimer                       controllers.s7_consent_and_declaration.G2Disclaimer.present
-POST    /consentAndDeclaration/disclaimer                       controllers.s7_consent_and_declaration.G2Disclaimer.submit
+GET     /consentAndDeclaration/additionalInfo                   controllers.s7_consent_and_declaration.G1AdditionalInfo.present
+POST    /consentAndDeclaration/additionalInfo                   controllers.s7_consent_and_declaration.G1AdditionalInfo.submit
 
-GET     /consentAndDeclaration/declaration                      controllers.s7_consent_and_declaration.G3Declaration.present
-POST    /consentAndDeclaration/declaration                      controllers.s7_consent_and_declaration.G3Declaration.submit
+GET     /consentAndDeclaration/consent                          controllers.s7_consent_and_declaration.G2Consent.present
+POST    /consentAndDeclaration/consent                          controllers.s7_consent_and_declaration.G2Consent.submit
 
-GET     /consentAndDeclaration/additionalInfo                   controllers.s7_consent_and_declaration.G4AdditionalInfo.present
-POST    /consentAndDeclaration/additionalInfo                   controllers.s7_consent_and_declaration.G4AdditionalInfo.submit
+GET     /consentAndDeclaration/disclaimer                       controllers.s7_consent_and_declaration.G3Disclaimer.present
+POST    /consentAndDeclaration/disclaimer                       controllers.s7_consent_and_declaration.G3Disclaimer.submit
+
+GET     /consentAndDeclaration/declaration                      controllers.s7_consent_and_declaration.G4Declaration.present
+POST    /consentAndDeclaration/declaration                      controllers.s7_consent_and_declaration.G4Declaration.submit
 
 GET     /consentAndDeclaration/submit                           controllers.s7_consent_and_declaration.G5Submit.present
 POST    /consentAndDeclaration/submit                           controllers.s7_consent_and_declaration.G5Submit.submit

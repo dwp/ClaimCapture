@@ -6,7 +6,7 @@ import play.api.test.Helpers._
 import models.domain.Claiming
 
 class G2AbroadForMoreThan4WeeksSpec extends Specification with Tags {
-  "Normal residence and current location" should {
+  "Abroad more than 4 weeks" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
@@ -29,11 +29,10 @@ class G2AbroadForMoreThan4WeeksSpec extends Specification with Tags {
     }
 
     """accept "no" to "abroad for more than 4 weeks".""" in new WithApplication with Claiming {
-      pending
-      /*val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("anyTrips" -> "no")
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("anyTrips" -> "no")
 
       val result = G2AbroadForMoreThan4Weeks.submit(request)
-      redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan52Weeks")*/
+      redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan52Weeks")
     }
 
     "complete upon indicating that there are no more 4 week trips having provided zero trip details" in new WithApplication with Claiming {

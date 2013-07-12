@@ -8,41 +8,41 @@
 
 @main("More about the care you provide - Care You Provide", Some(currentForm), completedQuestionGroups) {
 
-    @form(action = controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.submit) {
+@form(action = controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.submit) {
 
-        <fieldset class="form-elements">
-            <legend>More about the care you provide</legend>
+<fieldset class="form-elements">
+    <legend>More about the care you provide</legend>
 
-            <ul class="group">
-                @yesNoRadioGroup(currentForm("spent35HoursCaring"))
+    <ul class="group">
+        @yesNoRadioGroup(currentForm("spent35HoursCaring"))
 
-                @yesNoRadioGroup(currentForm("spent35HoursCaringBeforeClaim"), '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
+        @yesNoRadioGroup(currentForm("beforeClaimCaring.answer"), '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
 
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(inputDayMonthYear(currentForm("careStartDate"), 'helperBelow -> Messages("dateOfBirth.helper"))),
-                    'id -> "careStartDateWrap",
-                    'display -> currentForm("spent35HoursCaringBeforeClaim").value.getOrElse("no")
-                )
+        @otherDetailPlaceHolder(
+        inputDef = Seq(inputDayMonthYear(currentForm("beforeClaimCaring.date"), 'helperBelow -> Messages("dateOfBirth.helper"))),
+        'id -> "careStartDateWrap",
+        'display -> currentForm("beforeClaimCaring.answer").value.getOrElse("no")
+        )
 
-                @yesNoRadioGroup(currentForm("hasSomeonePaidYou"), '_label -> Messages("hasSomeonePaidYou.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
-            </ul>
-        </fieldset>
+        @yesNoRadioGroup(currentForm("hasSomeonePaidYou"), '_label -> Messages("hasSomeonePaidYou.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
+    </ul>
+</fieldset>
 
-        <div class="form-steps">
-            <a id="backButton" href="@backHref(controllers.s4_care_you_provide.CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Next</button>
-        </div>
-    }
+<nav class="form-steps">
+    <a id="backButton" href="@backHref(controllers.s4_care_you_provide.CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+    <button type="submit" name="action" value="next" class="button">Next</button>
+</nav>
+}
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g7_moreAboutTheCare.js")'></script>
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("spent35HoursCaringBeforeClaim_yes")",
-        "@CarersCrypto.encryptAES("spent35HoursCaringBeforeClaim_no")",
-        "@CarersCrypto.encryptAES("careStartDate_day")",
-        "@CarersCrypto.encryptAES("careStartDate_month")",
-        "@CarersCrypto.encryptAES("careStartDate_year")");
+    window.initEvents("@CarersCrypto.encryptAES("beforeClaimCaring_answer_yes")",
+    "@CarersCrypto.encryptAES("beforeClaimCaring_answer_no")",
+    "@CarersCrypto.encryptAES("beforeClaimCaring_date_day")",
+    "@CarersCrypto.encryptAES("beforeClaimCaring_date_month")",
+    "@CarersCrypto.encryptAES("beforeClaimCaring_date_year")");
     });
 </script>

@@ -4,9 +4,9 @@
 
 @main("Completion - About You", completedQuestionGroups) {
     @form(action = controllers.s2_about_you.routes.AboutYou.completedSubmit) {
-        <div class="form-steps">
+        <nav class="form-steps">
             <a href="@controllers.s2_about_you.routes.G7PropertyAndRent.present" class="button secondary">Back</a>
             <button id="submit" type="submit" name="action" value="next" class="button">@{if(showYourPartnerSection)"Continue to Partner / Spouse" else "Continue to care you provide" }</button>
-        </div>
+        </nav>
     }
 }

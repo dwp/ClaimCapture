@@ -56,7 +56,7 @@ class G2BankBuildingSocietyDetailsSpec extends Specification with Tags {
       val request2 = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("accountHolderName" -> "some Holder","bankFullName"->"some bank",
         "sortCode.sort1" -> "10","sortCode.sort2" -> "10","sortCode.sort3" -> "10",
-        "accountName"->"account","rollOrReferenceNumber"->"1234567899")
+        "accountNumber"->"12345678","rollOrReferenceNumber"->"1234567899")
 
       val result2 = G2BankBuildingSocietyDetails.submit(request2)
       status(result2) mustEqual SEE_OTHER

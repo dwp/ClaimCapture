@@ -10,7 +10,7 @@
 
 
 @main("Declaration - Consent And Declaration", Some(currentForm),completedQuestionGroups) {
-    @form(action = controllers.s7_consent_and_declaration.routes.G3Declaration.submit) {
+    @form(action = controllers.s7_consent_and_declaration.routes.G4Declaration.submit) {
         <fieldset class="form-elements">
             <legend>Declaration</legend>
 
@@ -18,7 +18,7 @@
                 <h3>@Messages("declaration.title")</h3>
                 <ul>
                 @for(i <- 1 to 4){
-                        @Html(Messages(s"declaration.$i"))
+                    <li>@Messages(s"declaration.$i"))</li>
                 }
                 </ul>
             </article>
@@ -27,10 +27,10 @@
             </div>
         </fieldset>
 
-        <div class="form-steps">
+        <nav class="form-steps">
             <a href="@backHref(ConsentAndDeclaration.route,completedQuestionGroups)" id="backButton" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">I confirm and understand</button>
-        </div>
+        </nav>
     }
 
 }

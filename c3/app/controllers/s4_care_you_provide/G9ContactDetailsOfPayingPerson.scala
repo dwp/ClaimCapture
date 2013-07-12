@@ -23,7 +23,7 @@ object G9ContactDetailsOfPayingPerson extends Controller with Routing with Cache
 
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(MoreAboutTheCare) match {
-      case Some(MoreAboutTheCare(_, _, _, "yes")) => {
+      case Some(MoreAboutTheCare(_, _, "yes")) => {
         val contactDetailsOfPayingPersonForm: Form[ContactDetailsOfPayingPerson] = claim.questionGroup(ContactDetailsOfPayingPerson) match {
           case Some(c: ContactDetailsOfPayingPerson) => form.fill(c)
           case _ => form

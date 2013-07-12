@@ -3,9 +3,8 @@ package controllers.s3_your_partner
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.Formulate
-import org.specs2.execute.PendingUntilFixed
 
-class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags with PendingUntilFixed {
+class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags {
 
   "More About Your Partner" should {
     "be presented" in new WithBrowser {
