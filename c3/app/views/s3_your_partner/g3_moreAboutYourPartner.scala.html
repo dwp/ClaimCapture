@@ -24,7 +24,7 @@
                     'display -> currentForm("startedLivingTogether.afterClaimDate").value.getOrElse("no")
                 )
 
-                @yesNoRadioGroup(currentForm("separated.fromPartner"))
+                @yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(inputDayMonthYear(currentForm("separated.date"), 'helperBelow -> Messages("dateOfBirth.helper") )),

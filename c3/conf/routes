@@ -129,6 +129,7 @@ GET     /timeSpentAbroad/otherEEAStateOrSwitzerland             controllers.s5_t
 POST    /timeSpentAbroad/otherEEAStateOrSwitzerland             controllers.s5_time_spent_abroad.G5otherEEAStateOrSwitzerland.submit
 
 GET     /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
+POST    /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completedSubmit
 
 # Pay Details
 ###############
@@ -170,7 +171,5 @@ GET     /submit                                                 controllers.Subm
 # Thank you
 GET     /thankYou                                               controllers.ThankYou.present
 
-
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                           controllers.Assets.at(path="/public", file)
-

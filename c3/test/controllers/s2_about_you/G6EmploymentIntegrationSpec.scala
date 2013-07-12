@@ -54,10 +54,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
       browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
 
       browser.submit("button[type='submit']")
-
       browser.title mustEqual "Property and Rent - About You"
-
     }
-
   } section "integration"
 }

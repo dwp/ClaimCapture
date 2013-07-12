@@ -23,12 +23,11 @@ object TimeSpentAbroad extends Controller with CachedClaim {
 
   def completed = claiming { implicit claim => implicit request =>
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1NormalResidenceAndCurrentLocation.present())
-    //else Ok(views.html.s5_time_spent_abroad.completed(completedQuestionGroups)) TODO
-    else Ok("")
+    else Ok(views.html.s5_time_spent_abroad.completed(completedQuestionGroups))
   }
 
-  /*def submit = claiming { implicit claim => implicit request =>
-    if (completedQuestionGroups.distinct.size >= 6) Redirect(controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.present())
-    else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
-  }*/
+  def completedSubmit = claiming { implicit claim => implicit request =>
+    if (completedQuestionGroups.distinct.size == 5) Redirect(controllers.s6_pay_details.routes.G1HowWePayYou.present())
+    else Redirect(controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.present())
+  }
 }

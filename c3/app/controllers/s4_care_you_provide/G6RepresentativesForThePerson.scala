@@ -19,14 +19,14 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
 
   val youActMapping =
     "you" -> mapping(
-      "actForPerson" -> nonEmptyText.verifying(validYesNo),
-      "actAs" -> optional(nonEmptyText))(YesNoWithDropDown.apply)(YesNoWithDropDown.unapply)
+      "actForPerson" -> nonEmptyText(maxLength = 20).verifying(validYesNo),
+      "actAs" -> optional(nonEmptyText(maxLength = 20)))(YesNoWithDropDown.apply)(YesNoWithDropDown.unapply)
       .verifying("required", YesNoWithDropDown.validate _)
 
   val someoneElseMapping =
     "someoneElse" -> mapping(
-      "actForPerson" -> nonEmptyText.verifying(validYesNo),
-      "actAs" -> optional(nonEmptyText),
+      "actForPerson" -> nonEmptyText(maxLength = 20).verifying(validYesNo),
+      "actAs" -> optional(nonEmptyText(maxLength = 20)),
       "fullName" -> optional(text)
     )(YesNoWithDropDownAndText.apply)(YesNoWithDropDownAndText.unapply)
       .verifying("required", YesNoWithDropDownAndText.validate _)
