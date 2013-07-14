@@ -7,7 +7,10 @@ case class Section(id: String, questionGroups: List[QuestionGroup], visible: Boo
   }
 
   def update(questionGroup: QuestionGroup): Section = {
-    val updatedQuestionGroups = questionGroups.takeWhile(_.index < questionGroup.index) ::: List(questionGroup) ::: questionGroups.dropWhile(_.index <= questionGroup.index)
+    val updatedQuestionGroups = questionGroups.takeWhile(_.index < questionGroup.index) :::
+                                List(questionGroup) :::
+                                questionGroups.dropWhile(_.index <= questionGroup.index)
+
     copy(questionGroups = updatedQuestionGroups)
   }
 
