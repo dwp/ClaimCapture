@@ -42,6 +42,6 @@ object G2AddressOfSchoolCollegeOrUniversity extends Controller with Routing with
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s9_education.g2_addressOfSchoolCollegeOrUniversity(formWithErrors, completedQuestionGroups)),
-      f => claim.update(f) -> Redirect(routes.G2AddressOfSchoolCollegeOrUniversity.present()))
+      f => claim.update(f) -> Redirect(routes.Education.completed()))
   }
 }

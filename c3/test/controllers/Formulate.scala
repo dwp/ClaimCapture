@@ -364,4 +364,23 @@ object Formulate {
     browser.click("#welshCommunication_yes")
     browser.submit("button[type='submit']")
   }
+  
+  // Education
+  def addressOfSchoolCollegeOrUniversity(browser: TestBrowser) = {
+    val nameOfSchoolCollegeOrUniversity = "MIT"
+    val nameOfMainTeacherOrTutor = "Albert Einstein"
+    val addressLineOne = "123 Street"
+    val postcode: String = "SE1 6EH"
+    val phoneNumber = "02076541058"
+    val faxNumber = "07076541058"
+    
+    browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
+    browser.fill("#nameOfSchoolCollegeOrUniversity") `with` nameOfSchoolCollegeOrUniversity
+    browser.fill("#nameOfMainTeacherOrTutor") `with` nameOfMainTeacherOrTutor
+    browser.fill("#address_lineOne") `with` addressLineOne
+    browser.fill("#postcode") `with` postcode
+    browser.fill("#phoneNumber") `with` phoneNumber
+    browser.fill("#faxNumber") `with` faxNumber
+    browser.submit("button[type='submit']")
+  }
 }
