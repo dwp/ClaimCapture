@@ -620,6 +620,10 @@ $button-green-hover: #004b27;
 			   &.other-detail {
 				   margin: 0;
 				   padding-top: 0;
+				   .strip {
+					   position: absolute;
+					   left: -9999px;
+				   }
 			   }
 			  
 			   
@@ -792,6 +796,14 @@ $button-green-hover: #004b27;
 			   .warning-text {
 				   color: #df3034;
 			   }
+			   .stacked {
+					   margin: 0;
+					   padding: 0;
+					   font-size: 1.6rem;
+					   .ie & {
+						   font-size: 16px;
+					   }
+				   }
 		   }
 		   
 		   /* form list end */

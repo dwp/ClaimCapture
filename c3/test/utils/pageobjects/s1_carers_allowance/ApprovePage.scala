@@ -8,12 +8,16 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-class ApprovePage(browser: TestBrowser) extends Page(browser, "/allowance/approve", ApprovePage.title) {
+class ApprovePage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, ApprovePage.url, ApprovePage.title, previousPage) {
   /**
-   * Sub-class reads theClaim and interact with browser to populate page.
+   * Reads theClaim and interact with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) {}
+
+  def isApproved() =  browser.find("div[class=prompt]").size == 1 && browser.find(".prompt.error]").size == 0
+  def isNotApproved() =  browser.find(".prompt.error]").size != 0
+
 }
 
 /**
@@ -22,11 +26,12 @@ class ApprovePage(browser: TestBrowser) extends Page(browser, "/allowance/approv
  */
 object ApprovePage {
   val title = "Can you get Carer's Allowance?"
-  def buildPageWith(browser: TestBrowser) = new ApprovePage(browser)
+  val url = "/allowance/approve"
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new ApprovePage(browser, previousPage)
 }
 
 /** The context for Specs tests */
-class ApprovePageContext extends PageContext {
+trait ApprovePageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
   val page = ApprovePage buildPageWith browser
 }
