@@ -33,11 +33,11 @@ class YourDetailsPage(browser: TestBrowser) extends Page(browser, "/aboutyou/you
  */
 object YourDetailsPage {
   val title = "Your Details - About You"
-  def buildPage(browser: TestBrowser) = new YourDetailsPage(browser)
+  def buildPageWith(browser: TestBrowser) = new YourDetailsPage(browser)
 }
 
 /** The context for Specs tests */
 trait YourDetailsPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = YourDetailsPage buildPage(browser)
+  val page = YourDetailsPage buildPageWith browser
 }

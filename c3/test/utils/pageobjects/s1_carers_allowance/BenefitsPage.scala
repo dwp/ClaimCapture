@@ -1,7 +1,7 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ComponentObject, ClaimScenario, PageContext, Page}
+import utils.pageobjects.{PageElements, ClaimScenario, PageContext, Page}
 
 /**
  * PageObject pattern associated to S1 carers allowance G1 Benefits page.
@@ -10,12 +10,16 @@ import utils.pageobjects.{ComponentObject, ClaimScenario, PageContext, Page}
  */
 class BenefitsPage(browser: TestBrowser) extends Page(browser, "/", BenefitsPage.title) {
 
-  def clickPersonGetsBenefits() = browser.click("#q3-yes")
+  /* temporary, until tested class is refactored and use new common components. */
+  private val separator  = "-"
 
-  def clickPersonDoesNotGetBenefits() = browser.click("#q3-no")
+  def clickPersonGetsBenefits() = fillYesNo("#q3", "Yes",separator)
 
-  def doesPersonGetBenefit() = valueOfYesNo("#q3-yes")
+  def clickPersonDoesNotGetBenefits() = fillYesNo("#q3", "No",separator)
 
+  def doesPersonGetBenefit() = valueOfYesNo("#q3",separator)
+
+  /* Normally not necessary since framework automatically checks pageobject on right html page. */
   def isInBenefitsPage(): Boolean = titleMatch()
 
   def hasQ1() = browser.find("div[class=carers-allowance]").getText contains "Q1"
@@ -25,10 +29,7 @@ class BenefitsPage(browser: TestBrowser) extends Page(browser, "/", BenefitsPage
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) {
-    theClaim.CanYouGetCarersAllowance_DoesPpersonYouCareForGetOneOfTheseBenefits match {
-      case "Yes" => browser.click("#q3-yes")
-      case "No" => browser.click("#q3-no")
-    }
+    fillYesNo("#q3",theClaim.CanYouGetCarersAllowance_DoesPpersonYouCareForGetOneOfTheseBenefits, separator)
   }
 }
 
@@ -38,11 +39,11 @@ class BenefitsPage(browser: TestBrowser) extends Page(browser, "/", BenefitsPage
  */
 object BenefitsPage {
   val title = "Benefits - Carer's Allowance"
-  def buildPage(browser: TestBrowser) = new BenefitsPage(browser)
+  def buildPageWith(browser: TestBrowser) = new BenefitsPage(browser)
 }
 
 /** The context for Specs tests */
 trait BenefitsPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = BenefitsPage buildPage (browser)
+  val page = BenefitsPage buildPageWith browser
 }

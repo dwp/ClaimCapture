@@ -17,10 +17,14 @@
             <legend>Disclaimer</legend>
 
             <div class="declaration">
-                @defining(claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName+" "+m.middleName.getOrElse("")+(if (m.middleName.isDefined) " " else "")+m.surname )){ str =>
+            @for(i <- 1 to 7){
+                <p>
+                    @defining(claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName+" "+m.middleName.getOrElse("")+(if (m.middleName.isDefined) " " else "")+m.surname )){ str =>
 
-                    @Html(Messages("disclaimerHtml").replace("[[first name, middle name, surname]]",str))
-                }
+                        @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]",str))
+                    }
+                </p>
+            }
 
             </div>
 
@@ -31,7 +35,7 @@
 
         <nav class="form-steps">
             <a href="@backHref(ConsentAndDeclaration.route,completedQuestionGroups)" id="backButton" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">I have read the notes</button>
+            <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
 

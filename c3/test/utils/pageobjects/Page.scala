@@ -11,7 +11,7 @@ import org.openqa.selenium._
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) extends Object with ComponentObject {
+abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) extends Object with PageElements {
 
   def goToThePage() = goToUrl(this)
 
@@ -21,7 +21,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) e
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  protected def fillPageWith(theClaim: ClaimScenario)
+   def fillPageWith(theClaim: ClaimScenario)
 
   /**
    * Reads theClaim, interacts with browser to populate the page, submit the page and
@@ -49,6 +49,10 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) e
     browser.title == pageTitle
   }
 
+  def pageSource() = browser.pageSource()
+  // ==================================================================
+  //  NON PUBLIC FUNCTIONS
+  // ==================================================================
   protected def titleMatch(): Boolean = browser.title == this.pageTitle
 
   protected def checkNoErrorsForPage(nextPageTile: String) = {
@@ -64,10 +68,11 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) e
     newPage
   }
 
+
   private def goToUrl(page: Page) = {
     browser.goTo(page.url)
     page.waitForPage()
-    if (page.pageTitle != browser.title) throw new PageObjectException("Could not go to page " + page.pageTitle + " - Page loaded " + browser.title)
+    if (!page.titleMatch) throw new PageObjectException("Could not go to page " + page.pageTitle + " - Page loaded " + browser.title)
   }
 }
 
