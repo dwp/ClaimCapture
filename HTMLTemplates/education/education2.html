@@ -54,7 +54,7 @@
 <!-- / New -->
 <link rel="stylesheet" href="../css/carers-allowance.css">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="og:image" content="https://assets.digital.cabinet-office.gov.uk/static/opengraph-image-4e469785ca4cc8f8dd18d0627bc43d19.png">
 
 
@@ -103,49 +103,126 @@
     <!-- carers allowance -->
     <div id="wrapper" class="carers-allowance">
     <main role="main">
+    
+    
+    <div class="prototype">
+    		<p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
+    	</div>
+    
+    
+    <div class="progress-steps">
+    	
+    		<ol>
+    			<li class="complete">
+    				<span>Eligibility</span>
+    			</li>
+    			<li class="complete">
+    				<span>About you</span>
+    			</li>
+    			<li class="complete">
+    				<span>Your partner</span>
+    			</li>
+    			<li class="complete">
+    				<span>Care you provide</span>
+    			</li>
+    			<li class="complete">
+    				<span>Abroad</span>
+    			</li>
+    			<li class="active">
+    				<span>Education</span>
+    			</li>
+    			<li>
+    				<span>Employment</span>
+    			</li>
+    			<li>
+    				<span>Other money</span>
+    			</li>
+    			<li>
+    				<span>Pay details</span>
+    			</li>
+    			<li>
+    				<span>Declaration</span>
+    			</li>
+    		</ol>
+    		
+    	</div>
+    
+    
     	<section>
     	
     		<header>
-    			<h1>About you - the Carer</h1>
+    			<h1>About your education</h1>
     		</header>
-			
-			<div class="completed">
+    		
+    		<div class="completed">
     			<ul>
     				<li>
-    					<h3>Your details</h3>
-    					<a href="#">Change this answer</a>
-    				</li>
-    				<li>
-    					<h3>Your contract details</h3>
-    					<a href="#">Change this answer</a>
-    				</li>
-    				<li>
-    					<h3>Your claim date</h3>
-    					<a href="#">Change this answer</a>
-    				</li>
-    				<li>
-    					<h3>More about you</h3>
-    					<a href="#">Change this answer</a>
-    				</li>
-    				<li>
-    					<h3>Employment</h3>
-    					<a href="#">Change this answer</a>
-    				</li>
-    				<li>
-    					<h3>Property and rent</h3>
-    					<a href="#">Change this answer</a>
+    					<h3>Your course details</h3>
+    					<a href="#">Change these answers</a>
     				</li>
     			</ul>
     		</div>
-    		<!-- / completed questions -->
-    			
-    	
-						
 			
-			<div class="form-steps">				
-				<a href="../about/carers-about6.html" class="button secondary">Back</a>
-				<a href="../care-provide/care-provide1.html" class="button">About your partner / spouse</a>
-			</div>
+			
+
+			<fieldset class="form-elements">
+				<legend>Address of school, college or university</legend>
+				
+
+				
+				<ul class="group">
+				
+					<li>
+						<label for="name-school">Name of school, college or university</label>
+						<input type="text" name="name-school" id="name-school">
+					</li>
+					
+					<li>
+						<p>Address</p>
+						<ul class="address-stack">
+							<li>
+								<label for="address1">Address</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+							<li>
+								<label for="address1">Address 2</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+							<li>
+								<label for="address1">Address 3</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+						</ul>
+					</li>
+					
+					<li>
+						<label for="postcode">Postcode</label>
+						<input type="text" name="postcode" id="postcode" class="postcode">
+					</li>
+
+					
+					<li>
+						<label for="phone">Phone number</label>
+						<input type="tel" name="phone" id="phone">
+					</li>
+					
+					<li>
+						<label for="fax">Fax number</label>
+						<input type="tel" name="fax" id="fax">
+					</li>
+					
+					
+
+				</ul>
+				
+			</fieldset>
+			<!-- / form elements -->
+			
+			
+			<nav class="form-steps">
+				<a href="../care-provide/care-breaks1.html" class="button secondary">Back</a>
+				<a href="../care-provide/care-breaks3.html" class="button">Next</a>
+			</nav>
 			<!-- / form steps -->
 			
     	</section>
@@ -212,6 +289,8 @@
   })();
 </script>
 <script src="../js/custom.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 
   </body>
