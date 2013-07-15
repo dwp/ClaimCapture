@@ -11,7 +11,8 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
   "Benefits" should {
 
     "be presented" in new WithBrowser with BenefitsPageContext {
-      page.goToThePage()
+      page goToThePage()
+      page.previousPage mustEqual None
       page.hasQ1 must beTrue
     }
 
@@ -38,7 +39,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
 
     "acknowledge yes 2" in new WithBrowser with  BenefitsPageContext {
       val claim = new ClaimScenario
-      claim.CanYouGetCarersAllowance_DoesPpersonYouCareForGetOneOfTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       page goToThePage()
       page fillPageWith(claim)
       val nextPage = page submitPage()

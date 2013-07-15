@@ -8,7 +8,7 @@ import utils.pageobjects.{PageElements, ClaimScenario, PageContext, Page}
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-class HoursPage(browser: TestBrowser) extends Page(browser, "/allowance/hours", HoursPage.title) with PageElements {
+class HoursPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, HoursPage.url, HoursPage.title,previousPage) with PageElements {
 
   /* temporary, until tested class is refactored and use new common components. */
   private val separator = "-"
@@ -26,7 +26,7 @@ class HoursPage(browser: TestBrowser) extends Page(browser, "/allowance/hours", 
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#q3", theClaim.CanYouGetCarersAllowance_DoYouSpend35HoursorMoreEachWeekCaring, separator)
+    fillYesNo("#q3", theClaim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring, separator)
   }
 }
 
@@ -36,7 +36,8 @@ class HoursPage(browser: TestBrowser) extends Page(browser, "/allowance/hours", 
  */
 object HoursPage {
   val title = "Hours - Carer's Allowance"
-  def buildPageWith(browser: TestBrowser) = new HoursPage(browser)
+  val url = "/allowance/hours"
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new HoursPage(browser, previousPage)
 }
 
 /** The context for Specs tests */

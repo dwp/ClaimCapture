@@ -8,7 +8,7 @@ import utils.pageobjects.{PageElements, ClaimScenario, PageContext, Page}
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-class BenefitsPage(browser: TestBrowser) extends Page(browser, "/", BenefitsPage.title) {
+class BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, BenefitsPage.url, BenefitsPage.title, previousPage) {
 
   /* temporary, until tested class is refactored and use new common components. */
   private val separator  = "-"
@@ -29,7 +29,7 @@ class BenefitsPage(browser: TestBrowser) extends Page(browser, "/", BenefitsPage
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#q3",theClaim.CanYouGetCarersAllowance_DoesPpersonYouCareForGetOneOfTheseBenefits, separator)
+    fillYesNo("#q3",theClaim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits, separator)
   }
 }
 
@@ -39,7 +39,8 @@ class BenefitsPage(browser: TestBrowser) extends Page(browser, "/", BenefitsPage
  */
 object BenefitsPage {
   val title = "Benefits - Carer's Allowance"
-  def buildPageWith(browser: TestBrowser) = new BenefitsPage(browser)
+  val url = "/"
+  def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new BenefitsPage(browser, previousPage)
 }
 
 /** The context for Specs tests */

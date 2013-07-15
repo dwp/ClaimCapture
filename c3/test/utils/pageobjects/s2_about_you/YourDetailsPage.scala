@@ -8,7 +8,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  * @author Jorge Migueis
  *         Date: 09/07/2013
  */
-class YourDetailsPage(browser: TestBrowser) extends Page(browser, "/aboutyou/yourDetails", YourDetailsPage.title) {
+class YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, YourDetailsPage.url, YourDetailsPage.title, previousPage) {
   /**
    * Reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
@@ -33,7 +33,8 @@ class YourDetailsPage(browser: TestBrowser) extends Page(browser, "/aboutyou/you
  */
 object YourDetailsPage {
   val title = "Your Details - About You"
-  def buildPageWith(browser: TestBrowser) = new YourDetailsPage(browser)
+  val url  = "/aboutyou/yourDetails"
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new YourDetailsPage(browser)
 }
 
 /** The context for Specs tests */

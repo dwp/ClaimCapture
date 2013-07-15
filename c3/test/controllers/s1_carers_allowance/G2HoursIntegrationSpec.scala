@@ -16,12 +16,13 @@ class G2HoursIntegrationSpec extends Specification with Tags {
   "Do you spend 35 hours or more each week caring" should {
     "acknowledge yes" in new WithBrowser with BenefitsPageContext {
       val claim = new ClaimScenario
-      claim.CanYouGetCarersAllowance_DoesPpersonYouCareForGetOneOfTheseBenefits = "Yes"
-      claim.CanYouGetCarersAllowance_DoYouSpend35HoursorMoreEachWeekCaring = "Yes"
+      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       page goToThePage()
       page fillPageWith(claim)
       val nextPage = page submitPage()
       nextPage must beAnInstanceOf[HoursPage]
+      nextPage.previousPage mustEqual Some(page)
       nextPage fillPageWith(claim)
       val nextPage2 = nextPage submitPage()
       nextPage2 match {
@@ -32,8 +33,8 @@ class G2HoursIntegrationSpec extends Specification with Tags {
 
     "acknowledge no" in new WithBrowser with BenefitsPageContext {
       val claim = new ClaimScenario
-      claim.CanYouGetCarersAllowance_DoesPpersonYouCareForGetOneOfTheseBenefits = "Yes"
-      claim.CanYouGetCarersAllowance_DoYouSpend35HoursorMoreEachWeekCaring = "No"
+      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "No"
       page goToThePage()
       page fillPageWith(claim)
       val nextPage = page submitPage()
