@@ -4,6 +4,7 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
+@import utils.helpers.CarersCrypto
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 
@@ -14,8 +15,20 @@
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("informationFromEmployer"))
-                @carersInputTextArea(currentForm("why"),'placeholder->Messages("why_placeholder"))
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputTextArea(currentForm("why"), 'placeholder->Messages("why_placeholder") )),
+                    'id->"whyWrapper",
+                    'display -> {if( currentForm("informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
+                )
+
                 @yesNoRadioGroup(currentForm("informationFromPerson"))
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputTextArea(currentForm("whyPerson"), 'placeholder->Messages("why_placeholder") )),
+                    'id->"whyPersonWrapper",
+                    'display -> {if( currentForm("informationFromPerson").value.getOrElse("yes") == "no" ) "yes" else "no"}
+                )
+
+
 
             </ul>
         </fieldset>
@@ -27,3 +40,16 @@
     }
 
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s7_consent_and_declaration/g2_consent.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+    window.initEvents( "@CarersCrypto.encryptAES("informationFromEmployer_yes")",
+    "@CarersCrypto.encryptAES("informationFromEmployer_no")",
+    "@CarersCrypto.encryptAES("informationFromPerson_yes")",
+    "@CarersCrypto.encryptAES("informationFromPerson_no")",
+    "@CarersCrypto.encryptAES("why")","whyWrapper",
+    "@CarersCrypto.encryptAES("whyPerson")","whyPersonWrapper");
+    });
+</script>
