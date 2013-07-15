@@ -36,7 +36,7 @@ class EvalSpec extends Specification {
     "blah 3" in new WithApplication {
       import play.api.Play.current
 
-      val template = current.configuration.getString("main.template").getOrElse("views.html.common.main_default")
+      val template = current.configuration.getString("main.template").getOrElse("views.html.common.main_test")
       println(template)
 
       val eval = new Eval()
