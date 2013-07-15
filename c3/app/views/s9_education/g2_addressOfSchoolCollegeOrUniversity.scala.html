@@ -1,0 +1,35 @@
+@(currentForm: Form[models.domain.AddressOfSchoolCollegeOrUniversity], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+
+@main("Address Of School College Or University - Education", Some(currentForm), completedQuestionGroups) {
+
+    @form(action = controllers.s9_education.routes.G2AddressOfSchoolCollegeOrUniversity.submit) {
+    
+        <fieldset class="form-elements">
+            <legend>Contact details of the person you care for</legend>
+
+            <ul class="group">
+                @carersInputText(currentForm("nameOfSchoolCollegeOrUniversity"), 'maxLength -> Mappings.sixty)
+                
+                @carersInputText(currentForm("nameOfMainTeacherOrTutor"), 'maxLength -> Mappings.sixty)
+            
+                @inputAddress(currentForm("address"))
+
+                @carersInputText(currentForm("postcode"))
+
+                @carersInputText(currentForm("phoneNumber"))
+                
+                @carersInputText(currentForm("faxNumber"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@backHref(controllers.s9_education.Education.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

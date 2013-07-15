@@ -1,14 +1,18 @@
 package controllers.s9_education
 
-import play.api.mvc.Controller
+import controllers.Mappings.address
+import controllers.Mappings.validPhoneNumber
+import controllers.Mappings.validPostcode
 import controllers.Routing
+import models.domain.AddressOfSchoolCollegeOrUniversity
+import models.domain.Claim
 import models.view.CachedClaim
 import play.api.data.Form
-import play.api.data.Forms._
-import controllers.Mappings._
-import utils.helpers.CarersForm._
-import models.domain.{Claim}
-import models.domain.AddressOfSchoolCollegeOrUniversity
+import play.api.data.Forms.mapping
+import play.api.data.Forms.optional
+import play.api.data.Forms.text
+import play.api.mvc.Controller
+import utils.helpers.CarersForm.formBinding
 
 object G2AddressOfSchoolCollegeOrUniversity extends Controller with Routing with CachedClaim {
 
@@ -27,12 +31,17 @@ object G2AddressOfSchoolCollegeOrUniversity extends Controller with Routing with
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(AddressOfSchoolCollegeOrUniversity)
 
   def present = claiming { implicit claim => implicit request =>
-    Ok("Hello, world!")
+    val currentForm: Form[AddressOfSchoolCollegeOrUniversity] = claim.questionGroup(AddressOfSchoolCollegeOrUniversity) match {
+      case Some(m: AddressOfSchoolCollegeOrUniversity) => form.fill(m)
+      case _ => form
+    }
+
+    Ok(views.html.s9_education.g2_addressOfSchoolCollegeOrUniversity(currentForm, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => ???,//BadRequest(views.html.s9_education.g2_addressOfSchoolCollegeOrUniversity(formWithErrors, completedQuestionGroups)),
-      addressOfSchoolCollegeOrUniversity => claim.update(AddressOfSchoolCollegeOrUniversity) -> Redirect(routes.G2AddressOfSchoolCollegeOrUniversity.present()))
+      formWithErrors => BadRequest(views.html.s9_education.g2_addressOfSchoolCollegeOrUniversity(formWithErrors, completedQuestionGroups)),
+      f => claim.update(f) -> Redirect(routes.G2AddressOfSchoolCollegeOrUniversity.present()))
   }
 }
