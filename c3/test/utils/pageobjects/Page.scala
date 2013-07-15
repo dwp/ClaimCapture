@@ -11,7 +11,7 @@ import org.openqa.selenium._
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None) extends Object with PageElements {
+abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None) extends Object with WebSearchActions with WebFillActions {
 
   def goToThePage() = goToUrl(this)
 
@@ -21,17 +21,21 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-   def fillPageWith(theClaim: ClaimScenario)
+  def fillPageWith(theClaim: ClaimScenario)
 
   /**
    * Reads theClaim, interacts with browser to populate the page, submit the page and
    * asks next page to run the claim.
    * @param theClaim  Data to use to populate all the pages relevant to the scenario tested.
+   * @param upToPageWithTitle  Title of the page where the automated completion should stop.
    */
-  def runClaimWith(theClaim: ClaimScenario): Unit = {
-    this fillPageWith theClaim
-    val nextPage = submitPage
-    nextPage runClaimWith theClaim
+  def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String): Page = {
+    if (pageTitle == upToPageWithTitle) {
+      this
+    }else {
+      this fillPageWith theClaim
+      submitPage runClaimWith (theClaim,upToPageWithTitle)
+    }
   }
 
   def submitPage() = {

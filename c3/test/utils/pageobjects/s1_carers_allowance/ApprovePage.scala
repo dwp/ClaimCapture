@@ -15,8 +15,8 @@ class ApprovePage(browser: TestBrowser, previousPage: Option[Page] = None) exten
    */
   def fillPageWith(theClaim: ClaimScenario) {}
 
-  def isApproved() =  browser.find("div[class=prompt]").size == 1 &&   browser.find(".prompt.error").size == 0
-  def isNotApproved() =  browser.find("div[class=prompt]").size == 0 &&   browser.find(".prompt.error").size == 1
+  def isApproved() =  browser.find("div[class=prompt]").size == 1 && browser.find(".prompt.error]").size == 0
+  def isNotApproved() =  browser.find(".prompt.error]").size != 0
 
 }
 

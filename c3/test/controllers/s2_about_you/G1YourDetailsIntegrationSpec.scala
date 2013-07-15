@@ -34,10 +34,10 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       claim.AboutYouNationality = "English"
       claim.AboutYouDateOfBirth = "23/07/1981"
       claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
-      claim.AboutYouHaveYouAlwaysLivedintheUk = "Yes"
+      claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
 
       page goToThePage()
-      page fillPageWith (claim)
+      page fillPageWith claim
       page submitPage()
     }
 

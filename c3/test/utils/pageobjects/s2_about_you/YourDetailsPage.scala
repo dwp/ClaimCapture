@@ -19,11 +19,11 @@ class YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) e
     fillInput("#middleName",theClaim.AboutYouMiddleName)
     fillInput("#surname",theClaim.AboutYouSurname)
     fillInput("#otherNames", theClaim.AboutYouOtherNames)
-    fillInput("#nationalInsuranceNumber",theClaim.AboutYouNINO)
+    fillNino("#nationalInsuranceNumber",theClaim.AboutYouNINO)
     fillDate("#dateOfBirth", theClaim.AboutYouDateOfBirth)
     fillInput("#nationality", theClaim.AboutYouNationality)
     fillSelect("#maritalStatus", theClaim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus)
-    fillYesNo("#alwaysLivedUK", theClaim.AboutYouHaveYouAlwaysLivedintheUk)
+    fillYesNo("#alwaysLivedUK", theClaim.AboutYouHaveYouAlwaysLivedInTheUK)
   }
 }
 

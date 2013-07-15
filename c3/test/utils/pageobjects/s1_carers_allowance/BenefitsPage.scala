@@ -1,7 +1,7 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageElements, ClaimScenario, PageContext, Page}
+import utils.pageobjects.{WebSearchActions, ClaimScenario, PageContext, Page}
 
 /**
  * PageObject pattern associated to S1 carers allowance G1 Benefits page.
