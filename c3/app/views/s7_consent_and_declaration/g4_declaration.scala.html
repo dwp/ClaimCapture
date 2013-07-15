@@ -23,13 +23,17 @@
                 </ul>
             </article>
             <div class="group declare">
-                @carersDeclareCheck(currentForm("read"),'_label -> "declaration.read")
+                @carersDeclareCheck(currentForm("someoneElse"),'_label -> "declaration.someoneElse")
+
+            </div>
+            <div class="group declare secondary">
+            @carersDeclareCheck(currentForm("read"),'_label -> "declaration.read")
             </div>
         </fieldset>
 
         <nav class="form-steps">
             <a href="@backHref(ConsentAndDeclaration.route,completedQuestionGroups)" id="backButton" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">I confirm and understand</button>
+            <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
 
