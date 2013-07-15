@@ -16,7 +16,7 @@ object G8OneWhoPaysPersonalDetails extends Controller with Routing with CachedCl
   val form = Form(
     mapping(
       "organisation" -> optional(text(maxLength = hundred)),
-      "title" -> optional(text),
+      "title" -> optional(text(maxLength = 4)),
       "firstName" -> optional(text(maxLength = sixty)),
       "middleName" -> optional(text(maxLength = sixty)),
       "surname" -> optional(text(maxLength = sixty)),

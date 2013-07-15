@@ -1,4 +1,4 @@
-@(tripForm: Form[models.domain.Trip], actionCall: Call)(implicit claim: models.domain.Claim)
+@(tripForm: Form[models.domain.Trip], actionCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -24,9 +24,14 @@
             </ul>
         </fieldset>
 
-        <div class="form-steps">
-            <a href="#" class="button secondary">Cancel</a>
+        <nav class="form-steps">
+            @if(request.headers.get("referer").isDefined) {
+                <a id="backButton" href='@request.headers("referer")' class="button secondary">Cancel</a>
+            } else {
+                <a id="backButton" onclick="history.go(-1); return false;" href="#" class="button secondary">Cancel</a>
+            }
+
             <button type="submit" name="action" value="next" class="button">Save</button>
-        </div>
+        </nav>
     }
 }

@@ -4,12 +4,13 @@ import models.domain._
 
 case class ClaimSubmission(claim: Claim, transactionId : String) {
   val aboutYou = AboutYouSubmission.buildAboutYou(claim)
+
   val yourPartner = YourPartnerSubmission.buildYourPartner(claim)
+
   val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)
+
   val payDetails = PayDetailsSubmission.buildPayDetails(claim)
 
-  
-  
   def buildDwpClaim = {
     <DWPCAClaim id={transactionId}>
       {AboutYouSubmission.buildClaimant(aboutYou)}
@@ -195,8 +196,4 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
       </EvidenceList>
     </DWPCAClaim>
   }
-
-
-
-
 }

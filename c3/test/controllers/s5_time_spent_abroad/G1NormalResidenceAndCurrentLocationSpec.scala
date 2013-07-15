@@ -3,7 +3,10 @@ package controllers.s5_time_spent_abroad
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
-import models.domain.Claiming
+import models.domain._
+import play.api.cache.Cache
+import models.domain
+import models.domain.Claim
 
 class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
   "Normal residence and current location" should {
@@ -14,67 +17,27 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    """enforce answer to "Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+    "add 'NormalResidenceAndCurrentLocation' to the cached claim" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "no", "liveInUK.whereDoYouLive" -> "Italy", "inGBNow" -> "no")
 
-      val result = G1NormalResidenceAndCurrentLocation.submit(request)
+      val result = controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.submit(request)
+      val claim = Cache.getAs[Claim](claimKey).get
+      val section: Section = claim.section(domain.TimeSpentAbroad.id)
+
+      section.questionGroup(NormalResidenceAndCurrentLocation) must beLike {
+        case Some(n: NormalResidenceAndCurrentLocation) => {
+          n.whereDoYouLive.answer must equalTo("no")
+          n.whereDoYouLive.text must beSome("Italy")
+          n.inGBNow must equalTo("no")
+        }
+      }
+    }
+
+    "return bad request on invalid data" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "")
+
+      val result = controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.submit(request)
       status(result) mustEqual BAD_REQUEST
-    }
-
-    """reject "yes" to "Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?".
-       having not answered "Are you in Great Britain now?".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "yes")
-
-      val result = G1NormalResidenceAndCurrentLocation.submit(request)
-      status(result) mustEqual BAD_REQUEST
-    }
-
-    """accept
-       "yes" to "Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?" and
-       "yes" to "Are you in Great Britain now?".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("liveInUK.answer" -> "yes", "inGBNow" -> "yes")
-
-      val result = G1NormalResidenceAndCurrentLocation.submit(request)
-      redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan4Weeks")
-    }
-
-    """accept
-       "yes" to "Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?" and
-       "no" to "Are you in Great Britain now?".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("liveInUK.answer" -> "yes", "inGBNow" -> "no")
-
-      val result = G1NormalResidenceAndCurrentLocation.submit(request)
-      redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan4Weeks")
-    }
-
-    """reject "no" to "Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?"
-       having not answered "Where do you normally live?".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "no")
-
-      val result = G1NormalResidenceAndCurrentLocation.submit(request)
-      status(result) mustEqual BAD_REQUEST
-    }
-
-    """reject "no" to "Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?"
-       having answered "Where do you normally live?"
-       but not answered "Are you in Great Britain now?".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("liveInUK.answer" -> "no", "liveInUK.whereDoYouLive" -> "Acapulco")
-
-      val result = G1NormalResidenceAndCurrentLocation.submit(request)
-      status(result) mustEqual BAD_REQUEST
-    }
-
-    """accept "no" to "Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?"
-       having answered "Where do you normally live?"
-       and answered "Are you in Great Britain now?".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("liveInUK.answer" -> "no", "liveInUK.whereDoYouLive" -> "Acapulco", "inGBNow" -> "no")
-
-      val result = G1NormalResidenceAndCurrentLocation.submit(request)
-      redirectLocation(result) must beSome("/timeSpentAbroad/abroadForMoreThan4Weeks")
     }
   } section "unit"
 }

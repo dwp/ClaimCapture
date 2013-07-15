@@ -7,7 +7,10 @@ case class Section(id: String, questionGroups: List[QuestionGroup], visible: Boo
   }
 
   def update(questionGroup: QuestionGroup): Section = {
-    val updatedQuestionGroups = questionGroups.takeWhile(_.index < questionGroup.index) ::: List(questionGroup) ::: questionGroups.dropWhile(_.index <= questionGroup.index)
+    val updatedQuestionGroups = questionGroups.takeWhile(_.index < questionGroup.index) :::
+                                List(questionGroup) :::
+                                questionGroups.dropWhile(_.index <= questionGroup.index)
+
     copy(questionGroups = updatedQuestionGroups)
   }
 
@@ -15,18 +18,11 @@ case class Section(id: String, questionGroups: List[QuestionGroup], visible: Boo
     copy(questionGroups = questionGroups.filterNot(q => q.id == questionGroup.id))
   }
 
-  def precedingQuestionGroups(questionGroup: QuestionGroup) = {
-    questionGroups.takeWhile(_.index < questionGroup.index)
-  }
+  def precedingQuestionGroups(questionGroup: QuestionGroup) = questionGroups.takeWhile(_.index < questionGroup.index)
 
-  def show(): Section = {
-    copy(visible = true)
-  }
+  def show(): Section = copy(visible = true)
 
-  def hide(): Section = {
-    copy(visible = false)
-  }
-
+  def hide(): Section = copy(visible = false)
 }
 
 case object Section {

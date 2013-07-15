@@ -3,28 +3,25 @@ package utils.pageobjects
 import play.api.test.{WithBrowser, TestBrowser}
 import org.specs2.specification.Scope
 import java.util.concurrent.TimeUnit
-
+import scala.collection.convert.Wrappers._
+import org.openqa.selenium._
 
 /**
  * Super-class of all the PageObject pattern compliant classes representing an application page.
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
+abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) extends Object with PageElements {
 
-  // ========================================
-  // Page Management
-  // ========================================
+  def goToThePage() = goToUrl(this)
 
-  def goToThePage() = goToUrl(url)
-
-  def goToPage(page: Page) = goToUrl(page.url)
+  def goToPage(page: Page) = goToUrl(page)
 
   /**
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario)
+   def fillPageWith(theClaim: ClaimScenario)
 
   /**
    * Reads theClaim, interacts with browser to populate the page, submit the page and
@@ -34,12 +31,12 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
   def runClaimWith(theClaim: ClaimScenario): Unit = {
     fillPageWith(theClaim)
     val nextPage = submitPage
-    nextPage runClaimWith(theClaim)
+    nextPage runClaimWith (theClaim)
   }
 
   def submitPage() = {
     val nextPageTile = browser.submit("button[type='submit']").title()
-    if (hasErrors()) throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed.""")
+    checkNoErrorsForPage(nextPageTile)
     createPageWithTitle(nextPageTile)
   }
 
@@ -52,19 +49,30 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) {
     browser.title == pageTitle
   }
 
+  def pageSource() = browser.pageSource()
+  // ==================================================================
+  //  NON PUBLIC FUNCTIONS
+  // ==================================================================
   protected def titleMatch(): Boolean = browser.title == this.pageTitle
 
-  protected def hasErrors() = !browser.find("div[class=validation-summary] ol li").isEmpty
+  protected def checkNoErrorsForPage(nextPageTile: String) = {
+    val rawErrors = browser.find("div[class=validation-summary] ol li")
+    if (!rawErrors.isEmpty) {
+      throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed""", (new JListWrapper(rawErrors.getTexts)).toList)
+    }
+  }
 
   private def createPageWithTitle(title: String) = {
-    val newPage = PageFactory createPageFromTitle(browser, title)
+    val newPage = PageFactory buildPageFromTitle(browser, title)
     newPage.waitForPage()
     newPage
   }
 
-  private def goToUrl(nextUrl: String) = {
-    browser.goTo(nextUrl)
-    waitForPage()
+
+  private def goToUrl(page: Page) = {
+    browser.goTo(page.url)
+    page.waitForPage()
+    if (!page.titleMatch) throw new PageObjectException("Could not go to page " + page.pageTitle + " - Page loaded " + browser.title)
   }
 }
 

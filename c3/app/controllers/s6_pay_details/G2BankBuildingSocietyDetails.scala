@@ -19,8 +19,8 @@ object G2BankBuildingSocietyDetails extends Controller with Routing with CachedC
 
   val form = Form(
     mapping(
-      "accountHolderName" -> nonEmptyText,
-      "bankFullName" -> nonEmptyText,
+      "accountHolderName" -> nonEmptyText(maxLength = sixty),
+      "bankFullName" -> nonEmptyText(maxLength = 100),
       "sortCode" -> (sortCode verifying requiredSortCode),
       "accountNumber" -> nonEmptyText(minLength = 6,maxLength = 10),
       "rollOrReferenceNumber" -> nonEmptyText( maxLength = 18)

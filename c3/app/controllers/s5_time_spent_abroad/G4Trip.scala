@@ -22,12 +22,12 @@ object G4Trip extends Controller with CachedClaim {
     )(Trip.apply)(Trip.unapply))
 
   def fourWeeks = claiming { implicit claim => implicit request =>
-    Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fourWeeksSubmit))
+    Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fourWeeksSubmit()))
   }
 
   def fourWeeksSubmit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, routes.G4Trip.fourWeeksSubmit)),
+      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, routes.G4Trip.fourWeeksSubmit())),
       trip => {
         val updatedTrips = if (trips.fourWeeksTrips.size >= 5) trips else trips.update(trip.as[FourWeeksTrip])
         claim.update(updatedTrips) -> Redirect(routes.G2AbroadForMoreThan4Weeks.present())
@@ -35,12 +35,12 @@ object G4Trip extends Controller with CachedClaim {
   }
 
   def fiftyTwoWeeks = claiming { implicit claim => implicit request =>
-    Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fiftyTwoWeeksSubmit))
+    Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fiftyTwoWeeksSubmit()))
   }
 
   def fiftyTwoWeeksSubmit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, routes.G4Trip.fiftyTwoWeeksSubmit)),
+      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, routes.G4Trip.fiftyTwoWeeksSubmit())),
       trip => {
         val updatedTrips = if (trips.fiftyTwoWeeksTrips.size >= 5) trips else trips.update(trip.as[FiftyTwoWeeksTrip])
         claim.update(updatedTrips) -> Redirect(routes.G3AbroadForMoreThan52Weeks.present())
@@ -50,16 +50,12 @@ object G4Trip extends Controller with CachedClaim {
   def trip(id: String) = claiming { implicit claim => implicit request =>
     claim.questionGroup(Trips) match {
       case Some(ts: Trips) => ts.fourWeeksTrips.find(_.id == id) match {
-        case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t), routes.G4Trip.fourWeeksSubmit))
-        case _ => Redirect(routes.G2AbroadForMoreThan4Weeks.present())
+        case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t), routes.G4Trip.fourWeeksSubmit()))
+        case _ => ts.fiftyTwoWeeksTrips.find(_.id == id) match {
+          case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t), routes.G4Trip.fiftyTwoWeeksSubmit()))
+          case _ => Redirect(routes.G1NormalResidenceAndCurrentLocation.present())
+        }
       }
-
-      /*
-      52 WEEKS
-      case Some(ts: Trips) => ts.fourWeeksTrips.find(_.id == id) match {
-        case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t)))
-        case _ => Redirect(routes.G2AbroadForMoreThan4Weeks.present())
-      }*/
 
       case _ => Redirect(routes.G1NormalResidenceAndCurrentLocation.present())
     }

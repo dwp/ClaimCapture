@@ -1,6 +1,7 @@
 package models.view
 
 import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.mvc.Results.Redirect
 import play.api.cache.Cache
 import models.domain.Claim
 import play.Configuration
@@ -18,10 +19,11 @@ trait CachedClaim {
 
   def newClaim(f: => Claim => Request[AnyContent] => Result) = Action {
     implicit request => {
-      val key = request.session.get("connected").getOrElse(randomUUID.toString)
-      val expiration = Configuration.root().getInt("cache.expiry", 3600)
+      val (key, expiration) = keyAndExpiration(request)
 
-      def apply(claim: Claim) = f(claim)(request).withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+      def apply(claim: Claim) = f(claim)(request).withSession("connected" -> key)
+        .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+        .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         val claim = Claim()
@@ -38,34 +40,41 @@ trait CachedClaim {
 
   def claiming(f: => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
     request => {
-      val key = request.session.get("connected").getOrElse(randomUUID.toString)
-      val expiration = Configuration.root().getInt("cache.expiry", 3600)
+      val (key, expiration) = keyAndExpiration(request)
 
       def action(claim: Claim): Result = {
         f(claim)(request) match {
-          case Left(r: Result) => r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+          case Left(r: Result) =>
+            r.withSession("connected" -> key)
+              .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+              .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
 
           case Right((c: Claim, r: Result)) => {
             Cache.set(key, c, expiration)
-            r.withSession("connected" -> key).withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+
+            r.withSession("connected" -> key)
+              .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+              .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
           }
         }
       }
 
       Cache.getAs[Claim](key) match {
-        case Some(claim) => {
-          action(claim)
-        }
-        case None => {
+        case Some(claim) => action(claim)
+
+        case None =>
           if (Play.isTest) {
             val claim = Claim()
             Cache.set(key, claim, 20) // place an empty claim in the cache to satisfy tests
             action(claim)
           } else {
-            play.api.mvc.Results.Redirect("/timeout")
+            Redirect("/timeout")
           }
-        }
       }
     }
+  }
+
+  private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
+    r.session.get("connected").getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
   }
 }

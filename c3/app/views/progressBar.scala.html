@@ -13,7 +13,7 @@
 }
 
 @renderListItem(currentSectionID: String) = {
-    @if( claim.isSectionVisible(currentSectionID) ) {
+    @if(claim.isSectionVisible(currentSectionID)) {
         <li @addClass(currentSectionID)><span>@Messages(currentSectionID + ".progressBar")</span></li>
     }
 }

@@ -11,9 +11,9 @@ import utils.helpers.CarersForm._
 import models.domain.Claim
 import scala.Some
 
-object G3Declaration extends Controller with Routing with CachedClaim{
+object G4Declaration extends Controller with Routing with CachedClaim{
 
-  override val route = Declaration.id -> controllers.s7_consent_and_declaration.routes.G3Declaration.present
+  override val route = Declaration.id -> controllers.s7_consent_and_declaration.routes.G4Declaration.present
 
   val form = Form(
     mapping(
@@ -30,13 +30,13 @@ object G3Declaration extends Controller with Routing with CachedClaim{
         case _ => form
       }
 
-      Ok(views.html.s7_consent_and_declaration.g3_declaration(currentForm,completedQuestionGroups))
+      Ok(views.html.s7_consent_and_declaration.g4_declaration(currentForm,completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_consent_and_declaration.g3_declaration(formWithErrors,completedQuestionGroups)),
-      declaration => claim.update(declaration) -> Redirect(routes.G4AdditionalInfo.present()))
+      formWithErrors => BadRequest(views.html.s7_consent_and_declaration.g4_declaration(formWithErrors,completedQuestionGroups)),
+      declaration => claim.update(declaration) -> Redirect(routes.G5Submit.present()))
   }
 
 

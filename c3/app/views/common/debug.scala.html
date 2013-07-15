@@ -1,0 +1,99 @@
+@()(implicit claim: models.domain.Claim)
+
+@import play.api.Play
+@import play.api.Play.current
+@import play.api.i18n.Messages
+@import com.thoughtworks.xstream.XStream
+
+<style>
+    textarea,
+    pre {
+        margin: 0;
+        padding: 0;
+        outline: 0;
+        border: 0;
+    }
+
+    .expandingArea {
+        position: relative;
+        border: 1px solid #888;
+        background: #fff;
+    }
+
+    .expandingArea > textarea,
+    .expandingArea > pre {
+        padding: 5px;
+        background: transparent;
+        font: 400 13px/16px helvetica, arial, sans-serif;
+        /* Make the text soft-wrap */
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    .expandingArea > textarea {
+        /* The border-box box model is used to allow
+        * padding whilst still keeping the overall width
+        * at exactly that of the containing element.
+        */
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100%;
+        /* This height is used when JS is disabled */
+        height: 100px;
+    }
+
+    .expandingArea > pre {
+        display: none;
+    }
+</style>
+
+@xml(claim: models.domain.Claim) = {
+    @for((sectionID, section) <- claim.sections) {
+        <h3>Section : @Messages(sectionID)</h3>
+
+        <ul>
+            @for(questionGroup <- section.questionGroups) {
+                <li>
+                    <h4>@Messages(questionGroup.id)</h4>
+
+                    <div class="expandingArea">
+                        <pre><span></span><br></pre>
+                        <textarea>@{new XStream().toXML(questionGroup)}</textarea>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+}
+
+@if(current.configuration.getBoolean("debug").getOrElse(false)) {
+    <style>
+        #slide {
+        border: 1.5px solid black;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 150px;
+        height: 100%;
+        background-color: #F2F2F2;
+        layer-background-color: #F2F2F2;
+        }
+    </style>
+
+    <script>
+        $(function() {
+        $('#slide').hover(function () {
+        $(this).animate({left:"0px"},500);
+        },function () {
+        var width = $(this).width() -10;
+        $(this).animate({left: - width  },500);
+        });
+        });
+    </script>
+
+    <div id="slide" style="left: -360px; top: 0px; width: 370px; padding: 5px; overflow: auto;">
+        @xml(claim)
+    </div>
+}

@@ -23,7 +23,7 @@ object G1YourPartnerPersonalDetails extends Controller with Routing with CachedC
 
   val form = Form(
     mapping(
-      "title" -> nonEmptyText,
+      "title" -> nonEmptyText(maxLength = 4),
       "firstName" -> nonEmptyText(maxLength = sixty),
       "middleName" -> optional(text(maxLength = sixty)),
       "surname" -> nonEmptyText(maxLength = sixty),

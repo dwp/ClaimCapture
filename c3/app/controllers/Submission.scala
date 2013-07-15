@@ -10,9 +10,11 @@ import play.api.{http, Logger}
 object Submission extends Controller with CachedClaim {
   def submit = claiming {
     implicit claim => implicit request =>
-      Async {
+
+    try {
         val claimXml = ClaimSubmission(claim, "TY2TV9G").buildDwpClaim
         Logger.debug(s"Claim submitting transactionId : ${claimXml \\ "DWPCAClaim" \ "@id" toString()}")
+      Async {
         ClaimSubmissionService.submitClaim(claimXml).map(
           response => {
             // What we'll really do with the response is redirect to relevant page
@@ -38,6 +40,12 @@ object Submission extends Controller with CachedClaim {
             InternalServerError(s"InternalServerError ! ${e.getMessage}")
           }
         }
+      }    
+    }
+    catch {
+      case e : java.lang.Exception  => {
+        InternalServerError(s"InternalServerError ! ${e.getMessage}")
       }
+    }
   }
 }

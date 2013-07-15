@@ -13,6 +13,8 @@ object ApplicationBuild extends Build {
     jdbc,
     anorm,
     "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
+    "com.twitter" % "util-eval_2.10" % "6.3.7" withSources(),
+    "com.thoughtworks.xstream" % "xstream" % "1.4.4",
     "com.dwp.carers" % "carersXMLValidation" % "0.4", "postgresql" % "postgresql" % "9.1-901.jdbc4"
   )
 
@@ -29,7 +31,7 @@ object ApplicationBuild extends Build {
     sTest = Seq(testOptions in Test += Tests.Argument("include", System.getProperty("include")))
   }
 
-  var gS: Seq[Project.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 1),Tags.limit(Tags.Network, 10),Tags.limit(Tags.Test, 1)))
+  var gS: Seq[Project.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 4),Tags.limit(Tags.Network, 10),Tags.limit(Tags.Test, 4)))
 
   var f: Seq[Project.Setting[_]] = Seq(sbt.Keys.fork in Test := false)
 

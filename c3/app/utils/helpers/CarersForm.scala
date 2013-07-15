@@ -38,7 +38,6 @@ object CarersForm {
     }
 
     def replaceError(key: String, newError: FormError): Form[T] = {
-
       val updatedForm = form.error(key) match {
         case Some(s) => form.withError(newError)
         case None => form
@@ -48,7 +47,6 @@ object CarersForm {
     }
 
     def replaceError(key: String, message: String, newError: FormError): Form[T] = {
-
       def matchingError(e:FormError) = e.key == key && e.message == message
 
       if (form.errors.exists(matchingError)) {

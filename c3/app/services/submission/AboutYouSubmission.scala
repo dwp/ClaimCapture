@@ -3,8 +3,6 @@ package services.submission
 import models.domain._
 
 object AboutYouSubmission {
-
-
   def buildAboutYou(claim: Claim) = {
     val yourDetails = claim.questionGroup(YourDetails).asInstanceOf[Option[YourDetails]].get
     val contactDetails = claim.questionGroup(ContactDetails).asInstanceOf[Option[ContactDetails]].get
@@ -40,5 +38,4 @@ object AboutYouSubmission {
       <ClaimedBefore>no</ClaimedBefore> <!--  Default to no -->
     </Claimant>
   }
-
 }

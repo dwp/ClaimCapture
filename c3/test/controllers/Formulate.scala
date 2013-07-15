@@ -160,9 +160,10 @@ object Formulate {
   
   def moreAboutYourPartnerSeparated(browser: TestBrowser) = {
     browser.goTo("/yourPartner/moreAboutYourPartner")
-    browser.click("#dateStartedLivingTogether_day option[value='3']")
-    browser.click("#dateStartedLivingTogether_month option[value='4']")
-    browser.fill("#dateStartedLivingTogether_year") `with` "1950"
+    browser.click("#startedLivingTogether_afterClaimDate_yes")
+    browser.click("#startedLivingTogether_date_day option[value='3']")
+    browser.click("#startedLivingTogether_date_month option[value='4']")
+    browser.fill("#startedLivingTogether_date_year") `with` "1950"
     browser.click("#separated_fromPartner_yes]")
     browser.click("#separated_date_day option[value='3']")
     browser.click("#separated_date_month option[value='8']")
@@ -172,9 +173,10 @@ object Formulate {
   
   def moreAboutYourPartnerNotSeparated(browser: TestBrowser) = {
     browser.goTo("/yourPartner/moreAboutYourPartner")
-    browser.click("#dateStartedLivingTogether_day option[value='3']")
-    browser.click("#dateStartedLivingTogether_month option[value='4']")
-    browser.fill("#dateStartedLivingTogether_year") `with` "1950"
+    browser.click("#startedLivingTogether_afterClaimDate_yes")
+    browser.click("#startedLivingTogether_date_day option[value='3']")
+    browser.click("#startedLivingTogether_date_month option[value='4']")
+    browser.fill("#startedLivingTogether_date_year") `with` "1950"
     browser.click("#separated_fromPartner_no]")
     browser.submit("button[type='submit']")
   }
@@ -232,11 +234,11 @@ object Formulate {
     browser.goTo("/careYouProvide/moreAboutTheCare")
     browser.click("#spent35HoursCaring_yes")
 
-    browser.click("#spent35HoursCaringBeforeClaim_yes")
-    browser.await().atMost(30, TimeUnit.SECONDS).until("#careStartDate_year").areDisplayed
-    browser.click("#careStartDate_day option[value='3']")
-    browser.click("#careStartDate_month option[value='4']")
-    browser.fill("#careStartDate_year") `with` "1950"
+    browser.click("#beforeClaimCaring_answer_yes")
+    browser.await().atMost(30, TimeUnit.SECONDS).until("#beforeClaimCaring_date_year").areDisplayed
+    browser.click("#beforeClaimCaring_date_day option[value='3']")
+    browser.click("#beforeClaimCaring_date_month option[value='4']")
+    browser.fill("#beforeClaimCaring_date_year") `with` "1950"
 
     browser.click("#hasSomeonePaidYou_yes")
 

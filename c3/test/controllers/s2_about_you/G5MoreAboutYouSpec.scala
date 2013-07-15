@@ -11,7 +11,7 @@ class G5MoreAboutYouSpec extends Specification with Tags {
 
   "More About You - Controller" should {
 
-   " make Your Partner Section visible" in new WithApplication with Claiming {
+   "make Your Partner Section visible" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "yes",
         "eitherClaimedBenefitSinceClaimDate" -> "yes",
@@ -38,7 +38,5 @@ class G5MoreAboutYouSpec extends Specification with Tags {
       val section: Section = claim.section(domain.YourPartner.id)
       section.visible mustEqual false
     }
-
   } section "unit"
-
 }
