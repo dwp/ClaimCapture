@@ -3,14 +3,6 @@ package services.submission
 import models.domain._
 
 object CareYouProvideSubmission {
-
-  private def getQuestionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
-    claim.questionGroup(questionGroup).asInstanceOf[Option[T]].get
-  }
-  private def questionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
-    claim.questionGroup(questionGroup).asInstanceOf[Option[T]]
-  }
-
   def buildCareYouProvide(claim: Claim) = {
     val theirPersonalDetails =          getQuestionGroup[TheirPersonalDetails](claim, TheirPersonalDetails)
     val theirContactDetails =           getQuestionGroup[TheirContactDetails](claim, TheirContactDetails)
@@ -59,79 +51,84 @@ object CareYouProvideSubmission {
       </ClaimantActingType>
       <BreaksSinceClaim>{if (careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == "no" && careYouProvide.breaksInCare.breaks.size > 0) "yes" else "no"}</BreaksSinceClaim>
       {
-      for(break <- careYouProvide.breaksInCare.breaks) yield{
-        <CareBreak>
-          <StartDateTime>{break.start.toXmlTimeString}</StartDateTime>
-          <EndDateTime>{break.end.fold("")(d => d.toXmlTimeString)}</EndDateTime>
-          <Reason>{if(break.whereYou.location != "Other") break.whereYou.location else break.whereYou.other.getOrElse("Other")}</Reason>
-          <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
-          <AwayFromHome>yes</AwayFromHome>
-        </CareBreak>
-      }
+        for (break <- careYouProvide.breaksInCare.breaks) yield {
+          <CareBreak>
+            <StartDateTime>{break.start.toXmlTimeString}</StartDateTime>
+            <EndDateTime>{break.end.fold("")(d => d.toXmlTimeString)}</EndDateTime>
+            <Reason>{if(break.whereYou.location != "Other") break.whereYou.location else break.whereYou.other.getOrElse("Other")}</Reason>
+            <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
+            <AwayFromHome>yes</AwayFromHome>
+          </CareBreak>
+        }
       }
       <Cared35hoursBefore>{careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.answer}</Cared35hoursBefore>
       <BreaksBeforeClaim>{if (careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == "yes" && careYouProvide.breaksInCare.breaks.size > 0) "yes" else "no"}</BreaksBeforeClaim>
 
       {
-      if (careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == "yes"){
-        <DateStartedCaring>{careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.date.fold("")(d => d.toXmlString)}</DateStartedCaring>
-      }
+        if (careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == "yes"){
+          <DateStartedCaring>{careYouProvide.moreAboutTheCare.spent35HoursCaringBeforeClaim.date.fold("")(d => d.toXmlString)}</DateStartedCaring>
+        }
       }
       <PaidForCaring>{careYouProvide.moreAboutTheCare.hasSomeonePaidYou}</PaidForCaring>
       {
-      if (careYouProvide.moreAboutTheCare.hasSomeonePaidYou == "yes" && careYouProvide.oneWhoPays.isDefined && careYouProvide.contactDetailsPayingPerson.isDefined ){
-        <PayReceived>
-          <PayerName>{s"${careYouProvide.oneWhoPays.get.organisation.orNull} ${careYouProvide.oneWhoPays.get.title.orNull} ${careYouProvide.oneWhoPays.get.firstName.orNull} ${careYouProvide.oneWhoPays.get.middleName.orNull} ${careYouProvide.oneWhoPays.get.surname.orNull}"}</PayerName>
-          <PayerAddress>
-            <gds:Line>{careYouProvide.contactDetailsPayingPerson.get.address.fold("")(a => a.lineOne.orNull)}</gds:Line>
-            <gds:Line>{careYouProvide.contactDetailsPayingPerson.get.address.fold("")(a => a.lineTwo.orNull)}</gds:Line>
-            <gds:Line>{careYouProvide.contactDetailsPayingPerson.get.address.fold("")(a => a.lineThree.orNull)}</gds:Line>
-            <gds:PostCode>{careYouProvide.contactDetailsPayingPerson.get.postcode.orNull}</gds:PostCode>
-          </PayerAddress>
-          <ConfirmAddress>yes</ConfirmAddress>
-          <Payment>
-            <Currency>GBP</Currency>
-            <Amount>{careYouProvide.oneWhoPays.get.amount.orNull}</Amount>
-          </Payment>
-          <DatePaymentStarted>{careYouProvide.oneWhoPays.get.startDatePayment.fold("")(d => d.toXmlString)}</DatePaymentStarted>
-        </PayReceived>
-      }
+        if (careYouProvide.moreAboutTheCare.hasSomeonePaidYou == "yes" && careYouProvide.oneWhoPays.isDefined && careYouProvide.contactDetailsPayingPerson.isDefined ){
+          <PayReceived>
+            <PayerName>{s"${careYouProvide.oneWhoPays.get.organisation.orNull} ${careYouProvide.oneWhoPays.get.title.orNull} ${careYouProvide.oneWhoPays.get.firstName.orNull} ${careYouProvide.oneWhoPays.get.middleName.orNull} ${careYouProvide.oneWhoPays.get.surname.orNull}"}</PayerName>
+            <PayerAddress>
+              <gds:Line>{careYouProvide.contactDetailsPayingPerson.get.address.fold("")(a => a.lineOne.orNull)}</gds:Line>
+              <gds:Line>{careYouProvide.contactDetailsPayingPerson.get.address.fold("")(a => a.lineTwo.orNull)}</gds:Line>
+              <gds:Line>{careYouProvide.contactDetailsPayingPerson.get.address.fold("")(a => a.lineThree.orNull)}</gds:Line>
+              <gds:PostCode>{careYouProvide.contactDetailsPayingPerson.get.postcode.orNull}</gds:PostCode>
+            </PayerAddress>
+            <ConfirmAddress>yes</ConfirmAddress>
+            <Payment>
+              <Currency>GBP</Currency>
+              <Amount>{careYouProvide.oneWhoPays.get.amount.orNull}</Amount>
+            </Payment>
+            <DatePaymentStarted>{careYouProvide.oneWhoPays.get.startDatePayment.fold("")(d => d.toXmlString)}</DatePaymentStarted>
+          </PayReceived>
+        }
       }
       <ClaimedPreviously>{careYouProvide.moreAboutThePerson.claimedAllowanceBefore}</ClaimedPreviously>
       {
-      if (careYouProvide.moreAboutThePerson.claimedAllowanceBefore == "yes" && careYouProvide.previousCarerPersonalDetails.isDefined && careYouProvide.previousCarerContactDetails.isDefined){
-        <PreviousClaimant>
-          <Surname>{careYouProvide.previousCarerPersonalDetails.get.surname.orNull}</Surname>
-          <OtherNames>{s"${careYouProvide.previousCarerPersonalDetails.get.firstName.orNull} ${careYouProvide.previousCarerPersonalDetails.get.middleName.getOrElse("")}"}</OtherNames>
-          <DateOfBirth>{careYouProvide.previousCarerPersonalDetails.get.dateOfBirth.fold("")(d => d.toXmlString)}</DateOfBirth>
-          <NationalInsuranceNumber>{careYouProvide.previousCarerPersonalDetails.get.nationalInsuranceNumber.orNull}</NationalInsuranceNumber>
-          <Address>
-            <gds:Line>{careYouProvide.previousCarerContactDetails.get.address.fold("")(a => a.lineOne.orNull)}</gds:Line>
-            <gds:Line>{careYouProvide.previousCarerContactDetails.get.address.fold("")(a => a.lineTwo.orNull)}</gds:Line>
-            <gds:Line>{careYouProvide.previousCarerContactDetails.get.address.fold("")(a => a.lineThree.orNull)}</gds:Line>
-            <gds:PostCode>{careYouProvide.previousCarerContactDetails.get.postcode.orNull}</gds:PostCode>
-          </Address>
+        if (careYouProvide.moreAboutThePerson.claimedAllowanceBefore == "yes" && careYouProvide.previousCarerPersonalDetails.isDefined && careYouProvide.previousCarerContactDetails.isDefined){
+          <PreviousClaimant>
+            <Surname>{careYouProvide.previousCarerPersonalDetails.get.surname.orNull}</Surname>
+            <OtherNames>{s"${careYouProvide.previousCarerPersonalDetails.get.firstName.orNull} ${careYouProvide.previousCarerPersonalDetails.get.middleName.getOrElse("")}"}</OtherNames>
+            <DateOfBirth>{careYouProvide.previousCarerPersonalDetails.get.dateOfBirth.fold("")(d => d.toXmlString)}</DateOfBirth>
+            <NationalInsuranceNumber>{careYouProvide.previousCarerPersonalDetails.get.nationalInsuranceNumber.orNull}</NationalInsuranceNumber>
+            <Address>
+              <gds:Line>{careYouProvide.previousCarerContactDetails.get.address.fold("")(a => a.lineOne.orNull)}</gds:Line>
+              <gds:Line>{careYouProvide.previousCarerContactDetails.get.address.fold("")(a => a.lineTwo.orNull)}</gds:Line>
+              <gds:Line>{careYouProvide.previousCarerContactDetails.get.address.fold("")(a => a.lineThree.orNull)}</gds:Line>
+              <gds:PostCode>{careYouProvide.previousCarerContactDetails.get.postcode.orNull}</gds:PostCode>
+            </Address>
 
-        </PreviousClaimant>
-      }else{
-        <PreviousClaimant>
-          <Surname>null</Surname>
-          <OtherNames>null</OtherNames>
-          <DateOfBirth></DateOfBirth>
-          <NationalInsuranceNumber></NationalInsuranceNumber>
-          <Address>
-            <gds:Line></gds:Line>
-            <gds:Line></gds:Line>
-            <gds:Line></gds:Line>
-            <gds:PostCode></gds:PostCode>
-          </Address>
+          </PreviousClaimant>
+        } else {
+          <PreviousClaimant>
+            <Surname>null</Surname>
+            <OtherNames>null</OtherNames>
+            <DateOfBirth></DateOfBirth>
+            <NationalInsuranceNumber></NationalInsuranceNumber>
+            <Address>
+              <gds:Line></gds:Line>
+              <gds:Line></gds:Line>
+              <gds:Line></gds:Line>
+              <gds:PostCode></gds:PostCode>
+            </Address>
 
-        </PreviousClaimant>
+          </PreviousClaimant>
+        }
       }
-      }
-
-
-
     </Caree>
+  }
+
+  private def getQuestionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
+    claim.questionGroup(questionGroup).asInstanceOf[Option[T]].get
+  }
+
+  private def questionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
+    claim.questionGroup(questionGroup).asInstanceOf[Option[T]]
   }
 }

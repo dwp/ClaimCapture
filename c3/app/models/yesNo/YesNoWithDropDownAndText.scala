@@ -6,11 +6,8 @@ case class YesNoWithDropDownAndText(answer: String, dropDownValue: Option[String
 
 object YesNoWithDropDownAndText {
 
-  def validate(input: YesNoWithDropDownAndText): Boolean = {
-    input.answer match {
-      case `yes` => input.dropDownValue.isDefined
-      case `no` => true
-    }
+  def validate(input: YesNoWithDropDownAndText): Boolean = input.answer match {
+    case `yes` => input.dropDownValue.isDefined
+    case `no` => true
   }
-
 }
