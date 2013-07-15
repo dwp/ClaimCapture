@@ -542,6 +542,9 @@
         .carers-allowance .form-elements ul li.other-detail {
           margin: 0;
           padding-top: 0; }
+          .carers-allowance .form-elements ul li.other-detail .strip {
+            position: absolute;
+            left: -9999px; }
         .carers-allowance .form-elements ul li.validation {
           background: #fef7f7;
           padding: .7em;
@@ -567,12 +570,6 @@
         .carers-allowance .form-elements ul li.date-time {
           padding-top: 0;
           padding-bottom: 0; }
-          .carers-allowance .form-elements ul li.date-time .stacked {
-            margin: 0;
-            padding: 0;
-            font-size: 1.6rem; }
-            .ie .carers-allowance .form-elements ul li.date-time .stacked {
-              font-size: 16px; }
         .carers-allowance .form-elements ul li.short-field input[type="text"], .carers-allowance .form-elements ul li.short-field input[type="tel"] {
           width: 12rem; }
           .ie .carers-allowance .form-elements ul li.short-field input[type="text"], .ie .carers-allowance .form-elements ul li.short-field input[type="tel"] {
@@ -688,6 +685,12 @@
             min-width: 0; }
         .carers-allowance .form-elements ul li .warning-text {
           color: #df3034; }
+        .carers-allowance .form-elements ul li .stacked {
+          margin: 0;
+          padding: 0;
+          font-size: 1.6rem; }
+          .ie .carers-allowance .form-elements ul li .stacked {
+            font-size: 16px; }
       .carers-allowance .form-elements ul.radio {
         margin-top: 3px;
         overflow: hidden; }
