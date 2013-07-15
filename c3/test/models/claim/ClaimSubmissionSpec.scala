@@ -34,6 +34,11 @@ class ClaimSubmissionSpec extends Specification with Tags with PendingUntilFixed
 
       .update(payDetails.howWePayYou)
       .update(payDetails.bankBuildingSocietyDetails)
+
+      .update(consentAndDeclaration.additionalInfo)
+      .update(consentAndDeclaration.consent)
+      .update(consentAndDeclaration.disclaimer)
+      .update(consentAndDeclaration.declaration)
   }
   "Claim Submission" should {
     "build and confirm normal AboutYou input" in new WithApplication {
