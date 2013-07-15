@@ -162,6 +162,11 @@ POST    /consentAndDeclaration/submit                           controllers.s7_c
 
 GET     /consentAndDeclaration/error                            controllers.s7_consent_and_declaration.G6Error.present
 
+# Education
+
+GET     /education/addressOfSchoolCollegeOrUniversity           controllers.s9_education.G2AddressOfSchoolCollegeOrUniversity.present
+POST    /education/addressOfSchoolCollegeOrUniversity           controllers.s9_education.G2AddressOfSchoolCollegeOrUniversity.submit
+
 # Cache Timeout
 GET     /timeout                                                controllers.Application.timeout
 
