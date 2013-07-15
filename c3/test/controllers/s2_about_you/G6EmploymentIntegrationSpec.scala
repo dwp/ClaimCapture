@@ -5,6 +5,7 @@ import play.api.test.WithBrowser
 import controllers.Formulate
 
 class G6EmploymentIntegrationSpec extends Specification with Tags {
+  sequential
 
   "Employment" should {
     "be presented" in new WithBrowser {

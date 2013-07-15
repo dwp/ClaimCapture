@@ -7,6 +7,8 @@ import org.fluentlenium.core.Fluent
 
 class G4TripIntegrationSpec extends Specification with Tags {
   "4 weeks trip" should {
+    sequential
+
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/timeSpentAbroad/trip/4Weeks")
       titleMustEqual("Trip - Time Spent Abroad")
@@ -73,6 +75,8 @@ class G4TripIntegrationSpec extends Specification with Tags {
   }
 
   "52 weeks trip" should {
+    sequential
+
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/timeSpentAbroad/trip/52Weeks")
       titleMustEqual("Trip - Time Spent Abroad")
