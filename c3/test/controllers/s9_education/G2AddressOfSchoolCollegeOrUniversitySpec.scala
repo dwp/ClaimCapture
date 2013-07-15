@@ -10,7 +10,7 @@ import models.domain.AddressOfSchoolCollegeOrUniversity
 import models.{MultiLineAddress, domain}
 
 class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockito with Tags {
-  "Address Of School College Or University - Controller" should {
+  "Address of school, college or university - Controller" should {
     val nameOfSchoolCollegeOrUniversity = "MIT"
     val nameOfMainTeacherOrTutor = "Albert Einstein"
     val addressLineOne = "123 Street"
