@@ -22,11 +22,11 @@ class ApprovePage(browser: TestBrowser) extends Page(browser, "/allowance/approv
  */
 object ApprovePage {
   val title = "Can you get Carer's Allowance?"
-  def buildPage(browser: TestBrowser) = new ApprovePage(browser)
+  def buildPageWith(browser: TestBrowser) = new ApprovePage(browser)
 }
 
 /** The context for Specs tests */
 class ApprovePageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = ApprovePage buildPage (browser)
+  val page = ApprovePage buildPageWith browser
 }

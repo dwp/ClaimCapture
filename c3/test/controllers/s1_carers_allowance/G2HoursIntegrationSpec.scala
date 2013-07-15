@@ -2,41 +2,48 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
+import utils.pageobjects.s1_carers_allowance.{Over16Page, HoursPage, BenefitsPageContext, HoursPageContext}
+import utils.pageobjects.ClaimScenario
 
 class G2HoursIntegrationSpec extends Specification with Tags {
 
   "Hours" should {
-    "be presented" in new WithBrowser {
-      browser.goTo("/allowance/hours")
-      browser.title mustEqual "Hours - Carer's Allowance"
+    "be presented" in new WithBrowser with HoursPageContext {
+      page goToThePage()
     }
   } section "integration"
 
   "Do you spend 35 hours or more each week caring" should {
-    "acknowledge yes" in new WithBrowser {
-      browser.goTo("/")
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      browser.title mustEqual "Hours - Carer's Allowance"
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-
-      browser.title mustEqual "Over 16 - Carer's Allowance"
-      browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")
-      browser.find("div[class=completed] ul li").get(1).getText must contain("Yes")
+    "acknowledge yes" in new WithBrowser with BenefitsPageContext {
+      val claim = new ClaimScenario
+      claim.CanYouGetCarersAllowance_DoesPpersonYouCareForGetOneOfTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowance_DoYouSpend35HoursorMoreEachWeekCaring = "Yes"
+      page goToThePage()
+      page fillPageWith(claim)
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[HoursPage]
+      nextPage fillPageWith(claim)
+      val nextPage2 = nextPage submitPage()
+      nextPage2 match {
+        case p: Over16Page => p isQ2Yes() must beTrue
+        case _ => false must beTrue
+      }
     }
 
-    "acknowledge no" in new WithBrowser {
-      browser.goTo("/")
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      browser.title mustEqual "Hours - Carer's Allowance"
-      browser.click("#q3-no")
-      browser.submit("button[type='submit']")
-
-      browser.title mustEqual "Over 16 - Carer's Allowance"
-      browser.find("div[class=completed] ul li").get(1).getText must contain("Q2")
-      browser.find("div[class=completed] ul li").get(1).getText must contain("No")
+    "acknowledge no" in new WithBrowser with BenefitsPageContext {
+      val claim = new ClaimScenario
+      claim.CanYouGetCarersAllowance_DoesPpersonYouCareForGetOneOfTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowance_DoYouSpend35HoursorMoreEachWeekCaring = "No"
+      page goToThePage()
+      page fillPageWith(claim)
+      val nextPage = page submitPage()
+      nextPage must beAnInstanceOf[HoursPage]
+      nextPage fillPageWith(claim)
+      val nextPage2 = nextPage submitPage()
+      nextPage2 match {
+        case p: Over16Page => p isQ2No() must beTrue
+        case _ => false must beTrue
+      }
     }
   } section "integration"
 }

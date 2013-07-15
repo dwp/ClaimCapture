@@ -12,7 +12,7 @@ import org.joda.time.format.DateTimeFormat
  * @author Jorge Migueis
  *         Date: 11/07/2013
  */
-trait ComponentObject {
+trait PageElements {
   this: {val browser: TestBrowser} =>
 
   def click(elementCssSelector: String) = browser.click(elementCssSelector)
@@ -33,15 +33,15 @@ trait ComponentObject {
     }
 
 
-  def fillYesNo(elementCssSelector: String, value: String) = if (null != value) browser.click(elementCssSelector + "_" + value.toLowerCase())
+  def fillYesNo(elementCssSelector: String, value: String, sep: String = "_") = if (null != value) browser.click(elementCssSelector + sep + value.toLowerCase())
 
-  protected def isCompletedYesNo(location: String, index: Integer, name: String, value: String) = {
+  protected def isCompletedYesNo(index: Integer, name: String, value: String, location: String = "div[class=completed] ul li") = {
     val completed = browser.find(location).get(index).getText()
     completed.contains(name) && completed.contains(value)
   }
 
-  protected def valueOfYesNo(location: String): Option[Boolean] = {
-    browser.find(location).getAttribute("value") match {
+  protected def valueOfYesNo(location: String, sep: String = "_"): Option[Boolean] = {
+    browser.find(location + sep + "yes").getAttribute("value") match {
       case "true" => Some(true)
       case "false" => Some(false)
       case _ => None
