@@ -11,7 +11,7 @@ import org.openqa.selenium._
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) extends Object with PageElements {
+abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None) extends Object with WebSearchActions with WebFillActions {
 
   def goToThePage() = goToUrl(this)
 
@@ -21,23 +21,27 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) e
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-   def fillPageWith(theClaim: ClaimScenario)
+  def fillPageWith(theClaim: ClaimScenario)
 
   /**
    * Reads theClaim, interacts with browser to populate the page, submit the page and
    * asks next page to run the claim.
    * @param theClaim  Data to use to populate all the pages relevant to the scenario tested.
+   * @param upToPageWithTitle  Title of the page where the automated completion should stop.
    */
-  def runClaimWith(theClaim: ClaimScenario): Unit = {
-    fillPageWith(theClaim)
-    val nextPage = submitPage
-    nextPage runClaimWith (theClaim)
+  def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String): Page = {
+    if (pageTitle == upToPageWithTitle) {
+      this
+    }else {
+      this fillPageWith theClaim
+      submitPage runClaimWith (theClaim,upToPageWithTitle)
+    }
   }
 
   def submitPage() = {
     val nextPageTile = browser.submit("button[type='submit']").title()
-    checkNoErrorsForPage(nextPageTile)
-    createPageWithTitle(nextPageTile)
+    this checkNoErrorsForPage nextPageTile
+    this createPageWithTitle nextPageTile
   }
 
   def goBack() = {
@@ -45,11 +49,12 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) e
     createPageWithTitle(backPageTile)
   }
 
-  def waitForPage() = browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
+  def pageSource() = browser.pageSource()
+
+  protected def waitForPage() = browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
     browser.title == pageTitle
   }
 
-  def pageSource() = browser.pageSource()
   // ==================================================================
   //  NON PUBLIC FUNCTIONS
   // ==================================================================
@@ -63,7 +68,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) e
   }
 
   private def createPageWithTitle(title: String) = {
-    val newPage = PageFactory buildPageFromTitle(browser, title)
+    val newPage = PageFactory buildPageFromTitle(browser, title, Some(this))
     newPage.waitForPage()
     newPage
   }
@@ -82,7 +87,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String) e
  * @param browser  webDriver browser
  * @param pageTitle  Title of the unknown page
  */
-final class UnknownPage(browser: TestBrowser, pageTitle: String) extends Page(browser, null, pageTitle) {
+final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: Option[Page] = None) extends Page(browser, null, pageTitle, previousPage) {
   protected def createNextPage(): Page = this
 
   override def submitPage() = throw new PageObjectException("Cannot submit an unknown page: " + pageTitle)

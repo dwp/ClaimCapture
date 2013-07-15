@@ -1,14 +1,14 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{PageElements, ClaimScenario, PageContext, Page}
+import utils.pageobjects.{WebSearchActions, ClaimScenario, PageContext, Page}
 
 /**
  * PageObject pattern associated to S1 carers allowance G2 Hours page.
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-class HoursPage(browser: TestBrowser) extends Page(browser, "/allowance/hours", HoursPage.title) with PageElements {
+class HoursPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, HoursPage.url, HoursPage.title,previousPage) with WebSearchActions {
 
   /* temporary, until tested class is refactored and use new common components. */
   private val separator = "-"
@@ -26,7 +26,7 @@ class HoursPage(browser: TestBrowser) extends Page(browser, "/allowance/hours", 
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#q3", theClaim.CanYouGetCarersAllowance_DoYouSpend35HoursorMoreEachWeekCaring, separator)
+    fillYesNo("#q3", theClaim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring, separator)
   }
 }
 
@@ -36,7 +36,8 @@ class HoursPage(browser: TestBrowser) extends Page(browser, "/allowance/hours", 
  */
 object HoursPage {
   val title = "Hours - Carer's Allowance"
-  def buildPageWith(browser: TestBrowser) = new HoursPage(browser)
+  val url = "/allowance/hours"
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new HoursPage(browser, previousPage)
 }
 
 /** The context for Specs tests */

@@ -1,11 +1,11 @@
 package utils.pageobjects
 
 import play.api.test.TestBrowser
-import utils.pageobjects.s1_carers_allowance.{Over16Page, ApprovePage, BenefitsPage, HoursPage}
+import utils.pageobjects.s1_carers_allowance._
 import scala.io.Source
 import scala.language.dynamics
-import scala.util.matching.Regex
-import scala.collection.mutable.Map
+import utils.pageobjects.s2_about_you.YourDetailsPage
+import scala.collection.mutable
 
 
 /**
@@ -19,31 +19,31 @@ object PageFactory {
   // used to parse claim file's lines. Expect 3 information colums, followed by attribute and then value of attribute.
   private val Extractor = """^ *([^,"]+|"[^"]+") *, *([^,"]+|"[^"]+") *, *([^,"]+|"[^"]+") *, *([^,"]+|"[^"]+") *,? *([^,"]+|"[^"]+")?.*""".r
 
-  def buildPageFromTitle(browser: TestBrowser, title: String) = {
-    title match {
-      case BenefitsPage.title => BenefitsPage buildPageWith browser
-      case HoursPage.title => HoursPage buildPageWith browser
-      case ApprovePage.title => ApprovePage buildPageWith browser
-      case Over16Page.title => Over16Page buildPageWith browser
-      case _ => new UnknownPage(browser, title)
-    }
-  }
-
   def buildClaimFromFile(fileName: String) = {
     val claim = new ClaimScenario
     buildFromFile(fileName, claim.updateDynamic)
     claim
   }
 
-
   def buildXmlMappingFromFile(fileName: String) = {
-
-    val map = Map[String,String]()
-    def converter (name: String)(value: String):Unit = {
-         map += (name -> value)
-    }
+    val map = mutable.Map[String,Array[String]]()
+    def converter (name: String)(value: String):Unit = map += (name -> value.split(">"))
     buildFromFile(fileName, converter)
     map
+  }
+
+  def buildPageFromTitle(browser: TestBrowser, title: String, previousPage: Option[Page]) = {
+    title match {
+        // S1
+      case BenefitsPage.title => BenefitsPage buildPageWith (browser,previousPage)
+      case HoursPage.title => HoursPage buildPageWith (browser,previousPage)
+      case Over16Page.title => Over16Page buildPageWith (browser,previousPage)
+      case LivingInGBPage.title => LivingInGBPage buildPageWith (browser,previousPage)
+      case ApprovePage.title => ApprovePage buildPageWith (browser,previousPage)
+       // S2
+      case YourDetailsPage.title => YourDetailsPage buildPageWith (browser,previousPage)
+      case _ => new UnknownPage(browser, title, previousPage)
+    }
   }
 
   private def buildFromFile(fileName: String, extractor: (String) => (String) => Unit ) = {
