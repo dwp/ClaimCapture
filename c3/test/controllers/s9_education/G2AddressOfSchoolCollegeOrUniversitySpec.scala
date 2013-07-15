@@ -30,7 +30,7 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
     "present 'Address Of School College Or University'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s9_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
+      val result = controllers.s9_education.G2AddressOfSchoolCollegeOrUniversity.present(request)
       status(result) mustEqual OK
     }
     
