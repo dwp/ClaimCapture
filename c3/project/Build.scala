@@ -20,7 +20,7 @@ object ApplicationBuild extends Build {
 
   var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint"))
 
-  var sV: Seq[Project.Setting[_]] = Seq(scalaVersion := "2.10.1")
+  var sV: Seq[Project.Setting[_]] = Seq(scalaVersion := "2.10.2")
 
   var sR: Seq[Project.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
 
