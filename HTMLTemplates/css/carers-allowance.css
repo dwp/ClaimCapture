@@ -1257,11 +1257,13 @@ textarea.demo {
   background: #eeeeee !important;
   margin-bottom: 3em !important; }
 
-/* Header - Global Overrides - inc important overrides */
+/* Header - Global Overrides - inc !important overrides */
 html {
   background: #dee0e2 !important; }
 
-/* #global-header #logo img {left: -211px!important;} */
+#global-header #logo img {
+  left: -211px !important; }
+
 #global-header .header-wrapper {
   padding: 0.5em 1px !important; }
 
