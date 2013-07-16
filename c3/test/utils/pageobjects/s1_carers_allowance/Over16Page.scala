@@ -1,7 +1,7 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import utils.pageobjects.{PageFactory, PageContext, ClaimScenario, Page}
 
 /**
  * PageObject pattern associated to S1 carers allowance G3 Over 16 page.
@@ -21,8 +21,8 @@ class Over16Page(browser: TestBrowser, previousPage: Option[Page] = None) extend
     fillYesNo("#q3",theClaim.CanYouGetCarersAllowanceAreYouAged16OrOver, separator)
   }
 
-  def isQ2Yes(): Boolean = isCompletedYesNo(1, "Q2", "Yes")
-  def isQ2No(): Boolean = isCompletedYesNo(1, "Q2", "No")
+  def isQ2Yes(): Boolean = isSpecifiedSectionCompleted(1, "Q2", "Yes")
+  def isQ2No(): Boolean = isSpecifiedSectionCompleted(1, "Q2", "No")
 }
 
 
@@ -34,6 +34,7 @@ object Over16Page {
   val title = "Over 16 - Carer's Allowance"
   val url = "/allowance/over16"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new Over16Page(browser, previousPage)
+//  PageFactory.registerPageBuilder[Over16Page](title, buildPageWith)
 }
 
 /** The context for Specs tests */
