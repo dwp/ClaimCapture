@@ -23,7 +23,7 @@ object Education extends Controller with CachedClaim {
 
   def completed = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s6_education.completed(completedQuestionGroups))
+      Ok(views.html.s6_education.g3_completed(completedQuestionGroups))
   }
 
   def completedSubmit = claiming {
