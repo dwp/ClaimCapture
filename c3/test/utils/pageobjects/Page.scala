@@ -39,21 +39,24 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   }
 
   def submitPage() = {
-    val nextPageTile = browser.submit("button[type='submit']").title()
+    val nextPageTile = browser.submit("button[type='submit']").title
     this checkNoErrorsForPage nextPageTile
     this createPageWithTitle nextPageTile
   }
 
   def goBack() = {
-    val backPageTile = browser.click(".form-steps a").title()
+    val backPageTile = browser.click(".form-steps a").title
     createPageWithTitle(backPageTile)
   }
 
-  def pageSource() = browser.pageSource()
-
-  protected def waitForPage() = browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
-    browser.title == pageTitle
+  def goToCompletedSection() = {
+    val completedPage = browser.click("div[class=completed] ul li a").title
+    createPageWithTitle(completedPage)
   }
+
+  def source() = browser.pageSource()
+
+  protected def waitForPage() = browser.waitUntil[Boolean](30, TimeUnit.SECONDS) { titleMatch() }
 
   // ==================================================================
   //  NON PUBLIC FUNCTIONS
@@ -63,13 +66,13 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   protected def checkNoErrorsForPage(nextPageTile: String) = {
     val rawErrors = browser.find("div[class=validation-summary] ol li")
     if (!rawErrors.isEmpty) {
-      throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed""", (new JListWrapper(rawErrors.getTexts)).toList)
+      throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed""", new JListWrapper(rawErrors.getTexts).toList)
     }
   }
 
   private def createPageWithTitle(title: String) = {
     val newPage = PageFactory buildPageFromTitle(browser, title, Some(this))
-    newPage.waitForPage()
+   // newPage.waitForPage()
     newPage
   }
 
