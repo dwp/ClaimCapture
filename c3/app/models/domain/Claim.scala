@@ -29,6 +29,8 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   def hideSection(sectionID: String): Claim = update(section(sectionID).hide())
 
   def showSection(sectionID: String): Claim = update(section(sectionID).show())
+  
+  def showHideSection(visible: Boolean, id: String) = if(visible) showSection(id) else hideSection(id)
 
   def update(section: Section): Claim = Claim(sections.updated(section.id, section))
 
