@@ -1,4 +1,4 @@
-package controllers.s9_education
+package controllers.s6_education
 
 import org.specs2.mutable.{Tags, Specification}
 

@@ -32,7 +32,7 @@ object Disclaimer extends QuestionGroup(s"${ConsentAndDeclaration.id}.g3")
 case class Disclaimer(read:String) extends QuestionGroup(Disclaimer.id)
 
 object Declaration extends QuestionGroup(s"${ConsentAndDeclaration.id}.g4")
-case class Declaration(read:String,someoneElse: Option[String]) extends QuestionGroup(Declaration.id)
+case class Declaration(confirm:String,someoneElse: String) extends QuestionGroup(Declaration.id)
 
 object Submit extends QuestionGroup(s"${ConsentAndDeclaration.id}.g5")
 object Error extends QuestionGroup(s"${ConsentAndDeclaration.id}.g6")

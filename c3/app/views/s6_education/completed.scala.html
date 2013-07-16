@@ -3,9 +3,9 @@
 @import helper._
 
 @main("Completion - Education", None, completedQuestionGroups) {
-    @form(action = controllers.s9_education.routes.Education.completedSubmit) {
+    @form(action = controllers.s6_education.routes.Education.completedSubmit) {
         <nav class="form-steps">
-            <a href="@controllers.s9_education.routes.G2AddressOfSchoolCollegeOrUniversity.present" class="button secondary">Back</a>
+            <a href="@controllers.s6_education.routes.G2AddressOfSchoolCollegeOrUniversity.present" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Continue to TODO</button>
         </nav>
     }

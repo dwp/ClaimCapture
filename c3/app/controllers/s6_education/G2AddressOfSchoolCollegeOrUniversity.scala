@@ -1,4 +1,4 @@
-package controllers.s9_education
+package controllers.s6_education
 
 import controllers.Mappings.address
 import controllers.Mappings.validPhoneNumber
@@ -30,18 +30,20 @@ object G2AddressOfSchoolCollegeOrUniversity extends Controller with Routing with
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(AddressOfSchoolCollegeOrUniversity)
 
-  def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[AddressOfSchoolCollegeOrUniversity] = claim.questionGroup(AddressOfSchoolCollegeOrUniversity) match {
-      case Some(m: AddressOfSchoolCollegeOrUniversity) => form.fill(m)
-      case _ => form
-    }
+  def present = claiming {
+    implicit claim => implicit request =>
+      val currentForm: Form[AddressOfSchoolCollegeOrUniversity] = claim.questionGroup(AddressOfSchoolCollegeOrUniversity) match {
+        case Some(m: AddressOfSchoolCollegeOrUniversity) => form.fill(m)
+        case _ => form
+      }
 
-    Ok(views.html.s9_education.g2_addressOfSchoolCollegeOrUniversity(currentForm, completedQuestionGroups))
+      Ok(views.html.s6_education.g2_addressOfSchoolCollegeOrUniversity(currentForm, completedQuestionGroups))
   }
 
-  def submit = claiming { implicit claim => implicit request =>
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s9_education.g2_addressOfSchoolCollegeOrUniversity(formWithErrors, completedQuestionGroups)),
-      f => claim.update(f) -> Redirect(routes.Education.completed()))
+  def submit = claiming {
+    implicit claim => implicit request =>
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.s6_education.g2_addressOfSchoolCollegeOrUniversity(formWithErrors, completedQuestionGroups)),
+        f => claim.update(f) -> Redirect(routes.Education.completed()))
   }
 }

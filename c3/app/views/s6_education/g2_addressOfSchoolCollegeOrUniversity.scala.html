@@ -7,7 +7,7 @@
 
 @main("Address Of School College Or University - Education", Some(currentForm), completedQuestionGroups) {
 
-    @form(action = controllers.s9_education.routes.G2AddressOfSchoolCollegeOrUniversity.submit) {
+    @form(action = controllers.s6_education.routes.G2AddressOfSchoolCollegeOrUniversity.submit) {
     
         <fieldset class="form-elements">
             <legend>Contact details of the person you care for</legend>
@@ -28,7 +28,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@backHref(controllers.s9_education.Education.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <a id="backButton" href="@backHref(controllers.s6_education.Education.route, completedQuestionGroups)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

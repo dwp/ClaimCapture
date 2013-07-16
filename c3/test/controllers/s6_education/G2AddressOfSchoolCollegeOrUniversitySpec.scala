@@ -1,13 +1,14 @@
-package controllers.s9_education
+package controllers.s6_education
 
 import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{WithApplication, FakeRequest}
 import play.api.cache.Cache
-import models.domain.{Claiming, Claim, Section, TheirContactDetails}
+import models.domain.{Claiming, Claim, Section}
 import play.api.test.Helpers._
 import models.domain.AddressOfSchoolCollegeOrUniversity
 import models.{MultiLineAddress, domain}
+import controllers.s6_education
 
 class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockito with Tags {
   "Address of school, college or university - Controller" should {
@@ -30,7 +31,7 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
     "present 'Address Of School College Or University'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s9_education.G2AddressOfSchoolCollegeOrUniversity.present(request)
+      val result = controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.present(request)
       status(result) mustEqual OK
     }
     
@@ -38,7 +39,7 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(addressOfSchoolCollegeOrUniversityInput: _*)
 
-      val result = controllers.s9_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
+      val result = s6_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.Education.id)
 
@@ -59,7 +60,7 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
-      val result = controllers.s9_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
+      val result = s6_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
     
@@ -67,14 +68,14 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(addressOfSchoolCollegeOrUniversityInput: _*)
 
-      val result = controllers.s9_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
+      val result = s6_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
       status(result) mustEqual SEE_OTHER
     }
     
     "redirect to the next page after a valid submission with minimal input without optional fields" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s9_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
+      val result = s6_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section "unit"

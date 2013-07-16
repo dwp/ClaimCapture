@@ -1,4 +1,4 @@
-package controllers.s9_education
+package controllers.s6_education
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
@@ -20,19 +20,24 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
     }
     
     "contain the completed forms" in new WithBrowser {
-      browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
-      //Formulate.yourCourseDetails(browser)
+      Formulate.yourCourseDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
-    }.pendingUntilFixed("Need yourCourseDetails to exist for S9G1")
+    }
 
     "navigate back to Your Course Details" in new WithBrowser {
       browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
       browser.click("#backButton")
-      browser.title mustEqual "Your course details - Education"
-    }.pendingUntilFixed("Need S9G1 to exist")
+      browser.title mustEqual "Your Course Details - Education"
+    }
 
-    "navigate to next page on valid submission" in new WithBrowser {
+    "navigate to next page on valid submission with all fields filled in" in new WithBrowser {
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
+      browser.title mustEqual "Completion - Education"
+    }
+    
+    "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser {
+      browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
+      browser.submit("button[type='submit']")
       browser.title mustEqual "Completion - Education"
     }
   } section "integration"
