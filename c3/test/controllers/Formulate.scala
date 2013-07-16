@@ -355,7 +355,8 @@ object Formulate {
 
   def declaration(browser: TestBrowser) = {
     browser.goTo("/consentAndDeclaration/declaration")
-    browser.click("#read")
+    browser.click("#confirm")
+    browser.click("#someoneElse")
     browser.submit("button[type='submit']")
   }
 
