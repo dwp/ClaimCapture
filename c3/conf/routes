@@ -131,6 +131,18 @@ POST    /timeSpentAbroad/otherEEAStateOrSwitzerland             controllers.s5_t
 GET     /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
 POST    /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completedSubmit
 
+# Education
+###############
+GET     /education/yourCourseDetails                            controllers.s6_education.G1YourCourseDetails.present
+POST    /education/yourCourseDetails                            controllers.s6_education.G1YourCourseDetails.submit
+
+GET     /education/addressOfSchoolCollegeOrUniversity           controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.present
+POST    /education/addressOfSchoolCollegeOrUniversity           controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.submit
+
+GET     /education/completed                                    controllers.s6_education.Education.completed
+POST    /education/completed                                    controllers.s6_education.Education.completedSubmit
+
+
 # Pay Details
 ###############
 GET     /payDetails/howWePayYou                                 controllers.s6_pay_details.G1HowWePayYou.present
@@ -161,6 +173,7 @@ GET     /consentAndDeclaration/submit                           controllers.s7_c
 POST    /consentAndDeclaration/submit                           controllers.s7_consent_and_declaration.G5Submit.submit
 
 GET     /consentAndDeclaration/error                            controllers.s7_consent_and_declaration.G6Error.present
+
 
 # Cache Timeout
 GET     /timeout                                                controllers.Application.timeout

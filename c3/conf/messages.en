@@ -3,8 +3,9 @@ s2.progressBar = About you
 s3.progressBar = Your Partner
 s4.progressBar = Care you provide
 s5.progressBar = Abroad
-s6.progressBar = Pay details
+s6.progressBar = Education
 s7.progressBar = Declaration
+s9.progressBar = Pay details
 
 s1.g1 = Q1.  Does the person you look after get one of these benefits?
 s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?
@@ -42,8 +43,11 @@ s5.g3 = When you went abroad for more than 52 weeks
 s5.g4 = Trips
 s5.g5 = Other EEA State or Switzerland
 
-s6.g1 = How would you like to get paid?
-s6.g2 = Bank / building society details
+s6.g1 = Your course details
+s6.g2 = School, college or university's contact details
+
+s9.g1 = How would you like to get paid?
+s9.g2 = Bank / building society details
 
 s7.g1 = Additional Information
 s7.g2 = Consent
@@ -224,6 +228,18 @@ benefitsFromOtherEEAStateOrSwitzerland.details = Provide details
 benefitsFromOtherEEAStateOrSwitzerland_details = Provide details
 workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?
 
+## EDUCATION
+# YOUR COURSE DETAILS
+courseType = Type of course
+courseTitle = Course title
+startDate = When did you start the course?
+expectedEndDate = When do you expect the course to end?
+finishedDate = If you are no longer on the course, when did you finish?
+studentReferenceNumber = Your student reference number
+nameOfSchoolCollegeOrUniversity = Name of school, college or university
+nameOfMainTeacherOrTutor = Name of Main Teacher or Tutor
+faxNumber = Fax number
+
 ## PAY DETAILS
 # HOW WE PAY YOU
 likeToPay =  How would you like to be paid?
@@ -233,7 +249,7 @@ paymentFrequency = How often do you want to get paid?
 accountHolderName =  Name of account holder
 bankFullName = Full name of bank or building society
 sortCode = Sort code
-accountName = Account number
+accountNumber = Account number
 rollOrReferenceNumber = Building society roll or reference number
 
 ## CONSENT AND DECLARATION
@@ -253,16 +269,16 @@ disclaimer.5 = If [[first name, middle name, surname]]'s Pension Credit includes
 disclaimer.6 = We will need to check [[first name, middle name, surname]] entitlement to Disability Living Allowance, Personal Independence Payment, Attendance Allowance, Constant Attendance Allowance or Armed Forces Independence Payment when considering your claim.
 disclaimer.7 = We may contact [[first name, middle name, surname]] or their representative to establish whether 35 hours caring per week is taking place.
 
-disclaimer.read = Please tick this box to declare that you have read the Disclaimer text and have shown the Notes to the person you are looking after.
+read = Please tick this box to declare that you have read the Disclaimer text and have shown the Notes to the person you are looking after.
 
 #DECLARATION
 declaration.1 = I declare that I understand the Cares's Allowance Claim Notes and that the information provided on this claim form is correct and complete.
 declaration.2 = I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
 declaration.3 = I will phone 08456084321 or write to Carer's allowance Unit, Palantine House,Lancaster, Preston, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
 declaration.4 = If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Cares Allowance may be stopped or reduced and any overpayment of Cares Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.
-declaration.read = Please tick this box to confirm that you understand and make the declarations above.
+confirm = Please tick this box to confirm that you understand and make the declarations above.
 declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.
-declaration.someoneElse = Please tick this box if this claim form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
+someoneElse = Please tick this box if this claim form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
 
 #ADDITIONAL INFO
 anythingElse = Please tell us anything else you think we should know about your claim

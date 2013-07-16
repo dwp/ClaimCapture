@@ -17,8 +17,8 @@ object G4Declaration extends Controller with Routing with CachedClaim{
 
   val form = Form(
     mapping(
-      "read" -> nonEmptyText,
-      "someoneElse" -> optional(text)
+      "confirm" -> nonEmptyText,
+      "someoneElse" -> nonEmptyText
     )(Declaration.apply)(Declaration.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Declaration)

@@ -29,7 +29,7 @@ class EvalSpec extends Specification {
       val contentHtml: Html = Html("<div>Hi</div>")
       val footerHtml: Html = Html("<footer></footer>")
 
-      val x = eval[(String) => (Html) => (Html) => (Html)]("views.html.common.main_test.apply _")
+      val x = eval[String => Html => Html => Html]("views.html.common.main_test.apply _")
       val y = x("Goodie")(contentHtml)(footerHtml)
     }
 
@@ -44,7 +44,7 @@ class EvalSpec extends Specification {
       val contentHtml: Html = Html("<div>Hi</div>")
       val footerHtml: Html = Html("<footer></footer>")
 
-      val x = eval[(String) => (Html) => (Html) => (Html)](s"$template.apply _")
+      val x = eval[String => Html => Html => Html](s"$template.apply _")
       val y = x("Goodie again")(contentHtml)(footerHtml)
       println(y)
     }
