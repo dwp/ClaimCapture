@@ -51,19 +51,19 @@ $button-green-hover: #004b27;
    /* progress steps */
    .progress-steps {
 	   border-top: 10px solid #f47738;
-	   @media screen and (max-width: 640px) {border-top: 0;}
+	   @media screen and (max-width: 760px) {border-top: 0;}
 	   ol {
 		   list-style: none;
 		   margin: 0;
 		   overflow: hidden;
 		   padding: 2.5em 0 0.3em 0;
-		    @media screen and (max-width: 640px) {padding-top: 2em;}
+		    @media screen and (max-width: 760px) {padding-top: 2em;}
 		   .ie7 &, .ie8 & {
 			   padding-bottom: 0;
 			   background: url('images/nav-line.png') 0 56px repeat-x;
 			   margin-bottom: -12px;
 		   }
-		   @media screen and (max-width: 640px) {
+		   @media screen and (max-width: 760px) {
 			   padding-bottom: 0;
 		   }
 		   &:after {
@@ -87,7 +87,7 @@ $button-green-hover: #004b27;
 				   background: url('images/nav-default.png') center 0 no-repeat;
 				   padding-bottom: 5px;
 			   }
-			    @media screen and (max-width: 640px) {
+			    @media screen and (max-width: 760px) {
 				    text-indent: -9999px;
 				    padding: 15px 0 0 0;
 				    span {
@@ -106,6 +106,9 @@ $button-green-hover: #004b27;
 			     }
 			   span {
 				   font-size: 1.3rem;
+				   @media screen and (max-width: 770px) {
+					   font-size: 10px;
+				   }
 				   .ie & {
 					   font-size: 13px;
 				   }
@@ -148,7 +151,7 @@ $button-green-hover: #004b27;
 				   top: -8px;
 				   padding-top: 55px;
 			   }
-			   	@media screen and (max-width: 640px) {
+			   	@media screen and (max-width: 760px) {
 				   	padding: 0;
 			   	}
 				   span {
@@ -165,7 +168,7 @@ $button-green-hover: #004b27;
 						   .ie & {
 							   font-size: 26px;
 						   }
-						   @media screen and (max-width: 640px) {
+						   @media screen and (max-width: 760px) {
 							   width: 30px;
 							   height: 29px;
 							   margin: 0 0 0 -15px;
