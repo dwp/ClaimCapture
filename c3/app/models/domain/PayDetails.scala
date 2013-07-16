@@ -5,7 +5,7 @@ import models.SortCode
 case class PayDetails(howWePayYou: HowWePayYou,bankBuildingSocietyDetails: BankBuildingSocietyDetails )
 
 object PayDetails {
-  val id = "s6"
+  val id = "s9"
 }
 
 case class HowWePayYou(likeToBePaid:String,paymentFrequency: String) extends QuestionGroup(HowWePayYou.id)

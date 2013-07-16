@@ -42,8 +42,11 @@ s5.g3 = When you went abroad for more than 52 weeks
 s5.g4 = Trips
 s5.g5 = Other EEA State or Switzerland
 
-s6.g1 = How would you like to get paid?
-s6.g2 = Bank / building society details
+s6.g1 = Your course details
+s6.g2 = School, college or university's contact details
+
+s9.g1 = How would you like to get paid?
+s9.g2 = Bank / building society details
 
 s7.g1 = Additional Information
 s7.g2 = Consent
@@ -223,6 +226,15 @@ benefitsFromOtherEEAStateOrSwitzerland_answer = Are you, your wife, husband, civ
 benefitsFromOtherEEAStateOrSwitzerland.details = Provide details
 benefitsFromOtherEEAStateOrSwitzerland_details = Provide details
 workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?
+
+## EDUCATION
+# YOUR COURSE DETAILS
+courseType = Type of course
+courseTitle = Course title
+startDate = When did you start the course?
+expectedEndDate = When do you expect the course to end?
+finishedDate = If you are no longer on the course, when did you finish?
+studentReferenceNumber = Your student reference number
 
 ## PAY DETAILS
 # HOW WE PAY YOU
