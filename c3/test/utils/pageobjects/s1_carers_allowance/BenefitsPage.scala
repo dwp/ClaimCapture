@@ -8,7 +8,7 @@ import utils.pageobjects.{ComponentObject, ClaimScenario, PageContext, Page}
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-class BenefitsPage(browser: TestBrowser) extends Page(browser, "/", BenefitsPage.title) with ComponentObject {
+class BenefitsPage(browser: TestBrowser) extends Page(browser, "/", BenefitsPage.title) {
 
   def clickPersonGetsBenefits() = browser.click("#q3-yes")
 
@@ -25,7 +25,7 @@ class BenefitsPage(browser: TestBrowser) extends Page(browser, "/", BenefitsPage
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) {
-    theClaim.`Can you get allowance - does person get benefits?` match {
+    theClaim.CanYouGetCarersAllowance_DoesPpersonYouCareForGetOneOfTheseBenefits match {
       case "Yes" => browser.click("#q3-yes")
       case "No" => browser.click("#q3-no")
     }

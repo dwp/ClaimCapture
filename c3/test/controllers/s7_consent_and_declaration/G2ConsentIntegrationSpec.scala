@@ -16,7 +16,7 @@ class G2ConsentIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Consent - Consent And Declaration"
       browser.submit("button[type='submit']")
 
-      browser.find("div[class=validation-summary] ol li").size mustEqual 3
+      browser.find("div[class=validation-summary] ol li").size mustEqual 2
     }
 
     "navigate to next page on valid submission" in new WithBrowser {

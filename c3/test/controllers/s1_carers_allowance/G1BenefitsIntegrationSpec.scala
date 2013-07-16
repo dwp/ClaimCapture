@@ -6,8 +6,6 @@ import utils.pageobjects.s1_carers_allowance.{BenefitsPageContext, HoursPage}
 import utils.pageobjects.ClaimScenario
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
-  sequential
-
   "Benefits" should {
 
     "be presented" in new WithBrowser with BenefitsPageContext {
@@ -27,7 +25,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
   "Does the person being cared for get one of required benefits" should {
 
     "acknowledge yes" in new WithBrowser with BenefitsPageContext {
-      page.goToThePage() must beTrue
+      page.goToThePage()
       page clickPersonGetsBenefits()
       val nextPage = page.submitPage()
       nextPage match {
@@ -38,7 +36,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
 
     "acknowledge yes 2" in new WithBrowser with  BenefitsPageContext {
       val claim = new ClaimScenario
-      claim.`Can you get allowance - does person get benefits?` = "Yes"
+      claim.CanYouGetCarersAllowance_DoesPpersonYouCareForGetOneOfTheseBenefits = "Yes"
       page.goToThePage()
       page.fillPageWith(claim)
       val nextPage = page.submitPage()

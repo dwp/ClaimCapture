@@ -3,9 +3,11 @@ package controllers.s7_consent_and_declaration
 import play.api.mvc.Controller
 import controllers.Routing
 import models.view.CachedClaim
+import models.domain.Consent._
 import models.domain.{Disclaimer, Claim, Consent, HowWePayYou}
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
+import utils.helpers.CarersForm._
 import utils.helpers.CarersForm._
 
 object G2Consent extends Controller with Routing with CachedClaim{
@@ -15,9 +17,13 @@ object G2Consent extends Controller with Routing with CachedClaim{
   val form = Form(
     mapping(
       "informationFromEmployer" -> nonEmptyText,
-      "why" -> nonEmptyText,
-      "informationFromPerson" -> nonEmptyText
-    )(Consent.apply)(Consent.unapply))
+      "why" -> optional(text),
+      "informationFromPerson" -> nonEmptyText,
+      "whyPerson" -> optional(text)
+    )(Consent.apply)(Consent.unapply)
+      .verifying("why", validateWhy _)
+      .verifying("whyPerson", validateWhyPerson _))
+
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Consent)
 
@@ -34,7 +40,8 @@ object G2Consent extends Controller with Routing with CachedClaim{
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_consent_and_declaration.g2_consent(formWithErrors,completedQuestionGroups)),
+      formWithErrors =>
+        BadRequest(views.html.s7_consent_and_declaration.g2_consent(formWithErrors,completedQuestionGroups)),
       consent => claim.update(consent) -> Redirect(routes.G3Disclaimer.present()))
   }
 

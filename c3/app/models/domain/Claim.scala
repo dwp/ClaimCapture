@@ -3,7 +3,6 @@ package models.domain
 import models.{DayMonthYear, Timestamped}
 
 case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
-
   def section(sectionID: String): Section = {
     sections.get(sectionID) match {
       case Some(s: Section) => s
@@ -34,7 +33,6 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   def update(section: Section): Claim = Claim(sections.updated(section.id, section))
 
   def update(questionGroup: QuestionGroup): Claim = {
-
     val sectionID = Section.sectionID(questionGroup)
 
     update(section(sectionID).update(questionGroup))
