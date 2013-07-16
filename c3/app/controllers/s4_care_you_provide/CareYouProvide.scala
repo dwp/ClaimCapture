@@ -30,7 +30,7 @@ object CareYouProvide extends Controller with CachedClaim {
 
   def completed = claiming { implicit claim => implicit request =>
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())
-    else Ok(views.html.s4_care_you_provide.completed(completedQuestionGroups))
+    else Ok(views.html.s4_care_you_provide.g12_completed(completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
