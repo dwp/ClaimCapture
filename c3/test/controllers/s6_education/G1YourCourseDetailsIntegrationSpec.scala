@@ -2,7 +2,7 @@ package controllers.s6_education
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.Formulate
+import controllers.{BrowserMatchers, Formulate}
 
 class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
 
@@ -29,6 +29,15 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       browser.goTo("/education/yourCourseDetails")
       browser.submit("button[type='submit']")
       browser.title mustEqual "Address Of School College Or University - Education"
+    }
+
+    "navigate back" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/education/yourCourseDetails")
+
+      titleMustEqual("Your Course Details - Education")
+
+      browser.click("#backButton")
+      browser.title mustNotEqual "Your Course Details - Education"
     }
 
   } section "integration"
