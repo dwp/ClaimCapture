@@ -5,10 +5,11 @@ import play.api.mvc.Results.Redirect
 import play.api.cache.Cache
 import models.domain.Claim
 import play.Configuration
-import play.api.Play
+import play.api.Play._
 
 trait CachedClaim {
-  import play.api.Play.current
+  import play.api.Play
+  import play.api.Logger
   import scala.language.implicitConversions
   import play.api.http.HeaderNames._
   import java.util.UUID._
@@ -28,6 +29,7 @@ trait CachedClaim {
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         val claim = Claim()
         Cache.set(key, claim, expiration)
+        Logger.info("Starting new claim")
         apply(claim)
       } else {
         Cache.getAs[Claim](key) match {
@@ -68,7 +70,8 @@ trait CachedClaim {
             Cache.set(key, claim, 20) // place an empty claim in the cache to satisfy tests
             action(claim)
           } else {
-            Redirect("/timeout")
+            Logger.info("Claim timeout")
+            play.api.mvc.Results.Redirect("/timeout")
           }
       }
     }

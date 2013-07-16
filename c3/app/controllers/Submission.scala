@@ -12,8 +12,7 @@ object Submission extends Controller with CachedClaim {
     implicit claim => implicit request =>
 
     try {
-        val claimXml = ClaimSubmission(claim, "TY2TV9G").buildDwpClaim
-        Logger.debug(s"Claim submitting transactionId : ${claimXml \\ "DWPCAClaim" \ "@id" toString()}")
+      val claimXml = ClaimSubmission(claim, "TY2TV9G").buildDwpClaim
       Async {
         ClaimSubmissionService.submitClaim(claimXml).map(
           response => {
@@ -34,9 +33,11 @@ object Submission extends Controller with CachedClaim {
           }
         ).recover {
           case e : java.net.ConnectException => {
+            Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
             ServiceUnavailable(s"ServiceUnavailable ! ${e.getMessage}")
           }
           case e : java.lang.Exception  => {
+            Logger.error(s"InternalServerError ! ${e.getMessage}")
             InternalServerError(s"InternalServerError ! ${e.getMessage}")
           }
         }
@@ -44,6 +45,7 @@ object Submission extends Controller with CachedClaim {
     }
     catch {
       case e : java.lang.Exception  => {
+        Logger.error(s"InternalServerError ! ${e.getMessage}")
         InternalServerError(s"InternalServerError ! ${e.getMessage}")
       }
     }

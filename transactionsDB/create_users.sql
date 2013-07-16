@@ -1,4 +1,3 @@
-#DROP OWNED by carers_c3 CASCADE; 
 DROP USER IF EXISTS carers_c3;
 CREATE USER carers_c3 PASSWORD 'claimant23';
 GRANT USAGE on SCHEMA PUBLIC to carers_c3;
