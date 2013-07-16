@@ -1,4 +1,4 @@
-package p
+package controllers.s6_education
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
