@@ -29,6 +29,8 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
   def hideSection(sectionID: String): Claim = update(section(sectionID).hide())
 
   def showSection(sectionID: String): Claim = update(section(sectionID).show())
+  
+  def showHideSection(visible: Boolean, id: String) = if(visible) showSection(id) else hideSection(id)
 
   def update(section: Section): Claim = Claim(sections.updated(section.id, section))
 
@@ -48,17 +50,4 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     case Some(c: ClaimDate) => Some(c.dateOfClaim)
     case _ => None
   }
-
-  def showHideYourPartnerSection(hadPartner: String): Claim =
-    hadPartner match {
-      case "yes" => showSection(YourPartner.id)
-      case _ => hideSection(YourPartner.id)
-    }
-
-  def showHideEducationSection(beenInEducationSinceClaimDate: String): Claim =
-    beenInEducationSinceClaimDate match {
-      case "yes" => showSection(Education.id)
-      case _ => hideSection(Education.id)
-    }
-  
 }
