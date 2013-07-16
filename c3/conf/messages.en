@@ -233,7 +233,7 @@ paymentFrequency = How often do you want to get paid?
 accountHolderName =  Name of account holder
 bankFullName = Full name of bank or building society
 sortCode = Sort code
-accountName = Account number
+accountNumber = Account number
 rollOrReferenceNumber = Building society roll or reference number
 
 ## CONSENT AND DECLARATION
