@@ -16,14 +16,14 @@ object Education extends Controller with CachedClaim {
   def whenVisible(claim: Claim)(closure: () => SimpleResult[Html]) = {
     val iAmVisible = claim.isSectionVisible(models.domain.Education.id)
 
-    if (iAmVisible) closure() else Ok("TODO: Should Redirect To Empolyment SECTION")
+    if (iAmVisible) closure() else Ok("TODO: Should Redirect To Employment SECTION")
   }
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.Education.id)
 
   def completed = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s6_education.completed(completedQuestionGroups))
+      Ok(views.html.s6_education.g3_completed(completedQuestionGroups))
   }
 
   def completedSubmit = claiming {
