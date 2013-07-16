@@ -20,7 +20,6 @@ object ClaimScenarioFactory {
   }
 
   def yourDetailsWithNotTimeOutside() = {
-
     val claim = new ClaimScenario
     claim.AboutYouTitle = "Mr"
     claim.AboutYouFirstName = "John"
@@ -30,6 +29,12 @@ object ClaimScenarioFactory {
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
     claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
     claim.AboutYouNINO ="AB123456C"
+    claim
+  }
+
+  def yourDetailsEnablingTimeOutsideUK() = {
+    val claim = yourDetailsWithNotTimeOutside
+    claim.AboutYouHaveYouAlwaysLivedInTheUK = "No"
     claim
   }
 
