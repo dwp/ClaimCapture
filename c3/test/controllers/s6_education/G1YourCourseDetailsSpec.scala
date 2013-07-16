@@ -52,7 +52,13 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
+    "redirect to the next page after a valid submission" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(formInput: _*)
 
+      val result = controllers.s6_education.G1YourCourseDetails.submit(request)
+      status(result) mustEqual SEE_OTHER
+    }
 
   } section "unit"
 }

@@ -42,7 +42,7 @@ object G1YourCourseDetails extends Controller with Routing with CachedClaim {
     implicit claim => implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrors, completedQuestionGroups)),
-        yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(routes.G1YourCourseDetails.present()))
+        yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(routes.G2AddressOfSchoolCollegeOrUniversity.present()))
   }
 
 }

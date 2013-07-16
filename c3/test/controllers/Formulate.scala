@@ -367,6 +367,29 @@ object Formulate {
   }
   
   // Education
+  def yourCourseDetails(browser: TestBrowser) = {
+    val courseType = "University"
+    val courseTitle = "Law"
+    val startDateDay = "16"
+    val studentReferenceNumber = "ST-2828281"
+
+    browser.goTo("/education/yourCourseDetails")
+    browser.fill("#courseType") `with` courseType
+    browser.fill("#courseTitle") `with` courseTitle
+    browser.click("#startDate_day option[value='16']")
+    browser.click("#startDate_month option[value='4']")
+    browser.fill("#startDate_year") `with` "1992"
+    browser.click("#expectedEndDate_day option[value='30']")
+    browser.click("#expectedEndDate_month option[value='9']")
+    browser.fill("#expectedEndDate_year") `with` "1997"
+    browser.click("#finishedDate_day option[value='1']")
+    browser.click("#finishedDate_month option[value='1']")
+    browser.fill("#finishedDate_year") `with` "2000"
+    browser.fill("#courseTitle") `with` courseTitle
+    
+    browser.submit("button[type='submit']")
+  }
+  
   def addressOfSchoolCollegeOrUniversity(browser: TestBrowser) = {
     val nameOfSchoolCollegeOrUniversity = "MIT"
     val nameOfMainTeacherOrTutor = "Albert Einstein"
