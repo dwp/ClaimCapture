@@ -236,6 +236,9 @@ startDate = When did you start the course?
 expectedEndDate = When do you expect the course to end?
 finishedDate = If you are no longer on the course, when did you finish?
 studentReferenceNumber = Your student reference number
+nameOfSchoolCollegeOrUniversity = Name of school, college or university
+nameOfMainTeacherOrTutor = Name of Main Teacher or Tutor
+faxNumber = Fax number
 
 ## PAY DETAILS
 # HOW WE PAY YOU
