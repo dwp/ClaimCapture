@@ -142,6 +142,11 @@ POST    /education/addressOfSchoolCollegeOrUniversity           controllers.s6_e
 GET     /education/completed                                    controllers.s6_education.Education.completed
 POST    /education/completed                                    controllers.s6_education.Education.completedSubmit
 
+# Other income
+###############
+GET     /otherIncome/aboutOtherMoney                            controllers.s8_other_income.G1AboutOtherMoney.present
+
+
 
 # Pay Details
 ###############
