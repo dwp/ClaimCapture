@@ -38,5 +38,33 @@ class G5MoreAboutYouSpec extends Specification with Tags {
       val section: Section = claim.section(domain.YourPartner.id)
       section.visible mustEqual false
     }
+    
+    "make Education Section visible" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "yes",
+        "eitherClaimedBenefitSinceClaimDate" -> "yes",
+        "beenInEducationSinceClaimDate" -> "yes",
+        "receiveStatePension" -> "yes")
+
+      val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      val section: Section = claim.section(domain.Education.id)
+      section.visible mustEqual true
+    }
+
+    "hide Education Section" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "yes",
+        "eitherClaimedBenefitSinceClaimDate" -> "yes",
+        "beenInEducationSinceClaimDate" -> "no",
+        "receiveStatePension" -> "yes")
+
+      val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      val section: Section = claim.section(domain.Education.id)
+      section.visible mustEqual false
+    }
   } section "unit"
 }

@@ -48,4 +48,17 @@ case class Claim(sections: Map[String, Section] = Map()) extends Timestamped {
     case Some(c: ClaimDate) => Some(c.dateOfClaim)
     case _ => None
   }
+
+  def showHideYourPartnerSection(hadPartner: String): Claim =
+    hadPartner match {
+      case "yes" => showSection(YourPartner.id)
+      case _ => hideSection(YourPartner.id)
+    }
+
+  def showHideEducationSection(beenInEducationSinceClaimDate: String): Claim =
+    beenInEducationSinceClaimDate match {
+      case "yes" => showSection(Education.id)
+      case _ => hideSection(Education.id)
+    }
+  
 }
