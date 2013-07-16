@@ -174,6 +174,14 @@ POST    /consentAndDeclaration/submit                           controllers.s7_c
 
 GET     /consentAndDeclaration/error                            controllers.s7_consent_and_declaration.G6Error.present
 
+# Employment
+###############
+
+GET     /employment/beenEmployed                                controllers.s8_employment.G1BeenEmployed.present
+POST    /employment/beenEmployed                                controllers.s8_employment.G1BeenEmployed.submit
+
+GET     /employment/jobDetails                                  controllers.s8_employment.G2JobDetails.present
+POST    /employment/jobDetails                                  controllers.s8_employment.G2JobDetails.submit
 
 # Cache Timeout
 GET     /timeout                                                controllers.Application.timeout
