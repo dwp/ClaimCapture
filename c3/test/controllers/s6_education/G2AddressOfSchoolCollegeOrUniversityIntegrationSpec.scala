@@ -12,6 +12,13 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
       browser.title mustEqual "Address Of School College Or University - Education"
     }
 
+    "not be presented if section not visible" in new WithBrowser {
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
+      browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
+      browser.title mustNotEqual "Address Of School College Or University - Education"
+    }
+
     "contain errors on invalid submission" in new WithBrowser {
       browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
       browser.fill("#postcode") `with` "INVALID"

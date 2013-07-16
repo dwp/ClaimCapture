@@ -14,6 +14,14 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags with Pe
       browser.title mustEqual "Your Course Details - Education"
     }
 
+    "not be presented if section not visible" in new WithBrowser {
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
+      browser.goTo("/education/yourCourseDetails")
+
+      browser.title mustNotEqual "Your Course Details - Education"
+    }
+
     "contain errors on invalid submission" in new WithBrowser {
       browser.goTo("/education/yourCourseDetails")
       browser.fill("#startDate_year") `with` "INVALID"
@@ -41,15 +49,6 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags with Pe
       browser.click("#backButton")
       browser.title mustNotEqual "Your Course Details - Education"
     }
-    
-    "not be presented if section not visible" in new WithBrowser {
-      Formulate.claimDate(browser)
-      Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
-      browser.goTo("/education/yourCourseDetails")
-      
-      pending("need the first page of the Employment section to exist")
-      
-      browser.title mustEqual "Your employment history - About your Employment"
-    }
+
   } section "integration"
 }
