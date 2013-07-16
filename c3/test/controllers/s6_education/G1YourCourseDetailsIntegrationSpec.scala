@@ -2,10 +2,12 @@ package controllers.s6_education
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
+import controllers.Formulate
+import org.specs2.execute.PendingUntilFixed
 import controllers.{BrowserMatchers, Formulate}
 
-class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
 
+class G1YourCourseDetailsIntegrationSpec extends Specification with Tags with PendingUntilFixed {
   "Your Course Details Page" should {
     "be presented" in new WithBrowser {
       browser.goTo("/education/yourCourseDetails")
@@ -39,7 +41,15 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       browser.click("#backButton")
       browser.title mustNotEqual "Your Course Details - Education"
     }
-
+    
+    "not be presented if section not visible" in new WithBrowser {
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
+      browser.goTo("/education/yourCourseDetails")
+      
+      pending("need the first page of the Employment section to exist")
+      
+      browser.title mustEqual "Your employment history - About your Employment"
+    }
   } section "integration"
-
 }
