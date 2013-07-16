@@ -72,7 +72,7 @@ object ClaimBuilder {
   val additionalInfo = AdditionalInfo(Some("Other information"),"yes")
   val consent = Consent("no",Some("I don't want to"),"no",Some("I said I don't want to"))
   val disclaimer = Disclaimer("checked")
-  val declaration = Declaration("checked",Some("checked"))
+  val declaration = Declaration("checked","checked")
 
   val consentAndDeclaration = ConsentAndDeclaration(additionalInfo,consent,disclaimer,declaration)
 }
