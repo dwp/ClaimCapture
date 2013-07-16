@@ -13,9 +13,9 @@
             <legend>Your course details</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("courseType"))
+                @carersInputText(currentForm("courseType"), 'maxLength -> Mappings.sixty)
 
-                @carersInputText(currentForm("courseTitle"))
+                @carersInputText(currentForm("courseTitle"), 'maxLength -> Mappings.sixty)
 
                 @inputDayMonthYear(currentForm("startDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
 
@@ -23,7 +23,7 @@
 
                 @inputDayMonthYear(currentForm("finishedDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
 
-                @carersInputText(currentForm("studentReferenceNumber"))
+                @carersInputText(currentForm("studentReferenceNumber"), 'maxLength -> Mappings.sixty)
 
             </ul>
         </fieldset>

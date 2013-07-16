@@ -3,13 +3,23 @@ package controllers.s6_education
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.Formulate
+import org.specs2.execute.PendingUntilFixed
+import controllers.{BrowserMatchers, Formulate}
 
-class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
 
+class G1YourCourseDetailsIntegrationSpec extends Specification with Tags with PendingUntilFixed {
   "Your Course Details Page" should {
-    "be presented" in new WithBrowser {
+    "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/yourCourseDetails")
-      browser.title mustEqual "Your Course Details - Education"
+      titleMustEqual("Your Course Details - Education")
+    }
+
+    "not be presented if section not visible" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
+      browser.goTo("/education/yourCourseDetails")
+
+      titleMustNotEqual("Your Course Details - Education")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -19,18 +29,28 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
     
-    "navigate to next page on valid submission with all fields filled in" in new WithBrowser {
+    "navigate to next page on valid submission with all fields filled in" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/yourCourseDetails")
       Formulate.yourCourseDetails(browser)
-      browser.title mustEqual "Address Of School College Or University - Education"
+
+      titleMustEqual("Address Of School College Or University - Education")
     }
         
-    "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser {
+    "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/yourCourseDetails")
       browser.submit("button[type='submit']")
-      browser.title mustEqual "Address Of School College Or University - Education"
+
+      titleMustEqual("Address Of School College Or University - Education")
+    }
+
+    "navigate back" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/education/yourCourseDetails")
+
+      titleMustEqual("Your Course Details - Education")
+
+      browser.click("#backButton")
+      titleMustNotEqual("Your Course Details - Education")
     }
 
   } section "integration"
-
 }

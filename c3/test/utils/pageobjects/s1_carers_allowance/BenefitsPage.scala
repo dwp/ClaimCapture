@@ -1,7 +1,8 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{WebSearchActions, ClaimScenario, PageContext, Page}
+import utils.pageobjects._
+import utils.pageobjects.Page
 
 /**
  * PageObject pattern associated to S1 carers allowance G1 Benefits page.
@@ -17,7 +18,7 @@ class BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = None) exte
 
   def clickPersonDoesNotGetBenefits() = fillYesNo("#q3", "No",separator)
 
-  def doesPersonGetBenefit() = valueOfYesNo("#q3",separator)
+  def doesPersonGetBenefit() = valueOfYesNoElement("#q3",separator)
 
   /* Normally not necessary since framework automatically checks pageobject on right html page. */
   def isInBenefitsPage(): Boolean = titleMatch()
@@ -41,6 +42,7 @@ object BenefitsPage {
   val title = "Benefits - Carer's Allowance"
   val url = "/"
   def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new BenefitsPage(browser, previousPage)
+//  PageFactory.registerPageBuilder[BenefitsPage](title, buildPageWith)
 }
 
 /** The context for Specs tests */

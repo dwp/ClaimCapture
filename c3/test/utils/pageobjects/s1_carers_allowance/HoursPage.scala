@@ -1,7 +1,8 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{WebSearchActions, ClaimScenario, PageContext, Page}
+import utils.pageobjects._
+import utils.pageobjects.Page
 
 /**
  * PageObject pattern associated to S1 carers allowance G2 Hours page.
@@ -17,9 +18,9 @@ class HoursPage(browser: TestBrowser, previousPage: Option[Page] = None) extends
 
   def isInHoursPage(): Boolean = titleMatch()
 
-  def isQ1Yes(): Boolean = isCompletedYesNo(0, "Q1", "Yes")
+  def isQ1Yes(): Boolean = isSpecifiedSectionCompleted(0, "Q1", "Yes")
 
-  def isQ1No(): Boolean = isCompletedYesNo(0, "Q1", "No")
+  def isQ1No(): Boolean = isSpecifiedSectionCompleted(0, "Q1", "No")
 
   /**
    * Sub-class reads theClaim and interact with browser to populate page.
@@ -38,6 +39,7 @@ object HoursPage {
   val title = "Hours - Carer's Allowance"
   val url = "/allowance/hours"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new HoursPage(browser, previousPage)
+//  PageFactory.registerPageBuilder[HoursPage](title, buildPageWith)
 }
 
 /** The context for Specs tests */

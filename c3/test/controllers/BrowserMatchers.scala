@@ -14,6 +14,12 @@ trait BrowserMatchers extends MustMatchers {
     }
   }
 
+  def titleMustNotEqual(title: String)(implicit duration: Duration = 20.seconds) = {
+    browser.waitUntil[Boolean](duration.toMillis.toInt, TimeUnit.MILLISECONDS) {
+      browser.title mustNotEqual title
+    }
+  }
+    
   def findMustEqualSize(searchFor: String, expectedSize: Integer)(implicit duration: Duration = 20.seconds) = {
     browser.waitUntil[Boolean](duration.toMillis.toInt, TimeUnit.MILLISECONDS) {
       browser.find(searchFor).size mustEqual expectedSize

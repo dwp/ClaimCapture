@@ -97,6 +97,15 @@ object Formulate {
     browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
   }
+  
+  def moreAboutYouNotBeenInEducationSinceClaimDate(browser: TestBrowser) = {
+    browser.goTo("/aboutyou/moreAboutYou")
+    browser.click("#hadPartnerSinceClaimDate_yes")
+    browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
+    browser.click("#beenInEducationSinceClaimDate_no")
+    browser.click("#receiveStatePension_yes")
+    browser.submit("button[type='submit']")
+  }
 
   def employment(browser: TestBrowser) = {
     browser.goTo("/aboutyou/employment")
