@@ -17,4 +17,5 @@ object ClaimSubmissionService {
       .post(claimSubmission.buildString(stripComments = true))
     result
   }
+
 }

@@ -32,6 +32,9 @@ class ClaimSubmissionSpec extends Specification with Tags with PendingUntilFixed
       .update(careYouProvide.contactDetailsPayingPerson.get)
       .update(careYouProvide.breaksInCare)
 
+      .update(education.yourCourseDetails)
+      .update(education.addressOfSchool)
+
       .update(payDetails.howWePayYou)
       .update(payDetails.bankBuildingSocietyDetails)
 
@@ -77,10 +80,11 @@ class ClaimSubmissionSpec extends Specification with Tags with PendingUntilFixed
     "validate a good claim" in new WithApplication {
       val claim = updateClaim(Claim())
 
-
       val claimSub = ClaimSubmission(claim, "TY6TV9G")
 
       val claimXml = claimSub.buildDwpClaim
+
+      println(claimXml)
 
       val fullXml = buildFullClaim(claimXml)
 

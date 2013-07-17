@@ -32,29 +32,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
         <OutOfGreatBritain>no</OutOfGreatBritain>
       </Residency>
       <CourseOfEducation>yes</CourseOfEducation>
-      <FullTimeEducation>
-        <CourseDetails>
-          <Type>BTEC</Type>
-          <Title>Pottery</Title>
-          <HoursSpent>15</HoursSpent>
-          <DateStarted>2011-09-03</DateStarted>
-          <DateStopped/>
-          <ExpectedEndDate>2013-07-05</ExpectedEndDate>
-        </CourseDetails>
-        <LocationDetails>
-          <Name>UCLAN</Name>
-          <Address>
-            <gds:Line>10 Madeup Street</gds:Line>
-            <gds:Line/>
-            <gds:Line/>
-            <gds:PostCode/>
-          </Address>
-          <PhoneNumber>07890 3456789</PhoneNumber>
-          <FaxNumber/>
-          <StudentReferenceNumber/>
-          <Tutor>Mrs Bloggs</Tutor>
-        </LocationDetails>
-      </FullTimeEducation>
+      {EducationSubmission.xml(claim.section(Education.id))}
       <SelfEmployed>no</SelfEmployed>
       <Employed>yes</Employed>
       <Employment>
