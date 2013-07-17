@@ -251,7 +251,7 @@ faxNumber = Fax number
 
 ## OTHER MONEY
 # ABOUT OTHER MONEY
-yourBenefits = Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?
+yourBenefits.label = Have you {0} claimed or received any other benefits since the date you want to claim?
 partnerBenefits = Please tell us the names of the benefits or entitlements you receive
 
 ## PAY DETAILS
