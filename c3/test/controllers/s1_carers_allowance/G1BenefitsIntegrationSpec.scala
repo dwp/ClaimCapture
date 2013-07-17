@@ -6,8 +6,6 @@ import utils.pageobjects.s1_carers_allowance.{BenefitsPageContext, HoursPage}
 import utils.pageobjects.ClaimScenario
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
-  sequential
-
   "Benefits" should {
 
     "be presented" in new WithBrowser with BenefitsPageContext {

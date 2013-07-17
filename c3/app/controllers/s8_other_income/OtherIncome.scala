@@ -1,4 +1,4 @@
-package controllers.s6_education
+package controllers.s8_other_income
 
 import play.api.mvc._
 import models.view.CachedClaim
@@ -9,21 +9,21 @@ import play.api.templates.Html
 
 object Education extends Controller with CachedClaim {
 
-  val route: ListMap[String, Call] = ListMap(G1YourCourseDetails,
-    G2AddressOfSchoolCollegeOrUniversity)
+  val route: ListMap[String, Call] = ListMap(G1AboutOtherMoney)
 
 
   def whenVisible(claim: Claim)(closure: () => SimpleResult[Html]) = {
-    val iAmVisible = claim.isSectionVisible(models.domain.Education.id)
+    val iAmVisible = claim.isSectionVisible(models.domain.OtherIncome.id)
 
     if (iAmVisible) closure() else Ok(<title>TODO</title><body>TODO: Should Redirect To Employment SECTION</body>).as(HTML)
   }
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.Education.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.OtherIncome.id)
 
   def completed = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s6_education.g3_completed(completedQuestionGroups))
+      //Ok(views.html.s8_other_money.g1_aboutOtherMoney(completedQuestionGroups))
+      Ok(<p>Hello, world!</p>).as(HTML)
   }
 
   def completedSubmit = claiming {

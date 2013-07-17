@@ -1,6 +1,8 @@
 package services.submission
 
 import models.domain._
+import play.api.Logger
+
 
 case class ClaimSubmission(claim: Claim, transactionId : String) {
   val aboutYou = AboutYouSubmission.buildAboutYou(claim)
@@ -14,6 +16,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
   val consentAndDeclaration = ConsentAndDeclarationSubmission.buildConsentAndDeclaration(claim)
 
   def buildDwpClaim = {
+    Logger.info(s"Build Claim : $transactionId")
     <DWPCAClaim id={transactionId}>
       {AboutYouSubmission.buildClaimant(aboutYou)}
       {CareYouProvideSubmission.buildCaree(careYouProvide)}
