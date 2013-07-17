@@ -135,10 +135,10 @@
     				<span>Employment</span>
     			</li>
     			<li>
-    				<span>Money</span>
+    				<span>Other money</span>
     			</li>
     			<li>
-    				<span>Pay</span>
+    				<span>Pay details</span>
     			</li>
     			<li>
     				<span>Declaration</span>
@@ -153,75 +153,70 @@
     		<header>
     			<h1>About your employment</h1>
     		</header>
-    		
-    		
-    		<div class="completed">
-    			<ul>
-    				<li>
-    					<h3>Details about your job: McDonalds, Manager</h3>
-    					<a href="#">Change these answers</a>
-    				</li>
-    				<li>
-    					<h3>Employer's contact details</h3>
-    					<a href="#">Change these answers</a>
-    				</li>
-    				<li>
-    					<h3>Your last wage</h3>
-    					<a href="#">Change these answers</a>
-    				</li>
-    				<li>
-    					<h3>Additional salary details</h3>
-    					<a href="#">Change these answers</a>
-    				</li>
-    				<li>
-    					<h3>Money owed by employer</h3>
-    					<a href="#">Change these answers</a>
-    				</li>
-    				<li>
-    					<h3>Pension scheme</h3>
-    					<a href="#">Change these answers</a>
-    				</li>
-    				<li>
-    					<h3>About expenses to do with your employment</h3>
-    					<a href="#">Change these answers</a>
-    				</li>
-    			</ul>
-    		</div>
 
+			
+			
+			<fieldset class="form-elements results-detail">
+				<legend>Employment you have added</legend>
+				
+				<table class="employment">
+					<caption>Trips already added data</caption>
+					<thead>
+						<tr>
+							<th>Employer name</th>
+							<th class="desc">Job title</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>McDonalds</td>
+							<td class="desc">Sales assistant</td>
+							<td><input type="button" class="button row secondary" value="Edit"></td>
+							<td><input type="button" class="button row warning" value="Delete"></td>
+						</tr>
+						<tr>
+							<td>KFC</td>
+							<td class="desc">Chicken grower</td>
+							<td><input type="button" class="button row secondary" value="Edit"></td>
+							<td><input type="button" class="button row warning" value="Delete"></td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- / table -->
+				
+				
+				<div class="prompt breaks-prompt">
+					<p>Are you sure you want to delete this employment?</p>	
+					<ul class="radio">
+							<li><input type="radio" name="q1-yes" id="q1-yes"><label for="q1-yes">Yes</label></li>
+							<li><input type="radio" name="q1-no" id="q1-no"><label for="q1-no">No</label></li>
+						</ul>
+					<span>&#33;</span>
+				</div>
+				<!-- breaks deletion prompt -->
+					
+				
+			</fieldset>
+    		
 			
 
 			<fieldset class="form-elements">
-				<legend>Necessary expenses to do your job</legend>
-								
-				<ul class="group">
+				<legend>About other employment history</legend>
 				
-					<li>
-						<label for="what">What is/was this item?</label>
-						<input type="text" name="what" id="what">
-					</li>
+					<ul class="group">
+						<li>
+							<p><em>*</em>Have you been employed at any time since 01/08/2012 (this is six months before your claim date: 01/02/2013)?</p>
+							<ul class="radio">
+								<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
+								<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
+							</ul>
+						</li>
+					</ul>
 					
-					<li>
-						<label for="why">Why do you need this item to do your job?</label>
-						<input type="text" name="why" id="why">
-					</li>
-					
-					<li>
-						<label for="how">How much did this item cost you each week?</label>
-						<input type="text" name="how" id="how">
-					</li>
-					
-					<li>
-						<p><em>*</em>While at work, do you pay anyone to look after the person you care for?</p>
-						<ul class="radio">
-							<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
-							<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
-						</ul>
-					</li>
-					
-				</ul>
-				
 			</fieldset>
-			<!-- / form elements -->
+
 			
 			
 			<nav class="form-steps">

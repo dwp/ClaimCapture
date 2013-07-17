@@ -135,10 +135,10 @@
     				<span>Employment</span>
     			</li>
     			<li>
-    				<span>Money</span>
+    				<span>Other money</span>
     			</li>
     			<li>
-    				<span>Pay</span>
+    				<span>Pay details</span>
     			</li>
     			<li>
     				<span>Declaration</span>
@@ -185,33 +185,61 @@
     					<h3>About expenses to do with your employment</h3>
     					<a href="#">Change these answers</a>
     				</li>
+    				<li>
+    					<h3>Necessary expenses to do your job</h3>
+    					<a href="#">Change these answers</a>
+    				</li>
+    				<li>
+    					<h3>Childcare expenses</h3>
+    					<a href="#">Change these answers</a>
+    				</li>
     			</ul>
     		</div>
 
 			
 
 			<fieldset class="form-elements">
-				<legend>Necessary expenses to do your job</legend>
-								
-				<ul class="group">
+				<legend>Childcare provider's contact details</legend>
 				
+
+				
+				<ul class="group">
+					
 					<li>
-						<label for="what">What is/was this item?</label>
-						<input type="text" name="what" id="what">
+						<p>Address</p>
+						<ul class="address-stack">
+							<li>
+								<label for="address1">Address</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+							<li>
+								<label for="address1">Address 2</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+							<li>
+								<label for="address1">Address 3</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+						</ul>
 					</li>
 					
 					<li>
-						<label for="why">Why do you need this item to do your job?</label>
-						<input type="text" name="why" id="why">
+						<label for="postcode">Postcode</label>
+						<input type="text" name="postcode" id="postcode" class="postcode">
 					</li>
 					
 					<li>
-						<label for="how">How much did this item cost you each week?</label>
-						<input type="text" name="how" id="how">
+						<label for="phone">Daytime phone number</label>
+						<input type="tel" name="phone" id="phone">
 					</li>
 					
 					<li>
-						<p><em>*</em>While at work, do you pay anyone to look after the person you care for?</p>
+						<label for="mobile">Mobile number</label>
+						<input type="tel" name="mobile" id="mobile">
+					</li>
+					
+					<li>
+						<p><em>*</em>Do you pay anyone else to look after your child/children while at work?</p>
 						<ul class="radio">
 							<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
 							<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
