@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.AboutOtherMoney], completedQuestionGroups: List[models.domain.QuestionGroup], hadPartnerSinceClaimDate: Boolean)(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.AboutOtherMoney], completedQuestionGroups: List[models.domain.QuestionGroup], hadPartnerSinceClaimDate: Boolean, eitherClaimedBenefitSinceClaimDate: Boolean)(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -17,9 +17,15 @@
                 @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your partner/spouse" else ""))
 
                 @otherDetailPlaceHolder(
-                  inputDef = Seq(carersInputText(currentForm("yourBenefits.text"), 'maxLength -> Mappings.sixty, '_label -> Messages("yourBenefits.text.label"))),
-                  'id -> "yourBenefitsWrap",
+                  inputDef = Seq(carersInputText(currentForm("yourBenefits.text1"), 'maxLength -> Mappings.fifty, '_label -> Messages("yourBenefits.text.label"))),
+                  'id -> "yourBenefitsText1Wrap",
                   'display -> currentForm("yourBenefits.answer").value.getOrElse("no")
+                  )
+
+                @otherDetailPlaceHolder(
+                  inputDef = Seq(carersInputText(currentForm("yourBenefits.text2"), 'maxLength -> Mappings.fifty, '_label -> Messages("partnerBenefits.text.label"))),
+                  'id -> "yourBenefitsText2Wrap",
+                  'display -> {if(currentForm("yourBenefits.answer").value.getOrElse("no") == "yes" && eitherClaimedBenefitSinceClaimDate) "yes" else "no"}
                   )
             </ul>
         </fieldset>
@@ -35,6 +41,6 @@
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("yourBenefits_answer_yes")", "@CarersCrypto.encryptAES("yourBenefits_answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("yourBenefits_answer_yes")", "@CarersCrypto.encryptAES("yourBenefits_answer_no")", @eitherClaimedBenefitSinceClaimDate);
     });
 </script>
