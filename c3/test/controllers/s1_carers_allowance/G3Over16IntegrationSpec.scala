@@ -2,7 +2,6 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.BrowserMatchers
 import utils.pageobjects.s1_carers_allowance.{Over16PageContext, Over16Page, HoursPage, BenefitsPageContext}
 import utils.pageobjects.ClaimScenario
 
@@ -21,13 +20,13 @@ class G3Over16IntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       page goToThePage()
-      page fillPageWith (claim)
+      page fillPageWith claim
       val hoursPage = page submitPage()
       hoursPage must beAnInstanceOf[HoursPage]
-      hoursPage fillPageWith (claim)
+      hoursPage fillPageWith claim
       val over16Page = hoursPage submitPage()
       over16Page must beAnInstanceOf[Over16Page]
-      over16Page fillPageWith (claim)
+      over16Page fillPageWith claim
       over16Page submitPage()
       browser.find("div[class=completed] ul li").get(2).getText must contain("Q3")
       browser.find("div[class=completed] ul li").get(2).getText must contain("Yes")

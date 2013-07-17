@@ -135,10 +135,10 @@
     				<span>Employment</span>
     			</li>
     			<li>
-    				<span>Money</span>
+    				<span>Other money</span>
     			</li>
     			<li>
-    				<span>Pay</span>
+    				<span>Pay details</span>
     			</li>
     			<li>
     				<span>Declaration</span>
@@ -158,66 +158,88 @@
     		<div class="completed">
     			<ul>
     				<li>
-    					<h3>Details about your job: McDonalds, Manager</h3>
+    					<h3>Self employed</h3>
     					<a href="#">Change these answers</a>
     				</li>
     				<li>
-    					<h3>Employer's contact details</h3>
+    					<h3>Your accounts</h3>
     					<a href="#">Change these answers</a>
     				</li>
     				<li>
-    					<h3>Your last wage</h3>
-    					<a href="#">Change these answers</a>
-    				</li>
-    				<li>
-    					<h3>Additional salary details</h3>
-    					<a href="#">Change these answers</a>
-    				</li>
-    				<li>
-    					<h3>Money owed by employer</h3>
-    					<a href="#">Change these answers</a>
-    				</li>
-    				<li>
-    					<h3>Pension scheme</h3>
-    					<a href="#">Change these answers</a>
-    				</li>
-    				<li>
-    					<h3>About expenses to do with your employment</h3>
+    					<h3>Accountant's contact details</h3>
     					<a href="#">Change these answers</a>
     				</li>
     			</ul>
     		</div>
-
-			
+    		
+    		
 
 			<fieldset class="form-elements">
-				<legend>Necessary expenses to do your job</legend>
-								
-				<ul class="group">
+				<legend>More about your pension scheme and expenses</legend>
 				
+
+				
+				<ul class="group">
+
 					<li>
-						<label for="what">What is/was this item?</label>
-						<input type="text" name="what" id="what">
+						<p>Do you pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?</p>
+						<ul class="radio">
+							<li><input type="radio" name="q1-yes" id="q1-yes"><label for="q1-yes">Yes</label></li>
+							<li><input type="radio" name="q1-no" id="q1-no"><label for="q1-no">No</label></li>
+						</ul>
 					</li>
 					
 					<li>
-						<label for="why">Why do you need this item to do your job?</label>
-						<input type="text" name="why" id="why">
+						<p><em>*</em>How much do you pay?</p>
+						<ul class="inline label-strip">
+							<li class="short-field">
+								<label for="amount">Amount</label>
+								<input type="tel" name="amount" id="amount" placeholder="£">
+							</li>
+							<li>
+								<label for="often">How often?</label>
+								<select name="often" id="often">
+									<option value="#">How often?</option>
+									<option value="#">Weekly</option>
+									<option value="#">Fortnightly</option>
+									<option value="#">Monthly</option>
+								</select>
+							</li>
+						</ul>
 					</li>
 					
 					<li>
-						<label for="how">How much did this item cost you each week?</label>
-						<input type="text" name="how" id="how">
+						<p>While at work, do you pay anyone to look after children or the person you normally look after?</p>
+						<ul class="radio">
+							<li><input type="radio" name="q2-yes" id="q2-yes"><label for="q2-yes">Yes</label></li>
+							<li><input type="radio" name="q2-no" id="q2-no"><label for="q2-no">No</label></li>
+						</ul>
 					</li>
 					
 					<li>
-						<p><em>*</em>While at work, do you pay anyone to look after the person you care for?</p>
+						<p>Is this the same as the expenses you have told us about during your employed work?</p>
 						<ul class="radio">
 							<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
 							<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
 						</ul>
 					</li>
 					
+					<li>
+						<p>While at work,do you pay anyone to look after the person you normally care for?</p>
+						<ul class="radio">
+							<li><input type="radio" name="q4-yes" id="q4-yes"><label for="q4-yes">Yes</label></li>
+							<li><input type="radio" name="q4-no" id="q4-no"><label for="q4-no">No</label></li>
+						</ul>
+					</li>
+					
+					<li>
+						<p>Is this the same as the expenses you have told us about during your employed work?</p>
+						<ul class="radio">
+							<li><input type="radio" name="q5-yes" id="q5-yes"><label for="q5-yes">Yes</label></li>
+							<li><input type="radio" name="q5-no" id="q5-no"><label for="q5-no">No</label></li>
+						</ul>
+					</li>
+
 				</ul>
 				
 			</fieldset>

@@ -996,6 +996,12 @@
       .carers-allowance .form-elements table caption {
         text-indent: -9999px;
         font-size: 0; }
+      .carers-allowance .form-elements table.employment th, .carers-allowance .form-elements table.employment td {
+        text-align: left; }
+        .carers-allowance .form-elements table.employment th:first-child, .carers-allowance .form-elements table.employment td:first-child {
+          width: 40%; }
+        .carers-allowance .form-elements table.employment th.desc, .carers-allowance .form-elements table.employment td.desc {
+          width: 40%; }
   .carers-allowance .prompt {
     background: #d5e8f3;
     padding: 1.4em 1em;

@@ -1,7 +1,7 @@
 package utils.pageobjects.s2_about_you
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{PageFactory, ClaimScenario, PageContext, Page}
+import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 /**
  * PageObject for page s2_about_you g1_yourDetails.
