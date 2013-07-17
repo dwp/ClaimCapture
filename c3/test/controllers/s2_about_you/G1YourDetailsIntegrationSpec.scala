@@ -4,7 +4,6 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s2_about_you.YourDetailsPageContext
 import utils.pageobjects.s1_carers_allowance.ApprovePage
-import utils.pageobjects.{ClaimScenario, PageObjectException}
 import controllers.ClaimScenarioFactory
 
 class G1YourDetailsIntegrationSpec extends Specification with Tags {
@@ -22,19 +21,11 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
 
     "present errors if mandatory fields are not populated" in new WithBrowser with YourDetailsPageContext {
       page goToThePage()
-
-      try {
-        page submitPage()
-        ko("Should have failed and thrown an exception.")
-      }
-      catch {
-        case e: PageObjectException => e.errors.size mustEqual 7
-        case _ : Throwable =>  ko("Unexpected exception ")
-      }
+      page.submitPage().listErrors.get.size mustEqual 7
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with YourDetailsPageContext {
-      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
       page submitPage()

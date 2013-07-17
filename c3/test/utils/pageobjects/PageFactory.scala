@@ -1,10 +1,8 @@
 package utils.pageobjects
 
 import play.api.test.TestBrowser
-import scala.io.Source
 import scala.language.dynamics
 import scala.collection.mutable
-import scala.util.matching.Regex
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you.{TimeOutsideUKPage, ClaimDatePage, ContactDetailsPage, YourDetailsPage}
 
@@ -24,7 +22,7 @@ object PageFactory {
     map
   }
 
-  def buildPageFromTitle(browser: TestBrowser, title: String, previousPage: Option[Page], iteration: Integer) = {
+  def buildPageFromTitle(browser: TestBrowser, title: String, previousPage: Option[Page], iteration: Int) = {
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
     title match {

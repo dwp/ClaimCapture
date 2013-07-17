@@ -1,7 +1,7 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{PageFactory, PageContext, ClaimScenario, Page}
+import utils.pageobjects.{PageContext, ClaimScenario, Page}
 
 /**
  * PageObject pattern associated to S1 carers allowance G4 living in GB page.
@@ -30,7 +30,6 @@ object LivingInGBPage {
   val title = "Lives in GB - Carer's Allowance"
   val url = "/allowance/livesInGB"
   def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new LivingInGBPage(browser, previousPage)
-//  PageFactory.registerPageBuilder[LivingInGBPage](title, buildPageWith)
 }
 
 /** The context for Specs tests */

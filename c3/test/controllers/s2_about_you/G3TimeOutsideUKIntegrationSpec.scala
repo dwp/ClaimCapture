@@ -22,7 +22,7 @@ class G3TimeOutsideUKIntegrationSpec extends Specification with Tags {
       claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
       page goToThePage()
       page fillPageWith claim
-      page submitPage() must throwA[PageObjectException]
+      page.submitPage().listErrors().isDefined must beTrue
     }
 
     "accept a valid date when currently living in UK" in new WithBrowser with TimeOutsideUKPageContext {

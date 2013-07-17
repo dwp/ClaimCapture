@@ -15,6 +15,6 @@ object PageObjectException {
   def buildDetailMessage(message: String, errors: List[String]) = {
     val fullMessage = new StringBuilder(message)
     if (null != errors) errors foreach { s => fullMessage ++= ". "  ++= s}
-    fullMessage.toString
+    fullMessage.toString()
   }
 }
