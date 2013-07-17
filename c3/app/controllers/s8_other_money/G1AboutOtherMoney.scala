@@ -43,7 +43,6 @@ object G1AboutOtherMoney extends Controller with Routing with CachedClaim {
           case Some(m: AboutOtherMoney) => form.fill(m)
           case _ => form
         }
-println("eitherClaimedBenefitSinceClaimDate:" + eitherClaimedBenefitSinceClaimDate)
         Ok(views.html.s8_other_money.g1_aboutOtherMoney(currentForm, completedQuestionGroups, hadPartnerSinceClaimDate, eitherClaimedBenefitSinceClaimDate))
   }
 
