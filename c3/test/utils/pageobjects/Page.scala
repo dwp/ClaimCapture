@@ -11,7 +11,7 @@ import org.openqa.selenium._
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None) extends Object with WebSearchActions with WebFillActions {
+abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Integer = 1) extends Object with WebSearchActions with WebFillActions {
 
   def goToThePage() = goToUrl(this)
 
@@ -71,7 +71,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   }
 
   private def createPageWithTitle(title: String) = {
-    val newPage = PageFactory buildPageFromTitle(browser, title, Some(this))
+    val newPage = PageFactory buildPageFromTitle(browser, title, Some(this),iteration + 1)
    // newPage.waitForPage()
     newPage
   }
