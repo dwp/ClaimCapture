@@ -11,8 +11,6 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
 
   val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)
 
-  val payDetails = PayDetailsSubmission.buildPayDetails(claim)
-
   val consentAndDeclaration = ConsentAndDeclarationSubmission.buildConsentAndDeclaration(claim)
 
   def buildDwpClaim = {
@@ -155,7 +153,31 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
         <OtherMoneySSP>no</OtherMoneySSP>
         <OtherMoneySMP>no</OtherMoneySMP>
       </OtherBenefits>
-      {PayDetailsSubmission.buildCaree(payDetails)}
+      <Payment>
+        <PaymentFrequency>everyWeek</PaymentFrequency>
+        <InitialAccountQuestion>bankBuildingAccount</InitialAccountQuestion>
+        <Account>
+          <DirectPayment>yes</DirectPayment>
+          <AccountHolder>yourName</AccountHolder>
+          <HolderName>Mickey Mouse</HolderName>
+          <SecondHolderName/>
+          <AccountType>bank</AccountType>
+          <OtherBenefitsToBePaidDirect/>
+          <BankDetails>
+            <AccountNumber>12345678</AccountNumber>
+            <SortCode>010101</SortCode>
+            <Name>Toytown Bank</Name>
+            <Branch/>
+            <Address>
+              <gds:Line/>
+              <gds:Line/>
+              <gds:Line/>
+              <gds:PostCode/>
+            </Address>
+            <ConfirmAddress>yes</ConfirmAddress>
+          </BankDetails>
+        </Account>
+      </Payment>
       <ThirdParty>no</ThirdParty>
       {ConsentAndDeclarationSubmission.buildDeclaration(consentAndDeclaration,careYouProvide)}
       <EvidenceList>
