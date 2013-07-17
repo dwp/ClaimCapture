@@ -1,0 +1,27 @@
+@(currentForm: Form[models.domain.AboutOtherMoney], completedQuestionGroups: List[models.domain.QuestionGroup], hadPartnerSinceClaimDate: Boolean)(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+
+@main("About Other Money - Other Money", Some(currentForm), completedQuestionGroups) {
+
+    @form(action = controllers.s8_other_money.routes.G1AboutOtherMoney.submit) {
+
+        <fieldset class="form-elements">
+            <legend>Your course details</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("yourBenefits"), '_label -> Messages("yourBenefits.label", if(hadPartnerSinceClaimDate) "or your partner/spouse" else ""))
+                
+                @carersInputText(currentForm("partnerBenefits"), 'maxLength -> Mappings.sixty)
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@controllers.s8_employment.routes.G2JobDetails.present" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

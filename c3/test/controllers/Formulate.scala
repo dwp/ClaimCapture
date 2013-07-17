@@ -416,4 +416,11 @@ object Formulate {
     browser.fill("#faxNumber") `with` faxNumber
     browser.submit("button[type='submit']")
   }
+  
+  def aboutOtherMoney(browser: TestBrowser) = {
+    browser.goTo("/otherMoney/aboutOtherMoney")
+    browser.click("#yourBenefits_yes")
+    browser.fill("#partnerBenefits") `with` "Bar"
+    browser.submit("button[type='submit']")
+  }
 }

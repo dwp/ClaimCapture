@@ -144,8 +144,8 @@ POST    /education/completed                                    controllers.s6_e
 
 # Other income
 ###############
-GET     /otherIncome/aboutOtherMoney                            controllers.s8_other_income.G1AboutOtherMoney.present
-
+GET     /otherMoney/aboutOtherMoney                            controllers.s8_other_money.G1AboutOtherMoney.present
+POST    /otherMoney/aboutOtherMoney                            controllers.s8_other_money.G1AboutOtherMoney.submit
 
 
 # Pay Details

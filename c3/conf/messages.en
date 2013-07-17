@@ -46,6 +46,15 @@ s5.g5 = Other EEA State or Switzerland
 s6.g1 = Your course details
 s6.g2 = School, college or university's contact details
 
+s8.g1 = Details about other money
+s8.g2 = Money paid to someone else for you
+s8.g3 = Person who gets this money
+s8.g4 = Person's contact details
+s8.g5 = Statutory Sick Pay
+s8.g6 = Other Statutory Pay
+s8.g7 = Other EEA State or Switzerland
+
+
 s9.g1 = How would you like to get paid?
 s9.g2 = Bank / building society details
 
@@ -239,6 +248,11 @@ studentReferenceNumber = Your student reference number
 nameOfSchoolCollegeOrUniversity = Name of school, college or university
 nameOfMainTeacherOrTutor = Name of Main Teacher or Tutor
 faxNumber = Fax number
+
+## OTHER MONEY
+# ABOUT OTHER MONEY
+yourBenefits.label = Have you {0} claimed or received any other benefits since the date you want to claim?
+partnerBenefits = Please tell us the names of the benefits or entitlements you receive
 
 ## PAY DETAILS
 # HOW WE PAY YOU
