@@ -12,8 +12,9 @@ import scala.Some
 class G1AboutOtherMoneySpec extends Specification with Tags {
   "About Other Money - Controller" should {
     val yourBenefits = "yes"
-    val partnerBenefits = "bar"
-    val formInput = Seq("yourBenefits.answer" -> yourBenefits, "yourBenefits.text" -> partnerBenefits)
+    val yourBenefitsText1 = "bar"
+    val yourBenefitsText2 = "fizz"
+    val formInput = Seq("yourBenefits.answer" -> yourBenefits, "yourBenefits.text1" -> yourBenefitsText1, "yourBenefits.text2" -> yourBenefitsText2)
     
     "present 'Your Course Details'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -34,7 +35,8 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
       section.questionGroup(AboutOtherMoney) must beLike {
         case Some(f: AboutOtherMoney) => {
           f.yourBenefits.answer must equalTo(yourBenefits)
-          f.yourBenefits.text must equalTo(Some(partnerBenefits))
+          f.yourBenefits.text1 must equalTo(Some(yourBenefitsText1))
+          f.yourBenefits.text2 must equalTo(Some(yourBenefitsText2))
         }
       }
     }

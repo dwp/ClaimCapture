@@ -1,12 +1,12 @@
 package models.domain
 
 import models._
-import models.yesNo.YesNoWithText
+import models.yesNo.YesNoWith2Text
 
 case object OtherMoney {
   val id = "s8"
 }
 
-case class AboutOtherMoney(yourBenefits: YesNoWithText) extends QuestionGroup(AboutOtherMoney.id)
+case class AboutOtherMoney(yourBenefits: YesNoWith2Text) extends QuestionGroup(AboutOtherMoney.id)
 
 object AboutOtherMoney extends QuestionGroup(s"${OtherMoney.id}.g1")

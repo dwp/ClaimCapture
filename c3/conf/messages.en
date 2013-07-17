@@ -255,6 +255,7 @@ yourBenefits.answer = Have you claimed or received any other benefits since the 
 yourBenefits.answer.label = Have you {0} claimed or received any other benefits since the date you want to claim?
 yourBenefits = Please tell us the names of the benefits or entitlements you receive
 yourBenefits.text.label = Please tell us the names of the benefits or entitlements you receive
+partnerBenefits.text.label = Please tell us the names of the benefits or entitlements your partner/spouse receive
 
 ## PAY DETAILS
 # HOW WE PAY YOU

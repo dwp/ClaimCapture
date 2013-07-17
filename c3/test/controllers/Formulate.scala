@@ -420,7 +420,8 @@ object Formulate {
   def aboutOtherMoney(browser: TestBrowser) = {
     browser.goTo("/otherMoney/aboutOtherMoney")
     browser.click("#yourBenefits_answer_yes")
-    browser.fill("#ourBenefits_text") `with` "Bar"
+    browser.fill("#yourBenefits_text1") `with` "Bar"
+    browser.fill("#yourBenefits_text1") `with` "fizz"
     browser.submit("button[type='submit']")
   }
 }

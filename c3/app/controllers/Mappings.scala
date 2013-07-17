@@ -13,7 +13,7 @@ import models.NationalInsuranceNumber
 import play.api.data.validation.ValidationError
 
 object Mappings {
-
+  val fifty = 50
   val sixty = 60
 
   val two = 2
