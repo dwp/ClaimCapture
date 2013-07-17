@@ -1,6 +1,6 @@
 package utils.pageobjects.s1_carers_allowance
 
-import play.api.test.{WithBrowser, TestBrowser}
+import play.api.test.TestBrowser
 import utils.pageobjects._
 import utils.pageobjects.Page
 
@@ -21,9 +21,9 @@ class BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = None) exte
   def doesPersonGetBenefit() = valueOfYesNoElement("#q3",separator)
 
   /* Normally not necessary since framework automatically checks pageobject on right html page. */
-  def isInBenefitsPage(): Boolean = titleMatch()
+  def isInBenefitsPage: Boolean = titleMatch()
 
-  def hasQ1() = browser.find("div[class=carers-allowance]").getText contains "Q1"
+  def hasQ1 = browser.find("div[class=carers-allowance]").getText contains "Q1"
 
   /**
    * Sub-class reads theClaim and interact with browser to populate page.

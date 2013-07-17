@@ -42,7 +42,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       page goToThePage()
-      page fillPageWith(claim)
+      page fillPageWith claim
       val nextPage = page submitPage()
       nextPage match {
         case p: HoursPage => p.isQ1Yes must beTrue
@@ -55,7 +55,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       page clickPersonDoesNotGetBenefits()
       val nextPage = page submitPage()
       nextPage match {
-        case p: HoursPage => p.isQ1No() must beTrue
+        case p: HoursPage => p.isQ1No must beTrue
         case _ =>  ko(notRightPage)
       }
     }

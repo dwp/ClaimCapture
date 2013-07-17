@@ -3,13 +3,19 @@ package controllers.s2_about_you
 import play.api.test.WithBrowser
 import org.specs2.mutable.{Tags, Specification}
 import controllers.Formulate
+import utils.pageobjects.s2_about_you.MoreAboutYouPageContext
+import utils.pageobjects.s1_carers_allowance.BenefitsPage
 
 class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
   "More About You" should {
-    "present Benefits when there is no claim date" in new WithBrowser {
-      browser.goTo("/aboutyou/moreAboutYou")
-      browser.title mustEqual "Benefits - Carer's Allowance"
+    "present Benefits when there is no claim date" in new WithBrowser  with MoreAboutYouPageContext {
+//      browser.goTo("/aboutyou/moreAboutYou")
+//      browser.title mustEqual "Benefits - Carer's Allowance"
+
+      val landingPage = page goToThePage(throwException=false)
+//            browser.title mustEqual "Benefits - Carer's Allowance"
+      landingPage must beAnInstanceOf[BenefitsPage]
     }
 
     "be presented when there is a claim date" in new WithBrowser {

@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.BeenEmployed])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.JobDetails])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,13 +8,13 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
-@main("Your employment history - Employment", Some(currentForm)) {
-    @form(action = controllers.s8_employment.routes.G1BeenEmployed.submit()){
+@main("Details about your job - Employment", Some(currentForm)) {
+    @form(action = controllers.s7_employment.routes.G2JobDetails.submit()){
         <fieldset class="form-elements">
-            <legend>Your employment history</legend>
+            <legend>Details about your job</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("beenEmployed"))
+
             </ul>
         </fieldset>
 
@@ -23,5 +23,4 @@
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
-
 }

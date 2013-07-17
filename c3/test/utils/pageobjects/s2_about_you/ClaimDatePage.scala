@@ -4,7 +4,7 @@ import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 /**
- * To change this template use Preferences | File and Code Templates.
+ * PageObject for page s2_about_you g4_claimDate.
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */

@@ -35,7 +35,7 @@ class PageSpec extends Specification {
     }
 
     "Throw exception if cannot go to the write page" in new MockPageWrongTitleContext {
-      page.goToThePage must throwA[PageObjectException]
+      page.goToThePage() must throwA[PageObjectException]
     }
   }
 }

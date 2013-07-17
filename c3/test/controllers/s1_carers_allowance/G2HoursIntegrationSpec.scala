@@ -22,14 +22,14 @@ class G2HoursIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       page goToThePage()
-      page fillPageWith(claim)
+      page fillPageWith claim
       val nextPage = page submitPage()
       nextPage must beAnInstanceOf[HoursPage]
       nextPage.previousPage mustEqual Some(page)
-      nextPage fillPageWith(claim)
+      nextPage fillPageWith claim
       val nextPage2 = nextPage submitPage()
       nextPage2 match {
-        case p: Over16Page => p isQ2Yes() must beTrue
+        case p: Over16Page => p.isQ2Yes must beTrue
         case _ => ko(notRightPage)
       }
     }
@@ -39,13 +39,13 @@ class G2HoursIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "No"
       page goToThePage()
-      page fillPageWith(claim)
+      page fillPageWith claim
       val nextPage = page submitPage()
       nextPage must beAnInstanceOf[HoursPage]
-      nextPage fillPageWith(claim)
+      nextPage fillPageWith claim
       val nextPage2 = nextPage submitPage()
       nextPage2 match {
-        case p: Over16Page => p isQ2No() must beTrue
+        case p: Over16Page => p.isQ2No must beTrue
         case _ => ko(notRightPage)
       }
     }

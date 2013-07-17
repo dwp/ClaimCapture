@@ -1,6 +1,6 @@
 package models.domain
 
-import models.DayMonthYear
+import models.{MultiLineAddress, DayMonthYear}
 
 
 object Employed {
@@ -13,6 +13,9 @@ case class BeenEmployed(beenEmployed:String) extends QuestionGroup(BeenEmployed.
 object JobDetails extends QuestionGroup(s"${Employed.id}.g2")
 case class JobDetails(employerName:String,jobStartDate:Option[DayMonthYear],finishedThisJob:String,lastWorkDate:Option[DayMonthYear],
                       p45LeavingDate:Option[DayMonthYear],hoursPerWeek:Option[String],jobTitle:Option[String],payrollEmpNumber:Option[String]) extends QuestionGroup(JobDetails.id)
+
+object EmployerContactDetails extends QuestionGroup(s"${Employed.id}.g3")
+case class EmployerContactDetails(address:Option[MultiLineAddress],postcode:Option[String],phoneNumber:Option[String]) extends QuestionGroup(EmployerContactDetails.id )
 
 
 

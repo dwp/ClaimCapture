@@ -16,11 +16,11 @@ class HoursPage(browser: TestBrowser, previousPage: Option[Page] = None) extends
 
   def clickChangeBenefitsDetails() = browser.click("div[class=completed] a")
 
-  def isInHoursPage(): Boolean = titleMatch()
+  def isInHoursPage: Boolean = titleMatch()
 
-  def isQ1Yes(): Boolean = isSpecifiedSectionCompleted(0, "Q1", "Yes")
+  def isQ1Yes: Boolean = isSpecifiedSectionCompleted(0, "Q1", "Yes")
 
-  def isQ1No(): Boolean = isSpecifiedSectionCompleted(0, "Q1", "No")
+  def isQ1No: Boolean = isSpecifiedSectionCompleted(0, "Q1", "No")
 
   /**
    * Sub-class reads theClaim and interact with browser to populate page.
