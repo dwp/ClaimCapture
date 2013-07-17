@@ -1,4 +1,4 @@
-package controllers.s8_employment
+package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{WithBrowser, FakeRequest, WithApplication}
