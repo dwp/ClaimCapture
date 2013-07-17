@@ -1,4 +1,4 @@
-package controllers.s8_other_income
+package controllers.s8_other_money
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
@@ -29,7 +29,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
 
       val result = G1AboutOtherMoney.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.OtherIncome.id)
+      val section: Section = claim.section(domain.OtherMoney.id)
 
       section.questionGroup(AboutOtherMoney) must beLike {
         case Some(f: AboutOtherMoney) => {

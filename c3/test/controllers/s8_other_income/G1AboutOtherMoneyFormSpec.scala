@@ -1,4 +1,4 @@
-package controllers.s8_other_income
+package controllers.s8_other_money
 
 import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
