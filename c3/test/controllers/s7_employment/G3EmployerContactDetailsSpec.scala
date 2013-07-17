@@ -5,21 +5,21 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
 
-class G2JobDetailsSpec extends Specification with Tags {
-  "Details about your job" should {
+class G3EmployerContactDetailsSpec extends Specification with Tags {
+  "Employer's contact details" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = G2JobDetails.present(request)
+      val result = G3EmployerContactDetails.present(request)
       status(result) mustEqual OK
     }
 
-    "miss all mandatory data" in new WithApplication with Claiming {
+    "submit without data" in new WithApplication with Claiming {
 
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = G2JobDetails.submit(request)
-      status(result) mustEqual BAD_REQUEST
+      val result = G3EmployerContactDetails.submit(request)
+      status(result) mustEqual SEE_OTHER
     }
 
     

@@ -188,6 +188,9 @@ POST    /employment/beenEmployed                                controllers.s7_e
 GET     /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.present
 POST    /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.submit
 
+GET     /employment/jobDetails                                  controllers.s7_employment.G3EmployerContactDetails.present
+POST    /employment/jobDetails                                  controllers.s7_employment.G3EmployerContactDetails.submit
+
 # Cache Timeout
 GET     /timeout                                                controllers.Application.timeout
 

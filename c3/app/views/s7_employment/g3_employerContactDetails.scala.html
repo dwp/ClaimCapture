@@ -1,0 +1,26 @@
+@(currentForm: Form[models.domain.EmployerContactDetails])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@main("Employer's contact details - Employment", Some(currentForm)) {
+    @form(action = controllers.s7_employment.routes.G3EmployerContactDetails.submit()){
+        <fieldset class="form-elements">
+            <legend>Employer's contact details</legend>
+
+            <ul class="group">
+
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a href="#" id="backButton" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
