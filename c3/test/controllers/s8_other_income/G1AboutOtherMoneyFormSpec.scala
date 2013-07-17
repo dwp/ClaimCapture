@@ -11,30 +11,21 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
       
     "map data into case class" in {
       G1AboutOtherMoney.form.bind(
-        Map("yourBenefits" -> yourBenefits,
-          "partnerBenefits" -> partnerBenefits
+        Map("yourBenefits.answer" -> yourBenefits,
+          "yourBenefits.text" -> partnerBenefits
         )
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.yourBenefits must equalTo(yourBenefits)
-          f.partnerBenefits must equalTo(Some(partnerBenefits))
+          f.yourBenefits.answer must equalTo(yourBenefits)
+          f.yourBenefits.text must equalTo(Some(partnerBenefits))
         }
-      )
-    }
-    
-    "allow optional fields to be left blank" in {
-      G1AboutOtherMoney.form.bind(
-        Map("yourBenefits" -> yourBenefits)
-      ).fold(
-        formWithErrors => "This mapping should not happen." must equalTo("Error"),
-        f => "Ok" must equalTo("Ok")
       )
     }
     
     "reject invalid yesNo" in {
       G1AboutOtherMoney.form.bind(
-        Map("yourBenefits" -> "INVALID")
+        Map("yourBenefits.answer" -> "INVALID")
       ).fold(
         formWithErrors => {
           formWithErrors.errors.head.message must equalTo("yesNo.invalid")

@@ -13,7 +13,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
   "About Other Money - Controller" should {
     val yourBenefits = "yes"
     val partnerBenefits = "bar"
-    val formInput = Seq("yourBenefits" -> yourBenefits, "partnerBenefits" -> partnerBenefits)
+    val formInput = Seq("yourBenefits.answer" -> yourBenefits, "yourBenefits.text" -> partnerBenefits)
     
     "present 'Your Course Details'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -33,8 +33,8 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
 
       section.questionGroup(AboutOtherMoney) must beLike {
         case Some(f: AboutOtherMoney) => {
-          f.yourBenefits must equalTo(yourBenefits)
-          f.partnerBenefits must equalTo(Some(partnerBenefits))
+          f.yourBenefits.answer must equalTo(yourBenefits)
+          f.yourBenefits.text must equalTo(Some(partnerBenefits))
         }
       }
     }

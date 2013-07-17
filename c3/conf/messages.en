@@ -251,8 +251,10 @@ faxNumber = Fax number
 
 ## OTHER MONEY
 # ABOUT OTHER MONEY
-yourBenefits.label = Have you {0} claimed or received any other benefits since the date you want to claim?
-partnerBenefits = Please tell us the names of the benefits or entitlements you receive
+yourBenefits.answer = Have you claimed or received any other benefits since the date you want to claim?
+yourBenefits.answer.label = Have you {0} claimed or received any other benefits since the date you want to claim?
+yourBenefits = Please tell us the names of the benefits or entitlements you receive
+yourBenefits.text.label = Please tell us the names of the benefits or entitlements you receive
 
 ## PAY DETAILS
 # HOW WE PAY YOU

@@ -26,7 +26,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
     
     "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser {
       browser.goTo("/otherIncome/aboutOtherMoney")
-      browser.click("#yourBenefits_yes")
+      browser.click("#yourBenefits_answer_yes")
       browser.submit("button[type='submit']")
       browser.title mustEqual "TODO"
     }.pendingUntilFixed("Need destination page to exist")

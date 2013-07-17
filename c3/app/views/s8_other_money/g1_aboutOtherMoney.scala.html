@@ -4,18 +4,23 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
 @import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
 
 @main("About Other Money - Other Money", Some(currentForm), completedQuestionGroups) {
 
     @form(action = controllers.s8_other_money.routes.G1AboutOtherMoney.submit) {
 
         <fieldset class="form-elements">
-            <legend>Your course details</legend>
+            <legend>About Other Money</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("yourBenefits"), '_label -> Messages("yourBenefits.label", if(hadPartnerSinceClaimDate) "or your partner/spouse" else ""))
-                
-                @carersInputText(currentForm("partnerBenefits"), 'maxLength -> Mappings.sixty)
+                @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your partner/spouse" else ""))
+
+                @otherDetailPlaceHolder(
+                  inputDef = Seq(carersInputText(currentForm("yourBenefits.text"), 'maxLength -> Mappings.sixty, '_label -> Messages("yourBenefits.text.label"))),
+                  'id -> "yourBenefitsWrap",
+                  'display -> currentForm("yourBenefits.answer").value.getOrElse("no")
+                  )
             </ul>
         </fieldset>
 
@@ -25,3 +30,11 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s8_other_money/g1_aboutOtherMoney.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("yourBenefits_answer_yes")", "@CarersCrypto.encryptAES("yourBenefits_answer_no")");
+    });
+</script>
