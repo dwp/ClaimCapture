@@ -14,6 +14,9 @@ class G2HoursIntegrationSpec extends Specification with Tags {
   } section "integration"
 
   "Do you spend 35 hours or more each week caring" should {
+
+    val notRightPage: String = "Next Page is not of the right type."
+
     "acknowledge yes" in new WithBrowser with BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
@@ -27,7 +30,7 @@ class G2HoursIntegrationSpec extends Specification with Tags {
       val nextPage2 = nextPage submitPage()
       nextPage2 match {
         case p: Over16Page => p isQ2Yes() must beTrue
-        case _ => false must beTrue
+        case _ => ko(notRightPage)
       }
     }
 
@@ -43,7 +46,7 @@ class G2HoursIntegrationSpec extends Specification with Tags {
       val nextPage2 = nextPage submitPage()
       nextPage2 match {
         case p: Over16Page => p isQ2No() must beTrue
-        case _ => false must beTrue
+        case _ => ko(notRightPage)
       }
     }
   } section "integration"

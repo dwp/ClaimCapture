@@ -1,23 +1,23 @@
 package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
-import controllers.{BrowserMatchers, Formulate}
+import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import play.api.test.WithBrowser
+import utils.pageobjects.s2_about_you.{ClaimDatePage, YourDetailsPageContext, ClaimDatePageContext}
 
 class G4ClaimDateIntegrationSpec extends Specification with Tags {
 
   "Claim Date" should {
-    "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/aboutyou/claimDate")
-      titleMustEqual("Claim Date - About You")
+    "be presented" in new WithBrowser with ClaimDatePageContext {
+      page goToThePage()
     }
 
-    "contain 2 completed forms" in new WithBrowser with BrowserMatchers {
-      Formulate.yourDetails(browser)
-      Formulate.yourContactDetails(browser)
-
-      titleMustEqual("Claim Date - About You")
-      browser.find("div[class=completed] ul li").size() mustEqual 2
+    "contain 3 completed forms" in new WithBrowser with YourDetailsPageContext {
+      val claim = ClaimScenarioFactory s2AboutYouWithTimeOutside()
+      page goToThePage()
+      val claimDatePage = page runClaimWith(claim, ClaimDatePage.title)
+      // Completed about you, contact, time outside uk
+      claimDatePage.numberSectionsCompleted() mustEqual 3
     }
 
     "fill date" in new WithBrowser with BrowserMatchers {

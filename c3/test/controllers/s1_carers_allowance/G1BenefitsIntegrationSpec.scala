@@ -27,13 +27,16 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
 
   "Does the person being cared for get one of required benefits" should {
 
+    val notRightPage: String = "Next Page is not of the right type."
+
     "acknowledge yes" in new WithBrowser with BenefitsPageContext {
       page goToThePage()
       page clickPersonGetsBenefits()
       val nextPage = page submitPage()
       nextPage match {
         case p: HoursPage => p.isQ1Yes must beTrue
-        case _ => false must beTrue
+        case _ => ko(notRightPage)
+
       }
     }
 
@@ -45,7 +48,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
       nextPage match {
         case p: HoursPage => p.isQ1Yes must beTrue
-        case _ => false must beTrue
+        case _ =>  ko(notRightPage)
       }
     }
 
@@ -55,7 +58,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
       nextPage match {
         case p: HoursPage => p.isQ1No() must beTrue
-        case _ => failure
+        case _ =>  ko(notRightPage)
       }
     }
 

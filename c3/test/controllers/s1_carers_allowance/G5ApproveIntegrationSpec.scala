@@ -16,6 +16,8 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
   } section "integration"
 
   "Carer's Allowance" should {
+    val notRightPage: String = "Next Page is not of the right type."
+
     "be approved" in new WithBrowser with BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
@@ -36,7 +38,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
           p.previousPage must beSome(livingGBPage)
           p.isApproved must beTrue
         }
-        case _ => false must beTrue
+        case _ => ko(notRightPage)
       }
     }
 
@@ -53,7 +55,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
           p.previousPage.get must beAnInstanceOf[LivingInGBPage]
           p.isNotApproved must beTrue
         }
-        case _ => false must beTrue
+        case _ => ko(notRightPage)
       }
     }
 

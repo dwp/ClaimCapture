@@ -8,12 +8,19 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-class TimeOutsideUKPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, YourDetailsPage.url, YourDetailsPage.title, previousPage) {
+class TimeOutsideUKPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, TimeOutsideUKPage.url, TimeOutsideUKPage.title, previousPage) {
   /**
    * Reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario) {}
+  def fillPageWith(theClaim: ClaimScenario) {
+    fillYesNo("#livingInUK_answer", theClaim.AboutYouAreYouCurrentlyLivingintheUk)
+    fillDate("#livingInUK_arrivalDate", theClaim.AboutYouWhenDidYouArriveInYheUK)
+    fillInput("#livingInUK_originCountry", theClaim.AboutYouWhatCountryDidYouComeFrom)
+    fillYesNo("#livingInUK_goBack_answer", theClaim.AboutYouDoYouPlantoGoBacktoThatCountry)
+    fillDate("#livingInUK_goBack_date", theClaim.AboutYouWhenDoYouPlantoGoBack)
+    fillInput("#visaReference", theClaim.AboutYouWhatIsYourVisaNumber)
+  }
 }
 
 /**

@@ -1,7 +1,7 @@
 package utils.pageobjects.s2_about_you
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{PageFactory, PageContext, ClaimScenario, Page}
+import utils.pageobjects.{PageContext, ClaimScenario, Page}
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -13,7 +13,12 @@ class ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None
    * Reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario) {}
+  def fillPageWith(theClaim: ClaimScenario) {
+    fillAddress("#address", theClaim.AboutYouAddress)
+    fillInput("#postcode", theClaim.AboutYouPostcode)
+    fillInput("#phoneNumber", theClaim.AboutYouDaytimePhoneNumber)
+    fillInput("#mobileNumber", theClaim.AboutYouMobileNumber)
+  }
 }
 
 /**
@@ -22,13 +27,13 @@ class ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None
  */
 object ContactDetailsPage {
   val title = "Contact Details - About You"
-  val url  = "/aboutyou/contactDetails"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new ContactDetailsPage(browser,previousPage)
-//  PageFactory.registerPageBuilder[ContactDetailsPage](title, buildPageWith)
+  val url = "/aboutyou/contactDetails"
+
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new ContactDetailsPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait ContactDetailsPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: {val browser: TestBrowser} =>
   val page = ContactDetailsPage buildPageWith browser
 }

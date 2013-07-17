@@ -35,7 +35,22 @@ object ClaimScenarioFactory {
   def yourDetailsEnablingTimeOutsideUK() = {
     val claim = yourDetailsWithNotTimeOutside
     claim.AboutYouHaveYouAlwaysLivedInTheUK = "No"
+    claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
+    claim.AboutYouWhenDidYouArriveInYheUK = "01/11/2003"
+    claim.AboutYouDoYouPlantoGoBacktoThatCountry = "No"
     claim
   }
+
+  def s2AboutYouWithTimeOutside() = {
+    // Your details + outside UK
+    val claim = yourDetailsEnablingTimeOutsideUK()
+    // Your contact details
+    claim.AboutYouAddress  = "An address"
+    claim.AboutYouPostcode = "SE1 6EH"
+    claim.AboutYouDaytimePhoneNumber = "01253 111 111"
+    claim.AboutYouMobileNumber = "07111 111 111"
+    claim
+  }
+
 
 }

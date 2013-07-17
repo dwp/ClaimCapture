@@ -42,6 +42,13 @@ trait WebFillActions {
     for (option <- allOptions; if option.getText == value) option.click()
   }
 
+  def fillAddress(elementCssSelector: String, value: String) = if (null != value) {
+    val lines = value.split("\n")
+    val extensions = Array("_lineOne", "_lineTwo", "_lineThree")
+    for ( i <- 0 to lines.size - 1 ) {  fillInput(elementCssSelector + extensions(i), lines(i)) }
+
+  }
+
 
   def fillYesNo(elementCssSelector: String, value: String, sep: String = "_") = if (null != value) browser.click(elementCssSelector + sep + value.toLowerCase)
 

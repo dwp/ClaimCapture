@@ -6,7 +6,7 @@ import scala.language.dynamics
 import scala.collection.mutable
 import scala.util.matching.Regex
 import utils.pageobjects.s1_carers_allowance._
-import utils.pageobjects.s2_about_you.{ContactDetailsPage, YourDetailsPage}
+import utils.pageobjects.s2_about_you.{TimeOutsideUKPage, ClaimDatePage, ContactDetailsPage, YourDetailsPage}
 
 
 /**
@@ -37,6 +37,8 @@ object PageFactory {
       // S2
       case YourDetailsPage.title => YourDetailsPage buildPageWith(browser, previousPage)
       case ContactDetailsPage.title => ContactDetailsPage buildPageWith(browser, previousPage)
+      case TimeOutsideUKPage.title => TimeOutsideUKPage buildPageWith(browser, previousPage)
+      case ClaimDatePage.title => ClaimDatePage buildPageWith(browser, previousPage)
       case _ => new UnknownPage(browser, title, previousPage)
     }
   }
