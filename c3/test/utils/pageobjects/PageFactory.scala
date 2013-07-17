@@ -24,7 +24,7 @@ object PageFactory {
     map
   }
 
-  def buildPageFromTitle(browser: TestBrowser, title: String, previousPage: Option[Page]) = {
+  def buildPageFromTitle(browser: TestBrowser, title: String, previousPage: Option[Page], iteration: Integer) = {
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
     title match {
