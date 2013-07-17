@@ -1,4 +1,4 @@
-package controllers.s8_employment
+package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
@@ -21,6 +21,8 @@ class G2JobDetailsSpec extends Specification with Tags {
       val result = G2JobDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
+
+    
 
 
 

@@ -8,6 +8,9 @@ import models.Whereabouts
 import models.MultiLineAddress
 import yesNo.{YesNoWithDate, YesNoWithDropDownAndText, YesNoWithDropDown}
 
+case class EducationSection(yourCourseDetails:YourCourseDetails, addressOfSchool: AddressOfSchoolCollegeOrUniversity)
+
+
 object ClaimBuilder {
   val yourDetails = YourDetails(title = "mr", firstName = "Phil", middleName = None, surname = "Smith",
     otherSurnames = Some("O'Dwyer"), None, nationality = "French",
@@ -51,6 +54,9 @@ object ClaimBuilder {
     )
   )
 
+  val education = EducationSection(YourCourseDetails(Some("courseType"), Some("courseTitle"),  Some(DayMonthYear(Some(1), Some(1), Some(2001))),Some(DayMonthYear(Some(2), Some(2), Some(2002))),  Some(DayMonthYear(Some(3), Some(3), Some(2003))), Some("ST11")),
+      AddressOfSchoolCollegeOrUniversity(Some("schoolName"), Some("tutorName"), Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), Some("SE1 6EH"), Some("020192827273"), Some("0302928273"))
+  )
 
   val careYouProvide = CareYouProvide(theirPersonalDetails, theirContactDetails,
     moreAboutThePerson, representatives,
@@ -61,8 +67,7 @@ object ClaimBuilder {
   val yourPartnerContactDetails = YourPartnerContactDetails(address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
   val moreAboutYourPartner = MoreAboutYourPartner(startedLivingTogether = Some(YesNoWithDate("yes", Some(DayMonthYear(1, 1, 1940)))), separated = YesNoWithDate("no",None))
   val personYouCareFor = PersonYouCareFor(isPartnerPersonYouCareFor = "yes")
-  val yourPartner = YourPartner(yourPartnerPersonalDetails, yourPartnerContactDetails,
-    moreAboutYourPartner, Some(personYouCareFor))
+  val yourPartner = YourPartner(yourPartnerPersonalDetails, yourPartnerContactDetails, moreAboutYourPartner, Some(personYouCareFor))
 
   val howWePayYou = HowWePayYou("01","everyWeek")
   val bank = BankBuildingSocietyDetails("Holder","Bank name",SortCode("12","34","56"),"1234567890","1234")

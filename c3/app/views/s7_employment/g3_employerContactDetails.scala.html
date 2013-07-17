@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.JobDetails])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.EmployerContactDetails])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,10 +8,10 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
-@main("Details about your job - Employment", Some(currentForm)) {
-    @form(action = controllers.s8_employment.routes.G2JobDetails.submit()){
+@main("Employer's contact details - Employment", Some(currentForm)) {
+    @form(action = controllers.s7_employment.routes.G3EmployerContactDetails.submit()){
         <fieldset class="form-elements">
-            <legend>Details about your job</legend>
+            <legend>Employer's contact details</legend>
 
             <ul class="group">
 

@@ -9,14 +9,22 @@ import models.domain.{ Claim, AboutOtherMoney }
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import models.domain.MoreAboutYou
+import models.yesNo.YesNoWithText
 
 object G1AboutOtherMoney extends Controller with Routing with CachedClaim {
   override val route = AboutOtherMoney.id -> routes.G1AboutOtherMoney.present
 
+  val yourBenefitsMapping =
+    "yourBenefits" -> mapping(
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "text" -> optional(nonEmptyText(maxLength = sixty))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("required", YesNoWithText.validateOnYes _)
+      
   val form = Form(
     mapping(
-      "yourBenefits" -> nonEmptyText.verifying(validYesNo),
-      "partnerBenefits" -> optional(text))(AboutOtherMoney.apply)(AboutOtherMoney.unapply))
+      yourBenefitsMapping
+    )(AboutOtherMoney.apply)(AboutOtherMoney.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(AboutOtherMoney)
 

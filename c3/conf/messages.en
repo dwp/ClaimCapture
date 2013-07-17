@@ -251,8 +251,10 @@ faxNumber = Fax number
 
 ## OTHER MONEY
 # ABOUT OTHER MONEY
-yourBenefits.label = Have you {0} claimed or received any other benefits since the date you want to claim?
-partnerBenefits = Please tell us the names of the benefits or entitlements you receive
+yourBenefits.answer = Have you claimed or received any other benefits since the date you want to claim?
+yourBenefits.answer.label = Have you {0} claimed or received any other benefits since the date you want to claim?
+yourBenefits = Please tell us the names of the benefits or entitlements you receive
+yourBenefits.text.label = Please tell us the names of the benefits or entitlements you receive
 
 ## PAY DETAILS
 # HOW WE PAY YOU
@@ -283,7 +285,7 @@ disclaimer.5 = If [[first name, middle name, surname]]'s Pension Credit includes
 disclaimer.6 = We will need to check [[first name, middle name, surname]] entitlement to Disability Living Allowance, Personal Independence Payment, Attendance Allowance, Constant Attendance Allowance or Armed Forces Independence Payment when considering your claim.
 disclaimer.7 = We may contact [[first name, middle name, surname]] or their representative to establish whether 35 hours caring per week is taking place.
 
-read = Please tick this box to declare that you have read the Disclaimer text and have shown the Notes to the person you are looking after.
+read = Please tick this box to declare that you understand and have shown the notes above to the person you are looking after.
 
 #DECLARATION
 declaration.1 = I declare that I understand the Cares's Allowance Claim Notes and that the information provided on this claim form is correct and complete.

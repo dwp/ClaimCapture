@@ -1,4 +1,4 @@
-package controllers.s8_employment
+package controllers.s7_employment
 
 import models.view.CachedClaim
 import play.api.mvc.Controller
@@ -21,12 +21,12 @@ object G1BeenEmployed extends Controller with CachedClaim {
     implicit claim => implicit request =>
 
 
-      Ok(views.html.s8_employment.g1_beenEmployed(form))
+      Ok(views.html.s7_employment.g1_beenEmployed(form))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors =>BadRequest(views.html.s8_employment.g1_beenEmployed(formWithErrors)),
+      formWithErrors =>BadRequest(views.html.s7_employment.g1_beenEmployed(formWithErrors)),
       beenEmployed => claim.update(beenEmployed) -> Redirect(routes.G2JobDetails.present()))
   }
 
