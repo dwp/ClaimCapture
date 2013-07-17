@@ -14,7 +14,7 @@ object G1AboutOtherMoney extends Controller with Routing with CachedClaim {
 
   val form = Form(
     mapping(
-      "yourBenefits" -> optional(text),
+      "yourBenefits" -> nonEmptyText.verifying(validYesNo),
       "partnerBenefits" -> optional(text))(AboutOtherMoney.apply)(AboutOtherMoney.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(AboutOtherMoney)

@@ -11,7 +11,7 @@ import scala.Some
 
 class G1AboutOtherMoneySpec extends Specification with Tags {
   "About Other Money - Controller" should {
-    val yourBenefits = "foo"
+    val yourBenefits = "yes"
     val partnerBenefits = "bar"
     val formInput = Seq("yourBenefits" -> yourBenefits, "partnerBenefits" -> partnerBenefits)
     
@@ -33,7 +33,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
 
       section.questionGroup(AboutOtherMoney) must beLike {
         case Some(f: AboutOtherMoney) => {
-          f.yourBenefits must equalTo(Some(yourBenefits))
+          f.yourBenefits must equalTo(yourBenefits)
           f.partnerBenefits must equalTo(Some(partnerBenefits))
         }
       }

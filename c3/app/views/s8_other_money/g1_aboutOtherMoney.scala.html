@@ -13,8 +13,8 @@
             <legend>Your course details</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("yourBenefits"), 'maxLength -> Mappings.sixty)
-
+                @yesNoRadioGroup(currentForm("yourBenefits"))
+                
                 @carersInputText(currentForm("partnerBenefits"), 'maxLength -> Mappings.sixty)
             </ul>
         </fieldset>

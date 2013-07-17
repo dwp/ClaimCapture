@@ -8,12 +8,12 @@ import org.specs2.execute.PendingUntilFixed
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with PendingUntilFixed {
   "About Other Money" should {
     "be presented" in new WithBrowser {
-      browser.goTo("/otherIncome/aboutOtherMoney")
-      browser.title mustEqual "About Other Money - Other Income"
+      browser.goTo("/otherMoney/aboutOtherMoney")
+      browser.title mustEqual "About Other Money - Other Money"
     }
     
     "navigate back to Completion - Employment" in new WithBrowser {
-      browser.goTo("/otherIncome/aboutOtherMoney")
+      browser.goTo("/otherMoney/aboutOtherMoney")
       browser.click("#backButton")
       browser.title mustEqual "Details about your job - Employment"
     }.pendingUntilFixed("Need Completion - Employment to exist")
@@ -25,6 +25,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
     
     "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser {
       browser.goTo("/otherIncome/aboutOtherMoney")
+      browser.click("#yourBenefits_yes")
       browser.submit("button[type='submit']")
       browser.title mustEqual "TODO"
     }.pendingUntilFixed("Need destination page to exist")

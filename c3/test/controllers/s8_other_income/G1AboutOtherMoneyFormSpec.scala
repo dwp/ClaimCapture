@@ -6,7 +6,7 @@ import scala.Some
 
 class G1AboutOtherMoneyFormSpec extends Specification with Tags {
   "About Other Money Form" should {
-    val yourBenefits = "foo"
+    val yourBenefits = "yes"
     val partnerBenefits = "bar"
       
     "map data into case class" in {
@@ -17,7 +17,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.yourBenefits must equalTo(Some(yourBenefits))
+          f.yourBenefits must equalTo(yourBenefits)
           f.partnerBenefits must equalTo(Some(partnerBenefits))
         }
       )
@@ -25,11 +25,22 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
     
     "allow optional fields to be left blank" in {
       G1AboutOtherMoney.form.bind(
-        Map("" -> "")
+        Map("yourBenefits" -> yourBenefits)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => "Ok" must equalTo("Ok")
       )
+    }
+    
+    "reject invalid yesNo" in {
+      G1AboutOtherMoney.form.bind(
+        Map("yourBenefits" -> "INVALID")
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.head.message must equalTo("yesNo.invalid")
+          formWithErrors.errors.length must equalTo(1)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
     }
   }
 }
