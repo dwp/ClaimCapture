@@ -4,7 +4,7 @@ import play.api.test.TestBrowser
 import scala.language.dynamics
 import scala.collection.mutable
 import utils.pageobjects.s1_carers_allowance._
-import utils.pageobjects.s2_about_you.{TimeOutsideUKPage, ClaimDatePage, ContactDetailsPage, YourDetailsPage}
+import utils.pageobjects.s2_about_you._
 
 
 /**
@@ -37,6 +37,9 @@ object PageFactory {
       case ContactDetailsPage.title => ContactDetailsPage buildPageWith(browser, previousPage)
       case TimeOutsideUKPage.title => TimeOutsideUKPage buildPageWith(browser, previousPage)
       case ClaimDatePage.title => ClaimDatePage buildPageWith(browser, previousPage)
+      case MoreAboutYouPage.title => MoreAboutYouPage buildPageWith(browser, previousPage)
+
+      // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }
   }

@@ -12,10 +12,27 @@ import scala.collection.convert.Wrappers._
  */
 abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Int = 1) extends Object with WebSearchActions with WebFillActions {
 
-  def goToThePage() = goToUrl(this)
+  /**
+   * Go to the html page corresponding to the current object.
+   * If the landing page is not the expected page then throws an exception, unless asked otherwise.
+   * @param throwException Should the page throw an exception if landed on different page? By default yes.
+   * @return Page object presenting the page. It could be different from current if landed on different page and specified no exception to be thrown.
+   */
+  def goToThePage(throwException: Boolean = true) = goToUrl(this, throwException)
 
-  def goToPage(page: Page) = goToUrl(page)
+  /**
+   * Go to the html page corresponding to the page passed as parameter.
+   * If the landing page is not the expected page then throws an exception, unless asked otherwise.
+   * @param page target page
+   * @param throwException Should the page throw an exception if landed on different page? By default yes.
+   * @return Page object presenting the page. It could be different from target page if landed on different page and specified no exception to be thrown.
+   */
+  def goToPage(page: Page, throwException: Boolean = true) = goToUrl(page, throwException)
 
+  /**
+   * Click on back/previous button of the page (not of the browser)
+   * @return Page object representing the html page the UI went back to.
+   */
   def goBack() = {
     val backPageTile = browser.click(".form-steps a").title
     createPageWithTitle(backPageTile)
@@ -68,8 +85,9 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   //  NON PUBLIC FUNCTIONS
   // ==================================================================
 
-  protected def waitForPage() = browser.waitUntil[Boolean](30, TimeUnit.SECONDS) {
-    titleMatch()
+  protected def waitForPage() =  {
+    browser.waitUntil[Boolean](30, TimeUnit.SECONDS) { titleMatch() }
+    this
   }
 
   protected def titleMatch(): Boolean = browser.title == this.pageTitle
@@ -84,15 +102,16 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
 
   private def createPageWithTitle(title: String) = {
     val newPage = PageFactory buildPageFromTitle(browser, title, Some(this), iteration + 1)
-    // newPage.waitForPage()
     newPage
   }
 
 
-  private def goToUrl(page: Page) = {
+  private def goToUrl(page: Page, throwException: Boolean) = {
     browser.goTo(page.url)
-    page.waitForPage()
-    if (!page.titleMatch) throw new PageObjectException("Could not go to page " + page.pageTitle + " - Page loaded " + browser.title)
+    if (!page.titleMatch) {
+      if (throwException) throw new PageObjectException("Could not go to page " + page.pageTitle + " - Page loaded " + browser.title)
+      else this.createPageWithTitle(browser.title)
+    } else page.waitForPage()
   }
 }
 
@@ -108,10 +127,10 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
   override def submitPage(throwException: Boolean = false) = throw new PageObjectException("Cannot submit an unknown page: " + pageTitle)
 
   /**
-   * Sub-class reads theClaim and interact with browser to populate page.
+   * Reads theClaim and interact with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario) {}
+  def fillPageWith(theClaim: ClaimScenario) { throw new PageObjectException("Cannot fill an unknown page: " + pageTitle)}
 }
 
 
