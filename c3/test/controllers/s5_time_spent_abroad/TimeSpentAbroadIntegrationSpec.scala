@@ -6,7 +6,7 @@ import controllers.BrowserMatchers
 
 class TimeSpentAbroadIntegrationSpec extends Specification with Tags {
   "Time spent abroad" should {
-    """present "completion" and proceed to "pay details".""" in new WithBrowser with BrowserMatchers {
+    """present "completion" and proceed to 'Education'.""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
       titleMustEqual("Normal Residence and Current Location - Time Spent Abroad")
 
@@ -29,7 +29,7 @@ class TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - Time Spent Abroad")
 
       browser.submit("button[value='next']")
-      titleMustEqual("How We Pay You - Pay Details")
+      titleMustEqual("Your Course Details - Education")
     }
   }
 }
