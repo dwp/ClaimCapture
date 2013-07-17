@@ -9,7 +9,7 @@ import utils.pageobjects.Page
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-class BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, BenefitsPage.url, BenefitsPage.title, previousPage) {
+final class BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, BenefitsPage.url, BenefitsPage.title, previousPage) {
 
   /* temporary, until tested class is refactored and use new common components. */
   private val separator  = "-"

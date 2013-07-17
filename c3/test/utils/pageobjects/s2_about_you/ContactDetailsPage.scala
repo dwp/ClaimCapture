@@ -8,7 +8,7 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-class ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, YourDetailsPage.url, YourDetailsPage.title, previousPage) {
+final class ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, YourDetailsPage.url, YourDetailsPage.title, previousPage) {
   /**
    * Reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page

@@ -8,7 +8,7 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  * @author Jorge Migueis
  *         Date: 15/07/2013
  */
-class LivingInGBPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, LivingInGBPage.url, LivingInGBPage.title, previousPage) {
+final class LivingInGBPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, LivingInGBPage.url, LivingInGBPage.title, previousPage) {
   /* temporary, until tested class is refactored and use new common components. */
   private val separator  = "-"
 

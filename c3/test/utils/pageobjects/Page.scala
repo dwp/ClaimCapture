@@ -46,9 +46,11 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
 
   /**
    * Reads theClaim, interacts with browser to populate the page, submit the page and
-   * asks next page to run the claim.
+   * asks next page to run the claim. By default throws a PageObjectException if a page displays errors.
    * @param theClaim  Data to use to populate all the pages relevant to the scenario tested.
    * @param upToPageWithTitle  Title of the page where the automated completion should stop.
+   * @param throwException Specify whether should throw an exception if a page displays errors. By default set to true.
+   * @return Last page
    */
   def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, throwException: Boolean = true): Page = {
     if (pageTitle == upToPageWithTitle) {
@@ -59,6 +61,11 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     }
   }
 
+  /**
+   * Click the submit/next button of a page. By default does not throw a PageObjectException if a page displays errors.
+   * @param throwException Specify whether should throw an exception if a page displays errors. By default set to false.
+   * @return next Page or same page if errors detected and did not ask for exception.
+   */
   def submitPage(throwException: Boolean = false) = {
     val nextPageTile = browser.submit("button[type='submit']").title
     if (this checkNoErrorsForPage(nextPageTile, throwException)) this
@@ -71,8 +78,16 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     createPageWithTitle(completedPage)
   }
 
+  /**
+   * Returns html code of the page.
+   * @return source code of the page encapsulated in a String
+   */
   def source() = browser.pageSource()
 
+  /**
+   * Provides the list of errors displayed in a page. If there is no error then return None.
+   * @return a Option containing the list of errors displayed by a page.
+   */
   def listErrors() : Option[List[String]] = {
     val rawErrors = browser.find("div[class=validation-summary] ol li")
     if (!rawErrors.isEmpty) {
@@ -124,10 +139,22 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
 final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: Option[Page] = None) extends Page(browser, null, pageTitle, previousPage) {
   protected def createNextPage(): Page = this
 
+  /**
+   * Throws a PageObjectException.
+   * @param throwException Should the page throw an exception if landed on different page? By default yes.
+   * @return Page object presenting the page. It could be different from current if landed on different page and specified no exception to be thrown.
+   */
+  override def goToThePage(throwException: Boolean = true) = throw new PageObjectException("Cannot go to an unknown page")
+
+  /**
+   * Throws a PageObjectException.
+   * @param throwException Specify whether should throw an exception if a page displays errors. By default set to false.
+   * @return next Page or same page if errors detected and did not ask for exception.
+   */
   override def submitPage(throwException: Boolean = false) = throw new PageObjectException("Cannot submit an unknown page: " + pageTitle)
 
   /**
-   * Reads theClaim and interact with browser to populate page.
+   * Throws a PageObjectException.
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) { throw new PageObjectException("Cannot fill an unknown page: " + pageTitle)}

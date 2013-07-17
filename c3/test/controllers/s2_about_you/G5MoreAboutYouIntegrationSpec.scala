@@ -2,19 +2,15 @@ package controllers.s2_about_you
 
 import play.api.test.WithBrowser
 import org.specs2.mutable.{Tags, Specification}
-import controllers.Formulate
-import utils.pageobjects.s2_about_you.MoreAboutYouPageContext
+import controllers.{ClaimScenarioFactory, Formulate}
+import utils.pageobjects.s2_about_you.{EmploymentPage, MoreAboutYouPage, YourDetailsPageContext, MoreAboutYouPageContext}
 import utils.pageobjects.s1_carers_allowance.BenefitsPage
 
 class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
   "More About You" should {
-    "present Benefits when there is no claim date" in new WithBrowser  with MoreAboutYouPageContext {
-//      browser.goTo("/aboutyou/moreAboutYou")
-//      browser.title mustEqual "Benefits - Carer's Allowance"
-
+    "present Benefits when there is no claim date" in new WithBrowser with MoreAboutYouPageContext {
       val landingPage = page goToThePage(throwException=false)
-//            browser.title mustEqual "Benefits - Carer's Allowance"
       landingPage must beAnInstanceOf[BenefitsPage]
     }
 
@@ -23,12 +19,11 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "More About You - About You"
     }
 
-    "contain the completed forms" in new WithBrowser {
-      Formulate.yourDetails(browser)
-      Formulate.yourContactDetails(browser)
-      Formulate.claimDate(browser)
-      browser.title mustEqual "More About You - About You"
-      browser.find("div[class=completed] ul li").size() mustEqual 3
+    "contain the completed forms" in new WithBrowser with YourDetailsPageContext {
+      val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      page goToThePage()
+      page runClaimWith (claim, MoreAboutYouPage.title)
+      page numberSectionsCompleted() mustEqual 4
     }
 
     "contain questions with claim dates" in new WithBrowser {
@@ -52,10 +47,10 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
       browser.find("p[class=error]").size mustEqual 4
     }
 
-    "navigate to next page on valid submission" in new WithBrowser {
-      Formulate.claimDate(browser)
-      Formulate.moreAboutYou(browser)
-      browser.title mustEqual "Employment - About You"
+    "navigate to next page on valid submission" in new WithBrowser with YourDetailsPageContext {
+      val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      page goToThePage()
+      page runClaimWith (claim, EmploymentPage.title)
     }
   } section "integration"
 }

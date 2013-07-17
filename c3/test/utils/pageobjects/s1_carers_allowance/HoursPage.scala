@@ -9,7 +9,7 @@ import utils.pageobjects.Page
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-class HoursPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, HoursPage.url, HoursPage.title,previousPage) with WebSearchActions {
+final class HoursPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, HoursPage.url, HoursPage.title,previousPage) with WebSearchActions {
 
   /* temporary, until tested class is refactored and use new common components. */
   private val separator = "-"

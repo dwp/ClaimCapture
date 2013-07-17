@@ -8,7 +8,7 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  * @author Jorge Migueis
  *         Date: 13/07/2013
  */
-class Over16Page(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, Over16Page.url, Over16Page.title, previousPage) {
+final class Over16Page(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, Over16Page.url, Over16Page.title, previousPage) {
 
   /* temporary, until tested class is refactored and use new common components. */
   private val separator  = "-"

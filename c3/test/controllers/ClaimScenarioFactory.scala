@@ -49,6 +49,16 @@ object ClaimScenarioFactory {
     claim.AboutYouPostcode = "SE1 6EH"
     claim.AboutYouDaytimePhoneNumber = "01253 111 111"
     claim.AboutYouMobileNumber = "07111 111 111"
+    // Claim date
+    claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
+    // More about you
+    claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
+    claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "Yes"
+    claim.AboutYouHaveYouBeenOnACourseOfEducation = "Yes"
+    claim.AboutYouDoYouGetStatePension = "Yes"
+    // Employment
+    claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "Yes"
+    claim.AboutYouHaveYouBeenEmployedAtAnyTime = "Yes"
     claim
   }
 
