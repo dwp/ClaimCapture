@@ -153,6 +153,9 @@ POST    /otherMoney/moneyPaidToSomeoneElseForYou                controllers.s8_o
 GET     /otherMoney/personWhoGetsThisMoney                      controllers.s8_other_money.G3PersonWhoGetsThisMoney.present
 POST    /otherMoney/personWhoGetsThisMoney                      controllers.s8_other_money.G3PersonWhoGetsThisMoney.submit
 
+GET     /otherMoney/personContactDetails                       controllers.s8_other_money.G4PersonContactDetails.present
+GET     /otherMoney/personContactDetails                       controllers.s8_other_money.G4PersonContactDetails.submit
+
 # Pay Details
 ###############
 GET     /payDetails/howWePayYou                                 controllers.s6_pay_details.G1HowWePayYou.present
