@@ -36,6 +36,15 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
       
       status(result) mustEqual OK
     }
+    
+    "return a bad request after an invalid submission" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody("foo" -> "bar")
+
+      val result = G3PersonWhoGetsThisMoney.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+    
     /*
     "add submitted form to the cached claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -60,13 +69,7 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
       }
     }
     
-    "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("foo" -> "bar")
 
-      val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
-      status(result) mustEqual BAD_REQUEST
-    }
     
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
