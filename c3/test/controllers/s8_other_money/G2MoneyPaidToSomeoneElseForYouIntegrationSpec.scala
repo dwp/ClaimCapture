@@ -24,10 +24,7 @@ class G2MoneyPaidToSomeoneElseForYouIntegrationSpec extends Specification with T
     
     "present errors if mandatory fields are not populated" in new WithBrowser with G2MoneyPaidToSomeoneElseForYouPageContext {
       page goToThePage()
-      //
-      val p  = page.submitPage()
-      println(p.listErrors)
-      p.listErrors.get.size mustEqual 1
+      page.submitPage().listErrors.get.size mustEqual 1
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with G2MoneyPaidToSomeoneElseForYouPageContext {
