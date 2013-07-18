@@ -62,15 +62,13 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
         }
       }
     }
-    /*
-
     
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
+        .withFormUrlEncodedBody(formInput: _*)
 
-      val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
+      val result = G3PersonWhoGetsThisMoney.submit(request)
       status(result) mustEqual SEE_OTHER
-    }*/
+    }
   } section "unit"
 }
