@@ -35,6 +35,19 @@ class G3PersonWhoGetsThisMoneyFormSpec extends Specification with Tags {
         }
       )
     }
+
+    "have 2 mandatory fields" in {
+      G3PersonWhoGetsThisMoney.form.bind(
+        Map("" -> "")
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(2)
+          formWithErrors.errors(0).message must equalTo("error.required")
+          formWithErrors.errors(1).message must equalTo("error.required")
+        },
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
     
     "reject too many characters in text fields" in {
       G3PersonWhoGetsThisMoney.form.bind(
@@ -47,24 +60,10 @@ class G3PersonWhoGetsThisMoneyFormSpec extends Specification with Tags {
           formWithErrors.errors(0).message must equalTo("error.maxLength")
           formWithErrors.errors(1).message must equalTo("error.maxLength")
         },
-        theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
+        f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-    
-    
-    "have 2 mandatory fields" in {
-      G3PersonWhoGetsThisMoney.form.bind(
-        Map("middleName" -> "middle name is optional")
-      ).fold(
-        formWithErrors => {
-          formWithErrors.errors.length must equalTo(2)
-          formWithErrors.errors(0).message must equalTo("error.required")
-          formWithErrors.errors(1).message must equalTo("error.required")
-        },
-        theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
-      )
-    }
-    
+
     "reject invalid national insurance number" in {
       G3PersonWhoGetsThisMoney.form.bind(
         Map("fullName" -> fullName,
@@ -80,5 +79,5 @@ class G3PersonWhoGetsThisMoneyFormSpec extends Specification with Tags {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-  }
+  } section "unit"
 }
