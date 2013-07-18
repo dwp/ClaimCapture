@@ -14,3 +14,7 @@ object AboutOtherMoney extends QuestionGroup(s"${OtherMoney.id}.g1")
 case class MoneyPaidToSomeoneElseForYou(moneyAddedToBenefitSinceClaimDate: String) extends QuestionGroup(MoneyPaidToSomeoneElseForYou.id)
 
 case object MoneyPaidToSomeoneElseForYou extends QuestionGroup(s"${OtherMoney.id}.g2")
+
+case class PersonWhoGetsThisMoney(fullName: String, nationalInsuranceNumber: Option[NationalInsuranceNumber], nameOfBenefit: String) extends QuestionGroup(PersonWhoGetsThisMoney.id)
+
+case object PersonWhoGetsThisMoney extends QuestionGroup(s"${OtherMoney.id}.g3")
