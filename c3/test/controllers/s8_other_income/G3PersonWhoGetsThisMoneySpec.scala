@@ -45,30 +45,24 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
     
-    /*
+    
     "add submitted form to the cached claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
+        .withFormUrlEncodedBody(formInput: _*)
 
-      val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
+      val result = G3PersonWhoGetsThisMoney.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.YourPartner.id)
+      val section: Section = claim.section(domain.OtherMoney.id)
 
-      section.questionGroup(YourPartnerPersonalDetails) must beLike {
-        case Some(f: YourPartnerPersonalDetails) => {
-          f.title must equalTo(title)
-          f.firstName must equalTo(firstName)
-          f.middleName must equalTo(Some(middleName))
-          f.surname must equalTo(surname)
-          f.otherNames must equalTo(Some(otherNames))
+      section.questionGroup(PersonWhoGetsThisMoney) must beLike {
+        case Some(f: PersonWhoGetsThisMoney) => {
+          f.fullName must equalTo(fullName)
           f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5))))
-          f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
-          f.nationality must equalTo(Some(nationality))
-          f.liveAtSameAddress must equalTo(liveAtSameAddress)
+          f.nameOfBenefit must equalTo(nameOfBenefit)
         }
       }
     }
-    
+    /*
 
     
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
