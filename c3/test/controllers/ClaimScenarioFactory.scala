@@ -65,5 +65,12 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s6PayDetails() = {
+    val claim = new ClaimScenario
+    claim.HowWePayYouHowWouldYouLikeToGetPaid =  "You don't have an account but intend to open one"
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = "Every week"
+    claim
+  }
+
 
 }
