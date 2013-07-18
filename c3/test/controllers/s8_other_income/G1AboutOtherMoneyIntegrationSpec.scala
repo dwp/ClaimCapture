@@ -47,12 +47,13 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
       }
 
       "text1 and text2 enabled but neither not filled in" in new WithBrowser {
+        Formulate.claimDate(browser)
         Formulate.moreAboutYou(browser)
         browser.goTo("/otherMoney/aboutOtherMoney")
         browser.click("#yourBenefits_answer_yes")
         browser.submit("button[type='submit']")
 
-        browser.find("div[class=validation-summary] ol li").size mustEqual 1
+        browser.find("div[class=validation-summary] ol li").size mustEqual 2
       }
     }
 
