@@ -32,7 +32,7 @@ object G4PersonContactDetails extends Controller with Routing with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s8_other_money.g4_personContactDetails(formWithErrors, completedQuestionGroups)),
-      f => claim.update(f) -> Redirect(routes.G4PersonContactDetails.present())
+      f => claim.update(f) -> Redirect(routes.G4PersonContactDetails.present()) // TODO replace with next page to go to
     )
   }
 
