@@ -1,14 +1,21 @@
 package controllers.s8_other_money
 
-import org.specs2.mutable.{ Tags, Specification }
-import play.api.test.{ FakeRequest, WithApplication }
-import play.api.cache.Cache
-import models.domain._
-import models.{ DayMonthYear, domain }
-import play.api.test.Helpers._
-import models.domain.Claim
+import org.specs2.mutable.Specification
+import org.specs2.mutable.Tags
+
 import models.NationalInsuranceNumber
-import scala.Some
+import models.domain
+import models.domain.Claim
+import models.domain.Claiming
+import models.domain.PersonWhoGetsThisMoney
+import models.domain.Section
+import play.api.cache.Cache
+import play.api.test.FakeRequest
+import play.api.test.Helpers.BAD_REQUEST
+import play.api.test.Helpers.OK
+import play.api.test.Helpers.SEE_OTHER
+import play.api.test.Helpers.status
+import play.api.test.WithApplication
 
 class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
 
@@ -33,10 +40,10 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G3PersonWhoGetsThisMoney.present(request)
-      
+
       status(result) mustEqual OK
     }
-    
+
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("foo" -> "bar")
@@ -44,8 +51,7 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
       val result = G3PersonWhoGetsThisMoney.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
-    
-    
+
     "add submitted form to the cached claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
@@ -62,7 +68,7 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
         }
       }
     }
-    
+
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
