@@ -39,6 +39,8 @@ object PageFactory {
       case ClaimDatePage.title => ClaimDatePage buildPageWith(browser, previousPage)
       case MoreAboutYouPage.title => MoreAboutYouPage buildPageWith(browser, previousPage)
       case EmploymentPage.title => EmploymentPage buildPageWith(browser, previousPage)
+      case PropertyAndRentPage.title => PropertyAndRentPage buildPageWith(browser, previousPage)
+      case CompletedPage.title => CompletedPage buildPageWith(browser, previousPage)
       // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }

@@ -59,6 +59,9 @@ object ClaimScenarioFactory {
     // Employment
     claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.AboutYouHaveYouBeenEmployedAtAnyTime = "Yes"
+    // Property and Rent
+    claim.AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand = "Yes"
+    claim.AboutYouHaveYouOrYourPartnerSubletYourHome = "Yes"
     claim
   }
 

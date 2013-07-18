@@ -14,7 +14,8 @@ final class PropertyAndRentPage (browser: TestBrowser, previousPage: Option[Page
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) {
-    // TODO
+    fillYesNo("#ownProperty", theClaim.AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand)
+    fillYesNo("#hasSublet", theClaim.AboutYouHaveYouOrYourPartnerSubletYourHome)
   }
 }
 

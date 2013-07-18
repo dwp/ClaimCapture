@@ -2,7 +2,8 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.Formulate
+import controllers.{ClaimScenarioFactory, Formulate}
+import utils.pageobjects.s2_about_you.{CompletedPage, YourDetailsPageContext}
 
 class G8CompletedIntegrationSpec extends Specification with Tags {
 
@@ -12,15 +13,11 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Completion - About You"
     }
     
-    """show the text "Continue to Partner / Spouse" on the submit button when next section is "Your Partner"""" in new WithBrowser {
-      Formulate.yourDetails(browser)
-      Formulate.yourContactDetails(browser)
-      Formulate.claimDate(browser)
-      Formulate.moreAboutYou(browser)
-      Formulate.employment(browser)
-      Formulate.propertyAndRent(browser)
-      
-      browser.find("#submit").getText mustEqual "Continue to Partner / Spouse"
+    """show the text "Continue to Partner / Spouse" on the submit button when next section is "Your Partner"""" in new WithBrowser with YourDetailsPageContext {
+      val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
+      page goToThePage()
+      val completedPage = page runClaimWith(claim, CompletedPage.title)
+      completedPage.titleOfSubmitButton mustEqual "Continue to Partner / Spouse"
     }
     
     """show the text "Continue to Care You Provide" on the submit button when next section is "Care You Provide"""" in new WithBrowser {
@@ -30,7 +27,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       Formulate.employment(browser)
       Formulate.propertyAndRent(browser)
-      
+
       browser.find("#submit").getText mustEqual "Continue to care you provide"
     }
 
