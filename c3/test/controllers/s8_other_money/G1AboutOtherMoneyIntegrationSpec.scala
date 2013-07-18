@@ -4,6 +4,7 @@ import org.specs2.mutable.{ Tags, Specification }
 import controllers.Formulate
 import org.specs2.execute.PendingUntilFixed
 import play.api.test.WithBrowser
+import utils.pageobjects.s8_other_money.G1AboutOtherMoneyPageContext
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with PendingUntilFixed {
   "About Other Money" should {
@@ -68,6 +69,10 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
       browser.click("#yourBenefits_answer_no")
       browser.submit("button[type='submit']")
       browser.title mustEqual "About Extra Money - Other Money"
+    }
+
+    "be presented" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      page goToThePage()
     }
   }
 }
