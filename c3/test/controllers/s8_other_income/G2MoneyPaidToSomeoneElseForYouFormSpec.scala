@@ -7,8 +7,7 @@ import scala.Some
 class G2MoneyPaidToSomeoneElseForYouFormSpec extends Specification with Tags {
   "Money Paid To Someone Else For You" should {
     val moneyAddedToBenefitSinceClaimDate = "yes"
-  
-      
+
     "map data into case class" in {
       G2MoneyPaidToSomeoneElseForYou.form.bind(
         Map("moneyAddedToBenefitSinceClaimDate" -> moneyAddedToBenefitSinceClaimDate
@@ -20,6 +19,16 @@ class G2MoneyPaidToSomeoneElseForYouFormSpec extends Specification with Tags {
         }
       )
     }
-    
+
+    "reject invalid yesNo answer" in {
+      G2MoneyPaidToSomeoneElseForYou.form.bind(
+        Map("moneyAddedToBenefitSinceClaimDate" -> "INVALID")
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.head.message must equalTo("yesNo.invalid")
+          formWithErrors.errors.length must equalTo(1)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
   }
 }

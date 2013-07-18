@@ -11,14 +11,26 @@ import controllers.Mappings._
 
 object G2MoneyPaidToSomeoneElseForYou extends Controller with Routing with CachedClaim {
   override val route = MoneyPaidToSomeoneElseForYou.id -> routes.G2MoneyPaidToSomeoneElseForYou.present
-  
+
   val form = Form(
     mapping(
-      "moneyAddedToBenefitSinceClaimDate" -> nonEmptyText.verifying(validYesNo)
-    )(MoneyPaidToSomeoneElseForYou.apply)(MoneyPaidToSomeoneElseForYou.unapply))
-    
-  def present = claiming { implicit claim => implicit request =>
-    Ok(<p>Hello, World!</p>)
+      "moneyAddedToBenefitSinceClaimDate" -> nonEmptyText.verifying(validYesNo))(MoneyPaidToSomeoneElseForYou.apply)(MoneyPaidToSomeoneElseForYou.unapply))
 
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoneyPaidToSomeoneElseForYou)
+
+  def present = claiming { implicit claim =>
+    implicit request =>
+      val currentForm: Form[MoneyPaidToSomeoneElseForYou] = claim.questionGroup(MoneyPaidToSomeoneElseForYou) match {
+        case Some(m: MoneyPaidToSomeoneElseForYou) => form.fill(m)
+        case _ => form
+      }
+      Ok(views.html.s8_other_money.g2_moneyPaidToSomeoneElseForYou(currentForm, completedQuestionGroups))
+  }
+
+  def submit = claiming { implicit claim =>
+    implicit request =>
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.s8_other_money.g2_moneyPaidToSomeoneElseForYou(formWithErrors, completedQuestionGroups)),
+        f => claim.update(f) -> Redirect(controllers.routes.ThankYou.present())) // TODO replace with next page to go to
   }
 }
