@@ -19,7 +19,7 @@ object G1AboutOtherMoney extends Controller with Routing with CachedClaim {
       "answer" -> nonEmptyText.verifying(validYesNo),
       "text1" -> optional(nonEmptyText(maxLength = fifty)),
       "text2" -> optional(nonEmptyText(maxLength = fifty)))(YesNoWith2Text.apply)(YesNoWith2Text.unapply)
-      .verifying("required", YesNoWith2Text.validateOnYes(_, true, eitherClaimedBenefitSinceClaimDate))
+      .verifying("required", YesNoWith2Text.validateOnYes(_, text1Enabled = true, text2Enabled = eitherClaimedBenefitSinceClaimDate))
 
   def form(implicit claim: Claim) = Form(
     mapping(
