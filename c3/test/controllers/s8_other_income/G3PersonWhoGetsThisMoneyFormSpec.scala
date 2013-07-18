@@ -51,5 +51,18 @@ class G3PersonWhoGetsThisMoneyFormSpec extends Specification with Tags {
       )
     }
     
+    
+    "have 2 mandatory fields" in {
+      G3PersonWhoGetsThisMoney.form.bind(
+        Map("middleName" -> "middle name is optional")
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(2)
+          formWithErrors.errors(0).message must equalTo("error.required")
+          formWithErrors.errors(1).message must equalTo("error.required")
+        },
+        theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
   }
 }
