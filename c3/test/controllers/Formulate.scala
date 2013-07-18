@@ -424,4 +424,9 @@ object Formulate {
     browser.fill("#yourBenefits_text1") `with` "fizz"
     browser.submit("button[type='submit']")
   }
+
+  def personContactDetails(browser:TestBrowser) = {
+    browser.goTo("/otherMoney/personContactDetails")
+    browser.submit("button[type='submit']")
+  }
 }

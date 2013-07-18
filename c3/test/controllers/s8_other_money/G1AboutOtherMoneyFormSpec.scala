@@ -1,8 +1,6 @@
 package controllers.s8_other_money
 
 import org.specs2.mutable.{Tags, Specification}
-import models.DayMonthYear
-import scala.Some
 import models.domain.MoreAboutYou
 
 class G1AboutOtherMoneyFormSpec extends Specification with Tags {
@@ -46,14 +44,14 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
         Map("yourBenefits.answer" -> yourBenefits)
       ).fold(
         formWithErrors => {
-          formWithErrors.errors.head.message must equalTo("required")
+          formWithErrors.errors.head.message must equalTo("text1.required")
           formWithErrors.errors.length must equalTo(1)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
     
         
-    "reject text2 enabled but text2 not filled in" in { // Can't test text field2 as it requires
+    "reject text2 enabled but text2 not filled in" in {
       val moreAboutYou: MoreAboutYou = MoreAboutYou(hadPartnerSinceClaimDate = "yes", eitherClaimedBenefitSinceClaimDate = "yes",
                         beenInEducationSinceClaimDate = "yes", receiveStatePension = "yes")
       val claim = models.domain.Claim().update(moreAboutYou)
@@ -61,7 +59,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
         Map("yourBenefits.answer" -> yourBenefits, "yourBenefits.text1" -> yourBenefitsText1)
       ).fold(
         formWithErrors => {
-          formWithErrors.errors.head.message must equalTo("required")
+          formWithErrors.errors.head.message must equalTo("text2.required")
           formWithErrors.errors.length must equalTo(1)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
@@ -75,8 +73,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
         Map("yourBenefits.answer" -> yourBenefits)
       ).fold(
         formWithErrors => {
-          formWithErrors.errors.head.message must equalTo("required")
-          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors.length must equalTo(2)
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }

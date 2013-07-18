@@ -1,11 +1,11 @@
 package models.view
 
 import play.api.mvc.{Action, AnyContent, Request, Result}
-import play.api.mvc.Results.Redirect
 import play.api.cache.Cache
 import models.domain.Claim
 import play.Configuration
 import play.api.Play._
+import play.api.mvc.Results.Redirect
 
 trait CachedClaim {
   import play.api.Play
@@ -34,7 +34,7 @@ trait CachedClaim {
       } else {
         Cache.getAs[Claim](key) match {
           case Some(claim) => apply(claim)
-          case None => play.api.mvc.Results.Redirect("/timeout")
+          case None => Redirect("/timeout")
         }
       }
     }
@@ -71,7 +71,7 @@ trait CachedClaim {
             action(claim)
           } else {
             Logger.info("Claim timeout")
-            play.api.mvc.Results.Redirect("/timeout")
+            Redirect("/timeout")
           }
       }
     }

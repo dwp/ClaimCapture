@@ -17,7 +17,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
       val completedPage = page runClaimWith(claim, CompletedPage.title)
-      completedPage.titleOfSubmitButton mustEqual "Continue to Partner / Spouse"
+      completedPage.titleOfSubmitButton mustEqual "Continue to Partner/Spouse"
     }
     
     """show the text "Continue to Care You Provide" on the submit button when next section is "Care You Provide"""" in new WithBrowser {

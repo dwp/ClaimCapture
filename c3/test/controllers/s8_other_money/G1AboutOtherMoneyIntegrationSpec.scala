@@ -1,9 +1,11 @@
 package controllers.s8_other_money
 
 import org.specs2.mutable.{ Tags, Specification }
-import play.api.test.WithBrowser
-import controllers.{ BrowserMatchers, Formulate }
+import controllers.Formulate
 import org.specs2.execute.PendingUntilFixed
+import play.api.test.WithBrowser
+import utils.pageobjects.s8_other_money.G1AboutOtherMoneyPageContext
+import controllers.ClaimScenarioFactory
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with PendingUntilFixed {
   "About Other Money" should {
@@ -47,26 +49,49 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
       }
 
       "text1 and text2 enabled but neither not filled in" in new WithBrowser {
+        Formulate.claimDate(browser)
         Formulate.moreAboutYou(browser)
         browser.goTo("/otherMoney/aboutOtherMoney")
         browser.click("#yourBenefits_answer_yes")
         browser.submit("button[type='submit']")
 
-        browser.find("div[class=validation-summary] ol li").size mustEqual 1
+        browser.find("div[class=validation-summary] ol li").size mustEqual 2
       }
     }
 
     "navigate to next page on valid submission with all text fields enabled and filled in" in new WithBrowser {
       Formulate.moreAboutYou(browser)
       Formulate.aboutOtherMoney(browser)
-      browser.title mustEqual "TODO"
-    }.pendingUntilFixed("Need destination page to exist")
+      browser.title mustEqual "About Extra Money - Other Money"
+    }
 
     "navigate to next page on valid submission with first mandatory field set to no" in new WithBrowser {
-      browser.goTo("/otherIncome/aboutOtherMoney")
+      browser.goTo("/otherMoney/aboutOtherMoney")
       browser.click("#yourBenefits_answer_no")
       browser.submit("button[type='submit']")
-      browser.title mustEqual "TODO"
-    }.pendingUntilFixed("Need destination page to exist")
+      browser.title mustEqual "About Extra Money - Other Money"
+    }
+
+    "be presented" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      page goToThePage()
+    }
+    /*
+    "navigate back to Completion - Employment" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      page goToThePage()
+      val backPage = page goBack()
+      backPage must beAnInstanceOf[S7EmploymentCompleted]
+    }.pendingUntilFixed("need previous page to exist as page object")
+    */
+    "present errors if mandatory fields are not populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      page goToThePage()
+      page.submitPage().listErrors.get.size mustEqual 1
+    }
+    
+    "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      val claim = ClaimScenarioFactory.aboutOtherMoney
+      page goToThePage()
+      page fillPageWith claim
+      page submitPage()
+    }
   }
 }

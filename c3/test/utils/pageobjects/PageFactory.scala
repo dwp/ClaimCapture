@@ -5,6 +5,7 @@ import scala.language.dynamics
 import scala.collection.mutable
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
+import utils.pageobjects.s8_other_money._
 import utils.pageobjects.s6_pay_details.HowWePayYouPage
 
 
@@ -44,6 +45,9 @@ object PageFactory {
       case CompletedPage.title => CompletedPage buildPageWith(browser, previousPage)
       // S6
       case HowWePayYouPage.title => HowWePayYouPage buildPageWith(browser, previousPage)
+      // S8
+      case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage buildPageWith(browser, previousPage)
+      case G2MoneyPaidToSomeoneElseForYouPage.title => G2MoneyPaidToSomeoneElseForYouPage buildPageWith(browser, previousPage)
       // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }
