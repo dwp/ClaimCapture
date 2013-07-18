@@ -5,9 +5,8 @@ import play.api.test.{ FakeRequest, WithApplication }
 import models.domain._
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.{ DayMonthYear, domain }
+import models.domain
 import models.domain.Claim
-import scala.Some
 
 class G2MoneyPaidToSomeoneElseForYouSpec extends Specification with Tags {
   "Money paid to someone else for you - Controller" should {

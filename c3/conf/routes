@@ -144,11 +144,17 @@ POST    /education/completed                                    controllers.s6_e
 
 # Other income
 ###############
-GET     /otherMoney/aboutOtherMoney                            controllers.s8_other_money.G1AboutOtherMoney.present
-POST    /otherMoney/aboutOtherMoney                            controllers.s8_other_money.G1AboutOtherMoney.submit
+GET     /otherMoney/aboutOtherMoney                             controllers.s8_other_money.G1AboutOtherMoney.present
+POST    /otherMoney/aboutOtherMoney                             controllers.s8_other_money.G1AboutOtherMoney.submit
 
-GET     /otherMoney/moneyPaidToSomeoneElseForYou               controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.present
-GET     /otherMoney/moneyPaidToSomeoneElseForYou               controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.submit
+GET     /otherMoney/moneyPaidToSomeoneElseForYou                controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.present
+POST    /otherMoney/moneyPaidToSomeoneElseForYou                controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.submit
+
+GET     /otherMoney/personWhoGetsThisMoney                      controllers.s8_other_money.G3PersonWhoGetsThisMoney.present
+POST    /otherMoney/personWhoGetsThisMoney                      controllers.s8_other_money.G3PersonWhoGetsThisMoney.submit
+
+GET     /otherMoney/personContactDetails                       controllers.s8_other_money.G4PersonContactDetails.present
+GET     /otherMoney/personContactDetails                       controllers.s8_other_money.G4PersonContactDetails.submit
 
 # Pay Details
 ###############

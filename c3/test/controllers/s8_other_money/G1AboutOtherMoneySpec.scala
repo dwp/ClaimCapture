@@ -5,9 +5,8 @@ import play.api.test.{FakeRequest, WithApplication}
 import models.domain._
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.{DayMonthYear, domain}
+import models.domain
 import models.domain.Claim
-import scala.Some
 
 class G1AboutOtherMoneySpec extends Specification with Tags {
   "About Other Money - Controller" should {

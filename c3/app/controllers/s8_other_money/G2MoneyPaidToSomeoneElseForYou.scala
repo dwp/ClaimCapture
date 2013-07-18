@@ -31,6 +31,6 @@ object G2MoneyPaidToSomeoneElseForYou extends Controller with Routing with Cache
     implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s8_other_money.g2_moneyPaidToSomeoneElseForYou(formWithErrors, completedQuestionGroups)),
-        f => claim.update(f) -> Redirect(controllers.routes.ThankYou.present())) // TODO replace with next page to go to
+        f => claim.update(f) -> Redirect(routes.G3PersonWhoGetsThisMoney.present()))
   }
 }
