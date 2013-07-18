@@ -64,5 +64,21 @@ class G3PersonWhoGetsThisMoneyFormSpec extends Specification with Tags {
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
+    
+    "reject invalid national insurance number" in {
+      G3PersonWhoGetsThisMoney.form.bind(
+        Map("fullName" -> fullName,
+          "nationalInsuranceNumber.ni1" -> "INVALID",
+          "nationalInsuranceNumber.ni2" -> ni2.toString,
+          "nationalInsuranceNumber.ni3" -> ni3.toString,
+          "nationalInsuranceNumber.ni4" -> ni4.toString,
+          "nationalInsuranceNumber.ni5" -> ni5,
+          "nameOfBenefit" -> nameOfBenefit)).fold(
+        formWithErrors => {
+          formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber")
+          formWithErrors.errors.length must equalTo(1)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
   }
 }
