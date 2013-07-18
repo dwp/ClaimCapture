@@ -35,5 +35,21 @@ class G3PersonWhoGetsThisMoneyFormSpec extends Specification with Tags {
         }
       )
     }
+    
+    "reject too many characters in text fields" in {
+      G3PersonWhoGetsThisMoney.form.bind(
+        Map("fullName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
+          "nameOfBenefit" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS"
+        )
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(2)
+          formWithErrors.errors(0).message must equalTo("error.maxLength")
+          formWithErrors.errors(1).message must equalTo("error.maxLength")
+        },
+        theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+    
   }
 }

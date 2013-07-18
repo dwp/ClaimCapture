@@ -148,10 +148,10 @@ GET     /otherMoney/aboutOtherMoney                             controllers.s8_o
 POST    /otherMoney/aboutOtherMoney                             controllers.s8_other_money.G1AboutOtherMoney.submit
 
 GET     /otherMoney/moneyPaidToSomeoneElseForYou                controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.present
-POST     /otherMoney/moneyPaidToSomeoneElseForYou               controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.submit
+POST    /otherMoney/moneyPaidToSomeoneElseForYou                controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.submit
 
 GET     /otherMoney/personWhoGetsThisMoney                      controllers.s8_other_money.G3PersonWhoGetsThisMoney.present
-POST     /otherMoney/personWhoGetsThisMoney                     controllers.s8_other_money.G3PersonWhoGetsThisMoney.submit
+POST    /otherMoney/personWhoGetsThisMoney                      controllers.s8_other_money.G3PersonWhoGetsThisMoney.submit
 
 # Pay Details
 ###############

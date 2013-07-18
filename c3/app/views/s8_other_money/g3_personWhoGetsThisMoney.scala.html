@@ -1,6 +1,7 @@
 @(currentForm: Form[models.domain.PersonWhoGetsThisMoney], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
+@import views.html.helper.base._
 
 @main("Person Who Pays You - Other Money", Some(currentForm), completedQuestionGroups) {
     @errorsSummary(currentForm)
