@@ -150,6 +150,9 @@ POST    /otherMoney/aboutOtherMoney                            controllers.s8_ot
 GET     /otherMoney/moneyPaidToSomeoneElseForYou               controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.present
 GET     /otherMoney/moneyPaidToSomeoneElseForYou               controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.submit
 
+GET     /otherMoney/personContactDetails                       controllers.s8_other_money.G4PersonContactDetails.present
+GET     /otherMoney/personContactDetails                       controllers.s8_other_money.G4PersonContactDetails.submit
+
 # Pay Details
 ###############
 GET     /payDetails/howWePayYou                                 controllers.s6_pay_details.G1HowWePayYou.present
