@@ -50,6 +50,6 @@ object G1AboutOtherMoney extends Controller with Routing with CachedClaim {
     implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s8_other_money.g1_aboutOtherMoney(formWithErrors, completedQuestionGroups, hadPartnerSinceClaimDate, eitherClaimedBenefitSinceClaimDate)),
-        f => claim.update(f) -> Redirect(controllers.routes.ThankYou.present())) // TODO replace with next page to go to
+        f => claim.update(f) -> Redirect(routes.G2MoneyPaidToSomeoneElseForYou.present())) // TODO replace with next page to go to
   }
 }

@@ -9,7 +9,7 @@ import play.api.templates.Html
 
 object OtherMoney extends Controller with CachedClaim {
 
-  val route: ListMap[String, Call] = ListMap(G1AboutOtherMoney)
+  val route: ListMap[String, Call] = ListMap(G1AboutOtherMoney, G2MoneyPaidToSomeoneElseForYou)
 
 
   def whenVisible(claim: Claim)(closure: () => SimpleResult[Html]) = {
@@ -22,7 +22,6 @@ object OtherMoney extends Controller with CachedClaim {
 
   def completed = claiming {
     implicit claim => implicit request =>
-      //Ok(views.html.s8_other_money.g1_aboutOtherMoney(completedQuestionGroups))
       Ok(<p>Hello, world!</p>).as(HTML)
   }
 

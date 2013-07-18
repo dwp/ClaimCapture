@@ -59,14 +59,14 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
     "navigate to next page on valid submission with all text fields enabled and filled in" in new WithBrowser {
       Formulate.moreAboutYou(browser)
       Formulate.aboutOtherMoney(browser)
-      browser.title mustEqual "TODO"
-    }.pendingUntilFixed("Need destination page to exist")
+      browser.title mustEqual "About Extra Money - Other Money"
+    }
 
     "navigate to next page on valid submission with first mandatory field set to no" in new WithBrowser {
-      browser.goTo("/otherIncome/aboutOtherMoney")
+      browser.goTo("/otherMoney/aboutOtherMoney")
       browser.click("#yourBenefits_answer_no")
       browser.submit("button[type='submit']")
-      browser.title mustEqual "TODO"
-    }.pendingUntilFixed("Need destination page to exist")
+      browser.title mustEqual "About Extra Money - Other Money"
+    }
   }
 }

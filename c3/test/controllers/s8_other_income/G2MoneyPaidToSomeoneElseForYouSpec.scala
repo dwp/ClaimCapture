@@ -36,5 +36,14 @@ class G2MoneyPaidToSomeoneElseForYouSpec extends Specification with Tags {
         }
       }
     }
+
+    "redirect to the next page after a valid submission" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(formInput: _*)
+
+      val result = G2MoneyPaidToSomeoneElseForYou.submit(request)
+      
+      status(result) mustEqual SEE_OTHER
+    }
   }
 }

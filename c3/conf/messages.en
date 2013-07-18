@@ -256,6 +256,7 @@ yourBenefits.answer.label = Have you {0} claimed or received any other benefits 
 yourBenefits = Please tell us the names of the benefits or entitlements you receive
 yourBenefits.text.label = Please tell us the names of the benefits or entitlements you receive
 partnerBenefits.text.label = Please tell us the names of the benefits or entitlements your partner/spouse receive
+moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
 
 ## PAY DETAILS
 # HOW WE PAY YOU

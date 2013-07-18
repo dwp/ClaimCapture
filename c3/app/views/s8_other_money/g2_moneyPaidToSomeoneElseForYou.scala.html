@@ -1,11 +1,6 @@
 @(currentForm: Form[models.domain.MoneyPaidToSomeoneElseForYou], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
-@import common._
 @import helper._
-@import views.html.common._
-@import models.domain.Claim
-@import models.domain.ClaimDate
-@import utils.helpers.CarersTemplate._
 
 @main("About Extra Money - Other Money", Some(currentForm), completedQuestionGroups) {
     @errorsSummary(currentForm)
@@ -15,7 +10,7 @@
             <legend>Money paid to someone else for you</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("moneyAddedToBenefitSinceClaimDate"))
+                @yesNoRadioGroup(currentForm("moneyAddedToBenefitSinceClaimDate"), '_label -> Messages("moneyAddedToBenefitSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
             </ul>
         </fieldset>
 
