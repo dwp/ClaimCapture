@@ -20,6 +20,7 @@
 
     <appender name="GELF" class="me.moocar.logbackgelf.GelfAppender">
         <graylog2ServerHost>grayloghost</graylog2ServerHost>
+        <graylog2ServerPort>15514</graylog2ServerPort>
         <useLoggerName>true</useLoggerName>
         <useThreadName>true</useThreadName>
         <useMarker>true</useMarker>
