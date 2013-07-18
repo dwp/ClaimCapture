@@ -10,3 +10,7 @@ case object OtherMoney {
 case class AboutOtherMoney(yourBenefits: YesNoWith2Text) extends QuestionGroup(AboutOtherMoney.id)
 
 object AboutOtherMoney extends QuestionGroup(s"${OtherMoney.id}.g1")
+
+case class MoneyPaidToSomeoneElseForYou(moneyAddedToBenefitSinceClaimDate: String) extends QuestionGroup(MoneyPaidToSomeoneElseForYou.id)
+
+case object MoneyPaidToSomeoneElseForYou extends QuestionGroup(s"${OtherMoney.id}.g2")

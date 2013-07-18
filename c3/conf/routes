@@ -147,6 +147,8 @@ POST    /education/completed                                    controllers.s6_e
 GET     /otherMoney/aboutOtherMoney                            controllers.s8_other_money.G1AboutOtherMoney.present
 POST    /otherMoney/aboutOtherMoney                            controllers.s8_other_money.G1AboutOtherMoney.submit
 
+GET     /otherMoney/moneyPaidToSomeoneElseForYou               controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.present
+GET     /otherMoney/moneyPaidToSomeoneElseForYou               controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.submit
 
 # Pay Details
 ###############
@@ -193,6 +195,9 @@ POST    /employment/jobDetails                                  controllers.s7_e
 
 # Cache Timeout
 GET     /timeout                                                controllers.Application.timeout
+
+# Unrecoverable error
+GET     /error                                                  controllers.Application.error
 
 # Temporary submission service
 GET     /submit                                                 controllers.Submission.submit

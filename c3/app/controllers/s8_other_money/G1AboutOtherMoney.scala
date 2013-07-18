@@ -5,8 +5,7 @@ import controllers.Routing
 import models.view.CachedClaim
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import models.domain.{ Claim, AboutOtherMoney }
-import utils.helpers.CarersForm._
+import models.domain.{Claim, AboutOtherMoney}
 import controllers.Mappings._
 import models.domain.MoreAboutYou
 import models.yesNo.YesNoWith2Text
@@ -22,7 +21,6 @@ object G1AboutOtherMoney extends Controller with Routing with CachedClaim {
       .verifying("text1.required", c => YesNoWith2Text.validateText(c, c.text1))
       .verifying("text2.required", c => YesNoWith2Text.validateText(c, c.text2, eitherClaimedBenefitSinceClaimDate))
 
-
   def form(implicit claim: Claim) = Form(
     mapping(
       yourBenefitsMapping)(AboutOtherMoney.apply)(AboutOtherMoney.unapply))
@@ -33,6 +31,7 @@ object G1AboutOtherMoney extends Controller with Routing with CachedClaim {
     case Some(m: MoreAboutYou) => m.hadPartnerSinceClaimDate == yes
     case _ => false
   }
+
   def eitherClaimedBenefitSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {
     case Some(m: MoreAboutYou) => m.eitherClaimedBenefitSinceClaimDate == yes
     case _ => false
@@ -48,15 +47,17 @@ object G1AboutOtherMoney extends Controller with Routing with CachedClaim {
         Ok(views.html.s8_other_money.g1_aboutOtherMoney(currentForm, completedQuestionGroups, hadPartnerSinceClaimDate, eitherClaimedBenefitSinceClaimDate))
   }
 
-  def submit = claiming { implicit claim =>
-    implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => {
-          val formWithErrorsUpdate = formWithErrors
-            .replaceError("yourBenefits", "text1.required", FormError("yourBenefits.text1", "error.required"))
-            .replaceError("yourBenefits", "text2.required", FormError("yourBenefits.text2", "error.required"))
-          BadRequest(views.html.s8_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, completedQuestionGroups, hadPartnerSinceClaimDate, eitherClaimedBenefitSinceClaimDate))
-        },
-        f => claim.update(f) -> Redirect(controllers.routes.ThankYou.present())) // TODO replace with next page to go to
+  def submit = claiming {
+    implicit claim =>
+      implicit request =>
+        form.bindEncrypted.fold(
+          formWithErrors => {
+            val formWithErrorsUpdate = formWithErrors
+              .replaceError("yourBenefits", "text1.required", FormError("yourBenefits.text1", "error.required"))
+              .replaceError("yourBenefits", "text2.required", FormError("yourBenefits.text2", "error.required"))
+            BadRequest(views.html.s8_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, completedQuestionGroups, hadPartnerSinceClaimDate, eitherClaimedBenefitSinceClaimDate))
+          },
+          f => claim.update(f) -> Redirect(routes.G2MoneyPaidToSomeoneElseForYou.present()))
+
   }
 }
