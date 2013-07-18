@@ -147,6 +147,8 @@ POST    /education/completed                                    controllers.s6_e
 GET     /otherMoney/aboutOtherMoney                            controllers.s8_other_money.G1AboutOtherMoney.present
 POST    /otherMoney/aboutOtherMoney                            controllers.s8_other_money.G1AboutOtherMoney.submit
 
+GET     /otherMoney/moneyPaidToSomeoneElseForYou                            controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.present
+
 
 # Pay Details
 ###############
