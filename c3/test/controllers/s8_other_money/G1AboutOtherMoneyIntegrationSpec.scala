@@ -5,6 +5,7 @@ import controllers.Formulate
 import org.specs2.execute.PendingUntilFixed
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_other_money.G1AboutOtherMoneyPageContext
+import controllers.ClaimScenarioFactory
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with PendingUntilFixed {
   "About Other Money" should {
@@ -73,6 +74,24 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
 
     "be presented" in new WithBrowser with G1AboutOtherMoneyPageContext {
       page goToThePage()
+    }
+    /*
+    "navigate back to Completion - Employment" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      page goToThePage()
+      val backPage = page goBack()
+      backPage must beAnInstanceOf[S7EmploymentCompleted]
+    }.pendingUntilFixed("need previous page to exist as page object")
+    */
+    "present errors if mandatory fields are not populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      page goToThePage()
+      page.submitPage().listErrors.get.size mustEqual 1
+    }
+    
+    "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      val claim = ClaimScenarioFactory.aboutOtherMoney
+      page goToThePage()
+      page fillPageWith claim
+      page submitPage()
     }
   }
 }

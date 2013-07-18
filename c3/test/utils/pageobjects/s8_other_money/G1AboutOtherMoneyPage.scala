@@ -5,9 +5,9 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G1AboutOtherMoneyPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1AboutOtherMoneyPage.url, G1AboutOtherMoneyPage.title, previousPage) { 
   def fillPageWith(theClaim: ClaimScenario) {
-    fillSelect("#yourBenefits.answer", theClaim.OtherMoneyAboutYourBenefits)
-    fillNino("#yourBenefits.text1",theClaim.OtherMoneyYourBenefitsText1)
-    fillYesNo("#yourBenefits.text2", theClaim.OtherMoneyYourBenefitsText2)
+    fillYesNo("#yourBenefits.answer", theClaim.OtherMoneyAboutYourBenefits)
+    fillInput("#yourBenefits.text1",theClaim.OtherMoneyYourBenefitsText1)
+    fillInput("#yourBenefits.text2", theClaim.OtherMoneyYourBenefitsText2)
   }
 }
 
