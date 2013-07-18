@@ -9,6 +9,7 @@ import models.domain.{Claim, AboutOtherMoney}
 import controllers.Mappings._
 import models.domain.MoreAboutYou
 import models.yesNo.YesNoWith2Text
+import utils.helpers.CarersForm._
 
 object G1AboutOtherMoney extends Controller with Routing with CachedClaim {
   override val route = AboutOtherMoney.id -> routes.G1AboutOtherMoney.present
