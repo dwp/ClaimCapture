@@ -10,4 +10,8 @@ object Application extends Controller {
   def timeout = Action {
     Ok(views.html.common.session_timeout())
   }
+
+  def error = Action {
+    Ok(views.html.common.error())
+  }
 }

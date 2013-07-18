@@ -196,6 +196,9 @@ POST    /employment/jobDetails                                  controllers.s7_e
 # Cache Timeout
 GET     /timeout                                                controllers.Application.timeout
 
+# Unrecoverable error
+GET     /error                                                  controllers.Application.error
+
 # Temporary submission service
 GET     /submit                                                 controllers.Submission.submit
 
