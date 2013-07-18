@@ -1,0 +1,53 @@
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel"/>
+
+    <appender name="APPLICATION_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${application.home}/logs/application.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${application.home}/logs/application_archive/application.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%coloredLevel %d %logger{15} - %message%n%xException{5}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="GELF" class="me.moocar.logbackgelf.GelfAppender">
+        <graylog2ServerHost>grayloghost</graylog2ServerHost>
+        <useLoggerName>true</useLoggerName>
+        <useThreadName>true</useThreadName>
+        <useMarker>true</useMarker>
+        <graylog2ServerVersion>0.9.6</graylog2ServerVersion>
+        <chunkThreshold>1000</chunkThreshold>
+        <messagePattern>%m%rEx</messagePattern>
+        <shortMessagePattern>%.-100(%m%rEx)</shortMessagePattern>
+    </appender>
+
+    <appender name="ASYNC_APPLICATION_LOG" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="APPLICATION_LOG"/>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%coloredLevel %logger{15} - %message%n%xException{5}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="play" level="INFO"/>
+
+    <logger name="application" level="INFO" additivity="false">
+        <appender-ref ref="GELF"/>
+        <appender-ref ref="ASYNC_APPLICATION_LOG"/>
+    </logger>
+
+    <root level="ERROR">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
