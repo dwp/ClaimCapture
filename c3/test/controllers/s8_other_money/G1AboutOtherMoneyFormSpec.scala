@@ -1,8 +1,6 @@
 package controllers.s8_other_money
 
 import org.specs2.mutable.{Tags, Specification}
-import models.DayMonthYear
-import scala.Some
 import models.domain.MoreAboutYou
 
 class G1AboutOtherMoneyFormSpec extends Specification with Tags {

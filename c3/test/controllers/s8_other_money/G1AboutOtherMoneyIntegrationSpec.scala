@@ -1,9 +1,9 @@
 package controllers.s8_other_money
 
 import org.specs2.mutable.{ Tags, Specification }
-import play.api.test.WithBrowser
-import controllers.{ BrowserMatchers, Formulate }
+import controllers.Formulate
 import org.specs2.execute.PendingUntilFixed
+import play.api.test.WithBrowser
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with PendingUntilFixed {
   "About Other Money" should {

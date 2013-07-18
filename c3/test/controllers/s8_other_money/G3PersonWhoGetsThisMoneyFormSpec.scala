@@ -2,7 +2,6 @@ package controllers.s8_other_money
 
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
-
 import models.NationalInsuranceNumber
 
 class G3PersonWhoGetsThisMoneyFormSpec extends Specification with Tags {
