@@ -74,7 +74,7 @@ object ClaimScenarioFactory {
 
 
   def s8otherMoney = {
-    val claim =new ClaimScenario
+    val claim = s2AboutYouWithTimeOutside()
     //About other money
     claim.OtherMoneyAboutYourBenefits = "no"
     //Money paid to someone welse for you

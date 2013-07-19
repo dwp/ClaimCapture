@@ -53,29 +53,21 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to Person Who Gets This Money" in new WithBrowser with ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
+      val claimS2 = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage ()
-      page fillPageWith claim
+      page fillPageWith claimS2
       val moreAboutYouPage = page.submitPage()
-      moreAboutYouPage fillPageWith claim
-      val nextPage = moreAboutYouPage.submitPage()
+      moreAboutYouPage fillPageWith claimS2
+      val employmentPage = moreAboutYouPage.submitPage()
 
       val claimS8 = ClaimScenarioFactory.s8otherMoney
-      val s8g3 = page goToPage (new G3PersonWhoGetsThisMoneyPage(browser))
-      s8g3 goToThePage ()
+      val s8g3 = employmentPage goToPage (new G3PersonWhoGetsThisMoneyPage(browser))
       s8g3 fillPageWith claimS8
-      val g4 = s8g3 submitPage ()
-      val previousPage = g4 goBack ()
-      previousPage must beAnInstanceOf[G3PersonWhoGetsThisMoneyPage]
-      //val g4 = G4PersonContactDetailsPage.buildPageWith(browser, Some(new G3PersonWhoGetsThisMoneyPage(browser)))
-      //g4 goToThePage()
-      //val g3 = g4 goBack()
-      //g3.pageTitle mustEqual "Person Who Gets This Money - Other Money"
-      //      //      browser.goTo("/yourPartner/contactDetails")
-      //      //      browser.click("#backButton")
-      //      //      browser.title mustEqual "Personal Details - Your Partner"
-      //      pending
-    }.pendingUntilFixed("figure out how to make this work")
+      val s8g4 = s8g3 submitPage ()
+      val previousPage = s8g4 goBack ()
+      previousPage.pageTitle mustEqual "Person Who Gets This Money - Other Money"
+      //previousPage must beAnInstanceOf[G3PersonWhoGetsThisMoneyPage]
+    }
 
     //    "navigate to next page on valid submission" in new WithBrowser {
     //      pending
