@@ -38,7 +38,9 @@ object G5MoreAboutYou extends Controller with CachedClaim {
       formWithErrors => BadRequest(views.html.s2_about_you.g5_moreAboutYou(formWithErrors, completedQuestionGroups)),
       moreAboutYou => {
         val updatedClaim = claim.showHideSection(moreAboutYou.hadPartnerSinceClaimDate == yes, YourPartner).
+            showHideSection(moreAboutYou.eitherClaimedBenefitSinceClaimDate == yes, OtherMoney).
             showHideSection(moreAboutYou.beenInEducationSinceClaimDate == yes, Education)
+            
             
         updatedClaim.update(moreAboutYou) -> Redirect(routes.G6Employment.present())
       })

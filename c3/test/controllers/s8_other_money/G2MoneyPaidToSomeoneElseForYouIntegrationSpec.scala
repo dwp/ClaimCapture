@@ -28,14 +28,14 @@ class G2MoneyPaidToSomeoneElseForYouIntegrationSpec extends Specification with T
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with G2MoneyPaidToSomeoneElseForYouPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoneyG1AboutOtherMoney()
+      val claim = ClaimScenarioFactory.s8otherMoney
       page goToThePage()
       page fillPageWith claim
       page submitPage()
     }
     
     "contain 1 completed form" in new WithBrowser with G2MoneyPaidToSomeoneElseForYouPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoneyG1AboutOtherMoney()
+      val claim = ClaimScenarioFactory.s8otherMoney
       page goToThePage()
       page fillPageWith claim
       page submitPage() match {

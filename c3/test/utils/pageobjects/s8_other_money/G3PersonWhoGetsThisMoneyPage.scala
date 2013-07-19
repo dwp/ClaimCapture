@@ -17,7 +17,7 @@ object G3PersonWhoGetsThisMoneyPage {
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2MoneyPaidToSomeoneElseForYouPage(browser,previousPage)
 }
 
-trait GPersonWhoGetsThisMoneyPageContext extends PageContext {
+trait G3PersonWhoGetsThisMoneyPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
   val page = G3PersonWhoGetsThisMoneyPage buildPageWith browser
 }

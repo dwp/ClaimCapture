@@ -73,7 +73,7 @@ object ClaimScenarioFactory {
   }
 
 
-  def s8otherMoneyG1AboutOtherMoney() = {
+  def s8otherMoney = {
     val claim =new ClaimScenario
     //About other money
     claim.OtherMoneyAboutYourBenefits = "no"
