@@ -2,7 +2,7 @@ package controllers.s8_other_money
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s8_other_money.{PersonContactDetailsPage, PersonContactDetailsPageContext}
+import utils.pageobjects.s8_other_money.{G4PersonContactDetailsPage, G4PersonContactDetailsPageContext}
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s2_about_you.{ClaimDatePageContext, MoreAboutYouPageContext}
 import controllers.ClaimScenarioFactory
@@ -12,7 +12,7 @@ import utils.pageobjects.s8_other_money.G1AboutOtherMoneyPageContext
 class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
 
   "Person Contact Details" should {
-    "be presented" in new WithBrowser with PersonContactDetailsPageContext {
+    "be presented" in new WithBrowser with G4PersonContactDetailsPageContext {
       page goToThePage()
     }
 
@@ -27,11 +27,11 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
       moreAboutYouPage fillPageWith claim
       val nextPage = moreAboutYouPage.submitPage()
 
-      nextPage.goToPage(new PersonContactDetailsPage(browser))
+      nextPage.goToPage(new G4PersonContactDetailsPage(browser))
 
     }
 
-    "contain errors on invalid submission" in new WithBrowser with PersonContactDetailsPageContext {
+    "contain errors on invalid submission" in new WithBrowser with G4PersonContactDetailsPageContext {
       val claim = new ClaimScenario
       claim.OtherMoneyPostCode = "INVALID"
       page goToThePage()
@@ -45,7 +45,7 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       val moneyPaidPage = page submitPage()
-      val personContactPage = moneyPaidPage.goToPage(new PersonContactDetailsPage(browser))
+      val personContactPage = moneyPaidPage.goToPage(new G4PersonContactDetailsPage(browser))
       personContactPage.listCompletedForms.size mustEqual 1
     }
 
