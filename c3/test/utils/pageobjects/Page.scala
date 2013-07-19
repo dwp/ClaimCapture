@@ -144,7 +144,7 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * @param throwException Should the page throw an exception if landed on different page? By default yes.
    * @return Page object presenting the page. It could be different from current if landed on different page and specified no exception to be thrown.
    */
-  override def goToThePage(throwException: Boolean = true) = throw new PageObjectException("Cannot go to an unknown page")
+  override def goToThePage(throwException: Boolean = true) = throw new PageObjectException("Cannot go to an unknown page: " + pageTitle)
 
   /**
    * Throws a PageObjectException.

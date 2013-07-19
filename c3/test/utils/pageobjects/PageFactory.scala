@@ -7,6 +7,7 @@ import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s8_other_money._
 import utils.pageobjects.s6_pay_details.HowWePayYouPage
+import utils.pageobjects.s3_your_partner.YourPartnerPersonalDetailsPage
 
 
 /**
@@ -43,6 +44,8 @@ object PageFactory {
       case EmploymentPage.title => EmploymentPage buildPageWith(browser, previousPage)
       case PropertyAndRentPage.title => PropertyAndRentPage buildPageWith(browser, previousPage)
       case CompletedPage.title => CompletedPage buildPageWith(browser, previousPage)
+      // S3
+      case YourPartnerPersonalDetailsPage.title => YourPartnerPersonalDetailsPage buildPageWith(browser,previousPage)
       // S6
       case HowWePayYouPage.title => HowWePayYouPage buildPageWith(browser, previousPage)
       // S8

@@ -29,13 +29,12 @@ final class YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] = N
 
 /**
  * Companion object that integrates factory method.
- * It is used by PageFactory object defined in Page.scala
+ * It is used by PageFactory object defined in PageFactory.scala
  */
 object YourDetailsPage {
   val title = "Your Details - About You"
   val url  = "/aboutyou/yourDetails"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new YourDetailsPage(browser,previousPage)
-//  PageFactory.registerPageBuilder[YourDetailsPage](title, buildPageWith)
 }
 
 /** The context for Specs tests */
