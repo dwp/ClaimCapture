@@ -49,12 +49,10 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
 
     "add two trips and edit the second's start year" in new TripWithBrowser {
-      skipped
-
-      /*trip(fourWeeks)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(1, TimeUnit.SECONDS))
       trip(fourWeeks)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(1, TimeUnit.SECONDS))
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(5, TimeUnit.SECONDS))
+      trip(fourWeeks)
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(5, TimeUnit.SECONDS))
 
       browser.findFirst("input[value='Edit']").click()
       titleMustEqual("Trip - Time Spent Abroad")(Duration(1, TimeUnit.SECONDS))
@@ -62,10 +60,10 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
       browser.fill("#start_year") `with` "1999"
       browser.submit("button[type='submit']")
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(1, TimeUnit.SECONDS))
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(5, TimeUnit.SECONDS))
 
       browser.$("tbody tr").size() shouldEqual 2
-      browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")*/
+      browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
     }
 
     "allow cancellation" in new TripWithBrowser {
