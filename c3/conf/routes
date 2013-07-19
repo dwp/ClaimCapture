@@ -154,7 +154,7 @@ GET     /otherMoney/personWhoGetsThisMoney                      controllers.s8_o
 POST    /otherMoney/personWhoGetsThisMoney                      controllers.s8_other_money.G3PersonWhoGetsThisMoney.submit
 
 GET     /otherMoney/personContactDetails                       controllers.s8_other_money.G4PersonContactDetails.present
-GET     /otherMoney/personContactDetails                       controllers.s8_other_money.G4PersonContactDetails.submit
+POST    /otherMoney/personContactDetails                       controllers.s8_other_money.G4PersonContactDetails.submit
 
 # Pay Details
 ###############
