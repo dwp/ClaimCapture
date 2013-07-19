@@ -84,7 +84,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
     */
     "present errors if mandatory fields are not populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
       page goToThePage()
-      page.submitPage().listErrors.get.size mustEqual 1
+      page.submitPage().listErrors.size mustEqual 1
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
