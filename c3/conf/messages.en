@@ -204,7 +204,7 @@ whereYou.location = Where were you during the above break?
 wherePerson = Where was the person you care for during the above break?
 wherePerson_location = Where was the person you care for during the above break?
 wherePerson.location = Where was the person you care for during the above break?
-medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
+medicalDuringBreak = Did you or the person you care for receive any medical treatment or professional care during the above break?
 
 ## TIME SPENT ABROAD
 
