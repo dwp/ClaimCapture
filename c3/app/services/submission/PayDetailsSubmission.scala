@@ -4,8 +4,8 @@ import models.domain._
 
 object PayDetailsSubmission {
   def buildPayDetails(claim: Claim) = {
-    val howWePayYou: HowWePayYou          = getQuestionGroup(claim,HowWePayYou)
-    val bank : BankBuildingSocietyDetails = getQuestionGroup(claim,BankBuildingSocietyDetails)
+    val howWePayYou: HowWePayYou          = getQuestionGroup(claim, HowWePayYou)
+    val bank : BankBuildingSocietyDetails = getQuestionGroup(claim, BankBuildingSocietyDetails)
 
     PayDetails(howWePayYou,bank)
   }
@@ -45,11 +45,11 @@ object PayDetailsSubmission {
     </Payment>
   }
 
-  private def getQuestionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
-    claim.questionGroup(questionGroup).asInstanceOf[Option[T]].get
+  private def getQuestionGroup[T](claim: Claim, qi: QuestionGroup.Identifier) = {
+    claim.questionGroup(qi).asInstanceOf[Option[T]].get
   }
 
-  private def questionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
-    claim.questionGroup(questionGroup).asInstanceOf[Option[T]]
+  private def questionGroup[T](claim: Claim, qi: QuestionGroup.Identifier) = {
+    claim.questionGroup(qi).asInstanceOf[Option[T]]
   }
 }

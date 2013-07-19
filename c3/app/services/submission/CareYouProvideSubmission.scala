@@ -124,11 +124,11 @@ object CareYouProvideSubmission {
     </Caree>
   }
 
-  private def getQuestionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
-    claim.questionGroup(questionGroup).asInstanceOf[Option[T]].get
+  private def getQuestionGroup[T](claim: Claim, qi: QuestionGroup.Identifier) = {
+    claim.questionGroup(qi).asInstanceOf[Option[T]].get
   }
 
-  private def questionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
-    claim.questionGroup(questionGroup).asInstanceOf[Option[T]]
+  private def questionGroup[T](claim: Claim, qi: QuestionGroup.Identifier) = {
+    claim.questionGroup(qi).asInstanceOf[Option[T]]
   }
 }

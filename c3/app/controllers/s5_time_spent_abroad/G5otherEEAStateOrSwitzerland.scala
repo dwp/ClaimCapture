@@ -4,15 +4,12 @@ import play.api.mvc.Controller
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.view.CachedClaim
-import controllers.Routing
 import models.domain.{Claim, OtherEEAStateOrSwitzerland}
 import controllers.Mappings._
 import models.yesNo.YesNoWithText
 import utils.helpers.CarersForm._
 
-object G5otherEEAStateOrSwitzerland extends Controller with Routing with CachedClaim {
-  override val route = OtherEEAStateOrSwitzerland.id -> routes.G5otherEEAStateOrSwitzerland.present
-
+object G5otherEEAStateOrSwitzerland extends Controller with CachedClaim {
   val benefitsFromOtherEEAStateOrSwitzerlandMapping =
     "benefitsFromOtherEEAStateOrSwitzerland" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -22,6 +19,7 @@ object G5otherEEAStateOrSwitzerland extends Controller with Routing with CachedC
 
   val form = Form(
     mapping(
+      "call" -> ignored(routes.G5otherEEAStateOrSwitzerland.present()),
       benefitsFromOtherEEAStateOrSwitzerlandMapping,
       "workingForOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo)
     )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply))

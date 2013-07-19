@@ -4,15 +4,13 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
 import models.domain.{LivesInGB, Claim}
 
-object G4LivesInGB extends Controller with Routing with CachedClaim {
-  override val route = LivesInGB.id -> routes.G4LivesInGB.present
-
+object G4LivesInGB extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      "call" -> ignored(routes.G4LivesInGB.present()),
       "answer" -> boolean
     )(LivesInGB.apply)(LivesInGB.unapply))
 

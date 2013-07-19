@@ -6,7 +6,7 @@ import org.specs2.mock.Mockito
 class BreaksInCareSpec extends Specification with Mockito {
   "Breaks in care" should {
     "give zero breaks upon deleting from no existing breaks in care" in {
-      val breaksInCare = BreaksInCare()
+      val breaksInCare = BreaksInCare(NoRouting)
 
       val updatedBreaksInCare = breaksInCare delete "non existing break ID"
       updatedBreaksInCare.breaks.size mustEqual 0
@@ -15,7 +15,8 @@ class BreaksInCareSpec extends Specification with Mockito {
     "give zero breaks upon deleting the only break" in {
       val break = mock[Break]
       break.id returns "breakID"
-      val breaksInCare = BreaksInCare(List(break))
+
+      val breaksInCare = BreaksInCare(NoRouting).update(break)
       breaksInCare.breaks.size mustEqual 1
 
       val updatedBreaksInCare = breaksInCare delete break.id
@@ -32,7 +33,7 @@ class BreaksInCareSpec extends Specification with Mockito {
       val break3 = mock[Break]
       break3.id returns "break3ID"
 
-      val breaksInCare = BreaksInCare(List(break1, break2, break3))
+      val breaksInCare = BreaksInCare(NoRouting).update(break1).update(break2).update(break3)
       breaksInCare.breaks.size mustEqual 3
 
       val updatedBreaksInCare = breaksInCare delete break2.id

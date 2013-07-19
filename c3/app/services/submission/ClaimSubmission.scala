@@ -30,7 +30,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
         <OutOfGreatBritain>no</OutOfGreatBritain>
       </Residency>
       <CourseOfEducation>yes</CourseOfEducation>
-      {EducationSubmission.xml(claim.section(Education.id))}
+      {EducationSubmission.xml(claim.section(Education))}
       <SelfEmployed>no</SelfEmployed>
       <Employed>yes</Employed>
       <Employment>

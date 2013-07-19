@@ -7,7 +7,7 @@
     <div id="wrapper" class="carers-allowance">
         <main role="main">
 
-            @progressBar(Education.id)
+            @progressBar(Education)
 
             <section>
                 <header>
@@ -19,8 +19,8 @@
                         <ul>
                             @for(completedQuestionGroup <- completedQuestionGroups) {
                                 <li>
-                                    <h3>@Messages(completedQuestionGroup.id)</h3>
-                                    <a href="@controllers.s6_education.Education.route(completedQuestionGroup.id)">Change these answers</a>
+                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                    <a href="@completedQuestionGroup.call">Change these answers</a>
                                 </li>
                             }
                         </ul>

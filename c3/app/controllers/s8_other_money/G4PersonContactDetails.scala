@@ -1,7 +1,6 @@
 package controllers.s8_other_money
 
 import play.api.mvc.Controller
-import controllers.Routing
 import models.view.CachedClaim
 import models.domain.{Claim, PersonContactDetails}
 import play.api.data.Form
@@ -9,16 +8,14 @@ import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
 
-object G4PersonContactDetails extends Controller with Routing with CachedClaim {
-
-  override val route = PersonContactDetails.id -> routes.G4PersonContactDetails.present
-
+object G4PersonContactDetails extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PersonContactDetails)
 
   val form = Form(
     mapping(
       "address" -> optional(address),
-      "postcode" -> optional(text verifying validPostcode)
+      "postcode" -> optional(text verifying validPostcode),
+      "call" -> ignored(routes.G4PersonContactDetails.present())
     )(PersonContactDetails.apply)(PersonContactDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
@@ -35,6 +32,4 @@ object G4PersonContactDetails extends Controller with Routing with CachedClaim {
       f => claim.update(f) -> Redirect(routes.G4PersonContactDetails.present()) // TODO replace with next page to go to
     )
   }
-
 }
-

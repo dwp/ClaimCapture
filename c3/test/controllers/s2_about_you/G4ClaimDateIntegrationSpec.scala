@@ -1,23 +1,25 @@
 package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
-import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
+import controllers.{BrowserMatchers, Formulate}
 import play.api.test.WithBrowser
-import utils.pageobjects.s2_about_you.{ClaimDatePage, YourDetailsPageContext, ClaimDatePageContext}
 
 class G4ClaimDateIntegrationSpec extends Specification with Tags {
 
   "Claim Date" should {
-    "be presented" in new WithBrowser with ClaimDatePageContext {
-      page goToThePage()
+    sequential
+
+    "be presented" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/aboutyou/claimDate")
+      titleMustEqual("Claim Date - About You")
     }
 
-    "contain 3 completed forms" in new WithBrowser with YourDetailsPageContext {
-      val claim = ClaimScenarioFactory s2AboutYouWithTimeOutside()
-      page goToThePage()
-      val claimDatePage = page runClaimWith(claim, ClaimDatePage.title)
-      // Completed about you, contact, time outside uk
-      claimDatePage.numberSectionsCompleted() mustEqual 3
+    "contain 2 completed forms" in new WithBrowser with BrowserMatchers {
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+
+      titleMustEqual("Claim Date - About You")
+      browser.find("div[class=completed] ul li").size() mustEqual 2
     }
 
     "fill date" in new WithBrowser with BrowserMatchers {
@@ -37,8 +39,8 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
 
       browser.fill("#dateOfClaim_year") `with` "1950"
       browser.submit("button[type='submit']")
-
       titleMustEqual("Claim Date - About You")
+
       browser.find("p[class=error]").size() must beGreaterThan(0)
       browser.find("p[class=error]").get(0).getText mustEqual "Invalid value"
     }

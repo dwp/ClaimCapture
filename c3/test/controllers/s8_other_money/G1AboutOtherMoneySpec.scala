@@ -29,7 +29,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
 
       val result = G1AboutOtherMoney.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.OtherMoney.id)
+      val section: Section = claim.section(domain.OtherMoney)
 
       section.questionGroup(AboutOtherMoney) must beLike {
         case Some(f: AboutOtherMoney) => {

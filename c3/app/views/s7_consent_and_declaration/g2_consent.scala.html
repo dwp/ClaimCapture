@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Consent],completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.Consent], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -15,6 +15,7 @@
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("informationFromEmployer"))
+
                 @otherDetailPlaceHolder(
                     inputDef = Seq(carersInputTextArea(currentForm("why"), 'placeholder->Messages("why_placeholder") )),
                     'id->"whyWrapper",
@@ -22,34 +23,31 @@
                 )
 
                 @yesNoRadioGroup(currentForm("informationFromPerson"))
+
                 @otherDetailPlaceHolder(
                     inputDef = Seq(carersInputTextArea(currentForm("whyPerson"), 'placeholder->Messages("why_placeholder") )),
                     'id->"whyPersonWrapper",
                     'display -> {if( currentForm("informationFromPerson").value.getOrElse("yes") == "no" ) "yes" else "no"}
                 )
-
-
-
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a href="@backHref(controllers.s7_consent_and_declaration.ConsentAndDeclaration.route,completedQuestionGroups)" id="backButton" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.Consent)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
-
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s7_consent_and_declaration/g2_consent.js")'></script>
 
 <script type="text/javascript">
     $(function() {
-    window.initEvents( "@CarersCrypto.encryptAES("informationFromEmployer_yes")",
-    "@CarersCrypto.encryptAES("informationFromEmployer_no")",
-    "@CarersCrypto.encryptAES("informationFromPerson_yes")",
-    "@CarersCrypto.encryptAES("informationFromPerson_no")",
-    "@CarersCrypto.encryptAES("why")","whyWrapper",
-    "@CarersCrypto.encryptAES("whyPerson")","whyPersonWrapper");
+        window.initEvents( "@CarersCrypto.encryptAES("informationFromEmployer_yes")",
+        "@CarersCrypto.encryptAES("informationFromEmployer_no")",
+        "@CarersCrypto.encryptAES("informationFromPerson_yes")",
+        "@CarersCrypto.encryptAES("informationFromPerson_no")",
+        "@CarersCrypto.encryptAES("why")","whyWrapper",
+        "@CarersCrypto.encryptAES("whyPerson")","whyPersonWrapper");
     });
 </script>

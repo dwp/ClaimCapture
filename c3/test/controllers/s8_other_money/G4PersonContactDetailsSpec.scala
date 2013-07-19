@@ -26,7 +26,7 @@ class G4PersonContactDetailsSpec extends Specification with Tags {
 
       val result = controllers.s8_other_money.G4PersonContactDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(models.domain.OtherMoney.id)
+      val section: Section = claim.section(models.domain.OtherMoney)
 
       section.questionGroup(PersonContactDetails) must beLike {
         case Some(f: PersonContactDetails) => {

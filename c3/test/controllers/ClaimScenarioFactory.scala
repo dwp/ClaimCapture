@@ -88,22 +88,16 @@ object ClaimScenarioFactory {
   }
 
 
-  def aboutOtherMoney() = {
-    val claim = yourDetailsWithNotTimeOutside
-    claim.OtherMoneyAboutYourBenefits = "yes"
-    claim.OtherMoneyYourBenefitsText1 = "bar"
-    claim.OtherMoneyYourBenefitsText2 = "fizz"
-    claim
-  }
-  
-  def aboutExtraMoney() = {
-    val claim = aboutOtherMoney()
-    claim.OtherMoneyG2MoneyPaidToSomeoneElseForYou = "yes"
-    claim
-  }
-  
-  def s8OtherMoney() = {
-    val claim = aboutOtherMoney()
+  def s8otherMoneyG1AboutOtherMoney() = {
+    val claim =new ClaimScenario
+    //About other money
+    claim.OtherMoneyAboutYourBenefits = "no"
+    //Money paid to someone welse for you
+    claim.OtherMoneyG2MoneyPaidToSomeoneElseForYou = "no"
+    //Person Who Gets This Money
+    claim.OtherMoneyG3FullName = "Jason"
+    claim.OtherMoneyG3NameOfBenefit = "Benefit Name"
+
     claim
   }
 }

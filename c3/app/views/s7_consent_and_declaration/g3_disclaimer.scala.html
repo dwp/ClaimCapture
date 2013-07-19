@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Disclaimer],completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.Disclaimer], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import models.domain.TheirPersonalDetails
 
@@ -17,15 +17,14 @@
             <legend>Disclaimer</legend>
 
             <div class="declaration">
-            @for(i <- 1 to 7){
-                <p>
-                    @defining(claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName+" "+m.middleName.getOrElse("")+(if (m.middleName.isDefined) " " else "")+m.surname )){ str =>
+                @for(i <- 1 to 7) {
+                    <p>
+                        @defining(claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName + " " + m.middleName.getOrElse("") + (if (m.middleName.isDefined) " " else "") + m.surname )){ str =>
 
-                        @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]",str))
-                    }
-                </p>
-            }
-
+                            @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]", str))
+                        }
+                    </p>
+                }
             </div>
 
             <div class="group declare">
@@ -34,9 +33,8 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a href="@backHref(ConsentAndDeclaration.route,completedQuestionGroups)" id="backButton" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.Disclaimer)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
-
 }

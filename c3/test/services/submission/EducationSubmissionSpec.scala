@@ -27,9 +27,9 @@ class EducationSubmissionSpec extends Specification with Tags {
   "Education Submission" should {
     "generate xml" in {
 
-      val yourCourseDetails = YourCourseDetails(courseType, courseTitle, startDate, expectedEndDate, finishedDate, studentRefNr)
-      val addressOfSchool = AddressOfSchoolCollegeOrUniversity(schoolName, tutorName, address, postcode, phoneNumber, faxNumber)
-      val educationXml = EducationSubmission.xml(Section(Education.id, yourCourseDetails :: addressOfSchool :: Nil))
+      val yourCourseDetails = YourCourseDetails(NoRouting, courseType, courseTitle, startDate, expectedEndDate, finishedDate, studentRefNr)
+      val addressOfSchool = AddressOfSchoolCollegeOrUniversity(NoRouting, schoolName, tutorName, address, postcode, phoneNumber, faxNumber)
+      val educationXml = EducationSubmission.xml(Section(Education, yourCourseDetails :: addressOfSchool :: Nil))
 
       val courseDetailsXml = educationXml \\ "FullTimeEducation" \\ "CourseDetails"
       (courseDetailsXml \\ "Type").text mustEqual courseType.get

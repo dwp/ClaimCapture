@@ -1,4 +1,4 @@
-@(title: String, completedForms: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim)
 
 @import models.domain._
 @import helper._
@@ -10,27 +10,26 @@
                 <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
             </div>
             
-             @progressBar(AboutYou.id)
+             @progressBar(AboutYou)
 
             <section>
-  
 
                 <header>
                     <h1>About you - the Carer</h1>
                 </header>
 
-                @if(completedForms.size > 0) {
+                @if(completedQuestionGroups.size > 0) {
                     <div class="completed">
                         <ul>
-                            @for(completedForm <- completedForms) {
+                            @for(completedQuestionGroup <- completedQuestionGroups) {
                                 <li>
-                                    @if(completedForm.id == ClaimDate.id){
-                                        <h3>@Messages(completedForm.id, claim.dateOfClaim.get.`dd/MM/yyyy`)</h3>
-                                    }else{
-                                        <h3>@Messages(completedForm.id)</h3>
+                                    @if(completedQuestionGroup.identifier == ClaimDate) {
+                                        <h3>@Messages(completedQuestionGroup.identifier.id, claim.dateOfClaim.get.`dd/MM/yyyy`)</h3>
+                                    } else {
+                                        <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
                                     }
 
-                                    <a href="@controllers.s2_about_you.AboutYou.route(completedForm.id)">Change these answers</a>
+                                    <a href="@completedQuestionGroup.call">Change these answers</a>
                                 </li>
                             }
                         </ul>

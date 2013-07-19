@@ -95,6 +95,13 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     } else None
   }
 
+  def listCompletedForms = findTarget("div[class=completed] ul li")
+  
+  def findTarget(target: String) : List[String] = {
+    val rawErrors = browser.find(target)
+    if (!rawErrors.isEmpty) new JListWrapper(rawErrors.getTexts).toList
+    else List()
+  }
 
   // ==================================================================
   //  NON PUBLIC FUNCTIONS

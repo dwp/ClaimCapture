@@ -25,16 +25,16 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito with 
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerContactDetailsInput: _*)
 
-      val result = controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit(request)
+      val result = G5PreviousCarerContactDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id)
+      val section: Section = claim.section(domain.CareYouProvide)
 
       section.questionGroup(PreviousCarerContactDetails) must beLike {
-        case Some(f: PreviousCarerContactDetails) => {
-          f.address.get.lineOne mustEqual Some(addressLineOne)
-          f.postcode mustEqual Some(postcode)
-          f.phoneNumber mustEqual Some(phoneNumber)
-          f.mobileNumber mustEqual Some(mobileNumber)
+        case Some(p: PreviousCarerContactDetails) => {
+          p.address.get.lineOne mustEqual Some(addressLineOne)
+          p.postcode mustEqual Some(postcode)
+          p.phoneNumber mustEqual Some(phoneNumber)
+          p.mobileNumber mustEqual Some(mobileNumber)
         }
       }
     }
@@ -43,7 +43,7 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito with 
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
-      val result = controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit(request)
+      val result = G5PreviousCarerContactDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -51,9 +51,8 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito with 
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerContactDetailsInput: _*)
 
-      val result = controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit(request)
+      val result = G5PreviousCarerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section "unit"
-
 }

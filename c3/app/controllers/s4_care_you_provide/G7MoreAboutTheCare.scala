@@ -2,7 +2,6 @@ package controllers.s4_care_you_provide
 
 import models.domain.{Claim, MoreAboutTheCare}
 import play.api.data.{FormError, Form}
-import controllers.Routing
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
@@ -10,10 +9,7 @@ import models.view.CachedClaim
 import play.api.mvc.Controller
 import models.yesNo.YesNoWithDate
 
-object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
-
-  override val route = MoreAboutTheCare.id -> routes.G7MoreAboutTheCare.present
-
+object G7MoreAboutTheCare extends Controller with CachedClaim {
   val careMapping =
     "beforeClaimCaring" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -23,6 +19,7 @@ object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
 
   val form = Form(
     mapping(
+      "call" -> ignored(routes.G7MoreAboutTheCare.present()),
       "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
       careMapping,
       "hasSomeonePaidYou" -> nonEmptyText.verifying(validYesNo)

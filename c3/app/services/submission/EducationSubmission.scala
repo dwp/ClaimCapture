@@ -33,7 +33,7 @@ object EducationSubmission {
 
     courseDetailsOption match {
       case Some(details:YourCourseDetails) => xml(details)
-      case _ =>  xml(YourCourseDetails(None, None, None, None, None, None))
+      case _ => xml(YourCourseDetails(NoRouting, None, None, None, None, None, None))
     }
   }
 
@@ -52,7 +52,7 @@ object EducationSubmission {
 
     schoolDataOption match {
       case Some(schoolData:AddressOfSchoolCollegeOrUniversity) => xml(schoolData, courseDetailsOption)
-      case _ => xml(AddressOfSchoolCollegeOrUniversity(None, None, None, None), courseDetailsOption)
+      case _ => xml(AddressOfSchoolCollegeOrUniversity(NoRouting, None, None, None, None), courseDetailsOption)
     }
   }
 

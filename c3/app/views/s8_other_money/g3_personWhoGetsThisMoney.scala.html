@@ -3,7 +3,7 @@
 @import helper._
 @import views.html.helper.base._
 
-@main("Person Who Pays You - Other Money", Some(currentForm), completedQuestionGroups) {
+@main("Person Who Gets This Money - Other Money", Some(currentForm), completedQuestionGroups) {
     @errorsSummary(currentForm)
 
     @form(action = controllers.s8_other_money.routes.G3PersonWhoGetsThisMoney.submit) {

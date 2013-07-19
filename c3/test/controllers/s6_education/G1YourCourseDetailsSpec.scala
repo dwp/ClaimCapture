@@ -31,7 +31,7 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
 
       val result = controllers.s6_education.G1YourCourseDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.Education.id)
+      val section: Section = claim.section(domain.Education)
 
       section.questionGroup(YourCourseDetails) must beLike {
         case Some(f: YourCourseDetails) => {

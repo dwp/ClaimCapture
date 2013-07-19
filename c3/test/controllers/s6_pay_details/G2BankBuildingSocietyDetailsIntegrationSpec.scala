@@ -2,7 +2,7 @@ package controllers.s6_pay_details
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.Formulate
+import controllers.{BrowserMatchers, Formulate}
 
 class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tags {
   "Bank building society details" should {
@@ -24,7 +24,10 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       browser.title mustEqual "Completion - Pay Details"
     }
 
-    "navigate back to How We Pay You - Pay Details" in new WithBrowser {
+    "navigate back to How We Pay You - Pay Details" in new WithBrowser with BrowserMatchers {
+      Formulate.howWePayYou(browser)
+      titleMustEqual("Bank Building Society Details - Pay Details")
+
       browser.goTo("/payDetails/bankBuildingSocietyDetails")
       browser.click("#backButton")
       browser.title mustEqual "How We Pay You - Pay Details"
