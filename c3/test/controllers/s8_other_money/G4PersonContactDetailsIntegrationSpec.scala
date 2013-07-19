@@ -41,7 +41,7 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "contain the completed forms" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.aboutOtherMoney()
+      val claim = ClaimScenarioFactory.s8otherMoneyG1AboutOtherMoney()
       page goToThePage()
       page fillPageWith claim
       val moneyPaidPage = page submitPage()

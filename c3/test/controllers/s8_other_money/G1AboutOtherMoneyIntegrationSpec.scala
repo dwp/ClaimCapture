@@ -88,7 +88,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.aboutOtherMoney
+      val claim = ClaimScenarioFactory.s8otherMoneyG1AboutOtherMoney()
       page goToThePage()
       page fillPageWith claim
       page submitPage()

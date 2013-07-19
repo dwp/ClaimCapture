@@ -85,15 +85,4 @@ object ClaimScenarioFactory {
 
     claim
   }
-  
-  def aboutExtraMoney() = {
-    val claim = aboutOtherMoney()
-    claim.OtherMoneyG2MoneyPaidToSomeoneElseForYou = "yes"
-    claim
-  }
-  
-  def s8OtherMoney() = {
-    val claim = aboutOtherMoney()
-    claim
-  }
 }
