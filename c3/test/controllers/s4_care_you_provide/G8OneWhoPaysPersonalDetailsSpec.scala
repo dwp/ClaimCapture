@@ -15,13 +15,13 @@ class G8OneWhoPaysPersonalDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("firstName" -> "John")
 
-      val result = controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.submit(request)
+      val result = G8OneWhoPaysPersonalDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id)
+      val section: Section = claim.section(domain.CareYouProvide)
 
       section.questionGroup(OneWhoPaysPersonalDetails) must beLike {
-        case Some(f: OneWhoPaysPersonalDetails) => {
-          f.firstName mustEqual Some("John")
+        case Some(o: OneWhoPaysPersonalDetails) => {
+          o.firstName mustEqual Some("John")
         }
       }
     }
@@ -30,7 +30,7 @@ class G8OneWhoPaysPersonalDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("startDatePayment.year" -> "12345")
 
-      val result = controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.submit(request)
+      val result = G8OneWhoPaysPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -38,9 +38,8 @@ class G8OneWhoPaysPersonalDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("" -> "")
 
-      val result = controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.submit(request)
+      val result = G8OneWhoPaysPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-
   } section "unit"
 }

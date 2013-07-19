@@ -27,7 +27,7 @@ class G2MoneyPaidToSomeoneElseForYouSpec extends Specification with Tags {
 
       val result = G2MoneyPaidToSomeoneElseForYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.OtherMoney.id)
+      val section: Section = claim.section(domain.OtherMoney)
 
       section.questionGroup(MoneyPaidToSomeoneElseForYou) must beLike {
         case Some(f: MoneyPaidToSomeoneElseForYou) => {

@@ -41,7 +41,7 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
 
       val result = s6_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.Education.id)
+      val section: Section = claim.section(domain.Education)
 
       section.questionGroup(AddressOfSchoolCollegeOrUniversity) must beLike {
         case Some(f: AddressOfSchoolCollegeOrUniversity) => {

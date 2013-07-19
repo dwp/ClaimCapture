@@ -24,15 +24,15 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito with
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerPersonalDetailsInput: _*)
 
-      val result = controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit(request)
+      val result = G4PreviousCarerPersonalDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id)
+      val section: Section = claim.section(domain.CareYouProvide)
 
       section.questionGroup(PreviousCarerPersonalDetails) must beLike {
-        case Some(f: PreviousCarerPersonalDetails) => {
-          f.firstName mustEqual Some(firstName)
-          f.surname mustEqual Some(surname)
-          f.dateOfBirth mustEqual Some(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
+        case Some(p: PreviousCarerPersonalDetails) => {
+          p.firstName mustEqual Some(firstName)
+          p.surname mustEqual Some(surname)
+          p.dateOfBirth mustEqual Some(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
         }
       }
     }
@@ -41,7 +41,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito with
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("dateOfBirth.day" -> "INVALID")
 
-      val result = controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit(request)
+      val result = G4PreviousCarerPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -49,7 +49,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito with
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerPersonalDetailsInput: _*)
 
-      val result = controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit(request)
+      val result = G4PreviousCarerPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section "unit"

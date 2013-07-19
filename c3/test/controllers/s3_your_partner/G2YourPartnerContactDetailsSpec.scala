@@ -15,7 +15,7 @@ class G2YourPartnerContactDetailsSpec extends Specification with Tags {
     "present 'Your Partner Contact Details' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s3_your_partner.G2YourPartnerContactDetails.present(request)
+      val result = G2YourPartnerContactDetails.present(request)
       status(result) mustEqual OK
     }
 
@@ -23,14 +23,14 @@ class G2YourPartnerContactDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(yourPartnerContactDetailsInput: _*)
 
-      val result = controllers.s3_your_partner.G2YourPartnerContactDetails.submit(request)
+      val result = G2YourPartnerContactDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.YourPartner.id)
+      val section: Section = claim.section(domain.YourPartner)
 
       section.questionGroup(YourPartnerContactDetails) must beLike {
-        case Some(f: YourPartnerContactDetails) => {
-          f.address must equalTo(Some(MultiLineAddress(Some("123 Street"), None, None)))
-          f.postcode must equalTo(Some("PR2 8AE"))
+        case Some(y: YourPartnerContactDetails) => {
+          y.address must equalTo(Some(MultiLineAddress(Some("123 Street"), None, None)))
+          y.postcode must equalTo(Some("PR2 8AE"))
         }
       }
     }
@@ -39,7 +39,7 @@ class G2YourPartnerContactDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
-      val result = controllers.s3_your_partner.G2YourPartnerContactDetails.submit(request)
+      val result = G2YourPartnerContactDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -47,9 +47,8 @@ class G2YourPartnerContactDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(yourPartnerContactDetailsInput: _*)
 
-      val result = controllers.s3_your_partner.G2YourPartnerContactDetails.submit(request)
+      val result = G2YourPartnerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section "unit"
-
 }

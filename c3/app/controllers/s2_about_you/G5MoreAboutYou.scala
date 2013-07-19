@@ -5,16 +5,14 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
 import controllers.Mappings.validYesNo
 import controllers.Mappings.yes
 
-object G5MoreAboutYou extends Controller with Routing with CachedClaim {
-  override val route = MoreAboutYou.id -> routes.G5MoreAboutYou.present
-
+object G5MoreAboutYou extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      "call" -> ignored(routes.G5MoreAboutYou.present()),
       "hadPartnerSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
       "eitherClaimedBenefitSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
       "beenInEducationSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
@@ -39,8 +37,8 @@ object G5MoreAboutYou extends Controller with Routing with CachedClaim {
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g5_moreAboutYou(formWithErrors, completedQuestionGroups)),
       moreAboutYou => {
-        val updatedClaim = claim.showHideSection(moreAboutYou.hadPartnerSinceClaimDate == yes, YourPartner.id).
-            showHideSection(moreAboutYou.beenInEducationSinceClaimDate == yes, Education.id)
+        val updatedClaim = claim.showHideSection(moreAboutYou.hadPartnerSinceClaimDate == yes, YourPartner).
+            showHideSection(moreAboutYou.beenInEducationSinceClaimDate == yes, Education)
             
         updatedClaim.update(moreAboutYou) -> Redirect(routes.G6Employment.present())
       })

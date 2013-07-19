@@ -2,7 +2,7 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.Formulate
+import controllers.{BrowserMatchers, Formulate}
 
 class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags {
 
@@ -46,10 +46,13 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
       browser.find("#postcode").getValue mustEqual ""
     }
 
-    "navigate back to Your Partner Personal Details" in new WithBrowser {
+    "navigate back to Your Partner Personal Details" in new WithBrowser with BrowserMatchers {
+      Formulate.yourPartnerPersonalDetails(browser)
+      titleMustEqual("Contact Details - Your Partner")
+
       browser.goTo("/yourPartner/contactDetails")
       browser.click("#backButton")
-      browser.title mustEqual "Personal Details - Your Partner"
+      titleMustEqual("Personal Details - Your Partner")
     }
 
     "navigate to next page on valid submission" in new WithBrowser {

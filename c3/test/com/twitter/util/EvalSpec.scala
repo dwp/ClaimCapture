@@ -37,7 +37,6 @@ class EvalSpec extends Specification {
       import play.api.Play.current
 
       val template = current.configuration.getString("main.template").getOrElse("views.html.common.main_test")
-      println(template)
 
       val eval = new Eval()
 
@@ -46,7 +45,6 @@ class EvalSpec extends Specification {
 
       val x = eval[String => Html => Html => Html](s"$template.apply _")
       val y = x("Goodie again")(contentHtml)(footerHtml)
-      println(y)
     }
   }
 }

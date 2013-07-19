@@ -3,6 +3,11 @@ package models.domain
 import org.specs2.mutable.Specification
 
 class ClaimSpec extends Specification {
+  val claim = Claim().update(Benefits(NoRouting))
+                     .update(Hours(NoRouting))
+                     .update(LivesInGB(NoRouting))
+                     .update(Over16(NoRouting))
+
   "Claim" should {
     "initially be empty" in {
       val newClaim = Claim()
@@ -11,73 +16,90 @@ class ClaimSpec extends Specification {
 
     "contain the sectionId with the question group after adding" in {
       val claim = Claim()
-      val questionGroup = Benefits()
+      val questionGroup = Benefits(NoRouting)
       val updatedClaim = claim.update(questionGroup)
-      val sectionID = Section.sectionID(questionGroup)
+      val sectionIdentifier = Section.sectionIdentifier(questionGroup)
 
-      val section = updatedClaim.section(sectionID)
-      section.id mustEqual sectionID
-      section.questionGroup(questionGroup) must beSome(Benefits(answer = false))
+      val section = updatedClaim.section(sectionIdentifier)
+      section.identifier mustEqual sectionIdentifier
+      section.questionGroup(Benefits) must beLike { case Some(Benefits(_, answer)) => answer must beFalse }
     }
 
     "contain the sectionId with the question group after updating" in {
       val claim = Claim()
-      val trueQuestionGroup = Benefits(answer = true)
-      val falseQuestionGroup = Benefits(answer = false)
+      val trueQuestionGroup = Benefits(NoRouting, answer = true)
+      val falseQuestionGroup = Benefits(NoRouting, answer = false)
 
       val claimWithFalseQuestionGroup = claim.update(falseQuestionGroup)
       val claimWithTrueQuestionGroup = claimWithFalseQuestionGroup.update(trueQuestionGroup)
 
-      val sectionID = Section.sectionID(trueQuestionGroup)
-      val section = claimWithTrueQuestionGroup.section(sectionID)
+      val sectionIdentifier = Section.sectionIdentifier(trueQuestionGroup)
+      val section = claimWithTrueQuestionGroup.section(sectionIdentifier)
 
-      section.questionGroup(trueQuestionGroup) must beSome(Benefits(answer = true))
+      section.questionGroup(Benefits) must beLike { case Some(Benefits(_, answer)) => answer must beTrue }
     }
 
     "return the correct section" in {
-      val claim = Claim().update(Benefits()).update(Hours()).update(LivesInGB()).update(Over16())
-
-      val section = claim.section(CarersAllowance.id)
-      section.id mustEqual CarersAllowance.id
+      val section = claim.section(CarersAllowance)
+      section.identifier mustEqual CarersAllowance
     }
 
     "return the correct question group" in {
-      val claim = Claim().update(Benefits()).update(Hours()).update(LivesInGB()).update(Over16())
-
-      claim.questionGroup(LivesInGB) must beLike {
-        case Some(qg: QuestionGroup) => qg.id mustEqual LivesInGB.id
-      }
+      claim.questionGroup(LivesInGB) must beLike { case Some(qg: QuestionGroup) => qg.identifier mustEqual LivesInGB }
     }
 
     "delete a question group from section" in {
-      val claim = Claim().update(Benefits()).update(Hours()).update(LivesInGB()).update(Over16())
-      claim.completedQuestionGroups(CarersAllowance.id).size mustEqual 4
+      claim.completedQuestionGroups(CarersAllowance).size mustEqual 4
 
       val updatedClaim = claim.delete(LivesInGB)
       updatedClaim.questionGroup(LivesInGB) must beNone
-      updatedClaim.completedQuestionGroups(CarersAllowance.id).size mustEqual 3
-      claim.completedQuestionGroups(CarersAllowance.id).size mustEqual 4
+      updatedClaim.completedQuestionGroups(CarersAllowance).size mustEqual 3
+      claim.completedQuestionGroups(CarersAllowance).size mustEqual 4
     }
 
     "be able hide a section" in {
-      val updatedClaim = new Claim().hideSection(YourPartner.id)
-      updatedClaim.isSectionVisible(YourPartner.id) mustEqual false
+      val updatedClaim = new Claim().hideSection(YourPartner)
+      updatedClaim.isSectionVisible(YourPartner) must beFalse
     }
 
     "be able show a section" in {
-      val updatedClaim = new Claim().showSection(YourPartner.id)
-      updatedClaim.isSectionVisible(YourPartner.id) mustEqual true
+      val updatedClaim = new Claim().showSection(YourPartner)
+      updatedClaim.isSectionVisible(YourPartner) must beTrue
     }
 
     "be able to update a section" in {
-      val claim = Claim().update(Benefits()).update(Hours()).update(LivesInGB()).update(Over16())
-      val section = claim.section(CarersAllowance.id)
-
+      val section = claim.section(CarersAllowance)
       val updatedClaim = claim.update(section.hide())
+      val updatedSection = updatedClaim.section(CarersAllowance)
 
-      val updatedSection = updatedClaim.section(CarersAllowance.id)
+      updatedSection.visible must beFalse
+    }
 
-      updatedSection.visible mustEqual false
+    "give previous question group within same section" in new Claiming {
+      val claim = Claim().update(mockQuestionGroup[AbroadForMoreThan4Weeks](AbroadForMoreThan4Weeks))
+                         .update(mockQuestionGroup[NormalResidenceAndCurrentLocation](NormalResidenceAndCurrentLocation))
+
+      val qgiCurrent: QuestionGroup.Identifier = AbroadForMoreThan4Weeks
+
+      claim.previousQuestionGroup(qgiCurrent) must beLike {
+        case Some(qg: NormalResidenceAndCurrentLocation) => Section.sectionIdentifier(qg) shouldEqual Section.sectionIdentifier(qgiCurrent)
+      }
+    }
+
+    "give last question group from previous section when asking for previous question group from start of current section" in new Claiming {
+      val claim = Claim().update(mockQuestionGroup[BreaksInCare](BreaksInCare))
+                         .update(mockQuestionGroup[AbroadForMoreThan4Weeks](AbroadForMoreThan4Weeks))
+                         .update(mockQuestionGroup[NormalResidenceAndCurrentLocation](NormalResidenceAndCurrentLocation))
+
+      val qgiCurrent: QuestionGroup.Identifier = NormalResidenceAndCurrentLocation
+
+      claim.previousQuestionGroup(qgiCurrent) must beNone
+
+      pending
+    }
+
+    "give very first question group as the previous question group" in {
+      pending
     }
   }
 }

@@ -11,7 +11,7 @@
                 <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
             </div>
 
-            @progressBar(OtherMoney.id)
+            @progressBar(OtherMoney)
 
             <section>
                 <header>
@@ -23,7 +23,7 @@
                         <ul>
                             @for(completedQuestionGroup <- completedQuestionGroups) {
                                 <li>
-                                    <h3>@Messages(completedQuestionGroup.id)</h3>
+                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
                                 </li>
                             }
                         </ul>

@@ -1,7 +1,7 @@
 package controllers.s8_other_money
 
 import org.specs2.mutable.{Tags, Specification}
-import models.domain.MoreAboutYou
+import models.domain.{NoRouting, MoreAboutYou}
 
 class G1AboutOtherMoneyFormSpec extends Specification with Tags {
   "About Other Money Form" should {
@@ -37,8 +37,11 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
     }
     
     "reject text1 enabled but text1 not filled in" in {
-      val moreAboutYou: MoreAboutYou = MoreAboutYou(hadPartnerSinceClaimDate = "yes", eitherClaimedBenefitSinceClaimDate = "no",
-                        beenInEducationSinceClaimDate = "yes", receiveStatePension = "yes")
+      val moreAboutYou: MoreAboutYou = MoreAboutYou(NoRouting,
+                                                    hadPartnerSinceClaimDate = "yes",
+                                                    eitherClaimedBenefitSinceClaimDate = "no",
+                                                    beenInEducationSinceClaimDate = "yes",
+                                                    receiveStatePension = "yes")
       val claim = models.domain.Claim().update(moreAboutYou)
       G1AboutOtherMoney.form(claim).bind(
         Map("yourBenefits.answer" -> yourBenefits)
@@ -52,8 +55,11 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
     
         
     "reject text2 enabled but text2 not filled in" in {
-      val moreAboutYou: MoreAboutYou = MoreAboutYou(hadPartnerSinceClaimDate = "yes", eitherClaimedBenefitSinceClaimDate = "yes",
-                        beenInEducationSinceClaimDate = "yes", receiveStatePension = "yes")
+      val moreAboutYou: MoreAboutYou = MoreAboutYou(NoRouting,
+                                                    hadPartnerSinceClaimDate = "yes",
+                                                    eitherClaimedBenefitSinceClaimDate = "yes",
+                                                    beenInEducationSinceClaimDate = "yes",
+                                                    receiveStatePension = "yes")
       val claim = models.domain.Claim().update(moreAboutYou)
       G1AboutOtherMoney.form(claim).bind(
         Map("yourBenefits.answer" -> yourBenefits, "yourBenefits.text1" -> yourBenefitsText1)
@@ -66,8 +72,11 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
     }
     
     "reject text1 and text2 enabled but neither not filled in" in { // Can't test text field2 as it requires
-      val moreAboutYou: MoreAboutYou = MoreAboutYou(hadPartnerSinceClaimDate = "yes", eitherClaimedBenefitSinceClaimDate = "yes",
-                        beenInEducationSinceClaimDate = "yes", receiveStatePension = "yes")
+      val moreAboutYou: MoreAboutYou = MoreAboutYou(NoRouting,
+                                                    hadPartnerSinceClaimDate = "yes",
+                                                    eitherClaimedBenefitSinceClaimDate = "yes",
+                                                    beenInEducationSinceClaimDate = "yes",
+                                                    receiveStatePension = "yes")
       val claim = models.domain.Claim().update(moreAboutYou)
       G1AboutOtherMoney.form(claim).bind(
         Map("yourBenefits.answer" -> yourBenefits)

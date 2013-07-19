@@ -19,7 +19,7 @@ class G5otherEEAStateOrSwitzerlandSpec extends Specification with Tags {
     "return bad request on invalid data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s5_time_spent_abroad.G5otherEEAStateOrSwitzerland.submit(request)
+      val result = G5otherEEAStateOrSwitzerland.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -28,7 +28,7 @@ class G5otherEEAStateOrSwitzerlandSpec extends Specification with Tags {
         .withFormUrlEncodedBody("benefitsFromOtherEEAStateOrSwitzerland.answer" -> "no",
                                 "workingForOtherEEAStateOrSwitzerland" -> "no")
 
-      val result = controllers.s5_time_spent_abroad.G5otherEEAStateOrSwitzerland.submit(request)
+      val result = G5otherEEAStateOrSwitzerland.submit(request)
 
       val claim = Cache.getAs[Claim](claimKey).get
 

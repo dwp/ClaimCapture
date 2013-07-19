@@ -1,32 +1,32 @@
-@(sectionID: String)(implicit claim: models.domain.Claim)
+@(sectionIdentifier: models.domain.Section.Identifier)(implicit claim: models.domain.Claim)
 
 @import models.domain._
 
-@addClass(currentSectionID: String) = {
-    @if(currentSectionID == sectionID) {
+@addClass(currentSectionIdentifier: Section.Identifier) = {
+    @if(currentSectionIdentifier == sectionIdentifier) {
         class="active"
     } else {
-        @if(Section.index(currentSectionID) < Section.index(sectionID)) {
+        @if(Section.index(currentSectionIdentifier) < Section.index(sectionIdentifier)) {
             class="complete"
         }
     }
 }
 
-@renderListItem(currentSectionID: String) = {
-    @if(claim.isSectionVisible(currentSectionID)) {
-        <li @addClass(currentSectionID)><span>@Messages(currentSectionID + ".progressBar")</span></li>
+@renderListItem(currentSectionIdentifier: Section.Identifier) = {
+    @if(claim.isSectionVisible(currentSectionIdentifier)) {
+        <li @addClass(currentSectionIdentifier)><span>@Messages(currentSectionIdentifier.id + ".progressBar")</span></li>
     }
 }
 
 <div class="progress-steps">
     <ol>
-        @renderListItem(CarersAllowance.id)
-        @renderListItem(AboutYou.id)
-        @renderListItem(YourPartner.id)
-        @renderListItem(CareYouProvide.id)
-        @renderListItem(TimeSpentAbroad.id)
-        @renderListItem(Education.id)
-        @renderListItem(PayDetails.id)
-        @renderListItem(ConsentAndDeclaration.id)
+        @renderListItem(CarersAllowance)
+        @renderListItem(AboutYou)
+        @renderListItem(YourPartner)
+        @renderListItem(CareYouProvide)
+        @renderListItem(TimeSpentAbroad)
+        @renderListItem(Education)
+        @renderListItem(PayDetails)
+        @renderListItem(ConsentAndDeclaration)
     </ol>
 </div>

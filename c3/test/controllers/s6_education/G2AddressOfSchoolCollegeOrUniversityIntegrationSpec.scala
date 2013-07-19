@@ -32,6 +32,7 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
     }
 
     "navigate back to Your Course Details" in new WithBrowser with BrowserMatchers {
+      Formulate.yourCourseDetails(browser)
       browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
       browser.click("#backButton")
       titleMustEqual("Your Course Details - Education")

@@ -1,17 +1,25 @@
 package models.domain
 
 import controllers.Mappings._
+import play.api.mvc.Call
 
-case class ConsentAndDeclaration(additionalInfo: AdditionalInfo,consent: Consent,disclaimer: Disclaimer,declaration: Declaration)
-object ConsentAndDeclaration {
+case class ConsentAndDeclaration(additionalInfo: AdditionalInfo, consent: Consent, disclaimer: Disclaimer, declaration: Declaration)
+
+object ConsentAndDeclaration extends Section.Identifier {
   val id = "s7"
 }
 
+case class AdditionalInfo(call: Call, anythingElse: Option[String], welshCommunication:String) extends QuestionGroup(AdditionalInfo)
 
-object AdditionalInfo extends QuestionGroup(s"${ConsentAndDeclaration.id}.g1")
-case class AdditionalInfo(anythingElse:Option[String],welshCommunication:String) extends QuestionGroup(AdditionalInfo.id)
+object AdditionalInfo extends QuestionGroup.Identifier {
+  val id = s"${ConsentAndDeclaration.id}.g1"
+}
 
-object Consent extends QuestionGroup(s"${ConsentAndDeclaration.id}.g2"){
+case class Consent(call: Call,
+                   informationFromEmployer: String, why: Option[String], informationFromPerson: String, whyPerson: Option[String]) extends QuestionGroup(Consent)
+
+object Consent extends QuestionGroup.Identifier {
+  val id = s"${ConsentAndDeclaration.id}.g2"
 
   def validateWhy(input: Consent): Boolean = input.informationFromEmployer match {
     case `no` => input.why.isDefined
@@ -22,19 +30,24 @@ object Consent extends QuestionGroup(s"${ConsentAndDeclaration.id}.g2"){
     case `no` => input.whyPerson.isDefined
     case `yes` => true
   }
-
 }
-case class Consent(informationFromEmployer:String, why:Option[String],informationFromPerson:String,whyPerson:Option[String]) extends QuestionGroup(Consent.id)
 
+case class Disclaimer(call: Call, read: String) extends QuestionGroup(Disclaimer)
 
+object Disclaimer extends QuestionGroup.Identifier {
+  val id = s"${ConsentAndDeclaration.id}.g3"
+}
 
-object Disclaimer extends QuestionGroup(s"${ConsentAndDeclaration.id}.g3")
-case class Disclaimer(read:String) extends QuestionGroup(Disclaimer.id)
+case class Declaration(call: Call, read: String, someoneElse: String) extends QuestionGroup(Declaration)
 
-object Declaration extends QuestionGroup(s"${ConsentAndDeclaration.id}.g4")
-case class Declaration(confirm:String,someoneElse: String) extends QuestionGroup(Declaration.id)
+object Declaration extends QuestionGroup.Identifier {
+  val id = s"${ConsentAndDeclaration.id}.g4"
+}
 
-object Submit extends QuestionGroup(s"${ConsentAndDeclaration.id}.g5")
-object Error extends QuestionGroup(s"${ConsentAndDeclaration.id}.g6")
+object Submit extends QuestionGroup.Identifier {
+  val id = s"${ConsentAndDeclaration.id}.g5"
+}
 
-
+object Error extends QuestionGroup.Identifier {
+  val id = s"${ConsentAndDeclaration.id}.g6"
+}

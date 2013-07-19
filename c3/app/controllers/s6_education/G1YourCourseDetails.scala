@@ -1,20 +1,18 @@
 package controllers.s6_education
 
 import play.api.mvc.Controller
-import controllers.Routing
 import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
 import models.domain.{Claim, YourCourseDetails}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
+import Education._
 
-object G1YourCourseDetails extends Controller with Routing with CachedClaim {
-
-  override val route = YourCourseDetails.id -> routes.G1YourCourseDetails.present
-
+object G1YourCourseDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      "call" -> ignored(routes.G1YourCourseDetails.present()),
       "courseType" -> optional(text(maxLength = sixty)),
       "courseTitle" -> optional(text(maxLength = sixty)),
       "startDate" -> optional(dayMonthYear.verifying(validDateOnly)),
@@ -25,24 +23,20 @@ object G1YourCourseDetails extends Controller with Routing with CachedClaim {
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(YourCourseDetails)
 
-  def present = claiming {
-    implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
+    whenVisible(claim)(() => {
+      val preFilledForm: Form[YourCourseDetails] = claim.questionGroup(YourCourseDetails) match {
+        case Some(t: YourCourseDetails) => form.fill(t)
+        case _ => form
+      }
 
-      Education.whenVisible(claim)(() => {
-        val preFilledForm: Form[YourCourseDetails] = claim.questionGroup(YourCourseDetails) match {
-          case Some(t: YourCourseDetails) => form.fill(t)
-          case _ => form
-        }
-
-        Ok(views.html.s6_education.g1_yourCourseDetails(preFilledForm, completedQuestionGroups))
-      })
+      Ok(views.html.s6_education.g1_yourCourseDetails(preFilledForm, completedQuestionGroups))
+    })
   }
 
-  def submit = claiming {
-    implicit claim => implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrors, completedQuestionGroups)),
-        yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(routes.G2AddressOfSchoolCollegeOrUniversity.present()))
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrors, completedQuestionGroups)),
+      yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(routes.G2AddressOfSchoolCollegeOrUniversity.present()))
   }
-
 }

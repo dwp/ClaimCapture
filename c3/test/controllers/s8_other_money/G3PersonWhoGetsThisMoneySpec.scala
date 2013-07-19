@@ -58,7 +58,7 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
 
       val result = G3PersonWhoGetsThisMoney.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.OtherMoney.id)
+      val section: Section = claim.section(domain.OtherMoney)
 
       section.questionGroup(PersonWhoGetsThisMoney) must beLike {
         case Some(f: PersonWhoGetsThisMoney) => {

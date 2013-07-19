@@ -2,23 +2,34 @@ package models.domain
 
 import models._
 import models.yesNo.YesNoWith2Text
+import play.api.mvc.Call
 
-case object OtherMoney {
+case object OtherMoney extends Section.Identifier {
   val id = "s8"
 }
 
-case class AboutOtherMoney(yourBenefits: YesNoWith2Text) extends QuestionGroup(AboutOtherMoney.id)
+case class AboutOtherMoney(yourBenefits: YesNoWith2Text, call: Call) extends QuestionGroup(AboutOtherMoney)
 
-object AboutOtherMoney extends QuestionGroup(s"${OtherMoney.id}.g1")
+object AboutOtherMoney extends QuestionGroup.Identifier {
+  val id = s"${OtherMoney.id}.g1"
+}
 
-case class MoneyPaidToSomeoneElseForYou(moneyAddedToBenefitSinceClaimDate: String) extends QuestionGroup(MoneyPaidToSomeoneElseForYou.id)
+case class MoneyPaidToSomeoneElseForYou(moneyAddedToBenefitSinceClaimDate: String, call: Call) extends QuestionGroup(MoneyPaidToSomeoneElseForYou)
 
-case object MoneyPaidToSomeoneElseForYou extends QuestionGroup(s"${OtherMoney.id}.g2")
+case object MoneyPaidToSomeoneElseForYou extends QuestionGroup.Identifier {
+  val id = s"${OtherMoney.id}.g2"
+}
 
-case class PersonWhoGetsThisMoney(fullName: String, nationalInsuranceNumber: Option[NationalInsuranceNumber], nameOfBenefit: String) extends QuestionGroup(PersonWhoGetsThisMoney.id)
+case class PersonWhoGetsThisMoney(fullName: String, nationalInsuranceNumber: Option[NationalInsuranceNumber], nameOfBenefit: String,
+                                  call: Call) extends QuestionGroup(PersonWhoGetsThisMoney)
 
-case object PersonWhoGetsThisMoney extends QuestionGroup(s"${OtherMoney.id}.g3")
+case object PersonWhoGetsThisMoney extends QuestionGroup.Identifier {
+  val id = s"${OtherMoney.id}.g3"
+}
 
-case class PersonContactDetails(address: Option[MultiLineAddress], postcode: Option[String]) extends QuestionGroup(PersonContactDetails.id)
+case class PersonContactDetails(address: Option[MultiLineAddress], postcode: Option[String],
+                                call: Call) extends QuestionGroup(PersonContactDetails)
 
-case object PersonContactDetails extends QuestionGroup(s"${OtherMoney.id}.g4")
+case object PersonContactDetails extends QuestionGroup.Identifier {
+  val id = s"${OtherMoney.id}.g4"
+}

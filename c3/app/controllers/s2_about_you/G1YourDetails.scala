@@ -6,14 +6,12 @@ import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
 
-object G1YourDetails extends Controller with Routing with CachedClaim {
-  override val route = YourDetails.id -> routes.G1YourDetails.present
-
+object G1YourDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      "call" -> ignored(routes.G1YourDetails.present()),
       "title" -> nonEmptyText(maxLength = 4),
       "firstName" -> nonEmptyText(maxLength = sixty),
       "middleName" -> optional(text(maxLength = sixty)),

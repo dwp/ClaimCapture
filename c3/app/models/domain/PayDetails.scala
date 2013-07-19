@@ -1,17 +1,23 @@
 package models.domain
 
 import models.SortCode
+import play.api.mvc.Call
 
 case class PayDetails(howWePayYou: HowWePayYou,bankBuildingSocietyDetails: BankBuildingSocietyDetails )
 
-object PayDetails {
+object PayDetails extends Section.Identifier {
   val id = "s9"
 }
 
-case class HowWePayYou(likeToBePaid:String,paymentFrequency: String) extends QuestionGroup(HowWePayYou.id)
+case class HowWePayYou(call: Call, likeToBePaid: String, paymentFrequency: String) extends QuestionGroup(HowWePayYou)
 
-object HowWePayYou extends QuestionGroup(s"${PayDetails.id}.g1")
+object HowWePayYou extends QuestionGroup.Identifier {
+  val id = s"${PayDetails.id}.g1"
+}
 
-case class BankBuildingSocietyDetails(accountHolderName :String ,bankFullName :String ,sortCode:SortCode ,accountNumber:String, rollOrReferenceNumber:String) extends QuestionGroup(BankBuildingSocietyDetails.id)
+case class BankBuildingSocietyDetails(call: Call,
+                                      accountHolderName: String, bankFullName: String, sortCode: SortCode, accountNumber: String, rollOrReferenceNumber: String) extends QuestionGroup(BankBuildingSocietyDetails)
 
-object BankBuildingSocietyDetails extends QuestionGroup(s"${PayDetails.id}.g2")
+object BankBuildingSocietyDetails extends QuestionGroup.Identifier {
+  val id = s"${PayDetails.id}.g2"
+}

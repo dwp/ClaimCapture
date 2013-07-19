@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.cache.Cache
 import models.domain._
-import models.{DayMonthYear, domain}
+import models.domain
 import play.api.test.Helpers._
 import models.domain.Claim
 
@@ -16,7 +16,7 @@ class G4PersonYouCareForSpec extends Specification with Tags {
     "present 'Person You Care For'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s3_your_partner.G4PersonYouCareFor.present(request)
+      val result = G4PersonYouCareFor.present(request)
       status(result) mustEqual OK
     }
     
@@ -24,12 +24,12 @@ class G4PersonYouCareForSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(personYouCareForInput: _*)
 
-      val result = controllers.s3_your_partner.G4PersonYouCareFor.submit(request)
+      val result = G4PersonYouCareFor.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.YourPartner.id)
+      val section: Section = claim.section(domain.YourPartner)
 
       section.questionGroup(PersonYouCareFor) must beLike {
-        case Some(f: PersonYouCareFor) => f.isPartnerPersonYouCareFor must equalTo("yes")
+        case Some(p: PersonYouCareFor) => p.isPartnerPersonYouCareFor must equalTo("yes")
       }
     }
     
@@ -37,7 +37,7 @@ class G4PersonYouCareForSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("isPartnerPersonYouCareFor" -> "INVALID")
 
-      val result = controllers.s3_your_partner.G4PersonYouCareFor.submit(request)
+      val result = G4PersonYouCareFor.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -45,7 +45,7 @@ class G4PersonYouCareForSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(personYouCareForInput: _*)
 
-      val result = controllers.s3_your_partner.G4PersonYouCareFor.submit(request)
+      val result = G4PersonYouCareFor.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section "unit"
