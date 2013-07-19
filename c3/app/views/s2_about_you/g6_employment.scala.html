@@ -13,6 +13,33 @@
     @form(action = controllers.s2_about_you.routes.G6Employment.submit) {
         <fieldset class="form-elements">
             <legend>Employment</legend>
+            
+            
+            <div class="prompt helper-prompt">
+                <p class="intro">
+                    By employment we mean:
+                </p>
+
+                <ul>
+                    <li>full-time or part time work</li>
+                    <li>fasual or temporary work</li>
+                    <li>job sharing</li>
+                    <li>being included in any tax return as a worker or non worker</li>
+                    <li>being a company director</li>
+                    <li>being in the territorial army or other auxiliary armed forces</li>
+                    <li>being on a career break</li>
+                </ul>
+                
+                
+                <p class="intro">
+                    Self-employment could mean:
+                </p>
+
+                <ul>
+                    <li>working for yourself, or</li>
+                    <li>being a partner or sleeping partner in a business</li>
+                </ul>
+            </div>
 
             <ul class="group">
                 @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
