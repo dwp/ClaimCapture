@@ -51,12 +51,12 @@
 
 @xml(claim: models.domain.Claim) = {
     @for((sectionID, section) <- claim.sections) {
-        <h3>Section : @Messages(sectionID)</h3>
+        <h3></h3>
 
         <ul>
             @for(questionGroup <- section.questionGroups) {
                 <li>
-                    <h4>@Messages(questionGroup.id)</h4>
+                    <h4></h4>
 
                     <div class="expandingArea">
                         <pre><span></span><br></pre>
