@@ -6,6 +6,7 @@ import utils.pageobjects.s8_other_money.{PersonContactDetailsPage, PersonContact
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s2_about_you.{ClaimDatePageContext, MoreAboutYouPageContext}
 import controllers.ClaimScenarioFactory
+import utils.pageobjects.s8_other_money.G1AboutOtherMoneyPageContext
 
 
 class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
@@ -39,12 +40,15 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
       pageWithErrors.listErrors().get.size mustEqual 1
     }
 
-//    "contain the completed forms" in new WithBrowser {
-//      //      Formulate.yourPartnerPersonalDetails(browser)
-//      //      browser.find("div[class=completed] ul li").size() mustEqual 1
-//      pending
-//    }
-//
+    "contain the completed forms" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      val claim = ClaimScenarioFactory.aboutOtherMoney()
+      page goToThePage()
+      page fillPageWith claim
+      val moneyPaidPage = page submitPage()
+      val personContactPage = moneyPaidPage.goToPage(new PersonContactDetailsPage(browser))
+      personContactPage.listCompletedForms.size mustEqual 1
+    }
+
 //    "navigate back to Your Partner Personal Details" in new WithBrowser {
 //      //      browser.goTo("/yourPartner/contactDetails")
 //      //      browser.click("#backButton")
