@@ -9,10 +9,8 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 
 object G2JobDetails extends Controller with CachedClaim {
-
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G2JobDetails.present()),
       "employerName"-> nonEmptyText,
       "jobStartDate" -> optional(dayMonthYear),
       "finishedThisJob" -> nonEmptyText,
@@ -20,7 +18,8 @@ object G2JobDetails extends Controller with CachedClaim {
       "p45LeavingDate" -> optional(dayMonthYear),
       "hoursPerWeek" -> optional(text),
       "jobTitle" -> optional(text),
-      "payrollEmpNumber" -> optional(text)
+      "payrollEmployeeNumber" -> optional(text),
+      call(routes.G2JobDetails.present())
     )(JobDetails.apply)(JobDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
@@ -30,6 +29,6 @@ object G2JobDetails extends Controller with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors =>BadRequest(views.html.s7_employment.g2_jobDetails(formWithErrors)),
-      beenEmployed => claim.update(beenEmployed) -> Redirect(routes.G2JobDetails.present()))
+      jobDetails => claim.update(jobDetails) -> Redirect(routes.G2JobDetails.present()))
   }
 }

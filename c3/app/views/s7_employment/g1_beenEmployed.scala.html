@@ -14,14 +14,13 @@
             <legend>Your employment history</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("beenEmployed"))
+                @yesNoRadioGroup(currentForm("beenEmployed"), '_label -> Messages("beenEmployed", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => (dmy - 6 months) `dd/MM/yyyy`), claim.dateOfClaim.fold("{CLAIM DATE}")(_.`dd/MM/yyyy`)))
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a href="#" id="backButton" class="button secondary">Back</a>
+            <a id="backButton" href="@controllers.s6_education.routes.Education.completed" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
-
 }

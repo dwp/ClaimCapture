@@ -8,7 +8,7 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
-@main("Details about your job - Employment", Some(currentForm)) {
+@main("Job Details - Employment", Some(currentForm)) {
     @form(action = controllers.s7_employment.routes.G2JobDetails.submit()){
         <fieldset class="form-elements">
             <legend>Details about your job</legend>
@@ -19,7 +19,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a href="#" id="backButton" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.JobDetails)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

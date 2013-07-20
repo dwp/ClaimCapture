@@ -11,9 +11,11 @@ import models.MultiLineAddress
 import scala.util.Failure
 import models.NationalInsuranceNumber
 import play.api.data.validation.ValidationError
+import play.api.mvc.Call
 
 object Mappings {
   val fifty = 50
+
   val sixty = 60
 
   val two = 2
@@ -149,4 +151,6 @@ object Mappings {
       case _ => Invalid(ValidationError("yesNo.invalid"))
     }
   }
+
+  def call(call: Call): (String, Mapping[Call]) = "call" -> ignored(call)
 }
