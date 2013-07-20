@@ -10,6 +10,46 @@
 @import utils.helpers.CarersCrypto
 
 @main("Your employment history - Employment", Some(currentForm)) {
+    <fieldset id="jobs" class="form-elements results-detail">
+        <legend>Employment you have added</legend>
+
+        <table class="employment">
+            <caption>Employments already added data</caption>
+
+            <thead>
+                <tr>
+                    <th>Employer name</th>
+                    <th class="desc">Job title</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Toys r not Us</td>
+                    <td class="desc">Sales assistant</td>
+                    <td><input type="button" class="button row secondary" value="Edit"></td>
+                    <td><input type="button" class="button row warning" value="Delete"></td>
+                </tr>
+
+                <tr>
+                    <td>Previous</td>
+                    <td class="desc">Used to work at Next</td>
+                    <td><input type="button" class="button row secondary" value="Edit"></td>
+                    <td><input type="button" class="button row warning" value="Delete"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="prompt breaks-prompt">
+            <p>Are you sure you want to delete this employment?</p>
+            <input type="button" class="button row secondary" value="No">
+            <input type="button" class="button row warning" value="Yes">
+            <span>&#33;</span>
+        </div>
+    </fieldset>
+
     @form(action = controllers.s7_employment.routes.G1BeenEmployed.submit()){
         <fieldset class="form-elements">
             <legend>Your employment history</legend>

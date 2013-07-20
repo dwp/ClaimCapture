@@ -14,7 +14,21 @@
             <legend>Details about your job</legend>
 
             <ul class="group">
+                @carersInputText(currentForm("employerName"), 'maxLength -> Mappings.sixty)
 
+                @inputDayMonthYear(currentForm("jobStartDate"), 'helperBelow -> Messages("date.helper"))
+
+                @yesNoRadioGroup(currentForm("finishedThisJob"))
+
+                @inputDayMonthYear(currentForm("lastWorkDate"), 'helperBelow -> Messages("date.helper"))
+
+                @inputDayMonthYear(currentForm("p45LeavingDate"), 'helperBelow -> Messages("date.helper"))
+
+                @carersInputText(currentForm("hoursPerWeek"), 'placeholder -> "00", 'maxlength -> 2, 'class -> "short-field")
+
+                @carersInputText(currentForm("jobTitle"), 'maxLength -> Mappings.sixty)
+
+                @carersInputText(currentForm("payrollEmployeeNumber"), 'maxLength -> Mappings.sixty)
             </ul>
         </fieldset>
 
