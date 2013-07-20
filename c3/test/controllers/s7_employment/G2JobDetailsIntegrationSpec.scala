@@ -11,11 +11,16 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Job Details - Employment"
     }
 
+    "show 2 errors upon submitting no mandatory data" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/employment/jobDetails").submit("button[type='submit']")
+      titleMustEqual("Job Details - Employment")
+      findMustEqualSize("div[class=validation-summary] ol li", 2)
+    }
+
     // ...
 
     """go back to "been employed?".""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/beenEmployed").click("#beenEmployed_yes").submit("button[type='submit']")
-
       browser.goTo("/employment/jobDetails").click("#backButton")
       titleMustEqual("Your employment history - Employment")
     }

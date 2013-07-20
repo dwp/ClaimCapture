@@ -28,10 +28,12 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
     }
 
-    "contain errors on invalid submission" in new WithBrowser {
+    "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.fill("#nationalInsuranceNumber_ni1") `with` "12345"
       browser.submit("button[type='submit']")
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 

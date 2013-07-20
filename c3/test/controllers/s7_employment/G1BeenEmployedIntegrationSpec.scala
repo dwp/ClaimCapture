@@ -16,6 +16,12 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Job Details - Employment"
     }
 
+    "show 1 error upon submitting no mandatory data" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/employment/beenEmployed").submit("button[type='submit']")
+      titleMustEqual("Your employment history - Employment")
+      findMustEqualSize("div[class=validation-summary] ol li", 1)
+    }
+
     "continue to self employed" in new WithBrowser {
       skipped("""Awaiting development of "self employed".""")
 
