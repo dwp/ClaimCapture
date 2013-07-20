@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.BeenEmployed])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.BeenEmployed], jobs: List[models.domain.Job] = Nil)(implicit claim: models.domain.Claim)
 
 @import scala.language.postfixOps
 @import helper._
@@ -26,19 +26,14 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>Toys r not Us</td>
-                    <td class="desc">Sales assistant</td>
-                    <td><input type="button" class="button row secondary" value="Edit"></td>
-                    <td><input type="button" class="button row warning" value="Delete"></td>
-                </tr>
-
-                <tr>
-                    <td>Previous</td>
-                    <td class="desc">Used to work at Next</td>
-                    <td><input type="button" class="button row secondary" value="Edit"></td>
-                    <td><input type="button" class="button row warning" value="Delete"></td>
-                </tr>
+                @for(job <- jobs) {
+                    <tr id="@job.id" class="@job.id">
+                        <td>@job.employerName</td>
+                        <td class="desc">@job.title</td>
+                        <td><input type="button" class="button row secondary" value="Edit"></td>
+                        <td><input type="button" class="button row warning" value="Delete"></td>
+                    </tr>
+                }
             </tbody>
         </table>
 

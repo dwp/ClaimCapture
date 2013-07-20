@@ -13,6 +13,36 @@ object BeenEmployed extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g1"
 }
 
+case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Job) with NoRouting with Iterable[Job] {
+  def update(job: Job) = {
+    val updated = jobs map { j => if (j.id == job.id) job else j }
+
+    if (updated.contains(job)) Jobs(updated) else Jobs(jobs :+ job)
+  }
+
+  override def iterator: Iterator[Job] = jobs.iterator
+}
+
+object Jobs extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g1a"
+}
+
+case class Job(id: String, questionGroups: List[QuestionGroup] = Nil) extends QuestionGroup(Job) with NoRouting {
+  def employerName: String = "DUMMY employer name"
+
+  def title: String = "DUMMY title"
+
+  def update(questionGroup: QuestionGroup) = {
+    val updated = questionGroups map { qg => if (qg.identifier == questionGroup.identifier) questionGroup else qg }
+
+    if (updated.contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
+  }
+}
+
+object Job extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g1b"
+}
+
 case class JobDetails(employerName: String, jobStartDate: Option[DayMonthYear], finishedThisJob: String, lastWorkDate:Option[DayMonthYear],
                       p45LeavingDate: Option[DayMonthYear], hoursPerWeek: Option[String],
                       jobTitle: Option[String], payrollEmployeeNumber: Option[String],

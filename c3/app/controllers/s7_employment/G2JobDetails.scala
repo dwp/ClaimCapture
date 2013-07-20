@@ -4,7 +4,7 @@ import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.JobDetails
+import models.domain.{Employed, JobDetails}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 
@@ -29,6 +29,11 @@ object G2JobDetails extends Controller with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g2_jobDetails(formWithErrors)),
-      jobDetails => claim.update(jobDetails) -> Redirect(routes.G3EmployerContactDetails.present()))
+      jobDetails => {
+        /*val employedSection = claim.section(Employed)
+        employedSection.questionGroups.find()*/
+
+        claim.update(jobDetails) -> Redirect(routes.G3EmployerContactDetails.present())
+      })
   }
 }

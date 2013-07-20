@@ -89,9 +89,7 @@ case object ContactDetailsOfPayingPerson extends QuestionGroup.Identifier {
 
 case class BreaksInCare(call: Call, breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare) {
   def update(break: Break) = {
-    val updated = breaks map {
-      b => if (b.id == break.id) break else b
-    }
+    val updated = breaks map { b => if (b.id == break.id) break else b }
 
     if (updated.contains(break)) BreaksInCare(call, updated) else BreaksInCare(call, breaks :+ break)
   }
