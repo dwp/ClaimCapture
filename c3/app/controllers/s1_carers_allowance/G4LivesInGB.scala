@@ -6,11 +6,12 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain.{LivesInGB, Claim}
+import controllers.Mappings._
 
 object G4LivesInGB extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G4LivesInGB.present()),
+      call(routes.G4LivesInGB.present()),
       "answer" -> boolean
     )(LivesInGB.apply)(LivesInGB.unapply))
 

@@ -12,7 +12,7 @@ import play.api.data.validation.Constraints._
 object G2ContactDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G2ContactDetails.present()),
+      call(routes.G2ContactDetails.present()),
       "address" -> address.verifying(requiredAddress),
       "postcode" -> optional(text verifying validPostcode),
       "phoneNumber" -> optional(text verifying pattern( """[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid")),

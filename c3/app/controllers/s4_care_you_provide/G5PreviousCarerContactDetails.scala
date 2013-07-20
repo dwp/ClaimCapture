@@ -12,7 +12,7 @@ import controllers.Mappings._
 object G5PreviousCarerContactDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G5PreviousCarerContactDetails.present()),
+      call(routes.G5PreviousCarerContactDetails.present()),
       "address" -> optional(address),
       "postcode" -> optional(text verifying validPostcode),
       "phoneNumber" -> optional(text verifying validPhoneNumber),

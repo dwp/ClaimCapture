@@ -9,23 +9,14 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
   "Employer's contact details" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-
       val result = G3EmployerContactDetails.present(request)
       status(result) mustEqual OK
     }
 
-    "submit without data" in new WithApplication with Claiming {
-
+    "require no data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-
       val result = G3EmployerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-
-    
-
-
-
-
   } section "unit"
 }

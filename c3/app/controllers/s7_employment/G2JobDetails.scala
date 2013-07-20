@@ -12,10 +12,10 @@ object G2JobDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
       "employerName"-> nonEmptyText,
-      "jobStartDate" -> optional(dayMonthYear),
+      "jobStartDate" -> optional(dayMonthYear.verifying(validDate)),
       "finishedThisJob" -> nonEmptyText,
-      "lastWorkDate" -> optional(dayMonthYear),
-      "p45LeavingDate" -> optional(dayMonthYear),
+      "lastWorkDate" -> optional(dayMonthYear.verifying(validDate)),
+      "p45LeavingDate" -> optional(dayMonthYear.verifying(validDate)),
       "hoursPerWeek" -> optional(text),
       "jobTitle" -> optional(text),
       "payrollEmployeeNumber" -> optional(text),
@@ -28,7 +28,7 @@ object G2JobDetails extends Controller with CachedClaim {
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors =>BadRequest(views.html.s7_employment.g2_jobDetails(formWithErrors)),
-      jobDetails => claim.update(jobDetails) -> Redirect(routes.G2JobDetails.present()))
+      formWithErrors => BadRequest(views.html.s7_employment.g2_jobDetails(formWithErrors)),
+      jobDetails => claim.update(jobDetails) -> Redirect(routes.G3EmployerContactDetails.present()))
   }
 }

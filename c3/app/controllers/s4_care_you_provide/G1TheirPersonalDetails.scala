@@ -13,7 +13,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      "call" -> ignored(formCall),
+      call(formCall),
       "title" -> nonEmptyText(maxLength = 4),
       "firstName" -> nonEmptyText(maxLength = sixty),
       "middleName" -> optional(text(maxLength = sixty)),

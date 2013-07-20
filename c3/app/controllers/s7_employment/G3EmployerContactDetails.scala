@@ -9,13 +9,12 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 
 object G3EmployerContactDetails extends Controller with CachedClaim {
-
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G3EmployerContactDetails.present()),
       "address" -> optional(address),
       "postCode" -> optional(text),
-      "phoneNumber" -> optional(text)
+      "phoneNumber" -> optional(text),
+      call(routes.G3EmployerContactDetails.present())
     )(EmployerContactDetails.apply)(EmployerContactDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
@@ -24,7 +23,7 @@ object G3EmployerContactDetails extends Controller with CachedClaim {
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors =>BadRequest(views.html.s7_employment.g3_employerContactDetails(formWithErrors)),
-      beenEmployed => claim.update(beenEmployed) -> Redirect(routes.G3EmployerContactDetails.present()))
+      formWithErrors => BadRequest(views.html.s7_employment.g3_employerContactDetails(formWithErrors)),
+      employerContactDetails => claim.update(employerContactDetails) -> Redirect(routes.G4LastWage.present()))
   }
 }

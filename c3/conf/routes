@@ -151,8 +151,11 @@ POST    /employment/beenEmployed                                controllers.s7_e
 GET     /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.present
 POST    /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.submit
 
-GET     /employment/jobDetails                                  controllers.s7_employment.G3EmployerContactDetails.present
-POST    /employment/jobDetails                                  controllers.s7_employment.G3EmployerContactDetails.submit
+GET     /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.present
+POST    /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.submit
+
+GET     /employment/lastWage                                    controllers.s7_employment.G4LastWage.present
+POST    /employment/lastWage                                    controllers.s7_employment.G4LastWage.submit
 
 # Other income
 ###############

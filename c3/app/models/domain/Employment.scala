@@ -22,9 +22,17 @@ object JobDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g2"
 }
 
-case class EmployerContactDetails(call: Call,
-                                  address: Option[MultiLineAddress], postcode: Option[String], phoneNumber: Option[String]) extends QuestionGroup(EmployerContactDetails)
+case class EmployerContactDetails(address: Option[MultiLineAddress], postcode: Option[String], phoneNumber: Option[String],
+                                  call: Call) extends QuestionGroup(EmployerContactDetails)
 
 object EmployerContactDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g3"
+}
+
+case class LastWage(lastPaidDate: Option[DayMonthYear], periodFrom: Option[DayMonthYear], periodTo: Option[DayMonthYear],
+                    grossPay: Option[String], payInclusions: Option[String], sameAmountEachTime: Option[String],
+                    call: Call) extends QuestionGroup(LastWage)
+
+object LastWage extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g4"
 }

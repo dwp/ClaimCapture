@@ -12,7 +12,7 @@ import models.domain.Claim
 object G3MoreAboutThePerson extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G3MoreAboutThePerson.present()),
+      call(routes.G3MoreAboutThePerson.present()),
       "relationship" -> nonEmptyText(maxLength = 20),
       "armedForcesPayment" -> optional(text),
       "claimedAllowanceBefore" -> nonEmptyText.verifying(validYesNo)

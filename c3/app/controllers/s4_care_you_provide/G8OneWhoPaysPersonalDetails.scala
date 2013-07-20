@@ -12,7 +12,7 @@ import utils.helpers.CarersForm._
 object G8OneWhoPaysPersonalDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G8OneWhoPaysPersonalDetails.present()),
+      call(routes.G8OneWhoPaysPersonalDetails.present()),
       "organisation" -> optional(text(maxLength = hundred)),
       "title" -> optional(text(maxLength = 4)),
       "firstName" -> optional(text(maxLength = sixty)),

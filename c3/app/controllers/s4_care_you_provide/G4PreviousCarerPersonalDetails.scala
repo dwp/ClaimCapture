@@ -12,7 +12,7 @@ import controllers.Mappings._
 object G4PreviousCarerPersonalDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G4PreviousCarerPersonalDetails.present()),
+      call(routes.G4PreviousCarerPersonalDetails.present()),
       "firstName" -> optional(text(maxLength = sixty)),
       "middleName" -> optional(text(maxLength = sixty)),
       "surname" -> optional(text(maxLength = sixty)),

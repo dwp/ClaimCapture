@@ -11,7 +11,7 @@ import utils.helpers.CarersForm._
 object G9ContactDetailsOfPayingPerson extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G9ContactDetailsOfPayingPerson.present()),
+      call(routes.G9ContactDetailsOfPayingPerson.present()),
       "address" -> optional(address),
       "postcode" -> optional(text)
     )(ContactDetailsOfPayingPerson.apply)(ContactDetailsOfPayingPerson.unapply))

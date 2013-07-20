@@ -27,11 +27,11 @@ object Mappings {
   val no = "no"
 
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
-    "day" -> optional(    number(max=100)),
-    "month" -> optional(  number(max=100)),
-    "year" -> optional(   number(max=99999)),
-    "hour" -> optional(   number(max=100,min=0)),
-    "minutes" -> optional(number(max=100,min=0))
+    "day" -> optional(number(max = 100)),
+    "month" -> optional(number(max = 100)),
+    "year" -> optional(number(max = 99999)),
+    "hour" -> optional(number(max = 100, min = 0)),
+    "minutes" -> optional(number(max = 100, min = 0))
   )(DayMonthYear.apply)(DayMonthYear.unapply)
 
   val address: Mapping[MultiLineAddress] = mapping(

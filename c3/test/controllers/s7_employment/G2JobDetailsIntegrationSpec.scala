@@ -17,7 +17,41 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       findMustEqualSize("div[class=validation-summary] ol li", 2)
     }
 
-    // ...
+    "accept only mandatory data" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/employment/jobDetails")
+      browser.fill("#employerName") `with` "Toys r not Us"
+      browser.click("#finishedThisJob_no")
+
+      browser.submit("button[type='submit']")
+      titleMustEqual("Employer contact details - Employment")
+    }
+
+    "accept all data" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/employment/jobDetails")
+
+      browser.fill("#employerName") `with` "Toys r not Us"
+
+      browser.click("#jobStartDate_day option[value='1']")
+      browser.click("#jobStartDate_month option[value='1']")
+      browser.fill("#jobStartDate_year") `with` "2000"
+
+      browser.click("#finishedThisJob_yes")
+
+      browser.click("#lastWorkDate_day option[value='1']")
+      browser.click("#lastWorkDate_month option[value='1']")
+      browser.fill("#lastWorkDate_year") `with` "2005"
+
+      browser.click("#p45LeavingDate_day option[value='1']")
+      browser.click("#p45LeavingDate_month option[value='1']")
+      browser.fill("#p45LeavingDate_year") `with` "2005"
+
+      browser.fill("#hoursPerWeek") `with` "75"
+      browser.fill("#jobTitle") `with` "Goblin"
+      browser.fill("#payrollEmployeeNumber") `with` "445566"
+
+      browser.submit("button[type='submit']")
+      titleMustEqual("Employer contact details - Employment")
+    }
 
     """go back to "been employed?".""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/beenEmployed").click("#beenEmployed_yes").submit("button[type='submit']")

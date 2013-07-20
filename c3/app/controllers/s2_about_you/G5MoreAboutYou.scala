@@ -7,12 +7,12 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.Mappings.validYesNo
-import controllers.Mappings.yes
+import controllers.Mappings._
 
 object G5MoreAboutYou extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G5MoreAboutYou.present()),
+      call(routes.G5MoreAboutYou.present()),
       "hadPartnerSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
       "eitherClaimedBenefitSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
       "beenInEducationSinceClaimDate" -> nonEmptyText.verifying(validYesNo),

@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.EmployerContactDetails])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.LastWage])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,10 +8,10 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
-@main("Employer contact details - Employment", Some(currentForm)) {
-    @form(action = controllers.s7_employment.routes.G3EmployerContactDetails.submit()){
+@main("Last wage - Employment", Some(currentForm)) {
+    @form(action = controllers.s7_employment.routes.G4LastWage.submit()){
         <fieldset class="form-elements">
-            <legend>Employer's contact details</legend>
+            <legend>BLAH</legend>
 
             <ul class="group">
 
@@ -19,7 +19,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@back(models.domain.EmployerContactDetails)" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.LastWage)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

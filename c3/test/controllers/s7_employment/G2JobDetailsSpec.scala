@@ -42,7 +42,7 @@ class G2JobDetailsSpec extends Specification with Tags {
         "p45LeavingDate.month" -> "1",
         "p45LeavingDate.year" -> "2001",
         "hoursPerWeek" -> "75",
-        "jobTitle" -> "goblin",
+        "jobTitle" -> "Goblin",
         "payrollEmployeeNumber" -> "445566")
 
       val result = G2JobDetails.submit(request)

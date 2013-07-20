@@ -11,7 +11,7 @@ import utils.helpers.CarersForm.formBinding
 object G4PersonYouCareFor extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G4PersonYouCareFor.present()),
+      call(routes.G4PersonYouCareFor.present()),
       "isPartnerPersonYouCareFor" -> nonEmptyText.verifying(validYesNo)
     )(PersonYouCareFor.apply)(PersonYouCareFor.unapply))
 

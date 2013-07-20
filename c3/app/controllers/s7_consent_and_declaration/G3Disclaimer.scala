@@ -7,12 +7,12 @@ import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import models.domain.Claim
-import scala.Some
+import controllers.Mappings._
 
 object G3Disclaimer extends Controller with CachedClaim{
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G3Disclaimer.present()),
+      call(routes.G3Disclaimer.present()),
       "read" -> nonEmptyText
     )(Disclaimer.apply)(Disclaimer.unapply))
 
