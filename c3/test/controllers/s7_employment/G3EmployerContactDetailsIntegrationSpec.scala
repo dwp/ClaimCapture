@@ -11,7 +11,7 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Employer contact details - Employment"
     }
 
-    "accept no data" in new WithBrowser with BrowserMatchers {
+    "accept only mandatory data" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/employersContactDetails")
       browser.submit("button[type='submit']")
       titleMustEqual("Last wage - Employment")
@@ -29,6 +29,8 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     """go back to "job details".""" in new WithBrowser with BrowserMatchers {
+      skipped("Going back within a Job is not handled yet - going back is handled top level and we now have nested question groups")
+
       browser.goTo("/employment/jobDetails")
       browser.fill("#employerName") `with` "Toys r not Us"
       browser.click("#finishedThisJob_no")

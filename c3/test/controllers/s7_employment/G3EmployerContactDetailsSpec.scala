@@ -13,8 +13,8 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    "require no data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+    """require only "job ID".""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> "1")
       val result = G3EmployerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }

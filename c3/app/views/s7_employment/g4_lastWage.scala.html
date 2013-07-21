@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.LastWage])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.LastWage], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,8 +8,10 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
-@main("Last wage - Employment", Some(currentForm)) {
-    @form(action = controllers.s7_employment.routes.G4LastWage.submit()){
+@main("Last wage - Employment", Some(currentForm), completedQuestionGroups) {
+    @form(action = controllers.s7_employment.routes.G4LastWage.submit()) {
+        <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
+
         <fieldset class="form-elements">
             <legend>BLAH</legend>
 

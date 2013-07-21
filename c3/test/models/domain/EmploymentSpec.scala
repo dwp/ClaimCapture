@@ -45,28 +45,46 @@ class EmploymentSpec extends Specification {
 
       val jobs = new Jobs(job1 :: Job("2") :: Nil)
 
-      val employerContactDetails = EmployerContactDetails(None, None, Some("111"), NoRouting)
+      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"), NoRouting)
       val updatedJob1 = job1.update(employerContactDetails)
       updatedJob1.questionGroups.size shouldEqual 2
 
       val updatedJobs = jobs.update(updatedJob1)
       updatedJobs.size shouldEqual 2
-      updatedJobs.find(_.id == "1") must beLike { case Some(Job("1", qgs)) => qgs.size shouldEqual 2 }
+      updatedJobs.find(_.jobID == "1") must beLike { case Some(Job("1", qgs)) => qgs.size shouldEqual 2 }
     }
 
     "update existing question group in existing job" in new Claiming {
       val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
-      val employerContactDetails = EmployerContactDetails(None, None, Some("111"), NoRouting)
+      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"), NoRouting)
       val job1 = Job("1").update(jobDetails).update(employerContactDetails)
 
       val jobs = new Jobs(job1 :: Job("2") :: Nil)
 
-      val updatedJob1 = job1.update(EmployerContactDetails(None, None, Some("222"), NoRouting))
+      val updatedJob1 = job1.update(EmployerContactDetails("1", None, None, Some("222"), NoRouting))
       updatedJob1.questionGroups.size shouldEqual 2
 
       val updatedJobs = jobs.update(updatedJob1)
       updatedJobs.size shouldEqual 2
-      updatedJobs.find(_.id == "1") must beLike {
+
+      updatedJobs.find(_.jobID == "1") must beLike {
+        case Some(Job("1", qgs)) => qgs.find(_.isInstanceOf[EmployerContactDetails]) must beLike {
+          case Some(e: EmployerContactDetails) => e.phoneNumber must beSome("222")
+        }
+      }
+    }
+
+    """be directly updated with an existing question group in an existing job""" in new Claiming {
+      val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
+      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"), NoRouting)
+      val job1 = Job("1").update(jobDetails).update(employerContactDetails)
+
+      val jobs = new Jobs(job1 :: Job("2") :: Nil)
+
+      val updatedJobs = jobs.update(EmployerContactDetails("1", None, None, Some("222"), NoRouting))
+      updatedJobs.size shouldEqual 2
+
+      updatedJobs.find(_.jobID == "1") must beLike {
         case Some(Job("1", qgs)) => qgs.find(_.isInstanceOf[EmployerContactDetails]) must beLike {
           case Some(e: EmployerContactDetails) => e.phoneNumber must beSome("222")
         }
