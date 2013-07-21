@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.JobDetails])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.JobDetails], jobID: Option[String] = None)(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -10,6 +10,8 @@
 
 @main("Job Details - Employment", Some(currentForm)) {
     @form(action = controllers.s7_employment.routes.G2JobDetails.submit()) {
+        <input type="hidden" name="jobID" value='@jobID.getOrElse(java.util.UUID.randomUUID.toString)'>
+
         <fieldset class="form-elements">
             <legend>Details about your job</legend>
 

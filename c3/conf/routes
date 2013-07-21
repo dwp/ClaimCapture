@@ -157,6 +157,9 @@ POST    /employment/employersContactDetails                     controllers.s7_e
 GET     /employment/lastWage                                    controllers.s7_employment.G4LastWage.present
 POST    /employment/lastWage                                    controllers.s7_employment.G4LastWage.submit
 
+GET     /employment/completed                                   controllers.s7_employment.Employment.completed
+POST    /employment/completed                                   controllers.s7_employment.Employment.submit
+
 # Other income
 ###############
 GET     /otherMoney/aboutOtherMoney                             controllers.s8_other_money.G1AboutOtherMoney.present
