@@ -65,6 +65,7 @@ s10.g3 = Disclaimer
 s10.g4 = Declaration
 
 date.helper = eg: 27 June 2013
+please.specify =  Please specify...
 
 ## ABOUT YOU
 
@@ -263,6 +264,13 @@ payrollEmployeeNumber = Payroll / Employee number
 
 # EMPLOYER CONTACT DETAILS
 phonenumber = Phone number
+
+# LAST WAGE
+lastPaidDate = When were you last paid?
+periodCovered = What period did this cover?
+grossPay = What was the gross pay for this period?
+payInclusions = What was included in this pay?
+sameAmountEachTime = Do you get the same amount each time?
 
 ## OTHER MONEY
 # ABOUT OTHER MONEY
