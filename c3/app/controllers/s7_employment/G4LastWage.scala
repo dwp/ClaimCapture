@@ -8,14 +8,18 @@ import models.domain.LastWage
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
+import models.PeriodFromTo
 
 object G4LastWage extends Controller with CachedClaim {
   val form = Form(
     mapping(
       "jobID" -> nonEmptyText,
-      "lastPaidDate" -> optional(dayMonthYear.verifying(validDate)),
-      "periodFrom" -> optional(dayMonthYear.verifying(validDate)),
-      "periodTo" -> optional(dayMonthYear.verifying(validDate)),
+      "lastPaidDate" -> optional(dayMonthYear.verifying(validDateOnly)),
+      "periodCovered" -> optional(
+        mapping(
+          "from"->dayMonthYear.verifying(validDate),
+          "to" -> dayMonthYear.verifying(validDate)
+        )(PeriodFromTo.apply)(PeriodFromTo.unapply)),
       "grossPay" -> optional(text),
       "payInclusions" -> optional(text),
       "sameAmountEachTime" -> optional(text),
