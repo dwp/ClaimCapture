@@ -14,10 +14,10 @@ final class G3MoreAboutYourPartnerPage (browser: TestBrowser, previousPage: Opti
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("startedLivingTogether.afterClaimDate", theClaim.AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate)
-    fillDate("startedLivingTogether.date", theClaim.AboutYourPartnertheDateWhenYouStartedLivingTogether)
-    fillYesNo("separated.fromPartner", theClaim.AboutYourPartnerHaveYouSeparatedfromYourPartner)
-    fillDate("separated.date", theClaim.AboutYourPartnerwhenDidYouSeparate)
+    fillYesNo("#startedLivingTogether_afterClaimDate", theClaim.AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate)
+    fillDate("#startedLivingTogether_date", theClaim.AboutYourPartnertheDateWhenYouStartedLivingTogether)
+    fillYesNo("#separated_fromPartner", theClaim.AboutYourPartnerHaveYouSeparatedfromYourPartner)
+    fillDate("#separated_date", theClaim.AboutYourPartnerwhenDidYouSeparate)
   }
 }
 
