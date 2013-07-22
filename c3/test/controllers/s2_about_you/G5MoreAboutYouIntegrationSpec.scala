@@ -3,15 +3,15 @@ package controllers.s2_about_you
 import play.api.test.WithBrowser
 import org.specs2.mutable.{Tags, Specification}
 import controllers.{ClaimScenarioFactory, Formulate}
-import utils.pageobjects.s2_about_you.{EmploymentPage, MoreAboutYouPage, YourDetailsPageContext, MoreAboutYouPageContext}
-import utils.pageobjects.s1_carers_allowance.BenefitsPage
+import utils.pageobjects.s2_about_you.{G6EmploymentPage, G5MoreAboutYouPage, G1YourDetailsPageContext, G5MoreAboutYouPageContext}
+import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
 
 class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
   "More About You" should {
-    "present Benefits when there is no claim date" in new WithBrowser with MoreAboutYouPageContext {
+    "present Benefits when there is no claim date" in new WithBrowser with G5MoreAboutYouPageContext {
       val landingPage = page goToThePage(throwException=false)
-      landingPage must beAnInstanceOf[BenefitsPage]
+      landingPage must beAnInstanceOf[G1BenefitsPage]
     }
 
     "be presented when there is a claim date" in new WithBrowser {
@@ -19,10 +19,10 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "More About You - About You"
     }
 
-    "contain the completed forms" in new WithBrowser with YourDetailsPageContext {
+    "contain the completed forms" in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       page goToThePage()
-      page runClaimWith (claim, MoreAboutYouPage.title)
+      page runClaimWith (claim, G5MoreAboutYouPage.title)
       page numberSectionsCompleted() mustEqual 4
     }
 
@@ -47,10 +47,10 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
       browser.find("p[class=error]").size mustEqual 4
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with YourDetailsPageContext {
+    "navigate to next page on valid submission" in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       page goToThePage()
-      page runClaimWith (claim, EmploymentPage.title)
+      page runClaimWith (claim, G6EmploymentPage.title)
     }
   } section "integration"
 }

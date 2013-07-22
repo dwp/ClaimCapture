@@ -160,6 +160,9 @@ POST    /employment/lastWage                                    controllers.s7_e
 GET     /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.present
 POST    /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.submit
 
+GET     /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.present
+POST    /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.submit
+
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
 POST    /employment/completed                                   controllers.s7_employment.Employment.submit
 
@@ -179,6 +182,9 @@ POST    /otherMoney/personContactDetails                        controllers.s8_o
 
 GET     /otherMoney/statutorySickPay                            controllers.s8_other_money.G5StatutorySickPay.present
 POST    /otherMoney/statutorySickPay                            controllers.s8_other_money.G5StatutorySickPay.submit
+
+GET     /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.present
+POST    /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.submit
 
 # Pay Details
 ###############

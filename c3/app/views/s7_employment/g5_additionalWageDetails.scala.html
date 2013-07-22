@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.AdditionalWageDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.AdditionalWageDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -9,21 +9,24 @@
 @import utils.helpers.CarersCrypto
 
 @main("Additional wage details - Employment", Some(currentForm), completedQuestionGroups) {
-    @form(action = controllers.s7_employment.routes.G4LastWage.submit()) {
-        <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
+    @form(action = controllers.s7_employment.routes.G5AdditionalWageDetails.submit()) {
+        <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(request.flash.get("jobID").getOrElse("Missing job ID"))'>
 
         <fieldset class="form-elements">
             <legend>Additional wage details</legend>
 
             <ul class="group">
+                @paymentFrequency(currentForm("oftenGetPaid"), "frequency", Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly", "other" -> "other"))
 
-                @paymentFrequency(currentForm("oftenGetPaid"),"frequency",Seq("W"->"Weekly", "FN"->"fortnightly","4W"-> "four-weekly","M"-> "monthly","other"->"other"))
                 @carersInputText(currentForm("whenGetPaid"))
-                @yesNoRadioGroup(currentForm("holidaySickPay"))
-                @yesNoRadioGroup(currentForm("anyOtherMoney"))
-                @carersInputTextArea(currentForm("otherMoney"),'placeholder->Messages("please.specify"))
-                @yesNoRadioGroup(currentForm("employeeOwesYouMoney"))
 
+                @yesNoRadioGroup(currentForm("holidaySickPay"))
+
+                @yesNoRadioGroup(currentForm("anyOtherMoney"))
+
+                @carersInputTextArea(currentForm("otherMoney"), 'placeholder->Messages("please.specify"))
+
+                @yesNoRadioGroup(currentForm("employeeOwesYouMoney"))
             </ul>
         </fieldset>
 

@@ -3,7 +3,7 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, Formulate}
-import utils.pageobjects.s2_about_you.{YourDetailsPageContext, PropertyAndRentPage}
+import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G7PropertyAndRentPage}
 
 class G6EmploymentIntegrationSpec extends Specification with Tags {
   sequential
@@ -32,10 +32,10 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").size() mustEqual 4
     }
 
-    "fill all fields" in new WithBrowser with YourDetailsPageContext {
+    "fill all fields" in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
-      page runClaimWith(claim, PropertyAndRentPage.title)
+      page runClaimWith(claim, G7PropertyAndRentPage.title)
     }
 
     "failed to fill the form" in new WithBrowser {

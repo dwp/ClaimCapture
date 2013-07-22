@@ -1,15 +1,20 @@
 package controllers.s7_employment
 
-import play.api.mvc.{AnyContent, Request, Controller}
+import language.implicitConversions
+import language.reflectiveCalls
+import play.api.mvc.{Result, AnyContent, Request, Controller}
 import models.view.CachedClaim
 import models.domain._
 import models.domain.Claim
-import scala.Some
 
 object Employment extends Controller with CachedClaim {
   def jobs(implicit claim: Claim) = claim.questionGroup(Jobs) match {
     case Some(js: Jobs) => js
     case _ => Jobs()
+  }
+
+  implicit def inJob(result: Result) = new {
+    def inJob(qg: QuestionGroup with Job.Identifier) = result.flashing("jobID" -> qg.jobID)
   }
 
   def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier)(implicit claim: Claim, request: Request[AnyContent]) = {

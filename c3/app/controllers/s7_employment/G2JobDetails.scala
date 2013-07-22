@@ -1,5 +1,7 @@
 package controllers.s7_employment
 
+import language.implicitConversions
+import language.reflectiveCalls
 import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
@@ -42,6 +44,6 @@ object G2JobDetails extends Controller with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g2_jobDetails(formWithErrors)),
-      jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present()).flashing("jobID" -> jobDetails.jobID))
+      jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present()).inJob(jobDetails))
   }
 }

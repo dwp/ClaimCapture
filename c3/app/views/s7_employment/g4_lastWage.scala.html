@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.LastWage], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.LastWage], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -10,20 +10,21 @@
 
 @main("Last wage - Employment", Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G4LastWage.submit()) {
-        <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
+        <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(request.flash.get("jobID").getOrElse("Missing job ID"))'>
 
         <fieldset class="form-elements">
             <legend>Your last wage</legend>
 
             <ul class="group">
-
                 @inputDayMonthYear(currentForm("lastPaidDate"))
+
                 @inputDayMonthYearFromTo(currentForm("periodCovered"),'helper ->Messages("date.helper"))
+
                 @carersShortInputText(currentForm("grossPay"),'placeholder -> Messages("poundSign"))
+
                 @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("please.specify"))
+
                 @yesNoRadioGroup(currentForm("sameAmountEachTime"))
-
-
             </ul>
         </fieldset>
 
