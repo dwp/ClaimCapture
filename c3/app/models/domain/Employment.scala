@@ -1,6 +1,6 @@
 package models.domain
 
-import models.{MultiLineAddress, DayMonthYear}
+import models.{PeriodFromTo, MultiLineAddress, DayMonthYear}
 import play.api.mvc.Call
 
 object Employed extends Section.Identifier {
@@ -83,7 +83,7 @@ object EmployerContactDetails extends QuestionGroup.Identifier {
 }
 
 case class LastWage(jobID: String,
-                    lastPaidDate: Option[DayMonthYear], periodFrom: Option[DayMonthYear], periodTo: Option[DayMonthYear],
+                    lastPaidDate: Option[DayMonthYear], period: Option[PeriodFromTo],
                     grossPay: Option[String], payInclusions: Option[String], sameAmountEachTime: Option[String],
                     call: Call) extends QuestionGroup(LastWage) with Job.Identifier
 

@@ -34,6 +34,11 @@ object Mappings {
     "minutes" -> optional(number(max = 100, min = 0))
   )(DayMonthYear.apply)(DayMonthYear.unapply)
 
+  val periodFromTo: Mapping[PeriodFromTo] = mapping(
+    "from"->dayMonthYear.verifying(validDate),
+    "to" -> dayMonthYear.verifying(validDate)
+  )(PeriodFromTo.apply)(PeriodFromTo.unapply)
+
   val address: Mapping[MultiLineAddress] = mapping(
     "lineOne" -> optional(text(maxLength = sixty)),
     "lineTwo" -> optional(text(maxLength = sixty)),

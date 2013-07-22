@@ -13,9 +13,16 @@
         <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
         <fieldset class="form-elements">
-            <legend>BLAH</legend>
+            <legend>Your last wage</legend>
 
             <ul class="group">
+
+                @inputDayMonthYear(currentForm("lastPaidDate"))
+                @inputDayMonthYearFromTo(currentForm("periodCovered"),'helper ->Messages("date.helper"))
+                @carersShortInputText(currentForm("grossPay"),'placeholder -> Messages("poundSign"))
+                @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("please.specify"))
+                @yesNoRadioGroup(currentForm("sameAmountEachTime"))
+
 
             </ul>
         </fieldset>

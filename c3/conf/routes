@@ -171,8 +171,11 @@ POST    /otherMoney/moneyPaidToSomeoneElseForYou                controllers.s8_o
 GET     /otherMoney/personWhoGetsThisMoney                      controllers.s8_other_money.G3PersonWhoGetsThisMoney.present
 POST    /otherMoney/personWhoGetsThisMoney                      controllers.s8_other_money.G3PersonWhoGetsThisMoney.submit
 
-GET     /otherMoney/personContactDetails                       controllers.s8_other_money.G4PersonContactDetails.present
-POST    /otherMoney/personContactDetails                       controllers.s8_other_money.G4PersonContactDetails.submit
+GET     /otherMoney/personContactDetails                        controllers.s8_other_money.G4PersonContactDetails.present
+POST    /otherMoney/personContactDetails                        controllers.s8_other_money.G4PersonContactDetails.submit
+
+GET     /otherMoney/statutorySickPay                            controllers.s8_other_money.G5StatutorySickPay.present
+POST    /otherMoney/statutorySickPay                            controllers.s8_other_money.G5StatutorySickPay.submit
 
 # Pay Details
 ###############
