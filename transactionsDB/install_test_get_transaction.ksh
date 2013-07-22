@@ -52,7 +52,7 @@ function version {
 }
 
 function arguments {
-  print "  ${_NAMESCRIPT} [-hv] [-d <databse name>]"
+  print "  ${_NAMESCRIPT} [-hv] [-sd <databse name>]"
 }
                                     
 function usage {
@@ -67,7 +67,8 @@ function usage {
   print "  "
   print "\nOptions"
   print "  -d <database name>  Name of the database where the new table and function must be created."            
-  print "  -h                  Display this message and exit." 
+  print "  -h                  Display this message and exit."
+  print "  -s                  Installs only the PosgreSQL function. DO not create table and user."
   print "  -v                  Display version information."
   print "\nExamples"
   print "  ${_NAMESCRIPT} -v"
@@ -78,7 +79,7 @@ function usage {
 }  
 
 function check_parameters {
-while getopts "vhd:" opt; do
+while getopts "vhsd:" opt; do
   case $opt in
     v)
       version
@@ -87,6 +88,8 @@ while getopts "vhd:" opt; do
     h )
       usage
       stop_batch
+      ;;
+    s) _FUNCTIONONLY=1
       ;;
     d)
      _DATABASENAME=${OPTARG}
@@ -123,9 +126,9 @@ function run_psql_command {
 #---------------------------------------
 set_global_variables
 check_parameters $@
-run_psql_command '\i create_transactionids_table.sql;'
+((  ${_FUNCTIONONLY:-0} == 0 )) &&  run_psql_command '\i create_transactionids_table.sql;'
 run_psql_command '\i get_transaction.sql;'
-run_psql_command '\i create_users.sql;'   
+((  ${_FUNCTIONONLY:-0} == 0 )) &&  run_psql_command '\i create_users.sql;'   
 run_psql_command '\x \\ select get_new_transaction_id();' 
 echo 'Installation and smoke test successful'
 
