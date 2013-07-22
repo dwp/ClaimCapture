@@ -4,5 +4,5 @@
 @import utils.helpers.CarersCrypto
 
 @input(field, args ++ Seq('autocomplete -> "off"):_*) { (id, name, value, htmlArgs) =>
-    <input type="tel" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" value="@value" @toHtmlArgs(htmlArgs)>
+    <input type="tel" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" value="@value" maxlength=60 @toHtmlArgs(htmlArgs)>
 }

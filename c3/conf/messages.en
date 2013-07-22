@@ -288,6 +288,16 @@ owedFor = What is the money owed for?
 shouldBeenPaidBy = When should it have been paid?
 whenWillGetIt = When will you get it?
 
+# PENSION SCHEME
+
+payOccupationalPensionScheme = Do you pay towards an occupational pension scheme?
+howMuchPension = How much do you pay?
+howOftenPension = How often?
+payPersonalPensionScheme = Do you pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
+howMuchPersonal = How much do you pay?
+howOftenPersonal = How often?
+
+
 ## OTHER MONEY
 # ABOUT OTHER MONEY
 yourBenefits.answer = Have you claimed or received any other benefits since the date you want to claim?
@@ -295,6 +305,12 @@ yourBenefits.answer.label = Have you {0} claimed or received any other benefits 
 yourBenefits.text1 = Please tell us the names of the benefits or entitlements you receive
 yourBenefits.text2 = Please tell us the names of the benefits or entitlements your Partner/Spouse receive
 moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
+haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
+howMuch = How much do you get, and how often?
+howMuch_howOften = '
+employersName = Employer''s Name
+employersAddress = Employer''s Address
+employersPostcode = Employer''s Postcode
 
 ## PAY DETAILS
 # HOW WE PAY YOU

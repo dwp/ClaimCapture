@@ -4,7 +4,8 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
-
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
 
 @main("Statutory Sick Pay - Other Money", Some(currentForm), completedQuestionGroups) {
 
@@ -14,7 +15,19 @@
             <legend>About Statutory Sick Pay (SSP)</legend>
 
             <ul class="group">
+              @yesNoRadioGroup(currentForm("haveYouHadAnyStatutorySickPay"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
+              @otherDetailPlaceHolder(
+                  inputDef = Seq(
+                    carersShortInputText(currentForm("howMuch"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty),
+                    paymentFrequency(currentForm("howMuch"), "howOften", Seq("" -> "How often?", "W"->"Weekly", "FN"->"fortnightly","4W"-> "four-weekly","M"-> "monthly", "other"->"other")),
+                    carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
+                    inputAddress(currentForm("employersAddress")),
+                    carersInputText(currentForm("employersPostcode"))
+                  ),
+                  'id -> "sickPayWrap",
+                  'display -> currentForm("haveYouHadAnyStatutorySickPay").value.getOrElse("no")
+              )
             </ul>
         </fieldset>
 
@@ -24,3 +37,11 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s8_other_money/g5_statutorySickPay.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_yes")", "@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_no")");
+    });
+</script>

@@ -16,9 +16,9 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
     "be presented" in new WithBrowser with G5StatutorySickPayPageContext {
       page goToThePage ()
     }
-/*
+
     "not be presented if not claimed benefits" in new WithBrowser with G4ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
+      val claim = ClaimScenarioFactory.s8otherMoney
       claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "No"
 
       page goToThePage ()
@@ -28,16 +28,30 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
       moreAboutYouPage fillPageWith claim
       val nextPage = moreAboutYouPage.submitPage()
 
-      nextPage.goToPage(new G4PersonContactDetailsPage(browser)) must throwA[PageObjectException]
+      nextPage.goToPage(new G5StatutorySickPayPage(browser)) must throwA[PageObjectException]
     }
 
-    "contain errors on invalid submission" in new WithBrowser with G4PersonContactDetailsPageContext {
-      val claim = new ClaimScenario
-      claim.OtherMoneyPostCode = "INVALID"
-      page goToThePage ()
-      page fillPageWith claim
-      val pageWithErrors = page.submitPage()
-      pageWithErrors.listErrors.size mustEqual 1
+    "contain errors on invalid submission" in {
+      "had sick pay but missing mandatory field" in new WithBrowser with G5StatutorySickPayPageContext {
+        val claim = new ClaimScenario
+        claim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay = "yes"
+        page goToThePage ()
+        page fillPageWith claim
+        val pageWithErrors = page.submitPage()
+        pageWithErrors.listErrors.size mustEqual 1
+      }
+      
+      "had sick pay but then invalid postcode" in new WithBrowser with G5StatutorySickPayPageContext {
+        val claim = new ClaimScenario
+        claim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay = "yes"
+        claim.OtherMoneyStatutorySickPayEmployersNameEmployers = "Johnny B Good"
+        claim.OtherMoneyStatutorySickPayEmployersPostCode = "INVALID"
+        page goToThePage ()
+        page fillPageWith claim
+        val pageWithErrors = page.submitPage()
+        pageWithErrors.listErrors.size mustEqual 1
+        pageWithErrors.listErrors(0).contains("postcode")
+      }
     }
 
     "contain the completed forms" in new WithBrowser with G1AboutOtherMoneyPageContext {
@@ -45,7 +59,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
       page goToThePage ()
       page fillPageWith claim
       val moneyPaidPage = page submitPage ()
-      val personContactPage = moneyPaidPage.goToPage(new G4PersonContactDetailsPage(browser))
+      val personContactPage = moneyPaidPage.goToPage(new G5StatutorySickPayPage(browser))
       personContactPage.listCompletedForms.size mustEqual 1
     }
 
@@ -65,9 +79,15 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
       previousPage must beAnInstanceOf[G3PersonWhoGetsThisMoneyPage]
     }
 
-    //    "navigate to next page on valid submission" in new WithBrowser {
-    //      pending
-    //    }
-*/
+    "navigate to next page on valid submission" in new WithBrowser with G5StatutorySickPayPageContext {
+      val claim = ClaimScenarioFactory.s8otherMoney
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+
+      nextPage must beAnInstanceOf[G6OtherStatutoryPayPage]
+    }
+
   } section "integration"
 }
