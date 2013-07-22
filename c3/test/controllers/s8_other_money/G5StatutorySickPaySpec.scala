@@ -55,23 +55,33 @@ class G5StatutorySickPaySpec extends Specification with Tags {
       }
     }
 
-    "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay, 
-            "employersName" -> employersName,
-            "employersPostcode" -> "INVALID")
-
-      val result = controllers.s8_other_money.G5StatutorySickPay.submit(request)
-      status(result) mustEqual BAD_REQUEST
+    "return a bad request after an invalid submission" in {
+      "invalid postcode" in new WithApplication with Claiming {
+        val request = FakeRequest().withSession("connected" -> claimKey)
+          .withFormUrlEncodedBody("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay, 
+              "employersName" -> employersName,
+              "employersPostcode" -> "INVALID")
+  
+        val result = controllers.s8_other_money.G5StatutorySickPay.submit(request)
+        status(result) mustEqual BAD_REQUEST
+      }
+      
+      "missing mandatory field" in new WithApplication with Claiming {
+        val request = FakeRequest().withSession("connected" -> claimKey)
+          .withFormUrlEncodedBody("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay)
+  
+        val result = controllers.s8_other_money.G5StatutorySickPay.submit(request)
+        status(result) mustEqual BAD_REQUEST
+      }
     }
-/*
+
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(personContactDetailsInput: _*)
+        .withFormUrlEncodedBody(statutorySickPayInput: _*)
 
-      val result = controllers.s8_other_money.G4PersonContactDetails.submit(request)
+      val result = controllers.s8_other_money.G5StatutorySickPay.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-*/
+
   } section "unit"
 }
