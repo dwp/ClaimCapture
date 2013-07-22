@@ -45,3 +45,9 @@ case class StatutorySickPay(haveYouHadAnyStatutorySickPay: String,
 case object StatutorySickPay extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g5"
 }
+
+case class OtherStatutoryPay(answer:String, call:Call) extends QuestionGroup(StatutorySickPay)
+
+case object OtherStatutoryPay extends QuestionGroup.Identifier {
+  val id = s"${OtherMoney.id}.g6"
+}
