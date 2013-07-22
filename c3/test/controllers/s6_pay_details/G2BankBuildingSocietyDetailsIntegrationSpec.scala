@@ -16,7 +16,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       browser.title mustEqual "Bank Building Society Details - Pay Details"
       browser.submit("button[type='submit']")
 
-      browser.find("div[class=validation-summary] ol li").size mustEqual 6
+      browser.find("div[class=validation-summary] ol li").size mustEqual 5
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
