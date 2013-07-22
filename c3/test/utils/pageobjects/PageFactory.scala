@@ -7,7 +7,7 @@ import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s8_other_money._
 import utils.pageobjects.s6_pay_details.HowWePayYouPage
-import utils.pageobjects.s3_your_partner.YourPartnerPersonalDetailsPage
+import utils.pageobjects.s3_your_partner.{YourPartnerContactDetailsPage, YourPartnerPersonalDetailsPage}
 
 
 /**
@@ -46,6 +46,7 @@ object PageFactory {
       case CompletedPage.title => CompletedPage buildPageWith(browser, previousPage)
       // S3
       case YourPartnerPersonalDetailsPage.title => YourPartnerPersonalDetailsPage buildPageWith(browser,previousPage)
+      case YourPartnerContactDetailsPage.title => YourPartnerContactDetailsPage buildPageWith(browser, previousPage)
       // S6
       case HowWePayYouPage.title => HowWePayYouPage buildPageWith(browser, previousPage)
       // S8 TODO SKW these must be filled in so tests using  "must beAnInstanceOf" work correctly!!!

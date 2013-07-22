@@ -4,7 +4,7 @@ import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 /**
- * To change this template use Preferences | File and Code Templates.
+ * PageObject for page s3_your_partner g1_yourPartnerPersonalDetails.
  * @author Jorge Migueis
  *         Date: 19/07/2013
  */
