@@ -66,7 +66,7 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
       val s8g4 = s8g3 submitPage ()
       val previousPage = s8g4 goBack ()
       previousPage.pageTitle mustEqual "Person Who Gets This Money - Other Money"
-      //previousPage must beAnInstanceOf[G3PersonWhoGetsThisMoneyPage]
+      previousPage must beAnInstanceOf[G3PersonWhoGetsThisMoneyPage]
     }
 
     //    "navigate to next page on valid submission" in new WithBrowser {
