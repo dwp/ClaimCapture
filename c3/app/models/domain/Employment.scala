@@ -1,7 +1,13 @@
 package models.domain
 
-import models.{PeriodFromTo, MultiLineAddress, DayMonthYear}
+import models.{PaymentFrequency, PeriodFromTo, MultiLineAddress, DayMonthYear}
 import play.api.mvc.Call
+import controllers.Mappings._
+import play.api.mvc.Call
+import models.PaymentFrequency
+import models.MultiLineAddress
+import models.PeriodFromTo
+import scala.Some
 
 object Employed extends Section.Identifier {
   val id = "s7"
@@ -89,4 +95,24 @@ case class LastWage(jobID: String,
 
 object LastWage extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g4"
+}
+
+case class AdditionalWageDetails(jobID:String,
+                                 oftenGetPaid: Option[PaymentFrequency],whenGetPaid:Option[String],
+                                 holidaySickPay: Option[String], anyOtherMoney: String, otherMoney:Option[String],
+                                 employeeOwesYouMoney:String,
+                                 call: Call)extends QuestionGroup(AdditionalWageDetails) with Job.Identifier
+
+object AdditionalWageDetails extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g5"
+
+  def validateOtherMoney(input: AdditionalWageDetails): Boolean = input.anyOtherMoney match {
+    case `yes` => input.otherMoney.isDefined
+    case `no` => true
+  }
+
+  def validateOftenGetPaid(input: AdditionalWageDetails): Boolean = input.oftenGetPaid match {
+    case Some(pf) => pf.other.isDefined
+    case None => true
+  }
 }
