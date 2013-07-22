@@ -51,19 +51,19 @@ $button-green-hover: #004b27;
    /* progress steps */
    .progress-steps {
 	   border-top: 10px solid #f47738;
-	   @media screen and (max-width: 760px) {border-top: 0;}
+	   @media screen and (max-width: 640px) {border-top: 0;}
 	   ol {
 		   list-style: none;
 		   margin: 0;
 		   overflow: hidden;
 		   padding: 2.5em 0 0.3em 0;
-		    @media screen and (max-width: 760px) {padding-top: 2em;}
+		    @media screen and (max-width: 640px) {padding-top: 2em;}
 		   .ie7 &, .ie8 & {
 			   padding-bottom: 0;
 			   background: url('images/nav-line.png') 0 56px repeat-x;
 			   margin-bottom: -12px;
 		   }
-		   @media screen and (max-width: 760px) {
+		   @media screen and (max-width: 640px) {
 			   padding-bottom: 0;
 		   }
 		   &:after {
@@ -87,7 +87,7 @@ $button-green-hover: #004b27;
 				   background: url('images/nav-default.png') center 0 no-repeat;
 				   padding-bottom: 5px;
 			   }
-			    @media screen and (max-width: 760px) {
+			    @media screen and (max-width: 640px) {
 				    text-indent: -9999px;
 				    padding: 15px 0 0 0;
 				    span {
@@ -106,9 +106,6 @@ $button-green-hover: #004b27;
 			     }
 			   span {
 				   font-size: 1.3rem;
-				   @media screen and (max-width: 770px) {
-					   font-size: 10px;
-				   }
 				   .ie & {
 					   font-size: 13px;
 				   }
@@ -151,7 +148,7 @@ $button-green-hover: #004b27;
 				   top: -8px;
 				   padding-top: 55px;
 			   }
-			   	@media screen and (max-width: 760px) {
+			   	@media screen and (max-width: 640px) {
 				   	padding: 0;
 			   	}
 				   span {
@@ -168,7 +165,7 @@ $button-green-hover: #004b27;
 						   .ie & {
 							   font-size: 26px;
 						   }
-						   @media screen and (max-width: 760px) {
+						   @media screen and (max-width: 640px) {
 							   width: 30px;
 							   height: 29px;
 							   margin: 0 0 0 -15px;
@@ -623,10 +620,6 @@ $button-green-hover: #004b27;
 			   &.other-detail {
 				   margin: 0;
 				   padding-top: 0;
-				   .strip {
-					   position: absolute;
-					   left: -9999px;
-				   }
 			   }
 			  
 			   
@@ -799,14 +792,6 @@ $button-green-hover: #004b27;
 			   .warning-text {
 				   color: #df3034;
 			   }
-			   .stacked {
-					   margin: 0;
-					   padding: 0;
-					   font-size: 1.6rem;
-					   .ie & {
-						   font-size: 16px;
-					   }
-				   }
 		   }
 		   
 		   /* form list end */
@@ -1263,17 +1248,6 @@ $button-green-hover: #004b27;
 				text-indent: -9999px;
 				font-size: 0;
 			}
-			&.employment {
-				th, td {
-					text-align: left;
-					&:first-child {
-						width: 40%;
-					}
-					&.desc {
-						width: 40%;
-					}
-				}
-			}
 	   }
 	   /* table styling end */
 	   
@@ -1609,9 +1583,9 @@ $button-green-hover: #004b27;
 textarea.demo {text-align: left!important; width: 120%!important; font-size: 1.5rem!important; height: 20rem!important; margin-top: 1em; border-color: red!important; padding: 1rem!important; background: #eee!important; margin-bottom: 3em!important}
 
 
-/* Header - Global Overrides - inc !important overrides */
+/* Header - Global Overrides - inc important overrides */
 html {background: #dee0e2!important;}
-#global-header #logo img {left: -211px!important;}
+/* #global-header #logo img {left: -211px!important;} */
 #global-header .header-wrapper {padding: 0.5em 1px!important;}
 
 .carers-allowance-footer {padding-top: 30px!important; padding-bottom: 30px!important;}
