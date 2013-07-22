@@ -50,6 +50,11 @@ object Mappings {
     "other" -> optional(text)
   )(Whereabouts.apply)(Whereabouts.unapply)
 
+  val paymentFrequency: Mapping[PaymentFrequency] = mapping(
+    "frequency" -> nonEmptyText,
+    "other" -> optional(text)
+  )(PaymentFrequency.apply)(PaymentFrequency.unapply)
+
   val sortCode: Mapping[SortCode] = mapping(
     "sort1" -> text( maxLength = two),
     "sort2" -> text( maxLength = two),

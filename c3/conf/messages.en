@@ -272,6 +272,15 @@ grossPay = What was the gross pay for this period?
 payInclusions = What was included in this pay?
 sameAmountEachTime = Do you get the same amount each time?
 
+# ADDITIONAL WAGE DETAILS
+oftenGetPaid = How often are you paid?
+oftenGetPaid_frequency = How often are you paid?
+whenGetPaid = When do you get paid?
+holidaySickPay = Do you get holiday pay or sick pay?
+anyOtherMoney = Do you get paid any other money as well as your normal wage?
+otherMoney = Please tell us what other money you received
+employeeOwesYouMoney = Does your employer owe you any money?
+
 ## OTHER MONEY
 # ABOUT OTHER MONEY
 yourBenefits.answer = Have you claimed or received any other benefits since the date you want to claim?
