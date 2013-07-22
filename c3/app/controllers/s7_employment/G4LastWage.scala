@@ -15,11 +15,7 @@ object G4LastWage extends Controller with CachedClaim {
     mapping(
       "jobID" -> nonEmptyText,
       "lastPaidDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-      "periodCovered" -> optional(
-        mapping(
-          "from"->dayMonthYear.verifying(validDate),
-          "to" -> dayMonthYear.verifying(validDate)
-        )(PeriodFromTo.apply)(PeriodFromTo.unapply)),
+      "periodCovered" -> optional(periodFromTo),
       "grossPay" -> optional(text),
       "payInclusions" -> optional(text),
       "sameAmountEachTime" -> optional(text),
