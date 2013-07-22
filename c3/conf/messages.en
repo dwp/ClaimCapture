@@ -1,10 +1,13 @@
 s1.progressBar = Eligibility
 s2.progressBar = About you
-s3.progressBar = Your Partner
+s3.progressBar = Your partner
 s4.progressBar = Care you provide
 s5.progressBar = Abroad
-s6.progressBar = Pay details
-s7.progressBar = Declaration
+s6.progressBar = Education
+s7.progressBar = Employment
+s8.progressBar = Other money
+s9.progressBar = Pay details
+s10.progressBar = Declaration
 
 s1.g1 = Q1.  Does the person you look after get one of these benefits?
 s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?
@@ -28,27 +31,41 @@ s4.g1 = Details of the person you care for
 s4.g2 = Their contact details
 s4.g3 = Relationship and other claims
 s4.g4 = About the previous Carer
-s4.g5 = More about the care you provide
+s4.g5 = Contact details of the previous Carer
 s4.g6 = Representatives for the person you care for
 s4.g7 = More about the care you provide
-s4.g8 = Details of the person / organisation who pays you
+s4.g8 = Details of the person/organisation who pays you
 s4.g9 = Contact details of the person who pays you
 s4.g10 = Breaks in care
 s4.g11 = About the breaks in care
 
-s5.g1 = Your normal residence & current location
-s5.g2 = When you went abroad for more than 4 weeks
-s5.g3 = When you went abroad for more than 52 weeks
+s5.g1 = Your normal residence and current location
+s5.g2 = Abroad for more than 4 weeks
+s5.g3 = Abroad for more than 52 weeks
+s5.g4 = Trips
 s5.g5 = Other EEA State or Switzerland
 
-s6.g1 = How would you like to get paid?
-s6.g2 = Bank / building society details
+s6.g1 = Your course details
+s6.g2 = School, college or university''s contact details
 
-s7.g1 = Additional Information
-s7.g2 = Consent
-s7.g3 = Disclaimer
-s7.g4 = Declaration
+s8.g1 = Details about other money
+s8.g2 = Money paid to someone else for you
+s8.g3 = Person who gets this money
+s8.g4 = Person''s contact details
+s8.g5 = Statutory Sick Pay
+s8.g6 = Other Statutory Pay
+s8.g7 = Other EEA State or Switzerland
 
+s9.g1 = How would you like to get paid?
+s9.g2 = Bank/Building society details
+
+s10.g1 = Additional information
+s10.g2 = Consent
+s10.g3 = Disclaimer
+s10.g4 = Declaration
+
+date.helper = eg: 27 June 2013
+please.specify =  Please specify...
 
 ## ABOUT YOU
 
@@ -94,13 +111,11 @@ livingInUK_originCountry = What country did you come from?
 livingInUK_goBack_date = When do you plan to go back?
 visaReference = What is your visa reference number in your passport?
 
-
-
 livingInUK_goBack_answer = Do you plan to go back to that country?
 livingInUK.goBack.answer = Do you plan to go back to that country?
 
 # CLAIM DATE
-dateOfClaim = When do you want your Carer's Allowance claim to start?
+dateOfClaim = When do you want your Carer''s Allowance claim to start?
 
 # MORE ABOUT YOU
 hadPartnerSinceClaimDate.label = Have you had a Partner/Spouse at any time since your claim date: {0}?
@@ -126,16 +141,16 @@ hasSublet = Have you sublet your home, or provided board and lodgings, since one
 ## YOUR PARTNER
 
 # MORE ABOUT YOUR PARTNER
-startedLivingTogether_afterClaimDate.label = Did you and your partner/spouse start living together, after your claim date: {0}?
+startedLivingTogether_afterClaimDate.label = Did you and your Partner/Spouse start living together, after your claim date: {0}?
 startedLivingTogether_date = What date did you start living together?
 startedLivingTogether.date = What date did you start living together?
-separated_fromPartner.label = Have you separated from your partner/spouse since the date you want to claim from: {0}?
+separated_fromPartner.label = Have you separated from your Partner/Spouse since the date you want to claim from: {0}?
 separated.fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
 separated.date = When did you separate?
 separated_date = When did you separate?
 
 # PERSON YOU CARE FOR
-isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming Carer's Allowance for?
+isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming Carer''s Allowance for?
 
 ## CARE YOU PROVIDE
 
@@ -143,9 +158,9 @@ isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming C
 liveAtSameAddress = Do they live at the same address as you?
 
 # MORE ABOUT THE PERSON
-relationship = What's their relationship to you?
-armedForcesPayment = Does this person get Armed Forces Independence Payment?
-claimedAllowanceBefore = Has anyone else claimed Carer's Allowance for this person before?
+relationship = What''s their relationship to you?
+armedForcesPayment = Does this person get Armed Forces Independence Payment (AFIP)?
+claimedAllowanceBefore = Has anyone else claimed Carer''s Allowance for this person before?
 
 # REPRESENTATIVES FOR THE PERSON
 you_actForPerson = Do you act for the person you care for?
@@ -174,7 +189,6 @@ beforeClaimCaring.date = When did you start to care for this person?
 hasSomeonePaidYou = Has someone paid you to care for this person since your claim date?
 hasSomeonePaidYou.label = Has someone paid you to care for this person since your claim date: {0}?
 
-
 # BREAKS IN CARE
 answer = Have you had any breaks in caring since claim date?
 answer.label = Have you had any breaks in caring since {0}?
@@ -190,7 +204,7 @@ whereYou.location = Where were you during the above break?
 wherePerson = Where was the person you care for during the above break?
 wherePerson_location = Where was the person you care for during the above break?
 wherePerson.location = Where was the person you care for during the above break?
-medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
+medicalDuringBreak = Did you or the person you care for receive any medical treatment or professional care during the above break?
 
 ## TIME SPENT ABROAD
 
@@ -223,6 +237,58 @@ benefitsFromOtherEEAStateOrSwitzerland.details = Provide details
 benefitsFromOtherEEAStateOrSwitzerland_details = Provide details
 workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?
 
+## EDUCATION
+# YOUR COURSE DETAILS
+courseType = Type of course
+courseTitle = Course title
+startDate = When did you start the course?
+expectedEndDate = When do you expect the course to end?
+finishedDate = If you are no longer on the course, when did you finish?
+studentReferenceNumber = Your student reference number
+nameOfSchoolCollegeOrUniversity = Name of school, college or university
+nameOfMainTeacherOrTutor = Name of main teacher or tutor
+faxNumber = Fax number
+
+## EMPLOYED
+beenEmployed = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
+
+# JOB DETAIL
+employerName = Employer's name
+jobStartDate = When did you start your job?
+finishedThisJob = Have you finished this job?
+lastWorkDate = When did you last work?
+p45LeavingDate = What is the leaving date on your P45, if you have one?
+hoursPerWeek = How many hours a week do you normally work?
+jobTitle = Job title
+payrollEmployeeNumber = Payroll / Employee number
+
+# EMPLOYER CONTACT DETAILS
+phonenumber = Phone number
+
+# LAST WAGE
+lastPaidDate = When were you last paid?
+periodCovered = What period did this cover?
+grossPay = What was the gross pay for this period?
+payInclusions = What was included in this pay?
+sameAmountEachTime = Do you get the same amount each time?
+
+# ADDITIONAL WAGE DETAILS
+oftenGetPaid = How often are you paid?
+oftenGetPaid_frequency = How often are you paid?
+whenGetPaid = When do you get paid?
+holidaySickPay = Do you get holiday pay or sick pay?
+anyOtherMoney = Do you get paid any other money as well as your normal wage?
+otherMoney = Please tell us what other money you received
+employeeOwesYouMoney = Does your employer owe you any money?
+
+## OTHER MONEY
+# ABOUT OTHER MONEY
+yourBenefits.answer = Have you claimed or received any other benefits since the date you want to claim?
+yourBenefits.answer.label = Have you {0} claimed or received any other benefits since the date you want to claim?
+yourBenefits.text1 = Please tell us the names of the benefits or entitlements you receive
+yourBenefits.text2 = Please tell us the names of the benefits or entitlements your partner/spouse receive
+moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
+
 ## PAY DETAILS
 # HOW WE PAY YOU
 likeToPay =  How would you like to be paid?
@@ -232,7 +298,7 @@ paymentFrequency = How often do you want to get paid?
 accountHolderName =  Name of account holder
 bankFullName = Full name of bank or building society
 sortCode = Sort code
-accountName = Account number
+accountNumber = Account number
 rollOrReferenceNumber = Building society roll or reference number
 
 ## CONSENT AND DECLARATION
@@ -244,24 +310,24 @@ why_placeholder = Enter text...
 informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
 
 # DISCLAIMER
-disclaimer.1 = I understand that if I am paid Carer's Allowance it may affect the benefits paid to [[first name, middle name, surname]].
+disclaimer.1 = I understand that if I am paid Carer''s Allowance it may affect the benefits paid to [[first name, middle name, surname]].
 disclaimer.2 = In addition please show the notes below to the person you are caring for, or their representative.
-disclaimer.3 = If the person you are caring for receives certain benefits, the amount they receive may be affected by your claim for Carer's Allowance. Because of this we need both of you to understand the potential consequences of your claim to Carer's Allowance.
-disclaimer.4 = If [[first name, middle name, surname]] gets a Severe Disability Premium with their income-based Jobseeker's Allowance, Income Support, income-related Employment and Support Allowance, Housing Benefit or Council Tax Benefit, they may no longer get that premium if we pay Carer's Allowance to you.
-disclaimer.5 = If [[first name, middle name, surname]]'s Pension Credit includes an extra amount for severe disability, they may no longer get that extra amount if we pay Carer's Allowance to you.
+disclaimer.3 = If the person you are caring for receives certain benefits, the amount they receive may be affected by your claim for Carer''s Allowance. Because of this we need both of you to understand the potential consequences of your claim to Carer''s Allowance.
+disclaimer.4 = If [[first name, middle name, surname]] gets a Severe Disability Premium with their income-based Jobseeker''s Allowance, Income Support, income-related Employment and Support Allowance, Housing Benefit or Council Tax Benefit, they may no longer get that premium if we pay Carer''s Allowance to you.
+disclaimer.5 = If [[first name, middle name, surname]]''s Pension Credit includes an extra amount for severe disability, they may no longer get that extra amount if we pay Carer''s Allowance to you.
 disclaimer.6 = We will need to check [[first name, middle name, surname]] entitlement to Disability Living Allowance, Personal Independence Payment, Attendance Allowance, Constant Attendance Allowance or Armed Forces Independence Payment when considering your claim.
 disclaimer.7 = We may contact [[first name, middle name, surname]] or their representative to establish whether 35 hours caring per week is taking place.
 
-disclaimer.read = Please tick this box to declare that you have read the Disclaimer text and have shown the Notes to the person you are looking after.
+read = Please tick this box to declare that you understand and have shown the notes above to the person you are looking after.
 
 #DECLARATION
-declaration.1 = I declare that I understand the Cares's Allowance Claim Notes and that the information provided on this claim form is correct and complete.
+declaration.1 = I declare that I understand the Cares''s Allowance Claim Notes and that the information provided on this claim form is correct and complete.
 declaration.2 = I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
-declaration.3 = I will phone 08456084321 or write to Carer's allowance Unit, Palantine House,Lancaster, Preston, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
+declaration.3 = I will phone 08456084321 or write to Carer''s allowance Unit, Palantine House,Lancaster, Preston, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
 declaration.4 = If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Cares Allowance may be stopped or reduced and any overpayment of Cares Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.
-declaration.read = Please tick this box to confirm that you understand and make the declarations above.
+confirm = Please tick this box to confirm that you understand and make the declarations above.
 declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.
-declaration.someoneElse = Please tick this box if this claim form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
+someoneElse = Please tick this box if this claim form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
 
 #ADDITIONAL INFO
 anythingElse = Please tell us anything else you think we should know about your claim
