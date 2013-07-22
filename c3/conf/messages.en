@@ -288,6 +288,9 @@ yourBenefits.answer.label = Have you {0} claimed or received any other benefits 
 yourBenefits.text1 = Please tell us the names of the benefits or entitlements you receive
 yourBenefits.text2 = Please tell us the names of the benefits or entitlements your partner/spouse receive
 moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
+haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
+howMuchHowOften = How much do you get, and how often?
+
 
 ## PAY DETAILS
 # HOW WE PAY YOU

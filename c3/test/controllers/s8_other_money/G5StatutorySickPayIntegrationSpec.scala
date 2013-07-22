@@ -50,6 +50,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
         page fillPageWith claim
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 1
+        pageWithErrors.listErrors(0).contains("postcode")
       }
     }
 

@@ -1,0 +1,25 @@
+@(field: Field, args: (Symbol, Any)*)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+
+<ul class="inline label-strip">
+
+      @carersShortInputText(field("howMuch"), 
+        'type -> "tel", 
+        'placeholder -> Messages("poundSign"), 
+        'maxLength -> Mappings.sixty, 
+        '_label -> Messages("howMuchHowOften")
+      )
+
+      @carersSelect(field("howOften"),
+        options = options(
+            "" -> "How often?",
+            "W"->"Weekly", 
+            "FN"->"Fortnightly",
+            "M"-> "Monthly"),
+        '_label -> Messages("howMuchHowOften")
+      )
+
+</ul>
