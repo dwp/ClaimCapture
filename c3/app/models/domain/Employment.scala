@@ -116,3 +116,12 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
     case None => true
   }
 }
+
+case class MoneyOwedbyEmployer(jobID:String,
+                               howMuch:Option[String],owedPeriod:Option[PeriodFromTo], owedFor:Option[String],
+                               shouldBeenPaidBy:Option[DayMonthYear],whenWillGetIt: Option[String],
+                               call: Call)extends QuestionGroup(MoneyOwedbyEmployer) with Job.Identifier
+
+object MoneyOwedbyEmployer extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g6"
+}
