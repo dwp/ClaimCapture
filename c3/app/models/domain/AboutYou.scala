@@ -29,7 +29,7 @@ object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class TimeOutsideUK(call: Call, livingInUK:LivingInUK, visaReference: Option[String]) extends QuestionGroup(TimeOutsideUK)
+case class TimeOutsideUK(call: Call, livingInUK: LivingInUK, visaReference: Option[String]) extends QuestionGroup(TimeOutsideUK)
 
 object TimeOutsideUK extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"

@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.EmployerContactDetails])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.EmployerContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,18 +8,22 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
-@main("Employer's contact details - Employment", Some(currentForm)) {
-    @form(action = controllers.s7_employment.routes.G3EmployerContactDetails.submit()){
+@main("Employer contact details - Employment", Some(currentForm), completedQuestionGroups) {
+    @form(action = controllers.s7_employment.routes.G3EmployerContactDetails.submit()) {
+        <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
+
         <fieldset class="form-elements">
             <legend>Employer's contact details</legend>
 
             <ul class="group">
-
+                @inputAddress(currentForm("address"))
+                @carersInputText(currentForm("postcode"))
+                @carersInputText(currentForm("phoneNumber"))
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a href="#" id="backButton" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.EmployerContactDetails)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

@@ -65,6 +65,21 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s2ands3WithTimeOUtsideUKAndProperty() = {
+    val claim = s2AboutYouWithTimeOutside()
+
+    claim.AboutYourPartnerTitle = "Mrs"
+    claim.AboutYourPartnerFirstName = "Cloe"
+    claim.AboutYourPartnerMiddleName = "Scott"
+    claim.AboutYourPartnerSurname = "Smith"
+    claim.AboutYourPartnerOtherNames = "Doe"
+    claim.AboutYourPartnerNINO = "AB123456A"
+    claim.AboutYourPartnerDateofBirth = "12/07/1990"
+    claim.AboutYourPartnerNationality = "British"
+    claim.AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou = "Yes"
+    claim
+  }
+
   def s6PayDetails() = {
     val claim = new ClaimScenario
     claim.HowWePayYouHowWouldYouLikeToGetPaid =  "You don't have an account but intend to open one"
@@ -73,8 +88,8 @@ object ClaimScenarioFactory {
   }
 
 
-  def s8otherMoneyG1AboutOtherMoney() = {
-    val claim =new ClaimScenario
+  def s8otherMoney = {
+    val claim = s2AboutYouWithTimeOutside()
     //About other money
     claim.OtherMoneyAboutYourBenefits = "no"
     //Money paid to someone welse for you

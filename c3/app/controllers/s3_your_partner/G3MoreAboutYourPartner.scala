@@ -26,7 +26,7 @@ object G3MoreAboutYourPartner extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G3MoreAboutYourPartner.present()),
+      call(routes.G3MoreAboutYourPartner.present()),
       startedLivingTogetherMapping,
       separationMapping
     )(MoreAboutYourPartner.apply)(MoreAboutYourPartner.unapply))

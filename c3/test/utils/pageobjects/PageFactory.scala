@@ -7,6 +7,7 @@ import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s8_other_money._
 import utils.pageobjects.s6_pay_details.HowWePayYouPage
+import utils.pageobjects.s3_your_partner.YourPartnerPersonalDetailsPage
 
 
 /**
@@ -43,11 +44,15 @@ object PageFactory {
       case EmploymentPage.title => EmploymentPage buildPageWith(browser, previousPage)
       case PropertyAndRentPage.title => PropertyAndRentPage buildPageWith(browser, previousPage)
       case CompletedPage.title => CompletedPage buildPageWith(browser, previousPage)
+      // S3
+      case YourPartnerPersonalDetailsPage.title => YourPartnerPersonalDetailsPage buildPageWith(browser,previousPage)
       // S6
       case HowWePayYouPage.title => HowWePayYouPage buildPageWith(browser, previousPage)
-      // S8
+      // S8 TODO SKW these must be filled in so tests using  "must beAnInstanceOf" work correctly!!!
       case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage buildPageWith(browser, previousPage)
-      case G2MoneyPaidToSomeoneElseForYouPage.title => G2MoneyPaidToSomeoneElseForYouPage buildPageWith(browser, previousPage)
+      case G3PersonWhoGetsThisMoneyPage.title => G3PersonWhoGetsThisMoneyPage buildPageWith(browser, previousPage)
+      case G4PersonContactDetailsPage.title => G4PersonContactDetailsPage buildPageWith(browser, previousPage)
+      case G5StatutorySickPayPage.title => G5StatutorySickPayPage buildPageWith(browser, previousPage)
       // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }

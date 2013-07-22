@@ -14,7 +14,7 @@ object G2YourPartnerContactDetails extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      "call" -> ignored(formCall),
+      call(formCall),
       "address" -> optional(address),
       "postcode" -> optional(text verifying validPostcode)
     )(YourPartnerContactDetails.apply)(YourPartnerContactDetails.unapply))

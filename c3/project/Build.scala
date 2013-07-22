@@ -13,8 +13,6 @@ object ApplicationBuild extends Build {
     jdbc,
     anorm,
     "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
-    "com.twitter" % "util-eval_2.10" % "6.3.7" withSources(),
-    "com.thoughtworks.xstream" % "xstream" % "1.4.4",
     "com.dwp.carers" % "carersXMLValidation" % "0.4", "postgresql" % "postgresql" % "9.1-901.jdbc4"
   )
 

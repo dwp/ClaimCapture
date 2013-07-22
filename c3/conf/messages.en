@@ -1,11 +1,13 @@
 s1.progressBar = Eligibility
 s2.progressBar = About you
-s3.progressBar = Your Partner
+s3.progressBar = Your partner
 s4.progressBar = Care you provide
 s5.progressBar = Abroad
 s6.progressBar = Education
-s7.progressBar = Declaration
+s7.progressBar = Employment
+s8.progressBar = Other money
 s9.progressBar = Pay details
+s10.progressBar = Declaration
 
 s1.g1 = Q1.  Does the person you look after get one of these benefits?
 s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?
@@ -54,15 +56,15 @@ s8.g5 = Statutory Sick Pay
 s8.g6 = Other Statutory Pay
 s8.g7 = Other EEA State or Switzerland
 
-
 s9.g1 = How would you like to get paid?
 s9.g2 = Bank / building society details
 
-s7.g1 = Additional Information
-s7.g2 = Consent
-s7.g3 = Disclaimer
-s7.g4 = Declaration
+s10.g1 = Additional Information
+s10.g2 = Consent
+s10.g3 = Disclaimer
+s10.g4 = Declaration
 
+date.helper = eg: 27 June 2013
 
 ## ABOUT YOU
 
@@ -107,8 +109,6 @@ livingInUK.arrivalDate = When did you arrive in the UK?
 livingInUK_originCountry = What country did you come from?
 livingInUK_goBack_date = When do you plan to go back?
 visaReference = What is your visa reference number in your passport?
-
-
 
 livingInUK_goBack_answer = Do you plan to go back to that country?
 livingInUK.goBack.answer = Do you plan to go back to that country?
@@ -188,7 +188,6 @@ beforeClaimCaring.date = When did you start to care for this person?
 hasSomeonePaidYou = Has someone paid you to care for this person since your claim date?
 hasSomeonePaidYou.label = Has someone paid you to care for this person since your claim date: {0}?
 
-
 # BREAKS IN CARE
 answer = Have you had any breaks in caring since claim date?
 answer.label = Have you had any breaks in caring since {0}?
@@ -248,6 +247,22 @@ studentReferenceNumber = Your student reference number
 nameOfSchoolCollegeOrUniversity = Name of school, college or university
 nameOfMainTeacherOrTutor = Name of main teacher or tutor
 faxNumber = Fax number
+
+## EMPLOYED
+beenEmployed = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
+
+# JOB DETAIL
+employerName = Employer's name
+jobStartDate = When did you start your job?
+finishedThisJob = Have you finished this job?
+lastWorkDate = When did you last work?
+p45LeavingDate = What is the leaving date on your P45, if you have one?
+hoursPerWeek = How many hours a week do you normally work?
+jobTitle = Job title
+payrollEmployeeNumber = Payroll / Employee number
+
+# EMPLOYER CONTACT DETAILS
+phonenumber = Phone number
 
 ## OTHER MONEY
 # ABOUT OTHER MONEY

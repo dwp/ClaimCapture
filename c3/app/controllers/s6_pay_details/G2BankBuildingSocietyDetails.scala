@@ -11,12 +11,12 @@ import controllers.Mappings._
 object G2BankBuildingSocietyDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G2BankBuildingSocietyDetails.present()),
+      call(routes.G2BankBuildingSocietyDetails.present()),
       "accountHolderName" -> nonEmptyText(maxLength = sixty),
       "bankFullName" -> nonEmptyText(maxLength = 100),
       "sortCode" -> (sortCode verifying requiredSortCode),
-      "accountNumber" -> nonEmptyText(minLength = 6,maxLength = 10),
-      "rollOrReferenceNumber" -> nonEmptyText( maxLength = 18)
+      "accountNumber" -> nonEmptyText(minLength = 6, maxLength = 10),
+      "rollOrReferenceNumber" -> nonEmptyText(maxLength = 18)
     )(BankBuildingSocietyDetails.apply)(BankBuildingSocietyDetails.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(BankBuildingSocietyDetails)

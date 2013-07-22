@@ -84,11 +84,11 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
     */
     "present errors if mandatory fields are not populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
       page goToThePage()
-      page.submitPage().listErrors.get.size mustEqual 1
+      page.submitPage().listErrors.size mustEqual 1
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoneyG1AboutOtherMoney()
+      val claim = ClaimScenarioFactory.s8otherMoney
       page goToThePage()
       page fillPageWith claim
       page submitPage()

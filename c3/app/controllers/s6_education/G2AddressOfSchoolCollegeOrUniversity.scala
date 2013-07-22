@@ -1,8 +1,6 @@
 package controllers.s6_education
 
-import controllers.Mappings.address
-import controllers.Mappings.validPhoneNumber
-import controllers.Mappings.validPostcode
+import controllers.Mappings._
 import models.domain.AddressOfSchoolCollegeOrUniversity
 import models.domain.Claim
 import models.view.CachedClaim
@@ -16,7 +14,7 @@ import Education._
 object G2AddressOfSchoolCollegeOrUniversity extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G2AddressOfSchoolCollegeOrUniversity.present()),
+      call(routes.G2AddressOfSchoolCollegeOrUniversity.present()),
       "nameOfSchoolCollegeOrUniversity" -> optional(text),
       "nameOfMainTeacherOrTutor" -> optional(text),
       "address" -> optional(address),

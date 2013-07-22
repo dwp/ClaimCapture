@@ -49,23 +49,21 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
 
     "add two trips and edit the second's start year" in new TripWithBrowser {
-      skipped
-
-      /*trip(fourWeeks)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(1, TimeUnit.SECONDS))
       trip(fourWeeks)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(1, TimeUnit.SECONDS))
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(10, TimeUnit.MINUTES))
+      trip(fourWeeks)
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(10, TimeUnit.MINUTES))
 
       browser.findFirst("input[value='Edit']").click()
-      titleMustEqual("Trip - Time Spent Abroad")(Duration(1, TimeUnit.SECONDS))
+      titleMustEqual("Trip - Time Spent Abroad")(Duration(10, TimeUnit.MINUTES))
       browser.$("#start_year").getValue shouldEqual 2000.toString
 
       browser.fill("#start_year") `with` "1999"
       browser.submit("button[type='submit']")
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(1, TimeUnit.SECONDS))
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(10, TimeUnit.MINUTES))
 
       browser.$("tbody tr").size() shouldEqual 2
-      browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")*/
+      browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
     }
 
     "allow cancellation" in new TripWithBrowser {
@@ -122,17 +120,17 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     "add two trips and edit the second's start year" in new TripWithBrowser {
       trip(fiftyTwoWeeks)
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")(Duration(10, TimeUnit.MINUTES))
       trip(fiftyTwoWeeks)
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")(Duration(10, TimeUnit.MINUTES))
 
       browser.findFirst("input[value='Edit']").click()
-      titleMustEqual("Trip - Time Spent Abroad")
+      titleMustEqual("Trip - Time Spent Abroad")(Duration(10, TimeUnit.MINUTES))
       browser.$("#start_year").getValue shouldEqual 2000.toString
 
       browser.fill("#start_year") `with` "1999"
       browser.submit("button[type='submit']")
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")(Duration(10, TimeUnit.MINUTES))
 
       browser.$("tbody tr").size() shouldEqual 2
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")

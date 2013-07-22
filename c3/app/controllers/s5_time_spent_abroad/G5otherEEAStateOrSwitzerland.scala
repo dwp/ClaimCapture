@@ -19,7 +19,7 @@ object G5otherEEAStateOrSwitzerland extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G5otherEEAStateOrSwitzerland.present()),
+      call(routes.G5otherEEAStateOrSwitzerland.present()),
       benefitsFromOtherEEAStateOrSwitzerlandMapping,
       "workingForOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo)
     )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply))
