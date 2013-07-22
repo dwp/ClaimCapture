@@ -2,7 +2,7 @@ package controllers.s7_consent_and_declaration
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.Formulate
+import controllers.{BrowserMatchers, Formulate}
 
 class G2ConsentIntegrationSpec extends Specification with Tags {
   "Consent" should {
@@ -11,11 +11,12 @@ class G2ConsentIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Consent - Consent And Declaration"
     }
 
-    "contain errors on invalid submission" in new WithBrowser {
+    "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/consentAndDeclaration/consent")
-      browser.title mustEqual "Consent - Consent And Declaration"
-      browser.submit("button[type='submit']")
+      titleMustEqual("Consent - Consent And Declaration")
 
+      browser.submit("button[type='submit']")
+      titleMustEqual("Consent - Consent And Declaration")
       browser.find("div[class=validation-summary] ol li").size mustEqual 2
     }
 
