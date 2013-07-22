@@ -1,5 +1,7 @@
 package controllers.s7_employment
 
+import language.implicitConversions
+import language.reflectiveCalls
 import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
@@ -8,7 +10,6 @@ import models.domain.LastWage
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
-import models.PeriodFromTo
 
 object G4LastWage extends Controller with CachedClaim {
   val form = Form(
@@ -29,6 +30,6 @@ object G4LastWage extends Controller with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g4_lastWage(formWithErrors, completedQuestionGroups(LastWage))),
-      lastWage => claim.update(lastWage) -> Redirect(routes.G4LastWage.present()))
+      lastWage => claim.update(lastWage) -> Redirect(routes.G4LastWage.present()).inJob(lastWage))
   }
 }
