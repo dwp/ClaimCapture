@@ -9,7 +9,7 @@
 @import utils.helpers.CarersCrypto
 
 @main("Additional wage details - Employment", Some(currentForm), completedQuestionGroups) {
-    @form(action = controllers.s7_employment.routes.G4LastWage.submit()) {
+    @form(action = controllers.s7_employment.routes.G5AdditionalWageDetails.submit()) {
         <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
         <fieldset class="form-elements">

@@ -281,6 +281,13 @@ anyOtherMoney = Do you get paid any other money as well as your normal wage?
 otherMoney = Please tell us what other money you received
 employeeOwesYouMoney = Does your employer owe you any money?
 
+# MONEY OWED BY EMPLOYER
+howMuch = How much are you owed?
+owedPeriod = What period is it for?
+owedFor = What is the money owed for?
+shouldBeenPaidBy = When should it have been paid?
+whenWillGetIt = When will you get it?
+
 ## OTHER MONEY
 # ABOUT OTHER MONEY
 yourBenefits.answer = Have you claimed or received any other benefits since the date you want to claim?
