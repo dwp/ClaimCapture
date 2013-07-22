@@ -16,7 +16,7 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim {
       "bankFullName" -> nonEmptyText(maxLength = 100),
       "sortCode" -> (sortCode verifying requiredSortCode),
       "accountNumber" -> nonEmptyText(minLength = 6, maxLength = 10),
-      "rollOrReferenceNumber" -> nonEmptyText(maxLength = 18)
+      "rollOrReferenceNumber" -> text(maxLength = 18)
     )(BankBuildingSocietyDetails.apply)(BankBuildingSocietyDetails.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(BankBuildingSocietyDetails)
