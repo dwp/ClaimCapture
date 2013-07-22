@@ -97,7 +97,15 @@ object ClaimScenarioFactory {
     //Person Who Gets This Money
     claim.OtherMoneyG3FullName = "Jason"
     claim.OtherMoneyG3NameOfBenefit = "Benefit Name"
-
+    // G4 Person Contact Details
+    // G5 Statutory Sick Pay
+    claim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay = "yes"
+    claim.OtherMoneyStatutorySickPayHowMuch = "bar"
+    claim.OtherMoneyStatutorySickPayHowOften = "fizz"
+    claim.OtherMoneyStatutorySickPayEmployersName = "Johny B Good"
+    claim.OtherMoneyStatutorySickPayPersonEmployersAddress =  "Employers Address"
+    claim.OtherMoneyStatutorySickPayEmployersPostCode = "SE1 6EH"
+    
     claim
   }
 }

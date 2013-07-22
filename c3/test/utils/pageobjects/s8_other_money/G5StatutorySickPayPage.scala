@@ -10,7 +10,7 @@ final class G5StatutorySickPayPage(browser: TestBrowser, previousPage: Option[Pa
     fillYesNo("#haveYouHadAnyStatutorySickPay", theClaim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay)
     fillInput("#howMuch", theClaim.OtherMoneyStatutorySickPayHowMuch)
     fillInput("#howOften", theClaim.OtherMoneyStatutorySickPayHowOften)
-    fillInput("#employersName", theClaim.OtherMoneyStatutorySickPayEmployersNameEmployersPostCode)
+    fillInput("#employersName", theClaim.OtherMoneyStatutorySickPayEmployersName)
     fillAddress("#employersAddress", theClaim.OtherMoneyStatutorySickPayPersonEmployersAddress)
     fillInput("#employersPostcode", theClaim.OtherMoneyStatutorySickPayEmployersPostCode)
   }
