@@ -33,11 +33,20 @@ object G5StatutorySickPay extends Controller with CachedClaim {
 
   def present = claiming { implicit claim =>
     implicit request =>
-      Ok(views.html.s8_other_money.g5_statutorySickPay(form, completedQuestionGroups))
+      OtherMoney.whenVisible(claim)(() => {
+        val currentForm = claim.questionGroup(StatutorySickPay) match {
+          case Some(t: StatutorySickPay) => form.fill(t)
+          case _ => form
+        }
+        Ok(views.html.s8_other_money.g5_statutorySickPay(currentForm, completedQuestionGroups))
+      })
   }
 
   def submit = claiming { implicit claim =>
     implicit request =>
-      Ok(views.html.s8_other_money.g5_statutorySickPay(form, completedQuestionGroups))
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.s8_other_money.g5_statutorySickPay(formWithErrors, completedQuestionGroups)),
+        f => claim.update(f) -> Redirect(routes.G4PersonContactDetails.present()) // TODO replace with next page to go to
+      )
   }
 }
