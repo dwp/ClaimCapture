@@ -4,6 +4,8 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
 
 @main("Other Statutory Pay - Other Money", Some(currentForm), completedQuestionGroups) {
 
@@ -13,7 +15,18 @@
             <legend>Other Statutory Pay</legend>
 
             <ul class="group">
+                @yesNoRadioGroup(currentForm("otherPay"))
 
+                @otherDetailPlaceHolder(
+                inputDef = Seq( carersShortInputText(currentForm("howMuch"), 'maxLength -> Mappings.sixty, 'placeholder -> Messages("poundSign") ) ,
+                                paymentFrequencySelect(currentForm("howOften")),
+                                carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
+                                inputAddress(currentForm("employersAddress")),
+                                carersInputText(currentForm("employersPostcode"))
+                            ),
+                    'id -> "otherPayWrap",
+                    'display -> currentForm("otherPay").value.getOrElse("no")
+                )
             </ul>
         </fieldset>
 
@@ -23,3 +36,11 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s8_other_money/g6_otherStatutoryPay.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("otherPay_yes")", "@CarersCrypto.encryptAES("otherPay_no")");
+    });
+</script>

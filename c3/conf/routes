@@ -192,6 +192,9 @@ POST    /otherMoney/statutorySickPay                            controllers.s8_o
 GET     /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.present
 POST    /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.submit
 
+GET     /otherMoney/completed                                   controllers.s8_other_money.OtherMoney.completed
+POST    /otherMoney/completed                                   controllers.s8_other_money.OtherMoney.completedSubmit
+
 # Pay Details
 ###############
 GET     /payDetails/howWePayYou                                 controllers.s6_pay_details.G1HowWePayYou.present
