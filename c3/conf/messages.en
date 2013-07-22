@@ -261,6 +261,9 @@ hoursPerWeek = How many hours a week do you normally work?
 jobTitle = Job title
 payrollEmployeeNumber = Payroll / Employee number
 
+# EMPLOYER CONTACT DETAILS
+phonenumber = Phone number
+
 ## OTHER MONEY
 # ABOUT OTHER MONEY
 yourBenefits.answer = Have you claimed or received any other benefits since the date you want to claim?

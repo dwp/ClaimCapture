@@ -14,8 +14,8 @@ object G3EmployerContactDetails extends Controller with CachedClaim {
     mapping(
       "jobID" -> nonEmptyText,
       "address" -> optional(address),
-      "postCode" -> optional(text),
-      "phoneNumber" -> optional(text),
+      "postcode" -> optional(text verifying validPostcode),
+      "phonenumber" -> optional(text),
       call(routes.G3EmployerContactDetails.present())
     )(EmployerContactDetails.apply)(EmployerContactDetails.unapply))
 

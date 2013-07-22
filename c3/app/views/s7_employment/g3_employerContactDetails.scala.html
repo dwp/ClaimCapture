@@ -16,7 +16,9 @@
             <legend>Employer's contact details</legend>
 
             <ul class="group">
-                <input type="text" placeholder="TEST"/>
+                @inputAddress(currentForm("address"))
+                @carersInputText(currentForm("postcode"))
+                @carersInputText(currentForm("phoneNumber"))
             </ul>
         </fieldset>
 
