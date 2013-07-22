@@ -1,0 +1,25 @@
+@(currentForm: Form[models.domain.StatutorySickPay], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+
+@main("Statutory Sick Pay - Other Money", Some(currentForm), completedQuestionGroups) {
+
+    @form(action = controllers.s8_other_money.routes.G5StatutorySickPay.submit) {
+
+        <fieldset class="form-elements">
+            <legend>About Statutory Sick Pay (SSP)</legend>
+
+            <ul class="group">
+
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@controllers.s8_other_money.routes.G4PersonContactDetails.present" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
