@@ -37,7 +37,7 @@ class G2JobDetailsSpec extends Specification with Tags {
         case Some(js: Jobs) => {
           js.size shouldEqual 1
 
-          js.jobs.find(_.jobID == "1") must beLike {
+          js.find(_.jobID == "1") must beLike {
             case Some(j: Job) => j.questionGroups.head.asInstanceOf[JobDetails].employerName shouldEqual "Toys r not us"
           }
         }

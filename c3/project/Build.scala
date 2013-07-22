@@ -17,6 +17,8 @@ object ApplicationBuild extends Build {
     "me.moocar" % "logback-gelf" % "0.9.6p2"
   )
 
+  parallelExecution in Test := false
+
   var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint"))
 
   var sV: Seq[Project.Setting[_]] = Seq(scalaVersion := "2.10.2")
