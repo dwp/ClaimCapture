@@ -33,3 +33,15 @@ case class PersonContactDetails(address: Option[MultiLineAddress], postcode: Opt
 case object PersonContactDetails extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g4"
 }
+
+case class StatutorySickPay(haveYouHadAnyStatutorySickPay: String,
+                            howMuch: Option[String],
+                            howOften: Option[String],
+                            employersName: Option[String],
+                            employersAddress: Option[MultiLineAddress],
+                            employersPostcode: Option[String],
+                            call: Call) extends QuestionGroup(StatutorySickPay)
+
+case object StatutorySickPay extends QuestionGroup.Identifier {
+  val id = s"${OtherMoney.id}.g5"
+}

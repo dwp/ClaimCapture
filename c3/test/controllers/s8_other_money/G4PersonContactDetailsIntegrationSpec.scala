@@ -59,7 +59,6 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
       val moreAboutYouPage = page.submitPage()
       moreAboutYouPage fillPageWith claimS2
       val employmentPage = moreAboutYouPage.submitPage()
-
       val claimS8 = ClaimScenarioFactory.s8otherMoney
       val s8g3 = employmentPage goToPage (new G3PersonWhoGetsThisMoneyPage(browser))
       s8g3 fillPageWith claimS8
