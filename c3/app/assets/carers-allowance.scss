@@ -17,6 +17,8 @@ $button-green-hover: #004b27;
 	   @media screen and (max-width: 500px) {padding-left: .75em; padding-right: .75em;}
 	   .prototype {
 		   background: #f47738;
+		   overflow: hidden;
+		   zoom: 1;
 		   padding: 0.7em 1em 0 1em;
 		   @media screen and (max-width: 640px) {padding-bottom: .7em; margin-top: .9em;}
 		   p {
@@ -233,6 +235,7 @@ $button-green-hover: #004b27;
 	   background: #fff;
 	   position: relative;
 	   padding: 1.6em 0 0 1em;
+	   .ie6 & {margin: 0 auto; width: 70%;}
 	   @media screen and (max-width: 640px) {padding-left: 0; padding-right: 0; border: 0;}
 	   
 	   &.error-statement {
@@ -369,7 +372,11 @@ $button-green-hover: #004b27;
 					   font-size: 14px;
 				   }
 				   .ie6 & {
-					   right: 40px;
+					   right: auto;
+					   top: auto;
+					   position: relative;
+					   margin-top: 10px;
+					   display: inline-block;
 				   }
 				   &:hover {
 					   color: #315843;
