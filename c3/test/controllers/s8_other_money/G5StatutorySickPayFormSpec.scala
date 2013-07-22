@@ -72,6 +72,26 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
         }
       )
     }
-    
-  }
+
+    "reject an invalid postcode" in {
+      G5StatutorySickPay.form.bind(
+        Map("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay, 
+            "employersName" -> employersName,
+            "employersPostcode" -> "INVALID"
+            )
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.postcode"),
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
+    "reject answer yes but other mandatory fields not filled in" in {
+      G5StatutorySickPay.form.bind(
+        Map("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay)
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("employersName.required"),
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+  } section "unit"
 }
