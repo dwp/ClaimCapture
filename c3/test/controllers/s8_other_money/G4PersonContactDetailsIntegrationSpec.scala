@@ -22,7 +22,7 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
 
     "not be presented if not claimed benefits" in new WithBrowser with ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
-      claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "no"
+      claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "No"
 
       page goToThePage ()
       page fillPageWith claim
@@ -40,7 +40,7 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
       page goToThePage ()
       page fillPageWith claim
       val pageWithErrors = page.submitPage()
-      pageWithErrors.listErrors().get.size mustEqual 1
+      pageWithErrors.listErrors.size mustEqual 1
     }
 
     "contain the completed forms" in new WithBrowser with G1AboutOtherMoneyPageContext {

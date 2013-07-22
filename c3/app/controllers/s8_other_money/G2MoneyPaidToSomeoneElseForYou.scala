@@ -12,7 +12,8 @@ object G2MoneyPaidToSomeoneElseForYou extends Controller with CachedClaim {
   val form = Form(
     mapping(
       "moneyAddedToBenefitSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
-      "call" -> ignored(routes.G2MoneyPaidToSomeoneElseForYou.present()))(MoneyPaidToSomeoneElseForYou.apply)(MoneyPaidToSomeoneElseForYou.unapply))
+      call(routes.G2MoneyPaidToSomeoneElseForYou.present())
+    )(MoneyPaidToSomeoneElseForYou.apply)(MoneyPaidToSomeoneElseForYou.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoneyPaidToSomeoneElseForYou)
 

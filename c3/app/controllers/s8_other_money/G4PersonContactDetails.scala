@@ -15,7 +15,8 @@ object G4PersonContactDetails extends Controller with CachedClaim {
     mapping(
       "address" -> optional(address),
       "postcode" -> optional(text verifying validPostcode),
-      "call" -> ignored(routes.G4PersonContactDetails.present()))(PersonContactDetails.apply)(PersonContactDetails.unapply))
+      call(routes.G4PersonContactDetails.present())
+    )(PersonContactDetails.apply)(PersonContactDetails.unapply))
 
   def present = claiming { implicit claim =>
     implicit request =>

@@ -3,6 +3,8 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.Duration
 
 class G8CompletedIntegrationSpec extends Specification with Tags {
 
@@ -49,25 +51,25 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
 
     """be submitted to "Their Personal Details - Care You Provide" page when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
-      titleMustEqual("Contact Details - About You")
+      titleMustEqual("Contact Details - About You")(Duration(300, TimeUnit.SECONDS))
 
       Formulate.yourContactDetails(browser)
-      titleMustEqual("Claim Date - About You")
+      titleMustEqual("Claim Date - About You")(Duration(300, TimeUnit.SECONDS))
 
       Formulate.claimDate(browser)
-      titleMustEqual("More About You - About You")
+      titleMustEqual("More About You - About You")(Duration(300, TimeUnit.SECONDS))
 
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About You")(Duration(300, TimeUnit.SECONDS))
 
       Formulate.employment(browser)
-      titleMustEqual("Property and Rent - About You")
+      titleMustEqual("Property and Rent - About You")(Duration(300, TimeUnit.SECONDS))
 
       Formulate.propertyAndRent(browser)
-      titleMustEqual("Completion - About You")
+      titleMustEqual("Completion - About You")(Duration(300, TimeUnit.SECONDS))
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Their Personal Details - Care You Provide")
+      titleMustEqual("Their Personal Details - Care You Provide")(Duration(300, TimeUnit.SECONDS))
     }
   } section "integration"
 }

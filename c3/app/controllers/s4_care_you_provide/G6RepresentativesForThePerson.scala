@@ -16,7 +16,8 @@ object G6RepresentativesForThePerson extends Controller with CachedClaim {
   val youActMapping =
     "you" -> mapping(
       "actForPerson" -> nonEmptyText(maxLength = 20).verifying(validYesNo),
-      "actAs" -> optional(nonEmptyText(maxLength = 20)))(YesNoWithDropDown.apply)(YesNoWithDropDown.unapply)
+      "actAs" -> optional(nonEmptyText(maxLength = 20))
+    )(YesNoWithDropDown.apply)(YesNoWithDropDown.unapply)
       .verifying("required", YesNoWithDropDown.validate _)
 
   val someoneElseMapping =
@@ -29,7 +30,7 @@ object G6RepresentativesForThePerson extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G6RepresentativesForThePerson.present()),
+      call(routes.G6RepresentativesForThePerson.present()),
       youActMapping,
       someoneElseMapping
     )(RepresentativesForPerson.apply)(RepresentativesForPerson.unapply))

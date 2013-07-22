@@ -19,8 +19,9 @@ BEGIN
             INSERT INTO transactionids (transaction_id) VALUES (id);
             RETURN id;
         EXCEPTION
-            WHEN unique_violation THEN
-              -- Do nothing, and loop to try the INSERT again.
+            WHEN unique_violation THEN 
+            -- Need to reset id so try to build a new one
+            id := '';
             END;
     END LOOP ATTEMPS;
     RAISE EXCEPTION 'Did not manage to generate unique transaction id';

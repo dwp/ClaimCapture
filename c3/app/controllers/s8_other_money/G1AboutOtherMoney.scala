@@ -15,14 +15,16 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
     "yourBenefits" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "text1" -> optional(nonEmptyText(maxLength = fifty)),
-      "text2" -> optional(nonEmptyText(maxLength = fifty)))(YesNoWith2Text.apply)(YesNoWith2Text.unapply)
+      "text2" -> optional(nonEmptyText(maxLength = fifty))
+    )(YesNoWith2Text.apply)(YesNoWith2Text.unapply)
       .verifying("text1.required", c => YesNoWith2Text.validateText(c, c.text1))
       .verifying("text2.required", c => YesNoWith2Text.validateText(c, c.text2, eitherClaimedBenefitSinceClaimDate))
 
   def form(implicit claim: Claim) = Form(
     mapping(
       yourBenefitsMapping,
-      "call" -> ignored(routes.G1AboutOtherMoney.present()))(AboutOtherMoney.apply)(AboutOtherMoney.unapply))
+      call(routes.G1AboutOtherMoney.present())
+    )(AboutOtherMoney.apply)(AboutOtherMoney.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(AboutOtherMoney)
 

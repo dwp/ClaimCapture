@@ -6,11 +6,12 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain.{Over16, Claim}
+import controllers.Mappings._
 
 object G3Over16 extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G3Over16.present()),
+      call(routes.G3Over16.present()),
       "answer" -> boolean
     )(Over16.apply)(Over16.unapply))
 

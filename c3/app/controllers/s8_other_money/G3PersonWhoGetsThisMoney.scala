@@ -1,8 +1,6 @@
 package controllers.s8_other_money
 
-import controllers.Mappings.nino
-import controllers.Mappings.sixty
-import controllers.Mappings.validNinoOnly
+import controllers.Mappings._
 import models.domain.Claim
 import models.domain.PersonWhoGetsThisMoney
 import models.view.CachedClaim
@@ -17,7 +15,8 @@ object G3PersonWhoGetsThisMoney extends Controller with CachedClaim {
       "fullName" -> nonEmptyText(maxLength = sixty),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNinoOnly)),
       "nameOfBenefit" -> nonEmptyText(maxLength = sixty),
-      "call" -> ignored(routes.G3PersonWhoGetsThisMoney.present()))(PersonWhoGetsThisMoney.apply)(PersonWhoGetsThisMoney.unapply))
+      call(routes.G3PersonWhoGetsThisMoney.present())
+    )(PersonWhoGetsThisMoney.apply)(PersonWhoGetsThisMoney.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PersonWhoGetsThisMoney)
 

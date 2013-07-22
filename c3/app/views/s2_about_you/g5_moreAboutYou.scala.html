@@ -22,15 +22,8 @@
                 @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
                 @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"))
-                
-                
-                
             </ul>
-            
-            
-            
         </fieldset>
-
 
         <nav class="form-steps">
             <a href="@back(models.domain.MoreAboutYou)" class="button secondary">Back</a>

@@ -88,11 +88,11 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * Provides the list of errors displayed in a page. If there is no error then return None.
    * @return a Option containing the list of errors displayed by a page.
    */
-  def listErrors() : Option[List[String]] = {
+  def listErrors : List[String] = {
     val rawErrors = browser.find("div[class=validation-summary] ol li")
     if (!rawErrors.isEmpty) {
-      Some(new JListWrapper(rawErrors.getTexts).toList)
-    } else None
+      new JListWrapper(rawErrors.getTexts).toList
+    } else List[String]()
   }
 
   def listCompletedForms = findTarget("div[class=completed] ul li")
@@ -115,8 +115,8 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   protected def titleMatch(): Boolean = browser.title == this.pageTitle
 
   protected def checkNoErrorsForPage(nextPageTile: String, throwException: Boolean = false) = {
-    if (this.listErrors() != None) {
-      if (throwException)  throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed""", this.listErrors().get)
+    if (!this.listErrors.isEmpty) {
+      if (throwException)  throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed""", this.listErrors)
       true
     }
     else false
@@ -151,7 +151,7 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * @param throwException Should the page throw an exception if landed on different page? By default yes.
    * @return Page object presenting the page. It could be different from current if landed on different page and specified no exception to be thrown.
    */
-  override def goToThePage(throwException: Boolean = true) = throw new PageObjectException("Cannot go to an unknown page")
+  override def goToThePage(throwException: Boolean = true) = throw new PageObjectException("Cannot go to an unknown page: " + pageTitle)
 
   /**
    * Throws a PageObjectException.

@@ -33,6 +33,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       val livingGBPage = over16Page submitPage()
       livingGBPage fillPageWith claim
       val approvePage = livingGBPage submitPage()
+
       approvePage match {
         case p: ApprovePage => {
           p.previousPage must beSome(livingGBPage)

@@ -19,7 +19,7 @@ object G7MoreAboutTheCare extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G7MoreAboutTheCare.present()),
+      call(routes.G7MoreAboutTheCare.present()),
       "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
       careMapping,
       "hasSomeonePaidYou" -> nonEmptyText.verifying(validYesNo)

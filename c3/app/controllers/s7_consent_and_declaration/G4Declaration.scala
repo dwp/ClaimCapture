@@ -7,12 +7,12 @@ import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import models.domain.Claim
-import scala.Some
+import controllers.Mappings._
 
 object G4Declaration extends Controller with CachedClaim{
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G4Declaration.present()),
+      call(routes.G4Declaration.present()),
       "confirm" -> nonEmptyText,
       "someoneElse" -> nonEmptyText
     )(Declaration.apply)(Declaration.unapply))
