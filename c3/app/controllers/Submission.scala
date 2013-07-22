@@ -22,6 +22,7 @@ object Submission extends Controller with CachedClaim {
           response => {
             response.status match {
               case http.Status.OK =>
+                Logger.info(s"Received response : ${response.toString}")
                 // What we'll really do with the response is redirect to relevant page
                 Redirect(routes.ThankYou.present())
               case http.Status.BAD_REQUEST =>
