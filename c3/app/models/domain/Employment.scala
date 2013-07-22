@@ -48,25 +48,13 @@ case class Job(jobID: String, questionGroups: List[QuestionGroup] = Nil) extends
   def update(questionGroup: QuestionGroup): Job = {
     val updated = questionGroups map { qg => if (qg.identifier == questionGroup.identifier) questionGroup else qg }
 
-    if (updated.contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
+    if (updated  .contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
   }
 }
 
 object Job {
   trait Identifier {
     val jobID: String
-
-    override def equals(other: Any) = {
-      other match {
-        case that: Identifier => jobID == that.jobID
-        case _ => false
-      }
-    }
-
-    override def hashCode() = {
-      val prime = 41
-      prime + jobID.hashCode
-    }
   }
 }
 

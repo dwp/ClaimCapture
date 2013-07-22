@@ -84,8 +84,6 @@ class ClaimSubmissionSpec extends Specification with Tags with PendingUntilFixed
 
       val claimXml = claimSub.buildDwpClaim
 
-      println(claimXml)
-
       val fullXml = buildFullClaim(claimXml)
 
       val validator = XmlValidatorFactory.buildCaValidator()
