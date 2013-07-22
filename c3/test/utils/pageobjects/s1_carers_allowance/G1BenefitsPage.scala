@@ -9,7 +9,7 @@ import utils.pageobjects.Page
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-final class BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, BenefitsPage.url, BenefitsPage.title, previousPage) {
+final class G1BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1BenefitsPage.url, G1BenefitsPage.title, previousPage) {
 
   /* temporary, until tested class is refactored and use new common components. */
   private val separator  = "-"
@@ -38,15 +38,15 @@ final class BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = None
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object BenefitsPage {
+object G1BenefitsPage {
   val title = "Benefits - Carer's Allowance"
   val url = "/"
-  def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new BenefitsPage(browser, previousPage)
-//  PageFactory.registerPageBuilder[BenefitsPage](title, buildPageWith)
+  def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new G1BenefitsPage(browser, previousPage)
+//  PageFactory.registerPageBuilder[G1BenefitsPage](title, buildPageWith)
 }
 
 /** The context for Specs tests */
-trait BenefitsPageContext extends PageContext {
+trait G1BenefitsPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = BenefitsPage buildPageWith browser
+  val page = G1BenefitsPage buildPageWith browser
 }

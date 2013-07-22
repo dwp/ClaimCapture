@@ -180,6 +180,9 @@ POST    /otherMoney/personContactDetails                        controllers.s8_o
 GET     /otherMoney/statutorySickPay                            controllers.s8_other_money.G5StatutorySickPay.present
 POST    /otherMoney/statutorySickPay                            controllers.s8_other_money.G5StatutorySickPay.submit
 
+GET     /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.present
+POST    /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.submit
+
 # Pay Details
 ###############
 GET     /payDetails/howWePayYou                                 controllers.s6_pay_details.G1HowWePayYou.present

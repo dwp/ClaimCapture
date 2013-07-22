@@ -9,13 +9,13 @@ import scala.Some
 class G4LivesInGBIntegrationSpec extends Specification with Tags {
 
   "LivesInGB" should {
-    "be presented" in new WithBrowser with LivingInGBPageContext {
+    "be presented" in new WithBrowser with G4LivingInGBPageContext {
      page goToThePage()
     }
   } section "integration"
 
   "Do you normally live in Great Britain" should {
-    "acknowledge yes" in new WithBrowser with BenefitsPageContext {
+    "acknowledge yes" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
@@ -28,7 +28,7 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
       val over16Page = hoursPage submitPage()
       over16Page fillPageWith claim
       val livingGBPage = over16Page submitPage()
-      livingGBPage must beAnInstanceOf[LivingInGBPage]
+      livingGBPage must beAnInstanceOf[G4LivingInGBPage]
       livingGBPage.previousPage mustEqual Some(over16Page)
       livingGBPage fillPageWith claim
       livingGBPage submitPage()
@@ -36,7 +36,7 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").get(3).getText must contain("Yes")
     }
 
-    "acknowledge no" in new WithBrowser with BenefitsPageContext {
+    "acknowledge no" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"

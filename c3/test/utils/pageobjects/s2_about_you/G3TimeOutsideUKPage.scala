@@ -8,7 +8,7 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-final class TimeOutsideUKPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, TimeOutsideUKPage.url, TimeOutsideUKPage.title, previousPage) {
+final class G3TimeOutsideUKPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3TimeOutsideUKPage.url, G3TimeOutsideUKPage.title, previousPage) {
   /**
    * Reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
@@ -27,14 +27,14 @@ final class TimeOutsideUKPage(browser: TestBrowser, previousPage: Option[Page] =
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object TimeOutsideUKPage {
+object G3TimeOutsideUKPage {
   val title = "Time Outside UK - About You"
   val url  = "/aboutyou/timeOutsideUK"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new TimeOutsideUKPage(browser,previousPage)
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3TimeOutsideUKPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
-trait TimeOutsideUKPageContext extends PageContext {
+trait G3TimeOutsideUKPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = TimeOutsideUKPage buildPageWith browser
+  val page = G3TimeOutsideUKPage buildPageWith browser
 }

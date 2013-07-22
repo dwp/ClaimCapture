@@ -3,14 +3,14 @@ package controllers.s1_carers_allowance
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.BrowserMatchers
-import utils.pageobjects.s1_carers_allowance.{ApprovePage, LivingInGBPage, BenefitsPageContext, ApprovePageContext}
+import utils.pageobjects.s1_carers_allowance.{G5ApprovePage, G4LivingInGBPage, G1BenefitsPageContext, G5ApprovePageContext}
 import utils.pageobjects.ClaimScenario
-import utils.pageobjects.s2_about_you.YourDetailsPage
+import utils.pageobjects.s2_about_you.G1YourDetailsPage
 
 class G5ApproveIntegrationSpec extends Specification with Tags {
 
   "Approve" should {
-    "be presented" in new WithBrowser with ApprovePageContext {
+    "be presented" in new WithBrowser with G5ApprovePageContext {
       page goToThePage()
     }
   } section "integration"
@@ -18,7 +18,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
   "Carer's Allowance" should {
     val notRightPage: String = "Next Page is not of the right type."
 
-    "be approved" in new WithBrowser with BenefitsPageContext {
+    "be approved" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
@@ -35,7 +35,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       val approvePage = livingGBPage submitPage()
 
       approvePage match {
-        case p: ApprovePage => {
+        case p: G5ApprovePage => {
           p.previousPage must beSome(livingGBPage)
           p.isApproved must beTrue
         }
@@ -43,31 +43,31 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       }
     }
 
-    "be declined" in new WithBrowser with BenefitsPageContext {
+    "be declined" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
       page goToThePage()
-      val approvePage = page runClaimWith (claim, ApprovePage.title)
+      val approvePage = page runClaimWith (claim, G5ApprovePage.title)
       approvePage match {
-        case p: ApprovePage => {
-          p.previousPage.get must beAnInstanceOf[LivingInGBPage]
+        case p: G5ApprovePage => {
+          p.previousPage.get must beAnInstanceOf[G4LivingInGBPage]
           p.isNotApproved must beTrue
         }
         case _ => ko(notRightPage)
       }
     }
 
-    "navigate to next section" in new WithBrowser with BenefitsPageContext {
+    "navigate to next section" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
       page goToThePage()
-      page runClaimWith (claim, YourDetailsPage.title)
+      page runClaimWith (claim, G1YourDetailsPage.title)
     }
   } section "integration"
 }

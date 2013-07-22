@@ -8,7 +8,7 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-final class ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, YourDetailsPage.url, YourDetailsPage.title, previousPage) {
+final class G2ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1YourDetailsPage.url, G1YourDetailsPage.title, previousPage) {
   /**
    * Reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
@@ -25,15 +25,15 @@ final class ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] 
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object ContactDetailsPage {
+object G2ContactDetailsPage {
   val title = "Contact Details - About You"
   val url = "/aboutyou/contactDetails"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new ContactDetailsPage(browser, previousPage)
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2ContactDetailsPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait ContactDetailsPageContext extends PageContext {
   this: {val browser: TestBrowser} =>
-  val page = ContactDetailsPage buildPageWith browser
+  val page = G2ContactDetailsPage buildPageWith browser
 }

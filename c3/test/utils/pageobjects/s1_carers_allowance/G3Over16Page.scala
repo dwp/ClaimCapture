@@ -8,7 +8,7 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  * @author Jorge Migueis
  *         Date: 13/07/2013
  */
-final class Over16Page(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, Over16Page.url, Over16Page.title, previousPage) {
+final class G3Over16Page(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3Over16Page.url, G3Over16Page.title, previousPage) {
 
   /* temporary, until tested class is refactored and use new common components. */
   private val separator  = "-"
@@ -30,14 +30,14 @@ final class Over16Page(browser: TestBrowser, previousPage: Option[Page] = None) 
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object Over16Page {
+object G3Over16Page {
   val title = "Over 16 - Carer's Allowance"
   val url = "/allowance/over16"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new Over16Page(browser, previousPage)
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3Over16Page(browser, previousPage)
 }
 
 /** The context for Specs tests */
-trait Over16PageContext extends PageContext {
+trait G3Over16PageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = Over16Page buildPageWith browser
+  val page = G3Over16Page buildPageWith browser
 }

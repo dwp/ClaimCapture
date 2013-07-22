@@ -6,7 +6,7 @@ import org.specs2.mutable.Tags
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.PageObjectException
-import utils.pageobjects.s2_about_you.ClaimDatePageContext
+import utils.pageobjects.s2_about_you.G4ClaimDatePageContext
 import utils.pageobjects.s8_other_money._
 import play.api.test.WithBrowser
 
@@ -17,7 +17,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
       page goToThePage ()
     }
 /*
-    "not be presented if not claimed benefits" in new WithBrowser with ClaimDatePageContext {
+    "not be presented if not claimed benefits" in new WithBrowser with G4ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "No"
 
@@ -49,7 +49,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
       personContactPage.listCompletedForms.size mustEqual 1
     }
 
-    "navigate back to Person Who Gets This Money" in new WithBrowser with ClaimDatePageContext {
+    "navigate back to Person Who Gets This Money" in new WithBrowser with G4ClaimDatePageContext {
       val claimS2 = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage ()
       page fillPageWith claimS2
