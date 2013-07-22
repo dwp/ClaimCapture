@@ -9,14 +9,14 @@ import models.domain.{Trips, Claiming, Claim}
 class G4TripSpec extends Specification {
   "4 week trip" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession("connected" -> claimKey).withHeaders("referer" -> "")
 
       val result = G4Trip.fourWeeks(request)
       status(result) mustEqual OK
     }
 
     "be rejected for missing mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession("connected" -> claimKey).withHeaders("referer" -> "")
 
       val result = G4Trip.fourWeeksSubmit(request)
       status(result) mustEqual BAD_REQUEST

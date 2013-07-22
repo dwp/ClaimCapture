@@ -23,7 +23,7 @@ class G4DeclarationSpec extends Specification with Tags {
 
     """accept answers""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-                                 .withFormUrlEncodedBody("read" -> "yes")
+                                 .withFormUrlEncodedBody("confirm" -> "checked","someoneElse" -> "checked")
 
       val result = G4Declaration.submit(request)
       redirectLocation(result) must beSome("/consentAndDeclaration/submit")

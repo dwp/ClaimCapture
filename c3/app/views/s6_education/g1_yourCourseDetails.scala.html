@@ -1,0 +1,36 @@
+@(currentForm: Form[models.domain.YourCourseDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+
+@main("Your Course Details - Education", Some(currentForm), completedQuestionGroups) {
+
+    @form(action = controllers.s6_education.routes.G1YourCourseDetails.submit) {
+
+        <fieldset class="form-elements">
+            <legend>Your course details</legend>
+
+            <ul class="group">
+                @carersInputText(currentForm("courseType"), 'maxLength -> Mappings.sixty)
+
+                @carersInputText(currentForm("courseTitle"), 'maxLength -> Mappings.sixty)
+
+                @inputDayMonthYear(currentForm("startDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
+
+                @inputDayMonthYear(currentForm("expectedEndDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
+
+                @inputDayMonthYear(currentForm("finishedDate"), 'helperBelow-> Messages("dateOfBirth.helper"))
+
+                @carersInputText(currentForm("studentReferenceNumber"), 'maxLength -> Mappings.sixty)
+
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@controllers.s5_time_spent_abroad.routes.TimeSpentAbroad.completed" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

@@ -1,0 +1,36 @@
+@(currentForm: Form[models.domain.MoneyOwedbyEmployer], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@main("Money owed to you by your employer - Employment", Some(currentForm), completedQuestionGroups) {
+    @form(action = controllers.s7_employment.routes.G6MoneyOwedbyEmployer.submit()) {
+        <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(request.flash.get("jobID").getOrElse("Missing job ID"))'>
+
+        <fieldset class="form-elements">
+            <legend>Money owed to you by your employer</legend>
+
+            <ul class="group">
+                @carersInputText(currentForm("howMuch"))
+
+                @inputDayMonthYearFromTo(currentForm("owedPeriod"))
+
+                @carersInputText(currentForm("owedFor"))
+
+                @inputDayMonthYear(currentForm("shouldBeenPaidBy"))
+
+                @carersInputText(currentForm("whenWillGetIt"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.MoneyOwedbyEmployer)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

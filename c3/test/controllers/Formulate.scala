@@ -97,6 +97,15 @@ object Formulate {
     browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
   }
+  
+  def moreAboutYouNotBeenInEducationSinceClaimDate(browser: TestBrowser) = {
+    browser.goTo("/aboutyou/moreAboutYou")
+    browser.click("#hadPartnerSinceClaimDate_yes")
+    browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
+    browser.click("#beenInEducationSinceClaimDate_no")
+    browser.click("#receiveStatePension_yes")
+    browser.submit("button[type='submit']")
+  }
 
   def employment(browser: TestBrowser) = {
     browser.goTo("/aboutyou/employment")
@@ -355,13 +364,69 @@ object Formulate {
 
   def declaration(browser: TestBrowser) = {
     browser.goTo("/consentAndDeclaration/declaration")
-    browser.click("#read")
+    browser.click("#confirm")
+    browser.click("#someoneElse")
     browser.submit("button[type='submit']")
   }
 
   def additionalInfo(browser: TestBrowser) = {
     browser.goTo("/consentAndDeclaration/additionalInfo")
     browser.click("#welshCommunication_yes")
+    browser.submit("button[type='submit']")
+  }
+  
+  // Education
+  def yourCourseDetails(browser: TestBrowser) = {
+    val courseType = "University"
+    val courseTitle = "Law"
+    val startDateDay = "16"
+    val studentReferenceNumber = "ST-2828281"
+
+    browser.goTo("/education/yourCourseDetails")
+    browser.fill("#courseType") `with` courseType
+    browser.fill("#courseTitle") `with` courseTitle
+    browser.click("#startDate_day option[value='16']")
+    browser.click("#startDate_month option[value='4']")
+    browser.fill("#startDate_year") `with` "1992"
+    browser.click("#expectedEndDate_day option[value='30']")
+    browser.click("#expectedEndDate_month option[value='9']")
+    browser.fill("#expectedEndDate_year") `with` "1997"
+    browser.click("#finishedDate_day option[value='1']")
+    browser.click("#finishedDate_month option[value='1']")
+    browser.fill("#finishedDate_year") `with` "2000"
+    browser.fill("#courseTitle") `with` courseTitle
+    
+    browser.submit("button[type='submit']")
+  }
+  
+  def addressOfSchoolCollegeOrUniversity(browser: TestBrowser) = {
+    val nameOfSchoolCollegeOrUniversity = "MIT"
+    val nameOfMainTeacherOrTutor = "Albert Einstein"
+    val addressLineOne = "123 Street"
+    val postcode: String = "SE1 6EH"
+    val phoneNumber = "02076541058"
+    val faxNumber = "07076541058"
+    
+    browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
+    browser.fill("#nameOfSchoolCollegeOrUniversity") `with` nameOfSchoolCollegeOrUniversity
+    browser.fill("#nameOfMainTeacherOrTutor") `with` nameOfMainTeacherOrTutor
+    browser.fill("#address_lineOne") `with` addressLineOne
+    browser.fill("#postcode") `with` postcode
+    browser.fill("#phoneNumber") `with` phoneNumber
+    browser.fill("#faxNumber") `with` faxNumber
+    browser.submit("button[type='submit']")
+  }
+  
+  def aboutOtherMoney(browser: TestBrowser) = {
+    browser.goTo("/otherMoney/aboutOtherMoney")
+    browser.click("#yourBenefits_answer_yes")
+    browser.fill("#yourBenefits_text1") `with` "Bar"
+    browser.fill("#yourBenefits_text1") `with` "fizz"
+    browser.submit("button[type='submit']")
+  }
+
+  def personContactDetails(browser:TestBrowser) = {
+    browser.goTo("/otherMoney/personContactDetails")
     browser.submit("button[type='submit']")
   }
 }

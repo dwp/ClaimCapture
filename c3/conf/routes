@@ -131,6 +131,61 @@ POST    /timeSpentAbroad/otherEEAStateOrSwitzerland             controllers.s5_t
 GET     /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
 POST    /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completedSubmit
 
+# Education
+###############
+GET     /education/yourCourseDetails                            controllers.s6_education.G1YourCourseDetails.present
+POST    /education/yourCourseDetails                            controllers.s6_education.G1YourCourseDetails.submit
+
+GET     /education/addressOfSchoolCollegeOrUniversity           controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.present
+POST    /education/addressOfSchoolCollegeOrUniversity           controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.submit
+
+GET     /education/completed                                    controllers.s6_education.Education.completed
+POST    /education/completed                                    controllers.s6_education.Education.completedSubmit
+
+# Employment
+###############
+
+GET     /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.present
+POST    /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.submit
+
+GET     /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.present
+POST    /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.submit
+
+GET     /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.present
+POST    /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.submit
+
+GET     /employment/lastWage                                    controllers.s7_employment.G4LastWage.present
+POST    /employment/lastWage                                    controllers.s7_employment.G4LastWage.submit
+
+GET     /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.present
+POST    /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.submit
+
+GET     /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.present
+POST    /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.submit
+
+GET     /employment/completed                                   controllers.s7_employment.Employment.completed
+POST    /employment/completed                                   controllers.s7_employment.Employment.submit
+
+# Other income
+###############
+GET     /otherMoney/aboutOtherMoney                             controllers.s8_other_money.G1AboutOtherMoney.present
+POST    /otherMoney/aboutOtherMoney                             controllers.s8_other_money.G1AboutOtherMoney.submit
+
+GET     /otherMoney/moneyPaidToSomeoneElseForYou                controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.present
+POST    /otherMoney/moneyPaidToSomeoneElseForYou                controllers.s8_other_money.G2MoneyPaidToSomeoneElseForYou.submit
+
+GET     /otherMoney/personWhoGetsThisMoney                      controllers.s8_other_money.G3PersonWhoGetsThisMoney.present
+POST    /otherMoney/personWhoGetsThisMoney                      controllers.s8_other_money.G3PersonWhoGetsThisMoney.submit
+
+GET     /otherMoney/personContactDetails                        controllers.s8_other_money.G4PersonContactDetails.present
+POST    /otherMoney/personContactDetails                        controllers.s8_other_money.G4PersonContactDetails.submit
+
+GET     /otherMoney/statutorySickPay                            controllers.s8_other_money.G5StatutorySickPay.present
+POST    /otherMoney/statutorySickPay                            controllers.s8_other_money.G5StatutorySickPay.submit
+
+GET     /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.present
+POST    /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.submit
+
 # Pay Details
 ###############
 GET     /payDetails/howWePayYou                                 controllers.s6_pay_details.G1HowWePayYou.present

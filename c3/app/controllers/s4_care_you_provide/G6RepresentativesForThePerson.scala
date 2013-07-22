@@ -1,7 +1,6 @@
 package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
-import controllers.Routing
 import models.view.CachedClaim
 import models.domain.RepresentativesForPerson
 import play.api.data.Form
@@ -13,14 +12,12 @@ import utils.helpers.CarersForm._
 import play.api.data.FormError
 import models.yesNo.{YesNoWithDropDownAndText, YesNoWithDropDown}
 
-object G6RepresentativesForThePerson extends Controller with Routing with CachedClaim {
-
-  override val route = RepresentativesForPerson.id -> routes.G6RepresentativesForThePerson.present
-
+object G6RepresentativesForThePerson extends Controller with CachedClaim {
   val youActMapping =
     "you" -> mapping(
       "actForPerson" -> nonEmptyText(maxLength = 20).verifying(validYesNo),
-      "actAs" -> optional(nonEmptyText(maxLength = 20)))(YesNoWithDropDown.apply)(YesNoWithDropDown.unapply)
+      "actAs" -> optional(nonEmptyText(maxLength = 20))
+    )(YesNoWithDropDown.apply)(YesNoWithDropDown.unapply)
       .verifying("required", YesNoWithDropDown.validate _)
 
   val someoneElseMapping =
@@ -33,6 +30,7 @@ object G6RepresentativesForThePerson extends Controller with Routing with Cached
 
   val form = Form(
     mapping(
+      call(routes.G6RepresentativesForThePerson.present()),
       youActMapping,
       someoneElseMapping
     )(RepresentativesForPerson.apply)(RepresentativesForPerson.unapply))

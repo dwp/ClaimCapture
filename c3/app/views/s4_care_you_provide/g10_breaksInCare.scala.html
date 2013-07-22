@@ -1,10 +1,10 @@
-@(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[models.domain.QuestionGroup], dateOfClaimFormatted: String)(implicit claim: models.domain.Claim)
+@(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[models.domain.QuestionGroup], dateOfClaimFormatted: String)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import models.domain.BreaksInCare
 @import views.html.helper._
 @import models.domain.{Claim, ClaimDate}
 
-@main("Breaks in Care - Care You Provide", Some(yesNoForm), completedQuestionGroups) {
+@main("Breaks in care - Care You Provide", Some(yesNoForm), completedQuestionGroups) {
     <fieldset id="breaks" class="form-elements results-detail">
         <legend>Breaks you have added</legend>
 
@@ -52,13 +52,7 @@
     @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit) {
         <fieldset class="form-elements">
             <legend>Breaks in Care</legend>
-
-            <ul class="group">
-                @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
-                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimFormatted))
-                }
-            </ul>
-
+            
             <div class="prompt helper-prompt">
                 <p class="intro">
                     By break we mean time when, for any reason, you spent less than 35 hours a week caring for the person you look after. For example, if:
@@ -69,10 +63,18 @@
                     <li>You were in hospital or on holiday without them.</li>
                 </ul>
             </div>
+
+            <ul class="group">
+                @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
+                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimFormatted))
+                }
+            </ul>
+
+ 
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@backHref(controllers.s4_care_you_provide.CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.BreaksInCare)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

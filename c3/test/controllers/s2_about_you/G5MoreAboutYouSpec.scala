@@ -21,8 +21,8 @@ class G5MoreAboutYouSpec extends Specification with Tags {
       val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
 
-      val section: Section = claim.section(domain.YourPartner.id)
-      section.visible mustEqual true
+      val section: Section = claim.section(domain.YourPartner)
+      section.visible must beTrue
     }
 
     "hide Your Partner Section" in new WithApplication with Claiming {
@@ -35,7 +35,35 @@ class G5MoreAboutYouSpec extends Specification with Tags {
       val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
 
-      val section: Section = claim.section(domain.YourPartner.id)
+      val section: Section = claim.section(domain.YourPartner)
+      section.visible must beFalse
+    }
+    
+    "make Education Section visible" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "yes",
+        "eitherClaimedBenefitSinceClaimDate" -> "yes",
+        "beenInEducationSinceClaimDate" -> "yes",
+        "receiveStatePension" -> "yes")
+
+      val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      val section: Section = claim.section(domain.Education)
+      section.visible mustEqual true
+    }
+
+    "hide Education Section" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "yes",
+        "eitherClaimedBenefitSinceClaimDate" -> "yes",
+        "beenInEducationSinceClaimDate" -> "no",
+        "receiveStatePension" -> "yes")
+
+      val result = controllers.s2_about_you.G5MoreAboutYou.submit(request)
+      val claim = Cache.getAs[Claim](claimKey).get
+
+      val section: Section = claim.section(domain.Education)
       section.visible mustEqual false
     }
   } section "unit"

@@ -3,79 +3,71 @@ package controllers.s1_carers_allowance
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.BrowserMatchers
+import utils.pageobjects.s1_carers_allowance.{G5ApprovePage, G4LivingInGBPage, G1BenefitsPageContext, G5ApprovePageContext}
+import utils.pageobjects.ClaimScenario
+import utils.pageobjects.s2_about_you.G1YourDetailsPage
 
 class G5ApproveIntegrationSpec extends Specification with Tags {
 
   "Approve" should {
-    "be presented" in new WithBrowser {
-      browser.goTo("/allowance/approve")
-      browser.title mustEqual "Can you get Carer's Allowance?"
+    "be presented" in new WithBrowser with G5ApprovePageContext {
+      page goToThePage()
     }
   } section "integration"
 
   "Carer's Allowance" should {
-    "be approved" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/")
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Hours - Carer's Allowance")
+    val notRightPage: String = "Next Page is not of the right type."
 
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Over 16 - Carer's Allowance")
+    "be approved" in new WithBrowser with G1BenefitsPageContext {
+      val claim = new ClaimScenario
+      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
+      claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
+      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
+      page goToThePage()
+      page fillPageWith claim
+      val hoursPage = page submitPage()
+      hoursPage fillPageWith claim
+      val over16Page = hoursPage submitPage()
+      over16Page fillPageWith claim
+      val livingGBPage = over16Page submitPage()
+      livingGBPage fillPageWith claim
+      val approvePage = livingGBPage submitPage()
 
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Lives in GB - Carer's Allowance")
-
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Can you get Carer's Allowance?")
-      browser.find("div[class=prompt]").size mustEqual 1
-      browser.find(".prompt.error").size mustEqual 0
+      approvePage match {
+        case p: G5ApprovePage => {
+          p.previousPage must beSome(livingGBPage)
+          p.isApproved must beTrue
+        }
+        case _ => ko(notRightPage)
+      }
     }
 
-    "be declined" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/")
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Hours - Carer's Allowance")
-
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Over 16 - Carer's Allowance")
-
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Lives in GB - Carer's Allowance")
-
-      browser.click("#q3-no")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Can you get Carer's Allowance?")
-      browser.find("div[class=prompt]").size mustEqual 0
-      browser.find(".prompt.error").size mustEqual 1
+    "be declined" in new WithBrowser with G1BenefitsPageContext {
+      val claim = new ClaimScenario
+      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
+      claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
+      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
+      page goToThePage()
+      val approvePage = page runClaimWith (claim, G5ApprovePage.title)
+      approvePage match {
+        case p: G5ApprovePage => {
+          p.previousPage.get must beAnInstanceOf[G4LivingInGBPage]
+          p.isNotApproved must beTrue
+        }
+        case _ => ko(notRightPage)
+      }
     }
 
-    "navigate to next section" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/")
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Hours - Carer's Allowance")
-
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Over 16 - Carer's Allowance")
-
-      browser.click("#q3-yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Lives in GB - Carer's Allowance")
-
-      browser.click("#q3-no")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Can you get Carer's Allowance?")
-
-      browser.submit("button[type='submit']")
-      titleMustEqual("Your Details - About You")
+    "navigate to next section" in new WithBrowser with G1BenefitsPageContext {
+      val claim = new ClaimScenario
+      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
+      claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
+      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
+      page goToThePage()
+      page runClaimWith (claim, G1YourDetailsPage.title)
     }
   } section "integration"
 }

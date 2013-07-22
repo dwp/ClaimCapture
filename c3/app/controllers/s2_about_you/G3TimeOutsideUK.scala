@@ -6,20 +6,17 @@ import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithDate
 import models.LivingInUK
 
-object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
-  override val route = TimeOutsideUK.id -> routes.G3TimeOutsideUK.present
-
+object G3TimeOutsideUK extends Controller with CachedClaim {
   val goBackMapping =
     "goBack" -> optional(
       mapping(
         "answer" -> nonEmptyText.verifying(validYesNo),
-        "date" -> optional(dayMonthYear.verifying(validDateOnly)))(YesNoWithDate.apply)(YesNoWithDate.unapply)
-    )
+        "date" -> optional(dayMonthYear.verifying(validDateOnly))
+      )(YesNoWithDate.apply)(YesNoWithDate.unapply))
 
   val livingInUKMapping =
     "livingInUK" -> mapping(
@@ -33,6 +30,7 @@ object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
 
   val form = Form(
     mapping(
+      call(routes.G3TimeOutsideUK.present()),
       livingInUKMapping,
       "visaReference" -> optional(text(maxLength = sixty))
     )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))

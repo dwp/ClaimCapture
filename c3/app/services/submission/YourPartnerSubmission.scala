@@ -3,7 +3,7 @@ package services.submission
 import models.domain._
 
 object YourPartnerSubmission {
-  def buildYourPartner(claim: Claim): Option[YourPartner] = claim.isSectionVisible(models.domain.YourPartner.id) match {
+  def buildYourPartner(claim: Claim): Option[YourPartner] = claim.isSectionVisible(models.domain.YourPartner) match {
     case true => {
       val yourPartnerPersonalDetails = getQuestionGroup[YourPartnerPersonalDetails](claim, YourPartnerPersonalDetails)
       val yourPartnerContactDetails = getQuestionGroup[YourPartnerContactDetails](claim, YourPartnerContactDetails)
@@ -42,11 +42,11 @@ object YourPartnerSubmission {
     case None => {} // dwp-ca-claim-v1_10.xsd specifies minOccurs=0, so we have to deal with the situation where there is no Partner.
   }
 
-  private def getQuestionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
-    claim.questionGroup(questionGroup).asInstanceOf[Option[T]].get
+  private def getQuestionGroup[T](claim: Claim, qi: QuestionGroup.Identifier) = {
+    claim.questionGroup(qi).asInstanceOf[Option[T]].get
   }
 
-  private def questionGroup[T](claim: Claim, questionGroup: QuestionGroup) = {
-    claim.questionGroup(questionGroup).asInstanceOf[Option[T]]
+  private def questionGroup[T](claim: Claim, qi: QuestionGroup.Identifier) = {
+    claim.questionGroup(qi).asInstanceOf[Option[T]]
   }
 }

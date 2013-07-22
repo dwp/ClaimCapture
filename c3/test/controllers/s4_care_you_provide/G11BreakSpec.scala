@@ -49,9 +49,7 @@ class G11BreakSpec extends Specification with Tags {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(BreaksInCare) must beLike {
-        case Some(b: BreaksInCare) => b.breaks.size mustEqual 2
-      }
+      claim.questionGroup(BreaksInCare) must beLike { case Some(b: BreaksInCare) => b.breaks.size mustEqual 2 }
     }
 
     "update existing break" in new WithApplication with Claiming {

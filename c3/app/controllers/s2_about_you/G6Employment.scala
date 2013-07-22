@@ -5,16 +5,14 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
-import controllers.Mappings.validYesNo
+import controllers.Mappings._
 import models.domain.Claim
 
-object G6Employment extends Controller with Routing with CachedClaim {
-  override val route = Employment.id -> routes.G6Employment.present
-
+object G6Employment extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      call(routes.G6Employment.present()),
       "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText.verifying(validYesNo),
       "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo)
     )(Employment.apply)(Employment.unapply))

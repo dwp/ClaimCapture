@@ -1,17 +1,11 @@
 package controllers.s7_consent_and_declaration
 
-import play.api.mvc.{Call, Controller}
+import play.api.mvc.Controller
 import models.view.CachedClaim
-import scala.collection.immutable.ListMap
-
 
 object ConsentAndDeclaration extends Controller with CachedClaim {
-
-  val route: ListMap[String, Call] = ListMap(G1AdditionalInfo,G2Consent,G3Disclaimer,G4Declaration,G5Submit)
-
-
   def completed = claiming { implicit claim => implicit request =>
-    Ok(views.html.s6_pay_details.g3_completed(claim.completedQuestionGroups(models.domain.PayDetails.id)))
+    Ok(views.html.s6_pay_details.g3_completed(claim.completedQuestionGroups(models.domain.PayDetails)))
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>

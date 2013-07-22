@@ -11,8 +11,10 @@ import models.MultiLineAddress
 import scala.util.Failure
 import models.NationalInsuranceNumber
 import play.api.data.validation.ValidationError
+import play.api.mvc.Call
 
 object Mappings {
+  val fifty = 50
 
   val sixty = 60
 
@@ -25,12 +27,17 @@ object Mappings {
   val no = "no"
 
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
-    "day" -> optional(    number(max=100)),
-    "month" -> optional(  number(max=100)),
-    "year" -> optional(   number(max=99999)),
-    "hour" -> optional(   number(max=100,min=0)),
-    "minutes" -> optional(number(max=100,min=0))
+    "day" -> optional(number(max = 100)),
+    "month" -> optional(number(max = 100)),
+    "year" -> optional(number(max = 99999)),
+    "hour" -> optional(number(max = 100, min = 0)),
+    "minutes" -> optional(number(max = 100, min = 0))
   )(DayMonthYear.apply)(DayMonthYear.unapply)
+
+  val periodFromTo: Mapping[PeriodFromTo] = mapping(
+    "from"->dayMonthYear.verifying(validDate),
+    "to" -> dayMonthYear.verifying(validDate)
+  )(PeriodFromTo.apply)(PeriodFromTo.unapply)
 
   val address: Mapping[MultiLineAddress] = mapping(
     "lineOne" -> optional(text(maxLength = sixty)),
@@ -42,6 +49,11 @@ object Mappings {
     "location" -> nonEmptyText,
     "other" -> optional(text)
   )(Whereabouts.apply)(Whereabouts.unapply)
+
+  val paymentFrequency: Mapping[PaymentFrequency] = mapping(
+    "frequency" -> nonEmptyText,
+    "other" -> optional(text)
+  )(PaymentFrequency.apply)(PaymentFrequency.unapply)
 
   val sortCode: Mapping[SortCode] = mapping(
     "sort1" -> text( maxLength = two),
@@ -149,4 +161,6 @@ object Mappings {
       case _ => Invalid(ValidationError("yesNo.invalid"))
     }
   }
+
+  def call(call: Call): (String, Mapping[Call]) = "call" -> ignored(call)
 }

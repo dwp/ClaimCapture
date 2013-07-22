@@ -6,14 +6,12 @@ import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
 
-object G4ClaimDate extends Controller with Routing with CachedClaim {
-  override val route = ClaimDate.id -> routes.G4ClaimDate.present
-
+object G4ClaimDate extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      call(routes.G4ClaimDate.present()),
       "dateOfClaim" -> dayMonthYear.verifying(validDate)
     )(ClaimDate.apply)(ClaimDate.unapply))
 

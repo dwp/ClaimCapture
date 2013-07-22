@@ -1,24 +1,29 @@
 package models.domain
 
-case class Section(id: String, questionGroups: List[QuestionGroup], visible: Boolean = true) {
-
-  def questionGroup(questionGroup: QuestionGroup): Option[QuestionGroup] = {
-    questionGroups.find(qg => qg.id == questionGroup.id)
+case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup], visible: Boolean = true) {
+  def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
+    questionGroups.find(qg => qg.identifier == questionGroupIdentifier)
   }
 
   def update(questionGroup: QuestionGroup): Section = {
-    val updatedQuestionGroups = questionGroups.takeWhile(_.index < questionGroup.index) :::
+    val updatedQuestionGroups = questionGroups.takeWhile(_.identifier.index < questionGroup.identifier.index) :::
                                 List(questionGroup) :::
-                                questionGroups.dropWhile(_.index <= questionGroup.index)
+                                questionGroups.dropWhile(_.identifier.index <= questionGroup.identifier.index)
 
     copy(questionGroups = updatedQuestionGroups)
   }
 
-  def delete(questionGroup: QuestionGroup): Section = {
-    copy(questionGroups = questionGroups.filterNot(q => q.id == questionGroup.id))
+  def delete(questionGroup: QuestionGroup): Section = delete(questionGroup.identifier)
+
+  def delete(questionGroupIdentifier: QuestionGroup.Identifier): Section = {
+    copy(questionGroups = questionGroups.filterNot(qg => qg.identifier == questionGroupIdentifier))
   }
 
-  def precedingQuestionGroups(questionGroup: QuestionGroup) = questionGroups.takeWhile(_.index < questionGroup.index)
+  def precedingQuestionGroups(questionGroup: QuestionGroup): List[QuestionGroup] = precedingQuestionGroups(questionGroup.identifier)
+
+  def precedingQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier): List[QuestionGroup] = {
+    questionGroups.takeWhile(_.identifier.index < questionGroupIdentifier.index)
+  }
 
   def show(): Section = copy(visible = true)
 
@@ -26,7 +31,27 @@ case class Section(id: String, questionGroups: List[QuestionGroup], visible: Boo
 }
 
 case object Section {
-  def sectionID(questionGroup: QuestionGroup): String = questionGroup.id.split('.')(0)
+  def sectionIdentifier(questionGroup: QuestionGroup): Section.Identifier = sectionIdentifier(questionGroup.identifier)
 
-  def index(sectionID: String): Int = sectionID.drop(1).toInt
+  def sectionIdentifier(questionGroupIdentifier: QuestionGroup.Identifier): Section.Identifier = {
+    new Section.Identifier { override val id: String = questionGroupIdentifier.id.split('.')(0) }
+  }
+
+  def index(sectionIdentifier: Section.Identifier): Int = sectionIdentifier.id.drop(1).toInt
+
+  trait Identifier {
+    val id: String
+
+    override def equals(other: Any) = {
+      other match {
+        case that: Identifier => id == that.id
+        case _ => false
+      }
+    }
+
+    override def hashCode() = {
+      val prime = 41
+      prime + id.hashCode
+    }
+  }
 }

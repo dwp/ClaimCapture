@@ -1,21 +1,20 @@
 package controllers.s3_your_partner
 
 import play.api.mvc.Controller
-import controllers.Routing
 import models.view.CachedClaim
-import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import models.domain.Claim
+import models.domain.{ContactDetails, YourPartnerPersonalDetails, YourPartnerContactDetails, Claim}
 import utils.helpers.CarersForm._
+import YourPartner._
 
-object G2YourPartnerContactDetails extends Controller with Routing with CachedClaim {
-
-  override val route = YourPartnerContactDetails.id -> routes.G2YourPartnerContactDetails.present
+object G2YourPartnerContactDetails extends Controller with CachedClaim {
+  val formCall = routes.G2YourPartnerContactDetails.present()
 
   val form = Form(
     mapping(
+      call(formCall),
       "address" -> optional(address),
       "postcode" -> optional(text verifying validPostcode)
     )(YourPartnerContactDetails.apply)(YourPartnerContactDetails.unapply))
@@ -23,7 +22,7 @@ object G2YourPartnerContactDetails extends Controller with Routing with CachedCl
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(YourPartnerContactDetails)
 
   def present = claiming { implicit claim => implicit request =>
-    if (claim.isSectionVisible(models.domain.YourPartner.id)) {
+    whenVisible(claim)(() => {
       val liveAtSameAddress = claim.questionGroup(YourPartnerPersonalDetails) match {
         case Some(t: YourPartnerPersonalDetails) => t.liveAtSameAddress == yes
         case _ => false
@@ -31,7 +30,7 @@ object G2YourPartnerContactDetails extends Controller with Routing with CachedCl
 
       val prePopulatedForm = if (liveAtSameAddress) {
         claim.questionGroup(ContactDetails) match {
-          case Some(cd: ContactDetails) => form.fill(YourPartnerContactDetails(address = Some(cd.address), postcode = cd.postcode))
+          case Some(cd: ContactDetails) => form.fill(YourPartnerContactDetails(formCall, address = Some(cd.address), postcode = cd.postcode))
           case _ => form
         }
       } else {
@@ -41,8 +40,7 @@ object G2YourPartnerContactDetails extends Controller with Routing with CachedCl
         }
       }
       Ok(views.html.s3_your_partner.g2_yourPartnerContactDetails(prePopulatedForm, completedQuestionGroups))
-    }
-    else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+    })
   }
 
   def submit = claiming { implicit claim => implicit request =>

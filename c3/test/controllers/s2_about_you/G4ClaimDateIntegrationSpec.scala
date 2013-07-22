@@ -7,6 +7,8 @@ import play.api.test.WithBrowser
 class G4ClaimDateIntegrationSpec extends Specification with Tags {
 
   "Claim Date" should {
+    sequential
+
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/aboutyou/claimDate")
       titleMustEqual("Claim Date - About You")
@@ -37,8 +39,8 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
 
       browser.fill("#dateOfClaim_year") `with` "1950"
       browser.submit("button[type='submit']")
-
       titleMustEqual("Claim Date - About You")
+
       browser.find("p[class=error]").size() must beGreaterThan(0)
       browser.find("p[class=error]").get(0).getText mustEqual "Invalid value"
     }

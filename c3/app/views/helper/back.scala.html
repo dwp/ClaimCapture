@@ -1,0 +1,6 @@
+@(questionGroupIdentifier: models.domain.QuestionGroup.Identifier)(implicit claim: models.domain.Claim)
+
+@claim.previousQuestionGroup(questionGroupIdentifier) match {
+    case Some(qg: models.domain.QuestionGroup) => {@qg.call}
+    case _ => {#}
+}

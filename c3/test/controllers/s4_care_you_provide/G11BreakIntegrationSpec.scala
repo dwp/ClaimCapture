@@ -3,6 +3,8 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import scala.concurrent.duration.Duration
+import java.util.concurrent.TimeUnit
 
 class G11BreakIntegrationSpec extends Specification with Tags {
   "Break" should {
@@ -16,6 +18,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     """present "completed" when no more breaks are required""" in new BreakWithBrowser {
       Formulate.theirPersonalDetails(browser)
       browser.goTo("/careYouProvide/breaksInCare")
+      titleMustEqual("Breaks in care - Care You Provide")
 
       browser.click("#answer_no")
       browser.submit("button[value='next']")
@@ -37,11 +40,12 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.submit("button[value='next']")
 
       titleMustEqual("Break - Care You Provide")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 2
+      browser.find("div[class=validation-summary] ol li").size shouldEqual 2
     }
 
     """show 2 breaks in "break table" upon providing 2 breaks""" in new BreakWithBrowser {
       browser.goTo("/careYouProvide/breaksInCare")
+      titleMustEqual("Breaks in care - Care You Provide")
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
@@ -53,28 +57,32 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       titleMustEqual("Break - Care You Provide")
       break()
 
-      browser.$("#breaks table tbody tr").size() mustEqual 2
+      browser.$("#breaks table tbody tr").size() shouldEqual 2
     }
 
     "show zero breaks after creating one and then deleting" in new BreakWithBrowser {
-      pending
+      skipped("Front end dynamic assertions not working correctly.")
+
       /*browser.goTo("/careYouProvide/breaksInCare")
+      titleMustEqual("Breaks in care - Care You Provide")
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
       titleMustEqual("Break - Care You Provide")
+
       break()
       browser.$("tbody tr").size() mustEqual 1
 
       browser.click("input[value='Delete']")
-      browser.await().atMost(30, TimeUnit.SECONDS).until(".breaks-prompt").areDisplayed
+      browser.await().atMost(10, TimeUnit.SECONDS).until(".breaks-prompt").areDisplayed
       browser.click("input[value='Yes']")
 
-      browser.await().atMost(3, TimeUnit.SECONDS).until("tbody tr").hasSize(0)*/
+      browser.await().atMost(10, TimeUnit.SECONDS).until("tbody tr").hasSize(0)*/
     }
 
     "show two breaks after creating three and then deleting one" in new BreakWithBrowser {
-      pending
+      skipped("Front end dynamic assertions not working correctly.")
+
       /*browser.goTo("/careYouProvide/breaksInCare")
 
       browser.click("#answer_yes")
@@ -103,26 +111,25 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
     "add two breaks and edit the second's start year" in new BreakWithBrowser {
       browser.goTo("/careYouProvide/breaksInCare")
+      titleMustEqual("Breaks in care - Care You Provide")(Duration(60, TimeUnit.SECONDS))
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
-      titleMustEqual("Break - Care You Provide")
+      titleMustEqual("Break - Care You Provide")(Duration(60, TimeUnit.SECONDS))
       break()
-      titleMustEqual("Breaks in Care - Care You Provide")
 
       browser.click("#answer_yes")
       browser.submit("button[value='next']")
-      titleMustEqual("Break - Care You Provide")
+      titleMustEqual("Break - Care You Provide")(Duration(60, TimeUnit.SECONDS))
       break()
-      titleMustEqual("Breaks in Care - Care You Provide")
 
       browser.findFirst("input[value='Edit']").click()
-      titleMustEqual("Break - Care You Provide")
+      titleMustEqual("Break - Care You Provide")(Duration(60, TimeUnit.SECONDS))
       browser.$("#start_year").getValue mustEqual 2001.toString
 
       browser.fill("#start_year") `with` "1999"
       browser.submit("button[type='submit']")
-      titleMustEqual("Breaks in Care - Care You Provide")
+      titleMustEqual("Breaks in care - Care You Provide")(Duration(60, TimeUnit.SECONDS))
 
       browser.$("tbody tr").size() mustEqual 2
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
@@ -145,7 +152,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.click("#medicalDuringBreak_no")
 
       browser.submit("button[value='next']")
-      titleMustEqual("Breaks in Care - Care You Provide")
+      titleMustEqual("Breaks in care - Care You Provide")
     }
   }
 }

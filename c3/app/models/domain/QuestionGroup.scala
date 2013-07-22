@@ -1,5 +1,38 @@
 package models.domain
 
-abstract class QuestionGroup(val id: String) {
-  val index: Int = id.dropWhile(!_.equals('g')).drop(1).toInt
+import models.view.Routing
+import play.api.mvc.Call
+
+abstract class QuestionGroup(val identifier: QuestionGroup.Identifier) extends Routing
+
+object QuestionGroup {
+  trait Identifier {
+    val id: String
+
+    lazy val index: Int = id.dropWhile(!_.equals('g')).drop(1).toInt
+
+    override def equals(other: Any) = {
+      other match {
+        case that: Identifier => id == that.id
+        case _ => false
+      }
+    }
+
+    override def hashCode() = {
+      val prime = 41
+      prime + id.hashCode
+    }
+  }
+}
+
+trait NoRouting extends Routing {
+  this: QuestionGroup =>
+
+  override val call: Call = Call("", "")
+}
+
+object NoRouting {
+  import language.implicitConversions
+
+  implicit def noRouting(nr: NoRouting.type) = Call("", "")
 }

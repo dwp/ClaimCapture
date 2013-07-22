@@ -4,15 +4,12 @@ import play.api.mvc.Controller
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.view.CachedClaim
-import controllers.Routing
 import models.domain.NormalResidenceAndCurrentLocation
 import controllers.Mappings._
 import models.yesNo.YesNoWithText
 import utils.helpers.CarersForm._
 
-object G1NormalResidenceAndCurrentLocation extends Controller with Routing with CachedClaim {
-  override val route = NormalResidenceAndCurrentLocation.id -> routes.G1NormalResidenceAndCurrentLocation.present
-
+object G1NormalResidenceAndCurrentLocation extends Controller with CachedClaim {
   val liveMapping =
     "liveInUK" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -22,6 +19,7 @@ object G1NormalResidenceAndCurrentLocation extends Controller with Routing with 
 
   val form = Form(
     mapping(
+      call(routes.G1NormalResidenceAndCurrentLocation.present()),
       liveMapping,
       "inGBNow" -> nonEmptyText.verifying(validYesNo)
     )(NormalResidenceAndCurrentLocation.apply)(NormalResidenceAndCurrentLocation.unapply)

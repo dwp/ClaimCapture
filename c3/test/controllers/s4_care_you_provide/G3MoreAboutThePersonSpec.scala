@@ -17,24 +17,23 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito with Tags {
     "present 'More About The Person' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.present(request)
+      val result = G3MoreAboutThePerson.present(request)
       status(result) mustEqual OK
     }
-
 
     "add more about the person details to the cached claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(moreAboutThePersonInput: _*)
 
-      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.submit(request)
+      val result = G3MoreAboutThePerson.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id)
+      val section: Section = claim.section(domain.CareYouProvide)
 
       section.questionGroup(MoreAboutThePerson) must beLike {
-        case Some(f: MoreAboutThePerson) => {
-          f.relationship mustEqual "father"
-          f.armedForcesPayment mustEqual Some("yes")
-          f.claimedAllowanceBefore mustEqual "yes"
+        case Some(m: MoreAboutThePerson) => {
+          m.relationship mustEqual "father"
+          m.armedForcesPayment mustEqual Some("yes")
+          m.claimedAllowanceBefore mustEqual "yes"
         }
       }
     }
@@ -43,7 +42,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("relationship" -> "")
 
-      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.submit(request)
+      val result = G3MoreAboutThePerson.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -51,7 +50,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(moreAboutThePersonInput: _*)
 
-      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.submit(request)
+      val result = G3MoreAboutThePerson.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section "unit"

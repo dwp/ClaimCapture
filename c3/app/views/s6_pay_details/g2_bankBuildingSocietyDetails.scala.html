@@ -15,21 +15,17 @@
             <legend>Bank / building society details</legend>
 
             <ul class="group">
-
                 @carersInputText(currentForm("accountHolderName"))
                 @carersInputText(currentForm("bankFullName"))
                 @sortCode(currentForm("sortCode"))
                 @carersInputText(currentForm("accountNumber"),'maxLength -> "10")
                 @carersInputText(currentForm("rollOrReferenceNumber"),'maxLength -> "18")
-
-
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a href="@backHref(PayDetails.route,completedQuestionGroups)" id="backButton" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.BankBuildingSocietyDetails)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
-
 }

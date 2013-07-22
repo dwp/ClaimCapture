@@ -1,21 +1,31 @@
 package models.domain
 
-case object CarersAllowance {
+import play.api.mvc.Call
+
+case object CarersAllowance extends Section.Identifier {
   val id = "s1"
 }
 
-case class Benefits(answer: Boolean = false) extends QuestionGroup(Benefits.id) with BooleanConfirmation
+case class Benefits(call: Call, answer: Boolean = false) extends QuestionGroup(Benefits) with BooleanConfirmation
 
-case object Benefits extends QuestionGroup(s"${CarersAllowance.id}.g1")
+object Benefits extends QuestionGroup.Identifier {
+  val id = s"${CarersAllowance.id}.g1"
+}
 
-case class Hours(answer: Boolean = false) extends QuestionGroup(Hours.id) with BooleanConfirmation
+case class Hours(call: Call, answer: Boolean = false) extends QuestionGroup(Hours) with BooleanConfirmation
 
-case object Hours extends QuestionGroup(s"${CarersAllowance.id}.g2")
+object Hours extends QuestionGroup.Identifier {
+  val id = s"${CarersAllowance.id}.g2"
+}
 
-case class Over16(answer: Boolean = false) extends QuestionGroup(Over16.id) with BooleanConfirmation
+case class Over16(call: Call, answer: Boolean = false) extends QuestionGroup(Over16) with BooleanConfirmation
 
-case object Over16 extends QuestionGroup(s"${CarersAllowance.id}.g3")
+object Over16 extends QuestionGroup.Identifier {
+  val id = s"${CarersAllowance.id}.g3"
+}
 
-case class LivesInGB(answer: Boolean = false) extends QuestionGroup(LivesInGB.id) with BooleanConfirmation
+case class LivesInGB(call: Call, answer: Boolean = false) extends QuestionGroup(LivesInGB) with BooleanConfirmation
 
-case object LivesInGB extends QuestionGroup(s"${CarersAllowance.id}.g4")
+object LivesInGB extends QuestionGroup.Identifier {
+  val id = s"${CarersAllowance.id}.g4"
+}

@@ -2,14 +2,14 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.Formulate
+import controllers.{BrowserMatchers, Formulate}
 
 class G6RepresentativesForThePersonIntegrationSpec extends Specification with Tags {
 
   "Representatives For The Person" should {
-    "be presented" in new WithBrowser {
+    "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/representativesForPerson")
-      browser.title mustEqual "Representatives For The Person - Care You Provide"
+      titleMustEqual("Representatives For The Person - Care You Provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -28,7 +28,6 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
 
     "navigate back to More About The Person" in new WithBrowser {
       Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
-      browser.goTo("/careYouProvide/representativesForPerson")
       browser.click("#backButton")
       browser.title mustEqual "More About The Person You Care For - Care You Provide"
     }

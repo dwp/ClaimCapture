@@ -4,6 +4,8 @@ import org.specs2.mutable.{Specification, Tags}
 import play.api.test.{TestBrowser, WithBrowser}
 import controllers.BrowserMatchers
 import org.fluentlenium.core.Fluent
+import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.Duration
 
 class G4TripIntegrationSpec extends Specification with Tags {
   "4 weeks trip" should {
@@ -36,6 +38,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     """show 2 four weeks trips in "trips table" upon providing 2 trips""" in new TripWithBrowser {
       trip(fourWeeks)
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
       trip(fourWeeks)
       titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
       browser.$("#trips table tbody tr").size shouldEqual 2
@@ -47,16 +50,17 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     "add two trips and edit the second's start year" in new TripWithBrowser {
       trip(fourWeeks)
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(20, TimeUnit.MINUTES))
       trip(fourWeeks)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(20, TimeUnit.MINUTES))
 
       browser.findFirst("input[value='Edit']").click()
-      titleMustEqual("Trip - Time Spent Abroad")
+      titleMustEqual("Trip - Time Spent Abroad")(Duration(20, TimeUnit.MINUTES))
       browser.$("#start_year").getValue shouldEqual 2000.toString
 
       browser.fill("#start_year") `with` "1999"
       browser.submit("button[type='submit']")
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")(Duration(20, TimeUnit.MINUTES))
 
       browser.$("tbody tr").size() shouldEqual 2
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
@@ -104,6 +108,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     """show 2 fifty two weeks trips in "trips table" upon providing 2 trips""" in new TripWithBrowser {
       trip(fiftyTwoWeeks)
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
       trip(fiftyTwoWeeks)
       titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
       browser.$("#trips table tbody tr").size shouldEqual 2
@@ -115,16 +120,17 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     "add two trips and edit the second's start year" in new TripWithBrowser {
       trip(fiftyTwoWeeks)
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")(Duration(20, TimeUnit.MINUTES))
       trip(fiftyTwoWeeks)
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")(Duration(20, TimeUnit.MINUTES))
 
       browser.findFirst("input[value='Edit']").click()
-      titleMustEqual("Trip - Time Spent Abroad")
+      titleMustEqual("Trip - Time Spent Abroad")(Duration(20, TimeUnit.MINUTES))
       browser.$("#start_year").getValue shouldEqual 2000.toString
 
       browser.fill("#start_year") `with` "1999"
       browser.submit("button[type='submit']")
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")(Duration(20, TimeUnit.MINUTES))
 
       browser.$("tbody tr").size() shouldEqual 2
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
@@ -149,6 +155,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
   class TripWithBrowser extends WithBrowser with BrowserMatchers {
     def trip(f: (TestBrowser) => Fluent) {
       f(browser)
+      titleMustEqual("Trip - Time Spent Abroad")
 
       browser.click("#start_day option[value='1']")
       browser.click("#start_month option[value='1']")

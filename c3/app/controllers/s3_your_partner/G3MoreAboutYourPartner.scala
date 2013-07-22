@@ -1,6 +1,5 @@
 package controllers.s3_your_partner
 
-import controllers.Routing
 import controllers.Mappings._
 import models.domain.{MoreAboutYourPartner, Claim}
 import models.view.CachedClaim
@@ -10,10 +9,7 @@ import play.api.mvc.Controller
 import utils.helpers.CarersForm.formBinding
 import models.yesNo.YesNoWithDate
 
-object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
-
-  override val route = MoreAboutYourPartner.id -> routes.G3MoreAboutYourPartner.present
-
+object G3MoreAboutYourPartner extends Controller with CachedClaim {
   val startedLivingTogetherMapping =
     "startedLivingTogether" -> optional(
       mapping(
@@ -30,6 +26,7 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
 
   val form = Form(
     mapping(
+      call(routes.G3MoreAboutYourPartner.present()),
       startedLivingTogetherMapping,
       separationMapping
     )(MoreAboutYourPartner.apply)(MoreAboutYourPartner.unapply))
@@ -37,23 +34,20 @@ object G3MoreAboutYourPartner extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutYourPartner)
 
   def present = claiming { implicit claim => implicit request =>
-    if (claim.isSectionVisible(models.domain.YourPartner.id)) {
-
+    YourPartner.whenVisible(claim)(() => {
       val currentForm: Form[MoreAboutYourPartner] = claim.questionGroup(MoreAboutYourPartner) match {
         case Some(t: MoreAboutYourPartner) => form.fill(t)
         case _ => form
       }
 
       Ok(views.html.s3_your_partner.g3_moreAboutYourPartner(currentForm, completedQuestionGroups))
-    }
-    else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+    })
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val formWithErrorsUpdate = formWithErrors
-          .replaceError("separated", FormError("separated.date", "error.required"))
+        val formWithErrorsUpdate = formWithErrors.replaceError("separated", FormError("separated.date", "error.required"))
         BadRequest(views.html.s3_your_partner.g3_moreAboutYourPartner(formWithErrorsUpdate, completedQuestionGroups))
       },
       moreAboutYourPartner => claim.update(moreAboutYourPartner) -> Redirect(routes.G4PersonYouCareFor.present()))

@@ -1,0 +1,62 @@
+@(currentForm: Form[models.domain.BeenEmployed], jobs: List[models.domain.Job] = Nil)(implicit claim: models.domain.Claim)
+
+@import scala.language.postfixOps
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@main("Your employment history - Employment", Some(currentForm)) {
+    <fieldset id="jobs" class="form-elements results-detail">
+        <legend>Employment you have added</legend>
+
+        <table class="employment">
+            <caption>Employments already added data</caption>
+
+            <thead>
+                <tr>
+                    <th>Employer name</th>
+                    <th class="desc">Job title</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for(job <- jobs) {
+                    <tr id="@job.jobID" class="@job.jobID">
+                        <td>@job.employerName</td>
+                        <td class="desc">@job.title</td>
+                        <td><input type="button" class="button row secondary" value="Edit"></td>
+                        <td><input type="button" class="button row warning" value="Delete"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="prompt breaks-prompt">
+            <p>Are you sure you want to delete this employment?</p>
+            <input type="button" class="button row secondary" value="No">
+            <input type="button" class="button row warning" value="Yes">
+            <span>&#33;</span>
+        </div>
+    </fieldset>
+
+    @form(action = controllers.s7_employment.routes.G1BeenEmployed.submit()){
+        <fieldset class="form-elements">
+            <legend>Your employment history</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("beenEmployed"), '_label -> Messages("beenEmployed", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => (dmy - 6 months).`dd/MM/yyyy`), claim.dateOfClaim.fold("{CLAIM DATE}")(_.`dd/MM/yyyy`)))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@controllers.s6_education.routes.Education.completed" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
