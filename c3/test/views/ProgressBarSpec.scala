@@ -17,9 +17,7 @@ class ProgressBarSpec extends Specification {
     nodes.filter(node => node.attribute("class").exists(c => c.text == value))
   }
 
-  def findNodeWithText(nodes: NodeSeq, value: String) = {
-    nodes.filter(node => node.text == value)
-  }
+  def findNodeWithText(nodes: NodeSeq, value: String) = nodes.filter(node => node.text == value)
 
   "ProgressBar" should {
     "show sections" in {
@@ -32,7 +30,7 @@ class ProgressBarSpec extends Specification {
       val listItems = xml(AboutYou, Claim()) \\ "ol" \\ "li"
       val activeNode = findNodeWithClass(listItems, "active")
 
-      activeNode.text mustEqual AboutYou.id + progressBar
+      activeNode.text must contain(AboutYou.id + progressBar)
     }
 
     "mark preceding sections completed" in {
@@ -40,8 +38,8 @@ class ProgressBarSpec extends Specification {
 
       val completedNodes = findNodeWithClass(listItems, "complete")
 
-      completedNodes.head.text mustEqual CarersAllowance.id + progressBar
-      completedNodes.last.text mustEqual AboutYou.id + progressBar
+      completedNodes.head.text must contain(CarersAllowance.id + progressBar)
+      completedNodes.last.text must contain(AboutYou.id + progressBar)
     }
 
     "remove hidden section" in {
@@ -49,7 +47,7 @@ class ProgressBarSpec extends Specification {
       val yourPartnerNode = findNodeWithText(listItems, YourPartner.id + progressBar)
       yourPartnerNode.length must beEqualTo(1)
 
-      val updatedListItems =  xml(TimeSpentAbroad, Claim().hideSection(YourPartner)) \\ "ol" \\ "li"
+      val updatedListItems = xml(TimeSpentAbroad, Claim().hideSection(YourPartner)) \\ "ol" \\ "li"
 
       val hiddenNode = findNodeWithText(updatedListItems, YourPartner.id + progressBar)
 

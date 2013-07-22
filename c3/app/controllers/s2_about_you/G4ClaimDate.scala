@@ -11,7 +11,7 @@ import utils.helpers.CarersForm._
 object G4ClaimDate extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G4ClaimDate.present()),
+      call(routes.G4ClaimDate.present()),
       "dateOfClaim" -> dayMonthYear.verifying(validDate)
     )(ClaimDate.apply)(ClaimDate.unapply))
 

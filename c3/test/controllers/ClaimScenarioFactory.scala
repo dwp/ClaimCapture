@@ -88,8 +88,8 @@ object ClaimScenarioFactory {
   }
 
 
-  def s8otherMoneyG1AboutOtherMoney() = {
-    val claim =new ClaimScenario
+  def s8otherMoney = {
+    val claim = s2AboutYouWithTimeOutside()
     //About other money
     claim.OtherMoneyAboutYourBenefits = "no"
     //Money paid to someone welse for you

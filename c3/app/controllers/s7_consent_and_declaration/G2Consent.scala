@@ -7,11 +7,12 @@ import models.domain.{Claim, Consent}
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
+import controllers.Mappings._
 
 object G2Consent extends Controller with CachedClaim{
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G2Consent.present()),
+      call(routes.G2Consent.present()),
       "informationFromEmployer" -> nonEmptyText,
       "why" -> optional(text),
       "informationFromPerson" -> nonEmptyText,

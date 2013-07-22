@@ -11,7 +11,7 @@ import utils.helpers.CarersForm._
 object G1YourDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G1YourDetails.present()),
+      call(routes.G1YourDetails.present()),
       "title" -> nonEmptyText(maxLength = 4),
       "firstName" -> nonEmptyText(maxLength = sixty),
       "middleName" -> optional(text(maxLength = sixty)),

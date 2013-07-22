@@ -6,11 +6,12 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain.{Claim, Hours}
+import controllers.Mappings._
 
 object G2Hours extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G2Hours.present()),
+      call(routes.G2Hours.present()),
       "answer" -> boolean
     )(Hours.apply)(Hours.unapply))
 

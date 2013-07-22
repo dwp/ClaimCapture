@@ -12,7 +12,7 @@ import TimeSpentAbroad.trips
 object G2AbroadForMoreThan4Weeks extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G2AbroadForMoreThan4Weeks.present()),
+      call(routes.G2AbroadForMoreThan4Weeks.present()),
       "anyTrips" -> nonEmptyText.verifying(validYesNo)
     )(AbroadForMoreThan4Weeks.apply)(AbroadForMoreThan4Weeks.unapply))
 

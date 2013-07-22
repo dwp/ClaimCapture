@@ -1,6 +1,6 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 /**
@@ -34,11 +34,12 @@ final class YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] = N
 object YourDetailsPage {
   val title = "Your Details - About You"
   val url  = "/aboutyou/yourDetails"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new YourDetailsPage(browser,previousPage)
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new YourDetailsPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait YourDetailsPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
+
   val page = YourDetailsPage buildPageWith browser
 }

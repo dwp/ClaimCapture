@@ -12,7 +12,7 @@ import Education._
 object G1YourCourseDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "call" -> ignored(routes.G1YourCourseDetails.present()),
+      call(routes.G1YourCourseDetails.present()),
       "courseType" -> optional(text(maxLength = sixty)),
       "courseTitle" -> optional(text(maxLength = sixty)),
       "startDate" -> optional(dayMonthYear.verifying(validDateOnly)),
