@@ -21,9 +21,9 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
             "howMuch" -> howMuch,
             "howOften" -> howOften,
             "employersName" -> employersName,
-            "employersAddress.lineOne" -> "lineOne", 
-            "employersAddress.lineTwo" -> "lineTwo", 
-            "employersAddress.lineThree" -> "lineThree",
+            "employersAddress.lineOne" -> employersAddressLineOne, 
+            "employersAddress.lineTwo" -> employersAddressLineTwo, 
+            "employersAddress.lineThree" -> employersAddressLineThree,
             "employersPostcode" -> employersPostcode
         )
       ).fold(
@@ -33,7 +33,7 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
           f.howMuch must equalTo(Some(howMuch))
           f.howOften must equalTo(Some(howOften))
           f.employersName must equalTo(Some(employersName))
-          f.employersAddress must equalTo(Some(MultiLineAddress(Some("lineOne"), Some("lineTwo"), Some("lineThree"))))
+          f.employersAddress must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
           f.employersPostcode must equalTo(Some(employersPostcode))
         }
       )
