@@ -9,7 +9,7 @@ import utils.pageobjects.Page
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-final class HoursPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, HoursPage.url, HoursPage.title,previousPage) with WebSearchActions {
+final class G2HoursPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2HoursPage.url, G2HoursPage.title,previousPage) with WebSearchActions {
 
   /* temporary, until tested class is refactored and use new common components. */
   private val separator = "-"
@@ -35,15 +35,14 @@ final class HoursPage(browser: TestBrowser, previousPage: Option[Page] = None) e
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object HoursPage {
+object G2HoursPage {
   val title = "Hours - Carer's Allowance"
   val url = "/allowance/hours"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new HoursPage(browser, previousPage)
-//  PageFactory.registerPageBuilder[HoursPage](title, buildPageWith)
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2HoursPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
-trait HoursPageContext extends PageContext {
+trait G2HoursPageContext extends PageContext {
   this: {val browser: TestBrowser} =>
-  val page =  HoursPage buildPageWith browser
+  val page =  G2HoursPage buildPageWith browser
 }

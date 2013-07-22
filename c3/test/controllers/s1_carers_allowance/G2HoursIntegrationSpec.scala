@@ -2,13 +2,13 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s1_carers_allowance.{Over16Page, HoursPage, BenefitsPageContext, HoursPageContext}
+import utils.pageobjects.s1_carers_allowance.{G3Over16Page, G2HoursPage, G1BenefitsPageContext, G2HoursPageContext}
 import utils.pageobjects.ClaimScenario
 
 class G2HoursIntegrationSpec extends Specification with Tags {
 
   "Hours" should {
-    "be presented" in new WithBrowser with HoursPageContext {
+    "be presented" in new WithBrowser with G2HoursPageContext {
       page goToThePage()
     }
   } section "integration"
@@ -17,35 +17,35 @@ class G2HoursIntegrationSpec extends Specification with Tags {
 
     val notRightPage: String = "Next Page is not of the right type."
 
-    "acknowledge yes" in new WithBrowser with BenefitsPageContext {
+    "acknowledge yes" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       page goToThePage()
       page fillPageWith claim
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[HoursPage]
+      nextPage must beAnInstanceOf[G2HoursPage]
       nextPage.previousPage mustEqual Some(page)
       nextPage fillPageWith claim
       val nextPage2 = nextPage submitPage()
       nextPage2 match {
-        case p: Over16Page => p.isQ2Yes must beTrue
+        case p: G3Over16Page => p.isQ2Yes must beTrue
         case _ => ko(notRightPage)
       }
     }
 
-    "acknowledge no" in new WithBrowser with BenefitsPageContext {
+    "acknowledge no" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "No"
       page goToThePage()
       page fillPageWith claim
       val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[HoursPage]
+      nextPage must beAnInstanceOf[G2HoursPage]
       nextPage fillPageWith claim
       val nextPage2 = nextPage submitPage()
       nextPage2 match {
-        case p: Over16Page => p.isQ2No must beTrue
+        case p: G3Over16Page => p.isQ2No must beTrue
         case _ => ko(notRightPage)
       }
     }

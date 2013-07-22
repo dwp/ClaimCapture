@@ -3,7 +3,7 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
-import utils.pageobjects.s2_about_you.{YourDetailsPageContext, CompletedPage}
+import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, CompletedPage}
 
 class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
 
@@ -51,7 +51,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       browser.find("p[class=error]").size mustEqual 2
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with YourDetailsPageContext {
+    "navigate to next page on valid submission" in new WithBrowser with G1YourDetailsPageContext {
       skipped("Timing issue i.e. when tests take too long to run (mainly because govMain accesses external resources that are not required in test)")
 
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()

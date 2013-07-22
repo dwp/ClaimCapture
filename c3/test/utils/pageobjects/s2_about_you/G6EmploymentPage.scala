@@ -8,7 +8,7 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  * @author Jorge Migueis
  *         Date: 17/07/2013
  */
-final class EmploymentPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, EmploymentPage.url, EmploymentPage.title, previousPage) {
+final class G6EmploymentPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6EmploymentPage.url, G6EmploymentPage.title, previousPage) {
   /**
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
@@ -23,14 +23,14 @@ final class EmploymentPage (browser: TestBrowser, previousPage: Option[Page] = N
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object EmploymentPage {
+object G6EmploymentPage {
   val title = "Employment - About You"
   val url  = "/aboutyou/employment"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new EmploymentPage(browser,previousPage)
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G6EmploymentPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
-trait EmploymentPageContext extends PageContext {
+trait G6EmploymentPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = EmploymentPage buildPageWith browser
+  val page = G6EmploymentPage buildPageWith browser
 }

@@ -8,7 +8,7 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  * @author Jorge Migueis
  *         Date: 15/07/2013
  */
-final class LivingInGBPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, LivingInGBPage.url, LivingInGBPage.title, previousPage) {
+final class G4LivingInGBPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4LivingInGBPage.url, G4LivingInGBPage.title, previousPage) {
   /* temporary, until tested class is refactored and use new common components. */
   private val separator  = "-"
 
@@ -26,14 +26,14 @@ final class LivingInGBPage (browser: TestBrowser, previousPage: Option[Page] = N
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object LivingInGBPage {
+object G4LivingInGBPage {
   val title = "Lives in GB - Carer's Allowance"
   val url = "/allowance/livesInGB"
-  def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new LivingInGBPage(browser, previousPage)
+  def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new G4LivingInGBPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
-trait LivingInGBPageContext extends PageContext {
+trait G4LivingInGBPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = LivingInGBPage buildPageWith browser
+  val page = G4LivingInGBPage buildPageWith browser
 }
