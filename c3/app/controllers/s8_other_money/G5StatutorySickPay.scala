@@ -7,6 +7,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
+import models.yesNo.YesNoWith2Text
 
 object G5StatutorySickPay extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(StatutorySickPay)
@@ -20,8 +21,16 @@ object G5StatutorySickPay extends Controller with CachedClaim {
       "employersAddress" -> optional(address),
       "employersPostcode" -> optional(text verifying validPostcode),
       call(routes.G5StatutorySickPay.present())
-    )(StatutorySickPay.apply)(StatutorySickPay.unapply))
+    )(StatutorySickPay.apply)(StatutorySickPay.unapply)
+    .verifying("employersName.required", c => validateText(c.haveYouHadAnyStatutorySickPay, c.employersName)))
 
+  def validateText(answer: String, text:Option[String], required:Boolean = true) = {
+    answer match {
+      case `yes` => if(required) text.isDefined else true
+      case `no` => true
+    }
+  }
+  
   def present = claiming { implicit claim =>
     implicit request =>
       /*OtherMoney.whenVisible(claim)(() => {
