@@ -113,3 +113,12 @@ case class MoneyOwedbyEmployer(jobID:String,
 object MoneyOwedbyEmployer extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g6"
 }
+
+case class PensionSchemes(jobID:String,
+                          payOccupationalPensionScheme:String,howMuchPension:Option[String],howOftenPension:Option[String],
+                          payPersonalPensionScheme: String,howMuchPersonal:Option[String], howOftenPersonal:Option[String],
+                          call: Call)extends QuestionGroup(PensionSchemes) with Job.Identifier
+
+object PensionSchemes extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g7"
+}
