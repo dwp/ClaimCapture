@@ -160,6 +160,9 @@ POST    /employment/lastWage                                    controllers.s7_e
 GET     /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.present
 POST    /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.submit
 
+GET     /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.present
+POST    /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.submit
+
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
 POST    /employment/completed                                   controllers.s7_employment.Employment.submit
 
