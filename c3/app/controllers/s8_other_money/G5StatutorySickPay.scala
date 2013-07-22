@@ -30,7 +30,7 @@ object G5StatutorySickPay extends Controller with CachedClaim {
       case `no` => true
     }
   }
-  
+
   def present = claiming { implicit claim =>
     implicit request =>
       OtherMoney.whenVisible(claim)(() => {

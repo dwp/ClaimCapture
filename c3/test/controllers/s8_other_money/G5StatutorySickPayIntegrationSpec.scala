@@ -10,18 +10,18 @@ import utils.pageobjects.s2_about_you.ClaimDatePageContext
 import utils.pageobjects.s8_other_money._
 import play.api.test.WithBrowser
 
-class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
+class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
 
-  "Person Contact Details" should {
-    "be presented" in new WithBrowser with G4PersonContactDetailsPageContext {
-      page goToThePage()
+  "Statutory Sick Pay" should {
+    "be presented" in new WithBrowser with G5StatutorySickPayPageContext {
+      page goToThePage ()
     }
-
+/*
     "not be presented if not claimed benefits" in new WithBrowser with ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "No"
 
-      page goToThePage()
+      page goToThePage ()
       page fillPageWith claim
       val moreAboutYouPage = page.submitPage()
 
@@ -34,7 +34,7 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in new WithBrowser with G4PersonContactDetailsPageContext {
       val claim = new ClaimScenario
       claim.OtherMoneyPostCode = "INVALID"
-      page goToThePage()
+      page goToThePage ()
       page fillPageWith claim
       val pageWithErrors = page.submitPage()
       pageWithErrors.listErrors.size mustEqual 1
@@ -42,16 +42,16 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
 
     "contain the completed forms" in new WithBrowser with G1AboutOtherMoneyPageContext {
       val claim = ClaimScenarioFactory.s8otherMoney
-      page goToThePage()
+      page goToThePage ()
       page fillPageWith claim
-      val moneyPaidPage = page submitPage()
+      val moneyPaidPage = page submitPage ()
       val personContactPage = moneyPaidPage.goToPage(new G4PersonContactDetailsPage(browser))
       personContactPage.listCompletedForms.size mustEqual 1
     }
 
     "navigate back to Person Who Gets This Money" in new WithBrowser with ClaimDatePageContext {
       val claimS2 = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
-      page goToThePage()
+      page goToThePage ()
       page fillPageWith claimS2
       val moreAboutYouPage = page.submitPage()
       moreAboutYouPage fillPageWith claimS2
@@ -59,22 +59,15 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
       val claimS8 = ClaimScenarioFactory.s8otherMoney
       val s8g3 = employmentPage goToPage (new G3PersonWhoGetsThisMoneyPage(browser))
       s8g3 fillPageWith claimS8
-      val s8g4 = s8g3 submitPage()
-      val previousPage = s8g4 goBack()
+      val s8g4 = s8g3 submitPage ()
+      val previousPage = s8g4 goBack ()
       previousPage.pageTitle mustEqual "Person Who Gets This Money - Other Money"
       previousPage must beAnInstanceOf[G3PersonWhoGetsThisMoneyPage]
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with G4PersonContactDetailsPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
-      page goToThePage()
-      page fillPageWith claim
-
-      val nextPage = page submitPage()
-
-      nextPage must beAnInstanceOf[G5StatutorySickPayPage]
-    }
-
+    //    "navigate to next page on valid submission" in new WithBrowser {
+    //      pending
+    //    }
+*/
   } section "integration"
-
 }

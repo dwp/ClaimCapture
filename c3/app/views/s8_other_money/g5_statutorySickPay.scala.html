@@ -5,7 +5,8 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("About SSP - Other Money", Some(currentForm), completedQuestionGroups) {
+
+@main("Statutory Sick Pay - Other Money", Some(currentForm), completedQuestionGroups) {
 
     @form(action = controllers.s8_other_money.routes.G5StatutorySickPay.submit) {
 
@@ -18,7 +19,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@controllers.s8_other_money.routes.G5StatutorySickPay.present" class="button secondary">Back</a>
+            <a id="backButton" href="@controllers.s8_other_money.routes.G4PersonContactDetails.present" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
