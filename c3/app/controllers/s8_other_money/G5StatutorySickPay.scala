@@ -33,14 +33,13 @@ object G5StatutorySickPay extends Controller with CachedClaim {
   
   def present = claiming { implicit claim =>
     implicit request =>
-      /*OtherMoney.whenVisible(claim)(() => {
+      OtherMoney.whenVisible(claim)(() => {
         val currentForm = claim.questionGroup(StatutorySickPay) match {
           case Some(t: StatutorySickPay) => form.fill(t)
           case _ => form
         }
         Ok(views.html.s8_other_money.g5_statutorySickPay(currentForm, completedQuestionGroups))
-      })*/
-      Ok(<title>Hello, world!</title>)
+      })
   }
 
   def submit = claiming { implicit claim =>
