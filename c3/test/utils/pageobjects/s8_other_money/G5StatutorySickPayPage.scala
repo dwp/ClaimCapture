@@ -9,7 +9,7 @@ final class G5StatutorySickPayPage(browser: TestBrowser, previousPage: Option[Pa
   def fillPageWith(theClaim: ClaimScenario) {
     fillYesNo("#haveYouHadAnyStatutorySickPay", theClaim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay)
     fillInput("#howMuch", theClaim.OtherMoneyStatutorySickPayHowMuch)
-    fillInput("#howOften", theClaim.OtherMoneyStatutorySickPayHowOften)
+    fillInput("#howMuch_howOften", theClaim.OtherMoneyStatutorySickPayHowMuchHowOften)
     fillInput("#employersName", theClaim.OtherMoneyStatutorySickPayEmployersName)
     fillAddress("#employersAddress", theClaim.OtherMoneyStatutorySickPayPersonEmployersAddress)
     fillInput("#employersPostcode", theClaim.OtherMoneyStatutorySickPayEmployersPostCode)

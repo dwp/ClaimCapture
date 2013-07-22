@@ -16,12 +16,14 @@
 
             <ul class="group">
               @yesNoRadioGroup(currentForm("haveYouHadAnyStatutorySickPay"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-              
-              
+
               @otherDetailPlaceHolder(
                   inputDef = Seq(
-                    
-                    howMuchHowOften(currentForm("howMuchHowOften"))
+                    carersShortInputText(currentForm("howMuch"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty),
+                    paymentFrequency(currentForm("howMuch"), "howOften", Seq("" -> "How often?", "W"->"Weekly", "FN"->"fortnightly","4W"-> "four-weekly","M"-> "monthly", "other"->"other")),
+                    carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
+                    inputAddress(currentForm("employersAddress")),
+                    carersInputText(currentForm("employersPostcode"))
                   ),
                   'id -> "sickPayWrap",
                   'display -> currentForm("haveYouHadAnyStatutorySickPay").value.getOrElse("no")
