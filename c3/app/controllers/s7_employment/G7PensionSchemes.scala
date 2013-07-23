@@ -4,7 +4,7 @@ import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{PensionSchemes, MoneyOwedbyEmployer, LastWage}
+import models.domain.PensionSchemes
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
@@ -24,12 +24,12 @@ object G7PensionSchemes extends Controller with CachedClaim {
 
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g7_pensionSchemes(form, completedQuestionGroups(LastWage)))
+    Ok(views.html.s7_employment.g7_pensionSchemes(form, completedQuestionGroups(PensionSchemes)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g7_pensionSchemes(formWithErrors, completedQuestionGroups(LastWage))),
-      schemes => claim.update(schemes) -> Redirect(routes.G6MoneyOwedbyEmployer.present()))
+      formWithErrors => BadRequest(views.html.s7_employment.g7_pensionSchemes(formWithErrors, completedQuestionGroups(PensionSchemes))),
+      schemes => claim.update(schemes) -> Redirect(routes.G7PensionSchemes.present()))
   }
 }

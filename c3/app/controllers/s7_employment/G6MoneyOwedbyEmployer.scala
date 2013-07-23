@@ -4,11 +4,10 @@ import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{MoneyOwedbyEmployer, AdditionalWageDetails, LastWage}
+import models.domain.{MoneyOwedbyEmployer, LastWage}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
-import models.{DayMonthYear, PeriodFromTo}
 
 object G6MoneyOwedbyEmployer extends Controller with CachedClaim {
   val form = Form(

@@ -7,7 +7,6 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
-import models.yesNo.YesNoWith2Text
 
 object G5StatutorySickPay extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(StatutorySickPay)
@@ -46,7 +45,7 @@ object G5StatutorySickPay extends Controller with CachedClaim {
     implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s8_other_money.g5_statutorySickPay(formWithErrors, completedQuestionGroups)),
-        f => claim.update(f) -> Redirect(routes.G6OtherStatutoryPay.present()) // TODO replace with next page to go to
+        f => claim.update(f) -> Redirect(routes.G6OtherStatutoryPay.present())
       )
   }
 }

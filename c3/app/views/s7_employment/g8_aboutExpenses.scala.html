@@ -1,0 +1,34 @@
+@(currentForm: Form[models.domain.AboutExpenses], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@main("Pension schemes - Employment", Some(currentForm), completedQuestionGroups) {
+    @form(action = controllers.s7_employment.routes.G8AboutExpenses.submit()) {
+        <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(request.flash.get("jobID").getOrElse("Missing job ID"))'>
+
+        <fieldset class="form-elements">
+            <legend>Pension schemes</legend>
+
+            <ul class="group">
+
+                @yesNoRadioGroup(currentForm("payForAnythingNecessary"))
+                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterChildren"))
+                @yesNoRadioGroup(currentForm("payAnyoneToLookAfterPerson"))
+
+
+
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.AboutExpenses)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

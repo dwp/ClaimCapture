@@ -166,6 +166,9 @@ POST    /employment/moneyOwedByEmployer                         controllers.s7_e
 GET     /employment/pensionSchemes                              controllers.s7_employment.G7PensionSchemes.present
 POST    /employment/pensionSchemes                              controllers.s7_employment.G7PensionSchemes.submit
 
+GET     /employment/aboutExpenses                               controllers.s7_employment.G8AboutExpenses.present
+POST    /employment/aboutExpenses                               controllers.s7_employment.G8AboutExpenses.submit
+
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
 POST    /employment/completed                                   controllers.s7_employment.Employment.submit
 
@@ -188,6 +191,9 @@ POST    /otherMoney/statutorySickPay                            controllers.s8_o
 
 GET     /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.present
 POST    /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.submit
+
+GET     /otherMoney/completed                                   controllers.s8_other_money.OtherMoney.completed
+POST    /otherMoney/completed                                   controllers.s8_other_money.OtherMoney.completedSubmit
 
 # Pay Details
 ###############

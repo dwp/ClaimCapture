@@ -1,7 +1,6 @@
 package models.domain
 
-import models.{PaymentFrequency, PeriodFromTo, MultiLineAddress, DayMonthYear}
-import play.api.mvc.Call
+import models.DayMonthYear
 import controllers.Mappings._
 import play.api.mvc.Call
 import models.PaymentFrequency
@@ -40,15 +39,19 @@ object Jobs extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g99"
 }
 
-case class Job(jobID: String, questionGroups: List[QuestionGroup] = Nil) extends Job.Identifier {
-  def employerName: String = "DUMMY employer name"
+case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identifier] = Nil) extends Job.Identifier {
+  def employerName = jobDetails(_.employerName)
 
-  def title: String = "DUMMY title"
+  def title = jobDetails(_.jobTitle.getOrElse(""))
 
-  def update(questionGroup: QuestionGroup): Job = {
+  def update(questionGroup: QuestionGroup with Job.Identifier): Job = {
     val updated = questionGroups map { qg => if (qg.identifier == questionGroup.identifier) questionGroup else qg }
+    if (updated.contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
+  }
 
-    if (updated  .contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
+  private def jobDetails(f: JobDetails => String) = questionGroups.find(_.isInstanceOf[JobDetails]) match {
+    case Some(j: JobDetails) => f(j)
+    case _ => ""
   }
 }
 
@@ -105,20 +108,28 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
   }
 }
 
-case class MoneyOwedbyEmployer(jobID:String,
-                               howMuch:Option[String],owedPeriod:Option[PeriodFromTo], owedFor:Option[String],
-                               shouldBeenPaidBy:Option[DayMonthYear],whenWillGetIt: Option[String],
-                               call: Call)extends QuestionGroup(MoneyOwedbyEmployer) with Job.Identifier
+case class MoneyOwedbyEmployer(jobID: String,
+                               howMuch: Option[String], owedPeriod: Option[PeriodFromTo], owedFor: Option[String],
+                               shouldBeenPaidBy: Option[DayMonthYear], whenWillGetIt: Option[String],
+                               call: Call) extends QuestionGroup(MoneyOwedbyEmployer) with Job.Identifier
 
 object MoneyOwedbyEmployer extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g6"
 }
 
-case class PensionSchemes(jobID:String,
-                          payOccupationalPensionScheme:String,howMuchPension:Option[String],howOftenPension:Option[String],
-                          payPersonalPensionScheme: String,howMuchPersonal:Option[String], howOftenPersonal:Option[String],
-                          call: Call)extends QuestionGroup(PensionSchemes) with Job.Identifier
+case class PensionSchemes(jobID: String,
+                          payOccupationalPensionScheme: String, howMuchPension: Option[String], howOftenPension:Option[String],
+                          payPersonalPensionScheme: String, howMuchPersonal: Option[String], howOftenPersonal: Option[String],
+                          call: Call) extends QuestionGroup(PensionSchemes) with Job.Identifier
 
 object PensionSchemes extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g7"
+}
+
+case class AboutExpenses(jobID: String,
+                          payForAnythingNecessary: String, payAnyoneToLookAfterChildren: String, payAnyoneToLookAfterPerson: String,
+                          call: Call) extends QuestionGroup(AboutExpenses) with Job.Identifier
+
+object AboutExpenses extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g8"
 }

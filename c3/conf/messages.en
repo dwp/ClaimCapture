@@ -297,6 +297,12 @@ payPersonalPensionScheme = Do you pay towards a personal or stakeholder pension 
 howMuchPersonal = How much do you pay?
 howOftenPersonal = How often?
 
+# ABOUT EXPENSES
+
+payForAnythingNecessary = Do you pay for anything necessary to do your job?
+payAnyoneToLookAfterChildren = While at work, do you pay anyone to look after your children?
+payAnyoneToLookAfterPerson = While at work, do you pay anyone to look after the person you normally look after care for ?
+
 
 ## OTHER MONEY
 # ABOUT OTHER MONEY
