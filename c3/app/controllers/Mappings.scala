@@ -47,12 +47,12 @@ object Mappings {
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> nonEmptyText,
-    "other" -> optional(text)
+    "other" -> optional(text(maxLength = sixty))
   )(Whereabouts.apply)(Whereabouts.unapply)
 
   val paymentFrequency: Mapping[PaymentFrequency] = mapping(
-    "frequency" -> nonEmptyText,
-    "other" -> optional(text)
+    "frequency" -> text(maxLength = sixty),
+    "other" -> optional(text(maxLength = sixty))
   )(PaymentFrequency.apply)(PaymentFrequency.unapply)
 
   val sortCode: Mapping[SortCode] = mapping(
@@ -172,5 +172,15 @@ object Mappings {
       }
   }
 
+  def paymentFrequencyValidation(pf: PaymentFrequency): ValidationResult = Try(new PaymentFrequency(pf.frequency, pf.other)) match {
+    case Success(p: PaymentFrequency) if p.frequency.toLowerCase == "other" && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
+    case Success(p: PaymentFrequency) => Valid
+    case Failure(_) => Invalid(ValidationError("error.invalid"))
+  }
+  
+  def validPaymentFrequencyOnly: Constraint[PaymentFrequency] = Constraint[PaymentFrequency]("constraint.validatePaymentFrequency") {
+    pf => paymentFrequencyValidation(pf)
+  }
+  
   def call(call: Call): (String, Mapping[Call]) = "call" -> ignored(call)
 }

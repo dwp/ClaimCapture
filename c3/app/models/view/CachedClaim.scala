@@ -77,6 +77,12 @@ trait CachedClaim {
     }
   }
 
+  def claimingInJob(f: => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
+    request => {
+      claiming(f)(request).flashing("jobID"->request.body.asFormUrlEncoded.getOrElse(Map("jobID"->Seq("")))("jobID").applyOrElse(0,(i:Int)=>""))
+    }
+  }
+
   private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
     r.session.get("connected").getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
   }

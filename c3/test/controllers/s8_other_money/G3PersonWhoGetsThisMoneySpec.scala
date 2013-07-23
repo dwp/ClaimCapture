@@ -5,10 +5,7 @@ import org.specs2.mutable.Tags
 
 import models.NationalInsuranceNumber
 import models.domain
-import models.domain.Claim
-import models.domain.Claiming
-import models.domain.PersonWhoGetsThisMoney
-import models.domain.Section
+import models.domain._
 import play.api.cache.Cache
 import play.api.test.FakeRequest
 import play.api.test.Helpers.BAD_REQUEST
@@ -16,6 +13,9 @@ import play.api.test.Helpers.OK
 import play.api.test.Helpers.SEE_OTHER
 import play.api.test.Helpers.status
 import play.api.test.WithApplication
+import models.domain.Claim
+import models.NationalInsuranceNumber
+import scala.Some
 
 class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
 
@@ -36,12 +36,23 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
       "nationalInsuranceNumber.ni5" -> ni5,
       "nameOfBenefit" -> nameOfBenefit)
 
-    "present 'Person Who Gets The Money' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+    def prepareCache(claimKey: String) = {
+      import play.api.Play.current
+      Cache.set(claimKey, Claim().update(new MoneyPaidToSomeoneElseForYou("no", null)))
+    }
 
+    "present 'Person Who Gets The Money' if visible" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
       val result = G3PersonWhoGetsThisMoney.present(request)
 
       status(result) mustEqual OK
+    }
+
+    "redirect 'Person Who Gets The Money' if hidden" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+      prepareCache(claimKey)
+      val result = G3PersonWhoGetsThisMoney.present(request)
+      status(result) mustEqual SEE_OTHER
     }
 
     "return a bad request after an invalid submission" in new WithApplication with Claiming {

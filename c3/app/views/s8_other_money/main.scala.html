@@ -22,9 +22,10 @@
                     <div class="completed">
                         <ul>
                             @for(completedQuestionGroup <- completedQuestionGroups) {
-                                <li>
-                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                </li>
+                            <li>
+                                <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                <a href="@completedQuestionGroup.call">Change these answers</a>
+                            </li>
                             }
                         </ul>
                     </div>

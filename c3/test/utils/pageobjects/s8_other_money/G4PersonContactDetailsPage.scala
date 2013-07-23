@@ -6,8 +6,8 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 final class G4PersonContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4PersonContactDetailsPage.url, G4PersonContactDetailsPage.title, previousPage) {
 
   def fillPageWith(theClaim: ClaimScenario) {
-    fillAddress("#address", theClaim.OtherMoneyPersonAddress)
-    fillInput("#postcode", theClaim.OtherMoneyPostCode)
+    fillAddress("#address", theClaim.OtherMoneyOtherPersonAddress)
+    fillInput("#postcode", theClaim.OtherMoneyOtherPersonPostcode)
   }
 }
 

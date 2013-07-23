@@ -13,10 +13,6 @@ object Employment extends Controller with CachedClaim {
     case _ => Jobs()
   }
 
-  implicit def inJob(result: Result) = new {
-    def inJob(qg: QuestionGroup with Job.Identifier) = result.flashing("jobID" -> qg.jobID)
-  }
-
   def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier)(implicit claim: Claim, request: Request[AnyContent]) = {
     claim.questionGroup(Jobs) match {
       case Some(js: Jobs) => js.jobs.find(_.jobID == request.flash("jobID")) match {
@@ -26,7 +22,6 @@ object Employment extends Controller with CachedClaim {
       case _ => Nil
     }
 
-    claim.completedQuestionGroups(Jobs)
   }
 
   def completed = claiming { implicit claim => implicit request =>

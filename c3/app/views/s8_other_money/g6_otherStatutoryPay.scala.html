@@ -15,11 +15,14 @@
             <legend>Other Statutory Pay</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("otherPay"))
+                @yesNoRadioGroup(currentForm("otherPay"), '_label -> Messages("otherPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
                 @otherDetailPlaceHolder(
-                inputDef = Seq( carersShortInputText(currentForm("howMuch"), 'maxLength -> Mappings.sixty, 'placeholder -> Messages("poundSign") ) ,
-                                paymentFrequencySelect(currentForm("howOften")),
+                inputDef = Seq( carersShortInputText(currentForm("howMuch"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty),
+                                paymentFrequencySelect(currentForm("howOften"), 
+                                  'id -> "howOften_frequency", 
+                                  'visibleOn -> "yes", 
+                                  'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}),
                                 carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
                                 inputAddress(currentForm("employersAddress")),
                                 carersInputText(currentForm("employersPostcode"))
@@ -31,7 +34,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@controllers.s8_other_money.routes.G5StatutorySickPay.present" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.OtherStatutoryPay)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
@@ -41,6 +44,10 @@
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("otherPay_yes")", "@CarersCrypto.encryptAES("otherPay_no")");
+        window.initEvents("@CarersCrypto.encryptAES("otherPay_yes")", 
+          "@CarersCrypto.encryptAES("otherPay_no")",
+          "@CarersCrypto.encryptAES("howOften_frequency")", 
+          "@CarersCrypto.encryptAES("howOften_frequency_wrap")"
+        );
     });
 </script>

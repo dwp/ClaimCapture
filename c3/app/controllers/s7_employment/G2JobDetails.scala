@@ -6,7 +6,7 @@ import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.JobDetails
+import models.domain.{Job, Jobs, JobDetails}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
@@ -30,20 +30,20 @@ object G2JobDetails extends Controller with CachedClaim {
     Ok(views.html.s7_employment.g2_jobDetails(form))
   }
 
-  /*def break(id: String) = claiming { implicit claim => implicit request =>
-    claim.questionGroup(BreaksInCare) match {
-      case Some(b: BreaksInCare) => b.breaks.find(_.id == id) match {
-        case Some(b: Break) => Ok(views.html.s4_care_you_provide.g11_break(form.fill(b)))
-        case _ => Redirect(routes.G10BreaksInCare.present())
+  def job(jobID: String) = claiming { implicit claim => implicit request =>
+    claim.questionGroup(Jobs).collect {
+      case js: Jobs => js.jobs.find(_.jobID == jobID).collect {
+        case j: Job => j.questionGroups.find(_.isInstanceOf[JobDetails])
       }
-
-      case _ => Redirect(routes.G10BreaksInCare.present())
+    }.flatten.flatten match {
+      case Some(jd: JobDetails with Job.Identifier) => Ok(views.html.s7_employment.g2_jobDetails(form.fill(jd)))
+      case _ => Redirect(routes.G1BeenEmployed.present())
     }
-  }*/
+  }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingInJob { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g2_jobDetails(formWithErrors)),
-      jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present()).inJob(jobDetails))
+      jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present()))
   }
 }

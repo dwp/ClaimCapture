@@ -16,7 +16,7 @@ object G6OtherStatutoryPay extends Controller with CachedClaim {
     mapping(
       "otherPay" -> nonEmptyText.verifying(validYesNo),
       "howMuch" -> optional(text(maxLength = sixty)),
-      "howOften" -> optional(paymentFrequency),
+      "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(nonEmptyText(maxLength = sixty)),
       "employersAddress" -> optional(address),
       "employersPostcode" -> optional(text verifying validPostcode),
@@ -24,7 +24,7 @@ object G6OtherStatutoryPay extends Controller with CachedClaim {
     )(OtherStatutoryPay.apply)(OtherStatutoryPay.unapply)
       .verifying("employersName.required", validateEmployerName _))
 
-  def validateEmployerName(otherStatutoryPay:OtherStatutoryPay) = {
+  def validateEmployerName(otherStatutoryPay: OtherStatutoryPay) = {
     otherStatutoryPay.otherPay match {
       case `yes` => otherStatutoryPay.employersName.isDefined
       case _ => true
@@ -46,7 +46,7 @@ object G6OtherStatutoryPay extends Controller with CachedClaim {
       implicit request =>
         form.bindEncrypted.fold(
           formWithErrors => {
-            val formWithErrorsUpdate = formWithErrors.replaceError("","employersName.required", FormError("employersName", "error.required"))
+            val formWithErrorsUpdate = formWithErrors.replaceError("", "employersName.required", FormError("employersName", "error.required"))
             BadRequest(views.html.s8_other_money.g6_otherStatutoryPay(formWithErrorsUpdate, completedQuestionGroups))
           },
           f => claim.update(f) -> Redirect(routes.OtherMoney.completed())

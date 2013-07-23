@@ -27,7 +27,7 @@
                 @yesNoRadioGroup(currentForm("someoneElse.actForPerson"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(actSelect(currentForm("someoneElse.actAs")), carersInputText(currentForm("someoneElse.fullName"))),
+                    inputDef = Seq(actSelect(currentForm("someoneElse.actAs")), carersInputText(currentForm("someoneElse.fullName"), 'maxlength -> 120)),
                     'id -> "someoneElseWrap",
                     'display -> currentForm("someoneElse.actForPerson").value.getOrElse("no")
                 )
