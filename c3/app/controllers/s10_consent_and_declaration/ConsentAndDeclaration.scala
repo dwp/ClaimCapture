@@ -5,7 +5,7 @@ import models.view.CachedClaim
 
 object ConsentAndDeclaration extends Controller with CachedClaim {
   def completed = claiming { implicit claim => implicit request =>
-    Ok(views.html.s6_pay_details.g3_completed(claim.completedQuestionGroups(models.domain.PayDetails)))
+    Ok(views.html.s9_pay_details.g3_completed(claim.completedQuestionGroups(models.domain.PayDetails)))
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>

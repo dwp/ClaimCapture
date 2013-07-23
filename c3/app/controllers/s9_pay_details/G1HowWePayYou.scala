@@ -23,12 +23,12 @@ object G1HowWePayYou extends Controller with CachedClaim{
       case _ => form
     }
 
-    Ok(views.html.s6_pay_details.g1_howWePayYou(currentForm))
+    Ok(views.html.s9_pay_details.g1_howWePayYou(currentForm))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s6_pay_details.g1_howWePayYou(formWithErrors)),
+      formWithErrors => BadRequest(views.html.s9_pay_details.g1_howWePayYou(formWithErrors)),
       howWePayYou => claim.update(howWePayYou) -> Redirect(routes.G2BankBuildingSocietyDetails.present()))
   }
 }

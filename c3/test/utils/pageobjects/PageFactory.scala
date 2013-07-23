@@ -6,7 +6,7 @@ import scala.collection.mutable
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s8_other_money._
-import utils.pageobjects.s6_pay_details.G1HowWePayYouPage
+import utils.pageobjects.s9_pay_details.G1HowWePayYouPage
 import utils.pageobjects.s3_your_partner.{G2YourPartnerContactDetailsPage, G1YourPartnerPersonalDetailsPage}
 
 

@@ -25,12 +25,12 @@ object G3Disclaimer extends Controller with CachedClaim{
       case _ => form
     }
 
-    Ok(views.html.s7_consent_and_declaration.g3_disclaimer(currentForm, completedQuestionGroups))
+    Ok(views.html.s10_consent_and_declaration.g3_disclaimer(currentForm, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_consent_and_declaration.g3_disclaimer(formWithErrors,completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s10_consent_and_declaration.g3_disclaimer(formWithErrors,completedQuestionGroups)),
       disclaimer => claim.update(disclaimer) -> Redirect(routes.G4Declaration.present()))
   }
 }

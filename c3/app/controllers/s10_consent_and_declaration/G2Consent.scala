@@ -29,12 +29,12 @@ object G2Consent extends Controller with CachedClaim{
       case _ => form
     }
 
-    Ok(views.html.s7_consent_and_declaration.g2_consent(currentForm,completedQuestionGroups))
+    Ok(views.html.s10_consent_and_declaration.g2_consent(currentForm,completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_consent_and_declaration.g2_consent(formWithErrors,completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s10_consent_and_declaration.g2_consent(formWithErrors,completedQuestionGroups)),
       consent => claim.update(consent) -> Redirect(routes.G3Disclaimer.present()))
   }
 }

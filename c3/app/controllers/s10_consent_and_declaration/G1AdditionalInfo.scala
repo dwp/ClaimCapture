@@ -22,12 +22,12 @@ object G1AdditionalInfo extends Controller with CachedClaim{
       case _ => form
     }
 
-    Ok(views.html.s7_consent_and_declaration.g1_additionalInfo(currentForm))
+    Ok(views.html.s10_consent_and_declaration.g1_additionalInfo(currentForm))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_consent_and_declaration.g1_additionalInfo(formWithErrors)),
+      formWithErrors => BadRequest(views.html.s10_consent_and_declaration.g1_additionalInfo(formWithErrors)),
       additionalInfo => claim.update(additionalInfo) -> Redirect(routes.G2Consent.present()))
   }
 }

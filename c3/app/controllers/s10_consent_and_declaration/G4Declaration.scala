@@ -25,12 +25,12 @@ object G4Declaration extends Controller with CachedClaim{
       case _ => form
     }
 
-    Ok(views.html.s7_consent_and_declaration.g4_declaration(currentForm,completedQuestionGroups))
+    Ok(views.html.s10_consent_and_declaration.g4_declaration(currentForm,completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_consent_and_declaration.g4_declaration(formWithErrors,completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s10_consent_and_declaration.g4_declaration(formWithErrors,completedQuestionGroups)),
       declaration => claim.update(declaration) -> Redirect(routes.G5Submit.present()))
   }
 }
