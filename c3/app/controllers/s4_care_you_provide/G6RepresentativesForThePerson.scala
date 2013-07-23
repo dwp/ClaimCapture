@@ -24,7 +24,7 @@ object G6RepresentativesForThePerson extends Controller with CachedClaim {
     "someoneElse" -> mapping(
       "actForPerson" -> nonEmptyText(maxLength = 20).verifying(validYesNo),
       "actAs" -> optional(nonEmptyText(maxLength = 20)),
-      "fullName" -> optional(text)
+      "fullName" -> optional(text(maxLength = 120))
     )(YesNoWithDropDownAndText.apply)(YesNoWithDropDownAndText.unapply)
       .verifying("required", YesNoWithDropDownAndText.validate _)
 
