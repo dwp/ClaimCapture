@@ -1,4 +1,4 @@
-package utils.pageobjects.s6_pay_details
+package utils.pageobjects.s9_pay_details
 
 import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
@@ -21,7 +21,8 @@ class G1HowWePayYouPage(browser: TestBrowser, previousPage: Option[Page] = None)
 
 /**
  * Companion object that integrates factory method.
- * It is used by PageFactory object defined in Page.scala
+ * It is used by PageFactory object d
+ * efined in Page.scala
  */
 object G1HowWePayYouPage {
   val title = "How We Pay You - Pay Details"

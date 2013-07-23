@@ -95,7 +95,6 @@ class EmploymentSpec extends Specification {
   "Claim" should {
     "iterate over 2 jobs" in {
       val jobs = Jobs().update(Job("1")).update(Job("2"))
-
       val claim = Claim().update(jobs)
 
       claim.questionGroup(Jobs) match {
@@ -105,6 +104,21 @@ class EmploymentSpec extends Specification {
       }
 
       claim.questionGroup(Jobs) must beLike { case Some(js: Jobs) => js.size shouldEqual 2 }
+    }
+
+    """find first question group i.e. "JobDetails" in a job""" in new Claiming {
+      val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
+      jobDetails.jobID returns "2"
+      jobDetails.employerName returns "Toys r not us"
+
+      val jobs = Jobs().update(Job("1")).update(Job("2").update(jobDetails))
+      val claim = Claim().update(jobs)
+
+      claim.questionGroup(Jobs).collect {
+        case js: Jobs => js.jobs.find(_.jobID == "2").collect {
+          case j: Job => j.questionGroups.find(_.isInstanceOf[JobDetails])
+        }
+      }.flatten.flatten must beLike { case Some(jd: JobDetails with Job.Identifier) => jd.employerName shouldEqual "Toys r not us" }
     }
   }
 }

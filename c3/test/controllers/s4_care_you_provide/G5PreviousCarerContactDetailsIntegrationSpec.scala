@@ -3,6 +3,8 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import controllers.{BrowserMatchers, Formulate}
 import play.api.test.WithBrowser
+import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.Duration
 
 class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Tags {
 
@@ -47,7 +49,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
 
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
 
       browser.click("#backButton")
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
