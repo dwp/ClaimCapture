@@ -17,7 +17,7 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
       page goToThePage()
     }
 
-    "be hidden if nobody had any money added to a benefit for you" in new WithBrowser with G2MoneyPaidToSomeoneElseForYouPageContext {
+    "be skipped if nobody had any money added to a benefit for you" in new WithBrowser with G2MoneyPaidToSomeoneElseForYouPageContext {
       val claim = ClaimScenarioFactory.s8otherMoney
       claim.OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim = "no"
       page goToThePage()
