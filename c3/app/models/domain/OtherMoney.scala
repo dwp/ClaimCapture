@@ -51,9 +51,3 @@ case class OtherStatutoryPay(otherPay:String, howMuch:Option[String], howOften:O
 case object OtherStatutoryPay extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g6"
 }
-
-case class OtherMoneyOtherEEAStateOrSwitzerland(receivingPensionFromAnotherEEA: String, payingInsuranceToAnotherEEA: String, call:Call) extends QuestionGroup(OtherStatutoryPay)
-
-case object OtherMoneyOtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
-  val id = s"${OtherMoney.id}.g7"
-}
