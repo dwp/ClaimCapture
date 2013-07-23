@@ -16,9 +16,9 @@ import java.util.UUID._
 
 trait CachedClaim {
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
-    def fill(q: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = {
-      claim.questionGroup(q) match {
-        case Some(y: Q) => form.fill(y)
+    def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = {
+      claim.questionGroup(qi) match {
+        case Some(q: Q) => form.fill(q)
         case _ => form
       }
     }
