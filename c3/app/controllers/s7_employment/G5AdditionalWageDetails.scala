@@ -31,9 +31,9 @@ object G5AdditionalWageDetails extends Controller with CachedClaim {
     Ok(views.html.s7_employment.g5_additionalWageDetails(form, completedQuestionGroups(LastWage)))
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingInJob { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g5_additionalWageDetails(formWithErrors, completedQuestionGroups(LastWage))),
-      wageDetails => claim.update(jobs.update(wageDetails)) -> Redirect(routes.G5AdditionalWageDetails.present()).inJob(wageDetails))
+      wageDetails => claim.update(jobs.update(wageDetails)) -> Redirect(routes.G5AdditionalWageDetails.present()))
   }
 }

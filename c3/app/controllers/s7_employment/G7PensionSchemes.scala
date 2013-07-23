@@ -20,7 +20,7 @@ object G7PensionSchemes extends Controller with CachedClaim {
       "payPersonalPensionScheme" -> nonEmptyText,
       "howMuchPersonal" -> optional(text),
       "howOftenPersonal" -> optional(text),
-      call(routes.G6MoneyOwedbyEmployer.present())
+      call(routes.G7PensionSchemes.present())
     )(PensionSchemes.apply)(PensionSchemes.unapply))
 
 
@@ -28,9 +28,9 @@ object G7PensionSchemes extends Controller with CachedClaim {
     Ok(views.html.s7_employment.g7_pensionSchemes(form, completedQuestionGroups(PensionSchemes)))
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingInJob { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g7_pensionSchemes(formWithErrors, completedQuestionGroups(PensionSchemes))),
-      schemes => claim.update(jobs.update(schemes)) -> Redirect(routes.G7PensionSchemes.present()).inJob(schemes))
+      schemes => claim.update(jobs.update(schemes)) -> Redirect(routes.G7PensionSchemes.present()))
   }
 }

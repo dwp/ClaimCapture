@@ -27,9 +27,9 @@ object G6MoneyOwedbyEmployer extends Controller with CachedClaim {
     Ok(views.html.s7_employment.g6_moneyOwedByEmployer(form, completedQuestionGroups(MoneyOwedbyEmployer)))
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingInJob { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g6_moneyOwedByEmployer(formWithErrors, completedQuestionGroups(MoneyOwedbyEmployer))),
-      moneyowed => claim.update(jobs.update(moneyowed)) -> Redirect(routes.G6MoneyOwedbyEmployer.present()).inJob(moneyowed))
+      moneyowed => claim.update(jobs.update(moneyowed)) -> Redirect(routes.G6MoneyOwedbyEmployer.present()))
   }
 }
