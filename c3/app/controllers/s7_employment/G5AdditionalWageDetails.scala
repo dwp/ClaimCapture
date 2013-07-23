@@ -1,5 +1,6 @@
 package controllers.s7_employment
 
+import scala.language.reflectiveCalls
 import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
@@ -33,6 +34,6 @@ object G5AdditionalWageDetails extends Controller with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g5_additionalWageDetails(formWithErrors, completedQuestionGroups(LastWage))),
-      wageDetails => claim.update(wageDetails) -> Redirect(routes.G5AdditionalWageDetails.present()))
+      wageDetails => claim.update(jobs.update(wageDetails)) -> Redirect(routes.G5AdditionalWageDetails.present()).inJob(wageDetails))
   }
 }
