@@ -4,7 +4,7 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{Claim, MoneyPaidToSomeoneElseForYou}
+import models.domain.{PersonContactDetails, PersonWhoGetsThisMoney, Claim, MoneyPaidToSomeoneElseForYou}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 
@@ -32,6 +32,12 @@ object G2MoneyPaidToSomeoneElseForYou extends Controller with CachedClaim {
       implicit request =>
         form.bindEncrypted.fold(
           formWithErrors => BadRequest(views.html.s8_other_money.g2_moneyPaidToSomeoneElseForYou(formWithErrors, completedQuestionGroups)),
-          f => claim.update(f) -> Redirect(routes.G3PersonWhoGetsThisMoney.present()))
+          f => {
+            val deletePersonQuestionGroups = f.moneyAddedToBenefitSinceClaimDate != yes
+
+            val updatedClaim = if(deletePersonQuestionGroups) claim.delete(PersonWhoGetsThisMoney).delete(PersonContactDetails) else claim
+
+            updatedClaim.update(f) -> Redirect(routes.G3PersonWhoGetsThisMoney.present())
+          })
   }
 }

@@ -17,6 +17,15 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
       page goToThePage()
     }
 
+    "be hidden if nobody had any money added to a benefit for you" in new WithBrowser with G2MoneyPaidToSomeoneElseForYouPageContext {
+      val claim = ClaimScenarioFactory.s8otherMoney
+      claim.OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim = "no"
+      page goToThePage()
+      page fillPageWith claim
+      page submitPage()
+      val g4Page = page goToPage(new G4PersonContactDetailsPage(browser)) must throwA[PageObjectException]
+    }
+
     "contain errors on invalid submission" in new WithBrowser with G4PersonContactDetailsPageContext {
       val claim = new ClaimScenario
       claim.OtherMoneyOtherPersonPostcode = "INVALID"

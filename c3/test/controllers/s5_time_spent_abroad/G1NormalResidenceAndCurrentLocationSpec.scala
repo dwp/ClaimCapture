@@ -11,6 +11,7 @@ import models.domain.Claim
 class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
   "Normal residence and current location" should {
     "present" in new WithApplication with Claiming {
+
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G1NormalResidenceAndCurrentLocation.present(request)
