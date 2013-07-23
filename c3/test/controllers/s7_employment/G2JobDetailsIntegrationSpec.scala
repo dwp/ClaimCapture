@@ -3,6 +3,8 @@ package controllers.s7_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.BrowserMatchers
+import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.Duration
 
 class G2JobDetailsIntegrationSpec extends Specification with Tags {
   "Details about your job" should {
@@ -26,7 +28,34 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       titleMustEqual("Employer contact details - Employment")
     }
 
-    "accept all data" in new WithBrowser with BrowserMatchers {
+    "accept all data" in new WithBrowser with EmploymentFiller {
+      jobDetails
+    }
+
+    """go back to "been employed?".""" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/employment/beenEmployed").click("#beenEmployed_yes").submit("button[type='submit']")
+      browser.goTo("/employment/jobDetails").click("#backButton")
+      titleMustEqual("Your employment history - Employment")
+    }
+
+    "begin twice, kicking off 2 jobs and choose to start editing the first job" in new WithBrowser with EmploymentFiller {
+      skipped("Usual rubbish timing issues - works fine when run on its own")
+
+      jobDetails
+      jobDetails
+
+      browser.goTo("/employment/beenEmployed")
+      browser.$("#jobs table tbody tr").size() shouldEqual 2
+
+      browser.findFirst("input[value='Edit']").click()
+      titleMustEqual("Job Details - Employment")
+    }
+  } section "integration"
+
+  trait EmploymentFiller extends BrowserMatchers {
+    this: WithBrowser[_] =>
+
+    def jobDetails(): Unit = {
       browser.goTo("/employment/jobDetails")
 
       browser.fill("#employerName") `with` "Toys r not Us"
@@ -52,11 +81,5 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       browser.submit("button[type='submit']")
       titleMustEqual("Employer contact details - Employment")
     }
-
-    """go back to "been employed?".""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/employment/beenEmployed").click("#beenEmployed_yes").submit("button[type='submit']")
-      browser.goTo("/employment/jobDetails").click("#backButton")
-      titleMustEqual("Your employment history - Employment")
-    }
-  } section "integration"
+  }
 }

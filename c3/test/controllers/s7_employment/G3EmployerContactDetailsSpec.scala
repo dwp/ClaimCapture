@@ -37,7 +37,6 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
       status(result) mustEqual SEE_OTHER
 
       val claim = Cache.getAs[Claim](claimKey).get
-      println(claim)
 
       claim.questionGroup(Jobs) must beLike {
         case Some(js: Jobs) => {
