@@ -33,7 +33,7 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in new WithBrowser with G4PersonContactDetailsPageContext {
       val claim = new ClaimScenario
-      claim.OtherMoneyPostCode = "INVALID"
+      claim.OtherMoneyOtherPersonPostcode = "INVALID"
       page goToThePage()
       page fillPageWith claim
       val pageWithErrors = page.submitPage()

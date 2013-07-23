@@ -5,7 +5,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G2MoneyPaidToSomeoneElseForYouPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2MoneyPaidToSomeoneElseForYouPage.url, G2MoneyPaidToSomeoneElseForYouPage.title, previousPage) { 
   def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#moneyAddedToBenefitSinceClaimDate", theClaim.OtherMoneyG2MoneyPaidToSomeoneElseForYou)
+    fillYesNo("#moneyAddedToBenefitSinceClaimDate", theClaim.OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim)
   }
 }
 
