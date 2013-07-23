@@ -28,21 +28,5 @@ class PaymentFrequencyFormSpec extends Specification {
         dateMonthYear => "This mapping should not happen." must equalTo("Valid")
       )
     }
-/*
-
-
-    "not accept a 3 digits year" in {
-      Form("date" -> dayMonthYear.verifying(validDate)).bind(Map("date.day" -> "1", "date.month" -> "2", "date.year" -> "123")).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
-        dateMonthYear => "This mapping should not happen." must equalTo("Valid")
-      )
-    }
-
-    "not accept a 5 digits year" in {
-      Form("date" -> dayMonthYear.verifying(validDate)).bind(Map("date.day" -> "1", "date.month" -> "2", "date.year" -> "12345")).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
-        dateMonthYear => "This mapping should not happen." must equalTo("Valid")
-      )
-    }*/
   }
 }
