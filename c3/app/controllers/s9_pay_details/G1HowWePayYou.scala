@@ -1,11 +1,11 @@
 package controllers.s9_pay_details
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import models.domain.HowWePayYou
 import play.api.data.Form
 import play.api.data.Forms._
-import scala.Some
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 
@@ -18,12 +18,7 @@ object G1HowWePayYou extends Controller with CachedClaim{
     )(HowWePayYou.apply)(HowWePayYou.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[HowWePayYou] = claim.questionGroup(HowWePayYou) match {
-      case Some(t: HowWePayYou) => form.fill(t)
-      case _ => form
-    }
-
-    Ok(views.html.s9_pay_details.g1_howWePayYou(currentForm))
+    Ok(views.html.s9_pay_details.g1_howWePayYou(form.fill(HowWePayYou)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

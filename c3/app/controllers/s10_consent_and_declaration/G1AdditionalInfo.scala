@@ -1,5 +1,6 @@
 package controllers.s10_consent_and_declaration
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import models.domain._
@@ -17,12 +18,7 @@ object G1AdditionalInfo extends Controller with CachedClaim{
     )(AdditionalInfo.apply)(AdditionalInfo.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[AdditionalInfo] = claim.questionGroup(AdditionalInfo) match {
-      case Some(t: AdditionalInfo) => form.fill(t)
-      case _ => form
-    }
-
-    Ok(views.html.s10_consent_and_declaration.g1_additionalInfo(currentForm))
+    Ok(views.html.s10_consent_and_declaration.g1_additionalInfo(form.fill(AdditionalInfo)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

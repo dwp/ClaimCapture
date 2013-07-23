@@ -1,5 +1,6 @@
 package controllers.s6_education
 
+import language.reflectiveCalls
 import controllers.Mappings._
 import models.domain.AddressOfSchoolCollegeOrUniversity
 import models.domain.Claim
@@ -26,15 +27,8 @@ object G2AddressOfSchoolCollegeOrUniversity extends Controller with CachedClaim 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(AddressOfSchoolCollegeOrUniversity)
 
   def present = claiming { implicit claim => implicit request =>
-    whenVisible(claim)(() => {
-      val currentForm: Form[AddressOfSchoolCollegeOrUniversity] = claim.questionGroup(AddressOfSchoolCollegeOrUniversity) match {
-        case Some(m: AddressOfSchoolCollegeOrUniversity) => form.fill(m)
-        case _ => form
-      }
-
-      Ok(views.html.s6_education.g2_addressOfSchoolCollegeOrUniversity(currentForm, completedQuestionGroups))
-    })
-    }
+    whenVisible(claim)(() => Ok(views.html.s6_education.g2_addressOfSchoolCollegeOrUniversity(form.fill(AddressOfSchoolCollegeOrUniversity), completedQuestionGroups)))
+  }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(

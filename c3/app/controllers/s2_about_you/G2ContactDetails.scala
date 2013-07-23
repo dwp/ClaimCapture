@@ -1,5 +1,6 @@
 package controllers.s2_about_you
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -22,12 +23,7 @@ object G2ContactDetails extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ContactDetails)
 
   def present = claiming { implicit claim => implicit request =>
-    val contactDetailsForm: Form[ContactDetails] = claim.questionGroup(ContactDetails) match {
-      case Some(c: ContactDetails) => form.fill(c)
-      case _ => form
-    }
-
-    Ok(views.html.s2_about_you.g2_contactDetails(contactDetailsForm, completedQuestionGroups))
+    Ok(views.html.s2_about_you.g2_contactDetails(form.fill(ContactDetails), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

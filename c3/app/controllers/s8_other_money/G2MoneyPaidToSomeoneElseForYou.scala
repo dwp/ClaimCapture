@@ -1,5 +1,6 @@
 package controllers.s8_other_money
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import play.api.data.Form
@@ -17,27 +18,19 @@ object G2MoneyPaidToSomeoneElseForYou extends Controller with CachedClaim {
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoneyPaidToSomeoneElseForYou)
 
-  def present = claiming {
-    implicit claim =>
-      implicit request =>
-        val currentForm: Form[MoneyPaidToSomeoneElseForYou] = claim.questionGroup(MoneyPaidToSomeoneElseForYou) match {
-          case Some(m: MoneyPaidToSomeoneElseForYou) => form.fill(m)
-          case _ => form
-        }
-        Ok(views.html.s8_other_money.g2_moneyPaidToSomeoneElseForYou(currentForm, completedQuestionGroups))
+  def present = claiming { implicit claim => implicit request =>
+    Ok(views.html.s8_other_money.g2_moneyPaidToSomeoneElseForYou(form.fill(MoneyPaidToSomeoneElseForYou), completedQuestionGroups))
   }
 
-  def submit = claiming {
-    implicit claim =>
-      implicit request =>
-        form.bindEncrypted.fold(
-          formWithErrors => BadRequest(views.html.s8_other_money.g2_moneyPaidToSomeoneElseForYou(formWithErrors, completedQuestionGroups)),
-          f => {
-            val deletePersonQuestionGroups = f.moneyAddedToBenefitSinceClaimDate != yes
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s8_other_money.g2_moneyPaidToSomeoneElseForYou(formWithErrors, completedQuestionGroups)),
+      f => {
+        val deletePersonQuestionGroups = f.moneyAddedToBenefitSinceClaimDate != yes
 
-            val updatedClaim = if(deletePersonQuestionGroups) claim.delete(PersonWhoGetsThisMoney).delete(PersonContactDetails) else claim
+        val updatedClaim = if (deletePersonQuestionGroups) claim.delete(PersonWhoGetsThisMoney).delete(PersonContactDetails) else claim
 
-            updatedClaim.update(f) -> Redirect(routes.G3PersonWhoGetsThisMoney.present())
-          })
+        updatedClaim.update(f) -> Redirect(routes.G3PersonWhoGetsThisMoney.present())
+      })
   }
 }

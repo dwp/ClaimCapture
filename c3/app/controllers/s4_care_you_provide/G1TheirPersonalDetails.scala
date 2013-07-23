@@ -1,5 +1,6 @@
 package controllers.s4_care_you_provide
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -43,10 +44,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim {
         case _ => form // Blank form (user can only get here if they skip sections by manually typing URL).
       }
     } else {
-      claim.questionGroup(TheirPersonalDetails) match {
-        case Some(t: TheirPersonalDetails) => form.fill(t) // Fill from cache.
-        case _ => form // Blank form.
-      }
+      form.fill(TheirPersonalDetails)
     }
 
     Ok(views.html.s4_care_you_provide.g1_theirPersonalDetails(currentForm, showYourPartnerSection))

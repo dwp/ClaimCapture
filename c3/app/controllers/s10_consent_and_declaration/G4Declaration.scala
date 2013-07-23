@@ -1,5 +1,6 @@
 package controllers.s10_consent_and_declaration
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import models.domain._
@@ -20,12 +21,7 @@ object G4Declaration extends Controller with CachedClaim{
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Declaration)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[Declaration] = claim.questionGroup(Declaration) match {
-      case Some(t: Declaration) => form.fill(t)
-      case _ => form
-    }
-
-    Ok(views.html.s10_consent_and_declaration.g4_declaration(currentForm,completedQuestionGroups))
+    Ok(views.html.s10_consent_and_declaration.g4_declaration(form.fill(Declaration), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

@@ -1,5 +1,6 @@
 package controllers.s9_pay_details
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import models.domain._
@@ -24,13 +25,7 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim {
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(HowWePayYou) match {
       case Some(y: HowWePayYou) if y.likeToBePaid != "01" => claim.delete(BankBuildingSocietyDetails) -> Redirect(routes.PayDetails.completed())
-      case _ =>
-        val currentForm: Form[BankBuildingSocietyDetails] = claim.questionGroup(BankBuildingSocietyDetails) match {
-          case Some(t: BankBuildingSocietyDetails) => form.fill(t)
-          case _ => form
-        }
-
-        Ok(views.html.s9_pay_details.g2_bankBuildingSocietyDetails(currentForm, completedQuestionGroups))
+      case _ => Ok(views.html.s9_pay_details.g2_bankBuildingSocietyDetails(form.fill(BankBuildingSocietyDetails), completedQuestionGroups))
     }
   }
 

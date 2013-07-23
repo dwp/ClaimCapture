@@ -1,5 +1,6 @@
 package controllers.s10_consent_and_declaration
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import models.domain.Consent._
@@ -24,12 +25,7 @@ object G2Consent extends Controller with CachedClaim{
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Consent)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[Consent] = claim.questionGroup(Consent) match {
-      case Some(c: Consent) => form.fill(c)
-      case _ => form
-    }
-
-    Ok(views.html.s10_consent_and_declaration.g2_consent(currentForm,completedQuestionGroups))
+    Ok(views.html.s10_consent_and_declaration.g2_consent(form.fill(Consent), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

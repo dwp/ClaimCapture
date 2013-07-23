@@ -1,5 +1,6 @@
 package controllers.s2_about_you
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -22,16 +23,10 @@ object G1YourDetails extends Controller with CachedClaim {
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "maritalStatus" -> nonEmptyText(maxLength = 1),
       "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo)
-    )(YourDetails.apply)(YourDetails.unapply)
-  )
+    )(YourDetails.apply)(YourDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val yourDetailsForm: Form[YourDetails] = claim.questionGroup(YourDetails) match {
-      case Some(y: YourDetails) => form.fill(y)
-      case _ => form
-    }
-
-    Ok(views.html.s2_about_you.g1_yourDetails(yourDetailsForm))
+    Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

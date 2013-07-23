@@ -3,8 +3,6 @@ package controllers.s8_other_money
 import play.api.mvc._
 import models.view.CachedClaim
 import models.domain.Claim
-import play.api.templates.Html
-import views.html.s8_other_money.g7_completed
 
 object OtherMoney extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.OtherMoney)

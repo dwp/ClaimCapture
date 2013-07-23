@@ -2,7 +2,7 @@ package controllers.s7_employment
 
 import language.implicitConversions
 import language.reflectiveCalls
-import play.api.mvc.{Result, AnyContent, Request, Controller}
+import play.api.mvc.{AnyContent, Request, Controller}
 import models.view.CachedClaim
 import models.domain._
 import models.domain.Claim

@@ -1,5 +1,6 @@
 package controllers.s10_consent_and_declaration
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import models.domain._
@@ -19,13 +20,7 @@ object G3Disclaimer extends Controller with CachedClaim{
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Disclaimer)
 
   def present = claiming { implicit claim => implicit request =>
-
-    val currentForm: Form[Disclaimer] = claim.questionGroup(Disclaimer) match {
-      case Some(t: Disclaimer) => form.fill(t)
-      case _ => form
-    }
-
-    Ok(views.html.s10_consent_and_declaration.g3_disclaimer(currentForm, completedQuestionGroups))
+    Ok(views.html.s10_consent_and_declaration.g3_disclaimer(form.fill(Disclaimer), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

@@ -1,5 +1,6 @@
 package controllers.s6_education
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import play.api.data.Form
@@ -24,14 +25,7 @@ object G1YourCourseDetails extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(YourCourseDetails)
 
   def present = claiming { implicit claim => implicit request =>
-    whenVisible(claim)(() => {
-      val preFilledForm: Form[YourCourseDetails] = claim.questionGroup(YourCourseDetails) match {
-        case Some(t: YourCourseDetails) => form.fill(t)
-        case _ => form
-      }
-
-      Ok(views.html.s6_education.g1_yourCourseDetails(preFilledForm, completedQuestionGroups))
-    })
+    whenVisible(claim)(() => Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails), completedQuestionGroups)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

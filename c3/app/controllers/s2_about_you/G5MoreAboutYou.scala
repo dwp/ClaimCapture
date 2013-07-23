@@ -1,5 +1,6 @@
 package controllers.s2_about_you
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -22,13 +23,8 @@ object G5MoreAboutYou extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutYou)
 
   def present = claiming { implicit claim => implicit request =>
-    val moreAboutYouForm: Form[MoreAboutYou] = claim.questionGroup(MoreAboutYou) match {
-      case Some(m: MoreAboutYou) => form.fill(m)
-      case _ => form
-    }
-
     claim.questionGroup(ClaimDate) match {
-      case Some(n) => Ok(views.html.s2_about_you.g5_moreAboutYou(moreAboutYouForm, completedQuestionGroups))
+      case Some(n) => Ok(views.html.s2_about_you.g5_moreAboutYou(form.fill(MoreAboutYou), completedQuestionGroups))
       case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
     }
   }
@@ -37,10 +33,9 @@ object G5MoreAboutYou extends Controller with CachedClaim {
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g5_moreAboutYou(formWithErrors, completedQuestionGroups)),
       moreAboutYou => {
-        val updatedClaim = claim.showHideSection(moreAboutYou.hadPartnerSinceClaimDate == yes, YourPartner).
-            showHideSection(moreAboutYou.beenInEducationSinceClaimDate == yes, Education)
-            
-            
+        val updatedClaim = claim.showHideSection(moreAboutYou.hadPartnerSinceClaimDate == yes, YourPartner)
+                                .showHideSection(moreAboutYou.beenInEducationSinceClaimDate == yes, Education)
+
         updatedClaim.update(moreAboutYou) -> Redirect(routes.G6Employment.present())
       })
   }
