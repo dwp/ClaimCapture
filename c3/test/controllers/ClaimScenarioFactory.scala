@@ -91,13 +91,14 @@ object ClaimScenarioFactory {
   def s8otherMoney = {
     val claim = s2AboutYouWithTimeOutside()
     //About other money
-    claim.OtherMoneyAboutYourBenefits = "no"
+    claim.OtherMoneyHaveYouClaimedOtherBenefits = "no"
     //Money paid to someone welse for you
     claim.OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim = "no"
     //Person Who Gets This Money
-    claim.OtherMoneyG3FullName = "Jason"
-    claim.OtherMoneyG3NameOfBenefit = "Benefit Name"
+    claim.OtherMoneyOtherPersonFullName = "Jason"
+    claim.OtherMoneyOtherPersonBenefit = "Benefit Name"
     // G4 Person Contact Details
+    claim.OtherMoneySMPEmployerName = "Employers Name"
     claim.OtherMoneyOtherPersonAddress = "Other Person Address"
     claim.OtherMoneyOtherPersonPostcode = "SE1 6EH"
     // G5 Statutory Sick Pay
