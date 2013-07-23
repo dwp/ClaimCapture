@@ -93,7 +93,7 @@ object ClaimScenarioFactory {
     //About other money
     claim.OtherMoneyAboutYourBenefits = "no"
     //Money paid to someone welse for you
-    claim.OtherMoneyG2MoneyPaidToSomeoneElseForYou = "no"
+    claim.OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim = "no"
     //Person Who Gets This Money
     claim.OtherMoneyG3FullName = "Jason"
     claim.OtherMoneyG3NameOfBenefit = "Benefit Name"
