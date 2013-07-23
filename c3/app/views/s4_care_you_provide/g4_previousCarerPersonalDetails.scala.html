@@ -8,6 +8,8 @@
 
 @main("Details Of The Person Who Claimed Before - Care You Provide", Some(currentForm), completedQuestionGroups) {
 
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s4_care_you_provide.routes.G4PreviousCarerPersonalDetails.submit) {
         <fieldset class="form-elements">
             <legend>Details of the person who claimed Carer's Allowance before</legend>

@@ -7,6 +7,9 @@
 @import views.html.helper.dates._
 
 @main("Break - Care You Provide", Some(breakForm)) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
         <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
