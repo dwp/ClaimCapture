@@ -50,7 +50,7 @@
 
     @form(action = controllers.s5_time_spent_abroad.routes.G2AbroadForMoreThan4Weeks.submit) {
         <fieldset class="form-elements">
-            <legend>When you went abroad for more than 4 weeks</legend>
+            <legend>@Messages("s5.g2")</legend>
 
             <ul class="group">
                 @defining(if(trips.fourWeeksTrips == Nil || trips.fourWeeksTrips.isEmpty) {"4Weeks.label"} else {"4Weeks.more.label"}) { label =>

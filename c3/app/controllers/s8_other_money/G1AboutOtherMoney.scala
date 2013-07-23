@@ -2,9 +2,9 @@ package controllers.s8_other_money
 
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import play.api.data.{ FormError, Form }
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import models.domain.{ Claim, AboutOtherMoney }
+import models.domain.{Claim, AboutOtherMoney}
 import controllers.Mappings._
 import models.domain.MoreAboutYou
 import models.yesNo.YesNoWith2Text
@@ -38,8 +38,9 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
     case _ => false
   }
 
-  def present = claiming { implicit claim =>
-    implicit request =>
+  def present = claiming {
+    implicit claim =>
+      implicit request =>
         val currentForm: Form[AboutOtherMoney] = claim.questionGroup(AboutOtherMoney) match {
           case Some(m: AboutOtherMoney) => form.fill(m)
           case _ => form
@@ -47,15 +48,16 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
         Ok(views.html.s8_other_money.g1_aboutOtherMoney(currentForm, completedQuestionGroups, hadPartnerSinceClaimDate, eitherClaimedBenefitSinceClaimDate))
   }
 
-  def submit = claiming { implicit claim =>
-    implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => {
-          val formWithErrorsUpdate = formWithErrors
-            .replaceError("yourBenefits", "text1.required", FormError("yourBenefits.text1", "error.required"))
-            .replaceError("yourBenefits", "text2.required", FormError("yourBenefits.text2", "error.required"))
-          BadRequest(views.html.s8_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, completedQuestionGroups, hadPartnerSinceClaimDate, eitherClaimedBenefitSinceClaimDate))
-        },
-        f => claim.update(f) -> Redirect(routes.G2MoneyPaidToSomeoneElseForYou.present()))
+  def submit = claiming {
+    implicit claim =>
+      implicit request =>
+        form.bindEncrypted.fold(
+          formWithErrors => {
+            val formWithErrorsUpdate = formWithErrors
+              .replaceError("yourBenefits", "text1.required", FormError("yourBenefits.text1", "error.required"))
+              .replaceError("yourBenefits", "text2.required", FormError("yourBenefits.text2", "error.required"))
+            BadRequest(views.html.s8_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, completedQuestionGroups, hadPartnerSinceClaimDate, eitherClaimedBenefitSinceClaimDate))
+          },
+          f => claim.update(f) -> Redirect(routes.G2MoneyPaidToSomeoneElseForYou.present()))
   }
 }
