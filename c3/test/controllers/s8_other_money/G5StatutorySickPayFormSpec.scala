@@ -3,12 +3,14 @@ package controllers.s8_other_money
 import org.specs2.mutable.{Tags, Specification}
 import models.domain.{NoRouting, MoreAboutYou}
 import models.MultiLineAddress
+import models.PaymentFrequency
 
 class G5StatutorySickPayFormSpec extends Specification with Tags {
   "Statutory Sick Pay Form" should {
     val haveYouHadAnyStatutorySickPay = "yes"
     val howMuch = "bar"
-    val howOften_frequency = "fizz"
+    val howOften_frequency = "Other"
+    val howOften_frequency_other = "Every day"
     val employersName = "Johny B Good"
     val employersAddressLineOne =  "lineOne"
     val employersAddressLineTwo = "lineTwo"
@@ -19,7 +21,8 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
       G5StatutorySickPay.form.bind(
         Map("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay,
             "howMuch" -> howMuch,
-            "howOften_frequency" -> howOften_frequency,
+            "howOften_frequency.frequency" -> howOften_frequency,
+            "howOften_frequency.other" -> howOften_frequency_other,
             "employersName" -> employersName,
             "employersAddress.lineOne" -> employersAddressLineOne, 
             "employersAddress.lineTwo" -> employersAddressLineTwo, 
@@ -31,7 +34,7 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
         f => {
           f.haveYouHadAnyStatutorySickPay must equalTo(haveYouHadAnyStatutorySickPay)
           f.howMuch must equalTo(Some(howMuch))
-          f.howOften_frequency must equalTo(Some(howOften_frequency))
+          f.howOften_frequency must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
           f.employersName must equalTo(Some(employersName))
           f.employersAddress must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
           f.employersPostcode must equalTo(Some(employersPostcode))
