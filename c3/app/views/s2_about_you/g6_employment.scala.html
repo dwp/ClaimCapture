@@ -9,6 +9,8 @@
 
 @main("Employment - About You", completedQuestionGroups) {
     @errorsSummary(employmentForm)
+    
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G6Employment.submit) {
         <fieldset class="form-elements">
