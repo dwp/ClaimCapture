@@ -20,7 +20,6 @@ object G8AboutExpenses extends Controller with CachedClaim {
       call(routes.G8AboutExpenses.present())
     )(AboutExpenses.apply)(AboutExpenses.unapply))
 
-
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s7_employment.g8_aboutExpenses(form, completedQuestionGroups(AboutExpenses)))
   }

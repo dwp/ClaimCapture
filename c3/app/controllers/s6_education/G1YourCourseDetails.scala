@@ -25,7 +25,7 @@ object G1YourCourseDetails extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(YourCourseDetails)
 
   def present = claiming { implicit claim => implicit request =>
-    whenVisible(claim)(() => Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails), completedQuestionGroups)))
+    whenVisible(claim)(Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails), completedQuestionGroups)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

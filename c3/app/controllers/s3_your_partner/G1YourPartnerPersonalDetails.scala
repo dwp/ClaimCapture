@@ -26,7 +26,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
 
 
   def present = claiming { implicit claim => implicit request =>
-    YourPartner.whenVisible(claim)(() => Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))))
+    YourPartner.whenVisible(claim)(Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))))
   }
 
   def submit = claiming { implicit claim => implicit request =>

@@ -23,7 +23,6 @@ object G7PensionSchemes extends Controller with CachedClaim {
       call(routes.G7PensionSchemes.present())
     )(PensionSchemes.apply)(PensionSchemes.unapply))
 
-
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s7_employment.g7_pensionSchemes(form, completedQuestionGroups(PensionSchemes)))
   }
