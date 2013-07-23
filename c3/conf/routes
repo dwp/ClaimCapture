@@ -151,6 +151,8 @@ POST    /employment/beenEmployed                                controllers.s7_e
 GET     /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.present
 POST    /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.submit
 
+GET     /employment/job/:jobID                                  controllers.s7_employment.G2JobDetails.job(jobID: String)
+
 GET     /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.present
 POST    /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.submit
 
