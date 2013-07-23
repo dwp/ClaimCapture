@@ -372,3 +372,7 @@ someoneElse = Please tick this box if this claim form has been filled in by some
 anythingElse = Please tell us anything else you think we should know about your claim
 anythingElse.placeholder = Optional...
 welshCommunication = Do you live in Wales and would like to receive future communications in Welsh?
+
+#SELF EMPLOYED
+error.areYouSelfEmployedNow = Please tell us if you are self employed
+areYouSelfEmployedNow.label =  Are you self-employed now?
