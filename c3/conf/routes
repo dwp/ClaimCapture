@@ -240,3 +240,9 @@ GET     /thankYou                                               controllers.Than
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                           controllers.Assets.at(path="/public", file)
+
+# Self Employment
+GET     /selfEmployment/aboutSelfEmployment                                   controllers.s9_self_employment.G1AboutSelfEmployment.present
+POST    /selfEmployment/aboutSelfEmployment                                   controllers.s9_self_employment.G1AboutSelfEmployment.submit
+
+
