@@ -20,21 +20,21 @@ object G3PersonWhoGetsThisMoney extends Controller with CachedClaim {
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PersonWhoGetsThisMoney)
 
-  def present = claiming { implicit claim =>
-    implicit request =>
-      OtherMoney.whenVisible(claim)(() => {
+  def present = claiming {
+    implicit claim =>
+      implicit request =>
         val currentForm: Form[PersonWhoGetsThisMoney] = claim.questionGroup(PersonWhoGetsThisMoney) match {
           case Some(t: PersonWhoGetsThisMoney) => form.fill(t)
           case _ => form
         }
         Ok(views.html.s8_other_money.g3_personWhoGetsThisMoney(currentForm, completedQuestionGroups))
-      })
   }
 
-  def submit = claiming { implicit claim =>
-    implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s8_other_money.g3_personWhoGetsThisMoney(formWithErrors, completedQuestionGroups)),
-        f => claim.update(f) -> Redirect(routes.G4PersonContactDetails.present()))
+  def submit = claiming {
+    implicit claim =>
+      implicit request =>
+        form.bindEncrypted.fold(
+          formWithErrors => BadRequest(views.html.s8_other_money.g3_personWhoGetsThisMoney(formWithErrors, completedQuestionGroups)),
+          f => claim.update(f) -> Redirect(routes.G4PersonContactDetails.present()))
   }
 }

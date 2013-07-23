@@ -21,13 +21,12 @@ object G4PersonContactDetails extends Controller with CachedClaim {
   def present = claiming {
     implicit claim =>
       implicit request =>
-        OtherMoney.whenVisible(claim)(() => {
-          val currentForm = claim.questionGroup(PersonContactDetails) match {
-            case Some(t: PersonContactDetails) => form.fill(t)
-            case _ => form
-          }
-          Ok(views.html.s8_other_money.g4_personContactDetails(currentForm, completedQuestionGroups))
-        })
+        val currentForm = claim.questionGroup(PersonContactDetails) match {
+          case Some(t: PersonContactDetails) => form.fill(t)
+          case _ => form
+        }
+        Ok(views.html.s8_other_money.g4_personContactDetails(currentForm, completedQuestionGroups))
+
   }
 
   def submit = claiming {

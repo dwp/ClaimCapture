@@ -17,20 +17,6 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
       page goToThePage ()
     }
 
-    "not be presented if not claimed benefits" in new WithBrowser with G4ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
-      claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "No"
-
-      page goToThePage ()
-      page fillPageWith claim
-      val moreAboutYouPage = page.submitPage()
-
-      moreAboutYouPage fillPageWith claim
-      val nextPage = moreAboutYouPage.submitPage()
-
-      nextPage.goToPage(new G5StatutorySickPayPage(browser)) must throwA[PageObjectException]
-    }
-
     "contain errors on invalid submission" in {
       "had sick pay but missing mandatory field" in new WithBrowser with G5StatutorySickPayPageContext {
         val claim = new ClaimScenario
