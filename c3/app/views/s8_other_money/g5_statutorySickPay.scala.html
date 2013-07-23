@@ -20,7 +20,11 @@
               @otherDetailPlaceHolder(
                   inputDef = Seq(
                     carersShortInputText(currentForm("howMuch"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty),
-                    paymentFrequencySelect(currentForm("howOften"), 'id -> "howOften_frequency", 'display -> "no"),
+                    paymentFrequencySelect(currentForm("howOften"), 
+                      'id -> "howOften_frequency", 
+                      'visibleOn -> "yes", 
+                      'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                      ),
                     carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
                     inputAddress(currentForm("employersAddress")),
                     carersInputText(currentForm("employersPostcode"))

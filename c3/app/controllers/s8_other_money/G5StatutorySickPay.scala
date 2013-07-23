@@ -15,7 +15,7 @@ object G5StatutorySickPay extends Controller with CachedClaim {
     mapping(
       "haveYouHadAnyStatutorySickPay" -> nonEmptyText(maxLength = sixty),
       "howMuch" -> optional(text(maxLength = sixty)),
-      "howOften_frequency" -> optional(paymentFrequency),
+      "howOften" -> optional(paymentFrequency),
       "employersName" -> optional(nonEmptyText(maxLength = sixty)),
       "employersAddress" -> optional(address),
       "employersPostcode" -> optional(text verifying validPostcode),

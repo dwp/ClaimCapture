@@ -15,7 +15,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
     val yes = "yes"
     val howMuch = "howMuch"
     val howOften_frequency = "frequency"
-    val howOften_other = "other"
+    val howOften_other = "Weekly"
     val employersName = "Johny B Good"
     val employersAddressLineOne = "lineOne"
     val employersAddressLineTwo = "lineTwo"
