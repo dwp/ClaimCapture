@@ -10,7 +10,7 @@ final class G2MoneyPaidToSomeoneElseForYouPage(browser: TestBrowser, previousPag
 }
 
 object G2MoneyPaidToSomeoneElseForYouPage {
-  val title = "About Extra Money - Other Money"
+  val title = "Money Paid - Other Money"
   val url  = "/otherMoney/moneyPaidToSomeoneElseForYou"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2MoneyPaidToSomeoneElseForYouPage(browser,previousPage)
 }

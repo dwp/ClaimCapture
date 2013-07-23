@@ -32,11 +32,14 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
       otherStatutoryPayPage.listCompletedForms.size mustEqual 1
     }
 
-    "navigate back to previous page" in new WithBrowser with G6OtherStatutoryPayPageContext {
+    "navigate back to previous page" in new WithBrowser with G5StatutorySickPayPageContext {
       val claim = ClaimScenarioFactory.s8otherMoney
       page goToThePage()
-      val previousPage = page.goBack()
-      previousPage must beAnInstanceOf[G5StatutorySickPayPage]
+      page fillPageWith(claim)
+      val nextPage = page.submitPage()
+      nextPage must beAnInstanceOf[G6OtherStatutoryPayPage]
+
+      nextPage.goBack() must beAnInstanceOf[G5StatutorySickPayPage]
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G6OtherStatutoryPayPageContext {
