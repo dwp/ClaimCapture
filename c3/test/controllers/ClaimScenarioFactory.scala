@@ -101,7 +101,7 @@ object ClaimScenarioFactory {
     claim.OtherMoneyOtherPersonAddress = "Other Person Address"
     claim.OtherMoneyOtherPersonPostcode = "SE1 6EH"
     // G5 Statutory Sick Pay
-    claim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay = "no"
+    claim.OtherMoneyHaveYouSSPSinceClaim = "no"
     // G6 Other Statutory Pay
     claim.OtherMoneyHaveYouSMPSinceClaim = "no"
 
