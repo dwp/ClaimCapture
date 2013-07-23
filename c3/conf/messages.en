@@ -312,11 +312,19 @@ yourBenefits.text1 = Please tell us the names of the benefits or entitlements yo
 yourBenefits.text2 = Please tell us the names of the benefits or entitlements your Partner/Spouse receive
 moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
 haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
-howMuch = How much do you get, and how often?
+howMuch = How much
 howMuch_howOften = '
 employersName = Employer''s Name
 employersAddress = Employer''s Address
 employersPostcode = Employer''s Postcode
+
+# PERSON WHO GETS THIS MONEY
+fullName = Full name
+nameOfBenefit = Name of Benefit
+
+# OTHER STATUTORY PAY
+otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
+howOften_frequency = How often
 
 ## PAY DETAILS
 # HOW WE PAY YOU

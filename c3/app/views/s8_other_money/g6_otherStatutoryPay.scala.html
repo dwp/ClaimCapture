@@ -15,7 +15,7 @@
             <legend>Other Statutory Pay</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("otherPay"))
+                @yesNoRadioGroup(currentForm("otherPay"), '_label -> Messages("otherPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
                 @otherDetailPlaceHolder(
                 inputDef = Seq( carersShortInputText(currentForm("howMuch"), 'maxLength -> Mappings.sixty, 'placeholder -> Messages("poundSign") ) ,
