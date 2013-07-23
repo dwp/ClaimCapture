@@ -31,14 +31,12 @@ object G2JobDetails extends Controller with CachedClaim {
   }
 
   def job(jobID: String) = claiming { implicit claim => implicit request =>
-    claim.questionGroup(Jobs) match {
-      case Some(js: Jobs) => js.find(_.jobID == jobID) match {
-        case Some(j: Job) => j.questionGroups.find(_.isInstanceOf[JobDetails]) match {
-          case Some(jd: JobDetails) => Ok(views.html.s7_employment.g2_jobDetails(form.fill(jd)))
-          case _ => Redirect(routes.G1BeenEmployed.present())
-        }
-        case _ => Redirect(routes.G1BeenEmployed.present())
+    claim.questionGroup(Jobs).collect {
+      case js: Jobs => js.jobs.find(_.jobID == jobID).collect {
+        case j: Job => j.questionGroups.find(_.isInstanceOf[JobDetails])
       }
+    }.flatten.flatten match {
+      case Some(jd: JobDetails with Job.Identifier) => Ok(views.html.s7_employment.g2_jobDetails(form.fill(jd)))
       case _ => Redirect(routes.G1BeenEmployed.present())
     }
   }
