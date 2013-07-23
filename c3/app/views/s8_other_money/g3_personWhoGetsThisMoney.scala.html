@@ -5,8 +5,6 @@
 @import utils.helpers.CarersTemplate._
 
 @main("Person Who Gets This Money - Other Money", Some(currentForm), completedQuestionGroups) {
-    @errorsSummary(currentForm)
-
     @form(action = controllers.s8_other_money.routes.G3PersonWhoGetsThisMoney.submit) {
         <fieldset class="form-elements">
             <legend>Person who gets this money</legend>
