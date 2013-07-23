@@ -16,7 +16,7 @@ object G6OtherStatutoryPay extends Controller with CachedClaim {
     mapping(
       "otherPay" -> nonEmptyText.verifying(validYesNo),
       "howMuch" -> optional(text(maxLength = sixty)),
-      "howOften" -> optional(paymentFrequency),
+      "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(nonEmptyText(maxLength = sixty)),
       "employersAddress" -> optional(address),
       "employersPostcode" -> optional(text verifying validPostcode),
