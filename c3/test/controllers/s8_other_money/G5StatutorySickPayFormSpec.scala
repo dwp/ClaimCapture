@@ -8,7 +8,7 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
   "Statutory Sick Pay Form" should {
     val haveYouHadAnyStatutorySickPay = "yes"
     val howMuch = "bar"
-    val howMuch_howOften = "fizz"
+    val howOften_frequency = "fizz"
     val employersName = "Johny B Good"
     val employersAddressLineOne =  "lineOne"
     val employersAddressLineTwo = "lineTwo"
@@ -19,7 +19,7 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
       G5StatutorySickPay.form.bind(
         Map("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay,
             "howMuch" -> howMuch,
-            "howMuch_howOften" -> howMuch_howOften,
+            "howOften_frequency" -> howOften_frequency,
             "employersName" -> employersName,
             "employersAddress.lineOne" -> employersAddressLineOne, 
             "employersAddress.lineTwo" -> employersAddressLineTwo, 
@@ -31,7 +31,7 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
         f => {
           f.haveYouHadAnyStatutorySickPay must equalTo(haveYouHadAnyStatutorySickPay)
           f.howMuch must equalTo(Some(howMuch))
-          f.howMuchHowOften must equalTo(Some(howMuch_howOften))
+          f.howOften_frequency must equalTo(Some(howOften_frequency))
           f.employersName must equalTo(Some(employersName))
           f.employersAddress must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
           f.employersPostcode must equalTo(Some(employersPostcode))
@@ -47,7 +47,7 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
         f => {
           f.haveYouHadAnyStatutorySickPay must equalTo("no")
           f.howMuch must equalTo(None)
-          f.howMuchHowOften must equalTo(None)
+          f.howOften_frequency must equalTo(None)
           f.employersName must equalTo(None)
           f.employersAddress must equalTo(None)
           f.employersPostcode must equalTo(None)
@@ -65,7 +65,7 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
         f => {
           f.haveYouHadAnyStatutorySickPay must equalTo(haveYouHadAnyStatutorySickPay)
           f.howMuch must equalTo(None)
-          f.howMuchHowOften must equalTo(None)
+          f.howOften_frequency must equalTo(None)
           f.employersName must equalTo(Some(employersName))
           f.employersAddress must equalTo(None)
           f.employersPostcode must equalTo(None)

@@ -12,7 +12,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
   "Other Money - Statutory Pay - Controller" should {
     val haveYouHadAnyStatutorySickPay = "yes"
     val howMuch = "bar"
-    val howMuch_howOften = "fizz"
+    val howOften_frequency = "fizz"
     val employersName = "Johny B Good"
     val employersAddressLineOne =  "lineOne"
     val employersAddressLineTwo = "lineTwo"
@@ -21,7 +21,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
       
     val statutorySickPayInput = Seq("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay,
       "howMuch" -> howMuch,
-      "howMuch_howOften" -> howMuch_howOften,
+      "howOften_frequency" -> howOften_frequency,
       "employersName" -> employersName,
       "employersAddress.lineOne" -> employersAddressLineOne, 
       "employersAddress.lineTwo" -> employersAddressLineTwo, 
@@ -47,7 +47,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
         case Some(f: StatutorySickPay) => {
           f.haveYouHadAnyStatutorySickPay must equalTo(haveYouHadAnyStatutorySickPay)
           f.howMuch must equalTo(Some(howMuch))
-          f.howMuchHowOften must equalTo(Some(howMuch_howOften))
+          f.howOften_frequency must equalTo(Some(howOften_frequency))
           f.employersName must equalTo(Some(employersName))
           f.employersAddress must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
           f.employersPostcode must equalTo(Some(employersPostcode))

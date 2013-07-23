@@ -18,7 +18,7 @@
                 @yesNoRadioGroup(currentForm("otherPay"))
 
                 @otherDetailPlaceHolder(
-                inputDef = Seq( carersShortInputText(currentForm("howMuch"), 'maxLength -> Mappings.sixty, 'placeholder -> Messages("poundSign") ) ,
+                inputDef = Seq( carersShortInputText(currentForm("howMuch"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty),
                                 paymentFrequencySelect(currentForm("howOften"), 'id -> "howOften_frequency", 'display -> "no"),
                                 carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
                                 inputAddress(currentForm("employersAddress")),
