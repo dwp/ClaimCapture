@@ -47,12 +47,12 @@ object Mappings {
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> nonEmptyText,
-    "other" -> optional(text)
+    "other" -> optional(text(maxLength = sixty))
   )(Whereabouts.apply)(Whereabouts.unapply)
 
   val paymentFrequency: Mapping[PaymentFrequency] = mapping(
     "frequency" -> nonEmptyText,
-    "other" -> optional(text)
+    "other" -> optional(text(maxLength = sixty))
   )(PaymentFrequency.apply)(PaymentFrequency.unapply)
 
   val sortCode: Mapping[SortCode] = mapping(
