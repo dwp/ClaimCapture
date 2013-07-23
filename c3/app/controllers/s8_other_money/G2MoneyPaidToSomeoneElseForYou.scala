@@ -19,13 +19,11 @@ object G2MoneyPaidToSomeoneElseForYou extends Controller with CachedClaim {
 
   def present = claiming { implicit claim =>
     implicit request =>
-      OtherMoney.whenVisible(claim)(() => {
-        val currentForm: Form[MoneyPaidToSomeoneElseForYou] = claim.questionGroup(MoneyPaidToSomeoneElseForYou) match {
-          case Some(m: MoneyPaidToSomeoneElseForYou) => form.fill(m)
-          case _ => form
-        }
-        Ok(views.html.s8_other_money.g2_moneyPaidToSomeoneElseForYou(currentForm, completedQuestionGroups))
-      })
+      val currentForm: Form[MoneyPaidToSomeoneElseForYou] = claim.questionGroup(MoneyPaidToSomeoneElseForYou) match {
+        case Some(m: MoneyPaidToSomeoneElseForYou) => form.fill(m)
+        case _ => form
+      }
+      Ok(views.html.s8_other_money.g2_moneyPaidToSomeoneElseForYou(currentForm, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim =>
