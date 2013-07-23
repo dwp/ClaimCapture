@@ -107,7 +107,14 @@ object ClaimScenarioFactory {
     claim.OtherMoneyStatutorySickPayEmployersName = "Johny B Good"
     claim.OtherMoneyStatutorySickPayPersonEmployersAddress =  "Employers Address"
     claim.OtherMoneyStatutorySickPayEmployersPostCode = "SE1 6EH"
-    
+    // G6 Other Statutory Pay
+    claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
+    claim.OtherMOneySMPHowMuch = "100"
+    claim.OtherMOneySMPHowOften = "Weekly"
+    claim.OtherMoneySMPEmployerName = "SMP Employer Name"
+    claim.OtherMoneySMPEmployerAddress = "SMP Employers Address"
+    claim.OtherMoneySMPEmployerPostcode = "SE1 6EH"
+
     claim
   }
 }
