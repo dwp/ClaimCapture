@@ -2,7 +2,6 @@ package models.domain
 
 import models.DayMonthYear
 import controllers.Mappings._
-import play.api.mvc.Call
 import models.PaymentFrequency
 import models.MultiLineAddress
 import models.PeriodFromTo
@@ -12,7 +11,7 @@ object Employed extends Section.Identifier {
   val id = "s7"
 }
 
-case class BeenEmployed(beenEmployed: String, call: Call) extends QuestionGroup(BeenEmployed)
+case class BeenEmployed(beenEmployed: String) extends QuestionGroup(BeenEmployed) with NoRouting
 
 object BeenEmployed extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g1"
@@ -87,16 +86,14 @@ object Job {
 case class JobDetails(jobID: String,
                       employerName: String, jobStartDate: Option[DayMonthYear], finishedThisJob: String, lastWorkDate:Option[DayMonthYear],
                       p45LeavingDate: Option[DayMonthYear], hoursPerWeek: Option[String],
-                      jobTitle: Option[String], payrollEmployeeNumber: Option[String],
-                      call: Call) extends QuestionGroup(JobDetails) with Job.Identifier
+                      jobTitle: Option[String], payrollEmployeeNumber: Option[String]) extends QuestionGroup(JobDetails) with Job.Identifier with NoRouting
 
 object JobDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g2"
 }
 
 case class EmployerContactDetails(jobID: String,
-                                  address: Option[MultiLineAddress], postcode: Option[String], phoneNumber: Option[String],
-                                  call: Call) extends QuestionGroup(EmployerContactDetails) with Job.Identifier
+                                  address: Option[MultiLineAddress], postcode: Option[String], phoneNumber: Option[String]) extends QuestionGroup(EmployerContactDetails) with Job.Identifier with NoRouting
 
 object EmployerContactDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g3"
@@ -104,8 +101,7 @@ object EmployerContactDetails extends QuestionGroup.Identifier {
 
 case class LastWage(jobID: String,
                     lastPaidDate: Option[DayMonthYear], period: Option[PeriodFromTo],
-                    grossPay: Option[String], payInclusions: Option[String], sameAmountEachTime: Option[String],
-                    call: Call) extends QuestionGroup(LastWage) with Job.Identifier
+                    grossPay: Option[String], payInclusions: Option[String], sameAmountEachTime: Option[String]) extends QuestionGroup(LastWage) with Job.Identifier with NoRouting
 
 object LastWage extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g4"
@@ -114,8 +110,7 @@ object LastWage extends QuestionGroup.Identifier {
 case class AdditionalWageDetails(jobID:String,
                                  oftenGetPaid: Option[PaymentFrequency],whenGetPaid:Option[String],
                                  holidaySickPay: Option[String], anyOtherMoney: String, otherMoney:Option[String],
-                                 employeeOwesYouMoney:String,
-                                 call: Call)extends QuestionGroup(AdditionalWageDetails) with Job.Identifier
+                                 employeeOwesYouMoney:String) extends QuestionGroup(AdditionalWageDetails) with Job.Identifier with NoRouting
 
 object AdditionalWageDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g5"
@@ -133,8 +128,7 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
 
 case class MoneyOwedbyEmployer(jobID: String,
                                howMuch: Option[String], owedPeriod: Option[PeriodFromTo], owedFor: Option[String],
-                               shouldBeenPaidBy: Option[DayMonthYear], whenWillGetIt: Option[String],
-                               call: Call) extends QuestionGroup(MoneyOwedbyEmployer) with Job.Identifier
+                               shouldBeenPaidBy: Option[DayMonthYear], whenWillGetIt: Option[String]) extends QuestionGroup(MoneyOwedbyEmployer) with Job.Identifier with NoRouting
 
 object MoneyOwedbyEmployer extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g6"
@@ -142,16 +136,14 @@ object MoneyOwedbyEmployer extends QuestionGroup.Identifier {
 
 case class PensionSchemes(jobID: String,
                           payOccupationalPensionScheme: String, howMuchPension: Option[String], howOftenPension:Option[String],
-                          payPersonalPensionScheme: String, howMuchPersonal: Option[String], howOftenPersonal: Option[String],
-                          call: Call) extends QuestionGroup(PensionSchemes) with Job.Identifier
+                          payPersonalPensionScheme: String, howMuchPersonal: Option[String], howOftenPersonal: Option[String]) extends QuestionGroup(PensionSchemes) with Job.Identifier with NoRouting
 
 object PensionSchemes extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g7"
 }
 
 case class AboutExpenses(jobID: String,
-                          payForAnythingNecessary: String, payAnyoneToLookAfterChildren: String, payAnyoneToLookAfterPerson: String,
-                          call: Call) extends QuestionGroup(AboutExpenses) with Job.Identifier
+                          payForAnythingNecessary: String, payAnyoneToLookAfterChildren: String, payAnyoneToLookAfterPerson: String) extends QuestionGroup(AboutExpenses) with Job.Identifier with NoRouting
 
 object AboutExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g8"

@@ -27,7 +27,7 @@ class G3Over16IntegrationSpec extends Specification with Tags {
       val over16Page = hoursPage submitPage()
       over16Page must beAnInstanceOf[G3Over16Page]
       over16Page fillPageWith claim
-      over16Page submitPage()
+      over16Page submitPage(waitDuration=60)
       browser.find("div[class=completed] ul li").get(2).getText must contain("Q3")
       browser.find("div[class=completed] ul li").get(2).getText must contain("Yes")
     }

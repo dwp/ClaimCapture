@@ -1,8 +1,8 @@
 package utils.pageobjects.tests
 
 import org.specs2.mutable.Specification
-import utils.pageobjects.PageFactory
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.{UnknownPage, PageFactory}
+import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -12,19 +12,14 @@ import utils.pageobjects.ClaimScenario
 class PageFactorySpec extends Specification {
 
   "The PageFactory" should {
-
-    "be able to build teh XML mapping from a valid csv file" in {
-      val mapping = PageFactory buildXmlMappingFromFile ("/tests_XMLMapping.csv")
-      mapping("AboutYouHaveYouSubletYourHome")(0) mustEqual "path1"
-      mapping("AboutYouWhatIsYourVisaReferenceNumber")(0) mustEqual "path2"
-      mapping("AboutYouAddress")(0) mustEqual "path3"
-      mapping("AboutYouAllOtherSurnamesorFamilyNames")(0) mustEqual "path4"
-      mapping("AboutYouDateofBirth")(0) mustEqual "path5"
-      //"AboutYouAreYouCurrentlyLivingintheUk" is ignored since not path associated to it
-      mapping("EmploymentHowManyHoursAWeekYouNormallyWork")(0) mustEqual "PayStructure"
-      mapping("EmploymentHowManyHoursAWeekYouNormallyWork")(1) mustEqual "WeeklyHoursWorked"
-      mapping("EmploymentCareExpensesWhatRelationIsToYou")(0) mustEqual "CareExpensesStructure"
-      mapping("EmploymentCareExpensesWhatRelationIsToYou")(1) mustEqual "RelationshipCarerToClaimant"
+    "Return an UnknownPage if it does not recognise title" in  new MockPageContext {
+      val newPage = PageFactory buildPageFromTitle(browser, "Not a known title", None,1)
+      newPage must beAnInstanceOf[UnknownPage]
+    }  
+    
+    "Return a BenefitPage if provided Benefits page title" in new MockPageContext {
+      val newPage = PageFactory buildPageFromTitle(browser, G1BenefitsPage.title,None,1)
+      newPage must beAnInstanceOf[G1BenefitsPage]
     }
   }
 

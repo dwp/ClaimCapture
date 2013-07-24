@@ -1,6 +1,5 @@
 package controllers.s7_employment
 
-import language.implicitConversions
 import language.reflectiveCalls
 import models.view.CachedClaim
 import play.api.mvc.Controller
@@ -17,17 +16,16 @@ object G3EmployerContactDetails extends Controller with CachedClaim {
       "jobID" -> nonEmptyText,
       "address" -> optional(address),
       "postcode" -> optional(text verifying validPostcode),
-      "phonenumber" -> optional(text),
-      call(routes.G3EmployerContactDetails.present())
+      "phonenumber" -> optional(text)
     )(EmployerContactDetails.apply)(EmployerContactDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g3_employerContactDetails(form, completedQuestionGroups(EmployerContactDetails)))
+  def present(jobID: String) = claiming { implicit claim => implicit request =>
+    Ok(views.html.s7_employment.g3_employerContactDetails(form.fillWithJobID(EmployerContactDetails, jobID), completedQuestionGroups(EmployerContactDetails, jobID)))
   }
 
   def submit = claimingInJob { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g3_employerContactDetails(formWithErrors, completedQuestionGroups(EmployerContactDetails))),
-      employerContactDetails => claim.update(jobs.update(employerContactDetails)) -> Redirect(routes.G4LastWage.present()))
+      formWithErrors => BadRequest(views.html.s7_employment.g3_employerContactDetails(formWithErrors, completedQuestionGroups(EmployerContactDetails, formWithErrors("jobID").value.get))),
+      employerContactDetails => claim.update(jobs.update(employerContactDetails)) -> Redirect(routes.G4LastWage.present(employerContactDetails.jobID)))
   }
 }

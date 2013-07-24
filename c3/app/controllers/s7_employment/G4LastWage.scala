@@ -1,6 +1,5 @@
 package controllers.s7_employment
 
-import language.implicitConversions
 import language.reflectiveCalls
 import models.view.CachedClaim
 import play.api.mvc.Controller
@@ -19,17 +18,16 @@ object G4LastWage extends Controller with CachedClaim {
       "periodCovered" -> optional(periodFromTo),
       "grossPay" -> optional(text),
       "payInclusions" -> optional(text),
-      "sameAmountEachTime" -> optional(text),
-      call(routes.G4LastWage.present())
+      "sameAmountEachTime" -> optional(text)
     )(LastWage.apply)(LastWage.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g4_lastWage(form, completedQuestionGroups(LastWage)))
+  def present(jobID: String) = claiming { implicit claim => implicit request =>
+    Ok(views.html.s7_employment.g4_lastWage(form.fillWithJobID(LastWage, jobID), completedQuestionGroups(LastWage, jobID)))
   }
 
   def submit = claimingInJob { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g4_lastWage(formWithErrors, completedQuestionGroups(LastWage))),
-      lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G5AdditionalWageDetails.present()))
+      formWithErrors => BadRequest(views.html.s7_employment.g4_lastWage(formWithErrors, completedQuestionGroups(LastWage, formWithErrors("jobID").value.get))),
+      lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G5AdditionalWageDetails.present(lastWage.jobID)))
   }
 }

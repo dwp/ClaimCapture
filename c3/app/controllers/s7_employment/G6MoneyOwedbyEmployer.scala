@@ -18,17 +18,16 @@ object G6MoneyOwedbyEmployer extends Controller with CachedClaim {
       "owedPeriod" -> optional(periodFromTo),
       "owedFor" -> optional(text),
       "shouldBeenPaidBy" -> optional(dayMonthYear),
-      "whenWillGetIt" -> optional(text),
-      call(routes.G6MoneyOwedbyEmployer.present())
+      "whenWillGetIt" -> optional(text)
     )(MoneyOwedbyEmployer.apply)(MoneyOwedbyEmployer.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g6_moneyOwedByEmployer(form, completedQuestionGroups(MoneyOwedbyEmployer)))
+  def present(jobID: String) = claiming { implicit claim => implicit request =>
+    Ok(views.html.s7_employment.g6_moneyOwedByEmployer(form.fillWithJobID(MoneyOwedbyEmployer, jobID), completedQuestionGroups(MoneyOwedbyEmployer, jobID)))
   }
 
   def submit = claimingInJob { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g6_moneyOwedByEmployer(formWithErrors, completedQuestionGroups(MoneyOwedbyEmployer))),
-      moneyowed => claim.update(jobs.update(moneyowed)) -> Redirect(routes.G7PensionSchemes.present()))
+      formWithErrors => BadRequest(views.html.s7_employment.g6_moneyOwedByEmployer(formWithErrors, completedQuestionGroups(MoneyOwedbyEmployer, formWithErrors("jobID").value.get))),
+      moneyowed => claim.update(jobs.update(moneyowed)) -> Redirect(routes.G7PensionSchemes.present(moneyowed.jobID)))
   }
 }

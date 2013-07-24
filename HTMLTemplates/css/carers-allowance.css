@@ -272,6 +272,16 @@
       line-height: 1.4em; }
       .ie .carers-allowance section p {
         font-size: 19px; }
+      .carers-allowance section p.mandatory {
+        margin-top: 1.6em;
+        font-size: 1.6rem; }
+        .ie .carers-allowance section p.mandatory {
+          font-size: 16px; }
+        .carers-allowance section p.mandatory em {
+          font-style: normal;
+          font-size: 1.9rem; }
+          .ie .carers-allowance section p.mandatory em {
+            font-size: 19px; }
     .carers-allowance section ul {
       margin: 0;
       padding: 0;
@@ -550,16 +560,20 @@
           font-weight: 500;
           overflow: hidden;
           line-height: 1em;
-          padding: .35em .7em;
-          border-left: 3px solid #006435;
-          width: 120px; }
+          padding: .35em .7em .75em 1.7em;
+          width: 120px;
+          background-image: url("../img/toggle.png");
+          background-position: 0 2px;
+          background-repeat: no-repeat; }
           .ie .carers-allowance .form-elements ul li .helper-more {
             font-size: 16px; }
+        .carers-allowance .form-elements ul li .helper-less {
+          background-position: 0 -58px; }
         .carers-allowance .form-elements ul li .helper-info {
           display: none;
-          padding: .7em;
-          background: #d5ecea;
-          border-left: 3px solid #006435; }
+          padding: 1em 1.6em;
+          background: #eee;
+          border-left: 3px solid #000; }
           .carers-allowance .form-elements ul li .helper-info p {
             font-size: 1.6rem; }
             .ie .carers-allowance .form-elements ul li .helper-info p {
