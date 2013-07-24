@@ -18,6 +18,8 @@ case class Claim(sections: List[Section]) extends Timestamped {
       }
   }
 
+  def previousSection(questionGroupIdentifier: QuestionGroup.Identifier):Section = previousSection(Section.sectionIdentifier(questionGroupIdentifier))
+
   def nextSection(sectionIdentifier: Section.Identifier):Section = {
     sections.
       filter(s => s.identifier.index > sectionIdentifier.index && s.visible).
