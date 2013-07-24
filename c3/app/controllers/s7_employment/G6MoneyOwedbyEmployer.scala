@@ -5,7 +5,7 @@ import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.MoneyOwedbyEmployer
+import models.domain.{AdditionalWageDetails, MoneyOwedbyEmployer}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
@@ -22,7 +22,13 @@ object G6MoneyOwedbyEmployer extends Controller with CachedClaim {
     )(MoneyOwedbyEmployer.apply)(MoneyOwedbyEmployer.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g6_moneyOwedByEmployer(form.fillWithJobID(MoneyOwedbyEmployer, jobID), completedQuestionGroups(MoneyOwedbyEmployer, jobID)))
+
+    jobs.questionGroup(jobID,AdditionalWageDetails) match {
+      case Some(qg) if qg.asInstanceOf[AdditionalWageDetails].employeeOwesYouMoney == `yes`=>
+        Ok(views.html.s7_employment.g6_moneyOwedByEmployer(form.fillWithJobID(MoneyOwedbyEmployer, jobID), completedQuestionGroups(MoneyOwedbyEmployer, jobID)))
+      case _ => claim.update(jobs.delete(jobID,MoneyOwedbyEmployer)) -> Redirect(routes.G7PensionSchemes.present(jobID))
+    }
+
   }
 
   def submit = claimingInJob { implicit claim => implicit request =>
