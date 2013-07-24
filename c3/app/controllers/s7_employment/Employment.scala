@@ -18,7 +18,6 @@ object Employment extends Controller with CachedClaim {
     }
   }
 
-
   def jobs(implicit claim: Claim) = claim.questionGroup(Jobs) match {
     case Some(js: Jobs) => js
     case _ => Jobs()
@@ -32,7 +31,6 @@ object Employment extends Controller with CachedClaim {
       }
       case _ => Nil
     }
-
   }
 
   def completed = claiming { implicit claim => implicit request =>
@@ -44,7 +42,7 @@ object Employment extends Controller with CachedClaim {
   }
 
   private def route(qg: QuestionGroup, jobID: String) = qg.identifier match {
-    case JobDetails => routes.G2JobDetails.present()
+    case JobDetails => routes.G2JobDetails.presentInJob(jobID)
     case EmployerContactDetails => routes.G3EmployerContactDetails.present(jobID)
     case LastWage => routes.G4LastWage.present(jobID)
     case AdditionalWageDetails => routes.G5AdditionalWageDetails.present(jobID)

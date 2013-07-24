@@ -25,19 +25,20 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Their Contact Details - Care You Provide")(Duration(60, TimeUnit.SECONDS))
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
 
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
 
       browser.goTo("/careYouProvide/previousCarerContactDetails")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
 
       browser.fill("#postcode") `with` "INVALID"
       browser.submit("button[type='submit']")
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 

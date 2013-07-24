@@ -3,7 +3,8 @@ package models.domain
 import play.api.mvc.Call
 import play.api.i18n.Messages
 
-case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil, visible: Boolean = true, firstPage: Call = Call("",""), lastPage: Call = Call("","")) {
+case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil,
+                   visible: Boolean = true, firstPage: Call = Call("", ""), lastPage: Call = Call("", "")) {
 
   def name = Messages(identifier.id + ".name")
 

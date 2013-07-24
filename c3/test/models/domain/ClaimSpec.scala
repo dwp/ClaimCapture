@@ -88,6 +88,7 @@ class ClaimSpec extends Specification {
 
     "returns first section when you ask for previous section in the first section" in {
       claim.previousSection(CarersAllowance).identifier mustEqual CarersAllowance
+      println(claim.previousSection(CarersAllowance))
     }
     
     "be able to go to previous visible section" in {

@@ -10,8 +10,7 @@ case class Claim(sections: List[Section]) extends Timestamped {
   }
 
   def previousSection(sectionIdentifier: Section.Identifier): Section = {
-    sections.
-      filter(s => s.identifier.index < sectionIdentifier.index && s.visible).lastOption match {
+    sections.filter(s => s.identifier.index < sectionIdentifier.index && s.visible).lastOption match {
       case Some(s: Section) => s
       case _ => section(sectionIdentifier)
     }
@@ -20,8 +19,7 @@ case class Claim(sections: List[Section]) extends Timestamped {
   def previousSection(questionGroupIdentifier: QuestionGroup.Identifier): Section = previousSection(Section.sectionIdentifier(questionGroupIdentifier))
 
   def nextSection(sectionIdentifier: Section.Identifier): Section = {
-    sections.
-      filter(s => s.identifier.index > sectionIdentifier.index && s.visible).headOption match {
+    sections.filter(s => s.identifier.index > sectionIdentifier.index && s.visible).headOption match {
       case Some(s: Section) => s
       case _ => section(sectionIdentifier)
     }
