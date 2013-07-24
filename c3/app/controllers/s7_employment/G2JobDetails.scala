@@ -26,10 +26,6 @@ object G2JobDetails extends Controller with CachedClaim {
       call(routes.G2JobDetails.present())
     )(JobDetails.apply)(JobDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g2_jobDetails(form))
-  }
-
   def job(jobID: String) = claiming { implicit claim => implicit request =>
     claim.questionGroup(Jobs).collect {
       case js: Jobs => js.jobs.find(_.jobID == jobID).collect {
@@ -39,6 +35,10 @@ object G2JobDetails extends Controller with CachedClaim {
       case Some(jd: JobDetails with Job.Identifier) => Ok(views.html.s7_employment.g2_jobDetails(form.fill(jd)))
       case _ => Redirect(routes.G1BeenEmployed.present())
     }
+  }
+
+  def present = claiming { implicit claim => implicit request =>
+    Ok(views.html.s7_employment.g2_jobDetails(form))
   }
 
   def submit = claimingInJob { implicit claim => implicit request =>
