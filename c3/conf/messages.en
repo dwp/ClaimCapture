@@ -1,13 +1,13 @@
-s1.progressBar = Eligibility
-s2.progressBar = About you
-s3.progressBar = Your partner
-s4.progressBar = Care you provide
-s5.progressBar = Abroad
-s6.progressBar = Education
-s7.progressBar = Employment
-s8.progressBar = Other money
-s9.progressBar = Pay details
-s10.progressBar = Declaration
+s1.name = Eligibility
+s2.name = About you
+s3.name = Your partner
+s4.name = Care you provide
+s5.name = Abroad
+s6.name = Education
+s7.name = Employment
+s8.name = Other money
+s9.name = Pay details
+s10.name = Declaration
 
 s1.g1 = Q1.  Does the person you look after get one of these benefits?
 s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?

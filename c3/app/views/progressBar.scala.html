@@ -2,26 +2,26 @@
 
 @import models.domain._
 
-@addClass(currentSectionIdentifier: Section.Identifier) = {
-    @if(currentSectionIdentifier == sectionIdentifier) {
+@addClass(section: Section) = {
+    @if(section.identifier == sectionIdentifier) {
         class="active"
     } else {
-        @if(Section.index(currentSectionIdentifier) < Section.index(sectionIdentifier)) {
+        @if(section.identifier.index < sectionIdentifier.index) {
             class="complete"
         }
     }
 }
 
-@renderListItem(currentSectionIdentifier: Section.Identifier) = {
-    @if(claim.isSectionVisible(currentSectionIdentifier)) {
-        <li @addClass(currentSectionIdentifier)><span>@Messages(currentSectionIdentifier.id + ".progressBar")</span></li>
+@renderListItem(section: Section) = {
+    @if(claim.isSectionVisible(section.identifier)) {
+        <li @addClass(section)><span>@section.name</span></li>
     }
 }
 
 <div class="progress-steps">
     <ol>
       @for(section <- claim.sections){
-        @renderListItem(section.identifier)
+        @renderListItem(section)
       }
     </ol>
 </div>
