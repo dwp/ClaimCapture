@@ -19,19 +19,18 @@ object G5AdditionalWageDetails extends Controller with CachedClaim {
       "holidaySickPay" -> optional(text verifying validYesNo),
       "anyOtherMoney" -> (nonEmptyText verifying validYesNo),
       "otherMoney" -> optional(text),
-      "employeeOwesYouMoney" -> (nonEmptyText verifying validYesNo),
-      call(routes.G5AdditionalWageDetails.present())
+      "employeeOwesYouMoney" -> (nonEmptyText verifying validYesNo)
     )(AdditionalWageDetails.apply)(AdditionalWageDetails.unapply)
     .verifying("oftenGetPaid", AdditionalWageDetails.validateOftenGetPaid _)
     .verifying("otherMoney", AdditionalWageDetails.validateOtherMoney _))
 
-  def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g5_additionalWageDetails(form, completedQuestionGroups(LastWage)))
+  def present(jobID: String) = claiming { implicit claim => implicit request =>
+    Ok(views.html.s7_employment.g5_additionalWageDetails(form.fillWithJobID(AdditionalWageDetails, jobID), completedQuestionGroups(AdditionalWageDetails, jobID)))
   }
 
   def submit = claimingInJob { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g5_additionalWageDetails(formWithErrors, completedQuestionGroups(LastWage))),
-      wageDetails => claim.update(jobs.update(wageDetails)) -> Redirect(routes.G6MoneyOwedbyEmployer.present()))
+      formWithErrors => BadRequest(views.html.s7_employment.g5_additionalWageDetails(formWithErrors, completedQuestionGroups(AdditionalWageDetails, formWithErrors("jobID").value.get))),
+      wageDetails => claim.update(jobs.update(wageDetails)) -> Redirect(routes.G6MoneyOwedbyEmployer.present(wageDetails.jobID)))
   }
 }

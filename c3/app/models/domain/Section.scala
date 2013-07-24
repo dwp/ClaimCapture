@@ -1,6 +1,8 @@
 package models.domain
 
-case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup], visible: Boolean = true) {
+import play.api.mvc.Call
+
+case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil, visible: Boolean = true, firstPage: Call = Call("",""), lastPage: Call = Call("","")) {
   def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
     questionGroups.find(qg => qg.identifier == questionGroupIdentifier)
   }
@@ -41,6 +43,8 @@ case object Section {
 
   trait Identifier {
     val id: String
+    
+    def index = id.drop(1).toInt
 
     override def equals(other: Any) = {
       other match {

@@ -153,22 +153,22 @@ GET     /employment/job/:jobID                                  controllers.s7_e
 GET     /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.present
 POST    /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.submit
 
-GET     /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.present
+GET     /employment/employersContactDetails/:jobID              controllers.s7_employment.G3EmployerContactDetails.present(jobID: String)
 POST    /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.submit
 
-GET     /employment/lastWage                                    controllers.s7_employment.G4LastWage.present
+GET     /employment/lastWage/:jobID                             controllers.s7_employment.G4LastWage.present(jobID: String)
 POST    /employment/lastWage                                    controllers.s7_employment.G4LastWage.submit
 
-GET     /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.present
+GET     /employment/additionalWageDetails/:jobID                controllers.s7_employment.G5AdditionalWageDetails.present(jobID: String)
 POST    /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.submit
 
-GET     /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.present
+GET     /employment/moneyOwedByEmployer/:jobID                  controllers.s7_employment.G6MoneyOwedbyEmployer.present(jobID: String)
 POST    /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.submit
 
-GET     /employment/pensionSchemes                              controllers.s7_employment.G7PensionSchemes.present
+GET     /employment/pensionSchemes/:jobID                       controllers.s7_employment.G7PensionSchemes.present(jobID: String)
 POST    /employment/pensionSchemes                              controllers.s7_employment.G7PensionSchemes.submit
 
-GET     /employment/aboutExpenses                               controllers.s7_employment.G8AboutExpenses.present
+GET     /employment/aboutExpenses/:jobID                        controllers.s7_employment.G8AboutExpenses.present(jobID: String)
 POST    /employment/aboutExpenses                               controllers.s7_employment.G8AboutExpenses.submit
 
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
@@ -227,6 +227,9 @@ GET     /consentAndDeclaration/submit                           controllers.s10_
 POST    /consentAndDeclaration/submit                           controllers.s10_consent_and_declaration.G5Submit.submit
 
 GET     /consentAndDeclaration/error                            controllers.s10_consent_and_declaration.G6Error.present
+
+GET     /consentAndDeclaration/completed                        controllers.s10_consent_and_declaration.ConsentAndDeclaration.completed
+POST    /consentAndDeclaration/completed                        controllers.s10_consent_and_declaration.ConsentAndDeclaration.completedSubmit
 
 # Cache Timeout
 GET     /timeout                                                controllers.Application.timeout
