@@ -34,5 +34,23 @@ class EducationIntegrationSpec extends Specification with Tags with PendingUntil
 
       titleMustNotEqual("Completion - Education")
     }
+
+    """show the text "Continue to Employment" on the submit button when next section is "Employment"""" in new WithBrowser {
+      Formulate.yourCourseDetails(browser)
+      Formulate.addressOfSchoolCollegeOrUniversity(browser)
+      
+      browser.find("#submit").getText mustEqual "Continue to Employment"
+    }
+    /*
+    """show the text "Continue to Care You Provide" on the submit button when next section is "Care You Provide"""" in new WithBrowser {
+      Formulate.yourDetails(browser)
+      Formulate.yourContactDetails(browser)
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
+      Formulate.employment(browser)
+      Formulate.propertyAndRent(browser)
+      
+      browser.find("#submit").getText mustEqual "Continue to care you provide"
+    }*/
   } section "unit"
 }

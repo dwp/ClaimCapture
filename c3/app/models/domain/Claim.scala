@@ -41,7 +41,7 @@ case class Claim(sections: List[Section]) extends Timestamped {
     section(si).precedingQuestionGroups(questionGroupIdentifier)
   }
 
-  def update(section: Section): Claim = /*Claim(sections.patch(section.identifier.index - 1, Seq(section), 1))*/ Claim(sections.updated(section.identifier.index - 1, section))
+  def update(section: Section): Claim = Claim(sections.updated(section.identifier.index - 1, section))
 
   def update(questionGroup: QuestionGroup): Claim = {
     val si = Section.sectionIdentifier(questionGroup.identifier)
