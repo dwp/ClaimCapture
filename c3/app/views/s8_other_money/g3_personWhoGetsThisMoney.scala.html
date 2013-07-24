@@ -5,6 +5,8 @@
 
 @main("Person Who Gets This Money - Other Money", Some(currentForm), completedQuestionGroups) {
     @errorsSummary(currentForm)
+    
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s8_other_money.routes.G3PersonWhoGetsThisMoney.submit) {
         <fieldset class="form-elements">

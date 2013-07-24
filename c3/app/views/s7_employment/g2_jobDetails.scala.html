@@ -9,6 +9,9 @@
 @import utils.helpers.CarersCrypto
 
 @main("Job Details - Employment", Some(currentForm)) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s7_employment.routes.G2JobDetails.submit()) {
         <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 

@@ -9,6 +9,9 @@
 @import utils.helpers.CarersCrypto
 
 @main("Last wage - Employment", Some(currentForm), completedQuestionGroups) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s7_employment.routes.G4LastWage.submit()) {
         <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(request.flash.get("jobID").getOrElse("Missing job ID"))'>
 
