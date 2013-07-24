@@ -31,9 +31,9 @@ case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Jobs) with NoRoutin
     }
   }
 
-  def delete(questionGroup: QuestionGroup with Job.Identifier): Jobs = {
-    jobs.find(_.jobID == questionGroup.jobID) match {
-      case Some(job: Job) => update(Job(questionGroup.jobID,job.questionGroups.filterNot(_.identifier == questionGroup.identifier)))
+  def delete(jobID:String,questionGroup: QuestionGroup.Identifier): Jobs = {
+    jobs.find(_.jobID == jobID) match {
+      case Some(job: Job) => update(Job(jobID,job.questionGroups.filterNot(_.identifier.id == questionGroup.id)))
       case _ => this
     }
   }
@@ -41,11 +41,18 @@ case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Jobs) with NoRoutin
   def apply(jobID:String): Option[Job] = jobs.find(_.jobID == jobID)
 
   def questionGroup(questionGroup: QuestionGroup with Job.Identifier):Option[QuestionGroup] = {
-    this(questionGroup.jobID).getOrElse(None) match {
-      case Some(v:Job) => v(questionGroup)
+    this(questionGroup.jobID) match {
+      case Some(j:Job) => j(questionGroup)
       case None => None
     }
 
+  }
+
+  def questionGroup(jobID:String, questionGroup: QuestionGroup.Identifier):Option[QuestionGroup] = {
+    this(jobID) match {
+      case Some(j:Job) => j(questionGroup)
+      case None => None
+    }
   }
 
 
@@ -73,6 +80,7 @@ case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identi
   }
 
   def apply(questionGroup: QuestionGroup ): Option[QuestionGroup] = questionGroups.find(_.identifier == questionGroup.identifier)
+  def apply(questionGroup: QuestionGroup.Identifier ): Option[QuestionGroup] = questionGroups.find(_.identifier.id == questionGroup.id)
 
   override def iterator: Iterator[QuestionGroup with Job.Identifier] = questionGroups.iterator
 }
@@ -121,8 +129,8 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
   }
 
   def validateOftenGetPaid(input: AdditionalWageDetails): Boolean = input.oftenGetPaid match {
-    case Some(pf) => pf.other.isDefined
-    case None => true
+    case Some(pf) if pf.frequency == "other" => pf.other.isDefined
+    case _ => true
   }
 }
 

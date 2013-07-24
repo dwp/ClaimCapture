@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.TheirPersonalDetails], showYourPartnerSection: Boolean)(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.TheirPersonalDetails])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -34,7 +34,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@{if(showYourPartnerSection) controllers.s3_your_partner.routes.YourPartner.completed else controllers.s2_about_you.routes.AboutYou.completed}" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.TheirPersonalDetails)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

@@ -20,15 +20,8 @@
 
 <div class="progress-steps">
     <ol>
-        @renderListItem(CarersAllowance)
-        @renderListItem(AboutYou)
-        @renderListItem(YourPartner)
-        @renderListItem(CareYouProvide)
-        @renderListItem(TimeSpentAbroad)
-        @renderListItem(Education)
-        @renderListItem(Employed)
-        @renderListItem(OtherMoney)
-        @renderListItem(PayDetails)
-        @renderListItem(ConsentAndDeclaration)
+      @for(section <- claim.sections){
+        @renderListItem(section.identifier)
+      }
     </ol>
 </div>

@@ -34,5 +34,20 @@ class EducationIntegrationSpec extends Specification with Tags with PendingUntil
 
       titleMustNotEqual("Completion - Education")
     }
+
+    "show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser {
+      Formulate.yourCourseDetails(browser)
+      Formulate.addressOfSchoolCollegeOrUniversity(browser)
+      
+      browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
+    }
+    
+    "show the text 'Continue to Other Income' on the submit button when next section is 'Other Income'" in new WithBrowser {
+      Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
+      Formulate.yourCourseDetails(browser)
+      Formulate.addressOfSchoolCollegeOrUniversity(browser)
+      
+      browser.find("button[type='submit']").getText mustEqual "Continue to Other Income"
+    }.pendingUntilFixed("Need a previous section to call hideSection on Employment")
   } section "unit"
 }

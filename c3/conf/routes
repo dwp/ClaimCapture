@@ -228,6 +228,9 @@ POST    /consentAndDeclaration/submit                           controllers.s10_
 
 GET     /consentAndDeclaration/error                            controllers.s10_consent_and_declaration.G6Error.present
 
+GET     /consentAndDeclaration/completed                        controllers.s10_consent_and_declaration.ConsentAndDeclaration.completed
+POST    /consentAndDeclaration/completed                        controllers.s10_consent_and_declaration.ConsentAndDeclaration.completedSubmit
+
 # Cache Timeout
 GET     /timeout                                                controllers.Application.timeout
 

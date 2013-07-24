@@ -12,8 +12,8 @@ object CarersAllowance extends Controller with CachedClaim {
     Ok(views.html.s1_carers_allowance.g5_approve(approved, completedQuestionGroups))
   }
 
-  def approveSubmit = Action {
-    Redirect(controllers.s2_about_you.routes.G1YourDetails.present())
+  def approveSubmit = claiming { implicit claim => implicit request =>
+    Redirect(claim.nextSection(models.domain.CarersAllowance).firstPage)
   }
 
   def claiming(qi: QuestionGroup.Identifier, claim: Claim) = claim.questionGroup(qi) match {
