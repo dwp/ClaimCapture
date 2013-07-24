@@ -43,6 +43,8 @@ case object Section {
 
   trait Identifier {
     val id: String
+    
+    def index = id.drop(1).toInt
 
     override def equals(other: Any) = {
       other match {

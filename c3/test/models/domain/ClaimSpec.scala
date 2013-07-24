@@ -9,9 +9,9 @@ class ClaimSpec extends Specification {
                      .update(Over16(NoRouting))
 
   "Claim" should {
-    "initially be empty" in {
+    "initially be filled with all sections" in {
       val newClaim = Claim()
-      newClaim.sections.size mustEqual 0
+      newClaim.sections.size mustEqual 10
     }
 
     "contain the sectionId with the question group after adding" in {
@@ -58,12 +58,12 @@ class ClaimSpec extends Specification {
     }
 
     "be able hide a section" in {
-      val updatedClaim = new Claim().hideSection(YourPartner)
+      val updatedClaim = Claim().hideSection(YourPartner)
       updatedClaim.isSectionVisible(YourPartner) must beFalse
     }
 
     "be able show a section" in {
-      val updatedClaim = new Claim().showSection(YourPartner)
+      val updatedClaim = Claim().showSection(YourPartner)
       updatedClaim.isSectionVisible(YourPartner) must beTrue
     }
 
