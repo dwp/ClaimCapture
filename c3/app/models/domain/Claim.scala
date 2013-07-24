@@ -1,35 +1,33 @@
 package models.domain
 
 import language.postfixOps
-import models.{ DayMonthYear, Timestamped }
+import models.{DayMonthYear, Timestamped}
 
 case class Claim(sections: List[Section]) extends Timestamped {
   def section(sectionIdentifier: Section.Identifier): Section = sections.find(s => s.identifier == sectionIdentifier) match {
     case Some(s: Section) => s
     case _ => Section(sectionIdentifier, List())
   }
-  
+
   def previousSection(sectionIdentifier: Section.Identifier): Section = {
     sections.
-      filter(s => s.identifier.index < sectionIdentifier.index && s.visible).
-      last match {
-        case s: Section => s
-        case _ => section(sectionIdentifier)
-      }
+      filter(s => s.identifier.index < sectionIdentifier.index && s.visible).lastOption match {
+      case Some(s: Section) => s
+      case _ => section(sectionIdentifier)
+    }
   }
 
-  def previousSection(questionGroupIdentifier: QuestionGroup.Identifier):Section = previousSection(Section.sectionIdentifier(questionGroupIdentifier))
+  def previousSection(questionGroupIdentifier: QuestionGroup.Identifier): Section = previousSection(Section.sectionIdentifier(questionGroupIdentifier))
 
-  def nextSection(sectionIdentifier: Section.Identifier):Section = {
+  def nextSection(sectionIdentifier: Section.Identifier): Section = {
     sections.
-      filter(s => s.identifier.index > sectionIdentifier.index && s.visible).
-      head match {
-        case s: Section => s
-        case _ => section(sectionIdentifier)
-      }
+      filter(s => s.identifier.index > sectionIdentifier.index && s.visible).headOption match {
+      case Some(s: Section) => s
+      case _ => section(sectionIdentifier)
+    }
   }
 
-  def nextSection(questionGroupIdentifier: QuestionGroup.Identifier):Section = nextSection(Section.sectionIdentifier(questionGroupIdentifier))
+  def nextSection(questionGroupIdentifier: QuestionGroup.Identifier): Section = nextSection(Section.sectionIdentifier(questionGroupIdentifier))
 
   def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
     val si = Section.sectionIdentifier(questionGroupIdentifier)
