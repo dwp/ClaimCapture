@@ -1,7 +1,6 @@
 package controllers.s7_employment
 
-import language.implicitConversions
-import language.reflectiveCalls
+import scala.language.implicitConversions
 import play.api.mvc.{AnyContent, Request, Controller}
 import models.view.CachedClaim
 import models.domain._
@@ -10,14 +9,15 @@ import play.api.data.Form
 import scala.reflect.ClassTag
 
 object Employment extends Controller with CachedClaim {
-  /*implicit override def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
-    def fillInJob(qi: QuestionGroup.Identifier with Job.Identifier)(implicit claim: Claim): Form[Q] = {
-      claim.questionGroup(qi) match {
+  implicit def jobFormFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
+    def fillWithJobID(jobID:String, qi:QuestionGroup.Identifier)(implicit claim:Claim): Form[Q] = {
+      claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == jobID).getOrElse(Job("",List())).find(_.identifier.id == qi.id)match {
         case Some(q: Q) => form.fill(q)
         case _ => form
       }
     }
-  }*/
+  }
+
 
   def jobs(implicit claim: Claim) = claim.questionGroup(Jobs) match {
     case Some(js: Jobs) => js
@@ -32,6 +32,7 @@ object Employment extends Controller with CachedClaim {
       }
       case _ => Nil
     }
+
   }
 
   def completed = claiming { implicit claim => implicit request =>
