@@ -80,6 +80,14 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s3AboutYourPartnerWithPartnerPersonalDetails() = {
+    val claim = s2ands3WithTimeOUtsideUKAndProperty()
+    // G4PersonYouCareFor
+    claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
+    claim
+    }
+
+
   def s6PayDetails() = {
     val claim = new ClaimScenario
     claim.HowWePayYouHowWouldYouLikeToGetPaid =  "You don't have an account but intend to open one"
