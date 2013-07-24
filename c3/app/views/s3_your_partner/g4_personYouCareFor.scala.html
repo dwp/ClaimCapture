@@ -8,6 +8,8 @@
 
 @main("Person You Care For - Your Partner", Some(currentForm), completedQuestionGroups) {
 
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s3_your_partner.routes.G4PersonYouCareFor.submit) {
 
         <fieldset class="form-elements">

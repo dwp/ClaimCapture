@@ -6,6 +6,9 @@
 @import utils.helpers.CarersCrypto
 
 @main("Normal Residence and Current Location - Time Spent Abroad", Some(normalResidenceAndCurrentLocationForm)) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.submit) {
         <fieldset class="form-elements">
             <legend>Your normal residence &amp; current location</legend>

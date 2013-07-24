@@ -7,6 +7,8 @@
 
 @main("Their Contact Details - Care You Provide", Some(currentForm), completedQuestionGroups) {
 
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s4_care_you_provide.routes.G2TheirContactDetails.submit) {
     
         <fieldset class="form-elements">
