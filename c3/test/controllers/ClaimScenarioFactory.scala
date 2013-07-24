@@ -108,4 +108,13 @@ object ClaimScenarioFactory {
 
     claim
   }
+  
+  
+  def s9SelfEmployment = {
+    val claim = s8otherMoney
+    //About self employment
+    claim.SelfEmployedAreYouSelfEmployedNow = "no"
+
+    claim
+  }
 }
