@@ -13,7 +13,7 @@ import play.api.test.WithBrowser
 class G3PersonWhoGetsThisMoneyIntegrationSpec extends Specification with Tags {
 
   "Person Who Gets This Money" should {
-    "be presented" in new WithBrowser with G4PersonContactDetailsPageContext {
+    "be presented" in new WithBrowser with G3PersonWhoGetsThisMoneyPageContext {
       page goToThePage()
     }
 
