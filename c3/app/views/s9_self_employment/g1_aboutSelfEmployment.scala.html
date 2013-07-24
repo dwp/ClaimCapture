@@ -6,6 +6,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
+@import views.html.helper.dates._
 
 @main("Self Employment - About Self Employment", Some(currentForm), completedQuestionGroups) {
 
@@ -15,18 +16,17 @@
             <legend>About Self Employment (ASP)</legend>
 
             <ul class="group">
-              @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+              @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"))
 
               @otherDetailPlaceHolder(
                   inputDef = Seq(
-                    carersShortInputText(currentForm("howMuch"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty),
-                    paymentFrequency(currentForm("howMuch"), "howOften", Seq("" -> "How often?", "W"->"Weekly", "FN"->"fortnightly","4W"-> "four-weekly","M"-> "monthly", "other"->"other")),
-                    carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
-                    inputAddress(currentForm("employersAddress")),
-                    carersInputText(currentForm("employersPostcode"))
+                    inputDayMonthYear(currentForm("whenDidYouStartThisJob.date"), 'helperBelow -> Messages("dateOfBirth.helper")),
+                    inputDayMonthYear(currentForm("whenDidTheJobFinish.date"), 'helperBelow -> Messages("dateOfBirth.helper")),
+                    yesNoRadioGroup(currentForm("haveYouCeasedTrading")),
+                    carersInputText(currentForm("natureOfYourBusiness"), 'maxLength -> Mappings.sixty)
                   ),
-                  'id -> "sickPayWrap",
-                  'display -> currentForm("haveYouHadAnyStatutorySickPay").value.getOrElse("no")
+                  'id -> "selfEmployedWrap",
+                  'display -> currentForm("areYouSelfEmployedNow").value.getOrElse("no")
               )
             </ul>
         </fieldset>
@@ -38,10 +38,10 @@
     }
 }
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s8_other_money/g5_statutorySickPay.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s9_self_employment/g1_aboutSelfEmployment.js")'></script>
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_yes")", "@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_no")");
+        window.initEvents("@CarersCrypto.encryptAES("areYouSelfEmployedNow_yes")", "@CarersCrypto.encryptAES("areYouSelfEmployedNow_no")");
     });
 </script>
