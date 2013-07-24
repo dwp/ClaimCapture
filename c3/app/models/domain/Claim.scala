@@ -18,7 +18,7 @@ case class Claim(sections: List[Section]) extends Timestamped {
       }
   }
 
-  def nextSection(sectionIdentifier: Section.Identifier) = {
+  def nextSection(sectionIdentifier: Section.Identifier):Section = {
     sections.
       filter(s => s.identifier.index > sectionIdentifier.index && s.visible).
       head match {
@@ -26,6 +26,8 @@ case class Claim(sections: List[Section]) extends Timestamped {
         case _ => section(sectionIdentifier)
       }
   }
+
+  def nextSection(questionGroupIdentifier: QuestionGroup.Identifier):Section = nextSection(Section.sectionIdentifier(questionGroupIdentifier))
 
   def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
     val si = Section.sectionIdentifier(questionGroupIdentifier)
