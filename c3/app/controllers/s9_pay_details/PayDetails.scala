@@ -9,6 +9,6 @@ object PayDetails extends Controller with CachedClaim {
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    Redirect(controllers.s10_consent_and_declaration.routes.G1AdditionalInfo.present())
+    Redirect(claim.nextSection(models.domain.CarersAllowance).firstPage)
   }
 }

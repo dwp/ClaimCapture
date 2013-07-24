@@ -40,6 +40,6 @@ object Employment extends Controller with CachedClaim {
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    Redirect("")
+    Redirect(claim.nextSection(models.domain.CarersAllowance).firstPage)
   }
 }

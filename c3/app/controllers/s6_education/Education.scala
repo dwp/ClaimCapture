@@ -18,6 +18,6 @@ object Education extends Controller with CachedClaim {
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    Redirect(controllers.s7_employment.routes.G1BeenEmployed.present())
+    Redirect(claim.nextSection(models.domain.Education).firstPage)
   }
 }
