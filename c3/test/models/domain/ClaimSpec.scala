@@ -101,5 +101,23 @@ class ClaimSpec extends Specification {
     "give very first question group as the previous question group" in {
       pending
     }
+    
+    "be able to go to previous visible section" in {
+      claim.previousSection(AboutYou).identifier mustEqual CarersAllowance
+    }
+    
+    "be able to go to previous visible section when section inbetween is hidden" in {
+      val updatedClaim = claim.hideSection(AboutYou)
+      updatedClaim.previousSection(YourPartner).identifier mustEqual CarersAllowance
+    }
+    
+    "be able to go to next visible section" in {
+      claim.nextSection(CarersAllowance).identifier mustEqual AboutYou
+    }
+    
+    "be able to go to next visible section when section inbetween is hidden" in {
+      val updatedClaim = claim.hideSection(AboutYou)
+      updatedClaim.nextSection(CarersAllowance).identifier mustEqual YourPartner
+    }
   }
 }

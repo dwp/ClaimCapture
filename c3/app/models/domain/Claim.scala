@@ -8,7 +8,7 @@ case class Claim(sections: List[Section]) extends Timestamped {
     case Some(s: Section) => s
     case _ => Section(sectionIdentifier, List())
   }
-  /*
+  
   def previousSection(sectionIdentifier: Section.Identifier): Section = {
     sections.
       filter(s => s.identifier.index < sectionIdentifier.index && s.visible).
@@ -26,7 +26,7 @@ case class Claim(sections: List[Section]) extends Timestamped {
         case _ => section(sectionIdentifier)
       }
   }
-*/
+
   def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
     val si = Section.sectionIdentifier(questionGroupIdentifier)
     section(si).questionGroup(questionGroupIdentifier)
