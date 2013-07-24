@@ -14,7 +14,7 @@
             <legend>Additional Information</legend>
 
             <ul class="group">
-                @carersInputTextArea(currentForm("anythingElse"),'placeholder->Messages("anythingElse.placeholder"),'helper->"2000 characters left")
+                @carersInputTextArea(currentForm("anythingElse"),'placeholder->Messages("anythingElse.placeholder"),'helper->"2000 characters left", 'maxlength -> 1800)
                 @yesNoRadioGroup(currentForm("welshCommunication"))
             </ul>
         </fieldset>

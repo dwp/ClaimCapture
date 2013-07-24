@@ -11,5 +11,5 @@
     <label for="@CarersCrypto.encryptAES(field.id)">@if(required){@Html("<em>*</em>")}@{Space.*} @Html(Messages(field.id))</label>
     }
 
-    <textarea id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" maxlength=2000 @toHtmlArgs(htmlArgs)>@value</textarea>
+    <textarea id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>@value</textarea>
 }
