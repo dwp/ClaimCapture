@@ -382,3 +382,9 @@ welshCommunication = Do you live in Wales and would like to receive future commu
 #SELF EMPLOYED
 error.areYouSelfEmployedNow = Please tell us if you are self employed
 areYouSelfEmployedNow.label =  Are you self-employed now?
+whenDidYouStartThisJob.label = When did you start this job?
+whenDidTheJobFinish.label = When did you finish this job?
+haveYouCeasedTrading.label = Have you ceased trading?
+natureOfYourBusiness.label = Nature of business?
+
+

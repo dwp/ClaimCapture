@@ -3,7 +3,7 @@ package controllers.s9_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s9_self_employment.G1AboutSelfEmploymentPageContext
+import utils.pageobjects.s9_self_employment.{G1AboutSelfEmploymentPage, G1AboutSelfEmploymentPageContext}
 import utils.pageobjects.ClaimScenario
 import controllers.ClaimScenarioFactory
 import org.specs2.execute.PendingUntilFixed
@@ -35,7 +35,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags with 
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 1
         pageWithErrors.listErrors(0).contains("date")
-      }.pendingUntilFixed("Fails with message NoSuchElementException: No such element with position :0.")
+      }
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutSelfEmploymentPageContext {
@@ -45,15 +45,15 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags with 
       page submitPage()
     }
     
-    /*"navigate to next page on valid submission" in new WithBrowser with G1AboutSelfEmploymentPageContext {
+    "navigate to next page on valid submission" in new WithBrowser with G1AboutSelfEmploymentPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
       page fillPageWith claim
 
       val nextPage = page submitPage()
 
-      nextPage must not(beAnInstanceOf[G2YourAccountsPage])
-    }.pendingUntilFixed("Needs next page to exist")*/
+      nextPage must not(beAnInstanceOf[G1AboutSelfEmploymentPage])
+    }.pendingUntilFixed("Needs next page to exist")
   }
 
 }

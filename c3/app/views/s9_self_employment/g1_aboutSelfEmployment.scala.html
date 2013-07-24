@@ -16,14 +16,14 @@
             <legend>About Self Employment (ASP)</legend>
 
             <ul class="group">
-              @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"))
+              @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"), '_label -> Messages("areYouSelfEmployedNow.label"))
 
               @otherDetailPlaceHolder(
                   inputDef = Seq(
-                    inputDayMonthYear(currentForm("whenDidYouStartThisJob.date"), 'helperBelow -> Messages("dateOfBirth.helper")),
-                    inputDayMonthYear(currentForm("whenDidTheJobFinish.date"), 'helperBelow -> Messages("dateOfBirth.helper")),
-                    yesNoRadioGroup(currentForm("haveYouCeasedTrading")),
-                    carersInputText(currentForm("natureOfYourBusiness"), 'maxLength -> Mappings.sixty)
+                    inputDayMonthYear(currentForm("whenDidYouStartThisJob"), '_label -> Messages("whenDidYouStartThisJob.label"), 'helperBelow -> Messages("dateOfBirth.helper")),
+                    inputDayMonthYear(currentForm("whenDidTheJobFinish"), '_label -> Messages("whenDidTheJobFinish.label"), 'helperBelow -> Messages("dateOfBirth.helper")),
+                    yesNoRadioGroup(currentForm("haveYouCeasedTrading"), '_label -> Messages("haveYouCeasedTrading.label")),
+                    carersInputText(currentForm("natureOfYourBusiness"), 'maxLength -> Mappings.sixty, '_label -> Messages("natureOfYourBusiness.label"))
                   ),
                   'id -> "selfEmployedWrap",
                   'display -> currentForm("areYouSelfEmployedNow").value.getOrElse("no")
