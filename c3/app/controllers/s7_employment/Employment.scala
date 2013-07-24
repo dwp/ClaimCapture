@@ -11,7 +11,7 @@ import scala.reflect.ClassTag
 object Employment extends Controller with CachedClaim {
   implicit def jobFormFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
     def fillWithJobID(jobID:String, qi:QuestionGroup.Identifier)(implicit claim:Claim): Form[Q] = {
-      claim.questionGroup(Jobs).get.asInstanceOf[Jobs].jobs.find(_.jobID == jobID).getOrElse(Job("",List())).find(_.identifier.id == qi.id)match {
+      claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == jobID).getOrElse(Job("",List())).find(_.identifier.id == qi.id)match {
         case Some(q: Q) => form.fill(q)
         case _ => form
       }

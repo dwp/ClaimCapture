@@ -22,7 +22,7 @@ object G3EmployerContactDetails extends Controller with CachedClaim {
     )(EmployerContactDetails.apply)(EmployerContactDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g3_employerContactDetails(form, completedQuestionGroups(EmployerContactDetails)))
+    Ok(views.html.s7_employment.g3_employerContactDetails(form.fillWithJobID(request.flash.get("jobID").getOrElse(""),EmployerContactDetails), completedQuestionGroups(EmployerContactDetails)))
   }
 
   def submit = claimingInJob { implicit claim => implicit request =>
