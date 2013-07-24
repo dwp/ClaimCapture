@@ -27,7 +27,7 @@ object G8CompletedPage {
 }
 
 /** The context for Specs tests */
-trait CompletedPageContext extends PageContext {
+trait G8CompletedPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
   val page = G8CompletedPage buildPageWith browser
 }

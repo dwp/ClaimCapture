@@ -6,7 +6,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 /**
  * Page object for s3_your_partner g4_PersonYouCareFor.
  * @author Saqib Kayani
- *         Date: 22/07/2013
+ *         Date: 24/07/2013
  */
 final class G4PersonYouCareForPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4PersonYouCareForPage.url, G4PersonYouCareForPage.title, previousPage){
   /**

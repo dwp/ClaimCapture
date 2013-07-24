@@ -67,7 +67,7 @@ object ClaimScenarioFactory {
 
   def s2ands3WithTimeOUtsideUKAndProperty() = {
     val claim = s2AboutYouWithTimeOutside()
-
+    // Partner personal detals
     claim.AboutYourPartnerTitle = "Mrs"
     claim.AboutYourPartnerFirstName = "Cloe"
     claim.AboutYourPartnerMiddleName = "Scott"
@@ -76,16 +76,12 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerNINO = "AB123456A"
     claim.AboutYourPartnerDateofBirth = "12/07/1990"
     claim.AboutYourPartnerNationality = "British"
+    // More about your partner
     claim.AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou = "Yes"
-    claim
-  }
-
-  def s3AboutYourPartnerWithPartnerPersonalDetails() = {
-    val claim = s2ands3WithTimeOUtsideUKAndProperty()
-    // G4PersonYouCareFor
+    // Person you care for
     claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
     claim
-    }
+  }
 
 
   def s6PayDetails() = {
