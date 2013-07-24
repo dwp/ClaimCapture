@@ -301,6 +301,20 @@ $button-green-hover: #004b27;
 		   .ie & {
 			   font-size: 19px;
 		   }
+		   &.mandatory {
+		   		margin-top: 1.6em;
+		   		font-size: 1.6rem;
+		   		.ie & {
+			   		font-size: 16px;
+		   		}
+					em {
+						font-style: normal;
+						font-size: 1.9rem;
+						.ie & {
+							font-size: 19px;
+						}
+					}
+			}
 	   }
 	   ul {
 		   margin: 0;
@@ -622,19 +636,24 @@ $button-green-hover: #004b27;
 				   font-weight: 500;
 				   overflow: hidden;
 				   line-height: 1em;
-				   padding: .35em .7em;
-				   border-left: 3px solid #006435;
+				   padding: .35em .7em .75em 1.7em;
 				   width: 120px;
+				   background-image: url('../img/toggle.png');
+				   background-position: 0 2px;
+				   background-repeat: no-repeat;
 				   .ie & {
 					   font-size: 16px;
 				   }
 			   }
+			   .helper-less {
+				   background-position: 0 -58px;
+			   }
 
 				.helper-info {
 					display: none;
-					padding: .7em;
-					background: #d5ecea;
-					border-left: 3px solid #006435;
+					padding: 1em 1.6em;
+					background: #eee;
+					border-left: 3px solid #000;
 					p {
 						font-size: 1.6rem;
 						.ie & {
@@ -664,6 +683,8 @@ $button-green-hover: #004b27;
 					   }
 				   }
 			   }
+			  
+			   
 			   input[type="text"], input[type="number"], input[type="tel"], textarea {
 				    background: #f9f9f9;
 					border: 1px solid #a2a2a2;
@@ -1543,6 +1564,8 @@ $button-green-hover: #004b27;
 		}
 	}
 }
+
+
 
 
 
