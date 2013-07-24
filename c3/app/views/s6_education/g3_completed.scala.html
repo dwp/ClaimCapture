@@ -1,12 +1,14 @@
 @(completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import helper._
+@import models.domain.Section
+@import models.domain.YourCourseDetails
 
 @main("Completion - Education", None, completedQuestionGroups) {
     @form(action = controllers.s6_education.routes.Education.completedSubmit) {
         <nav class="form-steps">
             <a href="@controllers.s6_education.routes.G2AddressOfSchoolCollegeOrUniversity.present" class="button secondary" id="backButton">Back</a>
-            <button type="submit" name="action" value="next" class="button">Continue to Employment (TODO: Dynamic label)</button>
+            <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(YourCourseDetails).name</button>
         </nav>
     }
 }
