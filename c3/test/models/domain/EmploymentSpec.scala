@@ -1,6 +1,10 @@
 package models.domain
 
+import scala.language.reflectiveCalls
 import org.specs2.mutable.Specification
+import controllers.s7_employment.G3EmployerContactDetails
+import controllers.s7_employment.Employment.jobFormFiller
+import models.view.Routing
 
 class EmploymentSpec extends Specification {
   "Job" should {
@@ -89,6 +93,27 @@ class EmploymentSpec extends Specification {
           case Some(e: EmployerContactDetails) => e.phoneNumber must beSome("222")
         }
       }
+    }
+
+    "fill existing form" in new Claiming {
+      val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
+      val job1 = Job("1").update(jobDetails)
+
+      val jobs = new Jobs(job1 :: Job("2") :: Nil)
+
+      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"), NoRouting)
+      val updatedJob1 = job1.update(employerContactDetails)
+      updatedJob1.questionGroups.size shouldEqual 2
+
+      val updatedJobs = jobs.update(updatedJob1)
+      updatedJobs.size shouldEqual 2
+      updatedJobs.find(_.jobID == "1") must beLike { case Some(Job("1", qgs)) => qgs.size shouldEqual 2 }
+
+      val claim = Claim().update(updatedJobs)
+
+      val form = G3EmployerContactDetails.form.fillWithJobID("1",EmployerContactDetails)(claim)
+      form.value.isDefined should beTrue
+      form.value.get must beLike { case EmployerContactDetails(jid, None, None, Some(v),_) => jid shouldEqual "1" and(v shouldEqual "111") }
     }
   }
 

@@ -32,6 +32,25 @@ case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Jobs) with NoRoutin
     }
   }
 
+  def delete(questionGroup: QuestionGroup with Job.Identifier): Jobs = {
+    jobs.find(_.jobID == questionGroup.jobID) match {
+      case Some(job: Job) => update(Job(questionGroup.jobID,job.questionGroups.filterNot(_.identifier == questionGroup.identifier)))
+      case _ => this
+    }
+  }
+
+  def apply(jobID:String): Option[Job] = jobs.find(_.jobID == jobID)
+
+  def questionGroup(questionGroup: QuestionGroup with Job.Identifier):Option[QuestionGroup] = {
+    this(questionGroup.jobID).getOrElse(None) match {
+      case Some(v:Job) => v(questionGroup)
+      case None => None
+    }
+
+  }
+
+
+
   override def iterator: Iterator[Job] = jobs.iterator
 }
 
@@ -39,7 +58,7 @@ object Jobs extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g99"
 }
 
-case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identifier] = Nil) extends Job.Identifier {
+case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identifier] = Nil) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
   def employerName = jobDetails(_.employerName)
 
   def title = jobDetails(_.jobTitle.getOrElse(""))
@@ -53,6 +72,10 @@ case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identi
     case Some(j: JobDetails) => f(j)
     case _ => ""
   }
+
+  def apply(questionGroup: QuestionGroup ): Option[QuestionGroup] = questionGroups.find(_.identifier == questionGroup.identifier)
+
+  override def iterator: Iterator[QuestionGroup with Job.Identifier] = questionGroups.iterator
 }
 
 object Job {
