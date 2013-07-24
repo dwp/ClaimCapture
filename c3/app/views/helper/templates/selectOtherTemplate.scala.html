@@ -20,6 +20,8 @@
     }
 </li>
 
-<li class="other-detail">
-    @textarea(elements.field("other"), 'placeholder -> "If other please specify...")
-</li>
+@defining((elements.args.toMap.get('display).map(_.toString).getOrElse("yes") == elements.args.toMap.get('visibleOn).map(_.toString).getOrElse("yes")) match {case true => "block" case _ => "none"}) { styleDisplay =>
+    <li id="@{elements.args.toMap.get('id).map(_.toString + "_wrap").getOrElse("no-id")}" class="other-detail" style="display: @styleDisplay;">
+        @textarea(elements.field("other"), 'placeholder -> "If other please specify...")
+    </li>
+}

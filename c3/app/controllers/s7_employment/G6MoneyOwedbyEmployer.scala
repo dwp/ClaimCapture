@@ -22,7 +22,6 @@ object G6MoneyOwedbyEmployer extends Controller with CachedClaim {
       call(routes.G6MoneyOwedbyEmployer.present())
     )(MoneyOwedbyEmployer.apply)(MoneyOwedbyEmployer.unapply))
 
-
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s7_employment.g6_moneyOwedByEmployer(form, completedQuestionGroups(MoneyOwedbyEmployer)))
   }

@@ -312,7 +312,9 @@ yourBenefits.text1 = Please tell us the names of the benefits or entitlements yo
 yourBenefits.text2 = Please tell us the names of the benefits or entitlements your Partner/Spouse receive
 moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
 haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
-howMuch = How much
+howMuch = How much do you get, and how often?
+howOften = How often
+error.paymentFrequency = Please tell us how often
 howMuch_howOften = '
 employersName = Employer''s Name
 employersAddress = Employer''s Address
@@ -370,3 +372,7 @@ someoneElse = Please tick this box if this claim form has been filled in by some
 anythingElse = Please tell us anything else you think we should know about your claim
 anythingElse.placeholder = Optional...
 welshCommunication = Do you live in Wales and would like to receive future communications in Welsh?
+
+#SELF EMPLOYED
+error.areYouSelfEmployedNow = Please tell us if you are self employed
+areYouSelfEmployedNow.label =  Are you self-employed now?

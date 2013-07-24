@@ -23,9 +23,7 @@ object G5AdditionalWageDetails extends Controller with CachedClaim {
       call(routes.G5AdditionalWageDetails.present())
     )(AdditionalWageDetails.apply)(AdditionalWageDetails.unapply)
     .verifying("oftenGetPaid", AdditionalWageDetails.validateOftenGetPaid _)
-    .verifying("otherMoney", AdditionalWageDetails.validateOtherMoney _)
-  )
-
+    .verifying("otherMoney", AdditionalWageDetails.validateOtherMoney _))
 
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s7_employment.g5_additionalWageDetails(form, completedQuestionGroups(LastWage)))

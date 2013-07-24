@@ -5,8 +5,6 @@
 @import utils.helpers.CarersTemplate._
 
 @main("Person Who Gets This Money - Other Money", Some(currentForm), completedQuestionGroups) {
-    @errorsSummary(currentForm)
-
     @form(action = controllers.s8_other_money.routes.G3PersonWhoGetsThisMoney.submit) {
         <fieldset class="form-elements">
             <legend>Person who gets this money</legend>
@@ -21,7 +19,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a href="@controllers.s8_other_money.routes.G2MoneyPaidToSomeoneElseForYou.present" class="button secondary">Back</a>
+            <a href="@back(models.domain.PersonWhoGetsThisMoney)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

@@ -1,5 +1,6 @@
 package controllers.s2_about_you
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -20,13 +21,8 @@ object G7PropertyAndRent extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PropertyAndRent)
 
   def present = claiming { implicit claim => implicit request =>
-    val propertyAndRentForm: Form[PropertyAndRent] = claim.questionGroup(PropertyAndRent) match {
-      case Some(p: PropertyAndRent) => form.fill(p)
-      case _ => form
-    }
-
     claim.questionGroup(models.domain.ClaimDate) match {
-      case Some(n) => Ok(views.html.s2_about_you.g7_propertyAndRent(propertyAndRentForm, completedQuestionGroups))
+      case Some(n) => Ok(views.html.s2_about_you.g7_propertyAndRent(form.fill(PropertyAndRent), completedQuestionGroups))
       case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
     }
   }

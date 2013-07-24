@@ -62,26 +62,20 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
     "navigate to next page on valid submission with all text fields enabled and filled in" in new WithBrowser {
       Formulate.moreAboutYou(browser)
       Formulate.aboutOtherMoney(browser)
-      browser.title mustEqual "About Extra Money - Other Money"
+      browser.title mustEqual "Money Paid - Other Money"
     }
 
     "navigate to next page on valid submission with first mandatory field set to no" in new WithBrowser {
       browser.goTo("/otherMoney/aboutOtherMoney")
       browser.click("#yourBenefits_answer_no")
       browser.submit("button[type='submit']")
-      browser.title mustEqual "About Extra Money - Other Money"
+      browser.title mustEqual "Money Paid - Other Money"
     }
 
     "be presented" in new WithBrowser with G1AboutOtherMoneyPageContext {
       page goToThePage()
     }
-    /*
-    "navigate back to Completion - Employment" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      page goToThePage()
-      val backPage = page goBack()
-      backPage must beAnInstanceOf[S7EmploymentCompleted]
-    }.pendingUntilFixed("need previous page to exist as page object")
-    */
+
     "present errors if mandatory fields are not populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
       page goToThePage()
       page.submitPage().listErrors.size mustEqual 1

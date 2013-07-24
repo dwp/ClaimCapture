@@ -1,5 +1,6 @@
 package controllers.s3_your_partner
 
+import language.reflectiveCalls
 import controllers.Mappings._
 import models.domain.YourPartnerPersonalDetails
 import models.view.CachedClaim
@@ -25,13 +26,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
 
 
   def present = claiming { implicit claim => implicit request =>
-    YourPartner.whenVisible(claim)(() => {
-      val currentForm: Form[YourPartnerPersonalDetails] = claim.questionGroup(YourPartnerPersonalDetails) match {
-        case Some(t: YourPartnerPersonalDetails) => form.fill(t)
-        case _ => form
-      }
-      Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(currentForm))
-    })
+    YourPartner.whenVisible(claim)(Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))))
   }
 
   def submit = claiming { implicit claim => implicit request =>

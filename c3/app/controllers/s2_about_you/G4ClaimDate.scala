@@ -1,5 +1,6 @@
 package controllers.s2_about_you
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -18,12 +19,7 @@ object G4ClaimDate extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ClaimDate)
 
   def present = claiming { implicit claim => implicit request =>
-    val claimDateForm: Form[ClaimDate] = claim.questionGroup(ClaimDate) match {
-      case Some(c: ClaimDate) => form.fill(c)
-      case _ => form
-    }
-
-    Ok(views.html.s2_about_you.g4_claimDate(claimDateForm, completedQuestionGroups))
+    Ok(views.html.s2_about_you.g4_claimDate(form.fill(ClaimDate), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

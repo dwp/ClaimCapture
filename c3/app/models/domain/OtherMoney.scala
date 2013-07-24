@@ -36,7 +36,7 @@ case object PersonContactDetails extends QuestionGroup.Identifier {
 
 case class StatutorySickPay(haveYouHadAnyStatutorySickPay: String,
                             howMuch: Option[String],
-                            howMuchHowOften: Option[String],
+                            howOften: Option[PaymentFrequency],
                             employersName: Option[String],
                             employersAddress: Option[MultiLineAddress],
                             employersPostcode: Option[String],

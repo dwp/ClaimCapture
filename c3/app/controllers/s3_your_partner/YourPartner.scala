@@ -19,10 +19,9 @@ object YourPartner extends Controller with CachedClaim {
     Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }
 
-  def whenVisible(claim: Claim)(closure: () => SimpleResult[Html]) = {
-    val iAmVisible = claim.isSectionVisible(models.domain.YourPartner)
-
-    if (iAmVisible) closure() else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+  def whenVisible(claim: Claim)(f: => SimpleResult[Html]) = {
+    if (claim.isSectionVisible(models.domain.YourPartner)) f
+    else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }
 
   def yourPartner = claiming {

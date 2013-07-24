@@ -6,10 +6,9 @@ import models.domain.Claim
 import play.api.templates.Html
 
 object Education extends Controller with CachedClaim {
-  def whenVisible(claim: Claim)(closure: () => SimpleResult[Html]) = {
-    val iAmVisible = claim.isSectionVisible(models.domain.Education)
-
-    if (iAmVisible) closure() else Redirect(controllers.s7_employment.routes.G1BeenEmployed.present())
+  def whenVisible(claim: Claim)(f: => SimpleResult[Html]) = {
+    if (claim.isSectionVisible(models.domain.Education)) f
+    else Redirect(controllers.s7_employment.routes.G1BeenEmployed.present())
   }
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.Education)

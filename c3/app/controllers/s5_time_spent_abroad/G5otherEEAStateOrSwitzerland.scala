@@ -1,5 +1,6 @@
 package controllers.s5_time_spent_abroad
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
@@ -27,12 +28,7 @@ object G5otherEEAStateOrSwitzerland extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[OtherEEAStateOrSwitzerland] = claim.questionGroup(OtherEEAStateOrSwitzerland) match {
-      case Some(o: OtherEEAStateOrSwitzerland) => form.fill(o)
-      case _ => form
-    }
-
-    Ok(views.html.s5_time_spent_abroad.g5_otherEEAStateOrSwitzerland(currentForm, completedQuestionGroups))
+    Ok(views.html.s5_time_spent_abroad.g5_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

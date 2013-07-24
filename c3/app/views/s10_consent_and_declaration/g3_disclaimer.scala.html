@@ -1,0 +1,40 @@
+@(currentForm: Form[models.domain.Disclaimer], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import models.domain.TheirPersonalDetails
+
+@import helper._
+@import utils.helpers.EmptyTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import controllers.s10_consent_and_declaration._
+
+@main("Disclaimer - Consent And Declaration", Some(currentForm),completedQuestionGroups) {
+
+    @form(action = controllers.s10_consent_and_declaration.routes.G3Disclaimer.submit) {
+        <fieldset class="form-elements">
+            <legend>Disclaimer</legend>
+
+            <div class="declaration">
+                @for(i <- 1 to 7) {
+                    <p>
+                        @defining(claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName + " " + m.middleName.getOrElse("") + (if (m.middleName.isDefined) " " else "") + m.surname )){ str =>
+
+                            @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]", str))
+                        }
+                    </p>
+                }
+            </div>
+
+            <div class="group declare">
+                @carersDeclareCheck(currentForm("read"))
+            </div>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.Disclaimer)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

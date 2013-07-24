@@ -1,18 +1,28 @@
 package models.view
 
+import language.implicitConversions
+import reflect.ClassTag
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import play.api.cache.Cache
-import models.domain.Claim
+import models.domain.{QuestionGroup, Claim}
 import play.Configuration
 import play.api.Play._
 import play.api.mvc.Results.Redirect
+import play.api.data.Form
+import play.api.Play
+import play.api.Logger
+import play.api.http.HeaderNames._
+import java.util.UUID._
 
 trait CachedClaim {
-  import play.api.Play
-  import play.api.Logger
-  import scala.language.implicitConversions
-  import play.api.http.HeaderNames._
-  import java.util.UUID._
+  implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
+    def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = {
+      claim.questionGroup(qi) match {
+        case Some(q: Q) => form.fill(q)
+        case _ => form
+      }
+    }
+  }
 
   implicit def defaultResultToLeft(result: Result) = Left(result)
 
@@ -79,7 +89,7 @@ trait CachedClaim {
 
   def claimingInJob(f: => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
     request => {
-      claiming(f)(request).flashing("jobID"->request.body.asFormUrlEncoded.getOrElse(Map("jobID"->Seq("")))("jobID").applyOrElse(0,(i:Int)=>""))
+      claiming(f)(request).flashing("jobID" -> request.body.asFormUrlEncoded.getOrElse(Map("jobID" -> Seq("")))("jobID").applyOrElse(0, (i: Int) => ""))
     }
   }
 
