@@ -4,7 +4,6 @@ import scala.language.reflectiveCalls
 import org.specs2.mutable.Specification
 import controllers.s7_employment.G3EmployerContactDetails
 import controllers.s7_employment.Employment.jobFormFiller
-import models.view.Routing
 
 class EmploymentSpec extends Specification {
   "Job" should {
@@ -49,7 +48,7 @@ class EmploymentSpec extends Specification {
 
       val jobs = new Jobs(job1 :: Job("2") :: Nil)
 
-      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"), NoRouting)
+      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"))
       val updatedJob1 = job1.update(employerContactDetails)
       updatedJob1.questionGroups.size shouldEqual 2
 
@@ -60,12 +59,12 @@ class EmploymentSpec extends Specification {
 
     "update existing question group in existing job" in new Claiming {
       val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
-      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"), NoRouting)
+      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"))
       val job1 = Job("1").update(jobDetails).update(employerContactDetails)
 
       val jobs = new Jobs(job1 :: Job("2") :: Nil)
 
-      val updatedJob1 = job1.update(EmployerContactDetails("1", None, None, Some("222"), NoRouting))
+      val updatedJob1 = job1.update(EmployerContactDetails("1", None, None, Some("222")))
       updatedJob1.questionGroups.size shouldEqual 2
 
       val updatedJobs = jobs.update(updatedJob1)
@@ -80,12 +79,12 @@ class EmploymentSpec extends Specification {
 
     """be directly updated with an existing question group in an existing job""" in new Claiming {
       val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
-      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"), NoRouting)
+      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"))
       val job1 = Job("1").update(jobDetails).update(employerContactDetails)
 
       val jobs = new Jobs(job1 :: Job("2") :: Nil)
 
-      val updatedJobs = jobs.update(EmployerContactDetails("1", None, None, Some("222"), NoRouting))
+      val updatedJobs = jobs.update(EmployerContactDetails("1", None, None, Some("222")))
       updatedJobs.size shouldEqual 2
 
       updatedJobs.find(_.jobID == "1") must beLike {
@@ -101,7 +100,7 @@ class EmploymentSpec extends Specification {
 
       val jobs = new Jobs(job1 :: Job("2") :: Nil)
 
-      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"), NoRouting)
+      val employerContactDetails = EmployerContactDetails("1", None, None, Some("111"))
       val updatedJob1 = job1.update(employerContactDetails)
       updatedJob1.questionGroups.size shouldEqual 2
 
@@ -111,9 +110,9 @@ class EmploymentSpec extends Specification {
 
       val claim = Claim().update(updatedJobs)
 
-      val form = G3EmployerContactDetails.form.fillWithJobID("1",EmployerContactDetails)(claim)
+      val form = G3EmployerContactDetails.form.fillWithJobID(EmployerContactDetails, "1")(claim)
       form.value.isDefined should beTrue
-      form.value.get must beLike { case EmployerContactDetails(jid, None, None, Some(v),_) => jid shouldEqual "1" and(v shouldEqual "111") }
+      form.value.get must beLike { case EmployerContactDetails(jid, None, None, Some(v)) => jid shouldEqual "1" and(v shouldEqual "111") }
     }
   }
 
