@@ -135,7 +135,7 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
 }
 
 case class MoneyOwedbyEmployer(jobID: String,
-                               howMuch: Option[String], owedPeriod: Option[PeriodFromTo], owedFor: Option[String],
+                               howMuchOwed: Option[String], owedPeriod: Option[PeriodFromTo], owedFor: Option[String],
                                shouldBeenPaidBy: Option[DayMonthYear], whenWillGetIt: Option[String]) extends QuestionGroup(MoneyOwedbyEmployer) with Job.Identifier with NoRouting
 
 object MoneyOwedbyEmployer extends QuestionGroup.Identifier {
@@ -155,4 +155,12 @@ case class AboutExpenses(jobID: String,
 
 object AboutExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g8"
+}
+
+case class NecessaryExpenses(jobID: String,
+                             whatAreThose: String, howMuchCostEachWeek: String, whyDoYouNeedThose: String) extends QuestionGroup(AboutExpenses) with Job.Identifier with NoRouting
+
+
+object NecessaryExpenses extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g9"
 }

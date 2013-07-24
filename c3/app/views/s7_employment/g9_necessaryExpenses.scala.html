@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.EmployerContactDetails], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@(currentForm: Form[models.domain.NecessaryExpenses], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -9,17 +9,17 @@
 @import utils.helpers.CarersCrypto
 @import views.html.s7_employment.jobID
 
-@main("Employer contact details - Employment", Some(currentForm), completedQuestionGroups) {
-    @form(action = controllers.s7_employment.routes.G3EmployerContactDetails.submit()) {
+@main("Necessary expenses to do your job - Employment", Some(currentForm), completedQuestionGroups) {
+    @form(action = controllers.s7_employment.routes.G9NecessaryExpenses.submit()) {
         <input type="hidden" name="jobID" value='@jobID(currentForm)'>
 
         <fieldset class="form-elements">
-            <legend>Employer's contact details</legend>
+            <legend>Necessary expenses to do your job</legend>
 
             <ul class="group">
-                @inputAddress(currentForm("address"))
-                @carersInputText(currentForm("postcode"))
-                @carersInputText(currentForm("phoneNumber"))
+                @carersInputText(currentForm("whatAreThose"))
+                @carersInputText(currentForm("howMuchCostEachWeek"))
+                @carersInputText(currentForm("whyDoYouNeedThose"))
             </ul>
         </fieldset>
 

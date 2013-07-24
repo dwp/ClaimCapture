@@ -172,6 +172,9 @@ POST    /employment/pensionSchemes                              controllers.s7_e
 GET     /employment/aboutExpenses/:jobID                        controllers.s7_employment.G8AboutExpenses.present(jobID: String)
 POST    /employment/aboutExpenses                               controllers.s7_employment.G8AboutExpenses.submit
 
+GET     /employment/necessaryExpenses/:jobID                    controllers.s7_employment.G9NecessaryExpenses.present(jobID: String)
+POST    /employment/necessaryExpenses                           controllers.s7_employment.G9NecessaryExpenses.submit
+
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
 POST    /employment/completed                                   controllers.s7_employment.Employment.submit
 
