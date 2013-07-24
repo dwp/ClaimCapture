@@ -53,6 +53,7 @@ trait MockPageWrongTitleContext extends PageContext with Mockito {
     mockedBrowser.title returns  "Wrong Title"
     val test = (x:Boolean) => true
     mockedBrowser.waitUntil[Boolean](30, TimeUnit.SECONDS)(_:Boolean) returns true
+    mockedBrowser.waitUntil[Boolean](20, TimeUnit.SECONDS)(_:Boolean) returns false
     mockedBrowser
   }
   val page = MockPage buildPage(browser)
