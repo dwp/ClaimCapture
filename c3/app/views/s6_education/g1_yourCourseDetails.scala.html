@@ -7,6 +7,8 @@
 
 @main("Your Course Details - Education", Some(currentForm), completedQuestionGroups) {
 
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s6_education.routes.G1YourCourseDetails.submit) {
 
         <fieldset class="form-elements">

@@ -10,6 +10,8 @@
 
 @main("Bank Building Society Details - Pay Details", Some(currentForm),completedQuestionGroups) {
 
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s6_pay_details.routes.G2BankBuildingSocietyDetails.submit) {
         <fieldset class="form-elements">
             <legend>Bank / building society details</legend>

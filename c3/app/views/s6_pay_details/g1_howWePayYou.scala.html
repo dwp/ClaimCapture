@@ -8,6 +8,9 @@
 @import views.html.helper.dates._
 
 @main("How We Pay You - Pay Details", Some(currentForm)) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s6_pay_details.routes.G1HowWePayYou.submit) {
         <fieldset class="form-elements">
             <legend>How would you like to get paid?</legend>
