@@ -11,5 +11,5 @@
         <label for="@CarersCrypto.encryptAES(field.id)">@if(required){@Html("<em>*</em>")}@{Space.*} @labelOrId(field.id,args:_*)</label>
     }
 
-    <input type="text" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" value="@value" maxlength=120 @toHtmlArgs(htmlArgs)>
+    <input type="text" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" value="@value" @toHtmlArgs(htmlArgs)>
 }

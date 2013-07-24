@@ -7,6 +7,8 @@
 
 @main("Contact Details Of The Person Who Claimed Before - Care You Provide", Some(currentForm), completedQuestionGroups) {
 
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s4_care_you_provide.routes.G5PreviousCarerContactDetails.submit) {
 
         <fieldset class="form-elements">

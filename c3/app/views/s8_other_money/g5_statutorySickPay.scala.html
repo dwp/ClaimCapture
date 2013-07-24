@@ -20,7 +20,11 @@
               @otherDetailPlaceHolder(
                   inputDef = Seq(
                     carersShortInputText(currentForm("howMuch"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty),
-                    paymentFrequency(currentForm("howMuch"), "howOften", Seq("" -> "How often?", "W"->"Weekly", "FN"->"fortnightly","4W"-> "four-weekly","M"-> "monthly", "other"->"other")),
+                    paymentFrequencySelect(currentForm("howOften"), 
+                      'id -> "howOften_frequency", 
+                      'visibleOn -> "yes", 
+                      'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                      ),
                     carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
                     inputAddress(currentForm("employersAddress")),
                     carersInputText(currentForm("employersPostcode"))
@@ -32,7 +36,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@controllers.s8_other_money.routes.G4PersonContactDetails.present" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.StatutorySickPay)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
@@ -42,6 +46,11 @@
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_yes")", "@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_no")");
+        window.initEvents("@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_yes")", 
+          "@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_no")",
+          "@CarersCrypto.encryptAES("howOften_frequency")", 
+          "@CarersCrypto.encryptAES("howOften_frequency_wrap")");
     });
 </script>
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g11_break.js")'></script>

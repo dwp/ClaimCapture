@@ -2,7 +2,7 @@
 
 @import helper._
 
-@main("About Extra Money - Other Money", Some(currentForm), completedQuestionGroups) {
+@main("Money Paid - Other Money", Some(currentForm), completedQuestionGroups) {
 
     @form(action = controllers.s8_other_money.routes.G2MoneyPaidToSomeoneElseForYou.submit) {
         <fieldset class="form-elements">
@@ -14,7 +14,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a href="@controllers.s8_other_money.routes.G1AboutOtherMoney.present" class="button secondary">Back</a>
+            <a href="@back(models.domain.MoneyPaidToSomeoneElseForYou)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

@@ -1,5 +1,6 @@
 package controllers.s5_time_spent_abroad
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
@@ -22,16 +23,10 @@ object G1NormalResidenceAndCurrentLocation extends Controller with CachedClaim {
       call(routes.G1NormalResidenceAndCurrentLocation.present()),
       liveMapping,
       "inGBNow" -> nonEmptyText.verifying(validYesNo)
-    )(NormalResidenceAndCurrentLocation.apply)(NormalResidenceAndCurrentLocation.unapply)
-  )
+    )(NormalResidenceAndCurrentLocation.apply)(NormalResidenceAndCurrentLocation.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[NormalResidenceAndCurrentLocation] = claim.questionGroup(NormalResidenceAndCurrentLocation) match {
-      case Some(n: NormalResidenceAndCurrentLocation) => form.fill(n)
-      case _ => form
-    }
-
-    Ok(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(currentForm))
+    Ok(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(form.fill(NormalResidenceAndCurrentLocation)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

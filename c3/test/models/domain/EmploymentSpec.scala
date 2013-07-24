@@ -7,8 +7,8 @@ class EmploymentSpec extends Specification {
     "add 2 new question groups" in new Claiming {
       val job = Job("1")
 
-      val questionGroup1 = mockQuestionGroup("1")
-      val questionGroup2 = mockQuestionGroup("2")
+      val questionGroup1 = mockJobQuestionGroup("1")
+      val questionGroup2 = mockJobQuestionGroup("2")
 
       val updatedJob = job.update(questionGroup1).update(questionGroup2)
       updatedJob.questionGroups.size shouldEqual 2
@@ -17,7 +17,7 @@ class EmploymentSpec extends Specification {
     "add a question group and update it" in new Claiming {
       val job = Job("1")
 
-      val questionGroup = mockQuestionGroup("1")
+      val questionGroup = mockJobQuestionGroup("1")
 
       val updatedJob = job.update(questionGroup).update(questionGroup)
       updatedJob.questionGroups.size shouldEqual 1
@@ -89,6 +89,36 @@ class EmploymentSpec extends Specification {
           case Some(e: EmployerContactDetails) => e.phoneNumber must beSome("222")
         }
       }
+    }
+  }
+
+  "Claim" should {
+    "iterate over 2 jobs" in {
+      val jobs = Jobs().update(Job("1")).update(Job("2"))
+      val claim = Claim().update(jobs)
+
+      claim.questionGroup(Jobs) match {
+        case Some(js: Jobs) => js.foreach(job =>
+          println(job.employerName))
+        case _ =>
+      }
+
+      claim.questionGroup(Jobs) must beLike { case Some(js: Jobs) => js.size shouldEqual 2 }
+    }
+
+    """find first question group i.e. "JobDetails" in a job""" in new Claiming {
+      val jobDetails = mockQuestionGroup[JobDetails](JobDetails)
+      jobDetails.jobID returns "2"
+      jobDetails.employerName returns "Toys r not us"
+
+      val jobs = Jobs().update(Job("1")).update(Job("2").update(jobDetails))
+      val claim = Claim().update(jobs)
+
+      claim.questionGroup(Jobs).collect {
+        case js: Jobs => js.jobs.find(_.jobID == "2").collect {
+          case j: Job => j.questionGroups.find(_.isInstanceOf[JobDetails])
+        }
+      }.flatten.flatten must beLike { case Some(jd: JobDetails with Job.Identifier) => jd.employerName shouldEqual "Toys r not us" }
     }
   }
 }

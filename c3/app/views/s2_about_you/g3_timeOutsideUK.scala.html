@@ -10,6 +10,8 @@
 
 @main("Time Outside UK - About You", completedQuestionGroups) {
     @errorsSummary(timeOutsideUKForm)
+    
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G3TimeOutsideUK.submit) {
         <fieldset class="form-elements">

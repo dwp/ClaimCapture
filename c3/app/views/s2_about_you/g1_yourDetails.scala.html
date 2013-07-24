@@ -10,6 +10,8 @@
 
 @main("Your Details - About You") {
     @errorsSummary(yourDetailsForm)
+    
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G1YourDetails.submit) {
         <fieldset class="form-elements">

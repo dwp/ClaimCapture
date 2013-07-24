@@ -10,6 +10,8 @@
 
 @main("Representatives For The Person - Care You Provide", Some(currentForm), completedQuestionGroups) {
 
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s4_care_you_provide.routes.G6RepresentativesForThePerson.submit) {
 
         <fieldset class="form-elements">
@@ -27,7 +29,7 @@
                 @yesNoRadioGroup(currentForm("someoneElse.actForPerson"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(actSelect(currentForm("someoneElse.actAs")), carersInputText(currentForm("someoneElse.fullName"))),
+                    inputDef = Seq(actSelect(currentForm("someoneElse.actAs")), carersInputText(currentForm("someoneElse.fullName"), 'maxlength -> 120)),
                     'id -> "someoneElseWrap",
                     'display -> currentForm("someoneElse.actForPerson").value.getOrElse("no")
                 )

@@ -1,5 +1,6 @@
 package controllers.s4_care_you_provide
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
 import models.view.CachedClaim
@@ -20,16 +21,11 @@ object G9ContactDetailsOfPayingPerson extends Controller with CachedClaim {
 
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(MoreAboutTheCare) match {
-      case Some(MoreAboutTheCare(_, _, _, "yes")) => {
-        val contactDetailsOfPayingPersonForm: Form[ContactDetailsOfPayingPerson] = claim.questionGroup(ContactDetailsOfPayingPerson) match {
-          case Some(c: ContactDetailsOfPayingPerson) => form.fill(c)
-          case _ => form
-        }
+      case Some(MoreAboutTheCare(_, _, _, "yes")) =>
+        Ok(views.html.s4_care_you_provide.g9_contactDetailsOfPayingPerson(form.fill(ContactDetailsOfPayingPerson), completedQuestionGroups))
 
-        Ok(views.html.s4_care_you_provide.g9_contactDetailsOfPayingPerson(contactDetailsOfPayingPersonForm, completedQuestionGroups))
-      }
-
-      case _ => Redirect(routes.G10BreaksInCare.present())
+      case _ =>
+        Redirect(routes.G10BreaksInCare.present())
     }
   }
 

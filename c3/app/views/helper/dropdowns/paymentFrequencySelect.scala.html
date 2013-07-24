@@ -1,0 +1,10 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang)
+
+@import scala.util.Try
+@import helper.dates._
+@import utils.helpers.SelectOtherTemplate._
+
+@helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
+
+    @views.html.helper.selectWithOtherPlaceholder(field("frequency"), Seq("" -> "Please select", "W"->"Weekly", "FN"->"Fortnightly","4W"-> "Four-weekly","M"-> "Monthly","other"->"Other"), args:_*)
+}

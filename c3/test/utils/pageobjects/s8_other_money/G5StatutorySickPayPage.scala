@@ -7,12 +7,12 @@ import controllers.s8_other_money.routes
 final class G5StatutorySickPayPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5StatutorySickPayPage.url, G5StatutorySickPayPage.title, previousPage) {
 
   def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#haveYouHadAnyStatutorySickPay", theClaim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay)
-    fillInput("#howMuch", theClaim.OtherMoneyStatutorySickPayHowMuch)
-    fillInput("#howMuch_howOften", theClaim.OtherMoneyStatutorySickPayHowMuchHowOften)
-    fillInput("#employersName", theClaim.OtherMoneyStatutorySickPayEmployersName)
-    fillAddress("#employersAddress", theClaim.OtherMoneyStatutorySickPayPersonEmployersAddress)
-    fillInput("#employersPostcode", theClaim.OtherMoneyStatutorySickPayEmployersPostCode)
+    fillYesNo("#haveYouHadAnyStatutorySickPay", theClaim.OtherMoneyHaveYouSSPSinceClaim)
+    fillInput("#howMuch", theClaim.OtherMoneySSPHowMuch)
+    fillInput("#howOften_frequency", theClaim.OtherMoneySSPHowOften)
+    fillInput("#employersName", theClaim.OtherMoneySSPEmployerName)
+    fillAddress("#employersAddress", theClaim.OtherMoneySSPEmployerAddress)
+    fillInput("#employersPostcode", theClaim.OtherMoneyEmployerPostcode)
   }
 }
 

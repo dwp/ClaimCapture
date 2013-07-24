@@ -1,5 +1,6 @@
 package controllers.s2_about_you
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -20,13 +21,8 @@ object G6Employment extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Employment)
 
   def present = claiming { implicit claim => implicit request =>
-    val employmentForm: Form[Employment] = claim.questionGroup(Employment) match {
-      case Some(e: Employment) => form.fill(e)
-      case _ => form
-    }
-
     claim.questionGroup(ClaimDate) match {
-      case Some(n) => Ok(views.html.s2_about_you.g6_employment(employmentForm, completedQuestionGroups))
+      case Some(n) => Ok(views.html.s2_about_you.g6_employment(form.fill(Employment), completedQuestionGroups))
       case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
     }
   }
