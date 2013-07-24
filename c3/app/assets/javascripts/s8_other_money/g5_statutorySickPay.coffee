@@ -6,9 +6,10 @@ window.initEvents = (haveYouHadAnyStatutorySickPayY, haveYouHadAnyStatutorySickP
   $("#" + haveYouHadAnyStatutorySickPayN).on "click", ->
     $("#sickPayWrap").slideUp 500
       
-  $("#" + howOften_frequency).on "click", ->
+  $("#" + howOften_frequency).on "change", ->
     selected = $("#" + howOften_frequency + " option").filter(':selected').text()
     if selected is "Other"
+      #document.write("selected is: " + selected)
       $("#" + howOften_frequency_wrap).slideDown()
       $("#" + howOften_frequency_wrap).css('display', "block")
     else 
