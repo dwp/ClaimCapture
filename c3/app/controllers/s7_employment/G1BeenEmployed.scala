@@ -12,8 +12,7 @@ import Employment._
 object G1BeenEmployed extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "beenEmployed" -> (nonEmptyText verifying validYesNo),
-      call(routes.G1BeenEmployed.present())
+      "beenEmployed" -> (nonEmptyText verifying validYesNo)
     )(BeenEmployed.apply)(BeenEmployed.unapply))
 
   def present = claiming { implicit claim => implicit request =>

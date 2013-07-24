@@ -7,18 +7,18 @@ import controllers.BrowserMatchers
 class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
   "Employer's contact details" should {
     "present" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/employment/employersContactDetails")
+      browser.goTo("/employment/employersContactDetails/dummyJobID")
       titleMustEqual("Employer contact details - Employment")
     }
 
     "accept only mandatory data" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/employment/employersContactDetails")
+      browser.goTo("/employment/employersContactDetails/dummyJobID")
       browser.submit("button[type='submit']")
       titleMustEqual("Last wage - Employment")
     }
 
     "accept all data" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/employment/employersContactDetails")
+      browser.goTo("/employment/employersContactDetails/dummyJobID")
 
       browser.fill("#address_lineOne") `with` "Employer's address line one"
       browser.fill("#postcode") `with` "EC1 1DA"
