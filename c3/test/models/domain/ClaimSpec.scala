@@ -86,20 +86,8 @@ class ClaimSpec extends Specification {
       }
     }
 
-    "give last question group from previous section when asking for previous question group from start of current section" in new Claiming {
-      val claim = Claim().update(mockQuestionGroup[BreaksInCare](BreaksInCare))
-                         .update(mockQuestionGroup[AbroadForMoreThan4Weeks](AbroadForMoreThan4Weeks))
-                         .update(mockQuestionGroup[NormalResidenceAndCurrentLocation](NormalResidenceAndCurrentLocation))
-
-      val qgiCurrent: QuestionGroup.Identifier = NormalResidenceAndCurrentLocation
-
-      claim.previousQuestionGroup(qgiCurrent) must beNone
-
-      pending
-    }
-
-    "give very first question group as the previous question group" in {
-      pending
+    "returns first section when you ask for previous section in the first section" in {
+      claim.previousSection(CarersAllowance).identifier mustEqual CarersAllowance
     }
     
     "be able to go to previous visible section" in {
