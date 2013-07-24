@@ -30,7 +30,7 @@ object MockPage {
 }
 
 /** The context for Specs tests */
-trait MockPageContext extends PageContext with Mockito {
+class MockPageContext extends PageContext with Mockito {
     val browser = {
     val mockedBrowser = mock[play.api.test.TestBrowser]
     mockedBrowser.title returns  MockPage.title

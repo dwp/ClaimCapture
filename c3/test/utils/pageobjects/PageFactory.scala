@@ -18,13 +18,6 @@ import utils.pageobjects.s3_your_partner.{G2YourPartnerContactDetailsPage, G1You
  */
 object PageFactory {
 
-  def buildXmlMappingFromFile(fileName: String) = {
-    val map = mutable.Map[String, Array[String]]()
-    def converter(name: String)(value: String): Unit = map += (name -> value.split(">"))
-    FactoryFromFile.buildFromFile(fileName, converter)
-    map
-  }
-
   def buildPageFromTitle(browser: TestBrowser, title: String, previousPage: Option[Page], iteration: Int) = {
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
