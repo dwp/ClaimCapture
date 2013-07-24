@@ -30,7 +30,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       hoursPage fillPageWith claim
       val over16Page = hoursPage submitPage()
       over16Page fillPageWith claim
-      val livingGBPage = over16Page submitPage()
+      val livingGBPage = over16Page submitPage(waitDuration = 120)
       livingGBPage fillPageWith claim
       val approvePage = livingGBPage submitPage()
 
