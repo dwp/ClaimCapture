@@ -15,16 +15,16 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
     "be presented" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
       page goToThePage ()
     }
-/*
+
     "contain the completed forms" in new WithBrowser with G1AboutSelfEmploymentPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
       page fillPageWith claim
       val g2 = page submitPage()
-      val g8 = g2 goToPage(new G8CareProvidersContactDetailsPage(browser))
-      g8.listCompletedForms.size mustEqual 1
+      val g7 = g2 goToPage(new G7ExpensesWhileAtWorkPage(browser))
+      g7.listCompletedForms.size mustEqual 1
     }
-
+/*
     "contain errors on invalid submission" in {
       "invalid postcode" in new WithBrowser with G8CareProvidersContactDetailsPageContext {
         val claim = new ClaimScenario
