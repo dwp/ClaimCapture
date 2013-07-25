@@ -5,6 +5,8 @@ import play.api.test.WithBrowser
 import controllers.BrowserMatchers
 
 class G1BeenEmployedIntegrationSpec extends Specification with Tags {
+  sequential
+
   "Been Employed" should {
     "present" in new WithBrowser {
       browser.goTo("/employment/beenEmployed")
