@@ -60,16 +60,19 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
       browser.title mustEqual "More About Your Partner - Your Partner"
     }
 
-    "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {
+    "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerContactDetails(browser)
+      titleMustEqual("More About Your Partner - Your Partner")
       browser.click("#backButton")
+      titleMustEqual("Contact Details - Your Partner")
       browser.find("#address_lineOne").getValue mustEqual Formulate.partnerAddress
       browser.find("#postcode").getValue mustEqual Formulate.partnerPostcode
       browser.click("#backButton")
+      titleMustEqual("Completion - About You")
       Formulate.yourContactDetails(browser)
       Formulate.yourPartnerPersonalDetails(browser)
 
-      browser.title mustEqual "Contact Details - Your Partner"
+      titleMustEqual("Contact Details - Your Partner")
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }

@@ -23,15 +23,15 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
       page goToThePage()
       page fillPageWith claim
-      val hoursPage = page submitPage()
+      val hoursPage = page submitPage(waitDuration = 60)
       hoursPage fillPageWith claim
-      val over16Page = hoursPage submitPage()
+      val over16Page = hoursPage submitPage(waitDuration = 60)
       over16Page fillPageWith claim
-      val livingGBPage = over16Page submitPage()
+      val livingGBPage = over16Page submitPage(waitDuration = 60)
       livingGBPage must beAnInstanceOf[G4LivingInGBPage]
       livingGBPage.previousPage mustEqual Some(over16Page)
       livingGBPage fillPageWith claim
-      livingGBPage submitPage()
+      livingGBPage submitPage(waitDuration = 60)
       browser.find("div[class=completed] ul li").get(3).getText must contain("Q4")
       browser.find("div[class=completed] ul li").get(3).getText must contain("Yes")
     }
