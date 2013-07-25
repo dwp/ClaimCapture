@@ -93,10 +93,15 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideNINOPersonCareFor = "AA123456A"
     claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/03/1990"
     claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
-    //  Their Contact Details
+    // Their Contact Details
     claim.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street\nLine 2"
     claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"
     claim.AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare = "07922 222 222"
+    // More About The Person
+    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
+    claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
+    claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "No"
+    // Previous Carer Personal Details
     claim
   }
 
