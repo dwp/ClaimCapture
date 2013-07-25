@@ -30,8 +30,8 @@ object Submission extends Controller with CachedClaim {
                 result match {
                   case "response" => Redirect(routes.ThankYou.present())
                   case "acknowledgement" => {
-                    // Todo : put the correlation id into cache for retry
-                    Redirect("/consentAndDeclaration/error")
+                    val correlationID = (response.xml \\ "CorrelationID").text
+                    Redirect("/consentAndDeclaration/error").withSession("cid" -> correlationID)
                   }
                   case _ => Redirect("/error")
                 }

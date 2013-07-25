@@ -177,6 +177,9 @@ POST    /employment/aboutExpenses                               controllers.s7_e
 GET     /employment/necessaryExpenses/:jobID                    controllers.s7_employment.G9NecessaryExpenses.present(jobID: String)
 POST    /employment/necessaryExpenses                           controllers.s7_employment.G9NecessaryExpenses.submit
 
+GET     /employment/childcareExpenses/:jobID                    controllers.s7_employment.G10ChildcareExpenses.present(jobID: String)
+POST    /employment/childcareExpenses                           controllers.s7_employment.G10ChildcareExpenses.submit
+
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
 POST    /employment/completed                                   controllers.s7_employment.Employment.submit
 
@@ -255,6 +258,12 @@ GET     /assets/*file                                           controllers.Asse
 # Self Employment
 GET     /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.present
 POST    /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.submit
+
+GET     /selfEmployment/expensesWhileAtWork                     controllers.s9_self_employment.G7ExpensesWhileAtWork.present
+POST    /selfEmployment/expensesWhileAtWork                     controllers.s9_self_employment.G7ExpensesWhileAtWork.submit
+
+GET     /selfEmployment/careProvidersContactDetails             controllers.s9_self_employment.G8CareProvidersContactDetails.present
+POST    /selfEmployment/careProvidersContactDetails             controllers.s9_self_employment.G8CareProvidersContactDetails.submit
 
 GET     /selfEmployment/completed                               controllers.s9_self_employment.SelfEmployment.completed
 POST    /selfEmployment/completed                               controllers.s9_self_employment.SelfEmployment.completedSubmit

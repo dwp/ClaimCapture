@@ -133,9 +133,13 @@ object ClaimScenarioFactory {
   
   def s9SelfEmployment = {
     val claim = s8otherMoney
-    //About self employment
+    // About self employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
       
+    
+    // Care provider's contact Details
+    claim.SelfEmployedCareProviderAddress = "Care Provider Address"
+    claim.SelfEmployedCareProviderPostcode = "Care Provider Postcode"
     // Completion
     //   None
 

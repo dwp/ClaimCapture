@@ -11,13 +11,13 @@ final class G9CompletedPage(browser: TestBrowser, previousPage: Option[Page] = N
 }
 
 object G9CompletedPage {
-  val title = "Self Employment - Completion"
+  val title = "Completion - Self Employment"
   val url = "/selfEmployment/completed"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G9CompletedPage(browser, previousPage)
 }
 
-trait G9CompletedPagePageContext extends PageContext {
+trait G9CompletedPageContext extends PageContext {
   this: {val browser: TestBrowser} =>
   val page = G9CompletedPage buildPageWith browser
 }
