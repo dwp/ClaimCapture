@@ -5,7 +5,7 @@ import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{NecessaryExpenses, AboutExpenses}
+import models.domain.NecessaryExpenses
 import utils.helpers.CarersForm._
 import Employment._
 

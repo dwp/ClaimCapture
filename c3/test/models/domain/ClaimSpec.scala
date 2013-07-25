@@ -69,7 +69,7 @@ class ClaimSpec extends Specification {
 
     "be able to update a section" in {
       val section = claim.section(CarersAllowance)
-      val updatedClaim = claim.update(section.hide())
+      val updatedClaim = claim.update(section.hide)
       val updatedSection = updatedClaim.section(CarersAllowance)
 
       updatedSection.visible must beFalse

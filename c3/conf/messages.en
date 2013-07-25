@@ -48,6 +48,19 @@ s5.g5 = Other EEA State or Switzerland
 s6.g1 = Your course details
 s6.g2 = School, college or university''s contact details
 
+s7.g1 = Have you been employed?
+s7.g2 = Details about your job: {0}
+s7.g3 = Employer''s contact details
+s7.g4 = Your last wage
+s7.g5 = Additional salary details
+s7.g6 = Money owed by employer
+s7.g7 = Pension scheme
+s7.g8 = About expenses to do with your employment
+s7.g9 = Necessary expenses to do your job
+s7.g10 = Childcare expenses
+s7.g11 = Childcare provider''s contact details
+s7.g12 = Expenses related to the person you care for while at work
+
 s8.g1 = Details about other money
 s8.g2 = Money paid to someone else for you
 s8.g3 = Person who gets this money
