@@ -7,6 +7,7 @@ import models.domain._
 import models.domain.Claim
 import play.api.data.Form
 import scala.reflect.ClassTag
+import play.api.i18n.Messages
 
 object Employment extends Controller with CachedClaim {
   implicit def jobFormFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
@@ -41,6 +42,15 @@ object Employment extends Controller with CachedClaim {
     Redirect(claim.nextSection(models.domain.CarersAllowance).firstPage)
   }
 
+  def delete(jobID: String) = claiming { implicit claim => implicit request =>
+    import play.api.libs.json.Json
+
+    val updatedJobs = jobs.delete(jobID)
+
+    if (updatedJobs.isEmpty) claim.update(updatedJobs) -> Ok(Json.obj("answer" -> Messages("answer.label")))
+    else claim.update(updatedJobs) -> Ok(Json.obj("answer" -> Messages("answer.more.label")))
+  }
+
   private def route(qg: QuestionGroup, jobID: String) = qg.identifier match {
     case JobDetails => routes.G2JobDetails.presentInJob(jobID)
     case EmployerContactDetails => routes.G3EmployerContactDetails.present(jobID)
@@ -50,6 +60,7 @@ object Employment extends Controller with CachedClaim {
     case PensionSchemes => routes.G7PensionSchemes.present(jobID)
     case AboutExpenses => routes.G8AboutExpenses.present(jobID)
     case NecessaryExpenses => routes.G9NecessaryExpenses.present(jobID)
+    case ChildcareExpenses => routes.G10ChildcareExpenses.present(jobID)
     case _ => routes.G1BeenEmployed.present()
   }
 }

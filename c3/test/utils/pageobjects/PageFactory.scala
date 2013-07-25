@@ -6,7 +6,8 @@ import scala.collection.mutable
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s8_other_money._
-import utils.pageobjects.s9_pay_details._
+import utils.pageobjects.s6_pay_details.G1HowWePayYouPage
+import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s9_self_employment._
 
@@ -36,10 +37,13 @@ object PageFactory {
       case G5MoreAboutYouPage.title => G5MoreAboutYouPage buildPageWith(browser, previousPage)
       case G6EmploymentPage.title => G6EmploymentPage buildPageWith(browser, previousPage)
       case G7PropertyAndRentPage.title => G7PropertyAndRentPage buildPageWith(browser, previousPage)
-      case CompletedPage.title => CompletedPage buildPageWith(browser, previousPage)
+      case G8CompletedPage.title => G8CompletedPage buildPageWith(browser, previousPage)
       // S3
       case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage buildPageWith(browser,previousPage)
       case G2YourPartnerContactDetailsPage.title => G2YourPartnerContactDetailsPage buildPageWith(browser, previousPage)
+      case G3MoreAboutYourPartnerPage.title => G3MoreAboutYourPartnerPage buildPageWith(browser, previousPage)
+      case G4PersonYouCareForPage.title => G4PersonYouCareForPage buildPageWith(browser,previousPage)
+      case G5CompletedPage.title => G5CompletedPage buildPageWith(browser, previousPage)
       // S6
       case G1HowWePayYouPage.title => G1HowWePayYouPage buildPageWith(browser, previousPage)
       // S8 TODO SKW these must be filled in so tests using  "must beAnInstanceOf" work correctly!!!
@@ -51,6 +55,7 @@ object PageFactory {
       case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage buildPageWith(browser, previousPage)
       // S9
       case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage buildPageWith(browser, previousPage)
+      case s9_self_employment.G9CompletedPage.title => s9_self_employment.G9CompletedPage buildPageWith(browser, previousPage)
       // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }

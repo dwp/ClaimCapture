@@ -60,9 +60,9 @@ case class Claim(sections: List[Section]) extends Timestamped {
 
   def isSectionVisible(sectionIdentifier: Section.Identifier) = section(sectionIdentifier).visible
 
-  def hideSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).hide())
+  def hideSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).hide)
 
-  def showSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).show())
+  def showSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).show)
 
   def showHideSection(visible: Boolean, sectionIdentifier: Section.Identifier) = {
     if (visible) showSection(sectionIdentifier) else hideSection(sectionIdentifier)
@@ -82,9 +82,9 @@ object Claim {
       Section(Employed, firstPage = controllers.s7_employment.routes.G1BeenEmployed.present(), lastPage = controllers.s7_employment.routes.Employment.completed()),
       Section(OtherMoney, firstPage = controllers.s8_other_money.routes.G1AboutOtherMoney.present(), lastPage = controllers.s8_other_money.routes.OtherMoney.completed()),
       Section(PayDetails, firstPage = controllers.s9_pay_details.routes.G1HowWePayYou.present(), lastPage = controllers.s9_pay_details.routes.PayDetails.completed()),
+      Section(SelfEmployment, firstPage = controllers.s9_self_employment.routes.G1AboutSelfEmployment.present(), lastPage = controllers.s9_self_employment.routes.SelfEmployment.completed()),
       Section(ConsentAndDeclaration, firstPage = controllers.s10_consent_and_declaration.routes.G1AdditionalInfo.present(), lastPage = controllers.s10_consent_and_declaration.routes.ConsentAndDeclaration.completed()))
 
     new Claim(sections = sections)
   }
-
 }

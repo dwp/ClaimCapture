@@ -3,7 +3,7 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
-import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, CompletedPage}
+import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G8CompletedPage}
 
 class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
 
@@ -56,7 +56,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
 
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
-      page runClaimWith (claim, CompletedPage.title)
+      page runClaimWith (claim, G8CompletedPage.title)
     }
   } section "integration"
 }

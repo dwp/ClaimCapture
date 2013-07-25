@@ -6,6 +6,7 @@ import models.PaymentFrequency
 import models.MultiLineAddress
 import models.PeriodFromTo
 import scala.Some
+import play.api.i18n.Messages
 
 object Employed extends Section.Identifier {
   val id = "s7"
@@ -24,38 +25,29 @@ case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Jobs) with NoRoutin
     if (updated.contains(job)) Jobs(updated) else Jobs(jobs :+ job)
   }
 
-  def update(questionGroup: QuestionGroup with Job.Identifier): Jobs = {
-    jobs.find(_.jobID == questionGroup.jobID) match {
-      case Some(job: Job) => update(job.update(questionGroup))
-      case _ => update(Job(questionGroup.jobID, questionGroup :: Nil))
-    }
+  def update(questionGroup: QuestionGroup with Job.Identifier): Jobs = jobs.find(_.jobID == questionGroup.jobID) match {
+    case Some(job: Job) => update(job.update(questionGroup))
+    case _ => update(Job(questionGroup.jobID, questionGroup :: Nil))
   }
 
-  def delete(jobID:String,questionGroup: QuestionGroup.Identifier): Jobs = {
-    jobs.find(_.jobID == jobID) match {
-      case Some(job: Job) => update(Job(jobID,job.questionGroups.filterNot(_.identifier.id == questionGroup.id)))
-      case _ => this
-    }
+  def delete(jobID: String): Jobs = Jobs(jobs.filterNot(_.jobID == jobID))
+
+  def delete(jobID: String, questionGroup: QuestionGroup.Identifier): Jobs = jobs.find(_.jobID == jobID) match {
+    case Some(job: Job) => update(Job(jobID,job.questionGroups.filterNot(_.identifier.id == questionGroup.id)))
+    case _ => this
   }
 
-  def apply(jobID:String): Option[Job] = jobs.find(_.jobID == jobID)
+  def apply(jobID: String): Option[Job] = jobs.find(_.jobID == jobID)
 
-  def questionGroup(questionGroup: QuestionGroup with Job.Identifier):Option[QuestionGroup] = {
-    this(questionGroup.jobID) match {
-      case Some(j:Job) => j(questionGroup)
-      case None => None
-    }
-
+  def questionGroup(questionGroup: QuestionGroup with Job.Identifier):Option[QuestionGroup] = this(questionGroup.jobID) match {
+    case Some(j:Job) => j(questionGroup)
+    case None => None
   }
 
-  def questionGroup(jobID:String, questionGroup: QuestionGroup.Identifier):Option[QuestionGroup] = {
-    this(jobID) match {
-      case Some(j:Job) => j(questionGroup)
-      case None => None
-    }
+  def questionGroup(jobID:String, questionGroup: QuestionGroup.Identifier):Option[QuestionGroup] = this(jobID) match {
+    case Some(j:Job) => j(questionGroup)
+    case None => None
   }
-
-
 
   override def iterator: Iterator[Job] = jobs.iterator
 }
@@ -79,8 +71,9 @@ case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identi
     case _ => ""
   }
 
-  def apply(questionGroup: QuestionGroup ): Option[QuestionGroup] = questionGroups.find(_.identifier == questionGroup.identifier)
-  def apply(questionGroup: QuestionGroup.Identifier ): Option[QuestionGroup] = questionGroups.find(_.identifier.id == questionGroup.id)
+  def apply(questionGroup: QuestionGroup): Option[QuestionGroup] = questionGroups.find(_.identifier == questionGroup.identifier)
+
+  def apply(questionGroup: QuestionGroup.Identifier): Option[QuestionGroup] = questionGroups.find(_.identifier.id == questionGroup.id)
 
   override def iterator: Iterator[QuestionGroup with Job.Identifier] = questionGroups.iterator
 }
@@ -89,12 +82,19 @@ object Job {
   trait Identifier {
     val jobID: String
   }
+
+  def jobID(currentForm: play.api.data.Form[_])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_]): String = {
+    val regex = """^(?:.*?)/employment/(?:.*?)(?:/(.*?))?$""".r
+    currentForm("jobID").value.getOrElse(regex.findFirstMatchIn(request.path).map(p => (p group 1) match{case s if s != null && s.length > 0 => s case _ => java.util.UUID.randomUUID.toString}).getOrElse(java.util.UUID.randomUUID.toString))
+  }
 }
 
 case class JobDetails(jobID: String,
                       employerName: String, jobStartDate: Option[DayMonthYear], finishedThisJob: String, lastWorkDate:Option[DayMonthYear],
                       p45LeavingDate: Option[DayMonthYear], hoursPerWeek: Option[String],
-                      jobTitle: Option[String], payrollEmployeeNumber: Option[String]) extends QuestionGroup(JobDetails) with Job.Identifier with NoRouting
+                      jobTitle: Option[String], payrollEmployeeNumber: Option[String]) extends QuestionGroup(JobDetails) with Job.Identifier with NoRouting {
+  override val definition = jobTitle.fold(Messages(identifier.id, employerName))(jt => Messages(identifier.id, s"$employerName, $jt"))
+}
 
 object JobDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g2"
@@ -158,9 +158,17 @@ object AboutExpenses extends QuestionGroup.Identifier {
 }
 
 case class NecessaryExpenses(jobID: String,
-                             whatAreThose: String, howMuchCostEachWeek: String, whyDoYouNeedThose: String) extends QuestionGroup(AboutExpenses) with Job.Identifier with NoRouting
+                             whatAreThose: String, howMuchCostEachWeek: String, whyDoYouNeedThose: String) extends QuestionGroup(NecessaryExpenses) with Job.Identifier with NoRouting
 
 
 object NecessaryExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g9"
+}
+
+case class ChildcareExpenses(jobID: String,
+                             howMuchCostChildcare:Option[String],whoLooksAfterChildren:String,relationToYou:Option[String],relationToPartner:Option[String]) extends QuestionGroup(ChildcareExpenses) with Job.Identifier with NoRouting
+
+
+object ChildcareExpenses extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g10"
 }

@@ -48,6 +48,19 @@ s5.g5 = Other EEA State or Switzerland
 s6.g1 = Your course details
 s6.g2 = School, college or university''s contact details
 
+s7.g1 = Have you been employed?
+s7.g2 = Details about your job: {0}
+s7.g3 = Employer''s contact details
+s7.g4 = Your last wage
+s7.g5 = Additional salary details
+s7.g6 = Money owed by employer
+s7.g7 = Pension scheme
+s7.g8 = About expenses to do with your employment
+s7.g9 = Necessary expenses to do your job
+s7.g10 = Childcare expenses
+s7.g11 = Childcare provider''s contact details
+s7.g12 = Expenses related to the person you care for while at work
+
 s8.g1 = Details about other money
 s8.g2 = Money paid to someone else for you
 s8.g3 = Person who gets this money
@@ -58,6 +71,8 @@ s8.g7 = Other EEA State or Switzerland
 
 s9.g1 = How would you like to get paid?
 s9.g2 = Bank/Building society details
+s9.g7 = Expenses related to the person you care for while at work
+s9.g8 = Care provider's contact Details
 
 s10.g1 = Additional information
 s10.g2 = Consent
@@ -309,6 +324,13 @@ whatAreThose = What is/was this item?
 howMuchCostEachWeek = Why do you need this item to do your job?
 whyDoYouNeedThose = How much did this item cost you each week?
 
+# CHILDCARE EXPENSES
+
+howMuchCostChildcare =  How much do you pay them?
+whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
+relationToYou = What relation, if any, is the person to you?
+relationToPartner = What relation, if any, is the person to your partner/spouse?
+
 
 ## OTHER MONEY
 # ABOUT OTHER MONEY
@@ -386,5 +408,8 @@ whenDidYouStartThisJob.label = When did you start this job?
 whenDidTheJobFinish.label = When did you finish this job?
 haveYouCeasedTrading.label = Have you ceased trading?
 natureOfYourBusiness.label = Nature of business?
-
+howMuchYouPay = How much did you pay them?
+nameOfPerson = Name of the person/organisation you pay
+whatRelationIsToYou = What relation, if any, is the person to you?
+whatRelationIsTothePersonYouCareFor = What relation, if any, is the person to the person you care for?
 

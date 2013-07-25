@@ -1,0 +1,30 @@
+@(currentForm: Form[models.domain.ExpensesWhileAtWork], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+
+@main("Expenses related to the person you care for while at work - Self Employment", Some(currentForm), completedQuestionGroups) {
+
+  <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s9_self_employment.routes.G7ExpensesWhileAtWork.submit) {
+
+        <fieldset class="form-elements">
+            <legend>Expenses related to the person you care for while at work</legend>
+
+            <ul class="group">
+                @carersInputText(currentForm("howMuchYouPay"))
+                @carersInputText(currentForm("nameOfPerson"))
+                @carersInputText(currentForm("whatRelationIsToYou"))
+                @carersInputText(currentForm("whatRelationIsTothePersonYouCareFor"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.ExpensesWhileAtWork)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

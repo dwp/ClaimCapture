@@ -2,6 +2,7 @@ package models.domain
 
 import models.DayMonthYear
 import play.api.mvc.Call
+import models.MultiLineAddress
 
 
 case object SelfEmployment extends Section.Identifier {
@@ -20,8 +21,23 @@ case class AboutSelfEmployment(call: Call,
                                natureOfYourBusiness: Option[String]
                                 ) extends QuestionGroup(AboutSelfEmployment)
 
+case class ExpensesWhileAtWork(call: Call,
+                                       howMuchYouPay: Option[String], 
+                                       nameOfPerson: String,
+                                       whatRelationIsToYou: Option[String],
+                                       whatRelationIsTothePersonYouCareFor: Option[String]) extends QuestionGroup(ExpensesWhileAtWork)
 
-case object SelfEmploymentYourAccounts extends QuestionGroup.Identifier {
+case object ExpensesWhileAtWork extends QuestionGroup.Identifier {
+  val id = s"${SelfEmployment.id}.g7"
+}
+
+case class CareProvidersContactDetails(call: Call,
+                                       address: Option[MultiLineAddress], 
+                                       postcode: Option[String]) extends QuestionGroup(CareProvidersContactDetails)
+
+case object CareProvidersContactDetails extends QuestionGroup.Identifier {
+  val id = s"${SelfEmployment.id}.g8"
+}case object SelfEmploymentYourAccounts extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g2"
 }
 

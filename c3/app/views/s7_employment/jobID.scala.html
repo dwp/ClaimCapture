@@ -1,1 +1,1 @@
-@(currentForm: Form[_])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])@currentForm("jobID").value.getOrElse("^(?:.*?)/employment/(?:.*?)(?:/(.*?))?$".r.findFirstMatchIn(request.path).map(p => (p group 1) match{case s if s != null && s.length > 0 => s case _ => java.util.UUID.randomUUID.toString}).getOrElse(java.util.UUID.randomUUID.toString))
+@(currentForm: Form[_])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])@models.domain.Job.jobID(currentForm)

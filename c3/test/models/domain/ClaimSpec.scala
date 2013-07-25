@@ -11,7 +11,7 @@ class ClaimSpec extends Specification {
   "Claim" should {
     "initially be filled with all sections" in {
       val newClaim = Claim()
-      newClaim.sections.size mustEqual 10
+      newClaim.sections.size mustEqual 11
     }
 
     "contain the sectionId with the question group after adding" in {
@@ -69,7 +69,7 @@ class ClaimSpec extends Specification {
 
     "be able to update a section" in {
       val section = claim.section(CarersAllowance)
-      val updatedClaim = claim.update(section.hide())
+      val updatedClaim = claim.update(section.hide)
       val updatedSection = updatedClaim.section(CarersAllowance)
 
       updatedSection.visible must beFalse
