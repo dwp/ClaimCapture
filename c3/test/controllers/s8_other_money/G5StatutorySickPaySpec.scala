@@ -7,12 +7,14 @@ import play.api.cache.Cache
 import models.MultiLineAddress
 import scala.Some
 import models.domain.{Section, StatutorySickPay, Claim, Claiming}
+import models.PaymentFrequency
 
 class G5StatutorySickPaySpec extends Specification with Tags {
   "Other Money - Statutory Pay - Controller" should {
     val haveYouHadAnyStatutorySickPay = "yes"
     val howMuch = "bar"
-    val howOften = "fizz"
+    val howOften_frequency = "Weekly"
+    val howOften_other = "other"
     val employersName = "Johny B Good"
     val employersAddressLineOne =  "lineOne"
     val employersAddressLineTwo = "lineTwo"
@@ -21,7 +23,8 @@ class G5StatutorySickPaySpec extends Specification with Tags {
       
     val statutorySickPayInput = Seq("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay,
       "howMuch" -> howMuch,
-      "howOften" -> howOften,
+      "howOften.frequency" -> howOften_frequency,
+      "howOften.other" -> howOften_other,
       "employersName" -> employersName,
       "employersAddress.lineOne" -> employersAddressLineOne, 
       "employersAddress.lineTwo" -> employersAddressLineTwo, 
@@ -47,7 +50,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
         case Some(f: StatutorySickPay) => {
           f.haveYouHadAnyStatutorySickPay must equalTo(haveYouHadAnyStatutorySickPay)
           f.howMuch must equalTo(Some(howMuch))
-          f.howOften must equalTo(Some(howOften))
+          f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_other))))
           f.employersName must equalTo(Some(employersName))
           f.employersAddress must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
           f.employersPostcode must equalTo(Some(employersPostcode))

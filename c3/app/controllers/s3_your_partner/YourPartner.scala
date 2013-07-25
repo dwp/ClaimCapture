@@ -4,6 +4,7 @@ import play.api.mvc._
 import models.view._
 import play.api.templates.Html
 import models.domain.Claim
+import models.domain.Section
 
 object YourPartner extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.YourPartner)
@@ -16,13 +17,12 @@ object YourPartner extends Controller with CachedClaim {
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+    Redirect(claim.nextSection(models.domain.YourPartner).firstPage)
   }
 
-  def whenVisible(claim: Claim)(closure: () => SimpleResult[Html]) = {
-    val iAmVisible = claim.isSectionVisible(models.domain.YourPartner)
-
-    if (iAmVisible) closure() else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+  def whenVisible(claim: Claim)(f: => SimpleResult[Html]) = {
+    if (claim.isSectionVisible(models.domain.YourPartner)) f
+    else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }
 
   def yourPartner = claiming {

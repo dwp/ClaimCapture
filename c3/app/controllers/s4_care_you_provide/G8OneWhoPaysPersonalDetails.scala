@@ -1,5 +1,6 @@
 package controllers.s4_care_you_provide
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -30,16 +31,10 @@ object G8OneWhoPaysPersonalDetails extends Controller with CachedClaim {
       case _ => false
     }
 
-    if (hasSomeonePaidYou) {
-      val currentForm = claim.questionGroup(OneWhoPaysPersonalDetails) match {
-        case Some(o: OneWhoPaysPersonalDetails) => form.fill(o)
-        case _ => form
-      }
-
-      Ok(views.html.s4_care_you_provide.g8_oneWhoPaysPersonalDetails(currentForm, completedQuestionGroups))
-    } else {
+    if (hasSomeonePaidYou)
+      Ok(views.html.s4_care_you_provide.g8_oneWhoPaysPersonalDetails(form.fill(OneWhoPaysPersonalDetails), completedQuestionGroups))
+    else
       claim.delete(OneWhoPaysPersonalDetails) -> Redirect(routes.G9ContactDetailsOfPayingPerson.present())
-    }
   }
 
   def submit = claiming { implicit claim => implicit request =>

@@ -16,28 +16,28 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
     "be presented" in new WithBrowser with G5StatutorySickPayPageContext {
       page goToThePage ()
     }
-/*
-    "not be presented if not claimed benefits" in new WithBrowser with G4ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
-      claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "No"
 
-      page goToThePage ()
-      page fillPageWith claim
-      val moreAboutYouPage = page.submitPage()
-
-      moreAboutYouPage fillPageWith claim
-      val nextPage = moreAboutYouPage.submitPage()
-
-      nextPage.goToPage(new G4PersonContactDetailsPage(browser)) must throwA[PageObjectException]
-    }
-
-    "contain errors on invalid submission" in new WithBrowser with G4PersonContactDetailsPageContext {
-      val claim = new ClaimScenario
-      claim.OtherMoneyPostCode = "INVALID"
-      page goToThePage ()
-      page fillPageWith claim
-      val pageWithErrors = page.submitPage()
-      pageWithErrors.listErrors.size mustEqual 1
+    "contain errors on invalid submission" in {
+      "had sick pay but missing mandatory field" in new WithBrowser with G5StatutorySickPayPageContext {
+        val claim = new ClaimScenario
+        claim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay = "yes"
+        page goToThePage ()
+        page fillPageWith claim
+        val pageWithErrors = page.submitPage()
+        pageWithErrors.listErrors.size mustEqual 1
+      }
+      
+      "had sick pay but then invalid postcode" in new WithBrowser with G5StatutorySickPayPageContext {
+        val claim = new ClaimScenario
+        claim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay = "yes"
+        claim.OtherMoneyStatutorySickPayEmployersNameEmployers = "Johnny B Good"
+        claim.OtherMoneyStatutorySickPayEmployersPostCode = "INVALID"
+        page goToThePage ()
+        page fillPageWith claim
+        val pageWithErrors = page.submitPage()
+        pageWithErrors.listErrors.size mustEqual 1
+        pageWithErrors.listErrors(0).contains("postcode")
+      }
     }
 
     "contain the completed forms" in new WithBrowser with G1AboutOtherMoneyPageContext {
@@ -45,29 +45,29 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
       page goToThePage ()
       page fillPageWith claim
       val moneyPaidPage = page submitPage ()
-      val personContactPage = moneyPaidPage.goToPage(new G4PersonContactDetailsPage(browser))
+      val personContactPage = moneyPaidPage.goToPage(new G5StatutorySickPayPage(browser))
       personContactPage.listCompletedForms.size mustEqual 1
     }
 
-    "navigate back to Person Who Gets This Money" in new WithBrowser with G4ClaimDatePageContext {
-      val claimS2 = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
+    "navigate back" in new WithBrowser with G2MoneyPaidToSomeoneElseForYouPageContext {
+      val claim = ClaimScenarioFactory.s8otherMoney
       page goToThePage ()
-      page fillPageWith claimS2
-      val moreAboutYouPage = page.submitPage()
-      moreAboutYouPage fillPageWith claimS2
-      val employmentPage = moreAboutYouPage.submitPage()
-      val claimS8 = ClaimScenarioFactory.s8otherMoney
-      val s8g3 = employmentPage goToPage (new G3PersonWhoGetsThisMoneyPage(browser))
-      s8g3 fillPageWith claimS8
-      val s8g4 = s8g3 submitPage ()
-      val previousPage = s8g4 goBack ()
-      previousPage.pageTitle mustEqual "Person Who Gets This Money - Other Money"
-      previousPage must beAnInstanceOf[G3PersonWhoGetsThisMoneyPage]
+      page fillPageWith claim
+      val nextPage = page.submitPage()
+      nextPage must beAnInstanceOf[G5StatutorySickPayPage]
+      val prevPage = nextPage.goBack()
+      prevPage must beAnInstanceOf[G2MoneyPaidToSomeoneElseForYouPage]
     }
 
-    //    "navigate to next page on valid submission" in new WithBrowser {
-    //      pending
-    //    }
-*/
+    "navigate to next page on valid submission" in new WithBrowser with G5StatutorySickPayPageContext {
+      val claim = ClaimScenarioFactory.s8otherMoney
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+
+      nextPage must beAnInstanceOf[G6OtherStatutoryPayPage]
+    }
+
   } section "integration"
 }

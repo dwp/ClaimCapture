@@ -17,23 +17,18 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
       page goToThePage()
     }
 
-    "not be presented if not claimed benefits" in new WithBrowser with G4ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
-      claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "No"
-
+    "be skipped if nobody had any money added to a benefit for you" in new WithBrowser with G2MoneyPaidToSomeoneElseForYouPageContext {
+      val claim = ClaimScenarioFactory.s8otherMoney
+      claim.OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim = "no"
       page goToThePage()
       page fillPageWith claim
-      val moreAboutYouPage = page.submitPage()
-
-      moreAboutYouPage fillPageWith claim
-      val nextPage = moreAboutYouPage.submitPage()
-
-      nextPage.goToPage(new G4PersonContactDetailsPage(browser)) must throwA[PageObjectException]
+      page submitPage()
+      val g4Page = page goToPage(new G4PersonContactDetailsPage(browser)) must throwA[PageObjectException]
     }
 
     "contain errors on invalid submission" in new WithBrowser with G4PersonContactDetailsPageContext {
       val claim = new ClaimScenario
-      claim.OtherMoneyPostCode = "INVALID"
+      claim.OtherMoneyOtherPersonPostcode = "INVALID"
       page goToThePage()
       page fillPageWith claim
       val pageWithErrors = page.submitPage()

@@ -1,5 +1,6 @@
 package controllers.s4_care_you_provide
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import models.domain.RepresentativesForPerson
@@ -7,7 +8,6 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import models.domain.Claim
-import scala.Some
 import utils.helpers.CarersForm._
 import play.api.data.FormError
 import models.yesNo.{YesNoWithDropDownAndText, YesNoWithDropDown}
@@ -38,12 +38,7 @@ object G6RepresentativesForThePerson extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(RepresentativesForPerson)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm = claim.questionGroup(RepresentativesForPerson) match {
-      case Some(r: RepresentativesForPerson) => form.fill(r)
-      case _ => form
-    }
-
-    Ok(views.html.s4_care_you_provide.g6_representativesForThePerson(currentForm, completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g6_representativesForThePerson(form.fill(RepresentativesForPerson), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

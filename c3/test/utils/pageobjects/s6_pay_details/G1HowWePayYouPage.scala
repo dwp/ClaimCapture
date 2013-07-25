@@ -21,7 +21,8 @@ class G1HowWePayYouPage(browser: TestBrowser, previousPage: Option[Page] = None)
 
 /**
  * Companion object that integrates factory method.
- * It is used by PageFactory object defined in Page.scala
+ * It is used by PageFactory object d
+ * efined in Page.scala
  */
 object G1HowWePayYouPage {
   val title = "How We Pay You - Pay Details"

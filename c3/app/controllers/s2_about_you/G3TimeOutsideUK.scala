@@ -1,5 +1,6 @@
 package controllers.s2_about_you
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
@@ -40,12 +41,7 @@ object G3TimeOutsideUK extends Controller with CachedClaim {
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(YourDetails) match {
       case Some(y: YourDetails) if y.alwaysLivedUK == "yes" => claim.delete(TimeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
-      case _ =>
-        val timeOutsideUKForm: Form[TimeOutsideUK] = claim.questionGroup(TimeOutsideUK) match {
-          case Some(t: TimeOutsideUK) => form.fill(t)
-          case _ => form
-        }
-        Ok(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKForm, completedQuestionGroups))
+      case _ => Ok(views.html.s2_about_you.g3_timeOutsideUK(form.fill(TimeOutsideUK), completedQuestionGroups))
     }
   }
 

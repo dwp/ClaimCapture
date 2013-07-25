@@ -22,7 +22,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       Formulate.employment(browser)
       Formulate.propertyAndRent(browser)
       
-      browser.find("#submit").getText mustEqual "Continue to Partner/Spouse"
+      browser.find("#submit").getText mustEqual "Continue to Your partner"
     }
     
     """show the text "Continue to Care You Provide" on the submit button when next section is "Care You Provide"""" in new WithBrowser {
@@ -33,7 +33,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       Formulate.employment(browser)
       Formulate.propertyAndRent(browser)
       
-      browser.find("#submit").getText mustEqual "Continue to care you provide"
+      browser.find("#submit").getText mustEqual "Continue to Care you provide"
     }
 
     """be submitted to "Personal Details - Your Partner" page when they have had a partner/spouse at any time since the claim date""" in new WithBrowser {

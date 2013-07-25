@@ -1,5 +1,6 @@
 package controllers.s4_care_you_provide
 
+import language.reflectiveCalls
 import models.domain.{Claim, MoreAboutTheCare}
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
@@ -28,12 +29,7 @@ object G7MoreAboutTheCare extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutTheCare)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm = claim.questionGroup(MoreAboutTheCare) match {
-      case Some(m: MoreAboutTheCare) => form.fill(m)
-      case _ => form
-    }
-
-    Ok(views.html.s4_care_you_provide.g7_moreAboutTheCare(currentForm, completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g7_moreAboutTheCare(form.fill(MoreAboutTheCare), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

@@ -30,7 +30,7 @@ object MockPage {
 }
 
 /** The context for Specs tests */
-trait MockPageContext extends PageContext with Mockito {
+class MockPageContext extends PageContext with Mockito {
     val browser = {
     val mockedBrowser = mock[play.api.test.TestBrowser]
     mockedBrowser.title returns  MockPage.title
@@ -53,6 +53,7 @@ trait MockPageWrongTitleContext extends PageContext with Mockito {
     mockedBrowser.title returns  "Wrong Title"
     val test = (x:Boolean) => true
     mockedBrowser.waitUntil[Boolean](30, TimeUnit.SECONDS)(_:Boolean) returns true
+    mockedBrowser.waitUntil[Boolean](20, TimeUnit.SECONDS)(_:Boolean) returns false
     mockedBrowser
   }
   val page = MockPage buildPage(browser)

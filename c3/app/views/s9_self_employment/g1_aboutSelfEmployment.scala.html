@@ -1,0 +1,47 @@
+@(currentForm: Form[models.domain.AboutSelfEmployment], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import views.html.helper.dates._
+
+@main("Self Employment - About Self Employment", Some(currentForm), completedQuestionGroups) {
+
+    @form(action = controllers.s9_self_employment.routes.G1AboutSelfEmployment.submit) {
+
+        <fieldset class="form-elements">
+            <legend>About Self Employment (ASP)</legend>
+
+            <ul class="group">
+              @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"), '_label -> Messages("areYouSelfEmployedNow.label"))
+
+              @otherDetailPlaceHolder(
+                  inputDef = Seq(
+                    inputDayMonthYear(currentForm("whenDidYouStartThisJob"), '_label -> Messages("whenDidYouStartThisJob.label"), 'helperBelow -> Messages("dateOfBirth.helper")),
+                    inputDayMonthYear(currentForm("whenDidTheJobFinish"), '_label -> Messages("whenDidTheJobFinish.label"), 'helperBelow -> Messages("dateOfBirth.helper")),
+                    yesNoRadioGroup(currentForm("haveYouCeasedTrading"), '_label -> Messages("haveYouCeasedTrading.label")),
+                    carersInputText(currentForm("natureOfYourBusiness"), 'maxLength -> Mappings.sixty, '_label -> Messages("natureOfYourBusiness.label"))
+                  ),
+                  'id -> "selfEmployedWrap",
+                  'display -> currentForm("areYouSelfEmployedNow").value.getOrElse("no")
+              )
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.AboutSelfEmployment)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s9_self_employment/g1_aboutSelfEmployment.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("areYouSelfEmployedNow_yes")", "@CarersCrypto.encryptAES("areYouSelfEmployedNow_no")");
+    });
+</script>

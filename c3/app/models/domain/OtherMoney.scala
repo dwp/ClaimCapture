@@ -36,7 +36,7 @@ case object PersonContactDetails extends QuestionGroup.Identifier {
 
 case class StatutorySickPay(haveYouHadAnyStatutorySickPay: String,
                             howMuch: Option[String],
-                            howOften: Option[String],
+                            howOften: Option[PaymentFrequency],
                             employersName: Option[String],
                             employersAddress: Option[MultiLineAddress],
                             employersPostcode: Option[String],
@@ -46,7 +46,7 @@ case object StatutorySickPay extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g5"
 }
 
-case class OtherStatutoryPay(answer:String, call:Call) extends QuestionGroup(StatutorySickPay)
+case class OtherStatutoryPay(otherPay:String, howMuch:Option[String], howOften:Option[PaymentFrequency], employersName:Option[String], employersAddress:Option[MultiLineAddress], employersPostcode:Option[String], call:Call) extends QuestionGroup(OtherStatutoryPay)
 
 case object OtherStatutoryPay extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g6"

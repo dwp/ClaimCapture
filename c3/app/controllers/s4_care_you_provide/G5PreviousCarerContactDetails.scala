@@ -1,5 +1,6 @@
 package controllers.s4_care_you_provide
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
 import controllers.Mappings
 import models.view.CachedClaim
@@ -27,14 +28,10 @@ object G5PreviousCarerContactDetails extends Controller with CachedClaim {
       case _ => false
     }
 
-    if (claimedAllowanceBefore) {
-      val currentForm: Form[PreviousCarerContactDetails] = claim.questionGroup(PreviousCarerContactDetails) match {
-        case Some(p: PreviousCarerContactDetails) => form.fill(p)
-        case _ => form
-      }
-
-      Ok(views.html.s4_care_you_provide.g5_previousCarerContactDetails(currentForm, completedQuestionGroups))
-    } else claim.delete(PreviousCarerContactDetails) -> Redirect(routes.G6RepresentativesForThePerson.present())
+    if (claimedAllowanceBefore)
+      Ok(views.html.s4_care_you_provide.g5_previousCarerContactDetails(form.fill(PreviousCarerContactDetails), completedQuestionGroups))
+    else
+      claim.delete(PreviousCarerContactDetails) -> Redirect(routes.G6RepresentativesForThePerson.present())
   }
 
   def submit = claiming { implicit claim => implicit request =>

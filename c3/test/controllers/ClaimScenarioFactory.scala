@@ -67,7 +67,7 @@ object ClaimScenarioFactory {
 
   def s2ands3WithTimeOUtsideUKAndProperty() = {
     val claim = s2AboutYouWithTimeOutside()
-
+    // Partner personal detals
     claim.AboutYourPartnerTitle = "Mrs"
     claim.AboutYourPartnerFirstName = "Cloe"
     claim.AboutYourPartnerMiddleName = "Scott"
@@ -76,9 +76,13 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerNINO = "AB123456A"
     claim.AboutYourPartnerDateofBirth = "12/07/1990"
     claim.AboutYourPartnerNationality = "British"
+    // More about your partner
     claim.AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou = "Yes"
+    // Person you care for
+    claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
     claim
   }
+
 
   def s6PayDetails() = {
     val claim = new ClaimScenario
@@ -91,12 +95,32 @@ object ClaimScenarioFactory {
   def s8otherMoney = {
     val claim = s2AboutYouWithTimeOutside()
     //About other money
-    claim.OtherMoneyAboutYourBenefits = "no"
+    claim.OtherMoneyHaveYouClaimedOtherBenefits = "no"
     //Money paid to someone welse for you
-    claim.OtherMoneyG2MoneyPaidToSomeoneElseForYou = "no"
+    claim.OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim = "no"
     //Person Who Gets This Money
-    claim.OtherMoneyG3FullName = "Jason"
-    claim.OtherMoneyG3NameOfBenefit = "Benefit Name"
+    claim.OtherMoneyOtherPersonFullName = "Jason"
+    claim.OtherMoneyOtherPersonBenefit = "Benefit Name"
+    // G4 Person Contact Details
+    claim.OtherMoneySMPEmployerName = "Employers Name"
+    claim.OtherMoneyOtherPersonAddress = "Other Person Address"
+    claim.OtherMoneyOtherPersonPostcode = "SE1 6EH"
+    // G5 Statutory Sick Pay
+    claim.OtherMoneyHaveYouSSPSinceClaim = "no"
+    // G6 Other Statutory Pay
+    claim.OtherMoneyHaveYouSMPSinceClaim = "no"
+
+    claim
+  }
+  
+  
+  def s9SelfEmployment = {
+    val claim = s8otherMoney
+    //About self employment
+    claim.SelfEmployedAreYouSelfEmployedNow = "no"
+      
+    // Completion
+    //   None
 
     claim
   }

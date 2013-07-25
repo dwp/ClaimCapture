@@ -7,8 +7,9 @@ import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s8_other_money._
 import utils.pageobjects.s6_pay_details.G1HowWePayYouPage
-import utils.pageobjects.s3_your_partner.{G2YourPartnerContactDetailsPage, G1YourPartnerPersonalDetailsPage}
-
+import utils.pageobjects.s3_your_partner._
+import utils.pageobjects.s3_your_partner._
+import utils.pageobjects.s9_self_employment._
 
 /**
  * Factory used by Page to create from an html page the right page object.
@@ -17,13 +18,6 @@ import utils.pageobjects.s3_your_partner.{G2YourPartnerContactDetailsPage, G1You
  *         Date: 10/07/2013
  */
 object PageFactory {
-
-  def buildXmlMappingFromFile(fileName: String) = {
-    val map = mutable.Map[String, Array[String]]()
-    def converter(name: String)(value: String): Unit = map += (name -> value.split(">"))
-    FactoryFromFile.buildFromFile(fileName, converter)
-    map
-  }
 
   def buildPageFromTitle(browser: TestBrowser, title: String, previousPage: Option[Page], iteration: Int) = {
     // Generic solution using mapping does not work because the objects should register themselves
@@ -43,18 +37,25 @@ object PageFactory {
       case G5MoreAboutYouPage.title => G5MoreAboutYouPage buildPageWith(browser, previousPage)
       case G6EmploymentPage.title => G6EmploymentPage buildPageWith(browser, previousPage)
       case G7PropertyAndRentPage.title => G7PropertyAndRentPage buildPageWith(browser, previousPage)
-      case CompletedPage.title => CompletedPage buildPageWith(browser, previousPage)
+      case G8CompletedPage.title => G8CompletedPage buildPageWith(browser, previousPage)
       // S3
       case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage buildPageWith(browser,previousPage)
       case G2YourPartnerContactDetailsPage.title => G2YourPartnerContactDetailsPage buildPageWith(browser, previousPage)
+      case G3MoreAboutYourPartnerPage.title => G3MoreAboutYourPartnerPage buildPageWith(browser, previousPage)
+      case G4PersonYouCareForPage.title => G4PersonYouCareForPage buildPageWith(browser,previousPage)
+      case G5CompletedPage.title => G5CompletedPage buildPageWith(browser, previousPage)
       // S6
       case G1HowWePayYouPage.title => G1HowWePayYouPage buildPageWith(browser, previousPage)
       // S8 TODO SKW these must be filled in so tests using  "must beAnInstanceOf" work correctly!!!
       case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage buildPageWith(browser, previousPage)
+      case G2MoneyPaidToSomeoneElseForYouPage.title => G2MoneyPaidToSomeoneElseForYouPage buildPageWith(browser, previousPage)
       case G3PersonWhoGetsThisMoneyPage.title => G3PersonWhoGetsThisMoneyPage buildPageWith(browser, previousPage)
       case G4PersonContactDetailsPage.title => G4PersonContactDetailsPage buildPageWith(browser, previousPage)
       case G5StatutorySickPayPage.title => G5StatutorySickPayPage buildPageWith(browser, previousPage)
       case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage buildPageWith(browser, previousPage)
+      // S9
+      case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage buildPageWith(browser, previousPage)
+      case s9_self_employment.G9CompletedPage.title => s9_self_employment.G9CompletedPage buildPageWith(browser, previousPage)
       // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }

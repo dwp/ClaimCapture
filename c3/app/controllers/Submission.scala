@@ -22,9 +22,19 @@ object Submission extends Controller with CachedClaim {
           response => {
             response.status match {
               case http.Status.OK =>
-                Logger.info(s"Received response : ${response.toString}")
-                // What we'll really do with the response is redirect to relevant page
-                Redirect(routes.ThankYou.present())
+                val responseStr = response.body
+                Logger.info(s"Received response : $responseStr")
+                val responseXml = scala.xml.XML.loadString(responseStr)
+                val result = (responseXml \\ "result").text
+                Logger.info(s"Received result : $result")
+                result match {
+                  case "response" => Redirect(routes.ThankYou.present())
+                  case "acknowledgement" => {
+                    // Todo : put the correlation id into cache for retry
+                    Redirect("/consentAndDeclaration/error")
+                  }
+                  case _ => Redirect("/error")
+                }
               case http.Status.BAD_REQUEST =>
                 Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}")
                 Redirect("/error")

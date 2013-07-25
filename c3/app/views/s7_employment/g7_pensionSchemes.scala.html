@@ -1,0 +1,39 @@
+@(currentForm: Form[models.domain.PensionSchemes], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+@import views.html.s7_employment.jobID
+
+@main("Pension schemes - Employment", Some(currentForm), completedQuestionGroups) {
+    @form(action = controllers.s7_employment.routes.G7PensionSchemes.submit()) {
+        <input type="hidden" name="jobID" value='@jobID(currentForm)'>
+
+        <fieldset class="form-elements">
+            <legend>Pension schemes</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("payOccupationalPensionScheme"))
+
+                @carersInputText(currentForm("howMuchPension"))
+
+                @carersSelect(currentForm("howOftenPension"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))
+
+                @yesNoRadioGroup(currentForm("payPersonalPensionScheme"))
+
+                @carersInputText(currentForm("howMuchPersonal"))
+
+                @carersSelect(currentForm("howOftenPersonal"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

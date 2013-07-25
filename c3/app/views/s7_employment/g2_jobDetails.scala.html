@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.JobDetails])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.JobDetails])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -6,6 +6,7 @@
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
+@import views.html.s7_employment.jobID
 @import utils.helpers.CarersCrypto
 
 @main("Job Details - Employment", Some(currentForm)) {
@@ -13,7 +14,7 @@
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s7_employment.routes.G2JobDetails.submit()) {
-        <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
+        <input type="hidden" name="jobID" value='@jobID(currentForm)'>
 
         <fieldset class="form-elements">
             <legend>Details about your job</legend>
@@ -38,7 +39,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@back(models.domain.JobDetails)" class="button secondary">Back</a>
+            <a id="backButton" href="@controllers.s7_employment.routes.G1BeenEmployed.present" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

@@ -12,7 +12,7 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
   "Employer's contact details" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFlash("jobID" -> "")
-      val result = G3EmployerContactDetails.present(request)
+      val result = G3EmployerContactDetails.present("Dummy job ID")(request)
       status(result) mustEqual OK
     }
 
@@ -37,7 +37,6 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
       status(result) mustEqual SEE_OTHER
 
       val claim = Cache.getAs[Claim](claimKey).get
-      println(claim)
 
       claim.questionGroup(Jobs) must beLike {
         case Some(js: Jobs) => {

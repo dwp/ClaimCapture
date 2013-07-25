@@ -148,20 +148,32 @@ POST    /education/completed                                    controllers.s6_e
 GET     /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.present
 POST    /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.submit
 
+GET     /employment/job/:jobID                                  controllers.s7_employment.G2JobDetails.job(jobID: String)
+
 GET     /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.present
+GET     /employment/jobDetails/:jobID                           controllers.s7_employment.G2JobDetails.presentInJob(jobID: String)
 POST    /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.submit
 
-GET     /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.present
+GET     /employment/employersContactDetails/:jobID              controllers.s7_employment.G3EmployerContactDetails.present(jobID: String)
 POST    /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.submit
 
-GET     /employment/lastWage                                    controllers.s7_employment.G4LastWage.present
+GET     /employment/lastWage/:jobID                             controllers.s7_employment.G4LastWage.present(jobID: String)
 POST    /employment/lastWage                                    controllers.s7_employment.G4LastWage.submit
 
-GET     /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.present
+GET     /employment/additionalWageDetails/:jobID                controllers.s7_employment.G5AdditionalWageDetails.present(jobID: String)
 POST    /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.submit
 
-GET     /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.present
+GET     /employment/moneyOwedByEmployer/:jobID                  controllers.s7_employment.G6MoneyOwedbyEmployer.present(jobID: String)
 POST    /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.submit
+
+GET     /employment/pensionSchemes/:jobID                       controllers.s7_employment.G7PensionSchemes.present(jobID: String)
+POST    /employment/pensionSchemes                              controllers.s7_employment.G7PensionSchemes.submit
+
+GET     /employment/aboutExpenses/:jobID                        controllers.s7_employment.G8AboutExpenses.present(jobID: String)
+POST    /employment/aboutExpenses                               controllers.s7_employment.G8AboutExpenses.submit
+
+GET     /employment/necessaryExpenses/:jobID                    controllers.s7_employment.G9NecessaryExpenses.present(jobID: String)
+POST    /employment/necessaryExpenses                           controllers.s7_employment.G9NecessaryExpenses.submit
 
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
 POST    /employment/completed                                   controllers.s7_employment.Employment.submit
@@ -186,36 +198,42 @@ POST    /otherMoney/statutorySickPay                            controllers.s8_o
 GET     /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.present
 POST    /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.submit
 
+GET     /otherMoney/completed                                   controllers.s8_other_money.OtherMoney.completed
+POST    /otherMoney/completed                                   controllers.s8_other_money.OtherMoney.completedSubmit
+
 # Pay Details
 ###############
-GET     /payDetails/howWePayYou                                 controllers.s6_pay_details.G1HowWePayYou.present
-POST    /payDetails/howWePayYou                                 controllers.s6_pay_details.G1HowWePayYou.submit
+GET     /payDetails/howWePayYou                                 controllers.s9_pay_details.G1HowWePayYou.present
+POST    /payDetails/howWePayYou                                 controllers.s9_pay_details.G1HowWePayYou.submit
 
-GET     /payDetails/bankBuildingSocietyDetails                  controllers.s6_pay_details.G2BankBuildingSocietyDetails.present
-POST    /payDetails/bankBuildingSocietyDetails                  controllers.s6_pay_details.G2BankBuildingSocietyDetails.submit
+GET     /payDetails/bankBuildingSocietyDetails                  controllers.s9_pay_details.G2BankBuildingSocietyDetails.present
+POST    /payDetails/bankBuildingSocietyDetails                  controllers.s9_pay_details.G2BankBuildingSocietyDetails.submit
 
-GET     /payDetails/completed                                   controllers.s6_pay_details.PayDetails.completed
-POST    /payDetails/completed                                   controllers.s6_pay_details.PayDetails.completedSubmit
+GET     /payDetails/completed                                   controllers.s9_pay_details.PayDetails.completed
+POST    /payDetails/completed                                   controllers.s9_pay_details.PayDetails.completedSubmit
 
 # Consent And Declaration
 ###############
 
-GET     /consentAndDeclaration/additionalInfo                   controllers.s7_consent_and_declaration.G1AdditionalInfo.present
-POST    /consentAndDeclaration/additionalInfo                   controllers.s7_consent_and_declaration.G1AdditionalInfo.submit
+GET     /consentAndDeclaration/additionalInfo                   controllers.s10_consent_and_declaration.G1AdditionalInfo.present
+POST    /consentAndDeclaration/additionalInfo                   controllers.s10_consent_and_declaration.G1AdditionalInfo.submit
 
-GET     /consentAndDeclaration/consent                          controllers.s7_consent_and_declaration.G2Consent.present
-POST    /consentAndDeclaration/consent                          controllers.s7_consent_and_declaration.G2Consent.submit
+GET     /consentAndDeclaration/consent                          controllers.s10_consent_and_declaration.G2Consent.present
+POST    /consentAndDeclaration/consent                          controllers.s10_consent_and_declaration.G2Consent.submit
 
-GET     /consentAndDeclaration/disclaimer                       controllers.s7_consent_and_declaration.G3Disclaimer.present
-POST    /consentAndDeclaration/disclaimer                       controllers.s7_consent_and_declaration.G3Disclaimer.submit
+GET     /consentAndDeclaration/disclaimer                       controllers.s10_consent_and_declaration.G3Disclaimer.present
+POST    /consentAndDeclaration/disclaimer                       controllers.s10_consent_and_declaration.G3Disclaimer.submit
 
-GET     /consentAndDeclaration/declaration                      controllers.s7_consent_and_declaration.G4Declaration.present
-POST    /consentAndDeclaration/declaration                      controllers.s7_consent_and_declaration.G4Declaration.submit
+GET     /consentAndDeclaration/declaration                      controllers.s10_consent_and_declaration.G4Declaration.present
+POST    /consentAndDeclaration/declaration                      controllers.s10_consent_and_declaration.G4Declaration.submit
 
-GET     /consentAndDeclaration/submit                           controllers.s7_consent_and_declaration.G5Submit.present
-POST    /consentAndDeclaration/submit                           controllers.s7_consent_and_declaration.G5Submit.submit
+GET     /consentAndDeclaration/submit                           controllers.s10_consent_and_declaration.G5Submit.present
+POST    /consentAndDeclaration/submit                           controllers.s10_consent_and_declaration.G5Submit.submit
 
-GET     /consentAndDeclaration/error                            controllers.s7_consent_and_declaration.G6Error.present
+GET     /consentAndDeclaration/error                            controllers.s10_consent_and_declaration.G6Error.present
+
+GET     /consentAndDeclaration/completed                        controllers.s10_consent_and_declaration.ConsentAndDeclaration.completed
+POST    /consentAndDeclaration/completed                        controllers.s10_consent_and_declaration.ConsentAndDeclaration.completedSubmit
 
 # Cache Timeout
 GET     /timeout                                                controllers.Application.timeout
@@ -231,3 +249,10 @@ GET     /thankYou                                               controllers.Than
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                           controllers.Assets.at(path="/public", file)
+
+# Self Employment
+GET     /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.present
+POST    /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.submit
+
+GET     /selfEmployment/completed                               controllers.s9_self_employment.SelfEmployment.completed
+POST    /selfEmployment/completed                               controllers.s9_self_employment.SelfEmployment.completedSubmit

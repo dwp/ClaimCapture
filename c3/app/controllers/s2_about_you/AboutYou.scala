@@ -9,24 +9,20 @@ object AboutYou extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.AboutYou)
 
   def completed = claiming { implicit claim => implicit request =>
-    val showYourPartnerSection = claim.isSectionVisible(YourPartner)
-
-    Ok(views.html.s2_about_you.g8_completed(completedQuestionGroups, showYourPartnerSection))
+    Ok(views.html.s2_about_you.g8_completed(completedQuestionGroups))
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    val showYourPartnerSection = claim.isSectionVisible(YourPartner)
 
-    claim.questionGroup(YourDetails) match {
-      case Some(y: YourDetails) if y.alwaysLivedUK == no && completedQuestionGroups.distinct.size == 7 =>
-        if (showYourPartnerSection) Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
-        else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
-
-      case Some(_: YourDetails) if completedQuestionGroups.distinct.size == 6 =>
-        if (showYourPartnerSection) Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
-        else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
-
-      case _ => Redirect(routes.G1YourDetails.present())
+    val yourDetailsVisible = claim.questionGroup(YourDetails) match {
+      case Some(y: YourDetails) => y.alwaysLivedUK == no
+      case _ => true
     }
+
+    val nrOfCompletedQuestionGroups = completedQuestionGroups.distinct.size
+
+    if(yourDetailsVisible && nrOfCompletedQuestionGroups == 7) { Redirect(claim.nextSection(models.domain.AboutYou).firstPage) }
+    else if (!yourDetailsVisible && nrOfCompletedQuestionGroups == 6) { Redirect(claim.nextSection(models.domain.AboutYou).firstPage) }
+    else Redirect(routes.G1YourDetails.present())
   }
 }
