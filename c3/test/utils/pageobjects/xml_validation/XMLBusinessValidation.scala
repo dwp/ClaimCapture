@@ -2,7 +2,7 @@ package utils.pageobjects.xml_validation
 
 import scala.collection.mutable
 import utils.pageobjects.{ClaimScenario, FactoryFromFile}
-import scala.xml.{Elem, XML}
+import scala.xml.{NodeSeq, Elem, XML}
 
 /**
 * Validates that an XML contains all the relevant data that was provided in a Claim.
@@ -12,15 +12,32 @@ import scala.xml.{Elem, XML}
 */
 class XMLBusinessValidation(xmlMappingFile:String = "/ClaimScenarioXmlMapping.csv") {
 
-  def validateXMLClaim(claim:ClaimScenario, xmlString: String):Unit  = validateXMLClaim(claim, XML.loadString(xmlString))
+  def validateXMLClaim(claim:ClaimScenario, xmlString: String):List[String] = validateXMLClaim(claim, XML.loadString(xmlString))
 
-  def validateXMLClaim(claim:ClaimScenario, xml: Elem):Unit = {
+  def validateXMLClaim(claim:ClaimScenario, xml: Elem) = {
+
+    // Used to recursively go through the xPath provided to find value
+    def childNode(xml:NodeSeq, children:Array[String]):NodeSeq =
+      if (children.size == 0)  xml else childNode(xml \children(0) , children.drop(1))
+
     val mapping = XMLBusinessValidation.buildXmlMappingFromFile(xmlMappingFile)
-    claim.map.foreach { case (attribute,value) => println(attribute) }
+    val listErrors = mutable.MutableList.empty[String]
+    claim.map.foreach { case (attribute,value) =>
+      val xPathNodes = mapping.get(attribute)
+      if (xPathNodes != None) {
+        val nodes = xPathNodes.get
+        val elementValue = childNode(xml.\\(nodes(0)),nodes.drop(1)).text
+        if ( value.toLowerCase  != elementValue.toLowerCase) listErrors += attribute + " " + nodes.mkString(">") + " value expected: [" + value + "] value read: [" + elementValue + "]"
+      }
+    }
+    listErrors.toList
   }
 
 }
 
+/**
+ * Contains method to read XML mapping file.
+ */
 object XMLBusinessValidation {
 
   def buildXmlMappingFromFile(fileName: String) = {
