@@ -3,17 +3,12 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
-import utils.pageobjects.s4_care_you_provide.{G1TheirPersonalDetailsPageContext, G1TheirPersonalDetailsPage}
 
 class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Their Personal Details" should {
-    "be presented" in new WithBrowser with G1TheirPersonalDetailsPageContext {
-      val claim = ClaimScenarioFactory.s4CareYouProvide()
-      page goToThePage()
-      page fillPageWith claim
-      page submitPage()
-      //browser.goTo("/careYouProvide/theirPersonalDetails")
-      //browser.title mustEqual "Their Personal Details - Care You Provide"
+    "be presented" in new WithBrowser {
+      browser.goTo("/careYouProvide/theirPersonalDetails")
+      browser.title mustEqual "Their Personal Details - Care You Provide"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
