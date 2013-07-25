@@ -141,7 +141,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   private def goToUrl(page: Page, throwException: Boolean, waitForPage: Boolean, waitDuration:Int) = {
     browser.goTo(page.url)
     if (!page.titleMatch) {
-      if (throwException) throw new PageObjectException("Could not go to page " + page.pageTitle + " - Page loaded " + browser.title)
+      if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " - Page loaded with title: " + browser.title)
       else this.createPageWithTitle(browser.title)
     } else  if (waitForPage)  page.waitForPage(waitDuration)  else this
 
