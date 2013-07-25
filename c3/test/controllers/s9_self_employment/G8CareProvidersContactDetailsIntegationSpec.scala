@@ -37,6 +37,14 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
       }
     }
     
+    "navigate back to previous page" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
+      val claim = ClaimScenarioFactory.s9SelfEmployment
+      page goToThePage()
+      page fillPageWith claim
+      val g8 = page submitPage()
+      g8.goBack() must beAnInstanceOf[G7ExpensesWhileAtWorkPage]
+    }
+    
     "navigate to next page on valid submission" in new WithBrowser with G8CareProvidersContactDetailsPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
