@@ -13,7 +13,8 @@ object OtherMoney extends Controller with CachedClaim {
       else Ok(views.html.s8_other_money.g7_completed(completedQuestionGroups))
   }
 
-  def completedSubmit = claiming { implicit claim => implicit request =>
-    Redirect(claim.nextSection(models.domain.CarersAllowance).firstPage)
+  def completedSubmit = claiming {
+    implicit claim => implicit request =>
+      Redirect(claim.nextSection(models.domain.OtherMoney).firstPage)
   }
 }

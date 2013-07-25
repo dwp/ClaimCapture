@@ -5,6 +5,7 @@ import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
 
 class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
+  sequential
 
   "Representatives For The Person" should {
     "be presented" in new WithBrowser with BrowserMatchers {

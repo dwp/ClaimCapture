@@ -49,6 +49,7 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
       Formulate.yourDetailsEnablingTimeOutsideUK(browser)
       Formulate.yourContactDetails(browser)
       Formulate.timeOutsideUKNotLivingInUK(browser)
+      titleMustEqual("Claim Date - About You")
       browser.click(".form-steps a")
       titleMustEqual("Time Outside UK - About You")
     }

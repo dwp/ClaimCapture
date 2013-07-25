@@ -16,9 +16,10 @@ class G5CompletedIntegrationSpec extends Specification with Tags {
       //titleMustEqual("Completion - Your Partner")
     }
 
-    """be submitted to "care you provide" page.""" in new WithBrowser with BrowserMatchers {
+    """navigate to "Care you provide" page.""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/yourPartner/completed")
       browser.submit("button[type='submit']")
+      browser.find("#submit").getText mustEqual "Continue to Care you provide"
       titleMustEqual("Their Personal Details - Care You Provide")
     }
     
@@ -30,5 +31,6 @@ class G5CompletedIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - Your Partner")(Duration(5, TimeUnit.MINUTES))
       browser.find("div[class=completed] ul li").size() mustEqual 4
     }
+
   } section "integration"
 }

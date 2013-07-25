@@ -24,5 +24,20 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
       val g9 = g2 goToPage(new G9CompletedPage(browser))
       g9.listCompletedForms.size mustEqual 1
     }
+
+    "navigate back to previous page" in new WithBrowser with G9CompletedPageContext {
+      page goToThePage()
+      page.goBack() must beAnInstanceOf[G8CareProvidersContactDetailsPage]
+    }
+
+    "navigate to next page on valid submission" in new WithBrowser with G9CompletedPageContext {
+      val claim = ClaimScenarioFactory.s8otherMoney
+      page goToThePage()
+      page fillPageWith claim
+
+      val nextPage = page submitPage()
+
+      nextPage must not(beAnInstanceOf[G9CompletedPage])
+    }
   } section "integration"
 }

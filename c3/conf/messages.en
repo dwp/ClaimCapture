@@ -71,6 +71,7 @@ s8.g7 = Other EEA State or Switzerland
 
 s9.g1 = How would you like to get paid?
 s9.g2 = Bank/Building society details
+s9.g6 = Childcare provider's contact details
 s9.g7 = Expenses related to the person you care for while at work
 s9.g8 = Care provider's contact Details
 
@@ -330,6 +331,10 @@ howMuchCostChildcare =  How much do you pay them?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
 relationToYou = What relation, if any, is the person to you?
 relationToPartner = What relation, if any, is the person to your partner/spouse?
+
+# PERSON YOU CARE FOR EXPENSES
+howMuchCostCare = How much do you pay them?
+whoDoYouPay = Name of the person/organisation you pay
 
 
 ## OTHER MONEY

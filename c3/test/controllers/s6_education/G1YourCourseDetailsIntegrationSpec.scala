@@ -5,9 +5,11 @@ import play.api.test.WithBrowser
 import controllers.Formulate
 import org.specs2.execute.PendingUntilFixed
 import controllers.{BrowserMatchers, Formulate}
+import scala.concurrent.duration.Duration
+import java.util.concurrent.TimeUnit
 
 
-class G1YourCourseDetailsIntegrationSpec extends Specification with Tags with PendingUntilFixed {
+class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
   "Your Course Details Page" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/yourCourseDetails")
@@ -28,14 +30,14 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags with Pe
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
-    
+
     "navigate to next page on valid submission with all fields filled in" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/yourCourseDetails")
       Formulate.yourCourseDetails(browser)
 
       titleMustEqual("Address Of School College Or University - Education")
     }
-        
+
     "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/yourCourseDetails")
       browser.submit("button[type='submit']")
@@ -45,9 +47,6 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags with Pe
 
     "navigate back" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/yourCourseDetails")
-
-      titleMustEqual("Your Course Details - Education")
-
       browser.click("#backButton")
       titleMustNotEqual("Your Course Details - Education")
     }

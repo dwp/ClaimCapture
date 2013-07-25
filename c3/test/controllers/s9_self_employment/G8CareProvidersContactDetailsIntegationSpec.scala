@@ -10,7 +10,7 @@ import controllers.ClaimScenarioFactory
 import org.specs2.execute.PendingUntilFixed
 import utils.pageobjects.ClaimScenario
 
-class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tags {
+class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tags with PendingUntilFixed {
   "Care provider's contact Details" should {
     "be presented" in new WithBrowser with G8CareProvidersContactDetailsPageContext {
       page goToThePage ()
@@ -37,6 +37,14 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
       }
     }
     
+    "navigate back to previous page" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
+      val claim = ClaimScenarioFactory.s9SelfEmployment
+      page goToThePage()
+      page fillPageWith claim
+      val g8 = page submitPage()
+      g8.goBack() must beAnInstanceOf[G7ExpensesWhileAtWorkPage]
+    }
+    
     "navigate to next page on valid submission" in new WithBrowser with G8CareProvidersContactDetailsPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
@@ -44,7 +52,7 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
 
       val nextPage = page submitPage()
 
-      nextPage must not(beAnInstanceOf[G9CompletedPage])
+      nextPage must not(beAnInstanceOf[G8CareProvidersContactDetailsPage])
     }
   } section "integration"
 }

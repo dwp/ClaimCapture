@@ -67,7 +67,7 @@ object ClaimScenarioFactory {
 
   def s2ands3WithTimeOUtsideUKAndProperty() = {
     val claim = s2AboutYouWithTimeOutside()
-    // Partner personal detals
+    // Partner personal details
     claim.AboutYourPartnerTitle = "Mrs"
     claim.AboutYourPartnerFirstName = "Cloe"
     claim.AboutYourPartnerMiddleName = "Scott"
@@ -80,6 +80,28 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou = "Yes"
     // Person you care for
     claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
+    claim
+  }
+
+  def s4CareYouProvide() = {
+    val claim = s2ands3WithTimeOUtsideUKAndProperty()
+    // Their Personal Details
+    claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
+    claim.AboutTheCareYouProvideFirstNamePersonCareFor = "Tom"
+    claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "Potter"
+    claim.AboutTheCareYouProvideSurnamePersonCareFor = "Wilson"
+    claim.AboutTheCareYouProvideNINOPersonCareFor = "AA123456A"
+    claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/03/1990"
+    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
+    // Their Contact Details
+    claim.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street\nLine 2"
+    claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"
+    claim.AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare = "07922 222 222"
+    // More About The Person
+    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
+    claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
+    claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "No"
+    // Previous Carer Personal Details
     claim
   }
 
@@ -118,13 +140,15 @@ object ClaimScenarioFactory {
     val claim = s8otherMoney
     // About self employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
-      
-    // Expenses while at work
+    // G6 Childcare provider's contact Details
+    claim.SelfEmployedChildcareProviderAddress = "Care Provider Address"
+    claim.SelfEmployedChildcareProviderPostcode = "SE1 6EH"
+    // G7 Expenses while at work
     claim.SelfEmployedCareExpensesNameOfPerson = "Expenses Name Of Person"
-    // Care provider's contact Details
+    // G8 Care provider's contact Details
     claim.SelfEmployedCareProviderAddress = "Care Provider Address"
-    claim.SelfEmployedCareProviderPostcode = "Care Provider Postcode"
-    // Completion
+    claim.SelfEmployedCareProviderPostcode = "SE1 6EH"
+    // G9 Completion
     //   None
 
     claim

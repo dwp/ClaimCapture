@@ -2,19 +2,19 @@ Can you get Carers Allowance?,Does the person you care for get one of these bene
 Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you look after?,Do you spend 35 hours or more each week caring for the person you look after?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,
-About You,Your Details,Title,AboutYouTitle,ClaimantStructure>Title
-About You,Your Details,First name,AboutYouFirstName,ClaimantStructure>OtherNames
-About You,Your Details,Middle name,AboutYouMiddleName,ClaimantStructure>OtherNames
-About You,Your Details,Surname or family name,AboutYouSurname,ClaimantStructure>Surname
-About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,ClaimantStructure>OtherSurnames
-About You,Your Details,National Insurance (NI) number,AboutYouNINO,ClaimantStructure>NationalInsuranceNumber
-About You,Your Details,Date of birth,AboutYouDateOfBirth,ClaimantStructure>DateOfBirth
-About You,Your Details,Nationality,AboutYouNationality,ResidencyStructure>Nationality
+About You,Your Details,Title,AboutYouTitle,Claimant>Title
+About You,Your Details,First name,AboutYouFirstName,Claimant>FirstNames
+About You,Your Details,Middle name,AboutYouMiddleName,Claimant>OtherNames
+About You,Your Details,Surname or family name,AboutYouSurname,Claimant>Surname
+About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,Claimant>OtherSurnames
+About You,Your Details,National Insurance (NI) number,AboutYouNINO,Claimant>NationalInsuranceNumber
+About You,Your Details,Date of birth,AboutYouDateOfBirth,Claimant>DateOfBirth
+About You,Your Details,Nationality,AboutYouNationality,Residency>Nationality
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,LivedInUK
-About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,ClaimantStructure>MaritalStatus
-About You,Your contact details,Address,AboutYouAddress,"ClaimantStructure>Address>Line"
-About You,Your contact details,Postcode,AboutYouPostcode,"ClaimantStructure>Address>PostCode"
-About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,ClaimantStructure>DaytimePhoneNumber
+About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Claimant>MaritalStatus
+About You,Your contact details,Address,AboutYouAddress,ClaimantStructure>Address>Line
+About You,Your contact details,Postcode,AboutYouPostcode,ClaimantStructure>Address>PostCode
+About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,Claimant>DaytimePhoneNumber
 About You,Your contact details,Mobile number,AboutYouMobileNumber,ClaimantMobNum
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,ResdCurrentlyInUK
 About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInTheUK,OtherNationalityStructure>DateArrivedInGreatBritain
@@ -29,8 +29,8 @@ About You,More about you,Have you been on a course of education since your claim
 About You,More about you,Do you get state Pension?,AboutYouDoYouGetStatePension,GQStatePension
 About You,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime,DWPCAClaimStructure>Employed
 About You,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,AboutYouHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaimStructure>SelfEmployed
-About You,Property and rent,Do you or your partner/spouse own property or land in the UK or abroad that you have rented out since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyyy>)?,AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand,"DWPCAClaimStructure>PropertyRentedOut>RentOutProperty"
-About You,Property and rent,"Have you sublet your home, or provided board and lodgings, since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyyy>)?",AboutYouHaveYouOrYourPartnerSubletYourHome,"DWPCAClaimStructure>PropertyRentedOut>SubletHome"
+About You,Property and rent,Do you or your partner/spouse own property or land in the UK or abroad that you have rented out since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyyy>)?,AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand,DWPCAClaimStructure>PropertyRentedOut>RentOutProperty
+About You,Property and rent,"Have you sublet your home, or provided board and lodgings, since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyyy>)?",AboutYouHaveYouOrYourPartnerSubletYourHome,DWPCAClaimStructure>PropertyRentedOut>SubletHome
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,PartnerStructure>Title
 About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,PartnerStructure>OtherNames
 About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,
@@ -46,7 +46,7 @@ About Your Partner,More about your partner/spouse,"Did you and your partner/spou
 About Your Partner,More about your partner/spouse,Please enter the date when you and your partner/spouse started living together if the date is after the date you want to claim from?,AboutYourPartnertheDateWhenYouStartedLivingTogether,RelationshipStatusStructure>JoinedHouseholdAfterDateOfClaim
 About Your Partner,More about your partner/spouse,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,RelationshipStatusStructure>SeperatedFromPartner
 About Your Partner,Date of separation,When did you separate?,AboutYourPartnerwhenDidYouSeparate,RelationshipStatusStructure>SeperationDate
-About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,"AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor",
+About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,CareeStructure>Title
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,CareeStructure>OtherNames
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,CareeStructure>OtherNames
@@ -54,8 +54,8 @@ About the care you provide,Details of the person you care for,Surname or family 
 About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,CareeStructure>NationalInsuranceNumber
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,CareeStructure>DateOfBirth
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,CareeSameAddress
-About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,"CareeStructure>Address>Line"
-About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,"CareeStructure>Address>Postcode"
+About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,CareeStructure>Address>Line
+About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,CareeStructure>Address>Postcode
 About the care you provide,Contact details of the person you care for,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare,CareeStructure>DaytimePhoneNumber
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,CareeStructure>RelationshipType
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,CareeAFIP
@@ -65,8 +65,8 @@ About the care you provide,Details of Previous Carer ,Middle name,AboutTheCareYo
 About the care you provide,Details of Previous Carer ,Surname or family name,AboutTheCareYouProvideSurnamePreviousCarer,PreviousClaimantStructure>Surname
 About the care you provide,Details of Previous Carer ,National Insurance (NI) number,AboutTheCareYouProvideNINOPreviousCarer,PreviousClaimantStructure>NationalInsuranceNumber
 About the care you provide,Details of Previous Carer ,Date of birth,AboutTheCareYouProvideDateofBirthPreviousCarer,PreviousClaimantStructure>DateOfBirth
-About the care you provide,Contact details of previous carer,Address,AboutTheCareYouProvideAddressPreviousCarer,"PreviousClaimantStructure>Address>Line"
-About the care you provide,Contact details of previous carer,Post code,AboutTheCareYouProvidePostcodePreviousCarer,"PreviousClaimantStructure>Address>Postcode"
+About the care you provide,Contact details of previous carer,Address,AboutTheCareYouProvideAddressPreviousCarer,PreviousClaimantStructure>Address>Line
+About the care you provide,Contact details of previous carer,Post code,AboutTheCareYouProvidePostcodePreviousCarer,PreviousClaimantStructure>Address>Postcode
 About the care you provide,Contact details of previous carer,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPreviousCarer,PrevClaimantDaytimePhone
 About the care you provide,Contact details of previous carer,Mobile number,AboutTheCareYouProvideMobileNumberPreviousCarer,PrevClaimantMobile
 About the care you provide,Representatives for the person you care for,Do you act for the person you care for?,AboutTheCareYouProvideDoYouActforthePersonYouCareFor,CareeStructure>CanClaimantSign
@@ -78,15 +78,15 @@ About the care you provide,More about the care you provide,Do you spend 35 hours
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date: <ddmmyyyy>?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,CareeStructure>Cared35hoursBefore
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,CareeStructure>DateStartedCaring
 About the care you provide,More about the care you provide,Has someone paid you to care for this person since your claim date: : <ddmmyyyy>?,AboutTheCareYouProvideHasSomeonePaidYoutoCare,CareeStructure>PaidForCaring
-About the care you provide,Details of the person/organisation who pays you ,Organisation (optional),AboutTheCareYouProvideOrganisationPaysYou,"CareeStructure>PayReceived>PayerName"
-About the care you provide,Details of the person/organisation who pays you ,Title,AboutTheCareYouProvideTitlePersonPaysYou,"CareeStructure>PayReceived>PayerName"
-About the care you provide,Details of the person/organisation who pays you ,First name,AboutTheCareYouProvideFirstNamePersonPaysYou,"CareeStructure>PayReceived>PayerName"
-About the care you provide,Details of the person/organisation who pays you ,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,"CareeStructure>PayReceived>PayerName"
-About the care you provide,Details of the person/organisation who pays you ,Surname or family name,AboutTheCareYouProvideSurnamePersonPaysYou,"CareeStructure>PayReceived>PayerName"
-About the care you provide,Details of the person/organisation who pays you ,How much do you get paid a week?,AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek,"CareeStructure>PayReceived>Payment"
-About the care you provide,Details of the person/organisation who pays you ,When did the payments start?,AboutTheCareYouProvideWhenDidThePaymentsStart,"CareeStructure>PayReceived>DatePaymentStarted"
-About the care you provide,Contact details of the person who pays you.,Address ,AboutTheCareYouProvideAddressPersonPaysYou,"CareeStructure>PayReceived>PayerAddress"
-About the care you provide,Contact details of the person who pays you.,Postcode,AboutTheCareYouProvidePostcodePersonPaysYou,"CareeStructure>PayReceived>PayerAddress"
+About the care you provide,Details of the person/organisation who pays you ,Organisation (optional),AboutTheCareYouProvideOrganisationPaysYou,CareeStructure>PayReceived>PayerName
+About the care you provide,Details of the person/organisation who pays you ,Title,AboutTheCareYouProvideTitlePersonPaysYou,CareeStructure>PayReceived>PayerName
+About the care you provide,Details of the person/organisation who pays you ,First name,AboutTheCareYouProvideFirstNamePersonPaysYou,CareeStructure>PayReceived>PayerName
+About the care you provide,Details of the person/organisation who pays you ,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,CareeStructure>PayReceived>PayerName
+About the care you provide,Details of the person/organisation who pays you ,Surname or family name,AboutTheCareYouProvideSurnamePersonPaysYou,CareeStructure>PayReceived>PayerName
+About the care you provide,Details of the person/organisation who pays you ,How much do you get paid a week?,AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek,CareeStructure>PayReceived>Payment
+About the care you provide,Details of the person/organisation who pays you ,When did the payments start?,AboutTheCareYouProvideWhenDidThePaymentsStart,CareeStructure>PayReceived>DatePaymentStarted
+About the care you provide,Contact details of the person who pays you.,Address ,AboutTheCareYouProvideAddressPersonPaysYou,CareeStructure>PayReceived>PayerAddress
+About the care you provide,Contact details of the person who pays you.,Postcode,AboutTheCareYouProvidePostcodePersonPaysYou,CareeStructure>PayReceived>PayerAddress
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare,CareeStructure>BreaksSinceClaim
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,CareeStructure>BreaksBeforeClaim
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate,CareBreakStructure>StartDateTime
@@ -187,8 +187,8 @@ How we pay you,How would you like to get paid? ,How would you like to get paid?,
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,PaymentStructure>PaymentFrequencyType
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,AccountStructure>HolderName
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,AccountStructure>BuildingSocietyDetails>Name
-How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,"AccountStructure>BuildingSocietyDetails>Sortcode>BankDetails>Sortcode"
-How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,"AccountStructure>BuildingSocietyDetails>AccountNumber>BankDetails>AccountNumber"
+How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,AccountStructure>BuildingSocietyDetails>Sortcode>BankDetails>Sortcode
+How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,AccountStructure>BuildingSocietyDetails>AccountNumber>BankDetails>AccountNumber
 How we pay you,Bank/Building society details,Building society roll or reference number,HowWePayYouBuildingSocietyRollOrReferenceNumber,AccountStructure>BuildingSocietyDetails>RollNumber
 How we pay you,International bank account details,Name of account holder,HowWePayYouNameOfAccountHolder,AccountStructure>HolderName
 How we pay you,International bank account details,Full name of bank,HowWePayYouFullNameofBank,
@@ -228,8 +228,8 @@ Self Employed,Childcare expenses while you are at work,Name of the person/organi
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to you?",SelfEmployedChildcareProviderWhatRelationIsToYou,ChildCareExpensesStructure>RelationshipCarerToClaimant
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",SelfEmployedChildcareProviderWhatRelationIsToYourPartner,ChildCareExpensesStructure>RelationshipCarerToPartner
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor,ChildCareExpensesStructure>RelationToChild
-Self Employed,Childcare provider's contact details,Address,SelfEmployedCareProviderAddress,ChildCareExpensesStructure>CarerAddress
-Self Employed,Childcare provider's contact details,Postcode,SelfEmployedCareProviderPostcode,ChildCareExpensesStructure>CarerAddress
+Self Employed,Childcare provider's contact details,Address,SelfEmployedChildcareProviderAddress,ChildCareExpensesStructure>CarerAddress
+Self Employed,Childcare provider's contact details,Postcode,SelfEmployedChildcareProviderPostcode,ChildCareExpensesStructure>CarerAddress
 Self Employed,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedCareExpensesHowMuchYouPay,CareExpensesStructure>WeeklyPayment
 Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,CareExpensesStructure>CarerName
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",SelfEmployedCareExpensesWhatRelationIsToYou,CareExpensesStructure>RelationshipCarerToClaimant

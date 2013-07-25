@@ -172,3 +172,27 @@ case class ChildcareExpenses(jobID: String,
 object ChildcareExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g10"
 }
+
+case class ChildcareProvider(jobID: String,
+                             address:Option[MultiLineAddress],postcode:Option[String]) extends QuestionGroup(ChildcareProvider) with Job.Identifier with NoRouting
+
+
+object ChildcareProvider extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g11"
+}
+
+case class PersonYouCareForExpenses(jobID: String,
+                             howMuchCostCare:Option[String],whoDoYouPay:String,relationToYou:Option[String]) extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier with NoRouting
+
+
+object PersonYouCareForExpenses extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g12"
+}
+
+case class CareProvider(jobID: String,
+                             address:Option[MultiLineAddress],postcode:Option[String]) extends QuestionGroup(CareProvider) with Job.Identifier with NoRouting
+
+
+object CareProvider extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g13"
+}

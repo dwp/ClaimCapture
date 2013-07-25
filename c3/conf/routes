@@ -180,6 +180,15 @@ POST    /employment/necessaryExpenses                           controllers.s7_e
 GET     /employment/childcareExpenses/:jobID                    controllers.s7_employment.G10ChildcareExpenses.present(jobID: String)
 POST    /employment/childcareExpenses                           controllers.s7_employment.G10ChildcareExpenses.submit
 
+GET     /employment/childcareProvider/:jobID                    controllers.s7_employment.G11ChildcareProvider.present(jobID: String)
+POST    /employment/childcareProvider                           controllers.s7_employment.G11ChildcareProvider.submit
+
+GET     /employment/personYouCareForExpenses/:jobID             controllers.s7_employment.G12PersonYouCareForExpenses.present(jobID: String)
+POST    /employment/personYouCareForExpenses                    controllers.s7_employment.G12PersonYouCareForExpenses.submit
+
+GET     /employment/careProvider/:jobID                         controllers.s7_employment.G13CareProvider.present(jobID: String)
+POST    /employment/careProvider                                controllers.s7_employment.G13CareProvider.submit
+
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
 POST    /employment/completed                                   controllers.s7_employment.Employment.submit
 
@@ -266,6 +275,9 @@ POST    /selfEmployment/aboutSelfEmployment                                   co
 
 GET     /selfEmployment/yourAccounts                                   controllers.s9_self_employment.G2SelfEmploymentYourAccounts.present
 POST    /selfEmployment/yourAccounts                                   controllers.s9_self_employment.G2SelfEmploymentYourAccounts.submit
+
+GET     /selfEmployment/childcareProvidersContactDetails        controllers.s9_self_employment.G6ChildcareProvidersContactDetails.present
+POST    /selfEmployment/childcareProvidersContactDetails        controllers.s9_self_employment.G6ChildcareProvidersContactDetails.submit
 
 GET     /selfEmployment/expensesWhileAtWork                     controllers.s9_self_employment.G7ExpensesWhileAtWork.present
 POST    /selfEmployment/expensesWhileAtWork                     controllers.s9_self_employment.G7ExpensesWhileAtWork.submit

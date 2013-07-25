@@ -27,7 +27,7 @@ object Employment extends Controller with CachedClaim {
   def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier, jobID: String)(implicit claim: Claim, request: Request[AnyContent]): List[(QuestionGroup, Call)] = {
     claim.questionGroup(Jobs) match {
       case Some(js: Jobs) => js.find(_.jobID == jobID) match {
-        case Some(j: Job) => j.questionGroups.takeWhile(_.identifier.index < questionGroupIdentifier.index).map(qg => qg -> route(qg, jobID))
+        case Some(j: Job) => j.questionGroups.filter(_.identifier.index < questionGroupIdentifier.index).map(qg => qg -> route(qg, jobID))
         case _ => Nil
       }
       case _ => Nil
@@ -35,7 +35,7 @@ object Employment extends Controller with CachedClaim {
   }
 
   def completed = claiming { implicit claim => implicit request =>
-    Ok("")
+    Ok("<html><title>Completion - Employment</title></html>").as(HTML)
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -61,6 +61,9 @@ object Employment extends Controller with CachedClaim {
     case AboutExpenses => routes.G8AboutExpenses.present(jobID)
     case NecessaryExpenses => routes.G9NecessaryExpenses.present(jobID)
     case ChildcareExpenses => routes.G10ChildcareExpenses.present(jobID)
+    case ChildcareProvider => routes.G11ChildcareProvider.present(jobID)
+    case PersonYouCareForExpenses => routes.G12PersonYouCareForExpenses.present(jobID)
+    case CareProvider => routes.G13CareProvider.present(jobID)
     case _ => routes.G1BeenEmployed.present()
   }
 }
