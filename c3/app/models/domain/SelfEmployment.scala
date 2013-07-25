@@ -21,6 +21,15 @@ case class AboutSelfEmployment(call: Call,
                                natureOfYourBusiness: Option[String]
                                 ) extends QuestionGroup(AboutSelfEmployment)
 
+
+case class ChildcareProvidersContactDetails(call: Call,
+                                       address: Option[MultiLineAddress], 
+                                       postcode: Option[String]) extends QuestionGroup(ChildcareProvidersContactDetails)
+
+case object ChildcareProvidersContactDetails extends QuestionGroup.Identifier {
+  val id = s"${SelfEmployment.id}.g6"
+}
+
 case class ExpensesWhileAtWork(call: Call,
                                        howMuchYouPay: Option[String], 
                                        nameOfPerson: String,

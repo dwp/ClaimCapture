@@ -25,7 +25,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim {
   )
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_self_employment.g1_aboutSelfEmployment(form, completedQuestionGroups))
+    Ok(views.html.s9_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim =>
