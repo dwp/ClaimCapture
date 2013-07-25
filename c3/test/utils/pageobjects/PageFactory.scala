@@ -51,6 +51,7 @@ object PageFactory {
       case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage buildPageWith(browser, previousPage)
       // S9
       case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage buildPageWith(browser, previousPage)
+      case s9_self_employment.G9CompletedPage.title => s9_self_employment.G9CompletedPage buildPageWith(browser, previousPage)
       // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }

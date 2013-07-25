@@ -11,7 +11,7 @@ class ClaimSpec extends Specification {
   "Claim" should {
     "initially be filled with all sections" in {
       val newClaim = Claim()
-      newClaim.sections.size mustEqual 10
+      newClaim.sections.size mustEqual 11
     }
 
     "contain the sectionId with the question group after adding" in {

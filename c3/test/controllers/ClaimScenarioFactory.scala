@@ -114,6 +114,9 @@ object ClaimScenarioFactory {
     val claim = s8otherMoney
     //About self employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
+      
+    // Completion
+    //   None
 
     claim
   }
