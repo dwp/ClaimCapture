@@ -148,28 +148,34 @@ POST    /education/completed                                    controllers.s6_e
 GET     /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.present
 POST    /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.submit
 
-GET     /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.present
-POST    /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.submit
+DELETE  /employment/job/:jobID                                  controllers.s7_employment.Employment.delete(jobID: String)
 
 GET     /employment/job/:jobID                                  controllers.s7_employment.G2JobDetails.job(jobID: String)
 
-GET     /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.present
+GET     /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.present
+GET     /employment/jobDetails/:jobID                           controllers.s7_employment.G2JobDetails.presentInJob(jobID: String)
+POST    /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.submit
+
+GET     /employment/employersContactDetails/:jobID              controllers.s7_employment.G3EmployerContactDetails.present(jobID: String)
 POST    /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.submit
 
-GET     /employment/lastWage                                    controllers.s7_employment.G4LastWage.present
+GET     /employment/lastWage/:jobID                             controllers.s7_employment.G4LastWage.present(jobID: String)
 POST    /employment/lastWage                                    controllers.s7_employment.G4LastWage.submit
 
-GET     /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.present
+GET     /employment/additionalWageDetails/:jobID                controllers.s7_employment.G5AdditionalWageDetails.present(jobID: String)
 POST    /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.submit
 
-GET     /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.present
+GET     /employment/moneyOwedByEmployer/:jobID                  controllers.s7_employment.G6MoneyOwedbyEmployer.present(jobID: String)
 POST    /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.submit
 
-GET     /employment/pensionSchemes                              controllers.s7_employment.G7PensionSchemes.present
+GET     /employment/pensionSchemes/:jobID                       controllers.s7_employment.G7PensionSchemes.present(jobID: String)
 POST    /employment/pensionSchemes                              controllers.s7_employment.G7PensionSchemes.submit
 
-GET     /employment/aboutExpenses                               controllers.s7_employment.G8AboutExpenses.present
+GET     /employment/aboutExpenses/:jobID                        controllers.s7_employment.G8AboutExpenses.present(jobID: String)
 POST    /employment/aboutExpenses                               controllers.s7_employment.G8AboutExpenses.submit
+
+GET     /employment/necessaryExpenses/:jobID                    controllers.s7_employment.G9NecessaryExpenses.present(jobID: String)
+POST    /employment/necessaryExpenses                           controllers.s7_employment.G9NecessaryExpenses.submit
 
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
 POST    /employment/completed                                   controllers.s7_employment.Employment.submit
@@ -228,6 +234,9 @@ POST    /consentAndDeclaration/submit                           controllers.s10_
 
 GET     /consentAndDeclaration/error                            controllers.s10_consent_and_declaration.G6Error.present
 
+GET     /consentAndDeclaration/completed                        controllers.s10_consent_and_declaration.ConsentAndDeclaration.completed
+POST    /consentAndDeclaration/completed                        controllers.s10_consent_and_declaration.ConsentAndDeclaration.completedSubmit
+
 # Cache Timeout
 GET     /timeout                                                controllers.Application.timeout
 
@@ -244,7 +253,14 @@ GET     /thankYou                                               controllers.Than
 GET     /assets/*file                                           controllers.Assets.at(path="/public", file)
 
 # Self Employment
-GET     /selfEmployment/aboutSelfEmployment                                   controllers.s9_self_employment.G1AboutSelfEmployment.present
-POST    /selfEmployment/aboutSelfEmployment                                   controllers.s9_self_employment.G1AboutSelfEmployment.submit
+GET     /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.present
+POST    /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.submit
 
+GET     /selfEmployment/expensesWhileAtWork                     controllers.s9_self_employment.G7ExpensesWhileAtWork.present
+POST    /selfEmployment/expensesWhileAtWork                     controllers.s9_self_employment.G7ExpensesWhileAtWork.submit
 
+GET     /selfEmployment/careProvidersContactDetails             controllers.s9_self_employment.G8CareProvidersContactDetails.present
+POST    /selfEmployment/careProvidersContactDetails             controllers.s9_self_employment.G8CareProvidersContactDetails.submit
+
+GET     /selfEmployment/completed                               controllers.s9_self_employment.SelfEmployment.completed
+POST    /selfEmployment/completed                               controllers.s9_self_employment.SelfEmployment.completedSubmit

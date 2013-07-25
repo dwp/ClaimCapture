@@ -375,6 +375,30 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
   
+  // Time Spent Abroad
+  def normalResidenceAndCurrentLocation(browser: TestBrowser) = {
+    browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
+    browser.click("#liveInUK_answer_yes")
+    browser.click("#inGBNow_yes")
+    browser.submit("button[value='next']")
+  }
+  
+  def abroadForMoreThan4Weeks(browser: TestBrowser) = {
+    browser.click("#anyTrips_no")
+    browser.submit("button[value='next']")
+  }
+  
+  def abroadForMoreThan52Weeks(browser: TestBrowser) = {
+    browser.click("#anyTrips_no")
+    browser.submit("button[value='next']")
+  }
+  
+  def otherEEAStateOrSwitzerland(browser: TestBrowser) = {
+    browser.click("#benefitsFromOtherEEAStateOrSwitzerland_answer_no")
+    browser.click("#workingForOtherEEAStateOrSwitzerland_no")
+    browser.submit("button[value='next']")
+  }
+  
   // Education
   def yourCourseDetails(browser: TestBrowser) = {
     val courseType = "University"

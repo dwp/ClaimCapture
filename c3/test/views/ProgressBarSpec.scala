@@ -6,7 +6,7 @@ import models.domain._
 
 class ProgressBarSpec extends Specification {
 
-  val progressBar = ".progressBar"
+  val name = ".name"
 
   def xml(sectionIdentifier: Section.Identifier, claim: Claim) = {
     val resultHtml: play.api.templates.Html = views.html.progressBar(sectionIdentifier)(claim)
@@ -30,7 +30,7 @@ class ProgressBarSpec extends Specification {
       val listItems = xml(AboutYou, Claim()) \\ "ol" \\ "li"
       val activeNode = findNodeWithClass(listItems, "active")
 
-      activeNode.text must contain(AboutYou.id + progressBar)
+      activeNode.text must contain(AboutYou.id + name)
     }
 
     "mark preceding sections completed" in {
@@ -38,18 +38,18 @@ class ProgressBarSpec extends Specification {
 
       val completedNodes = findNodeWithClass(listItems, "complete")
 
-      completedNodes.head.text must contain(CarersAllowance.id + progressBar)
-      completedNodes.last.text must contain(AboutYou.id + progressBar)
+      completedNodes.head.text must contain(CarersAllowance.id + name)
+      completedNodes.last.text must contain(AboutYou.id + name)
     }
 
     "remove hidden section" in {
       val listItems = xml(TimeSpentAbroad, Claim()) \\ "ol" \\ "li"
-      val yourPartnerNode = findNodeWithText(listItems, YourPartner.id + progressBar)
+      val yourPartnerNode = findNodeWithText(listItems, YourPartner.id + name)
       yourPartnerNode.length must beEqualTo(1)
 
       val updatedListItems = xml(TimeSpentAbroad, Claim().hideSection(YourPartner)) \\ "ol" \\ "li"
 
-      val hiddenNode = findNodeWithText(updatedListItems, YourPartner.id + progressBar)
+      val hiddenNode = findNodeWithText(updatedListItems, YourPartner.id + name)
 
       hiddenNode.length must beEqualTo(0)
     }

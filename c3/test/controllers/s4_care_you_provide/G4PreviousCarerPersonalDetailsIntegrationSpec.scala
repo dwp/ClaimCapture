@@ -55,15 +55,15 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       Formulate.theirPersonalDetails(browser)
       Formulate.theirContactDetails(browser)
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
       browser.find("div[class=completed] ul li").size mustEqual 3
 
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
       browser.find("div[class=completed] ul li").size mustEqual 4
 
       browser.click("#backButton")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
   } section "integration"

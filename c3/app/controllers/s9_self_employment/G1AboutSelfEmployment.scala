@@ -17,8 +17,8 @@ object G1AboutSelfEmployment extends Controller with CachedClaim {
     mapping(
       call(routes.G1AboutSelfEmployment.present()),
       "areYouSelfEmployedNow" -> nonEmptyText.verifying(validYesNo),
-      "whenDidYouStartThisJob" -> optional(dayMonthYear.verifying(validDate)),
-      "whenDidTheJobFinish" -> optional(dayMonthYear.verifying(validDate)),
+      "whenDidYouStartThisJob" -> optional(dayMonthYear.verifying(validDateOnly)),
+      "whenDidTheJobFinish" -> optional(dayMonthYear.verifying(validDateOnly)),
       "haveYouCeasedTrading" -> optional(nonEmptyText.verifying(validYesNo)),
       "natureOfYourBusiness" -> optional(text(maxLength = sixty))
     )(AboutSelfEmployment.apply)(AboutSelfEmployment.unapply)

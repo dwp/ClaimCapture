@@ -1,9 +1,9 @@
 package utils.pageobjects
 
-import play.api.test.TestBrowser
-import org.specs2.specification.Scope
 import java.util.concurrent.TimeUnit
-import scala.collection.convert.Wrappers._
+import scala.collection.convert.Wrappers.JListWrapper
+import org.specs2.specification.Scope
+import play.api.test.TestBrowser
 
 /**
  * Super-class of all the PageObject pattern compliant classes representing an application page.
@@ -12,9 +12,6 @@ import scala.collection.convert.Wrappers._
  */
 abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Int = 1) extends Object with WebSearchActions with WebFillActions {
 
-  val WAIT_FOR_DURATION: Int = 30
-
-
   /**
    * Go to the html page corresponding to the current object.
    * If the landing page is not the expected page then throws an exception, unless asked otherwise.
@@ -22,7 +19,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @param waitForPage Does the test need add extra time to wait every time it goes a page? By default set to true.
    * @return Page object presenting the page. It could be different from current if landed on different page and specified no exception to be thrown.
    */
-  def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true) = goToUrl(this, throwException, waitForPage)
+  def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true, waitDuration:Int = Page.WAIT_FOR_DURATION) = goToUrl(this, throwException, waitForPage,waitDuration)
 
   /**
    * Go to the html page corresponding to the page passed as parameter.
@@ -32,17 +29,17 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @param waitForPage Does the test need add extra time to wait every time it goes a page? By default set to true.
    * @return Page object presenting the page. It could be different from target page if landed on different page and specified no exception to be thrown.
    */
-  def goToPage(page: Page, throwException: Boolean = true, waitForPage: Boolean = true) = goToUrl(page, throwException, waitForPage)
+  def goToPage(page: Page, throwException: Boolean = true, waitForPage: Boolean = true, waitDuration:Int = Page.WAIT_FOR_DURATION) = goToUrl(page, throwException, waitForPage,waitDuration)
 
   /**
    * Click on back/previous button of the page (not of the browser)
    * @param waitForPage Does the test need add extra time to wait every time it goes back to a page? By default set to true.
    * @return Page object representing the html page the UI went back to.
    */
-  def goBack( waitForPage: Boolean = true) = {
+  def goBack( waitForPage: Boolean = true, waitDuration:Int = Page.WAIT_FOR_DURATION) = {
     val backPageTile = browser.click(".form-steps a").title
     val newPage = createPageWithTitle(backPageTile)
-    if (waitForPage) newPage.waitForPage() else newPage
+    if (waitForPage) newPage.waitForPage(waitDuration) else newPage
 
   }
 
@@ -61,7 +58,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @param waitForPage Does the test need add extra time to wait for the next page every time it submits a page? By default set to false.
    * @return Last page
    */
-  def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, throwException: Boolean = true, waitForPage: Boolean = false): Page = {
+  def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, throwException: Boolean = true, waitForPage: Boolean = false, waitDuration:Int = Page.WAIT_FOR_DURATION): Page = {
     if (pageTitle == upToPageWithTitle) {
       this
     } else {
@@ -76,12 +73,12 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @param waitForPage Does the test need add extra time to wait for the next page every time it submits a page? By default set to false.
    * @return next Page or same page if errors detected and did not ask for exception.
    */
-  def submitPage(throwException: Boolean = false, waitForPage: Boolean = false) = {
+  def submitPage(throwException: Boolean = false, waitForPage: Boolean = false, waitDuration:Int = Page.WAIT_FOR_DURATION) = {
     val nextPageTile = browser.submit("button[type='submit']").title
     if (this checkNoErrorsForPage(nextPageTile, throwException)) this
     else {
       val newPage = this createPageWithTitle nextPageTile
-      if (waitForPage) newPage.waitForPage() else newPage
+      if (waitForPage) newPage.waitForPage(waitDuration) else newPage
     }
   }
 
@@ -120,8 +117,8 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   //  NON PUBLIC FUNCTIONS
   // ==================================================================
 
-  protected def waitForPage() =  {
-    browser.waitUntil[Boolean](WAIT_FOR_DURATION, TimeUnit.SECONDS) { titleMatch() }
+  protected def waitForPage(waitDuration:Int) =  {
+    browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) { titleMatch() }
     this
   }
 
@@ -141,12 +138,12 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   }
 
 
-  private def goToUrl(page: Page, throwException: Boolean, waitForPage: Boolean) = {
+  private def goToUrl(page: Page, throwException: Boolean, waitForPage: Boolean, waitDuration:Int) = {
     browser.goTo(page.url)
     if (!page.titleMatch) {
-      if (throwException) throw new PageObjectException("Could not go to page " + page.pageTitle + " - Page loaded " + browser.title)
+      if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " - Page loaded with title: " + browser.title)
       else this.createPageWithTitle(browser.title)
-    } else  if (waitForPage)  page.waitForPage()  else this
+    } else  if (waitForPage)  page.waitForPage(waitDuration)  else this
 
   }
 }
@@ -165,14 +162,14 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * @param throwException Should the page throw an exception if landed on different page? By default yes.
    * @return Page object presenting the page. It could be different from current if landed on different page and specified no exception to be thrown.
    */
-  override def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true) = throw new PageObjectException("Cannot go to an unknown page: " + pageTitle)
+  override def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true, waitDuration:Int = Page.WAIT_FOR_DURATION) = throw new PageObjectException("Cannot go to an unknown page: " + pageTitle)
 
   /**
    * Throws a PageObjectException.
    * @param throwException Specify whether should throw an exception if a page displays errors. By default set to false.
    * @return next Page or same page if errors detected and did not ask for exception.
    */
-  override def submitPage(throwException: Boolean = false, waitForPage: Boolean = false) = throw new PageObjectException("Cannot submit an unknown page: " + pageTitle)
+  override def submitPage(throwException: Boolean = false, waitForPage: Boolean = false, waitDuration:Int = Page.WAIT_FOR_DURATION) = throw new PageObjectException("Cannot submit an unknown page: " + pageTitle)
 
   /**
    * Throws a PageObjectException.
@@ -181,6 +178,9 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
   def fillPageWith(theClaim: ClaimScenario) { throw new PageObjectException("Cannot fill an unknown page: " + pageTitle)}
 }
 
+object Page  {
+  val WAIT_FOR_DURATION: Int = 30
+}
 
 trait PageContext extends Scope {
 }

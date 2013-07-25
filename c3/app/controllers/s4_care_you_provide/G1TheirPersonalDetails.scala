@@ -25,8 +25,6 @@ object G1TheirPersonalDetails extends Controller with CachedClaim {
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val showYourPartnerSection = claim.isSectionVisible(YourPartner)
-
     val isPartnerPersonYouCareFor: Boolean = if (claim.isSectionVisible(models.domain.YourPartner)) {
       claim.questionGroup(PersonYouCareFor) match {
         case Some(t: PersonYouCareFor) => t.isPartnerPersonYouCareFor == "yes" // Get value the user selected previously.
@@ -47,14 +45,12 @@ object G1TheirPersonalDetails extends Controller with CachedClaim {
       form.fill(TheirPersonalDetails)
     }
 
-    Ok(views.html.s4_care_you_provide.g1_theirPersonalDetails(currentForm, showYourPartnerSection))
+    Ok(views.html.s4_care_you_provide.g1_theirPersonalDetails(currentForm))
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    val showYourPartnerSection = claim.isSectionVisible(YourPartner)
-
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g1_theirPersonalDetails(formWithErrors, showYourPartnerSection)),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g1_theirPersonalDetails(formWithErrors)),
       theirPersonalDetails => claim.update(theirPersonalDetails) -> Redirect(routes.G2TheirContactDetails.present()))
   }
 }

@@ -8,7 +8,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  * @author Jorge Migueis
  *         Date: 18/07/2013
  */
-final class CompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, CompletedPage.url, CompletedPage.title, previousPage) {
+final class G8CompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G8CompletedPage.url, G8CompletedPage.title, previousPage) {
   /**
    * Does nothing. There is no form.
    * @param theClaim   Data to use to fill page
@@ -20,14 +20,14 @@ final class CompletedPage(browser: TestBrowser, previousPage: Option[Page] = Non
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object CompletedPage {
+object G8CompletedPage {
   val title = "Completion - About You"
   val url  = "/aboutyou/completed"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new CompletedPage(browser,previousPage)
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G8CompletedPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
-trait CompletedPageContext extends PageContext {
+trait G8CompletedPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = CompletedPage buildPageWith browser
+  val page = G8CompletedPage buildPageWith browser
 }

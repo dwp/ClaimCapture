@@ -12,7 +12,7 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
   "Employer's contact details" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFlash("jobID" -> "")
-      val result = G3EmployerContactDetails.present(request)
+      val result = G3EmployerContactDetails.present("Dummy job ID")(request)
       status(result) mustEqual OK
     }
 

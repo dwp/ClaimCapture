@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import utils.pageobjects.{ClaimScenario, FactoryFromFile}
 
 /**
- * To change this template use Preferences | File and Code Templates.
+ * Unit test of FactoryFromFile
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
@@ -15,8 +15,7 @@ class FactoryFromFileSpec extends Specification {
     "be able to build a claim from a valid csv file" in {
       val claim = new ClaimScenario
       FactoryFromFile.buildFromFile("/tests.csv", claim.updateDynamic)
-//      claim
-//      val claim = FactoryFromFile buildClaimFromFile ("/tests.csv")
+
       claim.AboutYouHaveYouSubletYourHome mustEqual "value 1"
       claim.AboutYouWhatIsYourVisaReferenceNumber mustEqual "value 2"
       claim.AboutYouAddress mustEqual "value 3"

@@ -39,9 +39,6 @@ class AboutYouSpec extends Specification with Mockito with Tags {
 
       val result = G1YourDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
-
-      val claim = Cache.getAs[Claim](claimKey).get
-      claim.sections.get(domain.AboutYou) must beNone
     }
 
     "highlight invalid date" in new WithApplication with Claiming {
@@ -59,9 +56,6 @@ class AboutYouSpec extends Specification with Mockito with Tags {
 
       val result = G1YourDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
-
-      val claim = Cache.getAs[Claim](claimKey).get
-      claim.sections.get(domain.AboutYou) must beNone
     }
 
     "not complain about a valid NI" in new WithApplication with Claiming {
