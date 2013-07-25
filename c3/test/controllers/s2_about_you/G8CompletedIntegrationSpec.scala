@@ -14,7 +14,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Completion - About You"
     }
     
-    """show the text "Continue to Partner / Spouse" on the submit button when next section is "Your Partner"""" in new WithBrowser {
+    """navigate to "Your Partner" when next section is "Your Partner"""" in new WithBrowser {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
       Formulate.claimDate(browser)
@@ -23,53 +23,24 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       Formulate.propertyAndRent(browser)
       
       browser.find("#submit").getText mustEqual "Continue to Your partner"
+
+      browser.submit("button[type='submit']")
+
+      browser.title mustEqual "Personal Details - Your Partner"
     }
     
-    """show the text "Continue to Care You Provide" on the submit button when next section is "Care You Provide"""" in new WithBrowser {
+    """navigate to "Care You Provide" when next section is "Care You Provide"""" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
       Formulate.claimDate(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       Formulate.employment(browser)
       Formulate.propertyAndRent(browser)
-      
+
       browser.find("#submit").getText mustEqual "Continue to Care you provide"
-    }
-
-    """be submitted to "Personal Details - Your Partner" page when they have had a partner/spouse at any time since the claim date""" in new WithBrowser {
-      Formulate.yourDetails(browser)
-      Formulate.yourContactDetails(browser)
-      Formulate.claimDate(browser)
-      Formulate.moreAboutYou(browser)
-      Formulate.employment(browser)
-      Formulate.propertyAndRent(browser)
-      
-      browser.submit("button[type='submit']")
-      
-      browser.title mustEqual "Personal Details - Your Partner"  
-    }
-
-    """be submitted to "Their Personal Details - Care You Provide" page when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
-      Formulate.yourDetails(browser)
-      titleMustEqual("Contact Details - About You")(Duration(10, TimeUnit.MINUTES))
-
-      Formulate.yourContactDetails(browser)
-      titleMustEqual("Claim Date - About You")(Duration(10, TimeUnit.MINUTES))
-
-      Formulate.claimDate(browser)
-      titleMustEqual("More About You - About You")(Duration(10, TimeUnit.MINUTES))
-
-      Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
-      titleMustEqual("Employment - About You")(Duration(10, TimeUnit.MINUTES))
-
-      Formulate.employment(browser)
-      titleMustEqual("Property and Rent - About You")(Duration(10, TimeUnit.MINUTES))
-
-      Formulate.propertyAndRent(browser)
-      titleMustEqual("Completion - About You")(Duration(10, TimeUnit.MINUTES))
-
       browser.submit("button[type='submit']")
       titleMustEqual("Their Personal Details - Care You Provide")(Duration(10, TimeUnit.MINUTES))
     }
+
   } section "integration"
 }

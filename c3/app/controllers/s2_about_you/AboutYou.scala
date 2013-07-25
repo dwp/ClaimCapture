@@ -21,8 +21,8 @@ object AboutYou extends Controller with CachedClaim {
 
     val nrOfCompletedQuestionGroups = completedQuestionGroups.distinct.size
 
-    if(yourDetailsVisible && nrOfCompletedQuestionGroups == 7) { Redirect(claim.nextSection(models.domain.AboutYou).firstPage) }
-    else if (!yourDetailsVisible && nrOfCompletedQuestionGroups == 6) { Redirect(claim.nextSection(models.domain.AboutYou).firstPage) }
+    if(yourDetailsVisible && nrOfCompletedQuestionGroups == 7) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
+    else if (!yourDetailsVisible && nrOfCompletedQuestionGroups == 6) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
     else Redirect(routes.G1YourDetails.present())
   }
 }

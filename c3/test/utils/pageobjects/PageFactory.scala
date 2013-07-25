@@ -57,6 +57,7 @@ object PageFactory {
       case G4PersonContactDetailsPage.title => G4PersonContactDetailsPage buildPageWith(browser, previousPage)
       case G5StatutorySickPayPage.title => G5StatutorySickPayPage buildPageWith(browser, previousPage)
       case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage buildPageWith(browser, previousPage)
+      case G7CompletedPage.title => G7CompletedPage buildPageWith(browser, previousPage)
       // S9
       case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage buildPageWith(browser, previousPage)
       case G6ChildcareProvidersContactDetailsPage.title => G6ChildcareProvidersContactDetailsPage buildPageWith(browser, previousPage)
