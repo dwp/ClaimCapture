@@ -7,14 +7,15 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import views.html.s7_employment.jobID
 
-@main("Necessary expenses to do your job - Employment", Some(currentForm), completedQuestionGroups) {
-    @form(action = controllers.s7_employment.routes.G9NecessaryExpenses.submit()) {
-        <input type="hidden" name="jobID" value='@jobID(currentForm)'>
+@import models.domain.Job
+
+@main("Childcare expenses while you are at work - Employment", Some(currentForm), completedQuestionGroups) {
+    @form(action = controllers.s7_employment.routes.G10ChildcareExpenses.submit()) {
+        <input type="hidden" name="jobID" value='@Job.jobID(currentForm)'>
 
         <fieldset class="form-elements">
-            <legend>Necessary expenses to do your job</legend>
+            <legend>Childcare expenses while you are at work</legend>
 
             <ul class="group">
                 @carersInputText(currentForm("howMuchCostChildcare"))
