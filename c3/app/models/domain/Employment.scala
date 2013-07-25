@@ -24,38 +24,29 @@ case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Jobs) with NoRoutin
     if (updated.contains(job)) Jobs(updated) else Jobs(jobs :+ job)
   }
 
-  def update(questionGroup: QuestionGroup with Job.Identifier): Jobs = {
-    jobs.find(_.jobID == questionGroup.jobID) match {
-      case Some(job: Job) => update(job.update(questionGroup))
-      case _ => update(Job(questionGroup.jobID, questionGroup :: Nil))
-    }
+  def update(questionGroup: QuestionGroup with Job.Identifier): Jobs = jobs.find(_.jobID == questionGroup.jobID) match {
+    case Some(job: Job) => update(job.update(questionGroup))
+    case _ => update(Job(questionGroup.jobID, questionGroup :: Nil))
   }
 
-  def delete(jobID:String,questionGroup: QuestionGroup.Identifier): Jobs = {
-    jobs.find(_.jobID == jobID) match {
-      case Some(job: Job) => update(Job(jobID,job.questionGroups.filterNot(_.identifier.id == questionGroup.id)))
-      case _ => this
-    }
+  def delete(jobID: String): Jobs = Jobs(jobs.filterNot(_.jobID == jobID))
+
+  def delete(jobID: String, questionGroup: QuestionGroup.Identifier): Jobs = jobs.find(_.jobID == jobID) match {
+    case Some(job: Job) => update(Job(jobID,job.questionGroups.filterNot(_.identifier.id == questionGroup.id)))
+    case _ => this
   }
 
-  def apply(jobID:String): Option[Job] = jobs.find(_.jobID == jobID)
+  def apply(jobID: String): Option[Job] = jobs.find(_.jobID == jobID)
 
-  def questionGroup(questionGroup: QuestionGroup with Job.Identifier):Option[QuestionGroup] = {
-    this(questionGroup.jobID) match {
-      case Some(j:Job) => j(questionGroup)
-      case None => None
-    }
-
+  def questionGroup(questionGroup: QuestionGroup with Job.Identifier):Option[QuestionGroup] = this(questionGroup.jobID) match {
+    case Some(j:Job) => j(questionGroup)
+    case None => None
   }
 
-  def questionGroup(jobID:String, questionGroup: QuestionGroup.Identifier):Option[QuestionGroup] = {
-    this(jobID) match {
-      case Some(j:Job) => j(questionGroup)
-      case None => None
-    }
+  def questionGroup(jobID:String, questionGroup: QuestionGroup.Identifier):Option[QuestionGroup] = this(jobID) match {
+    case Some(j:Job) => j(questionGroup)
+    case None => None
   }
-
-
 
   override def iterator: Iterator[Job] = jobs.iterator
 }
@@ -79,8 +70,9 @@ case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identi
     case _ => ""
   }
 
-  def apply(questionGroup: QuestionGroup ): Option[QuestionGroup] = questionGroups.find(_.identifier == questionGroup.identifier)
-  def apply(questionGroup: QuestionGroup.Identifier ): Option[QuestionGroup] = questionGroups.find(_.identifier.id == questionGroup.id)
+  def apply(questionGroup: QuestionGroup): Option[QuestionGroup] = questionGroups.find(_.identifier == questionGroup.identifier)
+
+  def apply(questionGroup: QuestionGroup.Identifier): Option[QuestionGroup] = questionGroups.find(_.identifier.id == questionGroup.id)
 
   override def iterator: Iterator[QuestionGroup with Job.Identifier] = questionGroups.iterator
 }

@@ -148,6 +148,8 @@ POST    /education/completed                                    controllers.s6_e
 GET     /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.present
 POST    /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.submit
 
+DELETE  /employment/job/:jobID                                  controllers.s7_employment.Employment.delete(jobID: String)
+
 GET     /employment/job/:jobID                                  controllers.s7_employment.G2JobDetails.job(jobID: String)
 
 GET     /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.present
