@@ -81,6 +81,11 @@ object Job {
   trait Identifier {
     val jobID: String
   }
+
+  def jobID(currentForm: play.api.data.Form[_])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_]): String = {
+    val regex = """^(?:.*?)/employment/(?:.*?)(?:/(.*?))?$""".r
+    currentForm("jobID").value.getOrElse(regex.findFirstMatchIn(request.path).map(p => (p group 1) match{case s if s != null && s.length > 0 => s case _ => java.util.UUID.randomUUID.toString}).getOrElse(java.util.UUID.randomUUID.toString))
+  }
 }
 
 case class JobDetails(jobID: String,
@@ -150,9 +155,17 @@ object AboutExpenses extends QuestionGroup.Identifier {
 }
 
 case class NecessaryExpenses(jobID: String,
-                             whatAreThose: String, howMuchCostEachWeek: String, whyDoYouNeedThose: String) extends QuestionGroup(AboutExpenses) with Job.Identifier with NoRouting
+                             whatAreThose: String, howMuchCostEachWeek: String, whyDoYouNeedThose: String) extends QuestionGroup(NecessaryExpenses) with Job.Identifier with NoRouting
 
 
 object NecessaryExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g9"
+}
+
+case class ChildcareExpenses(jobID: String,
+                             howMuchCostChildcare:Option[String],whoLooksAfterChildren:String,relationToYou:Option[String],relationToPartner:Option[String]) extends QuestionGroup(ChildcareExpenses) with Job.Identifier with NoRouting
+
+
+object ChildcareExpenses extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g10"
 }

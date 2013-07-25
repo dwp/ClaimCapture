@@ -60,6 +60,7 @@ object Employment extends Controller with CachedClaim {
     case PensionSchemes => routes.G7PensionSchemes.present(jobID)
     case AboutExpenses => routes.G8AboutExpenses.present(jobID)
     case NecessaryExpenses => routes.G9NecessaryExpenses.present(jobID)
+    case ChildcareExpenses => routes.G10ChildcareExpenses.present(jobID)
     case _ => routes.G1BeenEmployed.present()
   }
 }

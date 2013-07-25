@@ -25,6 +25,6 @@ object G9NecessaryExpenses extends Controller with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g9_necessaryExpenses(formWithErrors, completedQuestionGroups(NecessaryExpenses, formWithErrors("jobID").value.get))),
-      necessaryExpenses => claim.update(jobs.update(necessaryExpenses)) -> Redirect(routes.G8AboutExpenses.present(necessaryExpenses.jobID)))
+      necessaryExpenses => claim.update(jobs.update(necessaryExpenses)) -> Redirect(routes.G10ChildcareExpenses.present(necessaryExpenses.jobID)))
   }
 }
