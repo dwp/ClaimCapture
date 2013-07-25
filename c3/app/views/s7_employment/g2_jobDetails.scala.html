@@ -23,9 +23,12 @@
 
                 @yesNoRadioGroup(currentForm("finishedThisJob"))
 
-                @inputDayMonthYear(currentForm("lastWorkDate"), 'helperBelow -> Messages("date.helper"))
-
-                @inputDayMonthYear(currentForm("p45LeavingDate"), 'helperBelow -> Messages("date.helper"))
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        inputDayMonthYear(currentForm("lastWorkDate"), 'helperBelow -> Messages("date.helper")),
+                        inputDayMonthYear(currentForm("p45LeavingDate"), 'helperBelow -> Messages("date.helper"))),
+                    'id -> "finishedThisJob",
+                    'display -> currentForm("finishedThisJob").value.getOrElse("no"))
 
                 @carersInputText(currentForm("hoursPerWeek"), 'placeholder -> "00", 'maxlength -> 2, 'class -> "short-field")
 
@@ -41,3 +44,23 @@
         </nav>
     }
 }
+
+<script type="text/javascript">
+    $(function() {
+        @if(currentForm("finishedThisJob").value.getOrElse("") != "yes") {
+            $("#@CarersCrypto.encryptAES("finishedThisJob_yes")").closest("ul").parent().next().hide();
+        }
+
+        $("#@CarersCrypto.encryptAES("finishedThisJob_yes")").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#@CarersCrypto.encryptAES("finishedThisJob_no")").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+</script>
