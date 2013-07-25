@@ -58,9 +58,9 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
           f.whatWasOrIsYourTradingYearFrom must equalTo(Some(DayMonthYear(Some(fromDay), Some(fromMonth), Some(fromYear), None, None)))
           f.whatWasOrIsYourTradingYearTo must equalTo(Some(DayMonthYear(Some(toDay), Some(toMonth), Some(toYear), None, None)))
           f.areIncomeOutgoingsProfitSimilarToTrading must equalTo(Some(areIncomeOutgoingsProfitSimilarToTrading))
-          f.tellUsWhyAndWhenTheChangeHappened must equalTo(tellUsWhyAndWhenTheChangeHappened)
+          f.tellUsWhyAndWhenTheChangeHappened must equalTo(Some(tellUsWhyAndWhenTheChangeHappened))
           f.doYouHaveAnAccountant must equalTo(Some(doYouHaveAnAccountant))
-          f.canWeContactYourAccountant must equalTo(canWeContactYourAccountant)
+          f.canWeContactYourAccountant must equalTo(Some(canWeContactYourAccountant))
         }
       }
     }

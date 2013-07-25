@@ -53,7 +53,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags with 
       val nextPage = page submitPage()
 
       nextPage must not(beAnInstanceOf[G1AboutSelfEmploymentPage])
-    }.pendingUntilFixed("Needs next page to exist")
+    }
   }
 
 }

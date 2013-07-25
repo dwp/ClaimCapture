@@ -46,22 +46,34 @@ case class CareProvidersContactDetails(call: Call,
 
 case object CareProvidersContactDetails extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g8"
-}case object SelfEmploymentYourAccounts extends QuestionGroup.Identifier {
+}
+
+case object SelfEmploymentYourAccounts extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g2"
 }
 
 case class SelfEmploymentYourAccounts(call: Call,
                                       whatWasOrIsYourTradingYearFrom: Option[DayMonthYear],
                                       whatWasOrIsYourTradingYearTo: Option[DayMonthYear],
-
                                       areAccountsPreparedOnCashFlowBasis: String,
                                       areIncomeOutgoingsProfitSimilarToTrading: Option[String],
-                                      tellUsWhyAndWhenTheChangeHappened: String,
+                                      tellUsWhyAndWhenTheChangeHappened: Option[String],
                                       doYouHaveAnAccountant: Option[String],
-                                      canWeContactYourAccountant: String
+                                      canWeContactYourAccountant: Option[String]
                                        ) extends QuestionGroup(SelfEmploymentYourAccounts)
 
 
+case object SelfEmploymentAccountantContactDetails extends QuestionGroup.Identifier {
+  val id = s"${SelfEmployment.id}.g3"
+}
+
+case class SelfEmploymentAccountantContactDetails(call: Call,
+                                      accountantsName: String,
+                                      address: MultiLineAddress,
+                                      postCode: Option[String],
+                                      telephoneNumber: Option[String],
+                                      faxNumber: Option[String]
+                                       ) extends QuestionGroup(SelfEmploymentAccountantContactDetails)
 
 
 

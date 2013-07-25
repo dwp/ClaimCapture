@@ -33,7 +33,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim {
     implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s9_self_employment.g1_aboutSelfEmployment(formWithErrors, completedQuestionGroups)),
-        f => claim.update(f) -> Redirect(routes.G1AboutSelfEmployment.present())
+        f => claim.update(f) -> Redirect(routes.G2SelfEmploymentYourAccounts.present())
       )
   }
 }

@@ -16,32 +16,46 @@
     <legend>Self Employment - Your Accounts</legend>
 
     <ul class="group">
-        @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"), '_label -> Messages("areYouSelfEmployedNow.label"))
+        @yesNoRadioGroup(currentForm("areAccountsPreparedOnCashFlowBasis"), '_label -> Messages("areAccountsPreparedOnCashFlowBasis.label"))
+
+        @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), '_label -> Messages("areIncomeOutgoingsProfitSimilarToTrading.label"))
 
         @otherDetailPlaceHolder(
         inputDef = Seq(
-        inputDayMonthYear(currentForm("whenDidYouStartThisJob"), '_label -> Messages("whenDidYouStartThisJob.label"), 'helperBelow -> Messages("dateOfBirth.helper")),
-        inputDayMonthYear(currentForm("whenDidTheJobFinish"), '_label -> Messages("whenDidTheJobFinish.label"), 'helperBelow -> Messages("dateOfBirth.helper")),
-        yesNoRadioGroup(currentForm("haveYouCeasedTrading"), '_label -> Messages("haveYouCeasedTrading.label")),
-        carersInputText(currentForm("natureOfYourBusiness"), 'maxLength -> Mappings.sixty, '_label -> Messages("natureOfYourBusiness.label"))
+        carersInputText(currentForm("tellUsWhyAndWhenTheChangeHappened"), 'maxLength -> 300, '_label -> Messages("tellUsWhyAndWhenTheChangeHappened.label"))
         ),
-        'id -> "selfEmployedWrap",
-        'display -> currentForm("areYouSelfEmployedNow").value.getOrElse("no")
+        'id -> "selfEmployedIncomeWrap",
+        'display -> currentForm("areIncomeOutgoingsProfitSimilarToTrading").value.getOrElse("no")
         )
+
+        @yesNoRadioGroup(currentForm("doYouHaveAnAccountant"), '_label -> Messages("doYouHaveAnAccountant.label"))
+
+        @otherDetailPlaceHolder(
+        inputDef = Seq(
+        yesNoRadioGroup(currentForm("canWeContactYourAccountant"), '_label -> Messages("canWeContactYourAccountant.label"), 'helperBelow ->  Messages("canWeContactYourAccountant.helper"))
+        ),
+        'id -> "selfEmployedAccountantWrap",
+        'display -> currentForm("doYouHaveAnAccountant").value.getOrElse("no")
+        )
+
+        @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> Messages("whatWasOrIsYourTradingYearFrom.label"), 'helperBelow -> Messages("dateOfBirth.helper")),
+        @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> Messages("whatWasOrIsYourTradingYearTo.label"), 'helperBelow -> Messages("dateOfBirth.helper")),
+
     </ul>
 </fieldset>
 
 <nav class="form-steps">
-    <a id="backButton" href="@controllers.s8_other_money.routes.G4PersonContactDetails.present" class="button secondary">Back</a>
+    <a id="backButton" href="@controllers.s9_self_employment.G1AboutSelfEmployment.present" class="button secondary">Back</a>
     <button type="submit" name="action" value="next" class="button">Next</button>
 </nav>
 }
 }
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s9_self_employment/g1_aboutSelfEmployment.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s9_self_employment/g2_selfEmploymentYourAccounts.js")'></script>
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("areYouSelfEmployedNow_yes")", "@CarersCrypto.encryptAES("areYouSelfEmployedNow_no")");
+        window.initEvents("@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_yes")", "@CarersCrypto.encryptAES("areIncomeOutgoingsProfitSimilarToTrading_no")",
+                         "@CarersCrypto.encryptAES("doYouHaveAnAccountant_yes")", "@CarersCrypto.encryptAES("doYouHaveAnAccountant_no")");
     });
 </script>

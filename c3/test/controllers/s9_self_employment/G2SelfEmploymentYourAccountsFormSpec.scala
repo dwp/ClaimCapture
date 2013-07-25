@@ -23,7 +23,7 @@ class G2SelfEmploymentYourAccountsFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.tellUsWhyAndWhenTheChangeHappened must equalTo("A year back")
+          f.tellUsWhyAndWhenTheChangeHappened must equalTo(Some("A year back"))
         }
       )
     }
@@ -41,6 +41,8 @@ class G2SelfEmploymentYourAccountsFormSpec extends Specification with Tags {
     "reject if tellUsWhyAndWhenTheChangeHappened is not filled" in {
       G2SelfEmploymentYourAccounts.form.bind(
         Map("areAccountsPreparedOnCashFlowBasis" -> "yes",
+          "areIncomeOutgoingsProfitSimilarToTrading" -> "no",
+          "doYouHaveAnAccountant" -> "yes",
           "canWeContactYourAccountant" -> "yes")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
@@ -51,7 +53,8 @@ class G2SelfEmploymentYourAccountsFormSpec extends Specification with Tags {
     "reject if canWeContactYourAccountant is not filled" in {
       G2SelfEmploymentYourAccounts.form.bind(
         Map("areAccountsPreparedOnCashFlowBasis" -> "yes",
-          "tellUsWhyAndWhenTheChangeHappened" -> "A year back")
+          "areIncomeOutgoingsProfitSimilarToTrading" -> "yes",
+          "doYouHaveAnAccountant" -> "yes")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
         f => "This mapping should not happen." must equalTo("Valid")

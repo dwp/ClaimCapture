@@ -20,11 +20,30 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim{
       "whatWasOrIsYourTradingYearTo" -> optional(dayMonthYear.verifying(validDateOnly)),
       "areAccountsPreparedOnCashFlowBasis" -> nonEmptyText.verifying(validYesNo),
       "areIncomeOutgoingsProfitSimilarToTrading" -> optional(nonEmptyText.verifying(validYesNo)),
-      "tellUsWhyAndWhenTheChangeHappened" -> nonEmptyText(maxLength = 300),
+      "tellUsWhyAndWhenTheChangeHappened" -> optional(nonEmptyText(maxLength = 300)),
       "doYouHaveAnAccountant" -> optional(nonEmptyText.verifying(validYesNo)),
-      "canWeContactYourAccountant" -> nonEmptyText.verifying(validYesNo)
+      "canWeContactYourAccountant" -> optional(nonEmptyText.verifying(validYesNo))
     )(SelfEmploymentYourAccounts.apply)(SelfEmploymentYourAccounts.unapply)
+      .verifying("error.required", validateChangeHappened _)
+      .verifying("error.required", validateContactAccountant _)
   )
+
+
+  def validateChangeHappened(selfEmploymentYourAccounts: SelfEmploymentYourAccounts) = {
+    selfEmploymentYourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
+      case Some(`no`) => selfEmploymentYourAccounts.tellUsWhyAndWhenTheChangeHappened.isDefined
+      case Some(`yes`) => true
+      case _ => true
+    }
+  }
+
+  def validateContactAccountant(selfEmploymentYourAccounts: SelfEmploymentYourAccounts) = {
+    selfEmploymentYourAccounts.doYouHaveAnAccountant match {
+      case Some(`yes`) => selfEmploymentYourAccounts.canWeContactYourAccountant.isDefined
+      case Some(`no`) => true
+      case _ => true
+    }
+  }
 
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s9_self_employment.g2_selfEmploymentYourAccounts(form, completedQuestionGroups))
@@ -34,7 +53,7 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim{
     implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s9_self_employment.g2_selfEmploymentYourAccounts(formWithErrors, completedQuestionGroups)),
-        f => claim.update(f) -> Redirect(routes.G2SelfEmploymentYourAccounts.present())
+        f => claim.update(f) -> Redirect(routes.G3SelfEmploymentAccountantContactDetails.present())
       )
   }
 }

@@ -153,4 +153,27 @@ object ClaimScenarioFactory {
 
     claim
   }
+
+  def s9SelfEmploymentYourAccounts = {
+    val claim = s9SelfEmployment
+    //About self employment
+    claim.SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis = "yes"
+    claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "no"
+    claim.SelfEmployedTellUsWhyandWhentheChangeHappened = "A Year back"
+    claim.SelfEmployedDoYouHaveAnAccountant = "yes"
+    claim.SelfEmployedCanWeContactYourAccountant = "yes"
+
+    claim
+  }
+
+  def s9SelfEmploymentAccountantContactDetails = {
+    val claim = s9SelfEmploymentYourAccounts
+    //About self employment
+    claim.SelfEmployedAccountantName = "Hello 123"
+    claim.SelfEmployedAccountantAddress = "lineOne lineTwo lineThree"
+
+    claim
+  }
+
+
 }
