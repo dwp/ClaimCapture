@@ -1,8 +1,10 @@
 package utils.pageobjects.tests.xml_validation
 
 import utils.pageobjects.xml_validation.XMLBusinessValidation
-import org.specs2.mutable.{Tags,Specification}
+import org.specs2.mutable.{Tags, Specification}
 import controllers.ClaimScenarioFactory
+import scala.io.Source
+import utils.pageobjects.PageObjectException
 
 
 /**
@@ -13,7 +15,7 @@ import controllers.ClaimScenarioFactory
 class XMLBusinessValidationSpec extends Specification {
   "The XML Business Validator object" should {
 
-    "be able to build the XML mapping from a valid csv file" in  {
+    "be able to build the XML mapping from a valid csv file" in {
       val mapping = XMLBusinessValidation buildXmlMappingFromFile ("/tests_XMLMapping.csv")
       mapping("AboutYouHaveYouSubletYourHome")(0) mustEqual "path1"
       mapping("AboutYouWhatIsYourVisaReferenceNumber")(0) mustEqual "path2"
@@ -29,10 +31,16 @@ class XMLBusinessValidationSpec extends Specification {
   }
 
   "The XML Business Validation class" should {
-    "be able to parse a claim" in {
+    "be able to parse a claim and raise exception with list errors if content xml differs from claim object" in {
       val validator = new XMLBusinessValidation
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
-      validator.validateXMLClaim(claim,"<test></test>")
+      val xml = Source.fromURL(getClass getResource "/Claim.xml").mkString
+
+      val errors = validator.validateXMLClaim(claim, xml)
+      errors.nonEmpty must beTrue
+      errors(0) mustEqual "AboutYouFirstName Claimant>FirstNames value expected: [John] value read: []"
+
+
     }
   }
 

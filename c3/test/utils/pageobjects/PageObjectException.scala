@@ -6,7 +6,8 @@ package utils.pageobjects
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-case class PageObjectException(message: String, errors: List[String] = null, exception:Exception = null) extends RuntimeException(PageObjectException.buildDetailMessage(message,errors),exception) {
+case class PageObjectException(message: String, errors: List[String] = null, exception:Exception = null)
+  extends RuntimeException(PageObjectException.buildDetailMessage(message,errors),exception) {
 
 
 }

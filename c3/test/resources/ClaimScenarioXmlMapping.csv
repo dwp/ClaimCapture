@@ -2,19 +2,19 @@ Can you get Carers Allowance?,Does the person you care for get one of these bene
 Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you look after?,Do you spend 35 hours or more each week caring for the person you look after?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,
-About You,Your Details,Title,AboutYouTitle,ClaimantStructure>Title
-About You,Your Details,First name,AboutYouFirstName,ClaimantStructure>OtherNames
-About You,Your Details,Middle name,AboutYouMiddleName,ClaimantStructure>OtherNames
-About You,Your Details,Surname or family name,AboutYouSurname,ClaimantStructure>Surname
-About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,ClaimantStructure>OtherSurnames
-About You,Your Details,National Insurance (NI) number,AboutYouNINO,ClaimantStructure>NationalInsuranceNumber
-About You,Your Details,Date of birth,AboutYouDateOfBirth,ClaimantStructure>DateOfBirth
-About You,Your Details,Nationality,AboutYouNationality,ResidencyStructure>Nationality
+About You,Your Details,Title,AboutYouTitle,Claimant>Title
+About You,Your Details,First name,AboutYouFirstName,Claimant>FirstNames
+About You,Your Details,Middle name,AboutYouMiddleName,Claimant>OtherNames
+About You,Your Details,Surname or family name,AboutYouSurname,Claimant>Surname
+About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,Claimant>OtherSurnames
+About You,Your Details,National Insurance (NI) number,AboutYouNINO,Claimant>NationalInsuranceNumber
+About You,Your Details,Date of birth,AboutYouDateOfBirth,Claimant>DateOfBirth
+About You,Your Details,Nationality,AboutYouNationality,Residency>Nationality
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,LivedInUK
-About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,ClaimantStructure>MaritalStatus
-About You,Your contact details,Address,AboutYouAddress,"ClaimantStructure>Address>Line"
-About You,Your contact details,Postcode,AboutYouPostcode,"ClaimantStructure>Address>PostCode"
-About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,ClaimantStructure>DaytimePhoneNumber
+About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Claimant>MaritalStatus
+About You,Your contact details,Address,AboutYouAddress,ClaimantStructure>Address>Line
+About You,Your contact details,Postcode,AboutYouPostcode,ClaimantStructure>Address>PostCode
+About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,Claimant>DaytimePhoneNumber
 About You,Your contact details,Mobile number,AboutYouMobileNumber,ClaimantMobNum
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,ResdCurrentlyInUK
 About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInTheUK,OtherNationalityStructure>DateArrivedInGreatBritain
