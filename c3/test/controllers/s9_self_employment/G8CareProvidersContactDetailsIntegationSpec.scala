@@ -10,7 +10,7 @@ import controllers.ClaimScenarioFactory
 import org.specs2.execute.PendingUntilFixed
 import utils.pageobjects.ClaimScenario
 
-class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tags {
+class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tags with PendingUntilFixed {
   "Care provider's contact Details" should {
     "be presented" in new WithBrowser with G8CareProvidersContactDetailsPageContext {
       page goToThePage ()
@@ -52,7 +52,7 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
 
       val nextPage = page submitPage()
 
-      nextPage must not(beAnInstanceOf[G9CompletedPage])
+      nextPage must not(beAnInstanceOf[G8CareProvidersContactDetailsPage])
     }
   } section "integration"
 }

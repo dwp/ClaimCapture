@@ -37,7 +37,7 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
 
-      nextPage must not(beAnInstanceOf[G8CareProvidersContactDetailsPage])
+      nextPage must not(beAnInstanceOf[G9CompletedPage])
     }
   } section "integration"
 }
