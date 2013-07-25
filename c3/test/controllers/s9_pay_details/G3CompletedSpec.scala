@@ -1,11 +1,9 @@
 package controllers.s9_pay_details
 
-import utils.pageobjects.s6_pay_details.{G3CompletedPage, G3CompletedPageContext}
+import utils.pageobjects.s6_pay_details.{G1HowWePayYouPageContext, G3CompletedPage, G3CompletedPageContext}
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s9_pay_details.G1HowWePayYouPageContext
-
 
 class G3CompletedSpec extends Specification with Tags {
 
