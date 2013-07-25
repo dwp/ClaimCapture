@@ -2,6 +2,7 @@ package utils.pageobjects.xml_validation
 
 import scala.collection.mutable
 import utils.pageobjects.{ClaimScenario, FactoryFromFile}
+import scala.xml.{Elem, XML}
 
 /**
 * Validates that an XML contains all the relevant data that was provided in a Claim.
@@ -11,10 +12,11 @@ import utils.pageobjects.{ClaimScenario, FactoryFromFile}
 */
 class XMLBusinessValidation(xmlMappingFile:String = "/ClaimScenarioXmlMapping.csv") {
 
-  def validateXMLClaim(claim:ClaimScenario) {
-     val mapping = XMLBusinessValidation.buildXmlMappingFromFile(xmlMappingFile)
+  def validateXMLClaim(claim:ClaimScenario, xmlString: String):Unit  = validateXMLClaim(claim, XML.loadString(xmlString))
 
-
+  def validateXMLClaim(claim:ClaimScenario, xml: Elem):Unit = {
+    val mapping = XMLBusinessValidation.buildXmlMappingFromFile(xmlMappingFile)
+    claim.map.foreach { case (attribute,value) => println(attribute) }
   }
 
 }

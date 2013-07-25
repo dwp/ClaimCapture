@@ -1,13 +1,12 @@
 package controllers.s7_employment
 
-import language.implicitConversions
-import language.reflectiveCalls
-import reflect.ClassTag
+import scala.language.implicitConversions
 import play.api.mvc.{Call, AnyContent, Request, Controller}
 import models.view.CachedClaim
 import models.domain._
 import models.domain.Claim
 import play.api.data.Form
+import scala.reflect.ClassTag
 
 object Employment extends Controller with CachedClaim {
   implicit def jobFormFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
@@ -39,12 +38,18 @@ object Employment extends Controller with CachedClaim {
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    Redirect("")
+    Redirect(claim.nextSection(models.domain.CarersAllowance).firstPage)
   }
 
   private def route(qg: QuestionGroup, jobID: String) = qg.identifier match {
-    case JobDetails => routes.G2JobDetails.present()
+    case JobDetails => routes.G2JobDetails.presentInJob(jobID)
     case EmployerContactDetails => routes.G3EmployerContactDetails.present(jobID)
+    case LastWage => routes.G4LastWage.present(jobID)
+    case AdditionalWageDetails => routes.G5AdditionalWageDetails.present(jobID)
+    case MoneyOwedbyEmployer => routes.G6MoneyOwedbyEmployer.present(jobID)
+    case PensionSchemes => routes.G7PensionSchemes.present(jobID)
+    case AboutExpenses => routes.G8AboutExpenses.present(jobID)
+    case NecessaryExpenses => routes.G9NecessaryExpenses.present(jobID)
     case _ => routes.G1BeenEmployed.present()
   }
 }

@@ -8,7 +8,8 @@ import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s8_other_money._
 import utils.pageobjects.s6_pay_details.G1HowWePayYouPage
 import utils.pageobjects.s3_your_partner._
-
+import utils.pageobjects.s3_your_partner._
+import utils.pageobjects.s9_self_employment._
 
 /**
  * Factory used by Page to create from an html page the right page object.
@@ -52,6 +53,8 @@ object PageFactory {
       case G4PersonContactDetailsPage.title => G4PersonContactDetailsPage buildPageWith(browser, previousPage)
       case G5StatutorySickPayPage.title => G5StatutorySickPayPage buildPageWith(browser, previousPage)
       case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage buildPageWith(browser, previousPage)
+      // S9
+      case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage buildPageWith(browser, previousPage)
       // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }

@@ -7,10 +7,11 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
+@import views.html.s7_employment.jobID
 
 @main("Last wage - Employment", Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G4LastWage.submit()) {
-        <input type="hidden" name="jobID" value='@currentForm("jobID").value.getOrElse(request.flash.get("jobID").getOrElse("Missing job ID"))'>
+        <input type="hidden" name="jobID" value='@jobID(currentForm)'>
 
         <fieldset class="form-elements">
             <legend>Your last wage</legend>
