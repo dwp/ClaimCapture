@@ -18,7 +18,7 @@ object CareYouProvide extends Controller with CachedClaim {
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    if (completedQuestionGroups.distinct.size >= 6) Redirect(controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.present())
+    if (completedQuestionGroups.distinct.size >= 6) Redirect(claim.nextSection(models.domain.CareYouProvide).firstPage)
     else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }
 }

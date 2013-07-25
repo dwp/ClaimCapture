@@ -24,11 +24,13 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Bank Building Society Details - Pay Details"
     }
 
-    /*"navigate back to About You - Completed" in new WithBrowser {
+    "navigate back to Other Money - Completed" in new WithBrowser {
       browser.goTo("/payDetails/howWePayYou")
       browser.click(".form-steps a")
-      browser.title mustEqual "Completion - About You"
-    }*/
+      //Other Income completed page does a redirect to first page
+      browser.title mustEqual "About Other Money - Other Money"
+
+    }
 
     "contain the completed forms" in new WithBrowser {
       Formulate.howWePayYou(browser)

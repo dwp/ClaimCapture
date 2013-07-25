@@ -5,8 +5,8 @@ import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
 import org.specs2.execute.PendingUntilFixed
 
-class EducationIntegrationSpec extends Specification with Tags with PendingUntilFixed {
-  "Education - Controller" should {
+class EducationIntegrationSpec extends Specification with Tags {
+  "Education" should {
     """present "completion".""" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
@@ -35,19 +35,16 @@ class EducationIntegrationSpec extends Specification with Tags with PendingUntil
       titleMustNotEqual("Completion - Education")
     }
 
-    "show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser {
-      Formulate.yourCourseDetails(browser)
-      Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      
-      browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
+    "navigate to" in {
+
+      "Employment: show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
+        Formulate.yourCourseDetails(browser)
+        Formulate.addressOfSchoolCollegeOrUniversity(browser)
+
+        browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
+        browser.submit("button[type='submit']")
+        titleMustEqual("Your employment history - Employment")
+      }
     }
-    
-    "show the text 'Continue to Other Income' on the submit button when next section is 'Other Income'" in new WithBrowser {
-      Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
-      Formulate.yourCourseDetails(browser)
-      Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      
-      browser.find("button[type='submit']").getText mustEqual "Continue to Other Income"
-    }.pendingUntilFixed("Need a previous section to call hideSection on Employment")
-  } section "unit"
+  } section "integration"
 }

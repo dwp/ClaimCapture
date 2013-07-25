@@ -17,8 +17,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with Pend
     "navigate back to Completion - Employment" in new WithBrowser {
       browser.goTo("/otherMoney/aboutOtherMoney")
       browser.click("#backButton")
-      pending("Need Completion - Employment to exist")
-      browser.title mustEqual "Details about your job - Employment"
+      browser.title mustEqual "Completion - Employment"
     }
 
     "contain errors on invalid submission" in {
