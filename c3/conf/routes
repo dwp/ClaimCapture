@@ -177,6 +177,9 @@ POST    /employment/aboutExpenses                               controllers.s7_e
 GET     /employment/necessaryExpenses/:jobID                    controllers.s7_employment.G9NecessaryExpenses.present(jobID: String)
 POST    /employment/necessaryExpenses                           controllers.s7_employment.G9NecessaryExpenses.submit
 
+GET     /employment/childcareExpenses/:jobID                    controllers.s7_employment.G10ChildcareExpenses.present(jobID: String)
+POST    /employment/childcareExpenses                           controllers.s7_employment.G10ChildcareExpenses.submit
+
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
 POST    /employment/completed                                   controllers.s7_employment.Employment.submit
 
