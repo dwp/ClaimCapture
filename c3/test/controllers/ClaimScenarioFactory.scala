@@ -83,6 +83,20 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s4CareYouProvide() = {
+    val claim = s2ands3WithTimeOUtsideUKAndProperty()
+    // Their Personal Details
+    claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
+    claim.AboutTheCareYouProvideFirstNamePersonCareFor = "Tom"
+    claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "Potter"
+    claim.AboutTheCareYouProvideSurnamePersonCareFor = "Wilson"
+    claim.AboutTheCareYouProvideNINOPersonCareFor = "AA123456A"
+    claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/03/1990"
+    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
+    claim
+    //
+  }
+
 
   def s6PayDetails() = {
     val claim = new ClaimScenario
