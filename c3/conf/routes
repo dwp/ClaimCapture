@@ -256,6 +256,9 @@ GET     /assets/*file                                           controllers.Asse
 GET     /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.present
 POST    /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.submit
 
+GET     /selfEmployment/expensesWhileAtWork                     controllers.s9_self_employment.G7ExpensesWhileAtWork.present
+POST    /selfEmployment/expensesWhileAtWork                     controllers.s9_self_employment.G7ExpensesWhileAtWork.submit
+
 GET     /selfEmployment/careProvidersContactDetails             controllers.s9_self_employment.G8CareProvidersContactDetails.present
 POST    /selfEmployment/careProvidersContactDetails             controllers.s9_self_employment.G8CareProvidersContactDetails.submit
 
