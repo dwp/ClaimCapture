@@ -35,7 +35,7 @@ object Employment extends Controller with CachedClaim {
   }
 
   def completed = claiming { implicit claim => implicit request =>
-    Ok("")
+    Ok("<html><title>Completion - Employment</title></html>").as(HTML)
   }
 
   def submit = claiming { implicit claim => implicit request =>

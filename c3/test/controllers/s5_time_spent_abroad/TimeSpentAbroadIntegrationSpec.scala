@@ -20,22 +20,22 @@ class TimeSpentAbroadIntegrationSpec extends Specification with Tags {
     }
     
     "navigate to" in {
-      "show the text 'Continue to Education' on the submit button when next section is 'Education'" in new WithBrowser with BrowserMatchers {
+      "Education: show the text 'Continue to Education' on the submit button when next section is 'Education'" in new WithBrowser with BrowserMatchers {
         Formulate.normalResidenceAndCurrentLocation(browser)
         Formulate.abroadForMoreThan4Weeks(browser)
         Formulate.abroadForMoreThan52Weeks(browser)
         Formulate.otherEEAStateOrSwitzerland(browser)
       
-        browser.find("button[type='submit']").getText mustEqual "Continue to Education"
+        browser.find("button[type='submit']").getText shouldEqual "Continue to Education"
       }
-      /*
-      "show the text 'Continue to Other Income' on the submit button when next section is 'Other Income'" in new WithBrowser {
+
+      "Employment: show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser {
         Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
         Formulate.yourCourseDetails(browser)
         Formulate.addressOfSchoolCollegeOrUniversity(browser)
         
-        browser.find("button[type='submit']").getText mustEqual "Continue to Other Income"
-      }.pendingUntilFixed("Need a previous section to call hideSection on Employment")*/
+        browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
+      }
     }
   }
 }

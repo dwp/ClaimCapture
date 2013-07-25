@@ -6,6 +6,7 @@ import scala.concurrent.Future
 import play.Configuration
 import scala.xml.Elem
 import play.api.Logger
+import services.util.CharacterStripper
 
 object ClaimSubmissionService {
   def submitClaim(claimSubmission: Elem): Future[ws.Response] = {
@@ -14,7 +15,7 @@ object ClaimSubmissionService {
     Logger.debug(s"Submission Server : $submissionServerEndpoint")
     val result = WS.url(submissionServerEndpoint)
       .withHeaders(("Content-Type", "text/xml"))
-      .post(claimSubmission.buildString(stripComments = true))
+      .post(CharacterStripper.stripNonPdf(claimSubmission.buildString(stripComments = true)))
     result
   }
 
