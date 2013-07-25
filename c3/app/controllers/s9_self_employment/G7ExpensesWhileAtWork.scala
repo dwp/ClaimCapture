@@ -14,16 +14,15 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim {
   val form = Form(
     mapping(
       call(routes.G7ExpensesWhileAtWork.present()),
-      "howMuchYouPay" -> optional(text),
-      "nameOfPerson" -> nonEmptyText,
-      "whatRelationIsToYou" -> optional(text),
-      "whatRelationIsTothePersonYouCareFor" -> optional(text)
+      "howMuchYouPay" -> optional(text(maxLength = sixty)),
+      "nameOfPerson" -> nonEmptyText(maxLength = sixty),
+      "whatRelationIsToYou" -> optional(text(maxLength = sixty)),
+      "whatRelationIsTothePersonYouCareFor" -> optional(text(maxLength = sixty))
     )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply)
   )
 
   def present = claiming { implicit claim => implicit request =>
-    //Ok(views.html.s9_self_employment.g1_aboutSelfEmployment(form, completedQuestionGroups))
-    Ok(<p>Hello, World!</p>)
+    Ok(views.html.s9_self_employment.g7_expensesWhileAtWork(form, completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim =>
