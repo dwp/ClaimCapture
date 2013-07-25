@@ -11,6 +11,13 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       browser.title mustEqual "Bank Building Society Details - Pay Details"
     }
 
+    "be hidden when having state pension" in new WithBrowser {
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYou(browser)
+      browser.goTo("/payDetails/bankBuildingSocietyDetails")
+      browser.title shouldEqual "Additional Information - Consent And Declaration"
+    }
+
     "contain errors on invalid submission" in new WithBrowser {
       browser.goTo("/payDetails/bankBuildingSocietyDetails")
       browser.title mustEqual "Bank Building Society Details - Pay Details"

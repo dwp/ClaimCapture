@@ -11,6 +11,13 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "How We Pay You - Pay Details"
     }
 
+    "be hidden when having state pension" in new WithBrowser {
+       Formulate.claimDate(browser)
+       Formulate.moreAboutYou(browser)
+       browser.goTo("/payDetails/howWePayYou")
+       browser.title shouldEqual "Additional Information - Consent And Declaration"
+    }
+
     "contain errors on invalid submission" in new WithBrowser {
       browser.goTo("/payDetails/howWePayYou")
       browser.title mustEqual "How We Pay You - Pay Details"

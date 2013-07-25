@@ -9,6 +9,9 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 
+import controllers.s9_pay_details.PayDetails._
+
+
 object G2BankBuildingSocietyDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
@@ -22,16 +25,26 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim {
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(BankBuildingSocietyDetails)
 
-  def present = claiming { implicit claim => implicit request =>
-    claim.questionGroup(HowWePayYou) match {
-      case Some(y: HowWePayYou) if y.likeToBePaid != "01" => claim.delete(BankBuildingSocietyDetails) -> Redirect(routes.PayDetails.completed())
-      case _ => Ok(views.html.s9_pay_details.g2_bankBuildingSocietyDetails(form.fill(BankBuildingSocietyDetails), completedQuestionGroups))
-    }
+  def present = claiming {
+    implicit claim => implicit request =>
+
+      whenSectionVisible {
+
+        val iAmVisible = claim.questionGroup(HowWePayYou) match {
+          case Some(y: HowWePayYou) => y.likeToBePaid == "01"
+          case _ => true
+        }
+
+        if (iAmVisible) Ok(views.html.s9_pay_details.g2_bankBuildingSocietyDetails(form.fill(BankBuildingSocietyDetails), completedQuestionGroups))
+        else claim.delete(BankBuildingSocietyDetails) -> Redirect(routes.PayDetails.completed())
+      }
+
   }
 
-  def submit = claiming { implicit claim => implicit request =>
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s9_pay_details.g2_bankBuildingSocietyDetails(formWithErrors,claim.completedQuestionGroups(BankBuildingSocietyDetails))),
-      howWePayYou => claim.update(howWePayYou) -> Redirect(routes.PayDetails.completed()))
+  def submit = claiming {
+    implicit claim => implicit request =>
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.s9_pay_details.g2_bankBuildingSocietyDetails(formWithErrors, claim.completedQuestionGroups(BankBuildingSocietyDetails))),
+        howWePayYou => claim.update(howWePayYou) -> Redirect(routes.PayDetails.completed()))
   }
 }

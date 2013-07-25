@@ -3,13 +3,20 @@ package controllers.s9_pay_details
 import utils.pageobjects.s6_pay_details.{G1HowWePayYouPageContext, G3CompletedPage, G3CompletedPageContext}
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.ClaimScenarioFactory
+import controllers.{Formulate, ClaimScenarioFactory}
 
-class G3CompletedSpec extends Specification with Tags {
+class G3CompletedIntegrationSpec extends Specification with Tags {
 
   "PayDetails Completion" should {
     "be presented" in new WithBrowser with G3CompletedPageContext {
       page goToThePage()
+    }
+
+    "be hidden when having state pension" in new WithBrowser {
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYou(browser)
+      browser.goTo("/payDetails/completed")
+      browser.title shouldEqual "Additional Information - Consent And Declaration"
     }
 
 
