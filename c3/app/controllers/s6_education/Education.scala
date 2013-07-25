@@ -6,7 +6,7 @@ import models.domain.Claim
 import play.api.templates.Html
 
 object Education extends Controller with CachedClaim {
-  def whenVisible(claim: Claim)(f: => SimpleResult[Html]) = {
+  def whenSectionVisible(f: => SimpleResult[Html])(implicit claim: Claim) = {
     if (claim.isSectionVisible(models.domain.Education)) f
     else Redirect(controllers.s7_employment.routes.G1BeenEmployed.present())
   }

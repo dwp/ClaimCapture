@@ -22,7 +22,7 @@ object G2YourPartnerContactDetails extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(YourPartnerContactDetails)
 
   def present = claiming { implicit claim => implicit request =>
-    whenVisible(claim) {
+    whenSectionVisible {
       val liveAtSameAddress = claim.questionGroup(YourPartnerPersonalDetails) match {
         case Some(t: YourPartnerPersonalDetails) => t.liveAtSameAddress == yes
         case _ => false

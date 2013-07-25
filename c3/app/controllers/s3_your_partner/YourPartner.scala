@@ -11,7 +11,7 @@ object YourPartner extends Controller with CachedClaim {
 
   def completed = claiming {
     implicit claim => implicit request =>
-      whenVisible(claim)(Ok(views.html.s3_your_partner.g5_completed(completedQuestionGroups)))
+      whenSectionVisible(Ok(views.html.s3_your_partner.g5_completed(completedQuestionGroups)))
   }
 
   def completedSubmit = claiming {
@@ -19,7 +19,7 @@ object YourPartner extends Controller with CachedClaim {
       Redirect(claim.nextSection(models.domain.YourPartner).firstPage)
   }
 
-  def whenVisible(claim: Claim)(f: => SimpleResult[Html]) = {
+  def whenSectionVisible(f: => SimpleResult[Html])(implicit claim: Claim) = {
     if (claim.isSectionVisible(models.domain.YourPartner)) f
     else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }

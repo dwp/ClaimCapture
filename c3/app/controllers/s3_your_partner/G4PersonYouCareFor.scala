@@ -19,7 +19,7 @@ object G4PersonYouCareFor extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PersonYouCareFor)
 
   def present = claiming { implicit claim => implicit request =>
-    YourPartner.whenVisible(claim) {
+    YourPartner.whenSectionVisible {
       val currentForm: Form[PersonYouCareFor] = claim.questionGroup(PersonYouCareFor) match {
         case Some(t: PersonYouCareFor) => form.fill(t)
         case _ => form

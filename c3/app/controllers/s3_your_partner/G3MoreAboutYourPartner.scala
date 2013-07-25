@@ -35,7 +35,7 @@ object G3MoreAboutYourPartner extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutYourPartner)
 
   def present = claiming { implicit claim => implicit request =>
-    YourPartner.whenVisible(claim)(Ok(views.html.s3_your_partner.g3_moreAboutYourPartner(form.fill(MoreAboutYourPartner), completedQuestionGroups)))
+    YourPartner.whenSectionVisible(Ok(views.html.s3_your_partner.g3_moreAboutYourPartner(form.fill(MoreAboutYourPartner), completedQuestionGroups)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
