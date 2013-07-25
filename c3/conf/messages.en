@@ -58,6 +58,7 @@ s8.g7 = Other EEA State or Switzerland
 
 s9.g1 = How would you like to get paid?
 s9.g2 = Bank/Building society details
+s9.g7 = Expenses related to the person you care for while at work
 s9.g8 = Care provider's contact Details
 
 s10.g1 = Additional information
@@ -394,5 +395,8 @@ whenDidYouStartThisJob.label = When did you start this job?
 whenDidTheJobFinish.label = When did you finish this job?
 haveYouCeasedTrading.label = Have you ceased trading?
 natureOfYourBusiness.label = Nature of business?
-
+howMuchYouPay = How much did you pay them?
+nameOfPerson = Name of the person/organisation you pay
+whatRelationIsToYou = What relation, if any, is the person to you?
+whatRelationIsTothePersonYouCareFor = What relation, if any, is the person to the person you care for?
 

@@ -5,7 +5,7 @@ import org.specs2.mutable.{Tags, Specification}
 
 class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
   "Expenses related to the person you care for while at work - Self Employment Form" should {
-    val howMuchYouPay = "a"
+    val howMuchYouPay = "123"
     val nameOfPerson = "b"
     val whatRelationIsToYou = "c"
     val whatRelationIsTothePersonYouCareFor = "d"
