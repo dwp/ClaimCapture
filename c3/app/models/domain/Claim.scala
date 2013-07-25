@@ -87,5 +87,4 @@ object Claim {
 
     new Claim(sections = sections)
   }
-
 }
