@@ -137,12 +137,12 @@ object ClaimScenarioFactory {
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
     // G6 Childcare provider's contact Details
     claim.SelfEmployedChildcareProviderAddress = "Care Provider Address"
-    claim.SelfEmployedChildcareProviderPostcode = "Care Provider Postcode"
+    claim.SelfEmployedChildcareProviderPostcode = "SE1 6EH"
     // G7 Expenses while at work
     claim.SelfEmployedCareExpensesNameOfPerson = "Expenses Name Of Person"
     // G8 Care provider's contact Details
     claim.SelfEmployedCareProviderAddress = "Care Provider Address"
-    claim.SelfEmployedCareProviderPostcode = "Care Provider Postcode"
+    claim.SelfEmployedCareProviderPostcode = "SE1 6EH"
     // G9 Completion
     //   None
 

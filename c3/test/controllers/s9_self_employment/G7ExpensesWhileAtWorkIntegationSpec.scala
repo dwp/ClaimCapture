@@ -24,27 +24,35 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       val g7 = g2 goToPage(new G7ExpensesWhileAtWorkPage(browser))
       g7.listCompletedForms.size mustEqual 1
     }
-/*
+
     "contain errors on invalid submission" in {
-      "invalid postcode" in new WithBrowser with G8CareProvidersContactDetailsPageContext {
+      "missing madatory field" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
         val claim = new ClaimScenario
-        claim.SelfEmployedCareProviderPostcode = "INVALID"
+        claim.SelfEmployedCareExpensesNameOfPerson = ""
         page goToThePage ()
         page fillPageWith claim
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 1
-        pageWithErrors.listErrors(0).contains("postcode")
+        pageWithErrors.listErrors(0).contains("nameOfPerson")
       }
     }
     
-    "navigate to next page on valid submission" in new WithBrowser with G8CareProvidersContactDetailsPageContext {
+    "navigate back to previous page" in new WithBrowser with G6ChildcareProvidersContactDetailsPageContext {
+      val claim = ClaimScenarioFactory.s9SelfEmployment
+      page goToThePage()
+      page fillPageWith claim
+      val g7 = page submitPage()
+      g7.goBack() must beAnInstanceOf[G6ChildcareProvidersContactDetailsPage]
+    }
+    
+    "navigate to next page on valid submission" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
       page fillPageWith claim
 
       val nextPage = page submitPage()
 
-      nextPage must not(beAnInstanceOf[G9CompletedPage])
-    }*/
+      nextPage must not(beAnInstanceOf[G7ExpensesWhileAtWorkPageContext])
+    }
   } section "integration"
 }
