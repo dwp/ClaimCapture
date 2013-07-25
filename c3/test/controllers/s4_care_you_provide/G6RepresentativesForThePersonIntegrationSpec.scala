@@ -41,15 +41,15 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       browser.title mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G5
     }
 
-    "navigate back twice to Previous Carer Personal Details" in new WithBrowser {
+    "navigate back twice to Previous Carer Personal Details" in new WithBrowser with BrowserMatchers {
       // [SKW] This tests a problem I was having where pressing back twice wasn't getting back passed the S4 G4, the problem was with Controller action fetching previous question groups being different for pages using backHref.
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.previousCarerPersonalDetails(browser)
       Formulate.previousCarerContactDetails(browser)
-      browser.title mustEqual "Representatives For The Person - Care You Provide" // Landed on S4 G6
+      titleMustEqual("Representatives For The Person - Care You Provide") // Landed on S4 G6
       browser.click("#backButton")
       browser.click("#backButton")
-      browser.title mustEqual "Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G4
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide") // Back to S4 G4
     }
 
     "contain the completed forms" in new WithBrowser {

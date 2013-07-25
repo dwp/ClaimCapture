@@ -8,6 +8,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
+import PayDetails._
 
 object G1HowWePayYou extends Controller with CachedClaim{
   val form = Form(
@@ -18,7 +19,7 @@ object G1HowWePayYou extends Controller with CachedClaim{
     )(HowWePayYou.apply)(HowWePayYou.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_pay_details.g1_howWePayYou(form.fill(HowWePayYou)))
+    whenSectionVisible(Ok(views.html.s9_pay_details.g1_howWePayYou(form.fill(HowWePayYou))))
   }
 
   def submit = claiming { implicit claim => implicit request =>

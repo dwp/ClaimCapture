@@ -35,6 +35,7 @@ object G5MoreAboutYou extends Controller with CachedClaim {
       moreAboutYou => {
         val updatedClaim = claim.showHideSection(moreAboutYou.hadPartnerSinceClaimDate == yes, YourPartner)
                                 .showHideSection(moreAboutYou.beenInEducationSinceClaimDate == yes, Education)
+                                .showHideSection(moreAboutYou.receiveStatePension == no, PayDetails)
 
         updatedClaim.update(moreAboutYou) -> Redirect(routes.G6Employment.present())
       })
