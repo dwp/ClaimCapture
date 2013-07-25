@@ -60,9 +60,9 @@ case class Claim(sections: List[Section]) extends Timestamped {
 
   def isSectionVisible(sectionIdentifier: Section.Identifier) = section(sectionIdentifier).visible
 
-  def hideSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).hide())
+  def hideSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).hide)
 
-  def showSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).show())
+  def showSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).show)
 
   def showHideSection(visible: Boolean, sectionIdentifier: Section.Identifier) = {
     if (visible) showSection(sectionIdentifier) else hideSection(sectionIdentifier)

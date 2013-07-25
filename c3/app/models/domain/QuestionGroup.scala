@@ -2,8 +2,11 @@ package models.domain
 
 import models.view.Routing
 import play.api.mvc.Call
+import play.api.i18n.Messages
 
-abstract class QuestionGroup(val identifier: QuestionGroup.Identifier) extends Routing
+abstract class QuestionGroup(val identifier: QuestionGroup.Identifier) extends Routing {
+  val definition: String = Messages(identifier.id)
+}
 
 object QuestionGroup {
   trait Identifier {

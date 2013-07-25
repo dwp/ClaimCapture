@@ -20,10 +20,10 @@ class SectionSpec extends Specification {
                                              mockQuestionGroup[Over16](Over16) :: Nil)
 
       section.visible must beTrue
-      val hiddenSection = section.hide()
+      val hiddenSection = section.hide
       hiddenSection.visible must beFalse
 
-      val visibleSection = hiddenSection.show()
+      val visibleSection = hiddenSection.show
       visibleSection.visible must beTrue
     }
 

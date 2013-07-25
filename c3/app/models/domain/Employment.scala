@@ -6,6 +6,7 @@ import models.PaymentFrequency
 import models.MultiLineAddress
 import models.PeriodFromTo
 import scala.Some
+import play.api.i18n.Messages
 
 object Employed extends Section.Identifier {
   val id = "s7"
@@ -91,7 +92,9 @@ object Job {
 case class JobDetails(jobID: String,
                       employerName: String, jobStartDate: Option[DayMonthYear], finishedThisJob: String, lastWorkDate:Option[DayMonthYear],
                       p45LeavingDate: Option[DayMonthYear], hoursPerWeek: Option[String],
-                      jobTitle: Option[String], payrollEmployeeNumber: Option[String]) extends QuestionGroup(JobDetails) with Job.Identifier with NoRouting
+                      jobTitle: Option[String], payrollEmployeeNumber: Option[String]) extends QuestionGroup(JobDetails) with Job.Identifier with NoRouting {
+  override val definition = jobTitle.fold(Messages(identifier.id, employerName))(jt => Messages(identifier.id, s"$employerName, $jt"))
+}
 
 object JobDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g2"

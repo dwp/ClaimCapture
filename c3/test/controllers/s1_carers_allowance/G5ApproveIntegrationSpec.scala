@@ -2,12 +2,12 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.BrowserMatchers
 import utils.pageobjects.s1_carers_allowance.{G5ApprovePage, G4LivingInGBPage, G1BenefitsPageContext, G5ApprovePageContext}
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s2_about_you.G1YourDetailsPage
 
 class G5ApproveIntegrationSpec extends Specification with Tags {
+  sequential
 
   "Approve" should {
     "be presented" in new WithBrowser with G5ApprovePageContext {
