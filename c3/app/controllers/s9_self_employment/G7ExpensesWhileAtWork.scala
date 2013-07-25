@@ -1,5 +1,6 @@
 package controllers.s9_self_employment
 
+import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
@@ -22,7 +23,7 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim {
   )
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_self_employment.g7_expensesWhileAtWork(form, completedQuestionGroups))
+    Ok(views.html.s9_self_employment.g7_expensesWhileAtWork(form.fill(ExpensesWhileAtWork), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim =>
