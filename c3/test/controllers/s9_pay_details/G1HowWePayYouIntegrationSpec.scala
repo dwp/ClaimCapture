@@ -2,7 +2,7 @@ package controllers.s9_pay_details
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.Formulate
+import controllers.{BrowserMatchers, Formulate}
 
 class G1HowWePayYouIntegrationSpec extends Specification with Tags {
   "How we pay you" should {
@@ -11,11 +11,12 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "How We Pay You - Pay Details"
     }
 
-    "be hidden when having state pension" in new WithBrowser {
-       Formulate.claimDate(browser)
-       Formulate.moreAboutYou(browser)
-       browser.goTo("/payDetails/howWePayYou")
-       browser.title shouldEqual "Additional Information - Consent And Declaration"
+    "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.moreAboutYou(browser)
+      titleMustEqual("Employment - About You")
+      browser.goTo("/payDetails/howWePayYou")
+      titleMustEqual("Additional Information - Consent And Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser {

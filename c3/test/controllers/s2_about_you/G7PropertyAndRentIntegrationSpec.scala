@@ -27,6 +27,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)
 
+      titleMustEqual("Property and Rent - About You")
       findMustEqualSize("div[class=completed] ul li", 5)
     }
 

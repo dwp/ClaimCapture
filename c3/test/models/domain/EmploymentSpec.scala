@@ -121,12 +121,6 @@ class EmploymentSpec extends Specification {
       val jobs = Jobs().update(Job("1")).update(Job("2"))
       val claim = Claim().update(jobs)
 
-      claim.questionGroup(Jobs) match {
-        case Some(js: Jobs) => js.foreach(job =>
-          println(job.employerName))
-        case _ =>
-      }
-
       claim.questionGroup(Jobs) must beLike { case Some(js: Jobs) => js.size shouldEqual 2 }
     }
 

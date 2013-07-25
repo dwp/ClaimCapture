@@ -18,7 +18,7 @@
             <legend>Additional wage details</legend>
 
             <ul class="group">
-                @paymentFrequency(currentForm("oftenGetPaid"), "frequency", Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly", "other" -> "other"))
+                @paymentFrequency(currentForm("oftenGetPaid"), "frequency", Seq("W" -> "Weekly", "FN" -> "Fortnightly", "4W" -> "Four-weekly", "M" -> "Monthly", "other" -> "Other"))
 
                 @carersInputText(currentForm("whenGetPaid"))
 
@@ -26,7 +26,10 @@
 
                 @yesNoRadioGroup(currentForm("anyOtherMoney"))
 
-                @carersInputTextArea(currentForm("otherMoney"), 'placeholder->Messages("please.specify"))
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputTextArea(currentForm("otherMoney"), 'placeholder -> Messages("please.specify"))),
+                    'id -> "anyOtherMoney",
+                    'display -> currentForm("anyOtherMoney").value.getOrElse("no"))
 
                 @yesNoRadioGroup(currentForm("employeeOwesYouMoney"))
             </ul>
@@ -38,3 +41,25 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        @if(currentForm("anyOtherMoney").value.getOrElse("") != "yes") {
+            $("#@CarersCrypto.encryptAES("anyOtherMoney_yes")").closest("ul").parent().next().hide();
+        }
+
+        $("#@CarersCrypto.encryptAES("anyOtherMoney_yes")").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#@CarersCrypto.encryptAES("anyOtherMoney_no")").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+</script>

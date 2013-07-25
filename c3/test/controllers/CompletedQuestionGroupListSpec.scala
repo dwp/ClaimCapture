@@ -3,6 +3,8 @@ package controllers
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 import play.api.test.WithBrowser
+import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.Duration
 
 class CompletedQuestionGroupListSpec extends Specification with Tags {
 
@@ -67,16 +69,16 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
 
     "contain the correct items when navigating S4G3 ClaimedAllowanceBefore negative answer path" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Their Contact Details - Care You Provide")(Duration(60, TimeUnit.SECONDS))
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("More About The Person You Care For - Care You Provide")(Duration(60, TimeUnit.SECONDS))
 
       Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives For The Person - Care You Provide")(Duration(60, TimeUnit.SECONDS))
 
       Formulate.representativesForThePerson(browser)
-      titleMustEqual("More about the care you provide - Care You Provide")
+      titleMustEqual("More about the care you provide - Care You Provide")(Duration(60, TimeUnit.SECONDS))
 
       browser.find("div[class=completed] ul li").size mustEqual 4
       browser.find("div[class=completed] ul li").get(2).getText must contain("More about the person you care for")

@@ -57,7 +57,8 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYourPartnerNotSeparated(browser)
       Formulate.personYouCareFor(browser)
       browser.submit("button[type='submit']")
-      
+
+      titleMustEqual("Their Personal Details - Care You Provide")
       findMustEqualValue("#firstName","John")
       browser.find("#surname").getValue mustEqual "Appleseed"
     }

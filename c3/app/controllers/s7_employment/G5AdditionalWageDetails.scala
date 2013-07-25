@@ -9,6 +9,7 @@ import models.domain.AdditionalWageDetails
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
+import play.api.data.validation.{Valid, Constraint}
 
 object G5AdditionalWageDetails extends Controller with CachedClaim {
   val form = Form(
@@ -18,10 +19,9 @@ object G5AdditionalWageDetails extends Controller with CachedClaim {
       "whenGetPaid" -> optional(text),
       "holidaySickPay" -> optional(text verifying validYesNo),
       "anyOtherMoney" -> (nonEmptyText verifying validYesNo),
-      "otherMoney" -> optional(text),
+      "otherMoney" -> optional(text verifying Constraint[String]("constraint.required") { s => Valid }),
       "employeeOwesYouMoney" -> (nonEmptyText verifying validYesNo)
     )(AdditionalWageDetails.apply)(AdditionalWageDetails.unapply)
-    .verifying("oftenGetPaid", AdditionalWageDetails.validateOftenGetPaid _)
     .verifying("otherMoney", AdditionalWageDetails.validateOtherMoney _))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
