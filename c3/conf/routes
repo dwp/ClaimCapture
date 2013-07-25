@@ -251,7 +251,8 @@ GET     /thankYou                                               controllers.Than
 GET     /assets/*file                                           controllers.Assets.at(path="/public", file)
 
 # Self Employment
-GET     /selfEmployment/aboutSelfEmployment                                   controllers.s9_self_employment.G1AboutSelfEmployment.present
-POST    /selfEmployment/aboutSelfEmployment                                   controllers.s9_self_employment.G1AboutSelfEmployment.submit
+GET     /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.present
+POST    /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.submit
 
-
+GET     /selfEmployment/completed                               controllers.s9_self_employment.SelfEmployment.completed
+POST    /selfEmployment/completed                               controllers.s9_self_employment.SelfEmployment.completedSubmit

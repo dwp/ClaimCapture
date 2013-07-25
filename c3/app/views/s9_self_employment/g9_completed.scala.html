@@ -1,0 +1,12 @@
+@(completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+
+@main("Completion - Self Employment", None, completedQuestionGroups) {
+    @form(action = controllers.s9_self_employment.routes.SelfEmployment.completedSubmit) {
+        <nav class="form-steps">
+            <a href="@controllers.s9_self_employment.routes.G1AboutSelfEmployment.present" class="button secondary">Back</a> <!-- TODO change back nav -->
+            <button type="submit" name="action" value="next" class="button">Continue to care you provide</button>
+        </nav>
+    }
+}
