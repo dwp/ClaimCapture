@@ -148,9 +148,12 @@ POST    /education/completed                                    controllers.s6_e
 GET     /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.present
 POST    /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.submit
 
+DELETE  /employment/job/:jobID                                  controllers.s7_employment.Employment.delete(jobID: String)
+
 GET     /employment/job/:jobID                                  controllers.s7_employment.G2JobDetails.job(jobID: String)
 
 GET     /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.present
+GET     /employment/jobDetails/:jobID                           controllers.s7_employment.G2JobDetails.presentInJob(jobID: String)
 POST    /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.submit
 
 GET     /employment/employersContactDetails/:jobID              controllers.s7_employment.G3EmployerContactDetails.present(jobID: String)
@@ -170,6 +173,12 @@ POST    /employment/pensionSchemes                              controllers.s7_e
 
 GET     /employment/aboutExpenses/:jobID                        controllers.s7_employment.G8AboutExpenses.present(jobID: String)
 POST    /employment/aboutExpenses                               controllers.s7_employment.G8AboutExpenses.submit
+
+GET     /employment/necessaryExpenses/:jobID                    controllers.s7_employment.G9NecessaryExpenses.present(jobID: String)
+POST    /employment/necessaryExpenses                           controllers.s7_employment.G9NecessaryExpenses.submit
+
+GET     /employment/childcareExpenses/:jobID                    controllers.s7_employment.G10ChildcareExpenses.present(jobID: String)
+POST    /employment/childcareExpenses                           controllers.s7_employment.G10ChildcareExpenses.submit
 
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
 POST    /employment/completed                                   controllers.s7_employment.Employment.submit
@@ -247,7 +256,14 @@ GET     /thankYou                                               controllers.Than
 GET     /assets/*file                                           controllers.Assets.at(path="/public", file)
 
 # Self Employment
-GET     /selfEmployment/aboutSelfEmployment                                   controllers.s9_self_employment.G1AboutSelfEmployment.present
-POST    /selfEmployment/aboutSelfEmployment                                   controllers.s9_self_employment.G1AboutSelfEmployment.submit
+GET     /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.present
+POST    /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.submit
 
+GET     /selfEmployment/expensesWhileAtWork                     controllers.s9_self_employment.G7ExpensesWhileAtWork.present
+POST    /selfEmployment/expensesWhileAtWork                     controllers.s9_self_employment.G7ExpensesWhileAtWork.submit
 
+GET     /selfEmployment/careProvidersContactDetails             controllers.s9_self_employment.G8CareProvidersContactDetails.present
+POST    /selfEmployment/careProvidersContactDetails             controllers.s9_self_employment.G8CareProvidersContactDetails.submit
+
+GET     /selfEmployment/completed                               controllers.s9_self_employment.SelfEmployment.completed
+POST    /selfEmployment/completed                               controllers.s9_self_employment.SelfEmployment.completedSubmit

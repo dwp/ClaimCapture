@@ -1,13 +1,13 @@
-s1.progressBar = Eligibility
-s2.progressBar = About you
-s3.progressBar = Your partner
-s4.progressBar = Care you provide
-s5.progressBar = Abroad
-s6.progressBar = Education
-s7.progressBar = Employment
-s8.progressBar = Other money
-s9.progressBar = Pay details
-s10.progressBar = Declaration
+s1.name = Eligibility
+s2.name = About you
+s3.name = Your partner
+s4.name = Care you provide
+s5.name = Abroad
+s6.name = Education
+s7.name = Employment
+s8.name = Other money
+s9.name = Pay details
+s10.name = Declaration
 
 s1.g1 = Q1.  Does the person you look after get one of these benefits?
 s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?
@@ -58,6 +58,7 @@ s8.g7 = Other EEA State or Switzerland
 
 s9.g1 = How would you like to get paid?
 s9.g2 = Bank/Building society details
+s9.g8 = Care provider's contact Details
 
 s10.g1 = Additional information
 s10.g2 = Consent
@@ -282,7 +283,7 @@ otherMoney = Please tell us what other money you received
 employeeOwesYouMoney = Does your employer owe you any money?
 
 # MONEY OWED BY EMPLOYER
-howMuch = How much are you owed?
+howMuchOwed = How much are you owed?
 owedPeriod = What period is it for?
 owedFor = What is the money owed for?
 shouldBeenPaidBy = When should it have been paid?
@@ -302,6 +303,19 @@ howOftenPersonal = How often?
 payForAnythingNecessary = Do you pay for anything necessary to do your job?
 payAnyoneToLookAfterChildren = While at work, do you pay anyone to look after your children?
 payAnyoneToLookAfterPerson = While at work, do you pay anyone to look after the person you normally look after care for ?
+
+# NECESSARY EXPENSES
+
+whatAreThose = What is/was this item?
+howMuchCostEachWeek = Why do you need this item to do your job?
+whyDoYouNeedThose = How much did this item cost you each week?
+
+# CHILDCARE EXPENSES
+
+howMuchCostChildcare =  How much do you pay them?
+whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
+relationToYou = What relation, if any, is the person to you?
+relationToPartner = What relation, if any, is the person to your partner/spouse?
 
 
 ## OTHER MONEY
@@ -376,3 +390,9 @@ welshCommunication = Do you live in Wales and would like to receive future commu
 #SELF EMPLOYED
 error.areYouSelfEmployedNow = Please tell us if you are self employed
 areYouSelfEmployedNow.label =  Are you self-employed now?
+whenDidYouStartThisJob.label = When did you start this job?
+whenDidTheJobFinish.label = When did you finish this job?
+haveYouCeasedTrading.label = Have you ceased trading?
+natureOfYourBusiness.label = Nature of business?
+
+

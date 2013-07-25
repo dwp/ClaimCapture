@@ -5,6 +5,6 @@
 @{
   claim.previousQuestionGroup(questionGroupIdentifier) match {
    case Some(qg: models.domain.QuestionGroup) => qg.call
-   case _ => claim.previousSection(Section.sectionIdentifier(questionGroupIdentifier)).lastPage
+   case _ => claim.previousSection(questionGroupIdentifier).lastPage
   }
 }

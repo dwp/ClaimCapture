@@ -14,7 +14,7 @@ object G6MoneyOwedbyEmployer extends Controller with CachedClaim {
   val form = Form(
     mapping(
       "jobID" -> nonEmptyText,
-      "howMuch" -> optional(text),
+      "howMuchOwed" -> optional(text),
       "owedPeriod" -> optional(periodFromTo),
       "owedFor" -> optional(text),
       "shouldBeenPaidBy" -> optional(dayMonthYear),
@@ -22,16 +22,14 @@ object G6MoneyOwedbyEmployer extends Controller with CachedClaim {
     )(MoneyOwedbyEmployer.apply)(MoneyOwedbyEmployer.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
-
-    jobs.questionGroup(jobID,AdditionalWageDetails) match {
+    jobs.questionGroup(jobID, AdditionalWageDetails) match {
       case Some(qg) if qg.asInstanceOf[AdditionalWageDetails].employeeOwesYouMoney == `yes`=>
         Ok(views.html.s7_employment.g6_moneyOwedByEmployer(form.fillWithJobID(MoneyOwedbyEmployer, jobID), completedQuestionGroups(MoneyOwedbyEmployer, jobID)))
-      case _ => claim.update(jobs.delete(jobID,MoneyOwedbyEmployer)) -> Redirect(routes.G7PensionSchemes.present(jobID))
+      case _ => claim.update(jobs.delete(jobID, MoneyOwedbyEmployer)) -> Redirect(routes.G7PensionSchemes.present(jobID))
     }
-
   }
 
-  def submit = claimingInJob { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g6_moneyOwedByEmployer(formWithErrors, completedQuestionGroups(MoneyOwedbyEmployer, formWithErrors("jobID").value.get))),
       moneyowed => claim.update(jobs.update(moneyowed)) -> Redirect(routes.G7PensionSchemes.present(moneyowed.jobID)))

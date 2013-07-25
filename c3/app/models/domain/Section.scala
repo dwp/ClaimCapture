@@ -3,9 +3,10 @@ package models.domain
 import play.api.mvc.Call
 import play.api.i18n.Messages
 
-case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil, visible: Boolean = true, firstPage: Call = Call("",""), lastPage: Call = Call("","")) {
+case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil,
+                   visible: Boolean = true, firstPage: Call = Call("", ""), lastPage: Call = Call("", "")) {
 
-  def name = Messages(identifier.id + ".progressBar")
+  def name = Messages(identifier.id + ".name")
 
   def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
     questionGroups.find(qg => qg.identifier == questionGroupIdentifier)
@@ -42,8 +43,6 @@ case object Section {
   def sectionIdentifier(questionGroupIdentifier: QuestionGroup.Identifier): Section.Identifier = {
     new Section.Identifier { override val id: String = questionGroupIdentifier.id.split('.')(0) }
   }
-
-  def index(sectionIdentifier: Section.Identifier): Int = sectionIdentifier.id.drop(1).toInt
 
   trait Identifier {
     val id: String
