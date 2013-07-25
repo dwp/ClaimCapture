@@ -24,5 +24,6 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
       val g9 = g2 goToPage(new G9CompletedPage(browser))
       g9.listCompletedForms.size mustEqual 1
     }
+    // Test for backward and forward nav
   } section "integration"
 }

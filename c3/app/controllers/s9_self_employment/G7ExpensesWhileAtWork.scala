@@ -1,5 +1,6 @@
 package controllers.s9_self_employment
 
+import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
