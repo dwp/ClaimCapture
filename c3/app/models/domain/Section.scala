@@ -32,9 +32,9 @@ case class Section(identifier: Section.Identifier, questionGroups: List[Question
     questionGroups.takeWhile(_.identifier.index < questionGroupIdentifier.index)
   }
 
-  def show(): Section = copy(visible = true)
+  def show = copy(visible = true)
 
-  def hide(): Section = copy(visible = false)
+  def hide = copy(visible = false)
 }
 
 case object Section {
