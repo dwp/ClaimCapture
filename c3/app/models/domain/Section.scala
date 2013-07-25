@@ -29,7 +29,7 @@ case class Section(identifier: Section.Identifier, questionGroups: List[Question
   def precedingQuestionGroups(questionGroup: QuestionGroup): List[QuestionGroup] = precedingQuestionGroups(questionGroup.identifier)
 
   def precedingQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier): List[QuestionGroup] = {
-    questionGroups.takeWhile(_.identifier.index < questionGroupIdentifier.index)
+    questionGroups.filter(_.identifier.index < questionGroupIdentifier.index)
   }
 
   def show = copy(visible = true)

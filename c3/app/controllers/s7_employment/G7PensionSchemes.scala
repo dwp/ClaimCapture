@@ -22,6 +22,7 @@ object G7PensionSchemes extends Controller with CachedClaim {
     )(PensionSchemes.apply)(PensionSchemes.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
+    println(jobs)
     Ok(views.html.s7_employment.g7_pensionSchemes(form.fillWithJobID(PensionSchemes, jobID), completedQuestionGroups(PensionSchemes, jobID)))
   }
 

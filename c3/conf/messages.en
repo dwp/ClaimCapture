@@ -332,6 +332,10 @@ whoLooksAfterChildren = Name of the person/organisation who looks after your chi
 relationToYou = What relation, if any, is the person to you?
 relationToPartner = What relation, if any, is the person to your partner/spouse?
 
+# PERSON YOU CARE FOR EXPENSES
+howMuchCostCare = How much do you pay them?
+whoDoYouPay = Name of the person/organisation you pay
+
 
 ## OTHER MONEY
 # ABOUT OTHER MONEY
