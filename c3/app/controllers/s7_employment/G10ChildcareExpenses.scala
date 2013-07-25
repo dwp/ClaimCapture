@@ -5,8 +5,9 @@ import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{ChildcareExpenses, NecessaryExpenses}
+import models.domain.{AboutExpenses, ChildcareExpenses, NecessaryExpenses}
 import utils.helpers.CarersForm._
+import controllers.Mappings._
 import Employment._
 
 object G10ChildcareExpenses extends Controller with CachedClaim {
@@ -20,7 +21,11 @@ object G10ChildcareExpenses extends Controller with CachedClaim {
     )(ChildcareExpenses.apply)(ChildcareExpenses.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g10_childcareExpenses(form.fillWithJobID(ChildcareExpenses, jobID), completedQuestionGroups(ChildcareExpenses, jobID)))
+    jobs.questionGroup(jobID, AboutExpenses) match {
+      case Some(qg) if qg.asInstanceOf[AboutExpenses].payAnyoneToLookAfterChildren == `yes`=> Ok(views.html.s7_employment.g10_childcareExpenses(form.fillWithJobID(ChildcareExpenses, jobID), completedQuestionGroups(ChildcareExpenses, jobID)))
+      case _ => claim.update(jobs.delete(jobID, ChildcareExpenses)) -> Redirect(routes.G12PersonYouCareForExpenses.present(jobID))
+    }
+
   }
 
   def submit = claiming { implicit claim => implicit request =>
