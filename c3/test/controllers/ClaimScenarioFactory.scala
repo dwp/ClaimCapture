@@ -119,7 +119,8 @@ object ClaimScenarioFactory {
     // About self employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
       
-    
+    // Expenses while at work
+    claim.SelfEmployedCareExpensesNameOfPerson = "Expenses Name Of Person"
     // Care provider's contact Details
     claim.SelfEmployedCareProviderAddress = "Care Provider Address"
     claim.SelfEmployedCareProviderPostcode = "Care Provider Postcode"
