@@ -21,3 +21,27 @@ case class AboutSelfEmployment(call: Call,
                                 ) extends QuestionGroup(AboutSelfEmployment)
 
 
+case object SelfEmploymentYourAccounts extends QuestionGroup.Identifier {
+  val id = s"${SelfEmployment.id}.g2"
+}
+
+case class SelfEmploymentYourAccounts(call: Call,
+                                      whatWasOrIsYourTradingYearFrom: Option[DayMonthYear],
+                                      whatWasOrIsYourTradingYearTo: Option[DayMonthYear],
+
+                                      areAccountsPreparedOnCashFlowBasis: String,
+                                      areIncomeOutgoingsProfitSimilarToTrading: Option[String],
+                                      tellUsWhyAndWhenTheChangeHappened: String,
+                                      doYouHaveAnAccountant: Option[String],
+                                      canWeContactYourAccountant: String
+                                       ) extends QuestionGroup(SelfEmploymentYourAccounts)
+
+
+
+
+
+
+
+
+
+
