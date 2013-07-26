@@ -102,6 +102,11 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
     claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "No"
     // Previous Carer Personal Details
+    claim.AboutTheCareYouProvideFirstNamePreviousCarer = "Peter"
+    claim.AboutTheCareYouProvideMiddleNamePreviousCarer = "Jackson"
+    claim.AboutTheCareYouProvideSurnamePreviousCarer = "Benson"
+    claim.AboutTheCareYouProvideNINOPreviousCarer = "BB123456B"
+    claim.AboutTheCareYouProvideDateofBirthPreviousCarer = "02/06/1998"
     claim
   }
 
