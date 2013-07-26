@@ -25,9 +25,9 @@ object G11ChildcareProvider extends Controller with CachedClaim {
     }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g11_childcareProvider(formWithErrors, completedQuestionGroups(ChildcareProvider, formWithErrors("jobID").value.get))),
-      childcareProvider => claim.update(jobs.update(childcareProvider)) -> Redirect(routes.G12PersonYouCareForExpenses.present(childcareProvider.jobID)))
+      formWithErrors => BadRequest(views.html.s7_employment.g11_childcareProvider(formWithErrors, completedQuestionGroups(ChildcareProvider, jobID))),
+      childcareProvider => claim.update(jobs.update(childcareProvider)) -> Redirect(routes.G12PersonYouCareForExpenses.present(jobID)))
   }
 }

@@ -25,9 +25,9 @@ object G13CareProvider extends Controller with CachedClaim {
     }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g13_careProvider(formWithErrors, completedQuestionGroups(CareProvider, formWithErrors("jobID").value.get))),
+      formWithErrors => BadRequest(views.html.s7_employment.g13_careProvider(formWithErrors, completedQuestionGroups(CareProvider, jobID))),
       careProvider => claim.update(jobs.update(careProvider)) -> Redirect(routes.G1BeenEmployed.present()))
   }
 }
