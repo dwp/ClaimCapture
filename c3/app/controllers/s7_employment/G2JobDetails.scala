@@ -39,9 +39,9 @@ object G2JobDetails extends Controller with CachedClaim {
     Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID)))
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingInJob {jobID =>  implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g2_jobDetails(formWithErrors)),
-      jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present(jobDetails.jobID)))
+      jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present(jobID)))
   }
 }

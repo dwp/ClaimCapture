@@ -4,7 +4,7 @@ import language.implicitConversions
 import reflect.ClassTag
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import play.api.cache.Cache
-import models.domain.{QuestionGroup, Claim}
+import models.domain.{Claim, QuestionGroup}
 import play.Configuration
 import play.api.Play._
 import play.api.mvc.Results.Redirect
@@ -87,11 +87,14 @@ trait CachedClaim {
     }
   }
 
-  def claimingInJob(f: => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
+  type JobID = String
+
+  def claimingInJob(f: => JobID  => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
     request => {
-      claiming(f)(request).flashing("jobID" -> request.body.asFormUrlEncoded.getOrElse(Map("jobID" -> Seq("")))("jobID").applyOrElse(0, (i: Int) => ""))
+      claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
     }
   }
+
 
   private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
     r.session.get("connected").getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
