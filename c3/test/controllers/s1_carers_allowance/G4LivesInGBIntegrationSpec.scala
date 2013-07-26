@@ -15,6 +15,8 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
   } section "integration"
 
   "Do you normally live in Great Britain" should {
+    sequential
+
     "acknowledge yes" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
