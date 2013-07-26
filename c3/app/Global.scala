@@ -20,9 +20,9 @@ import play.api.mvc.Results._
  */
 object Global extends GlobalSettings {
   override def onLoadConfig(configuration: Configuration, path: File, classloader: ClassLoader, mode: Mode.Mode): Configuration = {
-    MDC.put("httpPort", System.getProperty("http.port"))
-    MDC.put("hostName", InetAddress.getLocalHost().getHostName())
-    MDC.put("envName", System.getProperty("env.name"))
+    MDC.put("httpPort", Option(System.getProperty("http.port")).getOrElse("Value not set"))
+    MDC.put("hostName", Option(InetAddress.getLocalHost.getHostName).getOrElse("Value not set"))
+    MDC.put("envName", Option(System.getProperty("env.name")).getOrElse("Value not set"))
 
     val applicationConf = System.getProperty("config.file", s"application.${mode.toString.toLowerCase}.conf")
     val environmentOverridingConfiguration = configuration ++ Configuration(ConfigFactory.load(applicationConf))
