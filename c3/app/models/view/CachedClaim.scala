@@ -81,7 +81,8 @@ trait CachedClaim {
             action(claim)
           } else {
             Logger.info("Claim timeout")
-            Redirect("/timeout")
+            Redirect("/timeout").withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+
           }
       }
     }

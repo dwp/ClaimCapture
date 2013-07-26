@@ -10,12 +10,12 @@
 
 @import models.domain.Job
 
-@main("Pension schemes - Employment", Some(currentForm), completedQuestionGroups) {
+@main("About expenses to do with your employment - Employment", Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G8AboutExpenses.submit()) {
         <input type="hidden" name="jobID" value='@Job.jobID(currentForm)'>
 
         <fieldset class="form-elements">
-            <legend>Pension schemes</legend>
+            <legend>About expenses to do with your employment</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("payForAnythingNecessary"))
