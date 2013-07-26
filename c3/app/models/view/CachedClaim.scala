@@ -96,7 +96,6 @@ trait CachedClaim {
     }
   }
 
-
   private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
     r.session.get("connected").getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
   }

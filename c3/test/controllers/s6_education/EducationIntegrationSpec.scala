@@ -3,7 +3,6 @@ package controllers.s6_education
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import org.specs2.execute.PendingUntilFixed
 
 class EducationIntegrationSpec extends Specification with Tags {
   "Education" should {
@@ -30,9 +29,10 @@ class EducationIntegrationSpec extends Specification with Tags {
     "redirect to the next section on clicking continue" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      browser.submit("button[type='submit']")
+      titleMustEqual("Completion - Education")
 
-      titleMustNotEqual("Completion - Education")
+      browser.submit("button[type='submit']")
+      titleMustEqual("Your employment history - Employment")
     }
 
     "navigate to" in {

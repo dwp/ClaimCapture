@@ -5,7 +5,7 @@ import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{NecessaryExpenses, AboutExpenses, PersonYouCareForExpenses, ChildcareProvider}
+import models.domain.{AboutExpenses, PersonYouCareForExpenses}
 import utils.helpers.CarersForm._
 import Employment._
 import controllers.Mappings._
@@ -22,11 +22,11 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim {
   def present(jobID: String) = claiming { implicit claim => implicit request =>
     jobs.questionGroup(jobID, AboutExpenses) match {
       case Some(qg) if qg.asInstanceOf[AboutExpenses].payAnyoneToLookAfterPerson == `yes`=> Ok(views.html.s7_employment.g12_personYouCareForExpenses(form.fillWithJobID(PersonYouCareForExpenses, jobID), completedQuestionGroups(PersonYouCareForExpenses, jobID)))
-      case _ => claim.update(jobs.delete(jobID, PersonYouCareForExpenses)) -> Redirect(routes.G1BeenEmployed.present)
+      case _ => claim.update(jobs.delete(jobID, PersonYouCareForExpenses)) -> Redirect(routes.G1BeenEmployed.present())
     }
   }
 
-  def submit = claimingInJob { jobID =>implicit claim => implicit request =>
+  def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrors, completedQuestionGroups(PersonYouCareForExpenses, jobID))),
       childcareProvider => claim.update(jobs.update(childcareProvider)) -> Redirect(routes.G13CareProvider.present(jobID)))
