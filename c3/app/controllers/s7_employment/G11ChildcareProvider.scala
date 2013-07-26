@@ -20,7 +20,7 @@ object G11ChildcareProvider extends Controller with CachedClaim {
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
     jobs.questionGroup(jobID, AboutExpenses) match {
-      case Some(qg) if qg.asInstanceOf[AboutExpenses].payAnyoneToLookAfterChildren == `yes`=> Ok(views.html.s7_employment.g11_childcareProvider(form.fillWithJobID(ChildcareProvider, jobID), completedQuestionGroups(ChildcareProvider, jobID)))
+      case Some(a: AboutExpenses) if a.payAnyoneToLookAfterChildren == `yes`=> Ok(views.html.s7_employment.g11_childcareProvider(form.fillWithJobID(ChildcareProvider, jobID), completedQuestionGroups(ChildcareProvider, jobID)))
       case _ => claim.update(jobs.delete(jobID, ChildcareProvider)) -> Redirect(routes.G12PersonYouCareForExpenses.present(jobID))
     }
   }

@@ -196,3 +196,7 @@ case class CareProvider(jobID: String,
 object CareProvider extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g13"
 }
+
+object JobCompletion extends QuestionGroup.Identifier {
+  val id = s"${Employed.id}.g14"
+}
