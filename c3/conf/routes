@@ -189,6 +189,9 @@ POST    /employment/personYouCareForExpenses                    controllers.s7_e
 GET     /employment/careProvider/:jobID                         controllers.s7_employment.G13CareProvider.present(jobID: String)
 POST    /employment/careProvider                                controllers.s7_employment.G13CareProvider.submit
 
+GET     /employment/jobCompletion/:jobID                        controllers.s7_employment.G14JobCompletion.present(jobID: String)
+POST    /employment/jobCompletion                               controllers.s7_employment.G14JobCompletion.submit
+
 GET     /employment/completed                                   controllers.s7_employment.Employment.completed
 POST    /employment/completed                                   controllers.s7_employment.Employment.submit
 
