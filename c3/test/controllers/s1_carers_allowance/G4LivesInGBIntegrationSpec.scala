@@ -25,15 +25,15 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
       page goToThePage()
       page fillPageWith claim
-      val hoursPage = page submitPage(waitDuration = 60)
+      val hoursPage = page submitPage()
       hoursPage fillPageWith claim
-      val over16Page = hoursPage submitPage(waitDuration = 60)
+      val over16Page = hoursPage submitPage()
       over16Page fillPageWith claim
-      val livingGBPage = over16Page submitPage(waitDuration = 60)
+      val livingGBPage = over16Page submitPage(waitForPage = true)
       livingGBPage must beAnInstanceOf[G4LivingInGBPage]
       livingGBPage.previousPage mustEqual Some(over16Page)
       livingGBPage fillPageWith claim
-      livingGBPage submitPage(waitDuration = 60)
+      livingGBPage submitPage(waitForPage = true)
       browser.find("div[class=completed] ul li").get(3).getText must contain("Q4")
       browser.find("div[class=completed] ul li").get(3).getText must contain("Yes")
     }
@@ -46,13 +46,13 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
       page goToThePage()
       page fillPageWith claim
-      val hoursPage = page submitPage(waitDuration = 60)
+      val hoursPage = page submitPage()
       hoursPage fillPageWith claim
-      val over16Page = hoursPage submitPage(waitDuration = 60)
+      val over16Page = hoursPage submitPage()
       over16Page fillPageWith claim
-      val livingGBPage = over16Page submitPage(waitDuration = 60)
+      val livingGBPage = over16Page submitPage(waitForPage = true)
       livingGBPage fillPageWith claim
-      livingGBPage submitPage(waitDuration = 60)
+      livingGBPage submitPage(waitForPage = true)
 
       browser.find("div[class=completed] ul li").get(3).getText must contain("Q4")
       browser.find("div[class=completed] ul li").get(3).getText must contain("No")
