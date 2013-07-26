@@ -4,6 +4,8 @@
 
 @main("Money Paid - Other Money", Some(currentForm), completedQuestionGroups) {
 
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s8_other_money.routes.G2MoneyPaidToSomeoneElseForYou.submit) {
         <fieldset class="form-elements">
             <legend>Money paid to someone else for you</legend>
