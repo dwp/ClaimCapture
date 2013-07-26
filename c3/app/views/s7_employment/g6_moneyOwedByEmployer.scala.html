@@ -11,6 +11,9 @@
 @import models.domain.Job
 
 @main("Money owed to you by your employer - Employment", Some(currentForm), completedQuestionGroups) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+	
     @form(action = controllers.s7_employment.routes.G6MoneyOwedbyEmployer.submit()) {
         <input type="hidden" name="jobID" value='@Job.jobID(currentForm)'>
 
