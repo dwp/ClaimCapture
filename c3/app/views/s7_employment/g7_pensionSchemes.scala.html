@@ -20,15 +20,21 @@
             <ul class="group">
                 @yesNoRadioGroup(currentForm("payOccupationalPensionScheme"))
 
-                @carersInputText(currentForm("howMuchPension"))
-
-                @carersSelect(currentForm("howOftenPension"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(currentForm("howMuchPension")),
+                        carersSelect(currentForm("howOftenPension"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))),
+                    'id -> "payOccupationalPensionScheme",
+                    'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
 
                 @yesNoRadioGroup(currentForm("payPersonalPensionScheme"))
 
-                @carersInputText(currentForm("howMuchPersonal"))
-
-                @carersSelect(currentForm("howOftenPersonal"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(currentForm("howMuchPersonal")),
+                        carersSelect(currentForm("howOftenPersonal"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))),
+                    'id -> "payPersonalPensionScheme",
+                    'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
             </ul>
         </fieldset>
 
@@ -38,3 +44,41 @@
         </nav>
     }
 }
+
+<script type="text/javascript">
+    $(function() {
+        @if(currentForm("payOccupationalPensionScheme").value.getOrElse("") != "yes") {
+            $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_yes")").closest("ul").parent().next().hide();
+        }
+
+        $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_yes")").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_no")").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+
+    $(function() {
+        @if(currentForm("payPersonalPensionScheme").value.getOrElse("") != "yes") {
+            $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_yes")").closest("ul").parent().next().hide();
+        }
+
+        $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_yes")").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_no")").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+</script>
