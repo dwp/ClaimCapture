@@ -112,6 +112,12 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvidePostcodePreviousCarer = "BB9 1AB"
     claim.AboutTheCareYouProvideDaytimePhoneNumberPreviousCarer = "02933 333 333"
     claim.AboutTheCareYouProvideMobileNumberPreviousCarer = "07933 333 333"
+    // Representatives For The Person
+    claim.AboutTheCareYouProvideDoYouActforthePersonYouCareFor = "Yes"
+    claim.AboutTheCareYouProvideYouActAs = "guardian"
+    claim.AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor = "Yes"
+    claim.AboutTheCareYouProvidePersonActsAs = "guardian"
+    claim.AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor = "Mary Jane Watson"
     claim
   }
 

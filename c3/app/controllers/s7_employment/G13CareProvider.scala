@@ -20,7 +20,7 @@ object G13CareProvider extends Controller with CachedClaim {
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
     jobs.questionGroup(jobID, AboutExpenses) match {
-      case Some(qg) if qg.asInstanceOf[AboutExpenses].payAnyoneToLookAfterPerson == `yes`=> Ok(views.html.s7_employment.g13_careProvider(form.fillWithJobID(CareProvider, jobID), completedQuestionGroups(CareProvider, jobID)))
+      case Some(a: AboutExpenses) if a.payAnyoneToLookAfterPerson == `yes`=> Ok(views.html.s7_employment.g13_careProvider(form.fillWithJobID(CareProvider, jobID), completedQuestionGroups(CareProvider, jobID)))
       case _ => claim.update(jobs.delete(jobID, CareProvider)) -> Redirect(routes.G1BeenEmployed.present())
     }
   }
@@ -28,6 +28,6 @@ object G13CareProvider extends Controller with CachedClaim {
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g13_careProvider(formWithErrors, completedQuestionGroups(CareProvider, jobID))),
-      careProvider => claim.update(jobs.update(careProvider)) -> Redirect(routes.G1BeenEmployed.present()))
+      careProvider => claim.update(jobs.update(careProvider)) -> Redirect(routes.G14JobCompletion.present(jobID)))
   }
 }
