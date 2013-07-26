@@ -1,14 +1,12 @@
 package controllers.s9_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
-import org.specs2.execute.PendingUntilFixed
 import play.api.test.WithBrowser
-import utils.pageobjects.s9_self_employment.{G6ChildcareProvidersContactDetailsPage, G3SelfEmploymentAccountantContactDetailsPage, G3SelfEmploymentAccountantContactDetailsPageContext}
+import utils.pageobjects.s9_self_employment.{G6ChildcareProvidersContactDetailsPage, G3SelfEmploymentAccountantContactDetailsPageContext}
 import utils.pageobjects.ClaimScenario
 import controllers.ClaimScenarioFactory
 
-
-class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specification with Tags with PendingUntilFixed {
+class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specification with Tags {
 
   "About Self Employment" should {
     "be presented" in new WithBrowser with G3SelfEmploymentAccountantContactDetailsPageContext {

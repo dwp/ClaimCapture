@@ -3,9 +3,8 @@ package controllers.s3_your_partner
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import org.specs2.execute.PendingUntilFixed
 
-class G4PersonYouCareForIntegrationSpec extends Specification with Tags with PendingUntilFixed {
+class G4PersonYouCareForIntegrationSpec extends Specification with Tags {
 
   "Person You Care For" should {
     "be presented" in new WithBrowser with BrowserMatchers {

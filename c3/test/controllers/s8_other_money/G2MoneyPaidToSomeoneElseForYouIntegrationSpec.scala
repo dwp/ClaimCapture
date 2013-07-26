@@ -1,13 +1,11 @@
 package controllers.s8_other_money
 
 import org.specs2.mutable.{Tags, Specification}
-import org.specs2.execute.PendingUntilFixed
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s8_other_money._
 
-
-class G2MoneyPaidToSomeoneElseForYouIntegrationSpec extends Specification with Tags with PendingUntilFixed {
+class G2MoneyPaidToSomeoneElseForYouIntegrationSpec extends Specification with Tags {
   "Money Paid To Someone Else For You" should {
     "be presented" in new WithBrowser with G2MoneyPaidToSomeoneElseForYouPageContext {
       page goToThePage()
