@@ -3,8 +3,6 @@ package controllers.s7_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.BrowserMatchers
-import java.util.concurrent.TimeUnit
-import scala.concurrent.duration.Duration
 
 class G2JobDetailsIntegrationSpec extends Specification with Tags {
   "Details about your job" should {

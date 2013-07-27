@@ -31,7 +31,7 @@ class EmploymentIntegrationSpec extends Specification with Tags {
 trait EmployedSinceClaimDate extends BrowserMatchers {
   this: WithBrowser[_] =>
 
-  def beginClaim() {
+  def beginClaim(): Unit = {
     Formulate.claimDate(browser)
     Formulate.employment(browser)
     titleMustEqual("Property and Rent - About You")
@@ -41,7 +41,7 @@ trait EmployedSinceClaimDate extends BrowserMatchers {
 trait NotEmployedSinceClaimDate extends BrowserMatchers {
   this: WithBrowser[_] =>
 
-  def beginClaim() {
+  def beginClaim(): Unit = {
     Formulate.claimDate(browser)
 
     browser.goTo("/aboutyou/employment")

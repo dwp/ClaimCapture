@@ -2,8 +2,7 @@ package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{Formulate, BrowserMatchers}
-import org.specs2.specification.Scope
+import controllers.BrowserMatchers
 
 class G1BeenEmployedIntegrationSpec extends Specification with Tags {
   sequential
