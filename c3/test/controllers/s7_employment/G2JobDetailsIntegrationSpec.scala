@@ -32,7 +32,9 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       jobDetails
     }
 
-    """go back to "been employed?".""" in new WithBrowser with BrowserMatchers {
+    """go back to "been employed?".""" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
+      beginClaim
+
       browser.goTo("/employment/beenEmployed").click("#beenEmployed_yes").submit("button[type='submit']")
       browser.goTo("/employment/jobDetails").click("#backButton")
       titleMustEqual("Your employment history - Employment")

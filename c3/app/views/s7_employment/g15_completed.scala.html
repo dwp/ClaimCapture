@@ -7,13 +7,13 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import models.domain.Job
+@import models.domain.Employed
 
 @main("Completion - Employment", None, completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.Employment.submit()) {
         <nav class="form-steps">
             <a id="backButton" href="@controllers.s7_employment.routes.G1BeenEmployed.present()" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Next</button>
+            <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(Employed).name</button>
         </nav>
     }
 }

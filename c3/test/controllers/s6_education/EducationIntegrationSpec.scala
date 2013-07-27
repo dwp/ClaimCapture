@@ -26,25 +26,25 @@ class EducationIntegrationSpec extends Specification with Tags {
       titleMustEqual("Address Of School College Or University - Education")
     }
 
-    "redirect to the next section on clicking continue" in new WithBrowser with BrowserMatchers {
+    "redirect to the next section (other money) on clicking continue" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
       titleMustEqual("Completion - Education")
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Your employment history - Employment")
+      titleMustEqual("About Other Money - Other Money")
     }
 
-    "navigate to" in {
+    "show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
+      Formulate.claimDate(browser)
+      Formulate.employment(browser)
+      Formulate.yourCourseDetails(browser)
+      Formulate.addressOfSchoolCollegeOrUniversity(browser)
+      titleMustEqual("Completion - Education")
 
-      "Employment: show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
-        Formulate.yourCourseDetails(browser)
-        Formulate.addressOfSchoolCollegeOrUniversity(browser)
-
-        browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
-        browser.submit("button[type='submit']")
-        titleMustEqual("Your employment history - Employment")
-      }
+      browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
+      browser.submit("button[type='submit']")
+      titleMustEqual("Your employment history - Employment")
     }
   } section "integration"
 }

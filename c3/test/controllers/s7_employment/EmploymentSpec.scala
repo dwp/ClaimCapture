@@ -13,7 +13,7 @@ class EmploymentSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    """progress to "self employment".""" in new WithApplication with Claiming {
+    """progress to "next section".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
       val result = Employment.submit(request)
       status(result) mustEqual SEE_OTHER
