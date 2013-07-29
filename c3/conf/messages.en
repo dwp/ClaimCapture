@@ -350,13 +350,13 @@ howMuch = How much do you get, and how often?
 howOften = How often
 error.paymentFrequency = Please tell us how often
 howMuch_howOften = '
-employersName = Employer''s Name
-employersAddress = Employer''s Address
-employersPostcode = Employer''s Postcode
+employersName = Employer''s name
+employersAddress = Employer''s address
+employersPostcode = Employer''s postcode
 
 # PERSON WHO GETS THIS MONEY
 fullName = Full name
-nameOfBenefit = Name of Benefit
+nameOfBenefit = Name of benefit
 
 # OTHER STATUTORY PAY
 otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
@@ -434,10 +434,10 @@ canWeContactYourAccountant.helper = You could be charged by your accountant for 
 
 #SELF EMPLOYED - Accountant Contact Details
 error.accountantsName = Please provide the accountant's name
-accountantsName.label = Accountant’s Name
+accountantsName.label = Accountant’s name
 postCode.label = Postcode
-telephoneNumber.label = Telephone Number
-faxNumber.label = Fax Number
+telephoneNumber.label = Telephone number
+faxNumber.label = Fax number
 
 
 
