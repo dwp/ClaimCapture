@@ -9,9 +9,9 @@ import scala.concurrent.duration.Duration
 class G8CompletedIntegrationSpec extends Specification with Tags {
 
   "About You" should {
-    "be presented" in new WithBrowser {
+    "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/aboutyou/completed")
-      browser.title mustEqual "Completion - About You"
+      titleMustEqual ("Completion - About You")(Duration(10, TimeUnit.MINUTES))
     }
     
     """navigate to "Your Partner" when next section is "Your Partner"""" in new WithBrowser with BrowserMatchers {
