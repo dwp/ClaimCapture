@@ -161,6 +161,10 @@ object ClaimScenarioFactory {
     val claim = s8otherMoney
     // About self employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
+
+    claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
+    claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
+
     // G6 Childcare provider's contact Details
     claim.SelfEmployedChildcareProviderAddress = "Care Provider Address"
     claim.SelfEmployedChildcareProviderPostcode = "SE1 6EH"

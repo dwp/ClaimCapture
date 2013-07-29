@@ -19,7 +19,7 @@ object G3SelfEmploymentAccountantContactDetails extends Controller with CachedCl
       call(routes.G3SelfEmploymentAccountantContactDetails.present()),
       "accountantsName" -> nonEmptyText(maxLength = Mappings.hundred),
       "address" -> address.verifying(requiredAddress),
-      "postCode" -> optional(text verifying validPostcode),
+      "postcode" -> optional(text verifying validPostcode),
       "telephoneNumber" -> optional(text verifying validPhoneNumber),
       "faxNumber" -> optional(text verifying validPhoneNumber)
     )(SelfEmploymentAccountantContactDetails.apply)(SelfEmploymentAccountantContactDetails.unapply)
