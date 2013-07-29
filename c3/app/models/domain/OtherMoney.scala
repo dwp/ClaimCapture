@@ -5,7 +5,7 @@ import models.yesNo.YesNoWith2Text
 import play.api.mvc.Call
 
 case object OtherMoney extends Section.Identifier {
-  val id = "s8"
+  val id = "s9"
 }
 
 case class AboutOtherMoney(yourBenefits: YesNoWith2Text, call: Call) extends QuestionGroup(AboutOtherMoney)

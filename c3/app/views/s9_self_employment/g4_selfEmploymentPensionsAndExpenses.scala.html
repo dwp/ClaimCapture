@@ -1,0 +1,51 @@
+@(currentForm: Form[models.domain.SelfEmploymentPensionsAndExpenses], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import views.html.helper.dates._
+
+@main("Self Employment - Pensions and Expenses", Some(currentForm), completedQuestionGroups) {
+
+<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+@form(action = controllers.s9_self_employment.routes.G4SelfEmploymentPensionsAndExpenses.submit) {
+
+<fieldset class="form-elements">
+    <legend>Pensions and Expenses</legend>
+
+    <ul class="group">
+        @yesNoRadioGroup(currentForm("doYouPayToPensionScheme"), '_label -> Messages("doYouPayToPensionScheme.label"))
+        @otherDetailPlaceHolder(
+        inputDef = Seq(
+        carersInputText(currentForm("howMuchDidYouPay"), 'maxLength -> 8, '_label -> Messages("howMuchDidYouPay.label"))
+        ),
+        'id -> "selfEmployedPensionWrap",
+        'display -> currentForm("doYouPayToPensionScheme").value.getOrElse("no")
+        )
+
+        @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> Messages("doYouPayToLookAfterYourChildren.label"))
+        @yesNoRadioGroup(currentForm("isItTheSameExpenseWhileAtWorkForChildren"), '_label -> Messages("isItTheSameExpenseWhileAtWorkForChildren.label"))
+        @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> Messages("didYouPayToLookAfterThePersonYouCaredFor.label"))
+        @yesNoRadioGroup(currentForm("isItTheSameExpenseDuringWorkForThePersonYouCaredFor"), '_label -> Messages("isItTheSameExpenseDuringWorkForThePersonYouCaredFor.label"))
+
+    </ul>
+</fieldset>
+
+<nav class="form-steps">
+    <a id="backButton" href="@back(models.domain.SelfEmploymentPensionsAndExpenses)" class="button secondary">Back</a>
+    <button type="submit" name="action" value="next" class="button">Next</button>
+</nav>
+}
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s9_self_employment/g4_selfEmploymentPensionsAndExpenses.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("doYouPayToPensionScheme_yes")", "@CarersCrypto.encryptAES("doYouPayToPensionScheme_no")");
+    });
+</script>

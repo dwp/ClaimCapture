@@ -292,3 +292,9 @@ POST    /selfEmployment/completed                               controllers.s9_s
 
 GET     /selfEmployment/accountantContactDetails                controllers.s9_self_employment.G3SelfEmploymentAccountantContactDetails.present
 POST    /selfEmployment/accountantContactDetails                controllers.s9_self_employment.G3SelfEmploymentAccountantContactDetails.submit
+
+# Self Employment - Pensions and Expenses
+
+GET     /selfEmployment/pensionsAndExpenses                     controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.present
+POST    /selfEmployment/pensionsAndExpenses                controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.submit
+

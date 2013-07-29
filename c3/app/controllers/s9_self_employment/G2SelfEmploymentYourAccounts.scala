@@ -1,16 +1,17 @@
 package controllers.s9_self_employment
 
 
+import language.reflectiveCalls
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
 import models.domain.{SelfEmploymentYourAccounts, Claim}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 
 
-object G2SelfEmploymentYourAccounts extends Controller with CachedClaim{
+object G2SelfEmploymentYourAccounts extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(SelfEmploymentYourAccounts)
 
   val form = Form(
@@ -19,13 +20,13 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim{
       "whatWasOrIsYourTradingYearFrom" -> optional(dayMonthYear.verifying(validDateOnly)),
       "whatWasOrIsYourTradingYearTo" -> optional(dayMonthYear.verifying(validDateOnly)),
       "areAccountsPreparedOnCashFlowBasis" -> nonEmptyText.verifying(validYesNo),
-      "areIncomeOutgoingsProfitSimilarToTrading" -> optional(nonEmptyText.verifying(validYesNo)),
+      "areIncomeOutgoingsProfitSimilarToTrading" -> optional(text verifying (validYesNo)),
       "tellUsWhyAndWhenTheChangeHappened" -> optional(nonEmptyText(maxLength = 300)),
-      "doYouHaveAnAccountant" -> optional(nonEmptyText.verifying(validYesNo)),
+      "doYouHaveAnAccountant" -> optional(text verifying (validYesNo)),
       "canWeContactYourAccountant" -> optional(nonEmptyText.verifying(validYesNo))
     )(SelfEmploymentYourAccounts.apply)(SelfEmploymentYourAccounts.unapply)
-      .verifying("error.required", validateChangeHappened _)
-      .verifying("error.required", validateContactAccountant _)
+      .verifying("tellUsWhyAndWhenTheChangeHappened", validateChangeHappened _)
+      .verifying("canWeContactYourAccountant", validateContactAccountant _)
   )
 
 
@@ -45,15 +46,22 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim{
     }
   }
 
-  def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_self_employment.g2_selfEmploymentYourAccounts(form, completedQuestionGroups))
+  def present = claiming {
+    implicit claim => implicit request =>
+      Ok(views.html.s9_self_employment.g2_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts), completedQuestionGroups))
   }
 
-  def submit = claiming { implicit claim =>
-    implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s9_self_employment.g2_selfEmploymentYourAccounts(formWithErrors, completedQuestionGroups)),
-        f => claim.update(f) -> Redirect(routes.G3SelfEmploymentAccountantContactDetails.present())
-      )
+  def submit = claiming {
+    implicit claim =>
+      implicit request =>
+        form.bindEncrypted.fold(
+          formWithErrors => {
+            val formWithErrorsUpdate = formWithErrors
+              .replaceError("tellUsWhyAndWhenTheChangeHappened", FormError("tellUsWhyAndWhenTheChangeHappened", "error.required"))
+              .replaceError("canWeContactYourAccountant", FormError("canWeContactYourAccountant", "error.required"))
+            BadRequest(views.html.s9_self_employment.g2_selfEmploymentYourAccounts(formWithErrorsUpdate, completedQuestionGroups))
+          },
+          f => claim.update(f) -> Redirect(routes.G3SelfEmploymentAccountantContactDetails.present())
+        )
   }
 }

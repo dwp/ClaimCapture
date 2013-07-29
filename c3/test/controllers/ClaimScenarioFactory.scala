@@ -118,6 +118,11 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor = "Yes"
     claim.AboutTheCareYouProvidePersonActsAs = "guardian"
     claim.AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor = "Mary Jane Watson"
+    // More About The Care
+    claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
+    claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "Yes"
+    claim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson = "03/04/2012"
+    claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
     claim
   }
 
@@ -187,6 +192,17 @@ object ClaimScenarioFactory {
     //About self employment
     claim.SelfEmployedAccountantName = "Hello 123"
     claim.SelfEmployedAccountantAddress = "lineOne lineTwo lineThree"
+
+    claim
+  }
+
+  def s9SelfEmploymentPensionsAndExpenses = {
+    val claim = s9SelfEmploymentAccountantContactDetails
+    //About self employment
+    claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
+    claim.SelfEmployedHowMuchPayPensionExpenses = "11"
+    claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
+    claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
 
     claim
   }

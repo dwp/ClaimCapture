@@ -567,7 +567,7 @@
           .ie .carers-allowance .form-elements ul li .helper-more {
             font-size: 16px; }
         .carers-allowance .form-elements ul li .helper-less {
-          background: url("../img/toggle-close.png") 0 0 no-repeat; }
+          background: url("../img/toggle.png") 0 -42px no-repeat; }
         .carers-allowance .form-elements ul li .helper-info {
           display: none;
           padding: 1em 1.6em;

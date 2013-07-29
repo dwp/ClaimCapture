@@ -6,7 +6,7 @@ import models.MultiLineAddress
 
 
 case object SelfEmployment extends Section.Identifier {
-  val id = "s9"
+  val id = "s8"
 }
 
 case object AboutSelfEmployment extends QuestionGroup.Identifier {
@@ -23,25 +23,25 @@ case class AboutSelfEmployment(call: Call,
 
 
 case class ChildcareProvidersContactDetails(call: Call,
-                                       address: Option[MultiLineAddress], 
-                                       postcode: Option[String]) extends QuestionGroup(ChildcareProvidersContactDetails)
+                                            address: Option[MultiLineAddress],
+                                            postcode: Option[String]) extends QuestionGroup(ChildcareProvidersContactDetails)
 
 case object ChildcareProvidersContactDetails extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g6"
 }
 
 case class ExpensesWhileAtWork(call: Call,
-                                       howMuchYouPay: Option[String], 
-                                       nameOfPerson: String,
-                                       whatRelationIsToYou: Option[String],
-                                       whatRelationIsTothePersonYouCareFor: Option[String]) extends QuestionGroup(ExpensesWhileAtWork)
+                               howMuchYouPay: Option[String],
+                               nameOfPerson: String,
+                               whatRelationIsToYou: Option[String],
+                               whatRelationIsTothePersonYouCareFor: Option[String]) extends QuestionGroup(ExpensesWhileAtWork)
 
 case object ExpensesWhileAtWork extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g7"
 }
 
 case class CareProvidersContactDetails(call: Call,
-                                       address: Option[MultiLineAddress], 
+                                       address: Option[MultiLineAddress],
                                        postcode: Option[String]) extends QuestionGroup(CareProvidersContactDetails)
 
 case object CareProvidersContactDetails extends QuestionGroup.Identifier {
@@ -68,12 +68,29 @@ case object SelfEmploymentAccountantContactDetails extends QuestionGroup.Identif
 }
 
 case class SelfEmploymentAccountantContactDetails(call: Call,
-                                      accountantsName: String,
-                                      address: MultiLineAddress,
-                                      postCode: Option[String],
-                                      telephoneNumber: Option[String],
-                                      faxNumber: Option[String]
-                                       ) extends QuestionGroup(SelfEmploymentAccountantContactDetails)
+                                                  accountantsName: String,
+                                                  address: MultiLineAddress,
+                                                  postCode: Option[String],
+                                                  telephoneNumber: Option[String],
+                                                  faxNumber: Option[String]
+                                                   ) extends QuestionGroup(SelfEmploymentAccountantContactDetails)
+
+
+case object SelfEmploymentPensionsAndExpenses extends QuestionGroup.Identifier {
+  val id = s"${SelfEmployment.id}.g4"
+}
+
+case class SelfEmploymentPensionsAndExpenses(call: Call,
+                                             doYouPayToPensionScheme: String,
+                                             howMuchDidYouPay: Option[String],
+                                             doYouPayToLookAfterYourChildren: String,
+                                             isItTheSameExpenseWhileAtWorkForChildren: Option[String],
+                                             didYouPayToLookAfterThePersonYouCaredFor: String,
+                                             isItTheSameExpenseDuringWorkForThePersonYouCaredFor : Option[String]
+                                              ) extends QuestionGroup(SelfEmploymentPensionsAndExpenses)
+
+
+
 
 
 
