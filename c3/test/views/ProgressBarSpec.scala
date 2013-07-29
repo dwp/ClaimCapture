@@ -60,7 +60,7 @@ class ProgressBarSpec extends Specification {
         val listItems = xml(Education, claim) \\ "ol" \\ "li"
         listItems.size shouldEqual(10)
         val employmentNode = listItems(6)
-        employmentNode.text must contain(SelfEmployment.id + name)
+        employmentNode.text must contain(Employed.id + name)
       }
       "when both are visible and Employed is current section" in {
         val claim = Claim().showHideSection(true, Employed).showHideSection(true, SelfEmployment)
@@ -74,14 +74,14 @@ class ProgressBarSpec extends Specification {
         val listItems = xml(SelfEmployment, claim) \\ "ol" \\ "li"
         listItems.size shouldEqual(10)
         val activeNode = findNodeWithClass(listItems, "active")
-        activeNode.text must contain(SelfEmployment.id + name)
+        activeNode.text must contain(Employed.id + name)
       }
       "when both are visible and both are completed" in {
         val claim = Claim().showHideSection(true, Employed).showHideSection(true, SelfEmployment)
         val listItems = xml(OtherMoney, claim) \\ "ol" \\ "li"
         listItems.size shouldEqual(10)
         val completedNodes = findNodeWithClass(listItems, "complete")
-        completedNodes.last.text must contain(SelfEmployment.id + name)
+        completedNodes.last.text must contain(Employed.id + name)
       }
       "when only Employed is visible" in {
         val claim = Claim().showHideSection(true, Employed).showHideSection(false, SelfEmployment)
@@ -100,7 +100,7 @@ class ProgressBarSpec extends Specification {
         val listItems = xml(OtherMoney, claim) \\ "ol" \\ "li"
         listItems.size shouldEqual(10)
         val completedNodes = findNodeWithClass(listItems, "complete")
-        completedNodes.last.text must contain(SelfEmployment.id + name)
+        completedNodes.last.text must contain(Employed.id + name)
         val activeNode = findNodeWithClass(listItems, "active")
         activeNode.text must contain(OtherMoney.id + name)
       }
@@ -114,14 +114,14 @@ class ProgressBarSpec extends Specification {
         val listItems = xml(SelfEmployment, claim) \\ "ol" \\ "li"
         listItems.size shouldEqual(10)
         val activeNode = findNodeWithClass(listItems, "active")
-        activeNode.text must contain(SelfEmployment.id + name)
+        activeNode.text must contain(Employed.id + name)
       }
       "when only Self Employment is visible and completed" in {
         val claim = Claim().showHideSection(false, Employed).showHideSection(true, SelfEmployment)
         val listItems = xml(OtherMoney, claim) \\ "ol" \\ "li"
         listItems.size shouldEqual(10)
         val completedNodes = findNodeWithClass(listItems, "complete")
-        completedNodes.last.text must contain(SelfEmployment.id + name)
+        completedNodes.last.text must contain(Employed.id + name)
       }
       "when both are hidden" in {
         val claim = Claim().showHideSection(false, Employed).showHideSection(false, SelfEmployment)

@@ -69,9 +69,3 @@ trait FiftyTwoWeeksTrip extends TripPeriod {
   this: Trip =>
 }
 
-case class OtherEEAStateOrSwitzerland(call: Call,
-                                      benefitsFromOtherEEAStateOrSwitzerland: YesNoWithText, workingForOtherEEAStateOrSwitzerland: String) extends QuestionGroup(OtherEEAStateOrSwitzerland)
-
-object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
-  val id = s"${TimeSpentAbroad.id}.g5"
-}

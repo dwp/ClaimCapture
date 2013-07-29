@@ -11,6 +11,6 @@ object SelfEmployment extends Controller with CachedClaim {
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    Redirect(claim.nextSection(models.domain.CarersAllowance).firstPage)
+    Redirect(claim.nextSection(models.domain.SelfEmployment).firstPage)
   }
 }

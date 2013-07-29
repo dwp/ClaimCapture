@@ -5,7 +5,7 @@ s4.name = Care you provide
 s5.name = Abroad
 s6.name = Education
 s7.name = Employment
-s8.name = Employment
+s8.name = Self Employment
 s9.name = Other money
 s10.name = Pay details
 s11.name = Declaration
@@ -351,13 +351,13 @@ howMuch = How much do you get, and how often?
 howOften = How often
 error.paymentFrequency = Please tell us how often
 howMuch_howOften = '
-employersName = Employer''s Name
-employersAddress = Employer''s Address
-employersPostcode = Employer''s Postcode
+employersName = Employer''s name
+employersAddress = Employer''s address
+employersPostcode = Employer''s postcode
 
 # PERSON WHO GETS THIS MONEY
 fullName = Full name
-nameOfBenefit = Name of Benefit
+nameOfBenefit = Name of benefit
 
 # OTHER STATUTORY PAY
 otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
@@ -410,11 +410,11 @@ welshCommunication = Do you live in Wales and would like to receive future commu
 
 #SELF EMPLOYED
 error.areYouSelfEmployedNow = Please tell us if you are self employed
-areYouSelfEmployedNow.label =  Are you self-employed now?
-whenDidYouStartThisJob.label = When did you start this job?
-whenDidTheJobFinish.label = When did you finish this job?
-haveYouCeasedTrading.label = Have you ceased trading?
-natureOfYourBusiness.label = Nature of business?
+areYouSelfEmployedNow =  Are you self-employed now?
+whenDidYouStartThisJob = When did you start this job?
+whenDidTheJobFinish = When did you finish this job?
+haveYouCeasedTrading = Have you ceased trading?
+natureOfYourBusiness = Nature of business?
 howMuchYouPay = How much did you pay them?
 nameOfPerson = Name of the person/organisation you pay
 whatRelationIsToYou = What relation, if any, is the person to you?
@@ -424,30 +424,29 @@ whatRelationIsTothePersonYouCareFor = What relation, if any, is the person to th
 error.areAccountsPreparedOnCashFlowBasis = Please tell us if accounts prepared on cash flow basis?
 error.tellUsWhyAndWhenTheChangeHappened = Please tell us when the change happened
 error.canWeContactYourAccountant = Please tell us if we can contact your accountant
-whatWasOrIsYourTradingYearFrom.label =  What [past=was] [present=is] your trading year? From
-whatWasOrIsYourTradingYearTo.label =  What [past=was] [present=is] your trading year? To
-areAccountsPreparedOnCashFlowBasis.label =  Are these accounts prepared on a cash flow basis?
-areIncomeOutgoingsProfitSimilarToTrading.label =  Are the income, outgoings and profit in these accounts similar to your current level of trading?
+whatWasOrIsYourTradingYearFrom =  What is your trading year? From
+whatWasOrIsYourTradingYearTo =  What is your trading year? To
+areAccountsPreparedOnCashFlowBasis =  Are these accounts prepared on a cash flow basis?
+areIncomeOutgoingsProfitSimilarToTrading =  Are the income, outgoings and profit in these accounts similar to your current level of trading?
 tellUsWhyAndWhenTheChangeHappened =  Please tell us why and when the change happened
-doYouHaveAnAccountant.label =  Do you have an accountant?
+doYouHaveAnAccountant =  Do you have an accountant?
 canWeContactYourAccountant =  Can we contact your accountant?
 canWeContactYourAccountant.helper = You could be charged by your accountant for any information they provide to the DWP.
 
 #SELF EMPLOYED - Accountant Contact Details
 error.accountantsName = Please provide the accountant's name
-accountantsName.label = Accountant’s Name
-postCode.label = Postcode
-telephoneNumber.label = Telephone Number
-faxNumber.label = Fax Number
+accountantsName = Accountant’s Name
+telephoneNumber = Telephone Number
 
 #SELF EMPLOYED - Pensions and Expenses
 
-doYouPayToPensionScheme.label = Do you pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
-howMuchDidYouPay.label = How much do you pay?
-doYouPayToLookAfterYourChildren.label = While at work, do you pay anyone to look after children or the person you normally look after?
-isItTheSameExpenseWhileAtWorkForChildren.label = Is this the same as the expenses you have told us about during your employed work?
-didYouPayToLookAfterThePersonYouCaredFor.label = While at work,do you pay anyone to look after the person you normally care for?
-isItTheSameExpenseDuringWorkForThePersonYouCaredFor.label = Is this the same as the expenses you have told us about during your employed work?
+doYouPayToPensionScheme = Do you pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
+howMuchDidYouPay = How much do you pay?
+doYouPayToLookAfterYourChildren = While at work, do you pay anyone to look after children or the person you normally look after?
+isItTheSameExpenseWhileAtWorkForChildren = Is this the same as the expenses you have told us about during your employed work?
+didYouPayToLookAfterThePersonYouCaredFor = While at work,do you pay anyone to look after the person you normally care for?
+isItTheSameExpenseDuringWorkForThePersonYouCaredFor = Is this the same as the expenses you have told us about during your employed work?
+
 
 
 
