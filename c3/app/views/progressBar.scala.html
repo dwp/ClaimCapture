@@ -21,12 +21,12 @@
 @renderEmployment = {
     @if( claim.isSectionVisible(Employed) || claim.isSectionVisible(SelfEmployment)) {
         @if(sectionID == Employed || sectionID == SelfEmployment) {
-            <li class="active"><span>@Messages(sectionID.id + ".name")</span></li>
+            <li class="active"><span>@Messages(Employed.id + ".name")</span></li>
         } else {
             @if(SelfEmployment.index < sectionID.index) {
-                <li class="complete"><span>@Messages(SelfEmployment.id + ".name")</span></li>
+                <li class="complete"><span>@Messages(Employed.id + ".name")</span></li>
             } else {
-                <li><span>@Messages(SelfEmployment.id + ".name")</span></li>
+                <li><span>@Messages(Employed.id + ".name")</span></li>
             }
         }
     }
