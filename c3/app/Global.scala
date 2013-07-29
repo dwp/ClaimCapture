@@ -6,6 +6,7 @@ import play.api._
 import play.api.Configuration
 import play.api.mvc._
 import play.api.mvc.Results._
+import play.api.Play.current
 
 /**
  * Application configuration is in a hierarchy of files:
@@ -46,6 +47,8 @@ object RefererCheck extends Filter {
     val httpReferer = request.headers.get("Referer").getOrElse("No Referer in header")
 
     if (httpReferer.contains(host) || httpReferer.startsWith(expectedReferer)) {
+      next(request)
+    } else if (Play.isTest) {
       next(request)
     } else {
       Logger.debug(s"HTTP Referer : $httpReferer")
