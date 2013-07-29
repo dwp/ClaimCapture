@@ -130,7 +130,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     this
   }
 
-  protected def titleMatch(): Boolean = browser.title.toLowerCase() == this.pageTitle.toLowerCase()
+  protected def titleMatch(): Boolean = browser.title == this.pageTitle
 
   protected def checkNoErrorsForPage(nextPageTile: String, throwException: Boolean = false) = {
     if (!this.listErrors.isEmpty) {
