@@ -16,7 +16,7 @@ class G7MoreAboutTheCarePage (browser: TestBrowser, previousPage: Option[Page] =
   def fillPageWith(theClaim: ClaimScenario) {
     fillYesNo("#spent35HoursCaring", theClaim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek)
     fillYesNo("#beforeClaimCaring_answer", theClaim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours)
-    fillInput("#beforeClaimCaring_date", theClaim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson)
+    fillDate("#beforeClaimCaring_date", theClaim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson)
     fillYesNo("#hasSomeonePaidYou", theClaim.AboutTheCareYouProvideHasSomeonePaidYoutoCare)
   }
 }
