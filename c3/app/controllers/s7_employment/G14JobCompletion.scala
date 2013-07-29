@@ -8,6 +8,7 @@ import Employment._
 
 object G14JobCompletion extends Controller with CachedClaim {
   def present(jobID: String) = claiming { implicit claim => implicit request =>
+    println("===> Scooby Doo was here")
     Ok(views.html.s7_employment.g14_jobCompletion(completedQuestionGroups(JobCompletion, jobID)))
   }
 
