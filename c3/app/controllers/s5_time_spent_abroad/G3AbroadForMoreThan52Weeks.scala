@@ -9,6 +9,7 @@ import controllers.Mappings._
 import models.domain.{AbroadForMoreThan52Weeks, Claim}
 import TimeSpentAbroad.trips
 
+
 object G3AbroadForMoreThan52Weeks extends Controller with CachedClaim {
   val form = Form(
     mapping(
@@ -26,7 +27,7 @@ object G3AbroadForMoreThan52Weeks extends Controller with CachedClaim {
     def next(abroadForMoreThan52Weeks: AbroadForMoreThan52Weeks) = abroadForMoreThan52Weeks.anyTrips match {
       case `yes` if trips.fiftyTwoWeeksTrips.size < 10 => Redirect(routes.G4Trip.fiftyTwoWeeks())
       case `yes` => Redirect(routes.G3AbroadForMoreThan52Weeks.present())
-      case _ => Redirect(routes.G5otherEEAStateOrSwitzerland.present())
+      case _ => Redirect(routes.TimeSpentAbroad.completed())
     }
 
     form.bindEncrypted.fold(
