@@ -44,7 +44,7 @@ s5.g1 = Your normal residence and current location
 s5.g2 = Abroad for more than 4 weeks
 s5.g3 = Abroad for more than 52 weeks
 s5.g4 = Trips
-
+s5.g5 = Other EEA State or Switzerland
 
 s6.g1 = Your course details
 s6.g2 = School, college or university''s contact details
@@ -63,35 +63,24 @@ s7.g11 = Childcare provider''s contact details
 s7.g12 = Expenses related to the person you care for while at work
 s7.g13 = Care provider’s contact Details
 
-s8.g1 = About Self Employment
-s8.g2 = Your Accounts
-s8.g3 = Accountant's Contact Details
-s8.g4 = Pensions and Expenses
-s8.g5 = Childcare expenses while you are at work
-s8.g6 = Care provider's contact Details
-s8.g7 = Expenses related to the person you care for while at work
-s8.g8 = Care provider's contact Details
+s8.g1 = Details about other money
+s8.g2 = Money paid to someone else for you
+s8.g3 = Person who gets this money
+s8.g4 = Person''s contact details
+s8.g5 = Statutory Sick Pay
+s8.g6 = Other Statutory Pay
+s8.g7 = Other EEA State or Switzerland
 
+s9.g1 = How would you like to get paid?
+s9.g2 = Bank/Building society details
+s9.g6 = Childcare provider's contact details
+s9.g7 = Expenses related to the person you care for while at work
+s9.g8 = Care provider's contact Details
 
-s9.g1 = Details about other money
-s9.g2 = Money paid to someone else for you
-s9.g3 = Person who gets this money
-s9.g4 = Person''s contact details
-s9.g5 = Statutory Sick Pay
-s9.g6 = Other Statutory Pay
-s9.g7 = Other EEA State or Switzerland
-
-
-s10.g1 = How would you like to get paid?
-s10.g2 = Bank/Building society details
-s10.g6 = Childcare provider's contact details
-s10.g7 = Expenses related to the person you care for while at work
-s10.g8 = Care provider's contact Details
-
-s11.g1 = Additional information
-s11.g2 = Consent
-s11.g3 = Disclaimer
-s11.g4 = Declaration
+s10.g1 = Additional information
+s10.g2 = Consent
+s10.g3 = Disclaimer
+s10.g4 = Declaration
 
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...
@@ -362,13 +351,13 @@ howMuch = How much do you get, and how often?
 howOften = How often
 error.paymentFrequency = Please tell us how often
 howMuch_howOften = '
-employersName = Employer''s Name
-employersAddress = Employer''s Address
-employersPostcode = Employer''s Postcode
+employersName = Employer''s name
+employersAddress = Employer''s address
+employersPostcode = Employer''s postcode
 
 # PERSON WHO GETS THIS MONEY
 fullName = Full name
-nameOfBenefit = Name of Benefit
+nameOfBenefit = Name of benefit
 
 # OTHER STATUTORY PAY
 otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
@@ -378,7 +367,6 @@ howOften_frequency = How often
 # HOW WE PAY YOU
 likeToPay =  How would you like to be paid?
 paymentFrequency = How often do you want to get paid?
-howWePayYou.helper = Select other if you want to be paid into an International Bank Account and provide details in the additional information section.
 
 # BANK BUILDING SOCIETY DETAILS
 accountHolderName =  Name of account holder
