@@ -4,39 +4,39 @@
 @import helper._
 
 @common.govMain(title) {
-<div id="wrapper" class="carers-allowance">
-    <main role="main">
+    <div id="wrapper" class="carers-allowance">
+        <main role="main">
 
-        <div class="prototype">
-            <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
-        </div>
-
-        @progressBar(SelfEmployment)
-
-        <section>
-            <header>
-                <h1>Consent and Declaration</h1>
-            </header>
-
-            @if(completedQuestionGroups.size > 0) {
-            <div class="completed">
-                <ul>
-                    @for(completedQuestionGroup <- completedQuestionGroups) {
-                    <li>
-                        <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                        <a href="@completedQuestionGroup.call">Change these answers</a>
-                    </li>
-                    }
-                </ul>
+            <div class="prototype">
+                <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
             </div>
-            }
 
-            @if(currentForm.isDefined){
-            @errorsSummary(currentForm.get)
-            }
+            @progressBar(SelfEmployment)
 
-            @content
-        </section>
-    </main>
-</div>
+            <section>
+                <header>
+                    <h1>Consent and Declaration</h1>
+                </header>
+
+                @if(completedQuestionGroups.size > 0) {
+                    <div class="completed">
+                        <ul>
+                            @for(completedQuestionGroup <- completedQuestionGroups) {
+                                <li>
+                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                    <a href="@completedQuestionGroup.call">Change these answers</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if(currentForm.isDefined) {
+                    @errorsSummary(currentForm.get)
+                }
+
+                @content
+            </section>
+        </main>
+    </div>
 }
