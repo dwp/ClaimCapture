@@ -378,6 +378,7 @@ howOften_frequency = How often
 # HOW WE PAY YOU
 likeToPay =  How would you like to be paid?
 paymentFrequency = How often do you want to get paid?
+howWePayYou.helper = Select other if you want to be paid into an International Bank Account and provide details in the additional information section.
 
 # BANK BUILDING SOCIETY DETAILS
 accountHolderName =  Name of account holder
