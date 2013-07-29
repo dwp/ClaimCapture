@@ -6,6 +6,7 @@ import play.api._
 import play.api.Configuration
 import play.api.mvc._
 import play.api.mvc.Results._
+import play.api.Play.current
 
 /**
  * Application configuration is in a hierarchy of files:
@@ -47,11 +48,13 @@ object RefererCheck extends Filter {
 
     if (httpReferer.contains(host) || httpReferer.startsWith(expectedReferer)) {
       next(request)
-    } else {
+    } else if (Play.isProd) {
       Logger.debug(s"HTTP Referer : $httpReferer")
       Logger.debug(s"Conf Referer : $expectedReferer")
       Logger.debug(s"HTTP Host : $host")
       Redirect(expectedReferer)
+    } else {
+      next(request)
     }
   }
 }
