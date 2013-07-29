@@ -427,9 +427,9 @@ whatWasOrIsYourTradingYearFrom.label =  What [past=was] [present=is] your tradin
 whatWasOrIsYourTradingYearTo.label =  What [past=was] [present=is] your trading year? To
 areAccountsPreparedOnCashFlowBasis.label =  Are these accounts prepared on a cash flow basis?
 areIncomeOutgoingsProfitSimilarToTrading.label =  Are the income, outgoings and profit in these accounts similar to your current level of trading?
-tellUsWhyAndWhenTheChangeHappened.label =  Please tell us why and when the change happened
+tellUsWhyAndWhenTheChangeHappened =  Please tell us why and when the change happened
 doYouHaveAnAccountant.label =  Do you have an accountant?
-canWeContactYourAccountant.label =  Can we contact your accountant?
+canWeContactYourAccountant =  Can we contact your accountant?
 canWeContactYourAccountant.helper = You could be charged by your accountant for any information they provide to the DWP.
 
 #SELF EMPLOYED - Accountant Contact Details
@@ -438,6 +438,16 @@ accountantsName.label = Accountant’s Name
 postCode.label = Postcode
 telephoneNumber.label = Telephone Number
 faxNumber.label = Fax Number
+
+#SELF EMPLOYED - Pensions and Expenses
+
+doYouPayToPensionScheme.label = Do you pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
+howMuchDidYouPay.label = How much do you pay?
+doYouPayToLookAfterYourChildren.label = While at work, do you pay anyone to look after children or the person you normally look after?
+isItTheSameExpenseWhileAtWorkForChildren.label = Is this the same as the expenses you have told us about during your employed work?
+didYouPayToLookAfterThePersonYouCaredFor.label = While at work,do you pay anyone to look after the person you normally care for?
+isItTheSameExpenseDuringWorkForThePersonYouCaredFor.label = Is this the same as the expenses you have told us about during your employed work?
+
 
 
 

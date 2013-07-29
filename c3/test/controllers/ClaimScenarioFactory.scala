@@ -191,5 +191,16 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s9SelfEmploymentPensionsAndExpenses = {
+    val claim = s9SelfEmploymentAccountantContactDetails
+    //About self employment
+    claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
+    claim.SelfEmployedHowMuchPayPensionExpenses = "11"
+    claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
+    claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
+
+    claim
+  }
+
 
 }

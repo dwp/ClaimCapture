@@ -45,7 +45,7 @@ class G2SelfEmploymentYourAccountsFormSpec extends Specification with Tags {
           "doYouHaveAnAccountant" -> "yes",
           "canWeContactYourAccountant" -> "yes")
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("tellUsWhyAndWhenTheChangeHappened"),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -56,7 +56,7 @@ class G2SelfEmploymentYourAccountsFormSpec extends Specification with Tags {
           "areIncomeOutgoingsProfitSimilarToTrading" -> "yes",
           "doYouHaveAnAccountant" -> "yes")
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("canWeContactYourAccountant"),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
