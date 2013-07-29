@@ -49,11 +49,11 @@ object DummyClaim {
       .update(consentAndDeclaration.declaration)
   }
 
-  val yourDetails = YourDetails(NoRouting, title = "mr", firstName = "Michael", middleName = None, surname = "Mouse",
-    otherSurnames = Some("O'Dwyer"), None, nationality = "French",
+  val yourDetails = YourDetails(NoRouting, title = "mr", firstName = "TEST", middleName = None, surname = "TEST",
+    otherSurnames = Some("TEST"), None, nationality = "French",
     dateOfBirth = DayMonthYear(1, 1, 1963), maritalStatus = "m", alwaysLivedUK = "yes")
 
-  val contactDetails = ContactDetails(NoRouting, address = MultiLineAddress(Some("Line1"), None, None),
+  val contactDetails = ContactDetails(NoRouting, address = MultiLineAddress(Some("TEST HOUSE"), None, None),
     postcode = Some("PR2 8AE"),
     phoneNumber = Some("01772 700806"), None)
 
@@ -63,7 +63,7 @@ object DummyClaim {
 
   val aboutYou = AboutYou(yourDetails, contactDetails, Some(timeOutsideUK), claimDate)
 
-  val theirPersonalDetails = TheirPersonalDetails(NoRouting, title = "ms", firstName = "Minnie", middleName = None, surname = "Mouse",
+  val theirPersonalDetails = TheirPersonalDetails(NoRouting, title = "ms", firstName = "TEST", middleName = None, surname = "TEST",
     None, dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddress = "no")
 
   val theirContactDetails = TheirContactDetails(NoRouting, address = MultiLineAddress(Some("Line1"), None, None), postcode = Some("PR2 8AE"))
