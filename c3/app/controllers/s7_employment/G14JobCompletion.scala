@@ -12,6 +12,6 @@ object G14JobCompletion extends Controller with CachedClaim {
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    Redirect(controllers.s7_employment.routes.G1BeenEmployed.present())
+    Redirect(routes.G1BeenEmployed.present())
   }
 }
