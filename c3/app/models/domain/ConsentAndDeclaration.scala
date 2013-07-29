@@ -6,7 +6,7 @@ import play.api.mvc.Call
 case class ConsentAndDeclaration(additionalInfo: AdditionalInfo, consent: Consent, disclaimer: Disclaimer, declaration: Declaration)
 
 object ConsentAndDeclaration extends Section.Identifier {
-  val id = "s10"
+  val id = "s11"
 }
 
 case class AdditionalInfo(call: Call, anythingElse: Option[String], welshCommunication:String) extends QuestionGroup(AdditionalInfo)

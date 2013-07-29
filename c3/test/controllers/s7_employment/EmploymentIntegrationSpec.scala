@@ -11,10 +11,10 @@ class EmploymentIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - Employment")
     }
 
-    """progress to next section i.e. "other money".""" in new WithBrowser with BrowserMatchers {
+    """progress to next section i.e. "self employed".""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/completed")
       browser.submit("button[type='submit']")
-      titleMustEqual("About Other Money - Other Money")
+      titleMustEqual("Self Employment - About Self Employment")
     }
 
     """go back to start of employment i.e. "employment history".""" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {

@@ -15,16 +15,16 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       titleMustEqual("Your employment history - Employment")
     }
 
-    """be bypassed and go onto "other money" having not indicated that "employment" is required.""" in new WithBrowser {
+    """be bypassed and go onto "self employment" having not indicated that "employment" is required.""" in new WithBrowser {
       browser.goTo("/employment/beenEmployed")
-      browser.title mustEqual "About Other Money - Other Money"
+      browser.title mustEqual "Self Employment - About Self Employment"
     }
 
-    """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with BrowserMatchers with NotEmployedSinceClaimDate {
+    """be bypassed and go onto "self employment" having indicated that "employment" is not required.""" in new WithBrowser with BrowserMatchers with NotEmployedSinceClaimDate {
       beginClaim
 
       browser.goTo("/employment/beenEmployed")
-      titleMustEqual("About Other Money - Other Money")
+      titleMustEqual("Self Employment - About Self Employment")
     }
 
     "start employment entry" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {

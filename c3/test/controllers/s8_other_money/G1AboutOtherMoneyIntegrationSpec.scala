@@ -13,10 +13,10 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "About Other Money - Other Money"
     }
 
-    "navigate back to Completion - Employment" in new WithBrowser {
+    "navigate back to Completion - Self Employment" in new WithBrowser {
       browser.goTo("/otherMoney/aboutOtherMoney")
       browser.click("#backButton")
-      browser.title mustEqual "Completion - Employment"
+      browser.title mustEqual "Completion - Self Employment"
     }
 
     "contain errors on invalid submission" in {

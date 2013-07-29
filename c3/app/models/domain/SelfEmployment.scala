@@ -6,7 +6,7 @@ import models.MultiLineAddress
 
 
 case object SelfEmployment extends Section.Identifier {
-  val id = "s9"
+  val id = "s8"
 }
 
 case object AboutSelfEmployment extends QuestionGroup.Identifier {
