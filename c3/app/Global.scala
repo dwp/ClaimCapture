@@ -48,13 +48,13 @@ object RefererCheck extends Filter {
 
     if (httpReferer.contains(host) || httpReferer.startsWith(expectedReferer)) {
       next(request)
-    } else if (Play.isTest) {
-      next(request)
-    } else {
+    } else if (Play.isProd) {
       Logger.debug(s"HTTP Referer : $httpReferer")
       Logger.debug(s"Conf Referer : $expectedReferer")
       Logger.debug(s"HTTP Host : $host")
       Redirect(expectedReferer)
+    } else {
+      next(request)
     }
   }
 }
