@@ -1,7 +1,7 @@
 package controllers.s4_care_you_provide
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
-import controllers.Routing
 import models.view.CachedClaim
 import models.domain.MoreAboutThePerson
 import play.api.data.Form
@@ -10,12 +10,10 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import models.domain.Claim
 
-object G3MoreAboutThePerson extends Controller with Routing with CachedClaim {
-
-  override val route = MoreAboutThePerson.id -> routes.G3MoreAboutThePerson.present
-
+object G3MoreAboutThePerson extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      call(routes.G3MoreAboutThePerson.present()),
       "relationship" -> nonEmptyText(maxLength = 20),
       "armedForcesPayment" -> optional(text),
       "claimedAllowanceBefore" -> nonEmptyText.verifying(validYesNo)
@@ -24,12 +22,7 @@ object G3MoreAboutThePerson extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutThePerson)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[MoreAboutThePerson] = claim.questionGroup(MoreAboutThePerson) match {
-      case Some(m: MoreAboutThePerson) => form.fill(m)
-      case _ => form
-    }
-
-    Ok(views.html.s4_care_you_provide.g3_moreAboutThePerson(currentForm, completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g3_moreAboutThePerson(form.fill(MoreAboutThePerson), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

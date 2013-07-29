@@ -1,0 +1,42 @@
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+
+@import models.domain.OtherMoney
+@import helper._
+
+@common.govMain(title) {
+    <div id="wrapper" class="carers-allowance">
+        <main role="main">
+
+            <div class="prototype">
+                <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
+            </div>
+
+            @progressBar(OtherMoney)
+
+            <section>
+                <header>
+                    <h1>Other Money</h1>
+                </header>
+
+                @if(completedQuestionGroups.size > 0) {
+                    <div class="completed">
+                        <ul>
+                            @for(completedQuestionGroup <- completedQuestionGroups) {
+                            <li>
+                                <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                <a href="@completedQuestionGroup.call">Change these answers</a>
+                            </li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if(currentForm.isDefined){
+                    @errorsSummary(currentForm.get)
+                }
+
+                @content
+            </section>
+        </main>
+    </div>
+}

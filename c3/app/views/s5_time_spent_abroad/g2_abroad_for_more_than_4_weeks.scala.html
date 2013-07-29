@@ -1,11 +1,11 @@
-@(yesNoForm: Form[models.yesNo.YesNo], trips: models.domain.Trips, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(abroadForMoreThan4WeeksForm: Form[models.domain.AbroadForMoreThan4Weeks], trips: models.domain.Trips, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import scala.language.postfixOps
 @import views.html.helper._
 @import models.domain.Trips
 @import models.DayMonthYear
 
-@main("Abroad for more than 4 weeks - Time Spent Abroad", Some(yesNoForm), completedQuestionGroups) {
+@main("Abroad for more than 4 weeks - Time Spent Abroad", Some(abroadForMoreThan4WeeksForm), completedQuestionGroups) {
     <fieldset id="trips" class="form-elements results-detail">
         <legend>Trips you have added</legend>
 
@@ -47,14 +47,16 @@
             <span>&#33;</span>
         </div>
     </fieldset>
+    
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s5_time_spent_abroad.routes.G2AbroadForMoreThan4Weeks.submit) {
         <fieldset class="form-elements">
-            <legend>When you went abroad for more than 4 weeks</legend>
+            <legend>@Messages("s5.g2")</legend>
 
             <ul class="group">
                 @defining(if(trips.fourWeeksTrips == Nil || trips.fourWeeksTrips.isEmpty) {"4Weeks.label"} else {"4Weeks.more.label"}) { label =>
-                    @yesNoRadioGroup(yesNoForm("anyTrips"), '_label -> Messages(label, (DayMonthYear.today - 3 years).`dd/MM/yyyy`))
+                    @yesNoRadioGroup(abroadForMoreThan4WeeksForm("anyTrips"), '_label -> Messages(label, (DayMonthYear.today - 3 years).`dd/MM/yyyy`))
                 }
             </ul>
         </fieldset>

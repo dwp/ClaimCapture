@@ -12,7 +12,7 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification with Tags {
     """bypass to "breaks" when "no one has paid you to look after this person" """ in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val moreAboutTheCare = mockQuestionGroup[MoreAboutTheCare](MoreAboutTheCare.id)
+      val moreAboutTheCare = mockQuestionGroup[MoreAboutTheCare](MoreAboutTheCare)
       moreAboutTheCare.hasSomeonePaidYou returns "no"
 
       val claim = Claim().update(moreAboutTheCare)
@@ -25,7 +25,7 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification with Tags {
     """present when "someone has paid you to look after this person" """ in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val moreAboutTheCare = mockQuestionGroup[MoreAboutTheCare](MoreAboutTheCare.id)
+      val moreAboutTheCare = mockQuestionGroup[MoreAboutTheCare](MoreAboutTheCare)
       moreAboutTheCare.hasSomeonePaidYou returns "yes"
 
       val claim = Claim().update(moreAboutTheCare)
@@ -43,7 +43,9 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification with Tags {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(ContactDetailsOfPayingPerson) must beSome(ContactDetailsOfPayingPerson(None, None))
+      claim.questionGroup(ContactDetailsOfPayingPerson) must beLike {
+        case Some(ContactDetailsOfPayingPerson(_, None, None)) => true must beTrue
+      }
     }
   } section "unit"
 }

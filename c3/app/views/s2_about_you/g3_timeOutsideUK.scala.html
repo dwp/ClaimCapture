@@ -10,6 +10,8 @@
 
 @main("Time Outside UK - About You", completedQuestionGroups) {
     @errorsSummary(timeOutsideUKForm)
+    
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G3TimeOutsideUK.submit) {
         <fieldset class="form-elements">
@@ -38,7 +40,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a href="@controllers.s2_about_you.routes.G2ContactDetails.present" class="button secondary">Back</a>
+            <a href="@back(models.domain.TimeOutsideUK)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
@@ -48,9 +50,9 @@
 
 <script type="text/javascript">
     $(function(){
-        window.initEvents( "@CarersCrypto.encryptAES("livingInUK_answer_yes")",
-        "@CarersCrypto.encryptAES("livingInUK_answer_no")",
-        "@CarersCrypto.encryptAES("livingInUK_goBack_answer_yes")",
-        "@CarersCrypto.encryptAES("livingInUK_goBack_answer_no")");
+        window.initEvents("@CarersCrypto.encryptAES("livingInUK_answer_yes")",
+            "@CarersCrypto.encryptAES("livingInUK_answer_no")",
+            "@CarersCrypto.encryptAES("livingInUK_goBack_answer_yes")",
+            "@CarersCrypto.encryptAES("livingInUK_goBack_answer_no")");
     })
 </script>

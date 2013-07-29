@@ -4,15 +4,14 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
 import models.domain.{Over16, Claim}
+import controllers.Mappings._
 
-object G3Over16 extends Controller with Routing with CachedClaim {
-  override val route = Over16.id -> routes.G3Over16.present
-
+object G3Over16 extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      call(routes.G3Over16.present()),
       "answer" -> boolean
     )(Over16.apply)(Over16.unapply))
 

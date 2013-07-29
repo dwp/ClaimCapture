@@ -1,0 +1,28 @@
+@(currentForm: Form[models.domain.PersonWhoGetsThisMoney], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import views.html.helper.base._
+@import utils.helpers.CarersTemplate._
+
+@main("Person Who Gets This Money - Other Money", Some(currentForm), completedQuestionGroups) {
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+      
+    @form(action = controllers.s8_other_money.routes.G3PersonWhoGetsThisMoney.submit) {
+        <fieldset class="form-elements">
+            <legend>Person who gets this money</legend>
+
+            <ul class="group">
+                @carersInputText(currentForm("fullName"), 'maxLength -> Mappings.sixty)
+
+                @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
+
+                @carersInputText(currentForm("nameOfBenefit"), 'maxLength -> Mappings.sixty)
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a href="@back(models.domain.PersonWhoGetsThisMoney)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

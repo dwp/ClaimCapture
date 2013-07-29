@@ -1,0 +1,29 @@
+@(currentForm: Form[models.domain.ChildcareProvidersContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+
+@main("Childcare provider's contact details - Self Employment", Some(currentForm), completedQuestionGroups) {
+
+  <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s9_self_employment.routes.G6ChildcareProvidersContactDetails.submit) {
+
+        <fieldset class="form-elements">
+            <legend>Childcare provider''s contact details</legend>
+
+            <ul class="group">
+                @inputAddress(currentForm("address"))
+
+                @carersInputText(currentForm("postcode"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.ChildcareProvidersContactDetails)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

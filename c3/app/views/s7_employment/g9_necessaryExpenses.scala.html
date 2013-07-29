@@ -1,0 +1,34 @@
+@(currentForm: Form[models.domain.NecessaryExpenses], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@import models.domain.Job
+
+@main("Necessary expenses to do your job - Employment", Some(currentForm), completedQuestionGroups) {
+    @form(action = controllers.s7_employment.routes.G9NecessaryExpenses.submit()) {
+        <input type="hidden" name="jobID" value='@Job.jobID(currentForm)'>
+
+        <fieldset class="form-elements">
+            <legend>Necessary expenses to do your job</legend>
+
+            <ul class="group">
+                @carersInputText(currentForm("whatAreThose"))
+
+                @carersInputText(currentForm("howMuchCostEachWeek"))
+
+                @carersInputText(currentForm("whyDoYouNeedThose"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

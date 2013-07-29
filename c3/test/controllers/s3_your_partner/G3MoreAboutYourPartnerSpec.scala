@@ -27,7 +27,7 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
     "present 'More About Your Partner'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s3_your_partner.G3MoreAboutYourPartner.present(request)
+      val result = G3MoreAboutYourPartner.present(request)
       status(result) mustEqual OK
     }
     
@@ -35,15 +35,15 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(moreAboutYourPartnerInput: _*)
 
-      val result = controllers.s3_your_partner.G3MoreAboutYourPartner.submit(request)
+      val result = G3MoreAboutYourPartner.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.YourPartner.id)
+      val section: Section = claim.section(domain.YourPartner)
 
       section.questionGroup(MoreAboutYourPartner) must beLike {
-        case Some(f: MoreAboutYourPartner) => {
-          f.startedLivingTogether.get.answer must equalTo(yes)
-          f.startedLivingTogether.get.date must equalTo(Some(DayMonthYear(Some(dateDay), Some(dateMonth), Some(dateYear), None, None)))
-          f.separated.answer must equalTo(yes)
+        case Some(m: MoreAboutYourPartner) => {
+          m.startedLivingTogether.get.answer must equalTo(yes)
+          m.startedLivingTogether.get.date must equalTo(Some(DayMonthYear(Some(dateDay), Some(dateMonth), Some(dateYear), None, None)))
+          m.separated.answer must equalTo(yes)
         }
       }
     }
@@ -52,7 +52,7 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("foo" -> "bar")
 
-      val result = controllers.s3_your_partner.G3MoreAboutYourPartner.submit(request)
+      val result = G3MoreAboutYourPartner.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
     
@@ -60,7 +60,7 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(moreAboutYourPartnerInput: _*)
 
-      val result = controllers.s3_your_partner.G3MoreAboutYourPartner.submit(request)
+      val result = G3MoreAboutYourPartner.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section "unit"

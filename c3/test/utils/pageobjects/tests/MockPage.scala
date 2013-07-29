@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-class MockPage (browser: TestBrowser, title: String) extends Page(browser, "/", title){
+class MockPage (browser: TestBrowser, title: String) extends Page(browser, "/mock", title){
   /**
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
@@ -30,7 +30,7 @@ object MockPage {
 }
 
 /** The context for Specs tests */
-trait MockPageContext extends PageContext with Mockito {
+class MockPageContext extends PageContext with Mockito {
     val browser = {
     val mockedBrowser = mock[play.api.test.TestBrowser]
     mockedBrowser.title returns  MockPage.title
@@ -38,9 +38,23 @@ trait MockPageContext extends PageContext with Mockito {
     mockedBrowser.click(".form-steps a") returns mockedBrowser
     mockedBrowser.find("div[class=validation-summary] ol li")  returns new FluentList[FluentWebElement](new util.ArrayList[FluentWebElement]())
     mockedBrowser.goTo(anyString) returns mockedBrowser
-//    mockedBrowser.waitUntil[Boolean](30, TimeUnit.SECONDS) {true} returns true
+    val test = (x:Boolean) => true
+    mockedBrowser.waitUntil[Boolean](30, TimeUnit.SECONDS)(_:Boolean) returns true
     mockedBrowser
   }
   val page = MockPage buildPage(browser)
 }
 
+
+/** The context for Specs tests */
+trait MockPageWrongTitleContext extends PageContext with Mockito {
+  val browser = {
+    val mockedBrowser = mock[play.api.test.TestBrowser]
+    mockedBrowser.title returns  "Wrong Title"
+    val test = (x:Boolean) => true
+    mockedBrowser.waitUntil[Boolean](30, TimeUnit.SECONDS)(_:Boolean) returns true
+    mockedBrowser.waitUntil[Boolean](20, TimeUnit.SECONDS)(_:Boolean) returns false
+    mockedBrowser
+  }
+  val page = MockPage buildPage(browser)
+}

@@ -1,43 +1,63 @@
 package models.domain
 
 import models.{LivingInUK, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
+import play.api.mvc.Call
 
 case class AboutYou(yourDetails: YourDetails,
                     contactDetails: ContactDetails,
                     timeOutsideUK : Option[TimeOutsideUK],
                     claimDate : ClaimDate)
 
-case object AboutYou {
+case object AboutYou extends Section.Identifier {
   val id = "s2"
 }
 
-case class YourDetails(title: String, firstName: String, middleName: Option[String], surname: String,
+case class YourDetails(call: Call,
+                       title: String, firstName: String, middleName: Option[String], surname: String,
                        otherSurnames: Option[String], nationalInsuranceNumber: Option[NationalInsuranceNumber], nationality: String,
-                       dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends QuestionGroup(YourDetails.id)
+                       dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends QuestionGroup(YourDetails)
 
-case object YourDetails extends QuestionGroup(s"${AboutYou.id}.g1")
+object YourDetails extends QuestionGroup.Identifier {
+  val id = s"${AboutYou.id}.g1"
+}
 
-case class ContactDetails(address: MultiLineAddress, postcode: Option[String], phoneNumber: Option[String], mobileNumber: Option[String]) extends QuestionGroup(ContactDetails.id)
+case class ContactDetails(call: Call,
+                          address: MultiLineAddress, postcode: Option[String],
+                          phoneNumber: Option[String], mobileNumber: Option[String]) extends QuestionGroup(ContactDetails)
 
-case object ContactDetails extends QuestionGroup(s"${AboutYou.id}.g2")
+object ContactDetails extends QuestionGroup.Identifier {
+  val id = s"${AboutYou.id}.g2"
+}
 
-case class TimeOutsideUK(livingInUK:LivingInUK, visaReference: Option[String]) extends QuestionGroup(TimeOutsideUK.id)
+case class TimeOutsideUK(call: Call, livingInUK: LivingInUK, visaReference: Option[String]) extends QuestionGroup(TimeOutsideUK)
 
-case object TimeOutsideUK extends QuestionGroup(s"${AboutYou.id}.g3")
+object TimeOutsideUK extends QuestionGroup.Identifier {
+  val id = s"${AboutYou.id}.g3"
+}
 
-case class ClaimDate(dateOfClaim: DayMonthYear) extends QuestionGroup(ClaimDate.id)
+case class ClaimDate(call: Call, dateOfClaim: DayMonthYear) extends QuestionGroup(ClaimDate)
 
-case object ClaimDate extends QuestionGroup(s"${AboutYou.id}.g4")
+object ClaimDate extends QuestionGroup.Identifier {
+  val id = s"${AboutYou.id}.g4"
+}
 
-case class MoreAboutYou(hadPartnerSinceClaimDate: String, eitherClaimedBenefitSinceClaimDate: String,
-                        beenInEducationSinceClaimDate: String, receiveStatePension: String) extends QuestionGroup(MoreAboutYou.id)
+case class MoreAboutYou(call: Call,
+                        hadPartnerSinceClaimDate: String, eitherClaimedBenefitSinceClaimDate: String,
+                        beenInEducationSinceClaimDate: String, receiveStatePension: String) extends QuestionGroup(MoreAboutYou)
 
-case object MoreAboutYou extends QuestionGroup(s"${AboutYou.id}.g5")
+object MoreAboutYou extends QuestionGroup.Identifier {
+  val id = s"${AboutYou.id}.g5"
+}
 
-case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String, beenEmployedSince6MonthsBeforeClaim: String) extends QuestionGroup(Employment.id)
+case class Employment(call: Call,
+                      beenSelfEmployedSince1WeekBeforeClaim: String, beenEmployedSince6MonthsBeforeClaim: String) extends QuestionGroup(Employment)
 
-case object Employment extends QuestionGroup(s"${AboutYou.id}.g6")
+object Employment extends QuestionGroup.Identifier {
+  val id = s"${AboutYou.id}.g6"
+}
 
-case class PropertyAndRent(ownProperty: String, hasSublet: String) extends QuestionGroup(PropertyAndRent.id)
+case class PropertyAndRent(call: Call, ownProperty: String, hasSublet: String) extends QuestionGroup(PropertyAndRent)
 
-case object PropertyAndRent extends QuestionGroup(s"${AboutYou.id}.g7")
+object PropertyAndRent extends QuestionGroup.Identifier {
+  val id = s"${AboutYou.id}.g7"
+}

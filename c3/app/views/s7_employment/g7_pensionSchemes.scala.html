@@ -1,0 +1,84 @@
+@(currentForm: Form[models.domain.PensionSchemes], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@import models.domain.Job
+
+@main("Pension schemes - Employment", Some(currentForm), completedQuestionGroups) {
+    @form(action = controllers.s7_employment.routes.G7PensionSchemes.submit()) {
+        <input type="hidden" name="jobID" value='@Job.jobID(currentForm)'>
+
+        <fieldset class="form-elements">
+            <legend>Pension schemes</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("payOccupationalPensionScheme"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(currentForm("howMuchPension")),
+                        carersSelect(currentForm("howOftenPension"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))),
+                    'id -> "payOccupationalPensionScheme",
+                    'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
+
+                @yesNoRadioGroup(currentForm("payPersonalPensionScheme"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(currentForm("howMuchPersonal")),
+                        carersSelect(currentForm("howOftenPersonal"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))),
+                    'id -> "payPersonalPensionScheme",
+                    'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript">
+    $(function() {
+        @if(currentForm("payOccupationalPensionScheme").value.getOrElse("") != "yes") {
+            $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_yes")").closest("ul").parent().next().hide();
+        }
+
+        $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_yes")").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_no")").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+
+    $(function() {
+        @if(currentForm("payPersonalPensionScheme").value.getOrElse("") != "yes") {
+            $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_yes")").closest("ul").parent().next().hide();
+        }
+
+        $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_yes")").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_no")").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+</script>

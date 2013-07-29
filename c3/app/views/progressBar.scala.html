@@ -1,31 +1,48 @@
-@(sectionID: String)(implicit claim: models.domain.Claim)
+@(sectionID: models.domain.Section.Identifier)(implicit claim: models.domain.Claim)
 
 @import models.domain._
 
-@addClass(currentSectionID: String) = {
+@addClass(currentSectionID: Section.Identifier) = {
     @if(currentSectionID == sectionID) {
         class="active"
     } else {
-        @if(Section.index(currentSectionID) < Section.index(sectionID)) {
+        @if(currentSectionID.index < sectionID.index) {
             class="complete"
         }
     }
 }
 
-@renderListItem(currentSectionID: String) = {
-    @if(claim.isSectionVisible(currentSectionID)) {
-        <li @addClass(currentSectionID)><span>@Messages(currentSectionID + ".progressBar")</span></li>
+@renderListItem(currentSectionID: Section.Identifier) = {
+    @if( claim.isSectionVisible(currentSectionID) ) {
+        <li @addClass(currentSectionID)><span>@Messages(currentSectionID.id + ".name")</span></li>
+    }
+}
+
+@renderEmployment = {
+    @if( claim.isSectionVisible(Employed) || claim.isSectionVisible(SelfEmployment)) {
+        @if(sectionID == Employed || sectionID == SelfEmployment) {
+            <li class="active"><span>@Messages(Employed.id + ".name")</span></li>
+        } else {
+            @if(SelfEmployment.index < sectionID.index) {
+                <li class="complete"><span>@Messages(Employed.id + ".name")</span></li>
+            } else {
+                <li><span>@Messages(Employed.id + ".name")</span></li>
+            }
+        }
     }
 }
 
 <div class="progress-steps">
     <ol>
-        @renderListItem(CarersAllowance.id)
-        @renderListItem(AboutYou.id)
-        @renderListItem(YourPartner.id)
-        @renderListItem(CareYouProvide.id)
-        @renderListItem(TimeSpentAbroad.id)
-        @renderListItem(PayDetails.id)
-        @renderListItem(ConsentAndDeclaration.id)
+        @renderListItem(CarersAllowance)
+        @renderListItem(AboutYou)
+        @renderListItem(YourPartner)
+        @renderListItem(CareYouProvide)
+        @renderListItem(TimeSpentAbroad)
+        @renderListItem(Education)
+        @renderEmployment
+        @renderListItem(OtherMoney)
+        @renderListItem(PayDetails)
+        @renderListItem(ConsentAndDeclaration)
     </ol>
 </div>

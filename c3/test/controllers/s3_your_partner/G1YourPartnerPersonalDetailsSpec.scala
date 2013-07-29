@@ -8,7 +8,6 @@ import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Claim
 import models.NationalInsuranceNumber
-import scala.Some
 
 class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
   val title = "Mr"
@@ -47,7 +46,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
     "present 'Your Partner Personal Details' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.present(request)
+      val result = G1YourPartnerPersonalDetails.present(request)
       status(result) mustEqual OK
     }
     
@@ -55,9 +54,9 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
 
-      val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
+      val result = G1YourPartnerPersonalDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.YourPartner.id)
+      val section: Section = claim.section(domain.YourPartner)
 
       section.questionGroup(YourPartnerPersonalDetails) must beLike {
         case Some(f: YourPartnerPersonalDetails) => {
@@ -78,7 +77,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("foo" -> "bar")
 
-      val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
+      val result = G1YourPartnerPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
     
@@ -86,7 +85,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
 
-      val result = controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit(request)
+      val result = G1YourPartnerPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   }  section "unit"

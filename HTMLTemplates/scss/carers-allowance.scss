@@ -6,7 +6,10 @@ $button-green-hover: #004b27;
    background: #fff;
    border-bottom: 10px solid #f47738;
    @media screen and (max-width: 640px) {border-top: 10px solid #f47738;}
-   .carers-container {
+   .ie6 & {
+	   padding: 0 1em 2em 1em;
+   }
+   main {
 	   padding: 0 1em 2em 1em;
 	   margin: 0 auto;
 	   max-width: 980px;
@@ -14,6 +17,8 @@ $button-green-hover: #004b27;
 	   @media screen and (max-width: 500px) {padding-left: .75em; padding-right: .75em;}
 	   .prototype {
 		   background: #f47738;
+		   overflow: hidden;
+		   zoom: 1;
 		   padding: 0.7em 1em 0 1em;
 		   @media screen and (max-width: 640px) {padding-bottom: .7em; margin-top: .9em;}
 		   p {
@@ -51,19 +56,24 @@ $button-green-hover: #004b27;
    /* progress steps */
    .progress-steps {
 	   border-top: 10px solid #f47738;
-	   @media screen and (max-width: 640px) {border-top: 0;}
+	   @media screen and (max-width: 760px) {border-top: 0;}
+	   clear: both;
 	   ol {
 		   list-style: none;
 		   margin: 0;
 		   overflow: hidden;
 		   padding: 2.5em 0 0.3em 0;
-		    @media screen and (max-width: 640px) {padding-top: 2em;}
-		   .ie7 &, .ie8 & {
+		    @media screen and (max-width: 760px) {padding-top: 2em;}
+		   .ie6 &, .ie7 &, .ie8 & {
 			   padding-bottom: 0;
 			   background: url('images/nav-line.png') 0 56px repeat-x;
 			   margin-bottom: -12px;
+			   zoom: 1;
 		   }
-		   @media screen and (max-width: 640px) {
+		   .ie6 & {
+			   zoom: 1;
+		   }
+		   @media screen and (max-width: 760px) {
 			   padding-bottom: 0;
 		   }
 		   &:after {
@@ -83,11 +93,15 @@ $button-green-hover: #004b27;
 			   text-align: center;
 			   padding: 35px 0 0 0;
 			   line-height: 1em;
-			   .ie7 &, .ie8 & {
+			   .ie6 &, .ie7 &, .ie8 & {
 				   background: url('images/nav-default.png') center 0 no-repeat;
 				   padding-bottom: 5px;
 			   }
-			    @media screen and (max-width: 640px) {
+			   .ie6 & {
+				   padding-bottom: 20px;
+				   width: 9%;
+			   }
+			    @media screen and (max-width: 760px) {
 				    text-indent: -9999px;
 				    padding: 15px 0 0 0;
 				    span {
@@ -106,6 +120,9 @@ $button-green-hover: #004b27;
 			     }
 			   span {
 				   font-size: 1.3rem;
+				   @media screen and (max-width: 770px) {
+					   font-size: 10px;
+				   }
 				   .ie & {
 					   font-size: 13px;
 				   }
@@ -143,12 +160,12 @@ $button-green-hover: #004b27;
 			   
 			   &.active {
 			   	padding-top: 48px;
-			   	.ie7 &, .ie8 & {
+			   	.ie6 &, .ie7 &, .ie8 & {
 				   background: url('images/nav-active.png') center 0 no-repeat;
 				   top: -8px;
 				   padding-top: 55px;
 			   }
-			   	@media screen and (max-width: 640px) {
+			   	@media screen and (max-width: 760px) {
 				   	padding: 0;
 			   	}
 				   span {
@@ -165,7 +182,7 @@ $button-green-hover: #004b27;
 						   .ie & {
 							   font-size: 26px;
 						   }
-						   @media screen and (max-width: 640px) {
+						   @media screen and (max-width: 760px) {
 							   width: 30px;
 							   height: 29px;
 							   margin: 0 0 0 -15px;
@@ -185,7 +202,7 @@ $button-green-hover: #004b27;
 			   } 
 			   
 			   &.complete {
-			   .ie7 &, .ie8 & {
+			   .ie6 &, .ie7 &, .ie8 & {
 				   background: url('images/nav-complete.png') center 0 no-repeat;
 			   }
 				   span {
@@ -210,110 +227,7 @@ $button-green-hover: #004b27;
    
    
    
-   
-   /* progress bar */
-   .progress-bar {
-	   border-top: 10px solid #f47738;
-	   @media screen and (max-width: 640px) {border-top: 0;}
-	   ol {
-		   list-style: none;
-		   margin: 1em 0 0 0;
-		   padding: 0;
-		   overflow: hidden;
-		   
-		   li {
-			   float: left;
-			   position: relative;
-			   background: #ccc;
-			   position: relative;
-			   height: 40px;
-			   font-size: 1.3rem;
-			   .ie & {
-					   font-size: 13px;
-				   }
-			   font-weight: 700;
-			   &:after {
-				   content:"";
-				   border-style: solid;
-				   border-width: 20px 0 20px 20px;
-				   border-color: transparent transparent transparent #ccc;
-				   position: absolute;
-				   top: 0;
-				   right: 3px;
-			   }
-			   span {
-			   		padding: 11px 25px 0 25px;
-			   		text-align: center;
-			   		margin-left: -17px;
-			   		display: block;
-				   &:after {
-				   content:"";
-				   border-style: solid;
-				   border-width: 20px 0 20px 20px;
-				   border-color: transparent transparent transparent #fff;
-				   position: absolute;
-				   top: 0;
-				   right: 0;
-				   }
-			   }
-			   
-			   &.active {
-			   	   background: #008670;
-			   	   color: #fff;
-				   &:after {
-				   		border-color: transparent transparent transparent #008670;
-				   		right: 2px;
-				   	}
-				   	&:before {
-				   		content: "";
-				   		position: absolute;
-				   		top: 0;
-				   		left: -20px;
-					   	border-style: solid;
-						border-width: 20px 0 20px 20px;
-						border-color: #008670 #008670 #008670 transparent;
-				   	}
-				   	span {
-					   	&:after {
-						   	border-color: #ccc #ccc #ccc #fff;
-						}
-				    }
-			   }
-			   
-			   
-			   &.complete {
-			   	   background: #000;
-			   	   color: #fff;
-				   &:after {
-				   		border-color: transparent transparent transparent #000;
-				   	}
-				   	&:before {
-						border-color: #000 #000 #000 transparent;
-				   	}
-				   		span {
-					   		&:after {
-						   		border-color: transparent transparent transparent #fff;
-						    }
-						 }
-			   }
-			   
-			   &.last {
-				   &:after {
-					   border: none;
-				   }
-				   span {
-				   	padding-right: 10px;
-					   &:after {
-						   border: none;
-					   }
-				   }
-			   }
-			   
-			   
-		   } /* li */
-	   } /* ol */
-   } /* div */
-   
+     
    
    
    /* section */
@@ -321,6 +235,7 @@ $button-green-hover: #004b27;
 	   background: #fff;
 	   position: relative;
 	   padding: 1.6em 0 0 1em;
+	   .ie6 & {margin: 0 auto; width: 70%;}
 	   @media screen and (max-width: 640px) {padding-left: 0; padding-right: 0; border: 0;}
 	   
 	   &.error-statement {
@@ -386,6 +301,20 @@ $button-green-hover: #004b27;
 		   .ie & {
 			   font-size: 19px;
 		   }
+		   &.mandatory {
+		   		margin-top: 1.6em;
+		   		font-size: 1.6rem;
+		   		.ie & {
+			   		font-size: 16px;
+		   		}
+					em {
+						font-style: normal;
+						font-size: 1.9rem;
+						.ie & {
+							font-size: 19px;
+						}
+					}
+			}
 	   }
 	   ul {
 		   margin: 0;
@@ -455,6 +384,13 @@ $button-green-hover: #004b27;
 				   font-weight: 300;
 				   .ie & {
 					   font-size: 14px;
+				   }
+				   .ie6 & {
+					   right: auto;
+					   top: auto;
+					   position: relative;
+					   margin-top: 10px;
+					   display: inline-block;
 				   }
 				   &:hover {
 					   color: #315843;
@@ -531,6 +467,10 @@ $button-green-hover: #004b27;
 			   	    display: block;
 			   	    line-height: 1.1em;
 			   	    margin-left: -48px;
+		   	    }
+		   	    .ie6 & {
+			   	    padding-left: 40px;
+			   	    margin-left: -50px;
 		   	    }
 	   	    }
 	   	    ul {
@@ -620,6 +560,10 @@ $button-green-hover: #004b27;
 			   &.other-detail {
 				   margin: 0;
 				   padding-top: 0;
+				   .strip {
+					   position: absolute;
+					   left: -9999px;
+				   }
 			   }
 			  
 			   
@@ -633,6 +577,9 @@ $button-green-hover: #004b27;
 			       .ie7 &, .ie8 & {
 				       margin-left: -15px;
 			       }
+			       .ie6 & {
+				       zoom: 1;
+			       }
 
 			       @media screen and (max-width: 640px) {margin-left: 0; padding-top: 1em; padding-bottom: 1em; width: auto;} 
 			       .error {
@@ -642,6 +589,9 @@ $button-green-hover: #004b27;
 				       padding-bottom: .6em;
 				       .ie & {
 					       font-size: 16px;
+				       }
+				       .ie6 & {
+					       background: transparent;
 				       }
 			       }
 			   }
@@ -686,19 +636,23 @@ $button-green-hover: #004b27;
 				   font-weight: 500;
 				   overflow: hidden;
 				   line-height: 1em;
-				   padding: .35em .7em;
-				   border-left: 3px solid #006435;
+				   padding: .24em .7em .6em 1.65em;
 				   width: 120px;
+				   position: relative;
+				   background: url('../img/toggle.png') 0 0 no-repeat;
 				   .ie & {
 					   font-size: 16px;
 				   }
 			   }
+			   .helper-less {
+			   	   background: url('../img/toggle.png') 0 -42px no-repeat;
+			   }
 
 				.helper-info {
 					display: none;
-					padding: .7em;
-					background: #d5ecea;
-					border-left: 3px solid #006435;
+					padding: 1em 1.6em;
+					background: #f9f9f9;
+					border-left: 3px solid #000;
 					p {
 						font-size: 1.6rem;
 						.ie & {
@@ -728,6 +682,8 @@ $button-green-hover: #004b27;
 					   }
 				   }
 			   }
+			  
+			   
 			   input[type="text"], input[type="number"], input[type="tel"], textarea {
 				    background: #f9f9f9;
 					border: 1px solid #a2a2a2;
@@ -789,6 +745,17 @@ $button-green-hover: #004b27;
 					   min-width: 0;
 				   }
 			   }
+			   .warning-text {
+				   color: #df3034;
+			   }
+			   .stacked {
+					   margin: 0;
+					   padding: 0;
+					   font-size: 1.6rem;
+					   .ie & {
+						   font-size: 16px;
+					   }
+				   }
 		   }
 		   
 		   /* form list end */
@@ -820,6 +787,13 @@ $button-green-hover: #004b27;
 						   .ie7 & {
 							   top: 25%;
 						   }
+						   .ie6 & {
+							   position: relative;
+							   top: auto;
+							   left: auto;
+							   display: inline;
+						   }
+
 					   &:focus {
 							   outline: none;
 						   } 
@@ -837,6 +811,11 @@ $button-green-hover: #004b27;
 						   }
 						   .ie7 &, .ie8 & {
 							   padding: .4em 1em .3em 2em;
+						   }
+						   .ie6 & {
+							   display: inline;
+							   padding-left: 0;
+							   background: transparent;
 						   }
 					   }
 					   input[type="radio"]:checked + label {
@@ -1245,6 +1224,17 @@ $button-green-hover: #004b27;
 				text-indent: -9999px;
 				font-size: 0;
 			}
+			&.employment {
+				th, td {
+					text-align: left;
+					&:first-child {
+						width: 40%;
+					}
+					&.desc {
+						width: 40%;
+					}
+				}
+			}
 	   }
 	   /* table styling end */
 	   
@@ -1576,13 +1566,15 @@ $button-green-hover: #004b27;
 
 
 
+
+
 /* Purely for demo purposes - can be deleted later on */
 textarea.demo {text-align: left!important; width: 120%!important; font-size: 1.5rem!important; height: 20rem!important; margin-top: 1em; border-color: red!important; padding: 1rem!important; background: #eee!important; margin-bottom: 3em!important}
 
 
-/* Header - Global Overrides - inc important overrides */
+/* Header - Global Overrides - inc !important overrides */
 html {background: #dee0e2!important;}
-/* #global-header #logo img {left: -211px!important;} */
+#global-header #logo img {left: -211px!important;}
 #global-header .header-wrapper {padding: 0.5em 1px!important;}
 
 .carers-allowance-footer {padding-top: 30px!important; padding-bottom: 30px!important;}

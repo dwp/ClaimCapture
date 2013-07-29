@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, Formulate}
+import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 
 class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Their Personal Details" should {
@@ -57,7 +57,8 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYourPartnerNotSeparated(browser)
       Formulate.personYouCareFor(browser)
       browser.submit("button[type='submit']")
-      
+
+      titleMustEqual("Their Personal Details - Care You Provide")
       findMustEqualValue("#firstName","John")
       browser.find("#surname").getValue mustEqual "Appleseed"
     }

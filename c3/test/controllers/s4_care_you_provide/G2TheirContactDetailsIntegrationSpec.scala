@@ -33,16 +33,21 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       browser.find("#postcode").getValue mustEqual ""
     }
 
-    "be blank if they live at same address but did not enter one" in new WithBrowser {
+    "be blank if they live at same address but did not enter one" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
+      titleMustEqual("Their Contact Details - Care You Provide")
+
       browser.find("#address_lineOne").getValue mustEqual ""
       browser.find("#postcode").getValue mustEqual ""
     }
 
-    "navigate back to Their Personal Details" in new WithBrowser {
+    "navigate back to Their Personal Details" in new WithBrowser with BrowserMatchers {
+      Formulate.theirPersonalDetails(browser)
+      titleMustEqual("Their Contact Details - Care You Provide")
+
       browser.goTo("/careYouProvide/theirContactDetails")
       browser.click("#backButton")
-      browser.title mustEqual "Their Personal Details - Care You Provide"
+      titleMustEqual("Their Personal Details - Care You Provide")
     }
 
     "navigate to next page on valid submission" in new WithBrowser {

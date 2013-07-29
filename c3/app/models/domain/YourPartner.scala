@@ -1,27 +1,40 @@
 package models.domain
 
-import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
+import models.{DayMonthYear, MultiLineAddress, NationalInsuranceNumber}
+import play.api.mvc.Call
 import models.yesNo.YesNoWithDate
 
 case class YourPartner(yourPartnerPersonalDetails: YourPartnerPersonalDetails, yourPartnerContactDetails: YourPartnerContactDetails,
-                          moreAboutYourPartner: MoreAboutYourPartner, personYouCareFor: Option[PersonYouCareFor])
-                          
-object YourPartner {
+                       moreAboutYourPartner: MoreAboutYourPartner, personYouCareFor: Option[PersonYouCareFor])
+
+object YourPartner extends Section.Identifier {
   val id = "s3"
 }
 
-case class YourPartnerPersonalDetails(title: String, firstName: String, middleName: Option[String], surname: String, otherNames: Option[String], nationalInsuranceNumber: Option[NationalInsuranceNumber], dateOfBirth: DayMonthYear, nationality: Option[String], liveAtSameAddress: String) extends QuestionGroup(YourPartnerPersonalDetails.id)
+case class YourPartnerPersonalDetails(call: Call,
+                                      title: String, firstName: String, middleName: Option[String], surname: String, otherNames: Option[String],
+                                      nationalInsuranceNumber: Option[NationalInsuranceNumber], dateOfBirth: DayMonthYear,
+                                      nationality: Option[String], liveAtSameAddress: String) extends QuestionGroup(YourPartnerPersonalDetails)
 
-object YourPartnerPersonalDetails extends QuestionGroup(s"${YourPartner.id}.g1")
+object YourPartnerPersonalDetails extends QuestionGroup.Identifier  {
+  val id = s"${YourPartner.id}.g1"
+}
 
-case class YourPartnerContactDetails(address: Option[MultiLineAddress], postcode: Option[String]) extends QuestionGroup(YourPartnerContactDetails.id)
+case class YourPartnerContactDetails(call: Call, address: Option[MultiLineAddress], postcode: Option[String]) extends QuestionGroup(YourPartnerContactDetails)
 
-object YourPartnerContactDetails extends QuestionGroup(s"${YourPartner.id}.g2")
+object YourPartnerContactDetails extends QuestionGroup.Identifier {
+  val id = s"${YourPartner.id}.g2"
+}
 
-case class MoreAboutYourPartner(startedLivingTogether: Option[YesNoWithDate], separated:YesNoWithDate) extends QuestionGroup(MoreAboutYourPartner.id)
+case class MoreAboutYourPartner(call: Call, startedLivingTogether: Option[YesNoWithDate], separated:YesNoWithDate) extends QuestionGroup(MoreAboutYourPartner)
 
-object MoreAboutYourPartner extends QuestionGroup(s"${YourPartner.id}.g3")
+object MoreAboutYourPartner extends QuestionGroup.Identifier {
+  val id = s"${YourPartner.id}.g3"
+}
 
-case class PersonYouCareFor(isPartnerPersonYouCareFor:String) extends QuestionGroup(PersonYouCareFor.id)
+case class PersonYouCareFor(call: Call,
+                            isPartnerPersonYouCareFor:String) extends QuestionGroup(PersonYouCareFor)
 
-object PersonYouCareFor extends QuestionGroup(s"${YourPartner.id}.g4")
+object PersonYouCareFor extends QuestionGroup.Identifier {
+  val id = s"${YourPartner.id}.g4"
+}

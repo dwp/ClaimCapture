@@ -1,31 +1,25 @@
 package controllers.s2_about_you
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
 
-object G4ClaimDate extends Controller with Routing with CachedClaim {
-  override val route = ClaimDate.id -> routes.G4ClaimDate.present
-
+object G4ClaimDate extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      call(routes.G4ClaimDate.present()),
       "dateOfClaim" -> dayMonthYear.verifying(validDate)
     )(ClaimDate.apply)(ClaimDate.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ClaimDate)
 
   def present = claiming { implicit claim => implicit request =>
-    val claimDateForm: Form[ClaimDate] = claim.questionGroup(ClaimDate) match {
-      case Some(c: ClaimDate) => form.fill(c)
-      case _ => form
-    }
-
-    Ok(views.html.s2_about_you.g4_claimDate(claimDateForm, completedQuestionGroups))
+    Ok(views.html.s2_about_you.g4_claimDate(form.fill(ClaimDate), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

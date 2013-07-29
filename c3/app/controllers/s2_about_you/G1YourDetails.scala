@@ -1,19 +1,18 @@
 package controllers.s2_about_you
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
 
-object G1YourDetails extends Controller with Routing with CachedClaim {
-  override val route = YourDetails.id -> routes.G1YourDetails.present
-
+object G1YourDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      call(routes.G1YourDetails.present()),
       "title" -> nonEmptyText(maxLength = 4),
       "firstName" -> nonEmptyText(maxLength = sixty),
       "middleName" -> optional(text(maxLength = sixty)),
@@ -24,16 +23,10 @@ object G1YourDetails extends Controller with Routing with CachedClaim {
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "maritalStatus" -> nonEmptyText(maxLength = 1),
       "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo)
-    )(YourDetails.apply)(YourDetails.unapply)
-  )
+    )(YourDetails.apply)(YourDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val yourDetailsForm: Form[YourDetails] = claim.questionGroup(YourDetails) match {
-      case Some(y: YourDetails) => form.fill(y)
-      case _ => form
-    }
-
-    Ok(views.html.s2_about_you.g1_yourDetails(yourDetailsForm))
+    Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

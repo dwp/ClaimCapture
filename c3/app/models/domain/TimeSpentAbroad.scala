@@ -2,20 +2,32 @@ package models.domain
 
 import models.DayMonthYear
 import models.yesNo.YesNoWithText
+import play.api.mvc.Call
 
-case object TimeSpentAbroad {
+object TimeSpentAbroad extends Section.Identifier {
   val id = "s5"
 }
 
-case class NormalResidenceAndCurrentLocation(whereDoYouLive: YesNoWithText, inGBNow: String) extends QuestionGroup(NormalResidenceAndCurrentLocation.id)
+case class NormalResidenceAndCurrentLocation(call: Call,
+                                             whereDoYouLive: YesNoWithText, inGBNow: String) extends QuestionGroup(NormalResidenceAndCurrentLocation)
 
-case object NormalResidenceAndCurrentLocation extends QuestionGroup(s"${TimeSpentAbroad.id}.g1")
+object NormalResidenceAndCurrentLocation extends QuestionGroup.Identifier {
+  val id = s"${TimeSpentAbroad.id}.g1"
+}
 
-case object AbroadForMoreThan4Weeks extends QuestionGroup(s"${TimeSpentAbroad.id}.g2")
+case class AbroadForMoreThan4Weeks(call: Call, anyTrips: String) extends QuestionGroup(AbroadForMoreThan4Weeks)
 
-case object AbroadForMoreThan52Weeks extends QuestionGroup(s"${TimeSpentAbroad.id}.g3")
+object AbroadForMoreThan4Weeks extends QuestionGroup.Identifier {
+  val id = s"${TimeSpentAbroad.id}.g2"
+}
 
-case class Trips(fourWeeksTrips: List[FourWeeksTrip] = Nil, fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips.id) {
+case class AbroadForMoreThan52Weeks(call: Call, anyTrips: String) extends QuestionGroup(AbroadForMoreThan52Weeks)
+
+object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
+  val id = s"${TimeSpentAbroad.id}.g3"
+}
+
+case class Trips(fourWeeksTrips: List[FourWeeksTrip] = Nil, fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips) with NoRouting {
   def update(trip: FourWeeksTrip) = {
     val updated = fourWeeksTrips map { t => if (t.id == trip.id) trip else t }
     if (updated.contains(trip)) Trips(updated, fiftyTwoWeeksTrips) else Trips(fourWeeksTrips :+ trip, fiftyTwoWeeksTrips)
@@ -29,8 +41,8 @@ case class Trips(fourWeeksTrips: List[FourWeeksTrip] = Nil, fiftyTwoWeeksTrips: 
   def delete(tripID: String) = Trips(fourWeeksTrips.filterNot(_.id == tripID), fiftyTwoWeeksTrips.filterNot(_.id == tripID))
 }
 
-case object Trips extends QuestionGroup(s"${TimeSpentAbroad.id}.g4") {
-  def apply() = new Trips()
+object Trips extends QuestionGroup.Identifier {
+  val id = s"${TimeSpentAbroad.id}.g4"
 }
 
 case class Trip(id: String, start: DayMonthYear, end: DayMonthYear, where: String, why: Option[String] = None) extends FourWeeksTrip with FiftyTwoWeeksTrip {
@@ -57,6 +69,3 @@ trait FiftyTwoWeeksTrip extends TripPeriod {
   this: Trip =>
 }
 
-case class OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland: YesNoWithText, workingForOtherEEAStateOrSwitzerland: String) extends QuestionGroup(OtherEEAStateOrSwitzerland.id)
-
-case object OtherEEAStateOrSwitzerland extends QuestionGroup(s"${TimeSpentAbroad.id}.g5")

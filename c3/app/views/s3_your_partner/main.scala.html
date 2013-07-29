@@ -5,12 +5,12 @@
 
 @common.govMain(title) {
     <div id="wrapper" class="carers-allowance">
-        <div class="carers-container">
+        <main role="main">
             <div class="prototype">
                 <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
             </div>
 
-            @progressBar(YourPartner.id)
+            @progressBar(YourPartner)
 
             <section>
 
@@ -23,8 +23,8 @@
                         <ul>
                             @for(completedQuestionGroup <- completedQuestionGroups) {
                                 <li>
-                                    <h3>@Messages(completedQuestionGroup.id)</h3>
-                                    <a href="@controllers.s3_your_partner.YourPartner.route(completedQuestionGroup.id)">Change these answers</a>
+                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                    <a href="@completedQuestionGroup.call">Change these answers</a>
                                 </li>
                             }
                         </ul>
@@ -39,8 +39,6 @@
 
                 @content
             </section>
-        </div>
+        </main>
     </div>
-} {
-  <!-- Empty -->
 }

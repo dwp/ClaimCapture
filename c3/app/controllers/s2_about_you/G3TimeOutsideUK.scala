@@ -1,25 +1,23 @@
 package controllers.s2_about_you
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithDate
 import models.LivingInUK
 
-object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
-  override val route = TimeOutsideUK.id -> routes.G3TimeOutsideUK.present
-
+object G3TimeOutsideUK extends Controller with CachedClaim {
   val goBackMapping =
     "goBack" -> optional(
       mapping(
         "answer" -> nonEmptyText.verifying(validYesNo),
-        "date" -> optional(dayMonthYear.verifying(validDateOnly)))(YesNoWithDate.apply)(YesNoWithDate.unapply)
-    )
+        "date" -> optional(dayMonthYear.verifying(validDateOnly))
+      )(YesNoWithDate.apply)(YesNoWithDate.unapply))
 
   val livingInUKMapping =
     "livingInUK" -> mapping(
@@ -33,6 +31,7 @@ object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
 
   val form = Form(
     mapping(
+      call(routes.G3TimeOutsideUK.present()),
       livingInUKMapping,
       "visaReference" -> optional(text(maxLength = sixty))
     )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
@@ -42,12 +41,7 @@ object G3TimeOutsideUK extends Controller with Routing with CachedClaim {
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(YourDetails) match {
       case Some(y: YourDetails) if y.alwaysLivedUK == "yes" => claim.delete(TimeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
-      case _ =>
-        val timeOutsideUKForm: Form[TimeOutsideUK] = claim.questionGroup(TimeOutsideUK) match {
-          case Some(t: TimeOutsideUK) => form.fill(t)
-          case _ => form
-        }
-        Ok(views.html.s2_about_you.g3_timeOutsideUK(timeOutsideUKForm, completedQuestionGroups))
+      case _ => Ok(views.html.s2_about_you.g3_timeOutsideUK(form.fill(TimeOutsideUK), completedQuestionGroups))
     }
   }
 

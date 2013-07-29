@@ -1,16 +1,20 @@
 package services.submission
 
 import models.domain._
+import play.api.Logger
+
 
 case class ClaimSubmission(claim: Claim, transactionId : String) {
   val aboutYou = AboutYouSubmission.buildAboutYou(claim)
-  val yourPartner = YourPartnerSubmission.buildYourPartner(claim)
-  val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)
-  val payDetails = PayDetailsSubmission.buildPayDetails(claim)
 
-  
-  
+  val yourPartner = YourPartnerSubmission.buildYourPartner(claim)
+
+  val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)
+
+  val consentAndDeclaration = ConsentAndDeclarationSubmission.buildConsentAndDeclaration(claim)
+
   def buildDwpClaim = {
+    Logger.info(s"Build Claim : $transactionId")
     <DWPCAClaim id={transactionId}>
       {AboutYouSubmission.buildClaimant(aboutYou)}
       {CareYouProvideSubmission.buildCaree(careYouProvide)}
@@ -26,29 +30,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
         <OutOfGreatBritain>no</OutOfGreatBritain>
       </Residency>
       <CourseOfEducation>yes</CourseOfEducation>
-      <FullTimeEducation>
-        <CourseDetails>
-          <Type>BTEC</Type>
-          <Title>Pottery</Title>
-          <HoursSpent>15</HoursSpent>
-          <DateStarted>2011-09-03</DateStarted>
-          <DateStopped/>
-          <ExpectedEndDate>2013-07-05</ExpectedEndDate>
-        </CourseDetails>
-        <LocationDetails>
-          <Name>UCLAN</Name>
-          <Address>
-            <gds:Line>10 Madeup Street</gds:Line>
-            <gds:Line/>
-            <gds:Line/>
-            <gds:PostCode/>
-          </Address>
-          <PhoneNumber>07890 3456789</PhoneNumber>
-          <FaxNumber/>
-          <StudentReferenceNumber/>
-          <Tutor>Mrs Bloggs</Tutor>
-        </LocationDetails>
-      </FullTimeEducation>
+      {EducationSubmission.xml(claim.section(Education))}
       <SelfEmployed>no</SelfEmployed>
       <Employed>yes</Employed>
       <Employment>
@@ -149,33 +131,33 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
         <OtherMoneySSP>no</OtherMoneySSP>
         <OtherMoneySMP>no</OtherMoneySMP>
       </OtherBenefits>
-      {PayDetailsSubmission.buildCaree(payDetails)}
+      <Payment>
+        <PaymentFrequency>everyWeek</PaymentFrequency>
+        <InitialAccountQuestion>bankBuildingAccount</InitialAccountQuestion>
+        <Account>
+          <DirectPayment>yes</DirectPayment>
+          <AccountHolder>yourName</AccountHolder>
+          <HolderName>Mickey Mouse</HolderName>
+          <SecondHolderName/>
+          <AccountType>bank</AccountType>
+          <OtherBenefitsToBePaidDirect/>
+          <BankDetails>
+            <AccountNumber>12345678</AccountNumber>
+            <SortCode>010101</SortCode>
+            <Name>Toytown Bank</Name>
+            <Branch/>
+            <Address>
+              <gds:Line/>
+              <gds:Line/>
+              <gds:Line/>
+              <gds:PostCode/>
+            </Address>
+            <ConfirmAddress>yes</ConfirmAddress>
+          </BankDetails>
+        </Account>
+      </Payment>
       <ThirdParty>no</ThirdParty>
-      <Declaration>
-        <TextLine>I declare</TextLine>
-        <TextLine>that I have read the Carer's Allowance claim notes, and that the information I have given on this form is correct and complete as far as I know and believe.</TextLine>
-        <TextLine>I understand</TextLine>
-        <TextLine>that if I knowingly give information that is incorrect or incomplete, I may be liable to prosecution or other action.</TextLine>
-        <TextLine>I understand</TextLine>
-        <TextLine>that I must promptly tell the office that pays my Carer's Allowance of anything that may affect my entitlement to, or the amount of, that benefit.</TextLine>
-        <TextLine>The Secretary of State has made directions that allow you to use this service to make a claim to benefit or send a notification about a change of circumstances by an electronic communication. You should read the directions.</TextLine>
-        <TextLine>We may wish to contact any current or previous employers, or other persons or organisations you have listed on this claim form to obtain information about your claim. You do not have to agree to this but if you do not, it may mean that we are unable to obtain enough information to satisfy ourselves that you meet the conditions of entitlement for your claim.</TextLine>
-        <TextLine>Do you agree to us obtaining information from any current or previous employer(s) you may have listed on this claim form?</TextLine>
-        <TextLine>Yes</TextLine>
-        <TextLine>Do you agree to us obtaining information from any other persons or organisations you may have listed on this claim form?</TextLine>
-        <TextLine>Yes</TextLine>
-        <TextLine>If you have answered No to any of the above and you would like the Carer's Allowance Unit to know the reasons why, please set out those reasons in the "Other information" section displayed to the left of your screen.</TextLine>
-        <TextLine>This is my claim for Carer's Allowance.</TextLine>
-        <TextLine>Please note that any or all of the information in this claim form may be checked.</TextLine>
-        <TextLine>I certify that the name that I have typed in below as my signature is a valid method of establishing that this is my claim for benefit and that I</TextLine>
-        <TextLine>Mickey Mouse</TextLine>
-        <TextLine>have read and understood all the statements on this page. I agree with all the statements on this page where agreement is indicated, apart from any statements that I do not agree with, where I have given my reasons why not in the "Other information" section.</TextLine>
-        <TextLine>yes</TextLine>
-        <TextLine>If you live in Wales and would like to receive future communications in Welsh, please select this box.</TextLine>
-        <TextLine>no</TextLine>
-        <TextLine>If you want to view or print a full, printer-friendly version of the information you have entered on this claim, please use the buttons provided.</TextLine>
-        <TextLine>Do not send us the printed version. This is for your personal records only.</TextLine>
-      </Declaration>
+      {ConsentAndDeclarationSubmission.buildDeclaration(consentAndDeclaration,careYouProvide)}
       <EvidenceList>
         <TextLine>Documents you need to send us</TextLine>
         <TextLine>You must send us all the documents we ask for. If you do not, any benefit you may be entitled to because of this claim may be delayed.</TextLine>
@@ -192,11 +174,43 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
         <TextLine>Palatine House</TextLine>
         <TextLine>Preston</TextLine>
         <TextLine>PR1 1HN</TextLine>
+
+        <TextLine>=======================================================================================                                              </TextLine>
+        <TextLine>================ =========== Can you get Carers Allowance? ============================                                              </TextLine>
+        <TextLine>Does the person you care for get one of these benefits? = Yes                                                                        </TextLine>
+        <TextLine>Do you spend 35 hours or more each week caring for the person you look after? = Yes                                                  </TextLine>
+        <TextLine>Do you normally live in Great Britain? = Yes                                                                                         </TextLine>
+        <TextLine>Are you aged 16 or over? = No                                                                                                        </TextLine>
+        <TextLine>================ ================== About You  =====================================                                                 </TextLine>
+        <TextLine>Have you always lived in the UK? = Yes                                                                                               </TextLine>
+        <TextLine>Mobile number = 07721 7161819                                                                                                        </TextLine>
+        <TextLine>Are you currently living in the UK? = No                                                                                             </TextLine>
+        <TextLine>Do you get state Pension? = No                                                                                                       </TextLine>
+        <TextLine>================ =============== About Your Partner ==================================                                               </TextLine>
+        <TextLine>Middle name = John                                                                                                                   </TextLine>
+        <TextLine>Does your partner or spouse live at the same address as you? = Yes                                                                      </TextLine>
+        <TextLine>Is your partner or spouse the person you are claiming Carer's Allowance for? = Yes                                                      </TextLine>
+        <TextLine>================ ============== About Care You Provide ==============================                                                </TextLine>
+        <TextLine>Do they live at the same address as you? = No                                                                                        </TextLine>
+        <TextLine>Does this person get Armed Forces Independence Payment? = No                                                                         </TextLine>
+        <TextLine>Daytime phone number = 0191 2357761                                                                                                  </TextLine>
+        <TextLine>Mobile number = 0181 3839839                                                                                                         </TextLine>
+        <TextLine>You act as = Parent                                                                                                                  </TextLine>
+        <TextLine>Person acts as = Attorney                                                                                                            </TextLine>
+        <TextLine>Full name = Lawyer Brown                                                                                                             </TextLine>
+        <TextLine>Where was the person you care for during the break? = Hospital                                                                       </TextLine>
+        <TextLine>Have you had any more breaks in care for this person since your claim date: : 20/3/2012 ?  = Yes                                     </TextLine>
+        <TextLine>================ ================ Employment === ==============================                                                      </TextLine>
+        <TextLine>Have you finished this job? = Yes                                                                                                    </TextLine>
+        <TextLine>Did you pay for anything else necessary to do your job? = Yes                                                                        </TextLine>
+        <TextLine>Have you had another job at any time since 20/6/2011, this is six months before your claim date of 20/3/2013 ? = Yes                 </TextLine>
+        <TextLine>================ ================ Self Employment === ==============================                                                 </TextLine>
+        <TextLine>Are these accounts prepared on a cash flow basis?                                                                                    </TextLine>
+        <TextLine>Are the income, outgoings and profit in these accounts similar to your current level of trading?                                     </TextLine>
+        <TextLine>Please tell us why and when the change happened                                                                                      </TextLine>
+        <TextLine>=======================================================================================                                              </TextLine>
+
       </EvidenceList>
     </DWPCAClaim>
   }
-
-
-
-
 }

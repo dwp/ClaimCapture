@@ -1,0 +1,48 @@
+@(currentForm: Form[models.domain.AboutOtherMoney], completedQuestionGroups: List[models.domain.QuestionGroup], hadPartnerSinceClaimDate: Boolean, eitherClaimedBenefitSinceClaimDate: Boolean)(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@main("About other Money - Other money", Some(currentForm), completedQuestionGroups) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s8_other_money.routes.G1AboutOtherMoney.submit) {
+
+        <fieldset class="form-elements">
+            <legend>About other money</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your partner/spouse" else ""))
+
+                @otherDetailPlaceHolder(
+                  inputDef = Seq(carersInputText(currentForm("yourBenefits.text1"), 'maxLength -> Mappings.fifty, '_label -> Messages("yourBenefits.text1"))),
+                  'id -> "yourBenefitsText1Wrap",
+                  'display -> currentForm("yourBenefits.answer").value.getOrElse("no")
+                  )
+
+                @otherDetailPlaceHolder(
+                  inputDef = Seq(carersInputText(currentForm("yourBenefits.text2"), 'maxLength -> Mappings.fifty, '_label -> Messages("yourBenefits.text2"))),
+                  'id -> "yourBenefitsText2Wrap",
+                  'display -> {if(currentForm("yourBenefits.answer").value.getOrElse("no") == "yes" && eitherClaimedBenefitSinceClaimDate) "yes" else "no"}
+                  )
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.AboutOtherMoney)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s8_other_money/g1_aboutOtherMoney.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("yourBenefits_answer_yes")", "@CarersCrypto.encryptAES("yourBenefits_answer_no")", @eitherClaimedBenefitSinceClaimDate);
+    });
+</script>

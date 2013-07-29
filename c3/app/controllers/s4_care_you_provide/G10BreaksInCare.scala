@@ -4,7 +4,6 @@ import play.api.mvc.Controller
 import play.api.data.Form
 import models.view.CachedClaim
 import models.domain._
-import controllers.Routing
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages
@@ -13,9 +12,7 @@ import models.domain.Claim
 import models.yesNo.YesNo
 import controllers.s4_care_you_provide.CareYouProvide.breaksInCare
 
-object G10BreaksInCare extends Controller with Routing with CachedClaim {
-  override val route = BreaksInCare.id -> routes.G10BreaksInCare.present
-
+object G10BreaksInCare extends Controller with CachedClaim {
   val form = Form(
     mapping(
       "answer" -> nonEmptyText.verifying(validYesNo)

@@ -1,29 +1,64 @@
 package models.domain
 
-case class Section(id: String, questionGroups: List[QuestionGroup], visible: Boolean = true) {
+import play.api.mvc.Call
+import play.api.i18n.Messages
 
-  def questionGroup(questionGroup: QuestionGroup): Option[QuestionGroup] = {
-    questionGroups.find(qg => qg.id == questionGroup.id)
+case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil,
+                   visible: Boolean = true, firstPage: Call = Call("", ""), lastPage: Call = Call("", "")) {
+
+  def name = Messages(identifier.id + ".name")
+
+  def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
+    questionGroups.find(qg => qg.identifier == questionGroupIdentifier)
   }
 
   def update(questionGroup: QuestionGroup): Section = {
-    val updatedQuestionGroups = questionGroups.takeWhile(_.index < questionGroup.index) ::: List(questionGroup) ::: questionGroups.dropWhile(_.index <= questionGroup.index)
-    copy(questionGroups = updatedQuestionGroups)
+    val updatedQuestionGroups = questionGroups.takeWhile(_.identifier.index < questionGroup.identifier.index) :::
+                                List(questionGroup) :::
+                                questionGroups.dropWhile(_.identifier.index <= questionGroup.identifier.index)
+
+    copy(questionGroups = updatedQuestionGroups.sortWith(_.identifier.index < _.identifier.index))
   }
 
-  def delete(questionGroup: QuestionGroup): Section = {
-    copy(questionGroups = questionGroups.filterNot(q => q.id == questionGroup.id))
+  def delete(questionGroup: QuestionGroup): Section = delete(questionGroup.identifier)
+
+  def delete(questionGroupIdentifier: QuestionGroup.Identifier): Section = {
+    copy(questionGroups = questionGroups.filterNot(qg => qg.identifier == questionGroupIdentifier))
   }
 
-  def precedingQuestionGroups(questionGroup: QuestionGroup) = questionGroups.takeWhile(_.index < questionGroup.index)
+  def precedingQuestionGroups(questionGroup: QuestionGroup): List[QuestionGroup] = precedingQuestionGroups(questionGroup.identifier)
 
-  def show(): Section = copy(visible = true)
+  def precedingQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier): List[QuestionGroup] = {
+    questionGroups.filter(_.identifier.index < questionGroupIdentifier.index)
+  }
 
-  def hide(): Section = copy(visible = false)
+  def show = copy(visible = true)
+
+  def hide = copy(visible = false)
 }
 
 case object Section {
-  def sectionID(questionGroup: QuestionGroup): String = questionGroup.id.split('.')(0)
+  def sectionIdentifier(questionGroup: QuestionGroup): Section.Identifier = sectionIdentifier(questionGroup.identifier)
 
-  def index(sectionID: String): Int = sectionID.drop(1).toInt
+  def sectionIdentifier(questionGroupIdentifier: QuestionGroup.Identifier): Section.Identifier = {
+    new Section.Identifier { override val id: String = questionGroupIdentifier.id.split('.')(0) }
+  }
+
+  trait Identifier {
+    val id: String
+    
+    def index = id.drop(1).toInt
+
+    override def equals(other: Any) = {
+      other match {
+        case that: Identifier => id == that.id
+        case _ => false
+      }
+    }
+
+    override def hashCode() = {
+      val prime = 41
+      prime + id.hashCode
+    }
+  }
 }

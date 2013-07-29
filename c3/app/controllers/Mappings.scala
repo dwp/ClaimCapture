@@ -11,8 +11,10 @@ import models.MultiLineAddress
 import scala.util.Failure
 import models.NationalInsuranceNumber
 import play.api.data.validation.ValidationError
+import play.api.mvc.Call
 
 object Mappings {
+  val fifty = 50
 
   val sixty = 60
 
@@ -25,12 +27,17 @@ object Mappings {
   val no = "no"
 
   val dayMonthYear: Mapping[DayMonthYear] = mapping(
-    "day" -> optional(    number(max=100)),
-    "month" -> optional(  number(max=100)),
-    "year" -> optional(   number(max=99999)),
-    "hour" -> optional(   number(max=100,min=0)),
-    "minutes" -> optional(number(max=100,min=0))
+    "day" -> optional(number(max = 100)),
+    "month" -> optional(number(max = 100)),
+    "year" -> optional(number(max = 99999)),
+    "hour" -> optional(number(max = 100, min = 0)),
+    "minutes" -> optional(number(max = 100, min = 0))
   )(DayMonthYear.apply)(DayMonthYear.unapply)
+
+  val periodFromTo: Mapping[PeriodFromTo] = mapping(
+    "from" -> dayMonthYear.verifying(validDate),
+    "to" -> dayMonthYear.verifying(validDate)
+  )(PeriodFromTo.apply)(PeriodFromTo.unapply)
 
   val address: Mapping[MultiLineAddress] = mapping(
     "lineOne" -> optional(text(maxLength = sixty)),
@@ -40,29 +47,36 @@ object Mappings {
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> nonEmptyText,
-    "other" -> optional(text)
+    "other" -> optional(text(maxLength = sixty))
   )(Whereabouts.apply)(Whereabouts.unapply)
 
+  val paymentFrequency: Mapping[PaymentFrequency] = mapping(
+    "frequency" -> text(maxLength = sixty),
+    "other" -> optional(text(maxLength = sixty))
+  )(PaymentFrequency.apply)(PaymentFrequency.unapply)
+
   val sortCode: Mapping[SortCode] = mapping(
-    "sort1" -> text( maxLength = two),
-    "sort2" -> text( maxLength = two),
-    "sort3" -> text( maxLength = two)
+    "sort1" -> text(maxLength = two),
+    "sort2" -> text(maxLength = two),
+    "sort3" -> text(maxLength = two)
   )(SortCode.apply)(SortCode.unapply)
 
-  def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required"){ sortCode =>
-    sortCode match {
-      case SortCode(s1,s2,s3) => if (s1.isEmpty || s2.isEmpty || s3.isEmpty) Invalid(ValidationError("error.required"))
-                                 else if (!(areAllDigits(s1) && areAllDigits(s2) && areAllDigits(s3))) Invalid(ValidationError("error.number"))
-                                 else Valid
-    }
+  def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") {
+    sortCode =>
+      sortCode match {
+        case SortCode(s1, s2, s3) => if (s1.isEmpty || s2.isEmpty || s3.isEmpty) Invalid(ValidationError("error.required"))
+        else if (!(areAllDigits(s1) && areAllDigits(s2) && areAllDigits(s3))) Invalid(ValidationError("error.number"))
+        else Valid
+      }
   }
 
   def areAllDigits(x: String) = x forall Character.isDigit
 
-  def requiredWhereabouts: Constraint[Whereabouts] = Constraint[Whereabouts]("constraint.required") { whereabouts =>
-    whereabouts match {
-      case Whereabouts(s, _) => if (s.isEmpty) Invalid(ValidationError("error.required")) else Valid
-    }
+  def requiredWhereabouts: Constraint[Whereabouts] = Constraint[Whereabouts]("constraint.required") {
+    whereabouts =>
+      whereabouts match {
+        case Whereabouts(s, _) => if (s.isEmpty) Invalid(ValidationError("error.required")) else Valid
+      }
   }
 
   def dateTimeValidation(dmy: DayMonthYear): ValidationResult = Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
@@ -71,19 +85,22 @@ object Mappings {
     case Failure(_) => Invalid(ValidationError("error.invalid"))
   }
 
-  def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") { dmy =>
-    dmy match {
-      case DayMonthYear(None, None, None, _, _) => Invalid(ValidationError("error.required"))
-      case DayMonthYear(_, _, _, _, _) => dateTimeValidation(dmy)
-    }
+  def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
+    dmy =>
+      dmy match {
+        case DayMonthYear(None, None, None, _, _) => Invalid(ValidationError("error.required"))
+        case DayMonthYear(_, _, _, _, _) => dateTimeValidation(dmy)
+      }
   }
 
-  def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") { dmy =>
-    dateTimeValidation(dmy)
+  def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") {
+    dmy =>
+      dateTimeValidation(dmy)
   }
 
-  def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
-    if (a.lineOne.isEmpty && a.lineTwo.isEmpty && a.lineThree.isEmpty) Invalid(ValidationError("error.required")) else Valid
+  def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") {
+    a =>
+      if (a.lineOne.isEmpty && a.lineTwo.isEmpty && a.lineThree.isEmpty) Invalid(ValidationError("error.required")) else Valid
   }
 
   def nino: Mapping[NationalInsuranceNumber] = mapping(
@@ -111,42 +128,59 @@ object Mappings {
       }
   }
 
-  def validNinoOnly: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.validNationalInsuranceNumber") { nino =>
-    ninoValidation(nino)
+  def validNinoOnly: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.validNationalInsuranceNumber") {
+    nino =>
+      ninoValidation(nino)
   }
 
-  def validPostcode: Constraint[String]= Constraint[String]("constraint.postcode") { postcode  =>
-    val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z]))))[ ]?[0-9][A-Z]{2})$""".r
+  def validPostcode: Constraint[String] = Constraint[String]("constraint.postcode") {
+    postcode =>
+      val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z]))))[ ]?[0-9][A-Z]{2})$""".r
 
-    postcodePattern.pattern.matcher(postcode).matches match {
-      case true => Valid
-      case false => Invalid(ValidationError("error.postcode"))
-    }
+      postcodePattern.pattern.matcher(postcode).matches match {
+        case true => Valid
+        case false => Invalid(ValidationError("error.postcode"))
+      }
   }
 
-  def validPhoneNumber: Constraint[String] = Constraint[String]("constraint.phoneNumber") { phoneNumber =>
-    val phoneNumberPattern = """[0-9 \-]{1,20}""".r
+  def validPhoneNumber: Constraint[String] = Constraint[String]("constraint.phoneNumber") {
+    phoneNumber =>
+      val phoneNumberPattern = """[0-9 \-]{1,20}""".r
 
-    phoneNumberPattern.pattern.matcher(phoneNumber).matches match {
-      case true => Valid
-      case false => Invalid(ValidationError("error.invalid"))
-    }
+      phoneNumberPattern.pattern.matcher(phoneNumber).matches match {
+        case true => Valid
+        case false => Invalid(ValidationError("error.invalid"))
+      }
   }
 
-  def validDecimalNumber: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
-    val decimalPattern = """^[0-9]{1,12}(\.[0-9])?$""".r
+  def validDecimalNumber: Constraint[String] = Constraint[String]("constraint.decimal") {
+    decimal =>
+      val decimalPattern = """^[0-9]{1,12}(\.[0-9])?$""".r
 
-    decimalPattern.pattern.matcher(decimal).matches match {
-      case true => Valid
-      case false => Invalid(ValidationError("decimal.invalid"))
-    }
+      decimalPattern.pattern.matcher(decimal).matches match {
+        case true => Valid
+        case false => Invalid(ValidationError("decimal.invalid"))
+      }
   }
 
-  def validYesNo: Constraint[String] = Constraint[String]("constraint.yesNo") { answer =>
-    answer match {
-      case `yes` => Valid
-      case `no` => Valid
-      case _ => Invalid(ValidationError("yesNo.invalid"))
-    }
+  def validYesNo: Constraint[String] = Constraint[String]("constraint.yesNo") {
+    answer =>
+      answer match {
+        case `yes` => Valid
+        case `no` => Valid
+        case _ => Invalid(ValidationError("yesNo.invalid"))
+      }
   }
+
+  def paymentFrequencyValidation(pf: PaymentFrequency): ValidationResult = Try(new PaymentFrequency(pf.frequency, pf.other)) match {
+    case Success(p: PaymentFrequency) if p.frequency.toLowerCase == "other" && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
+    case Success(p: PaymentFrequency) => Valid
+    case Failure(_) => Invalid(ValidationError("error.invalid"))
+  }
+  
+  def validPaymentFrequencyOnly: Constraint[PaymentFrequency] = Constraint[PaymentFrequency]("constraint.validatePaymentFrequency") {
+    pf => paymentFrequencyValidation(pf)
+  }
+  
+  def call(call: Call): (String, Mapping[Call]) = "call" -> ignored(call)
 }

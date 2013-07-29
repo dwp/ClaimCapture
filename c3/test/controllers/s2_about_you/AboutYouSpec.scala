@@ -30,9 +30,7 @@ class AboutYouSpec extends Specification with Mockito with Tags {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(YourDetails) must beLike {
-        case Some(y: YourDetails) => y.firstName mustEqual "Scooby"
-      }
+      claim.questionGroup(YourDetails) must beLike { case Some(y: YourDetails) => y.firstName mustEqual "Scooby" }
     }
 
     "highlight missing mandatory data" in new WithApplication with Claiming {
@@ -41,9 +39,6 @@ class AboutYouSpec extends Specification with Mockito with Tags {
 
       val result = G1YourDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
-
-      val claim = Cache.getAs[Claim](claimKey).get
-      claim.sections.get(domain.AboutYou.id) must beNone
     }
 
     "highlight invalid date" in new WithApplication with Claiming {
@@ -61,9 +56,6 @@ class AboutYouSpec extends Specification with Mockito with Tags {
 
       val result = G1YourDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
-
-      val claim = Cache.getAs[Claim](claimKey).get
-      claim.sections.get(domain.AboutYou.id) must beNone
     }
 
     "not complain about a valid NI" in new WithApplication with Claiming {
@@ -156,7 +148,7 @@ class AboutYouSpec extends Specification with Mockito with Tags {
     """present first "about you" page upon completing with missing forms""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val claim = Claim().update(mockQuestionGroup[YourDetails](YourDetails.id))
+      val claim = Claim().update(mockQuestionGroup[YourDetails](YourDetails))
 
       Cache.set(claimKey, claim)
 
@@ -167,16 +159,16 @@ class AboutYouSpec extends Specification with Mockito with Tags {
     "continue to partner/spouse upon section completion when all forms are done" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val moreAboutYou = mockQuestionGroup[MoreAboutYou](MoreAboutYou.id)
+      val moreAboutYou = mockQuestionGroup[MoreAboutYou](MoreAboutYou)
       moreAboutYou.hadPartnerSinceClaimDate returns "yes"
 
       val claim = Claim()
-        .update(mockQuestionGroup[YourDetails](YourDetails.id))
-        .update(mockQuestionGroup[ContactDetails](ContactDetails.id))
-        .update(mockQuestionGroup[ClaimDate](ClaimDate.id))
+        .update(mockQuestionGroup[YourDetails](YourDetails))
+        .update(mockQuestionGroup[ContactDetails](ContactDetails))
+        .update(mockQuestionGroup[ClaimDate](ClaimDate))
         .update(moreAboutYou)
-        .update(mockQuestionGroup[Employment](Employment.id))
-        .update(mockQuestionGroup[PropertyAndRent](PropertyAndRent.id))
+        .update(mockQuestionGroup[Employment](Employment))
+        .update(mockQuestionGroup[PropertyAndRent](PropertyAndRent))
 
       Cache.set(claimKey, claim)
 
@@ -187,20 +179,20 @@ class AboutYouSpec extends Specification with Mockito with Tags {
     "continue to partner/spouse upon section completion when all forms are done including 'time outside UK'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val yourDetails = mockQuestionGroup[YourDetails](YourDetails.id)
+      val yourDetails = mockQuestionGroup[YourDetails](YourDetails)
       yourDetails.alwaysLivedUK returns "no"
 
-      val moreAboutYou = mockQuestionGroup[MoreAboutYou](MoreAboutYou.id)
+      val moreAboutYou = mockQuestionGroup[MoreAboutYou](MoreAboutYou)
       moreAboutYou.hadPartnerSinceClaimDate returns "yes"
 
       val claim = Claim()
         .update(yourDetails)
-        .update(mockQuestionGroup[ContactDetails](ContactDetails.id))
-        .update(mockQuestionGroup[TimeOutsideUK](TimeOutsideUK.id))
-        .update(mockQuestionGroup[ClaimDate](ClaimDate.id))
+        .update(mockQuestionGroup[ContactDetails](ContactDetails))
+        .update(mockQuestionGroup[TimeOutsideUK](TimeOutsideUK))
+        .update(mockQuestionGroup[ClaimDate](ClaimDate))
         .update(moreAboutYou)
-        .update(mockQuestionGroup[Employment](Employment.id))
-        .update(mockQuestionGroup[PropertyAndRent](PropertyAndRent.id))
+        .update(mockQuestionGroup[Employment](Employment))
+        .update(mockQuestionGroup[PropertyAndRent](PropertyAndRent))
 
       Cache.set(claimKey, claim)
 

@@ -4,15 +4,14 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
 import models.domain.Benefits
+import controllers.Mappings._
 
-object G1Benefits extends Controller with Routing with CachedClaim {
-  override val route = Benefits.id -> routes.G1Benefits.present
-
+object G1Benefits extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      call(routes.G1Benefits.present()),
       "answer" -> boolean
     )(Benefits.apply)(Benefits.unapply))
     

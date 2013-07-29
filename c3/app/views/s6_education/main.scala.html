@@ -1,0 +1,38 @@
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+
+@import helper._
+@import models.domain.Education
+
+@common.govMain(title) {
+    <div id="wrapper" class="carers-allowance">
+        <main role="main">
+
+            @progressBar(Education)
+
+            <section>
+                <header>
+                    <h1>About your education</h1>
+                </header>
+
+                @if(completedQuestionGroups.size > 0) {
+                    <div class="completed">
+                        <ul>
+                            @for(completedQuestionGroup <- completedQuestionGroups) {
+                                <li>
+                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                    <a href="@completedQuestionGroup.call">Change these answers</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if(currentForm.isDefined){
+                    @errorsSummary(currentForm.get)
+                }
+
+                @content
+            </section>
+        </main>
+    </div>
+}

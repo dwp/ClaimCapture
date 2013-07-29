@@ -8,6 +8,8 @@
 
 @main("Claim Date - About You", completedQuestionGroups) {
     @errorsSummary(claimDateForm)
+    
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G4ClaimDate.submit) {
         <fieldset class="form-elements">
@@ -19,7 +21,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a href="@backHref(controllers.s2_about_you.AboutYou.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.ClaimDate)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

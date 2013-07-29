@@ -7,6 +7,8 @@
 
 @main("Their Contact Details - Care You Provide", Some(currentForm), completedQuestionGroups) {
 
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s4_care_you_provide.routes.G2TheirContactDetails.submit) {
     
         <fieldset class="form-elements">
@@ -22,7 +24,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@backHref(controllers.s4_care_you_provide.CareYouProvide.route, completedQuestionGroups)" class="button secondary">Back</a>
+            <a id="backButton" href="@back(models.domain.TheirContactDetails)" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

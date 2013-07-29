@@ -1,0 +1,68 @@
+@(currentForm: Form[models.domain.AdditionalWageDetails], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@import models.domain.Job
+
+@main("Additional wage details - Employment", Some(currentForm), completedQuestionGroups) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s7_employment.routes.G5AdditionalWageDetails.submit()) {
+        <input type="hidden" name="jobID" value='@Job.jobID(currentForm)'>
+
+        <fieldset class="form-elements">
+            <legend>Additional wage details</legend>
+
+            <ul class="group">
+                @paymentFrequency(currentForm("oftenGetPaid"), "frequency", Seq("W" -> "Weekly", "FN" -> "Fortnightly", "4W" -> "Four-weekly", "M" -> "Monthly", "other" -> "Other"))
+
+                @carersInputText(currentForm("whenGetPaid"))
+
+                @yesNoRadioGroup(currentForm("holidaySickPay"))
+
+                @yesNoRadioGroup(currentForm("anyOtherMoney"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputTextArea(currentForm("otherMoney"), 'placeholder -> Messages("please.specify"))),
+                    'id -> "anyOtherMoney",
+                    'display -> currentForm("anyOtherMoney").value.getOrElse("no"))
+
+                @yesNoRadioGroup(currentForm("employeeOwesYouMoney"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        @if(currentForm("anyOtherMoney").value.getOrElse("") != "yes") {
+            $("#@CarersCrypto.encryptAES("anyOtherMoney_yes")").closest("ul").parent().next().hide();
+        }
+
+        $("#@CarersCrypto.encryptAES("anyOtherMoney_yes")").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#@CarersCrypto.encryptAES("anyOtherMoney_no")").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+</script>

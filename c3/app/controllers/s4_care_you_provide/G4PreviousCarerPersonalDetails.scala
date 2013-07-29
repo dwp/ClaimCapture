@@ -1,7 +1,8 @@
 package controllers.s4_care_you_provide
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
-import controllers.{Mappings, Routing}
+import controllers.Mappings
 import models.view.CachedClaim
 import models.domain.{Claim, MoreAboutThePerson, PreviousCarerPersonalDetails}
 import utils.helpers.CarersForm._
@@ -9,12 +10,10 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 
-object G4PreviousCarerPersonalDetails extends Controller with Routing with CachedClaim {
-
-  override val route = PreviousCarerPersonalDetails.id -> routes.G4PreviousCarerPersonalDetails.present
-
+object G4PreviousCarerPersonalDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      call(routes.G4PreviousCarerPersonalDetails.present()),
       "firstName" -> optional(text(maxLength = sixty)),
       "middleName" -> optional(text(maxLength = sixty)),
       "surname" -> optional(text(maxLength = sixty)),
@@ -31,12 +30,7 @@ object G4PreviousCarerPersonalDetails extends Controller with Routing with Cache
     }
 
     if (claimedAllowanceBefore) {
-      val currentForm = claim.questionGroup(PreviousCarerPersonalDetails) match {
-        case Some(p: PreviousCarerPersonalDetails) => form.fill(p)
-        case _ => form
-      }
-
-      Ok(views.html.s4_care_you_provide.g4_previousCarerPersonalDetails(currentForm, completedQuestionGroups))
+      Ok(views.html.s4_care_you_provide.g4_previousCarerPersonalDetails(form.fill(PreviousCarerPersonalDetails), completedQuestionGroups))
     } else {
       claim.delete(PreviousCarerPersonalDetails) -> Redirect(routes.G5PreviousCarerContactDetails.present())
     }

@@ -9,12 +9,6 @@ class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification w
     "present" in new WithBrowser with BrowserMatchers {
       browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
       titleMustEqual("Normal Residence and Current Location - Time Spent Abroad")
-
-      /* Does not work - Why?
-      browser.await().atMost(30, TimeUnit.SECONDS).until("#live").isPresent()
-      browser.await().atMost(30, TimeUnit.SECONDS).untilPage().isLoaded()
-
-      browser.findFirst("#live").isDisplayed should beFalse */
     }
 
     """give 2 errors when missing mandatory data:

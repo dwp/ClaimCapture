@@ -44,9 +44,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(BreaksInCare) must beLike {
-        case Some(b: BreaksInCare) => b.breaks mustEqual Nil
-      }
+      claim.questionGroup(BreaksInCare) must beLike { case Some(b: BreaksInCare) => b.breaks mustEqual Nil }
     }
 
     "complete upon indicating that there are no more breaks having now provided one break" in new WithApplication with Claiming {
@@ -70,9 +68,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(BreaksInCare) must beLike {
-        case Some(b: BreaksInCare) => b.breaks.size mustEqual 1
-      }
+      claim.questionGroup(BreaksInCare) must beLike { case Some(b: BreaksInCare) => b.breaks.size mustEqual 1 }
     }
 
     "allow no more than 10 breaks" in new WithApplication with Claiming {

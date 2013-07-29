@@ -7,9 +7,8 @@ import helpers.ClaimBuilder._
 import play.api.test.WithApplication
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import scala.xml.Elem
-import org.specs2.execute.PendingUntilFixed
 
-class ClaimSubmissionSpec extends Specification with Tags with PendingUntilFixed {
+class ClaimSubmissionSpec extends Specification with Tags {
 
   private def updateClaim(claim: Claim) = {
     claim.update(aboutYou.yourDetails)
@@ -32,8 +31,16 @@ class ClaimSubmissionSpec extends Specification with Tags with PendingUntilFixed
       .update(careYouProvide.contactDetailsPayingPerson.get)
       .update(careYouProvide.breaksInCare)
 
+      .update(education.yourCourseDetails)
+      .update(education.addressOfSchool)
+
       .update(payDetails.howWePayYou)
       .update(payDetails.bankBuildingSocietyDetails)
+
+      .update(consentAndDeclaration.additionalInfo)
+      .update(consentAndDeclaration.consent)
+      .update(consentAndDeclaration.disclaimer)
+      .update(consentAndDeclaration.declaration)
   }
   "Claim Submission" should {
     "build and confirm normal AboutYou input" in new WithApplication {
@@ -71,7 +78,6 @@ class ClaimSubmissionSpec extends Specification with Tags with PendingUntilFixed
 
     "validate a good claim" in new WithApplication {
       val claim = updateClaim(Claim())
-
 
       val claimSub = ClaimSubmission(claim, "TY6TV9G")
 

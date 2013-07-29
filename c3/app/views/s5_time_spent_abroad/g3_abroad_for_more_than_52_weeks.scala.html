@@ -1,11 +1,11 @@
-@(yesNoForm: Form[models.yesNo.YesNo], trips: models.domain.Trips, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks], trips: models.domain.Trips, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
 
 @import scala.language.postfixOps
 @import views.html.helper._
 @import models.domain.Trips
 @import models.DayMonthYear
 
-@main("Abroad for more than 52 weeks - Time Spent Abroad", Some(yesNoForm), completedQuestionGroups) {
+@main("Abroad for more than 52 weeks - Time Spent Abroad", Some(AbroadForMoreThan52WeeksForm), completedQuestionGroups) {
     <fieldset id="trips" class="form-elements results-detail">
         <legend>Trips you have added</legend>
 
@@ -47,14 +47,16 @@
             <span>&#33;</span>
         </div>
     </fieldset>
+    
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s5_time_spent_abroad.routes.G3AbroadForMoreThan52Weeks.submit) {
         <fieldset class="form-elements">
-            <legend>When you went abroad for more than 52 weeks</legend>
+            <legend>@Messages("s5.g3")</legend>
 
             <ul class="group">
                 @defining(if(trips.fiftyTwoWeeksTrips == Nil || trips.fiftyTwoWeeksTrips.isEmpty) {"52Weeks.label"} else {"52Weeks.more.label"}) { label =>
-                    @yesNoRadioGroup(yesNoForm("anyTrips"), '_label -> Messages(label, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 156 weeks).`dd/MM/yyyy`)))
+                    @yesNoRadioGroup(AbroadForMoreThan52WeeksForm("anyTrips"), '_label -> Messages(label, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 156 weeks).`dd/MM/yyyy`)))
                 }
             </ul>
         </fieldset>

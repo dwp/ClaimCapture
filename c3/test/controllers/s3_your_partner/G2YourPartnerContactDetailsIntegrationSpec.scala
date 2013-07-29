@@ -2,7 +2,7 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.Formulate
+import controllers.{BrowserMatchers, Formulate}
 
 class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags {
 
@@ -46,10 +46,13 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
       browser.find("#postcode").getValue mustEqual ""
     }
 
-    "navigate back to Your Partner Personal Details" in new WithBrowser {
+    "navigate back to Your Partner Personal Details" in new WithBrowser with BrowserMatchers {
+      Formulate.yourPartnerPersonalDetails(browser)
+      titleMustEqual("Contact Details - Your Partner")
+
       browser.goTo("/yourPartner/contactDetails")
       browser.click("#backButton")
-      browser.title mustEqual "Personal Details - Your Partner"
+      titleMustEqual("Personal Details - Your Partner")
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
@@ -57,16 +60,19 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
       browser.title mustEqual "More About Your Partner - Your Partner"
     }
 
-    "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {
+    "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerContactDetails(browser)
+      titleMustEqual("More About Your Partner - Your Partner")
       browser.click("#backButton")
+      titleMustEqual("Contact Details - Your Partner")
       browser.find("#address_lineOne").getValue mustEqual Formulate.partnerAddress
       browser.find("#postcode").getValue mustEqual Formulate.partnerPostcode
       browser.click("#backButton")
+      titleMustEqual("Completion - About You")
       Formulate.yourContactDetails(browser)
       Formulate.yourPartnerPersonalDetails(browser)
 
-      browser.title mustEqual "Contact Details - Your Partner"
+      titleMustEqual("Contact Details - Your Partner")
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }

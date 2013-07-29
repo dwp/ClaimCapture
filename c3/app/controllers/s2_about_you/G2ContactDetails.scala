@@ -1,20 +1,19 @@
 package controllers.s2_about_you
 
+import language.reflectiveCalls
 import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Routing
 import utils.helpers.CarersForm._
 import play.api.data.validation.Constraints._
 
-object G2ContactDetails extends Controller with Routing with CachedClaim {
-  override val route = ContactDetails.id -> routes.G2ContactDetails.present
-
+object G2ContactDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
+      call(routes.G2ContactDetails.present()),
       "address" -> address.verifying(requiredAddress),
       "postcode" -> optional(text verifying validPostcode),
       "phoneNumber" -> optional(text verifying pattern( """[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid")),
@@ -24,12 +23,7 @@ object G2ContactDetails extends Controller with Routing with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ContactDetails)
 
   def present = claiming { implicit claim => implicit request =>
-    val contactDetailsForm: Form[ContactDetails] = claim.questionGroup(ContactDetails) match {
-      case Some(c: ContactDetails) => form.fill(c)
-      case _ => form
-    }
-
-    Ok(views.html.s2_about_you.g2_contactDetails(contactDetailsForm, completedQuestionGroups))
+    Ok(views.html.s2_about_you.g2_contactDetails(form.fill(ContactDetails), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>

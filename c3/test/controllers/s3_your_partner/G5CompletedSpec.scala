@@ -2,11 +2,8 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
-import play.api.cache.Cache
 import models.domain._
-import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
-import models.domain.Claim
 
 class G5CompletedSpec extends Specification with Tags {
   

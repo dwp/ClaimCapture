@@ -29,9 +29,13 @@ class PageSpec extends Specification {
 
     "allow running claim" in new MockPageContext {
       page goToThePage()
-      page runClaimWith (new ClaimScenario) must throwA[PageObjectException] //because mock is not recognised by factory
+      page runClaimWith (new ClaimScenario, MockPage.title)
       there was one(browser).submit("button[type='submit']")
       there was one(browser).find("div[class=validation-summary] ol li")
+    }
+
+    "Throw exception if cannot go to the write page" in new MockPageWrongTitleContext {
+      page.goToThePage() must throwA[PageObjectException]
     }
   }
 }

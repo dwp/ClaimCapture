@@ -1,0 +1,10 @@
+@(field: play.api.data.Field, fieldName: String, opts: Seq[(String, String)], args: (Symbol, Any)*)(implicit lang: play.api.i18n.Lang)
+
+@import scala.util.Try
+@import helper.dates._
+@import utils.helpers.SelectOtherTemplate._
+
+@helper.input(field(fieldName), args: _*) { (id, name, value, htmlArgs) =>
+
+    @views.html.helper.selectWithOtherPlaceholder(field(fieldName), opts, args:_*)
+}
