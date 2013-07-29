@@ -125,9 +125,6 @@ POST    /timeSpentAbroad/trip/52Weeks                           controllers.s5_t
 GET     /timeSpentAbroad/trip/:id                               controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
 DELETE  /timeSpentAbroad/trip/:id                               controllers.s5_time_spent_abroad.G4Trip.delete(id: String)
 
-GET     /timeSpentAbroad/otherEEAStateOrSwitzerland                                    controllers.s5_time_spent_abroad.G5otherEEAStateOrSwitzerland.present
-POST    /timeSpentAbroad/otherEEAStateOrSwitzerland                                    controllers.s5_time_spent_abroad.G5otherEEAStateOrSwitzerland.submit
-
 GET     /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
 POST    /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completedSubmit
 
@@ -215,8 +212,8 @@ POST    /otherMoney/statutorySickPay                            controllers.s8_o
 GET     /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.present
 POST    /otherMoney/otherStatutoryPay                           controllers.s8_other_money.G6OtherStatutoryPay.submit
 
-GET     /timeSpentAbroad/otherEEAStateOrSwitzerland             controllers.s8_other_money.G7OtherEEAStateOrSwitzerland.present
-POST    /timeSpentAbroad/otherEEAStateOrSwitzerland             controllers.s8_other_money.G7OtherEEAStateOrSwitzerland.submit
+GET     /otherMoney/otherEEAStateOrSwitzerland                  controllers.s8_other_money.G7OtherEEAStateOrSwitzerland.present
+POST    /otherMoney/otherEEAStateOrSwitzerland                  controllers.s8_other_money.G7OtherEEAStateOrSwitzerland.submit
 
 GET     /otherMoney/completed                                   controllers.s8_other_money.OtherMoney.completed
 POST    /otherMoney/completed                                   controllers.s8_other_money.OtherMoney.completedSubmit
