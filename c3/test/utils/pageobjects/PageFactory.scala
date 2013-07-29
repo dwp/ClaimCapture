@@ -53,6 +53,7 @@ object PageFactory {
       case G5PreviousCarerContactDetailsPage.title => G5PreviousCarerContactDetailsPage buildPageWith(browser, previousPage)
       case G6RepresentativesForThePersonPage.title => G6RepresentativesForThePersonPage buildPageWith(browser, previousPage)
       case G7MoreAboutTheCarePage.title => G7MoreAboutTheCarePage buildPageWith(browser, previousPage)
+      case G8OneWhoPaysPersonalDetailsPage.title => G8OneWhoPaysPersonalDetailsPage buildPageWith(browser, previousPage)
       // S6
       case G1HowWePayYouPage.title => G1HowWePayYouPage buildPageWith(browser, previousPage)
       // S8 TODO SKW these must be filled in so tests using  "must beAnInstanceOf" work correctly!!!
