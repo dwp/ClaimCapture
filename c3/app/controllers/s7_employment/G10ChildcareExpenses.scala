@@ -22,10 +22,11 @@ object G10ChildcareExpenses extends Controller with CachedClaim {
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
     jobs.questionGroup(jobID, AboutExpenses) match {
-      case Some(a: AboutExpenses) if a.payAnyoneToLookAfterChildren == `yes`=> Ok(views.html.s7_employment.g10_childcareExpenses(form.fillWithJobID(ChildcareExpenses, jobID), completedQuestionGroups(ChildcareExpenses, jobID)))
-      case _ => claim.update(jobs.delete(jobID, ChildcareExpenses)) -> Redirect(routes.G12PersonYouCareForExpenses.present(jobID))
+      case Some(a: AboutExpenses) if a.payAnyoneToLookAfterChildren == `yes`=>
+        Ok(views.html.s7_employment.g10_childcareExpenses(form.fillWithJobID(ChildcareExpenses, jobID), completedQuestionGroups(ChildcareExpenses, jobID)))
+      case _ =>
+        claim.update(jobs.delete(jobID, ChildcareExpenses)) -> Redirect(routes.G12PersonYouCareForExpenses.present(jobID))
     }
-
   }
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>

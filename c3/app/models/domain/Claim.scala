@@ -79,9 +79,9 @@ object Claim {
       Section(TimeSpentAbroad, firstPage = controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.present(), lastPage = controllers.s5_time_spent_abroad.routes.TimeSpentAbroad.completed()),
       Section(Education, firstPage = controllers.s6_education.routes.G1YourCourseDetails.present(), lastPage = controllers.s6_education.routes.Education.completed()),
       Section(Employed, firstPage = controllers.s7_employment.routes.G1BeenEmployed.present(), lastPage = controllers.s7_employment.routes.Employment.completed()),
+      Section(SelfEmployment, firstPage = controllers.s9_self_employment.routes.G1AboutSelfEmployment.present(), lastPage = controllers.s9_self_employment.routes.SelfEmployment.completed()),
       Section(OtherMoney, firstPage = controllers.s8_other_money.routes.G1AboutOtherMoney.present(), lastPage = controllers.s8_other_money.routes.OtherMoney.completed()),
       Section(PayDetails, firstPage = controllers.s9_pay_details.routes.G1HowWePayYou.present(), lastPage = controllers.s9_pay_details.routes.PayDetails.completed()),
-      Section(SelfEmployment, firstPage = controllers.s9_self_employment.routes.G1AboutSelfEmployment.present(), lastPage = controllers.s9_self_employment.routes.SelfEmployment.completed()),
       Section(ConsentAndDeclaration, firstPage = controllers.s10_consent_and_declaration.routes.G1AdditionalInfo.present(), lastPage = controllers.s10_consent_and_declaration.routes.ConsentAndDeclaration.completed()))
 
     new Claim(sections = sections)

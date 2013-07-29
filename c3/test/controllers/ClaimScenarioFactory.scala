@@ -118,6 +118,11 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor = "Yes"
     claim.AboutTheCareYouProvidePersonActsAs = "guardian"
     claim.AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor = "Mary Jane Watson"
+    // More About The Care
+    claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
+    claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "Yes"
+    claim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson = "03/04/2012"
+    claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
     claim
   }
 

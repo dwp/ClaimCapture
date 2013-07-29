@@ -30,6 +30,11 @@ object G6Employment extends Controller with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g6_employment(formWithErrors, completedQuestionGroups)),
-      employment => claim.update(employment) -> Redirect(routes.G7PropertyAndRent.present()))
+      employment => {
+        val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)
+                                .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, SelfEmployment)
+
+        updatedClaim.update(employment) -> Redirect(routes.G7PropertyAndRent.present())
+      })
   }
 }

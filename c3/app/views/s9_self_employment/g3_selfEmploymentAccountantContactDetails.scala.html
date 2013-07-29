@@ -10,25 +10,25 @@
 
 @main("Self Employment - Accountant Contact Details", Some(currentForm), completedQuestionGroups) {
 
-<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
-@form(action = controllers.s9_self_employment.routes.G3SelfEmploymentAccountantContactDetails.submit) {
+    @form(action = controllers.s9_self_employment.routes.G3SelfEmploymentAccountantContactDetails.submit) {
 
-<fieldset class="form-elements">
-    <legend>Accountant's Contact Details</legend>
+        <fieldset class="form-elements">
+            <legend>Accountant's Contact Details</legend>
 
-    <ul class="group">
-        @carersInputText(currentForm("accountantsName"), 'maxLength -> Mappings.hundred, '_label -> Messages("accountantsName.label"))
-        @inputAddress(currentForm("address"))
-        @carersInputText(currentForm("postCode"), '_label -> Messages("postCode.label"))
-        @carersInputText(currentForm("telephoneNumber"), '_label -> Messages("telephoneNumber.label"))
-        @carersInputText(currentForm("faxNumber"), '_label -> Messages("faxNumber.label"))
-    </ul>
-</fieldset>
+            <ul class="group">
+                @carersInputText(currentForm("accountantsName"), 'maxLength -> Mappings.hundred, '_label -> Messages("accountantsName.label"))
+                @inputAddress(currentForm("address"))
+                @carersInputText(currentForm("postCode"), '_label -> Messages("postCode.label"))
+                @carersInputText(currentForm("telephoneNumber"), '_label -> Messages("telephoneNumber.label"))
+                @carersInputText(currentForm("faxNumber"), '_label -> Messages("faxNumber.label"))
+            </ul>
+        </fieldset>
 
-<nav class="form-steps">
-    <a id="backButton" href="@back(models.domain.SelfEmploymentAccountantContactDetails)" class="button secondary">Back</a>
-    <button type="submit" name="action" value="next" class="button">Next</button>
-</nav>
-}
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.SelfEmploymentAccountantContactDetails)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
 }

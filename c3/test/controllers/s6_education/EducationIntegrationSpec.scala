@@ -26,13 +26,8 @@ class EducationIntegrationSpec extends Specification with Tags {
       titleMustEqual("Address Of School College Or University - Education")
     }
 
-    "redirect to the next section (other money) on clicking continue" in new WithBrowser with BrowserMatchers {
-      Formulate.yourCourseDetails(browser)
-      Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      titleMustEqual("Completion - Education")
-
-      browser.submit("button[type='submit']")
-      titleMustEqual("About Other Money - Other Money")
+    "show the text 'Continue to Other Money' on the submit button when next section is 'Other Money'" in new WithBrowser with BrowserMatchers {
+      pending("Skipped till show/hide employment logic is implemented")
     }
 
     "show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
