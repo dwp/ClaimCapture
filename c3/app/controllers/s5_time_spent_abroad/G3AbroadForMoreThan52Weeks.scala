@@ -9,7 +9,6 @@ import controllers.Mappings._
 import models.domain.{AbroadForMoreThan52Weeks, Claim}
 import TimeSpentAbroad.trips
 
-
 object G3AbroadForMoreThan52Weeks extends Controller with CachedClaim {
   val form = Form(
     mapping(

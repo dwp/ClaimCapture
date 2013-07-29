@@ -8,7 +8,6 @@ import models.domain.Claim
 import play.api.data.Form
 import scala.reflect.ClassTag
 import play.api.i18n.Messages
-import scala.Some
 import play.api.mvc.Call
 import play.api.templates.Html
 
