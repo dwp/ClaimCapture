@@ -18,7 +18,7 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
     sequential
 
     "acknowledge yes" in new WithBrowser with G1BenefitsPageContext {
-      skipped("KEEPS RANDOMLY FAILING IN FULL BUILD - WORKS FINE WHEN RUNNING ON ITS OWN")
+//      skipped("KEEPS RANDOMLY FAILING IN FULL BUILD - WORKS FINE WHEN RUNNING ON ITS OWN")
 
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
@@ -41,7 +41,7 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
     }
 
     "acknowledge no" in new WithBrowser with G1BenefitsPageContext {
-      skipped("KEEPS RANDOMLY FAILING IN FULL BUILD - WORKS FINE WHEN RUNNING ON ITS OWN")
+//      skipped("KEEPS RANDOMLY FAILING IN FULL BUILD - WORKS FINE WHEN RUNNING ON ITS OWN")
 
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"

@@ -17,7 +17,7 @@ case class Section(identifier: Section.Identifier, questionGroups: List[Question
                                 List(questionGroup) :::
                                 questionGroups.dropWhile(_.identifier.index <= questionGroup.identifier.index)
 
-    copy(questionGroups = updatedQuestionGroups)
+    copy(questionGroups = updatedQuestionGroups.sortWith(_.identifier.index < _.identifier.index))
   }
 
   def delete(questionGroup: QuestionGroup): Section = delete(questionGroup.identifier)

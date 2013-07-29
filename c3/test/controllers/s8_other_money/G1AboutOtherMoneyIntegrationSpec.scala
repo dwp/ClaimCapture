@@ -2,12 +2,11 @@ package controllers.s8_other_money
 
 import org.specs2.mutable.{ Tags, Specification }
 import controllers.Formulate
-import org.specs2.execute.PendingUntilFixed
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_other_money.G1AboutOtherMoneyPageContext
 import controllers.ClaimScenarioFactory
 
-class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags with PendingUntilFixed {
+class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "About Other Money" should {
     "be presented" in new WithBrowser {
       browser.goTo("/otherMoney/aboutOtherMoney")

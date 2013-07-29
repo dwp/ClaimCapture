@@ -2,12 +2,7 @@ package controllers.s6_education
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.Formulate
-import org.specs2.execute.PendingUntilFixed
 import controllers.{BrowserMatchers, Formulate}
-import scala.concurrent.duration.Duration
-import java.util.concurrent.TimeUnit
-
 
 class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
   "Your Course Details Page" should {

@@ -3,8 +3,6 @@ package controllers.s7_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.BrowserMatchers
-import java.util.concurrent.TimeUnit
-import scala.concurrent.duration.Duration
 
 class G2JobDetailsIntegrationSpec extends Specification with Tags {
   "Details about your job" should {
@@ -32,7 +30,9 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       jobDetails
     }
 
-    """go back to "been employed?".""" in new WithBrowser with BrowserMatchers {
+    """go back to "been employed?".""" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
+      beginClaim
+
       browser.goTo("/employment/beenEmployed").click("#beenEmployed_yes").submit("button[type='submit']")
       browser.goTo("/employment/jobDetails").click("#backButton")
       titleMustEqual("Your employment history - Employment")

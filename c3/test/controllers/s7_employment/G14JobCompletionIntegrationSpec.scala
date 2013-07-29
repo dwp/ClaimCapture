@@ -13,12 +13,15 @@ class G14JobCompletionIntegrationSpec extends Specification with Tags {
       titleMustEqual("Job Completion - Employment")
     }
 
-    /*"""progress to "employment completion".""" in new WithBrowser with BrowserMatchers {
+    """progress back to start i.e. "employment history".""" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
+      beginClaim
+
       browser.goTo(s"/employment/jobCompletion/$jobID")
       titleMustEqual("Job Completion - Employment")
+
       browser.submit("button[type='submit']")
-      titleMustEqual("Completion - Employment")
-    }*/
+      titleMustEqual("Your employment history - Employment")
+    }
 
     """go back to "Care provider’s contact Details".""" in new WithBrowser with BrowserMatchers {
       /* Required data to get to "end" pages */

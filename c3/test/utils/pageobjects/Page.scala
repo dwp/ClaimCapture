@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit
 import scala.collection.convert.Wrappers.JListWrapper
 import org.specs2.specification.Scope
 import play.api.test.TestBrowser
+import org.openqa.selenium.TimeoutException
 
 /**
  * Super-class of all the PageObject pattern compliant classes representing an application page.
@@ -63,7 +64,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
       this
     } else {
       this fillPageWith theClaim
-      submitPage(throwException, waitForPage) runClaimWith(theClaim, upToPageWithTitle, waitForPage)
+      submitPage(throwException, waitForPage,waitDuration) runClaimWith(theClaim, upToPageWithTitle,throwException, waitForPage,waitDuration)
     }
   }
 
@@ -118,7 +119,14 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   // ==================================================================
 
   protected def waitForPage(waitDuration:Int) =  {
-    browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) { titleMatch() }
+    try {
+      browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) {
+        titleMatch()
+      }
+    }
+    catch {
+      case e:TimeoutException => throw new PageObjectException("Time out while waiting [" + browser.title + "] matches [" + this.pageTitle + "]")
+    }
     this
   }
 
