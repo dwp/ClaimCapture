@@ -3,9 +3,8 @@ package controllers.s6_education
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import org.specs2.execute.PendingUntilFixed
 
-class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification with Tags with PendingUntilFixed {
+class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification with Tags {
   "Address of school, college or university" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/addressOfSchoolCollegeOrUniversity")

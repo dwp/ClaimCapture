@@ -18,24 +18,24 @@ class TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       browser.submit("button[value='next']")
       titleMustEqual("Your Course Details - Education")
     }
-    
-    "navigate to" in {
-      "Education: show the text 'Continue to Education' on the submit button when next section is 'Education'" in new WithBrowser with BrowserMatchers {
-        Formulate.normalResidenceAndCurrentLocation(browser)
-        Formulate.abroadForMoreThan4Weeks(browser)
-        Formulate.abroadForMoreThan52Weeks(browser)
-        Formulate.otherEEAStateOrSwitzerland(browser)
-      
-        browser.find("button[type='submit']").getText shouldEqual "Continue to Education"
-      }
 
-      "Employment: show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser {
-        Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
-        Formulate.yourCourseDetails(browser)
-        Formulate.addressOfSchoolCollegeOrUniversity(browser)
-        
-        browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
-      }
+    "show the text 'Continue to Education' on the submit button when next section is 'Education'" in new WithBrowser with BrowserMatchers {
+      Formulate.normalResidenceAndCurrentLocation(browser)
+      Formulate.abroadForMoreThan4Weeks(browser)
+      Formulate.abroadForMoreThan52Weeks(browser)
+      Formulate.otherEEAStateOrSwitzerland(browser)
+      titleMustEqual("Completion - Time Spent Abroad")
+
+      browser.find("button[type='submit']").getText shouldEqual "Continue to Education"
     }
-  }
+
+    "show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
+      Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
+      Formulate.yourCourseDetails(browser)
+      Formulate.addressOfSchoolCollegeOrUniversity(browser)
+      titleMustEqual("Completion - Education")
+
+      browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
+    }
+  } section "integration"
 }

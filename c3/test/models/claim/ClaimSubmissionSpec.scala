@@ -7,9 +7,8 @@ import helpers.ClaimBuilder._
 import play.api.test.WithApplication
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import scala.xml.Elem
-import org.specs2.execute.PendingUntilFixed
 
-class ClaimSubmissionSpec extends Specification with Tags with PendingUntilFixed {
+class ClaimSubmissionSpec extends Specification with Tags {
 
   private def updateClaim(claim: Claim) = {
     claim.update(aboutYou.yourDetails)

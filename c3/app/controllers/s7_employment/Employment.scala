@@ -35,11 +35,11 @@ object Employment extends Controller with CachedClaim {
   }
 
   def completed = claiming { implicit claim => implicit request =>
-    Ok("<html><title>Completion - Employment</title></html>").as(HTML)
+    Ok(views.html.s7_employment.g15_completed(claim.questionGroup(BeenEmployed).map(qg => qg -> routes.G1BeenEmployed.present()).toList))
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    Redirect(claim.nextSection(models.domain.CarersAllowance).firstPage)
+    Redirect(claim.nextSection(models.domain.Employed).firstPage)
   }
 
   def delete(jobID: String) = claiming { implicit claim => implicit request =>

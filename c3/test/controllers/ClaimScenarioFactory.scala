@@ -77,9 +77,9 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerDateofBirth = "12/07/1990"
     claim.AboutYourPartnerNationality = "British"
     // More about your partner
-    claim.AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou = "Yes"
+    claim.AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou = "No"
     // Person you care for
-    claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
+    claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
     claim
   }
 
@@ -100,13 +100,24 @@ object ClaimScenarioFactory {
     // More About The Person
     claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
     claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
-    claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "No"
+    claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
     // Previous Carer Personal Details
     claim.AboutTheCareYouProvideFirstNamePreviousCarer = "Peter"
     claim.AboutTheCareYouProvideMiddleNamePreviousCarer = "Jackson"
     claim.AboutTheCareYouProvideSurnamePreviousCarer = "Benson"
     claim.AboutTheCareYouProvideNINOPreviousCarer = "BB123456B"
-    claim.AboutTheCareYouProvideDateofBirthPreviousCarer = "02/06/1998"
+    claim.AboutTheCareYouProvideDateofBirthPreviousCarer = "02/06/1985"
+    // Previous Carer Contact Details
+    claim.AboutTheCareYouProvideAddressPreviousCarer = "123 Conway Road\n Preston"
+    claim.AboutTheCareYouProvidePostcodePreviousCarer = "BB9 1AB"
+    claim.AboutTheCareYouProvideDaytimePhoneNumberPreviousCarer = "02933 333 333"
+    claim.AboutTheCareYouProvideMobileNumberPreviousCarer = "07933 333 333"
+    // Representatives For The Person
+    claim.AboutTheCareYouProvideDoYouActforthePersonYouCareFor = "Yes"
+    claim.AboutTheCareYouProvideYouActAs = "guardian"
+    claim.AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor = "Yes"
+    claim.AboutTheCareYouProvidePersonActsAs = "guardian"
+    claim.AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor = "Mary Jane Watson"
     claim
   }
 

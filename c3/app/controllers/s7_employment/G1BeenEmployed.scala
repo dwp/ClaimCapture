@@ -4,10 +4,10 @@ import models.view.CachedClaim
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.BeenEmployed
+import models.domain.{Employment => employment, BeenEmployed}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
-import Employment._
+import controllers.s7_employment.Employment.jobs
 
 object G1BeenEmployed extends Controller with CachedClaim {
   val form = Form(
@@ -16,7 +16,10 @@ object G1BeenEmployed extends Controller with CachedClaim {
     )(BeenEmployed.apply)(BeenEmployed.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g1_beenEmployed(form))
+    claim.questionGroup(employment) match {
+      case Some(e: employment) if e.beenEmployedSince6MonthsBeforeClaim == `yes` => Ok(views.html.s7_employment.g1_beenEmployed(form))
+      case _ => Redirect(claim.nextSection(models.domain.Employed).firstPage)
+    }
   }
 
   def submit = claiming { implicit claim => implicit request =>

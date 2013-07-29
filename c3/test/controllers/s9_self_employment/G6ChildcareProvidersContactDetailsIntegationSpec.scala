@@ -2,12 +2,8 @@ package controllers.s9_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, Formulate}
-import java.util.concurrent.TimeUnit
-import scala.concurrent.duration.Duration
 import utils.pageobjects.s9_self_employment._
 import controllers.ClaimScenarioFactory
-import org.specs2.execute.PendingUntilFixed
 import utils.pageobjects.ClaimScenario
 
 class G6ChildcareProvidersContactDetailsIntegationSpec extends Specification with Tags {

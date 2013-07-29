@@ -1,4 +1,5 @@
 @(currentForm: Form[models.domain.ChildcareExpenses], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@import controllers.s2_about_you.G5MoreAboutYou
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,7 +9,7 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
-@import models.domain.Job
+@import models.domain.{Job, MoreAboutYou,PersonYouCareFor}
 
 @main("Childcare expenses while you are at work - Employment", Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G10ChildcareExpenses.submit()) {
@@ -24,8 +25,13 @@
 
                 @carersInputText(currentForm("relationToYou"))
 
-                <!--TODO!!! Only displayed if ‘Have you had a partner/spouse at any time since your claim date: <ddmmyyyy>?’=YES from the About You areaAND If ‘ Is your partner/spouse the person you care for?’=NO from the About Your Partner area -->
-                @carersInputText(currentForm("relationToPartner"))
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                    carersInputText(currentForm("relationToPartner"))),
+                    'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
+                                    case (Some(m: MoreAboutYou),Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
+                                    case _ => "no"
+                                }))
             </ul>
         </fieldset>
 
