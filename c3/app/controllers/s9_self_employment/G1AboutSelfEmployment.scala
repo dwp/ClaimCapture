@@ -20,7 +20,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim {
       "areYouSelfEmployedNow" -> nonEmptyText.verifying(validYesNo),
       "whenDidYouStartThisJob" -> optional(dayMonthYear.verifying(validDateOnly)),
       "whenDidTheJobFinish" -> optional(dayMonthYear.verifying(validDateOnly)),
-      "haveYouCeasedTrading" -> optional(nonEmptyText.verifying(validYesNo)),
+      "haveYouCeasedTrading" -> optional(text.verifying(validYesNo)),
       "natureOfYourBusiness" -> optional(text(maxLength = sixty))
     )(AboutSelfEmployment.apply)(AboutSelfEmployment.unapply)
   )

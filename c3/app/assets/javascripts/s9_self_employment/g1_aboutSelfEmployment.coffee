@@ -1,7 +1,7 @@
 window.initEvents = (answerY, answerN) ->
     $("#" + answerY).on "click", ->
-      $("#selfEmployedWrap").slideDown()
-      $("#selfEmployedWrap").css('display', "block")
+      $("#selfEmployedNoWrap").slideUp()
 
     $("#" + answerN).on "click", ->
-      $("#selfEmployedWrap").slideUp()
+      $("#selfEmployedNoWrap").slideDown()
+      $("#selfEmployedNoWrap").css('display', "block")
