@@ -85,13 +85,19 @@ object Job {
 
   def jobID(currentForm: play.api.data.Form[_])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_]): String = {
     val regex = """^(?:.*?)/employment/(?:.*?)(?:/(.*?))?$""".r
-    currentForm("jobID").value.getOrElse(regex.findFirstMatchIn(request.path).map(p => (p group 1) match{case s if s != null && s.length > 0 => s case _ => java.util.UUID.randomUUID.toString}).getOrElse(java.util.UUID.randomUUID.toString))
+
+    currentForm("jobID").value.getOrElse(regex.findFirstMatchIn(request.path).map {
+      _ group 1 match {
+        case s if s != null && s.length > 0 => s
+        case _ => java.util.UUID.randomUUID.toString
+      }
+    }.getOrElse(java.util.UUID.randomUUID.toString))
   }
 }
 
 case class JobDetails(jobID: String,
-                      employerName: String, jobStartDate: Option[DayMonthYear], finishedThisJob: String, lastWorkDate:Option[DayMonthYear],
-                      p45LeavingDate: Option[DayMonthYear], hoursPerWeek: Option[String],
+                      employerName: String, jobStartDate: Option[DayMonthYear],
+                      finishedThisJob: String, lastWorkDate:Option[DayMonthYear], hoursPerWeek: Option[String],
                       jobTitle: Option[String], payrollEmployeeNumber: Option[String]) extends QuestionGroup(JobDetails) with Job.Identifier with NoRouting {
   override val definition = jobTitle.fold(Messages(identifier.id, employerName))(jt => Messages(identifier.id, s"$employerName, $jt"))
 }

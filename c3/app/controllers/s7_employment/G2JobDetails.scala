@@ -15,10 +15,9 @@ object G2JobDetails extends Controller with CachedClaim {
     mapping(
       "jobID" -> nonEmptyText,
       "employerName"-> nonEmptyText,
-      "jobStartDate" -> optional(dayMonthYear.verifying(validDate)),
+      "jobStartDate" -> optional(dayMonthYear.verifying(validDateOnly)),
       "finishedThisJob" -> nonEmptyText,
       "lastWorkDate" -> optional(dayMonthYear.verifying(validDate)),
-      "p45LeavingDate" -> optional(dayMonthYear.verifying(validDate)),
       "hoursPerWeek" -> optional(text),
       "jobTitle" -> optional(text),
       "payrollEmployeeNumber" -> optional(text)

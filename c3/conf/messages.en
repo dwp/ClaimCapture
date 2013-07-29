@@ -5,9 +5,10 @@ s4.name = Care you provide
 s5.name = Abroad
 s6.name = Education
 s7.name = Employment
-s8.name = Other money
-s9.name = Pay details
-s10.name = Declaration
+s8.name = Employment
+s9.name = Other money
+s10.name = Pay details
+s11.name = Declaration
 
 s1.g1 = Q1.  Does the person you look after get one of these benefits?
 s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?
