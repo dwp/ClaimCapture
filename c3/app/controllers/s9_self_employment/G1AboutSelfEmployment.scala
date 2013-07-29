@@ -9,8 +9,6 @@ import models.domain.{Claim, AboutSelfEmployment}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 
-
-
 object G1AboutSelfEmployment extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(AboutSelfEmployment)
 
@@ -22,18 +20,15 @@ object G1AboutSelfEmployment extends Controller with CachedClaim {
       "whenDidTheJobFinish" -> optional(dayMonthYear.verifying(validDateOnly)),
       "haveYouCeasedTrading" -> optional(text.verifying(validYesNo)),
       "natureOfYourBusiness" -> optional(text(maxLength = sixty))
-    )(AboutSelfEmployment.apply)(AboutSelfEmployment.unapply)
-  )
+    )(AboutSelfEmployment.apply)(AboutSelfEmployment.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s9_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment), completedQuestionGroups))
   }
 
-  def submit = claiming { implicit claim =>
-    implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s9_self_employment.g1_aboutSelfEmployment(formWithErrors, completedQuestionGroups)),
-        f => claim.update(f) -> Redirect(routes.G2SelfEmploymentYourAccounts.present())
-      )
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s9_self_employment.g1_aboutSelfEmployment(formWithErrors, completedQuestionGroups)),
+      f => claim.update(f) -> Redirect(routes.G2SelfEmploymentYourAccounts.present()))
   }
 }
