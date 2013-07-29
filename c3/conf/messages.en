@@ -318,7 +318,7 @@ howOftenPersonal = How often?
 
 payForAnythingNecessary = Do you pay for anything necessary to do your job?
 payAnyoneToLookAfterChildren = While at work, do you pay anyone to look after your children?
-payAnyoneToLookAfterPerson = While at work, do you pay anyone to look after the person you normally look after care for ?
+payAnyoneToLookAfterPerson = While at work, do you pay anyone to look after the person you care for?
 
 # NECESSARY EXPENSES
 
@@ -331,7 +331,7 @@ whyDoYouNeedThose = How much did this item cost you each week?
 howMuchCostChildcare =  How much do you pay them?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
 relationToYou = What relation, if any, is the person to you?
-relationToPartner = What relation, if any, is the person to your partner/spouse?
+relationToPartner = What relation, if any, is the person to your Partner/Spouse?
 
 # PERSON YOU CARE FOR EXPENSES
 howMuchCostCare = How much do you pay them?
