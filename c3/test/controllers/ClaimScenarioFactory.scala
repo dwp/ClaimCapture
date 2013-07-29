@@ -121,8 +121,19 @@ object ClaimScenarioFactory {
     // More About The Care
     claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
     claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "Yes"
-    claim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson = "03/04/2012"
+    claim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson = "03/04/2013"
     claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
+    // One Who Pays Personal Details
+    claim.AboutTheCareYouProvideOrganisationPaysYou = "Valtech"
+    claim.AboutTheCareYouProvideTitlePersonPaysYou = "Mr"
+    claim.AboutTheCareYouProvideFirstNamePersonPaysYou = "Brian"
+    claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "Green"
+    claim.AboutTheCareYouProvideSurnamePersonPaysYou = "Eldred"
+    claim.AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek = "£120"
+    claim.AboutTheCareYouProvideWhenDidThePaymentsStart = "29/04/2013"
+    // Contact Details Of Paying Person
+    claim.AboutTheCareYouProvideAddressPersonPaysYou = "123 Cleverme Street \n Genius"
+    claim.AboutTheCareYouProvidePostcodePersonPaysYou = "GN1 2DA"
     claim
   }
 
