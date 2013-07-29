@@ -25,7 +25,8 @@ object G6MoneyOwedbyEmployer extends Controller with CachedClaim {
     jobs.questionGroup(jobID, AdditionalWageDetails) match {
       case Some(a: AdditionalWageDetails) if a.employeeOwesYouMoney == `yes`=>
         Ok(views.html.s7_employment.g6_moneyOwedByEmployer(form.fillWithJobID(MoneyOwedbyEmployer, jobID), completedQuestionGroups(MoneyOwedbyEmployer, jobID)))
-      case _ => claim.update(jobs.delete(jobID, MoneyOwedbyEmployer)) -> Redirect(routes.G7PensionSchemes.present(jobID))
+      case _ =>
+        claim.update(jobs.delete(jobID, MoneyOwedbyEmployer)) -> Redirect(routes.G7PensionSchemes.present(jobID))
     }
   }
 

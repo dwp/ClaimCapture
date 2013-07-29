@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 // view more / view less
     $('.helper-more').click(function(){
-       $('.helper-more').toggleClass("helper-less");
+       $(this).toggleClass("helper-less")
        $(this).next(".helper-info").slideToggle("medium");
        if($(this).text() === 'Close')
        {

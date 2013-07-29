@@ -1,13 +1,15 @@
 package controllers.s7_employment
 
 import scala.language.implicitConversions
-import play.api.mvc.{Call, AnyContent, Request, Controller}
+import play.api.mvc._
 import models.view.CachedClaim
 import models.domain._
 import models.domain.Claim
 import play.api.data.Form
 import scala.reflect.ClassTag
 import play.api.i18n.Messages
+import play.api.mvc.Call
+import play.api.templates.Html
 
 object Employment extends Controller with CachedClaim {
   implicit def jobFormFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
@@ -17,6 +19,11 @@ object Employment extends Controller with CachedClaim {
         case _ => form
       }
     }
+  }
+
+  def whenSectionVisible(f: => SimpleResult[Html])(implicit claim: Claim) = {
+    if (claim.isSectionVisible(models.domain.Employed)) f
+    else Redirect(controllers.s9_self_employment.routes.G1AboutSelfEmployment.present())
   }
 
   def jobs(implicit claim: Claim) = claim.questionGroup(Jobs) match {

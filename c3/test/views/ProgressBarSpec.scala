@@ -23,7 +23,7 @@ class ProgressBarSpec extends Specification {
     "show sections" in {
       val listItems = xml(CarersAllowance, Claim()) \ "ol" \ "li"
 
-      listItems.size must beGreaterThan(0)
+      listItems.size shouldEqual(10)
     }
 
     "mark current section active" in {
@@ -52,6 +52,82 @@ class ProgressBarSpec extends Specification {
       val hiddenNode = findNodeWithText(updatedListItems, YourPartner.id + name)
 
       hiddenNode.length must beEqualTo(0)
+    }
+
+    "handle employment sections as one" in {
+      "when both are visible and not completed" in {
+        val claim = Claim().showHideSection(true, Employed).showHideSection(true, SelfEmployment)
+        val listItems = xml(Education, claim) \\ "ol" \\ "li"
+        listItems.size shouldEqual(10)
+        val employmentNode = listItems(6)
+        employmentNode.text must contain(Employed.id + name)
+      }
+      "when both are visible and Employed is current section" in {
+        val claim = Claim().showHideSection(true, Employed).showHideSection(true, SelfEmployment)
+        val listItems = xml(Employed, claim) \\ "ol" \\ "li"
+        listItems.size shouldEqual(10)
+        val activeNode = findNodeWithClass(listItems, "active")
+        activeNode.text must contain(Employed.id + name)
+      }
+      "when both are visible and SelfEmployed is current section" in {
+        val claim = Claim().showHideSection(true, Employed).showHideSection(true, SelfEmployment)
+        val listItems = xml(SelfEmployment, claim) \\ "ol" \\ "li"
+        listItems.size shouldEqual(10)
+        val activeNode = findNodeWithClass(listItems, "active")
+        activeNode.text must contain(Employed.id + name)
+      }
+      "when both are visible and both are completed" in {
+        val claim = Claim().showHideSection(true, Employed).showHideSection(true, SelfEmployment)
+        val listItems = xml(OtherMoney, claim) \\ "ol" \\ "li"
+        listItems.size shouldEqual(10)
+        val completedNodes = findNodeWithClass(listItems, "complete")
+        completedNodes.last.text must contain(Employed.id + name)
+      }
+      "when only Employed is visible" in {
+        val claim = Claim().showHideSection(true, Employed).showHideSection(false, SelfEmployment)
+        val listItems = xml(Education, claim) \\ "ol" \\ "li"
+        listItems.size shouldEqual(10)
+      }
+      "when only Employed is visible and current section" in {
+        val claim = Claim().showHideSection(true, Employed).showHideSection(false, SelfEmployment)
+        val listItems = xml(Employed, claim) \\ "ol" \\ "li"
+        listItems.size shouldEqual(10)
+        val activeNode = findNodeWithClass(listItems, "active")
+        activeNode.text must contain(Employed.id + name)
+      }
+      "when only Employed is visible and completed" in {
+        val claim = Claim().showHideSection(true, Employed).showHideSection(false, SelfEmployment)
+        val listItems = xml(OtherMoney, claim) \\ "ol" \\ "li"
+        listItems.size shouldEqual(10)
+        val completedNodes = findNodeWithClass(listItems, "complete")
+        completedNodes.last.text must contain(Employed.id + name)
+        val activeNode = findNodeWithClass(listItems, "active")
+        activeNode.text must contain(OtherMoney.id + name)
+      }
+      "when only Self Employment is visible" in {
+        val claim = Claim().showHideSection(false, Employed).showHideSection(true, SelfEmployment)
+        val listItems = xml(Education, claim) \\ "ol" \\ "li"
+        listItems.size shouldEqual(10)
+      }
+      "when only Self Employment is visible and current section" in {
+        val claim = Claim().showHideSection(false, Employed).showHideSection(true, SelfEmployment)
+        val listItems = xml(SelfEmployment, claim) \\ "ol" \\ "li"
+        listItems.size shouldEqual(10)
+        val activeNode = findNodeWithClass(listItems, "active")
+        activeNode.text must contain(Employed.id + name)
+      }
+      "when only Self Employment is visible and completed" in {
+        val claim = Claim().showHideSection(false, Employed).showHideSection(true, SelfEmployment)
+        val listItems = xml(OtherMoney, claim) \\ "ol" \\ "li"
+        listItems.size shouldEqual(10)
+        val completedNodes = findNodeWithClass(listItems, "complete")
+        completedNodes.last.text must contain(Employed.id + name)
+      }
+      "when both are hidden" in {
+        val claim = Claim().showHideSection(false, Employed).showHideSection(false, SelfEmployment)
+        val listItems = xml(OtherMoney, claim) \\ "ol" \\ "li"
+        listItems.size shouldEqual(9)
+      }
     }
   }
 }

@@ -17,20 +17,18 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       val g2 = page submitPage()
-      val g7 = g2 goToPage(new G7ExpensesWhileAtWorkPage(browser))
+      val g7 = g2 goToPage new G7ExpensesWhileAtWorkPage(browser)
       g7.listCompletedForms.size mustEqual 1
     }
 
-    "contain errors on invalid submission" in {
-      "missing madatory field" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
-        val claim = new ClaimScenario
-        claim.SelfEmployedCareExpensesNameOfPerson = ""
-        page goToThePage ()
-        page fillPageWith claim
-        val pageWithErrors = page.submitPage()
-        pageWithErrors.listErrors.size mustEqual 1
-        pageWithErrors.listErrors(0).contains("nameOfPerson")
-      }
+    " contain errors on invalid submission missing madatory field" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
+      val claim = new ClaimScenario
+      claim.SelfEmployedCareExpensesNameOfPerson = ""
+      page goToThePage ()
+      page fillPageWith claim
+      val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 60)
+      pageWithErrors.listErrors.size mustEqual 1
+      pageWithErrors.listErrors(0).contains("nameOfPerson")
     }
     
     "navigate back to previous page" in new WithBrowser with G6ChildcareProvidersContactDetailsPageContext {

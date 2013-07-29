@@ -10,24 +10,22 @@
 
 @main("Self Employment - Your Accounts", Some(currentForm), completedQuestionGroups) {
 
+<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
 @form(action = controllers.s9_self_employment.routes.G2SelfEmploymentYourAccounts.submit) {
 
 <fieldset class="form-elements">
-    <legend>Self Employment - Your Accounts</legend>
+    <legend>Your Accounts</legend>
 
     <ul class="group">
 
-        @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearFrom"), '_label ->
-        Messages("whatWasOrIsYourTradingYearFrom.label"), 'helperBelow -> Messages("dateOfBirth.helper"))
+        @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearFrom"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-        @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), '_label ->
-        Messages("whatWasOrIsYourTradingYearTo.label"), 'helperBelow -> Messages("dateOfBirth.helper"))
+        @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-        @yesNoRadioGroup(currentForm("areAccountsPreparedOnCashFlowBasis"), '_label ->
-        Messages("areAccountsPreparedOnCashFlowBasis.label"))
+        @yesNoRadioGroup(currentForm("areAccountsPreparedOnCashFlowBasis"))
 
-        @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"), '_label ->
-        Messages("areIncomeOutgoingsProfitSimilarToTrading.label"))
+        @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"))
 
         @otherDetailPlaceHolder(
             inputDef = Seq(
@@ -37,7 +35,7 @@
             'display -> (currentForm("areIncomeOutgoingsProfitSimilarToTrading").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" })
         )
 
-        @yesNoRadioGroup(currentForm("doYouHaveAnAccountant"), '_label -> Messages("doYouHaveAnAccountant.label"))
+        @yesNoRadioGroup(currentForm("doYouHaveAnAccountant"))
 
         @otherDetailPlaceHolder(
             inputDef = Seq(

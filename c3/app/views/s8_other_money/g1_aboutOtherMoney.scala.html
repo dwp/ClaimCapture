@@ -6,14 +6,14 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
-@main("About Other Money - Other Money", Some(currentForm), completedQuestionGroups) {
+@main("About other Money - Other money", Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s8_other_money.routes.G1AboutOtherMoney.submit) {
 
         <fieldset class="form-elements">
-            <legend>About Other Money</legend>
+            <legend>About other money</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your partner/spouse" else ""))

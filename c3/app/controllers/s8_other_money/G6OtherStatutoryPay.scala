@@ -42,6 +42,6 @@ object G6OtherStatutoryPay extends Controller with CachedClaim {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "employersName.required", FormError("employersName", "error.required"))
         BadRequest(views.html.s8_other_money.g6_otherStatutoryPay(formWithErrorsUpdate, completedQuestionGroups))
       },
-      f => claim.update(f) -> Redirect(routes.OtherMoney.completed()))
+      f => claim.update(f) -> Redirect(routes.G7OtherEEAStateOrSwitzerland.present()))
   }
 }

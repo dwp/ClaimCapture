@@ -15,7 +15,7 @@
 
             <section>
                 <header>
-                    <h1>Self Employed</h1>
+                    <h1>About self-employed</h1>
                 </header>
 
                 @if(completedQuestionGroups.size > 0) {
@@ -24,13 +24,14 @@
                             @for(completedQuestionGroup <- completedQuestionGroups) {
                                 <li>
                                     <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                    <a href="@completedQuestionGroup.call">Change these answers</a>
                                 </li>
                             }
                         </ul>
                     </div>
                 }
 
-                @if(currentForm.isDefined){
+                @if(currentForm.isDefined) {
                     @errorsSummary(currentForm.get)
                 }
 

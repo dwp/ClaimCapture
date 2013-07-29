@@ -1,0 +1,38 @@
+@(currentForm: Form[models.domain.ChildcareExpensesWhileAtWork], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import models.domain.{MoreAboutYou,PersonYouCareFor}
+
+@main("Childcare expenses while you are at work - Self Employment", Some(currentForm), completedQuestionGroups) {
+
+  <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s9_self_employment.routes.G5ChildcareExpensesWhileAtWork.submit) {
+
+        <fieldset class="form-elements">
+            <legend>Childcare expenses while you are at work</legend>
+
+            <ul class="group">
+                @carersInputText(currentForm("howMuchYouPay"))
+                @carersInputText(currentForm("whoLooksAfterChildren"))
+                @carersInputText(currentForm("whatRelationIsToYou"))
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(currentForm("relationToPartner"))),
+                        'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
+                            case (Some(m: MoreAboutYou),Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
+                            case _ => "no"
+                        }))
+                @carersInputText(currentForm("whatRelationIsTothePersonYouCareFor"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.ChildcareExpensesWhileAtWork)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
