@@ -4,7 +4,7 @@ import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 /**
- * Page object for s4_care_you_provide g5_previous_carer_contact_details.
+ * Page object for s4_care_you_provide g6_representatives_for_the_person.
  * @author Saqib Kayani
  *         Date: 25/07/2013
  */
