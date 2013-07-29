@@ -70,10 +70,6 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       browser.click("#lastWorkDate_month option[value='1']")
       browser.fill("#lastWorkDate_year") `with` "2005"
 
-      browser.click("#p45LeavingDate_day option[value='1']")
-      browser.click("#p45LeavingDate_month option[value='1']")
-      browser.fill("#p45LeavingDate_year") `with` "2005"
-
       browser.fill("#hoursPerWeek") `with` "75"
       browser.fill("#jobTitle") `with` "Goblin"
       browser.fill("#payrollEmployeeNumber") `with` "445566"
