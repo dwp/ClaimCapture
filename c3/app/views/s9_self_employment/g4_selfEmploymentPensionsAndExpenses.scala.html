@@ -10,36 +10,37 @@
 
 @main("Self Employment - Pensions and Expenses", Some(currentForm), completedQuestionGroups) {
 
-<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
-@form(action = controllers.s9_self_employment.routes.G4SelfEmploymentPensionsAndExpenses.submit) {
+    @form(action = controllers.s9_self_employment.routes.G4SelfEmploymentPensionsAndExpenses.submit) {
 
-<fieldset class="form-elements">
-    <legend>Pensions and Expenses</legend>
+        <fieldset class="form-elements">
+            <legend>Pensions and Expenses</legend>
 
-    <ul class="group">
-        @yesNoRadioGroup(currentForm("doYouPayToPensionScheme"), '_label -> Messages("doYouPayToPensionScheme.label"))
-        @otherDetailPlaceHolder(
-        inputDef = Seq(
-        carersInputText(currentForm("howMuchDidYouPay"), 'maxLength -> 8, '_label -> Messages("howMuchDidYouPay.label"))
-        ),
-        'id -> "selfEmployedPensionWrap",
-        'display -> currentForm("doYouPayToPensionScheme").value.getOrElse("no")
-        )
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme"), '_label -> Messages("doYouPayToPensionScheme.label"))
 
-        @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> Messages("doYouPayToLookAfterYourChildren.label"))
-        @yesNoRadioGroup(currentForm("isItTheSameExpenseWhileAtWorkForChildren"), '_label -> Messages("isItTheSameExpenseWhileAtWorkForChildren.label"))
-        @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> Messages("didYouPayToLookAfterThePersonYouCaredFor.label"))
-        @yesNoRadioGroup(currentForm("isItTheSameExpenseDuringWorkForThePersonYouCaredFor"), '_label -> Messages("isItTheSameExpenseDuringWorkForThePersonYouCaredFor.label"))
+                @otherDetailPlaceHolder(
+                inputDef = Seq(
+                carersInputText(currentForm("howMuchDidYouPay"), 'maxLength -> 8, '_label -> Messages("howMuchDidYouPay.label"))
+                ),
+                'id -> "selfEmployedPensionWrap",
+                'display -> currentForm("doYouPayToPensionScheme").value.getOrElse("no")
+                )
 
-    </ul>
-</fieldset>
+                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> Messages("doYouPayToLookAfterYourChildren.label"))
+                @yesNoRadioGroup(currentForm("isItTheSameExpenseWhileAtWorkForChildren"), '_label -> Messages("isItTheSameExpenseWhileAtWorkForChildren.label"))
+                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> Messages("didYouPayToLookAfterThePersonYouCaredFor.label"))
+                @yesNoRadioGroup(currentForm("isItTheSameExpenseDuringWorkForThePersonYouCaredFor"), '_label -> Messages("isItTheSameExpenseDuringWorkForThePersonYouCaredFor.label"))
 
-<nav class="form-steps">
-    <a id="backButton" href="@back(models.domain.SelfEmploymentPensionsAndExpenses)" class="button secondary">Back</a>
-    <button type="submit" name="action" value="next" class="button">Next</button>
-</nav>
-}
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.SelfEmploymentPensionsAndExpenses)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s9_self_employment/g4_selfEmploymentPensionsAndExpenses.js")'></script>
