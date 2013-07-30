@@ -8,7 +8,7 @@ import Employment._
 
 object G14JobCompletion extends Controller with CachedClaim {
   def present(jobID: String) = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g14_jobCompletion(completedQuestionGroups(JobCompletion, jobID)))
+    whenSectionVisible(Ok(views.html.s7_employment.g14_jobCompletion(completedQuestionGroups(JobCompletion, jobID))))
   }
 
   def submit = claiming { implicit claim => implicit request =>

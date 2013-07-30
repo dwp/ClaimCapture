@@ -22,12 +22,12 @@ object G4LastWage extends Controller with CachedClaim {
     )(LastWage.apply)(LastWage.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g4_lastWage(form.fillWithJobID(LastWage, jobID), completedQuestionGroups(LastWage, jobID)))
+    whenSectionVisible(Ok(views.html.s7_employment.g4_lastWage(form.fillWithJobID(LastWage, jobID), completedQuestionGroups(LastWage, jobID))))
   }
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g4_lastWage(formWithErrors, completedQuestionGroups(LastWage, jobID))),
+      formWithErrors => whenSectionVisible(BadRequest(views.html.s7_employment.g4_lastWage(formWithErrors, completedQuestionGroups(LastWage, jobID)))),
       lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G5AdditionalWageDetails.present(jobID)))
   }
 }

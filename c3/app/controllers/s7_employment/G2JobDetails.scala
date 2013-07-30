@@ -25,22 +25,22 @@ object G2JobDetails extends Controller with CachedClaim {
 
   def job(jobID: String) = claiming { implicit claim => implicit request =>
     claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].apply(jobID).isDefined match {
-      case true => Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID)))
+      case true => whenSectionVisible(Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID))))
       case _ => Redirect(routes.G1BeenEmployed.present())
     }
   }
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g2_jobDetails(form))
+    whenSectionVisible(Ok(views.html.s7_employment.g2_jobDetails(form)))
   }
 
   def presentInJob(jobID: String) = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID)))
+    whenSectionVisible(Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID))))
   }
 
   def submit = claimingInJob {jobID =>  implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g2_jobDetails(formWithErrors)),
+      formWithErrors => whenSectionVisible(BadRequest(views.html.s7_employment.g2_jobDetails(formWithErrors))),
       jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present(jobID)))
   }
 }
