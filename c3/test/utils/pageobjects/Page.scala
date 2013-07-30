@@ -39,7 +39,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    */
   def goBack( waitForPage: Boolean = true, waitDuration:Int = Page.WAIT_FOR_DURATION) = {
     val backPageTile = browser.click(".form-steps a").title
-    val newPage = createPageWithTitle(backPageTile)
+    val newPage = createPageWithTitle(backPageTile,iteration)
     if (waitForPage) newPage.waitForPage(waitDuration) else newPage
 
   }
@@ -59,7 +59,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @param waitForPage Does the test need add extra time to wait for the next page every time it submits a page? By default set to false.
    * @return Last page
    */
-  def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, throwException: Boolean = true, waitForPage: Boolean = false, waitDuration:Int = Page.WAIT_FOR_DURATION): Page = {
+  final def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, throwException: Boolean = true, waitForPage: Boolean = false, waitDuration:Int = Page.WAIT_FOR_DURATION): Page = {
     if (pageTitle == upToPageWithTitle) {
       this
     } else {
@@ -78,7 +78,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     val nextPageTile = browser.submit("button[type='submit']").title
     if (this checkNoErrorsForPage(nextPageTile, throwException)) this
     else {
-      val newPage = this createPageWithTitle nextPageTile
+      val newPage = this createPageWithTitle(nextPageTile,updateIterationNumber)
       if (waitForPage) newPage.waitForPage(waitDuration) else newPage
     }
   }
@@ -86,7 +86,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
 
   def goToCompletedSection() = {
     val completedPage = browser.click("div[class=completed] ul li a").title
-    createPageWithTitle(completedPage)
+    createPageWithTitle(completedPage,iteration)
   }
 
   /**
@@ -118,6 +118,8 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   //  NON PUBLIC FUNCTIONS
   // ==================================================================
 
+  protected def updateIterationNumber = iteration
+
   protected def waitForPage(waitDuration:Int) =  {
     try {
       browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) {
@@ -140,8 +142,8 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     else false
   }
 
-  private def createPageWithTitle(title: String) = {
-    val newPage = PageFactory buildPageFromTitle(browser, title, Some(this), iteration + 1)
+  private def createPageWithTitle(title: String, newIterationNumber: Int) = {
+    val newPage = PageFactory buildPageFromTitle(browser, title, Some(this), newIterationNumber)
     newPage
   }
 
@@ -150,7 +152,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     browser.goTo(page.url)
     if (!page.titleMatch) {
       if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " - Page loaded with title: " + browser.title)
-      else this.createPageWithTitle(browser.title)
+      else this.createPageWithTitle(browser.title,1)
     } else  if (waitForPage)  page.waitForPage(waitDuration)  else this
 
   }
