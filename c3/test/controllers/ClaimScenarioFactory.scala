@@ -137,6 +137,15 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s5TimeSpentAbroad() = {
+    val claim = s4CareYouProvide()
+    // Normal Residence And Current Location
+    claim.TimeSpentAbroadDoYouNormallyLiveintheUk = "No"
+    claim.TimeSpentAbroadWhereDoYouNormallyLive = "Spain"
+    claim.TimeSpentAbroadAreYouinGBNow = "Yes"
+    claim
+  }
+
 
   def s6PayDetails() = {
     val claim = new ClaimScenario

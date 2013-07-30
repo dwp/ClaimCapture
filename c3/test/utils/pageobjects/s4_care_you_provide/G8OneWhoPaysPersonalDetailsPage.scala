@@ -8,7 +8,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  * @author Saqib Kayani
  *         Date: 29/07/2013
  */
-class G8OneWhoPaysPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G8OneWhoPaysPersonalDetailsPage.url, G8OneWhoPaysPersonalDetailsPage.title, previousPage) {
+final class G8OneWhoPaysPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G8OneWhoPaysPersonalDetailsPage.url, G8OneWhoPaysPersonalDetailsPage.title, previousPage) {
   /**
    * Reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
