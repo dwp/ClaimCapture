@@ -5,9 +5,10 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
-import models.domain.{ChildcareExpensesWhileAtWork, SelfEmploymentPensionsAndExpenses, Claim, ExpensesWhileAtWork}
+import models.domain.{Claim, ExpensesWhileAtWork}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
+import controllers.s9_self_employment.SelfEmployment.whenSectionVisible
 
 object G7ExpensesWhileAtWork extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ExpensesWhileAtWork)
@@ -23,7 +24,7 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim {
   )
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_self_employment.g7_expensesWhileAtWork(form.fill(ExpensesWhileAtWork), completedQuestionGroups))
+    whenSectionVisible(Ok(views.html.s9_self_employment.g7_expensesWhileAtWork(form.fill(ExpensesWhileAtWork), completedQuestionGroups)))
   }
 
   def submit = claiming { implicit claim =>

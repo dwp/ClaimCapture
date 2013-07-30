@@ -65,6 +65,30 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s2AnsweringNoToQuestions() = {
+    val claim = new ClaimScenario
+
+    // Your contact details
+    claim.AboutYouAddress  = "An address"
+    claim.AboutYouPostcode = "SE1 6EH"
+    claim.AboutYouDaytimePhoneNumber = "01253 111 111"
+    claim.AboutYouMobileNumber = "07111 111 111"
+    // Claim date
+    claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
+    // More about you
+    claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"
+    claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "no"
+    claim.AboutYouHaveYouBeenOnACourseOfEducation = "no"
+    claim.AboutYouDoYouGetStatePension = "no"
+    // Employment
+    claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "no"
+    claim.AboutYouHaveYouBeenEmployedAtAnyTime = "no"
+    // Property and Rent
+    claim.AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand = "no"
+    claim.AboutYouHaveYouOrYourPartnerSubletYourHome = "no"
+    claim
+  }
+
   def s2ands3WithTimeOUtsideUKAndProperty() = {
     val claim = s2AboutYouWithTimeOutside()
     // Partner personal details
@@ -134,6 +158,15 @@ object ClaimScenarioFactory {
     // Contact Details Of Paying Person
     claim.AboutTheCareYouProvideAddressPersonPaysYou = "123 Cleverme Street \n Genius"
     claim.AboutTheCareYouProvidePostcodePersonPaysYou = "GN1 2DA"
+    claim
+  }
+
+  def s5TimeSpentAbroad() = {
+    val claim = s4CareYouProvide()
+    // Normal Residence And Current Location
+    claim.TimeSpentAbroadDoYouNormallyLiveintheUk = "No"
+    claim.TimeSpentAbroadWhereDoYouNormallyLive = "Spain"
+    claim.TimeSpentAbroadAreYouinGBNow = "Yes"
     claim
   }
 

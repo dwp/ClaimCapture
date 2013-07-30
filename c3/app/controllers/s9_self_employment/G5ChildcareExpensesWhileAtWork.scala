@@ -8,6 +8,7 @@ import controllers.Mappings._
 import models.domain._
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
+import controllers.s9_self_employment.SelfEmployment.whenSectionVisible
 
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ExpensesWhileAtWork)
@@ -24,7 +25,7 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
   )
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_self_employment.g5_childcareExpensesWhileAtWork(form.fill(ChildcareExpensesWhileAtWork), completedQuestionGroups))
+    whenSectionVisible(Ok(views.html.s9_self_employment.g5_childcareExpensesWhileAtWork(form.fill(ChildcareExpensesWhileAtWork), completedQuestionGroups)))
 
   }
 
