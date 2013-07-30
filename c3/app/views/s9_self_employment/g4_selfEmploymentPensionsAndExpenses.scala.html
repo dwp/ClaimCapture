@@ -18,17 +18,29 @@
     <legend>Pensions and Expenses</legend>
 
     <ul class="group">
-        @yesNoRadioGroup(currentForm("doYouPayToPensionScheme"))
+        @yesNoRadioGroup(currentForm("doYouPayToPensionScheme.answer"))
         @otherDetailPlaceHolder(
         inputDef = Seq(
-            carersInputText(currentForm("howMuchDidYouPay"), 'maxLength -> 8)),
+            carersInputText(currentForm("doYouPayToPensionScheme.howMuchDidYouPay"), 'maxLength -> 8)),
             'id -> "selfEmployedPensionWrap",
-            'display -> currentForm("doYouPayToPensionScheme").value.getOrElse("no")
+            'display -> currentForm("doYouPayToPensionScheme.answer").value.getOrElse("no")
         )
 
-        @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"))
-        @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"))
+        @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren.answer"))
+        @otherDetailPlaceHolder(
+        inputDef = Seq(
+        yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren.isItTheSameExpenseWhileAtWorkForChildren"))),
+        'id -> "selfEmployedChildrenWrap",
+        'display -> currentForm("doYouPayToLookAfterYourChildren.answer").value.getOrElse("no")
+        )
 
+        @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor.answer"))
+        @otherDetailPlaceHolder(
+        inputDef = Seq(
+        yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor.isItTheSameExpenseDuringWorkForThePersonYouCaredFor"))),
+        'id -> "selfEmployedCaredForWrap",
+        'display -> currentForm("didYouPayToLookAfterThePersonYouCaredFor.answer").value.getOrElse("no")
+        )
     </ul>
 </fieldset>
 
@@ -43,6 +55,8 @@
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("doYouPayToPensionScheme_yes")", "@CarersCrypto.encryptAES("doYouPayToPensionScheme_no")");
+        window.initEvents("@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_yes")","@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_no")",
+                          "@CarersCrypto.encryptAES("doYouPayToLookAfterYourChildren_answer_yes")","@CarersCrypto.encryptAES("doYouPayToLookAfterYourChildren_answer_no")",
+                          "@CarersCrypto.encryptAES("didYouPayToLookAfterThePersonYouCaredFor_answer_yes")","@CarersCrypto.encryptAES("didYouPayToLookAfterThePersonYouCaredFor_answer_no")");
     });
 </script>

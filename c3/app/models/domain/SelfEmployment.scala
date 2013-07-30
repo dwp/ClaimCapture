@@ -3,6 +3,7 @@ package models.domain
 import models.DayMonthYear
 import play.api.mvc.Call
 import models.MultiLineAddress
+import models.yesNo.YesNoWithText
 
 
 case object SelfEmployment extends Section.Identifier {
@@ -46,12 +47,9 @@ case object SelfEmploymentPensionsAndExpenses extends QuestionGroup.Identifier {
 }
 
 case class SelfEmploymentPensionsAndExpenses(call: Call,
-                                             doYouPayToPensionScheme: String,
-                                             howMuchDidYouPay: Option[String],
-                                             doYouPayToLookAfterYourChildren: String,
-                                             isItTheSameExpenseWhileAtWorkForChildren: Option[String],
-                                             didYouPayToLookAfterThePersonYouCaredFor: String,
-                                             isItTheSameExpenseDuringWorkForThePersonYouCaredFor : Option[String]
+                                             pensionSchemeMapping: YesNoWithText,
+                                             lookAfterChildrenMapping: YesNoWithText,
+                                             lookAfterCaredForMapping: YesNoWithText
                                               ) extends QuestionGroup(SelfEmploymentPensionsAndExpenses)
 
 

@@ -8,33 +8,44 @@ import controllers.Mappings._
 import models.domain.{SelfEmploymentPensionsAndExpenses, Claim}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import controllers.s9_self_employment.SelfEmployment.whenSectionVisible
+import models.yesNo.YesNoWithText
+import controllers.s7_employment.Employment._
+import play.api.data.FormError
 
 
 object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(SelfEmploymentPensionsAndExpenses)
 
+
+  val pensionSchemeMapping =
+      "doYouPayToPensionScheme" -> mapping(
+        "answer" -> nonEmptyText.verifying(validYesNo),
+        "howMuchDidYouPay" -> optional(nonEmptyText verifying validDecimalNumber)
+      )(YesNoWithText.apply)(YesNoWithText.unapply)
+        .verifying("howMuchDidYouPay", YesNoWithText.validateOnYes _)
+
+  val lookAfterChildrenMapping =
+    "doYouPayToLookAfterYourChildren" -> mapping(
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "isItTheSameExpenseWhileAtWorkForChildren" -> optional(nonEmptyText.verifying(validYesNo))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("isItTheSameExpenseWhileAtWorkForChildren", YesNoWithText.validateOnYes _)
+
+  val lookAfterCaredForMapping =
+    "didYouPayToLookAfterThePersonYouCaredFor" -> mapping(
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "isItTheSameExpenseDuringWorkForThePersonYouCaredFor" -> optional(nonEmptyText.verifying(validYesNo))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("isItTheSameExpenseDuringWorkForThePersonYouCaredFor", YesNoWithText.validateOnYes _)
+
   val form = Form(
     mapping(
       call(routes.G4SelfEmploymentPensionsAndExpenses.present()),
-      "doYouPayToPensionScheme" -> nonEmptyText.verifying(validYesNo),
-      "howMuchDidYouPay" -> optional(text verifying validDecimalNumber),
-      "doYouPayToLookAfterYourChildren" -> nonEmptyText.verifying(validYesNo),
-      "isItTheSameExpenseWhileAtWorkForChildren" -> optional(nonEmptyText.verifying(validYesNo)),
-      "didYouPayToLookAfterThePersonYouCaredFor" -> nonEmptyText.verifying(validYesNo),
-      "isItTheSameExpenseDuringWorkForThePersonYouCaredFor" -> optional(nonEmptyText.verifying(validYesNo))
+      pensionSchemeMapping,
+      lookAfterChildrenMapping,
+      lookAfterCaredForMapping
     )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply)
-      .verifying("error.required", validatePayToPension _)
   )
-
-
-  def validatePayToPension(selfEmploymentPensionsAndExpenses: SelfEmploymentPensionsAndExpenses) = {
-    selfEmploymentPensionsAndExpenses.doYouPayToPensionScheme match {
-      case `yes` => selfEmploymentPensionsAndExpenses.howMuchDidYouPay.isDefined
-      case `no` => true
-    }
-  }
-
 
   def present = claiming {
     implicit claim => implicit request =>
@@ -45,7 +56,13 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim {
     implicit claim =>
       implicit request =>
         form.bindEncrypted.fold(
-          formWithErrors => BadRequest(views.html.s9_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrors, completedQuestionGroups)),
+          formWithErrors => {
+            val formWithErrorsUpdate = formWithErrors
+              .replaceError("doYouPayToPensionScheme", "howMuchDidYouPay", FormError("doYouPayToPensionScheme.howMuchDidYouPay", "error.required"))
+              .replaceError("doYouPayToLookAfterYourChildren", "isItTheSameExpenseWhileAtWorkForChildren", FormError("doYouPayToLookAfterYourChildren.isItTheSameExpenseWhileAtWorkForChildren", "error.required"))
+              .replaceError("didYouPayToLookAfterThePersonYouCaredFor", "isItTheSameExpenseDuringWorkForThePersonYouCaredFor", FormError("didYouPayToLookAfterThePersonYouCaredFor.isItTheSameExpenseDuringWorkForThePersonYouCaredFor", "error.required"))
+            BadRequest(views.html.s9_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrorsUpdate, completedQuestionGroups))
+          },
           f => claim.update(f) -> Redirect(routes.G5ChildcareExpensesWhileAtWork.present())
         )
   }

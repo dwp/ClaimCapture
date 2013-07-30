@@ -18,12 +18,12 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     val didYouPayToLookAfterThePersonYouCaredFor = "yes"
     val isItTheSameExpenseDuringWorkForThePersonYouCaredFor = "yes"
 
-    val selfEmploymentPensionsAndExpensesInput = Seq("doYouPayToPensionScheme" -> doYouPayToPensionScheme,
-      "howMuchDidYouPay" -> howMuchDidYouPay,
-      "doYouPayToLookAfterYourChildren" -> doYouPayToLookAfterYourChildren,
-      "isItTheSameExpenseWhileAtWorkForChildren" -> isItTheSameExpenseWhileAtWorkForChildren,
-      "didYouPayToLookAfterThePersonYouCaredFor" -> didYouPayToLookAfterThePersonYouCaredFor,
-      "isItTheSameExpenseDuringWorkForThePersonYouCaredFor" -> isItTheSameExpenseDuringWorkForThePersonYouCaredFor
+    val selfEmploymentPensionsAndExpensesInput = Seq("doYouPayToPensionScheme.answer" -> doYouPayToPensionScheme,
+      "doYouPayToPensionScheme.howMuchDidYouPay" -> howMuchDidYouPay,
+      "doYouPayToLookAfterYourChildren.answer" -> doYouPayToLookAfterYourChildren,
+      "doYouPayToLookAfterYourChildren.isItTheSameExpenseWhileAtWorkForChildren" -> isItTheSameExpenseWhileAtWorkForChildren,
+      "didYouPayToLookAfterThePersonYouCaredFor.answer" -> didYouPayToLookAfterThePersonYouCaredFor,
+      "didYouPayToLookAfterThePersonYouCaredFor.isItTheSameExpenseDuringWorkForThePersonYouCaredFor" -> isItTheSameExpenseDuringWorkForThePersonYouCaredFor
     )
 
     "present 'Pensions and Expenses' " in new WithApplication with Claiming {
@@ -42,12 +42,12 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
       val section: Section = claim.section(models.domain.SelfEmployment)
       section.questionGroup(SelfEmploymentPensionsAndExpenses) must beLike {
         case Some(f: SelfEmploymentPensionsAndExpenses) => {
-          f.doYouPayToPensionScheme must equalTo(doYouPayToPensionScheme)
-          f.howMuchDidYouPay must equalTo(Some(howMuchDidYouPay))
-          f.doYouPayToLookAfterYourChildren must equalTo(doYouPayToLookAfterYourChildren)
-          f.isItTheSameExpenseWhileAtWorkForChildren must equalTo(Some(isItTheSameExpenseWhileAtWorkForChildren))
-          f.didYouPayToLookAfterThePersonYouCaredFor must equalTo(didYouPayToLookAfterThePersonYouCaredFor)
-          f.isItTheSameExpenseDuringWorkForThePersonYouCaredFor must equalTo(Some(isItTheSameExpenseDuringWorkForThePersonYouCaredFor))
+          f.pensionSchemeMapping.answer must equalTo(doYouPayToPensionScheme)
+          f.pensionSchemeMapping.text must equalTo(Some(howMuchDidYouPay))
+          f.lookAfterChildrenMapping.answer must equalTo(doYouPayToLookAfterYourChildren)
+          f.lookAfterChildrenMapping.text must equalTo(Some(isItTheSameExpenseWhileAtWorkForChildren))
+          f.lookAfterCaredForMapping.answer must equalTo(didYouPayToLookAfterThePersonYouCaredFor)
+          f.lookAfterCaredForMapping.text must equalTo(Some(isItTheSameExpenseDuringWorkForThePersonYouCaredFor))
         }
       }
     }
@@ -55,9 +55,9 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     "missing mandatory field" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-        "doYouPayToPensionScheme" -> "no",
-        "doYouPayToLookAfterYourChildren" -> "yes",
-        "didYouPayToLookAfterThePersonYouCaredFor" -> "")
+        "doYouPayToPensionScheme.answer" -> "no",
+        "doYouPayToLookAfterYourChildren.answer" -> "yes",
+        "didYouPayToLookAfterThePersonYouCaredFor.answer" -> "")
 
       val result = controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -66,9 +66,9 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     "missing mandatory field doYouPayToLookAfterYourChildren" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-        "doYouPayToPensionScheme" -> "no",
-        "doYouPayToLookAfterYourChildren" -> "",
-        "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
+        "doYouPayToPensionScheme.answer" -> "no",
+        "doYouPayToLookAfterYourChildren.answer" -> "",
+        "didYouPayToLookAfterThePersonYouCaredFor.answer" -> "yes")
 
       val result = controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -77,9 +77,9 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     "missing mandatory field doYouPayToPensionScheme" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(
-        "doYouPayToPensionScheme" -> "",
-        "doYouPayToLookAfterYourChildren" -> "yes",
-        "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
+        "doYouPayToPensionScheme.answer" -> "",
+        "doYouPayToLookAfterYourChildren.answer" -> "yes",
+        "didYouPayToLookAfterThePersonYouCaredFor.answer" -> "yes")
 
       val result = controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
       status(result) mustEqual BAD_REQUEST
