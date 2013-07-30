@@ -8,16 +8,9 @@ import utils.pageobjects.ClaimScenario
 
 class G10BreaksInCareIntegrationSpec extends Specification with Tags {
   "Has breaks" should {
-    "present" in new WithBrowser with G10BreaksInCarePageContext {
-      val claim = new ClaimScenario
-      claim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1 = "Yes"
-      page goToThePage()
-      page fillPageWith claim
-      println(page.source)
-      val nextPage = page submitPage()
-      nextPage must beAnInstanceOf[G11BreakPage]
-//      browser.goTo("/careYouProvide/breaksInCare")
-//      browser.title mustEqual "Breaks in care - Care You Provide"
+    "present" in new WithBrowser {
+      browser.goTo("/careYouProvide/breaksInCare")
+      browser.title mustEqual "Breaks in care - Care You Provide"
     }
 
     """present "completed" when no more breaks are required""" in new WithBrowser {
