@@ -20,6 +20,15 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       titleMustEqual("Trip - Time Spent Abroad")
     }
 
+    """present "completed" when no more 52 week trips are required""" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/timeSpentAbroad/abroadForMoreThan52Weeks")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+
+      browser.click("#anyTrips_no")
+      browser.submit("button[value='next']")
+      titleMustEqual("Completion - Time Spent Abroad")
+    }
+
     """go back to "abroad for more than 4 weeks".""" in new WithBrowser with BrowserMatchers {
       pending
       /*browser.goTo("/timeSpentAbroad/abroadForMoreThan52Weeks")
