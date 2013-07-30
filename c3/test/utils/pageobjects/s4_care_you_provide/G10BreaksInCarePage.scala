@@ -16,7 +16,7 @@ class G10BreaksInCarePage(browser: TestBrowser, previousPage: Option[Page] = Non
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) {
-     fillYesNo("#answer", theClaim.AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1)
+     fillYesNo("#answer", theClaim.selectDynamic("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_" + iteration))
   }
 }
 

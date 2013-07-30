@@ -18,6 +18,7 @@ class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None, iter
   def fillPageWith(theClaim: ClaimScenario) {
   }
 
+  protected def updateIterationNumber = iteration+1
 }
 
 /**
