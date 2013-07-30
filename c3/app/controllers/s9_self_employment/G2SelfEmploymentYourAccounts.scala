@@ -9,6 +9,7 @@ import models.domain.{SelfEmploymentYourAccounts, Claim}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import play.api.data.{FormError, Form}
+import SelfEmployment.whenSectionVisible
 
 
 object G2SelfEmploymentYourAccounts extends Controller with CachedClaim {
@@ -48,7 +49,7 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim {
 
   def present = claiming {
     implicit claim => implicit request =>
-      Ok(views.html.s9_self_employment.g2_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts), completedQuestionGroups))
+      whenSectionVisible(Ok(views.html.s9_self_employment.g2_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts), completedQuestionGroups)))
   }
 
   def submit = claiming {
