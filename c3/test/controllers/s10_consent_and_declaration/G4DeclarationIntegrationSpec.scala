@@ -16,7 +16,7 @@ class G4DeclarationIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Declaration - Consent And Declaration"
       browser.submit("button[type='submit']")
 
-      browser.find("div[class=validation-summary] ol li").size mustEqual 2
+      browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
 
