@@ -15,7 +15,7 @@ object G4Declaration extends Controller with CachedClaim{
     mapping(
       call(routes.G4Declaration.present()),
       "confirm" -> nonEmptyText,
-      "someoneElse" -> text
+      "someoneElse" -> optional(text)
     )(Declaration.apply)(Declaration.unapply))
 
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Declaration)

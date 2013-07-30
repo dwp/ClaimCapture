@@ -48,7 +48,7 @@ object RefererCheck extends Filter {
 
     if (httpReferer.contains(host) || httpReferer.startsWith(expectedReferer)) {
       next(request)
-    } else if (Play.isProd) {
+    } else if (play.Configuration.root().getBoolean("enforceRedirect", true)) {
       Logger.debug(s"HTTP Referer : $httpReferer")
       Logger.debug(s"Conf Referer : $expectedReferer")
       Logger.debug(s"HTTP Host : $host")
