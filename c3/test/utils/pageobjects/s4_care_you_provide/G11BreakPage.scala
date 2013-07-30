@@ -10,15 +10,26 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  * Time: 10:32
  * To change this template use File | Settings | File Templates.
  */
-class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G11BreakPage.url, G11BreakPage.title, previousPage, iteration) {
+final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G11BreakPage.url, G11BreakPage.title, previousPage, iteration) {
   /**
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario) {
+    fillDate("#start", theClaim.selectDynamic("AboutTheCareYouProvideBreakStartDate_" + iteration))
+    fillDate("#end", theClaim.selectDynamic("AboutTheCareYouProvideBreakEndDate_" + iteration))
+    fillTime("#start", theClaim.selectDynamic("AboutTheCareYouProvideBreakStartTime_" + iteration))
+    fillTime("#end", theClaim.selectDynamic("AboutTheCareYouProvideBreakEndTime_" + iteration))
+    fillSelect("#whereYou_location", theClaim.selectDynamic("AboutTheCareYouProvideWhereWereYouDuringTheBreak_" + iteration))
+    fillSelect("#wherePerson_location", theClaim.selectDynamic("AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_" + iteration))
+    fillYesNo("#medicalDuringBreak", theClaim.selectDynamic("AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_" + iteration))
   }
 
-  protected def updateIterationNumber = iteration+1
+  /**
+   * Called by submitPage of Page. A new G10 will be built with an incremented iteration number.
+   * @return Incremented iteration number.
+   */
+  protected override def updateIterationNumber = iteration+1
 }
 
 /**

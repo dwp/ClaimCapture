@@ -64,6 +64,13 @@ trait WebFillActions {
     for (option <- allOptions; if option.getText == value) option.click()
   }
 
+  def fillTime(elementCssSelector: String, value: String) = if (null != value) {
+    val extractor = """([^:]*):([^:]*)""".r
+    val extractor(hour,minute) = value
+    fillSelect(elementCssSelector + "_hour", if (hour.length == 1) s"0$hour" else hour)
+    fillSelect(elementCssSelector + "_minutes", if (minute.length == 1) s"0$minute" else minute)
+  }
+
   def fillYesNo(elementCssSelector: String, value: String, sep: String = "_") = if (null != value) browser.click(elementCssSelector + sep + value.toLowerCase)
 
 }
