@@ -5,11 +5,22 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s9_self_employment._
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.ClaimScenario
+import utils.pageobjects.s2_about_you.{G7PropertyAndRentPage, G4ClaimDatePageContext}
+import utils.pageobjects.s8_other_money.G1AboutOtherMoneyPage
 
 class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
   "Expenses related to the person you care for while at work" should {
     "be presented" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
       page goToThePage ()
+    }
+
+    "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
+      val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
+      page goToThePage()
+      page runClaimWith (claim, G7PropertyAndRentPage.title, waitForPage = true)
+
+      val nextPage = page goToPage( throwException = false, page = new G7ExpensesWhileAtWorkPage(browser))
+      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 
     "contain the completed forms" in new WithBrowser with G1AboutSelfEmploymentPageContext {

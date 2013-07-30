@@ -13,7 +13,7 @@ object SelfEmployment extends Controller with CachedClaim {
   }
 
   def completed = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_self_employment.g9_completed(claim.completedQuestionGroups(models.domain.SelfEmployment)))
+    whenSectionVisible(Ok(views.html.s9_self_employment.g9_completed(claim.completedQuestionGroups(models.domain.SelfEmployment))))
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
