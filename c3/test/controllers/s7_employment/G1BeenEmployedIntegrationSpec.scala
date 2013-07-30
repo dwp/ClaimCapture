@@ -19,6 +19,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim
 
       browser.goTo("/employment/beenEmployed")
+
       titleMustEqual("About Other Money - Other Money")
     }
 
