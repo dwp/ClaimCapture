@@ -77,7 +77,7 @@ object ClaimBuilder {
   val additionalInfo = AdditionalInfo(NoRouting, Some("Other information"),"yes")
   val consent = Consent(NoRouting, "no",Some("I don't want to"),"no",Some("I said I don't want to"))
   val disclaimer = Disclaimer(NoRouting, "checked")
-  val declaration = Declaration(NoRouting, "checked","checked")
+  val declaration = Declaration(NoRouting, "checked",Some("checked"))
 
   val consentAndDeclaration = ConsentAndDeclaration(additionalInfo,consent,disclaimer,declaration)
 }
