@@ -1,7 +1,7 @@
 package utils.pageobjects.xml_validation
 
 import scala.collection.mutable
-import utils.pageobjects.{ClaimScenario, FactoryFromFile}
+import utils.pageobjects.{PageObjectException, ClaimScenario, FactoryFromFile}
 import scala.xml.{NodeSeq, Elem, XML}
 
 /**
@@ -12,9 +12,9 @@ import scala.xml.{NodeSeq, Elem, XML}
 */
 class XMLBusinessValidation(xmlMappingFile:String = "/ClaimScenarioXmlMapping.csv") {
 
-  def validateXMLClaim(claim:ClaimScenario, xmlString: String):List[String] = validateXMLClaim(claim, XML.loadString(xmlString))
+  def validateXMLClaim(claim:ClaimScenario, xmlString: String, throwException:Boolean):List[String] = validateXMLClaim(claim, XML.loadString(xmlString),throwException)
 
-  def validateXMLClaim(claim:ClaimScenario, xml: Elem) = {
+  def validateXMLClaim(claim:ClaimScenario, xml: Elem, throwException:Boolean ) = {
 
     // Used to recursively go through the xPath provided to find value
     def childNode(xml:NodeSeq, children:Array[String]):NodeSeq =
@@ -26,8 +26,10 @@ class XMLBusinessValidation(xmlMappingFile:String = "/ClaimScenarioXmlMapping.cs
       val xPathNodes = mapping.get(attribute)
       if (xPathNodes != None) {
         val nodes = xPathNodes.get
-        val elementValue = childNode(xml.\\(nodes(0)),nodes.drop(1)).text
-        if ( value.toLowerCase  != elementValue.toLowerCase) listErrors += attribute + " " + nodes.mkString(">") + " value expected: [" + value + "] value read: [" + elementValue + "]"
+        val elementValue = childNode(xml.\\(nodes(0)),nodes.drop(1)).text.trim.toLowerCase
+        val expectedValue = value.replace("\\n","").trim.toLowerCase
+        if (expectedValue  != elementValue) listErrors += attribute + " " + nodes.mkString(">") + " value expected: [" + expectedValue + "] value read: [" + elementValue + "]"
+        if (listErrors.nonEmpty && throwException) throw new PageObjectException("XML validation failed",listErrors.toList)
       }
     }
     listErrors.toList
