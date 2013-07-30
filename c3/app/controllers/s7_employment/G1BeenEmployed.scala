@@ -8,6 +8,7 @@ import models.domain.{Employment => employment, BeenEmployed}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s7_employment.Employment.jobs
+import controllers.s7_employment.Employment.whenSectionVisible
 
 object G1BeenEmployed extends Controller with CachedClaim {
   val form = Form(
@@ -16,10 +17,7 @@ object G1BeenEmployed extends Controller with CachedClaim {
     )(BeenEmployed.apply)(BeenEmployed.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    claim.questionGroup(employment) match {
-      case Some(e: employment) if e.beenEmployedSince6MonthsBeforeClaim == `yes` => Ok(views.html.s7_employment.g1_beenEmployed(form))
-      case _ => Redirect(claim.nextSection(models.domain.Employed).firstPage)
-    }
+    whenSectionVisible(Ok(views.html.s7_employment.g1_beenEmployed(form)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

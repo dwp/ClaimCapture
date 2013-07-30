@@ -14,7 +14,7 @@ object Education extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.Education)
 
   def completed = claiming { implicit claim => implicit request =>
-    Ok(views.html.s6_education.g3_completed(completedQuestionGroups))
+    whenSectionVisible(Ok(views.html.s6_education.g3_completed(completedQuestionGroups)))
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>

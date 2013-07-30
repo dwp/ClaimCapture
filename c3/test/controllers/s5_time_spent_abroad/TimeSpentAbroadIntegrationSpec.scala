@@ -11,7 +11,6 @@ class TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       Formulate.normalResidenceAndCurrentLocation(browser)
       Formulate.abroadForMoreThan4Weeks(browser)
       Formulate.abroadForMoreThan52Weeks(browser)
-      Formulate.otherEEAStateOrSwitzerland(browser)
       
       titleMustEqual("Completion - Time Spent Abroad")
 
@@ -23,7 +22,6 @@ class TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       Formulate.normalResidenceAndCurrentLocation(browser)
       Formulate.abroadForMoreThan4Weeks(browser)
       Formulate.abroadForMoreThan52Weeks(browser)
-      Formulate.otherEEAStateOrSwitzerland(browser)
       titleMustEqual("Completion - Time Spent Abroad")
 
       browser.find("button[type='submit']").getText shouldEqual "Continue to Education"

@@ -560,29 +560,18 @@
           font-weight: 500;
           overflow: hidden;
           line-height: 1em;
-          padding: .2em .7em .5em 1.6em;
+          padding: .24em .7em .6em 1.65em;
           width: 120px;
-          position: relative; }
+          position: relative;
+          background: url("../img/toggle.png") 0 0 no-repeat; }
           .ie .carers-allowance .form-elements ul li .helper-more {
             font-size: 16px; }
-          .carers-allowance .form-elements ul li .helper-more:before {
-            content: "\203a";
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 18px;
-            width: 20px;
-            background: #000;
-            border-radius: 100px;
-            text-align: center;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 700;
-            padding-top: 2px; }
+        .carers-allowance .form-elements ul li .helper-less {
+          background: url("../img/toggle.png") 0 -42px no-repeat; }
         .carers-allowance .form-elements ul li .helper-info {
           display: none;
           padding: 1em 1.6em;
-          background: #eee;
+          background: #f9f9f9;
           border-left: 3px solid #000; }
           .carers-allowance .form-elements ul li .helper-info p {
             font-size: 1.6rem; }

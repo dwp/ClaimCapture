@@ -18,11 +18,11 @@
     <legend>Accountant's Contact Details</legend>
 
     <ul class="group">
-        @carersInputText(currentForm("accountantsName"), 'maxLength -> Mappings.hundred, '_label -> Messages("accountantsName.label"))
+        @carersInputText(currentForm("accountantsName"), 'maxLength -> Mappings.hundred)
         @inputAddress(currentForm("address"))
-        @carersInputText(currentForm("postCode"), '_label -> Messages("postCode.label"))
-        @carersInputText(currentForm("telephoneNumber"), '_label -> Messages("telephoneNumber.label"))
-        @carersInputText(currentForm("faxNumber"), '_label -> Messages("faxNumber.label"))
+        @carersInputText(currentForm("postcode"))
+        @carersInputText(currentForm("telephoneNumber"))
+        @carersInputText(currentForm("faxNumber"))
     </ul>
 </fieldset>
 

@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
-import models.domain.{Claim, ExpensesWhileAtWork}
+import models.domain.{ChildcareExpensesWhileAtWork, SelfEmploymentPensionsAndExpenses, Claim, ExpensesWhileAtWork}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 

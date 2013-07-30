@@ -25,7 +25,7 @@ class G3SelfEmploymentAccountantContactDetailsSpec extends Specification with Ta
       "address.lineOne" -> lineOne.toString,
       "address.lineTwo" -> lineTwo.toString,
       "address.lineThree" -> lineThree.toString,
-      "postCode" -> postCode.toString,
+      "postcode" -> postCode.toString,
       "telephoneNumber" -> telephoneNumber,
       "faxNumber" -> faxNumber
     )
@@ -48,7 +48,7 @@ class G3SelfEmploymentAccountantContactDetailsSpec extends Specification with Ta
         case Some(f: SelfEmploymentAccountantContactDetails) => {
           f.accountantsName must equalTo(accountantsName)
           f.address must equalTo(MultiLineAddress(Some(lineOne), Some(lineTwo), Some(lineThree)))
-          f.postCode must equalTo(Some(postCode))
+          f.postcode must equalTo(Some(postCode))
           f.telephoneNumber must equalTo(Some(telephoneNumber))
           f.faxNumber must equalTo(Some(faxNumber))
         }

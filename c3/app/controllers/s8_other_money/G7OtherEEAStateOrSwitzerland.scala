@@ -1,4 +1,4 @@
-package controllers.s5_time_spent_abroad
+package controllers.s8_other_money
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
@@ -10,7 +10,7 @@ import controllers.Mappings._
 import models.yesNo.YesNoWithText
 import utils.helpers.CarersForm._
 
-object G5otherEEAStateOrSwitzerland extends Controller with CachedClaim {
+object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim {
   val benefitsFromOtherEEAStateOrSwitzerlandMapping =
     "benefitsFromOtherEEAStateOrSwitzerland" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -20,7 +20,7 @@ object G5otherEEAStateOrSwitzerland extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      call(routes.G5otherEEAStateOrSwitzerland.present()),
+      call(routes.G7OtherEEAStateOrSwitzerland.present()),
       benefitsFromOtherEEAStateOrSwitzerlandMapping,
       "workingForOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo)
     )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply))
@@ -28,15 +28,15 @@ object G5otherEEAStateOrSwitzerland extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s5_time_spent_abroad.g5_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland), completedQuestionGroups))
+    Ok(views.html.s8_other_money.g7_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("benefitsFromOtherEEAStateOrSwitzerland", FormError("benefitsFromOtherEEAStateOrSwitzerland.details", "error.required"))
-        BadRequest(views.html.s5_time_spent_abroad.g5_otherEEAStateOrSwitzerland(formWithErrorsUpdate, completedQuestionGroups))
+        BadRequest(views.html.s8_other_money.g7_otherEEAStateOrSwitzerland(formWithErrorsUpdate, completedQuestionGroups))
       },
-      benefitsFromOtherEEAStateOrSwitzerland => claim.update(benefitsFromOtherEEAStateOrSwitzerland) -> Redirect(routes.TimeSpentAbroad.completed()))
+      benefitsFromOtherEEAStateOrSwitzerland => claim.update(benefitsFromOtherEEAStateOrSwitzerland) -> Redirect(routes.OtherMoney.completed()))
   }
 }

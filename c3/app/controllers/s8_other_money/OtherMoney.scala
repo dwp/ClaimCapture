@@ -10,7 +10,7 @@ object OtherMoney extends Controller with CachedClaim {
   def completed = claiming {
     implicit claim => implicit request =>
       if (completedQuestionGroups.isEmpty) Redirect(routes.G1AboutOtherMoney.present())
-      else Ok(views.html.s8_other_money.g7_completed(completedQuestionGroups))
+      else Ok(views.html.s8_other_money.g8_completed(completedQuestionGroups))
   }
 
   def completedSubmit = claiming {

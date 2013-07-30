@@ -45,7 +45,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim {
       implicit request =>
         form.bindEncrypted.fold(
           formWithErrors => BadRequest(views.html.s9_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrors, completedQuestionGroups)),
-          f => claim.update(f) -> Redirect(routes.G4SelfEmploymentPensionsAndExpenses.present())
+          f => claim.update(f) -> Redirect(routes.G5ChildcareExpensesWhileAtWork.present())
         )
   }
 }

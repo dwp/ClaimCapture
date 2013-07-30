@@ -5,11 +5,11 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 
-@main("Other EEA State or Switzerland - Time Spent Abroad", Some(otherEEAStateOrSwitzerlandForm), completedQuestionGroups) {
+@main("Other EEA State or Switzerland - Other Money", Some(otherEEAStateOrSwitzerlandForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
-    @form(action = controllers.s5_time_spent_abroad.routes.G5otherEEAStateOrSwitzerland.submit) {
+    @form(action = controllers.s8_other_money.routes.G7OtherEEAStateOrSwitzerland.submit) {
         <fieldset class="form-elements">
             <legend>Other EEA State or Switzerland</legend>
 

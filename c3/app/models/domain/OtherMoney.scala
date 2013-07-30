@@ -1,7 +1,7 @@
 package models.domain
 
 import models._
-import models.yesNo.YesNoWith2Text
+import models.yesNo.{YesNoWithText, YesNoWith2Text}
 import play.api.mvc.Call
 
 case object OtherMoney extends Section.Identifier {
@@ -50,4 +50,11 @@ case class OtherStatutoryPay(otherPay:String, howMuch:Option[String], howOften:O
 
 case object OtherStatutoryPay extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g6"
+}
+
+case class OtherEEAStateOrSwitzerland(call: Call,
+                                      benefitsFromOtherEEAStateOrSwitzerland: YesNoWithText, workingForOtherEEAStateOrSwitzerland: String) extends QuestionGroup(OtherEEAStateOrSwitzerland)
+
+object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
+  val id = s"${OtherMoney.id}.g7"
 }
