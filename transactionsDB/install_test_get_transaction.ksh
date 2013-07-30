@@ -15,8 +15,8 @@ set_global_variables() {
   _OLDSPS4=${PS4}
   _PROCESS=$$ 
   # Info
-  _VERSION='1.1' 
-  _LASTUPDATE='04/07/2013'  
+  _VERSION='1.2' 
+  _LASTUPDATE='30/07/2013'  
   _NAMESCRIPT=$0 
   
   # Misc
@@ -68,7 +68,7 @@ function usage {
   print "\nOptions"
   print "  -d <database name>  Name of the database where the new table and function must be created."            
   print "  -h                  Display this message and exit."
-  print "  -s                  Installs only the PosgreSQL function. DO not create table and user."
+  print "  -s                  Installs only the PosgreSQL function. Do not create table and user."
   print "  -v                  Display version information."
   print "\nExamples"
   print "  ${_NAMESCRIPT} -v"
@@ -119,6 +119,11 @@ stop_batch() {
 function run_psql_command {
   echo $1 | psql --set=ON_ERROR_STOP=on -d ${_DATABASENAME}
   (($? != 0)) && error_db "Command failed: $1"  
+} 
+
+function run_psql_command_skipping_error {
+  echo $1 | psql --set=ON_ERROR_STOP=off -d ${_DATABASENAME}
+  (($? != 0)) && error_db "Command failed: $1"  
 }
 
 #---------------------------------------
@@ -127,8 +132,10 @@ function run_psql_command {
 set_global_variables
 check_parameters $@
 ((  ${_FUNCTIONONLY:-0} == 0 )) &&  run_psql_command '\i create_transactionids_table.sql;'
+((  ${_FUNCTIONONLY:-0} == 0 )) &&  run_psql_command '\i create_transactionstatus_table.sql;'
 run_psql_command '\i get_transaction.sql;'
+run_psql_command '\x \\ select get_new_transaction_id();'
+run_psql_command_skipping_error '\x \\ DROP OWNED by carers_c3;'
 ((  ${_FUNCTIONONLY:-0} == 0 )) &&  run_psql_command '\i create_users.sql;'   
-run_psql_command '\x \\ select get_new_transaction_id();' 
 echo 'Installation and smoke test successful'
 
