@@ -543,6 +543,24 @@
               width: 11.8rem; }
               .ie .carers-allowance .form-elements ul li.short-field input[type="text"], .ie .carers-allowance .form-elements ul li.short-field input[type="tel"] {
                 width: 118px; } }
+        .carers-allowance .form-elements ul li.currency input[type="text"], .carers-allowance .form-elements ul li.currency input[type="tel"] {
+          width: 11rem;
+          position: relative;
+          padding-left: 1em; }
+          .carers-allowance .form-elements ul li.currency input[type="text"]:before, .carers-allowance .form-elements ul li.currency input[type="tel"]:before {
+            position: absolute;
+            top: 4px;
+            left: 5px;
+            content: "\00a3"; }
+          .ie .carers-allowance .form-elements ul li.currency input[type="text"], .ie .carers-allowance .form-elements ul li.currency input[type="tel"] {
+            width: 120px; }
+          .ie7 .carers-allowance .form-elements ul li.currency input[type="text"], .ie7 .carers-allowance .form-elements ul li.currency input[type="tel"] {
+            padding-left: .4em; }
+          @media screen and (max-width: 500px) {
+            .carers-allowance .form-elements ul li.currency input[type="text"], .carers-allowance .form-elements ul li.currency input[type="tel"] {
+              width: 10.8rem; }
+              .ie .carers-allowance .form-elements ul li.currency input[type="text"], .ie .carers-allowance .form-elements ul li.currency input[type="tel"] {
+                width: 108px; } }
         .carers-allowance .form-elements ul li .helper {
           font-size: 1.6rem;
           margin-top: .4em;
