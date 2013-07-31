@@ -11,7 +11,7 @@ import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s9_self_employment._
 import utils.pageobjects.s4_care_you_provide._
-import utils.pageobjects.s5_time_spent_abroad.{G3AbroadForMoreThan52WeeksPage, G2AbroadForMoreThan4WeeksPage, G1NormalResidenceAndCurrentLocationPage}
+import utils.pageobjects.s5_time_spent_abroad.{G4TripPage, G3AbroadForMoreThan52WeeksPage, G2AbroadForMoreThan4WeeksPage, G1NormalResidenceAndCurrentLocationPage}
 
 /**
  * Factory used by Page to create from an html page the right page object.
@@ -62,6 +62,7 @@ object PageFactory {
       case G1NormalResidenceAndCurrentLocationPage.title => G1NormalResidenceAndCurrentLocationPage buildPageWith(browser, previousPage)
       case G2AbroadForMoreThan4WeeksPage.title => G2AbroadForMoreThan4WeeksPage buildPageWith(browser, previousPage)
       case G3AbroadForMoreThan52WeeksPage.title => G3AbroadForMoreThan52WeeksPage buildPageWith(browser, previousPage)
+      case G4TripPage.title => G4TripPage buildPageWith(browser, previousPage, iteration)
       // S6
       case G1HowWePayYouPage.title => G1HowWePayYouPage buildPageWith(browser, previousPage)
       // S8 TODO SKW these must be filled in so tests using  "must beAnInstanceOf" work correctly!!!
