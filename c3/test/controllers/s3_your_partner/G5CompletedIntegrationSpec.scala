@@ -10,10 +10,9 @@ import utils.pageobjects.s3_your_partner.G5CompletedPageContext
 class G5CompletedIntegrationSpec extends Specification with Tags {
 
   "Your Partner" should {
-    "be presented" in new WithBrowser with G5CompletedPageContext {
-      page goToThePage()
-      //browser.goTo("/yourPartner/completed")
-      //titleMustEqual("Completion - Your Partner")
+    "be presented" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/yourPartner/completed")
+      titleMustEqual("Completion - Your Partner")
     }
 
     """navigate to "Care you provide" page.""" in new WithBrowser with BrowserMatchers {

@@ -20,8 +20,8 @@ final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None
     fillDate("#end", theClaim.selectDynamic("AboutTheCareYouProvideBreakEndDate_" + iteration))
     fillTime("#start", theClaim.selectDynamic("AboutTheCareYouProvideBreakStartTime_" + iteration))
     fillTime("#end", theClaim.selectDynamic("AboutTheCareYouProvideBreakEndTime_" + iteration))
-    fillSelect("#whereYou_location", theClaim.selectDynamic("AboutTheCareYouProvideWhereWereYouDuringTheBreak_" + iteration))
-    fillSelect("#wherePerson_location", theClaim.selectDynamic("AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_" + iteration))
+    fillWhereabouts("#whereYou_location", theClaim.selectDynamic("AboutTheCareYouProvideWhereWereYouDuringTheBreak_" + iteration))
+    fillWhereabouts("#wherePerson_location", theClaim.selectDynamic("AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_" + iteration))
     fillYesNo("#medicalDuringBreak", theClaim.selectDynamic("AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_" + iteration))
   }
 
