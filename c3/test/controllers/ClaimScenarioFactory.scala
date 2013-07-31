@@ -169,6 +169,8 @@ object ClaimScenarioFactory {
     claim.TimeSpentAbroadAreYouinGBNow = "Yes"
     // Abroad For More Than 4 Weeks
     claim.TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_1 = "Yes"
+    // Abroad For More Than 52 Weeks
+    claim.TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"
     claim
   }
 
