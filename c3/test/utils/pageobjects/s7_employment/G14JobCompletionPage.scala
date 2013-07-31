@@ -9,7 +9,7 @@ final class G14JobCompletionPage(browser: TestBrowser, previousPage: Option[Page
     fillYesNo("#beenEmployed", theClaim.EmploymentBeenEmployed)
   }
 
-  override def updateIterationNumber() = iteration + 1
+  override def updateIterationNumber: Int = iteration + 1
 }
 
 object G14JobCompletionPage {

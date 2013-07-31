@@ -7,37 +7,29 @@ import models.domain._
 import play.api.cache.Cache
 import models.domain.Claim
 
-class G6MoneyOwedbyEmployerSpec extends Specification with Tags {
+class G8AboutExpensesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
 
-  "Money owed by employer" should {
+  "About expenses" should {
     "present" in new WithApplication with Claiming {
-      val additionalWageDetails = mock[AdditionalWageDetails]
-      additionalWageDetails.identifier returns AdditionalWageDetails
-      additionalWageDetails.jobID returns jobID
-      additionalWageDetails.employeeOwesYouMoney returns "yes"
-
-      val job = mock[Job]
-      job.questionGroups returns additionalWageDetails :: Nil
-
-      val jobs = mock[Jobs]
-      jobs.identifier returns Jobs
-      jobs.jobs returns job :: Nil
-      jobs.questionGroup(jobID, AdditionalWageDetails) returns Some(additionalWageDetails)
-
-      val claim = Claim().update(jobs)
-      Cache.set(claimKey, claim)
-
       val request = FakeRequest().withSession("connected" -> claimKey)
-      val result = G6MoneyOwedbyEmployer.present(jobID)(request)
+      val result = G8AboutExpenses.present(jobID)(request)
       status(result) mustEqual OK
     }
 
-    """require only "job ID".""" in new WithApplication with Claiming {
+    """require all mandatory data.""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID)
 
-      val result = G6MoneyOwedbyEmployer.submit(request)
+      val result = G8AboutExpenses.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    """accept all mandatory data.""" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+        "payForAnythingNecessary" -> "blah", "payAnyoneToLookAfterChildren" -> "blah", "payAnyoneToLookAfterPerson" -> "blah")
+
+      val result = G8AboutExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -48,8 +40,8 @@ class G6MoneyOwedbyEmployerSpec extends Specification with Tags {
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
-      val result = G6MoneyOwedbyEmployer.submit(FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> jobID))
+      val result = G8AboutExpenses.submit(FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+        "payForAnythingNecessary" -> "blah", "payAnyoneToLookAfterChildren" -> "blah", "payAnyoneToLookAfterPerson" -> "blah"))
 
       status(result) mustEqual SEE_OTHER
 

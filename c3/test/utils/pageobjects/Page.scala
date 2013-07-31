@@ -119,7 +119,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   //  NON PUBLIC FUNCTIONS
   // ==================================================================
 
-  protected def updateIterationNumber = iteration
+  protected def updateIterationNumber: Int = iteration
 
   protected def waitForPage(waitDuration:Int) =  {
     try {

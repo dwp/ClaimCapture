@@ -19,7 +19,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
 
     """require all mandatory data.""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1")
+        .withFormUrlEncodedBody("jobID" -> jobID)
 
       val result = G7PensionSchemes.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -27,7 +27,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
 
     """accept all mandatory data.""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1", "payOccupationalPensionScheme" -> "blah", "payPersonalPensionScheme" -> "blah")
+        .withFormUrlEncodedBody("jobID" -> jobID, "payOccupationalPensionScheme" -> "blah", "payPersonalPensionScheme" -> "blah")
 
       val result = G7PensionSchemes.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -36,12 +36,12 @@ class G7PensionSchemesSpec extends Specification with Tags {
     """be added to a (current) job""" in new WithApplication with Claiming {
       G2JobDetails.submit(FakeRequest().withSession("connected" -> claimKey)
         withFormUrlEncodedBody(
-        "jobID" -> "1",
+        "jobID" -> jobID,
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
       val result = G7PensionSchemes.submit(FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1", "payOccupationalPensionScheme" -> "blah", "payPersonalPensionScheme" -> "blah"))
+        .withFormUrlEncodedBody("jobID" -> jobID, "payOccupationalPensionScheme" -> "blah", "payPersonalPensionScheme" -> "blah"))
 
       status(result) mustEqual SEE_OTHER
 
@@ -51,7 +51,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
         case Some(js: Jobs) => {
           js.size shouldEqual 1
 
-          js.find(_.jobID == "1") must beLike { case Some(j: Job) => j.questionGroups.size shouldEqual 2 }
+          js.find(_.jobID == jobID) must beLike { case Some(j: Job) => j.questionGroups.size shouldEqual 2 }
         }
       }
     }
