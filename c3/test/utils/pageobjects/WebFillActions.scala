@@ -33,6 +33,11 @@ trait WebFillActions {
     fillInput(elementCssSelector + "_year", date.year().getAsText)
   }
 
+  def fillDateFromTo(elementCssSelector: String, from: String,to:String) = if (null != from && null != to) {
+    fillDate(elementCssSelector+"_from",from)
+    fillDate(elementCssSelector+"_to",to)
+  }
+
   def fillInput(elementCssSelector: String, value: String) = if (null != value) browser.fill(elementCssSelector).`with`(value)
 
   def fillNino(elementCssSelector: String, value: String) = if (null != value) {
@@ -62,6 +67,18 @@ trait WebFillActions {
     val select = browser.find(elementCssSelector, 0).getElement
     val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
     for (option <- allOptions; if option.getText == value) option.click()
+  }
+
+  def fillWhereabouts(elementCssSelector: String, value: String) = if (null != value) {
+    val select = browser.find(elementCssSelector+"_location", 0).getElement
+    val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
+    allOptions.find( wo => wo.getText == value) match {
+      case Some(we) =>  we.click
+      case _ => {
+        allOptions.find(_.getText == "Other").get.click
+        browser.fill(elementCssSelector+"_other") `with` value
+      }
+    }
   }
 
   def fillTime(elementCssSelector: String, value: String) = if (null != value) {
