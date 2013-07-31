@@ -1,16 +1,17 @@
 package services.submission
 
 import models.domain._
-import Helper.stringify
-import Helper.addressXml
+import XMLHelper.stringify
+import XMLHelper.postalAddressStructure
+import XMLHelper.questionGroup
 
 object EducationSubmission {
 
  def xml(education:Section) = {
 
-    val courseDetailsOption = education.questionGroup(YourCourseDetails).asInstanceOf[Option[YourCourseDetails]]
+    val courseDetailsOption = questionGroup[YourCourseDetails](education, YourCourseDetails)
 
-    val addressOfSchoolOption = education.questionGroup(AddressOfSchoolCollegeOrUniversity).asInstanceOf[Option[AddressOfSchoolCollegeOrUniversity]]
+    val addressOfSchoolOption = questionGroup[AddressOfSchoolCollegeOrUniversity](education, AddressOfSchoolCollegeOrUniversity )
 
     <FullTimeEducation>
       {courseDetailsXml(courseDetailsOption)}
@@ -18,7 +19,7 @@ object EducationSubmission {
     </FullTimeEducation>
   }
 
-  def courseDetailsXml(courseDetailsOption:Option[YourCourseDetails]):scala.xml.Elem = {
+  def courseDetailsXml(courseDetailsOption:Option[YourCourseDetails]) = {
 
     def xml(courseDetails:YourCourseDetails) = {
       <CourseDetails>
@@ -42,10 +43,10 @@ object EducationSubmission {
     def xml(schoolData:AddressOfSchoolCollegeOrUniversity, detailsOption:Option[YourCourseDetails]) = {
       <LocationDetails>
         <Name>{stringify(schoolData.nameOfSchoolCollegeOrUniversity)}</Name>
-        {addressXml(schoolData.address, schoolData.postcode)}
+        <Address>{postalAddressStructure(schoolData.address, schoolData.postcode)}</Address>
         <PhoneNumber>{stringify(schoolData.phoneNumber)}</PhoneNumber>
         <FaxNumber>{stringify(schoolData.faxNumber)}</FaxNumber>
-        <StudentReferenceNumber>{if(detailsOption.isDefined) Helper.stringify(detailsOption.get.studentReferenceNumber)}</StudentReferenceNumber>
+        <StudentReferenceNumber>{if(detailsOption.isDefined) XMLHelper.stringify(detailsOption.get.studentReferenceNumber)}</StudentReferenceNumber>
         <Tutor>{stringify(schoolData.nameOfMainTeacherOrTutor)}</Tutor>
       </LocationDetails>
     }

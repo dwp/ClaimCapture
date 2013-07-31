@@ -91,46 +91,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
       </PropertyRentedOut>
       <HavePartner>yes</HavePartner>
       {YourPartnerSubmission.buildClaimant(yourPartner)} 
-      <OtherBenefits>
-        <ClaimantBenefits>
-          <JobseekersAllowance>no</JobseekersAllowance>
-          <IncomeSupport>no</IncomeSupport>
-          <PensionCredit>no</PensionCredit>
-          <StatePension>no</StatePension>
-          <IncapacityBenefit>no</IncapacityBenefit>
-          <SevereDisablementAllowance>no</SevereDisablementAllowance>
-          <MaternityAllowance>no</MaternityAllowance>
-          <UnemployabilitySupplement>no</UnemployabilitySupplement>
-          <WindowsBenefit>no</WindowsBenefit>
-          <WarWidowsPension>no</WarWidowsPension>
-          <IndustrialDeathBenefit>no</IndustrialDeathBenefit>
-          <GovernmentTrainingAllowance>no</GovernmentTrainingAllowance>
-          <LoneParentChildBenefit>no</LoneParentChildBenefit>
-          <OtherSocialSecurityBenefit>no</OtherSocialSecurityBenefit>
-          <NonSocialSecurityBenefit>no</NonSocialSecurityBenefit>
-          <NoBenefits>yes</NoBenefits>
-        </ClaimantBenefits>
-        <PartnerBenefits>
-          <JobseekersAllowance>no</JobseekersAllowance>
-          <IncomeSupport>no</IncomeSupport>
-          <PensionCredit>no</PensionCredit>
-          <StatePension>no</StatePension>
-          <IncapacityBenefit>no</IncapacityBenefit>
-          <SevereDisablementAllowance>no</SevereDisablementAllowance>
-          <MaternityAllowance>no</MaternityAllowance>
-          <UnemployabilitySupplement>no</UnemployabilitySupplement>
-          <WindowsBenefit>no</WindowsBenefit>
-          <WarWidowsPension>no</WarWidowsPension>
-          <IndustrialDeathBenefit>no</IndustrialDeathBenefit>
-          <GovernmentTrainingAllowance>no</GovernmentTrainingAllowance>
-          <OtherSocialSecurityBenefit>no</OtherSocialSecurityBenefit>
-          <NonSocialSecurityBenefit>no</NonSocialSecurityBenefit>
-          <NoBenefits>yes</NoBenefits>
-        </PartnerBenefits>
-        <ExtraMoney>no</ExtraMoney>
-        <OtherMoneySSP>no</OtherMoneySSP>
-        <OtherMoneySMP>no</OtherMoneySMP>
-      </OtherBenefits>
+      {OtherMoneySubmission.xml(claim.section(OtherMoney))}
       <Payment>
         <PaymentFrequency>everyWeek</PaymentFrequency>
         <InitialAccountQuestion>bankBuildingAccount</InitialAccountQuestion>

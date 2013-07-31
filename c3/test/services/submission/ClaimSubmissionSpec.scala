@@ -1,8 +1,7 @@
-package models.claim
+package services.submission
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
-import services.submission.ClaimSubmission
 import helpers.ClaimBuilder._
 import play.api.test.WithApplication
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
@@ -33,6 +32,14 @@ class ClaimSubmissionSpec extends Specification with Tags {
 
       .update(education.yourCourseDetails)
       .update(education.addressOfSchool)
+
+      .update(otherMoney.aboutOtherMoney)
+      .update(otherMoney.moneyPaidToSomeoneElse)
+      .update(otherMoney.personWhoGetsThisMoney)
+      .update(otherMoney.personContactDetails)
+      .update(otherMoney.statutorySickPay)
+      .update(otherMoney.otherStatutoryPay)
+
 
       .update(payDetails.howWePayYou)
       .update(payDetails.bankBuildingSocietyDetails)
