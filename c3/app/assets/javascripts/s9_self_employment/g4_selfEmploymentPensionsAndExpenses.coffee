@@ -1,4 +1,4 @@
-window.initEvents = (answerY, answerN, answerChildrenY, answerChildrenN, answerCaredForY, answerCaredForN) ->
+window.initEvents = (answerY, answerN, answerChildrenY, answerChildrenN, answerCaredForY, answerCaredForN, isExpenseForChildrenToBeDisplayed, isExpenseForCaredForToBeDisplayed) ->
   $("#" + answerY).on "click", ->
     $("#selfEmployedPensionWrap").slideDown()
     $("#selfEmployedPensionWrap").css('display', "block")
@@ -7,15 +7,14 @@ window.initEvents = (answerY, answerN, answerChildrenY, answerChildrenN, answerC
     $("#selfEmployedPensionWrap").slideUp()
 
   $("#" + answerChildrenY).on "click", ->
-    $("#selfEmployedChildrenWrap").slideDown()
-    $("#selfEmployedChildrenWrap").css('display', "block")
+      if isExpenseForChildrenToBeDisplayed then $("#selfEmployedChildrenWrap").slideDown();$("#selfEmployedChildrenWrap").css('display', "block")
 
   $("#" + answerChildrenN).on "click", ->
     $("#selfEmployedChildrenWrap").slideUp()
 
   $("#" + answerCaredForY).on "click", ->
-    $("#selfEmployedCaredForWrap").slideDown()
-    $("#selfEmployedCaredForWrap").css('display', "block")
+    if isExpenseForCaredForToBeDisplayed then $("#selfEmployedCaredForWrap").slideDown(); $("#selfEmployedCaredForWrap").css('display', "block")
+
 
   $("#" + answerCaredForN).on "click", ->
     $("#selfEmployedCaredForWrap").slideUp()

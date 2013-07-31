@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
-import models.domain.{SelfEmploymentPensionsAndExpenses, Claim}
+import models.domain.{AboutExpenses, SelfEmploymentPensionsAndExpenses, Claim}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithText
@@ -46,6 +46,16 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim {
       lookAfterCaredForMapping
     )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply)
   )
+
+  def isExpenseForChildrenToBeDisplayed (implicit claim: Claim) = {
+    val yesNoList = jobs.map(j => j.apply(AboutExpenses) match { case Some(n:AboutExpenses) => n.payAnyoneToLookAfterChildren case _ => "no"})
+    yesNoList.count(_ == "yes") > 0
+  }
+
+  def isExpenseForCaredForToBeDisplayed (implicit claim: Claim) = {
+    val yesNoList = jobs.map(j => j.apply(AboutExpenses) match { case Some(n:AboutExpenses) => n.payAnyoneToLookAfterPerson case _ => "no"})
+    yesNoList.count(_ == "yes") > 0
+  }
 
   def present = claiming {
     implicit claim => implicit request =>

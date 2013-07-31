@@ -7,6 +7,8 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
+@import controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.isExpenseForChildrenToBeDisplayed
+@import controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.isExpenseForCaredForToBeDisplayed
 
 @main("Self Employment - Pensions and Expenses", Some(currentForm), completedQuestionGroups) {
 
@@ -57,6 +59,6 @@
     $(function() {
         window.initEvents("@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_yes")","@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_no")",
                           "@CarersCrypto.encryptAES("doYouPayToLookAfterYourChildren_answer_yes")","@CarersCrypto.encryptAES("doYouPayToLookAfterYourChildren_answer_no")",
-                          "@CarersCrypto.encryptAES("didYouPayToLookAfterThePersonYouCaredFor_answer_yes")","@CarersCrypto.encryptAES("didYouPayToLookAfterThePersonYouCaredFor_answer_no")");
+                          "@CarersCrypto.encryptAES("didYouPayToLookAfterThePersonYouCaredFor_answer_yes")","@CarersCrypto.encryptAES("didYouPayToLookAfterThePersonYouCaredFor_answer_no")", @isExpenseForChildrenToBeDisplayed, @isExpenseForCaredForToBeDisplayed);
     });
 </script>
