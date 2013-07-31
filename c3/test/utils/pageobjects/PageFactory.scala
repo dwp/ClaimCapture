@@ -2,16 +2,21 @@ package utils.pageobjects
 
 import play.api.test.TestBrowser
 import scala.language.dynamics
+import scala.collection.mutable
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s3_your_partner.{G5CompletedPage => YourPartnerCompleted}
 import utils.pageobjects.s3_your_partner._
+import utils.pageobjects.s3_your_partner._
+import utils.pageobjects.s9_self_employment._
 import utils.pageobjects.s4_care_you_provide._
 import utils.pageobjects.s5_time_spent_abroad.{G4TripPage, G3AbroadForMoreThan52WeeksPage, G2AbroadForMoreThan4WeeksPage, G1NormalResidenceAndCurrentLocationPage}
 import utils.pageobjects.s5_time_spent_abroad.{G5CompletedPage => TimeSpentAbroadCompeleted}
 import utils.pageobjects.s6_pay_details.G1HowWePayYouPage
 import utils.pageobjects.s8_other_money._
 import utils.pageobjects.s9_self_employment._
+import utils.pageobjects.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocationPage
+import utils.pageobjects.s7_employment._
 
 /**
  * Factory used by Page to create from an html page the right page object.
@@ -67,6 +72,23 @@ object PageFactory {
       case TimeSpentAbroadCompeleted.title => TimeSpentAbroadCompeleted buildPageWith(browser, previousPage)
       // S6
       case G1HowWePayYouPage.title => G1HowWePayYouPage buildPageWith(browser, previousPage)
+      // S7
+      case G1BeenEmployedPage.title => G1BeenEmployedPage buildPageWith(browser,previousPage)
+      case G2JobDetailsPage.title => G2JobDetailsPage buildPageWith(browser,previousPage,iteration)
+      case G3EmployerContactDetailsPage.title => G3EmployerContactDetailsPage buildPageWith(browser,previousPage,iteration)
+      case G4LastWagePage.title => G4LastWagePage buildPageWith(browser,previousPage,iteration)
+      case G5AdditionalWageDetailsPage.title => G5AdditionalWageDetailsPage buildPageWith(browser,previousPage,iteration)
+      case G6MoneyOwedByEmployerPage.title => G6MoneyOwedByEmployerPage buildPageWith(browser,previousPage,iteration)
+      case G7PensionSchemesPage.title => G7PensionSchemesPage buildPageWith(browser,previousPage,iteration)
+      case G8AboutExpensesPage.title => G8AboutExpensesPage buildPageWith(browser,previousPage,iteration)
+      case G9NecessaryExpensesPage.title => G9NecessaryExpensesPage buildPageWith(browser,previousPage,iteration)
+      case G10ChildcareExpensesPage.title => G10ChildcareExpensesPage buildPageWith(browser,previousPage,iteration)
+      case G11ChildcareProviderPage.title => G11ChildcareProviderPage buildPageWith(browser,previousPage,iteration)
+      case G12PersonYouCareForExpensesPage.title => G12PersonYouCareForExpensesPage buildPageWith(browser,previousPage,iteration)
+      case G13CareProviderPage.title => G13CareProviderPage buildPageWith(browser,previousPage,iteration)
+      case G14JobCompletionPage.title => G14JobCompletionPage buildPageWith(browser,previousPage,iteration)
+      case G15CompletedPage.title => G15CompletedPage buildPageWith(browser,previousPage)
+
       // S8 TODO SKW these must be filled in so tests using  "must beAnInstanceOf" work correctly!!!
       case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage buildPageWith(browser, previousPage)
       case G2MoneyPaidToSomeoneElseForYouPage.title => G2MoneyPaidToSomeoneElseForYouPage buildPageWith(browser, previousPage)

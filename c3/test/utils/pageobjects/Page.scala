@@ -13,6 +13,7 @@ import org.openqa.selenium.TimeoutException
  */
 abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Int = 1) extends Object with WebSearchActions with WebFillActions {
 
+  def getUrl() = url
   /**
    * Go to the html page corresponding to the current object.
    * If the landing page is not the expected page then throws an exception, unless asked otherwise.
