@@ -5,15 +5,15 @@ import org.specs2.mutable.Tags
 import models.NationalInsuranceNumber
 
 class G3PersonWhoGetsThisMoneyFormSpec extends Specification with Tags {
-  "Person Who Gets This Money Form" should {
-    val fullName = "Donald Duck"
-    val ni1 = "AB"
-    val ni2 = 12
-    val ni3 = 34
-    val ni4 = 56
-    val ni5 = "C"
-    val nameOfBenefit = "foo"
+  val fullName = "Donald Duck"
+  val ni1 = "AB"
+  val ni2 = 12
+  val ni3 = 34
+  val ni4 = 56
+  val ni5 = "C"
+  val nameOfBenefit = "foo"
 
+  "Person Who Gets This Money Form" should {
     "map data into case class" in {
       G3PersonWhoGetsThisMoney.form.bind(
         Map(

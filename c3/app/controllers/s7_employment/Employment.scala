@@ -9,7 +9,6 @@ import play.api.data.Form
 import scala.reflect.ClassTag
 import play.api.i18n.Messages
 import play.api.mvc.Call
-import play.api.templates.Html
 
 object Employment extends Controller with CachedClaim {
   implicit def jobFormFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
@@ -21,7 +20,7 @@ object Employment extends Controller with CachedClaim {
     }
   }
 
-  def whenSectionVisible(f: => SimpleResult[Html])(implicit claim: Claim) = {
+  def whenSectionVisible(f: => Result)(implicit claim: Claim) = {
     if (claim.isSectionVisible(models.domain.Employed)) f
     else Redirect(controllers.s9_self_employment.routes.G1AboutSelfEmployment.present())
   }

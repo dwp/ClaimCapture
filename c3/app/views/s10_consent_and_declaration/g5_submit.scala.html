@@ -14,8 +14,8 @@
     @form(action = controllers.s10_consent_and_declaration.routes.G5Submit.submit) {
 
         @if(claim.questionGroup(Employment).isDefined &&
-        (claim.questionGroup(Employment).get.asInstanceOf[Employment].beenEmployedSince6MonthsBeforeClaim == "yes"||
-        claim.questionGroup(Employment).get.asInstanceOf[Employment].beenSelfEmployedSince1WeekBeforeClaim == "yes")) {
+            (claim.questionGroup(Employment).get.asInstanceOf[Employment].beenEmployedSince6MonthsBeforeClaim == "yes"||
+            claim.questionGroup(Employment).get.asInstanceOf[Employment].beenSelfEmployedSince1WeekBeforeClaim == "yes")) {
             <div class="send-info">
 
                 <article>

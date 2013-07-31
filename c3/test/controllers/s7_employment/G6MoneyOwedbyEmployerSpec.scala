@@ -7,15 +7,33 @@ import models.domain._
 import play.api.cache.Cache
 import models.domain.Claim
 
-class G3EmployerContactDetailsSpec extends Specification with Tags {
-  "Employer's contact details" should {
+class G6MoneyOwedbyEmployerSpec extends Specification with Tags {
+  val jobID = "Dummy job ID"
+
+  "Money owed by employer" should {
     "present" in new WithApplication with Claiming {
+      val additionalWageDetails = mock[AdditionalWageDetails]
+      additionalWageDetails.identifier returns AdditionalWageDetails
+      additionalWageDetails.jobID returns jobID
+      additionalWageDetails.employeeOwesYouMoney returns "yes"
+
+      val job = mock[Job]
+      job.questionGroups returns additionalWageDetails :: Nil
+
+      val jobs = mock[Jobs]
+      jobs.identifier returns Jobs
+      jobs.jobs returns job :: Nil
+      jobs.questionGroup(jobID, AdditionalWageDetails) returns Some(additionalWageDetails)
+
+      val claim = Claim().update(jobs)
+      Cache.set(claimKey, claim)
+
       val request = FakeRequest().withSession("connected" -> claimKey)
-      val result = G3EmployerContactDetails.present("Dummy job ID")(request)
+      val result = G6MoneyOwedbyEmployer.present(jobID)(request)
       status(result) mustEqual OK
     }
 
-    """require only "job ID".""" in new WithApplication with Claiming {
+    /*"""require only "job ID".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1")
 
@@ -41,9 +59,11 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
         case Some(js: Jobs) => {
           js.size shouldEqual 1
 
-          js.find(_.jobID == "1") must beLike { case Some(j: Job) => j.questionGroups.size shouldEqual 2 }
+          js.find(_.jobID == "1") must beLike {
+            case Some(j: Job) => j.questionGroups.size shouldEqual 2
+          }
         }
       }
-    }
+    }*/
   } section "unit"
 }

@@ -24,9 +24,11 @@ object G2JobDetails extends Controller with CachedClaim {
     )(JobDetails.apply)(JobDetails.unapply))
 
   def job(jobID: String) = claiming { implicit claim => implicit request =>
-    claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].apply(jobID).isDefined match {
-      case true => whenSectionVisible(Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID))))
-      case _ => Redirect(routes.G1BeenEmployed.present())
+    claim.questionGroup(Jobs) match {
+      case Some(js: Jobs) if js.job(jobID).isDefined =>
+        whenSectionVisible(Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID))))
+      case _ =>
+        Redirect(routes.G1BeenEmployed.present())
     }
   }
 

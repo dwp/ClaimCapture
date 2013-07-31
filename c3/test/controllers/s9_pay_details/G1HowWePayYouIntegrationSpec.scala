@@ -3,6 +3,8 @@ package controllers.s9_pay_details
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.Duration
 
 class G1HowWePayYouIntegrationSpec extends Specification with Tags {
   "How we pay you" should {
@@ -14,9 +16,9 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About You")(Duration(10, TimeUnit.MINUTES))
       browser.goTo("/payDetails/howWePayYou")
-      titleMustEqual("Additional Information - Consent And Declaration")
+      titleMustEqual("Additional Information - Consent And Declaration")(Duration(10, TimeUnit.MINUTES))
     }
 
     "contain errors on invalid submission" in new WithBrowser {
