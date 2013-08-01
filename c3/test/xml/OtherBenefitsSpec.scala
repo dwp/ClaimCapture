@@ -1,4 +1,4 @@
-package services.submission
+package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
@@ -8,7 +8,7 @@ import models.MultiLineAddress
 import controllers.Mappings.yes
 import controllers.Mappings.no
 
-class OtherMoneySubmissionSpec extends Specification with Tags {
+class OtherBenefitsSpec extends Specification with Tags {
 
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
 
@@ -34,7 +34,7 @@ class OtherMoneySubmissionSpec extends Specification with Tags {
     "generate xml when section is filled" in {
       val otherMoneySection = Section(OtherMoney, moneyPaidToSomeoneElse :: personWhoGetsThisMoney :: contactDetails :: statutorySickPay :: otherStatutoryPay :: Nil)
 
-      val otherMoneyXml = OtherMoneySubmission.xml(otherMoneySection)
+      val otherMoneyXml = OtherBenefits.xml(otherMoneySection)
 
       val extraMoneyXml = otherMoneyXml \\ "ExtraMoney"
       extraMoneyXml.text shouldEqual yes
@@ -69,7 +69,7 @@ class OtherMoneySubmissionSpec extends Specification with Tags {
     "generate xml when section is empty" in {
       val otherMoneySection = Section(OtherMoney, Nil)
 
-      val otherMoneyXml = OtherMoneySubmission.xml(otherMoneySection)
+      val otherMoneyXml = OtherBenefits.xml(otherMoneySection)
 
       val extraMoneyXml = otherMoneyXml \\ "ExtraMoney"
       extraMoneyXml.text shouldEqual no

@@ -1,4 +1,4 @@
-package services.submission
+package xml
 
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 import models.domain.{Section, QuestionGroup}
