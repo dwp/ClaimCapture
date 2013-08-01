@@ -40,8 +40,6 @@ class TimeSpentAbroadSubmissionSpec extends Specification with Tags {
         .update(normalResidence).update(trips)
 
       val xml = TimeSpentAbroadSubmission.xml(claim)
-
-      println("XML" + xml)
     }
 
     "generate xml when data is missing" in {

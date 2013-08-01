@@ -22,7 +22,12 @@ case class YourDetails(call: Call = NoRouting,
                        nationality: String = "",
                        dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
                        maritalStatus: String = "",
-                       alwaysLivedUK: String = "") extends QuestionGroup(YourDetails)
+                       alwaysLivedUK: String = "") extends QuestionGroup(YourDetails) {
+  def otherNames = firstName + (middleName match {
+    case Some(m: String) => s" $m"
+    case _ => ""
+  })
+}
 
 object YourDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g1"

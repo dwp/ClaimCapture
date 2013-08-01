@@ -20,12 +20,12 @@ object G3EmployerContactDetails extends Controller with CachedClaim {
     )(EmployerContactDetails.apply)(EmployerContactDetails.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s7_employment.g3_employerContactDetails(form.fillWithJobID(EmployerContactDetails, jobID), completedQuestionGroups(EmployerContactDetails, jobID))))
+    dispatch(Ok(views.html.s7_employment.g3_employerContactDetails(form.fillWithJobID(EmployerContactDetails, jobID), completedQuestionGroups(EmployerContactDetails, jobID))))
   }
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => whenSectionVisible(BadRequest(views.html.s7_employment.g3_employerContactDetails(formWithErrors, completedQuestionGroups(EmployerContactDetails, jobID)))),
+      formWithErrors => dispatch(BadRequest(views.html.s7_employment.g3_employerContactDetails(formWithErrors, completedQuestionGroups(EmployerContactDetails, jobID)))),
       employerContactDetails => claim.update(jobs.update(employerContactDetails)) -> Redirect(routes.G4LastWage.present(jobID)))
   }
 }

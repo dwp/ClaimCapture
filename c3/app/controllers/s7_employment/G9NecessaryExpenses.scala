@@ -22,7 +22,7 @@ object G9NecessaryExpenses extends Controller with CachedClaim {
   def present(jobID: String) = claiming { implicit claim => implicit request =>
     jobs.questionGroup(jobID, AboutExpenses) match {
       case Some(a: AboutExpenses) if a.payForAnythingNecessary == `yes`=>
-        whenSectionVisible(Ok(views.html.s7_employment.g9_necessaryExpenses(form.fillWithJobID(NecessaryExpenses, jobID), completedQuestionGroups(NecessaryExpenses, jobID))))
+        dispatch(Ok(views.html.s7_employment.g9_necessaryExpenses(form.fillWithJobID(NecessaryExpenses, jobID), completedQuestionGroups(NecessaryExpenses, jobID))))
       case _ =>
         claim.update(jobs.delete(jobID, NecessaryExpenses)) -> Redirect(routes.G10ChildcareExpenses.present(jobID))
     }
@@ -30,7 +30,7 @@ object G9NecessaryExpenses extends Controller with CachedClaim {
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => whenSectionVisible(BadRequest(views.html.s7_employment.g9_necessaryExpenses(formWithErrors, completedQuestionGroups(NecessaryExpenses, jobID)))),
+      formWithErrors => dispatch(BadRequest(views.html.s7_employment.g9_necessaryExpenses(formWithErrors, completedQuestionGroups(NecessaryExpenses, jobID)))),
       necessaryExpenses => claim.update(jobs.update(necessaryExpenses)) -> Redirect(routes.G10ChildcareExpenses.present(jobID)))
   }
 }

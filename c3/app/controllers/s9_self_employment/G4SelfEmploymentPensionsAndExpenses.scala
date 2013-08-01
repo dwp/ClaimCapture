@@ -63,7 +63,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim {
 
   def present = claiming {
     implicit claim => implicit request =>
-      whenSectionVisible(Ok(views.html.s9_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses), completedQuestionGroups)))
+      dispatch(Ok(views.html.s9_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses), completedQuestionGroups)))
   }
 
   def submit = claiming {
