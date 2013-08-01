@@ -19,12 +19,12 @@ object G8AboutExpenses extends Controller with CachedClaim {
     )(AboutExpenses.apply)(AboutExpenses.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s7_employment.g8_aboutExpenses(form.fillWithJobID(AboutExpenses, jobID), completedQuestionGroups(AboutExpenses, jobID))))
+    dispatch(Ok(views.html.s7_employment.g8_aboutExpenses(form.fillWithJobID(AboutExpenses, jobID), completedQuestionGroups(AboutExpenses, jobID))))
   }
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => whenSectionVisible(BadRequest(views.html.s7_employment.g8_aboutExpenses(formWithErrors, completedQuestionGroups(AboutExpenses, jobID)))),
+      formWithErrors => dispatch(BadRequest(views.html.s7_employment.g8_aboutExpenses(formWithErrors, completedQuestionGroups(AboutExpenses, jobID)))),
       aboutExpenses => claim.update(jobs.update(aboutExpenses)) -> Redirect(routes.G9NecessaryExpenses.present(jobID)))
   }
 }

@@ -69,16 +69,22 @@ trait WebFillActions {
     for (option <- allOptions; if option.getText == value) option.click()
   }
 
-  def fillWhereabouts(elementCssSelector: String, value: String) = if (null != value) {
-    val select = browser.find(elementCssSelector+"_location", 0).getElement
+  def fillSelectWithOther(elementCssSelector: String,subSelect:String,other:String, value: String) = if (null != value) {
+    val select = browser.find(elementCssSelector+"_"+subSelect, 0).getElement
     val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
     allOptions.find( wo => wo.getText == value) match {
       case Some(we) =>  we.click
       case _ => {
-        allOptions.find(_.getText == "Other").get.click
+        allOptions.find(_.getText == other).get.click
         browser.fill(elementCssSelector+"_other") `with` value
       }
     }
+  }
+  def fillPaymentFrequency(elementCssSelector: String, value: String) = if (null != value) {
+    fillSelectWithOther(elementCssSelector,"frequency","other",value)
+  }
+  def fillWhereabouts(elementCssSelector: String, value: String) = if (null != value) {
+    fillSelectWithOther(elementCssSelector,"location","Other",value)
   }
 
   def fillTime(elementCssSelector: String, value: String) = if (null != value) {

@@ -8,8 +8,9 @@ object TimeSpentAbroad extends Section.Identifier {
   val id = "s5"
 }
 
-case class NormalResidenceAndCurrentLocation(call: Call,
-                                             whereDoYouLive: YesNoWithText, inGBNow: String) extends QuestionGroup(NormalResidenceAndCurrentLocation)
+case class NormalResidenceAndCurrentLocation(call: Call = NoRouting,
+                                             whereDoYouLive: YesNoWithText,
+                                             inGBNow: String) extends QuestionGroup(NormalResidenceAndCurrentLocation)
 
 object NormalResidenceAndCurrentLocation extends QuestionGroup.Identifier {
   val id = s"${TimeSpentAbroad.id}.g1"

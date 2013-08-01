@@ -8,14 +8,26 @@ case class AboutYou(yourDetails: YourDetails,
                     timeOutsideUK : Option[TimeOutsideUK],
                     claimDate : ClaimDate)
 
-case object AboutYou extends Section.Identifier {
+object AboutYou extends Section.Identifier {
   val id = "s2"
 }
 
-case class YourDetails(call: Call,
-                       title: String, firstName: String, middleName: Option[String], surname: String,
-                       otherSurnames: Option[String], nationalInsuranceNumber: Option[NationalInsuranceNumber], nationality: String,
-                       dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends QuestionGroup(YourDetails)
+case class YourDetails(call: Call = NoRouting,
+                       title: String = "",
+                       firstName: String = "",
+                       middleName: Option[String] = None,
+                       surname: String = "",
+                       otherSurnames: Option[String] = None,
+                       nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
+                       nationality: String = "",
+                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                       maritalStatus: String = "",
+                       alwaysLivedUK: String = "") extends QuestionGroup(YourDetails) {
+  def otherNames = firstName + (middleName match {
+    case Some(m: String) => s" $m"
+    case _ => ""
+  })
+}
 
 object YourDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g1"

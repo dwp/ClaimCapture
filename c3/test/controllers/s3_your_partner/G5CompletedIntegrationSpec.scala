@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.Duration
-import utils.pageobjects.s3_your_partner.G5CompletedPageContext
+import utils.pageobjects.s3_your_partner.G5YourPartnerCompletedPageContext
 
 class G5CompletedIntegrationSpec extends Specification with Tags {
 

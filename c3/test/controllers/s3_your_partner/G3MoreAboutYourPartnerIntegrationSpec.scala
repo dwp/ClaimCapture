@@ -32,22 +32,22 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags {
     "navigate back to Your Partner Personal Details" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerPersonalDetails(browser)
       Formulate.yourPartnerContactDetails(browser)
-      titleMustEqual("More About Your Partner - Your Partner")(Duration(60, TimeUnit.SECONDS))
+      titleMustEqual("More About Your Partner - Your Partner")(Duration(10, TimeUnit.MINUTES))
       browser.click("#backButton")
-      titleMustEqual("Contact Details - Your Partner")(Duration(60, TimeUnit.SECONDS))
+      titleMustEqual("Contact Details - Your Partner")(Duration(10, TimeUnit.MINUTES))
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerPersonalDetails(browser)
       Formulate.yourPartnerContactDetails(browser)
       Formulate.moreAboutYourPartnerSeparated(browser)
-      titleMustEqual("Person You Care For - Your Partner")
+      titleMustEqual("Person You Care For - Your Partner")(Duration(10, TimeUnit.MINUTES))
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerPersonalDetails(browser)
       Formulate.yourPartnerContactDetails(browser)
-      titleMustEqual("More About Your Partner - Your Partner")
+      titleMustEqual("More About Your Partner - Your Partner")(Duration(10, TimeUnit.MINUTES))
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
   } section "integration"

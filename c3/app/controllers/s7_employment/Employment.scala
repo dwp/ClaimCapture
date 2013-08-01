@@ -20,7 +20,7 @@ object Employment extends Controller with CachedClaim {
     }
   }
 
-  def whenSectionVisible(f: => Result)(implicit claim: Claim) = {
+  def dispatch(f: => Result)(implicit claim: Claim) = {
     if (claim.isSectionVisible(models.domain.Employed)) f
     else Redirect(controllers.s9_self_employment.routes.G1AboutSelfEmployment.present())
   }

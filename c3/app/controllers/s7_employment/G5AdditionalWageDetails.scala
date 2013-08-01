@@ -25,12 +25,12 @@ object G5AdditionalWageDetails extends Controller with CachedClaim {
     .verifying("otherMoney", AdditionalWageDetails.validateOtherMoney _))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s7_employment.g5_additionalWageDetails(form.fillWithJobID(AdditionalWageDetails, jobID), completedQuestionGroups(AdditionalWageDetails, jobID))))
+    dispatch(Ok(views.html.s7_employment.g5_additionalWageDetails(form.fillWithJobID(AdditionalWageDetails, jobID), completedQuestionGroups(AdditionalWageDetails, jobID))))
   }
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => whenSectionVisible(BadRequest(views.html.s7_employment.g5_additionalWageDetails(formWithErrors, completedQuestionGroups(AdditionalWageDetails, jobID)))),
+      formWithErrors => dispatch(BadRequest(views.html.s7_employment.g5_additionalWageDetails(formWithErrors, completedQuestionGroups(AdditionalWageDetails, jobID)))),
       wageDetails => claim.update(jobs.update(wageDetails)) -> Redirect(routes.G6MoneyOwedbyEmployer.present(jobID)))
   }
 }

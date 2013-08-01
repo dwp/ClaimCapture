@@ -4,8 +4,9 @@
 @import models.domain.Education
 
 @common.govMain(title) {
-    <div id="wrapper" class="carers-allowance">
-        <main role="main" id="content">
+    <main role="main" id="content">
+	
+   	 <div class="carers-allowance">
 
             @progressBar(Education)
 
@@ -33,6 +34,6 @@
 
                 @content
             </section>
-        </main>
-    </div>
+        </div>
+    </main>
 }

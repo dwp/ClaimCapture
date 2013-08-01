@@ -16,12 +16,16 @@ class EducationIntegrationSpec extends Specification with Tags {
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
+      titleMustEqual("Completion - Education")
+
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
     
     "back goes to 'Address Of School College Or University'" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
+      titleMustEqual("Completion - Education")
+
       browser.click("#backButton")
       titleMustEqual("Address Of School College Or University - Education")
     }

@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import controllers.BrowserMatchers
 import controllers.Formulate
 
-class TimeSpentAbroadIntegrationSpec extends Specification with Tags {
+class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
   "Time spent abroad" should {
     """present "completion" and proceed to 'Education'.""" in new WithBrowser with BrowserMatchers {
       Formulate.normalResidenceAndCurrentLocation(browser)
@@ -33,7 +33,7 @@ class TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
       titleMustEqual("Completion - Education")
 
-      browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
+      browser.find("button[type='submit']").getText shouldEqual "Continue to Employment"
     }
   } section "integration"
 }

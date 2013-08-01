@@ -1,7 +1,13 @@
 /* == sass globals == */
+#wrapper {
+  background: #fff;
+  border-bottom: 10px solid #f47738; }
+
 .carers-allowance {
   background: #fff;
-  border-bottom: 10px solid #f47738;
+  padding: 0 1em 2em 1em;
+  margin: 0 auto;
+  max-width: 980px;
   /* progress steps */
   /* section */
   /* section end */
@@ -16,49 +22,42 @@
   /* button panel */
   /* button styling */
   /* button styling end */ }
+  @media screen and (max-width: 500px) {
+    .carers-allowance {
+      padding-left: .75em;
+      padding-right: .75em; } }
   @media screen and (max-width: 640px) {
     .carers-allowance {
       border-top: 10px solid #f47738; } }
-  .ie6 .carers-allowance {
-    padding: 0 1em 2em 1em; }
-  .carers-allowance main {
-    padding: 0 1em 2em 1em;
-    margin: 0 auto;
-    max-width: 980px;
-    display: block; }
-    @media screen and (max-width: 500px) {
-      .carers-allowance main {
-        padding-left: .75em;
-        padding-right: .75em; } }
-    .carers-allowance main .prototype {
-      background: #f47738;
-      overflow: hidden;
-      zoom: 1;
-      padding: 0.7em 1em 0 1em; }
-      @media screen and (max-width: 640px) {
-        .carers-allowance main .prototype {
-          padding-bottom: .7em;
-          margin-top: .9em; } }
-      .carers-allowance main .prototype p {
-        margin: 0;
-        padding: 0;
-        line-height: 1.2em;
-        color: #fff;
-        font-weight: 600;
+  .carers-allowance .prototype {
+    background: #f47738;
+    overflow: hidden;
+    zoom: 1;
+    padding: 0.7em 1em 0 1em; }
+    @media screen and (max-width: 640px) {
+      .carers-allowance .prototype {
+        padding-bottom: .7em;
+        margin-top: .9em; } }
+    .carers-allowance .prototype p {
+      margin: 0;
+      padding: 0;
+      line-height: 1.2em;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.5rem; }
+      .ie .carers-allowance .prototype p {
+        font-size: 15px; }
+      .ie7 .carers-allowance .prototype p {
+        font-size: 13px; }
+      .carers-allowance .prototype p strong {
         font-size: 1.5rem; }
-        .ie .carers-allowance main .prototype p {
+        .ie .carers-allowance .prototype p strong {
           font-size: 15px; }
-        .ie7 .carers-allowance main .prototype p {
-          font-size: 13px; }
-        .carers-allowance main .prototype p strong {
-          font-size: 1.5rem; }
-          .ie .carers-allowance main .prototype p strong {
-            font-size: 15px; }
-        .carers-allowance main .prototype p a {
-          color: #fff;
-          margin-left: .25em; }
-          .carers-allowance main .prototype p a:hover {
-            color: #000; }
+      .carers-allowance .prototype p a {
+        color: #fff;
+        margin-left: .25em; }
+        .carers-allowance .prototype p a:hover {
+          color: #000; }
   .carers-allowance .progress-steps {
     border-top: 10px solid #f47738;
     clear: both; }
@@ -77,8 +76,6 @@
         padding-bottom: 0;
         background: url("images/nav-line.png") 0 56px repeat-x;
         margin-bottom: -12px;
-        zoom: 1; }
-      .ie6 .carers-allowance .progress-steps ol {
         zoom: 1; }
       @media screen and (max-width: 760px) {
         .carers-allowance .progress-steps ol {
@@ -543,25 +540,6 @@
               width: 11.8rem; }
               .ie .carers-allowance .form-elements ul li.short-field input[type="text"], .ie .carers-allowance .form-elements ul li.short-field input[type="tel"] {
                 width: 118px; } }
-        .carers-allowance .form-elements ul li.currency {
-          position: relative; }
-          .carers-allowance .form-elements ul li.currency input[type="text"], .carers-allowance .form-elements ul li.currency input[type="tel"] {
-            width: 11rem;
-            padding-left: 1em; }
-            .ie .carers-allowance .form-elements ul li.currency input[type="text"], .ie .carers-allowance .form-elements ul li.currency input[type="tel"] {
-              width: 120px; }
-            .ie7 .carers-allowance .form-elements ul li.currency input[type="text"], .ie7 .carers-allowance .form-elements ul li.currency input[type="tel"] {
-              padding-left: .4em; }
-            @media screen and (max-width: 500px) {
-              .carers-allowance .form-elements ul li.currency input[type="text"], .carers-allowance .form-elements ul li.currency input[type="tel"] {
-                width: 10.8rem; }
-                .ie .carers-allowance .form-elements ul li.currency input[type="text"], .ie .carers-allowance .form-elements ul li.currency input[type="tel"] {
-                  width: 108px; } }
-          .carers-allowance .form-elements ul li.currency:after {
-            position: absolute;
-            bottom: 17px;
-            left: 6px;
-            content: "\00a3"; }
         .carers-allowance .form-elements ul li .helper {
           font-size: 1.6rem;
           margin-top: .4em;
@@ -579,19 +557,16 @@
           font-weight: 500;
           overflow: hidden;
           line-height: 1em;
-          padding: .24em .7em .6em 1.65em;
-          width: 120px;
-          position: relative;
-          background: url("../img/toggle.png") 0 0 no-repeat; }
+          padding: .35em .7em;
+          border-left: 3px solid #006435;
+          width: 120px; }
           .ie .carers-allowance .form-elements ul li .helper-more {
             font-size: 16px; }
-        .carers-allowance .form-elements ul li .helper-less {
-          background: url("../img/toggle.png") 0 -42px no-repeat; }
         .carers-allowance .form-elements ul li .helper-info {
           display: none;
-          padding: 1em 1.6em;
-          background: #f9f9f9;
-          border-left: 3px solid #000; }
+          padding: .7em;
+          background: #d5ecea;
+          border-left: 3px solid #006435; }
           .carers-allowance .form-elements ul li .helper-info p {
             font-size: 1.6rem; }
             .ie .carers-allowance .form-elements ul li .helper-info p {
