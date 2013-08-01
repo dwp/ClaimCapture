@@ -17,7 +17,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    """require all mandatory data.""" in new WithApplication with Claiming {
+    "require all mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID)
 
@@ -25,7 +25,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
-    """accept all mandatory data.""" in new WithApplication with Claiming {
+    "accept all mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID, "payOccupationalPensionScheme" -> "blah", "payPersonalPensionScheme" -> "blah")
 
@@ -33,7 +33,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
       status(result) mustEqual SEE_OTHER
     }
 
-    """be added to a (current) job""" in new WithApplication with Claiming {
+    "be added to a (current) job" in new WithApplication with Claiming {
       G2JobDetails.submit(FakeRequest().withSession("connected" -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> jobID,
