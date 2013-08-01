@@ -23,8 +23,8 @@ object EducationSubmission {
 
     def xml(courseDetails:YourCourseDetails) = {
       <CourseDetails>
-        <Type>{stringify(courseDetails.courseType)}</Type>
-        <Title>{stringify(courseDetails.title)}</Title>
+        <Type>{courseDetails.courseType.orNull}</Type>
+        <Title>{courseDetails.title.orNull}</Title>
         <HoursSpent></HoursSpent>
         <DateStarted>{stringify(courseDetails.startDate)}</DateStarted>
         <DateStopped>{stringify(courseDetails.finishedDate)}</DateStopped>
@@ -42,12 +42,12 @@ object EducationSubmission {
 
     def xml(schoolData:AddressOfSchoolCollegeOrUniversity, detailsOption:Option[YourCourseDetails]) = {
       <LocationDetails>
-        <Name>{stringify(schoolData.nameOfSchoolCollegeOrUniversity)}</Name>
+        <Name>{schoolData.nameOfSchoolCollegeOrUniversity.orNull}</Name>
         <Address>{postalAddressStructure(schoolData.address, schoolData.postcode)}</Address>
-        <PhoneNumber>{stringify(schoolData.phoneNumber)}</PhoneNumber>
-        <FaxNumber>{stringify(schoolData.faxNumber)}</FaxNumber>
-        <StudentReferenceNumber>{if(detailsOption.isDefined) XMLHelper.stringify(detailsOption.get.studentReferenceNumber)}</StudentReferenceNumber>
-        <Tutor>{stringify(schoolData.nameOfMainTeacherOrTutor)}</Tutor>
+        <PhoneNumber>{schoolData.phoneNumber.orNull}</PhoneNumber>
+        <FaxNumber>{schoolData.faxNumber.orNull}</FaxNumber>
+        <StudentReferenceNumber>{if(detailsOption.isDefined) detailsOption.get.studentReferenceNumber.orNull}</StudentReferenceNumber>
+        <Tutor>{schoolData.nameOfMainTeacherOrTutor.orNull}</Tutor>
       </LocationDetails>
     }
 

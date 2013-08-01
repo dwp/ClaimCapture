@@ -8,24 +8,19 @@ object XMLHelper {
   def stringify(value: Option[_]):String = {
     value match {
       case Some(s:String) => s
-      case Some(dmy:DayMonthYear) => dmy.toXmlString
+      case Some(dmy:DayMonthYear) => dmy.`yyyy-MM-dd`
       case Some(nr:NationalInsuranceNumber) => nr.toXmlString
       case _ => ""
     }
   }
 
-  def stringifyRequired(value:Option[_]):String = {
-   val stringValue = stringify(value)
-   if(stringValue == "") "empty" else stringValue
-  }
-
   def postalAddressStructure(addressOption:Option[MultiLineAddress], postcodeOption:Option[String]) = {
 
     def xml(address:MultiLineAddress) = {
-      <gds:Line>{stringify(address.lineOne) }</gds:Line>
-      <gds:Line>{stringify(address.lineTwo)}</gds:Line>
-      <gds:Line>{stringify(address.lineThree)}</gds:Line>
-      <gds:PostCode>{stringify(postcodeOption)}</gds:PostCode>
+      <gds:Line>{address.lineOne.orNull}</gds:Line>
+      <gds:Line>{address.lineTwo.orNull}</gds:Line>
+      <gds:Line>{address.lineThree.orNull}</gds:Line>
+      <gds:PostCode>{postcodeOption.getOrElse("")}</gds:PostCode>
     }
 
     addressOption match {
