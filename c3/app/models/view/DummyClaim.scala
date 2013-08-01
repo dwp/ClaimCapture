@@ -17,11 +17,7 @@ import models.domain.Break
 object DummyClaim {
 
   def updateClaim(claim: Claim) = {
-    claim.update(aboutYou.yourDetails)
-      .update(aboutYou.claimDate)
-      .update(aboutYou.contactDetails)
-
-      .update(yourPartner.yourPartnerPersonalDetails)
+    claim.update(yourPartner.yourPartnerPersonalDetails)
       .update(yourPartner.yourPartnerContactDetails)
       .update(yourPartner.moreAboutYourPartner)
       .update(yourPartner.personYouCareFor.get)
