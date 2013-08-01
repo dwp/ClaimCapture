@@ -19,16 +19,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
       {AboutYouSubmission.buildClaimant(aboutYou)}
       {CareYouProvideSubmission.buildCaree(careYouProvide)}
       <ClaimADI>no</ClaimADI>
-      <Residency>
-        <Nationality>British</Nationality>
-        <EUEEASwissNational>yes</EUEEASwissNational>
-        <CountryNormallyLive>Great Britain</CountryNormallyLive>
-        <CountryNormallyLiveOther/>
-        <InGreatBritainNow>yes</InGreatBritainNow>
-        <InGreatBritain26Weeks>yes</InGreatBritain26Weeks>
-        <BritishOverseasPassport>no</BritishOverseasPassport>
-        <OutOfGreatBritain>no</OutOfGreatBritain>
-      </Residency>
+      {TimeSpentAbroadSubmission.xml(claim)}
       <CourseOfEducation>yes</CourseOfEducation>
       {EducationSubmission.xml(claim.section(Education))}
       <SelfEmployed>no</SelfEmployed>
@@ -149,8 +140,8 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
         <TextLine>Do you get state Pension? = No                                                                                                       </TextLine>
         <TextLine>================ =============== About Your Partner ==================================                                               </TextLine>
         <TextLine>Middle name = John                                                                                                                   </TextLine>
-        <TextLine>Does your partner or spouse live at the same address as you? = Yes                                                                      </TextLine>
-        <TextLine>Is your partner or spouse the person you are claiming Carer's Allowance for? = Yes                                                      </TextLine>
+        <TextLine>Does your partner or spouse live at the same address as you? = Yes                                                                   </TextLine>
+        <TextLine>Is your partner or spouse the person you are claiming Carer's Allowance for? = Yes                                                   </TextLine>
         <TextLine>================ ============== About Care You Provide ==============================                                                </TextLine>
         <TextLine>Do they live at the same address as you? = No                                                                                        </TextLine>
         <TextLine>Does this person get Armed Forces Independence Payment? = No                                                                         </TextLine>
