@@ -1,1 +1,8 @@
-column 1, column2,column3,AboutYouHaveYouSubletYourHome,path1,,column 1, column2,colum3,AboutYouWhatIsYourVisaReferenceNumber,path2column 1, column2, column3,AboutYouAddress,path3"column 1, with comma ",column2,column3,AboutYouAllOtherSurnamesorFamilyNames,path4column 1,column2,column3,AboutYouAreYouCurrentlyLivingintheUk,column 1,column2,column3,AboutYouDateofBirth,path5Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork,PayStructure>WeeklyHoursWorkedEmployment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou,CareExpensesStructure>RelationshipCarerToClaimant
+column 1, column2,column3,AboutYouHaveYouSubletYourHome,path1,,
+column 1, column2,colum3,AboutYouWhatIsYourVisaReferenceNumber,path2
+column 1, column2, column3,AboutYouAddress,path3
+"column 1, with comma ",column2,column3,AboutYouAllOtherSurnamesorFamilyNames,path4
+column 1,column2,column3,AboutYouAreYouCurrentlyLivingintheUk,
+column 1,column2,column3,AboutYouDateofBirth,path5
+Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork,PayStructure>WeeklyHoursWorked
+Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou,CareExpensesStructure>RelationshipCarerToClaimant
