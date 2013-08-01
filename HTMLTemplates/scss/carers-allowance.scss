@@ -2,19 +2,19 @@
 $button-green: #006435;
 $button-green-hover: #004b27;
 
+#wrapper {
+	background: #fff;
+	border-bottom: 10px solid #f47738;
+}
+
 .carers-allowance {
    background: #fff;
-   border-bottom: 10px solid #f47738;
+   padding: 0 1em 2em 1em;
+   margin: 0 auto;
+   max-width: 980px;
+   @media screen and (max-width: 500px) {padding-left: .75em; padding-right: .75em;}
    @media screen and (max-width: 640px) {border-top: 10px solid #f47738;}
-   .ie6 & {
-	   padding: 0 1em 2em 1em;
-   }
-   main {
-	   padding: 0 1em 2em 1em;
-	   margin: 0 auto;
-	   max-width: 980px;
-	   display: block;
-	   @media screen and (max-width: 500px) {padding-left: .75em; padding-right: .75em;}
+
 	   .prototype {
 		   background: #f47738;
 		   overflow: hidden;
@@ -49,7 +49,7 @@ $button-green-hover: #004b27;
 			   }
 		   }
 	   }
-   }
+ 
    
    
    
@@ -68,9 +68,6 @@ $button-green-hover: #004b27;
 			   padding-bottom: 0;
 			   background: url('images/nav-line.png') 0 56px repeat-x;
 			   margin-bottom: -12px;
-			   zoom: 1;
-		   }
-		   .ie6 & {
 			   zoom: 1;
 		   }
 		   @media screen and (max-width: 760px) {
@@ -616,33 +613,6 @@ $button-green-hover: #004b27;
 					   }
 				   }
 			   }
-			   
-			   &.currency {
-				   position: relative;
-				   input[type="text"], input[type="tel"] {
-					   width: 11rem;
-					   padding-left: 1em;
-					   .ie & {
-						   width: 120px;
-					   }
-					   .ie7 & {
-						   padding-left: .4em;
-					   }
-					   @media screen and (max-width: 500px) {
-						   width: 10.8rem;
-						   .ie & {
-							   width: 108px;
-						   }
-					   }
-				   }
-				   &:after {
-						   position: absolute;
-						   bottom: 17px;
-						   left: 6px;
-						   content: "\00a3";
-					   }
-			   }
-			   
 			   .helper {
 				   font-size: 1.6rem;
 				   margin-top: .4em;
@@ -663,23 +633,19 @@ $button-green-hover: #004b27;
 				   font-weight: 500;
 				   overflow: hidden;
 				   line-height: 1em;
-				   padding: .24em .7em .6em 1.65em;
+				   padding: .35em .7em;
+				   border-left: 3px solid #006435;
 				   width: 120px;
-				   position: relative;
-				   background: url('../img/toggle.png') 0 0 no-repeat;
 				   .ie & {
 					   font-size: 16px;
 				   }
 			   }
-			   .helper-less {
-			   	   background: url('../img/toggle.png') 0 -42px no-repeat;
-			   }
 
 				.helper-info {
 					display: none;
-					padding: 1em 1.6em;
-					background: #f9f9f9;
-					border-left: 3px solid #000;
+					padding: .7em;
+					background: #d5ecea;
+					border-left: 3px solid #006435;
 					p {
 						font-size: 1.6rem;
 						.ie & {
