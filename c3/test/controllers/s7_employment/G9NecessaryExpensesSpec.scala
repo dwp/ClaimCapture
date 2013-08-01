@@ -5,15 +5,31 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
-import models.domain.Claim
+import scala.Some
 
-class G8AboutExpensesSpec extends Specification with Tags {
+class G9NecessaryExpensesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
 
-  "About expenses" should {
+  "Necessary expenses" should {
     "present" in new WithApplication with Claiming {
+      val aboutExpenses = mock[AboutExpenses]
+      aboutExpenses.identifier returns AboutExpenses
+      aboutExpenses.jobID returns jobID
+      aboutExpenses.payForAnythingNecessary returns "yes"
+
+      val job = mock[Job]
+      job.questionGroups returns aboutExpenses :: Nil
+
+      val jobs = mock[Jobs]
+      jobs.identifier returns Jobs
+      jobs.jobs returns job :: Nil
+      jobs.questionGroup(jobID, AboutExpenses) returns Some(aboutExpenses)
+
+      val claim = Claim().update(jobs)
+      Cache.set(claimKey, claim)
+
       val request = FakeRequest().withSession("connected" -> claimKey)
-      val result = G8AboutExpenses.present(jobID)(request)
+      val result = G9NecessaryExpenses.present(jobID)(request)
       status(result) mustEqual OK
     }
 
@@ -21,15 +37,15 @@ class G8AboutExpensesSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID)
 
-      val result = G8AboutExpenses.submit(request)
+      val result = G9NecessaryExpenses.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
-    "accept all mandatory data" in new WithApplication with Claiming {
+    "accept all mandatory data." in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "payForAnythingNecessary" -> "blah", "payAnyoneToLookAfterChildren" -> "blah", "payAnyoneToLookAfterPerson" -> "blah")
+        "whatAreThose" -> "blah", "howMuchCostEachWeek" -> "blah", "whyDoYouNeedThose" -> "blah")
 
-      val result = G8AboutExpenses.submit(request)
+      val result = G9NecessaryExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -40,8 +56,8 @@ class G8AboutExpensesSpec extends Specification with Tags {
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
-      val result = G8AboutExpenses.submit(FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "payForAnythingNecessary" -> "blah", "payAnyoneToLookAfterChildren" -> "blah", "payAnyoneToLookAfterPerson" -> "blah"))
+      val result = G9NecessaryExpenses.submit(FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+        "whatAreThose" -> "blah", "howMuchCostEachWeek" -> "blah", "whyDoYouNeedThose" -> "blah"))
 
       status(result) mustEqual SEE_OTHER
 

@@ -33,7 +33,7 @@ class TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
       titleMustEqual("Completion - Education")
 
-      browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
+      browser.find("button[type='submit']").getText shouldEqual "Continue to Employment"
     }
   } section "integration"
 }
