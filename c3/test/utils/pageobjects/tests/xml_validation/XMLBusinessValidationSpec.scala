@@ -43,10 +43,10 @@ class XMLBusinessValidationSpec extends Specification {
     "be able to parse a claim from a file and check XML content is valid" in {
       val validator = new XMLBusinessValidation("/ClaimScenarioXmlMapping.csv")
       val claim = ClaimScenarioFactory.buildClaimFromFile("/ClaimScenario_ClaimMickey.csv")
-      val xml = Source.fromURL(getClass getResource "/Claim.xml").mkString
+      val xml = Source.fromURL(getClass getResource "/ClaimMickey.xml").mkString
 
-      val errors = validator.validateXMLClaim(claim, xml,throwException = false)
-      errors.nonEmpty must beTrue
+      val errors = validator.validateXMLClaim(claim, xml,throwException = true)
+      errors.isEmpty must beTrue
     }
   }
 

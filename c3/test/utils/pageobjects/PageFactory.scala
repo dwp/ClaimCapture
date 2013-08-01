@@ -6,15 +6,12 @@ import scala.collection.mutable
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s3_your_partner._
-import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s9_self_employment._
 import utils.pageobjects.s4_care_you_provide._
 import utils.pageobjects.s5_time_spent_abroad._
-import utils.pageobjects.s6_pay_details.{G2AddressOfSchoolCollegeOrUniversityPage, G1HowWePayYouPage}
-import utils.pageobjects.s8_other_money._
-import utils.pageobjects.s9_self_employment._
-import utils.pageobjects.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocationPage
+import utils.pageobjects.s6_pay_details._
 import utils.pageobjects.s7_employment._
+import utils.pageobjects.s8_other_money._
 
 /**
  * Factory used by Page to create from an html page the right page object.
@@ -88,7 +85,7 @@ object PageFactory {
       case G14JobCompletionPage.title => G14JobCompletionPage buildPageWith(browser,previousPage,iteration)
       case G15CompletedPage.title => G15CompletedPage buildPageWith(browser,previousPage)
 
-      // S8 TODO SKW these must be filled in so tests using  "must beAnInstanceOf" work correctly!!!
+      // S8
       case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage buildPageWith(browser, previousPage)
       case G2MoneyPaidToSomeoneElseForYouPage.title => G2MoneyPaidToSomeoneElseForYouPage buildPageWith(browser, previousPage)
       case G3PersonWhoGetsThisMoneyPage.title => G3PersonWhoGetsThisMoneyPage buildPageWith(browser, previousPage)
@@ -101,7 +98,7 @@ object PageFactory {
       case G6ChildcareProvidersContactDetailsPage.title => G6ChildcareProvidersContactDetailsPage buildPageWith(browser, previousPage)
       case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage buildPageWith(browser, previousPage)
       case G8CareProvidersContactDetailsPage.title => G8CareProvidersContactDetailsPage buildPageWith(browser, previousPage)
-      case G9CompletedPage.title => G9CompletedPage buildPageWith(browser, previousPage)
+      case s9_self_employment.G9CompletedPage.title => s9_self_employment.G9CompletedPage buildPageWith(browser, previousPage)
       // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }
