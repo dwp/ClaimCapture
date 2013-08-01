@@ -6,15 +6,15 @@ import services.submission.ClaimSubmissionService
 import scala.concurrent.ExecutionContext
 import ExecutionContext.Implicits.global
 import play.api.{http, Logger}
-import utils.helpers.{UnavailableTransactionIdException, UniqueTransactionId}
 import services.submission.ClaimSubmission
+import services.{UnavailableTransactionIdException, PostgresTransactionIdService, TransactionIdService}
 
 object Submission extends Controller with CachedClaim {
+  val idService : TransactionIdService = new PostgresTransactionIdService()
   def submit = claiming {
     implicit claim => implicit request =>
-
     try {
-      val id = UniqueTransactionId()
+      val id = idService.generateId
       Logger.info(s"Retrieved Id : $id")
       val claimXml = ClaimSubmission(claim, id).buildDwpClaim
       Async {
@@ -28,24 +28,41 @@ object Submission extends Controller with CachedClaim {
                 val result = (responseXml \\ "result").text
                 Logger.info(s"Received result : $result")
                 result match {
-                  case "response" => Redirect(routes.ThankYou.present())
+                  case "response" => {
+                    idService.registerId(id, None)
+                    Redirect(routes.ThankYou.present())
+                  }
                   case "acknowledgement" => {
                     val correlationID = (response.xml \\ "CorrelationID").text
                     Redirect("/consentAndDeclaration/error").withSession("cid" -> correlationID)
                   }
-                  case _ => Redirect("/error")
+                  case "error" => {
+                    val errorCode = (responseXml \\ "errorCode").text
+                    Logger.error(s"Received error : $result")
+                    idService.registerId(id, Some(errorCode))
+                    Redirect("/error")
+                  }
+                  case _ => {
+                    Logger.info(s"Received result : $result")
+                    idService.registerId(id, UNKNOWN_ERROR_CODE)
+                    Redirect("/error")
+                  }
                 }
               case http.Status.BAD_REQUEST =>
                 Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}")
+                idService.registerId(id, BAD_REQUEST_ERROR_CODE)
                 Redirect("/error")
               case http.Status.REQUEST_TIMEOUT =>
                 Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}")
+                idService.registerId(id, REQUEST_TIMEOUT_ERROR_CODE)
                 Redirect("/error")
               case http.Status.INTERNAL_SERVER_ERROR =>
                 Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}")
+                idService.registerId(id, INTERNAL_SERVER_ERROR_CODE)
                 Redirect("/error")
               case _ =>
                 Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}")
+                idService.registerId(id, UNKNOWN_ERROR_CODE)
                 Redirect("/error")
             }
           }
@@ -73,4 +90,9 @@ object Submission extends Controller with CachedClaim {
       }
     }
   }
+
+  val UNKNOWN_ERROR_CODE: Some[String] = Some("9001")
+  val BAD_REQUEST_ERROR_CODE: Some[String] = Some("9002")
+  val REQUEST_TIMEOUT_ERROR_CODE: Some[String] = Some("9003")
+  val INTERNAL_SERVER_ERROR_CODE: Some[String] = Some("9004")
 }
