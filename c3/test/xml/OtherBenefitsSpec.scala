@@ -1,4 +1,4 @@
-package services.submission
+package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
@@ -8,7 +8,7 @@ import models.MultiLineAddress
 import controllers.Mappings.yes
 import controllers.Mappings.no
 
-class OtherMoneySubmissionSpec extends Specification with Tags {
+class OtherBenefitsSpec extends Specification with Tags {
 
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
 
@@ -29,12 +29,12 @@ class OtherMoneySubmissionSpec extends Specification with Tags {
   val statutorySickPay = StatutorySickPay(haveYouHadAnyStatutorySickPay = yes, employersName = employersName, employersAddress = address, employersPostcode = postcode)
   val otherStatutoryPay = OtherStatutoryPay(otherPay = yes, employersName = employersName, employersAddress = address, employersPostcode = postcode)
 
-  "Other Money Submission" should {
+  "OtherBenefits" should {
 
-    "generate xml when section is filled" in {
+    "generate xml when data is present" in {
       val otherMoneySection = Section(OtherMoney, moneyPaidToSomeoneElse :: personWhoGetsThisMoney :: contactDetails :: statutorySickPay :: otherStatutoryPay :: Nil)
 
-      val otherMoneyXml = OtherMoneySubmission.xml(otherMoneySection)
+      val otherMoneyXml = OtherBenefits.xml(otherMoneySection)
 
       val extraMoneyXml = otherMoneyXml \\ "ExtraMoney"
       extraMoneyXml.text shouldEqual yes
@@ -66,10 +66,10 @@ class OtherMoneySubmissionSpec extends Specification with Tags {
       (otherMoneySMPDetailsXml \\ "Address" \\ "PostCode").text mustEqual postcode.get
     }
 
-    "generate xml when section is empty" in {
+    "generate xml when data is missing" in {
       val otherMoneySection = Section(OtherMoney, Nil)
 
-      val otherMoneyXml = OtherMoneySubmission.xml(otherMoneySection)
+      val otherMoneyXml = OtherBenefits.xml(otherMoneySection)
 
       val extraMoneyXml = otherMoneyXml \\ "ExtraMoney"
       extraMoneyXml.text shouldEqual no

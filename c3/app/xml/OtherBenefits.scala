@@ -1,12 +1,12 @@
-package services.submission
+package xml
 
 import models.domain._
-import services.submission.XMLHelper._
+import XMLHelper._
 import scala.Some
 import controllers.Mappings.yes
 import controllers.Mappings.no
 
-object OtherMoneySubmission {
+object OtherBenefits {
 
   def xml(otherMoney:Section) = {
 

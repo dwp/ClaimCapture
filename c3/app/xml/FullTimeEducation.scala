@@ -1,15 +1,16 @@
-package services.submission
+package xml
 
 import models.domain._
-import XMLHelper.stringify
-import XMLHelper.postalAddressStructure
-import XMLHelper.questionGroup
+import XMLHelper._
+import scala.Some
 
-object EducationSubmission {
+object FullTimeEducation {
 
- def xml(education:Section) = {
+ def xml(claim:Claim) = {
 
-    val courseDetailsOption = questionGroup[YourCourseDetails](education, YourCourseDetails)
+   val education = claim.section(Education)
+
+   val courseDetailsOption = questionGroup[YourCourseDetails](education, YourCourseDetails)
 
     val addressOfSchoolOption = questionGroup[AddressOfSchoolCollegeOrUniversity](education, AddressOfSchoolCollegeOrUniversity )
 
