@@ -29,9 +29,9 @@ class OtherBenefitsSpec extends Specification with Tags {
   val statutorySickPay = StatutorySickPay(haveYouHadAnyStatutorySickPay = yes, employersName = employersName, employersAddress = address, employersPostcode = postcode)
   val otherStatutoryPay = OtherStatutoryPay(otherPay = yes, employersName = employersName, employersAddress = address, employersPostcode = postcode)
 
-  "Other Money Submission" should {
+  "OtherBenefits" should {
 
-    "generate xml when section is filled" in {
+    "generate xml when data is present" in {
       val otherMoneySection = Section(OtherMoney, moneyPaidToSomeoneElse :: personWhoGetsThisMoney :: contactDetails :: statutorySickPay :: otherStatutoryPay :: Nil)
 
       val otherMoneyXml = OtherBenefits.xml(otherMoneySection)
@@ -66,7 +66,7 @@ class OtherBenefitsSpec extends Specification with Tags {
       (otherMoneySMPDetailsXml \\ "Address" \\ "PostCode").text mustEqual postcode.get
     }
 
-    "generate xml when section is empty" in {
+    "generate xml when data is missing" in {
       val otherMoneySection = Section(OtherMoney, Nil)
 
       val otherMoneyXml = OtherBenefits.xml(otherMoneySection)
