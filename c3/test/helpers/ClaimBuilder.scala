@@ -2,7 +2,7 @@ package helpers
 
 import models.domain._
 import models._
-import models.yesNo.{YesNoWith2Text, YesNoWithDate, YesNoWithDropDownAndText, YesNoWithDropDown}
+import models.yesNo._
 import controllers.Mappings.yes
 
 import scala.Some
@@ -10,6 +10,13 @@ import models.MultiLineAddress
 import models.SortCode
 import models.NationalInsuranceNumber
 import models.Whereabouts
+import models.domain.Break
+import scala.Some
+import models.MultiLineAddress
+import models.SortCode
+import models.NationalInsuranceNumber
+import models.Whereabouts
+
 import models.domain.Break
 
 case class EducationSection(yourCourseDetails:YourCourseDetails, addressOfSchool: AddressOfSchoolCollegeOrUniversity)
@@ -21,6 +28,8 @@ case class OtherMoneySection(aboutOtherMoney:AboutOtherMoney,
                              statutorySickPay:StatutorySickPay,
                              otherStatutoryPay:OtherStatutoryPay
                              )
+
+case class TimeSpentAbroadSection(normalResidence:NormalResidenceAndCurrentLocation, trips:Trips)
 
 
 object ClaimBuilder {
@@ -66,6 +75,13 @@ object ClaimBuilder {
     )
   )
 
+  val normalResidence = NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer=yes, text=Some("UK")), inGBNow=yes)
+  val fourWeekTrip = Trip(id="four-one", DayMonthYear(Some(1), Some(2), Some(2011)), DayMonthYear(Some(1), Some(3), Some(2011)), "Netherlands", Some("Holiday"))
+  val fiftyTwoWeeksTrip = Trip(id="fiftyTwo-one",  DayMonthYear(Some(1), Some(2), Some(2012)),  DayMonthYear(Some(1), Some(2), Some(2013)), "Spain", Some("Family"))
+  val trips = Trips(fourWeeksTrips=List(fourWeekTrip), fiftyTwoWeeksTrips = List(fiftyTwoWeeksTrip))
+
+  val timeSpentAbroad = TimeSpentAbroadSection(normalResidence, trips)
+
   val education = EducationSection(YourCourseDetails(NoRouting, Some("courseType"), Some("courseTitle"),  Some(DayMonthYear(Some(1), Some(1), Some(2001))),Some(DayMonthYear(Some(2), Some(2), Some(2002))),  Some(DayMonthYear(Some(3), Some(3), Some(2003))), Some("ST11")),
       AddressOfSchoolCollegeOrUniversity(NoRouting, Some("schoolName"), Some("tutorName"), Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), Some("SE1 6EH"), Some("020192827273"), Some("0302928273"))
   )
@@ -81,6 +97,7 @@ object ClaimBuilder {
     moreAboutThePerson, representatives,
     Some(previousCarerContactDetails), Some(previousCarerPersonalDetails),
     moreAboutTheCare, Some(oneWhoPays), Some(contactDetailsPayingPerson), breaksInCare)
+
 
   val yourPartnerPersonalDetails = YourPartnerPersonalDetails(NoRouting, title = "mr", firstName = "Michael", middleName = None, surname = "Mouse", otherNames = Some("Oswald"), nationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA"), Some("12"), Some("34"), Some("56"), Some("A"))), dateOfBirth = DayMonthYear(1, 1, 1930), nationality = Some("British"), liveAtSameAddress = "yes")
   val yourPartnerContactDetails = YourPartnerContactDetails(NoRouting, address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
