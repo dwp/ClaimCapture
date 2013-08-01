@@ -9,7 +9,7 @@ About You,Your Details,Surname or family name,AboutYouSurname,Claimant>Surname
 About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,Claimant>OtherSurnames
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,Claimant>NationalInsuranceNumber
 About You,Your Details,Date of birth,AboutYouDateOfBirth,Claimant>DateOfBirth
-About You,Your Details,Nationality,AboutYouNationality,Residency>Nationality,British
+About You,Your Details,Nationality,AboutYouNationality,Residency>Nationality
 About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Claimant>MaritalStatus
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,
 About You,Your contact details,Address,AboutYouAddress,Claimant>Address
