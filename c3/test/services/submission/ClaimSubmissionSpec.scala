@@ -60,7 +60,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
       val claimXml = claimSub.buildDwpClaim
 
       (claimXml \\ "Claimant" \\ "Title").text mustEqual yourDetails.title
-      (claimXml \\ "Claimant" \\ "OtherNames").text mustEqual s"${yourDetails.firstName} "
+      (claimXml \\ "Claimant" \\ "OtherNames").text mustEqual s"${yourDetails.firstName}"
       (claimXml \\ "Claimant" \\ "OtherSurnames").text mustEqual yourDetails.otherSurnames.get
       (claimXml \\ "Claimant" \\ "DateOfClaim").text mustEqual claimDate.dateOfClaim.toXmlString
       (claimXml \\ "Claimant" \\ "Address" \\ "PostCode").text mustEqual contactDetails.postcode.get
@@ -92,8 +92,6 @@ class ClaimSubmissionSpec extends Specification with Tags {
       val claimSub = ClaimSubmission(claim, "TY6TV9G")
 
       val claimXml = claimSub.buildDwpClaim
-
-      println("ClaimXML" + claimXml)
 
       val fullXml = buildFullClaim(claimXml)
 

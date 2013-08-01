@@ -57,7 +57,7 @@ object DummyClaim {
 
   val claimDate = ClaimDate(NoRouting, dateOfClaim = DayMonthYear(1, 1, 2013))
 
-  val aboutYou = AboutYou(yourDetails, contactDetails, Some(timeOutsideUK), claimDate)
+
 
   val theirPersonalDetails = TheirPersonalDetails(NoRouting, title = "ms", firstName = "TEST", middleName = None, surname = "TEST",
     None, dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddress = "no")
