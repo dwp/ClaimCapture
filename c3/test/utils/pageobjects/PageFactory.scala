@@ -5,13 +5,16 @@ import scala.language.dynamics
 import scala.collection.mutable
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
-import utils.pageobjects.s8_other_money._
-import utils.pageobjects.s6_pay_details.{G2AddressOfSchoolCollegeOrUniversityPage, G1HowWePayYouPage}
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s9_self_employment._
 import utils.pageobjects.s4_care_you_provide._
-import utils.pageobjects.s5_time_spent_abroad.{G4TripPage, G3AbroadForMoreThan52WeeksPage, G2AbroadForMoreThan4WeeksPage, G1NormalResidenceAndCurrentLocationPage}
+import utils.pageobjects.s5_time_spent_abroad._
+import utils.pageobjects.s6_pay_details.{G2AddressOfSchoolCollegeOrUniversityPage, G1HowWePayYouPage}
+import utils.pageobjects.s8_other_money._
+import utils.pageobjects.s9_self_employment._
+import utils.pageobjects.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocationPage
+import utils.pageobjects.s7_employment._
 
 /**
  * Factory used by Page to create from an html page the right page object.
@@ -39,13 +42,13 @@ object PageFactory {
       case G5MoreAboutYouPage.title => G5MoreAboutYouPage buildPageWith(browser, previousPage)
       case G6EmploymentPage.title => G6EmploymentPage buildPageWith(browser, previousPage)
       case G7PropertyAndRentPage.title => G7PropertyAndRentPage buildPageWith(browser, previousPage)
-      case G8CompletedPage.title => G8CompletedPage buildPageWith(browser, previousPage)
+      case G8AboutYouCompletedPage.title => G8AboutYouCompletedPage buildPageWith(browser, previousPage)
       // S3
       case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage buildPageWith(browser,previousPage)
       case G2YourPartnerContactDetailsPage.title => G2YourPartnerContactDetailsPage buildPageWith(browser, previousPage)
       case G3MoreAboutYourPartnerPage.title => G3MoreAboutYourPartnerPage buildPageWith(browser, previousPage)
       case G4PersonYouCareForPage.title => G4PersonYouCareForPage buildPageWith(browser,previousPage)
-      case G5CompletedPage.title => G5CompletedPage buildPageWith(browser, previousPage)
+      case G5YourPartnerCompletedPage.title => G5YourPartnerCompletedPage buildPageWith(browser, previousPage)
       // S4
       case G1TheirPersonalDetailsPage.title => G1TheirPersonalDetailsPage buildPageWith(browser, previousPage)
       case G2TheirContactDetailsPage.title => G2TheirContactDetailsPage buildPageWith(browser, previousPage)
@@ -58,16 +61,33 @@ object PageFactory {
       case G9ContactDetailsOfPayingPersonPage.title => G9ContactDetailsOfPayingPersonPage buildPageWith(browser, previousPage)
       case G10BreaksInCarePage.title => G10BreaksInCarePage buildPageWith(browser, previousPage, iteration)
       case G11BreakPage.title => G11BreakPage buildPageWith(browser, previousPage, iteration)
-      case G12CompletedPage.title => G12CompletedPage buildPageWith(browser, previousPage)
+      case G12CareYouProvideCompletedPage.title => G12CareYouProvideCompletedPage buildPageWith(browser, previousPage)
       // S5
       case G1NormalResidenceAndCurrentLocationPage.title => G1NormalResidenceAndCurrentLocationPage buildPageWith(browser, previousPage)
       case G2AbroadForMoreThan4WeeksPage.title => G2AbroadForMoreThan4WeeksPage buildPageWith(browser, previousPage)
       case G3AbroadForMoreThan52WeeksPage.title => G3AbroadForMoreThan52WeeksPage buildPageWith(browser, previousPage)
       case G4TripPage.title => G4TripPage buildPageWith(browser, previousPage, iteration)
-      case s5_time_spent_abroad.G5CompletedPage.title => s5_time_spent_abroad.G5CompletedPage buildPageWith(browser, previousPage)
+      case G5TimeAbroadCompletedPage.title => G5TimeAbroadCompletedPage buildPageWith(browser, previousPage)
       // S6
       case G1HowWePayYouPage.title => G1HowWePayYouPage buildPageWith(browser, previousPage)
       case G2AddressOfSchoolCollegeOrUniversityPage.title => G2AddressOfSchoolCollegeOrUniversityPage buildPageWith(browser, previousPage)
+      // S7
+      case G1BeenEmployedPage.title => G1BeenEmployedPage buildPageWith(browser,previousPage)
+      case G2JobDetailsPage.title => G2JobDetailsPage buildPageWith(browser,previousPage,iteration)
+      case G3EmployerContactDetailsPage.title => G3EmployerContactDetailsPage buildPageWith(browser,previousPage,iteration)
+      case G4LastWagePage.title => G4LastWagePage buildPageWith(browser,previousPage,iteration)
+      case G5AdditionalWageDetailsPage.title => G5AdditionalWageDetailsPage buildPageWith(browser,previousPage,iteration)
+      case G6MoneyOwedByEmployerPage.title => G6MoneyOwedByEmployerPage buildPageWith(browser,previousPage,iteration)
+      case G7PensionSchemesPage.title => G7PensionSchemesPage buildPageWith(browser,previousPage,iteration)
+      case G8AboutExpensesPage.title => G8AboutExpensesPage buildPageWith(browser,previousPage,iteration)
+      case G9NecessaryExpensesPage.title => G9NecessaryExpensesPage buildPageWith(browser,previousPage,iteration)
+      case G10ChildcareExpensesPage.title => G10ChildcareExpensesPage buildPageWith(browser,previousPage,iteration)
+      case G11ChildcareProviderPage.title => G11ChildcareProviderPage buildPageWith(browser,previousPage,iteration)
+      case G12PersonYouCareForExpensesPage.title => G12PersonYouCareForExpensesPage buildPageWith(browser,previousPage,iteration)
+      case G13CareProviderPage.title => G13CareProviderPage buildPageWith(browser,previousPage,iteration)
+      case G14JobCompletionPage.title => G14JobCompletionPage buildPageWith(browser,previousPage,iteration)
+      case G15CompletedPage.title => G15CompletedPage buildPageWith(browser,previousPage)
+
       // S8 TODO SKW these must be filled in so tests using  "must beAnInstanceOf" work correctly!!!
       case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage buildPageWith(browser, previousPage)
       case G2MoneyPaidToSomeoneElseForYouPage.title => G2MoneyPaidToSomeoneElseForYouPage buildPageWith(browser, previousPage)
@@ -81,7 +101,7 @@ object PageFactory {
       case G6ChildcareProvidersContactDetailsPage.title => G6ChildcareProvidersContactDetailsPage buildPageWith(browser, previousPage)
       case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage buildPageWith(browser, previousPage)
       case G8CareProvidersContactDetailsPage.title => G8CareProvidersContactDetailsPage buildPageWith(browser, previousPage)
-      case s9_self_employment.G9CompletedPage.title => s9_self_employment.G9CompletedPage buildPageWith(browser, previousPage)
+      case G9CompletedPage.title => G9CompletedPage buildPageWith(browser, previousPage)
       // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }

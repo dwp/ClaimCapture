@@ -5,7 +5,6 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.cache.Cache
 import play.api.test.Helpers._
 import org.specs2.mock.Mockito
-import models.domain
 import models.domain._
 import models.domain.Claim
 import controllers.s2_about_you
@@ -138,7 +137,7 @@ class AboutYouSpec extends Specification with Mockito with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
-    """present completion""" in new WithApplication with Claiming {
+    "present completion" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = s2_about_you.AboutYou.completed(request)

@@ -23,7 +23,7 @@ object G6MoneyOwedbyEmployer extends Controller with CachedClaim {
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
     jobs.questionGroup(jobID, AdditionalWageDetails) match {
-      case Some(a: AdditionalWageDetails) if a.employeeOwesYouMoney == `yes`=>
+      case Some(a: AdditionalWageDetails) if a.employeeOwesYouMoney == `yes` =>
         whenSectionVisible(Ok(views.html.s7_employment.g6_moneyOwedByEmployer(form.fillWithJobID(MoneyOwedbyEmployer, jobID), completedQuestionGroups(MoneyOwedbyEmployer, jobID))))
       case _ =>
         claim.update(jobs.delete(jobID, MoneyOwedbyEmployer)) -> Redirect(routes.G7PensionSchemes.present(jobID))

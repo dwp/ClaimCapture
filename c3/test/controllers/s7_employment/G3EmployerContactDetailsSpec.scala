@@ -6,7 +6,6 @@ import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
 import models.domain.Claim
-import scala.Some
 
 class G3EmployerContactDetailsSpec extends Specification with Tags {
   "Employer's contact details" should {
@@ -42,9 +41,7 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
         case Some(js: Jobs) => {
           js.size shouldEqual 1
 
-          js.find(_.jobID == "1") must beLike {
-            case Some(j: Job) => j.questionGroups.size shouldEqual 2
-          }
+          js.find(_.jobID == "1") must beLike { case Some(j: Job) => j.questionGroups.size shouldEqual 2 }
         }
       }
     }

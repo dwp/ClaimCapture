@@ -37,16 +37,16 @@ case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Jobs) with NoRoutin
     case _ => this
   }
 
-  def apply(jobID: String): Option[Job] = jobs.find(_.jobID == jobID)
+  def job(jobID: String): Option[Job] = jobs.find(_.jobID == jobID)
 
-  def questionGroup(questionGroup: QuestionGroup with Job.Identifier):Option[QuestionGroup] = this(questionGroup.jobID) match {
-    case Some(j:Job) => j(questionGroup)
-    case None => None
+  def questionGroup(questionGroup: QuestionGroup with Job.Identifier): Option[QuestionGroup] = job(questionGroup.jobID) match {
+    case Some(j: Job) => j(questionGroup)
+    case _ => None
   }
 
-  def questionGroup(jobID:String, questionGroup: QuestionGroup.Identifier):Option[QuestionGroup] = this(jobID) match {
-    case Some(j:Job) => j(questionGroup)
-    case None => None
+  def questionGroup(jobID: String, questionGroup: QuestionGroup.Identifier): Option[QuestionGroup] = job(jobID) match {
+    case Some(j: Job) => j(questionGroup)
+    case _ => None
   }
 
   override def iterator: Iterator[Job] = jobs.iterator

@@ -6,7 +6,6 @@ import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
 import models.domain.Claim
-import scala.Some
 
 class G5AdditionalWageDetailsSpec extends Specification with Tags {
   "Additional wage details" should {
@@ -18,14 +17,13 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
 
     """require "job ID" and "Employee owes you money".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1","employeeOwesYouMoney"->"no","anyOtherMoney"->"no")
+        .withFormUrlEncodedBody("jobID" -> "1", "employeeOwesYouMoney" -> "no", "anyOtherMoney" -> "no")
 
       val result = G5AdditionalWageDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     """be added to a (current) job""" in new WithApplication with Claiming {
-
       pending("skipped till G4 is done")
 
       G2JobDetails.submit(FakeRequest().withSession("connected" -> claimKey)
@@ -43,8 +41,8 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
       val result = G5AdditionalWageDetails.submit(FakeRequest().withSession("connected" -> claimKey)
                     .withFormUrlEncodedBody(
                     "jobID" -> "1",
-                    "employeeOwesYouMoney" -> "no"
-                    ))
+                    "employeeOwesYouMoney" -> "no"))
+
       status(result) mustEqual SEE_OTHER
 
       val claim = Cache.getAs[Claim](claimKey).get
@@ -58,7 +56,6 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
           }
         }
       }
-
     }
   } section "unit"
 }

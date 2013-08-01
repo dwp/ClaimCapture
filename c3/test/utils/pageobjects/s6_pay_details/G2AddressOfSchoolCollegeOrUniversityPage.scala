@@ -8,7 +8,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  * @author Saqib Kayani
  *         Date: 01/08/2013
  */
-class G2AddressOfSchoolCollegeOrUniversityPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2AddressOfSchoolCollegeOrUniversityPage.url, G2AddressOfSchoolCollegeOrUniversityPage.title, previousPage) {
+final class G2AddressOfSchoolCollegeOrUniversityPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2AddressOfSchoolCollegeOrUniversityPage.url, G2AddressOfSchoolCollegeOrUniversityPage.title, previousPage) {
   /**
    * Reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page

@@ -71,17 +71,17 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.previousCarerPersonalDetails(browser)
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives For The Person - Care You Provide")(Duration(10, TimeUnit.MINUTES))
       browser.click("#actForPerson_yes")
       browser.click("#actAs option[value='guardian']")
       browser.click("#someoneElseActForPerson_yes")
       browser.click("#someoneElseActAs option[value='attorney']")
       browser.submit("button[type='submit']")
-      titleMustEqual("Representatives For The Person - Care You Provide") // Landed on S4 G7
+      titleMustEqual("Representatives For The Person - Care You Provide")(Duration(10, TimeUnit.MINUTES)) // Landed on S4 G7
       browser.click("#backButton")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
       browser.click("#backButton")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide") // Back to S4 G4
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES)) // Back to S4 G4
     }
   }
 }
