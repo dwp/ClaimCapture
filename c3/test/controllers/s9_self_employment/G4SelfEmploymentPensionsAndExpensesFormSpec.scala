@@ -8,7 +8,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
   "About Self Employment - Pensions and Expenses Form" should {
 
     "map data into case class" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map("doYouPayToPensionScheme.answer" -> "yes",
           "doYouPayToPensionScheme.howMuchDidYouPay" -> "11",
           "doYouPayToLookAfterYourChildren.answer" -> "yes",
@@ -24,7 +24,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     }
 
     "reject if doYouPayToPensionScheme is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map(
           "lookAfterChildrenMapping.answer" -> "yes",
           "lookAfterChildrenMapping.isItTheSameExpenseWhileAtWorkForChildren" -> "yes",
@@ -37,7 +37,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     }
 
     "reject if howMuchDidYouPay is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map(
           "pensionSchemeMapping.answer" -> "yes",
           "lookAfterChildrenMapping.answer" -> "yes",
@@ -51,7 +51,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     }
 
     "reject if doYouPayToLookAfterYourChildren is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map(
           "pensionSchemeMapping.answer" -> "yes",
           "pensionSchemeMapping.howMuchDidYouPay" -> "11",
@@ -64,7 +64,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     }
 
     "reject if isItTheSameExpenseWhileAtWorkForChildren is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map(
           "pensionSchemeMapping.answer" -> "yes",
           "pensionSchemeMapping.howMuchDidYouPay" -> "11",
@@ -78,7 +78,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     }
 
     "reject if didYouPayToLookAfterThePersonYouCaredFor is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map(
           "pensionSchemeMapping.answer" -> "yes",
           "pensionSchemeMapping.howMuchDidYouPay" -> "11",
@@ -91,7 +91,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     }
 
     "reject if isItTheSameExpenseDuringWorkForThePersonYouCaredFor is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form.bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map(
           "pensionSchemeMapping.answer" -> "yes",
           "pensionSchemeMapping.howMuchDidYouPay" -> "11",

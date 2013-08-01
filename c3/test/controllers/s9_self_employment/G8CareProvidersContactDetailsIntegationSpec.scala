@@ -25,6 +25,7 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
 
     "contain the completed forms" in new WithBrowser with G1AboutSelfEmploymentPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
+
       page goToThePage()
       page fillPageWith claim
       val g2 = page submitPage()
@@ -46,6 +47,17 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
     
     "navigate back to previous page" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
+
+      browser.goTo("/employment/beenEmployed")
+      browser.click("#beenEmployed_yes")
+      browser.submit("button[type='submit']")
+
+      browser.goTo(s"/employment/aboutExpenses/${browser.find("jobID").getValue}")
+      browser.click("#payForAnythingNecessary_yes")
+      browser.click("#payAnyoneToLookAfterChildren_yes")
+      browser.click("#payAnyoneToLookAfterPerson_yes")
+      browser.submit("button[type='submit']")
+
       page goToThePage()
       page fillPageWith claim
       val g8 = page submitPage()

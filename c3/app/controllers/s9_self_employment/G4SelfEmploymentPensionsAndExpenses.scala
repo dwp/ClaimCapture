@@ -24,21 +24,25 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim {
       )(YesNoWithText.apply)(YesNoWithText.unapply)
         .verifying("howMuchDidYouPay", YesNoWithText.validateOnYes _)
 
-  val lookAfterChildrenMapping =
+  def lookAfterChildrenMapping (implicit claim: Claim)  =
     "doYouPayToLookAfterYourChildren" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "isItTheSameExpenseWhileAtWorkForChildren" -> optional(nonEmptyText.verifying(validYesNo))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("isItTheSameExpenseWhileAtWorkForChildren", YesNoWithText.validateOnYes _)
+      .verifying("isItTheSameExpenseWhileAtWorkForChildren", isExpenseForChildrenToBeDisplayed match {
+      case true => YesNoWithText.validateOnYes _
+      case false => YesNoWithText.doNotValidateOnYes _ })
 
-  val lookAfterCaredForMapping =
+  def lookAfterCaredForMapping (implicit claim: Claim) =
     "didYouPayToLookAfterThePersonYouCaredFor" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "isItTheSameExpenseDuringWorkForThePersonYouCaredFor" -> optional(nonEmptyText.verifying(validYesNo))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("isItTheSameExpenseDuringWorkForThePersonYouCaredFor", YesNoWithText.validateOnYes _)
+      .verifying("isItTheSameExpenseDuringWorkForThePersonYouCaredFor", isExpenseForCaredForToBeDisplayed match {
+      case true => YesNoWithText.validateOnYes _
+      case false => YesNoWithText.doNotValidateOnYes _ })
 
-  val form = Form(
+  def form(implicit claim: Claim) = Form(
     mapping(
       call(routes.G4SelfEmploymentPensionsAndExpenses.present()),
       pensionSchemeMapping,

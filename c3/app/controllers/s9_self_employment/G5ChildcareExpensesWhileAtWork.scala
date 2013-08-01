@@ -9,6 +9,9 @@ import models.domain._
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s9_self_employment.SelfEmployment.whenSectionVisible
+import controllers.s7_employment.Employment._
+import scala.Some
+
 
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ExpensesWhileAtWork)
@@ -24,12 +27,21 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
     )(ChildcareExpensesWhileAtWork.apply)(ChildcareExpensesWhileAtWork.unapply)
   )
 
-  def present = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s9_self_employment.g5_childcareExpensesWhileAtWork(form.fill(ChildcareExpensesWhileAtWork), completedQuestionGroups)))
+  def present = claiming {
+    implicit claim => implicit request =>
+      val yesNoList = jobs.map(j => j.apply(AboutExpenses) match {
+        case Some(n: AboutExpenses) => n.payAnyoneToLookAfterChildren
+        case _ => "no"
+      })
 
+      yesNoList.count(_ == "yes") > 0 match {
+        case true => whenSectionVisible(Ok(views.html.s9_self_employment.g5_childcareExpensesWhileAtWork(form.fill(ChildcareExpensesWhileAtWork), completedQuestionGroups)))
+        case false => claim.delete(ChildcareExpensesWhileAtWork) -> Redirect(routes.G6ChildcareProvidersContactDetails.present())
+      }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming {
+    implicit claim => implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s9_self_employment.g5_childcareExpensesWhileAtWork(formWithErrors, completedQuestionGroups)),
         f => claim.update(f) -> Redirect(routes.G6ChildcareProvidersContactDetails.present())
