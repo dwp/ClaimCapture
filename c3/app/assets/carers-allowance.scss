@@ -2,19 +2,19 @@
 $button-green: #006435;
 $button-green-hover: #004b27;
 
+#wrapper {
+	background: #fff;
+	border-bottom: 10px solid #f47738;
+}
+
 .carers-allowance {
    background: #fff;
-   border-bottom: 10px solid #f47738;
+   padding: 0 1em 2em 1em;
+   margin: 0 auto;
+   max-width: 980px;
+   @media screen and (max-width: 500px) {padding-left: .75em; padding-right: .75em;}
    @media screen and (max-width: 640px) {border-top: 10px solid #f47738;}
-   .ie6 & {
-	   padding: 0 1em 2em 1em;
-   }
-   main {
-	   padding: 0 1em 2em 1em;
-	   margin: 0 auto;
-	   max-width: 980px;
-	   display: block;
-	   @media screen and (max-width: 500px) {padding-left: .75em; padding-right: .75em;}
+
 	   .prototype {
 		   background: #f47738;
 		   overflow: hidden;
@@ -49,7 +49,7 @@ $button-green-hover: #004b27;
 			   }
 		   }
 	   }
-   }
+ 
    
    
    
