@@ -2,6 +2,7 @@ package xml
 
 import models.domain.{ContactDetails, YourDetails, Claim}
 import scala.xml.Elem
+import xml.XMLHelper._
 
 object Claimant {
   def xml(claim: Claim): Elem = {
@@ -18,12 +19,7 @@ object Claimant {
       <DateOfBirth>{yourDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
       <NationalInsuranceNumber>{yourDetails.nationalInsuranceNumber.orNull}</NationalInsuranceNumber>
       <ExistingNationalInsuranceNumber>no</ExistingNationalInsuranceNumber>
-      <Address>
-        <gds:Line>{contactDetails.address.lineOne.orNull}</gds:Line>
-        <gds:Line>{contactDetails.address.lineTwo.orNull}</gds:Line>
-        <gds:Line>{contactDetails.address.lineThree.orNull}</gds:Line>
-        <gds:PostCode>{contactDetails.postcode.orNull}</gds:PostCode>
-      </Address>
+      <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
       <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
       <HomePhoneNumber>{contactDetails.mobileNumber.orNull}</HomePhoneNumber>
       <DaytimePhoneNumber>
