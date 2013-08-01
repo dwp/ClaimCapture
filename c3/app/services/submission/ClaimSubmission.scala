@@ -2,6 +2,7 @@ package services.submission
 
 import models.domain._
 import play.api.Logger
+import xml.{OtherBenefits, FullTimeEducation, Residence}
 
 
 case class ClaimSubmission(claim: Claim, transactionId : String) {
@@ -19,9 +20,9 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
       {AboutYouSubmission.buildClaimant(aboutYou)}
       {CareYouProvideSubmission.buildCaree(careYouProvide)}
       <ClaimADI>no</ClaimADI>
-      {TimeSpentAbroadSubmission.xml(claim)}
+      {Residence.xml(claim)}
       <CourseOfEducation>yes</CourseOfEducation>
-      {EducationSubmission.xml(claim.section(Education))}
+      {FullTimeEducation.xml(claim)}
       <SelfEmployed>no</SelfEmployed>
       <Employed>yes</Employed>
       <Employment>
@@ -82,7 +83,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
       </PropertyRentedOut>
       <HavePartner>yes</HavePartner>
       {YourPartnerSubmission.buildClaimant(yourPartner)} 
-      {OtherMoneySubmission.xml(claim.section(OtherMoney))}
+      {OtherBenefits.xml(claim)}
       <Payment>
         <PaymentFrequency>everyWeek</PaymentFrequency>
         <InitialAccountQuestion>bankBuildingAccount</InitialAccountQuestion>

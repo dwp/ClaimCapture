@@ -1,14 +1,16 @@
-package services.submission
+package xml
 
 import models.domain._
-import services.submission.XMLHelper._
+import XMLHelper._
 import scala.Some
 import controllers.Mappings.yes
 import controllers.Mappings.no
 
-object OtherMoneySubmission {
+object OtherBenefits {
 
-  def xml(otherMoney:Section) = {
+  def xml(claim:Claim) = {
+
+    val otherMoney:Section = claim.section(OtherMoney)
 
     val moneyPaidToSomeoneElseOption = questionGroup[MoneyPaidToSomeoneElseForYou](otherMoney, MoneyPaidToSomeoneElseForYou)
     val personDetailsOption = questionGroup[PersonWhoGetsThisMoney](otherMoney, PersonWhoGetsThisMoney)

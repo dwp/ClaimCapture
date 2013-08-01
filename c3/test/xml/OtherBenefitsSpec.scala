@@ -1,4 +1,4 @@
-package services.submission
+package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
@@ -8,7 +8,7 @@ import models.MultiLineAddress
 import controllers.Mappings.yes
 import controllers.Mappings.no
 
-class OtherMoneySubmissionSpec extends Specification with Tags {
+class OtherBenefitsSpec extends Specification with Tags {
 
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
 
@@ -29,17 +29,18 @@ class OtherMoneySubmissionSpec extends Specification with Tags {
   val statutorySickPay = StatutorySickPay(haveYouHadAnyStatutorySickPay = yes, employersName = employersName, employersAddress = address, employersPostcode = postcode)
   val otherStatutoryPay = OtherStatutoryPay(otherPay = yes, employersName = employersName, employersAddress = address, employersPostcode = postcode)
 
-  "Other Money Submission" should {
+  "OtherBenefits" should {
 
-    "generate xml when section is filled" in {
+    "generate xml when data is present" in {
       val otherMoneySection = Section(OtherMoney, moneyPaidToSomeoneElse :: personWhoGetsThisMoney :: contactDetails :: statutorySickPay :: otherStatutoryPay :: Nil)
 
-      val otherMoneyXml = OtherMoneySubmission.xml(otherMoneySection)
+      val claim = Claim().update(otherMoneySection)
+      val otherBenefitsXml = OtherBenefits.xml(claim)
 
-      val extraMoneyXml = otherMoneyXml \\ "ExtraMoney"
+      val extraMoneyXml = otherBenefitsXml \\ "ExtraMoney"
       extraMoneyXml.text shouldEqual yes
 
-      val extraMoneyDetailsXml = otherMoneyXml \\ "ExtraMoneyDetails"
+      val extraMoneyDetailsXml = otherBenefitsXml \\ "ExtraMoneyDetails"
       (extraMoneyDetailsXml \\ "BenefitName").text shouldEqual benefitName
       (extraMoneyDetailsXml \\ "RecipientName").text shouldEqual fullName
       (extraMoneyDetailsXml \\ "RecipientAddress" \\ "Line").theSeq(0).text mustEqual address.get.lineOne.get
@@ -48,8 +49,8 @@ class OtherMoneySubmissionSpec extends Specification with Tags {
       (extraMoneyDetailsXml \\ "RecipientAddress" \\ "PostCode").text mustEqual postcode.get
       (extraMoneyDetailsXml \\ "ReferenceNumber").text mustEqual nationalInsuranceNr.toXmlString
 
-      (otherMoneyXml \\ "OtherMoneySSP").text mustEqual yes
-      val otherMoneySSPDetailsXml = otherMoneyXml \\ "OtherMoneySSPDetails"
+      (otherBenefitsXml \\ "OtherMoneySSP").text mustEqual yes
+      val otherMoneySSPDetailsXml = otherBenefitsXml \\ "OtherMoneySSPDetails"
 
       (otherMoneySSPDetailsXml \\ "Name").text mustEqual employersName.get
       (otherMoneySSPDetailsXml \\ "Address" \\ "Line").theSeq(0).text mustEqual address.get.lineOne.get
@@ -57,8 +58,8 @@ class OtherMoneySubmissionSpec extends Specification with Tags {
       (otherMoneySSPDetailsXml \\ "Address" \\ "Line").theSeq(2).text mustEqual address.get.lineThree.get
       (otherMoneySSPDetailsXml \\ "Address" \\ "PostCode").text mustEqual postcode.get
 
-      (otherMoneyXml \\ "OtherMoneySMP").text mustEqual yes
-      val otherMoneySMPDetailsXml = otherMoneyXml \\ "OtherMoneySMPDetails"
+      (otherBenefitsXml \\ "OtherMoneySMP").text mustEqual yes
+      val otherMoneySMPDetailsXml = otherBenefitsXml \\ "OtherMoneySMPDetails"
       (otherMoneySMPDetailsXml \\ "Name").text mustEqual employersName.get
       (otherMoneySMPDetailsXml \\ "Address" \\ "Line").theSeq(0).text mustEqual address.get.lineOne.get
       (otherMoneySMPDetailsXml \\ "Address" \\ "Line").theSeq(1).text mustEqual address.get.lineTwo.get
@@ -66,10 +67,9 @@ class OtherMoneySubmissionSpec extends Specification with Tags {
       (otherMoneySMPDetailsXml \\ "Address" \\ "PostCode").text mustEqual postcode.get
     }
 
-    "generate xml when section is empty" in {
-      val otherMoneySection = Section(OtherMoney, Nil)
-
-      val otherMoneyXml = OtherMoneySubmission.xml(otherMoneySection)
+    "generate xml when data is missing" in {
+      val claim = Claim().update(Section(OtherMoney, Nil))
+      val otherMoneyXml = OtherBenefits.xml(claim)
 
       val extraMoneyXml = otherMoneyXml \\ "ExtraMoney"
       extraMoneyXml.text shouldEqual no
