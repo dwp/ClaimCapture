@@ -8,7 +8,7 @@ case class AboutYou(yourDetails: YourDetails,
                     timeOutsideUK : Option[TimeOutsideUK],
                     claimDate : ClaimDate)
 
-case object AboutYou extends Section.Identifier {
+object AboutYou extends Section.Identifier {
   val id = "s2"
 }
 
