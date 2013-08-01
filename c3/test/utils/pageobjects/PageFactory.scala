@@ -6,7 +6,7 @@ import scala.collection.mutable
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s8_other_money._
-import utils.pageobjects.s6_pay_details.G1HowWePayYouPage
+import utils.pageobjects.s6_pay_details.{G2AddressOfSchoolCollegeOrUniversityPage, G1HowWePayYouPage}
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s9_self_employment._
@@ -64,9 +64,10 @@ object PageFactory {
       case G2AbroadForMoreThan4WeeksPage.title => G2AbroadForMoreThan4WeeksPage buildPageWith(browser, previousPage)
       case G3AbroadForMoreThan52WeeksPage.title => G3AbroadForMoreThan52WeeksPage buildPageWith(browser, previousPage)
       case G4TripPage.title => G4TripPage buildPageWith(browser, previousPage, iteration)
-      case G5CompletedPage.title => G5CompletedPage buildPageWith(browser, previousPage)
+      case s5_time_spent_abroad.G5CompletedPage.title => s5_time_spent_abroad.G5CompletedPage buildPageWith(browser, previousPage)
       // S6
       case G1HowWePayYouPage.title => G1HowWePayYouPage buildPageWith(browser, previousPage)
+      case G2AddressOfSchoolCollegeOrUniversityPage.title => G2AddressOfSchoolCollegeOrUniversityPage buildPageWith(browser, previousPage)
       // S8 TODO SKW these must be filled in so tests using  "must beAnInstanceOf" work correctly!!!
       case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage buildPageWith(browser, previousPage)
       case G2MoneyPaidToSomeoneElseForYouPage.title => G2MoneyPaidToSomeoneElseForYouPage buildPageWith(browser, previousPage)

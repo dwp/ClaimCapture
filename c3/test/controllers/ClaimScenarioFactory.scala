@@ -179,6 +179,18 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s6PayDetailsPageObjects() = {
+    val claim = s5TimeSpentAbroad()
+    // Address of School College or University
+    claim.EducationNameofSchool = "Lancaster University"
+    claim.EducationNameOfMainTeacherOrTutor = "Dr. Ray Charles"
+    claim.EducationAddress = "Lancaster University\n Bailrigg\n Lancaster"
+    claim.EducationPostcode = "LA1 4YW"
+    claim.EducationPhoneNumber = "01524 65201"
+    claim.EducationFaxNumber = "01524 36841"
+    claim
+  }
+
 
   def s6PayDetails() = {
     val claim = new ClaimScenario
