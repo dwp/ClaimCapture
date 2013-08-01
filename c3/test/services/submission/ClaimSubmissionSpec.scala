@@ -30,6 +30,9 @@ class ClaimSubmissionSpec extends Specification with Tags {
       .update(careYouProvide.contactDetailsPayingPerson.get)
       .update(careYouProvide.breaksInCare)
 
+      .update(timeSpentAbroad.normalResidence)
+      .update(timeSpentAbroad.trips)
+
       .update(education.yourCourseDetails)
       .update(education.addressOfSchool)
 
@@ -89,6 +92,8 @@ class ClaimSubmissionSpec extends Specification with Tags {
       val claimSub = ClaimSubmission(claim, "TY6TV9G")
 
       val claimXml = claimSub.buildDwpClaim
+
+      println("ClaimXML" + claimXml)
 
       val fullXml = buildFullClaim(claimXml)
 
