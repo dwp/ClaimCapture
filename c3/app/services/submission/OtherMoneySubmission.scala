@@ -99,7 +99,7 @@ object OtherMoneySubmission {
       if(statutorySickPay.haveYouHadAnyStatutorySickPay == yes) {
         <OtherMoneySSP>{statutorySickPay.haveYouHadAnyStatutorySickPay}</OtherMoneySSP>
         <OtherMoneySSPDetails>
-          <Name>{stringifyRequired(statutorySickPay.employersName)}</Name>
+          <Name>{statutorySickPay.employersName.getOrElse("empty")}</Name>
           <Address>{postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}</Address>
           <ConfirmAddress>{yes}</ConfirmAddress>
         </OtherMoneySSPDetails>
@@ -119,7 +119,7 @@ object OtherMoneySubmission {
       if(otherStatutoryPay.otherPay == yes) {
         <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>
         <OtherMoneySMPDetails>
-          <Name>{stringifyRequired(otherStatutoryPay.employersName)}</Name>
+          <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
           <Address>{postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}</Address>
           <ConfirmAddress>{yes}</ConfirmAddress>
         </OtherMoneySMPDetails>
