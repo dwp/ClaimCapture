@@ -21,12 +21,12 @@ object ClaimScenarioFactory {
 
   def yourDetailsWithNotTimeOutside() = {
     val claim = new ClaimScenario
-    claim.AboutYouTitle = "Mr"
+    claim.AboutYouTitle = "mr"
     claim.AboutYouFirstName = "John"
     claim.AboutYouSurname = "Appleseed"
     claim.AboutYouNationality = "English"
     claim.AboutYouDateOfBirth = "03/04/1950"
-    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
     claim.AboutYouNINO ="AB123456C"
     claim
@@ -92,7 +92,7 @@ object ClaimScenarioFactory {
   def s2ands3WithTimeOUtsideUKAndProperty() = {
     val claim = s2AboutYouWithTimeOutside()
     // Partner personal details
-    claim.AboutYourPartnerTitle = "Mrs"
+    claim.AboutYourPartnerTitle = "mrs"
     claim.AboutYourPartnerFirstName = "Cloe"
     claim.AboutYourPartnerMiddleName = "Scott"
     claim.AboutYourPartnerSurname = "Smith"
@@ -110,7 +110,7 @@ object ClaimScenarioFactory {
   def s4CareYouProvide() = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
-    claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
+    claim.AboutTheCareYouProvideTitlePersonCareFor = "mr"
     claim.AboutTheCareYouProvideFirstNamePersonCareFor = "Tom"
     claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "Potter"
     claim.AboutTheCareYouProvideSurnamePersonCareFor = "Wilson"
@@ -122,7 +122,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"
     claim.AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare = "07922 222 222"
     // More About The Person
-    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
+    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "father"
     claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
     claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
     // Previous Carer Personal Details
@@ -149,7 +149,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
     // One Who Pays Personal Details
     claim.AboutTheCareYouProvideOrganisationPaysYou = "Valtech"
-    claim.AboutTheCareYouProvideTitlePersonPaysYou = "Mr"
+    claim.AboutTheCareYouProvideTitlePersonPaysYou = "mr"
     claim.AboutTheCareYouProvideFirstNamePersonPaysYou = "Brian"
     claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "Green"
     claim.AboutTheCareYouProvideSurnamePersonPaysYou = "Eldred"
@@ -195,7 +195,7 @@ object ClaimScenarioFactory {
   def s6PayDetails() = {
     val claim = new ClaimScenario
     claim.HowWePayYouHowWouldYouLikeToGetPaid =  "You don't have an account but intend to open one"
-    claim.HowWePayYouHowOftenDoYouWantToGetPaid = "Every week"
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = "everyWeek"
     claim
   }
 

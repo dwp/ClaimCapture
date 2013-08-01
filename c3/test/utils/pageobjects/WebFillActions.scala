@@ -28,8 +28,8 @@ trait WebFillActions {
   def fillDate(elementCssSelector: String, value: String) = if (null != value) {
     val date = DateTime.parse(value, DateTimeFormat.forPattern("dd/MM/yyyy"))
     val day = date.dayOfMonth().getAsText
-    fillSelect(elementCssSelector + "_day", if (day.length == 1) s"0$day" else day)
-    fillSelect(elementCssSelector + "_month", date.monthOfYear().getAsText)
+    fillSelect(elementCssSelector + "_day", day)
+    fillSelect(elementCssSelector + "_month", date.monthOfYear().getAsString)
     fillInput(elementCssSelector + "_year", date.year().getAsText)
   }
 
@@ -66,7 +66,7 @@ trait WebFillActions {
   def fillSelect(elementCssSelector: String, value: String) = if (null != value) {
     val select = browser.find(elementCssSelector, 0).getElement
     val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
-    for (option <- allOptions; if option.getText == value) option.click()
+    for (option <- allOptions; if option.getAttribute("value") == value) option.click()
   }
 
   def fillSelectWithOther(elementCssSelector: String,subSelect:String,other:String, value: String) = if (null != value) {
