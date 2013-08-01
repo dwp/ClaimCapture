@@ -83,7 +83,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
       </PropertyRentedOut>
       <HavePartner>yes</HavePartner>
       {YourPartnerSubmission.buildClaimant(yourPartner)} 
-      {OtherBenefits.xml(claim.section(OtherMoney))}
+      {OtherBenefits.xml(claim)}
       <Payment>
         <PaymentFrequency>everyWeek</PaymentFrequency>
         <InitialAccountQuestion>bankBuildingAccount</InitialAccountQuestion>

@@ -8,7 +8,9 @@ import controllers.Mappings.no
 
 object OtherBenefits {
 
-  def xml(otherMoney:Section) = {
+  def xml(claim:Claim) = {
+
+    val otherMoney:Section = claim.section(OtherMoney)
 
     val moneyPaidToSomeoneElseOption = questionGroup[MoneyPaidToSomeoneElseForYou](otherMoney, MoneyPaidToSomeoneElseForYou)
     val personDetailsOption = questionGroup[PersonWhoGetsThisMoney](otherMoney, PersonWhoGetsThisMoney)
