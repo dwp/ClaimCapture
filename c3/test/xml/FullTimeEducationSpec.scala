@@ -1,4 +1,4 @@
-package services.submission
+package xml
 
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
@@ -7,7 +7,7 @@ import models.DayMonthYear
 import models.MultiLineAddress
 import scala.Some
 
-class EducationSubmissionSpec extends Specification with Tags {
+class FullTimeEducationSpec extends Specification with Tags {
 
   val courseType = Some("courseType")
   val courseTitle = Some("courseTitle")
@@ -24,12 +24,13 @@ class EducationSubmissionSpec extends Specification with Tags {
   val faxNumber = Some("0302928273")
 
 
-  "Education Submission" should {
+  "FullTimeEducation" should {
     "generate xml" in {
 
       val yourCourseDetails = YourCourseDetails(NoRouting, courseType, courseTitle, startDate, expectedEndDate, finishedDate, studentRefNr)
       val addressOfSchool = AddressOfSchoolCollegeOrUniversity(NoRouting, schoolName, tutorName, address, postcode, phoneNumber, faxNumber)
-      val educationXml = EducationSubmission.xml(Section(Education, yourCourseDetails :: addressOfSchool :: Nil))
+      val claim = Claim().update(Section(Education, yourCourseDetails :: addressOfSchool :: Nil))
+      val educationXml = FullTimeEducation.xml(claim)
 
       val courseDetailsXml = educationXml \\ "FullTimeEducation" \\ "CourseDetails"
       (courseDetailsXml \\ "Type").text mustEqual courseType.get

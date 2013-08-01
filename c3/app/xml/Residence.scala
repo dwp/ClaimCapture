@@ -1,12 +1,12 @@
-package services.submission
+package xml
 
 import models.domain._
-import services.submission.XMLHelper._
+import XMLHelper._
 import models.yesNo.YesNoWithText
 import controllers.Mappings.no
 import controllers.Mappings.yes
 
-object TimeSpentAbroadSubmission {
+object Residence {
 
   def xml(claim:Claim) = {
     val aboutYouSection:Section = claim.section(AboutYou)
@@ -18,14 +18,14 @@ object TimeSpentAbroadSubmission {
 
     <Residency>
       <Nationality>{if(yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
-      <EUEEASwissNational>yes</EUEEASwissNational>
-      <CountryNormallyLive>yes</CountryNormallyLive>
-      <CountryNormallyLiveOther>{if (normalResidenceOption.isDefined) normalResidenceOption.get.whereDoYouLive.text}</CountryNormallyLiveOther>
+      <EUEEASwissNational>{yes}</EUEEASwissNational>
+      <CountryNormallyLive>{yes}</CountryNormallyLive>
+      <CountryNormallyLiveOther>{if (normalResidenceOption.isDefined) normalResidenceOption.get.whereDoYouLive.text.orNull}</CountryNormallyLiveOther>
       {inGreatBritainNow(normalResidenceOption)}
-      <InGreatBritain26Weeks>yes</InGreatBritain26Weeks>
+      <InGreatBritain26Weeks>{yes}</InGreatBritain26Weeks>
       {periodAbroadLastYear(tripsOption)}
-      <BritishOverseasPassport>no</BritishOverseasPassport>
-      <OutOfGreatBritain>no</OutOfGreatBritain>
+      <BritishOverseasPassport>{yes}</BritishOverseasPassport>
+      <OutOfGreatBritain>{yes}</OutOfGreatBritain>
       {periodAbroadDuringCare(tripsOption)}
     </Residency>
   }
@@ -38,38 +38,35 @@ object TimeSpentAbroadSubmission {
   def periodAbroadLastYear(tripsOption:Option[Trips]) = {
     val trips = tripsOption.getOrElse(Trips())
 
-    def periodAbroadLastYearStructure(trip:TripPeriod) = {
-      <Period>
-        <DateFrom>{trip.start.`yyyy-MM-dd`}</DateFrom>
-        <DateTo>{trip.end.`yyyy-MM-dd`}</DateTo>
-      </Period>
-      <Reason>{trip.why.orNull}</Reason>
-      <Country>{trip.where}</Country>
-    }
-
-    if(!trips.fourWeeksTrips.isEmpty) {
+    def xml(trip:TripPeriod) = {
       <PeriodAbroadLastYear>
-        {for {fourWeeksTrip <- trips.fourWeeksTrips} yield periodAbroadLastYearStructure(fourWeeksTrip)}
+        <Period>
+          <DateFrom>{trip.start.`yyyy-MM-dd`}</DateFrom>
+          <DateTo>{trip.end.`yyyy-MM-dd`}</DateTo>
+        </Period>
+        <Reason>{trip.why.orNull}</Reason>
+        <Country>{trip.where}</Country>
       </PeriodAbroadLastYear>
     }
+
+    {for {fourWeeksTrip <- trips.fourWeeksTrips} yield xml(fourWeeksTrip)}
+
   }
 
   def periodAbroadDuringCare(tripsOption:Option[Trips]) = {
     val trips = tripsOption.getOrElse(Trips())
 
-    def periodAbroadDuringCareStructure(trip:TripPeriod) = {
-      <Period>
-        <DateFrom>{trip.start.`yyyy-MM-dd`}</DateFrom>
-        <DateTo>{trip.end.`yyyy-MM-dd`}</DateTo>
-      </Period>
-      <Reason>{trip.why.orNull}</Reason>
-    }
-
-    if(!trips.fiftyTwoWeeksTrips.isEmpty) {
+    def xml(trip:TripPeriod) = {
       <PeriodAbroadDuringCare>
-        {for {fiftyTwoWeeksTrip <- trips.fiftyTwoWeeksTrips} yield periodAbroadDuringCareStructure(fiftyTwoWeeksTrip)}
+        <Period>
+          <DateFrom>{trip.start.`yyyy-MM-dd`}</DateFrom>
+          <DateTo>{trip.end.`yyyy-MM-dd`}</DateTo>
+        </Period>
+        <Reason>{trip.why.orNull}</Reason>
       </PeriodAbroadDuringCare>
     }
+
+    {for {fiftyTwoWeeksTrip <- trips.fiftyTwoWeeksTrips} yield xml(fiftyTwoWeeksTrip)}
   }
 
 }
