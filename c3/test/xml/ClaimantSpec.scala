@@ -23,5 +23,13 @@ class ClaimantSpec extends Specification {
       val claimant = Claimant.xml(claim)
       (claimant \\ "DateOfClaim").text shouldEqual "1999-01-01"
     }
+
+    "generate XML from a given claim including middle name" in {
+      val claim = Claim().update(ClaimDate(NoRouting, DayMonthYear(1, 1, 1999)))
+                         .update(yourDetails.copy(middleName = Some("Joe"))).update(contactDetails)
+
+      val claimant = Claimant.xml(claim)
+      (claimant \\ "DateOfClaim").text shouldEqual "1999-01-01"
+    }
   }
 }

@@ -5,18 +5,17 @@ import scala.xml.Elem
 
 object Claimant {
   def xml(claim: Claim): Elem = {
-
     val yourDetails = claim.questionGroup(YourDetails).get.asInstanceOf[YourDetails]
     val contactDetails = claim.questionGroup(ContactDetails).get.asInstanceOf[ContactDetails]
 
     <Claimant>
       <DateOfClaim>{claim.dateOfClaim.get.`yyyy-MM-dd`}</DateOfClaim>
       <Surname>{yourDetails.surname}</Surname>
-      <OtherNames>{s"${yourDetails.firstName} ${yourDetails.middleName.getOrElse("")}"}</OtherNames>
+      <OtherNames>{yourDetails.otherNames}</OtherNames>
       <OtherSurnames>{yourDetails.otherSurnames.orNull}</OtherSurnames>
       <Title>{yourDetails.title}</Title>
       <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
-      <DateOfBirth>{yourDetails.dateOfBirth.toXmlString}</DateOfBirth>
+      <DateOfBirth>{yourDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
       <NationalInsuranceNumber>{yourDetails.nationalInsuranceNumber.orNull}</NationalInsuranceNumber>
       <ExistingNationalInsuranceNumber>no</ExistingNationalInsuranceNumber>
       <Address>

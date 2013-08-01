@@ -227,6 +227,7 @@ object ClaimScenarioFactory {
     // About self employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
 
+
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
 

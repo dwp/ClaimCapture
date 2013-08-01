@@ -8,7 +8,7 @@ import models.domain.{Employment => employment, BeenEmployed}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s7_employment.Employment.jobs
-import controllers.s7_employment.Employment.whenSectionVisible
+import controllers.s7_employment.Employment.dispatch
 
 object G1BeenEmployed extends Controller with CachedClaim {
   val form = Form(
@@ -17,7 +17,7 @@ object G1BeenEmployed extends Controller with CachedClaim {
     )(BeenEmployed.apply)(BeenEmployed.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s7_employment.g1_beenEmployed(form)))
+    dispatch(Ok(views.html.s7_employment.g1_beenEmployed(form)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

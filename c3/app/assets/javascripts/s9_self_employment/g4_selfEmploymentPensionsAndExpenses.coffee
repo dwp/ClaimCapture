@@ -15,6 +15,5 @@ window.initEvents = (answerY, answerN, answerChildrenY, answerChildrenN, answerC
   $("#" + answerCaredForY).on "click", ->
     if isExpenseForCaredForToBeDisplayed then $("#selfEmployedCaredForWrap").slideDown(); $("#selfEmployedCaredForWrap").css('display', "block")
 
-
   $("#" + answerCaredForN).on "click", ->
     $("#selfEmployedCaredForWrap").slideUp()
