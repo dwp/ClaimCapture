@@ -3,6 +3,8 @@ package controllers.s6_education
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.Duration
 
 class EducationIntegrationSpec extends Specification with Tags {
   "Education" should {
@@ -10,7 +12,7 @@ class EducationIntegrationSpec extends Specification with Tags {
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
 
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - Education")(Duration(10, TimeUnit.MINUTES))
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
