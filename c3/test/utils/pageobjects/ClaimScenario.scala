@@ -23,3 +23,11 @@ class ClaimScenario extends Dynamic {
   }
 
 }
+
+object ClaimScenario {
+  def buildClaimFromFile(fileName: String) = {
+    val claim = new ClaimScenario
+    FactoryFromFile.buildFromFile(fileName, claim.updateDynamic)
+    claim
+  }
+}

@@ -4,7 +4,7 @@ import utils.pageobjects.xml_validation.XMLBusinessValidation
 import org.specs2.mutable.Specification
 import controllers.ClaimScenarioFactory
 import scala.io.Source
-import utils.pageobjects.ClaimScenarioFileReader
+import utils.pageobjects.ClaimScenario
 
 
 /**
@@ -43,7 +43,7 @@ class XMLBusinessValidationSpec extends Specification {
 
     "be able to parse a claim from a file and check XML content is valid" in {
       val validator = new XMLBusinessValidation("/ClaimScenarioXmlMapping.csv")
-      val claim = ClaimScenarioFileReader.buildClaimFromFile("/unit_tests/ClaimScenario_ClaimMickey.csv")
+      val claim = ClaimScenario.buildClaimFromFile("/unit_tests/ClaimScenario_ClaimMickey.csv")
       val xml = Source.fromURL(getClass getResource "/unit_tests/ClaimMickey.xml").mkString
 
       val errors = validator.validateXMLClaim(claim, xml,throwException = true)
