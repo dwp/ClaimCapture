@@ -14,7 +14,7 @@ class FactoryFromFileSpec extends Specification {
 
     "be able to build a claim from a valid csv file" in {
       val claim = new ClaimScenario
-      FactoryFromFile.buildFromFile("/tests.csv", claim.updateDynamic)
+      FactoryFromFile.buildFromFile("/unit_tests/tests.csv", claim.updateDynamic)
 
       claim.AboutYouHaveYouSubletYourHome mustEqual "value 1"
       claim.AboutYouWhatIsYourVisaReferenceNumber mustEqual "value 2"

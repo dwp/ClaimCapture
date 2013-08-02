@@ -22,6 +22,8 @@
   /* button panel */
   /* button styling */
   /* button styling end */ }
+  .ie6 .carers-allowance {
+    width: 980px; }
   @media screen and (max-width: 500px) {
     .carers-allowance {
       padding-left: .75em;
@@ -100,8 +102,7 @@
           background: url("images/nav-default.png") center 0 no-repeat;
           padding-bottom: 5px; }
         .ie6 .carers-allowance .progress-steps ol li {
-          padding-bottom: 20px;
-          width: 9%; }
+          padding-bottom: 20px; }
         @media screen and (max-width: 760px) {
           .carers-allowance .progress-steps ol li {
             text-indent: -9999px;
@@ -205,9 +206,6 @@
     padding: 1.6em 0 0 1em;
     /* section header */
     /* section header */ }
-    .ie6 .carers-allowance section {
-      margin: 0 auto;
-      width: 70%; }
     @media screen and (max-width: 640px) {
       .carers-allowance section {
         padding-left: 0;
@@ -231,37 +229,54 @@
         font-size: 5rem; }
         .ie .carers-allowance section.error-statement h1 {
           font-size: 50px; }
-    .carers-allowance section header {
+    .carers-allowance section h1 {
+      font-size: 3.6rem;
+      font-weight: 700;
+      line-height: 1.2em;
+      margin-bottom: .25em;
       margin-right: 20%;
       margin-left: -2px; }
       @media screen and (max-width: 700px) {
-        .carers-allowance section header {
+        .carers-allowance section h1 {
           margin-right: 0; } }
-      .carers-allowance section header h1 {
-        font-size: 3.6rem;
-        font-weight: 700;
-        line-height: 1.2em;
-        margin-bottom: .25em; }
-        .ie .carers-allowance section header h1 {
-          font-size: 36px; }
-        @media screen and (max-width: 500px) {
-          .carers-allowance section header h1 {
-            font-size: 3rem; }
-            .ie .carers-allowance section header h1 {
-              font-size: 30px; } }
-        .carers-allowance section header h1 span {
-          display: block;
-          font-size: 2.7rem;
-          line-height: 1.3em;
-          font-weight: 400;
-          color: #6f777b; }
-          .ie .carers-allowance section header h1 span {
-            font-size: 17px; }
-          @media screen and (max-width: 500px) {
-            .carers-allowance section header h1 span {
-              font-size: 2.2rem; }
-              .ie .carers-allowance section header h1 span {
-                font-size: 22px; } }
+      .ie .carers-allowance section h1 {
+        font-size: 36px; }
+      @media screen and (max-width: 500px) {
+        .carers-allowance section h1 {
+          font-size: 3rem; }
+          .ie .carers-allowance section h1 {
+            font-size: 30px; } }
+    .carers-allowance section.response p.intro {
+      padding-right: 20%; }
+      @media screen and (max-width: 700px) {
+        .carers-allowance section.response p.intro {
+          padding-right: 0; } }
+    .carers-allowance section.response article {
+      float: left;
+      width: 30%;
+      margin: 2em 0 1em 5%; }
+      @media screen and (max-width: 640px) {
+        .carers-allowance section.response article {
+          width: 100%;
+          float: none;
+          margin-left: 0; } }
+      .carers-allowance section.response article h2 {
+        font-size: 2.4rem;
+        line-height: 1.3em;
+        background-image: url("../img/response-bg.png");
+        background-position: center 0;
+        background-repeat: no-repeat;
+        padding-top: 180px; }
+        .ie .carers-allowance section.response article h2 {
+          font-size: 24px; }
+      .carers-allowance section.response article p {
+        margin-top: .75em; }
+      .carers-allowance section.response article.partner {
+        margin-left: 0; }
+      .carers-allowance section.response article.earnings h2 {
+        background-position: center -279px; }
+      .carers-allowance section.response article.education h2 {
+        background-position: center -567px; }
     .carers-allowance section p {
       margin: 0;
       font-size: 1.9rem;
@@ -1078,7 +1093,8 @@
           padding: 0;
           margin: 0; }
   .carers-allowance .form-steps {
-    margin-top: 1.2em; }
+    margin-top: 1.2em;
+    clear: both; }
     @media screen and (max-width: 500px) {
       .carers-allowance .form-steps {
         padding-left: 0; } }
@@ -1217,6 +1233,19 @@
       position: absolute;
       top: 13px;
       right: 13px; } }
+
+/* ==========================================================================
+   clearfix
+   ========================================================================== */
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */ }
+
+.clearfix:after {
+  clear: both; }
 
 /* Purely for demo purposes - can be deleted later on */
 textarea.demo {

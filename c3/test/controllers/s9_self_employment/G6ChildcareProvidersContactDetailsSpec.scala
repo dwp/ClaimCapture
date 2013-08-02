@@ -1,11 +1,11 @@
 package controllers.s9_self_employment
 
-import org.specs2.mutable.{ Tags, Specification }
-import play.api.test.{ FakeRequest, WithApplication }
+import org.specs2.mutable.{Tags, Specification}
+import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.domain.{ Claiming, ChildcareProvidersContactDetails, Section, Claim }
-import models.{ MultiLineAddress, domain }
+import models.domain.{Claiming, ChildcareProvidersContactDetails, Section, Claim}
+import models.{MultiLineAddress, domain}
 
 class G6ChildcareProvidersContactDetailsSpec extends Specification with Tags {
   "Childcare provider's contact Details Form - Controller" should {
@@ -39,7 +39,6 @@ class G6ChildcareProvidersContactDetailsSpec extends Specification with Tags {
           y.address must equalTo(Some(MultiLineAddress(Some(addressLineOne), Some(addressLineTwo), Some(addressLineThree))))
           y.postcode must equalTo(Some(postcode))
         }
-        case None => ???
       }
     }
 

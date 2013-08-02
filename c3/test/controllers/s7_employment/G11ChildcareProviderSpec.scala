@@ -6,10 +6,10 @@ import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
 
-class G10ChildcareExpensesSpec extends Specification with Tags {
+class G11ChildcareProviderSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
 
-  "Childcare expenses" should {
+  "Childcare provider" should {
     "present" in new WithApplication with Claiming {
       val aboutExpenses = mock[AboutExpenses]
       aboutExpenses.identifier returns AboutExpenses
@@ -28,7 +28,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
       Cache.set(claimKey, claim)
 
       val request = FakeRequest().withSession("connected" -> claimKey)
-      val result = G10ChildcareExpenses.present(jobID)(request)
+      val result = G11ChildcareProvider.present(jobID)(request)
       status(result) mustEqual OK
     }
 
@@ -36,15 +36,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID)
 
-      val result = G10ChildcareExpenses.submit(request)
-      status(result) mustEqual BAD_REQUEST
-    }
-
-    "accept all mandatory data." in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whoLooksAfterChildren" -> "blah")
-
-      val result = G10ChildcareExpenses.submit(request)
+      val result = G11ChildcareProvider.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -55,8 +47,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
-      val result = G10ChildcareExpenses.submit(FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whoLooksAfterChildren" -> "blah"))
+      val result = G11ChildcareProvider.submit(FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> jobID))
 
       status(result) mustEqual SEE_OTHER
 
