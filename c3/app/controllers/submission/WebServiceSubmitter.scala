@@ -4,14 +4,15 @@ import play.api.mvc.Results.Redirect
 import models.domain.Claim
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc.PlainResult
-import services.{PostgresTransactionIdService, TransactionIdService}
+import services.TransactionIdService
 import play.api.{http, Logger}
 import services.submission.{ClaimSubmissionService, ClaimSubmission}
 import ExecutionContext.Implicits.global
+import com.google.inject.Inject
 
-class WebServiceSubmitter extends Submitter {
+class WebServiceSubmitter@Inject()(idService: TransactionIdService) extends Submitter {
+
   def submit(claim: Claim): Future[PlainResult] = {
-    val idService: TransactionIdService = new PostgresTransactionIdService()
     val id = idService.generateId
     Logger.info(s"Retrieved Id : $id")
     val claimXml = ClaimSubmission(claim, id).buildDwpClaim
