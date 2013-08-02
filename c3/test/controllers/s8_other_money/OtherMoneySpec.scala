@@ -15,7 +15,7 @@ class OtherMoneySpec extends Specification with Tags {
       page fillPageWith claim
       page submitPage()
 
-      page goToPage(new G7CompletedPage(browser))
+      page goToPage(new G8OtherMoneyCompletedPage(browser))
      }
 
     "contain the completed forms" in new WithBrowser with G1AboutOtherMoneyPageContext {
@@ -23,8 +23,8 @@ class OtherMoneySpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       page submitPage()
-      val completedPage = page goToPage(new G7CompletedPage(browser))
-      completedPage must beAnInstanceOf[G7CompletedPage]
+      val completedPage = page goToPage(new G8OtherMoneyCompletedPage(browser))
+      completedPage must beAnInstanceOf[G8OtherMoneyCompletedPage]
       completedPage.listCompletedForms.size shouldEqual 1
     }
 
@@ -32,8 +32,8 @@ class OtherMoneySpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.s8otherMoney
       page goToThePage()
       page fillPageWith claim
-      val completedPage = page submitPage() goToPage(new G7CompletedPage(browser))
-      completedPage must beAnInstanceOf[G7CompletedPage]
+      val completedPage = page submitPage() goToPage(new G8OtherMoneyCompletedPage(browser))
+      completedPage must beAnInstanceOf[G8OtherMoneyCompletedPage]
       val g6Page = completedPage.goBack()
       g6Page must beAnInstanceOf[G6OtherStatutoryPayPage]
     }
@@ -42,7 +42,7 @@ class OtherMoneySpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.s8otherMoney
       page goToThePage()
       page fillPageWith claim
-      val completedPage = page submitPage() goToPage(new G7CompletedPage(browser))
+      val completedPage = page submitPage() goToPage(new G8OtherMoneyCompletedPage(browser))
       browser.find("button[type='submit']").getText shouldEqual "Continue to Pay details"
 
       val payDetailsPage = completedPage submitPage()

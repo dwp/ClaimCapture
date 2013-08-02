@@ -4,8 +4,8 @@ package app
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.{PageObjectException, ClaimScenario}
-import utils.pageobjects.s3_your_partner.G5YourPartnerCompletedPage
+import utils.pageobjects.{TestPage, PageObjectException, ClaimScenario}
+import utils.pageobjects.s8_other_money.G7OtherEEAStateOrSwitzerlandPage
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
@@ -19,10 +19,16 @@ class EndToEndSpec extends Specification with Tags {
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
       try {
-        val lastPage = page runClaimWith(claim, G5YourPartnerCompletedPage.title)
+        val lastPage = page runClaimWith(claim, TestPage.title)
+//        lastPage fillPageWith claim
+        println(lastPage.source)
       }
       catch {
-        case e:PageObjectException => println(browser.pageSource())
+        case e:PageObjectException =>  {
+          println(browser.pageSource())
+          println(browser.url())
+          println(e.message)
+        }
       }
     }
   } section "functional"

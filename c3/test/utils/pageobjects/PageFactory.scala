@@ -25,6 +25,7 @@ object PageFactory {
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
     title match {
+      case TestPage.title => TestPage buildPageWith(browser, previousPage)
       // S1
       case G1BenefitsPage.title => G1BenefitsPage buildPageWith(browser, previousPage)
       case G2HoursPage.title => G2HoursPage buildPageWith(browser, previousPage)
@@ -69,6 +70,7 @@ object PageFactory {
       // S6
       case G1HowWePayYouPage.title => G1HowWePayYouPage buildPageWith(browser, previousPage)
       case G2AddressOfSchoolCollegeOrUniversityPage.title => G2AddressOfSchoolCollegeOrUniversityPage buildPageWith(browser, previousPage)
+      case G3PayDetailsCompletedPage.title => G3PayDetailsCompletedPage buildPageWith(browser,previousPage)
       // S7
       case G1BeenEmployedPage.title => G1BeenEmployedPage buildPageWith(browser,previousPage)
       case G2JobDetailsPage.title => G2JobDetailsPage buildPageWith(browser,previousPage,iteration)
@@ -85,7 +87,6 @@ object PageFactory {
       case G13CareProviderPage.title => G13CareProviderPage buildPageWith(browser,previousPage,iteration)
       case G14JobCompletionPage.title => G14JobCompletionPage buildPageWith(browser,previousPage,iteration)
       case G15CompletedPage.title => G15CompletedPage buildPageWith(browser,previousPage)
-
       // S8
       case G1AboutOtherMoneyPage.title => G1AboutOtherMoneyPage buildPageWith(browser, previousPage)
       case G2MoneyPaidToSomeoneElseForYouPage.title => G2MoneyPaidToSomeoneElseForYouPage buildPageWith(browser, previousPage)
@@ -93,7 +94,8 @@ object PageFactory {
       case G4PersonContactDetailsPage.title => G4PersonContactDetailsPage buildPageWith(browser, previousPage)
       case G5StatutorySickPayPage.title => G5StatutorySickPayPage buildPageWith(browser, previousPage)
       case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage buildPageWith(browser, previousPage)
-      case G7CompletedPage.title => G7CompletedPage buildPageWith(browser, previousPage)
+      case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage buildPageWith(browser,previousPage)
+      case G8OtherMoneyCompletedPage.title => G8OtherMoneyCompletedPage buildPageWith(browser, previousPage)
       // S9
       case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage buildPageWith(browser, previousPage)
       case G6ChildcareProvidersContactDetailsPage.title => G6ChildcareProvidersContactDetailsPage buildPageWith(browser, previousPage)
