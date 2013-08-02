@@ -290,7 +290,7 @@ GET     /timeout                                                controllers.Appl
 GET     /error                                                  controllers.Application.error
 
 # Temporary submission service
-GET     /submit                                                 controllers.Submission.submit
+GET     /submit                                                 @controllers.submission.SubmissionController.submit
 
 # Thank you
 GET     /thankYou                                               controllers.ThankYou.present
