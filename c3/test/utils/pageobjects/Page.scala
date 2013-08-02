@@ -13,7 +13,14 @@ import org.openqa.selenium.TimeoutException
  */
 abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Int = 1) extends Object with WebSearchActions with WebFillActions {
 
-  def getUrl() = url
+  // Cache of the page source
+  private var pageSource = ""
+
+  /* Has the user successfully left this page? if yes then she should not be able to modify it.
+     To modify it, she needs to go back to the page, which will create a new page object.
+   */
+  private var pageLeft = false
+
   /**
    * Go to the html page corresponding to the current object.
    * If the landing page is not the expected page then throws an exception, unless asked otherwise.
@@ -31,7 +38,10 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @param waitForPage Does the test need add extra time to wait every time it goes a page? By default set to true.
    * @return Page object presenting the page. It could be different from target page if landed on different page and specified no exception to be thrown.
    */
-  def goToPage(page: Page, throwException: Boolean = true, waitForPage: Boolean = true, waitDuration:Int = Page.WAIT_FOR_DURATION) = goToUrl(page, throwException, waitForPage,waitDuration)
+  def goToPage(page: Page, throwException: Boolean = true, waitForPage: Boolean = true, waitDuration:Int = Page.WAIT_FOR_DURATION) =  {
+    this.pageLeft = true
+    goToUrl(page, throwException, waitForPage,waitDuration)
+  }
 
   /**
    * Click on back/previous button of the page (not of the browser)
@@ -39,6 +49,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @return Page object representing the html page the UI went back to.
    */
   def goBack( waitForPage: Boolean = true, waitDuration:Int = Page.WAIT_FOR_DURATION) = {
+    this.pageLeft = true
     val backPageTile = browser.click(".form-steps a").title
     val newPage = createPageWithTitle(backPageTile,iteration)
     if (waitForPage) newPage.waitForPage(waitDuration) else newPage
@@ -61,6 +72,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @return Last page
    */
   final def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, throwException: Boolean = true, waitForPage: Boolean = false, waitDuration:Int = Page.WAIT_FOR_DURATION): Page = {
+    if (this.pageLeft) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
     if (pageTitle == upToPageWithTitle) {
       this
     } else {
@@ -76,9 +88,12 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @return next Page or same page if errors detected and did not ask for exception.
    */
   def submitPage(throwException: Boolean = false, waitForPage: Boolean = false, waitDuration:Int = Page.WAIT_FOR_DURATION) = {
+    if (this.pageLeft) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
+    this.pageSource = browser.pageSource()
     val nextPageTile = browser.submit("button[type='submit']").title
     if (this checkNoErrorsForPage(nextPageTile, throwException)) this
     else {
+      this.pageLeft = true
       val newPage = this createPageWithTitle(nextPageTile,updateIterationNumber)
       if (waitForPage) newPage.waitForPage(waitDuration) else newPage
     }
@@ -94,7 +109,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * Returns html code of the page.
    * @return source code of the page encapsulated in a String
    */
-  def source() = browser.pageSource()
+  def source() =  if (this.pageLeft) this.pageSource else browser.pageSource()
 
   /**
    * Provides the list of errors displayed in a page. If there is no error then return None.
@@ -115,6 +130,14 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     else List()
   }
 
+  def fullPagePath:String = {
+    if (previousPage == None) this.pageTitle
+    else  previousPage.get.fullPagePath + " > " + this.pageTitle
+  }
+
+
+  def getUrl = url
+
   // ==================================================================
   //  NON PUBLIC FUNCTIONS
   // ==================================================================
@@ -128,7 +151,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
       }
     }
     catch {
-      case e:TimeoutException => throw new PageObjectException("Time out while waiting [" + browser.title + "] matches [" + this.pageTitle + "]")
+      case e:TimeoutException => throw new PageObjectException("Time out while awaiting [" + browser.title + "] matches [" + this.pageTitle + "]")
     }
     this
   }
@@ -150,11 +173,12 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
 
 
   private def goToUrl(page: Page, throwException: Boolean, waitForPage: Boolean, waitDuration:Int) = {
+    if (!this.pageLeft)  this.pageSource = browser.pageSource()
     browser.goTo(page.url)
     if (!page.titleMatch) {
       if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " - Page loaded with title: " + browser.title)
       else this.createPageWithTitle(browser.title,1)
-    } else  if (waitForPage)  page.waitForPage(waitDuration)  else this
+    } else  if (waitForPage) page.waitForPage(waitDuration) else page
 
   }
 }

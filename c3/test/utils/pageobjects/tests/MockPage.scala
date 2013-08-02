@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-class MockPage (browser: TestBrowser, title: String) extends Page(browser, "/mock", title){
+class MockPage (browser: TestBrowser, title: String, previousPage: Option[Page] = None) extends Page(browser, "/mock", title,previousPage){
   /**
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
