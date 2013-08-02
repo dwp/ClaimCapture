@@ -30,6 +30,9 @@ class ClaimSubmissionSpec extends Specification with Tags {
       .update(careYouProvide.contactDetailsPayingPerson.get)
       .update(careYouProvide.breaksInCare)
 
+      .update(timeSpentAbroad.normalResidence)
+      .update(timeSpentAbroad.trips)
+
       .update(education.yourCourseDetails)
       .update(education.addressOfSchool)
 
@@ -57,7 +60,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
       val claimXml = claimSub.buildDwpClaim
 
       (claimXml \\ "Claimant" \\ "Title").text mustEqual yourDetails.title
-      (claimXml \\ "Claimant" \\ "OtherNames").text mustEqual s"${yourDetails.firstName} "
+      (claimXml \\ "Claimant" \\ "OtherNames").text mustEqual s"${yourDetails.firstName}"
       (claimXml \\ "Claimant" \\ "OtherSurnames").text mustEqual yourDetails.otherSurnames.get
       (claimXml \\ "Claimant" \\ "DateOfClaim").text mustEqual claimDate.dateOfClaim.toXmlString
       (claimXml \\ "Claimant" \\ "Address" \\ "PostCode").text mustEqual contactDetails.postcode.get

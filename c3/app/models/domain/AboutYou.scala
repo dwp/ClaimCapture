@@ -3,11 +3,6 @@ package models.domain
 import models.{LivingInUK, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
 import play.api.mvc.Call
 
-case class AboutYou(yourDetails: YourDetails,
-                    contactDetails: ContactDetails,
-                    timeOutsideUK : Option[TimeOutsideUK],
-                    claimDate : ClaimDate)
-
 object AboutYou extends Section.Identifier {
   val id = "s2"
 }

@@ -1,7 +1,8 @@
 package xml
 
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
-import models.domain.{Section, QuestionGroup}
+import models.domain.{Claim, QuestionGroup}
+import scala.xml.NodeBuffer
 
 object XMLHelper {
 
@@ -14,23 +15,23 @@ object XMLHelper {
     }
   }
 
-  def postalAddressStructure(addressOption:Option[MultiLineAddress], postcodeOption:Option[String]) = {
-
-    def xml(address:MultiLineAddress) = {
-      <gds:Line>{address.lineOne.orNull}</gds:Line>
-      <gds:Line>{address.lineTwo.orNull}</gds:Line>
-      <gds:Line>{address.lineThree.orNull}</gds:Line>
-      <gds:PostCode>{postcodeOption.getOrElse("")}</gds:PostCode>
-    }
+  def postalAddressStructure(addressOption:Option[MultiLineAddress], postcodeOption:Option[String]):NodeBuffer = {
 
     addressOption match {
-      case Some(address:MultiLineAddress) => xml(address)
-      case _ =>  xml(MultiLineAddress(None, None, None))
+      case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption.orNull)
+      case _ =>  postalAddressStructure(MultiLineAddress(None, None, None), postcodeOption.orNull)
     }
   }
 
-  def questionGroup[T](section: Section, qi: QuestionGroup.Identifier) = {
-    section.questionGroup(qi).asInstanceOf[Option[T]]
+  def postalAddressStructure(address:MultiLineAddress, postcode:String):NodeBuffer = {
+    <gds:Line>{address.lineOne.orNull}</gds:Line>
+    <gds:Line>{address.lineTwo.orNull}</gds:Line>
+    <gds:Line>{address.lineThree.orNull}</gds:Line>
+    <gds:PostCode>{postcode}</gds:PostCode>
+  }
+
+  def questionGroup[T](claim:Claim, qi: QuestionGroup.Identifier) = {
+    claim.questionGroup(qi).asInstanceOf[Option[T]]
   }
 
 }

@@ -28,6 +28,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
+    //  println(page.source)
       page submitPage()
     }
 

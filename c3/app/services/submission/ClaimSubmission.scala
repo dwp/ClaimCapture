@@ -2,12 +2,10 @@ package services.submission
 
 import models.domain._
 import play.api.Logger
-import xml.{OtherBenefits, FullTimeEducation, Residence}
+import xml.{Claimant, OtherBenefits, FullTimeEducation, Residence}
 
 
 case class ClaimSubmission(claim: Claim, transactionId : String) {
-  val aboutYou = AboutYouSubmission.buildAboutYou(claim)
-
   val yourPartner = YourPartnerSubmission.buildYourPartner(claim)
 
   val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)
@@ -17,7 +15,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
   def buildDwpClaim = {
     Logger.info(s"Build Claim : $transactionId")
     <DWPCAClaim id={transactionId}>
-      {AboutYouSubmission.buildClaimant(aboutYou)}
+      {Claimant.xml(claim)}
       {CareYouProvideSubmission.buildCaree(careYouProvide)}
       <ClaimADI>no</ClaimADI>
       {Residence.xml(claim)}
