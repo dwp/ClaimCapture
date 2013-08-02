@@ -12,6 +12,9 @@ $button-green-hover: #004b27;
    padding: 0 1em 2em 1em;
    margin: 0 auto;
    max-width: 980px;
+   .ie6 & {
+	   width: 980px;
+   }
    @media screen and (max-width: 500px) {padding-left: .75em; padding-right: .75em;}
    @media screen and (max-width: 640px) {border-top: 10px solid #f47738;}
 
@@ -96,7 +99,6 @@ $button-green-hover: #004b27;
 			   }
 			   .ie6 & {
 				   padding-bottom: 20px;
-				   width: 9%;
 			   }
 			    @media screen and (max-width: 760px) {
 				    text-indent: -9999px;
@@ -232,7 +234,6 @@ $button-green-hover: #004b27;
 	   background: #fff;
 	   position: relative;
 	   padding: 1.6em 0 0 1em;
-	   .ie6 & {margin: 0 auto; width: 70%;}
 	   @media screen and (max-width: 640px) {padding-left: 0; padding-right: 0; border: 0;}
 	   
 	   &.error-statement {
@@ -251,18 +252,18 @@ $button-green-hover: #004b27;
 				}
 			}
    	   }
-	   
-	   /* section header */
-	   header {
-		   margin-right: 20%;
-		   margin-left: -2px;
-		   @media screen and (max-width: 700px) {margin-right: 0;}
+   	   
+   	   
+   	   	   /* section header */
 		   	
 		   h1 {
 			   font-size: 3.6rem;
 			   font-weight: 700;
 			   line-height: 1.2em;
 			   margin-bottom: .25em;
+			   margin-right: 20%;
+			   margin-left: -2px;
+			   @media screen and (max-width: 700px) {margin-right: 0;}
 			   .ie & {
 				   font-size: 36px;
 			   }
@@ -271,24 +272,56 @@ $button-green-hover: #004b27;
 					    font-size: 30px;
 				    }
 			    }
-			   span {
-				   display: block;
-				   font-size: 2.7rem;
-				   line-height: 1.3em;
-				   font-weight: 400;
-				   color: #6f777b;
-				   .ie & {
-					   font-size: 17px;
-				   }
-				   @media screen and (max-width: 500px) {font-size: 2.2rem;
-					   .ie & {
-						   font-size: 22px;
-					   }
-				   }
-			   }
 		   }
-	   }
+
 	   /* section header */
+   	   
+   	   
+   	   
+   	   &.response {
+   	   			p.intro {
+					padding-right: 20%;
+				    @media screen and (max-width: 700px) {padding-right: 0;}
+				}
+			article {
+				float: left;
+				width: 30%;
+				margin: 2em 0 1em 5%;
+				@media screen and (max-width: 700px) {
+					width: 100%;
+					float: none;
+					margin-left: 0;
+				}
+				h2 {
+					font-size: 2.4rem;
+					line-height: 1.3em;
+					background-image: url('../img/response-bg.png');
+					background-position: center 0;
+					background-repeat: no-repeat;
+					padding-top: 180px;
+					.ie & {
+						font-size: 24px;
+					}
+				}
+				p {
+					margin-top: .75em;
+				}
+				&.partner {
+					margin-left: 0;
+				}
+				&.earnings {
+					h2 {
+						background-position: center -279px;
+					}
+				}
+				&.education {
+					h2 {
+						background-position: center -567px;
+					}
+				}
+			}
+		}
+	   
 	   
 	   p {
 		   margin: 0;
@@ -1366,6 +1399,7 @@ $button-green-hover: #004b27;
    /* button panel */
    .form-steps {
 	   margin-top: 1.2em;
+	   clear: both;
 	   @media screen and (max-width: 500px) {padding-left: 0;}
 	   p {
 		   padding-bottom: 0.2em;
@@ -1555,6 +1589,21 @@ $button-green-hover: #004b27;
 			}
 		}
 	}
+}
+
+
+/* ==========================================================================
+   clearfix
+   ========================================================================== */
+   
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
 }
 
 
