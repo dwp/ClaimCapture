@@ -9,7 +9,6 @@ import Mappings.{yes, no}
 
 class ResidenceSpec extends Specification with Tags {
 
-
   val yourDetails = YourDetails(nationality = "Dutch")
 
   val normalResidence = NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer=yes, text=Some("UK")), inGBNow=yes)
@@ -29,7 +28,6 @@ class ResidenceSpec extends Specification with Tags {
   val fiftyTwoWeeksTrip1 = Trip(id="fiftyTwo-one", start = startDate, end = endDate, where = netherlands, why = holidayOption)
 
   val fiftyTwoWeeksTrip2 = Trip(id="fiftyTwo-two", start = startDate, end = endDate, where = netherlands, why = holidayOption)
-
 
   val trips = Trips(fourWeeksTrips=List(fourWeekTrip1, fourWeekTrip1), fiftyTwoWeeksTrips = List(fiftyTwoWeeksTrip1, fiftyTwoWeeksTrip2))
 
@@ -68,7 +66,6 @@ class ResidenceSpec extends Specification with Tags {
       (periodCareTwo \\ "Period" \\ "DateFrom").text  mustEqual startDate.`yyyy-MM-dd`
       (periodCareTwo \\ "Period" \\ "DateTo").text  mustEqual endDate.`yyyy-MM-dd`
       (periodCareTwo \\ "Reason").text mustEqual holidayOption.get
-
     }
 
     "generate xml when data is missing" in {
@@ -83,5 +80,4 @@ class ResidenceSpec extends Specification with Tags {
     }
 
   } section "unit"
-
 }

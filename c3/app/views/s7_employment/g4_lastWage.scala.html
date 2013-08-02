@@ -23,9 +23,9 @@
             <ul class="group">
                 @inputDayMonthYear(currentForm("lastPaidDate"))
 
-                @inputDayMonthYearFromTo(currentForm("periodCovered"),'helper ->Messages("date.helper"))
+                @inputDayMonthYearFromTo(currentForm("periodCovered"), 'helper -> Messages("date.helper"))
 
-                @carersShortInputText(currentForm("grossPay"),'placeholder -> Messages("poundSign"))
+                @carersShortInputText(currentForm("grossPay"), 'placeholder -> Messages("poundSign"))
 
                 @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("please.specify"))
 
