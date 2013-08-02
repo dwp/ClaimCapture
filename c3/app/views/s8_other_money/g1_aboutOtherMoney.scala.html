@@ -16,7 +16,7 @@
             <legend>About other money</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your partner/spouse" else ""))
+                @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your Partner/Spouse" else ""))
 
                 @otherDetailPlaceHolder(
                   inputDef = Seq(carersInputText(currentForm("yourBenefits.text1"), 'maxLength -> Mappings.fifty, '_label -> Messages("yourBenefits.text1"))),

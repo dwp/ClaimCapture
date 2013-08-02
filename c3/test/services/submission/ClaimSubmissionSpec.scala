@@ -13,6 +13,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
     claim.update(aboutYou.yourDetails)
       .update(aboutYou.claimDate)
       .update(aboutYou.contactDetails)
+      .update(aboutYou.employment)
       
       .update(yourPartner.yourPartnerPersonalDetails)
       .update(yourPartner.yourPartnerContactDetails)
@@ -36,13 +37,15 @@ class ClaimSubmissionSpec extends Specification with Tags {
       .update(education.yourCourseDetails)
       .update(education.addressOfSchool)
 
+      .update(selfEmployment.aboutSelfEmployment)
+      .update(selfEmployment.selfEmploymentYourAccounts)
+
       .update(otherMoney.aboutOtherMoney)
       .update(otherMoney.moneyPaidToSomeoneElse)
       .update(otherMoney.personWhoGetsThisMoney)
       .update(otherMoney.personContactDetails)
       .update(otherMoney.statutorySickPay)
       .update(otherMoney.otherStatutoryPay)
-
 
       .update(payDetails.howWePayYou)
       .update(payDetails.bankBuildingSocietyDetails)
