@@ -1,11 +1,14 @@
+import com.google.inject.Guice
 import com.typesafe.config.ConfigFactory
 import java.io.File
 import java.net.InetAddress
+import modules.{ProdModule, DevModule}
 import org.slf4j.MDC
 import play.api._
 import play.api.Configuration
 import play.api.mvc._
 import play.api.mvc.Results._
+import scala.Predef._
 import play.api.Play.current
 
 /**
@@ -20,6 +23,12 @@ import play.api.Play.current
  * play -Dconfig.file=conf/application.test.conf run
  */
 object Global extends WithFilters(RefererCheck) {
+  private lazy val injector = {
+    Play.isProd match {
+      case true => Guice.createInjector(new ProdModule)
+      case false => Guice.createInjector(new DevModule)
+    }
+  }
 
   override def onStart(app: Application) {
     MDC.put("httpPort", Option(System.getProperty("http.port")).getOrElse("Value not set"))
@@ -37,6 +46,10 @@ object Global extends WithFilters(RefererCheck) {
   // 404 - page not found error     http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
   override def onHandlerNotFound(request: RequestHeader): Result = {
     NotFound(views.html.errors.onHandlerNotFound(request))
+  }
+
+  override def getControllerInstance[A](controllerClass: Class[A]): A = {
+    injector.getInstance(controllerClass)
   }
 }
 

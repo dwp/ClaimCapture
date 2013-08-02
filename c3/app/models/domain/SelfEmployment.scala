@@ -14,26 +14,26 @@ case object AboutSelfEmployment extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g1"
 }
 
-case class AboutSelfEmployment(call: Call,
-                               areYouSelfEmployedNow: String,
-                               whenDidYouStartThisJob: Option[DayMonthYear],
-                               whenDidTheJobFinish: Option[DayMonthYear],
-                               haveYouCeasedTrading: Option[String],
-                               natureOfYourBusiness: Option[String]
+case class AboutSelfEmployment(call: Call = NoRouting,
+                               areYouSelfEmployedNow: String = "",
+                               whenDidYouStartThisJob: Option[DayMonthYear] = None,
+                               whenDidTheJobFinish: Option[DayMonthYear] = None,
+                               haveYouCeasedTrading: Option[String] = None,
+                               natureOfYourBusiness: Option[String] = None
                                 ) extends QuestionGroup(AboutSelfEmployment)
 
 case object SelfEmploymentYourAccounts extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g2"
 }
 
-case class SelfEmploymentYourAccounts(call: Call,
-                                      whatWasOrIsYourTradingYearFrom: Option[DayMonthYear],
-                                      whatWasOrIsYourTradingYearTo: Option[DayMonthYear],
-                                      areAccountsPreparedOnCashFlowBasis: String,
-                                      areIncomeOutgoingsProfitSimilarToTrading: Option[String],
-                                      tellUsWhyAndWhenTheChangeHappened: Option[String],
-                                      doYouHaveAnAccountant: Option[String],
-                                      canWeContactYourAccountant: Option[String]
+case class SelfEmploymentYourAccounts(call: Call = NoRouting,
+                                      whatWasOrIsYourTradingYearFrom: Option[DayMonthYear] = None,
+                                      whatWasOrIsYourTradingYearTo: Option[DayMonthYear] = None,
+                                      areAccountsPreparedOnCashFlowBasis: String = "",
+                                      areIncomeOutgoingsProfitSimilarToTrading: Option[String] = None,
+                                      tellUsWhyAndWhenTheChangeHappened: Option[String] = None,
+                                      doYouHaveAnAccountant: Option[String] = None,
+                                      canWeContactYourAccountant: Option[String] = None
                                        ) extends QuestionGroup(SelfEmploymentYourAccounts)
 
 

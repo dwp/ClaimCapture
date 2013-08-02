@@ -56,8 +56,8 @@ object MoreAboutYou extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g5"
 }
 
-case class Employment(call: Call,
-                      beenSelfEmployedSince1WeekBeforeClaim: String, beenEmployedSince6MonthsBeforeClaim: String) extends QuestionGroup(Employment)
+case class Employment(call: Call = NoRouting,
+                      beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
 
 object Employment extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g6"

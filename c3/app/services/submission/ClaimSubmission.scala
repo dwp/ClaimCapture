@@ -2,7 +2,7 @@ package services.submission
 
 import models.domain._
 import play.api.Logger
-import xml.{Claimant, OtherBenefits, FullTimeEducation, Residence}
+import xml._
 
 
 case class ClaimSubmission(claim: Claim, transactionId : String) {
@@ -21,7 +21,8 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
       {Residence.xml(claim)}
       <CourseOfEducation>yes</CourseOfEducation>
       {FullTimeEducation.xml(claim)}
-      <SelfEmployed>no</SelfEmployed>
+      {SelfEmployed.xml(claim)}
+      {xml.SelfEmployment.xml(claim)}
       <Employed>yes</Employed>
       <Employment>
         <CurrentlyEmployed>yes</CurrentlyEmployed>

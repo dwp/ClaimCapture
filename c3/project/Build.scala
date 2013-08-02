@@ -15,7 +15,9 @@ object ApplicationBuild extends Build {
     "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
     "com.dwp.carers" % "carersXMLValidation" % "0.8",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
-    "me.moocar" % "logback-gelf" % "0.9.6p2"
+    "me.moocar" % "logback-gelf" % "0.9.6p2",
+    "com.google.inject" % "guice" % "3.0",
+    "com.tzavellas" % "sse-guice" % "0.7.1"
   )
 
   var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint"))
