@@ -3,20 +3,22 @@ package helpers
 import models.domain._
 import models._
 import models.yesNo._
-import controllers.Mappings.yes
+import controllers.Mappings.{yes, no}
 
 import scala.Some
 import models.MultiLineAddress
 import models.SortCode
 import models.NationalInsuranceNumber
 import models.Whereabouts
-
+import models.domain.Trip
 import models.domain.Break
+
 
 case class AboutYouSection(yourDetails: YourDetails,
                            contactDetails: ContactDetails,
                            timeOutsideUK: Option[TimeOutsideUK],
-                           claimDate: ClaimDate)
+                           claimDate: ClaimDate,
+                           employment: Employment)
 
 case class EducationSection(yourCourseDetails: YourCourseDetails, addressOfSchool: AddressOfSchoolCollegeOrUniversity)
 
@@ -29,6 +31,9 @@ case class OtherMoneySection(aboutOtherMoney: AboutOtherMoney,
                               )
 
 case class TimeSpentAbroadSection(normalResidence: NormalResidenceAndCurrentLocation, trips: Trips)
+
+case class SelfEmploymentSection(aboutSelfEmployment: AboutSelfEmployment,
+                                 selfEmploymentYourAccounts: SelfEmploymentYourAccounts)
 
 
 object ClaimBuilder {
@@ -43,8 +48,9 @@ object ClaimBuilder {
   val timeOutsideUK = TimeOutsideUK(NoRouting, livingInUK = LivingInUK("yes", Some(DayMonthYear()), Some(""), Some(YesNoWithDate("yes", Some(DayMonthYear())))), visaReference = None)
 
   val claimDate = ClaimDate(NoRouting, dateOfClaim = DayMonthYear(1, 1, 2013))
+  val employment = Employment(beenSelfEmployedSince1WeekBeforeClaim = yes, beenEmployedSince6MonthsBeforeClaim = yes)
 
-  val aboutYou = AboutYouSection(yourDetails, contactDetails, Some(timeOutsideUK), claimDate)
+  val aboutYou = AboutYouSection(yourDetails, contactDetails, Some(timeOutsideUK), claimDate, employment)
 
   val theirPersonalDetails = TheirPersonalDetails(NoRouting, title = "ms", firstName = "Minnie", middleName = None, surname = "Mouse",
     None, dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddress = "no")
@@ -91,6 +97,9 @@ object ClaimBuilder {
     StatutorySickPay(haveYouHadAnyStatutorySickPay = yes, employersName = Some("employersName"), employersAddress = Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), employersPostcode = Some("SE1 6EH")),
     OtherStatutoryPay(otherPay = yes, employersName = Some("employersName"), employersAddress = Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), employersPostcode = Some("SE1 6EH"))
   )
+
+  val selfEmployment = SelfEmploymentSection(AboutSelfEmployment(areYouSelfEmployedNow = yes, whenDidYouStartThisJob=Some(DayMonthYear(Some(1), Some(2), Some(2013))), whenDidTheJobFinish=Some(DayMonthYear(Some(1), Some(9), Some(2013))), natureOfYourBusiness = Some("IT"), haveYouCeasedTrading = Some(no)),
+    SelfEmploymentYourAccounts())
 
   val careYouProvide = CareYouProvide(theirPersonalDetails, theirContactDetails,
     moreAboutThePerson, representatives,

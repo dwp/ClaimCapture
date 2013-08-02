@@ -5,6 +5,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import models.domain.{MoreAboutYou,PersonYouCareFor}
+@import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
 
 @main("Childcare expenses while you are at work - Self Employment", Some(currentForm), completedQuestionGroups) {
 
@@ -16,7 +17,7 @@
             <legend>Childcare expenses while you are at work</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("howMuchYouPay"))
+                @carersInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed))
                 @carersInputText(currentForm("whoLooksAfterChildren"))
                 @carersInputText(currentForm("whatRelationIsToYou"))
                 @otherDetailPlaceHolder(

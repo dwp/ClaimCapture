@@ -7,6 +7,7 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
+@import utils.helpers.PastPresentLabelHelper.isWasIfSelfEmployed
 
 @main("Self Employment - Your Accounts", Some(currentForm), completedQuestionGroups) {
 
@@ -19,9 +20,9 @@
 
     <ul class="group">
 
-        @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearFrom"), 'helperBelow -> Messages("dateOfBirth.helper"))
+        @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearFrom"), '_label -> Messages ("whatWasOrIsYourTradingYearFrom", isWasIfSelfEmployed), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-        @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), 'helperBelow -> Messages("dateOfBirth.helper"))
+        @inputDayMonthYear(currentForm("whatWasOrIsYourTradingYearTo"), '_label -> Messages ("whatWasOrIsYourTradingYearTo", isWasIfSelfEmployed), 'helperBelow -> Messages("dateOfBirth.helper"))
 
         @yesNoRadioGroup(currentForm("areAccountsPreparedOnCashFlowBasis"))
 

@@ -295,7 +295,7 @@ $button-green-hover: #004b27;
 				h2 {
 					font-size: 2.4rem;
 					line-height: 1.3em;
-					background-image: url('../img/response-bg.png');
+					background-image: url('/images/response-bg.png');
 					background-position: center 0;
 					background-repeat: no-repeat;
 					padding-top: 180px;
@@ -1327,6 +1327,7 @@ $button-green-hover: #004b27;
 			    }
 		   }
 	   }
+	  
 	   &.breaks-prompt {
 		   background: #fef7f7;
 		   border: 3px solid #df3034;
@@ -1362,6 +1363,9 @@ $button-green-hover: #004b27;
 				    }
 			    }
 		   }
+	   }
+	   &.eligibility-prompt {
+		   margin-left: 0;
 	   }
 	   &.helper-prompt {
 		   margin: .5em 0 1em 0;
