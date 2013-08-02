@@ -1,6 +1,6 @@
 package controllers
 
-import utils.pageobjects.{FactoryFromFile, ClaimScenario}
+import utils.pageobjects.ClaimScenario
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -262,12 +262,19 @@ object ClaimScenarioFactory {
 
   def s9SelfEmploymentPensionsAndExpenses = {
     val claim = s9SelfEmploymentAccountantContactDetails
-    //About self employment
+
     claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
     claim.SelfEmployedHowMuchPayPensionExpenses = "11"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
 
+    claim
+  }
+
+  def s9SelfEmploymentChildCareExpenses = {
+    val claim = s9SelfEmploymentPensionsAndExpenses
+
+    claim.SelfEmployedChildcareProviderNameOfPerson = "hello123"
     claim
   }
 
