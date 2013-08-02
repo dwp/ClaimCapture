@@ -66,7 +66,7 @@ trait WebFillActions {
   def fillSelect(elementCssSelector: String, value: String) = if (null != value) {
     val select = browser.find(elementCssSelector, 0).getElement
     val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
-    for (option <- allOptions; if option.getAttribute("value") == value) option.click()
+    for (option <- allOptions; if option.getAttribute("value").toLowerCase == value.toLowerCase) option.click()
   }
 
   def fillSelectWithOther(elementCssSelector: String,subSelect:String,other:String, value: String) = if (null != value) {
