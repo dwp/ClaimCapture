@@ -9,9 +9,9 @@ import controllers.Mappings.yes
 object Residence {
 
   def xml(claim:Claim) = {
-    val yourDetailsOption = questionGroup[YourDetails](claim, YourDetails)
-    val normalResidenceOption = questionGroup[NormalResidenceAndCurrentLocation](claim, NormalResidenceAndCurrentLocation)
-    val tripsOption = questionGroup[Trips](claim, Trips)
+    val yourDetailsOption = questionGroup[YourDetails](claim)
+    val normalResidenceOption = questionGroup[NormalResidenceAndCurrentLocation](claim)
+    val tripsOption = questionGroup[Trips](claim)
 
     <Residency>
       <Nationality>{if(yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
@@ -47,7 +47,6 @@ object Residence {
     }
 
     {for {fourWeeksTrip <- trips.fourWeeksTrips} yield xml(fourWeeksTrip)}
-
   }
 
   def periodAbroadDuringCare(tripsOption:Option[Trips]) = {
@@ -65,5 +64,4 @@ object Residence {
 
     {for {fiftyTwoWeeksTrip <- trips.fiftyTwoWeeksTrips} yield xml(fiftyTwoWeeksTrip)}
   }
-
 }

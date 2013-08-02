@@ -26,7 +26,14 @@ object XMLHelper {
     <gds:PostCode>{postcode}</gds:PostCode>
   }
 
-  def questionGroup[Q](claim: Claim, qi: QuestionGroup.Identifier)(implicit classTag: ClassTag[Q]) = {
-    claim.questionGroup(qi).asInstanceOf[Option[Q]]
+  def questionGroup[Q <: QuestionGroup](claim: Claim)(implicit classTag: ClassTag[Q]): Option[Q] = {
+    def needQ(qg: QuestionGroup): Boolean = {
+      qg.getClass == classTag.runtimeClass
+    }
+
+    claim.sections.flatMap(_.questionGroups).find(needQ) match {
+      case Some(q: Q) => Some(q)
+      case _ => None
+    }
   }
 }

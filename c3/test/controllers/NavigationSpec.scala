@@ -21,7 +21,9 @@ class NavigationSpec extends Specification with Tags {
       titleMustEqual("Lives in GB - Carer's Allowance")
 
       browser.webDriver.navigate().back()
+      titleMustEqual("Over 16 - Carer's Allowance")
       browser.webDriver.navigate().back()
+      titleMustEqual("Hours - Carer's Allowance")
       browser.webDriver.navigate().back()
       titleMustEqual("Benefits - Carer's Allowance")
 

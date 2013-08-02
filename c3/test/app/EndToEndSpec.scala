@@ -3,9 +3,8 @@ package app
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s1_carers_allowance.{G5ApprovePage, G1BenefitsPageContext}
+import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.{PageObjectException, ClaimScenario}
-import utils.pageobjects.s2_about_you.G8AboutYouCompletedPage
 import utils.pageobjects.s3_your_partner.G5YourPartnerCompletedPage
 
 /**

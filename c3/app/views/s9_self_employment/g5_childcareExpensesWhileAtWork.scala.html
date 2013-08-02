@@ -18,8 +18,11 @@
 
             <ul class="group">
                 @carersInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed))
+
                 @carersInputText(currentForm("whoLooksAfterChildren"))
+
                 @carersInputText(currentForm("whatRelationIsToYou"))
+
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         carersInputText(currentForm("relationToPartner"))),
@@ -27,6 +30,7 @@
                             case (Some(m: MoreAboutYou),Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
                             case _ => "no"
                         }))
+
                 @carersInputText(currentForm("whatRelationIsTothePersonYouCareFor"))
             </ul>
         </fieldset>

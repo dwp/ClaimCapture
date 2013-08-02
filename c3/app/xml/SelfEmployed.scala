@@ -7,7 +7,7 @@ import controllers.Mappings.{no}
 object SelfEmployed {
 
   def xml(claim:Claim) = {
-    val aboutYouEmploymentOption = questionGroup[Employment](claim, Employment)
+    val aboutYouEmploymentOption = questionGroup[Employment](claim)
     val employment = aboutYouEmploymentOption.getOrElse(Employment(beenSelfEmployedSince1WeekBeforeClaim = no))
     <SelfEmployed>{employment.beenSelfEmployedSince1WeekBeforeClaim}</SelfEmployed>
   }

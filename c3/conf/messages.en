@@ -65,12 +65,12 @@ s7.g13 = Care provider’s contact Details
 
 s8.g1 = About Self Employment
 s8.g2 = Your Accounts
-s8.g3 = Accountant's Contact Details
+s8.g3 = Accountant's contact details
 s8.g4 = Pensions and Expenses
 s8.g5 = Childcare expenses while you are at work
-s8.g6 = Care provider's contact Details
+s8.g6 = Care provider's contact details
 s8.g7 = Expenses related to the person you care for while at work
-s8.g8 = Care provider's contact Details
+s8.g8 = Care provider's contact details
 
 
 s9.g1 = Details about other money
@@ -86,7 +86,7 @@ s10.g1 = How would you like to get paid?
 s10.g2 = Bank/Building society details
 s10.g6 = Childcare provider's contact details
 s10.g7 = Expenses related to the person you care for while at work
-s10.g8 = Care provider's contact Details
+s10.g8 = Care provider's contact details
 
 s11.g1 = Additional information
 s11.g2 = Consent

@@ -17,9 +17,13 @@
 
             <ul class="group">
                 @carersInputText(currentForm("accountHolderName"))
+
                 @carersInputText(currentForm("bankFullName"))
+
                 @sortCode(currentForm("sortCode"))
+
                 @carersInputText(currentForm("accountNumber"),'maxLength -> "10")
+
                 @carersInputText(currentForm("rollOrReferenceNumber"),'maxLength -> "18")
             </ul>
         </fieldset>

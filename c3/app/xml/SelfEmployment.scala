@@ -9,11 +9,11 @@ import xml.XMLHelper.stringify
 object SelfEmployment {
 
     def xml(claim:Claim) = {
-      val aboutYouEmploymentOption = questionGroup[Employment](claim, Employment)
+      val aboutYouEmploymentOption = questionGroup[Employment](claim)
       val employment = aboutYouEmploymentOption.getOrElse(Employment(beenSelfEmployedSince1WeekBeforeClaim = no))
-      val aboutSelfEmploymentOption = questionGroup[AboutSelfEmployment](claim, AboutSelfEmployment)
+      val aboutSelfEmploymentOption = questionGroup[AboutSelfEmployment](claim)
       val aboutSelfEmployment = aboutSelfEmploymentOption.getOrElse(AboutSelfEmployment(areYouSelfEmployedNow = no))
-      val yourAccountsOption = questionGroup[SelfEmploymentYourAccounts](claim, SelfEmploymentYourAccounts)
+      val yourAccountsOption = questionGroup[SelfEmploymentYourAccounts](claim)
       val yourAccounts =  yourAccountsOption.getOrElse(SelfEmploymentYourAccounts())
 
       if(employment.beenSelfEmployedSince1WeekBeforeClaim == yes) {
