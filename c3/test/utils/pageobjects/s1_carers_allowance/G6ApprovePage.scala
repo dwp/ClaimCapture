@@ -8,7 +8,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-final class G5ApprovePage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5ApprovePage.url, G5ApprovePage.title, previousPage) {
+final class G6ApprovePage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6ApprovePage.url, G6ApprovePage.title, previousPage) {
   /**
    * Reads theClaim and interact with browser to populate page.
    * @param theClaim   Data to use to fill page
@@ -24,14 +24,14 @@ final class G5ApprovePage(browser: TestBrowser, previousPage: Option[Page] = Non
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
  */
-object G5ApprovePage {
+object G6ApprovePage {
   val title = "Can you get Carer's Allowance?"
   val url = "/allowance/approve"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5ApprovePage(browser, previousPage)
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G6ApprovePage(browser, previousPage)
 }
 
 /** The context for Specs tests */
-trait G5ApprovePageContext extends PageContext {
+trait G6ApprovePageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = G5ApprovePage buildPageWith browser
+  val page = G6ApprovePage buildPageWith browser
 }

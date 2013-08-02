@@ -9,11 +9,11 @@ object CarersAllowance extends Controller with CachedClaim {
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CarersAllowance)
     val approved = claim.completedQuestionGroups(models.domain.CarersAllowance).forall(_.asInstanceOf[BooleanConfirmation].answer) && completedQuestionGroups.length == 4
 
-    Ok(views.html.s1_carers_allowance.g5_approve(approved, completedQuestionGroups))
+    Ok(views.html.s1_carers_allowance.g6_approve(approved, completedQuestionGroups))
   }
 
   def approveSubmit = claiming { implicit claim => implicit request =>
-    Redirect(claim.nextSection(models.domain.CarersAllowance).firstPage)
+    Redirect(controllers.s1_carers_allowance.routes.G5CarersResponse.present())
   }
 
   def claiming(qi: QuestionGroup.Identifier, claim: Claim) = claim.questionGroup(qi) match {
