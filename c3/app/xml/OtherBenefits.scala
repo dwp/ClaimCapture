@@ -9,11 +9,11 @@ import controllers.Mappings.no
 object OtherBenefits {
 
   def xml(claim:Claim) = {
-    val moneyPaidToSomeoneElseOption = questionGroup[MoneyPaidToSomeoneElseForYou](claim, MoneyPaidToSomeoneElseForYou)
-    val personDetailsOption = questionGroup[PersonWhoGetsThisMoney](claim, PersonWhoGetsThisMoney)
-    val contactDetailsOption = questionGroup[PersonContactDetails](claim, PersonContactDetails)
-    val statutorySickPayOption = questionGroup[StatutorySickPay](claim, StatutorySickPay)
-    val otherStatutoryPayOption = questionGroup[OtherStatutoryPay](claim, OtherStatutoryPay)
+    val moneyPaidToSomeoneElseOption = questionGroup(claim, MoneyPaidToSomeoneElseForYou)
+    val personDetailsOption = questionGroup(claim, PersonWhoGetsThisMoney)
+    val contactDetailsOption = questionGroup(claim, PersonContactDetails)
+    val statutorySickPayOption = questionGroup(claim, StatutorySickPay)
+    val otherStatutoryPayOption = questionGroup(claim, OtherStatutoryPay)
 
     <OtherBenefits>
       <ClaimantBenefits>
