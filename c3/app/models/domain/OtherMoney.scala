@@ -59,7 +59,7 @@ case object OtherStatutoryPay extends QuestionGroup.Identifier {
 }
 
 case class OtherEEAStateOrSwitzerland(call: Call = NoRouting,
-                                      benefitsFromOtherEEAStateOrSwitzerland: YesNoWithText, workingForOtherEEAStateOrSwitzerland: String) extends QuestionGroup(OtherEEAStateOrSwitzerland)
+                                      benefitsFromOtherEEAStateOrSwitzerland: String, workingForOtherEEAStateOrSwitzerland: String) extends QuestionGroup(OtherEEAStateOrSwitzerland)
 
 object OtherEEAStateOrSwitzerland extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g7"

@@ -2,26 +2,18 @@ package controllers.s8_other_money
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import models.view.CachedClaim
 import models.domain.{Claim, OtherEEAStateOrSwitzerland}
 import controllers.Mappings._
-import models.yesNo.YesNoWithText
 import utils.helpers.CarersForm._
 
 object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim {
-  val benefitsFromOtherEEAStateOrSwitzerlandMapping =
-    "benefitsFromOtherEEAStateOrSwitzerland" -> mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo),
-      "details" -> optional(nonEmptyText(maxLength = 200))
-    )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("required", YesNoWithText.validateOnYes _)
-
   val form = Form(
     mapping(
       call(routes.G7OtherEEAStateOrSwitzerland.present()),
-      benefitsFromOtherEEAStateOrSwitzerlandMapping,
+      "benefitsFromOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo),
       "workingForOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo)
     )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply))
 
@@ -33,10 +25,7 @@ object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim {
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => {
-        val formWithErrorsUpdate = formWithErrors.replaceError("benefitsFromOtherEEAStateOrSwitzerland", FormError("benefitsFromOtherEEAStateOrSwitzerland.details", "error.required"))
-        BadRequest(views.html.s8_other_money.g7_otherEEAStateOrSwitzerland(formWithErrorsUpdate, completedQuestionGroups))
-      },
+      formWithErrors => BadRequest(views.html.s8_other_money.g7_otherEEAStateOrSwitzerland(formWithErrors, completedQuestionGroups)),
       benefitsFromOtherEEAStateOrSwitzerland => claim.update(benefitsFromOtherEEAStateOrSwitzerland) -> Redirect(routes.OtherMoney.completed()))
   }
 }

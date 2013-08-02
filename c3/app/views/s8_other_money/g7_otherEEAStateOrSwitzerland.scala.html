@@ -14,13 +14,7 @@
             <legend>Other EEA State or Switzerland</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland.answer"))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(carersInputTextArea(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland.details"), 'maxLength -> 200)),
-                    'id -> "benefitsFromOtherEEAStateOrSwitzerland",
-                    'visibleOn -> "yes",
-                    'display -> otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland.answer").value.getOrElse("yes"))
+                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland"))
 
                 @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForOtherEEAStateOrSwitzerland"))
             </ul>
@@ -32,23 +26,3 @@
         </nav>
     }
 }
-
-<script type="text/javascript">
-    $(function() {
-        @if(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland.answer").value.getOrElse("") != "yes") {
-            $("#@CarersCrypto.encryptAES("benefitsFromOtherEEAStateOrSwitzerland_answer_yes")").closest("ul").parent().next().hide();
-        }
-
-        $("#@CarersCrypto.encryptAES("benefitsFromOtherEEAStateOrSwitzerland_answer_yes")").change(function() {
-            if ($(this).val() === "yes") {
-                return $(this).closest("ul").parent().next().slideDown();
-            }
-        });
-
-        return $("#@CarersCrypto.encryptAES("benefitsFromOtherEEAStateOrSwitzerland_answer_no")").change(function() {
-            if ($(this).val() === "no") {
-                return $(this).closest("ul").parent().next().slideUp();
-            }
-        });
-    });
-</script>
