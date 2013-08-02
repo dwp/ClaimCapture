@@ -259,13 +259,6 @@ end.trip = Date you returned to Great Britain
 where.trip = Where did you go?
 why.trip = Why did you go?
 
-# OTHER EEA STATE OR SWITZERLAND
-benefitsFromOtherEEAStateOrSwitzerland.answer = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
-benefitsFromOtherEEAStateOrSwitzerland_answer = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
-benefitsFromOtherEEAStateOrSwitzerland.details = Provide details
-benefitsFromOtherEEAStateOrSwitzerland_details = Provide details
-workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?
-
 ## EDUCATION
 # YOUR COURSE DETAILS
 courseType = Type of course
@@ -374,6 +367,10 @@ nameOfBenefit = Name of benefit
 otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
 howOften_frequency = How often
 
+# OTHER EEA STATE OR SWITZERLAND
+benefitsFromOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
+workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?
+
 ## PAY DETAILS
 # HOW WE PAY YOU
 likeToPay =  How would you like to be paid?
@@ -464,12 +461,3 @@ didYouPayToLookAfterThePersonYouCaredFor_answer = While at work,do you pay anyon
 didYouPayToLookAfterThePersonYouCaredFor.answer = While at work,do you pay anyone to look after the person you normally care for
 didYouPayToLookAfterThePersonYouCaredFor_isItTheSameExpenseDuringWorkForThePersonYouCaredFor = Is this the same as the expenses you have told us about during your employed work?
 didYouPayToLookAfterThePersonYouCaredFor.isItTheSameExpenseDuringWorkForThePersonYouCaredFor = Is this the same as the expenses you have told us about during your employed work
-
-
-
-
-
-
-
-
-

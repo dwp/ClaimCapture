@@ -7,8 +7,7 @@ import play.api.cache.Cache
 import models.domain.{Claim, OtherEEAStateOrSwitzerland, Claiming}
 import scala.Some
 
-class G7OtherEEAStateOrSwitzerlandSpec extends Specification with Tags{
-
+class G7OtherEEAStateOrSwitzerlandSpec extends Specification with Tags {
   "Other EEA State of Switzerland" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -26,8 +25,7 @@ class G7OtherEEAStateOrSwitzerlandSpec extends Specification with Tags{
 
     """be added to cached claim upon answering "no" to "benefits from other EEA state or Switzerland".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("benefitsFromOtherEEAStateOrSwitzerland.answer" -> "no",
-        "workingForOtherEEAStateOrSwitzerland" -> "no")
+        .withFormUrlEncodedBody("benefitsFromOtherEEAStateOrSwitzerland" -> "no", "workingForOtherEEAStateOrSwitzerland" -> "no")
 
       val result = G7OtherEEAStateOrSwitzerland.submit(request)
 
@@ -35,12 +33,10 @@ class G7OtherEEAStateOrSwitzerlandSpec extends Specification with Tags{
 
       claim.questionGroup(OtherEEAStateOrSwitzerland) must beLike {
         case Some(o: OtherEEAStateOrSwitzerland) => {
-          o.benefitsFromOtherEEAStateOrSwitzerland.answer shouldEqual "no"
-          o.benefitsFromOtherEEAStateOrSwitzerland.text should beNone
+          o.benefitsFromOtherEEAStateOrSwitzerland shouldEqual "no"
           o.workingForOtherEEAStateOrSwitzerland shouldEqual "no"
         }
       }
     }
   } section "unit"
-
 }
