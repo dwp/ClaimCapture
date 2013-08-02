@@ -50,7 +50,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
       page goToThePage()
-      val approvePage = page runClaimWith (claim, G6ApprovePage.title)
+      val approvePage = page runClaimWith (claim, G6ApprovePage.title, waitForPage = true, waitDuration = 120)
       approvePage match {
         case p: G6ApprovePage => {
           p.previousPage.get must beAnInstanceOf[G4LivingInGBPage]

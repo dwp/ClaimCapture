@@ -1,22 +1,21 @@
 package xml
 
 import models.domain.{SelfEmploymentYourAccounts, AboutSelfEmployment, Claim, Employment}
-import XMLHelper.questionGroup
 import controllers.Mappings.{yes, no}
 import scala.xml.NodeSeq
 import xml.XMLHelper.stringify
 
 object SelfEmployment {
 
-    def xml(claim:Claim) = {
-      val aboutYouEmploymentOption = questionGroup[Employment](claim)
+    def xml(claim: Claim) = {
+      val aboutYouEmploymentOption = claim.questionGroup[Employment]
       val employment = aboutYouEmploymentOption.getOrElse(Employment(beenSelfEmployedSince1WeekBeforeClaim = no))
-      val aboutSelfEmploymentOption = questionGroup[AboutSelfEmployment](claim)
+      val aboutSelfEmploymentOption = claim.questionGroup[AboutSelfEmployment]
       val aboutSelfEmployment = aboutSelfEmploymentOption.getOrElse(AboutSelfEmployment(areYouSelfEmployedNow = no))
-      val yourAccountsOption = questionGroup[SelfEmploymentYourAccounts](claim)
+      val yourAccountsOption = claim.questionGroup[SelfEmploymentYourAccounts]
       val yourAccounts =  yourAccountsOption.getOrElse(SelfEmploymentYourAccounts())
 
-      if(employment.beenSelfEmployedSince1WeekBeforeClaim == yes) {
+      if (employment.beenSelfEmployedSince1WeekBeforeClaim == yes) {
 
         <SelfEmployment>
           <SelfEmployedNow>{aboutSelfEmployment.areYouSelfEmployedNow}</SelfEmployedNow>

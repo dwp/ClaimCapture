@@ -1,9 +1,7 @@
 package xml
 
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
-import models.domain.{Claim, QuestionGroup}
 import scala.xml.NodeBuffer
-import scala.reflect.ClassTag
 
 object XMLHelper {
 
@@ -24,16 +22,5 @@ object XMLHelper {
     <gds:Line>{address.lineTwo.orNull}</gds:Line>
     <gds:Line>{address.lineThree.orNull}</gds:Line>
     <gds:PostCode>{postcode}</gds:PostCode>
-  }
-
-  def questionGroup[Q <: QuestionGroup](claim: Claim)(implicit classTag: ClassTag[Q]): Option[Q] = {
-    def needQ(qg: QuestionGroup): Boolean = {
-      qg.getClass == classTag.runtimeClass
-    }
-
-    claim.sections.flatMap(_.questionGroups).find(needQ) match {
-      case Some(q: Q) => Some(q)
-      case _ => None
-    }
   }
 }
