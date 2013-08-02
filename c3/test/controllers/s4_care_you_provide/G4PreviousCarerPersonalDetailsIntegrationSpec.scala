@@ -33,10 +33,10 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
       browser.fill("#nationalInsuranceNumber_ni1") `with` "12345"
       browser.submit("button[type='submit']")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
@@ -55,15 +55,15 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       Formulate.theirPersonalDetails(browser)
       Formulate.theirContactDetails(browser)
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
       browser.find("div[class=completed] ul li").size mustEqual 3
 
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
       browser.find("div[class=completed] ul li").size mustEqual 4
 
       browser.click("#backButton")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
   } section "integration"
