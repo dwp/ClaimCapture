@@ -2,7 +2,7 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s1_carers_allowance.{G5ApprovePage, G4LivingInGBPage, G1BenefitsPageContext, G5ApprovePageContext}
+import utils.pageobjects.s1_carers_allowance.{G6ApprovePage, G4LivingInGBPage, G1BenefitsPageContext, G6ApprovePageContext}
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s2_about_you.G1YourDetailsPage
 
@@ -10,7 +10,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
   sequential
 
   "Approve" should {
-    "be presented" in new WithBrowser with G5ApprovePageContext {
+    "be presented" in new WithBrowser with G6ApprovePageContext {
       page goToThePage()
     }
   } section "integration"
@@ -35,7 +35,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       val approvePage = livingGBPage submitPage(waitForPage = true)
 
       approvePage match {
-        case p: G5ApprovePage => {
+        case p: G6ApprovePage => {
           p.previousPage must beSome(livingGBPage)
           p.isApproved must beTrue
         }
@@ -50,9 +50,9 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
       page goToThePage()
-      val approvePage = page runClaimWith (claim, G5ApprovePage.title)
+      val approvePage = page runClaimWith (claim, G6ApprovePage.title)
       approvePage match {
-        case p: G5ApprovePage => {
+        case p: G6ApprovePage => {
           p.previousPage.get must beAnInstanceOf[G4LivingInGBPage]
           p.isNotApproved must beTrue
         }
