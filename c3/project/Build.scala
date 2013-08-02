@@ -18,8 +18,6 @@ object ApplicationBuild extends Build {
     "me.moocar" % "logback-gelf" % "0.9.6p2"
   )
 
-  parallelExecution in Test := false
-
   var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint"))
 
   var sV: Seq[Project.Setting[_]] = Seq(scalaVersion := "2.10.2")
@@ -35,9 +33,11 @@ object ApplicationBuild extends Build {
 
   var gS: Seq[Project.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 4),Tags.limit(Tags.Network, 10),Tags.limit(Tags.Test, 4)))
 
-  var f: Seq[Project.Setting[_]] = Seq(sbt.Keys.fork in Test := false)
+  var f1: Seq[Project.Setting[_]] = Seq(sbt.Keys.fork in Test := false)
 
-  var appSettings: Seq[Project.Setting[_]] = SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f
+  var f2: Seq[Project.Setting[_]] = Seq(parallelExecution in Test := false)
+
+  var appSettings: Seq[Project.Setting[_]] = SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f1 ++ f2
 
   val main = play.Project(appName, appVersion, appDependencies).settings(appSettings: _*)
 }

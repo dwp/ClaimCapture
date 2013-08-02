@@ -5,7 +5,6 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
-import scala.Some
 
 class G9NecessaryExpensesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
