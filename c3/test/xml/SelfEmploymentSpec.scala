@@ -15,8 +15,6 @@ class SelfEmploymentSpec extends Specification with Tags {
       val selfEmploymentXml = SelfEmployment.xml(claim)
 
       (selfEmploymentXml \\ "SelfEmployedNow").text mustEqual yes
-
-      println(selfEmploymentXml)
     }
 
     "generate xml when data is missing" in {

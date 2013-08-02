@@ -229,11 +229,11 @@ Self Employed,Your accounts,"Are the income, outgoings and profit in these accou
 Self Employed,Your accounts,Please tell us why and when the change happened,SelfEmployedTellUsWhyandWhentheChangeHappened,
 Self Employed,Your accounts,Do you have an accountant?,SelfEmployedDoYouHaveAnAccountant,SelfEmployment>Accountant>HasAccountant
 Self Employed,Your accounts,Can we contact your accountant?,SelfEmployedCanWeContactYourAccountant,SelfEmployment>Accountant>ContactAccountant
-Self Employed,Accountant Contact Details,Accountants Name,SelfEmployedAccountantName,SelfEmployment>Accountant>Name
-Self Employed,Accountant Contact Details,Address,SelfEmployedAccountantAddress,SelfEmployment>Accountant>Address
-Self Employed,Accountant Contact Details,Postcode,SelfEmployedAccountantPostcode,SelfEmployment>Accountant>Address>PostCode
-Self Employed,Accountant Contact Details,Telephone Number,SelfEmployedAccountantTelephoneNumber,SelfEmployment>Accountant>PhoneNumber
-Self Employed,Accountant Contact Details,Fax Number,SelfEmployedAccountantFaxNumber,SelfEmployment>Accountant>FaxNumber
+Self Employed,Accountant Contact Details,Accountants Name,SelfEmployedAccountantName,SelfEmployment>Accountant>AccountantDetails>Name
+Self Employed,Accountant Contact Details,Address,SelfEmployedAccountantAddress,SelfEmployment>Accountant>AccountantDetails>Address
+Self Employed,Accountant Contact Details,Postcode,SelfEmployedAccountantPostcode,SelfEmployment>Accountant>AccountantDetails>Address>PostCode
+Self Employed,Accountant Contact Details,Telephone Number,SelfEmployedAccountantTelephoneNumber,SelfEmployment>Accountant>AccountantDetails>PhoneNumber
+Self Employed,Accountant Contact Details,Fax Number,SelfEmployedAccountantFaxNumber,SelfEmployment>Accountant>AccountantDetails>FaxNumber
 Self Employed,Pensions and Expenses,[Past=Did you] [Present=Do you] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,SelfEmployedDoYouPayTowardsPensionScheme,SelfEmployment>PaidForPension
 Self Employed,Pensions and Expenses,How much [past=did you] [present=do you] pay?,SelfEmployedHowMuchYouPayTowardsPensionScheme,SelfEmployment>PensionScheme>Payment
 Self Employed,Pensions and Expenses,How often? ,SelfEmployedHowOftenPayPensionExpenses,SelfEmployment>PensionScheme>Frequency
