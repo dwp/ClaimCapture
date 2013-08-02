@@ -13,12 +13,6 @@ object ClaimScenarioFactory {
   val partnerAddress = "Partner Address"
   val partnerPostcode = "RM11 1AA"
 
-  def buildClaimFromFile(fileName: String) = {
-    val claim = new ClaimScenario
-    FactoryFromFile.buildFromFile(fileName, claim.updateDynamic)
-    claim
-  }
-
   def yourDetailsWithNotTimeOutside() = {
     val claim = new ClaimScenario
     claim.AboutYouTitle = "mr"
