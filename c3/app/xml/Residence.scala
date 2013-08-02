@@ -9,12 +9,9 @@ import controllers.Mappings.yes
 object Residence {
 
   def xml(claim:Claim) = {
-    val aboutYouSection:Section = claim.section(AboutYou)
-    val yourDetailsOption = questionGroup[YourDetails](aboutYouSection, YourDetails)
-
-    val timeSpentAbroadSection:Section = claim.section(TimeSpentAbroad)
-    val normalResidenceOption = questionGroup[NormalResidenceAndCurrentLocation](timeSpentAbroadSection, NormalResidenceAndCurrentLocation)
-    val tripsOption = questionGroup[Trips](timeSpentAbroadSection, Trips)
+    val yourDetailsOption = questionGroup[YourDetails](claim, YourDetails)
+    val normalResidenceOption = questionGroup[NormalResidenceAndCurrentLocation](claim, NormalResidenceAndCurrentLocation)
+    val tripsOption = questionGroup[Trips](claim, Trips)
 
     <Residency>
       <Nationality>{if(yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>

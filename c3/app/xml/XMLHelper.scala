@@ -1,7 +1,7 @@
 package xml
 
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
-import models.domain.{Section, QuestionGroup}
+import models.domain.{Claim, QuestionGroup}
 import scala.xml.NodeBuffer
 
 object XMLHelper {
@@ -30,8 +30,8 @@ object XMLHelper {
     <gds:PostCode>{postcode}</gds:PostCode>
   }
 
-  def questionGroup[T](section: Section, qi: QuestionGroup.Identifier) = {
-    section.questionGroup(qi).asInstanceOf[Option[T]]
+  def questionGroup[T](claim:Claim, qi: QuestionGroup.Identifier) = {
+    claim.questionGroup(qi).asInstanceOf[Option[T]]
   }
 
 }
