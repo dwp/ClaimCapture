@@ -30,7 +30,6 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim {
       .verifying("canWeContactYourAccountant", validateContactAccountant _)
   )
 
-
   def validateChangeHappened(selfEmploymentYourAccounts: SelfEmploymentYourAccounts) = {
     selfEmploymentYourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
       case Some(`no`) => selfEmploymentYourAccounts.tellUsWhyAndWhenTheChangeHappened.isDefined

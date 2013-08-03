@@ -3,7 +3,7 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s2_about_you.G1YourDetailsPageContext
-import utils.pageobjects.s1_carers_allowance.G5ApprovePage
+import utils.pageobjects.s1_carers_allowance.{G6ApprovePage}
 import controllers.ClaimScenarioFactory
 
 class G1YourDetailsIntegrationSpec extends Specification with Tags {
@@ -16,7 +16,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
     "navigate back to approve page" in new WithBrowser with G1YourDetailsPageContext {
       page goToThePage()
       val backPage = page goBack()
-      backPage must beAnInstanceOf[G5ApprovePage]
+      backPage must beAnInstanceOf[G6ApprovePage]
     }
 
     "present errors if mandatory fields are not populated" in new WithBrowser with G1YourDetailsPageContext {
@@ -28,7 +28,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
-    //  println(page.source)
+
       page submitPage()
     }
 

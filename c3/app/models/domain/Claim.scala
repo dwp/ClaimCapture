@@ -2,6 +2,7 @@ package models.domain
 
 import language.postfixOps
 import models.{DayMonthYear, Timestamped}
+import scala.reflect.ClassTag
 
 case class Claim(sections: List[Section]) extends Timestamped {
   def section(sectionIdentifier: Section.Identifier): Section = sections.find(s => s.identifier == sectionIdentifier) match {
@@ -30,6 +31,17 @@ case class Claim(sections: List[Section]) extends Timestamped {
   def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
     val si = Section.sectionIdentifier(questionGroupIdentifier)
     section(si).questionGroup(questionGroupIdentifier)
+  }
+
+  def questionGroup[Q <: QuestionGroup](implicit classTag: ClassTag[Q]): Option[Q] = {
+    def needQ(qg: QuestionGroup): Boolean = {
+      qg.getClass == classTag.runtimeClass
+    }
+
+    sections.flatMap(_.questionGroups).find(needQ) match {
+      case Some(q: Q) => Some(q)
+      case _ => None
+    }
   }
 
   def previousQuestionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = completedQuestionGroups(questionGroupIdentifier).lastOption

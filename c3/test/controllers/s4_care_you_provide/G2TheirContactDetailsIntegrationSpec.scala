@@ -7,9 +7,9 @@ import controllers.{BrowserMatchers, Formulate}
 class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
 
   "Their Contact Details" should {
-    "be presented" in new WithBrowser {
+    "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/theirContactDetails")
-      browser.title mustEqual "Their Contact Details - Care You Provide"
+      titleMustEqual("Their Contact Details - Care You Provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -18,17 +18,18 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
-    "be prepopulated if they live at same address" in new WithBrowser {
+    "be prepopulated if they live at same address" in new WithBrowser with BrowserMatchers {
       Formulate.yourContactDetails(browser)
       Formulate.theirPersonalDetails(browser)
-      browser.title mustEqual "Their Contact Details - Care You Provide"
+      titleMustEqual("Their Contact Details - Care You Provide")
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
 
-    "be blank if they live at different address" in new WithBrowser {
+    "be blank if they live at different address" in new WithBrowser with BrowserMatchers {
       Formulate.yourContactDetails(browser)
       Formulate.theirPersonalDetailsNotLiveAtSameAddress(browser)
+      titleMustEqual("Their Contact Details - Care You Provide")
       browser.find("#address_lineOne").getValue mustEqual ""
       browser.find("#postcode").getValue mustEqual ""
     }

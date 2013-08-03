@@ -13,7 +13,7 @@ class PageSpec extends Specification {
 
   "Page" should {
 
-    "be presented" in new MockPageContext {
+    "be able to go the underlying html page" in new MockPageContext {
       page.goToThePage()
       there was one(browser).goTo(anyString)
     }
@@ -24,6 +24,13 @@ class PageSpec extends Specification {
       there was one(browser).submit("button[type='submit']")
       there was one(browser).find("div[class=validation-summary] ol li")
       nextPage must haveClass[UnknownPage]
+    }
+
+    "cannot submit same page twice if no errors. The framework throws an exception." in new MockPageContext {
+      page.goToThePage()
+      page submitPage()
+      page submitPage() must throwA[PageObjectException]
+      there was one(browser).submit("button[type='submit']")
     }
 
 
@@ -37,5 +44,12 @@ class PageSpec extends Specification {
     "Throw exception if cannot go to the write page" in new MockPageWrongTitleContext {
       page.goToThePage() must throwA[PageObjectException]
     }
-  }
+
+    "be able to provide full path of pages used to reach the current page." in new MockPageContext {
+      val page2 = new MockPage(browser,"Page 2", Some(page))
+      val page3 = new MockPage(browser,"Page 3", Some(page2))
+      page3.fullPagePath mustEqual "Mock Page > Page 2 > Page 3"
+    }
+
+    }
 }

@@ -19,6 +19,9 @@ POST    /allowance/over16                                       controllers.s1_c
 GET     /allowance/livesInGB                                    controllers.s1_carers_allowance.G4LivesInGB.present
 POST    /allowance/livesInGB                                    controllers.s1_carers_allowance.G4LivesInGB.submit
 
+GET     /allowance/carersResponse                               controllers.s1_carers_allowance.G5CarersResponse.present
+POST    /allowance/carersResponse                               controllers.s1_carers_allowance.G5CarersResponse.submit
+
 GET     /allowance/approve                                      controllers.s1_carers_allowance.CarersAllowance.approve
 POST    /allowance/approve                                      controllers.s1_carers_allowance.CarersAllowance.approveSubmit
 

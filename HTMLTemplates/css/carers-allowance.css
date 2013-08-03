@@ -1071,6 +1071,8 @@
             font-size: 3.8rem; }
             .ie .carers-allowance .prompt.breaks-prompt span {
               font-size: 38px; } }
+    .carers-allowance .prompt.eligibility-prompt {
+      margin-left: 0; }
     .carers-allowance .prompt.helper-prompt {
       margin: .5em 0 1em 0;
       border: 1px solid #a2a2a2;

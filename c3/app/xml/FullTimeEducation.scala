@@ -7,8 +7,8 @@ import scala.Some
 object FullTimeEducation {
 
  def xml(claim:Claim) = {
-   val courseDetailsOption = questionGroup[YourCourseDetails](claim, YourCourseDetails)
-   val addressOfSchoolOption = questionGroup[AddressOfSchoolCollegeOrUniversity](claim, AddressOfSchoolCollegeOrUniversity )
+   val courseDetailsOption = claim.questionGroup[YourCourseDetails]
+   val addressOfSchoolOption = claim.questionGroup[AddressOfSchoolCollegeOrUniversity]
 
     <FullTimeEducation>
       {courseDetailsXml(courseDetailsOption)}
