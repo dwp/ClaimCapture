@@ -12,6 +12,7 @@ import utils.pageobjects.s5_time_spent_abroad._
 import utils.pageobjects.s6_pay_details._
 import utils.pageobjects.s7_employment._
 import utils.pageobjects.s8_other_money._
+import utils.pageobjects.S10_consent_and_declaration.G1AdditionalInfoPage
 
 /**
  * Factory used by Page to create from an html page the right page object.
@@ -102,6 +103,8 @@ object PageFactory {
       case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage buildPageWith(browser, previousPage)
       case G8CareProvidersContactDetailsPage.title => G8CareProvidersContactDetailsPage buildPageWith(browser, previousPage)
       case s9_self_employment.G9CompletedPage.title => s9_self_employment.G9CompletedPage buildPageWith(browser, previousPage)
+      // S10
+      case G1AdditionalInfoPage.title => G1AdditionalInfoPage buildPageWith(browser,previousPage)
       // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }

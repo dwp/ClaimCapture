@@ -27,7 +27,7 @@ class EndToEndSpec extends Specification with Tags {
         case e:PageObjectException =>  {
           println(browser.pageSource())
           println(browser.url())
-          println(e.message)
+          println(e)
         }
       }
     }
