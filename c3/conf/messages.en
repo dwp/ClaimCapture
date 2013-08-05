@@ -149,8 +149,6 @@ dateOfClaim = When do you want your Carer''s Allowance claim to start?
 # MORE ABOUT YOU
 hadPartnerSinceClaimDate.label = Have you had a Partner/Spouse at any time since your claim date: {0}?
 hadPartnerSinceClaimDate = Have you had a Partner/Spouse at any time since your claim date?
-eitherClaimedBenefitSinceClaimDate.label = Have you or your Partner/Spouse claimed or received any other benefits since your claim date: {0}?
-eitherClaimedBenefitSinceClaimDate = Have you or your Partner/Spouse claimed or received any other benefits since your claim date?
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
 receiveStatePension = Do you get State Pension?
@@ -345,10 +343,8 @@ whoDoYouPay = Name of the person/organisation you pay
 
 ## OTHER MONEY
 # ABOUT OTHER MONEY
-yourBenefits.answer = Have you claimed or received any other benefits since the date you want to claim?
-yourBenefits.answer.label = Have you {0} claimed or received any other benefits since the date you want to claim?
-yourBenefits.text1 = Please tell us the names of the benefits or entitlements you receive
-yourBenefits.text2 = Please tell us the names of the benefits or entitlements your Partner/Spouse receive
+yourBenefits.answer.label = Have you {0} claimed or received any other benefits since your claim date: {1}?
+yourBenefits.text = Please tell us the names of the benefits or entitlements you receive
 moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
 haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
 howMuch = How much do you get, and how often?

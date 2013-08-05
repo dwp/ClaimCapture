@@ -3,25 +3,27 @@ package controllers.s8_other_money
 import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import models.domain.{Claim, AboutOtherMoney}
 import controllers.Mappings._
 import models.domain.MoreAboutYou
-import models.yesNo.YesNoWith2Text
+import models.yesNo.YesNoWithText
 import utils.helpers.CarersForm._
+import play.api.data.FormError
+import scala.Some
+import play.api.i18n.Messages
 
 object G1AboutOtherMoney extends Controller with CachedClaim {
-  def yourBenefitsMapping(implicit claim: Claim) =
+
+  val yourBenefitsMapping =
     "yourBenefits" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "text1" -> optional(nonEmptyText(maxLength = fifty)),
-      "text2" -> optional(nonEmptyText(maxLength = fifty))
-    )(YesNoWith2Text.apply)(YesNoWith2Text.unapply)
-      .verifying("text1.required", c => YesNoWith2Text.validateText(c, c.text1))
-      .verifying("text2.required", c => YesNoWith2Text.validateText(c, c.text2, eitherClaimedBenefitSinceClaimDate))
+      "text" -> optional(nonEmptyText(maxLength = fifty))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("required", YesNoWithText.validateOnYes _)
 
-  def form(implicit claim: Claim) = Form(
+  val form = Form(
     mapping(
       yourBenefitsMapping,
       call(routes.G1AboutOtherMoney.present())
@@ -34,22 +36,21 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
     case _ => false
   }
 
-  def eitherClaimedBenefitSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {
-    case Some(m: MoreAboutYou) => m.eitherClaimedBenefitSinceClaimDate == yes
-    case _ => false
-  }
-
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s8_other_money.g1_aboutOtherMoney(form.fill(AboutOtherMoney), completedQuestionGroups, hadPartnerSinceClaimDate, eitherClaimedBenefitSinceClaimDate))
+    Ok(views.html.s8_other_money.g1_aboutOtherMoney(form.fill(AboutOtherMoney), completedQuestionGroups, hadPartnerSinceClaimDate))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
+        val yourBenefitsAnswerErrorMessage = Messages("yourBenefits.answer.label",
+                                                      if (hadPartnerSinceClaimDate) "or your Partner/Spouse" else "",
+                                                      claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))
+
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("yourBenefits", "text1.required", FormError("yourBenefits.text1", "error.required"))
-          .replaceError("yourBenefits", "text2.required", FormError("yourBenefits.text2", "error.required"))
-        BadRequest(views.html.s8_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, completedQuestionGroups, hadPartnerSinceClaimDate, eitherClaimedBenefitSinceClaimDate))
+          .replaceError("yourBenefits.answer", FormError(yourBenefitsAnswerErrorMessage, "error.required"))
+          .replaceError("yourBenefits", FormError("yourBenefits.text", "error.required"))
+        BadRequest(views.html.s8_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, completedQuestionGroups, hadPartnerSinceClaimDate))
       },
       f => claim.update(f) -> Redirect(routes.G2MoneyPaidToSomeoneElseForYou.present()))
   }

@@ -95,7 +95,7 @@ object ClaimBuilder {
     AddressOfSchoolCollegeOrUniversity(NoRouting, Some("schoolName"), Some("tutorName"), Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), Some("SE1 6EH"), Some("020192827273"), Some("0302928273"))
   )
 
-  val otherMoney = OtherMoneySection(AboutOtherMoney(YesNoWith2Text(yes, Some("text1"), Some("text2"))), MoneyPaidToSomeoneElseForYou("yes"),
+  val otherMoney = OtherMoneySection(AboutOtherMoney(YesNoWithText(yes, Some("text"))), MoneyPaidToSomeoneElseForYou("yes"),
     PersonWhoGetsThisMoney("fullName", Some(NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))), "benefitName"),
     PersonContactDetails(Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), Some("SE1 6EH")),
     StatutorySickPay(haveYouHadAnyStatutorySickPay = yes, employersName = Some("employersName"), employersAddress = Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), employersPostcode = Some("SE1 6EH")),

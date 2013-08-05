@@ -6,7 +6,7 @@ import scala.Some
 
 object FullTimeEducation {
 
- def xml(claim:Claim) = {
+ def xml(claim: Claim) = {
    val courseDetailsOption = claim.questionGroup[YourCourseDetails]
    val addressOfSchoolOption = claim.questionGroup[AddressOfSchoolCollegeOrUniversity]
 
@@ -16,9 +16,9 @@ object FullTimeEducation {
     </FullTimeEducation>
   }
 
-  def courseDetailsXml(courseDetailsOption:Option[YourCourseDetails]) = {
+  def courseDetailsXml(courseDetailsOption: Option[YourCourseDetails]) = {
 
-    def xml(courseDetails:YourCourseDetails) = {
+    def xml(courseDetails: YourCourseDetails) = {
       <CourseDetails>
         <Type>{courseDetails.courseType.orNull}</Type>
         <Title>{courseDetails.title.orNull}</Title>
@@ -30,14 +30,14 @@ object FullTimeEducation {
     }
 
     courseDetailsOption match {
-      case Some(details:YourCourseDetails) => xml(details)
+      case Some(details: YourCourseDetails) => xml(details)
       case _ => xml(YourCourseDetails(NoRouting, None, None, None, None, None, None))
     }
   }
 
-  def locationDetailsXml(schoolDataOption:Option[AddressOfSchoolCollegeOrUniversity], courseDetailsOption:Option[YourCourseDetails]) = {
+  def locationDetailsXml(schoolDataOption: Option[AddressOfSchoolCollegeOrUniversity], courseDetailsOption: Option[YourCourseDetails]) = {
 
-    def xml(schoolData:AddressOfSchoolCollegeOrUniversity, detailsOption:Option[YourCourseDetails]) = {
+    def xml(schoolData: AddressOfSchoolCollegeOrUniversity, detailsOption: Option[YourCourseDetails]) = {
       <LocationDetails>
         <Name>{schoolData.nameOfSchoolCollegeOrUniversity.orNull}</Name>
         <Address>{postalAddressStructure(schoolData.address, schoolData.postcode)}</Address>
@@ -49,9 +49,8 @@ object FullTimeEducation {
     }
 
     schoolDataOption match {
-      case Some(schoolData:AddressOfSchoolCollegeOrUniversity) => xml(schoolData, courseDetailsOption)
+      case Some(schoolData: AddressOfSchoolCollegeOrUniversity) => xml(schoolData, courseDetailsOption)
       case _ => xml(AddressOfSchoolCollegeOrUniversity(NoRouting, None, None, None, None), courseDetailsOption)
     }
   }
-
 }

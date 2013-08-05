@@ -27,28 +27,25 @@ object XMLHelper {
     <gds:PostCode>{postcode}</gds:PostCode>
   }
 
-  def moneyStructure(amount:String) = {
+  def moneyStructure(amount: String) = {
     <Currency>GBP</Currency>
     <Amount>{amount}</Amount>
   }
 
-  def optional[T](option: Option[T],elem:Elem )(implicit classTag:ClassTag[T]): Elem = {
-    option match {
-      case Some(o) => addChild(elem,Some(Text(stringify(option))))
-      case _ => elem
-    }
-
+  def optional[T](option: Option[T], elem: Elem )(implicit classTag:ClassTag[T]): Elem = option match {
+    case Some(o) => addChild(elem, Some(Text(stringify(option))))
+    case _ => elem
   }
 
   def addChild(n: Node, newChild: Option[Node]) = n match {
     case Elem(prefix, label, attribs, scope, child @ _*) =>
-      Elem(prefix, label, attribs, scope,true, (newChild match { case Some(n) => child ++ newChild case _ => child}) : _*)
+      Elem(prefix, label, attribs, scope, true, (newChild match { case Some(n) => child ++ newChild case _ => child}) : _*)
     case _ => <error>failed adding children</error>
   }
 
   implicit def attachToNode(elem: Elem) = new {
-    def +++[T](option: Option[T])(implicit classTag:ClassTag[T]):Elem = {
-      optional(option,elem)
+    def +++[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = {
+      optional(option, elem)
     }
   }
 }

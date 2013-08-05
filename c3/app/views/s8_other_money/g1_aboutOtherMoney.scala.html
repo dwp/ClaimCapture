@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.AboutOtherMoney], completedQuestionGroups: List[models.domain.QuestionGroup], hadPartnerSinceClaimDate: Boolean, eitherClaimedBenefitSinceClaimDate: Boolean)(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.AboutOtherMoney], completedQuestionGroups: List[models.domain.QuestionGroup], hadPartnerSinceClaimDate: Boolean)(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -16,19 +16,12 @@
             <legend>About other money</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your Partner/Spouse" else ""))
+                @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your Partner/Spouse" else "", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
                 @otherDetailPlaceHolder(
-                  inputDef = Seq(carersInputText(currentForm("yourBenefits.text1"), 'maxLength -> Mappings.fifty, '_label -> Messages("yourBenefits.text1"))),
-                  'id -> "yourBenefitsText1Wrap",
-                  'display -> currentForm("yourBenefits.answer").value.getOrElse("no")
-                  )
-
-                @otherDetailPlaceHolder(
-                  inputDef = Seq(carersInputText(currentForm("yourBenefits.text2"), 'maxLength -> Mappings.fifty, '_label -> Messages("yourBenefits.text2"))),
-                  'id -> "yourBenefitsText2Wrap",
-                  'display -> {if(currentForm("yourBenefits.answer").value.getOrElse("no") == "yes" && eitherClaimedBenefitSinceClaimDate) "yes" else "no"}
-                  )
+                  inputDef = Seq(carersInputText(currentForm("yourBenefits.text"), 'maxLength -> Mappings.fifty, '_label -> Messages("yourBenefits.text"))),
+                  'id -> "yourBenefitsTextWrap",
+                  'display -> currentForm("yourBenefits.answer").value.getOrElse("no"))
             </ul>
         </fieldset>
 
@@ -43,6 +36,6 @@
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("yourBenefits_answer_yes")", "@CarersCrypto.encryptAES("yourBenefits_answer_no")", @eitherClaimedBenefitSinceClaimDate);
+        window.initEvents("@CarersCrypto.encryptAES("yourBenefits_answer_yes")", "@CarersCrypto.encryptAES("yourBenefits_answer_no")");
     });
 </script>
