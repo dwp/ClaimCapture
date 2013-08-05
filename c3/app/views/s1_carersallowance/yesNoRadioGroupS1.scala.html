@@ -1,6 +1,0 @@
-@(yes: Boolean)
-@import utils.helpers.CarersCrypto
-<ul class="group radio">
-    <li><input type="radio" name="@CarersCrypto.encryptAES("answer")" id="@CarersCrypto.encryptAES("q3-yes")" value="true" @(if(yes) "checked" else "") ><label for="@CarersCrypto.encryptAES("q3-yes")">Yes</label></li>
-    <li><input type="radio" name="@CarersCrypto.encryptAES("answer")" id="@CarersCrypto.encryptAES("q3-no")" value="false" @(if(!yes) "checked" else "") ><label for="@CarersCrypto.encryptAES("q3-no")">No</label></li>
-</ul>

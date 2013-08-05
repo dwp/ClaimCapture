@@ -1,10 +1,10 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 import scala.Some
 
-class G8OneWhoPaysPersonalDetailsFormSpec extends Specification {
+class G8OneWhoPaysPersonalDetailsFormSpec extends Specification with Tags {
 
   "One Who Pays Personal Details Form" should {
 
@@ -75,7 +75,5 @@ class G8OneWhoPaysPersonalDetailsFormSpec extends Specification {
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-
-
-  }
+  }  section "unit"
 }

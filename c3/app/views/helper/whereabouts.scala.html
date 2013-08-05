@@ -4,7 +4,7 @@
 @import helper.dates._
 @import utils.helpers.SelectOtherTemplate._
 
-@helper.input(field, args ++ Seq('helper -> "e.g. Hospital"): _*) { (id, name, value, htmlArgs) =>
+@helper.input(field("location"), args ++ Seq('helper -> "e.g. Hospital"): _*) { (id, name, value, htmlArgs) =>
 
     @views.html.helper.selectWithOtherPlaceholder(field("location"), opts, args:_*)
 }

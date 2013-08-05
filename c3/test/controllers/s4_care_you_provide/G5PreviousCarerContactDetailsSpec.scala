@@ -1,17 +1,14 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{WithApplication, FakeRequest}
-import models.view.Claiming
 import play.api.cache.Cache
-import models.domain.{PreviousCarerContactDetails, Claim}
+import models.domain.{Claiming, PreviousCarerContactDetails, Claim, Section}
 import models.domain
 import play.api.test.Helpers._
-import models.domain.Section
-import scala.Some
 
-class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
+class G5PreviousCarerContactDetailsSpec extends Specification with Mockito with Tags {
   val addressLineOne = "123 Street"
   val postcode = "PR2 8AE"
   val phoneNumber = "02076541058"
@@ -28,16 +25,16 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerContactDetailsInput: _*)
 
-      val result = controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit(request)
+      val result = G5PreviousCarerContactDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id).get
+      val section: Section = claim.section(domain.CareYouProvide)
 
-      section.questionGroup(PreviousCarerContactDetails.id) must beLike {
-        case Some(f: PreviousCarerContactDetails) => {
-          f.address.get.lineOne mustEqual Some(addressLineOne)
-          f.postcode mustEqual Some(postcode)
-          f.phoneNumber mustEqual Some(phoneNumber)
-          f.mobileNumber mustEqual Some(mobileNumber)
+      section.questionGroup(PreviousCarerContactDetails) must beLike {
+        case Some(p: PreviousCarerContactDetails) => {
+          p.address.get.lineOne mustEqual Some(addressLineOne)
+          p.postcode mustEqual Some(postcode)
+          p.phoneNumber mustEqual Some(phoneNumber)
+          p.mobileNumber mustEqual Some(mobileNumber)
         }
       }
     }
@@ -46,7 +43,7 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
-      val result = controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit(request)
+      val result = G5PreviousCarerContactDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -54,9 +51,8 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerContactDetailsInput: _*)
 
-      val result = controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit(request)
+      val result = G5PreviousCarerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
-
+  } section "unit"
 }

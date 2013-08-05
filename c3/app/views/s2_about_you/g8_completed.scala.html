@@ -1,0 +1,13 @@
+@(completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import models.domain.AboutYou
+
+@main("Completion - About You", completedQuestionGroups) {
+    @form(action = controllers.s2_about_you.routes.AboutYou.completedSubmit) {
+        <nav class="form-steps">
+            <a href="@controllers.s2_about_you.routes.G7PropertyAndRent.present" class="button secondary">Back</a>
+            <button id="submit" type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(AboutYou).name</button>
+        </nav>
+    }
+}

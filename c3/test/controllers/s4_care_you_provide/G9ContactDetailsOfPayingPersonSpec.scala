@@ -1,18 +1,18 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
-import models.view.Claiming
 import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
+import models.domain.Claim
 
-class G9ContactDetailsOfPayingPersonSpec extends Specification {
+class G9ContactDetailsOfPayingPersonSpec extends Specification with Tags {
   "Contact details of paying person" should {
     """bypass to "breaks" when "no one has paid you to look after this person" """ in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val moreAboutTheCare = mockQuestionGroup[MoreAboutTheCare](MoreAboutTheCare.id)
+      val moreAboutTheCare = mockQuestionGroup[MoreAboutTheCare](MoreAboutTheCare)
       moreAboutTheCare.hasSomeonePaidYou returns "no"
 
       val claim = Claim().update(moreAboutTheCare)
@@ -25,7 +25,7 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification {
     """present when "someone has paid you to look after this person" """ in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val moreAboutTheCare = mockQuestionGroup[MoreAboutTheCare](MoreAboutTheCare.id)
+      val moreAboutTheCare = mockQuestionGroup[MoreAboutTheCare](MoreAboutTheCare)
       moreAboutTheCare.hasSomeonePaidYou returns "yes"
 
       val claim = Claim().update(moreAboutTheCare)
@@ -43,7 +43,9 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(ContactDetailsOfPayingPerson.id) must beSome(ContactDetailsOfPayingPerson(None, None))
+      claim.questionGroup(ContactDetailsOfPayingPerson) must beLike {
+        case Some(ContactDetailsOfPayingPerson(_, None, None)) => true must beTrue
+      }
     }
-  }
+  } section "unit"
 }

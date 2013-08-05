@@ -1,36 +1,35 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
-import models.view.Claiming
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.domain.{BreaksInCare, Claim}
+import models.domain.{Claiming, BreaksInCare, Claim}
 
-class G10BreaksInCareSpec extends Specification {
+class G10BreaksInCareSpec extends Specification with Tags {
   "Breaks in care" should {
-    """present "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+    """present "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G10BreaksInCare.present(request)
       status(result) mustEqual OK
     }
 
-    """enforce answer to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+    """enforce answer to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G10BreaksInCare.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
-    """accept "yes" to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+    """accept "yes" to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "yes")
 
       val result = G10BreaksInCare.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/break")
     }
 
-    """accept "no" to "Have you had any breaks in caring for this person" """ in new WithApplication with Claiming {
+    """accept "no" to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "no")
 
       val result = G10BreaksInCare.submit(request)
@@ -45,9 +44,7 @@ class G10BreaksInCareSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(BreaksInCare.id) must beLike {
-        case Some(b: BreaksInCare) => b.breaks mustEqual Nil
-      }
+      claim.questionGroup(BreaksInCare) must beLike { case Some(b: BreaksInCare) => b.breaks mustEqual Nil }
     }
 
     "complete upon indicating that there are no more breaks having now provided one break" in new WithApplication with Claiming {
@@ -71,9 +68,7 @@ class G10BreaksInCareSpec extends Specification {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(BreaksInCare.id) must beLike {
-        case Some(b: BreaksInCare) => b.breaks.size mustEqual 1
-      }
+      claim.questionGroup(BreaksInCare) must beLike { case Some(b: BreaksInCare) => b.breaks.size mustEqual 1 }
     }
 
     "allow no more than 10 breaks" in new WithApplication with Claiming {
@@ -92,7 +87,7 @@ class G10BreaksInCareSpec extends Specification {
         redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
       }
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 10
       }
 
@@ -109,7 +104,7 @@ class G10BreaksInCareSpec extends Specification {
       val result = G11Break.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 10
       }
     }
@@ -131,9 +126,9 @@ class G10BreaksInCareSpec extends Specification {
 
       G10BreaksInCare.delete(breakID)(FakeRequest().withSession("connected" -> claimKey))
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 0
       }
     }
-  }
+  } section "unit"
 }

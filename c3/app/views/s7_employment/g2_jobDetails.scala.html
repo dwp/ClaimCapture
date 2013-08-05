@@ -1,0 +1,67 @@
+@(currentForm: Form[models.domain.JobDetails])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+@import models.domain.Job
+
+@main("Job Details - Employment", Some(currentForm)) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s7_employment.routes.G2JobDetails.submit()) {
+        <input type="hidden" name="jobID" value='@Job.jobID(currentForm)'>
+
+        <fieldset class="form-elements">
+            <legend>Details about your job</legend>
+
+            <ul class="group">
+                @carersInputText(currentForm("employerName"), 'maxLength -> Mappings.sixty)
+
+                @inputDayMonthYear(currentForm("jobStartDate"), 'helperBelow -> Messages("date.helper"))
+
+                @yesNoRadioGroup(currentForm("finishedThisJob"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(inputDayMonthYear(currentForm("lastWorkDate"), 'helperBelow -> Messages("date.helper"))),
+                    'id -> "finishedThisJob",
+                    'display -> currentForm("finishedThisJob").value.getOrElse("no"))
+
+                @carersInputText(currentForm("hoursPerWeek"), 'placeholder -> "00", 'maxlength -> 2, 'class -> "short-field")
+
+                @carersInputText(currentForm("jobTitle"), 'maxLength -> Mappings.sixty)
+
+                @carersInputText(currentForm("payrollEmployeeNumber"), 'maxLength -> Mappings.sixty)
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@controllers.s7_employment.routes.G1BeenEmployed.present" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript">
+    $(function() {
+        @if(currentForm("finishedThisJob").value.getOrElse("") != "yes") {
+            $("#@CarersCrypto.encryptAES("finishedThisJob_yes")").closest("ul").parent().next().hide();
+        }
+
+        $("#@CarersCrypto.encryptAES("finishedThisJob_yes")").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#@CarersCrypto.encryptAES("finishedThisJob_no")").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+</script>

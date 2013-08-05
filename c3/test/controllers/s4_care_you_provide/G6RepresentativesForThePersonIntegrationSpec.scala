@@ -2,14 +2,16 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import integration.Helper
+import controllers.{BrowserMatchers, Formulate}
+import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.Duration
 
 class G6RepresentativesForThePersonIntegrationSpec extends Specification with Tags {
 
   "Representatives For The Person" should {
-    "be presented" in new WithBrowser {
+    "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/representativesForPerson")
-      browser.title() mustEqual "Representatives For The Person - Care You Provide"
+      titleMustEqual("Representatives For The Person - Care You Provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -26,36 +28,35 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       browser.find("div[class=validation-summary] ol li").size mustEqual 2
     }
 
-    "navigate back to More About The Person" in new WithBrowser {
-      Helper.fillMoreAboutThePersonWithNotClaimedAllowanceBefore(browser)
-      browser.goTo("/careYouProvide/representativesForPerson")
+    "navigate back to More About The Person" in new WithBrowser with BrowserMatchers {
+      Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       browser.click("#backButton")
-      browser.title() mustEqual "More About The Person You Care For - Care You Provide"
+      titleMustEqual("More About The Person You Care For - Care You Provide")
     }
 
-    "navigate back to Previous Carer Contact Details" in new WithBrowser {
-      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      Helper.fillPreviousCarerPersonalDetails(browser)
-      Helper.fillPreviousCarerContactDetails(browser)
-      browser.title() mustEqual "Representatives For The Person - Care You Provide" // Landed on S4 G6
+    "navigate back to Previous Carer Contact Details" in new WithBrowser with BrowserMatchers {
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Formulate.previousCarerPersonalDetails(browser)
+      Formulate.previousCarerContactDetails(browser)
+      titleMustEqual("Representatives For The Person - Care You Provide") // Landed on S4 G6
       browser.click("#backButton")
-      browser.title() mustEqual "Contact Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G5
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide") // Back to S4 G5
     }
 
-    "navigate back twice to Previous Carer Personal Details" in new WithBrowser {
+    "navigate back twice to Previous Carer Personal Details" in new WithBrowser with BrowserMatchers {
       // [SKW] This tests a problem I was having where pressing back twice wasn't getting back passed the S4 G4, the problem was with Controller action fetching previous question groups being different for pages using backHref.
-      Helper.fillMoreAboutThePersonWithClaimedAllowanceBefore(browser)
-      Helper.fillPreviousCarerPersonalDetails(browser)
-      Helper.fillPreviousCarerContactDetails(browser)
-      browser.title() mustEqual "Representatives For The Person - Care You Provide" // Landed on S4 G6
+      Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
+      Formulate.previousCarerPersonalDetails(browser)
+      Formulate.previousCarerContactDetails(browser)
+      titleMustEqual("Representatives For The Person - Care You Provide")(Duration(60, TimeUnit.SECONDS)) // Landed on S4 G6
       browser.click("#backButton")
       browser.click("#backButton")
-      browser.title() mustEqual "Details Of The Person Who Claimed Before - Care You Provide" // Back to S4 G4
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS)) // Back to S4 G4
     }
 
     "contain the completed forms" in new WithBrowser {
-      Helper.fillRepresentativesForThePerson(browser)
+      Formulate.representativesForThePerson(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
-  }
+  } section "integration"
 }

@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, id: String)
+@(field: play.api.data.Field, id: String, args: (Symbol, Any)*)
 
 @import helper._
 @import utils.helpers.EmptyTemplate._
@@ -6,6 +6,9 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 @import scala.language.postfixOps
+@import views.html.helper.checkConstraintRequired
+
+@checkConstraintRequired(field, args:_*) <!-- datePlaceholder -->
 
 <ul class="inline year" id="@CarersCrypto.encryptAES(id)">
     <li>
@@ -17,6 +20,6 @@
     </li>
 
     <li>
-        @carersInputTel(field("year"), 'maxlength -> 4)
+        @carersInputText(field("year"), 'maxlength -> 4)
     </li>
 </ul>

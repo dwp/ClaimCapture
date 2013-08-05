@@ -1,0 +1,43 @@
+@(currentForm: Form[models.domain.OneWhoPaysPersonalDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+
+@main("One Who Pays You - Care You Provide", Some(currentForm), completedQuestionGroups) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s4_care_you_provide.routes.G8OneWhoPaysPersonalDetails.submit) {
+    
+        <fieldset class="form-elements">
+            <legend>Details of the person/organisation who pays you</legend>
+
+            <ul class="group">
+
+                @carersInputText(currentForm("organisation"), 'maxLength -> Mappings.hundred)
+
+                @titleSelect(currentForm("title"))
+
+                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.sixty)
+
+                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.sixty)
+
+                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.sixty)
+
+                @carersShortInputText(currentForm("amount"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty)
+
+                @inputDayMonthYear(currentForm("startDatePayment"), 'helper-> Messages("dateOfBirth.helper"))
+
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.OneWhoPaysPersonalDetails)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

@@ -1,3 +1,15 @@
+s1.name = Eligibility
+s2.name = About you
+s3.name = Your Partner
+s4.name = Care you provide
+s5.name = Abroad
+s6.name = Education
+s7.name = Employment
+s8.name = Self Employment
+s9.name = Other money
+s10.name = Pay details
+s11.name = Declaration
+
 s1.g1 = Q1.  Does the person you look after get one of these benefits?
 s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?
 s1.g3 = Q3.  Are you aged 16 or over?
@@ -11,17 +23,78 @@ s2.g5 = More about you
 s2.g6 = Employment
 s2.g7 = Property and rent
 
+s3.g1 = Your Partner/Spouse details
+s3.g2 = Your Partner/Spouse contact details
+s3.g3 = More about your Partner/Spouse
+s3.g4 = Person you care for
+
 s4.g1 = Details of the person you care for
 s4.g2 = Their contact details
-s4.g3 = More about the person you care for
+s4.g3 = Relationship and other claims
 s4.g4 = About the previous Carer
-s4.g5 = More about the care you provide
+s4.g5 = Contact details of the previous Carer
 s4.g6 = Representatives for the person you care for
 s4.g7 = More about the care you provide
-s4.g8 = Details of the person / organisation who pays you
+s4.g8 = Details of the person/organisation who pays you
 s4.g9 = Contact details of the person who pays you
 s4.g10 = Breaks in care
 s4.g11 = About the breaks in care
+
+s5.g1 = Your normal residence and current location
+s5.g2 = Abroad for more than 4 weeks
+s5.g3 = Abroad for more than 52 weeks
+s5.g4 = Trips
+s5.g5 = Other EEA State or Switzerland
+
+s6.g1 = Your course details
+s6.g2 = School, college or university''s contact details
+
+s7.g1 = Have you been employed?
+s7.g2 = Details about your job: {0}
+s7.g3 = Employer''s contact details
+s7.g4 = Your last wage
+s7.g5 = Additional salary details
+s7.g6 = Money owed by employer
+s7.g7 = Pension scheme
+s7.g8 = About expenses to do with your employment
+s7.g9 = Necessary expenses to do your job
+s7.g10 = Childcare expenses
+s7.g11 = Childcare provider''s contact details
+s7.g12 = Expenses related to the person you care for while at work
+s7.g13 = Care provider’s contact Details
+
+s8.g1 = About Self Employment
+s8.g2 = Your Accounts
+s8.g3 = Accountant's contact details
+s8.g4 = Pensions and Expenses
+s8.g5 = Childcare expenses while you are at work
+s8.g6 = Care provider's contact details
+s8.g7 = Expenses related to the person you care for while at work
+s8.g8 = Care provider's contact details
+
+
+s9.g1 = Details about other money
+s9.g2 = Money paid to someone else for you
+s9.g3 = Person who gets this money
+s9.g4 = Person''s contact details
+s9.g5 = Statutory Sick Pay
+s9.g6 = Other Statutory Pay
+s9.g7 = Other EEA State or Switzerland
+
+
+s10.g1 = How would you like to get paid?
+s10.g2 = Bank/Building society details
+s10.g6 = Childcare provider's contact details
+s10.g7 = Expenses related to the person you care for while at work
+s10.g8 = Care provider's contact details
+
+s11.g1 = Additional information
+s11.g2 = Consent
+s11.g3 = Disclaimer
+s11.g4 = Declaration
+
+date.helper = eg: 27 June 2013
+please.specify =  Please specify...
 
 ## ABOUT YOU
 
@@ -37,8 +110,8 @@ nationalInsuranceNumber.ni2 = National Insurance (NI) number second field
 nationalInsuranceNumber.ni3 = National Insurance (NI) number third field
 nationalInsuranceNumber.ni4 = National Insurance (NI) number fourth field
 nationalInsuranceNumber.ni5 = National Insurance (NI) number fifth field
-error.nationalInsuranceNumber = A National insurance number must be in the format AB 12 34 56 Z
-nationalInsuranceNumber.helper = e.g. AA 12 34 56 A<br>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.
+error.nationalInsuranceNumber = A National insurance number must be in the format VO 12 34 56 D
+nationalInsuranceNumber.helper = e.g. VO 12 34 56 D<br>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.
 
 dateOfBirth = Date of birth
 dateOfBirth.day = Date of birth (Day)
@@ -60,24 +133,27 @@ postcode.placeHolder = eg: PR2 8AE
 error.postcode = A post code must be in the format PR2 8AE
 
 # TIME OUTSIDE UK
-currentlyLivingInUK = Are you currently living in the UK?
-arrivedInUK = When did you arrive in the UK?
-originCountry = What country did you come from?
-planToGoBack = Do you plan to go back to that country?
-whenPlanToGoBack = When do you plan to go back?
+livingInUK_answer = Are you currently living in the UK?
+livingInUK_arrivalDate = When did you arrive in the UK?
+livingInUK.arrivalDate = When did you arrive in the UK?
+livingInUK_originCountry = What country did you come from?
+livingInUK_goBack_date = When do you plan to go back?
 visaReference = What is your visa reference number in your passport?
 
+livingInUK_goBack_answer = Do you plan to go back to that country?
+livingInUK.goBack.answer = Do you plan to go back to that country?
+
 # CLAIM DATE
-dateOfClaim = When do you want your Carer's Allowance claim to start?
+dateOfClaim = When do you want your Carer''s Allowance claim to start?
 
 # MORE ABOUT YOU
-hadPartnerSinceClaimDate.label = Have you had a partner/spouse at any time since your claim date: {0}?
-hadPartnerSinceClaimDate = Have you had a partner/spouse at any time since your claim date?
-eitherClaimedBenefitSinceClaimDate.label = Have you or your partner/spouse claimed or received any other benefits since your claim date: {0}?
-eitherClaimedBenefitSinceClaimDate = Have you or your partner/spouse claimed or received any other benefits since your claim date?
+hadPartnerSinceClaimDate.label = Have you had a Partner/Spouse at any time since your claim date: {0}?
+hadPartnerSinceClaimDate = Have you had a Partner/Spouse at any time since your claim date?
+eitherClaimedBenefitSinceClaimDate.label = Have you or your Partner/Spouse claimed or received any other benefits since your claim date: {0}?
+eitherClaimedBenefitSinceClaimDate = Have you or your Partner/Spouse claimed or received any other benefits since your claim date?
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
-receiveStatePension = Do you receive State Pension?
+receiveStatePension = Do you get State Pension?
 
 # EMPLOYMENT
 beenEmployedSince6MonthsBeforeClaim.label = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
@@ -86,27 +162,45 @@ beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any
 beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
 
 # PROPERTY AND RENT
-ownProperty.label = Do you or your partner own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
-ownProperty = Do you or your partner own property or land in the UK or abroad that you have rented out since one week before your claim date?
+ownProperty.label = Do you or your Partner/Spouse own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
+ownProperty = Do you or your Partner/Spouse own property or land in the UK or abroad that you have rented out since one week before your claim date?
 hasSublet.label = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
 hasSublet = Have you sublet your home, or provided board and lodgings, since one week before your claim date?
+
+## YOUR PARTNER
+
+# MORE ABOUT YOUR PARTNER
+startedLivingTogether_afterClaimDate.label = Did you and your Partner/Spouse start living together, after your claim date: {0}?
+startedLivingTogether_date = What date did you start living together?
+startedLivingTogether.date = What date did you start living together?
+separated_fromPartner.label = Have you separated from your Partner/Spouse since the date you want to claim from: {0}?
+separated.fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
+separated.date = When did you separate?
+separated_date = When did you separate?
+
+# PERSON YOU CARE FOR
+isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming Carer''s Allowance for?
 
 ## CARE YOU PROVIDE
 
 # THEIR PERSONAL DETAILS
-liveAtSameAddress = Do they live at the same address as you?
+liveAtSameAddress = Does your partner/spouse live at the same address as you?
 
 # MORE ABOUT THE PERSON
-relationship = What's their relationship to you?
-armedForcesPayment = Does this person get Armed Forces Independence Payment?
-claimedAllowanceBefore = Has anyone else claimed Carer's Allowance for this person before?
+relationship = What''s their relationship to you?
+armedForcesPayment = Does this person get Armed Forces Independence Payment (AFIP)?
+claimedAllowanceBefore = Has anyone else claimed Carer''s Allowance for this person before?
 
 # REPRESENTATIVES FOR THE PERSON
-actForPerson = Do you act for the person you care for?
-actAs = You act as
-someoneElseActForPerson = Do someone else act for the person you care for?
-someoneElseActAs = Person acts as
-someoneElseFullName = Full name
+you_actForPerson = Do you act for the person you care for?
+you.actForPerson = Do you act for the person you care for?
+you_actAs = You act as
+you.actAs = You act as
+someoneElse_actForPerson = Does someone else act for the person you care for?
+someoneElse.actForPerson = Does someone else act for the person you care for?
+someoneElse_actAs = Person acts as
+someoneElse.actAs = Person acts as
+someoneElse_fullName = Full name
 
 # ONE WHO PAYS PERSONAL DETAILS
 organisation = Organisation
@@ -117,9 +211,10 @@ decimal.invalid = The amount must be in the format 500 or 500.5
 
 # MORE ABOUT THE CARE
 spent35HoursCaring = Do you spend 35 hours or more each week caring for this person?
-spent35HoursCaringBeforeClaim = Did you care for this person for 35 hours or more each week before your claim date?
+beforeClaimCaring.answer = Did you care for this person for 35 hours or more each week before your claim date?
 spent35HoursCaringBeforeClaim.label = Did you care for this person for 35 hours or more each week before your claim date: {0}?
-careStartDate = When did you start to care for this person?
+beforeClaimCaring_date = When did you start to care for this person?
+beforeClaimCaring.date = When did you start to care for this person?
 hasSomeonePaidYou = Has someone paid you to care for this person since your claim date?
 hasSomeonePaidYou.label = Has someone paid you to care for this person since your claim date: {0}?
 
@@ -133,7 +228,236 @@ start.time = Break start time?
 end = Break end date?
 end.time = Break end time?
 whereYou = Where were you during the above break?
+whereYou_location = Where were you during the above break?
 whereYou.location = Where were you during the above break?
 wherePerson = Where was the person you care for during the above break?
+wherePerson_location = Where was the person you care for during the above break?
 wherePerson.location = Where was the person you care for during the above break?
-medicalDuringBreak = Did you or the person you look after received any medical treatment or professional care during the above break?
+medicalDuringBreak = Did you or the person you care for receive any medical treatment or professional care during the above break?
+
+## TIME SPENT ABROAD
+
+# NORMAL RESIDENCE AND CURRENT LOCATION
+liveInUK.answer = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
+liveInUK_answer = Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands?
+liveInUK.whereDoYouLive = Where do you normally live?
+liveInUK_whereDoYouLive = Where do you normally live?
+inGBNow = Are you in Great Britain now?
+
+anyTrips = Have you been out of Great Britain
+
+# 4 WEEKS
+4Weeks.label = Have you been out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
+4Weeks.more.label = Have you had any more trips out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
+
+# 52 WEEKS
+52Weeks.label = Have you been out of Great Britain for more than 52 weeks, since {0} (this is 156 weeks before your claim date)?
+52Weeks.more.label = Have you had any more trips out of Great Britain for more than 52 weeks, since {0} (this is 156 weeks before your claim date)?
+
+start.trip = Date you left Great Britain
+end.trip = Date you returned to Great Britain
+where.trip = Where did you go?
+why.trip = Why did you go?
+
+## EDUCATION
+# YOUR COURSE DETAILS
+courseType = Type of course
+courseTitle = Course title
+startDate = When did you start the course?
+expectedEndDate = When do you expect the course to end?
+finishedDate = If you are no longer on the course, when did you finish?
+studentReferenceNumber = Your student reference number
+nameOfSchoolCollegeOrUniversity = Name of school, college or university
+nameOfMainTeacherOrTutor = Name of main Teacher or Tutor
+faxNumber = Fax number
+
+## EMPLOYED
+beenEmployed = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
+
+# JOB DETAIL
+employerName = Employer''s name
+jobStartDate = When did you start your job?
+finishedThisJob = Have you finished this job?
+lastWorkDate = When did you last work?
+p45LeavingDate = What is the leaving date on your P45, if you have one?
+hoursPerWeek = How many hours a week do you normally work?
+jobTitle = Job title
+payrollEmployeeNumber = Payroll/Employee number
+
+# EMPLOYER CONTACT DETAILS
+phonenumber = Phone number
+
+# LAST WAGE
+lastPaidDate = When were you last paid?
+periodCovered = What period did this cover?
+grossPay = What was the gross pay for this period?
+payInclusions = What was included in this pay?
+sameAmountEachTime = Do you get the same amount each time?
+
+# ADDITIONAL WAGE DETAILS
+oftenGetPaid = How often are you paid?
+oftenGetPaid_frequency = How often are you paid?
+whenGetPaid = When do you get paid?
+holidaySickPay = Do you get holiday pay or sick pay?
+anyOtherMoney = Do you get paid any other money as well as your normal wage?
+otherMoney = Please tell us what other money you received
+employeeOwesYouMoney = Does your employer owe you any money?
+
+# MONEY OWED BY EMPLOYER
+howMuchOwed = How much are you owed?
+owedPeriod = What period is it for?
+owedFor = What is the money owed for?
+shouldBeenPaidBy = When should it have been paid?
+whenWillGetIt = When will you get it?
+
+# PENSION SCHEME
+
+payOccupationalPensionScheme = Do you pay towards an occupational pension scheme?
+howMuchPension = How much do you pay?
+howOftenPension = How often?
+payPersonalPensionScheme = Do you pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
+howMuchPersonal = How much do you pay?
+howOftenPersonal = How often?
+
+# ABOUT EXPENSES
+
+payForAnythingNecessary = Do you pay for anything necessary to do your job?
+payAnyoneToLookAfterChildren = While at work, do you pay anyone to look after your children?
+payAnyoneToLookAfterPerson = While at work, do you pay anyone to look after the person you care for?
+
+# NECESSARY EXPENSES
+
+whatAreThose = What is/was this item?
+howMuchCostEachWeek = Why do you need this item to do your job?
+whyDoYouNeedThose = How much did this item cost you each week?
+
+# CHILDCARE EXPENSES
+
+howMuchCostChildcare =  How much do you pay them?
+whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
+relationToYou = What relation, if any, is the person to you?
+relationToPartner = What relation, if any, is the person to your Partner/Spouse?
+
+# PERSON YOU CARE FOR EXPENSES
+howMuchCostCare = How much do you pay them?
+whoDoYouPay = Name of the person/organisation you pay
+
+
+## OTHER MONEY
+# ABOUT OTHER MONEY
+yourBenefits.answer = Have you claimed or received any other benefits since the date you want to claim?
+yourBenefits.answer.label = Have you {0} claimed or received any other benefits since the date you want to claim?
+yourBenefits.text1 = Please tell us the names of the benefits or entitlements you receive
+yourBenefits.text2 = Please tell us the names of the benefits or entitlements your Partner/Spouse receive
+moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
+haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
+howMuch = How much do you get, and how often?
+howOften = How often
+error.paymentFrequency = Please tell us how often
+howMuch_howOften = '
+employersName = Employer''s name
+employersAddress = Employer''s address
+employersPostcode = Employer''s postcode
+
+# PERSON WHO GETS THIS MONEY
+fullName = Full name
+nameOfBenefit = Name of benefit
+
+# OTHER STATUTORY PAY
+otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
+howOften_frequency = How often
+
+# OTHER EEA STATE OR SWITZERLAND
+benefitsFromOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
+workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?
+
+## PAY DETAILS
+# HOW WE PAY YOU
+likeToPay =  How would you like to be paid?
+paymentFrequency = How often do you want to get paid?
+howWePayYou.helper = Select other if you want to be paid into an International Bank Account and provide details in the additional information section.
+
+# BANK BUILDING SOCIETY DETAILS
+accountHolderName =  Name of account holder
+bankFullName = Full name of bank or building society
+sortCode = Sort code
+accountNumber = Account number
+rollOrReferenceNumber = Building society roll or reference number
+
+## CONSENT AND DECLARATION
+# CONSENT
+informationFromEmployer = Do you agree to us getting information from any current or previous employer you have told us about on this form?
+why = Please tell us why
+whyPerson = Please tell us why
+why_placeholder = Enter text...
+informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
+
+# DISCLAIMER
+disclaimer.1 = I understand that if I am paid Carer''s Allowance it may affect the benefits paid to [[first name, middle name, surname]].
+disclaimer.2 = In addition please show the notes below to the person you are caring for, or their representative.
+disclaimer.3 = If the person you are caring for receives certain benefits, the amount they receive may be affected by your claim for Carer''s Allowance. Because of this we need both of you to understand the potential consequences of your claim to Carer''s Allowance.
+disclaimer.4 = If [[first name, middle name, surname]] gets a Severe Disability Premium with their income-based Jobseeker''s Allowance, Income Support, income-related Employment and Support Allowance, Housing Benefit or Council Tax Benefit, they may no longer get that premium if we pay Carer''s Allowance to you.
+disclaimer.5 = If [[first name, middle name, surname]]''s Pension Credit includes an extra amount for severe disability, they may no longer get that extra amount if we pay Carer''s Allowance to you.
+disclaimer.6 = We will need to check [[first name, middle name, surname]] entitlement to Disability Living Allowance, Personal Independence Payment, Attendance Allowance, Constant Attendance Allowance or Armed Forces Independence Payment when considering your claim.
+disclaimer.7 = We may contact [[first name, middle name, surname]] or their representative to establish whether 35 hours caring per week is taking place.
+
+read = Please tick this box to declare that you understand and have shown the notes above to the person you are looking after.
+
+#DECLARATION
+declaration.1 = I declare that I understand the <a href="http://www.gov.uk/carers-allowance" target="_blank">Carer''s Allowance Claim Notes</a> and that the information provided on this claim form is correct and complete.
+declaration.2 = I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
+declaration.3 = I will phone 08456084321 or write to Carer''s allowance Unit, Palantine House, Lancaster, Preston, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
+declaration.4 = If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Carer''s Allowance may be stopped or reduced and any overpayment of Carer''s Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.
+confirm = Please tick this box to confirm that you understand and make the declarations above.
+declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.
+someoneElse = Please tick this box if this claim form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
+
+#ADDITIONAL INFO
+anythingElse = Please tell us anything else you think we should know about your claim
+anythingElse.placeholder = Optional...
+welshCommunication = Do you live in Wales and would like to receive future communications in Welsh?
+
+#SELF EMPLOYED
+error.areYouSelfEmployedNow = Please tell us if you are self employed
+areYouSelfEmployedNow =  Are you self-employed now?
+whenDidYouStartThisJob = When did you start this job?
+whenDidTheJobFinish = When did you finish this job?
+haveYouCeasedTrading = Have you ceased trading?
+natureOfYourBusiness = Nature of business?
+howMuchYouPay = How much {0} pay them?
+nameOfPerson = Name of the person/organisation you pay
+whatRelationIsToYou = What relation, if any, is the person to you?
+whatRelationIsTothePersonYouCareFor = What relation, if any, is the person to the person you care for?
+
+#SELF EMPLOYED - Your Details
+error.areAccountsPreparedOnCashFlowBasis = Please tell us if accounts prepared on cash flow basis?
+error.tellUsWhyAndWhenTheChangeHappened = Please tell us when the change happened
+error.canWeContactYourAccountant = Please tell us if we can contact your accountant
+whatWasOrIsYourTradingYearFrom =  What {0} your trading year? From
+whatWasOrIsYourTradingYearTo =  What {0} your trading year? To
+areAccountsPreparedOnCashFlowBasis =  Are these accounts prepared on a cash flow basis?
+areIncomeOutgoingsProfitSimilarToTrading =  Are the income, outgoings and profit in these accounts similar to your current level of trading?
+tellUsWhyAndWhenTheChangeHappened =  Please tell us why and when the change happened
+doYouHaveAnAccountant =  Do you have an accountant?
+canWeContactYourAccountant =  Can we contact your accountant?
+canWeContactYourAccountant.helper = You could be charged by your accountant for any information they provide to the DWP.
+
+#SELF EMPLOYED - Accountant Contact Details
+error.accountantsName = Please provide the accountant's name
+accountantsName = Accountant’s Name
+telephoneNumber = Telephone Number
+
+#SELF EMPLOYED - Pensions and Expenses
+
+doYouPayToPensionScheme_answer = {0} pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
+doYouPayToPensionScheme.answer = {0} pay towards a personal or stakeholder pension scheme or a retirement annuity scheme
+doYouPayToPensionScheme_howMuchDidYouPay = How much {0} pay?
+doYouPayToPensionScheme.howMuchDidYouPay = How much {0} pay
+doYouPayToLookAfterYourChildren_answer = While at work, {0} pay anyone to look after children or the person you normally look after?
+doYouPayToLookAfterYourChildren.answer = While at work, {0} pay anyone to look after children or the person you normally look after
+doYouPayToLookAfterYourChildren_isItTheSameExpenseWhileAtWorkForChildren = Is this the same as the expenses you have told us about during your employed work?
+doYouPayToLookAfterYourChildren.isItTheSameExpenseWhileAtWorkForChildren = Is this the same as the expenses you have told us about during your employed work
+didYouPayToLookAfterThePersonYouCaredFor_answer = While at work, {0} pay anyone to look after the person you normally care for?
+didYouPayToLookAfterThePersonYouCaredFor.answer = While at work, {0} pay anyone to look after the person you normally care for
+didYouPayToLookAfterThePersonYouCaredFor_isItTheSameExpenseDuringWorkForThePersonYouCaredFor = Is this the same as the expenses you have told us about during your employed work?
+didYouPayToLookAfterThePersonYouCaredFor.isItTheSameExpenseDuringWorkForThePersonYouCaredFor = Is this the same as the expenses you have told us about during your employed work

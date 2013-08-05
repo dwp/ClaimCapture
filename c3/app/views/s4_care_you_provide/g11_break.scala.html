@@ -1,0 +1,37 @@
+@(breakForm: Form[models.domain.Break])(implicit claim: models.domain.Claim)
+
+@import models.domain.BreaksInCare
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.dates._
+
+@main("Break - Care You Provide", Some(breakForm)) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
+        <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
+
+        <fieldset class="form-elements">
+            <legend>About your break in care</legend>
+
+            <ul class="group">
+                @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
+                @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
+
+                @whereabouts(breakForm("whereYou"), Seq("", "Home", "Hospital", "Holiday", "Respite Care", "Other").map(v => if (v == "") "" -> "Please select" else v -> v))
+                @whereabouts(breakForm("wherePerson"), Seq("", "Hospital", "Respite Care", "Care Home", "Nursing Home", "Other").map(v => if (v == "") "" -> "Please select" else v -> v))
+
+                @yesNoRadioGroup(breakForm("medicalDuringBreak"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a href="@controllers.s4_care_you_provide.routes.G10BreaksInCare.present" class="button secondary">Cancel</a>
+            <button type="submit" name="action" value="next" class="button">Add this break</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g11_break.js")'></script>

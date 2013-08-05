@@ -4,13 +4,9 @@
 @import utils.helpers.CarersCrypto
 @import utils.helpers.EmptyTemplate._
 
-<li class="@defining(if (elements.hasErrors) "validation" else ""){ v => @v}">
+@if(elements.hasErrors){ <li class="validation"> } else { <li> }
     @if(elements.hasErrors){
         <p class="error">@elements.errors.mkString(", ")</p>
-    }
-
-    @defining(elements.field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
-        <label for='@CarersCrypto.encryptAES(elements.field("location").id)'>@if(required){@Html("<em>*</em>")}@elements.label</label>
     }
 
     @if(elements.args.contains('prompt)){
@@ -24,7 +20,8 @@
     }
 </li>
 
-<li class="other-detail">
-    @textarea(elements.field("other"), 'placeholder -> "If other please specify...")
-</li>
-
+@defining((elements.args.toMap.get('display).map(_.toString).getOrElse("yes") == elements.args.toMap.get('visibleOn).map(_.toString).getOrElse("yes")) match {case true => "block" case _ => "none"}) { styleDisplay =>
+    <li id="@{elements.args.toMap.get('id).map(_.toString + "_wrap").getOrElse("no-id")}" class="other-detail" style="display: @styleDisplay;">
+        @textarea(elements.field("other"), 'placeholder -> "If other please specify...")
+    </li>
+}

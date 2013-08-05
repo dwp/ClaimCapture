@@ -1,18 +1,14 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{WithApplication, FakeRequest}
-import models.view.Claiming
 import play.api.cache.Cache
-import models.domain.Claim
+import models.domain.{Claiming, Claim, Section, TheirContactDetails}
 import models.domain
 import play.api.test.Helpers._
-import models.domain.Section
-import scala.Some
-import models.domain.TheirContactDetails
 
-class G2TheirContactDetailsSpec extends Specification with Mockito {
+class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
 
   val theirContactDetailsInput = Seq("address.lineOne" -> "123 Street",
     "postcode" -> "PR2 8AE",
@@ -24,15 +20,15 @@ class G2TheirContactDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(theirContactDetailsInput: _*)
 
-      val result = controllers.s4_care_you_provide.G2TheirContactDetails.submit(request)
+      val result = G2TheirContactDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id).get
+      val section: Section = claim.section(domain.CareYouProvide)
 
-      section.questionGroup(TheirContactDetails.id) must beLike {
-        case Some(f: TheirContactDetails) => {
-          f.address.lineOne mustEqual Some("123 Street")
-          f.postcode mustEqual Some("PR2 8AE")
-          f.phoneNumber mustEqual Some("02076541058")
+      section.questionGroup(TheirContactDetails) must beLike {
+        case Some(t: TheirContactDetails) => {
+          t.address.lineOne mustEqual Some("123 Street")
+          t.postcode mustEqual Some("PR2 8AE")
+          t.phoneNumber mustEqual Some("02076541058")
         }
       }
     }
@@ -41,7 +37,7 @@ class G2TheirContactDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
-      val result = controllers.s4_care_you_provide.G2TheirContactDetails.submit(request)
+      val result = G2TheirContactDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -49,8 +45,8 @@ class G2TheirContactDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(theirContactDetailsInput: _*)
 
-      val result = controllers.s4_care_you_provide.G2TheirContactDetails.submit(request)
+      val result = G2TheirContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
+  } section "unit"
 }

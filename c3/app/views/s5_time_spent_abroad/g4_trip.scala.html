@@ -1,0 +1,40 @@
+@(tripForm: Form[models.domain.Trip], actionCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+
+@main("Trip - Time Spent Abroad", Some(tripForm)) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = actionCall) {
+        <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
+
+        <fieldset class="form-elements">
+            <legend>Details of trip abroad with the person you look after</legend>
+
+            <ul class="group">
+                @inputDayMonthYear(tripForm("start"), '_label -> Messages("start.trip"))
+
+                @inputDayMonthYear(tripForm("end"), '_label -> Messages("end.trip"))
+
+                @carersInputText(tripForm("where"), '_label -> Messages("where.trip"))
+
+                @carersInputText(tripForm("why"), '_label -> Messages("why.trip"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            @if(request.headers.get("referer").isDefined) {
+                <a id="backButton" href='@request.headers("referer")' class="button secondary">Cancel</a>
+            } else {
+                <a id="backButton" onclick="history.go(-1); return false;" href="#" class="button secondary">Cancel</a>
+            }
+
+            <button type="submit" name="action" value="next" class="button">Save</button>
+        </nav>
+    }
+}

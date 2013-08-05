@@ -1,0 +1,16 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)
+
+@import views.html.helper.base.carersInputText
+@import utils.helpers.EmptyTemplate._
+@import utils.helpers._
+
+@if(args.toList.filter(_._1 == '_label).length > 0) {
+    @defining(field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
+        <p>@if(required){@Html("<em>*</em>")}@{Space.*} @Html(args.toList.find(_._1 == '_label).get._2.toString)</p>   <!-- checkConstraintRequired -->
+    }
+} else {
+
+    @defining(field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
+        <p>@if(required){@Html("<em>*</em>")}@{Space.*} @Html(Messages(field.id))</p>   <!-- checkConstraintRequired -->
+    }
+}

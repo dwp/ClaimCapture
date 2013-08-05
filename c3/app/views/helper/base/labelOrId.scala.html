@@ -1,0 +1,3 @@
+@(id: String, args: (Symbol,Any)*)
+
+@Html(Messages(args.find(arg => arg._1 == '_label).getOrElse('_label->id).asInstanceOf[(String,String)]._2))

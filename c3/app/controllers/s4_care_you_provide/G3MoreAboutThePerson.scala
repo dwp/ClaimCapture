@@ -1,38 +1,33 @@
 package controllers.s4_care_you_provide
 
+import language.reflectiveCalls
 import play.api.mvc.Controller
-import controllers.Routing
 import models.view.CachedClaim
-import models.domain.{Claim, MoreAboutThePerson}
+import models.domain.MoreAboutThePerson
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
+import controllers.Mappings._
+import models.domain.Claim
 
-object G3MoreAboutThePerson extends Controller with Routing with CachedClaim {
-
-  override val route = MoreAboutThePerson.id -> controllers.s4_care_you_provide.routes.G3MoreAboutThePerson.present
-
+object G3MoreAboutThePerson extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "relationship" -> nonEmptyText,
+      call(routes.G3MoreAboutThePerson.present()),
+      "relationship" -> nonEmptyText(maxLength = 20),
       "armedForcesPayment" -> optional(text),
-      "claimedAllowanceBefore" -> nonEmptyText
+      "claimedAllowanceBefore" -> nonEmptyText.verifying(validYesNo)
     )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != MoreAboutThePerson.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutThePerson)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm: Form[MoreAboutThePerson] = claim.questionGroup(MoreAboutThePerson.id) match {
-      case Some(m: MoreAboutThePerson) => form.fill(m)
-      case _ => form
-    }
-
-    Ok(views.html.s4_careYouProvide.g3_moreAboutThePerson(currentForm, completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g3_moreAboutThePerson(form.fill(MoreAboutThePerson), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g3_moreAboutThePerson(formWithErrors, claim.completedQuestionGroups(models.domain.CareYouProvide.id))),
-      moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(controllers.s4_care_you_provide.routes.G4PreviousCarerPersonalDetails.present))
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g3_moreAboutThePerson(formWithErrors, completedQuestionGroups)),
+      moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.G4PreviousCarerPersonalDetails.present()))
   }
 }

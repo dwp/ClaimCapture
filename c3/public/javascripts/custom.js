@@ -1,21 +1,34 @@
 $(document).ready(function() {
 
-// date picker
-$('.date').each(function() {
-        $(this).datepicker({ dateFormat: 'yy-mm-dd' });
-    });
+// view more / view less
+    $('.helper-more').click(function(){
+       $('.helper-more').toggleClass("helper-less");
+       $(this).next(".helper-info").slideToggle("medium");
+       if($(this).text() === 'Close')
+       {
+           $(this).text('Show example');
+       }
+       else
+       {
+       $(this).text('Close');
+       }
+	 });
 
+
+	 
 // smooth scroll    
 $('a[href^="#"]').bind('click.smoothscroll',function (e) {
     e.preventDefault();
     var target = this.hash,
         $target = $(target);
     $('html, body').animate({
-        scrollTop: $(target).offset().top - 70
-    }, 1000, 'swing', function () {
+        scrollTop: $(target).offset().top - 40
+    }, 750, 'swing', function () {
         window.location.hash = target;
     });
-});    
-    
-    
+}); 	 
+
+	 
+	 
+	 
 });

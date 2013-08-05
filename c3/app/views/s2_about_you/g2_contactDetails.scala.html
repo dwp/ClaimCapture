@@ -1,0 +1,34 @@
+@(contactDetailsForm: Form[models.domain.ContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.common._
+@import views.html.helper._
+@import views.html.helper.base._
+
+@main("Contact Details - About You", completedQuestionGroups) {
+    @errorsSummary(contactDetailsForm)
+    
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s2_about_you.routes.G2ContactDetails.submit) {
+        <fieldset class="form-elements">
+            <legend>Your contact details</legend>
+
+            <ul class="group">
+                @inputAddress(contactDetailsForm("address"))
+
+                @carersInputText(contactDetailsForm("postcode"))
+
+                @carersInputText(contactDetailsForm("phoneNumber"))
+
+                @carersInputText(contactDetailsForm("mobileNumber"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a href="@back(models.domain.ContactDetails)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

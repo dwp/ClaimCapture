@@ -1,0 +1,43 @@
+@(normalResidenceAndCurrentLocationForm: Form[models.domain.NormalResidenceAndCurrentLocation])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+
+@main("Normal Residence and Current Location - Time Spent Abroad", Some(normalResidenceAndCurrentLocationForm)) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.submit) {
+        <fieldset class="form-elements">
+            <legend>Your normal residence and current location</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(normalResidenceAndCurrentLocationForm("liveInUK.answer"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(carersInputText(normalResidenceAndCurrentLocationForm("liveInUK.whereDoYouLive"), 'maxLength -> Mappings.sixty)),
+                    'id -> "liveInUK",
+                    'visibleOn -> "no",
+                    'display -> normalResidenceAndCurrentLocationForm("liveInUK.answer").value.getOrElse("yes")
+                )
+
+                @yesNoRadioGroup(normalResidenceAndCurrentLocationForm("inGBNow"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.NormalResidenceAndCurrentLocation)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s5_time_spent_abroad/g1_normalResidenceAndCurrentLocation.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("liveInUK_answer_yes")", "@CarersCrypto.encryptAES("liveInUK_answer_no")");
+    });
+</script>

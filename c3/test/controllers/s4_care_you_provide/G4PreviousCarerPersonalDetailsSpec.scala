@@ -1,17 +1,14 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{WithApplication, FakeRequest}
-import models.view.Claiming
 import play.api.cache.Cache
-import models.domain.{PreviousCarerPersonalDetails, Claim}
+import models.domain.{Claiming, PreviousCarerPersonalDetails, Claim, Section}
 import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
-import models.domain.Section
-import scala.Some
 
-class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
+class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito with Tags {
   val firstName = "John"
   val surname = "Doe"
   val dateOfBirthDay = 5
@@ -27,15 +24,15 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerPersonalDetailsInput: _*)
 
-      val result = controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit(request)
+      val result = G4PreviousCarerPersonalDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id).get
+      val section: Section = claim.section(domain.CareYouProvide)
 
-      section.questionGroup(PreviousCarerPersonalDetails.id) must beLike {
-        case Some(f: PreviousCarerPersonalDetails) => {
-          f.firstName mustEqual Some(firstName)
-          f.surname mustEqual Some(surname)
-          f.dateOfBirth mustEqual Some(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
+      section.questionGroup(PreviousCarerPersonalDetails) must beLike {
+        case Some(p: PreviousCarerPersonalDetails) => {
+          p.firstName mustEqual Some(firstName)
+          p.surname mustEqual Some(surname)
+          p.dateOfBirth mustEqual Some(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
         }
       }
     }
@@ -44,7 +41,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("dateOfBirth.day" -> "INVALID")
 
-      val result = controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit(request)
+      val result = G4PreviousCarerPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -52,9 +49,8 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(previousCarerPersonalDetailsInput: _*)
 
-      val result = controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit(request)
+      val result = G4PreviousCarerPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
-
+  } section "unit"
 }

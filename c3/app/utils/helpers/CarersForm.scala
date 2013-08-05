@@ -1,6 +1,6 @@
 package utils.helpers
 
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.mvc.Request
 import scala.util.{Failure, Success, Try}
 import play.api.Logger
@@ -10,10 +10,10 @@ object CarersForm {
 
   class FormCryptBind[T](form: Form[T])(implicit request: Request[_]) {
     def bindEncrypted: Form[T] = {
-      bindDecrypt (
+      bindDecrypt(
         (request.body match {
           case body: play.api.mvc.AnyContent if body.asFormUrlEncoded.isDefined => body.asFormUrlEncoded.get
-          case _ => Map.empty[String,Seq[String]]
+          case _ => Map.empty[String, Seq[String]]
         }) ++ request.queryString, form
       )
     }
@@ -24,15 +24,35 @@ object CarersForm {
           case (s, (key, values)) =>
             val cKey = Try(CarersCrypto.decryptAES(key)) match {
               case Success(s) =>
-                Logger.debug(s"Field decryption: $key -> $s")
+                Logger.trace(s"Field decryption: $key -> $s")
                 s
               case Failure(_) => key
             }
 
-            if (cKey.endsWith("[]")) s ++ values.zipWithIndex.map { case (v, i) => (cKey.dropRight(2) + "[" + i + "]") -> v }
+            if (cKey.endsWith("[]")) s ++ values.zipWithIndex.map {
+              case (v, i) => (cKey.dropRight(2) + "[" + i + "]") -> v
+            }
             else s + (cKey -> values.headOption.getOrElse(""))
         }
       )
+    }
+
+    def replaceError(key: String, newError: FormError): Form[T] = {
+      val updatedForm = form.error(key) match {
+        case Some(s) => form.withError(newError)
+        case None => form
+      }
+
+      updatedForm.copy(errors = updatedForm.errors.filter(p => p.key != key))
+    }
+
+    def replaceError(key: String, message: String, newError: FormError): Form[T] = {
+      def matchingError(e:FormError) = e.key == key && e.message == message
+
+      if (form.errors.exists(matchingError)) {
+        form.copy(errors = form.errors.filterNot(e => e.key == key && e.message == message)).withError(newError)
+      }
+      else form
     }
   }
 

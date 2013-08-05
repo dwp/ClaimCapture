@@ -2,41 +2,23 @@ package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import scala.collection.immutable.ListMap
-import play.api.mvc.Call
-import controllers.Routing._
+import models.domain.{BreaksInCare, Claim}
 
 object CareYouProvide extends Controller with CachedClaim {
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide)
 
-  val route: ListMap[String, Call] = ListMap(
-    G1TheirPersonalDetails,
-    G2TheirContactDetails,
-    G3MoreAboutThePerson,
-    G4PreviousCarerPersonalDetails,
-    G5PreviousCarerContactDetails,
-    G6RepresentativesForThePerson,
-    G7MoreAboutTheCare,
-    G8OneWhoPaysPersonalDetails,
-    G9ContactDetailsOfPayingPerson,
-    G10BreaksInCare)
+  def breaksInCare(implicit claim: Claim) = claim.questionGroup(BreaksInCare) match {
+    case Some(bs: BreaksInCare) => bs
+    case _ => BreaksInCare(routes.G10BreaksInCare.present())
+  }
 
-  def completed = claiming {
-    implicit claim => implicit request =>
-      val outcome =
-        <html>
-          <head>
-            <title>Completed - Care You Provide</title>
-          </head>
-          <body>
-            <h1>End of Sprint 3</h1>
-            <ul>
-              {claim.completedQuestionGroups(models.domain.CareYouProvide.id).map(f => <li>
-              {f}
-            </li>)}
-            </ul>
-          </body>
-        </html>
+  def completed = claiming { implicit claim => implicit request =>
+    if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())
+    else Ok(views.html.s4_care_you_provide.g12_completed(completedQuestionGroups))
+  }
 
-      Ok(outcome)
+  def submit = claiming { implicit claim => implicit request =>
+    if (completedQuestionGroups.distinct.size >= 6) Redirect(claim.nextSection(models.domain.CareYouProvide).firstPage)
+    else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }
 }

@@ -1,0 +1,29 @@
+@(currentForm: Form[models.domain.YourPartnerContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+
+@main("Contact Details - Your Partner", Some(currentForm), completedQuestionGroups) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s3_your_partner.routes.G2YourPartnerContactDetails.submit) {
+
+        <fieldset class="form-elements">
+            <legend>Contact details of your Partner/Spouse</legend>
+
+            <ul class="group">
+                @inputAddress(currentForm("address"))
+
+                @carersInputText(currentForm("postcode"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.YourPartnerContactDetails)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

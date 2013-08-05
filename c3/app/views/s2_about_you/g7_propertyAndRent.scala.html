@@ -1,0 +1,33 @@
+@(propertyAndRentForm: Form[models.domain.PropertyAndRent], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import scala.language.postfixOps
+@import helper._
+@import views.html.common._
+@import models.domain.Claim
+@import models.domain.ClaimDate
+@import utils.helpers.CarersTemplate._
+
+@main("Property and Rent - About You", completedQuestionGroups) {
+    @errorsSummary(propertyAndRentForm)
+    
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s2_about_you.routes.G7PropertyAndRent.submit) {
+        <fieldset class="form-elements">
+            <legend>Property and rent</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(propertyAndRentForm("ownProperty"),
+                    '_label -> Messages("ownProperty.label", (claim.dateOfClaim.get - 1 week).`dd/MM/yyyy`, claim.dateOfClaim.get.`dd/MM/yyyy`))
+
+                @yesNoRadioGroup(propertyAndRentForm("hasSublet"),
+                    '_label -> Messages("hasSublet.label", (claim.dateOfClaim.get - 1 week).`dd/MM/yyyy`, claim.dateOfClaim.get.`dd/MM/yyyy`))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a href="@back(models.domain.PropertyAndRent)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

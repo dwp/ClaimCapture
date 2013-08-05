@@ -1,58 +1,70 @@
 package models.domain
 
-import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
+import models.{LivingInUK, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
+import play.api.mvc.Call
 
-case class AboutYou(yourDetails: YourDetails,
-                    contactDetails: ContactDetails,
-                    timeOutsideUK : Option[TimeOutsideUK],
-                    claimDate : ClaimDate)
-
-object AboutYou {
+object AboutYou extends Section.Identifier {
   val id = "s2"
 }
 
-case class YourDetails(title: String, firstName: String, middleName: Option[String], surname: String,
-                       otherSurnames: Option[String], nationalInsuranceNumber: Option[NationalInsuranceNumber], nationality: String,
-                       dateOfBirth: DayMonthYear, maritalStatus: String, alwaysLivedUK: String) extends QuestionGroup(YourDetails.id)
+case class YourDetails(call: Call = NoRouting,
+                       title: String = "",
+                       firstName: String = "",
+                       middleName: Option[String] = None,
+                       surname: String = "",
+                       otherSurnames: Option[String] = None,
+                       nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
+                       nationality: String = "",
+                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                       maritalStatus: String = "",
+                       alwaysLivedUK: String = "") extends QuestionGroup(YourDetails) {
+  def otherNames = firstName + (middleName match {
+    case Some(m: String) => s" $m"
+    case _ => ""
+  })
+}
 
-object YourDetails {
+object YourDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g1"
 }
 
-case class ContactDetails(address: MultiLineAddress, postcode: Option[String], phoneNumber: Option[String], mobileNumber: Option[String]) extends QuestionGroup(ContactDetails.id)
+case class ContactDetails(call: Call,
+                          address: MultiLineAddress, postcode: Option[String],
+                          phoneNumber: Option[String], mobileNumber: Option[String]) extends QuestionGroup(ContactDetails)
 
-object ContactDetails {
+object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class TimeOutsideUK(currentlyLivingInUK: String, arrivedInUK: Option[DayMonthYear],
-                         originCountry: Option[String], planToGoBack: Option[String], whenPlanToGoBack: Option[DayMonthYear],
-                         visaReference: Option[String]) extends QuestionGroup(TimeOutsideUK.id)
+case class TimeOutsideUK(call: Call, livingInUK: LivingInUK, visaReference: Option[String]) extends QuestionGroup(TimeOutsideUK)
 
-object TimeOutsideUK {
+object TimeOutsideUK extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"
 }
 
-case class ClaimDate(dateOfClaim: DayMonthYear) extends QuestionGroup(ClaimDate.id)
+case class ClaimDate(call: Call, dateOfClaim: DayMonthYear) extends QuestionGroup(ClaimDate)
 
-object ClaimDate {
+object ClaimDate extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
 }
 
-case class MoreAboutYou(hadPartnerSinceClaimDate: String, eitherClaimedBenefitSinceClaimDate: String, beenInEducationSinceClaimDate: String, receiveStatePension: String) extends QuestionGroup(MoreAboutYou.id)
+case class MoreAboutYou(call: Call,
+                        hadPartnerSinceClaimDate: String, eitherClaimedBenefitSinceClaimDate: String,
+                        beenInEducationSinceClaimDate: String, receiveStatePension: String) extends QuestionGroup(MoreAboutYou)
 
-object MoreAboutYou {
+object MoreAboutYou extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g5"
 }
 
-case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String, beenEmployedSince6MonthsBeforeClaim: String) extends QuestionGroup(Employment.id)
+case class Employment(call: Call = NoRouting,
+                      beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
 
-object Employment {
+object Employment extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g6"
 }
 
-case class PropertyAndRent(ownProperty: String, hasSublet: String) extends QuestionGroup(PropertyAndRent.id)
+case class PropertyAndRent(call: Call, ownProperty: String, hasSublet: String) extends QuestionGroup(PropertyAndRent)
 
-object PropertyAndRent {
+object PropertyAndRent extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g7"
 }

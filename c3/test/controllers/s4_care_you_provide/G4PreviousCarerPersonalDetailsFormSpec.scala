@@ -1,10 +1,10 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 import models.NationalInsuranceNumber
 
-class G4PreviousCarerPersonalDetailsFormSpec extends Specification {
+class G4PreviousCarerPersonalDetailsFormSpec extends Specification with Tags {
   val firstName = "John"
   val middleName = "Mc"
   val surname = "Doe"
@@ -79,7 +79,7 @@ class G4PreviousCarerPersonalDetailsFormSpec extends Specification {
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject invalid date" in {
+    "reject invalid date that has characters instead of numbers" in {
       G4PreviousCarerPersonalDetails.form.bind(
         Map("dateOfBirth.day" -> "INVALID")).fold(
         formWithErrors => {
@@ -88,5 +88,17 @@ class G4PreviousCarerPersonalDetailsFormSpec extends Specification {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-  }
+    
+    "reject invalid date that has year higher than maximum allowed" in {
+      G4PreviousCarerPersonalDetails.form.bind(
+        Map("dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> "12345")).fold(
+        formWithErrors => {
+          formWithErrors.errors.head.message must equalTo("error.invalid")
+          formWithErrors.errors.length must equalTo(1)
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
+  } section "unit"
 }

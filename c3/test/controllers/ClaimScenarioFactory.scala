@@ -1,0 +1,282 @@
+package controllers
+
+import utils.pageobjects.ClaimScenario
+
+/**
+ * To change this template use Preferences | File and Code Templates.
+ * @author Jorge Migueis
+ *         Date: 16/07/2013
+ */
+object ClaimScenarioFactory {
+
+
+  val partnerAddress = "Partner Address"
+  val partnerPostcode = "RM11 1AA"
+
+  def yourDetailsWithNotTimeOutside() = {
+    val claim = new ClaimScenario
+    claim.AboutYouTitle = "mr"
+    claim.AboutYouFirstName = "John"
+    claim.AboutYouSurname = "Appleseed"
+    claim.AboutYouNationality = "English"
+    claim.AboutYouDateOfBirth = "03/04/1950"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
+    claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
+    claim.AboutYouNINO ="AB123456C"
+    claim
+  }
+
+  def yourDetailsEnablingTimeOutsideUK() = {
+    val claim = yourDetailsWithNotTimeOutside
+    claim.AboutYouHaveYouAlwaysLivedInTheUK = "No"
+    claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
+    claim.AboutYouWhenDidYouArriveInYheUK = "01/11/2003"
+    claim.AboutYouDoYouPlantoGoBacktoThatCountry = "No"
+    claim
+  }
+
+  def s2AboutYouWithTimeOutside() = {
+    // Your details + outside UK
+    val claim = yourDetailsEnablingTimeOutsideUK()
+    // Your contact details
+    claim.AboutYouAddress  = "An address"
+    claim.AboutYouPostcode = "SE1 6EH"
+    claim.AboutYouDaytimePhoneNumber = "01253 111 111"
+    claim.AboutYouMobileNumber = "07111 111 111"
+    // Claim date
+    claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
+    // More about you
+    claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
+    claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "Yes"
+    claim.AboutYouHaveYouBeenOnACourseOfEducation = "Yes"
+    claim.AboutYouDoYouGetStatePension = "Yes"
+    // Employment
+    claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "Yes"
+    claim.AboutYouHaveYouBeenEmployedAtAnyTime = "Yes"
+    // Property and Rent
+    claim.AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand = "Yes"
+    claim.AboutYouHaveYouOrYourPartnerSubletYourHome = "Yes"
+    claim
+  }
+
+  def s2AnsweringNoToQuestions() = {
+    val claim = new ClaimScenario
+
+    // Your contact details
+    claim.AboutYouAddress  = "An address"
+    claim.AboutYouPostcode = "SE1 6EH"
+    claim.AboutYouDaytimePhoneNumber = "01253 111 111"
+    claim.AboutYouMobileNumber = "07111 111 111"
+    // Claim date
+    claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
+    // More about you
+    claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"
+    claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "no"
+    claim.AboutYouHaveYouBeenOnACourseOfEducation = "no"
+    claim.AboutYouDoYouGetStatePension = "no"
+    // Employment
+    claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "no"
+    claim.AboutYouHaveYouBeenEmployedAtAnyTime = "no"
+    // Property and Rent
+    claim.AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand = "no"
+    claim.AboutYouHaveYouOrYourPartnerSubletYourHome = "no"
+    claim
+  }
+
+  def s2ands3WithTimeOUtsideUKAndProperty() = {
+    val claim = s2AboutYouWithTimeOutside()
+    // Partner personal details
+    claim.AboutYourPartnerTitle = "mrs"
+    claim.AboutYourPartnerFirstName = "Cloe"
+    claim.AboutYourPartnerMiddleName = "Scott"
+    claim.AboutYourPartnerSurname = "Smith"
+    claim.AboutYourPartnerOtherNames = "Doe"
+    claim.AboutYourPartnerNINO = "AB123456A"
+    claim.AboutYourPartnerDateofBirth = "12/07/1990"
+    claim.AboutYourPartnerNationality = "British"
+    // More about your partner
+    claim.AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou = "No"
+    // Person you care for
+    claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
+    claim
+  }
+
+  def s4CareYouProvide() = {
+    val claim = s2ands3WithTimeOUtsideUKAndProperty()
+    // Their Personal Details
+    claim.AboutTheCareYouProvideTitlePersonCareFor = "mr"
+    claim.AboutTheCareYouProvideFirstNamePersonCareFor = "Tom"
+    claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "Potter"
+    claim.AboutTheCareYouProvideSurnamePersonCareFor = "Wilson"
+    claim.AboutTheCareYouProvideNINOPersonCareFor = "AA123456A"
+    claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/03/1990"
+    claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
+    // Their Contact Details
+    claim.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street\nLine 2"
+    claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"
+    claim.AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare = "07922 222 222"
+    // More About The Person
+    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "father"
+    claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
+    claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
+    // Previous Carer Personal Details
+    claim.AboutTheCareYouProvideFirstNamePreviousCarer = "Peter"
+    claim.AboutTheCareYouProvideMiddleNamePreviousCarer = "Jackson"
+    claim.AboutTheCareYouProvideSurnamePreviousCarer = "Benson"
+    claim.AboutTheCareYouProvideNINOPreviousCarer = "BB123456B"
+    claim.AboutTheCareYouProvideDateofBirthPreviousCarer = "02/06/1985"
+    // Previous Carer Contact Details
+    claim.AboutTheCareYouProvideAddressPreviousCarer = "123 Conway Road\n Preston"
+    claim.AboutTheCareYouProvidePostcodePreviousCarer = "BB9 1AB"
+    claim.AboutTheCareYouProvideDaytimePhoneNumberPreviousCarer = "02933 333 333"
+    claim.AboutTheCareYouProvideMobileNumberPreviousCarer = "07933 333 333"
+    // Representatives For The Person
+    claim.AboutTheCareYouProvideDoYouActforthePersonYouCareFor = "Yes"
+    claim.AboutTheCareYouProvideYouActAs = "guardian"
+    claim.AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor = "Yes"
+    claim.AboutTheCareYouProvidePersonActsAs = "guardian"
+    claim.AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor = "Mary Jane Watson"
+    // More About The Care
+    claim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek = "Yes"
+    claim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours = "Yes"
+    claim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson = "03/04/2013"
+    claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
+    // One Who Pays Personal Details
+    claim.AboutTheCareYouProvideOrganisationPaysYou = "Valtech"
+    claim.AboutTheCareYouProvideTitlePersonPaysYou = "mr"
+    claim.AboutTheCareYouProvideFirstNamePersonPaysYou = "Brian"
+    claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "Green"
+    claim.AboutTheCareYouProvideSurnamePersonPaysYou = "Eldred"
+    claim.AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek = "£120"
+    claim.AboutTheCareYouProvideWhenDidThePaymentsStart = "29/04/2013"
+    // Contact Details Of Paying Person
+    claim.AboutTheCareYouProvideAddressPersonPaysYou = "123 Cleverme Street \n Genius"
+    claim.AboutTheCareYouProvidePostcodePersonPaysYou = "GN1 2DA"
+    claim
+  }
+
+  def s5TimeSpentAbroad() = {
+    val claim = s4CareYouProvide()
+    // Normal Residence And Current Location
+    claim.TimeSpentAbroadDoYouNormallyLiveintheUk = "No"
+    claim.TimeSpentAbroadWhereDoYouNormallyLive = "Spain"
+    claim.TimeSpentAbroadAreYouinGBNow = "Yes"
+    // Abroad For More Than 4 Weeks
+    claim.TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_1 = "Yes"
+    // Abroad For More Than 52 Weeks
+    claim.TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"
+    // Trip
+    claim.TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_1 = "10/04/2013"
+    claim.TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_1 = "20/04/2013"
+    claim.TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_1 = "Everywhere"
+    claim.TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_1 = "Visit Family"
+    claim
+  }
+
+  def s6PayDetailsPageObjects() = {
+    val claim = s5TimeSpentAbroad()
+    // Address of School College or University
+    claim.EducationNameofSchool = "Lancaster University"
+    claim.EducationNameOfMainTeacherOrTutor = "Dr. Ray Charles"
+    claim.EducationAddress = "Lancaster University\n Bailrigg\n Lancaster"
+    claim.EducationPostcode = "LA1 4YW"
+    claim.EducationPhoneNumber = "01524 65201"
+    claim.EducationFaxNumber = "01524 36841"
+    claim
+  }
+
+
+  def s6PayDetails() = {
+    val claim = new ClaimScenario
+    claim.HowWePayYouHowWouldYouLikeToGetPaid =  "You don't have an account but intend to open one"
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = "everyWeek"
+    claim
+  }
+
+
+  def s8otherMoney = {
+    val claim = s2AboutYouWithTimeOutside()
+    //About other money
+    claim.OtherMoneyHaveYouClaimedOtherBenefits = "no"
+    //Money paid to someone welse for you
+    claim.OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim = "no"
+    //Person Who Gets This Money
+    claim.OtherMoneyOtherPersonFullName = "Jason"
+    claim.OtherMoneyOtherPersonBenefit = "Benefit Name"
+    // G4 Person Contact Details
+    claim.OtherMoneySMPEmployerName = "Employers Name"
+    claim.OtherMoneyOtherPersonAddress = "Other Person Address"
+    claim.OtherMoneyOtherPersonPostcode = "SE1 6EH"
+    // G5 Statutory Sick Pay
+    claim.OtherMoneyHaveYouSSPSinceClaim = "no"
+    // G6 Other Statutory Pay
+    claim.OtherMoneyHaveYouSMPSinceClaim = "no"
+
+    claim
+  }
+  
+  
+  def s9SelfEmployment = {
+    val claim = s8otherMoney
+    // About self employment
+    claim.SelfEmployedAreYouSelfEmployedNow = "no"
+
+
+    claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
+    claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
+
+    // G6 Childcare provider's contact Details
+    claim.SelfEmployedChildcareProviderAddress = "Care Provider Address"
+    claim.SelfEmployedChildcareProviderPostcode = "SE1 6EH"
+    // G7 Expenses while at work
+    claim.SelfEmployedCareExpensesNameOfPerson = "Expenses Name Of Person"
+    // G8 Care provider's contact Details
+    claim.SelfEmployedCareProviderAddress = "Care Provider Address"
+    claim.SelfEmployedCareProviderPostcode = "SE1 6EH"
+    // G9 Completion
+    //   None
+
+    claim
+  }
+
+  def s9SelfEmploymentYourAccounts = {
+    val claim = s9SelfEmployment
+    //About self employment
+    claim.SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis = "yes"
+    claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "no"
+    claim.SelfEmployedTellUsWhyandWhentheChangeHappened = "A Year back"
+    claim.SelfEmployedDoYouHaveAnAccountant = "yes"
+    claim.SelfEmployedCanWeContactYourAccountant = "yes"
+
+    claim
+  }
+
+  def s9SelfEmploymentAccountantContactDetails = {
+    val claim = s9SelfEmploymentYourAccounts
+    //About self employment
+    claim.SelfEmployedAccountantName = "Hello 123"
+    claim.SelfEmployedAccountantAddress = "lineOne lineTwo lineThree"
+
+    claim
+  }
+
+  def s9SelfEmploymentPensionsAndExpenses = {
+    val claim = s9SelfEmploymentAccountantContactDetails
+
+    claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
+    claim.SelfEmployedHowMuchPayPensionExpenses = "11"
+    claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
+    claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
+
+    claim
+  }
+
+  def s9SelfEmploymentChildCareExpenses = {
+    val claim = s9SelfEmploymentPensionsAndExpenses
+
+    claim.SelfEmployedChildcareProviderNameOfPerson = "hello123"
+    claim
+  }
+
+
+}

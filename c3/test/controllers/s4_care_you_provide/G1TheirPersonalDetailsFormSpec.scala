@@ -1,9 +1,9 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 
-class G1TheirPersonalDetailsFormSpec extends Specification {
+class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
 
   "Their Personal Details Form" should {
 
@@ -67,7 +67,5 @@ class G1TheirPersonalDetailsFormSpec extends Specification {
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  }
-
-
+  } section "unit"
 }

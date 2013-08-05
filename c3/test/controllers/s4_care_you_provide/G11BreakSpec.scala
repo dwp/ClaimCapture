@@ -1,14 +1,12 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
-import models.view.Claiming
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.domain.{BreaksInCare, Claim}
-import org.specs2.mock.Mockito
+import models.domain.{Claiming, BreaksInCare, Claim}
 
-class G11BreakSpec extends Specification with Mockito {
+class G11BreakSpec extends Specification with Tags {
   "Break" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -51,9 +49,7 @@ class G11BreakSpec extends Specification with Mockito {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(BreaksInCare.id) must beLike {
-        case Some(b: BreaksInCare) => b.breaks.size mustEqual 2
-      }
+      claim.questionGroup(BreaksInCare) must beLike { case Some(b: BreaksInCare) => b.breaks.size mustEqual 2 }
     }
 
     "update existing break" in new WithApplication with Claiming {
@@ -85,10 +81,10 @@ class G11BreakSpec extends Specification with Mockito {
 
       G11Break.submit(requestUpdate)
 
-      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare.id) must beLike {
+      Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) =>
           b.breaks.head.start.year must beSome(yearUpdate)
       }
     }
-  }
+  } section "unit"
 }

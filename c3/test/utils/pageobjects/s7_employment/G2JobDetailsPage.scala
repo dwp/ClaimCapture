@@ -1,0 +1,29 @@
+package utils.pageobjects.s7_employment
+
+import play.api.test.TestBrowser
+import utils.pageobjects.{ClaimScenario, PageContext, Page}
+
+final class G2JobDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G2JobDetailsPage.url, G2JobDetailsPage.title, previousPage) {
+  override val url = super.getUrl.replace(":jobID",iteration.toString)
+
+    declareInput("#employerName","EmploymentEmployerName_"+iteration)
+    declareDate("#jobStartDate", "EmploymentWhenDidYouStartYourJob_"+iteration)
+    declareRadioList("#finishedThisJob","EmploymentHaveYouFinishedThisJob_"+iteration)
+    declareDate("#lastWorkDate","EmploymentWhenDidYouLastWork_"+iteration)
+    declareInput("#hoursPerWeek","EmploymentHowManyHoursAWeekYouNormallyWork_"+iteration)
+    declareInput("#jobTitle","EmploymentJobTitle_"+iteration)
+    declareInput("#payrollEmployeeNumber","EmploymentPayrollOrEmployeeNumber_"+iteration)
+  
+
+}
+
+object G2JobDetailsPage {
+  val title = "Job Details - Employment"
+  val url  = "/employment/jobDetails/:jobID"
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G2JobDetailsPage(browser,previousPage,iteration)
+}
+
+trait G2JobDetailsPageContext extends PageContext {
+  this: {val browser:TestBrowser}  =>
+  val page = G2JobDetailsPage buildPageWith (browser, iteration = 1)
+}

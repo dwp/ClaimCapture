@@ -1,0 +1,71 @@
+@(AbroadForMoreThan52WeeksForm: Form[models.domain.AbroadForMoreThan52Weeks], trips: models.domain.Trips, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import scala.language.postfixOps
+@import views.html.helper._
+@import models.domain.Trips
+@import models.DayMonthYear
+
+@main("Abroad for more than 52 weeks - Time Spent Abroad", Some(AbroadForMoreThan52WeeksForm), completedQuestionGroups) {
+    <fieldset id="trips" class="form-elements results-detail">
+        <legend>Trips you have added</legend>
+
+        <table>
+            <caption>Trips you have added data</caption>
+
+            <thead>
+                <tr>
+                    <th>Dates</th>
+                    <th class="desc">Where did you go?</th>
+                    <th class="desc">Why did you go?</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for(trip <- trips.fiftyTwoWeeksTrips) {
+                    <tr id="@trip.id" class="@trip.id">
+                        <td>
+                            @{trip.start.`dd/MM/yyyy`}
+                            <span>to</span>
+                            @{trip.end.`dd/MM/yyyy`}
+                        </td>
+
+                        <td class="desc">@trip.where</td>
+                        <td class="desc">@trip.why</td>
+                        <td><input type="button" class="button row secondary" value="Edit"></td>
+                        <td><input type="button" class="button row warning" value="Delete"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="prompt breaks-prompt">
+            <p>Are you sure you want to delete this trip?</p>
+            <input type="button" class="button row secondary" value="No">
+            <input type="button" class="button row warning" value="Yes">
+            <span>&#33;</span>
+        </div>
+    </fieldset>
+    
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s5_time_spent_abroad.routes.G3AbroadForMoreThan52Weeks.submit) {
+        <fieldset class="form-elements">
+            <legend>@Messages("s5.g3")</legend>
+
+            <ul class="group">
+                @defining(if(trips.fiftyTwoWeeksTrips == Nil || trips.fiftyTwoWeeksTrips.isEmpty) {"52Weeks.label"} else {"52Weeks.more.label"}) { label =>
+                    @yesNoRadioGroup(AbroadForMoreThan52WeeksForm("anyTrips"), '_label -> Messages(label, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 156 weeks).`dd/MM/yyyy`)))
+                }
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@controllers.s5_time_spent_abroad.routes.G2AbroadForMoreThan4Weeks.present" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s5_time_spent_abroad/trips.js")'></script>

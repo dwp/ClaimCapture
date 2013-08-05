@@ -1,0 +1,57 @@
+@(currentForm: Form[models.domain.MoreAboutYourPartner], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@main("More About Your Partner - Your Partner", Some(currentForm), completedQuestionGroups) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s3_your_partner.routes.G3MoreAboutYourPartner.submit) {
+
+        <fieldset class="form-elements">
+            <legend>More about your Partner/Spouse</legend>
+
+            <ul class="group">
+
+                @yesNoRadioGroup(currentForm("startedLivingTogether.afterClaimDate"), '_label -> Messages("startedLivingTogether_afterClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(inputDayMonthYear(currentForm("startedLivingTogether.date"), 'helperBelow -> Messages("dateOfBirth.helper") )),
+                    'id->"startedLivingTogetherInfo",
+                    'display -> currentForm("startedLivingTogether.afterClaimDate").value.getOrElse("no")
+                )
+
+                @yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(inputDayMonthYear(currentForm("separated.date"), 'helperBelow -> Messages("dateOfBirth.helper") )),
+                    'id->"separatedInfo",
+                    'display -> currentForm("separated.fromPartner").value.getOrElse("no")
+                )
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.MoreAboutYourPartner)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s3_your_partner/g3_moreAboutYourPartner.js")'></script>
+
+<script type="text/javascript">
+
+    $(function(){
+        window.initEvents( "@CarersCrypto.encryptAES("startedLivingTogether_afterClaimDate_yes")",
+        "@CarersCrypto.encryptAES("startedLivingTogether_afterClaimDate_no")",
+        "@CarersCrypto.encryptAES("separated_fromPartner_yes")",
+        "@CarersCrypto.encryptAES("separated_fromPartner_no")");
+    })
+
+</script>

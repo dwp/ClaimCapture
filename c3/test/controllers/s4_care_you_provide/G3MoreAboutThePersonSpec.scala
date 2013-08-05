@@ -1,17 +1,14 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{WithApplication, FakeRequest}
-import models.view.Claiming
 import play.api.cache.Cache
-import models.domain.{MoreAboutThePerson, Claim}
+import models.domain.{Claiming, MoreAboutThePerson, Claim, Section}
 import models.domain
 import play.api.test.Helpers._
-import models.domain.Section
-import scala.Some
 
-class G3MoreAboutThePersonSpec extends Specification with Mockito {
+class G3MoreAboutThePersonSpec extends Specification with Mockito with Tags {
 
   val moreAboutThePersonInput = Seq("relationship" -> "father", "armedForcesPayment" -> "yes", "claimedAllowanceBefore" -> "yes")
 
@@ -20,24 +17,23 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito {
     "present 'More About The Person' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.present(request)
+      val result = G3MoreAboutThePerson.present(request)
       status(result) mustEqual OK
     }
-
 
     "add more about the person details to the cached claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(moreAboutThePersonInput: _*)
 
-      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.submit(request)
+      val result = G3MoreAboutThePerson.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide.id).get
+      val section: Section = claim.section(domain.CareYouProvide)
 
-      section.questionGroup(MoreAboutThePerson.id) must beLike {
-        case Some(f: MoreAboutThePerson) => {
-          f.relationship mustEqual "father"
-          f.armedForcesPayment mustEqual Some("yes")
-          f.claimedAllowanceBefore mustEqual "yes"
+      section.questionGroup(MoreAboutThePerson) must beLike {
+        case Some(m: MoreAboutThePerson) => {
+          m.relationship mustEqual "father"
+          m.armedForcesPayment mustEqual Some("yes")
+          m.claimedAllowanceBefore mustEqual "yes"
         }
       }
     }
@@ -46,7 +42,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("relationship" -> "")
 
-      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.submit(request)
+      val result = G3MoreAboutThePerson.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -54,8 +50,8 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(moreAboutThePersonInput: _*)
 
-      val result = controllers.s4_care_you_provide.G3MoreAboutThePerson.submit(request)
+      val result = G3MoreAboutThePerson.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
+  } section "unit"
 }

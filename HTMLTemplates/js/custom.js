@@ -2,8 +2,8 @@ $(document).ready(function() {
 
 // view more / view less
     $('.helper-more').click(function(){
-       $(this).toggleClass("helper-less");
-       $('.helper-info').slideToggle('slow');
+       $(this).toggleClass("helper-less")
+       $(this).next(".helper-info").slideToggle("medium");
        if($(this).text() === 'Close')
        {
            $(this).text('Show example');
@@ -13,7 +13,8 @@ $(document).ready(function() {
        $(this).text('Close');
        }
 	 });
-	 
+
+
 	 
 // smooth scroll    
 $('a[href^="#"]').bind('click.smoothscroll',function (e) {
@@ -22,7 +23,7 @@ $('a[href^="#"]').bind('click.smoothscroll',function (e) {
         $target = $(target);
     $('html, body').animate({
         scrollTop: $(target).offset().top - 40
-    }, 1200, 'swing', function () {
+    }, 750, 'swing', function () {
         window.location.hash = target;
     });
 }); 	 

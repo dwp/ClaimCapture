@@ -1,51 +1,44 @@
 package controllers.s4_care_you_provide
 
+import language.reflectiveCalls
 import models.domain.{Claim, MoreAboutTheCare}
-import play.api.data.Form
-import controllers.{Routing, s4_care_you_provide}
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
 import models.view.CachedClaim
 import play.api.mvc.Controller
+import models.yesNo.YesNoWithDate
 
-object G7MoreAboutTheCare extends Controller with Routing with CachedClaim {
-
-  override val route = MoreAboutTheCare.id -> controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.present
+object G7MoreAboutTheCare extends Controller with CachedClaim {
+  val careMapping =
+    "beforeClaimCaring" -> mapping(
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "date" -> optional(dayMonthYear.verifying(validDate))
+    )(YesNoWithDate.apply)(YesNoWithDate.unapply)
+      .verifying("required", YesNoWithDate.validate _)
 
   val form = Form(
     mapping(
-      "spent35HoursCaring" -> nonEmptyText,
-      "spent35HoursCaringBeforeClaim" -> nonEmptyText,
-      "careStartDate" -> optional(dayMonthYear verifying validDateOnly),
-      "hasSomeonePaidYou" -> nonEmptyText
+      call(routes.G7MoreAboutTheCare.present()),
+      "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
+      careMapping,
+      "hasSomeonePaidYou" -> nonEmptyText.verifying(validYesNo)
     )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(models.domain.CareYouProvide.id).takeWhile(q => q.id != MoreAboutTheCare.id)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutTheCare)
 
   def present = claiming { implicit claim => implicit request =>
-    val currentForm = claim.questionGroup(MoreAboutTheCare.id) match {
-      case Some(m: MoreAboutTheCare) => form.fill(m)
-      case _ => form
-    }
-
-    Ok(views.html.s4_careYouProvide.g7_moreAboutTheCare(currentForm, completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g7_moreAboutTheCare(form.fill(MoreAboutTheCare), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    def actAs(form: Form[MoreAboutTheCare])(implicit moreAboutTheCare: MoreAboutTheCare): Form[MoreAboutTheCare] = {
-      if (moreAboutTheCare.spent35HoursCaringBeforeClaim == "yes" && moreAboutTheCare.careStartDate == None) form.fill(moreAboutTheCare).withError("careStartDate", "error.required")
-      else form
-    }
-
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_careYouProvide.g7_moreAboutTheCare(formWithErrors, completedQuestionGroups)),
-      implicit moreAboutTheCare => {
-        val formValidations: (Form[MoreAboutTheCare]) => Form[MoreAboutTheCare] = actAs
-        val moreAboutTheCareFormValidated = formValidations(form)
-
-        if (moreAboutTheCareFormValidated.hasErrors) BadRequest(views.html.s4_careYouProvide.g7_moreAboutTheCare(moreAboutTheCareFormValidated, completedQuestionGroups))
-        else claim.update(moreAboutTheCare) -> Redirect(s4_care_you_provide.routes.G8OneWhoPaysPersonalDetails.present)
-      })
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors.replaceError("beforeClaimCaring", FormError("beforeClaimCaring.date", "error.required"))
+        BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrorsUpdate, completedQuestionGroups))
+      },
+      moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(routes.G8OneWhoPaysPersonalDetails.present())
+    )
   }
 }

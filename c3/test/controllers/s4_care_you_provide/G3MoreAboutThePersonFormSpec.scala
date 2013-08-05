@@ -1,8 +1,8 @@
 package controllers.s4_care_you_provide
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 
-class G3MoreAboutThePersonFormSpec extends Specification {
+class G3MoreAboutThePersonFormSpec extends Specification with Tags {
 
   "More About The Person Form" should {
 
@@ -36,6 +36,6 @@ class G3MoreAboutThePersonFormSpec extends Specification {
         moreAboutThePerson => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  }
+  } section "unit"
 
 }

@@ -1,0 +1,68 @@
+@(currentForm: Form[models.domain.SelfEmploymentPensionsAndExpenses], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import views.html.helper.dates._
+@import controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.isExpenseForChildrenToBeDisplayed
+@import controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.isExpenseForCaredForToBeDisplayed
+@import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
+
+@main("Self Employment - Pensions and Expenses", Some(currentForm), completedQuestionGroups) {
+
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s9_self_employment.routes.G4SelfEmploymentPensionsAndExpenses.submit) {
+
+        <fieldset class="form-elements">
+            <legend>Pensions and Expenses</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme.answer"), '_label -> Messages ("doYouPayToPensionScheme.answer", didYouDoYouIfSelfEmployed))
+
+                @otherDetailPlaceHolder(
+                inputDef = Seq(
+                    carersInputText(currentForm("doYouPayToPensionScheme.howMuchDidYouPay"), '_label -> Messages ("doYouPayToPensionScheme.howMuchDidYouPay", didYouDoYouIfSelfEmployed), 'maxLength -> 8)),
+                    'id -> "selfEmployedPensionWrap",
+                    'display -> currentForm("doYouPayToPensionScheme.answer").value.getOrElse("no")
+                )
+
+                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren.answer"), '_label -> Messages ("doYouPayToLookAfterYourChildren.answer", didYouDoYouIfSelfEmployed))
+
+                @otherDetailPlaceHolder(
+                inputDef = Seq(
+                yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren.isItTheSameExpenseWhileAtWorkForChildren"))),
+                'id -> "selfEmployedChildrenWrap",
+                'display -> currentForm("doYouPayToLookAfterYourChildren.answer").value.getOrElse("no")
+                )
+
+                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor.answer"), '_label -> Messages ("didYouPayToLookAfterThePersonYouCaredFor.answer", didYouDoYouIfSelfEmployed))
+
+                @otherDetailPlaceHolder(
+                inputDef = Seq(
+                yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor.isItTheSameExpenseDuringWorkForThePersonYouCaredFor"))),
+                'id -> "selfEmployedCaredForWrap",
+                'display -> currentForm("didYouPayToLookAfterThePersonYouCaredFor.answer").value.getOrElse("no")
+                )
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.SelfEmploymentPensionsAndExpenses)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s9_self_employment/g4_selfEmploymentPensionsAndExpenses.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_yes")","@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_no")",
+                          "@CarersCrypto.encryptAES("doYouPayToLookAfterYourChildren_answer_yes")","@CarersCrypto.encryptAES("doYouPayToLookAfterYourChildren_answer_no")",
+                          "@CarersCrypto.encryptAES("didYouPayToLookAfterThePersonYouCaredFor_answer_yes")","@CarersCrypto.encryptAES("didYouPayToLookAfterThePersonYouCaredFor_answer_no")", @isExpenseForChildrenToBeDisplayed, @isExpenseForCaredForToBeDisplayed);
+    });
+</script>
