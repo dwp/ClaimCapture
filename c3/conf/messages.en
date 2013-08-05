@@ -251,7 +251,7 @@ anyTrips = Have you been out of Great Britain
 4Weeks.more.label = Have you had any more trips out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
 
 # 52 WEEKS
-52Weeks.label = Have you been out of Great Britain for more than 52 weeks, since {0} (this is 156 weeks before your claim date)?
+52Weeks.label = Have you been out of Great Britain for more than 52 weeks, since {0} (this is 3 years before your claim date)?
 52Weeks.more.label = Have you had any more trips out of Great Britain for more than 52 weeks, since {0} (this is 3 years before your claim date)?
 
 start.trip = Date you left Great Britain
