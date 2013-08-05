@@ -6,13 +6,11 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
 
 final class G5ChildcareExpensesWhileAtWorkPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5ChildcareExpensesWhileAtWorkPage.url, G5ChildcareExpensesWhileAtWorkPage.title, previousPage) {
 
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillInput("#howMuchYouPay", theClaim.SelfEmployedChildcareExpensesHowMuchYouPay)
-    fillInput("#whoLooksAfterChildren", theClaim.SelfEmployedChildcareProviderNameOfPerson)
-    fillInput("#whatRelationIsToYou", theClaim.SelfEmployedChildcareProviderWhatRelationIsToYou)
-    fillInput("#relationToPartner", theClaim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner)
-    fillInput("#whatRelationIsTothePersonYouCareFor", theClaim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor)
-  }
+    declareInput("#howMuchYouPay", "SelfEmployedChildcareExpensesHowMuchYouPay")
+    declareInput("#whoLooksAfterChildren", "SelfEmployedChildcareProviderNameOfPerson")
+    declareInput("#whatRelationIsToYou", "SelfEmployedChildcareProviderWhatRelationIsToYou")
+    declareInput("#relationToPartner", "SelfEmployedChildcareProviderWhatRelationIsToYourPartner")
+    declareInput("#whatRelationIsTothePersonYouCareFor", "SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor")
 }
 
 object G5ChildcareExpensesWhileAtWorkPage {
