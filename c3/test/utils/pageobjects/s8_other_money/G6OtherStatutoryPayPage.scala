@@ -5,15 +5,15 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G6OtherStatutoryPayPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6OtherStatutoryPayPage.url, G6OtherStatutoryPayPage.title, previousPage) {
 
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#otherPay",theClaim.OtherMoneyHaveYouSMPSinceClaim)
-    fillInput("#howMuch", theClaim.OtherMOneySMPHowMuch)
-    fillSelect("#howOften_frequency", theClaim.OtherMOneySMPHowOften)
-    fillInput("#howOften_other", theClaim.OtherMOneySMPHowOften)
-    fillInput("#employersName", theClaim.OtherMoneySMPEmployerName)
-    fillAddress("#employersAddress", theClaim.OtherMoneySMPEmployerAddress)
-    fillInput("employersPostcode", theClaim.OtherMoneySMPEmployerPostcode)
-  }
+
+    declareYesNo("#otherPay","OtherMoneyHaveYouSMPSinceClaim")
+    declareInput("#howMuch", "OtherMOneySMPHowMuch")
+    declareSelect("#howOften_frequency", "OtherMOneySMPHowOften")
+    declareInput("#howOften_other", "OtherMOneySMPHowOften")
+    declareInput("#employersName", "OtherMoneySMPEmployerName")
+    declareAddress("#employersAddress", "OtherMoneySMPEmployerAddress")
+    declareInput("employersPostcode", "OtherMoneySMPEmployerPostcode")
+
 }
 
 object G6OtherStatutoryPayPage {

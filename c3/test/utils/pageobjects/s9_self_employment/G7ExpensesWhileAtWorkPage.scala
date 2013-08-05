@@ -4,12 +4,12 @@ import play.api.test.TestBrowser
 import utils.pageobjects.{PageContext, ClaimScenario, Page}
 
 final class G7ExpensesWhileAtWorkPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G7ExpensesWhileAtWorkPage.url, G7ExpensesWhileAtWorkPage.title, previousPage) {
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillInput("#howMuchYouPay", theClaim.SelfEmployedCareExpensesHowMuchYouPay)
-    fillInput("#nameOfPerson", theClaim.SelfEmployedCareExpensesNameOfPerson)
-    fillInput("#whatRelationIsToYou", theClaim.SelfEmployedCareExpensesWhatRelationIsToYou)
-    fillInput("#whatRelationIsTothePersonYouCareFor", theClaim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor)
-  }
+
+    fillInput("#howMuchYouPay", "SelfEmployedCareExpensesHowMuchYouPay")
+    declareInput("#nameOfPerson", "SelfEmployedCareExpensesNameOfPerson")
+    declareInput("#whatRelationIsToYou", "SelfEmployedCareExpensesWhatRelationIsToYou")
+    declareInput("#whatRelationIsTothePersonYouCareFor", "SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor")
+
 }
 
 object G7ExpensesWhileAtWorkPage {

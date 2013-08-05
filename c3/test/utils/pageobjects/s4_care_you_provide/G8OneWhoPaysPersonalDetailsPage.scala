@@ -9,19 +9,15 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 29/07/2013
  */
 final class G8OneWhoPaysPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G8OneWhoPaysPersonalDetailsPage.url, G8OneWhoPaysPersonalDetailsPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillInput("#organisation", theClaim.AboutTheCareYouProvideOrganisationPaysYou)
-    fillSelect("#title", theClaim.AboutTheCareYouProvideTitlePersonPaysYou)
-    fillInput("#firstName", theClaim.AboutTheCareYouProvideFirstNamePersonPaysYou)
-    fillInput("#middleName", theClaim.AboutTheCareYouProvideMiddleNamePersonCareFor)
-    fillInput("#surname", theClaim.AboutTheCareYouProvideSurnamePersonPaysYou)
-    fillInput("#amount", theClaim.AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek)
-    fillDate("#startDatePayment", theClaim.AboutTheCareYouProvideWhenDidThePaymentsStart)
-  }
+  
+    declareInput("#organisation", "AboutTheCareYouProvideOrganisationPaysYou")
+    declareSelect("#title", "AboutTheCareYouProvideTitlePersonPaysYou")
+    declareInput("#firstName", "AboutTheCareYouProvideFirstNamePersonPaysYou")
+    declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePersonCareFor")
+    declareInput("#surname", "AboutTheCareYouProvideSurnamePersonPaysYou")
+    declareInput("#amount", "AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek")
+    declareDate("#startDatePayment", "AboutTheCareYouProvideWhenDidThePaymentsStart")
+  
 }
 
 /**

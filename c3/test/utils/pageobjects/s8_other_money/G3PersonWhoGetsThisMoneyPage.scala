@@ -5,11 +5,11 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 
 final class G3PersonWhoGetsThisMoneyPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3PersonWhoGetsThisMoneyPage.url, G3PersonWhoGetsThisMoneyPage.title, previousPage) {
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillInput("#fullName", theClaim.OtherMoneyOtherPersonFullName)
-    fillNino("#nationalInsuranceNumber", theClaim.OtherMoneyOtherPersonNINO)
-    fillInput("#nameOfBenefit", theClaim.OtherMoneyOtherPersonBenefit)
-  }
+
+    declareInput("#fullName", "OtherMoneyOtherPersonFullName")
+    declareNino("#nationalInsuranceNumber", "OtherMoneyOtherPersonNINO")
+    declareInput("#nameOfBenefit", "OtherMoneyOtherPersonBenefit")
+
 }
 
 object G3PersonWhoGetsThisMoneyPage {

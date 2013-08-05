@@ -9,13 +9,8 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 24/07/2013
  */
 final class G4PersonYouCareForPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4PersonYouCareForPage.url, G4PersonYouCareForPage.title, previousPage){
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#isPartnerPersonYouCareFor", theClaim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor)
-  }
+  
+    declareYesNo("#isPartnerPersonYouCareFor", "AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor")
 }
 
 /**

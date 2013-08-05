@@ -13,7 +13,7 @@ final class G2AbroadForMoreThan4WeeksPage (browser: TestBrowser, previousPage: O
    * Reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario) {
+  override def fillPageWith(theClaim: ClaimScenario) {
     fillYesNo("#anyTrips", theClaim.TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_1)
   }
 }

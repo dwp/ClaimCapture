@@ -9,13 +9,8 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 16/07/2013
  */
 final class G4ClaimDatePage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4ClaimDatePage.url, G4ClaimDatePage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillDate("#dateOfClaim", theClaim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart)
-  }
+
+    declareDate("#dateOfClaim", "AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart")
 }
 
 /**

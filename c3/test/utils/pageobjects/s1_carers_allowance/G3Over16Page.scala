@@ -17,7 +17,7 @@ final class G3Over16Page(browser: TestBrowser, previousPage: Option[Page] = None
    * Reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario) {
+  override def fillPageWith(theClaim: ClaimScenario) {
     fillYesNo("#q3",theClaim.CanYouGetCarersAllowanceAreYouAged16OrOver, separator)
   }
 

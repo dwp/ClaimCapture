@@ -9,17 +9,13 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 25/07/2013
  */
 final class G6RepresentativesForThePersonPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6RepresentativesForThePersonPage.url, G6RepresentativesForThePersonPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#you_actForPerson", theClaim.AboutTheCareYouProvideDoYouActforthePersonYouCareFor)
-    fillSelect("#you_actAs", theClaim.AboutTheCareYouProvideYouActAs)
-    fillYesNo("#someoneElse_actForPerson", theClaim.AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor)
-    fillSelect("#someoneElse_actAs", theClaim.AboutTheCareYouProvidePersonActsAs)
-    fillInput("#someoneElse_fullName", theClaim.AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor)
-  }
+  
+    declareYesNo("#you_actForPerson", "AboutTheCareYouProvideDoYouActforthePersonYouCareFor")
+    declareSelect("#you_actAs", "AboutTheCareYouProvideYouActAs")
+    declareYesNo("#someoneElse_actForPerson", "AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor")
+    declareSelect("#someoneElse_actAs", "AboutTheCareYouProvidePersonActsAs")
+    declareInput("#someoneElse_fullName", "AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor")
+  
 }
 
 

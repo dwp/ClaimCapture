@@ -6,15 +6,14 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 final class G2JobDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G2JobDetailsPage.url, G2JobDetailsPage.title, previousPage) {
   override val url = super.getUrl.replace(":jobID",iteration.toString)
 
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillInput("#employerName",theClaim.selectDynamic("EmploymentEmployerName_"+iteration))
-    fillDate("#jobStartDate", theClaim.selectDynamic("EmploymentWhenDidYouStartYourJob_"+iteration))
-    fillRadioList("#finishedThisJob",theClaim.selectDynamic("EmploymentHaveYouFinishedThisJob_"+iteration))
-    fillDate("#lastWorkDate",theClaim.selectDynamic("EmploymentWhenDidYouLastWork_"+iteration))
-    fillInput("#hoursPerWeek",theClaim.selectDynamic("EmploymentHowManyHoursAWeekYouNormallyWork_"+iteration))
-    fillInput("#jobTitle",theClaim.selectDynamic("EmploymentJobTitle_"+iteration))
-    fillInput("#payrollEmployeeNumber",theClaim.selectDynamic("EmploymentPayrollOrEmployeeNumber_"+iteration))
-  }
+    declareInput("#employerName","EmploymentEmployerName_"+iteration)
+    declareDate("#jobStartDate", "EmploymentWhenDidYouStartYourJob_"+iteration)
+    declareRadioList("#finishedThisJob","EmploymentHaveYouFinishedThisJob_"+iteration)
+    declareDate("#lastWorkDate","EmploymentWhenDidYouLastWork_"+iteration)
+    declareInput("#hoursPerWeek","EmploymentHowManyHoursAWeekYouNormallyWork_"+iteration)
+    declareInput("#jobTitle","EmploymentJobTitle_"+iteration)
+    declareInput("#payrollEmployeeNumber","EmploymentPayrollOrEmployeeNumber_"+iteration)
+  
 
 }
 

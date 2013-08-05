@@ -5,12 +5,11 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G9NecessaryExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G9NecessaryExpensesPage.url, G9NecessaryExpensesPage.title, previousPage) {
   override val url = super.getUrl.replace(":jobID",iteration.toString)
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillInput("#whatAreThose", theClaim.selectDynamic("EmploymentWhatAreNecessaryJobExpenses_"+iteration))
-    fillInput("#howMuchCostEachWeek", theClaim.selectDynamic("EmploymentWhyYouNeedTheseExpensesToDoYourJob_"+iteration))
-    fillInput("#whyDoYouNeedThose", theClaim.selectDynamic("EmploymentHowMuchDidTheseExpensesCostYouEachWeek_"+iteration))
 
-  }
+    declareInput("#whatAreThose", "EmploymentWhatAreNecessaryJobExpenses_"+iteration)
+    declareInput("#howMuchCostEachWeek", "EmploymentWhyYouNeedTheseExpensesToDoYourJob_"+iteration)
+    declareInput("#whyDoYouNeedThose", "EmploymentHowMuchDidTheseExpensesCostYouEachWeek_"+iteration)
+
 }
 
 object G9NecessaryExpensesPage {

@@ -1,7 +1,7 @@
 package utils.pageobjects.s2_about_you
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -9,16 +9,11 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  *         Date: 16/07/2013
  */
 final class G2ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2ContactDetailsPage.url, G2ContactDetailsPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillAddress("#address", theClaim.AboutYouAddress)
-    fillInput("#postcode", theClaim.AboutYouPostcode)
-    fillInput("#phoneNumber", theClaim.AboutYouDaytimePhoneNumber)
-    fillInput("#mobileNumber", theClaim.AboutYouMobileNumber)
-  }
+
+  declareAddress("#address", "AboutYouAddress")
+  declareInput("#postcode", "AboutYouPostcode")
+  declareInput("#phoneNumber", "AboutYouDaytimePhoneNumber")
+  declareInput("#mobileNumber", "AboutYouMobileNumber")
 }
 
 /**

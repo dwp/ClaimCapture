@@ -9,17 +9,12 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 25/07/2013
  */
 final class G4PreviousCarerPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4PreviousCarerPersonalDetailsPage.url, G4PreviousCarerPersonalDetailsPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillInput("#firstName", theClaim.AboutTheCareYouProvideFirstNamePreviousCarer)
-    fillInput("#middleName", theClaim.AboutTheCareYouProvideMiddleNamePreviousCarer)
-    fillInput("#surname", theClaim.AboutTheCareYouProvideSurnamePreviousCarer)
-    fillNino("#nationalInsuranceNumber", theClaim.AboutTheCareYouProvideNINOPreviousCarer)
-    fillDate("#dateOfBirth", theClaim.AboutTheCareYouProvideDateofBirthPreviousCarer)
-  }
+
+    declareInput("#firstName", "AboutTheCareYouProvideFirstNamePreviousCarer")
+    declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePreviousCarer")
+    declareInput("#surname", "AboutTheCareYouProvideSurnamePreviousCarer")
+    declareNino("#nationalInsuranceNumber", "AboutTheCareYouProvideNINOPreviousCarer")
+    declareDate("#dateOfBirth", "AboutTheCareYouProvideDateofBirthPreviousCarer")
 }
 
 

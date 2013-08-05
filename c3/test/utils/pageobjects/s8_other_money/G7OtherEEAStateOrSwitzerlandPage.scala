@@ -9,14 +9,12 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 02/08/2013
  */
 class G7OtherEEAStateOrSwitzerlandPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G7OtherEEAStateOrSwitzerlandPage.url, G7OtherEEAStateOrSwitzerlandPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#benefitsFromOtherEEAStateOrSwitzerland",theClaim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA)
-    fillYesNo("#workingForOtherEEAStateOrSwitzerland", theClaim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA)
-  }
+ 
+  
+    declareYesNo("#benefitsFromOtherEEAStateOrSwitzerland","OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA")
+    declareYesNo("#workingForOtherEEAStateOrSwitzerland", "OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA")
+  
+  
 }
 
 object G7OtherEEAStateOrSwitzerlandPage {

@@ -4,9 +4,7 @@ import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G15CompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G15CompletedPage.url, G15CompletedPage.title, previousPage) {
-  def fillPageWith(theClaim: ClaimScenario) {
 
-  }
 }
 
 object G15CompletedPage {

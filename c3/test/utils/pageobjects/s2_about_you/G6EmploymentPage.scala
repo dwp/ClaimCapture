@@ -9,14 +9,9 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  *         Date: 17/07/2013
  */
 final class G6EmploymentPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6EmploymentPage.url, G6EmploymentPage.title, previousPage) {
-  /**
-   * Sub-class reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#beenEmployedSince6MonthsBeforeClaim", theClaim.AboutYouHaveYouBeenEmployedAtAnyTime)
-    fillYesNo("#beenSelfEmployedSince1WeekBeforeClaim", theClaim.AboutYouHaveYouBeenSelfEmployedAtAnyTime)
-  }
+  
+    declareYesNo("#beenEmployedSince6MonthsBeforeClaim", "AboutYouHaveYouBeenEmployedAtAnyTime")
+    declareYesNo("#beenSelfEmployedSince1WeekBeforeClaim", "AboutYouHaveYouBeenSelfEmployedAtAnyTime")
 }
 
 /**

@@ -9,16 +9,12 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  *         Date: 17/07/2013
  */
 final class G5MoreAboutYouPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5MoreAboutYouPage.url, G5MoreAboutYouPage.title, previousPage) {
-  /**
-   * Sub-class reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#hadPartnerSinceClaimDate", theClaim.AboutYouHaveYouHadaPartnerSpouseatAnyTime)
-    fillYesNo("#eitherClaimedBenefitSinceClaimDate", theClaim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits)
-    fillYesNo("#beenInEducationSinceClaimDate", theClaim.AboutYouHaveYouBeenOnACourseOfEducation)
-    fillYesNo("#receiveStatePension", theClaim.AboutYouDoYouGetStatePension)
-  }
+ 
+    declareYesNo("#hadPartnerSinceClaimDate", "AboutYouHaveYouHadaPartnerSpouseatAnyTime")
+    declareYesNo("#eitherClaimedBenefitSinceClaimDate", "AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits")
+    declareYesNo("#beenInEducationSinceClaimDate", "AboutYouHaveYouBeenOnACourseOfEducation")
+    declareYesNo("#receiveStatePension", "AboutYouDoYouGetStatePension")
+  
 }
 
 

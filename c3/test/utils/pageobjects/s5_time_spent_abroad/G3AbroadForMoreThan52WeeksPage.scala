@@ -9,13 +9,9 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 31/07/2013
  */
 final class G3AbroadForMoreThan52WeeksPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3AbroadForMoreThan52WeeksPage.url, G3AbroadForMoreThan52WeeksPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#anyTrips", theClaim.TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_1)
-  }
+ 
+    declareYesNo("#anyTrips", "TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_1")
+  
 }
 
 /**
