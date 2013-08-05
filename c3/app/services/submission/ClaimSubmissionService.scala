@@ -11,7 +11,7 @@ import services.util.CharacterStripper
 object ClaimSubmissionService {
   def submitClaim(claimSubmission: Elem): Future[ws.Response] = {
     Logger.info(s"Claim submitting transactionId : ${claimSubmission \\ "DWPCAClaim" \ "@id" toString()}")
-    val submissionServerEndpoint: String = Configuration.root().getString("submissionServerUrl")
+    val submissionServerEndpoint: String = Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet")
     Logger.debug(s"Submission Server : $submissionServerEndpoint")
     val result = WS.url(submissionServerEndpoint)
       .withHeaders(("Content-Type", "text/xml"))
