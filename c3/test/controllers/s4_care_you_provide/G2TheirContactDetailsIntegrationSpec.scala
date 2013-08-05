@@ -51,9 +51,9 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       titleMustEqual("Their Personal Details - Care You Provide")
     }
 
-    "navigate to next page on valid submission" in new WithBrowser {
+    "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.theirContactDetails(browser)
-      browser.title mustEqual "More About The Person You Care For - Care You Provide"
+      titleMustEqual("More About The Person You Care For - Care You Provide")
     }
 
     "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {

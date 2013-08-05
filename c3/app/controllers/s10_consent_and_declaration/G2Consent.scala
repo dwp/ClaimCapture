@@ -15,9 +15,9 @@ object G2Consent extends Controller with CachedClaim{
     mapping(
       call(routes.G2Consent.present()),
       "informationFromEmployer" -> nonEmptyText,
-      "why" -> optional(text),
+      "why" -> optional(text(maxLength = 300)),
       "informationFromPerson" -> nonEmptyText,
-      "whyPerson" -> optional(text)
+      "whyPerson" -> optional(text(maxLength = 300))
     )(Consent.apply)(Consent.unapply)
       .verifying("why", validateWhy _)
       .verifying("whyPerson", validateWhyPerson _))
