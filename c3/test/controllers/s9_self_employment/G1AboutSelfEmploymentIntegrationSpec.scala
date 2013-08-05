@@ -18,7 +18,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
     "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
       page goToThePage()
-      page runClaimWith (claim, G7PropertyAndRentPage.title, waitForPage = true)
+      page runClaimWith (claim, G7PropertyAndRentPage.title, waitForPage = true, waitDuration = 500)
 
       val nextPage = page goToPage( throwException = false, page = new G1AboutSelfEmploymentPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
@@ -63,6 +63,4 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
       nextPage must not(beAnInstanceOf[G1AboutSelfEmploymentPage])
     }
   }
-
 }
-

@@ -30,9 +30,9 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       hoursPage fillPageWith claim
       val over16Page = hoursPage submitPage()
       over16Page fillPageWith claim
-      val livingGBPage = over16Page submitPage(waitForPage = true, waitDuration = 120)
+      val livingGBPage = over16Page submitPage(waitForPage = true, waitDuration = 500)
       livingGBPage fillPageWith claim
-      val approvePage = livingGBPage submitPage(waitForPage = true, waitDuration = 120)
+      val approvePage = livingGBPage submitPage(waitForPage = true, waitDuration = 500)
 
       approvePage match {
         case p: G6ApprovePage => {
@@ -50,7 +50,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
       page goToThePage()
-      val approvePage = page runClaimWith (claim, G6ApprovePage.title, waitForPage = true, waitDuration = 120)
+      val approvePage = page runClaimWith (claim, G6ApprovePage.title, waitForPage = true, waitDuration = 500)
       approvePage match {
         case p: G6ApprovePage => {
           p.previousPage.get must beAnInstanceOf[G4LivingInGBPage]
@@ -67,7 +67,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
       page goToThePage()
-      page runClaimWith (claim, G1YourDetailsPage.title, waitForPage = true, waitDuration = 120)
+      page runClaimWith (claim, G1YourDetailsPage.title, waitForPage = true, waitDuration = 500)
     }
   } section "integration"
 }
