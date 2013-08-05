@@ -10,46 +10,42 @@
 
 @main("Self Employment - About Self Employment", Some(currentForm), completedQuestionGroups) {
 
-<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
-@form(action = controllers.s9_self_employment.routes.G1AboutSelfEmployment.submit) {
+    @form(action = controllers.s9_self_employment.routes.G1AboutSelfEmployment.submit) {
 
         <fieldset class="form-elements">
             <legend>Your job</legend>
 
-    <ul class="group">
-        @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"))
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("areYouSelfEmployedNow"))
 
+                @inputDayMonthYear(currentForm("whenDidYouStartThisJob"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-        @inputDayMonthYear(currentForm("whenDidYouStartThisJob"),
-        'helperBelow -> Messages("dateOfBirth.helper"))
+                @otherDetailPlaceHolder(
+                inputDef = Seq(
+                inputDayMonthYear(currentForm("whenDidTheJobFinish"),
+                'helperBelow -> Messages("dateOfBirth.helper"))
+                ),
+                'id -> "selfEmployedNoWrap",
+                'display -> (currentForm("areYouSelfEmployedNow").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" })
+                )
 
-        @otherDetailPlaceHolder(
-        inputDef = Seq(
-        inputDayMonthYear(currentForm("whenDidTheJobFinish"),
-        'helperBelow -> Messages("dateOfBirth.helper"))
-        ),
-        'id -> "selfEmployedNoWrap",
-        'display -> (currentForm("areYouSelfEmployedNow").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" })
-        )
+                @yesNoRadioGroup(currentForm("haveYouCeasedTrading"))
 
-        @yesNoRadioGroup(currentForm("haveYouCeasedTrading"))
-        @carersInputText(currentForm("natureOfYourBusiness"), 'maxLength -> Mappings.sixty)
+                @carersInputText(currentForm("natureOfYourBusiness"), 'maxLength -> Mappings.sixty)
 
-    </ul>
-</fieldset>
+            </ul>
+        </fieldset>
 
-<nav class="form-steps">
-    <a id="backButton" href="@back(models.domain.AboutSelfEmployment)" class="button secondary">Back</a>
-    <button type="submit" name="action" value="next" class="button">Next</button>
-</nav>
-
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.AboutSelfEmployment)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
 }
 
-}
-
-<script type="text/javascript"
-        src='@routes.Assets.at("javascripts/s9_self_employment/g1_aboutSelfEmployment.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s9_self_employment/g1_aboutSelfEmployment.js")'></script>
 
 <script type="text/javascript">
     $(function () {

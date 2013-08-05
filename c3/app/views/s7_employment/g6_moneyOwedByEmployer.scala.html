@@ -23,11 +23,11 @@
             <ul class="group">
                 @carersInputText(currentForm("howMuchOwed"))
 
-                @inputDayMonthYearFromTo(currentForm("owedPeriod"))
+                @inputDayMonthYearFromTo(currentForm("owedPeriod"), 'helper -> Messages("date.helper"))
 
                 @carersInputText(currentForm("owedFor"))
 
-                @inputDayMonthYear(currentForm("shouldBeenPaidBy"))
+                @inputDayMonthYear(currentForm("shouldBeenPaidBy"), 'helper -> Messages("date.helper"))
 
                 @carersInputText(currentForm("whenWillGetIt"))
             </ul>

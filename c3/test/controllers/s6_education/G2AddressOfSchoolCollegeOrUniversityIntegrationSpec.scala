@@ -3,6 +3,8 @@ package controllers.s6_education
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import scala.concurrent.duration.Duration
+import java.util.concurrent.TimeUnit
 
 class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification with Tags {
   "Address of school, college or university" should {
@@ -32,9 +34,9 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
 
     "navigate back to Your Course Details" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
-      titleMustEqual("Address Of School College Or University - Education")
+      titleMustEqual("Address Of School College Or University - Education")(Duration(10, TimeUnit.MINUTES))
       browser.click("#backButton")
-      titleMustEqual("Your Course Details - Education")
+      titleMustEqual("Your Course Details - Education")(Duration(10, TimeUnit.MINUTES))
     }
 
     "navigate to next page on valid submission with all fields filled in" in new WithBrowser with BrowserMatchers {

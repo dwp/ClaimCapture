@@ -4,6 +4,7 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
+@import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
 
 @main("Expenses related to the person you care for while at work - Self Employment", Some(currentForm), completedQuestionGroups) {
 
@@ -15,9 +16,12 @@
             <legend>Expenses related to the person you care for while at work</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("howMuchYouPay"))
+                @carersInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed))
+
                 @carersInputText(currentForm("nameOfPerson"))
+
                 @carersInputText(currentForm("whatRelationIsToYou"))
+
                 @carersInputText(currentForm("whatRelationIsTothePersonYouCareFor"))
             </ul>
         </fieldset>
