@@ -27,6 +27,11 @@ object XMLHelper {
     <gds:PostCode>{postcode}</gds:PostCode>
   }
 
+  def moneyStructure(amount:String) = {
+    <Currency>GBP</Currency>
+    <Amount>{amount}</Amount>
+  }
+
   def optional[T](option: Option[T],elem:Elem )(implicit classTag:ClassTag[T]): Elem = {
     option match {
       case Some(o) => addChild(elem,Some(Text(stringify(option))))
