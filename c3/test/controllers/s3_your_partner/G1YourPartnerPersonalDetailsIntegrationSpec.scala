@@ -80,7 +80,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       findMustEqualSize("div[class=completed] ul li", 1)
     }
         
-    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser {
+    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
       Formulate.timeOutsideUKNotLivingInUK(browser)
@@ -89,6 +89,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.employment(browser)
       Formulate.propertyAndRent(browser)
       Formulate.yourPartnerPersonalDetails(browser)
+      titleMustEqual("Contact Details - Your Partner")
       
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"

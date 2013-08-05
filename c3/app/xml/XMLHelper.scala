@@ -1,9 +1,10 @@
 package xml
 
 import models.{NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
-import models.domain.{Claim, QuestionGroup}
-import scala.xml.NodeBuffer
+
+import scala.xml.{Node, Text, Elem, NodeBuffer}
 import scala.reflect.ClassTag
+import scala.language.implicitConversions
 
 object XMLHelper {
 
@@ -26,14 +27,23 @@ object XMLHelper {
     <gds:PostCode>{postcode}</gds:PostCode>
   }
 
-  def questionGroup[Q <: QuestionGroup](claim: Claim)(implicit classTag: ClassTag[Q]): Option[Q] = {
-    def needQ(qg: QuestionGroup): Boolean = {
-      qg.getClass == classTag.runtimeClass
+  def optional[T](option: Option[T],elem:Elem )(implicit classTag:ClassTag[T]): Elem = {
+    option match {
+      case Some(o) => addChild(elem,Some(Text(stringify(option))))
+      case _ => elem
     }
 
-    claim.sections.flatMap(_.questionGroups).find(needQ) match {
-      case Some(q: Q) => Some(q)
-      case _ => None
+  }
+
+  def addChild(n: Node, newChild: Option[Node]) = n match {
+    case Elem(prefix, label, attribs, scope, child @ _*) =>
+      Elem(prefix, label, attribs, scope,true, (newChild match { case Some(n) => child ++ newChild case _ => child}) : _*)
+    case _ => <error>failed adding children</error>
+  }
+
+  implicit def attachToNode(elem: Elem) = new {
+    def +++[T](option: Option[T])(implicit classTag:ClassTag[T]):Elem = {
+      optional(option,elem)
     }
   }
 }
