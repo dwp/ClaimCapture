@@ -12,6 +12,7 @@ trait FormFields {
   protected val fields = mutable.ArrayBuffer.empty[Tuple3[String,Symbol,String]]
 
   val ADDRESS = 'Address
+  val CHECK = 'Check
   val DATE = 'Date
   val DATE_FROM = 'DateFrom
   val DATE_TO = 'DateTo
@@ -24,6 +25,8 @@ trait FormFields {
   val YESNO = 'YesNo
 
   def declareAddress(elementCssSelector: String, claimAttribute: String) = declareField(ADDRESS, elementCssSelector, claimAttribute)
+
+  def declareCheck(elementCssSelector: String, claimAttribute: String) = declareField(CHECK, elementCssSelector, claimAttribute)
 
   def declareDate(elementCssSelector: String, claimAttribute: String) = declareField(DATE, elementCssSelector, claimAttribute)
 

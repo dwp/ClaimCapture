@@ -22,7 +22,10 @@ trait WebFillActions {
     for (i <- 0 to lines.size - 1) {
       fillInput(elementCssSelector + extensions(i), lines(i))
     }
+  }
 
+  def fillCheck(elementCssSelector: String, value: String) = if (null != value) {
+    if ("yes" == value.toLowerCase()) click(elementCssSelector)
   }
 
   def fillDate(elementCssSelector: String, value: String) = if (null != value) {

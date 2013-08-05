@@ -4,11 +4,11 @@ import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 /**
- * TODO write description
+ * Page Object for S10 G1 Additional Information.
  * @author Jorge Migueis
  *         Date: 02/08/2013
  */
-class G1AdditionalInfoPage  (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1AdditionalInfoPage.url, G1AdditionalInfoPage.title, previousPage) {
+class G1AdditionalInfoPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1AdditionalInfoPage.url, G1AdditionalInfoPage.title, previousPage) {
  
     declareYesNo("#welshCommunication", "ConsentDeclarationCommunicationWelsh")
     declareInput("#anythingElse", "ConsentDeclarationTellUsAnythingElseAboutClaim")

@@ -67,6 +67,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
       case (cssElem:String,fieldType:Symbol,claimAttribute:String ) =>
        fieldType match {
          case ADDRESS => fillAddress(cssElem,theClaim.selectDynamic(claimAttribute))
+         case CHECK => fillCheck(cssElem,theClaim.selectDynamic(claimAttribute))
          case DATE => fillDate(cssElem,theClaim.selectDynamic(claimAttribute))
          case DATE_FROM=> fillDate(cssElem,theClaim.selectDynamic(claimAttribute + "_from"))
          case DATE_TO=> fillDate(cssElem,theClaim.selectDynamic(claimAttribute + "_to"))
