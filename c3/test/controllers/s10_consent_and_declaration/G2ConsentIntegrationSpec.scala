@@ -6,9 +6,9 @@ import controllers.{BrowserMatchers, Formulate}
 
 class G2ConsentIntegrationSpec extends Specification with Tags {
   "Consent" should {
-    "be presented" in new WithBrowser {
+    "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/consentAndDeclaration/consent")
-      browser.title mustEqual "Consent - Consent And Declaration"
+      titleMustEqual("Consent - Consent And Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
@@ -20,15 +20,15 @@ class G2ConsentIntegrationSpec extends Specification with Tags {
       browser.find("div[class=validation-summary] ol li").size mustEqual 2
     }
 
-    "navigate to next page on valid submission" in new WithBrowser {
+    "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.consent(browser)
-      browser.title mustEqual "Disclaimer - Consent And Declaration"
+      titleMustEqual("Disclaimer - Consent And Declaration")
     }
 
-    "navigate back to AdditionalInformation" in new WithBrowser {
+    "navigate back to AdditionalInformation" in new WithBrowser with BrowserMatchers {
       Formulate.additionalInfo(browser)
       browser.click(".form-steps a")
-      browser.title mustEqual "Additional Information - Consent And Declaration"
+      titleMustEqual("Additional Information - Consent And Declaration")
     }
 
     "contain the completed forms" in new WithBrowser {
