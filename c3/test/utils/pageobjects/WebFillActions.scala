@@ -4,7 +4,7 @@ import play.api.test.TestBrowser
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import scala.collection.convert.Wrappers.JListWrapper
-import org.openqa.selenium.By
+import org.openqa.selenium.{WebDriverException, By}
 
 /**
  * Fill operations on the web elements composing a page.
@@ -38,7 +38,14 @@ trait WebFillActions {
     fillDate(elementCssSelector+"_to",to)
   }
 
-  def fillInput(elementCssSelector: String, value: String) = if (null != value) browser.fill(elementCssSelector).`with`(value)
+  def fillInput(elementCssSelector: String, value: String) = if (null != value)  {
+    try {
+      browser.fill(elementCssSelector).`with`(value)
+    }
+    catch {
+      case e:WebDriverException  => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e )
+    }
+  }
 
   def fillNino(elementCssSelector: String, value: String) = if (null != value) {
     val extractor = """(.{2})(.{2})(.{2})(.{2})(.)""".r
@@ -51,40 +58,55 @@ trait WebFillActions {
   }
 
   def fillRadioList(listName: String, value: String, sep: String = "_"): Unit = if (null != value) {
-    val radioButtons = browser.find("[name=" + listName + "]")
-    for (index <- 1 to radioButtons.size()) {
-      val name = listName + sep + (if (index < 10) s"0$index" else s"$index")
-      val label = browser.find("label[for=" + name + "]").get(0).getText
-      if (label == value) {
-        browser.click("#" + name)
-        return
+    try {
+      val radioButtons = browser.find("[name=" + listName + "]")
+      for (index <- 1 to radioButtons.size()) {
+        val name = listName + sep + (if (index < 10) s"0$index" else s"$index")
+        val label = browser.find("label[for=" + name + "]").get(0).getText
+        if (label == value) {
+          browser.click("#" + name)
+          return
+        }
       }
+    }
+    catch {
+      case e:WebDriverException  => throw new PageObjectException("Could not fill " + listName + " with value " + value, exception = e )
     }
 
   }
 
   def fillSelect(elementCssSelector: String, value: String) = if (null != value) {
-    val select = browser.find(elementCssSelector, 0).getElement
-    val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
-    for (option <- allOptions; if option.getAttribute("value").toLowerCase == value.toLowerCase) option.click()
+    try {
+      val select = browser.find(elementCssSelector, 0).getElement
+      val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
+      for (option <- allOptions; if option.getAttribute("value").toLowerCase == value.toLowerCase) option.click()
+    }
+    catch {
+      case e:WebDriverException  => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e )
+    }
   }
 
-  def fillSelectWithOther(elementCssSelector: String,subSelect:String,other:String, value: String) = if (null != value) {
-    val select = browser.find(elementCssSelector+"_"+subSelect, 0).getElement
-    val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
-    allOptions.find( wo => wo.getAttribute("value") == value) match {
-      case Some(we) =>  we.click
-      case _ => {
-        allOptions.find(_.getText == other).get.click
-        browser.fill(elementCssSelector+"_other") `with` value
+  private def fillSelectWithOther(elementCssSelector: String,subSelect:String,value: String) = if (null != value) {
+    try {
+      val select = browser.find(elementCssSelector + "_" + subSelect, 0).getElement
+      val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
+      allOptions.find(wo => wo.getAttribute("value") == value) match {
+        case Some(we) => we.click
+        case _ => {
+          allOptions.find(_.getText.toLowerCase == "other").get.click
+          browser.fill(elementCssSelector + "_other") `with` value
+        }
       }
+    }
+    catch {
+      case e:WebDriverException  => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e )
     }
   }
   def fillPaymentFrequency(elementCssSelector: String, value: String) = if (null != value) {
-    fillSelectWithOther(elementCssSelector,"frequency","other",value)
+    fillSelectWithOther(elementCssSelector,"frequency",value)
   }
   def fillWhereabouts(elementCssSelector: String, value: String) = if (null != value) {
-    fillSelectWithOther(elementCssSelector,"location","Other",value)
+    fillSelectWithOther(elementCssSelector,"location",value)
   }
 
   def fillTime(elementCssSelector: String, value: String) = if (null != value) {
@@ -94,6 +116,11 @@ trait WebFillActions {
     fillSelect(elementCssSelector + "_minutes", if (minute.length == 1) s"0$minute" else minute)
   }
 
-  def fillYesNo(elementCssSelector: String, value: String, sep: String = "_") = if (null != value) browser.click(elementCssSelector + sep + value.toLowerCase)
+  def fillYesNo(elementCssSelector: String, value: String, sep: String = "_") = if (null != value) try {
+    browser.click(elementCssSelector + sep + value.toLowerCase)
+  }
+  catch {
+    case e:WebDriverException  => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e )
+  }
 
 }

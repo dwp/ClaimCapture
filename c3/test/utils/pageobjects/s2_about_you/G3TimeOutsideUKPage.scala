@@ -9,18 +9,14 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  *         Date: 16/07/2013
  */
 final class G3TimeOutsideUKPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3TimeOutsideUKPage.url, G3TimeOutsideUKPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#livingInUK_answer", theClaim.AboutYouAreYouCurrentlyLivingintheUk)
-    fillDate("#livingInUK_arrivalDate", theClaim.AboutYouWhenDidYouArriveInYheUK)
-    fillInput("#livingInUK_originCountry", theClaim.AboutYouWhatCountryDidYouComeFrom)
-    fillYesNo("#livingInUK_goBack_answer", theClaim.AboutYouDoYouPlantoGoBacktoThatCountry)
-    fillDate("#livingInUK_goBack_date", theClaim.AboutYouWhenDoYouPlantoGoBack)
-    fillInput("#visaReference", theClaim.AboutYouWhatIsYourVisaNumber)
-  }
+
+    declareYesNo("#livingInUK_answer", "AboutYouAreYouCurrentlyLivingintheUk")
+    declareDate("#livingInUK_arrivalDate", "AboutYouWhenDidYouArriveInYheUK")
+    declareInput("#livingInUK_originCountry", "AboutYouWhatCountryDidYouComeFrom")
+    declareYesNo("#livingInUK_goBack_answer", "AboutYouDoYouPlantoGoBacktoThatCountry")
+    declareDate("#livingInUK_goBack_date", "AboutYouWhenDoYouPlantoGoBack")
+    declareInput("#visaReference", "AboutYouWhatIsYourVisaNumber")
+  
 }
 
 /**

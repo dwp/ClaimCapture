@@ -6,13 +6,12 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 final class G4LastWagePage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G4LastWagePage.url, G4LastWagePage.title, previousPage) {
   override val url = super.getUrl.replace(":jobID",iteration.toString)
 
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillDate("#lastPaidDate", theClaim.selectDynamic("EmploymentWhenWereYouLastPaid_"+iteration))
-    fillDateFromTo("#periodCovered",theClaim.selectDynamic("EmploymentWhatPeriodDidThisCoverFrom_"+iteration),theClaim.selectDynamic("EmploymentWhatPeriodDidThisCoverTo_"+iteration))
-    fillInput("#grossPay",theClaim.selectDynamic("EmploymentWhatWasTheGrossPayForTheLastPayPeriod_"+iteration))
-    fillInput("#payInclusions",theClaim.selectDynamic("EmploymentWhatWasIncludedInYourLastPay_"+iteration))
-    fillYesNo("#sameAmountEachTime",theClaim.selectDynamic("EmploymentDoYouGettheSameAmountEachTime_"+iteration))
-  }
+    declareDate("#lastPaidDate", "EmploymentWhenWereYouLastPaid_"+iteration)
+    declareDateFromTo("#periodCovered","EmploymentWhatPeriodDidThisCoverFrom_"+iteration,"EmploymentWhatPeriodDidThisCoverTo_"+iteration)
+    declareInput("#grossPay","EmploymentWhatWasTheGrossPayForTheLastPayPeriod_"+iteration)
+    declareInput("#payInclusions","EmploymentWhatWasIncludedInYourLastPay_"+iteration)
+    declareYesNo("#sameAmountEachTime","EmploymentDoYouGettheSameAmountEachTime_"+iteration)
+  
 
 }
 

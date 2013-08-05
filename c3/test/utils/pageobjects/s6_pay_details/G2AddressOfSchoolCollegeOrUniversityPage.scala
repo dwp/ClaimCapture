@@ -9,18 +9,14 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 01/08/2013
  */
 final class G2AddressOfSchoolCollegeOrUniversityPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2AddressOfSchoolCollegeOrUniversityPage.url, G2AddressOfSchoolCollegeOrUniversityPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillInput("#nameOfSchoolCollegeOrUniversity", theClaim.EducationNameofSchool)
-    fillInput("#nameOfMainTeacherOrTutor", theClaim.EducationNameOfMainTeacherOrTutor)
-    fillAddress("#address", theClaim.EducationAddress)
-    fillInput("#postcode", theClaim.EducationPostcode)
-    fillInput("#phoneNumber", theClaim.EducationPhoneNumber)
-    fillInput("#faxNumber", theClaim.EducationFaxNumber)
-  }
+ 
+    declareInput("#nameOfSchoolCollegeOrUniversity", "EducationNameofSchool")
+    declareInput("#nameOfMainTeacherOrTutor", "EducationNameOfMainTeacherOrTutor")
+    declareAddress("#address", "EducationAddress")
+    declareInput("#postcode", "EducationPostcode")
+    declareInput("#phoneNumber", "EducationPhoneNumber")
+    declareInput("#faxNumber", "EducationFaxNumber")
+ 
 }
 
 /**

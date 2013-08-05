@@ -6,13 +6,13 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
 
 final class G3SelfEmploymentAccountantContactDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3SelfEmploymentAccountantContactDetailsPage.url, G3SelfEmploymentAccountantContactDetailsPage.title, previousPage) {
 
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillInput("#accountantsName", theClaim.SelfEmployedAccountantName)
-    fillInput("#address", theClaim.SelfEmployedAccountantAddress)
-    fillInput("#postCode", theClaim.SelfEmployedAccountantPostcode)
-    fillInput("#telephoneNumber", theClaim.SelfEmployedAccountantTelephoneNumber)
-    fillInput("#faxNumber", theClaim.SelfEmployedAccountantFaxNumber)
-  }
+    declareInput("#accountantsName", "SelfEmployedAccountantName")
+    declareInput("#address", "SelfEmployedAccountantAddress")
+    declareInput("#postCode", "SelfEmployedAccountantPostcode")
+    declareInput("#telephoneNumber", "SelfEmployedAccountantTelephoneNumber")
+    declareInput("#faxNumber", "SelfEmployedAccountantFaxNumber")
+  
+  
 }
 
 object G3SelfEmploymentAccountantContactDetailsPage {

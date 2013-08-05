@@ -12,7 +12,7 @@ class TestPage (browser: TestBrowser, previousPage: Option[Page] = None) extends
    * Does nothing.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario) {}
+  override def fillPageWith(theClaim: ClaimScenario) {}
 
 }
 

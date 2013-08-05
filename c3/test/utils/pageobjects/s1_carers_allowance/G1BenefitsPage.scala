@@ -29,7 +29,7 @@ final class G1BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = No
    * Sub-class reads theClaim and interact with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario) {
+  override def fillPageWith(theClaim: ClaimScenario) {
     fillYesNo("#q3",theClaim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits, separator)
   }
 }

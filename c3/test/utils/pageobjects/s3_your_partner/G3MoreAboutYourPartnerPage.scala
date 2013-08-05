@@ -9,16 +9,11 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 22/07/2013
  */
 final class G3MoreAboutYourPartnerPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3MoreAboutYourPartnerPage.url, G3MoreAboutYourPartnerPage.title, previousPage){
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#startedLivingTogether_afterClaimDate", theClaim.AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate)
-    fillDate("#startedLivingTogether_date", theClaim.AboutYourPartnertheDateWhenYouStartedLivingTogether)
-    fillYesNo("#separated_fromPartner", theClaim.AboutYourPartnerHaveYouSeparatedfromYourPartner)
-    fillDate("#separated_date", theClaim.AboutYourPartnerwhenDidYouSeparate)
-  }
+
+    declareYesNo("#startedLivingTogether_afterClaimDate", "AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate")
+    declareDate("#startedLivingTogether_date", "AboutYourPartnertheDateWhenYouStartedLivingTogether")
+    declareYesNo("#separated_fromPartner", "AboutYourPartnerHaveYouSeparatedfromYourPartner")
+    declareDate("#separated_date", "AboutYourPartnerwhenDidYouSeparate")
 }
 
 

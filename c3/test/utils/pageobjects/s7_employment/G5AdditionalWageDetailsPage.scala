@@ -5,15 +5,14 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G5AdditionalWageDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G5AdditionalWageDetailsPage.url, G5AdditionalWageDetailsPage.title, previousPage) {
   override val url = super.getUrl.replace(":jobID",iteration.toString)
-  def fillPageWith(theClaim: ClaimScenario) {
 
-    fillPaymentFrequency("#oftenGetPaid",theClaim.selectDynamic("EmploymentAddtionalWageHowOftenAreYouPaid_"+iteration))
-    fillInput("#whenGetPaid",theClaim.selectDynamic("EmploymentAddtionalWageWhenDoYouGetPaid_"+iteration))
-    fillYesNo("#holidaySickPay",theClaim.selectDynamic("EmploymentAdditionalWageDoYouGetHolidayPayorSickPay_"+iteration))
-    fillYesNo("#anyOtherMoney",theClaim.selectDynamic("EmploymentAddtionalWageDoYouGetPaidAnyOtherMoney_"+iteration))
-    fillInput("#otherMoney",theClaim.selectDynamic("EmploymentAdditionalWageOtherMoneyYouReceived_"+iteration))
-    fillYesNo("#employeeOwesYouMoney",theClaim.selectDynamic("EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_"+iteration))
-  }
+    declarePaymentFrequency("#oftenGetPaid","EmploymentAddtionalWageHowOftenAreYouPaid_"+iteration)
+    declareInput("#whenGetPaid","EmploymentAddtionalWageWhenDoYouGetPaid_"+iteration)
+    declareYesNo("#holidaySickPay","EmploymentAdditionalWageDoYouGetHolidayPayorSickPay_"+iteration)
+    declareYesNo("#anyOtherMoney","EmploymentAddtionalWageDoYouGetPaidAnyOtherMoney_"+iteration)
+    declareInput("#otherMoney","EmploymentAdditionalWageOtherMoneyYouReceived_"+iteration)
+    declareYesNo("#employeeOwesYouMoney","EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_"+iteration)
+
 }
 
 object G5AdditionalWageDetailsPage {

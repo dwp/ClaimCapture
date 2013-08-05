@@ -9,14 +9,9 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 02/08/2013
  */
 class G1AdditionalInfoPage  (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1AdditionalInfoPage.url, G1AdditionalInfoPage.title, previousPage) {
-  /**
-   * Sub-class reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#welshCommunication", theClaim.ConsentDeclarationCommunicationWelsh)
-    fillInput("#anythingElse", theClaim.ConsentDeclarationTellUsAnythingElseAboutClaim)
-  }
+ 
+    declareYesNo("#welshCommunication", "ConsentDeclarationCommunicationWelsh")
+    declareInput("#anythingElse", "ConsentDeclarationTellUsAnythingElseAboutClaim")
 }
 
 /**

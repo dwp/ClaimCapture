@@ -3,10 +3,10 @@ package utils.pageobjects.s8_other_money
 import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
-final class G2MoneyPaidToSomeoneElseForYouPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2MoneyPaidToSomeoneElseForYouPage.url, G2MoneyPaidToSomeoneElseForYouPage.title, previousPage) { 
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#moneyAddedToBenefitSinceClaimDate", theClaim.OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim)
-  }
+final class G2MoneyPaidToSomeoneElseForYouPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2MoneyPaidToSomeoneElseForYouPage.url, G2MoneyPaidToSomeoneElseForYouPage.title, previousPage) {
+
+    declareYesNo("#moneyAddedToBenefitSinceClaimDate", "OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim")
+
 }
 
 object G2MoneyPaidToSomeoneElseForYouPage {

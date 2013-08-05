@@ -9,14 +9,9 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 17/07/2013
  */
 final class G7PropertyAndRentPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G7PropertyAndRentPage.url, G7PropertyAndRentPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#ownProperty", theClaim.AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand)
-    fillYesNo("#hasSublet", theClaim.AboutYouHaveYouOrYourPartnerSubletYourHome)
-  }
+  
+    declareYesNo("#ownProperty", "AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand")
+    declareYesNo("#hasSublet", "AboutYouHaveYouOrYourPartnerSubletYourHome")
 }
 
 /**

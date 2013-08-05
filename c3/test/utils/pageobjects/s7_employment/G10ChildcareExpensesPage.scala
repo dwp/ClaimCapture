@@ -5,15 +5,13 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G10ChildcareExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G10ChildcareExpensesPage.url, G10ChildcareExpensesPage.title, previousPage) {
   override val url = super.getUrl.replace(":jobID",iteration.toString)
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillInput("#howMuchCostChildcare", theClaim.selectDynamic("EmploymentChildcareExpensesHowMuchYouPayfor_"+iteration))
-    fillInput("#whoLooksAfterChildren", theClaim.selectDynamic("EmploymentNameOfthePersonWhoLooksAfterYourChild_"+iteration))
-    fillInput("#relationToYou", theClaim.selectDynamic("EmploymentChildcareExpensesWhatRelationIsthePersontoYou_"+iteration))
-    fillInput("#relationToPartner", theClaim.selectDynamic("EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_"+iteration))
+
+    declareInput("#howMuchCostChildcare", "EmploymentChildcareExpensesHowMuchYouPayfor_"+iteration)
+    declareInput("#whoLooksAfterChildren", "EmploymentNameOfthePersonWhoLooksAfterYourChild_"+iteration)
+    declareInput("#relationToYou", "EmploymentChildcareExpensesWhatRelationIsthePersontoYou_"+iteration)
+    declareInput("#relationToPartner", "EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_"+iteration)
     /* missing EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor */
 
-
-  }
 }
 
 object G10ChildcareExpensesPage {

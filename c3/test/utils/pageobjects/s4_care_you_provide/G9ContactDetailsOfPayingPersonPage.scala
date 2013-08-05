@@ -9,14 +9,10 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 29/07/2013
  */
 final class G9ContactDetailsOfPayingPersonPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G9ContactDetailsOfPayingPersonPage.url, G9ContactDetailsOfPayingPersonPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillAddress("#address", theClaim.AboutTheCareYouProvideAddressPersonPaysYou)
-    fillInput("#postcode", theClaim.AboutTheCareYouProvidePostcodePersonPaysYou)
-  }
+  
+    declareAddress("#address", "AboutTheCareYouProvideAddressPersonPaysYou")
+    declareInput("#postcode", "AboutTheCareYouProvidePostcodePersonPaysYou")
+  
 }
 
 /**

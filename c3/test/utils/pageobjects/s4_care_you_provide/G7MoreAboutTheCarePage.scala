@@ -9,16 +9,11 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 29/07/2013
  */
 final class G7MoreAboutTheCarePage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G7MoreAboutTheCarePage.url, G7MoreAboutTheCarePage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#spent35HoursCaring", theClaim.AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek)
-    fillYesNo("#beforeClaimCaring_answer", theClaim.AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours)
-    fillDate("#beforeClaimCaring_date", theClaim.AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson)
-    fillYesNo("#hasSomeonePaidYou", theClaim.AboutTheCareYouProvideHasSomeonePaidYoutoCare)
-  }
+ 
+    declareYesNo("#spent35HoursCaring", "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek")
+    declareYesNo("#beforeClaimCaring_answer", "AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours")
+    declareDate("#beforeClaimCaring_date", "AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson")
+    declareYesNo("#hasSomeonePaidYou", "AboutTheCareYouProvideHasSomeonePaidYoutoCare")
 }
 
 /**

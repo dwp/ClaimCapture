@@ -9,11 +9,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 31/07/2013
  */
 class G12CareYouProvideCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G12CareYouProvideCompletedPage.url, G12CareYouProvideCompletedPage.title, previousPage) {
-  /**
-   * Does nothing. There is no form.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {}
+
 }
 
 /**

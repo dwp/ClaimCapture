@@ -5,10 +5,10 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G13CareProviderPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G13CareProviderPage.url, G13CareProviderPage.title, previousPage) {
   override val url = super.getUrl.replace(":jobID",iteration.toString)
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillAddress("#beenEmployed", theClaim.selectDynamic("EmploymentAddressCareProvider_"+iteration))
-    fillInput("#postcode", theClaim.selectDynamic("EmploymentPostcodeCareProvider_"+iteration))
-  }
+
+    declareAddress("#beenEmployed", "EmploymentAddressCareProvider_"+iteration)
+    declareInput("#postcode", "EmploymentPostcodeCareProvider_"+iteration)
+
 }
 
 object G13CareProviderPage {

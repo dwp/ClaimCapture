@@ -5,13 +5,12 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
 
 final class G1AboutSelfEmploymentPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1AboutSelfEmploymentPage.url, G1AboutSelfEmploymentPage.title, previousPage) {
 
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#areYouSelfEmployedNow", theClaim.SelfEmployedAreYouSelfEmployedNow)
-    fillDate("#whenDidYouStartThisJob", theClaim.SelfEmployedWhenDidYouStartThisJob)
-    fillDate("#whenDidTheJobFinish", theClaim.SelfEmployedWhenDidTheJobFinish)
-    fillYesNo("#haveYouCeasedTrading", theClaim.SelfEmployedHaveYouCeasedTrading)
-    fillInput("#natureOfYourBusiness", theClaim.SelfEmployedNatureofYourBusiness)
-  }
+    declareYesNo("#areYouSelfEmployedNow", "SelfEmployedAreYouSelfEmployedNow")
+    declareDate("#whenDidYouStartThisJob", "SelfEmployedWhenDidYouStartThisJob")
+    declareDate("#whenDidTheJobFinish", "SelfEmployedWhenDidTheJobFinish")
+    declareYesNo("#haveYouCeasedTrading", "SelfEmployedHaveYouCeasedTrading")
+    declareInput("#natureOfYourBusiness", "SelfEmployedNatureofYourBusiness")
+
 }
 
 object G1AboutSelfEmploymentPage {

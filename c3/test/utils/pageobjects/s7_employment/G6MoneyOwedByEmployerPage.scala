@@ -5,15 +5,13 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G6MoneyOwedByEmployerPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G6MoneyOwedByEmployerPage.url, G6MoneyOwedByEmployerPage.title, previousPage) {
   override val url = super.getUrl.replace(":jobID",iteration.toString)
-  def fillPageWith(theClaim: ClaimScenario) {
 
-    fillInput("#howMuchOwed",theClaim.selectDynamic("EmploymentWhatPeriodIsItForFrom_"+iteration))
-    fillDateFromTo("#owedPeriod",theClaim.selectDynamic("EmploymentWhatPeriodIsItForFrom_"+iteration),theClaim.selectDynamic("EmploymentWhatPeriodIsItForTo_"+iteration))
-    fillInput("#owedFor",theClaim.selectDynamic("EmploymentWhatIsTheMoneyOwedFor_"+iteration))
-    fillDate("#shouldBeenPaidBy",theClaim.selectDynamic("EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_"+iteration))
-    fillInput("#whenWillGetIt",theClaim.selectDynamic("EmploymentWhenWillYouGetMoneyOwed_"+iteration))
+    declareInput("#howMuchOwed","EmploymentWhatPeriodIsItForFrom_"+iteration)
+    declareDateFromTo("#owedPeriod","EmploymentWhatPeriodIsItForFrom_"+iteration,"EmploymentWhatPeriodIsItForTo_"+iteration)
+    declareInput("#owedFor","EmploymentWhatIsTheMoneyOwedFor_"+iteration)
+    declareDate("#shouldBeenPaidBy","EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_"+iteration)
+    declareInput("#whenWillGetIt","EmploymentWhenWillYouGetMoneyOwed_"+iteration)
 
-  }
 }
 
 object G6MoneyOwedByEmployerPage {

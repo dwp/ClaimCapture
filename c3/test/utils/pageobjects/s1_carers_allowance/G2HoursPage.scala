@@ -26,7 +26,7 @@ final class G2HoursPage(browser: TestBrowser, previousPage: Option[Page] = None)
    * Sub-class reads theClaim and interact with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario) {
+  override def fillPageWith(theClaim: ClaimScenario) {
     fillYesNo("#q3", theClaim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring, separator)
   }
 }

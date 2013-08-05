@@ -5,14 +5,14 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G7PensionSchemesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G7PensionSchemesPage.url, G7PensionSchemesPage.title, previousPage) {
   override val url = super.getUrl.replace(":jobID",iteration.toString)
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#payOccupationalPensionScheme", theClaim.selectDynamic("EmploymentDoYouPayTowardsanOccupationalPensionScheme_"+iteration))
-    fillInput("#howMuchPension", theClaim.selectDynamic("EmploymentHowMuchYouPayforOccupationalPension_"+iteration))
-    fillSelect("#howOftenPension", theClaim.selectDynamic("EmploymentHowOftenOccupationalPension_"+iteration))
-    fillYesNo("#payPersonalPensionScheme", theClaim.selectDynamic("EmploymentDoYouPayTowardsAPersonalPension_"+iteration))
-    fillInput("#howMuchPersonal", theClaim.selectDynamic("EmploymentHowMuchYouPayforPersonalPension_"+iteration))
-    fillSelect("#howOftenPersonal", theClaim.selectDynamic("EmploymentHowOftenPersonalPension_"+iteration))
-  }
+
+    declareYesNo("#payOccupationalPensionScheme", "EmploymentDoYouPayTowardsanOccupationalPensionScheme_"+iteration)
+    declareInput("#howMuchPension", "EmploymentHowMuchYouPayforOccupationalPension_"+iteration)
+    declareSelect("#howOftenPension", "EmploymentHowOftenOccupationalPension_"+iteration)
+    declareYesNo("#payPersonalPensionScheme", "EmploymentDoYouPayTowardsAPersonalPension_"+iteration)
+    declareInput("#howMuchPersonal", "EmploymentHowMuchYouPayforPersonalPension_"+iteration)
+    declareSelect("#howOftenPersonal", "EmploymentHowOftenPersonalPension_"+iteration)
+  
 }
 
 object G7PensionSchemesPage {
