@@ -29,7 +29,15 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
 
   def present = claiming {
     implicit claim => implicit request =>
-      whenSectionVisible(Ok(views.html.s9_self_employment.g5_childcareExpensesWhileAtWork(form.fill(ChildcareExpensesWhileAtWork), completedQuestionGroups)))
+      val yesNoList = jobs.map(j => j.apply(AboutExpenses) match {
+        case Some(n: AboutExpenses) => n.payAnyoneToLookAfterChildren
+        case _ => "no"
+      })
+
+      yesNoList.count(_ == "yes") > 0 match {
+        case true => whenSectionVisible(Ok(views.html.s9_self_employment.g5_childcareExpensesWhileAtWork(form.fill(ChildcareExpensesWhileAtWork), completedQuestionGroups)))
+        case false => claim.delete(ChildcareExpensesWhileAtWork) -> Redirect(routes.G6ChildcareProvidersContactDetails.present())
+      }
   }
 
   def submit = claiming {
