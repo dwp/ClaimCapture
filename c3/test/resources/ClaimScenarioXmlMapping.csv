@@ -235,7 +235,7 @@ Self Employed,Accountant Contact Details,Postcode,SelfEmployedAccountantPostcode
 Self Employed,Accountant Contact Details,Telephone Number,SelfEmployedAccountantTelephoneNumber,SelfEmployment>Accountant>AccountantDetails>PhoneNumber
 Self Employed,Accountant Contact Details,Fax Number,SelfEmployedAccountantFaxNumber,SelfEmployment>Accountant>AccountantDetails>FaxNumber
 Self Employed,Pensions and Expenses,[Past=Did you] [Present=Do you] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,SelfEmployedDoYouPayTowardsPensionScheme,SelfEmployment>PaidForPension
-Self Employed,Pensions and Expenses,How much [past=did you] [present=do you] pay?,SelfEmployedHowMuchYouPayTowardsPensionScheme,SelfEmployment>PensionScheme>Payment
+Self Employed,Pensions and Expenses,How much [past=did you] [present=do you] pay?,SelfEmployedHowMuchYouPayTowardsPensionScheme,SelfEmployment>PensionScheme>Payment>Amount
 Self Employed,Pensions and Expenses,How often? ,SelfEmployedHowOftenPayPensionExpenses,SelfEmployment>PensionScheme>Frequency
 Self Employed,Pensions and Expenses,"White at work, [past=did you] [present=do you] pay anyone to look after your children?",SelfEmployedDoYouPayAnyonetoLookAfterYourChild,SelfEmployment>CareExpensesChildren
 Self Employed,Pensions and Expenses,Is this the same as the expenses you have told us about during your employed work?,SelfEmployedChildCareIsThistheSameAsDuringYourEmployedWork,
