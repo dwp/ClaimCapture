@@ -8,23 +8,21 @@ import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
+import controllers.s2_about_you.AboutYou._
 
 object G4ClaimDate extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      call(routes.G4ClaimDate.present()),
       "dateOfClaim" -> dayMonthYear.verifying(validDate)
     )(ClaimDate.apply)(ClaimDate.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ClaimDate)
-
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s2_about_you.g4_claimDate(form.fill(ClaimDate), completedQuestionGroups))
+    Ok(views.html.s2_about_you.g4_claimDate(form.fill(ClaimDate), completedQuestionGroups(ClaimDate)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g4_claimDate(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s2_about_you.g4_claimDate(formWithErrors, completedQuestionGroups(ClaimDate))),
       claimDate => claim.update(claimDate) -> Redirect(routes.G5MoreAboutYou.present()))
   }
 }

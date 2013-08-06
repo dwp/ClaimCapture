@@ -5,21 +5,18 @@ import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import models.domain.{LivesInGB, Claim}
-import controllers.Mappings._
+import models.domain.LivesInGB
+import CarersAllowance._
 
 object G4LivesInGB extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      call(routes.G4LivesInGB.present()),
       "answer" -> boolean
     )(LivesInGB.apply)(LivesInGB.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(LivesInGB)
-
   def present = claiming { implicit claim => implicit request =>
-    if (CarersAllowance.claiming(LivesInGB, claim)) Ok(views.html.s1_carers_allowance.g4_livesInGB(confirmed = true, completedQuestionGroups))
-    else Ok(views.html.s1_carers_allowance.g4_livesInGB(confirmed = false, completedQuestionGroups))
+    if (CarersAllowance.claiming(LivesInGB, claim)) Ok(views.html.s1_carers_allowance.g4_livesInGB(confirmed = true, completedQuestionGroups(LivesInGB)))
+    else Ok(views.html.s1_carers_allowance.g4_livesInGB(confirmed = false, completedQuestionGroups(LivesInGB)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

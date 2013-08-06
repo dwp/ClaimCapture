@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.Duration
 
 class G8CompletedIntegrationSpec extends Specification with Tags {
-
   "About You" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/aboutyou/completed")
@@ -24,9 +23,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - About You")(Duration(10, TimeUnit.MINUTES))
       
       browser.find("#submit").getText mustEqual "Continue to Your partner"
-
       browser.submit("button[type='submit']")
-
       titleMustEqual("Personal Details - Your Partner")(Duration(10, TimeUnit.MINUTES))
     }
     

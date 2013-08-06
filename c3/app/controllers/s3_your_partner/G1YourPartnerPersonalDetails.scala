@@ -12,7 +12,6 @@ import utils.helpers.CarersForm.formBinding
 object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      call(routes.G1YourPartnerPersonalDetails.present()),
       "title" -> nonEmptyText(maxLength = 4),
       "firstName" -> nonEmptyText(maxLength = sixty),
       "middleName" -> optional(text(maxLength = sixty)),
@@ -23,7 +22,6 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
       "nationality" -> optional(text(maxLength = sixty)),
       "liveAtSameAddress" -> nonEmptyText.verifying(validYesNo)
     )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
-
 
   def present = claiming { implicit claim => implicit request =>
     YourPartner.whenSectionVisible(Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))))

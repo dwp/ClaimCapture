@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.Duration
 
 class G4ClaimDateIntegrationSpec extends Specification with Tags {
-
   "Claim Date" should {
     sequential
 

@@ -2,9 +2,8 @@ package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{ClaimScenarioFactory, Formulate}
-import utils.pageobjects.s2_about_you.{G3TimeOutsideUKPage, G4ClaimDatePage, G3TimeOutsideUKPageContext}
-import utils.pageobjects.{PageObjectException, ClaimScenario}
+import utils.pageobjects.s2_about_you.{G4ClaimDatePage, G3TimeOutsideUKPageContext}
+import utils.pageobjects.ClaimScenario
 
 class G3TimeOutsideUKIntegrationSpec extends Specification with Tags {
   "Time outside UK" should {
@@ -35,6 +34,5 @@ class G3TimeOutsideUKIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
       nextPage must beAnInstanceOf[G4ClaimDatePage]
     }
-
   } section "integration"
 }

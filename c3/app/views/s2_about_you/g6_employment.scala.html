@@ -1,4 +1,4 @@
-@(employmentForm: Form[models.domain.Employment], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(employmentForm: Form[models.domain.Employment], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import scala.language.postfixOps
 @import helper._
@@ -15,8 +15,7 @@
     @form(action = controllers.s2_about_you.routes.G6Employment.submit) {
         <fieldset class="form-elements">
             <legend>Employment</legend>
-            
-            
+
             <div class="prompt helper-prompt">
                 <p class="intro">
                     By employment we mean:
@@ -53,7 +52,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a href="@back(models.domain.Employment)" class="button secondary">Back</a>
+            <a href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
