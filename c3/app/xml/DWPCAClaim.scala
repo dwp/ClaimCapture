@@ -1,6 +1,6 @@
 package xml
 
-import models.domain.{Employment, MoreAboutYou, Claim}
+import models.domain.{MoreAboutYou, Claim}
 import controllers.Mappings._
 import play.api.Logger
 import services.submission.{ConsentAndDeclarationSubmission, YourPartnerSubmission, CareYouProvideSubmission}
@@ -12,8 +12,8 @@ object DWPCAClaim {
     val moreAboutYouOption = claim.questionGroup[MoreAboutYou]
     val moreAboutYou = moreAboutYouOption.getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
 
-    val aboutYouEmploymentOption = claim.questionGroup[Employment]
-    val employment = aboutYouEmploymentOption.getOrElse(Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
+    val aboutYouEmploymentOption = claim.questionGroup[models.domain.Employment]
+    val employment = aboutYouEmploymentOption.getOrElse(models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
 
 
     val yourPartner = YourPartnerSubmission.buildYourPartner(claim) //REMOVE THIS WHEN REFACTORING XML HAS BEEN DONE
@@ -33,7 +33,7 @@ object DWPCAClaim {
       <SelfEmployed>{employment.beenSelfEmployedSince1WeekBeforeClaim}</SelfEmployed>
       {SelfEmployment.xml(claim)}
       <Employed>{employment.beenEmployedSince6MonthsBeforeClaim}</Employed>
-      {EmploymentXml.xml(claim)}
+      {Employment.xml(claim)}
       <PropertyRentedOut>
         <PayNationalInsuranceContributions>no</PayNationalInsuranceContributions>
         <RentOutProperty>no</RentOutProperty>
