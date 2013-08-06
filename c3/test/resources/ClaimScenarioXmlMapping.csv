@@ -4,7 +4,7 @@ Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you norm
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,
 About You,Your Details,Title,AboutYouTitle,Claimant>Title
 About You,Your Details,First name,AboutYouFirstName,Claimant>OtherNames
-About You,Your Details,Middle name,AboutYouMiddleName,
+About You,Your Details,Middle name,AboutYouMiddleName,Claimant>OtherNames
 About You,Your Details,Surname or family name,AboutYouSurname,Claimant>Surname
 About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,Claimant>OtherSurnames
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,Claimant>NationalInsuranceNumber
@@ -33,39 +33,39 @@ About You,Property and rent,Do you or your partner/spouse own property or land i
 About You,Property and rent,"Have you sublet your home, or provided board and lodgings, since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyyy>)?",AboutYouHaveYouOrYourPartnerSubletYourHome,DWPCAClaim>PropertyRentedOut>SubletHome
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,Partner>Title
 About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,Partner>OtherNames
-About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,
+About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,Partner>OtherNames
 About Your Partner,Partner/Spouse details,Surname or family name,AboutYourPartnerSurname,Partner>Surname
 About Your Partner,Partner/Spouse details,All other surnames or family names they have been used or have been known by,AboutYourPartnerOtherNames,Partner>OtherSurnames
 About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,Partner>NationalInsuranceNumber
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,Partner>DateOfBirth
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,Partner>NationalityPartner
 About Your Partner,Partner/Spouse details,Does your partner/spouse live at the same address as you?,AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou,
-About Your Partner,Contact Details,Address,AboutYourPartnerAddress,Partner>Address
+About Your Partner,Contact Details,Address,AboutYourPartnerAddress,Partner>Address>Line
 About Your Partner,Contact Details,Postcode,AboutYourPartnerPostcode,Partner>Address>PostCode
-About Your Partner,More about your partner/spouse,"Did your partner join your household, after your claim date <ddmmyyyy>>?",AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate,
-About Your Partner,More about your partner/spouse,What date did they join?,AboutYourPartnertheDateWhenYouStartedLivingTogether,RelationshipStatus>JoinedHouseholdAfterDateOfClaim
+About Your Partner,More about your partner/spouse,"Did your partner join your household, after your claim date <ddmmyyyy>>?",AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate,RelationshipStatus>JoinedHouseholdAfterDateOfClaim
+About Your Partner,More about your partner/spouse,What date did they join?,AboutYourPartnertheDateWhenYouStartedLivingTogether,RelationshipStatus>JoinedHouseholdDate
 About Your Partner,More about your partner/spouse,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,RelationshipStatus>SeperatedFromPartner
 About Your Partner,Date of separation,When did you separate?,AboutYourPartnerwhenDidYouSeparate,RelationshipStatus>SeperationDate
 About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Caree>Title
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Caree>OtherNames
-About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,
+About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,Caree>OtherNames
 About the care you provide,Details of the person you care for,Surname or family name,AboutTheCareYouProvideSurnamePersonCareFor,Caree>Surname
 About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,Caree>NationalInsuranceNumber
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,Caree>DateOfBirth
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,
-About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,Caree>Address
+About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,Caree>Address>Line
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,Caree>Address>PostCode
 About the care you provide,Contact details of the person you care for,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare,Caree>DaytimePhoneNumber>Number
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Caree>RelationToClaimant
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,
 About the care you provide,Relationship and other claims,Has anyone else claimed Carers Allowance for this person before?,AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance,Caree>ClaimedPreviously
 About the care you provide,Details of Previous Carer ,First name,AboutTheCareYouProvideFirstNamePreviousCarer,PreviousClaimant>OtherNames
-About the care you provide,Details of Previous Carer ,Middle name,AboutTheCareYouProvideMiddleNamePreviousCarer,
+About the care you provide,Details of Previous Carer ,Middle name,AboutTheCareYouProvideMiddleNamePreviousCarer,PreviousClaimant>OtherNames
 About the care you provide,Details of Previous Carer ,Surname or family name,AboutTheCareYouProvideSurnamePreviousCarer,PreviousClaimant>Surname
 About the care you provide,Details of Previous Carer ,National Insurance (NI) number,AboutTheCareYouProvideNINOPreviousCarer,PreviousClaimant>NationalInsuranceNumber
 About the care you provide,Details of Previous Carer ,Date of birth,AboutTheCareYouProvideDateofBirthPreviousCarer,PreviousClaimant>DateOfBirth
-About the care you provide,Contact details of previous carer,Address,AboutTheCareYouProvideAddressPreviousCarer,PreviousClaimant>Address
+About the care you provide,Contact details of previous carer,Address,AboutTheCareYouProvideAddressPreviousCarer,PreviousClaimant>Address>Line
 About the care you provide,Contact details of previous carer,Post code,AboutTheCareYouProvidePostcodePreviousCarer,PreviousClaimant>Address>PostCode
 About the care you provide,Contact details of previous carer,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPreviousCarer,
 About the care you provide,Contact details of previous carer,Mobile number,AboutTheCareYouProvideMobileNumberPreviousCarer,
@@ -136,7 +136,7 @@ Education,Your course details,"If you are no longer on the course, when did you 
 Education,Your course details,Your student reference number,EducationYourStudentReferenceNumber,FullTimeEducation>LocationDetails>StudentReferenceNumber
 Education,"School, college or universitys contact details","Name of school, college or university",EducationNameofSchool,FullTimeEducation>LocationDetails>Name
 Education,"School, college or universitys contact details",Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,FullTimeEducation>LocationDetails>Tutor
-Education,"School, college or universitys contact details",Address,EducationAddress,FullTimeEducation>LocationDetails>Address
+Education,"School, college or universitys contact details",Address,EducationAddress,FullTimeEducation>LocationDetails>Address>Line
 Education,"School, college or universitys contact details",Post code,EducationPostcode,FullTimeEducation>LocationDetails>Address>PostCode
 Education,"School, college or universitys contact details",Phone number,EducationPhoneNumber,FullTimeEducation>LocationDetails>PhoneNumber
 Education,"School, college or universitys contact details",Fax Number, EducationFaxNumber ,FullTimeEducation>LocationDetails>FaxNumber
@@ -148,7 +148,7 @@ Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork,Employ
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork,Employment>Pay>WeeklyHoursWorked
 Employment,Your Job,Job title,EmploymentJobTitle,Employment>JobDetails>Employer>JobType
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber,Employment>JobDetails>Employer>ClockPayrollNumber
-Employment,Employers contact details,Address,EmploymentEmployerAddress,Employment>JobDetails>Employer>Address
+Employment,Employers contact details,Address,EmploymentEmployerAddress,Employment>JobDetails>Employer>Address>Line
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode,Employment>JobDetails>Employer>Address>PostCode
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber,Employment>JobDetails>Employer>EmployersPhoneNumber
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid,Employment>JobDetails>Pay>DateLastPaid
@@ -230,7 +230,7 @@ Self Employed,Your accounts,Please tell us why and when the change happened,Self
 Self Employed,Your accounts,Do you have an accountant?,SelfEmployedDoYouHaveAnAccountant,SelfEmployment>Accountant>HasAccountant
 Self Employed,Your accounts,Can we contact your accountant?,SelfEmployedCanWeContactYourAccountant,SelfEmployment>Accountant>ContactAccountant
 Self Employed,Accountant Contact Details,Accountants Name,SelfEmployedAccountantName,SelfEmployment>Accountant>AccountantDetails>Name
-Self Employed,Accountant Contact Details,Address,SelfEmployedAccountantAddress,SelfEmployment>Accountant>AccountantDetails>Address
+Self Employed,Accountant Contact Details,Address,SelfEmployedAccountantAddress,SelfEmployment>Accountant>AccountantDetails>Address>Line
 Self Employed,Accountant Contact Details,Postcode,SelfEmployedAccountantPostcode,SelfEmployment>Accountant>AccountantDetails>Address>PostCode
 Self Employed,Accountant Contact Details,Telephone Number,SelfEmployedAccountantTelephoneNumber,SelfEmployment>Accountant>AccountantDetails>PhoneNumber
 Self Employed,Accountant Contact Details,Fax Number,SelfEmployedAccountantFaxNumber,SelfEmployment>Accountant>AccountantDetails>FaxNumber
@@ -267,13 +267,13 @@ Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since t
 Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,
 Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,OtherMoneySSPDetails>Name
-Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,OtherMoneySSPDetails>Address
+Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,OtherMoneySSPDetails>Address>Line
 Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,OtherMoneySSPDetails>Address>PostCode
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,OtherBenefits>OtherMoneySMP
 Other Money,Other Statutory Pay,How much?,OtherMOneySMPHowMuch,
 Other Money,Other Statutory Pay,How often?,OtherMOneySMPHowOften,
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,OtherMoneySMPDetails>Name
-Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,OtherMoneySMPDetails>Address
+Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,OtherMoneySMPDetails>Address>Line
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,OtherMoneySMPDetails>Address>PostCode
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on, receiving  any pensions or benefits from another EEA State or Switzerland?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on working in or paying insurance to another EEA State or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,

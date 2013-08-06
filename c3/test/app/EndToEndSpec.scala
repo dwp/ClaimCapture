@@ -36,8 +36,20 @@ class EndToEndSpec extends Specification with Tags {
       }
     }
 
-//    "Successfully run absolute Test Case 2 " in new WithBrowser with G1BenefitsPageContext {
-//      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase2.csv")
+    "Successfully run absolute Test Case 2 " in new WithBrowser with G1BenefitsPageContext {
+      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase2.csv")
+      page goToThePage()
+      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      lastPage match {
+        case p: XmlPage => {
+          validateAndPrintErrors(p, claim) // must beTrue
+        }
+        case p: Page => println(p.source)
+      }
+    }
+
+//    "Successfully run absolute Test Case 3 " in new WithBrowser with G1BenefitsPageContext {
+//      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
 //      page goToThePage()
 //      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
 //      lastPage match {
