@@ -79,8 +79,9 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService) extends Sub
           }
           case "error" => {
             val errorCode = (responseXml \\ "errorCode").text
+            idService.updateStatus(txnId, errorCode)
             Logger.error(s"Received error : $result")
-            errorAndCleanup(txnId, errorCode)
+            Redirect("/consentAndDeclaration/error")
           }
           case _ => {
             Logger.info(s"Received result : $result")
