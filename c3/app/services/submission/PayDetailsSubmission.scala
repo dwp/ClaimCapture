@@ -1,10 +1,12 @@
 package services.submission
 
 import models.domain._
+import xml.XMLHelper._
+import scala.language.reflectiveCalls
 
 object PayDetailsSubmission {
   def buildPayDetails(claim: Claim) = {
-    val howWePayYou: HowWePayYou          = getQuestionGroup(claim, HowWePayYou)
+    val howWePayYou: Option[HowWePayYou]          = questionGroup(claim, HowWePayYou)
     val bank : Option[BankBuildingSocietyDetails] = questionGroup(claim, BankBuildingSocietyDetails)
 
     PayDetails(howWePayYou,bank)
@@ -12,10 +14,10 @@ object PayDetailsSubmission {
 
   def buildPayment(payDetails: PayDetails) = {
     <Payment>
-      <PaymentFrequency>{payDetails.howWePayYou.paymentFrequency}</PaymentFrequency>
+      {<PaymentFrequency/> +++ payDetails.howWePayYou.collect{case h:HowWePayYou => h.paymentFrequency}}
       <InitialAccountQuestion>bankBuildingAccount</InitialAccountQuestion>
-      {payDetails.howWePayYou.likeToBePaid match {
-        case "01" if payDetails.bankBuildingSocietyDetails.isDefined =>
+      {payDetails.howWePayYou.collect{case h:HowWePayYou => h.paymentFrequency} match {
+        case Some("01") if payDetails.bankBuildingSocietyDetails.isDefined =>
           <Account>
             <DirectPayment>yes</DirectPayment>
             <AccountHolder>yourName</AccountHolder>

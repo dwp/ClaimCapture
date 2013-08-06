@@ -155,7 +155,7 @@ object ClaimBuilder {
   val howWePayYou = HowWePayYou(NoRouting, "01", "everyWeek")
   val bank = BankBuildingSocietyDetails(NoRouting, "Holder", "Bank name", SortCode("12", "34", "56"), "1234567890", "1234")
 
-  val payDetails = PayDetails(howWePayYou,Some(bank))
+  val payDetails = PayDetails(Some(howWePayYou),Some(bank))
 
   val additionalInfo = AdditionalInfo(NoRouting, Some("Other information"), "yes")
   val consent = Consent(NoRouting, "no", Some("I don't want to"), "no", Some("I said I don't want to"))
