@@ -6,12 +6,10 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain.Benefits
-import controllers.Mappings._
 
 object G1Benefits extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      call(routes.G1Benefits.present()),
       "answer" -> boolean
     )(Benefits.apply)(Benefits.unapply))
     

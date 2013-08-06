@@ -20,8 +20,9 @@ trait FormFields {
   val RADIO_LIST = 'RadioList
   val SELECT = 'Select
   val PAYMENT_FREQUENCY = 'PaymentFrequency
-  val WHEREABOUTS = 'Whereabouts
+  val SORTCODE = 'SortCode
   val TIME = 'Time
+  val WHEREABOUTS = 'Whereabouts
   val YESNO = 'YesNo
 
   def declareAddress(elementCssSelector: String, claimAttribute: String) = declareField(ADDRESS, elementCssSelector, claimAttribute)
@@ -52,11 +53,13 @@ trait FormFields {
 
   def declarePaymentFrequency(elementCssSelector: String, claimAttribute: String) = declareField(PAYMENT_FREQUENCY, elementCssSelector, claimAttribute)
 
-  def declareWhereabouts(elementCssSelector: String, claimAttribute: String) = declareField(WHEREABOUTS, elementCssSelector, claimAttribute)
+  def declareSortCode(elementCssSelector: String, claimAttribute: String) = declareField(SORTCODE, elementCssSelector, claimAttribute)
 
   def declareTime(elementCssSelector: String, claimAttribute: String) = declareField(TIME, elementCssSelector, claimAttribute)
 
   def declareYesNo(elementCssSelector: String, claimAttribute: String) = declareField(YESNO, elementCssSelector, claimAttribute)
+
+  def declareWhereabouts(elementCssSelector: String, claimAttribute: String) = declareField(WHEREABOUTS, elementCssSelector, claimAttribute)
 
   private def declareField( fieldType:Symbol , elementCssSelector: String, claimAttribute: String) = fields += Tuple3(elementCssSelector, fieldType , claimAttribute )
 

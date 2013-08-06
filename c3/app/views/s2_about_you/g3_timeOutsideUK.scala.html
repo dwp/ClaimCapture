@@ -1,4 +1,4 @@
-@(timeOutsideUKForm: Form[models.domain.TimeOutsideUK], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(timeOutsideUKForm: Form[models.domain.TimeOutsideUK], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -40,7 +40,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a href="@back(models.domain.TimeOutsideUK)" class="button secondary">Back</a>
+            <a href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

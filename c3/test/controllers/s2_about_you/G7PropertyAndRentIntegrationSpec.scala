@@ -6,9 +6,7 @@ import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G8AboutYouCompletedPage}
 
 class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
-
   "Property and Rent" should {
-
     "present Benefits when there is no claim date" in new WithBrowser {
       browser.goTo("/aboutyou/propertyAndRent")
       browser.title mustEqual "Benefits - Carer's Allowance"

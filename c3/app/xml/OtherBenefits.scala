@@ -66,7 +66,7 @@ object OtherBenefits {
           <BenefitName>{personDetails.nameOfBenefit}</BenefitName>
           <RecipientName>{personDetails.fullName}</RecipientName>
           <RecipientAddress>{postalAddressStructure(contactDetails.address, contactDetails.postcode)}</RecipientAddress>
-          <ConfirmAddress>{yes}</ConfirmAddress>
+          <ConfirmAddress>yes</ConfirmAddress>
           <ReferenceNumber>{stringify(personDetails.nationalInsuranceNumber)}</ReferenceNumber>
         </ExtraMoneyDetails>
       }
@@ -99,7 +99,7 @@ object OtherBenefits {
         <OtherMoneySSPDetails>
           <Name>{statutorySickPay.employersName.getOrElse("empty")}</Name>
           <Address>{postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}</Address>
-          <ConfirmAddress>{yes}</ConfirmAddress>
+          <ConfirmAddress>yes</ConfirmAddress>
         </OtherMoneySSPDetails>
       }
       else <OtherMoneySSP>{statutorySickPay.haveYouHadAnyStatutorySickPay}</OtherMoneySSP>
@@ -119,7 +119,7 @@ object OtherBenefits {
         <OtherMoneySMPDetails>
           <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
           <Address>{postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}</Address>
-          <ConfirmAddress>{yes}</ConfirmAddress>
+          <ConfirmAddress>yes</ConfirmAddress>
         </OtherMoneySMPDetails>
       }
       else <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>

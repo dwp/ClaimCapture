@@ -42,6 +42,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
       .update(selfEmployment.accountantContactDetails)
       .update(selfEmployment.pensionsAndExpenses)
       .update(selfEmployment.childcareExpenses)
+      .update(selfEmployment.expensesWhileAtWork)
 
       .update(otherMoney.aboutOtherMoney)
       .update(otherMoney.moneyPaidToSomeoneElse)
@@ -98,8 +99,6 @@ class ClaimSubmissionSpec extends Specification with Tags {
       val claimSub = ClaimSubmission(claim, "TY6TV9G")
 
       val claimXml = claimSub.buildDwpClaim
-
-      println(claimXml)
 
       val fullXml = buildFullClaim(claimXml)
 
