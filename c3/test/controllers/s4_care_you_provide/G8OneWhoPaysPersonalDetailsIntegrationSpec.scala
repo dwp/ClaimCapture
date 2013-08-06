@@ -3,6 +3,8 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.Duration
 
 class G8OneWhoPaysPersonalDetailsIntegrationSpec extends Specification with Tags {
   "One Who Pays Personal Details Page" should {
@@ -19,10 +21,10 @@ class G8OneWhoPaysPersonalDetailsIntegrationSpec extends Specification with Tags
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutTheCare(browser)
       browser.goTo("/careYouProvide/oneWhoPaysPersonalDetails")
-      titleMustEqual("One Who Pays You - Care You Provide")
+      titleMustEqual("One Who Pays You - Care You Provide")(Duration(10, TimeUnit.MINUTES))
       browser.fill("#amount") `with` "INVALID"
       browser.submit("button[type='submit']")
-      titleMustEqual("One Who Pays You - Care You Provide")
+      titleMustEqual("One Who Pays You - Care You Provide")(Duration(10, TimeUnit.MINUTES))
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 

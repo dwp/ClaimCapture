@@ -3,7 +3,6 @@ package xml
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
 import models.NationalInsuranceNumber
-import scala.Some
 import models.MultiLineAddress
 import controllers.Mappings.yes
 import controllers.Mappings.no
@@ -82,5 +81,4 @@ class OtherBenefitsSpec extends Specification with Tags {
       (otherMoneyXml \\ "OtherMoneySMPDetails").text mustEqual ""
     }
   } section "unit"
-
 }

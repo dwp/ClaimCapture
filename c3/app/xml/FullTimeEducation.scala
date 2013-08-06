@@ -7,21 +7,21 @@ import scala.xml.NodeSeq
 
 object FullTimeEducation {
 
- def xml(claim: Claim) = {
-   val moreAboutYouOption = claim.questionGroup[MoreAboutYou]
-   val moreAboutYou = moreAboutYouOption.getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
+  def xml(claim: Claim) = {
+    val moreAboutYouOption = claim.questionGroup[MoreAboutYou]
+    val moreAboutYou = moreAboutYouOption.getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
 
-   val courseDetailsOption = claim.questionGroup[YourCourseDetails]
-   val addressOfSchoolOption = claim.questionGroup[AddressOfSchoolCollegeOrUniversity]
+    val courseDetailsOption = claim.questionGroup[YourCourseDetails]
+    val addressOfSchoolOption = claim.questionGroup[AddressOfSchoolCollegeOrUniversity]
 
-   val hasBeenInEducation = moreAboutYou.beenInEducationSinceClaimDate == yes
+    val hasBeenInEducation = moreAboutYou.beenInEducationSinceClaimDate == yes
 
-   if(hasBeenInEducation) {
-    <FullTimeEducation>
-      {courseDetailsXml(courseDetailsOption)}
-      {locationDetailsXml(addressOfSchoolOption, courseDetailsOption)}
-    </FullTimeEducation>
-   } else NodeSeq.Empty
+    if (hasBeenInEducation) {
+      <FullTimeEducation>
+        {courseDetailsXml(courseDetailsOption)}
+        {locationDetailsXml(addressOfSchoolOption, courseDetailsOption)}
+      </FullTimeEducation>
+    } else NodeSeq.Empty
   }
 
   def courseDetailsXml(courseDetailsOption: Option[YourCourseDetails]) = {

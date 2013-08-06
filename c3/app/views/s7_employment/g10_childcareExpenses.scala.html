@@ -1,6 +1,6 @@
 @(currentForm: Form[models.domain.ChildcareExpenses], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
-@import controllers.s2_about_you.G5MoreAboutYou
 
+@import controllers.s2_about_you.G5MoreAboutYou
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
@@ -8,12 +8,12 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-
-@import models.domain.{Job, MoreAboutYou,PersonYouCareFor}
+@import models.domain.{MoreAboutYou, PersonYouCareFor}
+@import controllers.s7_employment.JobID
 
 @main("Childcare expenses while you are at work - Employment", Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G10ChildcareExpenses.submit()) {
-        <input type="hidden" name="jobID" value='@Job.jobID(currentForm)'>
+        <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
             <legend>Childcare expenses while you are at work</legend>
