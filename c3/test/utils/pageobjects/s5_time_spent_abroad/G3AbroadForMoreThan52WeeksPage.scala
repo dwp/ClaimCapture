@@ -8,9 +8,9 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  * @author Saqib Kayani
  *         Date: 31/07/2013
  */
-final class G3AbroadForMoreThan52WeeksPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3AbroadForMoreThan52WeeksPage.url, G3AbroadForMoreThan52WeeksPage.title, previousPage) {
+final class G3AbroadForMoreThan52WeeksPage (browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G3AbroadForMoreThan52WeeksPage.url, G3AbroadForMoreThan52WeeksPage.title, previousPage) {
  
-    declareYesNo("#anyTrips", "TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_1")
+    declareYesNo("#anyTrips", "TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_" + iteration)
   
 }
 
@@ -21,11 +21,11 @@ final class G3AbroadForMoreThan52WeeksPage (browser: TestBrowser, previousPage: 
 object G3AbroadForMoreThan52WeeksPage {
   val title = "Abroad for more than 52 weeks - Time Spent Abroad"
   val url  = "/timeSpentAbroad/abroadForMoreThan52Weeks"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3AbroadForMoreThan52WeeksPage(browser,previousPage)
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G3AbroadForMoreThan52WeeksPage(browser,previousPage,iteration)
 }
 
 /** The context for Specs tests */
 trait G3AbroadForMoreThan52WeeksPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = G3AbroadForMoreThan52WeeksPage buildPageWith browser
+  val page = G3AbroadForMoreThan52WeeksPage buildPageWith (browser , iteration = 1)
 }

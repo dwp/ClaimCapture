@@ -1,4 +1,4 @@
-package utils.pageobjects.s6_pay_details
+package utils.pageobjects.s9_pay_details
 
 import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}

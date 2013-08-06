@@ -6,6 +6,7 @@ import scala.xml.{NodeSeq, Elem, XML}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import scala.language.implicitConversions
+import scala.util.matching.Regex
 
 
 /**
@@ -29,7 +30,7 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
 
     // Used to recursively go through the xPath provided to find value
     def childNode(xml: NodeSeq, children: Array[String]): NodeSeq =
-      if (children.size == 0) xml else childNode(xml \ children(0), children.drop(1))
+      if (children.size == 0) xml else childNode(xml \ children(0).replace("...",""), children.drop(1))
 
     val mapping = XMLBusinessValidation.buildXmlMappingFromFile(xmlMappingFile)
     val listErrors = mutable.MutableList.empty[String]
@@ -37,8 +38,9 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
       case (attribute, value) =>
         val xPathNodes = mapping.get(attribute)
         if (xPathNodes != None) {
-          val nodes = xPathNodes.get
-          val elementValue: XmlNode = childNode(xml.\\(nodes(0)), nodes.drop(1)).text
+          val path = xPathNodes.get
+          val nodes = path.split(">")
+          val elementValue: XmlNode = if (path.endsWith("...")) childNode(xml.\\(nodes(0)), nodes.drop(1)).toString() else childNode(xml.\\(nodes(0)), nodes.drop(1)).text
           val expectedValue: ClaimValue = value
           if (elementValue doesNotMatch expectedValue)
             listErrors += attribute + " " + nodes.mkString(">") + " value expected: [" + expectedValue + "] value read: [" + elementValue + "]"
@@ -56,8 +58,8 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
 object XMLBusinessValidation {
 
   def buildXmlMappingFromFile(fileName: String) = {
-    val map = mutable.Map.empty[String, Array[String]]
-    def converter(name: String)(value: String): Unit = map += (name -> value.split(">"))
+    val map = mutable.Map.empty[String, String]
+    def converter(attribute: String)(path: String): Unit = map += (attribute -> path) //.split(">")
     FactoryFromFile.buildFromFile(fileName, converter)
     map
   }
@@ -70,9 +72,11 @@ object XMLBusinessValidation {
 class XmlNode(val value: String) {
 
   def matches(claimValue: ClaimValue): Boolean = {
-    if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}"""))
-      value.contains(claimValue.value)
-    else value == claimValue.value
+    if (value.matches("""\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""")) value.contains(claimValue.value)
+    else if (value.matches(".*>.*"))  {
+      println(value)
+      value.matches(".*" + "yes</[^>]*" + value + ".*")
+    } else value == claimValue.value
   }
 
   def doesNotMatch(claimValue: ClaimValue): Boolean = !matches(claimValue)
@@ -83,7 +87,7 @@ class XmlNode(val value: String) {
 
 
 object XmlNode {
-  private def prepareElement(elementValue: String) = elementValue.replace("\n", "").replace(" ", "").trim.toLowerCase
+  private def prepareElement(elementValue: String) = elementValue.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
   implicit def fromString(source: String): XmlNode = new XmlNode(prepareElement(source))
 }

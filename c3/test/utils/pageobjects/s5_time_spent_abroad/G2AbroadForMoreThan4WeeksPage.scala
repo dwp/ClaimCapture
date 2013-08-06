@@ -8,14 +8,14 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  * @author Saqib Kayani
  *         Date: 31/07/2013
  */
-final class G2AbroadForMoreThan4WeeksPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2AbroadForMoreThan4WeeksPage.url, G2AbroadForMoreThan4WeeksPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  override def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#anyTrips", theClaim.TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_1)
-  }
+final class G2AbroadForMoreThan4WeeksPage (browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G2AbroadForMoreThan4WeeksPage.url, G2AbroadForMoreThan4WeeksPage.title, previousPage,iteration) {
+ 
+    declareYesNo("#anyTrips", "TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_" + iteration)
+
+   override def fillPageWith(theClaim: ClaimScenario): Unit = {
+     super.fillPageWith(theClaim)
+     if (theClaim.selectDynamic("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_" + iteration).toLowerCase() == "no") resetIteration = true
+   }
 }
 
 
@@ -26,11 +26,11 @@ final class G2AbroadForMoreThan4WeeksPage (browser: TestBrowser, previousPage: O
 object G2AbroadForMoreThan4WeeksPage {
   val title = "Abroad for more than 4 weeks - Time Spent Abroad"
   val url  = "/timeSpentAbroad/abroadForMoreThan4Weeks"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2AbroadForMoreThan4WeeksPage(browser,previousPage)
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None,iteration:Int) = new G2AbroadForMoreThan4WeeksPage(browser,previousPage,iteration)
 }
 
 /** The context for Specs tests */
 trait G2AbroadForMoreThan4WeeksPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = G2AbroadForMoreThan4WeeksPage buildPageWith browser
+  val page = G2AbroadForMoreThan4WeeksPage buildPageWith (browser,iteration = 1)
 }
