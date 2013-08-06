@@ -12,7 +12,6 @@ object Claimant {
     val contactDetailsOption = claim.questionGroup[ContactDetails]
     val contactDetails = contactDetailsOption.getOrElse(ContactDetails())
 
-
     <Claimant>
       <DateOfClaim>{stringify(claim.dateOfClaim)}</DateOfClaim>
       <Surname>{yourDetails.surname}</Surname>

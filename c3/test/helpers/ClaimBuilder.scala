@@ -58,33 +58,28 @@ object ClaimBuilder {
   val propertyAndRent = PropertyAndRent(yes, yes)
   val aboutYou = AboutYouSection(yourDetails, contactDetails, Some(timeOutsideUK), claimDate, moreAboutYou, employment, propertyAndRent)
 
-  val theirPersonalDetails = TheirPersonalDetails(NoRouting, title = "ms", firstName = "Minnie", middleName = None, surname = "Mouse",
-    None, dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddress = "no")
+  val theirPersonalDetails = TheirPersonalDetails(title = "ms", firstName = "Minnie", middleName = None, surname = "Mouse",
+                                                  None, dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddress = "no")
 
-  val theirContactDetails = TheirContactDetails(NoRouting, address = MultiLineAddress(Some("Line1"), None, None), postcode = Some("PR2 8AE"))
+  val theirContactDetails = TheirContactDetails(address = MultiLineAddress(Some("Line1"), None, None), postcode = Some("PR2 8AE"))
 
-  val moreAboutThePerson = MoreAboutThePerson(NoRouting, relationship = "mother", None, claimedAllowanceBefore = "no")
+  val moreAboutThePerson = MoreAboutThePerson(relationship = "mother", None, claimedAllowanceBefore = "no")
 
-  val representatives = RepresentativesForPerson(NoRouting, youAct = YesNoWithDropDown("yes", Some("Lawyer")), someoneElseAct = YesNoWithDropDownAndText("yes",
-    Some("Lawyer"), Some("Mr. Lawyer")))
+  val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown("yes", Some("Lawyer")), someoneElseAct = YesNoWithDropDownAndText("yes", Some("Lawyer"), Some("Mr. Lawyer")))
 
-  val previousCarerContactDetails = PreviousCarerContactDetails(NoRouting, address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
+  val previousCarerContactDetails = PreviousCarerContactDetails(address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
 
-  val previousCarerPersonalDetails = PreviousCarerPersonalDetails(NoRouting, firstName = Some("Some"), middleName = None, surname = Some("One"),
-    None, dateOfBirth = Some(DayMonthYear(1, 1, 1963)))
+  val previousCarerPersonalDetails = PreviousCarerPersonalDetails(firstName = Some("Some"), middleName = None, surname = Some("One"), None, dateOfBirth = Some(DayMonthYear(1, 1, 1963)))
 
-  val moreAboutTheCare = MoreAboutTheCare(NoRouting, spent35HoursCaring = "yes", spent35HoursCaringBeforeClaim = YesNoWithDate("no", Some(DayMonthYear(1, 1, 2013))), hasSomeonePaidYou = "yes")
+  val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaring = "yes", spent35HoursCaringBeforeClaim = YesNoWithDate("no", Some(DayMonthYear(1, 1, 2013))), hasSomeonePaidYou = "yes")
 
-  val oneWhoPays = OneWhoPaysPersonalDetails(NoRouting, organisation = Some("SomeOrg Inc."), amount = Some("300"), startDatePayment = Some(DayMonthYear(1, 1, 2012)))
+  val oneWhoPays = OneWhoPaysPersonalDetails(organisation = Some("SomeOrg Inc."), amount = Some("300"), startDatePayment = Some(DayMonthYear(1, 1, 2012)))
 
-  val contactDetailsPayingPerson = ContactDetailsOfPayingPerson(NoRouting, address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
+  val contactDetailsPayingPerson = ContactDetailsOfPayingPerson(address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
 
-  val breaksInCare = BreaksInCare(NoRouting,
-    List(
-      Break(id = "1", start = DayMonthYear(1, 1, 2001), end = Some(DayMonthYear(1, 5, 2001)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes"),
-      Break(id = "1", start = DayMonthYear(1, 1, 2002), end = Some(DayMonthYear(1, 5, 2002)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes")
-    )
-  )
+  val breaksInCare = BreaksInCare(List(
+    Break(id = "1", start = DayMonthYear(1, 1, 2001), end = Some(DayMonthYear(1, 5, 2001)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes"),
+    Break(id = "1", start = DayMonthYear(1, 1, 2002), end = Some(DayMonthYear(1, 5, 2002)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes")))
 
   val employmentJobs = new Jobs(List(
      new Job("1",List(

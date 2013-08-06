@@ -11,7 +11,6 @@ import utils.helpers.CarersForm._
 import controllers.s9_self_employment.SelfEmployment.whenSectionVisible
 import scala.Some
 
-
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ChildcareExpensesWhileAtWork)
 

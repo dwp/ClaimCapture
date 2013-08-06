@@ -2,7 +2,7 @@ package models.view
 
 import language.implicitConversions
 import reflect.ClassTag
-import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.mvc._
 import play.api.cache.Cache
 import models.domain.{Claim, QuestionGroup}
 import play.Configuration

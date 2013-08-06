@@ -20,7 +20,8 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
     "contain the completed forms" in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      page goToThePage()
+      page goToThePage(waitDuration = 500)
+
       page runClaimWith (claim, G5MoreAboutYouPage.title, waitForPage = true, waitDuration = 500)
       page numberSectionsCompleted() mustEqual 4
     }

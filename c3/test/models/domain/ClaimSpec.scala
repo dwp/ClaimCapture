@@ -124,5 +124,37 @@ class ClaimSpec extends Specification {
       val updatedClaim = claim.delete(Over16Mandatory)
       updatedClaim.questionGroup[Over16Mandatory] should beNone
     }
+
+    "iterate over jobs" in {
+      val job1 = Job("job 1").update(JobDetails("job 1"))
+                             .update(EmployerContactDetails("job 1"))
+
+      val job2 = Job("job 2").update(JobDetails("job 2"))
+                             .update(EmployerContactDetails("job 2"))
+
+      val jobs = new Jobs(job1 :: job2 :: Nil)
+
+      val claim = Claim().update(jobs)
+
+      val js = claim.questionGroup[Jobs] map { jobs =>
+        for (job <- jobs) yield {
+          job.jobID
+        }
+      }
+
+      js should beLike { case Some(i: Iterable[String]) => i.size shouldEqual 2 }
+    }
+
+    "iterate over no jobs" in {
+      val claim = Claim()
+
+      val js = claim.questionGroup[Jobs] map { jobs =>
+        for (job <- jobs) yield {
+          job.jobID
+        }
+      }
+
+      js should beNone
+    }
   }
 }

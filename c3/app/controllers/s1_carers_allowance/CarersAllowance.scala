@@ -3,17 +3,17 @@ package controllers.s1_carers_allowance
 import play.api.mvc._
 import models.view._
 import models.domain._
+import controllers.Routing
 
-object CarersAllowance extends Controller with CachedClaim {
-  def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier)(implicit claim: Claim, request: Request[AnyContent]): List[(QuestionGroup, Call)] = {
-    claim.completedQuestionGroups(questionGroupIdentifier).map(qg => qg -> route(qg))
+object CarersAllowance extends Controller with CachedClaim with Routing {
+  def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
+    claim.completedQuestionGroups(models.domain.CarersAllowance)
   }
-  
-  def approve = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CarersAllowance)
-    val approved = claim.completedQuestionGroups(models.domain.CarersAllowance).forall(_.asInstanceOf[BooleanConfirmation].answer) && completedQuestionGroups.length == 4
 
-    Ok(views.html.s1_carers_allowance.g6_approve(approved, claim.completedQuestionGroups(models.domain.CarersAllowance).map(qg => qg -> route(qg))))
+  def approve = claiming { implicit claim => implicit request =>
+    val approved = completedQuestionGroups.forall(_.asInstanceOf[BooleanConfirmation].answer) && completedQuestionGroups.length == 4
+
+    Ok(views.html.s1_carers_allowance.g6_approve(approved, completedQuestionGroups.map(qg => qg -> route(qg))))
   }
 
   def approveSubmit = claiming { implicit claim => implicit request =>
@@ -25,7 +25,7 @@ object CarersAllowance extends Controller with CachedClaim {
     case _ => false
   }
 
-  private def route(qg: QuestionGroup) = qg.identifier match {
+  override def route(qgi: QuestionGroup.Identifier) = qgi match {
     case BenefitsMandatory => routes.G1BenefitsMandatory.present()
     case HoursMandatory => routes.G2HoursMandatory.present()
     case Over16Mandatory => routes.G3Over16Mandatory.present()

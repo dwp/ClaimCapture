@@ -21,24 +21,20 @@
                 <tr>
                     <th>Employer name</th>
                     <th class="desc">Job title</th>
-                    <th>Edit</th>
+                    <th>Change</th>
                     <th>Delete</th>
                 </tr>
             </thead>
 
             <tbody>
-                @claim.questionGroup(Jobs) match {
-                    case Some(jobs: Jobs) => {
-                        @for(job <- jobs) {
-                            <tr id="@job.jobID" class="@job.jobID">
-                                <td>@job.employerName</td>
-                                <td class="desc">@job.title</td>
-                                <td><input type="button" class="button row secondary" value="Edit"></td>
-                                <td><input type="button" class="button row warning" value="Delete"></td>
-                            </tr>
-                        }
-                    }
-                    case _ => {
+                @claim.questionGroup[Jobs].map { jobs =>
+                    @for(job <- jobs) {
+                        <tr id="@job.jobID" class="@job.jobID">
+                            <td>@job.employerName</td>
+                            <td class="desc">@job.title</td>
+                            <td><input type="button" class="button row secondary" value="Change"></td>
+                            <td><input type="button" class="button row warning" value="Delete"></td>
+                        </tr>
                     }
                 }
             </tbody>

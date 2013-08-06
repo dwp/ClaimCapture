@@ -5,8 +5,6 @@ import controllers.Mappings.{yes, no}
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 import models.yesNo.YesNoWithText
-import scala.Some
-
 
 object SelfEmployment {
 
