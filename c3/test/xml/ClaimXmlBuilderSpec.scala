@@ -1,4 +1,4 @@
-package services.submission
+package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
