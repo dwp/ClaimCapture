@@ -78,6 +78,7 @@ object EmploymentXml {
         <PensionScheme>
           <Type></Type>
           <Payment>
+            <Currency>GBP</Currency>
             {<Amount/> +++ pensionScheme.howMuchPension}
           </Payment>
           {<Frequency/> +++ pensionScheme.howOftenPension}
@@ -93,6 +94,7 @@ object EmploymentXml {
         <PensionScheme>
           <Type></Type>
           <Payment>
+            <Currency>GBP</Currency>
             {<Amount/> +++ pensionScheme.howMuchPersonal}
           </Payment>
           {<Frequency/> +++ pensionScheme.howOftenPersonal}
@@ -107,6 +109,7 @@ object EmploymentXml {
         <Expense>{n.whatAreThose}</Expense>
         <Reason>{n.whyDoYouNeedThose}</Reason>
         <WeeklyPayment>
+          <Currency>GBP</Currency>
           <Amount>{n.howMuchCostEachWeek}</Amount>
         </WeeklyPayment>
       </JobExpenses>
@@ -124,8 +127,9 @@ object EmploymentXml {
         </CarerAddress>
         <ConfirmAddress>yes</ConfirmAddress>
         <WeeklyPayment>
-          {<Amount/> +++ childcareExpenses.collect{case c: ChildcareExpenses if c.howMuchCostChildcare.isDefined => c.howMuchCostChildcare}}
-        </WeeklyPayment>
+          <Currency>GBP</Currency>
+          {<Amount/> +++ childcareExpenses.collect{case c:ChildcareExpenses if c.howMuchCostChildcare.isDefined => c.howMuchCostChildcare.get}}
+          </WeeklyPayment>
         <RelationshipCarerToClaimant>other</RelationshipCarerToClaimant>
         <ChildDetails>
           <Name/>
@@ -146,12 +150,13 @@ object EmploymentXml {
         </CarerAddress>
         <ConfirmAddress>yes</ConfirmAddress>
         <WeeklyPayment>
+          <Currency>GBP</Currency>
           {<Amount/> +++ personYouCareExpenses.collect{case c:PersonYouCareForExpenses if c.howMuchCostCare.isDefined => c.howMuchCostCare.get}}
         </WeeklyPayment>
         {<RelationshipCarerToClaimant/> +++ personYouCareExpenses.collect{case c:PersonYouCareForExpenses if c.relationToYou.isDefined => c.relationToYou.get}}
         {//<RelationshipCarerToCaree/> +++ personYouCareExpenses.collect{case c:PersonYouCareForExpenses if c..isDefined => c.relationToYou.get}}
         }
-        <RelationshipCarerToCaree/>
+        <RelationshipCarerToCaree>other</RelationshipCarerToCaree>
         </CareExpenses>
     case _ => NodeSeq.Empty
   }
