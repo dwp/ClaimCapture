@@ -95,7 +95,7 @@ object ClaimBuilder {
         NecessaryExpenses("1","dunno","100000","cause i do"),
         ChildcareExpenses("1",Some("1234"),"dunno",Some("other"),Some("other"),Some("other")),
         ChildcareProvider("1",None,None),
-        PersonYouCareForExpenses("1",Some("10"),"dunno",Some("other")),
+        PersonYouCareForExpenses("1",Some("10"),"dunno",Some("other"), Some("other")),
         CareProvider("1",None,None)
      ))
     ,
@@ -110,7 +110,7 @@ object ClaimBuilder {
       NecessaryExpenses("2","dunno","100000","cause i do"),
       ChildcareExpenses("2",Some("2333"),"dunno",Some("other"),Some("other"),Some("other")),
       ChildcareProvider("2",None,None),
-      PersonYouCareForExpenses("2",Some("10"),"dunno",Some("other")),
+      PersonYouCareForExpenses("2",Some("10"),"dunno",Some("other"), Some("other")),
       CareProvider("2",None,None)
     ))
   ))

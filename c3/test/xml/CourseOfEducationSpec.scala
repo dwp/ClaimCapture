@@ -19,7 +19,5 @@ class CourseOfEducationSpec extends Specification with Tags {
       val courseOfEducationXml =  CourseOfEducation.xml(claim)
       (courseOfEducationXml \\ "CourseOfEducation").text mustEqual no
     }
-
   } section "unit"
-
 }

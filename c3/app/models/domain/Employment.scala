@@ -5,7 +5,6 @@ import controllers.Mappings._
 import models.PaymentFrequency
 import models.MultiLineAddress
 import models.PeriodFromTo
-import scala.Some
 import play.api.i18n.Messages
 import scala.reflect.ClassTag
 
@@ -93,17 +92,6 @@ case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identi
 object Job {
   trait Identifier {
     val jobID: String
-  }
-
-  def jobID(currentForm: play.api.data.Form[_])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_]): String = {
-    val regex = """^(?:.*?)/employment/(?:.*?)(?:/(.*?))?$""".r
-
-    currentForm("jobID").value.getOrElse(regex.findFirstMatchIn(request.path).map {
-      _ group 1 match {
-        case s if s != null && s.length > 0 => s
-        case _ => java.util.UUID.randomUUID.toString
-      }
-    }.getOrElse(java.util.UUID.randomUUID.toString))
   }
 }
 
@@ -201,7 +189,7 @@ object ChildcareProvider extends QuestionGroup.Identifier {
 }
 
 case class PersonYouCareForExpenses(jobID: String,
-                             howMuchCostCare: Option[String], whoDoYouPay: String, relationToYou: Option[String]) extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier with NoRouting
+                                    howMuchCostCare: Option[String], whoDoYouPay: String, relationToYou: Option[String], relationToPersonYouCare: Option[String]) extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier with NoRouting
 
 
 object PersonYouCareForExpenses extends QuestionGroup.Identifier {

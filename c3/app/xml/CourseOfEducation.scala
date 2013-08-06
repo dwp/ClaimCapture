@@ -11,5 +11,4 @@ object CourseOfEducation {
 
     <CourseOfEducation>{moreAboutYou.beenInEducationSinceClaimDate}</CourseOfEducation>
   }
-
 }

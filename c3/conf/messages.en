@@ -303,7 +303,7 @@ whenGetPaid = When do you get paid?
 holidaySickPay = Do you get holiday pay or sick pay?
 anyOtherMoney = Do you get paid any other money as well as your normal wage?
 otherMoney = Please tell us what other money you received
-employeeOwesYouMoney = Does your employer owe you any money?
+employerOwesYouMoney = Does your employer owe you any money?
 
 # MONEY OWED BY EMPLOYER
 howMuchOwed = How much are you owed?

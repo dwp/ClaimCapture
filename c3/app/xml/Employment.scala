@@ -2,16 +2,13 @@ package xml
 
 import models.domain._
 import xml.XMLHelper._
-import models.{MultiLineAddress, DayMonthYearComparator, DayMonthYear}
+import models.{DayMonthYearComparator, DayMonthYear}
 import scala.language.reflectiveCalls
-import scala.xml.{Node, NodeSeq, Elem, NodeBuffer}
-import scala.Some
-import scala.Some
+import scala.xml.{NodeSeq, Elem}
 
 object EmploymentXml {
 
-
-  def employerXml(jobDetails: JobDetails,employerCD:EmployerContactDetails):Elem = {
+  def employerXml(jobDetails: JobDetails, employerCD:EmployerContactDetails): Elem = {
     <Employer>
       {<DateJobStarted/> +++ jobDetails.jobStartDate}
       {<DateJobEnded/> +++ jobDetails.lastWorkDate}
@@ -27,7 +24,7 @@ object EmploymentXml {
     </Employer>
   }
 
-  def payXml(jobDetails: JobDetails,lastWage:LastWage,additionalWageDetails:AdditionalWageDetails):Elem = {
+  def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails): Elem = {
     <Pay>
       {<WeeklyHoursWorked/> +++ jobDetails.hoursPerWeek}
       <DateLastWorked/>
@@ -47,64 +44,53 @@ object EmploymentXml {
     </Pay>
   }
 
-  def howMuchOwed(s:Option[String]) = {
-    s match {
-      case Some(s) =>
+  def howMuchOwed(s:Option[String]) = s match {
+    case Some(s) =>
+      <Payment>
+        <Amount>{s}</Amount>
+      </Payment>
+    case _ => NodeSeq.Empty
+  }
+
+  def moneyOwedXml(moneyOwed: Option[MoneyOwedbyEmployer]) = moneyOwed match {
+    case Some(m) =>
+      <MoneyOwed>
+        {howMuchOwed(m.howMuchOwed)}
+        {<Period/> ?+ m.owedFor}
+        {<PaymentDueDate/> ?+ m.shouldBeenPaidBy}
+        {<PaymentExpected/> +++ m.whenWillGetIt}
+      </MoneyOwed>
+    case _ => NodeSeq.Empty
+  }
+
+  def occupationalPensionSchemeXml(pensionScheme: PensionSchemes) = pensionScheme.payOccupationalPensionScheme match {
+    case "yes" =>
+      <PensionScheme>
+        <Type></Type>
         <Payment>
-          <Amount>{s}</Amount>
+          <Currency>GBP</Currency>
+          {<Amount/> +++ pensionScheme.howMuchPension}
         </Payment>
-      case _ => NodeSeq.Empty
-    }
+        {<Frequency/> +++ pensionScheme.howOftenPension}
+      </PensionScheme>
+    case _ => NodeSeq.Empty
   }
 
-
-  def moneyOwedXml(moneyOwed:Option[MoneyOwedbyEmployer]) = {
-
-    moneyOwed match {
-      case Some(m) =>
-        <MoneyOwed>
-          {howMuchOwed(m.howMuchOwed)}
-          {<Period/> ?+ m.owedFor}
-          {<PaymentDueDate/> ?+ m.shouldBeenPaidBy}
-          {<PaymentExpected/> +++ m.whenWillGetIt}
-        </MoneyOwed>
-      case _ => NodeSeq.Empty
-    }
+  def personalPensionSchemeXml(pensionScheme:PensionSchemes) = pensionScheme.payPersonalPensionScheme match {
+    case "yes" =>
+      <PensionScheme>
+        <Type></Type>
+        <Payment>
+          <Currency>GBP</Currency>
+          {<Amount/> +++ pensionScheme.howMuchPersonal}
+        </Payment>
+        {<Frequency/> +++ pensionScheme.howOftenPersonal}
+      </PensionScheme>
+    case _ => NodeSeq.Empty
   }
 
-  def occupationalPensionSchemeXml(pensionScheme:PensionSchemes) = {
-    pensionScheme.payOccupationalPensionScheme match{
-      case "yes" =>
-        <PensionScheme>
-          <Type></Type>
-          <Payment>
-            <Currency>GBP</Currency>
-            {<Amount/> +++ pensionScheme.howMuchPension}
-          </Payment>
-          {<Frequency/> +++ pensionScheme.howOftenPension}
-        </PensionScheme>
-      case _ => NodeSeq.Empty
-    }
-
-  }
-
-  def personalPensionSchemeXml(pensionScheme:PensionSchemes) = {
-    pensionScheme.payPersonalPensionScheme match{
-      case "yes" =>
-        <PensionScheme>
-          <Type></Type>
-          <Payment>
-            <Currency>GBP</Currency>
-            {<Amount/> +++ pensionScheme.howMuchPersonal}
-          </Payment>
-          {<Frequency/> +++ pensionScheme.howOftenPersonal}
-        </PensionScheme>
-      case _ => NodeSeq.Empty
-    }
-  }
-
-  def jobExpensesXml(aboutExpenses:AboutExpenses,necessaryExpenses:Option[NecessaryExpenses]) = necessaryExpenses match {
-    case Some(n:NecessaryExpenses) if aboutExpenses.payForAnythingNecessary == "yes" =>
+  def jobExpensesXml(aboutExpenses: AboutExpenses, necessaryExpenses: Option[NecessaryExpenses]) = necessaryExpenses match {
+    case Some(n: NecessaryExpenses) if aboutExpenses.payForAnythingNecessary == "yes" =>
       <JobExpenses>
         <Expense>{n.whatAreThose}</Expense>
         <Reason>{n.whyDoYouNeedThose}</Reason>
@@ -116,8 +102,7 @@ object EmploymentXml {
     case None => NodeSeq.Empty
   }
 
-
-  def childcareExpensesXml(aboutExpenses:AboutExpenses, childcareExpenses:Option[ChildcareExpenses], childcareProvider:Option[ChildcareProvider]) = aboutExpenses.payAnyoneToLookAfterChildren match {
+  def childcareExpensesXml(aboutExpenses: AboutExpenses, childcareExpenses: Option[ChildcareExpenses], childcareProvider: Option[ChildcareProvider]) = aboutExpenses.payAnyoneToLookAfterChildren match {
     case "yes" =>
       <ChildCareExpenses>
         <CarerName>{childcareExpenses.fold("")(_.whoLooksAfterChildren)}</CarerName>
@@ -137,10 +122,9 @@ object EmploymentXml {
 
       </ChildCareExpenses>
     case _ => NodeSeq.Empty
-
   }
 
-  def careExpensesXml(aboutExpenses:AboutExpenses,personYouCareExpenses:Option[PersonYouCareForExpenses],careProvider:Option[CareProvider]) = aboutExpenses.payAnyoneToLookAfterPerson match{
+  def careExpensesXml(aboutExpenses: AboutExpenses, personYouCareExpenses: Option[PersonYouCareForExpenses], careProvider: Option[CareProvider]) = aboutExpenses.payAnyoneToLookAfterPerson match{
     case "yes" =>
       <CareExpenses>
         <CarerName>{personYouCareExpenses.fold("")(_.whoDoYouPay)}</CarerName>
@@ -162,21 +146,26 @@ object EmploymentXml {
   }
 
   def xml(claim: Claim) = {
+    val jobsQG = claim.questionGroup(Jobs) match { case Some(j: Jobs) => j case _ => Jobs() }
 
-    val jobsQG = claim.questionGroup(Jobs) match { case Some(j:Jobs) => j case _ => Jobs()}
-
-    if (jobsQG.jobs.length > 0){
-
+    if (jobsQG.jobs.length > 0) {
       // We will search in all jobs for at least one case finishedThisJob = "no" because that means he is currently employed
-      val currentlyEmployed = jobsQG.jobs.count(_.apply(JobDetails) match {case Some(j:JobDetails) => j.finishedThisJob == "no" case _ => false})
-                              match {
-                                case i if i > 0 => "yes"
-                                case _ => "no"
-                              }
-      // The date when he last worked will be the greater date of all the "last work date" dates of all the jobs.
-      val dateLastWorked = jobsQG.jobs.map(_.apply(JobDetails) match {case Some(j:JobDetails) => j.lastWorkDate case _ => None})
-                           .max(DayMonthYearComparator) match{ case Some(d) => d case _ => DayMonthYear() }
+      val currentlyEmployed = jobsQG.jobs.count(_.apply(JobDetails) match {
+        case Some(j: JobDetails) => j.finishedThisJob == "no"
+        case _ => false
+      }) match {
+        case i if i > 0 => "yes"
+        case _ => "no"
+      }
 
+      // The date when he last worked will be the greater date of all the "last work date" dates of all the jobs.
+      val dateLastWorked = jobsQG.jobs.map(_.apply(JobDetails) match {
+        case Some(j:JobDetails) => j.lastWorkDate
+        case _ => None
+      }).max(DayMonthYearComparator) match {
+        case Some(d) => d
+        case _ => DayMonthYear()
+      }
 
       <Employment>
         <CurrentlyEmployed>{currentlyEmployed}</CurrentlyEmployed>
@@ -219,7 +208,4 @@ object EmploymentXml {
       NodeSeq.Empty
     }
   }
-
-
-
 }

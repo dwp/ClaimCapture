@@ -4,7 +4,6 @@ import models.domain._
 import play.api.Logger
 import services.submission.{PayDetailsSubmission, ConsentAndDeclarationSubmission, CareYouProvideSubmission, YourPartnerSubmission}
 
-
 case class ClaimXmlBuilder(claim: Claim, transactionId : String) {
   val yourPartner = YourPartnerSubmission.buildYourPartner(claim)
 
