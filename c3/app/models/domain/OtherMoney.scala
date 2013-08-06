@@ -20,7 +20,7 @@ case object MoneyPaidToSomeoneElseForYou extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g2"
 }
 
-case class PersonWhoGetsThisMoney(fullName: String, nationalInsuranceNumber: Option[NationalInsuranceNumber] = None, nameOfBenefit: String,
+case class PersonWhoGetsThisMoney(fullName: String = "", nationalInsuranceNumber: Option[NationalInsuranceNumber] = None, nameOfBenefit: String = "",
                                   call: Call = NoRouting) extends QuestionGroup(PersonWhoGetsThisMoney)
 
 case object PersonWhoGetsThisMoney extends QuestionGroup.Identifier {
