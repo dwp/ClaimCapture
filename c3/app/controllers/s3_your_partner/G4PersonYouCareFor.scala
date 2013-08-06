@@ -6,17 +6,15 @@ import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import models.domain.{Claim, PersonYouCareFor}
+import models.domain.PersonYouCareFor
 import utils.helpers.CarersForm.formBinding
+import YourPartner._
 
 object G4PersonYouCareFor extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      call(routes.G4PersonYouCareFor.present()),
       "isPartnerPersonYouCareFor" -> nonEmptyText.verifying(validYesNo)
     )(PersonYouCareFor.apply)(PersonYouCareFor.unapply))
-
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PersonYouCareFor)
 
   def present = claiming { implicit claim => implicit request =>
     YourPartner.whenSectionVisible {
@@ -25,13 +23,13 @@ object G4PersonYouCareFor extends Controller with CachedClaim {
         case _ => form
       }
 
-      Ok(views.html.s3_your_partner.g4_personYouCareFor(currentForm, completedQuestionGroups))
+      Ok(views.html.s3_your_partner.g4_personYouCareFor(currentForm, completedQuestionGroups(PersonYouCareFor)))
     }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s3_your_partner.g4_personYouCareFor(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s3_your_partner.g4_personYouCareFor(formWithErrors, completedQuestionGroups(PersonYouCareFor))),
       f => claim.update(f) -> Redirect(routes.YourPartner.completed())
     )
   }

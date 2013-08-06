@@ -13,9 +13,9 @@ class G4LivesInGBSpec extends Specification with Tags {
     "present the lives in GB form" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val claimWithBenefitFrom = Claim().update(Benefits(NoRouting, answer = true))
-      val claimWithHoursForm = claimWithBenefitFrom.update(Hours(NoRouting, answer = true))
-      val claimWithOver16Form = claimWithHoursForm.update(Over16(NoRouting, answer = true))
+      val claimWithBenefitFrom = Claim().update(Benefits(answer = true))
+      val claimWithHoursForm = claimWithBenefitFrom.update(Hours(answer = true))
+      val claimWithOver16Form = claimWithHoursForm.update(Over16(answer = true))
       Cache.set(claimKey, claimWithOver16Form)
 
       val result = G2Hours.present(request)
@@ -25,9 +25,9 @@ class G4LivesInGBSpec extends Specification with Tags {
       val sectionIdentifier = Section.sectionIdentifier(LivesInGB)
       val completedQuestionGroups = claimWithOver16Form.completedQuestionGroups(sectionIdentifier)
 
-      completedQuestionGroups(0) must beLike { case Benefits(_, answer) => answer must beTrue }
-      completedQuestionGroups(1) must beLike { case Hours(_, answer) => answer must beTrue }
-      completedQuestionGroups(2) must beLike { case Over16(_, answer) => answer must beTrue }
+      completedQuestionGroups(0) must beLike { case Benefits(answer) => answer must beTrue }
+      completedQuestionGroups(1) must beLike { case Hours(answer) => answer must beTrue }
+      completedQuestionGroups(2) must beLike { case Over16(answer) => answer must beTrue }
     }
 
     "acknowledge that carer lives in Great Britain" in new WithApplication with Claiming {

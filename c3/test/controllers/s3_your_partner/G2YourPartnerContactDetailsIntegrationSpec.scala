@@ -5,7 +5,6 @@ import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
 
 class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags {
-
   "Your Partner Contact Details" should {
     "be presented" in new WithBrowser {
       browser.goTo("/yourPartner/contactDetails")
@@ -67,8 +66,7 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
       titleMustEqual("Contact Details - Your Partner")
       browser.find("#address_lineOne").getValue mustEqual Formulate.partnerAddress
       browser.find("#postcode").getValue mustEqual Formulate.partnerPostcode
-      browser.click("#backButton")
-      titleMustEqual("Completion - About You")
+
       Formulate.yourContactDetails(browser)
       Formulate.yourPartnerPersonalDetails(browser)
 

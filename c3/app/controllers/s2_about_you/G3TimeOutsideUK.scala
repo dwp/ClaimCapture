@@ -10,6 +10,7 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithDate
 import models.LivingInUK
+import controllers.s2_about_you.AboutYou._
 
 object G3TimeOutsideUK extends Controller with CachedClaim {
   val goBackMapping =
@@ -31,17 +32,14 @@ object G3TimeOutsideUK extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      call(routes.G3TimeOutsideUK.present()),
       livingInUKMapping,
       "visaReference" -> optional(text(maxLength = sixty))
     )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(TimeOutsideUK)
-
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(YourDetails) match {
       case Some(y: YourDetails) if y.alwaysLivedUK == "yes" => claim.delete(TimeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
-      case _ => Ok(views.html.s2_about_you.g3_timeOutsideUK(form.fill(TimeOutsideUK), completedQuestionGroups))
+      case _ => Ok(views.html.s2_about_you.g3_timeOutsideUK(form.fill(TimeOutsideUK), completedQuestionGroups(TimeOutsideUK)))
     }
   }
 
@@ -51,7 +49,7 @@ object G3TimeOutsideUK extends Controller with CachedClaim {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("livingInUK", "arrivalDate", FormError("livingInUK.arrivalDate", "error.required"))
           .replaceError("livingInUK", "goBack", FormError("livingInUK.goBack.answer", "error.required"))
-        BadRequest(views.html.s2_about_you.g3_timeOutsideUK(formWithErrorsUpdate, completedQuestionGroups))
+        BadRequest(views.html.s2_about_you.g3_timeOutsideUK(formWithErrorsUpdate, completedQuestionGroups(TimeOutsideUK)))
       },
       timeOutsideUK => claim.update(timeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
     )

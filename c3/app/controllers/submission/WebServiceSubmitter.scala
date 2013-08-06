@@ -77,6 +77,18 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService) extends Sub
     Redirect("/error").withNewSession
   }
 
+  def pollXml(correlationID: String, pollEndpoint: String) = {
+    <poll>
+      <correlationID>
+        {correlationID}
+      </correlationID>
+      <pollEndpoint>
+        {pollEndpoint}
+      </pollEndpoint>
+    </poll>
+  }
+
+
   val SUBMITTED = "0000"
   val ACKNOWLEDGED = "0001"
   val SUCCESS = "0002"
