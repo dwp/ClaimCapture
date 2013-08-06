@@ -13,7 +13,7 @@ class SubmissionController@Inject()(submitter: Submitter) extends Controller wit
     implicit claim => implicit request =>
       try {
         Async {
-          submitter.submit(claim)
+          submitter.submit(claim, request)
         }
       }
       catch {
