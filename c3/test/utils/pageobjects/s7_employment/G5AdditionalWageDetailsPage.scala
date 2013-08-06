@@ -11,7 +11,7 @@ final class G5AdditionalWageDetailsPage(browser: TestBrowser, previousPage: Opti
     declareYesNo("#holidaySickPay","EmploymentAdditionalWageDoYouGetHolidayPayorSickPay_"+iteration)
     declareYesNo("#anyOtherMoney","EmploymentAddtionalWageDoYouGetPaidAnyOtherMoney_"+iteration)
     declareInput("#otherMoney","EmploymentAdditionalWageOtherMoneyYouReceived_"+iteration)
-    declareYesNo("#employeeOwesYouMoney","EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_"+iteration)
+    declareYesNo("#employerOwesYouMoney","EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_"+iteration)
 
 }
 

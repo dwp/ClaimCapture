@@ -7,6 +7,7 @@ import models.MultiLineAddress
 import models.PeriodFromTo
 import scala.Some
 import play.api.i18n.Messages
+import scala.reflect.ClassTag
 
 object Employed extends Section.Identifier {
   val id = "s7"
@@ -71,6 +72,17 @@ case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identi
     case _ => ""
   }
 
+  def questionGroup[Q <: QuestionGroup](implicit classTag: ClassTag[Q]): Option[Q] = {
+    def needQ(qg: QuestionGroup): Boolean = {
+      qg.getClass == classTag.runtimeClass
+    }
+
+    questionGroups.find(needQ) match {
+      case Some(q: Q) => Some(q)
+      case _ => None
+    }
+  }
+
   def apply(questionGroup: QuestionGroup): Option[QuestionGroup] = questionGroups.find(_.identifier == questionGroup.identifier)
 
   def apply(questionGroup: QuestionGroup.Identifier): Option[QuestionGroup] = questionGroups.find(_.identifier.id == questionGroup.id)
@@ -124,7 +136,7 @@ object LastWage extends QuestionGroup.Identifier {
 case class AdditionalWageDetails(jobID:String,
                                  oftenGetPaid: Option[PaymentFrequency], whenGetPaid: Option[String],
                                  holidaySickPay: Option[String], anyOtherMoney: String, otherMoney:Option[String],
-                                 employeeOwesYouMoney: String) extends QuestionGroup(AdditionalWageDetails) with Job.Identifier with NoRouting
+                                 employerOwesYouMoney:String) extends QuestionGroup(AdditionalWageDetails) with Job.Identifier with NoRouting
 
 object AdditionalWageDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g5"

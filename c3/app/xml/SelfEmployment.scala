@@ -94,7 +94,7 @@ object SelfEmployment {
           <ChildDetails>
             <Name></Name>
             <RelationToChild>{childCareExpenses.whatRelationIsTothePersonYouCareFor.orNull}</RelationToChild>
-            </ChildDetails>
+          </ChildDetails>
         </ChildCareExpenses>
       } else NodeSeq.Empty
     }

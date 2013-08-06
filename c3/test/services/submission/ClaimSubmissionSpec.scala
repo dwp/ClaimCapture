@@ -52,7 +52,9 @@ class ClaimSubmissionSpec extends Specification with Tags {
       .update(otherMoney.otherStatutoryPay)
 
       .update(payDetails.howWePayYou)
-      .update(payDetails.bankBuildingSocietyDetails)
+      .update(payDetails.bankBuildingSocietyDetails.get)
+
+      .update(employmentJobs)
 
       .update(consentAndDeclaration.additionalInfo)
       .update(consentAndDeclaration.consent)
@@ -101,6 +103,12 @@ class ClaimSubmissionSpec extends Specification with Tags {
       val claimXml = claimSub.buildDwpClaim
 
       val fullXml = buildFullClaim(claimXml)
+
+      println("###########################################")
+      println("###########################################")
+      println(fullXml)
+      println("###########################################")
+      println("###########################################")
 
       val validator = XmlValidatorFactory.buildCaValidator()
 
