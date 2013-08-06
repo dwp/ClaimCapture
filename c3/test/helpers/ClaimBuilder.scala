@@ -19,6 +19,7 @@ case class AboutYouSection(yourDetails: YourDetails,
                            contactDetails: ContactDetails,
                            timeOutsideUK: Option[TimeOutsideUK],
                            claimDate: ClaimDate,
+                           moreAboutYou:MoreAboutYou,
                            employment: Employment)
 
 case class EducationSection(yourCourseDetails: YourCourseDetails, addressOfSchool: AddressOfSchoolCollegeOrUniversity)
@@ -51,9 +52,10 @@ object ClaimBuilder {
   val timeOutsideUK = TimeOutsideUK(livingInUK = LivingInUK("yes", Some(DayMonthYear(Some(1), Some(2), Some(2013))), Some("netherlands"), Some(YesNoWithDate("yes", Some(DayMonthYear(Some(3), Some(4), Some(2012)))))), visaReference = None)
 
   val claimDate = ClaimDate(dateOfClaim = DayMonthYear(1, 1, 2013))
+  val moreAboutYou = MoreAboutYou(yes, yes, yes)
   val employment = Employment(beenSelfEmployedSince1WeekBeforeClaim = yes, beenEmployedSince6MonthsBeforeClaim = yes)
 
-  val aboutYou = AboutYouSection(yourDetails, contactDetails, Some(timeOutsideUK), claimDate, employment)
+  val aboutYou = AboutYouSection(yourDetails, contactDetails, Some(timeOutsideUK), claimDate, moreAboutYou, employment)
 
   val theirPersonalDetails = TheirPersonalDetails(NoRouting, title = "ms", firstName = "Minnie", middleName = None, surname = "Mouse",
     None, dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddress = "no")
