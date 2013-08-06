@@ -9,6 +9,8 @@ GET     /                                                       controllers.Appl
 ###############
 GET     /allowance/benefits                                     controllers.s1_carers_allowance.G1Benefits.present
 POST    /allowance/benefits                                     controllers.s1_carers_allowance.G1Benefits.submit
+GET     /allowance/benefitsMandatory                            controllers.s1_carers_allowance.G1BenefitsMandatory.present
+POST    /allowance/benefitsMandatory                            controllers.s1_carers_allowance.G1BenefitsMandatory.submit
 
 GET     /allowance/hours                                        controllers.s1_carers_allowance.G2Hours.present
 POST    /allowance/hours                                        controllers.s1_carers_allowance.G2Hours.submit

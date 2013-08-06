@@ -96,6 +96,10 @@ s11.g4 = Declaration
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...
 
+## CARERS ALLOWANCE
+################
+benefits.answer = Does the person you look after get one of these benefits?
+
 ## ABOUT YOU
 
 # YOUR DETAILS
