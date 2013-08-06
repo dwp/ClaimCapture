@@ -9,24 +9,23 @@ import models.domain.BenefitsMandatory
 import controllers.Mappings._
 import models.domain.Claim
 import language.reflectiveCalls
+import controllers.Mappings._
+import CarersAllowance._
 
 object G1BenefitsMandatory extends Controller with CachedClaim {
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(BenefitsMandatory)
-  
   val form = Form(
     mapping(
-      call(routes.G1BenefitsMandatory.present()),
       "answer" -> nonEmptyText.verifying(validYesNo))(BenefitsMandatory.apply)(BenefitsMandatory.unapply))
 
   def present = newClaim { implicit claim =>
     implicit request =>
-      Ok(views.html.s1_carers_allowance.g1_benefitsMandatory(form.fill(BenefitsMandatory), completedQuestionGroups))
+      Ok(views.html.s1_carers_allowance.g1_benefitsMandatory(form.fill(BenefitsMandatory), completedQuestionGroups(BenefitsMandatory)))
   }
 
   def submit = claiming { implicit claim =>
     implicit request =>
       form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s1_carers_allowance.g1_benefitsMandatory(formWithErrors, completedQuestionGroups)),
+        formWithErrors => BadRequest(views.html.s1_carers_allowance.g1_benefitsMandatory(formWithErrors, completedQuestionGroups(BenefitsMandatory))),
         f => claim.update(f) -> Redirect(routes.G2HoursMandatory.present()))
   }
 }

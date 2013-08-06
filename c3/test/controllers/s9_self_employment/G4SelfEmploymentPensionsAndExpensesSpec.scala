@@ -14,16 +14,12 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     val doYouPayToPensionScheme = "yes"
     val howMuchDidYouPay = "11"
     val doYouPayToLookAfterYourChildren = "yes"
-    val isItTheSameExpenseWhileAtWorkForChildren = "yes"
     val didYouPayToLookAfterThePersonYouCaredFor = "yes"
-    val isItTheSameExpenseDuringWorkForThePersonYouCaredFor = "yes"
 
     val selfEmploymentPensionsAndExpensesInput = Seq("doYouPayToPensionScheme.answer" -> doYouPayToPensionScheme,
       "doYouPayToPensionScheme.howMuchDidYouPay" -> howMuchDidYouPay,
-      "doYouPayToLookAfterYourChildren.answer" -> doYouPayToLookAfterYourChildren,
-      "doYouPayToLookAfterYourChildren.isItTheSameExpenseWhileAtWorkForChildren" -> isItTheSameExpenseWhileAtWorkForChildren,
-      "didYouPayToLookAfterThePersonYouCaredFor.answer" -> didYouPayToLookAfterThePersonYouCaredFor,
-      "didYouPayToLookAfterThePersonYouCaredFor.isItTheSameExpenseDuringWorkForThePersonYouCaredFor" -> isItTheSameExpenseDuringWorkForThePersonYouCaredFor
+      "doYouPayToLookAfterYourChildren" -> doYouPayToLookAfterYourChildren,
+      "didYouPayToLookAfterThePersonYouCaredFor" -> didYouPayToLookAfterThePersonYouCaredFor
     )
 
     "present 'Pensions and Expenses' " in new WithApplication with Claiming {
@@ -44,10 +40,8 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
         case Some(f: SelfEmploymentPensionsAndExpenses) => {
           f.pensionSchemeMapping.answer must equalTo(doYouPayToPensionScheme)
           f.pensionSchemeMapping.text must equalTo(Some(howMuchDidYouPay))
-          f.lookAfterChildrenMapping.answer must equalTo(doYouPayToLookAfterYourChildren)
-          f.lookAfterChildrenMapping.text must equalTo(Some(isItTheSameExpenseWhileAtWorkForChildren))
-          f.lookAfterCaredForMapping.answer must equalTo(didYouPayToLookAfterThePersonYouCaredFor)
-          f.lookAfterCaredForMapping.text must equalTo(Some(isItTheSameExpenseDuringWorkForThePersonYouCaredFor))
+          f.doYouPayToLookAfterYourChildren must equalTo(doYouPayToLookAfterYourChildren)
+          f.didYouPayToLookAfterThePersonYouCaredFor must equalTo(didYouPayToLookAfterThePersonYouCaredFor)
         }
       }
     }

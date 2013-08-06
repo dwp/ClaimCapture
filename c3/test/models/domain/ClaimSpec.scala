@@ -3,10 +3,10 @@ package models.domain
 import org.specs2.mutable.Specification
 
 class ClaimSpec extends Specification {
-  val claim = Claim().update(BenefitsMandatory(NoRouting, "no"))
-                     .update(HoursMandatory(NoRouting, "no"))
-                     .update(LivesInGBMandatory(NoRouting, "no"))
-                     .update(Over16Mandatory(NoRouting, "no"))
+  val claim = Claim().update(BenefitsMandatory("no"))
+                     .update(HoursMandatory("no"))
+                     .update(LivesInGBMandatory("no"))
+                     .update(Over16Mandatory("no"))
 
   "Claim" should {
     "initially be filled with all sections" in {
@@ -16,7 +16,7 @@ class ClaimSpec extends Specification {
 
     "contain the sectionId with the question group after adding" in {
       val claim = Claim()
-      val questionGroup = BenefitsMandatory(NoRouting, answerYesNo = "no")
+      val questionGroup = BenefitsMandatory(answerYesNo = "no")
       val updatedClaim = claim.update(questionGroup)
       val sectionIdentifier = Section.sectionIdentifier(questionGroup)
 
@@ -27,8 +27,8 @@ class ClaimSpec extends Specification {
 
     "contain the sectionId with the question group after updating" in {
       val claim = Claim()
-      val trueQuestionGroup = BenefitsMandatory(NoRouting, answerYesNo = "yes")
-      val falseQuestionGroup = BenefitsMandatory(NoRouting, answerYesNo = "no")
+      val trueQuestionGroup = BenefitsMandatory(answerYesNo = "yes")
+      val falseQuestionGroup = BenefitsMandatory(answerYesNo = "no")
 
       val claimWithFalseQuestionGroup = claim.update(falseQuestionGroup)
       val claimWithTrueQuestionGroup = claimWithFalseQuestionGroup.update(trueQuestionGroup)
@@ -113,11 +113,11 @@ class ClaimSpec extends Specification {
     }
 
     """contain "question group" in first entry of "question groups".""" in {
-      claim.questionGroup[BenefitsMandatory] should beSome(BenefitsMandatory(NoRouting, answerYesNo = "no"))
+      claim.questionGroup[BenefitsMandatory] should beSome(BenefitsMandatory(answerYesNo = "no"))
     }
 
     """contain "question group" in second entry of "question groups".""" in {
-      claim.questionGroup[HoursMandatory] should beSome(HoursMandatory(NoRouting, answerYesNo = "no"))
+      claim.questionGroup[HoursMandatory] should beSome(HoursMandatory(answerYesNo = "no"))
     }
 
     """not contain "question group".""" in {

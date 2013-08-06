@@ -4,9 +4,6 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import utils.helpers.CarersForm._
-import models.domain.Claim
-import controllers.Mappings._
 
 object G5CarersResponse extends Controller with CachedClaim {
   def present = claiming { implicit claim => implicit request =>

@@ -72,7 +72,6 @@ s8.g6 = Care provider's contact details
 s8.g7 = Expenses related to the person you care for while at work
 s8.g8 = Care provider's contact details
 
-
 s9.g1 = Details about other money
 s9.g2 = Money paid to someone else for you
 s9.g3 = Person who gets this money
@@ -80,7 +79,6 @@ s9.g4 = Person''s contact details
 s9.g5 = Statutory Sick Pay
 s9.g6 = Other Statutory Pay
 s9.g7 = Other EEA State or Switzerland
-
 
 s10.g1 = How would you like to get paid?
 s10.g2 = Bank/Building society details
@@ -172,6 +170,7 @@ ownProperty = Do you or your Partner/Spouse own property or land in the UK or ab
 hasSublet.label = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
 hasSublet = Have you sublet your home, or provided board and lodgings, since one week before your claim date?
 
+
 ## YOUR PARTNER
 
 # MORE ABOUT YOUR PARTNER
@@ -185,6 +184,7 @@ separated_date = When did you separate?
 
 # PERSON YOU CARE FOR
 isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming Carer''s Allowance for?
+
 
 ## CARE YOU PROVIDE
 
@@ -240,6 +240,7 @@ wherePerson_location = Where was the person you care for during the above break?
 wherePerson.location = Where was the person you care for during the above break?
 medicalDuringBreak = Did you or the person you care for receive any medical treatment or professional care during the above break?
 
+
 ## TIME SPENT ABROAD
 
 # NORMAL RESIDENCE AND CURRENT LOCATION
@@ -264,6 +265,7 @@ end.trip = Date you returned to Great Britain
 where.trip = Where did you go?
 why.trip = Why did you go?
 
+
 ## EDUCATION
 # YOUR COURSE DETAILS
 courseType = Type of course
@@ -275,6 +277,7 @@ studentReferenceNumber = Your student reference number
 nameOfSchoolCollegeOrUniversity = Name of school, college or university
 nameOfMainTeacherOrTutor = Name of main teacher or tutor
 faxNumber = Fax number
+
 
 ## EMPLOYED
 beenEmployed = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
@@ -306,7 +309,7 @@ whenGetPaid = When do you get paid?
 holidaySickPay = Do you get holiday pay or sick pay?
 anyOtherMoney = Do you get paid any other money as well as your normal wage?
 otherMoney = Please tell us what other money you received
-employeeOwesYouMoney = Does your employer owe you any money?
+employerOwesYouMoney = Does your employer owe you any money?
 
 # MONEY OWED BY EMPLOYER
 howMuchOwed = How much are you owed?
@@ -316,7 +319,6 @@ shouldBeenPaidBy = When should it have been paid?
 whenWillGetIt = When will you get it?
 
 # PENSION SCHEME
-
 payOccupationalPensionScheme = Do you pay towards an occupational pension scheme?
 howMuchPension = How much do you pay?
 howOftenPension = How often?
@@ -325,23 +327,21 @@ howMuchPersonal = How much do you pay?
 howOftenPersonal = How often?
 
 # ABOUT EXPENSES
-
 payForAnythingNecessary = Do you pay for anything necessary to do your job?
 payAnyoneToLookAfterChildren = While at work, do you pay anyone to look after your children?
 payAnyoneToLookAfterPerson = While at work, do you pay anyone to look after the person you care for?
 
 # NECESSARY EXPENSES
-
 whatAreThose = What is/was this item?
 howMuchCostEachWeek = Why do you need this item to do your job?
 whyDoYouNeedThose = How much did this item cost you each week?
 
 # CHILDCARE EXPENSES
-
 howMuchCostChildcare =  How much do you pay them?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
 relationToYou = What relation, if any, is the person to you?
 relationToPartner = What relation, if any, is the person to your Partner/Spouse?
+relationToPersonYouCare = What relation, if any, is the person to the person you care for?
 
 # PERSON YOU CARE FOR EXPENSES
 howMuchCostCare = How much do you pay them?
@@ -352,9 +352,10 @@ whoDoYouPay = Name of the person/organisation you pay
 # ABOUT OTHER MONEY
 yourBenefits.answer.label = Have you {0} claimed or received any other benefits since your claim date: {1}?
 yourBenefits.text = Please tell us the names of the benefits or entitlements you receive
+moneyAddedToBenefitSinceClaimDate = Has anyone had any money added to a benefit for you since your claim date?
 moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
-haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
-howMuch = How much do you get, and how often?
+haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Sick Pay (SSP) since the date you want to claim from {0}?
+howMuch = How much?
 howOften = How often
 error.paymentFrequency = Please tell us how often
 howMuch_howOften = '
@@ -367,12 +368,13 @@ fullName = Full name
 nameOfBenefit = Name of benefit
 
 # OTHER STATUTORY PAY
-otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
+otherPay.label = Have you had any Statutory Sick Pay (SSP) since the date you want to claim from {0}?
 howOften_frequency = How often
 
 # OTHER EEA STATE OR SWITZERLAND
 benefitsFromOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
 workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, working in or paying insurance to another EEA State or Switzerland?
+
 
 ## PAY DETAILS
 # HOW WE PAY YOU
@@ -386,6 +388,7 @@ bankFullName = Full name of bank or building society
 sortCode = Sort code
 accountNumber = Account number
 rollOrReferenceNumber = Building society roll or reference number
+
 
 ## CONSENT AND DECLARATION
 # CONSENT
@@ -456,10 +459,10 @@ doYouPayToPensionScheme.answer = {0} pay towards a personal or stakeholder pensi
 doYouPayToPensionScheme_howMuchDidYouPay = How much {0} pay?
 doYouPayToPensionScheme.howMuchDidYouPay = How much {0} pay
 doYouPayToLookAfterYourChildren_answer = While at work, {0} pay anyone to look after children or the person you normally look after?
-doYouPayToLookAfterYourChildren.answer = While at work, {0} pay anyone to look after children or the person you normally look after
+doYouPayToLookAfterYourChildren = While at work, {0} pay anyone to look after children or the person you normally look after
 doYouPayToLookAfterYourChildren_isItTheSameExpenseWhileAtWorkForChildren = Is this the same as the expenses you have told us about during your employed work?
 doYouPayToLookAfterYourChildren.isItTheSameExpenseWhileAtWorkForChildren = Is this the same as the expenses you have told us about during your employed work
 didYouPayToLookAfterThePersonYouCaredFor_answer = While at work, {0} pay anyone to look after the person you normally care for?
-didYouPayToLookAfterThePersonYouCaredFor.answer = While at work, {0} pay anyone to look after the person you normally care for
+didYouPayToLookAfterThePersonYouCaredFor = While at work, {0} pay anyone to look after the person you normally care for
 didYouPayToLookAfterThePersonYouCaredFor_isItTheSameExpenseDuringWorkForThePersonYouCaredFor = Is this the same as the expenses you have told us about during your employed work?
 didYouPayToLookAfterThePersonYouCaredFor.isItTheSameExpenseDuringWorkForThePersonYouCaredFor = Is this the same as the expenses you have told us about during your employed work

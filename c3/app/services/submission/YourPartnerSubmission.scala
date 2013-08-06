@@ -23,7 +23,7 @@ object YourPartnerSubmission {
         <OtherSurnames/>
         <Title>{ y.yourPartnerPersonalDetails.title }</Title>
         <DateOfBirth>{ y.yourPartnerPersonalDetails.dateOfBirth.toXmlString }</DateOfBirth>
-        <NationalInsuranceNumber>{ if (y.yourPartnerPersonalDetails.nationalInsuranceNumber.isDefined) y.yourPartnerPersonalDetails.nationalInsuranceNumber.get.toXmlString else "" }</NationalInsuranceNumber>
+        <NationalInsuranceNumber>{ if (y.yourPartnerPersonalDetails.nationalInsuranceNumber.isDefined) y.yourPartnerPersonalDetails.nationalInsuranceNumber.get.stringify else "" }</NationalInsuranceNumber>
         <Address>
           <gds:Line>{ if (y.yourPartnerContactDetails.address.isDefined) y.yourPartnerContactDetails.address.get.lineOne.getOrElse("") else "" }</gds:Line>
           <gds:Line>{ if (y.yourPartnerContactDetails.address.isDefined) y.yourPartnerContactDetails.address.get.lineTwo.getOrElse("") else "" }</gds:Line>

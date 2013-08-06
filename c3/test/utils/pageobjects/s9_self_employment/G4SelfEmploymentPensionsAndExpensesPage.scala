@@ -1,7 +1,7 @@
 package utils.pageobjects.s9_self_employment
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import utils.pageobjects.{PageContext, Page}
 
 
 final class G4SelfEmploymentPensionsAndExpensesPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4SelfEmploymentPensionsAndExpensesPage.url, G4SelfEmploymentPensionsAndExpensesPage.title, previousPage) {
@@ -9,10 +9,7 @@ final class G4SelfEmploymentPensionsAndExpensesPage (browser: TestBrowser, previ
     declareYesNo("#doYouPayToPensionScheme", "SelfEmployedDoYouPayTowardsPensionScheme")
     declareInput("#howMuchDidYouPay", "SelfEmployedHowMuchPayPensionExpenses")
     declareYesNo("#doYouPayToLookAfterYourChildren", "SelfEmployedDoYouPayAnyonetoLookAfterYourChild")
-    declareYesNo("#isItTheSameExpenseWhileAtWorkForChildren", "SelfEmployedChildCareIsThistheSameAsDuringYourEmployedWork")
     declareYesNo("#didYouPayToLookAfterThePersonYouCaredFor", "SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor")
-    declareYesNo("#isItTheSameExpenseDuringWorkForThePersonYouCaredFor", "SelfEmployedCareIsThistheSameAsDuringYourEmployedWork")
-  
 }
 
 object G4SelfEmploymentPensionsAndExpensesPage {

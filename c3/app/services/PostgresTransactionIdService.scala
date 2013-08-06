@@ -47,4 +47,6 @@ class PostgresTransactionIdService extends TransactionIdService {
         statement.executeUpdate()
     }
   }
+
+  var id: String = _
 }

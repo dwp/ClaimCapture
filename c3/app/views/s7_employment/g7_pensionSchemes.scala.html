@@ -7,12 +7,11 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-
-@import models.domain.Job
+@import controllers.s7_employment.JobID
 
 @main("Pension schemes - Employment", Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G7PensionSchemes.submit()) {
-        <input type="hidden" name="jobID" value='@Job.jobID(currentForm)'>
+        <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
             <legend>Pension schemes</legend>

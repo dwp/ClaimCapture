@@ -6,9 +6,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.{G1YourDetailsPage, G2ContactDetailsPage, G1YourDetailsPageContext, ContactDetailsPageContext}
 
 class G2ContactDetailsIntegrationSpec extends Specification with Tags {
-
   "Contact Details" should {
-
     "be presented" in new WithBrowser with ContactDetailsPageContext {
       page goToThePage()
     }
@@ -24,7 +22,6 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "be able to navigate back to a completed form" in new WithBrowser  with G1YourDetailsPageContext {
-
       val claim = ClaimScenarioFactory yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim

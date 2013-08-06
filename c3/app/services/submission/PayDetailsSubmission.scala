@@ -1,34 +1,36 @@
 package services.submission
 
 import models.domain._
+import xml.XMLHelper._
+import scala.language.reflectiveCalls
 
 object PayDetailsSubmission {
   def buildPayDetails(claim: Claim) = {
-    val howWePayYou: HowWePayYou          = getQuestionGroup(claim, HowWePayYou)
-    val bank : BankBuildingSocietyDetails = getQuestionGroup(claim, BankBuildingSocietyDetails)
+    val howWePayYou: Option[HowWePayYou]          = questionGroup(claim, HowWePayYou)
+    val bank : Option[BankBuildingSocietyDetails] = questionGroup(claim, BankBuildingSocietyDetails)
 
     PayDetails(howWePayYou,bank)
   }
 
-  def buildCaree(payDetails: PayDetails) = {
+  def buildPayment(payDetails: PayDetails) = {
     <Payment>
-      <PaymentFrequency>{payDetails.howWePayYou.paymentFrequency}</PaymentFrequency>
+      {<PaymentFrequency/> +++ payDetails.howWePayYou.collect{case h:HowWePayYou => h.paymentFrequency}}
       <InitialAccountQuestion>bankBuildingAccount</InitialAccountQuestion>
-      {payDetails.howWePayYou.likeToBePaid match {
-        case "01" =>
+      {payDetails.howWePayYou.collect{case h:HowWePayYou => h.paymentFrequency} match {
+        case Some("01") if payDetails.bankBuildingSocietyDetails.isDefined =>
           <Account>
             <DirectPayment>yes</DirectPayment>
             <AccountHolder>yourName</AccountHolder>
-            <HolderName>{payDetails.bankBuildingSocietyDetails.accountHolderName}</HolderName>
+            <HolderName>{payDetails.bankBuildingSocietyDetails.get.accountHolderName}</HolderName>
             <SecondHolderName/>
             <AccountType>bank</AccountType>
             <OtherBenefitsToBePaidDirect/>
             <BuildingSocietyDetails>
               <BuildingSocietyQualifier></BuildingSocietyQualifier>
-              <AccountNumber>{payDetails.bankBuildingSocietyDetails.accountNumber}</AccountNumber>
-              <RollNumber>{payDetails.bankBuildingSocietyDetails.rollOrReferenceNumber}</RollNumber>
-              <SortCode>{payDetails.bankBuildingSocietyDetails.sortCode.fold("error")((s1,s2,s3) => s1+s2+s3)}</SortCode>
-              <Name>{payDetails.bankBuildingSocietyDetails.bankFullName}</Name>
+              <AccountNumber>{payDetails.bankBuildingSocietyDetails.get.accountNumber}</AccountNumber>
+              <RollNumber>{payDetails.bankBuildingSocietyDetails.get.rollOrReferenceNumber}</RollNumber>
+              <SortCode>{payDetails.bankBuildingSocietyDetails.get.sortCode.fold("error")((s1,s2,s3) => s1+s2+s3)}</SortCode>
+              <Name>{payDetails.bankBuildingSocietyDetails.get.bankFullName}</Name>
               <Branch></Branch>
               <Address>
                 <gds:Line/>

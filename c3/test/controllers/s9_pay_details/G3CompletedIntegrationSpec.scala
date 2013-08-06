@@ -1,6 +1,6 @@
 package controllers.s9_pay_details
 
-import utils.pageobjects.s6_pay_details.{G1HowWePayYouPageContext, G3PayDetailsCompletedPage, G3PayDetailsCompletedPageContext}
+import utils.pageobjects.s9_pay_details.{G1HowWePayYouPageContext, G3PayDetailsCompletedPage, G3PayDetailsCompletedPageContext}
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{Formulate, ClaimScenarioFactory}

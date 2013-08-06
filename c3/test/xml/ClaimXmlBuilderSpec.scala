@@ -1,4 +1,4 @@
-package services.submission
+package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
@@ -6,14 +6,16 @@ import helpers.ClaimBuilder._
 import play.api.test.WithApplication
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import scala.xml.Elem
+import play.api.Logger
 
-class ClaimSubmissionSpec extends Specification with Tags {
+class ClaimXmlBuilderSpec extends Specification with Tags {
 
   private def updateClaim(claim: Claim) = {
     claim.update(aboutYou.yourDetails)
       .update(aboutYou.claimDate)
       .update(aboutYou.contactDetails)
       .update(aboutYou.employment)
+      .update(aboutYou.timeOutsideUK.get)
       
       .update(yourPartner.yourPartnerPersonalDetails)
       .update(yourPartner.yourPartnerContactDetails)
@@ -42,6 +44,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
       .update(selfEmployment.accountantContactDetails)
       .update(selfEmployment.pensionsAndExpenses)
       .update(selfEmployment.childcareExpenses)
+      .update(selfEmployment.expensesWhileAtWork)
 
       .update(otherMoney.aboutOtherMoney)
       .update(otherMoney.moneyPaidToSomeoneElse)
@@ -50,8 +53,10 @@ class ClaimSubmissionSpec extends Specification with Tags {
       .update(otherMoney.statutorySickPay)
       .update(otherMoney.otherStatutoryPay)
 
-      .update(payDetails.howWePayYou)
-      .update(payDetails.bankBuildingSocietyDetails)
+      .update(payDetails.howWePayYou.get)
+      .update(payDetails.bankBuildingSocietyDetails.get)
+
+      .update(employmentJobs)
 
       .update(consentAndDeclaration.additionalInfo)
       .update(consentAndDeclaration.consent)
@@ -61,7 +66,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
   "Claim Submission" should {
     "build and confirm normal AboutYou input" in new WithApplication {
       val claim = updateClaim(Claim())
-      val claimSub = ClaimSubmission(claim, "TY6TV9G")
+      val claimSub = ClaimXmlBuilder(claim, "TY6TV9G")
 
       val claimXml = claimSub.buildDwpClaim
 
@@ -75,7 +80,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
 
     "build and confirm contains YourPartner input" in new WithApplication {
       val claim = updateClaim(Claim())
-      val claimSub = ClaimSubmission(claim, "TY6TV9G")
+      val claimSub = ClaimXmlBuilder(claim, "TY6TV9G")
       
       val claimXml = claimSub.buildDwpClaim
 
@@ -84,7 +89,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
       (claimXml \\ "Partner" \\ "OtherNames").text mustEqual s"${yourPartnerPersonalDetails.firstName} ${yourPartnerPersonalDetails.middleName.getOrElse("")}"
       (claimXml \\ "Partner" \\ "Title").text mustEqual yourPartnerPersonalDetails.title
       (claimXml \\ "Partner" \\ "DateOfBirth").text mustEqual yourPartnerPersonalDetails.dateOfBirth.toXmlString
-      (claimXml \\ "Partner" \\ "NationalInsuranceNumber").text mustEqual yourPartnerPersonalDetails.nationalInsuranceNumber.get.toXmlString
+      (claimXml \\ "Partner" \\ "NationalInsuranceNumber").text mustEqual yourPartnerPersonalDetails.nationalInsuranceNumber.get.stringify
       (claimXml \\ "Partner" \\ "Address" \\ "PostCode").text mustEqual yourPartnerContactDetails.postcode.get
       (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdAfterDateOfClaim").text mustEqual moreAboutYourPartner.startedLivingTogether.get.answer
       (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdDate").text mustEqual moreAboutYourPartner.startedLivingTogether.get.date.get.toXmlString
@@ -95,11 +100,9 @@ class ClaimSubmissionSpec extends Specification with Tags {
     "validate a good claim" in new WithApplication {
       val claim = updateClaim(Claim())
 
-      val claimSub = ClaimSubmission(claim, "TY6TV9G")
+      val claimSub = ClaimXmlBuilder(claim, "TY6TV9G")
 
       val claimXml = claimSub.buildDwpClaim
-
-      println(claimXml)
 
       val fullXml = buildFullClaim(claimXml)
 
@@ -111,7 +114,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
     "validate a bad claim" in new WithApplication {
       val claim = updateClaim(Claim())
 
-      val claimSub = ClaimSubmission(claim, "878786876786Y6TV9G")
+      val claimSub = ClaimXmlBuilder(claim, "878786876786Y6TV9G")
 
       val claimXml = claimSub.buildDwpClaim
 

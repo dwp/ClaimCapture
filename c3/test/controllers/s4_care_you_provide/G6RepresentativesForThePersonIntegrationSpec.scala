@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.Duration
 
 class G6RepresentativesForThePersonIntegrationSpec extends Specification with Tags {
-
   "Representatives For The Person" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/representativesForPerson")
@@ -50,6 +49,7 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       Formulate.previousCarerContactDetails(browser)
       titleMustEqual("Representatives For The Person - Care You Provide")(Duration(60, TimeUnit.SECONDS)) // Landed on S4 G6
       browser.click("#backButton")
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
       browser.click("#backButton")
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS)) // Back to S4 G4
     }

@@ -9,6 +9,7 @@ import play.api.data.{FormError, Form}
 import play.api.mvc.Controller
 import utils.helpers.CarersForm.formBinding
 import models.yesNo.YesNoWithDate
+import YourPartner._
 
 object G3MoreAboutYourPartner extends Controller with CachedClaim {
   val startedLivingTogetherMapping =
@@ -27,22 +28,19 @@ object G3MoreAboutYourPartner extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      call(routes.G3MoreAboutYourPartner.present()),
       startedLivingTogetherMapping,
       separationMapping
     )(MoreAboutYourPartner.apply)(MoreAboutYourPartner.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutYourPartner)
-
   def present = claiming { implicit claim => implicit request =>
-    YourPartner.whenSectionVisible(Ok(views.html.s3_your_partner.g3_moreAboutYourPartner(form.fill(MoreAboutYourPartner), completedQuestionGroups)))
+    YourPartner.whenSectionVisible(Ok(views.html.s3_your_partner.g3_moreAboutYourPartner(form.fill(MoreAboutYourPartner), completedQuestionGroups(MoreAboutYourPartner))))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("separated", FormError("separated.date", "error.required"))
-        BadRequest(views.html.s3_your_partner.g3_moreAboutYourPartner(formWithErrorsUpdate, completedQuestionGroups))
+        BadRequest(views.html.s3_your_partner.g3_moreAboutYourPartner(formWithErrorsUpdate, completedQuestionGroups(MoreAboutYourPartner)))
       },
       moreAboutYourPartner => claim.update(moreAboutYourPartner) -> Redirect(routes.G4PersonYouCareFor.present()))
   }

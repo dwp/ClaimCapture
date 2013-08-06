@@ -1,4 +1,4 @@
-@(claimDateForm: Form[models.domain.ClaimDate], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(claimDateForm: Form[models.domain.ClaimDate], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import scala.collection.immutable.ListMap
 @import helper._
@@ -21,7 +21,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@back(models.domain.ClaimDate)" class="button secondary">Back</a>
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

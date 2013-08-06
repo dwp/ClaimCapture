@@ -46,7 +46,7 @@ class SectionSpec extends Specification {
                                              mockQuestionGroup[LivesInGBMandatory](LivesInGBMandatory) ::
                                              mockQuestionGroup[Over16Mandatory](Over16Mandatory) :: Nil)
 
-      val updatedSection = section.update(BenefitsMandatory(NoRouting, "yes"))
+      val updatedSection = section.update(BenefitsMandatory("yes"))
       val questionGroupOption: Option[QuestionGroup] = updatedSection.questionGroup(BenefitsMandatory)
 
       questionGroupOption must beLike { case Some(p: BenefitsMandatory) => p.answer must beTrue }

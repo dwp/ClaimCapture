@@ -9,10 +9,11 @@ import utils.pageobjects.s3_your_partner._
 import utils.pageobjects.s9_self_employment._
 import utils.pageobjects.s4_care_you_provide._
 import utils.pageobjects.s5_time_spent_abroad._
-import utils.pageobjects.s6_pay_details._
+import utils.pageobjects.s9_pay_details._
 import utils.pageobjects.s7_employment._
 import utils.pageobjects.s8_other_money._
 import utils.pageobjects.S10_consent_and_declaration._
+import utils.pageobjects.s6_education._
 
 /**
  * Factory used by Page to create from an html page the right page object.
@@ -26,7 +27,7 @@ object PageFactory {
     // Generic solution using mapping does not work because the objects should register themselves
     // and there is no way to get that registration triggered automatically when test are loaded.
     title match {
-      case TestPage.title => TestPage buildPageWith(browser, previousPage)
+      case XmlPage.title => XmlPage buildPageWith(browser, previousPage)
       // S1
       case G1BenefitsMandatoryPage.title => G1BenefitsMandatoryPage buildPageWith(browser, previousPage)
       case G2HoursMandatoryPage.title => G2HoursMandatoryPage buildPageWith(browser, previousPage)
@@ -64,14 +65,14 @@ object PageFactory {
       case G12CareYouProvideCompletedPage.title => G12CareYouProvideCompletedPage buildPageWith(browser, previousPage)
       // S5
       case G1NormalResidenceAndCurrentLocationPage.title => G1NormalResidenceAndCurrentLocationPage buildPageWith(browser, previousPage)
-      case G2AbroadForMoreThan4WeeksPage.title => G2AbroadForMoreThan4WeeksPage buildPageWith(browser, previousPage)
-      case G3AbroadForMoreThan52WeeksPage.title => G3AbroadForMoreThan52WeeksPage buildPageWith(browser, previousPage)
+      case G2AbroadForMoreThan4WeeksPage.title => G2AbroadForMoreThan4WeeksPage buildPageWith(browser, previousPage,iteration)
+      case G3AbroadForMoreThan52WeeksPage.title => G3AbroadForMoreThan52WeeksPage buildPageWith(browser, previousPage,iteration)
       case G4TripPage.title => G4TripPage buildPageWith(browser, previousPage, iteration)
       case G5TimeAbroadCompletedPage.title => G5TimeAbroadCompletedPage buildPageWith(browser, previousPage)
-      // S6
-      case G1HowWePayYouPage.title => G1HowWePayYouPage buildPageWith(browser, previousPage)
-      case G2AddressOfSchoolCollegeOrUniversityPage.title => G2AddressOfSchoolCollegeOrUniversityPage buildPageWith(browser, previousPage)
-      case G3PayDetailsCompletedPage.title => G3PayDetailsCompletedPage buildPageWith(browser,previousPage)
+      //S6
+      case G1YourCourseDetailsPage.title => G1YourCourseDetailsPage buildPageWith(browser,previousPage)
+      case G2AddressOfSchoolCollegeOrUniversityPage.title => G2AddressOfSchoolCollegeOrUniversityPage buildPageWith(browser,previousPage)
+      case G3EducationCompletedPage.title => G3EducationCompletedPage buildPageWith(browser,previousPage)
       // S7
       case G1BeenEmployedPage.title => G1BeenEmployedPage buildPageWith(browser,previousPage)
       case G2JobDetailsPage.title => G2JobDetailsPage buildPageWith(browser,previousPage,iteration)
@@ -97,6 +98,10 @@ object PageFactory {
       case G6OtherStatutoryPayPage.title => G6OtherStatutoryPayPage buildPageWith(browser, previousPage)
       case G7OtherEEAStateOrSwitzerlandPage.title => G7OtherEEAStateOrSwitzerlandPage buildPageWith(browser,previousPage)
       case G8OtherMoneyCompletedPage.title => G8OtherMoneyCompletedPage buildPageWith(browser, previousPage)
+      // S9
+      case G1HowWePayYouPage.title => G1HowWePayYouPage buildPageWith(browser, previousPage)
+      case G2BankBuildingSocietyDetailsPage.title => G2BankBuildingSocietyDetailsPage buildPageWith(browser, previousPage)
+      case G3PayDetailsCompletedPage.title => G3PayDetailsCompletedPage buildPageWith(browser,previousPage)
       // S9
       case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage buildPageWith(browser, previousPage)
       case G2SelfEmploymentYourAccountsPage.title => G2SelfEmploymentYourAccountsPage buildPageWith(browser, previousPage)

@@ -2,7 +2,7 @@ package controllers.s9_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s9_self_employment.{G3SelfEmploymentAccountantContactDetailsPage, G2SelfEmploymentYourAccountsPage, G6ChildcareProvidersContactDetailsPage, G3SelfEmploymentAccountantContactDetailsPageContext}
+import utils.pageobjects.s9_self_employment._
 import utils.pageobjects.ClaimScenario
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.{G7PropertyAndRentPage, G4ClaimDatePageContext}
@@ -10,10 +10,19 @@ import utils.pageobjects.s8_other_money.G1AboutOtherMoneyPage
 
 class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specification with Tags {
 
-  "About Self Employment" should {
-    "be presented" in new WithBrowser with G3SelfEmploymentAccountantContactDetailsPageContext {
+  "About Self Employment - Account Contact Details " should {
+    "be presented" in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
+
+      val claim = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
       page goToThePage()
+      page fillPageWith claim
+      page.submitPage()
+
+      val nextPage = page goToPage( throwException = false, page = new G3SelfEmploymentAccountantContactDetailsPage(browser))
+      nextPage must beAnInstanceOf[G3SelfEmploymentAccountantContactDetailsPage]
     }
+
+
 
     "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
@@ -26,6 +35,13 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
 
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G3SelfEmploymentAccountantContactDetailsPageContext {
+
+        val claimYourAccounts = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
+        val pageYourAccounts = new G2SelfEmploymentYourAccountsPage(browser)
+        pageYourAccounts goToThePage()
+        pageYourAccounts fillPageWith claimYourAccounts
+        pageYourAccounts.submitPage()
+
         val claim = new ClaimScenario
         claim.SelfEmployedAccountantName = ""
         claim.SelfEmployedAccountantAddress = ""
@@ -37,6 +53,13 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
     }
 
     "accept submit if all mandatory fields are populated" in new WithBrowser with G3SelfEmploymentAccountantContactDetailsPageContext {
+
+      val claimYourAccounts = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
+      val pageYourAccounts = new G2SelfEmploymentYourAccountsPage(browser)
+      pageYourAccounts goToThePage()
+      pageYourAccounts fillPageWith claimYourAccounts
+      pageYourAccounts.submitPage()
+
       val claim = ClaimScenarioFactory.s9SelfEmploymentAccountantContactDetails
       page goToThePage()
       page fillPageWith claim
@@ -44,6 +67,14 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G3SelfEmploymentAccountantContactDetailsPageContext {
+
+      val claimYourAccounts = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
+      val pageYourAccounts = new G2SelfEmploymentYourAccountsPage(browser)
+      pageYourAccounts goToThePage()
+      pageYourAccounts fillPageWith claimYourAccounts
+      pageYourAccounts.submitPage()
+
+
       val claim = ClaimScenarioFactory.s9SelfEmploymentAccountantContactDetails
       page goToThePage()
       page fillPageWith claim
@@ -52,6 +83,22 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
 
       nextPage must not(beAnInstanceOf[G6ChildcareProvidersContactDetailsPage])
     }
+
+    "navigate to Pensions and Expenses when no accountant" in new WithBrowser with G3SelfEmploymentAccountantContactDetailsPageContext {
+
+      val claimYourAccounts = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
+      claimYourAccounts.SelfEmployedDoYouHaveAnAccountant = "no"
+      claimYourAccounts.SelfEmployedCanWeContactYourAccountant = ""
+      val pageYourAccounts = new G2SelfEmploymentYourAccountsPage(browser)
+      pageYourAccounts goToThePage()
+      pageYourAccounts fillPageWith claimYourAccounts
+      pageYourAccounts.submitPage()
+
+
+      val nextPage = page goToPage( throwException = false, page = new G3SelfEmploymentAccountantContactDetailsPage(browser))
+      nextPage must beAnInstanceOf[G4SelfEmploymentPensionsAndExpensesPage]
+    }
+
   }
 
 }

@@ -32,9 +32,14 @@ class G3SelfEmploymentAccountantContactDetailsSpec extends Specification with Ta
 
     "present 'Accountant Contact Details' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody("areAccountsPreparedOnCashFlowBasis" -> "yes", "doYouHaveAnAccountant" -> "yes", "canWeContactYourAccountant" -> "no")
 
-      val result = controllers.s9_self_employment.G3SelfEmploymentAccountantContactDetails.present(request)
-      status(result) mustEqual OK
+      val result = G2SelfEmploymentYourAccounts.submit(request)
+
+      val request2 = FakeRequest().withSession("connected" -> claimKey)
+
+      val result2 = G3SelfEmploymentAccountantContactDetails.present(request)
+      status(result2) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
