@@ -20,7 +20,7 @@ object G5AdditionalWageDetails extends Controller with CachedClaim {
       "holidaySickPay" -> optional(text verifying validYesNo),
       "anyOtherMoney" -> (nonEmptyText verifying validYesNo),
       "otherMoney" -> optional(text verifying Constraint[String]("constraint.required") { s => Valid }),
-      "employeeOwesYouMoney" -> (nonEmptyText verifying validYesNo)
+      "employerOwesYouMoney" -> (nonEmptyText verifying validYesNo)
     )(AdditionalWageDetails.apply)(AdditionalWageDetails.unapply)
     .verifying("otherMoney", AdditionalWageDetails.validateOtherMoney _))
 

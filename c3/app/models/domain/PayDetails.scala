@@ -3,7 +3,7 @@ package models.domain
 import models.SortCode
 import play.api.mvc.Call
 
-case class PayDetails(howWePayYou: HowWePayYou,bankBuildingSocietyDetails: BankBuildingSocietyDetails )
+case class PayDetails(howWePayYou: HowWePayYou,bankBuildingSocietyDetails: Option[BankBuildingSocietyDetails])
 
 object PayDetails extends Section.Identifier {
   val id = "s10"

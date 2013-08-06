@@ -12,6 +12,8 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
 
   val consentAndDeclaration = ConsentAndDeclarationSubmission.buildConsentAndDeclaration(claim)
 
+  val payDetails = PayDetailsSubmission.buildPayDetails(claim)
+
   def buildDwpClaim = {
     Logger.info(s"Build Claim : $transactionId")
     <DWPCAClaim id={transactionId}>
@@ -24,57 +26,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
       {SelfEmployed.xml(claim)}
       {xml.SelfEmployment.xml(claim)}
       <Employed>yes</Employed>
-      <Employment>
-        <CurrentlyEmployed>yes</CurrentlyEmployed>
-        <DateLastWorked>2013-06-10</DateLastWorked>
-        <JobDetails>
-          <Employer>
-            <DateJobStarted>2009-10-09</DateJobStarted>
-            <DateJobEnded/>
-            <JobType>Cheese Taster</JobType>
-            <ClockPayrollNumber>89765432</ClockPayrollNumber>
-            <Name>Cheeseworld</Name>
-            <Address>
-              <gds:Line>3</gds:Line>
-              <gds:Line>Whocares Avenue</gds:Line>
-              <gds:Line/>
-              <gds:Line/>
-              <gds:PostCode/>
-            </Address>
-            <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
-            <EmployersPhoneNumber>08907 1234567</EmployersPhoneNumber>
-            <EmployersFaxNumber/>
-            <WagesDepartment/>
-            <DepartmentPhoneFaxNumber>07890 1234567</DepartmentPhoneFaxNumber>
-          </Employer>
-          <Pay>
-            <WeeklyHoursWorked>40</WeeklyHoursWorked>
-            <DateLastWorked/>
-            <DateLastPaid>2013-05-31</DateLastPaid>
-            <GrossPayment>
-              <Currency>GBP</Currency>
-              <Amount>2000.00</Amount>
-            </GrossPayment>
-            <IncludedInWage>Basic wage</IncludedInWage>
-            <PayPeriod>
-              <DateFrom>2013-05-01</DateFrom>
-              <DateTo>2013-05-31</DateTo>
-            </PayPeriod>
-            <PayFrequency>05</PayFrequency>
-            <PayFrequencyOther/>
-            <UsualPayDay>Last day of month</UsualPayDay>
-            <VaryingEarnings>no</VaryingEarnings>
-            <PaidForHolidays>no</PaidForHolidays>
-          </Pay>
-          <OtherThanMoney>no</OtherThanMoney>
-          <OweMoney>no</OweMoney>
-          <CareExpensesChildren>no</CareExpensesChildren>
-          <CareExpensesCaree>no</CareExpensesCaree>
-          <PaidForOccupationalPension>no</PaidForOccupationalPension>
-          <PaidForPersonalPension>no</PaidForPersonalPension>
-          <PaidForJobExpenses>no</PaidForJobExpenses>
-        </JobDetails>
-      </Employment>
+      {EmploymentXml.xml(claim)}
       <PropertyRentedOut>
         <PayNationalInsuranceContributions>no</PayNationalInsuranceContributions>
         <RentOutProperty>no</RentOutProperty>
@@ -83,31 +35,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
       <HavePartner>yes</HavePartner>
       {YourPartnerSubmission.buildClaimant(yourPartner)} 
       {OtherBenefits.xml(claim)}
-      <Payment>
-        <PaymentFrequency>everyWeek</PaymentFrequency>
-        <InitialAccountQuestion>bankBuildingAccount</InitialAccountQuestion>
-        <Account>
-          <DirectPayment>yes</DirectPayment>
-          <AccountHolder>yourName</AccountHolder>
-          <HolderName>Mickey Mouse</HolderName>
-          <SecondHolderName/>
-          <AccountType>bank</AccountType>
-          <OtherBenefitsToBePaidDirect/>
-          <BankDetails>
-            <AccountNumber>12345678</AccountNumber>
-            <SortCode>010101</SortCode>
-            <Name>Toytown Bank</Name>
-            <Branch/>
-            <Address>
-              <gds:Line/>
-              <gds:Line/>
-              <gds:Line/>
-              <gds:PostCode/>
-            </Address>
-            <ConfirmAddress>yes</ConfirmAddress>
-          </BankDetails>
-        </Account>
-      </Payment>
+      {PayDetailsSubmission.buildPayment(payDetails)}
       <ThirdParty>no</ThirdParty>
       {ConsentAndDeclarationSubmission.buildDeclaration(consentAndDeclaration,careYouProvide)}
       <EvidenceList>

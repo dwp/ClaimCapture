@@ -45,6 +45,19 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
   }
 }
 
+object DayMonthYearComparator extends Ordering[Option[DayMonthYear]]{
+  def compare(a:Option[DayMonthYear],b:Option[DayMonthYear]): Int = {
+    (Try(new DateTime(a.get.year.get, a.get.month.get, a.get.day.get, a.get.hour.get, a.get.minutes.get)) match {
+      case Success(dt: DateTime) => dt
+      case Failure(_) => new DateTime()
+    }).compareTo(
+      Try(new DateTime(b.get.year.get, b.get.month.get, b.get.day.get, b.get.hour.get, b.get.minutes.get)) match {
+      case Success(dt: DateTime) => dt
+      case Failure(_) => new DateTime()
+    })
+  }
+}
+
 object DayMonthYear {
   def apply() = new DayMonthYear(Some(1), Some(1), Some(1970))
 
