@@ -4,8 +4,6 @@ import models.DayMonthYear
 import play.api.mvc.Call
 import models.MultiLineAddress
 import models.yesNo.YesNoWithText
-import controllers.Mappings.no
-
 
 case object SelfEmployment extends Section.Identifier {
   val id = "s8"
@@ -74,27 +72,27 @@ case object ChildcareExpensesWhileAtWork extends QuestionGroup.Identifier {
 }
 
 
-case class ChildcareProvidersContactDetails(call: Call,
-                                            address: Option[MultiLineAddress],
-                                            postcode: Option[String]) extends QuestionGroup(ChildcareProvidersContactDetails)
+case class ChildcareProvidersContactDetails(call: Call = NoRouting,
+                                            address: Option[MultiLineAddress] = None,
+                                            postcode: Option[String] = None) extends QuestionGroup(ChildcareProvidersContactDetails)
 
 case object ChildcareProvidersContactDetails extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g6"
 }
 
-case class ExpensesWhileAtWork(call: Call,
-                               howMuchYouPay: Option[String],
-                               nameOfPerson: String,
-                               whatRelationIsToYou: Option[String],
-                               whatRelationIsTothePersonYouCareFor: Option[String]) extends QuestionGroup(ExpensesWhileAtWork)
+case class ExpensesWhileAtWork(call: Call = NoRouting,
+                               howMuchYouPay: Option[String] = None,
+                               nameOfPerson: String = "",
+                               whatRelationIsToYou: Option[String] = None,
+                               whatRelationIsTothePersonYouCareFor: Option[String] = None) extends QuestionGroup(ExpensesWhileAtWork)
 
 case object ExpensesWhileAtWork extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g7"
 }
 
-case class CareProvidersContactDetails(call: Call,
-                                       address: Option[MultiLineAddress],
-                                       postcode: Option[String]) extends QuestionGroup(CareProvidersContactDetails)
+case class CareProvidersContactDetails(call: Call = NoRouting,
+                                       address: Option[MultiLineAddress] = None,
+                                       postcode: Option[String] = None) extends QuestionGroup(CareProvidersContactDetails)
 
 case object CareProvidersContactDetails extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g8"
