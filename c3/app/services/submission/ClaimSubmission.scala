@@ -19,7 +19,7 @@ case class ClaimSubmission(claim: Claim, transactionId : String) {
       {CareYouProvideSubmission.buildCaree(careYouProvide)}
       <ClaimADI>no</ClaimADI>
       {Residence.xml(claim)}
-      <CourseOfEducation>yes</CourseOfEducation>
+      {CourseOfEducation.xml(claim)}
       {FullTimeEducation.xml(claim)}
       {SelfEmployed.xml(claim)}
       {xml.SelfEmployment.xml(claim)}

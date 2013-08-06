@@ -2,7 +2,6 @@ package xml
 
 import models.domain._
 import XMLHelper._
-import scala.Some
 import controllers.Mappings.yes
 import controllers.Mappings.no
 
@@ -59,8 +58,11 @@ object OtherBenefits {
 
   def extraMoneyXml(moneyPaidToSomeoneElseOption: Option[MoneyPaidToSomeoneElseForYou], personDetailsOption: Option[PersonWhoGetsThisMoney], contactDetailsOption: Option[PersonContactDetails]) = {
 
-    def xml(moneyPaidToSomeoneElseForYou: MoneyPaidToSomeoneElseForYou, personDetails: PersonWhoGetsThisMoney, contactDetails: PersonContactDetails) = {
-      if(moneyPaidToSomeoneElseForYou.moneyAddedToBenefitSinceClaimDate == yes) {
+    val moneyPaidToSomeoneElseForYou = moneyPaidToSomeoneElseOption.getOrElse(MoneyPaidToSomeoneElseForYou(moneyAddedToBenefitSinceClaimDate = no))
+    val personDetails = personDetailsOption.getOrElse(PersonWhoGetsThisMoney())
+    val contactDetails = contactDetailsOption.getOrElse(PersonContactDetails())
+
+    if(moneyPaidToSomeoneElseForYou.moneyAddedToBenefitSinceClaimDate == yes) {
         <ExtraMoney>{moneyPaidToSomeoneElseForYou.moneyAddedToBenefitSinceClaimDate}</ExtraMoney>
         <ExtraMoneyDetails>
           <BenefitName>{personDetails.nameOfBenefit}</BenefitName>
@@ -69,65 +71,37 @@ object OtherBenefits {
           <ConfirmAddress>yes</ConfirmAddress>
           <ReferenceNumber>{stringify(personDetails.nationalInsuranceNumber)}</ReferenceNumber>
         </ExtraMoneyDetails>
-      }
-      else <ExtraMoney>{moneyPaidToSomeoneElseForYou.moneyAddedToBenefitSinceClaimDate}</ExtraMoney>
     }
-
-    val moneyPaidToSomeoneElseForYou = moneyPaidToSomeoneElseOption match {
-      case Some(caseClass: MoneyPaidToSomeoneElseForYou) => caseClass
-      case _ => MoneyPaidToSomeoneElseForYou(no)
-    }
-
-    val personDetails = personDetailsOption match {
-      case Some(caseClass: PersonWhoGetsThisMoney) => caseClass
-      case _ => PersonWhoGetsThisMoney(fullName = "name", nameOfBenefit= "name")
-    }
-
-    val contactDetails = contactDetailsOption match {
-      case Some(caseClass: PersonContactDetails) => caseClass
-      case _ => PersonContactDetails()
-    }
-
-    xml(moneyPaidToSomeoneElseForYou, personDetails, contactDetails)
+    else <ExtraMoney>{moneyPaidToSomeoneElseForYou.moneyAddedToBenefitSinceClaimDate}</ExtraMoney>
   }
 
   def otherMoneySPPXml(statutorySickPayOption: Option[StatutorySickPay]) = {
 
-    def xml(statutorySickPay: StatutorySickPay) = {
-      if (statutorySickPay.haveYouHadAnyStatutorySickPay == yes) {
-        <OtherMoneySSP>{statutorySickPay.haveYouHadAnyStatutorySickPay}</OtherMoneySSP>
-        <OtherMoneySSPDetails>
-          <Name>{statutorySickPay.employersName.getOrElse("empty")}</Name>
-          <Address>{postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}</Address>
-          <ConfirmAddress>yes</ConfirmAddress>
-        </OtherMoneySSPDetails>
-      }
-      else <OtherMoneySSP>{statutorySickPay.haveYouHadAnyStatutorySickPay}</OtherMoneySSP>
-    }
+    val statutorySickPay = statutorySickPayOption.getOrElse(StatutorySickPay(haveYouHadAnyStatutorySickPay = no))
 
-    statutorySickPayOption match {
-      case Some(ssp: StatutorySickPay) => xml(ssp)
-      case _ => xml(StatutorySickPay(haveYouHadAnyStatutorySickPay = no))
+    if (statutorySickPay.haveYouHadAnyStatutorySickPay == yes) {
+      <OtherMoneySSP>{statutorySickPay.haveYouHadAnyStatutorySickPay}</OtherMoneySSP>
+      <OtherMoneySSPDetails>
+        <Name>{statutorySickPay.employersName.orNull}</Name>
+        <Address>{postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}</Address>
+        <ConfirmAddress>yes</ConfirmAddress>
+      </OtherMoneySSPDetails>
     }
+    else <OtherMoneySSP>{statutorySickPay.haveYouHadAnyStatutorySickPay}</OtherMoneySSP>
   }
 
   def otherMoneySMPXml(otherStatutoryPayOption: Option[OtherStatutoryPay]) = {
 
-    def xml(otherStatutoryPay: OtherStatutoryPay) = {
-      if (otherStatutoryPay.otherPay == yes) {
-        <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>
-        <OtherMoneySMPDetails>
-          <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
-          <Address>{postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}</Address>
-          <ConfirmAddress>yes</ConfirmAddress>
-        </OtherMoneySMPDetails>
-      }
-      else <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>
-    }
+    val otherStatutoryPay = otherStatutoryPayOption.getOrElse(OtherStatutoryPay(otherPay = no))
 
-    otherStatutoryPayOption match {
-      case Some(osp: OtherStatutoryPay) => xml(osp)
-      case _ => xml(OtherStatutoryPay(otherPay = no))
+    if (otherStatutoryPay.otherPay == yes) {
+      <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>
+      <OtherMoneySMPDetails>
+        <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
+        <Address>{postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}</Address>
+        <ConfirmAddress>yes</ConfirmAddress>
+      </OtherMoneySMPDetails>
     }
+    else <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>
   }
 }
