@@ -2,6 +2,7 @@
 
 @import models.domain.SelfEmployment
 @import helper._
+@import models.domain._
 
 @common.govMain(title) {
     <main role="main" id="content">
@@ -16,7 +17,7 @@
 
             <section>
 
-                    <h1>Can you get Carer's Allowance?</h1>
+                <h1>Can you get Carer's Allowance?</h1>
 
 
                 @if(completedQuestionGroups.size > 0) {
@@ -25,7 +26,8 @@
                             @for(completedQuestionGroup <- completedQuestionGroups) {
                                 <li>
                                     <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                    <a href="@completedQuestionGroup.call">Change these answers</a>
+                                    <p>@completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation</p>
+                                    <a href="@completedQuestionGroup.call?changing=true">Change this answer</a>
                                 </li>
                             }
                         </ul>

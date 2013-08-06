@@ -40,7 +40,7 @@ final class G1BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = No
  */
 object G1BenefitsPage {
   val title = "Benefits - Carer's Allowance"
-  val url = "/"
+  val url = "/allowance/benefits"
   def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new G1BenefitsPage(browser, previousPage)
 //  PageFactory.registerPageBuilder[G1BenefitsPage](title, buildPageWith)
 }

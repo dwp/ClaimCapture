@@ -4,11 +4,11 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s1_carers_allowance.G1BenefitsMandatoryPageContext
-import utils.pageobjects.s1_carers_allowance.G2HoursPage
+import utils.pageobjects.s1_carers_allowance.G2HoursMandatoryPage
 
 class G1BenefitsMandatoryIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
-    "be presented" in new WithBrowser with G1BenefitsMandatoryPageContext {
+    /*"be presented" in new WithBrowser with G1BenefitsMandatoryPageContext {
       page goToThePage ()
     }
 
@@ -30,16 +30,16 @@ class G1BenefitsMandatoryIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
       page submitPage()
     }
-    
+    */
     "navigate to next page on valid submission" in new WithBrowser with G1BenefitsMandatoryPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
       page goToThePage()
       page fillPageWith claim
-
+println("*** page.url" + page.url)
       val nextPage = page submitPage()
-
-      nextPage must beAnInstanceOf[G2HoursPage]
+println("*** nextPage.url" + nextPage.url)
+      nextPage must beAnInstanceOf[G2HoursMandatoryPage]
     }
   }
 }

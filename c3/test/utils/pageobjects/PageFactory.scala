@@ -31,6 +31,7 @@ object PageFactory {
       case G1BenefitsPage.title => G1BenefitsPage buildPageWith(browser, previousPage)
       case G1BenefitsMandatoryPage.title => G1BenefitsMandatoryPage buildPageWith(browser, previousPage)
       case G2HoursPage.title => G2HoursPage buildPageWith(browser, previousPage)
+      case G2HoursMandatoryPage.title => G2HoursMandatoryPage buildPageWith(browser, previousPage)
       case G3Over16Page.title => G3Over16Page buildPageWith(browser, previousPage)
       case G4LivingInGBPage.title => G4LivingInGBPage buildPageWith(browser, previousPage)
       case G5CarersResponsePage.title => G5CarersResponsePage buildPageWith(browser, previousPage)
