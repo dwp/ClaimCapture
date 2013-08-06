@@ -45,8 +45,9 @@ object ClaimDate extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
 }
 
-case class MoreAboutYou(hadPartnerSinceClaimDate: String,
-                        beenInEducationSinceClaimDate: String, receiveStatePension: String) extends QuestionGroup(MoreAboutYou) with NoRouting
+case class MoreAboutYou(hadPartnerSinceClaimDate: String = "",
+                        beenInEducationSinceClaimDate: String = "",
+                        receiveStatePension: String = "") extends QuestionGroup(MoreAboutYou) with NoRouting
 
 object MoreAboutYou extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g5"

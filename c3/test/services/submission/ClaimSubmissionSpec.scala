@@ -6,6 +6,7 @@ import helpers.ClaimBuilder._
 import play.api.test.WithApplication
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import scala.xml.Elem
+import xml.ClaimXmlBuilder
 
 class ClaimSubmissionSpec extends Specification with Tags {
 
@@ -51,8 +52,10 @@ class ClaimSubmissionSpec extends Specification with Tags {
       .update(otherMoney.statutorySickPay)
       .update(otherMoney.otherStatutoryPay)
 
-      .update(payDetails.howWePayYou)
-      .update(payDetails.bankBuildingSocietyDetails)
+      .update(payDetails.howWePayYou.get)
+      .update(payDetails.bankBuildingSocietyDetails.get)
+
+      .update(employmentJobs)
 
       .update(consentAndDeclaration.additionalInfo)
       .update(consentAndDeclaration.consent)
@@ -62,7 +65,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
   "Claim Submission" should {
     "build and confirm normal AboutYou input" in new WithApplication {
       val claim = updateClaim(Claim())
-      val claimSub = ClaimSubmission(claim, "TY6TV9G")
+      val claimSub = ClaimXmlBuilder(claim, "TY6TV9G")
 
       val claimXml = claimSub.buildDwpClaim
 
@@ -76,7 +79,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
 
     "build and confirm contains YourPartner input" in new WithApplication {
       val claim = updateClaim(Claim())
-      val claimSub = ClaimSubmission(claim, "TY6TV9G")
+      val claimSub = ClaimXmlBuilder(claim, "TY6TV9G")
       
       val claimXml = claimSub.buildDwpClaim
 
@@ -96,11 +99,17 @@ class ClaimSubmissionSpec extends Specification with Tags {
     "validate a good claim" in new WithApplication {
       val claim = updateClaim(Claim())
 
-      val claimSub = ClaimSubmission(claim, "TY6TV9G")
+      val claimSub = ClaimXmlBuilder(claim, "TY6TV9G")
 
       val claimXml = claimSub.buildDwpClaim
 
       val fullXml = buildFullClaim(claimXml)
+
+      println("###########################################")
+      println("###########################################")
+      println(fullXml)
+      println("###########################################")
+      println("###########################################")
 
       val validator = XmlValidatorFactory.buildCaValidator()
 
@@ -110,7 +119,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
     "validate a bad claim" in new WithApplication {
       val claim = updateClaim(Claim())
 
-      val claimSub = ClaimSubmission(claim, "878786876786Y6TV9G")
+      val claimSub = ClaimXmlBuilder(claim, "878786876786Y6TV9G")
 
       val claimXml = claimSub.buildDwpClaim
 

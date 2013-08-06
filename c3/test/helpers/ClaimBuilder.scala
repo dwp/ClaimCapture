@@ -5,6 +5,8 @@ import models._
 import models.yesNo._
 import controllers.Mappings.{yes, no}
 
+
+import models.PaymentFrequency
 import scala.Some
 import models.MultiLineAddress
 import models.SortCode
@@ -81,6 +83,38 @@ object ClaimBuilder {
     )
   )
 
+  val employmentJobs = new Jobs(List(
+     new Job("1",List(
+        JobDetails("1","KFC",Some(DayMonthYear()),"yes",Some(DayMonthYear(1,1,2001)),Some("70"),Some("Chicken feeder"),None),
+        EmployerContactDetails("1",None,None,None),
+        LastWage("1",None,None,None,None,None),
+        AdditionalWageDetails("1",Some(PaymentFrequency("every 4 years",None)),Some("29th of February"),None,"no",None,"yes"),
+        MoneyOwedbyEmployer("1",None,None,None,None,None),
+        PensionSchemes("1","no",None,None,"no",None,None),
+        AboutExpenses("1","yes","yes","yes"),
+        NecessaryExpenses("1","dunno","100000","cause i do"),
+        ChildcareExpenses("1",None,"dunno",None,None,None),
+        ChildcareProvider("1",None,None),
+        PersonYouCareForExpenses("1",None,"dunno",None),
+        CareProvider("1",None,None)
+     ))
+    ,
+    new Job("2",List(
+      JobDetails("2","Valtech",Some(DayMonthYear()),"yes",Some(DayMonthYear(1,2,2001)),Some("10"),Some("Janitor"),None),
+      EmployerContactDetails("2",None,None,None),
+      LastWage("2",None,None,None,None,None),
+      AdditionalWageDetails("2",Some(PaymentFrequency("every 4 years",None)),Some("29th of February"),None,"no",None,"yes"),
+      MoneyOwedbyEmployer("2",None,None,None,None,None),
+      PensionSchemes("2","no",None,None,"no",None,None),
+      AboutExpenses("2","yes","yes","yes"),
+      NecessaryExpenses("2","dunno","100000","cause i do"),
+      ChildcareExpenses("2",None,"dunno",None,None,None),
+      ChildcareProvider("2",None,None),
+      PersonYouCareForExpenses("2",None,"dunno",None),
+      CareProvider("2",None,None)
+    ))
+  ))
+
   val normalResidence = NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = yes, text = Some("UK")), inGBNow = yes)
   val fourWeekTrip = Trip(id = "four-one", DayMonthYear(Some(1), Some(2), Some(2011)), DayMonthYear(Some(1), Some(3), Some(2011)), "Netherlands", Some("Holiday"))
   val fiftyTwoWeeksTrip = Trip(id = "fiftyTwo-one", DayMonthYear(Some(1), Some(2), Some(2012)), DayMonthYear(Some(1), Some(2), Some(2013)), "Spain", Some("Family"))
@@ -121,7 +155,7 @@ object ClaimBuilder {
   val howWePayYou = HowWePayYou(NoRouting, "01", "everyWeek")
   val bank = BankBuildingSocietyDetails(NoRouting, "Holder", "Bank name", SortCode("12", "34", "56"), "1234567890", "1234")
 
-  val payDetails = PayDetails(howWePayYou, bank)
+  val payDetails = PayDetails(Some(howWePayYou),Some(bank))
 
   val additionalInfo = AdditionalInfo(NoRouting, Some("Other information"), "yes")
   val consent = Consent(NoRouting, "no", Some("I don't want to"), "no", Some("I said I don't want to"))

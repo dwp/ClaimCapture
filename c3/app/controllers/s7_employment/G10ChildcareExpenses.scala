@@ -17,7 +17,8 @@ object G10ChildcareExpenses extends Controller with CachedClaim {
       "howMuchCostChildcare" -> optional(text),
       "whoLooksAfterChildren" -> nonEmptyText,
       "relationToYou" -> optional(text),
-      "relationToPartner" -> optional(text)
+      "relationToPartner" -> optional(text),
+      "relationToPersonYouCare" -> optional(text)
     )(ChildcareExpenses.apply)(ChildcareExpenses.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>

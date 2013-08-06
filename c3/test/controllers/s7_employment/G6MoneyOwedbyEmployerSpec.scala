@@ -15,7 +15,7 @@ class G6MoneyOwedbyEmployerSpec extends Specification with Tags {
       val additionalWageDetails = mock[AdditionalWageDetails]
       additionalWageDetails.identifier returns AdditionalWageDetails
       additionalWageDetails.jobID returns jobID
-      additionalWageDetails.employeeOwesYouMoney returns "yes"
+      additionalWageDetails.employerOwesYouMoney returns "yes"
 
       val job = mock[Job]
       job.questionGroups returns additionalWageDetails :: Nil

@@ -80,7 +80,6 @@ class OtherBenefitsSpec extends Specification with Tags {
 
       (otherMoneyXml \\ "OtherMoneySMP").text mustEqual no
       (otherMoneyXml \\ "OtherMoneySMPDetails").text mustEqual ""
-
     }
   } section "unit"
 
