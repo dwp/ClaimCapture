@@ -47,18 +47,23 @@ object EmploymentXml {
     </Pay>
   }
 
+  def howMuchOwed(s:Option[String]) = {
+    s match {
+      case Some(s) =>
+        <Payment>
+          <Amount>{s}</Amount>
+        </Payment>
+      case _ => NodeSeq.Empty
+    }
+  }
+
+
   def moneyOwedXml(moneyOwed:Option[MoneyOwedbyEmployer]) = {
 
     moneyOwed match {
       case Some(m) =>
         <MoneyOwed>
-          {m.howMuchOwed match {
-            case Some(s) =>
-              <Payment>
-                <Amount>{m.howMuchOwed}</Amount>
-              </Payment>
-            case _ => NodeSeq.Empty
-          }}
+          {howMuchOwed(m.howMuchOwed)}
           {<Period/> ?+ m.owedFor}
           {<PaymentDueDate/> ?+ m.shouldBeenPaidBy}
           {<PaymentExpected/> +++ m.whenWillGetIt}
@@ -96,70 +101,62 @@ object EmploymentXml {
     }
   }
 
-  def jobExpensesXml(aboutExpenses:AboutExpenses,necessaryExpenses:Option[NecessaryExpenses]){
-    necessaryExpenses match {
-      case Some(n:NecessaryExpenses) if aboutExpenses.payForAnythingNecessary == "yes" =>
-        <JobExpenses>
-          <Expense>{n.whatAreThose}</Expense>
-          <Reason>{n.whyDoYouNeedThose}</Reason>
-          <WeeklyPayment>
-            <Amount>{n.howMuchCostEachWeek}</Amount>
-          </WeeklyPayment>
-        </JobExpenses>
-      case None => NodeSeq.Empty
-    }
+  def jobExpensesXml(aboutExpenses:AboutExpenses,necessaryExpenses:Option[NecessaryExpenses]) = necessaryExpenses match {
+    case Some(n:NecessaryExpenses) if aboutExpenses.payForAnythingNecessary == "yes" =>
+      <JobExpenses>
+        <Expense>{n.whatAreThose}</Expense>
+        <Reason>{n.whyDoYouNeedThose}</Reason>
+        <WeeklyPayment>
+          <Amount>{n.howMuchCostEachWeek}</Amount>
+        </WeeklyPayment>
+      </JobExpenses>
+    case None => NodeSeq.Empty
   }
 
-  def childcareExpensesXml(aboutExpenses:AboutExpenses, childcareExpenses:Option[ChildcareExpenses], childcareProvider:Option[ChildcareProvider]){
-    aboutExpenses.payAnyoneToLookAfterChildren match {
-      case "yes" =>
-        <ChildCareExpenses>
-          <CarerName>{childcareExpenses.fold("")(_.whoLooksAfterChildren)}</CarerName>
-          <CarerAddress>
-            {postalAddressStructure(childcareProvider.collect{case c: ChildcareProvider if c.address.isDefined => c.address.get},
-                                    childcareProvider.collect{case c: ChildcareProvider if c.postcode.isDefined => c.postcode.get})}
-          </CarerAddress>
-          <ConfirmAddress>yes</ConfirmAddress>
-          <WeeklyPayment>
-            {<Amount/> +++ childcareExpenses.collect{case c: ChildcareExpenses if c.howMuchCostChildcare.isDefined => c.howMuchCostChildcare}}
-          </WeeklyPayment>
-          <RelationshipCarerToClaimant>other</RelationshipCarerToClaimant>
-          <ChildDetails>
-            <Name/>
-          </ChildDetails>
 
-        </ChildCareExpenses>
+  def childcareExpensesXml(aboutExpenses:AboutExpenses, childcareExpenses:Option[ChildcareExpenses], childcareProvider:Option[ChildcareProvider]) = aboutExpenses.payAnyoneToLookAfterChildren match {
+    case "yes" =>
+      <ChildCareExpenses>
+        <CarerName>{childcareExpenses.fold("")(_.whoLooksAfterChildren)}</CarerName>
+        <CarerAddress>
+          {postalAddressStructure(childcareProvider.collect{case c: ChildcareProvider if c.address.isDefined => c.address.get},
+                                  childcareProvider.collect{case c: ChildcareProvider if c.postcode.isDefined => c.postcode.get})}
+        </CarerAddress>
+        <ConfirmAddress>yes</ConfirmAddress>
+        <WeeklyPayment>
+          {<Amount/> +++ childcareExpenses.collect{case c: ChildcareExpenses if c.howMuchCostChildcare.isDefined => c.howMuchCostChildcare}}
+        </WeeklyPayment>
+        <RelationshipCarerToClaimant>other</RelationshipCarerToClaimant>
+        <ChildDetails>
+          <Name/>
+        </ChildDetails>
 
+      </ChildCareExpenses>
+    case _ => NodeSeq.Empty
 
-      case _ => NodeSeq.Empty
-    }
   }
 
-  def careExpensesXml(aboutExpenses:AboutExpenses,personYouCareExpenses:Option[PersonYouCareForExpenses],careProvider:Option[CareProvider]){
-      aboutExpenses.payAnyoneToLookAfterPerson match{
-        case "yes" =>
-          <CareExpenses>
-            <CarerName>{personYouCareExpenses.fold("")(_.whoDoYouPay)}</CarerName>
-            <CarerAddress>
-              {postalAddressStructure(careProvider.collect{case c: CareProvider if c.address.isDefined => c.address.get},
-                                      careProvider.collect{case c: CareProvider if c.postcode.isDefined => c.postcode.get})}
-            </CarerAddress>
-            <ConfirmAddress>yes</ConfirmAddress>
-            <WeeklyPayment>
-              {<Amount/> +++ personYouCareExpenses.collect{case c:PersonYouCareForExpenses if c.howMuchCostCare.isDefined => c.howMuchCostCare.get}}
-            </WeeklyPayment>
-            {<RelationshipCarerToClaimant/> +++ personYouCareExpenses.collect{case c:PersonYouCareForExpenses if c.relationToYou.isDefined => c.relationToYou.get}}
-            {//<RelationshipCarerToCaree/> +++ personYouCareExpenses.collect{case c:PersonYouCareForExpenses if c..isDefined => c.relationToYou.get}}
-            }
-            <RelationshipCarerToCaree/>
-            </CareExpenses>
-        case _ => NodeSeq.Empty
-      }
+  def careExpensesXml(aboutExpenses:AboutExpenses,personYouCareExpenses:Option[PersonYouCareForExpenses],careProvider:Option[CareProvider]) = aboutExpenses.payAnyoneToLookAfterPerson match{
+    case "yes" =>
+      <CareExpenses>
+        <CarerName>{personYouCareExpenses.fold("")(_.whoDoYouPay)}</CarerName>
+        <CarerAddress>
+          {postalAddressStructure(careProvider.collect{case c: CareProvider if c.address.isDefined => c.address.get},
+                                  careProvider.collect{case c: CareProvider if c.postcode.isDefined => c.postcode.get})}
+        </CarerAddress>
+        <ConfirmAddress>yes</ConfirmAddress>
+        <WeeklyPayment>
+          {<Amount/> +++ personYouCareExpenses.collect{case c:PersonYouCareForExpenses if c.howMuchCostCare.isDefined => c.howMuchCostCare.get}}
+        </WeeklyPayment>
+        {<RelationshipCarerToClaimant/> +++ personYouCareExpenses.collect{case c:PersonYouCareForExpenses if c.relationToYou.isDefined => c.relationToYou.get}}
+        {//<RelationshipCarerToCaree/> +++ personYouCareExpenses.collect{case c:PersonYouCareForExpenses if c..isDefined => c.relationToYou.get}}
+        }
+        <RelationshipCarerToCaree/>
+        </CareExpenses>
+    case _ => NodeSeq.Empty
   }
 
   def xml(claim: Claim) = {
-
-
 
     val jobsQG = claim.questionGroup(Jobs) match { case Some(j:Jobs) => j case _ => Jobs()}
 
