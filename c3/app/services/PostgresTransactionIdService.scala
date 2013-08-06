@@ -25,16 +25,26 @@ class PostgresTransactionIdService extends TransactionIdService {
 
   /**
    * Record that an ID has been used
-   * @param id A previously generated ID
    */
-  def registerId(id: String, errorCode: Option[String]) {
+  def registerId(id: String, statusCode:String) {
     DB.withConnection("carers") {
       connection =>
-        val insertSql: String = "INSERT INTO transactionstatus (transaction_id, error_status) VALUES (?,?);"
+        val insertSql: String = "INSERT INTO transactionstatus (transaction_id, status) VALUES (?,?);"
         val statement = connection.prepareStatement(insertSql)
         statement.setString(1, id)
-        statement.setString(2, errorCode.getOrElse(""))
+        statement.setString(2, statusCode)
         statement.execute()
+    }
+  }
+
+  def updateStatus(id: String, statusCode:String) {
+    DB.withConnection("carers") {
+      connection =>
+        val insertSql: String = "UPDATE transactionstatus set status=? WHERE transaction_id=?;"
+        val statement = connection.prepareStatement(insertSql)
+        statement.setString(1, statusCode)
+        statement.setString(2, id)
+        statement.executeUpdate()
     }
   }
 }
