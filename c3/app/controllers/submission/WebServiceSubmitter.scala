@@ -6,12 +6,13 @@ import scala.concurrent.{Future, ExecutionContext}
 import play.api.mvc.{AnyContent, Request, PlainResult}
 import services.TransactionIdService
 import play.api.{http, Logger}
-import services.submission.{ClaimSubmissionService, ClaimSubmission}
+import services.submission.{ClaimSubmissionService}
 import ExecutionContext.Implicits.global
 import com.google.inject.Inject
 import play.api.cache.Cache
 import play.api.libs.ws.Response
 import play.api.Play.current
+import xml.ClaimXmlBuilder
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService) extends Submitter {
 
@@ -36,7 +37,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService) extends Sub
       case None => {
         val txnId = idService.generateId
         Logger.info(s"Retrieved Id : $txnId")
-        val claimXml = ClaimSubmission(claim, txnId).buildDwpClaim
+        val claimXml = ClaimXmlBuilder(claim, txnId).buildDwpClaim
 
         ClaimSubmissionService.submitClaim(claimXml).map(
           response => {
