@@ -8,15 +8,17 @@ import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import scala.xml.Elem
 import play.api.Logger
 
-class ClaimXmlBuilderSpec extends Specification with Tags {
+class ClaimXmlValidatorSpec extends Specification with Tags {
 
   private def updateClaim(claim: Claim) = {
     claim.update(aboutYou.yourDetails)
       .update(aboutYou.claimDate)
       .update(aboutYou.contactDetails)
-      .update(aboutYou.employment)
       .update(aboutYou.timeOutsideUK.get)
-      
+      .update(aboutYou.moreAboutYou)
+      .update(aboutYou.employment)
+      .update(aboutYou.propertyAndRent)
+
       .update(yourPartner.yourPartnerPersonalDetails)
       .update(yourPartner.yourPartnerContactDetails)
       .update(yourPartner.moreAboutYourPartner)
@@ -64,26 +66,11 @@ class ClaimXmlBuilderSpec extends Specification with Tags {
       .update(consentAndDeclaration.declaration)
   }
   "Claim Submission" should {
-    "build and confirm normal AboutYou input" in new WithApplication {
-      val claim = updateClaim(Claim())
-      val claimSub = ClaimXmlBuilder(claim, "TY6TV9G")
-
-      val claimXml = claimSub.buildDwpClaim
-
-      (claimXml \\ "Claimant" \\ "Title").text mustEqual yourDetails.title
-      (claimXml \\ "Claimant" \\ "OtherNames").text mustEqual s"${yourDetails.firstName}"
-      (claimXml \\ "Claimant" \\ "OtherSurnames").text mustEqual yourDetails.otherSurnames.get
-      (claimXml \\ "Claimant" \\ "DateOfClaim").text mustEqual claimDate.dateOfClaim.toXmlString
-      (claimXml \\ "Claimant" \\ "Address" \\ "PostCode").text mustEqual contactDetails.postcode.get
-      (claimXml \\ "Claimant" \\ "HomePhoneNumber").text mustEqual contactDetails.mobileNumber.getOrElse("") // holds mobile
-    }
 
     "build and confirm contains YourPartner input" in new WithApplication {
       val claim = updateClaim(Claim())
-      val claimSub = ClaimXmlBuilder(claim, "TY6TV9G")
+      val claimXml = DWPCAClaim.xml(claim, "TY6TV9G")
       
-      val claimXml = claimSub.buildDwpClaim
-
       (claimXml \\ "Partner" \\ "NationalityPartner").text mustEqual yourPartnerPersonalDetails.nationality.get
       (claimXml \\ "Partner" \\ "Surname").text mustEqual yourPartnerPersonalDetails.surname
       (claimXml \\ "Partner" \\ "OtherNames").text mustEqual s"${yourPartnerPersonalDetails.firstName} ${yourPartnerPersonalDetails.middleName.getOrElse("")}"
@@ -100,9 +87,7 @@ class ClaimXmlBuilderSpec extends Specification with Tags {
     "validate a good claim" in new WithApplication {
       val claim = updateClaim(Claim())
 
-      val claimSub = ClaimXmlBuilder(claim, "TY6TV9G")
-
-      val claimXml = claimSub.buildDwpClaim
+      val claimXml = DWPCAClaim.xml(claim, "TY6TV9G")
 
       val fullXml = buildFullClaim(claimXml)
 
@@ -114,9 +99,7 @@ class ClaimXmlBuilderSpec extends Specification with Tags {
     "validate a bad claim" in new WithApplication {
       val claim = updateClaim(Claim())
 
-      val claimSub = ClaimXmlBuilder(claim, "878786876786Y6TV9G")
-
-      val claimXml = claimSub.buildDwpClaim
+      val claimXml = DWPCAClaim.xml(claim, "878786876786Y6TV9G")
 
       val fullXml = buildFullClaim(claimXml)
 

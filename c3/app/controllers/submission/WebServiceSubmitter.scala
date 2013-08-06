@@ -12,7 +12,7 @@ import com.google.inject.Inject
 import play.api.cache.Cache
 import play.api.libs.ws.Response
 import play.api.Play.current
-import xml.ClaimXmlBuilder
+import xml.{DWPCAClaim}
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : ClaimSubmission) extends Submitter {
 
@@ -37,7 +37,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
       case None => {
         val txnId = idService.generateId
         Logger.info(s"Retrieved Id : $txnId")
-        val claimXml = ClaimXmlBuilder(claim, txnId).buildDwpClaim
+        val claimXml = DWPCAClaim.xml(claim, txnId)
 
         claimSubmission.submitClaim(claimXml).map(
           response => {

@@ -1,38 +1,43 @@
 package xml
 
-import models.domain._
+import models.domain.{PropertyAndRent, MoreAboutYou, Claim}
+import controllers.Mappings._
 import play.api.Logger
-import services.submission.{ConsentAndDeclarationSubmission, CareYouProvideSubmission, YourPartnerSubmission}
+import services.submission.{ConsentAndDeclarationSubmission, YourPartnerSubmission, CareYouProvideSubmission}
 
-case class ClaimXmlBuilder(claim: Claim, transactionId : String) {
-  val yourPartner = YourPartnerSubmission.buildYourPartner(claim)
+object DWPCAClaim {
 
-  val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)
+  def xml(claim: Claim, transactionId : String) = {
 
-  val consentAndDeclaration = ConsentAndDeclarationSubmission.buildConsentAndDeclaration(claim)
+    val moreAboutYouOption = claim.questionGroup[MoreAboutYou]
+    val moreAboutYou = moreAboutYouOption.getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
 
-  def buildDwpClaim = {
-    Logger.info(s"Build Claim : $transactionId")
+    val aboutYouEmploymentOption = claim.questionGroup[models.domain.Employment]
+    val employment = aboutYouEmploymentOption.getOrElse(models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
+
+    val yourPartner = YourPartnerSubmission.buildYourPartner(claim) //REMOVE THIS WHEN REFACTORING XML HAS BEEN DONE
+
+    val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)  //REMOVE THIS WHEN REFACTORING XML HAS BEEN DONE
+
+    val consentAndDeclaration = ConsentAndDeclarationSubmission.buildConsentAndDeclaration(claim)  //REMOVE THIS WHEN REFACTORING XML HAS BEEN DONE
+
+    Logger.info(s"Build DWPCAClaim : $transactionId")
     <DWPCAClaim id={transactionId}>
       {Claimant.xml(claim)}
       {CareYouProvideSubmission.buildCaree(careYouProvide)}
       <ClaimADI>no</ClaimADI>
       {Residency.xml(claim)}
-      {CourseOfEducation.xml(claim)}
+      <CourseOfEducation>{moreAboutYou.beenInEducationSinceClaimDate}</CourseOfEducation>
       {FullTimeEducation.xml(claim)}
-      {SelfEmployed.xml(claim)}
-      {xml.SelfEmployment.xml(claim)}
-      <Employed>yes</Employed>
-      {EmploymentXml.xml(claim)}
-      <PropertyRentedOut>
-        <PayNationalInsuranceContributions>no</PayNationalInsuranceContributions>
-        <RentOutProperty>no</RentOutProperty>
-        <SubletHome>no</SubletHome>
-      </PropertyRentedOut>
-      <HavePartner>yes</HavePartner>
-      {YourPartnerSubmission.buildClaimant(yourPartner)} 
+      <SelfEmployed>{employment.beenSelfEmployedSince1WeekBeforeClaim}</SelfEmployed>
+      {SelfEmployment.xml(claim)}
+      <Employed>{employment.beenEmployedSince6MonthsBeforeClaim}</Employed>
+      {Employment.xml(claim)}
+      {PropertyRentedOut.xml(claim)}
+      <HavePartner>{moreAboutYou.hadPartnerSinceClaimDate}</HavePartner>
+      {YourPartnerSubmission.buildClaimant(yourPartner)}
       {OtherBenefits.xml(claim)}
-      {xml.PayDetails.xml(claim)}
+      {PayDetails.xml(claim)}
       <ThirdParty>no</ThirdParty>
       {ConsentAndDeclarationSubmission.buildDeclaration(consentAndDeclaration,careYouProvide)}
       <EvidenceList>

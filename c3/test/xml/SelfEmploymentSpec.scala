@@ -25,7 +25,7 @@ class SelfEmploymentSpec extends Specification with Tags {
         natureOfYourBusiness = Some(software)
       )
 
-      val claim = Claim().update(Employment(beenSelfEmployedSince1WeekBeforeClaim = yes))
+      val claim = Claim().update(models.domain.Employment(beenSelfEmployedSince1WeekBeforeClaim = yes))
         .update(aboutSelfEmployment)
 
       val selfEmploymentXml = xml.SelfEmployment.xml(claim)
@@ -39,7 +39,7 @@ class SelfEmploymentSpec extends Specification with Tags {
     }
 
     "generate xml when data is missing" in {
-      val claim = Claim().update(Employment(beenSelfEmployedSince1WeekBeforeClaim = no))
+      val claim = Claim().update(models.domain.Employment(beenSelfEmployedSince1WeekBeforeClaim = no))
       val selfEmploymentXml = xml.SelfEmployment.xml(claim)
       selfEmploymentXml.text mustEqual ""
     }

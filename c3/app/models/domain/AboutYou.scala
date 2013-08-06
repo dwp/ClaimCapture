@@ -61,7 +61,7 @@ object Employment extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g6"
 }
 
-case class PropertyAndRent(ownProperty: String, hasSublet: String) extends QuestionGroup(PropertyAndRent) with NoRouting
+case class PropertyAndRent(ownProperty: String = "", hasSublet: String = "") extends QuestionGroup(PropertyAndRent) with NoRouting
 
 object PropertyAndRent extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g7"

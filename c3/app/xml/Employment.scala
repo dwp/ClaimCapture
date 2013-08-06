@@ -6,7 +6,7 @@ import models.{DayMonthYearComparator, DayMonthYear}
 import scala.language.reflectiveCalls
 import scala.xml.{NodeSeq, Elem}
 
-object EmploymentXml {
+object Employment {
 
   def employerXml(jobDetails: JobDetails, employerCD:EmployerContactDetails): Elem = {
     <Employer>
