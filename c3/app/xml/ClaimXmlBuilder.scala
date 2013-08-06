@@ -2,7 +2,7 @@ package xml
 
 import models.domain._
 import play.api.Logger
-import services.submission.{PayDetailsSubmission, ConsentAndDeclarationSubmission, CareYouProvideSubmission, YourPartnerSubmission}
+import services.submission.{ConsentAndDeclarationSubmission, CareYouProvideSubmission, YourPartnerSubmission}
 
 case class ClaimXmlBuilder(claim: Claim, transactionId : String) {
   val yourPartner = YourPartnerSubmission.buildYourPartner(claim)
@@ -10,8 +10,6 @@ case class ClaimXmlBuilder(claim: Claim, transactionId : String) {
   val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)
 
   val consentAndDeclaration = ConsentAndDeclarationSubmission.buildConsentAndDeclaration(claim)
-
-  val payDetails = PayDetailsSubmission.buildPayDetails(claim)
 
   def buildDwpClaim = {
     Logger.info(s"Build Claim : $transactionId")
@@ -34,7 +32,7 @@ case class ClaimXmlBuilder(claim: Claim, transactionId : String) {
       <HavePartner>yes</HavePartner>
       {YourPartnerSubmission.buildClaimant(yourPartner)} 
       {OtherBenefits.xml(claim)}
-      {PayDetailsSubmission.buildPayment(payDetails)}
+      {xml.PayDetails.xml(claim)}
       <ThirdParty>no</ThirdParty>
       {ConsentAndDeclarationSubmission.buildDeclaration(consentAndDeclaration,careYouProvide)}
       <EvidenceList>

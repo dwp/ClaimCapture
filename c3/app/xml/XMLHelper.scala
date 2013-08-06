@@ -24,6 +24,7 @@ object XMLHelper {
       case Some(s: String) => s
       case Some(dmy: DayMonthYear) => dmy.`yyyy-MM-dd`
       case Some(nr: NationalInsuranceNumber) => nr.stringify
+      case Some(sc: SortCode) => sc.sort1+sc.sort2+sc.sort2
       case _ => ""
     }
   }
@@ -35,6 +36,7 @@ object XMLHelper {
       case Some(nr: NationalInsuranceNumber) => new NodeBuffer += Text(nr.stringify)
       case Some(pf: PaymentFrequency) => paymentFrequency(pf)
       case Some(pft: PeriodFromTo) => fromToStructure(pft)
+      case Some(sc: SortCode) => new NodeBuffer += Text(sc.sort1+sc.sort2+sc.sort2)
       case _ => new NodeBuffer += Text("")
     }
   }

@@ -7,7 +7,6 @@ import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.Claim
 import scala.Some
-import controllers.s7_employment.G8AboutExpenses
 
 
 class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
@@ -25,10 +24,9 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
 
     "present 'Expenses related to the person you care for while at work' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "12455ddd", "payAnyoneToLookAfterChildren" -> "yes","payForAnythingNecessary" -> "yes",
-        "payAnyoneToLookAfterPerson"->"yes")
+        .withFormUrlEncodedBody("doYouPayToPensionScheme.answer" -> "no", "doYouPayToLookAfterYourChildren" -> "yes","didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
-      val result = G8AboutExpenses.submit(request)
+      val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
       val request2 = FakeRequest().withSession("connected" -> claimKey)
 
@@ -71,11 +69,10 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
 
     "redirect to next page when payAnyoneToLookAfterPerson is no in About Employment" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "12455ddd", "payAnyoneToLookAfterChildren" -> "yes","payForAnythingNecessary" -> "yes",
-        "payAnyoneToLookAfterPerson"->"no")
+        .withFormUrlEncodedBody("doYouPayToPensionScheme_answer" -> "no", "doYouPayToLookAfterYourChildren" -> "yes","didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
 
-      val result = G8AboutExpenses.submit(request)
+      val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
       val request2 = FakeRequest().withSession("connected" -> claimKey)
 
