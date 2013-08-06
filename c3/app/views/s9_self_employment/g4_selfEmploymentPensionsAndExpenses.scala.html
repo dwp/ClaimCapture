@@ -7,8 +7,6 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
-@import controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.isExpenseForChildrenToBeDisplayed
-@import controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.isExpenseForCaredForToBeDisplayed
 @import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
 
 @main("Self Employment - Pensions and Expenses", Some(currentForm), completedQuestionGroups) {
@@ -30,23 +28,10 @@
                     'display -> currentForm("doYouPayToPensionScheme.answer").value.getOrElse("no")
                 )
 
-                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren.answer"), '_label -> Messages ("doYouPayToLookAfterYourChildren.answer", didYouDoYouIfSelfEmployed))
+                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> Messages ("doYouPayToLookAfterYourChildren", didYouDoYouIfSelfEmployed))
 
-                @otherDetailPlaceHolder(
-                inputDef = Seq(
-                yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren.isItTheSameExpenseWhileAtWorkForChildren"))),
-                'id -> "selfEmployedChildrenWrap",
-                'display -> currentForm("doYouPayToLookAfterYourChildren.answer").value.getOrElse("no")
-                )
+                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> Messages ("didYouPayToLookAfterThePersonYouCaredFor", didYouDoYouIfSelfEmployed))
 
-                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor.answer"), '_label -> Messages ("didYouPayToLookAfterThePersonYouCaredFor.answer", didYouDoYouIfSelfEmployed))
-
-                @otherDetailPlaceHolder(
-                inputDef = Seq(
-                yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor.isItTheSameExpenseDuringWorkForThePersonYouCaredFor"))),
-                'id -> "selfEmployedCaredForWrap",
-                'display -> currentForm("didYouPayToLookAfterThePersonYouCaredFor.answer").value.getOrElse("no")
-                )
             </ul>
         </fieldset>
 
@@ -61,8 +46,6 @@
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_yes")","@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_no")",
-                          "@CarersCrypto.encryptAES("doYouPayToLookAfterYourChildren_answer_yes")","@CarersCrypto.encryptAES("doYouPayToLookAfterYourChildren_answer_no")",
-                          "@CarersCrypto.encryptAES("didYouPayToLookAfterThePersonYouCaredFor_answer_yes")","@CarersCrypto.encryptAES("didYouPayToLookAfterThePersonYouCaredFor_answer_no")", @isExpenseForChildrenToBeDisplayed, @isExpenseForCaredForToBeDisplayed);
+        window.initEvents("@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_yes")","@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_no")");
     });
 </script>

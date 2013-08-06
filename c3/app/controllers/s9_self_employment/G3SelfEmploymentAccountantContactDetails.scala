@@ -5,11 +5,12 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
-import models.domain.{SelfEmploymentAccountantContactDetails, Claim}
+import models.domain._
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.Mappings
 import controllers.s9_self_employment.SelfEmployment.whenSectionVisible
+import scala.Some
 
 
 object G3SelfEmploymentAccountantContactDetails extends Controller with CachedClaim {
@@ -27,8 +28,19 @@ object G3SelfEmploymentAccountantContactDetails extends Controller with CachedCl
   )
 
   def present = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s9_self_employment.g3_selfEmploymentAccountantContactDetails(form.fill(SelfEmploymentAccountantContactDetails), completedQuestionGroups)))
+
+    val doYouHaveAnAccountant = claim.questionGroup(SelfEmploymentYourAccounts) match {
+      case Some(s: SelfEmploymentYourAccounts) => s.doYouHaveAnAccountant == Some(`yes`)
+      case _ => false
+    }
+
+    doYouHaveAnAccountant match {
+      case true => whenSectionVisible(Ok(views.html.s9_self_employment.g3_selfEmploymentAccountantContactDetails(form.fill(SelfEmploymentAccountantContactDetails), completedQuestionGroups)))
+      case false => claim.delete(SelfEmploymentAccountantContactDetails) -> Redirect(routes.G4SelfEmploymentPensionsAndExpenses.present())
+    }
+
   }
+
 
   def submit = claiming { implicit claim =>
     implicit request =>

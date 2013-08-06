@@ -14,7 +14,7 @@ import scala.Some
 
 
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ExpensesWhileAtWork)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ChildcareExpensesWhileAtWork)
 
   val form = Form(
     mapping(
