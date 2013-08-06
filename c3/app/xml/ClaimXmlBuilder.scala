@@ -2,7 +2,6 @@ package xml
 
 import models.domain._
 import play.api.Logger
-import xml._
 import services.submission.{PayDetailsSubmission, ConsentAndDeclarationSubmission, CareYouProvideSubmission, YourPartnerSubmission}
 
 
