@@ -2,7 +2,6 @@ package xml
 
 import models.domain._
 import XMLHelper._
-import scala.Some
 import controllers.Mappings.yes
 import controllers.Mappings.no
 
