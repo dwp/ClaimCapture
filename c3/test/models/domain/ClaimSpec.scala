@@ -109,23 +109,20 @@ class ClaimSpec extends Specification {
     }
 
     """not contain "question group" when not actually providing which "question group" is desired.""" in {
-      val claim = Claim().update(Benefits(NoRouting)).update(Hours(NoRouting))
       claim.questionGroup should beNone
     }
 
     """contain "question group" in first entry of "question groups".""" in {
-      val claim = Claim().update(Benefits(NoRouting)).update(Hours(NoRouting))
       claim.questionGroup[Benefits] should beSome(Benefits(NoRouting, answer = false))
     }
 
     """contain "question group" in second entry of "question groups".""" in {
-      val claim = Claim().update(Benefits(NoRouting)).update(Hours(NoRouting))
       claim.questionGroup[Hours] should beSome(Hours(NoRouting, answer = false))
     }
 
     """not contain "question group".""" in {
-      val claim = Claim().update(Benefits(NoRouting)).update(Hours(NoRouting))
-      claim.questionGroup[Over16] should beNone
+      val updatedClaim = claim.delete(Over16)
+      updatedClaim.questionGroup[Over16] should beNone
     }
   }
 }

@@ -5,10 +5,9 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
 
 final class G8CareProvidersContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G8CareProvidersContactDetailsPage.url, G8CareProvidersContactDetailsPage.title, previousPage) {
 
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillAddress("#address", theClaim.SelfEmployedCareProviderAddress)
-    fillInput("#postcode", theClaim.SelfEmployedCareProviderPostcode)
-  }
+    declareAddress("#address", "SelfEmployedCareProviderAddress")
+    declareInput("#postcode", "SelfEmployedCareProviderPostcode")
+
 }
 
 object G8CareProvidersContactDetailsPage {

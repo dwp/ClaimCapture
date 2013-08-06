@@ -49,7 +49,7 @@ object ClaimDate extends QuestionGroup.Identifier {
 }
 
 case class MoreAboutYou(call: Call,
-                        hadPartnerSinceClaimDate: String, eitherClaimedBenefitSinceClaimDate: String,
+                        hadPartnerSinceClaimDate: String,
                         beenInEducationSinceClaimDate: String, receiveStatePension: String) extends QuestionGroup(MoreAboutYou)
 
 object MoreAboutYou extends QuestionGroup.Identifier {

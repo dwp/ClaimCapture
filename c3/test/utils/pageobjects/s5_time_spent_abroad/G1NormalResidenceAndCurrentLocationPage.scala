@@ -9,15 +9,10 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 30/07/2013
  */
 final class G1NormalResidenceAndCurrentLocationPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1NormalResidenceAndCurrentLocationPage.url, G1NormalResidenceAndCurrentLocationPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#liveInUK_answer", theClaim.TimeSpentAbroadDoYouNormallyLiveintheUk)
-    fillInput("#liveInUK_whereDoYouLive", theClaim.TimeSpentAbroadWhereDoYouNormallyLive)
-    fillYesNo("#inGBNow", theClaim.TimeSpentAbroadAreYouinGBNow)
-  }
+
+    declareYesNo("#liveInUK_answer", "TimeSpentAbroadDoYouNormallyLiveintheUk")
+    declareInput("#liveInUK_whereDoYouLive", "TimeSpentAbroadWhereDoYouNormallyLive")
+    declareYesNo("#inGBNow", "TimeSpentAbroadAreYouinGBNow")
 }
 
 /**

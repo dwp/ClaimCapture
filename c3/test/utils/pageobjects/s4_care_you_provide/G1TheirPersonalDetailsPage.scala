@@ -9,19 +9,15 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 25/07/2013
  */
 final class G1TheirPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1TheirPersonalDetailsPage.url, G1TheirPersonalDetailsPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillSelect("#title", theClaim.AboutTheCareYouProvideTitlePersonCareFor)
-    fillInput("#firstName",theClaim.AboutTheCareYouProvideFirstNamePersonCareFor)
-    fillInput("#middleName", theClaim.AboutTheCareYouProvideMiddleNamePersonCareFor)
-    fillInput("#surname", theClaim.AboutTheCareYouProvideSurnamePersonCareFor)
-    fillNino("#nationalInsuranceNumber", theClaim.AboutTheCareYouProvideNINOPersonCareFor)
-    fillDate("#dateOfBirth", theClaim.AboutTheCareYouProvideDateofBirthPersonYouCareFor)
-    fillYesNo("#liveAtSameAddress", theClaim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou)
-  }
+
+    declareSelect("#title", "AboutTheCareYouProvideTitlePersonCareFor")
+    declareInput("#firstName","AboutTheCareYouProvideFirstNamePersonCareFor")
+    declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePersonCareFor")
+    declareInput("#surname", "AboutTheCareYouProvideSurnamePersonCareFor")
+    declareNino("#nationalInsuranceNumber", "AboutTheCareYouProvideNINOPersonCareFor")
+    declareDate("#dateOfBirth", "AboutTheCareYouProvideDateofBirthPersonYouCareFor")
+    declareYesNo("#liveAtSameAddress", "AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou")
+
 }
 
 

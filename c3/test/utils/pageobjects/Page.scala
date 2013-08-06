@@ -5,13 +5,15 @@ import scala.collection.convert.Wrappers.JListWrapper
 import org.specs2.specification.Scope
 import play.api.test.TestBrowser
 import org.openqa.selenium.TimeoutException
+import scala.collection.mutable
+
 
 /**
  * Super-class of all the PageObject pattern compliant classes representing an application page.
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Int = 1) extends Object with WebSearchActions with WebFillActions {
+abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Int = 1) extends Object with FormFields with WebSearchActions with WebFillActions {
 
   // Cache of the page source
   private var pageSource = ""
@@ -60,7 +62,27 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario)
+  def fillPageWith(theClaim: ClaimScenario):Unit = {
+    fields foreach {
+      case (cssElem:String,fieldType:Symbol,claimAttribute:String ) =>
+       fieldType match {
+         case ADDRESS => fillAddress(cssElem,theClaim.selectDynamic(claimAttribute))
+         case CHECK => fillCheck(cssElem,theClaim.selectDynamic(claimAttribute))
+         case DATE => fillDate(cssElem,theClaim.selectDynamic(claimAttribute))
+         case DATE_FROM=> fillDate(cssElem,theClaim.selectDynamic(claimAttribute + "_from"))
+         case DATE_TO=> fillDate(cssElem,theClaim.selectDynamic(claimAttribute + "_to"))
+
+         case INPUT => fillInput(cssElem,theClaim.selectDynamic(claimAttribute))
+         case PAYMENT_FREQUENCY => fillPaymentFrequency(cssElem,theClaim.selectDynamic(claimAttribute))
+         case RADIO_LIST => fillRadioList(cssElem,theClaim.selectDynamic(claimAttribute))
+         case SELECT => fillSelect(cssElem,theClaim.selectDynamic(claimAttribute))
+//         case SELECT_WITH_OTHER => fill
+         case TIME => fillTime(cssElem,theClaim.selectDynamic(claimAttribute))
+         case WHEREABOUTS => fillWhereabouts(cssElem,theClaim.selectDynamic(claimAttribute))
+         case YESNO => fillYesNo(cssElem,theClaim.selectDynamic(claimAttribute))
+       }
+    }
+  }
 
   /**
    * Reads theClaim, interacts with browser to populate the page, submit the page and
@@ -210,7 +232,7 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * Throws a PageObjectException.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario) { throw new PageObjectException("Cannot fill an unknown page: " + pageTitle)}
+  override def fillPageWith(theClaim: ClaimScenario):Unit =  { throw new PageObjectException("Cannot fill an unknown page: " + pageTitle)}
 }
 
 object Page  {

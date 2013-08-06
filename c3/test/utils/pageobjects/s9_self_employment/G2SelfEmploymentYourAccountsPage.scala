@@ -6,15 +6,14 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
 
 final class G2SelfEmploymentYourAccountsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2SelfEmploymentYourAccountsPage.url, G2SelfEmploymentYourAccountsPage.title, previousPage) {
 
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillDate("#whatWasOrIsYourTradingYearFrom", theClaim.SelfEmployedWhatWasIsYourTradingYearfrom)
-    fillDate("#whatWasOrIsYourTradingYearTo", theClaim.SelfEmployedWhatWasIsYourTradingYearIs)
-    fillYesNo("#areAccountsPreparedOnCashFlowBasis", theClaim.SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis)
-    fillYesNo("#areIncomeOutgoingsProfitSimilarToTrading", theClaim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent)
-    fillInput("#tellUsWhyAndWhenTheChangeHappened", theClaim.SelfEmployedTellUsWhyandWhentheChangeHappened)
-    fillYesNo("#doYouHaveAnAccountant", theClaim.SelfEmployedDoYouHaveAnAccountant)
-    fillYesNo("#canWeContactYourAccountant", theClaim.SelfEmployedCanWeContactYourAccountant)
-  }
+    declareDate("#whatWasOrIsYourTradingYearFrom", "SelfEmployedWhatWasIsYourTradingYearfrom")
+    declareDate("#whatWasOrIsYourTradingYearTo", "SelfEmployedWhatWasIsYourTradingYearIs")
+    declareYesNo("#areAccountsPreparedOnCashFlowBasis", "SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis")
+    declareYesNo("#areIncomeOutgoingsProfitSimilarToTrading", "SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent")
+    declareInput("#tellUsWhyAndWhenTheChangeHappened", "SelfEmployedTellUsWhyandWhentheChangeHappened")
+    declareYesNo("#doYouHaveAnAccountant", "SelfEmployedDoYouHaveAnAccountant")             //SelfEmployedDoYouHaveAnAccountant
+    declareYesNo("#canWeContactYourAccountant", "SelfEmployedCanWeContactYourAccountant")
+
 }
 
 object G2SelfEmploymentYourAccountsPage {

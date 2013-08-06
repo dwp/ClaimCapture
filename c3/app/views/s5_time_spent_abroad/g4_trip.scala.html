@@ -29,12 +29,12 @@
 
         <nav class="form-steps">
             @if(request.headers.get("referer").isDefined) {
-                <a id="backButton" href='@request.headers("referer")' class="button secondary">Cancel</a>
+                <a id="backButton" href='@request.headers("referer")' class="button secondary">Back</a>
             } else {
-                <a id="backButton" onclick="history.go(-1); return false;" href="#" class="button secondary">Cancel</a>
+                <a id="backButton" onclick="history.go(-1); return false;" href="#" class="button secondary">Back</a>
             }
 
-            <button type="submit" name="action" value="next" class="button">Save</button>
+            <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
 }

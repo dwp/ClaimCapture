@@ -12,21 +12,22 @@ import play.api.Play.current
 
 /**
  * Application configuration is in a hierarchy of files:
- * application.conf
- * /             |            \
+ *
+ *                            application.conf
+ *                      /             |            \
  * application.prod.conf    application.dev.conf    application.test.conf <- these can override and add to application.conf
+ *
  * play test  <- test mode picks up application.test.conf
  * play run   <- dev mode picks up application.dev.conf
  * play start <- prod mode picks up application.prod.conf
+ *
  * To override and stipulate a particular "conf" e.g.
  * play -Dconfig.file=conf/application.test.conf run
  */
 object Global extends WithFilters(RefererCheck) {
-  private lazy val injector = {
-    Play.isProd match {
-      case true => Guice.createInjector(new ProdModule)
-      case false => Guice.createInjector(new DevModule)
-    }
+  private lazy val injector = Play.isProd match {
+    case true => Guice.createInjector(new ProdModule)
+    case false => Guice.createInjector(new DevModule)
   }
 
   override def onStart(app: Application) {
@@ -70,4 +71,3 @@ object RefererCheck extends Filter {
     }
   }
 }
-

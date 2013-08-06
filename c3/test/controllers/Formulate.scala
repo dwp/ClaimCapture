@@ -83,7 +83,6 @@ object Formulate {
   def moreAboutYou(browser: TestBrowser) = {
     browser.goTo("/aboutyou/moreAboutYou")
     browser.click("#hadPartnerSinceClaimDate_yes")
-    browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_yes")
     browser.click("#receiveStatePension_yes")
     browser.submit("button[type='submit']")
@@ -444,8 +443,7 @@ object Formulate {
   def aboutOtherMoney(browser: TestBrowser) = {
     browser.goTo("/otherMoney/aboutOtherMoney")
     browser.click("#yourBenefits_answer_yes")
-    browser.fill("#yourBenefits_text1") `with` "Bar"
-    browser.fill("#yourBenefits_text1") `with` "fizz"
+    browser.fill("#yourBenefits_text") `with` "Bar"
     browser.submit("button[type='submit']")
   }
 

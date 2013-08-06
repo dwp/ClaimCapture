@@ -15,7 +15,6 @@ object G5MoreAboutYou extends Controller with CachedClaim {
     mapping(
       call(routes.G5MoreAboutYou.present()),
       "hadPartnerSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
-      "eitherClaimedBenefitSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
       "beenInEducationSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
       "receiveStatePension" -> nonEmptyText.verifying(validYesNo)
     )(MoreAboutYou.apply)(MoreAboutYou.unapply))

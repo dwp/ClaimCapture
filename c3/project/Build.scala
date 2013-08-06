@@ -38,7 +38,7 @@ object ApplicationBuild extends Build {
 
   var f2: Seq[Project.Setting[_]] = Seq(parallelExecution in Test := false)
 
-  var appSettings: Seq[Project.Setting[_]] = SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f1 ++ f2
+  var appSettings: Seq[Project.Setting[_]] =  SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f1 ++ f2
 
   val main = play.Project(appName, appVersion, appDependencies).settings(appSettings: _*)
 }

@@ -11,13 +11,9 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
  * To change this template use File | Settings | File Templates.
  */
 final class G10BreaksInCarePage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G10BreaksInCarePage.url, G10BreaksInCarePage.title, previousPage, iteration) {
-  /**
-   * Sub-class reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-     fillYesNo("#answer", theClaim.selectDynamic("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_" + iteration))
-  }
+  
+     declareYesNo("#answer", "AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_" + iteration)
+  
 }
 
 /**

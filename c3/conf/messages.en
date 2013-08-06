@@ -149,8 +149,6 @@ dateOfClaim = When do you want your Carer''s Allowance claim to start?
 # MORE ABOUT YOU
 hadPartnerSinceClaimDate.label = Have you had a Partner/Spouse at any time since your claim date: {0}?
 hadPartnerSinceClaimDate = Have you had a Partner/Spouse at any time since your claim date?
-eitherClaimedBenefitSinceClaimDate.label = Have you or your Partner/Spouse claimed or received any other benefits since your claim date: {0}?
-eitherClaimedBenefitSinceClaimDate = Have you or your Partner/Spouse claimed or received any other benefits since your claim date?
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
 receiveStatePension = Do you get State Pension?
@@ -251,8 +249,8 @@ anyTrips = Have you been out of Great Britain
 4Weeks.more.label = Have you had any more trips out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
 
 # 52 WEEKS
-52Weeks.label = Have you been out of Great Britain for more than 52 weeks, since {0} (this is 156 weeks before your claim date)?
-52Weeks.more.label = Have you had any more trips out of Great Britain for more than 52 weeks, since {0} (this is 156 weeks before your claim date)?
+52Weeks.label = Have you been out of Great Britain for more than 52 weeks, since {0} (this is 3 years before your claim date)?
+52Weeks.more.label = Have you had any more trips out of Great Britain for more than 52 weeks, since {0} (this is 3 years before your claim date)?
 
 start.trip = Date you left Great Britain
 end.trip = Date you returned to Great Britain
@@ -268,7 +266,7 @@ expectedEndDate = When do you expect the course to end?
 finishedDate = If you are no longer on the course, when did you finish?
 studentReferenceNumber = Your student reference number
 nameOfSchoolCollegeOrUniversity = Name of school, college or university
-nameOfMainTeacherOrTutor = Name of main Teacher or Tutor
+nameOfMainTeacherOrTutor = Name of main teacher or tutor
 faxNumber = Fax number
 
 ## EMPLOYED
@@ -345,10 +343,8 @@ whoDoYouPay = Name of the person/organisation you pay
 
 ## OTHER MONEY
 # ABOUT OTHER MONEY
-yourBenefits.answer = Have you claimed or received any other benefits since the date you want to claim?
-yourBenefits.answer.label = Have you {0} claimed or received any other benefits since the date you want to claim?
-yourBenefits.text1 = Please tell us the names of the benefits or entitlements you receive
-yourBenefits.text2 = Please tell us the names of the benefits or entitlements your Partner/Spouse receive
+yourBenefits.answer.label = Have you {0} claimed or received any other benefits since your claim date: {1}?
+yourBenefits.text = Please tell us the names of the benefits or entitlements you receive
 moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
 haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
 howMuch = How much do you get, and how often?
@@ -394,19 +390,18 @@ informationFromPerson = Do you agree to us getting information from any other pe
 
 # DISCLAIMER
 disclaimer.1 = I understand that if I am paid Carer''s Allowance it may affect the benefits paid to [[first name, middle name, surname]].
-disclaimer.2 = In addition please show the notes below to the person you are caring for, or their representative.
-disclaimer.3 = If the person you are caring for receives certain benefits, the amount they receive may be affected by your claim for Carer''s Allowance. Because of this we need both of you to understand the potential consequences of your claim to Carer''s Allowance.
-disclaimer.4 = If [[first name, middle name, surname]] gets a Severe Disability Premium with their income-based Jobseeker''s Allowance, Income Support, income-related Employment and Support Allowance, Housing Benefit or Council Tax Benefit, they may no longer get that premium if we pay Carer''s Allowance to you.
-disclaimer.5 = If [[first name, middle name, surname]]''s Pension Credit includes an extra amount for severe disability, they may no longer get that extra amount if we pay Carer''s Allowance to you.
-disclaimer.6 = We will need to check [[first name, middle name, surname]] entitlement to Disability Living Allowance, Personal Independence Payment, Attendance Allowance, Constant Attendance Allowance or Armed Forces Independence Payment when considering your claim.
-disclaimer.7 = We may contact [[first name, middle name, surname]] or their representative to establish whether 35 hours caring per week is taking place.
+disclaimer.2 = If the person you are caring for receives certain benefits, the amount they receive may be affected by your claim for Carer''s Allowance. Because of this we need both of you to understand the potential consequences of your claim to Carer''s Allowance.
+disclaimer.3 = If [[first name, middle name, surname]] gets a Severe Disability Premium with their income-based Jobseeker''s Allowance, Income Support, income-related Employment and Support Allowance, Housing Benefit or Council Tax Benefit, they may no longer get that premium if we pay Carer''s Allowance to you.
+disclaimer.4 = If [[first name, middle name, surname]]''s Pension Credit includes an extra amount for severe disability, they may no longer get that extra amount if we pay Carer''s Allowance to you.
+disclaimer.5 = We will need to check [[first name, middle name, surname]] entitlement to Disability Living Allowance, Personal Independence Payment, Attendance Allowance, Constant Attendance Allowance or Armed Forces Independence Payment when considering your claim.
+disclaimer.6 = We may contact [[first name, middle name, surname]] or their representative to establish whether 35 hours caring per week is taking place.
 
-read = Please tick this box to declare that you understand and have shown the notes above to the person you are looking after.
+read = Please tick this box to declare that you have understood the notes and you have made the person you are caring/or their representative aware that there could be a change to their benefits.
 
 #DECLARATION
 declaration.1 = I declare that I understand the <a href="http://www.gov.uk/carers-allowance" target="_blank">Carer''s Allowance Claim Notes</a> and that the information provided on this claim form is correct and complete.
 declaration.2 = I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
-declaration.3 = I will phone 08456084321 or write to Carer''s allowance Unit, Palantine House, Lancaster, Preston, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
+declaration.3 = I will phone 08456084321 or write to Carer''s allowance Unit, Palantine House, Preston, Lancaster, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
 declaration.4 = If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Carer''s Allowance may be stopped or reduced and any overpayment of Carer''s Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.
 confirm = Please tick this box to confirm that you understand and make the declarations above.
 declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.
@@ -444,8 +439,8 @@ canWeContactYourAccountant.helper = You could be charged by your accountant for 
 
 #SELF EMPLOYED - Accountant Contact Details
 error.accountantsName = Please provide the accountant's name
-accountantsName = Accountant’s Name
-telephoneNumber = Telephone Number
+accountantsName = Accountant’s name
+telephoneNumber = Telephone number
 
 #SELF EMPLOYED - Pensions and Expenses
 

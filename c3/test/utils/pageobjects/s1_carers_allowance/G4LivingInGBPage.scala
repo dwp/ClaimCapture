@@ -16,7 +16,7 @@ final class G4LivingInGBPage (browser: TestBrowser, previousPage: Option[Page] =
    * Reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario) {
+  override def fillPageWith(theClaim: ClaimScenario) {
     fillYesNo("#q3",theClaim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb, separator)
   }
 }

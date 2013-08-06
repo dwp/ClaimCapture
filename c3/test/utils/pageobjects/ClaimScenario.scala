@@ -1,6 +1,7 @@
 package utils.pageobjects
 
 import scala.language.dynamics
+import scala.collection.mutable
 
 /**
  * Represents a full claim. Fill only the responses you need for the your specific test scenario.
@@ -13,7 +14,7 @@ import scala.language.dynamics
  */
 class ClaimScenario extends Dynamic {
 
-  var map = Map.empty[String,String]
+  val map = mutable.Map.empty[String,String]
 
   def selectDynamic(name: String) =
     map get name getOrElse null

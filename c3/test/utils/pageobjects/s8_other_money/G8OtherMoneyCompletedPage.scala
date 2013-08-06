@@ -5,9 +5,6 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G8OtherMoneyCompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G8OtherMoneyCompletedPage.url, G8OtherMoneyCompletedPage.title, previousPage) {
 
-  def fillPageWith(theClaim: ClaimScenario) {
-
-  }
 }
 
 object G8OtherMoneyCompletedPage {

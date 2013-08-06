@@ -1,14 +1,14 @@
 package models.domain
 
 import models._
-import models.yesNo.{YesNoWithText, YesNoWith2Text}
+import models.yesNo.YesNoWithText
 import play.api.mvc.Call
 
 case object OtherMoney extends Section.Identifier {
   val id = "s9"
 }
 
-case class AboutOtherMoney(yourBenefits: YesNoWith2Text, call: Call = NoRouting) extends QuestionGroup(AboutOtherMoney)
+case class AboutOtherMoney(yourBenefits: YesNoWithText, call: Call = NoRouting) extends QuestionGroup(AboutOtherMoney)
 
 object AboutOtherMoney extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g1"

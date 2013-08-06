@@ -19,7 +19,7 @@ class EndToEndSpec extends Specification with Tags {
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
       try {
-        val lastPage = page runClaimWith(claim, TestPage.title)
+        val lastPage = page runClaimWith(claim, TestPage.title, waitForPage = true, waitDuration = 500)
 //        lastPage fillPageWith claim
         println(lastPage.source)
       }
@@ -27,7 +27,7 @@ class EndToEndSpec extends Specification with Tags {
         case e:PageObjectException =>  {
           println(browser.pageSource())
           println(browser.url())
-          println(e.message)
+          println(e)
         }
       }
     }

@@ -33,7 +33,11 @@ case class OtherMoneySection(aboutOtherMoney: AboutOtherMoney,
 case class TimeSpentAbroadSection(normalResidence: NormalResidenceAndCurrentLocation, trips: Trips)
 
 case class SelfEmploymentSection(aboutSelfEmployment: AboutSelfEmployment,
-                                 selfEmploymentYourAccounts: SelfEmploymentYourAccounts)
+                                 selfEmploymentYourAccounts: SelfEmploymentYourAccounts,
+                                 accountantContactDetails: SelfEmploymentAccountantContactDetails,
+                                 pensionsAndExpenses: SelfEmploymentPensionsAndExpenses,
+                                 childcareExpenses: ChildcareExpensesWhileAtWork
+                                  )
 
 
 object ClaimBuilder {
@@ -91,15 +95,19 @@ object ClaimBuilder {
     AddressOfSchoolCollegeOrUniversity(NoRouting, Some("schoolName"), Some("tutorName"), Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), Some("SE1 6EH"), Some("020192827273"), Some("0302928273"))
   )
 
-  val otherMoney = OtherMoneySection(AboutOtherMoney(YesNoWith2Text(yes, Some("text1"), Some("text2"))), MoneyPaidToSomeoneElseForYou("yes"),
+  val otherMoney = OtherMoneySection(AboutOtherMoney(YesNoWithText(yes, Some("text"))), MoneyPaidToSomeoneElseForYou("yes"),
     PersonWhoGetsThisMoney("fullName", Some(NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))), "benefitName"),
     PersonContactDetails(Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), Some("SE1 6EH")),
     StatutorySickPay(haveYouHadAnyStatutorySickPay = yes, employersName = Some("employersName"), employersAddress = Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), employersPostcode = Some("SE1 6EH")),
     OtherStatutoryPay(otherPay = yes, employersName = Some("employersName"), employersAddress = Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), employersPostcode = Some("SE1 6EH"))
   )
 
-  val selfEmployment = SelfEmploymentSection(AboutSelfEmployment(areYouSelfEmployedNow = yes, whenDidYouStartThisJob=Some(DayMonthYear(Some(1), Some(2), Some(2013))), whenDidTheJobFinish=Some(DayMonthYear(Some(1), Some(9), Some(2013))), natureOfYourBusiness = Some("IT"), haveYouCeasedTrading = Some(no)),
-    SelfEmploymentYourAccounts())
+  val selfEmployment = SelfEmploymentSection(AboutSelfEmployment(areYouSelfEmployedNow = yes, whenDidYouStartThisJob = Some(DayMonthYear(Some(1), Some(2), Some(2013))), whenDidTheJobFinish = Some(DayMonthYear(Some(1), Some(9), Some(2013))), natureOfYourBusiness = Some("IT"), haveYouCeasedTrading = Some(no)),
+    SelfEmploymentYourAccounts(doYouHaveAnAccountant = Some(yes)),
+    SelfEmploymentAccountantContactDetails(accountantsName = "KPMG", address = MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))),
+    SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWithText(yes, Some("150.5")), lookAfterChildrenMapping = YesNoWithText(yes, Some("150")), lookAfterCaredForMapping = YesNoWithText(yes, Some("150.5"))),
+    ChildcareExpensesWhileAtWork(howMuchYouPay = Some("150.5"), nameOfPerson = "Andy", whatRelationIsToYou = Some("grandSon"), whatRelationIsTothePersonYouCareFor = Some("relation"))
+  )
 
   val careYouProvide = CareYouProvide(theirPersonalDetails, theirContactDetails,
     moreAboutThePerson, representatives,

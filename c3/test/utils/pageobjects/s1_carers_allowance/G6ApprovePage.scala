@@ -9,11 +9,6 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 10/07/2013
  */
 final class G6ApprovePage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6ApprovePage.url, G6ApprovePage.title, previousPage) {
-  /**
-   * Reads theClaim and interact with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {}
 
   def isApproved =  browser.find(".prompt").size != 0 && browser.find(".prompt.error]").size == 0
   def isNotApproved =  browser.find(".prompt.error]").size != 0

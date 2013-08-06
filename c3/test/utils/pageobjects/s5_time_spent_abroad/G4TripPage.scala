@@ -9,16 +9,12 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 31/07/2013
  */
 class G4TripPage (browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G4TripPage.url, G4TripPage.title, previousPage, iteration) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillDate("#start", theClaim.selectDynamic("TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_" + iteration))
-    fillDate("#end", theClaim.selectDynamic("TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_" + iteration))
-    fillInput("#where", theClaim.selectDynamic("TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_" + iteration))
-    fillInput("#why", theClaim.selectDynamic("TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_" + iteration))
-  }
+ 
+    declareDate("#start", "TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_" + iteration)
+    declareDate("#end", "TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_" + iteration)
+    declareInput("#where", "TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_" + iteration)
+    declareInput("#why", "TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_" + iteration)
+  
 }
 
 /**

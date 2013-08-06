@@ -6,14 +6,13 @@ import utils.pageobjects.{PageContext, ClaimScenario, Page}
 
 final class G4SelfEmploymentPensionsAndExpensesPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4SelfEmploymentPensionsAndExpensesPage.url, G4SelfEmploymentPensionsAndExpensesPage.title, previousPage) {
 
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillYesNo("#doYouPayToPensionScheme", theClaim.SelfEmployedDoYouPayTowardsPensionScheme)
-    fillInput("#howMuchDidYouPay", theClaim.SelfEmployedHowMuchPayPensionExpenses)
-    fillYesNo("#doYouPayToLookAfterYourChildren", theClaim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild)
-    fillYesNo("#isItTheSameExpenseWhileAtWorkForChildren", theClaim.SelfEmployedChildCareIsThistheSameAsDuringYourEmployedWork)
-    fillYesNo("#didYouPayToLookAfterThePersonYouCaredFor", theClaim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor)
-    fillYesNo("#isItTheSameExpenseDuringWorkForThePersonYouCaredFor", theClaim.SelfEmployedCareIsThistheSameAsDuringYourEmployedWork)
-  }
+    declareYesNo("#doYouPayToPensionScheme", "SelfEmployedDoYouPayTowardsPensionScheme")
+    declareInput("#howMuchDidYouPay", "SelfEmployedHowMuchPayPensionExpenses")
+    declareYesNo("#doYouPayToLookAfterYourChildren", "SelfEmployedDoYouPayAnyonetoLookAfterYourChild")
+    declareYesNo("#isItTheSameExpenseWhileAtWorkForChildren", "SelfEmployedChildCareIsThistheSameAsDuringYourEmployedWork")
+    declareYesNo("#didYouPayToLookAfterThePersonYouCaredFor", "SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor")
+    declareYesNo("#isItTheSameExpenseDuringWorkForThePersonYouCaredFor", "SelfEmployedCareIsThistheSameAsDuringYourEmployedWork")
+  
 }
 
 object G4SelfEmploymentPensionsAndExpensesPage {

@@ -9,15 +9,10 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 25/07/2013
  */
 final class G3MoreAboutThePersonPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3MoreAboutThePersonPage.url, G3MoreAboutThePersonPage.title, previousPage)  {
-  /**
-   * Sub-class reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillSelect("#relationship",theClaim.AboutTheCareYouProvideWhatTheirRelationshipToYou)
-    fillYesNo("#armedForcesPayment", theClaim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment)
-    fillYesNo("#claimedAllowanceBefore", theClaim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance)
-  }
+  
+    declareSelect("#relationship","AboutTheCareYouProvideWhatTheirRelationshipToYou")
+    declareYesNo("#armedForcesPayment", "AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment")
+    declareYesNo("#claimedAllowanceBefore", "AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance")
 }
 
 /**

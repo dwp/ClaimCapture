@@ -6,7 +6,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G5CarersResponsePage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5CarersResponsePage.url, G5CarersResponsePage.title, previousPage) {
 
-  def fillPageWith(theClaim: ClaimScenario) {}
+  override def fillPageWith(theClaim: ClaimScenario) {}
 
   def isApproved =  browser.find(".prompt").size != 0 && browser.find(".prompt.error]").size == 0
   def isNotApproved =  browser.find(".prompt.error]").size != 0

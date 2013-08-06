@@ -9,22 +9,17 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  *         Date: 09/07/2013
  */
 final class G1YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1YourDetailsPage.url, G1YourDetailsPage.title, previousPage) {
-  /**
-   * Reads theClaim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
-   */
-  def fillPageWith(theClaim: ClaimScenario) {
-    fillSelect("#title", theClaim.AboutYouTitle)
-    fillInput("#firstName",theClaim.AboutYouFirstName)
-    fillInput("#middleName",theClaim.AboutYouMiddleName)
-    fillInput("#surname",theClaim.AboutYouSurname)
-    fillInput("#otherNames", theClaim.AboutYouOtherNames)
-    fillNino("#nationalInsuranceNumber",theClaim.AboutYouNINO)
-    fillDate("#dateOfBirth", theClaim.AboutYouDateOfBirth)
-    fillInput("#nationality", theClaim.AboutYouNationality)
-    fillSelect("#maritalStatus", theClaim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus)
-    fillYesNo("#alwaysLivedUK", theClaim.AboutYouHaveYouAlwaysLivedInTheUK)
-  }
+  
+    declareSelect("#title", "AboutYouTitle")
+    declareInput("#firstName","AboutYouFirstName")
+    declareInput("#middleName","AboutYouMiddleName")
+    declareInput("#surname","AboutYouSurname")
+    declareInput("#otherNames", "AboutYouOtherNames")
+    declareNino("#nationalInsuranceNumber","AboutYouNINO")
+    declareDate("#dateOfBirth", "AboutYouDateOfBirth")
+    declareInput("#nationality", "AboutYouNationality")
+    declareSelect("#maritalStatus", "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus")
+    declareYesNo("#alwaysLivedUK", "AboutYouHaveYouAlwaysLivedInTheUK")
 }
 
 /**
