@@ -40,7 +40,7 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
         if (xPathNodes != None) {
           val path = xPathNodes.get
           val nodes = path.split(">")
-          val elementValue: XmlNode = if (path.endsWith("...")) childNode(xml.\\(nodes(0)), nodes.drop(1)).toString() else childNode(xml.\\(nodes(0)), nodes.drop(1)).text
+          val elementValue = XmlNode(if (path.endsWith("...")) childNode(xml.\\(nodes(0)), nodes.drop(1)).toString() else childNode(xml.\\(nodes(0)), nodes.drop(1)).text,path)
           val expectedValue: ClaimValue = value
           if (elementValue doesNotMatch expectedValue)
             listErrors += attribute + " " + nodes.mkString(">") + " value expected: [" + expectedValue + "] value read: [" + elementValue + "]"
@@ -69,10 +69,10 @@ object XMLBusinessValidation {
  * Represents an Xml Node once "cleaned", i.e. trimmed and line returns removed.
  * @param value value of node.
  */
-class XmlNode(val value: String) {
+class XmlNode(val value: String, val nodeName:String) {
 
   def matches(claimValue: ClaimValue): Boolean = {
-    if (value.matches("""\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""")) value.contains(claimValue.value)
+    if (value.matches("""\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames")) value.contains(claimValue.value)
     else if (value.matches(".*>.*"))  {
       println(value)
       value.matches(".*" + "yes</[^>]*" + value + ".*")
@@ -89,7 +89,8 @@ class XmlNode(val value: String) {
 object XmlNode {
   private def prepareElement(elementValue: String) = elementValue.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
-  implicit def fromString(source: String): XmlNode = new XmlNode(prepareElement(source))
+  def apply(value:String, nodeName:String) = new XmlNode(prepareElement(value),nodeName)
+//  implicit def fromString(source: String): XmlNode = new XmlNode(prepareElement(source))
 }
 
 

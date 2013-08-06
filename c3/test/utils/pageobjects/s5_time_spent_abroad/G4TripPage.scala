@@ -10,20 +10,18 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  */
 class G4TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G4TripPage.url, G4TripPage.title, previousPage, iteration) {
 
-  previousPage match {
-    case p:Some[G3AbroadForMoreThan52WeeksPage] => {
+
+  if(previousPage == None || previousPage.get.isInstanceOf[G2AbroadForMoreThan4WeeksPage]) {
+    declareDate("#start", "TimeSpentAbroadDateYouLeftGB_" + iteration)
+    declareDate("#end", "TimeSpentAbroadDateYouReturnedToGB_" + iteration)
+    declareInput("#where", "TimeSpentAbroadWhereDidYouGoWithPersonCareFor_" + iteration)
+    declareInput("#why", "TimeSpentAbroadWhyDidYouGoWithPersonCareFor_" + iteration)
+  } else  if (previousPage.get.isInstanceOf[G3AbroadForMoreThan52WeeksPage]) {
       declareDate("#start", "TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_" + iteration)
       declareDate("#end", "TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_" + iteration)
       declareInput("#where", "TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_" + iteration)
       declareInput("#why", "TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_" + iteration)
     }
-    case _ => {
-      declareDate("#start", "TimeSpentAbroadDateYouLeftGB_" + iteration)
-      declareDate("#end", "TimeSpentAbroadDateYouReturnedToGB_" + iteration)
-      declareInput("#where", "TimeSpentAbroadWhereDidYouGoWithPersonCareFor_" + iteration)
-      declareInput("#why", "TimeSpentAbroadWhyDidYouGoWithPersonCareFor_" + iteration)
-    }
-  }
 
   protected override def updateIterationNumber = iteration + 1
 }

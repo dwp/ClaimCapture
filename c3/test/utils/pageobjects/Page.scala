@@ -64,24 +64,29 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario): Unit = {
-    fields foreach {
-      case (cssElem: String, fieldType: Symbol, claimAttribute: String) =>
-        fieldType match {
-          case ADDRESS => fillAddress(cssElem, theClaim.selectDynamic(claimAttribute))
-          case CHECK => fillCheck(cssElem, theClaim.selectDynamic(claimAttribute))
-          case DATE => fillDate(cssElem, theClaim.selectDynamic(claimAttribute))
-          case DATE_FROM => fillDate(cssElem, theClaim.selectDynamic(claimAttribute + "_from"))
-          case DATE_TO => fillDate(cssElem, theClaim.selectDynamic(claimAttribute + "_to"))
+    try {
+      fields foreach {
+        case (cssElem: String, fieldType: Symbol, claimAttribute: String) =>
+          fieldType match {
+            case ADDRESS => fillAddress(cssElem, theClaim.selectDynamic(claimAttribute))
+            case CHECK => fillCheck(cssElem, theClaim.selectDynamic(claimAttribute))
+            case DATE => fillDate(cssElem, theClaim.selectDynamic(claimAttribute))
+            case DATE_FROM => fillDate(cssElem, theClaim.selectDynamic(claimAttribute + "_from"))
+            case DATE_TO => fillDate(cssElem, theClaim.selectDynamic(claimAttribute + "_to"))
 
-          case INPUT => fillInput(cssElem, theClaim.selectDynamic(claimAttribute))
-          case PAYMENT_FREQUENCY => fillPaymentFrequency(cssElem, theClaim.selectDynamic(claimAttribute))
-          case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
-          case SELECT => fillSelect(cssElem, theClaim.selectDynamic(claimAttribute))
-          case SORTCODE => fillSortCode(cssElem, theClaim.selectDynamic(claimAttribute))
-          case TIME => fillTime(cssElem, theClaim.selectDynamic(claimAttribute))
-          case WHEREABOUTS => fillWhereabouts(cssElem, theClaim.selectDynamic(claimAttribute))
-          case YESNO => fillYesNo(cssElem, theClaim.selectDynamic(claimAttribute))
-        }
+            case INPUT => fillInput(cssElem, theClaim.selectDynamic(claimAttribute))
+            case PAYMENT_FREQUENCY => fillPaymentFrequency(cssElem, theClaim.selectDynamic(claimAttribute))
+            case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
+            case SELECT => fillSelect(cssElem, theClaim.selectDynamic(claimAttribute))
+            case SORTCODE => fillSortCode(cssElem, theClaim.selectDynamic(claimAttribute))
+            case TIME => fillTime(cssElem, theClaim.selectDynamic(claimAttribute))
+            case WHEREABOUTS => fillWhereabouts(cssElem, theClaim.selectDynamic(claimAttribute))
+            case YESNO => fillYesNo(cssElem, theClaim.selectDynamic(claimAttribute))
+          }
+      }
+    }
+    catch {
+      case e:Exception => throw new PageObjectException("Error when filling form in page [" + pageTitle + "]",exception = e)
     }
   }
 
