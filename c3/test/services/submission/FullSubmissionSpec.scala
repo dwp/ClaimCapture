@@ -15,6 +15,7 @@ import com.google.inject._
 class FullSubmissionSpec extends Specification with Tags {
 
   val thankYouPageTitle = "GOV.UK - The best place to find government services and information"
+  val cAndDError = "Error"
 
   private lazy val injector = Guice.createInjector(new ScalaModule {
     def configure() {
@@ -43,7 +44,20 @@ class FullSubmissionSpec extends Specification with Tags {
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, thankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
-      //println(lastPage.source())
+    }
+    "Recoverable Error submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+      val idService = injector.getInstance(classOf[TransactionIdService])
+      idService.id = "TEST224"
+      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+      page goToThePage()
+      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+    }
+    "Recoverable acknowledgement submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+      val idService = injector.getInstance(classOf[TransactionIdService])
+      idService.id = "TEST225"
+      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+      page goToThePage()
+      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
     }
   }
 }
