@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_other_money._
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s6_pay_details.G1HowWePayYouPage
+import utils.pageobjects.s9_pay_details.G1HowWePayYouPage
 
 class OtherMoneySpec extends Specification with Tags {
 
