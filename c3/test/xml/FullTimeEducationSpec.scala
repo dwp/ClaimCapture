@@ -6,6 +6,9 @@ import models.domain._
 import models.DayMonthYear
 import models.MultiLineAddress
 import scala.Some
+import controllers.Mappings._
+import models.MultiLineAddress
+import scala.Some
 
 class FullTimeEducationSpec extends Specification with Tags {
 
@@ -25,11 +28,12 @@ class FullTimeEducationSpec extends Specification with Tags {
 
 
   "FullTimeEducation" should {
-    "generate xml" in {
+    "generate <FullTimeEducation> xml when claimer has been in education" in {
 
+      val moreAboutYou = MoreAboutYou(beenInEducationSinceClaimDate = yes)
       val yourCourseDetails = YourCourseDetails(NoRouting, courseType, courseTitle, startDate, expectedEndDate, finishedDate, studentRefNr)
       val addressOfSchool = AddressOfSchoolCollegeOrUniversity(NoRouting, schoolName, tutorName, address, postcode, phoneNumber, faxNumber)
-      val claim = Claim().update(Section(Education, yourCourseDetails :: addressOfSchool :: Nil))
+      val claim = Claim().update(moreAboutYou).update(Section(Education, yourCourseDetails :: addressOfSchool :: Nil))
       val educationXml = FullTimeEducation.xml(claim)
 
       val courseDetailsXml = educationXml \\ "FullTimeEducation" \\ "CourseDetails"
@@ -49,6 +53,14 @@ class FullTimeEducationSpec extends Specification with Tags {
       (locationDetailsXml \\ "FaxNumber").text mustEqual faxNumber.get
       (locationDetailsXml \\ "StudentReferenceNumber").text mustEqual studentRefNr.get
       (locationDetailsXml \\ "Tutor").text mustEqual tutorName.get
+    }
+
+    "skip <FullTimeEducation> xml when claimer has NOT been in education" in {
+      val moreAboutYou = MoreAboutYou(beenInEducationSinceClaimDate = no)
+      val claim = Claim().update(moreAboutYou)
+      val educationXml = FullTimeEducation.xml(claim)
+
+      educationXml.text shouldEqual ""
     }
 
   } section "unit"
