@@ -6,7 +6,6 @@ import helpers.ClaimBuilder._
 import play.api.test.WithApplication
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import scala.xml.Elem
-import xml.ClaimXmlBuilder
 import play.api.Logger
 
 class ClaimXmlBuilderSpec extends Specification with Tags {

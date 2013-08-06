@@ -6,7 +6,7 @@ import scala.concurrent.{Future, ExecutionContext}
 import play.api.mvc.{AnyContent, Request, PlainResult}
 import services.TransactionIdService
 import play.api.{http, Logger}
-import services.submission.{ClaimSubmissionService}
+import services.submission.{ClaimSubmission, WebserviceClaimSubmission}
 import ExecutionContext.Implicits.global
 import com.google.inject.Inject
 import play.api.cache.Cache
@@ -14,12 +14,12 @@ import play.api.libs.ws.Response
 import play.api.Play.current
 import xml.ClaimXmlBuilder
 
-class WebServiceSubmitter @Inject()(idService: TransactionIdService) extends Submitter {
+class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : ClaimSubmission) extends Submitter {
 
   def submit(claim: Claim, request : Request[AnyContent]): Future[PlainResult] = {
     retrieveRetryData(request) match {
       case Some(retryData) => {
-        ClaimSubmissionService.retryClaim(pollXml(retryData.corrId, retryData.pollUrl)).map(
+        claimSubmission.retryClaim(pollXml(retryData.corrId, retryData.pollUrl)).map(
           response => {
             processResponse(retryData.txnId, response, request)
           }
@@ -39,7 +39,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService) extends Sub
         Logger.info(s"Retrieved Id : $txnId")
         val claimXml = ClaimXmlBuilder(claim, txnId).buildDwpClaim
 
-        ClaimSubmissionService.submitClaim(claimXml).map(
+        claimSubmission.submitClaim(claimXml).map(
           response => {
             idService.registerId(txnId, SUBMITTED)
             processResponse(txnId, response, request)
