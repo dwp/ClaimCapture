@@ -22,10 +22,7 @@ class XMLBusinessValidationSpec extends Specification {
       mapping("AboutYouAddress") mustEqual "path3"
       mapping("AboutYouAllOtherSurnamesorFamilyNames") mustEqual "path4"
       mapping("AboutYouDateofBirth") mustEqual "path5"
-      //"AboutYouAreYouCurrentlyLivingintheUk" is ignored since not path associated to it
       mapping("EmploymentHowManyHoursAWeekYouNormallyWork") mustEqual "PayStructure>WeeklyHoursWorked"
-//      mapping("EmploymentHowManyHoursAWeekYouNormallyWork") mustEqual "WeeklyHoursWorked"
-//      mapping("EmploymentCareExpensesWhatRelationIsToYou")(0) mustEqual "CareExpensesStructure"
       mapping("EmploymentCareExpensesWhatRelationIsToYou") mustEqual "CareExpensesStructure>RelationshipCarerToClaimant"
     }
   }
