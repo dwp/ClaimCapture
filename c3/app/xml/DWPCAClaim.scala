@@ -1,6 +1,6 @@
 package xml
 
-import models.domain.{MoreAboutYou, Claim}
+import models.domain.{PropertyAndRent, MoreAboutYou, Claim}
 import controllers.Mappings._
 import play.api.Logger
 import services.submission.{ConsentAndDeclarationSubmission, YourPartnerSubmission, CareYouProvideSubmission}
@@ -14,7 +14,6 @@ object DWPCAClaim {
 
     val aboutYouEmploymentOption = claim.questionGroup[models.domain.Employment]
     val employment = aboutYouEmploymentOption.getOrElse(models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
-
 
     val yourPartner = YourPartnerSubmission.buildYourPartner(claim) //REMOVE THIS WHEN REFACTORING XML HAS BEEN DONE
 
@@ -34,11 +33,7 @@ object DWPCAClaim {
       {SelfEmployment.xml(claim)}
       <Employed>{employment.beenEmployedSince6MonthsBeforeClaim}</Employed>
       {Employment.xml(claim)}
-      <PropertyRentedOut>
-        <PayNationalInsuranceContributions>no</PayNationalInsuranceContributions>
-        <RentOutProperty>no</RentOutProperty>
-        <SubletHome>no</SubletHome>
-      </PropertyRentedOut>
+      {PropertyRentedOut.xml(claim)}
       <HavePartner>{moreAboutYou.hadPartnerSinceClaimDate}</HavePartner>
       {YourPartnerSubmission.buildClaimant(yourPartner)}
       {OtherBenefits.xml(claim)}

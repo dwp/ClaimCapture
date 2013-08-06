@@ -11,8 +11,8 @@ import scala.Some
 object SelfEmployment {
 
   def xml(claim: Claim) = {
-    val aboutYouEmploymentOption = claim.questionGroup[Employment]
-    val employment = aboutYouEmploymentOption.getOrElse(Employment(beenSelfEmployedSince1WeekBeforeClaim = no))
+    val aboutYouEmploymentOption = claim.questionGroup[models.domain.Employment]
+    val employment = aboutYouEmploymentOption.getOrElse(models.domain.Employment(beenSelfEmployedSince1WeekBeforeClaim = no))
 
     val aboutSelfEmploymentOption = claim.questionGroup[AboutSelfEmployment]
     val aboutSelfEmployment = aboutSelfEmploymentOption.getOrElse(AboutSelfEmployment(areYouSelfEmployedNow = no))

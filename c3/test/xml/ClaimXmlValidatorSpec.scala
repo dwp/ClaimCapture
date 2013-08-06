@@ -14,10 +14,11 @@ class ClaimXmlValidatorSpec extends Specification with Tags {
     claim.update(aboutYou.yourDetails)
       .update(aboutYou.claimDate)
       .update(aboutYou.contactDetails)
+      .update(aboutYou.timeOutsideUK.get)
       .update(aboutYou.moreAboutYou)
       .update(aboutYou.employment)
-      .update(aboutYou.timeOutsideUK.get)
-      
+      .update(aboutYou.propertyAndRent)
+
       .update(yourPartner.yourPartnerPersonalDetails)
       .update(yourPartner.yourPartnerContactDetails)
       .update(yourPartner.moreAboutYourPartner)
@@ -65,17 +66,6 @@ class ClaimXmlValidatorSpec extends Specification with Tags {
       .update(consentAndDeclaration.declaration)
   }
   "Claim Submission" should {
-    "build and confirm normal AboutYou input" in new WithApplication {
-      val claim = updateClaim(Claim())
-      val claimXml = DWPCAClaim.xml(claim, "TY6TV9G")
-
-      (claimXml \\ "Claimant" \\ "Title").text mustEqual yourDetails.title
-      (claimXml \\ "Claimant" \\ "OtherNames").text mustEqual s"${yourDetails.firstName}"
-      (claimXml \\ "Claimant" \\ "OtherSurnames").text mustEqual yourDetails.otherSurnames.get
-      (claimXml \\ "Claimant" \\ "DateOfClaim").text mustEqual claimDate.dateOfClaim.toXmlString
-      (claimXml \\ "Claimant" \\ "Address" \\ "PostCode").text mustEqual contactDetails.postcode.get
-      (claimXml \\ "Claimant" \\ "HomePhoneNumber").text mustEqual contactDetails.mobileNumber.getOrElse("") // holds mobile
-    }
 
     "build and confirm contains YourPartner input" in new WithApplication {
       val claim = updateClaim(Claim())
