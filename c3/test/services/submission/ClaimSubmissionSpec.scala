@@ -51,7 +51,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
       .update(otherMoney.statutorySickPay)
       .update(otherMoney.otherStatutoryPay)
 
-      .update(payDetails.howWePayYou)
+      .update(payDetails.howWePayYou.get)
       .update(payDetails.bankBuildingSocietyDetails.get)
 
       .update(employmentJobs)

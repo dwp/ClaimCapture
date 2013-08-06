@@ -159,55 +159,63 @@ object EmploymentXml {
 
   def xml(claim: Claim) = {
 
-    // We will search in all jobs for at least one case finishedThisJob = "no" because that means he is currently employed
+
+
     val jobsQG = claim.questionGroup(Jobs) match { case Some(j:Jobs) => j case _ => Jobs()}
-    val currentlyEmployed = jobsQG.jobs.count(_.apply(JobDetails) match {case Some(j:JobDetails) => j.finishedThisJob == "no" case _ => false})
-                            match {
-                              case i if i > 0 => "yes"
-                              case _ => "no"
-                            }
-    // The date when he last worked will be the greater date of all the "last work date" dates of all the jobs.
-    val dateLastWorked = jobsQG.jobs.map(_.apply(JobDetails) match {case Some(j:JobDetails) => j.lastWorkDate case _ => None})
-                         .max(DayMonthYearComparator) match{ case Some(d) => d case _ => DayMonthYear() }
+
+    if (jobsQG.jobs.length > 0){
+
+      // We will search in all jobs for at least one case finishedThisJob = "no" because that means he is currently employed
+      val currentlyEmployed = jobsQG.jobs.count(_.apply(JobDetails) match {case Some(j:JobDetails) => j.finishedThisJob == "no" case _ => false})
+                              match {
+                                case i if i > 0 => "yes"
+                                case _ => "no"
+                              }
+      // The date when he last worked will be the greater date of all the "last work date" dates of all the jobs.
+      val dateLastWorked = jobsQG.jobs.map(_.apply(JobDetails) match {case Some(j:JobDetails) => j.lastWorkDate case _ => None})
+                           .max(DayMonthYearComparator) match{ case Some(d) => d case _ => DayMonthYear() }
 
 
-    <Employment>
-      <CurrentlyEmployed>{currentlyEmployed}</CurrentlyEmployed>
-      <DateLastWorked>{dateLastWorked.toXmlString}</DateLastWorked>
-      {for(job <- jobsQG)yield{
+      <Employment>
+        <CurrentlyEmployed>{currentlyEmployed}</CurrentlyEmployed>
+        <DateLastWorked>{dateLastWorked.toXmlString}</DateLastWorked>
+        {for(job <- jobsQG)yield{
 
-        val jobDetails = job.questionGroup[JobDetails].get
-        val employerContactDetails = job.questionGroup[EmployerContactDetails].get
-        val lastWage = job.questionGroup[LastWage].get
-        val additionalWageDetails = job.questionGroup[AdditionalWageDetails].get
-        val moneyOwedbyEmployer = job.questionGroup[MoneyOwedbyEmployer]
-        val pensionSchemes = job.questionGroup[PensionSchemes].get
-        val aboutExpenses = job.questionGroup[AboutExpenses].get
-        val necessaryExpenses = job.questionGroup[NecessaryExpenses]
-        val childcareExpenses = job.questionGroup[ChildcareExpenses]
-        val childcareProvider = job.questionGroup[ChildcareProvider]
-        val personYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses]
-        val careProvider = job.questionGroup[CareProvider]
+          val jobDetails = job.questionGroup[JobDetails].get
+          val employerContactDetails = job.questionGroup[EmployerContactDetails].get
+          val lastWage = job.questionGroup[LastWage].get
+          val additionalWageDetails = job.questionGroup[AdditionalWageDetails].get
+          val moneyOwedbyEmployer = job.questionGroup[MoneyOwedbyEmployer]
+          val pensionSchemes = job.questionGroup[PensionSchemes].get
+          val aboutExpenses = job.questionGroup[AboutExpenses].get
+          val necessaryExpenses = job.questionGroup[NecessaryExpenses]
+          val childcareExpenses = job.questionGroup[ChildcareExpenses]
+          val childcareProvider = job.questionGroup[ChildcareProvider]
+          val personYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses]
+          val careProvider = job.questionGroup[CareProvider]
 
-        <JobDetails>
-          {employerXml(jobDetails,employerContactDetails)}
-          {payXml(jobDetails,lastWage,additionalWageDetails)}
-          <OtherThanMoney>no</OtherThanMoney>
-          <OweMoney>{additionalWageDetails.employerOwesYouMoney}</OweMoney>
-          {moneyOwedXml(moneyOwedbyEmployer)}
-          <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
-          {childcareExpensesXml(aboutExpenses,childcareExpenses,childcareProvider)}
-          <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
-          {careExpensesXml(aboutExpenses,personYouCareForExpenses,careProvider)}
-          <PaidForOccupationalPension>{pensionSchemes.payOccupationalPensionScheme}</PaidForOccupationalPension>
-          {occupationalPensionSchemeXml(pensionSchemes)}
-          <PaidForPersonalPension>{pensionSchemes.payPersonalPensionScheme}</PaidForPersonalPension>
-          {personalPensionSchemeXml(pensionSchemes)}
-          <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
-          {jobExpensesXml(aboutExpenses,necessaryExpenses)}
-        </JobDetails>
-      }}
-    </Employment>
+          <JobDetails>
+            {employerXml(jobDetails,employerContactDetails)}
+            {payXml(jobDetails,lastWage,additionalWageDetails)}
+            <OtherThanMoney>no</OtherThanMoney>
+            <OweMoney>{additionalWageDetails.employerOwesYouMoney}</OweMoney>
+            {moneyOwedXml(moneyOwedbyEmployer)}
+            <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
+            {childcareExpensesXml(aboutExpenses,childcareExpenses,childcareProvider)}
+            <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
+            {careExpensesXml(aboutExpenses,personYouCareForExpenses,careProvider)}
+            <PaidForOccupationalPension>{pensionSchemes.payOccupationalPensionScheme}</PaidForOccupationalPension>
+            {occupationalPensionSchemeXml(pensionSchemes)}
+            <PaidForPersonalPension>{pensionSchemes.payPersonalPensionScheme}</PaidForPersonalPension>
+            {personalPensionSchemeXml(pensionSchemes)}
+            <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
+            {jobExpensesXml(aboutExpenses,necessaryExpenses)}
+          </JobDetails>
+        }}
+      </Employment>
+    }else{
+      NodeSeq.Empty
+    }
   }
 
 
