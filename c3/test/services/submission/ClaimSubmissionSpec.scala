@@ -108,7 +108,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
 
       Logger.debug("###########################################")
       Logger.debug("###########################################")
-      Logger.debug(fullXml)
+      Logger.debug(fullXml.toString())
       Logger.debug("###########################################")
       Logger.debug("###########################################")
 
