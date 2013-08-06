@@ -3,7 +3,7 @@ package app
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
+import utils.pageobjects.s1_carers_allowance.G1BenefitsMandatoryPageContext
 import utils.pageobjects.{TestPage, PageObjectException, ClaimScenario}
 import utils.pageobjects.s8_other_money.G7OtherEEAStateOrSwitzerlandPage
 
@@ -15,7 +15,7 @@ import utils.pageobjects.s8_other_money.G7OtherEEAStateOrSwitzerlandPage
 class EndToEndSpec extends Specification with Tags {
 
   "The application " should  {
-    "Successfully run absolute Happy Path, no navigation or dynamic questions triggered. Essentially mandatory only." in new WithBrowser with G1BenefitsPageContext {
+    "Successfully run absolute Happy Path, no navigation or dynamic questions triggered. Essentially mandatory only." in new WithBrowser with G1BenefitsMandatoryPageContext {
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
       try {

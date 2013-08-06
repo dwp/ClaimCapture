@@ -1,0 +1,37 @@
+@(currentForm: Form[models.domain.LivesInGBMandatory], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import views.html.helper.dates._
+
+@mainMandatory("Lives in GB - Carer's Allowance", Some(currentForm), completedQuestionGroups) {
+
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s1_carers_allowance.routes.G4LivesInGBMandatory.submit) {
+
+        <fieldset class="form-elements form-eligibility q1">
+            <legend><span>Q4</span>Do you normally live in Great Britain?</legend>
+
+            <p>By Great Britain we mean England, Scotland and Wales. You should also answer 'Yes' if you are part of a family
+                living overseas with HM forces.</p>
+
+            <div class="info">
+                <p>If you live outside Great Britain, but in the European Economic Area (EEA) or Switzerland, and you have
+                    answered 'Yes' to the first two questions above, please go to <a href="http://www.gov.uk/carers-allowance" target="_blank">www.gov.uk/carers-allowance</a> for the latest information on whether you can get Carer's Allowance.</p>
+            </div>
+            
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("livesInGB.answer"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

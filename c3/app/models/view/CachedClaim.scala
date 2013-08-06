@@ -39,7 +39,7 @@ trait CachedClaim {
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         val claim = Claim()
         Cache.set(key, claim, expiration)
-        Logger.info("Starting new claim")
+        Logger.info("Starting new claim (old claim will be erased!)")
         apply(claim)
       } else {
         Cache.getAs[Claim](key) match {

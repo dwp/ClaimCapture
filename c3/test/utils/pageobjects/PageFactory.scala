@@ -28,12 +28,10 @@ object PageFactory {
     title match {
       case TestPage.title => TestPage buildPageWith(browser, previousPage)
       // S1
-      case G1BenefitsPage.title => G1BenefitsPage buildPageWith(browser, previousPage)
       case G1BenefitsMandatoryPage.title => G1BenefitsMandatoryPage buildPageWith(browser, previousPage)
-      case G2HoursPage.title => G2HoursPage buildPageWith(browser, previousPage)
       case G2HoursMandatoryPage.title => G2HoursMandatoryPage buildPageWith(browser, previousPage)
-      case G3Over16Page.title => G3Over16Page buildPageWith(browser, previousPage)
-      case G4LivingInGBPage.title => G4LivingInGBPage buildPageWith(browser, previousPage)
+      case G3Over16MandatoryPage.title => G3Over16MandatoryPage buildPageWith(browser, previousPage)
+      case G4LivesInGBMandatoryPage.title => G4LivesInGBMandatoryPage buildPageWith(browser, previousPage)
       case G5CarersResponsePage.title => G5CarersResponsePage buildPageWith(browser, previousPage)
       case G6ApprovePage.title => G6ApprovePage buildPageWith(browser, previousPage)
       // S2

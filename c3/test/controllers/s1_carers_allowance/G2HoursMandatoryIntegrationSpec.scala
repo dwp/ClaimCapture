@@ -6,6 +6,7 @@ import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s1_carers_allowance.G2HoursMandatoryPageContext
 import utils.pageobjects.s1_carers_allowance.G1BenefitsMandatoryPageContext
 import utils.pageobjects.s1_carers_allowance.G2HoursMandatoryPage
+import utils.pageobjects.s1_carers_allowance.G3Over16MandatoryPage
 
 class G2HoursMandatoryIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
@@ -40,7 +41,7 @@ class G2HoursMandatoryIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G2HoursMandatoryPage]
+      nextPage must beAnInstanceOf[G3Over16MandatoryPage]
     }
     
     "contain the completed forms" in new WithBrowser with G1BenefitsMandatoryPageContext {
@@ -49,10 +50,17 @@ class G2HoursMandatoryIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
 
-      page submitPage() match {
-        case p: G2HoursMandatoryPage => p numberSectionsCompleted() mustEqual 1
+      val nextPage = page submitPage() 
+
+      nextPage match {
+        case p: G2HoursMandatoryPage => {
+          p numberSectionsCompleted() mustEqual 1
+          val completed = p.findTarget("div[class=completed] ul li")
+          completed(0) must contain("Q1")
+          completed(0) must contain("Yes")
+        }
         case _ => ko("Next Page is not of the right type.")
       }
     }
-  }
+  } section "integration"
 }

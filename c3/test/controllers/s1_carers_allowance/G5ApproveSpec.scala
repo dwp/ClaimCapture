@@ -13,10 +13,10 @@ class G5ApproveSpec extends Specification with Tags {
     "acknowledge that the carer is eligible for allowance" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val claim = Claim().update(Benefits(NoRouting, answer = true))
-        .update(Hours(NoRouting, answer = true))
-        .update(Over16(NoRouting, answer = true))
-        .update(LivesInGB(NoRouting, answer = true))
+      val claim = Claim().update(BenefitsMandatory(NoRouting, answerYesNo = "yes"))
+        .update(HoursMandatory(NoRouting, answerYesNo = "yes"))
+        .update(Over16Mandatory(NoRouting, answerYesNo = "yes"))
+        .update(LivesInGBMandatory(NoRouting, answerYesNo = "yes"))
 
       Cache.set(claimKey, claim)
 
@@ -27,10 +27,10 @@ class G5ApproveSpec extends Specification with Tags {
     "note that the carer is not eligible for allowance" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val claim = Claim().update(Benefits(NoRouting, answer = true))
-        .update(Hours(NoRouting, answer = true))
-        .update(Over16(NoRouting, answer = false))
-        .update(LivesInGB(NoRouting, answer = true))
+      val claim = Claim().update(BenefitsMandatory(NoRouting, answerYesNo = "yes"))
+        .update(HoursMandatory(NoRouting, answerYesNo = "yes"))
+        .update(Over16Mandatory(NoRouting, answerYesNo = "no"))
+        .update(LivesInGBMandatory(NoRouting, answerYesNo = "yes"))
 
       Cache.set(claimKey, claim)
 

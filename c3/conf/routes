@@ -7,23 +7,17 @@ GET     /                                                       controllers.Appl
 
 # Allowance
 ###############
-GET     /allowance/benefits                                     controllers.s1_carers_allowance.G1Benefits.present
-POST    /allowance/benefits                                     controllers.s1_carers_allowance.G1Benefits.submit
 GET     /allowance/benefitsMandatory                            controllers.s1_carers_allowance.G1BenefitsMandatory.present
 POST    /allowance/benefitsMandatory                            controllers.s1_carers_allowance.G1BenefitsMandatory.submit
 
-GET     /allowance/hours                                        controllers.s1_carers_allowance.G2Hours.present
-POST    /allowance/hours                                        controllers.s1_carers_allowance.G2Hours.submit
 GET     /allowance/hoursMandatory                               controllers.s1_carers_allowance.G2HoursMandatory.present
 POST    /allowance/hoursMandatory                               controllers.s1_carers_allowance.G2HoursMandatory.submit
 
-GET     /allowance/over16                                       controllers.s1_carers_allowance.G3Over16.present
-POST    /allowance/over16                                       controllers.s1_carers_allowance.G3Over16.submit
 GET     /allowance/over16Mandatory                              controllers.s1_carers_allowance.G3Over16Mandatory.present
 POST    /allowance/over16Mandatory                              controllers.s1_carers_allowance.G3Over16Mandatory.submit
 
-GET     /allowance/livesInGB                                    controllers.s1_carers_allowance.G4LivesInGB.present
-POST    /allowance/livesInGB                                    controllers.s1_carers_allowance.G4LivesInGB.submit
+GET     /allowance/livesInGBMandatory                           controllers.s1_carers_allowance.G4LivesInGBMandatory.present
+POST    /allowance/livesInGBMandatory                           controllers.s1_carers_allowance.G4LivesInGBMandatory.submit
 
 GET     /allowance/carersResponse                               controllers.s1_carers_allowance.G5CarersResponse.present
 POST    /allowance/carersResponse                               controllers.s1_carers_allowance.G5CarersResponse.submit

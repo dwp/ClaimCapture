@@ -12,15 +12,14 @@ import language.reflectiveCalls
 
 object G2HoursMandatory extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(HoursMandatory)
-  
+
   val form = Form(
     mapping(
       call(routes.G2HoursMandatory.present()),
-      "answer" -> nonEmptyText.verifying(validYesNo)
-  )(HoursMandatory.apply)(HoursMandatory.unapply))
+      "answer" -> nonEmptyText.verifying(validYesNo))(HoursMandatory.apply)(HoursMandatory.unapply))
 
-  def present = newClaim { implicit claim => implicit request =>
-      println("****** g2 completedQuestionGroups: " + completedQuestionGroups)
+  def present = claiming { implicit claim =>
+    implicit request =>
       Ok(views.html.s1_carers_allowance.g2_hoursMandatory(form.fill(HoursMandatory), completedQuestionGroups))
   }
 

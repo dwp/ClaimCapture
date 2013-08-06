@@ -15,7 +15,7 @@ object G1BenefitsMandatory extends Controller with CachedClaim {
   
   val form = Form(
     mapping(
-      call(routes.G1Benefits.present()),
+      call(routes.G1BenefitsMandatory.present()),
       "answer" -> nonEmptyText.verifying(validYesNo))(BenefitsMandatory.apply)(BenefitsMandatory.unapply))
 
   def present = newClaim { implicit claim =>
@@ -27,6 +27,6 @@ object G1BenefitsMandatory extends Controller with CachedClaim {
     implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s1_carers_allowance.g1_benefitsMandatory(formWithErrors, completedQuestionGroups)),
-        f => {println("****** g1 good submit"); claim.update(f) -> Redirect(routes.G2HoursMandatory.present())})
+        f => claim.update(f) -> Redirect(routes.G2HoursMandatory.present()))
   }
 }

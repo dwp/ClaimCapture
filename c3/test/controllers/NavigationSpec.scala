@@ -7,16 +7,16 @@ import play.api.test.WithBrowser
 class NavigationSpec extends Specification with Tags {
   "Browser" should {
     "not cache pages" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/")
-      browser.click("#q3-yes")
+      browser.goTo("/allowance/benefitsMandatory")
+      browser.click("#answer_yes")
       browser.submit("button[type='submit']")
       titleMustEqual("Hours - Carer's Allowance")
 
-      browser.click("#q3-yes")
+      browser.click("#answer_yes")
       browser.submit("button[type='submit']")
       titleMustEqual("Over 16 - Carer's Allowance")
 
-      browser.click("#q3-yes")
+      browser.click("#answer_yes")
       browser.submit("button[type='submit']")
       titleMustEqual("Lives in GB - Carer's Allowance")
 
@@ -27,7 +27,7 @@ class NavigationSpec extends Specification with Tags {
       browser.webDriver.navigate().back()
       titleMustEqual("Benefits - Carer's Allowance")
 
-      browser.click("#q3-no")
+      browser.click("#answer_no")
       browser.submit("button[type='submit']")
       titleMustEqual("Hours - Carer's Allowance")
 

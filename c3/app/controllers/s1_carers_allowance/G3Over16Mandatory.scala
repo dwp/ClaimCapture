@@ -12,21 +12,21 @@ import language.reflectiveCalls
 
 object G3Over16Mandatory extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Over16Mandatory)
-  
+
   val form = Form(
     mapping(
       call(routes.G3Over16Mandatory.present()),
-      "answer" -> nonEmptyText.verifying(validYesNo)
-  )(Over16Mandatory.apply)(Over16Mandatory.unapply))
+      "answer" -> nonEmptyText.verifying(validYesNo))(Over16Mandatory.apply)(Over16Mandatory.unapply))
 
-  def present = newClaim { implicit claim => implicit request =>
-      Ok(<p>Hello</p>)//Ok(views.html.s1_carers_allowance.g2_hoursMandatory(form.fill(HoursMandatory), completedQuestionGroups))
+  def present = claiming { implicit claim =>
+    implicit request =>
+      Ok(views.html.s1_carers_allowance.g3_over16Mandatory(form.fill(Over16Mandatory), completedQuestionGroups))
   }
 
   def submit = claiming { implicit claim =>
     implicit request =>
       form.bindEncrypted.fold(
-        formWithErrors => BadRequest(<p>hello world</p>),//BadRequest(views.html.s1_carers_allowance.g2_hoursMandatory(formWithErrors, completedQuestionGroups)),
-        f => claim.update(f) -> Redirect(routes.G3Over16.present()))
+        formWithErrors => BadRequest(views.html.s1_carers_allowance.g3_over16Mandatory(formWithErrors, completedQuestionGroups)),
+        f => claim.update(f) -> Redirect(routes.G4LivesInGBMandatory.present()))
   }
 }
