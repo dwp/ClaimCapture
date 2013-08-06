@@ -14,7 +14,7 @@ class G2HoursSpec extends Specification with Tags {
     "present the hours form" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val claim = Claim().update(Benefits(NoRouting, answer = true))
+      val claim = Claim().update(Benefits(answer = true))
       Cache.set(claimKey, claim)
 
       val result = G2Hours.present(request)
@@ -23,7 +23,7 @@ class G2HoursSpec extends Specification with Tags {
 
       val sectionIdentifier = Section.sectionIdentifier(Benefits)
       val completedQuestionGroups = claim.completedQuestionGroups(sectionIdentifier).dropWhile(_.identifier != Benefits)
-      completedQuestionGroups(0) mustEqual Benefits(NoRouting, answer = true)
+      completedQuestionGroups(0) mustEqual Benefits(answer = true)
     }
 
     "acknowledge that you spend 35 hours or more each week caring for the person you look after" in new WithApplication with Claiming {

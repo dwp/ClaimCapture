@@ -13,8 +13,8 @@ class G3Over16Spec extends Specification with Tags {
     "present the Are you aged 16 or over form" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val claimWithBenefit = Claim().update(Benefits(NoRouting, answer = true))
-      val claimWithHours = claimWithBenefit.update(Hours(NoRouting, answer = true))
+      val claimWithBenefit = Claim().update(Benefits(answer = true))
+      val claimWithHours = claimWithBenefit.update(Hours(answer = true))
       Cache.set(claimKey, claimWithHours)
 
       val result = G2Hours.present(request)
@@ -24,8 +24,8 @@ class G3Over16Spec extends Specification with Tags {
       val sectionIdentifier = Section.sectionIdentifier(Over16)
       val completedQuestionGroups = claimWithHours.completedQuestionGroups(sectionIdentifier)
 
-      completedQuestionGroups(0) mustEqual Benefits(NoRouting, answer = true)
-      completedQuestionGroups(1) mustEqual Hours(NoRouting, answer = true)
+      completedQuestionGroups(0) mustEqual Benefits(answer = true)
+      completedQuestionGroups(1) mustEqual Hours(answer = true)
     }
 
     "acknowledge that carer is aged 16 or over" in new WithApplication with Claiming {

@@ -6,10 +6,9 @@ trait TransactionIdService {
    */
   def generateId: String
 
-  /**
-   * Record that an ID has been used
-   */
-  def registerId(id: String, resultCode: Option[String])
+  def registerId(id: String, statusCode: String)
+
+  def updateStatus(id: String, statusCode: String)
 }
 
 /**

@@ -3,10 +3,10 @@ package models.domain
 import org.specs2.mutable.Specification
 
 class ClaimSpec extends Specification {
-  val claim = Claim().update(Benefits(NoRouting))
-                     .update(Hours(NoRouting))
-                     .update(LivesInGB(NoRouting))
-                     .update(Over16(NoRouting))
+  val claim = Claim().update(Benefits())
+                     .update(Hours())
+                     .update(LivesInGB())
+                     .update(Over16())
 
   "Claim" should {
     "initially be filled with all sections" in {
@@ -16,19 +16,19 @@ class ClaimSpec extends Specification {
 
     "contain the sectionId with the question group after adding" in {
       val claim = Claim()
-      val questionGroup = Benefits(NoRouting)
+      val questionGroup = Benefits()
       val updatedClaim = claim.update(questionGroup)
       val sectionIdentifier = Section.sectionIdentifier(questionGroup)
 
       val section = updatedClaim.section(sectionIdentifier)
       section.identifier mustEqual sectionIdentifier
-      section.questionGroup(Benefits) must beLike { case Some(Benefits(_, answer)) => answer must beFalse }
+      section.questionGroup(Benefits) must beLike { case Some(Benefits(answer)) => answer must beFalse }
     }
 
     "contain the sectionId with the question group after updating" in {
       val claim = Claim()
-      val trueQuestionGroup = Benefits(NoRouting, answer = true)
-      val falseQuestionGroup = Benefits(NoRouting, answer = false)
+      val trueQuestionGroup = Benefits(answer = true)
+      val falseQuestionGroup = Benefits(answer = false)
 
       val claimWithFalseQuestionGroup = claim.update(falseQuestionGroup)
       val claimWithTrueQuestionGroup = claimWithFalseQuestionGroup.update(trueQuestionGroup)
@@ -36,7 +36,7 @@ class ClaimSpec extends Specification {
       val sectionIdentifier = Section.sectionIdentifier(trueQuestionGroup)
       val section = claimWithTrueQuestionGroup.section(sectionIdentifier)
 
-      section.questionGroup(Benefits) must beLike { case Some(Benefits(_, answer)) => answer must beTrue }
+      section.questionGroup(Benefits) must beLike { case Some(Benefits(answer)) => answer must beTrue }
     }
 
     "return the correct section" in {
@@ -113,11 +113,11 @@ class ClaimSpec extends Specification {
     }
 
     """contain "question group" in first entry of "question groups".""" in {
-      claim.questionGroup[Benefits] should beSome(Benefits(NoRouting, answer = false))
+      claim.questionGroup[Benefits] should beSome(Benefits(answer = false))
     }
 
     """contain "question group" in second entry of "question groups".""" in {
-      claim.questionGroup[Hours] should beSome(Hours(NoRouting, answer = false))
+      claim.questionGroup[Hours] should beSome(Hours(answer = false))
     }
 
     """not contain "question group".""" in {
