@@ -8,7 +8,7 @@ import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import scala.xml.Elem
 import xml.ClaimXmlBuilder
 
-class ClaimSubmissionSpec extends Specification with Tags {
+class ClaimXmlBuilderSpec extends Specification with Tags {
 
   private def updateClaim(claim: Claim) = {
     claim.update(aboutYou.yourDetails)
