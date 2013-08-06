@@ -3,21 +3,24 @@ package services.submission
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeApplication, WithBrowser}
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.{XmlPage, ClaimScenario}
+import utils.pageobjects.ClaimScenario
 import play.api.{Mode, Configuration, GlobalSettings}
-import com.google.inject.Guice
 import java.io.File
 import com.typesafe.config.ConfigFactory
-import controllers.submission.{XmlSubmitter, Submitter}
+import controllers.submission.{WebServiceSubmitter, Submitter}
 import com.tzavellas.sse.guice.ScalaModule
 import services.TransactionIdService
+import com.google.inject._
 
-class FullSubmissionManual extends Specification with Tags {
+class FullSubmissionSpec extends Specification with Tags {
+
+  val thankYouPageTitle = "GOV.UK - The best place to find government services and information"
+
   private lazy val injector = Guice.createInjector(new ScalaModule {
     def configure() {
-      bind[Submitter].to[XmlSubmitter]
-      bind[ClaimSubmission].to[MockClaimSubmission]
-      bind[TransactionIdService].to[MockTransactionIdService]
+      bind[Submitter].to[WebServiceSubmitter]
+      bind[ClaimSubmission].to[MockClaimSubmission].in[Singleton]
+      bind[TransactionIdService].to[MockTransactionIdService].in[Singleton]
     }
   })
 
@@ -35,10 +38,12 @@ class FullSubmissionManual extends Specification with Tags {
 
   "The application " should {
     "Successfully run submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+      val idService = injector.getInstance(classOf[TransactionIdService])
+      idService.id = "TEST223"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
-      println(lastPage.source())
+      val lastPage = page runClaimWith(claim, thankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
+      //println(lastPage.source())
     }
   }
 }

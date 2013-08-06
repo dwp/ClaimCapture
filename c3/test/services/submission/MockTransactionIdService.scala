@@ -3,9 +3,10 @@ package services.submission
 import services.TransactionIdService
 
 class MockTransactionIdService() extends TransactionIdService {
+   var id:String = ""
 
   def generateId: String = {
-    "TEST223"
+    id
   }
 
   def registerId(id: String, statusCode: String) {}
