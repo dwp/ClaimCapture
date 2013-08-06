@@ -56,8 +56,8 @@ case object SelfEmploymentPensionsAndExpenses extends QuestionGroup.Identifier {
 
 case class SelfEmploymentPensionsAndExpenses(call: Call = NoRouting,
                                              pensionSchemeMapping: YesNoWithText = YesNoWithText(answer="", text=None),
-                                             lookAfterChildrenMapping: YesNoWithText = YesNoWithText(answer="", text=None),
-                                             lookAfterCaredForMapping: YesNoWithText = YesNoWithText(answer="", text=None)
+                                             doYouPayToLookAfterYourChildren: String = "",
+                                             didYouPayToLookAfterThePersonYouCaredFor: String = ""
                                               ) extends QuestionGroup(SelfEmploymentPensionsAndExpenses)
 
 case class ChildcareExpensesWhileAtWork(call: Call = NoRouting,

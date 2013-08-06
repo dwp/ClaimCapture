@@ -21,7 +21,7 @@ object SelfEmployment {
       val yourAccounts =  yourAccountsOption.getOrElse(SelfEmploymentYourAccounts())
 
       val pensionsAndExpensesOption = claim.questionGroup[SelfEmploymentPensionsAndExpenses]
-      val pensionAndExpenses = pensionsAndExpensesOption.getOrElse(SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWithText(no, None), lookAfterChildrenMapping = YesNoWithText(no, None), lookAfterCaredForMapping = YesNoWithText(no, None)))
+      val pensionAndExpenses = pensionsAndExpensesOption.getOrElse(SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWithText(no, None), doYouPayToLookAfterYourChildren = no, didYouPayToLookAfterThePersonYouCaredFor = no))
 
       if (employment.beenSelfEmployedSince1WeekBeforeClaim == yes) {
 
@@ -42,9 +42,9 @@ object SelfEmployment {
             <ContactAccountant>{yourAccounts.canWeContactYourAccountant.orNull}</ContactAccountant>
             {accountantDetails(claim)}
           </Accountant>
-          <CareExpensesChildren>{pensionAndExpenses.lookAfterChildrenMapping.answer}</CareExpensesChildren>
+          <CareExpensesChildren>{pensionAndExpenses.doYouPayToLookAfterYourChildren}</CareExpensesChildren>
           {childCareExpenses(claim)}
-          <CareExpensesCaree>{pensionAndExpenses.lookAfterCaredForMapping.answer}</CareExpensesCaree>
+          <CareExpensesCaree>{pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor}</CareExpensesCaree>
           {careExpenses(claim)}
           <PaidForPension>{pensionAndExpenses.pensionSchemeMapping.answer}</PaidForPension>
           {pensionScheme(claim)}
@@ -82,7 +82,7 @@ object SelfEmployment {
       val childcareProviderOption = claim.questionGroup[ChildcareProvidersContactDetails]
       val childcareProvider = childcareProviderOption.getOrElse(ChildcareProvidersContactDetails())
 
-      val hasChildCareExpenses = pensionAndExpenses.lookAfterChildrenMapping.answer == yes
+      val hasChildCareExpenses = pensionAndExpenses.doYouPayToLookAfterYourChildren == yes
 
       if(hasChildCareExpenses) {
         <ChildCareExpenses>
@@ -109,7 +109,7 @@ object SelfEmployment {
       val careProviderContactDetailsOption = claim.questionGroup[CareProvidersContactDetails]
       val careProviderContactDetails = careProviderContactDetailsOption.getOrElse(CareProvidersContactDetails())
 
-      val hasCareExpenses = pensionAndExpenses.lookAfterCaredForMapping.answer == yes
+      val hasCareExpenses = pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor == yes
 
       if(hasCareExpenses) {
         <CareExpenses>
