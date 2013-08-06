@@ -26,14 +26,16 @@ object YourDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g1"
 }
 
-case class ContactDetails(address: MultiLineAddress, postcode: Option[String],
-                          phoneNumber: Option[String], mobileNumber: Option[String]) extends QuestionGroup(ContactDetails) with NoRouting
+case class ContactDetails(address: MultiLineAddress = MultiLineAddress(None,None,None),
+                          postcode: Option[String] = None,
+                          phoneNumber: Option[String] = None,
+                          mobileNumber: Option[String] = None) extends QuestionGroup(ContactDetails) with NoRouting
 
 object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class TimeOutsideUK(livingInUK: LivingInUK, visaReference: Option[String]) extends QuestionGroup(TimeOutsideUK) with NoRouting
+case class TimeOutsideUK(livingInUK: LivingInUK = LivingInUK(), visaReference: Option[String] = None) extends QuestionGroup(TimeOutsideUK) with NoRouting
 
 object TimeOutsideUK extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"

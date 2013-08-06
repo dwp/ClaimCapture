@@ -42,13 +42,13 @@ case class SelfEmploymentSection(aboutSelfEmployment: AboutSelfEmployment,
 object ClaimBuilder {
   val yourDetails = YourDetails(title = "mr", firstName = "Phil", middleName = None, surname = "Smith",
     otherSurnames = Some("O'Dwyer"), None, nationality = "French",
-    dateOfBirth = DayMonthYear(1, 1, 1963), maritalStatus = "m", alwaysLivedUK = "yes")
+    dateOfBirth = DayMonthYear(1, 1, 1963), maritalStatus = "m", alwaysLivedUK = "no")
 
   val contactDetails = ContactDetails(address = MultiLineAddress(Some("Line1"), None, None),
     postcode = Some("PR2 8AE"),
     phoneNumber = Some("01772 700806"), None)
 
-  val timeOutsideUK = TimeOutsideUK(livingInUK = LivingInUK("yes", Some(DayMonthYear()), Some(""), Some(YesNoWithDate("yes", Some(DayMonthYear())))), visaReference = None)
+  val timeOutsideUK = TimeOutsideUK(livingInUK = LivingInUK("yes", Some(DayMonthYear(Some(1), Some(2), Some(2013))), Some("netherlands"), Some(YesNoWithDate("yes", Some(DayMonthYear(Some(3), Some(4), Some(2012)))))), visaReference = None)
 
   val claimDate = ClaimDate(dateOfClaim = DayMonthYear(1, 1, 2013))
   val employment = Employment(beenSelfEmployedSince1WeekBeforeClaim = yes, beenEmployedSince6MonthsBeforeClaim = yes)

@@ -6,28 +6,32 @@ import xml.XMLHelper._
 
 object Claimant {
   def xml(claim: Claim): Elem = {
-    val yourDetails = claim.questionGroup[YourDetails].get
-    val contactDetails = claim.questionGroup[ContactDetails].get
+    val yourDetailsOption = claim.questionGroup[YourDetails]
+    val yourDetails = yourDetailsOption.getOrElse(YourDetails())
+
+    val contactDetailsOption = claim.questionGroup[ContactDetails]
+    val contactDetails = contactDetailsOption.getOrElse(ContactDetails())
+
 
     <Claimant>
-      <DateOfClaim>{claim.dateOfClaim.get.`yyyy-MM-dd`}</DateOfClaim>
+      <DateOfClaim>{stringify(claim.dateOfClaim)}</DateOfClaim>
       <Surname>{yourDetails.surname}</Surname>
       <OtherNames>{yourDetails.otherNames}</OtherNames>
       <OtherSurnames>{yourDetails.otherSurnames.orNull}</OtherSurnames>
       <Title>{yourDetails.title}</Title>
       <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
       <DateOfBirth>{yourDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
-      <NationalInsuranceNumber>{yourDetails.nationalInsuranceNumber.orNull}</NationalInsuranceNumber>
-      <ExistingNationalInsuranceNumber>no</ExistingNationalInsuranceNumber>
+      <NationalInsuranceNumber>{stringify(yourDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
+      <ExistingNationalInsuranceNumber/>
       <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
-      <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
+      <ConfirmAddress>yes</ConfirmAddress>
       <HomePhoneNumber>{contactDetails.mobileNumber.orNull}</HomePhoneNumber>
       <DaytimePhoneNumber>
         <Number>{contactDetails.phoneNumber.orNull}</Number>
         <Qualifier/>
       </DaytimePhoneNumber>
       <EmailAddress/>
-      <ClaimedBefore>no</ClaimedBefore> <!--  Default to no -->
+      <ClaimedBefore>no</ClaimedBefore>
     </Claimant>
   }
 }

@@ -4,6 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import models.domain.{Claim, Employment}
 import controllers.Mappings.{yes, no}
 
+
 class SelfEmployedSpec extends Specification with Tags {
 
   "SelfEmployed" should {
@@ -19,5 +20,7 @@ class SelfEmployedSpec extends Specification with Tags {
       val selfEmployedXml = SelfEmployed.xml(claim)
       (selfEmployedXml \\ "SelfEmployed").text mustEqual no
     }
+
   } section "unit"
+
 }
