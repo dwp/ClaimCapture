@@ -7,6 +7,7 @@ import play.api.test.WithApplication
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import scala.xml.Elem
 import xml.ClaimXmlBuilder
+import play.api.Logger
 
 class ClaimSubmissionSpec extends Specification with Tags {
 
@@ -105,11 +106,11 @@ class ClaimSubmissionSpec extends Specification with Tags {
 
       val fullXml = buildFullClaim(claimXml)
 
-      println("###########################################")
-      println("###########################################")
-      println(fullXml)
-      println("###########################################")
-      println("###########################################")
+      Logger.debug("###########################################")
+      Logger.debug("###########################################")
+      Logger.debug(fullXml)
+      Logger.debug("###########################################")
+      Logger.debug("###########################################")
 
       val validator = XmlValidatorFactory.buildCaValidator()
 
