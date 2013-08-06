@@ -6,8 +6,8 @@ import xml.XMLHelper._
 
 object Claimant {
   def xml(claim: Claim): Elem = {
-    val yourDetails = claim.questionGroup(YourDetails).get.asInstanceOf[YourDetails]
-    val contactDetails = claim.questionGroup(ContactDetails).get.asInstanceOf[ContactDetails]
+    val yourDetails = claim.questionGroup[YourDetails].get
+    val contactDetails = claim.questionGroup[ContactDetails].get
 
     <Claimant>
       <DateOfClaim>{claim.dateOfClaim.get.`yyyy-MM-dd`}</DateOfClaim>

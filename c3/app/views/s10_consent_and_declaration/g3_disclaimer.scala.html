@@ -17,7 +17,7 @@
             <legend>Disclaimer</legend>
 
             <div class="declaration">
-                @for(i <- 1 to 7) {
+                @for(i <- 1 to 6) {
                     <p>
                         @defining(claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName + " " + m.middleName.getOrElse("") + (if (m.middleName.isDefined) " " else "") + m.surname )){ str =>
 

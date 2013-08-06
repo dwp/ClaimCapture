@@ -222,6 +222,7 @@ GET     /otherMoney/completed                                   controllers.s8_o
 POST    /otherMoney/completed                                   controllers.s8_other_money.OtherMoney.completedSubmit
 
 # Self Employment
+###############
 GET     /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.present
 POST    /selfEmployment/aboutSelfEmployment                     controllers.s9_self_employment.G1AboutSelfEmployment.submit
 
@@ -234,10 +235,8 @@ POST    /selfEmployment/accountantContactDetails                controllers.s9_s
 GET     /selfEmployment/pensionsAndExpenses                     controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.present
 POST    /selfEmployment/pensionsAndExpenses                     controllers.s9_self_employment.G4SelfEmploymentPensionsAndExpenses.submit
 
-
 GET     /selfEmployment/childcareExpensesWhileAtWork            controllers.s9_self_employment.G5ChildcareExpensesWhileAtWork.present
 POST    /selfEmployment/childcareExpensesWhileAtWork            controllers.s9_self_employment.G5ChildcareExpensesWhileAtWork.submit
-
 
 GET     /selfEmployment/childcareProvidersContactDetails        controllers.s9_self_employment.G6ChildcareProvidersContactDetails.present
 POST    /selfEmployment/childcareProvidersContactDetails        controllers.s9_self_employment.G6ChildcareProvidersContactDetails.submit

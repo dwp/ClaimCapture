@@ -38,11 +38,11 @@ class G3Over16IntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "No"
       page goToThePage()
-      page fillPageWith (claim)
+      page fillPageWith claim
       val hoursPage = page submitPage(waitForPage = true, waitDuration=60)
-      hoursPage fillPageWith (claim)
+      hoursPage fillPageWith claim
       val over16Page = hoursPage submitPage(waitForPage = true, waitDuration=60)
-      over16Page fillPageWith (claim)
+      over16Page fillPageWith claim
       over16Page submitPage(waitForPage = true, waitDuration=60)
       browser.find("div[class=completed] ul li").get(2).getText must contain("Q3")
       browser.find("div[class=completed] ul li").get(2).getText must contain("No")

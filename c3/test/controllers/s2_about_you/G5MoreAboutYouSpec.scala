@@ -8,13 +8,10 @@ import models.domain.Claim
 import org.specs2.mutable.{Tags, Specification}
 
 class G5MoreAboutYouSpec extends Specification with Tags {
-
   "More About You - Controller" should {
-
-   "make Your Partner Section visible" in new WithApplication with Claiming {
+    "make Your Partner Section visible" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "yes",
-        "eitherClaimedBenefitSinceClaimDate" -> "yes",
         "beenInEducationSinceClaimDate" -> "yes",
         "receiveStatePension" -> "yes")
 
@@ -28,7 +25,6 @@ class G5MoreAboutYouSpec extends Specification with Tags {
     "hide Your Partner Section" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "no",
-        "eitherClaimedBenefitSinceClaimDate" -> "yes",
         "beenInEducationSinceClaimDate" -> "yes",
         "receiveStatePension" -> "yes")
 
@@ -42,7 +38,6 @@ class G5MoreAboutYouSpec extends Specification with Tags {
     "make Education Section visible" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "yes",
-        "eitherClaimedBenefitSinceClaimDate" -> "yes",
         "beenInEducationSinceClaimDate" -> "yes",
         "receiveStatePension" -> "yes")
 
@@ -56,7 +51,6 @@ class G5MoreAboutYouSpec extends Specification with Tags {
     "hide Education Section" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "yes",
-        "eitherClaimedBenefitSinceClaimDate" -> "yes",
         "beenInEducationSinceClaimDate" -> "no",
         "receiveStatePension" -> "yes")
 

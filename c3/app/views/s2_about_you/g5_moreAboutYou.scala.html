@@ -1,4 +1,4 @@
-@(moreAboutYouForm: Form[models.domain.MoreAboutYou], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(moreAboutYouForm: Form[models.domain.MoreAboutYou], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import common._
 @import helper._
@@ -19,8 +19,6 @@
             <ul class="group">
                 @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
-                @yesNoRadioGroup(moreAboutYouForm("eitherClaimedBenefitSinceClaimDate"), '_label -> Messages("eitherClaimedBenefitSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-
                 @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
                 @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"))
@@ -28,7 +26,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a href="@back(models.domain.MoreAboutYou)" class="button secondary">Back</a>
+            <a href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

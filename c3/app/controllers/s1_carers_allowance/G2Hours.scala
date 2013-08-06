@@ -5,21 +5,18 @@ import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import models.domain.{Claim, Hours}
-import controllers.Mappings._
+import models.domain.Hours
+import CarersAllowance._
 
 object G2Hours extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      call(routes.G2Hours.present()),
       "answer" -> boolean
     )(Hours.apply)(Hours.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(Hours)
-
   def present = claiming { implicit claim => implicit request =>
-    if (CarersAllowance.claiming(Hours, claim)) Ok(views.html.s1_carers_allowance.g2_hours(confirmed = true, completedQuestionGroups))
-    else Ok(views.html.s1_carers_allowance.g2_hours(confirmed = false, completedQuestionGroups))
+    if (CarersAllowance.claiming(Hours, claim)) Ok(views.html.s1_carers_allowance.g2_hours(confirmed = true, completedQuestionGroups(Hours)))
+    else Ok(views.html.s1_carers_allowance.g2_hours(confirmed = false, completedQuestionGroups(Hours)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

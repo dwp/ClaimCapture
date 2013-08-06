@@ -1,4 +1,4 @@
-@(title: String, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim)
 
 @import helper._
 @import models.domain._
@@ -17,17 +17,16 @@
     	
             <section>
 
-                    <h1>Can you get Carer's Allowance?</h1>
-
+                <h1>Can you get Carer's Allowance?</h1>
 
                 @if(completedQuestionGroups.size > 0) {
                     <div class="completed">
                         <ul>
-                            @for(completedQuestionGroup <- completedQuestionGroups) {
+                            @for((completedQuestionGroup, call) <- completedQuestionGroups) {
                                 <li>
                                     <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
                                     <p>@completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation</p>
-                                    <a href="@completedQuestionGroup.call?changing=true">Change this answer</a>
+                                    <a href="@call?changing=true">Change these answers</a>
                                 </li>
                             }
                         </ul>

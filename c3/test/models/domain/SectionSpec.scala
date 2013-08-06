@@ -46,10 +46,10 @@ class SectionSpec extends Specification {
                                              mockQuestionGroup[LivesInGB](LivesInGB) ::
                                              mockQuestionGroup[Over16](Over16) :: Nil)
 
-      val updatedSection = section.update(Benefits(NoRouting, true))
+      val updatedSection = section.update(Benefits(answer = true))
       val questionGroupOption: Option[QuestionGroup] = updatedSection.questionGroup(Benefits)
 
-      questionGroupOption must beLike { case Some(Benefits(_, answer)) => answer must beTrue }
+      questionGroupOption must beLike { case Some(Benefits(answer)) => answer must beTrue }
     }
 
     "return the preceding question groups" in new Claiming {

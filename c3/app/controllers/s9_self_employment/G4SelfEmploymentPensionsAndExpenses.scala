@@ -10,7 +10,9 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithText
 import controllers.s7_employment.Employment._
+import controllers.s9_self_employment.SelfEmployment._
 import play.api.data.FormError
+import scala.Some
 
 
 object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim {
@@ -63,7 +65,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim {
 
   def present = claiming {
     implicit claim => implicit request =>
-      dispatch(Ok(views.html.s9_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses), completedQuestionGroups)))
+      whenSectionVisible(Ok(views.html.s9_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses), completedQuestionGroups)))
   }
 
   def submit = claiming {
