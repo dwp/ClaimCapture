@@ -3,8 +3,7 @@ package utils.pageobjects.s7_employment
 import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
-final class G5AdditionalWageDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G5AdditionalWageDetailsPage.url, G5AdditionalWageDetailsPage.title, previousPage) {
-  override val url = super.getUrl.replace(":jobID",iteration.toString)
+final class G5AdditionalWageDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G5AdditionalWageDetailsPage.url.replace(":jobID",iteration.toString), G5AdditionalWageDetailsPage.title, previousPage,iteration) {
 
     declarePaymentFrequency("#oftenGetPaid","EmploymentAddtionalWageHowOftenAreYouPaid_"+iteration)
     declareInput("#whenGetPaid","EmploymentAddtionalWageWhenDoYouGetPaid_"+iteration)

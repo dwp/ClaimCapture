@@ -3,11 +3,10 @@ package utils.pageobjects.s7_employment
 import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
-final class G3EmployerContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G3EmployerContactDetailsPage.url, G3EmployerContactDetailsPage.title, previousPage) {
-  override val url = super.getUrl.replace(":jobID",iteration.toString)
+final class G3EmployerContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G3EmployerContactDetailsPage.url.replace(":jobID",iteration.toString), G3EmployerContactDetailsPage.title, previousPage, iteration) {
 
-    declareAddress("#address", "EmploymentBeenEmployed_"+iteration)
-    declareInput("#postcode","EmploymentEmployerAddress_"+iteration)
+    declareAddress("#address", "EmploymentEmployerAddress_"+iteration)
+    declareInput("#postcode","EmploymentEmployerPostcode_"+iteration)
     declareInput("#phoneNumber","EmploymentEmployerPhoneNumber_"+iteration)
 
 }

@@ -3,12 +3,11 @@ package utils.pageobjects.s7_employment
 import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
-final class G2JobDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G2JobDetailsPage.url, G2JobDetailsPage.title, previousPage) {
-  override val url = super.getUrl.replace(":jobID",iteration.toString)
+final class G2JobDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G2JobDetailsPage.url.replace(":jobID",iteration.toString), G2JobDetailsPage.title, previousPage, iteration) {
 
     declareInput("#employerName","EmploymentEmployerName_"+iteration)
     declareDate("#jobStartDate", "EmploymentWhenDidYouStartYourJob_"+iteration)
-    declareRadioList("#finishedThisJob","EmploymentHaveYouFinishedThisJob_"+iteration)
+    declareYesNo("#finishedThisJob","EmploymentHaveYouFinishedThisJob_"+iteration)
     declareDate("#lastWorkDate","EmploymentWhenDidYouLastWork_"+iteration)
     declareInput("#hoursPerWeek","EmploymentHowManyHoursAWeekYouNormallyWork_"+iteration)
     declareInput("#jobTitle","EmploymentJobTitle_"+iteration)

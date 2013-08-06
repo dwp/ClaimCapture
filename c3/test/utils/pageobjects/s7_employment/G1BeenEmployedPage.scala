@@ -5,7 +5,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 final class G1BeenEmployedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1BeenEmployedPage.url, G1BeenEmployedPage.title, previousPage) {
     
-  declareYesNo("#beenEmployed", "EmploymentBeenEmployed")
+  declareYesNo("#beenEmployed", "AboutYouHaveYouBeenEmployedAtAnyTime")
 }
 
 object G1BeenEmployedPage {

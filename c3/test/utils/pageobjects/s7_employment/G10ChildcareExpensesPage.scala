@@ -3,8 +3,7 @@ package utils.pageobjects.s7_employment
 import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
-final class G10ChildcareExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G10ChildcareExpensesPage.url, G10ChildcareExpensesPage.title, previousPage) {
-  override val url = super.getUrl.replace(":jobID",iteration.toString)
+final class G10ChildcareExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G10ChildcareExpensesPage.url.replace(":jobID",iteration.toString), G10ChildcareExpensesPage.title, previousPage,iteration) {
 
     declareInput("#howMuchCostChildcare", "EmploymentChildcareExpensesHowMuchYouPayfor_"+iteration)
     declareInput("#whoLooksAfterChildren", "EmploymentNameOfthePersonWhoLooksAfterYourChild_"+iteration)
