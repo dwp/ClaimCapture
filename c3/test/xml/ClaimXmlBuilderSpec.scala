@@ -15,6 +15,7 @@ class ClaimXmlBuilderSpec extends Specification with Tags {
       .update(aboutYou.claimDate)
       .update(aboutYou.contactDetails)
       .update(aboutYou.employment)
+      .update(aboutYou.timeOutsideUK.get)
       
       .update(yourPartner.yourPartnerPersonalDetails)
       .update(yourPartner.yourPartnerContactDetails)
@@ -88,7 +89,7 @@ class ClaimXmlBuilderSpec extends Specification with Tags {
       (claimXml \\ "Partner" \\ "OtherNames").text mustEqual s"${yourPartnerPersonalDetails.firstName} ${yourPartnerPersonalDetails.middleName.getOrElse("")}"
       (claimXml \\ "Partner" \\ "Title").text mustEqual yourPartnerPersonalDetails.title
       (claimXml \\ "Partner" \\ "DateOfBirth").text mustEqual yourPartnerPersonalDetails.dateOfBirth.toXmlString
-      (claimXml \\ "Partner" \\ "NationalInsuranceNumber").text mustEqual yourPartnerPersonalDetails.nationalInsuranceNumber.get.toXmlString
+      (claimXml \\ "Partner" \\ "NationalInsuranceNumber").text mustEqual yourPartnerPersonalDetails.nationalInsuranceNumber.get.stringify
       (claimXml \\ "Partner" \\ "Address" \\ "PostCode").text mustEqual yourPartnerContactDetails.postcode.get
       (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdAfterDateOfClaim").text mustEqual moreAboutYourPartner.startedLivingTogether.get.answer
       (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdDate").text mustEqual moreAboutYourPartner.startedLivingTogether.get.date.get.toXmlString
@@ -104,12 +105,6 @@ class ClaimXmlBuilderSpec extends Specification with Tags {
       val claimXml = claimSub.buildDwpClaim
 
       val fullXml = buildFullClaim(claimXml)
-
-      Logger.debug("###########################################")
-      Logger.debug("###########################################")
-      Logger.debug(fullXml.toString())
-      Logger.debug("###########################################")
-      Logger.debug("###########################################")
 
       val validator = XmlValidatorFactory.buildCaValidator()
 

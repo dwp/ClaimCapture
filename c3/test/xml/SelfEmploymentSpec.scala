@@ -26,7 +26,7 @@ class SelfEmploymentSpec extends Specification with Tags {
       )
 
       val claim = Claim().update(Employment(beenSelfEmployedSince1WeekBeforeClaim = yes))
-      .update(aboutSelfEmployment)
+        .update(aboutSelfEmployment)
 
       val selfEmploymentXml = xml.SelfEmployment.xml(claim)
 
@@ -79,10 +79,10 @@ class SelfEmploymentSpec extends Specification with Tags {
     }
 
     "generate <PensionScheme> if claimer has paid for pension scheme" in {
-       val pensionScheme = SelfEmploymentPensionsAndExpenses(pensionSchemeMapping=YesNoWithText(yes, Some(amount)))
-       val claim = Claim().update(pensionScheme)
+      val pensionScheme = SelfEmploymentPensionsAndExpenses(pensionSchemeMapping=YesNoWithText(yes, Some(amount)))
+      val claim = Claim().update(pensionScheme)
 
-       val pensionSchemeXml = xml.SelfEmployment.pensionScheme(claim)
+      val pensionSchemeXml = xml.SelfEmployment.pensionScheme(claim)
 
       (pensionSchemeXml \\ "Payment" \\ "Amount").text shouldEqual amount
     }

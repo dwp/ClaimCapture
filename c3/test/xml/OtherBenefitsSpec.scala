@@ -46,7 +46,7 @@ class OtherBenefitsSpec extends Specification with Tags {
       (extraMoneyDetailsXml \\ "RecipientAddress" \\ "Line").theSeq(1).text mustEqual address.get.lineTwo.get
       (extraMoneyDetailsXml \\ "RecipientAddress" \\ "Line").theSeq(2).text mustEqual address.get.lineThree.get
       (extraMoneyDetailsXml \\ "RecipientAddress" \\ "PostCode").text mustEqual postcode.get
-      (extraMoneyDetailsXml \\ "ReferenceNumber").text mustEqual nationalInsuranceNr.toXmlString
+      (extraMoneyDetailsXml \\ "ReferenceNumber").text mustEqual nationalInsuranceNr.stringify
 
       (otherBenefitsXml \\ "OtherMoneySSP").text mustEqual yes
       val otherMoneySSPDetailsXml = otherBenefitsXml \\ "OtherMoneySSPDetails"
