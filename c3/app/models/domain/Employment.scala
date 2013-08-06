@@ -122,9 +122,9 @@ object LastWage extends QuestionGroup.Identifier {
 }
 
 case class AdditionalWageDetails(jobID:String,
-                                 oftenGetPaid: Option[PaymentFrequency],whenGetPaid:Option[String],
+                                 oftenGetPaid: Option[PaymentFrequency], whenGetPaid: Option[String],
                                  holidaySickPay: Option[String], anyOtherMoney: String, otherMoney:Option[String],
-                                 employeeOwesYouMoney:String) extends QuestionGroup(AdditionalWageDetails) with Job.Identifier with NoRouting
+                                 employeeOwesYouMoney: String) extends QuestionGroup(AdditionalWageDetails) with Job.Identifier with NoRouting
 
 object AdditionalWageDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g5"
@@ -172,7 +172,8 @@ object NecessaryExpenses extends QuestionGroup.Identifier {
 }
 
 case class ChildcareExpenses(jobID: String,
-                             howMuchCostChildcare:Option[String],whoLooksAfterChildren:String,relationToYou:Option[String],relationToPartner:Option[String]) extends QuestionGroup(ChildcareExpenses) with Job.Identifier with NoRouting
+                             howMuchCostChildcare: Option[String], whoLooksAfterChildren: String,
+                             relationToYou: Option[String], relationToPartner: Option[String], relationToPersonYouCare: Option[String]) extends QuestionGroup(ChildcareExpenses) with Job.Identifier with NoRouting
 
 
 object ChildcareExpenses extends QuestionGroup.Identifier {
@@ -180,7 +181,7 @@ object ChildcareExpenses extends QuestionGroup.Identifier {
 }
 
 case class ChildcareProvider(jobID: String,
-                             address:Option[MultiLineAddress],postcode:Option[String]) extends QuestionGroup(ChildcareProvider) with Job.Identifier with NoRouting
+                             address: Option[MultiLineAddress], postcode: Option[String]) extends QuestionGroup(ChildcareProvider) with Job.Identifier with NoRouting
 
 
 object ChildcareProvider extends QuestionGroup.Identifier {
@@ -188,7 +189,7 @@ object ChildcareProvider extends QuestionGroup.Identifier {
 }
 
 case class PersonYouCareForExpenses(jobID: String,
-                             howMuchCostCare:Option[String],whoDoYouPay:String,relationToYou:Option[String]) extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier with NoRouting
+                             howMuchCostCare: Option[String], whoDoYouPay: String, relationToYou: Option[String]) extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier with NoRouting
 
 
 object PersonYouCareForExpenses extends QuestionGroup.Identifier {
@@ -196,7 +197,7 @@ object PersonYouCareForExpenses extends QuestionGroup.Identifier {
 }
 
 case class CareProvider(jobID: String,
-                             address:Option[MultiLineAddress],postcode:Option[String]) extends QuestionGroup(CareProvider) with Job.Identifier with NoRouting
+                        address: Option[MultiLineAddress], postcode: Option[String]) extends QuestionGroup(CareProvider) with Job.Identifier with NoRouting
 
 
 object CareProvider extends QuestionGroup.Identifier {

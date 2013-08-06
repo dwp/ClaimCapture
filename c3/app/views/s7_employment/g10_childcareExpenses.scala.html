@@ -29,9 +29,11 @@
                     inputDef = Seq(
                     carersInputText(currentForm("relationToPartner"))),
                     'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
-                                    case (Some(m: MoreAboutYou),Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
-                                    case _ => "no"
-                                }))
+                        case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
+                        case _ => "no"
+                    }))
+
+                @carersInputText(currentForm("relationToPersonYouCare"))
             </ul>
         </fieldset>
 
