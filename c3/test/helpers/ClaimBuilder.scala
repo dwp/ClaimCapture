@@ -5,6 +5,7 @@ import models._
 import models.yesNo._
 import controllers.Mappings.{yes, no}
 
+import scala.Some
 import models.MultiLineAddress
 import models.SortCode
 import models.NationalInsuranceNumber
@@ -33,7 +34,8 @@ case class SelfEmploymentSection(aboutSelfEmployment: AboutSelfEmployment,
                                  selfEmploymentYourAccounts: SelfEmploymentYourAccounts,
                                  accountantContactDetails: SelfEmploymentAccountantContactDetails,
                                  pensionsAndExpenses: SelfEmploymentPensionsAndExpenses,
-                                 childcareExpenses: ChildcareExpensesWhileAtWork)
+                                 childcareExpenses: ChildcareExpensesWhileAtWork,
+                                 expensesWhileAtWork: ExpensesWhileAtWork)
 
 object ClaimBuilder {
   val yourDetails = YourDetails(title = "mr", firstName = "Phil", middleName = None, surname = "Smith",
@@ -101,7 +103,8 @@ object ClaimBuilder {
     SelfEmploymentYourAccounts(doYouHaveAnAccountant = Some(yes)),
     SelfEmploymentAccountantContactDetails(accountantsName = "KPMG", address = MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))),
     SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWithText(yes, Some("150.5")), lookAfterChildrenMapping = YesNoWithText(yes, Some("150")), lookAfterCaredForMapping = YesNoWithText(yes, Some("150.5"))),
-    ChildcareExpensesWhileAtWork(howMuchYouPay = Some("150.5"), nameOfPerson = "Andy", whatRelationIsToYou = Some("grandSon"), whatRelationIsTothePersonYouCareFor = Some("relation"))
+    ChildcareExpensesWhileAtWork(howMuchYouPay = Some("150.5"), nameOfPerson = "Andy", whatRelationIsToYou = Some("grandSon"), whatRelationIsTothePersonYouCareFor = Some("relation")),
+    ExpensesWhileAtWork(howMuchYouPay = Some("200.5"), nameOfPerson = "NameOfPerson", whatRelationIsToYou = Some("grandSon"), whatRelationIsTothePersonYouCareFor = Some("grandSon"))
   )
 
   val careYouProvide = CareYouProvide(theirPersonalDetails, theirContactDetails,

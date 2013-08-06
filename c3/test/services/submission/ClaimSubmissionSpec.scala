@@ -42,6 +42,7 @@ class ClaimSubmissionSpec extends Specification with Tags {
       .update(selfEmployment.accountantContactDetails)
       .update(selfEmployment.pensionsAndExpenses)
       .update(selfEmployment.childcareExpenses)
+      .update(selfEmployment.expensesWhileAtWork)
 
       .update(otherMoney.aboutOtherMoney)
       .update(otherMoney.moneyPaidToSomeoneElse)
