@@ -5,11 +5,10 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
-import models.domain.{AboutExpenses, Claim, ExpensesWhileAtWork}
+import models.domain.{SelfEmploymentPensionsAndExpenses, Claim, ExpensesWhileAtWork}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s9_self_employment.SelfEmployment.whenSectionVisible
-import controllers.s7_employment.Employment._
 import scala.Some
 
 object G7ExpensesWhileAtWork extends Controller with CachedClaim {
@@ -28,12 +27,12 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim {
   def present = claiming {
     implicit claim => implicit request =>
 
-      val yesNoList = jobs.map(j => j.apply(AboutExpenses) match {
-        case Some(n: AboutExpenses) => n.payAnyoneToLookAfterPerson
-        case _ => "no"
-      })
+      val payToLookPersonYouCareFor = claim.questionGroup(SelfEmploymentPensionsAndExpenses) match {
+        case Some(s: SelfEmploymentPensionsAndExpenses) => s.didYouPayToLookAfterThePersonYouCaredFor == `yes`
+        case _ => false
+      }
 
-      yesNoList.count(_ == "yes") > 0 match {
+      payToLookPersonYouCareFor match {
         case true => whenSectionVisible(Ok(views.html.s9_self_employment.g7_expensesWhileAtWork(form.fill(ExpensesWhileAtWork), completedQuestionGroups)))
         case false => claim.delete(ExpensesWhileAtWork) -> Redirect(routes.G8CareProvidersContactDetails.present())
       }

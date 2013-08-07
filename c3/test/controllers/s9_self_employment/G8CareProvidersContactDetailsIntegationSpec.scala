@@ -48,15 +48,11 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
     "navigate back to previous page" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
 
-      browser.goTo("/employment/beenEmployed")
-      browser.click("#beenEmployed_yes")
-      browser.submit("button[type='submit']")
-
-      browser.goTo(s"/employment/aboutExpenses/${browser.find("jobID").getValue}")
-      browser.click("#payForAnythingNecessary_yes")
-      browser.click("#payAnyoneToLookAfterChildren_yes")
-      browser.click("#payAnyoneToLookAfterPerson_yes")
-      browser.submit("button[type='submit']")
+      val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
+      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      pagePensionAndExpenses goToThePage()
+      pagePensionAndExpenses fillPageWith claimPensionAndExpenses
+      pagePensionAndExpenses.submitPage(true)
 
       page goToThePage()
       page fillPageWith claim

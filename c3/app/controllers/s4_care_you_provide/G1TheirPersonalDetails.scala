@@ -10,11 +10,8 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm._
 
 object G1TheirPersonalDetails extends Controller with CachedClaim {
-  val formCall = routes.G1TheirPersonalDetails.present()
-
   val form = Form(
     mapping(
-      call(formCall),
       "title" -> nonEmptyText(maxLength = 4),
       "firstName" -> nonEmptyText(maxLength = sixty),
       "middleName" -> optional(text(maxLength = sixty)),
@@ -35,8 +32,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim {
     val currentForm = if (isPartnerPersonYouCareFor) {
       claim.questionGroup(YourPartnerPersonalDetails) match {
         case Some(t: YourPartnerPersonalDetails) =>
-          form.fill(TheirPersonalDetails(formCall,
-                                         title = t.title, firstName = t.firstName, middleName = t.middleName, surname = t.surname,
+          form.fill(TheirPersonalDetails(title = t.title, firstName = t.firstName, middleName = t.middleName, surname = t.surname,
                                          nationalInsuranceNumber = t.nationalInsuranceNumber,
                                          dateOfBirth = t.dateOfBirth, liveAtSameAddress = t.liveAtSameAddress)) // Pre-populate form with values from YourPartnerPersonalDetails
         case _ => form // Blank form (user can only get here if they skip sections by manually typing URL).

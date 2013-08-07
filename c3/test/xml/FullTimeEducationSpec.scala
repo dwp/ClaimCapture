@@ -4,11 +4,8 @@ import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 import models.domain._
 import models.DayMonthYear
-import models.MultiLineAddress
-import scala.Some
 import controllers.Mappings._
 import models.MultiLineAddress
-import scala.Some
 
 class FullTimeEducationSpec extends Specification with Tags {
 
@@ -25,7 +22,6 @@ class FullTimeEducationSpec extends Specification with Tags {
   val postcode = Some("SE1 6EH")
   val phoneNumber = Some("020192827273")
   val faxNumber = Some("0302928273")
-
 
   "FullTimeEducation" should {
     "generate <FullTimeEducation> xml when claimer has been in education" in {
@@ -62,7 +58,5 @@ class FullTimeEducationSpec extends Specification with Tags {
 
       educationXml.text shouldEqual ""
     }
-
   } section "unit"
-
 }

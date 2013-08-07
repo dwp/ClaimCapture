@@ -20,7 +20,7 @@ object G7PropertyAndRent extends Controller with CachedClaim {
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(models.domain.ClaimDate) match {
       case Some(n) => Ok(views.html.s2_about_you.g7_propertyAndRent(form.fill(PropertyAndRent), completedQuestionGroups(PropertyAndRent)))
-      case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
+      case _ => Redirect(controllers.s1_carers_allowance.routes.G1BenefitsMandatory.present())
     }
   }
 

@@ -17,11 +17,11 @@ About You,Your contact details,Postcode,AboutYouPostcode,Claimant>Address>PostCo
 About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,Claimant>DaytimePhoneNumber
 About You,Your contact details,Mobile number,AboutYouMobileNumber,
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,
-About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInYheUK,OtherNationality>DateArrivedInGreatBritain
-About You,About your time outside the UK,What country did you come from?,AboutYouWhatCountryDidYouComeFrom,OtherNationality>CountryArrivedFrom
-About You,About your time outside the UK,Do you plan to go back to that country?,AboutYouDoYouPlantoGoBacktoThatCountry,OtherNationality>IntendToReturn
-About You,About your time outside the UK,When do you plan to go back?,AboutYouWhenDoYouPlantoGoBack,OtherNationality>DateReturn
-About You,About your time outside the UK,"What is your visa reference number, if applicable?",AboutYouWhatIsYourVisaNumber,OtherNationality>VisaReferenceNumber
+About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInYheUK,Residency>OtherNationality>DateArrivedInGreatBritain
+About You,About your time outside the UK,What country did you come from?,AboutYouWhatCountryDidYouComeFrom,Residency>OtherNationality>CountryArrivedFrom
+About You,About your time outside the UK,Do you plan to go back to that country?,AboutYouDoYouPlantoGoBacktoThatCountry,Residency>OtherNationality>IntendToReturn
+About You,About your time outside the UK,When do you plan to go back?,AboutYouWhenDoYouPlantoGoBack,Residency>OtherNationality>DateReturn
+About You,About your time outside the UK,"What is your visa reference number, if applicable?",AboutYouWhatIsYourVisaNumber,ResidencyResidency>OtherNationality>VisaReferenceNumber
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,Claimant>DateOfClaim
 About You,More about you,Have you had a partner/spouse at any time since your claim date: <ddmmyyyy>?,AboutYouHaveYouHadaPartnerSpouseatAnyTime,DWPCAClaim>HavePartner
 About You,More about you,Have you or your partner/spouse claimed or received any other benefits since your claim date:<ddmmyyyy>?,AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits,

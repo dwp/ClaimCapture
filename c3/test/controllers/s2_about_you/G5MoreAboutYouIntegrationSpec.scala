@@ -4,13 +4,13 @@ import play.api.test.WithBrowser
 import org.specs2.mutable.{Tags, Specification}
 import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate}
 import utils.pageobjects.s2_about_you.{G6EmploymentPage, G5MoreAboutYouPage, G1YourDetailsPageContext, G5MoreAboutYouPageContext}
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
+import utils.pageobjects.s1_carers_allowance.G1BenefitsMandatoryPage
 
 class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
   "More About You" should {
     "present Benefits when there is no claim date" in new WithBrowser with G5MoreAboutYouPageContext {
       val landingPage = page goToThePage(throwException = false)
-      landingPage must beAnInstanceOf[G1BenefitsPage]
+      landingPage must beAnInstanceOf[G1BenefitsMandatoryPage]
     }
 
     "be presented when there is a claim date" in new WithBrowser with BrowserMatchers {
@@ -20,7 +20,8 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
     "contain the completed forms" in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      page goToThePage()
+      page goToThePage(waitDuration = 500)
+
       page runClaimWith (claim, G5MoreAboutYouPage.title, waitForPage = true, waitDuration = 500)
       page numberSectionsCompleted() mustEqual 4
     }

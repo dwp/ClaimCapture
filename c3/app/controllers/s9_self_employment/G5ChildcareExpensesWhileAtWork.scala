@@ -9,12 +9,10 @@ import models.domain._
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s9_self_employment.SelfEmployment.whenSectionVisible
-import controllers.s7_employment.Employment._
 import scala.Some
 
-
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ExpensesWhileAtWork)
+  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ChildcareExpensesWhileAtWork)
 
   val form = Form(
     mapping(
@@ -29,12 +27,13 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
 
   def present = claiming {
     implicit claim => implicit request =>
-      val yesNoList = jobs.map(j => j.apply(AboutExpenses) match {
-        case Some(n: AboutExpenses) => n.payAnyoneToLookAfterChildren
-        case _ => "no"
-      })
 
-      yesNoList.count(_ == "yes") > 0 match {
+      val payToLookAfterChildren = claim.questionGroup(SelfEmploymentPensionsAndExpenses) match {
+        case Some(s: SelfEmploymentPensionsAndExpenses) => s.doYouPayToLookAfterYourChildren == `yes`
+        case _ => false
+      }
+
+      payToLookAfterChildren  match {
         case true => whenSectionVisible(Ok(views.html.s9_self_employment.g5_childcareExpensesWhileAtWork(form.fill(ChildcareExpensesWhileAtWork), completedQuestionGroups)))
         case false => claim.delete(ChildcareExpensesWhileAtWork) -> Redirect(routes.G6ChildcareProvidersContactDetails.present())
       }

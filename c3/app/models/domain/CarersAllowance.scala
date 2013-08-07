@@ -4,26 +4,50 @@ case object CarersAllowance extends Section.Identifier {
   val id = "s1"
 }
 
-case class Benefits(answer: Boolean = false) extends QuestionGroup(Benefits) with BooleanConfirmation with NoRouting
+case class BenefitsMandatory(answerYesNo: String = "") extends QuestionGroup(BenefitsMandatory) with BooleanConfirmation with NoRouting
+{
+  val answer: Boolean = answerYesNo match {
+    case "yes" => true
+    case _ => false
+  }
+}
 
-object Benefits extends QuestionGroup.Identifier {
+object BenefitsMandatory extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g1"
 }
 
-case class Hours(answer: Boolean = false) extends QuestionGroup(Hours) with BooleanConfirmation with NoRouting
+case class HoursMandatory(answerYesNo: String = "") extends QuestionGroup(HoursMandatory) with BooleanConfirmation with NoRouting
+{
+  val answer: Boolean = answerYesNo match {
+    case "yes" => true
+    case _ => false
+  }
+}
 
-object Hours extends QuestionGroup.Identifier {
+object HoursMandatory extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g2"
 }
 
-case class Over16(answer: Boolean = false) extends QuestionGroup(Over16) with BooleanConfirmation with NoRouting
+case class Over16Mandatory(answerYesNo: String = "") extends QuestionGroup(Over16Mandatory) with BooleanConfirmation with NoRouting
+{
+  val answer: Boolean = answerYesNo match {
+    case "yes" => true
+    case _ => false
+  }
+}
 
-object Over16 extends QuestionGroup.Identifier {
+object Over16Mandatory extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g3"
 }
 
-case class LivesInGB(answer: Boolean = false) extends QuestionGroup(LivesInGB) with BooleanConfirmation with NoRouting
+case class LivesInGBMandatory(answerYesNo: String = "") extends QuestionGroup(LivesInGBMandatory) with BooleanConfirmation with NoRouting
+{
+  val answer: Boolean = answerYesNo match {
+    case "yes" => true
+    case _ => false
+  }
+}
 
-object LivesInGB extends QuestionGroup.Identifier {
+object LivesInGBMandatory extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g4"
 }

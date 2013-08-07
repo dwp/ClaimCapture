@@ -3,7 +3,7 @@ $ ->
 
     $(".breaks-prompt").hide()
 
-    $("tbody").on "click", "input[value='Edit']", ->
+    $("tbody").on "click", "input[value='Change']", ->
         tr = $(this).closest("tr")
         window.location.href = "/employment/job/" + tr.attr("id")
 

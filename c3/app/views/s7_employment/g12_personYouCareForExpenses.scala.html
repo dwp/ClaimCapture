@@ -7,12 +7,11 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
+@import controllers.s7_employment.JobID
 
-@import models.domain.Job
-
-@main("Expenses related to the person you care for , while you are at work - Employment", Some(currentForm), completedQuestionGroups) {
+@main("Expenses related to the person you care for, while you are at work - Employment", Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G12PersonYouCareForExpenses.submit()) {
-        <input type="hidden" name="jobID" value='@Job.jobID(currentForm)'>
+        <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
             <legend>Expenses related to the person you care for, while you are at work</legend>
@@ -23,6 +22,8 @@
                 @carersInputText(currentForm("whoDoYouPay"))
 
                 @carersInputText(currentForm("relationToYou"))
+
+                @carersInputText(currentForm("relationToPersonYouCare"))
             </ul>
         </fieldset>
 

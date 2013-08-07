@@ -2,7 +2,7 @@ package models.view
 
 import language.implicitConversions
 import reflect.ClassTag
-import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.mvc._
 import play.api.cache.Cache
 import models.domain.{Claim, QuestionGroup}
 import play.Configuration
@@ -39,7 +39,7 @@ trait CachedClaim {
       if (request.getQueryString("changing").getOrElse("false") == "false") {
         val claim = Claim()
         Cache.set(key, claim, expiration)
-        Logger.info("Starting new claim")
+        Logger.info("Starting new claim (old claim will be erased!)")
         apply(claim)
       } else {
         Cache.getAs[Claim](key) match {
@@ -82,7 +82,6 @@ trait CachedClaim {
           } else {
             Logger.info("Claim timeout")
             Redirect("/timeout").withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
-
           }
       }
     }

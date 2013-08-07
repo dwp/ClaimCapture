@@ -3,7 +3,7 @@ package app
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
+import utils.pageobjects.s1_carers_allowance.G1BenefitsMandatoryPageContext
 import utils.pageobjects.{XmlPage, PageObjectException, ClaimScenario, Page}
 
 /**
@@ -24,7 +24,7 @@ class EndToEndSpec extends Specification with Tags {
   }
 
   "The application " should {
-    "Successfully run absolute Test Case 1 " in new WithBrowser with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 1 " in new WithBrowser with G1BenefitsMandatoryPageContext {
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
@@ -36,7 +36,7 @@ class EndToEndSpec extends Specification with Tags {
       }
     }
 
-    "Successfully run absolute Test Case 2 " in new WithBrowser with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 2 " in new WithBrowser with G1BenefitsMandatoryPageContext {
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase2.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
@@ -48,7 +48,7 @@ class EndToEndSpec extends Specification with Tags {
       }
     }
 
-    "Successfully run absolute Test Case 3 " in new WithBrowser with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 3 " in new WithBrowser with G1BenefitsMandatoryPageContext {
       try {
         val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
         page goToThePage()

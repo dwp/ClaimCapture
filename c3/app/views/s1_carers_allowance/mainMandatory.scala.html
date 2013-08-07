@@ -1,0 +1,45 @@
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+
+@import models.domain.SelfEmployment
+@import helper._
+@import models.domain._
+
+@common.govMain(title) {
+    <main role="main" id="content">
+  
+     <div class="carers-allowance">
+
+            <div class="prototype">
+                <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
+            </div>
+
+            @progressBar(SelfEmployment)
+
+            <section>
+
+                <h1>Can you get Carer's Allowance?</h1>
+
+
+                @if(completedQuestionGroups.size > 0) {
+                    <div class="completed">
+                        <ul>
+                            @for((completedQuestionGroup, call) <- completedQuestionGroups) {
+                                <li>
+                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                    <p>@completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation</p>
+                                    <a href="@call?changing=true">Change these answers</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if(currentForm.isDefined) {
+                    @errorsSummary(currentForm.get)
+                }
+
+                @content
+            </section>
+        </div>
+    </main>
+}

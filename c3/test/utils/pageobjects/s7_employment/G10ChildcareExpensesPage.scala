@@ -1,16 +1,15 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 final class G10ChildcareExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G10ChildcareExpensesPage.url.replace(":jobID",iteration.toString), G10ChildcareExpensesPage.title, previousPage,iteration) {
 
-    declareInput("#howMuchCostChildcare", "EmploymentChildcareExpensesHowMuchYouPayfor_"+iteration)
-    declareInput("#whoLooksAfterChildren", "EmploymentNameOfthePersonWhoLooksAfterYourChild_"+iteration)
-    declareInput("#relationToYou", "EmploymentChildcareExpensesWhatRelationIsthePersontoYou_"+iteration)
-    declareInput("#relationToPartner", "EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_"+iteration)
-    /* missing EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor */
-
+  declareInput("#howMuchCostChildcare", "EmploymentChildcareExpensesHowMuchYouPayfor_"+iteration)
+  declareInput("#whoLooksAfterChildren", "EmploymentNameOfthePersonWhoLooksAfterYourChild_"+iteration)
+  declareInput("#relationToYou", "EmploymentChildcareExpensesWhatRelationIsthePersontoYou_"+iteration)
+  declareInput("#relationToPartner", "EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_"+iteration)
+  declareInput("#relationToPersonYouCare", "EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_"+iteration)
 }
 
 object G10ChildcareExpensesPage {
