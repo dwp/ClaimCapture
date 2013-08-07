@@ -6,17 +6,7 @@ import models.domain._
 import controllers.Mappings.no
 import controllers.Routing
 
-object AboutYou extends Controller with CachedClaim with Routing {
-  override def route(qgi: QuestionGroup.Identifier) = qgi match {
-    case YourDetails => routes.G1YourDetails.present()
-    case ContactDetails => routes.G2ContactDetails.present()
-    case TimeOutsideUK => routes.G3TimeOutsideUK.present()
-    case ClaimDate => routes.G4ClaimDate.present()
-    case MoreAboutYou => routes.G5MoreAboutYou.present()
-    case Employment => routes.G6Employment.present()
-    case PropertyAndRent => routes.G7PropertyAndRent.present()
-  }
-
+object AboutYou extends Controller with AboutYouRouting with CachedClaim {
   def completed = claiming { implicit claim => implicit request =>
     Ok(views.html.s2_about_you.g8_completed(completedQuestionGroups.map(qg => qg -> route(qg))))
   }
@@ -36,5 +26,17 @@ object AboutYou extends Controller with CachedClaim with Routing {
 
   private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
     claim.completedQuestionGroups(models.domain.AboutYou)
+  }
+}
+
+trait AboutYouRouting extends Routing {
+  override def route(qgi: QuestionGroup.Identifier) = qgi match {
+    case YourDetails => routes.G1YourDetails.present()
+    case ContactDetails => routes.G2ContactDetails.present()
+    case TimeOutsideUK => routes.G3TimeOutsideUK.present()
+    case ClaimDate => routes.G4ClaimDate.present()
+    case MoreAboutYou => routes.G5MoreAboutYou.present()
+    case Employment => routes.G6Employment.present()
+    case PropertyAndRent => routes.G7PropertyAndRent.present()
   }
 }

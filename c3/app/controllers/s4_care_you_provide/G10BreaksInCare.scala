@@ -3,16 +3,15 @@ package controllers.s4_care_you_provide
 import play.api.mvc.Controller
 import play.api.data.Form
 import models.view.CachedClaim
-import models.domain._
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages
 import controllers.Mappings._
-import models.domain.Claim
+import models.domain.{MoreAboutTheCare, BreaksInCare, Claim}
 import models.yesNo.YesNo
-import controllers.s4_care_you_provide.CareYouProvide._
+import CareYouProvide.breaksInCare
 
-object G10BreaksInCare extends Controller with CachedClaim {
+object G10BreaksInCare extends Controller with CareYouProvideRouting with CachedClaim {
   val form = Form(
     mapping(
       "answer" -> nonEmptyText.verifying(validYesNo)

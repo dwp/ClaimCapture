@@ -5,13 +5,7 @@ import models.view.CachedClaim
 import controllers.Routing
 import models.domain._
 
-object TimeSpentAbroad extends Controller with CachedClaim with Routing {
-  override def route(qgi: QuestionGroup.Identifier) = qgi match {
-    case NormalResidenceAndCurrentLocation => routes.G1NormalResidenceAndCurrentLocation.present()
-    case AbroadForMoreThan4Weeks => routes.G2AbroadForMoreThan4Weeks.present()
-    case AbroadForMoreThan52Weeks => routes.G3AbroadForMoreThan52Weeks.present()
-  }
-
+object TimeSpentAbroad extends Controller with TimeSpentAbroadRouting with CachedClaim {
   def trips(implicit claim: Claim) = claim.questionGroup(Trips) match {
     case Some(ts: Trips) => ts
     case _ => Trips()
@@ -29,5 +23,13 @@ object TimeSpentAbroad extends Controller with CachedClaim with Routing {
 
   private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
     claim.completedQuestionGroups(models.domain.TimeSpentAbroad)
+  }
+}
+
+trait TimeSpentAbroadRouting extends Routing {
+  override def route(qgi: QuestionGroup.Identifier) = qgi match {
+    case NormalResidenceAndCurrentLocation => routes.G1NormalResidenceAndCurrentLocation.present()
+    case AbroadForMoreThan4Weeks => routes.G2AbroadForMoreThan4Weeks.present()
+    case AbroadForMoreThan52Weeks => routes.G3AbroadForMoreThan52Weeks.present()
   }
 }

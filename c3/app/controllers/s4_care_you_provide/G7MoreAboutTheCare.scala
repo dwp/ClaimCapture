@@ -9,9 +9,8 @@ import utils.helpers.CarersForm._
 import models.view.CachedClaim
 import play.api.mvc.Controller
 import models.yesNo.YesNoWithDate
-import CareYouProvide._
 
-object G7MoreAboutTheCare extends Controller with CachedClaim {
+object G7MoreAboutTheCare extends Controller with CareYouProvideRouting with CachedClaim {
   val careMapping =
     "beforeClaimCaring" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),

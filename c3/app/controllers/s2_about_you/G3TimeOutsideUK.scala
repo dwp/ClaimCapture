@@ -10,9 +10,8 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithDate
 import models.LivingInUK
-import controllers.s2_about_you.AboutYou._
 
-object G3TimeOutsideUK extends Controller with CachedClaim {
+object G3TimeOutsideUK extends Controller with AboutYouRouting with CachedClaim {
   val goBackMapping =
     "goBack" -> optional(
       mapping(

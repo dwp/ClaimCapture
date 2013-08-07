@@ -8,9 +8,8 @@ import controllers.Mappings._
 import utils.helpers.CarersForm._
 import models.domain.{ContactDetails, TheirPersonalDetails, TheirContactDetails}
 import models.domain.YourPartnerContactDetails
-import CareYouProvide._
 
-object G2TheirContactDetails extends Controller with CachedClaim {
+object G2TheirContactDetails extends Controller with CareYouProvideRouting with CachedClaim {
   val form = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),

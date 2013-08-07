@@ -10,9 +10,8 @@ import controllers.Mappings._
 import utils.helpers.CarersForm._
 import play.api.data.FormError
 import models.yesNo.{YesNoWithDropDownAndText, YesNoWithDropDown}
-import CareYouProvide._
 
-object G6RepresentativesForThePerson extends Controller with CachedClaim {
+object G6RepresentativesForThePerson extends Controller with CareYouProvideRouting with CachedClaim {
   val youActMapping =
     "you" -> mapping(
       "actForPerson" -> nonEmptyText(maxLength = 20).verifying(validYesNo),

@@ -9,9 +9,8 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.Mappings.validYesNo
 import controllers.Mappings._
-import controllers.s2_about_you.AboutYou._
 
-object G5MoreAboutYou extends Controller with CachedClaim {
+object G5MoreAboutYou extends Controller with AboutYouRouting with CachedClaim {
   val form = Form(
     mapping(
       "hadPartnerSinceClaimDate" -> nonEmptyText.verifying(validYesNo),

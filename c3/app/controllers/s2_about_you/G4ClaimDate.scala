@@ -8,9 +8,8 @@ import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import controllers.s2_about_you.AboutYou._
 
-object G4ClaimDate extends Controller with CachedClaim {
+object G4ClaimDate extends Controller with AboutYouRouting with CachedClaim {
   val form = Form(
     mapping(
       "dateOfClaim" -> dayMonthYear.verifying(validDate)
