@@ -29,7 +29,7 @@ object Caree {
       <RelationToClaimant>{moreAboutThePerson.relationship}</RelationToClaimant>
       <Cared35hours>{moreAboutTheCare.spent35HoursCaring}</Cared35hours>
       <CanCareeSign>yes</CanCareeSign>
-      <CanSomeoneElseSign>{representatives.someoneElseAct.answer}</CanSomeoneElseSign>
+      <CanSomeoneElseSign>{representatives.someoneElseAct.answer.orNull}</CanSomeoneElseSign>
       <CanClaimantSign>{representatives.youAct.answer}</CanClaimantSign>
       <ClaimantActingType>
         <ParentOrGuardian></ParentOrGuardian>
