@@ -6,20 +6,17 @@ import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import models.domain.{AbroadForMoreThan52Weeks, Claim}
-import TimeSpentAbroad.trips
+import models.domain.AbroadForMoreThan52Weeks
+import TimeSpentAbroad._
 
 object G3AbroadForMoreThan52Weeks extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      call(routes.G3AbroadForMoreThan52Weeks.present()),
       "anyTrips" -> nonEmptyText.verifying(validYesNo)
     )(AbroadForMoreThan52Weeks.apply)(AbroadForMoreThan52Weeks.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(AbroadForMoreThan52Weeks)
-
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s5_time_spent_abroad.g3_abroad_for_more_than_52_weeks(form, trips, completedQuestionGroups))
+    Ok(views.html.s5_time_spent_abroad.g3_abroad_for_more_than_52_weeks(form, trips, completedQuestionGroups(AbroadForMoreThan52Weeks)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -30,7 +27,7 @@ object G3AbroadForMoreThan52Weeks extends Controller with CachedClaim {
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g3_abroad_for_more_than_52_weeks(formWithErrors, trips, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g3_abroad_for_more_than_52_weeks(formWithErrors, trips, completedQuestionGroups(AbroadForMoreThan52Weeks))),
       abroadForMoreThan52Weeks => claim.update(abroadForMoreThan52Weeks).update(trips) -> next(abroadForMoreThan52Weeks))
   }
 }

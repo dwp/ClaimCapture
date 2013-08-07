@@ -2,21 +2,18 @@ package models
 
 import scala.util.{Failure, Success, Try}
 import org.joda.time.{DateTime, DateMidnight}
-import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
+import org.joda.time.format.DateTimeFormat
 
 case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
                         hour: Option[Int] = None, minutes: Option[Int] = None) {
-  val dateFormatXml: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
 
-  val timeFormatXml: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:00")
-
-  def `yyyy-MM-dd`:String = Try(new DateMidnight(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0))) match {
-    case Success(dt: DateMidnight) => dateFormatXml.print(dt)
+  def `yyyy-MM-dd`: String = Try(new DateMidnight(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0))) match {
+    case Success(dt: DateMidnight) => DateTimeFormat.forPattern("yyyy-MM-dd").print(dt)
     case Failure(_) => ""
   }
 
-  def `yyyy-MM-dd'T'HH:mm:00` = Try(new DateTime(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0), hour.getOrElse(0), minutes.getOrElse(0))) match {
-    case Success(dt: DateTime) => timeFormatXml.print(dt)
+  def `yyyy-MM-dd'T'HH:mm:00`: String = Try(new DateTime(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0), hour.getOrElse(0), minutes.getOrElse(0))) match {
+    case Success(dt: DateTime) => DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:00").print(dt)
     case Failure(_) => ""
   }
 
