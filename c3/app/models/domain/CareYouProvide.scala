@@ -16,21 +16,25 @@ case object CareYouProvide extends Section.Identifier {
   val id = "s4"
 }
 
-case class TheirPersonalDetails(title: String, firstName: String, middleName: Option[String], surname: String,
-                                nationalInsuranceNumber: Option[NationalInsuranceNumber],
-                                dateOfBirth: DayMonthYear, liveAtSameAddress: String) extends QuestionGroup(TheirPersonalDetails) with NoRouting
+case class TheirPersonalDetails(title: String = "",
+                                firstName: String = "",
+                                middleName: Option[String] = None,
+                                surname: String = "",
+                                nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
+                                dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                                liveAtSameAddress: String = "") extends QuestionGroup(TheirPersonalDetails) with NoRouting
 
 case object TheirPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g1"
 }
 
-case class TheirContactDetails(address: MultiLineAddress, postcode: Option[String], phoneNumber: Option[String] = None) extends QuestionGroup(TheirContactDetails) with NoRouting
+case class TheirContactDetails(address: MultiLineAddress = MultiLineAddress(), postcode: Option[String] = None, phoneNumber: Option[String] = None) extends QuestionGroup(TheirContactDetails) with NoRouting
 
 case object TheirContactDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g2"
 }
 
-case class MoreAboutThePerson(relationship: String, armedForcesPayment: Option[String], claimedAllowanceBefore: String) extends QuestionGroup(MoreAboutThePerson) with NoRouting
+case class MoreAboutThePerson(relationship: String = "", armedForcesPayment: Option[String] = None, claimedAllowanceBefore: String = "") extends QuestionGroup(MoreAboutThePerson) with NoRouting
 
 case object MoreAboutThePerson extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g3"
@@ -51,13 +55,13 @@ case object PreviousCarerContactDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g5"
 }
 
-case class RepresentativesForPerson(youAct: YesNoWithDropDown, someoneElseAct:YesNoWithDropDownAndText) extends QuestionGroup(RepresentativesForPerson) with NoRouting
+case class RepresentativesForPerson(youAct: YesNoWithDropDown = YesNoWithDropDown("", None), someoneElseAct:YesNoWithDropDownAndText = YesNoWithDropDownAndText("", None, None)) extends QuestionGroup(RepresentativesForPerson) with NoRouting
 
 case object RepresentativesForPerson extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g6"
 }
 
-case class MoreAboutTheCare(spent35HoursCaring: String, spent35HoursCaringBeforeClaim:YesNoWithDate, hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare) with NoRouting
+case class MoreAboutTheCare(spent35HoursCaring: String = "", spent35HoursCaringBeforeClaim:YesNoWithDate = YesNoWithDate("", None), hasSomeonePaidYou: String = "") extends QuestionGroup(MoreAboutTheCare) with NoRouting
 
 case object MoreAboutTheCare extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g7"

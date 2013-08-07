@@ -9,17 +9,13 @@ import scala.xml.NodeSeq
 object Partner {
 
   def xml(claim: Claim) = {
-    val moreAboutYouOption = claim.questionGroup[MoreAboutYou]
-    val moreAboutYou = moreAboutYouOption.getOrElse(MoreAboutYou(hadPartnerSinceClaimDate = no))
+    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(hadPartnerSinceClaimDate = no))
 
-    val yourPartnerPersonalDetailsOption = claim.questionGroup[YourPartnerPersonalDetails]
-    val yourPartnerPersonalDetails = yourPartnerPersonalDetailsOption.getOrElse(YourPartnerPersonalDetails())
+    val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
 
-    val yourPartnerContactDetailsOption = claim.questionGroup[YourPartnerContactDetails]
-    val yourPartnerContactDetails =  yourPartnerContactDetailsOption.getOrElse(YourPartnerContactDetails())
+    val yourPartnerContactDetails =  claim.questionGroup[YourPartnerContactDetails].getOrElse(YourPartnerContactDetails())
 
-    val moreAboutYourPartnerOption = claim.questionGroup[MoreAboutYourPartner]
-    val moreAboutYourPartner = moreAboutYourPartnerOption.getOrElse(MoreAboutYourPartner())
+    val moreAboutYourPartner = claim.questionGroup[MoreAboutYourPartner].getOrElse(MoreAboutYourPartner())
 
     val startedLivingTogether = moreAboutYourPartner.startedLivingTogether.getOrElse(YesNoWithDate(no, None))
 

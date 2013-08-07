@@ -9,11 +9,9 @@ object DWPCAClaim {
 
   def xml(claim: Claim, transactionId : String) = {
 
-    val moreAboutYouOption = claim.questionGroup[MoreAboutYou]
-    val moreAboutYou = moreAboutYouOption.getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
+    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
 
-    val aboutYouEmploymentOption = claim.questionGroup[models.domain.Employment]
-    val employment = aboutYouEmploymentOption.getOrElse(models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
+    val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
 
     val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)  //REMOVE THIS WHEN REFACTORING XML HAS BEEN DONE
 

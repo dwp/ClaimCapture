@@ -29,6 +29,12 @@ case class YourPartnerSection(yourPartnerPersonalDetails: YourPartnerPersonalDet
 
 case class EducationSection(yourCourseDetails: YourCourseDetails, addressOfSchool: AddressOfSchoolCollegeOrUniversity)
 
+case class CareYouProvideSection(theirPersonalDetails: TheirPersonalDetails, theirContactDetails: TheirContactDetails,
+                          moreAboutThePerson: MoreAboutThePerson, representatives: RepresentativesForPerson,
+                          previousCarerContactDetails: Option[PreviousCarerContactDetails], previousCarerPersonalDetails: Option[PreviousCarerPersonalDetails],
+                          moreAboutTheCare: MoreAboutTheCare, oneWhoPays: Option[OneWhoPaysPersonalDetails],
+                          contactDetailsPayingPerson: Option[ContactDetailsOfPayingPerson], breaksInCare: BreaksInCare)
+
 case class OtherMoneySection(aboutOtherMoney: AboutOtherMoney,
                              moneyPaidToSomeoneElse: MoneyPaidToSomeoneElseForYou,
                              personWhoGetsThisMoney: PersonWhoGetsThisMoney,
@@ -145,7 +151,7 @@ object ClaimBuilder {
     ExpensesWhileAtWork(howMuchYouPay = Some("200.5"), nameOfPerson = "NameOfPerson", whatRelationIsToYou = Some("grandSon"), whatRelationIsTothePersonYouCareFor = Some("grandSon"))
   )
 
-  val careYouProvide = CareYouProvide(theirPersonalDetails, theirContactDetails,
+  val careYouProvide = CareYouProvideSection(theirPersonalDetails, theirContactDetails,
     moreAboutThePerson, representatives,
     Some(previousCarerContactDetails), Some(previousCarerPersonalDetails),
     moreAboutTheCare, Some(oneWhoPays), Some(contactDetailsPayingPerson), breaksInCare)
