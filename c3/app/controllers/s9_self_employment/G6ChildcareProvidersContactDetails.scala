@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
-import models.domain.{Claim, ChildcareProvidersContactDetails}
+import models.domain.{SelfEmploymentPensionsAndExpenses, Claim, ChildcareProvidersContactDetails}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s9_self_employment.SelfEmployment.whenSectionVisible
@@ -23,7 +23,18 @@ object G6ChildcareProvidersContactDetails extends Controller with CachedClaim {
   )
 
   def present = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s9_self_employment.g6_childcareProvidersContactDetails(form.fill(ChildcareProvidersContactDetails), completedQuestionGroups)))
+
+    val payToLookAfterChildren = claim.questionGroup(SelfEmploymentPensionsAndExpenses) match {
+      case Some(s: SelfEmploymentPensionsAndExpenses) => s.doYouPayToLookAfterYourChildren == `yes`
+      case _ => false
+    }
+
+    payToLookAfterChildren  match {
+      case true => whenSectionVisible(Ok(views.html.s9_self_employment.g6_childcareProvidersContactDetails(form.fill(ChildcareProvidersContactDetails), completedQuestionGroups)))
+      case false => claim.delete(ChildcareProvidersContactDetails) -> Redirect(routes.G7ExpensesWhileAtWork.present())
+    }
+
+
   }
 
   def submit = claiming { implicit claim =>

@@ -3,8 +3,6 @@ package controllers.s3_your_partner
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import java.util.concurrent.TimeUnit
-import scala.concurrent.duration.Duration
 
 class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags {
 
@@ -32,22 +30,22 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags {
     "navigate back to Your Partner Personal Details" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerPersonalDetails(browser)
       Formulate.yourPartnerContactDetails(browser)
-      titleMustEqual("More About Your Partner - Your Partner")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("More About Your Partner - Your Partner")
       browser.click("#backButton")
-      titleMustEqual("Contact Details - Your Partner")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Contact Details - Your Partner")
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerPersonalDetails(browser)
       Formulate.yourPartnerContactDetails(browser)
       Formulate.moreAboutYourPartnerSeparated(browser)
-      titleMustEqual("Person You Care For - Your Partner")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Person You Care For - Your Partner")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerPersonalDetails(browser)
       Formulate.yourPartnerContactDetails(browser)
-      titleMustEqual("More About Your Partner - Your Partner")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("More About Your Partner - Your Partner")
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
   } section "integration"

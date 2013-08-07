@@ -4,25 +4,23 @@ import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
 import models.view.CachedClaim
-import models.domain._
+import models.domain.{MoreAboutTheCare, ContactDetailsOfPayingPerson}
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
+import CareYouProvide._
 
 object G9ContactDetailsOfPayingPerson extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      call(routes.G9ContactDetailsOfPayingPerson.present()),
       "address" -> optional(address),
       "postcode" -> optional(text)
     )(ContactDetailsOfPayingPerson.apply)(ContactDetailsOfPayingPerson.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ContactDetailsOfPayingPerson)
-
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(MoreAboutTheCare) match {
-      case Some(MoreAboutTheCare(_, _, _, "yes")) =>
-        Ok(views.html.s4_care_you_provide.g9_contactDetailsOfPayingPerson(form.fill(ContactDetailsOfPayingPerson), completedQuestionGroups))
+      case Some(MoreAboutTheCare(_, _, "yes")) =>
+        Ok(views.html.s4_care_you_provide.g9_contactDetailsOfPayingPerson(form.fill(ContactDetailsOfPayingPerson), completedQuestionGroups(ContactDetailsOfPayingPerson)))
 
       case _ =>
         Redirect(routes.G10BreaksInCare.present())
@@ -31,7 +29,7 @@ object G9ContactDetailsOfPayingPerson extends Controller with CachedClaim {
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g9_contactDetailsOfPayingPerson(formWithErrors, completedQuestionGroups(ContactDetailsOfPayingPerson))),
       contactDetailsOfPayingPerson => claim.update(contactDetailsOfPayingPerson) -> Redirect(routes.G10BreaksInCare.present()))
   }
 }

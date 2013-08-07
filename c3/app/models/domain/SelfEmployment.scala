@@ -61,11 +61,11 @@ case class SelfEmploymentPensionsAndExpenses(call: Call = NoRouting,
                                               ) extends QuestionGroup(SelfEmploymentPensionsAndExpenses)
 
 case class ChildcareExpensesWhileAtWork(call: Call = NoRouting,
-                               howMuchYouPay: Option[String] = None,
-                               nameOfPerson: String = "",
-                               whatRelationIsToYou: Option[String] = None,
-                               relationToPartner: Option[String] = None,
-                               whatRelationIsTothePersonYouCareFor: Option[String] = None) extends QuestionGroup(ChildcareExpensesWhileAtWork)
+                                        howMuchYouPay: Option[String] = None,
+                                        nameOfPerson: String = "",
+                                        whatRelationIsToYou: Option[String] = None,
+                                        relationToPartner: Option[String] = None,
+                                        whatRelationIsTothePersonYouCareFor: Option[String] = None) extends QuestionGroup(ChildcareExpensesWhileAtWork)
 
 case object ChildcareExpensesWhileAtWork extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g5"
@@ -97,7 +97,6 @@ case class CareProvidersContactDetails(call: Call = NoRouting,
 case object CareProvidersContactDetails extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g8"
 }
-
 
 
 

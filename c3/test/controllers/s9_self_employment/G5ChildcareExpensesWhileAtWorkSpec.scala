@@ -4,7 +4,6 @@ import play.api.test.{FakeRequest, WithApplication}
 import models.domain._
 import play.api.test.Helpers._
 import org.specs2.mutable.{Tags, Specification}
-import controllers.s7_employment.G8AboutExpenses
 import play.api.cache.Cache
 import scala.Some
 
@@ -27,10 +26,9 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
 
     "present 'Child Care Expenses while at work' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "12455ddd", "payAnyoneToLookAfterChildren" -> "yes","payForAnythingNecessary" -> "yes",
-        "payAnyoneToLookAfterPerson"->"yes")
+        .withFormUrlEncodedBody("doYouPayToPensionScheme.answer" -> "no", "doYouPayToLookAfterYourChildren" -> "yes","didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
-      val result = G8AboutExpenses.submit(request)
+      val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
       val request2 = FakeRequest().withSession("connected" -> claimKey)
 

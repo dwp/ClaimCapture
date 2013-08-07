@@ -4,16 +4,19 @@ import play.api.mvc._
 import models.view._
 import play.api.templates.Html
 import models.domain._
-import play.api.mvc.Call
 import play.api.mvc.SimpleResult
+import controllers.Routing
 
-object YourPartner extends Controller with CachedClaim {
-  def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier)(implicit claim: Claim, request: Request[AnyContent]): List[(QuestionGroup, Call)] = {
-    claim.completedQuestionGroups(questionGroupIdentifier).map(qg => qg -> route(qg))
+object YourPartner extends Controller with CachedClaim with Routing {
+  override def route(qgi: QuestionGroup.Identifier) = qgi match {
+    case YourPartnerPersonalDetails => routes.G1YourPartnerPersonalDetails.present()
+    case YourPartnerContactDetails => routes.G2YourPartnerContactDetails.present()
+    case MoreAboutYourPartner => routes.G3MoreAboutYourPartner.present()
+    case PersonYouCareFor => routes.G4PersonYouCareFor.present()
   }
 
   def completed = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s3_your_partner.g5_completed(claim.completedQuestionGroups(models.domain.YourPartner).map(qg => qg -> route(qg)))))
+    whenSectionVisible(Ok(views.html.s3_your_partner.g5_completed(completedQuestionGroups.map(qg => qg -> route(qg)))))
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
@@ -33,9 +36,9 @@ object YourPartner extends Controller with CachedClaim {
           <h2>Completed - Your Partner</h2>
 
           <ul>
-            {claim.completedQuestionGroups(models.domain.YourPartner).map(f => <li>
+            {completedQuestionGroups.map(f => <li>
             {f}
-          </li>)}
+            </li>)}
           </ul>
         </body>
       </html>
@@ -43,10 +46,7 @@ object YourPartner extends Controller with CachedClaim {
     Ok(Html(outcome.toString))
   }
 
-  private def route(qg: QuestionGroup) = qg.identifier match {
-    case YourPartnerPersonalDetails => routes.G1YourPartnerPersonalDetails.present()
-    case YourPartnerContactDetails => routes.G2YourPartnerContactDetails.present()
-    case MoreAboutYourPartner => routes.G3MoreAboutYourPartner.present()
-    case PersonYouCareFor => routes.G4PersonYouCareFor.present()
+  private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
+    claim.completedQuestionGroups(models.domain.YourPartner)
   }
 }

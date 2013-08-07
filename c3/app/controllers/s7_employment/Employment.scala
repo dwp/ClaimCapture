@@ -30,7 +30,7 @@ object Employment extends Controller with CachedClaim {
     case _ => Jobs()
   }
 
-  def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier, jobID: String)(implicit claim: Claim, request: Request[AnyContent]): List[(QuestionGroup, Call)] = {
+  def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier, jobID: String)(implicit claim: Claim): List[(QuestionGroup, Call)] = {
     claim.questionGroup(Jobs) match {
       case Some(js: Jobs) => js.find(_.jobID == jobID) match {
         case Some(j: Job) => j.questionGroups.filter(_.identifier.index < questionGroupIdentifier.index).map(qg => qg -> route(qg, jobID))

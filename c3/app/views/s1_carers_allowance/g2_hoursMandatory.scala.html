@@ -1,0 +1,31 @@
+@(currentForm: Form[models.domain.HoursMandatory], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+@import views.html.helper.dates._
+
+@mainMandatory("Hours - Carer's Allowance", Some(currentForm), completedQuestionGroups) {
+
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s1_carers_allowance.routes.G2HoursMandatory.submit) {
+
+        <fieldset class="form-elements form-eligibility q1">
+            <legend><span>Q2</span>Do you spend 35 hours or more each week caring for the person you look after?</legend>
+
+            <p>For example, cooking meals, or helping them with their shopping.</p>
+            
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("hours.answer"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

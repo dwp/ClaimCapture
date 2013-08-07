@@ -1,7 +1,6 @@
 package xml
 
 import models._
-
 import scala.xml._
 import scala.reflect.ClassTag
 import scala.language.implicitConversions
@@ -9,23 +8,24 @@ import models.PaymentFrequency
 import models.MultiLineAddress
 import models.PeriodFromTo
 import models.NationalInsuranceNumber
-import scala.Some
 
 object XMLHelper {
 
   def stringify(value: Option[_]): String = value match {
     case Some(s: String) => s
     case Some(dmy: DayMonthYear) => dmy.`yyyy-MM-dd`
-    case Some(nr: NationalInsuranceNumber) => nr.toXmlString
+    case Some(nr: NationalInsuranceNumber) => nr.stringify
+    case Some(sc: SortCode) => sc.sort1 + sc.sort2 + sc.sort2
     case _ => ""
   }
 
   def nodify(value: Option[_]): NodeBuffer = value  match {
     case Some(s: String) => new NodeBuffer += Text(s)
     case Some(dmy: DayMonthYear) => new NodeBuffer += Text(dmy.`yyyy-MM-dd`)
-    case Some(nr: NationalInsuranceNumber) => new NodeBuffer += Text(nr.toXmlString)
+    case Some(nr: NationalInsuranceNumber) => new NodeBuffer += Text(nr.stringify)
     case Some(pf: PaymentFrequency) => paymentFrequency(pf)
     case Some(pft: PeriodFromTo) => fromToStructure(pft)
+    case Some(sc: SortCode) => new NodeBuffer += Text(sc.sort1 + sc.sort2 + sc.sort2)
     case _ => new NodeBuffer += Text("")
   }
 
@@ -60,7 +60,7 @@ object XMLHelper {
 
   def paymentFrequency(freq: Option[PaymentFrequency]): NodeBuffer = freq match {
     case Some(p) => paymentFrequency(p)
-    case _ => new scala.xml.NodeBuffer() += <PayFrequency/> += <PayFrequencyOther/>
+    case _ => new NodeBuffer() += <PayFrequency/> += <PayFrequencyOther/>
   }
 
   def paymentFrequency(freq: PaymentFrequency): NodeBuffer = new scala.xml.NodeBuffer() +=
@@ -70,12 +70,12 @@ object XMLHelper {
       case _ => <PayFrequencyOther/>
     })
 
-  def optional[T](option: Option[T], elem: Elem )(implicit classTag: ClassTag[T]): Elem = option match {
+  def optional[T](option: Option[T], elem: Elem)(implicit classTag:ClassTag[T]): Elem = option match {
     case Some(o) => addChild(elem, nodify(option))
     case _ => elem
   }
 
-  def optional[T](option: Option[T],elem:Elem,default:String)(implicit classTag:ClassTag[T]): Elem = option match {
+  def optional[T](option: Option[T], elem: Elem, default: String)(implicit classTag:ClassTag[T]): Elem = option match {
     case Some(o) => addChild(elem, nodify(option))
     case _ => addChild(elem, Text(default))
   }
@@ -91,7 +91,7 @@ object XMLHelper {
   }
 
   implicit def attachToNode(elem: Elem) = new {
-    def +++[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem)
+    def +++[T](option: Option[T])(implicit classTag:ClassTag[T]): Elem = optional(option, elem)
 
     def +?[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, "yes")
 

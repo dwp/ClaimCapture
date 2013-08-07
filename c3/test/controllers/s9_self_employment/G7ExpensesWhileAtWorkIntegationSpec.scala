@@ -13,15 +13,11 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
   "Expenses related to the person you care for while at work" should {
     "be presented" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
 
-      browser.goTo("/employment/beenEmployed")
-      browser.click("#beenEmployed_yes")
-      browser.submit("button[type='submit']")
-
-      browser.goTo(s"/employment/aboutExpenses/${browser.find("jobID").getValue}")
-      browser.click("#payForAnythingNecessary_yes")
-      browser.click("#payAnyoneToLookAfterChildren_yes")
-      browser.click("#payAnyoneToLookAfterPerson_yes")
-      browser.submit("button[type='submit']")
+      val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
+      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      pagePensionAndExpenses goToThePage()
+      pagePensionAndExpenses fillPageWith claimPensionAndExpenses
+      pagePensionAndExpenses.submitPage(true)
 
       page goToThePage ()
     }
@@ -38,35 +34,27 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
     "contain the completed forms" in new WithBrowser with G1AboutSelfEmploymentPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
 
-      browser.goTo("/employment/beenEmployed")
-      browser.click("#beenEmployed_yes")
-      browser.submit("button[type='submit']")
-
-      browser.goTo(s"/employment/aboutExpenses/${browser.find("jobID").getValue}")
-      browser.click("#payForAnythingNecessary_yes")
-      browser.click("#payAnyoneToLookAfterChildren_yes")
-      browser.click("#payAnyoneToLookAfterPerson_yes")
-      browser.submit("button[type='submit']")
+      val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
+      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      pagePensionAndExpenses goToThePage()
+      pagePensionAndExpenses fillPageWith claimPensionAndExpenses
+      pagePensionAndExpenses.submitPage(true)
 
       page goToThePage()
       page fillPageWith claim
       val g2 = page submitPage()
       val g7 = g2 goToPage new G7ExpensesWhileAtWorkPage(browser)
-      g7.listCompletedForms.size mustEqual 1
+      g7.listCompletedForms.size mustEqual 2
     }
 
     " contain errors on invalid submission missing madatory field" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
       val claim = new ClaimScenario
 
-      browser.goTo("/employment/beenEmployed")
-      browser.click("#beenEmployed_yes")
-      browser.submit("button[type='submit']")
-
-      browser.goTo(s"/employment/aboutExpenses/${browser.find("jobID").getValue}")
-      browser.click("#payForAnythingNecessary_yes")
-      browser.click("#payAnyoneToLookAfterChildren_yes")
-      browser.click("#payAnyoneToLookAfterPerson_yes")
-      browser.submit("button[type='submit']")
+      val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
+      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      pagePensionAndExpenses goToThePage()
+      pagePensionAndExpenses fillPageWith claimPensionAndExpenses
+      pagePensionAndExpenses.submitPage(true)
 
 
       claim.SelfEmployedCareExpensesNameOfPerson = ""
@@ -80,15 +68,11 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
     "navigate back to previous page" in new WithBrowser with G6ChildcareProvidersContactDetailsPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
 
-      browser.goTo("/employment/beenEmployed")
-      browser.click("#beenEmployed_yes")
-      browser.submit("button[type='submit']")
-
-      browser.goTo(s"/employment/aboutExpenses/${browser.find("jobID").getValue}")
-      browser.click("#payForAnythingNecessary_yes")
-      browser.click("#payAnyoneToLookAfterChildren_yes")
-      browser.click("#payAnyoneToLookAfterPerson_yes")
-      browser.submit("button[type='submit']")
+      val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
+      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      pagePensionAndExpenses goToThePage()
+      pagePensionAndExpenses fillPageWith claimPensionAndExpenses
+      pagePensionAndExpenses.submitPage(true)
 
       page goToThePage()
       page fillPageWith claim
@@ -99,15 +83,11 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
     "navigate to next page on valid submission" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
 
-      browser.goTo("/employment/beenEmployed")
-      browser.click("#beenEmployed_yes")
-      browser.submit("button[type='submit']")
-
-      browser.goTo(s"/employment/aboutExpenses/${browser.find("jobID").getValue}")
-      browser.click("#payForAnythingNecessary_yes")
-      browser.click("#payAnyoneToLookAfterChildren_yes")
-      browser.click("#payAnyoneToLookAfterPerson_yes")
-      browser.submit("button[type='submit']")
+      val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
+      val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      pagePensionAndExpenses goToThePage()
+      pagePensionAndExpenses fillPageWith claimPensionAndExpenses
+      pagePensionAndExpenses.submitPage(true)
 
       page goToThePage()
       page fillPageWith claim

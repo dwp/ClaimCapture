@@ -2,10 +2,7 @@ package controllers.s3_your_partner
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
-import java.util.concurrent.TimeUnit
-import scala.concurrent.duration.Duration
-import utils.pageobjects.s3_your_partner.G5YourPartnerCompletedPageContext
+import controllers.{BrowserMatchers, Formulate}
 
 class G5CompletedIntegrationSpec extends Specification with Tags {
 
@@ -27,7 +24,7 @@ class G5CompletedIntegrationSpec extends Specification with Tags {
       Formulate.yourPartnerContactDetails(browser)
       Formulate.moreAboutYourPartnerSeparated(browser)
       Formulate.personYouCareFor(browser)
-      titleMustEqual("Completion - Your Partner")(Duration(5, TimeUnit.MINUTES))
+      titleMustEqual("Completion - Your Partner")
       browser.find("div[class=completed] ul li").size() mustEqual 4
     }
 

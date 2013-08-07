@@ -3,10 +3,10 @@ package models.domain
 import org.specs2.mutable.Specification
 
 class ClaimSpec extends Specification {
-  val claim = Claim().update(Benefits())
-                     .update(Hours())
-                     .update(LivesInGB())
-                     .update(Over16())
+  val claim = Claim().update(BenefitsMandatory("no"))
+                     .update(HoursMandatory("no"))
+                     .update(LivesInGBMandatory("no"))
+                     .update(Over16Mandatory("no"))
 
   "Claim" should {
     "initially be filled with all sections" in {
@@ -16,19 +16,19 @@ class ClaimSpec extends Specification {
 
     "contain the sectionId with the question group after adding" in {
       val claim = Claim()
-      val questionGroup = Benefits()
+      val questionGroup = BenefitsMandatory(answerYesNo = "no")
       val updatedClaim = claim.update(questionGroup)
       val sectionIdentifier = Section.sectionIdentifier(questionGroup)
 
       val section = updatedClaim.section(sectionIdentifier)
       section.identifier mustEqual sectionIdentifier
-      section.questionGroup(Benefits) must beLike { case Some(Benefits(answer)) => answer must beFalse }
+      section.questionGroup(BenefitsMandatory) must beLike { case Some(p: BenefitsMandatory) => p.answer must beFalse }
     }
 
     "contain the sectionId with the question group after updating" in {
       val claim = Claim()
-      val trueQuestionGroup = Benefits(answer = true)
-      val falseQuestionGroup = Benefits(answer = false)
+      val trueQuestionGroup = BenefitsMandatory(answerYesNo = "yes")
+      val falseQuestionGroup = BenefitsMandatory(answerYesNo = "no")
 
       val claimWithFalseQuestionGroup = claim.update(falseQuestionGroup)
       val claimWithTrueQuestionGroup = claimWithFalseQuestionGroup.update(trueQuestionGroup)
@@ -36,7 +36,7 @@ class ClaimSpec extends Specification {
       val sectionIdentifier = Section.sectionIdentifier(trueQuestionGroup)
       val section = claimWithTrueQuestionGroup.section(sectionIdentifier)
 
-      section.questionGroup(Benefits) must beLike { case Some(Benefits(answer)) => answer must beTrue }
+      section.questionGroup(BenefitsMandatory) must beLike { case Some(p: BenefitsMandatory) => p.answer must beTrue }
     }
 
     "return the correct section" in {
@@ -45,14 +45,14 @@ class ClaimSpec extends Specification {
     }
 
     "return the correct question group" in {
-      claim.questionGroup(LivesInGB) must beLike { case Some(qg: QuestionGroup) => qg.identifier mustEqual LivesInGB }
+      claim.questionGroup(LivesInGBMandatory) must beLike { case Some(qg: QuestionGroup) => qg.identifier mustEqual LivesInGBMandatory }
     }
 
     "delete a question group from section" in {
       claim.completedQuestionGroups(CarersAllowance).size mustEqual 4
 
-      val updatedClaim = claim.delete(LivesInGB)
-      updatedClaim.questionGroup(LivesInGB) must beNone
+      val updatedClaim = claim.delete(LivesInGBMandatory)
+      updatedClaim.questionGroup(LivesInGBMandatory) must beNone
       updatedClaim.completedQuestionGroups(CarersAllowance).size mustEqual 3
       claim.completedQuestionGroups(CarersAllowance).size mustEqual 4
     }
@@ -113,16 +113,48 @@ class ClaimSpec extends Specification {
     }
 
     """contain "question group" in first entry of "question groups".""" in {
-      claim.questionGroup[Benefits] should beSome(Benefits(answer = false))
+      claim.questionGroup[BenefitsMandatory] should beSome(BenefitsMandatory(answerYesNo = "no"))
     }
 
     """contain "question group" in second entry of "question groups".""" in {
-      claim.questionGroup[Hours] should beSome(Hours(answer = false))
+      claim.questionGroup[HoursMandatory] should beSome(HoursMandatory(answerYesNo = "no"))
     }
 
     """not contain "question group".""" in {
-      val updatedClaim = claim.delete(Over16)
-      updatedClaim.questionGroup[Over16] should beNone
+      val updatedClaim = claim.delete(Over16Mandatory)
+      updatedClaim.questionGroup[Over16Mandatory] should beNone
+    }
+
+    "iterate over jobs" in {
+      val job1 = Job("job 1").update(JobDetails("job 1"))
+                             .update(EmployerContactDetails("job 1"))
+
+      val job2 = Job("job 2").update(JobDetails("job 2"))
+                             .update(EmployerContactDetails("job 2"))
+
+      val jobs = new Jobs(job1 :: job2 :: Nil)
+
+      val claim = Claim().update(jobs)
+
+      val js = claim.questionGroup[Jobs] map { jobs =>
+        for (job <- jobs) yield {
+          job.jobID
+        }
+      }
+
+      js should beLike { case Some(i: Iterable[String]) => i.size shouldEqual 2 }
+    }
+
+    "iterate over no jobs" in {
+      val claim = Claim()
+
+      val js = claim.questionGroup[Jobs] map { jobs =>
+        for (job <- jobs) yield {
+          job.jobID
+        }
+      }
+
+      js should beNone
     }
   }
 }

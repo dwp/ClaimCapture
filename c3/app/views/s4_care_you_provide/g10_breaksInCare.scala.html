@@ -1,4 +1,4 @@
-@(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[models.domain.QuestionGroup], dateOfClaimFormatted: String)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)], dateOfClaimFormatted: String)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import models.domain.BreaksInCare
 @import views.html.helper._
@@ -17,7 +17,7 @@
                     <th class="desc">Where were you?</th>
                     <th class="desc">Where was the person you look after?</th>
                     <th class="desc">Received medical treatment / professional care</th>
-                    <th>Edit</th>
+                    <th>Change</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -71,12 +71,10 @@
                     @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimFormatted))
                 }
             </ul>
-
- 
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@back(models.domain.BreaksInCare)" class="button secondary">Back</a>
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

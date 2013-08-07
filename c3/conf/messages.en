@@ -94,6 +94,12 @@ s11.g4 = Declaration
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...
 
+## CARERS ALLOWANCE
+################
+benefits.answer = Does the person you look after get one of these benefits?
+hours.answer = Do you spend 35 hours or more each week caring for the person you look after?
+over16.answer = Are you aged 16 or over?
+livesInGB.answer = Do you normally live in Great Britain?
 
 ## ABOUT YOU
 
@@ -269,7 +275,7 @@ expectedEndDate = When do you expect the course to end?
 finishedDate = If you are no longer on the course, when did you finish?
 studentReferenceNumber = Your student reference number
 nameOfSchoolCollegeOrUniversity = Name of school, college or university
-nameOfMainTeacherOrTutor = Name of main teacher or tutor
+nameOfMainTeacherOrTutor = Name of main Teacher or Tutor
 faxNumber = Fax number
 
 

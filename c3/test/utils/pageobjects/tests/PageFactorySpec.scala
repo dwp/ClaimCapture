@@ -2,7 +2,7 @@ package utils.pageobjects.tests
 
 import org.specs2.mutable.Specification
 import utils.pageobjects.{UnknownPage, PageFactory}
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
+import utils.pageobjects.s1_carers_allowance.G1BenefitsMandatoryPage
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -18,8 +18,8 @@ class PageFactorySpec extends Specification {
     }  
     
     "Return a BenefitPage if provided Benefits page title" in new MockPageContext {
-      val newPage = PageFactory buildPageFromTitle(browser, G1BenefitsPage.title,None,1)
-      newPage must beAnInstanceOf[G1BenefitsPage]
+      val newPage = PageFactory buildPageFromTitle(browser, G1BenefitsMandatoryPage.title,None,1)
+      newPage must beAnInstanceOf[G1BenefitsMandatoryPage]
     }
   }
 
