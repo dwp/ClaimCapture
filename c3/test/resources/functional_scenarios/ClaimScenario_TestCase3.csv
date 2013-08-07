@@ -291,7 +291,7 @@ Employment,Expenses related to the person you care for while at work,"What relat
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,None
 Employment,Care providers contact Details,Address,EmploymentAddressCareProvider_1,1 London Road\nPreston\nLancashire
 Employment,Care providers contact Details,Postcode,EmploymentPostcodeCareProvider_1,PR4 5TH
-Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,AboutYouHaveYouBeenEmployedAtAnyTime_1_2,No
+Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,AboutYouHaveYouBeenEmployedAtAnyTime_2,No
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,Yes
 Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,01/02/2010
 Self Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,
@@ -352,8 +352,8 @@ Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,PR45 6YH
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on, receiving  any pensions or benefits from another EEA State or Switzerland?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,No
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on working in or paying insurance to another EEA State or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No
-How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,Other
-How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,4w
+How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,Other - you would like more information
+How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,fourWeekly
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,
 How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,
