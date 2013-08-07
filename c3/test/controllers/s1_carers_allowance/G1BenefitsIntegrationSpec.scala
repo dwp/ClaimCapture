@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.s1_carers_allowance.G2HoursMandatoryPage
+import utils.pageobjects.s1_carers_allowance.G2HoursPage
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
@@ -39,7 +39,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G2HoursMandatoryPage]
+      nextPage must beAnInstanceOf[G2HoursPage]
     }
   } section "integration"
 }

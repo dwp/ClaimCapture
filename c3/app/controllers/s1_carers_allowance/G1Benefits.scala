@@ -26,6 +26,6 @@ object G1Benefits extends Controller with CachedClaim {
     implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrors, completedQuestionGroups(Benefits))),
-        f => claim.update(f) -> Redirect(routes.G2HoursMandatory.present()))
+        f => claim.update(f) -> Redirect(routes.G2Hours.present()))
   }
 }

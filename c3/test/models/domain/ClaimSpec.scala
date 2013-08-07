@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 
 class ClaimSpec extends Specification {
   val claim = Claim().update(Benefits("no"))
-                     .update(HoursMandatory("no"))
+                     .update(Hours("no"))
                      .update(LivesInGBMandatory("no"))
                      .update(Over16Mandatory("no"))
 
@@ -117,7 +117,7 @@ class ClaimSpec extends Specification {
     }
 
     """contain "question group" in second entry of "question groups".""" in {
-      claim.questionGroup[HoursMandatory] should beSome(HoursMandatory(answerYesNo = "no"))
+      claim.questionGroup[Hours] should beSome(Hours(answerYesNo = "no"))
     }
 
     """not contain "question group".""" in {

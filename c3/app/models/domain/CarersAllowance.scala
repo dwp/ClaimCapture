@@ -16,15 +16,14 @@ object Benefits extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g1"
 }
 
-case class HoursMandatory(answerYesNo: String = "") extends QuestionGroup(HoursMandatory) with BooleanConfirmation with NoRouting
-{
+case class Hours(answerYesNo: String = "") extends QuestionGroup(Hours) with BooleanConfirmation with NoRouting {
   val answer: Boolean = answerYesNo match {
     case "yes" => true
     case _ => false
   }
 }
 
-object HoursMandatory extends QuestionGroup.Identifier {
+object Hours extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g2"
 }
 

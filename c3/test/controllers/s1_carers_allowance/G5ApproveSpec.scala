@@ -14,7 +14,7 @@ class G5ApproveSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val claim = Claim().update(Benefits(answerYesNo = "yes"))
-        .update(HoursMandatory(answerYesNo = "yes"))
+        .update(Hours(answerYesNo = "yes"))
         .update(Over16Mandatory(answerYesNo = "yes"))
         .update(LivesInGBMandatory(answerYesNo = "yes"))
 
@@ -28,7 +28,7 @@ class G5ApproveSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val claim = Claim().update(Benefits(answerYesNo = "yes"))
-        .update(HoursMandatory(answerYesNo = "yes"))
+        .update(Hours(answerYesNo = "yes"))
         .update(Over16Mandatory(answerYesNo = "no"))
         .update(LivesInGBMandatory(answerYesNo = "yes"))
 

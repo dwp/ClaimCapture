@@ -10,8 +10,8 @@ GET     /                                                       controllers.Appl
 GET     /allowance/benefits                                     controllers.s1_carers_allowance.G1Benefits.present
 POST    /allowance/benefits                                     controllers.s1_carers_allowance.G1Benefits.submit
 
-GET     /allowance/hoursMandatory                               controllers.s1_carers_allowance.G2HoursMandatory.present
-POST    /allowance/hoursMandatory                               controllers.s1_carers_allowance.G2HoursMandatory.submit
+GET     /allowance/hours                                        controllers.s1_carers_allowance.G2Hours.present
+POST    /allowance/hours                                        controllers.s1_carers_allowance.G2Hours.submit
 
 GET     /allowance/over16Mandatory                              controllers.s1_carers_allowance.G3Over16Mandatory.present
 POST    /allowance/over16Mandatory                              controllers.s1_carers_allowance.G3Over16Mandatory.submit
