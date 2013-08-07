@@ -12,7 +12,7 @@ final class G12PersonYouCareForExpensesPage(browser: TestBrowser, previousPage: 
 }
 
 object G12PersonYouCareForExpensesPage {
-  val title = "Expenses related to the person you care for , while you are at work - Employment"
+  val title = "Expenses related to the person you care for, while you are at work - Employment"
   val url  = "/employment/personYouCareForExpenses/:jobID"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G12PersonYouCareForExpensesPage(browser,previousPage,iteration)
 }

@@ -84,7 +84,7 @@ case class Claim(sections: List[Section]) extends Timestamped {
 object Claim {
   def apply() = {
     val sections = List(
-      Section(CarersAllowance, firstPage = controllers.s1_carers_allowance.routes.G1BenefitsMandatory.present(), lastPage = controllers.s1_carers_allowance.routes.CarersAllowance.approve()),
+      Section(CarersAllowance, firstPage = controllers.s1_carers_allowance.routes.G1Benefits.present(), lastPage = controllers.s1_carers_allowance.routes.CarersAllowance.approve()),
       Section(AboutYou, firstPage = controllers.s2_about_you.routes.G1YourDetails.present(), lastPage = controllers.s2_about_you.routes.AboutYou.completed()),
       Section(YourPartner, firstPage = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present(), lastPage = controllers.s3_your_partner.routes.YourPartner.completed()),
       Section(CareYouProvide, firstPage = controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present(), lastPage = controllers.s4_care_you_provide.routes.CareYouProvide.completed()),

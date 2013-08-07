@@ -27,7 +27,7 @@ About You,More about you,Have you had a partner/spouse at any time since your cl
 About You,More about you,Have you or your partner/spouse claimed or received any other benefits since your claim date:<ddmmyyyy>?,AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits,
 About You,More about you,Have you been on a course of education since your claim date:<ddmmyyyy>? ,AboutYouHaveYouBeenOnACourseOfEducation,DWPCAClaim>CourseOfEducation
 About You,More about you,Do you get state Pension?,AboutYouDoYouGetStatePension,
-About You,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime,DWPCAClaim>Employed
+About You,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime_1,DWPCAClaim>Employed
 About You,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,AboutYouHaveYouBeenSelfEmployedAtAnyTime,DWPCAClaim>SelfEmployed
 About You,Property and rent,Do you or your partner/spouse own property or land in the UK or abroad that you have rented out since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyyy>)?,AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand,DWPCAClaim>PropertyRentedOut>RentOutProperty
 About You,Property and rent,"Have you sublet your home, or provided board and lodgings, since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyyy>)?",AboutYouHaveYouOrYourPartnerSubletYourHome,DWPCAClaim>PropertyRentedOut>SubletHome

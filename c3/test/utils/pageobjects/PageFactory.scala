@@ -29,10 +29,10 @@ object PageFactory {
     title match {
       case XmlPage.title => XmlPage buildPageWith(browser, previousPage)
       // S1
-      case G1BenefitsMandatoryPage.title => G1BenefitsMandatoryPage buildPageWith(browser, previousPage)
-      case G2HoursMandatoryPage.title => G2HoursMandatoryPage buildPageWith(browser, previousPage)
-      case G3Over16MandatoryPage.title => G3Over16MandatoryPage buildPageWith(browser, previousPage)
-      case G4LivesInGBMandatoryPage.title => G4LivesInGBMandatoryPage buildPageWith(browser, previousPage)
+      case G1BenefitsPage.title => G1BenefitsPage buildPageWith(browser, previousPage)
+      case G2HoursPage.title => G2HoursPage buildPageWith(browser, previousPage)
+      case G3Over16Page.title => G3Over16Page buildPageWith(browser, previousPage)
+      case G4LivesInGBPage.title => G4LivesInGBPage buildPageWith(browser, previousPage)
       case G5CarersResponsePage.title => G5CarersResponsePage buildPageWith(browser, previousPage)
       case G6ApprovePage.title => G6ApprovePage buildPageWith(browser, previousPage)
       // S2
@@ -74,7 +74,7 @@ object PageFactory {
       case G2AddressOfSchoolCollegeOrUniversityPage.title => G2AddressOfSchoolCollegeOrUniversityPage buildPageWith(browser,previousPage)
       case G3EducationCompletedPage.title => G3EducationCompletedPage buildPageWith(browser,previousPage)
       // S7
-      case G1BeenEmployedPage.title => G1BeenEmployedPage buildPageWith(browser,previousPage)
+      case G1BeenEmployedPage.title => G1BeenEmployedPage buildPageWith(browser,previousPage,iteration)
       case G2JobDetailsPage.title => G2JobDetailsPage buildPageWith(browser,previousPage,iteration)
       case G3EmployerContactDetailsPage.title => G3EmployerContactDetailsPage buildPageWith(browser,previousPage,iteration)
       case G4LastWagePage.title => G4LastWagePage buildPageWith(browser,previousPage,iteration)

@@ -3,12 +3,12 @@ package controllers.s1_carers_allowance
 import org.specs2.mutable.{Tags, Specification}
 
 
-class G2HoursMandatoryFormSpec extends Specification with Tags {
+class G2HoursFormSpec extends Specification with Tags {
   "Carer's Allowance - Hours - Form" should {
     val answerYesNo = "yes"
       
     "map data into case class" in {
-      G2HoursMandatory.form.bind(
+      G2Hours.form.bind(
         Map("answer" -> answerYesNo)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
@@ -19,7 +19,7 @@ class G2HoursMandatoryFormSpec extends Specification with Tags {
     }
 
     "reject if mandatory field is not filled" in {
-      G2HoursMandatory.form.bind(
+      G2Hours.form.bind(
         Map("answer" -> "")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),

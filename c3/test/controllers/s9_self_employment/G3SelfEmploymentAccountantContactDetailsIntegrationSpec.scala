@@ -16,20 +16,18 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
       val claim = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
       page goToThePage()
       page fillPageWith claim
-      page.submitPage()
+      page.submitPage(waitForPage = true, waitDuration = 1000)
 
-      val nextPage = page goToPage( throwException = false, page = new G3SelfEmploymentAccountantContactDetailsPage(browser))
+      val nextPage = page goToPage(throwException = false, page = new G3SelfEmploymentAccountantContactDetailsPage(browser), waitForPage = true, waitDuration = 1000)
       nextPage must beAnInstanceOf[G3SelfEmploymentAccountantContactDetailsPage]
     }
 
-
-
     "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
-      page goToThePage()
-      page runClaimWith (claim, G7PropertyAndRentPage.title, waitForPage = true)
+      page goToThePage(waitForPage = true, waitDuration = 1000)
+      page runClaimWith (claim, G7PropertyAndRentPage.title, waitForPage = true, waitDuration = 1000)
 
-      val nextPage = page goToPage( throwException = false, page = new G3SelfEmploymentAccountantContactDetailsPage(browser))
+      val nextPage = page goToPage(throwException = false, page = new G3SelfEmploymentAccountantContactDetailsPage(browser), waitForPage = true, waitDuration = 1000)
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 
@@ -38,16 +36,16 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
 
         val claimYourAccounts = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
         val pageYourAccounts = new G2SelfEmploymentYourAccountsPage(browser)
-        pageYourAccounts goToThePage()
+        pageYourAccounts goToThePage(waitForPage = true, waitDuration = 1000)
         pageYourAccounts fillPageWith claimYourAccounts
-        pageYourAccounts.submitPage()
+        pageYourAccounts.submitPage(waitForPage = true, waitDuration = 1000)
 
         val claim = new ClaimScenario
         claim.SelfEmployedAccountantName = ""
         claim.SelfEmployedAccountantAddress = ""
-        page goToThePage()
+        page goToThePage(waitForPage = true, waitDuration = 1000)
         page fillPageWith claim
-        val pageWithErrors = page.submitPage()
+        val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 1000)
         pageWithErrors.listErrors.size mustEqual 2
       }
     }
@@ -56,12 +54,12 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
 
       val claimYourAccounts = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
       val pageYourAccounts = new G2SelfEmploymentYourAccountsPage(browser)
-      pageYourAccounts goToThePage()
+      pageYourAccounts goToThePage(waitForPage = true, waitDuration = 1000)
       pageYourAccounts fillPageWith claimYourAccounts
-      pageYourAccounts.submitPage()
+      pageYourAccounts.submitPage(waitForPage = true, waitDuration = 1000)
 
       val claim = ClaimScenarioFactory.s9SelfEmploymentAccountantContactDetails
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 1000)
       page fillPageWith claim
       page submitPage()
     }
@@ -70,16 +68,16 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
 
       val claimYourAccounts = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
       val pageYourAccounts = new G2SelfEmploymentYourAccountsPage(browser)
-      pageYourAccounts goToThePage()
+      pageYourAccounts goToThePage(waitForPage = true, waitDuration = 1000)
       pageYourAccounts fillPageWith claimYourAccounts
-      pageYourAccounts.submitPage()
+      pageYourAccounts.submitPage(waitForPage = true, waitDuration = 1000)
 
 
       val claim = ClaimScenarioFactory.s9SelfEmploymentAccountantContactDetails
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 1000)
       page fillPageWith claim
 
-      val nextPage = page submitPage()
+      val nextPage = page submitPage(waitForPage = true, waitDuration = 1000)
 
       nextPage must not(beAnInstanceOf[G6ChildcareProvidersContactDetailsPage])
     }
@@ -90,15 +88,13 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
       claimYourAccounts.SelfEmployedDoYouHaveAnAccountant = "no"
       claimYourAccounts.SelfEmployedCanWeContactYourAccountant = ""
       val pageYourAccounts = new G2SelfEmploymentYourAccountsPage(browser)
-      pageYourAccounts goToThePage()
+      pageYourAccounts goToThePage(waitForPage = true, waitDuration = 1000)
       pageYourAccounts fillPageWith claimYourAccounts
-      pageYourAccounts.submitPage()
+      pageYourAccounts.submitPage(waitForPage = true, waitDuration = 1000)
 
 
-      val nextPage = page goToPage( throwException = false, page = new G3SelfEmploymentAccountantContactDetailsPage(browser))
+      val nextPage = page goToPage(throwException = false, page = new G3SelfEmploymentAccountantContactDetailsPage(browser), waitForPage = true, waitDuration = 1000)
       nextPage must beAnInstanceOf[G4SelfEmploymentPensionsAndExpensesPage]
     }
-
   }
-
 }

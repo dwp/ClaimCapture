@@ -4,7 +4,7 @@ case object CarersAllowance extends Section.Identifier {
   val id = "s1"
 }
 
-case class BenefitsMandatory(answerYesNo: String = "") extends QuestionGroup(BenefitsMandatory) with BooleanConfirmation with NoRouting
+case class Benefits(answerYesNo: String = "") extends QuestionGroup(Benefits) with BooleanConfirmation with NoRouting
 {
   val answer: Boolean = answerYesNo match {
     case "yes" => true
@@ -12,23 +12,22 @@ case class BenefitsMandatory(answerYesNo: String = "") extends QuestionGroup(Ben
   }
 }
 
-object BenefitsMandatory extends QuestionGroup.Identifier {
+object Benefits extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g1"
 }
 
-case class HoursMandatory(answerYesNo: String = "") extends QuestionGroup(HoursMandatory) with BooleanConfirmation with NoRouting
-{
+case class Hours(answerYesNo: String = "") extends QuestionGroup(Hours) with BooleanConfirmation with NoRouting {
   val answer: Boolean = answerYesNo match {
     case "yes" => true
     case _ => false
   }
 }
 
-object HoursMandatory extends QuestionGroup.Identifier {
+object Hours extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g2"
 }
 
-case class Over16Mandatory(answerYesNo: String = "") extends QuestionGroup(Over16Mandatory) with BooleanConfirmation with NoRouting
+case class Over16(answerYesNo: String = "") extends QuestionGroup(Over16) with BooleanConfirmation with NoRouting
 {
   val answer: Boolean = answerYesNo match {
     case "yes" => true
@@ -36,18 +35,17 @@ case class Over16Mandatory(answerYesNo: String = "") extends QuestionGroup(Over1
   }
 }
 
-object Over16Mandatory extends QuestionGroup.Identifier {
+object Over16 extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g3"
 }
 
-case class LivesInGBMandatory(answerYesNo: String = "") extends QuestionGroup(LivesInGBMandatory) with BooleanConfirmation with NoRouting
-{
+case class LivesInGB(answerYesNo: String = "") extends QuestionGroup(LivesInGB) with BooleanConfirmation with NoRouting {
   val answer: Boolean = answerYesNo match {
     case "yes" => true
     case _ => false
   }
 }
 
-object LivesInGBMandatory extends QuestionGroup.Identifier {
+object LivesInGB extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g4"
 }
