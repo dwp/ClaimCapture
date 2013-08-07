@@ -2,7 +2,6 @@ package controllers.s9_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 
-
 class G3SelfEmploymentAccountantContactDetailsFormSpec extends Specification with Tags {
 
   "About Self Employment - Accountant's contact details Form" should {
@@ -39,7 +38,7 @@ class G3SelfEmploymentAccountantContactDetailsFormSpec extends Specification wit
       G3SelfEmploymentAccountantContactDetails.form.bind(
         Map("accountantsName" -> "Hello123")
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.missingLineOne"),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -58,5 +57,4 @@ class G3SelfEmploymentAccountantContactDetailsFormSpec extends Specification wit
       )
     }
   } section "unit"
-
 }

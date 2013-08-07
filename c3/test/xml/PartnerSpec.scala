@@ -3,7 +3,7 @@ package xml
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
 import controllers.Mappings.{yes,no}
-import models.{DayMonthYear}
+import models.DayMonthYear
 import models.yesNo.YesNoWithDate
 import models.MultiLineAddress
 import scala.Some
