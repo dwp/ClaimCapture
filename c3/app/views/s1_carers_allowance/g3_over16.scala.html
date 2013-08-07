@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Over16Mandatory], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.Over16], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -12,7 +12,7 @@
 
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
-    @form(action = controllers.s1_carers_allowance.routes.G3Over16Mandatory.submit) {
+    @form(action = controllers.s1_carers_allowance.routes.G3Over16.submit) {
 
         <fieldset class="form-elements form-eligibility q1">
             <legend><span>Q3</span>Are you aged 16 or over?</legend>

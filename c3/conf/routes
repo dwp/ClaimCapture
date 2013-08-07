@@ -13,8 +13,8 @@ POST    /allowance/benefits                                     controllers.s1_c
 GET     /allowance/hours                                        controllers.s1_carers_allowance.G2Hours.present
 POST    /allowance/hours                                        controllers.s1_carers_allowance.G2Hours.submit
 
-GET     /allowance/over16Mandatory                              controllers.s1_carers_allowance.G3Over16Mandatory.present
-POST    /allowance/over16Mandatory                              controllers.s1_carers_allowance.G3Over16Mandatory.submit
+GET     /allowance/over16                                       controllers.s1_carers_allowance.G3Over16.present
+POST    /allowance/over16                                       controllers.s1_carers_allowance.G3Over16.submit
 
 GET     /allowance/livesInGBMandatory                           controllers.s1_carers_allowance.G4LivesInGBMandatory.present
 POST    /allowance/livesInGBMandatory                           controllers.s1_carers_allowance.G4LivesInGBMandatory.submit

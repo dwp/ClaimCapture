@@ -6,7 +6,7 @@ import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s1_carers_allowance.G2HoursPageContext
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.s1_carers_allowance.G2HoursPage
-import utils.pageobjects.s1_carers_allowance.G3Over16MandatoryPage
+import utils.pageobjects.s1_carers_allowance.G3Over16Page
 
 class G2HoursIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
@@ -41,7 +41,7 @@ class G2HoursIntegrationSpec extends Specification with Tags {
 
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G3Over16MandatoryPage]
+      nextPage must beAnInstanceOf[G3Over16Page]
     }
     
     "contain the completed forms" in new WithBrowser with G1BenefitsPageContext {

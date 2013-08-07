@@ -26,6 +26,6 @@ object G2Hours extends Controller with CachedClaim {
     implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s1_carers_allowance.g2_hours(formWithErrors, completedQuestionGroups(Hours))),
-        f => claim.update(f) -> Redirect(routes.G3Over16Mandatory.present()))
+        f => claim.update(f) -> Redirect(routes.G3Over16.present()))
   }
 }

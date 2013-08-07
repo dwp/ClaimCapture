@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 import models.domain._
 import models.domain.Claim
 
-class G3Over16MandatorySpec extends Specification with Tags {
+class G3Over16Spec extends Specification with Tags {
   "Carer's Allowance - Over16 - Controller" should {
     val answerYesNo = "yes"
     val hoursInput = Seq("answer" -> answerYesNo)
@@ -16,7 +16,7 @@ class G3Over16MandatorySpec extends Specification with Tags {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s1_carers_allowance.G3Over16Mandatory.present(request)
+      val result = controllers.s1_carers_allowance.G3Over16.present(request)
       status(result) mustEqual OK
     }
 
@@ -24,7 +24,7 @@ class G3Over16MandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("answer" -> "")
 
-      val result = controllers.s1_carers_allowance.G3Over16Mandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G3Over16.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -32,7 +32,7 @@ class G3Over16MandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(hoursInput: _*)
 
-      val result = controllers.s1_carers_allowance.G3Over16Mandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G3Over16.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -40,11 +40,11 @@ class G3Over16MandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(hoursInput: _*)
 
-      val result = controllers.s1_carers_allowance.G3Over16Mandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G3Over16.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.domain.CarersAllowance)
-      section.questionGroup(Over16Mandatory) must beLike {
-        case Some(f: Over16Mandatory) => {
+      section.questionGroup(Over16) must beLike {
+        case Some(f: Over16) => {
           f.answerYesNo must equalTo(answerYesNo)
         }
       }
@@ -54,11 +54,11 @@ class G3Over16MandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("answer" -> "no")
 
-      val result = controllers.s1_carers_allowance.G3Over16Mandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G3Over16.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.domain.CarersAllowance)
-      section.questionGroup(Over16Mandatory) must beLike {
-        case Some(f: Over16Mandatory) => {
+      section.questionGroup(Over16) must beLike {
+        case Some(f: Over16) => {
           f.answerYesNo must equalTo("no")
         }
       }

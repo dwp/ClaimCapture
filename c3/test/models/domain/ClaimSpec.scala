@@ -6,7 +6,7 @@ class ClaimSpec extends Specification {
   val claim = Claim().update(Benefits("no"))
                      .update(Hours("no"))
                      .update(LivesInGBMandatory("no"))
-                     .update(Over16Mandatory("no"))
+                     .update(Over16("no"))
 
   "Claim" should {
     "initially be filled with all sections" in {
@@ -121,8 +121,8 @@ class ClaimSpec extends Specification {
     }
 
     """not contain "question group".""" in {
-      val updatedClaim = claim.delete(Over16Mandatory)
-      updatedClaim.questionGroup[Over16Mandatory] should beNone
+      val updatedClaim = claim.delete(Over16)
+      updatedClaim.questionGroup[Over16] should beNone
     }
 
     "iterate over jobs" in {

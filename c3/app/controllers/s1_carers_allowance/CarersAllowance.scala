@@ -28,7 +28,7 @@ object CarersAllowance extends Controller with CachedClaim with Routing {
   override def route(qgi: QuestionGroup.Identifier) = qgi match {
     case Benefits => routes.G1Benefits.present()
     case Hours => routes.G2Hours.present()
-    case Over16Mandatory => routes.G3Over16Mandatory.present()
+    case Over16 => routes.G3Over16.present()
     case LivesInGBMandatory => routes.G4LivesInGBMandatory.present()
   }
 }
