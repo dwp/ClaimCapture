@@ -51,7 +51,7 @@ class EndToEndSpec extends Specification with Tags {
       try {
         val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
         page goToThePage()
-        val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = true)
+        val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
         lastPage match {
           case p: XmlPage => {
             validateAndPrintErrors(p, claim) // must beTrue
