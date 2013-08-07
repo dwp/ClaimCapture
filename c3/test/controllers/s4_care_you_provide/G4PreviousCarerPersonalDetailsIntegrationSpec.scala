@@ -3,8 +3,6 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import java.util.concurrent.TimeUnit
-import scala.concurrent.duration.Duration
 
 class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Previous Carer Personal Details" should {
@@ -26,17 +24,17 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
 
     "navigate to Previous Carer Contact Details on submission of completed form" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.fill("#nationalInsuranceNumber_ni1") `with` "12345"
       browser.submit("button[type='submit']")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
@@ -55,15 +53,15 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       Formulate.theirPersonalDetails(browser)
       Formulate.theirContactDetails(browser)
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
 
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
       browser.find("div[class=completed] ul li").size mustEqual 4
 
       browser.click("#backButton")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
   } section "integration"
