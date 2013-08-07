@@ -29,7 +29,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
             errorAndCleanup(retryData.txnId, UNKNOWN_ERROR)
           }
           case e: java.lang.Exception => {
-            Logger.error(s"InternalServerError ! ${e.getMessage}")
+            Logger.error(s"InternalServerError(RETRY) ! ${e.getMessage}")
             errorAndCleanup(retryData.txnId, UNKNOWN_ERROR)
           }
         }
@@ -50,7 +50,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
             errorAndCleanup(txnId, UNKNOWN_ERROR)
           }
           case e: java.lang.Exception => {
-            Logger.error(s"InternalServerError ! ${e.getMessage}")
+            Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
             errorAndCleanup(txnId, UNKNOWN_ERROR)
           }
         }
