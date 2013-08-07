@@ -38,13 +38,13 @@
             <ul class="group">
                 @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("benefits.answer"))
                 
-                @otherDetailPlaceHolder(
-                  inputDef = Seq(
-                    labelOrId("benefits.answer.no")
-                  ),
-                  'id -> "answerNoMessageWrap",
-                  'display -> (currentForm("answer").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" })
-                )
+                @defining(currentForm("answer").value.getOrElse("don't know") match {case "no" => "block" case _ => "none"}) { styleDisplay =>
+                  <li id="answerNoMessageWrap" class="other-detail" style="display: @styleDisplay;">
+                    <p>You can only qualify for Carer's Allowance if the person you care for is in receipt of one of the qualifying benefits listed above.</p>
+                    <p>If they have applied for one of the benefits above and are still waiting on a decision, please do not apply for Carer's Allowance until that decision has been made.</p>
+                    <p>You are legally entitled to claim Carer's Allowance even though you do not qualify and will not get Carer's Allowance. If you wish to do so click the 'Next' button below.</p>
+                  </li>
+                }
             </ul>
         </fieldset>
 

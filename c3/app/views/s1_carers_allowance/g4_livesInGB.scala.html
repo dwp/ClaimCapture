@@ -25,6 +25,13 @@
             
             <ul class="group">
                 @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("livesInGB.answer"))
+                
+                @defining(currentForm("answer").value.getOrElse("don't know") match {case "no" => "block" case _ => "none"}) { styleDisplay =>
+                  <li id="answerNoMessageWrap" class="other-detail" style="display: @styleDisplay;">
+                    <p>You can only qualify for Carer’s Allowance if you normally live in Great Britain.</p>
+                    <p>You are legally entitled to claim Carer’s Allowance even though you do not qualify and will not get Carer’s Allowance. If you wish to do so click the ‘Next’ button below.</p>
+                  </li>
+                }
             </ul>
         </fieldset>
 
@@ -33,3 +40,11 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
+
+<script type="text/javascript">
+    $(function () {
+        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+    });
+</script>
