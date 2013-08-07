@@ -37,6 +37,14 @@
             
             <ul class="group">
                 @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("benefits.answer"))
+                
+                @otherDetailPlaceHolder(
+                  inputDef = Seq(
+                    labelOrId("benefits.answer.no")
+                  ),
+                  'id -> "answerNoMessageWrap",
+                  'display -> (currentForm("answer").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" })
+                )
             </ul>
         </fieldset>
 
@@ -45,3 +53,11 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
+
+<script type="text/javascript">
+    $(function () {
+        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+    });
+</script>
