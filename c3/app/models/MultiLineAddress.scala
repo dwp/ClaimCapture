@@ -1,3 +1,3 @@
 package models
 
-case class MultiLineAddress(lineOne: Option[String], lineTwo: Option[String], lineThree: Option[String])
+case class MultiLineAddress(lineOne: Option[String] = None, lineTwo: Option[String] = None, lineThree: Option[String]=None)

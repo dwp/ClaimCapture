@@ -67,22 +67,22 @@ class ClaimXmlValidatorSpec extends Specification with Tags {
   }
   "Claim Submission" should {
 
-    "build and confirm contains YourPartner input" in new WithApplication {
-      val claim = updateClaim(Claim())
-      val claimXml = DWPCAClaim.xml(claim, "TY6TV9G")
-      
-      (claimXml \\ "Partner" \\ "NationalityPartner").text mustEqual yourPartnerPersonalDetails.nationality.get
-      (claimXml \\ "Partner" \\ "Surname").text mustEqual yourPartnerPersonalDetails.surname
-      (claimXml \\ "Partner" \\ "OtherNames").text mustEqual s"${yourPartnerPersonalDetails.firstName} ${yourPartnerPersonalDetails.middleName.getOrElse("")}"
-      (claimXml \\ "Partner" \\ "Title").text mustEqual yourPartnerPersonalDetails.title
-      (claimXml \\ "Partner" \\ "DateOfBirth").text mustEqual yourPartnerPersonalDetails.dateOfBirth.toXmlString
-      (claimXml \\ "Partner" \\ "NationalInsuranceNumber").text mustEqual yourPartnerPersonalDetails.nationalInsuranceNumber.get.stringify
-      (claimXml \\ "Partner" \\ "Address" \\ "PostCode").text mustEqual yourPartnerContactDetails.postcode.get
-      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdAfterDateOfClaim").text mustEqual moreAboutYourPartner.startedLivingTogether.get.answer
-      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdDate").text mustEqual moreAboutYourPartner.startedLivingTogether.get.date.get.toXmlString
-      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "SeparatedFromPartner").text mustEqual moreAboutYourPartner.separated.answer
-      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "SeparationDate").text mustEqual ""
-    }
+//    "build and confirm contains YourPartner input" in new WithApplication {
+//      val claim = updateClaim(Claim())
+//      val claimXml = DWPCAClaim.xml(claim, "TY6TV9G")
+//
+//      (claimXml \\ "Partner" \\ "NationalityPartner").text mustEqual yourPartnerPersonalDetails.nationality.get
+//      (claimXml \\ "Partner" \\ "Surname").text mustEqual yourPartnerPersonalDetails.surname
+//      (claimXml \\ "Partner" \\ "OtherNames").text mustEqual s"${yourPartnerPersonalDetails.firstName} ${yourPartnerPersonalDetails.middleName.getOrElse("")}"
+//      (claimXml \\ "Partner" \\ "Title").text mustEqual yourPartnerPersonalDetails.title
+//      (claimXml \\ "Partner" \\ "DateOfBirth").text mustEqual yourPartnerPersonalDetails.dateOfBirth.toXmlString
+//      (claimXml \\ "Partner" \\ "NationalInsuranceNumber").text mustEqual yourPartnerPersonalDetails.nationalInsuranceNumber.get.stringify
+//      (claimXml \\ "Partner" \\ "Address" \\ "PostCode").text mustEqual yourPartnerContactDetails.postcode.get
+//      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdAfterDateOfClaim").text mustEqual moreAboutYourPartner.startedLivingTogether.get.answer
+//      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "JoinedHouseholdDate").text mustEqual moreAboutYourPartner.startedLivingTogether.get.date.get.toXmlString
+//      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "SeparatedFromPartner").text mustEqual moreAboutYourPartner.separated.answer
+//      (claimXml \\ "Partner" \\ "RelationshipStatus" \\ "SeparationDate").text mustEqual ""
+//    }
 
     "validate a good claim" in new WithApplication {
       val claim = updateClaim(Claim())
