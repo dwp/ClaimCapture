@@ -6,8 +6,11 @@ import models.domain._
 import controllers.Routing
 
 object CarersAllowance extends Controller with CachedClaim with Routing {
-  def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
-    claim.completedQuestionGroups(models.domain.CarersAllowance)
+  override def route(qgi: QuestionGroup.Identifier) = qgi match {
+    case BenefitsMandatory => routes.G1BenefitsMandatory.present()
+    case HoursMandatory => routes.G2HoursMandatory.present()
+    case Over16Mandatory => routes.G3Over16Mandatory.present()
+    case LivesInGBMandatory => routes.G4LivesInGBMandatory.present()
   }
 
   def approve = claiming { implicit claim => implicit request =>
@@ -25,10 +28,8 @@ object CarersAllowance extends Controller with CachedClaim with Routing {
     case _ => false
   }
 
-  override def route(qgi: QuestionGroup.Identifier) = qgi match {
-    case BenefitsMandatory => routes.G1BenefitsMandatory.present()
-    case HoursMandatory => routes.G2HoursMandatory.present()
-    case Over16Mandatory => routes.G3Over16Mandatory.present()
-    case LivesInGBMandatory => routes.G4LivesInGBMandatory.present()
+  private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
+    claim.completedQuestionGroups(models.domain.CarersAllowance)
   }
+
 }

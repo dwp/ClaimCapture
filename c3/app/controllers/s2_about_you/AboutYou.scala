@@ -7,8 +7,14 @@ import controllers.Mappings.no
 import controllers.Routing
 
 object AboutYou extends Controller with CachedClaim with Routing {
-  def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
-    claim.completedQuestionGroups(models.domain.AboutYou)
+  override def route(qgi: QuestionGroup.Identifier) = qgi match {
+    case YourDetails => routes.G1YourDetails.present()
+    case ContactDetails => routes.G2ContactDetails.present()
+    case TimeOutsideUK => routes.G3TimeOutsideUK.present()
+    case ClaimDate => routes.G4ClaimDate.present()
+    case MoreAboutYou => routes.G5MoreAboutYou.present()
+    case Employment => routes.G6Employment.present()
+    case PropertyAndRent => routes.G7PropertyAndRent.present()
   }
 
   def completed = claiming { implicit claim => implicit request =>
@@ -28,13 +34,7 @@ object AboutYou extends Controller with CachedClaim with Routing {
     else Redirect(routes.G1YourDetails.present())
   }
 
-  override def route(qgi: QuestionGroup.Identifier) = qgi match {
-    case YourDetails => routes.G1YourDetails.present()
-    case ContactDetails => routes.G2ContactDetails.present()
-    case TimeOutsideUK => routes.G3TimeOutsideUK.present()
-    case ClaimDate => routes.G4ClaimDate.present()
-    case MoreAboutYou => routes.G5MoreAboutYou.present()
-    case Employment => routes.G6Employment.present()
-    case PropertyAndRent => routes.G7PropertyAndRent.present()
+  private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
+    claim.completedQuestionGroups(models.domain.AboutYou)
   }
 }

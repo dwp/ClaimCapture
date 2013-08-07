@@ -8,8 +8,11 @@ import play.api.mvc.SimpleResult
 import controllers.Routing
 
 object YourPartner extends Controller with CachedClaim with Routing {
-  def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
-    claim.completedQuestionGroups(models.domain.YourPartner)
+  override def route(qgi: QuestionGroup.Identifier) = qgi match {
+    case YourPartnerPersonalDetails => routes.G1YourPartnerPersonalDetails.present()
+    case YourPartnerContactDetails => routes.G2YourPartnerContactDetails.present()
+    case MoreAboutYourPartner => routes.G3MoreAboutYourPartner.present()
+    case PersonYouCareFor => routes.G4PersonYouCareFor.present()
   }
 
   def completed = claiming { implicit claim => implicit request =>
@@ -43,10 +46,7 @@ object YourPartner extends Controller with CachedClaim with Routing {
     Ok(Html(outcome.toString))
   }
 
-  override def route(qgi: QuestionGroup.Identifier) = qgi match {
-    case YourPartnerPersonalDetails => routes.G1YourPartnerPersonalDetails.present()
-    case YourPartnerContactDetails => routes.G2YourPartnerContactDetails.present()
-    case MoreAboutYourPartner => routes.G3MoreAboutYourPartner.present()
-    case PersonYouCareFor => routes.G4PersonYouCareFor.present()
+  private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
+    claim.completedQuestionGroups(models.domain.YourPartner)
   }
 }

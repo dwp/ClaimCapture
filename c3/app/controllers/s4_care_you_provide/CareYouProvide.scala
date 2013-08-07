@@ -6,8 +6,17 @@ import models.domain._
 import controllers.Routing
 
 object CareYouProvide extends Controller with CachedClaim with Routing {
-  def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
-    claim.completedQuestionGroups(models.domain.CareYouProvide)
+  override def route(qgi: QuestionGroup.Identifier) = qgi match {
+    case TheirPersonalDetails => routes.G1TheirPersonalDetails.present()
+    case TheirContactDetails => routes.G2TheirContactDetails.present()
+    case MoreAboutThePerson => routes.G3MoreAboutThePerson.present()
+    case PreviousCarerPersonalDetails => routes.G4PreviousCarerPersonalDetails.present()
+    case PreviousCarerContactDetails => routes.G5PreviousCarerContactDetails.present()
+    case RepresentativesForPerson => routes.G6RepresentativesForThePerson.present()
+    case MoreAboutTheCare => routes.G7MoreAboutTheCare.present()
+    case OneWhoPaysPersonalDetails => routes.G8OneWhoPaysPersonalDetails.present()
+    case ContactDetailsOfPayingPerson => routes.G9ContactDetailsOfPayingPerson.present()
+    case BreaksInCare => routes.G10BreaksInCare.present()
   }
 
   def breaksInCare(implicit claim: Claim) = claim.questionGroup(BreaksInCare) match {
@@ -25,16 +34,7 @@ object CareYouProvide extends Controller with CachedClaim with Routing {
     else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
   }
 
-  override def route(qgi: QuestionGroup.Identifier) = qgi match {
-    case TheirPersonalDetails => routes.G1TheirPersonalDetails.present()
-    case TheirContactDetails => routes.G2TheirContactDetails.present()
-    case MoreAboutThePerson => routes.G3MoreAboutThePerson.present()
-    case PreviousCarerPersonalDetails => routes.G4PreviousCarerPersonalDetails.present()
-    case PreviousCarerContactDetails => routes.G5PreviousCarerContactDetails.present()
-    case RepresentativesForPerson => routes.G6RepresentativesForThePerson.present()
-    case MoreAboutTheCare => routes.G7MoreAboutTheCare.present()
-    case OneWhoPaysPersonalDetails => routes.G8OneWhoPaysPersonalDetails.present()
-    case ContactDetailsOfPayingPerson => routes.G9ContactDetailsOfPayingPerson.present()
-    case BreaksInCare => routes.G10BreaksInCare.present()
+  private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
+    claim.completedQuestionGroups(models.domain.CareYouProvide)
   }
 }
