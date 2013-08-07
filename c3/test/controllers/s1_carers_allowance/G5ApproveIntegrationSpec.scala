@@ -29,9 +29,9 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
       page goToThePage()
       page fillPageWith claim
-      val hoursPage = page submitPage()
+      val hoursPage = page submitPage(waitForPage = true, waitDuration = 500)
       hoursPage fillPageWith claim
-      val over16Page = hoursPage submitPage()
+      val over16Page = hoursPage submitPage(waitForPage = true, waitDuration = 500)
       over16Page fillPageWith claim
       val livingGBPage = over16Page submitPage(waitForPage = true, waitDuration = 500)
       livingGBPage fillPageWith claim
@@ -72,8 +72,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page runClaimWith (claim, G1YourDetailsPage.title, waitForPage = true, waitDuration = 500)
     }
-    
-    
+
     "contain the completed forms" in new WithBrowser with G1BenefitsMandatoryPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
@@ -82,21 +81,23 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
       page goToThePage()
       page fillPageWith claim
-      val s1g2 = page submitPage() 
+      val s1g2 = page submitPage(waitForPage = true, waitDuration = 500)
       
       s1g2 fillPageWith claim
-      val s1g3 = s1g2 submitPage()
+      val s1g3 = s1g2 submitPage(waitForPage = true, waitDuration = 500)
       
       s1g3 fillPageWith claim
-      val s1g4 = s1g3 submitPage()
+      val s1g4 = s1g3 submitPage(waitForPage = true, waitDuration = 500)
       
       s1g4 fillPageWith claim
-      val s1g5 = s1g4 submitPage()
+      val s1g5 = s1g4 submitPage(waitForPage = true, waitDuration = 500)
 
       s1g5 match {
         case p: G6ApprovePage => {
           p numberSectionsCompleted() mustEqual 4
+
           val completed = p.findTarget("div[class=completed] ul li")
+
           completed(0) must contain("Q1")
           completed(0) must contain("No")
           completed(1) must contain("Q2")
