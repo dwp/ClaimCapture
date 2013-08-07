@@ -23,6 +23,10 @@ case class AboutYouSection(yourDetails: YourDetails,
                            employment: Employment,
                            propertyAndRent: PropertyAndRent)
 
+case class YourPartnerSection(yourPartnerPersonalDetails: YourPartnerPersonalDetails, yourPartnerContactDetails: YourPartnerContactDetails,
+                       moreAboutYourPartner: MoreAboutYourPartner, personYouCareFor: Option[PersonYouCareFor])
+
+
 case class EducationSection(yourCourseDetails: YourCourseDetails, addressOfSchool: AddressOfSchoolCollegeOrUniversity)
 
 case class OtherMoneySection(aboutOtherMoney: AboutOtherMoney,
@@ -40,6 +44,8 @@ case class SelfEmploymentSection(aboutSelfEmployment: AboutSelfEmployment,
                                  pensionsAndExpenses: SelfEmploymentPensionsAndExpenses,
                                  childcareExpenses: ChildcareExpensesWhileAtWork,
                                  expensesWhileAtWork: ExpensesWhileAtWork)
+
+case class PayDetailsSection(howWePayYou: Option[HowWePayYou],bankBuildingSocietyDetails: Option[BankBuildingSocietyDetails])
 
 object ClaimBuilder {
   val yourDetails = YourDetails(title = "mr", firstName = "Phil", middleName = None, surname = "Smith",
@@ -144,16 +150,16 @@ object ClaimBuilder {
     Some(previousCarerContactDetails), Some(previousCarerPersonalDetails),
     moreAboutTheCare, Some(oneWhoPays), Some(contactDetailsPayingPerson), breaksInCare)
 
-  val yourPartnerPersonalDetails = YourPartnerPersonalDetails(title = "mr", firstName = "Michael", middleName = None, surname = "Mouse", otherNames = Some("Oswald"), nationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA"), Some("12"), Some("34"), Some("56"), Some("A"))), dateOfBirth = DayMonthYear(1, 1, 1930), nationality = Some("British"), liveAtSameAddress = "yes")
+  val yourPartnerPersonalDetails = YourPartnerPersonalDetails(title = "mr", firstName = "Michael", middleName = None, surname = "Mouse", otherSurnames = Some("Oswald"), nationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA"), Some("12"), Some("34"), Some("56"), Some("A"))), dateOfBirth = DayMonthYear(1, 1, 1930), nationality = Some("British"), liveAtSameAddress = "yes")
   val yourPartnerContactDetails = YourPartnerContactDetails(address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
   val moreAboutYourPartner = MoreAboutYourPartner(startedLivingTogether = Some(YesNoWithDate("yes", Some(DayMonthYear(1, 1, 1940)))), separated = YesNoWithDate("no", None))
   val personYouCareFor = PersonYouCareFor(isPartnerPersonYouCareFor = "yes")
-  val yourPartner = YourPartner(yourPartnerPersonalDetails, yourPartnerContactDetails, moreAboutYourPartner, Some(personYouCareFor))
+  val yourPartner = YourPartnerSection(yourPartnerPersonalDetails, yourPartnerContactDetails, moreAboutYourPartner, Some(personYouCareFor))
 
   val howWePayYou = HowWePayYou(NoRouting, "01", "everyWeek")
   val bank = BankBuildingSocietyDetails(NoRouting, "Holder", "Bank name", SortCode("12", "34", "56"), "1234567890", "1234")
 
-  val payDetails = PayDetails(Some(howWePayYou),Some(bank))
+  val payDetails = PayDetailsSection(Some(howWePayYou),Some(bank))
 
   val additionalInfo = AdditionalInfo(NoRouting, Some("Other information"), "yes")
   val consent = Consent(NoRouting, "no", Some("I don't want to"), "no", Some("I said I don't want to"))

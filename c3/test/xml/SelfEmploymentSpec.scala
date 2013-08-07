@@ -41,7 +41,7 @@ class SelfEmploymentSpec extends Specification with Tags {
     "generate xml when data is missing" in {
       val claim = Claim().update(models.domain.Employment(beenSelfEmployedSince1WeekBeforeClaim = no))
       val selfEmploymentXml = xml.SelfEmployment.xml(claim)
-      selfEmploymentXml.text mustEqual ""
+      selfEmploymentXml.text must beEmpty
     }
 
     "generate <AccountantDetails> xml if claimer has an accountant" in {
@@ -70,11 +70,11 @@ class SelfEmploymentSpec extends Specification with Tags {
         val claim = Claim().update(yourAccounts)
 
         val accountantDetailsXml = xml.SelfEmployment.accountantDetails(claim)
-        accountantDetailsXml.text shouldEqual ""
+        accountantDetailsXml.text must beEmpty
       }
       "didn't answer 'Do you have an accountant?'" in {
         val accountantDetailsXml = xml.SelfEmployment.accountantDetails(Claim())
-        accountantDetailsXml.text shouldEqual ""
+        accountantDetailsXml.text must beEmpty
       }
     }
 
@@ -90,7 +90,7 @@ class SelfEmploymentSpec extends Specification with Tags {
     "skip <PensionScheme> if claimer has NO pension scheme" in {
       val pensionSchemeXml = xml.SelfEmployment.pensionScheme(Claim())
 
-      pensionSchemeXml.text shouldEqual ""
+      pensionSchemeXml.text must beEmpty
     }
 
     "generate <ChildCareExpenses> if claimer pays anyone to look after children" in {
@@ -110,7 +110,7 @@ class SelfEmploymentSpec extends Specification with Tags {
       val pensionScheme = SelfEmploymentPensionsAndExpenses(doYouPayToLookAfterYourChildren = no)
       val claim = Claim().update(pensionScheme)
       val childcareXml = xml.SelfEmployment.childCareExpenses(claim)
-      childcareXml.text shouldEqual ""
+      childcareXml.text must beEmpty
     }
 
     "generate <CareExpenses> if claimer has care expenses" in {
@@ -136,7 +136,7 @@ class SelfEmploymentSpec extends Specification with Tags {
 
       val careExpensesXml = xml.SelfEmployment.careExpenses(claim)
 
-      careExpensesXml.text shouldEqual ""
+      careExpensesXml.text must beEmpty
     }
 
   } section "unit"

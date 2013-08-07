@@ -11,41 +11,35 @@ import utils.pageobjects.s8_other_money.G1AboutOtherMoneyPage
 class G6ChildcareProvidersContactDetailsIntegationSpec extends Specification with Tags {
   "Childcare provider's contact Details" should {
     "be presented" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext {
-
       val claim = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       page goToThePage()
       page fillPageWith claim
-      page.submitPage(true)
-
+      page.submitPage(throwException = true)
 
       val nextPage = page goToPage( throwException = false, page = new G6ChildcareProvidersContactDetailsPage(browser))
       nextPage must beAnInstanceOf[G6ChildcareProvidersContactDetailsPage]
-
     }
 
     "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
       page goToThePage()
-      page runClaimWith (claim, G7PropertyAndRentPage.title, waitForPage = true)
+      page runClaimWith (claim, G7PropertyAndRentPage.title, waitForPage = true, waitDuration = 1000)
 
-      val nextPage = page goToPage( throwException = false, page = new G6ChildcareProvidersContactDetailsPage(browser))
+      val nextPage = page goToPage(throwException = false, page = new G6ChildcareProvidersContactDetailsPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
-
-
 
     "contain the completed forms" in new WithBrowser with G1AboutSelfEmploymentPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
       page fillPageWith claim
-      val g2 = page submitPage()
+      val g2 = page submitPage(waitForPage = true, waitDuration = 1000)
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
       pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-      pagePensionAndExpenses.submitPage(true)
-
+      pagePensionAndExpenses.submitPage(throwException = true)
 
       val g8 = g2 goToPage(new G6ChildcareProvidersContactDetailsPage(browser))
       g8.listCompletedForms.size mustEqual 2
@@ -58,7 +52,7 @@ class G6ChildcareProvidersContactDetailsIntegationSpec extends Specification wit
         val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
         pagePensionAndExpenses goToThePage()
         pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-        pagePensionAndExpenses.submitPage(true)
+        pagePensionAndExpenses.submitPage(throwException = true)
 
         val claim = new ClaimScenario
         claim.SelfEmployedChildcareProviderPostcode = "INVALID"
@@ -76,7 +70,7 @@ class G6ChildcareProvidersContactDetailsIntegationSpec extends Specification wit
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
       pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-      pagePensionAndExpenses.submitPage(true)
+      pagePensionAndExpenses.submitPage(throwException = true)
 
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()

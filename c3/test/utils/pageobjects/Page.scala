@@ -195,7 +195,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
 
   protected def checkNoErrorsForPage(nextPageTile: String, throwException: Boolean = false) = {
     if (!this.listErrors.isEmpty) {
-      if (throwException) throw new PageObjectException( """Page """" + nextPageTile + """" has errors. Submit failed""", this.listErrors)
+      if (throwException) throw new PageObjectException( "Page " + this.getClass + " \"" + nextPageTile + "\" Submit failed with errors: ", this.listErrors)
       true
     }
     else false
