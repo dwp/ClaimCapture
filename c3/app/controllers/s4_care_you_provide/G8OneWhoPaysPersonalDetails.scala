@@ -9,9 +9,8 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import controllers.Mappings
 import utils.helpers.CarersForm._
-import controllers.s4_care_you_provide.CareYouProvide._
 
-object G8OneWhoPaysPersonalDetails extends Controller with CachedClaim {
+object G8OneWhoPaysPersonalDetails extends Controller with CareYouProvideRouting with CachedClaim {
   val form = Form(
     mapping(
       "organisation" -> optional(text(maxLength = hundred)),

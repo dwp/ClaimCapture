@@ -8,9 +8,8 @@ import models.domain.{MoreAboutTheCare, ContactDetailsOfPayingPerson}
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
-import CareYouProvide._
 
-object G9ContactDetailsOfPayingPerson extends Controller with CachedClaim {
+object G9ContactDetailsOfPayingPerson extends Controller with CareYouProvideRouting with CachedClaim {
   val form = Form(
     mapping(
       "address" -> optional(address),

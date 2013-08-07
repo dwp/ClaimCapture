@@ -9,9 +9,8 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import play.api.data.validation.Constraints._
-import controllers.s2_about_you.AboutYou._
 
-object G2ContactDetails extends Controller with CachedClaim {
+object G2ContactDetails extends Controller with AboutYouRouting with CachedClaim {
   val form = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),

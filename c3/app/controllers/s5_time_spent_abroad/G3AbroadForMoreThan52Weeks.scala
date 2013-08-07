@@ -7,9 +7,9 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import models.domain.AbroadForMoreThan52Weeks
-import TimeSpentAbroad._
+import TimeSpentAbroad.trips
 
-object G3AbroadForMoreThan52Weeks extends Controller with CachedClaim {
+object G3AbroadForMoreThan52Weeks extends Controller with TimeSpentAbroadRouting with CachedClaim {
   val form = Form(
     mapping(
       "anyTrips" -> nonEmptyText.verifying(validYesNo)
