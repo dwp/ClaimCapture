@@ -2,23 +2,22 @@ package models
 
 import scala.util.{Failure, Success, Try}
 import org.joda.time.{DateTime, DateMidnight}
-import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
+import org.joda.time.format.DateTimeFormat
 
 case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
-                        hour: Option[Int] = Some(0), minutes: Option[Int] = Some(0)) {
-  val dateFormatXml: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
+                        hour: Option[Int] = None, minutes: Option[Int] = None) {
 
-  val timeFormatXml: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:MM:00")
-
-  def toXmlString = Try(new DateMidnight(year.get, month.get, day.get)) match {
-    case Success(dt: DateMidnight) => dateFormatXml.print(dt)
-    case Failure(_) => "Invalid Date"
+  def `yyyy-MM-dd`: String = Try(new DateMidnight(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0))) match {
+    case Success(dt: DateMidnight) => DateTimeFormat.forPattern("yyyy-MM-dd").print(dt)
+    case Failure(_) => ""
   }
 
-  def toXmlTimeString = Try(new DateTime(year.get, month.get, day.get, hour.get, minutes.get)) match {
-    case Success(dt: DateTime) => timeFormatXml.print(dt)
-    case Failure(_) => "Invalid Date"
+  def `yyyy-MM-dd'T'HH:mm:00`: String = Try(new DateTime(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0), hour.getOrElse(0), minutes.getOrElse(0))) match {
+    case Success(dt: DateTime) => DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:00").print(dt)
+    case Failure(_) => ""
   }
+
+  def `dd/MM/yyyy`: String = pad(day) + "/" + pad(month) + "/" + year.fold("")(_.toString)
 
   def -(amount: Int) = new Period {
     override def days = adjust { _.minusDays(amount) }
@@ -29,10 +28,6 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
 
     override def years = adjust { _.minusYears(amount) }
   }
-
-  def `dd/MM/yyyy`: String = pad(day) + "/" + pad(month) + "/" + year.fold("")(_.toString)
-
-  def `yyyy-MM-dd`: String = year.fold("")(_.toString) + "-" + pad(month) + "-" + pad(day)
 
   private def pad(i: Option[Int]): String = i.fold("")(i => if (i < 10) s"0$i" else s"$i")
 

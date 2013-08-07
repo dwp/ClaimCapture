@@ -2,27 +2,25 @@ package models.domain
 
 import models.DayMonthYear
 import models.yesNo.YesNoWithText
-import play.api.mvc.Call
 
 object TimeSpentAbroad extends Section.Identifier {
   val id = "s5"
 }
 
-case class NormalResidenceAndCurrentLocation(call: Call = NoRouting,
-                                             whereDoYouLive: YesNoWithText,
-                                             inGBNow: String) extends QuestionGroup(NormalResidenceAndCurrentLocation)
+case class NormalResidenceAndCurrentLocation(whereDoYouLive: YesNoWithText,
+                                             inGBNow: String) extends QuestionGroup(NormalResidenceAndCurrentLocation) with NoRouting
 
 object NormalResidenceAndCurrentLocation extends QuestionGroup.Identifier {
   val id = s"${TimeSpentAbroad.id}.g1"
 }
 
-case class AbroadForMoreThan4Weeks(call: Call, anyTrips: String) extends QuestionGroup(AbroadForMoreThan4Weeks)
+case class AbroadForMoreThan4Weeks(anyTrips: String) extends QuestionGroup(AbroadForMoreThan4Weeks) with NoRouting
 
 object AbroadForMoreThan4Weeks extends QuestionGroup.Identifier {
   val id = s"${TimeSpentAbroad.id}.g2"
 }
 
-case class AbroadForMoreThan52Weeks(call: Call, anyTrips: String) extends QuestionGroup(AbroadForMoreThan52Weeks)
+case class AbroadForMoreThan52Weeks(anyTrips: String) extends QuestionGroup(AbroadForMoreThan52Weeks) with NoRouting
 
 object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
   val id = s"${TimeSpentAbroad.id}.g3"
@@ -69,4 +67,3 @@ trait FourWeeksTrip extends TripPeriod {
 trait FiftyTwoWeeksTrip extends TripPeriod {
   this: Trip =>
 }
-

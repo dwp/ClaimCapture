@@ -35,9 +35,9 @@ class FullTimeEducationSpec extends Specification with Tags {
       val courseDetailsXml = educationXml \\ "FullTimeEducation" \\ "CourseDetails"
       (courseDetailsXml \\ "Type").text mustEqual courseType.get
       (courseDetailsXml \\ "Title").text mustEqual courseTitle.get
-      (courseDetailsXml \\ "DateStarted").text mustEqual startDate.get.toXmlString
-      (courseDetailsXml \\ "DateStopped").text mustEqual finishedDate.get.toXmlString
-      (courseDetailsXml \\ "ExpectedEndDate").text mustEqual expectedEndDate.get.toXmlString
+      (courseDetailsXml \\ "DateStarted").text mustEqual startDate.get.`yyyy-MM-dd`
+      (courseDetailsXml \\ "DateStopped").text mustEqual finishedDate.get.`yyyy-MM-dd`
+      (courseDetailsXml \\ "ExpectedEndDate").text mustEqual expectedEndDate.get.`yyyy-MM-dd`
 
       val locationDetailsXml = educationXml \\ "FullTimeEducation" \\ "LocationDetails"
       (locationDetailsXml \\ "Name").text mustEqual schoolName.get
