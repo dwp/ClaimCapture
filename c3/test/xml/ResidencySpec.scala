@@ -73,12 +73,12 @@ class ResidencySpec extends Specification with Tags {
     "generate xml when data is missing" in {
       val residencyXml = Residency.xml(Claim())
 
-      (residencyXml \\ "Nationality").text mustEqual ""
-      (residencyXml \\ "CountryNormallyLiveOther").text mustEqual ""
+      (residencyXml \\ "Nationality").text must beEmpty
+      (residencyXml \\ "CountryNormallyLiveOther").text must beEmpty
       (residencyXml \\ "InGreatBritainNow").text mustEqual no
 
-      (residencyXml \\ "PeriodAbroadLastYear").text mustEqual ""
-      (residencyXml \\ "PeriodAbroadDuringCare").text mustEqual ""
+      (residencyXml \\ "PeriodAbroadLastYear").text must beEmpty
+      (residencyXml \\ "PeriodAbroadDuringCare").text must beEmpty
     }
 
     "generate <OtherNationality> if user has lived abroad" in {
@@ -107,7 +107,7 @@ class ResidencySpec extends Specification with Tags {
       val claim = Claim().update(yourDetails)
       val xml = Residency.otherNationality(claim)
 
-      xml.text shouldEqual ""
+      xml.text must beEmpty
     }
   } section "unit"
 }

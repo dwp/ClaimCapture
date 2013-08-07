@@ -130,6 +130,7 @@ firstName.error = Please fill your first name
 
 # CONTACT DETAILS
 address = Address
+error.missingLineOne = Missing first line
 postcode = Postcode
 postcode.content = Postcode
 phoneNumber = Daytime phone number

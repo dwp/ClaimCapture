@@ -26,7 +26,7 @@ class G2TheirContactDetailsFormSpec extends Specification with Tags {
       G2TheirContactDetails.form.bind(
         Map("address.lineOne" -> "", "address.lineTwo" -> "", "address.lineThree" -> "", "postcode" -> "", "phoneNumber" -> "")
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.missingLineOne"),
         theirContactDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -49,5 +49,4 @@ class G2TheirContactDetailsFormSpec extends Specification with Tags {
       )
     }
   } section "unit"
-
 }
