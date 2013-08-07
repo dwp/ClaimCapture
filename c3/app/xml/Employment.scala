@@ -133,8 +133,8 @@ object Employment {
           <Currency>GBP</Currency>
           {<Amount/> +++ childcareExpenses.howMuchCostChildcare}
         </WeeklyPayment>
-        <RelationshipCarerToClaimant>other</RelationshipCarerToClaimant>
-        <ChildDetails><Name/></ChildDetails>
+        <RelationshipCarerToClaimant>{childcareExpenses.relationToYou.orNull}</RelationshipCarerToClaimant>
+        <ChildDetails><Name/>{<RelationToChild/> ?+ childcareExpenses.relationToPersonYouCare}</ChildDetails>
       </ChildCareExpenses>
     }else{
       NodeSeq.Empty
