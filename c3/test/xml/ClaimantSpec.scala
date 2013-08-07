@@ -1,10 +1,10 @@
 package xml
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Tags, Specification}
 import models.domain._
 import models.{NationalInsuranceNumber, DayMonthYear, MultiLineAddress}
 
-class ClaimantSpec extends Specification {
+class ClaimantSpec extends Specification with Tags {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
 
   val nationalInsuranceNrOption = Some(nationalInsuranceNr)
@@ -32,5 +32,5 @@ class ClaimantSpec extends Specification {
       (claimantXml \\ "Address" \\ "PostCode").text shouldEqual contactDetails.postcode.get
       (claimantXml \\ "DaytimePhoneNumber" \\ "Number").text shouldEqual contactDetails.phoneNumber.get
     }
-  }
+  } section "unit"
 }

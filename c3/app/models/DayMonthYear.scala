@@ -5,17 +5,17 @@ import org.joda.time.{DateTime, DateMidnight}
 import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}
 
 case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
-                        hour: Option[Int] = Some(0), minutes: Option[Int] = Some(0)) {
+                        hour: Option[Int] = None, minutes: Option[Int] = None) {
   val dateFormatXml: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd")
 
-  val timeFormatXml: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:MM:00")
+  val timeFormatXml: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:00")
 
   def `yyyy-MM-dd`:String = Try(new DateMidnight(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0))) match {
     case Success(dt: DateMidnight) => dateFormatXml.print(dt)
     case Failure(_) => ""
   }
 
-  def `yyyy-MM-dd'T'HH:MM:00` = Try(new DateTime(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0), hour.getOrElse(0), minutes.getOrElse(0))) match {
+  def `yyyy-MM-dd'T'HH:mm:00` = Try(new DateTime(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0), hour.getOrElse(0), minutes.getOrElse(0))) match {
     case Success(dt: DateTime) => timeFormatXml.print(dt)
     case Failure(_) => ""
   }

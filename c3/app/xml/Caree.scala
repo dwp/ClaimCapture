@@ -81,8 +81,8 @@ object Caree {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
     for (break <- breaksInCare.breaks) yield {
       <CareBreak>
-        <StartDateTime>{break.start.`yyyy-MM-dd'T'HH:MM:00`}</StartDateTime>
-        <EndDateTime>{if(break.end.isDefined) break.end.get.`yyyy-MM-dd'T'HH:MM:00`}</EndDateTime>
+        <StartDateTime>{break.start.`yyyy-MM-dd'T'HH:mm:00`}</StartDateTime>
+        <EndDateTime>{if(break.end.isDefined) break.end.get.`yyyy-MM-dd'T'HH:mm:00`}</EndDateTime>
         <Reason>{break.whereYou.location}</Reason>
         <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
         <AwayFromHome>yes</AwayFromHome>

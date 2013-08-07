@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 
 class DayMonthYearSpec extends Specification {
   "DayMonthYear" should {
-    "return the correct xml date format" in {
+    "return the correct 'yyyy-MM-dd' date format" in {
       val dmy = DayMonthYear(1, 1, 1963)
       dmy.`yyyy-MM-dd` shouldEqual "1963-01-01"
     }
@@ -58,6 +58,11 @@ class DayMonthYearSpec extends Specification {
     "Format to yyyy-MM-dd of empty DayMonthYear should give empty" in {
       val dmy = DayMonthYear(None, None, None)
       dmy.`yyyy-MM-dd` must beEmpty
+    }
+
+    "Format to yyyy-MM-dd'T'HH:mm:00" in {
+      val dmy = DayMonthYear(Some(30), Some(5), Some(2002), Some(9), Some(45))
+      dmy.`yyyy-MM-dd'T'HH:mm:00` mustEqual "2002-05-30T09:45:00"
     }
   }
 }
