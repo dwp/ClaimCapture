@@ -7,8 +7,8 @@ GET     /                                                       controllers.Appl
 
 # Allowance
 ###############
-GET     /allowance/benefitsMandatory                            controllers.s1_carers_allowance.G1BenefitsMandatory.present
-POST    /allowance/benefitsMandatory                            controllers.s1_carers_allowance.G1BenefitsMandatory.submit
+GET     /allowance/benefits                                     controllers.s1_carers_allowance.G1Benefits.present
+POST    /allowance/benefits                                     controllers.s1_carers_allowance.G1Benefits.submit
 
 GET     /allowance/hoursMandatory                               controllers.s1_carers_allowance.G2HoursMandatory.present
 POST    /allowance/hoursMandatory                               controllers.s1_carers_allowance.G2HoursMandatory.submit

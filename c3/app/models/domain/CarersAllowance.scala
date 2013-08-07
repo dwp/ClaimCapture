@@ -4,7 +4,7 @@ case object CarersAllowance extends Section.Identifier {
   val id = "s1"
 }
 
-case class BenefitsMandatory(answerYesNo: String = "") extends QuestionGroup(BenefitsMandatory) with BooleanConfirmation with NoRouting
+case class Benefits(answerYesNo: String = "") extends QuestionGroup(Benefits) with BooleanConfirmation with NoRouting
 {
   val answer: Boolean = answerYesNo match {
     case "yes" => true
@@ -12,7 +12,7 @@ case class BenefitsMandatory(answerYesNo: String = "") extends QuestionGroup(Ben
   }
 }
 
-object BenefitsMandatory extends QuestionGroup.Identifier {
+object Benefits extends QuestionGroup.Identifier {
   val id = s"${CarersAllowance.id}.g1"
 }
 

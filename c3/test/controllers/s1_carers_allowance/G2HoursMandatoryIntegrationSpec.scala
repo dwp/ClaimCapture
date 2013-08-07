@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s1_carers_allowance.G2HoursMandatoryPageContext
-import utils.pageobjects.s1_carers_allowance.G1BenefitsMandatoryPageContext
+import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.s1_carers_allowance.G2HoursMandatoryPage
 import utils.pageobjects.s1_carers_allowance.G3Over16MandatoryPage
 
@@ -44,7 +44,7 @@ class G2HoursMandatoryIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G3Over16MandatoryPage]
     }
     
-    "contain the completed forms" in new WithBrowser with G1BenefitsMandatoryPageContext {
+    "contain the completed forms" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
       page goToThePage()

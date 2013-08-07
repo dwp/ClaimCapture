@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 import models.domain._
 import models.domain.Claim
 
-class G1BenefitsMandatorySpec extends Specification with Tags {
+class G1BenefitsSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Controller" should {
     val answerYesNo = "yes"
     val benefitsInput = Seq("answer" -> answerYesNo)
@@ -16,12 +16,12 @@ class G1BenefitsMandatorySpec extends Specification with Tags {
     "start with a new Claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      G1BenefitsMandatory.present(request)
+      G1Benefits.present(request)
       val claim = Cache.getAs[Claim](claimKey)
 
       TimeUnit.MILLISECONDS.sleep(100)
 
-      val result = G1BenefitsMandatory.present(request)
+      val result = G1Benefits.present(request)
       header(CACHE_CONTROL, result) must beSome("no-cache, no-store")
 
       Cache.getAs[Claim](claimKey) must beLike { case Some(c: Claim) => c.created mustNotEqual claim.get.created }
@@ -30,7 +30,7 @@ class G1BenefitsMandatorySpec extends Specification with Tags {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s1_carers_allowance.G1BenefitsMandatory.present(request)
+      val result = controllers.s1_carers_allowance.G1Benefits.present(request)
       status(result) mustEqual OK
     }
 
@@ -38,7 +38,7 @@ class G1BenefitsMandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("answer" -> "")
 
-      val result = controllers.s1_carers_allowance.G1BenefitsMandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -46,7 +46,7 @@ class G1BenefitsMandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(benefitsInput: _*)
 
-      val result = controllers.s1_carers_allowance.G1BenefitsMandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -54,11 +54,11 @@ class G1BenefitsMandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(benefitsInput: _*)
 
-      val result = controllers.s1_carers_allowance.G1BenefitsMandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.domain.CarersAllowance)
-      section.questionGroup(BenefitsMandatory) must beLike {
-        case Some(f: BenefitsMandatory) => {
+      section.questionGroup(Benefits) must beLike {
+        case Some(f: Benefits) => {
           f.answerYesNo must equalTo(answerYesNo)
         }
       }
@@ -68,11 +68,11 @@ class G1BenefitsMandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("answer" -> "no")
 
-      val result = controllers.s1_carers_allowance.G1BenefitsMandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.domain.CarersAllowance)
-      section.questionGroup(BenefitsMandatory) must beLike {
-        case Some(f: BenefitsMandatory) => {
+      section.questionGroup(Benefits) must beLike {
+        case Some(f: Benefits) => {
           f.answerYesNo must equalTo("no")
         }
       }

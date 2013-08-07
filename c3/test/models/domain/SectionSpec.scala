@@ -5,7 +5,7 @@ import org.specs2.mutable.Specification
 class SectionSpec extends Specification {
   "Section" should {
     "return the correct question group" in new Claiming {
-      val section = Section(CarersAllowance, mockQuestionGroup[BenefitsMandatory](BenefitsMandatory) ::
+      val section = Section(CarersAllowance, mockQuestionGroup[Benefits](Benefits) ::
                                              mockQuestionGroup[HoursMandatory](HoursMandatory) ::
                                              mockQuestionGroup[LivesInGBMandatory](LivesInGBMandatory) ::
                                              mockQuestionGroup[Over16Mandatory](Over16Mandatory) :: Nil)
@@ -14,7 +14,7 @@ class SectionSpec extends Specification {
     }
 
     "be able to show/hide" in new Claiming {
-      val section = Section(CarersAllowance, mockQuestionGroup[BenefitsMandatory](BenefitsMandatory) ::
+      val section = Section(CarersAllowance, mockQuestionGroup[Benefits](Benefits) ::
                                              mockQuestionGroup[HoursMandatory](HoursMandatory) ::
                                              mockQuestionGroup[LivesInGBMandatory](LivesInGBMandatory) ::
                                              mockQuestionGroup[Over16Mandatory](Over16Mandatory) :: Nil)
@@ -28,7 +28,7 @@ class SectionSpec extends Specification {
     }
 
     "be able to delete a questionGroup" in new Claiming {
-      val benefits = mockQuestionGroup[BenefitsMandatory](BenefitsMandatory)
+      val benefits = mockQuestionGroup[Benefits](Benefits)
 
       val section = Section(CarersAllowance, benefits ::
                                              mockQuestionGroup[HoursMandatory](HoursMandatory) ::
@@ -37,29 +37,29 @@ class SectionSpec extends Specification {
 
       section.questionGroups.contains(benefits) must beTrue
       val updatedSection = section.delete(benefits)
-      updatedSection.questionGroups.contains(BenefitsMandatory) must beFalse
+      updatedSection.questionGroups.contains(Benefits) must beFalse
     }
 
     "be able to update a questionGroup" in new Claiming {
-      val section = Section(CarersAllowance, mockQuestionGroup[BenefitsMandatory](BenefitsMandatory) ::
+      val section = Section(CarersAllowance, mockQuestionGroup[Benefits](Benefits) ::
                                              mockQuestionGroup[HoursMandatory](HoursMandatory) ::
                                              mockQuestionGroup[LivesInGBMandatory](LivesInGBMandatory) ::
                                              mockQuestionGroup[Over16Mandatory](Over16Mandatory) :: Nil)
 
-      val updatedSection = section.update(BenefitsMandatory("yes"))
-      val questionGroupOption: Option[QuestionGroup] = updatedSection.questionGroup(BenefitsMandatory)
+      val updatedSection = section.update(Benefits("yes"))
+      val questionGroupOption: Option[QuestionGroup] = updatedSection.questionGroup(Benefits)
 
-      questionGroupOption must beLike { case Some(p: BenefitsMandatory) => p.answer must beTrue }
+      questionGroupOption must beLike { case Some(p: Benefits) => p.answer must beTrue }
     }
 
     "return the preceding question groups" in new Claiming {
-      val section = Section(CarersAllowance, mockQuestionGroup[BenefitsMandatory](BenefitsMandatory) ::
+      val section = Section(CarersAllowance, mockQuestionGroup[Benefits](Benefits) ::
                                              mockQuestionGroup[HoursMandatory](HoursMandatory) ::
                                              mockQuestionGroup[LivesInGBMandatory](LivesInGBMandatory) ::
                                              mockQuestionGroup[Over16Mandatory](Over16Mandatory) :: Nil)
 
       val precedingGroups = section.precedingQuestionGroups(LivesInGBMandatory)
-      precedingGroups(0).identifier mustEqual BenefitsMandatory
+      precedingGroups(0).identifier mustEqual Benefits
       precedingGroups(1).identifier mustEqual HoursMandatory
     }
   }

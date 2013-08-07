@@ -3,7 +3,7 @@ package models.domain
 import org.specs2.mutable.Specification
 
 class ClaimSpec extends Specification {
-  val claim = Claim().update(BenefitsMandatory("no"))
+  val claim = Claim().update(Benefits("no"))
                      .update(HoursMandatory("no"))
                      .update(LivesInGBMandatory("no"))
                      .update(Over16Mandatory("no"))
@@ -16,19 +16,19 @@ class ClaimSpec extends Specification {
 
     "contain the sectionId with the question group after adding" in {
       val claim = Claim()
-      val questionGroup = BenefitsMandatory(answerYesNo = "no")
+      val questionGroup = Benefits(answerYesNo = "no")
       val updatedClaim = claim.update(questionGroup)
       val sectionIdentifier = Section.sectionIdentifier(questionGroup)
 
       val section = updatedClaim.section(sectionIdentifier)
       section.identifier mustEqual sectionIdentifier
-      section.questionGroup(BenefitsMandatory) must beLike { case Some(p: BenefitsMandatory) => p.answer must beFalse }
+      section.questionGroup(Benefits) must beLike { case Some(p: Benefits) => p.answer must beFalse }
     }
 
     "contain the sectionId with the question group after updating" in {
       val claim = Claim()
-      val trueQuestionGroup = BenefitsMandatory(answerYesNo = "yes")
-      val falseQuestionGroup = BenefitsMandatory(answerYesNo = "no")
+      val trueQuestionGroup = Benefits(answerYesNo = "yes")
+      val falseQuestionGroup = Benefits(answerYesNo = "no")
 
       val claimWithFalseQuestionGroup = claim.update(falseQuestionGroup)
       val claimWithTrueQuestionGroup = claimWithFalseQuestionGroup.update(trueQuestionGroup)
@@ -36,7 +36,7 @@ class ClaimSpec extends Specification {
       val sectionIdentifier = Section.sectionIdentifier(trueQuestionGroup)
       val section = claimWithTrueQuestionGroup.section(sectionIdentifier)
 
-      section.questionGroup(BenefitsMandatory) must beLike { case Some(p: BenefitsMandatory) => p.answer must beTrue }
+      section.questionGroup(Benefits) must beLike { case Some(p: Benefits) => p.answer must beTrue }
     }
 
     "return the correct section" in {
@@ -113,7 +113,7 @@ class ClaimSpec extends Specification {
     }
 
     """contain "question group" in first entry of "question groups".""" in {
-      claim.questionGroup[BenefitsMandatory] should beSome(BenefitsMandatory(answerYesNo = "no"))
+      claim.questionGroup[Benefits] should beSome(Benefits(answerYesNo = "no"))
     }
 
     """contain "question group" in second entry of "question groups".""" in {

@@ -5,27 +5,27 @@ import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import models.domain.BenefitsMandatory
+import models.domain.Benefits
 import controllers.Mappings._
 import models.domain.Claim
 import language.reflectiveCalls
 import controllers.Mappings._
 import CarersAllowance._
 
-object G1BenefitsMandatory extends Controller with CachedClaim {
+object G1Benefits extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo))(BenefitsMandatory.apply)(BenefitsMandatory.unapply))
+      "answer" -> nonEmptyText.verifying(validYesNo))(Benefits.apply)(Benefits.unapply))
 
   def present = newClaim { implicit claim =>
     implicit request =>
-      Ok(views.html.s1_carers_allowance.g1_benefitsMandatory(form.fill(BenefitsMandatory), completedQuestionGroups(BenefitsMandatory)))
+      Ok(views.html.s1_carers_allowance.g1_benefits(form.fill(Benefits), completedQuestionGroups(Benefits)))
   }
 
   def submit = claiming { implicit claim =>
     implicit request =>
       form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s1_carers_allowance.g1_benefitsMandatory(formWithErrors, completedQuestionGroups(BenefitsMandatory))),
+        formWithErrors => BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrors, completedQuestionGroups(Benefits))),
         f => claim.update(f) -> Redirect(routes.G2HoursMandatory.present()))
   }
 }

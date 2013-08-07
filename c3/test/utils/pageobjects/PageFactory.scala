@@ -29,7 +29,7 @@ object PageFactory {
     title match {
       case XmlPage.title => XmlPage buildPageWith(browser, previousPage)
       // S1
-      case G1BenefitsMandatoryPage.title => G1BenefitsMandatoryPage buildPageWith(browser, previousPage)
+      case G1BenefitsPage.title => G1BenefitsPage buildPageWith(browser, previousPage)
       case G2HoursMandatoryPage.title => G2HoursMandatoryPage buildPageWith(browser, previousPage)
       case G3Over16MandatoryPage.title => G3Over16MandatoryPage buildPageWith(browser, previousPage)
       case G4LivesInGBMandatoryPage.title => G4LivesInGBMandatoryPage buildPageWith(browser, previousPage)

@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s1_carers_allowance.G3Over16MandatoryPageContext
 import utils.pageobjects.s1_carers_allowance.G3Over16MandatoryPage
-import utils.pageobjects.s1_carers_allowance.G1BenefitsMandatoryPageContext
+import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.s1_carers_allowance.G4LivesInGBMandatoryPage
 
 class G3Over16MandatoryIntegrationSpec extends Specification with Tags {
@@ -44,7 +44,7 @@ class G3Over16MandatoryIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G4LivesInGBMandatoryPage]
     }
 
-    "contain the completed forms" in new WithBrowser with G1BenefitsMandatoryPageContext {
+    "contain the completed forms" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
