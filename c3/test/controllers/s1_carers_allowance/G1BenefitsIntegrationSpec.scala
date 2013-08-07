@@ -3,17 +3,17 @@ package controllers.s1_carers_allowance
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.ClaimScenario
-import utils.pageobjects.s1_carers_allowance.G1BenefitsMandatoryPageContext
-import utils.pageobjects.s1_carers_allowance.G2HoursMandatoryPage
+import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
+import utils.pageobjects.s1_carers_allowance.G2HoursPage
 
-class G1BenefitsMandatoryIntegrationSpec extends Specification with Tags {
+class G1BenefitsIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
-    "be presented" in new WithBrowser with G1BenefitsMandatoryPageContext {
+    "be presented" in new WithBrowser with G1BenefitsPageContext {
       page goToThePage ()
     }
 
     "contain errors on invalid submission" in {
-      "missing mandatory field" in new WithBrowser with G1BenefitsMandatoryPageContext {
+      "missing mandatory field" in new WithBrowser with G1BenefitsPageContext {
         val claim = new ClaimScenario
         claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = ""
         page goToThePage()
@@ -23,7 +23,7 @@ class G1BenefitsMandatoryIntegrationSpec extends Specification with Tags {
       }
     }
     
-    "accept submit if all mandatory fields are populated" in new WithBrowser with G1BenefitsMandatoryPageContext {
+    "accept submit if all mandatory fields are populated" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
       page goToThePage()
@@ -31,7 +31,7 @@ class G1BenefitsMandatoryIntegrationSpec extends Specification with Tags {
       page submitPage()
     }
     
-    "navigate to next page on valid submission" in new WithBrowser with G1BenefitsMandatoryPageContext {
+    "navigate to next page on valid submission" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
       page goToThePage()
@@ -39,7 +39,7 @@ class G1BenefitsMandatoryIntegrationSpec extends Specification with Tags {
       
       val nextPage = page submitPage()
 
-      nextPage must beAnInstanceOf[G2HoursMandatoryPage]
+      nextPage must beAnInstanceOf[G2HoursPage]
     }
   } section "integration"
 }

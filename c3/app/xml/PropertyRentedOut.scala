@@ -5,8 +5,7 @@ import models.domain.{PropertyAndRent, Claim}
 object PropertyRentedOut {
 
   def xml(claim: Claim) = {
-    val propertyAndRentOption = claim.questionGroup[PropertyAndRent]
-    val propertyAndRent = propertyAndRentOption.getOrElse(PropertyAndRent())
+    val propertyAndRent = claim.questionGroup[PropertyAndRent].getOrElse(PropertyAndRent())
 
     <PropertyRentedOut>
       <PayNationalInsuranceContributions/>

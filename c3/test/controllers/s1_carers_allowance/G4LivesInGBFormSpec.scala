@@ -2,13 +2,12 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 
-
-class G1BenefitsMandatoryFormSpec extends Specification with Tags {
-  "Carer's Allowance - Benefits - Form" should {
+class G4LivesInGBFormSpec extends Specification with Tags {
+  "Carer's Allowance - LivesInGB - Form" should {
     val answerYesNo = "yes"
-
+      
     "map data into case class" in {
-      G1BenefitsMandatory.form.bind(
+      G4LivesInGB.form.bind(
         Map("answer" -> answerYesNo)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
@@ -19,7 +18,7 @@ class G1BenefitsMandatoryFormSpec extends Specification with Tags {
     }
 
     "reject if mandatory field is not filled" in {
-      G1BenefitsMandatory.form.bind(
+      G4LivesInGB.form.bind(
         Map("answer" -> "")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),

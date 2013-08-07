@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.BenefitsMandatory], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.Benefits], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -12,7 +12,7 @@
 
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
-    @form(action = controllers.s1_carers_allowance.routes.G1BenefitsMandatory.submit) {
+    @form(action = controllers.s1_carers_allowance.routes.G1Benefits.submit) {
 
         <fieldset class="form-elements form-eligibility q1">
             <legend><span>Q1</span>Does the person you look after get one of these benefits?</legend>
@@ -37,6 +37,14 @@
             
             <ul class="group">
                 @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("benefits.answer"))
+                
+                @defining(currentForm("answer").value.getOrElse("don't know") match {case "no" => "block" case _ => "none"}) { styleDisplay =>
+                  <li id="answerNoMessageWrap" class="info" style="display: @styleDisplay;">
+                    <p>You can only qualify for Carer's Allowance if the person you care for is in receipt of one of the qualifying benefits listed above.</p>
+                    <p>If they have applied for one of the benefits above and are still waiting on a decision, please do not apply for Carer's Allowance until that decision has been made.</p>
+                    <p>You are legally entitled to claim Carer's Allowance even though you <b>do not</b> qualify and <b>will not</b> get Carer's Allowance. If you wish to do so click the <b>'Next'</b> button below.</p>
+                  </li>
+                }
             </ul>
         </fieldset>
 
@@ -45,3 +53,11 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s1_carers_allowance/answerNoMessage.js")'></script>
+
+<script type="text/javascript">
+    $(function () {
+        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+    });
+</script>

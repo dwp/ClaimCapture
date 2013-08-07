@@ -13,10 +13,10 @@ class G5ApproveSpec extends Specification with Tags {
     "acknowledge that the carer is eligible for allowance" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val claim = Claim().update(BenefitsMandatory(answerYesNo = "yes"))
-        .update(HoursMandatory(answerYesNo = "yes"))
-        .update(Over16Mandatory(answerYesNo = "yes"))
-        .update(LivesInGBMandatory(answerYesNo = "yes"))
+      val claim = Claim().update(Benefits(answerYesNo = "yes"))
+        .update(Hours(answerYesNo = "yes"))
+        .update(Over16(answerYesNo = "yes"))
+        .update(LivesInGB(answerYesNo = "yes"))
 
       Cache.set(claimKey, claim)
 
@@ -27,10 +27,10 @@ class G5ApproveSpec extends Specification with Tags {
     "note that the carer is not eligible for allowance" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val claim = Claim().update(BenefitsMandatory(answerYesNo = "yes"))
-        .update(HoursMandatory(answerYesNo = "yes"))
-        .update(Over16Mandatory(answerYesNo = "no"))
-        .update(LivesInGBMandatory(answerYesNo = "yes"))
+      val claim = Claim().update(Benefits(answerYesNo = "yes"))
+        .update(Hours(answerYesNo = "yes"))
+        .update(Over16(answerYesNo = "no"))
+        .update(LivesInGB(answerYesNo = "yes"))
 
       Cache.set(claimKey, claim)
 

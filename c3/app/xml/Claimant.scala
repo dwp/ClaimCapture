@@ -6,11 +6,8 @@ import xml.XMLHelper._
 
 object Claimant {
   def xml(claim: Claim): Elem = {
-    val yourDetailsOption = claim.questionGroup[YourDetails]
-    val yourDetails = yourDetailsOption.getOrElse(YourDetails())
-
-    val contactDetailsOption = claim.questionGroup[ContactDetails]
-    val contactDetails = contactDetailsOption.getOrElse(ContactDetails())
+    val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
+    val contactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
 
     <Claimant>
       <DateOfClaim>{stringify(claim.dateOfClaim)}</DateOfClaim>
