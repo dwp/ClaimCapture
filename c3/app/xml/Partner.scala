@@ -21,7 +21,7 @@ object Partner {
 
     val hadPartner = moreAboutYou.hadPartnerSinceClaimDate == yes
 
-    if(hadPartner) {
+    if (hadPartner) {
       <Partner>
         <NationalityPartner>{yourPartnerPersonalDetails.nationality.orNull}</NationalityPartner>
         <Surname>{yourPartnerPersonalDetails.surname}</Surname>
@@ -41,5 +41,4 @@ object Partner {
       </Partner>
     } else NodeSeq.Empty
   }
-
 }

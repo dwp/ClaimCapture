@@ -3,7 +3,6 @@ package models
 import org.specs2.mutable.Specification
 import play.api.data.Form
 import controllers.Mappings._
-import scala.Some
 
 class MultiLineAddressFormSpec extends Specification {
 
@@ -11,7 +10,7 @@ class MultiLineAddressFormSpec extends Specification {
 
     "reject empty input" in {
       Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "", "address.lineTwo" -> "", "address.lineThree" -> "")).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.missingLineOne"),
         address => "This mapping should not happen." must equalTo("Valid")
       )
     }
@@ -23,17 +22,17 @@ class MultiLineAddressFormSpec extends Specification {
       )
     }
 
-    "accept single lineTwo" in {
+    "reject single lineTwo" in {
       Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "", "address.lineTwo" -> "line2", "address.lineThree" -> "")).fold(
-        formWithErrors => "The mapping should not fail." must equalTo("Error"),
-        address => address must equalTo(MultiLineAddress(None, Some("line2"), None))
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.missingLineOne"),
+        address => "This mapping should not happen." must equalTo("Valid")
       )
     }
 
-    "accept single lineThree" in {
+    "reject single lineThree" in {
       Form("address" -> address.verifying(requiredAddress)).bind(Map("address.lineOne" -> "", "address.lineTwo" -> "", "address.lineThree" -> "line3")).fold(
-        formWithErrors => "The mapping should not fail." must equalTo("Error"),
-        address => address must equalTo(MultiLineAddress(None, None, Some("line3")))
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.missingLineOne"),
+        address => "This mapping should not happen." must equalTo("Valid")
       )
     }
 

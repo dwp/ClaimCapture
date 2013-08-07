@@ -74,7 +74,7 @@ object PageFactory {
       case G2AddressOfSchoolCollegeOrUniversityPage.title => G2AddressOfSchoolCollegeOrUniversityPage buildPageWith(browser,previousPage)
       case G3EducationCompletedPage.title => G3EducationCompletedPage buildPageWith(browser,previousPage)
       // S7
-      case G1BeenEmployedPage.title => G1BeenEmployedPage buildPageWith(browser,previousPage)
+      case G1BeenEmployedPage.title => G1BeenEmployedPage buildPageWith(browser,previousPage,iteration)
       case G2JobDetailsPage.title => G2JobDetailsPage buildPageWith(browser,previousPage,iteration)
       case G3EmployerContactDetailsPage.title => G3EmployerContactDetailsPage buildPageWith(browser,previousPage,iteration)
       case G4LastWagePage.title => G4LastWagePage buildPageWith(browser,previousPage,iteration)
