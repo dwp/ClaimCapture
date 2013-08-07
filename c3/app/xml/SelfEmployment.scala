@@ -9,17 +9,13 @@ import models.yesNo.YesNoWithText
 object SelfEmployment {
 
   def xml(claim: Claim) = {
-    val aboutYouEmploymentOption = claim.questionGroup[models.domain.Employment]
-    val employment = aboutYouEmploymentOption.getOrElse(models.domain.Employment(beenSelfEmployedSince1WeekBeforeClaim = no))
+    val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment(beenSelfEmployedSince1WeekBeforeClaim = no))
 
-    val aboutSelfEmploymentOption = claim.questionGroup[AboutSelfEmployment]
-    val aboutSelfEmployment = aboutSelfEmploymentOption.getOrElse(AboutSelfEmployment(areYouSelfEmployedNow = no))
+    val aboutSelfEmployment = claim.questionGroup[AboutSelfEmployment].getOrElse(AboutSelfEmployment(areYouSelfEmployedNow = no))
 
-    val yourAccountsOption = claim.questionGroup[SelfEmploymentYourAccounts]
-    val yourAccounts =  yourAccountsOption.getOrElse(SelfEmploymentYourAccounts())
+    val yourAccounts =  claim.questionGroup[SelfEmploymentYourAccounts].getOrElse(SelfEmploymentYourAccounts())
 
-    val pensionsAndExpensesOption = claim.questionGroup[SelfEmploymentPensionsAndExpenses]
-    val pensionAndExpenses = pensionsAndExpensesOption.getOrElse(SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWithText(no, None), doYouPayToLookAfterYourChildren = no, didYouPayToLookAfterThePersonYouCaredFor = no))
+    val pensionAndExpenses = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWithText(no, None), doYouPayToLookAfterYourChildren = no, didYouPayToLookAfterThePersonYouCaredFor = no))
 
     if (employment.beenSelfEmployedSince1WeekBeforeClaim == yes) {
 
