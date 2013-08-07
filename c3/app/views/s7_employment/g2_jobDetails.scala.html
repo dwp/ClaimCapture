@@ -31,7 +31,7 @@
                     'id -> "finishedThisJob",
                     'display -> currentForm("finishedThisJob").value.getOrElse("no"))
 
-                @carersInputText(currentForm("hoursPerWeek"), 'placeholder -> "00", 'maxlength -> 2, 'class -> "short-field")
+                @carersShortInputText(currentForm("hoursPerWeek"), 'placeholder -> "00", 'maxlength -> 2)
 
                 @carersInputText(currentForm("jobTitle"), 'maxLength -> Mappings.sixty)
 
