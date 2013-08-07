@@ -2,7 +2,6 @@ package controllers.s9_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 
-
 class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
   "Expenses related to the person you care for while at work - Self Employment Form" should {
     val howMuchYouPay = "123"
@@ -47,5 +46,4 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
       )
     }
   } section "unit"
-
 }

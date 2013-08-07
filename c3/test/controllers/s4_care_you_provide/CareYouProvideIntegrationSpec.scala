@@ -3,8 +3,6 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import scala.concurrent.duration.Duration
-import java.util.concurrent.TimeUnit
 
 class CareYouProvideIntegrationSpec extends Specification with Tags {
 
@@ -43,12 +41,12 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("More about the care you provide - Care You Provide")
 
       browser.goTo("/careYouProvide/completed")
-      titleMustEqual("Completion - Care You Provide")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Completion - Care You Provide")
 
       browser.find("button[type='submit']").getText shouldEqual "Continue to Abroad"
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Normal Residence and Current Location - Time Spent Abroad")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Normal Residence and Current Location - Time Spent Abroad")
     }
   } section "integration"
 }

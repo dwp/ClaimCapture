@@ -3,8 +3,6 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import java.util.concurrent.TimeUnit
-import scala.concurrent.duration.Duration
 
 class G6RepresentativesForThePersonIntegrationSpec extends Specification with Tags {
   "Representatives For The Person" should {
@@ -47,11 +45,11 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.previousCarerPersonalDetails(browser)
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")(Duration(60, TimeUnit.SECONDS)) // Landed on S4 G6
+      titleMustEqual("Representatives For The Person - Care You Provide") // Landed on S4 G6
       browser.click("#backButton")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
       browser.click("#backButton")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS)) // Back to S4 G4
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide") // Back to S4 G4
     }
 
     "contain the completed forms" in new WithBrowser {

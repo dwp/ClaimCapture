@@ -3,8 +3,6 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import controllers.{BrowserMatchers, Formulate}
 import play.api.test.WithBrowser
-import java.util.concurrent.TimeUnit
-import scala.concurrent.duration.Duration
 
 class G4ClaimDateIntegrationSpec extends Specification with Tags {
   "Claim Date" should {
@@ -50,9 +48,9 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
       Formulate.yourDetailsEnablingTimeOutsideUK(browser)
       Formulate.yourContactDetails(browser)
       Formulate.timeOutsideUKNotLivingInUK(browser)
-      titleMustEqual("Claim Date - About You")(Duration(60, TimeUnit.SECONDS))
+      titleMustEqual("Claim Date - About You")
       browser.click(".form-steps a")
-      titleMustEqual("Time Outside UK - About You")(Duration(60, TimeUnit.SECONDS))
+      titleMustEqual("Time Outside UK - About You")
     }
 
     "navigate back to Contact Details" in new WithBrowser with BrowserMatchers {
