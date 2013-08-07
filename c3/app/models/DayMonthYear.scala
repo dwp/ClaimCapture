@@ -10,15 +10,17 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
 
   val timeFormatXml: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:MM:00")
 
-  def toXmlString = Try(new DateMidnight(year.get, month.get, day.get)) match {
+  def `yyyy-MM-dd`:String = Try(new DateMidnight(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0))) match {
     case Success(dt: DateMidnight) => dateFormatXml.print(dt)
-    case Failure(_) => "Invalid Date"
+    case Failure(_) => ""
   }
 
-  def toXmlTimeString = Try(new DateTime(year.get, month.get, day.get, hour.get, minutes.get)) match {
+  def `yyyy-MM-dd'T'HH:MM:00` = Try(new DateTime(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0), hour.getOrElse(0), minutes.getOrElse(0))) match {
     case Success(dt: DateTime) => timeFormatXml.print(dt)
-    case Failure(_) => "Invalid Date"
+    case Failure(_) => ""
   }
+
+  def `dd/MM/yyyy`: String = pad(day) + "/" + pad(month) + "/" + year.fold("")(_.toString)
 
   def -(amount: Int) = new Period {
     override def days = adjust { _.minusDays(amount) }
@@ -29,10 +31,6 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
 
     override def years = adjust { _.minusYears(amount) }
   }
-
-  def `dd/MM/yyyy`: String = pad(day) + "/" + pad(month) + "/" + year.fold("")(_.toString)
-
-  def `yyyy-MM-dd`: String = year.fold("")(_.toString) + "-" + pad(month) + "-" + pad(day)
 
   private def pad(i: Option[Int]): String = i.fold("")(i => if (i < 10) s"0$i" else s"$i")
 

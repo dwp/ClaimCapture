@@ -18,9 +18,10 @@ object DWPCAClaim {
     val consentAndDeclaration = ConsentAndDeclarationSubmission.buildConsentAndDeclaration(claim)  //REMOVE THIS WHEN REFACTORING XML HAS BEEN DONE
 
     Logger.info(s"Build DWPCAClaim : $transactionId")
+
     <DWPCAClaim id={transactionId}>
       {Claimant.xml(claim)}
-      {CareYouProvideSubmission.buildCaree(careYouProvide)}
+      {Caree.xml(claim)}
       <ClaimADI>no</ClaimADI>
       {Residency.xml(claim)}
       <CourseOfEducation>{moreAboutYou.beenInEducationSinceClaimDate}</CourseOfEducation>
