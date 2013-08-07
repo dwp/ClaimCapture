@@ -17,7 +17,7 @@ class MockPage (browser: TestBrowser, title: String, previousPage: Option[Page] 
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  override def fillPageWith(theClaim: ClaimScenario) {}
+  override def fillPageWith(theClaim: ClaimScenario): Page = {return this}
 }
 
 

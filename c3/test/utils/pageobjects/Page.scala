@@ -63,7 +63,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario): Unit = {
+  def fillPageWith(theClaim: ClaimScenario): Page = {
     try {
       fields foreach {
         case (cssElem: String, fieldType: Symbol, claimAttribute: String) =>
@@ -84,6 +84,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
             case YESNO => fillYesNo(cssElem, theClaim.selectDynamic(claimAttribute))
           }
       }
+      return this
     }
     catch {
       case e:Exception => throw new PageObjectException("Error when filling form in page [" + pageTitle + "]",exception = e)
@@ -245,7 +246,7 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * Throws a PageObjectException.
    * @param theClaim   Data to use to fill page
    */
-  override def fillPageWith(theClaim: ClaimScenario): Unit = {
+  override def fillPageWith(theClaim: ClaimScenario): Page = {
     throw new PageObjectException("Cannot fill an unknown page: " + pageTitle)
   }
 }
