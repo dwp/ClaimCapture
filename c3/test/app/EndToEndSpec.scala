@@ -3,7 +3,7 @@ package app
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s1_carers_allowance.G1BenefitsMandatoryPageContext
-import utils.pageobjects.{XmlPage, ClaimScenario, Page}
+import utils.pageobjects.{PageObjectException,XmlPage, ClaimScenario, Page}
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
