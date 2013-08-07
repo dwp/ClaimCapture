@@ -56,7 +56,7 @@ class FullTimeEducationSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutYou)
       val educationXml = FullTimeEducation.xml(claim)
 
-      educationXml.text shouldEqual ""
+      educationXml.text must beEmpty
     }
   } section "unit"
 }

@@ -72,13 +72,13 @@ class OtherBenefitsSpec extends Specification with Tags {
 
       val extraMoneyXml = otherMoneyXml \\ "ExtraMoney"
       extraMoneyXml.text shouldEqual no
-      (otherMoneyXml \\ "ExtraMoneyDetails").text mustEqual ""
+      (otherMoneyXml \\ "ExtraMoneyDetails").text must beEmpty
 
       (otherMoneyXml \\ "OtherMoneySSP").text mustEqual no
-      (otherMoneyXml \\ "OtherMoneySSPDetails").text mustEqual ""
+      (otherMoneyXml \\ "OtherMoneySSPDetails").text must beEmpty
 
       (otherMoneyXml \\ "OtherMoneySMP").text mustEqual no
-      (otherMoneyXml \\ "OtherMoneySMPDetails").text mustEqual ""
+      (otherMoneyXml \\ "OtherMoneySMPDetails").text must beEmpty
     }
   } section "unit"
 }
