@@ -11,18 +11,31 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       titleMustEqual("Representatives For The Person - Care You Provide")
     }
 
-    "contain errors on invalid submission" in new WithBrowser {
+    "contain errors on invalid submission first yesNo not clicked" in new WithBrowser {
       browser.goTo("/careYouProvide/representativesForPerson")
       browser.submit("button[type='submit']")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 2
+      browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
-    "contains errors for optional mandatory data" in new WithBrowser {
+    "contain errors on invalid submission second yesNo not clicked" in new WithBrowser {
       browser.goTo("/careYouProvide/representativesForPerson")
-      browser.click("#actForPerson_yes")
+      browser.submit("button[type='submit']")
+      browser.find("div[class=validation-summary] ol li").size mustEqual 1
+    }
+
+    "contains errors for first optional mandatory data" in new WithBrowser {
+      browser.goTo("/careYouProvide/representativesForPerson")
+      browser.click("#actForPerson_no")
+      browser.submit("button[type='submit']")
+      browser.find("div[class=validation-summary] ol li").size mustEqual 1
+    }
+    
+    "contains errors for second optional mandatory data" in new WithBrowser {
+      browser.goTo("/careYouProvide/representativesForPerson")
+      browser.click("#actForPerson_no")
       browser.click("#someoneElseActForPerson_yes")
       browser.submit("button[type='submit']")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 2
+      browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
     "navigate back to More About The Person" in new WithBrowser with BrowserMatchers {

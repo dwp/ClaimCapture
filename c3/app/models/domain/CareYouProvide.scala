@@ -5,6 +5,7 @@ import models.Whereabouts
 import models.MultiLineAddress
 import models.NationalInsuranceNumber
 import yesNo.{YesNoWithDate, YesNoWithDropDownAndText, YesNoWithDropDown}
+import play.api.data.validation.Constraint
 
 case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails, theirContactDetails: TheirContactDetails,
                           moreAboutThePerson: MoreAboutThePerson, representatives: RepresentativesForPerson,
@@ -55,10 +56,16 @@ case object PreviousCarerContactDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g5"
 }
 
-case class RepresentativesForPerson(youAct: YesNoWithDropDown = YesNoWithDropDown("", None), someoneElseAct:YesNoWithDropDownAndText = YesNoWithDropDownAndText("", None, None)) extends QuestionGroup(RepresentativesForPerson) with NoRouting
+case class RepresentativesForPerson(youAct: YesNoWithDropDown = YesNoWithDropDown("", None), someoneElseAct:YesNoWithDropDownAndText = YesNoWithDropDownAndText(None, None, None)) extends QuestionGroup(RepresentativesForPerson) with NoRouting
 
 case object RepresentativesForPerson extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g6"
+
+  def validate(input: RepresentativesForPerson): Boolean = input.youAct.answer match {
+    case "yes" => true
+    case "no" => input.someoneElseAct.answer.isDefined
+    case _ => false
+  }
 }
 
 case class MoreAboutTheCare(spent35HoursCaring: String = "", spent35HoursCaringBeforeClaim:YesNoWithDate = YesNoWithDate("", None), hasSomeonePaidYou: String = "") extends QuestionGroup(MoreAboutTheCare) with NoRouting
