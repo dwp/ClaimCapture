@@ -104,7 +104,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     if (pageTitle == upToPageWithTitle) {
       this
     } else {
-      if (trace) println(this.pageTitle + " @ " + url + " - " + browser.url())
+      if (trace) println(this.pageTitle + " @ " + url + " : Iteration " + iteration)
       this fillPageWith theClaim
       submitPage(throwException, waitForPage, waitDuration) runClaimWith(theClaim, upToPageWithTitle, throwException, waitForPage, waitDuration, trace)
     }

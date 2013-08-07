@@ -3,8 +3,7 @@ package utils.pageobjects.s7_employment
 import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
-final class G14JobCompletionPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G14JobCompletionPage.url, G14JobCompletionPage.title, previousPage) {
-  override val url = super.getUrl.replace(":jobID",iteration.toString)
+final class G14JobCompletionPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G14JobCompletionPage.url.replace(":jobID",iteration.toString), G14JobCompletionPage.title, previousPage,iteration) {
 
   override def updateIterationNumber: Int = iteration + 1
 }

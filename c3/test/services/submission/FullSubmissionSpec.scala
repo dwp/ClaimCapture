@@ -11,8 +11,10 @@ import com.tzavellas.sse.guice.ScalaModule
 import services.TransactionIdService
 import com.google.inject._
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
+import utils.pageobjects.S10_consent_and_declaration.G5SubmitPage
 
 class FullSubmissionSpec extends Specification with Tags {
+  sequential
 
   val thankYouPageTitle = "GOV.UK - The best place to find government services and information"
 
@@ -38,8 +40,6 @@ class FullSubmissionSpec extends Specification with Tags {
 
   "The application" should {
     "Successfully run submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-      skipped("ISSUE")
-
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST223"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
@@ -48,8 +48,6 @@ class FullSubmissionSpec extends Specification with Tags {
     }
 
     "Recoverable Error submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-      skipped("ISSUE")
-
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST224"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
@@ -58,13 +56,23 @@ class FullSubmissionSpec extends Specification with Tags {
     }
 
     "Recoverable acknowledgement submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-      skipped("ISSUE")
-
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST225"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+    }
+
+    "Retry submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+
+      val idService = injector.getInstance(classOf[TransactionIdService])
+      idService.id = "TEST225"
+      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+      // first time through stores val in session
+      page goToThePage()
+      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+      val submissionPage = lastPage goToPage new G5SubmitPage(browser,Some(lastPage))
+      val finalPage = submissionPage submitPage ()
     }
   }
 }
