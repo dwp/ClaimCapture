@@ -26,6 +26,6 @@ object G3Over16 extends Controller with CachedClaim {
     implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.s1_carers_allowance.g3_over16(formWithErrors, completedQuestionGroups(Over16))),
-        f => claim.update(f) -> Redirect(routes.G4LivesInGBMandatory.present()))
+        f => claim.update(f) -> Redirect(routes.G4LivesInGB.present()))
   }
 }

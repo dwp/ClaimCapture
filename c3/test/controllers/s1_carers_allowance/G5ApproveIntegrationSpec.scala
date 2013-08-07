@@ -7,7 +7,7 @@ import utils.pageobjects.s2_about_you.G1YourDetailsPage
 import utils.pageobjects.s1_carers_allowance.G6ApprovePageContext
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.s1_carers_allowance.G6ApprovePage
-import utils.pageobjects.s1_carers_allowance.G4LivesInGBMandatoryPage
+import utils.pageobjects.s1_carers_allowance.G4LivesInGBPage
 
 class G5ApproveIntegrationSpec extends Specification with Tags {
   sequential
@@ -56,7 +56,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       val approvePage = page runClaimWith (claim, G6ApprovePage.title, waitForPage = true, waitDuration = 500)
       approvePage match {
         case p: G6ApprovePage => {
-          p.previousPage.get must beAnInstanceOf[G4LivesInGBMandatoryPage]
+          p.previousPage.get must beAnInstanceOf[G4LivesInGBPage]
           p.isNotApproved must beTrue
         }
         case _ => ko(notRightPage)

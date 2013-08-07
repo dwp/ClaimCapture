@@ -6,19 +6,20 @@ import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s1_carers_allowance.G3Over16PageContext
 import utils.pageobjects.s1_carers_allowance.G3Over16Page
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.s1_carers_allowance.G4LivesInGBMandatoryPageContext
+import utils.pageobjects.s1_carers_allowance.G4LivesInGBPageContext
 import utils.pageobjects.s1_carers_allowance.G5CarersResponsePage
 import utils.pageobjects.s1_carers_allowance.G6ApprovePage
-import utils.pageobjects.s1_carers_allowance.G4LivesInGBMandatoryPage
+import utils.pageobjects.s1_carers_allowance.G4LivesInGBPage
+import scala.Some
 
-class G4LivesInGBMandatoryIntegrationSpec extends Specification with Tags {
+class G4LivesInGBIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {
-    "be presented" in new WithBrowser with G4LivesInGBMandatoryPageContext {
+    "be presented" in new WithBrowser with G4LivesInGBPageContext {
       page goToThePage ()
     }
 
     "contain errors on invalid submission" in {
-      "missing mandatory field" in new WithBrowser with G4LivesInGBMandatoryPageContext {
+      "missing mandatory field" in new WithBrowser with G4LivesInGBPageContext {
         val claim = new ClaimScenario
         claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = ""
         page goToThePage()
@@ -28,7 +29,7 @@ class G4LivesInGBMandatoryIntegrationSpec extends Specification with Tags {
       }
     }
     
-    "accept submit if all mandatory fields are populated" in new WithBrowser with G4LivesInGBMandatoryPageContext {
+    "accept submit if all mandatory fields are populated" in new WithBrowser with G4LivesInGBPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
       page goToThePage()
@@ -36,7 +37,7 @@ class G4LivesInGBMandatoryIntegrationSpec extends Specification with Tags {
       page submitPage()
     }
 
-    "navigate to next page on valid submission" in new WithBrowser with G4LivesInGBMandatoryPageContext {
+    "navigate to next page on valid submission" in new WithBrowser with G4LivesInGBPageContext {
       val claim = new ClaimScenario
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
       page goToThePage()
@@ -63,7 +64,7 @@ class G4LivesInGBMandatoryIntegrationSpec extends Specification with Tags {
       val s1g4 = s1g3 submitPage()
 
       s1g4 match {
-        case p: G4LivesInGBMandatoryPage => {
+        case p: G4LivesInGBPage => {
           p numberSectionsCompleted() mustEqual 3
           val completed = p.findTarget("div[class=completed] ul li")
           completed(0) must contain("Q1")

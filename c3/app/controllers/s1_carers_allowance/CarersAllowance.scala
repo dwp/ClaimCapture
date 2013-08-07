@@ -29,6 +29,6 @@ object CarersAllowance extends Controller with CachedClaim with Routing {
     case Benefits => routes.G1Benefits.present()
     case Hours => routes.G2Hours.present()
     case Over16 => routes.G3Over16.present()
-    case LivesInGBMandatory => routes.G4LivesInGBMandatory.present()
+    case LivesInGB => routes.G4LivesInGB.present()
   }
 }

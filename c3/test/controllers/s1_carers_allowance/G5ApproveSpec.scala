@@ -16,7 +16,7 @@ class G5ApproveSpec extends Specification with Tags {
       val claim = Claim().update(Benefits(answerYesNo = "yes"))
         .update(Hours(answerYesNo = "yes"))
         .update(Over16(answerYesNo = "yes"))
-        .update(LivesInGBMandatory(answerYesNo = "yes"))
+        .update(LivesInGB(answerYesNo = "yes"))
 
       Cache.set(claimKey, claim)
 
@@ -30,7 +30,7 @@ class G5ApproveSpec extends Specification with Tags {
       val claim = Claim().update(Benefits(answerYesNo = "yes"))
         .update(Hours(answerYesNo = "yes"))
         .update(Over16(answerYesNo = "no"))
-        .update(LivesInGBMandatory(answerYesNo = "yes"))
+        .update(LivesInGB(answerYesNo = "yes"))
 
       Cache.set(claimKey, claim)
 

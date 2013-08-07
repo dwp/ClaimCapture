@@ -5,7 +5,7 @@ import org.specs2.mutable.Specification
 class ClaimSpec extends Specification {
   val claim = Claim().update(Benefits("no"))
                      .update(Hours("no"))
-                     .update(LivesInGBMandatory("no"))
+                     .update(LivesInGB("no"))
                      .update(Over16("no"))
 
   "Claim" should {
@@ -45,14 +45,14 @@ class ClaimSpec extends Specification {
     }
 
     "return the correct question group" in {
-      claim.questionGroup(LivesInGBMandatory) must beLike { case Some(qg: QuestionGroup) => qg.identifier mustEqual LivesInGBMandatory }
+      claim.questionGroup(LivesInGB) must beLike { case Some(qg: QuestionGroup) => qg.identifier mustEqual LivesInGB }
     }
 
     "delete a question group from section" in {
       claim.completedQuestionGroups(CarersAllowance).size mustEqual 4
 
-      val updatedClaim = claim.delete(LivesInGBMandatory)
-      updatedClaim.questionGroup(LivesInGBMandatory) must beNone
+      val updatedClaim = claim.delete(LivesInGB)
+      updatedClaim.questionGroup(LivesInGB) must beNone
       updatedClaim.completedQuestionGroups(CarersAllowance).size mustEqual 3
       claim.completedQuestionGroups(CarersAllowance).size mustEqual 4
     }

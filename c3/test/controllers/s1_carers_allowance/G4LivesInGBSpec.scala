@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 import models.domain._
 import models.domain.Claim
 
-class G4LivesInGBMandatorySpec extends Specification with Tags {
+class G4LivesInGBSpec extends Specification with Tags {
   "Carer's Allowance - LivesInGB - Controller" should {
     val answerYesNo = "yes"
     val hoursInput = Seq("answer" -> answerYesNo)
@@ -16,7 +16,7 @@ class G4LivesInGBMandatorySpec extends Specification with Tags {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.s1_carers_allowance.G4LivesInGBMandatory.present(request)
+      val result = controllers.s1_carers_allowance.G4LivesInGB.present(request)
       status(result) mustEqual OK
     }
 
@@ -24,7 +24,7 @@ class G4LivesInGBMandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("answer" -> "")
 
-      val result = controllers.s1_carers_allowance.G4LivesInGBMandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -32,7 +32,7 @@ class G4LivesInGBMandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(hoursInput: _*)
 
-      val result = controllers.s1_carers_allowance.G4LivesInGBMandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
@@ -40,11 +40,11 @@ class G4LivesInGBMandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(hoursInput: _*)
 
-      val result = controllers.s1_carers_allowance.G4LivesInGBMandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.domain.CarersAllowance)
-      section.questionGroup(LivesInGBMandatory) must beLike {
-        case Some(f: LivesInGBMandatory) => {
+      section.questionGroup(LivesInGB) must beLike {
+        case Some(f: LivesInGB) => {
           f.answerYesNo must equalTo(answerYesNo)
         }
       }
@@ -54,11 +54,11 @@ class G4LivesInGBMandatorySpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("answer" -> "no")
 
-      val result = controllers.s1_carers_allowance.G4LivesInGBMandatory.submit(request)
+      val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.domain.CarersAllowance)
-      section.questionGroup(LivesInGBMandatory) must beLike {
-        case Some(f: LivesInGBMandatory) => {
+      section.questionGroup(LivesInGB) must beLike {
+        case Some(f: LivesInGB) => {
           f.answerYesNo must equalTo("no")
         }
       }
