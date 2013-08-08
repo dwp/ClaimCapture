@@ -2,9 +2,14 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
-import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
+import models.{Whereabouts, MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 import controllers.Mappings.{yes, no}
 import models.yesNo.{YesNoWithDropDownAndText, YesNoWithDropDown, YesNoWithDate}
+import models.NationalInsuranceNumber
+import scala.Some
+import models.Whereabouts
+import models.MultiLineAddress
+import models.domain.Break
 
 class CareeSpec extends Specification with Tags {
 
@@ -46,7 +51,7 @@ class CareeSpec extends Specification with Tags {
       (xml \\ "PreviousClaimant").text must not(beEmpty)
     }
 
-    "<ClaimantActingType> should contain yes for" in {
+    "generate <ClaimantActingType> with yes for" in {
       "<ParentOrGuardian> when claimer act as Parent or guardian" in {
         val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("guardian")))
         val xml = Caree.claimantActingType(Claim().update(representatives))
@@ -77,15 +82,15 @@ class CareeSpec extends Specification with Tags {
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "Receiver").text shouldEqual yes
       }
+
+      "be skipped if claimer not acting for person they care for" in {
+        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(no, None))
+        val xml = Caree.claimantActingType(Claim().update(representatives))
+        xml.text must beEmpty
+      }
     }
 
-    "skip <ClaimantActingType> if claimer not acting for person they care for" in {
-      val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(no, None))
-      val xml = Caree.claimantActingType(Claim().update(representatives))
-      xml.text must beEmpty
-    }
-
-    "<BreaksSinceClaim> xml should contain" in {
+    "generate <BreaksSinceClaim> xml with" in {
       "yes when claimer has breaks and NOT spent 35 hours caring BEFORE claim date" in {
         val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(no, None))
         val breaks = BreaksInCare().update(Break())
@@ -105,7 +110,7 @@ class CareeSpec extends Specification with Tags {
       }
     }
 
-    "<BreaksBeforeClaim> xml should contain" in {
+    "generate <BreaksBeforeClaim> xml with" in {
       "yes when claimer has breaks and spent 35 hours caring BEFORE claim date" in {
         val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(yes, None))
         val breaks = BreaksInCare().update(Break())
@@ -122,6 +127,27 @@ class CareeSpec extends Specification with Tags {
 
     "skip <BreaksBeforeClaim> xml if claimer did NOT spent 35 hours caring BEFORE claim date" in {
       val xml = Caree.breaksBeforeClaim(Claim())
+      xml.text must beEmpty
+    }
+
+    "generate <CareBreak> xml when claimer has breaks" in {
+      val startDate = DayMonthYear(Some(1), Some(2), Some(2012), Some(15), Some(5))
+      val endDate = DayMonthYear(Some(1), Some(2), Some(2012))
+      val breakOne = Break(id="1", start = startDate, end = Some(endDate), whereYou = Whereabouts(location="Netherlands"), medicalDuringBreak=yes)
+      val breakTwo = Break(id="2", whereYou = Whereabouts(location="Spain"), medicalDuringBreak=no)
+      val claim = Claim().update(BreaksInCare().update(breakOne).update(breakTwo))
+      val xml = Caree.careBreak(claim)
+
+      (xml \\ "CareBreak").length shouldEqual 2
+      val careBreakOneXml = (xml \\ "CareBreak").theSeq(0)
+      (careBreakOneXml \\ "StartDateTime").text shouldEqual startDate.`yyyy-MM-dd'T'HH:mm:00`
+      (careBreakOneXml \\ "EndDateTime").text shouldEqual endDate.`yyyy-MM-dd'T'HH:mm:00`
+      (careBreakOneXml \\ "Reason").text shouldEqual breakOne.whereYou.location
+      (careBreakOneXml \\ "MedicalCare").text shouldEqual breakOne.medicalDuringBreak
+    }
+
+    "skip <CareBreak> xml when claimer has NO breaks" in {
+      val xml = Caree.careBreak(Claim())
       xml.text must beEmpty
     }
 
@@ -185,70 +211,4 @@ class CareeSpec extends Specification with Tags {
       (xml \\ "Address" \\ "PostCode").text shouldEqual previousCarerContactDetails.postcode.get
     }
   } section "unit"
-
-
-  //  <Caree>
-  //    <Surname>surname</Surname>
-  //    <OtherNames>firstName middleName</OtherNames>
-  //    <Title>title</Title>
-  //    <DateOfBirth>1950-04-03</DateOfBirth>
-  //    <NationalInsuranceNumber>VO123456D</NationalInsuranceNumber>
-  //    <Address>
-  //      <gds:Line>line1</gds:Line>
-  //      <gds:Line></gds:Line>
-  //      <gds:Line></gds:Line>
-  //      <gds:PostCode>postcode</gds:PostCode>
-  //    </Address>
-  //    <ConfirmAddress>yes</ConfirmAddress>
-  //    <HomePhoneNumber/>
-  //    <DaytimePhoneNumber>
-  //      <Number>020-12302312</Number>
-  //      <Qualifier/>
-  //    </DaytimePhoneNumber>
-  //    <RelationToClaimant>son</RelationToClaimant>
-  //    <Cared35hours>yes</Cared35hours>
-  //    <CanCareeSign>yes</CanCareeSign>
-  //    <CanSomeoneElseSign>someoneElseSign</CanSomeoneElseSign>
-  //    <CanClaimantSign>youSign</CanClaimantSign>
-  //    <ClaimantActingType>
-  //      <ParentOrGuardian></ParentOrGuardian>
-  //      <PowerOfAttorney></PowerOfAttorney>
-  //      <Appointee></Appointee>
-  //      <JudicialFactor></JudicialFactor>
-  //      <Receiver></Receiver>
-  //    </ClaimantActingType>
-  //    <BreaksSinceClaim>no</BreaksSinceClaim>
-  //    <Cared35hoursBefore>no</Cared35hoursBefore>
-  //    <PaidForCaring>yes</PaidForCaring>
-  //    <PayReceived>
-  //      <PayerName></PayerName>
-  //      <PayerAddress>
-  //        <gds:Line></gds:Line>
-  //        <gds:Line></gds:Line>
-  //        <gds:Line></gds:Line>
-  //        <gds:PostCode></gds:PostCode>
-  //      </PayerAddress>
-  //      <ConfirmAddress>yes</ConfirmAddress>
-  //      <Payment>
-  //        <Currency>GBP</Currency>
-  //        <Amount></Amount>
-  //      </Payment>
-  //      <DatePaymentStarted></DatePaymentStarted>
-  //    </PayReceived>
-  //    <ClaimedPreviously>yes</ClaimedPreviously>
-  //    <PreviousClaimant>
-  //      <Surname></Surname>
-  //      <OtherNames></OtherNames>
-  //      <DateOfBirth></DateOfBirth>
-  //      <NationalInsuranceNumber></NationalInsuranceNumber>
-  //      <Address>
-  //        <gds:Line></gds:Line>
-  //        <gds:Line></gds:Line>
-  //        <gds:Line></gds:Line>
-  //        <gds:PostCode></gds:PostCode>
-  //      </Address>
-  //    </PreviousClaimant>
-  //  </Caree>
-
-
 }

@@ -71,7 +71,7 @@ object ClaimBuilder {
   val aboutYou = AboutYouSection(yourDetails, contactDetails, Some(timeOutsideUK), claimDate, moreAboutYou, employment, propertyAndRent)
 
   val theirPersonalDetails = TheirPersonalDetails(title = "ms", firstName = "Minnie", middleName = Some("middleName"), surname = "Mouse",
-    nationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA"), Some("12"), Some("34"), Some("56"), Some("A"))), dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddress = "no")
+    nationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA"), Some("12"), Some("34"), Some("56"), Some("A"))), dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddressCareYouProvide = "no")
 
   val theirContactDetails = TheirContactDetails(address = MultiLineAddress(Some("Line1"), None, None), postcode = Some("PR2 8AE"))
 
