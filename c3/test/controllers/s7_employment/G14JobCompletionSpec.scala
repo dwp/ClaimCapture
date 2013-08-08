@@ -18,5 +18,5 @@ class G14JobCompletionSpec extends Specification with Tags {
       val result = G14JobCompletion.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section "unit"
+  } section("unit",models.domain.Employed.id)
 }

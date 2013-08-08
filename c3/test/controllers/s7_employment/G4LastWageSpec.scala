@@ -7,41 +7,31 @@ import models.domain._
 import play.api.cache.Cache
 import models.domain.Claim
 
-class G5AdditionalWageDetailsSpec extends Specification with Tags {
-  "Additional wage details" should {
+class G4LastWageSpec extends Specification with Tags {
+  "Last wage" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFlash("jobID" -> "")
-      val result = G5AdditionalWageDetails.present("Dummy job ID")(request)
+      val request = FakeRequest().withSession("connected" -> claimKey)
+      val result = G4LastWage.present("Dummy job ID")(request)
       status(result) mustEqual OK
     }
 
-    """require "job ID" and "Employee owes you money".""" in new WithApplication with Claiming {
+    """require only "job ID".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1", "employerOwesYouMoney" -> "no", "anyOtherMoney" -> "no")
+        .withFormUrlEncodedBody("jobID" -> "1")
 
-      val result = G5AdditionalWageDetails.submit(request)
+      val result = G4LastWage.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     """be added to a (current) job""" in new WithApplication with Claiming {
-      pending("skipped till G4 is done")
-
       G2JobDetails.submit(FakeRequest().withSession("connected" -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
-      G3EmployerContactDetails.submit(FakeRequest().withSession("connected" -> claimKey)
+      val result = G4LastWage.submit(FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1"))
-
-
-      //G4 stuff
-
-      val result = G5AdditionalWageDetails.submit(FakeRequest().withSession("connected" -> claimKey)
-                    .withFormUrlEncodedBody(
-                    "jobID" -> "1",
-                    "employeeOwesYouMoney" -> "no"))
 
       status(result) mustEqual SEE_OTHER
 
@@ -51,9 +41,7 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
         case Some(js: Jobs) => {
           js.size shouldEqual 1
 
-          js.find(_.jobID == "1") must beLike {
-            case Some(j: Job) => j.questionGroups.size shouldEqual 4
-          }
+          js.find(_.jobID == "1") must beLike { case Some(j: Job) => j.questionGroups.size shouldEqual 2 }
         }
       }
     }

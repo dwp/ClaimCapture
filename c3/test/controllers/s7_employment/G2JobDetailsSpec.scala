@@ -89,5 +89,5 @@ class G2JobDetailsSpec extends Specification with Tags {
         case Some(js: Jobs) => js.size shouldEqual 0
       }
     }
-  } section "unit"
+  } section("unit",models.domain.Employed.id)
 }
