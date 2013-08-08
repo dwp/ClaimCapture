@@ -39,13 +39,13 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
 
     "navigate to next page on valid submission with all fields filled in" in new WithBrowser with BrowserMatchers {
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - About your education")
     }
     
     "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
       browser.submit("button[type='submit']")
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - About your education")
     }
   } section("integration",models.domain.Education.id)
 }

@@ -10,13 +10,13 @@ class EducationIntegrationSpec extends Specification with Tags {
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
 
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - About your education")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - About your education")
 
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
@@ -24,7 +24,7 @@ class EducationIntegrationSpec extends Specification with Tags {
     "back goes to 'Address Of School College Or University'" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - About your education")
 
       browser.click("#backButton")
       titleMustEqual("School, college or university's contact details - About your education")
@@ -39,7 +39,7 @@ class EducationIntegrationSpec extends Specification with Tags {
       Formulate.employment(browser)
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - About your education")
 
       browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
       browser.submit("button[type='submit']")

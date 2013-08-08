@@ -42,7 +42,7 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       titleMustEqual("School, college or university's contact details - About your education")
 
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - About your education")
 
       browser.find("button[type='submit']").getText shouldEqual "Continue to Employment"
     }
