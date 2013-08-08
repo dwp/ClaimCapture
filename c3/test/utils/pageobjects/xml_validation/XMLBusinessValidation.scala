@@ -30,7 +30,7 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
 
     // Used to recursively go through the xPath provided to find value
     def childNode(xml: NodeSeq, children: Array[String]): NodeSeq =
-      if (children.size == 0) xml else childNode(xml \ children(0).replace("...",""), children.drop(1))
+      if (children.size == 0) xml else childNode(xml \ children(0).replace("...", ""), children.drop(1))
 
     val mapping = XMLBusinessValidation.buildXmlMappingFromFile(xmlMappingFile)
     val listErrors = mutable.MutableList.empty[String]
@@ -40,10 +40,14 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
         if (xPathNodes != None) {
           val path = xPathNodes.get
           val nodes = path.split(">")
-          val elementValue = XmlNode(if (path.endsWith("...")) childNode(xml.\\(nodes(0)), nodes.drop(1)).toString() else childNode(xml.\\(nodes(0)), nodes.drop(1)).text,path)
-          val expectedValue: ClaimValue = value
-          if (elementValue doesNotMatch expectedValue)
-            listErrors += attribute + " " + nodes.mkString(">") + " value expected: [" + expectedValue + "] value read: [" + elementValue + "]"
+          val elementValue = XmlNode(childNode(xml.\\(nodes(0)), nodes.drop(1)))
+          if (elementValue.size > 0) {
+            val expectedValue = ClaimValue(attribute, value)
+            if (elementValue doesNotMatch expectedValue)
+              listErrors += attribute + " " + path + elementValue.error
+          }
+          else listErrors += attribute + " " + path + " XML element not found"
+
         }
     }
     if (listErrors.nonEmpty && throwException) throw new PageObjectException("XML validation failed", listErrors.toList)
@@ -67,21 +71,41 @@ object XMLBusinessValidation {
 
 /**
  * Represents an Xml Node once "cleaned", i.e. trimmed and line returns removed.
- * @param value value of node.
  */
-class XmlNode(val value: String, val nodeName:String) {
+class XmlNode(val nodes: NodeSeq) {
+
+  var error = ""
 
   def matches(claimValue: ClaimValue): Boolean = {
-    if (value.matches("""\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames")) value.contains(claimValue.value)
-    else if (value.matches(".*>.*"))  {
-      println(value)
-      value.matches(".*" + "yes</[^>]*" + value + ".*")
-    } else value == claimValue.value
+
+    var index = 0
+    if (claimValue.value.contains( """_""")) index =  Int.unbox(claimValue.value.split("_")(1)) - 1
+    val value = XmlNode.prepareElement(nodes(index).text)
+    val nodeName = nodes(index).mkString
+
+    def valuesMatching = {
+      if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>")) value.contains(claimValue.value)
+      else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
+      else if (value.matches(".*>.*")) {
+        println(value)
+        value.matches(".*" + "yes</[^>]*" + value + ".*")
+      } else value == claimValue.value
+    }
+
+
+    val matching = valuesMatching
+    if (!matching)
+     error = " value expected: [" + claimValue.value + "] within value read: [" + value + "]"
+    matching
+
   }
 
   def doesNotMatch(claimValue: ClaimValue): Boolean = !matches(claimValue)
 
-  override def toString() = value
+  def size = nodes.size
+
+
+  override def toString() = nodes.mkString(",")
 
 }
 
@@ -89,8 +113,9 @@ class XmlNode(val value: String, val nodeName:String) {
 object XmlNode {
   private def prepareElement(elementValue: String) = elementValue.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
-  def apply(value:String, nodeName:String) = new XmlNode(prepareElement(value),nodeName)
-//  implicit def fromString(source: String): XmlNode = new XmlNode(prepareElement(source))
+  def apply(nodes: NodeSeq) = new XmlNode(nodes)
+
+  //  implicit def fromString(source: String): XmlNode = new XmlNode(prepareElement(source))
 }
 
 
@@ -98,7 +123,7 @@ object XmlNode {
  * Represents a claimvalue once "cleaned", i.e trimmed and date reformated to yyyy-MM-dd as in the XML.
  * @param value value cleaned from the claim.
  */
-class ClaimValue(val value: String) {
+class ClaimValue(val attribute: String, val value: String) {
 
   override def toString() = value
 }
@@ -113,5 +138,7 @@ object ClaimValue {
     } else cleanValue
   }
 
-  implicit def fromString(source: String): ClaimValue = new ClaimValue(prepareClaimValue(source))
+  def apply(attribute: String, value: String) = new ClaimValue(attribute, prepareClaimValue(value))
+
+  //  implicit def fromString(source: String): ClaimValue = new ClaimValue(prepareClaimValue(source))
 }

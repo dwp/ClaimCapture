@@ -3,8 +3,6 @@ package controllers.s6_education
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import java.util.concurrent.TimeUnit
-import scala.concurrent.duration.Duration
 
 class EducationIntegrationSpec extends Specification with Tags {
   "Education" should {
@@ -12,7 +10,7 @@ class EducationIntegrationSpec extends Specification with Tags {
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
 
-      titleMustEqual("Completion - Education")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Completion - Education")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
@@ -41,11 +39,11 @@ class EducationIntegrationSpec extends Specification with Tags {
       Formulate.employment(browser)
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      titleMustEqual("Completion - Education")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Completion - Education")
 
       browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
       browser.submit("button[type='submit']")
-      titleMustEqual("Job Details - Employment")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Job Details - Employment")
     }
-  } section "integration"
+  } section("integration",models.domain.Education.id)
 }

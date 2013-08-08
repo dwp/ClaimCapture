@@ -70,5 +70,5 @@ class G1NormalResidenceAndCurrentLocationFormSpec extends Specification with Tag
         caseClass.inGBNow must equalTo("no")
       }
     )
-  } section "unit"
+  } section("unit",models.domain.TimeSpentAbroad.id)
 }

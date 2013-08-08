@@ -49,7 +49,7 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           f.firstName must equalTo(firstName)
           f.middleName must equalTo(Some(middleName))
           f.surname must equalTo(surname)
-          f.otherNames must equalTo(Some(otherNames))
+          f.otherSurnames must equalTo(Some(otherNames))
           f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5))))
           f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
           f.nationality must equalTo(Some(nationality))
@@ -148,6 +148,6 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-  } section "unit"
+  } section("unit",models.domain.YourPartner.id)
 
 }

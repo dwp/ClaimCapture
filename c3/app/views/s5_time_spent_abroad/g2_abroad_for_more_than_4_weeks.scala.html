@@ -1,4 +1,4 @@
-@(abroadForMoreThan4WeeksForm: Form[models.domain.AbroadForMoreThan4Weeks], trips: models.domain.Trips, completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(abroadForMoreThan4WeeksForm: Form[models.domain.AbroadForMoreThan4Weeks], trips: models.domain.Trips, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import scala.language.postfixOps
 @import views.html.helper._
@@ -17,7 +17,7 @@
                     <th>Dates</th>
                     <th class="desc">Where did you go?</th>
                     <th class="desc">Why did you go?</th>
-                    <th>Edit</th>
+                    <th>Change</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -62,7 +62,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.present" class="button secondary">Back</a>
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

@@ -1,0 +1,41 @@
+@(currentForm: Form[models.domain.AboutOtherMoney], completedQuestionGroups: List[models.domain.QuestionGroup], hadPartnerSinceClaimDate: Boolean)(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@main("About Other Money - Other Money", Some(currentForm), completedQuestionGroups) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s9_other_money.routes.G1AboutOtherMoney.submit) {
+
+        <fieldset class="form-elements">
+            <legend>About other money</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your Partner/Spouse" else "", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+
+                @otherDetailPlaceHolder(
+                  inputDef = Seq(carersInputText(currentForm("yourBenefits.text"), 'maxLength -> Mappings.fifty, '_label -> Messages("yourBenefits.text"))),
+                  'id -> "yourBenefitsTextWrap",
+                  'display -> currentForm("yourBenefits.answer").value.getOrElse("no"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.AboutOtherMoney)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s9_other_money/g1_aboutOtherMoney.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("yourBenefits_answer_yes")", "@CarersCrypto.encryptAES("yourBenefits_answer_no")");
+    });
+</script>

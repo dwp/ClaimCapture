@@ -13,7 +13,7 @@ final class G8AboutYouCompletedPage(browser: TestBrowser, previousPage: Option[P
    * Does nothing. There is no form.
    * @param theClaim   Data to use to fill page
    */
-  override  def fillPageWith(theClaim: ClaimScenario) {}
+  override  def fillPageWith(theClaim: ClaimScenario): Page = {return this}
 }
 
 /**

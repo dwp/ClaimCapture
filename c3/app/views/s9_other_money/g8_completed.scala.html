@@ -1,0 +1,13 @@
+@(completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import models.domain.OtherMoney
+
+@main("Completion - Other Money", None, completedQuestionGroups) {
+    @form(action = controllers.s9_other_money.routes.OtherMoney.completedSubmit) {
+        <nav class="form-steps">
+            <a href="@controllers.s9_other_money.routes.G6OtherStatutoryPay.present" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(OtherMoney).name</button>
+        </nav>
+    }
+}

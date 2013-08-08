@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.RepresentativesForPerson], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.RepresentativesForPerson], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -26,18 +26,24 @@
                     'display -> currentForm("you.actForPerson").value.getOrElse("no")
                 )
 
-                @yesNoRadioGroup(currentForm("someoneElse.actForPerson"))
-
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(actSelect(currentForm("someoneElse.actAs")), carersInputText(currentForm("someoneElse.fullName"), 'maxlength -> 120)),
-                    'id -> "someoneElseWrap",
-                    'display -> currentForm("someoneElse.actForPerson").value.getOrElse("no")
+                    inputDef = Seq(
+                      yesNoRadioGroup(currentForm("someoneElse.actForPerson")),
+      
+                      otherDetailPlaceHolder(
+                          inputDef = Seq(actSelect(currentForm("someoneElse.actAs")), carersInputText(currentForm("someoneElse.fullName"), 'maxlength -> 120)),
+                          'id -> "someoneElseWrap",
+                          'display -> currentForm("someoneElse.actForPerson").value.getOrElse("no")
+                      )
+                    ),
+                    'id -> "someoneElseActForPersonWrap",
+                    'display -> (currentForm("you.actForPerson").value.getOrElse("don't know") match { case "yes" => "no" case "no" => "yes" case _ => "no" })
                 )
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@back(models.domain.RepresentativesForPerson)" class="button secondary">Back</a>
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
@@ -52,6 +58,7 @@
             "@CarersCrypto.encryptAES("someoneElse_actForPerson_yes")",
             "@CarersCrypto.encryptAES("someoneElse_actForPerson_no")",
             "@CarersCrypto.encryptAES("someoneElse_actAs")",
-            "@CarersCrypto.encryptAES("someoneElse_fullName")");
+            "@CarersCrypto.encryptAES("someoneElse_fullName")"
+            );
     });
 </script>

@@ -2,63 +2,44 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s1_carers_allowance.{G1BenefitsPageContext, G2HoursPage}
 import utils.pageobjects.ClaimScenario
+import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
+import utils.pageobjects.s1_carers_allowance.G2HoursPage
 
 class G1BenefitsIntegrationSpec extends Specification with Tags {
-  "Benefits" should {
-
+  "Carer's Allowance - Benefits - Integration" should {
     "be presented" in new WithBrowser with G1BenefitsPageContext {
-      page goToThePage()
-      page.previousPage mustEqual None
-      page.hasQ1 must beTrue
+      page goToThePage ()
     }
 
-    "allow changing answer" in new WithBrowser with  G1BenefitsPageContext {
-      page.goToThePage()
-      page clickPersonGetsBenefits()
-      val nextPage = page submitPage()
-      browser.goTo("/allowance/benefits?changing=true")
-      page.doesPersonGetBenefit must beSome(true)
-    }
-  } section "integration"
-
-  "Does the person being cared for get one of required benefits" should {
-
-    val notRightPage: String = "Next Page is not of the right type."
-
-    "acknowledge yes" in new WithBrowser with G1BenefitsPageContext {
-      page goToThePage()
-      page clickPersonGetsBenefits()
-      val nextPage = page submitPage()
-      nextPage match {
-        case p: G2HoursPage => p.isQ1Yes must beTrue
-        case _ => ko(notRightPage)
-
+    "contain errors on invalid submission" in {
+      "missing mandatory field" in new WithBrowser with G1BenefitsPageContext {
+        val claim = new ClaimScenario
+        claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = ""
+        page goToThePage()
+        page fillPageWith claim
+        val pageWithErrors = page.submitPage()
+        pageWithErrors.listErrors.size mustEqual 1
       }
     }
-
-    "acknowledge yes 2" in new WithBrowser with  G1BenefitsPageContext {
+    
+    "accept submit if all mandatory fields are populated" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
+      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
       page goToThePage()
       page fillPageWith claim
-      val nextPage = page submitPage()
-      nextPage match {
-        case p: G2HoursPage => p.isQ1Yes must beTrue
-        case _ =>  ko(notRightPage)
-      }
+      page submitPage()
     }
-
-    "acknowledge no" in new WithBrowser with G1BenefitsPageContext {
-      page.goToThePage()
-      page clickPersonDoesNotGetBenefits()
+    
+    "navigate to next page on valid submission" in new WithBrowser with G1BenefitsPageContext {
+      val claim = new ClaimScenario
+      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
+      page goToThePage()
+      page fillPageWith claim
+      
       val nextPage = page submitPage()
-      nextPage match {
-        case p: G2HoursPage => p.isQ1No must beTrue
-        case _ =>  ko(notRightPage)
-      }
-    }
 
-  } section "integration"
+      nextPage must beAnInstanceOf[G2HoursPage]
+    }
+  } section("integration",models.domain.CarersAllowance.id)
 }

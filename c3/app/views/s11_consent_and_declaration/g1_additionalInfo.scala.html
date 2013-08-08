@@ -1,0 +1,35 @@
+@(currentForm: Form[models.domain.AdditionalInfo])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+
+@main("Additional Information - Consent And Declaration", Some(currentForm)) {
+    @form(action = controllers.s11_consent_and_declaration.routes.G1AdditionalInfo.submit) {
+        <fieldset class="form-elements">
+            <legend>Additional information</legend>
+
+            <ul class="group">
+                @carersInputTextArea(currentForm("anythingElse"),'placeholder->Messages("anythingElse.placeholder"),'helper->"2000 characters left", 'maxLength -> 2000)
+                @yesNoRadioGroup(currentForm("welshCommunication"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a href="@controllers.s10_pay_details.routes.PayDetails.completed" id="backButton" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s11_consent_and_declaration/g4_additionalInfo.js")'></script>
+
+<script type="text/javascript">
+    $(function(){
+        window.initEvents( "@CarersCrypto.encryptAES("anythingElse")",2000);
+    })
+</script>

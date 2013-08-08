@@ -175,7 +175,7 @@ class AboutYouSpec extends Specification with Mockito with Tags {
       redirectLocation(result) must beSome("/yourPartner/personalDetails")
     }
 
-    "continue to partner/spouse upon section completion when all forms are done including 'time outside UK'" in new WithApplication with Claiming {
+    "continue to partner/spouse upon section completion when all forms are done including 'About Your Time Outside The UK'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val yourDetails = mockQuestionGroup[YourDetails](YourDetails)
@@ -198,5 +198,5 @@ class AboutYouSpec extends Specification with Mockito with Tags {
       val result = s2_about_you.AboutYou.completedSubmit(request)
       redirectLocation(result) must beSome("/yourPartner/personalDetails")
     }
-  } section "unit"
+  } section("unit",models.domain.AboutYou.id)
 }

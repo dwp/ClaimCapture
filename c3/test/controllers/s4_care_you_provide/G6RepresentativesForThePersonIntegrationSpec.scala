@@ -3,8 +3,6 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import java.util.concurrent.TimeUnit
-import scala.concurrent.duration.Duration
 
 class G6RepresentativesForThePersonIntegrationSpec extends Specification with Tags {
   "Representatives For The Person" should {
@@ -13,24 +11,37 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       titleMustEqual("Representatives For The Person - Care You Provide")
     }
 
-    "contain errors on invalid submission" in new WithBrowser {
+    "contain errors on invalid submission first yesNo not clicked" in new WithBrowser {
       browser.goTo("/careYouProvide/representativesForPerson")
       browser.submit("button[type='submit']")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 2
+      browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
-    "contains errors for optional mandatory data" in new WithBrowser {
+    "contain errors on invalid submission second yesNo not clicked" in new WithBrowser {
       browser.goTo("/careYouProvide/representativesForPerson")
-      browser.click("#actForPerson_yes")
+      browser.submit("button[type='submit']")
+      browser.find("div[class=validation-summary] ol li").size mustEqual 1
+    }
+
+    "contains errors for first optional mandatory data" in new WithBrowser {
+      browser.goTo("/careYouProvide/representativesForPerson")
+      browser.click("#actForPerson_no")
+      browser.submit("button[type='submit']")
+      browser.find("div[class=validation-summary] ol li").size mustEqual 1
+    }
+    
+    "contains errors for second optional mandatory data" in new WithBrowser {
+      browser.goTo("/careYouProvide/representativesForPerson")
+      browser.click("#actForPerson_no")
       browser.click("#someoneElseActForPerson_yes")
       browser.submit("button[type='submit']")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 2
+      browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
     "navigate back to More About The Person" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       browser.click("#backButton")
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
     }
 
     "navigate back to Previous Carer Contact Details" in new WithBrowser with BrowserMatchers {
@@ -47,16 +58,16 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.previousCarerPersonalDetails(browser)
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")(Duration(60, TimeUnit.SECONDS)) // Landed on S4 G6
+      titleMustEqual("Representatives For The Person - Care You Provide") // Landed on S4 G6
       browser.click("#backButton")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS))
+      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
       browser.click("#backButton")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")(Duration(60, TimeUnit.SECONDS)) // Back to S4 G4
+      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide") // Back to S4 G4
     }
 
     "contain the completed forms" in new WithBrowser {
       Formulate.representativesForThePerson(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
-  } section "integration"
+  } section("integration",models.domain.CareYouProvide.id)
 }

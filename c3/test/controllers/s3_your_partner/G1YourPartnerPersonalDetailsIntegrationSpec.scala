@@ -15,7 +15,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About You")
 
       browser.goTo("/yourPartner/personalDetails")
-      titleMustEqual("Personal Details - Your Partner")
+      titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
     }
 
     "navigate to next section if carer has no partner" in new WithBrowser with BrowserMatchers {
@@ -26,7 +26,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About You")
 
       browser.goTo("/yourPartner/personalDetails")
-      titleMustEqual("Their Personal Details - Care You Provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
@@ -37,7 +37,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About You")
 
       browser.goTo("/yourPartner/personalDetails")
-      titleMustEqual("Personal Details - Your Partner")
+      titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
       browser.submit("button[type='submit']")
 
       browser.find("div[class=validation-summary] ol li").size mustEqual 5
@@ -51,7 +51,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About You")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Contact Details - Your Partner")
+      titleMustEqual("Contact Details - About your partner/spouse")
     }
 
     "navigate back to About You - Completed" in new WithBrowser with BrowserMatchers {
@@ -62,7 +62,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About You")
 
       browser.goTo("/yourPartner/personalDetails")
-      titleMustEqual("Personal Details - Your Partner")
+      titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
 
       browser.click("#backButton")
       titleMustEqual("Completion - About You")
@@ -76,7 +76,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About You")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Contact Details - Your Partner")
+      titleMustEqual("Contact Details - About your partner/spouse")
       findMustEqualSize("div[class=completed] ul li", 1)
     }
         
@@ -89,10 +89,10 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.employment(browser)
       Formulate.propertyAndRent(browser)
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Contact Details - Your Partner")
+      titleMustEqual("Contact Details - About your partner/spouse")
       
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
-  } section "integration"
+  } section("integration",models.domain.YourPartner.id)
 }

@@ -6,30 +6,30 @@ import scala.concurrent.{Future, ExecutionContext}
 import play.api.mvc.{AnyContent, Request, PlainResult}
 import services.TransactionIdService
 import play.api.{http, Logger}
-import services.submission.{ClaimSubmissionService}
+import services.submission.ClaimSubmission
 import ExecutionContext.Implicits.global
 import com.google.inject.Inject
 import play.api.cache.Cache
 import play.api.libs.ws.Response
 import play.api.Play.current
-import xml.ClaimXmlBuilder
+import xml.DWPCAClaim
 
-class WebServiceSubmitter @Inject()(idService: TransactionIdService) extends Submitter {
+class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : ClaimSubmission) extends Submitter {
 
   def submit(claim: Claim, request : Request[AnyContent]): Future[PlainResult] = {
     retrieveRetryData(request) match {
       case Some(retryData) => {
-        ClaimSubmissionService.retryClaim(pollXml(retryData.corrId, retryData.pollUrl)).map(
+        claimSubmission.retryClaim(pollXml(retryData.corrId, retryData.pollUrl)).map(
           response => {
             processResponse(retryData.txnId, response, request)
           }
         ).recover {
           case e: java.net.ConnectException => {
             Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-            errorAndCleanup(retryData.txnId, UNKNOWN_ERROR)
+            Redirect("/consentAndDeclaration/error")
           }
           case e: java.lang.Exception => {
-            Logger.error(s"InternalServerError ! ${e.getMessage}")
+            Logger.error(s"InternalServerError(RETRY) ! ${e.getMessage}")
             errorAndCleanup(retryData.txnId, UNKNOWN_ERROR)
           }
         }
@@ -37,9 +37,9 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService) extends Sub
       case None => {
         val txnId = idService.generateId
         Logger.info(s"Retrieved Id : $txnId")
-        val claimXml = ClaimXmlBuilder(claim, txnId).buildDwpClaim
+        val claimXml = DWPCAClaim.xml(claim, txnId)
 
-        ClaimSubmissionService.submitClaim(claimXml).map(
+        claimSubmission.submitClaim(claimXml).map(
           response => {
             idService.registerId(txnId, SUBMITTED)
             processResponse(txnId, response, request)
@@ -47,10 +47,10 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService) extends Sub
         ).recover {
           case e: java.net.ConnectException => {
             Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-            errorAndCleanup(txnId, UNKNOWN_ERROR)
+            Redirect("/consentAndDeclaration/error")
           }
           case e: java.lang.Exception => {
-            Logger.error(s"InternalServerError ! ${e.getMessage}")
+            Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
             errorAndCleanup(txnId, UNKNOWN_ERROR)
           }
         }

@@ -78,5 +78,5 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
       val result = s6_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section "unit"
+  } section("unit",models.domain.Education.id)
 }

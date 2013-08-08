@@ -1,0 +1,28 @@
+@(otherEEAStateOrSwitzerlandForm: Form[models.domain.OtherEEAStateOrSwitzerland], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+
+@main("Other EEA State or Switzerland - Other Money", Some(otherEEAStateOrSwitzerlandForm), completedQuestionGroups) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s9_other_money.routes.G7OtherEEAStateOrSwitzerland.submit) {
+        <fieldset class="form-elements">
+            <legend>Other EEA State or Switzerland</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland"))
+
+                @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("workingForOtherEEAStateOrSwitzerland"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.OtherEEAStateOrSwitzerland)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

@@ -3,7 +3,10 @@ package models
 import yesNo.YesNoWithDate
 import controllers.Mappings._
 
-case class LivingInUK(answer: String, date: Option[DayMonthYear], text: Option[String], goBack: Option[YesNoWithDate])
+case class LivingInUK(answer: String = "",
+                      date: Option[DayMonthYear] = None,
+                      text: Option[String] = None,
+                      goBack: Option[YesNoWithDate] = None)
 
 object LivingInUK {
 

@@ -9,7 +9,7 @@ class G4PersonYouCareForIntegrationSpec extends Specification with Tags {
   "Person You Care For" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/yourPartner/personYouCareFor")
-      titleMustEqual("Person You Care For - Your Partner")
+      titleMustEqual("Person You Care For - About Your Partner/Spouse")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -22,12 +22,12 @@ class G4PersonYouCareForIntegrationSpec extends Specification with Tags {
       Formulate.yourPartnerPersonalDetails(browser)
       browser.goTo("/yourPartner/personYouCareFor")
       browser.click("#backButton")
-      titleMustNotEqual("Person You Care For - Your Partner")
+      titleMustNotEqual("Person You Care For - About Your Partner/Spouse")
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.personYouCareFor(browser)
-      titleMustEqual("Completion - Your Partner")
+      titleMustEqual("Completion - About Your Partner/Spouse")
     }
     
     "contain the completed forms" in new WithBrowser {
@@ -36,5 +36,5 @@ class G4PersonYouCareForIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYourPartnerSeparated(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 3
     }
-  } section "integration"
+  } section("integration",models.domain.YourPartner.id)
 }

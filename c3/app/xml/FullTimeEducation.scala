@@ -8,24 +8,20 @@ import scala.xml.NodeSeq
 object FullTimeEducation {
 
   def xml(claim: Claim) = {
-    val moreAboutYouOption = claim.questionGroup[MoreAboutYou]
-    val moreAboutYou = moreAboutYouOption.getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
-
-    val courseDetailsOption = claim.questionGroup[YourCourseDetails]
-    val addressOfSchoolOption = claim.questionGroup[AddressOfSchoolCollegeOrUniversity]
+    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
 
     val hasBeenInEducation = moreAboutYou.beenInEducationSinceClaimDate == yes
 
     if (hasBeenInEducation) {
       <FullTimeEducation>
-        {courseDetailsXml(courseDetailsOption)}
-        {locationDetailsXml(addressOfSchoolOption, courseDetailsOption)}
+        {courseDetailsXml(claim)}
+        {locationDetailsXml(claim)}
       </FullTimeEducation>
     } else NodeSeq.Empty
   }
 
-  def courseDetailsXml(courseDetailsOption: Option[YourCourseDetails]) = {
-    val courseDetails = courseDetailsOption.getOrElse(YourCourseDetails())
+  def courseDetailsXml(claim: Claim) = {
+    val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <CourseDetails>
       <Type>{courseDetails.courseType.orNull}</Type>
@@ -37,9 +33,9 @@ object FullTimeEducation {
     </CourseDetails>
   }
 
-  def locationDetailsXml(schoolDataOption: Option[AddressOfSchoolCollegeOrUniversity], courseDetailsOption: Option[YourCourseDetails]) = {
-    val schoolData = schoolDataOption.getOrElse(AddressOfSchoolCollegeOrUniversity())
-    val courseDetails = courseDetailsOption.getOrElse(YourCourseDetails())
+  def locationDetailsXml(claim:Claim) = {
+    val schoolData = claim.questionGroup[AddressOfSchoolCollegeOrUniversity].getOrElse(AddressOfSchoolCollegeOrUniversity())
+    val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <LocationDetails>
       <Name>{schoolData.nameOfSchoolCollegeOrUniversity.orNull}</Name>

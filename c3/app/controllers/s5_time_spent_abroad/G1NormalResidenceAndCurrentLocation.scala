@@ -20,7 +20,6 @@ object G1NormalResidenceAndCurrentLocation extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      call(routes.G1NormalResidenceAndCurrentLocation.present()),
       liveMapping,
       "inGBNow" -> nonEmptyText.verifying(validYesNo)
     )(NormalResidenceAndCurrentLocation.apply)(NormalResidenceAndCurrentLocation.unapply))

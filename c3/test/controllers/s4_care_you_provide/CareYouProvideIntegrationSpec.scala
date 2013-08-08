@@ -3,15 +3,13 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import scala.concurrent.duration.Duration
-import java.util.concurrent.TimeUnit
 
 class CareYouProvideIntegrationSpec extends Specification with Tags {
 
   "Care you provide" should {
     """be presented""" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       browser.goTo("/careYouProvide/completed")
       titleMustEqual("Completion - Care You Provide")
@@ -22,10 +20,10 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("More About You - About You")
 
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
@@ -43,12 +41,12 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("More about the care you provide - Care You Provide")
 
       browser.goTo("/careYouProvide/completed")
-      titleMustEqual("Completion - Care You Provide")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Completion - Care You Provide")
 
       browser.find("button[type='submit']").getText shouldEqual "Continue to Abroad"
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Normal Residence and Current Location - Time Spent Abroad")(Duration(10, TimeUnit.MINUTES))
+      titleMustEqual("Normal Residence and Current Location - Time Spent Abroad")
     }
-  } section "integration"
+  } section("integration",models.domain.CareYouProvide.id)
 }

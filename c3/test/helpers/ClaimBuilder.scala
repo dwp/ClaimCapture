@@ -19,9 +19,21 @@ case class AboutYouSection(yourDetails: YourDetails,
                            contactDetails: ContactDetails,
                            timeOutsideUK: Option[TimeOutsideUK],
                            claimDate: ClaimDate,
-                           employment: Employment)
+                           moreAboutYou:MoreAboutYou,
+                           employment: Employment,
+                           propertyAndRent: PropertyAndRent)
+
+case class YourPartnerSection(yourPartnerPersonalDetails: YourPartnerPersonalDetails, yourPartnerContactDetails: YourPartnerContactDetails,
+                       moreAboutYourPartner: MoreAboutYourPartner, personYouCareFor: Option[PersonYouCareFor])
+
 
 case class EducationSection(yourCourseDetails: YourCourseDetails, addressOfSchool: AddressOfSchoolCollegeOrUniversity)
+
+case class CareYouProvideSection(theirPersonalDetails: TheirPersonalDetails, theirContactDetails: TheirContactDetails,
+                          moreAboutThePerson: MoreAboutThePerson, representatives: RepresentativesForPerson,
+                          previousCarerContactDetails: Option[PreviousCarerContactDetails], previousCarerPersonalDetails: Option[PreviousCarerPersonalDetails],
+                          moreAboutTheCare: MoreAboutTheCare, oneWhoPays: Option[OneWhoPaysPersonalDetails],
+                          contactDetailsPayingPerson: Option[ContactDetailsOfPayingPerson], breaksInCare: BreaksInCare)
 
 case class OtherMoneySection(aboutOtherMoney: AboutOtherMoney,
                              moneyPaidToSomeoneElse: MoneyPaidToSomeoneElseForYou,
@@ -30,7 +42,7 @@ case class OtherMoneySection(aboutOtherMoney: AboutOtherMoney,
                              statutorySickPay: StatutorySickPay,
                              otherStatutoryPay: OtherStatutoryPay)
 
-case class TimeSpentAbroadSection(normalResidence: NormalResidenceAndCurrentLocation, trips: Trips)
+case class TimeSpentAbroadSection(normalResidence: NormalResidenceAndCurrentLocation, abroadForMoreThan4Weeks:AbroadForMoreThan4Weeks, trips: Trips)
 
 case class SelfEmploymentSection(aboutSelfEmployment: AboutSelfEmployment,
                                  selfEmploymentYourAccounts: SelfEmploymentYourAccounts,
@@ -39,49 +51,47 @@ case class SelfEmploymentSection(aboutSelfEmployment: AboutSelfEmployment,
                                  childcareExpenses: ChildcareExpensesWhileAtWork,
                                  expensesWhileAtWork: ExpensesWhileAtWork)
 
+case class PayDetailsSection(howWePayYou: Option[HowWePayYou],bankBuildingSocietyDetails: Option[BankBuildingSocietyDetails])
+
 object ClaimBuilder {
   val yourDetails = YourDetails(title = "mr", firstName = "Phil", middleName = None, surname = "Smith",
     otherSurnames = Some("O'Dwyer"), None, nationality = "French",
-    dateOfBirth = DayMonthYear(1, 1, 1963), maritalStatus = "m", alwaysLivedUK = "yes")
+    dateOfBirth = DayMonthYear(1, 1, 1963), maritalStatus = "m", alwaysLivedUK = "no")
 
   val contactDetails = ContactDetails(address = MultiLineAddress(Some("Line1"), None, None),
     postcode = Some("PR2 8AE"),
     phoneNumber = Some("01772 700806"), None)
 
-  val timeOutsideUK = TimeOutsideUK(livingInUK = LivingInUK("yes", Some(DayMonthYear()), Some(""), Some(YesNoWithDate("yes", Some(DayMonthYear())))), visaReference = None)
+  val timeOutsideUK = TimeOutsideUK(livingInUK = LivingInUK("yes", Some(DayMonthYear(Some(1), Some(2), Some(2013))), Some("netherlands"), Some(YesNoWithDate("yes", Some(DayMonthYear(Some(3), Some(4), Some(2012)))))), visaReference = None)
 
   val claimDate = ClaimDate(dateOfClaim = DayMonthYear(1, 1, 2013))
+  val moreAboutYou = MoreAboutYou(yes, yes, yes)
   val employment = Employment(beenSelfEmployedSince1WeekBeforeClaim = yes, beenEmployedSince6MonthsBeforeClaim = yes)
+  val propertyAndRent = PropertyAndRent(yes, yes)
+  val aboutYou = AboutYouSection(yourDetails, contactDetails, Some(timeOutsideUK), claimDate, moreAboutYou, employment, propertyAndRent)
 
-  val aboutYou = AboutYouSection(yourDetails, contactDetails, Some(timeOutsideUK), claimDate, employment)
+  val theirPersonalDetails = TheirPersonalDetails(title = "ms", firstName = "Minnie", middleName = Some("middleName"), surname = "Mouse",
+    nationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA"), Some("12"), Some("34"), Some("56"), Some("A"))), dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddressCareYouProvide = "no")
 
-  val theirPersonalDetails = TheirPersonalDetails(NoRouting, title = "ms", firstName = "Minnie", middleName = None, surname = "Mouse",
-    None, dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddress = "no")
+  val theirContactDetails = TheirContactDetails(address = MultiLineAddress(Some("Line1"), None, None), postcode = Some("PR2 8AE"))
 
-  val theirContactDetails = TheirContactDetails(NoRouting, address = MultiLineAddress(Some("Line1"), None, None), postcode = Some("PR2 8AE"))
+  val moreAboutThePerson = MoreAboutThePerson(relationship = "mother", None, claimedAllowanceBefore = "no")
 
-  val moreAboutThePerson = MoreAboutThePerson(NoRouting, relationship = "mother", None, claimedAllowanceBefore = "no")
+  val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown("yes", Some("Lawyer")), someoneElseAct = YesNoWithDropDownAndText(Some("yes"), Some("Lawyer"), Some("Mr. Lawyer")))
+  
+  val previousCarerContactDetails = PreviousCarerContactDetails(address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
 
-  val representatives = RepresentativesForPerson(NoRouting, youAct = YesNoWithDropDown("yes", Some("Lawyer")), someoneElseAct = YesNoWithDropDownAndText("yes",
-    Some("Lawyer"), Some("Mr. Lawyer")))
+  val previousCarerPersonalDetails = PreviousCarerPersonalDetails(firstName = Some("Some"), middleName = None, surname = Some("One"), None, dateOfBirth = Some(DayMonthYear(1, 1, 1963)))
 
-  val previousCarerContactDetails = PreviousCarerContactDetails(NoRouting, address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
+  val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaring = "yes", spent35HoursCaringBeforeClaim = YesNoWithDate("no", Some(DayMonthYear(1, 1, 2013))), hasSomeonePaidYou = "yes")
 
-  val previousCarerPersonalDetails = PreviousCarerPersonalDetails(NoRouting, firstName = Some("Some"), middleName = None, surname = Some("One"),
-    None, dateOfBirth = Some(DayMonthYear(1, 1, 1963)))
+  val oneWhoPays = OneWhoPaysPersonalDetails(organisation = Some("SomeOrg Inc."), amount = "300", startDatePayment = DayMonthYear(1, 1, 2012))
 
-  val moreAboutTheCare = MoreAboutTheCare(NoRouting, spent35HoursCaring = "yes", spent35HoursCaringBeforeClaim = YesNoWithDate("no", Some(DayMonthYear(1, 1, 2013))), hasSomeonePaidYou = "yes")
+  val contactDetailsPayingPerson = ContactDetailsOfPayingPerson(address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
 
-  val oneWhoPays = OneWhoPaysPersonalDetails(NoRouting, organisation = Some("SomeOrg Inc."), amount = Some("300"), startDatePayment = Some(DayMonthYear(1, 1, 2012)))
-
-  val contactDetailsPayingPerson = ContactDetailsOfPayingPerson(NoRouting, address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
-
-  val breaksInCare = BreaksInCare(NoRouting,
-    List(
-      Break(id = "1", start = DayMonthYear(1, 1, 2001), end = Some(DayMonthYear(1, 5, 2001)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes"),
-      Break(id = "1", start = DayMonthYear(1, 1, 2002), end = Some(DayMonthYear(1, 5, 2002)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes")
-    )
-  )
+  val breaksInCare = BreaksInCare(List(
+    Break(id = "1", start = DayMonthYear(1, 1, 2001), end = Some(DayMonthYear(1, 5, 2001)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes"),
+    Break(id = "2", start = DayMonthYear(1, 1, 2002), end = Some(DayMonthYear(1, 5, 2002)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes")))
 
   val employmentJobs = new Jobs(List(
      new Job("1",List(
@@ -116,14 +126,15 @@ object ClaimBuilder {
   ))
 
   val normalResidence = NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = yes, text = Some("UK")), inGBNow = yes)
+  val abroadForMoreThan4Weeks = AbroadForMoreThan4Weeks(anyTrips=no)
   val fourWeekTrip = Trip(id = "four-one", DayMonthYear(Some(1), Some(2), Some(2011)), DayMonthYear(Some(1), Some(3), Some(2011)), "Netherlands", Some("Holiday"))
   val fiftyTwoWeeksTrip = Trip(id = "fiftyTwo-one", DayMonthYear(Some(1), Some(2), Some(2012)), DayMonthYear(Some(1), Some(2), Some(2013)), "Spain", Some("Family"))
   val trips = Trips(fourWeeksTrips = List(fourWeekTrip), fiftyTwoWeeksTrips = List(fiftyTwoWeeksTrip))
 
-  val timeSpentAbroad = TimeSpentAbroadSection(normalResidence, trips)
+  val timeSpentAbroad = TimeSpentAbroadSection(normalResidence, abroadForMoreThan4Weeks, trips)
 
-  val education = EducationSection(YourCourseDetails(NoRouting, Some("courseType"), Some("courseTitle"), Some(DayMonthYear(Some(1), Some(1), Some(2001))), Some(DayMonthYear(Some(2), Some(2), Some(2002))), Some(DayMonthYear(Some(3), Some(3), Some(2003))), Some("ST11")),
-    AddressOfSchoolCollegeOrUniversity(NoRouting, Some("schoolName"), Some("tutorName"), Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), Some("SE1 6EH"), Some("020192827273"), Some("0302928273"))
+  val education = EducationSection(YourCourseDetails(Some("courseType"), Some("courseTitle"), Some(DayMonthYear(Some(1), Some(1), Some(2001))), Some(DayMonthYear(Some(2), Some(2), Some(2002))), Some(DayMonthYear(Some(3), Some(3), Some(2003))), Some("ST11")),
+    AddressOfSchoolCollegeOrUniversity(Some("schoolName"), Some("tutorName"), Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), Some("SE1 6EH"), Some("020192827273"), Some("0302928273"))
   )
 
   val otherMoney = OtherMoneySection(AboutOtherMoney(YesNoWithText(yes, Some("text"))), MoneyPaidToSomeoneElseForYou("yes"),
@@ -137,25 +148,25 @@ object ClaimBuilder {
     SelfEmploymentYourAccounts(doYouHaveAnAccountant = Some(yes)),
     SelfEmploymentAccountantContactDetails(accountantsName = "KPMG", address = MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))),
     SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWithText(yes, Some("150.5")), doYouPayToLookAfterYourChildren = yes, didYouPayToLookAfterThePersonYouCaredFor = yes),
-    ChildcareExpensesWhileAtWork(howMuchYouPay = Some("150.5"), nameOfPerson = "Andy", whatRelationIsToYou = Some("grandSon"), whatRelationIsTothePersonYouCareFor = Some("relation")),
-    ExpensesWhileAtWork(howMuchYouPay = Some("200.5"), nameOfPerson = "NameOfPerson", whatRelationIsToYou = Some("grandSon"), whatRelationIsTothePersonYouCareFor = Some("grandSon"))
+    ChildcareExpensesWhileAtWork(howMuchYouPay = "150.5", nameOfPerson = "Andy", whatRelationIsToYou = "grandSon", whatRelationIsTothePersonYouCareFor = "relation"),
+    ExpensesWhileAtWork(howMuchYouPay = "200.5", nameOfPerson = "NameOfPerson", whatRelationIsToYou = "grandSon", whatRelationIsTothePersonYouCareFor = "grandSon")
   )
 
-  val careYouProvide = CareYouProvide(theirPersonalDetails, theirContactDetails,
+  val careYouProvide = CareYouProvideSection(theirPersonalDetails, theirContactDetails,
     moreAboutThePerson, representatives,
     Some(previousCarerContactDetails), Some(previousCarerPersonalDetails),
     moreAboutTheCare, Some(oneWhoPays), Some(contactDetailsPayingPerson), breaksInCare)
 
-  val yourPartnerPersonalDetails = YourPartnerPersonalDetails(title = "mr", firstName = "Michael", middleName = None, surname = "Mouse", otherNames = Some("Oswald"), nationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA"), Some("12"), Some("34"), Some("56"), Some("A"))), dateOfBirth = DayMonthYear(1, 1, 1930), nationality = Some("British"), liveAtSameAddress = "yes")
+  val yourPartnerPersonalDetails = YourPartnerPersonalDetails(title = "mr", firstName = "Michael", middleName = None, surname = "Mouse", otherSurnames = Some("Oswald"), nationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA"), Some("12"), Some("34"), Some("56"), Some("A"))), dateOfBirth = DayMonthYear(1, 1, 1930), nationality = Some("British"), liveAtSameAddress = "yes")
   val yourPartnerContactDetails = YourPartnerContactDetails(address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
   val moreAboutYourPartner = MoreAboutYourPartner(startedLivingTogether = Some(YesNoWithDate("yes", Some(DayMonthYear(1, 1, 1940)))), separated = YesNoWithDate("no", None))
   val personYouCareFor = PersonYouCareFor(isPartnerPersonYouCareFor = "yes")
-  val yourPartner = YourPartner(yourPartnerPersonalDetails, yourPartnerContactDetails, moreAboutYourPartner, Some(personYouCareFor))
+  val yourPartner = YourPartnerSection(yourPartnerPersonalDetails, yourPartnerContactDetails, moreAboutYourPartner, Some(personYouCareFor))
 
   val howWePayYou = HowWePayYou(NoRouting, "01", "everyWeek")
   val bank = BankBuildingSocietyDetails(NoRouting, "Holder", "Bank name", SortCode("12", "34", "56"), "1234567890", "1234")
 
-  val payDetails = PayDetails(Some(howWePayYou),Some(bank))
+  val payDetails = PayDetailsSection(Some(howWePayYou),Some(bank))
 
   val additionalInfo = AdditionalInfo(NoRouting, Some("Other information"), "yes")
   val consent = Consent(NoRouting, "no", Some("I don't want to"), "no", Some("I said I don't want to"))

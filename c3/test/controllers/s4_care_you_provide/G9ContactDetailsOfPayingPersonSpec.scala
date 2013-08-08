@@ -43,9 +43,7 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification with Tags {
 
       val claim = Cache.getAs[Claim](claimKey).get
 
-      claim.questionGroup(ContactDetailsOfPayingPerson) must beLike {
-        case Some(ContactDetailsOfPayingPerson(_, None, None)) => true must beTrue
-      }
+      claim.questionGroup(ContactDetailsOfPayingPerson) must beSome(ContactDetailsOfPayingPerson(None, None))
     }
-  } section "unit"
+  } section("unit",models.domain.CareYouProvide.id)
 }

@@ -4,24 +4,21 @@ import language.reflectiveCalls
 import play.api.mvc.Controller
 import controllers.Mappings
 import models.view.CachedClaim
-import models.domain.{Claim, MoreAboutThePerson, PreviousCarerPersonalDetails}
+import models.domain.{MoreAboutThePerson, PreviousCarerPersonalDetails}
 import utils.helpers.CarersForm._
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 
-object G4PreviousCarerPersonalDetails extends Controller with CachedClaim {
+object G4PreviousCarerPersonalDetails extends Controller with CareYouProvideRouting with Mappings.Name with CachedClaim {
   val form = Form(
     mapping(
-      call(routes.G4PreviousCarerPersonalDetails.present()),
-      "firstName" -> optional(text(maxLength = sixty)),
-      "middleName" -> optional(text(maxLength = sixty)),
-      "surname" -> optional(text(maxLength = sixty)),
+      "firstName" -> optional(text(maxLength = maxLength)),
+      "middleName" -> optional(text(maxLength = maxLength)),
+      "surname" -> optional(text(maxLength = maxLength)),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOnly))
     )(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))
-
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(PreviousCarerPersonalDetails)
 
   def present = claiming { implicit claim => implicit request =>
     val claimedAllowanceBefore: Boolean = claim.questionGroup(MoreAboutThePerson) match {
@@ -30,7 +27,7 @@ object G4PreviousCarerPersonalDetails extends Controller with CachedClaim {
     }
 
     if (claimedAllowanceBefore) {
-      Ok(views.html.s4_care_you_provide.g4_previousCarerPersonalDetails(form.fill(PreviousCarerPersonalDetails), completedQuestionGroups))
+      Ok(views.html.s4_care_you_provide.g4_previousCarerPersonalDetails(form.fill(PreviousCarerPersonalDetails), completedQuestionGroups(PreviousCarerPersonalDetails)))
     } else {
       claim.delete(PreviousCarerPersonalDetails) -> Redirect(routes.G5PreviousCarerContactDetails.present())
     }
@@ -38,7 +35,7 @@ object G4PreviousCarerPersonalDetails extends Controller with CachedClaim {
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g4_previousCarerPersonalDetails(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g4_previousCarerPersonalDetails(formWithErrors, completedQuestionGroups(PreviousCarerPersonalDetails))),
       currentForm => claim.update(currentForm) -> Redirect(routes.G5PreviousCarerContactDetails.present()))
   }
 }

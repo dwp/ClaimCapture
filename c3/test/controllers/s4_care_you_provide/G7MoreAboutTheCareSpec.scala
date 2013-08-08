@@ -31,5 +31,5 @@ class G7MoreAboutTheCareSpec extends Specification with Tags {
       val result = G7MoreAboutTheCare.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section "unit"
+  } section("unit",models.domain.CareYouProvide.id)
 }

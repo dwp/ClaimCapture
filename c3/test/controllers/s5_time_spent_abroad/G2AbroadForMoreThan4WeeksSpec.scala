@@ -46,5 +46,5 @@ class G2AbroadForMoreThan4WeeksSpec extends Specification with Tags {
     "have no trips upon deleting a 4 week trip" in new WithApplication with Claiming {
       pending
     }
-  } section "unit"
+  } section("unit",models.domain.TimeSpentAbroad.id)
 }

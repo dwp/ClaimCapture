@@ -5,7 +5,6 @@ import models.Whereabouts
 import models.MultiLineAddress
 import models.NationalInsuranceNumber
 import yesNo.{YesNoWithDate, YesNoWithDropDownAndText, YesNoWithDropDown}
-import play.api.mvc.Call
 
 case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails, theirContactDetails: TheirContactDetails,
                           moreAboutThePerson: MoreAboutThePerson, representatives: RepresentativesForPerson,
@@ -17,88 +16,96 @@ case object CareYouProvide extends Section.Identifier {
   val id = "s4"
 }
 
-case class TheirPersonalDetails(call: Call,
-                                title: String, firstName: String, middleName: Option[String], surname: String,
-                                nationalInsuranceNumber: Option[NationalInsuranceNumber],
-                                dateOfBirth: DayMonthYear, liveAtSameAddress: String) extends QuestionGroup(TheirPersonalDetails)
+case class TheirPersonalDetails(title: String = "",
+                                firstName: String = "",
+                                middleName: Option[String] = None,
+                                surname: String = "",
+                                nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
+                                dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
+                                liveAtSameAddressCareYouProvide: String = "") extends QuestionGroup(TheirPersonalDetails) with NoRouting
 
 case object TheirPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g1"
 }
 
-case class TheirContactDetails(call: Call,
-                               address: MultiLineAddress, postcode: Option[String], phoneNumber: Option[String] = None) extends QuestionGroup(TheirContactDetails)
+case class TheirContactDetails(address: MultiLineAddress = MultiLineAddress(), postcode: Option[String] = None, phoneNumber: Option[String] = None) extends QuestionGroup(TheirContactDetails) with NoRouting
 
 case object TheirContactDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g2"
 }
 
-case class MoreAboutThePerson(call: Call,
-                              relationship: String, armedForcesPayment: Option[String], claimedAllowanceBefore: String) extends QuestionGroup(MoreAboutThePerson)
+case class MoreAboutThePerson(relationship: String = "", armedForcesPayment: Option[String] = None, claimedAllowanceBefore: String = "") extends QuestionGroup(MoreAboutThePerson) with NoRouting
 
 case object MoreAboutThePerson extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g3"
 }
 
-case class PreviousCarerPersonalDetails(call: Call,
-                                        firstName: Option[String], middleName: Option[String], surname: Option[String],
-                                        nationalInsuranceNumber: Option[NationalInsuranceNumber],
-                                        dateOfBirth: Option[DayMonthYear]) extends QuestionGroup(PreviousCarerPersonalDetails)
+case class PreviousCarerPersonalDetails(firstName: Option[String] = None, middleName: Option[String] = None, surname: Option[String] = None,
+                                        nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
+                                        dateOfBirth: Option[DayMonthYear] = None) extends QuestionGroup(PreviousCarerPersonalDetails) with NoRouting
 
 case object PreviousCarerPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g4"
 }
 
-case class PreviousCarerContactDetails(call: Call,
-                                       address: Option[MultiLineAddress], postcode: Option[String], phoneNumber: Option[String] = None,
-                                       mobileNumber: Option[String] = None) extends QuestionGroup(PreviousCarerContactDetails)
+case class PreviousCarerContactDetails(address: Option[MultiLineAddress] = None, postcode: Option[String] = None, phoneNumber: Option[String] = None,
+                                       mobileNumber: Option[String] = None) extends QuestionGroup(PreviousCarerContactDetails) with NoRouting
 
 case object PreviousCarerContactDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g5"
 }
 
-case class RepresentativesForPerson(call: Call,
-                                    youAct: YesNoWithDropDown, someoneElseAct:YesNoWithDropDownAndText) extends QuestionGroup(RepresentativesForPerson)
+case class RepresentativesForPerson(youAct: YesNoWithDropDown = YesNoWithDropDown("", None), someoneElseAct:YesNoWithDropDownAndText = YesNoWithDropDownAndText(None, None, None)) extends QuestionGroup(RepresentativesForPerson) with NoRouting
 
 case object RepresentativesForPerson extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g6"
+
+  def validate(input: RepresentativesForPerson): Boolean = input.youAct.answer match {
+    case "yes" => true
+    case "no" => input.someoneElseAct.answer.isDefined
+    case _ => false
+  }
 }
 
-case class MoreAboutTheCare(call: Call,
-                            spent35HoursCaring: String, spent35HoursCaringBeforeClaim:YesNoWithDate, hasSomeonePaidYou: String) extends QuestionGroup(MoreAboutTheCare)
+case class MoreAboutTheCare(spent35HoursCaring: String = "", spent35HoursCaringBeforeClaim:YesNoWithDate = YesNoWithDate("", None), hasSomeonePaidYou: String = "") extends QuestionGroup(MoreAboutTheCare) with NoRouting
 
 case object MoreAboutTheCare extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g7"
 }
 
-case class OneWhoPaysPersonalDetails(call: Call,
-                                     organisation: Option[String] = None, title: Option[String] = None,
-                                     firstName: Option[String] = None, middleName: Option[String] = None, surname: Option[String] = None,
-                                     amount: Option[String] = None, startDatePayment: Option[DayMonthYear] = None) extends QuestionGroup(OneWhoPaysPersonalDetails)
+case class OneWhoPaysPersonalDetails(organisation: Option[String] = None, title: Option[String] = None,
+                                     firstName: String = "", middleName: Option[String] = None, surname: String = "",
+                                     amount: String = "", startDatePayment: DayMonthYear) extends QuestionGroup(OneWhoPaysPersonalDetails) with NoRouting
 
 case object OneWhoPaysPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g8"
 }
 
-case class ContactDetailsOfPayingPerson(call: Call,
-                                        address: Option[MultiLineAddress], postcode: Option[String]) extends QuestionGroup(ContactDetailsOfPayingPerson)
+case class ContactDetailsOfPayingPerson(address: Option[MultiLineAddress] = None, postcode: Option[String] = None) extends QuestionGroup(ContactDetailsOfPayingPerson) with NoRouting
 
 case object ContactDetailsOfPayingPerson extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g9"
 }
 
-case class BreaksInCare(call: Call, breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare) {
+case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare) with NoRouting {
   def update(break: Break) = {
     val updated = breaks map { b => if (b.id == break.id) break else b }
 
-    if (updated.contains(break)) BreaksInCare(call, updated) else BreaksInCare(call, breaks :+ break)
+    if (updated.contains(break)) BreaksInCare(updated) else BreaksInCare(breaks :+ break)
   }
 
-  def delete(breakID: String) = BreaksInCare(call, breaks.filterNot(_.id == breakID))
+  def delete(breakID: String) = BreaksInCare(breaks.filterNot(_.id == breakID))
+
+  def hasBreaks = !breaks.isEmpty
 }
 
 case object BreaksInCare extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g10"
 }
 
-case class Break(id: String, start: DayMonthYear, end: Option[DayMonthYear], whereYou: Whereabouts, wherePerson: Whereabouts, medicalDuringBreak: String)
+case class Break(id: String = "",
+                 start: DayMonthYear = DayMonthYear(None, None, None),
+                 end: Option[DayMonthYear] = None,
+                 whereYou: Whereabouts = Whereabouts(),
+                 wherePerson: Whereabouts=Whereabouts(),
+                 medicalDuringBreak: String = "")

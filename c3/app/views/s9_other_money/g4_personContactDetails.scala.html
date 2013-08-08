@@ -1,0 +1,29 @@
+@(currentForm: Form[models.domain.PersonContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+
+@main("Contact Details - Other Money", Some(currentForm), completedQuestionGroups) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s9_other_money.routes.G4PersonContactDetails.submit) {
+
+        <fieldset class="form-elements">
+            <legend>Person's contact details</legend>
+
+            <ul class="group">
+                @inputAddress(currentForm("address"))
+
+                @carersInputText(currentForm("postcode"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.PersonContactDetails)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

@@ -6,7 +6,7 @@ import utils.pageobjects.s2_about_you.{G4ClaimDatePage, G3TimeOutsideUKPageConte
 import utils.pageobjects.ClaimScenario
 
 class G3TimeOutsideUKIntegrationSpec extends Specification with Tags {
-  "Time outside UK" should {
+  "About Your Time Outside The UK" should {
     "accept the minimal mandatory data" in new WithBrowser with G3TimeOutsideUKPageContext {
       val claim = new ClaimScenario
       claim.AboutYouAreYouCurrentlyLivingintheUk = "No"
@@ -34,5 +34,5 @@ class G3TimeOutsideUKIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
       nextPage must beAnInstanceOf[G4ClaimDatePage]
     }
-  } section "integration"
+  } section("integration",models.domain.AboutYou.id)
 }

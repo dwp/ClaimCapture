@@ -35,7 +35,7 @@ class XMLBusinessValidationSpec extends Specification {
 
       val errors = validator.validateXMLClaim(claim, xml, throwException = false)
       errors.nonEmpty must beTrue
-      errors(0) mustEqual "AboutYouFirstName Claimant>OtherNames value expected: [john] value read: [mickey]"
+      errors(0) mustEqual "AboutYouFirstName Claimant>OtherNames value expected: [john] within value read: [mickey]"
     }
 
     "be able to parse a claim from a file and check XML content is valid" in {

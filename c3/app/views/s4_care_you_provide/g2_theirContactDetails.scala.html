@@ -1,11 +1,11 @@
-@(currentForm: Form[models.domain.TheirContactDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.TheirContactDetails], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("Their Contact Details - Care You Provide", Some(currentForm), completedQuestionGroups) {
+@main("Contact details of the person you care for - About the care you provide", Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
@@ -24,7 +24,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@back(models.domain.TheirContactDetails)" class="button secondary">Back</a>
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

@@ -3,25 +3,22 @@ package controllers.s4_care_you_provide
 import play.api.mvc.Controller
 import play.api.data.Form
 import models.view.CachedClaim
-import models.domain._
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages
 import controllers.Mappings._
-import models.domain.Claim
+import models.domain.{MoreAboutTheCare, BreaksInCare, Claim}
 import models.yesNo.YesNo
-import controllers.s4_care_you_provide.CareYouProvide.breaksInCare
+import CareYouProvide.breaksInCare
 
-object G10BreaksInCare extends Controller with CachedClaim {
+object G10BreaksInCare extends Controller with CareYouProvideRouting with CachedClaim {
   val form = Form(
     mapping(
       "answer" -> nonEmptyText.verifying(validYesNo)
   )(YesNo.apply)(YesNo.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(BreaksInCare)
-
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s4_care_you_provide.g10_breaksInCare(form, breaksInCare, completedQuestionGroups, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim)))
+    Ok(views.html.s4_care_you_provide.g10_breaksInCare(form, breaksInCare, completedQuestionGroups(BreaksInCare), dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -34,7 +31,7 @@ object G10BreaksInCare extends Controller with CachedClaim {
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrors, breaksInCare, completedQuestionGroups, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim))),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrors, breaksInCare, completedQuestionGroups(BreaksInCare), dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim))),
       hasBreaks => claim.update(breaksInCare) -> next(hasBreaks))
   }
 

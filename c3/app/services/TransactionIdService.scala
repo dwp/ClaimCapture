@@ -1,6 +1,7 @@
 package services
 
 trait TransactionIdService {
+  var id:String // To assist testing the mock
   /**
    * Generate a new unique ID
    */

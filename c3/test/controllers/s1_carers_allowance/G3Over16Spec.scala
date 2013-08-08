@@ -1,40 +1,67 @@
 package controllers.s1_carers_allowance
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{WithApplication, FakeRequest}
+import org.specs2.mutable.{ Tags, Specification }
+import play.api.test.{ WithApplication, FakeRequest }
 import play.api.test.Helpers._
 import play.api.cache.Cache
+import java.util.concurrent.TimeUnit
 import models.domain._
-import models.domain.Section
 import models.domain.Claim
 
 class G3Over16Spec extends Specification with Tags {
-  """Can you get Carer's Allowance""" should {
-    "present the Are you aged 16 or over form" in new WithApplication with Claiming {
+  "Carer's Allowance - Over16 - Controller" should {
+    val answerYesNo = "yes"
+    val hoursInput = Seq("answer" -> answerYesNo)
+
+    "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val claimWithBenefit = Claim().update(Benefits(answer = true))
-      val claimWithHours = claimWithBenefit.update(Hours(answer = true))
-      Cache.set(claimKey, claimWithHours)
-
-      val result = G2Hours.present(request)
-
+      val result = controllers.s1_carers_allowance.G3Over16.present(request)
       status(result) mustEqual OK
-
-      val sectionIdentifier = Section.sectionIdentifier(Over16)
-      val completedQuestionGroups = claimWithHours.completedQuestionGroups(sectionIdentifier)
-
-      completedQuestionGroups(0) mustEqual Benefits(answer = true)
-      completedQuestionGroups(1) mustEqual Hours(answer = true)
     }
 
-    "acknowledge that carer is aged 16 or over" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("answer" -> "true", "action" -> "next")
-      G3Over16.submit(request)
+    "missing mandatory field" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody("answer" -> "")
 
+      val result = controllers.s1_carers_allowance.G3Over16.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "redirect to the next page after a valid submission" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(hoursInput: _*)
+
+      val result = controllers.s1_carers_allowance.G3Over16.submit(request)
+      status(result) mustEqual SEE_OTHER
+    }
+
+    "add submitted form to the cached claim when answered 'yes'" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody(hoursInput: _*)
+
+      val result = controllers.s1_carers_allowance.G3Over16.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-
-      claim.questionGroup(Over16) must beLike { case Some(o: Over16) => o.answer must beTrue }
+      val section: Section = claim.section(models.domain.CarersAllowance)
+      section.questionGroup(Over16) must beLike {
+        case Some(f: Over16) => {
+          f.answerYesNo must equalTo(answerYesNo)
+        }
+      }
     }
-  } section "unit"
+
+    "add submitted form to the cached claim when answered 'no'" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession("connected" -> claimKey)
+        .withFormUrlEncodedBody("answer" -> "no")
+
+      val result = controllers.s1_carers_allowance.G3Over16.submit(request)
+      val claim = Cache.getAs[Claim](claimKey).get
+      val section: Section = claim.section(models.domain.CarersAllowance)
+      section.questionGroup(Over16) must beLike {
+        case Some(f: Over16) => {
+          f.answerYesNo must equalTo("no")
+        }
+      }
+    }
+  } section("unit",models.domain.CarersAllowance.id)
 }

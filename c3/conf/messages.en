@@ -1,6 +1,6 @@
 s1.name = Eligibility
 s2.name = About you
-s3.name = Your Partner
+s3.name = Partner/Spouse
 s4.name = Care you provide
 s5.name = Abroad
 s6.name = Education
@@ -94,6 +94,12 @@ s11.g4 = Declaration
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...
 
+## CARERS ALLOWANCE
+################
+benefits.answer = Does the person you look after get one of these benefits?
+hours.answer = Do you spend 35 hours or more each week caring for the person you look after?
+over16.answer = Are you aged 16 or over?
+livesInGB.answer = Do you normally live in Great Britain?
 
 ## ABOUT YOU
 
@@ -124,9 +130,10 @@ firstName.error = Please fill your first name
 
 # CONTACT DETAILS
 address = Address
+error.missingLineOne = Missing first line
 postcode = Postcode
 postcode.content = Postcode
-phoneNumber = Daytime phone number
+phoneNumber = Daytime Telephone number
 mobileNumber = Mobile number
 postcode.placeHolder = eg: PR2 8AE
 error.postcode = A post code must be in the format PR2 8AE
@@ -183,7 +190,8 @@ isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming C
 ## CARE YOU PROVIDE
 
 # THEIR PERSONAL DETAILS
-liveAtSameAddress = Does your partner/spouse live at the same address as you?
+liveAtSameAddressCareYouProvide = Do they live at the same address as you?
+liveAtSameAddress = Does your Partner/Spouse live at the same address as you?
 
 # MORE ABOUT THE PERSON
 relationship = What''s their relationship to you?
@@ -206,7 +214,7 @@ organisation = Organisation
 amount = How much do you get paid a week?
 startDatePayment = When did the payments start?
 poundSign = £
-decimal.invalid = The amount must be in the format 500 or 500.5
+decimal.invalid = The amount must be in the format 500 or 500.5 or 500.55
 
 # MORE ABOUT THE CARE
 spent35HoursCaring = Do you spend 35 hours or more each week caring for this person?
@@ -269,7 +277,7 @@ expectedEndDate = When do you expect the course to end?
 finishedDate = If you are no longer on the course, when did you finish?
 studentReferenceNumber = Your student reference number
 nameOfSchoolCollegeOrUniversity = Name of school, college or university
-nameOfMainTeacherOrTutor = Name of main teacher or tutor
+nameOfMainTeacherOrTutor = Name of main Teacher or Tutor
 faxNumber = Fax number
 
 

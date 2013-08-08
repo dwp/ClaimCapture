@@ -6,22 +6,21 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain.Over16
-import CarersAllowance._
+import language.reflectiveCalls
+import controllers.Mappings._
 
-object G3Over16 extends Controller with CachedClaim {
+object G3Over16 extends Controller with CarersAllowanceRouting with CachedClaim {
   val form = Form(
     mapping(
-      "answer" -> boolean
-    )(Over16.apply)(Over16.unapply))
+      "answer" -> nonEmptyText.verifying(validYesNo))(Over16.apply)(Over16.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    if (CarersAllowance.claiming(Over16, claim)) Ok(views.html.s1_carers_allowance.g3_over16(confirmed = true, completedQuestionGroups(Over16)))
-    else Ok(views.html.s1_carers_allowance.g3_over16(confirmed = false, completedQuestionGroups(Over16)))
+    Ok(views.html.s1_carers_allowance.g3_over16(form.fill(Over16), completedQuestionGroups(Over16)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => Redirect(routes.G3Over16.present()),
-      over16 => claim.update(over16) -> Redirect(routes.G4LivesInGB.present()))
+      formWithErrors => BadRequest(views.html.s1_carers_allowance.g3_over16(formWithErrors, completedQuestionGroups(Over16))),
+      f => claim.update(f) -> Redirect(routes.G4LivesInGB.present()))
   }
 }

@@ -63,5 +63,5 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
       val result = G3MoreAboutYourPartner.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section "unit"
+  } section("unit",models.domain.YourPartner.id)
 }

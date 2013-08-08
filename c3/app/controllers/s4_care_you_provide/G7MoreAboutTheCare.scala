@@ -1,7 +1,7 @@
 package controllers.s4_care_you_provide
 
 import language.reflectiveCalls
-import models.domain.{Claim, MoreAboutTheCare}
+import models.domain.MoreAboutTheCare
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import controllers.Mappings._
@@ -10,7 +10,7 @@ import models.view.CachedClaim
 import play.api.mvc.Controller
 import models.yesNo.YesNoWithDate
 
-object G7MoreAboutTheCare extends Controller with CachedClaim {
+object G7MoreAboutTheCare extends Controller with CareYouProvideRouting with CachedClaim {
   val careMapping =
     "beforeClaimCaring" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -20,23 +20,20 @@ object G7MoreAboutTheCare extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      call(routes.G7MoreAboutTheCare.present()),
       "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
       careMapping,
       "hasSomeonePaidYou" -> nonEmptyText.verifying(validYesNo)
     )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoreAboutTheCare)
-
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s4_care_you_provide.g7_moreAboutTheCare(form.fill(MoreAboutTheCare), completedQuestionGroups))
+    Ok(views.html.s4_care_you_provide.g7_moreAboutTheCare(form.fill(MoreAboutTheCare), completedQuestionGroups(MoreAboutTheCare)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("beforeClaimCaring", FormError("beforeClaimCaring.date", "error.required"))
-        BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrorsUpdate, completedQuestionGroups))
+        BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrorsUpdate, completedQuestionGroups(MoreAboutTheCare)))
       },
       moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(routes.G8OneWhoPaysPersonalDetails.present())
     )

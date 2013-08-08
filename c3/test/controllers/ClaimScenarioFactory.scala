@@ -52,7 +52,7 @@ object ClaimScenarioFactory {
     claim.AboutYouDoYouGetStatePension = "Yes"
     // Employment
     claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "Yes"
-    claim.AboutYouHaveYouBeenEmployedAtAnyTime = "Yes"
+    claim.AboutYouHaveYouBeenEmployedAtAnyTime_1 = "Yes"
     // Property and Rent
     claim.AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand = "Yes"
     claim.AboutYouHaveYouOrYourPartnerSubletYourHome = "Yes"
@@ -76,7 +76,7 @@ object ClaimScenarioFactory {
     claim.AboutYouDoYouGetStatePension = "no"
     // Employment
     claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "no"
-    claim.AboutYouHaveYouBeenEmployedAtAnyTime = "no"
+    claim.AboutYouHaveYouBeenEmployedAtAnyTime_1 = "no"
     // Property and Rent
     claim.AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand = "no"
     claim.AboutYouHaveYouOrYourPartnerSubletYourHome = "no"
@@ -264,7 +264,7 @@ object ClaimScenarioFactory {
     val claim = s9SelfEmploymentAccountantContactDetails
 
     claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
-    claim.SelfEmployedHowMuchPayPensionExpenses = "11"
+    claim.SelfEmployedHowMuchYouPayTowardsPensionScheme = "11.2"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
 
@@ -274,7 +274,22 @@ object ClaimScenarioFactory {
   def s9SelfEmploymentChildCareExpenses = {
     val claim = s9SelfEmploymentPensionsAndExpenses
 
+    claim.SelfEmployedChildcareExpensesHowMuchYouPay = "123456"
     claim.SelfEmployedChildcareProviderNameOfPerson = "hello123"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "son"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "son"
+    claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "son"
+    claim
+  }
+
+  def s9SelfEmploymentExpensesRelatedToPersonYouCareFor = {
+    val claim = s9SelfEmploymentChildCareExpenses
+
+    claim.SelfEmployedCareExpensesHowMuchYouPay = "900.9"
+    claim.SelfEmployedCareExpensesNameOfPerson = "John"
+    claim.SelfEmployedCareExpensesWhatRelationIsToYou = "grandSon"
+    claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "son"
+
     claim
   }
 

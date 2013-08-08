@@ -8,7 +8,7 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
   "Your Partner Contact Details" should {
     "be presented" in new WithBrowser {
       browser.goTo("/yourPartner/contactDetails")
-      browser.title mustEqual "Contact Details - Your Partner"
+      browser.title mustEqual "Contact Details - About your partner/spouse"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -26,7 +26,7 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
     "be prepopulated if they live at same address" in new WithBrowser {
       Formulate.yourContactDetails(browser)
       Formulate.yourPartnerPersonalDetails(browser)
-      browser.title mustEqual "Contact Details - Your Partner"
+      browser.title mustEqual "Contact Details - About your partner/spouse"
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
@@ -34,7 +34,7 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
     "be blank if they live at different address" in new WithBrowser {
       Formulate.yourContactDetails(browser)
       Formulate.yourPartnerPersonalDetailsNotLiveAtSameAddress(browser)
-      browser.title mustEqual "Contact Details - Your Partner"
+      browser.title mustEqual "Contact Details - About your partner/spouse"
       browser.find("#address_lineOne").getValue mustEqual ""
       browser.find("#postcode").getValue mustEqual ""
     }
@@ -47,32 +47,32 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
 
     "navigate back to Your Partner Personal Details" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Contact Details - Your Partner")
+      titleMustEqual("Contact Details - About your partner/spouse")
 
       browser.goTo("/yourPartner/contactDetails")
       browser.click("#backButton")
-      titleMustEqual("Personal Details - Your Partner")
+      titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
     }
 
     "navigate to next page on valid submission" in new WithBrowser {
       Formulate.yourPartnerContactDetails(browser)
-      browser.title mustEqual "More About Your Partner - Your Partner"
+      browser.title mustEqual "More About Your Partner/Spouse - About Your Partner/Spouse"
     }
 
     "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerContactDetails(browser)
-      titleMustEqual("More About Your Partner - Your Partner")
+      titleMustEqual("More About Your Partner/Spouse - About Your Partner/Spouse")
       browser.click("#backButton")
-      titleMustEqual("Contact Details - Your Partner")
+      titleMustEqual("Contact Details - About your partner/spouse")
       browser.find("#address_lineOne").getValue mustEqual Formulate.partnerAddress
       browser.find("#postcode").getValue mustEqual Formulate.partnerPostcode
 
       Formulate.yourContactDetails(browser)
       Formulate.yourPartnerPersonalDetails(browser)
 
-      titleMustEqual("Contact Details - Your Partner")
+      titleMustEqual("Contact Details - About your partner/spouse")
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
-  }  section "integration"
+  }  section("integration",models.domain.YourPartner.id)
 }

@@ -13,6 +13,8 @@ class EmploymentIntegrationSpec extends Specification with Tags {
 
     """progress to next section i.e. "self employed".""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/completed")
+      titleMustEqual("Completion - Employment")
+
       browser.submit("button[type='submit']")
       titleMustEqual("Self Employment - About Self Employment")
     }
@@ -21,18 +23,21 @@ class EmploymentIntegrationSpec extends Specification with Tags {
       beginClaim
 
       browser.goTo("/employment/completed")
+      titleMustEqual("Completion - Employment")
 
       browser.click("#backButton")
       titleMustEqual("Your employment history - Employment")
     }
-  } section "integration"
+  } section("integration",models.domain.Employed.id)
 }
 
 trait EmployedSinceClaimDate extends BrowserMatchers {
   this: WithBrowser[_] =>
 
-  def beginClaim(): Unit = {
+  def beginClaim = {
     Formulate.claimDate(browser)
+    titleMustEqual("More About You - About You")
+
     Formulate.employment(browser)
     titleMustEqual("Property and Rent - About You")
   }
@@ -41,7 +46,7 @@ trait EmployedSinceClaimDate extends BrowserMatchers {
 trait NotEmployedSinceClaimDate extends BrowserMatchers {
   this: WithBrowser[_] =>
 
-  def beginClaim(): Unit = {
+  def beginClaim = {
     Formulate.claimDate(browser)
 
     browser.goTo("/aboutyou/employment")

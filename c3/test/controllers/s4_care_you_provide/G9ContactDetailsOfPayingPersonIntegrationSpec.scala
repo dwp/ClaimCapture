@@ -33,5 +33,5 @@ class G9ContactDetailsOfPayingPersonIntegrationSpec extends Specification with T
       browser.click("#backButton")
       browser.$("#postcode").getValue mustEqual "BLAH"*/
     }
-  } section "integration"
+  } section("integration",models.domain.CareYouProvide.id)
 }

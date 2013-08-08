@@ -6,13 +6,13 @@ import scala.collection.mutable
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s3_your_partner._
-import utils.pageobjects.s9_self_employment._
+import utils.pageobjects.s8_self_employment._
 import utils.pageobjects.s4_care_you_provide._
 import utils.pageobjects.s5_time_spent_abroad._
-import utils.pageobjects.s9_pay_details._
+import utils.pageobjects.s10_pay_details._
 import utils.pageobjects.s7_employment._
-import utils.pageobjects.s8_other_money._
-import utils.pageobjects.S10_consent_and_declaration._
+import utils.pageobjects.s9_other_money._
+import utils.pageobjects.S11_consent_and_declaration._
 import utils.pageobjects.s6_education._
 
 /**
@@ -32,7 +32,7 @@ object PageFactory {
       case G1BenefitsPage.title => G1BenefitsPage buildPageWith(browser, previousPage)
       case G2HoursPage.title => G2HoursPage buildPageWith(browser, previousPage)
       case G3Over16Page.title => G3Over16Page buildPageWith(browser, previousPage)
-      case G4LivingInGBPage.title => G4LivingInGBPage buildPageWith(browser, previousPage)
+      case G4LivesInGBPage.title => G4LivesInGBPage buildPageWith(browser, previousPage)
       case G5CarersResponsePage.title => G5CarersResponsePage buildPageWith(browser, previousPage)
       case G6ApprovePage.title => G6ApprovePage buildPageWith(browser, previousPage)
       // S2
@@ -53,7 +53,7 @@ object PageFactory {
       // S4
       case G1TheirPersonalDetailsPage.title => G1TheirPersonalDetailsPage buildPageWith(browser, previousPage)
       case G2TheirContactDetailsPage.title => G2TheirContactDetailsPage buildPageWith(browser, previousPage)
-      case G3MoreAboutThePersonPage.title => G3MoreAboutThePersonPage buildPageWith(browser, previousPage)
+      case G3RelationshipAndOtherClaimsPage.title => G3RelationshipAndOtherClaimsPage buildPageWith(browser, previousPage)
       case G4PreviousCarerPersonalDetailsPage.title => G4PreviousCarerPersonalDetailsPage buildPageWith(browser, previousPage)
       case G5PreviousCarerContactDetailsPage.title => G5PreviousCarerContactDetailsPage buildPageWith(browser, previousPage)
       case G6RepresentativesForThePersonPage.title => G6RepresentativesForThePersonPage buildPageWith(browser, previousPage)
@@ -74,7 +74,7 @@ object PageFactory {
       case G2AddressOfSchoolCollegeOrUniversityPage.title => G2AddressOfSchoolCollegeOrUniversityPage buildPageWith(browser,previousPage)
       case G3EducationCompletedPage.title => G3EducationCompletedPage buildPageWith(browser,previousPage)
       // S7
-      case G1BeenEmployedPage.title => G1BeenEmployedPage buildPageWith(browser,previousPage)
+      case G1BeenEmployedPage.title => G1BeenEmployedPage buildPageWith(browser,previousPage,iteration)
       case G2JobDetailsPage.title => G2JobDetailsPage buildPageWith(browser,previousPage,iteration)
       case G3EmployerContactDetailsPage.title => G3EmployerContactDetailsPage buildPageWith(browser,previousPage,iteration)
       case G4LastWagePage.title => G4LastWagePage buildPageWith(browser,previousPage,iteration)
@@ -111,7 +111,7 @@ object PageFactory {
       case G6ChildcareProvidersContactDetailsPage.title => G6ChildcareProvidersContactDetailsPage buildPageWith(browser, previousPage)
       case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage buildPageWith(browser, previousPage)
       case G8CareProvidersContactDetailsPage.title => G8CareProvidersContactDetailsPage buildPageWith(browser, previousPage)
-      case s9_self_employment.G9CompletedPage.title => s9_self_employment.G9CompletedPage buildPageWith(browser, previousPage)
+      case s8_self_employment.G9CompletedPage.title => s8_self_employment.G9CompletedPage buildPageWith(browser, previousPage)
       // S10
       case G1AdditionalInfoPage.title => G1AdditionalInfoPage buildPageWith(browser,previousPage)
       case G2ConsentPage.title => G2ConsentPage buildPageWith(browser,previousPage)

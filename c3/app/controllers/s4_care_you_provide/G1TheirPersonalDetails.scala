@@ -8,20 +8,18 @@ import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
+import controllers.Mappings
 
-object G1TheirPersonalDetails extends Controller with CachedClaim {
-  val formCall = routes.G1TheirPersonalDetails.present()
-
+object G1TheirPersonalDetails extends Controller with Mappings.Name with CachedClaim {
   val form = Form(
     mapping(
-      call(formCall),
       "title" -> nonEmptyText(maxLength = 4),
-      "firstName" -> nonEmptyText(maxLength = sixty),
-      "middleName" -> optional(text(maxLength = sixty)),
-      "surname" -> nonEmptyText(maxLength = sixty),
+      "firstName" -> nonEmptyText(maxLength = maxLength),
+      "middleName" -> optional(text(maxLength = maxLength)),
+      "surname" -> nonEmptyText(maxLength = maxLength),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
-      "liveAtSameAddress" -> nonEmptyText.verifying(validYesNo)
+      "liveAtSameAddressCareYouProvide" -> nonEmptyText.verifying(validYesNo)
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
@@ -35,10 +33,9 @@ object G1TheirPersonalDetails extends Controller with CachedClaim {
     val currentForm = if (isPartnerPersonYouCareFor) {
       claim.questionGroup(YourPartnerPersonalDetails) match {
         case Some(t: YourPartnerPersonalDetails) =>
-          form.fill(TheirPersonalDetails(formCall,
-                                         title = t.title, firstName = t.firstName, middleName = t.middleName, surname = t.surname,
+          form.fill(TheirPersonalDetails(title = t.title, firstName = t.firstName, middleName = t.middleName, surname = t.surname,
                                          nationalInsuranceNumber = t.nationalInsuranceNumber,
-                                         dateOfBirth = t.dateOfBirth, liveAtSameAddress = t.liveAtSameAddress)) // Pre-populate form with values from YourPartnerPersonalDetails
+                                         dateOfBirth = t.dateOfBirth, liveAtSameAddressCareYouProvide = t.liveAtSameAddress)) // Pre-populate form with values from YourPartnerPersonalDetails
         case _ => form // Blank form (user can only get here if they skip sections by manually typing URL).
       }
     } else {

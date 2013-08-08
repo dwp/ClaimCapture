@@ -51,5 +51,5 @@ class G1BeenEmployedSpec extends Specification with Tags {
       val result = G1BeenEmployed.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
-  } section "unit"
+  } section("unit",models.domain.Employed.id)
 }

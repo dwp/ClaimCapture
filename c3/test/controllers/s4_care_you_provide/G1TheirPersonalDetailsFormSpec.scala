@@ -16,7 +16,7 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.day" -> "3",
           "dateOfBirth.month" -> "4",
           "dateOfBirth.year" -> "1980",
-          "liveAtSameAddress" -> "yes"
+          "liveAtSameAddressCareYouProvide" -> "yes"
         )
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
@@ -26,7 +26,7 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
           theirPersonalDetails.middleName must equalTo(Some("Mc"))
           theirPersonalDetails.surname must equalTo("Donald")
           theirPersonalDetails.dateOfBirth must equalTo(DayMonthYear(Some(3), Some(4), Some(1980), None, None))
-          theirPersonalDetails.liveAtSameAddress must equalTo("yes")
+          theirPersonalDetails.liveAtSameAddressCareYouProvide must equalTo("yes")
         }
       )
     }
@@ -40,7 +40,7 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.day" -> "1",
           "dateOfBirth.month" -> "1",
           "dateOfBirth.year" -> "1980",
-          "liveAtSameAddress" -> "yes"
+          "liveAtSameAddressCareYouProvide" -> "yes"
         )
       ).fold(
         formWithErrors => {
@@ -67,5 +67,5 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section "unit"
+  } section("unit",models.domain.CareYouProvide.id)
 }

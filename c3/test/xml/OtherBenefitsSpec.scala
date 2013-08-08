@@ -46,7 +46,7 @@ class OtherBenefitsSpec extends Specification with Tags {
       (extraMoneyDetailsXml \\ "RecipientAddress" \\ "Line").theSeq(1).text mustEqual address.get.lineTwo.get
       (extraMoneyDetailsXml \\ "RecipientAddress" \\ "Line").theSeq(2).text mustEqual address.get.lineThree.get
       (extraMoneyDetailsXml \\ "RecipientAddress" \\ "PostCode").text mustEqual postcode.get
-      (extraMoneyDetailsXml \\ "ReferenceNumber").text mustEqual nationalInsuranceNr.toXmlString
+      (extraMoneyDetailsXml \\ "ReferenceNumber").text mustEqual nationalInsuranceNr.stringify
 
       (otherBenefitsXml \\ "OtherMoneySSP").text mustEqual yes
       val otherMoneySSPDetailsXml = otherBenefitsXml \\ "OtherMoneySSPDetails"
@@ -72,13 +72,13 @@ class OtherBenefitsSpec extends Specification with Tags {
 
       val extraMoneyXml = otherMoneyXml \\ "ExtraMoney"
       extraMoneyXml.text shouldEqual no
-      (otherMoneyXml \\ "ExtraMoneyDetails").text mustEqual ""
+      (otherMoneyXml \\ "ExtraMoneyDetails").text must beEmpty
 
       (otherMoneyXml \\ "OtherMoneySSP").text mustEqual no
-      (otherMoneyXml \\ "OtherMoneySSPDetails").text mustEqual ""
+      (otherMoneyXml \\ "OtherMoneySSPDetails").text must beEmpty
 
       (otherMoneyXml \\ "OtherMoneySMP").text mustEqual no
-      (otherMoneyXml \\ "OtherMoneySMPDetails").text mustEqual ""
+      (otherMoneyXml \\ "OtherMoneySMPDetails").text must beEmpty
     }
   } section "unit"
 }
