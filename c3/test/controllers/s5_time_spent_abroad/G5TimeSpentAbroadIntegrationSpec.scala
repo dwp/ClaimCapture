@@ -36,7 +36,7 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
 
     "show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
-      titleMustEqual("Benefits - Carer's Allowance")
+      titleMustEqual("Benefits - Can you get Carer's Allowance?")
 
       Formulate.yourCourseDetails(browser)
       titleMustEqual("Address Of School College Or University - Education")

@@ -22,7 +22,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       
       browser.find("#submit").getText mustEqual "Continue to Partner/Spouse"
       browser.submit("button[type='submit']")
-      titleMustEqual("Personal Details - Your Partner")
+      titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
     }
     
     """navigate to "Care You Provide" when next section is "Care You Provide"""" in new WithBrowser with BrowserMatchers {

@@ -9,7 +9,7 @@ class G5CompletedIntegrationSpec extends Specification with Tags {
   "Your Partner" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/yourPartner/completed")
-      titleMustEqual("Completion - Your Partner")
+      titleMustEqual("Completion - About Your Partner/Spouse")
     }
 
     """navigate to "Care you provide" page.""" in new WithBrowser with BrowserMatchers {
@@ -24,7 +24,7 @@ class G5CompletedIntegrationSpec extends Specification with Tags {
       Formulate.yourPartnerContactDetails(browser)
       Formulate.moreAboutYourPartnerSeparated(browser)
       Formulate.personYouCareFor(browser)
-      titleMustEqual("Completion - Your Partner")
+      titleMustEqual("Completion - About Your Partner/Spouse")
       browser.find("div[class=completed] ul li").size() mustEqual 4
     }
 

@@ -8,7 +8,7 @@ final class G3Over16Page(browser: TestBrowser, previousPage: Option[Page] = None
 }
 
 object G3Over16Page {
-  val title = "Over 16 - Carer's Allowance"
+  val title = "Over 16 - Can you get Carer's Allowance?"
   val url = "/allowance/over16"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3Over16Page(browser, previousPage)

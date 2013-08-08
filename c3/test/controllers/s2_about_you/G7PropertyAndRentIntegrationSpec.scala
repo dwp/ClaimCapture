@@ -9,7 +9,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
   "Property and Rent" should {
     "present Benefits when there is no claim date" in new WithBrowser {
       browser.goTo("/aboutyou/propertyAndRent")
-      browser.title mustEqual "Benefits - Carer's Allowance"
+      browser.title mustEqual "Benefits - Can you get Carer's Allowance?"
     }
 
     "be presented when there is a claim date" in new WithBrowser {
