@@ -27,7 +27,7 @@ object Claimant {
         <Qualifier/>
       </DaytimePhoneNumber>
       <EmailAddress/>
-      <ClaimedBefore>no</ClaimedBefore>
+      <ClaimedBefore>Not asked</ClaimedBefore>
     </Claimant>
   }
 }
