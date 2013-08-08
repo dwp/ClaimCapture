@@ -181,23 +181,23 @@ Employment,About expenses to do with your employment,"While at work, [[past=did 
 Employment,About expenses to do with your employment,Is this the same as the other job you have told us about?,EmploymentIsThistheSameAsTheOtherJobChild,
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after the person you normally care for?",EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor,Employment>JobDetails>CareExpensesCaree
 Employment,About expenses to do with your employment,Is this the same as the other job you have told us about?,EmploymentIsThistheSameAsTheOtherJobPersonYouCareFor,
-Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses_1,JobExpensesStructure>Expense
-Employment,Necessary expenses to do your job,Why [[past=did you]] [[present=do you]] need these things to do your job?,EmploymentWhyYouNeedTheseExpensesToDoYourJob_1,JobExpensesStructure>Reason
-Employment,Necessary expenses to do your job,How much did these things cost you each week?,EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1,JobExpensesStructure>WeeklyPayment
+Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses_1,JobExpenses>Expense
+Employment,Necessary expenses to do your job,Why [[past=did you]] [[present=do you]] need these things to do your job?,EmploymentWhyYouNeedTheseExpensesToDoYourJob_1,JobExpenses>Reason
+Employment,Necessary expenses to do your job,How much did these things cost you each week?,EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1,JobExpenses>WeeklyPayment
 Employment,Necessary expenses to do your job,[[past=Did you]] [[present=Do you]] pay for anything else necessary to do your job?,EmploymentDoYouPayforAnythingelseNecessaryToDoYourJob_1,
 Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor,Employment>JobDetails>ChildCareExpenses>WeeklyPayment>Amount
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild,Employment>JobDetails>ChildCareExpenses>CarerName
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToClaimant
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToPartner
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor,Employment>JobDetails>ChildCareExpenses>ChildDetails>RelationToChild
-Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider,Employment>JobDetails>ChildCareExpenses>CarerAddress
+Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider,Employment>JobDetails>ChildCareExpenses>CarerAddress>Line
 Employment,Childcare provider's contact details,Postcode,EmploymentPostcodeChildcareProvider,Employment>JobDetails>ChildCareExpenses>CarerAddress>PostCode
 Employment,Childcare provider's contact details,Do you pay anyone else to look after your child/children while at work?,EmploymentDoYouPayAnyoneelsetoLookAfterYourChild,
 Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor,Employment>JobDetails>CareExpenses>WeeklyPayment>Amount
 Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring,Employment>JobDetails>CareExpenses>CarerName
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou,Employment>JobDetails>CareExpenses>RelationshipCarerToClaimant
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor,Employment>JobDetails>CareExpenses>RelationshipCarerToCaree
-Employment,Care providers contact Details,Address,EmploymentAddressCareProvider,Employment>JobDetails>CareExpenses>CarerAddress
+Employment,Care providers contact Details,Address,EmploymentAddressCareProvider,Employment>JobDetails>CareExpenses>CarerAddress>Line
 Employment,Care providers contact Details,Postcode,EmploymentPostcodeCareProvider,Employment>JobDetails>CareExpenses>CarerAddress>PostCode
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouHadAnotherJobatAnyTimeSinceClaim6Months,
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,
@@ -246,13 +246,13 @@ Self Employed,Childcare expenses while you are at work,Name of the person/organi
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to you?",SelfEmployedChildcareProviderWhatRelationIsToYou,SelfEmployment>ChildCareExpenses>RelationshipCarerToClaimant
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",SelfEmployedChildcareProviderWhatRelationIsToYourPartner,SelfEmployment>ChildCareExpenses>RelationshipCarerToPartner
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor,SelfEmployment>ChildCareExpenses>ChildDetails>RelationToChild
-Self Employed,Childcare provider's contact details,Address,SelfEmployedChildcareProviderAddress,SelfEmployment>ChildCareExpenses>CarerAddress
+Self Employed,Childcare provider's contact details,Address,SelfEmployedChildcareProviderAddress,SelfEmployment>ChildCareExpenses>CarerAddress>Line
 Self Employed,Childcare provider's contact details,Postcode,SelfEmployedChildcareProviderPostcode,SelfEmployment>ChildCareExpenses>CarerAddress>PostCode
 Self Employed,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedCareExpensesHowMuchYouPay,SelfEmployment>CareExpenses>WeeklyPayment>Amount
 Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,SelfEmployment>CareExpenses>CarerName
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",SelfEmployedCareExpensesWhatRelationIsToYou,SelfEmployment>CareExpenses>RelationshipCarerToClaimant
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,SelfEmployment>CareExpenses>RelationshipCarerToCaree
-Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,SelfEmployment>CareExpenses>CarerAddress
+Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,SelfEmployment>CareExpenses>CarerAddress>Line
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,SelfEmployment>CareExpenses>CarerAddress>PostCode
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,
 Other Money,Details about other money,Please tell us the names of the benefits or entitlements you receive,OtherMoneyTellUsNamesBenefitsYouReceived,
