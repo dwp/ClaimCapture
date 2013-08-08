@@ -24,5 +24,5 @@ class G5CompletedSpec extends Specification with Tags {
       val result = controllers.s3_your_partner.YourPartner.completedSubmit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section "unit"
+  } section("unit",models.domain.YourPartner.id)
 }
