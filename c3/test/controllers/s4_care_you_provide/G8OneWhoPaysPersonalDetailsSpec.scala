@@ -41,5 +41,5 @@ class G8OneWhoPaysPersonalDetailsSpec extends Specification with Tags {
       val result = G8OneWhoPaysPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section "unit"
+  } section("unit",models.domain.CareYouProvide.id)
 }

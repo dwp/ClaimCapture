@@ -48,5 +48,5 @@ class G2TheirContactDetailsFormSpec extends Specification with Tags {
         theirContactDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section "unit"
+  } section("unit",models.domain.CareYouProvide.id)
 }

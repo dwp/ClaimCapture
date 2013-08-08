@@ -103,5 +103,5 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       findMustEqualValue("#address_lineOne", Formulate.partnerAddress)
       browser.find("#postcode").getValue mustEqual Formulate.partnerPostcode
     }
-  } section "integration"
+  } section("integration",models.domain.CareYouProvide.id)
 }
