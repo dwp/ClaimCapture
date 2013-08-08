@@ -8,7 +8,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
   "Your Course Details Page" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/yourCourseDetails")
-      titleMustEqual("Your Course Details - Education")
+      titleMustEqual("Your Course Details - About your education")
     }
 
     "not be presented if section not visible" in new WithBrowser with BrowserMatchers {
@@ -16,7 +16,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
       browser.goTo("/education/yourCourseDetails")
 
-      titleMustNotEqual("Your Course Details - Education")
+      titleMustNotEqual("Your Course Details - About your education")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -30,20 +30,20 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       browser.goTo("/education/yourCourseDetails")
       Formulate.yourCourseDetails(browser)
 
-      titleMustEqual("Address Of School College Or University - Education")
+      titleMustEqual("School, college or university's contact details - About your education")
     }
 
     "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/yourCourseDetails")
       browser.submit("button[type='submit']")
 
-      titleMustEqual("Address Of School College Or University - Education")
+      titleMustEqual("School, college or university's contact details - About your education")
     }
 
     "navigate back" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/yourCourseDetails")
       browser.click("#backButton")
-      titleMustNotEqual("Your Course Details - Education")
+      titleMustNotEqual("Your Course Details - About your education")
     }
 
   } section("integration",models.domain.Education.id)

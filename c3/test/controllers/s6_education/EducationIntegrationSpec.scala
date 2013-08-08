@@ -27,7 +27,7 @@ class EducationIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - Education")
 
       browser.click("#backButton")
-      titleMustEqual("Address Of School College Or University - Education")
+      titleMustEqual("School, college or university's contact details - About your education")
     }
 
     "show the text 'Continue to Other Money' on the submit button when next section is 'Other Money'" in new WithBrowser with BrowserMatchers {

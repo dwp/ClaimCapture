@@ -3,7 +3,7 @@
 @import helper._
 @import models.domain.YourCourseDetails
 
-@main("Completion - Education", None, completedQuestionGroups) {
+@main("Completion - About your education", None, completedQuestionGroups) {
     @form(action = controllers.s6_education.routes.Education.completedSubmit) {
         <nav class="form-steps">
             <a href="@controllers.s6_education.routes.G2AddressOfSchoolCollegeOrUniversity.present" class="button secondary" id="backButton">Back</a>
