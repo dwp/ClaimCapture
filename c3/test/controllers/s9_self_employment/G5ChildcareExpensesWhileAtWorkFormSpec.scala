@@ -8,7 +8,7 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
   "About Self Employment - Child care expenses while at work Form" should {
 
     "map data into case class" in {
-      G5ChildcareExpensesWhileAtWork.form.bind(
+      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()).bind(
         Map("howMuchYouPay" -> "12344455",
           "whoLooksAfterChildren" -> "myself",
           "whatRelationIsToYou" -> "son",
@@ -17,13 +17,13 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.howMuchYouPay must equalTo(Some("12344455"))
+          f.howMuchYouPay must equalTo("12344455")
         }
       )
     }
 
     "reject if whoLooksAfterChildren is not filled" in {
-      G5ChildcareExpensesWhileAtWork.form.bind(
+      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()).bind(
         Map(
           "whoLooksAfterChildren" -> "")
       ).fold(

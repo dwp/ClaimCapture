@@ -1,7 +1,7 @@
 package controllers.s9_self_employment
 
 import language.reflectiveCalls
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
@@ -14,16 +14,25 @@ import scala.Some
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
   def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(ChildcareExpensesWhileAtWork)
 
-  val form = Form(
+  def form(implicit claim: Claim) = Form(
     mapping(
       call(routes.G5ChildcareExpensesWhileAtWork.present()),
-      "howMuchYouPay" -> optional(text(maxLength = sixty)),
+      "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
       "whoLooksAfterChildren" -> nonEmptyText(maxLength = sixty),
-      "whatRelationIsToYou" -> optional(text(maxLength = sixty)),
-      "relationToPartner" -> optional(text(maxLength = sixty)),
-      "whatRelationIsTothePersonYouCareFor" -> optional(text(maxLength = sixty))
+      "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
+      "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
+      "whatRelationIsTothePersonYouCareFor" -> nonEmptyText(maxLength = sixty)
     )(ChildcareExpensesWhileAtWork.apply)(ChildcareExpensesWhileAtWork.unapply)
+      .verifying("relationToPartner.required", validateRelationToPartner(claim, _))
   )
+
+  def validateRelationToPartner(implicit claim: Claim, childcareExpensesWhileAtWork: ChildcareExpensesWhileAtWork) = {
+
+    claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
+      case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => childcareExpensesWhileAtWork.relationToPartner.isDefined
+      case _ => true
+    }
+  }
 
   def present = claiming {
     implicit claim => implicit request =>
@@ -33,7 +42,7 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
         case _ => false
       }
 
-      payToLookAfterChildren  match {
+      payToLookAfterChildren match {
         case true => whenSectionVisible(Ok(views.html.s9_self_employment.g5_childcareExpensesWhileAtWork(form.fill(ChildcareExpensesWhileAtWork), completedQuestionGroups)))
         case false => claim.delete(ChildcareExpensesWhileAtWork) -> Redirect(routes.G6ChildcareProvidersContactDetails.present())
       }
@@ -42,7 +51,11 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim {
   def submit = claiming {
     implicit claim => implicit request =>
       form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s9_self_employment.g5_childcareExpensesWhileAtWork(formWithErrors, completedQuestionGroups)),
+        formWithErrors => {
+          val formWithErrorsUpdate = formWithErrors
+            .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
+          BadRequest(views.html.s9_self_employment.g5_childcareExpensesWhileAtWork(formWithErrorsUpdate, completedQuestionGroups))
+        },
         f => claim.update(f) -> Redirect(routes.G6ChildcareProvidersContactDetails.present())
       )
   }

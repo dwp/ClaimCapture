@@ -96,14 +96,14 @@ class SelfEmploymentSpec extends Specification with Tags {
     "generate <ChildCareExpenses> if claimer pays anyone to look after children" in {
 
       val pensionScheme = SelfEmploymentPensionsAndExpenses(doYouPayToLookAfterYourChildren = yes)
-      val childcareExpenses = ChildcareExpensesWhileAtWork(howMuchYouPay = Some(amount), nameOfPerson = "Andy", whatRelationIsToYou = Some("grandSon"), whatRelationIsTothePersonYouCareFor = Some("relation"))
+      val childcareExpenses = ChildcareExpensesWhileAtWork(howMuchYouPay = amount, nameOfPerson = "Andy", whatRelationIsToYou = "grandSon", whatRelationIsTothePersonYouCareFor = "relation")
       val claim = Claim().update(pensionScheme).update(childcareExpenses)
 
       val childcareXml = xml.SelfEmployment.childCareExpenses(claim)
       (childcareXml \\ "CarerName").text shouldEqual childcareExpenses.nameOfPerson
       (childcareXml \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
-      (childcareXml \\ "RelationshipCarerToClaimant").text  shouldEqual childcareExpenses.whatRelationIsToYou.get
-      (childcareXml \\ "ChildDetails" \\ "RelationToChild").text shouldEqual childcareExpenses.whatRelationIsTothePersonYouCareFor.get
+      (childcareXml \\ "RelationshipCarerToClaimant").text  shouldEqual childcareExpenses.whatRelationIsToYou
+      (childcareXml \\ "ChildDetails" \\ "RelationToChild").text shouldEqual childcareExpenses.whatRelationIsTothePersonYouCareFor
     }
 
     "skip <ChildCareExpenses> if claimer has NO childcare expenses" in {
@@ -117,7 +117,7 @@ class SelfEmploymentSpec extends Specification with Tags {
       val pensionScheme = SelfEmploymentPensionsAndExpenses(didYouPayToLookAfterThePersonYouCaredFor = yes)
       val grandSon = "grandSon"
       val postcode = "SE1 6EH"
-      val expensesWhileAtWork:ExpensesWhileAtWork = ExpensesWhileAtWork(howMuchYouPay=Some(amount), nameOfPerson="NameOfPerson", whatRelationIsToYou=Some(grandSon), whatRelationIsTothePersonYouCareFor=Some(grandSon) )
+      val expensesWhileAtWork:ExpensesWhileAtWork = ExpensesWhileAtWork(howMuchYouPay= amount, nameOfPerson="NameOfPerson", whatRelationIsToYou= grandSon, whatRelationIsTothePersonYouCareFor= grandSon)
       val careProviderContactDetails = CareProvidersContactDetails(postcode = Some(postcode))
       val claim = Claim().update(pensionScheme).update(expensesWhileAtWork).update(careProviderContactDetails)
 
