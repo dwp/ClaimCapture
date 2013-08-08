@@ -10,7 +10,7 @@ object Payment {
   def xml(claim: Claim) = {
 
     val howWePayYou = claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())
-    val showAccount = howWePayYou.paymentFrequency == "01"
+    val showAccount = howWePayYou.likeToBePaid == "01"
 
     <Payment>
       <PaymentFrequency>{howWePayYou.paymentFrequency}</PaymentFrequency>
