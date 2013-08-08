@@ -6,12 +6,6 @@ import models.MultiLineAddress
 import models.NationalInsuranceNumber
 import yesNo.{YesNoWithDate, YesNoWithDropDownAndText, YesNoWithDropDown}
 
-case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails, theirContactDetails: TheirContactDetails,
-                          moreAboutThePerson: MoreAboutThePerson, representatives: RepresentativesForPerson,
-                          previousCarerContactDetails: Option[PreviousCarerContactDetails], previousCarerPersonalDetails: Option[PreviousCarerPersonalDetails],
-                          moreAboutTheCare: MoreAboutTheCare, oneWhoPays: Option[OneWhoPaysPersonalDetails],
-                          contactDetailsPayingPerson: Option[ContactDetailsOfPayingPerson], breaksInCare: BreaksInCare)
-
 case object CareYouProvide extends Section.Identifier {
   val id = "s4"
 }

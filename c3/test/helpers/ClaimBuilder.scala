@@ -51,6 +51,8 @@ case class SelfEmploymentSection(aboutSelfEmployment: AboutSelfEmployment,
                                  childcareExpenses: ChildcareExpensesWhileAtWork,
                                  expensesWhileAtWork: ExpensesWhileAtWork)
 
+case class ConsentAndDeclarationSection(additionalInfo: AdditionalInfo, consent: Consent, disclaimer:Disclaimer, declaration:Declaration)
+
 case class PayDetailsSection(howWePayYou: Option[HowWePayYou],bankBuildingSocietyDetails: Option[BankBuildingSocietyDetails])
 
 object ClaimBuilder {
@@ -173,5 +175,5 @@ object ClaimBuilder {
   val disclaimer = Disclaimer(NoRouting, "checked")
   val declaration = Declaration(NoRouting, "checked", Some("checked"))
 
-  val consentAndDeclaration = ConsentAndDeclaration(additionalInfo, consent, disclaimer, declaration)
+  val consentAndDeclaration = ConsentAndDeclarationSection(additionalInfo, consent, disclaimer, declaration)
 }
