@@ -81,5 +81,5 @@ class FullSubmissionSpec extends Specification with Tags {
       val submissionPage = lastPage goToPage new G5SubmitPage(browser,Some(lastPage))
       val finalPage = submissionPage submitPage ()
     }
-  }
+  } section "functional"
 }
