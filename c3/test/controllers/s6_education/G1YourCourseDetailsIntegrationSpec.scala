@@ -46,5 +46,5 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       titleMustNotEqual("Your Course Details - Education")
     }
 
-  } section "integration"
+  } section("integration",models.domain.Education.id)
 }

@@ -80,5 +80,5 @@ class G2AddressOfSchoolCollegeOrUniversityFormSpec extends Specification with Ta
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section "unit"
+  } section("unit",models.domain.Education.id)
 }
