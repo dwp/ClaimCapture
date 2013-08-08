@@ -10,14 +10,14 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
 
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/aboutyou/claimDate")
-      titleMustEqual("Claim Date - About You")
+      titleMustEqual("Your Claim Date - About You")
     }
 
     "contain 2 completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
 
-      titleMustEqual("Claim Date - About You")
+      titleMustEqual("Your Claim Date - About You")
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
 
@@ -32,28 +32,28 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
       browser.goTo("/aboutyou/claimDate")
       browser.submit("button[type='submit']")
 
-      titleMustEqual("Claim Date - About You")
+      titleMustEqual("Your Claim Date - About You")
       browser.find("p[class=error]").size() must beGreaterThan(0)
       browser.find("p[class=error]").get(0).getText mustEqual "This field is required"
 
       browser.fill("#dateOfClaim_year") `with` "1950"
       browser.submit("button[type='submit']")
-      titleMustEqual("Claim Date - About You")
+      titleMustEqual("Your Claim Date - About You")
 
       browser.find("p[class=error]").size() must beGreaterThan(0)
       browser.find("p[class=error]").get(0).getText mustEqual "Invalid value"
     }
 
-    "navigate back to Time Outside UK" in new WithBrowser with BrowserMatchers {
+    "navigate back to 'About Your Time Outside The UK'" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetailsEnablingTimeOutsideUK(browser)
       Formulate.yourContactDetails(browser)
       Formulate.timeOutsideUKNotLivingInUK(browser)
-      titleMustEqual("Claim Date - About You")
+      titleMustEqual("Your Claim Date - About You")
       browser.click(".form-steps a")
-      titleMustEqual("Time Outside UK - About You")
+      titleMustEqual("About Your Time Outside The UK - About You")
     }
 
-    "navigate back to Contact Details" in new WithBrowser with BrowserMatchers {
+    "navigate back to 'Contact Details'" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
       browser.click(".form-steps a")

@@ -18,7 +18,7 @@ final class G4ClaimDatePage(browser: TestBrowser, previousPage: Option[Page] = N
  * It is used by PageFactory object defined in Page.scala
  */
 object G4ClaimDatePage {
-  val title = "Claim Date - About You"
+  val title = "Your Claim Date - About You"
   val url  = "/aboutyou/claimDate"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4ClaimDatePage(browser,previousPage)
 }

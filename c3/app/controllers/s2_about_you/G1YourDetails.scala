@@ -21,8 +21,8 @@ object G1YourDetails extends Controller with Mappings.Name with CachedClaim {
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "nationality" -> nonEmptyText(maxLength = sixty),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
-      "maritalStatus" -> nonEmptyText(maxLength = 1),
-      "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo)
+      "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo),
+      "maritalStatus" -> nonEmptyText(maxLength = 1)
     )(YourDetails.apply)(YourDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
