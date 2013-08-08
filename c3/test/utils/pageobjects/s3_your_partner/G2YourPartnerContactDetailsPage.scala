@@ -21,7 +21,7 @@ final class G2YourPartnerContactDetailsPage (browser: TestBrowser, previousPage:
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G2YourPartnerContactDetailsPage {
-  val title = "Contact Details - Your Partner"
+  val title = "Contact Details - About your partner/spouse"
   val url  = "/yourPartner/contactDetails"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2YourPartnerContactDetailsPage(browser,previousPage)
 }

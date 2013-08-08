@@ -19,7 +19,7 @@ object G2TheirContactDetails extends Controller with CareYouProvideRouting with 
 
   def present = claiming { implicit claim => implicit request =>
     val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails) match {
-      case Some(t: TheirPersonalDetails) => t.liveAtSameAddress == yes
+      case Some(t: TheirPersonalDetails) => t.liveAtSameAddressCareYouProvide == yes
       case _ => false
     }
 
@@ -44,6 +44,6 @@ object G2TheirContactDetails extends Controller with CareYouProvideRouting with 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g2_theirContactDetails(formWithErrors, completedQuestionGroups(TheirContactDetails))),
-      theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.G3MoreAboutThePerson.present()))
+      theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.G3RelationshipAndOtherClaims.present()))
   }
 }

@@ -42,7 +42,7 @@ case class OtherMoneySection(aboutOtherMoney: AboutOtherMoney,
                              statutorySickPay: StatutorySickPay,
                              otherStatutoryPay: OtherStatutoryPay)
 
-case class TimeSpentAbroadSection(normalResidence: NormalResidenceAndCurrentLocation, trips: Trips)
+case class TimeSpentAbroadSection(normalResidence: NormalResidenceAndCurrentLocation, abroadForMoreThan4Weeks:AbroadForMoreThan4Weeks, trips: Trips)
 
 case class SelfEmploymentSection(aboutSelfEmployment: AboutSelfEmployment,
                                  selfEmploymentYourAccounts: SelfEmploymentYourAccounts,
@@ -70,8 +70,8 @@ object ClaimBuilder {
   val propertyAndRent = PropertyAndRent(yes, yes)
   val aboutYou = AboutYouSection(yourDetails, contactDetails, Some(timeOutsideUK), claimDate, moreAboutYou, employment, propertyAndRent)
 
-  val theirPersonalDetails = TheirPersonalDetails(title = "ms", firstName = "Minnie", middleName = None, surname = "Mouse",
-                                                  None, dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddress = "no")
+  val theirPersonalDetails = TheirPersonalDetails(title = "ms", firstName = "Minnie", middleName = Some("middleName"), surname = "Mouse",
+    nationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA"), Some("12"), Some("34"), Some("56"), Some("A"))), dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddressCareYouProvide = "no")
 
   val theirContactDetails = TheirContactDetails(address = MultiLineAddress(Some("Line1"), None, None), postcode = Some("PR2 8AE"))
 
@@ -91,7 +91,7 @@ object ClaimBuilder {
 
   val breaksInCare = BreaksInCare(List(
     Break(id = "1", start = DayMonthYear(1, 1, 2001), end = Some(DayMonthYear(1, 5, 2001)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes"),
-    Break(id = "1", start = DayMonthYear(1, 1, 2002), end = Some(DayMonthYear(1, 5, 2002)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes")))
+    Break(id = "2", start = DayMonthYear(1, 1, 2002), end = Some(DayMonthYear(1, 5, 2002)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes")))
 
   val employmentJobs = new Jobs(List(
      new Job("1",List(
@@ -126,11 +126,12 @@ object ClaimBuilder {
   ))
 
   val normalResidence = NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = yes, text = Some("UK")), inGBNow = yes)
+  val abroadForMoreThan4Weeks = AbroadForMoreThan4Weeks(anyTrips=no)
   val fourWeekTrip = Trip(id = "four-one", DayMonthYear(Some(1), Some(2), Some(2011)), DayMonthYear(Some(1), Some(3), Some(2011)), "Netherlands", Some("Holiday"))
   val fiftyTwoWeeksTrip = Trip(id = "fiftyTwo-one", DayMonthYear(Some(1), Some(2), Some(2012)), DayMonthYear(Some(1), Some(2), Some(2013)), "Spain", Some("Family"))
   val trips = Trips(fourWeeksTrips = List(fourWeekTrip), fiftyTwoWeeksTrips = List(fiftyTwoWeeksTrip))
 
-  val timeSpentAbroad = TimeSpentAbroadSection(normalResidence, trips)
+  val timeSpentAbroad = TimeSpentAbroadSection(normalResidence, abroadForMoreThan4Weeks, trips)
 
   val education = EducationSection(YourCourseDetails(Some("courseType"), Some("courseTitle"), Some(DayMonthYear(Some(1), Some(1), Some(2001))), Some(DayMonthYear(Some(2), Some(2), Some(2002))), Some(DayMonthYear(Some(3), Some(3), Some(2003))), Some("ST11")),
     AddressOfSchoolCollegeOrUniversity(Some("schoolName"), Some("tutorName"), Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), Some("SE1 6EH"), Some("020192827273"), Some("0302928273"))

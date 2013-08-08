@@ -223,7 +223,7 @@ object Employment {
           <JobDetails>
             {employerXml(jobDetails,employerContactDetails)}
             {payXml(jobDetails,lastWage,additionalWageDetails)}
-            <OtherThanMoney>no</OtherThanMoney>
+            <OtherThanMoney>{additionalWageDetails.anyOtherMoney}</OtherThanMoney>
             <OweMoney>{additionalWageDetails.employerOwesYouMoney}</OweMoney>
             {moneyOwedXml(moneyOwedbyEmployer)}
             {childcareExpensesXml(job)}

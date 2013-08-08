@@ -8,12 +8,12 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Their Personal Details" should {
     "be presented" in new WithBrowser {
       browser.goTo("/careYouProvide/theirPersonalDetails")
-      browser.title mustEqual "Their Personal Details - Care You Provide"
+      browser.title mustEqual "Details of the person you care for - About the care you provide"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
       browser.goTo("/careYouProvide/theirPersonalDetails")
-      browser.title mustEqual "Their Personal Details - Care You Provide"
+      browser.title mustEqual "Details of the person you care for - About the care you provide"
       browser.submit("button[type='submit']")
 
       browser.find("div[class=validation-summary] ol li").size mustEqual 5
@@ -21,15 +21,15 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser {
       Formulate.theirPersonalDetails(browser)
-      browser.title mustEqual "Their Contact Details - Care You Provide"
+      browser.title mustEqual "Contact details of the person you care for - About the care you provide"
     }
 
-    """navigate back to "Completion - Your Partner" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser {
+    """navigate back to "Completion - About Your Partner/Spouse" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser {
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
       browser.goTo("/careYouProvide/theirPersonalDetails")
       browser.click("#backButton")
-      browser.title mustEqual "Completion - Your Partner"
+      browser.title mustEqual "Completion - About Your Partner/Spouse"
     }
         
     """navigate back to "About You - Completed" when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser {
@@ -58,7 +58,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       Formulate.personYouCareFor(browser)
       browser.submit("button[type='submit']")
 
-      titleMustEqual("Their Personal Details - Care You Provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
       findMustEqualValue("#firstName","John")
       browser.find("#surname").getValue mustEqual "Appleseed"
     }

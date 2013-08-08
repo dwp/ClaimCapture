@@ -215,7 +215,7 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#liveAtSameAddress_yes]")
+    browser.click("#liveAtSameAddressCareYouProvide_yes]")
     browser.submit("button[type='submit']")
   }
 
@@ -227,7 +227,7 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#liveAtSameAddress_no]")
+    browser.click("#liveAtSameAddressCareYouProvide_no]")
     browser.submit("button[type='submit']")
   }
 
@@ -273,7 +273,7 @@ object Formulate {
   }
 
   def moreAboutThePersonWithClaimedAllowanceBefore(browser: TestBrowser) = {
-    browser.goTo("/careYouProvide/moreAboutThePerson")
+    browser.goTo("/careYouProvide/relationshipAndOtherClaims")
     browser.click("#relationship option[value='father']")
     browser.click("#armedForcesPayment_yes")
     browser.click("#claimedAllowanceBefore_yes")
@@ -281,7 +281,7 @@ object Formulate {
   }
 
   def moreAboutThePersonWithNotClaimedAllowanceBefore(browser: TestBrowser) = {
-    browser.goTo("/careYouProvide/moreAboutThePerson")
+    browser.goTo("/careYouProvide/relationshipAndOtherClaims")
     browser.click("#relationship option[value='father']")
     browser.click("#armedForcesPayment_no")
     browser.click("#claimedAllowanceBefore_no")

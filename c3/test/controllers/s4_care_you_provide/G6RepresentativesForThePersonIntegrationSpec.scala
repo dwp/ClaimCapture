@@ -41,7 +41,7 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
     "navigate back to More About The Person" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       browser.click("#backButton")
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
     }
 
     "navigate back to Previous Carer Contact Details" in new WithBrowser with BrowserMatchers {
