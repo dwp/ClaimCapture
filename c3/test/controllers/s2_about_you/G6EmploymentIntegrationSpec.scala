@@ -58,5 +58,5 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
       browser.submit("button[type='submit']")
       titleMustEqual("Property and Rent - About You")
     }
-  } section "integration"
+  } section("integration",models.domain.AboutYou.id)
 }

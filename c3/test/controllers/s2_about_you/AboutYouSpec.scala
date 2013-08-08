@@ -198,5 +198,5 @@ class AboutYouSpec extends Specification with Mockito with Tags {
       val result = s2_about_you.AboutYou.completedSubmit(request)
       redirectLocation(result) must beSome("/yourPartner/personalDetails")
     }
-  } section "unit"
+  } section("unit",models.domain.AboutYou.id)
 }

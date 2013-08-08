@@ -29,5 +29,5 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       val completedPage = contactDetailsPage goToCompletedSection()
       completedPage must beAnInstanceOf[G1YourDetailsPage]
     }
-  } section "integration"
+  } section("integration",models.domain.AboutYou.id)
 }
