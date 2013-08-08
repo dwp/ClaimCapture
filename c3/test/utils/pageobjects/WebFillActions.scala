@@ -46,7 +46,7 @@ trait WebFillActions {
       browser.fill(elementCssSelector).`with`(value)
     }
     catch {
-      case e: WebDriverException => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
     }
   }
 
@@ -63,14 +63,17 @@ trait WebFillActions {
   def fillRadioList(listName: String, value: String, sep: String = "_"): Unit = if (null != value) {
     try {
       val radioButtons = browser.find("[name=" + listName + "]")
-      for (index <- 1 to radioButtons.size()) {
+      var found = false
+      for (index <- 1 to radioButtons.size()) if (!found) {
         val name = listName + sep + (if (index < 10) s"0$index" else s"$index")
         val label = browser.find("label[for=" + name + "]").get(0).getText
         if (label == value) {
           browser.click("#" + name)
-          return
+          found = true
         }
       }
+      if (!found) throw new PageObjectException("Option " + value + " is invalid for list " + listName)
+
     }
     catch {
       case e: Exception => throw new PageObjectException("Could not fill " + listName + " with value " + value, exception = e)
@@ -78,14 +81,19 @@ trait WebFillActions {
 
   }
 
-  def fillSelect(elementCssSelector: String, value: String) = if (null != value) {
+  def fillSelect(elementCssSelector: String, value: String):Unit = if (null != value) {
     try {
       val select = browser.find(elementCssSelector, 0).getElement
       val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
-      for (option <- allOptions; if option.getAttribute("value").toLowerCase == value.toLowerCase) option.click()
+      var found = false
+      for (option <- allOptions; if option.getAttribute("value").toLowerCase == value.toLowerCase) {
+        found = true
+        option.click()
+      }
+      if (!found) throw new PageObjectException("Option " + value + " is invalid for combobox " + elementCssSelector)
     }
     catch {
-      case e: WebDriverException => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
     }
   }
 
@@ -111,7 +119,7 @@ trait WebFillActions {
       }
     }
     catch {
-      case e: WebDriverException => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
     }
   }
 
@@ -140,7 +148,7 @@ trait WebFillActions {
     browser.click(elementCssSelector + sep + value.toLowerCase)
   }
   catch {
-    case e: WebDriverException => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+    case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
   }
 
 }
