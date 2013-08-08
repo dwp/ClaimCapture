@@ -5,7 +5,6 @@ import models.Whereabouts
 import models.MultiLineAddress
 import models.NationalInsuranceNumber
 import yesNo.{YesNoWithDate, YesNoWithDropDownAndText, YesNoWithDropDown}
-import play.api.data.validation.Constraint
 
 case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails, theirContactDetails: TheirContactDetails,
                           moreAboutThePerson: MoreAboutThePerson, representatives: RepresentativesForPerson,

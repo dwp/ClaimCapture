@@ -27,8 +27,8 @@ class FullTimeEducationSpec extends Specification with Tags {
     "generate <FullTimeEducation> xml when claimer has been in education" in {
 
       val moreAboutYou = MoreAboutYou(beenInEducationSinceClaimDate = yes)
-      val yourCourseDetails = YourCourseDetails(NoRouting, courseType, courseTitle, startDate, expectedEndDate, finishedDate, studentRefNr)
-      val addressOfSchool = AddressOfSchoolCollegeOrUniversity(NoRouting, schoolName, tutorName, address, postcode, phoneNumber, faxNumber)
+      val yourCourseDetails = YourCourseDetails(courseType, courseTitle, startDate, expectedEndDate, finishedDate, studentRefNr)
+      val addressOfSchool = AddressOfSchoolCollegeOrUniversity(schoolName, tutorName, address, postcode, phoneNumber, faxNumber)
       val claim = Claim().update(moreAboutYou).update(Section(Education, yourCourseDetails :: addressOfSchool :: Nil))
       val educationXml = FullTimeEducation.xml(claim)
 

@@ -40,6 +40,8 @@ class FullSubmissionSpec extends Specification with Tags {
 
   "The application" should {
     "Successfully run submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+      skipped("ISSUE")
+
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST223"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
@@ -48,6 +50,8 @@ class FullSubmissionSpec extends Specification with Tags {
     }
 
     "Recoverable Error submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+      skipped("ISSUE")
+
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST224"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
@@ -56,6 +60,8 @@ class FullSubmissionSpec extends Specification with Tags {
     }
 
     "Recoverable acknowledgement submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+      skipped("ISSUE")
+
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST225"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
@@ -64,6 +70,7 @@ class FullSubmissionSpec extends Specification with Tags {
     }
 
     "Retry submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+      skipped("ISSUE")
 
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST225"

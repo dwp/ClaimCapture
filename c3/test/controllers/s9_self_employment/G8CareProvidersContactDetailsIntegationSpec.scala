@@ -16,8 +16,8 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
 
     "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
-      page goToThePage()
-      page runClaimWith (claim, G7PropertyAndRentPage.title, waitForPage = true)
+      page goToThePage(waitForPage = true, waitDuration = 500)
+      page runClaimWith (claim, G7PropertyAndRentPage.title, waitForPage = true, waitDuration = 500)
 
       val nextPage = page goToPage( throwException = false, page = new G8CareProvidersContactDetailsPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
@@ -26,10 +26,10 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
     "contain the completed forms" in new WithBrowser with G1AboutSelfEmploymentPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
 
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
       page fillPageWith claim
-      val g2 = page submitPage()
-      val g8 = g2 goToPage(new G8CareProvidersContactDetailsPage(browser))
+      val g2 = page submitPage(waitForPage = true, waitDuration = 500)
+      val g8 = g2 goToPage(new G8CareProvidersContactDetailsPage(browser), waitForPage = true, waitDuration = 500)
       g8.listCompletedForms.size mustEqual 1
     }
 
@@ -37,9 +37,9 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
       "invalid postcode" in new WithBrowser with G8CareProvidersContactDetailsPageContext {
         val claim = new ClaimScenario
         claim.SelfEmployedCareProviderPostcode = "INVALID"
-        page goToThePage ()
+        page goToThePage (waitForPage = true, waitDuration = 500)
         page fillPageWith claim
-        val pageWithErrors = page.submitPage()
+        val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 500)
         pageWithErrors.listErrors.size mustEqual 1
         pageWithErrors.listErrors(0).contains("postcode")
       }
@@ -50,22 +50,22 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
-      pagePensionAndExpenses goToThePage()
+      pagePensionAndExpenses goToThePage(waitForPage = true, waitDuration = 500)
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-      pagePensionAndExpenses.submitPage(true)
+      pagePensionAndExpenses.submitPage(throwException = true, waitForPage = true, waitDuration = 500)
 
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
       page fillPageWith claim
-      val g8 = page submitPage()
+      val g8 = page submitPage(waitForPage = true, waitDuration = 500)
       g8.goBack() must beAnInstanceOf[G7ExpensesWhileAtWorkPage]
     }
     
     "navigate to next page on valid submission" in new WithBrowser with G8CareProvidersContactDetailsPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
       page fillPageWith claim
 
-      val nextPage = page submitPage()
+      val nextPage = page submitPage(waitForPage = true, waitDuration = 500)
 
       nextPage must not(beAnInstanceOf[G8CareProvidersContactDetailsPage])
     }
