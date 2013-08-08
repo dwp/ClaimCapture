@@ -20,7 +20,7 @@ final class G9ContactDetailsOfPayingPersonPage (browser: TestBrowser, previousPa
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G9ContactDetailsOfPayingPersonPage {
-  val title = "Contact Details of Paying Person - Care You Provide"
+  val title = "Contact details of the person who pays you - About the care you provide"
   val url  = "/careYouProvide/contactDetailsOfPayingPerson"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G9ContactDetailsOfPayingPersonPage(browser,previousPage)
 }

@@ -36,12 +36,12 @@ class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tag
 
     "navigate to Previous Carer Details when submitting with claimedAllowanceBefore positive" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
     }
 
     "navigate to Representatives For The Person when submitting with claimedAllowanceBefore negative" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
     }
   } section("integration",models.domain.CareYouProvide.id)
 }

@@ -25,7 +25,7 @@ final class G8OneWhoPaysPersonalDetailsPage (browser: TestBrowser, previousPage:
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G8OneWhoPaysPersonalDetailsPage {
-  val title = "One Who Pays You - Care You Provide"
+  val title = "Details of the person/organisation who pays you - About the care you provide"
   val url  = "/careYouProvide/oneWhoPaysPersonalDetails"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G8OneWhoPaysPersonalDetailsPage(browser,previousPage)
 }

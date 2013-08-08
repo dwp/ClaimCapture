@@ -32,7 +32,7 @@ final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G11BreakPage {
-  val title = "Break - Care You Provide"
+  val title = "Break - About the care you provide"
   val url  = "/careYouProvide/break"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G11BreakPage(browser,previousPage,iteration)
 }

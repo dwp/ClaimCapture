@@ -40,7 +40,7 @@ class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification w
       titleMustEqual("Normal Residence and Current Location - Time Spent Abroad")
 
       browser.click("#backButton")
-      titleMustEqual("Completion - Care You Provide")
+      titleMustEqual("Completion - About the care you provide")
     }
   } section("integration",models.domain.TimeSpentAbroad.id)
 }
