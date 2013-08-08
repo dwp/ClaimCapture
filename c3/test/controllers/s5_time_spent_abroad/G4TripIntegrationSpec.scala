@@ -3,6 +3,7 @@ package controllers.s5_time_spent_abroad
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.{TestBrowser, WithBrowser}
 import controllers.BrowserMatchers
+import play.api.test.Helpers._
 import org.fluentlenium.core.Fluent
 
 class G4TripIntegrationSpec extends Specification with Tags {
@@ -76,7 +77,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       browser.click("#backButton")
       titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
     }
-  }
+  } section ("integration",models.domain.TimeSpentAbroad.id)
 
   "52 weeks trip" should {
     sequential
@@ -148,7 +149,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       browser.click("#backButton")
       titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
     }
-  }
+  } section ("integration",models.domain.TimeSpentAbroad.id)
 
   def fourWeeks(browser: TestBrowser) = browser.goTo("/timeSpentAbroad/trip/4Weeks")
 

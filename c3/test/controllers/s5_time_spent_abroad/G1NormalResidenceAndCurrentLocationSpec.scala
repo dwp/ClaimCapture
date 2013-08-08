@@ -40,5 +40,5 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
-  } section "unit"
+  } section("unit",models.domain.TimeSpentAbroad.id)
 }
