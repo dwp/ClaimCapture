@@ -46,7 +46,7 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
     }
     
     "navigate back to previous page" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
-      val claim = ClaimScenarioFactory.s9SelfEmployment
+      val claim = ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)

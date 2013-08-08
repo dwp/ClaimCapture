@@ -18,10 +18,10 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.howMuchYouPay must equalTo(Some(howMuchYouPay))
+          f.howMuchYouPay must equalTo(howMuchYouPay)
           f.nameOfPerson must equalTo(nameOfPerson)
-          f.whatRelationIsToYou must equalTo(Some(whatRelationIsToYou))
-          f.whatRelationIsTothePersonYouCareFor must equalTo(Some(whatRelationIsTothePersonYouCareFor))
+          f.whatRelationIsToYou must equalTo(whatRelationIsToYou)
+          f.whatRelationIsTothePersonYouCareFor must equalTo(whatRelationIsTothePersonYouCareFor)
         }
       )
     }
@@ -32,17 +32,6 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
         f => "This mapping should not happen." must equalTo("Valid")
-      )
-    }
-
-    "About Self Employment - Allow optional fields to be left blank" in {
-      G7ExpensesWhileAtWork.form.bind(
-        Map("nameOfPerson" -> nameOfPerson)
-      ).fold(
-        formWithErrors => "This mapping should not happen." must equalTo("Error"),
-        f => {
-          f.nameOfPerson must equalTo(nameOfPerson)
-        }
       )
     }
   } section "unit"
