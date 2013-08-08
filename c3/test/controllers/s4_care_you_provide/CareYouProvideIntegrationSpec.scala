@@ -12,7 +12,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       browser.goTo("/careYouProvide/completed")
-      titleMustEqual("Completion - Care You Provide")
+      titleMustEqual("Completion - About the care you provide")
     }
 
     """navigate to Abroad""" in new WithBrowser with BrowserMatchers {
@@ -26,27 +26,27 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Relationship and other claims - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
 
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
 
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
 
       Formulate.representativesForThePerson(browser)
-      titleMustEqual("More about the care you provide - Care You Provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
 
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
-      titleMustEqual("More about the care you provide - Care You Provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
 
       browser.goTo("/careYouProvide/completed")
-      titleMustEqual("Completion - Care You Provide")
+      titleMustEqual("Completion - About the care you provide")
 
       browser.find("button[type='submit']").getText shouldEqual "Continue to Abroad"
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Normal Residence and Current Location - Time Spent Abroad")
+      titleMustEqual("Your normal residence and current location - Time Spent Abroad")
     }
   } section("integration",models.domain.CareYouProvide.id)
 }

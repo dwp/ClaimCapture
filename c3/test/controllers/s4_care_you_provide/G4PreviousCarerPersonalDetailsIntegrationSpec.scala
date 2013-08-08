@@ -8,33 +8,33 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
   "Previous Carer Personal Details" should {
     "navigate to Previous Carer Details, if anyone else claimed allowance for this person before" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
     }
 
     "navigate to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/previousCarerPersonalDetails")
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
     }
 
     "navigate to Previous Carer Contact Details on submission of empty form" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       browser.submit("button[type='submit']")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
     }
 
     "navigate to Previous Carer Contact Details on submission of completed form" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
       browser.fill("#nationalInsuranceNumber_ni1") `with` "12345"
       browser.submit("button[type='submit']")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
@@ -53,15 +53,15 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       Formulate.theirPersonalDetails(browser)
       Formulate.theirContactDetails(browser)
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
 
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
       browser.find("div[class=completed] ul li").size mustEqual 4
 
       browser.click("#backButton")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
   } section("integration",models.domain.CareYouProvide.id)

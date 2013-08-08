@@ -8,7 +8,7 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
   "Representatives For The Person" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/representativesForPerson")
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
     }
 
     "contain errors on invalid submission first yesNo not clicked" in new WithBrowser {
@@ -48,9 +48,9 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.previousCarerPersonalDetails(browser)
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide") // Landed on S4 G6
+      titleMustEqual("Representatives for the person you care for - About the care you provide") // Landed on S4 G6
       browser.click("#backButton")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide") // Back to S4 G5
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide") // Back to S4 G5
     }
 
     "navigate back twice to Previous Carer Personal Details" in new WithBrowser with BrowserMatchers {
@@ -58,11 +58,11 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.previousCarerPersonalDetails(browser)
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide") // Landed on S4 G6
+      titleMustEqual("Representatives for the person you care for - About the care you provide") // Landed on S4 G6
       browser.click("#backButton")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
       browser.click("#backButton")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide") // Back to S4 G4
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide") // Back to S4 G4
     }
 
     "contain the completed forms" in new WithBrowser {

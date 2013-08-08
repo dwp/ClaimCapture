@@ -49,7 +49,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim
 
       browser.goTo("/employment/beenEmployed").click("#backButton")
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - About your education")
     }
   } section("integration",models.domain.Employed.id)
 }

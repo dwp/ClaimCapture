@@ -24,7 +24,7 @@ class G2AddressOfSchoolCollegeOrUniversityPage (browser: TestBrowser, previousPa
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G2AddressOfSchoolCollegeOrUniversityPage {
-  val title = "Address Of School College Or University - Education"
+  val title = "School, college or university's contact details - About your education"
   val url  = "/education/addressOfSchoolCollegeOrUniversity"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2AddressOfSchoolCollegeOrUniversityPage(browser,previousPage)
 }

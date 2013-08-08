@@ -3,7 +3,7 @@ package app
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.{PageObjectException,XmlPage, ClaimScenario, Page}
+import utils.pageobjects.{XmlPage, ClaimScenario, Page}
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
@@ -16,8 +16,10 @@ class EndToEndSpec extends Specification with Tags {
   def validateAndPrintErrors(page: XmlPage, claim: ClaimScenario) = {
     val errors = page.validateXmlWith(claim)
     println("Number errors: " + errors.size)
-    println("List errors: " + errors)
-//    println(page.source)
+    if (errors.nonEmpty) {
+      println("List errors: " + errors)
+      //    println(page.source)
+    }
     errors.isEmpty
 
   }
@@ -30,7 +32,7 @@ class EndToEndSpec extends Specification with Tags {
       val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 1000, trace = false)
       lastPage match {
         case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+          validateAndPrintErrors(p, claim) must beTrue
         }
         case p: Page => println(p.source)
       }
@@ -51,15 +53,15 @@ class EndToEndSpec extends Specification with Tags {
 
     "Successfully run absolute Test Case 3 " in new WithBrowser with G1BenefitsPageContext {
 
-        val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
-        page goToThePage()
-        val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
-        lastPage match {
-          case p: XmlPage => {
-            validateAndPrintErrors(p, claim) // must beTrue
-          }
-          case p: Page => println(p.source)
+      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
+      page goToThePage()
+      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      lastPage match {
+        case p: XmlPage => {
+          validateAndPrintErrors(p, claim) // must beTrue
         }
+        case p: Page => println(p.source)
+      }
     }
 
     "Successfully run absolute Test Case 4 " in new WithBrowser with G1BenefitsPageContext {

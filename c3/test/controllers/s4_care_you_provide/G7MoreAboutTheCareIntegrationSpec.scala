@@ -10,7 +10,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
   "Representatives For The Person" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/moreAboutTheCare")
-      titleMustEqual("More about the care you provide - Care You Provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -31,7 +31,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
     "navigate back" in new WithBrowser with BrowserMatchers {
       Formulate.representativesForThePerson(browser)
       browser.click("#backButton")
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
     }
 
     "contain the completed forms" in new WithBrowser {
@@ -42,24 +42,24 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
     "choose no options navigate back twice to Previous Carer Contact Details" in new WithBrowser with BrowserMatchers {
       // [SKW] This tests a problem I was having where pressing back twice wasn't getting back passed the S4 G4, the problem was with Controller action fetching previous question groups being different for pages using backHref.
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
 
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
 
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
 
       browser.click("#actForPerson_no")
       browser.click("#someoneElseActForPerson_no")
       browser.submit("button[type='submit']")
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
 
       browser.click("#backButton")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
 
       browser.click("#backButton")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
     }
 
     "choose yes options navigate back twice to Previous Carer Contact Details" in new WithBrowser with BrowserMatchers {
@@ -69,17 +69,17 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.previousCarerPersonalDetails(browser)
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
       browser.click("#actForPerson_yes")
       browser.click("#actAs option[value='guardian']")
       browser.click("#someoneElseActForPerson_yes")
       browser.click("#someoneElseActAs option[value='attorney']")
       browser.submit("button[type='submit']")
-      titleMustEqual("Representatives For The Person - Care You Provide") // Landed on S4 G7
+      titleMustEqual("Representatives for the person you care for - About the care you provide") // Landed on S4 G7
       browser.click("#backButton")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
       browser.click("#backButton")
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide") // Back to S4 G4
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide") // Back to S4 G4
     }
   } section ("integration",models.domain.CareYouProvide.id)
 }

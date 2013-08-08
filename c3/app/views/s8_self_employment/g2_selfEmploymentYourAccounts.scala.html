@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.SelfEmploymentYourAccounts], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.SelfEmploymentYourAccounts], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -29,9 +29,7 @@
                 @yesNoRadioGroup(currentForm("areIncomeOutgoingsProfitSimilarToTrading"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(
-                    carersInputText(currentForm("tellUsWhyAndWhenTheChangeHappened"), 'maxLength -> 300)
-                    ),
+                    inputDef = Seq(carersInputText(currentForm("tellUsWhyAndWhenTheChangeHappened"), 'maxLength -> 300)),
                     'id -> "selfEmployedIncomeWrap",
                     'display -> (currentForm("areIncomeOutgoingsProfitSimilarToTrading").value.getOrElse("yes") match { case "yes" => "no" case _ => "yes" })
                 )
@@ -45,19 +43,17 @@
                     'id -> "selfEmployedAccountantWrap",
                     'display -> currentForm("doYouHaveAnAccountant").value.getOrElse("no")
                 )
-
             </ul>
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@back(models.domain.SelfEmploymentYourAccounts)" class="button secondary">Back</a>
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
 }
 
-<script type="text/javascript"
-        src='@routes.Assets.at("javascripts/s8_self_employment/g2_selfEmploymentYourAccounts.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s8_self_employment/g2_selfEmploymentYourAccounts.js")'></script>
 
 <script type="text/javascript">
     $(function () {

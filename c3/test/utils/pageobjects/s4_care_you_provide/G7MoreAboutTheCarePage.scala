@@ -21,7 +21,7 @@ final class G7MoreAboutTheCarePage (browser: TestBrowser, previousPage: Option[P
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G7MoreAboutTheCarePage {
-  val title = "More about the care you provide - Care You Provide"
+  val title = "More about the care you provide - About the care you provide"
   val url  = "/careYouProvide/moreAboutTheCare"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G7MoreAboutTheCarePage(browser,previousPage)
 }

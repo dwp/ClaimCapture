@@ -9,24 +9,24 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
   "Time spent abroad" should {
     """present "completion" and proceed to 'Education'.""" in new WithBrowser with BrowserMatchers {
       Formulate.normalResidenceAndCurrentLocation(browser)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")
 
       Formulate.abroadForMoreThan4Weeks(browser)
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
 
       Formulate.abroadForMoreThan52Weeks(browser)
       titleMustEqual("Completion - Time Spent Abroad")
 
       browser.submit("button[value='next']")
-      titleMustEqual("Your Course Details - Education")
+      titleMustEqual("Your Course Details - About your education")
     }
 
     "show the text 'Continue to Education' on the submit button when next section is 'Education'" in new WithBrowser with BrowserMatchers {
       Formulate.normalResidenceAndCurrentLocation(browser)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")
 
       Formulate.abroadForMoreThan4Weeks(browser)
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
 
       Formulate.abroadForMoreThan52Weeks(browser)
       titleMustEqual("Completion - Time Spent Abroad")
@@ -39,10 +39,10 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       titleMustEqual("Benefits - Can you get Carer's Allowance?")
 
       Formulate.yourCourseDetails(browser)
-      titleMustEqual("Address Of School College Or University - Education")
+      titleMustEqual("School, college or university's contact details - About your education")
 
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - About your education")
 
       browser.find("button[type='submit']").getText shouldEqual "Continue to Employment"
     }
