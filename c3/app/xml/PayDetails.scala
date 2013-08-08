@@ -5,7 +5,7 @@ import xml.XMLHelper._
 import scala.xml.NodeSeq
 import scala.Some
 
-object PayDetails {
+object Payment {
 
   def xml(claim: Claim) = {
 

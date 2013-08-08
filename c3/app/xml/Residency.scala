@@ -11,28 +11,23 @@ object Residency {
 
   def xml(claim: Claim) = {
     val yourDetailsOption = claim.questionGroup[YourDetails]
-    val normalResidenceOption = claim.questionGroup[NormalResidenceAndCurrentLocation]
+    val normalResidence = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
+    val abroadForMoreThan4Weeks = claim.questionGroup[AbroadForMoreThan4Weeks].getOrElse(AbroadForMoreThan4Weeks())
     val tripsOption = claim.questionGroup[Trips]
 
     <Residency>
       <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
       <EUEEASwissNational>Not asked</EUEEASwissNational>
       <CountryNormallyLive>{yes}</CountryNormallyLive>
-      <CountryNormallyLiveOther>{if (normalResidenceOption.isDefined) normalResidenceOption.get.whereDoYouLive.text.orNull}</CountryNormallyLiveOther>
-      {inGreatBritainNow(normalResidenceOption)}
+      <CountryNormallyLiveOther>{normalResidence.whereDoYouLive.text.orNull}</CountryNormallyLiveOther>
+      <InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>
       <InGreatBritain26Weeks>Not asked</InGreatBritain26Weeks>
       {periodAbroadLastYear(tripsOption)}
       <BritishOverseasPassport>Not asked</BritishOverseasPassport>
       {otherNationality(claim)}
-      <OutOfGreatBritain>{yes}</OutOfGreatBritain>
+      <OutOfGreatBritain>{abroadForMoreThan4Weeks.anyTrips}</OutOfGreatBritain>
       {periodAbroadDuringCare(tripsOption)}
     </Residency>
-  }
-
-  def inGreatBritainNow(normalResidenceOption: Option[NormalResidenceAndCurrentLocation]) = {
-    val normalResidence = normalResidenceOption.getOrElse(NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText("", None), inGBNow = no))
-
-    <InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>
   }
 
   def periodAbroadLastYear(tripsOption: Option[Trips]) = {
