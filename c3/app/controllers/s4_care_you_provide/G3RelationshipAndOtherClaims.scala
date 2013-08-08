@@ -9,7 +9,7 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 
-object G3MoreAboutThePerson extends Controller with CareYouProvideRouting with CachedClaim {
+object G3RelationshipAndOtherClaims extends Controller with CareYouProvideRouting with CachedClaim {
   val form = Form(
     mapping(
       "relationship" -> nonEmptyText(maxLength = 20),

@@ -8,12 +8,12 @@ class G3MoreAboutThePersonIntegrationSpec extends Specification with Tags {
 
   "More About The Person" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/careYouProvide/moreAboutThePerson")
+      browser.goTo("/careYouProvide/relationshipAndOtherClaims")
       titleMustEqual("Relationship and other claims - About the care you provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/careYouProvide/moreAboutThePerson")
+      browser.goTo("/careYouProvide/relationshipAndOtherClaims")
       browser.submit("button[type='submit']")
       titleMustEqual("Relationship and other claims - About the care you provide")
       browser.find("div[class=validation-summary] ol li").size mustEqual 2

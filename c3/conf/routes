@@ -77,8 +77,8 @@ POST    /careYouProvide/theirPersonalDetails                    controllers.s4_c
 GET     /careYouProvide/theirContactDetails                     controllers.s4_care_you_provide.G2TheirContactDetails.present
 POST    /careYouProvide/theirContactDetails                     controllers.s4_care_you_provide.G2TheirContactDetails.submit
 
-GET     /careYouProvide/moreAboutThePerson                      controllers.s4_care_you_provide.G3MoreAboutThePerson.present
-POST    /careYouProvide/moreAboutThePerson                      controllers.s4_care_you_provide.G3MoreAboutThePerson.submit
+GET     /careYouProvide/relationshipAndOtherClaims              controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.present
+POST    /careYouProvide/relationshipAndOtherClaims              controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.submit
 
 GET     /careYouProvide/previousCarerPersonalDetails            controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.present
 POST    /careYouProvide/previousCarerPersonalDetails            controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit

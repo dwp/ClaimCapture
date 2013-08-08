@@ -17,7 +17,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito with Tags {
     "present 'More About The Person' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = G3MoreAboutThePerson.present(request)
+      val result = G3RelationshipAndOtherClaims.present(request)
       status(result) mustEqual OK
     }
 
@@ -25,7 +25,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(moreAboutThePersonInput: _*)
 
-      val result = G3MoreAboutThePerson.submit(request)
+      val result = G3RelationshipAndOtherClaims.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(domain.CareYouProvide)
 
@@ -42,7 +42,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("relationship" -> "")
 
-      val result = G3MoreAboutThePerson.submit(request)
+      val result = G3RelationshipAndOtherClaims.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -50,7 +50,7 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody(moreAboutThePersonInput: _*)
 
-      val result = G3MoreAboutThePerson.submit(request)
+      val result = G3RelationshipAndOtherClaims.submit(request)
       status(result) mustEqual SEE_OTHER
     }
   } section("unit",models.domain.CareYouProvide.id)

@@ -21,7 +21,7 @@ final class G3MoreAboutThePersonPage (browser: TestBrowser, previousPage: Option
  */
 object G3MoreAboutThePersonPage {
   val title = "Relationship and other claims - About the care you provide"
-  val url  = "/careYouProvide/moreAboutThePerson"
+  val url  = "/careYouProvide/relationshipAndOtherClaims"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3MoreAboutThePersonPage(browser,previousPage)
 }
 
