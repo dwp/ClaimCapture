@@ -23,8 +23,8 @@ object PayDetails {
     val bankBuildingSocietyDetails = claim.questionGroup[BankBuildingSocietyDetails].getOrElse(BankBuildingSocietyDetails())
 
     <Account>
-      <DirectPayment>yes</DirectPayment>
-      <AccountHolder>yourName</AccountHolder>
+      <DirectPayment>Not asked</DirectPayment>
+      <AccountHolder>Not asked</AccountHolder>
       <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
       <SecondHolderName/>
       <AccountType>bank</AccountType>
