@@ -34,7 +34,7 @@ object DWPCAClaim {
       <HavePartner>{moreAboutYou.hadPartnerSinceClaimDate}</HavePartner>
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}
-      {PayDetails.xml(claim)}
+      {Payment.xml(claim)}
       <ThirdParty>no</ThirdParty>
       {ConsentAndDeclarationSubmission.buildDeclaration(consentAndDeclaration,careYouProvide)}
       <EvidenceList>

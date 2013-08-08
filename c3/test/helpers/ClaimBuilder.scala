@@ -42,7 +42,7 @@ case class OtherMoneySection(aboutOtherMoney: AboutOtherMoney,
                              statutorySickPay: StatutorySickPay,
                              otherStatutoryPay: OtherStatutoryPay)
 
-case class TimeSpentAbroadSection(normalResidence: NormalResidenceAndCurrentLocation, trips: Trips)
+case class TimeSpentAbroadSection(normalResidence: NormalResidenceAndCurrentLocation, abroadForMoreThan4Weeks:AbroadForMoreThan4Weeks, trips: Trips)
 
 case class SelfEmploymentSection(aboutSelfEmployment: AboutSelfEmployment,
                                  selfEmploymentYourAccounts: SelfEmploymentYourAccounts,
@@ -126,11 +126,12 @@ object ClaimBuilder {
   ))
 
   val normalResidence = NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = yes, text = Some("UK")), inGBNow = yes)
+  val abroadForMoreThan4Weeks = AbroadForMoreThan4Weeks(anyTrips=no)
   val fourWeekTrip = Trip(id = "four-one", DayMonthYear(Some(1), Some(2), Some(2011)), DayMonthYear(Some(1), Some(3), Some(2011)), "Netherlands", Some("Holiday"))
   val fiftyTwoWeeksTrip = Trip(id = "fiftyTwo-one", DayMonthYear(Some(1), Some(2), Some(2012)), DayMonthYear(Some(1), Some(2), Some(2013)), "Spain", Some("Family"))
   val trips = Trips(fourWeeksTrips = List(fourWeekTrip), fiftyTwoWeeksTrips = List(fiftyTwoWeeksTrip))
 
-  val timeSpentAbroad = TimeSpentAbroadSection(normalResidence, trips)
+  val timeSpentAbroad = TimeSpentAbroadSection(normalResidence, abroadForMoreThan4Weeks, trips)
 
   val education = EducationSection(YourCourseDetails(Some("courseType"), Some("courseTitle"), Some(DayMonthYear(Some(1), Some(1), Some(2001))), Some(DayMonthYear(Some(2), Some(2), Some(2002))), Some(DayMonthYear(Some(3), Some(3), Some(2003))), Some("ST11")),
     AddressOfSchoolCollegeOrUniversity(Some("schoolName"), Some("tutorName"), Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))), Some("SE1 6EH"), Some("020192827273"), Some("0302928273"))

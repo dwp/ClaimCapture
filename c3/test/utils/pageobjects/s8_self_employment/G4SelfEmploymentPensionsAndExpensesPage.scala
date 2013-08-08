@@ -7,7 +7,7 @@ import utils.pageobjects.{PageContext, Page}
 final class G4SelfEmploymentPensionsAndExpensesPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4SelfEmploymentPensionsAndExpensesPage.url, G4SelfEmploymentPensionsAndExpensesPage.title, previousPage) {
 
     declareYesNo("#doYouPayToPensionScheme_answer", "SelfEmployedDoYouPayTowardsPensionScheme")
-    declareInput("#doYouPayToPensionScheme_howMuchDidYouPay", "SelfEmployedHowMuchPayPensionExpenses")
+    declareInput("#doYouPayToPensionScheme_howMuchDidYouPay", "SelfEmployedHowMuchYouPayTowardsPensionScheme")
     declareYesNo("#doYouPayToLookAfterYourChildren", "SelfEmployedDoYouPayAnyonetoLookAfterYourChild")
     declareYesNo("#didYouPayToLookAfterThePersonYouCaredFor", "SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor")
 }

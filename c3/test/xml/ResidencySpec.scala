@@ -13,6 +13,8 @@ class ResidencySpec extends Specification with Tags {
 
   val normalResidence = NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = yes, text = Some("UK")), inGBNow = yes)
 
+  val abroadForMoreThan4Weeks = AbroadForMoreThan4Weeks(anyTrips = no)
+
   val startDate = DayMonthYear(day = Some(3), month = Some(4), year = Some(2013))
 
   val endDate = DayMonthYear(day = Some(3), month = Some(5), year = Some(2013))
@@ -35,13 +37,16 @@ class ResidencySpec extends Specification with Tags {
 
     "generate xml when data is present" in {
       val claim = Claim().update(yourDetails)
-        .update(normalResidence).update(trips).update(TimeOutsideUK(visaReference = Some("visaReference")))
+        .update(normalResidence)
+        .update(abroadForMoreThan4Weeks)
+        .update(trips).update(TimeOutsideUK(visaReference = Some("visaReference")))
 
       val residencyXml = Residency.xml(claim)
 
       (residencyXml \\ "Nationality").text mustEqual yourDetails.nationality
       (residencyXml \\ "CountryNormallyLiveOther").text mustEqual "UK"
       (residencyXml \\ "InGreatBritainNow").text mustEqual yes
+      (residencyXml \\ "OutOfGreatBritain").text mustEqual no
 
       val periodsAbroadLastYearXml = (residencyXml \\ "PeriodAbroadLastYear")
       val periodOne = periodsAbroadLastYearXml.theSeq(0)
@@ -68,17 +73,6 @@ class ResidencySpec extends Specification with Tags {
       (periodCareTwo \\ "Reason").text mustEqual holidayOption.get
 
       (residencyXml \\ "OtherNationality" \\ "VisaReferenceNumber").text shouldEqual "visaReference"
-    }
-
-    "generate xml when data is missing" in {
-      val residencyXml = Residency.xml(Claim())
-
-      (residencyXml \\ "Nationality").text must beEmpty
-      (residencyXml \\ "CountryNormallyLiveOther").text must beEmpty
-      (residencyXml \\ "InGreatBritainNow").text mustEqual no
-
-      (residencyXml \\ "PeriodAbroadLastYear").text must beEmpty
-      (residencyXml \\ "PeriodAbroadDuringCare").text must beEmpty
     }
 
     "generate <OtherNationality> if user has lived abroad" in {

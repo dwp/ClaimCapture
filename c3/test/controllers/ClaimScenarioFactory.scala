@@ -264,7 +264,7 @@ object ClaimScenarioFactory {
     val claim = s9SelfEmploymentAccountantContactDetails
 
     claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
-    claim.SelfEmployedHowMuchPayPensionExpenses = "11"
+    claim.SelfEmployedHowMuchYouPayTowardsPensionScheme = "11.2"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
 

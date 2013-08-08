@@ -2,7 +2,7 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
-import models.{Whereabouts, MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
+import models.DayMonthYear
 import controllers.Mappings.{yes, no}
 import models.yesNo.{YesNoWithDropDownAndText, YesNoWithDropDown, YesNoWithDate}
 import models.NationalInsuranceNumber
@@ -133,8 +133,8 @@ class CareeSpec extends Specification with Tags {
     "generate <CareBreak> xml when claimer has breaks" in {
       val startDate = DayMonthYear(Some(1), Some(2), Some(2012), Some(15), Some(5))
       val endDate = DayMonthYear(Some(1), Some(2), Some(2012))
-      val breakOne = Break(id="1", start = startDate, end = Some(endDate), whereYou = Whereabouts(location="Netherlands"), medicalDuringBreak=yes)
-      val breakTwo = Break(id="2", whereYou = Whereabouts(location="Spain"), medicalDuringBreak=no)
+      val breakOne = Break(id = "1", start = startDate, end = Some(endDate), whereYou = Whereabouts(location = "Netherlands"), medicalDuringBreak = yes)
+      val breakTwo = Break(id = "2", whereYou = Whereabouts(location = "Spain"), medicalDuringBreak = no)
       val claim = Claim().update(BreaksInCare().update(breakOne).update(breakTwo))
       val xml = Caree.careBreak(claim)
 
@@ -198,7 +198,7 @@ class CareeSpec extends Specification with Tags {
       val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
       val dateOfBirth = DayMonthYear(Some(3), Some(4), Some(1950))
       val moreAboutThePerson = MoreAboutThePerson(claimedAllowanceBefore = yes)
-      val previousCarerPersonalDetails = PreviousCarerPersonalDetails(firstName = Some("firstName"), middleName = Some("middleName"), surname = Some("surname"), nationalInsuranceNumber=Some(nationalInsuranceNr), dateOfBirth=Some(dateOfBirth))
+      val previousCarerPersonalDetails = PreviousCarerPersonalDetails(firstName = Some("firstName"), middleName = Some("middleName"), surname = Some("surname"), nationalInsuranceNumber = Some(nationalInsuranceNr), dateOfBirth = Some(dateOfBirth))
       val previousCarerContactDetails = PreviousCarerContactDetails(address = Some(MultiLineAddress(Some("line1"))), postcode = Some("postcode"))
       val claim = Claim().update(moreAboutThePerson).update(previousCarerPersonalDetails).update(previousCarerContactDetails)
 
