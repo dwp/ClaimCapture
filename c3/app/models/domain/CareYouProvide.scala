@@ -103,4 +103,9 @@ case object BreaksInCare extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g10"
 }
 
-case class Break(id: String, start: DayMonthYear, end: Option[DayMonthYear], whereYou: Whereabouts, wherePerson: Whereabouts, medicalDuringBreak: String)
+case class Break(id: String = "",
+                 start: DayMonthYear = DayMonthYear(None, None, None),
+                 end: Option[DayMonthYear] = None,
+                 whereYou: Whereabouts = Whereabouts(),
+                 wherePerson: Whereabouts=Whereabouts(),
+                 medicalDuringBreak: String = "")
