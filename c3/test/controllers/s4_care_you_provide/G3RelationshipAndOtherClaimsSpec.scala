@@ -8,7 +8,7 @@ import models.domain.{Claiming, MoreAboutThePerson, Claim, Section}
 import models.domain
 import play.api.test.Helpers._
 
-class G3MoreAboutThePersonSpec extends Specification with Mockito with Tags {
+class G3RelationshipAndOtherClaimsSpec extends Specification with Mockito with Tags {
 
   val moreAboutThePersonInput = Seq("relationship" -> "father", "armedForcesPayment" -> "yes", "claimedAllowanceBefore" -> "yes")
 

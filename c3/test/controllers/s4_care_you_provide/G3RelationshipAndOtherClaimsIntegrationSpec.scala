@@ -4,7 +4,7 @@ import org.specs2.mutable.{ Tags, Specification }
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
 
-class G3MoreAboutThePersonIntegrationSpec extends Specification with Tags {
+class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tags {
 
   "More About The Person" should {
     "be presented" in new WithBrowser with BrowserMatchers {

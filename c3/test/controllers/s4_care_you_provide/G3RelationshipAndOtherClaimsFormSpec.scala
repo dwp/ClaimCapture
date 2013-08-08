@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 
-class G3MoreAboutThePersonFormSpec extends Specification with Tags {
+class G3RelationshipAndOtherClaimsFormSpec extends Specification with Tags {
 
   "More About The Person Form" should {
 
