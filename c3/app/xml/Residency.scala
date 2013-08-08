@@ -16,13 +16,13 @@ object Residency {
 
     <Residency>
       <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
-      <EUEEASwissNational>{yes}</EUEEASwissNational>
+      <EUEEASwissNational>Not asked</EUEEASwissNational>
       <CountryNormallyLive>{yes}</CountryNormallyLive>
       <CountryNormallyLiveOther>{if (normalResidenceOption.isDefined) normalResidenceOption.get.whereDoYouLive.text.orNull}</CountryNormallyLiveOther>
       {inGreatBritainNow(normalResidenceOption)}
-      <InGreatBritain26Weeks>{yes}</InGreatBritain26Weeks>
+      <InGreatBritain26Weeks>Not asked</InGreatBritain26Weeks>
       {periodAbroadLastYear(tripsOption)}
-      <BritishOverseasPassport>{yes}</BritishOverseasPassport>
+      <BritishOverseasPassport>Not asked</BritishOverseasPassport>
       {otherNationality(claim)}
       <OutOfGreatBritain>{yes}</OutOfGreatBritain>
       {periodAbroadDuringCare(tripsOption)}
