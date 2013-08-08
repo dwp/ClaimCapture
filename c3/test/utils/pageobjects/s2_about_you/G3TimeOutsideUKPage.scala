@@ -24,7 +24,7 @@ final class G3TimeOutsideUKPage(browser: TestBrowser, previousPage: Option[Page]
  * It is used by PageFactory object defined in Page.scala
  */
 object G3TimeOutsideUKPage {
-  val title = "Time Outside UK - About You"
+  val title = "About Your Time Outside The UK - About You"
   val url  = "/aboutyou/timeOutsideUK"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3TimeOutsideUKPage(browser,previousPage)
 }
