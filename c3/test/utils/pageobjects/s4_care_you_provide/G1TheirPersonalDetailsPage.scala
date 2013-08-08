@@ -1,7 +1,7 @@
 package utils.pageobjects.s4_care_you_provide
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * Page object for s4_care_you_provide g1_their_personal_details.
@@ -16,7 +16,7 @@ final class G1TheirPersonalDetailsPage (browser: TestBrowser, previousPage: Opti
     declareInput("#surname", "AboutTheCareYouProvideSurnamePersonCareFor")
     declareNino("#nationalInsuranceNumber", "AboutTheCareYouProvideNINOPersonCareFor")
     declareDate("#dateOfBirth", "AboutTheCareYouProvideDateofBirthPersonYouCareFor")
-    declareYesNo("#liveAtSameAddress", "AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou")
+    declareYesNo("#liveAtSameAddressCareYouProvide", "AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou")
 
 }
 

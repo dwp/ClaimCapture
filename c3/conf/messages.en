@@ -190,6 +190,7 @@ isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming C
 ## CARE YOU PROVIDE
 
 # THEIR PERSONAL DETAILS
+liveAtSameAddressCareYouProvide = Do they live at the same address as you?
 liveAtSameAddress = Does your Partner/Spouse live at the same address as you?
 
 # MORE ABOUT THE PERSON

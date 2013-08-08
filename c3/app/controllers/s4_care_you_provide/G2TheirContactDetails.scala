@@ -19,7 +19,7 @@ object G2TheirContactDetails extends Controller with CareYouProvideRouting with 
 
   def present = claiming { implicit claim => implicit request =>
     val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails) match {
-      case Some(t: TheirPersonalDetails) => t.liveAtSameAddress == yes
+      case Some(t: TheirPersonalDetails) => t.liveAtSameAddressCareYouProvide == yes
       case _ => false
     }
 

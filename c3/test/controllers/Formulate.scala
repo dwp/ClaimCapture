@@ -215,7 +215,7 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#liveAtSameAddress_yes]")
+    browser.click("#liveAtSameAddressCareYouProvide_yes]")
     browser.submit("button[type='submit']")
   }
 
@@ -227,7 +227,7 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#liveAtSameAddress_no]")
+    browser.click("#liveAtSameAddressCareYouProvide_no]")
     browser.submit("button[type='submit']")
   }
 
