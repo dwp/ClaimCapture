@@ -1,12 +1,12 @@
 package controllers.s5_time_spent_abroad
 
-import org.specs2.mutable.Specification
+import org.specs2.mutable.{Specification,Tags}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.{Trips, Claiming, Claim}
 
-class G4TripSpec extends Specification {
+class G4TripSpec extends Specification with Tags {
   "4 week trip" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withHeaders("referer" -> "")
@@ -129,5 +129,5 @@ class G4TripSpec extends Specification {
         case Some(ts: Trips) => ts.fourWeeksTrips.size shouldEqual 5
       }
     }
-  }
+  } section ("unit",models.domain.TimeSpentAbroad.id)
 }

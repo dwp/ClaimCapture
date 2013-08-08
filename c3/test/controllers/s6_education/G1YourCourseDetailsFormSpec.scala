@@ -91,5 +91,5 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
         f => "Ok" must equalTo("Ok")
       )
     }
-  } section "unit"
+  } section("unit",models.domain.Education.id)
 }

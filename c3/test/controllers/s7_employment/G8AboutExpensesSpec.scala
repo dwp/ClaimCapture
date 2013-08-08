@@ -55,5 +55,5 @@ class G8AboutExpensesSpec extends Specification with Tags {
         }
       }
     }
-  } section "unit"
+  } section("unit",models.domain.Employed.id)
 }

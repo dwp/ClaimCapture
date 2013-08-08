@@ -50,7 +50,7 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       browser.findFirst("input[value='Edit']").click()
       titleMustEqual("Job Details - Employment")
     }
-  } section "integration"
+  } section("integration",models.domain.Employed.id)
 
   trait EmploymentFiller extends BrowserMatchers {
     this: WithBrowser[_] =>
