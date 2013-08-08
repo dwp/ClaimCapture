@@ -26,7 +26,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         ).recover {
           case e: java.net.ConnectException => {
             Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-            errorAndCleanup(retryData.txnId, UNKNOWN_ERROR)
+            Redirect("/consentAndDeclaration/error")
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(RETRY) ! ${e.getMessage}")
@@ -47,7 +47,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         ).recover {
           case e: java.net.ConnectException => {
             Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-            errorAndCleanup(txnId, UNKNOWN_ERROR)
+            Redirect("/consentAndDeclaration/error")
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
