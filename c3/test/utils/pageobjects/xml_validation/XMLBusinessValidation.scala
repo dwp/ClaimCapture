@@ -85,6 +85,7 @@ class XmlNode(val nodes: NodeSeq) {
 
     def valuesMatching = {
       if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>")) value.contains(claimValue.value)
+      else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
       else if (value.matches(".*>.*")) {
         println(value)
         value.matches(".*" + "yes</[^>]*" + value + ".*")
