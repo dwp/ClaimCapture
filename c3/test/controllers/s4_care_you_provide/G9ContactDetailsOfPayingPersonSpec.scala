@@ -45,5 +45,5 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification with Tags {
 
       claim.questionGroup(ContactDetailsOfPayingPerson) must beSome(ContactDetailsOfPayingPerson(None, None))
     }
-  } section "unit"
+  } section("unit",models.domain.CareYouProvide.id)
 }

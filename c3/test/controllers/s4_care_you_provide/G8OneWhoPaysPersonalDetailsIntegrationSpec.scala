@@ -43,5 +43,5 @@ class G8OneWhoPaysPersonalDetailsIntegrationSpec extends Specification with Tags
       browser.submit("button[type='submit']")
       titleMustEqual("Contact Details of Paying Person - Care You Provide")
     }
-  } section "integration"
+  } section("integration",models.domain.CareYouProvide.id)
 }

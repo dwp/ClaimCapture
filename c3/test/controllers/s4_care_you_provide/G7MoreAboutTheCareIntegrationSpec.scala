@@ -81,5 +81,5 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       browser.click("#backButton")
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide") // Back to S4 G4
     }
-  }
+  } section ("integration",models.domain.CareYouProvide.id)
 }

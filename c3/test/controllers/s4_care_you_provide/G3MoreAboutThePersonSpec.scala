@@ -53,5 +53,5 @@ class G3MoreAboutThePersonSpec extends Specification with Mockito with Tags {
       val result = G3MoreAboutThePerson.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section "unit"
+  } section("unit",models.domain.CareYouProvide.id)
 }

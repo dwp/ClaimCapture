@@ -43,5 +43,5 @@ class G3MoreAboutThePersonIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       titleMustEqual("Representatives For The Person - Care You Provide")
     }
-  } section "integration"
+  } section("integration",models.domain.CareYouProvide.id)
 }
