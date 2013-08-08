@@ -70,8 +70,8 @@ object ClaimBuilder {
   val propertyAndRent = PropertyAndRent(yes, yes)
   val aboutYou = AboutYouSection(yourDetails, contactDetails, Some(timeOutsideUK), claimDate, moreAboutYou, employment, propertyAndRent)
 
-  val theirPersonalDetails = TheirPersonalDetails(title = "ms", firstName = "Minnie", middleName = None, surname = "Mouse",
-                                                  None, dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddress = "no")
+  val theirPersonalDetails = TheirPersonalDetails(title = "ms", firstName = "Minnie", middleName = Some("middleName"), surname = "Mouse",
+    nationalInsuranceNumber = Some(NationalInsuranceNumber(Some("AA"), Some("12"), Some("34"), Some("56"), Some("A"))), dateOfBirth = DayMonthYear(1, 1, 1963), liveAtSameAddressCareYouProvide = "no")
 
   val theirContactDetails = TheirContactDetails(address = MultiLineAddress(Some("Line1"), None, None), postcode = Some("PR2 8AE"))
 
@@ -91,7 +91,7 @@ object ClaimBuilder {
 
   val breaksInCare = BreaksInCare(List(
     Break(id = "1", start = DayMonthYear(1, 1, 2001), end = Some(DayMonthYear(1, 5, 2001)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes"),
-    Break(id = "1", start = DayMonthYear(1, 1, 2002), end = Some(DayMonthYear(1, 5, 2002)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes")))
+    Break(id = "2", start = DayMonthYear(1, 1, 2002), end = Some(DayMonthYear(1, 5, 2002)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes")))
 
   val employmentJobs = new Jobs(List(
      new Job("1",List(

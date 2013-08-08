@@ -31,13 +31,7 @@ object Caree {
       <CanCareeSign>Not asked</CanCareeSign>
       <CanSomeoneElseSign>{representatives.someoneElseAct.answer.orNull}</CanSomeoneElseSign>
       <CanClaimantSign>{representatives.youAct.answer}</CanClaimantSign>
-      <ClaimantActingType>
-        <ParentOrGuardian></ParentOrGuardian>
-        <PowerOfAttorney></PowerOfAttorney>
-        <Appointee></Appointee>
-        <JudicialFactor></JudicialFactor>
-        <Receiver></Receiver>
-      </ClaimantActingType>
+      {claimantActingType(claim)}
       {breaksSinceClaim(claim)}
       {careBreak(claim)}
       <Cared35hoursBefore>{moreAboutTheCare.spent35HoursCaringBeforeClaim.answer}</Cared35hoursBefore>
@@ -50,16 +44,37 @@ object Caree {
     </Caree>
   }
 
+  def claimantActingType(claim:Claim) = {
+    val representatives = claim.questionGroup[RepresentativesForPerson].getOrElse(RepresentativesForPerson())
+
+    val claimantCanSign = representatives.youAct.answer == yes
+
+    if(claimantCanSign) {
+
+      val youAct = representatives.youAct
+      val parentOrGuardian = youAct.dropDownValue.orNull == "guardian"
+      val attorney = youAct.dropDownValue.orNull == "attorney"
+      val appointee = youAct.dropDownValue.orNull == "appointee"
+      val judicial = youAct.dropDownValue.orNull == "judicial"
+      val receiver = youAct.dropDownValue.orNull == "deputy" || youAct.dropDownValue.orNull == "curator"
+
+      <ClaimantActingType>
+        <ParentOrGuardian>{if(parentOrGuardian) yes}</ParentOrGuardian>
+        <PowerOfAttorney>{if(attorney) yes}</PowerOfAttorney>
+        <Appointee>{if(appointee) yes}</Appointee>
+        <JudicialFactor>{if(judicial) yes}</JudicialFactor>
+        <Receiver>{if(receiver) yes}</Receiver>
+      </ClaimantActingType>
+    } else NodeSeq.Empty
+  }
+
   def breaksSinceClaim(claim:Claim) = {
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
     val hasNotSpent35HoursCaringBeforeClaimDate = moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == no
 
-    if(hasNotSpent35HoursCaringBeforeClaimDate) {
-      <BreaksSinceClaim>{if(breaksInCare.hasBreaks) yes else no}</BreaksSinceClaim>
-    } else NodeSeq.Empty
-
-  }
+    <BreaksSinceClaim>{if(hasNotSpent35HoursCaringBeforeClaimDate && breaksInCare.hasBreaks) yes else no}</BreaksSinceClaim>
+}
 
   def breaksBeforeClaim(claim:Claim) = {
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
@@ -72,7 +87,8 @@ object Caree {
   }
 
   def dateStartedCaring(moreAboutTheCare:MoreAboutTheCare) = {
-    if(moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == yes) {
+    val startedCaringBeforeClaimDate = moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == yes
+    if(startedCaringBeforeClaimDate) {
       <DateStartedCaring>{stringify(moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}</DateStartedCaring>
     } else NodeSeq.Empty
   }
