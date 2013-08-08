@@ -8,7 +8,7 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
  * @author Saqib Kayani
  *         Date: 25/07/2013
  */
-final class G3MoreAboutThePersonPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3MoreAboutThePersonPage.url, G3MoreAboutThePersonPage.title, previousPage)  {
+final class G3RelationshipAndOtherClaimsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3RelationshipAndOtherClaimsPage.url, G3RelationshipAndOtherClaimsPage.title, previousPage)  {
   
     declareSelect("#relationship","AboutTheCareYouProvideWhatTheirRelationshipToYou")
     declareYesNo("#armedForcesPayment", "AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment")
@@ -19,14 +19,14 @@ final class G3MoreAboutThePersonPage (browser: TestBrowser, previousPage: Option
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in PageFactory.scala
  */
-object G3MoreAboutThePersonPage {
-  val title = "More About The Person You Care For - Care You Provide"
-  val url  = "/careYouProvide/moreAboutThePerson"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3MoreAboutThePersonPage(browser,previousPage)
+object G3RelationshipAndOtherClaimsPage {
+  val title = "Relationship and other claims - About the care you provide"
+  val url  = "/careYouProvide/relationshipAndOtherClaims"
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3RelationshipAndOtherClaimsPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
-trait G3MoreAboutThePersonPageContext extends PageContext {
+trait G3RelationshipAndOtherClaimsPageContext extends PageContext {
   this: {val browser:TestBrowser}  =>
-  val page = G3MoreAboutThePersonPage buildPageWith browser
+  val page = G3RelationshipAndOtherClaimsPage buildPageWith browser
 }

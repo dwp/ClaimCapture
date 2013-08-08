@@ -7,14 +7,14 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 
-@main("Personal Details - Your Partner", Some(currentForm)) {
+@main("Partner/Spouse Details - About Your Partner/Spouse", Some(currentForm)) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit) {
     
         <fieldset class="form-elements">
-            <legend>Your Partner/Spouse details</legend>
+            <legend>Partner/Spouse details</legend>
 
             <ul class="group">
                 @titleSelect(currentForm("title"))

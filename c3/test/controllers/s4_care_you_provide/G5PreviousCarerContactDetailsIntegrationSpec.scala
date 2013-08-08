@@ -8,7 +8,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
   "Previous Carer Contact Details" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
@@ -22,7 +22,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
@@ -41,7 +41,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
 
     "navigate back to Previous Carer Person Details" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")

@@ -22,7 +22,7 @@ case class TheirPersonalDetails(title: String = "",
                                 surname: String = "",
                                 nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
                                 dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
-                                liveAtSameAddress: String = "") extends QuestionGroup(TheirPersonalDetails) with NoRouting
+                                liveAtSameAddressCareYouProvide: String = "") extends QuestionGroup(TheirPersonalDetails) with NoRouting
 
 case object TheirPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g1"

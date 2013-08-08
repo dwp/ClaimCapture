@@ -19,7 +19,7 @@ object G1TheirPersonalDetails extends Controller with Mappings.Name with CachedC
       "surname" -> nonEmptyText(maxLength = maxLength),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
-      "liveAtSameAddress" -> nonEmptyText.verifying(validYesNo)
+      "liveAtSameAddressCareYouProvide" -> nonEmptyText.verifying(validYesNo)
     )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
@@ -35,7 +35,7 @@ object G1TheirPersonalDetails extends Controller with Mappings.Name with CachedC
         case Some(t: YourPartnerPersonalDetails) =>
           form.fill(TheirPersonalDetails(title = t.title, firstName = t.firstName, middleName = t.middleName, surname = t.surname,
                                          nationalInsuranceNumber = t.nationalInsuranceNumber,
-                                         dateOfBirth = t.dateOfBirth, liveAtSameAddress = t.liveAtSameAddress)) // Pre-populate form with values from YourPartnerPersonalDetails
+                                         dateOfBirth = t.dateOfBirth, liveAtSameAddressCareYouProvide = t.liveAtSameAddress)) // Pre-populate form with values from YourPartnerPersonalDetails
         case _ => form // Blank form (user can only get here if they skip sections by manually typing URL).
       }
     } else {
