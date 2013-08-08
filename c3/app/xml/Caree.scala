@@ -28,7 +28,7 @@ object Caree {
       </DaytimePhoneNumber>
       <RelationToClaimant>{moreAboutThePerson.relationship}</RelationToClaimant>
       <Cared35hours>{moreAboutTheCare.spent35HoursCaring}</Cared35hours>
-      <CanCareeSign>yes</CanCareeSign>
+      <CanCareeSign>Not asked</CanCareeSign>
       <CanSomeoneElseSign>{representatives.someoneElseAct.answer.orNull}</CanSomeoneElseSign>
       <CanClaimantSign>{representatives.youAct.answer}</CanClaimantSign>
       <ClaimantActingType>
@@ -85,7 +85,7 @@ object Caree {
         <EndDateTime>{if(break.end.isDefined) break.end.get.`yyyy-MM-dd'T'HH:mm:00`}</EndDateTime>
         <Reason>{break.whereYou.location}</Reason>
         <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
-        <AwayFromHome>yes</AwayFromHome>
+        <AwayFromHome>Not asked</AwayFromHome>
       </CareBreak>
     }
   }
