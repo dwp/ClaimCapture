@@ -14,6 +14,10 @@ import play.api.data.validation.ValidationError
 import play.api.mvc.Call
 
 object Mappings {
+  trait Name {
+    val maxLength = 35
+  }
+
   val fifty = 50
 
   val sixty = 60
@@ -146,7 +150,7 @@ object Mappings {
   }
 
   def validDecimalNumber: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
-    val decimalPattern = """^[0-9]{1,12}(\.[0-9])?$""".r
+    val decimalPattern = """^[0-9]{1,12}(\.[0-9]{1,2})?$""".r
 
     decimalPattern.pattern.matcher(decimal).matches match {
       case true => Valid
@@ -173,8 +177,4 @@ object Mappings {
   }
   
   def call(call: Call): (String, Mapping[Call]) = "call" -> ignored(call)
-
-  trait Name {
-    val maxLength = 35
-  }
 }

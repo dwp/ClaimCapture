@@ -6,7 +6,6 @@ import models.DayMonthYear
 import controllers.Mappings.{yes, no}
 import models.yesNo.{YesNoWithDropDownAndText, YesNoWithDropDown, YesNoWithDate}
 import models.NationalInsuranceNumber
-import scala.Some
 import models.Whereabouts
 import models.MultiLineAddress
 import models.domain.Break
@@ -46,7 +45,6 @@ class CareeSpec extends Specification with Tags {
       (xml \\ "BreaksSinceClaim").text shouldEqual no
       (xml \\ "Cared35hoursBefore").text shouldEqual moreAboutTheCare.spent35HoursCaringBeforeClaim.answer
       (xml \\ "PaidForCaring").text shouldEqual moreAboutTheCare.hasSomeonePaidYou
-      (xml \\ "PayReceived").text must not(beEmpty)
       (xml \\ "ClaimedPreviously").text shouldEqual moreAboutThePerson.claimedAllowanceBefore
       (xml \\ "PreviousClaimant").text must not(beEmpty)
     }
@@ -57,26 +55,31 @@ class CareeSpec extends Specification with Tags {
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "ParentOrGuardian").text shouldEqual yes
       }
+
       "<PowerOfAttorney> when claimer act as Attorney" in {
         val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("attorney")))
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "PowerOfAttorney").text shouldEqual yes
       }
+
       "<Appointee> when claimer act as Appointee" in {
         val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("appointee")))
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "Appointee").text shouldEqual yes
       }
+
       "<JudicialFactor> when claimer act as Judicial factor" in {
         val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("judicial")))
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "JudicialFactor").text shouldEqual yes
       }
+
       "<Receiver> when claimer act as Deputy" in {
         val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("deputy")))
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "Receiver").text shouldEqual yes
       }
+
       "<Receiver> when claimer act as Curator bonis" in {
         val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("curator")))
         val xml = Caree.claimantActingType(Claim().update(representatives))
@@ -98,11 +101,13 @@ class CareeSpec extends Specification with Tags {
         val xml = Caree.breaksSinceClaim(Claim().update(moreAboutTheCare).update(breaks))
         xml.text shouldEqual yes
       }
+
       "no when claimer has breaks and spent 35 hours caring BEFORE claim date" in {
         val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(yes, None))
         val xml = Caree.breaksSinceClaim(Claim().update(moreAboutTheCare))
         xml.text shouldEqual no
       }
+
       "no when claimer has NO breaks and NOT spent 35 hours caring BEFORE claim date" in {
         val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(no, None))
         val xml = Caree.breaksSinceClaim(Claim().update(moreAboutTheCare))
@@ -118,6 +123,7 @@ class CareeSpec extends Specification with Tags {
         val xml = Caree.breaksBeforeClaim(Claim().update(moreAboutTheCare).update(breaks))
         xml.text shouldEqual yes
       }
+
       "no when claimer has no breaks and spent 35 hours caring BEFORE claim date" in {
         val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(yes, None))
         val xml = Caree.breaksBeforeClaim(Claim().update(moreAboutTheCare))
@@ -171,20 +177,24 @@ class CareeSpec extends Specification with Tags {
 
     "generate <PayReceived> xml if claimer has received payments" in {
       val moreAboutTheCare = MoreAboutTheCare(hasSomeonePaidYou = yes)
-      val oneWhoPays = OneWhoPaysPersonalDetails(organisation = Some("organisation"), title = Some("title"), firstName = Some("firstName"), middleName = Some("middleName"), surname = Some("surname"), amount = Some("505.5"), startDatePayment = Some(DayMonthYear(Some(3), Some(4), Some(2012))))
+
+      val oneWhoPays = OneWhoPaysPersonalDetails(organisation = Some("organisation"), title = Some("title"),
+                                                                      firstName = "firstName", middleName = Some("middleName"), surname = "surname",
+                                                                      amount = "505.5", startDatePayment = DayMonthYear(Some(3), Some(4), Some(2012)))
+
       val contactDetailsPayingPerson = ContactDetailsOfPayingPerson(address = Some(MultiLineAddress(Some("line1"))), postcode = Some("postcode"))
       val claim = Claim().update(moreAboutTheCare).update(oneWhoPays).update(contactDetailsPayingPerson)
       val xml = Caree.payReceived(claim)
 
       (xml \\ "PayerName").text must contain(oneWhoPays.organisation.get)
       (xml \\ "PayerName").text must contain(oneWhoPays.title.get)
-      (xml \\ "PayerName").text must contain(oneWhoPays.firstName.get)
+      (xml \\ "PayerName").text must contain(oneWhoPays.firstName)
       (xml \\ "PayerName").text must contain(oneWhoPays.middleName.get)
-      (xml \\ "PayerName").text must contain(oneWhoPays.surname.get)
+      (xml \\ "PayerName").text must contain(oneWhoPays.surname)
       (xml \\ "PayerAddress" \\ "Line").theSeq(0).text shouldEqual contactDetailsPayingPerson.address.get.lineOne.get
       (xml \\ "PayerAddress" \\ "PostCode").text shouldEqual contactDetailsPayingPerson.postcode.get
-      (xml \\ "Payment" \\ "Amount").text shouldEqual oneWhoPays.amount.get
-      (xml \\ "DatePaymentStarted").text shouldEqual oneWhoPays.startDatePayment.get.`yyyy-MM-dd`
+      (xml \\ "Payment" \\ "Amount").text shouldEqual oneWhoPays.amount
+      (xml \\ "DatePaymentStarted").text shouldEqual oneWhoPays.startDatePayment.`yyyy-MM-dd`
     }
 
     "skip <PreviousClaimant> xml if NOT claimed allowance before" in {
