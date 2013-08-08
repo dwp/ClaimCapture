@@ -15,11 +15,11 @@ object G8OneWhoPaysPersonalDetails extends Controller with CareYouProvideRouting
     mapping(
       "organisation" -> optional(text(maxLength = hundred)),
       "title" -> optional(text(maxLength = 4)),
-      "firstName" -> optional(text(maxLength = maxLength)),
+      "firstName" -> nonEmptyText(maxLength = maxLength),
       "middleName" -> optional(text(maxLength = maxLength)),
-      "surname" -> optional(text(maxLength = maxLength)),
-      "amount" -> optional(text verifying validDecimalNumber),
-      "startDatePayment" -> optional(dayMonthYear.verifying(validDateOnly))
+      "surname" -> nonEmptyText(maxLength = maxLength),
+      "amount" -> nonEmptyText.verifying(validDecimalNumber),
+      "startDatePayment" -> dayMonthYear.verifying(validDate)
     )(OneWhoPaysPersonalDetails.apply)(OneWhoPaysPersonalDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>

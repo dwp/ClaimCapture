@@ -23,12 +23,12 @@ class G8OneWhoPaysPersonalDetailsIntegrationSpec extends Specification with Tags
       browser.fill("#amount") `with` "INVALID"
       browser.submit("button[type='submit']")
       titleMustEqual("One Who Pays You - Care You Provide")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 1
+      browser.find("div[class=validation-summary] ol li").size shouldEqual 4
     }
 
     "contain the completed forms" in new WithBrowser {
       Formulate.moreAboutTheCare(browser)
-      browser.find("div[class=completed] ul li").size() mustEqual 1
+      browser.find("div[class=completed] ul li").size() shouldEqual 1
     }
 
     "be able to navigate back" in new WithBrowser with BrowserMatchers {
@@ -38,10 +38,19 @@ class G8OneWhoPaysPersonalDetailsIntegrationSpec extends Specification with Tags
       titleMustEqual("More about the care you provide - Care You Provide")
     }
 
-    "navigate to Contact Details Of Paying Person" in new WithBrowser with BrowserMatchers {
+    "navigate to Contact Details Of Paying Person after providing all mandatory data" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutTheCare(browser)
+
+      browser.fill("#firstName") `with` "John"
+      browser.fill("#surname") `with` "Joe"
+      browser.fill("#amount") `with` "44.99"
+
+      browser.click("#startDatePayment_day option[value='3']")
+      browser.click("#startDatePayment_month option[value='4']")
+      browser.fill("#startDatePayment_year") `with` "1950"
+
       browser.submit("button[type='submit']")
       titleMustEqual("Contact Details of Paying Person - Care You Provide")
     }
-  } section("integration",models.domain.CareYouProvide.id)
+  } section("integration", models.domain.CareYouProvide.id)
 }

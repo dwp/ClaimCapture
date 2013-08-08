@@ -4,7 +4,7 @@ import models.domain._
 import xml.XMLHelper._
 import models.{DayMonthYearComparator, DayMonthYear}
 import scala.language.reflectiveCalls
-import scala.xml.{NodeBuffer, NodeSeq, Elem}
+import scala.xml.{NodeSeq, Elem}
 
 object Employment {
 
@@ -44,20 +44,21 @@ object Employment {
     </Pay>
   }
 
-  def howMuchOwed(s:Option[String]) = {
+  def howMuchOwed(s: Option[String]) = {
     val showXml = s.isDefined
 
     if (showXml){
       <Payment>
         <Amount>{s.get}</Amount>
       </Payment>
-    }else{
+    } else {
       NodeSeq.Empty
     }
   }
 
   def moneyOwedXml(moneyOwed: MoneyOwedbyEmployer) = {
     val showXml = moneyOwed.jobID.nonEmpty
+
     if (showXml){
         <MoneyOwed>
           {howMuchOwed(moneyOwed.howMuchOwed)}
@@ -65,21 +66,21 @@ object Employment {
           {<PaymentDueDate/> ?+ moneyOwed.shouldBeenPaidBy}
           {<PaymentExpected/> +++ moneyOwed.whenWillGetIt}
         </MoneyOwed>
-    }else{
+    } else {
       NodeSeq.Empty
     }
   }
 
-  def pensionSchemeXml(job:Job) = {
+  def pensionSchemeXml(job: Job) = {
     val pensionScheme:PensionSchemes = job.questionGroup[PensionSchemes].getOrElse(PensionSchemes())
 
     NodeSeq.Empty ++ {occupationalPensionSchemeXml(pensionScheme)} ++ {personalPensionSchemeXml(pensionScheme)}
-
   }
 
   def occupationalPensionSchemeXml(pensionScheme: PensionSchemes) = {
     val showXml = pensionScheme.payOccupationalPensionScheme == "yes"
-    if (showXml){
+
+    if (showXml) {
       <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
         <PensionScheme>
           <Type></Type>
@@ -89,7 +90,7 @@ object Employment {
           </Payment>
           {<Frequency/> +++ pensionScheme.howOftenPension}
         </PensionScheme>
-    }else{
+    } else {
       <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
     }
   }
@@ -97,7 +98,7 @@ object Employment {
   def personalPensionSchemeXml(pensionScheme:PensionSchemes):NodeSeq = {
     val showXml = pensionScheme.payPersonalPensionScheme == "yes"
 
-    if (showXml){
+    if (showXml) {
       <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
       <PensionScheme>
         <Type></Type>
@@ -107,7 +108,7 @@ object Employment {
         </Payment>
         {<Frequency/> +++ pensionScheme.howOftenPersonal}
       </PensionScheme>
-    }else{
+    } else {
       <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
     }
   }
@@ -117,9 +118,7 @@ object Employment {
     val necessaryExpenses: NecessaryExpenses = job.questionGroup[NecessaryExpenses].getOrElse(NecessaryExpenses())
     val showXml = aboutExpenses.payForAnythingNecessary == "yes"
 
-
-
-    if (showXml){
+    if (showXml) {
       <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
       <JobExpenses>
         <Expense>{necessaryExpenses.whatAreThose}</Expense>
@@ -129,7 +128,7 @@ object Employment {
           <Amount>{necessaryExpenses.howMuchCostEachWeek}</Amount>
         </WeeklyPayment>
       </JobExpenses>
-    }else{
+    } else {
       <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
     }
   }
@@ -140,8 +139,7 @@ object Employment {
     val childcareProvider: ChildcareProvider = job.questionGroup[ChildcareProvider].getOrElse(ChildcareProvider())
     val showXml = aboutExpenses.payAnyoneToLookAfterChildren == "yes"
 
-
-    if (showXml){
+    if (showXml) {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
       <ChildCareExpenses>
         <CarerName>{childcareExpenses.whoLooksAfterChildren}</CarerName>
@@ -154,21 +152,18 @@ object Employment {
         <RelationshipCarerToClaimant>{childcareExpenses.relationToYou.orNull}</RelationshipCarerToClaimant>
         <ChildDetails><Name/>{<RelationToChild/> ?+ childcareExpenses.relationToPersonYouCare}</ChildDetails>
       </ChildCareExpenses>
-    }else{
+    } else {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
     }
-
   }
 
-  def careExpensesXml(job:Job) = {
+  def careExpensesXml(job: Job) = {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
     val personYouCareExpenses: PersonYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
     val careProvider: CareProvider = job.questionGroup[CareProvider].getOrElse(CareProvider())
     val showXml = aboutExpenses.payAnyoneToLookAfterPerson == "yes"
 
-
-
-    if (showXml){
+    if (showXml) {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
       <CareExpenses>
         <CarerName>{personYouCareExpenses.whoDoYouPay}</CarerName>
@@ -181,7 +176,7 @@ object Employment {
         {<RelationshipCarerToClaimant/> +++ personYouCareExpenses.relationToYou}
         {<RelationshipCarerToCaree/> +++ personYouCareExpenses.relationToPersonYouCare}
       </CareExpenses>
-    }else{
+    } else {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
     }
   }
@@ -212,8 +207,7 @@ object Employment {
       <Employment>
         <CurrentlyEmployed>{currentlyEmployed}</CurrentlyEmployed>
         <DateLastWorked>{dateLastWorked.`yyyy-MM-dd`}</DateLastWorked>
-        {for(job <- jobsQG)yield{
-
+        {for (job <- jobsQG) yield {
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
           val employerContactDetails = job.questionGroup[EmployerContactDetails].getOrElse(EmployerContactDetails())
           val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
@@ -233,7 +227,7 @@ object Employment {
           </JobDetails>
         }}
       </Employment>
-    }else{
+    } else {
       NodeSeq.Empty
     }
   }
