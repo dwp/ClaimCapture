@@ -2,6 +2,7 @@ package utils.pageobjects.s5_time_spent_abroad
 
 import play.api.test.TestBrowser
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.i18n.Messages
 
 /**
  * * Page object for s5_time_spent_abroad g2_abroad_for_more_than_4_weeks.
@@ -25,7 +26,7 @@ final class G2AbroadForMoreThan4WeeksPage (browser: TestBrowser, previousPage: O
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G2AbroadForMoreThan4WeeksPage {
-  val title = "Abroad for more than 4 weeks - Time Spent Abroad"
+  val title = Messages("s5.g2") + " - Time Spent Abroad"
   val url  = "/timeSpentAbroad/abroadForMoreThan4Weeks"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None,iteration:Int) = new G2AbroadForMoreThan4WeeksPage(browser,previousPage,iteration)
 }

@@ -10,7 +10,7 @@ class G9ContactDetailsOfPayingPersonIntegrationSpec extends Specification with T
       Formulate.moreAboutTheCare(browser)
 
       browser.goTo("/careYouProvide/contactDetailsOfPayingPerson")
-      titleMustEqual("Contact Details of Paying Person - Care You Provide")
+      titleMustEqual("Contact details of the person who pays you - About the care you provide")
     }
 
     """be submitted and proceed to "breaks" """ in new WithBrowser with BrowserMatchers {
@@ -18,7 +18,7 @@ class G9ContactDetailsOfPayingPersonIntegrationSpec extends Specification with T
       /*browser.goTo("/careYouProvide/contactDetailsOfPayingPerson")
       browser.submit("button[value='next']")
 
-      titleMustEqual("Breaks in Care - Care You Provide")*/
+      titleMustEqual("Breaks in care - About the care you provide")*/
     }
 
     """be submitted with data, proceed to "breaks" and go back""" in new WithBrowser with BrowserMatchers {
@@ -28,7 +28,7 @@ class G9ContactDetailsOfPayingPersonIntegrationSpec extends Specification with T
       browser.goTo("/careYouProvide/contactDetailsOfPayingPerson")
       browser.fill("#postcode") `with` "BLAH"
       browser.submit("button[value='next']")
-      titleMustEqual("Breaks in Care - Care You Provide")
+      titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#backButton")
       browser.$("#postcode").getValue mustEqual "BLAH"*/

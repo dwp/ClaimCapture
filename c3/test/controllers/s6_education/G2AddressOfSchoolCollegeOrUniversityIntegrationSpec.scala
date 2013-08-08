@@ -8,14 +8,14 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
   "Address of school, college or university" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
-      titleMustEqual("Address Of School College Or University - Education")
+      titleMustEqual("School, college or university's contact details - About your education")
     }
 
     "not be presented if section not visible" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
       browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
-      titleMustNotEqual("Address Of School College Or University - Education")
+      titleMustNotEqual("School, college or university's contact details - About your education")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -32,20 +32,20 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
 
     "navigate back to Your Course Details" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
-      titleMustEqual("Address Of School College Or University - Education")
+      titleMustEqual("School, college or university's contact details - About your education")
       browser.click("#backButton")
-      titleMustEqual("Your Course Details - Education")
+      titleMustEqual("Your Course Details - About your education")
     }
 
     "navigate to next page on valid submission with all fields filled in" in new WithBrowser with BrowserMatchers {
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - About your education")
     }
     
     "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
       browser.submit("button[type='submit']")
-      titleMustEqual("Completion - Education")
+      titleMustEqual("Completion - About your education")
     }
   } section("integration",models.domain.Education.id)
 }

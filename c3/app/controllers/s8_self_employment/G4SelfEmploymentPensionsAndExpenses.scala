@@ -12,11 +12,7 @@ import models.yesNo.YesNoWithText
 import controllers.s8_self_employment.SelfEmployment._
 import play.api.data.FormError
 
-
-object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim {
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(SelfEmploymentPensionsAndExpenses)
-
-
+object G4SelfEmploymentPensionsAndExpenses extends Controller with SelfEmploymentRouting with CachedClaim {
   val pensionSchemeMapping =
       "doYouPayToPensionScheme" -> mapping(
         "answer" -> nonEmptyText.verifying(validYesNo),
@@ -24,31 +20,24 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim {
       )(YesNoWithText.apply)(YesNoWithText.unapply)
         .verifying("howMuchDidYouPay", YesNoWithText.validateOnYes _)
 
-
   def form(implicit claim: Claim) = Form(
     mapping(
-      call(routes.G4SelfEmploymentPensionsAndExpenses.present()),
       pensionSchemeMapping,
       "doYouPayToLookAfterYourChildren" -> nonEmptyText.verifying(validYesNo),
       "didYouPayToLookAfterThePersonYouCaredFor" -> nonEmptyText.verifying(validYesNo)
-    )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply)
-  )
+    )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply))
 
-  def present = claiming {
-    implicit claim => implicit request =>
-      whenSectionVisible(Ok(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses), completedQuestionGroups)))
+  def present = claiming { implicit claim => implicit request =>
+    whenSectionVisible(Ok(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses), completedQuestionGroups(SelfEmploymentPensionsAndExpenses))))
   }
 
-  def submit = claiming {
-    implicit claim =>
-      implicit request =>
-        form.bindEncrypted.fold(
-          formWithErrors => {
-            val formWithErrorsUpdate = formWithErrors
-              .replaceError("doYouPayToPensionScheme", "howMuchDidYouPay", FormError("doYouPayToPensionScheme.howMuchDidYouPay", "error.required"))
-            BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrorsUpdate, completedQuestionGroups))
-          },
-          f => claim.update(f) -> Redirect(routes.G5ChildcareExpensesWhileAtWork.present())
-        )
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("doYouPayToPensionScheme", "howMuchDidYouPay", FormError("doYouPayToPensionScheme.howMuchDidYouPay", "error.required"))
+        BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrorsUpdate, completedQuestionGroups(SelfEmploymentPensionsAndExpenses)))
+      },
+      f => claim.update(f) -> Redirect(routes.G5ChildcareExpensesWhileAtWork.present()))
   }
 }

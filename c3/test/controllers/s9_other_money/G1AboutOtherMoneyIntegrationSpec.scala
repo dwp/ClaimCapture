@@ -19,27 +19,30 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in {
-      "no fields selected" in new WithBrowser {
+      "no fields selected" in new WithBrowser with BrowserMatchers {
         browser.goTo("/otherMoney/aboutOtherMoney")
         browser.submit("button[type='submit']")
+        titleMustEqual("About Other Money - Other Money")
 
         browser.find("div[class=validation-summary] ol li").size mustEqual 1
       }
 
-      "text field enabled but not filled in" in new WithBrowser {
+      "text field enabled but not filled in" in new WithBrowser with BrowserMatchers {
         browser.goTo("/otherMoney/aboutOtherMoney")
         browser.click("#yourBenefits_answer_yes")
         browser.submit("button[type='submit']")
+        titleMustEqual("About Other Money - Other Money")
 
         browser.find("div[class=validation-summary] ol li").size mustEqual 1
       }
 
-      "text enabled but neither not filled in" in new WithBrowser {
+      "text enabled but neither not filled in" in new WithBrowser with BrowserMatchers {
         Formulate.claimDate(browser)
         Formulate.moreAboutYou(browser)
         browser.goTo("/otherMoney/aboutOtherMoney")
         browser.click("#yourBenefits_answer_yes")
         browser.submit("button[type='submit']")
+        titleMustEqual("About Other Money - Other Money")
 
         browser.find("div[class=validation-summary] ol li").size mustEqual 1
       }

@@ -21,7 +21,7 @@ final class G10BreaksInCarePage(browser: TestBrowser, previousPage: Option[Page]
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G10BreaksInCarePage {
-  val title = "Breaks in care - Care You Provide"
+  val title = "Breaks in care - About the care you provide"
   val url  = "/careYouProvide/breaksInCare"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G10BreaksInCarePage(browser,previousPage,iteration)
 }

@@ -17,7 +17,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     "be submitted with all mandatory data" in new TripWithBrowser {
       trip(fourWeeks)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "where".""" in new WithBrowser with BrowserMatchers {
@@ -37,9 +37,9 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     """show 2 four weeks trips in "trips table" upon providing 2 trips""" in new TripWithBrowser {
       trip(fourWeeks)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")
       trip(fourWeeks)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")
       browser.$("#trips table tbody tr").size shouldEqual 2
     }
 
@@ -51,9 +51,9 @@ class G4TripIntegrationSpec extends Specification with Tags {
       skipped("Ridiculous - Run this on its own and it's fine!")
 
       trip(fourWeeks)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")
       trip(fourWeeks)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")
 
       browser.findFirst("input[value='Edit']").click()
       titleMustEqual("Trip - Time Spent Abroad")
@@ -61,7 +61,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
       browser.fill("#start_year") `with` "1999"
       browser.submit("button[type='submit']")
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")
 
       browser.$("tbody tr").size() shouldEqual 2
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
@@ -69,13 +69,13 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     "allow cancellation" in new TripWithBrowser {
       browser.goTo("/timeSpentAbroad/abroadForMoreThan4Weeks")
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")
 
       browser.goTo("/timeSpentAbroad/trip/4Weeks")
       titleMustEqual("Trip - Time Spent Abroad")
 
       browser.click("#backButton")
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")
     }
   } section ("integration",models.domain.TimeSpentAbroad.id)
 
@@ -89,7 +89,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     "be submitted with all mandatory data" in new TripWithBrowser {
       trip(fiftyTwoWeeks)
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "where".""" in new WithBrowser with BrowserMatchers {
@@ -109,9 +109,9 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     """show 2 fifty two weeks trips in "trips table" upon providing 2 trips""" in new TripWithBrowser {
       trip(fiftyTwoWeeks)
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
       trip(fiftyTwoWeeks)
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
       browser.$("#trips table tbody tr").size shouldEqual 2
     }
 
@@ -123,9 +123,9 @@ class G4TripIntegrationSpec extends Specification with Tags {
       skipped("Ridiculous - Run this on its own and it's fine!")
 
       trip(fiftyTwoWeeks)
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
       trip(fiftyTwoWeeks)
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
 
       browser.findFirst("input[value='Edit']").click()
       titleMustEqual("Trip - Time Spent Abroad")
@@ -133,7 +133,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
       browser.fill("#start_year") `with` "1999"
       browser.submit("button[type='submit']")
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
 
       browser.$("tbody tr").size() shouldEqual 2
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
@@ -141,13 +141,13 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     "allow cancellation" in new TripWithBrowser {
       browser.goTo("/timeSpentAbroad/abroadForMoreThan52Weeks")
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
 
       browser.goTo("/timeSpentAbroad/trip/52Weeks")
       titleMustEqual("Trip - Time Spent Abroad")
 
       browser.click("#backButton")
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
     }
   } section ("integration",models.domain.TimeSpentAbroad.id)
 

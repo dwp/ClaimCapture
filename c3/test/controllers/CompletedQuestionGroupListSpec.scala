@@ -15,7 +15,7 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").size mustEqual 2
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
 
@@ -27,7 +27,7 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       titleMustEqual("Relationship and other claims - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
 
       browser.click("#backButton")
@@ -44,16 +44,16 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       titleMustEqual("Relationship and other claims - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
 
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
 
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
 
       Formulate.representativesForThePerson(browser)
-      titleMustEqual("More about the care you provide - Care You Provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
 
       browser.find("div[class=completed] ul li").size mustEqual 6
       browser.find("div[class=completed] ul li").get(2).getText must contain("More about the person you care for")
@@ -70,10 +70,10 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       titleMustEqual("Relationship and other claims - About the care you provide")
 
       Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
 
       Formulate.representativesForThePerson(browser)
-      titleMustEqual("More about the care you provide - Care You Provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
 
       browser.find("div[class=completed] ul li").size mustEqual 4
       browser.find("div[class=completed] ul li").get(2).getText must contain("More about the person you care for")
@@ -89,28 +89,28 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       titleMustEqual("Relationship and other claims - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
 
       Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
 
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
 
       Formulate.representativesForThePerson(browser)
-      titleMustEqual("More about the care you provide - Care You Provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
 
       browser.click("#backButton")
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
 
       browser.click("#backButton")
-      titleMustEqual("Contact Details Of The Person Who Claimed Before - Care You Provide")
+      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
 
       Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
-      titleMustEqual("Representatives For The Person - Care You Provide")
+      titleMustEqual("Representatives for the person you care for - About the care you provide")
 
       Formulate.representativesForThePerson(browser)
-      titleMustEqual("More about the care you provide - Care You Provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
 
       browser.find("div[class=completed] ul li").size mustEqual 4
       browser.find("div[class=completed] ul li").get(2).getText must contain("More about the person you care for")
