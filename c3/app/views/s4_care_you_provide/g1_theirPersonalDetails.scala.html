@@ -7,7 +7,7 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 
-@main("Their Personal Details - Care You Provide", Some(currentForm)) {
+@main("Details of the person you care for - About the care you provide", Some(currentForm)) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
@@ -29,7 +29,7 @@
 
                 @inputDayMonthYear(currentForm("dateOfBirth"), 'helperBelow-> Messages("dateOfBirth.helper"))
 
-                @yesNoRadioGroup(currentForm("liveAtSameAddress"))
+                @yesNoRadioGroup(currentForm("liveAtSameAddressCareYouProvide"))
             </ul>
         </fieldset>
 

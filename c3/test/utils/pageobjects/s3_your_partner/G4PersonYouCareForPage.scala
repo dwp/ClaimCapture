@@ -18,7 +18,7 @@ final class G4PersonYouCareForPage (browser: TestBrowser, previousPage: Option[P
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G4PersonYouCareForPage {
-  val title = "Person You Care For - Your Partner"
+  val title = "Person You Care For - About Your Partner/Spouse"
   val url  = "/yourPartner/personYouCareFor"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4PersonYouCareForPage(browser,previousPage)
 }

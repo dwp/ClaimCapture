@@ -30,7 +30,7 @@ trait CareYouProvideRouting extends Routing {
   override def route(qgi: QuestionGroup.Identifier) = qgi match {
     case TheirPersonalDetails => routes.G1TheirPersonalDetails.present()
     case TheirContactDetails => routes.G2TheirContactDetails.present()
-    case MoreAboutThePerson => routes.G3MoreAboutThePerson.present()
+    case MoreAboutThePerson => routes.G3RelationshipAndOtherClaims.present()
     case PreviousCarerPersonalDetails => routes.G4PreviousCarerPersonalDetails.present()
     case PreviousCarerContactDetails => routes.G5PreviousCarerContactDetails.present()
     case RepresentativesForPerson => routes.G6RepresentativesForThePerson.present()

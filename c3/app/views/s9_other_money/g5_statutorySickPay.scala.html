@@ -1,0 +1,56 @@
+@(currentForm: Form[models.domain.StatutorySickPay], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import utils.helpers.CarersCrypto
+
+@main("Statutory Sick Pay - Other Money", Some(currentForm), completedQuestionGroups) {
+
+	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s9_other_money.routes.G5StatutorySickPay.submit) {
+
+        <fieldset class="form-elements">
+            <legend>About Statutory Sick Pay (SSP)</legend>
+
+            <ul class="group">
+              @yesNoRadioGroup(currentForm("haveYouHadAnyStatutorySickPay"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+
+              @otherDetailPlaceHolder(
+                  inputDef = Seq(
+                    carersShortInputText(currentForm("howMuch"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty),
+                    paymentFrequencySelect(currentForm("howOften"), 
+                      'id -> "howOften_frequency", 
+                      'visibleOn -> "yes", 
+                      'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                      ),
+                    carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
+                    inputAddress(currentForm("employersAddress")),
+                    carersInputText(currentForm("employersPostcode"))
+                  ),
+                  'id -> "sickPayWrap",
+                  'display -> currentForm("haveYouHadAnyStatutorySickPay").value.getOrElse("no")
+              )
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@back(models.domain.StatutorySickPay)" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s9_other_money/g5_statutorySickPay.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_yes")", 
+          "@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_no")",
+          "@CarersCrypto.encryptAES("howOften_frequency")", 
+          "@CarersCrypto.encryptAES("howOften_frequency_wrap")");
+    });
+</script>

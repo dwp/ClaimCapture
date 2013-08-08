@@ -8,10 +8,10 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
   "Completed Question Group List" should {
     "increase when navigating forwards" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
       browser.find("div[class=completed] ul li").size mustEqual 2
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
@@ -21,27 +21,27 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
 
     "decrease when navigating backwards" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
 
       browser.click("#backButton")
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
 
       browser.find("div[class=completed] ul li").size mustEqual 2
     }
 
     "contain the correct items when navigating S4G3 ClaimedAllowanceBefore positive answer path" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
@@ -64,10 +64,10 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
 
     "contain the correct items when navigating S4G3 ClaimedAllowanceBefore negative answer path" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
 
       Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
       titleMustEqual("Representatives For The Person - Care You Provide")
@@ -83,10 +83,10 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
     """remove invalidated history after completing the S4G3 ClaimedAllowanceBefore postive answer path
        but goes back and changes to the negative answer path""" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")

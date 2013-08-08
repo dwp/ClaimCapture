@@ -41,7 +41,7 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
     "navigate back to More About The Person You Care For" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       browser.click("#backButton")
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
     }
 
     "contain the completed forms" in new WithBrowser {

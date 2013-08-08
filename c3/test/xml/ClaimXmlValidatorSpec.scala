@@ -72,6 +72,8 @@ class ClaimXmlValidatorSpec extends Specification with Tags {
 
       val claimXml = DWPCAClaim.xml(claim, "TY6TV9G")
 
+      println(claimXml)
+
       val fullXml = buildFullClaim(claimXml)
 
       val validator = XmlValidatorFactory.buildCaValidator()

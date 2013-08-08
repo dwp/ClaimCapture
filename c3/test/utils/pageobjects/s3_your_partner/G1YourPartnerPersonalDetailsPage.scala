@@ -26,7 +26,7 @@ final class G1YourPartnerPersonalDetailsPage (browser: TestBrowser, previousPage
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1YourPartnerPersonalDetailsPage {
-  val title = "Personal Details - Your Partner"
+  val title = "Partner/Spouse Details - About Your Partner/Spouse"
   val url  = "/yourPartner/personalDetails"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1YourPartnerPersonalDetailsPage(browser,previousPage)
 }
