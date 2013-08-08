@@ -20,7 +20,7 @@
             <p>For example, cooking meals, or helping them with their shopping.</p>
             
             <ul class="group">
-                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("hours.answer"))
+                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("hours.answer"), '_showLabel -> false)
                 
                 @defining(currentForm("answer").value.getOrElse("don't know") match {case "no" => "block" case _ => "none"}) { styleDisplay =>
                   <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">

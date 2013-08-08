@@ -36,8 +36,8 @@
             <h2>Armed Forces Independence Payment (AFIP)</h2>
             
             <ul class="group">
-                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("benefits.answer"))
-                
+                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("benefits.answer"), '_showLabel -> false)
+
                 @defining(currentForm("answer").value.getOrElse("don't know") match {case "no" => "block" case _ => "none"}) { styleDisplay =>
                   <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
                     <p>You can only qualify for Carer's Allowance if the person you care for is in receipt of one of the qualifying benefits listed above.</p>
