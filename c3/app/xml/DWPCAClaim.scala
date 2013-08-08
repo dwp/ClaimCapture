@@ -3,7 +3,6 @@ package xml
 import models.domain.{MoreAboutYou, Claim}
 import controllers.Mappings._
 import play.api.Logger
-import services.submission.{ConsentAndDeclarationSubmission, CareYouProvideSubmission}
 
 object DWPCAClaim {
 
@@ -12,10 +11,6 @@ object DWPCAClaim {
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
 
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
-
-    val careYouProvide = CareYouProvideSubmission.buildCareYouProvide(claim)  //REMOVE THIS WHEN REFACTORING XML HAS BEEN DONE
-
-    val consentAndDeclaration = ConsentAndDeclarationSubmission.buildConsentAndDeclaration(claim)  //REMOVE THIS WHEN REFACTORING XML HAS BEEN DONE
 
     Logger.info(s"Build DWPCAClaim : $transactionId")
 
@@ -36,7 +31,7 @@ object DWPCAClaim {
       {OtherBenefits.xml(claim)}
       {Payment.xml(claim)}
       <ThirdParty>no</ThirdParty>
-      {ConsentAndDeclarationSubmission.buildDeclaration(consentAndDeclaration,careYouProvide)}
+      {Declaration.xml(claim)}
       <EvidenceList>
         <TextLine>Documents you need to send us</TextLine>
         <TextLine>You must send us all the documents we ask for. If you do not, any benefit you may be entitled to because of this claim may be delayed.</TextLine>

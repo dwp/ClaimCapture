@@ -6,12 +6,6 @@ import models.MultiLineAddress
 import models.NationalInsuranceNumber
 import yesNo.{YesNoWithDate, YesNoWithDropDownAndText, YesNoWithDropDown}
 
-case class CareYouProvide(theirPersonalDetails: TheirPersonalDetails, theirContactDetails: TheirContactDetails,
-                          moreAboutThePerson: MoreAboutThePerson, representatives: RepresentativesForPerson,
-                          previousCarerContactDetails: Option[PreviousCarerContactDetails], previousCarerPersonalDetails: Option[PreviousCarerPersonalDetails],
-                          moreAboutTheCare: MoreAboutTheCare, oneWhoPays: Option[OneWhoPaysPersonalDetails],
-                          contactDetailsPayingPerson: Option[ContactDetailsOfPayingPerson], breaksInCare: BreaksInCare)
-
 case object CareYouProvide extends Section.Identifier {
   val id = "s4"
 }
@@ -74,8 +68,8 @@ case object MoreAboutTheCare extends QuestionGroup.Identifier {
 }
 
 case class OneWhoPaysPersonalDetails(organisation: Option[String] = None, title: Option[String] = None,
-                                     firstName: Option[String] = None, middleName: Option[String] = None, surname: Option[String] = None,
-                                     amount: Option[String] = None, startDatePayment: Option[DayMonthYear] = None) extends QuestionGroup(OneWhoPaysPersonalDetails) with NoRouting
+                                     firstName: String = "", middleName: Option[String] = None, surname: String = "",
+                                     amount: String = "", startDatePayment: DayMonthYear) extends QuestionGroup(OneWhoPaysPersonalDetails) with NoRouting
 
 case object OneWhoPaysPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g8"

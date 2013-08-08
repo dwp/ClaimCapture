@@ -1,69 +1,46 @@
 package models
 
 import org.specs2.mutable.Specification
-import play.api.data.Form
+import play.api.data.{Forms, FormError, Form}
 import play.api.data.Forms._
 import controllers.Mappings._
 
 class DecimalNumberFormSpec extends Specification {
-
   "Decimal Number" should {
-
     "accept single decimal input" in {
       val value = "500.5"
 
-      createDecimalNumberForm(value).fold(
-        formWithErrors => "The mapping should not happen." must equalTo("Error"),
-        decimal => decimal must equalTo(Some(value))
-      )
+      createDecimalNumberForm(value).get should beLike { case Some(d) => d shouldEqual value }
     }
 
     "accept number with no decimal" in {
       val value = "500"
 
-      createDecimalNumberForm(value).fold(
-        formWithErrors => "The mapping should not happen." must equalTo("Error"),
-        decimal => decimal must equalTo(Some(value))
-      )
+      createDecimalNumberForm(value).get should beLike { case Some(d) => d shouldEqual value }
     }
 
     "reject characters" in {
       val value = "abc"
 
-      createDecimalNumberForm(value).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("decimal.invalid"),
-        decimal => "The mapping should not happen." must equalTo("Error")
-      )
+      val f: Form[Option[String]] = createDecimalNumberForm(value)
+      f.error("decimalNumber") should beLike { case Some(fe: FormError) => fe.message shouldEqual "decimal.invalid" }
     }
 
     "reject number with dot and no decimal" in {
       val value = "500."
 
-      createDecimalNumberForm(value).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("decimal.invalid"),
-        decimal => "The mapping should not happen." must equalTo("Error")
-      )
+      val f: Form[Option[String]] = createDecimalNumberForm(value)
+      f.error("decimalNumber") should beLike { case Some(fe: FormError) => fe.message shouldEqual "decimal.invalid" }
     }
 
-    "reject two decimal input" in {
-      val value = "500.50"
+    "reject 3 decimal input" in {
+      val value = "500.501"
 
-      createDecimalNumberForm(value).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("decimal.invalid"),
-        decimal => "The mapping should not happen." must equalTo("Error")
-      )
-    }
-
-    "reject three decimal input" in {
-      val value = "500.500"
-
-      createDecimalNumberForm(value).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("decimal.invalid"),
-        decimal => "The mapping should not happen." must equalTo("Error")
-      )
+      val f: Form[Option[String]] = createDecimalNumberForm(value)
+      f.error("decimalNumber") should beLike { case Some(fe: FormError) => fe.message shouldEqual "decimal.invalid" }
     }
   }
 
   private def createDecimalNumberForm(decimalNumber: String)
-    = Form("decimalNumber" -> optional(play.api.data.Forms.text verifying validDecimalNumber)).bind(Map("decimalNumber" -> decimalNumber))
+    = Form("decimalNumber" -> optional(Forms.text verifying validDecimalNumber)).bind(Map("decimalNumber" -> decimalNumber))
 }

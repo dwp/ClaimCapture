@@ -214,7 +214,7 @@ organisation = Organisation
 amount = How much do you get paid a week?
 startDatePayment = When did the payments start?
 poundSign = £
-decimal.invalid = The amount must be in the format 500 or 500.5
+decimal.invalid = The amount must be in the format 500 or 500.5 or 500.55
 
 # MORE ABOUT THE CARE
 spent35HoursCaring = Do you spend 35 hours or more each week caring for this person?

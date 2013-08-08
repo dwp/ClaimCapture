@@ -51,6 +51,8 @@ case class SelfEmploymentSection(aboutSelfEmployment: AboutSelfEmployment,
                                  childcareExpenses: ChildcareExpensesWhileAtWork,
                                  expensesWhileAtWork: ExpensesWhileAtWork)
 
+case class ConsentAndDeclarationSection(additionalInfo: AdditionalInfo, consent: Consent, disclaimer:Disclaimer, declaration:Declaration)
+
 case class PayDetailsSection(howWePayYou: Option[HowWePayYou],bankBuildingSocietyDetails: Option[BankBuildingSocietyDetails])
 
 object ClaimBuilder {
@@ -85,7 +87,7 @@ object ClaimBuilder {
 
   val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaring = "yes", spent35HoursCaringBeforeClaim = YesNoWithDate("no", Some(DayMonthYear(1, 1, 2013))), hasSomeonePaidYou = "yes")
 
-  val oneWhoPays = OneWhoPaysPersonalDetails(organisation = Some("SomeOrg Inc."), amount = Some("300"), startDatePayment = Some(DayMonthYear(1, 1, 2012)))
+  val oneWhoPays = OneWhoPaysPersonalDetails(organisation = Some("SomeOrg Inc."), amount = "300", startDatePayment = DayMonthYear(1, 1, 2012))
 
   val contactDetailsPayingPerson = ContactDetailsOfPayingPerson(address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
 
@@ -173,5 +175,5 @@ object ClaimBuilder {
   val disclaimer = Disclaimer(NoRouting, "checked")
   val declaration = Declaration(NoRouting, "checked", Some("checked"))
 
-  val consentAndDeclaration = ConsentAndDeclaration(additionalInfo, consent, disclaimer, declaration)
+  val consentAndDeclaration = ConsentAndDeclarationSection(additionalInfo, consent, disclaimer, declaration)
 }
