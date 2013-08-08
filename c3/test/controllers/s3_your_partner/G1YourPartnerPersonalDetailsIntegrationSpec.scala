@@ -26,7 +26,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About You")
 
       browser.goTo("/yourPartner/personalDetails")
-      titleMustEqual("Their Personal Details - Care You Provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {

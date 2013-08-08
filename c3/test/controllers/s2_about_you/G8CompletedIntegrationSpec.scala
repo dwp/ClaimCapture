@@ -36,7 +36,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
 
       browser.find("#submit").getText mustEqual "Continue to Care you provide"
       browser.submit("button[type='submit']")
-      titleMustEqual("Their Personal Details - Care You Provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
     }
   } section("integration",models.domain.AboutYou.id)
 }

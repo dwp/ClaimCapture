@@ -9,28 +9,28 @@ class G3MoreAboutThePersonIntegrationSpec extends Specification with Tags {
   "More About The Person" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/moreAboutThePerson")
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/moreAboutThePerson")
       browser.submit("button[type='submit']")
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
       browser.find("div[class=validation-summary] ol li").size mustEqual 2
     }
 
     "navigate back to Their Contact Details" in new WithBrowser with BrowserMatchers {
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
       browser.click("#backButton")
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Their Contact Details - Care You Provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
       Formulate.theirContactDetails(browser)
-      titleMustEqual("More About The Person You Care For - Care You Provide")
+      titleMustEqual("Relationship and other claims - About the care you provide")
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
 

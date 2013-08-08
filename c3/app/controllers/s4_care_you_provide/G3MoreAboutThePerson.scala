@@ -18,12 +18,12 @@ object G3MoreAboutThePerson extends Controller with CareYouProvideRouting with C
     )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s4_care_you_provide.g3_moreAboutThePerson(form.fill(MoreAboutThePerson), completedQuestionGroups(MoreAboutThePerson)))
+    Ok(views.html.s4_care_you_provide.g3_relationshipAndOtherClaims(form.fill(MoreAboutThePerson), completedQuestionGroups(MoreAboutThePerson)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g3_moreAboutThePerson(formWithErrors, completedQuestionGroups(MoreAboutThePerson))),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g3_relationshipAndOtherClaims(formWithErrors, completedQuestionGroups(MoreAboutThePerson))),
       moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.G4PreviousCarerPersonalDetails.present()))
   }
 }
