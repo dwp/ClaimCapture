@@ -5,32 +5,25 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
-import models.domain.{Claim, CareProvidersContactDetails}
+import models.domain.CareProvidersContactDetails
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment.whenSectionVisible
 
-object G8CareProvidersContactDetails extends Controller with CachedClaim {
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(CareProvidersContactDetails)
-  val formCall = routes.G8CareProvidersContactDetails.present()
-
+object G8CareProvidersContactDetails extends Controller with SelfEmploymentRouting with CachedClaim {
   val form = Form(
     mapping(
-      call(formCall),
       "address" -> optional(address),
       "postcode" -> optional(text verifying validPostcode)
-    )(CareProvidersContactDetails.apply)(CareProvidersContactDetails.unapply)
-  )
+    )(CareProvidersContactDetails.apply)(CareProvidersContactDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s8_self_employment.g8_careProvidersContactDetails(form.fill(CareProvidersContactDetails), completedQuestionGroups)))
+    whenSectionVisible(Ok(views.html.s8_self_employment.g8_careProvidersContactDetails(form.fill(CareProvidersContactDetails), completedQuestionGroups(CareProvidersContactDetails))))
   }
 
-  def submit = claiming { implicit claim =>
-    implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s8_self_employment.g8_careProvidersContactDetails(formWithErrors, completedQuestionGroups)),
-        f => claim.update(f) -> Redirect(routes.SelfEmployment.completed())
-      )
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s8_self_employment.g8_careProvidersContactDetails(formWithErrors, completedQuestionGroups(CareProvidersContactDetails))),
+      f => claim.update(f) -> Redirect(routes.SelfEmployment.completed()))
   }
 }
