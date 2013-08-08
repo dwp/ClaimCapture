@@ -1,0 +1,30 @@
+@(currentForm: Form[models.domain.HowWePayYou])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import models.domain.HowWePayYou
+
+@main("How We Pay You - Pay Details", Some(currentForm)) {
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+  
+    @form(action = controllers.s10_pay_details.routes.G1HowWePayYou.submit) {
+        <fieldset class="form-elements">
+            <legend>How would you like to get paid?</legend>
+
+            <ul class="group">
+                @listRadioGroup(currentForm("likeToPay"), 'items -> Seq("01" -> "UK bank or building society account", "02" -> "You don't have an account but intend to open one", "03" -> "Other - you would like more information"), 'helperBelow -> Messages("howWePayYou.helper"))
+
+                @carersSelect(currentForm("paymentFrequency"), Seq("" -> "Please Select", "everyWeek" -> "Every week", "fourWeekly" -> "Every four weeks"/*, "13W" -> "Every 13 weeks"*/))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a href="@back(models.domain.HowWePayYou)" id="backButton" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

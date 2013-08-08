@@ -11,7 +11,7 @@ import com.tzavellas.sse.guice.ScalaModule
 import services.TransactionIdService
 import com.google.inject._
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.S10_consent_and_declaration.G5SubmitPage
+import utils.pageobjects.S11_consent_and_declaration.G5SubmitPage
 
 class FullSubmissionSpec extends Specification with Tags {
   sequential
