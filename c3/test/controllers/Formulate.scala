@@ -314,17 +314,16 @@ object Formulate {
   def representativesForThePerson(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/representativesForPerson")
     browser.click("#you_actForPerson_yes")
-    browser.click("#someoneElse_actForPerson_yes")
     browser.click("#you_actAs option[value='guardian']")
-    browser.click("#someoneElse_actAs option[value='judicial']")
-    browser.fill("#someoneElse_fullName") `with` "John"
     browser.submit("button[type='submit']")
   }
   
   def representativesForThePersonNegativeAnswers(browser: TestBrowser) = {
     browser.goTo("/careYouProvide/representativesForPerson")
     browser.click("#actForPerson_no")
-    browser.click("#someoneElseActForPerson_no")
+    browser.click("#someoneElse_actForPerson_yes")
+    browser.click("#someoneElse_actAs option[value='judicial']")
+    browser.fill("#someoneElse_fullName") `with` "John"
     browser.submit("button[type='submit']")
   }
 

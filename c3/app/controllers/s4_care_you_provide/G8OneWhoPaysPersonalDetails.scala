@@ -9,16 +9,15 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import controllers.Mappings
 import utils.helpers.CarersForm._
-import controllers.s4_care_you_provide.CareYouProvide._
 
-object G8OneWhoPaysPersonalDetails extends Controller with CachedClaim {
+object G8OneWhoPaysPersonalDetails extends Controller with CareYouProvideRouting with Mappings.Name with CachedClaim {
   val form = Form(
     mapping(
       "organisation" -> optional(text(maxLength = hundred)),
       "title" -> optional(text(maxLength = 4)),
-      "firstName" -> optional(text(maxLength = sixty)),
-      "middleName" -> optional(text(maxLength = sixty)),
-      "surname" -> optional(text(maxLength = sixty)),
+      "firstName" -> optional(text(maxLength = maxLength)),
+      "middleName" -> optional(text(maxLength = maxLength)),
+      "surname" -> optional(text(maxLength = maxLength)),
       "amount" -> optional(text verifying validDecimalNumber),
       "startDatePayment" -> optional(dayMonthYear.verifying(validDateOnly))
     )(OneWhoPaysPersonalDetails.apply)(OneWhoPaysPersonalDetails.unapply))

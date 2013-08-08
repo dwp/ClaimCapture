@@ -26,12 +26,18 @@
                     'display -> currentForm("you.actForPerson").value.getOrElse("no")
                 )
 
-                @yesNoRadioGroup(currentForm("someoneElse.actForPerson"))
-
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(actSelect(currentForm("someoneElse.actAs")), carersInputText(currentForm("someoneElse.fullName"), 'maxlength -> 120)),
-                    'id -> "someoneElseWrap",
-                    'display -> currentForm("someoneElse.actForPerson").value.getOrElse("no")
+                    inputDef = Seq(
+                      yesNoRadioGroup(currentForm("someoneElse.actForPerson")),
+      
+                      otherDetailPlaceHolder(
+                          inputDef = Seq(actSelect(currentForm("someoneElse.actAs")), carersInputText(currentForm("someoneElse.fullName"), 'maxlength -> 120)),
+                          'id -> "someoneElseWrap",
+                          'display -> currentForm("someoneElse.actForPerson").value.getOrElse("no")
+                      )
+                    ),
+                    'id -> "someoneElseActForPersonWrap",
+                    'display -> (currentForm("you.actForPerson").value.getOrElse("don't know") match { case "yes" => "no" case "no" => "yes" case _ => "no" })
                 )
             </ul>
         </fieldset>
@@ -52,6 +58,7 @@
             "@CarersCrypto.encryptAES("someoneElse_actForPerson_yes")",
             "@CarersCrypto.encryptAES("someoneElse_actForPerson_no")",
             "@CarersCrypto.encryptAES("someoneElse_actAs")",
-            "@CarersCrypto.encryptAES("someoneElse_fullName")");
+            "@CarersCrypto.encryptAES("someoneElse_fullName")"
+            );
     });
 </script>

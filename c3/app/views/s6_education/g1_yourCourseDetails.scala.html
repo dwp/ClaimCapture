@@ -1,11 +1,11 @@
-@(currentForm: Form[models.domain.YourCourseDetails], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.YourCourseDetails])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
 @import views.html.helper.dates._
 
-@main("Your Course Details - Education", Some(currentForm), completedQuestionGroups) {
+@main("Your Course Details - Education", Some(currentForm)) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
@@ -30,7 +30,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@back(models.domain.YourCourseDetails)" class="button secondary">Back</a>
+            <a id="backButton" href="@claim.previousSection(models.domain.YourCourseDetails).lastPage" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

@@ -20,7 +20,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       Formulate.propertyAndRent(browser)
       titleMustEqual("Completion - About You")
       
-      browser.find("#submit").getText mustEqual "Continue to Your partner"
+      browser.find("#submit").getText mustEqual "Continue to Partner/Spouse"
       browser.submit("button[type='submit']")
       titleMustEqual("Personal Details - Your Partner")
     }

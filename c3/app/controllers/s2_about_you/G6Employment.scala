@@ -8,9 +8,8 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.Mappings._
-import controllers.s2_about_you.AboutYou._
 
-object G6Employment extends Controller with CachedClaim {
+object G6Employment extends Controller with AboutYouRouting with CachedClaim {
   val form = Form(
     mapping(
       "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText.verifying(validYesNo),

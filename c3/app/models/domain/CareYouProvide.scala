@@ -40,25 +40,31 @@ case object MoreAboutThePerson extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g3"
 }
 
-case class PreviousCarerPersonalDetails(firstName: Option[String], middleName: Option[String], surname: Option[String],
-                                        nationalInsuranceNumber: Option[NationalInsuranceNumber],
-                                        dateOfBirth: Option[DayMonthYear]) extends QuestionGroup(PreviousCarerPersonalDetails) with NoRouting
+case class PreviousCarerPersonalDetails(firstName: Option[String] = None, middleName: Option[String] = None, surname: Option[String] = None,
+                                        nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
+                                        dateOfBirth: Option[DayMonthYear] = None) extends QuestionGroup(PreviousCarerPersonalDetails) with NoRouting
 
 case object PreviousCarerPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g4"
 }
 
-case class PreviousCarerContactDetails(address: Option[MultiLineAddress], postcode: Option[String], phoneNumber: Option[String] = None,
+case class PreviousCarerContactDetails(address: Option[MultiLineAddress] = None, postcode: Option[String] = None, phoneNumber: Option[String] = None,
                                        mobileNumber: Option[String] = None) extends QuestionGroup(PreviousCarerContactDetails) with NoRouting
 
 case object PreviousCarerContactDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g5"
 }
 
-case class RepresentativesForPerson(youAct: YesNoWithDropDown = YesNoWithDropDown("", None), someoneElseAct:YesNoWithDropDownAndText = YesNoWithDropDownAndText("", None, None)) extends QuestionGroup(RepresentativesForPerson) with NoRouting
+case class RepresentativesForPerson(youAct: YesNoWithDropDown = YesNoWithDropDown("", None), someoneElseAct:YesNoWithDropDownAndText = YesNoWithDropDownAndText(None, None, None)) extends QuestionGroup(RepresentativesForPerson) with NoRouting
 
 case object RepresentativesForPerson extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g6"
+
+  def validate(input: RepresentativesForPerson): Boolean = input.youAct.answer match {
+    case "yes" => true
+    case "no" => input.someoneElseAct.answer.isDefined
+    case _ => false
+  }
 }
 
 case class MoreAboutTheCare(spent35HoursCaring: String = "", spent35HoursCaringBeforeClaim:YesNoWithDate = YesNoWithDate("", None), hasSomeonePaidYou: String = "") extends QuestionGroup(MoreAboutTheCare) with NoRouting
@@ -75,7 +81,7 @@ case object OneWhoPaysPersonalDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g8"
 }
 
-case class ContactDetailsOfPayingPerson(address: Option[MultiLineAddress], postcode: Option[String]) extends QuestionGroup(ContactDetailsOfPayingPerson) with NoRouting
+case class ContactDetailsOfPayingPerson(address: Option[MultiLineAddress] = None, postcode: Option[String] = None) extends QuestionGroup(ContactDetailsOfPayingPerson) with NoRouting
 
 case object ContactDetailsOfPayingPerson extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g9"
@@ -89,6 +95,8 @@ case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksI
   }
 
   def delete(breakID: String) = BreaksInCare(breaks.filterNot(_.id == breakID))
+
+  def hasBreaks = !breaks.isEmpty
 }
 
 case object BreaksInCare extends QuestionGroup.Identifier {

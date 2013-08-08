@@ -69,7 +69,7 @@ object Residency {
         <DateReturn>{stringify(goBack.date)}</DateReturn>
         <VisaReferenceNumber>{timeOutsideUK.visaReference.orNull}</VisaReferenceNumber>
       </OtherNationality>
-    }  else NodeSeq.Empty
+    } else NodeSeq.Empty
   }
 
   def periodAbroadDuringCare(tripsOption: Option[Trips]) = {

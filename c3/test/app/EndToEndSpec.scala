@@ -24,6 +24,7 @@ class EndToEndSpec extends Specification with Tags {
 
   "The application " should {
     "Successfully run absolute Test Case 1 " in new WithBrowser with G1BenefitsPageContext {
+
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 1000, trace = false)
@@ -36,6 +37,7 @@ class EndToEndSpec extends Specification with Tags {
     }
 
     "Successfully run absolute Test Case 2 " in new WithBrowser with G1BenefitsPageContext {
+
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase2.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 1000, trace = false)
@@ -48,6 +50,7 @@ class EndToEndSpec extends Specification with Tags {
     }
 
     "Successfully run absolute Test Case 3 " in new WithBrowser with G1BenefitsPageContext {
+
       try {
         val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
         page goToThePage()

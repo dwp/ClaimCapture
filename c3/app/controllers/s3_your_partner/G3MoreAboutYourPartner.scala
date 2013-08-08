@@ -2,16 +2,15 @@ package controllers.s3_your_partner
 
 import language.reflectiveCalls
 import controllers.Mappings._
-import models.domain.{MoreAboutYourPartner, Claim}
+import models.domain.MoreAboutYourPartner
 import models.view.CachedClaim
 import play.api.data.Forms._
 import play.api.data.{FormError, Form}
 import play.api.mvc.Controller
 import utils.helpers.CarersForm.formBinding
 import models.yesNo.YesNoWithDate
-import YourPartner._
 
-object G3MoreAboutYourPartner extends Controller with CachedClaim {
+object G3MoreAboutYourPartner extends Controller with YourPartnerRouting with CachedClaim {
   val startedLivingTogetherMapping =
     "startedLivingTogether" -> optional(
       mapping(

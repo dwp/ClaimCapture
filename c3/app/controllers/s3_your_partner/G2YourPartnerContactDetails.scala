@@ -7,9 +7,9 @@ import play.api.data.Forms._
 import controllers.Mappings._
 import models.domain.{ContactDetails, YourPartnerPersonalDetails, YourPartnerContactDetails}
 import utils.helpers.CarersForm._
-import YourPartner._
+import YourPartner.whenSectionVisible
 
-object G2YourPartnerContactDetails extends Controller with CachedClaim {
+object G2YourPartnerContactDetails extends Controller with YourPartnerRouting with CachedClaim {
   val formCall = routes.G2YourPartnerContactDetails.present()
 
   val form = Form(

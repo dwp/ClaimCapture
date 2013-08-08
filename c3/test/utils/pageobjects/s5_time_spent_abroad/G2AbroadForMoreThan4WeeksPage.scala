@@ -12,9 +12,10 @@ final class G2AbroadForMoreThan4WeeksPage (browser: TestBrowser, previousPage: O
  
     declareYesNo("#anyTrips", "TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_" + iteration)
 
-   override def fillPageWith(theClaim: ClaimScenario): Unit = {
+   override def fillPageWith(theClaim: ClaimScenario): Page = {
      super.fillPageWith(theClaim)
      if (theClaim.selectDynamic("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_" + iteration).toLowerCase() == "no") resetIteration = true
+     return this
    }
 }
 

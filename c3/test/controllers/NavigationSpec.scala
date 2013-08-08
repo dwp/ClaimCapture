@@ -3,37 +3,40 @@ package controllers
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 import play.api.test.WithBrowser
+import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
+import utils.pageobjects.s1_carers_allowance.G4LivesInGBPage
+import utils.pageobjects.ClaimScenario
+import utils.pageobjects.s1_carers_allowance.G2HoursPage
 
 class NavigationSpec extends Specification with Tags {
   "Browser" should {
-    "not cache pages" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/allowance/benefits")
-      browser.click("#answer_yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Hours - Carer's Allowance")
+    "not cache pages" in new WithBrowser with G1BenefitsPageContext {
+      val claim = new ClaimScenario
+      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
+      claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
+      claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "yes"
+      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
+      page goToThePage()
+      val s1g2 = page fillPageWith claim submitPage() 
+      val s1g3 = s1g2 fillPageWith claim submitPage()
+      val s1g4 = s1g3 fillPageWith claim submitPage()
+      val approvalPage = s1g4 fillPageWith claim submitPage()
+      val backToS1G1 = approvalPage goBack() goBack() goBack() goBack()
+      val claimDifferentAnswer = new ClaimScenario
+      claimDifferentAnswer.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
 
-      browser.click("#answer_yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Over 16 - Carer's Allowance")
+      backToS1G1 fillPageWith claim
+      val s1g2SecondTime = backToS1G1 submitPage() 
 
-      browser.click("#answer_yes")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Lives in GB - Carer's Allowance")
-
-      browser.webDriver.navigate().back()
-      titleMustEqual("Over 16 - Carer's Allowance")
-      browser.webDriver.navigate().back()
-      titleMustEqual("Hours - Carer's Allowance")
-      browser.webDriver.navigate().back()
-      titleMustEqual("Benefits - Carer's Allowance")
-
-      browser.click("#answer_no")
-      browser.submit("button[type='submit']")
-      titleMustEqual("Hours - Carer's Allowance")
-
-      val completed = browser.find("div[class=completed] ul li")
-      completed.size() mustEqual 1
-      completed.getText must contain("Q1")
+      s1g2SecondTime match {
+        case p: G2HoursPage => {
+          p numberSectionsCompleted() mustEqual 1
+          val completed = p.findTarget("div[class=completed] ul li")
+          completed(0) must contain("Q1")
+          completed(0) must contain("No")
+        }
+        case _ => ko("Next Page is not of the right type.")
+      }
     }
   } section "integration"
 }

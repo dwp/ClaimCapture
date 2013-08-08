@@ -9,9 +9,8 @@ import utils.helpers.CarersForm._
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import CareYouProvide._
 
-object G5PreviousCarerContactDetails extends Controller with CachedClaim {
+object G5PreviousCarerContactDetails extends Controller with CareYouProvideRouting with CachedClaim {
   val form = Form(
     mapping(
       "address" -> optional(address),

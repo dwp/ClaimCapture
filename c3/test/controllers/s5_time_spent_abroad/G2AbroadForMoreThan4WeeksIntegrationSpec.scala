@@ -2,7 +2,7 @@ package controllers.s5_time_spent_abroad
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.BrowserMatchers
+import controllers.{Formulate, BrowserMatchers}
 
 class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
   "Abroad for more that 4 weeks" should {
@@ -30,7 +30,7 @@ class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
     }
 
     """go back to "normal residence and current location".""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/abroadForMoreThan4Weeks")
+      Formulate.normalResidenceAndCurrentLocation(browser)
       titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
 
       browser.click("#backButton")

@@ -173,4 +173,8 @@ object Mappings {
   }
   
   def call(call: Call): (String, Mapping[Call]) = "call" -> ignored(call)
+
+  trait Name {
+    val maxLength = 35
+  }
 }
