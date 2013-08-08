@@ -147,8 +147,8 @@ object ClaimBuilder {
     SelfEmploymentYourAccounts(doYouHaveAnAccountant = Some(yes)),
     SelfEmploymentAccountantContactDetails(accountantsName = "KPMG", address = MultiLineAddress(Some("line1"), Some("line2"), Some("line3"))),
     SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWithText(yes, Some("150.5")), doYouPayToLookAfterYourChildren = yes, didYouPayToLookAfterThePersonYouCaredFor = yes),
-    ChildcareExpensesWhileAtWork(howMuchYouPay = Some("150.5"), nameOfPerson = "Andy", whatRelationIsToYou = Some("grandSon"), whatRelationIsTothePersonYouCareFor = Some("relation")),
-    ExpensesWhileAtWork(howMuchYouPay = Some("200.5"), nameOfPerson = "NameOfPerson", whatRelationIsToYou = Some("grandSon"), whatRelationIsTothePersonYouCareFor = Some("grandSon"))
+    ChildcareExpensesWhileAtWork(howMuchYouPay = "150.5", nameOfPerson = "Andy", whatRelationIsToYou = "grandSon", whatRelationIsTothePersonYouCareFor = "relation"),
+    ExpensesWhileAtWork(howMuchYouPay = "200.5", nameOfPerson = "NameOfPerson", whatRelationIsToYou = "grandSon", whatRelationIsTothePersonYouCareFor = "grandSon")
   )
 
   val careYouProvide = CareYouProvideSection(theirPersonalDetails, theirContactDetails,

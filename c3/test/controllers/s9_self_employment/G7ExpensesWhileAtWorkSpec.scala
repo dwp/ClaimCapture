@@ -43,10 +43,10 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
       val section: Section = claim.section(models.domain.SelfEmployment)
       section.questionGroup(ExpensesWhileAtWork) must beLike {
         case Some(f: ExpensesWhileAtWork) => {
-          f.howMuchYouPay must equalTo(Some(howMuchYouPay))
+          f.howMuchYouPay must equalTo(howMuchYouPay)
           f.nameOfPerson must equalTo(nameOfPerson)
-          f.whatRelationIsToYou must equalTo(Some(whatRelationIsToYou))
-          f.whatRelationIsTothePersonYouCareFor must equalTo(Some(whatRelationIsTothePersonYouCareFor))
+          f.whatRelationIsToYou must equalTo(whatRelationIsToYou)
+          f.whatRelationIsTothePersonYouCareFor must equalTo(whatRelationIsTothePersonYouCareFor)
         }
       }
     }

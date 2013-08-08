@@ -17,10 +17,10 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim {
   val form = Form(
     mapping(
       call(routes.G7ExpensesWhileAtWork.present()),
-      "howMuchYouPay" -> optional(text(maxLength = sixty)),
+      "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
       "nameOfPerson" -> nonEmptyText(maxLength = sixty),
-      "whatRelationIsToYou" -> optional(text(maxLength = sixty)),
-      "whatRelationIsTothePersonYouCareFor" -> optional(text(maxLength = sixty))
+      "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
+      "whatRelationIsTothePersonYouCareFor" -> nonEmptyText(maxLength = sixty)
     )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply)
   )
 

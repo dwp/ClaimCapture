@@ -61,7 +61,7 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       page goToThePage (waitForPage = true, waitDuration = 1000)
       page fillPageWith claim
       val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 1000)
-      pageWithErrors.listErrors.size mustEqual 1
+      pageWithErrors.listErrors.size mustEqual 5
       pageWithErrors.listErrors(0).contains("nameOfPerson")
     }
     

@@ -83,11 +83,11 @@ object SelfEmployment {
         <CarerName>{childCareExpenses.nameOfPerson}</CarerName>
         <CarerAddress>{postalAddressStructure(childcareProvider.address, childcareProvider.postcode)}</CarerAddress>
         <ConfirmAddress>yes</ConfirmAddress>
-        <WeeklyPayment>{moneyStructure(childCareExpenses.howMuchYouPay.orNull)}</WeeklyPayment>
-        <RelationshipCarerToClaimant>{childCareExpenses.whatRelationIsToYou.orNull}</RelationshipCarerToClaimant>
+        <WeeklyPayment>{moneyStructure(childCareExpenses.howMuchYouPay)}</WeeklyPayment>
+        <RelationshipCarerToClaimant>{childCareExpenses.whatRelationIsToYou}</RelationshipCarerToClaimant>
         <ChildDetails>
           <Name></Name>
-          <RelationToChild>{childCareExpenses.whatRelationIsTothePersonYouCareFor.orNull}</RelationToChild>
+          <RelationToChild>{childCareExpenses.whatRelationIsTothePersonYouCareFor}</RelationToChild>
         </ChildDetails>
       </ChildCareExpenses>
     } else NodeSeq.Empty
@@ -112,10 +112,10 @@ object SelfEmployment {
         <ConfirmAddress>yes</ConfirmAddress>
         <WeeklyPayment>
           <Currency>GBP</Currency>
-          <Amount>{expensesWhileAtWork.howMuchYouPay.orNull}</Amount>
+          <Amount>{expensesWhileAtWork.howMuchYouPay}</Amount>
         </WeeklyPayment>
-        <RelationshipCarerToClaimant>{expensesWhileAtWork.whatRelationIsToYou.orNull}</RelationshipCarerToClaimant>
-        <RelationshipCarerToCaree>{expensesWhileAtWork.whatRelationIsTothePersonYouCareFor.orNull}</RelationshipCarerToCaree>
+        <RelationshipCarerToClaimant>{expensesWhileAtWork.whatRelationIsToYou}</RelationshipCarerToClaimant>
+        <RelationshipCarerToCaree>{expensesWhileAtWork.whatRelationIsTothePersonYouCareFor}</RelationshipCarerToCaree>
       </CareExpenses>
     } else NodeSeq.Empty
   }

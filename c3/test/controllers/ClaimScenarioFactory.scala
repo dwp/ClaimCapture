@@ -274,7 +274,22 @@ object ClaimScenarioFactory {
   def s9SelfEmploymentChildCareExpenses = {
     val claim = s9SelfEmploymentPensionsAndExpenses
 
+    claim.SelfEmployedChildcareExpensesHowMuchYouPay = "123456"
     claim.SelfEmployedChildcareProviderNameOfPerson = "hello123"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "son"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "son"
+    claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "son"
+    claim
+  }
+
+  def s9SelfEmploymentExpensesRelatedToPersonYouCareFor = {
+    val claim = s9SelfEmploymentChildCareExpenses
+
+    claim.SelfEmployedCareExpensesHowMuchYouPay = "900.9"
+    claim.SelfEmployedCareExpensesNameOfPerson = "John"
+    claim.SelfEmployedCareExpensesWhatRelationIsToYou = "grandSon"
+    claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "son"
+
     claim
   }
 

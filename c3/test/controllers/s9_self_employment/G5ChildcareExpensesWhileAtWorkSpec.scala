@@ -45,11 +45,11 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
       val section: Section = claim.section(models.domain.SelfEmployment)
       section.questionGroup(ChildcareExpensesWhileAtWork) must beLike {
         case Some(f: ChildcareExpensesWhileAtWork) => {
-          f.howMuchYouPay must equalTo(Some(howMuchYouPay))
+          f.howMuchYouPay must equalTo(howMuchYouPay)
           f.nameOfPerson must equalTo(whoLooksAfterChildren)
-          f.whatRelationIsToYou must equalTo(Some(whatRelationIsToYou))
+          f.whatRelationIsToYou must equalTo(whatRelationIsToYou)
           f.relationToPartner must equalTo(Some(relationToPartner))
-          f.whatRelationIsTothePersonYouCareFor must equalTo(Some(whatRelationIsTothePersonYouCareFor))
+          f.whatRelationIsTothePersonYouCareFor must equalTo(whatRelationIsTothePersonYouCareFor)
         }
       }
     }

@@ -40,7 +40,6 @@ class FullSubmissionSpec extends Specification with Tags {
 
   "The application" should {
     "Successfully run submission " in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-      skipped("ISSUE")
 
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST223"
@@ -50,7 +49,6 @@ class FullSubmissionSpec extends Specification with Tags {
     }
 
     "Recoverable Error submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-      skipped("ISSUE")
 
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST224"
@@ -60,7 +58,6 @@ class FullSubmissionSpec extends Specification with Tags {
     }
 
     "Recoverable acknowledgement submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-      skipped("ISSUE")
 
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST225"
@@ -70,7 +67,6 @@ class FullSubmissionSpec extends Specification with Tags {
     }
 
     "Retry submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-      skipped("ISSUE")
 
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST225"
@@ -81,5 +77,5 @@ class FullSubmissionSpec extends Specification with Tags {
       val submissionPage = lastPage goToPage new G5SubmitPage(browser,Some(lastPage))
       val finalPage = submissionPage submitPage ()
     }
-  }
+  } section "functional"
 }
