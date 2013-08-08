@@ -56,5 +56,5 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
       val result = G1TheirPersonalDetails.submit(request)
       redirectLocation(result) must beSome("/careYouProvide/theirContactDetails")
     }
-  } section "unit"
+  } section("unit",models.domain.CareYouProvide.id)
 }

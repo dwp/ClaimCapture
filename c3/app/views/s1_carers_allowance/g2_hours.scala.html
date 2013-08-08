@@ -20,13 +20,14 @@
             <p>For example, cooking meals, or helping them with their shopping.</p>
             
             <ul class="group">
-                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("hours.answer"))
+                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("hours.answer"), '_showLabel -> false)
                 
                 @defining(currentForm("answer").value.getOrElse("don't know") match {case "no" => "block" case _ => "none"}) { styleDisplay =>
-                  <li id="answerNoMessageWrap" class="info" style="display: @styleDisplay;">
+                  <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
                     <p>You can only qualify for Carer’s Allowance if you are caring for this person , for 35 hours or more each week.</p>
                     <p>You are legally entitled to claim Carer's Allowance even though you <b>do not</b> qualify and <b>will not</b> get Carer's Allowance. If you wish to do so click the <b>'Next'</b> button below.</p>
-                  </li>
+                    <span>!</span>
+                  </div>
                 }
             </ul>
         </fieldset>

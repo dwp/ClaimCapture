@@ -16,7 +16,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
     "be presented" in new WithBrowser with G6ApprovePageContext {
       page goToThePage()
     }
-  } section "integration"
+  } section("integration",models.domain.CarersAllowance.id)
 
   "Carer's Allowance" should {
     val notRightPage: String = "Next Page is not of the right type."
@@ -110,5 +110,5 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
         case _ => ko("Next Page is not of the right type.")
       }
     }
-  } section "integration"
+  } section("integration",models.domain.CarersAllowance.id)
 }

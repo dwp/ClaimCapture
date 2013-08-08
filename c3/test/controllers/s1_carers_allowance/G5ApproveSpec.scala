@@ -38,5 +38,5 @@ class G5ApproveSpec extends Specification with Tags {
 
       contentAsString(result) must contain("div class=\"prompt error\"")
     }
-  } section "unit"
+  } section("unit",models.domain.CarersAllowance.id)
 }

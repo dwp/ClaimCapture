@@ -36,5 +36,5 @@ class G4PersonYouCareForIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYourPartnerSeparated(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 3
     }
-  } section "integration"
+  } section("integration",models.domain.YourPartner.id)
 }

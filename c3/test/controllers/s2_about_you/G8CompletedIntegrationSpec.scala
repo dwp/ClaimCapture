@@ -38,5 +38,5 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       browser.submit("button[type='submit']")
       titleMustEqual("Their Personal Details - Care You Provide")
     }
-  } section "integration"
+  } section("integration",models.domain.AboutYou.id)
 }

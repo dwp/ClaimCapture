@@ -63,5 +63,5 @@ class G4LivesInGBSpec extends Specification with Tags {
         }
       }
     }
-  } section "unit"
+  } section("unit",models.domain.CarersAllowance.id)
 }

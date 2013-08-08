@@ -69,5 +69,5 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       Formulate.representativesForThePerson(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
-  } section "integration"
+  } section("integration",models.domain.CareYouProvide.id)
 }

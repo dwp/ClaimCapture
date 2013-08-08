@@ -75,5 +75,5 @@ class G8OneWhoPaysPersonalDetailsFormSpec extends Specification with Tags {
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-  }  section "unit"
+  }  section("unit",models.domain.CareYouProvide.id)
 }

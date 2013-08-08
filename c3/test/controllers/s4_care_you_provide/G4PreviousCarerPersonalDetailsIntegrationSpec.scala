@@ -64,5 +64,5 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       titleMustEqual("Details Of The Person Who Claimed Before - Care You Provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
-  } section "integration"
+  } section("integration",models.domain.CareYouProvide.id)
 }

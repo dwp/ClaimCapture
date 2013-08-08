@@ -51,5 +51,5 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       browser.goTo("/employment/beenEmployed").click("#backButton")
       titleMustEqual("Completion - Education")
     }
-  } section "integration"
+  } section("integration",models.domain.Employed.id)
 }
