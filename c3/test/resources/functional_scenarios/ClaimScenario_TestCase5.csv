@@ -7,7 +7,7 @@ About You,Your Details,First name,AboutYouFirstName,Test
 About You,Your Details,Middle name,AboutYouMiddleName,Middle
 About You,Your Details,Surname or family name,AboutYouSurname,CaseFive
 About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,Donaldson
-About You,Your Details,National Insurance (NI) number,AboutYouNINO,QB486248C
+About You,Your Details,National Insurance (NI) number,AboutYouNINO,XB486248C
 About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1981
 About You,Your Details,Nationality,AboutYouNationality,British
 About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,m
@@ -36,7 +36,7 @@ About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,T
 About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,Middle
 About Your Partner,Partner/Spouse details,Surname or family name,AboutYourPartnerSurname,Casefive
 About Your Partner,Partner/Spouse details,All other surnames or family names they have been used or have been known by,AboutYourPartnerOtherNames,
-About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,QA234567A
+About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,TA234567A
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,28/09/1977
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,Spanish
 About Your Partner,Partner/Spouse details,Does your partner/spouse live at the same address as you?,AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou,No
@@ -51,7 +51,7 @@ About the care you provide,Details of the person you care for,Title,AboutTheCare
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Person
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,Cared
 About the care you provide,Details of the person you care for,Surname or family name,AboutTheCareYouProvideSurnamePersonCareFor,Forfive
-About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,JA789871W
+About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,JA789871C
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,12/09/1933
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,Yes
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,
