@@ -36,6 +36,7 @@ class ClaimXmlValidatorSpec extends Specification with Tags {
       .update(careYouProvide.breaksInCare)
 
       .update(timeSpentAbroad.normalResidence)
+      .update(timeSpentAbroad.abroadForMoreThan4Weeks)
       .update(timeSpentAbroad.trips)
 
       .update(education.yourCourseDetails)
