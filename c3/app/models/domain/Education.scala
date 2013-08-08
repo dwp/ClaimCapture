@@ -11,7 +11,7 @@ case class YourCourseDetails(courseType: Option[String] = None,
                              startDate: Option[DayMonthYear] = None,
                              expectedEndDate: Option[DayMonthYear] = None,
                              finishedDate: Option[DayMonthYear] = None,
-                             studentReferenceNumber: Option[String] = None) extends QuestionGroup(YourCourseDetails) with NoRouting
+                             studentReferenceNumber: Option[String] = None) extends QuestionGroup(YourCourseDetails)
 
 object YourCourseDetails extends QuestionGroup.Identifier {
   val id = s"${Education.id}.g1"
@@ -22,7 +22,7 @@ case class AddressOfSchoolCollegeOrUniversity(nameOfSchoolCollegeOrUniversity: O
                                               address: Option[MultiLineAddress] = None,
                                               postcode: Option[String] = None,
                                               phoneNumber: Option[String] = None,
-                                              faxNumber: Option[String] = None) extends QuestionGroup(AddressOfSchoolCollegeOrUniversity) with NoRouting
+                                              faxNumber: Option[String] = None) extends QuestionGroup(AddressOfSchoolCollegeOrUniversity)
 
 object AddressOfSchoolCollegeOrUniversity extends QuestionGroup.Identifier {
   val id = s"${Education.id}.g2"

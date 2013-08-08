@@ -15,25 +15,25 @@ case class YourPartnerPersonalDetails(title: String = "",
                                       nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
                                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
                                       nationality: Option[String] = None,
-                                      liveAtSameAddress: String = "") extends QuestionGroup(YourPartnerPersonalDetails) with NoRouting
+                                      liveAtSameAddress: String = "") extends QuestionGroup(YourPartnerPersonalDetails)
 
 object YourPartnerPersonalDetails extends QuestionGroup.Identifier  {
   val id = s"${YourPartner.id}.g1"
 }
 
-case class YourPartnerContactDetails(address: Option[MultiLineAddress] = None, postcode: Option[String] = None) extends QuestionGroup(YourPartnerContactDetails) with NoRouting
+case class YourPartnerContactDetails(address: Option[MultiLineAddress] = None, postcode: Option[String] = None) extends QuestionGroup(YourPartnerContactDetails)
 
 object YourPartnerContactDetails extends QuestionGroup.Identifier {
   val id = s"${YourPartner.id}.g2"
 }
 
-case class MoreAboutYourPartner(startedLivingTogether: Option[YesNoWithDate] = None, separated:YesNoWithDate = YesNoWithDate("", None)) extends QuestionGroup(MoreAboutYourPartner) with NoRouting
+case class MoreAboutYourPartner(startedLivingTogether: Option[YesNoWithDate] = None, separated:YesNoWithDate = YesNoWithDate("", None)) extends QuestionGroup(MoreAboutYourPartner)
 
 object MoreAboutYourPartner extends QuestionGroup.Identifier {
   val id = s"${YourPartner.id}.g3"
 }
 
-case class PersonYouCareFor(isPartnerPersonYouCareFor:String) extends QuestionGroup(PersonYouCareFor) with NoRouting
+case class PersonYouCareFor(isPartnerPersonYouCareFor:String) extends QuestionGroup(PersonYouCareFor)
 
 object PersonYouCareFor extends QuestionGroup.Identifier {
   val id = s"${YourPartner.id}.g4"

@@ -1,7 +1,6 @@
 package controllers.s9_other_money
 
 import org.specs2.mutable.{Tags, Specification}
-import models.domain.{NoRouting, MoreAboutYou}
 import models.MultiLineAddress
 import models.PaymentFrequency
 

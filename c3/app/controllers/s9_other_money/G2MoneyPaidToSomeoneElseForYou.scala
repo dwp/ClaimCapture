@@ -5,26 +5,23 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{PersonContactDetails, PersonWhoGetsThisMoney, Claim, MoneyPaidToSomeoneElseForYou}
+import models.domain.{PersonContactDetails, PersonWhoGetsThisMoney, MoneyPaidToSomeoneElseForYou}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 
-object G2MoneyPaidToSomeoneElseForYou extends Controller with CachedClaim {
+object G2MoneyPaidToSomeoneElseForYou extends Controller with OtherMoneyRouting with CachedClaim {
   val form = Form(
     mapping(
-      "moneyAddedToBenefitSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
-      call(routes.G2MoneyPaidToSomeoneElseForYou.present())
+      "moneyAddedToBenefitSinceClaimDate" -> nonEmptyText.verifying(validYesNo)
     )(MoneyPaidToSomeoneElseForYou.apply)(MoneyPaidToSomeoneElseForYou.unapply))
 
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(MoneyPaidToSomeoneElseForYou)
-
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_other_money.g2_moneyPaidToSomeoneElseForYou(form.fill(MoneyPaidToSomeoneElseForYou), completedQuestionGroups))
+    Ok(views.html.s9_other_money.g2_moneyPaidToSomeoneElseForYou(form.fill(MoneyPaidToSomeoneElseForYou), completedQuestionGroups(MoneyPaidToSomeoneElseForYou)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s9_other_money.g2_moneyPaidToSomeoneElseForYou(formWithErrors, completedQuestionGroups)),
+      formWithErrors => BadRequest(views.html.s9_other_money.g2_moneyPaidToSomeoneElseForYou(formWithErrors, completedQuestionGroups(MoneyPaidToSomeoneElseForYou))),
       f => {
         val deletePersonQuestionGroups = f.moneyAddedToBenefitSinceClaimDate != yes
 
