@@ -75,6 +75,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
             case DATE_TO => fillDate(cssElem, theClaim.selectDynamic(claimAttribute + "_to"))
 
             case INPUT => fillInput(cssElem, theClaim.selectDynamic(claimAttribute))
+            case NINO => fillNino(cssElem, theClaim.selectDynamic(claimAttribute))
             case PAYMENT_FREQUENCY => fillPaymentFrequency(cssElem, theClaim.selectDynamic(claimAttribute))
             case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
             case SELECT => fillSelect(cssElem, theClaim.selectDynamic(claimAttribute))
