@@ -50,8 +50,6 @@ trait FormFields {
 
   def declareSelect(elementCssSelector: String, claimAttribute: String) = declareField(SELECT, elementCssSelector, claimAttribute)
 
-//  def declareSelectWithOther(elementCssSelector: String, claimAttribute: String) = declareField(SELECT, elementCssSelector, claimAttribute)
-
   def declarePaymentFrequency(elementCssSelector: String, claimAttribute: String) = declareField(PAYMENT_FREQUENCY, elementCssSelector, claimAttribute)
 
   def declareSortCode(elementCssSelector: String, claimAttribute: String) = declareField(SORTCODE, elementCssSelector, claimAttribute)
