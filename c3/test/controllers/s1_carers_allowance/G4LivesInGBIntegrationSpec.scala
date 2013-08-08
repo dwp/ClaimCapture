@@ -77,5 +77,5 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
         case _ => ko("Next Page is not of the right type.")
       }
     }
-  } section "integration"
+  } section("integration",models.domain.CarersAllowance.id)
 }

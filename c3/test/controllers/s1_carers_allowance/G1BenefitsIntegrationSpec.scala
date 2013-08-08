@@ -41,5 +41,5 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
 
       nextPage must beAnInstanceOf[G2HoursPage]
     }
-  } section "integration"
+  } section("integration",models.domain.CarersAllowance.id)
 }

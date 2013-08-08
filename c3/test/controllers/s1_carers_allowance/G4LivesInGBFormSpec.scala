@@ -25,6 +25,6 @@ class G4LivesInGBFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section "unit"
+  } section("unit",models.domain.CarersAllowance.id)
 
 }
