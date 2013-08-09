@@ -119,13 +119,18 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    */
   def submitPage(throwException: Boolean = false, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
     if (this.pageLeft) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
-    this.pageSource = browser.pageSource()
-    val nextPageTile = browser.submit("button[type='submit']").title
-    if (this checkNoErrorsForPage(nextPageTile, throwException)) this
-    else {
-      this.pageLeft = true
-      val newPage = this createPageWithTitle(nextPageTile, if (!resetIteration) updateIterationNumber else 1)
-      if (waitForPage) newPage.waitForPage(waitDuration) else newPage
+    try {
+      this.pageSource = browser.pageSource()
+      val nextPageTile = browser.submit("button[type='submit']").title
+      if (this checkNoErrorsForPage(nextPageTile, throwException)) this
+      else {
+        this.pageLeft = true
+        val newPage = this createPageWithTitle(nextPageTile, if (!resetIteration) updateIterationNumber else 1)
+        if (waitForPage) newPage.waitForPage(waitDuration) else newPage
+      }
+    }
+    catch {
+      case e:Exception => throw new PageObjectException("Could not submit page [" + this.pageTitle + "] because " + e.getMessage,exception = e)
     }
   }
 
@@ -192,7 +197,14 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     this
   }
 
-  protected def titleMatch(): Boolean = if (browser.title != null) browser.title.toLowerCase == this.pageTitle.toLowerCase else true
+  protected def titleMatch(): Boolean = {
+    try {
+      if (browser.title != null) browser.title.toLowerCase == this.pageTitle.toLowerCase else true
+    }
+    catch {
+      case e:Exception => throw new PageObjectException("Exception was thrown when comparing browser title with page title [" + this.pageTitle + "]",exception = e)
+    }
+  }
 
   protected def checkNoErrorsForPage(nextPageTile: String, throwException: Boolean = false) = {
     if (!this.listErrors.isEmpty) {
