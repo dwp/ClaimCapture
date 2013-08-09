@@ -3,6 +3,8 @@ package controllers.s7_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.BrowserMatchers
+import java.util.concurrent.TimeUnit
+import scala.concurrent.duration.Duration
 
 class G14JobCompletionIntegrationSpec extends Specification with Tags {
   val jobID = "dummyJobID"
@@ -10,17 +12,17 @@ class G14JobCompletionIntegrationSpec extends Specification with Tags {
   "Job completion" should {
     "present" in new WithBrowser with BrowserMatchers {
       browser.goTo(s"/employment/jobCompletion/$jobID")
-      titleMustEqual("Job Completion - Employment")
+      titleMustEqual("Job Completion - Employment")(Duration(30, TimeUnit.MINUTES))
     }
 
     """progress back to start i.e. "employment history".""" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
       browser.goTo(s"/employment/jobCompletion/$jobID")
-      titleMustEqual("Job Completion - Employment")
+      titleMustEqual("Job Completion - Employment")(Duration(30, TimeUnit.MINUTES))
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Your employment history - Employment")
+      titleMustEqual("Your employment history - Employment")(Duration(30, TimeUnit.MINUTES))
     }
 
     """go back to "Care provider’s contact Details".""" in new WithBrowser with BrowserMatchers {
@@ -30,17 +32,17 @@ class G14JobCompletionIntegrationSpec extends Specification with Tags {
       browser.click("#payAnyoneToLookAfterChildren_yes")
       browser.click("#payAnyoneToLookAfterPerson_yes")
       browser.submit("button[type='submit']")
-      titleMustEqual("Necessary expenses to do your job - Employment")
+      titleMustEqual("Necessary expenses to do your job - Employment")(Duration(30, TimeUnit.MINUTES))
 
       /* The page we wish to go back to */
       browser.goTo(s"/employment/careProvider/$jobID")
-      titleMustEqual("Care provider’s contact Details - Employment")
+      titleMustEqual("Care provider’s contact Details - Employment")(Duration(30, TimeUnit.MINUTES))
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Job Completion - Employment")
+      titleMustEqual("Job Completion - Employment")(Duration(30, TimeUnit.MINUTES))
 
       browser.click("#backButton")
-      titleMustEqual("Care provider’s contact Details - Employment")
+      titleMustEqual("Care provider’s contact Details - Employment")(Duration(30, TimeUnit.MINUTES))
     }
   } section("integration", models.domain.Employed.id)
 }
