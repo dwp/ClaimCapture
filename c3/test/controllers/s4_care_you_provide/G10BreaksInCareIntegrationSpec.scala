@@ -52,7 +52,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       browser.find("ul[class=group] li p").getText mustEqual "* Have you had any breaks in caring since 03/04/1950?"
     }
 
-    """allow a new break to be added but not to record the "yes/no" answer""" in new WithBrowser with BrowserMatchers {
+    """allow a new break to be added but not record the "yes/no" answer""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/breaksInCare")
       titleMustEqual("Breaks in care - About the care you provide")
 
@@ -62,6 +62,20 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       browser.click("#backButton")
       titleMustEqual("Breaks in care - About the care you provide")
+      browser.findFirst("#answer_yes").isSelected should beFalse
+    }
+
+    """remember "no more breaks" upon stating "no more breaks" and returning to "breaks in care".""" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/careYouProvide/breaksInCare")
+      titleMustEqual("Breaks in care - About the care you provide")
+
+      browser.click("#answer_no")
+      browser.submit("button[value='next']")
+      titleMustEqual("Completion - About the care you provide")
+
+      browser.click("#backButton")
+      titleMustEqual("Breaks in care - About the care you provide")
+      browser.findFirst("#answer_no").isSelected should beTrue
     }
   } section("integration", models.domain.CareYouProvide.id)
 }

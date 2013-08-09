@@ -3,7 +3,6 @@ package controllers.s5_time_spent_abroad
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.{TestBrowser, WithBrowser}
 import controllers.BrowserMatchers
-import play.api.test.Helpers._
 import org.fluentlenium.core.Fluent
 import play.api.i18n.Messages
 

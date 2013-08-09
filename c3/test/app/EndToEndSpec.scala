@@ -29,7 +29,7 @@ class EndToEndSpec extends Specification with Tags {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 1000, trace = false)
+      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = false, waitDuration = 1000, trace = false)
       lastPage match {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) must beTrue
@@ -42,10 +42,10 @@ class EndToEndSpec extends Specification with Tags {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase2.csv")
       page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 1000, trace = false)
+      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = false, waitDuration = 1000, trace = false)
       lastPage match {
         case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+          validateAndPrintErrors(p, claim) must beTrue
         }
         case p: Page => println(p.source)
       }
@@ -55,7 +55,7 @@ class EndToEndSpec extends Specification with Tags {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
       page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = false, waitDuration = 500, trace = false)
       lastPage match {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) // must beTrue
@@ -68,7 +68,7 @@ class EndToEndSpec extends Specification with Tags {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase4.csv")
       page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = false, waitDuration = 500, trace = false)
       lastPage match {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) // must beTrue
@@ -81,7 +81,7 @@ class EndToEndSpec extends Specification with Tags {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase5.csv")
       page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = false, waitDuration = 500, trace = false)
       lastPage match {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) // must beTrue
@@ -94,10 +94,10 @@ class EndToEndSpec extends Specification with Tags {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase6.csv")
       page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = false, waitDuration = 500, trace = false)
       lastPage match {
         case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+          validateAndPrintErrors(p, claim) must beTrue
         }
         case p: Page => println(p.source)
       }
@@ -107,7 +107,7 @@ class EndToEndSpec extends Specification with Tags {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase7.csv")
       page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = false, waitDuration = 500, trace = false)
       lastPage match {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) // must beTrue
