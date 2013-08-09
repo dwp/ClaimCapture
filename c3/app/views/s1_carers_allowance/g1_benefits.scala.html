@@ -39,13 +39,13 @@
                 @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("benefits.answer"), '_showLabel -> false)
             </ul>
             
-            @defining(currentForm("answer").value.getOrElse("don't know") match {case "no" => "block" case _ => "none"}) { styleDisplay =>
-              <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
-                <p>You can only qualify for Carer's Allowance if the person you care for is in receipt of one of the qualifying benefits listed above.</p>
-                <p>If they have applied for one of the benefits above and are still waiting on a decision, please do not apply for Carer's Allowance until that decision has been made.</p>
-                <p>You are legally entitled to claim Carer's Allowance even though you <strong>do not</strong> qualify and <strong>will not</strong> get Carer's Allowance. If you wish to do so click the <strong>'Next'</strong> button below.</p>
-                <span>!</span>
-              </div>
+            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
+                    <p>You can only qualify for Carer's Allowance if the person you care for is in receipt of one of the qualifying benefits listed above.</p>
+                    <p>If they have applied for one of the benefits above and are still waiting on a decision, please do not apply for Carer's Allowance until that decision has been made.</p>
+                    <p>You are legally entitled to claim Carer's Allowance even though you <strong>do not</strong> qualify and <strong>will not</strong> get Carer's Allowance. If you wish to do so click the <strong>'Next'</strong> button below.</p>
+                    <span>!</span>
+                 </div>
             }
         </fieldset>
 

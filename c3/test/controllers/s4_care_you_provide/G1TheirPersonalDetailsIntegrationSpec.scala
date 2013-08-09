@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
+import controllers.{BrowserMatchers, Formulate}
 
 class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Their Personal Details" should {
