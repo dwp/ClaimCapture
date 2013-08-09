@@ -3,6 +3,7 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import controllers.{BrowserMatchers, Formulate}
 import play.api.test.WithBrowser
+import play.api.i18n.Messages
 
 class G4ClaimDateIntegrationSpec extends Specification with Tags {
   "Claim Date" should {
@@ -57,7 +58,7 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
       browser.click(".form-steps a")
-      titleMustEqual("Your Contact Details - About You")
+      titleMustEqual(Messages("s2.g2") + " - About You")
     }
   } section("integration", models.domain.AboutYou.id)
 }
