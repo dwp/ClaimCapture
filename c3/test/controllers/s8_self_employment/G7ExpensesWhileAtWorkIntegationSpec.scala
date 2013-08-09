@@ -96,5 +96,5 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
 
       nextPage must not(beAnInstanceOf[G7ExpensesWhileAtWorkPageContext])
     }
-  } section("integration",models.domain.SelfEmployment.id)
+  } section("integration", models.domain.SelfEmployment.id)
 }

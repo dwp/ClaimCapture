@@ -3,7 +3,6 @@ package controllers.s9_other_money
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 
-import models.NationalInsuranceNumber
 import models.domain
 import models.domain._
 import play.api.cache.Cache
@@ -15,7 +14,7 @@ import play.api.test.Helpers.status
 import play.api.test.WithApplication
 import models.domain.Claim
 import models.NationalInsuranceNumber
-import scala.Some
+import play.api.Play.current
 
 class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
 
@@ -36,10 +35,7 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
       "nationalInsuranceNumber.ni5" -> ni5,
       "nameOfBenefit" -> nameOfBenefit)
 
-    def prepareCache(claimKey: String) = {
-      import play.api.Play.current
-      Cache.set(claimKey, Claim().update(new MoneyPaidToSomeoneElseForYou("no", null)))
-    }
+    def prepareCache(claimKey: String) = Cache.set(claimKey, Claim().update(new MoneyPaidToSomeoneElseForYou("no")))
 
     "present 'Person Who Gets The Money' if visible" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
@@ -87,5 +83,5 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
       val result = G3PersonWhoGetsThisMoney.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.OtherMoney.id)
+  } section("unit", models.domain.OtherMoney.id)
 }

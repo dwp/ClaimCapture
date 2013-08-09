@@ -56,5 +56,5 @@ class G3SelfEmploymentAccountantContactDetailsFormSpec extends Specification wit
         }
       )
     }
-  } section("unit",models.domain.SelfEmployment.id)
+  } section("unit", models.domain.SelfEmployment.id)
 }

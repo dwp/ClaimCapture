@@ -42,5 +42,5 @@ class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification w
       browser.click("#backButton")
       titleMustEqual("Completion - About the care you provide")
     }
-  } section("integration",models.domain.TimeSpentAbroad.id)
+  } section("integration", models.domain.TimeSpentAbroad.id)
 }

@@ -2,7 +2,6 @@ package controllers.s8_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 
-
 class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
 
   "About Self Employment - Child care expenses while at work Form" should {
@@ -31,5 +30,5 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  }
+  } section("unit", models.domain.SelfEmployment.id)
 }

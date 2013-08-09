@@ -57,5 +57,5 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page runClaimWith (claim, G8AboutYouCompletedPage.title)
     }
-  } section("integration",models.domain.AboutYou.id)
+  } section("integration", models.domain.AboutYou.id)
 }

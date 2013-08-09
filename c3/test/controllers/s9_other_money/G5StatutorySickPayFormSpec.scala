@@ -1,7 +1,6 @@
 package controllers.s9_other_money
 
 import org.specs2.mutable.{Tags, Specification}
-import models.domain.{NoRouting, MoreAboutYou}
 import models.MultiLineAddress
 import models.PaymentFrequency
 
@@ -96,5 +95,5 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section("unit",models.domain.OtherMoney.id)
+  } section("unit", models.domain.OtherMoney.id)
 }

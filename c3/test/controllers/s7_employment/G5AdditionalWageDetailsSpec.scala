@@ -24,7 +24,7 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
     }
 
     """be added to a (current) job""" in new WithApplication with Claiming {
-      pending("skipped till G4 is done")
+
 
       G2JobDetails.submit(FakeRequest().withSession("connected" -> claimKey)
         withFormUrlEncodedBody(
@@ -32,16 +32,12 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
-      G3EmployerContactDetails.submit(FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1"))
-
-
-      //G4 stuff
-
       val result = G5AdditionalWageDetails.submit(FakeRequest().withSession("connected" -> claimKey)
                     .withFormUrlEncodedBody(
                     "jobID" -> "1",
-                    "employeeOwesYouMoney" -> "no"))
+                    "anyOtherMoney" -> "yes",
+                    "otherMoney" -> "nuthin",
+                    "employerOwesYouMoney" -> "no"))
 
       status(result) mustEqual SEE_OTHER
 
@@ -52,10 +48,10 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
           js.size shouldEqual 1
 
           js.find(_.jobID == "1") must beLike {
-            case Some(j: Job) => j.questionGroups.size shouldEqual 4
+            case Some(j: Job) => j.questionGroups.size shouldEqual 2
           }
         }
       }
     }
-  } section("unit",models.domain.Employed.id)
+  } section("unit", models.domain.Employed.id)
 }

@@ -1,6 +1,6 @@
 package utils.pageobjects.s10_pay_details
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects._
 
 /**
@@ -30,6 +30,6 @@ object G2BankBuildingSocietyDetailsPage {
 
 /** The context for Specs tests */
 trait G2BankBuildingSocietyDetailsPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G2BankBuildingSocietyDetailsPage buildPageWith browser
 }

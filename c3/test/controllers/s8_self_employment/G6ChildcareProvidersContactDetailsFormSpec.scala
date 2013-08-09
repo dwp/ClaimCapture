@@ -47,5 +47,4 @@ class G6ChildcareProvidersContactDetailsFormSpec extends Specification with Tags
       )
     }
   } section("unit",models.domain.SelfEmployment.id)
-
 }

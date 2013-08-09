@@ -1,4 +1,4 @@
-@(completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import controllers.s2_about_you.G6Employment
 @import helper._
@@ -10,7 +10,7 @@
 @import utils.helpers.CarersCrypto
 @import models.domain.Employment
 
-@main("Submit - Consent And Declaration", None,completedQuestionGroups) {
+@main("Submit - Consent And Declaration", None, completedQuestionGroups) {
     @form(action = controllers.s11_consent_and_declaration.routes.G5Submit.submit) {
 
         @if(claim.questionGroup(Employment).isDefined &&

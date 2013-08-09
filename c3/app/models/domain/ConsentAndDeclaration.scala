@@ -1,20 +1,18 @@
 package models.domain
 
 import controllers.Mappings._
-import play.api.mvc.Call
 
 object ConsentAndDeclaration extends Section.Identifier {
   val id = "s11"
 }
 
-case class AdditionalInfo(call: Call = NoRouting, anythingElse: Option[String] = None, welshCommunication:String = "") extends QuestionGroup(AdditionalInfo)
+case class AdditionalInfo(anythingElse: Option[String] = None, welshCommunication:String = "") extends QuestionGroup(AdditionalInfo)
 
 object AdditionalInfo extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g1"
 }
 
-case class Consent(call: Call = NoRouting,
-                   informationFromEmployer: String = "", why: Option[String] = None, informationFromPerson: String = "", whyPerson: Option[String] = None) extends QuestionGroup(Consent)
+case class Consent(informationFromEmployer: String = "", why: Option[String] = None, informationFromPerson: String = "", whyPerson: Option[String] = None) extends QuestionGroup(Consent)
 
 object Consent extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g2"
@@ -30,13 +28,13 @@ object Consent extends QuestionGroup.Identifier {
   }
 }
 
-case class Disclaimer(call: Call = NoRouting, read: String = "") extends QuestionGroup(Disclaimer)
+case class Disclaimer(read: String = "") extends QuestionGroup(Disclaimer)
 
 object Disclaimer extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g3"
 }
 
-case class Declaration(call: Call = NoRouting, read: String = "", someoneElse: Option[String] = None) extends QuestionGroup(Declaration)
+case class Declaration(read: String = "", someoneElse: Option[String] = None) extends QuestionGroup(Declaration)
 
 object Declaration extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g4"

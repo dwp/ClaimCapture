@@ -1,7 +1,7 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 final class G6MoneyOwedByEmployerPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G6MoneyOwedByEmployerPage.url.replace(":jobID",iteration.toString), G6MoneyOwedByEmployerPage.title, previousPage,iteration) {
 
@@ -20,6 +20,6 @@ object G6MoneyOwedByEmployerPage {
 }
 
 trait G6MoneyOwedByEmployerPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G6MoneyOwedByEmployerPage buildPageWith(browser,iteration = 1)
 }

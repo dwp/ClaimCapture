@@ -40,5 +40,5 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
       browser.click("#backButton")
       titleMustEqual("Job Details - Employment")
     }
-  } section("integration",models.domain.Employed.id)
+  } section("integration", models.domain.Employed.id)
 }

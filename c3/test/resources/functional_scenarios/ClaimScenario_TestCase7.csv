@@ -36,7 +36,7 @@ About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,P
 About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,Middle
 About Your Partner,Partner/Spouse details,Surname or family name,AboutYourPartnerSurname,Caseseven
 About Your Partner,Partner/Spouse details,All other surnames or family names they have been used or have been known by,AboutYourPartnerOtherNames,
-About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,QA234567A
+About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,WA234567A
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,28/09/1977
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,Spanish
 About Your Partner,Partner/Spouse details,Does your partner/spouse live at the same address as you?,AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou,Yes
@@ -390,7 +390,7 @@ Other Money,Details about other money,Please tell us the names of the benefits o
 Other Money,Details about other money,Please tell us the names of the benefits or entitlements your partner/spouse receive,OtherMoneyTellUsNamesBenefitsYourPartnerReceived,
 Other Money,Money paid to someone else for you,Has anyone had any money added to a benefit for you since your claim date: [claim date]?,OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim,Yes
 Other Money,Person who gets this money,Full name,OtherMoneyOtherPersonFullName,Mrs Tracy Smith
-Other Money,Person who gets this money,National Insurance (NI) number,OtherMoneyOtherPersonNINO,AB1234567A
+Other Money,Person who gets this money,National Insurance (NI) number,OtherMoneyOtherPersonNINO,AB123457A
 Other Money,Person who gets this money,Name of Benefit,OtherMoneyOtherPersonBenefit,Attendance Allowance
 Other Money,Person's contact details,Address,OtherMoneyOtherPersonAddress,101 Preston  Road\nPreston\nLancashire
 Other Money,Person's contact details,Postcode,OtherMoneyOtherPersonPostcode,PR1 4RG

@@ -6,13 +6,10 @@ import models.view.CachedClaim
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import controllers.Mappings._
-import models.domain.{OtherStatutoryPay, Claim}
+import models.domain.OtherStatutoryPay
 import utils.helpers.CarersForm._
 
-object G6OtherStatutoryPay extends Controller with CachedClaim {
-
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(OtherStatutoryPay)
-
+object G6OtherStatutoryPay extends Controller with OtherMoneyRouting with CachedClaim {
   val form = Form(
     mapping(
       "otherPay" -> nonEmptyText.verifying(validYesNo),
@@ -20,8 +17,7 @@ object G6OtherStatutoryPay extends Controller with CachedClaim {
       "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(nonEmptyText(maxLength = sixty)),
       "employersAddress" -> optional(address),
-      "employersPostcode" -> optional(text verifying validPostcode),
-      call(routes.G6OtherStatutoryPay.present())
+      "employersPostcode" -> optional(text verifying validPostcode)
     )(OtherStatutoryPay.apply)(OtherStatutoryPay.unapply)
       .verifying("employersName.required", validateEmployerName _))
 
@@ -33,14 +29,14 @@ object G6OtherStatutoryPay extends Controller with CachedClaim {
   }
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_other_money.g6_otherStatutoryPay(form.fill(OtherStatutoryPay), completedQuestionGroups))
+    Ok(views.html.s9_other_money.g6_otherStatutoryPay(form.fill(OtherStatutoryPay), completedQuestionGroups(OtherStatutoryPay)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "employersName.required", FormError("employersName", "error.required"))
-        BadRequest(views.html.s9_other_money.g6_otherStatutoryPay(formWithErrorsUpdate, completedQuestionGroups))
+        BadRequest(views.html.s9_other_money.g6_otherStatutoryPay(formWithErrorsUpdate, completedQuestionGroups(OtherStatutoryPay)))
       },
       f => claim.update(f) -> Redirect(routes.G7OtherEEAStateOrSwitzerland.present()))
   }

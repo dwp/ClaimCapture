@@ -1,4 +1,4 @@
-@(completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@(completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import helper._
 

@@ -28,5 +28,5 @@ class G5CompletedIntegrationSpec extends Specification with Tags {
       browser.find("div[class=completed] ul li").size() mustEqual 4
     }
 
-  } section("integration",models.domain.YourPartner.id)
+  } section("integration", models.domain.YourPartner.id)
 }

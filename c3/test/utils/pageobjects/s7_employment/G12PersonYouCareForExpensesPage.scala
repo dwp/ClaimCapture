@@ -1,6 +1,6 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 final class G12PersonYouCareForExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G12PersonYouCareForExpensesPage.url.replace(":jobID",iteration.toString), G12PersonYouCareForExpensesPage.title, previousPage,iteration) {
@@ -18,6 +18,6 @@ object G12PersonYouCareForExpensesPage {
 }
 
 trait G12PersonYouCareForExpensesPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G12PersonYouCareForExpensesPage buildPageWith(browser,iteration = 1)
 }

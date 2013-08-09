@@ -8,25 +8,25 @@ object TimeSpentAbroad extends Section.Identifier {
 }
 
 case class NormalResidenceAndCurrentLocation(whereDoYouLive: YesNoWithText = YesNoWithText("", Some("")),
-                                             inGBNow: String = "") extends QuestionGroup(NormalResidenceAndCurrentLocation) with NoRouting
+                                             inGBNow: String = "") extends QuestionGroup(NormalResidenceAndCurrentLocation)
 
 object NormalResidenceAndCurrentLocation extends QuestionGroup.Identifier {
   val id = s"${TimeSpentAbroad.id}.g1"
 }
 
-case class AbroadForMoreThan4Weeks(anyTrips: String="") extends QuestionGroup(AbroadForMoreThan4Weeks) with NoRouting
+case class AbroadForMoreThan4Weeks(anyTrips: String="") extends QuestionGroup(AbroadForMoreThan4Weeks)
 
 object AbroadForMoreThan4Weeks extends QuestionGroup.Identifier {
   val id = s"${TimeSpentAbroad.id}.g2"
 }
 
-case class AbroadForMoreThan52Weeks(anyTrips: String) extends QuestionGroup(AbroadForMoreThan52Weeks) with NoRouting
+case class AbroadForMoreThan52Weeks(anyTrips: String) extends QuestionGroup(AbroadForMoreThan52Weeks)
 
 object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
   val id = s"${TimeSpentAbroad.id}.g3"
 }
 
-case class Trips(fourWeeksTrips: List[FourWeeksTrip] = Nil, fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips) with NoRouting {
+case class Trips(fourWeeksTrips: List[FourWeeksTrip] = Nil, fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips) {
   def update(trip: FourWeeksTrip) = {
     val updated = fourWeeksTrips map { t => if (t.id == trip.id) trip else t }
     if (updated.contains(trip)) Trips(updated, fiftyTwoWeeksTrips) else Trips(fourWeeksTrips :+ trip, fiftyTwoWeeksTrips)

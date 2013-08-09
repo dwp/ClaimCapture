@@ -63,5 +63,5 @@ class G2HoursSpec extends Specification with Tags {
         }
       }
     }
-  } section("unit",models.domain.CarersAllowance.id)
+  } section("unit", models.domain.CarersAllowance.id)
 }

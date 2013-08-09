@@ -1,6 +1,6 @@
 package utils.pageobjects
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.xml_validation.XMLBusinessValidation
 
 /**
@@ -31,6 +31,6 @@ object XmlPage {
 
 /** The context for Specs tests */
 trait TestPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = XmlPage buildPageWith browser
 }

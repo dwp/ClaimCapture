@@ -3,15 +3,13 @@ package controllers.s9_other_money
 import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import models.domain.{OtherStatutoryPay, Claim, StatutorySickPay}
+import models.domain.StatutorySickPay
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
 
-object G5StatutorySickPay extends Controller with CachedClaim {
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(StatutorySickPay)
-
+object G5StatutorySickPay extends Controller with OtherMoneyRouting with CachedClaim {
   val form = Form(
     mapping(
       "haveYouHadAnyStatutorySickPay" -> nonEmptyText(maxLength = sixty),
@@ -19,8 +17,7 @@ object G5StatutorySickPay extends Controller with CachedClaim {
       "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(nonEmptyText(maxLength = sixty)),
       "employersAddress" -> optional(address),
-      "employersPostcode" -> optional(text verifying validPostcode),
-      call(routes.G5StatutorySickPay.present())
+      "employersPostcode" -> optional(text verifying validPostcode)
     )(StatutorySickPay.apply)(StatutorySickPay.unapply)
       .verifying("employersName.required", validateEmployerName _))
 
@@ -32,14 +29,14 @@ object G5StatutorySickPay extends Controller with CachedClaim {
   }
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_other_money.g5_statutorySickPay(form.fill(StatutorySickPay), completedQuestionGroups))
+    Ok(views.html.s9_other_money.g5_statutorySickPay(form.fill(StatutorySickPay), completedQuestionGroups(StatutorySickPay)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "employersName.required", FormError("employersName", "error.required"))
-        BadRequest(views.html.s9_other_money.g5_statutorySickPay(formWithErrorsUpdate, completedQuestionGroups))
+        BadRequest(views.html.s9_other_money.g5_statutorySickPay(formWithErrorsUpdate, completedQuestionGroups(StatutorySickPay)))
       },
       f => claim.update(f) -> Redirect(routes.G6OtherStatutoryPay.present()))
   }

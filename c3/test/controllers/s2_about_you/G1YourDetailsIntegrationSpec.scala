@@ -30,5 +30,5 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
 
       page submitPage()
     }
-  } section("integration",models.domain.AboutYou.id)
+  } section("integration", models.domain.AboutYou.id)
 }

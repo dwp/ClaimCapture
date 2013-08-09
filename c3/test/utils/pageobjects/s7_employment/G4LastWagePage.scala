@@ -1,7 +1,7 @@
 package utils.pageobjects.s7_employment
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 final class G4LastWagePage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G4LastWagePage.url.replace(":jobID",iteration.toString), G4LastWagePage.title, previousPage,iteration) {
 
@@ -10,8 +10,6 @@ final class G4LastWagePage(browser: TestBrowser, previousPage: Option[Page] = No
     declareInput("#grossPay","EmploymentWhatWasTheGrossPayForTheLastPayPeriod_"+iteration)
     declareInput("#payInclusions","EmploymentWhatWasIncludedInYourLastPay_"+iteration)
     declareYesNo("#sameAmountEachTime","EmploymentDoYouGettheSameAmountEachTime_"+iteration)
-  
-
 }
 
 object G4LastWagePage {
@@ -21,6 +19,6 @@ object G4LastWagePage {
 }
 
 trait G4LastWagePageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G4LastWagePage buildPageWith (browser,iteration = 1)
 }

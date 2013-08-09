@@ -76,5 +76,5 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
       page submitPage()
     }
-  }
+  } section("integration", models.domain.OtherMoney.id)
 }

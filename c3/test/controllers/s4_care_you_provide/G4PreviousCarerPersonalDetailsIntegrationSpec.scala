@@ -64,5 +64,5 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
       browser.find("div[class=completed] ul li").size mustEqual 3
     }
-  } section("integration",models.domain.CareYouProvide.id)
+  } section("integration", models.domain.CareYouProvide.id)
 }

@@ -11,7 +11,6 @@ import models.MultiLineAddress
 import scala.util.Failure
 import models.NationalInsuranceNumber
 import play.api.data.validation.ValidationError
-import play.api.mvc.Call
 
 object Mappings {
   trait Name {
@@ -175,6 +174,4 @@ object Mappings {
   def validPaymentFrequencyOnly: Constraint[PaymentFrequency] = Constraint[PaymentFrequency]("constraint.validatePaymentFrequency") {
     pf => paymentFrequencyValidation(pf)
   }
-  
-  def call(call: Call): (String, Mapping[Call]) = "call" -> ignored(call)
 }

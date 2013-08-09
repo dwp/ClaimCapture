@@ -48,5 +48,5 @@ class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
       val result = G2TheirContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.CareYouProvide.id)
+  } section("unit", models.domain.CareYouProvide.id)
 }

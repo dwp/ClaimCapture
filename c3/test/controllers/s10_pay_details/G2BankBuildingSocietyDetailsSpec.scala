@@ -61,5 +61,5 @@ class G2BankBuildingSocietyDetailsSpec extends Specification with Tags {
       val result2 = G2BankBuildingSocietyDetails.submit(request2)
       status(result2) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.PayDetails.id)
+  } section("unit", models.domain.PayDetails.id)
 }

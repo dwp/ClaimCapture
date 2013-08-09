@@ -48,5 +48,5 @@ class G4PersonYouCareForSpec extends Specification with Tags {
       val result = G4PersonYouCareFor.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.YourPartner.id)
+  } section("unit", models.domain.YourPartner.id)
 }

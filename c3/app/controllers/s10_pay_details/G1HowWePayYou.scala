@@ -7,13 +7,11 @@ import models.domain.HowWePayYou
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
-import controllers.Mappings._
 import PayDetails._
 
 object G1HowWePayYou extends Controller with CachedClaim{
   val form = Form(
     mapping(
-      call(routes.G1HowWePayYou.present()),
       "likeToPay" -> nonEmptyText(maxLength = 5),
       "paymentFrequency" -> nonEmptyText(maxLength = 15)
     )(HowWePayYou.apply)(HowWePayYou.unapply))

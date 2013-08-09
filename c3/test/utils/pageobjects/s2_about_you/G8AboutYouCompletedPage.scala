@@ -1,6 +1,6 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 
 /**
@@ -13,7 +13,7 @@ final class G8AboutYouCompletedPage(browser: TestBrowser, previousPage: Option[P
    * Does nothing. There is no form.
    * @param theClaim   Data to use to fill page
    */
-  override  def fillPageWith(theClaim: ClaimScenario): Page = {return this}
+  override  def fillPageWith(theClaim: ClaimScenario): Page = this
 }
 
 /**
@@ -28,6 +28,6 @@ object G8AboutYouCompletedPage {
 
 /** The context for Specs tests */
 trait G8AboutYouCompletedPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G8AboutYouCompletedPage buildPageWith browser
 }

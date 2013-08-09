@@ -59,5 +59,5 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
       browser.click(".form-steps a")
       titleMustEqual("Your Contact Details - About You")
     }
-  } section("integration",models.domain.AboutYou.id)
+  } section("integration", models.domain.AboutYou.id)
 }
