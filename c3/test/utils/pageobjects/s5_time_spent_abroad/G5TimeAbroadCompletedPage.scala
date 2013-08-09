@@ -1,7 +1,7 @@
 package utils.pageobjects.s5_time_spent_abroad
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * * Page object for s5_time_spent_abroad g5_completed.
@@ -24,6 +24,6 @@ object G5TimeAbroadCompletedPage {
 
 /** The context for Specs tests */
 trait G5TimeAbroadCompletedPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G5TimeAbroadCompletedPage buildPageWith browser
 }

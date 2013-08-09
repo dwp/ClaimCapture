@@ -1,6 +1,6 @@
 package utils.pageobjects.S11_consent_and_declaration
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 /**
@@ -27,6 +27,6 @@ object G4DeclarationPage {
 
 /** The context for Specs tests */
 trait G4DeclarationPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G4DeclarationPage buildPageWith browser
 }

@@ -1,7 +1,7 @@
 package utils.pageobjects.s4_care_you_provide
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * Page object for s4_care_you_provide g5_previous_carer_contact_details.
@@ -28,6 +28,6 @@ object G5PreviousCarerContactDetailsPage {
 
 /** The context for Specs tests */
 trait G5PreviousCarerContactDetailsPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G5PreviousCarerContactDetailsPage buildPageWith browser
 }

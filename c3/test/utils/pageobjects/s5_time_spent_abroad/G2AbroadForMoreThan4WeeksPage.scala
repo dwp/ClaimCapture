@@ -1,6 +1,6 @@
 package utils.pageobjects.s5_time_spent_abroad
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimScenario, PageContext, Page}
 import play.api.i18n.Messages
 
@@ -16,10 +16,9 @@ final class G2AbroadForMoreThan4WeeksPage (browser: TestBrowser, previousPage: O
    override def fillPageWith(theClaim: ClaimScenario): Page = {
      super.fillPageWith(theClaim)
      if (theClaim.selectDynamic("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_" + iteration).toLowerCase() == "no") resetIteration = true
-     return this
+     this
    }
 }
-
 
 /**
  * Companion object that integrates factory method.
@@ -33,6 +32,6 @@ object G2AbroadForMoreThan4WeeksPage {
 
 /** The context for Specs tests */
 trait G2AbroadForMoreThan4WeeksPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G2AbroadForMoreThan4WeeksPage buildPageWith (browser,iteration = 1)
 }

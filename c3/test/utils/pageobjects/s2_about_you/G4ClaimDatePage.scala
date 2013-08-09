@@ -1,7 +1,7 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * PageObject for page s2_about_you g4_claimDate.
@@ -25,6 +25,6 @@ object G4ClaimDatePage {
 
 /** The context for Specs tests */
 trait G4ClaimDatePageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G4ClaimDatePage buildPageWith browser
 }

@@ -6,7 +6,6 @@ import org.specs2.specification.Scope
 import play.api.test.TestBrowser
 import org.openqa.selenium.TimeoutException
 
-
 /**
  * Super-class of all the PageObject pattern compliant classes representing an application page.
  * @author Jorge Migueis
