@@ -3,6 +3,7 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
+import play.api.i18n.Messages
 
 class CareYouProvideIntegrationSpec extends Specification with Tags {
 
@@ -17,7 +18,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
     """navigate to Abroad""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("More About You - About You")
+      titleMustEqual(Messages("s2.g5") + " - About You")
 
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")
@@ -46,7 +47,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       browser.find("button[type='submit']").getText shouldEqual "Continue to Abroad"
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Your normal residence and current location - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
     }
   } section("integration", models.domain.CareYouProvide.id)
 }

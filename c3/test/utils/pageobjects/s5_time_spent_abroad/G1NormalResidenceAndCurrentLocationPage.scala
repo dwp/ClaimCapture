@@ -2,7 +2,6 @@ package utils.pageobjects.s5_time_spent_abroad
 
 import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
-import play.api.i18n.Messages
 
 /**
  * * Page object for s5_time_spent_abroad g1_normal_residence_and_current_location.
@@ -21,7 +20,7 @@ final class G1NormalResidenceAndCurrentLocationPage (browser: TestBrowser, previ
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1NormalResidenceAndCurrentLocationPage {
-  val title = Messages("s5.g1") + " - Time Spent Abroad"//"Your normal residence and current location - Time Spent Abroad"
+  val title = "Your normal residence and current location - Time Spent Abroad"
   val url  = "/timeSpentAbroad/normalResidenceAndCurrentLocation"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1NormalResidenceAndCurrentLocationPage(browser,previousPage)
 }

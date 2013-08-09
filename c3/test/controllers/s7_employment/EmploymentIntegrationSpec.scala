@@ -3,6 +3,7 @@ package controllers.s7_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{Formulate, BrowserMatchers}
+import play.api.i18n.Messages
 
 class EmploymentIntegrationSpec extends Specification with Tags {
   "Employment" should {
@@ -36,10 +37,10 @@ trait EmployedSinceClaimDate extends BrowserMatchers {
 
   def beginClaim = {
     Formulate.claimDate(browser)
-    titleMustEqual("More About You - About You")
+    titleMustEqual(Messages("s2.g5") + " - About You")
 
     Formulate.employment(browser)
-    titleMustEqual("Property and Rent - About You")
+    titleMustEqual(Messages("s2.g7") + " - About You")
   }
 }
 
@@ -54,6 +55,6 @@ trait NotEmployedSinceClaimDate extends BrowserMatchers {
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
     browser.submit("button[type='submit']")
 
-    titleMustEqual("Property and Rent - About You")
+    titleMustEqual(Messages("s2.g7") + " - About You")
   }
 }

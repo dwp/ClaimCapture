@@ -90,7 +90,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     "be submitted with all mandatory data" in new TripWithBrowser {
       trip(fiftyTwoWeeks)
-      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "where".""" in new WithBrowser with BrowserMatchers {
@@ -110,9 +110,9 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     """show 2 fifty two weeks trips in "trips table" upon providing 2 trips""" in new TripWithBrowser {
       trip(fiftyTwoWeeks)
-      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
       trip(fiftyTwoWeeks)
-      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
       browser.$("#trips table tbody tr").size shouldEqual 2
     }
 
@@ -124,9 +124,9 @@ class G4TripIntegrationSpec extends Specification with Tags {
       skipped("Ridiculous - Run this on its own and it's fine!")
 
       trip(fiftyTwoWeeks)
-      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
       trip(fiftyTwoWeeks)
-      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
 
       browser.findFirst("input[value='Edit']").click()
       titleMustEqual(Messages("s5.g4") + " - Time Spent Abroad")
@@ -134,7 +134,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
       browser.fill("#start_year") `with` "1999"
       browser.submit("button[type='submit']")
-      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
 
       browser.$("tbody tr").size() shouldEqual 2
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
@@ -142,13 +142,13 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     "allow cancellation" in new TripWithBrowser {
       browser.goTo("/timeSpentAbroad/abroadForMoreThan52Weeks")
-      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
 
       browser.goTo("/timeSpentAbroad/trip/52Weeks")
       titleMustEqual(Messages("s5.g4") + " - Time Spent Abroad")
 
       browser.click("#backButton")
-      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
     }
   } section ("integration", models.domain.TimeSpentAbroad.id)
 

@@ -3,6 +3,7 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import controllers.{BrowserMatchers, Formulate}
 import play.api.test.WithBrowser
+import play.api.i18n.Messages
 
 class G4ClaimDateIntegrationSpec extends Specification with Tags {
   "Claim Date" should {
@@ -24,7 +25,7 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
     "fill date" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
 
-      titleMustEqual("More About You - About You")
+      titleMustEqual(Messages("s2.g5") + " - About You")
       browser.find("div[class=completed] ul li h3").get(0).getText mustEqual "Your claim date: 03/04/1950"
     }
 
@@ -50,14 +51,14 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
       Formulate.timeOutsideUKNotLivingInUK(browser)
       titleMustEqual("Your Claim Date - About You")
       browser.click(".form-steps a")
-      titleMustEqual("About Your Time Outside The UK - About You")
+      titleMustEqual(Messages("s2.g3") + " - About You")
     }
 
     "navigate back to 'Contact Details'" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
       browser.click(".form-steps a")
-      titleMustEqual("Your Contact Details - About You")
+      titleMustEqual(Messages("s2.g2") + " - About You")
     }
   } section("integration", models.domain.AboutYou.id)
 }

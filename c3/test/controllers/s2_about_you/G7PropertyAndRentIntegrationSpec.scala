@@ -4,6 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G8AboutYouCompletedPage}
+import play.api.i18n.Messages
 
 class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
   "Property and Rent" should {
@@ -15,7 +16,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
     "be presented when there is a claim date" in new WithBrowser {
       Formulate.claimDate(browser)
       browser.goTo("/aboutyou/propertyAndRent")
-      browser.title mustEqual "Property and Rent - About You"
+      browser.title mustEqual Messages("s2.g7") + " - About You"
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
@@ -25,7 +26,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)
 
-      titleMustEqual("Property and Rent - About You")
+      titleMustEqual(Messages("s2.g7") + " - About You")
       findMustEqualSize("div[class=completed] ul li", 5)
     }
 
@@ -44,7 +45,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       browser.goTo("/aboutyou/propertyAndRent")
-      browser.title mustEqual "Property and Rent - About You"
+      browser.title mustEqual Messages("s2.g7") + " - About You"
       browser.submit("button[type='submit']")
 
       browser.find("p[class=error]").size mustEqual 2

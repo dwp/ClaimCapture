@@ -5,13 +5,13 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 
-@main("Your normal residence and current location - Time Spent Abroad", Some(normalResidenceAndCurrentLocationForm)) {
+@main(Messages("s5.g1") + " - Time Spent Abroad", Some(normalResidenceAndCurrentLocationForm)) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.submit) {
         <fieldset class="form-elements">
-            <legend>Your normal residence and current location</legend>
+            <legend>Messages("s5.g1")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(normalResidenceAndCurrentLocationForm("liveInUK.answer"))

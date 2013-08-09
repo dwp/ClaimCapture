@@ -22,7 +22,7 @@ final class G5MoreAboutYouPage (browser: TestBrowser, previousPage: Option[Page]
  * It is used by PageFactory object defined in Page.scala
  */
 object G5MoreAboutYouPage {
-  val title = "More About You - About You"
+  val title = "More about you - About You"
   val url  = "/aboutyou/moreAboutYou"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5MoreAboutYouPage(browser,previousPage)
 }
