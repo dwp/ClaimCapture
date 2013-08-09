@@ -7,18 +7,25 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages
 import controllers.Mappings._
-import models.domain.{MoreAboutTheCare, BreaksInCare, Claim}
+import models.domain.BreaksInCare
 import models.yesNo.YesNo
 import CareYouProvide.breaksInCare
 
 object G10BreaksInCare extends Controller with CareYouProvideRouting with CachedClaim {
+  val clearHasBreaks = "clearHasBreaks"
+
   val form = Form(
     mapping(
       "answer" -> nonEmptyText.verifying(validYesNo)
   )(YesNo.apply)(YesNo.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s4_care_you_provide.g10_breaksInCare(form, breaksInCare, completedQuestionGroups(BreaksInCare), dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim)))
+    val filledForm = claim.questionGroup[BreaksInCare] match {
+      case Some(bs) if request.flash.get(clearHasBreaks).getOrElse(no) == no => form.fill(YesNo(no))
+      case _ => form
+    }
+
+    Ok(views.html.s4_care_you_provide.g10_breaksInCare(filledForm, breaksInCare, completedQuestionGroups(BreaksInCare)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -31,7 +38,7 @@ object G10BreaksInCare extends Controller with CareYouProvideRouting with Cached
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrors, breaksInCare, completedQuestionGroups(BreaksInCare), dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim))),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrors, breaksInCare, completedQuestionGroups(BreaksInCare))),
       hasBreaks => claim.update(breaksInCare) -> next(hasBreaks))
   }
 
@@ -41,17 +48,16 @@ object G10BreaksInCare extends Controller with CareYouProvideRouting with Cached
     claim.questionGroup(BreaksInCare) match {
       case Some(b: BreaksInCare) => {
         val updatedBreaksInCare = b.delete(id)
-        val dateOfClaim = dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim)
 
-        if (updatedBreaksInCare.breaks.isEmpty) claim.update(updatedBreaksInCare) -> Ok(Json.obj("answer" -> Messages("answer.label", dateOfClaim)))
-        else claim.update(updatedBreaksInCare) -> Ok(Json.obj("answer" -> Messages("answer.more.label", dateOfClaim)))
+        if (updatedBreaksInCare.breaks.isEmpty) claim.update(updatedBreaksInCare) -> Ok(Json.obj("answer" -> Messages("answer.label")))
+        else claim.update(updatedBreaksInCare) -> Ok(Json.obj("answer" -> Messages("answer.more.label")))
       }
 
       case _ => BadRequest(s"""Failed to delete break with ID "$id" as claim currently has no breaks""")
     }
   }
 
-  private def dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim: Claim): String = {
+  /*private def dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim: Claim): String = {
     import language.postfixOps
 
     val spent35HoursCaringBeforeClaim = claim.questionGroup(MoreAboutTheCare) match {
@@ -62,5 +68,5 @@ object G10BreaksInCare extends Controller with CareYouProvideRouting with Cached
     claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
       if (spent35HoursCaringBeforeClaim) (dmy - 6 months).`dd/MM/yyyy`
       else dmy.`dd/MM/yyyy`)
-  }
+  }*/
 }

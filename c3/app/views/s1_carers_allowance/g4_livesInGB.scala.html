@@ -27,12 +27,12 @@
                 @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("livesInGB.answer"), '_showLabel -> false)
             </ul>
                 
-            @defining(currentForm("answer").value.getOrElse("don't know") match {case "no" => "block" case _ => "none"}) { styleDisplay =>
-              <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
-                <p>You can only qualify for Carer's Allowance if you normally live in Great Britain.</p>
-                <p>You are legally entitled to claim Carer's Allowance even though you <strong>do not</strong> qualify and <strong>will not</strong> get Carer's Allowance. If you wish to do so click the <strong>'Next'</strong> button below.</p>
-                <span>!</span>
-              </div>
+            @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
+                <div id="answerNoMessageWrap" class="prompt breaks-prompt eligibility-prompt" style="display: @styleDisplay;">
+                    <p>You can only qualify for Carer's Allowance if you normally live in Great Britain.</p>
+                    <p>You are legally entitled to claim Carer's Allowance even though you <strong>do not</strong> qualify and <strong>will not</strong> get Carer's Allowance. If you wish to do so click the <strong>'Next'</strong> button below.</p>
+                    <span>!</span>
+                </div>
             }
         </fieldset>
 
