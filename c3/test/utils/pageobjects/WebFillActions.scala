@@ -88,7 +88,7 @@ trait WebFillActions {
 
 
   def fillSortCode(elementCssSelector: String, value: String) = if (null != value) {
-    val extractor = """(\d{2})-(\d{2})-(\d{2})""".r
+    val extractor = """(\d{2})(\d{2})(\d{2})""".r
     val extractor(n1, n2, n3) = value
     fillInput(elementCssSelector + "_sort1", n1)
     fillInput(elementCssSelector + "_sort2", n2)
