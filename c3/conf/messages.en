@@ -94,12 +94,13 @@ s11.g4 = Declaration
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...
 
+
 ## CARERS ALLOWANCE
-################
 benefits.answer = Does the person you look after get one of these benefits?
 hours.answer = Do you spend 35 hours or more each week caring for the person you look after?
 over16.answer = Are you aged 16 or over?
 livesInGB.answer = Do you normally live in Great Britain?
+
 
 ## ABOUT YOU
 
@@ -370,7 +371,7 @@ fullName = Full name
 nameOfBenefit = Name of benefit
 
 # OTHER STATUTORY PAY
-otherPay.label = Have you had any Statutory Sick Pay (SSP) since the date you want to claim from {0}?
+otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
 howOften_frequency = How often
 
 # OTHER EEA STATE OR SWITZERLAND
