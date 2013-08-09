@@ -35,7 +35,7 @@ class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
       titleMustEqual(Messages("s5.g2") + " - Time Spent Abroad")
 
       browser.click("#backButton")
-      titleMustEqual("Your normal residence and current location - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
     }
   } section("integration", models.domain.TimeSpentAbroad.id)
 }

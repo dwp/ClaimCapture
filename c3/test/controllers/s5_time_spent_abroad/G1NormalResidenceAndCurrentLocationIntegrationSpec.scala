@@ -3,22 +3,23 @@ package controllers.s5_time_spent_abroad
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{Formulate, BrowserMatchers}
+import play.api.i18n.Messages
 
 class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification with Tags {
   "Normal residence and current location" should {
     "present" in new WithBrowser with BrowserMatchers {
       browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
-      titleMustEqual("Your normal residence and current location - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
     }
 
     """give 2 errors when missing mandatory data:
        "Do you live in the UK?"
        "Are you in Great Britain now?".""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
-      titleMustEqual("Your normal residence and current location - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
 
       browser.submit("button[value='next']")
-      titleMustEqual("Your normal residence and current location - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
       browser.find("div[class=validation-summary] ol li").size mustEqual 2
     }
 
@@ -26,18 +27,18 @@ class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification w
        "Where do you normally live?"
        "Are you in Great Britain now?".""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
-      titleMustEqual("Your normal residence and current location - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
 
       browser.click("#liveInUK_answer_no")
       browser.submit("button[value='next']")
-      titleMustEqual("Your normal residence and current location - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
       browser.find("div[class=validation-summary] ol li").size mustEqual 2
     }
 
     """go back to "completed care you provide".""" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
       browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
-      titleMustEqual("Your normal residence and current location - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
 
       browser.click("#backButton")
       titleMustEqual("Completion - About the care you provide")
