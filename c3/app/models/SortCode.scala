@@ -10,5 +10,5 @@ case class SortCode(sort1:String,sort2:String,sort3:String){
     }
   }
 
-  def stringify = sort1 + sort2 + sort2
+  def stringify = sort1 + sort2 + sort3
 }
