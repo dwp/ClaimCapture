@@ -17,6 +17,7 @@ trait FormFields {
   val DATE_FROM = 'DateFrom
   val DATE_TO = 'DateTo
   val INPUT = 'Input
+  val NINO = 'Nino
   val RADIO_LIST = 'RadioList
   val SELECT = 'Select
   val PAYMENT_FREQUENCY = 'PaymentFrequency
@@ -43,13 +44,11 @@ trait FormFields {
 
   def declareInput(elementCssSelector: String, claimAttribute: String) = declareField(INPUT, elementCssSelector, claimAttribute)
 
-  def declareNino(elementCssSelector: String, claimAttribute: String) = declareField(INPUT, elementCssSelector, claimAttribute)
+  def declareNino(elementCssSelector: String, claimAttribute: String) = declareField(NINO, elementCssSelector, claimAttribute)
 
   def declareRadioList(elementCssSelector: String, claimAttribute: String) = declareField(RADIO_LIST, elementCssSelector, claimAttribute)
 
   def declareSelect(elementCssSelector: String, claimAttribute: String) = declareField(SELECT, elementCssSelector, claimAttribute)
-
-//  def declareSelectWithOther(elementCssSelector: String, claimAttribute: String) = declareField(SELECT, elementCssSelector, claimAttribute)
 
   def declarePaymentFrequency(elementCssSelector: String, claimAttribute: String) = declareField(PAYMENT_FREQUENCY, elementCssSelector, claimAttribute)
 
