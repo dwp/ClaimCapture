@@ -1,7 +1,7 @@
 package utils.pageobjects.s4_care_you_provide
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * * Page object for s5_time_spent_abroad g11_completed.
@@ -24,6 +24,6 @@ object G12CareYouProvideCompletedPage {
 
 /** The context for Specs tests */
 trait G12CareYouProvideCompletedPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G12CareYouProvideCompletedPage buildPageWith browser
 }

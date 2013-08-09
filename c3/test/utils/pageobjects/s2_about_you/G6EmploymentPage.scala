@@ -1,7 +1,7 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * PageObject for page s2_about_you g6_employment.
@@ -26,6 +26,6 @@ object G6EmploymentPage {
 
 /** The context for Specs tests */
 trait G6EmploymentPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G6EmploymentPage buildPageWith browser
 }

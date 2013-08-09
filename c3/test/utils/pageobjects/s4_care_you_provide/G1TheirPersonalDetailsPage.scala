@@ -1,6 +1,6 @@
 package utils.pageobjects.s4_care_you_provide
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 /**
@@ -20,7 +20,6 @@ final class G1TheirPersonalDetailsPage (browser: TestBrowser, previousPage: Opti
 
 }
 
-
 /**
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in PageFactory.scala
@@ -33,6 +32,6 @@ object G1TheirPersonalDetailsPage {
 
 /** The context for Specs tests */
 trait G1TheirPersonalDetailsPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G1TheirPersonalDetailsPage buildPageWith browser
 }

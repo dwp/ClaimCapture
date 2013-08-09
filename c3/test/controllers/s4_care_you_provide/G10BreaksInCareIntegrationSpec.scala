@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
 
 class G10BreaksInCareIntegrationSpec extends Specification with Tags {
-  "Has breaks" should {
+  "Breaks in care" should {
     "present" in new WithBrowser with BrowserMatchers {
       browser.goTo("/careYouProvide/breaksInCare")
       titleMustEqual("Breaks in care - About the care you provide")
@@ -50,6 +50,19 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       titleMustEqual("Breaks in care - About the care you provide")
       
       browser.find("ul[class=group] li p").getText mustEqual "* Have you had any breaks in caring since 03/04/1950?"
+    }
+
+    """allow a new break to be added but not to record the "yes/no" answer""" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/careYouProvide/breaksInCare")
+      titleMustEqual("Breaks in care - About the care you provide")
+
+      browser.click("#answer_yes")
+      browser.submit("button[value='next']")
+      titleMustEqual("Break - About the care you provide")
+
+      browser.click("#backButton")
+      //titleMustEqual("Breaks in care - About the care you provide")
+      println(browser.title)
     }
   } section("integration", models.domain.CareYouProvide.id)
 }

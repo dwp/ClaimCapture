@@ -1,7 +1,7 @@
 package utils.pageobjects.s3_your_partner
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * PageObject for page s3_your_partner g1_yourPartnerPersonalDetails.
@@ -33,6 +33,6 @@ object G1YourPartnerPersonalDetailsPage {
 
 /** The context for Specs tests */
 trait G1YourPartnerPersonalDetailsPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G1YourPartnerPersonalDetailsPage buildPageWith browser
 }

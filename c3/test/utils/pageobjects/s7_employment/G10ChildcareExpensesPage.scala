@@ -19,6 +19,6 @@ object G10ChildcareExpensesPage {
 }
 
 trait G10ChildcareExpensesPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G10ChildcareExpensesPage buildPageWith(browser,iteration = 1)
 }

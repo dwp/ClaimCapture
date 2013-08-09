@@ -1,7 +1,7 @@
 package utils.pageobjects.s1_carers_allowance
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * PageObject pattern associated to S1 carers allowance G5 approve page.
@@ -27,6 +27,6 @@ object G6ApprovePage {
 
 /** The context for Specs tests */
 trait G6ApprovePageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G6ApprovePage buildPageWith browser
 }
