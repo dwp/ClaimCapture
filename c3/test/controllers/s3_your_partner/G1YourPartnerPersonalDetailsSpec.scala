@@ -88,5 +88,5 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
       val result = G1YourPartnerPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }  section("unit",models.domain.YourPartner.id)
+  }  section("unit", models.domain.YourPartner.id)
 }

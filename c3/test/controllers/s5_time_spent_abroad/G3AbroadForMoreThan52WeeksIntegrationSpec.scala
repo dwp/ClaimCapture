@@ -37,5 +37,5 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       browser.click("#backButton")
       titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")*/
     }
-  } section("integration",models.domain.TimeSpentAbroad.id)
+  } section("integration", models.domain.TimeSpentAbroad.id)
 }

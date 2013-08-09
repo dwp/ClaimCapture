@@ -2,7 +2,6 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 
-
 class G2HoursFormSpec extends Specification with Tags {
   "Carer's Allowance - Hours - Form" should {
     val answerYesNo = "yes"
@@ -26,6 +25,5 @@ class G2HoursFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section("unit",models.domain.CarersAllowance.id)
-
+  } section("unit", models.domain.CarersAllowance.id)
 }

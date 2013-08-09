@@ -29,5 +29,5 @@ class G1HowWePayYouSpec extends Specification with Tags {
       val result = G1HowWePayYou.submit(request)
       redirectLocation(result) must beSome("/payDetails/bankBuildingSocietyDetails")
     }
-  } section("unit",models.domain.PayDetails.id)
+  } section("unit", models.domain.PayDetails.id)
 }

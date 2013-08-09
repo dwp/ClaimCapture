@@ -18,5 +18,5 @@ class EmploymentSpec extends Specification with Tags {
       val result = Employment.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.Employed.id)
+  } section("unit", models.domain.Employed.id)
 }

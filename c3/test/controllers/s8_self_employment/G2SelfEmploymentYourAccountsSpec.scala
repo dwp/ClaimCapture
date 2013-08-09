@@ -8,7 +8,6 @@ import play.api.cache.Cache
 import models.DayMonthYear
 import scala.Some
 
-
 class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
 
   "Self Employment - Your Accounts - Controller" should {
@@ -80,6 +79,5 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
       val result = controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-
-  }
+  } section("unit", models.domain.SelfEmployment.id)
 }

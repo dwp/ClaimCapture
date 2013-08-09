@@ -88,6 +88,5 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
       val result = controllers.s9_other_money.G6OtherStatutoryPay.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-
-  } section("unit",models.domain.OtherMoney.id)
+  } section("unit", models.domain.OtherMoney.id)
 }

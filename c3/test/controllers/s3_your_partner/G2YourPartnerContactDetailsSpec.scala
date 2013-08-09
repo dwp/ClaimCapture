@@ -50,5 +50,5 @@ class G2YourPartnerContactDetailsSpec extends Specification with Tags {
       val result = G2YourPartnerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.YourPartner.id)
+  } section("unit", models.domain.YourPartner.id)
 }

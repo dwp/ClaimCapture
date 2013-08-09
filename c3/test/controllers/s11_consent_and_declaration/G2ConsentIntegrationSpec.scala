@@ -35,5 +35,5 @@ class G2ConsentIntegrationSpec extends Specification with Tags {
       Formulate.consent(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
-  } section("integration",models.domain.ConsentAndDeclaration.id)
+  } section("integration", models.domain.ConsentAndDeclaration.id)
 }

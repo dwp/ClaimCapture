@@ -5,8 +5,6 @@ import org.specs2.mutable.Tags
 
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.ClaimScenario
-import utils.pageobjects.PageObjectException
-import utils.pageobjects.s2_about_you.G4ClaimDatePageContext
 import utils.pageobjects.s9_other_money._
 import play.api.test.WithBrowser
 
@@ -66,7 +64,5 @@ class G3PersonWhoGetsThisMoneyIntegrationSpec extends Specification with Tags {
 
       nextPage must beAnInstanceOf[G4PersonContactDetailsPage]
     }
-
-  } section("integration",models.domain.OtherMoney.id)
-
+  } section("integration", models.domain.OtherMoney.id)
 }

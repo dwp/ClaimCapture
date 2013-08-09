@@ -34,5 +34,5 @@ class G3DisclaimerIntegrationSpec extends Specification with Tags {
       Formulate.disclaimer(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
-  } section("integration",models.domain.ConsentAndDeclaration.id)
+  } section("integration", models.domain.ConsentAndDeclaration.id)
 }

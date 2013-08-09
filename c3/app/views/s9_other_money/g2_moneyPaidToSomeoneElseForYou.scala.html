@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.MoneyPaidToSomeoneElseForYou], completedQuestionGroups: List[models.domain.QuestionGroup])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.MoneyPaidToSomeoneElseForYou], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import helper._
 
@@ -16,7 +16,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a href="@back(models.domain.MoneyPaidToSomeoneElseForYou)" class="button secondary">Back</a>
+            <a href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

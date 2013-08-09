@@ -48,5 +48,5 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       browser.submit("button[type='submit']")
       titleMustEqual("Your normal residence and current location - Time Spent Abroad")
     }
-  } section("integration",models.domain.CareYouProvide.id)
+  } section("integration", models.domain.CareYouProvide.id)
 }

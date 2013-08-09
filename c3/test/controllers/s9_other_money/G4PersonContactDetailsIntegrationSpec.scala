@@ -69,7 +69,5 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
 
       nextPage must beAnInstanceOf[G5StatutorySickPayPage]
     }
-
-  } section("integration",models.domain.OtherMoney.id)
-
+  } section("integration", models.domain.OtherMoney.id)
 }

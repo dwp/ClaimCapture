@@ -8,7 +8,6 @@ import play.api.cache.Cache
 import models.domain.Claim
 import scala.Some
 
-
 class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
   "Expenses related to the person you care for while at work - Self Employment - Controller" should {
     val howMuchYouPay = "123"
@@ -79,6 +78,5 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
       val result2 = G7ExpensesWhileAtWork.present(request)
       status(result2) mustEqual SEE_OTHER
     }
-
-  } section("unit",models.domain.SelfEmployment.id)
+  } section("unit", models.domain.SelfEmployment.id)
 }

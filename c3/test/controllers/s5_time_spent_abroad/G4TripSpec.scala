@@ -129,5 +129,5 @@ class G4TripSpec extends Specification with Tags {
         case Some(ts: Trips) => ts.fourWeeksTrips.size shouldEqual 5
       }
     }
-  } section ("unit",models.domain.TimeSpentAbroad.id)
+  } section ("unit", models.domain.TimeSpentAbroad.id)
 }

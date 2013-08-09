@@ -60,5 +60,5 @@ class G5MoreAboutYouSpec extends Specification with Tags {
       val section: Section = claim.section(domain.Education)
       section.visible mustEqual false
     }
-  } section("unit",models.domain.AboutYou.id)
+  } section("unit", models.domain.AboutYou.id)
 }

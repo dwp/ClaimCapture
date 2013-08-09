@@ -64,5 +64,5 @@ class G6ChildcareProvidersContactDetailsSpec extends Specification with Tags {
       val result = G6ChildcareProvidersContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.SelfEmployment.id)
+  } section("unit", models.domain.SelfEmployment.id)
 }

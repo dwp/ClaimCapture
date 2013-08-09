@@ -42,5 +42,5 @@ class G14JobCompletionIntegrationSpec extends Specification with Tags {
       browser.click("#backButton")
       titleMustEqual("Care provider’s contact Details - Employment")
     }
-  } section("integration",models.domain.Employed.id)
+  } section("integration", models.domain.Employed.id)
 }

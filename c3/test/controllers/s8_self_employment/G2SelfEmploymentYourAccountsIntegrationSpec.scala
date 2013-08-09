@@ -89,5 +89,5 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
 
       nextPage must not(beAnInstanceOf[G2SelfEmploymentYourAccountsPage])
     }
-  } section("integration",models.domain.SelfEmployment.id)
+  } section("integration", models.domain.SelfEmployment.id)
 }

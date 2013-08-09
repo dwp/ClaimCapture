@@ -48,5 +48,5 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags {
       titleMustEqual("More About Your Partner/Spouse - About Your Partner/Spouse")
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
-  } section("integration",models.domain.YourPartner.id)
+  } section("integration", models.domain.YourPartner.id)
 }

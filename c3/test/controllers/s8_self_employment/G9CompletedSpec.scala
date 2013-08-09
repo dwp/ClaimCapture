@@ -6,7 +6,7 @@ import models.domain._
 import play.api.test.Helpers._
 import utils.pageobjects.s2_about_you.{G7PropertyAndRentPage, G4ClaimDatePageContext}
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.s8_self_employment.{G9CompletedPage, G8CareProvidersContactDetailsPage}
+import utils.pageobjects.s8_self_employment.G9CompletedPage
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 
 class G9CompletedSpec extends Specification with Tags {
@@ -37,5 +37,5 @@ class G9CompletedSpec extends Specification with Tags {
       val result = controllers.s8_self_employment.SelfEmployment.completedSubmit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.SelfEmployment.id)
+  } section("unit", models.domain.SelfEmployment.id)
 }

@@ -36,6 +36,5 @@ class G3RelationshipAndOtherClaimsFormSpec extends Specification with Tags {
         moreAboutThePerson => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section("unit",models.domain.CareYouProvide.id)
-
+  } section("unit", models.domain.CareYouProvide.id)
 }

@@ -46,5 +46,5 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
 
       browser.find("button[type='submit']").getText shouldEqual "Continue to Employment"
     }
-  } section("integration",models.domain.TimeSpentAbroad.id)
+  } section("integration", models.domain.TimeSpentAbroad.id)
 }

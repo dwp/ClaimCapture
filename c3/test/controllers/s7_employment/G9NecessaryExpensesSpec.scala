@@ -70,5 +70,5 @@ class G9NecessaryExpensesSpec extends Specification with Tags {
         }
       }
     }
-  } section("unit",models.domain.Employed.id)
+  } section("unit", models.domain.Employed.id)
 }

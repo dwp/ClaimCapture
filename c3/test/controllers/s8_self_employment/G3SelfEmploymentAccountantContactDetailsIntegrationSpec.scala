@@ -96,5 +96,5 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
       val nextPage = page goToPage(throwException = false, page = new G3SelfEmploymentAccountantContactDetailsPage(browser), waitForPage = true, waitDuration = 1000)
       nextPage must beAnInstanceOf[G4SelfEmploymentPensionsAndExpensesPage]
     }
-  }
+  } section("unit", models.domain.SelfEmployment.id)
 }

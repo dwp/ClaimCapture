@@ -81,5 +81,5 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       browser.click("#backButton")
       titleMustEqual("Details of Previous or Existing Carer - About the care you provide") // Back to S4 G4
     }
-  } section ("integration",models.domain.CareYouProvide.id)
+  } section ("integration", models.domain.CareYouProvide.id)
 }
