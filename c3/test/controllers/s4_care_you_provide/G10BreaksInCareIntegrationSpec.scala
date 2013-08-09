@@ -61,8 +61,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       titleMustEqual("Break - About the care you provide")
 
       browser.click("#backButton")
-      //titleMustEqual("Breaks in care - About the care you provide")
-      println(browser.title)
+      titleMustEqual("Breaks in care - About the care you provide")
     }
   } section("integration", models.domain.CareYouProvide.id)
 }

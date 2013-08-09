@@ -44,8 +44,8 @@ class FullSubmissionSpec extends Specification with Tags {
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST223"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
-      page goToThePage()
-      val lastPage = page runClaimWith(claim, thankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
+      page goToThePage(waitForPage = true, waitDuration = 1000)
+      val lastPage = page runClaimWith(claim, thankYouPageTitle, waitForPage = true, waitDuration = 1000, trace = false)
     }
 
     "Recoverable Error submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
@@ -53,8 +53,8 @@ class FullSubmissionSpec extends Specification with Tags {
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST224"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
-      page goToThePage()
-      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+      page goToThePage(waitForPage = true, waitDuration = 1000)
+      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 1000, trace = false)
     }
 
     "Recoverable acknowledgement submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
@@ -62,8 +62,8 @@ class FullSubmissionSpec extends Specification with Tags {
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST225"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
-      page goToThePage()
-      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+      page goToThePage(waitForPage = true, waitDuration = 1000)
+      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 1000, trace = false)
     }
 
     "Retry submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
@@ -72,8 +72,8 @@ class FullSubmissionSpec extends Specification with Tags {
       idService.id = "TEST225"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       // first time through stores val in session
-      page goToThePage()
-      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+      page goToThePage(waitForPage = true, waitDuration = 1000)
+      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 1000, trace = false)
       val submissionPage = lastPage goToPage new G5SubmitPage(browser,Some(lastPage))
       val finalPage = submissionPage submitPage ()
     }
