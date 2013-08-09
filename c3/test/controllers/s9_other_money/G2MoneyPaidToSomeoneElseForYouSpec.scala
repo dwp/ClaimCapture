@@ -44,5 +44,5 @@ class G2MoneyPaidToSomeoneElseForYouSpec extends Specification with Tags {
       
       status(result) mustEqual SEE_OTHER
     }
-  }
+  } section("unit", models.domain.OtherMoney.id)
 }

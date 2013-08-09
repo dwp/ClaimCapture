@@ -80,5 +80,5 @@ class G6ChildcareProvidersContactDetailsIntegationSpec extends Specification wit
 
       nextPage must not(beAnInstanceOf[G9CompletedPage])
     }
-  } section("integration",models.domain.SelfEmployment.id)
+  } section("integration", models.domain.SelfEmployment.id)
 }

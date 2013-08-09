@@ -149,7 +149,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       browser.click("#backButton")
       titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
     }
-  } section ("integration",models.domain.TimeSpentAbroad.id)
+  } section ("integration", models.domain.TimeSpentAbroad.id)
 
   def fourWeeks(browser: TestBrowser) = browser.goTo("/timeSpentAbroad/trip/4Weeks")
 

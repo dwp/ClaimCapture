@@ -74,6 +74,5 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
       val result = controllers.s8_self_employment.G1AboutSelfEmployment.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-
-  } section("unit",models.domain.SelfEmployment.id)
+  } section("unit", models.domain.SelfEmployment.id)
 }

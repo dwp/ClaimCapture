@@ -48,7 +48,5 @@ class OtherMoneySpec extends Specification with Tags {
       val payDetailsPage = completedPage submitPage()
       payDetailsPage must beAnInstanceOf[G1HowWePayYouPage]
     }
-
-  } section("integration",models.domain.OtherMoney.id)
-
+  } section("integration", models.domain.OtherMoney.id)
 }

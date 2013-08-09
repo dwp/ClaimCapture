@@ -65,5 +65,5 @@ class G2MoneyPaidToSomeoneElseForYouIntegrationSpec extends Specification with T
 
       nextPage must beAnInstanceOf[G5StatutorySickPayPage]
     }
-  }
+  } section("integration", models.domain.OtherMoney.id)
 }

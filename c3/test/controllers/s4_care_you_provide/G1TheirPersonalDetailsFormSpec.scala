@@ -67,5 +67,5 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section("unit",models.domain.CareYouProvide.id)
+  } section("unit", models.domain.CareYouProvide.id)
 }

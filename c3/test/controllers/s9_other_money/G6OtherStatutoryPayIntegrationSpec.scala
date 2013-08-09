@@ -51,6 +51,5 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
 
       nextPage must not(beAnInstanceOf[G6OtherStatutoryPayPage])
     }
-
-  } section("integration",models.domain.OtherMoney.id)
+  } section("integration", models.domain.OtherMoney.id)
 }

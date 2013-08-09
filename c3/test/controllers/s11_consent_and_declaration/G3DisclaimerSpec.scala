@@ -28,5 +28,5 @@ class G3DisclaimerSpec extends Specification with Tags {
       val result = G3Disclaimer.submit(request)
       redirectLocation(result) must beSome("/consentAndDeclaration/declaration")
     }
-  } section("unit",models.domain.ConsentAndDeclaration.id)
+  } section("unit", models.domain.ConsentAndDeclaration.id)
 }

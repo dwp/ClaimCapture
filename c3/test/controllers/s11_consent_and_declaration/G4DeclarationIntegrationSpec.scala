@@ -39,5 +39,5 @@ class G4DeclarationIntegrationSpec extends Specification with Tags {
 
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
-  } section("integration",models.domain.ConsentAndDeclaration.id)
+  } section("integration", models.domain.ConsentAndDeclaration.id)
 }

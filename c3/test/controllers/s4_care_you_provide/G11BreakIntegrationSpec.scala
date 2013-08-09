@@ -134,7 +134,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.$("tbody tr").size() mustEqual 2
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
     }
-  } section("integration",models.domain.CareYouProvide.id)
+  } section("integration", models.domain.CareYouProvide.id)
 
   class BreakWithBrowser extends WithBrowser with BrowserMatchers {
     def break() {

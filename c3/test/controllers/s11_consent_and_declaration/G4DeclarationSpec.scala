@@ -28,5 +28,5 @@ class G4DeclarationSpec extends Specification with Tags {
       val result = G4Declaration.submit(request)
       redirectLocation(result) must beSome("/consentAndDeclaration/submit")
     }
-  } section("unit",models.domain.ConsentAndDeclaration.id)
+  } section("unit", models.domain.ConsentAndDeclaration.id)
 }

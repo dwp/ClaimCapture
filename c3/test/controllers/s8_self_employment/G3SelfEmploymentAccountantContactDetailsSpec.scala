@@ -75,7 +75,5 @@ class G3SelfEmploymentAccountantContactDetailsSpec extends Specification with Ta
       val result = controllers.s8_self_employment.G3SelfEmploymentAccountantContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-
   } section("unit",models.domain.SelfEmployment.id)
-
 }

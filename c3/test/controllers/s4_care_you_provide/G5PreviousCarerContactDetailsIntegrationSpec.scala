@@ -66,5 +66,5 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
       Formulate.previousCarerPersonalDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
-  } section("integration",models.domain.CareYouProvide.id)
+  } section("integration", models.domain.CareYouProvide.id)
 }

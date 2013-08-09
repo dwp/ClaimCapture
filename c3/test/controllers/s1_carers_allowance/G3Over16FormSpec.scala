@@ -25,6 +25,5 @@ class G3Over16FormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  } section("unit",models.domain.CarersAllowance.id)
-
+  } section("unit", models.domain.CarersAllowance.id)
 }

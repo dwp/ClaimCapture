@@ -7,7 +7,6 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.cache.Cache
 import scala.Some
 
-
 class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
 
   "Self Employment - Child care expenses while at work - Controller" should {
@@ -70,5 +69,5 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
       val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  }
+  } section("unit", models.domain.SelfEmployment.id)
 }

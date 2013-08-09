@@ -47,5 +47,5 @@ class G3AbroadForMoreThan52WeeksSpec extends Specification with Tags {
     "have no trips upon deleting a 52 week trip" in new WithApplication with Claiming {
       pending
     }
-  } section("unit",models.domain.TimeSpentAbroad.id)
+  } section("unit", models.domain.TimeSpentAbroad.id)
 }

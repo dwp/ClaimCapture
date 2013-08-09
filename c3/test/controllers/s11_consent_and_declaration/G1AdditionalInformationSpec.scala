@@ -28,5 +28,5 @@ class G1AdditionalInformationSpec extends Specification with Tags {
       val result = G1AdditionalInfo.submit(request)
       redirectLocation(result) must beSome("/consentAndDeclaration/consent")
     }
-  } section("unit",models.domain.ConsentAndDeclaration.id)
+  } section("unit", models.domain.ConsentAndDeclaration.id)
 }

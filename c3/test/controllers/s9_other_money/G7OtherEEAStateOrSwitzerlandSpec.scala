@@ -38,5 +38,5 @@ class G7OtherEEAStateOrSwitzerlandSpec extends Specification with Tags {
         }
       }
     }
-  } section("unit",models.domain.OtherMoney.id)
+  } section("unit", models.domain.OtherMoney.id)
 }

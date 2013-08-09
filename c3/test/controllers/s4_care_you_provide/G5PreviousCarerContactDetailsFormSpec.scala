@@ -72,6 +72,5 @@ class G5PreviousCarerContactDetailsFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-  }  section("unit",models.domain.CareYouProvide.id)
-
+  }  section("unit", models.domain.CareYouProvide.id)
 }

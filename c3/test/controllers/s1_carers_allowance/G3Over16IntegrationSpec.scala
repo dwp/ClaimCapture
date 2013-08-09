@@ -67,5 +67,5 @@ class G3Over16IntegrationSpec extends Specification with Tags {
         case _ => ko("Next Page is not of the right type.")
       }
     }
-  } section("integration",models.domain.CarersAllowance.id)
+  } section("integration", models.domain.CarersAllowance.id)
 }

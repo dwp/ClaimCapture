@@ -49,5 +49,5 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       Formulate.howWePayYou(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
-  } section("integration",models.domain.PayDetails.id)
+  } section("integration", models.domain.PayDetails.id)
 }
