@@ -1,9 +1,10 @@
 package utils.pageobjects.s1_carers_allowance
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
-final class G2HoursPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2HoursPage.url, G2HoursPage.title, previousPage){
+final class G2HoursPage(browser: TestBrowser, previousPage: Option[Page] = None)
+  extends Page(browser, G2HoursPage.url, G2HoursPage.title, previousPage) {
 
   declareYesNo("#answer", "CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring")
 }
@@ -16,6 +17,7 @@ object G2HoursPage {
 }
 
 trait G2HoursPageContext extends PageContext {
-  this: {val browser: TestBrowser} =>
+  this: WithBrowser[_] =>
+
   val page = G2HoursPage buildPageWith browser
 }

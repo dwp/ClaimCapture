@@ -1,7 +1,7 @@
 package utils.pageobjects.s1_carers_allowance
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 final class G4LivesInGBPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4LivesInGBPage.url, G4LivesInGBPage.title, previousPage) {
     declareYesNo("#answer", "CanYouGetCarersAllowanceDoYouNormallyLiveinGb")
@@ -15,6 +15,7 @@ object G4LivesInGBPage {
 }
 
 trait G4LivesInGBPageContext extends PageContext {
-  this: {val browser: TestBrowser} =>
+  this: WithBrowser[_] =>
+
   val page = G4LivesInGBPage buildPageWith browser
 }

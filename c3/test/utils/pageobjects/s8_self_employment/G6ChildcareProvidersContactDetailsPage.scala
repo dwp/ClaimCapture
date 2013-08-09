@@ -1,14 +1,11 @@
 package utils.pageobjects.s8_self_employment
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 final class G6ChildcareProvidersContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6ChildcareProvidersContactDetailsPage.url, G6ChildcareProvidersContactDetailsPage.title, previousPage) {
-
-
     declareAddress("#address", "SelfEmployedChildcareProviderAddress")
     declareInput("#postcode", "SelfEmployedChildcareProviderPostcode")
-
 }
 
 object G6ChildcareProvidersContactDetailsPage {
@@ -19,6 +16,7 @@ object G6ChildcareProvidersContactDetailsPage {
 }
 
 trait G6ChildcareProvidersContactDetailsPageContext extends PageContext {
-  this: {val browser: TestBrowser} =>
+  this: WithBrowser[_] =>
+
   val page = G6ChildcareProvidersContactDetailsPage buildPageWith browser
 }

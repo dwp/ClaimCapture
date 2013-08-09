@@ -1,7 +1,7 @@
 package utils.pageobjects.s8_self_employment
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 final class G1AboutSelfEmploymentPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1AboutSelfEmploymentPage.url, G1AboutSelfEmploymentPage.title, previousPage) {
 
@@ -21,6 +21,7 @@ object G1AboutSelfEmploymentPage {
 }
 
 trait G1AboutSelfEmploymentPageContext extends PageContext {
-  this: {val browser: TestBrowser} =>
+  this: WithBrowser[_] =>
+
   val page = G1AboutSelfEmploymentPage buildPageWith browser
 }

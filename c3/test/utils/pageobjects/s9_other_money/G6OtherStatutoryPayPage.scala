@@ -1,19 +1,16 @@
 package utils.pageobjects.s9_other_money
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 final class G6OtherStatutoryPayPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6OtherStatutoryPayPage.url, G6OtherStatutoryPayPage.title, previousPage) {
-
-
-    declareYesNo("#otherPay","OtherMoneyHaveYouSMPSinceClaim")
-    declareInput("#howMuch", "OtherMOneySMPHowMuch")
-    declareSelect("#howOften_frequency", "OtherMOneySMPHowOften")
-    declareInput("#howOften_other", "OtherMOneySMPHowOften")
-    declareInput("#employersName", "OtherMoneySMPEmployerName")
-    declareAddress("#employersAddress", "OtherMoneySMPEmployerAddress")
-    declareInput("#employersPostcode", "OtherMoneySMPEmployerPostcode")
-
+  declareYesNo("#otherPay","OtherMoneyHaveYouSMPSinceClaim")
+  declareInput("#howMuch", "OtherMOneySMPHowMuch")
+  declareSelect("#howOften_frequency", "OtherMOneySMPHowOften")
+  declareInput("#howOften_other", "OtherMOneySMPHowOften")
+  declareInput("#employersName", "OtherMoneySMPEmployerName")
+  declareAddress("#employersAddress", "OtherMoneySMPEmployerAddress")
+  declareInput("#employersPostcode", "OtherMoneySMPEmployerPostcode")
 }
 
 object G6OtherStatutoryPayPage {
@@ -25,8 +22,7 @@ object G6OtherStatutoryPayPage {
 }
 
 trait G6OtherStatutoryPayPageContext extends PageContext {
-  this: {val browser: TestBrowser} =>
+  this: WithBrowser[_] =>
+
   val page = G6OtherStatutoryPayPage buildPageWith browser
 }
-
-
