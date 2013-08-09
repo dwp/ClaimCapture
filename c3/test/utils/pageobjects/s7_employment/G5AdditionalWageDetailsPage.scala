@@ -16,7 +16,7 @@ final class G5AdditionalWageDetailsPage(browser: TestBrowser, previousPage: Opti
 
 object G5AdditionalWageDetailsPage {
   val title = "Additional wage details - Employment"
-  val url  = "/employment/wageDetails"
+  val url  = "/employment/additionalWageDetails/:jobID"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G5AdditionalWageDetailsPage(browser,previousPage, iteration)
 }
 
