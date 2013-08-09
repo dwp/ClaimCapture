@@ -1,7 +1,7 @@
 package utils.pageobjects.s3_your_partner
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * PageObject for page s2_about_you g8_completed.
@@ -11,7 +11,6 @@ import utils.pageobjects.{ClaimScenario, PageContext, Page}
 final class G5YourPartnerCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5YourPartnerCompletedPage.url, G5YourPartnerCompletedPage.title, previousPage){
 
 }
-
 
 /**
  * Companion object that integrates factory method.
@@ -25,6 +24,6 @@ object G5YourPartnerCompletedPage {
 
 /** The context for Specs tests */
 trait G5YourPartnerCompletedPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G5YourPartnerCompletedPage buildPageWith browser
 }

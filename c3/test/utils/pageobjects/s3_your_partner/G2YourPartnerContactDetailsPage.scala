@@ -1,7 +1,7 @@
 package utils.pageobjects.s3_your_partner
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * Page Object for s3_yourPartnerDetails g2_yourPartnerContactDetails
@@ -15,7 +15,6 @@ final class G2YourPartnerContactDetailsPage (browser: TestBrowser, previousPage:
 
 }
 
-
 /**
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in PageFactory.scala
@@ -28,6 +27,6 @@ object G2YourPartnerContactDetailsPage {
 
 /** The context for Specs tests */
 trait G2YourPartnerContactDetailsPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G2YourPartnerContactDetailsPage buildPageWith browser
 }

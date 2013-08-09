@@ -1,7 +1,7 @@
 package utils.pageobjects.s4_care_you_provide
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * Page object for s4_care_you_provide g6_representatives_for_the_person.
@@ -18,7 +18,6 @@ final class G6RepresentativesForThePersonPage (browser: TestBrowser, previousPag
   
 }
 
-
 /**
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in PageFactory.scala
@@ -31,6 +30,6 @@ object G6RepresentativesForThePersonPage {
 
 /** The context for Specs tests */
 trait G6RepresentativesForThePersonPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G6RepresentativesForThePersonPage buildPageWith browser
 }

@@ -1,6 +1,6 @@
 package utils.pageobjects.s6_education
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 /**
@@ -31,6 +31,6 @@ object G2AddressOfSchoolCollegeOrUniversityPage {
 
 /** The context for Specs tests */
 trait G2AddressOfSchoolCollegeOrUniversityPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G2AddressOfSchoolCollegeOrUniversityPage buildPageWith browser
 }

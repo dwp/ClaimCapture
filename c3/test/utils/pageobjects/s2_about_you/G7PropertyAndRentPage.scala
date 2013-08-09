@@ -1,7 +1,7 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * PageObject for page s2_about_you g7_propertyAndRent.
@@ -26,6 +26,6 @@ object G7PropertyAndRentPage {
 
 /** The context for Specs tests */
 trait G7PropertyAndRentPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G7PropertyAndRentPage buildPageWith browser
 }

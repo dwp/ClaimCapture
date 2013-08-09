@@ -1,7 +1,7 @@
 package utils.pageobjects.s9_other_money
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 final class G1AboutOtherMoneyPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1AboutOtherMoneyPage.url, G1AboutOtherMoneyPage.title, previousPage) {
 
@@ -18,6 +18,6 @@ object G1AboutOtherMoneyPage {
 }
 
 trait G1AboutOtherMoneyPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G1AboutOtherMoneyPage buildPageWith browser
 }
