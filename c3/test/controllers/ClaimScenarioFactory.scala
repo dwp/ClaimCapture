@@ -1,6 +1,7 @@
 package controllers
 
 import utils.pageobjects.ClaimScenario
+import app.{PaymentFrequency, AccountStatus}
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -188,8 +189,8 @@ object ClaimScenarioFactory {
 
   def s6PayDetails() = {
     val claim = new ClaimScenario
-    claim.HowWePayYouHowWouldYouLikeToGetPaid =  "You don't have an account but intend to open one"
-    claim.HowWePayYouHowOftenDoYouWantToGetPaid = "everyWeek"
+    claim.HowWePayYouHowWouldYouLikeToGetPaid =  AccountStatus.NotOpenAccount.name
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek.name
     claim
   }
 
