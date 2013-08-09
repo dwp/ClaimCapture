@@ -44,8 +44,8 @@ About Your Partner,Contact Details,Address,AboutYourPartnerAddress,Partner>Addre
 About Your Partner,Contact Details,Postcode,AboutYourPartnerPostcode,Partner>Address>PostCode
 About Your Partner,More about your partner/spouse,"Did your partner join your household, after your claim date <ddmmyyyy>>?",AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate,RelationshipStatus>JoinedHouseholdAfterDateOfClaim
 About Your Partner,More about your partner/spouse,What date did they join?,AboutYourPartnertheDateWhenYouStartedLivingTogether,RelationshipStatus>JoinedHouseholdDate
-About Your Partner,More about your partner/spouse,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,RelationshipStatus>SeperatedFromPartner
-About Your Partner,Date of separation,When did you separate?,AboutYourPartnerwhenDidYouSeparate,RelationshipStatus>SeperationDate
+About Your Partner,More about your partner/spouse,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,RelationshipStatus>SeparatedFromPartner
+About Your Partner,Date of separation,When did you separate?,AboutYourPartnerwhenDidYouSeparate,RelationshipStatus>SeparationDate
 About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Caree>Title
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Caree>OtherNames
@@ -258,11 +258,11 @@ Other Money,Details about other money,Have you <or your partner/spouse> claimed 
 Other Money,Details about other money,Please tell us the names of the benefits or entitlements you receive,OtherMoneyTellUsNamesBenefitsYouReceived,
 Other Money,Details about other money,Please tell us the names of the benefits or entitlements your partner/spouse receive,OtherMoneyTellUsNamesBenefitsYourPartnerReceived,
 Other Money,Money paid to someone else for you,Has anyone had any money added to a benefit for you since your claim date: [claim date]?,OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim,OtherBenefits>ExtraMoney
-Other Money,Person who gets this money,Full name,OtherMoneyOtherPersonFullName,OtherBenefits>ExtraMoney>RecipientName
-Other Money,Person who gets this money,National Insurance (NI) number,OtherMoneyOtherPersonNINO,OtherBenefits>ExtraMoney>ReferenceNumber
-Other Money,Person who gets this money,Name of Benefit,OtherMoneyOtherPersonBenefit,OtherBenefits>ExtraMoney>BenefitName
-Other Money,Person's contact details,Address,OtherMoneyOtherPersonAddress,OtherBenefits>ExtraMoney>RecipientAddress
-Other Money,Person's contact details,Postcode,OtherMoneyOtherPersonPostcode,OtherBenefits>ExtraMoney>RecipientAddress>PostCode
+Other Money,Person who gets this money,Full name,OtherMoneyOtherPersonFullName,OtherBenefits>ExtraMoneyDetails>RecipientName
+Other Money,Person who gets this money,National Insurance (NI) number,OtherMoneyOtherPersonNINO,OtherBenefits>ExtraMoneyDetails>ReferenceNumber
+Other Money,Person who gets this money,Name of Benefit,OtherMoneyOtherPersonBenefit,OtherBenefits>ExtraMoneyDetails>BenefitName
+Other Money,Person's contact details,Address,OtherMoneyOtherPersonAddress,OtherBenefits>ExtraMoneyDetails>RecipientAddress>Line
+Other Money,Person's contact details,Postcode,OtherMoneyOtherPersonPostcode,OtherBenefits>ExtraMoneyDetails>RecipientAddress>PostCode
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,OtherBenefits>OtherMoneySSP
 Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,
 Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,

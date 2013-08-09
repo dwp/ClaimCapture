@@ -12,7 +12,7 @@ final class G6OtherStatutoryPayPage(browser: TestBrowser, previousPage: Option[P
     declareInput("#howOften_other", "OtherMOneySMPHowOften")
     declareInput("#employersName", "OtherMoneySMPEmployerName")
     declareAddress("#employersAddress", "OtherMoneySMPEmployerAddress")
-    declareInput("employersPostcode", "OtherMoneySMPEmployerPostcode")
+    declareInput("#employersPostcode", "OtherMoneySMPEmployerPostcode")
 
 }
 
