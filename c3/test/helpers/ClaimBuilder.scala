@@ -165,7 +165,7 @@ object ClaimBuilder {
   val personYouCareFor = PersonYouCareFor(isPartnerPersonYouCareFor = "yes")
   val yourPartner = YourPartnerSection(yourPartnerPersonalDetails, yourPartnerContactDetails, moreAboutYourPartner, Some(personYouCareFor))
 
-  val howWePayYou = HowWePayYou("01", "everyWeek")
+  val howWePayYou = HowWePayYou(app.AccountStatus.BankBuildingAccount.name, app.PaymentFrequency.EveryWeek.name)
   val bank = BankBuildingSocietyDetails("Holder", "Bank name", SortCode("12", "34", "56"), "1234567890", "1234")
 
   val payDetails = PayDetailsSection(Some(howWePayYou),Some(bank))

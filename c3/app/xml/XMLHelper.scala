@@ -15,7 +15,7 @@ object XMLHelper {
     case Some(s: String) => s
     case Some(dmy: DayMonthYear) => dmy.`yyyy-MM-dd`
     case Some(nr: NationalInsuranceNumber) => nr.stringify
-    case Some(sc: SortCode) => sc.sort1 + sc.sort2 + sc.sort2
+    case Some(sc: SortCode) => sc.stringify
     case _ => ""
   }
 
