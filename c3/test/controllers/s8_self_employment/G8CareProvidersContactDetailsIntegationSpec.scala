@@ -69,5 +69,5 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
 
       nextPage must not(beAnInstanceOf[G8CareProvidersContactDetailsPage])
     }
-  } section("integration",models.domain.SelfEmployment.id)
+  } section("integration", models.domain.SelfEmployment.id)
 }

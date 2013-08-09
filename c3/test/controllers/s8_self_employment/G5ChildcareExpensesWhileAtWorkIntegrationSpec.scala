@@ -9,7 +9,6 @@ import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s3_your_partner.G4PersonYouCareForPage
 
-
 class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
 
   "Self Employment Child Care expenses" should {
@@ -54,7 +53,6 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
 
     "accept submit if all mandatory fields are populated" in new WithBrowser with G5ChildcareExpensesWhileAtWorkPageContext {
 
-
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       val pageClaimDate = new G4ClaimDatePage(browser)
       pageClaimDate goToThePage()
@@ -84,9 +82,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       page submitPage(true)
     }
 
-
     "navigate to next page on valid submission" in new WithBrowser with G5ChildcareExpensesWhileAtWorkPageContext {
-
 
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       val pageClaimDate = new G4ClaimDatePage(browser)
@@ -119,5 +115,5 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
 
       nextPage must not(beAnInstanceOf[G7ExpensesWhileAtWorkPage])
     }
-  }
+  } section("integration", models.domain.SelfEmployment.id)
 }

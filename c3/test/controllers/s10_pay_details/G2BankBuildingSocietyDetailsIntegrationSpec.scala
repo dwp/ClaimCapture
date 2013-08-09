@@ -45,5 +45,5 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       Formulate.bankBuildingSocietyDetails(browser)
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
-  } section("integration",models.domain.PayDetails.id)
+  } section("integration", models.domain.PayDetails.id)
 }

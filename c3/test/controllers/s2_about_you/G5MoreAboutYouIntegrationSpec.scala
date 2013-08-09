@@ -50,5 +50,5 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page runClaimWith (claim, G6EmploymentPage.title, waitForPage = true, waitDuration = 500)
     }
-  } section("integration",models.domain.AboutYou.id)
+  } section("integration", models.domain.AboutYou.id)
 }

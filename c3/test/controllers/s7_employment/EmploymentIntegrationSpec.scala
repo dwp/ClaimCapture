@@ -28,7 +28,7 @@ class EmploymentIntegrationSpec extends Specification with Tags {
       browser.click("#backButton")
       titleMustEqual("Your employment history - Employment")
     }
-  } section("integration",models.domain.Employed.id)
+  } section("integration", models.domain.Employed.id)
 }
 
 trait EmployedSinceClaimDate extends BrowserMatchers {

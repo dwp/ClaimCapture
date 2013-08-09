@@ -51,5 +51,5 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       
       browser.find("ul[class=group] li p").getText mustEqual "* Have you had any breaks in caring since 03/04/1950?"
     }
-  } section("integration",models.domain.CareYouProvide.id)
+  } section("integration", models.domain.CareYouProvide.id)
 }

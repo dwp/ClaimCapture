@@ -22,9 +22,9 @@ class OtherBenefitsSpec extends Specification with Tags {
 
   val howMuch = Some("")
 
-  val moneyPaidToSomeoneElse = MoneyPaidToSomeoneElseForYou(yes, NoRouting)
-  val personWhoGetsThisMoney = PersonWhoGetsThisMoney(fullName, nationalInsuranceNrOption, benefitName, NoRouting)
-  val contactDetails = PersonContactDetails(address, postcode, NoRouting)
+  val moneyPaidToSomeoneElse = MoneyPaidToSomeoneElseForYou(yes)
+  val personWhoGetsThisMoney = PersonWhoGetsThisMoney(fullName, nationalInsuranceNrOption, benefitName)
+  val contactDetails = PersonContactDetails(address, postcode)
   val statutorySickPay = StatutorySickPay(haveYouHadAnyStatutorySickPay = yes, employersName = employersName, employersAddress = address, employersPostcode = postcode)
   val otherStatutoryPay = OtherStatutoryPay(otherPay = yes, employersName = employersName, employersAddress = address, employersPostcode = postcode)
 

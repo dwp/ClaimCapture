@@ -85,6 +85,5 @@ class G5StatutorySickPaySpec extends Specification with Tags {
       val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-
-  } section("unit",models.domain.OtherMoney.id)
+  } section("unit", models.domain.OtherMoney.id)
 }

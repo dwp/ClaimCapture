@@ -41,8 +41,5 @@ class G3CompletedIntegrationSpec extends Specification with Tags {
       val consentPage = page.submitPage()
       consentPage.pageTitle shouldEqual "Additional Information - Consent And Declaration"
     }
-
-  } section("integration",models.domain.PayDetails.id)
-
-
+  } section("integration", models.domain.PayDetails.id)
 }

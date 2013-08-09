@@ -56,9 +56,11 @@ class CompletedQuestionGroupListSpec extends Specification with Tags {
       titleMustEqual("More about the care you provide - About the care you provide")
 
       browser.find("div[class=completed] ul li").size mustEqual 6
-      browser.find("div[class=completed] ul li").get(2).getText must contain("More about the person you care for")
+      browser.find("div[class=completed] ul li").get(0).getText must contain("Details of the person you care for")
+      browser.find("div[class=completed] ul li").get(1).getText must contain("Their contact details")
+      browser.find("div[class=completed] ul li").get(2).getText must contain("Relationship and other claims")
       browser.find("div[class=completed] ul li").get(3).getText must contain("About the previous Carer")
-      browser.find("div[class=completed] ul li").get(4).getText must contain("More about the care you provide")
+      browser.find("div[class=completed] ul li").get(4).getText must contain("Contact details of the previous Carer")
       browser.find("div[class=completed] ul li").get(5).getText must contain("Representatives for the person you care for")
     }
 

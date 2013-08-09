@@ -2,7 +2,6 @@ package controllers.s8_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 
-
 class G2SelfEmploymentYourAccountsFormSpec extends Specification with Tags {
 
   "About Self Employment - Your Accounts" should {
@@ -73,5 +72,5 @@ class G2SelfEmploymentYourAccountsFormSpec extends Specification with Tags {
         }
       )
     }
-  } section("unit",models.domain.SelfEmployment.id)
+  } section("unit", models.domain.SelfEmployment.id)
 }

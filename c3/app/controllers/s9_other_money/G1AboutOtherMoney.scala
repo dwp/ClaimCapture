@@ -11,7 +11,6 @@ import models.domain.MoreAboutYou
 import models.yesNo.YesNoWithText
 import utils.helpers.CarersForm._
 import play.api.data.FormError
-import scala.Some
 import play.api.i18n.Messages
 
 object G1AboutOtherMoney extends Controller with CachedClaim {
@@ -25,11 +24,8 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
 
   val form = Form(
     mapping(
-      yourBenefitsMapping,
-      call(routes.G1AboutOtherMoney.present())
+      yourBenefitsMapping
     )(AboutOtherMoney.apply)(AboutOtherMoney.unapply))
-
-  def completedQuestionGroups(implicit claim: Claim) = claim.completedQuestionGroups(AboutOtherMoney)
 
   def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {
     case Some(m: MoreAboutYou) => m.hadPartnerSinceClaimDate == yes
@@ -37,7 +33,7 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
   }
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_other_money.g1_aboutOtherMoney(form.fill(AboutOtherMoney), completedQuestionGroups, hadPartnerSinceClaimDate))
+    Ok(views.html.s9_other_money.g1_aboutOtherMoney(form.fill(AboutOtherMoney), hadPartnerSinceClaimDate))
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -50,7 +46,8 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("yourBenefits.answer", FormError(yourBenefitsAnswerErrorMessage, "error.required"))
           .replaceError("yourBenefits", FormError("yourBenefits.text", "error.required"))
-        BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, completedQuestionGroups, hadPartnerSinceClaimDate))
+
+        BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))
       },
       f => claim.update(f) -> Redirect(routes.G2MoneyPaidToSomeoneElseForYou.present()))
   }

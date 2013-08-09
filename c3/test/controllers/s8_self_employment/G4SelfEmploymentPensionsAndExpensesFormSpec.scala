@@ -2,7 +2,6 @@ package controllers.s8_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 
-
 class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tags {
 
   "About Self Employment - Pensions and Expenses Form" should {
@@ -68,7 +67,5 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
-
-  }
-
+  } section("unit", models.domain.SelfEmployment.id)
 }

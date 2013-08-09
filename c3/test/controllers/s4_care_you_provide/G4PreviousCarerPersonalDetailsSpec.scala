@@ -52,5 +52,5 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito with
       val result = G4PreviousCarerPersonalDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.CareYouProvide.id)
+  } section("unit", models.domain.CareYouProvide.id)
 }

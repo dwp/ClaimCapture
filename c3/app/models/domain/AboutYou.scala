@@ -15,7 +15,7 @@ case class YourDetails(title: String = "",
                        nationality: String = "",
                        dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
                        alwaysLivedUK: String = "",
-                       maritalStatus: String = "") extends QuestionGroup(YourDetails) with NoRouting {
+                       maritalStatus: String = "") extends QuestionGroup(YourDetails) {
   def otherNames = firstName + (middleName match {
     case Some(m: String) => s" $m"
     case _ => ""
@@ -29,19 +29,19 @@ object YourDetails extends QuestionGroup.Identifier {
 case class ContactDetails(address: MultiLineAddress = MultiLineAddress(None,None,None),
                           postcode: Option[String] = None,
                           phoneNumber: Option[String] = None,
-                          mobileNumber: Option[String] = None) extends QuestionGroup(ContactDetails) with NoRouting
+                          mobileNumber: Option[String] = None) extends QuestionGroup(ContactDetails)
 
 object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class TimeOutsideUK(livingInUK: LivingInUK = LivingInUK(), visaReference: Option[String] = None) extends QuestionGroup(TimeOutsideUK) with NoRouting
+case class TimeOutsideUK(livingInUK: LivingInUK = LivingInUK(), visaReference: Option[String] = None) extends QuestionGroup(TimeOutsideUK)
 
 object TimeOutsideUK extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"
 }
 
-case class ClaimDate(dateOfClaim: DayMonthYear) extends QuestionGroup(ClaimDate) with NoRouting
+case class ClaimDate(dateOfClaim: DayMonthYear) extends QuestionGroup(ClaimDate)
 
 object ClaimDate extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"
@@ -49,19 +49,19 @@ object ClaimDate extends QuestionGroup.Identifier {
 
 case class MoreAboutYou(hadPartnerSinceClaimDate: String = "",
                         beenInEducationSinceClaimDate: String = "",
-                        receiveStatePension: String = "") extends QuestionGroup(MoreAboutYou) with NoRouting
+                        receiveStatePension: String = "") extends QuestionGroup(MoreAboutYou)
 
 object MoreAboutYou extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g5"
 }
 
-case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment) with NoRouting
+case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEmployedSince6MonthsBeforeClaim: String = "") extends QuestionGroup(Employment)
 
 object Employment extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g6"
 }
 
-case class PropertyAndRent(ownProperty: String = "", hasSublet: String = "") extends QuestionGroup(PropertyAndRent) with NoRouting
+case class PropertyAndRent(ownProperty: String = "", hasSublet: String = "") extends QuestionGroup(PropertyAndRent)
 
 object PropertyAndRent extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g7"

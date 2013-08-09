@@ -7,7 +7,6 @@ import play.api.test.Helpers._
 import play.api.cache.Cache
 import scala.Some
 
-
 class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
 
   "Self Employment - Pensions and Expenses - Controller" should {
@@ -86,6 +85,5 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
       val result = controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-
-  }
+  } section("unit", models.domain.SelfEmployment.id)
 }

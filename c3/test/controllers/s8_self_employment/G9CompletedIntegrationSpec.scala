@@ -35,5 +35,5 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
 
       nextPage must not(beAnInstanceOf[G9CompletedPage])
     }
-  } section("integration",models.domain.SelfEmployment.id)
+  } section("integration", models.domain.SelfEmployment.id)
 }

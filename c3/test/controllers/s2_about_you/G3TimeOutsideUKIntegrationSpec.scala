@@ -34,5 +34,5 @@ class G3TimeOutsideUKIntegrationSpec extends Specification with Tags {
       val nextPage = page submitPage()
       nextPage must beAnInstanceOf[G4ClaimDatePage]
     }
-  } section("integration",models.domain.AboutYou.id)
+  } section("integration", models.domain.AboutYou.id)
 }

@@ -32,5 +32,5 @@ class G6RepresentativesForThePersonSpec extends Specification with Mockito with 
       val result = G6RepresentativesForThePerson.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.CareYouProvide.id)
+  } section("unit", models.domain.CareYouProvide.id)
 }

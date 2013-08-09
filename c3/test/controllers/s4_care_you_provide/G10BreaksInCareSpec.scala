@@ -130,5 +130,5 @@ class G10BreaksInCareSpec extends Specification with Tags {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 0
       }
     }
-  } section("unit",models.domain.CareYouProvide.id)
+  } section("unit", models.domain.CareYouProvide.id)
 }

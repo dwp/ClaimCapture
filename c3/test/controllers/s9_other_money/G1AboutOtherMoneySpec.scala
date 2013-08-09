@@ -46,5 +46,5 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
       
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.OtherMoney.id)
+  } section("unit", models.domain.OtherMoney.id)
 }

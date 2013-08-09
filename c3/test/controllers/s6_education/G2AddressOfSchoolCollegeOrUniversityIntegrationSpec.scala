@@ -47,5 +47,5 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
       browser.submit("button[type='submit']")
       titleMustEqual("Completion - About your education")
     }
-  } section("integration",models.domain.Education.id)
+  } section("integration", models.domain.Education.id)
 }

@@ -57,5 +57,5 @@ class G8CareProvidersContactDetailsSpec extends Specification with Tags {
       val result = G8CareProvidersContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit",models.domain.SelfEmployment.id)
+  } section("unit", models.domain.SelfEmployment.id)
 }

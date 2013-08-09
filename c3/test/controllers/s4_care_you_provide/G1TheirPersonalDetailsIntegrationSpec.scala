@@ -62,5 +62,5 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       findMustEqualValue("#firstName","John")
       browser.find("#surname").getValue mustEqual "Appleseed"
     }
-  } section("integration",models.domain.CareYouProvide.id)
+  } section("integration", models.domain.CareYouProvide.id)
 }

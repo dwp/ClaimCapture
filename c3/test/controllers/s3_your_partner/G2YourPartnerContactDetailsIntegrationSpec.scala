@@ -74,5 +74,5 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
-  }  section("integration",models.domain.YourPartner.id)
+  }  section("integration", models.domain.YourPartner.id)
 }
