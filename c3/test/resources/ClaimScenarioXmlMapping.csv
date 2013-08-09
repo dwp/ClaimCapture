@@ -70,7 +70,7 @@ About the care you provide,Contact details of previous carer,Post code,AboutTheC
 About the care you provide,Contact details of previous carer,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPreviousCarer,
 About the care you provide,Contact details of previous carer,Mobile number,AboutTheCareYouProvideMobileNumberPreviousCarer,
 About the care you provide,Representatives for the person you care for,Do you act for the person you care for?,AboutTheCareYouProvideDoYouActforthePersonYouCareFor,Caree>CanClaimantSign
-About the care you provide,Representatives for the person you care for,You act as,AboutTheCareYouProvideYouActAs,Caree>ClaimantActingType...
+About the care you provide,Representatives for the person you care for,You act as,AboutTheCareYouProvideYouActAs,Caree>ClaimantActingType
 About the care you provide,Representatives for the person you care for,Does someone else act for the person you care for?,AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor,Caree>CanSomeoneElseSign
 About the care you provide,Representatives for the person you care for,Person acts as,AboutTheCareYouProvidePersonActsAs,
 About the care you provide,Representatives for the person you care for,Full name,AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor,
@@ -200,7 +200,7 @@ Employment,Expenses related to the person you care for while at work,"What relat
 Employment,Care providers contact Details,Address,EmploymentAddressCareProvider,Employment>JobDetails>CareExpenses>CarerAddress>Line
 Employment,Care providers contact Details,Postcode,EmploymentPostcodeCareProvider,Employment>JobDetails>CareExpenses>CarerAddress>PostCode
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouHadAnotherJobatAnyTimeSinceClaim6Months,
-How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,
+How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,Payment>InitialAccountQuestion
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Payment>PaymentFrequency
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Payment>Account>HolderName
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,Payment>Account>BuildingSocietyDetails>Name

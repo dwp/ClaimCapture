@@ -28,12 +28,14 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
    */
   def validateXMLClaim(claim: ClaimScenario, xml: Elem, throwException: Boolean) = {
 
-    // Used to recursively go through the xPath provided to find value
+    // Internal function used to recursively go through the xPath provided to find value
     def childNode(xml: NodeSeq, children: Array[String]): NodeSeq =
-      if (children.size == 0) xml else childNode(xml \ children(0).replace("...", ""), children.drop(1))
+      if (children.size == 0) xml else childNode(xml \ children(0), children.drop(1))
 
+    // Load the XML mapping
     val mapping = XMLBusinessValidation.buildXmlMappingFromFile(xmlMappingFile)
     val listErrors = mutable.MutableList.empty[String]
+    // Go through the attributes of the claim and check that there is a corresponding entry in the XML
     claim.map.foreach {
       case (attribute, value) =>
         val xPathNodes = mapping.get(attribute)
@@ -41,13 +43,10 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
           val path = xPathNodes.get
           val nodes = path.split(">")
           val elementValue = XmlNode(childNode(xml.\\(nodes(0)), nodes.drop(1)))
-          if (elementValue.size > 0) {
-            val expectedValue = ClaimValue(attribute, value)
-            if (elementValue doesNotMatch expectedValue)
-              listErrors += attribute + " " + path + elementValue.error
+          if (elementValue.isDefined) {
+            if (elementValue doesNotMatch ClaimValue(attribute, value)) listErrors += attribute + " " + path + elementValue.error
           }
           else listErrors += attribute + " " + path + " XML element not found"
-
         }
     }
     if (listErrors.nonEmpty && throwException) throw new PageObjectException("XML validation failed", listErrors.toList)
@@ -63,7 +62,7 @@ object XMLBusinessValidation {
 
   def buildXmlMappingFromFile(fileName: String) = {
     val map = mutable.Map.empty[String, String]
-    def converter(attribute: String)(path: String): Unit = map += (attribute -> path) //.split(">")
+    def converter(attribute: String)(path: String): Unit = map += (attribute -> path)
     FactoryFromFile.buildFromFile(fileName, converter)
     map
   }
@@ -86,10 +85,9 @@ class XmlNode(val nodes: NodeSeq) {
     def valuesMatching = {
       if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>")) value.contains(claimValue.value)
       else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
-      else if (nodeName.startsWith("<ClaimantActing")) {
-//        println(nodeName)
-        nodeName.toLowerCase.contains(claimValue.value + ">" + value)
-      } else value == claimValue.value
+      else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
+//      else if (nodeName.contains("InitialAccountQuestion")) nodeName.toLowerCase().
+      else value == claimValue.value
     }
 
 
@@ -103,6 +101,8 @@ class XmlNode(val nodes: NodeSeq) {
   def doesNotMatch(claimValue: ClaimValue): Boolean = !matches(claimValue)
 
   def size = nodes.size
+
+  def isDefined = nodes.nonEmpty
 
 
   override def toString() = nodes.mkString(",")
