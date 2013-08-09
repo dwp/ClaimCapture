@@ -27,7 +27,7 @@ class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
 
       browser.click("#anyTrips_no")
       browser.submit("button[value='next']")
-      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
     }
 
     """go back to "normal residence and current location".""" in new WithBrowser with BrowserMatchers {
