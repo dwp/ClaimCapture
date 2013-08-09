@@ -3,6 +3,7 @@ package controllers.s5_time_spent_abroad
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.BrowserMatchers
+import play.api.i18n.Messages
 
 class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
   "Abroad for more that 52 weeks" should {
@@ -17,7 +18,7 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
 
       browser.click("#anyTrips_yes")
       browser.submit("button[value='next']")
-      titleMustEqual("Trip - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g4") + " - Time Spent Abroad")
     }
 
     """present "completed" when no more 52 week trips are required""" in new WithBrowser with BrowserMatchers {
@@ -35,7 +36,7 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
 
       browser.click("#backButton")
-      titleMustEqual("When you went abroad for more than 4 - Time Spent Abroad")*/
+      titleMustEqual(Messages("s5.g2") + " - Time Spent Abroad")*/
     }
   } section("integration", models.domain.TimeSpentAbroad.id)
 }
