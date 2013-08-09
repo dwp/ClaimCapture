@@ -9,6 +9,7 @@ import models.NationalInsuranceNumber
 import models.Whereabouts
 import models.MultiLineAddress
 import models.domain.Break
+import app.ActingType._
 
 class CareeSpec extends Specification with Tags {
 
@@ -50,38 +51,38 @@ class CareeSpec extends Specification with Tags {
     }
 
     "generate <ClaimantActingType> with yes for" in {
-      "<ParentOrGuardian> when claimer act as Parent or guardian" in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("guardian")))
+      "<ParentOrGuardian> when claimer act as " + Guardian.name in {
+        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Guardian.name)))
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "ParentOrGuardian").text shouldEqual yes
       }
 
-      "<PowerOfAttorney> when claimer act as Attorney" in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("attorney")))
+      "<PowerOfAttorney> when claimer act as " + Attorney.name in {
+        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Attorney.name)))
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "PowerOfAttorney").text shouldEqual yes
       }
 
-      "<Appointee> when claimer act as Appointee" in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("appointee")))
+      "<Appointee> when claimer act as " + Appointee.name in {
+        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Appointee.name)))
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "Appointee").text shouldEqual yes
       }
 
-      "<JudicialFactor> when claimer act as Judicial factor" in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("judicial")))
+      "<JudicialFactor> when claimer act as " + Judicial.name in {
+        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Judicial.name)))
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "JudicialFactor").text shouldEqual yes
       }
 
-      "<Receiver> when claimer act as Deputy" in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("deputy")))
+      "<Receiver> when claimer act as " + Deputy.name in {
+        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Deputy.name)))
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "Receiver").text shouldEqual yes
       }
 
-      "<Receiver> when claimer act as Curator bonis" in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some("curator")))
+      "<Receiver> when claimer act as " + Curator.name in {
+        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Curator.name)))
         val xml = Caree.claimantActingType(Claim().update(representatives))
         (xml \\ "Receiver").text shouldEqual yes
       }
