@@ -207,10 +207,6 @@ How we pay you,Bank/Building society details,Full name of bank or building socie
 How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,Payment>Account>BuildingSocietyDetails>SortCode
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,Payment>Account>BuildingSocietyDetails>AccountNumber
 How we pay you,Bank/Building society details,Building society roll or reference number,HowWePayYouBuildingSocietyRollOrReferenceNumber,Payment>Account>BuildingSocietyDetails>RollNumber
-How we pay you,International bank account details,Name of account holder,HowWePayYouNameOfAccountHolder,Payment>Account>HolderName
-How we pay you,International bank account details,Full name of bank,HowWePayYouFullNameofBank,
-How we pay you,International bank account details,Bank Identification Code (BIC),HowWePayYouBankIdentificationCode,
-How we pay you,International bank account details,International Bank Account Number (IBAN),HowWePayYouInternationalBankAccountNumber,
 Consent & Declaration,Additional Information,Please tell us anything else you think we should know about your claim.,ConsententDeclarationTellUsAnythingElseAboutClaim,DWPCAClaim>OtherInformation
 Consent & Declaration,Consent,Do you agree to us getting information from any current or previous employer you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyEmployer,
 Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyEmployer,
