@@ -3,16 +3,18 @@
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
+@import app.ActingType._
+
 
 @{
     carersSelect(field,
         options = options(
             "" -> "Please select",
-            "guardian" -> "Parent or guardian",
-            "attorney" -> "Attorney",
-            "appointee" -> "Appointee",
-            "judicial" -> "Judicial factor",
-            "deputy" -> "Deputy",
-            "curator" -> "Curator bonis")
+            Guardian.name -> "Parent or guardian",
+            Attorney.name -> "Attorney",
+            Appointee.name -> "Appointee",
+            Judicial.name -> "Judicial factor",
+            Deputy.name -> "Deputy",
+            Curator.name -> "Curator bonis")
     )
 }

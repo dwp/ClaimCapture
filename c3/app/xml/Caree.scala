@@ -46,6 +46,7 @@ object Caree {
   }
 
   def claimantActingType(claim: Claim) = {
+    import app.ActingType._
     val representatives = claim.questionGroup[RepresentativesForPerson].getOrElse(RepresentativesForPerson())
 
     val claimantCanSign = representatives.youAct.answer == yes
@@ -53,11 +54,11 @@ object Caree {
     if (claimantCanSign) {
 
       val youAct = representatives.youAct
-      val parentOrGuardian = youAct.dropDownValue.orNull == "guardian"
-      val attorney = youAct.dropDownValue.orNull == "attorney"
-      val appointee = youAct.dropDownValue.orNull == "appointee"
-      val judicial = youAct.dropDownValue.orNull == "judicial"
-      val receiver = youAct.dropDownValue.orNull == "deputy" || youAct.dropDownValue.orNull == "curator"
+      val parentOrGuardian = youAct.dropDownValue.orNull == Guardian.name
+      val attorney = youAct.dropDownValue.orNull == Attorney.name
+      val appointee = youAct.dropDownValue.orNull == Appointee.name
+      val judicial = youAct.dropDownValue.orNull == Judicial.name
+      val receiver = youAct.dropDownValue.orNull == Deputy.name || youAct.dropDownValue.orNull == Curator.name
 
       <ClaimantActingType>
         <ParentOrGuardian>{if (parentOrGuardian) yes}</ParentOrGuardian>
