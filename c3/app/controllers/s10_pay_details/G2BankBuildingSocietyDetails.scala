@@ -9,6 +9,7 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s10_pay_details.PayDetails._
+import app.AccountStatus
 
 object G2BankBuildingSocietyDetails extends Controller with PayDetailsRouting with CachedClaim {
   val form = Form(
@@ -23,7 +24,7 @@ object G2BankBuildingSocietyDetails extends Controller with PayDetailsRouting wi
   def present = claiming { implicit claim => implicit request =>
     whenSectionVisible {
       val iAmVisible = claim.questionGroup(HowWePayYou) match {
-        case Some(y: HowWePayYou) => y.likeToBePaid == "01"
+        case Some(y: HowWePayYou) => y.likeToBePaid == AccountStatus.BankBuildingAccount.name
         case _ => true
       }
 

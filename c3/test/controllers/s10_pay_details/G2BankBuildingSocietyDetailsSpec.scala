@@ -4,12 +4,13 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
+import app.AccountStatus
 
 class G2BankBuildingSocietyDetailsSpec extends Specification with Tags {
   "Bank building society details" should {
     "present after correct details in How We Pay You" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("likeToPay" -> "01",
+        .withFormUrlEncodedBody("likeToPay" -> AccountStatus.BankBuildingAccount.name,
         "paymentFrequency"->"1W")
 
       val result = G1HowWePayYou.submit(request)
@@ -22,7 +23,7 @@ class G2BankBuildingSocietyDetailsSpec extends Specification with Tags {
 
     "don't present after How We Pay You" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("likeToPay" -> "02",
+        .withFormUrlEncodedBody("likeToPay" -> AccountStatus.AppliedForAccount.name,
         "paymentFrequency"->"1W")
 
       val result = G1HowWePayYou.submit(request)
@@ -35,7 +36,7 @@ class G2BankBuildingSocietyDetailsSpec extends Specification with Tags {
 
     "require all fields to be filled" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("likeToPay" -> "01",
+        .withFormUrlEncodedBody("likeToPay" -> AccountStatus.BankBuildingAccount.name,
         "paymentFrequency"->"1W")
 
       val result = G1HowWePayYou.submit(request)
@@ -48,7 +49,7 @@ class G2BankBuildingSocietyDetailsSpec extends Specification with Tags {
 
     "pass after filling all fields" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("likeToPay" -> "01",
+        .withFormUrlEncodedBody("likeToPay" -> AccountStatus.BankBuildingAccount.name,
         "paymentFrequency"->"1W")
 
       val result = G1HowWePayYou.submit(request)
