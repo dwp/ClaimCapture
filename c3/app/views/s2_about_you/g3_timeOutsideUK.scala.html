@@ -8,14 +8,14 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 
-@main("About Your Time Outside The UK - About You", completedQuestionGroups) {
+@main(Messages("s2.g3") + " - About You", completedQuestionGroups) {
     @errorsSummary(timeOutsideUKForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G3TimeOutsideUK.submit) {
         <fieldset class="form-elements">
-            <legend>About your time outside the UK</legend>
+            <legend>Messages("s2.g3")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(timeOutsideUKForm("livingInUK.answer"))

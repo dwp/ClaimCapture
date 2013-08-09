@@ -5,6 +5,7 @@ import org.specs2.mutable.{Tags, Specification}
 import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate}
 import utils.pageobjects.s2_about_you.{G6EmploymentPage, G5MoreAboutYouPage, G1YourDetailsPageContext, G5MoreAboutYouPageContext}
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
+import play.api.i18n.Messages
 
 class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
   "More About You" should {
@@ -15,7 +16,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
     "be presented when there is a claim date" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual("More About You - About You")
+      titleMustEqual(Messages("s2.g5") + " - About You")
     }
 
     "contain the completed forms" in new WithBrowser with G1YourDetailsPageContext {
@@ -39,7 +40,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       browser.goTo("/aboutyou/moreAboutYou")
-      titleMustEqual("More About You - About You")
+      titleMustEqual(Messages("s2.g5") + " - About You")
       browser.submit("button[type='submit']")
 
       browser.find("p[class=error]").size mustEqual 3

@@ -19,7 +19,7 @@ final class G7PropertyAndRentPage (browser: TestBrowser, previousPage: Option[Pa
  * It is used by PageFactory object defined in Page.scala
  */
 object G7PropertyAndRentPage {
-  val title = "Property and Rent - About You"
+  val title = "Property and rent - About You"
   val url  = "/aboutyou/propertyAndRent"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G7PropertyAndRentPage(browser,previousPage)
 }

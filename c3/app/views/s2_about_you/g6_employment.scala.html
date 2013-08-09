@@ -7,14 +7,14 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main("Employment - About You", completedQuestionGroups) {
+@main(Messages("s2.g6") + " - About You", completedQuestionGroups) {
     @errorsSummary(employmentForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G6Employment.submit) {
         <fieldset class="form-elements">
-            <legend>Employment</legend>
+            <legend>Messages("s2.g6")</legend>
 
             <div class="prompt helper-prompt">
                 <p class="intro">
