@@ -1,7 +1,7 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * PageObject for page s2_about_you g5_moreAboutYou.
@@ -17,8 +17,6 @@ final class G5MoreAboutYouPage (browser: TestBrowser, previousPage: Option[Page]
   
 }
 
-
-
 /**
  * Companion object that integrates factory method.
  * It is used by PageFactory object defined in Page.scala
@@ -31,7 +29,6 @@ object G5MoreAboutYouPage {
 
 /** The context for Specs tests */
 trait G5MoreAboutYouPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G5MoreAboutYouPage buildPageWith browser
 }
-

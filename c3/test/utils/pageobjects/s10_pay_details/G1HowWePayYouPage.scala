@@ -1,7 +1,7 @@
 package utils.pageobjects.s10_pay_details
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -28,6 +28,6 @@ object G1HowWePayYouPage {
 
 /** The context for Specs tests */
 trait G1HowWePayYouPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G1HowWePayYouPage buildPageWith browser
 }

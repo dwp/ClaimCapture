@@ -1,15 +1,8 @@
 package utils.pageobjects.s4_care_you_provide
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
-/**
- * Created with IntelliJ IDEA.
- * User: jmi
- * Date: 30/07/2013
- * Time: 09:40
- * To change this template use File | Settings | File Templates.
- */
 final class G10BreaksInCarePage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G10BreaksInCarePage.url, G10BreaksInCarePage.title, previousPage, iteration) {
   
      declareYesNo("#answer", "AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_" + iteration)
@@ -28,7 +21,6 @@ object G10BreaksInCarePage {
 
 /** The context for Specs tests */
 trait G10BreaksInCarePageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G10BreaksInCarePage buildPageWith (browser = browser, iteration = 1)
 }
-

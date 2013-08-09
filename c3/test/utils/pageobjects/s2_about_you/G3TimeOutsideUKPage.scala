@@ -1,7 +1,7 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -31,6 +31,6 @@ object G3TimeOutsideUKPage {
 
 /** The context for Specs tests */
 trait G3TimeOutsideUKPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
   val page = G3TimeOutsideUKPage buildPageWith browser
 }
