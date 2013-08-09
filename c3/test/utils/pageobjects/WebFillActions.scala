@@ -62,7 +62,7 @@ trait WebFillActions {
 
   def fillRadioList(listName: String, value: String, sep: String = "_"): Unit = if (null != value) {
     try {
-      browser.click("#" + listName + sep + value)
+      browser.click(listName + sep + value)
     }
     catch {
       case e: Exception => throw new PageObjectException("Could not fill " + listName + " with value " + value, exception = e)

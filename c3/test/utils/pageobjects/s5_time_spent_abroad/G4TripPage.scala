@@ -32,7 +32,7 @@ class G4TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iterat
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G4TripPage {
-  val title = Messages("s5.g4") + " - Time Spent Abroad"
+  val title = "Trips - Time Spent Abroad"
   val url = "/timeSpentAbroad/trip/4Weeks"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G4TripPage(browser, previousPage, iteration)

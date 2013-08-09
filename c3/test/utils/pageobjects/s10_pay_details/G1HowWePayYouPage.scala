@@ -10,7 +10,7 @@ import utils.pageobjects.{PageContext, Page}
  */
 class G1HowWePayYouPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1HowWePayYouPage.url, G1HowWePayYouPage.title, previousPage) {
   
-    declareRadioList("likeToPay", "HowWePayYouHowWouldYouLikeToGetPaid")
+    declareRadioList("#likeToPay", "HowWePayYouHowWouldYouLikeToGetPaid")
     declareSelect("#paymentFrequency", "HowWePayYouHowOftenDoYouWantToGetPaid")
   
 }

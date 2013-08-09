@@ -2,6 +2,7 @@ package controllers
 
 import play.api.test.TestBrowser
 import java.util.concurrent.TimeUnit
+import app.AccountStatus
 
 object Formulate {
   val partnerAddress = "Partner Address"
@@ -329,7 +330,7 @@ object Formulate {
 
   def howWePayYou(browser: TestBrowser) = {
     browser.goTo("/payDetails/howWePayYou")
-    browser.click("#likeToPay_01")
+    browser.click("#likeToPay_" + AccountStatus.BankBuildingAccount.name)
     browser.click("#paymentFrequency option[value='fourWeekly']")
     browser.submit("button[type='submit']")
   }
