@@ -412,7 +412,7 @@ How we pay you,How would you like to get paid? ,How would you like to get paid?,
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,fourWeekly
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Mr Test Casesix
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,Barclays
-How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,09-01-23
+How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,090123
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,12345678
 How we pay you,Bank/Building society details,Building society roll or reference number,HowWePayYouBuildingSocietyRollOrReferenceNumber,123456789
 How we pay you,International bank account details,Name of account holder,HowWePayYouNameOfAccountHolder,
