@@ -10,7 +10,6 @@ import app.{PaymentFrequency, AccountStatus}
  */
 object ClaimScenarioFactory {
 
-
   val partnerAddress = "Partner Address"
   val partnerPostcode = "RM11 1AA"
 

@@ -12,7 +12,8 @@ import controllers.Mappings._
 object G2Hours extends Controller with CarersAllowanceRouting with CachedClaim {
   val form = Form(
     mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo))(Hours.apply)(Hours.unapply))
+      "answer" -> nonEmptyText.verifying(validYesNo)
+    )(Hours.apply)(Hours.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s1_carers_allowance.g2_hours(form.fill(Hours), completedQuestionGroups(Hours)))

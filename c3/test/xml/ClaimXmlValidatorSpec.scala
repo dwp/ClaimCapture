@@ -6,9 +6,27 @@ import helpers.ClaimBuilder._
 import play.api.test.WithApplication
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import scala.xml.Elem
-import play.api.Logger
 
 class ClaimXmlValidatorSpec extends Specification with Tags {
+  "Claim Submission" should {
+    "validate a good claim" in new WithApplication {
+      val claim = updateClaim(Claim())
+      val claimXml = DWPCAClaim.xml(claim, "TY6TV9G")
+      val fullXml = buildFullClaim(claimXml)
+
+      val validator = XmlValidatorFactory.buildCaValidator()
+      validator.validate(fullXml.buildString(stripComments = true)) must beTrue
+    }
+
+    "validate a bad claim" in new WithApplication {
+      val claim = updateClaim(Claim())
+      val claimXml = DWPCAClaim.xml(claim, "878786876786Y6TV9G")
+      val fullXml = buildFullClaim(claimXml)
+
+      val validator = XmlValidatorFactory.buildCaValidator()
+      validator.validate(fullXml.buildString(stripComments = true)) must beFalse
+    }
+  } section "functional"
 
   private def updateClaim(claim: Claim) = {
     claim.update(aboutYou.yourDetails)
@@ -23,7 +41,7 @@ class ClaimXmlValidatorSpec extends Specification with Tags {
       .update(yourPartner.yourPartnerContactDetails)
       .update(yourPartner.moreAboutYourPartner)
       .update(yourPartner.personYouCareFor.get)
-      
+
       .update(careYouProvide.theirPersonalDetails)
       .update(careYouProvide.theirContactDetails)
       .update(careYouProvide.moreAboutThePerson)
@@ -66,37 +84,8 @@ class ClaimXmlValidatorSpec extends Specification with Tags {
       .update(consentAndDeclaration.disclaimer)
       .update(consentAndDeclaration.declaration)
   }
-  "Claim Submission" should {
 
-    "validate a good claim" in new WithApplication {
-      val claim = updateClaim(Claim())
-
-      val claimXml = DWPCAClaim.xml(claim, "TY6TV9G")
-
-      println(claimXml)
-
-      val fullXml = buildFullClaim(claimXml)
-
-      val validator = XmlValidatorFactory.buildCaValidator()
-
-      validator.validate(fullXml.buildString(stripComments = true)) must beTrue
-    }
-
-    "validate a bad claim" in new WithApplication {
-      val claim = updateClaim(Claim())
-
-      val claimXml = DWPCAClaim.xml(claim, "878786876786Y6TV9G")
-
-      val fullXml = buildFullClaim(claimXml)
-
-      val validator = XmlValidatorFactory.buildCaValidator()
-
-      validator.validate(fullXml.buildString(stripComments = true)) must beFalse
-    }
-  } section "externalDependency"
-
-  def buildFullClaim(claimXml:Elem) = {
-
+  private def buildFullClaim(claimXml: Elem) = {
     <DWPBody xmlns:bs7666="http://www.govtalk.gov.uk/people/bs7666"
                    xmlns="http://www.govtalk.gov.uk/dwp/ca/claim"
                    xmlns:gds="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails"

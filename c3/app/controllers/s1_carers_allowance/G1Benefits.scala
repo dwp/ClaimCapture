@@ -13,7 +13,8 @@ import CarersAllowance._
 object G1Benefits extends Controller with CachedClaim {
   val form = Form(
     mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo))(Benefits.apply)(Benefits.unapply))
+      "answer" -> nonEmptyText.verifying(validYesNo)
+    )(Benefits.apply)(Benefits.unapply))
 
   def present = newClaim { implicit claim => implicit request =>
     Ok(views.html.s1_carers_allowance.g1_benefits(form.fill(Benefits), completedQuestionGroups(Benefits)))
