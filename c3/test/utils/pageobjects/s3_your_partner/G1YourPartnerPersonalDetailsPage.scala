@@ -9,16 +9,15 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 19/07/2013
  */
 final class G1YourPartnerPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1YourPartnerPersonalDetailsPage.url, G1YourPartnerPersonalDetailsPage.title, previousPage) {
-  
-    declareSelect("#title", "AboutYourPartnerTitle")
-    declareInput("#firstName", "AboutYourPartnerFirstName")
-    declareInput("#middleName", "AboutYourPartnerMiddleName")
-    declareInput("#surname", "AboutYourPartnerSurname")
-    declareInput("#otherNames", "AboutYourPartnerOtherNames")
-    declareNino("#nationalInsuranceNumber", "AboutYourPartnerNINO")
-    declareDate("#dateOfBirth", "AboutYourPartnerDateofBirth")
-    declareInput("#nationality", "AboutYourPartnerNationality")
-    declareYesNo("#liveAtSameAddress", "AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou")
+  declareSelect("#title", "AboutYourPartnerTitle")
+  declareInput("#firstName", "AboutYourPartnerFirstName")
+  declareInput("#middleName", "AboutYourPartnerMiddleName")
+  declareInput("#surname", "AboutYourPartnerSurname")
+  declareInput("#otherNames", "AboutYourPartnerOtherNames")
+  declareNino("#nationalInsuranceNumber", "AboutYourPartnerNINO")
+  declareDate("#dateOfBirth", "AboutYourPartnerDateofBirth")
+  declareInput("#nationality", "AboutYourPartnerNationality")
+  declareYesNo("#liveAtSameAddress", "AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou")
 }
 
 /**
@@ -27,12 +26,15 @@ final class G1YourPartnerPersonalDetailsPage (browser: TestBrowser, previousPage
  */
 object G1YourPartnerPersonalDetailsPage {
   val title = "Partner/Spouse Details - About Your Partner/Spouse"
-  val url  = "/yourPartner/personalDetails"
+
+  val url  = "/your-partner/personal-details"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1YourPartnerPersonalDetailsPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G1YourPartnerPersonalDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G1YourPartnerPersonalDetailsPage buildPageWith browser
 }

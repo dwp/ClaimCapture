@@ -4,15 +4,14 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 final class G8CareProvidersContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G8CareProvidersContactDetailsPage.url, G8CareProvidersContactDetailsPage.title, previousPage) {
-
   declareAddress("#address", "SelfEmployedCareProviderAddress")
   declareInput("#postcode", "SelfEmployedCareProviderPostcode")
-
 }
 
 object G8CareProvidersContactDetailsPage {
   val title = "Care provider's contact Details - Self Employment"
-  val url = "/selfEmployment/careProvidersContactDetails"
+
+  val url = "/self-employment/care-providers-contact-details"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G8CareProvidersContactDetailsPage(browser, previousPage)
 }

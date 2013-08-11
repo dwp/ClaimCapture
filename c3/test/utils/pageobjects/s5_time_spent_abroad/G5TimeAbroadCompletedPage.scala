@@ -8,9 +8,7 @@ import utils.pageobjects.{PageContext, Page}
  * @author Saqib Kayani
  *         Date: 31/07/2013
  */
-class G5TimeAbroadCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5TimeAbroadCompletedPage.url, G5TimeAbroadCompletedPage.title, previousPage) {
-
-}
+class G5TimeAbroadCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5TimeAbroadCompletedPage.url, G5TimeAbroadCompletedPage.title, previousPage)
 
 /**
  * Companion object that integrates factory method.
@@ -18,12 +16,15 @@ class G5TimeAbroadCompletedPage (browser: TestBrowser, previousPage: Option[Page
  */
 object G5TimeAbroadCompletedPage {
   val title = "Completion - Time Spent Abroad"
-  val url  = "/timeSpentAbroad/completed"
+
+  val url  = "/time-spent-abroad/completed"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5TimeAbroadCompletedPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G5TimeAbroadCompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G5TimeAbroadCompletedPage buildPageWith browser
 }

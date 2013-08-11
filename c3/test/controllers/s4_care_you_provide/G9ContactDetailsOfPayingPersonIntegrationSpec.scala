@@ -9,13 +9,13 @@ class G9ContactDetailsOfPayingPersonIntegrationSpec extends Specification with T
     "be presented" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutTheCare(browser)
 
-      browser.goTo("/careYouProvide/contactDetailsOfPayingPerson")
+      browser.goTo("/care-you-provide/contact-details-of-paying-person")
       titleMustEqual("Contact details of the person who pays you - About the care you provide")
     }
 
     """be submitted and proceed to "breaks" """ in new WithBrowser with BrowserMatchers {
       skipped("These seem to be the wrong")
-      /*browser.goTo("/careYouProvide/contactDetailsOfPayingPerson")
+      /*browser.goTo("/care-you-provide/contact-details-of-paying-person")
       browser.submit("button[value='next']")
 
       titleMustEqual("Breaks in care - About the care you provide")*/
@@ -25,7 +25,7 @@ class G9ContactDetailsOfPayingPersonIntegrationSpec extends Specification with T
       skipped("These seem to be the wrong")
       /*Formulate.moreAboutTheCare(browser)
 
-      browser.goTo("/careYouProvide/contactDetailsOfPayingPerson")
+      browser.goTo("/care-you-provide/contact-details-of-paying-person")
       browser.fill("#postcode") `with` "BLAH"
       browser.submit("button[value='next']")
       titleMustEqual("Breaks in care - About the care you provide")

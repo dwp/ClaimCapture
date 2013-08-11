@@ -8,10 +8,8 @@ import play.api.i18n.Messages
 
 class G4TripIntegrationSpec extends Specification with Tags {
   "4 weeks trip" should {
-    sequential
-
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/trip/4Weeks")
+      browser.goTo("/time-spent-abroad/trip/4-weeks")
       titleMustEqual(Messages("s5.g4") + " - Time Spent Abroad")
     }
 
@@ -21,7 +19,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "where".""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/trip/4Weeks")
+      browser.goTo("/time-spent-abroad/trip/4-weeks")
 
       browser.click("#start_day option[value='1']")
       browser.click("#start_month option[value='1']")
@@ -68,10 +66,10 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
 
     "allow cancellation" in new TripWithBrowser {
-      browser.goTo("/timeSpentAbroad/abroadForMoreThan4Weeks")
+      browser.goTo("/time-spent-abroad/abroad-for-more-than-4-weeks")
       titleMustEqual(Messages("s5.g2") + " - Time Spent Abroad")
 
-      browser.goTo("/timeSpentAbroad/trip/4Weeks")
+      browser.goTo("/time-spent-abroad/trip/4-weeks")
       titleMustEqual(Messages("s5.g4") + " - Time Spent Abroad")
 
       browser.click("#backButton")
@@ -80,10 +78,8 @@ class G4TripIntegrationSpec extends Specification with Tags {
   } section ("integration",models.domain.TimeSpentAbroad.id)
 
   "52 weeks trip" should {
-    sequential
-
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/trip/52Weeks")
+      browser.goTo("/time-spent-abroad/trip/52-weeks")
       titleMustEqual(Messages("s5.g4") + " - Time Spent Abroad")
     }
 
@@ -93,7 +89,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "where".""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/trip/52Weeks")
+      browser.goTo("/time-spent-abroad/trip/52-weeks")
 
       browser.click("#start_day option[value='1']")
       browser.click("#start_month option[value='1']")
@@ -140,10 +136,10 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
 
     "allow cancellation" in new TripWithBrowser {
-      browser.goTo("/timeSpentAbroad/abroadForMoreThan52Weeks")
+      browser.goTo("/time-spent-abroad/abroad-for-more-than-52-weeks")
       titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
 
-      browser.goTo("/timeSpentAbroad/trip/52Weeks")
+      browser.goTo("/time-spent-abroad/trip/52-weeks")
       titleMustEqual(Messages("s5.g4") + " - Time Spent Abroad")
 
       browser.click("#backButton")
@@ -151,9 +147,9 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
   } section ("integration", models.domain.TimeSpentAbroad.id)
 
-  def fourWeeks(browser: TestBrowser) = browser.goTo("/timeSpentAbroad/trip/4Weeks")
+  def fourWeeks(browser: TestBrowser) = browser.goTo("/time-spent-abroad/trip/4-weeks")
 
-  def fiftyTwoWeeks(browser: TestBrowser) = browser.goTo("/timeSpentAbroad/trip/52Weeks")
+  def fiftyTwoWeeks(browser: TestBrowser) = browser.goTo("/time-spent-abroad/trip/52-weeks")
 
   class TripWithBrowser extends WithBrowser with BrowserMatchers {
     def trip(f: TestBrowser => Fluent) {

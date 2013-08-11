@@ -9,13 +9,13 @@ import play.api.i18n.Messages
 class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
   "Property and Rent" should {
     "present Benefits when there is no claim date" in new WithBrowser {
-      browser.goTo("/aboutyou/propertyAndRent")
+      browser.goTo("/about-you/property-and-rent")
       browser.title mustEqual "Benefits - Can you get Carer's Allowance?"
     }
 
     "be presented when there is a claim date" in new WithBrowser {
       Formulate.claimDate(browser)
-      browser.goTo("/aboutyou/propertyAndRent")
+      browser.goTo("/about-you/property-and-rent")
       browser.title mustEqual Messages("s2.g7") + " - About You"
     }
 
@@ -33,7 +33,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
     "contain questions with claim dates" in new WithBrowser {
       val dateString = "03/04/1950"
       Formulate.claimDate(browser)
-      browser.goTo("/aboutyou/propertyAndRent")
+      browser.goTo("/about-you/property-and-rent")
       val h3 = browser.find("div[class=completed] ul li h3")
       h3.getText.contains(dateString) mustEqual true
 
@@ -44,7 +44,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      browser.goTo("/aboutyou/propertyAndRent")
+      browser.goTo("/about-you/property-and-rent")
       browser.title mustEqual Messages("s2.g7") + " - About You"
       browser.submit("button[type='submit']")
 

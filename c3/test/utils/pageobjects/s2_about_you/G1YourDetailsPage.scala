@@ -9,17 +9,16 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 09/07/2013
  */
 final class G1YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1YourDetailsPage.url, G1YourDetailsPage.title, previousPage) {
-  
-    declareSelect("#title", "AboutYouTitle")
-    declareInput("#firstName","AboutYouFirstName")
-    declareInput("#middleName","AboutYouMiddleName")
-    declareInput("#surname","AboutYouSurname")
-    declareInput("#otherNames", "AboutYouOtherNames")
-    declareNino("#nationalInsuranceNumber","AboutYouNINO")
-    declareDate("#dateOfBirth", "AboutYouDateOfBirth")
-    declareInput("#nationality", "AboutYouNationality")
-    declareSelect("#maritalStatus", "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus")
-    declareYesNo("#alwaysLivedUK", "AboutYouHaveYouAlwaysLivedInTheUK")
+  declareSelect("#title", "AboutYouTitle")
+  declareInput("#firstName","AboutYouFirstName")
+  declareInput("#middleName","AboutYouMiddleName")
+  declareInput("#surname","AboutYouSurname")
+  declareInput("#otherNames", "AboutYouOtherNames")
+  declareNino("#nationalInsuranceNumber","AboutYouNINO")
+  declareDate("#dateOfBirth", "AboutYouDateOfBirth")
+  declareInput("#nationality", "AboutYouNationality")
+  declareSelect("#maritalStatus", "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus")
+  declareYesNo("#alwaysLivedUK", "AboutYouHaveYouAlwaysLivedInTheUK")
 }
 
 /**
@@ -28,7 +27,9 @@ final class G1YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] =
  */
 object G1YourDetailsPage {
   val title = "Your details - About You"
-  val url  = "/aboutyou/yourDetails"
+
+  val url  = "/about-you/your-details"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1YourDetailsPage(browser, previousPage)
 }
 

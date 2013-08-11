@@ -12,12 +12,12 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
   "Employment" should {
     "be presented" in new WithBrowser {
       Formulate.claimDate(browser)
-      browser.goTo("/aboutyou/employment")
+      browser.goTo("/about-you/employment")
       browser.title mustEqual "Employment - About You"
     }
 
     "be presented without claim date" in new WithBrowser {
-      browser.goTo("/aboutyou/employment")
+      browser.goTo("/about-you/employment")
       browser.title mustEqual "Benefits - Can you get Carer's Allowance?"
     }
 
@@ -41,7 +41,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
       titleMustEqual(Messages("s2.g5") + " - About You")
 
-      browser.goTo("/aboutyou/employment")
+      browser.goTo("/about-you/employment")
       titleMustEqual("Employment - About You")
 
       browser.submit("button[type='submit']")

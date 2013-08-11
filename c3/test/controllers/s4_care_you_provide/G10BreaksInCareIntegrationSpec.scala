@@ -7,12 +7,12 @@ import controllers.{BrowserMatchers, Formulate}
 class G10BreaksInCareIntegrationSpec extends Specification with Tags {
   "Breaks in care" should {
     "present" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/careYouProvide/breaksInCare")
+      browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
     }
 
     """present "completed" when no more breaks are required""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/careYouProvide/breaksInCare")
+      browser.goTo("/care-you-provide/breaks-in-care")
       browser.click("#answer_no")
       browser.submit("button[value='next']")
       titleMustEqual("Completion - About the care you provide")
@@ -31,7 +31,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       Formulate.previousCarerContactDetails(browser)
       Formulate.representativesForThePerson(browser)
       Formulate.moreAboutTheCare(browser)
-      browser.goTo("/careYouProvide/breaksInCare")
+      browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
       
       browser.find("ul[class=group] li p").getText mustEqual "* Have you had any breaks in caring since 03/10/1949?"
@@ -46,14 +46,14 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       Formulate.previousCarerContactDetails(browser)
       Formulate.representativesForThePerson(browser)
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
-      browser.goTo("/careYouProvide/breaksInCare")
+      browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
       
       browser.find("ul[class=group] li p").getText mustEqual "* Have you had any breaks in caring since 03/04/1950?"
     }
 
     """allow a new break to be added but not record the "yes/no" answer""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/careYouProvide/breaksInCare")
+      browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_yes")
@@ -66,7 +66,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
     }
 
     """remember "no more breaks" upon stating "no more breaks" and returning to "breaks in care".""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/careYouProvide/breaksInCare")
+      browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_no")

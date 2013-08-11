@@ -14,7 +14,8 @@ final class G5StatutorySickPayPage(browser: TestBrowser, previousPage: Option[Pa
 
 object G5StatutorySickPayPage {
   val title = "Statutory Sick Pay - Other Money"
-  val url = "/otherMoney/statutorySickPay"
+
+  val url = "/other-money/statutory-sick-pay"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5StatutorySickPayPage(browser, previousPage)
 }

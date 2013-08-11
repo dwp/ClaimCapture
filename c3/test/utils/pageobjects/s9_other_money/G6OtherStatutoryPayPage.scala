@@ -14,9 +14,9 @@ final class G6OtherStatutoryPayPage(browser: TestBrowser, previousPage: Option[P
 }
 
 object G6OtherStatutoryPayPage {
-
   val title = "Other Statutory Pay - Other Money"
-  val url = "/otherMoney/otherStatutoryPay"
+
+  val url = "/other-money/other-statutory-pay"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G6OtherStatutoryPayPage(browser, previousPage)
 }

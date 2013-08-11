@@ -50,7 +50,7 @@ trait NotEmployedSinceClaimDate extends BrowserMatchers {
   def beginClaim = {
     Formulate.claimDate(browser)
 
-    browser.goTo("/aboutyou/employment")
+    browser.goTo("/about-you/employment")
     browser.click("#beenEmployedSince6MonthsBeforeClaim_no")
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
     browser.submit("button[type='submit']")

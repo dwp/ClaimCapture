@@ -15,7 +15,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About You")
 
-      browser.goTo("/yourPartner/personalDetails")
+      browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
     }
 
@@ -26,7 +26,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       titleMustEqual("Employment - About You")
 
-      browser.goTo("/yourPartner/personalDetails")
+      browser.goTo("/your-partner/personal-details")
       titleMustEqual("Details of the person you care for - About the care you provide")
     }
 
@@ -37,7 +37,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About You")
 
-      browser.goTo("/yourPartner/personalDetails")
+      browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
       browser.submit("button[type='submit']")
 
@@ -62,7 +62,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About You")
 
-      browser.goTo("/yourPartner/personalDetails")
+      browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
 
       browser.click("#backButton")

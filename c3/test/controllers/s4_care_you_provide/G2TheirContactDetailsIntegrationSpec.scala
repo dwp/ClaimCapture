@@ -8,12 +8,12 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
 
   "Their Contact Details" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/careYouProvide/theirContactDetails")
+      browser.goTo("/care-you-provide/their-contact-details")
       titleMustEqual("Contact details of the person you care for - About the care you provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
-      browser.goTo("/careYouProvide/theirContactDetails")
+      browser.goTo("/care-you-provide/their-contact-details")
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
@@ -46,7 +46,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")
 
-      browser.goTo("/careYouProvide/theirContactDetails")
+      browser.goTo("/care-you-provide/their-contact-details")
       browser.click("#backButton")
       titleMustEqual("Details of the person you care for - About the care you provide")
     }

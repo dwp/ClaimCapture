@@ -9,9 +9,8 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 17/07/2013
  */
 final class G6EmploymentPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6EmploymentPage.url, G6EmploymentPage.title, previousPage) {
-  
-    declareYesNo("#beenEmployedSince6MonthsBeforeClaim", "AboutYouHaveYouBeenEmployedAtAnyTime_1")
-    declareYesNo("#beenSelfEmployedSince1WeekBeforeClaim", "AboutYouHaveYouBeenSelfEmployedAtAnyTime")
+  declareYesNo("#beenEmployedSince6MonthsBeforeClaim", "AboutYouHaveYouBeenEmployedAtAnyTime_1")
+  declareYesNo("#beenSelfEmployedSince1WeekBeforeClaim", "AboutYouHaveYouBeenSelfEmployedAtAnyTime")
 }
 
 /**
@@ -20,12 +19,15 @@ final class G6EmploymentPage (browser: TestBrowser, previousPage: Option[Page] =
  */
 object G6EmploymentPage {
   val title = "Employment - About You"
-  val url  = "/aboutyou/employment"
+
+  val url  = "/about-you/employment"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G6EmploymentPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G6EmploymentPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G6EmploymentPage buildPageWith browser
 }

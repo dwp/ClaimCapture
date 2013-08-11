@@ -12,7 +12,7 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
     }
 
     "navigate to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/careYouProvide/previousCarerPersonalDetails")
+      browser.goTo("/care-you-provide/previous-carer-personal-details")
       titleMustEqual("Representatives for the person you care for - About the care you provide")
     }
 

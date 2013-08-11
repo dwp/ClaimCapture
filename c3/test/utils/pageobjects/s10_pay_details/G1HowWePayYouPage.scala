@@ -9,10 +9,8 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 18/07/2013
  */
 class G1HowWePayYouPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1HowWePayYouPage.url, G1HowWePayYouPage.title, previousPage) {
-  
-    declareRadioList("#likeToPay", "HowWePayYouHowWouldYouLikeToGetPaid")
-    declareSelect("#paymentFrequency", "HowWePayYouHowOftenDoYouWantToGetPaid")
-  
+  declareRadioList("#likeToPay", "HowWePayYouHowWouldYouLikeToGetPaid")
+  declareSelect("#paymentFrequency", "HowWePayYouHowOftenDoYouWantToGetPaid")
 }
 
 /**
@@ -22,12 +20,15 @@ class G1HowWePayYouPage(browser: TestBrowser, previousPage: Option[Page] = None)
  */
 object G1HowWePayYouPage {
   val title = "How We Pay You - Pay Details"
-  val url  = "/payDetails/howWePayYou"
+
+  val url  = "/pay-details/how-we-pay-you"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1HowWePayYouPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G1HowWePayYouPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G1HowWePayYouPage buildPageWith browser
 }

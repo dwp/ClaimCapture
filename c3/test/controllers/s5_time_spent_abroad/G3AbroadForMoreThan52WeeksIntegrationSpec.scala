@@ -8,12 +8,12 @@ import play.api.i18n.Messages
 class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags {
   "Abroad for more that 52 weeks" should {
     "present" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/abroadForMoreThan52Weeks")
+      browser.goTo("/time-spent-abroad/abroad-for-more-than-52-weeks")
       titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
     }
 
     "provide for trip entry" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/abroadForMoreThan52Weeks")
+      browser.goTo("/time-spent-abroad/abroad-for-more-than-52-weeks")
       titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
 
       browser.click("#anyTrips_yes")
@@ -22,7 +22,7 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
     }
 
     """present "completed" when no more 52 week trips are required""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/abroadForMoreThan52Weeks")
+      browser.goTo("/time-spent-abroad/abroad-for-more-than-52-weeks")
       titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
 
       browser.click("#anyTrips_no")
@@ -32,7 +32,7 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
 
     """go back to "abroad for more than 4 weeks".""" in new WithBrowser with BrowserMatchers {
       pending
-      /*browser.goTo("/timeSpentAbroad/abroadForMoreThan52Weeks")
+      /*browser.goTo("/time-spent-abroad/abroad-for-more-than-52-weeks")
       titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
 
       browser.click("#backButton")

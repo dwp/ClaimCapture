@@ -8,12 +8,12 @@ import play.api.i18n.Messages
 class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
   "Abroad for more that 4 weeks" should {
     "present" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/abroadForMoreThan4Weeks")
+      browser.goTo("/time-spent-abroad/abroad-for-more-than-4-weeks")
       titleMustEqual(Messages("s5.g2") + " - Time Spent Abroad")
     }
 
     "provide for trip entry" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/abroadForMoreThan4Weeks")
+      browser.goTo("/time-spent-abroad/abroad-for-more-than-4-weeks")
       titleMustEqual(Messages("s5.g2") + " - Time Spent Abroad")
 
       browser.click("#anyTrips_yes")
@@ -22,7 +22,7 @@ class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
     }
 
     """present "52 weeks trips" when no more 4 week trips are required""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/abroadForMoreThan4Weeks")
+      browser.goTo("/time-spent-abroad/abroad-for-more-than-4-weeks")
       titleMustEqual(Messages("s5.g2") + " - Time Spent Abroad")
 
       browser.click("#anyTrips_no")

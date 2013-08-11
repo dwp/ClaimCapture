@@ -30,7 +30,8 @@ class G4TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iterat
  */
 object G4TripPage {
   val title = "Trips - Time Spent Abroad"
-  val url = "/timeSpentAbroad/trip/4Weeks"
+
+  val url = "/time-spent-abroad/trip/4-weeks"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G4TripPage(browser, previousPage, iteration)
 }

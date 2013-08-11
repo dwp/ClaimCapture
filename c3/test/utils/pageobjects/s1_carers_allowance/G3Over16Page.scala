@@ -4,11 +4,12 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 final class G3Over16Page(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3Over16Page.url, G3Over16Page.title, previousPage) {
-    declareYesNo("#answer", "CanYouGetCarersAllowanceAreYouAged16OrOver")
+  declareYesNo("#answer", "CanYouGetCarersAllowanceAreYouAged16OrOver")
 }
 
 object G3Over16Page {
   val title = "Over 16 - Can you get Carer's Allowance?"
+
   val url = "/allowance/over16"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3Over16Page(browser, previousPage)

@@ -22,12 +22,15 @@ final class G8AboutYouCompletedPage(browser: TestBrowser, previousPage: Option[P
  */
 object G8AboutYouCompletedPage {
   val title = "Completion - About You"
-  val url  = "/aboutyou/completed"
+
+  val url  = "/about-you/completed"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G8AboutYouCompletedPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G8AboutYouCompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G8AboutYouCompletedPage buildPageWith browser
 }

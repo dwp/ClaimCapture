@@ -9,18 +9,18 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
 
   "Representatives For The Person" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/careYouProvide/moreAboutTheCare")
+      browser.goTo("/care-you-provide/more-about-the-care")
       titleMustEqual("More about the care you provide - About the care you provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
-      browser.goTo("/careYouProvide/moreAboutTheCare")
+      browser.goTo("/care-you-provide/more-about-the-care")
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 3
     }
 
     "contains errors for optional mandatory data" in new WithBrowser {
-      browser.goTo("/careYouProvide/moreAboutTheCare")
+      browser.goTo("/care-you-provide/more-about-the-care")
       browser.click("#spent35HoursCaring_yes")
       browser.click("#beforeClaimCaring_answer_yes")
       browser.click("#hasSomeonePaidYou_yes")

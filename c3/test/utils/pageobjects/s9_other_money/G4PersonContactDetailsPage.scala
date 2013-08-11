@@ -10,7 +10,8 @@ final class G4PersonContactDetailsPage(browser: TestBrowser, previousPage: Optio
 
 object G4PersonContactDetailsPage {
   val title = "Contact Details - Other Money"
-  val url = "/otherMoney/personContactDetails"
+
+  val url = "/other-money/person-contact-details"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4PersonContactDetailsPage(browser, previousPage)
 }

@@ -7,7 +7,8 @@ final class G8OtherMoneyCompletedPage(browser: TestBrowser, previousPage: Option
 
 object G8OtherMoneyCompletedPage {
   val title = "Completion - Other Money"
-  val url = "/otherMoney/completed"
+
+  val url = "/other-money/completed"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G8OtherMoneyCompletedPage(browser, previousPage)
 }

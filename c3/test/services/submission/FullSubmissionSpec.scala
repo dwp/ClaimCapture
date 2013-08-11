@@ -74,7 +74,7 @@ class FullSubmissionSpec extends Specification with Tags {
       // first time through stores val in session
       page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
-      val submissionPage = lastPage goToPage new G5SubmitPage(browser,Some(lastPage))
+      val submissionPage = lastPage goToPage(new G5SubmitPage(browser, Some(lastPage)), waitForPage = true, waitDuration = 500)
       val finalPage = submissionPage submitPage ()
     }
   } section "functional"

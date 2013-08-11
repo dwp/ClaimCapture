@@ -8,7 +8,7 @@ import play.api.i18n.Messages
 class G1HowWePayYouIntegrationSpec extends Specification with Tags {
   "How we pay you" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/payDetails/howWePayYou")
+      browser.goTo("/pay-details/how-we-pay-you")
       titleMustEqual("How We Pay You - Pay Details")
     }
 
@@ -19,12 +19,12 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About You")
 
-      browser.goTo("/payDetails/howWePayYou")
+      browser.goTo("/pay-details/how-we-pay-you")
       titleMustEqual("Additional Information - Consent And Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/payDetails/howWePayYou")
+      browser.goTo("/pay-details/how-we-pay-you")
       titleMustEqual("How We Pay You - Pay Details")
 
       browser.submit("button[type='submit']")
@@ -40,7 +40,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to Other Money - Completed" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/payDetails/howWePayYou")
+      browser.goTo("/pay-details/how-we-pay-you")
       browser.click(".form-steps a")
       //Other Income completed page does a redirect to first page
       titleMustEqual("About Other Money - Other Money")

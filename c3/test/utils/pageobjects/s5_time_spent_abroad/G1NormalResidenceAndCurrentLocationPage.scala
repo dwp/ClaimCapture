@@ -9,10 +9,9 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 30/07/2013
  */
 final class G1NormalResidenceAndCurrentLocationPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1NormalResidenceAndCurrentLocationPage.url, G1NormalResidenceAndCurrentLocationPage.title, previousPage) {
-
-    declareYesNo("#liveInUK_answer", "TimeSpentAbroadDoYouNormallyLiveintheUk")
-    declareInput("#liveInUK_whereDoYouLive", "TimeSpentAbroadWhereDoYouNormallyLive")
-    declareYesNo("#inGBNow", "TimeSpentAbroadAreYouinGBNow")
+  declareYesNo("#liveInUK_answer", "TimeSpentAbroadDoYouNormallyLiveintheUk")
+  declareInput("#liveInUK_whereDoYouLive", "TimeSpentAbroadWhereDoYouNormallyLive")
+  declareYesNo("#inGBNow", "TimeSpentAbroadAreYouinGBNow")
 }
 
 /**
@@ -21,12 +20,15 @@ final class G1NormalResidenceAndCurrentLocationPage (browser: TestBrowser, previ
  */
 object G1NormalResidenceAndCurrentLocationPage {
   val title = "Your normal residence and current location - Time Spent Abroad"
-  val url  = "/timeSpentAbroad/normalResidenceAndCurrentLocation"
+
+  val url  = "/time-spent-abroad/normal-residence-and-current-location"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1NormalResidenceAndCurrentLocationPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G1NormalResidenceAndCurrentLocationPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G1NormalResidenceAndCurrentLocationPage buildPageWith browser
 }

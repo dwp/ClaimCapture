@@ -14,9 +14,9 @@ class G7OtherEEAStateOrSwitzerlandPage (browser: TestBrowser, previousPage: Opti
 }
 
 object G7OtherEEAStateOrSwitzerlandPage {
-
   val title = "Other EEA State or Switzerland - Other Money"
-  val url = "/otherMoney/otherEEAStateOrSwitzerland"
+
+  val url = "/other-money/other-eea-state-or-switzerland"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G7OtherEEAStateOrSwitzerlandPage(browser, previousPage)
 

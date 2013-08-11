@@ -39,7 +39,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      browser.goTo("/aboutyou/moreAboutYou")
+      browser.goTo("/about-you/more-about-you")
       titleMustEqual(Messages("s2.g5") + " - About You")
       browser.submit("button[type='submit']")
 

@@ -9,7 +9,6 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 16/07/2013
  */
 final class G2ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2ContactDetailsPage.url, G2ContactDetailsPage.title, previousPage) {
-
   declareAddress("#address", "AboutYouAddress")
   declareInput("#postcode", "AboutYouPostcode")
   declareInput("#phoneNumber", "AboutYouDaytimePhoneNumber")
@@ -22,7 +21,8 @@ final class G2ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page
  */
 object G2ContactDetailsPage {
   val title = "Your contact details - About You"
-  val url = "/aboutyou/contactDetails"
+
+  val url = "/about-you/contact-details"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2ContactDetailsPage(browser, previousPage)
 }

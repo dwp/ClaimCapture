@@ -12,7 +12,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")
 
-      browser.goTo("/careYouProvide/completed")
+      browser.goTo("/care-you-provide/completed")
       titleMustEqual("Completion - About the care you provide")
     }
 
@@ -41,7 +41,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
       titleMustEqual("More about the care you provide - About the care you provide")
 
-      browser.goTo("/careYouProvide/completed")
+      browser.goTo("/care-you-provide/completed")
       titleMustEqual("Completion - About the care you provide")
 
       browser.find("button[type='submit']").getText shouldEqual "Continue to Abroad"

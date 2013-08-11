@@ -10,7 +10,7 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
     sequential
 
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/aboutyou/claimDate")
+      browser.goTo("/about-you/claim-date")
       titleMustEqual("Your Claim Date - About You")
     }
 
@@ -30,7 +30,7 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
     }
 
     "failed to fill the form" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/aboutyou/claimDate")
+      browser.goTo("/about-you/claim-date")
       browser.submit("button[type='submit']")
 
       titleMustEqual("Your Claim Date - About You")

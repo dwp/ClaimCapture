@@ -9,10 +9,8 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 22/07/2013
  */
 final class G2YourPartnerContactDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2YourPartnerContactDetailsPage.url, G2YourPartnerContactDetailsPage.title, previousPage){
-
-    declareAddress("#address", "AboutYourPartnerAddress")
-    declareInput("#postcode", "AboutYourPartnerPostcode")
-
+  declareAddress("#address", "AboutYourPartnerAddress")
+  declareInput("#postcode", "AboutYourPartnerPostcode")
 }
 
 /**
@@ -21,12 +19,15 @@ final class G2YourPartnerContactDetailsPage (browser: TestBrowser, previousPage:
  */
 object G2YourPartnerContactDetailsPage {
   val title = "Contact Details - About your partner/spouse"
-  val url  = "/yourPartner/contactDetails"
+
+  val url  = "/your-partner/contact-details"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2YourPartnerContactDetailsPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G2YourPartnerContactDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G2YourPartnerContactDetailsPage buildPageWith browser
 }

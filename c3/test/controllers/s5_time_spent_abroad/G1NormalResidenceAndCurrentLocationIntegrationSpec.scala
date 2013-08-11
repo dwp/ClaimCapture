@@ -8,14 +8,14 @@ import play.api.i18n.Messages
 class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification with Tags {
   "Normal residence and current location" should {
     "present" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
+      browser.goTo("/time-spent-abroad/normal-residence-and-current-location")
       titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
     }
 
     """give 2 errors when missing mandatory data:
        "Do you live in the UK?"
        "Are you in Great Britain now?".""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
+      browser.goTo("/time-spent-abroad/normal-residence-and-current-location")
       titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
 
       browser.submit("button[value='next']")
@@ -26,7 +26,7 @@ class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification w
     """give 2 errors when missing mandatory including optional to mandatory data:
        "Where do you normally live?"
        "Are you in Great Britain now?".""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
+      browser.goTo("/time-spent-abroad/normal-residence-and-current-location")
       titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
 
       browser.click("#liveInUK_answer_no")
@@ -37,7 +37,7 @@ class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification w
 
     """go back to "completed care you provide".""" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      browser.goTo("/timeSpentAbroad/normalResidenceAndCurrentLocation")
+      browser.goTo("/time-spent-abroad/normal-residence-and-current-location")
       titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
 
       browser.click("#backButton")
