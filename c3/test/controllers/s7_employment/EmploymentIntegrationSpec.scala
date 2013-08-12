@@ -9,12 +9,12 @@ class EmploymentIntegrationSpec extends Specification with Tags {
   "Employment" should {
     "present completion" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/completed")
-      titleMustEqual("Completion - Employment")
+      titleMustEqual("Completion - Employment History")
     }
 
     """progress to next section i.e. "self employed".""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/completed")
-      titleMustEqual("Completion - Employment")
+      titleMustEqual("Completion - Employment History")
 
       browser.submit("button[type='submit']")
       titleMustEqual("Self Employment - About Self Employment")
@@ -24,10 +24,10 @@ class EmploymentIntegrationSpec extends Specification with Tags {
       beginClaim
 
       browser.goTo("/employment/completed")
-      titleMustEqual("Completion - Employment")
+      titleMustEqual("Completion - Employment History")
 
       browser.click("#backButton")
-      titleMustEqual("Your employment history - Employment")
+      titleMustEqual("Your employment history - Employment History")
     }
   } section("integration", models.domain.Employed.id)
 }

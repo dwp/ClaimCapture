@@ -10,7 +10,7 @@ final class G3EmployerContactDetailsPage(browser: TestBrowser, previousPage: Opt
 }
 
 object G3EmployerContactDetailsPage {
-  val title = "Employer contact details - Employment"
+  val title = "Employer's contact details - Employment History"
 
   val url  = "/employment/employers-contact-details/:jobID"
 

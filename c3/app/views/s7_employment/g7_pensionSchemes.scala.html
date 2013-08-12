@@ -11,7 +11,7 @@
 @import utils.helpers.PastPresentLabelHelper._
 
 
-@main("Pension schemes - Employment", Some(currentForm), completedQuestionGroups) {
+@main("Pension schemes - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G7PensionSchemes.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
