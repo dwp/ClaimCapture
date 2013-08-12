@@ -288,7 +288,7 @@ GET     /timeout                                                        controll
 # Unrecoverable error
 GET     /error                                                          controllers.Application.error
 
-# Temporary submission service
+# Claim submission
 GET     /submit                                                         @controllers.submission.SubmissionController.submit
 
 # Thank you
