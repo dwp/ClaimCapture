@@ -10,7 +10,7 @@ import models.domain.Claim
 class G6MoneyOwedbyEmployerSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
 
-  "Money owed by employer" should {
+  "Money owed to you by your employer" should {
     "present" in new WithApplication with Claiming {
       val additionalWageDetails = mock[AdditionalWageDetails]
       additionalWageDetails.identifier returns AdditionalWageDetails
