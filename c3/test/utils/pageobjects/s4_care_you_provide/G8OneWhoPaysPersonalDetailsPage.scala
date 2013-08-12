@@ -12,7 +12,7 @@ final class G8OneWhoPaysPersonalDetailsPage (browser: TestBrowser, previousPage:
   declareInput("#organisation", "AboutTheCareYouProvideOrganisationPaysYou")
   declareSelect("#title", "AboutTheCareYouProvideTitlePersonPaysYou")
   declareInput("#firstName", "AboutTheCareYouProvideFirstNamePersonPaysYou")
-  declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePersonCareFor")
+  declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePersonPaysYou")
   declareInput("#surname", "AboutTheCareYouProvideSurnamePersonPaysYou")
   declareInput("#amount", "AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek")
   declareDate("#startDatePayment", "AboutTheCareYouProvideWhenDidThePaymentsStart")
