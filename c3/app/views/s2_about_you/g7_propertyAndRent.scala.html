@@ -14,7 +14,7 @@
 
     @form(action = controllers.s2_about_you.routes.G7PropertyAndRent.submit) {
         <fieldset class="form-elements">
-            <legend>Messages("s2.g7") + " - About You"</legend>
+            <legend>@Messages("s2.g7")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(propertyAndRentForm("ownProperty"),
