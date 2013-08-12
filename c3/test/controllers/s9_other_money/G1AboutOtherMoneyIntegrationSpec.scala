@@ -8,19 +8,19 @@ import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPageContext
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "About Other Money" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/otherMoney/aboutOtherMoney")
+      browser.goTo("/other-money/about-other-money")
       titleMustEqual("About Other Money - Other Money")
     }
 
     "navigate back to Completion - Self Employment" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/otherMoney/aboutOtherMoney")
+      browser.goTo("/other-money/about-other-money")
       browser.click("#backButton")
       titleMustEqual("Completion - Self Employment")
     }
 
     "contain errors on invalid submission" in {
       "no fields selected" in new WithBrowser with BrowserMatchers {
-        browser.goTo("/otherMoney/aboutOtherMoney")
+        browser.goTo("/other-money/about-other-money")
         browser.submit("button[type='submit']")
         titleMustEqual("About Other Money - Other Money")
 
@@ -28,7 +28,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       }
 
       "text field enabled but not filled in" in new WithBrowser with BrowserMatchers {
-        browser.goTo("/otherMoney/aboutOtherMoney")
+        browser.goTo("/other-money/about-other-money")
         browser.click("#yourBenefits_answer_yes")
         browser.submit("button[type='submit']")
         titleMustEqual("About Other Money - Other Money")
@@ -39,7 +39,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       "text enabled but neither not filled in" in new WithBrowser with BrowserMatchers {
         Formulate.claimDate(browser)
         Formulate.moreAboutYou(browser)
-        browser.goTo("/otherMoney/aboutOtherMoney")
+        browser.goTo("/other-money/about-other-money")
         browser.click("#yourBenefits_answer_yes")
         browser.submit("button[type='submit']")
         titleMustEqual("About Other Money - Other Money")
@@ -55,7 +55,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission with first mandatory field set to no" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/otherMoney/aboutOtherMoney")
+      browser.goTo("/other-money/about-other-money")
       browser.click("#yourBenefits_answer_no")
       browser.submit("button[type='submit']")
       titleMustEqual("Money Paid - Other Money")

@@ -1,6 +1,6 @@
 package utils.pageobjects.s6_education
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 /**
@@ -9,7 +9,6 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 06/08/2013
  */
 class G1YourCourseDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1YourCourseDetailsPage.url, G1YourCourseDetailsPage.title, previousPage) {
-
   declareInput("#courseType","EducationTypeOfCourse")
   declareInput("#courseTitle","EducationCourseTitle")
   declareDate("#startDate","EducationWhenDidYouStartTheCourse")
@@ -24,12 +23,15 @@ class G1YourCourseDetailsPage (browser: TestBrowser, previousPage: Option[Page] 
  */
 object G1YourCourseDetailsPage {
   val title = "Your Course Details - About your education"
-  val url  = "/education/yourCourseDetails"
+
+  val url  = "/education/your-course-details"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1YourCourseDetailsPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G1YourCourseDetailsPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
+
   val page = G1YourCourseDetailsPage buildPageWith browser
 }

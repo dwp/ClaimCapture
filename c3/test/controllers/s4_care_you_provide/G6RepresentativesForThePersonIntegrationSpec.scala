@@ -7,31 +7,31 @@ import controllers.{BrowserMatchers, Formulate}
 class G6RepresentativesForThePersonIntegrationSpec extends Specification with Tags {
   "Representatives For The Person" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/careYouProvide/representativesForPerson")
+      browser.goTo("/care-you-provide/representatives-for-person")
       titleMustEqual("Representatives for the person you care for - About the care you provide")
     }
 
     "contain errors on invalid submission first yesNo not clicked" in new WithBrowser {
-      browser.goTo("/careYouProvide/representativesForPerson")
+      browser.goTo("/care-you-provide/representatives-for-person")
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
     "contain errors on invalid submission second yesNo not clicked" in new WithBrowser {
-      browser.goTo("/careYouProvide/representativesForPerson")
+      browser.goTo("/care-you-provide/representatives-for-person")
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
     "contains errors for first optional mandatory data" in new WithBrowser {
-      browser.goTo("/careYouProvide/representativesForPerson")
+      browser.goTo("/care-you-provide/representatives-for-person")
       browser.click("#actForPerson_no")
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
     
     "contains errors for second optional mandatory data" in new WithBrowser {
-      browser.goTo("/careYouProvide/representativesForPerson")
+      browser.goTo("/care-you-provide/representatives-for-person")
       browser.click("#actForPerson_no")
       browser.click("#someoneElseActForPerson_yes")
       browser.submit("button[type='submit']")

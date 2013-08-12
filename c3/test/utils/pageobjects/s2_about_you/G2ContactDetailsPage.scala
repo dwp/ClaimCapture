@@ -1,6 +1,6 @@
 package utils.pageobjects.s2_about_you
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 /**
@@ -9,7 +9,6 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 16/07/2013
  */
 final class G2ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2ContactDetailsPage.url, G2ContactDetailsPage.title, previousPage) {
-
   declareAddress("#address", "AboutYouAddress")
   declareInput("#postcode", "AboutYouPostcode")
   declareInput("#phoneNumber", "AboutYouDaytimePhoneNumber")
@@ -21,14 +20,16 @@ final class G2ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page
  * It is used by PageFactory object defined in Page.scala
  */
 object G2ContactDetailsPage {
-  val title = "Your Contact Details - About You"
-  val url = "/aboutyou/contactDetails"
+  val title = "Your contact details - About You"
+
+  val url = "/about-you/contact-details"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2ContactDetailsPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait ContactDetailsPageContext extends PageContext {
-  this: {val browser: TestBrowser} =>
+  this: WithBrowser[_] =>
+
   val page = G2ContactDetailsPage buildPageWith browser
 }

@@ -8,12 +8,12 @@ class G5CompletedIntegrationSpec extends Specification with Tags {
 
   "Your Partner" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/yourPartner/completed")
+      browser.goTo("/your-partner/completed")
       titleMustEqual("Completion - About Your Partner/Spouse")
     }
 
     """navigate to "Care you provide" page.""" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/yourPartner/completed")
+      browser.goTo("/your-partner/completed")
       browser.submit("button[type='submit']")
       browser.find("#submit").getText mustEqual "Continue to Care you provide"
       titleMustEqual("Details of the person you care for - About the care you provide")

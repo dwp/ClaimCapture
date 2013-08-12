@@ -2,7 +2,6 @@ package utils.pageobjects
 
 import play.api.test.TestBrowser
 import scala.language.dynamics
-import scala.collection.mutable
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s3_your_partner._

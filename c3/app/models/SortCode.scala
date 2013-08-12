@@ -9,4 +9,6 @@ case class SortCode(sort1:String,sort2:String,sort3:String){
       s(sort1,sort2,sort3)
     }
   }
+
+  def stringify = sort1 + sort2 + sort3
 }

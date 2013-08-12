@@ -44,7 +44,7 @@ class FullSubmissionSpec extends Specification with Tags {
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST223"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, thankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
     }
 
@@ -53,7 +53,7 @@ class FullSubmissionSpec extends Specification with Tags {
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST224"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
     }
 
@@ -62,7 +62,7 @@ class FullSubmissionSpec extends Specification with Tags {
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST225"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
     }
 
@@ -72,9 +72,9 @@ class FullSubmissionSpec extends Specification with Tags {
       idService.id = "TEST225"
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       // first time through stores val in session
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
-      val submissionPage = lastPage goToPage new G5SubmitPage(browser,Some(lastPage))
+      val submissionPage = lastPage goToPage(new G5SubmitPage(browser, Some(lastPage)), waitForPage = true, waitDuration = 500)
       val finalPage = submissionPage submitPage ()
     }
   } section "functional"

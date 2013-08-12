@@ -8,6 +8,7 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.JobID
+@import utils.helpers.PastPresentLabelHelper._
 
 @main("Last wage - Employment", Some(currentForm), completedQuestionGroups) {
 
@@ -28,7 +29,7 @@
 
                 @carersInputTextArea(currentForm("payInclusions"), 'placeholder -> Messages("please.specify"))
 
-                @yesNoRadioGroup(currentForm("sameAmountEachTime"))
+                @yesNoRadioGroup(currentForm("sameAmountEachTime"), '_label -> Messages ("sameAmountEachTime", pastPresentLabelForEmployment(claim, didYou, doYou, JobID(currentForm))))
             </ul>
         </fieldset>
 

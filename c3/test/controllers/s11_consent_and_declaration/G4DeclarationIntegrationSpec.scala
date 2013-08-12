@@ -7,12 +7,12 @@ import controllers.{BrowserMatchers, Formulate}
 class G4DeclarationIntegrationSpec extends Specification with Tags {
   "Declaration" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/consentAndDeclaration/declaration")
+      browser.goTo("/consent-and-declaration/declaration")
       titleMustEqual("Declaration - Consent And Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/consentAndDeclaration/declaration")
+      browser.goTo("/consent-and-declaration/declaration")
       titleMustEqual("Declaration - Consent And Declaration")
 
       browser.submit("button[type='submit']")

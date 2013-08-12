@@ -7,8 +7,8 @@ import controllers.{BrowserMatchers, Formulate}
 class G8CompletedIntegrationSpec extends Specification with Tags {
   "About You" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/aboutyou/completed")
-      titleMustEqual ("Completion - About You")
+      browser.goTo("/about-you/completed")
+      titleMustEqual("Completion - About You")
     }
     
     """navigate to "Your Partner" when next section is "Your Partner"""" in new WithBrowser with BrowserMatchers {

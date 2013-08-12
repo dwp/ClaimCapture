@@ -290,7 +290,7 @@ jobStartDate = When did you start your job?
 finishedThisJob = Have you finished this job?
 lastWorkDate = When did you last work?
 p45LeavingDate = What is the leaving date on your P45, if you have one?
-hoursPerWeek = How many hours a week do you normally work?
+hoursPerWeek = How many hours a week Did You/ Do You normally work?
 jobTitle = Job title
 payrollEmployeeNumber = Payroll/Employee number
 
@@ -302,14 +302,14 @@ lastPaidDate = When were you last paid?
 periodCovered = What period did this cover?
 grossPay = What was the gross pay for this period?
 payInclusions = What was included in this pay?
-sameAmountEachTime = Do you get the same amount each time?
+sameAmountEachTime = {0} get the same amount each time?
 
 # ADDITIONAL WAGE DETAILS
 oftenGetPaid = How often are you paid?
-oftenGetPaid_frequency = How often are you paid?
-whenGetPaid = When do you get paid?
-holidaySickPay = Do you get holiday pay or sick pay?
-anyOtherMoney = Do you get paid any other money as well as your normal wage?
+oftenGetPaid_frequency = How often {0} paid?
+whenGetPaid = When {0} get paid?
+holidaySickPay = {0} get holiday pay or sick pay?
+anyOtherMoney = {0} get paid any other money as well as your normal wage?
 otherMoney = Please tell us what other money you received
 employerOwesYouMoney = Does your employer owe you any money?
 
@@ -321,33 +321,34 @@ shouldBeenPaidBy = When should it have been paid?
 whenWillGetIt = When will you get it?
 
 # PENSION SCHEME
-payOccupationalPensionScheme = Do you pay towards an occupational pension scheme?
-howMuchPension = How much do you pay?
+payOccupationalPensionScheme = {0} pay towards an occupational pension scheme?
+howMuchPension = How much {0} pay?
 howOftenPension = How often?
-payPersonalPensionScheme = Do you pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
-howMuchPersonal = How much do you pay?
+payPersonalPensionScheme = {0} pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
+howMuchPersonal = How much {0} pay?
 howOftenPersonal = How often?
 
 # ABOUT EXPENSES
-payForAnythingNecessary = Do you pay for anything necessary to do your job?
-payAnyoneToLookAfterChildren = While at work, do you pay anyone to look after your children?
-payAnyoneToLookAfterPerson = While at work, do you pay anyone to look after the person you care for?
+payForAnythingNecessary = {0} pay for anything necessary to do your job?
+payAnyoneToLookAfterChildren = While at work, {0} pay anyone to look after your children?
+payAnyoneToLookAfterPerson = While at work, {0} pay anyone to look after the person you care for?
 
 # NECESSARY EXPENSES
-whatAreThose = What is/was this item?
-howMuchCostEachWeek = Why do you need this item to do your job?
-whyDoYouNeedThose = How much did this item cost you each week?
+whatAreThose = What {0} this item?
+whyDoYouNeedThose = Why {0} need this item to do your job?
+howMuchCostEachWeek = How much {0} this item cost you each week?
+
 
 # CHILDCARE EXPENSES
-howMuchCostChildcare =  How much do you pay them?
+howMuchCostChildcare =  How much {0} pay them?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
 relationToYou = What relation, if any, is the person to you?
 relationToPartner = What relation, if any, is the person to your Partner/Spouse?
 relationToPersonYouCare = What relation, if any, is the person to the person you care for?
 
 # PERSON YOU CARE FOR EXPENSES
-howMuchCostCare = How much do you pay them?
-whoDoYouPay = Name of the person/organisation you pay
+howMuchCostCare = How much {0} pay them?
+whoDoYouPay = Name of the person/organisation you {0} pay
 
 
 ## OTHER MONEY

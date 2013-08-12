@@ -26,7 +26,7 @@ class G1AdditionalInformationSpec extends Specification with Tags {
                                  .withFormUrlEncodedBody("welshCommunication" -> "yes")
 
       val result = G1AdditionalInfo.submit(request)
-      redirectLocation(result) must beSome("/consentAndDeclaration/consent")
+      redirectLocation(result) must beSome("/consent-and-declaration/consent")
     }
   } section("unit", models.domain.ConsentAndDeclaration.id)
 }

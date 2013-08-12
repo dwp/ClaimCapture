@@ -1,19 +1,18 @@
 package utils.pageobjects.s3_your_partner
 
-import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import play.api.test.{WithBrowser, TestBrowser}
+import utils.pageobjects.{PageContext, Page}
 
 /**
  * Page object for s3_your_partner g3_MoreAboutYourPartner.
  * @author Saqib Kayani
  *         Date: 22/07/2013
  */
-final class G3MoreAboutYourPartnerPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3MoreAboutYourPartnerPage.url, G3MoreAboutYourPartnerPage.title, previousPage){
-
-    declareYesNo("#startedLivingTogether_afterClaimDate", "AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate")
-    declareDate("#startedLivingTogether_date", "AboutYourPartnertheDateWhenYouStartedLivingTogether")
-    declareYesNo("#separated_fromPartner", "AboutYourPartnerHaveYouSeparatedfromYourPartner")
-    declareDate("#separated_date", "AboutYourPartnerwhenDidYouSeparate")
+final class G3MoreAboutYourPartnerPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3MoreAboutYourPartnerPage.url, G3MoreAboutYourPartnerPage.title, previousPage) {
+  declareYesNo("#startedLivingTogether_afterClaimDate", "AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate")
+  declareDate("#startedLivingTogether_date", "AboutYourPartnertheDateWhenYouStartedLivingTogether")
+  declareYesNo("#separated_fromPartner", "AboutYourPartnerHaveYouSeparatedfromYourPartner")
+  declareDate("#separated_date", "AboutYourPartnerwhenDidYouSeparate")
 }
 
 
@@ -23,12 +22,15 @@ final class G3MoreAboutYourPartnerPage (browser: TestBrowser, previousPage: Opti
  */
 object G3MoreAboutYourPartnerPage {
   val title = "More About Your Partner/Spouse - About Your Partner/Spouse"
-  val url  = "/yourPartner/moreAboutYourPartner"
+
+  val url  = "/your-partner/more-about-your-partner"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3MoreAboutYourPartnerPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G3MoreAboutYourPartnerPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
+
   val page = G3MoreAboutYourPartnerPage buildPageWith browser
 }

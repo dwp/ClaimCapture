@@ -26,7 +26,7 @@ class G4DeclarationSpec extends Specification with Tags {
                                  .withFormUrlEncodedBody("confirm" -> "checked","someoneElse" -> "checked")
 
       val result = G4Declaration.submit(request)
-      redirectLocation(result) must beSome("/consentAndDeclaration/submit")
+      redirectLocation(result) must beSome("/consent-and-declaration/submit")
     }
   } section("unit", models.domain.ConsentAndDeclaration.id)
 }

@@ -7,12 +7,12 @@ import controllers.Formulate
 class G3DisclaimerIntegrationSpec extends Specification with Tags {
   "Disclaimer" should {
     "be presented" in new WithBrowser {
-      browser.goTo("/consentAndDeclaration/disclaimer")
+      browser.goTo("/consent-and-declaration/disclaimer")
       browser.title mustEqual "Disclaimer - Consent And Declaration"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
-      browser.goTo("/consentAndDeclaration/disclaimer")
+      browser.goTo("/consent-and-declaration/disclaimer")
       browser.title mustEqual "Disclaimer - Consent And Declaration"
       browser.submit("button[type='submit']")
 

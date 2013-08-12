@@ -10,11 +10,9 @@ import utils.pageobjects.s1_carers_allowance.G6ApprovePage
 import utils.pageobjects.s1_carers_allowance.G4LivesInGBPage
 
 class G5ApproveIntegrationSpec extends Specification with Tags {
-  sequential
-
   "Approve" should {
     "be presented" in new WithBrowser with G6ApprovePageContext {
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
     }
   } section("integration",models.domain.CarersAllowance.id)
 
@@ -27,7 +25,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
       page fillPageWith claim
       val hoursPage = page submitPage(waitForPage = true, waitDuration = 500)
       hoursPage fillPageWith claim
@@ -52,8 +50,9 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
       val approvePage = page runClaimWith (claim, G6ApprovePage.title, waitForPage = true, waitDuration = 500)
+
       approvePage match {
         case p: G6ApprovePage => {
           p.previousPage.get must beAnInstanceOf[G4LivesInGBPage]
@@ -69,7 +68,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
       page runClaimWith (claim, G1YourDetailsPage.title, waitForPage = true, waitDuration = 500)
     }
 
@@ -79,7 +78,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "no"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
-      page goToThePage()
+      page goToThePage(waitForPage = true, waitDuration = 500)
       page fillPageWith claim
       val s1g2 = page submitPage(waitForPage = true, waitDuration = 500)
       

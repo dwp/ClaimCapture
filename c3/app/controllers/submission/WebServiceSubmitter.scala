@@ -26,7 +26,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         ).recover {
           case e: java.net.ConnectException => {
             Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-            Redirect("/consentAndDeclaration/error")
+            Redirect("/consent-and-declaration/error")
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(RETRY) ! ${e.getMessage}")
@@ -47,7 +47,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         ).recover {
           case e: java.net.ConnectException => {
             Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-            Redirect("/consentAndDeclaration/error")
+            Redirect("/consent-and-declaration/error")
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
@@ -69,20 +69,20 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         result match {
           case "response" => {
             idService.updateStatus(txnId, SUCCESS)
-            Redirect("/thankYou").withNewSession
+            Redirect("/thankyou").withNewSession
           }
           case "acknowledgement" => {
             idService.updateStatus(txnId, ACKNOWLEDGED)
             val correlationID = (responseXml \\ "correlationID").text
             val pollEndpoint = (responseXml \\ "pollEndpoint").text
             storeRetryData(RetryData(correlationID, pollEndpoint, txnId), request)
-            Redirect("/consentAndDeclaration/error")
+            Redirect("/consent-and-declaration/error")
           }
           case "error" => {
             val errorCode = (responseXml \\ "errorCode").text
             idService.updateStatus(txnId, errorCode)
             Logger.error(s"Received error : $result")
-            Redirect("/consentAndDeclaration/error")
+            Redirect("/consent-and-declaration/error")
           }
           case _ => {
             Logger.info(s"Received result : $result")

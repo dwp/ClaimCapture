@@ -12,7 +12,8 @@ import controllers.Mappings._
 object G4LivesInGB extends Controller with CarersAllowanceRouting with CachedClaim {
   val form = Form(
     mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo))(LivesInGB.apply)(LivesInGB.unapply))
+      "answer" -> nonEmptyText.verifying(validYesNo)
+    )(LivesInGB.apply)(LivesInGB.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s1_carers_allowance.g4_livesInGB(form.fill(LivesInGB), completedQuestionGroups(LivesInGB)))

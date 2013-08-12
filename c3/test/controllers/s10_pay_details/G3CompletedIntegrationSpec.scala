@@ -15,10 +15,9 @@ class G3CompletedIntegrationSpec extends Specification with Tags {
     "be hidden when having state pension" in new WithBrowser {
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
-      browser.goTo("/payDetails/completed")
+      browser.goTo("/pay-details/completed")
       browser.title shouldEqual "Additional Information - Consent And Declaration"
     }
-
 
     "contain the completed forms" in new WithBrowser with G1HowWePayYouPageContext {
       val claim = ClaimScenarioFactory.s6PayDetails()

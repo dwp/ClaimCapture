@@ -14,7 +14,7 @@ object NormalResidenceAndCurrentLocation extends QuestionGroup.Identifier {
   val id = s"${TimeSpentAbroad.id}.g1"
 }
 
-case class AbroadForMoreThan4Weeks(anyTrips: String="") extends QuestionGroup(AbroadForMoreThan4Weeks)
+case class AbroadForMoreThan4Weeks(anyTrips: String = "") extends QuestionGroup(AbroadForMoreThan4Weeks)
 
 object AbroadForMoreThan4Weeks extends QuestionGroup.Identifier {
   val id = s"${TimeSpentAbroad.id}.g2"

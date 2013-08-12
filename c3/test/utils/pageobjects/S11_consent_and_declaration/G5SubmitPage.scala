@@ -1,6 +1,6 @@
 package utils.pageobjects.S11_consent_and_declaration
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 /**
@@ -8,9 +8,7 @@ import utils.pageobjects.{PageContext, Page}
  * @author Jorge Migueis
  *         Date: 05/08/2013
  */
-class G5SubmitPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5SubmitPage.url, G5SubmitPage.title, previousPage) {
-
-}
+class G5SubmitPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5SubmitPage.url, G5SubmitPage.title, previousPage)
 
 /**
  * Companion object that integrates factory method.
@@ -18,12 +16,15 @@ class G5SubmitPage (browser: TestBrowser, previousPage: Option[Page] = None) ext
  */
 object G5SubmitPage {
   val title = "Submit - Consent And Declaration"
-  val url = "/consentAndDeclaration/submit"
-  def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new G5SubmitPage(browser, previousPage)
+
+  val url = "/consent-and-declaration/submit"
+
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5SubmitPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G5SubmitPageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
+
   val page = G5SubmitPage buildPageWith browser
 }

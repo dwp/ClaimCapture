@@ -2,17 +2,17 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
+import controllers.{BrowserMatchers, Formulate}
 
 class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Their Personal Details" should {
     "be presented" in new WithBrowser {
-      browser.goTo("/careYouProvide/theirPersonalDetails")
+      browser.goTo("/care-you-provide/their-personal-details")
       browser.title mustEqual "Details of the person you care for - About the care you provide"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
-      browser.goTo("/careYouProvide/theirPersonalDetails")
+      browser.goTo("/care-you-provide/their-personal-details")
       browser.title mustEqual "Details of the person you care for - About the care you provide"
       browser.submit("button[type='submit']")
 
@@ -27,7 +27,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     """navigate back to "Completion - About Your Partner/Spouse" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser {
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
-      browser.goTo("/careYouProvide/theirPersonalDetails")
+      browser.goTo("/care-you-provide/their-personal-details")
       browser.click("#backButton")
       browser.title mustEqual "Completion - About Your Partner/Spouse"
     }
@@ -35,7 +35,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     """navigate back to "About You - Completed" when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser {
       Formulate.claimDate(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
-      browser.goTo("/careYouProvide/theirPersonalDetails")
+      browser.goTo("/care-you-provide/their-personal-details")
       browser.click("#backButton")
       browser.title mustEqual "Completion - About You"
     }

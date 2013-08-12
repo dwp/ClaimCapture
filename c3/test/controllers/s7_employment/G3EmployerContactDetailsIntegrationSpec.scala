@@ -7,18 +7,18 @@ import controllers.BrowserMatchers
 class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
   "Employer's contact details" should {
     "present" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/employment/employersContactDetails/dummyJobID")
+      browser.goTo("/employment/employers-contact-details/dummyJobID")
       titleMustEqual("Employer contact details - Employment")
     }
 
     "accept only mandatory data" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/employment/employersContactDetails/dummyJobID")
+      browser.goTo("/employment/employers-contact-details/dummyJobID")
       browser.submit("button[type='submit']")
       titleMustEqual("Last wage - Employment")
     }
 
     "accept all data" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/employment/employersContactDetails/dummyJobID")
+      browser.goTo("/employment/employers-contact-details/dummyJobID")
 
       browser.fill("#address_lineOne") `with` "Employer's address line one"
       browser.fill("#postcode") `with` "EC1 1DA"
@@ -31,7 +31,7 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
     """go back to "job details".""" in new WithBrowser with BrowserMatchers {
       skipped("Going back within a Job is not handled yet - going back is handled top level and we now have nested question groups")
 
-      browser.goTo("/employment/jobDetails")
+      browser.goTo("/employment/job-details")
       browser.fill("#employerName") `with` "Toys r not Us"
       browser.click("#finishedThisJob_no")
       browser.submit("button[type='submit']")

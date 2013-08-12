@@ -18,7 +18,7 @@ class G8OneWhoPaysPersonalDetailsIntegrationSpec extends Specification with Tags
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutTheCare(browser)
-      browser.goTo("/careYouProvide/oneWhoPaysPersonalDetails")
+      browser.goTo("/care-you-provide/one-who-pays-personal-details")
       titleMustEqual("Details of the person/organisation who pays you - About the care you provide")
       browser.fill("#amount") `with` "INVALID"
       browser.submit("button[type='submit']")

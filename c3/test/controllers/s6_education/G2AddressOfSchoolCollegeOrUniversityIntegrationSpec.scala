@@ -7,19 +7,19 @@ import controllers.{BrowserMatchers, Formulate}
 class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification with Tags {
   "Address of school, college or university" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
+      browser.goTo("/education/address-of-school-college-or-university")
       titleMustEqual("School, college or university's contact details - About your education")
     }
 
     "not be presented if section not visible" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
-      browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
+      browser.goTo("/education/address-of-school-college-or-university")
       titleMustNotEqual("School, college or university's contact details - About your education")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
-      browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
+      browser.goTo("/education/address-of-school-college-or-university")
       browser.fill("#postcode") `with` "INVALID"
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
@@ -43,7 +43,7 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
     }
     
     "navigate to next page on valid submission with only mandatory fields filled in" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/education/addressOfSchoolCollegeOrUniversity")
+      browser.goTo("/education/address-of-school-college-or-university")
       browser.submit("button[type='submit']")
       titleMustEqual("Completion - About your education")
     }

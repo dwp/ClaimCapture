@@ -16,7 +16,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
       Formulate.previousCarerPersonalDetails(browser)
       titleMustEqual("Contact details of previous or existing carer - About the care you provide")
 
-      browser.goTo("/careYouProvide/previousCarerContactDetails")
+      browser.goTo("/care-you-provide/previous-carer-contact-details")
       titleMustEqual("Contact details of previous or existing carer - About the care you provide")
     }
 
@@ -30,7 +30,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
       Formulate.previousCarerPersonalDetails(browser)
       titleMustEqual("Contact details of previous or existing carer - About the care you provide")
 
-      browser.goTo("/careYouProvide/previousCarerContactDetails")
+      browser.goTo("/care-you-provide/previous-carer-contact-details")
       titleMustEqual("Contact details of previous or existing carer - About the care you provide")
 
       browser.fill("#postcode") `with` "INVALID"
@@ -54,7 +54,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/careYouProvide/previousCarerContactDetails")
+      browser.goTo("/care-you-provide/previous-carer-contact-details")
       browser.submit("button[type='submit']")
       titleMustEqual("Representatives for the person you care for - About the care you provide")
     }

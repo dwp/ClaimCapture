@@ -28,7 +28,7 @@ class G2ConsentSpec extends Specification with Tags {
                                                          "informationFromPerson"->"yes")
 
       val result = G2Consent.submit(request)
-      redirectLocation(result) must beSome("/consentAndDeclaration/disclaimer")
+      redirectLocation(result) must beSome("/consent-and-declaration/disclaimer")
     }
   } section("unit", models.domain.ConsentAndDeclaration.id)
 }

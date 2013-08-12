@@ -7,6 +7,8 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import models.domain.HowWePayYou
+@import app.AccountStatus._
+@import app.PaymentFrequency._
 
 @main("How We Pay You - Pay Details", Some(currentForm)) {
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
@@ -16,9 +18,9 @@
             <legend>How would you like to get paid?</legend>
 
             <ul class="group">
-                @listRadioGroup(currentForm("likeToPay"), 'items -> Seq("01" -> "UK bank or building society account", "02" -> "You don't have an account but intend to open one", "03" -> "Other - you would like more information"), 'helperBelow -> Messages("howWePayYou.helper"))
+                @listRadioGroup(currentForm("likeToPay"), 'items -> Seq(BankBuildingAccount.name -> "UK bank or building society account", AppliedForAccount.name -> "You don't have an account but intend to open one", NotOpenAccount.name -> "Other - you would like more information"), 'helperBelow -> Messages("howWePayYou.helper"))
 
-                @carersSelect(currentForm("paymentFrequency"), Seq("" -> "Please Select", "everyWeek" -> "Every week", "fourWeekly" -> "Every four weeks"/*, "13W" -> "Every 13 weeks"*/))
+                @carersSelect(currentForm("paymentFrequency"), Seq("" -> "Please Select", EveryWeek.name -> "Every week", FourWeekly.name -> "Every four weeks"))
             </ul>
         </fieldset>
 

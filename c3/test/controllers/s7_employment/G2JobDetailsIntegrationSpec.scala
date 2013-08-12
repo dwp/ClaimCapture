@@ -7,18 +7,18 @@ import controllers.BrowserMatchers
 class G2JobDetailsIntegrationSpec extends Specification with Tags {
   "Details about your job" should {
     "present" in new WithBrowser {
-      browser.goTo("/employment/jobDetails")
+      browser.goTo("/employment/job-details")
       browser.title mustEqual "Job Details - Employment"
     }
 
     "show 2 errors upon submitting no mandatory data" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/employment/jobDetails").submit("button[type='submit']")
+      browser.goTo("/employment/job-details").submit("button[type='submit']")
       titleMustEqual("Job Details - Employment")
       findMustEqualSize("div[class=validation-summary] ol li", 2)
     }
 
     "accept only mandatory data" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/employment/jobDetails")
+      browser.goTo("/employment/job-details")
       browser.fill("#employerName") `with` "Toys r not Us"
       browser.click("#finishedThisJob_no")
 
@@ -33,8 +33,8 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
     """go back to "been employed?".""" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
-      browser.goTo("/employment/beenEmployed").click("#beenEmployed_yes").submit("button[type='submit']")
-      browser.goTo("/employment/jobDetails").click("#backButton")
+      browser.goTo("/employment/been-employed").click("#beenEmployed_yes").submit("button[type='submit']")
+      browser.goTo("/employment/job-details").click("#backButton")
       titleMustEqual("Your employment history - Employment")
     }
 
@@ -44,7 +44,7 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       jobDetails
       jobDetails
 
-      browser.goTo("/employment/beenEmployed")
+      browser.goTo("/employment/been-employed")
       browser.$("#jobs table tbody tr").size() shouldEqual 2
 
       browser.findFirst("input[value='Edit']").click()
@@ -56,7 +56,7 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
     this: WithBrowser[_] =>
 
     def jobDetails(): Unit = {
-      browser.goTo("/employment/jobDetails")
+      browser.goTo("/employment/job-details")
 
       browser.fill("#employerName") `with` "Toys r not Us"
 

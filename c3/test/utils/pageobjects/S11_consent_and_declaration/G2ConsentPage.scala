@@ -1,6 +1,6 @@
 package utils.pageobjects.S11_consent_and_declaration
 
-import play.api.test.TestBrowser
+import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 /**
@@ -9,7 +9,6 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 05/08/2013
  */
 class G2ConsentPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2ConsentPage.url, G2ConsentPage.title, previousPage) {
-
   declareYesNo("#informationFromEmployer", "ConsentDeclarationGettingInformationFromAnyEmployer")
   declareInput("#why", "ConsentDeclarationTellUsWhyEmployer")
   declareYesNo("#informationFromPerson","ConsentDeclarationGettingInformationFromAnyOther")
@@ -22,12 +21,15 @@ class G2ConsentPage (browser: TestBrowser, previousPage: Option[Page] = None) ex
  */
 object G2ConsentPage {
   val title = "Consent - Consent And Declaration"
-  val url = "/consentAndDeclaration/consent"
+
+  val url = "/consent-and-declaration/consent"
+
   def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new G2ConsentPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G2ConsentPagePageContext extends PageContext {
-  this: {val browser:TestBrowser}  =>
+  this: WithBrowser[_] =>
+
   val page = G2ConsentPage buildPageWith browser
 }

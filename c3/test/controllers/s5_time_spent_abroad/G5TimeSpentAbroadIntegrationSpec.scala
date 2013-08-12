@@ -13,7 +13,7 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       titleMustEqual(Messages("s5.g2") + " - Time Spent Abroad")
 
       Formulate.abroadForMoreThan4Weeks(browser)
-      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
 
       Formulate.abroadForMoreThan52Weeks(browser)
       titleMustEqual("Completion - Time Spent Abroad")
@@ -27,7 +27,7 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       titleMustEqual(Messages("s5.g2") + " - Time Spent Abroad")
 
       Formulate.abroadForMoreThan4Weeks(browser)
-      titleMustEqual("When you went abroad for more than 52 - Time Spent Abroad")
+      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
 
       Formulate.abroadForMoreThan52Weeks(browser)
       titleMustEqual("Completion - Time Spent Abroad")

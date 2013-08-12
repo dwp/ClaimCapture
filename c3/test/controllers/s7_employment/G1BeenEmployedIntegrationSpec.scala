@@ -11,14 +11,14 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
     "present, having indicated that the carer has been employed" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
-      browser.goTo("/employment/beenEmployed")
+      browser.goTo("/employment/been-employed")
       titleMustEqual("Your employment history - Employment")
     }
 
    """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with BrowserMatchers with NotEmployedSinceClaimDate {
       beginClaim
 
-      browser.goTo("/employment/beenEmployed")
+      browser.goTo("/employment/been-employed")
 
       titleMustEqual("About Other Money - Other Money")
     }
@@ -26,14 +26,14 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
     "start employment entry" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
-      browser.goTo("/employment/beenEmployed").click("#beenEmployed_yes").submit("button[type='submit']")
+      browser.goTo("/employment/been-employed").click("#beenEmployed_yes").submit("button[type='submit']")
       titleMustEqual("Job Details - Employment")
     }
 
     "show 1 error upon submitting no mandatory data" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
-      browser.goTo("/employment/beenEmployed").submit("button[type='submit']")
+      browser.goTo("/employment/been-employed").submit("button[type='submit']")
       titleMustEqual("Your employment history - Employment")
       findMustEqualSize("div[class=validation-summary] ol li", 1)
     }
@@ -41,14 +41,14 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
     """continue to "completion" when there are no more "jobs" to submit.""" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
-      browser.goTo("/employment/beenEmployed").click("#beenEmployed_no").submit("button[type='submit']")
+      browser.goTo("/employment/been-employed").click("#beenEmployed_no").submit("button[type='submit']")
       titleMustEqual("Completion - Employment")
     }
 
     """go back to "education".""" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
-      browser.goTo("/employment/beenEmployed").click("#backButton")
+      browser.goTo("/employment/been-employed").click("#backButton")
       titleMustEqual("Completion - About your education")
     }
   } section("integration", models.domain.Employed.id)
