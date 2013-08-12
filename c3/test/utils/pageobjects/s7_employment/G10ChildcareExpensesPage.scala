@@ -12,7 +12,7 @@ final class G10ChildcareExpensesPage(browser: TestBrowser, previousPage: Option[
 }
 
 object G10ChildcareExpensesPage {
-  val title = "Childcare expenses while you are at work - Employment"
+  val title = "Childcare expenses while you are at work - Employment History"
 
   val url  = "/employment/childcare-expenses/:jobID"
 

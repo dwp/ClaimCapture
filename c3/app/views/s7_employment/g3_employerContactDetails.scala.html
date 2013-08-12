@@ -9,7 +9,7 @@
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.JobID
 
-@main("Employer contact details - Employment", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
@@ -17,7 +17,7 @@
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
-            <legend>Employer's contact details</legend>
+            <legend>@Messages("s7.g3")</legend>
 
             <ul class="group">
                 @inputAddress(currentForm("address"))

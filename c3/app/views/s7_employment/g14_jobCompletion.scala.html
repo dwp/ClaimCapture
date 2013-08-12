@@ -8,7 +8,7 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
-@main("Job Completion - Employment", None, completedQuestionGroups) {
+@main("Job Completion - " + Messages("s7.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G14JobCompletion.submit()) {
         <nav class="form-steps">
             <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>

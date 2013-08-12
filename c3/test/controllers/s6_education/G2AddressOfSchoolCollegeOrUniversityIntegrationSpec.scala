@@ -34,7 +34,7 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
       Formulate.yourCourseDetails(browser)
       titleMustEqual("School, college or university's contact details - About your education")
       browser.click("#backButton")
-      titleMustEqual("Your Course Details - About your education")
+      titleMustEqual("Your course details - About your education")
     }
 
     "navigate to next page on valid submission with all fields filled in" in new WithBrowser with BrowserMatchers {

@@ -6,15 +6,15 @@ import controllers.{Formulate, BrowserMatchers}
 import play.api.i18n.Messages
 
 class EmploymentIntegrationSpec extends Specification with Tags {
-  "Employment" should {
+  "Employment - Integration" should {
     "present completion" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/completed")
-      titleMustEqual("Completion - Employment")
+      titleMustEqual("Completion - Employment History")
     }
 
     """progress to next section i.e. "self employed".""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/completed")
-      titleMustEqual("Completion - Employment")
+      titleMustEqual("Completion - Employment History")
 
       browser.submit("button[type='submit']")
       titleMustEqual("Self Employment - About Self Employment")
@@ -24,10 +24,10 @@ class EmploymentIntegrationSpec extends Specification with Tags {
       beginClaim
 
       browser.goTo("/employment/completed")
-      titleMustEqual("Completion - Employment")
+      titleMustEqual("Completion - Employment History")
 
       browser.click("#backButton")
-      titleMustEqual("Your employment history - Employment")
+      titleMustEqual("Your employment history - Employment History")
     }
   } section("integration", models.domain.Employed.id)
 }
@@ -37,10 +37,10 @@ trait EmployedSinceClaimDate extends BrowserMatchers {
 
   def beginClaim = {
     Formulate.claimDate(browser)
-    titleMustEqual(Messages("s2.g5") + " - About You")
+    titleMustEqual(Messages("s2.g5") + " - About you - the carer")
 
     Formulate.employment(browser)
-    titleMustEqual(Messages("s2.g7") + " - About You")
+    titleMustEqual(Messages("s2.g7") + " - About you - the carer")
   }
 }
 
@@ -55,6 +55,6 @@ trait NotEmployedSinceClaimDate extends BrowserMatchers {
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
     browser.submit("button[type='submit']")
 
-    titleMustEqual(Messages("s2.g7") + " - About You")
+    titleMustEqual(Messages("s2.g7") + " - About you - the carer")
   }
 }

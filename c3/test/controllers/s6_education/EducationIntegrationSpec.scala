@@ -43,7 +43,7 @@ class EducationIntegrationSpec extends Specification with Tags {
 
       browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
       browser.submit("button[type='submit']")
-      titleMustEqual("Job Details - Employment")
+      titleMustEqual("Your job - Employment History")
     }
   } section("integration", models.domain.Education.id)
 }

@@ -12,7 +12,7 @@ final class G6MoneyOwedByEmployerPage(browser: TestBrowser, previousPage: Option
 }
 
 object G6MoneyOwedByEmployerPage {
-  val title = "Money owed to you by your employer - Employment"
+  val title = "Money owed to you by your employer - Employment History"
 
   val url  = "/employment/money-owed-by-employer/:jobID"
 

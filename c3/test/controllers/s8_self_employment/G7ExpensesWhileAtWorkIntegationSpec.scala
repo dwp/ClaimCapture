@@ -10,7 +10,7 @@ import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 
 class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
 
-  "Expenses related to the person you care for while at work" should {
+  "Expenses related to the Person you care for while at work" should {
     "be presented" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses

@@ -5,14 +5,14 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("Relationship and other claims - About the care you provide", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s4.g3") + " - " + Messages("s4.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s4_care_you_provide.routes.G3RelationshipAndOtherClaims.submit) {
 
         <fieldset class="form-elements">
-            <legend>Relationship and other claims</legend>
+            <legend>@Messages("s4.g2")</legend>
 
             <ul class="group">
                 @relationshipSelect(currentForm("relationship"))

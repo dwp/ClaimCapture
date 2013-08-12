@@ -8,13 +8,13 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
   "Employer's contact details" should {
     "present" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/employers-contact-details/dummyJobID")
-      titleMustEqual("Employer contact details - Employment")
+      titleMustEqual("Employer's contact details - Employment History")
     }
 
     "accept only mandatory data" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/employers-contact-details/dummyJobID")
       browser.submit("button[type='submit']")
-      titleMustEqual("Last wage - Employment")
+      titleMustEqual("Your last wage - Employment History")
     }
 
     "accept all data" in new WithBrowser with BrowserMatchers {
@@ -25,7 +25,7 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
       browser.fill("#phoneNumber") `with` "0207 111 2222"
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Last wage - Employment")
+      titleMustEqual("Your last wage - Employment History")
     }
 
     """go back to "job details".""" in new WithBrowser with BrowserMatchers {
@@ -35,10 +35,10 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
       browser.fill("#employerName") `with` "Toys r not Us"
       browser.click("#finishedThisJob_no")
       browser.submit("button[type='submit']")
-      titleMustEqual("Employer contact details - Employment")
+      titleMustEqual("Employer's contact details - Employment History")
 
       browser.click("#backButton")
-      titleMustEqual("Job Details - Employment")
+      titleMustEqual("Your job - Employment History")
     }
   } section("integration", models.domain.Employed.id)
 }

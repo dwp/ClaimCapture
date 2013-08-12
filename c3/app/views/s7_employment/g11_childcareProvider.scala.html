@@ -9,12 +9,12 @@
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.JobID
 
-@main("Childcare provider's contact details - Employment", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s7.g11") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G11ChildcareProvider.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
-            <legend>Childcare provider's contact details</legend>
+            <legend>@Messages("s7.g10")</legend>
 
             <ul class="group">
                 @inputAddress(currentForm("address"))

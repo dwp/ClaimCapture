@@ -9,7 +9,7 @@ import models.domain.Claim
 import scala.Some
 
 class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
-  "Expenses related to the person you care for while at work - Self Employment - Controller" should {
+  "Expenses related to the Person you care for while at work - Self Employment - Controller" should {
     val howMuchYouPay = "123"
     val nameOfPerson = "b"
     val whatRelationIsToYou = "c"
@@ -21,7 +21,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
           "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
       )
 
-    "present 'Expenses related to the person you care for while at work' " in new WithApplication with Claiming {
+    "present 'Expenses related to the Person you care for while at work' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
         .withFormUrlEncodedBody("doYouPayToPensionScheme.answer" -> "no", "doYouPayToLookAfterYourChildren" -> "yes","didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 

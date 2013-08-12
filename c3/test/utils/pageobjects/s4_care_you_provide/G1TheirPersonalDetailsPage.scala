@@ -23,7 +23,7 @@ final class G1TheirPersonalDetailsPage (browser: TestBrowser, previousPage: Opti
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1TheirPersonalDetailsPage {
-  val title = "Details of the person you care for - About the care you provide"
+  val title = "Details of the Person you care for - About the care you provide"
 
   val url  = "/care-you-provide/their-personal-details"
 

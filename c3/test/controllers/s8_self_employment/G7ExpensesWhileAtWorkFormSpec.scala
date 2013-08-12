@@ -3,7 +3,7 @@ package controllers.s8_self_employment
 import org.specs2.mutable.{Tags, Specification}
 
 class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
-  "Expenses related to the person you care for while at work - Self Employment Form" should {
+  "Expenses related to the Person you care for while at work - Self Employment Form" should {
     val howMuchYouPay = "123"
     val nameOfPerson = "b"
     val whatRelationIsToYou = "c"

@@ -31,7 +31,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
     "navigate back" in new WithBrowser with BrowserMatchers {
       Formulate.representativesForThePerson(browser)
       browser.click("#backButton")
-      titleMustEqual("Representatives for the person you care for - About the care you provide")
+      titleMustEqual("Representatives for the Person you care for - About the care you provide")
     }
 
     "contain the completed forms" in new WithBrowser {
@@ -48,12 +48,12 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       titleMustEqual("Contact details of previous or existing carer - About the care you provide")
 
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives for the person you care for - About the care you provide")
+      titleMustEqual("Representatives for the Person you care for - About the care you provide")
 
       browser.click("#actForPerson_no")
       browser.click("#someoneElseActForPerson_no")
       browser.submit("button[type='submit']")
-      titleMustEqual("Representatives for the person you care for - About the care you provide")
+      titleMustEqual("Representatives for the Person you care for - About the care you provide")
 
       browser.click("#backButton")
       titleMustEqual("Contact details of previous or existing carer - About the care you provide")
@@ -69,13 +69,13 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.previousCarerPersonalDetails(browser)
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives for the person you care for - About the care you provide")
+      titleMustEqual("Representatives for the Person you care for - About the care you provide")
       browser.click("#actForPerson_yes")
       browser.click("#actAs option[value='guardian']")
       browser.click("#someoneElseActForPerson_yes")
       browser.click("#someoneElseActAs option[value='attorney']")
       browser.submit("button[type='submit']")
-      titleMustEqual("Representatives for the person you care for - About the care you provide") // Landed on S4 G7
+      titleMustEqual("Representatives for the Person you care for - About the care you provide") // Landed on S4 G7
       browser.click("#backButton")
       titleMustEqual("Contact details of previous or existing carer - About the care you provide")
       browser.click("#backButton")

@@ -1,7 +1,7 @@
 package controllers.s8_self_employment
 
 import language.reflectiveCalls
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
@@ -9,6 +9,9 @@ import models.domain._
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment.whenSectionVisible
+import utils.helpers.PastPresentLabelHelper._
+import play.api.data.FormError
+import scala.Some
 
 object G5ChildcareExpensesWhileAtWork extends Controller with SelfEmploymentRouting with CachedClaim {
   def form(implicit claim: Claim) = Form(
@@ -44,6 +47,8 @@ object G5ChildcareExpensesWhileAtWork extends Controller with SelfEmploymentRout
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
+          .replaceError("howMuchYouPay", "error.required", FormError("howMuchYouPay", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
+          .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s8_self_employment.g5_childcareExpensesWhileAtWork(formWithErrorsUpdate, completedQuestionGroups(ChildcareExpensesWhileAtWork)))
       },

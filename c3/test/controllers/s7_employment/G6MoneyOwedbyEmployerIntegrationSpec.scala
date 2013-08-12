@@ -6,7 +6,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
 
 class G6MoneyOwedbyEmployerIntegrationSpec extends Specification with Tags {
-  "Money owed by Employer" should {
+  "Money owed to you by your employer" should {
     "be presented" in new WithBrowser with G5AdditionalWageDetailsPageContext {
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
