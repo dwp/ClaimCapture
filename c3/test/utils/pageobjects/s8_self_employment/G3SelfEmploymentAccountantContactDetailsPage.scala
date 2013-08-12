@@ -6,7 +6,7 @@ import utils.pageobjects.{PageContext, Page}
 final class G3SelfEmploymentAccountantContactDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3SelfEmploymentAccountantContactDetailsPage.url, G3SelfEmploymentAccountantContactDetailsPage.title, previousPage) {
   declareInput("#accountantsName", "SelfEmployedAccountantName")
   declareAddress("#address", "SelfEmployedAccountantAddress")
-  declareInput("#postCode", "SelfEmployedAccountantPostcode")
+  declareInput("#postcode", "SelfEmployedAccountantPostcode")
   declareInput("#telephoneNumber", "SelfEmployedAccountantTelephoneNumber")
   declareInput("#faxNumber", "SelfEmployedAccountantFaxNumber")
 }
