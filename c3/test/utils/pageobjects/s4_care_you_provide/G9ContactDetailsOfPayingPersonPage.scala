@@ -18,7 +18,7 @@ final class G9ContactDetailsOfPayingPersonPage (browser: TestBrowser, previousPa
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G9ContactDetailsOfPayingPersonPage {
-  val title = "Contact details of the person who pays you - About the care you provide"
+  val title = "Contact details of the person who pays you - About the care you provide".toLowerCase
 
   val url  = "/care-you-provide/contact-details-of-paying-person"
 

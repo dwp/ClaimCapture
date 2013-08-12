@@ -9,7 +9,7 @@ final class G11ChildcareProviderPage(browser: TestBrowser, previousPage: Option[
 }
 
 object G11ChildcareProviderPage {
-  val title = "Childcare provider's contact details - Employment History"
+  val title = "Childcare provider's contact details - Employment History".toLowerCase
 
   val url  = "/employment/childcare-provider/:jobID"
 

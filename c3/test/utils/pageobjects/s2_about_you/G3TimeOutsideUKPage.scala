@@ -22,7 +22,7 @@ final class G3TimeOutsideUKPage(browser: TestBrowser, previousPage: Option[Page]
  * It is used by PageFactory object defined in Page.scala
  */
 object G3TimeOutsideUKPage {
-  val title = "About your time outside the UK - About you - the carer"
+  val title = "About your time outside the UK - About you - the carer".toLowerCase
 
   val url  = "/about-you/time-outside-uk"
 

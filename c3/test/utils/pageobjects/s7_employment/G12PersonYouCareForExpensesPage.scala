@@ -11,7 +11,7 @@ final class G12PersonYouCareForExpensesPage(browser: TestBrowser, previousPage: 
 }
 
 object G12PersonYouCareForExpensesPage {
-  val title = "Expenses related to the person you care for, while you are at work - Employment History"
+  val title = "Expenses related to the person you care for, while you are at work - Employment History".toLowerCase
 
   val url  = "/employment/person-you-care-for-expenses/:jobID"
 

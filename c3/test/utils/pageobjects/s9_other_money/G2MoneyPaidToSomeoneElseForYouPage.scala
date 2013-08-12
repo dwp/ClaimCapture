@@ -8,7 +8,7 @@ final class G2MoneyPaidToSomeoneElseForYouPage(browser: TestBrowser, previousPag
 }
 
 object G2MoneyPaidToSomeoneElseForYouPage {
-  val title = "Money Paid - Other Money"
+  val title = "Money Paid - Other Money".toLowerCase
 
   val url  = "/other-money/money-paid-to-someone-else-for-you"
 

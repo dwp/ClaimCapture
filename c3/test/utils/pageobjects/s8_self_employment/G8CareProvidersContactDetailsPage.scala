@@ -9,8 +9,7 @@ final class G8CareProvidersContactDetailsPage(browser: TestBrowser, previousPage
 }
 
 object G8CareProvidersContactDetailsPage {
-  val title = "Care provider's contact details - About self-employment"
-
+  val title = "Care provider's contact details - About self-employment".toLowerCase
   val url = "/self-employment/care-providers-contact-details"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G8CareProvidersContactDetailsPage(browser, previousPage)

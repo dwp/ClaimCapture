@@ -8,7 +8,7 @@ final class G14JobCompletionPage(browser: TestBrowser, previousPage: Option[Page
 }
 
 object G14JobCompletionPage {
-  val title = "Job Completion - Employment History"
+  val title = "Job Completion - Employment History".toLowerCase
 
   val url  = "/employment/job-completion/:jobID"
 

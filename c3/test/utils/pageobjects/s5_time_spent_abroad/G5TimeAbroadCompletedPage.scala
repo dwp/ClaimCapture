@@ -15,7 +15,7 @@ class G5TimeAbroadCompletedPage (browser: TestBrowser, previousPage: Option[Page
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G5TimeAbroadCompletedPage {
-  val title = "Completion - Time Spent Abroad"
+  val title = "Completion - Time Spent Abroad".toLowerCase
 
   val url  = "/time-spent-abroad/completed"
 

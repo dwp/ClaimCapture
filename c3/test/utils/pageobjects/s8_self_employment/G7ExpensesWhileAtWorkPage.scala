@@ -11,8 +11,7 @@ final class G7ExpensesWhileAtWorkPage(browser: TestBrowser, previousPage: Option
 }
 
 object G7ExpensesWhileAtWorkPage {
-  val title = "Expenses related to the person you care for while at work - About self-employment"
-
+  val title = "Expenses related to the person you care for while at work - About self-employment".toLowerCase
   val url = "/self-employment/expenses-while-at-work"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G7ExpensesWhileAtWorkPage(browser, previousPage)

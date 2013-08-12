@@ -19,7 +19,7 @@ class G1HowWePayYouPage(browser: TestBrowser, previousPage: Option[Page] = None)
  * efined in Page.scala
  */
 object G1HowWePayYouPage {
-  val title = "How We Pay You - Pay Details"
+  val title = "How We Pay You - Pay Details".toLowerCase
 
   val url  = "/pay-details/how-we-pay-you"
 

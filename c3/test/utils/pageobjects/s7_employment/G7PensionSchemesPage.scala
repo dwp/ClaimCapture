@@ -13,7 +13,7 @@ final class G7PensionSchemesPage(browser: TestBrowser, previousPage: Option[Page
 }
 
 object G7PensionSchemesPage {
-  val title = "Pension schemes - Employment History"
+  val title = "Pension schemes - Employment History".toLowerCase
 
   val url  = "/employment/pension-schemes/:jobID"
 

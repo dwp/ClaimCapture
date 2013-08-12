@@ -21,7 +21,7 @@ final class G3MoreAboutYourPartnerPage (browser: TestBrowser, previousPage: Opti
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G3MoreAboutYourPartnerPage {
-  val title = "More about your Partner/Spouse - About your partner/spouse"
+  val title = "More about your Partner/Spouse - About your partner/spouse".toLowerCase
 
   val url  = "/your-partner/more-about-your-partner"
 

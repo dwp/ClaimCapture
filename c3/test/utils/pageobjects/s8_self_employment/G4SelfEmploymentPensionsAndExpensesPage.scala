@@ -11,8 +11,7 @@ final class G4SelfEmploymentPensionsAndExpensesPage (browser: TestBrowser, previ
 }
 
 object G4SelfEmploymentPensionsAndExpensesPage {
-  val title = "Pensions and expenses - About self-employment"
-
+  val title = "Pensions and expenses - About self-employment".toLowerCase
   val url = "/self-employment/pensions-and-expenses"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4SelfEmploymentPensionsAndExpensesPage(browser, previousPage)

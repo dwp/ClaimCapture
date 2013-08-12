@@ -29,7 +29,7 @@ class G4TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iterat
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G4TripPage {
-  val title = "Trips - Time Spent Abroad"
+  val title = "Trips - Time Spent Abroad".toLowerCase
 
   val url = "/time-spent-abroad/trip/4-weeks"
 

@@ -9,8 +9,7 @@ final class G6ChildcareProvidersContactDetailsPage(browser: TestBrowser, previou
 }
 
 object G6ChildcareProvidersContactDetailsPage {
-  val title = "Childcare provider's contact details - About self-employment"
-
+  val title = "Childcare provider's contact details - About self-employment".toLowerCase
   val url = "/self-employment/childcare-providers-contact-details"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G6ChildcareProvidersContactDetailsPage(browser, previousPage)
