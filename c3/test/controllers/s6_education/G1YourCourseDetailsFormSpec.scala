@@ -8,7 +8,7 @@ class G1YourCourseDetailsFormSpec extends Specification with Tags {
 
   val overHundredChars = "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS"
 
-  "Your Course Details Form" should {
+  "Your course details Form" should {
     "map data into case class" in {
       G1YourCourseDetails.form.bind(
         Map("courseType" -> "University", "courseTitle" -> "Law",

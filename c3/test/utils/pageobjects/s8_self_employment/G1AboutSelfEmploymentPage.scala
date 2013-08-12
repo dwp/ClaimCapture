@@ -12,7 +12,7 @@ final class G1AboutSelfEmploymentPage(browser: TestBrowser, previousPage: Option
 }
 
 object G1AboutSelfEmploymentPage {
-  val title = "Self Employment - About Self Employment"
+  val title = "Your job - About self-employment"
 
   val url = "/self-employment/about-self-employment"
 

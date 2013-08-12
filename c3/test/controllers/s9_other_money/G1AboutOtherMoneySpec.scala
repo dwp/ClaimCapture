@@ -14,7 +14,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     val yourBenefitsText = "bar"
     val formInput = Seq("yourBenefits.answer" -> yourBenefits, "yourBenefits.text" -> yourBenefitsText)
     
-    "present 'Your Course Details'" in new WithApplication with Claiming {
+    "present 'Your course details'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G1AboutOtherMoney.present(request)

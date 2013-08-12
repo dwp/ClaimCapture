@@ -22,7 +22,7 @@ class G1YourCourseDetailsPage (browser: TestBrowser, previousPage: Option[Page] 
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1YourCourseDetailsPage {
-  val title = "Your Course Details - About your education"
+  val title = "Your course details - About your education"
 
   val url  = "/education/your-course-details"
 

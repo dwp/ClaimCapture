@@ -9,7 +9,7 @@ final class G8CareProvidersContactDetailsPage(browser: TestBrowser, previousPage
 }
 
 object G8CareProvidersContactDetailsPage {
-  val title = "Care provider's contact Details - Self Employment"
+  val title = "Care provider's contact details - About self-employment"
 
   val url = "/self-employment/care-providers-contact-details"
 

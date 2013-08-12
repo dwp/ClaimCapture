@@ -30,7 +30,7 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
 
-    "navigate back to Your Course Details" in new WithBrowser with BrowserMatchers {
+    "navigate back to Your course details" in new WithBrowser with BrowserMatchers {
       Formulate.yourCourseDetails(browser)
       titleMustEqual("School, college or university's contact details - About your education")
       browser.click("#backButton")
