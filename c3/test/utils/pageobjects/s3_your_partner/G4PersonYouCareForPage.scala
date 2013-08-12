@@ -9,8 +9,7 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 24/07/2013
  */
 final class G4PersonYouCareForPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4PersonYouCareForPage.url, G4PersonYouCareForPage.title, previousPage){
-  
-    declareYesNo("#isPartnerPersonYouCareFor", "AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor")
+  declareYesNo("#isPartnerPersonYouCareFor", "AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor")
 }
 
 /**
@@ -19,12 +18,15 @@ final class G4PersonYouCareForPage (browser: TestBrowser, previousPage: Option[P
  */
 object G4PersonYouCareForPage {
   val title = "Person You Care For - About Your Partner/Spouse"
-  val url  = "/yourPartner/personYouCareFor"
+
+  val url  = "/your-partner/person-you-care-for"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4PersonYouCareForPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G4PersonYouCareForPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G4PersonYouCareForPage buildPageWith browser
 }

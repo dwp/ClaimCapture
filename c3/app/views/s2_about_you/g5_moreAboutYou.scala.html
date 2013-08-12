@@ -7,14 +7,14 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main("More About You - About You", completedQuestionGroups) {
+@main(Messages("s2.g5") + " - About You", completedQuestionGroups) {
     @errorsSummary(moreAboutYouForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G5MoreAboutYou.submit) {
         <fieldset class="form-elements">
-            <legend>More about you</legend>
+            <legend>@Messages("s2.g5")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))

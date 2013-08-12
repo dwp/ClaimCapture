@@ -10,7 +10,7 @@ import play.api.test.TestBrowser
  *         Date: 11/07/2013
  */
 trait WebSearchActions {
-  this: {val browser: TestBrowser} =>
+  this: { val browser: TestBrowser } =>
 
   def isSpecifiedSectionCompleted(index: Integer, name: String, value: String, location: String = "div[class=completed] ul li") = {
     val completed = browser.find(location).get(index).getText

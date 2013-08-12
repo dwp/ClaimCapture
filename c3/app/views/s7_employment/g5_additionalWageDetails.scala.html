@@ -8,6 +8,7 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.JobID
+@import utils.helpers.PastPresentLabelHelper._
 
 @main("Additional wage details - Employment", Some(currentForm), completedQuestionGroups) {
 
@@ -20,13 +21,15 @@
             <legend>Additional wage details</legend>
 
             <ul class="group">
-                @paymentFrequency(currentForm("oftenGetPaid"), "frequency", Seq("W" -> "Weekly", "FN" -> "Fortnightly", "4W" -> "Four-weekly", "M" -> "Monthly", "other" -> "Other"))
+                @paymentFrequency(currentForm("oftenGetPaid"),
+                "frequency", Seq("W" -> "Weekly", "FN" -> "Fortnightly", "4W" -> "Four-weekly", "M" -> "Monthly", "other" -> "Other"),
+                '_label -> Messages ("oftenGetPaid_frequency", pastPresentLabelForEmployment(claim, wereYou, areYou, JobID(currentForm))))
 
-                @carersInputText(currentForm("whenGetPaid"))
+                @carersInputText(currentForm("whenGetPaid"), '_label -> Messages ("whenGetPaid", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, JobID(currentForm))))
 
-                @yesNoRadioGroup(currentForm("holidaySickPay"))
+                @yesNoRadioGroup(currentForm("holidaySickPay"), '_label -> Messages ("holidaySickPay", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
 
-                @yesNoRadioGroup(currentForm("anyOtherMoney"))
+                @yesNoRadioGroup(currentForm("anyOtherMoney"), '_label -> Messages ("anyOtherMoney", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(carersInputTextArea(currentForm("otherMoney"), 'placeholder -> Messages("please.specify"))),

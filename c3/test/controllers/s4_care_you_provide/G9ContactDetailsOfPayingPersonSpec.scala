@@ -19,7 +19,7 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification with Tags {
       Cache.set(claimKey, claim)
 
       val result = G9ContactDetailsOfPayingPerson.present(request)
-      redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
+      redirectLocation(result) must beSome("/care-you-provide/breaks-in-care")
     }
 
     """present when "someone has paid you to look after this person" """ in new WithApplication with Claiming {
@@ -39,7 +39,7 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification with Tags {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G9ContactDetailsOfPayingPerson.submit(request)
-      redirectLocation(result) must beSome("/careYouProvide/breaksInCare")
+      redirectLocation(result) must beSome("/care-you-provide/breaks-in-care")
 
       val claim = Cache.getAs[Claim](claimKey).get
 

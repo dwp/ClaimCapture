@@ -9,15 +9,13 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 29/07/2013
  */
 final class G8OneWhoPaysPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G8OneWhoPaysPersonalDetailsPage.url, G8OneWhoPaysPersonalDetailsPage.title, previousPage) {
-  
-    declareInput("#organisation", "AboutTheCareYouProvideOrganisationPaysYou")
-    declareSelect("#title", "AboutTheCareYouProvideTitlePersonPaysYou")
-    declareInput("#firstName", "AboutTheCareYouProvideFirstNamePersonPaysYou")
-    declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePersonCareFor")
-    declareInput("#surname", "AboutTheCareYouProvideSurnamePersonPaysYou")
-    declareInput("#amount", "AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek")
-    declareDate("#startDatePayment", "AboutTheCareYouProvideWhenDidThePaymentsStart")
-  
+  declareInput("#organisation", "AboutTheCareYouProvideOrganisationPaysYou")
+  declareSelect("#title", "AboutTheCareYouProvideTitlePersonPaysYou")
+  declareInput("#firstName", "AboutTheCareYouProvideFirstNamePersonPaysYou")
+  declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePersonCareFor")
+  declareInput("#surname", "AboutTheCareYouProvideSurnamePersonPaysYou")
+  declareInput("#amount", "AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek")
+  declareDate("#startDatePayment", "AboutTheCareYouProvideWhenDidThePaymentsStart")
 }
 
 /**
@@ -26,12 +24,15 @@ final class G8OneWhoPaysPersonalDetailsPage (browser: TestBrowser, previousPage:
  */
 object G8OneWhoPaysPersonalDetailsPage {
   val title = "Details of the person/organisation who pays you - About the care you provide"
-  val url  = "/careYouProvide/oneWhoPaysPersonalDetails"
+
+  val url  = "/care-you-provide/one-who-pays-personal-details"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G8OneWhoPaysPersonalDetailsPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G8OneWhoPaysPersonalDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G8OneWhoPaysPersonalDetailsPage buildPageWith browser
 }

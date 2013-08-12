@@ -8,6 +8,8 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import controllers.s7_employment.JobID
+@import utils.helpers.PastPresentLabelHelper._
+
 
 @main("Pension schemes - Employment", Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G7PensionSchemes.submit()) {
@@ -17,20 +19,20 @@
             <legend>Pension schemes</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("payOccupationalPensionScheme"))
+                @yesNoRadioGroup(currentForm("payOccupationalPensionScheme"), '_label -> Messages ("payOccupationalPensionScheme", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        carersInputText(currentForm("howMuchPension")),
+                        carersInputText(currentForm("howMuchPension"), '_label -> Messages ("howMuchPension", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
                         carersSelect(currentForm("howOftenPension"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))),
                     'id -> "payOccupationalPensionScheme",
                     'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
 
-                @yesNoRadioGroup(currentForm("payPersonalPensionScheme"))
+                @yesNoRadioGroup(currentForm("payPersonalPensionScheme"), '_label -> Messages ("payPersonalPensionScheme", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        carersInputText(currentForm("howMuchPersonal")),
+                        carersInputText(currentForm("howMuchPersonal"), '_label -> Messages ("howMuchPersonal", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
                         carersSelect(currentForm("howOftenPersonal"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))),
                     'id -> "payPersonalPensionScheme",
                     'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))

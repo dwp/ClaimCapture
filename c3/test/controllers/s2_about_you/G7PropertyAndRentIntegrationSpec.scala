@@ -4,18 +4,19 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G8AboutYouCompletedPage}
+import play.api.i18n.Messages
 
 class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
   "Property and Rent" should {
     "present Benefits when there is no claim date" in new WithBrowser {
-      browser.goTo("/aboutyou/propertyAndRent")
+      browser.goTo("/about-you/property-and-rent")
       browser.title mustEqual "Benefits - Can you get Carer's Allowance?"
     }
 
     "be presented when there is a claim date" in new WithBrowser {
       Formulate.claimDate(browser)
-      browser.goTo("/aboutyou/propertyAndRent")
-      browser.title mustEqual "Property and Rent - About You"
+      browser.goTo("/about-you/property-and-rent")
+      browser.title mustEqual Messages("s2.g7") + " - About You"
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
@@ -25,14 +26,14 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)
 
-      titleMustEqual("Property and Rent - About You")
+      titleMustEqual(Messages("s2.g7") + " - About You")
       findMustEqualSize("div[class=completed] ul li", 5)
     }
 
     "contain questions with claim dates" in new WithBrowser {
       val dateString = "03/04/1950"
       Formulate.claimDate(browser)
-      browser.goTo("/aboutyou/propertyAndRent")
+      browser.goTo("/about-you/property-and-rent")
       val h3 = browser.find("div[class=completed] ul li h3")
       h3.getText.contains(dateString) mustEqual true
 
@@ -43,8 +44,8 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      browser.goTo("/aboutyou/propertyAndRent")
-      browser.title mustEqual "Property and Rent - About You"
+      browser.goTo("/about-you/property-and-rent")
+      browser.title mustEqual Messages("s2.g7") + " - About You"
       browser.submit("button[type='submit']")
 
       browser.find("p[class=error]").size mustEqual 2

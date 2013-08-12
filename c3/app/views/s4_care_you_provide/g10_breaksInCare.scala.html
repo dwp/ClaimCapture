@@ -1,8 +1,21 @@
-@(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)], dateOfClaimFormatted: String)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@(yesNoForm: Form[models.yesNo.YesNo], breaksInCare: models.domain.BreaksInCare, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import models.domain.BreaksInCare
 @import views.html.helper._
-@import models.domain.{Claim, ClaimDate}
+@import models.domain.{Claim, ClaimDate, MoreAboutTheCare}
+
+@dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
+    import language.postfixOps
+
+    val spent35HoursCaringBeforeClaim = claim.questionGroup(MoreAboutTheCare) match {
+        case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim.answer == "yes"
+        case _ => false
+    }
+
+    claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+        if (spent35HoursCaringBeforeClaim) (dmy - 6 months).`dd/MM/yyyy`
+        else dmy.`dd/MM/yyyy`)
+}
 
 @main("Breaks in care - About the care you provide", Some(yesNoForm), completedQuestionGroups) {
     <fieldset id="breaks" class="form-elements results-detail">
@@ -68,7 +81,7 @@
 
             <ul class="group">
                 @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
-                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimFormatted))
+                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim))
                 }
             </ul>
         </fieldset>

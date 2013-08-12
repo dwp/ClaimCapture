@@ -5,7 +5,7 @@ $ ->
 
     $("tbody").on "click", "input[value='Change']", ->
         tr = $(this).closest("tr")
-        window.location.href = "/careYouProvide/breaks/" + tr.attr("id")
+        window.location.href = "/care-you-provide/breaks/" + tr.attr("id")
 
     $("#backButton").on "click", (event) ->
         if ($("#backButton").attr("disabled") == "disabled")
@@ -26,7 +26,7 @@ $ ->
             $("input[value='Yes']").on "click", ->
                 $.ajax
                     type: "DELETE"
-                    url: "/careYouProvide/breaksInCare/" + tr.attr("id")
+                    url: "/care-you-provide/breaks-in-care/" + tr.attr("id")
 
                     success: (data) ->
                         $("label[for='answer']").text(data.answer)

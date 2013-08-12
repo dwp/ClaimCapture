@@ -7,12 +7,12 @@ import controllers.{BrowserMatchers, Formulate}
 class G2ConsentIntegrationSpec extends Specification with Tags {
   "Consent" should {
     "be presented" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/consentAndDeclaration/consent")
+      browser.goTo("/consent-and-declaration/consent")
       titleMustEqual("Consent - Consent And Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/consentAndDeclaration/consent")
+      browser.goTo("/consent-and-declaration/consent")
       titleMustEqual("Consent - Consent And Declaration")
 
       browser.submit("button[type='submit']")

@@ -32,9 +32,7 @@ class G9NecessaryExpensesIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       val p = page submitPage()
-      p fillPageWith claim
-      val g8 = p submitPage()
-      g8 goBack() must beAnInstanceOf[G9NecessaryExpensesPage]
+      p goBack() must beAnInstanceOf[G8AboutExpensesPage]
     }
   } section("integration",models.domain.Employed.id)
 }

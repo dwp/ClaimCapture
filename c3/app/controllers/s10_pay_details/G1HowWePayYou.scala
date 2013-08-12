@@ -12,7 +12,7 @@ import PayDetails._
 object G1HowWePayYou extends Controller with CachedClaim{
   val form = Form(
     mapping(
-      "likeToPay" -> nonEmptyText(maxLength = 5),
+      "likeToPay" -> nonEmptyText(maxLength = 20),
       "paymentFrequency" -> nonEmptyText(maxLength = 15)
     )(HowWePayYou.apply)(HowWePayYou.unapply))
 

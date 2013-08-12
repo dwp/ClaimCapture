@@ -9,10 +9,9 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 10/07/2013
  */
 final class G6ApprovePage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6ApprovePage.url, G6ApprovePage.title, previousPage) {
-
   def isApproved =  browser.find(".prompt").size != 0 && browser.find(".prompt.error]").size == 0
-  def isNotApproved =  browser.find(".prompt.error]").size != 0
 
+  def isNotApproved =  browser.find(".prompt.error]").size != 0
 }
 
 /**
@@ -21,12 +20,15 @@ final class G6ApprovePage(browser: TestBrowser, previousPage: Option[Page] = Non
  */
 object G6ApprovePage {
   val title = "Can you get Carer's Allowance?"
+
   val url = "/allowance/approve"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G6ApprovePage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G6ApprovePageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G6ApprovePage buildPageWith browser
 }

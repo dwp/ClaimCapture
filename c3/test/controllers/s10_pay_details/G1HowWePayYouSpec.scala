@@ -27,7 +27,7 @@ class G1HowWePayYouSpec extends Specification with Tags {
                                                          "paymentFrequency"->"fourWeekly")
 
       val result = G1HowWePayYou.submit(request)
-      redirectLocation(result) must beSome("/payDetails/bankBuildingSocietyDetails")
+      redirectLocation(result) must beSome("/pay-details/bank-building-society-details")
     }
   } section("unit", models.domain.PayDetails.id)
 }

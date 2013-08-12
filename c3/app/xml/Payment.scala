@@ -4,17 +4,19 @@ import models.domain.{BankBuildingSocietyDetails, Claim, HowWePayYou}
 import xml.XMLHelper._
 import scala.xml.NodeSeq
 import scala.Some
+import app.AccountStatus
 
 object Payment {
 
   def xml(claim: Claim) = {
 
     val howWePayYou = claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())
-    val showAccount = howWePayYou.paymentFrequency == "01"
+
+    val showAccount = howWePayYou.likeToBePaid == AccountStatus.BankBuildingAccount.name
 
     <Payment>
       <PaymentFrequency>{howWePayYou.paymentFrequency}</PaymentFrequency>
-      <InitialAccountQuestion>bankBuildingAccount</InitialAccountQuestion>
+      <InitialAccountQuestion>{howWePayYou.likeToBePaid}</InitialAccountQuestion>
       {if (showAccount) account(claim) else NodeSeq.Empty}
     </Payment>
   }
@@ -24,7 +26,7 @@ object Payment {
 
     <Account>
       <DirectPayment>Not asked</DirectPayment>
-      <AccountHolder>Not asked</AccountHolder>
+      <AccountHolder>yourName</AccountHolder>
       <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
       <SecondHolderName/>
       <AccountType>bank</AccountType>
@@ -41,5 +43,7 @@ object Payment {
       </BuildingSocietyDetails>
     </Account>
   }
+
+
 
 }

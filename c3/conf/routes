@@ -3,303 +3,296 @@
 # ~~~~
 
 # Home page
-GET     /                                                       controllers.Application.index
+GET     /                                                               controllers.Application.index
 
 # Allowance
 ###############
-GET     /allowance/benefits                                     controllers.s1_carers_allowance.G1Benefits.present
-POST    /allowance/benefits                                     controllers.s1_carers_allowance.G1Benefits.submit
+GET     /allowance/benefits                                             controllers.s1_carers_allowance.G1Benefits.present
+POST    /allowance/benefits                                             controllers.s1_carers_allowance.G1Benefits.submit
 
-GET     /allowance/hours                                        controllers.s1_carers_allowance.G2Hours.present
-POST    /allowance/hours                                        controllers.s1_carers_allowance.G2Hours.submit
+GET     /allowance/hours                                                controllers.s1_carers_allowance.G2Hours.present
+POST    /allowance/hours                                                controllers.s1_carers_allowance.G2Hours.submit
 
-GET     /allowance/over16                                       controllers.s1_carers_allowance.G3Over16.present
-POST    /allowance/over16                                       controllers.s1_carers_allowance.G3Over16.submit
+GET     /allowance/over-16                                              controllers.s1_carers_allowance.G3Over16.present
+POST    /allowance/over-16                                              controllers.s1_carers_allowance.G3Over16.submit
 
-GET     /allowance/livesInGB                                    controllers.s1_carers_allowance.G4LivesInGB.present
-POST    /allowance/livesInGB                                    controllers.s1_carers_allowance.G4LivesInGB.submit
+GET     /allowance/lives-in-gb                                          controllers.s1_carers_allowance.G4LivesInGB.present
+POST    /allowance/lives-in-gb                                          controllers.s1_carers_allowance.G4LivesInGB.submit
 
-GET     /allowance/carersResponse                               controllers.s1_carers_allowance.G5CarersResponse.present
-POST    /allowance/carersResponse                               controllers.s1_carers_allowance.G5CarersResponse.submit
+GET     /allowance/carers-response                                      controllers.s1_carers_allowance.G5CarersResponse.present
+POST    /allowance/carers-response                                      controllers.s1_carers_allowance.G5CarersResponse.submit
 
-GET     /allowance/approve                                      controllers.s1_carers_allowance.CarersAllowance.approve
-POST    /allowance/approve                                      controllers.s1_carers_allowance.CarersAllowance.approveSubmit
+GET     /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approve
+POST    /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approveSubmit
 
 # About you
 ###############
-GET     /aboutyou/yourDetails                                   controllers.s2_about_you.G1YourDetails.present
-POST    /aboutyou/yourDetails                                   controllers.s2_about_you.G1YourDetails.submit
+GET     /about-you/your-details                                         controllers.s2_about_you.G1YourDetails.present
+POST    /about-you/your-details                                         controllers.s2_about_you.G1YourDetails.submit
 
-GET     /aboutyou/contactDetails                                controllers.s2_about_you.G2ContactDetails.present
-POST    /aboutyou/contactDetails                                controllers.s2_about_you.G2ContactDetails.submit
+GET     /about-you/contact-details                                      controllers.s2_about_you.G2ContactDetails.present
+POST    /about-you/contact-details                                      controllers.s2_about_you.G2ContactDetails.submit
 
-GET     /aboutyou/timeOutsideUK                                 controllers.s2_about_you.G3TimeOutsideUK.present
-POST    /aboutyou/timeOutsideUK                                 controllers.s2_about_you.G3TimeOutsideUK.submit
+GET     /about-you/time-outside-uk                                      controllers.s2_about_you.G3TimeOutsideUK.present
+POST    /about-you/time-outside-uk                                      controllers.s2_about_you.G3TimeOutsideUK.submit
 
-GET     /aboutyou/claimDate                                     controllers.s2_about_you.G4ClaimDate.present
-POST    /aboutyou/claimDate                                     controllers.s2_about_you.G4ClaimDate.submit
+GET     /about-you/claim-date                                           controllers.s2_about_you.G4ClaimDate.present
+POST    /about-you/claim-date                                           controllers.s2_about_you.G4ClaimDate.submit
 
-GET     /aboutyou/moreAboutYou                                  controllers.s2_about_you.G5MoreAboutYou.present
-POST    /aboutyou/moreAboutYou                                  controllers.s2_about_you.G5MoreAboutYou.submit
+GET     /about-you/more-about-you                                       controllers.s2_about_you.G5MoreAboutYou.present
+POST    /about-you/more-about-you                                       controllers.s2_about_you.G5MoreAboutYou.submit
 
-GET     /aboutyou/employment                                    controllers.s2_about_you.G6Employment.present
-POST    /aboutyou/employment                                    controllers.s2_about_you.G6Employment.submit
+GET     /about-you/employment                                           controllers.s2_about_you.G6Employment.present
+POST    /about-you/employment                                           controllers.s2_about_you.G6Employment.submit
 
-GET     /aboutyou/propertyAndRent                               controllers.s2_about_you.G7PropertyAndRent.present
-POST    /aboutyou/propertyAndRent                               controllers.s2_about_you.G7PropertyAndRent.submit
+GET     /about-you/property-and-rent                                    controllers.s2_about_you.G7PropertyAndRent.present
+POST    /about-you/property-and-rent                                    controllers.s2_about_you.G7PropertyAndRent.submit
 
-GET     /aboutyou/completed                                     controllers.s2_about_you.AboutYou.completed
-POST    /aboutyou/completed                                     controllers.s2_about_you.AboutYou.completedSubmit
+GET     /about-you/completed                                            controllers.s2_about_you.AboutYou.completed
+POST    /about-you/completed                                            controllers.s2_about_you.AboutYou.completedSubmit
 
 # Your partner
 ###############
-GET     /yourPartner/personalDetails                            controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
-POST    /yourPartner/personalDetails                            controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
+GET     /your-partner/personal-details                                  controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
+POST    /your-partner/personal-details                                  controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
 
-GET     /yourPartner/contactDetails                             controllers.s3_your_partner.G2YourPartnerContactDetails.present
-POST    /yourPartner/contactDetails                             controllers.s3_your_partner.G2YourPartnerContactDetails.submit
+GET     /your-partner/contact-details                                   controllers.s3_your_partner.G2YourPartnerContactDetails.present
+POST    /your-partner/contact-details                                   controllers.s3_your_partner.G2YourPartnerContactDetails.submit
 
-GET     /yourPartner/moreAboutYourPartner                       controllers.s3_your_partner.G3MoreAboutYourPartner.present
-POST    /yourPartner/moreAboutYourPartner                       controllers.s3_your_partner.G3MoreAboutYourPartner.submit
+GET     /your-partner/more-about-your-partner                           controllers.s3_your_partner.G3MoreAboutYourPartner.present
+POST    /your-partner/more-about-your-partner                           controllers.s3_your_partner.G3MoreAboutYourPartner.submit
 
-GET     /yourPartner/personYouCareFor                           controllers.s3_your_partner.G4PersonYouCareFor.present
-POST    /yourPartner/personYouCareFor                           controllers.s3_your_partner.G4PersonYouCareFor.submit
+GET     /your-partner/person-you-care-for                               controllers.s3_your_partner.G4PersonYouCareFor.present
+POST    /your-partner/person-you-care-for                               controllers.s3_your_partner.G4PersonYouCareFor.submit
 
-GET     /yourPartner/completed                                  controllers.s3_your_partner.YourPartner.completed
-POST    /yourPartner/completed                                  controllers.s3_your_partner.YourPartner.completedSubmit
-
+GET     /your-partner/completed                                         controllers.s3_your_partner.YourPartner.completed
+POST    /your-partner/completed                                         controllers.s3_your_partner.YourPartner.completedSubmit
 
 # Care You Provide
 ###############
-GET     /careYouProvide/theirPersonalDetails                    controllers.s4_care_you_provide.G1TheirPersonalDetails.present
-POST    /careYouProvide/theirPersonalDetails                    controllers.s4_care_you_provide.G1TheirPersonalDetails.submit
+GET     /care-you-provide/their-personal-details                        controllers.s4_care_you_provide.G1TheirPersonalDetails.present
+POST    /care-you-provide/their-personal-details                        controllers.s4_care_you_provide.G1TheirPersonalDetails.submit
 
-GET     /careYouProvide/theirContactDetails                     controllers.s4_care_you_provide.G2TheirContactDetails.present
-POST    /careYouProvide/theirContactDetails                     controllers.s4_care_you_provide.G2TheirContactDetails.submit
+GET     /care-you-provide/their-contact-details                         controllers.s4_care_you_provide.G2TheirContactDetails.present
+POST    /care-you-provide/their-contact-details                         controllers.s4_care_you_provide.G2TheirContactDetails.submit
 
-GET     /careYouProvide/relationshipAndOtherClaims              controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.present
-POST    /careYouProvide/relationshipAndOtherClaims              controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.submit
+GET     /care-you-provide/relationship-and-other-claims                 controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.present
+POST    /care-you-provide/relationship-and-other-claims                 controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.submit
 
-GET     /careYouProvide/previousCarerPersonalDetails            controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.present
-POST    /careYouProvide/previousCarerPersonalDetails            controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit
+GET     /care-you-provide/previous-carer-personal-details               controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.present
+POST    /care-you-provide/previous-carer-personal-details               controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit
 
-GET     /careYouProvide/previousCarerContactDetails             controllers.s4_care_you_provide.G5PreviousCarerContactDetails.present
-POST    /careYouProvide/previousCarerContactDetails             controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit
+GET     /care-you-provide/previous-carer-contact-details                controllers.s4_care_you_provide.G5PreviousCarerContactDetails.present
+POST    /care-you-provide/previous-carer-contact-details                controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit
 
-GET     /careYouProvide/representativesForPerson                controllers.s4_care_you_provide.G6RepresentativesForThePerson.present
-POST    /careYouProvide/representativesForPerson                controllers.s4_care_you_provide.G6RepresentativesForThePerson.submit
+GET     /care-you-provide/representatives-for-person                    controllers.s4_care_you_provide.G6RepresentativesForThePerson.present
+POST    /care-you-provide/representatives-for-person                    controllers.s4_care_you_provide.G6RepresentativesForThePerson.submit
 
-GET     /careYouProvide/moreAboutTheCare                        controllers.s4_care_you_provide.G7MoreAboutTheCare.present
-POST    /careYouProvide/moreAboutTheCare                        controllers.s4_care_you_provide.G7MoreAboutTheCare.submit
+GET     /care-you-provide/more-about-the-care                           controllers.s4_care_you_provide.G7MoreAboutTheCare.present
+POST    /care-you-provide/more-about-the-care                           controllers.s4_care_you_provide.G7MoreAboutTheCare.submit
 
-GET     /careYouProvide/oneWhoPaysPersonalDetails               controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.present
-POST    /careYouProvide/oneWhoPaysPersonalDetails               controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.submit
+GET     /care-you-provide/one-who-pays-personal-details                 controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.present
+POST    /care-you-provide/one-who-pays-personal-details                 controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.submit
 
-GET     /careYouProvide/contactDetailsOfPayingPerson            controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.present
-POST    /careYouProvide/contactDetailsOfPayingPerson            controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.submit
+GET     /care-you-provide/contact-details-of-paying-person              controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.present
+POST    /care-you-provide/contact-details-of-paying-person              controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.submit
 
-GET     /careYouProvide/breaksInCare                            controllers.s4_care_you_provide.G10BreaksInCare.present
-POST    /careYouProvide/breaksInCare                            controllers.s4_care_you_provide.G10BreaksInCare.submit
-DELETE  /careYouProvide/breaksInCare/:id                        controllers.s4_care_you_provide.G10BreaksInCare.delete(id: String)
+GET     /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.present
+POST    /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.submit
+DELETE  /care-you-provide/breaks-in-care/:id                            controllers.s4_care_you_provide.G10BreaksInCare.delete(id: String)
 
-GET     /careYouProvide/breaks/:id                              controllers.s4_care_you_provide.G11Break.break(id: String)
-GET     /careYouProvide/break                                   controllers.s4_care_you_provide.G11Break.present
-POST    /careYouProvide/break                                   controllers.s4_care_you_provide.G11Break.submit
+GET     /care-you-provide/breaks/:id                                    controllers.s4_care_you_provide.G11Break.break(id: String)
+GET     /care-you-provide/break                                         controllers.s4_care_you_provide.G11Break.present
+POST    /care-you-provide/break                                         controllers.s4_care_you_provide.G11Break.submit
 
-GET     /careYouProvide/completed                               controllers.s4_care_you_provide.CareYouProvide.completed
-POST    /careYouProvide/completed                               controllers.s4_care_you_provide.CareYouProvide.submit
+GET     /care-you-provide/completed                                     controllers.s4_care_you_provide.CareYouProvide.completed
+POST    /care-you-provide/completed                                     controllers.s4_care_you_provide.CareYouProvide.submit
 
 # Time Spent Abroad
 ###############
-GET     /timeSpentAbroad/normalResidenceAndCurrentLocation      controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.present
-POST    /timeSpentAbroad/normalResidenceAndCurrentLocation      controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.submit
+GET     /time-spent-abroad/normal-residence-and-current-location        controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.present
+POST    /time-spent-abroad/normal-residence-and-current-location        controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.submit
 
-GET     /timeSpentAbroad/abroadForMoreThan4Weeks                controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.present
-POST    /timeSpentAbroad/abroadForMoreThan4Weeks                controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.submit
+GET     /time-spent-abroad/abroad-for-more-than-4-weeks                 controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.present
+POST    /time-spent-abroad/abroad-for-more-than-4-weeks                 controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.submit
 
-GET     /timeSpentAbroad/abroadForMoreThan52Weeks               controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.present
-POST    /timeSpentAbroad/abroadForMoreThan52Weeks               controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.submit
+GET     /time-spent-abroad/abroad-for-more-than-52-weeks                controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.present
+POST    /time-spent-abroad/abroad-for-more-than-52-weeks                controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.submit
 
-GET     /timeSpentAbroad/trip/4Weeks                            controllers.s5_time_spent_abroad.G4Trip.fourWeeks
-POST    /timeSpentAbroad/trip/4Weeks                            controllers.s5_time_spent_abroad.G4Trip.fourWeeksSubmit
-GET     /timeSpentAbroad/trip/52Weeks                           controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeks
-POST    /timeSpentAbroad/trip/52Weeks                           controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeksSubmit
+GET     /time-spent-abroad/trip/4-weeks                                 controllers.s5_time_spent_abroad.G4Trip.fourWeeks
+POST    /time-spent-abroad/trip/4-weeks                                 controllers.s5_time_spent_abroad.G4Trip.fourWeeksSubmit
+GET     /time-spent-abroad/trip/52-weeks                                controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeks
+POST    /time-spent-abroad/trip/52-weeks                                controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeksSubmit
 
-GET     /timeSpentAbroad/trip/:id                               controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
-DELETE  /timeSpentAbroad/trip/:id                               controllers.s5_time_spent_abroad.G4Trip.delete(id: String)
+GET     /time-spent-abroad/trip/:id                                     controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
+DELETE  /time-spent-abroad/trip/:id                                     controllers.s5_time_spent_abroad.G4Trip.delete(id: String)
 
-GET     /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
-POST    /timeSpentAbroad/completed                              controllers.s5_time_spent_abroad.TimeSpentAbroad.completedSubmit
+GET     /time-spent-abroad/completed                                    controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
+POST    /time-spent-abroad/completed                                    controllers.s5_time_spent_abroad.TimeSpentAbroad.completedSubmit
 
 # Education
 ###############
-GET     /education/yourCourseDetails                            controllers.s6_education.G1YourCourseDetails.present
-POST    /education/yourCourseDetails                            controllers.s6_education.G1YourCourseDetails.submit
+GET     /education/your-course-details                                  controllers.s6_education.G1YourCourseDetails.present
+POST    /education/your-course-details                                  controllers.s6_education.G1YourCourseDetails.submit
 
-GET     /education/addressOfSchoolCollegeOrUniversity           controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.present
-POST    /education/addressOfSchoolCollegeOrUniversity           controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.submit
+GET     /education/address-of-school-college-or-university              controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.present
+POST    /education/address-of-school-college-or-university              controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.submit
 
-GET     /education/completed                                    controllers.s6_education.Education.completed
-POST    /education/completed                                    controllers.s6_education.Education.completedSubmit
+GET     /education/completed                                            controllers.s6_education.Education.completed
+POST    /education/completed                                            controllers.s6_education.Education.completedSubmit
 
 # Employment
 ###############
 
-GET     /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.present
-POST    /employment/beenEmployed                                controllers.s7_employment.G1BeenEmployed.submit
+GET     /employment/been-employed                                       controllers.s7_employment.G1BeenEmployed.present
+POST    /employment/been-employed                                       controllers.s7_employment.G1BeenEmployed.submit
 
-DELETE  /employment/job/:jobID                                  controllers.s7_employment.Employment.delete(jobID: String)
+DELETE  /employment/job/:jobID                                          controllers.s7_employment.Employment.delete(jobID: String)
 
-GET     /employment/job/:jobID                                  controllers.s7_employment.G2JobDetails.job(jobID: String)
+GET     /employment/job/:jobID                                          controllers.s7_employment.G2JobDetails.job(jobID: String)
 
-GET     /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.present
-GET     /employment/jobDetails/:jobID                           controllers.s7_employment.G2JobDetails.presentInJob(jobID: String)
-POST    /employment/jobDetails                                  controllers.s7_employment.G2JobDetails.submit
+GET     /employment/job-details                                         controllers.s7_employment.G2JobDetails.present
+GET     /employment/job-details/:jobID                                  controllers.s7_employment.G2JobDetails.presentInJob(jobID: String)
+POST    /employment/job-details                                         controllers.s7_employment.G2JobDetails.submit
 
-GET     /employment/employersContactDetails/:jobID              controllers.s7_employment.G3EmployerContactDetails.present(jobID: String)
-POST    /employment/employersContactDetails                     controllers.s7_employment.G3EmployerContactDetails.submit
+GET     /employment/employers-contact-details/:jobID                    controllers.s7_employment.G3EmployerContactDetails.present(jobID: String)
+POST    /employment/employers-contact-details                           controllers.s7_employment.G3EmployerContactDetails.submit
 
-GET     /employment/lastWage/:jobID                             controllers.s7_employment.G4LastWage.present(jobID: String)
-POST    /employment/lastWage                                    controllers.s7_employment.G4LastWage.submit
+GET     /employment/last-wage/:jobID                                    controllers.s7_employment.G4LastWage.present(jobID: String)
+POST    /employment/last-wage                                           controllers.s7_employment.G4LastWage.submit
 
-GET     /employment/additionalWageDetails/:jobID                controllers.s7_employment.G5AdditionalWageDetails.present(jobID: String)
-POST    /employment/additionalWageDetails                       controllers.s7_employment.G5AdditionalWageDetails.submit
+GET     /employment/additional-wage-details/:jobID                      controllers.s7_employment.G5AdditionalWageDetails.present(jobID: String)
+POST    /employment/additional-wage-details                             controllers.s7_employment.G5AdditionalWageDetails.submit
 
-GET     /employment/moneyOwedByEmployer/:jobID                  controllers.s7_employment.G6MoneyOwedbyEmployer.present(jobID: String)
-POST    /employment/moneyOwedByEmployer                         controllers.s7_employment.G6MoneyOwedbyEmployer.submit
+GET     /employment/money-owed-by-employer/:jobID                       controllers.s7_employment.G6MoneyOwedbyEmployer.present(jobID: String)
+POST    /employment/money-owed-by-employer                              controllers.s7_employment.G6MoneyOwedbyEmployer.submit
 
-GET     /employment/pensionSchemes/:jobID                       controllers.s7_employment.G7PensionSchemes.present(jobID: String)
-POST    /employment/pensionSchemes                              controllers.s7_employment.G7PensionSchemes.submit
+GET     /employment/pension-schemes/:jobID                              controllers.s7_employment.G7PensionSchemes.present(jobID: String)
+POST    /employment/pension-schemes                                     controllers.s7_employment.G7PensionSchemes.submit
 
-GET     /employment/aboutExpenses/:jobID                        controllers.s7_employment.G8AboutExpenses.present(jobID: String)
-POST    /employment/aboutExpenses                               controllers.s7_employment.G8AboutExpenses.submit
+GET     /employment/about-expenses/:jobID                               controllers.s7_employment.G8AboutExpenses.present(jobID: String)
+POST    /employment/about-expenses                                      controllers.s7_employment.G8AboutExpenses.submit
 
-GET     /employment/necessaryExpenses/:jobID                    controllers.s7_employment.G9NecessaryExpenses.present(jobID: String)
-POST    /employment/necessaryExpenses                           controllers.s7_employment.G9NecessaryExpenses.submit
+GET     /employment/necessary-expenses/:jobID                           controllers.s7_employment.G9NecessaryExpenses.present(jobID: String)
+POST    /employment/necessary-expenses                                  controllers.s7_employment.G9NecessaryExpenses.submit
 
-GET     /employment/childcareExpenses/:jobID                    controllers.s7_employment.G10ChildcareExpenses.present(jobID: String)
-POST    /employment/childcareExpenses                           controllers.s7_employment.G10ChildcareExpenses.submit
+GET     /employment/childcare-expenses/:jobID                           controllers.s7_employment.G10ChildcareExpenses.present(jobID: String)
+POST    /employment/childcare-expenses                                  controllers.s7_employment.G10ChildcareExpenses.submit
 
-GET     /employment/childcareProvider/:jobID                    controllers.s7_employment.G11ChildcareProvider.present(jobID: String)
-POST    /employment/childcareProvider                           controllers.s7_employment.G11ChildcareProvider.submit
+GET     /employment/childcare-provider/:jobID                           controllers.s7_employment.G11ChildcareProvider.present(jobID: String)
+POST    /employment/childcare-provider                                  controllers.s7_employment.G11ChildcareProvider.submit
 
-GET     /employment/personYouCareForExpenses/:jobID             controllers.s7_employment.G12PersonYouCareForExpenses.present(jobID: String)
-POST    /employment/personYouCareForExpenses                    controllers.s7_employment.G12PersonYouCareForExpenses.submit
+GET     /employment/person-you-care-for-expenses/:jobID                 controllers.s7_employment.G12PersonYouCareForExpenses.present(jobID: String)
+POST    /employment/person-you-care-for-expenses                        controllers.s7_employment.G12PersonYouCareForExpenses.submit
 
-GET     /employment/careProvider/:jobID                         controllers.s7_employment.G13CareProvider.present(jobID: String)
-POST    /employment/careProvider                                controllers.s7_employment.G13CareProvider.submit
+GET     /employment/care-provider/:jobID                                controllers.s7_employment.G13CareProvider.present(jobID: String)
+POST    /employment/care-provider                                       controllers.s7_employment.G13CareProvider.submit
 
-GET     /employment/jobCompletion/:jobID                        controllers.s7_employment.G14JobCompletion.present(jobID: String)
-POST    /employment/jobCompletion                               controllers.s7_employment.G14JobCompletion.submit
+GET     /employment/job-completion/:jobID                               controllers.s7_employment.G14JobCompletion.present(jobID: String)
+POST    /employment/job-completion                                      controllers.s7_employment.G14JobCompletion.submit
 
-GET     /employment/completed                                   controllers.s7_employment.Employment.completed
-POST    /employment/completed                                   controllers.s7_employment.Employment.submit
+GET     /employment/completed                                           controllers.s7_employment.Employment.completed
+POST    /employment/completed                                           controllers.s7_employment.Employment.submit
 
 # Self Employment
 ###############
-GET     /selfEmployment/aboutSelfEmployment                     controllers.s8_self_employment.G1AboutSelfEmployment.present
-POST    /selfEmployment/aboutSelfEmployment                     controllers.s8_self_employment.G1AboutSelfEmployment.submit
+GET     /self-employment/about-self-employment                          controllers.s8_self_employment.G1AboutSelfEmployment.present
+POST    /self-employment/about-self-employment                          controllers.s8_self_employment.G1AboutSelfEmployment.submit
 
-GET     /selfEmployment/yourAccounts                            controllers.s8_self_employment.G2SelfEmploymentYourAccounts.present
-POST    /selfEmployment/yourAccounts                            controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit
+GET     /self-employment/your-accounts                                  controllers.s8_self_employment.G2SelfEmploymentYourAccounts.present
+POST    /self-employment/your-accounts                                  controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit
 
-GET     /selfEmployment/accountantContactDetails                controllers.s8_self_employment.G3SelfEmploymentAccountantContactDetails.present
-POST    /selfEmployment/accountantContactDetails                controllers.s8_self_employment.G3SelfEmploymentAccountantContactDetails.submit
+GET     /self-employment/accountant-contact-details                     controllers.s8_self_employment.G3SelfEmploymentAccountantContactDetails.present
+POST    /self-employment/accountant-contact-details                     controllers.s8_self_employment.G3SelfEmploymentAccountantContactDetails.submit
 
-GET     /selfEmployment/pensionsAndExpenses                     controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.present
-POST    /selfEmployment/pensionsAndExpenses                     controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit
+GET     /self-employment/pensions-and-expenses                          controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.present
+POST    /self-employment/pensions-and-expenses                          controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit
 
-GET     /selfEmployment/childcareExpensesWhileAtWork            controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.present
-POST    /selfEmployment/childcareExpensesWhileAtWork            controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit
+GET     /self-employment/childcare-expenses-while-at-work               controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.present
+POST    /self-employment/childcare-expenses-while-at-work               controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit
 
-GET     /selfEmployment/childcareProvidersContactDetails        controllers.s8_self_employment.G6ChildcareProvidersContactDetails.present
-POST    /selfEmployment/childcareProvidersContactDetails        controllers.s8_self_employment.G6ChildcareProvidersContactDetails.submit
+GET     /self-employment/childcare-providers-contact-details            controllers.s8_self_employment.G6ChildcareProvidersContactDetails.present
+POST    /self-employment/childcare-providers-contact-details            controllers.s8_self_employment.G6ChildcareProvidersContactDetails.submit
 
-GET     /selfEmployment/expensesWhileAtWork                     controllers.s8_self_employment.G7ExpensesWhileAtWork.present
-POST    /selfEmployment/expensesWhileAtWork                     controllers.s8_self_employment.G7ExpensesWhileAtWork.submit
+GET     /self-employment/expenses-while-at-work                         controllers.s8_self_employment.G7ExpensesWhileAtWork.present
+POST    /self-employment/expenses-while-at-work                         controllers.s8_self_employment.G7ExpensesWhileAtWork.submit
 
-GET     /selfEmployment/careProvidersContactDetails             controllers.s8_self_employment.G8CareProvidersContactDetails.present
-POST    /selfEmployment/careProvidersContactDetails             controllers.s8_self_employment.G8CareProvidersContactDetails.submit
+GET     /self-employment/care-providers-contact-details                 controllers.s8_self_employment.G8CareProvidersContactDetails.present
+POST    /self-employment/care-providers-contact-details                 controllers.s8_self_employment.G8CareProvidersContactDetails.submit
 
-GET     /selfEmployment/completed                               controllers.s8_self_employment.SelfEmployment.completed
-POST    /selfEmployment/completed                               controllers.s8_self_employment.SelfEmployment.completedSubmit
+GET     /self-employment/completed                                      controllers.s8_self_employment.SelfEmployment.completed
+POST    /self-employment/completed                                      controllers.s8_self_employment.SelfEmployment.completedSubmit
 
 # Other income
 ###############
-GET     /otherMoney/aboutOtherMoney                             controllers.s9_other_money.G1AboutOtherMoney.present
-POST    /otherMoney/aboutOtherMoney                             controllers.s9_other_money.G1AboutOtherMoney.submit
+GET     /other-money/about-other-money                                  controllers.s9_other_money.G1AboutOtherMoney.present
+POST    /other-money/about-other-money                                  controllers.s9_other_money.G1AboutOtherMoney.submit
 
-GET     /otherMoney/moneyPaidToSomeoneElseForYou                controllers.s9_other_money.G2MoneyPaidToSomeoneElseForYou.present
-POST    /otherMoney/moneyPaidToSomeoneElseForYou                controllers.s9_other_money.G2MoneyPaidToSomeoneElseForYou.submit
+GET     /other-money/money-paid-to-someone-else-for-you                 controllers.s9_other_money.G2MoneyPaidToSomeoneElseForYou.present
+POST    /other-money/money-paid-to-someone-else-for-you                 controllers.s9_other_money.G2MoneyPaidToSomeoneElseForYou.submit
 
-GET     /otherMoney/personWhoGetsThisMoney                      controllers.s9_other_money.G3PersonWhoGetsThisMoney.present
-POST    /otherMoney/personWhoGetsThisMoney                      controllers.s9_other_money.G3PersonWhoGetsThisMoney.submit
+GET     /other-money/person-who-gets-this-money                         controllers.s9_other_money.G3PersonWhoGetsThisMoney.present
+POST    /other-money/person-who-gets-this-money                         controllers.s9_other_money.G3PersonWhoGetsThisMoney.submit
 
-GET     /otherMoney/personContactDetails                        controllers.s9_other_money.G4PersonContactDetails.present
-POST    /otherMoney/personContactDetails                        controllers.s9_other_money.G4PersonContactDetails.submit
+GET     /other-money/person-contact-details                             controllers.s9_other_money.G4PersonContactDetails.present
+POST    /other-money/person-contact-details                             controllers.s9_other_money.G4PersonContactDetails.submit
 
-GET     /otherMoney/statutorySickPay                            controllers.s9_other_money.G5StatutorySickPay.present
-POST    /otherMoney/statutorySickPay                            controllers.s9_other_money.G5StatutorySickPay.submit
+GET     /other-money/statutory-sick-pay                                 controllers.s9_other_money.G5StatutorySickPay.present
+POST    /other-money/statutory-sick-pay                                 controllers.s9_other_money.G5StatutorySickPay.submit
 
-GET     /otherMoney/otherStatutoryPay                           controllers.s9_other_money.G6OtherStatutoryPay.present
-POST    /otherMoney/otherStatutoryPay                           controllers.s9_other_money.G6OtherStatutoryPay.submit
+GET     /other-money/other-statutory-pay                                controllers.s9_other_money.G6OtherStatutoryPay.present
+POST    /other-money/other-statutory-pay                                controllers.s9_other_money.G6OtherStatutoryPay.submit
 
-GET     /otherMoney/otherEEAStateOrSwitzerland                  controllers.s9_other_money.G7OtherEEAStateOrSwitzerland.present
-POST    /otherMoney/otherEEAStateOrSwitzerland                  controllers.s9_other_money.G7OtherEEAStateOrSwitzerland.submit
+GET     /other-money/other-eea-state-or-switzerland                     controllers.s9_other_money.G7OtherEEAStateOrSwitzerland.present
+POST    /other-money/other-eea-state-or-switzerland                     controllers.s9_other_money.G7OtherEEAStateOrSwitzerland.submit
 
-GET     /otherMoney/completed                                   controllers.s9_other_money.OtherMoney.completed
-POST    /otherMoney/completed                                   controllers.s9_other_money.OtherMoney.completedSubmit
-
-
-
+GET     /other-money/completed                                          controllers.s9_other_money.OtherMoney.completed
+POST    /other-money/completed                                          controllers.s9_other_money.OtherMoney.completedSubmit
 
 # Pay Details
 ###############
-GET     /payDetails/howWePayYou                                 controllers.s10_pay_details.G1HowWePayYou.present
-POST    /payDetails/howWePayYou                                 controllers.s10_pay_details.G1HowWePayYou.submit
+GET     /pay-details/how-we-pay-you                                     controllers.s10_pay_details.G1HowWePayYou.present
+POST    /pay-details/how-we-pay-you                                     controllers.s10_pay_details.G1HowWePayYou.submit
 
-GET     /payDetails/bankBuildingSocietyDetails                  controllers.s10_pay_details.G2BankBuildingSocietyDetails.present
-POST    /payDetails/bankBuildingSocietyDetails                  controllers.s10_pay_details.G2BankBuildingSocietyDetails.submit
+GET     /pay-details/bank-building-society-details                      controllers.s10_pay_details.G2BankBuildingSocietyDetails.present
+POST    /pay-details/bank-building-society-details                      controllers.s10_pay_details.G2BankBuildingSocietyDetails.submit
 
-GET     /payDetails/completed                                   controllers.s10_pay_details.PayDetails.completed
-POST    /payDetails/completed                                   controllers.s10_pay_details.PayDetails.completedSubmit
+GET     /pay-details/completed                                          controllers.s10_pay_details.PayDetails.completed
+POST    /pay-details/completed                                          controllers.s10_pay_details.PayDetails.completedSubmit
 
 # Consent And Declaration
 ###############
+GET     /consent-and-declaration/additional-info                        controllers.s11_consent_and_declaration.G1AdditionalInfo.present
+POST    /consent-and-declaration/additional-info                        controllers.s11_consent_and_declaration.G1AdditionalInfo.submit
 
-GET     /consentAndDeclaration/additionalInfo                   controllers.s11_consent_and_declaration.G1AdditionalInfo.present
-POST    /consentAndDeclaration/additionalInfo                   controllers.s11_consent_and_declaration.G1AdditionalInfo.submit
+GET     /consent-and-declaration/consent                                controllers.s11_consent_and_declaration.G2Consent.present
+POST    /consent-and-declaration/consent                                controllers.s11_consent_and_declaration.G2Consent.submit
 
-GET     /consentAndDeclaration/consent                          controllers.s11_consent_and_declaration.G2Consent.present
-POST    /consentAndDeclaration/consent                          controllers.s11_consent_and_declaration.G2Consent.submit
+GET     /consent-and-declaration/disclaimer                             controllers.s11_consent_and_declaration.G3Disclaimer.present
+POST    /consent-and-declaration/disclaimer                             controllers.s11_consent_and_declaration.G3Disclaimer.submit
 
-GET     /consentAndDeclaration/disclaimer                       controllers.s11_consent_and_declaration.G3Disclaimer.present
-POST    /consentAndDeclaration/disclaimer                       controllers.s11_consent_and_declaration.G3Disclaimer.submit
+GET     /consent-and-declaration/declaration                            controllers.s11_consent_and_declaration.G4Declaration.present
+POST    /consent-and-declaration/declaration                            controllers.s11_consent_and_declaration.G4Declaration.submit
 
-GET     /consentAndDeclaration/declaration                      controllers.s11_consent_and_declaration.G4Declaration.present
-POST    /consentAndDeclaration/declaration                      controllers.s11_consent_and_declaration.G4Declaration.submit
+GET     /consent-and-declaration/submit                                 controllers.s11_consent_and_declaration.G5Submit.present
+POST    /consent-and-declaration/submit                                 controllers.s11_consent_and_declaration.G5Submit.submit
 
-GET     /consentAndDeclaration/submit                           controllers.s11_consent_and_declaration.G5Submit.present
-POST    /consentAndDeclaration/submit                           controllers.s11_consent_and_declaration.G5Submit.submit
+GET     /consent-and-declaration/error                                  controllers.s11_consent_and_declaration.G6Error.present
 
-GET     /consentAndDeclaration/error                            controllers.s11_consent_and_declaration.G6Error.present
-
-GET     /consentAndDeclaration/completed                        controllers.s11_consent_and_declaration.ConsentAndDeclaration.completed
-POST    /consentAndDeclaration/completed                        controllers.s11_consent_and_declaration.ConsentAndDeclaration.completedSubmit
+GET     /consent-and-declaration/completed                              controllers.s11_consent_and_declaration.ConsentAndDeclaration.completed
+POST    /consent-and-declaration/completed                              controllers.s11_consent_and_declaration.ConsentAndDeclaration.completedSubmit
 
 # Cache Timeout
-GET     /timeout                                                controllers.Application.timeout
+GET     /timeout                                                        controllers.Application.timeout
 
 # Unrecoverable error
-GET     /error                                                  controllers.Application.error
+GET     /error                                                          controllers.Application.error
 
-# Temporary submission service
-GET     /submit                                                 @controllers.submission.SubmissionController.submit
+# Claim submission
+GET     /submit                                                         @controllers.submission.SubmissionController.submit
 
 # Thank you
-GET     /thankYou                                               controllers.ThankYou.present
+GET     /thank-you                                                      controllers.ThankYou.present
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                                           controllers.Assets.at(path="/public", file)
-
-
+GET     /assets/*file                                                   controllers.Assets.at(path="/public", file)

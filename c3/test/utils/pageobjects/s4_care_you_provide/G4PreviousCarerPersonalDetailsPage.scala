@@ -9,12 +9,11 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 25/07/2013
  */
 final class G4PreviousCarerPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4PreviousCarerPersonalDetailsPage.url, G4PreviousCarerPersonalDetailsPage.title, previousPage) {
-
-    declareInput("#firstName", "AboutTheCareYouProvideFirstNamePreviousCarer")
-    declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePreviousCarer")
-    declareInput("#surname", "AboutTheCareYouProvideSurnamePreviousCarer")
-    declareNino("#nationalInsuranceNumber", "AboutTheCareYouProvideNINOPreviousCarer")
-    declareDate("#dateOfBirth", "AboutTheCareYouProvideDateofBirthPreviousCarer")
+  declareInput("#firstName", "AboutTheCareYouProvideFirstNamePreviousCarer")
+  declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePreviousCarer")
+  declareInput("#surname", "AboutTheCareYouProvideSurnamePreviousCarer")
+  declareNino("#nationalInsuranceNumber", "AboutTheCareYouProvideNINOPreviousCarer")
+  declareDate("#dateOfBirth", "AboutTheCareYouProvideDateofBirthPreviousCarer")
 }
 
 /**
@@ -23,12 +22,15 @@ final class G4PreviousCarerPersonalDetailsPage (browser: TestBrowser, previousPa
  */
 object G4PreviousCarerPersonalDetailsPage {
   val title = "Details of Previous or Existing Carer - About the care you provide"
-  val url  = "/careYouProvide/previousCarerPersonalDetails"
+
+  val url  = "/care-you-provide/previous-carer-personal-details"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4PreviousCarerPersonalDetailsPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G4PreviousCarerPersonalDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G4PreviousCarerPersonalDetailsPage buildPageWith browser
 }

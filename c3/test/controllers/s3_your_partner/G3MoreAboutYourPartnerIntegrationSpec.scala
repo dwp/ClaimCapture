@@ -8,19 +8,19 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags {
 
   "More About Your Partner" should {
     "be presented" in new WithBrowser {
-      browser.goTo("/yourPartner/moreAboutYourPartner")
+      browser.goTo("/your-partner/more-about-your-partner")
       browser.title mustEqual "More About Your Partner/Spouse - About Your Partner/Spouse"
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/yourPartner/moreAboutYourPartner")
+      browser.goTo("/your-partner/more-about-your-partner")
       browser.submit("button[type='submit']")
       titleMustEqual("More About Your Partner/Spouse - About Your Partner/Spouse")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
     "contain error on missing separation date when separated" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/yourPartner/moreAboutYourPartner")
+      browser.goTo("/your-partner/more-about-your-partner")
       browser.click("#separatedFromPartner_yes]")
       browser.submit("button[type='submit']")
       titleMustEqual("More About Your Partner/Spouse - About Your Partner/Spouse")

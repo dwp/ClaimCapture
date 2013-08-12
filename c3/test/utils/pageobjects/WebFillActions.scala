@@ -62,18 +62,7 @@ trait WebFillActions {
 
   def fillRadioList(listName: String, value: String, sep: String = "_"): Unit = if (null != value) {
     try {
-      val radioButtons = browser.find("[name=" + listName + "]")
-      var found = false
-      for (index <- 1 to radioButtons.size()) if (!found) {
-        val name = listName + sep + (if (index < 10) s"0$index" else s"$index")
-        val label = browser.find("label[for=" + name + "]").get(0).getText
-        if (label == value) {
-          browser.click("#" + name)
-          found = true
-        }
-      }
-      if (!found) throw new PageObjectException("Option " + value + " is invalid for list " + listName)
-
+      browser.click(listName + sep + value)
     }
     catch {
       case e: Exception => throw new PageObjectException("Could not fill " + listName + " with value " + value, exception = e)
@@ -99,7 +88,7 @@ trait WebFillActions {
 
 
   def fillSortCode(elementCssSelector: String, value: String) = if (null != value) {
-    val extractor = """(\d{2})-(\d{2})-(\d{2})""".r
+    val extractor = """(\d{2})(\d{2})(\d{2})""".r
     val extractor(n1, n2, n3) = value
     fillInput(elementCssSelector + "_sort1", n1)
     fillInput(elementCssSelector + "_sort2", n2)

@@ -10,6 +10,7 @@
 @import utils.helpers.CarersCrypto
 @import models.domain.{MoreAboutYou, PersonYouCareFor}
 @import controllers.s7_employment.JobID
+@import utils.helpers.PastPresentLabelHelper._
 
 @main("Childcare expenses while you are at work - Employment", Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G10ChildcareExpenses.submit()) {
@@ -19,7 +20,7 @@
             <legend>Childcare expenses while you are at work</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("howMuchCostChildcare"))
+                @carersInputText(currentForm("howMuchCostChildcare"), '_label -> Messages ("howMuchCostChildcare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))))
 
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 

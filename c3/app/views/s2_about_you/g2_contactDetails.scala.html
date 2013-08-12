@@ -6,14 +6,14 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("Your Contact Details - About You", completedQuestionGroups) {
+@main(Messages("s2.g2") + " - About You", completedQuestionGroups) {
     @errorsSummary(contactDetailsForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G2ContactDetails.submit) {
         <fieldset class="form-elements">
-            <legend>Your contact details</legend>
+            <legend>@Messages("s2.g2")</legend>
 
             <ul class="group">
                 @inputAddress(contactDetailsForm("address"))

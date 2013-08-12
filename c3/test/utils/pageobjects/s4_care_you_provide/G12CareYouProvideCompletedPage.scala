@@ -8,9 +8,7 @@ import utils.pageobjects.{PageContext, Page}
  * @author Saqib Kayani
  *         Date: 31/07/2013
  */
-class G12CareYouProvideCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G12CareYouProvideCompletedPage.url, G12CareYouProvideCompletedPage.title, previousPage) {
-
-}
+class G12CareYouProvideCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G12CareYouProvideCompletedPage.url, G12CareYouProvideCompletedPage.title, previousPage)
 
 /**
  * Companion object that integrates factory method.
@@ -18,12 +16,15 @@ class G12CareYouProvideCompletedPage (browser: TestBrowser, previousPage: Option
  */
 object G12CareYouProvideCompletedPage {
   val title = "Completion - About the care you provide"
-  val url  = "/careYouProvide/completed"
+
+  val url  = "/care-you-provide/completed"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G12CareYouProvideCompletedPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G12CareYouProvideCompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G12CareYouProvideCompletedPage buildPageWith browser
 }

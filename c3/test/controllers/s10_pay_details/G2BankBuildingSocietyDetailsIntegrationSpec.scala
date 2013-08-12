@@ -7,19 +7,19 @@ import controllers.{BrowserMatchers, Formulate}
 class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tags {
   "Bank building society details" should {
     "be presented" in new WithBrowser {
-      browser.goTo("/payDetails/bankBuildingSocietyDetails")
+      browser.goTo("/pay-details/bank-building-society-details")
       browser.title mustEqual "Bank Building Society Details - Pay Details"
     }
 
     "be hidden when having state pension" in new WithBrowser {
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
-      browser.goTo("/payDetails/bankBuildingSocietyDetails")
+      browser.goTo("/pay-details/bank-building-society-details")
       browser.title shouldEqual "Additional Information - Consent And Declaration"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
-      browser.goTo("/payDetails/bankBuildingSocietyDetails")
+      browser.goTo("/pay-details/bank-building-society-details")
       browser.title mustEqual "Bank Building Society Details - Pay Details"
       browser.submit("button[type='submit']")
 
@@ -35,7 +35,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       Formulate.howWePayYou(browser)
       titleMustEqual("Bank Building Society Details - Pay Details")
 
-      browser.goTo("/payDetails/bankBuildingSocietyDetails")
+      browser.goTo("/pay-details/bank-building-society-details")
       browser.click("#backButton")
       browser.title mustEqual "How We Pay You - Pay Details"
     }

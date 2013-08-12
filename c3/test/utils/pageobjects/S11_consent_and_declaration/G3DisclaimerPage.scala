@@ -9,9 +9,7 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 05/08/2013
  */
 class G3DisclaimerPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3DisclaimerPage.url, G3DisclaimerPage.title, previousPage) {
-
-  declareCheck("#read","ConsentDeclarationDisclaimerTextAndTickBox")
-
+  declareCheck("#read", "ConsentDeclarationDisclaimerTextAndTickBox")
 }
 
 /**
@@ -20,12 +18,15 @@ class G3DisclaimerPage (browser: TestBrowser, previousPage: Option[Page] = None)
  */
 object G3DisclaimerPage {
   val title = "Disclaimer - Consent And Declaration"
-  val url = "/consentAndDeclaration/disclaimer"
-  def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new G3DisclaimerPage(browser, previousPage)
+
+  val url = "/consent-and-declaration/disclaimer"
+
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3DisclaimerPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G3DisclaimerPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G3DisclaimerPage buildPageWith browser
 }

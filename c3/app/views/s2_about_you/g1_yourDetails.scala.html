@@ -8,14 +8,14 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 
-@main("Your Details - About You") {
+@main(Messages("s2.g1") + " - About You") {
     @errorsSummary(yourDetailsForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G1YourDetails.submit) {
         <fieldset class="form-elements">
-            <legend>Your details</legend>
+            <legend>@Messages("s2.g1")</legend>
 
             <ul class="group">
                 @titleSelect(yourDetailsForm("title"))

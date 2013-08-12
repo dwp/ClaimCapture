@@ -7,12 +7,12 @@ import controllers.Formulate
 class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
   "Additional Information" should {
     "be presented" in new WithBrowser {
-      browser.goTo("/consentAndDeclaration/additionalInfo")
+      browser.goTo("/consent-and-declaration/additional-info")
       browser.title mustEqual "Additional Information - Consent And Declaration"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
-      browser.goTo("/consentAndDeclaration/additionalInfo")
+      browser.goTo("/consent-and-declaration/additional-info")
       browser.title mustEqual "Additional Information - Consent And Declaration"
       browser.submit("button[type='submit']")
 
@@ -25,11 +25,10 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to Pay Details - Completed" in new WithBrowser {
-      browser.goTo("/consentAndDeclaration/additionalInfo")
+      browser.goTo("/consent-and-declaration/additional-info")
       browser.click(".form-steps a")
       browser.title mustEqual "Completion - Pay Details"
     }
-
 
     "contain the completed forms" in new WithBrowser {
       Formulate.additionalInfo(browser)

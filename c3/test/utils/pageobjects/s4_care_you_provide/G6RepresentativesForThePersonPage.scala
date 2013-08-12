@@ -9,13 +9,11 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 25/07/2013
  */
 final class G6RepresentativesForThePersonPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6RepresentativesForThePersonPage.url, G6RepresentativesForThePersonPage.title, previousPage) {
-  
-    declareYesNo("#you_actForPerson", "AboutTheCareYouProvideDoYouActforthePersonYouCareFor")
-    declareSelect("#you_actAs", "AboutTheCareYouProvideYouActAs")
-    declareYesNo("#someoneElse_actForPerson", "AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor")
-    declareSelect("#someoneElse_actAs", "AboutTheCareYouProvidePersonActsAs")
-    declareInput("#someoneElse_fullName", "AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor")
-  
+  declareYesNo("#you_actForPerson", "AboutTheCareYouProvideDoYouActforthePersonYouCareFor")
+  declareSelect("#you_actAs", "AboutTheCareYouProvideYouActAs")
+  declareYesNo("#someoneElse_actForPerson", "AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor")
+  declareSelect("#someoneElse_actAs", "AboutTheCareYouProvidePersonActsAs")
+  declareInput("#someoneElse_fullName", "AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor")
 }
 
 /**
@@ -24,12 +22,15 @@ final class G6RepresentativesForThePersonPage (browser: TestBrowser, previousPag
  */
 object G6RepresentativesForThePersonPage {
   val title = "Representatives for the person you care for - About the care you provide"
-  val url  = "/careYouProvide/representativesForPerson"
+
+  val url  = "/care-you-provide/representatives-for-person"
+
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G6RepresentativesForThePersonPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G6RepresentativesForThePersonPageContext extends PageContext {
   this: WithBrowser[_] =>
+
   val page = G6RepresentativesForThePersonPage buildPageWith browser
 }

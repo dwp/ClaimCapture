@@ -7,14 +7,14 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main("Property and Rent - About You", completedQuestionGroups) {
+@main(Messages("s2.g7") + " - About You", completedQuestionGroups) {
     @errorsSummary(propertyAndRentForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G7PropertyAndRent.submit) {
         <fieldset class="form-elements">
-            <legend>Property and rent</legend>
+            <legend>@Messages("s2.g7")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(propertyAndRentForm("ownProperty"),

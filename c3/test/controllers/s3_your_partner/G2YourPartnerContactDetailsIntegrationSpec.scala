@@ -7,12 +7,12 @@ import controllers.{BrowserMatchers, Formulate}
 class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags {
   "Your Partner Contact Details" should {
     "be presented" in new WithBrowser {
-      browser.goTo("/yourPartner/contactDetails")
+      browser.goTo("/your-partner/contact-details")
       browser.title mustEqual "Contact Details - About your partner/spouse"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
-      browser.goTo("/yourPartner/contactDetails")
+      browser.goTo("/your-partner/contact-details")
       browser.fill("#postcode") `with` "INVALD"
       browser.submit("button[type='submit']")
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
@@ -49,7 +49,7 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
       Formulate.yourPartnerPersonalDetails(browser)
       titleMustEqual("Contact Details - About your partner/spouse")
 
-      browser.goTo("/yourPartner/contactDetails")
+      browser.goTo("/your-partner/contact-details")
       browser.click("#backButton")
       titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
     }
