@@ -201,7 +201,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
       if (browser.title != null) browser.title.toLowerCase == this.pageTitle.toLowerCase else true
     }
     catch {
-      case e:Exception => throw new PageObjectException("Exception was thrown when comparing browser title with page title [" + this.pageTitle + "]",exception = e)
+      case _:Exception => false
     }
   }
 

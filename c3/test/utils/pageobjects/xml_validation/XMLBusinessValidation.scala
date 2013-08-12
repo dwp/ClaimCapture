@@ -78,7 +78,9 @@ class XmlNode(val nodes: NodeSeq) {
   def matches(claimValue: ClaimValue): Boolean = {
 
     var index = 0
-    if (claimValue.value.contains( """_""")) index =  Int.unbox(claimValue.value.split("_")(1)) - 1
+
+    if (claimValue.attribute.contains( """_""")) index = claimValue.attribute.split("_")(1).toInt - 1
+
     val value = XmlNode.prepareElement(nodes(index).text)
     val nodeName = nodes(index).mkString
 
@@ -86,7 +88,6 @@ class XmlNode(val nodes: NodeSeq) {
       if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>")) value.contains(claimValue.value)
       else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
       else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
-//      else if (nodeName.contains("InitialAccountQuestion")) nodeName.toLowerCase().
       else value == claimValue.value
     }
 
