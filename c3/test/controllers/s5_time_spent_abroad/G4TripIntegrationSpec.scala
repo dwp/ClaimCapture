@@ -1,5 +1,6 @@
 package controllers.s5_time_spent_abroad
 
+import language.reflectiveCalls
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.WithBrowser
 import controllers.{Navigation, BrowserMatchers}
