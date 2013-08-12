@@ -25,7 +25,7 @@ class EndToEndSpec extends Specification with Tags {
   }
 
   "The application " should {
-    "Successfully run absolute Test Case 1 " in new WithBrowser(port = 19011) with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 1 " in new WithBrowser with G1BenefitsPageContext {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
@@ -39,7 +39,7 @@ class EndToEndSpec extends Specification with Tags {
       }
     }
 
-    "Successfully run absolute Test Case 2 " in new WithBrowser(port = 19012) with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 2 " in new WithBrowser with G1BenefitsPageContext {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase2.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
@@ -53,7 +53,7 @@ class EndToEndSpec extends Specification with Tags {
       }
     }
 
-    "Successfully run absolute Test Case 3 " in new WithBrowser(port = 19013) with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 3 " in new WithBrowser with G1BenefitsPageContext {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
@@ -67,7 +67,7 @@ class EndToEndSpec extends Specification with Tags {
       }
     }
 
-    "Successfully run absolute Test Case 4 " in new WithBrowser(port = 19014) with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 4 " in new WithBrowser with G1BenefitsPageContext {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase4.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
@@ -81,7 +81,7 @@ class EndToEndSpec extends Specification with Tags {
       }
     }
 
-    "Successfully run absolute Test Case 5 " in new WithBrowser(port = 19015) with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 5 " in new WithBrowser with G1BenefitsPageContext {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase5.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
@@ -95,7 +95,7 @@ class EndToEndSpec extends Specification with Tags {
       }
     }
 
-    "Successfully run absolute Test Case 6 " in new WithBrowser(port = 19016) with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 6 " in new WithBrowser with G1BenefitsPageContext {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase6.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
@@ -109,7 +109,7 @@ class EndToEndSpec extends Specification with Tags {
       }
     }
 
-    "Successfully run absolute Test Case 7 " in new WithBrowser(port = 19017) with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 7 " in new WithBrowser with G1BenefitsPageContext {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase7.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
