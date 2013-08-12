@@ -9,7 +9,7 @@ class G5CompletedSpec extends Specification with Tags {
   
   val personYouCareForInput = Seq("isPartnerPersonYouCareFor" -> "yes")
     
-  "Person You Care For - Controller" should {
+  "Person you care for - Controller" should {
     "present 'Completed'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 

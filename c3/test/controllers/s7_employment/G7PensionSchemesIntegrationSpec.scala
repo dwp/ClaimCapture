@@ -6,7 +6,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
 
 class G7PensionSchemesIntegrationSpec extends Specification with Tags {
-  "Pension Schemes" should {
+  "Pension schemes - Integrations" should {
     "be presented" in new WithBrowser with G7PensionSchemesPageContext {
       page goToThePage()
     }

@@ -7,14 +7,14 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 
-@main("Details of the person you care for - About the care you provide", Some(currentForm)) {
+@main(Messages("s4.g1") + " - " + Messages("s4.longName"), Some(currentForm)) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.submit) {
     
         <fieldset class="form-elements">
-            <legend>Details of the person you care for</legend>
+            <legend>@Messages("s4.g1")</legend>
 
             <ul class="group">
                 @titleSelect(currentForm("title"))

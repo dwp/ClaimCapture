@@ -6,7 +6,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main(Messages("s2.g2") + " - About You", completedQuestionGroups) {
+@main(Messages("s2.g2") + " - " + Messages("s2.longName"), completedQuestionGroups) {
     @errorsSummary(contactDetailsForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>

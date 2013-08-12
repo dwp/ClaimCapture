@@ -6,38 +6,38 @@ import controllers.{BrowserMatchers, Formulate}
 
 class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Their Personal Details" should {
-    "be presented" in new WithBrowser {
+    "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/their-personal-details")
-      browser.title mustEqual "Details of the person you care for - About the care you provide"
+      titleMustEqual("Details of the Person you care for - About the care you provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
       browser.goTo("/care-you-provide/their-personal-details")
-      browser.title mustEqual "Details of the person you care for - About the care you provide"
+      browser.title mustEqual "Details of the Person you care for - About the care you provide"
       browser.submit("button[type='submit']")
 
       browser.find("div[class=validation-summary] ol li").size mustEqual 5
     }
 
-    "navigate to next page on valid submission" in new WithBrowser {
+    "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      browser.title mustEqual "Contact details of the person you care for - About the care you provide"
+      titleMustEqual("Contact details of the Person you care for - About the care you provide")
     }
 
-    """navigate back to "Completion - About Your Partner/Spouse" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser {
+    """navigate back to "Completion - About your partner/spouse" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
       browser.goTo("/care-you-provide/their-personal-details")
       browser.click("#backButton")
-      browser.title mustEqual "Completion - About Your Partner/Spouse"
+      titleMustEqual("Completion - About your partner/spouse")
     }
         
-    """navigate back to "About You - Completed" when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser {
+    """navigate back to "Completion - About you - the carer" when they have NOT had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       browser.goTo("/care-you-provide/their-personal-details")
       browser.click("#backButton")
-      browser.title mustEqual "Completion - About You"
+      titleMustEqual("Completion - About you - the carer")
     }
     
     "contain the completed forms" in new WithBrowser {
@@ -58,7 +58,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       Formulate.personYouCareFor(browser)
       browser.submit("button[type='submit']")
 
-      titleMustEqual("Details of the person you care for - About the care you provide")
+      titleMustEqual("Details of the Person you care for - About the care you provide")
       findMustEqualValue("#firstName","John")
       browser.find("#surname").getValue mustEqual "Appleseed"
     }

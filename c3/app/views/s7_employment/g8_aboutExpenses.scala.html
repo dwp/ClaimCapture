@@ -10,12 +10,12 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 
-@main("About expenses to do with your employment - Employment", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G8AboutExpenses.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
-            <legend>About expenses to do with your employment</legend>
+            <legend>@Messages("s7.g8")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("payForAnythingNecessary"), '_label -> Messages ("payForAnythingNecessary", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))

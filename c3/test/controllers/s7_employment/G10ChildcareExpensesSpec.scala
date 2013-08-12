@@ -9,7 +9,7 @@ import play.api.cache.Cache
 class G10ChildcareExpensesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
 
-  "Childcare expenses" should {
+  "Childcare expenses while you are at work - Controller" should {
     "present" in new WithApplication with Claiming {
       val aboutExpenses = mock[AboutExpenses]
       aboutExpenses.identifier returns AboutExpenses

@@ -21,7 +21,7 @@ final class G6RepresentativesForThePersonPage (browser: TestBrowser, previousPag
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G6RepresentativesForThePersonPage {
-  val title = "Representatives for the person you care for - About the care you provide"
+  val title = "Representatives for the Person you care for - About the care you provide"
 
   val url  = "/care-you-provide/representatives-for-person"
 

@@ -11,8 +11,8 @@ class G2YourPartnerContactDetailsSpec extends Specification with Tags {
 
   val yourPartnerContactDetailsInput = Seq("address.lineOne" -> "123 Street", "postcode" -> "PR2 8AE")
 
-  "Your Partner Contact Details - Controller" should {
-    "present 'Your Partner Contact Details' " in new WithApplication with Claiming {
+  "Your Partner Contact details - Controller" should {
+    "present 'Your Partner Contact details' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G2YourPartnerContactDetails.present(request)

@@ -12,7 +12,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim
 
       browser.goTo("/employment/been-employed")
-      titleMustEqual("Your employment history - Employment")
+      titleMustEqual("Your employment history - Employment History")
     }
 
    """be bypassed and go onto "other money" having indicated that "employment" is not required.""" in new WithBrowser with BrowserMatchers with NotEmployedSinceClaimDate {
@@ -27,14 +27,14 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim
 
       browser.goTo("/employment/been-employed").click("#beenEmployed_yes").submit("button[type='submit']")
-      titleMustEqual("Job Details - Employment")
+      titleMustEqual("Your job - Employment History")
     }
 
     "show 1 error upon submitting no mandatory data" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
       browser.goTo("/employment/been-employed").submit("button[type='submit']")
-      titleMustEqual("Your employment history - Employment")
+      titleMustEqual("Your employment history - Employment History")
       findMustEqualSize("div[class=validation-summary] ol li", 1)
     }
 
@@ -42,7 +42,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim
 
       browser.goTo("/employment/been-employed").click("#beenEmployed_no").submit("button[type='submit']")
-      titleMustEqual("Completion - Employment")
+      titleMustEqual("Completion - Employment History")
     }
 
     """go back to "education".""" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {

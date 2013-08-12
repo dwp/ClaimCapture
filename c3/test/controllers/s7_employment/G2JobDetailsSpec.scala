@@ -7,7 +7,7 @@ import play.api.cache.Cache
 import models.domain.{Job, Jobs, JobDetails, Claim, Claiming}
 
 class G2JobDetailsSpec extends Specification with Tags {
-  "Details about your job" should {
+  "Your job" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
       val result = G2JobDetails.present(request)

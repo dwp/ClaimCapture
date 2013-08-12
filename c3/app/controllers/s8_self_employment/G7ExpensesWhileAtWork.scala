@@ -9,6 +9,9 @@ import models.domain.{SelfEmploymentPensionsAndExpenses, ExpensesWhileAtWork}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment.whenSectionVisible
+import utils.helpers.PastPresentLabelHelper._
+import play.api.data.FormError
+import scala.Some
 
 object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with CachedClaim {
   val form = Form(
@@ -33,7 +36,12 @@ object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with 
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s8_self_employment.g7_expensesWhileAtWork(formWithErrors, completedQuestionGroups(ExpensesWhileAtWork))),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("howMuchYouPay", "error.required", FormError("howMuchYouPay", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
+          .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
+        BadRequest(views.html.s8_self_employment.g7_expensesWhileAtWork(formWithErrorsUpdate, completedQuestionGroups(ExpensesWhileAtWork)))
+      },
       f => claim.update(f) -> Redirect(routes.G8CareProvidersContactDetails.present())
     )
   }

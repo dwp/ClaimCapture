@@ -5,14 +5,14 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("School, college or university's contact details - About your education", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s6.g2") + " - " + Messages("s6.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s6_education.routes.G2AddressOfSchoolCollegeOrUniversity.submit) {
     
         <fieldset class="form-elements">
-            <legend>School, college or university's contact details</legend>
+            <legend>@Messages("s6.g2")</legend>
 
             <ul class="group">
                 @carersInputText(currentForm("nameOfSchoolCollegeOrUniversity"), 'maxLength -> Mappings.sixty)

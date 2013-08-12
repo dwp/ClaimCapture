@@ -6,13 +6,13 @@
 @import utils.helpers.CarersTemplate._
 @import utils.helpers.CarersCrypto
 
-@main("More about the care you provide - About the care you provide", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s4.g7") + " - " + Messages("s4.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.submit) {
         <fieldset class="form-elements">
-            <legend>More about the care you provide</legend>
+            <legend>@Messages("s4.g7")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("spent35HoursCaring"))

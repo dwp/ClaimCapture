@@ -14,7 +14,7 @@ final class G2JobDetailsPage(browser: TestBrowser, previousPage: Option[Page] = 
 }
 
 object G2JobDetailsPage {
-  val title = "Job Details - Employment"
+  val title = "Your job - Employment History"
 
   val url  = "/employment/job-details/:jobID"
 
