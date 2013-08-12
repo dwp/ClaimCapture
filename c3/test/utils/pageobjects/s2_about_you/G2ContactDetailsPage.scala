@@ -20,7 +20,7 @@ final class G2ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page
  * It is used by PageFactory object defined in Page.scala
  */
 object G2ContactDetailsPage {
-  val title = "Your contact details - About You"
+  val title = "Your contact details - About you - the carer"
 
   val url = "/about-you/contact-details"
 

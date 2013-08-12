@@ -8,7 +8,7 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
   "Representatives For The Person" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/representatives-for-person")
-      titleMustEqual("Representatives for the person you care for - About the care you provide")
+      titleMustEqual("Representatives for the Person you care for - About the care you provide")
     }
 
     "contain errors on invalid submission first yesNo not clicked" in new WithBrowser {
@@ -48,7 +48,7 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.previousCarerPersonalDetails(browser)
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives for the person you care for - About the care you provide") // Landed on S4 G6
+      titleMustEqual("Representatives for the Person you care for - About the care you provide") // Landed on S4 G6
       browser.click("#backButton")
       titleMustEqual("Contact details of previous or existing carer - About the care you provide") // Back to S4 G5
     }
@@ -58,7 +58,7 @@ class G6RepresentativesForThePersonIntegrationSpec extends Specification with Ta
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       Formulate.previousCarerPersonalDetails(browser)
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives for the person you care for - About the care you provide") // Landed on S4 G6
+      titleMustEqual("Representatives for the Person you care for - About the care you provide") // Landed on S4 G6
       browser.click("#backButton")
       titleMustEqual("Contact details of previous or existing carer - About the care you provide")
       browser.click("#backButton")

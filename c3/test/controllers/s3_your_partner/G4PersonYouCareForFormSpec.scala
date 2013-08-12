@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 
 class G4PersonYouCareForFormSpec extends Specification with Tags {
 
-  "Person You Care For" should {
+  "Person you care for" should {
 
     "map data into case class" in {
       G4PersonYouCareFor.form.bind(
@@ -15,7 +15,7 @@ class G4PersonYouCareForFormSpec extends Specification with Tags {
       )
     }
 
-    "have a mandatory 'Is your partner the person you care for' " in {
+    "have a mandatory 'Is your partner the Person you care for' " in {
       G4PersonYouCareFor.form.bind(
         Map("isPartnerPersonYouCareFor" -> "")
       ).fold(
@@ -24,7 +24,7 @@ class G4PersonYouCareForFormSpec extends Specification with Tags {
       )
     }
 
-    "reject an invalid value for 'Is your partner the person you care for' " in {
+    "reject an invalid value for 'Is your partner the Person you care for' " in {
       G4PersonYouCareFor.form.bind(
         Map("isPartnerPersonYouCareFor" -> "INVALID")
       ).fold(

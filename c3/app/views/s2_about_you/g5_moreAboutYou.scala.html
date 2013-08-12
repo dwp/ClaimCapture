@@ -7,7 +7,7 @@
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
-@main(Messages("s2.g5") + " - About You", completedQuestionGroups) {
+@main(Messages("s2.g5") + " - " + Messages("s2.longName"), completedQuestionGroups) {
     @errorsSummary(moreAboutYouForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>

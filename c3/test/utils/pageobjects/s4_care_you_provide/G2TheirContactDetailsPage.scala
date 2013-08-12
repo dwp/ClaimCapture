@@ -19,7 +19,7 @@ class G2TheirContactDetailsPage (browser: TestBrowser, previousPage: Option[Page
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G2TheirContactDetailsPage {
-  val title = "Contact details of the person you care for - About the care you provide"
+  val title = "Contact details of the Person you care for - About the care you provide"
 
   val url  = "/care-you-provide/their-contact-details"
 

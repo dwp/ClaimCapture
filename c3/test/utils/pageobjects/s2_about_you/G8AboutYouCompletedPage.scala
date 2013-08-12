@@ -21,7 +21,7 @@ final class G8AboutYouCompletedPage(browser: TestBrowser, previousPage: Option[P
  * It is used by PageFactory object defined in Page.scala
  */
 object G8AboutYouCompletedPage {
-  val title = "Completion - About You"
+  val title = "Completion - About you - the carer"
 
   val url  = "/about-you/completed"
 

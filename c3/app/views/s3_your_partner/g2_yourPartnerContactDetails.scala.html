@@ -5,14 +5,14 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("Contact Details - About your partner/spouse", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s3.g2") + " - " + Messages("s3.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s3_your_partner.routes.G2YourPartnerContactDetails.submit) {
 
         <fieldset class="form-elements">
-            <legend>Contact details of your Partner/Spouse</legend>
+            <legend>@Messages("s3.g1")</legend>
 
             <ul class="group">
                 @inputAddress(currentForm("address"))

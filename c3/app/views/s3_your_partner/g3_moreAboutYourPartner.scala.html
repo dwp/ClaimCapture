@@ -7,14 +7,14 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 
-@main("More About Your Partner/Spouse - About Your Partner/Spouse", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s3.g3") + " - " + Messages("s3.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s3_your_partner.routes.G3MoreAboutYourPartner.submit) {
 
         <fieldset class="form-elements">
-            <legend>More about your Partner/Spouse</legend>
+            <legend>@Messages("s3.g2")</legend>
 
             <ul class="group">
 

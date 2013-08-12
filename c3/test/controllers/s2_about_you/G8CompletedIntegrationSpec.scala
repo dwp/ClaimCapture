@@ -8,7 +8,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
   "About You" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/about-you/completed")
-      titleMustEqual("Completion - About You")
+      titleMustEqual("Completion - About you - the carer")
     }
     
     """navigate to "Your Partner" when next section is "Your Partner"""" in new WithBrowser with BrowserMatchers {
@@ -18,11 +18,11 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)
       Formulate.propertyAndRent(browser)
-      titleMustEqual("Completion - About You")
+      titleMustEqual("Completion - About you - the carer")
       
       browser.find("#submit").getText mustEqual "Continue to Partner/Spouse"
       browser.submit("button[type='submit']")
-      titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
+      titleMustEqual("Partner/Spouse Details - About your partner/spouse")
     }
     
     """navigate to "Care You Provide" when next section is "Care You Provide"""" in new WithBrowser with BrowserMatchers {
@@ -32,11 +32,11 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       Formulate.employment(browser)
       Formulate.propertyAndRent(browser)
-      titleMustEqual("Completion - About You")
+      titleMustEqual("Completion - About you - the carer")
 
       browser.find("#submit").getText mustEqual "Continue to Care you provide"
       browser.submit("button[type='submit']")
-      titleMustEqual("Details of the person you care for - About the care you provide")
+      titleMustEqual("Details of the Person you care for - About the care you provide")
     }
   } section("integration", models.domain.AboutYou.id)
 }

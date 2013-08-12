@@ -13,7 +13,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
     "be presented" in new WithBrowser {
       Formulate.claimDate(browser)
       browser.goTo("/about-you/employment")
-      browser.title mustEqual "Employment - About You"
+      browser.title mustEqual "Employment - About you - the carer"
     }
 
     "be presented without claim date" in new WithBrowser {
@@ -27,7 +27,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
 
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About you - the carer")
       browser.find("div[class=completed] ul li").size() mustEqual 4
     }
 
@@ -39,25 +39,25 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
 
     "failed to fill the form" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About You")
+      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
 
       browser.goTo("/about-you/employment")
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About you - the carer")
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About you - the carer")
 
       browser.find("p[class=error]").size() mustEqual 2
 
       browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
       browser.submit("button[type='submit']")
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About you - the carer")
 
       browser.find("p[class=error]").size() mustEqual 1
 
       browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
       browser.submit("button[type='submit']")
-      titleMustEqual(Messages("s2.g7") + " - About You")
+      titleMustEqual(Messages("s2.g7") + " - About you - the carer")
     }
   } section("integration", models.domain.AboutYou.id)
 }
