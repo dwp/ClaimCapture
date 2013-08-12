@@ -10,7 +10,7 @@ final class G4LivesInGBPage(browser: TestBrowser, previousPage: Option[Page] = N
 object G4LivesInGBPage {
   val title = "Lives in GB - Can you get Carer's Allowance?"
 
-  val url = "/allowance/livesInGB"
+  val url = "/allowance/lives-in-gb"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4LivesInGBPage(browser, previousPage)
 }
