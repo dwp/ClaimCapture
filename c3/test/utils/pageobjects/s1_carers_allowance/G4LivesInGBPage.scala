@@ -8,7 +8,7 @@ final class G4LivesInGBPage(browser: TestBrowser, previousPage: Option[Page] = N
 }
 
 object G4LivesInGBPage {
-  val title = "Lives in GB - Can you get Carer's Allowance?"
+  val title = "Lives in GB - Can you get Carer's Allowance?".toLowerCase
 
   val url = "/allowance/lives-in-gb"
 

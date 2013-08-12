@@ -20,7 +20,7 @@ final class G5PreviousCarerContactDetailsPage (browser: TestBrowser, previousPag
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G5PreviousCarerContactDetailsPage {
-  val title = "Contact details of previous or existing carer - About the care you provide"
+  val title = "Contact details of previous or existing carer - About the care you provide".toLowerCase
 
   val url  = "/care-you-provide/previous-carer-personal-details"
 

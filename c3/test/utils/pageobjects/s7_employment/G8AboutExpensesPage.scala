@@ -10,7 +10,7 @@ final class G8AboutExpensesPage(browser: TestBrowser, previousPage: Option[Page]
 }
 
 object G8AboutExpensesPage {
-  val title = "About expenses to do with your employment - Employment History"
+  val title = "About expenses to do with your employment - Employment History".toLowerCase
 
   val url  = "/employment/about-expenses/:jobID"
 

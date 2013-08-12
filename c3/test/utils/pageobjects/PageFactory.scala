@@ -24,9 +24,9 @@ object PageFactory {
 
   def buildPageFromTitle(browser: TestBrowser, title: String, previousPage: Option[Page], iteration: Int) = {
     // Generic solution using mapping does not work because the objects should register themselves
-    // and there is no way to get that registration triggered automatically when test are loaded.
-    title match {
-      case XmlPage.title => XmlPage buildPageWith(browser, previousPage)
+    // and there is no way to get that registration triggered automatically when test are loaded. 
+    if (null == title ) XmlPage buildPageWith(browser, previousPage)
+    else title.toLowerCase() match {
       // S1
       case G1BenefitsPage.title => G1BenefitsPage buildPageWith(browser, previousPage)
       case G2HoursPage.title => G2HoursPage buildPageWith(browser, previousPage)

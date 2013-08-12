@@ -15,7 +15,7 @@ class G12CareYouProvideCompletedPage (browser: TestBrowser, previousPage: Option
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G12CareYouProvideCompletedPage {
-  val title = "Completion - About the care you provide"
+  val title = "Completion - About the care you provide".toLowerCase
 
   val url  = "/care-you-provide/completed"
 

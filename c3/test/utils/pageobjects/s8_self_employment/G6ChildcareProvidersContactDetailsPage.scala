@@ -9,7 +9,7 @@ final class G6ChildcareProvidersContactDetailsPage(browser: TestBrowser, previou
 }
 
 object G6ChildcareProvidersContactDetailsPage {
-  val title = "Childcare provider's contact details - Self Employment"
+  val title = "Childcare provider's contact details - Self Employment".toLowerCase
 
   val url = "/self-employment/childcare-providers-contact-details"
 

@@ -11,7 +11,7 @@ final class G4SelfEmploymentPensionsAndExpensesPage (browser: TestBrowser, previ
 }
 
 object G4SelfEmploymentPensionsAndExpensesPage {
-  val title = "Self Employment - Pensions and Expenses"
+  val title = "Self Employment - Pensions and Expenses".toLowerCase
 
   val url = "/self-employment/pensions-and-expenses"
 

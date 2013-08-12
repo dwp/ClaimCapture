@@ -12,7 +12,7 @@ final class G3SelfEmploymentAccountantContactDetailsPage (browser: TestBrowser, 
 }
 
 object G3SelfEmploymentAccountantContactDetailsPage {
-  val title = "Self Employment - Accountant Contact Details"
+  val title = "Self Employment - Accountant Contact Details".toLowerCase
 
   val url = "/self-employment/accountant-contact-details"
 

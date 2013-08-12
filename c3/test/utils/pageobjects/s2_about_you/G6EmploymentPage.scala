@@ -18,7 +18,7 @@ final class G6EmploymentPage (browser: TestBrowser, previousPage: Option[Page] =
  * It is used by PageFactory object defined in Page.scala
  */
 object G6EmploymentPage {
-  val title = "Employment - About you - the carer"
+  val title = "Employment - About you - the carer".toLowerCase
 
   val url  = "/about-you/employment"
 
