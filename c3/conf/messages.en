@@ -4,6 +4,7 @@ s2.longName = About you - the carer
 s3.name = Partner/Spouse
 s3.longName = About your partner/spouse
 s4.name = Care you provide
+s4.longName = About the care you provide
 s5.name = Abroad
 s6.name = Education
 s7.name = Employment

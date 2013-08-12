@@ -10,12 +10,12 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 
-@main("Expenses related to the person you care for, while you are at work - Employment", Some(currentForm), completedQuestionGroups) {
+@main("Expenses related to the Person you care for, while you are at work - Employment", Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G12PersonYouCareForExpenses.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
-            <legend>Expenses related to the person you care for, while you are at work</legend>
+            <legend>Expenses related to the Person you care for, while you are at work</legend>
 
             <ul class="group">
                 @carersInputText(currentForm("howMuchCostCare"), '_label -> Messages ("howMuchCostCare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))))

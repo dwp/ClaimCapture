@@ -6,14 +6,14 @@
 @import views.html.helper.base._
 @import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
 
-@main("Expenses related to the person you care for while at work - Self Employment", Some(currentForm), completedQuestionGroups) {
+@main("Expenses related to the Person you care for while at work - Self Employment", Some(currentForm), completedQuestionGroups) {
 
   <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s8_self_employment.routes.G7ExpensesWhileAtWork.submit) {
 
         <fieldset class="form-elements">
-            <legend>Expenses related to the person you care for while at work</legend>
+            <legend>Expenses related to the Person you care for while at work</legend>
 
             <ul class="group">
                 @carersInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed))
