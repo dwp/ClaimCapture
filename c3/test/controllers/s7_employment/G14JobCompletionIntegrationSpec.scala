@@ -7,7 +7,7 @@ import controllers.BrowserMatchers
 class G14JobCompletionIntegrationSpec extends Specification with Tags {
   val jobID = "dummyJobID"
 
-  "Job completion" should {
+  "Job completion - Integration" should {
     "present" in new WithBrowser with BrowserMatchers {
       browser.goTo(s"/employment/job-completion/$jobID")
       titleMustEqual("Job Completion - Employment History")
@@ -23,7 +23,7 @@ class G14JobCompletionIntegrationSpec extends Specification with Tags {
       titleMustEqual("Your employment history - Employment History")
     }
 
-    """go back to "Care provider’s contact Details".""" in new WithBrowser with BrowserMatchers {
+    """go back to "Care provider's contact Details".""" in new WithBrowser with BrowserMatchers {
       /* Required data to get to "end" pages */
       browser.goTo(s"/employment/about-expenses/$jobID")
       browser.click("#payForAnythingNecessary_yes")
@@ -34,13 +34,13 @@ class G14JobCompletionIntegrationSpec extends Specification with Tags {
 
       /* The page we wish to go back to */
       browser.goTo(s"/employment/care-provider/$jobID")
-      titleMustEqual("Care provider’s contact Details - Employment History")
+      titleMustEqual("Care provider's contact Details - Employment History")
 
       browser.submit("button[type='submit']")
       titleMustEqual("Job Completion - Employment History")
 
       browser.click("#backButton")
-      titleMustEqual("Care provider’s contact Details - Employment History")
+      titleMustEqual("Care provider's contact Details - Employment History")
     }
   } section("integration", models.domain.Employed.id)
 }

@@ -6,7 +6,7 @@ import controllers.{Formulate, BrowserMatchers}
 import play.api.i18n.Messages
 
 class EmploymentIntegrationSpec extends Specification with Tags {
-  "Employment" should {
+  "Employment - Integration" should {
     "present completion" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/completed")
       titleMustEqual("Completion - Employment History")

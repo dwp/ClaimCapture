@@ -10,7 +10,7 @@ import models.domain.Claim
 class G7PensionSchemesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
 
-  "Pension schemes" should {
+  "Pension schemes - Controller" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
       val result = G7PensionSchemes.present(jobID)(request)
