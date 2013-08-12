@@ -125,7 +125,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
       else {
         this.pageLeft = true
         if (waitForPage) waitForDifferentPage(waitDuration)
-        this createPageWithTitle(browser.title, if (!resetIteration) updateIterationNumber() else 1)
+        this createPageWithTitle(getTitleFromBrowser(), if (!resetIteration) updateIterationNumber() else 1)
       }
     }
     catch {
@@ -191,7 +191,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
       }
     }
     catch {
-      case e: TimeoutException => throw new PageObjectException("Time out while awaiting [" + browser.title + "] matches [" + this.pageTitle + "]")
+      case e: TimeoutException => throw new PageObjectException("Time out while awaiting html page title [" + getTitleFromBrowser() + "] matches title expected page [" + this.pageTitle + "]")
     }
     this
   }
@@ -209,8 +209,9 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   }
 
   protected def titleMatch(): Boolean = {
-    try {
-      if (browser.title != null) browser.title.toLowerCase == this.pageTitle.toLowerCase else false
+    try { 
+      val titleRead = getTitleFromBrowser() 
+      if ( titleRead != null) titleRead.toLowerCase == this.pageTitle.toLowerCase else false
     }
     catch {
       case _:Exception => false
@@ -225,6 +226,17 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     else false
   }
 
+  protected def getTitleFromBrowser(index:Int = 0):String = {
+    if (index < 10) {
+      try {
+        browser.title()
+      }
+      catch {
+        case _:Exception => getTitleFromBrowser(index + 1)
+      }
+    } else throw new PageObjectException("Could not get title from browser object.")
+  }
+
   private def createPageWithTitle(title: String, newIterationNumber: Int) = {
     val newPage = PageFactory buildPageFromTitle(browser, title, Some(this), newIterationNumber)
     newPage
@@ -235,10 +247,9 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     if (!this.pageLeft) this.pageSource = browser.pageSource()
     browser.goTo(page.url)
     if (!page.titleMatch) {
-      if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " - Page loaded with title: " + browser.title)
-      else this.createPageWithTitle(browser.title, 1)
+      if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " - Page loaded with title: " + getTitleFromBrowser())
+      else this.createPageWithTitle(getTitleFromBrowser(), 1)
     } else if (waitForPage) page.waitForPage(waitDuration) else page
-
   }
 }
 
