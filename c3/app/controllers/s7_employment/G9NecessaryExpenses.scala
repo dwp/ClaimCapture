@@ -9,6 +9,9 @@ import models.domain.{AboutExpenses, NecessaryExpenses}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
+import utils.helpers.PastPresentLabelHelper._
+import play.api.data.FormError
+import scala.Some
 
 object G9NecessaryExpenses extends Controller with CachedClaim {
   val form = Form(
@@ -30,7 +33,13 @@ object G9NecessaryExpenses extends Controller with CachedClaim {
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => dispatch(BadRequest(views.html.s7_employment.g9_necessaryExpenses(formWithErrors, completedQuestionGroups(NecessaryExpenses, jobID)))),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("whatAreThose", "error.required", FormError("whatAreThose", "error.required", Seq(pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , jobID))))
+          .replaceError("howMuchCostEachWeek", "error.required", FormError("howMuchCostEachWeek", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , jobID))))
+          .replaceError("whyDoYouNeedThose", "error.required", FormError("whyDoYouNeedThose", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
+        dispatch(BadRequest(views.html.s7_employment.g9_necessaryExpenses(formWithErrorsUpdate, completedQuestionGroups(NecessaryExpenses, jobID))))
+      },
       necessaryExpenses => claim.update(jobs.update(necessaryExpenses)) -> Redirect(routes.G10ChildcareExpenses.present(jobID)))
   }
 }

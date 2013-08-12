@@ -16,7 +16,7 @@
             <legend>Expenses related to the person you care for while at work</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed))
+                @carersInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase))
 
                 @carersInputText(currentForm("nameOfPerson"))
 
