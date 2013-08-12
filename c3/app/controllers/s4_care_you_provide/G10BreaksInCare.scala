@@ -56,17 +56,4 @@ object G10BreaksInCare extends Controller with CareYouProvideRouting with Cached
       case _ => BadRequest(s"""Failed to delete break with ID "$id" as claim currently has no breaks""")
     }
   }
-
-  /*private def dateOfClaimCheckIfSpent35HoursCaringBeforeClaim(claim: Claim): String = {
-    import language.postfixOps
-
-    val spent35HoursCaringBeforeClaim = claim.questionGroup(MoreAboutTheCare) match {
-      case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim.answer == "yes"
-      case _ => false
-    }
-
-    claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
-      if (spent35HoursCaringBeforeClaim) (dmy - 6 months).`dd/MM/yyyy`
-      else dmy.`dd/MM/yyyy`)
-  }*/
 }
