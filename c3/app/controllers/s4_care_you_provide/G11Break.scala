@@ -8,7 +8,6 @@ import controllers.Mappings._
 import utils.helpers.CarersForm._
 import CareYouProvide.breaksInCare
 import models.domain.{BreaksInCare, Break}
-import G10BreaksInCare._
 
 object G11Break extends Controller with CachedClaim {
   val form = Form(
@@ -30,7 +29,7 @@ object G11Break extends Controller with CachedClaim {
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g11_break(formWithErrors)),
       break => {
         val updatedBreaksInCare = if (breaksInCare.breaks.size >= 10) breaksInCare else breaksInCare.update(break)
-        claim.update(updatedBreaksInCare) -> Redirect(routes.G10BreaksInCare.present()).flashing(clearHasBreaks -> yes)
+        claim.update(updatedBreaksInCare) -> Redirect(routes.G10BreaksInCare.present())
       })
   }
 

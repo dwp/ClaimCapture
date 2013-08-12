@@ -12,16 +12,15 @@ import models.yesNo.YesNo
 import CareYouProvide.breaksInCare
 
 object G10BreaksInCare extends Controller with CareYouProvideRouting with CachedClaim {
-  val clearHasBreaks = "clearHasBreaks"
-
   val form = Form(
     mapping(
       "answer" -> nonEmptyText.verifying(validYesNo)
   )(YesNo.apply)(YesNo.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val filledForm = claim.questionGroup[BreaksInCare] match {
-      case Some(bs) if request.flash.get(clearHasBreaks).getOrElse(no) == no => form.fill(YesNo(no))
+    val filledForm = request.headers.get("referer") match {
+      case Some(referer) if referer endsWith routes.G11Break.present().url => form
+      case _ if claim.questionGroup[BreaksInCare].isDefined => form.fill(YesNo(no))
       case _ => form
     }
 

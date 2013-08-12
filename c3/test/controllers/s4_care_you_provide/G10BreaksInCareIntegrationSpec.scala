@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, Formulate}
+import controllers.{Navigation, BrowserMatchers, Formulate}
 
 class G10BreaksInCareIntegrationSpec extends Specification with Tags {
   "Breaks in care" should {
@@ -52,7 +52,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       browser.find("ul[class=group] li p").getText mustEqual "* Have you had any breaks in caring since 03/04/1950?"
     }
 
-    """allow a new break to be added but not record the "yes/no" answer""" in new WithBrowser with BrowserMatchers {
+    """not record the "yes/no" answer upon starting to add a new break but "cancel".""" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
 
@@ -63,6 +63,23 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
       browser.click("#backButton")
       titleMustEqual("Breaks in care - About the care you provide")
       browser.findFirst("#answer_yes").isSelected should beFalse
+      browser.findFirst("#answer_no").isSelected should beFalse
+    }
+
+    """allow a new break to be added but not record the "yes/no" answer""" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
+      browser.goTo("/care-you-provide/breaks-in-care")
+      titleMustEqual("Breaks in care - About the care you provide")
+
+      browser.click("#answer_yes")
+      browser.submit("button[value='next']")
+      titleMustEqual("Break - About the care you provide")
+
+      break()
+      next
+      titleMustEqual("Breaks in care - About the care you provide")
+
+      browser.findFirst("#answer_yes").isSelected should beFalse
+      browser.findFirst("#answer_no").isSelected should beFalse
     }
 
     """remember "no more breaks" upon stating "no more breaks" and returning to "breaks in care".""" in new WithBrowser with BrowserMatchers {
@@ -75,6 +92,7 @@ class G10BreaksInCareIntegrationSpec extends Specification with Tags {
 
       browser.click("#backButton")
       titleMustEqual("Breaks in care - About the care you provide")
+      browser.findFirst("#answer_yes").isSelected should beFalse
       browser.findFirst("#answer_no").isSelected should beTrue
     }
   } section("integration", models.domain.CareYouProvide.id)
