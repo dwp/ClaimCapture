@@ -11,11 +11,11 @@
 @import controllers.s11_consent_and_declaration._
 @import views.html.s11_consent_and_declaration.main
 
-@main("Disclaimer - Consent and Declaration", Some(currentForm),completedQuestionGroups) {
+@main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm),completedQuestionGroups) {
 
     @form(action = controllers.s11_consent_and_declaration.routes.G3Disclaimer.submit) {
         <fieldset class="form-elements">
-            <legend>Disclaimer</legend>
+            <legend>@Messages("s11.g3")</legend>
 
             <div class="declaration">
                 @for(i <- 1 to 6) {
