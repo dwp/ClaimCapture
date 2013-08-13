@@ -7,8 +7,9 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import controllers.s11_consent_and_declaration._
+@import views.html.s11_consent_and_declaration.main
 
-@main("Declaration - Consent And Declaration", Some(currentForm),completedQuestionGroups) {
+@main("Declaration - Consent and Declaration", Some(currentForm),completedQuestionGroups) {
     @form(action = controllers.s11_consent_and_declaration.routes.G4Declaration.submit) {
         <fieldset class="form-elements">
             <legend>Declaration</legend>

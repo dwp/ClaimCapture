@@ -8,12 +8,12 @@ class G3DisclaimerIntegrationSpec extends Specification with Tags {
   "Disclaimer" should {
     "be presented" in new WithBrowser {
       browser.goTo("/consent-and-declaration/disclaimer")
-      browser.title mustEqual "Disclaimer - Consent And Declaration"
+      browser.title mustEqual "Disclaimer - Consent and Declaration"
     }
 
     "contain errors on invalid submission" in new WithBrowser {
       browser.goTo("/consent-and-declaration/disclaimer")
-      browser.title mustEqual "Disclaimer - Consent And Declaration"
+      browser.title mustEqual "Disclaimer - Consent and Declaration"
       browser.submit("button[type='submit']")
 
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
@@ -21,13 +21,13 @@ class G3DisclaimerIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser {
       Formulate.disclaimer(browser)
-      browser.title mustEqual "Declaration - Consent And Declaration"
+      browser.title mustEqual "Declaration - Consent and Declaration"
     }
 
     "navigate back to Consent" in new WithBrowser {
       Formulate.consent(browser)
       browser.click(".form-steps a")
-      browser.title mustEqual "Consent - Consent And Declaration"
+      browser.title mustEqual "Consent - Consent and Declaration"
     }
 
     "contain the completed forms" in new WithBrowser {

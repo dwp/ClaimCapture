@@ -9,12 +9,12 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
   "Additional Information" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/consent-and-declaration/additional-info")
-      titleMustEqual("Additional Information - Consent And Declaration")
+      titleMustEqual("Additional Information - Consent and Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/consent-and-declaration/additional-info")
-      titleMustEqual("Additional Information - Consent And Declaration")
+      titleMustEqual("Additional Information - Consent and Declaration")
       browser.submit("button[type='submit']")
 
       findMustEqualSize("div[class=validation-summary] ol li", 1)
@@ -22,7 +22,7 @@ class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.additionalInfo(browser)
-      titleMustEqual("Consent - Consent And Declaration")
+      titleMustEqual("Consent - Consent and Declaration")
     }
 
     "navigate back to Pay Details - Completed" in new WithBrowser with BrowserMatchers {

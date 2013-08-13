@@ -20,7 +20,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       titleMustEqual("Employment - About you - the carer")
 
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("Additional Information - Consent And Declaration")
+      titleMustEqual("Additional Information - Consent and Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
