@@ -8,7 +8,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
   "Bank building society details" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/pay-details/bank-building-society-details")
-      titleMustEqual("Bank Building Society Details - Pay Details")
+      titleMustEqual("Bank/Building society details - How we pay you")
     }
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
@@ -20,7 +20,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/pay-details/bank-building-society-details")
-      titleMustEqual("Bank Building Society Details - Pay Details")
+      titleMustEqual("Bank/Building society details - How we pay you")
       browser.submit("button[type='submit']")
 
       findMustEqualSize("div[class=validation-summary] ol li", 5)
@@ -28,12 +28,12 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.bankBuildingSocietyDetails(browser)
-      titleMustEqual("Completion - Pay Details")
+      titleMustEqual("Completion - How we pay you")
     }
 
     "navigate back to How We Pay You - Pay Details" in new WithBrowser with BrowserMatchers {
       Formulate.howWePayYou(browser)
-      titleMustEqual("Bank Building Society Details - Pay Details")
+      titleMustEqual("Bank/Building society details - How we pay you")
 
       browser.goTo("/pay-details/bank-building-society-details")
       browser.click("#backButton")

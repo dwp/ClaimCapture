@@ -33,7 +33,6 @@ class G3CompletedIntegrationSpec extends Specification with Tags {
     "navigate back to 'Bank Building Society Details'" in new WithBrowser with G3PayDetailsCompletedPageContext {
       page goToThePage()
       val g2Page = page.goBack()
-//      g2Page.pageTitle shouldEqual "Bank Building Society Details - Pay Details".toLowerCase
       g2Page must beAnInstanceOf[G2BankBuildingSocietyDetailsPage]
     }
 

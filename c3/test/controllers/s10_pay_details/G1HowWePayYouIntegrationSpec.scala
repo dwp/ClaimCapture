@@ -35,7 +35,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.howWePayYou(browser)
-      titleMustEqual("Bank Building Society Details - Pay Details")
+      titleMustEqual("Bank/Building society details - How we pay you")
     }
 
     "navigate back to Other Money - Completed" in new WithBrowser with BrowserMatchers {
