@@ -2,7 +2,7 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{Navigation, BrowserMatchers, Formulate}
+import controllers.{WithBrowserHelper, BrowserMatchers, Formulate}
 
 class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Previous Carer Personal Details" should {
@@ -11,12 +11,12 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
     }
 
-    "navigate to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser with Navigation with BrowserMatchers {
+    "navigate to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       goTo("/care-you-provide/previous-carer-personal-details")
       titleMustEqual("Representatives for the Person you care for - About the care you provide")
     }
 
-    "highlight missing data" in new WithBrowser with Navigation with BrowserMatchers {
+    "highlight missing data" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
       next
@@ -31,7 +31,7 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       titleMustEqual("Contact details of previous or existing carer - About the care you provide")
     }
 
-    "contain errors on invalid submission" in new WithBrowser with Navigation with BrowserMatchers {
+    "contain errors on invalid submission" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       def fill() = {
         browser fill "#firstName" `with` "Rip"
         browser fill "#middleName" `with` "Van"
@@ -55,7 +55,7 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
-    "navigate back to More About The Person you care for" in new WithBrowser with Navigation with BrowserMatchers {
+    "navigate back to More About The Person you care for" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       back
       titleMustEqual("Relationship and other claims - About the care you provide")
@@ -66,7 +66,7 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
 
-    "navigating forward and back presents the same completed question list" in new WithBrowser with Navigation with BrowserMatchers {
+    "navigating forward and back presents the same completed question list" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
       Formulate.theirContactDetails(browser)
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)

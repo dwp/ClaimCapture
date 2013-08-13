@@ -2,7 +2,7 @@ package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{Navigation, BrowserMatchers}
+import controllers.{WithBrowserHelper, BrowserMatchers}
 
 class G1BeenEmployedIntegrationSpec extends Specification with Tags {
   sequential
@@ -23,7 +23,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       titleMustEqual("Details about other money - About Other Money")
     }
 
-    "start employment entry" in new WithBrowser with Navigation with BrowserMatchers with EmployedSinceClaimDate {
+    "start employment entry" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
       browser.goTo("/employment/been-employed").click("#beenEmployed_yes")
@@ -31,7 +31,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       titleMustEqual("Your job - Employment History")
     }
 
-    "show 1 error upon submitting no mandatory data" in new WithBrowser with Navigation with BrowserMatchers with EmployedSinceClaimDate {
+    "show 1 error upon submitting no mandatory data" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
       browser.goTo("/employment/been-employed")
@@ -40,7 +40,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       findMustEqualSize("div[class=validation-summary] ol li", 1)
     }
 
-    """continue to "completion" when there are no more "jobs" to submit.""" in new WithBrowser with Navigation with BrowserMatchers with EmployedSinceClaimDate {
+    """continue to "completion" when there are no more "jobs" to submit.""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
       browser.goTo("/employment/been-employed").click("#beenEmployed_no")
@@ -48,7 +48,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - Employment History")
     }
 
-    """go back to "education".""" in new WithBrowser with Navigation with BrowserMatchers with EmployedSinceClaimDate {
+    """go back to "education".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim
 
       browser.goTo("/employment/been-employed")
@@ -56,7 +56,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - About your education")
     }
 
-    """not record the "yes/no" answer upon starting to add a new employment but "cancel".""" in new WithBrowser with Navigation with BrowserMatchers {
+    """not record the "yes/no" answer upon starting to add a new employment but "cancel".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser goTo "/employment/been-employed"
       titleMustEqual("Your employment history - Employment History")
 
@@ -70,7 +70,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       browser.findFirst("#beenEmployed_no").isSelected should beFalse
     }
 
-    """allow an employment to be added but not record the "yes/no" answer""" in new WithBrowser with Navigation with BrowserMatchers {
+    """allow an employment to be added but not record the "yes/no" answer""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       def job() = {
         val jobID = "dummyJobID"
 
@@ -101,7 +101,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       browser.findFirst("#beenEmployed_no").isSelected should beFalse
     }
 
-    """remember "employment" upon stating "employment" and returning""" in new WithBrowser with Navigation with BrowserMatchers {
+    """remember "employment" upon stating "employment" and returning""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser goTo "/employment/been-employed"
       titleMustEqual("Your employment history - Employment History")
 
