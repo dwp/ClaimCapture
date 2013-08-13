@@ -128,14 +128,14 @@ object Caree {
 
   def previousClaimant(claim: Claim) = {
     val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
-    val previousCarerPersonalDetails = claim.questionGroup[PreviousCarerPersonalDetails].getOrElse(PreviousCarerPersonalDetails())
+    val previousCarerPersonalDetails = claim.questionGroup[PreviousCarerPersonalDetails].getOrElse(PreviousCarerPersonalDetails(firstName = "", surname = ""))
     val previousCarerContactDetails = claim.questionGroup[PreviousCarerContactDetails].getOrElse(PreviousCarerContactDetails())
     val claimedAllowanceBefore = moreAboutThePerson.claimedAllowanceBefore == yes
 
     if (claimedAllowanceBefore) {
       <PreviousClaimant>
-        <Surname>{previousCarerPersonalDetails.surname.orNull}</Surname>
-        <OtherNames>{previousCarerPersonalDetails.firstName.orNull} {previousCarerPersonalDetails.middleName.orNull}</OtherNames>
+        <Surname>{previousCarerPersonalDetails.surname}</Surname>
+        <OtherNames>{previousCarerPersonalDetails.firstName} {previousCarerPersonalDetails.middleName.orNull}</OtherNames>
         <DateOfBirth>{stringify(previousCarerPersonalDetails.dateOfBirth)}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(previousCarerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
         <Address>{postalAddressStructure(previousCarerContactDetails.address, previousCarerContactDetails.postcode)}</Address>

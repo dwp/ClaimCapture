@@ -7,15 +7,16 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
+@import views.html.s1_carers_allowance.main
 
-@main("Hours - Can you get Carer's Allowance?", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s1.g2") + " - " + Messages("s1.longName"), Some(currentForm), completedQuestionGroups) {
 
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s1_carers_allowance.routes.G2Hours.submit) {
 
         <fieldset class="form-elements form-eligibility q1">
-            <legend><span>Q2</span>Do you spend 35 hours or more each week caring for the person you look after?</legend>
+            <legend><span>Q2</span>@Messages("s1.g1")</legend>
 
             <p>For example, cooking meals, or helping them with their shopping.</p>
             

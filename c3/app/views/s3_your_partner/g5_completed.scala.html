@@ -2,6 +2,7 @@
 
 @import helper._
 @import models.domain.YourPartner
+@import views.html.s3_your_partner.main
 
 @main("Completion - " + Messages("s3.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s3_your_partner.routes.YourPartner.completedSubmit) {

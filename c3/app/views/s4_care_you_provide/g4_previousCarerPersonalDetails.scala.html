@@ -5,6 +5,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
+@import views.html.s4_care_you_provide.main
 
 @main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm), completedQuestionGroups) {
 
@@ -15,11 +16,11 @@
             <legend>@Messages("s4.g4")</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.sixty)
+                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.Name.maxLength)
 
-                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.sixty)
+                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.Name.maxLength)
 
-                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.sixty)
+                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.Name.maxLength)
 
                 @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
 

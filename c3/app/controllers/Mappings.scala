@@ -13,7 +13,7 @@ import models.NationalInsuranceNumber
 import play.api.data.validation.ValidationError
 
 object Mappings {
-  trait Name {
+  object Name {
     val maxLength = 35
   }
 

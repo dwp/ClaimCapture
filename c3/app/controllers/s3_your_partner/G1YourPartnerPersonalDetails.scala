@@ -8,16 +8,15 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import utils.helpers.CarersForm.formBinding
-import controllers.Mappings
 
-object G1YourPartnerPersonalDetails extends Controller with Mappings.Name with CachedClaim {
+object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
       "title" -> nonEmptyText(maxLength = 4),
-      "firstName" -> nonEmptyText(maxLength = maxLength),
-      "middleName" -> optional(text(maxLength = maxLength)),
-      "surname" -> nonEmptyText(maxLength = maxLength),
-      "otherNames" -> optional(text(maxLength = maxLength)),
+      "firstName" -> nonEmptyText(maxLength = Name.maxLength),
+      "middleName" -> optional(text(maxLength = Name.maxLength)),
+      "surname" -> nonEmptyText(maxLength = Name.maxLength),
+      "otherNames" -> optional(text(maxLength = sixty)),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNinoOnly)),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "nationality" -> optional(text(maxLength = sixty)),

@@ -83,7 +83,7 @@ object ClaimBuilder {
   
   val previousCarerContactDetails = PreviousCarerContactDetails(address = Some(MultiLineAddress(Some("Line1"), None, None)), postcode = Some("PR2 8AE"))
 
-  val previousCarerPersonalDetails = PreviousCarerPersonalDetails(firstName = Some("Some"), middleName = None, surname = Some("One"), None, dateOfBirth = Some(DayMonthYear(1, 1, 1963)))
+  val previousCarerPersonalDetails = PreviousCarerPersonalDetails(firstName = "Some", middleName = None, surname = "One", None, dateOfBirth = Some(DayMonthYear(1, 1, 1963)))
 
   val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaring = "yes", spent35HoursCaringBeforeClaim = YesNoWithDate("no", Some(DayMonthYear(1, 1, 2013))), hasSomeonePaidYou = "yes")
 

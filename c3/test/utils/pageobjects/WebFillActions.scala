@@ -4,7 +4,7 @@ import play.api.test.TestBrowser
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import scala.collection.convert.Wrappers.JListWrapper
-import org.openqa.selenium.{WebDriverException, By}
+import org.openqa.selenium.By
 
 /**
  * Fill operations on the web elements composing a page.
@@ -12,7 +12,7 @@ import org.openqa.selenium.{WebDriverException, By}
  *         Date: 15/07/2013
  */
 trait WebFillActions {
-  this: {val browser: TestBrowser} =>
+  this: { val browser: TestBrowser } =>
 
   def click(elementCssSelector: String) = browser.click(elementCssSelector)
 
@@ -26,7 +26,7 @@ trait WebFillActions {
   }
 
   def fillCheck(elementCssSelector: String, value: String) = if (null != value) {
-    if ("yes" == value.toLowerCase()) click(elementCssSelector)
+    if ("yes" == value.toLowerCase) click(elementCssSelector)
   }
 
   def fillDate(elementCssSelector: String, value: String) = if (null != value) {
@@ -101,9 +101,9 @@ trait WebFillActions {
       val select = browser.find(elementCssSelector + "_" + subSelect, 0).getElement
       val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
       allOptions.find(wo => wo.getAttribute("value") == value) match {
-        case Some(we) => we.click
+        case Some(we) => we.click()
         case _ => {
-          allOptions.find(_.getText.toLowerCase == "other").get.click
+          allOptions.find(_.getText.toLowerCase == "other").get.click()
           browser.fill(elementCssSelector + "_other") `with` value
         }
       }

@@ -97,13 +97,9 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
 
           val completed = p.findTarget("div[class=completed] ul li")
 
-          completed(0) must contain("Q1")
           completed(0) must contain("No")
-          completed(1) must contain("Q2")
           completed(1) must contain("Yes")
-          completed(2) must contain("Q3")
           completed(2) must contain("No")
-          completed(3) must contain("Q4")
           completed(3) must contain("Yes")
         }
         case _ => ko("Next Page is not of the right type.")

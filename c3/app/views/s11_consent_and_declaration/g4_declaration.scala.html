@@ -9,10 +9,10 @@
 @import controllers.s11_consent_and_declaration._
 @import views.html.s11_consent_and_declaration.main
 
-@main("Declaration - Consent and Declaration", Some(currentForm),completedQuestionGroups) {
+@main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm),completedQuestionGroups) {
     @form(action = controllers.s11_consent_and_declaration.routes.G4Declaration.submit) {
         <fieldset class="form-elements">
-            <legend>Declaration</legend>
+            <legend>@Messages("s11.g4")</legend>
 
             <article class="dec">
                 <h3>@Messages("declaration.title")</h3>
@@ -26,7 +26,6 @@
 
             <div class="group declare">
                 @carersDeclareCheck(currentForm("someoneElse"))
-
             </div>
 
             <div class="group declare secondary">

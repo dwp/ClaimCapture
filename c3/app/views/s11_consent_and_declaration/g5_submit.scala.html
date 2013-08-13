@@ -11,7 +11,7 @@
 @import models.domain.Employment
 @import views.html.s11_consent_and_declaration.main
 
-@main("Submit - Consent and Declaration", None, completedQuestionGroups) {
+@main(Messages("s11.g5") + " - " + Messages("s11.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s11_consent_and_declaration.routes.G5Submit.submit) {
 
         @if(claim.questionGroup(Employment).isDefined &&
