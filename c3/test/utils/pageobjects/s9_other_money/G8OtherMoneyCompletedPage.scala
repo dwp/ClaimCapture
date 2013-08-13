@@ -6,7 +6,7 @@ import utils.pageobjects.{PageContext, Page}
 final class G8OtherMoneyCompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G8OtherMoneyCompletedPage.url, G8OtherMoneyCompletedPage.title, previousPage)
 
 object G8OtherMoneyCompletedPage {
-  val title = "Completion - Other Money".toLowerCase
+  val title = "Completion - About Other Money".toLowerCase
 
   val url = "/other-money/completed"
 
