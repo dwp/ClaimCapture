@@ -1,4 +1,4 @@
-@(title: String, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim)
 
 @import helper._
 @import models.domain._
@@ -31,6 +31,10 @@
                             }
                         </ul>
                     </div>
+                }
+
+                @if(currentForm.isDefined) {
+                    @errorsSummary(currentForm.get)
                 }
 
                 @content
