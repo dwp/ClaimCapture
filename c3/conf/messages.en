@@ -312,7 +312,7 @@ sameAmountEachTime = {0} get the same amount each time?
 
 # ADDITIONAL WAGE DETAILS
 oftenGetPaid = How often are you paid?
-oftenGetPaid_frequency = How often {0} paid?
+oftenGetPaidFrequency = How often {0} paid?
 whenGetPaid = When {0} get paid?
 holidaySickPay = {0} get holiday pay or sick pay?
 anyOtherMoney = {0} get paid any other money as well as your normal wage?
