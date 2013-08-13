@@ -8,8 +8,8 @@ import implicits.Iteration._
 
 class G4TripIntegrationSpec extends Specification with Tags {
   "4 weeks trip" should {
-    "be presented" in new WithBrowser with BrowserMatchers {
-      browser goTo "/time-spent-abroad/trip/4-weeks"
+    "be presented" in new WithBrowser with Navigation with BrowserMatchers {
+      goTo("/time-spent-abroad/trip/4-weeks")
       titleMustEqual("Trips - Time Spent Abroad")
     }
 
@@ -26,7 +26,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         browser fill "#where" `with` "Scotland"
       }
 
-      browser goTo "/time-spent-abroad/trip/4-weeks"
+      goTo("/time-spent-abroad/trip/4-weeks")
       titleMustEqual("Trips - Time Spent Abroad")
       trip()
       next
@@ -43,7 +43,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         browser fill "#end_year" `with` "2000"
       }
 
-      browser goTo "/time-spent-abroad/trip/4-weeks"
+      goTo("/time-spent-abroad/trip/4-weeks")
       titleMustEqual("Trips - Time Spent Abroad")
       trip()
       next
@@ -65,7 +65,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       }
 
       2 times {
-        browser goTo "/time-spent-abroad/trip/4-weeks"
+        goTo("/time-spent-abroad/trip/4-weeks")
         titleMustEqual("Trips - Time Spent Abroad")
         trip()
         next
@@ -93,7 +93,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       }
 
       2 times {
-        browser goTo "/time-spent-abroad/trip/4-weeks"
+        goTo("/time-spent-abroad/trip/4-weeks")
         titleMustEqual("Trips - Time Spent Abroad")
         trip()
         next
@@ -113,10 +113,10 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
 
     "allow cancellation" in new WithBrowser with Navigation with BrowserMatchers {
-      browser goTo "/time-spent-abroad/abroad-for-more-than-4-weeks"
+      goTo("/time-spent-abroad/abroad-for-more-than-4-weeks")
       titleMustEqual("When you went abroad for more than 4 weeks - Time Spent Abroad")
 
-      browser goTo "/time-spent-abroad/trip/4-weeks"
+      goTo("/time-spent-abroad/trip/4-weeks")
       titleMustEqual("Trips - Time Spent Abroad")
 
       back
@@ -143,7 +143,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         browser fill "#where" `with` "Scotland"
       }
 
-      browser goTo "/time-spent-abroad/trip/52-weeks"
+      goTo("/time-spent-abroad/trip/52-weeks")
       titleMustEqual("Trips - Time Spent Abroad")
       trip()
       next
@@ -160,7 +160,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         browser fill "#end_year" `with` "2000"
       }
 
-      browser goTo "/time-spent-abroad/trip/52-weeks"
+      goTo("/time-spent-abroad/trip/52-weeks")
       titleMustEqual("Trips - Time Spent Abroad")
       trip()
       next
@@ -182,7 +182,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       }
 
       2 times {
-        browser goTo "/time-spent-abroad/trip/52-weeks"
+        goTo("/time-spent-abroad/trip/52-weeks")
         titleMustEqual("Trips - Time Spent Abroad")
         trip()
         next
@@ -210,7 +210,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       }
 
       2 times {
-        browser goTo "/time-spent-abroad/trip/52-weeks"
+        goTo("/time-spent-abroad/trip/52-weeks")
         titleMustEqual("Trips - Time Spent Abroad")
         trip()
         next
@@ -230,10 +230,10 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
 
     "allow cancellation" in new WithBrowser with Navigation with BrowserMatchers {
-      browser goTo "/time-spent-abroad/abroad-for-more-than-52-weeks"
+      goTo("/time-spent-abroad/abroad-for-more-than-52-weeks")
       titleMustEqual("When you went abroad for more than 52 weeks - Time Spent Abroad")
 
-      browser goTo "/time-spent-abroad/trip/52-weeks"
+      goTo("/time-spent-abroad/trip/52-weeks")
       titleMustEqual("Trips - Time Spent Abroad")
 
       back
