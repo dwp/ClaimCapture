@@ -17,7 +17,7 @@ object XMLHelper {
     case Some(dmy: DayMonthYear) => dmy.`yyyy-MM-dd`
     case Some(nr: NationalInsuranceNumber) => nr.stringify
     case Some(sc: SortCode) => sc.stringify
-    case _ => ""
+    case _ => default
   }
 
   def nodify(value: Option[_]): NodeBuffer = value  match {
