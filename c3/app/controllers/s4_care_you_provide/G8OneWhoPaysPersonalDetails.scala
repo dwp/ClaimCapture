@@ -7,24 +7,23 @@ import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
-import controllers.Mappings
 import utils.helpers.CarersForm._
 
-object G8OneWhoPaysPersonalDetails extends Controller with CareYouProvideRouting with Mappings.Name with CachedClaim {
+object G8OneWhoPaysPersonalDetails extends Controller with CareYouProvideRouting with CachedClaim {
   val form = Form(
     mapping(
       "organisation" -> optional(text(maxLength = hundred)),
       "title" -> optional(text(maxLength = 4)),
-      "firstName" -> nonEmptyText(maxLength = maxLength),
-      "middleName" -> optional(text(maxLength = maxLength)),
-      "surname" -> nonEmptyText(maxLength = maxLength),
+      "firstName" -> nonEmptyText(maxLength = Name.maxLength),
+      "middleName" -> optional(text(maxLength = Name.maxLength)),
+      "surname" -> nonEmptyText(maxLength = Name.maxLength),
       "amount" -> nonEmptyText.verifying(validDecimalNumber),
       "startDatePayment" -> dayMonthYear.verifying(validDate)
     )(OneWhoPaysPersonalDetails.apply)(OneWhoPaysPersonalDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     val hasSomeonePaidYou: Boolean = claim.questionGroup(MoreAboutTheCare) match {
-      case Some(m: MoreAboutTheCare) => m.hasSomeonePaidYou == Mappings.yes
+      case Some(m: MoreAboutTheCare) => m.hasSomeonePaidYou == yes
       case _ => false
     }
 

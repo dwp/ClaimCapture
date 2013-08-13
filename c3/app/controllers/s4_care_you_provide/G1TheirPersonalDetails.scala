@@ -8,15 +8,14 @@ import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import controllers.Mappings
 
-object G1TheirPersonalDetails extends Controller with Mappings.Name with CachedClaim {
+object G1TheirPersonalDetails extends Controller with CachedClaim {
   val form = Form(
     mapping(
       "title" -> nonEmptyText(maxLength = 4),
-      "firstName" -> nonEmptyText(maxLength = maxLength),
-      "middleName" -> optional(text(maxLength = maxLength)),
-      "surname" -> nonEmptyText(maxLength = maxLength),
+      "firstName" -> nonEmptyText(maxLength = Name.maxLength),
+      "middleName" -> optional(text(maxLength = Name.maxLength)),
+      "surname" -> nonEmptyText(maxLength = Name.maxLength),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "liveAtSameAddressCareYouProvide" -> nonEmptyText.verifying(validYesNo)

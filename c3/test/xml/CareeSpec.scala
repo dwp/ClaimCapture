@@ -209,13 +209,13 @@ class CareeSpec extends Specification with Tags {
       val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
       val dateOfBirth = DayMonthYear(Some(3), Some(4), Some(1950))
       val moreAboutThePerson = MoreAboutThePerson(claimedAllowanceBefore = yes)
-      val previousCarerPersonalDetails = PreviousCarerPersonalDetails(firstName = Some("firstName"), middleName = Some("middleName"), surname = Some("surname"), nationalInsuranceNumber = Some(nationalInsuranceNr), dateOfBirth = Some(dateOfBirth))
+      val previousCarerPersonalDetails = PreviousCarerPersonalDetails(firstName = "firstName", middleName = Some("middleName"), surname = "surname", nationalInsuranceNumber = Some(nationalInsuranceNr), dateOfBirth = Some(dateOfBirth))
       val previousCarerContactDetails = PreviousCarerContactDetails(address = Some(MultiLineAddress(Some("line1"))), postcode = Some("postcode"))
       val claim = Claim().update(moreAboutThePerson).update(previousCarerPersonalDetails).update(previousCarerContactDetails)
 
       val xml = Caree.previousClaimant(claim)
-      (xml \\ "Surname").text shouldEqual previousCarerPersonalDetails.surname.get
-      (xml \\ "OtherNames").text must contain(previousCarerPersonalDetails.firstName.get)
+      (xml \\ "Surname").text shouldEqual previousCarerPersonalDetails.surname
+      (xml \\ "OtherNames").text must contain(previousCarerPersonalDetails.firstName)
       (xml \\ "OtherNames").text must contain(previousCarerPersonalDetails.middleName.get)
       (xml \\ "NationalInsuranceNumber").text shouldEqual nationalInsuranceNr.stringify
       (xml \\ "Address" \\ "Line").theSeq(0).text shouldEqual previousCarerContactDetails.address.get.lineOne.get

@@ -10,12 +10,12 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 
-object G4PreviousCarerPersonalDetails extends Controller with CareYouProvideRouting with Mappings.Name with CachedClaim {
+object G4PreviousCarerPersonalDetails extends Controller with CareYouProvideRouting with CachedClaim {
   val form = Form(
     mapping(
-      "firstName" -> optional(text(maxLength = maxLength)),
-      "middleName" -> optional(text(maxLength = maxLength)),
-      "surname" -> optional(text(maxLength = maxLength)),
+      "firstName" -> nonEmptyText(maxLength = Name.maxLength),
+      "middleName" -> optional(text(maxLength = Name.maxLength)),
+      "surname" -> nonEmptyText(maxLength = Name.maxLength),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
       "dateOfBirth" -> optional(dayMonthYear.verifying(validDateOnly))
     )(PreviousCarerPersonalDetails.apply)(PreviousCarerPersonalDetails.unapply))

@@ -15,11 +15,11 @@
             <legend>@Messages("s4.g4")</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.sixty)
+                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.Name.maxLength)
 
-                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.sixty)
+                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.Name.maxLength)
 
-                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.sixty)
+                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.Name.maxLength)
 
                 @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
 
