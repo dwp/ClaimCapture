@@ -16,7 +16,11 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       page submitPage() match {
-        case p: G2ContactDetailsPage => p numberSectionsCompleted()  mustEqual 1
+        case p: G2ContactDetailsPage =>  {
+          p numberSectionsCompleted()  mustEqual 1
+          p fillPageWith claim
+//          println(p.source())
+        }
         case _ => ko("Next Page is not of the right type.")
       }
     }

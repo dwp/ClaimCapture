@@ -343,9 +343,9 @@ payAnyoneToLookAfterChildren = While at work, {0} pay anyone to look after your 
 payAnyoneToLookAfterPerson = While at work, {0} pay anyone to look after the Person you care for?
 
 # NECESSARY EXPENSES
-whatAreThose = What {0} this item?
-whyDoYouNeedThose = Why {0} need this item to do your job?
-howMuchCostEachWeek = How much {0} this item cost you each week?
+whatAreThose = What {0} these things?
+whyDoYouNeedThose = Why {0} need these things to do your job?
+howMuchCostEachWeek = How much {0} these things cost you each week?
 
 
 # CHILDCARE EXPENSES

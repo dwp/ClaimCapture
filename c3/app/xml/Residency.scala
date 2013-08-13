@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import models.domain._
 import models.yesNo.{YesNoWithDate, YesNoWithText}
 import controllers.Mappings.no
@@ -17,13 +18,13 @@ object Residency {
 
     <Residency>
       <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
-      <EUEEASwissNational>Not asked</EUEEASwissNational>
+      <EUEEASwissNational>{XMLValues.NotAsked}</EUEEASwissNational>
       <CountryNormallyLive>{yes}</CountryNormallyLive>
       <CountryNormallyLiveOther>{normalResidence.whereDoYouLive.text.orNull}</CountryNormallyLiveOther>
       <InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>
-      <InGreatBritain26Weeks>Not asked</InGreatBritain26Weeks>
+      <InGreatBritain26Weeks>{XMLValues.NotAsked}</InGreatBritain26Weeks>
       {periodAbroadLastYear(tripsOption)}
-      <BritishOverseasPassport>Not asked</BritishOverseasPassport>
+      <BritishOverseasPassport>{XMLValues.NotAsked}</BritishOverseasPassport>
       {otherNationality(claim)}
       <OutOfGreatBritain>{abroadForMoreThan4Weeks.anyTrips}</OutOfGreatBritain>
       {periodAbroadDuringCare(tripsOption)}

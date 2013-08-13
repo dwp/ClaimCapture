@@ -22,6 +22,10 @@ package object app {
     val FourWeekly = 'fourWeekly
   }
 
+  object XMLValues {
+    val NotAsked="Not asked"
+  }
+
 }
 
 

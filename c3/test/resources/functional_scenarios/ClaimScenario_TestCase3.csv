@@ -12,7 +12,7 @@ About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1931
 About You,Your Details,Nationality,AboutYouNationality,British
 About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,m
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,No
-About You,Your contact details,Address,AboutYouAddress,3 Preston Road\nPreston\nLancashire
+About You,Your contact details,Address,AboutYouAddress,3 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
 About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,01772 888901
 About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419808
@@ -40,7 +40,7 @@ About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYo
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,28/09/1937
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,British
 About Your Partner,Partner/Spouse details,Does your partner/spouse live at the same address as you?,AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou,No
-About Your Partner,Contact Details,Address,AboutYourPartnerAddress,Greenfields Home\nPreston\nLancs
+About Your Partner,Contact Details,Address,AboutYourPartnerAddress,Greenfields Home&Preston&Lancs
 About Your Partner,Contact Details,Postcode,AboutYourPartnerPostcode,PR12 5TH
 About Your Partner,More about your partner/spouse,"Did your partner join your household, after your claim date <ddmmyyyy>>?",AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate,No
 About Your Partner,More about your partner/spouse,What date did they join?,AboutYourPartnertheDateWhenYouStartedLivingTogether,
@@ -54,7 +54,7 @@ About the care you provide,Details of the person you care for,Surname or family 
 About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,No
-About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road\nPreston\nLancashire
+About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road&Preston&Lancashire
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,PR1 2TH
 About the care you provide,Contact details of the person you care for,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare,01772 998761
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Wife
@@ -244,7 +244,7 @@ Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,01/0
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,25
 Employment,Your Job,Job title,EmploymentJobTitle_1,Checkout Assistant
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,12345678
-Employment,Employers contact details,Address,EmploymentEmployerAddress_1,23 Yeadon Way\nBlackpool\nLancashire
+Employment,Employers contact details,Address,EmploymentEmployerAddress_1,23 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY4 5TH
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,01253 667889
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,08/07/2013
@@ -283,13 +283,13 @@ Employment,Childcare expenses while you are at work,Name of the person/organisat
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,My father
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1,father in law
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,Grandfather
-Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider_1,12 Banbury Close\nSt Annes\nLancashire
+Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider_1,12 Banbury Close&St Annes&Lancashire
 Employment,Childcare provider's contact details,Postcode,EmploymentPostcodeChildcareProvider_1,FY8 7TH
 Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_1,150.55
 Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring_1,Carers UK Ltd
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_1,uncle
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,other
-Employment,Care providers contact Details,Address,EmploymentAddressCareProvider_1,1 London Road\nPreston\nLancashire
+Employment,Care providers contact Details,Address,EmploymentAddressCareProvider_1,1 London Road&Preston&Lancashire
 Employment,Care providers contact Details,Postcode,EmploymentPostcodeCareProvider_1,PR4 5TH
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,AboutYouHaveYouBeenEmployedAtAnyTime_2,Yes
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
@@ -300,7 +300,7 @@ Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_2,01/0
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,25
 Employment,Your Job,Job title,EmploymentJobTitle_2,Checkout Assistant
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_2,12345678
-Employment,Employers contact details,Address,EmploymentEmployerAddress_2,23 Yeadon Way\nBlackpool\nLancashire
+Employment,Employers contact details,Address,EmploymentEmployerAddress_2,23 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_2,FY4 5TH
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_2,01253 667889
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_2,08/07/2013
@@ -339,13 +339,13 @@ Employment,Childcare expenses while you are at work,Name of the person/organisat
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_2,My father
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_2,father in law
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_2,Grandfather
-Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider_2,1212 Banbury Close\nSt Annes\nLancashire
+Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider_2,1212 Banbury Close&St Annes&Lancashire
 Employment,Childcare provider's contact details,Postcode,EmploymentPostcodeChildcareProvider_2,FY8 7TH
 Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_2,150.20
 Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring_2,Age Concern K Ltd
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_2,Other
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_2,Other
-Employment,Care providers contact Details,Address,EmploymentAddressCareProvider_2,134 London Road\nPreston\nLancashire
+Employment,Care providers contact Details,Address,EmploymentAddressCareProvider_2,134 London Road&Preston&Lancashire
 Employment,Care providers contact Details,Postcode,EmploymentPostcodeCareProvider_2,PR4 5TH
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,AboutYouHaveYouBeenEmployedAtAnyTime_3,No
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,Yes
@@ -361,7 +361,7 @@ Self Employed,Your accounts,Please tell us why and when the change happened,Self
 Self Employed,Your accounts,Do you have an accountant?,SelfEmployedDoYouHaveAnAccountant,Yes
 Self Employed,Your accounts,Can we contact your accountant?,SelfEmployedCanWeContactYourAccountant,Yes
 Self Employed,Accountant Contact Details,Accountants Name,SelfEmployedAccountantName,Dickinsons Accountants
-Self Employed,Accountant Contact Details,Address,SelfEmployedAccountantAddress,123 Preston Road\nPreston\nLancashire
+Self Employed,Accountant Contact Details,Address,SelfEmployedAccountantAddress,123 Preston Road&Preston&Lancashire
 Self Employed,Accountant Contact Details,Postcode,SelfEmployedAccountantPostcode,PR4 5TH
 Self Employed,Accountant Contact Details,Telephone Number,SelfEmployedAccountantTelephoneNumber,01772 345617
 Self Employed,Accountant Contact Details,Fax Number,SelfEmployedAccountantFaxNumber,01772 345618
@@ -376,13 +376,13 @@ Self Employed,Childcare expenses while you are at work,Name of the person/organi
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to you?",SelfEmployedChildcareProviderWhatRelationIsToYou,uncle
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",SelfEmployedChildcareProviderWhatRelationIsToYourPartner,
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor,aunt
-Self Employed,Childcare provider's contact details,Address,SelfEmployedChildcareProviderAddress,124 Preston Road\nPreston\nLancashire
+Self Employed,Childcare provider's contact details,Address,SelfEmployedChildcareProviderAddress,124 Preston Road&Preston&Lancashire
 Self Employed,Childcare provider's contact details,Postcode,SelfEmployedChildcareProviderPostcode,PR5 6YH
 Self Employed,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedCareExpensesHowMuchYouPay,450
 Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,Mrs Terry Smith
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",SelfEmployedCareExpensesWhatRelationIsToYou,aunt
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,Great Auntie
-Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,124 Preston Road\nPreston\nLancashire
+Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,124 Preston Road&Preston&Lancashire
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,PR5 6YH
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
 Other Money,Details about other money,Please tell us the names of the benefits or entitlements you receive,OtherMoneyTellUsNamesBenefitsYouReceived,"PIP, Attendance Allowance"
@@ -403,7 +403,7 @@ Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP),
 Other Money,Other Statutory Pay,How much?,OtherMOneySMPHowMuch,145
 Other Money,Other Statutory Pay,How often?,OtherMOneySMPHowOften,m
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,Greggs Bakers
-Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,1012 Preston  Road\nPreston\nLancashure
+Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,1012 Preston  Road&Preston&Lancashure
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,PR45 6YH
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on, receiving  any pensions or benefits from another EEA State or Switzerland?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,No
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on working in or paying insurance to another EEA State or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No

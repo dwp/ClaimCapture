@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import models.domain._
 import xml.XMLHelper._
 import controllers.Mappings.{yes, no}
@@ -29,8 +30,8 @@ object Caree {
       </DaytimePhoneNumber>
       <RelationToClaimant>{moreAboutThePerson.relationship}</RelationToClaimant>
       <Cared35hours>{moreAboutTheCare.spent35HoursCaring}</Cared35hours>
-      <CanCareeSign>Not asked</CanCareeSign>
-      <CanSomeoneElseSign>{representatives.someoneElseAct.answer.orNull}</CanSomeoneElseSign>
+      <CanCareeSign>{XMLValues.NotAsked}</CanCareeSign>
+      <CanSomeoneElseSign>{representatives.someoneElseAct.answer.getOrElse(XMLValues.NotAsked)}</CanSomeoneElseSign>
       <CanClaimantSign>{representatives.youAct.answer}</CanClaimantSign>
       {claimantActingType(claim)}
       {breaksSinceClaim(claim)}
@@ -102,7 +103,7 @@ object Caree {
         <EndDateTime>{if (break.end.isDefined) break.end.get.`yyyy-MM-dd'T'HH:mm:00`}</EndDateTime>
         <Reason>{break.whereYou.location}</Reason>
         <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
-        <AwayFromHome>Not asked</AwayFromHome>
+        <AwayFromHome>{XMLValues.NotAsked}</AwayFromHome>
       </CareBreak>
     }
   }
@@ -127,14 +128,14 @@ object Caree {
 
   def previousClaimant(claim: Claim) = {
     val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
-    val previousCarerPersonalDetails = claim.questionGroup[PreviousCarerPersonalDetails].getOrElse(PreviousCarerPersonalDetails())
+    val previousCarerPersonalDetails = claim.questionGroup[PreviousCarerPersonalDetails].getOrElse(PreviousCarerPersonalDetails(firstName = "", surname = ""))
     val previousCarerContactDetails = claim.questionGroup[PreviousCarerContactDetails].getOrElse(PreviousCarerContactDetails())
     val claimedAllowanceBefore = moreAboutThePerson.claimedAllowanceBefore == yes
 
     if (claimedAllowanceBefore) {
       <PreviousClaimant>
-        <Surname>{previousCarerPersonalDetails.surname.orNull}</Surname>
-        <OtherNames>{previousCarerPersonalDetails.firstName.orNull} {previousCarerPersonalDetails.middleName.orNull}</OtherNames>
+        <Surname>{previousCarerPersonalDetails.surname}</Surname>
+        <OtherNames>{previousCarerPersonalDetails.firstName} {previousCarerPersonalDetails.middleName.orNull}</OtherNames>
         <DateOfBirth>{stringify(previousCarerPersonalDetails.dateOfBirth)}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(previousCarerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
         <Address>{postalAddressStructure(previousCarerContactDetails.address, previousCarerContactDetails.postcode)}</Address>

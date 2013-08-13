@@ -12,7 +12,7 @@ About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1945
 About You,Your Details,Nationality,AboutYouNationality,British
 About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,m
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,No
-About You,Your contact details,Address,AboutYouAddress,6 Preston Road\nPreston\nLancashire
+About You,Your contact details,Address,AboutYouAddress,6 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
 About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,01772 888901
 About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419899
@@ -85,7 +85,7 @@ About the care you provide,Details of the person/organisation who pays you ,Midd
 About the care you provide,Details of the person/organisation who pays you ,Surname or family name,AboutTheCareYouProvideSurnamePersonPaysYou,Henry
 About the care you provide,Details of the person/organisation who pays you ,How much do you get paid a week?,AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek,545.2
 About the care you provide,Details of the person/organisation who pays you ,When did the payments start?,AboutTheCareYouProvideWhenDidThePaymentsStart,21/09/1985
-About the care you provide,Contact details of the person who pays you.,Address ,AboutTheCareYouProvideAddressPersonPaysYou,Carer's UK House\nNewcastle\nTyneside
+About the care you provide,Contact details of the person who pays you.,Address ,AboutTheCareYouProvideAddressPersonPaysYou,Carer's UK House&Newcastle&Tyneside
 About the care you provide,Contact details of the person who pays you.,Postcode,AboutTheCareYouProvidePostcodePersonPaysYou,NE24 9UJ
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,No
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,
@@ -244,7 +244,7 @@ Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,10/0
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,45
 Employment,Your Job,Job title,EmploymentJobTitle_1,MOT tester
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,1234567
-Employment,Employers contact details,Address,EmploymentEmployerAddress_1,1223 Yeadon Way\nBlackpool\nLancashire
+Employment,Employers contact details,Address,EmploymentEmployerAddress_1,1223 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY4 5TH
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,08/07/2013
@@ -283,7 +283,7 @@ Employment,Childcare expenses while you are at work,Name of the person/organisat
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,None
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1,None
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,None
-Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider_1,12 Baltimore Close\nLytham St Annes\nLancashire
+Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider_1,12 Baltimore Close&Lytham St Annes&Lancashire
 Employment,Childcare provider's contact details,Postcode,EmploymentPostcodeChildcareProvider_1,FY8 7TH
 Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_1,
 Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring_1,
@@ -397,7 +397,7 @@ Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since t
 Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,560
 Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,Monthly
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,DWP
-Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,Palatine House\nPreston
+Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,Palatine House&Preston
 Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,PR45 6YH
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,No
 Other Money,Other Statutory Pay,How much?,OtherMOneySMPHowMuch,

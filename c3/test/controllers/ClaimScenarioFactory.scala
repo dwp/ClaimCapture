@@ -23,6 +23,8 @@ object ClaimScenarioFactory {
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
     claim.AboutYouNINO ="AB123456C"
+    claim.AboutYouAddress = "101 Clifton Street&Blackpool"
+    claim.AboutYouPostcode = "FY1 2RW"
     claim
   }
 
@@ -112,7 +114,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideDateofBirthPersonYouCareFor = "02/03/1990"
     claim.AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou = "Yes"
     // Their Contact Details
-    claim.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street\nLine 2"
+    claim.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street&Line 2"
     claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"
     claim.AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare = "07922 222 222"
     // More About The Person
@@ -126,7 +128,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideNINOPreviousCarer = "BB123456B"
     claim.AboutTheCareYouProvideDateofBirthPreviousCarer = "02/06/1985"
     // Previous Carer Contact Details
-    claim.AboutTheCareYouProvideAddressPreviousCarer = "123 Conway Road\n Preston"
+    claim.AboutTheCareYouProvideAddressPreviousCarer = "123 Conway Road& Preston"
     claim.AboutTheCareYouProvidePostcodePreviousCarer = "BB9 1AB"
     claim.AboutTheCareYouProvideDaytimePhoneNumberPreviousCarer = "02933 333 333"
     claim.AboutTheCareYouProvideMobileNumberPreviousCarer = "07933 333 333"
@@ -150,7 +152,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek = "£120"
     claim.AboutTheCareYouProvideWhenDidThePaymentsStart = "29/04/2013"
     // Contact Details Of Paying Person
-    claim.AboutTheCareYouProvideAddressPersonPaysYou = "123 Cleverme Street \n Genius"
+    claim.AboutTheCareYouProvideAddressPersonPaysYou = "123 Cleverme Street & Genius"
     claim.AboutTheCareYouProvidePostcodePersonPaysYou = "GN1 2DA"
     claim
   }
@@ -178,7 +180,7 @@ object ClaimScenarioFactory {
     // Address of School College or University
     claim.EducationNameofSchool = "Lancaster University"
     claim.EducationNameOfMainTeacherOrTutor = "Dr. Ray Charles"
-    claim.EducationAddress = "Lancaster University\n Bailrigg\n Lancaster"
+    claim.EducationAddress = "Lancaster University& Bailrigg& Lancaster"
     claim.EducationPostcode = "LA1 4YW"
     claim.EducationPhoneNumber = "01524 65201"
     claim.EducationFaxNumber = "01524 36841"
@@ -202,7 +204,7 @@ object ClaimScenarioFactory {
     claim.EmploymentHowManyHoursAWeekYouNormallyWork_1= "25"
     claim.EmploymentJobTitle_1= "Checkout Assistant"
     claim.EmploymentPayrollOrEmployeeNumber_1= "12345678"
-    claim.EmploymentEmployerAddress_1= "23 Yeadon Way\nBlackpool\nLancashire"
+    claim.EmploymentEmployerAddress_1= "23 Yeadon Way&Blackpool&Lancashire"
     claim.EmploymentEmployerPostcode_1= "FY4 5TH"
     claim.EmploymentEmployerPhoneNumber_1= "01253 667889"
     claim.EmploymentWhenWereYouLastPaid_1= "08/07/2013"
@@ -241,13 +243,13 @@ object ClaimScenarioFactory {
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1= "My father"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1= "father in law"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1= "Grandfather"
-    claim.EmploymentAddressChildcareProvider_1= "12 Banbury Close\nSt Annes\nLancashire"
+    claim.EmploymentAddressChildcareProvider_1= "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1= "FY8 7TH"
     claim.EmploymentCareExpensesHowMuchYouPayfor_1= "150.55"
     claim.EmploymentNameOfPersonYouPayForCaring_1= "Carers UK Ltd"
     claim.EmploymentCareExpensesWhatRelationIsToYou_1= "uncle"
     claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1= "other"
-    claim.EmploymentAddressCareProvider_1= "1 London Road\nPreston\nLancashire"
+    claim.EmploymentAddressCareProvider_1= "1 London Road&Preston&Lancashire"
     claim.EmploymentPostcodeCareProvider_1= "PR4 5TH"
     claim
   }

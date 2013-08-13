@@ -4,12 +4,10 @@ import org.specs2.mutable.{Tags, Specification}
 import models.DayMonthYear
 import models.domain.OneWhoPaysPersonalDetails
 import play.api.data.{FormError, Form}
+import controllers.FakeData
+import FakeData._
 
 class G8OneWhoPaysPersonalDetailsFormSpec extends Specification with Tags {
-  val `36Characters` = (1 to 36).foldLeft("x")((x, _) => x + "x").mkString
-
-  val `101Characters` = (1 to 101).foldLeft("x")((x, _) => x + "x").mkString
-
   val data = Map(
     "organisation" -> "DWP",
     "title" -> "mr",
