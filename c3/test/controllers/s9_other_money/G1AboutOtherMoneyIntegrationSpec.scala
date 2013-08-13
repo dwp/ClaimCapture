@@ -51,14 +51,14 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
     "navigate to next page on valid submission with all text fields enabled and filled in" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutYou(browser)
       Formulate.aboutOtherMoney(browser)
-      titleMustEqual("Money Paid - Other Money")
+      titleMustEqual("Money paid to someone else for you - About Other Money")
     }
 
     "navigate to next page on valid submission with first mandatory field set to no" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
       browser.click("#yourBenefits_answer_no")
       browser.submit("button[type='submit']")
-      titleMustEqual("Money Paid - Other Money")
+      titleMustEqual("Money paid to someone else for you - About Other Money")
     }
 
     "be presented" in new WithBrowser with G1AboutOtherMoneyPageContext {

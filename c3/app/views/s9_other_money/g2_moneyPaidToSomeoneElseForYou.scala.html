@@ -1,14 +1,15 @@
 @(currentForm: Form[models.domain.MoneyPaidToSomeoneElseForYou], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import helper._
+@import views.html.s9_other_money.main
 
-@main("Money Paid - Other Money", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s9.g2") + " - " + Messages("s9.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s9_other_money.routes.G2MoneyPaidToSomeoneElseForYou.submit) {
         <fieldset class="form-elements">
-            <legend>Money paid to someone else for you</legend>
+            <legend>@Messages("s9.g2")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("moneyAddedToBenefitSinceClaimDate"), '_label -> Messages("moneyAddedToBenefitSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
