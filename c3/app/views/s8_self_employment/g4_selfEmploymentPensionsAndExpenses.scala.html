@@ -23,7 +23,7 @@
 
                 @otherDetailPlaceHolder(
                 inputDef = Seq(
-                    carersInputText(currentForm("doYouPayToPensionScheme.howMuchDidYouPay"), '_label -> Messages ("doYouPayToPensionScheme.howMuchDidYouPay", didYouDoYouIfSelfEmployed), 'maxLength -> 8)),
+                    carersInputText(currentForm("doYouPayToPensionScheme.howMuchDidYouPay"), '_label -> Messages ("doYouPayToPensionScheme.howMuchDidYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxLength -> 8)),
                     'id -> "selfEmployedPensionWrap",
                     'display -> currentForm("doYouPayToPensionScheme.answer").value.getOrElse("no")
                 )

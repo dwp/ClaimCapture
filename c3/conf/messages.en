@@ -1,10 +1,16 @@
 s1.name = Eligibility
 s2.name = About you
+s2.longName = About you - the carer
 s3.name = Partner/Spouse
+s3.longName = About your partner/spouse
 s4.name = Care you provide
+s4.longName = About the care you provide
 s5.name = Abroad
+s5.longName = Time Spent Abroad
 s6.name = Education
+s6.longName = About your education
 s7.name = Employment
+s7.longName = Employment History
 s8.name = Self Employment
 s9.name = Other money
 s10.name = Pay details
@@ -28,12 +34,12 @@ s3.g2 = Contact details
 s3.g3 = More about your Partner/Spouse
 s3.g4 = Person you care for
 
-s4.g1 = Details of the person you care for
-s4.g2 = Contact details of the person you care for
+s4.g1 = Details of the Person you care for
+s4.g2 = Contact details of the Person you care for
 s4.g3 = Relationship and other claims
 s4.g4 = Details of Previous or Existing Carer 
 s4.g5 = Contact details of previous or existing carer
-s4.g6 = Representatives for the person you care for
+s4.g6 = Representatives for the Person you care for
 s4.g7 = More about the care you provide
 s4.g8 = Details of the person/organisation who pays you 
 s4.g9 = Contact details of the person who pays you
@@ -42,7 +48,7 @@ s4.g11 = About the breaks in care
 
 s5.g1 = Your normal residence and current location
 s5.g2 = When you went abroad for more than 4 weeks
-s5.g3 = When you went abroad for more than 52
+s5.g3 = When you went abroad for more than 52 weeks
 s5.g4 = Trips
 s5.g5 = Other EEA State or Switzerland
 
@@ -50,18 +56,18 @@ s6.g1 = Your course details
 s6.g2 = School, college or university''s contact details
 
 s7.g1 = Have you been employed?
-s7.g2 = Details about your job: {0}
+s7.g2 = Your job
 s7.g3 = Employer''s contact details
 s7.g4 = Your last wage
-s7.g5 = Additional salary details
-s7.g6 = Money owed by employer
-s7.g7 = Pension scheme
+s7.g5 = Additional wage details
+s7.g6 = Money owed to you by your employer
+s7.g7 = Pension schemes
 s7.g8 = About expenses to do with your employment
 s7.g9 = Necessary expenses to do your job
-s7.g10 = Childcare expenses
+s7.g10 = Childcare expenses while you are at work
 s7.g11 = Childcare provider''s contact details
-s7.g12 = Expenses related to the person you care for while at work
-s7.g13 = Care provider’s contact Details
+s7.g12 = Expenses related to the person you care for, while you are at work
+s7.g13 = Care provider''s contact Details
 
 s8.g1 = About Self Employment
 s8.g2 = Your Accounts
@@ -69,7 +75,7 @@ s8.g3 = Accountant's contact details
 s8.g4 = Pensions and Expenses
 s8.g5 = Childcare expenses while you are at work
 s8.g6 = Care provider's contact details
-s8.g7 = Expenses related to the person you care for while at work
+s8.g7 = Expenses related to the Person you care for while at work
 s8.g8 = Care provider's contact details
 
 s9.g1 = Details about other money
@@ -83,7 +89,7 @@ s9.g7 = Other EEA State or Switzerland
 s10.g1 = How would you like to get paid?
 s10.g2 = Bank/Building society details
 s10.g6 = Childcare provider's contact details
-s10.g7 = Expenses related to the person you care for while at work
+s10.g7 = Expenses related to the Person you care for while at work
 s10.g8 = Care provider's contact details
 
 s11.g1 = Additional information
@@ -183,7 +189,7 @@ separated.fromPartner = Have you separated from your Partner/Spouse since the da
 separated.date = When did you separate?
 separated_date = When did you separate?
 
-# PERSON YOU CARE FOR
+# Person you care for
 isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming Carer''s Allowance for?
 
 
@@ -199,12 +205,12 @@ armedForcesPayment = Does this person get Armed Forces Independence Payment (AFI
 claimedAllowanceBefore = Has anyone else claimed Carer''s Allowance for this person before?
 
 # REPRESENTATIVES FOR THE PERSON
-you_actForPerson = Do you act for the person you care for?
-you.actForPerson = Do you act for the person you care for?
+you_actForPerson = Do you act for the Person you care for?
+you.actForPerson = Do you act for the Person you care for?
 you_actAs = You act as
 you.actAs = You act as
-someoneElse_actForPerson = Does someone else act for the person you care for?
-someoneElse.actForPerson = Does someone else act for the person you care for?
+someoneElse_actForPerson = Does someone else act for the Person you care for?
+someoneElse.actForPerson = Does someone else act for the Person you care for?
 someoneElse_actAs = Person acts as
 someoneElse.actAs = Person acts as
 someoneElse_fullName = Full name
@@ -237,10 +243,10 @@ end.time = Break end time?
 whereYou = Where were you during the above break?
 whereYou_location = Where were you during the above break?
 whereYou.location = Where were you during the above break?
-wherePerson = Where was the person you care for during the above break?
-wherePerson_location = Where was the person you care for during the above break?
-wherePerson.location = Where was the person you care for during the above break?
-medicalDuringBreak = Did you or the person you care for receive any medical treatment or professional care during the above break?
+wherePerson = Where was the Person you care for during the above break?
+wherePerson_location = Where was the Person you care for during the above break?
+wherePerson.location = Where was the Person you care for during the above break?
+medicalDuringBreak = Did you or the Person you care for receive any medical treatment or professional care during the above break?
 
 
 ## TIME SPENT ABROAD
@@ -331,7 +337,7 @@ howOftenPersonal = How often?
 # ABOUT EXPENSES
 payForAnythingNecessary = {0} pay for anything necessary to do your job?
 payAnyoneToLookAfterChildren = While at work, {0} pay anyone to look after your children?
-payAnyoneToLookAfterPerson = While at work, {0} pay anyone to look after the person you care for?
+payAnyoneToLookAfterPerson = While at work, {0} pay anyone to look after the Person you care for?
 
 # NECESSARY EXPENSES
 whatAreThose = What {0} this item?
@@ -344,9 +350,9 @@ howMuchCostChildcare =  How much {0} pay them?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
 relationToYou = What relation, if any, is the person to you?
 relationToPartner = What relation, if any, is the person to your Partner/Spouse?
-relationToPersonYouCare = What relation, if any, is the person to the person you care for?
+relationToPersonYouCare = What relation, if any, is the person to the Person you care for?
 
-# PERSON YOU CARE FOR EXPENSES
+# Person you care for EXPENSES
 howMuchCostCare = How much {0} pay them?
 whoDoYouPay = Name of the person/organisation you {0} pay
 
@@ -435,7 +441,7 @@ natureOfYourBusiness = Nature of business?
 howMuchYouPay = How much {0} pay them?
 nameOfPerson = Name of the person/organisation you pay
 whatRelationIsToYou = What relation, if any, is the person to you?
-whatRelationIsTothePersonYouCareFor = What relation, if any, is the person to the person you care for?
+whatRelationIsTothePersonYouCareFor = What relation, if any, is the person to the Person you care for?
 
 #SELF EMPLOYED - Your Details
 error.areAccountsPreparedOnCashFlowBasis = Please tell us if accounts prepared on cash flow basis?

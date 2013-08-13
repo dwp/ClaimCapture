@@ -9,6 +9,8 @@ import models.domain.{AboutExpenses, PersonYouCareForExpenses}
 import utils.helpers.CarersForm._
 import Employment._
 import controllers.Mappings._
+import utils.helpers.PastPresentLabelHelper._
+import play.api.data.FormError
 
 object G12PersonYouCareForExpenses extends Controller with CachedClaim {
   val form = Form(
@@ -31,7 +33,11 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim {
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => dispatch(BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrors, completedQuestionGroups(PersonYouCareForExpenses, jobID)))),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("whoDoYouPay", "error.required", FormError("whoDoYouPay", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , jobID))))
+        dispatch(BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrorsUpdate, completedQuestionGroups(PersonYouCareForExpenses, jobID))))
+      },
       childcareProvider => claim.update(jobs.update(childcareProvider)) -> Redirect(routes.G13CareProvider.present(jobID)))
   }
 }

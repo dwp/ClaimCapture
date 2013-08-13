@@ -17,7 +17,16 @@ object G1BeenEmployed extends Controller with CachedClaim {
     )(BeenEmployed.apply)(BeenEmployed.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    dispatch(Ok(views.html.s7_employment.g1_beenEmployed(form)))
+    val filledForm = request.headers.get("referer") match {
+      case Some(referer) if referer contains routes.G2JobDetails.present().url => form
+      case Some(referer) if referer contains routes.G14JobCompletion.submit().url => form
+      case _ => claim.questionGroup[BeenEmployed] match {
+        case Some(b: BeenEmployed) => form.fill(b)
+        case _ => form
+      }
+    }
+
+    dispatch(Ok(views.html.s7_employment.g1_beenEmployed(filledForm)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

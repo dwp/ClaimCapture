@@ -6,7 +6,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
 
 class G10ChildcareExpensesIntegrationSpec extends Specification with Tags {
-  "Childcare Expenses" should {
+  "Childcare expenses while you are at work - Integration" should {
     "be presented" in new WithBrowser with G8AboutExpensesPageContext {
       val claim = ClaimScenarioFactory s7Employment()
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1="no"

@@ -8,7 +8,7 @@ final class G1BeenEmployedPage(browser: TestBrowser, previousPage: Option[Page] 
 }
 
 object G1BeenEmployedPage {
-  val title = "Your employment history - Employment"
+  val title = "Your employment history - Employment History".toLowerCase
 
   val url  = "/employment/been-employed"
 

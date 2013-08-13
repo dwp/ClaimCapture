@@ -19,7 +19,7 @@ final class G1NormalResidenceAndCurrentLocationPage (browser: TestBrowser, previ
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1NormalResidenceAndCurrentLocationPage {
-  val title = "Your normal residence and current location - Time Spent Abroad"
+  val title = "Your normal residence and current location - Time Spent Abroad".toLowerCase
 
   val url  = "/time-spent-abroad/normal-residence-and-current-location"
 

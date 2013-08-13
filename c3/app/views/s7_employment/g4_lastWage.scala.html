@@ -10,7 +10,7 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 
-@main("Last wage - Employment", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s7.g4") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
@@ -18,7 +18,7 @@
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
-            <legend>Your last wage</legend>
+            <legend>@Messages("s7.g4")</legend>
 
             <ul class="group">
                 @inputDayMonthYear(currentForm("lastPaidDate"))

@@ -5,14 +5,14 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-@main("Contact details of previous or existing carer - About the care you provide", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s4_care_you_provide.routes.G5PreviousCarerContactDetails.submit) {
 
         <fieldset class="form-elements">
-            <legend>Contact Details of the person who claimed Carer's Allowance before</legend>
+            <legend>@Messages("s4.g5")</legend>
 
             <ul class="group">
                 @inputAddress(currentForm("address"))

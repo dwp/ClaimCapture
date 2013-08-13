@@ -16,7 +16,15 @@ object G2AbroadForMoreThan4Weeks extends Controller with TimeSpentAbroadRouting 
     )(AbroadForMoreThan4Weeks.apply)(AbroadForMoreThan4Weeks.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s5_time_spent_abroad.g2_abroad_for_more_than_4_weeks(form, trips, completedQuestionGroups(AbroadForMoreThan4Weeks)))
+    val filledForm = request.headers.get("referer") match {
+      case Some(referer) if referer endsWith routes.G4Trip.fourWeeks().url => form
+      case _ => claim.questionGroup[AbroadForMoreThan4Weeks] match {
+        case Some(a: AbroadForMoreThan4Weeks) => form.fill(a)
+        case _ => form
+      }
+    }
+
+    Ok(views.html.s5_time_spent_abroad.g2_abroad_for_more_than_4_weeks(filledForm, trips, completedQuestionGroups(AbroadForMoreThan4Weeks)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

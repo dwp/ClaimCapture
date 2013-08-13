@@ -23,12 +23,12 @@ class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tag
       Formulate.theirContactDetails(browser)
       titleMustEqual("Relationship and other claims - About the care you provide")
       browser.click("#backButton")
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
+      titleMustEqual("Contact details of the Person you care for - About the care you provide")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
+      titleMustEqual("Contact details of the Person you care for - About the care you provide")
       Formulate.theirContactDetails(browser)
       titleMustEqual("Relationship and other claims - About the care you provide")
       browser.find("div[class=completed] ul li").size() mustEqual 2
@@ -41,7 +41,7 @@ class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tag
 
     "navigate to Representatives For The Person when submitting with claimedAllowanceBefore negative" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
-      titleMustEqual("Representatives for the person you care for - About the care you provide")
+      titleMustEqual("Representatives for the Person you care for - About the care you provide")
     }
   } section("integration", models.domain.CareYouProvide.id)
 }

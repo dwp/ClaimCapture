@@ -8,14 +8,14 @@
 @import utils.helpers.CarersCrypto
 @import models.domain.RepresentativesForPerson
 
-@main("Representatives for the person you care for - About the care you provide", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s4.g6") + " - " + Messages("s4.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s4_care_you_provide.routes.G6RepresentativesForThePerson.submit) {
 
         <fieldset class="form-elements">
-            <legend>Representatives for the person you care for</legend>
+            <legend>@Messages("s4.g6")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("you.actForPerson"))

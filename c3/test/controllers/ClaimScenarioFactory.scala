@@ -145,7 +145,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideOrganisationPaysYou = "Valtech"
     claim.AboutTheCareYouProvideTitlePersonPaysYou = "mr"
     claim.AboutTheCareYouProvideFirstNamePersonPaysYou = "Brian"
-    claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "Green"
+    claim.AboutTheCareYouProvideMiddleNamePersonPaysYou = "Green"
     claim.AboutTheCareYouProvideSurnamePersonPaysYou = "Eldred"
     claim.AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek = "£120"
     claim.AboutTheCareYouProvideWhenDidThePaymentsStart = "29/04/2013"

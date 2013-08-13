@@ -10,7 +10,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
   "Care you provide" should {
     """be presented""" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
+      titleMustEqual("Contact details of the Person you care for - About the care you provide")
 
       browser.goTo("/care-you-provide/completed")
       titleMustEqual("Completion - About the care you provide")
@@ -18,10 +18,10 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
     """navigate to Abroad""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About You")
+      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
 
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
+      titleMustEqual("Contact details of the Person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
       titleMustEqual("Relationship and other claims - About the care you provide")
@@ -33,7 +33,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Contact details of previous or existing carer - About the care you provide")
 
       Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives for the person you care for - About the care you provide")
+      titleMustEqual("Representatives for the Person you care for - About the care you provide")
 
       Formulate.representativesForThePerson(browser)
       titleMustEqual("More about the care you provide - About the care you provide")

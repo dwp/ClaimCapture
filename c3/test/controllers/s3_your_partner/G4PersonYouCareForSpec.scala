@@ -12,8 +12,8 @@ class G4PersonYouCareForSpec extends Specification with Tags {
   
   val personYouCareForInput = Seq("isPartnerPersonYouCareFor" -> "yes")
     
-  "Person You Care For - Controller" should {
-    "present 'Person You Care For'" in new WithApplication with Claiming {
+  "Person you care for - Controller" should {
+    "present 'Person you care for'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G4PersonYouCareFor.present(request)

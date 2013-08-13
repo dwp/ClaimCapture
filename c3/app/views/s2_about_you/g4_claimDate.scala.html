@@ -6,7 +6,7 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.dates._
 
-@main("Your Claim Date - About You", completedQuestionGroups) {
+@main("Your Claim Date" + " - " + Messages("s2.longName"), completedQuestionGroups) {
     @errorsSummary(claimDateForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>

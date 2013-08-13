@@ -6,7 +6,7 @@ import utils.pageobjects.{PageContext, Page}
 final class G9CompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G9CompletedPage.url, G9CompletedPage.title, previousPage)
 
 object G9CompletedPage {
-  val title = "Completion - Self Employment"
+  val title = "Completion - Self Employment".toLowerCase
 
   val url = "/self-employment/completed"
 

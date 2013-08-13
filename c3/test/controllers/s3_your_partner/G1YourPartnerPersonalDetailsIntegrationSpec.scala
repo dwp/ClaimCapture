@@ -10,35 +10,35 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
   "Your Partner Personal Details" should {
     "be presented if carer has partner" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About You")
+      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
 
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About you - the carer")
 
       browser.goTo("/your-partner/personal-details")
-      titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
+      titleMustEqual("Partner/Spouse Details - About your partner/spouse")
     }
 
     "navigate to next section if carer has no partner" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About You")
+      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
 
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About you - the carer")
 
       browser.goTo("/your-partner/personal-details")
-      titleMustEqual("Details of the person you care for - About the care you provide")
+      titleMustEqual("Details of the Person you care for - About the care you provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About You")
+      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
 
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About you - the carer")
 
       browser.goTo("/your-partner/personal-details")
-      titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
+      titleMustEqual("Partner/Spouse Details - About your partner/spouse")
       browser.submit("button[type='submit']")
 
       browser.find("div[class=validation-summary] ol li").size mustEqual 5
@@ -46,38 +46,38 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About You")
+      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
 
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About you - the carer")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Contact Details - About your partner/spouse")
+      titleMustEqual("Contact details - About your partner/spouse")
     }
 
-    "navigate back to About You - Completed" in new WithBrowser with BrowserMatchers {
+    "navigate back to About you - the carer - Completed" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About You")
+      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
 
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About you - the carer")
 
       browser.goTo("/your-partner/personal-details")
-      titleMustEqual("Partner/Spouse Details - About Your Partner/Spouse")
+      titleMustEqual("Partner/Spouse Details - About your partner/spouse")
 
       browser.click("#backButton")
-      titleMustEqual("Completion - About You")
+      titleMustEqual("Completion - About you - the carer")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About You")
+      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
 
       Formulate.moreAboutYou(browser)
-      titleMustEqual("Employment - About You")
+      titleMustEqual("Employment - About you - the carer")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Contact Details - About your partner/spouse")
+      titleMustEqual("Contact details - About your partner/spouse")
       findMustEqualSize("div[class=completed] ul li", 1)
     }
         
@@ -90,7 +90,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.employment(browser)
       Formulate.propertyAndRent(browser)
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Contact Details - About your partner/spouse")
+      titleMustEqual("Contact details - About your partner/spouse")
       
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"

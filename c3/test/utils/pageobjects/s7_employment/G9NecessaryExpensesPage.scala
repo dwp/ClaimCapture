@@ -10,7 +10,7 @@ final class G9NecessaryExpensesPage(browser: TestBrowser, previousPage: Option[P
 }
 
 object G9NecessaryExpensesPage {
-  val title = "Necessary expenses to do your job - Employment"
+  val title = "Necessary expenses to do your job - Employment History".toLowerCase
 
   val url  = "/employment/necessary-expenses/:jobID"
 

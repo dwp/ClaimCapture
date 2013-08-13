@@ -5,14 +5,14 @@
 @import views.html.helper.base._
 @import views.html.helper.dates._
 
-@main("Your Course Details - About your education", Some(currentForm)) {
+@main(Messages("s6.g1") + " - " + Messages("s6.longName"), Some(currentForm)) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s6_education.routes.G1YourCourseDetails.submit) {
 
         <fieldset class="form-elements">
-            <legend>Your course details</legend>
+            <legend>@Messages("s6.g1")</legend>
 
             <ul class="group">
                 @carersInputText(currentForm("courseType"), 'maxLength -> Mappings.sixty)

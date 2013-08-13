@@ -17,7 +17,7 @@ final class G4ClaimDatePage(browser: TestBrowser, previousPage: Option[Page] = N
  * It is used by PageFactory object defined in Page.scala
  */
 object G4ClaimDatePage {
-  val title = "Your Claim Date - About You"
+  val title = "Your Claim Date - About you - the carer".toLowerCase
 
   val url  = "/about-you/claim-date"
 

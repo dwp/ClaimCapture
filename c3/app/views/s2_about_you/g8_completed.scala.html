@@ -3,7 +3,7 @@
 @import helper._
 @import models.domain.AboutYou
 
-@main("Completion - About You", completedQuestionGroups) {
+@main("Completion - " + Messages("s2.longName"), completedQuestionGroups) {
     @form(action = controllers.s2_about_you.routes.AboutYou.completedSubmit) {
         <nav class="form-steps">
             <a href="@controllers.s2_about_you.routes.G7PropertyAndRent.present" class="button secondary">Back</a>

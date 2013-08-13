@@ -51,7 +51,7 @@ object DWPCAClaim {
 
         <TextLine>=======================================================================================                                              </TextLine>
         <TextLine>================ =========== Can you get Carers Allowance? ============================                                              </TextLine>
-        <TextLine>Does the person you care for get one of these benefits? = Yes                                                                        </TextLine>
+        <TextLine>Does the Person you care for get one of these benefits? = Yes                                                                        </TextLine>
         <TextLine>Do you spend 35 hours or more each week caring for the person you look after? = Yes                                                  </TextLine>
         <TextLine>Do you normally live in Great Britain? = Yes                                                                                         </TextLine>
         <TextLine>Are you aged 16 or over? = No                                                                                                        </TextLine>
@@ -72,7 +72,7 @@ object DWPCAClaim {
         <TextLine>You act as = Parent                                                                                                                  </TextLine>
         <TextLine>Person acts as = Attorney                                                                                                            </TextLine>
         <TextLine>Full name = Lawyer Brown                                                                                                             </TextLine>
-        <TextLine>Where was the person you care for during the break? = Hospital                                                                       </TextLine>
+        <TextLine>Where was the Person you care for during the break? = Hospital                                                                       </TextLine>
         <TextLine>Have you had any more breaks in care for this person since your claim date: : 20/3/2012 ?  = Yes                                     </TextLine>
         <TextLine>================ ================ Employment === ==============================                                                      </TextLine>
         <TextLine>Have you finished this job? = Yes                                                                                                    </TextLine>

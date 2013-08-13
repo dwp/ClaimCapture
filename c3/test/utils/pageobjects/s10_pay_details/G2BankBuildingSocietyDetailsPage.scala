@@ -21,7 +21,7 @@ final class G2BankBuildingSocietyDetailsPage (browser: TestBrowser, previousPage
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G2BankBuildingSocietyDetailsPage {
-  val title = "Bank Building Society Details - Pay Details"
+  val title = "Bank Building Society Details - Pay Details".toLowerCase
 
   val url  = "/pay-details/bank-building-society-details"
 

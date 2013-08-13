@@ -22,7 +22,7 @@ class G2AddressOfSchoolCollegeOrUniversityPage (browser: TestBrowser, previousPa
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G2AddressOfSchoolCollegeOrUniversityPage {
-  val title = "School, college or university's contact details - About your education"
+  val title = "School, college or university's contact details - About your education".toLowerCase
 
   val url  = "/education/address-of-school-college-or-university"
 

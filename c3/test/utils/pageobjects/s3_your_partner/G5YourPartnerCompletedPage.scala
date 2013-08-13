@@ -15,7 +15,7 @@ final class G5YourPartnerCompletedPage (browser: TestBrowser, previousPage: Opti
  * It is used by PageFactory object defined in Page.scala
  */
 object G5YourPartnerCompletedPage {
-  val title = "Completion - About Your Partner/Spouse"
+  val title = "Completion - About your partner/spouse".toLowerCase
 
   val url  = "/your-partner/completed"
 

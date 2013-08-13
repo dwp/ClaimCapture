@@ -13,7 +13,7 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
 
     "navigate to Representatives For The Person, if nobody claimed allowance for this person before" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/previous-carer-personal-details")
-      titleMustEqual("Representatives for the person you care for - About the care you provide")
+      titleMustEqual("Representatives for the Person you care for - About the care you provide")
     }
 
     "navigate to Previous Carer Contact Details on submission of empty form" in new WithBrowser with BrowserMatchers {
@@ -38,7 +38,7 @@ class G4PreviousCarerPersonalDetailsIntegrationSpec extends Specification with T
       browser.find("div[class=validation-summary] ol li").size mustEqual 1
     }
 
-    "navigate back to More About The Person You Care For" in new WithBrowser with BrowserMatchers {
+    "navigate back to More About The Person you care for" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       browser.click("#backButton")
       titleMustEqual("Relationship and other claims - About the care you provide")

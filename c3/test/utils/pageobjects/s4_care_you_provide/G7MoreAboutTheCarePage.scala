@@ -20,7 +20,7 @@ final class G7MoreAboutTheCarePage (browser: TestBrowser, previousPage: Option[P
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G7MoreAboutTheCarePage {
-  val title = "More about the care you provide - About the care you provide"
+  val title = "More about the care you provide - About the care you provide".toLowerCase
 
   val url  = "/care-you-provide/more-about-the-care"
 

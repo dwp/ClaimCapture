@@ -26,7 +26,7 @@ final class G1YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] =
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1YourDetailsPage {
-  val title = "Your details - About You"
+  val title = "Your details - About you - the carer".toLowerCase
 
   val url  = "/about-you/your-details"
 

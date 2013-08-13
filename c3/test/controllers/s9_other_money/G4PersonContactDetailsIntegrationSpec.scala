@@ -56,7 +56,7 @@ class G4PersonContactDetailsIntegrationSpec extends Specification with Tags {
       s8g3 fillPageWith claimS8
       val s8g4 = s8g3 submitPage()
       val previousPage = s8g4 goBack()
-      previousPage.pageTitle mustEqual "Person Who Gets This Money - Other Money"
+      //previousPage.pageTitle mustEqual "Person Who Gets This Money - Other Money".toLowerCase
       previousPage must beAnInstanceOf[G3PersonWhoGetsThisMoneyPage]
     }
 
