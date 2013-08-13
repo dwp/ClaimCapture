@@ -19,14 +19,14 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_no")
-      browser.submit("button[value='next']")
+      next
       titleMustEqual("Completion - About the care you provide")
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
       browser.goTo("/care-you-provide/breaks-in-care")
       browser.click("#answer_yes")
-      browser.submit("button[value='next']")
+      next
       titleMustEqual("Break - About the care you provide")
 
       browser.click("#start_day option[value='1']")
@@ -36,7 +36,6 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.click("#wherePerson_location option[value='Hospital']")
 
       next
-
       titleMustEqual("Break - About the care you provide")
       browser.find("div[class=validation-summary] ol li").size shouldEqual 2
     }

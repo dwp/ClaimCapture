@@ -21,7 +21,7 @@ object ApplicationBuild extends Build {
 
   var sS: Seq[Project.Setting[_]] = Seq(testOptions in Test += Tests.Argument("sequential", "true"))
 
-  var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint"))
+  var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
 
   var sV: Seq[Project.Setting[_]] = Seq(scalaVersion := "2.10.2")
 

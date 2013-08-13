@@ -11,7 +11,6 @@ import controllers.Mappings._
 import Employment._
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
-import scala.Some
 
 object G9NecessaryExpenses extends Controller with CachedClaim {
   val form = Form(
