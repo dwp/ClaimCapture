@@ -12,6 +12,7 @@ s6.longName = About your education
 s7.name = Employment
 s7.longName = Employment History
 s8.name = Self Employment
+s8.longName = About self-employment
 s9.name = Other money
 s10.name = Pay details
 s11.name = Declaration
@@ -69,14 +70,14 @@ s7.g11 = Childcare provider''s contact details
 s7.g12 = Expenses related to the person you care for, while you are at work
 s7.g13 = Care provider''s contact Details
 
-s8.g1 = About Self Employment
-s8.g2 = Your Accounts
-s8.g3 = Accountant's contact details
-s8.g4 = Pensions and Expenses
+s8.g1 = Your job
+s8.g2 = Your accounts
+s8.g3 = Accountant''s contact details
+s8.g4 = Pensions and expenses
 s8.g5 = Childcare expenses while you are at work
-s8.g6 = Care provider's contact details
-s8.g7 = Expenses related to the Person you care for while at work
-s8.g8 = Care provider's contact details
+s8.g6 = Childcare provider''s contact details
+s8.g7 = Expenses related to the person you care for while at work
+s8.g8 = Care provider''s contact details
 
 s9.g1 = Details about other money
 s9.g2 = Money paid to someone else for you
@@ -296,7 +297,7 @@ jobStartDate = When did you start your job?
 finishedThisJob = Have you finished this job?
 lastWorkDate = When did you last work?
 p45LeavingDate = What is the leaving date on your P45, if you have one?
-hoursPerWeek = How many hours a week Did You/ Do You normally work?
+hoursPerWeek = How many hours a week do you normally work?
 jobTitle = Job title
 payrollEmployeeNumber = Payroll/Employee number
 
@@ -312,7 +313,7 @@ sameAmountEachTime = {0} get the same amount each time?
 
 # ADDITIONAL WAGE DETAILS
 oftenGetPaid = How often are you paid?
-oftenGetPaid_frequency = How often {0} paid?
+oftenGetPaidFrequency = How often {0} paid?
 whenGetPaid = When {0} get paid?
 holidaySickPay = {0} get holiday pay or sick pay?
 anyOtherMoney = {0} get paid any other money as well as your normal wage?

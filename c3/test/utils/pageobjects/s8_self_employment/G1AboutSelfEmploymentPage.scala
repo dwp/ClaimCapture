@@ -12,8 +12,7 @@ final class G1AboutSelfEmploymentPage(browser: TestBrowser, previousPage: Option
 }
 
 object G1AboutSelfEmploymentPage {
-  val title = "Self Employment - About Self Employment".toLowerCase
-
+  val title = "Your job - About self-employment".toLowerCase
   val url = "/self-employment/about-self-employment"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1AboutSelfEmploymentPage(browser, previousPage)

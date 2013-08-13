@@ -14,8 +14,7 @@ final class G2SelfEmploymentYourAccountsPage(browser: TestBrowser, previousPage:
 }
 
 object G2SelfEmploymentYourAccountsPage {
-  val title = "Self Employment - Your Accounts".toLowerCase
-
+  val title = "Your accounts - About self-employment".toLowerCase
   val url = "/self-employment/your-accounts"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2SelfEmploymentYourAccountsPage(browser, previousPage)

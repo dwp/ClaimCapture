@@ -71,11 +71,8 @@ object Caree {
   }
 
   def breaksSinceClaim(claim: Claim) = {
-    val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
-    val hasNotSpent35HoursCaringBeforeClaimDate = moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == no
-
-    <BreaksSinceClaim>{if (hasNotSpent35HoursCaringBeforeClaimDate && breaksInCare.hasBreaks) yes else no}</BreaksSinceClaim>
+    <BreaksSinceClaim>{if (breaksInCare.hasBreaks) yes else no}</BreaksSinceClaim>
   }
 
   def breaksBeforeClaim(claim: Claim) = {
