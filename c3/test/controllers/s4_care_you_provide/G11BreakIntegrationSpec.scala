@@ -9,13 +9,13 @@ import java.util.concurrent.TimeUnit
 class G11BreakIntegrationSpec extends Specification with Tags {
   "Break" should {
     "be presented" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
-      browser.goTo("/care-you-provide/break")
+      goTo("/care-you-provide/break")
       titleMustEqual("Break - About the care you provide")
     }
 
     """present "completed" when no more breaks are required""" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      browser.goTo("/care-you-provide/breaks-in-care")
+      goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_no")
@@ -24,7 +24,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
-      browser.goTo("/care-you-provide/breaks-in-care")
+      goTo("/care-you-provide/breaks-in-care")
       browser.click("#answer_yes")
       next
       titleMustEqual("Break - About the care you provide")
@@ -41,7 +41,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     }
 
     """show 2 breaks in "break table" upon providing 2 breaks""" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
-      browser.goTo("/care-you-provide/breaks-in-care")
+      goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_yes")
@@ -66,7 +66,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     "show zero breaks after creating one and then deleting" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
       skipped("HTMLUnit not handling dynamics/jquery")
 
-      browser.goTo("/care-you-provide/breaks-in-care")
+      goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_yes")
@@ -88,7 +88,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     "show two breaks after creating three and then deleting one" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
       skipped("HTMLUnit not handling dynamics/jquery")
 
-      browser.goTo("/care-you-provide/breaks-in-care")
+      goTo("/care-you-provide/breaks-in-care")
 
       browser.click("#answer_yes")
       next
@@ -124,7 +124,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     }
 
     "add two breaks and edit the second's start year" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
-      browser.goTo("/care-you-provide/breaks-in-care")
+      goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_yes")
