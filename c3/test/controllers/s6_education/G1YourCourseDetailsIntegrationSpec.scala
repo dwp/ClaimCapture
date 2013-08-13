@@ -5,10 +5,10 @@ import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
 
 class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
-  "Your Course Details Page" should {
+  "Your course details Page" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/your-course-details")
-      titleMustEqual("Your Course Details - About your education")
+      titleMustEqual("Your course details - About your education")
     }
 
     "not be presented if section not visible" in new WithBrowser with BrowserMatchers {
@@ -16,7 +16,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
       browser.goTo("/education/your-course-details")
 
-      titleMustNotEqual("Your Course Details - About your education")
+      titleMustNotEqual("Your course details - About your education")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -43,8 +43,7 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
     "navigate back" in new WithBrowser with BrowserMatchers {
       browser.goTo("/education/your-course-details")
       browser.click("#backButton")
-      titleMustNotEqual("Your Course Details - About your education")
+      titleMustNotEqual("Your course details - About your education")
     }
-
   } section("integration", models.domain.Education.id)
 }

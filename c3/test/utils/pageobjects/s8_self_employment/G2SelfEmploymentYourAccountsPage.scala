@@ -14,7 +14,7 @@ final class G2SelfEmploymentYourAccountsPage(browser: TestBrowser, previousPage:
 }
 
 object G2SelfEmploymentYourAccountsPage {
-  val title = "Self Employment - Your Accounts"
+  val title = "Self Employment - Your Accounts".toLowerCase
 
   val url = "/self-employment/your-accounts"
 

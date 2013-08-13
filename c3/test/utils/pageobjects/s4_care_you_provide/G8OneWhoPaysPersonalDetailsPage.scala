@@ -12,7 +12,7 @@ final class G8OneWhoPaysPersonalDetailsPage (browser: TestBrowser, previousPage:
   declareInput("#organisation", "AboutTheCareYouProvideOrganisationPaysYou")
   declareSelect("#title", "AboutTheCareYouProvideTitlePersonPaysYou")
   declareInput("#firstName", "AboutTheCareYouProvideFirstNamePersonPaysYou")
-  declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePersonCareFor")
+  declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePersonPaysYou")
   declareInput("#surname", "AboutTheCareYouProvideSurnamePersonPaysYou")
   declareInput("#amount", "AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek")
   declareDate("#startDatePayment", "AboutTheCareYouProvideWhenDidThePaymentsStart")
@@ -23,7 +23,7 @@ final class G8OneWhoPaysPersonalDetailsPage (browser: TestBrowser, previousPage:
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G8OneWhoPaysPersonalDetailsPage {
-  val title = "Details of the person/organisation who pays you - About the care you provide"
+  val title = "Details of the person/organisation who pays you - About the care you provide".toLowerCase
 
   val url  = "/care-you-provide/one-who-pays-personal-details"
 

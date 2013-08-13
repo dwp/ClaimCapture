@@ -8,7 +8,7 @@
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
 
-@main(Messages("s2.g3") + " - About You", completedQuestionGroups) {
+@main(Messages("s2.g3") + " - " + Messages("s2.longName"), completedQuestionGroups) {
     @errorsSummary(timeOutsideUKForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>

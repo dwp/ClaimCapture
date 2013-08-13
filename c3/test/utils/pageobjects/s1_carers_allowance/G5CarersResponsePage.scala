@@ -12,7 +12,7 @@ final class G5CarersResponsePage(browser: TestBrowser, previousPage: Option[Page
 }
 
 object G5CarersResponsePage {
-  val title = "Carers response - Carer's Allowance"
+  val title = "Carers response - Carer's Allowance".toLowerCase
 
   val url = "/allowance/carers-response"
 

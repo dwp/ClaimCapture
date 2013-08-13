@@ -3,7 +3,7 @@
 @import helper._
 @import models.domain.YourPartner
 
-@main("Completion - About Your Partner/Spouse", None, completedQuestionGroups) {
+@main("Completion - " + Messages("s3.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s3_your_partner.routes.YourPartner.completedSubmit) {
         <nav class="form-steps">
             <a href="@controllers.s3_your_partner.routes.G4PersonYouCareFor.present" class="button secondary">Back</a>

@@ -10,6 +10,8 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
 import play.api.data.validation.{Valid, Constraint}
+import utils.helpers.PastPresentLabelHelper._
+import play.api.data.FormError
 
 object G5AdditionalWageDetails extends Controller with CachedClaim {
   val form = Form(
@@ -30,7 +32,11 @@ object G5AdditionalWageDetails extends Controller with CachedClaim {
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => dispatch(BadRequest(views.html.s7_employment.g5_additionalWageDetails(formWithErrors, completedQuestionGroups(AdditionalWageDetails, jobID)))),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("anyOtherMoney", "error.required", FormError("anyOtherMoney", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou, doYou , jobID))))
+        dispatch(BadRequest(views.html.s7_employment.g5_additionalWageDetails(formWithErrorsUpdate, completedQuestionGroups(AdditionalWageDetails, jobID))))
+      },
       wageDetails => claim.update(jobs.update(wageDetails)) -> Redirect(routes.G6MoneyOwedbyEmployer.present(jobID)))
   }
 }

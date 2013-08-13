@@ -19,7 +19,7 @@ final class G3RelationshipAndOtherClaimsPage (browser: TestBrowser, previousPage
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G3RelationshipAndOtherClaimsPage {
-  val title = "Relationship and other claims - About the care you provide"
+  val title = "Relationship and other claims - About the care you provide".toLowerCase
 
   val url  = "/care-you-provide/relationship-and-other-claims"
 

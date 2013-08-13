@@ -19,7 +19,7 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - Time Spent Abroad")
 
       browser.submit("button[value='next']")
-      titleMustEqual("Your Course Details - About your education")
+      titleMustEqual("Your course details - About your education")
     }
 
     "show the text 'Continue to Education' on the submit button when next section is 'Education'" in new WithBrowser with BrowserMatchers {

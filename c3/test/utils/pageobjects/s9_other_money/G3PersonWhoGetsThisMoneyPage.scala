@@ -10,7 +10,7 @@ final class G3PersonWhoGetsThisMoneyPage(browser: TestBrowser, previousPage: Opt
 }
 
 object G3PersonWhoGetsThisMoneyPage {
-  val title = "Person Who Gets This Money - Other Money"
+  val title = "Person Who Gets This Money - Other Money".toLowerCase
 
   val url  = "/other-money/person-who-gets-this-money"
 

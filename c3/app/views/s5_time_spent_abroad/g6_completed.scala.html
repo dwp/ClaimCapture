@@ -3,10 +3,10 @@
 @import helper._
 @import models.domain.TimeSpentAbroad
 
-@main("Completion - Time Spent Abroad", None, completedQuestionGroups) {
+@main("Completion - " + Messages("s5.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s5_time_spent_abroad.routes.TimeSpentAbroad.completedSubmit) {
         <nav class="form-steps">
-            <a href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(TimeSpentAbroad).name</button>
         </nav>
     }

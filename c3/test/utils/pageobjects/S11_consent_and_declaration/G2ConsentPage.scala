@@ -20,7 +20,7 @@ class G2ConsentPage (browser: TestBrowser, previousPage: Option[Page] = None) ex
  * It is used by PageFactory object defined in Page.scala
  */
 object G2ConsentPage {
-  val title = "Consent - Consent And Declaration"
+  val title = "Consent - Consent And Declaration".toLowerCase
 
   val url = "/consent-and-declaration/consent"
 

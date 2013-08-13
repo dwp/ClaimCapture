@@ -17,7 +17,7 @@ class G3EducationCompletedPage (browser: TestBrowser, previousPage: Option[Page]
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G3EducationCompletedPage {
-  val title = "Completion - About your education"
+  val title = "Completion - About your education".toLowerCase
   val url  = "/education/completed"
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3EducationCompletedPage(browser,previousPage)
 }

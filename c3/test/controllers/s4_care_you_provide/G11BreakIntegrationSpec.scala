@@ -2,31 +2,31 @@ package controllers.s4_care_you_provide
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{BrowserMatchers, Formulate}
+import controllers.{Navigation, BrowserMatchers, Formulate}
+import models.DayMonthYear
+import java.util.concurrent.TimeUnit
 
 class G11BreakIntegrationSpec extends Specification with Tags {
   "Break" should {
-    sequential
-
-    "be presented" in new BreakWithBrowser {
+    "be presented" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
       browser.goTo("/care-you-provide/break")
       titleMustEqual("Break - About the care you provide")
     }
 
-    """present "completed" when no more breaks are required""" in new BreakWithBrowser {
+    """present "completed" when no more breaks are required""" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
       browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_no")
-      browser.submit("button[value='next']")
+      next
       titleMustEqual("Completion - About the care you provide")
     }
 
-    """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new BreakWithBrowser {
+    """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
       browser.goTo("/care-you-provide/breaks-in-care")
       browser.click("#answer_yes")
-      browser.submit("button[value='next']")
+      next
       titleMustEqual("Break - About the care you provide")
 
       browser.click("#start_day option[value='1']")
@@ -35,68 +35,84 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.click("#whereYou_location option[value='Hospital']")
       browser.click("#wherePerson_location option[value='Hospital']")
 
-      browser.submit("button[value='next']")
-
+      next
       titleMustEqual("Break - About the care you provide")
       browser.find("div[class=validation-summary] ol li").size shouldEqual 2
     }
 
-    """show 2 breaks in "break table" upon providing 2 breaks""" in new BreakWithBrowser {
+    """show 2 breaks in "break table" upon providing 2 breaks""" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
       browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_yes")
-      browser.submit("button[value='next']")
+      next
       titleMustEqual("Break - About the care you provide")
+
       break()
+      next
+      titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_yes")
-      browser.submit("button[value='next']")
+      next
       titleMustEqual("Break - About the care you provide")
+
       break()
+      next
+      titleMustEqual("Breaks in care - About the care you provide")
 
       browser.$("#breaks table tbody tr").size() shouldEqual 2
     }
 
-    "show zero breaks after creating one and then deleting" in new BreakWithBrowser {
-      skipped("Front end dynamic assertions not working correctly.")
+    "show zero breaks after creating one and then deleting" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
+      skipped("HTMLUnit not handling dynamics/jquery")
 
-      /*browser.goTo("/care-you-provide/breaks-in-care")
+      browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_yes")
-      browser.submit("button[value='next']")
+      next
       titleMustEqual("Break - About the care you provide")
 
       break()
-      browser.$("tbody tr").size() mustEqual 1
+      next
+      titleMustEqual("Breaks in care - About the care you provide")
+      browser.$("tbody tr").size mustEqual 1
 
       browser.click("input[value='Delete']")
       browser.await().atMost(10, TimeUnit.SECONDS).until(".breaks-prompt").areDisplayed
       browser.click("input[value='Yes']")
 
-      browser.await().atMost(10, TimeUnit.SECONDS).until("tbody tr").hasSize(0)*/
+      browser.await().atMost(10, TimeUnit.SECONDS).until("tbody tr").hasSize(0)
     }
 
-    "show two breaks after creating three and then deleting one" in new BreakWithBrowser {
-      skipped("Front end dynamic assertions not working correctly.")
+    "show two breaks after creating three and then deleting one" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
+      skipped("HTMLUnit not handling dynamics/jquery")
 
-      /*browser.goTo("/care-you-provide/breaks-in-care")
-
-      browser.click("#answer_yes")
-      browser.submit("button[value='next']")
-      titleMustEqual("Break - About the care you provide")
-      break()
+      browser.goTo("/care-you-provide/breaks-in-care")
 
       browser.click("#answer_yes")
-      browser.submit("button[value='next']")
+      next
       titleMustEqual("Break - About the care you provide")
+
       break()
+      next
+      titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_yes")
-      browser.submit("button[value='next']")
+      next
       titleMustEqual("Break - About the care you provide")
+
       break()
+      next
+      titleMustEqual("Breaks in care - About the care you provide")
+
+      browser.click("#answer_yes")
+      next
+      titleMustEqual("Break - About the care you provide")
+
+      break()
+      next
+      titleMustEqual("Breaks in care - About the care you provide")
 
       browser.$("tbody tr").size() mustEqual 3
 
@@ -104,26 +120,30 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.await().atMost(30, TimeUnit.SECONDS).until(".breaks-prompt").areDisplayed
       browser.click("input[value='Yes']")
 
-      browser.await().atMost(30, TimeUnit.SECONDS).until("tbody tr").hasSize(2)*/
+      browser.await().atMost(30, TimeUnit.SECONDS).until("tbody tr").hasSize(2)
     }
 
-    "add two breaks and edit the second's start year" in new BreakWithBrowser {
-      skipped("Ridiculous - Run this on its own and it's fine!")
-
+    "add two breaks and edit the second's start year" in new WithBrowser with BreakFiller with Navigation with BrowserMatchers {
       browser.goTo("/care-you-provide/breaks-in-care")
       titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_yes")
-      browser.submit("button[value='next']")
+      next
       titleMustEqual("Break - About the care you provide")
+
       break()
+      next
+      titleMustEqual("Breaks in care - About the care you provide")
 
       browser.click("#answer_yes")
-      browser.submit("button[value='next']")
+      next
       titleMustEqual("Break - About the care you provide")
-      break()
 
-      browser.findFirst("input[value='Edit']").click()
+      break()
+      next
+      titleMustEqual("Breaks in care - About the care you provide")
+
+      browser.findFirst("input[value='Change']").click()
       titleMustEqual("Break - About the care you provide")
       browser.$("#start_year").getValue mustEqual 2001.toString
 
@@ -135,24 +155,27 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
     }
   } section("integration", models.domain.CareYouProvide.id)
+}
 
-  class BreakWithBrowser extends WithBrowser with BrowserMatchers {
-    def break() {
-      browser.click("#start_day option[value='1']")
-      browser.click("#start_month option[value='1']")
-      browser.fill("#start_year") `with` "2001"
+trait BreakFiller {
+  this: WithBrowser[_] =>
 
-      browser.click("#end_day option[value='1']")
-      browser.click("#end_month option[value='1']")
-      browser.fill("#end_year") `with` "2001"
+  def break(start: DayMonthYear = DayMonthYear(1, 1, 2001),
+            end: DayMonthYear = DayMonthYear(1, 1, 2001),
+            whereYouLocation: String = "Hospital",
+            wherePersonLocation: String = "Hospital",
+            medicalDuringBreak: Boolean = false) = {
+    browser.click(s"#start_day option[value='${start.day.get}']")
+    browser.click(s"#start_month option[value='${start.month.get}']")
+    browser.fill("#start_year") `with` s"${start.year.get}"
 
-      browser.click("#whereYou_location option[value='Hospital']")
-      browser.click("#wherePerson_location option[value='Hospital']")
+    browser.click(s"#end_day option[value='${end.day.get}']")
+    browser.click(s"#end_month option[value='${end.month.get}']")
+    browser.fill("#end_year") `with` s"${end.year.get}"
 
-      browser.click("#medicalDuringBreak_no")
+    browser.click(s"#whereYou_location option[value='$whereYouLocation']")
+    browser.click(s"#wherePerson_location option[value='$wherePersonLocation']")
 
-      browser.submit("button[value='next']")
-      titleMustEqual("Breaks in care - About the care you provide")
-    }
+    browser.click(s"""#medicalDuringBreak_${if (medicalDuringBreak) "yes" else "no"}""")
   }
 }

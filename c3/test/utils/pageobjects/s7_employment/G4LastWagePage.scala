@@ -12,7 +12,7 @@ final class G4LastWagePage(browser: TestBrowser, previousPage: Option[Page] = No
 }
 
 object G4LastWagePage {
-  val title = "Last wage - Employment"
+  val title = "Your last wage - Employment History".toLowerCase
 
   val url  = "/employment/last-wage/:jobID"
 

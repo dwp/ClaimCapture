@@ -8,7 +8,7 @@ final class G1BenefitsPage(browser: TestBrowser, previousPage: Option[Page] = No
 }
 
 object G1BenefitsPage {
-  val title = "Benefits - Can you get Carer's Allowance?"
+  val title = "Benefits - Can you get Carer's Allowance?".toLowerCase
 
   val url = "/allowance/benefits"
 

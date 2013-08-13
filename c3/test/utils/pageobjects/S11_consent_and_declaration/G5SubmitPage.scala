@@ -15,7 +15,7 @@ class G5SubmitPage (browser: TestBrowser, previousPage: Option[Page] = None) ext
  * It is used by PageFactory object defined in Page.scala
  */
 object G5SubmitPage {
-  val title = "Submit - Consent And Declaration"
+  val title = "Submit - Consent And Declaration".toLowerCase
 
   val url = "/consent-and-declaration/submit"
 

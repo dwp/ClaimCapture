@@ -12,7 +12,7 @@ class G6RepresentativesForThePersonSpec extends Specification with Mockito with 
 
   "Representatives for the person" should {
 
-    """present "Representatives for the person you care for""" in new WithApplication with Claiming {
+    """present "Representatives for the Person you care for""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G6RepresentativesForThePerson.present(request)

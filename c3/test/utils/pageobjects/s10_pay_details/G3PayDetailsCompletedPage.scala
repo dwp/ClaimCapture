@@ -6,7 +6,7 @@ import utils.pageobjects.{PageContext, Page}
 final class G3PayDetailsCompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3PayDetailsCompletedPage.url, G3PayDetailsCompletedPage.title, previousPage)
 
 object G3PayDetailsCompletedPage {
-  val title = "Completion - Pay Details"
+  val title = "Completion - Pay Details".toLowerCase
 
   val url = "/pay-details/completed"
 

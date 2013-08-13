@@ -21,7 +21,7 @@ final class G4PreviousCarerPersonalDetailsPage (browser: TestBrowser, previousPa
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G4PreviousCarerPersonalDetailsPage {
-  val title = "Details of Previous or Existing Carer - About the care you provide"
+  val title = "Details of Previous or Existing Carer - About the care you provide".toLowerCase
 
   val url  = "/care-you-provide/previous-carer-personal-details"
 

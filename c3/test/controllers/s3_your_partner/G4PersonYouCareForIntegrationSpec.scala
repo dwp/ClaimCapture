@@ -6,10 +6,10 @@ import controllers.{BrowserMatchers, Formulate}
 
 class G4PersonYouCareForIntegrationSpec extends Specification with Tags {
 
-  "Person You Care For" should {
+  "Person you care for" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/your-partner/person-you-care-for")
-      titleMustEqual("Person You Care For - About Your Partner/Spouse")
+      titleMustEqual("Person you care for - About your partner/spouse")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
@@ -22,12 +22,12 @@ class G4PersonYouCareForIntegrationSpec extends Specification with Tags {
       Formulate.yourPartnerPersonalDetails(browser)
       browser.goTo("/your-partner/person-you-care-for")
       browser.click("#backButton")
-      titleMustNotEqual("Person You Care For - About Your Partner/Spouse")
+      titleMustNotEqual("Person you care for - About your partner/spouse")
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.personYouCareFor(browser)
-      titleMustEqual("Completion - About Your Partner/Spouse")
+      titleMustEqual("Completion - About your partner/spouse")
     }
     
     "contain the completed forms" in new WithBrowser {

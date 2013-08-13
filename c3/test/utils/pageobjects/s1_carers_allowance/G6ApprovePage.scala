@@ -19,7 +19,7 @@ final class G6ApprovePage(browser: TestBrowser, previousPage: Option[Page] = Non
  * It is used by PageFactory object defined in Page.scala
  */
 object G6ApprovePage {
-  val title = "Can you get Carer's Allowance?"
+  val title = "Can you get Carer's Allowance?".toLowerCase
 
   val url = "/allowance/approve"
 

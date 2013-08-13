@@ -8,7 +8,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
   "Previous Carer Contact Details" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
+      titleMustEqual("Contact details of the Person you care for - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
@@ -22,7 +22,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
+      titleMustEqual("Contact details of the Person you care for - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
@@ -41,7 +41,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
 
     "navigate back to Previous Carer Person Details" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the person you care for - About the care you provide")
+      titleMustEqual("Contact details of the Person you care for - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
       titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
@@ -56,7 +56,7 @@ class G5PreviousCarerContactDetailsIntegrationSpec extends Specification with Ta
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/previous-carer-contact-details")
       browser.submit("button[type='submit']")
-      titleMustEqual("Representatives for the person you care for - About the care you provide")
+      titleMustEqual("Representatives for the Person you care for - About the care you provide")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {

@@ -17,7 +17,7 @@ final class G4PersonYouCareForPage (browser: TestBrowser, previousPage: Option[P
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G4PersonYouCareForPage {
-  val title = "Person You Care For - About Your Partner/Spouse"
+  val title = "Person you care for - About your partner/spouse".toLowerCase
 
   val url  = "/your-partner/person-you-care-for"
 
