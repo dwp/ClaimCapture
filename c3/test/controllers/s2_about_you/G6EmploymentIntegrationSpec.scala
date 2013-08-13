@@ -16,9 +16,9 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
       browser.title mustEqual "Employment - About you - the carer"
     }
 
-    "be presented without claim date" in new WithBrowser {
+    "be presented without claim date" in new WithBrowser with BrowserMatchers {
       browser.goTo("/about-you/employment")
-      browser.title mustEqual "Benefits - Can you get Carer's Allowance?"
+      titleMustEqual("Does the person you look after get one of these benefits? - Can you get Carer's Allowance?")
     }
 
     "contain 4 completed forms" in new WithBrowser with BrowserMatchers {
@@ -28,7 +28,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
 
       titleMustEqual("Employment - About you - the carer")
-      browser.find("div[class=completed] ul li").size() mustEqual 4
+      findMustEqualSize("div[class=completed] ul li", 4)
     }
 
     "fill all fields" in new WithBrowser with G1YourDetailsPageContext {
@@ -47,13 +47,13 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
       browser.submit("button[type='submit']")
       titleMustEqual("Employment - About you - the carer")
 
-      browser.find("p[class=error]").size() mustEqual 2
+      findMustEqualSize("p[class=error]", 2)
 
       browser.click("#beenEmployedSince6MonthsBeforeClaim_yes")
       browser.submit("button[type='submit']")
       titleMustEqual("Employment - About you - the carer")
 
-      browser.find("p[class=error]").size() mustEqual 1
+      findMustEqualSize("p[class=error]", 1)
 
       browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
       browser.submit("button[type='submit']")

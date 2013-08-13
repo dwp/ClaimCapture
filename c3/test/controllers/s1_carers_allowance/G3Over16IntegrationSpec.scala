@@ -59,9 +59,7 @@ class G3Over16IntegrationSpec extends Specification with Tags {
         case p: G3Over16Page => {
           p numberSectionsCompleted() mustEqual 2
           val completed = p.findTarget("div[class=completed] ul li")
-          completed(0) must contain("Q1")
           completed(0) must contain("No")
-          completed(1) must contain("Q2")
           completed(1) must contain("Yes")
         }
         case _ => ko("Next Page is not of the right type.")

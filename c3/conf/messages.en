@@ -1,4 +1,5 @@
 s1.name = Eligibility
+s1.longName = Can you get Carer''s Allowance?
 s2.name = About you
 s2.longName = About you - the carer
 s3.name = Partner/Spouse
@@ -20,10 +21,10 @@ s10.longName = How we pay you
 s11.name = Declaration
 s11.longName = Consent and Declaration
 
-s1.g1 = Q1.  Does the person you look after get one of these benefits?
-s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?
-s1.g3 = Q3.  Are you aged 16 or over?
-s1.g4 = Q4.  Do you normally live in Great Britain?
+s1.g1 = Does the person you look after get one of these benefits?
+s1.g2 = Do you spend 35 hours or more each week caring for the person you look after?
+s1.g3 = Are you aged 16 or over?
+s1.g4 = Do you normally live in Great Britain?
 
 s2.g1 = Your details
 s2.g2 = Your contact details
@@ -92,9 +93,6 @@ s9.g7 = Other EEA State or Switzerland
 
 s10.g1 = How would you like to get paid?
 s10.g2 = Bank/Building society details
-s10.g6 = Childcare provider's contact details
-s10.g7 = Expenses related to the Person you care for while at work
-s10.g8 = Care provider's contact details
 
 s11.g1 = Additional Information
 s11.g2 = Consent
