@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import models.domain._
 import xml.XMLHelper._
 import controllers.Mappings.{yes, no}
@@ -29,8 +30,8 @@ object Caree {
       </DaytimePhoneNumber>
       <RelationToClaimant>{moreAboutThePerson.relationship}</RelationToClaimant>
       <Cared35hours>{moreAboutTheCare.spent35HoursCaring}</Cared35hours>
-      <CanCareeSign>Not asked</CanCareeSign>
-      <CanSomeoneElseSign>{representatives.someoneElseAct.answer.orNull}</CanSomeoneElseSign>
+      <CanCareeSign>{XMLValues.NotAsked}</CanCareeSign>
+      <CanSomeoneElseSign>{representatives.someoneElseAct.answer.getOrElse(XMLValues.NotAsked)}</CanSomeoneElseSign>
       <CanClaimantSign>{representatives.youAct.answer}</CanClaimantSign>
       {claimantActingType(claim)}
       {breaksSinceClaim(claim)}
@@ -102,7 +103,7 @@ object Caree {
         <EndDateTime>{if (break.end.isDefined) break.end.get.`yyyy-MM-dd'T'HH:mm:00`}</EndDateTime>
         <Reason>{break.whereYou.location}</Reason>
         <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
-        <AwayFromHome>Not asked</AwayFromHome>
+        <AwayFromHome>{XMLValues.NotAsked}</AwayFromHome>
       </CareBreak>
     }
   }

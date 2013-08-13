@@ -227,7 +227,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   }
 
   protected def getTitleFromBrowser(index:Int = 0):String = {
-    if (index < 10) {
+    if (index < 20) {
       try {
         browser.title()
       }

@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import models.domain.{ContactDetails, YourDetails, Claim}
 import scala.xml.Elem
 import xml.XMLHelper._
@@ -27,7 +28,7 @@ object Claimant {
         <Qualifier/>
       </DaytimePhoneNumber>
       <EmailAddress/>
-      <ClaimedBefore>Not asked</ClaimedBefore>
+      <ClaimedBefore>{XMLValues.NotAsked}</ClaimedBefore>
     </Claimant>
   }
 }
