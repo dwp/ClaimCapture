@@ -9,7 +9,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "About Other Money" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
-      titleMustEqual("About Other Money - Other Money")
+      titleMustEqual("About Other Money - About Other Money")
     }
 
     "navigate back to Completion - Self Employment" in new WithBrowser with BrowserMatchers {
@@ -22,18 +22,18 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       "no fields selected" in new WithBrowser with BrowserMatchers {
         browser.goTo("/other-money/about-other-money")
         browser.submit("button[type='submit']")
-        titleMustEqual("About Other Money - Other Money")
+        titleMustEqual("About Other Money - About Other Money")
 
-        browser.find("div[class=validation-summary] ol li").size mustEqual 1
+        findMustEqualSize("div[class=validation-summary] ol li", 1)
       }
 
       "text field enabled but not filled in" in new WithBrowser with BrowserMatchers {
         browser.goTo("/other-money/about-other-money")
         browser.click("#yourBenefits_answer_yes")
         browser.submit("button[type='submit']")
-        titleMustEqual("About Other Money - Other Money")
+        titleMustEqual("About Other Money - About Other Money")
 
-        browser.find("div[class=validation-summary] ol li").size mustEqual 1
+        findMustEqualSize("div[class=validation-summary] ol li", 1)
       }
 
       "text enabled but neither not filled in" in new WithBrowser with BrowserMatchers {
@@ -42,9 +42,9 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
         browser.goTo("/other-money/about-other-money")
         browser.click("#yourBenefits_answer_yes")
         browser.submit("button[type='submit']")
-        titleMustEqual("About Other Money - Other Money")
+        titleMustEqual("About Other Money - About Other Money")
 
-        browser.find("div[class=validation-summary] ol li").size mustEqual 1
+        findMustEqualSize("div[class=validation-summary] ol li", 1)
       }
     }
 

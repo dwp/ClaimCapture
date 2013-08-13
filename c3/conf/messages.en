@@ -14,6 +14,7 @@ s7.longName = Employment History
 s8.name = Self Employment
 s8.longName = About self-employment
 s9.name = Other money
+s9.longName = About Other Money
 s10.name = Pay details
 s11.name = Declaration
 
