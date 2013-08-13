@@ -12,7 +12,7 @@ About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1981
 About You,Your Details,Nationality,AboutYouNationality,British
 About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,m
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,Yes
-About You,Your contact details,Address,AboutYouAddress,5 Preston Road\nPreston\nLancashire
+About You,Your contact details,Address,AboutYouAddress,5 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
 About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,01772 888901
 About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419899
@@ -40,7 +40,7 @@ About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYo
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,28/09/1977
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,Spanish
 About Your Partner,Partner/Spouse details,Does your partner/spouse live at the same address as you?,AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou,No
-About Your Partner,Contact Details,Address,AboutYourPartnerAddress,Prestons Home\nPreston\nLancs
+About Your Partner,Contact Details,Address,AboutYourPartnerAddress,Prestons Home&Preston&Lancs
 About Your Partner,Contact Details,Postcode,AboutYourPartnerPostcode,PR12 5TH
 About Your Partner,More about your partner/spouse,"Did your partner join your household, after your claim date <ddmmyyyy>>?",AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate,Yes
 About Your Partner,More about your partner/spouse,What date did they join?,AboutYourPartnertheDateWhenYouStartedLivingTogether,24/07/2013
@@ -232,7 +232,7 @@ Education,Your course details,"If you are no longer on the course, when did you 
 Education,Your course details,Your student reference number,EducationYourStudentReferenceNumber,12300000000000
 Education,"School, college or universitys contact details","Name of school, college or university",EducationNameofSchool,Preston College
 Education,"School, college or universitys contact details",Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,Mr Steve Tudor
-Education,"School, college or universitys contact details",Address,EducationAddress,90 Preston Road\nPreston\nLancashire
+Education,"School, college or universitys contact details",Address,EducationAddress,90 Preston Road&Preston&Lancashire
 Education,"School, college or universitys contact details",Post code,EducationPostcode,PR45 6YH
 Education,"School, college or universitys contact details",Phone number,EducationPhoneNumber,01772 891891
 Education,"School, college or universitys contact details",Fax Number,EducationFaxNumber ,01772 891893

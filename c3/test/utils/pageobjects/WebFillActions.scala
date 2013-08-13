@@ -17,7 +17,8 @@ trait WebFillActions {
   def click(elementCssSelector: String) = browser.click(elementCssSelector)
 
   def fillAddress(elementCssSelector: String, value: String) = if (null != value) {
-    val lines = value.split("\n")
+
+    val lines =  value.split("&")
     val extensions = Array("_lineOne", "_lineTwo", "_lineThree")
     for (i <- 0 to lines.size - 1) {
       fillInput(elementCssSelector + extensions(i), lines(i))
