@@ -13,7 +13,7 @@ final class G5StatutorySickPayPage(browser: TestBrowser, previousPage: Option[Pa
 }
 
 object G5StatutorySickPayPage {
-  val title = "Statutory Sick Pay - Other Money".toLowerCase
+  val title = "Statutory Sick Pay - About Other Money".toLowerCase
 
   val url = "/other-money/statutory-sick-pay"
 
