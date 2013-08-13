@@ -12,7 +12,7 @@ class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
 
   val theirContactDetailsInput = Seq("address.lineOne" -> "123 Street",
     "postcode" -> "PR2 8AE",
-    "phoneNumber" -> "02076541058")
+    "phoneNumber" -> "020-76541058")
 
   "Their Contact Details - Controller" should {
 
@@ -28,7 +28,7 @@ class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
         case Some(t: TheirContactDetails) => {
           t.address.lineOne mustEqual Some("123 Street")
           t.postcode mustEqual Some("PR2 8AE")
-          t.phoneNumber mustEqual Some("02076541058")
+          t.phoneNumber mustEqual Some("020-76541058")
         }
       }
     }
