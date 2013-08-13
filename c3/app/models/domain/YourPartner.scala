@@ -33,7 +33,7 @@ object MoreAboutYourPartner extends QuestionGroup.Identifier {
   val id = s"${YourPartner.id}.g3"
 }
 
-case class PersonYouCareFor(isPartnerPersonYouCareFor:String) extends QuestionGroup(PersonYouCareFor)
+case class PersonYouCareFor(isPartnerPersonYouCareFor:String = "") extends QuestionGroup(PersonYouCareFor)
 
 object PersonYouCareFor extends QuestionGroup.Identifier {
   val id = s"${YourPartner.id}.g4"
