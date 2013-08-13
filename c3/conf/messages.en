@@ -16,6 +16,7 @@ s8.longName = About self-employment
 s9.name = Other money
 s9.longName = About Other Money
 s10.name = Pay details
+s10.longName = How we pay you
 s11.name = Declaration
 
 s1.g1 = Q1.  Does the person you look after get one of these benefits?

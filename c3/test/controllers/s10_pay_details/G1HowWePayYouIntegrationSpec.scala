@@ -9,7 +9,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
   "How we pay you" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("How We Pay You - Pay Details")
+      titleMustEqual("How would you like to get paid? - How we pay you")
     }
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
@@ -25,10 +25,10 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("How We Pay You - Pay Details")
+      titleMustEqual("How would you like to get paid? - How we pay you")
 
       browser.submit("button[type='submit']")
-      titleMustEqual("How We Pay You - Pay Details")
+      titleMustEqual("How would you like to get paid? - How we pay you")
 
       findMustEqualSize("div[class=validation-summary] ol li", 2)
     }

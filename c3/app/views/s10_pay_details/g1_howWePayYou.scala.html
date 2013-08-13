@@ -9,13 +9,14 @@
 @import models.domain.HowWePayYou
 @import app.AccountStatus._
 @import app.PaymentFrequency._
+@import views.html.s10_pay_details.main
 
-@main("How We Pay You - Pay Details", Some(currentForm)) {
+@main(Messages("s10.g1") + " - " + Messages("s10.longName"), Some(currentForm)) {
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
   
     @form(action = controllers.s10_pay_details.routes.G1HowWePayYou.submit) {
         <fieldset class="form-elements">
-            <legend>How would you like to get paid?</legend>
+            <legend>@Messages("s9.g1")</legend>
 
             <ul class="group">
                 @listRadioGroup(currentForm("likeToPay"), 'items -> Seq(BankBuildingAccount.name -> "UK bank or building society account", AppliedForAccount.name -> "You don't have an account but intend to open one", NotOpenAccount.name -> "Other - you would like more information"), 'helperBelow -> Messages("howWePayYou.helper"))
