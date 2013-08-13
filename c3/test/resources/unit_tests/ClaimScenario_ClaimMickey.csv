@@ -1,7 +1,7 @@
-Can you get Carers Allowance?,Does the person you care for get one of these benefits?,Does the person you care for get one of these benefits?,CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits,Yes
-Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you look after?,Do you spend 35 hours or more each week caring for the person you look after?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,Yes
-Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,Yes
-Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,Yes
+Can you get Carers Allowance?,Does the person you care for get one of these benefits?,Does the person you care for get one of these benefits?,CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits,
+Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you look after?,Do you spend 35 hours or more each week caring for the person you look after?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,
+Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,
+Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,
 About You,Your Details,Title,AboutYouTitle,mr
 About You,Your Details,First name,AboutYouFirstName,Mickey
 About You,Your Details,Middle name,AboutYouMiddleName,
@@ -39,7 +39,7 @@ About Your Partner,Partner/Spouse details,All other surnames or family names the
 About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,AB000000B
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,03/03/1956
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,British
-About Your Partner,Partner/Spouse details,Does your partner/spouse live at the same address as you?,AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou,yes
+About Your Partner,Partner/Spouse details,Does your partner/spouse live at the same address as you?,AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou,
 About Your Partner,Contact Details,Address,AboutYourPartnerAddress,10\nAnyplace Street
 About Your Partner,Contact Details,Postcode,AboutYourPartnerPostcode,
 About Your Partner,More about your partner/spouse,"Did your partner join your household, after your claim date <ddmmyyyy>>?",AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate,no
