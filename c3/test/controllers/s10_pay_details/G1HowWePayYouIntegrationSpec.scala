@@ -30,12 +30,11 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       browser.submit("button[type='submit']")
       titleMustEqual("How We Pay You - Pay Details")
 
-      browser.find("div[class=validation-summary] ol li").size mustEqual 2
+      findMustEqualSize("div[class=validation-summary] ol li", 2)
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.howWePayYou(browser)
-      println(browser.title)
       titleMustEqual("Bank Building Society Details - Pay Details")
     }
 
@@ -43,13 +42,12 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       browser.goTo("/pay-details/how-we-pay-you")
       browser.click(".form-steps a")
       //Other Income completed page does a redirect to first page
-      titleMustEqual("About Other Money - Other Money")
-
+      titleMustEqual("About Other Money - About Other Money")
     }
 
-    "contain the completed forms" in new WithBrowser {
+    "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.howWePayYou(browser)
-      browser.find("div[class=completed] ul li").size() mustEqual 1
+      findMustEqualSize("div[class=completed] ul li", 1)
     }
   } section("integration", models.domain.PayDetails.id)
 }
