@@ -6,13 +6,13 @@
 @import utils.helpers.CarersCrypto
 @import views.html.s9_other_money.main
 
-@main("Other EEA State or Switzerland - Other Money", Some(otherEEAStateOrSwitzerlandForm), completedQuestionGroups) {
+@main(Messages("s9.g7") + " - " + Messages("s9.longName"), Some(otherEEAStateOrSwitzerlandForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s9_other_money.routes.G7OtherEEAStateOrSwitzerland.submit) {
         <fieldset class="form-elements">
-            <legend>Other EEA State or Switzerland</legend>
+            <legend>@Messages("s9.g7")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(otherEEAStateOrSwitzerlandForm("benefitsFromOtherEEAStateOrSwitzerland"))
