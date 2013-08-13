@@ -9,7 +9,7 @@ final class G4PersonContactDetailsPage(browser: TestBrowser, previousPage: Optio
 }
 
 object G4PersonContactDetailsPage {
-  val title = "Contact Details - Other Money".toLowerCase
+  val title = "Person's contact details - About Other Money".toLowerCase
 
   val url = "/other-money/person-contact-details"
 
