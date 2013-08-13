@@ -2,6 +2,7 @@
 
 @import helper._
 @import models.domain.TimeSpentAbroad
+@import views.html.s5_time_spent_abroad.main
 
 @main("Completion - " + Messages("s5.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s5_time_spent_abroad.routes.TimeSpentAbroad.completedSubmit) {

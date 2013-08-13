@@ -11,6 +11,7 @@
 @import models.domain.{MoreAboutYou, PersonYouCareFor}
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
+@import views.html.s7_employment.main
 
 @main(Messages("s7.g10") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.G10ChildcareExpenses.submit()) {
