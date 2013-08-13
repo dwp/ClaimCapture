@@ -23,7 +23,8 @@ package object app {
   }
 
   object XMLValues {
-    val NotAsked="Not asked"
+    val NotAsked = "Not asked"
+    val NotKnown = "Not known"
   }
 
 }

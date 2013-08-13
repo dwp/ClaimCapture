@@ -37,8 +37,8 @@ object Caree {
       {breaksSinceClaim(claim)}
       {careBreak(claim)}
       <Cared35hoursBefore>{moreAboutTheCare.spent35HoursCaringBeforeClaim.answer}</Cared35hoursBefore>
-      {breaksBeforeClaim(claim)}
       {dateStartedCaring(moreAboutTheCare)}
+      {breaksBeforeClaim(claim)}
       <PaidForCaring>{moreAboutTheCare.hasSomeonePaidYou}</PaidForCaring>
       {payReceived(claim)}
       <ClaimedPreviously>{moreAboutThePerson.claimedAllowanceBefore}</ClaimedPreviously>
