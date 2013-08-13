@@ -1,8 +1,10 @@
 package controllers.s7_employment
 
+import language.reflectiveCalls
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.BrowserMatchers
+import implicits.Iteration._
 
 class G2JobDetailsIntegrationSpec extends Specification with Tags {
   "Your job" should {
@@ -27,7 +29,7 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "accept all data" in new WithBrowser with EmploymentFiller {
-      jobDetails
+      jobDetails()
     }
 
     """go back to "been employed?".""" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {
@@ -41,8 +43,9 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
     "begin twice, kicking off 2 jobs and choose to start editing the first job" in new WithBrowser with EmploymentFiller {
       skipped("Usual rubbish timing issues - works fine when run on its own")
 
-      jobDetails
-      jobDetails
+      2 times {
+        jobDetails()
+      }
 
       browser.goTo("/employment/been-employed")
       browser.$("#jobs table tbody tr").size() shouldEqual 2
@@ -55,7 +58,7 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
   trait EmploymentFiller extends BrowserMatchers {
     this: WithBrowser[_] =>
 
-    def jobDetails(): Unit = {
+    def jobDetails() = {
       browser.goTo("/employment/job-details")
 
       browser.fill("#employerName") `with` "Toys r not Us"
