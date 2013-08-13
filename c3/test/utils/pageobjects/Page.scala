@@ -234,7 +234,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
       catch {
         case _:Exception => getTitleFromBrowser(index + 1)
       }
-    } else throw new PageObjectException("Could not get title from browser object.")
+    } else "Could not get Page title from browser." //throw new PageObjectException("Could not get title from browser object.")
   }
 
   private def createPageWithTitle(title: String, newIterationNumber: Int) = {
