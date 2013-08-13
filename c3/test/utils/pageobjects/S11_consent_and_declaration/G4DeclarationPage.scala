@@ -18,7 +18,7 @@ class G4DeclarationPage (browser: TestBrowser, previousPage: Option[Page] = None
  * It is used by PageFactory object defined in Page.scala
  */
 object G4DeclarationPage {
-  val title = "Declaration - Consent And Declaration".toLowerCase
+  val title = "Declaration - Consent and Declaration".toLowerCase
 
   val url = "/consent-and-declaration/declaration"
 

@@ -20,7 +20,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
 
       browser.goTo("/employment/been-employed")
 
-      titleMustEqual("About Other Money - About Other Money")
+      titleMustEqual("Details about other money - About Other Money")
     }
 
     "start employment entry" in new WithBrowser with Navigation with BrowserMatchers with EmployedSinceClaimDate {

@@ -16,7 +16,9 @@ s8.longName = About self-employment
 s9.name = Other money
 s9.longName = About Other Money
 s10.name = Pay details
+s10.longName = How we pay you
 s11.name = Declaration
+s11.longName = Consent and Declaration
 
 s1.g1 = Q1.  Does the person you look after get one of these benefits?
 s1.g2 = Q2.  Do you spend 35 hours or more each week caring for the person you look after?
@@ -94,7 +96,7 @@ s10.g6 = Childcare provider's contact details
 s10.g7 = Expenses related to the Person you care for while at work
 s10.g8 = Care provider's contact details
 
-s11.g1 = Additional information
+s11.g1 = Additional Information
 s11.g2 = Consent
 s11.g3 = Disclaimer
 s11.g4 = Declaration
@@ -342,9 +344,9 @@ payAnyoneToLookAfterChildren = While at work, {0} pay anyone to look after your 
 payAnyoneToLookAfterPerson = While at work, {0} pay anyone to look after the Person you care for?
 
 # NECESSARY EXPENSES
-whatAreThose = What {0} this item?
-whyDoYouNeedThose = Why {0} need this item to do your job?
-howMuchCostEachWeek = How much {0} this item cost you each week?
+whatAreThose = What {0} these things?
+whyDoYouNeedThose = Why {0} need these things to do your job?
+howMuchCostEachWeek = How much {0} these things cost you each week?
 
 
 # CHILDCARE EXPENSES

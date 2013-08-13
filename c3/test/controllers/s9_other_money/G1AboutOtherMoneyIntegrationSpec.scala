@@ -9,7 +9,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "About Other Money" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
-      titleMustEqual("About Other Money - About Other Money")
+      titleMustEqual("Details about other money - About Other Money")
     }
 
     "navigate back to Completion - Self Employment" in new WithBrowser with BrowserMatchers {
@@ -22,7 +22,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       "no fields selected" in new WithBrowser with BrowserMatchers {
         browser.goTo("/other-money/about-other-money")
         browser.submit("button[type='submit']")
-        titleMustEqual("About Other Money - About Other Money")
+        titleMustEqual("Details about other money - About Other Money")
 
         findMustEqualSize("div[class=validation-summary] ol li", 1)
       }
@@ -31,7 +31,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
         browser.goTo("/other-money/about-other-money")
         browser.click("#yourBenefits_answer_yes")
         browser.submit("button[type='submit']")
-        titleMustEqual("About Other Money - About Other Money")
+        titleMustEqual("Details about other money - About Other Money")
 
         findMustEqualSize("div[class=validation-summary] ol li", 1)
       }
@@ -42,7 +42,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
         browser.goTo("/other-money/about-other-money")
         browser.click("#yourBenefits_answer_yes")
         browser.submit("button[type='submit']")
-        titleMustEqual("About Other Money - About Other Money")
+        titleMustEqual("Details about other money - About Other Money")
 
         findMustEqualSize("div[class=validation-summary] ol li", 1)
       }
@@ -51,14 +51,14 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
     "navigate to next page on valid submission with all text fields enabled and filled in" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutYou(browser)
       Formulate.aboutOtherMoney(browser)
-      titleMustEqual("Money Paid - Other Money")
+      titleMustEqual("Money paid to someone else for you - About Other Money")
     }
 
     "navigate to next page on valid submission with first mandatory field set to no" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
       browser.click("#yourBenefits_answer_no")
       browser.submit("button[type='submit']")
-      titleMustEqual("Money Paid - Other Money")
+      titleMustEqual("Money paid to someone else for you - About Other Money")
     }
 
     "be presented" in new WithBrowser with G1AboutOtherMoneyPageContext {

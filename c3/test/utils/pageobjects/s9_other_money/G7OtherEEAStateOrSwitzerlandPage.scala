@@ -14,7 +14,7 @@ class G7OtherEEAStateOrSwitzerlandPage (browser: TestBrowser, previousPage: Opti
 }
 
 object G7OtherEEAStateOrSwitzerlandPage {
-  val title = "Other EEA State or Switzerland - Other Money".toLowerCase
+  val title = "Other EEA State or Switzerland - About Other Money".toLowerCase
 
   val url = "/other-money/other-eea-state-or-switzerland"
 

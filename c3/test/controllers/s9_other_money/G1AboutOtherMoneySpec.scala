@@ -9,7 +9,7 @@ import models.domain
 import models.domain.Claim
 
 class G1AboutOtherMoneySpec extends Specification with Tags {
-  "About Other Money - Controller" should {
+  "Details about other money - Controller" should {
     val yourBenefits = "yes"
     val yourBenefitsText = "bar"
     val formInput = Seq("yourBenefits.answer" -> yourBenefits, "yourBenefits.text" -> yourBenefitsText)

@@ -17,7 +17,7 @@ class G3DisclaimerPage (browser: TestBrowser, previousPage: Option[Page] = None)
  * It is used by PageFactory object defined in Page.scala
  */
 object G3DisclaimerPage {
-  val title = "Disclaimer - Consent And Declaration".toLowerCase
+  val title = "Disclaimer - Consent and Declaration".toLowerCase
 
   val url = "/consent-and-declaration/disclaimer"
 

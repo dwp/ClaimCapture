@@ -7,13 +7,14 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import controllers.s10_pay_details._
+@import views.html.s10_pay_details.main
 
-@main("Bank Building Society Details - Pay Details", Some(currentForm),completedQuestionGroups) {
+@main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm),completedQuestionGroups) {
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
     
     @form(action = controllers.s10_pay_details.routes.G2BankBuildingSocietyDetails.submit) {
         <fieldset class="form-elements">
-            <legend>Bank/Building society details</legend>
+            <legend>@Messages("s10.g2")</legend>
 
             <ul class="group">
                 @carersInputText(currentForm("accountHolderName"))

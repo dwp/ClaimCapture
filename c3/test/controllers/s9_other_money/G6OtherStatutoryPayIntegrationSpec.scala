@@ -10,7 +10,7 @@ import play.api.test.WithBrowser
 
 class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
 
-  "Other Statutory Pay - Other Money" should {
+  "Other Statutory Pay - About Other Money" should {
     "be presented" in new WithBrowser with G6OtherStatutoryPayPageContext {
       page goToThePage()
     }
