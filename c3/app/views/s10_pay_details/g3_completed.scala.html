@@ -1,6 +1,7 @@
 @(completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import helper._
+@import views.html.s10_pay_details.main
 
 @main("Completion - " + Messages("s10.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s10_pay_details.routes.PayDetails.completedSubmit()) {
