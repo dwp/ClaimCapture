@@ -42,7 +42,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       browser.goTo("/pay-details/how-we-pay-you")
       browser.click(".form-steps a")
       //Other Income completed page does a redirect to first page
-      titleMustEqual("About Other Money - About Other Money")
+      titleMustEqual("Details about other money - About Other Money")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
