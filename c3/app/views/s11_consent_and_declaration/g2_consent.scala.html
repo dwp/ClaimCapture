@@ -9,10 +9,10 @@
 @import views.html.helper.dates._
 @import views.html.s11_consent_and_declaration.main
 
-@main("Consent - Consent and Declaration", Some(currentForm),completedQuestionGroups) {
+@main(Messages("s11.g2") + " - " + Messages("s11.longName"), Some(currentForm),completedQuestionGroups) {
     @form(action = controllers.s11_consent_and_declaration.routes.G2Consent.submit) {
         <fieldset class="form-elements">
-            <legend>Consent</legend>
+            <legend>@Messages("s11.g2")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("informationFromEmployer"))
