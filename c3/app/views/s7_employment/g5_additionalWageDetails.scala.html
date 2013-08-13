@@ -22,8 +22,9 @@
 
             <ul class="group">
                 @paymentFrequency(currentForm("oftenGetPaid"),
-                "frequency", Seq("W" -> "Weekly", "FN" -> "Fortnightly", "4W" -> "Four-weekly", "M" -> "Monthly", "other" -> "Other"),
-                '_label -> Messages ("oftenGetPaid_frequency", pastPresentLabelForEmployment(claim, wereYou, areYou, JobID(currentForm))))
+                    "frequency",
+                    Seq("W" -> "Weekly", "FN" -> "Fortnightly", "4W" -> "Four-weekly", "M" -> "Monthly", "other" -> "Other"),
+                    '_label -> Messages("oftenGetPaidFrequency", pastPresentLabelForEmployment(claim, wereYou, areYou, JobID(currentForm))))
 
                 @carersInputText(currentForm("whenGetPaid"), '_label -> Messages ("whenGetPaid", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, JobID(currentForm))))
 

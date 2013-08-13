@@ -297,7 +297,7 @@ jobStartDate = When did you start your job?
 finishedThisJob = Have you finished this job?
 lastWorkDate = When did you last work?
 p45LeavingDate = What is the leaving date on your P45, if you have one?
-hoursPerWeek = How many hours a week Did You/ Do You normally work?
+hoursPerWeek = How many hours a week do you normally work?
 jobTitle = Job title
 payrollEmployeeNumber = Payroll/Employee number
 
@@ -313,7 +313,7 @@ sameAmountEachTime = {0} get the same amount each time?
 
 # ADDITIONAL WAGE DETAILS
 oftenGetPaid = How often are you paid?
-oftenGetPaid_frequency = How often {0} paid?
+oftenGetPaidFrequency = How often {0} paid?
 whenGetPaid = When {0} get paid?
 holidaySickPay = {0} get holiday pay or sick pay?
 anyOtherMoney = {0} get paid any other money as well as your normal wage?
