@@ -8,14 +8,14 @@
 @import utils.helpers.CarersCrypto
 @import views.html.s9_other_money.main
 
-@main("Other Statutory Pay - Other Money", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s9.g6") + " - " + Messages("s9.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s9_other_money.routes.G6OtherStatutoryPay.submit) {
 
         <fieldset class="form-elements">
-            <legend>Other Statutory Pay</legend>
+            <legend>@Messages("s9.g6")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("otherPay"), '_label -> Messages("otherPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
