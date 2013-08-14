@@ -1,33 +1,35 @@
 package controllers
 
-import scala.concurrent.duration._
 import java.util.concurrent.TimeUnit
 import play.api.test.WithBrowser
 import org.specs2.matcher.MustMatchers
+import scala.util.Try
 
 trait BrowserMatchers extends MustMatchers {
   this: WithBrowser[_] =>
 
-  def titleMustEqual(title: String)(implicit duration: Duration = 1.minutes) = {
-    browser.waitUntil[Boolean](duration.toMillis.toInt, TimeUnit.MILLISECONDS) {
+  val duration = Try(System.getProperty("waitDurationMinutes", "1").toInt).getOrElse(1)
+
+  def titleMustEqual(title: String) = {
+    browser.waitUntil[Boolean](duration, TimeUnit.MINUTES) {
       browser.title mustEqual title
     }
   }
 
-  def titleMustNotEqual(title: String)(implicit duration: Duration = 1.minutes) = {
-    browser.waitUntil[Boolean](duration.toMillis.toInt, TimeUnit.MILLISECONDS) {
+  def titleMustNotEqual(title: String) = {
+    browser.waitUntil[Boolean](duration, TimeUnit.MINUTES) {
       browser.title mustNotEqual title
     }
   }
     
-  def findMustEqualSize(searchFor: String, expectedSize: Integer)(implicit duration: Duration = 1.minutes) = {
-    browser.waitUntil[Boolean](duration.toMillis.toInt, TimeUnit.MILLISECONDS) {
+  def findMustEqualSize(searchFor: String, expectedSize: Integer) = {
+    browser.waitUntil[Boolean](duration, TimeUnit.MINUTES) {
       browser.find(searchFor).size mustEqual expectedSize
     }
   }
 
-  def findMustEqualValue(searchFor: String, expectedValue: String)(implicit duration: Duration = 1.minutes) = {
-    browser.waitUntil[Boolean](duration.toMillis.toInt, TimeUnit.MILLISECONDS) {
+  def findMustEqualValue(searchFor: String, expectedValue: String) = {
+    browser.waitUntil[Boolean](duration, TimeUnit.MINUTES) {
       browser.find(searchFor).getValue mustEqual expectedValue
     }
   }

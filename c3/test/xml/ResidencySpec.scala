@@ -72,7 +72,7 @@ class ResidencySpec extends Specification with Tags {
       (periodCareTwo \\ "Period" \\ "DateTo").text mustEqual endDate.`yyyy-MM-dd`
       (periodCareTwo \\ "Reason").text mustEqual holidayOption.get
 
-      (residencyXml \\ "OtherNationality" \\ "VisaReferenceNumber").text shouldEqual "visaReference"
+      (residencyXml \\ "OtherNationality" \\ "VisaReferenceNumber").text shouldEqual ""
     }
 
     "generate <OtherNationality> if user has lived abroad" in {
