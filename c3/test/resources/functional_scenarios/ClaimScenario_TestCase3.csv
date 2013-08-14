@@ -280,7 +280,7 @@ Employment,Necessary expenses to do your job,Why [[past=did you]] [[present=do y
 Employment,Necessary expenses to do your job,How much did these things cost you each week?,EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1,160.66
 Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_1,120.12
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_1,Mr Grandfather Senior
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,My father
+Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,father
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1,father in law
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,Grandfather
 Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider_1,12 Banbury Close&St Annes&Lancashire
@@ -336,14 +336,14 @@ Employment,Necessary expenses to do your job,Why [[past=did you]] [[present=do y
 Employment,Necessary expenses to do your job,How much did these things cost you each week?,EmploymentHowMuchDidTheseExpensesCostYouEachWeek_2,145.80
 Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_2,235.99
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_2,Mr Grandfather Senior
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_2,My father
+Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_2,father
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_2,father in law
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_2,Grandfather
 Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider_2,1212 Banbury Close&St Annes&Lancashire
 Employment,Childcare provider's contact details,Postcode,EmploymentPostcodeChildcareProvider_2,FY8 7TH
 Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_2,150.20
 Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring_2,Age Concern K Ltd
-Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_2,Other
+Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_2,other
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_2,Other
 Employment,Care providers contact Details,Address,EmploymentAddressCareProvider_2,134 London Road&Preston&Lancashire
 Employment,Care providers contact Details,Postcode,EmploymentPostcodeCareProvider_2,PR4 5TH
@@ -381,7 +381,7 @@ Self Employed,Childcare provider's contact details,Postcode,SelfEmployedChildcar
 Self Employed,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedCareExpensesHowMuchYouPay,450
 Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,Mrs Terry Smith
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",SelfEmployedCareExpensesWhatRelationIsToYou,aunt
-Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,Great Auntie
+Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,aunt
 Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,124 Preston Road&Preston&Lancashire
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,PR5 6YH
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
