@@ -26,15 +26,19 @@ object ApplicationBuild extends Build {
   var sV: Seq[Project.Setting[_]] = Seq(scalaVersion := "2.10.2")
 
   var sR: Seq[Project.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
+  var include = ""
 
   var sTest: Seq[Project.Setting[_]] = Seq()
 
   if (System.getProperty("include") != null ){
+    include = System.getProperty("include")
     sTest = Seq(testOptions in Test += Tests.Argument("include", System.getProperty("include")))
   }
   if (System.getProperty("exclude") != null ){
     sTest = Seq(testOptions in Test += Tests.Argument("exclude", System.getProperty("exclude")))
   }
+
+  println("##INCLUDE VAR '"+include+"'")
 
   var gS: Seq[Project.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 4),Tags.limit(Tags.Network, 10),Tags.limit(Tags.Test, 4)))
 
