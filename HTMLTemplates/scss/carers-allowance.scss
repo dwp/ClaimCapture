@@ -225,7 +225,41 @@ $button-green-hover: #004b27;
    }
    
    
-   
+   .short-steps {
+		ol {
+			&:after {
+		   	   @media screen and (max-width: 500px) {
+			   	   display: block;
+		   	   }
+		   }
+			li {
+				width: 25%;
+				@media screen and (max-width: 760px) {
+				    text-indent: -9999px;
+				    padding: 35px 0 0 0;
+				    span {
+					    text-indent: 0;
+				    }
+			    }
+			     @media screen and (max-width: 480px) {
+				     width: 25%;
+				     margin-left: 0;
+				     &:first-child {
+					     margin-left: 0;
+				     }
+			     }
+			     @media screen and (max-width: 330px) {
+				     width: 25%;
+			     }
+			     span {
+				     @media screen and (max-width: 770px) {
+					   font-size: 13px;
+				   }
+			     }
+				}
+			}
+			
+   }
      
    
    
@@ -503,9 +537,13 @@ $button-green-hover: #004b27;
 			   	    margin-left: -50px;
 		   	    }
 	   	    }
-	   	    ul {
-		   	    margin-top: 1.6em!important;
+	   	    li.validation {
+		   	    margin-top: 1em;
 	   	    }
+
+   	    }
+   	    &.nested-fieldset {
+	   	    margin-top: 1em;
    	    }
    	    &.q1 {
 	   	    p {
@@ -590,6 +628,9 @@ $button-green-hover: #004b27;
 			   &.other-detail {
 				   margin: 0;
 				   padding-top: 0;
+				   .ie7 & {
+					   zoom: 1;
+				   }
 				   .strip {
 					   position: absolute;
 					   left: -9999px;
@@ -1370,9 +1411,22 @@ $button-green-hover: #004b27;
 	   }
 	   &.eligibility-prompt {
 		   margin-left: 0;
-			   span {
-				   background: blue;
+		   p {
+			   font-size: 1.6rem;
+			   .ie & {
+				   font-size: 16px;
 			   }
+		   }
+		   @media screen and (max-width: 480px) {
+		   	   margin-left: -2.5em;	
+			   span {
+				   display: none;
+			   }
+			   p {
+				   padding-right: 0;
+				   margin-top: 20px;
+			   }
+		   }
 	   }
 	   &.helper-prompt {
 		   margin: .5em 0 1em 0;
@@ -1501,6 +1555,11 @@ $button-green-hover: #004b27;
 			   margin: 0;
 			   .ie & {
 					font-size: 16px;
+				}
+				@media screen and (max-width: 350px) {
+					font-size: 14px;
+					padding-left: .75em;
+					padding-right: .75em;
 				}
 		   }
 	}
