@@ -34,35 +34,29 @@ object Mappings {
     "month" -> optional(number(max = 100)),
     "year" -> optional(number(max = 99999)),
     "hour" -> optional(number(max = 100, min = 0)),
-    "minutes" -> optional(number(max = 100, min = 0))
-  )(DayMonthYear.apply)(DayMonthYear.unapply)
+    "minutes" -> optional(number(max = 100, min = 0)))(DayMonthYear.apply)(DayMonthYear.unapply)
 
   val periodFromTo: Mapping[PeriodFromTo] = mapping(
     "from" -> dayMonthYear.verifying(validDate),
-    "to" -> dayMonthYear.verifying(validDate)
-  )(PeriodFromTo.apply)(PeriodFromTo.unapply)
+    "to" -> dayMonthYear.verifying(validDate))(PeriodFromTo.apply)(PeriodFromTo.unapply)
 
   val address: Mapping[MultiLineAddress] = mapping(
     "lineOne" -> optional(text(maxLength = sixty)),
     "lineTwo" -> optional(text(maxLength = sixty)),
-    "lineThree" -> optional(text(maxLength = sixty))
-  )(MultiLineAddress.apply)(MultiLineAddress.unapply)
+    "lineThree" -> optional(text(maxLength = sixty)))(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> nonEmptyText,
-    "other" -> optional(text(maxLength = sixty))
-  )(Whereabouts.apply)(Whereabouts.unapply)
+    "other" -> optional(text(maxLength = sixty)))(Whereabouts.apply)(Whereabouts.unapply)
 
   val paymentFrequency: Mapping[PaymentFrequency] = mapping(
     "frequency" -> text(maxLength = sixty),
-    "other" -> optional(text(maxLength = sixty))
-  )(PaymentFrequency.apply)(PaymentFrequency.unapply)
+    "other" -> optional(text(maxLength = sixty)))(PaymentFrequency.apply)(PaymentFrequency.unapply)
 
   val sortCode: Mapping[SortCode] = mapping(
     "sort1" -> text(maxLength = two),
     "sort2" -> text(maxLength = two),
-    "sort3" -> text(maxLength = two)
-  )(SortCode.apply)(SortCode.unapply)
+    "sort3" -> text(maxLength = two))(SortCode.apply)(SortCode.unapply)
 
   def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") { sortCode =>
     sortCode match {
@@ -170,8 +164,17 @@ object Mappings {
     case Success(p: PaymentFrequency) => Valid
     case Failure(_) => Invalid(ValidationError("error.invalid"))
   }
-  
+
   def validPaymentFrequencyOnly: Constraint[PaymentFrequency] = Constraint[PaymentFrequency]("constraint.validatePaymentFrequency") {
     pf => paymentFrequencyValidation(pf)
+  }
+
+  def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { nationality =>
+    val nationalityPattern = """[a-zA-Z \-]{1,60}""".r
+
+    nationalityPattern.pattern.matcher(nationality).matches match {
+      case true => Valid
+      case false => Invalid(ValidationError("error.nationality"))
+    }
   }
 }
