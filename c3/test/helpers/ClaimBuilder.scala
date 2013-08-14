@@ -105,9 +105,9 @@ object ClaimBuilder {
         PensionSchemes("1","no",None,None,"no",None,None),
         AboutExpenses("1","yes","yes","yes"),
         NecessaryExpenses("1","dunno","100000","cause i do"),
-        ChildcareExpenses("1",Some("1234"),"dunno",Some("other"),Some("other"),Some("other")),
+        ChildcareExpenses("1",Some("1234"),"dunno","Other",Some("other"),Some("other")),
         ChildcareProvider("1",None,None),
-        PersonYouCareForExpenses("1",Some("10"),"dunno",Some("other"), Some("other")),
+        PersonYouCareForExpenses("1",Some("10"),"dunno","Other", Some("other")),
         CareProvider("1",None,None)
      ))
     ,
@@ -120,9 +120,9 @@ object ClaimBuilder {
       PensionSchemes("2","no",None,None,"no",None,None),
       AboutExpenses("2","yes","yes","yes"),
       NecessaryExpenses("2","dunno","100000","cause i do"),
-      ChildcareExpenses("2",Some("2333"),"dunno",Some("other"),Some("other"),Some("other")),
+      ChildcareExpenses("2",Some("2333"),"dunno","Other",Some("other"),Some("other")),
       ChildcareProvider("2",None,None),
-      PersonYouCareForExpenses("2",Some("10"),"dunno",Some("other"), Some("other")),
+      PersonYouCareForExpenses("2",Some("10"),"dunno","Other", Some("other")),
       CareProvider("2",None,None)
     ))
   ))
