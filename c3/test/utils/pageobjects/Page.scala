@@ -21,7 +21,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   /* Has the user successfully left this page? if yes then she should not be able to modify it.
      To modify it, she needs to go back to the page, which will create a new page object.
    */
-  private var pageLeft = false
+  private var pageLeftOrSubmitted = false
 
   /**
    * Go to the html page corresponding to the current object.
@@ -41,7 +41,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @return Page object presenting the page. It could be different from target page if landed on different page and specified no exception to be thrown.
    */
   def goToPage(page: Page, throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    this.pageLeft = true
+    this.pageLeftOrSubmitted = true
     goToUrl(page, throwException, waitForPage, waitDuration)
   }
 
@@ -51,7 +51,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @return Page object representing the html page the UI went back to.
    */
   def goBack(waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    this.pageLeft = true
+    this.pageLeftOrSubmitted = true
     val backPageTile = browser.click(".form-steps a").title
     val newPage = createPageWithTitle(backPageTile, iteration)
     if (waitForPage) newPage.waitForPage(waitDuration) else newPage
@@ -100,7 +100,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @return Last page
    */
   final def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, throwException: Boolean = true, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION, trace: Boolean = false): Page = {
-    if (this.pageLeft) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
+    if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
     if (pageTitle == upToPageWithTitle) {
       this
     } else {
@@ -117,14 +117,25 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * @return next Page or same page if errors detected and did not ask for exception.
    */
   def submitPage(throwException: Boolean = false, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    if (this.pageLeft) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
+    if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
     try {
       this.pageSource = browser.pageSource()    
-      browser.submit("button[type='submit']")
+      val fluent = browser.submit("button[type='submit']")
+
       if (errorsInPage(throwException)) this
       else {
-        this.pageLeft = true
-        if (waitForPage) waitForDifferentPage(waitDuration)
+        this.pageLeftOrSubmitted = true
+
+        def fluentTitle = {
+          try {
+            if (fluent != null) fluent.title else pageTitle
+          }
+          catch {
+            case _:Exception  => pageTitle
+          }
+        }
+
+        if (waitForPage && fluentTitle == pageTitle ) waitForDifferentPage(waitDuration)
         this createPageWithTitle(getTitleFromBrowser(), if (!resetIteration) updateIterationNumber() else 1)
       }
     }
@@ -143,7 +154,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
    * Returns html code of the page.
    * @return source code of the page encapsulated in a String
    */
-  def source() = if (this.pageLeft) this.pageSource else browser.pageSource()
+  def source() = if (this.pageLeftOrSubmitted) this.pageSource else browser.pageSource()
 
   /**
    * Provides the list of errors displayed in a page. If there is no error then return None.
@@ -203,7 +214,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
       }
     }
     catch {
-      case e: TimeoutException => throw new PageObjectException("Time out while awaiting fro a page with title different from [" + this.pageTitle + "]")
+      case e: TimeoutException => throw new PageObjectException("Time out while awaiting for a page with title different from [" + this.pageTitle + "]")
     }
     this
   }
@@ -244,7 +255,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
 
 
   private def goToUrl(page: Page, throwException: Boolean, waitForPage: Boolean, waitDuration: Int) = {
-    if (!this.pageLeft) this.pageSource = browser.pageSource()
+    if (!this.pageLeftOrSubmitted) this.pageSource = browser.pageSource()
     browser.goTo(page.url)
     if (!page.titleMatch) {
       if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " - Page loaded with title: " + getTitleFromBrowser())
