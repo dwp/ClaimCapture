@@ -16,7 +16,7 @@
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
-            <legend>Expenses related to the Person you care for, while you are at work</legend>
+            <legend>@Messages("s7.g12")</legend>
 
             <ul class="group">
                 @carersInputText(currentForm("howMuchCostCare"), '_label -> Messages ("howMuchCostCare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))))
