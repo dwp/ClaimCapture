@@ -10,6 +10,7 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 @import views.html.s7_employment.main
+@import app.PensionPaymentFrequency._
 
 
 @main(Messages("s7.g7") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups) {
@@ -25,7 +26,7 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         carersInputText(currentForm("howMuchPension"), '_label -> Messages ("howMuchPension", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
-                        carersSelect(currentForm("howOftenPension"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))),
+                        carersSelect(currentForm("howOftenPension"), Seq(Weekly -> "Weekly", Fortnightly -> "fortnightly",FourWeekly -> "four-weekly", Monthly -> "monthly"))),
                     'id -> "payOccupationalPensionScheme",
                     'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
 
@@ -34,7 +35,7 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         carersInputText(currentForm("howMuchPersonal"), '_label -> Messages ("howMuchPersonal", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
-                        carersSelect(currentForm("howOftenPersonal"), Seq("W" -> "Weekly", "FN" -> "fortnightly", "4W" -> "four-weekly", "M" -> "monthly"))),
+                        carersSelect(currentForm("howOftenPersonal"), Seq(Weekly -> "Weekly", Fortnightly -> "fortnightly", FourWeekly -> "four-weekly", Monthly -> "monthly"))),
                     'id -> "payPersonalPensionScheme",
                     'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
             </ul>

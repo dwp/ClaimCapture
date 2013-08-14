@@ -22,6 +22,14 @@ package object app {
     val FourWeekly = 'fourWeekly
   }
 
+
+  object PensionPaymentFrequency {
+    val Weekly = "02"
+    val Fortnightly = "03"
+    val FourWeekly = "04"
+    val Monthly = "05"
+  }
+
   object XMLValues {
     val NotAsked = "Not asked"
     val NotKnown = "Not known"
