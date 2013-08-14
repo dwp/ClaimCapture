@@ -76,28 +76,24 @@ class XmlNode(val nodes: NodeSeq) {
   var error = ""
 
   def matches(claimValue: ClaimValue): Boolean = {
-
-    var index = 0
-
-    if (claimValue.attribute.contains( """_""")) index = claimValue.attribute.split("_")(1).toInt - 1
+    val index =  if (claimValue.attribute.contains( """_""") && !nodes(0).mkString.contains(XmlNode.EvidenceListNode)) claimValue.attribute.split("_")(1).toInt - 1
+                 else 0
 
     val value = XmlNode.prepareElement(nodes(index).text)
     val nodeName = nodes(index).mkString
 
     def valuesMatching = {
       if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>")) value.contains(claimValue.value)
-      else if (nodeName.startsWith("<EvidenceList>")) value.contains(claimValue.question + "=" + claimValue.value)
+      else if (nodeName.startsWith(XmlNode.EvidenceListNode)) value.contains(claimValue.question + "=" + claimValue.value)
       else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
       else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
       else value == claimValue.value
     }
 
-
     val matching = valuesMatching
     if (!matching)
-     error = " value expected: [" + (if (nodeName.startsWith("<EvidenceList>")) claimValue.question + "="+ claimValue.value else claimValue.value)+ "] within value read: [" + value + "]"
+     error = " value expected: [" + (if (nodeName.startsWith(XmlNode.EvidenceListNode)) claimValue.question + "="+ claimValue.value else claimValue.value)+ "] within value read: [" + value + "]"
     matching
-
   }
 
   def doesNotMatch(claimValue: ClaimValue): Boolean = !matches(claimValue)
@@ -106,13 +102,14 @@ class XmlNode(val nodes: NodeSeq) {
 
   def isDefined = nodes.nonEmpty
 
-
   override def toString() = nodes.mkString(",")
 
 }
 
 
 object XmlNode {
+
+  val EvidenceListNode = "<EvidenceList>"
   private def prepareElement(elementValue: String) = elementValue.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
   def apply(nodes: NodeSeq) = new XmlNode(nodes)
