@@ -75,11 +75,12 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "alwaysLivedUK" -> alwaysLivedUK,
           "maritalStatus" -> maritalStatus)).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(4)
+            formWithErrors.errors.length must equalTo(5)
             formWithErrors.errors(0).message must equalTo("error.maxLength")
             formWithErrors.errors(1).message must equalTo("error.maxLength")
             formWithErrors.errors(2).message must equalTo("error.maxLength")
             formWithErrors.errors(3).message must equalTo("error.maxLength")
+            formWithErrors.errors(4).message must equalTo("error.nationality")
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -174,7 +175,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           f => "This mapping should not happen." must equalTo("Valid"))
     }
 
-    "reject invalid nationality with numbers" in {
+    "reject invalid nationality with special characters" in {
       G1YourDetails.form.bind(
         Map("title" -> title,
           "firstName" -> firstName,
@@ -186,7 +187,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "nationalInsuranceNumber.ni3" -> ni3.toString,
           "nationalInsuranceNumber.ni4" -> ni4.toString,
           "nationalInsuranceNumber.ni5" -> ni5,
-          "nationality" -> "a!",
+          "nationality" -> "a!@£$%^&*(){}",
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,

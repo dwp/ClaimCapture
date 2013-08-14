@@ -1,11 +1,10 @@
 package controllers.s3_your_partner
 
-import org.specs2.mutable.{Tags, Specification}
-import models.{NationalInsuranceNumber, DayMonthYear}
+import org.specs2.mutable.{ Tags, Specification }
+import models.{ NationalInsuranceNumber, DayMonthYear }
 import scala.Some
 
 class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
-
 
   val title = "Mr"
   val firstName = "John"
@@ -40,22 +39,19 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> nationality,
-          "liveAtSameAddress" -> liveAtSameAddress
-        )
-      ).fold(
-        formWithErrors => "This mapping should not happen." must equalTo("Error"),
-        f => {
-          f.title must equalTo(title)
-          f.firstName must equalTo(firstName)
-          f.middleName must equalTo(Some(middleName))
-          f.surname must equalTo(surname)
-          f.otherSurnames must equalTo(Some(otherNames))
-          f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5))))
-          f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
-          f.nationality must equalTo(Some(nationality))
-          f.liveAtSameAddress must equalTo(liveAtSameAddress)
-        }
-      )
+          "liveAtSameAddress" -> liveAtSameAddress)).fold(
+          formWithErrors => "This mapping should not happen." must equalTo("Error"),
+          f => {
+            f.title must equalTo(title)
+            f.firstName must equalTo(firstName)
+            f.middleName must equalTo(Some(middleName))
+            f.surname must equalTo(surname)
+            f.otherSurnames must equalTo(Some(otherNames))
+            f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5))))
+            f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
+            f.nationality must equalTo(Some(nationality))
+            f.liveAtSameAddress must equalTo(liveAtSameAddress)
+          })
     }
 
     "reject too many characters in text fields" in {
@@ -69,37 +65,32 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
-          "liveAtSameAddress" -> liveAtSameAddress
-        )
-      ).fold(
-        formWithErrors => {
-          formWithErrors.errors.length must equalTo(5)
-          formWithErrors.errors(0).message must equalTo("error.maxLength")
-          formWithErrors.errors(1).message must equalTo("error.maxLength")
-          formWithErrors.errors(2).message must equalTo("error.maxLength")
-          formWithErrors.errors(3).message must equalTo("error.maxLength")
-          formWithErrors.errors(4).message must equalTo("error.maxLength")
-        },
-        theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
-      )
+          "liveAtSameAddress" -> liveAtSameAddress)).fold(
+          formWithErrors => {
+            formWithErrors.errors.length must equalTo(5)
+            formWithErrors.errors(0).message must equalTo("error.maxLength")
+            formWithErrors.errors(1).message must equalTo("error.maxLength")
+            formWithErrors.errors(2).message must equalTo("error.maxLength")
+            formWithErrors.errors(3).message must equalTo("error.maxLength")
+            formWithErrors.errors(4).message must equalTo("error.nationality")
+          },
+          theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "have 5 mandatory fields" in {
       G1YourPartnerPersonalDetails.form.bind(
-        Map("middleName" -> "middle name is optional")
-      ).fold(
-        formWithErrors => {
-          formWithErrors.errors.length must equalTo(5)
-          formWithErrors.errors(0).message must equalTo("error.required")
-          formWithErrors.errors(1).message must equalTo("error.required")
-          formWithErrors.errors(2).message must equalTo("error.required")
-          formWithErrors.errors(3).message must equalTo("error.required")
-          formWithErrors.errors(4).message must equalTo("error.required")
-        },
-        theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
-      )
+        Map("middleName" -> "middle name is optional")).fold(
+          formWithErrors => {
+            formWithErrors.errors.length must equalTo(5)
+            formWithErrors.errors(0).message must equalTo("error.required")
+            formWithErrors.errors(1).message must equalTo("error.required")
+            formWithErrors.errors(2).message must equalTo("error.required")
+            formWithErrors.errors(3).message must equalTo("error.required")
+            formWithErrors.errors(4).message must equalTo("error.required")
+          },
+          theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
-    
+
     "reject invalid national insurance number" in {
       G1YourPartnerPersonalDetails.form.bind(
         Map("title" -> title,
@@ -117,11 +108,11 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> nationality,
           "liveAtSameAddress" -> liveAtSameAddress)).fold(
-        formWithErrors => {
-          formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber")
-          formWithErrors.errors.length must equalTo(1)
-        },
-        f => "This mapping should not happen." must equalTo("Valid"))
+          formWithErrors => {
+            formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber")
+            formWithErrors.errors.length must equalTo(1)
+          },
+          f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject invalid date" in {
@@ -140,13 +131,83 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> "12345",
           "nationality" -> nationality,
-          "liveAtSameAddress" -> liveAtSameAddress)
-      ).fold(
-        formWithErrors => {
-          formWithErrors.errors.head.message must equalTo("error.invalid")
-          formWithErrors.errors.length must equalTo(1)
-        },
-        f => "This mapping should not happen." must equalTo("Valid"))
+          "liveAtSameAddress" -> liveAtSameAddress)).fold(
+          formWithErrors => {
+            formWithErrors.errors.head.message must equalTo("error.invalid")
+            formWithErrors.errors.length must equalTo(1)
+          },
+          f => "This mapping should not happen." must equalTo("Valid"))
     }
-  } section("unit", models.domain.YourPartner.id)
+
+    "accept nationality with space character, uppercase and lowercase" in {
+      G1YourPartnerPersonalDetails.form.bind(
+        Map("title" -> title,
+          "firstName" -> firstName,
+          "middleName" -> middleName,
+          "surname" -> surname,
+          "otherNames" -> otherNames,
+          "nationalInsuranceNumber.ni1" -> ni1.toString,
+          "nationalInsuranceNumber.ni2" -> ni2.toString,
+          "nationalInsuranceNumber.ni3" -> ni3.toString,
+          "nationalInsuranceNumber.ni4" -> ni4.toString,
+          "nationalInsuranceNumber.ni5" -> ni5,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "nationality" -> "United States",
+          "liveAtSameAddress" -> liveAtSameAddress)).fold(
+          formWithErrors => "This mapping should not happen." must equalTo("Error"),
+          f => {
+            f.nationality must equalTo(Some("United States"))
+          })
+    }
+
+    "reject invalid nationality with numbers" in {
+      G1YourPartnerPersonalDetails.form.bind(
+        Map("title" -> title,
+          "firstName" -> firstName,
+          "middleName" -> middleName,
+          "surname" -> surname,
+          "otherNames" -> otherNames,
+          "nationalInsuranceNumber.ni1" -> ni1.toString,
+          "nationalInsuranceNumber.ni2" -> ni2.toString,
+          "nationalInsuranceNumber.ni3" -> ni3.toString,
+          "nationalInsuranceNumber.ni4" -> ni4.toString,
+          "nationalInsuranceNumber.ni5" -> ni5,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "nationality" -> "a123456",
+          "liveAtSameAddress" -> liveAtSameAddress)).fold(
+          formWithErrors => {
+            formWithErrors.errors.length must equalTo(1)
+            formWithErrors.errors.head.message must equalTo("error.nationality")
+          },
+          f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+    "reject invalid nationality with special characters" in {
+      G1YourPartnerPersonalDetails.form.bind(
+        Map("title" -> title,
+          "firstName" -> firstName,
+          "middleName" -> middleName,
+          "surname" -> surname,
+          "otherNames" -> otherNames,
+          "nationalInsuranceNumber.ni1" -> ni1.toString,
+          "nationalInsuranceNumber.ni2" -> ni2.toString,
+          "nationalInsuranceNumber.ni3" -> ni3.toString,
+          "nationalInsuranceNumber.ni4" -> ni4.toString,
+          "nationalInsuranceNumber.ni5" -> ni5,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString,
+          "nationality" -> "a!@£$%^&*(){}",
+          "liveAtSameAddress" -> liveAtSameAddress)).fold(
+          formWithErrors => {
+            formWithErrors.errors.length must equalTo(1)
+            formWithErrors.errors.head.message must equalTo("error.nationality")
+          },
+          f => "This mapping should not happen." must equalTo("Valid"))
+    }
+  } section ("unit", models.domain.YourPartner.id)
 }
