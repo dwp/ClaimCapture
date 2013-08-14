@@ -106,43 +106,21 @@
     <main role="main" id="main">
 	
     <div class="carers-allowance">
-    
-    
-    <div class="prototype">
-    		<p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
-    	</div>
+
     	
     	
     	
-    	<div class="progress-steps">
+    	<div class="progress-steps short-steps">
     	
     		<ol>
-    			<li class="complete">
-    				<span>Eligibility</span>
-    			</li>
-    			<li class="complete">
-    				<span>About you</span>
-    			</li>
-    			<li class="complete">
-    				<span>Your partner</span>
-    			</li>
     			<li class="active">
-    				<span>Care you provide</span>
+    				<span>Security</span>
     			</li>
     			<li>
-    				<span>Abroad</span>
+    				<span>About You</span>
     			</li>
     			<li>
-    				<span>Education</span>
-    			</li>
-    			<li>
-    				<span>Employment</span>
-    			</li>
-    			<li>
-    				<span>Other money</span>
-    			</li>
-    			<li>
-    				<span>Pay details</span>
+    				<span>Other Info</span>
     			</li>
     			<li>
     				<span>Declaration</span>
@@ -154,15 +132,13 @@
     
     	<section>
     	
-    		<header>
-    			<h1>About you - the Carer</h1>
-    		</header>
-				
+
+    			<h1>Security questions</h1>
+    			<p>Please select all the changes that apply to you. If the change is not listed, please select 'other reason'.</p>
+
     	
 			<fieldset class="form-elements">
-				<legend>Your details</legend>
-				
-
+				<legend>For security, please provide your details</legend>
 				
 				<ul class="group">
 					<li>
@@ -173,140 +149,111 @@
 						</select>
 					</li>
 					<li>
-						<label for="first-name"><em>*</em>First Name</label>
+						<label for="first-name">First Name</label>
 						<input type="text" name="first-name" id="first-name">
 					</li>
 					<li>
-						<label for="middle-name">Middle Name</label>
+						<label for="middle-name">Middle Name (optional)</label>
 						<input type="text" name="middle-name" id="middle-name">
 					</li>
 					<li>
-						<label for="surname"><em>*</em>Surname or family name</label>
-						<input type="text" name="surname" id="surname">
+						<label for="last-name">Last Name</label>
+						<input type="text" name="last-name" id="last-name">
 					</li>
 					<li>
-						<label for="other-name">All other surnames or family names you have used or have been known by</label>
+						<label for="other-name">Other surname or maiden name (optional)</label>
 						<input type="text" name="other-name" id="other-name">
-						<p class="helper-more">Show example</p>
-						<div class="helper-info">
-							<p>eg: AA 12 34 56 A</p>
-							<p>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.</p>
-						</div>
 					</li>
-
 					<li>
 						<p>National Insurance (NI) number</p>
 						<ul class="inline ni-number">
 							<li>
 								<label for="ni-1">NI part one</label>
-								<input type="text" name="ni-1" id="ni-1" maxlength="2" placeholder="JW">
+								<input type="text" name="ni-1" id="ni-1" maxlength="2" placeholder="VO">
 							</li>
 							<li>
 								<label for="ni-2">NI part two</label>
-								<input type="tel" name="ni-2" id="ni-2" maxlength="2" placeholder="31">
+								<input type="tel" name="ni-2" id="ni-2" maxlength="2" placeholder="12">
 							</li>
 							<li>
 								<label for="ni-3">NI part three</label>
-								<input type="tel" name="ni-3" id="ni-3" maxlength="2" placeholder="90">
+								<input type="tel" name="ni-3" id="ni-3" maxlength="2" placeholder="34">
 							</li>
 							<li>
 								<label for="ni-4">NI part four</label>
-								<input type="tel" name="ni-4" id="ni-4" maxlength="2" placeholder="67">
+								<input type="tel" name="ni-4" id="ni-4" maxlength="2" placeholder="56">
 							</li>
 							<li>
 								<label for="ni-5">NI part five</label>
-								<input type="text" name="ni-5" id="ni-5" class="single" maxlength="1" placeholder="A">
-							</li>							
+								<input type="text" name="ni-5" id="ni-5" class="single" maxlength="1" placeholder="D">
+							</li>
 						</ul>
-						<p class="helper-more">Show example</p>
-						<div class="helper-info">
-							<p>eg: AA 12 34 56 A</p>
-							<p>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.</p>
-						</div>
-					</li> 
+						<p class="helper">e.g. VO 12 34 56 D<br>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.</p>
+					</li>
 					<li>
 						<p><em>*</em>Date of birth</p>
 						<ul class="inline year">
-							<li>
-								<label for="day">Day</label>
-								<select name="day" id="day">
-									<option value="#">1</option>
-									<option value="#">2</option>
-									<option value="#">3</option>
-									<option value="#">4</option>
-									<option value="#">5</option>
-									<option value="#">6</option>
-									<option value="#">7</option>
-									<option value="#">8</option>
-									<option value="#">9</option>
-									<option value="#">10</option>
-									<option value="#">11</option>
-									<option value="#">12</option>
-									<option value="#">13</option>
-									<option value="#">14</option>
-									<option value="#">15</option>
-									<option value="#">16</option>
-									<option value="#">17</option>
-									<option value="#">18</option>
-									<option value="#">19</option>
-									<option value="#">20</option>
-									<option value="#">21</option>
-									<option value="#">22</option>
-									<option value="#">23</option>
-									<option value="#">24</option>
-									<option value="#">25</option>
-									<option value="#">26</option>
-									<option value="#">27</option>
-									<option value="#">28</option>
-									<option value="#">29</option>
-									<option value="#">30</option>
-									<option value="#">31</option>
-								</select>
-							</li>
-							<li>
-								<label for="month">Month</label>
-								<select name="month" id="month">
-									<option value="#">January</option>
-									<option value="#">February</option>
-									<option value="#">March</option>
-									<option value="#">April</option>
-									<option value="#">May</option>
-									<option value="#">June</option>
-									<option value="#">July</option>
-									<option value="#">August</option>
-									<option value="#">September</option>
-									<option value="#">October</option>
-									<option value="#">November</option>
-									<option value="#">December</option>
-								</select>
-							</li>
-							<li>
-								<label for="year">Year</label>
-								<input type="tel" name="year" id="year" maxlength="4" placeholder="1980">
-							</li>
+						<li>
+							<label for="day">Day</label>
+							<select name="day" id="day">
+								<option value="#">1</option>
+								<option value="#">2</option>
+								<option value="#">3</option>
+								<option value="#">4</option>
+								<option value="#">5</option>
+								<option value="#">6</option>
+								<option value="#">7</option>
+								<option value="#">8</option>
+								<option value="#">9</option>
+								<option value="#">10</option>
+								<option value="#">11</option>
+								<option value="#">12</option>
+								<option value="#">13</option>
+								<option value="#">14</option>
+								<option value="#">15</option>
+								<option value="#">16</option>
+								<option value="#">17</option>
+								<option value="#">18</option>
+								<option value="#">19</option>
+								<option value="#">20</option>
+								<option value="#">21</option>
+								<option value="#">22</option>
+								<option value="#">23</option>
+								<option value="#">24</option>
+								<option value="#">25</option>
+								<option value="#">26</option>
+								<option value="#">27</option>
+								<option value="#">28</option>
+								<option value="#">29</option>
+								<option value="#">30</option>
+								<option value="#">31</option>
+							</select>
+						</li>
+						<li>
+							<label for="month">Month</label>
+							<select name="month" id="month">
+								<option value="#">January</option>
+								<option value="#">February</option>
+								<option value="#">March</option>
+								<option value="#">April</option>
+								<option value="#">May</option>
+								<option value="#">June</option>
+								<option value="#">July</option>
+								<option value="#">August</option>
+								<option value="#">September</option>
+								<option value="#">October</option>
+								<option value="#">November</option>
+								<option value="#">December</option>
+							</select>
+						</li>
+						<li>
+							<label for="year">Year</label>
+							<input type="tel" name="year" id="year" placeholder="YYYY">
+						</li>
 						</ul>
-						<p class="helper">eg: 1 January 1980</p>
+						<p class="helper">eg: 26 June 2013</p>
 					</li>
-					<li>
-						<label for="nationality"><em>*</em>Nationality</label>
-						<input type="text" name="nationality" id="nationality">
-					</li>
-					<li>
-						<label for="marital"><em>*</em>What is your marital or civil partnership status?</label>
-						<select name="marital" id="marital">
-							<option value="#">Single</option>
-							<option value="#">Married</option>
-						</select>
-					</li>
-					<li>
-						<p>Have you always lived in the United Kingdom?</p>
-						<ul class="radio">
-							<li><input type="radio" name="q3-yes" id="q3-yes"><label for="q3-yes">Yes</label></li>
-							<li><input type="radio" name="q3-no" id="q3-no"><label for="q3-no">No</label></li>
-						</ul>
-					</li>
-					
-					
+
 				</ul>
 				
 			</fieldset>
@@ -314,8 +261,7 @@
 			
 			
 			<div class="form-steps">
-				<a href="../eligibility/carers-q1.html" class="button secondary">Back</a>
-				<a href="../about/carers-about2.html" class="button">Next</a>
+				<a href="#" class="button">Next</a>
 			</div>
 			<!-- / form steps -->
 			

@@ -200,6 +200,29 @@
               width: 26px; } }
           .ie8 .carers-allowance .progress-steps ol li.complete span:before {
             display: none; }
+  @media screen and (max-width: 500px) {
+    .carers-allowance .short-steps ol:after {
+      display: block; } }
+  .carers-allowance .short-steps ol li {
+    width: 25%; }
+    @media screen and (max-width: 760px) {
+      .carers-allowance .short-steps ol li {
+        text-indent: -9999px;
+        padding: 35px 0 0 0; }
+        .carers-allowance .short-steps ol li span {
+          text-indent: 0; } }
+    @media screen and (max-width: 480px) {
+      .carers-allowance .short-steps ol li {
+        width: 25%;
+        margin-left: 0; }
+        .carers-allowance .short-steps ol li:first-child {
+          margin-left: 0; } }
+    @media screen and (max-width: 330px) {
+      .carers-allowance .short-steps ol li {
+        width: 25%; } }
+    @media screen and (max-width: 770px) {
+      .carers-allowance .short-steps ol li span {
+        font-size: 13px; } }
   .carers-allowance section {
     background: #fff;
     position: relative;
@@ -431,8 +454,10 @@
         .ie6 .carers-allowance .form-elements.form-eligibility legend {
           padding-left: 40px;
           margin-left: -50px; }
-      .carers-allowance .form-elements.form-eligibility ul {
-        margin-top: 1.6em !important; }
+      .carers-allowance .form-elements.form-eligibility li.validation {
+        margin-top: 1em; }
+    .carers-allowance .form-elements.nested-fieldset {
+      margin-top: 1em; }
     .carers-allowance .form-elements.q1 p {
       padding-right: 2em; }
       @media screen and (max-width: 750px) {
@@ -514,6 +539,8 @@
         .carers-allowance .form-elements ul li.other-detail {
           margin: 0;
           padding-top: 0; }
+          .ie7 .carers-allowance .form-elements ul li.other-detail {
+            zoom: 1; }
           .carers-allowance .form-elements ul li.other-detail .strip {
             position: absolute;
             left: -9999px; }
@@ -1076,6 +1103,18 @@
               font-size: 38px; } }
     .carers-allowance .prompt.eligibility-prompt {
       margin-left: 0; }
+      .carers-allowance .prompt.eligibility-prompt p {
+        font-size: 1.6rem; }
+        .ie .carers-allowance .prompt.eligibility-prompt p {
+          font-size: 16px; }
+      @media screen and (max-width: 480px) {
+        .carers-allowance .prompt.eligibility-prompt {
+          margin-left: -2.5em; }
+          .carers-allowance .prompt.eligibility-prompt span {
+            display: none; }
+          .carers-allowance .prompt.eligibility-prompt p {
+            padding-right: 0;
+            margin-top: 20px; } }
     .carers-allowance .prompt.helper-prompt {
       margin: .5em 0 1em 0;
       border: 1px solid #a2a2a2;
@@ -1172,6 +1211,11 @@
       margin: 0; }
       .ie .carers-allowance .button.row {
         font-size: 16px; }
+      @media screen and (max-width: 350px) {
+        .carers-allowance .button.row {
+          font-size: 14px;
+          padding-left: .75em;
+          padding-right: .75em; } }
   .carers-allowance .send-info {
     margin: 2em 0 0 -1em;
     padding: 1em;
