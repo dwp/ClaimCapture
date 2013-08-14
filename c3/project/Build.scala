@@ -38,12 +38,13 @@ object ApplicationBuild extends Build {
     sTest = Seq(testOptions in Test += Tests.Argument("exclude", System.getProperty("exclude")))
   }
 
+  var jO: Seq[Project.Setting[_]] = Seq(javaOptions in Test += System.getProperty("waitDurationMinutes"))
 
   var gS: Seq[Project.Setting[_]] = Seq(concurrentRestrictions in Global := Seq(Tags.limit(Tags.CPU, 4),Tags.limit(Tags.Network, 10),Tags.limit(Tags.Test, 4)))
 
   var f: Seq[Project.Setting[_]] = Seq(sbt.Keys.fork in Test := false)
 
-  var appSettings: Seq[Project.Setting[_]] =  SassPlugin.sassSettings ++ sS ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f
+  var appSettings: Seq[Project.Setting[_]] =  SassPlugin.sassSettings ++ sS ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f ++ jO
 
   val main = play.Project(appName, appVersion, appDependencies).settings(appSettings: _*)
 }
