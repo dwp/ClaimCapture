@@ -68,7 +68,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "nationalInsuranceNumber.ni3" -> ni3.toString,
           "nationalInsuranceNumber.ni4" -> ni4.toString,
           "nationalInsuranceNumber.ni5" -> ni5,
-          "nationality" -> nationality,
+          "nationality" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "dateOfBirth.day" -> dateOfBirthDay.toString,
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
