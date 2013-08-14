@@ -9,6 +9,7 @@ import xml.DWPCAClaim
 import scala.xml.Elem
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import play.api.Logger
+import play.Configuration
 
 class XmlSubmitter extends Submitter {
   def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
@@ -17,10 +18,14 @@ class XmlSubmitter extends Submitter {
 
     Logger.info(fullXml.buildString(stripComments = true))
 
-    val validator = XmlValidatorFactory.buildCaValidator()
-    validator.validate(fullXml.buildString(stripComments = true)) match {
-      case true => Future(Ok(claimXml.buildString(stripComments = false)))
-      case false => Future(Ok("Failed validation"))
+    if (Configuration.root().getBoolean("validateXml", true)) {
+      val validator = XmlValidatorFactory.buildCaValidator()
+      validator.validate(fullXml.buildString(stripComments = true)) match {
+        case true => Future(Ok(claimXml.buildString(stripComments = false)))
+        case false => Future(Ok("Failed validation"))
+      }
+    } else {
+      Future(Ok(claimXml.buildString(stripComments = false)))
     }
   }
 

@@ -2,7 +2,7 @@ s1.name = Eligibility
 s1.longName = Can you get Carer''s Allowance?
 s2.name = About you
 s2.longName = About you - the carer
-s3.name = Partner/Spouse
+s3.name = Partner
 s3.longName = About your partner/spouse
 s4.name = Care you provide
 s4.longName = About the care you provide
@@ -126,6 +126,7 @@ nationalInsuranceNumber.ni4 = National Insurance (NI) number fourth field
 nationalInsuranceNumber.ni5 = National Insurance (NI) number fifth field
 error.nationalInsuranceNumber = A National insurance number must be in the format VO 12 34 56 D
 nationalInsuranceNumber.helper = e.g. VO 12 34 56 D<br>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.
+error.nationality = A nationality must be under 60 characters and not contain numbers or special characters
 
 dateOfBirth = Date of birth
 dateOfBirth.day = Date of birth (Day)
@@ -461,7 +462,7 @@ canWeContactYourAccountant.helper = You could be charged by your accountant for 
 
 #SELF EMPLOYED - Accountant Contact Details
 error.accountantsName = Please provide the accountant's name
-accountantsName = Accountant’s name
+accountantsName = Accountant's name
 telephoneNumber = Telephone number
 
 #SELF EMPLOYED - Pensions and Expenses
