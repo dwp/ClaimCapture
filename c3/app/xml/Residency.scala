@@ -49,22 +49,23 @@ object Residency {
   }
 
   def otherNationality(claim:Claim) = {
-    val yourDetailsOption = claim.questionGroup[YourDetails]
-    val yourDetails = yourDetailsOption.getOrElse(YourDetails())
-    val hasLivedAbroad = yourDetails.alwaysLivedUK == no
-
-    if(hasLivedAbroad) {
-      val timeOutsideUKOption = claim.questionGroup[TimeOutsideUK]
-      val timeOutsideUK = timeOutsideUKOption.getOrElse(TimeOutsideUK())
+//    val yourDetailsOption = claim.questionGroup[YourDetails]
+//    val yourDetails = yourDetailsOption.getOrElse(YourDetails())
+//    val hasLivedAbroad = yourDetails.alwaysLivedUK == no
+    val timeOutsideUKOption = claim.questionGroup[TimeOutsideUK]
+    val timeOutsideUK = timeOutsideUKOption.getOrElse(TimeOutsideUK())
+    val currentlyLivingInUK = timeOutsideUK.livingInUK.answer == yes
+    if(currentlyLivingInUK) {
       val goBack = timeOutsideUK.livingInUK.goBack.getOrElse(YesNoWithDate("", None))
       <OtherNationality>
         <EUEEASwissNationalChildren/>
-        <DateArrivedInGreatBritain>{stringify(timeOutsideUK.livingInUK.date, XMLValues.NotAsked)}</DateArrivedInGreatBritain>
+        <DateArrivedInGreatBritain>{stringify(timeOutsideUK.livingInUK.date)}</DateArrivedInGreatBritain>
         <CountryArrivedFrom>{timeOutsideUK.livingInUK.text.orNull}</CountryArrivedFrom>
         <IntendToReturn>{goBack.answer}</IntendToReturn>
         <DateReturn>{stringify(goBack.date)}</DateReturn>
         <VisaReferenceNumber>{timeOutsideUK.visaReference.orNull}</VisaReferenceNumber>
       </OtherNationality>
+
     } else NodeSeq.Empty
   }
 
