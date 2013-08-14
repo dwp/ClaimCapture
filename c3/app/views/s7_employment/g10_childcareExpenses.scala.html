@@ -25,11 +25,11 @@
 
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 
-                @carersInputText(currentForm("relationToYou"))
+                @relationshipSelect(currentForm("relationToYou"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                    carersInputText(currentForm("relationToPartner"))),
+                    relationshipSelect(currentForm("relationToPartner"))),
                     'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
                         case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
                         case _ => "no"
