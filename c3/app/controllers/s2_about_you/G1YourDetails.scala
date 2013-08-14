@@ -18,19 +18,20 @@ object G1YourDetails extends Controller with CachedClaim {
       "surname" -> nonEmptyText(maxLength = Name.maxLength),
       "otherNames" -> optional(text(maxLength = sixty)),
       "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-      "nationality" -> nonEmptyText(maxLength = sixty),
+      "nationality" -> nonEmptyText.verifying(validNationality),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo),
-      "maritalStatus" -> nonEmptyText(maxLength = 1)
-    )(YourDetails.apply)(YourDetails.unapply))
+      "maritalStatus" -> nonEmptyText(maxLength = 1))(YourDetails.apply)(YourDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails)))
+  def present = claiming { implicit claim =>
+    implicit request =>
+      Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails)))
   }
 
-  def submit = claiming { implicit claim => implicit request =>
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
-      yourDetails => claim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present()))
+  def submit = claiming { implicit claim =>
+    implicit request =>
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
+        yourDetails => claim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present()))
   }
 }
