@@ -2,6 +2,7 @@
 
 @import helper._
 @import models.domain.CareYouProvide
+@import views.html.s4_care_you_provide.main
 
 @main("Completion - " + Messages("s4.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s4_care_you_provide.routes.CareYouProvide.submit) {

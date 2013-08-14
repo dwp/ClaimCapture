@@ -8,7 +8,7 @@ final class G2HoursPage(browser: TestBrowser, previousPage: Option[Page] = None)
 }
 
 object G2HoursPage {
-  val title = "Hours - Can you get Carer's Allowance?".toLowerCase
+  val title = "Do you spend 35 hours or more each week caring for the person you look after? - Can you get Carer's Allowance?".toLowerCase
 
   val url = "/allowance/hours"
 

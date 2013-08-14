@@ -2,6 +2,7 @@
 
 @import helper._
 @import models.domain.YourCourseDetails
+@import views.html.s6_education.main
 
 @main("Completion - " + Messages("s6.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s6_education.routes.Education.completedSubmit) {

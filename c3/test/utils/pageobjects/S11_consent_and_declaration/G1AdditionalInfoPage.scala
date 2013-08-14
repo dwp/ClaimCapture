@@ -18,7 +18,7 @@ class G1AdditionalInfoPage (browser: TestBrowser, previousPage: Option[Page] = N
  * It is used by PageFactory object defined in Page.scala
  */
 object G1AdditionalInfoPage {
-  val title = "Additional Information - Consent And Declaration".toLowerCase
+  val title = "Additional Information - Consent and Declaration".toLowerCase
 
   val url = "/consent-and-declaration/additional-info"
 

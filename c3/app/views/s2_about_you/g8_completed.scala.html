@@ -2,6 +2,7 @@
 
 @import helper._
 @import models.domain.AboutYou
+@import views.html.s2_about_you.main
 
 @main("Completion - " + Messages("s2.longName"), completedQuestionGroups) {
     @form(action = controllers.s2_about_you.routes.AboutYou.completedSubmit) {

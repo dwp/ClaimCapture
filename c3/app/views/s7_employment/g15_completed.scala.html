@@ -8,6 +8,7 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import models.domain.Employed
+@import views.html.s7_employment.main
 
 @main("Completion - " + Messages("s7.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s7_employment.routes.Employment.submit()) {

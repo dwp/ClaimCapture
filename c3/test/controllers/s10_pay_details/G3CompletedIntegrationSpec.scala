@@ -5,6 +5,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{Formulate, ClaimScenarioFactory}
 import utils.pageobjects.S11_consent_and_declaration
+import controllers.BrowserMatchers
 
 class G3CompletedIntegrationSpec extends Specification with Tags {
 
@@ -13,11 +14,11 @@ class G3CompletedIntegrationSpec extends Specification with Tags {
       page goToThePage()
     }
 
-    "be hidden when having state pension" in new WithBrowser {
+    "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
       browser.goTo("/pay-details/completed")
-      browser.title shouldEqual "Additional Information - Consent And Declaration"
+      titleMustEqual("Additional Information - Consent and Declaration")
     }
 
     "contain the completed forms" in new WithBrowser with G1HowWePayYouPageContext {
@@ -33,14 +34,12 @@ class G3CompletedIntegrationSpec extends Specification with Tags {
     "navigate back to 'Bank Building Society Details'" in new WithBrowser with G3PayDetailsCompletedPageContext {
       page goToThePage()
       val g2Page = page.goBack()
-//      g2Page.pageTitle shouldEqual "Bank Building Society Details - Pay Details".toLowerCase
       g2Page must beAnInstanceOf[G2BankBuildingSocietyDetailsPage]
     }
 
     "navigate to 'Consent And Declaration'" in new WithBrowser with G3PayDetailsCompletedPageContext {
       page goToThePage()
       val consentPage = page.submitPage()
-     // consentPage.pageTitle shouldEqual "Additional Information - Consent And Declaration".toLowerCase 
      consentPage must beAnInstanceOf[S11_consent_and_declaration.G1AdditionalInfoPage]
     }
   } section("integration", models.domain.PayDetails.id)

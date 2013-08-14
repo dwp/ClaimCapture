@@ -8,6 +8,7 @@ import utils.helpers.CarersForm._
 import models.domain.LivesInGB
 import language.reflectiveCalls
 import controllers.Mappings._
+import play.api.data.FormError
 
 object G4LivesInGB extends Controller with CarersAllowanceRouting with CachedClaim {
   val form = Form(
@@ -21,7 +22,11 @@ object G4LivesInGB extends Controller with CarersAllowanceRouting with CachedCla
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s1_carers_allowance.g4_livesInGB(formWithErrors, completedQuestionGroups(LivesInGB))),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("answer", FormError("livesInGB.answer", "error.required"))
+        BadRequest(views.html.s1_carers_allowance.g4_livesInGB(formWithErrorsUpdate, completedQuestionGroups(LivesInGB)))
+      },
       f => claim.update(f) -> Redirect(routes.CarersAllowance.approve()))
   }
 }

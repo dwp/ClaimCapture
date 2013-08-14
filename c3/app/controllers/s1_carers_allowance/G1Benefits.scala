@@ -9,6 +9,7 @@ import models.domain.Benefits
 import language.reflectiveCalls
 import controllers.Mappings._
 import CarersAllowance._
+import play.api.data.FormError
 
 object G1Benefits extends Controller with CachedClaim {
   val form = Form(
@@ -22,7 +23,11 @@ object G1Benefits extends Controller with CachedClaim {
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrors, completedQuestionGroups(Benefits))),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("answer", FormError("benefits.answer", "error.required"))
+        BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrorsUpdate, completedQuestionGroups(Benefits)))
+      },
       f => claim.update(f) -> Redirect(routes.G2Hours.present()))
   }
 }

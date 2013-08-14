@@ -17,8 +17,8 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
     "finishedDate.day" -> "1", "finishedDate.month" -> "1", "finishedDate.year" -> "2000",
     "studentReferenceNumber" -> "ST-2828281")
 
-  "Your Course Details - Controller" should {
-    "present 'Your Course Details'" in new WithApplication with Claiming {
+  "Your course details - Controller" should {
+    "present 'Your course details'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G1YourCourseDetails.present(request)

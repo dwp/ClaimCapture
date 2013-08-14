@@ -8,36 +8,36 @@ class G4DeclarationIntegrationSpec extends Specification with Tags {
   "Declaration" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/consent-and-declaration/declaration")
-      titleMustEqual("Declaration - Consent And Declaration")
+      titleMustEqual("Declaration - Consent and Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/consent-and-declaration/declaration")
-      titleMustEqual("Declaration - Consent And Declaration")
+      titleMustEqual("Declaration - Consent and Declaration")
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Declaration - Consent And Declaration")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 1
+      titleMustEqual("Declaration - Consent and Declaration")
+      findMustEqualSize("div[class=validation-summary] ol li", 1)
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.declaration(browser)
-      titleMustEqual("Submit - Consent And Declaration")
+      titleMustEqual("Documents you need to send us - Consent and Declaration")
     }
 
     "navigate back to Disclaimer" in new WithBrowser with BrowserMatchers {
       Formulate.disclaimer(browser)
-      titleMustEqual("Declaration - Consent And Declaration")
+      titleMustEqual("Declaration - Consent and Declaration")
 
       browser.click(".form-steps a")
-      titleMustEqual("Disclaimer - Consent And Declaration")
+      titleMustEqual("Disclaimer - Consent and Declaration")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.declaration(browser)
-      titleMustEqual("Submit - Consent And Declaration")
+      titleMustEqual("Documents you need to send us - Consent and Declaration")
 
-      browser.find("div[class=completed] ul li").size() mustEqual 1
+      findMustEqualSize("div[class=completed] ul li", 1)
     }
   } section("integration", models.domain.ConsentAndDeclaration.id)
 }

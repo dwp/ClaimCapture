@@ -38,13 +38,13 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
     // Go through the attributes of the claim and check that there is a corresponding entry in the XML
     claim.map.foreach {
       case (attribute, value) =>
-        val xPathNodes = mapping.get(attribute)
-        if (xPathNodes != None) {
-          val path = xPathNodes.get
+        val xPathNodesAndQuestion = mapping.get(attribute)
+        if (xPathNodesAndQuestion != None) {
+          val path = xPathNodesAndQuestion.get._1
           val nodes = path.split(">")
           val elementValue = XmlNode(childNode(xml.\\(nodes(0)), nodes.drop(1)))
           if (elementValue.isDefined) {
-            if (elementValue doesNotMatch ClaimValue(attribute, value)) listErrors += attribute + " " + path + elementValue.error
+            if (elementValue doesNotMatch ClaimValue(attribute, value,xPathNodesAndQuestion.get._2)) listErrors += attribute + " " + path + elementValue.error
           }
           else listErrors += attribute + " " + path + " XML element not found"
         }
@@ -61,9 +61,9 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
 object XMLBusinessValidation {
 
   def buildXmlMappingFromFile(fileName: String) = {
-    val map = mutable.Map.empty[String, String]
-    def converter(attribute: String)(path: String): Unit = map += (attribute -> path)
-    FactoryFromFile.buildFromFile(fileName, converter)
+    val map = mutable.Map.empty[String,Tuple2[String,String]]
+    def converter(attribute: String)(path: String)(question:String): Unit = map += (attribute -> Tuple2(path,question))
+    FactoryFromFile.buildFromFileLast3Columns(fileName, converter)
     map
   }
 }
@@ -86,7 +86,8 @@ class XmlNode(val nodes: NodeSeq) {
 
     def valuesMatching = {
       if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>")) value.contains(claimValue.value)
-      else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
+      else if (nodeName.startsWith("<EvidenceList>")) value.contains(claimValue.question + "=" + claimValue.value)
+      else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
       else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
       else value == claimValue.value
     }
@@ -94,7 +95,7 @@ class XmlNode(val nodes: NodeSeq) {
 
     val matching = valuesMatching
     if (!matching)
-     error = " value expected: [" + claimValue.value + "] within value read: [" + value + "]"
+     error = " value expected: [" + (if (nodeName.startsWith("<EvidenceList>")) claimValue.question + "="+ claimValue.value else claimValue.value)+ "] within value read: [" + value + "]"
     matching
 
   }
@@ -124,13 +125,16 @@ object XmlNode {
  * Represents a claimvalue once "cleaned", i.e trimmed and date reformated to yyyy-MM-dd as in the XML.
  * @param value value cleaned from the claim.
  */
-class ClaimValue(val attribute: String, val value: String) {
+class ClaimValue(val attribute: String, val value: String, val question: String) {
 
   override def toString() = value
 }
 
 
 object ClaimValue {
+
+  private def prepareQuestion(question:String) = question.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
+
   private def prepareClaimValue(claimValue: String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
     if (cleanValue.contains("/")) {
@@ -139,7 +143,7 @@ object ClaimValue {
     } else cleanValue
   }
 
-  def apply(attribute: String, value: String) = new ClaimValue(attribute, prepareClaimValue(value))
+  def apply(attribute: String, value: String, question:String) = new ClaimValue(attribute, prepareClaimValue(value), prepareQuestion(question))
 
   //  implicit def fromString(source: String): ClaimValue = new ClaimValue(prepareClaimValue(source))
 }

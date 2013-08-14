@@ -8,6 +8,7 @@ import utils.helpers.CarersForm._
 import models.domain.Over16
 import language.reflectiveCalls
 import controllers.Mappings._
+import play.api.data.FormError
 
 object G3Over16 extends Controller with CarersAllowanceRouting with CachedClaim {
   val form = Form(
@@ -21,7 +22,11 @@ object G3Over16 extends Controller with CarersAllowanceRouting with CachedClaim 
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s1_carers_allowance.g3_over16(formWithErrors, completedQuestionGroups(Over16))),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("answer", FormError("over16.answer", "error.required"))
+        BadRequest(views.html.s1_carers_allowance.g3_over16(formWithErrorsUpdate, completedQuestionGroups(Over16)))
+      },
       f => claim.update(f) -> Redirect(routes.G4LivesInGB.present()))
   }
 }

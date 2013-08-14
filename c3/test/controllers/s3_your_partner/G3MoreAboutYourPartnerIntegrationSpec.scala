@@ -7,16 +7,16 @@ import controllers.{BrowserMatchers, Formulate}
 class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags {
 
   "More About Your Partner" should {
-    "be presented" in new WithBrowser {
+    "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/your-partner/more-about-your-partner")
-      browser.title mustEqual "More about your Partner/Spouse - About your partner/spouse"
+      titleMustEqual("More about your Partner/Spouse - About your partner/spouse")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/your-partner/more-about-your-partner")
       browser.submit("button[type='submit']")
       titleMustEqual("More about your Partner/Spouse - About your partner/spouse")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 1
+      findMustEqualSize("div[class=validation-summary] ol li", 1)
     }
 
     "contain error on missing separation date when separated" in new WithBrowser with BrowserMatchers {
@@ -24,7 +24,7 @@ class G3MoreAboutYourPartnerIntegrationSpec extends Specification with Tags {
       browser.click("#separatedFromPartner_yes]")
       browser.submit("button[type='submit']")
       titleMustEqual("More about your Partner/Spouse - About your partner/spouse")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 1
+      findMustEqualSize("div[class=validation-summary] ol li", 1)
     }
 
     "navigate back to Your Partner Personal Details" in new WithBrowser with BrowserMatchers {

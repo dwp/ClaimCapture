@@ -2,8 +2,9 @@
 
 @import helper._
 @import models.domain.OtherMoney
+@import views.html.s9_other_money.main
 
-@main("Completion - Other Money", None, completedQuestionGroups) {
+@main("Completion - " + Messages("s9.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s9_other_money.routes.OtherMoney.completedSubmit) {
         <nav class="form-steps">
             <a href="@controllers.s9_other_money.routes.G6OtherStatutoryPay.present" class="button secondary">Back</a>

@@ -13,7 +13,7 @@ object FactoryFromFile {
   // used to parse claim file's lines. Expect 3 information columns, followed by attribute and then value of attribute.
   private val Extractor = """^ *([^,"]+|"[^"]+") *, *([^,"]+|"[^"]+") *, *([^,"]+|"[^"]+") *, *([^,"]+|"[^"]+") *,? *([^,"]+|"[^"]+")?.*""".r
 
-  def buildFromFile(fileName: String, extractor: (String) => (String) => Unit) = {
+  def buildFromFileLast2Columns(fileName: String, extractor: (String) => (String) => Unit) = {
     var i = 0
     Source fromURL (getClass getResource fileName) getLines() foreach {
       line =>
@@ -21,11 +21,29 @@ object FactoryFromFile {
           i+=1
           val Extractor(column1, column2, column3, column_name, column_value) = line
           if (null != column_name && null != column_value)
-            extractor(column_name.replaceAll("\"", "").trim)(column_value.replaceAll("\"", "").trim)
+            extractor(cleanString(column_name))(cleanString(column_value))
         }
         catch {
           case e: Exception => throw new PageObjectException(message = "Error while parsing file " + fileName + ". In line  " + i + ": " + line, exception = e)
         }
     }
   }
+
+  def buildFromFileLast3Columns(fileName: String, extractor: (String) => (String) => (String) => Unit) = {
+    var i = 0
+    Source fromURL (getClass getResource fileName) getLines() foreach {
+      line =>
+        try {
+          i+=1
+          val Extractor(column1, column2, column_question, column_name, column_value) = line
+          if (null != column_name && null != column_value && null != column_question)
+            extractor(cleanString(column_name))(cleanString(column_value))(cleanString(column_question))
+        }
+        catch {
+          case e: Exception => throw new PageObjectException(message = "Error while parsing file " + fileName + ". In line  " + i + ": " + line, exception = e)
+        }
+    }
+  }
+
+  private def cleanString(text:String) = text.replaceAll("\"", "").trim
 }

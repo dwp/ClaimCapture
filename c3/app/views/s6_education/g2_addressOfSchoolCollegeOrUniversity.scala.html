@@ -4,6 +4,7 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
+@import views.html.s6_education.main
 
 @main(Messages("s6.g2") + " - " + Messages("s6.longName"), Some(currentForm), completedQuestionGroups) {
 
@@ -23,9 +24,9 @@
 
                 @carersInputText(currentForm("postcode"))
 
-                @carersInputText(currentForm("phoneNumber"))
+                @carersInputTel(currentForm("phoneNumber"))
                 
-                @carersInputText(currentForm("faxNumber"))
+                @carersInputTel(currentForm("faxNumber"))
             </ul>
         </fieldset>
 

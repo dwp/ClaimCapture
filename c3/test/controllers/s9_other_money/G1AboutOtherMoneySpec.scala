@@ -9,12 +9,12 @@ import models.domain
 import models.domain.Claim
 
 class G1AboutOtherMoneySpec extends Specification with Tags {
-  "About Other Money - Controller" should {
+  "Details about other money - Controller" should {
     val yourBenefits = "yes"
     val yourBenefitsText = "bar"
     val formInput = Seq("yourBenefits.answer" -> yourBenefits, "yourBenefits.text" -> yourBenefitsText)
     
-    "present 'Your Course Details'" in new WithApplication with Claiming {
+    "present 'Your course details'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
       val result = G1AboutOtherMoney.present(request)

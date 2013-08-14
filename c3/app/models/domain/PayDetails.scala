@@ -6,7 +6,7 @@ object PayDetails extends Section.Identifier {
   val id = "s10"
 }
 
-case class HowWePayYou(likeToBePaid: String = "", paymentFrequency: String = "") extends QuestionGroup(HowWePayYou)
+case class HowWePayYou(likeToBePaid: String = "Not asked", paymentFrequency: String = "Not asked") extends QuestionGroup(HowWePayYou)
 
 object HowWePayYou extends QuestionGroup.Identifier {
   val id = s"${PayDetails.id}.g1"

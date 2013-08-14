@@ -8,7 +8,7 @@ final class G3Over16Page(browser: TestBrowser, previousPage: Option[Page] = None
 }
 
 object G3Over16Page {
-  val title = "Over 16 - Can you get Carer's Allowance?".toLowerCase
+  val title = "Are you aged 16 or over? - Can you get Carer's Allowance?".toLowerCase
 
   val url = "/allowance/over-16"
 

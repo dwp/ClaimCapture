@@ -17,13 +17,13 @@ class XMLBusinessValidationSpec extends Specification {
 
     "be able to build the XML mapping from a valid csv file" in {
       val mapping = XMLBusinessValidation buildXmlMappingFromFile "/unit_tests/tests_XMLMapping.csv"
-      mapping("AboutYouHaveYouSubletYourHome") mustEqual "path1"
-      mapping("AboutYouWhatIsYourVisaReferenceNumber") mustEqual "path2"
-      mapping("AboutYouAddress") mustEqual "path3"
-      mapping("AboutYouAllOtherSurnamesorFamilyNames") mustEqual "path4"
-      mapping("AboutYouDateofBirth") mustEqual "path5"
-      mapping("EmploymentHowManyHoursAWeekYouNormallyWork") mustEqual "PayStructure>WeeklyHoursWorked"
-      mapping("EmploymentCareExpensesWhatRelationIsToYou") mustEqual "CareExpensesStructure>RelationshipCarerToClaimant"
+      mapping("AboutYouHaveYouSubletYourHome") mustEqual Tuple2("path1","question1")
+      mapping("AboutYouWhatIsYourVisaReferenceNumber") mustEqual Tuple2("path2","question2")
+      mapping("AboutYouAddress") mustEqual Tuple2("path3","question3")
+      mapping("AboutYouAllOtherSurnamesorFamilyNames") mustEqual Tuple2("path4","question4, with comma")
+      mapping("AboutYouDateofBirth") mustEqual Tuple2("path5","question5")
+      mapping("EmploymentHowManyHoursAWeekYouNormallyWork") mustEqual Tuple2("PayStructure>WeeklyHoursWorked","How many hours a week [[past=did you]] [[present=do you]] normally work?")
+      mapping("EmploymentCareExpensesWhatRelationIsToYou") mustEqual Tuple2("CareExpensesStructure>RelationshipCarerToClaimant","What relation, if any, is the person to you?")
     }
   }
 
@@ -35,7 +35,6 @@ class XMLBusinessValidationSpec extends Specification {
 
       val errors = validator.validateXMLClaim(claim, xml, throwException = false)
       errors.nonEmpty must beTrue
-      errors(0) mustEqual "AboutYouFirstName Claimant>OtherNames value expected: [john] within value read: [mickey]"
     }
 
     "be able to parse a claim from a file and check XML content is valid" in {

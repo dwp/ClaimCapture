@@ -12,8 +12,7 @@ final class G3SelfEmploymentAccountantContactDetailsPage (browser: TestBrowser, 
 }
 
 object G3SelfEmploymentAccountantContactDetailsPage {
-  val title = "Self Employment - Accountant Contact Details".toLowerCase
-
+  val title = "Accountant's contact details - About self-employment".toLowerCase
   val url = "/self-employment/accountant-contact-details"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3SelfEmploymentAccountantContactDetailsPage(browser, previousPage)

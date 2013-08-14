@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import models.domain._
 import controllers.Mappings.{yes, no}
 import scala.xml.NodeSeq

@@ -6,8 +6,9 @@
 @import views.html.helper.base._
 @import models.domain.{MoreAboutYou,PersonYouCareFor}
 @import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
+@import views.html.s8_self_employment.main
 
-@main("Childcare expenses while you are at work - Self Employment", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s8.g5") + " - " + Messages("s8.longName"), Some(currentForm), completedQuestionGroups) {
 
   <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 

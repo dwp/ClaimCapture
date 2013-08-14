@@ -7,15 +7,16 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
+@import views.html.s1_carers_allowance.main
 
-@mainMandatory("Lives in GB - Can you get Carer's Allowance?", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s1.g4") + " - " + Messages("s1.longName"), Some(currentForm), completedQuestionGroups) {
 
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s1_carers_allowance.routes.G4LivesInGB.submit) {
 
         <fieldset class="form-elements form-eligibility q1">
-            <legend><span>Q4</span>Do you normally live in Great Britain?</legend>
+            <legend><span>Q4</span>@Messages("s1.g4")</legend>
 
             <p>By Great Britain we mean England, Scotland and Wales. You should also answer 'Yes' if you are part of a family living overseas with HM forces.</p>
 

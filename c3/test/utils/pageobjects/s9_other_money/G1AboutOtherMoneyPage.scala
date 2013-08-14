@@ -10,7 +10,7 @@ final class G1AboutOtherMoneyPage(browser: TestBrowser, previousPage: Option[Pag
 }
 
 object G1AboutOtherMoneyPage {
-  val title = "About Other Money - Other Money".toLowerCase
+  val title = "Details about other money - About Other Money".toLowerCase
 
   val url  = "/other-money/about-other-money"
 

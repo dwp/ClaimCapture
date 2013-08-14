@@ -9,7 +9,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
   "How we pay you" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("How We Pay You - Pay Details")
+      titleMustEqual("How would you like to get paid? - How we pay you")
     }
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
@@ -20,36 +20,34 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       titleMustEqual("Employment - About you - the carer")
 
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("Additional Information - Consent And Declaration")
+      titleMustEqual("Additional Information - Consent and Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("How We Pay You - Pay Details")
+      titleMustEqual("How would you like to get paid? - How we pay you")
 
       browser.submit("button[type='submit']")
-      titleMustEqual("How We Pay You - Pay Details")
+      titleMustEqual("How would you like to get paid? - How we pay you")
 
-      browser.find("div[class=validation-summary] ol li").size mustEqual 2
+      findMustEqualSize("div[class=validation-summary] ol li", 2)
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.howWePayYou(browser)
-      println(browser.title)
-      titleMustEqual("Bank Building Society Details - Pay Details")
+      titleMustEqual("Bank/Building society details - How we pay you")
     }
 
     "navigate back to Other Money - Completed" in new WithBrowser with BrowserMatchers {
       browser.goTo("/pay-details/how-we-pay-you")
       browser.click(".form-steps a")
       //Other Income completed page does a redirect to first page
-      titleMustEqual("About Other Money - Other Money")
-
+      titleMustEqual("Details about other money - About Other Money")
     }
 
-    "contain the completed forms" in new WithBrowser {
+    "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.howWePayYou(browser)
-      browser.find("div[class=completed] ul li").size() mustEqual 1
+      findMustEqualSize("div[class=completed] ul li", 1)
     }
   } section("integration", models.domain.PayDetails.id)
 }

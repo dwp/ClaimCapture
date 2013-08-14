@@ -4,6 +4,7 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
+@import views.html.s4_care_you_provide.main
 
 @main(Messages("s4.g3") + " - " + Messages("s4.longName"), Some(currentForm), completedQuestionGroups) {
 
@@ -12,7 +13,7 @@
     @form(action = controllers.s4_care_you_provide.routes.G3RelationshipAndOtherClaims.submit) {
 
         <fieldset class="form-elements">
-            <legend>@Messages("s4.g2")</legend>
+            <legend>@Messages("s4.g3")</legend>
 
             <ul class="group">
                 @relationshipSelect(currentForm("relationship"))

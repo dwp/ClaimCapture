@@ -4,53 +4,44 @@ import org.specs2.mutable.{Tags, Specification}
 import org.specs2.mock.Mockito
 import play.api.test.{WithApplication, FakeRequest}
 import play.api.cache.Cache
-import models.domain.{Claiming, PreviousCarerPersonalDetails, Claim, Section}
-import models.{DayMonthYear, domain}
+import models.domain.{Claiming, PreviousCarerPersonalDetails, Claim}
 import play.api.test.Helpers._
 
 class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito with Tags {
-  val firstName = "John"
-  val surname = "Doe"
-  val dateOfBirthDay = 5
-  val dateOfBirthMonth = 12
-  val dateOfBirthYear = 1990
-
-  val previousCarerPersonalDetailsInput = Seq("firstName" -> "John", "surname" -> surname,
-    "dateOfBirth.day" -> dateOfBirthDay.toString, "dateOfBirth.month" -> dateOfBirthMonth.toString, "dateOfBirth.year" -> dateOfBirthYear.toString)
+  val data = Seq("firstName" -> "Rip", "middleName" -> "Van",  "surname" -> "Winkle",
+                 "dateOfBirth.day" -> "1", "dateOfBirth.month" -> "1", "dateOfBirth.year" -> "1980")
 
   "Previous Carer Personal Details - Controller" should {
 
     "add previous carer personal details to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(previousCarerPersonalDetailsInput: _*)
+      val filteredData = data filter { case (k, v) => k == "firstName" || k == "surname" }
+
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(filteredData: _*)
 
       val result = G4PreviousCarerPersonalDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(domain.CareYouProvide)
 
-      section.questionGroup(PreviousCarerPersonalDetails) must beLike {
-        case Some(p: PreviousCarerPersonalDetails) => {
-          p.firstName mustEqual Some(firstName)
-          p.surname mustEqual Some(surname)
-          p.dateOfBirth mustEqual Some(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
-        }
-      }
+      claim.questionGroup[PreviousCarerPersonalDetails] should beSome(PreviousCarerPersonalDetails(firstName = "Rip", surname = "Winkle"))
+
+      status(result) mustEqual SEE_OTHER
     }
 
-    "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("dateOfBirth.day" -> "INVALID")
+    "return a BadRequest when missing mandatory data" in new WithApplication with Claiming {
+      val missingData = data filterNot { case (k, v) => k == "firstName" }
+
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(missingData: _*)
 
       val result = G4PreviousCarerPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
-    "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody(previousCarerPersonalDetailsInput: _*)
+    "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
+      val badBirthdayData = data map { case (k, v) => if (k == "dateOfBirth.day") "dateOfBirth.day" -> "INVALID" else k -> v }
+
+      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(badBirthdayData: _*)
 
       val result = G4PreviousCarerPersonalDetails.submit(request)
-      status(result) mustEqual SEE_OTHER
+      status(result) mustEqual BAD_REQUEST
     }
   } section("unit", models.domain.CareYouProvide.id)
 }

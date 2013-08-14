@@ -17,7 +17,7 @@ class EmploymentIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - Employment History")
 
       browser.submit("button[type='submit']")
-      titleMustEqual("Self Employment - About Self Employment")
+      titleMustEqual("Your job - About self-employment")
     }
 
     """go back to start of employment i.e. "employment history".""" in new WithBrowser with BrowserMatchers with EmployedSinceClaimDate {

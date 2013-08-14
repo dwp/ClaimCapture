@@ -6,15 +6,16 @@
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
+@import views.html.s9_other_money.main
 
-@main("Statutory Sick Pay - Other Money", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s9.g5") + " - " + Messages("s9.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s9_other_money.routes.G5StatutorySickPay.submit) {
 
         <fieldset class="form-elements">
-            <legend>About Statutory Sick Pay (SSP)</legend>
+            <legend>@Messages("s9.g5")</legend>
 
             <ul class="group">
               @yesNoRadioGroup(currentForm("haveYouHadAnyStatutorySickPay"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))

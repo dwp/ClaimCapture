@@ -12,8 +12,7 @@ final class G5ChildcareExpensesWhileAtWorkPage (browser: TestBrowser, previousPa
 }
 
 object G5ChildcareExpensesWhileAtWorkPage {
-  val title = "Childcare expenses while you are at work - Self Employment".toLowerCase
-
+  val title = "Childcare expenses while you are at work - About self-employment".toLowerCase
   val url = "/self-employment/childcare-expenses-while-at-work"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5ChildcareExpensesWhileAtWorkPage(browser, previousPage)

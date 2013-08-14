@@ -7,15 +7,16 @@
 @import views.html.helper.dropdowns._
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dates._
+@import views.html.s8_self_employment.main
 
-@main("Self Employment - Accountant Contact Details", Some(currentForm), completedQuestionGroups) {
+@main(Messages("s8.g3") + " - " + Messages("s8.longName"), Some(currentForm), completedQuestionGroups) {
 
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s8_self_employment.routes.G3SelfEmploymentAccountantContactDetails.submit) {
 
         <fieldset class="form-elements">
-            <legend>Accountant's contact details</legend>
+            <legend>@Messages("s8.g3")</legend>
 
             <ul class="group">
                 @carersInputText(currentForm("accountantsName"), 'maxLength -> Mappings.hundred)
@@ -24,9 +25,9 @@
 
                 @carersInputText(currentForm("postcode"))
 
-                @carersInputText(currentForm("telephoneNumber"))
+                @carersInputTel(currentForm("telephoneNumber"))
 
-                @carersInputText(currentForm("faxNumber"))
+                @carersInputTel(currentForm("faxNumber"))
             </ul>
         </fieldset>
 

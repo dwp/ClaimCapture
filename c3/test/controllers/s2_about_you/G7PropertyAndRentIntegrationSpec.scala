@@ -8,9 +8,9 @@ import play.api.i18n.Messages
 
 class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
   "Property and Rent" should {
-    "present Benefits when there is no claim date" in new WithBrowser {
+    "present Benefits when there is no claim date" in new WithBrowser with BrowserMatchers {
       browser.goTo("/about-you/property-and-rent")
-      browser.title mustEqual "Benefits - Can you get Carer's Allowance?"
+      titleMustEqual("Does the person you look after get one of these benefits? - Can you get Carer's Allowance?")
     }
 
     "be presented when there is a claim date" in new WithBrowser with BrowserMatchers {
@@ -48,7 +48,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       browser.title mustEqual Messages("s2.g7") + " - About you - the carer"
       browser.submit("button[type='submit']")
 
-      browser.find("p[class=error]").size mustEqual 2
+      findMustEqualSize("p[class=error]", 2)
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G1YourDetailsPageContext {
