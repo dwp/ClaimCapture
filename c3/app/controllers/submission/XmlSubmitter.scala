@@ -60,9 +60,7 @@ class XmlSubmitter extends Submitter {
               <TopElementName>vaN1Eh5z61pekYlfOv-vP0sGy</TopElementName>
             </Reference>
           </Manifest>
-          <TransactionId>
-            {(claimXml \\ "DWPCAClaim" \ "@id").text}
-          </TransactionId>
+          <TransactionId>{(claimXml \\ "DWPCAClaim" \ "@id").text}</TransactionId>
         </DWPCAHeader>{claimXml}
       </DWPEnvelope>
     </DWPBody>
