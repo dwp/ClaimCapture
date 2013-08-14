@@ -17,6 +17,7 @@ object XMLHelper {
     case Some(dmy: DayMonthYear) => dmy.`yyyy-MM-dd`
     case Some(nr: NationalInsuranceNumber) => nr.stringify
     case Some(sc: SortCode) => sc.stringify
+    case Some(pf:PaymentFrequency) => pf.stringify
     case _ => default
   }
 
@@ -102,4 +103,5 @@ object XMLHelper {
 
     def ?+[T](option: Option[T])(implicit classTag: ClassTag[T]): NodeSeq = optionalEmpty(option, elem)
   }
+
 }

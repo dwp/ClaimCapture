@@ -93,7 +93,7 @@ object ClaimBuilder {
 
   val breaksInCare = BreaksInCare(List(
     Break(id = "1", start = DayMonthYear(1, 1, 2001), end = Some(DayMonthYear(1, 5, 2001)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes"),
-    Break(id = "2", start = DayMonthYear(1, 1, 2002), end = Some(DayMonthYear(1, 5, 2002)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Hospital", None), medicalDuringBreak = "yes")))
+    Break(id = "2", start = DayMonthYear(1, 1, 2002), end = Some(DayMonthYear(1, 5, 2002)), whereYou = Whereabouts("Holiday", None), wherePerson = Whereabouts("Zoo", None), medicalDuringBreak = "yes")))
 
   val employmentJobs = new Jobs(List(
      new Job("1",List(

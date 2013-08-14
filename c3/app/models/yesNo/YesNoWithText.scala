@@ -2,7 +2,7 @@ package models.yesNo
 
 import controllers.Mappings._
 
-case class YesNoWithText(answer: String, text: Option[String])
+case class YesNoWithText(answer: String = "", text: Option[String] = None)
 
 object YesNoWithText {
 
