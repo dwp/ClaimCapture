@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import models._
 import scala.xml._
 import scala.reflect.ClassTag
@@ -11,12 +12,12 @@ import models.NationalInsuranceNumber
 
 object XMLHelper {
 
-  def stringify(value: Option[_]): String = value match {
+  def stringify(value: Option[_], default:String = ""): String = value match {
     case Some(s: String) => s
     case Some(dmy: DayMonthYear) => dmy.`yyyy-MM-dd`
     case Some(nr: NationalInsuranceNumber) => nr.stringify
     case Some(sc: SortCode) => sc.stringify
-    case _ => ""
+    case _ => default
   }
 
   def nodify(value: Option[_]): NodeBuffer = value  match {
@@ -92,6 +93,8 @@ object XMLHelper {
 
   implicit def attachToNode(elem: Elem) = new {
     def +++[T](option: Option[T])(implicit classTag:ClassTag[T]): Elem = optional(option, elem)
+
+    def +-[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, XMLValues.NotAsked)
 
     def +?[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, "yes")
 
