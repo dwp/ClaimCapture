@@ -18,7 +18,6 @@ class EndToEndSpec extends Specification with Tags {
 
     if (errors.nonEmpty) {
       println("List errors: " + errors)
-//      println(page.source)
     }
 
     errors.isEmpty
@@ -33,7 +32,6 @@ class EndToEndSpec extends Specification with Tags {
 
       lastPage match {
         case p: XmlPage => {
-//          println(p.source())
           validateAndPrintErrors(p, claim) //must beTrue
         }
         case p: Page => println(p.source)
