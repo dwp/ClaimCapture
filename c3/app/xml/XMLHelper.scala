@@ -94,6 +94,8 @@ object XMLHelper {
   implicit def attachToNode(elem: Elem) = new {
     def +++[T](option: Option[T])(implicit classTag:ClassTag[T]): Elem = optional(option, elem)
 
+    def +-[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, XMLValues.NotAsked)
+
     def +?[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, "yes")
 
     def +!?[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, "no")

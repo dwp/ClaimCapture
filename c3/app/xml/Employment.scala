@@ -38,7 +38,7 @@ object Employment {
         {fromToStructure (lastWage.period)}
       </PayPeriod>
       {paymentFrequency(additionalWageDetails.oftenGetPaid)}
-      {<UsualPayDay/> +++ additionalWageDetails.whenGetPaid}
+      {<UsualPayDay/> +- additionalWageDetails.whenGetPaid}
       {<VaryingEarnings/> +!? lastWage.sameAmountEachTime}
       {<PaidForHolidays/> +++ additionalWageDetails.holidaySickPay}
     </Pay>
