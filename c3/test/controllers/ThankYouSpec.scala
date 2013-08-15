@@ -15,7 +15,7 @@ class ThankYouSpec extends Specification with Mockito with Tags {
     "present 'Thank You' page" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
 
-      val result = controllers.ThankYou.present(request)
+      val result = controllers.ThankYou.present("TEST234")(request)
       status(result) mustEqual OK
     }
   } section "unit"

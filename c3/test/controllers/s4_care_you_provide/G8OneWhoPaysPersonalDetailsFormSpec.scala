@@ -80,7 +80,7 @@ class G8OneWhoPaysPersonalDetailsFormSpec extends Specification with Tags {
       form.errors should containAllOf(FormError("firstName", "error.required") ::
                                       FormError("surname", "error.required") ::
                                       FormError("amount", "error.required") ::
-                                      FormError("startDatePayment", "error.required") :: Nil).only
+                                      FormError("startDatePayment", "error.required") :: Nil)
     }
   } section("unit", models.domain.CareYouProvide.id)
 }

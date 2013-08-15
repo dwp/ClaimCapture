@@ -2,7 +2,7 @@ package xml
 
 import app.XMLValues
 import models.domain._
-import models.yesNo.{YesNoWithDate, YesNoWithText}
+import models.yesNo.{YesNoWithDate}
 import controllers.Mappings.no
 import controllers.Mappings.yes
 import scala.xml.NodeSeq

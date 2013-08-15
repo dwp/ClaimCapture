@@ -43,7 +43,7 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
     "begin twice, kicking off 2 jobs and choose to start editing the first job" in new WithBrowser with EmploymentFiller {
       skipped("Usual rubbish timing issues - works fine when run on its own")
 
-      2 times {
+      2 x {
         jobDetails()
       }
 

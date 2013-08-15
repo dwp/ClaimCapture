@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
 
-class G10ChildcareExpensesIntegrationSpec extends Specification with Tags {
+class G10ChildcareExpensesIntegrationSpec extends Specification with Tags with AboutYouAndYourPartner {
   "Childcare expenses while you are at work - Integration" should {
     "be presented" in new WithBrowser with G8AboutExpensesPageContext {
       val claim = ClaimScenarioFactory s7Employment()
@@ -16,6 +16,9 @@ class G10ChildcareExpensesIntegrationSpec extends Specification with Tags {
     }
 
     "contain 1 completed form" in new WithBrowser with G8AboutExpensesPageContext {
+
+      aboutYouAndPartner (browser)
+
       val claim = ClaimScenarioFactory s7Employment()
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1="no"
       page goToThePage()

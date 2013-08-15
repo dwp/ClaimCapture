@@ -154,7 +154,7 @@ object Employment {
           <Currency>GBP</Currency>
           {<Amount/> +++ childcareExpenses.howMuchCostChildcare}
         </WeeklyPayment>
-        <RelationshipCarerToClaimant>{childcareExpenses.relationToYou.orNull}</RelationshipCarerToClaimant>
+        <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
         <ChildDetails><Name/>{<RelationToChild/> ?+ childcareExpenses.relationToPersonYouCare}</ChildDetails>
       </ChildCareExpenses>
     } else {
@@ -178,7 +178,7 @@ object Employment {
           <Currency>GBP</Currency>
           {<Amount/> +++ personYouCareExpenses.howMuchCostCare}
         </WeeklyPayment>
-        {<RelationshipCarerToClaimant/> +++ personYouCareExpenses.relationToYou}
+        <RelationshipCarerToClaimant>{personYouCareExpenses.relationToYou}</RelationshipCarerToClaimant>
         {<RelationshipCarerToCaree/> +++ personYouCareExpenses.relationToPersonYouCare}
       </CareExpenses>
     } else {
@@ -223,6 +223,7 @@ object Employment {
             {employerXml(jobDetails,employerContactDetails)}
             {payXml(jobDetails,lastWage,additionalWageDetails)}
             <OtherThanMoney>{additionalWageDetails.anyOtherMoney}</OtherThanMoney>
+            <PayOtherThanMoney>{additionalWageDetails.anyOtherMoney}</PayOtherThanMoney>
             <OweMoney>{additionalWageDetails.employerOwesYouMoney}</OweMoney>
             {moneyOwedXml(moneyOwedbyEmployer)}
             {childcareExpensesXml(job)}

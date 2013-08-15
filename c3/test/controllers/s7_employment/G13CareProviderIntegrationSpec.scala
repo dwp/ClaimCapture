@@ -24,11 +24,11 @@ class G13CareProviderIntegrationSpec extends Specification with Tags {
       claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1="no"
       page goToThePage()
       page fillPageWith claim
-      val p = page submitPage()
+      val p = page submitPage(true)
       p fillPageWith claim
-      val p2 = p submitPage()
+      val p2 = p submitPage(true)
       p2 fillPageWith claim
-      val submitted = p2 submitPage()
+      val submitted = p2 submitPage(true)
       submitted must beAnInstanceOf[G14JobCompletionPage]
       submitted match {
         case p: G14JobCompletionPage => p numberSectionsCompleted()  mustEqual 3

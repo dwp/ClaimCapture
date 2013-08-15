@@ -42,7 +42,7 @@ class G12PersonYouCareForExpensesSpec extends Specification with Tags {
 
     "accept all mandatory data." in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whoDoYouPay" -> "blah")
+        "whoDoYouPay" -> "blah", "relationToYou" -> "fatherInLaw")
 
       val result = G12PersonYouCareForExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -56,7 +56,7 @@ class G12PersonYouCareForExpensesSpec extends Specification with Tags {
         "finishedThisJob" -> "yes"))
 
       val result = G12PersonYouCareForExpenses.submit(FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whoDoYouPay" -> "blah"))
+        "whoDoYouPay" -> "blah", "relationToYou" -> "fatherInLaw"))
 
       status(result) mustEqual SEE_OTHER
 

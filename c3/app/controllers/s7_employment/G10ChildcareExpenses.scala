@@ -3,23 +3,33 @@ package controllers.s7_employment
 import scala.language.reflectiveCalls
 import models.view.CachedClaim
 import play.api.mvc.Controller
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import models.domain.{AboutExpenses, ChildcareExpenses}
+import models.domain._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
-import Employment._
+import controllers.s7_employment.Employment._
+import scala.Some
 
 object G10ChildcareExpenses extends Controller with CachedClaim {
-  val form = Form(
+  def form(implicit claim: Claim) = Form(
     mapping(
       "jobID" -> nonEmptyText,
       "howMuchCostChildcare" -> optional(text),
       "whoLooksAfterChildren" -> nonEmptyText,
-      "relationToYou" -> optional(text),
-      "relationToPartner" -> optional(text),
+      "relationToYou" -> nonEmptyText,
+      "relationToPartner" -> optional(nonEmptyText),
       "relationToPersonYouCare" -> optional(text)
-    )(ChildcareExpenses.apply)(ChildcareExpenses.unapply))
+    )(ChildcareExpenses.apply)(ChildcareExpenses.unapply)
+      .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
+
+
+  def validateRelationToPartner(implicit claim: Claim, childcareExpenses: ChildcareExpenses) = {
+    claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
+      case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => childcareExpenses.relationToPartner.isDefined
+      case _ => true
+    }
+  }
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
     jobs.questionGroup(jobID, AboutExpenses) match {
@@ -32,7 +42,11 @@ object G10ChildcareExpenses extends Controller with CachedClaim {
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => dispatch(BadRequest(views.html.s7_employment.g10_childcareExpenses(formWithErrors, completedQuestionGroups(ChildcareExpenses, jobID)))),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
+        dispatch(BadRequest(views.html.s7_employment.g10_childcareExpenses(formWithErrorsUpdate, completedQuestionGroups(ChildcareExpenses, jobID))))
+      },
       childcareExpenses => claim.update(jobs.update(childcareExpenses)) -> Redirect(routes.G11ChildcareProvider.present(jobID)))
   }
 }

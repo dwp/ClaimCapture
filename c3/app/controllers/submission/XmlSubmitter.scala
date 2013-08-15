@@ -16,8 +16,6 @@ class XmlSubmitter extends Submitter {
     val claimXml = DWPCAClaim.xml(claim, "TEST432")
     val fullXml = buildFullClaim(claimXml)
 
-    Logger.info(fullXml.buildString(stripComments = true))
-
     if (Configuration.root().getBoolean("validateXml", true)) {
       val validator = XmlValidatorFactory.buildCaValidator()
       validator.validate(fullXml.buildString(stripComments = true)) match {

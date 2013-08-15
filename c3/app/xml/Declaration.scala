@@ -22,7 +22,7 @@ object Declaration {
       }
       <TextLine>Do you agree to us obtaining information from any other persons or organisations you may have listed on this claim form?</TextLine>
       <TextLine>{consent.informationFromPerson}</TextLine>
-      {consent.informationFromEmployer match{
+      {consent.informationFromPerson match{
       case "yes" =>
       case "no" => <TextLine>If you answered No please tell us why</TextLine> <TextLine>{consent.whyPerson.orNull}</TextLine>
     }
