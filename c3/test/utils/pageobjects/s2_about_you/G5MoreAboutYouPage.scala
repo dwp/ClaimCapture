@@ -10,7 +10,7 @@ import utils.pageobjects.{PageContext, Page}
  */
 final class G5MoreAboutYouPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5MoreAboutYouPage.url, G5MoreAboutYouPage.title, previousPage) {
   declareYesNo("#hadPartnerSinceClaimDate", "AboutYouHaveYouHadaPartnerSpouseatAnyTime")
-  declareYesNo("#eitherClaimedBenefitSinceClaimDate", "AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits")
+//  declareYesNo("#eitherClaimedBenefitSinceClaimDate", "AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits")
   declareYesNo("#beenInEducationSinceClaimDate", "AboutYouHaveYouBeenOnACourseOfEducation")
   declareYesNo("#receiveStatePension", "AboutYouDoYouGetStatePension")
 }

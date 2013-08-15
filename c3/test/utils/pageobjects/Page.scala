@@ -292,7 +292,7 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * @param theClaim   Data to use to fill page
    */
   override def fillPageWith(theClaim: ClaimScenario): Page = {
-    throw new PageObjectException("Cannot fill an unknown page: " + pageTitle)
+    throw new PageObjectException("Cannot fill an unknown page [" + pageTitle +"] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]" )
   }
 }
 
