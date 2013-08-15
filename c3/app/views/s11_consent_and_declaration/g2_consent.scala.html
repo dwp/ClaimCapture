@@ -15,20 +15,20 @@
             <legend>@Messages("s11.g2")</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme.informationFromEmployer"))
+                @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(carersInputTextArea(currentForm("doYouPayToPensionScheme.why"), 'placeholder->Messages("why_placeholder") )),
+                    inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder") )),
                     'id->"whyWrapper",
-                    'display -> {if( currentForm("doYouPayToPensionScheme.informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
+                    'display -> {if( currentForm("gettingInformationFromAnyEmployer.informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
                 )
 
-                @yesNoRadioGroup(currentForm("informationFromPerson"))
+                @yesNoRadioGroup(currentForm("tellUsWhyEmployer.informationFromPerson"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(carersInputTextArea(currentForm("whyPerson"), 'placeholder->Messages("why_placeholder") )),
+                    inputDef = Seq(carersInputTextArea(currentForm("tellUsWhyEmployer.whyPerson"), 'placeholder->Messages("why_placeholder") )),
                     'id->"whyPersonWrapper",
-                    'display -> {if( currentForm("informationFromPerson").value.getOrElse("yes") == "no" ) "yes" else "no"}
+                    'display -> {if( currentForm("tellUsWhyEmployer.informationFromPerson").value.getOrElse("yes") == "no" ) "yes" else "no"}
                 )
             </ul>
         </fieldset>
@@ -44,11 +44,11 @@
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents( "@CarersCrypto.encryptAES("doYouPayToPensionScheme_informationFromEmployer_yes")",
-        "@CarersCrypto.encryptAES("doYouPayToPensionScheme_informationFromEmployer_no")",
-        "@CarersCrypto.encryptAES("informationFromPerson_yes")",
-        "@CarersCrypto.encryptAES("informationFromPerson_no")",
-        "@CarersCrypto.encryptAES("doYouPayToPensionScheme.why")","whyWrapper",
-        "@CarersCrypto.encryptAES("whyPerson")","whyPersonWrapper");
+        window.initEvents( "@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_yes")",
+        "@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_informationFromEmployer_no")",
+        "@CarersCrypto.encryptAES("tellUsWhyEmployer_informationFromPerson_yes")",
+        "@CarersCrypto.encryptAES("tellUsWhyEmployer_informationFromPerson_no")",
+        "@CarersCrypto.encryptAES("gettingInformationFromAnyEmployer_why")","whyWrapper",
+        "@CarersCrypto.encryptAES("tellUsWhyEmployer_whyPerson")","whyPersonWrapper");
     });
 </script>

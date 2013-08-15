@@ -13,7 +13,7 @@ object AdditionalInfo extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g1"
 }
 
-case class Consent(informationFromEmployer: YesNoWithText = YesNoWithText(answer="", text=None), informationFromPerson: String = "", whyPerson: Option[String] = None) extends QuestionGroup(Consent)
+case class Consent(informationFromEmployer: YesNoWithText = YesNoWithText(answer="", text=None), informationFromPerson: YesNoWithText = YesNoWithText(answer="", text=None)) extends QuestionGroup(Consent)
 
 object Consent extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g2"
@@ -23,8 +23,8 @@ object Consent extends QuestionGroup.Identifier {
     case `yes` => true
   }
 
-  def validateWhyPerson(input: Consent): Boolean = input.informationFromPerson match {
-    case `no` => input.whyPerson.isDefined
+  def validateWhyPerson(input: Consent): Boolean = input.informationFromPerson.answer match {
+    case `no` => input.informationFromPerson.text.isDefined
     case `yes` => true
   }
 }

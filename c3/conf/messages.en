@@ -405,13 +405,16 @@ rollOrReferenceNumber = Building society roll or reference number
 
 ## CONSENT AND DECLARATION
 # CONSENT
-doYouPayToPensionScheme_informationFromEmployer = Do you agree to us getting information from any current or previous employer you have told us about on this form?
-doYouPayToPensionScheme.informationFromEmployer = Do you agree to us getting information from any current or previous employer you have told us about on this form?
-doYouPayToPensionScheme_why = Please tell us why
-doYouPayToPensionScheme.why = Please tell us why
-whyPerson = Please tell us why
+gettingInformationFromAnyEmployer_informationFromEmployer = Do you agree to us getting information from any current or previous employer you have told us about on this form?
+gettingInformationFromAnyEmployer.informationFromEmployer = Do you agree to us getting information from any current or previous employer you have told us about on this form?
+gettingInformationFromAnyEmployer_why = Please tell us why
+gettingInformationFromAnyEmployer.why = Please tell us why
+tellUsWhyEmployer.informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
+tellUsWhyEmployer_informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
+tellUsWhyEmployer.whyPerson = Please tell us why
+tellUsWhyEmployer_whyPerson = Please tell us why
 why_placeholder = Enter text...
-informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
+
 
 # DISCLAIMER
 disclaimer.1 = I understand that if I am paid Carer''s Allowance it may affect the benefits paid to [[first name, middle name, surname]].
