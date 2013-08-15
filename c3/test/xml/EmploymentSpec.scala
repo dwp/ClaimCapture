@@ -4,7 +4,6 @@ import org.specs2.mutable.{Tags, Specification}
 import models.domain._
 import controllers.Mappings._
 import models.DayMonthYear
-import models.yesNo.YesNoWithText
 import scala.Some
 import models.MultiLineAddress
 
@@ -90,7 +89,7 @@ class EmploymentSpec extends Specification with Tags {
       val relationToChild = "uncle"
       val job = Job("1",List(
                   AboutExpenses(payAnyoneToLookAfterChildren = "yes"),
-                  ChildcareExpenses(howMuchCostChildcare = Some(amount),whoLooksAfterChildren = childcareCarer,relationToYou=Some(relation),relationToPersonYouCare = Some(relationToChild)),
+                  ChildcareExpenses(howMuchCostChildcare = Some(amount),whoLooksAfterChildren = childcareCarer,relationToYou=relation,relationToPersonYouCare = Some(relationToChild)),
                   ChildcareProvider(address = Some(MultiLineAddress(Some(address))),postcode = Some(postcode))
       ))
 
@@ -122,7 +121,7 @@ class EmploymentSpec extends Specification with Tags {
       val amount = "300"
       val job = Job("1",List(
         AboutExpenses(payAnyoneToLookAfterPerson = "yes"),
-        PersonYouCareForExpenses(howMuchCostCare = Some(amount),whoDoYouPay = carer,relationToYou = Some(relation),relationToPersonYouCare = Some(relation)),
+        PersonYouCareForExpenses(howMuchCostCare = Some(amount),whoDoYouPay = carer,relationToYou = relation,relationToPersonYouCare = Some(relation)),
         CareProvider(address = Some(MultiLineAddress(Some(address))),postcode = Some(postcode))
       ))
 

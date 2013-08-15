@@ -64,7 +64,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         fill("#where") `with` "Scotland"
       }
 
-      2 times {
+      2 x {
         goTo("/time-spent-abroad/trip/4-weeks")
         titleMustEqual("Trips - Time Spent Abroad")
         trip()
@@ -92,7 +92,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         fill("#where") `with` "Scotland"
       }
 
-      2 times {
+      2 x {
         goTo("/time-spent-abroad/trip/4-weeks")
         titleMustEqual("Trips - Time Spent Abroad")
         trip()
@@ -181,7 +181,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         fill("#where") `with` "Scotland"
       }
 
-      2 times {
+      2 x {
         goTo("/time-spent-abroad/trip/52-weeks")
         titleMustEqual("Trips - Time Spent Abroad")
         trip()
@@ -209,7 +209,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         fill("#where") `with` "Scotland"
       }
 
-      2 times {
+      2 x {
         goTo("/time-spent-abroad/trip/52-weeks")
         titleMustEqual("Trips - Time Spent Abroad")
         trip()

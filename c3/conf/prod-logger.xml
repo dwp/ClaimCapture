@@ -5,6 +5,9 @@
     <appender name="APPLICATION_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${application.home}/logs/application.log</file>
 
+        <!-- Allow multiple JVM's to write to the same file -->
+        <prudent>true</prudent>
+
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
             <fileNamePattern>${application.home}/logs/application_archive/application.%d{yyyy-MM-dd}.log
