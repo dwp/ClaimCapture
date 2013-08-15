@@ -366,7 +366,7 @@ object Formulate {
   
   def consentBothYes(browser: TestBrowser) = {
     browser.goTo("/consent-and-declaration/consent")
-    browser.click("#doYouPayToPensionScheme_informationFromEmployer_yes")
+    browser.click("#gettingInformationFromAnyEmployer_informationFromEmployer_yes")
     browser.click("#tellUsWhyEmployer_informationFromPerson_yes")
     browser.submit("button[type='submit']")
   }
