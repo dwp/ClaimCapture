@@ -12,6 +12,8 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     jdbc,
     "org.specs2" % "specs2_2.10" % "2.1.1",
+    "net.sourceforge.htmlunit" % "htmlunit" % "2.12",
+    "net.sourceforge.htmlunit" % "htmlunit-core-js" % "2.12",
     "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
     "com.dwp.carers" % "carersXMLValidation" % "0.11",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
