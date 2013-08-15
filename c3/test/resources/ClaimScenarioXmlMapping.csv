@@ -185,21 +185,21 @@ Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] 
 Employment,Necessary expenses to do your job,Why [[past=did you]] [[present=do you]] need these things to do your job?,EmploymentWhyYouNeedTheseExpensesToDoYourJob_1,JobExpenses>Reason
 Employment,Necessary expenses to do your job,How much did these things cost you each week?,EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1,JobExpenses>WeeklyPayment>Amount
 Employment,Necessary expenses to do your job,[[past=Did you]] [[present=Do you]] pay for anything else necessary to do your job?,EmploymentDoYouPayforAnythingelseNecessaryToDoYourJob_1,
-Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor,Employment>JobDetails>ChildCareExpenses>WeeklyPayment>Amount
-Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild,Employment>JobDetails>ChildCareExpenses>CarerName
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToClaimant
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToPartner
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor,Employment>JobDetails>ChildCareExpenses>ChildDetails>RelationToChild
-Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider,Employment>JobDetails>ChildCareExpenses>CarerAddress>Line
-Employment,Childcare provider's contact details,Postcode,EmploymentPostcodeChildcareProvider,Employment>JobDetails>ChildCareExpenses>CarerAddress>PostCode
-Employment,Childcare provider's contact details,Do you pay anyone else to look after your child/children while at work?,EmploymentDoYouPayAnyoneelsetoLookAfterYourChild,
-Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor,Employment>JobDetails>CareExpenses>WeeklyPayment>Amount
-Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring,Employment>JobDetails>CareExpenses>CarerName
-Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou,Employment>JobDetails>CareExpenses>RelationshipCarerToClaimant
-Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor,Employment>JobDetails>CareExpenses>RelationshipCarerToCaree
-Employment,Care providers contact Details,Address,EmploymentAddressCareProvider,Employment>JobDetails>CareExpenses>CarerAddress>Line
-Employment,Care providers contact Details,Postcode,EmploymentPostcodeCareProvider,Employment>JobDetails>CareExpenses>CarerAddress>PostCode
-Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouHadAnotherJobatAnyTimeSinceClaim6Months,
+Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_1,Employment>JobDetails>ChildCareExpenses>WeeklyPayment>Amount
+Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_1,Employment>JobDetails>ChildCareExpenses>CarerName
+Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToClaimant
+Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToPartner
+Employment,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,Employment>JobDetails>ChildCareExpenses>ChildDetails>RelationToChild
+Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider_1,Employment>JobDetails>ChildCareExpenses>CarerAddress>Line
+Employment,Childcare provider's contact details,Postcode,EmploymentPostcodeChildcareProvider_1,Employment>JobDetails>ChildCareExpenses>CarerAddress>PostCode
+Employment,Childcare provider's contact details,Do you pay anyone else to look after your child/children while at work?,EmploymentDoYouPayAnyoneelsetoLookAfterYourChild_1,
+Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_1,Employment>JobDetails>CareExpenses>WeeklyPayment>Amount
+Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring_1,Employment>JobDetails>CareExpenses>CarerName
+Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_1,Employment>JobDetails>CareExpenses>RelationshipCarerToClaimant
+Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,Employment>JobDetails>CareExpenses>RelationshipCarerToCaree
+Employment,Care providers contact Details,Address,EmploymentAddressCareProvider_1,Employment>JobDetails>CareExpenses>CarerAddress>Line
+Employment,Care providers contact Details,Postcode,EmploymentPostcodeCareProvider_1,Employment>JobDetails>CareExpenses>CarerAddress>PostCode
+Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouHadAnotherJobatAnyTimeSinceClaim6Months_2,
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,Payment>InitialAccountQuestion
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Payment>PaymentFrequency
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Payment>Account>HolderName
