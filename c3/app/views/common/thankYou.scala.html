@@ -1,4 +1,4 @@
-@()(implicit claim: models.domain.Claim)
+@(txnId:String)(implicit claim: models.domain.Claim)
 
 @import helper._
 @import models.domain._
@@ -14,7 +14,7 @@
           <h1>Thank you for submitting</h1>
 
       
-        <p>Thank you message goes here</p>
+        <p>Thank you message goes here : @txnId</p>
       </section>
     </div>
   </main>

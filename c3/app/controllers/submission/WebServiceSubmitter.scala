@@ -69,7 +69,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         result match {
           case "response" => {
             idService.updateStatus(txnId, SUCCESS)
-            Redirect("/thankyou").withNewSession
+            Redirect(s"/thankyou/$txnId").withNewSession
           }
           case "acknowledgement" => {
             idService.updateStatus(txnId, ACKNOWLEDGED)
