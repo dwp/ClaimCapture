@@ -16,7 +16,6 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       "missing mandatory field" in new WithBrowser with G1BenefitsPageContext {
         val claim = new ClaimScenario
         page goToThePage()
-        page fillPageWith claim
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 1
       }

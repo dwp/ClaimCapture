@@ -28,11 +28,7 @@ class G4SelfEmploymentPensionsAndExpensesIntegrationSpec extends Specification w
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext {
         val claim = new ClaimScenario
-        claim.SelfEmployedDoYouPayTowardsPensionScheme = ""
-        claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = ""
-        claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = ""
         page goToThePage()
-        page fillPageWith claim
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 3
       }

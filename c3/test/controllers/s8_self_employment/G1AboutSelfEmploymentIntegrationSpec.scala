@@ -27,9 +27,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G1AboutSelfEmploymentPageContext {
         val claim = new ClaimScenario
-        claim.SelfEmployedAreYouSelfEmployedNow = ""
         page goToThePage()
-        page fillPageWith claim
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 1
       }

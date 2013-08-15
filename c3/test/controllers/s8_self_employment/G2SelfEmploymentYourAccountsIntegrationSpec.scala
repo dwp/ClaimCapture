@@ -28,7 +28,6 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
       "missing mandatory field" in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
         val claim = new ClaimScenario
         page goToThePage(waitForPage = true, waitDuration = 500)
-        page fillPageWith claim
         val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 500)
         pageWithErrors.listErrors.size mustEqual 1
       }
