@@ -24,16 +24,13 @@ class G13CareProviderIntegrationSpec extends Specification with Tags {
       claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1="no"
       page goToThePage()
       page fillPageWith claim
-      val p = page submitPage(true)
+      val p = page submitPage true
       p fillPageWith claim
-      val p2 = p submitPage(true)
+      val p2 = p submitPage true
       p2 fillPageWith claim
-      val submitted = p2 submitPage(true)
-      submitted must beAnInstanceOf[G14JobCompletionPage]
-      submitted match {
-        case p: G14JobCompletionPage => p numberSectionsCompleted()  mustEqual 3
-        case _ => ko("Next Page is not of the right type.")
-      }
+      val submitted = p2 submitPage true
+
+      submitted should beLike { case p: G14JobCompletionPage => p numberSectionsCompleted() shouldEqual 3 }
     }
 
     "be able to navigate back to a completed form" in new WithBrowser  with G8AboutExpensesPageContext {
@@ -47,5 +44,5 @@ class G13CareProviderIntegrationSpec extends Specification with Tags {
       val p2 = p submitPage()
       p2 goBack() must beAnInstanceOf[G12PersonYouCareForExpensesPage]
     }
-  } section("integration",models.domain.Employed.id)
+  } section("integration", models.domain.Employed.id)
 }
