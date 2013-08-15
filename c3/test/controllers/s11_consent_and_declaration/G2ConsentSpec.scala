@@ -23,10 +23,10 @@ class G2ConsentSpec extends Specification with Tags {
 
     "redirect to the next page after a valid submission (both no)" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("doYouPayToPensionScheme.informationFromEmployer" -> "no",
-          "doYouPayToPensionScheme.why" -> "reason",
-          "informationFromPerson" -> "no",
-          "whyPerson" -> "reason")
+        .withFormUrlEncodedBody("gettingInformationFromAnyEmployer.informationFromEmployer" -> "no",
+          "gettingInformationFromAnyEmployer.why" -> "reason",
+          "tellUsWhyEmployer.informationFromPerson" -> "no",
+          "tellUsWhyEmployer.whyPerson" -> "reason")
 
       val result = G2Consent.submit(request)
       redirectLocation(result) must beSome("/consent-and-declaration/disclaimer")
@@ -34,8 +34,8 @@ class G2ConsentSpec extends Specification with Tags {
 
     "redirect to the next page after a valid submission (both yes)" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)
-        .withFormUrlEncodedBody("doYouPayToPensionScheme.informationFromEmployer" -> "yes",
-          "informationFromPerson" -> "yes")
+        .withFormUrlEncodedBody("gettingInformationFromAnyEmployer.informationFromEmployer" -> "yes",
+          "tellUsWhyEmployer.informationFromPerson" -> "yes")
 
       val result = G2Consent.submit(request)
       redirectLocation(result) must beSome("/consent-and-declaration/disclaimer")
