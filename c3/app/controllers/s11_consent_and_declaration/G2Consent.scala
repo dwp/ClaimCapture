@@ -8,25 +8,36 @@ import models.domain.Consent
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
+import models.yesNo.YesNoWithText
+import play.api.data.FormError
 
-object G2Consent extends Controller with ConsentAndDeclarationRouting with CachedClaim{
+object G2Consent extends Controller with ConsentAndDeclarationRouting with CachedClaim {
+  val informationFromEmployerMapping =
+    "doYouPayToPensionScheme" -> mapping(
+      "informationFromEmployer" -> nonEmptyText,
+      "why" -> optional(nonEmptyText(maxLength = 300)))(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("required", YesNoWithText.validateOnNo _)
+
   val form = Form(
     mapping(
-      "informationFromEmployer" -> nonEmptyText,
-      "why" -> optional(text(maxLength = 300)),
+      informationFromEmployerMapping,
       "informationFromPerson" -> nonEmptyText,
-      "whyPerson" -> optional(text(maxLength = 300))
-    )(Consent.apply)(Consent.unapply)
+      "whyPerson" -> optional(text(maxLength = 300)))(Consent.apply)(Consent.unapply)
       .verifying("why", validateWhy _)
       .verifying("whyPerson", validateWhyPerson _))
 
-  def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s11_consent_and_declaration.g2_consent(form.fill(Consent), completedQuestionGroups(Consent)))
+  def present = claiming { implicit claim =>
+    implicit request =>
+      Ok(views.html.s11_consent_and_declaration.g2_consent(form.fill(Consent), completedQuestionGroups(Consent)))
   }
 
-  def submit = claiming { implicit claim => implicit request =>
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s11_consent_and_declaration.g2_consent(formWithErrors,completedQuestionGroups(Consent))),
-      consent => claim.update(consent) -> Redirect(routes.G3Disclaimer.present()))
+  def submit = claiming { implicit claim =>
+    implicit request =>
+      form.bindEncrypted.fold(
+        formWithErrors => {
+          val formWithErrorsUpdate = formWithErrors
+              .replaceError("doYouPayToPensionScheme", FormError("doYouPayToPensionScheme.why", "error.required"))
+          BadRequest(views.html.s11_consent_and_declaration.g2_consent(formWithErrorsUpdate, completedQuestionGroups(Consent)))},
+        consent => claim.update(consent) -> Redirect(routes.G3Disclaimer.present()))
   }
 }
