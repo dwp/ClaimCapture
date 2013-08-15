@@ -41,11 +41,9 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "begin twice, kicking off 2 jobs and choose to start editing the first job" in new WithBrowser with EmploymentFiller {
-      skipped("Usual rubbish timing issues - works fine when run on its own")
+      //skipped("Usual rubbish timing issues - works fine when run on its own")
 
-      2 x {
-        jobDetails()
-      }
+      2 x { jobDetails() }
 
       browser.goTo("/employment/been-employed")
       browser.$("#jobs table tbody tr").size() shouldEqual 2

@@ -23,7 +23,6 @@ object G10ChildcareExpenses extends Controller with CachedClaim {
     )(ChildcareExpenses.apply)(ChildcareExpenses.unapply)
       .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
 
-
   def validateRelationToPartner(implicit claim: Claim, childcareExpenses: ChildcareExpenses) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
       case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => childcareExpenses.relationToPartner.isDefined

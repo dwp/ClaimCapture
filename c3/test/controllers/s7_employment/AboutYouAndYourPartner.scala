@@ -6,25 +6,25 @@ import utils.pageobjects.s2_about_you.G4ClaimDatePage
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s3_your_partner.G4PersonYouCareForPage
 
-
 trait AboutYouAndYourPartner {
 
-  def aboutYouAndPartner(browser:TestBrowser) = {
-
+  def aboutYouAndPartner(browser: TestBrowser) = {
     val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
     val pageClaimDate = new G4ClaimDatePage(browser)
     pageClaimDate goToThePage()
     pageClaimDate fillPageWith claimDate
-    val pageMoreAboutYou = pageClaimDate.submitPage(true)
+
+    val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
     pageMoreAboutYou fillPageWith claimDate
-    pageMoreAboutYou.submitPage(true)
+    pageMoreAboutYou.submitPage(throwException = true)
 
 
-    var claimAboutYourPartner = new ClaimScenario
+    val claimAboutYourPartner = new ClaimScenario
     claimAboutYourPartner.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "no"
+
     val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
     pageAboutYourPartner goToThePage()
     pageAboutYourPartner fillPageWith claimAboutYourPartner
-    pageAboutYourPartner.submitPage(true)
+    pageAboutYourPartner.submitPage(throwException = true)
   }
 }

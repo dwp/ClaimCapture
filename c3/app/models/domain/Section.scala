@@ -49,11 +49,9 @@ case object Section {
     
     def index = id.drop(1).toInt
 
-    override def equals(other: Any) = {
-      other match {
-        case that: Identifier => id == that.id
-        case _ => false
-      }
+    override def equals(other: Any) = other match {
+      case that: Identifier => id == that.id
+      case _ => false
     }
 
     override def hashCode() = {

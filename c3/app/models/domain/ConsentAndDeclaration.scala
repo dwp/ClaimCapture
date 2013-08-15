@@ -13,7 +13,7 @@ object AdditionalInfo extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g1"
 }
 
-case class Consent(informationFromEmployer: YesNoWithText = YesNoWithText(answer="", text=None), informationFromPerson: String = "", whyPerson: Option[String] = None) extends QuestionGroup(Consent)
+case class Consent(informationFromEmployer: YesNoWithText = YesNoWithText(answer = "", text=None), informationFromPerson: String = "", whyPerson: Option[String] = None) extends QuestionGroup(Consent)
 
 object Consent extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g2"

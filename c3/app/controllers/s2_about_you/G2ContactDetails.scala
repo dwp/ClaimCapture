@@ -5,12 +5,14 @@ import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import play.api.mvc.Controller
+import play.api.mvc.{Action, AnyContent, Controller}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import play.api.data.validation.Constraints._
 
 object G2ContactDetails extends Controller with AboutYouRouting with CachedClaim {
+  var action: Action[AnyContent] = _
+
   val form = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),
@@ -19,13 +21,24 @@ object G2ContactDetails extends Controller with AboutYouRouting with CachedClaim
       "mobileNumber" -> optional(text)
     )(ContactDetails.apply)(ContactDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s2_about_you.g2_contactDetails(form.fill(ContactDetails), completedQuestionGroups(ContactDetails)))
+  def present = blah {
+    claiming { implicit claim => implicit request =>
+      Ok(views.html.s2_about_you.g2_contactDetails(form.fill(ContactDetails), completedQuestionGroups(ContactDetails)))
+    }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  /*def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g2_contactDetails(formWithErrors, completedQuestionGroups(ContactDetails))),
       contactDetails => claim.update(contactDetails) -> Redirect(routes.G3TimeOutsideUK.present()))
+  }*/
+
+  def submit = action
+
+  def blah(a: => Action[AnyContent]): Action[AnyContent] = {
+
+    action = a
+    a
   }
+
 }
