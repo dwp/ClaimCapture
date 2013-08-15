@@ -14,9 +14,8 @@ class EndToEndSpec extends Specification with Tags {
   def validateAndPrintErrors(page: XmlPage, claim: ClaimScenario) = {
     val errors = page.validateXmlWith(claim)
 
-    println("Number errors: " + errors.size)
-
     if (errors.nonEmpty) {
+      println("Number errors: " + errors.size)
       println("List errors: " + errors)
     }
 
@@ -32,7 +31,7 @@ class EndToEndSpec extends Specification with Tags {
 
       lastPage match {
         case p: XmlPage => {
-          validateAndPrintErrors(p, claim) //must beTrue
+          validateAndPrintErrors(p, claim) must beTrue
         }
         case p: Page => println(p.source)
       }
@@ -46,7 +45,7 @@ class EndToEndSpec extends Specification with Tags {
 
       lastPage match {
         case p: XmlPage => {
-          validateAndPrintErrors(p, claim) //must beTrue
+          validateAndPrintErrors(p, claim) must beTrue
         }
         case p: Page => println(p.source)
       }
@@ -60,7 +59,7 @@ class EndToEndSpec extends Specification with Tags {
 
       lastPage match {
         case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+          validateAndPrintErrors(p, claim) must beTrue
         }
         case p: Page => println(p.source)
       }
@@ -74,7 +73,7 @@ class EndToEndSpec extends Specification with Tags {
 
       lastPage match {
         case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+          validateAndPrintErrors(p, claim) must beTrue
         }
         case p: Page => println(p.source)
       }
@@ -88,7 +87,7 @@ class EndToEndSpec extends Specification with Tags {
 
       lastPage match {
         case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+          validateAndPrintErrors(p, claim) must beTrue
         }
         case p: Page => println(p.source)
       }
@@ -102,7 +101,7 @@ class EndToEndSpec extends Specification with Tags {
 
       lastPage match {
         case p: XmlPage => {
-          validateAndPrintErrors(p, claim) //must beTrue
+          validateAndPrintErrors(p, claim) must beTrue
         }
         case p: Page => println(p.source)
       }
@@ -116,7 +115,7 @@ class EndToEndSpec extends Specification with Tags {
 
       lastPage match {
         case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+          validateAndPrintErrors(p, claim) must beTrue
         }
         case p: Page => println(p.source)
       }
