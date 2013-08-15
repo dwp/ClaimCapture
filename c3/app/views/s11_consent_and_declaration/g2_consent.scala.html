@@ -15,12 +15,12 @@
             <legend>@Messages("s11.g2")</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("informationFromEmployer"))
+                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme.informationFromEmployer"))
 
                 @otherDetailPlaceHolder(
-                    inputDef = Seq(carersInputTextArea(currentForm("why"), 'placeholder->Messages("why_placeholder") )),
+                    inputDef = Seq(carersInputTextArea(currentForm("doYouPayToPensionScheme.why"), 'placeholder->Messages("why_placeholder") )),
                     'id->"whyWrapper",
-                    'display -> {if( currentForm("informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
+                    'display -> {if( currentForm("doYouPayToPensionScheme.informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
                 )
 
                 @yesNoRadioGroup(currentForm("informationFromPerson"))
@@ -44,11 +44,11 @@
 
 <script type="text/javascript">
     $(function() {
-        window.initEvents( "@CarersCrypto.encryptAES("informationFromEmployer_yes")",
-        "@CarersCrypto.encryptAES("informationFromEmployer_no")",
+        window.initEvents( "@CarersCrypto.encryptAES("doYouPayToPensionScheme_informationFromEmployer_yes")",
+        "@CarersCrypto.encryptAES("doYouPayToPensionScheme_informationFromEmployer_no")",
         "@CarersCrypto.encryptAES("informationFromPerson_yes")",
         "@CarersCrypto.encryptAES("informationFromPerson_no")",
-        "@CarersCrypto.encryptAES("why")","whyWrapper",
+        "@CarersCrypto.encryptAES("doYouPayToPensionScheme.why")","whyWrapper",
         "@CarersCrypto.encryptAES("whyPerson")","whyPersonWrapper");
     });
 </script>

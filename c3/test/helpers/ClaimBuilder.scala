@@ -171,7 +171,7 @@ object ClaimBuilder {
   val payDetails = PayDetailsSection(Some(howWePayYou),Some(bank))
 
   val additionalInfo = AdditionalInfo(Some("Other information"), "yes")
-  val consent = Consent("no", Some("I don't want to"), "no", Some("I said I don't want to"))
+  val consent = Consent(YesNoWithText(answer="no", text=Some("I don't want to")), "no", Some("I said I don't want to"))
   val disclaimer = Disclaimer("checked")
   val declaration = Declaration("checked", Some("checked"))
 
