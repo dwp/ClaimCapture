@@ -135,7 +135,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
           }
         }
 
-        if (waitForPage && fluentTitle == pageTitle ) waitForDifferentPage(waitDuration)
+        if (waitForPage && (fluentTitle == pageTitle || (fluentTitle != null && fluentTitle.isEmpty))) waitForDifferentPage(waitDuration)
         this createPageWithTitle(getTitleFromBrowser(), if (!resetIteration) updateIterationNumber() else 1)
       }
     }
