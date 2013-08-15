@@ -116,8 +116,8 @@ livesInGB.answer = Do you normally live in Great Britain?
 title = Title
 firstName = First name
 middleName = Middle name
-surname = Surname or family name
-otherNames = All other surnames or family names you have used or have been known by
+surname = Last name
+otherNames = Other surname or maiden name
 nationalInsuranceNumber = National Insurance (NI) number
 nationalInsuranceNumber.ni1 = National Insurance (NI) number first field
 nationalInsuranceNumber.ni2 = National Insurance (NI) number second field
@@ -125,7 +125,7 @@ nationalInsuranceNumber.ni3 = National Insurance (NI) number third field
 nationalInsuranceNumber.ni4 = National Insurance (NI) number fourth field
 nationalInsuranceNumber.ni5 = National Insurance (NI) number fifth field
 error.nationalInsuranceNumber = A National insurance number must be in the format VO 12 34 56 D
-nationalInsuranceNumber.helper = e.g. VO 12 34 56 D<br>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.
+nationalInsuranceNumber.helper = e.g. VO 12 34 56 D<br>This is on your NI number card, benefit letter, payslip or P60. Not providing your NI number may delay your claim.
 error.nationality = A nationality must be under 60 characters and not contain numbers or special characters
 
 dateOfBirth = Date of birth
@@ -134,7 +134,7 @@ dateOfBirth.month = Date of birth (Month)
 dateOfBirth.year = Date of birth (Year)
 dateOfBirth.helper = eg: 27 June 2013
 nationality = Nationality
-maritalStatus = What is your marital or civil partnership status?
+maritalStatus = Marital Status?
 alwaysLivedUK = Have you always lived in the United Kingdom?
 firstName.error = Please fill your first name
 
@@ -165,6 +165,7 @@ dateOfClaim = When do you want your Carer''s Allowance claim to start?
 # MORE ABOUT YOU
 hadPartnerSinceClaimDate.label = Have you had a Partner/Spouse at any time since your claim date: {0}?
 hadPartnerSinceClaimDate = Have you had a Partner/Spouse at any time since your claim date?
+hadPartnerSinceClaimDate.helper = If you have separated from your Partner / Spouse since the date you want to claim Carer's Allowance from please tick ''Yes''
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
 receiveStatePension = Do you get State Pension?
