@@ -41,15 +41,17 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "begin twice, kicking off 2 jobs and choose to start editing the first job" in new WithBrowser with EmploymentFiller {
-      //skipped("Usual rubbish timing issues - works fine when run on its own")
 
       2 x { jobDetails() }
 
       browser.goTo("/employment/been-employed")
+
       browser.$("#jobs table tbody tr").size() shouldEqual 2
 
-      browser.findFirst("input[value='Edit']").click()
+      browser.findFirst("input[value='Change']").click()
       titleMustEqual("Your job - Employment History")
+
+        "test" shouldEqual "test"
     }
   } section("integration", models.domain.Employed.id)
 
