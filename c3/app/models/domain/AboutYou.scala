@@ -41,7 +41,7 @@ object TimeOutsideUK extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"
 }
 
-case class ClaimDate(dateOfClaim: DayMonthYear) extends QuestionGroup(ClaimDate)
+case class ClaimDate(dateOfClaim: DayMonthYear = DayMonthYear()) extends QuestionGroup(ClaimDate)
 
 object ClaimDate extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g4"

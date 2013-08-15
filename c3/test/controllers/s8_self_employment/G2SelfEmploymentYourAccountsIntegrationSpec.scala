@@ -27,9 +27,7 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
         val claim = new ClaimScenario
-        claim.SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis = ""
         page goToThePage(waitForPage = true, waitDuration = 500)
-        page fillPageWith claim
         val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 500)
         pageWithErrors.listErrors.size mustEqual 1
       }

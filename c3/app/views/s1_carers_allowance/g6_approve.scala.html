@@ -24,6 +24,7 @@
         	    <p>Please click the <strong>'Next Step'</strong> button below.</p>
             }
 
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next step</button>
         </div>
     }
