@@ -55,8 +55,8 @@ object XMLHelper {
   }
 
   def fromToStructure(period: PeriodFromTo): NodeBuffer = {
-    <DateFrom>{period.from}</DateFrom>
-    <DateTo>{period.to}</DateTo>
+    <DateFrom>{period.from.`yyyy-MM-dd`}</DateFrom>
+    <DateTo>{period.to.`yyyy-MM-dd`}</DateTo>
   }
 
   def paymentFrequency(freq: Option[PaymentFrequency]): NodeBuffer = freq match {
