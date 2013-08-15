@@ -132,7 +132,7 @@ object EvidenceList {
     <TextLine>Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? = {consent.informationFromEmployer}</TextLine>
     <TextLine>Please tell us why = {consent.informationFromEmployer.text.orNull}</TextLine>
     <TextLine>Do you agree to us getting information from any other person or organisation you have told us about as part of this claim? = {consent.informationFromPerson}</TextLine>
-    <TextLine>Please tell us why = {consent.whyPerson.orNull}</TextLine>
+    <TextLine>Please tell us why = {consent.informationFromPerson.text.orNull}</TextLine>
     <TextLine>Disclaimer text and tick box = {booleanStringToYesNo(disclaimer.read)}</TextLine>
     <TextLine>Declaration tick box = {booleanStringToYesNo(declaration.read)}</TextLine>
     <TextLine>Someone else tick box = {booleanStringToYesNo(stringify(declaration.someoneElse))}</TextLine>

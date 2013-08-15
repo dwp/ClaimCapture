@@ -13,16 +13,21 @@ import play.api.data.FormError
 
 object G2Consent extends Controller with ConsentAndDeclarationRouting with CachedClaim {
   val informationFromEmployerMapping =
-    "doYouPayToPensionScheme" -> mapping(
+    "gettingInformationFromAnyEmployer" -> mapping(
       "informationFromEmployer" -> nonEmptyText,
       "why" -> optional(nonEmptyText(maxLength = 300)))(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("required", YesNoWithText.validateOnNo _)
 
+  val informationFromPersonMapping =
+    "tellUsWhyEmployer" -> mapping(
+      "informationFromPerson" -> nonEmptyText,
+      "whyPerson" -> optional(nonEmptyText(maxLength = 300)))(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("required", YesNoWithText.validateOnNo _)
+      
   val form = Form(
     mapping(
       informationFromEmployerMapping,
-      "informationFromPerson" -> nonEmptyText,
-      "whyPerson" -> optional(text(maxLength = 300)))(Consent.apply)(Consent.unapply)
+      informationFromPersonMapping)(Consent.apply)(Consent.unapply)
       .verifying("why", validateWhy _)
       .verifying("whyPerson", validateWhyPerson _))
 
@@ -36,7 +41,8 @@ object G2Consent extends Controller with ConsentAndDeclarationRouting with Cache
       form.bindEncrypted.fold(
         formWithErrors => {
           val formWithErrorsUpdate = formWithErrors
-              .replaceError("doYouPayToPensionScheme", FormError("doYouPayToPensionScheme.why", "error.required"))
+              .replaceError("gettingInformationFromAnyEmployer", FormError("gettingInformationFromAnyEmployer.why", "error.required"))
+              .replaceError("tellUsWhyEmployer", FormError("tellUsWhyEmployer.whyPerson", "error.required"))
           BadRequest(views.html.s11_consent_and_declaration.g2_consent(formWithErrorsUpdate, completedQuestionGroups(Consent)))},
         consent => claim.update(consent) -> Redirect(routes.G3Disclaimer.present()))
   }
