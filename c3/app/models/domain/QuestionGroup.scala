@@ -12,11 +12,9 @@ object QuestionGroup {
 
     lazy val index: Int = id.dropWhile(!_.equals('g')).drop(1).toInt
 
-    override def equals(other: Any) = {
-      other match {
-        case that: Identifier => id == that.id
-        case _ => false
-      }
+    override def equals(other: Any) = other match {
+      case that: Identifier => id == that.id
+      case _ => false
     }
 
     override def hashCode() = {

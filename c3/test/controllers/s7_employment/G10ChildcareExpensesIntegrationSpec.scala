@@ -9,35 +9,37 @@ class G10ChildcareExpensesIntegrationSpec extends Specification with Tags with A
   "Childcare expenses while you are at work - Integration" should {
     "be presented" in new WithBrowser with G8AboutExpensesPageContext {
       val claim = ClaimScenarioFactory s7Employment()
-      claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1="no"
+      claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "no"
       page goToThePage()
       page fillPageWith claim
       page submitPage()
     }
 
     "contain 1 completed form" in new WithBrowser with G8AboutExpensesPageContext {
-
-      aboutYouAndPartner (browser)
+      aboutYouAndPartner(browser)
 
       val claim = ClaimScenarioFactory s7Employment()
-      claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1="no"
+      claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "no"
       page goToThePage()
       page fillPageWith claim
       val p = page submitPage()
       p fillPageWith claim
-      p submitPage() match {
-        case p: G11ChildcareProviderPage => p numberSectionsCompleted()  mustEqual 2
+
+      /*p submitPage() match {
+        case p: G11ChildcareProviderPage => p numberSectionsCompleted() mustEqual 2
         case _ => ko("Next Page is not of the right type.")
-      }
+      }*/
+
+      p.submitPage() should beLike { case p: G11ChildcareProviderPage => p numberSectionsCompleted() mustEqual 2 }
     }
 
-    "be able to navigate back to a completed form" in new WithBrowser  with G8AboutExpensesPageContext {
+    "be able to navigate back to a completed form" in new WithBrowser with G8AboutExpensesPageContext {
       val claim = ClaimScenarioFactory s7Employment()
-      claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1="no"
+      claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "no"
       page goToThePage()
       page fillPageWith claim
       val p = page submitPage()
       p goBack() must beAnInstanceOf[G8AboutExpensesPage]
     }
-  } section("integration",models.domain.Employed.id)
+  } section("integration", models.domain.Employed.id)
 }

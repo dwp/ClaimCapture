@@ -48,7 +48,7 @@ class ResidencySpec extends Specification with Tags {
       (residencyXml \\ "InGreatBritainNow").text mustEqual yes
       (residencyXml \\ "OutOfGreatBritain").text mustEqual no
 
-      val periodsAbroadLastYearXml = (residencyXml \\ "PeriodAbroadLastYear")
+      val periodsAbroadLastYearXml = residencyXml \\ "PeriodAbroadLastYear"
       val periodOne = periodsAbroadLastYearXml.theSeq(0)
       (periodOne \\ "Period" \\ "DateFrom").text mustEqual startDate.`yyyy-MM-dd`
       (periodOne \\ "Period" \\ "DateTo").text mustEqual endDate.`yyyy-MM-dd`
@@ -61,7 +61,7 @@ class ResidencySpec extends Specification with Tags {
       (periodTwo \\ "Reason").text mustEqual holidayOption.get
       (periodTwo \\ "Country").text mustEqual netherlands
 
-      val periodsAbroadDuringCareXml = (residencyXml \\ "PeriodAbroadDuringCare")
+      val periodsAbroadDuringCareXml = residencyXml \\ "PeriodAbroadDuringCare"
       val periodCareOne = periodsAbroadDuringCareXml.theSeq(0)
       (periodCareOne \\ "Period" \\ "DateFrom").text mustEqual startDate.`yyyy-MM-dd`
       (periodCareOne \\ "Period" \\ "DateTo").text mustEqual endDate.`yyyy-MM-dd`

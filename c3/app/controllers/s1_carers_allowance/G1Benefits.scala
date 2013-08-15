@@ -28,6 +28,6 @@ object G1Benefits extends Controller with CachedClaim {
           .replaceError("answer", FormError("benefits.answer", "error.required"))
         BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrorsUpdate, completedQuestionGroups(Benefits)))
       },
-      f => claim.update(f) -> Redirect(routes.G2Hours.present()))
+      benefits => claim.update(benefits) -> Redirect(routes.G2Hours.present()))
   }
 }
