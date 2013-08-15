@@ -138,7 +138,7 @@ trait WebFillActions {
     }
   }
 
-  def fillYesNo(elementCssSelector: String, value: String, sep: String = "_") = if (null != value) try {
+  def fillYesNo(elementCssSelector: String, value: String, sep: String = "_") = if (null != value && value.nonEmpty) try {
     click(elementCssSelector + sep + value.toLowerCase)
   }
   catch {

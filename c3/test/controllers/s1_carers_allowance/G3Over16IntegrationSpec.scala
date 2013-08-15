@@ -17,9 +17,7 @@ class G3Over16IntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G3Over16PageContext {
         val claim = new ClaimScenario
-        claim.CanYouGetCarersAllowanceAreYouAged16OrOver = ""
         page goToThePage()
-        page fillPageWith claim
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 1
       }

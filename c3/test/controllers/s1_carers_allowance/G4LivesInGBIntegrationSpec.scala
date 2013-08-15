@@ -21,7 +21,6 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G4LivesInGBPageContext {
         val claim = new ClaimScenario
-        claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = ""
         page goToThePage()
         page fillPageWith claim
         val pageWithErrors = page.submitPage()
