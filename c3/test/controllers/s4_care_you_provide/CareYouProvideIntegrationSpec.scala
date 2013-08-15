@@ -44,7 +44,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       browser.goTo("/care-you-provide/completed")
       titleMustEqual("Completion - About the care you provide")
 
-      browser.find("button[type='submit']").getText shouldEqual "Continue to Abroad"
+      browser.find("button[type='submit']").getText shouldEqual "Continue to abroad"
 
       browser.submit("button[type='submit']")
       titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")

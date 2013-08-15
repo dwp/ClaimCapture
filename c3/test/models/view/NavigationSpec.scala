@@ -1,3 +1,5 @@
+package models.view
+
 import org.specs2.mutable.Specification
 import play.api.mvc.{AnyContent, Action}
 import play.api.mvc.Results._
@@ -18,6 +20,8 @@ class NavigationSpec extends Specification {
       val action1 = Action { Ok }
       val action2 = Action { Ok }
       val navigation = Navigation() track action1 track action2
+
+      navigation.current shouldEqual action2
 
       val action: Action[AnyContent] = navigation.previous
       action shouldEqual action1
