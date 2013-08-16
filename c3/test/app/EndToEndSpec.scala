@@ -53,72 +53,109 @@ class EndToEndSpec extends Specification with Tags {
 
     "Successfully run absolute Test Case 3 " in new WithBrowser with G1BenefitsPageContext {
 
-      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      try {
+        val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
+        page goToThePage(waitForPage = true, waitDuration = 500)
+        val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
 
-      lastPage match {
-        case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+        lastPage match {
+          case p: XmlPage => {
+            validateAndPrintErrors(p, claim) // must beTrue
+          }
+          case p: Page => println(p.source)
         }
-        case p: Page => println(p.source)
+      }
+      catch {
+        case e:Exception => {
+          println(e.getMessage)
+          println(browser.pageSource())
+        }
       }
     }
 
     "Successfully run absolute Test Case 4 " in new WithBrowser with G1BenefitsPageContext {
 
-      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase4.csv")
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      try {
+        val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase4.csv")
+        page goToThePage(waitForPage = true, waitDuration = 500)
+        val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
 
-      lastPage match {
-        case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+        lastPage match {
+          case p: XmlPage => {
+            validateAndPrintErrors(p, claim) // must beTrue
+          }
+          case p: Page => println(p.source)
         }
-        case p: Page => println(p.source)
+      }
+      catch {
+        case e:Exception => {
+          println(e.getMessage)
+          println(browser.pageSource())
+        }
       }
     }
 
     "Successfully run absolute Test Case 5 " in new WithBrowser with G1BenefitsPageContext {
 
-      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase5.csv")
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      try {
+        val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase5.csv")
+        page goToThePage(waitForPage = true, waitDuration = 500)
+        val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
 
-      lastPage match {
-        case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+        lastPage match {
+          case p: XmlPage => {
+            validateAndPrintErrors(p, claim) // must beTrue
+          }
+          case p: Page => println(p.source)
         }
-        case p: Page => println(p.source)
       }
+      catch {
+        case e:Exception => {
+          println(e.getMessage)
+          println(browser.pageSource())
+        }      }
     }
 
     "Successfully run absolute Test Case 6 " in new WithBrowser with G1BenefitsPageContext {
 
-      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase6.csv")
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      try {
+        val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase6.csv")
+        page goToThePage(waitForPage = true, waitDuration = 500)
+        val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
 
-      lastPage match {
-        case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+        lastPage match {
+          case p: XmlPage => {
+            validateAndPrintErrors(p, claim) // must beTrue
+          }
+          case p: Page => println(p.source)
         }
-        case p: Page => println(p.source)
       }
+      catch {
+        case e:Exception => {
+          println(e.getMessage)
+          println(browser.pageSource())
+        }      }
     }
 
     "Successfully run absolute Test Case 7 " in new WithBrowser with G1BenefitsPageContext {
 
-      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase7.csv")
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      try {
+        val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase7.csv")
+        page goToThePage(waitForPage = true, waitDuration = 500)
+        val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
 
-      lastPage match {
-        case p: XmlPage => {
-          validateAndPrintErrors(p, claim) // must beTrue
+        lastPage match {
+          case p: XmlPage => {
+            validateAndPrintErrors(p, claim) // must beTrue
+          }
+          case p: Page => println(p.source)
         }
-        case p: Page => println(p.source)
       }
+      catch {
+        case e:Exception => {
+          println(e.getMessage)
+          println(browser.pageSource())
+        }      }
     }
   } section "functional"
 }
