@@ -1,24 +1,24 @@
-s1.name = Eligibility
+s1.name = eligibility
 s1.longName = Can you get Carer''s Allowance?
-s2.name = About you
+s2.name = about you
 s2.longName = About you - the carer
-s3.name = Partner
+s3.name = partner/spouse
 s3.longName = About your partner/spouse
-s4.name = Care you provide
+s4.name = care you provide
 s4.longName = About the care you provide
-s5.name = Abroad
+s5.name = abroad
 s5.longName = Time Spent Abroad
-s6.name = Education
+s6.name = education
 s6.longName = About your education
-s7.name = Employment
+s7.name = employment
 s7.longName = Employment History
-s8.name = Self Employment
+s8.name = self employment
 s8.longName = About self-employment
-s9.name = Other money
+s9.name = other money
 s9.longName = About Other Money
-s10.name = Pay details
+s10.name = pay details
 s10.longName = How we pay you
-s11.name = Declaration
+s11.name = declaration
 s11.longName = Consent and Declaration
 
 s1.g1 = Does the person you look after get one of these benefits?
@@ -52,8 +52,8 @@ s4.g10 = Breaks in care
 s4.g11 = About the breaks in care
 
 s5.g1 = Your normal residence and current location
-s5.g2 = When you went abroad for more than 4 weeks
-s5.g3 = When you went abroad for more than 52 weeks
+s5.g2 = Abroad for more than 4 weeks
+s5.g3 = Abroad for more than 52 weeks
 s5.g4 = Trips
 s5.g5 = Other EEA State or Switzerland
 

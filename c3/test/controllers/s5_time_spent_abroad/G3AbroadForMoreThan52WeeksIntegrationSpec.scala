@@ -8,12 +8,12 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
   "Abroad for more that 52 weeks" should {
     "present" in new WithBrowser with BrowserMatchers {
       browser goTo "/time-spent-abroad/abroad-for-more-than-52-weeks"
-      titleMustEqual("When you went abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
     }
 
     "provide for trip entry" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser goTo "/time-spent-abroad/abroad-for-more-than-52-weeks"
-      titleMustEqual("When you went abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
 
       browser click "#anyTrips_yes"
       next
@@ -22,7 +22,7 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
 
     """present "completed" when no more 52 week trips are required""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser goTo "/time-spent-abroad/abroad-for-more-than-52-weeks"
-      titleMustEqual("When you went abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
 
       browser click "#anyTrips_no"
       next
@@ -31,26 +31,26 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
 
     """go back to "abroad for more than 4 weeks".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser goTo "/time-spent-abroad/abroad-for-more-than-4-weeks"
-      titleMustEqual("When you went abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
 
       browser click "#anyTrips_no"
       next
-      titleMustEqual("When you went abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
 
       back
-      titleMustEqual("When you went abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
     }
 
     """not record the "yes/no" answer upon starting to add a new 52 weeks trip but "cancel".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser goTo "/time-spent-abroad/abroad-for-more-than-52-weeks"
-      titleMustEqual("When you went abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
 
       browser.click("#anyTrips_yes")
       next
       titleMustEqual("Trips - Time Spent Abroad")
 
       back
-      titleMustEqual("When you went abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
       browser.findFirst("#anyTrips_yes").isSelected should beFalse
       browser.findFirst("#anyTrips_no").isSelected should beFalse
     }
@@ -69,7 +69,7 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       }
 
       browser goTo "/time-spent-abroad/abroad-for-more-than-52-weeks"
-      titleMustEqual("When you went abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
 
       browser.click("#anyTrips_yes")
       next
@@ -77,7 +77,7 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
 
       trip()
       next
-      titleMustEqual("When you went abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
 
       browser.findFirst("#anyTrips_yes").isSelected should beFalse
       browser.findFirst("#anyTrips_no").isSelected should beFalse
@@ -85,14 +85,14 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
 
     """remember "no more 52 weeks trips" upon stating "52 weeks trips" and returning""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser goTo "/time-spent-abroad/abroad-for-more-than-52-weeks"
-      titleMustEqual("When you went abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
 
       browser.click("#anyTrips_no")
       next
       titleMustEqual("Completion - Time Spent Abroad")
 
       back
-      titleMustEqual("When you went abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
       browser.findFirst("#anyTrips_yes").isSelected should beFalse
       browser.findFirst("#anyTrips_no").isSelected should beTrue
     }

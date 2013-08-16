@@ -1,3 +1,5 @@
+package models.view
+
 import play.api.mvc.{AnyContent, Action}
 
 case class Navigation(actions: List[Action[AnyContent]] = List()) {
