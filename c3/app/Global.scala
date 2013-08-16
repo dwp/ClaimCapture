@@ -31,6 +31,7 @@ object Global extends WithFilters(RefererCheck) {
   }
 
   override def onStart(app: Application) {
+    Logger.info("C3 Started")
     MDC.put("httpPort", Option(System.getProperty("http.port")).getOrElse("Value not set"))
     MDC.put("hostName", Option(InetAddress.getLocalHost.getHostName).getOrElse("Value not set"))
     MDC.put("envName", Option(System.getProperty("env.name")).getOrElse("Value not set"))
