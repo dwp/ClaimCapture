@@ -209,7 +209,7 @@ object ClaimScenarioFactory {
     claim.EmploymentWhatWasIncludedInYourLastPay_1= "All amounts due"
     claim.EmploymentDoYouGettheSameAmountEachTime_1= "no"
     claim.EmploymentAddtionalWageHowOftenAreYouPaid_1= "other"
-    claim.EmploymentAddtionalWageOther_1= "Four weekly"
+    claim.EmploymentAddtionalWageOther_1= "Quarterly"
     claim.EmploymentAddtionalWageWhenDoYouGetPaid_1= "two weeks ago"
     claim.EmploymentAdditionalWageDoYouGetHolidayPayorSickPay_1= "no"
     claim.EmploymentAddtionalWageDoYouGetPaidAnyOtherMoney_1= "yes"
