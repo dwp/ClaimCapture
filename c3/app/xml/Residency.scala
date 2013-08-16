@@ -19,8 +19,8 @@ object Residency {
     <Residency>
       <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
       <EUEEASwissNational>{XMLValues.NotAsked}</EUEEASwissNational>
-      <CountryNormallyLive>{yes}</CountryNormallyLive>
-      <CountryNormallyLiveOther>{normalResidence.whereDoYouLive.text.orNull}</CountryNormallyLiveOther>
+      <CountryNormallyLive>{normalResidence.whereDoYouLive.text.orNull}</CountryNormallyLive>
+      <CountryNormallyLiveOther>{XMLValues.NotAsked}</CountryNormallyLiveOther>
       <InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>
       <InGreatBritain26Weeks>{XMLValues.NotAsked}</InGreatBritain26Weeks>
       {periodAbroadLastYear(tripsOption)}
@@ -49,9 +49,6 @@ object Residency {
   }
 
   def otherNationality(claim:Claim) = {
-//    val yourDetailsOption = claim.questionGroup[YourDetails]
-//    val yourDetails = yourDetailsOption.getOrElse(YourDetails())
-//    val hasLivedAbroad = yourDetails.alwaysLivedUK == no
     val timeOutsideUKOption = claim.questionGroup[TimeOutsideUK]
     val timeOutsideUK = timeOutsideUKOption.getOrElse(TimeOutsideUK())
     val currentlyLivingInUK = timeOutsideUK.livingInUK.answer == yes
