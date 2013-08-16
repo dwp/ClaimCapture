@@ -12,7 +12,7 @@ class PropertyAndRentedOutSpec extends Specification with Tags {
       val xml = PropertyRentedOut.xml(claim)
 
       (xml \\ "RentOutProperty").text shouldEqual "Not asked"
-      (xml \\ "SubletHome").text shouldEqual yes
+      (xml \\ "SubletHome").text shouldEqual "Not asked"
     }
   }
 }

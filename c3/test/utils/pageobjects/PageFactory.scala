@@ -41,7 +41,6 @@ object PageFactory {
       case G4ClaimDatePage.title => G4ClaimDatePage buildPageWith(browser, previousPage)
       case G5MoreAboutYouPage.title => G5MoreAboutYouPage buildPageWith(browser, previousPage)
       case G6EmploymentPage.title => G6EmploymentPage buildPageWith(browser, previousPage)
-      case G7PropertyAndRentPage.title => G7PropertyAndRentPage buildPageWith(browser, previousPage)
       case G8AboutYouCompletedPage.title => G8AboutYouCompletedPage buildPageWith(browser, previousPage)
       // S3
       case G1YourPartnerPersonalDetailsPage.title => G1YourPartnerPersonalDetailsPage buildPageWith(browser,previousPage)
