@@ -52,6 +52,12 @@ object Global extends WithFilters(RefererCheck) {
   override def getControllerInstance[A](controllerClass: Class[A]): A = {
     injector.getInstance(controllerClass)
   }
+
+  override def onStop(app: Application) {
+    Logger.info("C3 Stopped")
+    super.onStop(app)
+  }
+
 }
 
 object RefererCheck extends Filter {
