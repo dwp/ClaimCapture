@@ -97,7 +97,7 @@ About the care you provide,About the breaks in care,Where were you during the br
 About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak,DWPCAClaim>EvidenceList
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment,CareBreak>MedicalCare
 Time Spent Abroad,Your normal residence & current location,"Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? ",TimeSpentAbroadDoYouNormallyLiveintheUk,
-Time Spent Abroad,Your normal residence & current location,Where do you normally live? ,TimeSpentAbroadWhereDoYouNormallyLive,Residency>CountryNormallyLiveOther
+Time Spent Abroad,Your normal residence & current location,Where do you normally live? ,TimeSpentAbroadWhereDoYouNormallyLive,Residency>CountryNormallyLive
 Time Spent Abroad,Your normal residence & current location,Are you in Great Britain now?,TimeSpentAbroadAreYouinGBNow,Residency>InGreatBritainNow
 Time Spent Abroad,When you went abroad for more than 4 weeks,"Have you been out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim Date _ 3 years]] (this is 3 years since your claim date)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor,
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB,PeriodAbroadLastYear>Period>DateFrom
