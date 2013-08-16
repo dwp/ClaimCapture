@@ -17,7 +17,6 @@ class XMLBusinessValidationSpec extends Specification {
 
     "be able to build the XML mapping from a valid csv file" in {
       val mapping = XMLBusinessValidation buildXmlMappingFromFile "/unit_tests/tests_XMLMapping.csv"
-      mapping("AboutYouHaveYouSubletYourHome") mustEqual Tuple2("path1","question1")
       mapping("AboutYouAddress") mustEqual Tuple2("path3","question3")
       mapping("AboutYouAllOtherSurnamesorFamilyNames") mustEqual Tuple2("path4","question4, with comma")
       mapping("AboutYouDateofBirth") mustEqual Tuple2("path5","question5")
