@@ -88,7 +88,7 @@ object Employment {
     if (showXml) {
       <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
         <PensionScheme>
-          <Type></Type>
+          <Type>occupational</Type>
           <Payment>
             <Currency>GBP</Currency>
             {<Amount/> +++ pensionScheme.howMuchPension}
@@ -106,7 +106,7 @@ object Employment {
     if (showXml) {
       <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
       <PensionScheme>
-        <Type></Type>
+        <Type>personal_private</Type>
         <Payment>
           <Currency>GBP</Currency>
           {<Amount/> +++ pensionScheme.howMuchPersonal}

@@ -16,6 +16,7 @@ object G2ContactDetails extends Controller with AboutYouRouting with CachedClaim
       "address" -> address.verifying(requiredAddress),
       "postcode" -> optional(text verifying validPostcode),
       "phoneNumber" -> optional(text verifying pattern( """[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid")),
+      "contactYouByTextphone" -> optional(text(maxLength = 3).verifying(validYesNo)), // TODO [Scott] this is a new field that needs to be added to the XML.
       "mobileNumber" -> optional(text)
     )(ContactDetails.apply)(ContactDetails.unapply))
 
