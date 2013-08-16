@@ -74,12 +74,12 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
             case DATE_TO => fillDate(cssElem + "_to", theClaim.selectDynamic(claimAttribute))
             case INPUT => fillInput(cssElem, theClaim.selectDynamic(claimAttribute))
             case NINO => fillNino(cssElem, theClaim.selectDynamic(claimAttribute))
-            case PAYMENT_FREQUENCY => fillPaymentFrequency(cssElem, theClaim.selectDynamic(claimAttribute))
+           // case PAYMENT_FREQUENCY => fillPaymentFrequency(cssElem, theClaim.selectDynamic(claimAttribute))
             case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
             case SELECT => fillSelect(cssElem, theClaim.selectDynamic(claimAttribute))
             case SORTCODE => fillSortCode(cssElem, theClaim.selectDynamic(claimAttribute))
             case TIME => fillTime(cssElem, theClaim.selectDynamic(claimAttribute))
-            case WHEREABOUTS => fillWhereabouts(cssElem, theClaim.selectDynamic(claimAttribute))
+           // case WHEREABOUTS => fillWhereabouts(cssElem, theClaim.selectDynamic(claimAttribute))
             case YESNO => fillYesNo(cssElem, theClaim.selectDynamic(claimAttribute))
           }
       }

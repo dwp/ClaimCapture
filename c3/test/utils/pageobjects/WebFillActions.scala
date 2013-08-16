@@ -100,30 +100,30 @@ trait WebFillActions {
     fillInput(elementCssSelector + "_sort3", n3)
   }
 
-  private def fillSelectWithOther(elementCssSelector: String, subSelect: String, value: String) = if (null != value) {
-    try {
-      val select = browser.find(elementCssSelector + "_" + subSelect, 0).getElement
-      val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
-      allOptions.find(wo => wo.getAttribute("value") == value) match {
-        case Some(we) => we.click()
-        case _ => {
-          allOptions.find(_.getText.toLowerCase == "other").get.click()
-          browser.fill(elementCssSelector + "_other") `with` value
-        }
-      }
-    }
-    catch {
-      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
-    }
-  }
+//  private def fillSelectWithOther(elementCssSelector: String, subSelect: String, value: String, sep: String = "_") = if (null != value) {
+//    try {
+//      val select = browser.find(elementCssSelector + sep + subSelect, 0).getElement
+//      val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
+//      allOptions.find(wo => wo.getAttribute("value") == value) match {
+//        case Some(we) => we.click()
+//        case _ => {
+//          allOptions.find(_.getText.toLowerCase == "other").get.click()
+//          fillInput(elementCssSelector + sep + subSelect + sep + "other",value)
+//        }
+//      }
+//    }
+//    catch {
+//      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+//    }
+//  }
 
-  def fillPaymentFrequency(elementCssSelector: String, value: String) = if (null != value) {
-    fillSelectWithOther(elementCssSelector, "frequency", value)
-  }
-
-  def fillWhereabouts(elementCssSelector: String, value: String) = if (null != value) {
-    fillSelectWithOther(elementCssSelector, "location", value)
-  }
+//  def fillPaymentFrequency(elementCssSelector: String, value: String) = if (null != value) {
+//    fillSelectWithOther(elementCssSelector, "frequency", value)
+//  }
+//
+//  def fillWhereabouts(elementCssSelector: String, value: String) = if (null != value) {
+//    fillSelectWithOther(elementCssSelector, "location", value)
+//  }
 
   def fillTime(elementCssSelector: String, value: String) = if (null != value) {
     try {
