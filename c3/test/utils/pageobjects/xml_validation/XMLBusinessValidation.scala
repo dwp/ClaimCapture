@@ -77,7 +77,12 @@ class XmlNode(val nodes: NodeSeq) {
 
   def matches(claimValue: ClaimValue): Boolean = {
     try {
-      val index = if (claimValue.attribute.contains( """_""") && !nodes(0).mkString.contains(XmlNode.EvidenceListNode)) claimValue.attribute.split("_")(1).toInt - 1
+      def isARepeatableNode = {
+        val nodeStart = nodes(0).mkString
+        !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
+      }
+
+      val index = if (claimValue.attribute.contains( """_""") && isARepeatableNode) claimValue.attribute.split("_")(1).toInt - 1
       else 0
 
       val value = XmlNode.prepareElement(nodes(index).text)
@@ -97,7 +102,7 @@ class XmlNode(val nodes: NodeSeq) {
       matching
     }
     catch {
-      case e:IndexOutOfBoundsException =>  throw new PageObjectException("XML Validation failed" + this.toString() + " - " + claimValue.attribute)
+      case e:IndexOutOfBoundsException => throw new PageObjectException("XML Validation failed" + this.toString() + " - " + claimValue.attribute)
     }
   }
 
