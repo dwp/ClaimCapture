@@ -16,7 +16,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
     "be presented when there is a claim date" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
+      titleMustEqual("More about you - About you - the carer")
     }
 
     "contain the completed forms" in new WithBrowser with G1YourDetailsPageContext {
@@ -40,7 +40,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       browser.goTo("/about-you/more-about-you")
-      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
+      titleMustEqual("More about you - About you - the carer")
       browser.submit("button[type='submit']")
 
       browser.find("p[class=error]").size mustEqual 3

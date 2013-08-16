@@ -14,7 +14,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
 
     "be hidden when having state pension" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
+      titleMustEqual("More about you - About you - the carer")
 
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")

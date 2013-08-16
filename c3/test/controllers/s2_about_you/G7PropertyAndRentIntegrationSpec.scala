@@ -16,7 +16,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
     "be presented when there is a claim date" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       browser.goTo("/about-you/property-and-rent")
-      titleMustEqual(Messages("s2.g7") + " - About you - the carer")
+      titleMustEqual("Property and rent - About you - the carer")
     }
 
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
@@ -26,7 +26,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)
 
-      titleMustEqual(Messages("s2.g7") + " - About you - the carer")
+      titleMustEqual("Property and rent - About you - the carer")
       findMustEqualSize("div[class=completed] ul li", 5)
     }
 
@@ -45,7 +45,7 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       browser.goTo("/about-you/property-and-rent")
-      browser.title mustEqual Messages("s2.g7") + " - About you - the carer"
+      titleMustEqual("Property and rent - About you - the carer")
       browser.submit("button[type='submit']")
 
       findMustEqualSize("p[class=error]", 2)
