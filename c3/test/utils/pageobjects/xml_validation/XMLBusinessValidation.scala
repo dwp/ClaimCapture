@@ -77,21 +77,25 @@ class XmlNode(val nodes: NodeSeq) {
 
   def matches(claimValue: ClaimValue): Boolean = {
     try {
+       
+      val nodeStart = nodes(0).mkString
+
       def isARepeatableNode = {
-        val nodeStart = nodes(0).mkString
-        !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>") && !(nodeStart.contains("<PensionScheme>") && nodeStart.contains("<Amount>"))
+        !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
       }
 
-      val index = if (claimValue.attribute.contains( """_""") && isARepeatableNode) claimValue.attribute.split("_")(1).toInt - 1
+      val isPensionScheme = nodes.mkString.contains("<PensionScheme>") && nodes.mkString.contains("<Amount>")     // Because of bug in Schema :(
+
+      val index = if (claimValue.attribute.contains( """_""") && isARepeatableNode && !isPensionScheme) claimValue.attribute.split("_")(1).toInt - 1
       else 0
 
-      val value = XmlNode.prepareElement(nodes(index).text)
+      val value =  XmlNode.prepareElement( if(isPensionScheme) nodes.text else nodes(index).text )
       val nodeName = nodes(index).mkString
 
       def valuesMatching = {
-        if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>")) value.contains(claimValue.value)
+        if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
         else if (nodeName.startsWith(XmlNode.EvidenceListNode)) value.contains(claimValue.question + "=" + claimValue.value)
-        else if (nodeName.endsWith("gds:Line>") || (nodeName.contains("PensionScheme") && nodeName.contains("Amount"))) claimValue.value.contains(value)
+        else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
         else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
         else value == claimValue.value
       }
@@ -134,7 +138,7 @@ object XmlNode {
  */
 class ClaimValue(val attribute: String, val value: String, val question: String) {
 
-  override def toString() = value
+  override def toString() = question + " - " + attribute +": " + value
 }
 
 
