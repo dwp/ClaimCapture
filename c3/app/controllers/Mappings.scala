@@ -153,8 +153,8 @@ object Mappings {
 
   def validYesNo: Constraint[String] = Constraint[String]("constraint.yesNo") { answer =>
     answer match {
-      case `yes` => Valid
-      case `no` => Valid
+      case yes => Valid
+      case no => Valid
       case _ => Invalid(ValidationError("yesNo.invalid"))
     }
   }

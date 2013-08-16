@@ -68,6 +68,7 @@ object ClaimScenarioFactory {
     claim.AboutYouAddress  = "An address"
     claim.AboutYouPostcode = "SE1 6EH"
     claim.AboutYouDaytimePhoneNumber = "01253 111 111"
+    claim.AboutYouContactYouByTextphone = "No"
     claim.AboutYouMobileNumber = "07111 111 111"
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
