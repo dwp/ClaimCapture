@@ -28,6 +28,10 @@ trait CachedClaim {
 
   implicit def claimAndResultToRight(claimingResult: (Claim, Result)) = Right(claimingResult)
 
+  def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
+    r.session.get("connected").getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
+  }
+
   def newClaim(f: => Claim => Request[AnyContent] => Result) = Action {
     implicit request => {
       val (key, expiration) = keyAndExpiration(request)
@@ -93,9 +97,5 @@ trait CachedClaim {
     request => {
       claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
     }
-  }
-
-  private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get("connected").getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
   }
 }

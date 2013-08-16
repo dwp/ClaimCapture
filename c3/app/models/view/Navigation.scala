@@ -2,12 +2,29 @@ package models.view
 
 import play.api.mvc.{AnyContent, Action}
 
-case class Navigation(actions: List[Action[AnyContent]] = List()) {
-  def track(action: => Action[AnyContent]): Navigation = Navigation(actions :+ action)
+case class Navigation(routes: List[String] = List()) {
+  def track(route: String): Navigation = Navigation(routes :+ route)
 
-  def backup: Navigation = Navigation(if (actions.size > 1) actions.dropRight(1) else actions)
+  def backup: Navigation = Navigation(if (routes.size > 1) routes.dropRight(1) else routes)
 
-  def current: Action[AnyContent] = actions.last
-
-  def previous: Action[AnyContent] = backup.current
+  def current: String = if (routes.isEmpty) "" else routes.last
 }
+
+object Navigation extends CachedClaim {
+  def apply() = new Navigation()
+
+  def track(action: => Action[AnyContent]) = claiming { implicit claim => implicit request =>
+    val updatedNavigation = claim.navigation.track(request.uri)
+    val updatedClaim = claim.copy(claim.sections)(updatedNavigation)
+
+    updatedClaim -> action(request)
+  }
+}
+
+/*
+for { routes <- play.api.Play.current.routes.toList
+      (method, pattern, call) <- routes.documentation
+} yield {
+  println(call)
+}
+*/

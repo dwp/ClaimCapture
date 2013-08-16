@@ -5,10 +5,11 @@ import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import play.api.mvc.{Action, AnyContent, Controller}
+import play.api.mvc.Controller
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import play.api.data.validation.Constraints._
+import models.view.Navigation._
 
 object G2ContactDetails extends Controller with AboutYouRouting with CachedClaim {
   val form = Form(
@@ -20,8 +21,10 @@ object G2ContactDetails extends Controller with AboutYouRouting with CachedClaim
       "mobileNumber" -> optional(text)
     )(ContactDetails.apply)(ContactDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s2_about_you.g2_contactDetails(form.fill(ContactDetails), completedQuestionGroups(ContactDetails)))
+  def present = track {
+    claiming { implicit claim => implicit request =>
+      Ok(views.html.s2_about_you.g2_contactDetails(form.fill(ContactDetails), completedQuestionGroups(ContactDetails)))
+    }
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -29,22 +32,4 @@ object G2ContactDetails extends Controller with AboutYouRouting with CachedClaim
       formWithErrors => BadRequest(views.html.s2_about_you.g2_contactDetails(formWithErrors, completedQuestionGroups(ContactDetails))),
       contactDetails => claim.update(contactDetails) -> Redirect(routes.G3TimeOutsideUK.present()))
   }
-
-  /*
-  var action: Action[AnyContent] = _
-
-  def present = blah {
-    claiming { implicit claim => implicit request =>
-      Ok(views.html.s2_about_you.g2_contactDetails(form.fill(ContactDetails), completedQuestionGroups(ContactDetails)))
-    }
-  }
-
-  def submit = action
-
-  def blah(a: => Action[AnyContent]): Action[AnyContent] = {
-
-    action = a
-    a
-  }*/
-
 }

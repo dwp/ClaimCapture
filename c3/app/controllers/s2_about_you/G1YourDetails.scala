@@ -1,12 +1,13 @@
 package controllers.s2_about_you
 
 import language.reflectiveCalls
-import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
+import models.domain._
 import models.view.CachedClaim
+import models.view.Navigation._
 import utils.helpers.CarersForm._
 
 object G1YourDetails extends Controller with CachedClaim {
@@ -23,15 +24,15 @@ object G1YourDetails extends Controller with CachedClaim {
       "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo),
       "maritalStatus" -> nonEmptyText(maxLength = 1))(YourDetails.apply)(YourDetails.unapply))
 
-  def present = claiming { implicit claim =>
-    implicit request =>
+  def present = track {
+    claiming { implicit claim => implicit request =>
       Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails)))
+    }
   }
 
-  def submit = claiming { implicit claim =>
-    implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
-        yourDetails => claim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present()))
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
+      yourDetails => claim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present()))
   }
 }

@@ -14,15 +14,13 @@ import scala.collection.mutable
  */
 class ClaimScenario extends Dynamic {
 
-  val map = mutable.Map.empty[String,String]
+  val map = mutable.Map.empty[String, String]
 
-  def selectDynamic(name: String) =
-    map get name getOrElse null
+  def selectDynamic(name: String) = map get name getOrElse null
 
   def updateDynamic(name: String)(value: String) {
     map += name -> value
   }
-
 }
 
 object ClaimScenario {
