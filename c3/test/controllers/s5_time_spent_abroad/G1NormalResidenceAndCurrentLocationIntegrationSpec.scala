@@ -43,5 +43,7 @@ class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification w
       browser.click("#backButton")
       titleMustEqual("Completion - About the care you provide")
     }
+    
+    // TODO tests for navigating to the next page on valid submission.
   } section("integration", models.domain.TimeSpentAbroad.id)
 }

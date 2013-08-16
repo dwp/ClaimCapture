@@ -4,7 +4,7 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 final class G13CareProviderPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G13CareProviderPage.url.replace(":jobID", iteration.toString), G13CareProviderPage.title, previousPage, iteration) {
-  declareAddress("#beenEmployed", "EmploymentAddressCareProvider_" + iteration)
+  declareAddress("#address", "EmploymentAddressCareProvider_" + iteration)
   declareInput("#postcode", "EmploymentPostcodeCareProvider_" + iteration)
 }
 

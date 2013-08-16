@@ -15,9 +15,7 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G1BenefitsPageContext {
         val claim = new ClaimScenario
-        claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = ""
         page goToThePage()
-        page fillPageWith claim
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 1
       }

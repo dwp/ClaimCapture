@@ -11,13 +11,13 @@ object ApplicationBuild extends Build {
   val appDependencies = Seq(
     // Add your project dependencies here,
     jdbc,
+    "org.specs2" %% "specs2" % "1.14" % "test",
     "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
     "com.dwp.carers" % "carersXMLValidation" % "0.11",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "me.moocar" % "logback-gelf" % "0.9.6p2",
     "com.google.inject" % "guice" % "3.0",
-    "com.tzavellas" % "sse-guice" % "0.7.1",
-    "org.specs2" % "specs2_2.10" % "2.1.1"
+    "com.tzavellas" % "sse-guice" % "0.7.1"
   )
 
   var sS: Seq[Project.Setting[_]] = Seq(testOptions in Test += Tests.Argument("sequential", "true"))
@@ -27,7 +27,6 @@ object ApplicationBuild extends Build {
   var sV: Seq[Project.Setting[_]] = Seq(scalaVersion := "2.10.2")
 
   var sR: Seq[Project.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
-
 
   var sTest: Seq[Project.Setting[_]] = Seq()
 

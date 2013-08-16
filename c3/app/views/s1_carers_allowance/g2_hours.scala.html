@@ -16,7 +16,7 @@
     @form(action = controllers.s1_carers_allowance.routes.G2Hours.submit) {
 
         <fieldset class="form-elements form-eligibility q1">
-            <legend><span>Q2</span>@Messages("s1.g1")</legend>
+            <legend><span>Q2</span>@Messages("s1.g2")</legend>
 
             <p>For example, cooking meals, or helping them with their shopping.</p>
             
@@ -34,6 +34,7 @@
         </fieldset>
 
         <nav class="form-steps">
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

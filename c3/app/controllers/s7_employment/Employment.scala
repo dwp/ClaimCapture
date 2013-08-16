@@ -31,13 +31,11 @@ object Employment extends Controller with CachedClaim {
   }
 
   def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier, jobID: String)(implicit claim: Claim): List[(QuestionGroup, Call)] = {
-    claim.questionGroup(Jobs) match {
-      case Some(js: Jobs) => js.find(_.jobID == jobID) match {
-        case Some(j: Job) => j.questionGroups.filter(_.identifier.index < questionGroupIdentifier.index).map(qg => qg -> route(qg, jobID))
-        case _ => Nil
-      }
-      case _ => Nil
-    }
+    val result = for { jobs <- claim.questionGroup[Jobs]
+                       job <- jobs.find(_.jobID == jobID) }
+    yield job.questionGroups.filter(_.identifier.index < questionGroupIdentifier.index).map(qg => qg -> route(qg, jobID))
+
+    result.getOrElse(Nil)
   }
 
   def completed = claiming { implicit claim => implicit request =>

@@ -5,6 +5,7 @@ import xml.XMLHelper._
 import models.{DayMonthYearComparator, DayMonthYear}
 import scala.language.reflectiveCalls
 import scala.xml.{NodeSeq, Elem}
+import scala.Some
 
 object Employment {
 
@@ -49,6 +50,7 @@ object Employment {
 
     if (showXml){
       <Payment>
+        <Currency>GBP</Currency>
         <Amount>{s.get}</Amount>
       </Payment>
     } else {
@@ -62,7 +64,10 @@ object Employment {
     if (showXml){
         <MoneyOwed>
           {howMuchOwed(moneyOwed.howMuchOwed)}
-          {<Period/> ?+ moneyOwed.owedFor}
+          <Period>
+            {fromToStructure (moneyOwed.owedPeriod)}
+          </Period>
+          {<Reason/> ?+ moneyOwed.owedFor}
           {<PaymentDueDate/> ?+ moneyOwed.shouldBeenPaidBy}
           {<PaymentExpected/> +++ moneyOwed.whenWillGetIt}
         </MoneyOwed>
@@ -83,7 +88,7 @@ object Employment {
     if (showXml) {
       <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
         <PensionScheme>
-          <Type></Type>
+          <Type>occupational</Type>
           <Payment>
             <Currency>GBP</Currency>
             {<Amount/> +++ pensionScheme.howMuchPension}
@@ -101,7 +106,7 @@ object Employment {
     if (showXml) {
       <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
       <PensionScheme>
-        <Type></Type>
+        <Type>personal_private</Type>
         <Payment>
           <Currency>GBP</Currency>
           {<Amount/> +++ pensionScheme.howMuchPersonal}

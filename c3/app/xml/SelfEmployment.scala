@@ -18,10 +18,18 @@ object SelfEmployment {
 
     val pensionAndExpenses = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWithText(no, None), doYouPayToLookAfterYourChildren = no, didYouPayToLookAfterThePersonYouCaredFor = no))
 
-    if (employment.beenSelfEmployedSince1WeekBeforeClaim == yes) {
 
-      <SelfEmployment>
-        <SelfEmployedNow>{aboutSelfEmployment.areYouSelfEmployedNow}</SelfEmployedNow>
+    def jobDetails() = {
+      if (aboutSelfEmployment.areYouSelfEmployedNow == yes) {
+        <CurrentJobDetails>
+          <DateStarted>{stringify(aboutSelfEmployment.whenDidYouStartThisJob)}</DateStarted>
+          <NatureOfBusiness>{aboutSelfEmployment.natureOfYourBusiness.orNull}</NatureOfBusiness>
+          <TradingYear>
+            <DateFrom>{stringify(yourAccounts.whatWasOrIsYourTradingYearFrom)}</DateFrom>
+            <DateTo>{stringify(yourAccounts.whatWasOrIsYourTradingYearTo)}</DateTo>
+          </TradingYear>
+        </CurrentJobDetails>
+      } else {
         <RecentJobDetails>
           <DateStarted>{stringify(aboutSelfEmployment.whenDidYouStartThisJob)}</DateStarted>
           <NatureOfBusiness>{aboutSelfEmployment.natureOfYourBusiness.orNull}</NatureOfBusiness>
@@ -32,6 +40,14 @@ object SelfEmployment {
           <DateEnded>{stringify(aboutSelfEmployment.whenDidTheJobFinish)}</DateEnded>
           <TradingCeased>{aboutSelfEmployment.haveYouCeasedTrading.orNull}</TradingCeased>
         </RecentJobDetails>
+      }
+    }
+
+    if (employment.beenSelfEmployedSince1WeekBeforeClaim == yes) {
+
+      <SelfEmployment>
+        <SelfEmployedNow>{aboutSelfEmployment.areYouSelfEmployedNow}</SelfEmployedNow>
+        {jobDetails()}
         <Accountant>
           <HasAccountant>{yourAccounts.doYouHaveAnAccountant.orNull}</HasAccountant>
           <ContactAccountant>{yourAccounts.canWeContactYourAccountant.orNull}</ContactAccountant>
@@ -47,6 +63,8 @@ object SelfEmployment {
 
     } else NodeSeq.Empty
   }
+
+
 
   def accountantDetails(claim:Claim) = {
     val yourAccountsOption = claim.questionGroup[SelfEmploymentYourAccounts]

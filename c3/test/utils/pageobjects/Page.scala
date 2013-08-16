@@ -70,8 +70,8 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
             case ADDRESS => fillAddress(cssElem, theClaim.selectDynamic(claimAttribute))
             case CHECK => fillCheck(cssElem, theClaim.selectDynamic(claimAttribute))
             case DATE => fillDate(cssElem, theClaim.selectDynamic(claimAttribute))
-            case DATE_FROM => fillDate(cssElem, theClaim.selectDynamic(claimAttribute + "_from"))
-            case DATE_TO => fillDate(cssElem, theClaim.selectDynamic(claimAttribute + "_to"))
+            case DATE_FROM => fillDate(cssElem + "_from", theClaim.selectDynamic(claimAttribute))
+            case DATE_TO => fillDate(cssElem + "_to", theClaim.selectDynamic(claimAttribute))
             case INPUT => fillInput(cssElem, theClaim.selectDynamic(claimAttribute))
             case NINO => fillNino(cssElem, theClaim.selectDynamic(claimAttribute))
             case PAYMENT_FREQUENCY => fillPaymentFrequency(cssElem, theClaim.selectDynamic(claimAttribute))
@@ -135,7 +135,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
           }
         }
 
-        if (waitForPage && fluentTitle == pageTitle ) waitForDifferentPage(waitDuration)
+        if (waitForPage && (fluentTitle == pageTitle || (fluentTitle != null && fluentTitle.isEmpty))) waitForDifferentPage(waitDuration)
         this createPageWithTitle(getTitleFromBrowser(), if (!resetIteration) updateIterationNumber() else 1)
       }
     }
@@ -292,7 +292,7 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * @param theClaim   Data to use to fill page
    */
   override def fillPageWith(theClaim: ClaimScenario): Page = {
-    throw new PageObjectException("Cannot fill an unknown page: " + pageTitle)
+    throw new PageObjectException("Cannot fill an unknown page [" + pageTitle +"] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]" )
   }
 }
 

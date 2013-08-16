@@ -43,7 +43,7 @@ class OtherMoneySpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       val completedPage = page submitPage() goToPage(new G8OtherMoneyCompletedPage(browser))
-      browser.find("button[type='submit']").getText shouldEqual "Continue to Pay details"
+      browser.find("button[type='submit']").getText shouldEqual "Continue to pay details"
 
       val payDetailsPage = completedPage submitPage()
       payDetailsPage must beAnInstanceOf[G1HowWePayYouPage]

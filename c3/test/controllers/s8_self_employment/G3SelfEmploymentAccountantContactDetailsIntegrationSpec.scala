@@ -41,8 +41,6 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
         pageYourAccounts.submitPage(waitForPage = true, waitDuration = 1000)
 
         val claim = new ClaimScenario
-        claim.SelfEmployedAccountantName = ""
-        claim.SelfEmployedAccountantAddress = ""
         page goToThePage(waitForPage = true, waitDuration = 1000)
         page fillPageWith claim
         val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 1000)
@@ -84,9 +82,8 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
 
     "navigate to Pensions and Expenses when no accountant" in new WithBrowser with G3SelfEmploymentAccountantContactDetailsPageContext {
 
-      val claimYourAccounts = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
+      val claimYourAccounts = new ClaimScenario
       claimYourAccounts.SelfEmployedDoYouHaveAnAccountant = "no"
-      claimYourAccounts.SelfEmployedCanWeContactYourAccountant = ""
       val pageYourAccounts = new G2SelfEmploymentYourAccountsPage(browser)
       pageYourAccounts goToThePage(waitForPage = true, waitDuration = 1000)
       pageYourAccounts fillPageWith claimYourAccounts

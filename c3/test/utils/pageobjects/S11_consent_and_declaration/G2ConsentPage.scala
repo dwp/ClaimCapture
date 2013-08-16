@@ -9,10 +9,10 @@ import utils.pageobjects.{PageContext, Page}
  *         Date: 05/08/2013
  */
 class G2ConsentPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2ConsentPage.url, G2ConsentPage.title, previousPage) {
-  declareYesNo("#informationFromEmployer", "ConsentDeclarationGettingInformationFromAnyEmployer")
-  declareInput("#why", "ConsentDeclarationTellUsWhyEmployer")
-  declareYesNo("#informationFromPerson","ConsentDeclarationGettingInformationFromAnyOther")
-  declareInput("#whyPerson","ConsentDeclarationTellUsWhyOther")
+  declareYesNo("#gettingInformationFromAnyEmployer_informationFromEmployer", "ConsentDeclarationGettingInformationFromAnyEmployer")
+  declareInput("#gettingInformationFromAnyEmployer_why", "ConsentDeclarationTellUsWhyEmployer")
+  declareYesNo("#tellUsWhyEmployer_informationFromPerson","ConsentDeclarationGettingInformationFromAnyOther")
+  declareInput("#tellUsWhyEmployer_whyPerson","ConsentDeclarationTellUsWhyOther")
 }
 
 /**

@@ -14,7 +14,10 @@ import org.openqa.selenium.By
 trait WebFillActions {
   this: { val browser: TestBrowser } =>
 
-  def click(elementCssSelector: String) = browser.click(elementCssSelector)
+  def click(elementCssSelector: String) = {
+    if (browser.find(elementCssSelector).isEmpty) throw new PageObjectException("Unknown element with CSS selector " + elementCssSelector)
+    browser.click(elementCssSelector)
+  }
 
   def fillAddress(elementCssSelector: String, value: String) = if (null != value) {
 
@@ -44,6 +47,7 @@ trait WebFillActions {
 
   def fillInput(elementCssSelector: String, value: String) = if (null != value) {
     try {
+      if (browser.find(elementCssSelector).isEmpty) throw new PageObjectException("Unknown element with CSS selector " + elementCssSelector)
       browser.fill(elementCssSelector).`with`(value)
     }
     catch {
@@ -63,7 +67,7 @@ trait WebFillActions {
 
   def fillRadioList(listName: String, value: String, sep: String = "_"): Unit = if (null != value) {
     try {
-      browser.click(listName + sep + value)
+      click(listName + sep + value)
     }
     catch {
       case e: Exception => throw new PageObjectException("Could not fill " + listName + " with value " + value, exception = e)
@@ -134,8 +138,8 @@ trait WebFillActions {
     }
   }
 
-  def fillYesNo(elementCssSelector: String, value: String, sep: String = "_") = if (null != value) try {
-    browser.click(elementCssSelector + sep + value.toLowerCase)
+  def fillYesNo(elementCssSelector: String, value: String, sep: String = "_") = if (null != value && value.nonEmpty) try {
+    click(elementCssSelector + sep + value.toLowerCase)
   }
   catch {
     case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)

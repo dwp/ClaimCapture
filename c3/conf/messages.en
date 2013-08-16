@@ -1,24 +1,24 @@
-s1.name = Eligibility
+s1.name = eligibility
 s1.longName = Can you get Carer''s Allowance?
-s2.name = About you
+s2.name = about you
 s2.longName = About you - the carer
-s3.name = Partner
+s3.name = partner/spouse
 s3.longName = About your partner/spouse
 s4.name = Care
 s4.longName = About the care you provide
-s5.name = Abroad
+s5.name = abroad
 s5.longName = Time Spent Abroad
-s6.name = Education
+s6.name = education
 s6.longName = About your education
-s7.name = Employment
+s7.name = employment
 s7.longName = Employment History
-s8.name = Self Employment
+s8.name = self employment
 s8.longName = About self-employment
-s9.name = Other money
+s9.name = other money
 s9.longName = About Other Money
-s10.name = Pay details
+s10.name = pay details
 s10.longName = How we pay you
-s11.name = Declaration
+s11.name = declaration
 s11.longName = Consent and Declaration
 
 s1.g1 = Does the person you look after get one of these benefits?
@@ -52,8 +52,8 @@ s4.g10 = Breaks in care
 s4.g11 = About the breaks in care
 
 s5.g1 = Your normal residence and current location
-s5.g2 = When you went abroad for more than 4 weeks
-s5.g3 = When you went abroad for more than 52 weeks
+s5.g2 = Abroad for more than 4 weeks
+s5.g3 = Abroad for more than 52 weeks
 s5.g4 = Trips
 s5.g5 = Other EEA State or Switzerland
 
@@ -116,8 +116,8 @@ livesInGB.answer = Do you normally live in Great Britain?
 title = Title
 firstName = First name
 middleName = Middle name
-surname = Surname or family name
-otherNames = All other surnames or family names you have used or have been known by
+surname = Last name
+otherNames = Other surname or maiden name
 nationalInsuranceNumber = National Insurance (NI) number
 nationalInsuranceNumber.ni1 = National Insurance (NI) number first field
 nationalInsuranceNumber.ni2 = National Insurance (NI) number second field
@@ -125,7 +125,7 @@ nationalInsuranceNumber.ni3 = National Insurance (NI) number third field
 nationalInsuranceNumber.ni4 = National Insurance (NI) number fourth field
 nationalInsuranceNumber.ni5 = National Insurance (NI) number fifth field
 error.nationalInsuranceNumber = A National insurance number must be in the format VO 12 34 56 D
-nationalInsuranceNumber.helper = e.g. VO 12 34 56 D<br>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.
+nationalInsuranceNumber.helper = e.g. VO 12 34 56 D<br>This is on your NI number card, benefit letter, payslip or P60. Not providing your NI number may delay your claim.
 error.nationality = A nationality must be under 60 characters and not contain numbers or special characters
 
 dateOfBirth = Date of birth
@@ -134,7 +134,7 @@ dateOfBirth.month = Date of birth (Month)
 dateOfBirth.year = Date of birth (Year)
 dateOfBirth.helper = eg: 27 June 2013
 nationality = Nationality
-maritalStatus = What is your marital or civil partnership status?
+maritalStatus = Marital Status?
 alwaysLivedUK = Have you always lived in the United Kingdom?
 firstName.error = Please fill your first name
 
@@ -143,7 +143,7 @@ address = Address
 error.missingLineOne = Missing first line
 postcode = Postcode
 postcode.content = Postcode
-phoneNumber = Daytime Telephone number
+phoneNumber = Daytime telephone number
 mobileNumber = Mobile number
 postcode.placeHolder = eg: PR2 8AE
 error.postcode = A post code must be in the format PR2 8AE
@@ -165,6 +165,7 @@ dateOfClaim = When do you want your Carer''s Allowance claim to start?
 # MORE ABOUT YOU
 hadPartnerSinceClaimDate.label = Have you had a Partner/Spouse at any time since your claim date: {0}?
 hadPartnerSinceClaimDate = Have you had a Partner/Spouse at any time since your claim date?
+hadPartnerSinceClaimDate.helper = If you have separated from your Partner / Spouse since the date you want to claim Carer's Allowance from please tick ''Yes''
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
 receiveStatePension = Do you get State Pension?
@@ -405,11 +406,16 @@ rollOrReferenceNumber = Building society roll or reference number
 
 ## CONSENT AND DECLARATION
 # CONSENT
-informationFromEmployer = Do you agree to us getting information from any current or previous employer you have told us about on this form?
-why = Please tell us why
-whyPerson = Please tell us why
+gettingInformationFromAnyEmployer_informationFromEmployer = Do you agree to us getting information from any current or previous employer you have told us about on this form?
+gettingInformationFromAnyEmployer.informationFromEmployer = Do you agree to us getting information from any current or previous employer you have told us about on this form?
+gettingInformationFromAnyEmployer_why = Please tell us why
+gettingInformationFromAnyEmployer.why = Please tell us why
+tellUsWhyEmployer.informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
+tellUsWhyEmployer_informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
+tellUsWhyEmployer.whyPerson = Please tell us why
+tellUsWhyEmployer_whyPerson = Please tell us why
 why_placeholder = Enter text...
-informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
+
 
 # DISCLAIMER
 disclaimer.1 = I understand that if I am paid Carer''s Allowance it may affect the benefits paid to [[first name, middle name, surname]].

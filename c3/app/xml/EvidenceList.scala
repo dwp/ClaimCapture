@@ -1,7 +1,9 @@
 package xml
 
 import models.domain._
+import controllers.Mappings.{yes}
 import XMLHelper.stringify
+import scala.xml.NodeSeq
 
 object EvidenceList {
 
@@ -9,22 +11,7 @@ object EvidenceList {
 
   def xml(claim: Claim) = {
     <EvidenceList>
-      <TextLine>Documents you need to send us</TextLine>
-      <TextLine>You must send us all the documents we ask for. If you do not, any benefit you may be entitled to because of this claim may be delayed.</TextLine>
-      <TextLine>Your pay details</TextLine>
-      <TextLine>You need to send us the last payslip before 10 May 2013 and all the payslips you have had since then.</TextLine>
-      <TextLine>Statement signed by Minnie Mouse</TextLine>
-      <TextLine>You need to send us the completed and signed statement.</TextLine>
-      <TextLine>Send us your signature with the documents we have asked for</TextLine>
-      <TextLine>If you have printed this page, you must sign it in the box provided and send it with the documents we have asked for.</TextLine>
-      <TextLine>If you made a note of your transaction details, you must sign the note and send it with the documents we have asked for.</TextLine>
-      <TextLine>Where to send the documents</TextLine>
-      <TextLine>Post the documents we have asked for with your signed transaction details to:</TextLine>
-      <TextLine>CA Freepost</TextLine>
-      <TextLine>Palatine House</TextLine>
-      <TextLine>Preston</TextLine>
-      <TextLine>PR1 1HN</TextLine>
-      <TextLine>{separationLine}</TextLine>
+      {evidence(claim)}
       {carersAllowance(claim)}
       {aboutYou(claim)}
       {yourPartner(claim)}
@@ -35,6 +22,42 @@ object EvidenceList {
       {otherMoney(claim)}
       {consentAndDeclaration(claim)}
     </EvidenceList>
+  }
+
+  def evidence(claim:Claim) : scala.xml.NodeBuffer = {
+    val employment = claim.questionGroup[Employment].getOrElse(models.domain.Employment())
+    val employed = employment.beenEmployedSince6MonthsBeforeClaim == yes
+    val selfEmployed = employment.beenSelfEmployedSince1WeekBeforeClaim == yes
+    val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+
+    val buffer = new scala.xml.NodeBuffer
+
+    if(employed || selfEmployed) {
+      buffer += <TextLine>Send us the following documents below including your Name and National Insurance (NI) number.</TextLine>
+
+      if(employed){
+        buffer += <TextLine/>
+        buffer += <TextLine>Your Employment documents</TextLine>
+        buffer += <TextLine>Last payslip you got before your claim date: {claimDate.dateOfClaim.`dd/MM/yyyy`}</TextLine>
+        buffer += <TextLine>Any payslips you have had since then</TextLine>
+      }
+
+      if(selfEmployed) {
+        buffer += <TextLine/>
+        buffer += <TextLine>Your Self-employed documents</TextLine>
+        buffer += <TextLine>Most recent finalised accounts you have for your busines</TextLine>
+      }
+      buffer += <TextLine/>
+      buffer += <TextLine>Send the above documents to:</TextLine>
+      buffer += <TextLine>CA Freepost</TextLine>
+      buffer += <TextLine>Palatine House</TextLine>
+      buffer += <TextLine>Preston</TextLine>
+      buffer += <TextLine>PR1 1HN</TextLine>
+      buffer += <TextLine>The Carer's Allowance unit will contact you if they need any further information.</TextLine>
+      buffer += <TextLine>{separationLine}</TextLine>
+      buffer += <TextLine/>
+    }
+    buffer
   }
 
   def carersAllowance(claim:Claim) = {
@@ -131,9 +154,9 @@ object EvidenceList {
     val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
     <TextLine>{sectionSeparationLine("Consent and Declaration")}</TextLine>
     <TextLine>Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? = {consent.informationFromEmployer}</TextLine>
-    <TextLine>Please tell us why = {consent.why.orNull}</TextLine>
+    <TextLine>Please tell us why = {consent.informationFromEmployer.text.orNull}</TextLine>
     <TextLine>Do you agree to us getting information from any other person or organisation you have told us about as part of this claim? = {consent.informationFromPerson}</TextLine>
-    <TextLine>Please tell us why = {consent.whyPerson.orNull}</TextLine>
+    <TextLine>Please tell us why = {consent.informationFromPerson.text.orNull}</TextLine>
     <TextLine>Disclaimer text and tick box = {booleanStringToYesNo(disclaimer.read)}</TextLine>
     <TextLine>Declaration tick box = {booleanStringToYesNo(declaration.read)}</TextLine>
     <TextLine>Someone else tick box = {booleanStringToYesNo(stringify(declaration.someoneElse))}</TextLine>
