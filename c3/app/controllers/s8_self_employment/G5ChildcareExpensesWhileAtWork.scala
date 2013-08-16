@@ -19,7 +19,7 @@ object G5ChildcareExpensesWhileAtWork extends Controller with SelfEmploymentRout
       "whoLooksAfterChildren" -> nonEmptyText(maxLength = sixty),
       "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
       "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
-      "whatRelationIsTothePersonYouCareFor" -> nonEmptyText(maxLength = sixty)
+      "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
     )(ChildcareExpensesWhileAtWork.apply)(ChildcareExpensesWhileAtWork.unapply)
       .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
 

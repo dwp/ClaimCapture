@@ -199,7 +199,7 @@ case class ChildcareExpenses(jobID: String = "",
                              whoLooksAfterChildren: String = "",
                              relationToYou: String = "",
                              relationToPartner: Option[String] = None,
-                             relationToPersonYouCare: Option[String] = None) extends QuestionGroup(ChildcareExpenses) with Job.Identifier
+                             relationToPersonYouCare: String = "") extends QuestionGroup(ChildcareExpenses) with Job.Identifier
 
 
 object ChildcareExpenses extends QuestionGroup.Identifier {
@@ -219,7 +219,7 @@ case class PersonYouCareForExpenses(jobID: String = "",
                                     howMuchCostCare: Option[String] = None,
                                     whoDoYouPay: String = "",
                                     relationToYou: String = "",
-                                    relationToPersonYouCare: Option[String] = None) extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier
+                                    relationToPersonYouCare: String = "") extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier
 
 
 object PersonYouCareForExpenses extends QuestionGroup.Identifier {
