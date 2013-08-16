@@ -2,12 +2,17 @@ package models.yesNo
 
 import controllers.Mappings._
 
-case class YesNoWith2Text(answer: String, text1: Option[String], text2: Option[String])
+case class YesNoWith2Text(answer: String = "", text1: Option[String] = None, text2: Option[String] = None)
 
 object YesNoWith2Text {
 
-  def validateText(input: YesNoWith2Text, text: Option[String], required: Boolean = true) = input.answer match {
-    case `yes` => if(required) text.isDefined else true
+  def validateText1OnYes (input: YesNoWith2Text) : Boolean = input.answer match {
+    case `yes` => input.text1.isDefined
+    case `no` => true
+  }
+
+  def validateText2OnYes (input: YesNoWith2Text) : Boolean = input.answer match {
+    case `yes` => input.text2.isDefined
     case `no` => true
   }
 }

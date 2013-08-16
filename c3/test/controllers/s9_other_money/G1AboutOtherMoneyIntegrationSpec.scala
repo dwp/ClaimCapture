@@ -33,7 +33,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
         browser.submit("button[type='submit']")
         titleMustEqual("Details about other money - About Other Money")
 
-        findMustEqualSize("div[class=validation-summary] ol li", 1)
+        findMustEqualSize("div[class=validation-summary] ol li", 2)
       }
 
       "text enabled but neither not filled in" in new WithBrowser with BrowserMatchers {
@@ -44,7 +44,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
         browser.submit("button[type='submit']")
         titleMustEqual("Details about other money - About Other Money")
 
-        findMustEqualSize("div[class=validation-summary] ol li", 1)
+        findMustEqualSize("div[class=validation-summary] ol li", 2)
       }
     }
 

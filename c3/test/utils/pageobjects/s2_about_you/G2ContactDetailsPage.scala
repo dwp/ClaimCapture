@@ -12,6 +12,7 @@ final class G2ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page
   declareAddress("#address", "AboutYouAddress")
   declareInput("#postcode", "AboutYouPostcode")
   declareInput("#phoneNumber", "AboutYouDaytimePhoneNumber")
+  declareYesNo("#contactYouByTextphone", "AboutYouContactYouByTextphone")
   declareInput("#mobileNumber", "AboutYouMobileNumber")
 }
 
@@ -28,7 +29,7 @@ object G2ContactDetailsPage {
 }
 
 /** The context for Specs tests */
-trait ContactDetailsPageContext extends PageContext {
+trait G2ContactDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
   val page = G2ContactDetailsPage buildPageWith browser

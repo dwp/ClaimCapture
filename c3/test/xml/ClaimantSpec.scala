@@ -13,7 +13,10 @@ class ClaimantSpec extends Specification with Tags {
                                 dateOfBirth = DayMonthYear(1, 1, 1963), maritalStatus = "m", alwaysLivedUK = "yes")
 
   val contactDetails = ContactDetails(address = MultiLineAddress(Some("Line1"), None, None),
-                                      postcode = Some("PR2 8AE"), phoneNumber = Some("01772 700806"), None)
+                                      postcode = Some("PR2 8AE"), 
+                                      phoneNumber = Some("01772 700806"), 
+                                      contactYouByTextphone = None, 
+                                      mobileNumber = None)
 
   "Claimant" should {
     "generate Claimant xml from a given claim" in {

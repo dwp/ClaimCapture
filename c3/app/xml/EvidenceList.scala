@@ -1,9 +1,8 @@
 package xml
 
 import models.domain._
-import controllers.Mappings.{yes}
+import controllers.Mappings.yes
 import XMLHelper.stringify
-import scala.xml.NodeSeq
 
 object EvidenceList {
 
@@ -139,7 +138,8 @@ object EvidenceList {
     val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
     <TextLine>{sectionSeparationLine("Other Money")}</TextLine>
     <TextLine>Have you [or your partner/spouse] claimed or received any other benefits since the date you want to claim? = {aboutOtherMoney.yourBenefits.answer}</TextLine>
-    <TextLine>Please tell us the names of the benefits or entitlements you receive = {aboutOtherMoney.yourBenefits.text.orNull}</TextLine>
+    <TextLine>Please tell us the names of the benefits or entitlements you receive = {aboutOtherMoney.yourBenefits.text1.orNull}</TextLine>
+    <TextLine>Please tell us the names of the benefits or entitlements your partner/spouse receive = {aboutOtherMoney.yourBenefits.text2.orNull}</TextLine>
     <TextLine>Statutory Sick Pay: How much? = {statutorySickPay.howMuch.orNull}</TextLine>
     <TextLine>Statutory Sick Pay: How often? = {stringify(statutorySickPay.howOften)}</TextLine>
     <TextLine>Other Statutory Pay: How much? = {otherStatutoryPay.howMuch.orNull}</TextLine>

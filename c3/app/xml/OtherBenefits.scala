@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import models.domain._
 import XMLHelper._
 import controllers.Mappings.yes
@@ -29,9 +30,9 @@ object OtherBenefits {
         <IndustrialDeathBenefit>no</IndustrialDeathBenefit>
         <GovernmentTrainingAllowance>no</GovernmentTrainingAllowance>
         <LoneParentChildBenefit>no</LoneParentChildBenefit>
-        <OtherSocialSecurityBenefit>no</OtherSocialSecurityBenefit>
-        <NonSocialSecurityBenefit>no</NonSocialSecurityBenefit>
-        <NoBenefits>yes</NoBenefits>
+        <OtherSocialSecurityBenefit>{XMLValues.NotAsked}</OtherSocialSecurityBenefit>
+        <NonSocialSecurityBenefit>{XMLValues.NotAsked}</NonSocialSecurityBenefit>
+        <NoBenefits>{XMLValues.NotAsked}</NoBenefits>
       </ClaimantBenefits>
       <PartnerBenefits>
         <JobseekersAllowance>no</JobseekersAllowance>
@@ -46,9 +47,9 @@ object OtherBenefits {
         <WarWidowsPension>no</WarWidowsPension>
         <IndustrialDeathBenefit>no</IndustrialDeathBenefit>
         <GovernmentTrainingAllowance>no</GovernmentTrainingAllowance>
-        <OtherSocialSecurityBenefit>no</OtherSocialSecurityBenefit>
-        <NonSocialSecurityBenefit>no</NonSocialSecurityBenefit>
-        <NoBenefits>yes</NoBenefits>
+        <OtherSocialSecurityBenefit>{XMLValues.NotAsked}</OtherSocialSecurityBenefit>
+        <NonSocialSecurityBenefit>{XMLValues.NotAsked}</NonSocialSecurityBenefit>
+        <NoBenefits>{XMLValues.NotAsked}</NoBenefits>
       </PartnerBenefits>
       {extraMoneyXml(moneyPaidToSomeoneElseOption, personDetailsOption, contactDetailsOption)}
       {otherMoneySPPXml(statutorySickPayOption)}

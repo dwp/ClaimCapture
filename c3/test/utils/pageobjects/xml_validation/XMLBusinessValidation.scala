@@ -38,7 +38,7 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
     // Go through the attributes of the claim and check that there is a corresponding entry in the XML
     claim.map.foreach {
       case (attribute, value) =>
-        val xPathNodesAndQuestion = mapping.get(attribute)
+        val xPathNodesAndQuestion = mapping.get(attribute.split("_")(0))
         if (xPathNodesAndQuestion != None) {
           val path = xPathNodesAndQuestion.get._1
           val nodes = path.split(">")
@@ -76,24 +76,34 @@ class XmlNode(val nodes: NodeSeq) {
   var error = ""
 
   def matches(claimValue: ClaimValue): Boolean = {
-    val index =  if (claimValue.attribute.contains( """_""") && !nodes(0).mkString.contains(XmlNode.EvidenceListNode)) claimValue.attribute.split("_")(1).toInt - 1
-                 else 0
+    try {
+      def isARepeatableNode = {
+        val nodeStart = nodes(0).mkString
+        !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>") && !(nodeStart.contains("<PensionScheme>") && nodeStart.contains("<Amount>"))
+      }
 
-    val value = XmlNode.prepareElement(nodes(index).text)
-    val nodeName = nodes(index).mkString
+      val index = if (claimValue.attribute.contains( """_""") && isARepeatableNode) claimValue.attribute.split("_")(1).toInt - 1
+      else 0
 
-    def valuesMatching = {
-      if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>")) value.contains(claimValue.value)
-      else if (nodeName.startsWith(XmlNode.EvidenceListNode)) value.contains(claimValue.question + "=" + claimValue.value)
-      else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
-      else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
-      else value == claimValue.value
+      val value = XmlNode.prepareElement(nodes(index).text)
+      val nodeName = nodes(index).mkString
+
+      def valuesMatching = {
+        if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>")) value.contains(claimValue.value)
+        else if (nodeName.startsWith(XmlNode.EvidenceListNode)) value.contains(claimValue.question + "=" + claimValue.value)
+        else if (nodeName.endsWith("gds:Line>") || (nodeName.contains("PensionScheme") && nodeName.contains("Amount"))) claimValue.value.contains(value)
+        else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
+        else value == claimValue.value
+      }
+
+      val matching = valuesMatching
+      if (!matching)
+        error = " value expected: [" + (if (nodeName.startsWith(XmlNode.EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + value + "]"
+      matching
     }
-
-    val matching = valuesMatching
-    if (!matching)
-     error = " value expected: [" + (if (nodeName.startsWith(XmlNode.EvidenceListNode)) claimValue.question + "="+ claimValue.value else claimValue.value)+ "] within value read: [" + value + "]"
-    matching
+    catch {
+      case e:IndexOutOfBoundsException => throw new PageObjectException("XML Validation failed" + this.toString() + " - " + claimValue.attribute)
+    }
   }
 
   def doesNotMatch(claimValue: ClaimValue): Boolean = !matches(claimValue)
