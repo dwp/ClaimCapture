@@ -8,28 +8,28 @@ import scala.util.Try
 trait BrowserMatchers extends MustMatchers {
   this: WithBrowser[_] =>
 
-  val duration = Try(System.getProperty("waitDurationMinutes", "1").toInt).getOrElse(1)
+  val duration = Try(System.getProperty("waitSeconds", "60").toInt).getOrElse(60)
 
   def titleMustEqual(title: String) = {
-    browser.waitUntil[Boolean](duration, TimeUnit.MINUTES) {
+    browser.waitUntil[Boolean](duration, TimeUnit.SECONDS) {
       browser.title mustEqual title
     }
   }
 
   def titleMustNotEqual(title: String) = {
-    browser.waitUntil[Boolean](duration, TimeUnit.MINUTES) {
+    browser.waitUntil[Boolean](duration, TimeUnit.SECONDS) {
       browser.title mustNotEqual title
     }
   }
     
   def findMustEqualSize(searchFor: String, expectedSize: Integer) = {
-    browser.waitUntil[Boolean](duration, TimeUnit.MINUTES) {
+    browser.waitUntil[Boolean](duration, TimeUnit.SECONDS) {
       browser.find(searchFor).size mustEqual expectedSize
     }
   }
 
   def findMustEqualValue(searchFor: String, expectedValue: String) = {
-    browser.waitUntil[Boolean](duration, TimeUnit.MINUTES) {
+    browser.waitUntil[Boolean](duration, TimeUnit.SECONDS) {
       browser.find(searchFor).getValue mustEqual expectedValue
     }
   }

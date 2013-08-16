@@ -2,7 +2,7 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import controllers.Mappings.yes
-import models.domain.{Claim}
+import models.domain.Claim
 
 class EvidenceListSpec extends Specification with Tags {
 
@@ -39,5 +39,4 @@ class EvidenceListSpec extends Specification with Tags {
       }
     }
   } section "unit"
-
 }

@@ -32,7 +32,7 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       Formulate.abroadForMoreThan52Weeks(browser)
       titleMustEqual("Completion - Time Spent Abroad")
 
-      browser.find("button[type='submit']").getText shouldEqual "Continue to Education"
+      browser.find("button[type='submit']").getText shouldEqual "Continue to education"
     }
 
     "show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
@@ -45,7 +45,7 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
       titleMustEqual("Completion - About your education")
 
-      browser.find("button[type='submit']").getText shouldEqual "Continue to Employment"
+      browser.find("button[type='submit']").getText shouldEqual "Continue to employment"
     }
   } section("integration", models.domain.TimeSpentAbroad.id)
 }

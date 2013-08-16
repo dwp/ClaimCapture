@@ -3,10 +3,8 @@ package controllers
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 import play.api.test.WithBrowser
-import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s1_carers_allowance._
-import utils.pageobjects.Page
 
 class BrowserSpec extends Specification with Tags {
   "Browser" should {
@@ -34,7 +32,6 @@ class BrowserSpec extends Specification with Tags {
         completed(0) must contain("Does the person you look after get one of these benefits?")
         completed(0) must contain("No")
       }
-
     }
   } section "integration"
 }
