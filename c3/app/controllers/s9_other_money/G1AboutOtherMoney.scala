@@ -8,7 +8,7 @@ import play.api.data.Forms._
 import models.domain.{Claim, AboutOtherMoney}
 import controllers.Mappings._
 import models.domain.MoreAboutYou
-import models.yesNo.YesNoWithText
+import models.yesNo.YesNoWith2Text
 import utils.helpers.CarersForm._
 import play.api.data.FormError
 import play.api.i18n.Messages
@@ -18,9 +18,11 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
   val yourBenefitsMapping =
     "yourBenefits" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "text" -> optional(nonEmptyText(maxLength = fifty))
-    )(YesNoWithText.apply)(YesNoWithText.unapply)
-      .verifying("required", YesNoWithText.validateOnYes _)
+      "text1" -> optional(nonEmptyText(maxLength = fifty)),
+      "text2" -> optional(nonEmptyText(maxLength = fifty))
+    )(YesNoWith2Text.apply)(YesNoWith2Text.unapply)
+      .verifying("text1", YesNoWith2Text.validateText1OnYes _)
+      .verifying("text2", YesNoWith2Text.validateText2OnYes _)
 
   val form = Form(
     mapping(
@@ -45,7 +47,8 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
 
         val formWithErrorsUpdate = formWithErrors
           .replaceError("yourBenefits.answer", FormError(yourBenefitsAnswerErrorMessage, "error.required"))
-          .replaceError("yourBenefits", FormError("yourBenefits.text", "error.required"))
+          .replaceError("yourBenefits", "text1", FormError("yourBenefits.text1", "error.required"))
+          .replaceError("yourBenefits", "text2", FormError("yourBenefits.text2", "error.required"))
 
         BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))
       },

@@ -29,6 +29,7 @@ object YourDetails extends QuestionGroup.Identifier {
 case class ContactDetails(address: MultiLineAddress = MultiLineAddress(None,None,None),
                           postcode: Option[String] = None,
                           phoneNumber: Option[String] = None,
+                          contactYouByTextphone: Option[String] = None,
                           mobileNumber: Option[String] = None) extends QuestionGroup(ContactDetails)
 
 object ContactDetails extends QuestionGroup.Identifier {
