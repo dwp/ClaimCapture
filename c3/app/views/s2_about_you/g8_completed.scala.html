@@ -7,7 +7,7 @@
 @main("Completion - " + Messages("s2.longName"), completedQuestionGroups) {
     @form(action = controllers.s2_about_you.routes.AboutYou.completedSubmit) {
         <nav class="form-steps">
-            <a href="@controllers.s2_about_you.routes.G7PropertyAndRent.present" class="button secondary">Back</a>
+            <a href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button id="submit" type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(AboutYou).name</button>
         </nav>
     }

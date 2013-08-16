@@ -17,7 +17,6 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)
-      Formulate.propertyAndRent(browser)
       titleMustEqual("Completion - About you - the carer")
       
       browser.find("#submit").getText mustEqual "Continue to Partner/Spouse"
@@ -31,7 +30,6 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
       Formulate.moreAboutYouNotHadPartnerSinceClaimDate(browser)
       Formulate.employment(browser)
-      Formulate.propertyAndRent(browser)
       titleMustEqual("Completion - About you - the carer")
 
       browser.find("#submit").getText mustEqual "Continue to Care you provide"

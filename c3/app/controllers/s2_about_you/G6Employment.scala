@@ -30,7 +30,7 @@ object G6Employment extends Controller with AboutYouRouting with CachedClaim {
         val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)
                                 .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, SelfEmployment)
 
-        updatedClaim.update(employment) -> Redirect(routes.G7PropertyAndRent.present())
+        updatedClaim.update(employment) -> Redirect(routes.AboutYou.completed())
       })
   }
 }
