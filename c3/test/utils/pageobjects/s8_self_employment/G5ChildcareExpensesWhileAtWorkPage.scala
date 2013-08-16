@@ -8,7 +8,7 @@ final class G5ChildcareExpensesWhileAtWorkPage (browser: TestBrowser, previousPa
   declareInput("#whoLooksAfterChildren", "SelfEmployedChildcareProviderNameOfPerson")
   declareSelect("#whatRelationIsToYou", "SelfEmployedChildcareProviderWhatRelationIsToYou")
   declareSelect("#relationToPartner", "SelfEmployedChildcareProviderWhatRelationIsToYourPartner")
-  declareInput("#whatRelationIsTothePersonYouCareFor", "SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor")
+  declareSelect("#whatRelationIsTothePersonYouCareFor", "SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor")
 }
 
 object G5ChildcareExpensesWhileAtWorkPage {

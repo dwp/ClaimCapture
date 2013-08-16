@@ -19,7 +19,7 @@ object G10ChildcareExpenses extends Controller with CachedClaim {
       "whoLooksAfterChildren" -> nonEmptyText,
       "relationToYou" -> nonEmptyText,
       "relationToPartner" -> optional(nonEmptyText),
-      "relationToPersonYouCare" -> optional(text)
+      "relationToPersonYouCare" -> nonEmptyText
     )(ChildcareExpenses.apply)(ChildcareExpenses.unapply)
       .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
 

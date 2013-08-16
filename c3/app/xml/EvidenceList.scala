@@ -2,7 +2,7 @@ package xml
 
 import models.domain._
 import controllers.Mappings.yes
-import XMLHelper.stringify
+import XMLHelper.{stringify, booleanStringToYesNo}
 
 object EvidenceList {
 
@@ -160,14 +160,6 @@ object EvidenceList {
     <TextLine>Disclaimer text and tick box = {booleanStringToYesNo(disclaimer.read)}</TextLine>
     <TextLine>Declaration tick box = {booleanStringToYesNo(declaration.read)}</TextLine>
     <TextLine>Someone else tick box = {booleanStringToYesNo(stringify(declaration.someoneElse))}</TextLine>
-  }
-
-  def booleanStringToYesNo(booleanString:String) = {
-    booleanString match {
-      case "true" => "yes"
-      case "false" => "no"
-      case _ => ""
-    }
   }
 
   def sectionSeparationLine(section:String) = {

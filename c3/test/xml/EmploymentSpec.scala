@@ -84,7 +84,7 @@ class EmploymentSpec extends Specification with Tags {
       val relationToChild = "uncle"
       val job = Job("1", List(
                   AboutExpenses(payAnyoneToLookAfterChildren = "yes"),
-                  ChildcareExpenses(howMuchCostChildcare = Some(amount), whoLooksAfterChildren = childcareCarer, relationToYou = relation, relationToPersonYouCare = Some(relationToChild)),
+                  ChildcareExpenses(howMuchCostChildcare = Some(amount), whoLooksAfterChildren = childcareCarer, relationToYou = relation, relationToPersonYouCare = relationToChild),
                   ChildcareProvider(address = Some(MultiLineAddress(Some(address))), postcode = Some(postcode))
       ))
 
@@ -116,7 +116,7 @@ class EmploymentSpec extends Specification with Tags {
       val amount = "300"
       val job = Job("1", List(
         AboutExpenses(payAnyoneToLookAfterPerson = "yes"),
-        PersonYouCareForExpenses(howMuchCostCare = Some(amount), whoDoYouPay = carer, relationToYou = relation, relationToPersonYouCare = Some(relation)),
+        PersonYouCareForExpenses(howMuchCostCare = Some(amount), whoDoYouPay = carer, relationToYou = relation, relationToPersonYouCare = relation),
         CareProvider(address = Some(MultiLineAddress(Some(address))), postcode = Some(postcode))
       ))
 

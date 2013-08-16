@@ -68,6 +68,7 @@ case object ChildcareProvidersContactDetails extends QuestionGroup.Identifier {
 case class ExpensesWhileAtWork(howMuchYouPay: String = "",
                                nameOfPerson: String = "",
                                whatRelationIsToYou: String = "",
+                               relationToPartner: Option[String] = None,
                                whatRelationIsTothePersonYouCareFor: String = "") extends QuestionGroup(ExpensesWhileAtWork)
 
 case object ExpensesWhileAtWork extends QuestionGroup.Identifier {
