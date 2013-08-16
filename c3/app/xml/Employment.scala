@@ -155,7 +155,10 @@ object Employment {
           {<Amount/> +++ childcareExpenses.howMuchCostChildcare}
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
-        <ChildDetails><Name/>{<RelationToChild/> ?+ childcareExpenses.relationToPersonYouCare}</ChildDetails>
+        <ChildDetails>
+          <Name/>
+          <RelationToChild>{childcareExpenses.relationToPersonYouCare}</RelationToChild>
+        </ChildDetails>
       </ChildCareExpenses>
     } else {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
@@ -179,7 +182,7 @@ object Employment {
           {<Amount/> +++ personYouCareExpenses.howMuchCostCare}
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{personYouCareExpenses.relationToYou}</RelationshipCarerToClaimant>
-        {<RelationshipCarerToCaree/> +++ personYouCareExpenses.relationToPersonYouCare}
+        <RelationshipCarerToCaree>{personYouCareExpenses.relationToPersonYouCare}</RelationshipCarerToCaree>
       </CareExpenses>
     } else {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>

@@ -4,7 +4,7 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{PageContext, Page}
 
 final class G6MoneyOwedByEmployerPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G6MoneyOwedByEmployerPage.url.replace(":jobID", iteration.toString), G6MoneyOwedByEmployerPage.title, previousPage, iteration) {
-  declareInput("#howMuchOwed", "EmploymentHowMuchAreYouOwed" + iteration)
+  declareInput("#howMuchOwed", "EmploymentHowMuchAreYouOwed_" + iteration)
   declareDateFromTo("#owedPeriod", "EmploymentWhatPeriodIsItForFrom_" + iteration, "EmploymentWhatPeriodIsItForTo_" + iteration)
   declareInput("#owedFor", "EmploymentWhatIsTheMoneyOwedFor_" + iteration)
   declareDate("#shouldBeenPaidBy", "EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_" + iteration)

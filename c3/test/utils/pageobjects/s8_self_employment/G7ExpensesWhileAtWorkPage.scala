@@ -7,7 +7,7 @@ final class G7ExpensesWhileAtWorkPage(browser: TestBrowser, previousPage: Option
   declareInput("#howMuchYouPay", "SelfEmployedCareExpensesHowMuchYouPay")
   declareInput("#nameOfPerson", "SelfEmployedCareExpensesNameOfPerson")
   declareSelect("#whatRelationIsToYou", "SelfEmployedCareExpensesWhatRelationIsToYou")
-  declareInput("#whatRelationIsTothePersonYouCareFor", "SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor")
+  declareSelect("#whatRelationIsTothePersonYouCareFor", "SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor")
 }
 
 object G7ExpensesWhileAtWorkPage {
