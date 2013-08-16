@@ -10,10 +10,10 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
   "Time spent abroad" should {
     """present "completion" and proceed to 'Education'.""" in new WithBrowser with BrowserMatchers {
       Formulate.normalResidenceAndCurrentLocation(browser)
-      titleMustEqual(Messages("s5.g2") + " - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
 
       Formulate.abroadForMoreThan4Weeks(browser)
-      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
 
       Formulate.abroadForMoreThan52Weeks(browser)
       titleMustEqual("Completion - Time Spent Abroad")
@@ -24,10 +24,10 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
 
     "show the text 'Continue to Education' on the submit button when next section is 'Education'" in new WithBrowser with BrowserMatchers {
       Formulate.normalResidenceAndCurrentLocation(browser)
-      titleMustEqual(Messages("s5.g2") + " - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
 
       Formulate.abroadForMoreThan4Weeks(browser)
-      titleMustEqual(Messages("s5.g3") + " - Time Spent Abroad")
+      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
 
       Formulate.abroadForMoreThan52Weeks(browser)
       titleMustEqual("Completion - Time Spent Abroad")

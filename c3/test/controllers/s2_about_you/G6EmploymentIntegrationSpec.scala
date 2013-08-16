@@ -39,7 +39,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
 
     "failed to fill the form" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
+      titleMustEqual("More about you - About you - the carer")
 
       browser.goTo("/about-you/employment")
       titleMustEqual("Employment - About you - the carer")
@@ -57,7 +57,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
 
       browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
       browser.submit("button[type='submit']")
-      titleMustEqual(Messages("s2.g7") + " - About you - the carer")
+      titleMustEqual("Property and rent - About you - the carer")
     }
   } section("integration", models.domain.AboutYou.id)
 }
