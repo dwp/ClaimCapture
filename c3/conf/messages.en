@@ -155,7 +155,6 @@ livingInUK_arrivalDate = When did you arrive in the UK?
 livingInUK.arrivalDate = When did you arrive in the UK?
 livingInUK_originCountry = What country did you come from?
 livingInUK_goBack_date = When do you plan to go back?
-visaReference = What is your visa reference number in your passport?
 
 livingInUK_goBack_answer = Do you plan to go back to that country?
 livingInUK.goBack.answer = Do you plan to go back to that country?

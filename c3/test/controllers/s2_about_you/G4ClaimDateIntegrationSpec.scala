@@ -25,7 +25,7 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
     "fill date" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
 
-      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
+      titleMustEqual("More about you - About you - the carer")
       browser.find("div[class=completed] ul li h3").get(0).getText mustEqual "Your claim date: 03/04/1950"
     }
 
@@ -51,14 +51,14 @@ class G4ClaimDateIntegrationSpec extends Specification with Tags {
       Formulate.timeOutsideUKNotLivingInUK(browser)
       titleMustEqual("Your Claim Date - About you - the carer")
       browser.click(".form-steps a")
-      titleMustEqual(Messages("s2.g3") + " - About you - the carer")
+      titleMustEqual("About your time outside the UK - About you - the carer")
     }
 
     "navigate back to 'Contact details'" in new WithBrowser with BrowserMatchers {
       Formulate.yourDetails(browser)
       Formulate.yourContactDetails(browser)
       browser.click(".form-steps a")
-      titleMustEqual(Messages("s2.g2") + " - About you - the carer")
+      titleMustEqual("Your contact details - About you - the carer")
     }
   } section("integration", models.domain.AboutYou.id)
 }

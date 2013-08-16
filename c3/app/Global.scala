@@ -34,6 +34,7 @@ object Global extends WithFilters(RefererCheck) {
     MDC.put("httpPort", Option(System.getProperty("http.port")).getOrElse("Value not set"))
     MDC.put("hostName", Option(InetAddress.getLocalHost.getHostName).getOrElse("Value not set"))
     MDC.put("envName", Option(System.getProperty("env.name")).getOrElse("Value not set"))
+    Logger.info("c3 Started")
     super.onStart(app)
   }
 
@@ -51,6 +52,12 @@ object Global extends WithFilters(RefererCheck) {
   override def getControllerInstance[A](controllerClass: Class[A]): A = {
     injector.getInstance(controllerClass)
   }
+
+  override def onStop(app: Application) {
+    Logger.info("c3 Stopped")
+    super.onStop(app)
+  }
+
 }
 
 object RefererCheck extends Filter {
