@@ -31,8 +31,7 @@ object G3TimeOutsideUK extends Controller with AboutYouRouting with CachedClaim 
 
   val form = Form(
     mapping(
-      livingInUKMapping,
-      "visaReference" -> optional(text(maxLength = sixty))
+      livingInUKMapping
     )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
 
   def present = claiming { implicit claim => implicit request =>
