@@ -44,7 +44,7 @@ class ResidencySpec extends Specification with Tags {
       val residencyXml = Residency.xml(claim)
 
       (residencyXml \\ "Nationality").text mustEqual yourDetails.nationality
-      (residencyXml \\ "CountryNormallyLiveOther").text mustEqual "UK"
+      (residencyXml \\ "CountryNormallyLive").text mustEqual "UK"
       (residencyXml \\ "InGreatBritainNow").text mustEqual yes
       (residencyXml \\ "OutOfGreatBritain").text mustEqual no
 
