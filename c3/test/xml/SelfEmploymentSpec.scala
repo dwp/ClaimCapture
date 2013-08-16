@@ -31,11 +31,11 @@ class SelfEmploymentSpec extends Specification with Tags {
       val selfEmploymentXml = xml.SelfEmployment.xml(claim)
 
       (selfEmploymentXml \\ "SelfEmployedNow").text mustEqual yes
-      val recentJobDetailsXml = selfEmploymentXml \\ "RecentJobDetails"
+      val recentJobDetailsXml = selfEmploymentXml \\ "CurrentJobDetails"
       (recentJobDetailsXml \\ "DateStarted").text mustEqual startDate.`yyyy-MM-dd`
-      (recentJobDetailsXml \\ "DateEnded").text mustEqual endDate.`yyyy-MM-dd`
+//      (recentJobDetailsXml \\ "DateEnded").text mustEqual endDate.`yyyy-MM-dd`
       (recentJobDetailsXml \\ "NatureOfBusiness").text mustEqual software
-      (recentJobDetailsXml \\ "TradingCeased").text mustEqual no
+//      (recentJobDetailsXml \\ "TradingCeased").text mustEqual no
     }
 
     "generate xml when data is missing" in {

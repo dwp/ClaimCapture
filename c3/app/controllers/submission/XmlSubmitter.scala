@@ -18,9 +18,13 @@ class XmlSubmitter extends Submitter {
 
     if (Configuration.root().getBoolean("validateXml", true)) {
       val validator = XmlValidatorFactory.buildCaValidator()
-      validator.validate(fullXml.buildString(stripComments = true)) match {
+      val fullXmlString = fullXml.buildString(stripComments = true)
+      validator.validate(fullXmlString) match {
         case true => Future(Ok(claimXml.buildString(stripComments = false)))
-        case false => Future(Ok("Failed validation"))
+        case false => {
+          Logger.error(fullXmlString)
+          Future(Ok("Failed validation"))
+        }
       }
     } else {
       Future(Ok(claimXml.buildString(stripComments = false)))
