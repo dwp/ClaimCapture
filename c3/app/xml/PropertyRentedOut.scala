@@ -1,16 +1,15 @@
 package xml
 
-import models.domain.{PropertyAndRent, Claim}
+import models.domain.{Claim}
+import app.XMLValues
 
 object PropertyRentedOut {
 
   def xml(claim: Claim) = {
-    val propertyAndRent = claim.questionGroup[PropertyAndRent].getOrElse(PropertyAndRent())
-
     <PropertyRentedOut>
       <PayNationalInsuranceContributions/>
-      <RentOutProperty>{propertyAndRent.ownProperty}</RentOutProperty>
-      <SubletHome>{propertyAndRent.hasSublet}</SubletHome>
+      <RentOutProperty>{XMLValues.NotAsked}</RentOutProperty>
+      <SubletHome>{XMLValues.NotAsked}</SubletHome>
     </PropertyRentedOut>
   }
 

@@ -61,9 +61,3 @@ case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEm
 object Employment extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g6"
 }
-
-case class PropertyAndRent(ownProperty: String = "", hasSublet: String = "") extends QuestionGroup(PropertyAndRent)
-
-object PropertyAndRent extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g7"
-}

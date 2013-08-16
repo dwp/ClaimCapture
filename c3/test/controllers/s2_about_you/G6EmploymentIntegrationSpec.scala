@@ -10,10 +10,10 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
   sequential
 
   "Employment" should {
-    "be presented" in new WithBrowser {
+    "be presented" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       browser.goTo("/about-you/employment")
-      browser.title mustEqual "Employment - About you - the carer"
+      titleMustEqual("Employment - About you - the carer")
     }
 
     "be presented without claim date" in new WithBrowser with BrowserMatchers {

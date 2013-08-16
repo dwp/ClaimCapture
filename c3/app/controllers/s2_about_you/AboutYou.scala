@@ -19,8 +19,8 @@ object AboutYou extends Controller with AboutYouRouting with CachedClaim {
 
     val nrOfCompletedQuestionGroups = completedQuestionGroups.distinct.size
 
-    if (yourDetailsVisible && nrOfCompletedQuestionGroups == 7) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
-    else if (!yourDetailsVisible && nrOfCompletedQuestionGroups == 6) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
+    if (yourDetailsVisible && nrOfCompletedQuestionGroups == 6) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
+    else if (!yourDetailsVisible && nrOfCompletedQuestionGroups == 5) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
     else Redirect(routes.G1YourDetails.present())
   }
 
@@ -37,6 +37,5 @@ trait AboutYouRouting extends Routing {
     case ClaimDate => routes.G4ClaimDate.present()
     case MoreAboutYou => routes.G5MoreAboutYou.present()
     case Employment => routes.G6Employment.present()
-    case PropertyAndRent => routes.G7PropertyAndRent.present()
   }
 }

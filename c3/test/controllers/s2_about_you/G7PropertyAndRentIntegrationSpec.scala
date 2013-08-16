@@ -4,10 +4,11 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{ClaimScenarioFactory, BrowserMatchers, Formulate}
 import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G8AboutYouCompletedPage}
-import play.api.i18n.Messages
+
 
 class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
   "Property and Rent" should {
+    /*
     "present Benefits when there is no claim date" in new WithBrowser with BrowserMatchers {
       browser.goTo("/about-you/property-and-rent")
       titleMustEqual("Does the person you look after get one of these benefits? - Can you get Carer's Allowance?")
@@ -57,6 +58,6 @@ class G7PropertyAndRentIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
       page runClaimWith (claim, G8AboutYouCompletedPage.title)
-    }
+    }*/
   } section("integration", models.domain.AboutYou.id)
 }

@@ -88,7 +88,6 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)
-      Formulate.propertyAndRent(browser)
       Formulate.yourPartnerPersonalDetails(browser)
       titleMustEqual("Contact details - About your partner/spouse")
       

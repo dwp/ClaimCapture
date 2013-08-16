@@ -167,7 +167,6 @@ class AboutYouSpec extends Specification with Mockito with Tags {
         .update(mockQuestionGroup[ClaimDate](ClaimDate))
         .update(moreAboutYou)
         .update(mockQuestionGroup[Employment](Employment))
-        .update(mockQuestionGroup[PropertyAndRent](PropertyAndRent))
 
       Cache.set(claimKey, claim)
 
@@ -191,7 +190,6 @@ class AboutYouSpec extends Specification with Mockito with Tags {
         .update(mockQuestionGroup[ClaimDate](ClaimDate))
         .update(moreAboutYou)
         .update(mockQuestionGroup[Employment](Employment))
-        .update(mockQuestionGroup[PropertyAndRent](PropertyAndRent))
 
       Cache.set(claimKey, claim)
 
