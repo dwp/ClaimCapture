@@ -39,7 +39,7 @@ class ResidencySpec extends Specification with Tags {
       val claim = Claim().update(yourDetails)
         .update(normalResidence)
         .update(abroadForMoreThan4Weeks)
-        .update(trips).update(TimeOutsideUK(visaReference = Some("visaReference")))
+        .update(trips).update(TimeOutsideUK())
 
       val residencyXml = Residency.xml(claim)
 
@@ -81,9 +81,8 @@ class ResidencySpec extends Specification with Tags {
       val dayMonthYearInUK = DayMonthYear(Some(2), Some(2), Some(2012))
       val goBack = YesNoWithDate(yes, Some(dayMonthYear))
       val netherlands = "Netherlands"
-      val visaReference = "visaReference"
       val livingInUK = LivingInUK(answer = yes, date = Some(dayMonthYearInUK), text = Some(netherlands), goBack = Some(goBack))
-      val timeOutsideUK = TimeOutsideUK(livingInUK = livingInUK, visaReference = Some(visaReference))
+      val timeOutsideUK = TimeOutsideUK(livingInUK = livingInUK)
 
       val claim = Claim().update(yourDetails).update(timeOutsideUK)
 
@@ -93,7 +92,7 @@ class ResidencySpec extends Specification with Tags {
       (xml \\ "CountryArrivedFrom").text shouldEqual netherlands
       (xml \\ "IntendToReturn").text shouldEqual yes
       (xml \\ "DateReturn").text shouldEqual dayMonthYear.`yyyy-MM-dd`
-      (xml \\ "VisaReferenceNumber").text shouldEqual visaReference
+      (xml \\ "VisaReferenceNumber").text shouldEqual "Not asked"
     }
 
     "skip <OtherNationality> if user has always lived in UK" in {

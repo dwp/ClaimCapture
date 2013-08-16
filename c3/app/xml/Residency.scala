@@ -60,7 +60,7 @@ object Residency {
         <CountryArrivedFrom>{timeOutsideUK.livingInUK.text.orNull}</CountryArrivedFrom>
         <IntendToReturn>{goBack.answer}</IntendToReturn>
         <DateReturn>{stringify(goBack.date)}</DateReturn>
-        <VisaReferenceNumber>{timeOutsideUK.visaReference.orNull}</VisaReferenceNumber>
+        <VisaReferenceNumber>{XMLValues.NotAsked}</VisaReferenceNumber>
       </OtherNationality>
 
     } else NodeSeq.Empty

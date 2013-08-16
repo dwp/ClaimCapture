@@ -14,7 +14,6 @@ final class G3TimeOutsideUKPage(browser: TestBrowser, previousPage: Option[Page]
   declareInput("#livingInUK_originCountry", "AboutYouWhatCountryDidYouComeFrom")
   declareYesNo("#livingInUK_goBack_answer", "AboutYouDoYouPlantoGoBacktoThatCountry")
   declareDate("#livingInUK_goBack_date", "AboutYouWhenDoYouPlantoGoBack")
-  declareInput("#visaReference", "AboutYouWhatIsYourVisaNumber")
 }
 
 /**
