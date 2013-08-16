@@ -44,7 +44,7 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
           val nodes = path.split(">")
           val elementValue = XmlNode(childNode(xml.\\(nodes(0)), nodes.drop(1)))
           if (elementValue.isDefined) {
-            if (elementValue doesNotMatch ClaimValue(attribute, value,xPathNodesAndQuestion.get._2)) listErrors += attribute + " " + path + elementValue.error
+            if (elementValue doesNotMatch ClaimValue(attribute, value, xPathNodesAndQuestion.get._2)) listErrors += attribute + " " + path + elementValue.error
           }
           else listErrors += attribute + " " + path + " XML element not found"
         }
@@ -61,8 +61,8 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
 object XMLBusinessValidation {
 
   def buildXmlMappingFromFile(fileName: String) = {
-    val map = mutable.Map.empty[String,Tuple2[String,String]]
-    def converter(attribute: String)(path: String)(question:String): Unit = map += (attribute -> Tuple2(path,question))
+    val map = mutable.Map.empty[String, Tuple2[String, String]]
+    def converter(attribute: String)(path: String)(question: String): Unit = map += (attribute -> Tuple2(path, question))
     FactoryFromFile.buildFromFileLast3Columns(fileName, converter)
     map
   }
@@ -71,52 +71,56 @@ object XMLBusinessValidation {
 /**
  * Represents an Xml Node once "cleaned", i.e. trimmed and line returns removed.
  */
-class XmlNode(val nodes: NodeSeq) {
+class XmlNode(val theNodes: NodeSeq) {
 
   var error = ""
 
   def matches(claimValue: ClaimValue): Boolean = {
     try {
-       
-      val nodeStart = nodes(0).mkString
 
-      def isARepeatableNode = {
-        !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
+      val nodeStart = theNodes(0).mkString
+
+      val isARepeatableNode = !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
+
+      val isRepeatedAttribute = claimValue.attribute.contains( """_""")
+
+      val iteration = if (isRepeatedAttribute) claimValue.attribute.split("_")(1).toInt - 1 else 0
+
+      if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(XmlNode.EvidenceListNode)) true
+      else {
+        val isPensionScheme = theNodes.mkString.contains("<PensionScheme>") && theNodes.mkString.contains("<Amount>") // Because of bug in Schema :(
+
+        val index = if (isRepeatedAttribute && isARepeatableNode && !isPensionScheme) iteration else 0
+
+        val value = XmlNode.prepareElement(if (isPensionScheme) theNodes.text else theNodes(index).text)
+        val nodeName = theNodes(index).mkString
+
+        def valuesMatching = {
+          if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
+          else if (nodeName.startsWith(XmlNode.EvidenceListNode)) value.contains(claimValue.question + "=" + claimValue.value)
+          else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
+          else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
+          else value == claimValue.value
+        }
+
+        val matching = valuesMatching
+        if (!matching)
+          error = " value expected: [" + (if (nodeName.startsWith(XmlNode.EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + value + "]"
+        matching
       }
-
-      val isPensionScheme = nodes.mkString.contains("<PensionScheme>") && nodes.mkString.contains("<Amount>")     // Because of bug in Schema :(
-
-      val index = if (claimValue.attribute.contains( """_""") && isARepeatableNode && !isPensionScheme) claimValue.attribute.split("_")(1).toInt - 1
-      else 0
-
-      val value =  XmlNode.prepareElement( if(isPensionScheme) nodes.text else nodes(index).text )
-      val nodeName = nodes(index).mkString
-
-      def valuesMatching = {
-        if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
-        else if (nodeName.startsWith(XmlNode.EvidenceListNode)) value.contains(claimValue.question + "=" + claimValue.value)
-        else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
-        else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
-        else value == claimValue.value
-      }
-
-      val matching = valuesMatching
-      if (!matching)
-        error = " value expected: [" + (if (nodeName.startsWith(XmlNode.EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + value + "]"
-      matching
     }
     catch {
-      case e:IndexOutOfBoundsException => throw new PageObjectException("XML Validation failed" + this.toString() + " - " + claimValue.attribute)
+      case e: IndexOutOfBoundsException => throw new PageObjectException("XML Validation failed" + this.toString() + " - " + claimValue.attribute)
     }
   }
 
   def doesNotMatch(claimValue: ClaimValue): Boolean = !matches(claimValue)
 
-  def size = nodes.size
+  def size = theNodes.size
 
-  def isDefined = nodes.nonEmpty
+  def isDefined = theNodes.nonEmpty
 
-  override def toString() = nodes.mkString(",")
+  override def toString() = theNodes.mkString(",")
 
 }
 
@@ -124,6 +128,7 @@ class XmlNode(val nodes: NodeSeq) {
 object XmlNode {
 
   val EvidenceListNode = "<EvidenceList>"
+
   private def prepareElement(elementValue: String) = elementValue.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
   def apply(nodes: NodeSeq) = new XmlNode(nodes)
@@ -138,13 +143,13 @@ object XmlNode {
  */
 class ClaimValue(val attribute: String, val value: String, val question: String) {
 
-  override def toString() = question + " - " + attribute +": " + value
+  override def toString() = question + " - " + attribute + ": " + value
 }
 
 
 object ClaimValue {
 
-  private def prepareQuestion(question:String) = question.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
+  private def prepareQuestion(question: String) = question.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
   private def prepareClaimValue(claimValue: String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
@@ -154,7 +159,7 @@ object ClaimValue {
     } else cleanValue
   }
 
-  def apply(attribute: String, value: String, question:String) = new ClaimValue(attribute, prepareClaimValue(value), prepareQuestion(question))
+  def apply(attribute: String, value: String, question: String) = new ClaimValue(attribute, prepareClaimValue(value), prepareQuestion(question))
 
   //  implicit def fromString(source: String): ClaimValue = new ClaimValue(prepareClaimValue(source))
 }
