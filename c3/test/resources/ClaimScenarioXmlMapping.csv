@@ -147,12 +147,12 @@ Employment,Additional wage details,[[past=Did you]] [[present=Do you]] get holid
 Employment,Additional wage details,[[past=Did you]] [[present=Do you]] get paid any other money as well as your normal wage?,EmploymentAddtionalWageDoYouGetPaidAnyOtherMoney,
 Employment,Additional wage details,Please tell us what other money you received ,EmploymentAdditionalWageOtherMoneyYouReceived,
 Employment,Additional wage details,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney,Employment>JobDetails>OweMoney
-Employment,Money owed to you by your employer,How much are you owed?,EmploymentHowMuchAreYouOwed,Employment>MoneyOwed>Payment>Amount
-Employment,Money owed to you by your employer,What period is it for? From,EmploymentWhatPeriodIsItForFrom,Employment>MoneyOwed>Period>DateFrom
-Employment,Money owed to you by your employer,What period is it for? To,EmploymentWhatPeriodIsItForTo,Employment>MoneyOwed>Period>DateTo
-Employment,Money owed to you by your employer,What is the money owed for?,EmploymentWhatIsTheMoneyOwedFor,Employment>MoneyOwed>Reason
-Employment,Money owed to you by your employer,When should it have been paid?,EmploymentWhenShouldTheMoneyOwedHaveBeenPaid,Employment>MoneyOwed>PaymentDueDate
-Employment,Money owed to you by your employer,When will you get it?,EmploymentWhenWillYouGetMoneyOwed,Employment>MoneyOwed>PaymentExpected
+Employment,Money owed to you by your employer,How much are you owed?,EmploymentHowMuchAreYouOwed,Employment>JobDetails>MoneyOwed>Payment>Amount
+Employment,Money owed to you by your employer,What period is it for? From,EmploymentWhatPeriodIsItForFrom,Employment>JobDetails>MoneyOwed>Period>DateFrom
+Employment,Money owed to you by your employer,What period is it for? To,EmploymentWhatPeriodIsItForTo,Employment>JobDetails>MoneyOwed>Period>DateTo
+Employment,Money owed to you by your employer,What is the money owed for?,EmploymentWhatIsTheMoneyOwedFor,Employment>JobDetails>MoneyOwed>Reason
+Employment,Money owed to you by your employer,When should it have been paid?,EmploymentWhenShouldTheMoneyOwedHaveBeenPaid,Employment>JobDetails>MoneyOwed>PaymentDueDate
+Employment,Money owed to you by your employer,When will you get it?,EmploymentWhenWillYouGetMoneyOwed,Employment>JobDetails>MoneyOwed>PaymentExpected
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme,Employment>JobDetails>PaidForOccupationalPension
 Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension,Employment>JobDetails>PensionScheme>Payment>Amount
 Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension,Employment>JobDetails>PensionScheme>Frequency

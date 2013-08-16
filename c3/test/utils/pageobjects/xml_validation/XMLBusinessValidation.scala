@@ -79,7 +79,7 @@ class XmlNode(val nodes: NodeSeq) {
     try {
       def isARepeatableNode = {
         val nodeStart = nodes(0).mkString
-        !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
+        !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>") && !(nodeStart.contains("<PensionScheme>") && nodeStart.contains("<Amount>"))
       }
 
       val index = if (claimValue.attribute.contains( """_""") && isARepeatableNode) claimValue.attribute.split("_")(1).toInt - 1
@@ -91,7 +91,7 @@ class XmlNode(val nodes: NodeSeq) {
       def valuesMatching = {
         if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>")) value.contains(claimValue.value)
         else if (nodeName.startsWith(XmlNode.EvidenceListNode)) value.contains(claimValue.question + "=" + claimValue.value)
-        else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
+        else if (nodeName.endsWith("gds:Line>") || (nodeName.contains("PensionScheme") && nodeName.contains("Amount"))) claimValue.value.contains(value)
         else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
         else value == claimValue.value
       }
