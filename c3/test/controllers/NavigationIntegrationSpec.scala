@@ -3,8 +3,6 @@ package controllers
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 import play.api.test.WithBrowser
-import utils.pageobjects.ClaimScenario
-import utils.pageobjects.s1_carers_allowance._
 import org.fluentlenium.core.Fluent
 
 class NavigationIntegrationSpec extends Specification with Tags {
@@ -36,33 +34,33 @@ class NavigationIntegrationSpec extends Specification with Tags {
       back.title shouldEqual "Your contact details - About you - the carer"
       back.title shouldEqual "Your details - About you - the carer"
     }
-  } section "integration"
 
-  "Browser" should {
-    "not cache pages" in new WithBrowser with G1BenefitsPageContext {
-      val claim = new ClaimScenario
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
-      claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
-      claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "yes"
-      claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
-      page goToThePage()
+    """navigate to
+        "your details" then
+        "contact details" then
+        "claim date" (i.e. skipping "time outside UK") then back to
+        "contact details" and back to
+        "your details" then "time outside UK" going to
+        "contact details" then
+        "time outside UK" and finally back to
+        "contact details".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with DataFiller {
+      goTo("/about-you/your-details").title shouldEqual "Your details - About you - the carer"
+      enter > `/about-you/your-details`
 
-      val s1g2 = page fillPageWith claim submitPage() 
-      val s1g3 = s1g2 fillPageWith claim submitPage()
-      val s1g4 = s1g3 fillPageWith claim submitPage()
-      val approvalPage = s1g4 fillPageWith claim submitPage()
-      val backToS1G1 = approvalPage goBack() goBack() goBack() goBack()
-      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
+      next.title shouldEqual "Your contact details - About you - the carer"
+      enter > `/about-you/contact-details`
 
-      backToS1G1 fillPageWith claim
-      val s1g2SecondTime = backToS1G1 submitPage()
+      next.title shouldEqual "Your Claim Date - About you - the carer"
+      back.title shouldEqual "Your contact details - About you - the carer"
+      back.title shouldEqual "Your details - About you - the carer"
 
-      s1g2SecondTime should beLike { case p: G2HoursPage =>
-        p numberSectionsCompleted() shouldEqual 1
-        val completed = p.findTarget("div[class=completed] ul li")
-        completed(0) must contain("Does the person you look after get one of these benefits?")
-        completed(0) must contain("No")
-      }
+      enter > `/about-you/your-details` click "#alwaysLivedUK_no"
+
+      next.title shouldEqual "Your contact details - About you - the carer"
+      enter > `/about-you/contact-details`
+
+      next.title shouldEqual "About your time outside the UK - About you - the carer"
+      back.title shouldEqual "Your contact details - About you - the carer"
     }
   } section "integration"
 }
