@@ -20,14 +20,28 @@ class NavigationSpec extends Specification {
       val navigation = Navigation() track route1 track route2
 
       navigation.current shouldEqual route2
-      navigation.backup.current shouldEqual route1
+      navigation.previous shouldEqual route1
     }
 
-    "should give original back from only one existing action" in {
+    "give original back from only one existing route" in {
       val route = "/about-you/your-details"
       val navigation = Navigation() track route
 
-      navigation.backup.current shouldEqual route
+      navigation.previous shouldEqual route
+    }
+
+    "track 2 routes, and upon going back and then retracking the second route should still only have 2 routes" in {
+      val route1 = "/about-you/your-details"
+      val route2 = "/about-you/contact-details"
+      val navigation = Navigation() track route1 track route2
+      navigation.routes.size shouldEqual 2
+
+      navigation.previous shouldEqual route1
+
+      val renavigation = navigation track route2
+      renavigation.routes.size shouldEqual 2
+
+      navigation.current shouldEqual route2
     }
   }
 }

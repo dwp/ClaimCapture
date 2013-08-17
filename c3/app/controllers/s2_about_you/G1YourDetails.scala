@@ -6,11 +6,10 @@ import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
 import models.domain._
-import models.view.CachedClaim
-import models.view.Navigation._
+import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 
-object G1YourDetails extends Controller with CachedClaim {
+object G1YourDetails extends Controller with CachedClaim with Navigable {
   val form = Form(
     mapping(
       "title" -> nonEmptyText(maxLength = 4),
@@ -24,10 +23,8 @@ object G1YourDetails extends Controller with CachedClaim {
       "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo),
       "maritalStatus" -> nonEmptyText(maxLength = 1))(YourDetails.apply)(YourDetails.unapply))
 
-  def present = track {
-    claiming { implicit claim => implicit request =>
-      Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails)))
-    }
+  def present = claiming { implicit claim => implicit request =>
+    track { implicit claim => Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>

@@ -6,12 +6,11 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
-import models.view.CachedClaim
+import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import play.api.data.validation.Constraints._
-import models.view.Navigation._
 
-object G2ContactDetails extends Controller with AboutYouRouting with CachedClaim {
+object G2ContactDetails extends Controller with AboutYouRouting with CachedClaim with Navigable {
   val form = Form(
     mapping(
       "address" -> address.verifying(requiredAddress),
@@ -21,10 +20,8 @@ object G2ContactDetails extends Controller with AboutYouRouting with CachedClaim
       "mobileNumber" -> optional(text)
     )(ContactDetails.apply)(ContactDetails.unapply))
 
-  def present = track {
-    claiming { implicit claim => implicit request =>
-      Ok(views.html.s2_about_you.g2_contactDetails(form.fill(ContactDetails), completedQuestionGroups(ContactDetails)))
-    }
+  def present = claiming { implicit claim => implicit request =>
+    track { implicit claim => Ok(views.html.s2_about_you.g2_contactDetails(form.fill(ContactDetails), completedQuestionGroups(ContactDetails))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>

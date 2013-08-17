@@ -6,12 +6,12 @@ import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
-import models.view.CachedClaim
+import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithDate
 import models.LivingInUK
 
-object G3TimeOutsideUK extends Controller with AboutYouRouting with CachedClaim {
+object G3TimeOutsideUK extends Controller with AboutYouRouting with CachedClaim with Navigable {
   val goBackMapping =
     "goBack" -> optional(
       mapping(
@@ -37,7 +37,7 @@ object G3TimeOutsideUK extends Controller with AboutYouRouting with CachedClaim 
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(YourDetails) match {
       case Some(y: YourDetails) if y.alwaysLivedUK == "yes" => claim.delete(TimeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
-      case _ => Ok(views.html.s2_about_you.g3_timeOutsideUK(form.fill(TimeOutsideUK), completedQuestionGroups(TimeOutsideUK)))
+      case _ => track { implicit claim => Ok(views.html.s2_about_you.g3_timeOutsideUK(form.fill(TimeOutsideUK), completedQuestionGroups(TimeOutsideUK))) }
     }
   }
 
