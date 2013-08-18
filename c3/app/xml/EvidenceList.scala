@@ -3,10 +3,9 @@ package xml
 import models.domain._
 import controllers.Mappings.yes
 import XMLHelper.{stringify, booleanStringToYesNo}
+import scala.xml.Elem
 
 object EvidenceList {
-
-  val separationLine = "=========================================================================================="
 
   def xml(claim: Claim) = {
     <EvidenceList>
@@ -32,103 +31,104 @@ object EvidenceList {
     val buffer = new scala.xml.NodeBuffer
 
     if(employed || selfEmployed) {
-      buffer += <TextLine>Send us the following documents below including your Name and National Insurance (NI) number.</TextLine>
+      buffer += textLine("Send us the following documents below including your Name and National Insurance (NI) number.")
 
       if(employed){
-        buffer += <TextLine/>
-        buffer += <TextLine>Your Employment documents</TextLine>
-        buffer += <TextLine>Last payslip you got before your claim date: {claimDate.dateOfClaim.`dd/MM/yyyy`}</TextLine>
-        buffer += <TextLine>Any payslips you have had since then</TextLine>
+        buffer += textLine()
+        buffer += textLine("Your Employment documents")
+        buffer += textLine("Last payslip you got before your claim date: ", claimDate.dateOfClaim.`dd/MM/yyyy`)
+        buffer += textLine("Any payslips you have had since then")
       }
 
       if(selfEmployed) {
-        buffer += <TextLine/>
-        buffer += <TextLine>Your Self-employed documents</TextLine>
-        buffer += <TextLine>Most recent finalised accounts you have for your busines</TextLine>
+        buffer += textLine()
+        buffer += textLine("Your Self-employed documents")
+        buffer += textLine("Most recent finalised accounts you have for your busines")
       }
-      buffer += <TextLine/>
-      buffer += <TextLine>Send the above documents to:</TextLine>
-      buffer += <TextLine>CA Freepost</TextLine>
-      buffer += <TextLine>Palatine House</TextLine>
-      buffer += <TextLine>Preston</TextLine>
-      buffer += <TextLine>PR1 1HN</TextLine>
-      buffer += <TextLine>The Carer's Allowance unit will contact you if they need any further information.</TextLine>
-      buffer += <TextLine>{separationLine}</TextLine>
-      buffer += <TextLine/>
+      buffer += textLine()
+      buffer += textLine("Send the above documents to:")
+      buffer += textLine("CA Freepost")
+      buffer += textLine("Palatine House")
+      buffer += textLine("Preston")
+      buffer += textLine("PR1 1HN")
+      buffer += textLine("The Carer's Allowance unit will contact you if they need any further information.")
+      buffer += textLine()
     }
     buffer
   }
 
-  def carersAllowance(claim:Claim) = {
+  def carersAllowance(claim: Claim) = {
     val benefits = claim.questionGroup[Benefits].getOrElse(Benefits())
     val hours = claim.questionGroup[Hours].getOrElse(Hours())
     val over16 = claim.questionGroup[Over16].getOrElse(Over16())
     val livesInGB = claim.questionGroup[LivesInGB].getOrElse(LivesInGB())
-    <TextLine>{sectionSeparationLine("Can you get Carers Allowance?")}</TextLine>
-    <TextLine>Does the person you care for get one of these benefits? = {benefits.answerYesNo}</TextLine>
-    <TextLine>Do you spend 35 hours or more each week caring for the person you look after? = {hours.answerYesNo}</TextLine>
-    <TextLine>Do you normally live in Great Britain? = {livesInGB.answerYesNo}</TextLine>
-    <TextLine>Are you aged 16 or over? = {over16.answerYesNo}</TextLine>
+    textSeparatorLine("Can you get Carers Allowance?") ++
+      textLine("Does the person you care for get one of these benefits? = ", benefits.answerYesNo) ++
+      textLine("Do you spend 35 hours or more each week caring for the person you look after? = ", hours.answerYesNo) ++
+      textLine("Do you normally live in Great Britain? = ", livesInGB.answerYesNo) ++
+      textLine("Are you aged 16 or over? = ", over16.answerYesNo)
   }
 
 
-  def aboutYou(claim:Claim) = {
+  def aboutYou(claim: Claim) = {
     val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
     val yourContactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
     val timeOutsideUK = claim.questionGroup[TimeOutsideUK].getOrElse(TimeOutsideUK())
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
-    <TextLine>{sectionSeparationLine("About You")}</TextLine>
-    <TextLine>Have you always lived in the UK? = {yourDetails.alwaysLivedUK}</TextLine>
-    <TextLine>Mobile number = {yourContactDetails.mobileNumber.orNull}</TextLine>
-    <TextLine>Are you currently living in the UK? = {timeOutsideUK.livingInUK.answer}</TextLine>
-    <TextLine>Do you get state Pension? = {moreAboutYou.receiveStatePension}</TextLine>
+    textSeparatorLine("About You") ++
+      textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK) ++
+      textLine("Mobile number = ", yourContactDetails.mobileNumber) ++
+      textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer) ++
+      textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension)
   }
 
-  def yourPartner(claim:Claim) = {
+  def yourPartner(claim: Claim) = {
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
-    <TextLine>{sectionSeparationLine("About Your Partner")}</TextLine>
-    <TextLine>Does your partner/spouse live at the same address as you? = {yourPartnerPersonalDetails.liveAtSameAddress}</TextLine>
-    <TextLine>Is your partner/spouse the person you are claiming Carer's Allowance for? = {personYouCareFor.isPartnerPersonYouCareFor}</TextLine>
+    textSeparatorLine("About Your Partner") ++
+      textLine("Does your partner/spouse live at the same address as you? = ", yourPartnerPersonalDetails.liveAtSameAddress) ++
+      textLine("Is your partner/spouse the person you are claiming Carer's Allowance for? = ", personYouCareFor.isPartnerPersonYouCareFor)
   }
 
-  def careYouProvide(claim:Claim) = {
+  def careYouProvide(claim: Claim) = {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
     val previousCarerContactDetails = claim.questionGroup[PreviousCarerContactDetails].getOrElse(PreviousCarerContactDetails())
     val representativesForPerson = claim.questionGroup[RepresentativesForPerson].getOrElse(RepresentativesForPerson())
-    <TextLine>{sectionSeparationLine("About Care You Provide")}</TextLine>
-    <TextLine>Do they live at the same address as you? = {theirPersonalDetails.liveAtSameAddressCareYouProvide}</TextLine>
-    <TextLine>Does this person get Armed Forces Independence Payment? = {moreAboutThePerson.armedForcesPayment.orNull}</TextLine>
-    <TextLine>Daytime phone number = {previousCarerContactDetails.phoneNumber.orNull}</TextLine>
-    <TextLine>Mobile number = {previousCarerContactDetails.mobileNumber.orNull}</TextLine>
-    <TextLine>Person acts as = {representativesForPerson.someoneElseAct.dropDownValue.orNull}</TextLine>
-    <TextLine>Full name = {representativesForPerson.someoneElseAct.text.orNull}</TextLine>
+    textSeparatorLine("About Care You Provide") ++
+      textLine("Do they live at the same address as you? = ", theirPersonalDetails.liveAtSameAddressCareYouProvide) ++
+      textLine("Does this person get Armed Forces Independence Payment? = ", moreAboutThePerson.armedForcesPayment) ++
+      textLine("Daytime phone number = ", previousCarerContactDetails.phoneNumber) ++
+      textLine("Mobile number = ", previousCarerContactDetails.mobileNumber) ++
+      textLine("Person acts as = ", representativesForPerson.someoneElseAct.dropDownValue) ++
+      textLine("Full name = ", representativesForPerson.someoneElseAct.text)
   }
 
   def breaks(claim:Claim) = {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
-    for {break <- breaksInCare.breaks} yield <TextLine>Where was the person you care for during the break? = {break.wherePerson.location} {break.wherePerson.other.orNull}</TextLine>
+    for {break <- breaksInCare.breaks} yield 
+      textLine("Where was the person you care for during the break? = ",break.wherePerson.location + break.wherePerson.other)
   }
 
-  def timeSpentAbroad(claim:Claim) = {
+  def timeSpentAbroad(claim: Claim) = {
     val normalResidenceAndCurrentLocation = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
     val abroadForMoreThan52Weeks = claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())
-    <TextLine>{sectionSeparationLine("Abroad")}</TextLine>
-    <TextLine>Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = {normalResidenceAndCurrentLocation.whereDoYouLive.answer}</TextLine>
-    <TextLine>Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)? = {abroadForMoreThan52Weeks.anyTrips}</TextLine>
+    textSeparatorLine("Abroad") ++
+      textLine("Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = ", normalResidenceAndCurrentLocation.whereDoYouLive.answer) ++
+      textLine("Have you had any more trips out of Great Britain for more than 52 weeks at a time, " ++
+        "since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)? = ", abroadForMoreThan52Weeks.anyTrips)
   }
 
   def fiftyTwoWeeksTrips(claim:Claim) = {
     val trips  = claim.questionGroup[Trips].getOrElse(Trips())
-    for {fiftyTwoWeekTrip <- trips.fiftyTwoWeeksTrips} yield <TextLine>Where did you go? = {fiftyTwoWeekTrip.where}</TextLine>
+    for {fiftyTwoWeekTrip <- trips.fiftyTwoWeeksTrips} yield textLine("Where did you go? = ",fiftyTwoWeekTrip.where)
   }
 
-  def selfEmployment(claim:Claim) = {
+  def selfEmployment(claim: Claim) = {
     val yourAccounts = claim.questionGroup[SelfEmploymentYourAccounts].getOrElse(SelfEmploymentYourAccounts())
-    <TextLine>{sectionSeparationLine("Self Employment")}</TextLine>
-    <TextLine>Are the income, outgoings and profit in these accounts similar to your current level of trading? = {yourAccounts.areIncomeOutgoingsProfitSimilarToTrading.orNull} </TextLine>
-    <TextLine>Please tell us why and when the change happened = {yourAccounts.tellUsWhyAndWhenTheChangeHappened.orNull}</TextLine>
+    textSeparatorLine("Self Employment") ++
+      textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
+      textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened)
   }
 
   def otherMoney(claim:Claim) = {
@@ -136,41 +136,61 @@ object EvidenceList {
     val statutorySickPay = claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay())
     val otherStatutoryPay = claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay())
     val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    <TextLine>{sectionSeparationLine("Other Money")}</TextLine>
-    <TextLine>Have you [or your partner/spouse] claimed or received any other benefits since the date you want to claim? = {aboutOtherMoney.yourBenefits.answer}</TextLine>
-    <TextLine>Please tell us the names of the benefits or entitlements you receive = {aboutOtherMoney.yourBenefits.text1.orNull}</TextLine>
-    <TextLine>Please tell us the names of the benefits or entitlements your partner/spouse receive = {aboutOtherMoney.yourBenefits.text2.orNull}</TextLine>
-    <TextLine>Statutory Sick Pay: How much? = {statutorySickPay.howMuch.orNull}</TextLine>
-    <TextLine>Statutory Sick Pay: How often? = {stringify(statutorySickPay.howOften)}</TextLine>
-    <TextLine>Other Statutory Pay: How much? = {otherStatutoryPay.howMuch.orNull}</TextLine>
-    <TextLine>Other Statutory Pay: How often? = {stringify(otherStatutoryPay.howOften)}</TextLine>
-    <TextLine>Are you, your wife, husband, civil partner or parent you are dependent on, receiving  any pensions or benefits from another EEA State or Switzerland? = {otherEEAState.benefitsFromOtherEEAStateOrSwitzerland}</TextLine>
-    <TextLine>Are you, your wife, husband, civil partner or parent you are dependent on working in or paying insurance to another EEA State or Switzerland? = {otherEEAState.workingForOtherEEAStateOrSwitzerland}</TextLine>
+    textSeparatorLine("Other Money") ++
+      textLine("Have you [or your partner/spouse] claimed or received any other benefits since the date you want to claim? = ", aboutOtherMoney.yourBenefits.answer) ++
+      textLine("Please tell us the names of the benefits or entitlements you receive = ", aboutOtherMoney.yourBenefits.text1) ++
+      textLine("Please tell us the names of the benefits or entitlements your partner/spouse receive = ", aboutOtherMoney.yourBenefits.text2) ++
+      textLine("Statutory Sick Pay: How much? = ", statutorySickPay.howMuch) ++
+      textLine("Statutory Sick Pay: How often? = ", stringify(statutorySickPay.howOften)) ++
+      textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
+      textLine("Other Statutory Pay: How often? = ", stringify(otherStatutoryPay.howOften)) ++
+      textLine("Are you, your wife, husband, civil partner or parent you are dependent on, " +
+        "receiving  any pensions or benefits from another EEA State or Switzerland? = ", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland) ++
+      textLine("Are you, your wife, husband, civil partner or parent you are dependent on " +
+        "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
   }
 
-  def consentAndDeclaration(claim:Claim) = {
+  def consentAndDeclaration(claim: Claim) = {
     val consent = claim.questionGroup[Consent].getOrElse(Consent())
     val disclaimer = claim.questionGroup[Disclaimer].getOrElse(Disclaimer())
     val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
-    <TextLine>{sectionSeparationLine("Consent and Declaration")}</TextLine>
-    <TextLine>Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? = {consent.informationFromEmployer}</TextLine>
-    <TextLine>Please tell us why = {consent.informationFromEmployer.text.orNull}</TextLine>
-    <TextLine>Do you agree to us getting information from any other person or organisation you have told us about as part of this claim? = {consent.informationFromPerson}</TextLine>
-    <TextLine>Please tell us why = {consent.informationFromPerson.text.orNull}</TextLine>
-    <TextLine>Disclaimer text and tick box = {booleanStringToYesNo(disclaimer.read)}</TextLine>
-    <TextLine>Declaration tick box = {booleanStringToYesNo(declaration.read)}</TextLine>
-    <TextLine>Someone else tick box = {booleanStringToYesNo(stringify(declaration.someoneElse))}</TextLine>
+    textSeparatorLine("Consent and Declaration") ++
+      textLine("Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? = ", consent.informationFromEmployer.answer) ++
+      textLine("Please tell us why = ", consent.informationFromEmployer.text) ++
+      textLine("Do you agree to us getting information from any other person or organisation you have told us about as part of this claim? = ", consent.informationFromPerson.answer) ++
+      textLine("Please tell us why = ", consent.informationFromPerson.text) ++
+      textLine("Disclaimer text and tick box = ", booleanStringToYesNo(disclaimer.read)) ++
+      textLine("Declaration tick box = ", booleanStringToYesNo(declaration.read)) ++
+      textLine("Someone else tick box = ", booleanStringToYesNo(stringify(declaration.someoneElse)))
   }
 
-  def sectionSeparationLine(section:String) = {
-    val name = " " + section + " "
-    val offsetLeft = (separationLine.length - name.length) / 2
-    val offsetRight = separationLine.length - offsetLeft - (name.length % 2)
-
-    val firstHalf = (separationLine.splitAt( offsetLeft ))._1
-    val secondHalf = (separationLine.splitAt( offsetRight ))._2
-
-    firstHalf + name + secondHalf
+  private def textSeparatorLine(title:String) = {
+    val sectionChar = "="
+    val lineWidth = 54
+    val padding : Int = lineWidth - title.length / 2
+    val separator = sectionChar * padding
+    <TextLine>{s"$separator$title$separator"}</TextLine>
   }
 
+  private def textLine() : Elem = {
+    <TextLine/>
+  }
+
+  private def textLine(text:String) : Elem = {
+    <TextLine>{text}</TextLine>
+  }
+
+  private def textLine(label:String, value:String) : Elem = {
+    value match {
+      case "" => <TextLine/>
+      case _ => <TextLine>{s"$label $value"}</TextLine>
+    }
+  }
+
+  private def textLine(label:String, value:Option[String]) : Elem = {
+    value match {
+      case Some(s) => <TextLine>{s"$label $s"}</TextLine>
+      case None => <TextLine/>
+    }
+  }
 }
