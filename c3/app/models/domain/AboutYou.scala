@@ -16,10 +16,8 @@ case class YourDetails(title: String = "",
                        dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
                        alwaysLivedUK: String = "",
                        maritalStatus: String = "") extends QuestionGroup(YourDetails) {
-  def otherNames = firstName + (middleName match {
-    case Some(m: String) => s" $m"
-    case _ => ""
-  })
+
+  def otherNames = firstName + middleName.map(" " + _).getOrElse("")
 }
 
 object YourDetails extends QuestionGroup.Identifier {

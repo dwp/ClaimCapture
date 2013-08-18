@@ -95,9 +95,7 @@ trait CachedClaim {
 
   type JobID = String
 
-  def claimingInJob(f: => JobID => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action {
-    request => {
-      claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
-    }
+  def claimingInJob(f: => JobID => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action { request =>
+    claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
   }
 }

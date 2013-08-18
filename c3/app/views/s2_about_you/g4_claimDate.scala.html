@@ -1,4 +1,4 @@
-@(claimDateForm: Form[models.domain.ClaimDate], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@(claimDateForm: Form[models.domain.ClaimDate])(implicit claim: models.domain.Claim)
 
 @import scala.collection.immutable.ListMap
 @import helper._
@@ -7,7 +7,7 @@
 @import views.html.helper.dates._
 @import views.html.s2_about_you.main
 
-@main("Your Claim Date" + " - " + Messages("s2.longName"), completedQuestionGroups) {
+@main("Your Claim Date" + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
     @errorsSummary(claimDateForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
