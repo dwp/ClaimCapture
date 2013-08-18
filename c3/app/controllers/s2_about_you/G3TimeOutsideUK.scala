@@ -11,7 +11,7 @@ import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithDate
 import models.LivingInUK
 
-object G3TimeOutsideUK extends Controller with AboutYouRouting with CachedClaim with Navigable {
+object G3TimeOutsideUK extends Controller with CachedClaim with Navigable {
   val goBackMapping =
     "goBack" -> optional(mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),

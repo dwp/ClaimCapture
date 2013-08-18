@@ -4,9 +4,8 @@ import play.api.mvc._
 import models.view.{Navigable, CachedClaim}
 import models.domain._
 import controllers.Mappings.no
-import controllers.Routing
 
-object AboutYou extends Controller with AboutYouRouting with CachedClaim with Navigable {
+object AboutYou extends Controller with CachedClaim with Navigable {
   def completed = claiming { implicit claim => implicit request =>
     track(AboutYou) { implicit claim => Ok(views.html.s2_about_you.g8_completed()) }
   }
@@ -22,16 +21,5 @@ object AboutYou extends Controller with AboutYouRouting with CachedClaim with Na
     if (yourDetailsVisible && nrOfCompletedQuestionGroups == 6) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
     else if (!yourDetailsVisible && nrOfCompletedQuestionGroups == 5) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
     else Redirect(routes.G1YourDetails.present())
-  }
-}
-
-trait AboutYouRouting extends Routing {
-  override def route(qgi: QuestionGroup.Identifier) = qgi match {
-    case YourDetails => routes.G1YourDetails.present()
-    case ContactDetails => routes.G2ContactDetails.present()
-    case TimeOutsideUK => routes.G3TimeOutsideUK.present()
-    case ClaimDate => routes.G4ClaimDate.present()
-    case MoreAboutYou => routes.G5MoreAboutYou.present()
-    case Employment => routes.G6Employment.present()
   }
 }

@@ -9,7 +9,7 @@ import play.api.mvc.Controller
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 
-object G4ClaimDate extends Controller with AboutYouRouting with CachedClaim with Navigable {
+object G4ClaimDate extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "dateOfClaim" -> dayMonthYear.verifying(validDate)
   )(ClaimDate.apply)(ClaimDate.unapply))

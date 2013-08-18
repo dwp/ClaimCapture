@@ -9,7 +9,7 @@ import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 
-object G6Employment extends Controller with AboutYouRouting with CachedClaim with Navigable {
+object G6Employment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText.verifying(validYesNo),
     "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo)

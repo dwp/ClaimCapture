@@ -10,7 +10,7 @@ import utils.helpers.CarersForm._
 import controllers.Mappings.validYesNo
 import controllers.Mappings._
 
-object G5MoreAboutYou extends Controller with AboutYouRouting with CachedClaim with Navigable {
+object G5MoreAboutYou extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "hadPartnerSinceClaimDate" -> nonEmptyText.verifying(validYesNo),
     "beenInEducationSinceClaimDate" -> nonEmptyText.verifying(validYesNo),

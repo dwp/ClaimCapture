@@ -10,7 +10,7 @@ import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import play.api.data.validation.Constraints._
 
-object G2ContactDetails extends Controller with AboutYouRouting with CachedClaim with Navigable {
+object G2ContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "address" -> address.verifying(requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
