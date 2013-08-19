@@ -8,21 +8,21 @@ import models.domain.Claiming
 class G3AbroadForMoreThan52WeeksSpec extends Specification with Tags {
   "Abroad more than 52 weeks" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G3AbroadForMoreThan52Weeks.present(request)
       status(result) mustEqual OK
     }
 
     """enforce answer to "abroad for more than 52 weeks".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G3AbroadForMoreThan52Weeks.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """accept "yes" to "abroad for more than 52 weeks".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("anyTrips" -> "yes")
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody("anyTrips" -> "yes")
 
       val result = G3AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome("/time-spent-abroad/trip/52-weeks")
@@ -30,7 +30,7 @@ class G3AbroadForMoreThan52WeeksSpec extends Specification with Tags {
 
     """accept "no" to "abroad for more than 52 weeks".""" in new WithApplication with Claiming {
       pending
-      /*val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("anyTrips" -> "no")
+      /*val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody("anyTrips" -> "no")
 
       val result = G2AbroadForMoreThan4Weeks.submit(request)
       redirectLocation(result) must beSome("/time-spent-abroad/other-eea-state-switzerland")*/

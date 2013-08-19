@@ -38,21 +38,21 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
     def prepareCache(claimKey: String) = Cache.set(claimKey, Claim().update(new MoneyPaidToSomeoneElseForYou("no")))
 
     "present 'Person Who Gets The Money' if visible" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = G3PersonWhoGetsThisMoney.present(request)
 
       status(result) mustEqual OK
     }
 
     "redirect 'Person Who Gets The Money' if hidden" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       prepareCache(claimKey)
       val result = G3PersonWhoGetsThisMoney.present(request)
       status(result) mustEqual SEE_OTHER
     }
 
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("foo" -> "bar")
 
       val result = G3PersonWhoGetsThisMoney.submit(request)
@@ -60,7 +60,7 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = G3PersonWhoGetsThisMoney.submit(request)
@@ -77,7 +77,7 @@ class G3PersonWhoGetsThisMoneySpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = G3PersonWhoGetsThisMoney.submit(request)

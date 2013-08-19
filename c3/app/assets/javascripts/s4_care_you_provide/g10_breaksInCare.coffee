@@ -61,3 +61,13 @@ disable = ->
     $("tr input[type='button']").attr("disabled", "true").addClass("disabled")
     $("input[type='radio']").attr("disabled", "true").addClass("disabled")
     $(".form-steps").children().attr("disabled", "true").addClass("disabled")
+
+
+window.initEvents = (answer_yes, answer_no) ->
+  $("#" + answer_yes).on "click", ->
+    if $("tbody").children().length is 10
+          $("#warningMessageWrap").slideDown()
+          $("#warningMessageWrap").css('display', "block")
+
+  $("#" + answer_no).on "click", ->
+    $("#warningMessageWrap").slideUp()

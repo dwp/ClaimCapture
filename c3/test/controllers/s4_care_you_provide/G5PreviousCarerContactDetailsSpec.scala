@@ -22,7 +22,7 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito with 
   "Previous Carer Personal Details - Controller" should {
 
     "add previous carer personal details to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(previousCarerContactDetailsInput: _*)
 
       val result = G5PreviousCarerContactDetails.submit(request)
@@ -40,7 +40,7 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito with 
     }
 
     "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
       val result = G5PreviousCarerContactDetails.submit(request)
@@ -48,7 +48,7 @@ class G5PreviousCarerContactDetailsSpec extends Specification with Mockito with 
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(previousCarerContactDetailsInput: _*)
 
       val result = G5PreviousCarerContactDetails.submit(request)

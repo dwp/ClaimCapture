@@ -33,14 +33,14 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
       "employersPostcode" -> employersPostcode)
 
     "present 'Other Statutory Pay - Other Money' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = controllers.s9_other_money.G6OtherStatutoryPay.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = controllers.s9_other_money.G6OtherStatutoryPay.submit(request)
@@ -63,7 +63,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
 
     "return a bad request after an invalid submission" in {
       "invalid postcode" in new WithApplication with Claiming {
-        val request = FakeRequest().withSession("connected" -> claimKey)
+        val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
           .withFormUrlEncodedBody("otherPay" -> yes,
           "employersName" -> employersName,
           "employersPostcode" -> "INVALID")
@@ -73,7 +73,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
       }
 
       "missing mandatory field" in new WithApplication with Claiming {
-        val request = FakeRequest().withSession("connected" -> claimKey)
+        val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
           .withFormUrlEncodedBody("otherPay" -> yes)
 
         val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
@@ -82,7 +82,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = controllers.s9_other_money.G6OtherStatutoryPay.submit(request)

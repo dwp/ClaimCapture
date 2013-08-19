@@ -12,21 +12,21 @@ class G7MoreAboutTheCareSpec extends Specification with Tags {
   "More about the care" should {
 
     """present More about the care""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G7MoreAboutTheCare.present(request)
       status(result) mustEqual OK
     }
 
     "fail submit for no input" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G7MoreAboutTheCare.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "success for minimal input without optional fields" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(moreAboutTheCareInput: _*)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody(moreAboutTheCareInput: _*)
 
       val result = G7MoreAboutTheCare.submit(request)
       status(result) mustEqual SEE_OTHER

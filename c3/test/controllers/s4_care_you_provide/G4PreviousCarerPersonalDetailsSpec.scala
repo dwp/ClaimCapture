@@ -16,7 +16,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito with
     "add previous carer personal details to the cached claim" in new WithApplication with Claiming {
       val filteredData = data filter { case (k, v) => k == "firstName" || k == "surname" }
 
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(filteredData: _*)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody(filteredData: _*)
 
       val result = G4PreviousCarerPersonalDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
@@ -29,7 +29,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito with
     "return a BadRequest when missing mandatory data" in new WithApplication with Claiming {
       val missingData = data filterNot { case (k, v) => k == "firstName" }
 
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(missingData: _*)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody(missingData: _*)
 
       val result = G4PreviousCarerPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
@@ -38,7 +38,7 @@ class G4PreviousCarerPersonalDetailsSpec extends Specification with Mockito with
     "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
       val badBirthdayData = data map { case (k, v) => if (k == "dateOfBirth.day") "dateOfBirth.day" -> "INVALID" else k -> v }
 
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(badBirthdayData: _*)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody(badBirthdayData: _*)
 
       val result = G4PreviousCarerPersonalDetails.submit(request)
       status(result) mustEqual BAD_REQUEST

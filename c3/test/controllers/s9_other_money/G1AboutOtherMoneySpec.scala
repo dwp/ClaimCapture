@@ -16,7 +16,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     val formInput = Seq("yourBenefits.answer" -> yourBenefits, "yourBenefits.text1" -> yourBenefitsText, "yourBenefits.text2" -> yourPartnerBenefitsText)
     
     "present 'Your course details'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G1AboutOtherMoney.present(request)
       
@@ -24,7 +24,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     }
         
     "add submitted data to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = G1AboutOtherMoney.submit(request)
@@ -40,7 +40,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     }
     
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = G1AboutOtherMoney.submit(request)

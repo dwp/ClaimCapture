@@ -9,21 +9,21 @@ import models.domain.{Trips, Claiming, Claim}
 class G4TripSpec extends Specification with Tags {
   "4 week trip" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withHeaders("referer" -> "")
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withHeaders("referer" -> "")
 
       val result = G4Trip.fourWeeks(request)
       status(result) mustEqual OK
     }
 
     "be rejected for missing mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withHeaders("referer" -> "")
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withHeaders("referer" -> "")
 
       val result = G4Trip.fourWeeksSubmit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "add two 4 week trips" in new WithApplication with Claiming {
-      val request1 = FakeRequest().withSession("connected" -> claimKey)
+      val request1 = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(
         "tripID" -> "1",
         "start.day" -> "1",
@@ -37,7 +37,7 @@ class G4TripSpec extends Specification with Tags {
 
       G4Trip.fourWeeksSubmit(request1)
 
-      val request2 = FakeRequest().withSession("connected" -> claimKey)
+      val request2 = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(
         "tripID" -> "2",
         "start.day" -> "1",
@@ -58,7 +58,7 @@ class G4TripSpec extends Specification with Tags {
     "update existing trip" in new WithApplication with Claiming {
       val tripID = "1"
 
-      val requestNew = FakeRequest().withSession("connected" -> claimKey)
+      val requestNew = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(
         "tripID" -> tripID,
         "start.day" -> "1",
@@ -73,7 +73,7 @@ class G4TripSpec extends Specification with Tags {
 
       val yearUpdate = 2005
 
-      val requestUpdate = FakeRequest().withSession("connected" -> claimKey)
+      val requestUpdate = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(
         "tripID" -> tripID,
         "start.day" -> "1",
@@ -93,7 +93,7 @@ class G4TripSpec extends Specification with Tags {
 
     "allow no more than 5 four week trips" in new WithApplication with Claiming {
       for (index <- 1 to 5) {
-        val request = FakeRequest().withSession("connected" -> claimKey)
+        val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
           .withFormUrlEncodedBody(
           "tripID" -> index.toString,
           "start.day" -> "1",
@@ -111,7 +111,7 @@ class G4TripSpec extends Specification with Tags {
         case Some(ts: Trips) => ts.fourWeeksTrips.size shouldEqual 5
       }
 
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(
         "tripID" -> "TOO MANY",
         "start.day" -> "1",

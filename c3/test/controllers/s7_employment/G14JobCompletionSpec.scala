@@ -8,13 +8,13 @@ import models.domain._
 class G14JobCompletionSpec extends Specification with Tags {
   "Job completion" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = G14JobCompletion.present("Dummy job ID")(request)
       status(result) mustEqual OK
     }
 
     """progress to "employment completion".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = G14JobCompletion.submit(request)
       status(result) mustEqual SEE_OTHER
     }

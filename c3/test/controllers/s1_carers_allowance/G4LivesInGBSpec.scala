@@ -14,14 +14,14 @@ class G4LivesInGBSpec extends Specification with Tags {
     val hoursInput = Seq("answer" -> answerYesNo)
 
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = controllers.s1_carers_allowance.G4LivesInGB.present(request)
       status(result) mustEqual OK
     }
 
     "missing mandatory field" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("answer" -> "")
 
       val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)
@@ -29,7 +29,7 @@ class G4LivesInGBSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(hoursInput: _*)
 
       val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)
@@ -37,7 +37,7 @@ class G4LivesInGBSpec extends Specification with Tags {
     }
 
     "add submitted form to the cached claim when answered 'yes'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(hoursInput: _*)
 
       val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)
@@ -51,7 +51,7 @@ class G4LivesInGBSpec extends Specification with Tags {
     }
 
     "add submitted form to the cached claim when answered 'no'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("answer" -> "no")
 
       val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)

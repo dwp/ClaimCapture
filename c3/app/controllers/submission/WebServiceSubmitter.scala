@@ -112,12 +112,12 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
   case class RetryData(corrId: String, pollUrl: String, txnId: String)
 
   def storeRetryData(data:RetryData, request : Request[AnyContent]) {
-    val uuid = request.session.get("connected")
+    val uuid = request.session.get(models.view.CachedClaim.CLAIM_KEY)
     Cache.set(uuid+"_retry", data, 3000)
   }
 
   def retrieveRetryData(request : Request[AnyContent]) : Option[RetryData] = {
-    val uuid = request.session.get("connected")
+    val uuid = request.session.get(models.view.CachedClaim.CLAIM_KEY)
     Cache.getAs[RetryData](uuid+"_retry")
   }
 
