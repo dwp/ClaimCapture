@@ -68,7 +68,7 @@ object XMLHelper {
   def paymentFrequency(freq: PaymentFrequency): NodeBuffer = new scala.xml.NodeBuffer() +=
     <PayFrequency>{freq.frequency}</PayFrequency> +=
     (freq.other match {
-      case Some(s) => <PayFrequencyOther>s</PayFrequencyOther>
+      case Some(s) => <PayFrequencyOther>{s}</PayFrequencyOther>
       case _ => <PayFrequencyOther/>
     })
 
