@@ -15,7 +15,7 @@
         <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
         <fieldset class="form-elements">
-            <legend>About your break in care</legend>
+            <legend>This time period</legend>
 
             <ul class="group">
                 @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
