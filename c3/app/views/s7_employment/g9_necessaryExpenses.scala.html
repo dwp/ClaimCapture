@@ -21,7 +21,7 @@
             <ul class="group">
                 @carersInputText(currentForm("whatAreThose"), '_label -> Messages ("whatAreThose", pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , JobID(currentForm))))
 
-                @carersInputText(currentForm("howMuchCostEachWeek"), '_label -> Messages ("howMuchCostEachWeek", pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , JobID(currentForm))))
+                @carersShortInputText(currentForm("howMuchCostEachWeek"), '_label -> Messages ("howMuchCostEachWeek", pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , JobID(currentForm))), 'placeholder -> Messages("poundSign"))
 
                 @carersInputText(currentForm("whyDoYouNeedThose"), '_label -> Messages ("whyDoYouNeedThose", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))))
             </ul>
