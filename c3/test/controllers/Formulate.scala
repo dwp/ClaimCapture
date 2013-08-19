@@ -131,6 +131,7 @@ object Formulate {
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
     browser.click("#liveAtSameAddress_yes]")
+    browser.click("#separated_fromPartner_no]")
     browser.submit("button[type='submit']")
   }
 
@@ -150,6 +151,7 @@ object Formulate {
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
     browser.click("#liveAtSameAddress_no]")
+    browser.click("#separated_fromPartner_no]")
     browser.submit("button[type='submit']")
   }
 

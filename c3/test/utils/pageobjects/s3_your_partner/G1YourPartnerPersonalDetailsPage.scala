@@ -18,6 +18,7 @@ final class G1YourPartnerPersonalDetailsPage (browser: TestBrowser, previousPage
   declareDate("#dateOfBirth", "AboutYourPartnerDateofBirth")
   declareInput("#nationality", "AboutYourPartnerNationality")
   declareYesNo("#liveAtSameAddress", "AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou")
+  declareYesNo("#separated_fromPartner", "AboutYourPartnerHaveYouSeparatedfromYourPartner")
 }
 
 /**

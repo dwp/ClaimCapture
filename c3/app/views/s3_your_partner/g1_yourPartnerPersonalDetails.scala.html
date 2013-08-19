@@ -35,6 +35,8 @@
                 @carersInputText(currentForm("nationality"), 'maxLength -> Mappings.sixty)
 
                 @yesNoRadioGroup(currentForm("liveAtSameAddress"))
+                
+                @yesNoRadioGroup(currentForm("separated.fromPartner"), '_label -> Messages("separated_fromPartner.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
             </ul>
         </fieldset>
 

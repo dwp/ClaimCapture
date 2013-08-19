@@ -20,7 +20,8 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
       "nationalInsuranceNumber" -> optional(nino.verifying(validNinoOnly)),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "nationality" -> optional(text.verifying(validNationality)),
-      "liveAtSameAddress" -> nonEmptyText.verifying(validYesNo))(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
+      "liveAtSameAddress" -> nonEmptyText.verifying(validYesNo),
+      "separated.fromPartner" -> nonEmptyText.verifying(validYesNo))(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
 
   def present = claiming { implicit claim =>
     implicit request =>
