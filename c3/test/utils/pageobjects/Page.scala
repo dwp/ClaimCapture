@@ -145,9 +145,10 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   }
 
 
-  def goToCompletedSection() = {
-    val completedPage = browser.click("div[class=completed] ul li a").title
-    createPageWithTitle(completedPage, iteration)
+  def goToCompletedSection(waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
+    browser.click("div[class=completed] ul li a")
+    if (waitForPage) waitForDifferentPage(waitDuration)
+    createPageWithTitle(getTitleFromBrowser(), iteration)
   }
 
   /**

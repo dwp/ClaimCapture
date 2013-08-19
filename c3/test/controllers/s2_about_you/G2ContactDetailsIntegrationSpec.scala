@@ -38,8 +38,8 @@ class G2ContactDetailsIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory yourDetailsWithNotTimeOutside()
       page goToThePage()
       page fillPageWith claim
-      val contactDetailsPage = page submitPage()
-      val completedPage = contactDetailsPage goToCompletedSection()
+      val contactDetailsPage = page submitPage(waitForPage = true)
+      val completedPage = contactDetailsPage goToCompletedSection(waitForPage = true)
       completedPage must beAnInstanceOf[G1YourDetailsPage]
     }
   } section("integration", models.domain.AboutYou.id)
