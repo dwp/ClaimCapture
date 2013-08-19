@@ -12,7 +12,7 @@ final class G10BreaksInCarePage(browser: TestBrowser, previousPage: Option[Page]
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G10BreaksInCarePage {
-  val title = "Breaks in care - About the care you provide".toLowerCase
+  val title = "Fewer than 35 hours a week of care - About the care you provide".toLowerCase
 
   val url  = "/care-you-provide/breaks-in-care"
 
