@@ -18,7 +18,7 @@
             <legend>Childcare expenses while you are at work</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase))
+                @carersShortInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'placeholder -> Messages("poundSign"))
 
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 

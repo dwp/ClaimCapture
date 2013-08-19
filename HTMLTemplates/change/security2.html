@@ -133,32 +133,47 @@
     	<section>
     	
 
-    			<h1>Change of circumstances</h1>
-    			<p>Please select all the changes that apply to you. If the change is not listed, please select 'other reason'.</p>
-				
+    		<h1>Security questions</h1>
+    		
+    		
+    		<div class="completed">
+    			<ul>
+    				<li>
+    					<h3>Confirmed your details</h3>
+    					<a href="#">Change these answers</a>
+    				</li>
+    			</ul>
+    		</div>
+    		<!-- / completed questions -->
+
     	
 			<fieldset class="form-elements">
-				<legend>About you</legend>
+				<legend>Please confirm your address details</legend>
 				
 				<ul class="group">
+					
 					<li>
-						<ul class="inline inline-stack">
-							<li><input type="checkbox" name="check1" id="check1"><label for="check1">I have changed my address</label></li>
+						<p><em>*</em>Address</p>
+						<ul class="address-stack">
+							<li>
+								<label for="address1"><em>*</em>Address</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+							<li>
+								<label for="address1">Address 2</label>
+								<input type="text" name="address1" id="address1">
+							</li>
+							<li>
+								<label for="address1">Address 3</label>
+								<input type="text" name="address1" id="address1">
+							</li>
 						</ul>
 					</li>
-				</ul>
-				
-			</fieldset>
-			
-			<fieldset class="form-elements nested-fieldset">
-				<legend>Other reason</legend>
-				
-				<ul class="group">
 					<li>
-						<ul class="inline inline-stack">
-							<li><input type="checkbox" name="check2" id="check2"><label for="check2">I have other changes that may affect my Carer's Allowance</label></li>
-						</ul>
+						<label for="postcode"><em>*</em>Postcode</label>
+						<input type="text" name="postcode" id="postcode" class="postcode">
 					</li>
+
 				</ul>
 				
 			</fieldset>
@@ -166,6 +181,7 @@
 			
 			
 			<div class="form-steps">
+				<a href="#" class="button secondary">Back</a>
 				<a href="#" class="button">Next</a>
 			</div>
 			<!-- / form steps -->

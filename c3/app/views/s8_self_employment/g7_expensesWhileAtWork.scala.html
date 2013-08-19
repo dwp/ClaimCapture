@@ -18,7 +18,7 @@
             <legend>@Messages("s8.g7")</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase))
+                @carersShortInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'placeholder -> Messages("poundSign"))
 
                 @carersInputText(currentForm("nameOfPerson"))
 

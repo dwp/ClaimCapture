@@ -133,32 +133,142 @@
     	<section>
     	
 
-    			<h1>Change of circumstances</h1>
-    			<p>Please select all the changes that apply to you. If the change is not listed, please select 'other reason'.</p>
-				
+    		<h1>Security questions</h1>
+    		
+    		
+    		<div class="completed">
+    			<ul>
+    				<li>
+    					<h3>Confirmed your details</h3>
+    					<a href="#">Change these answers</a>
+    				</li>
+    				<li>
+    					<h3>Confirmed address details</h3>
+    					<a href="#">Change these answers</a>
+    				</li>
+    			</ul>
+    		</div>
+    		<!-- / completed questions -->
+
     	
 			<fieldset class="form-elements">
-				<legend>About you</legend>
+				<legend>Details of the person you care for</legend>
 				
 				<ul class="group">
+					
 					<li>
-						<ul class="inline inline-stack">
-							<li><input type="checkbox" name="check1" id="check1"><label for="check1">I have changed my address</label></li>
-						</ul>
+						<label for="title"><em>*</em>Title</label>
+						<select name="title" id="title">
+							<option value="#">Mr</option>
+							<option value="#">Mrs</option>
+						</select>
 					</li>
-				</ul>
-				
-			</fieldset>
-			
-			<fieldset class="form-elements nested-fieldset">
-				<legend>Other reason</legend>
-				
-				<ul class="group">
 					<li>
-						<ul class="inline inline-stack">
-							<li><input type="checkbox" name="check2" id="check2"><label for="check2">I have other changes that may affect my Carer's Allowance</label></li>
-						</ul>
+						<label for="first-name">First Name</label>
+						<input type="text" name="first-name" id="first-name">
 					</li>
+					<li>
+						<label for="middle-name">Middle Name (optional)</label>
+						<input type="text" name="middle-name" id="middle-name">
+					</li>
+					<li>
+						<label for="last-name">Last Name</label>
+						<input type="text" name="last-name" id="last-name">
+					</li>
+					<li>
+						<label for="other-name">Other surname or maiden name (optional)</label>
+						<input type="text" name="other-name" id="other-name">
+					</li>
+					<li>
+						<p>National Insurance (NI) number</p>
+						<ul class="inline ni-number">
+							<li>
+								<label for="ni-1">NI part one</label>
+								<input type="text" name="ni-1" id="ni-1" maxlength="2" placeholder="VO">
+							</li>
+							<li>
+								<label for="ni-2">NI part two</label>
+								<input type="tel" name="ni-2" id="ni-2" maxlength="2" placeholder="12">
+							</li>
+							<li>
+								<label for="ni-3">NI part three</label>
+								<input type="tel" name="ni-3" id="ni-3" maxlength="2" placeholder="34">
+							</li>
+							<li>
+								<label for="ni-4">NI part four</label>
+								<input type="tel" name="ni-4" id="ni-4" maxlength="2" placeholder="56">
+							</li>
+							<li>
+								<label for="ni-5">NI part five</label>
+								<input type="text" name="ni-5" id="ni-5" class="single" maxlength="1" placeholder="D">
+							</li>
+						</ul>
+						<p class="helper">e.g. VO 12 34 56 D<br>This is on your NI number card, benefit letter, payslip or P60. Not providing this may delay your claim.</p>
+					</li>
+					<li>
+						<p><em>*</em>Date of birth</p>
+						<ul class="inline year">
+						<li>
+							<label for="day">Day</label>
+							<select name="day" id="day">
+								<option value="#">1</option>
+								<option value="#">2</option>
+								<option value="#">3</option>
+								<option value="#">4</option>
+								<option value="#">5</option>
+								<option value="#">6</option>
+								<option value="#">7</option>
+								<option value="#">8</option>
+								<option value="#">9</option>
+								<option value="#">10</option>
+								<option value="#">11</option>
+								<option value="#">12</option>
+								<option value="#">13</option>
+								<option value="#">14</option>
+								<option value="#">15</option>
+								<option value="#">16</option>
+								<option value="#">17</option>
+								<option value="#">18</option>
+								<option value="#">19</option>
+								<option value="#">20</option>
+								<option value="#">21</option>
+								<option value="#">22</option>
+								<option value="#">23</option>
+								<option value="#">24</option>
+								<option value="#">25</option>
+								<option value="#">26</option>
+								<option value="#">27</option>
+								<option value="#">28</option>
+								<option value="#">29</option>
+								<option value="#">30</option>
+								<option value="#">31</option>
+							</select>
+						</li>
+						<li>
+							<label for="month">Month</label>
+							<select name="month" id="month">
+								<option value="#">January</option>
+								<option value="#">February</option>
+								<option value="#">March</option>
+								<option value="#">April</option>
+								<option value="#">May</option>
+								<option value="#">June</option>
+								<option value="#">July</option>
+								<option value="#">August</option>
+								<option value="#">September</option>
+								<option value="#">October</option>
+								<option value="#">November</option>
+								<option value="#">December</option>
+							</select>
+						</li>
+						<li>
+							<label for="year">Year</label>
+							<input type="tel" name="year" id="year" placeholder="YYYY">
+						</li>
+						</ul>
+						<p class="helper">eg: 26 June 2013</p>
+					</li>
+
 				</ul>
 				
 			</fieldset>
@@ -166,6 +276,7 @@
 			
 			
 			<div class="form-steps">
+				<a href="#" class="button secondary">Back</a>
 				<a href="#" class="button">Next</a>
 			</div>
 			<!-- / form steps -->

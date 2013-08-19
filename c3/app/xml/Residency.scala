@@ -2,8 +2,7 @@ package xml
 
 import app.XMLValues
 import models.domain._
-import models.yesNo.{YesNoWithDate}
-import controllers.Mappings.no
+import models.yesNo.YesNoWithDate
 import controllers.Mappings.yes
 import scala.xml.NodeSeq
 import xml.XMLHelper.stringify
@@ -19,7 +18,7 @@ object Residency {
     <Residency>
       <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
       <EUEEASwissNational>{XMLValues.NotAsked}</EUEEASwissNational>
-      <CountryNormallyLive>{normalResidence.whereDoYouLive.text.orNull}</CountryNormallyLive>
+      <CountryNormallyLive>{normalResidence.whereDoYouLive.text.getOrElse(XMLValues.NotAsked)}</CountryNormallyLive>
       <CountryNormallyLiveOther>{XMLValues.NotAsked}</CountryNormallyLiveOther>
       <InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>
       <InGreatBritain26Weeks>{XMLValues.NotAsked}</InGreatBritain26Weeks>

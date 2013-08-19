@@ -225,7 +225,41 @@ $button-green-hover: #004b27;
    }
    
    
-   
+   .short-steps {
+		ol {
+			&:after {
+		   	   @media screen and (max-width: 500px) {
+			   	   display: block;
+		   	   }
+		   }
+			li {
+				width: 25%;
+				@media screen and (max-width: 760px) {
+				    text-indent: -9999px;
+				    padding: 35px 0 0 0;
+				    span {
+					    text-indent: 0;
+				    }
+			    }
+			     @media screen and (max-width: 480px) {
+				     width: 25%;
+				     margin-left: 0;
+				     &:first-child {
+					     margin-left: 0;
+				     }
+			     }
+			     @media screen and (max-width: 330px) {
+				     width: 25%;
+			     }
+			     span {
+				     @media screen and (max-width: 770px) {
+					   font-size: 13px;
+				   }
+			     }
+				}
+			}
+			
+   }
      
    
    
@@ -507,6 +541,9 @@ $button-green-hover: #004b27;
 		   	    margin-top: 1em;
 	   	    }
 
+   	    }
+   	    &.nested-fieldset {
+	   	    margin-top: 1em;
    	    }
    	    &.q1 {
 	   	    p {
@@ -1622,6 +1659,10 @@ $button-green-hover: #004b27;
 			}
 		}
 	}
+}
+
+.content-panel {
+	margin-top: 2em;
 }
 
 
