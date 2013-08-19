@@ -5,18 +5,15 @@ import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import models.domain.{ContactDetails, YourPartnerPersonalDetails, YourPartnerContactDetails}
+import models.domain.YourPartnerContactDetails
 import utils.helpers.CarersForm._
 import YourPartner.whenSectionVisible
 
 object G2YourPartnerContactDetails extends Controller with YourPartnerRouting with CachedClaim {
-  val formCall = routes.G2YourPartnerContactDetails.present()
-
-  val form = Form(
-    mapping(
-      "address" -> optional(address),
-      "postcode" -> optional(text verifying validPostcode)
-    )(YourPartnerContactDetails.apply)(YourPartnerContactDetails.unapply))
+  val form = Form( mapping(
+    "address" -> optional(address),
+    "postcode" -> optional(text verifying validPostcode)
+  )(YourPartnerContactDetails.apply)(YourPartnerContactDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     whenSectionVisible {
