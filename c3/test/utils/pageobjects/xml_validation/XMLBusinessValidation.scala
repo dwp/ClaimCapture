@@ -37,18 +37,32 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
     // Go through the attributes of the claim and check that there is a corresponding entry in the XML
     claim.map.foreach {
       case (attribute, value) =>
-        val xPathNodesAndQuestion = mapping.get(attribute.split("_")(0))
+        try {
+          val xPathNodesAndQuestion = mapping.get(attribute.split("_")(0))
 
-        if (xPathNodesAndQuestion != None) {
-          val path = xPathNodesAndQuestion.get._1
-          val nodes = path.split(">")
-          val elementValue = XmlNode(childNode(xml.\\(nodes(0)), nodes.drop(1)))
+          if (xPathNodesAndQuestion != None) {
+            val path = xPathNodesAndQuestion.get._1
+            val options = path.split("[|]")
 
-          if (elementValue.isDefined) {
-            if (elementValue doesNotMatch ClaimValue(attribute, value, xPathNodesAndQuestion.get._2)) listErrors += attribute + " " + path + elementValue.error
+            def validateNodeValue(options: Array[String]) {
+              val nodes = options(0).split(">")
+              val elementValue = XmlNode(childNode(xml.\\(nodes(0)), nodes.drop(1)))
+              if (!elementValue.isDefined) {
+                if (options.size > 1) validateNodeValue(options.drop(1))
+                else listErrors += attribute + " " + path + " XML element not found"
+              } else {
+                if (elementValue doesNotMatch ClaimValue(attribute, value, xPathNodesAndQuestion.get._2)) {
+                  if (options.size > 1) validateNodeValue(options.drop(1))
+                  else listErrors += attribute + " " + path + elementValue.error
+                }
+              }
+            }
+
+            validateNodeValue(options)
           }
-
-          else listErrors += attribute + " " + path + " XML element not found"
+        }
+        catch {
+          case e:Exception => listErrors += attribute + " " + value + " Error: " + e.getMessage
         }
     }
 
