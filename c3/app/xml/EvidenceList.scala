@@ -176,9 +176,9 @@ object EvidenceList {
       textLine("Someone else tick box = ", booleanStringToYesNo(stringify(declaration.someoneElse)))
   }
 
-  private def textSeparatorLine(title: String) = {
+  def textSeparatorLine(title: String) = {
     val lineWidth = 54
-    val padding = "=" * (lineWidth - title.length / 2)
+    val padding = "=" * ((lineWidth - title.length) / 2)
 
     <TextLine>{s"$padding$title$padding"}</TextLine>
   }
