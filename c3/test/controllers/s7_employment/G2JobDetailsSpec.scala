@@ -9,19 +9,19 @@ import models.domain.{Job, Jobs, JobDetails, Claim, Claiming}
 class G2JobDetailsSpec extends Specification with Tags {
   "Your job" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = G2JobDetails.present(request)
       status(result) mustEqual OK
     }
 
     "miss all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = G2JobDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """submit only mandatory data to a "new employment".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes")
@@ -43,7 +43,7 @@ class G2JobDetailsSpec extends Specification with Tags {
     }
 
     """submit all data to a "new employment".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
         "jobStartDate.day" -> "1",
@@ -62,7 +62,7 @@ class G2JobDetailsSpec extends Specification with Tags {
     }
 
     """submit all data to a "new employment" and then delete it.""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody(
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
         "jobStartDate.day" -> "1",
@@ -83,7 +83,7 @@ class G2JobDetailsSpec extends Specification with Tags {
         case Some(js: Jobs) => js.size shouldEqual 1
       }
 
-      Employment.delete("1")(FakeRequest().withSession("connected" -> claimKey))
+      Employment.delete("1")(FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey))
 
       Cache.getAs[Claim](claimKey).get.questionGroup(Jobs) must beLike {
         case Some(js: Jobs) => js.size shouldEqual 0

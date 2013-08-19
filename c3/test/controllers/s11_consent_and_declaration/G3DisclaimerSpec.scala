@@ -8,21 +8,21 @@ import models.domain.Claiming
 class G3DisclaimerSpec extends Specification with Tags {
   "Disclaimer" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G3Disclaimer.present(request)
       status(result) mustEqual OK
     }
 
     """enforce answer""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G3Disclaimer.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """accept answers""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
                                  .withFormUrlEncodedBody("read" -> "yes")
 
       val result = G3Disclaimer.submit(request)

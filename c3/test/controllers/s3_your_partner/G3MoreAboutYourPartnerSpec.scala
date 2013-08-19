@@ -25,14 +25,14 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
     
   "More About Your Partner - Controller" should {
     "present 'More About Your Partner'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G3MoreAboutYourPartner.present(request)
       status(result) mustEqual OK
     }
     
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(moreAboutYourPartnerInput: _*)
 
       val result = G3MoreAboutYourPartner.submit(request)
@@ -49,7 +49,7 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
     }
     
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("foo" -> "bar")
 
       val result = G3MoreAboutYourPartner.submit(request)
@@ -57,7 +57,7 @@ class G3MoreAboutYourPartnerSpec extends Specification with Tags {
     }
     
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(moreAboutYourPartnerInput: _*)
 
       val result = G3MoreAboutYourPartner.submit(request)

@@ -22,19 +22,19 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
       )
 
     "present 'Expenses related to the Person you care for while at work' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("doYouPayToPensionScheme.answer" -> "no", "doYouPayToLookAfterYourChildren" -> "yes","didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
       val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
-      val request2 = FakeRequest().withSession("connected" -> claimKey)
+      val request2 = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result2 = G7ExpensesWhileAtWork.present(request)
       status(result2) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(expensesWhileAtWorkInput: _*)
 
       val result = controllers.s8_self_employment.G7ExpensesWhileAtWork.submit(request)
@@ -51,7 +51,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "missing mandatory field" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("nameOfPerson" -> "")
 
       val result = controllers.s8_self_employment.G7ExpensesWhileAtWork.submit(request)
@@ -59,7 +59,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(expensesWhileAtWorkInput: _*)
 
       val result = controllers.s8_self_employment.G7ExpensesWhileAtWork.submit(request)
@@ -67,13 +67,13 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "redirect to next page when payAnyoneToLookAfterPerson is no in About Employment" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("doYouPayToPensionScheme_answer" -> "no", "doYouPayToLookAfterYourChildren" -> "yes","didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
 
       val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
-      val request2 = FakeRequest().withSession("connected" -> claimKey)
+      val request2 = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result2 = G7ExpensesWhileAtWork.present(request)
       status(result2) mustEqual SEE_OTHER

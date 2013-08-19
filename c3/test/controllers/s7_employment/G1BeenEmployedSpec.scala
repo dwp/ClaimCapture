@@ -23,31 +23,31 @@ class G1BeenEmployedSpec extends Specification with Tags {
 
       Cache.set(claimKey, claim)
 
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = G1BeenEmployed.present(request)
       status(result) mustEqual OK
     }
 
     "submit no data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = G1BeenEmployed.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "submit been employed" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "yes")
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "yes")
       val result = G1BeenEmployed.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     "submit not been employed" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "no")
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "no")
       val result = G1BeenEmployed.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     "submit with bad data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "asdf")
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "asdf")
       val result = G1BeenEmployed.submit(request)
       status(result) mustEqual BAD_REQUEST
     }

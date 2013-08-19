@@ -29,14 +29,14 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
       "faxNumber" -> faxNumber)
 
     "present 'Address Of School College Or University'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = controllers.s6_education.G2AddressOfSchoolCollegeOrUniversity.present(request)
       status(result) mustEqual OK
     }
     
     "add their contect details to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(addressOfSchoolCollegeOrUniversityInput: _*)
 
       val result = s6_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
@@ -57,7 +57,7 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
     }
     
     "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
       val result = s6_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
@@ -65,7 +65,7 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
     }
     
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(addressOfSchoolCollegeOrUniversityInput: _*)
 
       val result = s6_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
@@ -73,7 +73,7 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
     }
     
     "redirect to the next page after a valid submission with minimal input without optional fields" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = s6_education.G2AddressOfSchoolCollegeOrUniversity.submit(request)
       status(result) mustEqual SEE_OTHER

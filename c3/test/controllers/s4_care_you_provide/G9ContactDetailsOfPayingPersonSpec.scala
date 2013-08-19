@@ -10,7 +10,7 @@ import models.domain.Claim
 class G9ContactDetailsOfPayingPersonSpec extends Specification with Tags {
   "Contact details of paying person" should {
     """bypass to "breaks" when "no one has paid you to look after this person" """ in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val moreAboutTheCare = mockQuestionGroup[MoreAboutTheCare](MoreAboutTheCare)
       moreAboutTheCare.hasSomeonePaidYou returns "no"
@@ -23,7 +23,7 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification with Tags {
     }
 
     """present when "someone has paid you to look after this person" """ in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val moreAboutTheCare = mockQuestionGroup[MoreAboutTheCare](MoreAboutTheCare)
       moreAboutTheCare.hasSomeonePaidYou returns "yes"
@@ -36,7 +36,7 @@ class G9ContactDetailsOfPayingPersonSpec extends Specification with Tags {
     }
 
     "be added to claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G9ContactDetailsOfPayingPerson.submit(request)
       redirectLocation(result) must beSome("/care-you-provide/breaks-in-care")

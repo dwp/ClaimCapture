@@ -15,7 +15,7 @@ class G9CompletedSpec extends Specification with Tags {
     
   "Self Employment - Controller" should {
     "present 'Completed'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = controllers.s8_self_employment.SelfEmployment.completed(request)
       status(result) mustEqual OK
@@ -31,7 +31,7 @@ class G9CompletedSpec extends Specification with Tags {
     }
     
     "redirect to the next page on clicking continue" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(selfEmploymentInput: _*)
 
       val result = controllers.s8_self_employment.SelfEmployment.completedSubmit(request)

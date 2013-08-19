@@ -13,7 +13,7 @@ import play.api.test.WithApplication
 class ThankYouSpec extends Specification with Mockito with Tags {
   "Thank You - Controller" should {
     "present 'Thank You' page" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = controllers.ThankYou.present("TEST234")(request)
       status(result) mustEqual OK

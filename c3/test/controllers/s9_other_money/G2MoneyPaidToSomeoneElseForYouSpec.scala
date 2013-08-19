@@ -14,7 +14,7 @@ class G2MoneyPaidToSomeoneElseForYouSpec extends Specification with Tags {
     val formInput = Seq("moneyAddedToBenefitSinceClaimDate" -> moneyAddedToBenefitSinceClaimDate)
 
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G2MoneyPaidToSomeoneElseForYou.present(request)
 
@@ -22,7 +22,7 @@ class G2MoneyPaidToSomeoneElseForYouSpec extends Specification with Tags {
     }
     
     "add submitted data to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = G2MoneyPaidToSomeoneElseForYou.submit(request)
@@ -37,7 +37,7 @@ class G2MoneyPaidToSomeoneElseForYouSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = G2MoneyPaidToSomeoneElseForYou.submit(request)

@@ -8,21 +8,21 @@ import models.domain.Claiming
 class G4DeclarationSpec extends Specification with Tags {
   "Declaration" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G4Declaration.present(request)
       status(result) mustEqual OK
     }
 
     """enforce answer""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G4Declaration.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """accept answers""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
                                  .withFormUrlEncodedBody("confirm" -> "checked","someoneElse" -> "checked")
 
       val result = G4Declaration.submit(request)

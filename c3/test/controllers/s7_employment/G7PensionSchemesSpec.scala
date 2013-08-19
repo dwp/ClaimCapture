@@ -12,13 +12,13 @@ class G7PensionSchemesSpec extends Specification with Tags {
 
   "Pension schemes - Controller" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = G7PensionSchemes.present(jobID)(request)
       status(result) mustEqual OK
     }
 
     "require all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID)
 
       val result = G7PensionSchemes.submit(request)
@@ -26,7 +26,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
     }
 
     "accept all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID, "payOccupationalPensionScheme" -> "blah", "payPersonalPensionScheme" -> "blah")
 
       val result = G7PensionSchemes.submit(request)
@@ -34,13 +34,13 @@ class G7PensionSchemesSpec extends Specification with Tags {
     }
 
     "be added to a (current) job" in new WithApplication with Claiming {
-      G2JobDetails.submit(FakeRequest().withSession("connected" -> claimKey)
+      G2JobDetails.submit(FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
-      val result = G7PensionSchemes.submit(FakeRequest().withSession("connected" -> claimKey)
+      val result = G7PensionSchemes.submit(FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID, "payOccupationalPensionScheme" -> "blah", "payPersonalPensionScheme" -> "blah"))
 
       status(result) mustEqual SEE_OTHER

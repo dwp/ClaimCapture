@@ -31,19 +31,19 @@ class G3SelfEmploymentAccountantContactDetailsSpec extends Specification with Ta
     )
 
     "present 'Accountant Contact Details' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("areAccountsPreparedOnCashFlowBasis" -> "yes", "doYouHaveAnAccountant" -> "yes", "canWeContactYourAccountant" -> "no")
 
       val result = G2SelfEmploymentYourAccounts.submit(request)
 
-      val request2 = FakeRequest().withSession("connected" -> claimKey)
+      val request2 = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result2 = G3SelfEmploymentAccountantContactDetails.present(request)
       status(result2) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(accountantContactDetailsInput: _*)
 
       val result = controllers.s8_self_employment.G3SelfEmploymentAccountantContactDetails.submit(request)
@@ -61,7 +61,7 @@ class G3SelfEmploymentAccountantContactDetailsSpec extends Specification with Ta
     }
 
     "missing mandatory field" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("accountantsName" -> "")
 
       val result = controllers.s8_self_employment.G3SelfEmploymentAccountantContactDetails.submit(request)
@@ -69,7 +69,7 @@ class G3SelfEmploymentAccountantContactDetailsSpec extends Specification with Ta
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(accountantContactDetailsInput: _*)
 
       val result = controllers.s8_self_employment.G3SelfEmploymentAccountantContactDetails.submit(request)

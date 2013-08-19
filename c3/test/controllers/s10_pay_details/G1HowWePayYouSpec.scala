@@ -8,21 +8,21 @@ import models.domain.Claiming
 class G1HowWePayYouSpec extends Specification with Tags {
   "How we pay you" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G1HowWePayYou.present(request)
       status(result) mustEqual OK
     }
 
     """enforce answer to "How would you like to be paid?" and "How often do you want to get paid?".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G1HowWePayYou.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """accept customer gets paid by bank account or building society""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
                                  .withFormUrlEncodedBody("likeToPay" -> "01",
                                                          "paymentFrequency"->"fourWeekly")
 
