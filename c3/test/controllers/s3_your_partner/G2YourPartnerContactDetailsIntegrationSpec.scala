@@ -23,28 +23,6 @@ class G2YourPartnerContactDetailsIntegrationSpec extends Specification with Tags
       browser.find("div[class=completed] ul li").size() mustEqual 1
     }
 
-    "be prepopulated if they live at same address" in new WithBrowser {
-      Formulate.yourContactDetails(browser)
-      Formulate.yourPartnerPersonalDetails(browser)
-      browser.title mustEqual "Contact details - About your partner/spouse"
-      browser.find("#address_lineOne").getValue mustEqual "My Address"
-      browser.find("#postcode").getValue mustEqual "SE1 6EH"
-    }
-
-    "be blank if they live at different address" in new WithBrowser {
-      Formulate.yourContactDetails(browser)
-      Formulate.yourPartnerPersonalDetailsNotLiveAtSameAddress(browser)
-      browser.title mustEqual "Contact details - About your partner/spouse"
-      browser.find("#address_lineOne").getValue mustEqual ""
-      browser.find("#postcode").getValue mustEqual ""
-    }
-
-    "be blank if they live at same address but did not enter one" in new WithBrowser {
-      Formulate.yourPartnerPersonalDetails(browser)
-      browser.find("#address_lineOne").getValue mustEqual ""
-      browser.find("#postcode").getValue mustEqual ""
-    }
-
     "navigate back to Your Partner Personal Details" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerPersonalDetails(browser)
       titleMustEqual("Contact details - About your partner/spouse")

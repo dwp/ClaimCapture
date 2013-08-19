@@ -6,6 +6,7 @@ import models.yesNo.{YesNoWithDate, YesNoWithText}
 import controllers.Mappings
 import models.{LivingInUK, DayMonthYear}
 import Mappings.{yes, no}
+import app.XMLValues
 
 class ResidencySpec extends Specification with Tags {
 
@@ -46,7 +47,7 @@ class ResidencySpec extends Specification with Tags {
       (residencyXml \\ "Nationality").text mustEqual yourDetails.nationality
       (residencyXml \\ "CountryNormallyLive").text mustEqual "UK"
       (residencyXml \\ "InGreatBritainNow").text mustEqual yes
-      (residencyXml \\ "OutOfGreatBritain").text mustEqual no
+      (residencyXml \\ "OutOfGreatBritain").text mustEqual XMLValues.NotAsked
 
       val periodsAbroadLastYearXml = residencyXml \\ "PeriodAbroadLastYear"
       val periodOne = periodsAbroadLastYearXml.theSeq(0)

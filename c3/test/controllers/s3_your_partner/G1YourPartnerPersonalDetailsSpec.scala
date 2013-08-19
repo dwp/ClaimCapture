@@ -25,6 +25,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
   val dateOfBirthYear = 1990
   val nationality = "British"
   val liveAtSameAddress = "yes"
+  val separatedFromPartner = "yes"
   
   val yourPartnerPersonalDetailsInput = Seq("title" -> title,
           "firstName" -> firstName,
@@ -40,7 +41,8 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> nationality,
-          "liveAtSameAddress" -> liveAtSameAddress)
+          "liveAtSameAddress" -> liveAtSameAddress,
+          "separated.fromPartner" -> separatedFromPartner)
     
   "Your Partner Personal Details - Controller" should {
     "present 'Your Partner Personal Details' " in new WithApplication with Claiming {
@@ -68,7 +70,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
           f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5))))
           f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
           f.nationality must equalTo(Some(nationality))
-          f.liveAtSameAddress must equalTo(liveAtSameAddress)
+          f.separatedFromPartner must equalTo(separatedFromPartner)
         }
       }
     }

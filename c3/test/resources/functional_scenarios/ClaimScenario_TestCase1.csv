@@ -37,6 +37,7 @@ About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYo
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,
 About Your Partner,Partner/Spouse details,Does your partner/spouse live at the same address as you?,AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou,
+About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,
 About Your Partner,Contact Details,Address,AboutYourPartnerAddress,
 About Your Partner,Contact Details,Postcode,AboutYourPartnerPostcode,
 About Your Partner,More about your partner/spouse,"Did your partner join your household, after your claim date <ddmmyyyy>>?",AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate,
@@ -51,8 +52,8 @@ About the care you provide,Details of the person you care for,Surname or family 
 About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,12/09/1980
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,Yes
-About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,
-About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,
+About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,1 Preston Road&Preston
+About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,PR1 1HB
 About the care you provide,Contact details of the person you care for,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare,
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,partner
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,Yes

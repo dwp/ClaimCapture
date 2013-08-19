@@ -12,7 +12,6 @@ object Residency {
   def xml(claim: Claim) = {
     val yourDetailsOption = claim.questionGroup[YourDetails]
     val normalResidence = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
-    val abroadForMoreThan4Weeks = claim.questionGroup[AbroadForMoreThan4Weeks].getOrElse(AbroadForMoreThan4Weeks())
     val tripsOption = claim.questionGroup[Trips]
 
     <Residency>
@@ -25,7 +24,7 @@ object Residency {
       {periodAbroadLastYear(tripsOption)}
       <BritishOverseasPassport>{XMLValues.NotAsked}</BritishOverseasPassport>
       {otherNationality(claim)}
-      <OutOfGreatBritain>{abroadForMoreThan4Weeks.anyTrips}</OutOfGreatBritain>
+      <OutOfGreatBritain>{XMLValues.NotAsked}</OutOfGreatBritain>
       {periodAbroadDuringCare(tripsOption)}
     </Residency>
   }

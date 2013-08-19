@@ -17,7 +17,8 @@ final class G1YourPartnerPersonalDetailsPage (browser: TestBrowser, previousPage
   declareNino("#nationalInsuranceNumber", "AboutYourPartnerNINO")
   declareDate("#dateOfBirth", "AboutYourPartnerDateofBirth")
   declareInput("#nationality", "AboutYourPartnerNationality")
-  declareYesNo("#liveAtSameAddress", "AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou")
+  //declareYesNo("#liveAtSameAddress", "AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou")
+  declareYesNo("#separated_fromPartner", "AboutYourPartnerHaveYouSeparatedfromYourPartner")
 }
 
 /**

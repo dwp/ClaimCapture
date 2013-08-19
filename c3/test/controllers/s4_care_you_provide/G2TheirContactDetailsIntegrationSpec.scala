@@ -62,53 +62,5 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       Formulate.theirContactDetails(browser)
       titleMustEqual("Relationship and other claims - About the care you provide")
     }
-
-    "overwrite cached contact details after going back and changing answer to living at same address" in new WithBrowser {
-      Formulate.theirContactDetails(browser)
-      browser.click("#backButton")
-      browser.find("#address_lineOne").getValue mustEqual "Their Address"
-      browser.click("#backButton")
-      Formulate.yourContactDetails(browser)
-      Formulate.theirPersonalDetails(browser)
-
-      browser.find("#address_lineOne").getValue mustEqual "My Address"
-      browser.find("#postcode").getValue mustEqual "SE1 6EH"
-    }
-    
-    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
-      Formulate.yourDetails(browser)
-      Formulate.yourContactDetails(browser)
-      Formulate.timeOutsideUKNotLivingInUK(browser)
-      Formulate.claimDate(browser)
-      Formulate.moreAboutYou(browser)
-      Formulate.employment(browser)
-      Formulate.yourPartnerPersonalDetails(browser)
-      Formulate.yourPartnerContactDetails(browser)
-      Formulate.moreAboutYourPartnerNotSeparated(browser)
-      Formulate.personYouCareFor(browser)
-      browser.submit("button[type='submit']")
-      browser.submit("button[type='submit']")
-
-      findMustEqualValue("#address_lineOne", "My Address")
-      browser.find("#postcode").getValue mustEqual "SE1 6EH"
-    }
-    
-    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section but not at same address" in new WithBrowser with BrowserMatchers {
-      Formulate.yourDetails(browser)
-      Formulate.yourContactDetails(browser)
-      Formulate.timeOutsideUKNotLivingInUK(browser)
-      Formulate.claimDate(browser)
-      Formulate.moreAboutYou(browser)
-      Formulate.employment(browser)
-      Formulate.yourPartnerPersonalDetailsNotLiveAtSameAddress(browser)
-      Formulate.yourPartnerContactDetails(browser)
-      Formulate.moreAboutYourPartnerNotSeparated(browser)
-      Formulate.personYouCareFor(browser)
-      Formulate.yourPartnerCompleted(browser)
-      browser.submit("button[type='submit']") // S4G1 go to S4G2 without changing any of the details onscreen.
-
-      findMustEqualValue("#address_lineOne", Formulate.partnerAddress)
-      browser.find("#postcode").getValue mustEqual Formulate.partnerPostcode
-    }
   } section("integration", models.domain.CareYouProvide.id)
 }

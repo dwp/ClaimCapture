@@ -15,7 +15,7 @@ case class YourPartnerPersonalDetails(title: String = "",
                                       nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
                                       dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
                                       nationality: Option[String] = None,
-                                      liveAtSameAddress: String = "") extends QuestionGroup(YourPartnerPersonalDetails)
+                                      separatedFromPartner: String = "") extends QuestionGroup(YourPartnerPersonalDetails)
 
 object YourPartnerPersonalDetails extends QuestionGroup.Identifier  {
   val id = s"${YourPartner.id}.g1"

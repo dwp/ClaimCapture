@@ -34,7 +34,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim {
         case Some(t: YourPartnerPersonalDetails) =>
           form.fill(TheirPersonalDetails(title = t.title, firstName = t.firstName, middleName = t.middleName, surname = t.surname,
                                          nationalInsuranceNumber = t.nationalInsuranceNumber,
-                                         dateOfBirth = t.dateOfBirth, liveAtSameAddressCareYouProvide = t.liveAtSameAddress)) // Pre-populate form with values from YourPartnerPersonalDetails
+                                         dateOfBirth = t.dateOfBirth)) // Pre-populate form with values from YourPartnerPersonalDetails
         case _ => form // Blank form (user can only get here if they skip sections by manually typing URL).
       }
     } else {

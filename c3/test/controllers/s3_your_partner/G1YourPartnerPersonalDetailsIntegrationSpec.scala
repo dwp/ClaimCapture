@@ -41,7 +41,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Partner/Spouse Details - About your partner/spouse")
       browser.submit("button[type='submit']")
 
-      browser.find("div[class=validation-summary] ol li").size mustEqual 5
+      browser.find("div[class=validation-summary] ol li").size mustEqual 6
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {

@@ -8,6 +8,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import utils.helpers.CarersForm.formBinding
+import app.XMLValues
 
 object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
   val form = Form(
@@ -20,7 +21,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
       "nationalInsuranceNumber" -> optional(nino.verifying(validNinoOnly)),
       "dateOfBirth" -> dayMonthYear.verifying(validDate),
       "nationality" -> optional(text.verifying(validNationality)),
-      "liveAtSameAddress" -> nonEmptyText.verifying(validYesNo))(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
+      "separated.fromPartner" -> nonEmptyText.verifying(validYesNo))(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
 
   def present = claiming { implicit claim =>
     implicit request =>
