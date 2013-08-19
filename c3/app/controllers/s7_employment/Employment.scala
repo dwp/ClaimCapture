@@ -2,13 +2,13 @@ package controllers.s7_employment
 
 import scala.language.implicitConversions
 import play.api.mvc._
-import models.view.CachedClaim
-import models.domain._
-import models.domain.Claim
 import play.api.data.Form
 import scala.reflect.ClassTag
 import play.api.i18n.Messages
 import play.api.mvc.Call
+import models.view.CachedClaim
+import models.domain.{Employment => EmploymentDomain, _}
+import controllers.Mappings._
 
 object Employment extends Controller with CachedClaim {
   implicit def jobFormFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
@@ -18,6 +18,10 @@ object Employment extends Controller with CachedClaim {
         case _ => form
       }
     }
+  }
+
+  def presentEmployment(p: => ClaimResult): PartialFunction[EmploymentDomain, ClaimResult] = {
+    case e: EmploymentDomain if e.beenEmployedSince6MonthsBeforeClaim == yes => p
   }
 
   def dispatch(f: => Result)(implicit claim: Claim) = {

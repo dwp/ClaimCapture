@@ -69,7 +69,6 @@
     @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit) {
         <fieldset class="form-elements">
             <legend>@Messages("s4.g10")</legend>
-            
 
             <ul class="group">
                 @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
@@ -77,7 +76,7 @@
                 }
             </ul>
 
-            <div id="warningMessageWrap" class="prompt warning-prompt" style="display : none">
+            <div id="warningMessageWrap" class="prompt warning-prompt" style="display: none;">
                 <p>we will contact you about more breaks in care.</p>
                 <span>!</span>
             </div>

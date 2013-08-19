@@ -1,22 +1,25 @@
 package controllers.s7_employment
 
-import models.view.CachedClaim
-import play.api.mvc.Controller
+import models.view.{Navigable, CachedClaim}
+import play.api.mvc.{AnyContent, Request, Controller}
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.BeenEmployed
+import models.domain.{Claim, BeenEmployed, Employment => EmploymentDomain}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s7_employment.Employment.jobs
-import controllers.s7_employment.Employment.dispatch
+import Employment._
 
-object G1BeenEmployed extends Controller with CachedClaim {
-  val form = Form(
-    mapping(
-      "beenEmployed" -> (nonEmptyText verifying validYesNo)
-    )(BeenEmployed.apply)(BeenEmployed.unapply))
+object G1BeenEmployed extends Controller with CachedClaim with Navigable {
+  val form = Form(mapping(
+    "beenEmployed" -> (nonEmptyText verifying validYesNo)
+  )(BeenEmployed.apply)(BeenEmployed.unapply))
 
   def present = claiming { implicit claim => implicit request =>
+    claim.questionGroup[EmploymentDomain].collect(presentEmployment(presentBeenEmployed)).getOrElse(redirect).b
+  }
+
+  def presentBeenEmployed(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val filledForm = request.headers.get("referer") match {
       case Some(referer) if referer contains routes.G2JobDetails.present().url => form
       case Some(referer) if referer contains routes.G14JobCompletion.submit().url => form
@@ -26,8 +29,10 @@ object G1BeenEmployed extends Controller with CachedClaim {
       }
     }
 
-    dispatch(Ok(views.html.s7_employment.g1_beenEmployed(filledForm)))
+    track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(filledForm)) }
   }
+
+  def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = claim -> Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present())
 
   def submit = claiming { implicit claim => implicit request =>
     import controllers.Mappings.yes
