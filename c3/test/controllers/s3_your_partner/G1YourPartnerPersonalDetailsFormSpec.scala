@@ -20,7 +20,6 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
   val dateOfBirthMonth = 12
   val dateOfBirthYear = 1990
   val nationality = "British"
-  val liveAtSameAddress = "yes"
   val separatedFromPartner = "yes"
 
   "Your Partner Personal Details Form" should {
@@ -40,7 +39,6 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> nationality,
-          "liveAtSameAddress" -> liveAtSameAddress,
           "separated.fromPartner" -> separatedFromPartner)).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
@@ -52,7 +50,6 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
             f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5))))
             f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
             f.nationality must equalTo(Some(nationality))
-            f.liveAtSameAddress must equalTo(liveAtSameAddress)
             f.separatedFromPartner must equalTo(separatedFromPartner)
           })
     }
@@ -68,7 +65,6 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
-          "liveAtSameAddress" -> liveAtSameAddress,
           "separated.fromPartner" -> separatedFromPartner)).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(5)
@@ -85,13 +81,12 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
       G1YourPartnerPersonalDetails.form.bind(
         Map("middleName" -> "middle name is optional")).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(6)
+            formWithErrors.errors.length must equalTo(5)
             formWithErrors.errors(0).message must equalTo("error.required")
             formWithErrors.errors(1).message must equalTo("error.required")
             formWithErrors.errors(2).message must equalTo("error.required")
             formWithErrors.errors(3).message must equalTo("error.required")
             formWithErrors.errors(4).message must equalTo("error.required")
-            formWithErrors.errors(5).message must equalTo("error.required")
           },
           theirPersonalDetails => "This mapping should not happen." must equalTo("Valid"))
     }
@@ -112,7 +107,6 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> nationality,
-          "liveAtSameAddress" -> liveAtSameAddress,
           "separated.fromPartner" -> separatedFromPartner)).fold(
           formWithErrors => {
             formWithErrors.errors.head.message must equalTo("error.nationalInsuranceNumber")
@@ -137,7 +131,6 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> "12345",
           "nationality" -> nationality,
-          "liveAtSameAddress" -> liveAtSameAddress,
           "separated.fromPartner" -> separatedFromPartner)).fold(
           formWithErrors => {
             formWithErrors.errors.head.message must equalTo("error.invalid")
@@ -162,7 +155,6 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> "United States",
-          "liveAtSameAddress" -> liveAtSameAddress,
           "separated.fromPartner" -> separatedFromPartner)).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
@@ -186,7 +178,6 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> "a123456",
-          "liveAtSameAddress" -> liveAtSameAddress,
           "separated.fromPartner" -> separatedFromPartner)).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)
@@ -211,7 +202,6 @@ class G1YourPartnerPersonalDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> "a!@£$%^&*(){}",
-          "liveAtSameAddress" -> liveAtSameAddress,
           "separated.fromPartner" -> separatedFromPartner)).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(1)

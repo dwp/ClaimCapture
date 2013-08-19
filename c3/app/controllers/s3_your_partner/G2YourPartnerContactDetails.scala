@@ -20,23 +20,7 @@ object G2YourPartnerContactDetails extends Controller with YourPartnerRouting wi
 
   def present = claiming { implicit claim => implicit request =>
     whenSectionVisible {
-      val liveAtSameAddress = claim.questionGroup(YourPartnerPersonalDetails) match {
-        case Some(t: YourPartnerPersonalDetails) => t.liveAtSameAddress == yes
-        case _ => false
-      }
-
-      val prePopulatedForm = if (liveAtSameAddress) {
-        claim.questionGroup(ContactDetails) match {
-          case Some(cd: ContactDetails) => form.fill(YourPartnerContactDetails(address = Some(cd.address), postcode = cd.postcode))
-          case _ => form
-        }
-      } else {
-        claim.questionGroup(YourPartnerContactDetails) match {
-          case Some(t: YourPartnerContactDetails) => form.fill(t)
-          case _ => form
-        }
-      }
-      Ok(views.html.s3_your_partner.g2_yourPartnerContactDetails(prePopulatedForm, completedQuestionGroups(YourPartnerContactDetails)))
+      Ok(views.html.s3_your_partner.g2_yourPartnerContactDetails(form.fill(YourPartnerContactDetails), completedQuestionGroups(YourPartnerContactDetails)))
     }
   }
 

@@ -18,27 +18,7 @@ object G2TheirContactDetails extends Controller with CareYouProvideRouting with 
     )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails) match {
-      case Some(t: TheirPersonalDetails) => t.liveAtSameAddressCareYouProvide == yes
-      case _ => false
-    }
-
-    val theirContactDetailsPrePopulatedForm = if (liveAtSameAddress) {
-      claim.questionGroup(ContactDetails) match {
-        case Some(cd: ContactDetails) => form.fill(TheirContactDetails(address = cd.address, postcode = cd.postcode))
-        case _ => form
-      }
-    } else {
-      claim.questionGroup(TheirContactDetails) match {
-        case Some(t: TheirContactDetails) => form.fill(t)
-        case _ => claim.questionGroup(YourPartnerContactDetails) match {// Get YourPartner address
-            case Some(cd: YourPartnerContactDetails) => form.fill(TheirContactDetails(address = cd.address.get, postcode =  cd.postcode))
-            case _ => form
-          }
-      }
-    }
-
-    Ok(views.html.s4_care_you_provide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm, completedQuestionGroups(TheirContactDetails)))
+    Ok(views.html.s4_care_you_provide.g2_theirContactDetails(form.fill(TheirContactDetails), completedQuestionGroups(TheirContactDetails)))
   }
 
   def submit = claiming { implicit claim => implicit request =>

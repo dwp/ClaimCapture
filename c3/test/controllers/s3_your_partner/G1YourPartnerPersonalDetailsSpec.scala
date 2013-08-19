@@ -70,7 +70,6 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
           f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5))))
           f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
           f.nationality must equalTo(Some(nationality))
-          f.liveAtSameAddress must equalTo(liveAtSameAddress)
           f.separatedFromPartner must equalTo(separatedFromPartner)
         }
       }
