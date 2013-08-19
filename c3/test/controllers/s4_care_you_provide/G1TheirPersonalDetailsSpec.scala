@@ -16,14 +16,14 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
   "Their Personal Details - Controller" should {
 
     "present 'Their Personal Details'." in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G1TheirPersonalDetails.present(request)
       status(result) mustEqual OK
     }
 
     "add 'Their Personal Details' to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(theirPersonalDetailsInput: _*)
 
       val result = G1TheirPersonalDetails.submit(request)
@@ -42,7 +42,7 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
     }
 
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("title" -> "Mr")
 
       val result = G1TheirPersonalDetails.submit(request)
@@ -50,7 +50,7 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(theirPersonalDetailsInput: _*)
 
       val result = G1TheirPersonalDetails.submit(request)

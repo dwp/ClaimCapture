@@ -15,14 +15,14 @@ class G3RelationshipAndOtherClaimsSpec extends Specification with Mockito with T
   "More About The Person - Controller" should {
 
     "present 'More About The Person' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G3RelationshipAndOtherClaims.present(request)
       status(result) mustEqual OK
     }
 
     "add more about the person details to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(moreAboutThePersonInput: _*)
 
       val result = G3RelationshipAndOtherClaims.submit(request)
@@ -39,7 +39,7 @@ class G3RelationshipAndOtherClaimsSpec extends Specification with Mockito with T
     }
 
     "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("relationship" -> "")
 
       val result = G3RelationshipAndOtherClaims.submit(request)
@@ -47,7 +47,7 @@ class G3RelationshipAndOtherClaimsSpec extends Specification with Mockito with T
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(moreAboutThePersonInput: _*)
 
       val result = G3RelationshipAndOtherClaims.submit(request)

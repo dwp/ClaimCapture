@@ -14,6 +14,10 @@ import play.api.Logger
 import play.api.http.HeaderNames._
 import java.util.UUID._
 
+object CachedClaim {
+  val CLAIM_KEY = "claim"
+}
+
 trait CachedClaim {
   type ClaimResult = (Claim, Result)
 
@@ -31,14 +35,14 @@ trait CachedClaim {
   implicit def claimAndResultToRight(claimingResult: ClaimResult) = Right(claimingResult)
 
   def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get("connected").getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
+    r.session.get(CachedClaim.CLAIM_KEY).getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
   }
 
   def newClaim(f: => Claim => Request[AnyContent] => Result) = Action {
     implicit request => {
       val (key, expiration) = keyAndExpiration(request)
 
-      def apply(claim: Claim) = f(claim)(request).withSession("connected" -> key)
+      def apply(claim: Claim) = f(claim)(request).withSession(CachedClaim.CLAIM_KEY -> key)
         .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
         .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
 
@@ -63,14 +67,14 @@ trait CachedClaim {
       def action(claim: Claim): Result = {
         f(claim)(request) match {
           case Left(r: Result) =>
-            r.withSession("connected" -> key)
+            r.withSession(CachedClaim.CLAIM_KEY -> key)
               .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
               .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
 
           case Right((c: Claim, r: Result)) => {
             Cache.set(key, c, expiration)
 
-            r.withSession("connected" -> key)
+            r.withSession(CachedClaim.CLAIM_KEY -> key)
               .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
               .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
           }

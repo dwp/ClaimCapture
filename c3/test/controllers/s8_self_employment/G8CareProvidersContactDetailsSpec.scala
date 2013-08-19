@@ -20,14 +20,14 @@ class G8CareProvidersContactDetailsSpec extends Specification with Tags {
         "postcode" -> postcode)
 
     "present 'Your Partner Contact Details' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G8CareProvidersContactDetails.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(careProvidersContactDetailsInput: _*)
 
       val result = G8CareProvidersContactDetails.submit(request)
@@ -43,7 +43,7 @@ class G8CareProvidersContactDetailsSpec extends Specification with Tags {
     }
 
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
       val result = G8CareProvidersContactDetails.submit(request)
@@ -51,7 +51,7 @@ class G8CareProvidersContactDetailsSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(careProvidersContactDetailsInput: _*)
 
       val result = G8CareProvidersContactDetails.submit(request)

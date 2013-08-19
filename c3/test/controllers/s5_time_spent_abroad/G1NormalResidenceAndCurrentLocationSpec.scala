@@ -12,14 +12,14 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
   "Normal residence and current location" should {
     "present" in new WithApplication with Claiming {
 
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G1NormalResidenceAndCurrentLocation.present(request)
       status(result) mustEqual OK
     }
 
     "add 'NormalResidenceAndCurrentLocation' to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "no", "liveInUK.whereDoYouLive" -> "Italy", "inGBNow" -> "no")
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "no", "liveInUK.whereDoYouLive" -> "Italy", "inGBNow" -> "no")
 
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
@@ -35,7 +35,7 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
     }
 
     "return bad request on invalid data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "")
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "")
 
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       status(result) mustEqual BAD_REQUEST

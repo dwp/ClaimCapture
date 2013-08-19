@@ -10,13 +10,13 @@ import models.domain.Claim
 class G3EmployerContactDetailsSpec extends Specification with Tags {
   "Employer's contact details" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = G3EmployerContactDetails.present("Dummy job ID")(request)
       status(result) mustEqual OK
     }
 
     """require only "job ID".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1")
 
       val result = G3EmployerContactDetails.submit(request)
@@ -24,13 +24,13 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
     }
 
     """be added to a (current) job""" in new WithApplication with Claiming {
-      G2JobDetails.submit(FakeRequest().withSession("connected" -> claimKey)
+      G2JobDetails.submit(FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
-      val result = G3EmployerContactDetails.submit(FakeRequest().withSession("connected" -> claimKey)
+      val result = G3EmployerContactDetails.submit(FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1"))
 
       status(result) mustEqual SEE_OTHER

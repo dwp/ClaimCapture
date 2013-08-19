@@ -13,14 +13,14 @@ class G2YourPartnerContactDetailsSpec extends Specification with Tags {
 
   "Your Partner Contact details - Controller" should {
     "present 'Your Partner Contact details' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G2YourPartnerContactDetails.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(yourPartnerContactDetailsInput: _*)
 
       val result = G2YourPartnerContactDetails.submit(request)
@@ -36,7 +36,7 @@ class G2YourPartnerContactDetailsSpec extends Specification with Tags {
     }
 
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
       val result = G2YourPartnerContactDetails.submit(request)
@@ -44,7 +44,7 @@ class G2YourPartnerContactDetailsSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(yourPartnerContactDetailsInput: _*)
 
       val result = G2YourPartnerContactDetails.submit(request)

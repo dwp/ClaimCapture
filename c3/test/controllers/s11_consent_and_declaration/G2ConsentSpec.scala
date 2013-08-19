@@ -8,21 +8,21 @@ import models.domain.Claiming
 class G2ConsentSpec extends Specification with Tags {
   "Consent" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G2Consent.present(request)
       status(result) mustEqual OK
     }
 
     """enforce answer to all questions""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result = G2Consent.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to the next page after a valid submission (both no)" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("gettingInformationFromAnyEmployer.informationFromEmployer" -> "no",
           "gettingInformationFromAnyEmployer.why" -> "reason",
           "tellUsWhyEmployer.informationFromPerson" -> "no",
@@ -33,7 +33,7 @@ class G2ConsentSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission (both yes)" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("gettingInformationFromAnyEmployer.informationFromEmployer" -> "yes",
           "tellUsWhyEmployer.informationFromPerson" -> "yes")
 

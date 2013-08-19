@@ -8,13 +8,13 @@ import models.domain.Claiming
 class EmploymentSpec extends Specification with Tags {
   "Employment - Controller" should {
     "present completion" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = Employment.completed(request)
       status(result) mustEqual OK
     }
 
     """progress to "next section".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = Employment.submit(request)
       status(result) mustEqual SEE_OTHER
     }

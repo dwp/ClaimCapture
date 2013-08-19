@@ -47,7 +47,7 @@ s4.g6 = Representatives for the Person you care for
 s4.g7 = More about the care you provide
 s4.g8 = Details of the person/organisation who pays you 
 s4.g9 = Contact details of the person who pays you
-s4.g10 = Breaks in care
+s4.g10 = Fewer than 35 hours a week of care
 s4.g11 = About the breaks in care
 
 s5.g1 = Your normal residence and current location
@@ -231,20 +231,20 @@ hasSomeonePaidYou.label = Has someone paid you to care for this person since you
 
 # BREAKS IN CARE
 answer = Have you had any breaks in caring since claim date?
-answer.label = Have you had any breaks in caring since {0}?
-answer.more.label = Have you had any more breaks in caring since {0}?
+answer.label = Have you spent less than 35 hours a week caring for this person since {0}?
+answer.more.label = Add another time period?
 
-start = Break start date?
-start.time = Break start time?
-end = Break end date?
-end.time = Break end time?
-whereYou = Where were you during the above break?
-whereYou_location = Where were you during the above break?
-whereYou.location = Where were you during the above break?
-wherePerson = Where was the Person you care for during the above break?
-wherePerson_location = Where was the Person you care for during the above break?
-wherePerson.location = Where was the Person you care for during the above break?
-medicalDuringBreak = Did you or the Person you care for receive any medical treatment or professional care during the above break?
+start = Start date?
+start.time = Start time?
+end = End date?
+end.time = End time?
+whereYou = Where you were?
+whereYou_location = Where you were?
+whereYou.location = Where you were?
+wherePerson = Where the person you care for was?
+wherePerson_location = Where the person you care for was?
+wherePerson.location = Where the person you care for was?
+medicalDuringBreak = Did you or the person you look after get any medical treatment or professional care during this time?
 
 
 ## TIME SPENT ABROAD

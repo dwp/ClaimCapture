@@ -37,6 +37,11 @@ class EvidenceListSpec extends Specification with Tags {
         xml.text must contain(employmentDocuments)
         xml.text must contain(selfEmploymentDocuments)
       }
+
+      "generate a correct section seperator" in {
+        val sep = EvidenceList.textSeparatorLine("word")
+        sep.text must beEqualTo("=========================word=========================")
+      }
     }
   } section "unit"
 }

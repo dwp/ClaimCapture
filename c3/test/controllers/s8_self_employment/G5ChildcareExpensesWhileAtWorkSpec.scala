@@ -24,19 +24,19 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     )
 
     "present 'Child Care Expenses while at work' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("doYouPayToPensionScheme.answer" -> "no", "doYouPayToLookAfterYourChildren" -> "yes","didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
       val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
-      val request2 = FakeRequest().withSession("connected" -> claimKey)
+      val request2 = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
 
       val result2 = G5ChildcareExpensesWhileAtWork.present(request)
       status(result2) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(selfEmploymentChildCareExpensesInput: _*)
 
       val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)
@@ -54,7 +54,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "missing mandatory field" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(
         "whatRelationIsToYou" -> whatRelationIsToYou)
 
@@ -63,7 +63,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody(selfEmploymentChildCareExpensesInput: _*)
 
       val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)

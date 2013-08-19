@@ -6,7 +6,7 @@ import utils.pageobjects.{PageContext, Page}
 final class G5AdditionalWageDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G5AdditionalWageDetailsPage.url.replace(":jobID", iteration.toString), G5AdditionalWageDetailsPage.title, previousPage, iteration) {
 //  declarePaymentFrequency("#oftenGetPaid","EmploymentAddtionalWageHowOftenAreYouPaid_" + iteration)
   declareSelect("#oftenGetPaid_frequency","EmploymentAddtionalWageHowOftenAreYouPaid_" + iteration)
-  declareInput("#oftenGetPaid_frequency_other","EmploymentAddtionalWageOther_" + iteration)
+  declareInput("#oftenGetPaid_other","EmploymentAddtionalWageOther_" + iteration)
   declareInput("#whenGetPaid","EmploymentAddtionalWageWhenDoYouGetPaid_" + iteration)
   declareYesNo("#holidaySickPay","EmploymentAdditionalWageDoYouGetHolidayPayorSickPay_" + iteration)
   declareYesNo("#anyOtherMoney","EmploymentAddtionalWageDoYouGetPaidAnyOtherMoney_" + iteration)

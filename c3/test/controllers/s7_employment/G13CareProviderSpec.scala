@@ -27,13 +27,13 @@ class G13CareProviderSpec extends Specification with Tags {
       val claim = Claim().update(jobs)
       Cache.set(claimKey, claim)
 
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
       val result = G13CareProvider.present(jobID)(request)
       status(result) mustEqual OK
     }
 
     "require all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession("connected" -> claimKey)
+      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID)
 
       val result = G13CareProvider.submit(request)
@@ -41,13 +41,13 @@ class G13CareProviderSpec extends Specification with Tags {
     }
 
     "be added to a (current) job" in new WithApplication with Claiming {
-      G2JobDetails.submit(FakeRequest().withSession("connected" -> claimKey)
+      G2JobDetails.submit(FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
-      val result = G13CareProvider.submit(FakeRequest().withSession("connected" -> claimKey).withFormUrlEncodedBody("jobID" -> jobID))
+      val result = G13CareProvider.submit(FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody("jobID" -> jobID))
 
       status(result) mustEqual SEE_OTHER
 
