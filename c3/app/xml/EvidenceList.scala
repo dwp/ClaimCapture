@@ -113,7 +113,7 @@ object EvidenceList {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     for { break <- breaksInCare.breaks } yield {
-      textLine("Where was the person you care for during the break? = ", break.wherePerson.location)
+      textLine("Where was the person you care for during the break? = ", break.wherePerson.location) ++
       textLine("Other detail ? = ", break.wherePerson.other)
     }
   }

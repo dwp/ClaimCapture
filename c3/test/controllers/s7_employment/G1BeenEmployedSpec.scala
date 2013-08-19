@@ -5,21 +5,15 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
-import models.DayMonthYear
-import models.domain.{Employment => Emp}
+import models.domain.{Employment => EmploymentDomain}
+import controllers.Mappings._
 
 class G1BeenEmployedSpec extends Specification with Tags {
   "Been Employed" should {
     "present" in new WithApplication with Claiming {
-      val claimDate = mockQuestionGroup[ClaimDate](ClaimDate)
-      claimDate.dateOfClaim returns DayMonthYear(1, 1, 2000)
-
-      val employment = mockQuestionGroup[Emp](Emp)
-      employment.beenEmployedSince6MonthsBeforeClaim returns "yes"
-
       val claim = Claim()
-        .update(claimDate)
-        .update(employment)
+        .update(ClaimDate())
+        .update(EmploymentDomain(beenEmployedSince6MonthsBeforeClaim = yes))
 
       Cache.set(claimKey, claim)
 

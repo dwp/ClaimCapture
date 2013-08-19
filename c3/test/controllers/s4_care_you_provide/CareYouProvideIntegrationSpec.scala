@@ -3,7 +3,6 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import play.api.i18n.Messages
 
 class CareYouProvideIntegrationSpec extends Specification with Tags {
 
