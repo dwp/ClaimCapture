@@ -20,17 +20,17 @@
 
 @main(Messages("s4.g10") + " - " + Messages("s4.longName"), Some(yesNoForm), completedQuestionGroups) {
     <fieldset id="breaks" class="form-elements results-detail">
-        <legend>Breaks you have added</legend>
+        <legend>Time period</legend>
 
         <table>
             <caption>Break details</caption>
 
             <thead>
                 <tr>
-                    <th>Dates</th>
-                    <th class="desc">Where were you?</th>
-                    <th class="desc">Where was the person you look after?</th>
-                    <th class="desc">Received medical treatment / professional care</th>
+                    <th>Time period</th>
+                    <th class="desc">Where you were</th>
+                    <th class="desc">Where the person you look after was</th>
+                    <th class="desc">Medical treatment</th>
                     <th>Change</th>
                     <th>Delete</th>
                 </tr>
@@ -69,9 +69,15 @@
         <fieldset class="form-elements">
             <legend>@Messages("s4.g10")</legend>
             
+
+            <ul class="group">
+                @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
+                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim))
+                }
+            </ul>
             <div class="prompt helper-prompt">
                 <p class="intro">
-                    By break we mean time when, for any reason, you spent less than 35 hours a week caring for the person you look after. For example, if:
+                    For example :
                 </p>
 
                 <ul>
@@ -80,11 +86,6 @@
                 </ul>
             </div>
 
-            <ul class="group">
-                @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
-                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim))
-                }
-            </ul>
         </fieldset>
 
         <nav class="form-steps">
