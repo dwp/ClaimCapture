@@ -4,6 +4,7 @@
 @import views.html.helper._
 @import models.domain.{Claim, ClaimDate, MoreAboutTheCare}
 @import views.html.s4_care_you_provide.main
+@import utils.helpers.CarersCrypto
 
 @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim() = @{
     import language.postfixOps
@@ -68,13 +69,18 @@
     @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit) {
         <fieldset class="form-elements">
             <legend>@Messages("s4.g10")</legend>
-            
 
             <ul class="group">
                 @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
                     @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim))
                 }
             </ul>
+
+            <div id="warningMessageWrap" class="prompt warning-prompt" style="display: none;">
+                <p>we will contact you about more breaks in care.</p>
+                <span>!</span>
+            </div>
+
             <div class="prompt helper-prompt">
                 <p class="intro">
                     For example :
@@ -96,3 +102,9 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g10_breaksInCare.js")'></script>
+
+<script type="text/javascript">
+    $(function () {
+        window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+    });
+</script>

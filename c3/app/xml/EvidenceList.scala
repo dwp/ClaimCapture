@@ -114,7 +114,7 @@ object EvidenceList {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     for { break <- breaksInCare.breaks } yield {
-      textLine("Where was the person you care for during the break? = ", break.wherePerson.location)
+      textLine("Where was the person you care for during the break? = ", break.wherePerson.location) ++
       textLine("Other detail ? = ", break.wherePerson.other)
     }
   }
@@ -122,11 +122,14 @@ object EvidenceList {
   def timeSpentAbroad(claim: Claim) = {
     val normalResidenceAndCurrentLocation = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
     val abroadForMoreThan52Weeks = claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())
+    val abroadForMoreThan4Weeks = claim.questionGroup[AbroadForMoreThan4Weeks].getOrElse(AbroadForMoreThan4Weeks())
 
     textSeparatorLine("Abroad") ++
       textLine("Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = ", normalResidenceAndCurrentLocation.whereDoYouLive.answer) ++
       textLine("Have you had any more trips out of Great Britain for more than 52 weeks at a time, " ++
         "since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)? = ", abroadForMoreThan52Weeks.anyTrips)
+      textLine("Have you been out of Great Britain with the person you care for, for more than four weeks at a time, " +
+        "since [[Claim Date – 3 years]] (this is 3 years before your claim date)? = ", abroadForMoreThan4Weeks.anyTrips)
   }
 
   def fiftyTwoWeeksTrips(claim: Claim) = {
