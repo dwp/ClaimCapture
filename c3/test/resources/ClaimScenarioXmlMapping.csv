@@ -196,7 +196,7 @@ Consent & Declaration,Declaration,Disclaimer text and tick box,ConsentDeclaratio
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,SelfEmployment>SelfEmployedNow
 Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,SelfEmployment>RecentJobDetails>DateStarted|SelfEmployment>CurrentJobDetails>DateStarted
 Self Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,SelfEmployment>RecentJobDetails>DateEnded
-Self Employed,Your job,Have you ceased trading?,SelfEmployedHaveYouCeasedTrading,SelfEmployment>RecentJobDetails>TradingCeased|SelfEmployment>CurrentJobDetails>TradingCeased
+Self Employed,Your job,Have you ceased trading?,SelfEmployedHaveYouCeasedTrading,SelfEmployment>RecentJobDetails>TradingCeased
 Self Employed,Your job,Nature of your business,SelfEmployedNatureofYourBusiness,SelfEmployment>RecentJobDetails>NatureOfBusiness|SelfEmployment>CurrentJobDetails>NatureOfBusiness
 Self Employed,Your accounts,What was/is your trading year. From,SelfEmployedWhatWasIsYourTradingYearfrom,SelfEmployment>RecentJobDetails>TradingYear>DateFrom|SelfEmployment>CurrentJobDetails>TradingYear>DateFrom
 Self Employed,Your accounts,What was/is your trading year. To,SelfEmployedWhatWasIsYourTradingYearIs,SelfEmployment>RecentJobDetails>TradingYear>DateTo|SelfEmployment>CurrentJobDetails>TradingYear>DateTo
