@@ -221,7 +221,6 @@ case class PersonYouCareForExpenses(jobID: String = "",
                                     relationToYou: String = "",
                                     relationToPersonYouCare: String = "") extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier
 
-
 object PersonYouCareForExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g12"
 }
@@ -229,7 +228,6 @@ object PersonYouCareForExpenses extends QuestionGroup.Identifier {
 case class CareProvider(jobID: String = "",
                         address: Option[MultiLineAddress] = None,
                         postcode: Option[String] = None) extends QuestionGroup(CareProvider) with Job.Identifier
-
 
 object CareProvider extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g13"

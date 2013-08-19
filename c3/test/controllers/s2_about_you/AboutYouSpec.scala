@@ -4,12 +4,11 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.cache.Cache
 import play.api.test.Helpers._
-import org.specs2.mock.Mockito
 import models.domain._
 import models.domain.Claim
 import controllers.s2_about_you
 
-class AboutYouSpec extends Specification with Mockito with Tags {
+class AboutYouSpec extends Specification with Tags {
   "About you" should {
     "accept all initial mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("connected" -> claimKey)

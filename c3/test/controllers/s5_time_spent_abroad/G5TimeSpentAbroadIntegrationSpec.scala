@@ -4,7 +4,6 @@ import org.specs2.mutable.{Specification, Tags}
 import play.api.test.WithBrowser
 import controllers.BrowserMatchers
 import controllers.Formulate
-import play.api.i18n.Messages
 
 class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
   "Time spent abroad" should {

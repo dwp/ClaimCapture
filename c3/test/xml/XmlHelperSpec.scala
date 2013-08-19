@@ -9,36 +9,44 @@ class XMLHelperSpec extends Specification with Tags {
       "when yes" in {
         XMLHelper.titleCase("yes") shouldEqual "Yes"
       }
+
       "when no" in {
         XMLHelper.titleCase("no") shouldEqual "No"
       }
+
       "when y" in {
         XMLHelper.titleCase("y") shouldEqual "Y"
       }
+
       "when empty" in {
         XMLHelper.titleCase("") shouldEqual ""
       }
+
       "when null" in {
         XMLHelper.titleCase(null) shouldEqual ""
       }
     }
+
     "convert boolean string to yes/no" in {
       "when true" in {
         XMLHelper.booleanStringToYesNo("true") shouldEqual "yes"
       }
+
       "when false" in {
         XMLHelper.booleanStringToYesNo("false") shouldEqual "no"
       }
+
       "when other" in {
         XMLHelper.booleanStringToYesNo("other") shouldEqual "other"
       }
+
       "when empty" in {
         XMLHelper.booleanStringToYesNo("") shouldEqual ""
       }
+
       "when null" in {
         XMLHelper.booleanStringToYesNo(null) shouldEqual ""
       }
     }
   }
-
 }

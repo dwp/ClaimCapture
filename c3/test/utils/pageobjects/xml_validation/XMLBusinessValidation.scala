@@ -6,8 +6,6 @@ import scala.xml.{NodeSeq, Elem, XML}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import scala.language.implicitConversions
-import scala.util.matching.Regex
-
 
 /**
  * Validates that an XML contains all the relevant data that was provided in a Claim.
@@ -35,25 +33,29 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
     // Load the XML mapping
     val mapping = XMLBusinessValidation.buildXmlMappingFromFile(xmlMappingFile)
     val listErrors = mutable.MutableList.empty[String]
+
     // Go through the attributes of the claim and check that there is a corresponding entry in the XML
     claim.map.foreach {
       case (attribute, value) =>
         val xPathNodesAndQuestion = mapping.get(attribute.split("_")(0))
+
         if (xPathNodesAndQuestion != None) {
           val path = xPathNodesAndQuestion.get._1
           val nodes = path.split(">")
           val elementValue = XmlNode(childNode(xml.\\(nodes(0)), nodes.drop(1)))
+
           if (elementValue.isDefined) {
             if (elementValue doesNotMatch ClaimValue(attribute, value, xPathNodesAndQuestion.get._2)) listErrors += attribute + " " + path + elementValue.error
           }
+
           else listErrors += attribute + " " + path + " XML element not found"
         }
     }
+
     if (listErrors.nonEmpty && throwException) throw new PageObjectException("XML validation failed", listErrors.toList)
     listErrors.toList
   }
 }
-
 
 /**
  * Contains method to read XML mapping file.
@@ -77,7 +79,6 @@ class XmlNode(val theNodes: NodeSeq) {
 
   def matches(claimValue: ClaimValue): Boolean = {
     try {
-
       val nodeStart = theNodes(0).mkString
 
       val isARepeatableNode = !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
@@ -104,6 +105,7 @@ class XmlNode(val theNodes: NodeSeq) {
         }
 
         val matching = valuesMatching
+
         if (!matching)
           error = " value expected: [" + (if (nodeName.startsWith(XmlNode.EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + value + "]"
         matching
@@ -120,10 +122,8 @@ class XmlNode(val theNodes: NodeSeq) {
 
   def isDefined = theNodes.nonEmpty
 
-  override def toString() = theNodes.mkString(",")
-
+  override def toString = theNodes.mkString(",")
 }
-
 
 object XmlNode {
 
@@ -136,16 +136,14 @@ object XmlNode {
   //  implicit def fromString(source: String): XmlNode = new XmlNode(prepareElement(source))
 }
 
-
 /**
  * Represents a claimvalue once "cleaned", i.e trimmed and date reformated to yyyy-MM-dd as in the XML.
  * @param value value cleaned from the claim.
  */
 class ClaimValue(val attribute: String, val value: String, val question: String) {
 
-  override def toString() = question + " - " + attribute + ": " + value
+  override def toString = question + " - " + attribute + ": " + value
 }
-
 
 object ClaimValue {
 
@@ -153,6 +151,7 @@ object ClaimValue {
 
   private def prepareClaimValue(claimValue: String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
+
     if (cleanValue.contains("/")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
       date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))

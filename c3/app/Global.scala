@@ -57,7 +57,6 @@ object Global extends WithFilters(RefererCheck) {
     Logger.info("c3 Stopped")
     super.onStop(app)
   }
-
 }
 
 object RefererCheck extends Filter {

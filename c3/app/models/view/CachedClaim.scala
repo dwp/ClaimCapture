@@ -15,6 +15,8 @@ import play.api.http.HeaderNames._
 import java.util.UUID._
 
 trait CachedClaim {
+  type ClaimResult = (Claim, Result)
+
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
     def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = {
       claim.questionGroup(qi) match {
@@ -26,7 +28,11 @@ trait CachedClaim {
 
   implicit def defaultResultToLeft(result: Result) = Left(result)
 
-  implicit def claimAndResultToRight(claimingResult: (Claim, Result)) = Right(claimingResult)
+  implicit def claimAndResultToRight(claimingResult: ClaimResult) = Right(claimingResult)
+
+  def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
+    r.session.get("connected").getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
+  }
 
   def newClaim(f: => Claim => Request[AnyContent] => Result) = Action {
     implicit request => {
@@ -50,7 +56,7 @@ trait CachedClaim {
     }
   }
 
-  def claiming(f: => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
+  def claiming(f: => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action {
     request => {
       val (key, expiration) = keyAndExpiration(request)
 
@@ -89,13 +95,7 @@ trait CachedClaim {
 
   type JobID = String
 
-  def claimingInJob(f: => JobID => Claim => Request[AnyContent] => Either[Result, (Claim, Result)]) = Action {
-    request => {
-      claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
-    }
-  }
-
-  private def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get("connected").getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
+  def claimingInJob(f: => JobID => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action { request =>
+    claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
   }
 }

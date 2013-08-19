@@ -1,6 +1,6 @@
 package xml
 
-import models.domain.{Claim}
+import models.domain.Claim
 import app.XMLValues
 
 object PropertyRentedOut {
@@ -12,5 +12,4 @@ object PropertyRentedOut {
       <SubletHome>{XMLValues.NotAsked}</SubletHome>
     </PropertyRentedOut>
   }
-
 }

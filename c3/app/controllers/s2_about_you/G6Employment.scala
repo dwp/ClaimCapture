@@ -5,27 +5,26 @@ import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
-import models.view.CachedClaim
+import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 
-object G6Employment extends Controller with AboutYouRouting with CachedClaim {
-  val form = Form(
-    mapping(
-      "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText.verifying(validYesNo),
-      "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo)
-    )(Employment.apply)(Employment.unapply))
+object G6Employment extends Controller with CachedClaim with Navigable {
+  val form = Form(mapping(
+    "beenSelfEmployedSince1WeekBeforeClaim" -> nonEmptyText.verifying(validYesNo),
+    "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo)
+  )(Employment.apply)(Employment.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(ClaimDate) match {
-      case Some(n) => Ok(views.html.s2_about_you.g6_employment(form.fill(Employment), completedQuestionGroups(Employment)))
+      case Some(n) => track(Employment) { implicit claim => Ok(views.html.s2_about_you.g6_employment(form.fill(Employment))) }
       case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
     }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g6_employment(formWithErrors, completedQuestionGroups(Employment))),
+      formWithErrors => BadRequest(views.html.s2_about_you.g6_employment(formWithErrors)),
       employment => {
         val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)
                                 .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, SelfEmployment)

@@ -3,8 +3,9 @@ package models.domain
 import language.postfixOps
 import models.{DayMonthYear, Timestamped}
 import scala.reflect.ClassTag
+import models.view.Navigation
 
-case class Claim(sections: List[Section]) extends Timestamped {
+case class Claim(sections: List[Section])(implicit val navigation: Navigation = Navigation()) extends Timestamped {
   def section(sectionIdentifier: Section.Identifier): Section = sections.find(s => s.identifier == sectionIdentifier) match {
     case Some(s: Section) => s
     case _ => Section(sectionIdentifier, List())
