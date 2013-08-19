@@ -21,7 +21,7 @@
             <legend>@Messages("s7.g6")</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("howMuchOwed"))
+                @carersInputText(currentForm("howMuchOwed"), 'placeholder -> Messages("poundSign"))
 
                 @inputDayMonthYearFromTo(currentForm("owedPeriod"), 'helper -> Messages("date.helper"))
 

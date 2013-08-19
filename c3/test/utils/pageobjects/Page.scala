@@ -74,12 +74,12 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
             case DATE_TO => fillDate(cssElem + "_to", theClaim.selectDynamic(claimAttribute))
             case INPUT => fillInput(cssElem, theClaim.selectDynamic(claimAttribute))
             case NINO => fillNino(cssElem, theClaim.selectDynamic(claimAttribute))
-            case PAYMENT_FREQUENCY => fillPaymentFrequency(cssElem, theClaim.selectDynamic(claimAttribute))
+           // case PAYMENT_FREQUENCY => fillPaymentFrequency(cssElem, theClaim.selectDynamic(claimAttribute))
             case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
             case SELECT => fillSelect(cssElem, theClaim.selectDynamic(claimAttribute))
             case SORTCODE => fillSortCode(cssElem, theClaim.selectDynamic(claimAttribute))
             case TIME => fillTime(cssElem, theClaim.selectDynamic(claimAttribute))
-            case WHEREABOUTS => fillWhereabouts(cssElem, theClaim.selectDynamic(claimAttribute))
+           // case WHEREABOUTS => fillWhereabouts(cssElem, theClaim.selectDynamic(claimAttribute))
             case YESNO => fillYesNo(cssElem, theClaim.selectDynamic(claimAttribute))
           }
       }
@@ -113,10 +113,11 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
   /**
    * Click the submit/next button of a page. By default does not throw a PageObjectException if a page displays errors.
    * @param throwException Specify whether should throw an exception if a page displays errors. By default set to false.
-   * @param waitForPage Does the test need add extra time to wait for the next page every time it submits a page? By default set to false.
+   * @param waitForPage Does the test need add extra time to wait for the next page every time it submits a page? By default set to true.
+   * @param waitDuration Duration of the wait in seconds.
    * @return next Page or same page if errors detected and did not ask for exception.
    */
-  def submitPage(throwException: Boolean = false, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
+  def submitPage(throwException: Boolean = false, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
     if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
     try {
       this.pageSource = browser.pageSource()    
@@ -144,10 +145,16 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     }
   }
 
-
-  def goToCompletedSection() = {
-    val completedPage = browser.click("div[class=completed] ul li a").title
-    createPageWithTitle(completedPage, iteration)
+  /**
+   * Go to a completed section.
+   * @param waitForPage Does the test need add extra time to wait for the next page every time it submits a page? By default set to true.
+   * @param waitDuration Duration of the wait in seconds.
+   * @return
+   */
+  def goToCompletedSection(waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
+    browser.click("div[class=completed] ul li a")
+    if (waitForPage) waitForDifferentPage(waitDuration)
+    createPageWithTitle(getTitleFromBrowser(), iteration)
   }
 
   /**

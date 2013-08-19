@@ -2,9 +2,16 @@ package controllers
 
 import play.api.test.WithBrowser
 import org.fluentlenium.core.filter.Filter
+import org.fluentlenium.core.Fluent
 
 trait WithBrowserHelper {
   this: WithBrowser[_] =>
+
+  def enter = this
+
+  def >(f: => Fluent) = f
+
+  def fluent = browser clear "#nothing"
 
   def goTo(relativeURL: String) = browser.goTo(relativeURL)
 

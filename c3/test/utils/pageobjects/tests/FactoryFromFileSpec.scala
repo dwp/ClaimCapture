@@ -16,9 +16,6 @@ class FactoryFromFileSpec extends Specification {
       val claim = new ClaimScenario
       FactoryFromFile.buildFromFileLast2Columns("/unit_tests/tests.csv", claim.updateDynamic)
 
-      claim.AboutYouHaveYouSubletYourHome mustEqual "value 1"
-      claim.AboutYouWhatIsYourVisaReferenceNumber mustEqual "value 2"
-      claim.AboutYouAddress mustEqual "value 3"
       claim.AboutYouAllOtherSurnamesorFamilyNames mustEqual "value 4"
       claim.AboutYouDateofBirth mustEqual "value 5"
       claim.AboutYouAreYouCurrentlyLivingintheUk must beNull[String]

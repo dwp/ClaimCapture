@@ -1,4 +1,4 @@
-@(title: String, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim)
 
 @import models.domain._
 @import helper._
@@ -20,7 +20,7 @@
                 @if(completedQuestionGroups.size > 0) {
                     <div class="completed">
                         <ul>
-                            @for((completedQuestionGroup, call) <- completedQuestionGroups) {
+                            @for(completedQuestionGroup <- completedQuestionGroups) {
                                 <li>
                                     @if(completedQuestionGroup.identifier == ClaimDate) {
                                         <h3>@Messages(completedQuestionGroup.identifier.id, claim.dateOfClaim.get.`dd/MM/yyyy`)</h3>
@@ -28,7 +28,7 @@
                                         <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
                                     }
 
-                                    <a href="@call">Change these answers</a>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)">Change these answers</a>
                                 </li>
                             }
                         </ul>

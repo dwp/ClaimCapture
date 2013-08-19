@@ -16,10 +16,8 @@ case class YourDetails(title: String = "",
                        dateOfBirth: DayMonthYear = DayMonthYear(None, None, None),
                        alwaysLivedUK: String = "",
                        maritalStatus: String = "") extends QuestionGroup(YourDetails) {
-  def otherNames = firstName + (middleName match {
-    case Some(m: String) => s" $m"
-    case _ => ""
-  })
+
+  def otherNames = firstName + middleName.map(" " + _).getOrElse("")
 }
 
 object YourDetails extends QuestionGroup.Identifier {
@@ -36,7 +34,7 @@ object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class TimeOutsideUK(livingInUK: LivingInUK = LivingInUK(), visaReference: Option[String] = None) extends QuestionGroup(TimeOutsideUK)
+case class TimeOutsideUK(livingInUK: LivingInUK = LivingInUK()) extends QuestionGroup(TimeOutsideUK)
 
 object TimeOutsideUK extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"
@@ -60,10 +58,4 @@ case class Employment(beenSelfEmployedSince1WeekBeforeClaim: String = "", beenEm
 
 object Employment extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g6"
-}
-
-case class PropertyAndRent(ownProperty: String = "", hasSublet: String = "") extends QuestionGroup(PropertyAndRent)
-
-object PropertyAndRent extends QuestionGroup.Identifier {
-  val id = s"${AboutYou.id}.g7"
 }

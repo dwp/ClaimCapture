@@ -2,8 +2,7 @@ package xml
 
 import app.XMLValues
 import models.domain._
-import models.yesNo.{YesNoWithDate}
-import controllers.Mappings.no
+import models.yesNo.YesNoWithDate
 import controllers.Mappings.yes
 import scala.xml.NodeSeq
 import xml.XMLHelper.stringify
@@ -19,8 +18,8 @@ object Residency {
     <Residency>
       <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
       <EUEEASwissNational>{XMLValues.NotAsked}</EUEEASwissNational>
-      <CountryNormallyLive>{yes}</CountryNormallyLive>
-      <CountryNormallyLiveOther>{normalResidence.whereDoYouLive.text.orNull}</CountryNormallyLiveOther>
+      <CountryNormallyLive>{normalResidence.whereDoYouLive.text.getOrElse(XMLValues.NotAsked)}</CountryNormallyLive>
+      <CountryNormallyLiveOther>{XMLValues.NotAsked}</CountryNormallyLiveOther>
       <InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>
       <InGreatBritain26Weeks>{XMLValues.NotAsked}</InGreatBritain26Weeks>
       {periodAbroadLastYear(tripsOption)}
@@ -49,9 +48,6 @@ object Residency {
   }
 
   def otherNationality(claim:Claim) = {
-//    val yourDetailsOption = claim.questionGroup[YourDetails]
-//    val yourDetails = yourDetailsOption.getOrElse(YourDetails())
-//    val hasLivedAbroad = yourDetails.alwaysLivedUK == no
     val timeOutsideUKOption = claim.questionGroup[TimeOutsideUK]
     val timeOutsideUK = timeOutsideUKOption.getOrElse(TimeOutsideUK())
     val currentlyLivingInUK = timeOutsideUK.livingInUK.answer == yes
@@ -63,7 +59,7 @@ object Residency {
         <CountryArrivedFrom>{timeOutsideUK.livingInUK.text.orNull}</CountryArrivedFrom>
         <IntendToReturn>{goBack.answer}</IntendToReturn>
         <DateReturn>{stringify(goBack.date)}</DateReturn>
-        <VisaReferenceNumber>{timeOutsideUK.visaReference.orNull}</VisaReferenceNumber>
+        <VisaReferenceNumber>{XMLValues.NotAsked}</VisaReferenceNumber>
       </OtherNationality>
 
     } else NodeSeq.Empty

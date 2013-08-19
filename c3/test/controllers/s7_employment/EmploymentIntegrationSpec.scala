@@ -37,10 +37,10 @@ trait EmployedSinceClaimDate extends BrowserMatchers {
 
   def beginClaim = {
     Formulate.claimDate(browser)
-    titleMustEqual(Messages("s2.g5") + " - About you - the carer")
+    titleMustEqual("More about you - About you - the carer")
 
     Formulate.employment(browser)
-    titleMustEqual(Messages("s2.g7") + " - About you - the carer")
+    titleMustEqual("Completion - About you - the carer")
   }
 }
 
@@ -55,6 +55,6 @@ trait NotEmployedSinceClaimDate extends BrowserMatchers {
     browser.click("#beenSelfEmployedSince1WeekBeforeClaim_no")
     browser.submit("button[type='submit']")
 
-    titleMustEqual(Messages("s2.g7") + " - About you - the carer")
+    titleMustEqual("Completion - About you - the carer")
   }
 }

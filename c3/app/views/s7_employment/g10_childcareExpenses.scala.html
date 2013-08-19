@@ -21,7 +21,7 @@
             <legend>@Messages("s7.g10")</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("howMuchCostChildcare"), '_label -> Messages ("howMuchCostChildcare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))))
+                @carersShortInputText(currentForm("howMuchCostChildcare"), '_label -> Messages ("howMuchCostChildcare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'placeholder -> Messages("poundSign"))
 
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 
@@ -35,7 +35,7 @@
                         case _ => "no"
                     }))
 
-                @carersInputText(currentForm("relationToPersonYouCare"))
+                @relationshipSelect(currentForm("relationToPersonYouCare"))
             </ul>
         </fieldset>
 

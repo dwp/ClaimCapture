@@ -3,7 +3,7 @@ package controllers.s8_self_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment._
-import utils.pageobjects.s2_about_you.{G4ClaimDatePage, G7PropertyAndRentPage, G4ClaimDatePageContext}
+import utils.pageobjects.s2_about_you.{G4ClaimDatePage, G8AboutYouCompletedPage, G4ClaimDatePageContext}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.ClaimScenario
@@ -26,7 +26,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
     "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
       page goToThePage()
-      page runClaimWith (claim, G7PropertyAndRentPage.title, waitForPage = true)
+      page runClaimWith (claim, G8AboutYouCompletedPage.title, waitForPage = true)
 
       val nextPage = page goToPage( throwException = false, page = new G5ChildcareExpensesWhileAtWorkPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]

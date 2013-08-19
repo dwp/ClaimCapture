@@ -10,7 +10,7 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
     val whatRelationIsTothePersonYouCareFor = "d"
       
     "map data into case class" in {
-      G7ExpensesWhileAtWork.form.bind(
+      G7ExpensesWhileAtWork.form(models.domain.Claim()).bind(
         Map("howMuchYouPay" -> howMuchYouPay,
           "nameOfPerson" -> nameOfPerson,
           "whatRelationIsToYou" -> whatRelationIsToYou,
@@ -27,7 +27,7 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject if mandatory field is not filled" in {
-      G7ExpensesWhileAtWork.form.bind(
+      G7ExpensesWhileAtWork.form(models.domain.Claim()).bind(
         Map("nameOfPerson" -> "")
       ).fold(
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),

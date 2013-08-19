@@ -8,7 +8,7 @@ final class G10ChildcareExpensesPage(browser: TestBrowser, previousPage: Option[
   declareInput("#whoLooksAfterChildren", "EmploymentNameOfthePersonWhoLooksAfterYourChild_" + iteration)
   declareSelect("#relationToYou", "EmploymentChildcareExpensesWhatRelationIsthePersontoYou_" + iteration)
   declareSelect("#relationToPartner", "EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_" + iteration)
-  declareInput("#relationToPersonYouCare", "EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_" + iteration)
+  declareSelect("#relationToPersonYouCare", "EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_" + iteration)
 }
 
 object G10ChildcareExpensesPage {

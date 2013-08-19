@@ -55,9 +55,6 @@ object ClaimScenarioFactory {
     // Employment
     claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "Yes"
     claim.AboutYouHaveYouBeenEmployedAtAnyTime_1 = "Yes"
-    // Property and Rent
-    claim.AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand = "Yes"
-    claim.AboutYouHaveYouOrYourPartnerSubletYourHome = "Yes"
     claim
   }
 
@@ -80,9 +77,6 @@ object ClaimScenarioFactory {
     // Employment
     claim.AboutYouHaveYouBeenSelfEmployedAtAnyTime = "no"
     claim.AboutYouHaveYouBeenEmployedAtAnyTime_1 = "no"
-    // Property and Rent
-    claim.AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand = "no"
-    claim.AboutYouHaveYouOrYourPartnerSubletYourHome = "no"
     claim
   }
 
@@ -214,8 +208,8 @@ object ClaimScenarioFactory {
     claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1= "600"
     claim.EmploymentWhatWasIncludedInYourLastPay_1= "All amounts due"
     claim.EmploymentDoYouGettheSameAmountEachTime_1= "no"
-    claim.EmploymentAddtionalWageHowOftenAreYouPaid_1= "Four weekly"
-    claim.EmploymentAddtionalWageOther_1= ""
+    claim.EmploymentAddtionalWageHowOftenAreYouPaid_1= "other"
+    claim.EmploymentAddtionalWageOther_1= "Quarterly"
     claim.EmploymentAddtionalWageWhenDoYouGetPaid_1= "two weeks ago"
     claim.EmploymentAdditionalWageDoYouGetHolidayPayorSickPay_1= "no"
     claim.EmploymentAddtionalWageDoYouGetPaidAnyOtherMoney_1= "yes"

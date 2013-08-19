@@ -18,7 +18,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
 
     """navigate to Abroad""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
+      titleMustEqual("More about you - About you - the carer")
 
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the Person you care for - About the care you provide")
@@ -47,7 +47,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       browser.find("button[type='submit']").getText shouldEqual "Continue to abroad"
 
       browser.submit("button[type='submit']")
-      titleMustEqual(Messages("s5.g1") + " - Time Spent Abroad")
+      titleMustEqual("Your normal residence and current location - Time Spent Abroad")
     }
   } section("integration", models.domain.CareYouProvide.id)
 }

@@ -6,7 +6,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s1_carers_allowance._
 
-class BrowserSpec extends Specification with Tags {
+class BrowserIntegrationSpec extends Specification with Tags {
   "Browser" should {
     "not cache pages" in new WithBrowser with G1BenefitsPageContext {
       val claim = new ClaimScenario
@@ -27,7 +27,7 @@ class BrowserSpec extends Specification with Tags {
       val s1g2SecondTime = backToS1G1 submitPage()
 
       s1g2SecondTime should beLike { case p: G2HoursPage =>
-        p numberSectionsCompleted() mustEqual 1
+        p numberSectionsCompleted() shouldEqual 1
         val completed = p.findTarget("div[class=completed] ul li")
         completed(0) must contain("Does the person you look after get one of these benefits?")
         completed(0) must contain("No")

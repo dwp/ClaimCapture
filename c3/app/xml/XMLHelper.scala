@@ -103,4 +103,13 @@ object XMLHelper {
 
     def ?+[T](option: Option[T])(implicit classTag: ClassTag[T]): NodeSeq = optionalEmpty(option, elem)
   }
+
+  def booleanStringToYesNo(booleanString: String) = booleanString match {
+    case "true" => "yes"
+    case "false" => "no"
+    case null => ""
+    case _ => booleanString
+  }
+
+  def titleCase(s:String) = if(s != null && s.length() > 0) s.head.toUpper + s.tail.toLowerCase else ""
 }

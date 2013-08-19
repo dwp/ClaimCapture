@@ -7,7 +7,7 @@ final class G12PersonYouCareForExpensesPage(browser: TestBrowser, previousPage: 
   declareInput("#howMuchCostCare", "EmploymentCareExpensesHowMuchYouPayfor_" + iteration)
   declareInput("#whoDoYouPay", "EmploymentNameOfPersonYouPayForCaring_" + iteration)
   declareSelect("#relationToYou", "EmploymentCareExpensesWhatRelationIsToYou_" + iteration)
-  declareInput("#relationToPersonYouCare", "EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_" + iteration)
+  declareSelect("#relationToPersonYouCare", "EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_" + iteration)
 }
 
 object G12PersonYouCareForExpensesPage {

@@ -3,17 +3,17 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate}
-import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G7PropertyAndRentPage}
+import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G8AboutYouCompletedPage}
 import play.api.i18n.Messages
 
 class G6EmploymentIntegrationSpec extends Specification with Tags {
   sequential
 
   "Employment" should {
-    "be presented" in new WithBrowser {
+    "be presented" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       browser.goTo("/about-you/employment")
-      browser.title mustEqual "Employment - About you - the carer"
+      titleMustEqual("Employment - About you - the carer")
     }
 
     "be presented without claim date" in new WithBrowser with BrowserMatchers {
@@ -34,12 +34,12 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
     "fill all fields" in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
-      page runClaimWith(claim, G7PropertyAndRentPage.title, waitForPage = true, waitDuration = 600)
+      page runClaimWith(claim, G8AboutYouCompletedPage.title, waitForPage = true, waitDuration = 600)
     }
 
     "failed to fill the form" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
-      titleMustEqual(Messages("s2.g5") + " - About you - the carer")
+      titleMustEqual("More about you - About you - the carer")
 
       browser.goTo("/about-you/employment")
       titleMustEqual("Employment - About you - the carer")
@@ -57,7 +57,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
 
       browser.click("#beenSelfEmployedSince1WeekBeforeClaim_yes")
       browser.submit("button[type='submit']")
-      titleMustEqual(Messages("s2.g7") + " - About you - the carer")
+      titleMustEqual("Completion - About you - the carer")
     }
   } section("integration", models.domain.AboutYou.id)
 }

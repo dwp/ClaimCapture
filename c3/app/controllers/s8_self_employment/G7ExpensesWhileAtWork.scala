@@ -5,21 +5,32 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
-import models.domain.{SelfEmploymentPensionsAndExpenses, ExpensesWhileAtWork}
+import models.domain._
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment.whenSectionVisible
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
+import scala.Some
 
 object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with CachedClaim {
-  val form = Form(
+  def form(implicit claim: Claim) = Form(
     mapping(
       "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
       "nameOfPerson" -> nonEmptyText(maxLength = sixty),
       "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
-      "whatRelationIsTothePersonYouCareFor" -> nonEmptyText(maxLength = sixty)
-    )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply))
+      "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
+      "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
+    )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply)
+    .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
+
+
+  def validateRelationToPartner(implicit claim: Claim, expensesWhileAtWork: ExpensesWhileAtWork) = {
+    claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
+      case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => expensesWhileAtWork.relationToPartner.isDefined
+      case _ => true
+    }
+  }
 
   def present = claiming { implicit claim => implicit request =>
     val payToLookPersonYouCareFor = claim.questionGroup(SelfEmploymentPensionsAndExpenses) match {
@@ -39,6 +50,7 @@ object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with 
         val formWithErrorsUpdate = formWithErrors
           .replaceError("howMuchYouPay", "error.required", FormError("howMuchYouPay", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
+          .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s8_self_employment.g7_expensesWhileAtWork(formWithErrorsUpdate, completedQuestionGroups(ExpensesWhileAtWork)))
       },
       f => claim.update(f) -> Redirect(routes.G8CareProvidersContactDetails.present())

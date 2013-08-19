@@ -1,13 +1,13 @@
 package models.domain
 
 import models._
-import models.yesNo.YesNoWithText
+import models.yesNo.YesNoWith2Text
 
 case object OtherMoney extends Section.Identifier {
   val id = "s9"
 }
 
-case class AboutOtherMoney(yourBenefits: YesNoWithText = YesNoWithText()) extends QuestionGroup(AboutOtherMoney)
+case class AboutOtherMoney(yourBenefits: YesNoWith2Text = YesNoWith2Text()) extends QuestionGroup(AboutOtherMoney)
 
 object AboutOtherMoney extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g1"

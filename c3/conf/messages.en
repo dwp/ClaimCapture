@@ -32,7 +32,6 @@ s2.g3 = About your time outside the UK
 s2.g4 = Your claim date: {0}
 s2.g5 = More about you
 s2.g6 = Employment
-s2.g7 = Property and rent
 
 s3.g1 = Partner/Spouse Details
 s3.g2 = Contact details
@@ -155,7 +154,6 @@ livingInUK_arrivalDate = When did you arrive in the UK?
 livingInUK.arrivalDate = When did you arrive in the UK?
 livingInUK_originCountry = What country did you come from?
 livingInUK_goBack_date = When do you plan to go back?
-visaReference = What is your visa reference number in your passport?
 
 livingInUK_goBack_answer = Do you plan to go back to that country?
 livingInUK.goBack.answer = Do you plan to go back to that country?
@@ -176,12 +174,6 @@ beenEmployedSince6MonthsBeforeClaim.label = Have you been employed at any time s
 beenEmployedSince6MonthsBeforeClaim = Have you been employed at any time since six months before your claim date?
 beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
 beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
-
-# PROPERTY AND RENT
-ownProperty.label = Do you or your Partner/Spouse own property or land in the UK or abroad that you have rented out since {0} (this is one week before your claim date: {1})?
-ownProperty = Do you or your Partner/Spouse own property or land in the UK or abroad that you have rented out since one week before your claim date?
-hasSublet.label = Have you sublet your home, or provided board and lodgings, since {0} (this is one week before your claim date: {1})?
-hasSublet = Have you sublet your home, or provided board and lodgings, since one week before your claim date?
 
 
 ## YOUR PARTNER
@@ -366,7 +358,8 @@ whoDoYouPay = Name of the person/organisation you {0} pay
 ## OTHER MONEY
 # ABOUT OTHER MONEY
 yourBenefits.answer.label = Have you {0} claimed or received any other benefits since your claim date: {1}?
-yourBenefits.text = Please tell us the names of the benefits or entitlements you receive
+yourBenefits.text1 = Please tell us the names of the benefits or entitlements you receive
+yourBenefits.text2 = Please tell us the names of the benefits or entitlements your partner/spouse receive
 moneyAddedToBenefitSinceClaimDate = Has anyone had any money added to a benefit for you since your claim date?
 moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
 haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Sick Pay (SSP) since the date you want to claim from {0}?

@@ -114,13 +114,6 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
-  def propertyAndRent(browser: TestBrowser) = {
-    browser.goTo("/about-you/property-and-rent")
-    browser.click("#ownProperty_yes")
-    browser.click("#hasSublet_yes")
-    browser.submit("button[type='submit']")
-  }
-
   // Your partner
   def yourPartnerPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/your-partner/personal-details")
@@ -459,7 +452,8 @@ object Formulate {
   def aboutOtherMoney(browser: TestBrowser) = {
     browser.goTo("/other-money/about-other-money")
     browser.click("#yourBenefits_answer_yes")
-    browser.fill("#yourBenefits_text") `with` "Bar"
+    browser.fill("#yourBenefits_text1") `with` "Bar"
+    browser.fill("#yourBenefits_text2") `with` "Claimed"
     browser.submit("button[type='submit']")
   }
 

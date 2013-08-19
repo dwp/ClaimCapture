@@ -45,9 +45,6 @@ POST    /about-you/more-about-you                                       controll
 GET     /about-you/employment                                           controllers.s2_about_you.G6Employment.present
 POST    /about-you/employment                                           controllers.s2_about_you.G6Employment.submit
 
-GET     /about-you/property-and-rent                                    controllers.s2_about_you.G7PropertyAndRent.present
-POST    /about-you/property-and-rent                                    controllers.s2_about_you.G7PropertyAndRent.submit
-
 GET     /about-you/completed                                            controllers.s2_about_you.AboutYou.completed
 POST    /about-you/completed                                            controllers.s2_about_you.AboutYou.completedSubmit
 
@@ -292,7 +289,7 @@ GET     /error                                                          controll
 GET     /submit                                                         @controllers.submission.SubmissionController.submit
 
 # Thank you
-GET     /thankyou/:txnId                                                 controllers.ThankYou.present(txnId:String)
+GET     /thankyou/:txnId                                                controllers.ThankYou.present(txnId: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                                   controllers.Assets.at(path="/public", file)

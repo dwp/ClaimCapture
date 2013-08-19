@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment._
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.ClaimScenario
-import utils.pageobjects.s2_about_you.{G7PropertyAndRentPage, G4ClaimDatePageContext}
+import utils.pageobjects.s2_about_you.{G8AboutYouCompletedPage, G4ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 
 class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tags {
@@ -17,7 +17,7 @@ class G8CareProvidersContactDetailsIntegationSpec extends Specification with Tag
     "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
       page goToThePage(waitForPage = true, waitDuration = 500)
-      page runClaimWith (claim, G7PropertyAndRentPage.title, waitForPage = true, waitDuration = 500)
+      page runClaimWith (claim, G8AboutYouCompletedPage.title, waitForPage = true, waitDuration = 500)
 
       val nextPage = page goToPage( throwException = false, page = new G8CareProvidersContactDetailsPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
