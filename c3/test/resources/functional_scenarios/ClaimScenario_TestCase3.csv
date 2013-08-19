@@ -262,7 +262,7 @@ Employment,Money owed to you by your employer,What period is it for? From,Employ
 Employment,Money owed to you by your employer,What period is it for? To,EmploymentWhatPeriodIsItForTo_1,03/05/2013
 Employment,Money owed to you by your employer,What is the money owed for?,EmploymentWhatIsTheMoneyOwedFor_1,This and that
 Employment,Money owed to you by your employer,When should it have been paid?,EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_1,06/05/2013
-Employment,Money owed to you by your employer,When will you get it?,EmploymentWhenWillYouGetMoneyOwed_1,08/08/2013
+Employment,Money owed to you by your employer,When will you get it?,EmploymentWhenWillYouGetMoneyOwed_1,Soon
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme_1,Yes
 Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension_1,350.1
 Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_1,05
@@ -318,7 +318,7 @@ Employment,Money owed to you by your employer,What period is it for? From,Employ
 Employment,Money owed to you by your employer,What period is it for? To,EmploymentWhatPeriodIsItForTo_2,03/05/2013
 Employment,Money owed to you by your employer,What is the money owed for?,EmploymentWhatIsTheMoneyOwedFor_2,This and that
 Employment,Money owed to you by your employer,When should it have been paid?,EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_2,06/05/2013
-Employment,Money owed to you by your employer,When will you get it?,EmploymentWhenWillYouGetMoneyOwed_2,08/08/2013
+Employment,Money owed to you by your employer,When will you get it?,EmploymentWhenWillYouGetMoneyOwed_2,In August
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme_2,Yes
 Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension_2,5601.2
 Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_2,05
