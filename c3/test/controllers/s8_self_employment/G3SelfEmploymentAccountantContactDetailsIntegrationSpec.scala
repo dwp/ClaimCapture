@@ -80,18 +80,5 @@ class G3SelfEmploymentAccountantContactDetailsIntegrationSpec extends Specificat
       nextPage must not(beAnInstanceOf[G6ChildcareProvidersContactDetailsPage])
     }
 
-    "navigate to Pensions and Expenses when no accountant" in new WithBrowser with G3SelfEmploymentAccountantContactDetailsPageContext {
-
-      val claimYourAccounts = new ClaimScenario
-      claimYourAccounts.SelfEmployedDoYouHaveAnAccountant = "no"
-      val pageYourAccounts = new G2SelfEmploymentYourAccountsPage(browser)
-      pageYourAccounts goToThePage(waitForPage = true, waitDuration = 1000)
-      pageYourAccounts fillPageWith claimYourAccounts
-      pageYourAccounts.submitPage(waitForPage = true, waitDuration = 1000)
-
-
-      val nextPage = page goToPage(throwException = false, page = new G3SelfEmploymentAccountantContactDetailsPage(browser), waitForPage = true, waitDuration = 1000)
-      nextPage must beAnInstanceOf[G4SelfEmploymentPensionsAndExpensesPage]
-    }
   } section("unit", models.domain.SelfEmployment.id)
 }

@@ -1,4 +1,4 @@
-window.initEvents = (answerY, answerN, answerAccountantY, answerAccountantN) ->
+window.initEvents = (answerY, answerN) ->
 
   $("#" + answerY).on "click", ->
     $("#selfEmployedIncomeWrap").slideUp()
@@ -6,10 +6,3 @@ window.initEvents = (answerY, answerN, answerAccountantY, answerAccountantN) ->
   $("#" + answerN).on "click", ->
     $("#selfEmployedIncomeWrap").slideDown()
     $("#selfEmployedIncomeWrap").css('display', "block")
-
-  $("#" + answerAccountantY).on "click", ->
-    $("#selfEmployedAccountantWrap").slideDown()
-    $("#selfEmployedAccountantWrap").css('display', "block")
-
-  $("#" + answerAccountantN).on "click", ->
-    $("#selfEmployedAccountantWrap").slideUp()

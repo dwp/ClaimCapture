@@ -13,8 +13,7 @@ object G3RelationshipAndOtherClaims extends Controller with CareYouProvideRoutin
   val form = Form(
     mapping(
       "relationship" -> nonEmptyText(maxLength = 20),
-      "armedForcesPayment" -> optional(text),
-      "claimedAllowanceBefore" -> nonEmptyText.verifying(validYesNo)
+      "armedForcesPayment" -> optional(text)
     )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
 
   def present = claiming { implicit claim => implicit request =>
@@ -24,6 +23,6 @@ object G3RelationshipAndOtherClaims extends Controller with CareYouProvideRoutin
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g3_relationshipAndOtherClaims(formWithErrors, completedQuestionGroups(MoreAboutThePerson))),
-      moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.G4PreviousCarerPersonalDetails.present()))
+      moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.G7MoreAboutTheCare.present()))
   }
 }

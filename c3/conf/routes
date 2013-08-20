@@ -70,23 +70,8 @@ POST    /care-you-provide/their-contact-details                         controll
 GET     /care-you-provide/relationship-and-other-claims                 controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.present
 POST    /care-you-provide/relationship-and-other-claims                 controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.submit
 
-GET     /care-you-provide/previous-carer-personal-details               controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.present
-POST    /care-you-provide/previous-carer-personal-details               controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit
-
-GET     /care-you-provide/previous-carer-contact-details                controllers.s4_care_you_provide.G5PreviousCarerContactDetails.present
-POST    /care-you-provide/previous-carer-contact-details                controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit
-
-GET     /care-you-provide/representatives-for-person                    controllers.s4_care_you_provide.G6RepresentativesForThePerson.present
-POST    /care-you-provide/representatives-for-person                    controllers.s4_care_you_provide.G6RepresentativesForThePerson.submit
-
 GET     /care-you-provide/more-about-the-care                           controllers.s4_care_you_provide.G7MoreAboutTheCare.present
 POST    /care-you-provide/more-about-the-care                           controllers.s4_care_you_provide.G7MoreAboutTheCare.submit
-
-GET     /care-you-provide/one-who-pays-personal-details                 controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.present
-POST    /care-you-provide/one-who-pays-personal-details                 controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.submit
-
-GET     /care-you-provide/contact-details-of-paying-person              controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.present
-POST    /care-you-provide/contact-details-of-paying-person              controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.submit
 
 GET     /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.present
 POST    /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.submit

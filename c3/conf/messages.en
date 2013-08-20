@@ -41,14 +41,9 @@ s3.g4 = Person you care for
 s4.g1 = Details of the Person you care for
 s4.g2 = Contact details of the Person you care for
 s4.g3 = Relationship and other claims
-s4.g4 = Details of Previous or Existing Carer 
-s4.g5 = Contact details of previous or existing carer
-s4.g6 = Representatives for the Person you care for
-s4.g7 = More about the care you provide
-s4.g8 = Details of the person/organisation who pays you 
-s4.g9 = Contact details of the person who pays you
-s4.g10 = Fewer than 35 hours a week of care
-s4.g11 = About the breaks in care
+s4.g4 = More about the care you provide
+s4.g5 = Fewer than 35 hours a week of care
+s4.g6 = About the breaks in care
 
 s5.g1 = Your normal residence and current location
 s5.g2 = Abroad for more than 4 weeks
@@ -200,7 +195,6 @@ liveAtSameAddress = Does your Partner/Spouse live at the same address as you?
 # MORE ABOUT THE PERSON
 relationship = What''s their relationship to you?
 armedForcesPayment = Does this person get Armed Forces Independence Payment (AFIP)?
-claimedAllowanceBefore = Has anyone else claimed Carer''s Allowance for this person before?
 
 # REPRESENTATIVES FOR THE PERSON
 you_actForPerson = Do you act for the Person you care for?
@@ -438,7 +432,7 @@ welshCommunication = Do you live in Wales and would like to receive future commu
 #SELF EMPLOYED
 error.areYouSelfEmployedNow = Please tell us if you are self employed
 areYouSelfEmployedNow =  Are you self-employed now?
-whenDidYouStartThisJob = When did you start this job?
+whenDidYouStartThisJob = When did you start this self employed work?
 whenDidTheJobFinish = When did you finish this job?
 haveYouCeasedTrading = Have you ceased trading?
 natureOfYourBusiness = Nature of business?

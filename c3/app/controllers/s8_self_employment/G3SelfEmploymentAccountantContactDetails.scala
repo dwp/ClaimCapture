@@ -23,10 +23,7 @@ object G3SelfEmploymentAccountantContactDetails extends Controller with SelfEmpl
   )
 
   def present = claiming { implicit claim => implicit request =>
-    val doYouHaveAnAccountant = claim.questionGroup(SelfEmploymentYourAccounts) match {
-      case Some(s: SelfEmploymentYourAccounts) => s.doYouHaveAnAccountant == Some(`yes`)
-      case _ => false
-    }
+    val doYouHaveAnAccountant = true
 
     doYouHaveAnAccountant match {
       case true => whenSectionVisible(Ok(views.html.s8_self_employment.g3_selfEmploymentAccountantContactDetails(form.fill(SelfEmploymentAccountantContactDetails), completedQuestionGroups(SelfEmploymentAccountantContactDetails))))

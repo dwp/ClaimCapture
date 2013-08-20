@@ -24,11 +24,8 @@ case object SelfEmploymentYourAccounts extends QuestionGroup.Identifier {
 
 case class SelfEmploymentYourAccounts(whatWasOrIsYourTradingYearFrom: Option[DayMonthYear] = None,
                                       whatWasOrIsYourTradingYearTo: Option[DayMonthYear] = None,
-                                      areAccountsPreparedOnCashFlowBasis: String = "",
                                       areIncomeOutgoingsProfitSimilarToTrading: Option[String] = None,
-                                      tellUsWhyAndWhenTheChangeHappened: Option[String] = None,
-                                      doYouHaveAnAccountant: Option[String] = None,
-                                      canWeContactYourAccountant: Option[String] = None) extends QuestionGroup(SelfEmploymentYourAccounts)
+                                      tellUsWhyAndWhenTheChangeHappened: Option[String] = None) extends QuestionGroup(SelfEmploymentYourAccounts)
 
 case class SelfEmploymentAccountantContactDetails(accountantsName: String = "",
                                                   address: MultiLineAddress = MultiLineAddress(None, None, None),

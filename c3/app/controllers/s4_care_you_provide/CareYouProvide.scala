@@ -17,8 +17,8 @@ object CareYouProvide extends Controller with CareYouProvideRouting with CachedC
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    if (completedQuestionGroups.distinct.size >= 6) Redirect(claim.nextSection(models.domain.CareYouProvide).firstPage)
-    else Redirect(controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present())
+    if (completedQuestionGroups.isEmpty) Redirect(routes.G1TheirPersonalDetails.present())
+    else Redirect(claim.nextSection(models.domain.CareYouProvide).firstPage)
   }
 
   private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
@@ -31,12 +31,7 @@ trait CareYouProvideRouting extends Routing {
     case TheirPersonalDetails => routes.G1TheirPersonalDetails.present()
     case TheirContactDetails => routes.G2TheirContactDetails.present()
     case MoreAboutThePerson => routes.G3RelationshipAndOtherClaims.present()
-    case PreviousCarerPersonalDetails => routes.G4PreviousCarerPersonalDetails.present()
-    case PreviousCarerContactDetails => routes.G5PreviousCarerContactDetails.present()
-    case RepresentativesForPerson => routes.G6RepresentativesForThePerson.present()
     case MoreAboutTheCare => routes.G7MoreAboutTheCare.present()
-    case OneWhoPaysPersonalDetails => routes.G8OneWhoPaysPersonalDetails.present()
-    case ContactDetailsOfPayingPerson => routes.G9ContactDetailsOfPayingPerson.present()
     case BreaksInCare => routes.G10BreaksInCare.present()
   }
 }

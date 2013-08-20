@@ -28,58 +28,18 @@ case object TheirContactDetails extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g2"
 }
 
-case class MoreAboutThePerson(relationship: String = "", armedForcesPayment: Option[String] = None, claimedAllowanceBefore: String = "") extends QuestionGroup(MoreAboutThePerson)
+case class MoreAboutThePerson(relationship: String = "", armedForcesPayment: Option[String] = None) extends QuestionGroup(MoreAboutThePerson)
 
 case object MoreAboutThePerson extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g3"
 }
 
-case class PreviousCarerPersonalDetails(firstName: String, middleName: Option[String] = None, surname: String,
-                                        nationalInsuranceNumber: Option[NationalInsuranceNumber] = None,
-                                        dateOfBirth: Option[DayMonthYear] = None) extends QuestionGroup(PreviousCarerPersonalDetails)
-
-case object PreviousCarerPersonalDetails extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g4"
-}
-
-case class PreviousCarerContactDetails(address: Option[MultiLineAddress] = None, postcode: Option[String] = None, phoneNumber: Option[String] = None,
-                                       mobileNumber: Option[String] = None) extends QuestionGroup(PreviousCarerContactDetails)
-
-case object PreviousCarerContactDetails extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g5"
-}
-
-case class RepresentativesForPerson(youAct: YesNoWithDropDown = YesNoWithDropDown("", None), someoneElseAct:YesNoWithDropDownAndText = YesNoWithDropDownAndText(None, None, None)) extends QuestionGroup(RepresentativesForPerson)
-
-case object RepresentativesForPerson extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g6"
-
-  def validate(input: RepresentativesForPerson): Boolean = input.youAct.answer match {
-    case "yes" => true
-    case "no" => input.someoneElseAct.answer.isDefined
-    case _ => false
-  }
-}
-
 case class MoreAboutTheCare(spent35HoursCaring: String = "", spent35HoursCaringBeforeClaim:YesNoWithDate = YesNoWithDate("", None), hasSomeonePaidYou: String = "") extends QuestionGroup(MoreAboutTheCare)
 
 case object MoreAboutTheCare extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g7"
+  val id = s"${CareYouProvide.id}.g4"
 }
 
-case class OneWhoPaysPersonalDetails(organisation: Option[String] = None, title: Option[String] = None,
-                                     firstName: String = "", middleName: Option[String] = None, surname: String = "",
-                                     amount: String = "", startDatePayment: DayMonthYear) extends QuestionGroup(OneWhoPaysPersonalDetails)
-
-case object OneWhoPaysPersonalDetails extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g8"
-}
-
-case class ContactDetailsOfPayingPerson(address: Option[MultiLineAddress] = None, postcode: Option[String] = None) extends QuestionGroup(ContactDetailsOfPayingPerson)
-
-case object ContactDetailsOfPayingPerson extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g9"
-}
 
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare) {
   def update(break: Break) = {
@@ -94,7 +54,7 @@ case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksI
 }
 
 case object BreaksInCare extends QuestionGroup.Identifier {
-  val id = s"${CareYouProvide.id}.g10"
+  val id = s"${CareYouProvide.id}.g5"
 }
 
 case class Break(id: String = "",

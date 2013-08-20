@@ -8,7 +8,7 @@ import scala.util.Try
 trait BrowserMatchers extends MustMatchers {
   this: WithBrowser[_] =>
 
-  val duration = Try(System.getProperty("waitSeconds", "60").toInt).getOrElse(60)
+  val duration = Try(System.getProperty("waitSeconds", "20").toInt).getOrElse(20)
 
   def titleMustEqual(title: String) = {
     browser.waitUntil[Boolean](duration, TimeUnit.SECONDS) {

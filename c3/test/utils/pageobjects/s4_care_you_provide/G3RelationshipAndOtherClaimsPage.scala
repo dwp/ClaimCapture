@@ -11,7 +11,6 @@ import utils.pageobjects.{PageContext, Page}
 final class G3RelationshipAndOtherClaimsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3RelationshipAndOtherClaimsPage.url, G3RelationshipAndOtherClaimsPage.title, previousPage)  {
   declareSelect("#relationship","AboutTheCareYouProvideWhatTheirRelationshipToYou")
   declareYesNo("#armedForcesPayment", "AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment")
-  declareYesNo("#claimedAllowanceBefore", "AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance")
 }
 
 /**
