@@ -63,7 +63,6 @@ class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
 
         browser fill "#where" `with` "Scotland"
         browser fill "#why" `with` "For Holidays"
-
       }
 
       browser goTo "/time-spent-abroad/abroad-for-more-than-4-weeks"

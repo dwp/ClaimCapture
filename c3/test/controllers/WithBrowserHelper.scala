@@ -3,6 +3,7 @@ package controllers
 import play.api.test.WithBrowser
 import org.fluentlenium.core.filter.Filter
 import org.fluentlenium.core.Fluent
+import org.fluentlenium.core.domain.FluentList
 
 trait WithBrowserHelper {
   this: WithBrowser[_] =>
@@ -26,4 +27,6 @@ trait WithBrowserHelper {
   def $(name: String, filters: Filter*) = browser $(name, filters: _*)
 
   def findFirst(name: String, filters: Filter*) = browser findFirst(name, filters: _*)
+
+  def findAll(name: String, filters: Filter*) = browser find(name, filters: _*)
 }

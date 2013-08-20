@@ -5,25 +5,26 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.{Claiming, BreaksInCare, Claim}
+import models.view.CachedClaim
 
 class G11BreakSpec extends Specification with Tags {
   "Break" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result = G11Break.present(request)
       status(result) mustEqual OK
     }
 
     "be rejected for missing mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result = G11Break.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "add 2 breaks" in new WithApplication with Claiming {
-      val request1 = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request1 = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> "1",
         "start.day" -> "1",
@@ -35,7 +36,7 @@ class G11BreakSpec extends Specification with Tags {
 
       G11Break.submit(request1)
 
-      val request2 = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request2 = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> "2",
         "start.day" -> "1",
@@ -55,7 +56,7 @@ class G11BreakSpec extends Specification with Tags {
     "update existing break" in new WithApplication with Claiming {
       val breakID = "1"
 
-      val requestNew = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val requestNew = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> breakID,
         "start.day" -> "1",
@@ -69,7 +70,7 @@ class G11BreakSpec extends Specification with Tags {
 
       val yearUpdate = 2005
 
-      val requestUpdate = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val requestUpdate = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> breakID,
         "start.day" -> "1",

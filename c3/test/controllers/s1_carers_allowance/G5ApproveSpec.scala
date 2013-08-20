@@ -7,11 +7,12 @@ import play.api.cache.Cache
 import models.domain._
 import controllers.s1_carers_allowance
 import models.domain.Claim
+import models.view.CachedClaim
 
 class G5ApproveSpec extends Specification with Tags {
   """Can you get Carer's Allowance""" should {
     "acknowledge that the carer is eligible for allowance" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val claim = Claim().update(Benefits(answerYesNo = "yes"))
         .update(Hours(answerYesNo = "yes"))
@@ -25,7 +26,7 @@ class G5ApproveSpec extends Specification with Tags {
     }
 
     "note that the carer is not eligible for allowance" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val claim = Claim().update(Benefits(answerYesNo = "yes"))
         .update(Hours(answerYesNo = "yes"))

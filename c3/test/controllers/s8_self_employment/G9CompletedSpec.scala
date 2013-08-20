@@ -8,6 +8,7 @@ import utils.pageobjects.s2_about_you.{G8AboutYouCompletedPage, G4ClaimDatePageC
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s8_self_employment.G9CompletedPage
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
+import models.view.CachedClaim
 
 class G9CompletedSpec extends Specification with Tags {
   
@@ -15,7 +16,7 @@ class G9CompletedSpec extends Specification with Tags {
     
   "Self Employment - Controller" should {
     "present 'Completed'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result = controllers.s8_self_employment.SelfEmployment.completed(request)
       status(result) mustEqual OK
@@ -31,7 +32,7 @@ class G9CompletedSpec extends Specification with Tags {
     }
     
     "redirect to the next page on clicking continue" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(selfEmploymentInput: _*)
 
       val result = controllers.s8_self_employment.SelfEmployment.completedSubmit(request)

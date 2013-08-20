@@ -1,7 +1,6 @@
 package object app {
 
   object AccountStatus {
-
     val BankBuildingAccount = 'bankBuildingAccount
     val AppliedForAccount = 'appliedForAccount
     val NotOpenAccount = 'notOpenAccount
@@ -17,11 +16,9 @@ package object app {
   }
 
   object PaymentFrequency {
-
     val EveryWeek = 'everyWeek
     val FourWeekly = 'fourWeekly
   }
-
 
   object PensionPaymentFrequency {
     val Weekly = "02"
@@ -61,7 +58,4 @@ package object app {
     val NotAsked = "Not asked"
     val NotKnown = "Not known"
   }
-
 }
-
-

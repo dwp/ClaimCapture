@@ -7,6 +7,7 @@ import play.api.cache.Cache
 import java.util.concurrent.TimeUnit
 import models.domain._
 import models.domain.Claim
+import models.view.CachedClaim
 
 class G1BenefitsSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Controller" should {
@@ -14,7 +15,7 @@ class G1BenefitsSpec extends Specification with Tags {
     val benefitsInput = Seq("answer" -> answerYesNo)
 
     "start with a new Claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       G1Benefits.present(request)
       val claim = Cache.getAs[Claim](claimKey)
@@ -28,14 +29,14 @@ class G1BenefitsSpec extends Specification with Tags {
     }
 
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result = controllers.s1_carers_allowance.G1Benefits.present(request)
       status(result) mustEqual OK
     }
 
     "missing mandatory field" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("answer" -> "")
 
       val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
@@ -43,7 +44,7 @@ class G1BenefitsSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(benefitsInput: _*)
 
       val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
@@ -51,7 +52,7 @@ class G1BenefitsSpec extends Specification with Tags {
     }
 
     "add submitted form to the cached claim when answered 'yes'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(benefitsInput: _*)
 
       val result = controllers.s1_carers_allowance.G1Benefits.submit(request)
@@ -65,7 +66,7 @@ class G1BenefitsSpec extends Specification with Tags {
     }
 
     "add submitted form to the cached claim when answered 'no'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("answer" -> "no")
 
       val result = controllers.s1_carers_allowance.G1Benefits.submit(request)

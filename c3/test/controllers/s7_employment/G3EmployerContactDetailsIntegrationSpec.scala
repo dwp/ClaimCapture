@@ -2,7 +2,7 @@ package controllers.s7_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.BrowserMatchers
+import controllers.{WithBrowserHelper, BrowserMatchers}
 
 class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
   "Employer's contact details" should {
@@ -28,17 +28,24 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
       titleMustEqual("Your last wage - Employment History")
     }
 
-    """go back to "job details".""" in new WithBrowser with BrowserMatchers {
-      skipped("Going back within a Job is not handled yet - going back is handled top level and we now have nested question groups")
-
-      browser.goTo("/employment/job-details")
-      browser.fill("#employerName") `with` "Toys r not Us"
-      browser.click("#finishedThisJob_no")
-      browser.submit("button[type='submit']")
+    """go back to "job details".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
+      goTo("/employment/job-details/dummyJobID")
+      fill("#employerName") `with` "Toys r not Us"
+      click("#finishedThisJob_no")
+      next
       titleMustEqual("Employer's contact details - Employment History")
 
-      browser.click("#backButton")
+      back
       titleMustEqual("Your job - Employment History")
+    }
+
+    "get first completed question group for a job" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
+      goTo("/employment/job-details/dummyJobID")
+      fill("#employerName") `with` "Toys r not Us"
+      click("#finishedThisJob_no")
+      next
+      titleMustEqual("Employer's contact details - Employment History")
+      findAll("div[class=completed] ul li").size shouldEqual 1
     }
   } section("integration", models.domain.Employed.id)
 }

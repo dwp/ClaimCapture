@@ -156,5 +156,9 @@ class ClaimSpec extends Specification {
 
       js should beNone
     }
+
+    "give empty list" in {
+      Claim().questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
+    }
   }
 }

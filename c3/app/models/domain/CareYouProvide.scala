@@ -4,7 +4,7 @@ import models._
 import models.Whereabouts
 import models.MultiLineAddress
 import models.NationalInsuranceNumber
-import yesNo.{YesNoWithDate, YesNoWithDropDownAndText, YesNoWithDropDown}
+import yesNo.YesNoWithDate
 
 case object CareYouProvide extends Section.Identifier {
   val id = "s4"
@@ -39,7 +39,6 @@ case class MoreAboutTheCare(spent35HoursCaring: String = "", spent35HoursCaringB
 case object MoreAboutTheCare extends QuestionGroup.Identifier {
   val id = s"${CareYouProvide.id}.g4"
 }
-
 
 case class BreaksInCare(breaks: List[Break] = Nil) extends QuestionGroup(BreaksInCare) {
   def update(break: Break) = {

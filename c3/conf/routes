@@ -127,8 +127,7 @@ DELETE  /employment/job/:jobID                                          controll
 
 GET     /employment/job/:jobID                                          controllers.s7_employment.G2JobDetails.job(jobID: String)
 
-GET     /employment/job-details                                         controllers.s7_employment.G2JobDetails.present
-GET     /employment/job-details/:jobID                                  controllers.s7_employment.G2JobDetails.presentInJob(jobID: String)
+GET     /employment/job-details/:jobID                                  controllers.s7_employment.G2JobDetails.present(jobID: String)
 POST    /employment/job-details                                         controllers.s7_employment.G2JobDetails.submit
 
 GET     /employment/employers-contact-details/:jobID                    controllers.s7_employment.G3EmployerContactDetails.present(jobID: String)

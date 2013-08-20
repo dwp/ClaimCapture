@@ -6,7 +6,7 @@ import models.domain._
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.DayMonthYear
-import scala.Some
+import models.view.CachedClaim
 
 class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
 
@@ -20,7 +20,6 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
     val areIncomeOutgoingsProfitSimilarToTrading = "yes"
     val tellUsWhyAndWhenTheChangeHappened = "A Year Ago"
 
-
     val selfEmploymentYourAccountsInput = Seq(
       "whatWasOrIsYourTradingYearFrom.day" -> fromDay.toString,
       "whatWasOrIsYourTradingYearFrom.month" -> fromMonth.toString,
@@ -33,19 +32,20 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
     )
 
     "present 'Self Employment Your Accounts' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result = controllers.s8_self_employment.G2SelfEmploymentYourAccounts.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(selfEmploymentYourAccountsInput: _*)
 
       val result = controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.domain.SelfEmployment)
+
       section.questionGroup(SelfEmploymentYourAccounts) must beLike {
         case Some(f: SelfEmploymentYourAccounts) => {
           f.whatWasOrIsYourTradingYearFrom must equalTo(Some(DayMonthYear(Some(fromDay), Some(fromMonth), Some(fromYear), None, None)))
@@ -57,7 +57,7 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(selfEmploymentYourAccountsInput: _*)
 
       val result = controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit(request)

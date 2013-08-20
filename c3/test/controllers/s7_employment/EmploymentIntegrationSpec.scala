@@ -15,17 +15,18 @@ class EmploymentIntegrationSpec extends Specification with Tags {
       goTo("/employment/completed")
       titleMustEqual("Completion - Employment History")
 
-      browser.submit("button[type='submit']")
+      next
       titleMustEqual("Your job - About self-employment")
     }
 
     """go back to start of employment i.e. "employment history".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
+      skipped("ISSUE - This can't be done anymore")
       beginClaim()
 
       goTo("/employment/completed")
       titleMustEqual("Completion - Employment History")
 
-      click("#backButton")
+      back
       titleMustEqual("Your employment history - Employment History")
     }
   } section("integration", models.domain.Employed.id)

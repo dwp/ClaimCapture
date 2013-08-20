@@ -21,15 +21,13 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
     "nationality" -> optional(text.verifying(validNationality)),
     "separated.fromPartner" -> nonEmptyText.verifying(validYesNo))(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
 
-  def present = claiming { implicit claim =>
-    implicit request =>
-      YourPartner.whenSectionVisible(Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))))
+  def present = claiming { implicit claim => implicit request =>
+    YourPartner.whenSectionVisible(Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))))
   }
 
-  def submit = claiming { implicit claim =>
-    implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
-        f => claim.update(f) -> Redirect(routes.G4PersonYouCareFor.present()))
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
+      f => claim.update(f) -> Redirect(routes.G4PersonYouCareFor.present()))
   }
 }
