@@ -28,11 +28,11 @@ class PartnerSpec extends Specification with Tags {
       (xml \\ "OtherSurnames").text shouldEqual yourPartnerPersonalDetails.otherSurnames.get
       (xml \\ "Title").text shouldEqual yourPartnerPersonalDetails.title
       (xml \\ "DateOfBirth").text shouldEqual dateOfBirth.`yyyy-MM-dd`
-      (xml \\ "Address" \\ "PostCode").text shouldEqual XMLValues.NotAsked
+      (xml \\ "Address" \\ "PostCode").text shouldEqual ""
       (xml \\ "RelationshipStatus" \\ "JoinedHouseholdAfterDateOfClaim").text shouldEqual XMLValues.NotAsked
-      (xml \\ "RelationshipStatus" \\ "JoinedHouseholdDate").text shouldEqual XMLValues.NotAsked
+      (xml \\ "RelationshipStatus" \\ "JoinedHouseholdDate").text shouldEqual ""
       (xml \\ "RelationshipStatus" \\ "SeparatedFromPartner").text shouldEqual XMLValues.NotAsked
-      (xml \\ "RelationshipStatus" \\ "SeparationDate").text shouldEqual XMLValues.NotAsked
+      (xml \\ "RelationshipStatus" \\ "SeparationDate").text shouldEqual ""
     }
 
     "skip <Partner> xml when claimer didn't had a partner" in {
