@@ -47,14 +47,14 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
       personContactPage.listCompletedForms.size mustEqual 1
     }
 
-    "navigate back" in new WithBrowser with G2MoneyPaidToSomeoneElseForYouPageContext {
+    "navigate back" in new WithBrowser with G1AboutOtherMoneyPageContext {
       val claim = ClaimScenarioFactory.s8otherMoney
       page goToThePage ()
       page fillPageWith claim
       val nextPage = page.submitPage()
       nextPage must beAnInstanceOf[G5StatutorySickPayPage]
       val prevPage = nextPage.goBack()
-      prevPage must beAnInstanceOf[G2MoneyPaidToSomeoneElseForYouPage]
+      prevPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G5StatutorySickPayPageContext {

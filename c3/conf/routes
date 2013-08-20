@@ -219,15 +219,6 @@ POST    /self-employment/completed                                      controll
 GET     /other-money/about-other-money                                  controllers.s9_other_money.G1AboutOtherMoney.present
 POST    /other-money/about-other-money                                  controllers.s9_other_money.G1AboutOtherMoney.submit
 
-GET     /other-money/money-paid-to-someone-else-for-you                 controllers.s9_other_money.G2MoneyPaidToSomeoneElseForYou.present
-POST    /other-money/money-paid-to-someone-else-for-you                 controllers.s9_other_money.G2MoneyPaidToSomeoneElseForYou.submit
-
-GET     /other-money/person-who-gets-this-money                         controllers.s9_other_money.G3PersonWhoGetsThisMoney.present
-POST    /other-money/person-who-gets-this-money                         controllers.s9_other_money.G3PersonWhoGetsThisMoney.submit
-
-GET     /other-money/person-contact-details                             controllers.s9_other_money.G4PersonContactDetails.present
-POST    /other-money/person-contact-details                             controllers.s9_other_money.G4PersonContactDetails.submit
-
 GET     /other-money/statutory-sick-pay                                 controllers.s9_other_money.G5StatutorySickPay.present
 POST    /other-money/statutory-sick-pay                                 controllers.s9_other_money.G5StatutorySickPay.submit
 

@@ -43,11 +43,9 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
 
         val formWithErrorsUpdate = formWithErrors
           .replaceError("yourBenefits.answer", FormError(yourBenefitsAnswerErrorMessage, "error.required"))
-          .replaceError("yourBenefits", "text1", FormError("yourBenefits.text1", "error.required"))
-          .replaceError("yourBenefits", "text2", FormError("yourBenefits.text2", "error.required"))
 
         BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))
       },
-      f => claim.update(f) -> Redirect(routes.G2MoneyPaidToSomeoneElseForYou.present()))
+      f => claim.update(f) -> Redirect(routes.G5StatutorySickPay.present()))
   }
 }

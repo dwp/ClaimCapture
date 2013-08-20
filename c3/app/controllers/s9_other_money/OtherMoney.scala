@@ -23,9 +23,6 @@ object OtherMoney extends Controller with OtherMoneyRouting with CachedClaim {
 trait OtherMoneyRouting extends Routing {
   override def route(qgi: QuestionGroup.Identifier) = qgi match {
     case AboutOtherMoney => routes.G1AboutOtherMoney.present()
-    case MoneyPaidToSomeoneElseForYou => routes.G2MoneyPaidToSomeoneElseForYou.present()
-    case PersonWhoGetsThisMoney => routes.G3PersonWhoGetsThisMoney.present()
-    case PersonContactDetails => routes.G4PersonContactDetails.present()
     case StatutorySickPay => routes.G5StatutorySickPay.present()
     case OtherStatutoryPay => routes.G6OtherStatutoryPay.present()
     case OtherEEAStateOrSwitzerland => routes.G7OtherEEAStateOrSwitzerland.present()

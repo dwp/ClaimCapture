@@ -6,6 +6,7 @@ import models.NationalInsuranceNumber
 import models.MultiLineAddress
 import controllers.Mappings.yes
 import controllers.Mappings.no
+import app.XMLValues
 
 class OtherBenefitsSpec extends Specification with Tags {
 
@@ -22,31 +23,19 @@ class OtherBenefitsSpec extends Specification with Tags {
 
   val howMuch = Some("")
 
-  val moneyPaidToSomeoneElse = MoneyPaidToSomeoneElseForYou(yes)
-  val personWhoGetsThisMoney = PersonWhoGetsThisMoney(fullName, nationalInsuranceNrOption, benefitName)
-  val contactDetails = PersonContactDetails(address, postcode)
   val statutorySickPay = StatutorySickPay(haveYouHadAnyStatutorySickPay = yes, employersName = employersName, employersAddress = address, employersPostcode = postcode)
   val otherStatutoryPay = OtherStatutoryPay(otherPay = yes, employersName = employersName, employersAddress = address, employersPostcode = postcode)
 
   "OtherBenefits" should {
 
     "generate xml when data is present" in {
-      val otherMoneySection = Section(OtherMoney, moneyPaidToSomeoneElse :: personWhoGetsThisMoney :: contactDetails :: statutorySickPay :: otherStatutoryPay :: Nil)
+      val otherMoneySection = Section(OtherMoney, statutorySickPay :: otherStatutoryPay :: Nil)
 
       val claim = Claim().update(otherMoneySection)
       val otherBenefitsXml = OtherBenefits.xml(claim)
 
       val extraMoneyXml = otherBenefitsXml \\ "ExtraMoney"
-      extraMoneyXml.text shouldEqual yes
-
-      val extraMoneyDetailsXml = otherBenefitsXml \\ "ExtraMoneyDetails"
-      (extraMoneyDetailsXml \\ "BenefitName").text shouldEqual benefitName
-      (extraMoneyDetailsXml \\ "RecipientName").text shouldEqual fullName
-      (extraMoneyDetailsXml \\ "RecipientAddress" \\ "Line").theSeq(0).text mustEqual address.get.lineOne.get
-      (extraMoneyDetailsXml \\ "RecipientAddress" \\ "Line").theSeq(1).text mustEqual address.get.lineTwo.get
-      (extraMoneyDetailsXml \\ "RecipientAddress" \\ "Line").theSeq(2).text mustEqual address.get.lineThree.get
-      (extraMoneyDetailsXml \\ "RecipientAddress" \\ "PostCode").text mustEqual postcode.get
-      (extraMoneyDetailsXml \\ "ReferenceNumber").text mustEqual nationalInsuranceNr.stringify
+      extraMoneyXml.text shouldEqual XMLValues.NotAsked
 
       (otherBenefitsXml \\ "OtherMoneySSP").text mustEqual yes
       val otherMoneySSPDetailsXml = otherBenefitsXml \\ "OtherMoneySSPDetails"
@@ -71,7 +60,7 @@ class OtherBenefitsSpec extends Specification with Tags {
       val otherMoneyXml = OtherBenefits.xml(claim)
 
       val extraMoneyXml = otherMoneyXml \\ "ExtraMoney"
-      extraMoneyXml.text shouldEqual no
+      extraMoneyXml.text shouldEqual XMLValues.NotAsked
       (otherMoneyXml \\ "ExtraMoneyDetails").text must beEmpty
 
       (otherMoneyXml \\ "OtherMoneySSP").text mustEqual no

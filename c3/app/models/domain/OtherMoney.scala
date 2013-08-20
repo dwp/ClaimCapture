@@ -13,24 +13,6 @@ object AboutOtherMoney extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g1"
 }
 
-case class MoneyPaidToSomeoneElseForYou(moneyAddedToBenefitSinceClaimDate: String) extends QuestionGroup(MoneyPaidToSomeoneElseForYou)
-
-case object MoneyPaidToSomeoneElseForYou extends QuestionGroup.Identifier {
-  val id = s"${OtherMoney.id}.g2"
-}
-
-case class PersonWhoGetsThisMoney(fullName: String = "", nationalInsuranceNumber: Option[NationalInsuranceNumber] = None, nameOfBenefit: String = "") extends QuestionGroup(PersonWhoGetsThisMoney)
-
-case object PersonWhoGetsThisMoney extends QuestionGroup.Identifier {
-  val id = s"${OtherMoney.id}.g3"
-}
-
-case class PersonContactDetails(address: Option[MultiLineAddress] = None, postcode: Option[String] = None) extends QuestionGroup(PersonContactDetails)
-
-case object PersonContactDetails extends QuestionGroup.Identifier {
-  val id = s"${OtherMoney.id}.g4"
-}
-
 case class StatutorySickPay(haveYouHadAnyStatutorySickPay: String = "",
                             howMuch: Option[String] = None,
                             howOften: Option[PaymentFrequency] = None,

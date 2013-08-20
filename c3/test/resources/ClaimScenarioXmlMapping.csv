@@ -231,12 +231,6 @@ Self Employed,Expenses related to the person you care for while at work,"What re
 Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,SelfEmployment>CareExpenses>CarerAddress>Line
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,SelfEmployment>CareExpenses>CarerAddress>PostCode
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,
-Other Money,Money paid to someone else for you,Has anyone had any money added to a benefit for you since your claim date: [claim date]?,OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim,OtherBenefits>ExtraMoney
-Other Money,Person who gets this money,Full name,OtherMoneyOtherPersonFullName,OtherBenefits>ExtraMoneyDetails>RecipientName
-Other Money,Person who gets this money,National Insurance (NI) number,OtherMoneyOtherPersonNINO,OtherBenefits>ExtraMoneyDetails>ReferenceNumber
-Other Money,Person who gets this money,Name of Benefit,OtherMoneyOtherPersonBenefit,OtherBenefits>ExtraMoneyDetails>BenefitName
-Other Money,Person's contact details,Address,OtherMoneyOtherPersonAddress,OtherBenefits>ExtraMoneyDetails>RecipientAddress>Line
-Other Money,Person's contact details,Postcode,OtherMoneyOtherPersonPostcode,OtherBenefits>ExtraMoneyDetails>RecipientAddress>PostCode
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,OtherBenefits>OtherMoneySSP
 Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,
 Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,
