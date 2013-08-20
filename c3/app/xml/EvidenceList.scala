@@ -4,7 +4,7 @@ import models.domain._
 import controllers.Mappings.yes
 import XMLHelper.{stringify, booleanStringToYesNo}
 import scala.xml.{NodeBuffer, Elem}
-import app.XMLValues
+import app.{XMLValues, StatutoryPaymentFrequency}
 
 object EvidenceList {
 
@@ -84,6 +84,7 @@ object EvidenceList {
       textLine("Mobile number = ", yourContactDetails.mobileNumber) ++
       textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer) ++
       textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension)
+      textLine("If you have speech or hearing difficulties, would you like us to contact you by textphone? = ", yourContactDetails.contactYouByTextphone)
   }
 
   def yourPartner(claim: Claim) = {
@@ -156,14 +157,16 @@ object EvidenceList {
       textLine("Please tell us the names of the benefits or entitlements you receive = ", aboutOtherMoney.yourBenefits.text1) ++
       textLine("Please tell us the names of the benefits or entitlements your partner/spouse receive = ", aboutOtherMoney.yourBenefits.text2) ++
       textLine("Statutory Sick Pay: How much? = ", statutorySickPay.howMuch) ++
-      textLine("Statutory Sick Pay: How often? = ", stringify(statutorySickPay.howOften)) ++
+      textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.optionToString(statutorySickPay.howOften)) ++
       textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
-      textLine("Other Statutory Pay: How often? = ", stringify(otherStatutoryPay.howOften)) ++
+      textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.optionToString(otherStatutoryPay.howOften)) ++
       textLine("Are you, your wife, husband, civil partner or parent you are dependent on, " +
         "receiving  any pensions or benefits from another EEA State or Switzerland? = ", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland) ++
       textLine("Are you, your wife, husband, civil partner or parent you are dependent on " +
         "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
   }
+
+
 
   def consentAndDeclaration(claim: Claim) = {
     val consent = claim.questionGroup[Consent].getOrElse(Consent())

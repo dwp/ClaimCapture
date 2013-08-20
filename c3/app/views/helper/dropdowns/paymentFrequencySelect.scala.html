@@ -3,8 +3,9 @@
 @import scala.util.Try
 @import helper.dates._
 @import utils.helpers.SelectOtherTemplate._
+@import app.StatutoryPaymentFrequency._
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
 
-    @views.html.helper.selectWithOtherPlaceholder(field("frequency"), Seq("" -> "Please select", "W"->"Weekly", "FN"->"Fortnightly","4W"-> "Four-weekly","M"-> "Monthly","other"->"Other"), args:_*)
+    @views.html.helper.selectWithOtherPlaceholder(field("frequency"), Seq("" -> "Please select", Weekly->"Weekly", Fortnightly->"Fortnightly",FourWeekly-> "Four-weekly",Monthly-> "Monthly",Other->"Other"), args:_*)
 }

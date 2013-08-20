@@ -10,16 +10,15 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm._
 
 object G1TheirPersonalDetails extends Controller with CachedClaim {
-  val form = Form(
-    mapping(
-      "title" -> nonEmptyText(maxLength = 4),
-      "firstName" -> nonEmptyText(maxLength = Name.maxLength),
-      "middleName" -> optional(text(maxLength = Name.maxLength)),
-      "surname" -> nonEmptyText(maxLength = Name.maxLength),
-      "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
-      "dateOfBirth" -> dayMonthYear.verifying(validDate),
-      "liveAtSameAddressCareYouProvide" -> nonEmptyText.verifying(validYesNo)
-    )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
+  val form = Form(mapping(
+    "title" -> nonEmptyText(maxLength = 4),
+    "firstName" -> nonEmptyText(maxLength = Name.maxLength),
+    "middleName" -> optional(text(maxLength = Name.maxLength)),
+    "surname" -> nonEmptyText(maxLength = Name.maxLength),
+    "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
+    "dateOfBirth" -> dayMonthYear.verifying(validDate),
+    "liveAtSameAddressCareYouProvide" -> nonEmptyText.verifying(validYesNo)
+  )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     val isPartnerPersonYouCareFor: Boolean = if (claim.isSectionVisible(models.domain.YourPartner)) {

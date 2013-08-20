@@ -190,6 +190,16 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s6BankBuildingSocietyDetails() = {
+    val claim = new ClaimScenario
+
+    claim.HowWePayYouNameOfAccountHolder =  "John Smith"
+    claim.HowWePayYouFullNameOfBankorBuildingSociety = "Carers Bank"
+    claim.HowWePayYouSortCode = "090126"
+    claim.HowWePayYouAccountNumber = "12345678"
+    claim
+  }
+
   def s7Employment() = {
     val claim = new ClaimScenario
     claim.EmploymentEmployerName_1= "Tesco's"

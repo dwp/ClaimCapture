@@ -1,7 +1,7 @@
 package controllers.s7_employment
 
 import language.reflectiveCalls
-import models.view.CachedClaim
+import models.view.{Navigable, CachedClaim}
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
@@ -10,7 +10,7 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
 
-object G2JobDetails extends Controller with CachedClaim {
+object G2JobDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "employerName"-> nonEmptyText,
@@ -24,17 +24,19 @@ object G2JobDetails extends Controller with CachedClaim {
 
   def job(jobID: String) = claiming { implicit claim => implicit request =>
     claim.questionGroup(Jobs) match {
-      case Some(js: Jobs) if js.job(jobID).isDefined => Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID)))
-      case _ => Redirect(routes.G1BeenEmployed.present())
+      case Some(js: Jobs) if js.job(jobID).isDefined =>
+        track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
+      case _ =>
+        Redirect(routes.G1BeenEmployed.present())
     }
   }
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g2_jobDetails(form))
+    track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g2_jobDetails(form)) }
   }
 
   def presentInJob(jobID: String) = claiming { implicit claim => implicit request =>
-    Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID)))
+    track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
   }
 
   def submit = claimingInJob {jobID => implicit claim => implicit request =>

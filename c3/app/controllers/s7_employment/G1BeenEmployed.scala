@@ -4,22 +4,21 @@ import models.view.{Navigable, CachedClaim}
 import play.api.mvc.{AnyContent, Request, Controller}
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{Claim, BeenEmployed, Employment => EmploymentDomain}
+import models.domain.{Claim, BeenEmployed}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s7_employment.Employment.jobs
-import Employment._
 
-object G1BeenEmployed extends Controller with CachedClaim with Navigable {
+object G1BeenEmployed extends Controller with CachedClaim with Navigable with EmploymentPresentation {
   val form = Form(mapping(
     "beenEmployed" -> (nonEmptyText verifying validYesNo)
   )(BeenEmployed.apply)(BeenEmployed.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    claim.questionGroup[EmploymentDomain].collect(presentEmployment(presentBeenEmployed)).getOrElse(redirect).b
+    presentConditionally(beenEmployed)
   }
 
-  def presentBeenEmployed(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def beenEmployed(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val filledForm = request.headers.get("referer") match {
       case Some(referer) if referer contains routes.G2JobDetails.present().url => form
       case Some(referer) if referer contains routes.G14JobCompletion.submit().url => form
@@ -31,8 +30,6 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
 
     track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(filledForm)) }
   }
-
-  def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = claim -> Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present())
 
   def submit = claiming { implicit claim => implicit request =>
     import controllers.Mappings.yes
