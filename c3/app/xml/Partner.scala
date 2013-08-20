@@ -25,13 +25,13 @@ object Partner {
         <Title>{yourPartnerPersonalDetails.title}</Title>
         <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
-        <Address>{postalAddressStructure(models.MultiLineAddress(Some(XMLValues.NotAsked)), XMLValues.NotAsked)}</Address>
+        <Address>{postalAddressStructure(models.MultiLineAddress(Some(XMLValues.NotAsked)), "")}</Address>
         <ConfirmAddress>yes</ConfirmAddress>
         <RelationshipStatus>
           <JoinedHouseholdAfterDateOfClaim>{XMLValues.NotAsked}</JoinedHouseholdAfterDateOfClaim>
-          <JoinedHouseholdDate>{XMLValues.NotAsked}</JoinedHouseholdDate>
+          <JoinedHouseholdDate></JoinedHouseholdDate>
           <SeparatedFromPartner>{XMLValues.NotAsked}</SeparatedFromPartner>
-          <SeparationDate>{XMLValues.NotAsked}</SeparationDate>
+          <SeparationDate></SeparationDate>
         </RelationshipStatus>
       </Partner>
     } else NodeSeq.Empty
