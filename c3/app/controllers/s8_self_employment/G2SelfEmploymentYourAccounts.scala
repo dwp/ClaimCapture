@@ -39,6 +39,6 @@ object G2SelfEmploymentYourAccounts extends Controller with SelfEmploymentRoutin
           .replaceError("tellUsWhyAndWhenTheChangeHappened", FormError("tellUsWhyAndWhenTheChangeHappened", "error.required"))
         BadRequest(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(formWithErrorsUpdate, completedQuestionGroups(SelfEmploymentYourAccounts)))
       },
-      f => claim.update(f) -> Redirect(routes.G3SelfEmploymentAccountantContactDetails.present()))
+      f => claim.update(f) -> Redirect(routes.G4SelfEmploymentPensionsAndExpenses.present()))
   }
 }

@@ -51,7 +51,6 @@ object SelfEmployment {
         <Accountant>
           <HasAccountant>no</HasAccountant>
           <ContactAccountant>no</ContactAccountant>
-          {accountantDetails(claim)}
         </Accountant>
         <CareExpensesChildren>{pensionAndExpenses.doYouPayToLookAfterYourChildren}</CareExpensesChildren>
         {childCareExpenses(claim)}
@@ -61,25 +60,6 @@ object SelfEmployment {
         {pensionScheme(claim)}
       </SelfEmployment>
 
-    } else NodeSeq.Empty
-  }
-
-
-
-  def accountantDetails(claim:Claim) = {
-    val accountantContactDetailsOption = claim.questionGroup[SelfEmploymentAccountantContactDetails]
-    val accountantContactDetails = accountantContactDetailsOption.getOrElse(SelfEmploymentAccountantContactDetails())
-
-    val hasAccountant = false
-
-    if(hasAccountant) {
-      <AccountantDetails>
-        <Name>{accountantContactDetails.accountantsName}</Name>
-        <Address>{postalAddressStructure(accountantContactDetails.address, accountantContactDetails.postcode.orNull)}</Address>
-        <ConfirmAddress>yes</ConfirmAddress>
-        <PhoneNumber>{accountantContactDetails.telephoneNumber.orNull}</PhoneNumber>
-        <FaxNumber>{accountantContactDetails.faxNumber.orNull}</FaxNumber>
-      </AccountantDetails>
     } else NodeSeq.Empty
   }
 

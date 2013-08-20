@@ -27,16 +27,6 @@ case class SelfEmploymentYourAccounts(whatWasOrIsYourTradingYearFrom: Option[Day
                                       areIncomeOutgoingsProfitSimilarToTrading: Option[String] = None,
                                       tellUsWhyAndWhenTheChangeHappened: Option[String] = None) extends QuestionGroup(SelfEmploymentYourAccounts)
 
-case class SelfEmploymentAccountantContactDetails(accountantsName: String = "",
-                                                  address: MultiLineAddress = MultiLineAddress(None, None, None),
-                                                  postcode: Option[String] = None,
-                                                  telephoneNumber: Option[String] = None,
-                                                  faxNumber: Option[String] = None) extends QuestionGroup(SelfEmploymentAccountantContactDetails)
-
-case object SelfEmploymentAccountantContactDetails extends QuestionGroup.Identifier {
-  val id = s"${SelfEmployment.id}.g3"
-}
-
 case object SelfEmploymentPensionsAndExpenses extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g4"
 }

@@ -93,7 +93,6 @@ object PageFactory {
       // S9
       case G1AboutSelfEmploymentPage.title => G1AboutSelfEmploymentPage buildPageWith(browser, previousPage)
       case G2SelfEmploymentYourAccountsPage.title => G2SelfEmploymentYourAccountsPage buildPageWith(browser, previousPage)
-      case G3SelfEmploymentAccountantContactDetailsPage.title => G3SelfEmploymentAccountantContactDetailsPage buildPageWith(browser, previousPage)
       case G4SelfEmploymentPensionsAndExpensesPage.title => G4SelfEmploymentPensionsAndExpensesPage buildPageWith(browser, previousPage)
       case G5ChildcareExpensesWhileAtWorkPage.title => G5ChildcareExpensesWhileAtWorkPage buildPageWith(browser, previousPage)
       case G6ChildcareProvidersContactDetailsPage.title => G6ChildcareProvidersContactDetailsPage buildPageWith(browser, previousPage)

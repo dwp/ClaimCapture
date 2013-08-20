@@ -30,7 +30,6 @@ trait SelfEmploymentRouting extends Routing {
   override def route(qgi: QuestionGroup.Identifier) = qgi match {
     case AboutSelfEmployment => routes.G1AboutSelfEmployment.present()
     case SelfEmploymentYourAccounts => routes.G2SelfEmploymentYourAccounts.present()
-    case SelfEmploymentAccountantContactDetails => routes.G3SelfEmploymentAccountantContactDetails.present()
     case SelfEmploymentPensionsAndExpenses => routes.G4SelfEmploymentPensionsAndExpenses.present()
     case ChildcareExpensesWhileAtWork => routes.G5ChildcareExpensesWhileAtWork.present()
     case ChildcareProvidersContactDetails => routes.G6ChildcareProvidersContactDetails.present()
