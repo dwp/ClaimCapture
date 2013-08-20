@@ -32,9 +32,7 @@ class G4PersonYouCareForIntegrationSpec extends Specification with Tags {
     
     "contain the completed forms" in new WithBrowser {
       Formulate.yourPartnerPersonalDetails(browser)
-      Formulate.yourPartnerContactDetails(browser)
-      Formulate.moreAboutYourPartnerSeparated(browser)
-      browser.find("div[class=completed] ul li").size() mustEqual 3
+      browser.find("div[class=completed] ul li").size() mustEqual 1
     }
   } section("integration", models.domain.YourPartner.id)
 }

@@ -53,8 +53,6 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)
       Formulate.yourPartnerPersonalDetails(browser)
-      Formulate.yourPartnerContactDetails(browser)
-      Formulate.moreAboutYourPartnerNotSeparated(browser)
       Formulate.personYouCareFor(browser)
       browser.submit("button[type='submit']")
 

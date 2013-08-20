@@ -21,18 +21,6 @@ object YourPartnerPersonalDetails extends QuestionGroup.Identifier  {
   val id = s"${YourPartner.id}.g1"
 }
 
-case class YourPartnerContactDetails(address: Option[MultiLineAddress] = None, postcode: Option[String] = None) extends QuestionGroup(YourPartnerContactDetails)
-
-object YourPartnerContactDetails extends QuestionGroup.Identifier {
-  val id = s"${YourPartner.id}.g2"
-}
-
-case class MoreAboutYourPartner(startedLivingTogether: Option[YesNoWithDate] = None, separated:YesNoWithDate = YesNoWithDate("", None)) extends QuestionGroup(MoreAboutYourPartner)
-
-object MoreAboutYourPartner extends QuestionGroup.Identifier {
-  val id = s"${YourPartner.id}.g3"
-}
-
 case class PersonYouCareFor(isPartnerPersonYouCareFor:String = "") extends QuestionGroup(PersonYouCareFor)
 
 object PersonYouCareFor extends QuestionGroup.Identifier {

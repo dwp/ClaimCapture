@@ -52,7 +52,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About you - the carer")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Contact details - About your partner/spouse")
+      titleMustEqual("Person you care for - About your partner/spouse")
     }
 
     "navigate back to About you - the carer - Completed" in new WithBrowser with BrowserMatchers {
@@ -77,22 +77,8 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About you - the carer")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Contact details - About your partner/spouse")
+      titleMustEqual("Person you care for - About your partner/spouse")
       findMustEqualSize("div[class=completed] ul li", 1)
-    }
-        
-    "be pre-populated if user answered yes to claiming for partner/spouse in yourPartner/personYouCareFor section" in new WithBrowser with BrowserMatchers {
-      Formulate.yourDetails(browser)
-      Formulate.yourContactDetails(browser)
-      Formulate.timeOutsideUKNotLivingInUK(browser)
-      Formulate.claimDate(browser)
-      Formulate.moreAboutYou(browser)
-      Formulate.employment(browser)
-      Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Contact details - About your partner/spouse")
-      
-      browser.find("#address_lineOne").getValue mustEqual "My Address"
-      browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
   } section("integration", models.domain.YourPartner.id)
 }
