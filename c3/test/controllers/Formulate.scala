@@ -134,36 +134,6 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
-  def yourPartnerContactDetails(browser: TestBrowser) = {
-    browser.goTo("/your-partner/contact-details")
-    browser.fill("#address_lineOne") `with` partnerAddress
-    browser.fill("#postcode") `with` partnerPostcode
-    browser.submit("button[type='submit']")
-  }
-  
-  def moreAboutYourPartnerSeparated(browser: TestBrowser) = {
-    browser.goTo("/your-partner/more-about-your-partner")
-    browser.click("#startedLivingTogether_afterClaimDate_yes")
-    browser.click("#startedLivingTogether_date_day option[value='3']")
-    browser.click("#startedLivingTogether_date_month option[value='4']")
-    browser.fill("#startedLivingTogether_date_year") `with` "1950"
-    browser.click("#separated_fromPartner_yes]")
-    browser.click("#separated_date_day option[value='3']")
-    browser.click("#separated_date_month option[value='8']")
-    browser.fill("#separated_date_year") `with` "2005"
-    browser.submit("button[type='submit']")
-  }
-  
-  def moreAboutYourPartnerNotSeparated(browser: TestBrowser) = {
-    browser.goTo("/your-partner/more-about-your-partner")
-    browser.click("#startedLivingTogether_afterClaimDate_yes")
-    browser.click("#startedLivingTogether_date_day option[value='3']")
-    browser.click("#startedLivingTogether_date_month option[value='4']")
-    browser.fill("#startedLivingTogether_date_year") `with` "1950"
-    browser.click("#separated_fromPartner_no]")
-    browser.submit("button[type='submit']")
-  }
-
   def personYouCareFor(browser: TestBrowser) = {
     browser.goTo("/your-partner/person-you-care-for")
     browser.click("#isPartnerPersonYouCareFor_yes]")

@@ -21,11 +21,9 @@ class G5CompletedIntegrationSpec extends Specification with Tags {
     
     "contain the completed forms" in new WithBrowser with BrowserMatchers {
       Formulate.yourPartnerPersonalDetails(browser)
-      Formulate.yourPartnerContactDetails(browser)
-      Formulate.moreAboutYourPartnerSeparated(browser)
       Formulate.personYouCareFor(browser)
       titleMustEqual("Completion - About your partner/spouse")
-      browser.find("div[class=completed] ul li").size() mustEqual 4
+      browser.find("div[class=completed] ul li").size() mustEqual 2
     }
 
   } section("integration", models.domain.YourPartner.id)

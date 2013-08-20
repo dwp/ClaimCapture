@@ -53,12 +53,6 @@ POST    /about-you/completed                                            controll
 GET     /your-partner/personal-details                                  controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
 POST    /your-partner/personal-details                                  controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
 
-GET     /your-partner/contact-details                                   controllers.s3_your_partner.G2YourPartnerContactDetails.present
-POST    /your-partner/contact-details                                   controllers.s3_your_partner.G2YourPartnerContactDetails.submit
-
-GET     /your-partner/more-about-your-partner                           controllers.s3_your_partner.G3MoreAboutYourPartner.present
-POST    /your-partner/more-about-your-partner                           controllers.s3_your_partner.G3MoreAboutYourPartner.submit
-
 GET     /your-partner/person-you-care-for                               controllers.s3_your_partner.G4PersonYouCareFor.present
 POST    /your-partner/person-you-care-for                               controllers.s3_your_partner.G4PersonYouCareFor.submit
 

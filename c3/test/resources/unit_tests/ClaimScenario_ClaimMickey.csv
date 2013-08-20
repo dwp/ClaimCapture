@@ -29,8 +29,6 @@ About You,More about you,Have you been on a course of education since your claim
 About You,More about you,Do you get state Pension?,AboutYouDoYouGetStatePension,
 About You,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime_1,yes
 About You,Employment,Have you been self-employed at any time since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyy>)?,AboutYouHaveYouBeenSelfEmployedAtAnyTime,no
-About You,Property and rent,Do you or your partner/spouse own property or land in the UK or abroad that you have rented out since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyyy>)?,AboutYouDoYouOrYourPartnerSpouseOwnPropertyorLand,no
-About You,Property and rent,"Have you sublet your home, or provided board and lodgings, since <ddmmyyyy_2> (this is one week before your claim date:<ddmmyyyyy>)?",AboutYouHaveYouOrYourPartnerSubletYourHome,no
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,mrs
 About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,Minnie
 About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,
@@ -40,8 +38,6 @@ About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYo
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,03/03/1956
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,British
 About Your Partner,Partner/Spouse details,Does your partner/spouse live at the same address as you?,AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou,
-About Your Partner,Contact Details,Address,AboutYourPartnerAddress,10\nAnyplace Street
-About Your Partner,Contact Details,Postcode,AboutYourPartnerPostcode,
 About Your Partner,More about your partner/spouse,"Did your partner join your household, after your claim date <ddmmyyyy>>?",AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate,no
 About Your Partner,More about your partner/spouse,What date did they join?,AboutYourPartnertheDateWhenYouStartedLivingTogether,
 About Your Partner,More about your partner/spouse,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,

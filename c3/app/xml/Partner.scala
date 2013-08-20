@@ -5,6 +5,7 @@ import XMLHelper.{stringify, postalAddressStructure}
 import models.yesNo.YesNoWithDate
 import controllers.Mappings._
 import scala.xml.NodeSeq
+import app.XMLValues
 
 object Partner {
 
@@ -12,12 +13,6 @@ object Partner {
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(hadPartnerSinceClaimDate = no))
 
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
-
-    val yourPartnerContactDetails =  claim.questionGroup[YourPartnerContactDetails].getOrElse(YourPartnerContactDetails())
-
-    val moreAboutYourPartner = claim.questionGroup[MoreAboutYourPartner].getOrElse(MoreAboutYourPartner())
-
-    val startedLivingTogether = moreAboutYourPartner.startedLivingTogether.getOrElse(YesNoWithDate(no, None))
 
     val hadPartner = moreAboutYou.hadPartnerSinceClaimDate == yes
 
@@ -30,13 +25,13 @@ object Partner {
         <Title>{yourPartnerPersonalDetails.title}</Title>
         <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
-        <Address>{postalAddressStructure(yourPartnerContactDetails.address, yourPartnerContactDetails.postcode)}</Address>
+        <Address>{postalAddressStructure(models.MultiLineAddress(Some(XMLValues.NotAsked)), XMLValues.NotAsked)}</Address>
         <ConfirmAddress>yes</ConfirmAddress>
         <RelationshipStatus>
-          <JoinedHouseholdAfterDateOfClaim>{startedLivingTogether.answer}</JoinedHouseholdAfterDateOfClaim>
-          <JoinedHouseholdDate>{stringify(startedLivingTogether.date)}</JoinedHouseholdDate>
-          <SeparatedFromPartner>{moreAboutYourPartner.separated.answer}</SeparatedFromPartner>
-          <SeparationDate>{stringify(moreAboutYourPartner.separated.date)}</SeparationDate>
+          <JoinedHouseholdAfterDateOfClaim>{XMLValues.NotAsked}</JoinedHouseholdAfterDateOfClaim>
+          <JoinedHouseholdDate>{XMLValues.NotAsked}</JoinedHouseholdDate>
+          <SeparatedFromPartner>{XMLValues.NotAsked}</SeparatedFromPartner>
+          <SeparationDate>{XMLValues.NotAsked}</SeparationDate>
         </RelationshipStatus>
       </Partner>
     } else NodeSeq.Empty

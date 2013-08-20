@@ -47,8 +47,6 @@ object YourPartner extends Controller with YourPartnerRouting with CachedClaim {
 trait YourPartnerRouting extends Routing {
   override def route(qgi: QuestionGroup.Identifier) = qgi match {
     case YourPartnerPersonalDetails => routes.G1YourPartnerPersonalDetails.present()
-    case YourPartnerContactDetails => routes.G2YourPartnerContactDetails.present()
-    case MoreAboutYourPartner => routes.G3MoreAboutYourPartner.present()
     case PersonYouCareFor => routes.G4PersonYouCareFor.present()
   }
 }
