@@ -49,8 +49,8 @@ object SelfEmployment {
         <SelfEmployedNow>{aboutSelfEmployment.areYouSelfEmployedNow}</SelfEmployedNow>
         {jobDetails()}
         <Accountant>
-          <HasAccountant>{yourAccounts.doYouHaveAnAccountant.orNull}</HasAccountant>
-          <ContactAccountant>{yourAccounts.canWeContactYourAccountant.orNull}</ContactAccountant>
+          <HasAccountant>no</HasAccountant>
+          <ContactAccountant>no</ContactAccountant>
           {accountantDetails(claim)}
         </Accountant>
         <CareExpensesChildren>{pensionAndExpenses.doYouPayToLookAfterYourChildren}</CareExpensesChildren>
@@ -67,12 +67,10 @@ object SelfEmployment {
 
 
   def accountantDetails(claim:Claim) = {
-    val yourAccountsOption = claim.questionGroup[SelfEmploymentYourAccounts]
-    val yourAccounts =  yourAccountsOption.getOrElse(SelfEmploymentYourAccounts(doYouHaveAnAccountant = Some(no)))
     val accountantContactDetailsOption = claim.questionGroup[SelfEmploymentAccountantContactDetails]
     val accountantContactDetails = accountantContactDetailsOption.getOrElse(SelfEmploymentAccountantContactDetails())
 
-    val hasAccountant = yourAccounts.doYouHaveAnAccountant == Some(yes)
+    val hasAccountant = false
 
     if(hasAccountant) {
       <AccountantDetails>

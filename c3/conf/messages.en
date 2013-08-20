@@ -432,7 +432,7 @@ welshCommunication = Do you live in Wales and would like to receive future commu
 #SELF EMPLOYED
 error.areYouSelfEmployedNow = Please tell us if you are self employed
 areYouSelfEmployedNow =  Are you self-employed now?
-whenDidYouStartThisJob = When did you start this job?
+whenDidYouStartThisJob = When did you start this self employed work?
 whenDidTheJobFinish = When did you finish this job?
 haveYouCeasedTrading = Have you ceased trading?
 natureOfYourBusiness = Nature of business?
