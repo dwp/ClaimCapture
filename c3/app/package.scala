@@ -30,6 +30,33 @@ package object app {
     val Monthly = "05"
   }
 
+  object StatutoryPaymentFrequency {
+    val Weekly = "W"
+    val Fortnightly = "FN"
+    val FourWeekly = "4W"
+    val Monthly = "M"
+    val Other = "other"
+
+    def optionToString(paymentFrequencyOption: Option[models.PaymentFrequency]):String = {
+
+      def stringify(paymentFrequency: models.PaymentFrequency):String = {
+        paymentFrequency.frequency match {
+          case Weekly => "Weekly"
+          case Fortnightly => "Fortnightly"
+          case FourWeekly => "Four-weekly"
+          case Monthly => "Monthly"
+          case Other => "Other: " + paymentFrequency.other.getOrElse("")
+          case _ => ""
+        }
+      }
+
+      paymentFrequencyOption match {
+        case Some(s) => stringify(s)
+        case _ => ""
+      }
+    }
+  }
+
   object XMLValues {
     val NotAsked = "Not asked"
     val NotKnown = "Not known"
