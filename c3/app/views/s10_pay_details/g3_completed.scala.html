@@ -6,7 +6,7 @@
 @main("Completion - " + Messages("s10.longName"), None, completedQuestionGroups) {
     @form(action = controllers.s10_pay_details.routes.PayDetails.completedSubmit()) {
         <nav class="form-steps">
-            <a id="backButton" href="@controllers.s10_pay_details.routes.G2BankBuildingSocietyDetails.present" class="button secondary">Back</a>
+            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Continue to Consent and Declaration</button>
         </nav>
     }

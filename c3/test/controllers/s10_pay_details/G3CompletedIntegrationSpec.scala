@@ -1,6 +1,6 @@
 package controllers.s10_pay_details
 
-import utils.pageobjects.s10_pay_details.{G2BankBuildingSocietyDetailsPage, G1HowWePayYouPageContext, G3PayDetailsCompletedPage, G3PayDetailsCompletedPageContext}
+import utils.pageobjects.s10_pay_details._
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{Formulate, ClaimScenarioFactory}
@@ -32,7 +32,13 @@ class G3CompletedIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to 'Bank Building Society Details'" in new WithBrowser with G3PayDetailsCompletedPageContext {
-      page goToThePage()
+
+      val claim = ClaimScenarioFactory.s6BankBuildingSocietyDetails()
+      val bankBuildingSocietyPage = new G2BankBuildingSocietyDetailsPage (browser)
+      bankBuildingSocietyPage goToThePage()
+      bankBuildingSocietyPage fillPageWith claim
+      bankBuildingSocietyPage submitPage()
+
       val g2Page = page.goBack()
       g2Page must beAnInstanceOf[G2BankBuildingSocietyDetailsPage]
     }
