@@ -31,6 +31,15 @@ class G3CompletedIntegrationSpec extends Specification with Tags {
       completedPage.listCompletedForms.size shouldEqual 1
     }
 
+    "navigate back to 'How we pay'" in new WithBrowser with G1HowWePayYouPageContext {
+      val claim = ClaimScenarioFactory.s6PayDetails()
+      page goToThePage()
+      page fillPageWith claim
+      val completedPage = page submitPage()
+      val howWePayPage = completedPage.goBack()
+      howWePayPage must beAnInstanceOf[G1HowWePayYouPage]
+    }
+
     "navigate back to 'Bank Building Society Details'" in new WithBrowser with G3PayDetailsCompletedPageContext {
 
       val claim = ClaimScenarioFactory.s6BankBuildingSocietyDetails()
