@@ -46,7 +46,6 @@ class EndToEndSpec extends Specification with Tags {
 
       lastPage match {
         case p: XmlPage => {
-          println(p.source)
           validateAndPrintErrors(p, claim) // must beTrue
         }
         case p: Page => println(p.source)
