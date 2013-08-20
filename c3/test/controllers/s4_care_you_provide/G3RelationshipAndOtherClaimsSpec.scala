@@ -10,7 +10,7 @@ import play.api.test.Helpers._
 
 class G3RelationshipAndOtherClaimsSpec extends Specification with Mockito with Tags {
 
-  val moreAboutThePersonInput = Seq("relationship" -> "father", "armedForcesPayment" -> "yes", "claimedAllowanceBefore" -> "yes")
+  val moreAboutThePersonInput = Seq("relationship" -> "father", "armedForcesPayment" -> "yes")
 
   "More About The Person - Controller" should {
 
@@ -33,7 +33,6 @@ class G3RelationshipAndOtherClaimsSpec extends Specification with Mockito with T
         case Some(m: MoreAboutThePerson) => {
           m.relationship mustEqual "father"
           m.armedForcesPayment mustEqual Some("yes")
-          m.claimedAllowanceBefore mustEqual "yes"
         }
       }
     }

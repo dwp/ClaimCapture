@@ -191,6 +191,22 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
+  def moreAboutThePersonWithClaimedAllowanceBefore(browser: TestBrowser) = {
+    browser.goTo("/care-you-provide/relationship-and-other-claims")
+    browser.click("#relationship option[value='father']")
+    browser.click("#armedForcesPayment_yes")
+    browser.click("#claimedAllowanceBefore_yes")
+    browser.submit("button[type='submit']")
+  }
+
+  def moreAboutThePersonWithNotClaimedAllowanceBefore(browser: TestBrowser) = {
+    browser.goTo("/care-you-provide/relationship-and-other-claims")
+    browser.click("#relationship option[value='father']")
+    browser.click("#armedForcesPayment_no")
+    browser.click("#claimedAllowanceBefore_no")
+    browser.submit("button[type='submit']")
+  }
+
   def moreAboutTheCare(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/more-about-the-care")
     browser.click("#spent35HoursCaring_yes")
@@ -225,60 +241,7 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
-  def moreAboutThePersonWithClaimedAllowanceBefore(browser: TestBrowser) = {
-    browser.goTo("/care-you-provide/relationship-and-other-claims")
-    browser.click("#relationship option[value='father']")
-    browser.click("#armedForcesPayment_yes")
-    browser.click("#claimedAllowanceBefore_yes")
-    browser.submit("button[type='submit']")
-  }
 
-  def moreAboutThePersonWithNotClaimedAllowanceBefore(browser: TestBrowser) = {
-    browser.goTo("/care-you-provide/relationship-and-other-claims")
-    browser.click("#relationship option[value='father']")
-    browser.click("#armedForcesPayment_no")
-    browser.click("#claimedAllowanceBefore_no")
-    browser.submit("button[type='submit']")
-  }
-
-  def previousCarerPersonalDetails(browser: TestBrowser) = {
-    browser.goTo("/care-you-provide/previous-carer-personal-details")
-    browser.fill("#firstName") `with` "John"
-    browser.fill("#middleName") `with` "Joe"
-    browser.fill("#surname") `with` "Appleseed"
-    browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
-    browser.fill("#nationalInsuranceNumber_ni2") `with` "12"
-    browser.fill("#nationalInsuranceNumber_ni3") `with` "34"
-    browser.fill("#nationalInsuranceNumber_ni4") `with` "56"
-    browser.fill("#nationalInsuranceNumber_ni5") `with` "C"
-    browser.click("#dateOfBirth_day option[value='3']")
-    browser.click("#dateOfBirth_month option[value='4']")
-    browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.submit("button[type='submit']")
-  }
-
-  def previousCarerContactDetails(browser: TestBrowser) = {
-    browser.goTo("/care-you-provide/previous-carer-contact-details")
-    browser.fill("#address_lineOne") `with` "My Address"
-    browser.fill("#postcode") `with` "SE1 6EH"
-    browser.submit("button[type='submit']")
-  }
-  
-  def representativesForThePerson(browser: TestBrowser) = {
-    browser.goTo("/care-you-provide/representatives-for-person")
-    browser.click("#you_actForPerson_yes")
-    browser.click("#you_actAs option[value='guardian']")
-    browser.submit("button[type='submit']")
-  }
-  
-  def representativesForThePersonNegativeAnswers(browser: TestBrowser) = {
-    browser.goTo("/care-you-provide/representatives-for-person")
-    browser.click("#actForPerson_no")
-    browser.click("#someoneElse_actForPerson_yes")
-    browser.click("#someoneElse_actAs option[value='judicial']")
-    browser.fill("#someoneElse_fullName") `with` "John"
-    browser.submit("button[type='submit']")
-  }
 
   def howWePayYou(browser: TestBrowser) = {
     browser.goTo("/pay-details/how-we-pay-you")

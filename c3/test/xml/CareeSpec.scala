@@ -22,11 +22,10 @@ class CareeSpec extends Specification with Tags {
       val claimDate = DayMonthYear(Some(10), Some(10), Some(2013))
       val theirPersonalDetails = TheirPersonalDetails(title = "title", firstName = "firstName", middleName = Some("middleName"), surname = "surname", nationalInsuranceNumber = Some(nationalInsuranceNr), dateOfBirth = dateOfBirth)
       val theirContactDetails = TheirContactDetails(address = MultiLineAddress(Some("line1")), postcode = Some("postcode"), phoneNumber = Some("020-12302312"))
-      val moreAboutThePerson = MoreAboutThePerson(relationship = "son", claimedAllowanceBefore = yes)
+      val moreAboutThePerson = MoreAboutThePerson(relationship = "son")
       val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaring = yes, spent35HoursCaringBeforeClaim = YesNoWithDate(no, Some(claimDate)), hasSomeonePaidYou = yes)
-      val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown("youSign", Some("youActing")), someoneElseAct = YesNoWithDropDownAndText(Some("someoneElseSign"), Some("dropDown"), Some("text")))
 
-      val claim = Claim().update(theirPersonalDetails).update(theirContactDetails).update(moreAboutThePerson).update(moreAboutTheCare).update(representatives)
+      val claim = Claim().update(theirPersonalDetails).update(theirContactDetails).update(moreAboutThePerson).update(moreAboutTheCare)
 
       val xml = Caree.xml(claim)
 
@@ -41,57 +40,9 @@ class CareeSpec extends Specification with Tags {
       (xml \\ "DaytimePhoneNumber" \\ "Number").text shouldEqual theirContactDetails.phoneNumber.get
       (xml \\ "RelationToClaimant").text shouldEqual moreAboutThePerson.relationship
       (xml \\ "Cared35hours").text shouldEqual yes
-      (xml \\ "CanSomeoneElseSign").text shouldEqual representatives.someoneElseAct.answer.get
-      (xml \\ "CanClaimantSign").text shouldEqual representatives.youAct.answer
       (xml \\ "BreaksSinceClaim").text shouldEqual no
       (xml \\ "Cared35hoursBefore").text shouldEqual moreAboutTheCare.spent35HoursCaringBeforeClaim.answer
       (xml \\ "PaidForCaring").text shouldEqual moreAboutTheCare.hasSomeonePaidYou
-      (xml \\ "ClaimedPreviously").text shouldEqual moreAboutThePerson.claimedAllowanceBefore
-      (xml \\ "PreviousClaimant").text must not(beEmpty)
-    }
-
-    "generate <ClaimantActingType> with yes for" in {
-      "<ParentOrGuardian> when claimer act as " + Guardian.name in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Guardian.name)))
-        val xml = Caree.claimantActingType(Claim().update(representatives))
-        (xml \\ "ParentOrGuardian").text shouldEqual yes
-      }
-
-      "<PowerOfAttorney> when claimer act as " + Attorney.name in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Attorney.name)))
-        val xml = Caree.claimantActingType(Claim().update(representatives))
-        (xml \\ "PowerOfAttorney").text shouldEqual yes
-      }
-
-      "<Appointee> when claimer act as " + Appointee.name in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Appointee.name)))
-        val xml = Caree.claimantActingType(Claim().update(representatives))
-        (xml \\ "Appointee").text shouldEqual yes
-      }
-
-      "<JudicialFactor> when claimer act as " + Judicial.name in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Judicial.name)))
-        val xml = Caree.claimantActingType(Claim().update(representatives))
-        (xml \\ "JudicialFactor").text shouldEqual yes
-      }
-
-      "<Receiver> when claimer act as " + Deputy.name in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Deputy.name)))
-        val xml = Caree.claimantActingType(Claim().update(representatives))
-        (xml \\ "Receiver").text shouldEqual yes
-      }
-
-      "<Receiver> when claimer act as " + Curator.name in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(yes, Some(Curator.name)))
-        val xml = Caree.claimantActingType(Claim().update(representatives))
-        (xml \\ "Receiver").text shouldEqual yes
-      }
-
-      "be skipped if claimer not acting for person they care for" in {
-        val representatives = RepresentativesForPerson(youAct = YesNoWithDropDown(no, None))
-        val xml = Caree.claimantActingType(Claim().update(representatives))
-        xml.text must beEmpty
-      }
     }
 
     "generate <BreaksSinceClaim> xml with" in {
@@ -167,59 +118,6 @@ class CareeSpec extends Specification with Tags {
       val startedCaringDate = DayMonthYear(Some(5), Some(5), Some(2000))
       val xml = Caree.dateStartedCaring(MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(yes, Some(startedCaringDate))))
       xml.text shouldEqual startedCaringDate.`yyyy-MM-dd`
-    }
-
-    "skip <PayReceived> xml if claimer has NOT received payments" in {
-      val moreAboutTheCare = MoreAboutTheCare(hasSomeonePaidYou = no)
-
-      val xml = Caree.payReceived(Claim().update(moreAboutTheCare))
-      xml.text must beEmpty
-    }
-
-    "generate <PayReceived> xml if claimer has received payments" in {
-      val moreAboutTheCare = MoreAboutTheCare(hasSomeonePaidYou = yes)
-
-      val oneWhoPays = OneWhoPaysPersonalDetails(organisation = Some("organisation"), title = Some("title"),
-                                                                      firstName = "firstName", middleName = Some("middleName"), surname = "surname",
-                                                                      amount = "505.5", startDatePayment = DayMonthYear(Some(3), Some(4), Some(2012)))
-
-      val contactDetailsPayingPerson = ContactDetailsOfPayingPerson(address = Some(MultiLineAddress(Some("line1"))), postcode = Some("postcode"))
-      val claim = Claim().update(moreAboutTheCare).update(oneWhoPays).update(contactDetailsPayingPerson)
-      val xml = Caree.payReceived(claim)
-
-      (xml \\ "PayerName").text must contain(oneWhoPays.organisation.get)
-      (xml \\ "PayerName").text must contain(oneWhoPays.title.get)
-      (xml \\ "PayerName").text must contain(oneWhoPays.firstName)
-      (xml \\ "PayerName").text must contain(oneWhoPays.middleName.get)
-      (xml \\ "PayerName").text must contain(oneWhoPays.surname)
-      (xml \\ "PayerAddress" \\ "Line").theSeq(0).text shouldEqual contactDetailsPayingPerson.address.get.lineOne.get
-      (xml \\ "PayerAddress" \\ "PostCode").text shouldEqual contactDetailsPayingPerson.postcode.get
-      (xml \\ "Payment" \\ "Amount").text shouldEqual oneWhoPays.amount
-      (xml \\ "DatePaymentStarted").text shouldEqual oneWhoPays.startDatePayment.`yyyy-MM-dd`
-    }
-
-    "skip <PreviousClaimant> xml if NOT claimed allowance before" in {
-      val moreAboutThePerson = MoreAboutThePerson(claimedAllowanceBefore = no)
-
-      val xml = Caree.previousClaimant(Claim().update(moreAboutThePerson))
-      xml.text must beEmpty
-    }
-
-    "generate <PreviousClaimant> xml if claimed allowance before" in {
-      val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
-      val dateOfBirth = DayMonthYear(Some(3), Some(4), Some(1950))
-      val moreAboutThePerson = MoreAboutThePerson(claimedAllowanceBefore = yes)
-      val previousCarerPersonalDetails = PreviousCarerPersonalDetails(firstName = "firstName", middleName = Some("middleName"), surname = "surname", nationalInsuranceNumber = Some(nationalInsuranceNr), dateOfBirth = Some(dateOfBirth))
-      val previousCarerContactDetails = PreviousCarerContactDetails(address = Some(MultiLineAddress(Some("line1"))), postcode = Some("postcode"))
-      val claim = Claim().update(moreAboutThePerson).update(previousCarerPersonalDetails).update(previousCarerContactDetails)
-
-      val xml = Caree.previousClaimant(claim)
-      (xml \\ "Surname").text shouldEqual previousCarerPersonalDetails.surname
-      (xml \\ "OtherNames").text must contain(previousCarerPersonalDetails.firstName)
-      (xml \\ "OtherNames").text must contain(previousCarerPersonalDetails.middleName.get)
-      (xml \\ "NationalInsuranceNumber").text shouldEqual nationalInsuranceNr.stringify
-      (xml \\ "Address" \\ "Line").theSeq(0).text shouldEqual previousCarerContactDetails.address.get.lineOne.get
-      (xml \\ "Address" \\ "PostCode").text shouldEqual previousCarerContactDetails.postcode.get
     }
   } section "unit"
 }

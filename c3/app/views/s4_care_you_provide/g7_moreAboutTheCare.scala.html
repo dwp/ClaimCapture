@@ -7,13 +7,13 @@
 @import utils.helpers.CarersCrypto
 @import views.html.s4_care_you_provide.main
 
-@main(Messages("s4.g7") + " - " + Messages("s4.longName"), Some(currentForm), completedQuestionGroups) {
+@main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm), completedQuestionGroups) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s4_care_you_provide.routes.G7MoreAboutTheCare.submit) {
         <fieldset class="form-elements">
-            <legend>@Messages("s4.g7")</legend>
+            <legend>@Messages("s4.g4")</legend>
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("spent35HoursCaring"))
@@ -37,7 +37,7 @@
     }
 }
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g7_moreAboutTheCare.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g4_moreAboutTheCare.js")'></script>
 
 <script type="text/javascript">
     $(function() {

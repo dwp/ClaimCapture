@@ -35,7 +35,7 @@ object G7MoreAboutTheCare extends Controller with CareYouProvideRouting with Cac
         val formWithErrorsUpdate = formWithErrors.replaceError("beforeClaimCaring", FormError("beforeClaimCaring.date", "error.required"))
         BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrorsUpdate, completedQuestionGroups(MoreAboutTheCare)))
       },
-      moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(routes.G8OneWhoPaysPersonalDetails.present())
+      moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(routes.G10BreaksInCare.present())
     )
   }
 }

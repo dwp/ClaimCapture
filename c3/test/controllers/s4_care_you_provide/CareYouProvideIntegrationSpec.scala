@@ -26,15 +26,6 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("Relationship and other claims - About the care you provide")
 
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
-
-      Formulate.previousCarerPersonalDetails(browser)
-      titleMustEqual("Contact details of previous or existing carer - About the care you provide")
-
-      Formulate.previousCarerContactDetails(browser)
-      titleMustEqual("Representatives for the Person you care for - About the care you provide")
-
-      Formulate.representativesForThePerson(browser)
       titleMustEqual("More about the care you provide - About the care you provide")
 
       Formulate.moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser)
