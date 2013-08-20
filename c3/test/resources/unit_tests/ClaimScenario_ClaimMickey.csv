@@ -336,8 +336,6 @@ Self Employed,Expenses related to the person you care for while at work,"What re
 Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,
-Other Money,Details about other money,Please tell us the names of the benefits or entitlements you receive,OtherMoneyTellUsNamesBenefitsYouReceived,
-Other Money,Details about other money,Please tell us the names of the benefits or entitlements your partner/spouse receive,OtherMoneyTellUsNamesBenefitsYourPartnerReceived,
 Other Money,Money paid to someone else for you,Has anyone had any money added to a benefit for you since your claim date: [claim date]?,OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim,no
 Other Money,Person who gets this money,Full name,OtherMoneyOtherPersonFullName,
 Other Money,Person who gets this money,National Insurance (NI) number,OtherMoneyOtherPersonNINO,

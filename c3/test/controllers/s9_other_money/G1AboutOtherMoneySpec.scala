@@ -34,7 +34,6 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
       section.questionGroup(AboutOtherMoney) must beLike {
         case Some(f: AboutOtherMoney) => {
           f.yourBenefits.answer must equalTo(yourBenefits)
-          f.yourBenefits.text1 must equalTo(Some(yourBenefitsText))
         }
       }
     }

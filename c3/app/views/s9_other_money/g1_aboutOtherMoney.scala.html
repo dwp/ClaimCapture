@@ -19,17 +19,6 @@
             <ul class="group">
                 @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your Partner/Spouse" else "", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
-                @otherDetailPlaceHolder(
-                  inputDef = Seq(carersInputText(currentForm("yourBenefits.text1"), 'maxLength -> Mappings.fifty, '_label -> Messages("yourBenefits.text1"))),
-                  'id -> "yourBenefitsTextWrap",
-                  'display -> currentForm("yourBenefits.answer").value.getOrElse("no"))
-
-                @otherDetailPlaceHolder(
-                inputDef = Seq(carersInputText(currentForm("yourBenefits.text2"), 'maxLength -> Mappings.fifty, '_label -> Messages("yourBenefits.text2"))),
-                'id -> "yourPartnerBenefitsTextWrap",
-                'visibleOn -> (hadPartnerSinceClaimDate match {case true => "yes" case _ => "no"}),
-                'display -> currentForm("yourBenefits.answer").value.getOrElse("no"))
-
 
             </ul>
         </fieldset>
@@ -40,11 +29,3 @@
         </nav>
     }
 }
-
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s9_other_money/g1_aboutOtherMoney.js")'></script>
-
-<script type="text/javascript">
-    $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("yourBenefits_answer_yes")", "@CarersCrypto.encryptAES("yourBenefits_answer_no")");
-    });
-</script>

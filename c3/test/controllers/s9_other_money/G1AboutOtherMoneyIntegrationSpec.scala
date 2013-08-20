@@ -26,26 +26,6 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
 
         findMustEqualSize("div[class=validation-summary] ol li", 1)
       }
-
-      "text field enabled but not filled in" in new WithBrowser with BrowserMatchers {
-        browser.goTo("/other-money/about-other-money")
-        browser.click("#yourBenefits_answer_yes")
-        browser.submit("button[type='submit']")
-        titleMustEqual("Details about other money - About Other Money")
-
-        findMustEqualSize("div[class=validation-summary] ol li", 2)
-      }
-
-      "text enabled but neither not filled in" in new WithBrowser with BrowserMatchers {
-        Formulate.claimDate(browser)
-        Formulate.moreAboutYou(browser)
-        browser.goTo("/other-money/about-other-money")
-        browser.click("#yourBenefits_answer_yes")
-        browser.submit("button[type='submit']")
-        titleMustEqual("Details about other money - About Other Money")
-
-        findMustEqualSize("div[class=validation-summary] ol li", 2)
-      }
     }
 
     "navigate to next page on valid submission with all text fields enabled and filled in" in new WithBrowser with BrowserMatchers {

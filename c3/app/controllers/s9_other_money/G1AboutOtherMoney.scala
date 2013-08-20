@@ -8,7 +8,7 @@ import play.api.data.Forms._
 import models.domain.{Claim, AboutOtherMoney}
 import controllers.Mappings._
 import models.domain.MoreAboutYou
-import models.yesNo.YesNoWith2Text
+import models.yesNo.YesNo
 import utils.helpers.CarersForm._
 import play.api.data.FormError
 import play.api.i18n.Messages
@@ -17,12 +17,8 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
 
   val yourBenefitsMapping =
     "yourBenefits" -> mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo),
-      "text1" -> optional(nonEmptyText(maxLength = fifty)),
-      "text2" -> optional(nonEmptyText(maxLength = fifty))
-    )(YesNoWith2Text.apply)(YesNoWith2Text.unapply)
-      .verifying("text1", YesNoWith2Text.validateText1OnYes _)
-      .verifying("text2", YesNoWith2Text.validateText2OnYes _)
+      "answer" -> nonEmptyText.verifying(validYesNo)
+    )(YesNo.apply)(YesNo.unapply)
 
   val form = Form(
     mapping(

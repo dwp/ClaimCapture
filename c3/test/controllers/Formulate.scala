@@ -403,8 +403,6 @@ object Formulate {
   def aboutOtherMoney(browser: TestBrowser) = {
     browser.goTo("/other-money/about-other-money")
     browser.click("#yourBenefits_answer_yes")
-    browser.fill("#yourBenefits_text1") `with` "Bar"
-    browser.fill("#yourBenefits_text2") `with` "Claimed"
     browser.submit("button[type='submit']")
   }
 
