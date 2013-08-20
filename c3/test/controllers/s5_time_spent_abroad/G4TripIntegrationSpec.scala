@@ -24,6 +24,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         fill("#end_year") `with` "2000"
 
         fill("#where") `with` "Scotland"
+        fill("#why") `with` "For Holidays"
       }
 
       goTo("/time-spent-abroad/trip/4-weeks")
@@ -48,7 +49,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       trip()
       next
       titleMustEqual("Trips - Time Spent Abroad")
-      $("div[class=validation-summary] ol li") size() shouldEqual 2
+      $("div[class=validation-summary] ol li") size() shouldEqual 3
     }
 
     """show 2 four weeks trips in "trips table" upon providing 2 trips""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
@@ -62,6 +63,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         fill("#end_year") `with` "2000"
 
         fill("#where") `with` "Scotland"
+        fill("#why") `with` "For Holidays"
       }
 
       2 x {
@@ -90,6 +92,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         fill("#end_year") `with` "2000"
 
         fill("#where") `with` "Scotland"
+        fill("#why") `with` "For Holidays"
       }
 
       2 x {
@@ -141,6 +144,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         fill("#end_year") `with` "2000"
 
         fill("#where") `with` "Scotland"
+        fill("#why") `with` "For Holidays"
       }
 
       goTo("/time-spent-abroad/trip/52-weeks")
@@ -165,7 +169,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       trip()
       next
       titleMustEqual("Trips - Time Spent Abroad")
-      $("div[class=validation-summary] ol li") size() shouldEqual 2
+      $("div[class=validation-summary] ol li") size() shouldEqual 3
     }
 
     """show 2 fifty two weeks trips in "trips table" upon providing 2 trips""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
@@ -179,6 +183,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         fill("#end_year") `with` "2000"
 
         fill("#where") `with` "Scotland"
+        fill("#why") `with` "For Holidays"
       }
 
       2 x {
@@ -207,6 +212,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         fill("#end_year") `with` "2000"
 
         fill("#where") `with` "Scotland"
+        fill("#why") `with` "For Holidays"
       }
 
       2 x {

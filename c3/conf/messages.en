@@ -268,8 +268,8 @@ anyTrips = Have you been out of Great Britain
 
 start.trip = Date you left Great Britain
 end.trip = Date you returned to Great Britain
-where.trip = Where did you go?
-why.trip = Why did you go?
+where = Where did you go?
+why = Why did you go?
 
 
 ## EDUCATION

@@ -46,7 +46,8 @@ class G4TripSpec extends Specification with Tags {
         "end.day" -> "1",
         "end.month" -> "1",
         "end.year" -> "2001",
-        "where" -> "Greenland")
+        "where" -> "Greenland",
+        "why" -> "For Holidays")
 
       G4Trip.fourWeeksSubmit(request2)
 
@@ -67,7 +68,8 @@ class G4TripSpec extends Specification with Tags {
         "end.day" -> "1",
         "end.month" -> "1",
         "end.year" -> "2001",
-        "where" -> "Greenland")
+        "where" -> "Greenland",
+        "why" -> "For Holidays")
 
       G4Trip.fourWeeksSubmit(requestNew)
 
@@ -82,7 +84,8 @@ class G4TripSpec extends Specification with Tags {
         "end.day" -> "1",
         "end.month" -> "1",
         "end.year" -> "2001",
-        "where" -> "Greenland")
+        "where" -> "Greenland",
+        "why" -> "For Holidays")
 
       G4Trip.fourWeeksSubmit(requestUpdate)
 
@@ -102,7 +105,8 @@ class G4TripSpec extends Specification with Tags {
           "end.day" -> "1",
           "end.month" -> "1",
           "end.year" -> "2001",
-          "where" -> "Greenland")
+          "where" -> "Greenland",
+          "why" -> "For Holidays")
 
         G4Trip.fourWeeksSubmit(request)
       }
@@ -120,7 +124,8 @@ class G4TripSpec extends Specification with Tags {
         "end.day" -> "1",
         "end.month" -> "1",
         "end.year" -> "2001",
-        "where" -> "Greenland")
+        "where" -> "Greenland",
+        "why" -> "For Holidays")
 
       val result = G4Trip.fourWeeksSubmit(request)
       redirectLocation(result) must beSome("/time-spent-abroad/abroad-for-more-than-4-weeks")

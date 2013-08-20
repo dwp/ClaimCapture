@@ -18,7 +18,7 @@ object G4Trip extends Controller with CachedClaim {
       "start" -> (dayMonthYear verifying validDate),
       "end" -> (dayMonthYear verifying validDate),
       "where" -> nonEmptyText,
-      "why" -> optional(text)
+      "why" -> nonEmptyText
     )(Trip.apply)(Trip.unapply))
 
   def fourWeeks = claiming { implicit claim => implicit request =>

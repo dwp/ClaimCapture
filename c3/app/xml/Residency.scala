@@ -38,7 +38,7 @@ object Residency {
           <DateFrom>{trip.start.`yyyy-MM-dd`}</DateFrom>
           <DateTo>{trip.end.`yyyy-MM-dd`}</DateTo>
         </Period>
-        <Reason>{trip.why.orNull}</Reason>
+        <Reason>{trip.why}</Reason>
         <Country>{trip.where}</Country>
       </PeriodAbroadLastYear>
     }
@@ -73,7 +73,7 @@ object Residency {
           <DateFrom>{trip.start.`yyyy-MM-dd`}</DateFrom>
           <DateTo>{trip.end.`yyyy-MM-dd`}</DateTo>
         </Period>
-        <Reason>{trip.why.orNull}</Reason>
+        <Reason>{trip.why}</Reason>
       </PeriodAbroadDuringCare>
     }
 

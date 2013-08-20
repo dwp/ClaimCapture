@@ -44,7 +44,7 @@ object Trips extends QuestionGroup.Identifier {
   val id = s"${TimeSpentAbroad.id}.g4"
 }
 
-case class Trip(id: String, start: DayMonthYear, end: DayMonthYear, where: String, why: Option[String] = None) extends FourWeeksTrip with FiftyTwoWeeksTrip {
+case class Trip(id: String, start: DayMonthYear, end: DayMonthYear, where: String, why: String) extends FourWeeksTrip with FiftyTwoWeeksTrip {
   def as[T >: Trip]: T = asInstanceOf[T]
 }
 
@@ -57,7 +57,7 @@ sealed trait TripPeriod {
 
   val where: String
 
-  val why: Option[String]
+  val why: String
 }
 
 trait FourWeeksTrip extends TripPeriod {
