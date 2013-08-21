@@ -58,7 +58,7 @@ s7.g1 = Have you been employed?
 s7.g2 = Your job
 s7.g3 = Employer''s contact details
 s7.g4 = Your last wage
-s7.g5 = Additional wage details
+s7.g5 = Additional details on your last wage
 s7.g6 = Money owed to you by your employer
 s7.g7 = Pension schemes
 s7.g8 = About expenses to do with your employment
@@ -305,6 +305,7 @@ sameAmountEachTime = {0} get the same amount each time?
 oftenGetPaid = How often are you paid?
 oftenGetPaidFrequency = How often {0} paid?
 whenGetPaid = When {0} get paid?
+whenGetPaid.helper = E.g. day of the month
 holidaySickPay = {0} get holiday pay or sick pay?
 anyOtherMoney = {0} get paid any other money as well as your normal wage?
 otherMoney = Please tell us what other money you received
@@ -334,7 +335,6 @@ payAnyoneToLookAfterPerson = While at work, {0} pay anyone to look after the Per
 whatAreThose = What {0} these things?
 whyDoYouNeedThose = Why {0} need these things to do your job?
 howMuchCostEachWeek = How much {0} these things cost you each week?
-
 
 # CHILDCARE EXPENSES
 howMuchCostChildcare =  How much {0} pay them?

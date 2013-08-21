@@ -15,7 +15,7 @@ final class G5AdditionalWageDetailsPage(browser: TestBrowser, previousPage: Opti
 }
 
 object G5AdditionalWageDetailsPage {
-  val title = "Additional wage details - Employment History".toLowerCase
+  val title = "Additional details on your last wage - Employment History".toLowerCase
 
   val url  = "/employment/additional-wage-details/:jobID"
 

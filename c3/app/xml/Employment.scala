@@ -1,11 +1,11 @@
 package xml
 
+import scala.language.reflectiveCalls
+import scala.xml.{NodeSeq, Elem}
+import app.XMLValues._
 import models.domain._
 import xml.XMLHelper._
 import models.{DayMonthYearComparator, DayMonthYear}
-import scala.language.reflectiveCalls
-import scala.xml.{NodeSeq, Elem}
-import scala.Some
 
 object Employment {
 
@@ -35,6 +35,10 @@ object Employment {
         {<Amount/> +++ lastWage.grossPay}
       </GrossPayment>
       {<IncludedInWage/> +++ lastWage.payInclusions}
+      <PayPeriod>
+        <DateFrom></DateFrom>
+        <DateTo></DateTo>
+      </PayPeriod>
       {paymentFrequency(additionalWageDetails.oftenGetPaid)}
       {<UsualPayDay/> +- additionalWageDetails.whenGetPaid}
       {<VaryingEarnings/> +!? lastWage.sameAmountEachTime}
