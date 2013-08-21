@@ -2,7 +2,7 @@ package models.domain
 
 import models.DayMonthYear
 import models.MultiLineAddress
-import models.yesNo.YesNoWithText
+import models.yesNo.{YesNoWith2Text, YesNoWithText}
 
 case object SelfEmployment extends Section.Identifier {
   val id = "s8"
@@ -31,7 +31,7 @@ case object SelfEmploymentPensionsAndExpenses extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g4"
 }
 
-case class SelfEmploymentPensionsAndExpenses(pensionSchemeMapping: YesNoWithText = YesNoWithText(answer="", text=None),
+case class SelfEmploymentPensionsAndExpenses(pensionSchemeMapping: YesNoWith2Text = YesNoWith2Text(),
                                              doYouPayToLookAfterYourChildren: String = "",
                                              didYouPayToLookAfterThePersonYouCaredFor: String = "") extends QuestionGroup(SelfEmploymentPensionsAndExpenses)
 

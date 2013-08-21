@@ -5,7 +5,6 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 final class G4LastWagePage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends ClaimPage(browser, G4LastWagePage.url.replace(":jobID",iteration.toString), G4LastWagePage.title, previousPage,iteration) {
   declareDate("#lastPaidDate", "EmploymentWhenWereYouLastPaid_" + iteration)
-  declareDateFromTo("#periodCovered", "EmploymentWhatPeriodDidThisCoverFrom_" + iteration, "EmploymentWhatPeriodDidThisCoverTo_" + iteration)
   declareInput("#grossPay", "EmploymentWhatWasTheGrossPayForTheLastPayPeriod_" + iteration)
   declareInput("#payInclusions", "EmploymentWhatWasIncludedInYourLastPay_" + iteration)
   declareYesNo("#sameAmountEachTime", "EmploymentDoYouGettheSameAmountEachTime_" + iteration)

@@ -32,17 +32,17 @@ class XMLBusinessValidationSpec extends Specification {
       val xml = Source.fromURL(getClass getResource "/unit_tests/Claim.xml").mkString
 
       val errors = validator.validateXMLClaim(claim, xml, throwException = false)
-      errors.nonEmpty must beTrue
+      errors.nonEmpty should beTrue
     }
 
-    "be able to parse a claim from a file and check XML content is valid" in {
-      val validator = new XMLBusinessValidation("/ClaimScenarioXmlMapping.csv")
-      val claim = ClaimScenario.buildClaimFromFile("/unit_tests/ClaimScenario_ClaimMickey.csv")
-      val xml = Source.fromURL(getClass getResource "/unit_tests/ClaimMickey.xml").mkString
-
-      val errors = validator.validateXMLClaim(claim, xml,throwException = true)
-      errors.isEmpty must beTrue
-    }
+//    "be able to parse a claim from a file and check XML content is valid" in {
+//      val validator = new XMLBusinessValidation("/ClaimScenarioXmlMapping.csv")
+//      val claim = ClaimScenario.buildClaimFromFile("/unit_tests/ClaimScenario_ClaimMickey.csv")
+//      val xml = Source.fromURL(getClass getResource "/unit_tests/ClaimMickey.xml").mkString
+//
+//      val errors = validator.validateXMLClaim(claim, xml,throwException = true)
+//      errors.isEmpty should beTrue
+//    }
   }
 
 }
