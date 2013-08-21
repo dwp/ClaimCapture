@@ -70,18 +70,18 @@ About the care you provide,About the breaks in care,Did you or the person you ca
 Time Spent Abroad,Your normal residence & current location,"Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? ",TimeSpentAbroadDoYouNormallyLiveintheUk,
 Time Spent Abroad,Your normal residence & current location,Where do you normally live? ,TimeSpentAbroadWhereDoYouNormallyLive,Residency>CountryNormallyLive
 Time Spent Abroad,Your normal residence & current location,Are you in Great Britain now?,TimeSpentAbroadAreYouinGBNow,Residency>InGreatBritainNow
-Time Spent Abroad,When you went abroad for more than 4 weeks,"Have you been out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim Date _ 3 years]] (this is 3 years since your claim date)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor,
+Time Spent Abroad,When you went abroad for more than 4 weeks,"Have you been out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim Date _ 3 years]] (this is 3 years since your claim date)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor,DWPCAClaim>EvidenceList
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB,PeriodAbroadLastYear>Period>DateFrom
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB,PeriodAbroadLastYear>Period>DateTo
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Where did you go?,TimeSpentAbroadWhereDidYouGoWithPersonCareFor,PeriodAbroadLastYear>Country
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor,PeriodAbroadLastYear>Reason
-Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),"Have you had any more trips out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim date _ 3 years]] (this is 3 years before today)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime,
+Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),"Have you had any more trips out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim date _ 3 years]] (this is 3 years before today)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime,DWPCAClaim>EvidenceList
 Time Spent Abroad,When you went abroad for more than 52 weeks,"Have you been out of Great Britain for more than 52 weeks, since [[Claim Date _ 156weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks,
 Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks,PeriodAbroadDuringCare>Period>DateFrom
 Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks,PeriodAbroadDuringCare>Period>DateTo
 Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks,
 Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks,PeriodAbroadDuringCare>Reason
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime,
+Time Spent Abroad,Details of trips abroad for more than 52 weeks ,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime,DWPCAClaim>EvidenceList
 Education,Your course details,Type of course,EducationTypeOfCourse,FullTimeEducation>CourseDetails>Type
 Education,Your course details,Course title,EducationCourseTitle,FullTimeEducation>CourseDetails>Title
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,FullTimeEducation>CourseDetails>DateStarted
@@ -146,11 +146,11 @@ How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,Payme
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,Payment>Account>BuildingSocietyDetails>AccountNumber
 How we pay you,Bank/Building society details,Building society roll or reference number,HowWePayYouBuildingSocietyRollOrReferenceNumber,Payment>Account>BuildingSocietyDetails>RollNumber
 Consent & Declaration,Additional Information,Please tell us anything else you think we should know about your claim.,ConsententDeclarationTellUsAnythingElseAboutClaim,DWPCAClaim>OtherInformation
-Consent & Declaration,Consent,Do you agree to us getting information from any current or previous employer you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyEmployer,
-Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyEmployer,
-Consent & Declaration,Consent,Do you agree to us getting information from any other person or organisation you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyOther,
-Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyOther,
-Consent & Declaration,Declaration,Disclaimer text and tick box,ConsentDeclarationDisclaimerTextAndTickBox,
+Consent & Declaration,Consent,Do you agree to us getting information from any current or previous employer you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyEmployer,DWPCAClaim>EvidenceList
+Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyEmployer,DWPCAClaim>EvidenceList
+Consent & Declaration,Consent,Do you agree to us getting information from any other person or organisation you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyOther,DWPCAClaim>EvidenceList
+Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyOther,DWPCAClaim>EvidenceList
+Consent & Declaration,Declaration,Disclaimer text and tick box,ConsentDeclarationDisclaimerTextAndTickBox,DWPCAClaim>EvidenceList
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,SelfEmployment>SelfEmployedNow
 Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,SelfEmployment>RecentJobDetails>DateStarted|SelfEmployment>CurrentJobDetails>DateStarted
 Self Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,SelfEmployment>RecentJobDetails>DateEnded
@@ -179,24 +179,24 @@ Self Employed,Expenses related to the person you care for while at work,How much
 Self Employed,Expenses related to the person you care for while at work,How often do you pay expenses,SelfEmployedCareExpensesHowOften,DWPCAClaim>EvidenceList
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",SelfEmployedCareExpensesWhatRelationIsToYou,SelfEmployment>CareExpenses>RelationshipCarerToClaimant
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,SelfEmployment>CareExpenses>RelationshipCarerToCaree
-Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,
-Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,
-Other Money,Details about other money,Who pays you?,OtherMoneyWhoPaysYou,
-Other Money,Details about other money,How much?,OtherMoneyHowMuch,
+Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,DWPCAClaim>EvidenceList
+Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,DWPCAClaim>EvidenceList
+Other Money,Details about other money,Who pays you?,OtherMoneyWhoPaysYou,DWPCAClaim>EvidenceList
+Other Money,Details about other money,How much?,OtherMoneyHowMuch,DWPCAClaim>EvidenceList
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,OtherBenefits>OtherMoneySSP
-Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,
-Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,
+Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,DWPCAClaim>EvidenceList
+Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,DWPCAClaim>EvidenceList
 Other Money,Statutory Sick Pay,Other,OtherMoneySSPOther,DWPCAClaim>EvidenceList
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,OtherMoneySSPDetails>Name
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,OtherMoneySSPDetails>Address>Line
 Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,OtherMoneySSPDetails>Address>PostCode
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,OtherBenefits>OtherMoneySMP
-Other Money,Other Statutory Pay,How much?,OtherMOneySMPHowMuch,
-Other Money,Other Statutory Pay,How often?,OtherMOneySMPHowOften,
+Other Money,Other Statutory Pay,How much?,OtherMOneySMPHowMuch,DWPCAClaim>EvidenceList
+Other Money,Other Statutory Pay,How often?,OtherMOneySMPHowOften,DWPCAClaim>EvidenceList
 Other Money,Other Statutory Pay,Other,OtherMoneySMPOther,DWPCAClaim>EvidenceList
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,OtherMoneySMPDetails>Name
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,OtherMoneySMPDetails>Address>Line
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,OtherMoneySMPDetails>Address>PostCode
-Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on, receiving  any pensions or benefits from another EEA State or Switzerland?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,
-Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on working in or paying insurance to another EEA State or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,
-Consent & Declaration,Additional Information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,
+Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on, receiving  any pensions or benefits from another EEA State or Switzerland?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,DWPCAClaim>EvidenceList
+Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on working in or paying insurance to another EEA State or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,DWPCAClaim>EvidenceList
+Consent & Declaration,Additional Information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,DWPCAClaim>EvidenceList
