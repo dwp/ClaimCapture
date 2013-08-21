@@ -15,13 +15,21 @@ class EndToEndSpec extends Specification with Tags {
   isolated
 
   def validateAndPrintErrors(page: XmlPage, claim: ClaimScenario) = {
-    val errors = page.validateXmlWith(claim)
+    val issues = page.validateXmlWith(claim)
+    val errors = issues._1
+    val warnings = issues._2
 
     if (errors.nonEmpty) {
-      println("Number errors: " + errors.size)
-      println("List errors: " + errors.mkString("\n\n"))
+      println("Number of errors: " + errors.size)
+      println("[Error] " + errors.mkString("\n\n[Error] "))
       println(page.source())
     }
+
+    if (warnings.nonEmpty) {
+      println("Number of warnings: " + warnings.size)
+      println("[Warning] " + warnings.mkString("\n[Warning] "))
+    }
+
     errors.isEmpty
   }
 

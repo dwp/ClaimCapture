@@ -1,7 +1,6 @@
 package utils.pageobjects
 
 import scala.io.Source
-import scala.util.matching.Regex
 
 /**
  * Reads an XML file and extracts 5 columns.

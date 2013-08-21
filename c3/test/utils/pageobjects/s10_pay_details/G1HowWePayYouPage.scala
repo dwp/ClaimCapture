@@ -1,14 +1,14 @@
 package utils.pageobjects.s10_pay_details
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * To change this template use Preferences | File and Code Templates.
  * @author Jorge Migueis
  *         Date: 18/07/2013
  */
-class G1HowWePayYouPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1HowWePayYouPage.url, G1HowWePayYouPage.title, previousPage) {
+class G1HowWePayYouPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1HowWePayYouPage.url, G1HowWePayYouPage.title, previousPage) {
   declareRadioList("#likeToPay", "HowWePayYouHowWouldYouLikeToGetPaid")
   declareSelect("#paymentFrequency", "HowWePayYouHowOftenDoYouWantToGetPaid")
 }

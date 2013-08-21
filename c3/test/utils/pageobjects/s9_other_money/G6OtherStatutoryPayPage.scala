@@ -1,9 +1,9 @@
 package utils.pageobjects.s9_other_money
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G6OtherStatutoryPayPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6OtherStatutoryPayPage.url, G6OtherStatutoryPayPage.title, previousPage) {
+final class G6OtherStatutoryPayPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G6OtherStatutoryPayPage.url, G6OtherStatutoryPayPage.title, previousPage) {
   declareYesNo("#otherPay","OtherMoneyHaveYouSMPSinceClaim")
   declareInput("#howMuch", "OtherMOneySMPHowMuch")
   declareSelect("#howOften_frequency", "OtherMOneySMPHowOften")

@@ -8,13 +8,28 @@ import utils.pageobjects.xml_validation.XMLBusinessValidation
  * @author Jorge Migueis
  *         Date: 02/08/2013
  */
-class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, XmlPage.url, XmlPage.title, previousPage) {
+class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(null,browser, XmlPage.url, XmlPage.title, previousPage) {
 
    pageSource = browser.pageSource()
 
   def validateXmlWith(claim: ClaimScenario) = {
     val validator = new XMLBusinessValidation("/ClaimScenarioXmlMapping.csv")
-    validator.validateXMLClaim(claim, pageSource, throwException = false)
+    Tuple2(validator.validateXMLClaim(claim, pageSource, throwException = false),validator.warnings)
+  }
+
+  /**
+   * Throws a PageObjectException.
+   * @param throwException Specify whether should throw an exception if a page displays errors. By default set to false.
+   * @return next Page or same page if errors detected and did not ask for exception.
+   */
+  override def submitPage(throwException: Boolean = false, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = throw new PageObjectException("Cannot submit the XML test page: " + pageTitle)
+
+  /**
+   * Throws a PageObjectException.
+   * @param theClaim   Data to use to fill page
+   */
+  override def fillPageWith(theClaim: ClaimScenario): Page = {
+    throw new PageObjectException("Cannot fill the XML test page [" + pageTitle +"] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]" )
   }
 }
 

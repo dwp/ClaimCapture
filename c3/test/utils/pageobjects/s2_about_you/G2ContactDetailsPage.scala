@@ -1,17 +1,17 @@
 package utils.pageobjects.s2_about_you
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * To change this template use Preferences | File and Code Templates.
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-final class G2ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2ContactDetailsPage.url, G2ContactDetailsPage.title, previousPage) {
+final class G2ContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G2ContactDetailsPage.url, G2ContactDetailsPage.title, previousPage) {
   declareAddress("#address", "AboutYouAddress")
   declareInput("#postcode", "AboutYouPostcode")
-  declareInput("#phoneNumber", "AboutYouDaytimePhoneNumber")
+  declareInput("#phoneNumber", "AboutYouPhoneNumber")
   declareYesNo("#contactYouByTextphone", "AboutYouContactYouByTextphone")
   declareInput("#mobileNumber", "AboutYouMobileNumber")
 }

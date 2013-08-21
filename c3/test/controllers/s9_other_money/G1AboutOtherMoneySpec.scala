@@ -14,9 +14,11 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     val yourBenefits = "yes"
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
+    val howMuch = "Not much"
     val formInput = Seq("yourBenefits.answer" -> yourBenefits,
       "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
-      "whoPaysYou" -> whoPaysYou)
+      "whoPaysYou" -> whoPaysYou,
+      "howMuch" -> howMuch)
 
     "present 'Your course details'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
@@ -39,6 +41,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
           f.yourBenefits.answer must equalTo(yourBenefits)
           f.anyPaymentsSinceClaimDate.answer must equalTo(anyPaymentsSinceClaimDate)
           f.whoPaysYou must equalTo(Some(whoPaysYou))
+          f.howMuch must equalTo(Some(howMuch))
         }
       }
     }
