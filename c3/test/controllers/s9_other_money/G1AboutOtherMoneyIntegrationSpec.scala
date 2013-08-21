@@ -3,7 +3,7 @@ package controllers.s9_other_money
 import org.specs2.mutable.{ Tags, Specification }
 import controllers.{BrowserMatchers, Formulate, ClaimScenarioFactory}
 import play.api.test.WithBrowser
-import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPageContext
+import utils.pageobjects.s9_other_money._
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "About Other Money" should {
@@ -24,7 +24,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
         browser.submit("button[type='submit']")
         titleMustEqual("Details about other money - About Other Money")
 
-        findMustEqualSize("div[class=validation-summary] ol li", 1)
+        findMustEqualSize("div[class=validation-summary] ol li", 2)
       }
     }
 
@@ -34,9 +34,10 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       titleMustEqual("Statutory Sick Pay - About Other Money")
     }
 
-    "navigate to next page on valid submission with first mandatory field set to no" in new WithBrowser with BrowserMatchers {
+    "navigate to next page on valid submission with first two mandatory fields set to no" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
       browser.click("#yourBenefits_answer_no")
+      browser.click("#anyPaymentsSinceClaimDate_answer_yes")
       browser.submit("button[type='submit']")
       titleMustEqual("Statutory Sick Pay - About Other Money")
     }
@@ -47,14 +48,18 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
 
     "present errors if mandatory fields are not populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 1
+      page.submitPage().listErrors.size mustEqual 2
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
       val claim = ClaimScenarioFactory.s8otherMoney
       page goToThePage()
       page fillPageWith claim
-      page submitPage()
+      
+      val nextPage = page submitPage()
+      
+      nextPage must beAnInstanceOf[G5StatutorySickPayPage]
     }
+    
   } section("integration", models.domain.OtherMoney.id)
 }

@@ -12,9 +12,9 @@ import models.view.CachedClaim
 class G1AboutOtherMoneySpec extends Specification with Tags {
   "Details about other money - Controller" should {
     val yourBenefits = "yes"
-    val yourBenefitsText = "bar"
-    val yourPartnerBenefitsText = "claimed"
-    val formInput = Seq("yourBenefits.answer" -> yourBenefits, "yourBenefits.text1" -> yourBenefitsText, "yourBenefits.text2" -> yourPartnerBenefitsText)
+    val anyPaymentsSinceClaimDate = "yes"
+    val formInput = Seq("yourBenefits.answer" -> yourBenefits, 
+        "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate)
     
     "present 'Your course details'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
@@ -35,6 +35,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
       section.questionGroup(AboutOtherMoney) must beLike {
         case Some(f: AboutOtherMoney) => {
           f.yourBenefits.answer must equalTo(yourBenefits)
+          f.anyPaymentsSinceClaimDate.answer must equalTo(anyPaymentsSinceClaimDate)
         }
       }
     }

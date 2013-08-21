@@ -5,6 +5,7 @@ import utils.pageobjects.{PageContext, Page}
 
 final class G1AboutOtherMoneyPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1AboutOtherMoneyPage.url, G1AboutOtherMoneyPage.title, previousPage) {
   declareYesNo("#yourBenefits_answer", "OtherMoneyHaveYouClaimedOtherBenefits")
+  declareYesNo("#anyPaymentsSinceClaimDate_answer", "OtherMoneyAnyPaymentsSinceClaimDate")
 }
 
 object G1AboutOtherMoneyPage {
