@@ -24,7 +24,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
         browser.submit("button[type='submit']")
         titleMustEqual("Details about other money - About Other Money")
 
-        findMustEqualSize("div[class=validation-summary] ol li", 1)
+        findMustEqualSize("div[class=validation-summary] ol li", 2)
       }
     }
 
@@ -34,9 +34,10 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       titleMustEqual("Statutory Sick Pay - About Other Money")
     }
 
-    "navigate to next page on valid submission with first mandatory field set to no" in new WithBrowser with BrowserMatchers {
+    "navigate to next page on valid submission with first two mandatory fields set to no" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
       browser.click("#yourBenefits_answer_no")
+      browser.click("#anyPaymentsSinceClaimDate_answer_yes")
       browser.submit("button[type='submit']")
       titleMustEqual("Statutory Sick Pay - About Other Money")
     }
@@ -47,7 +48,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
 
     "present errors if mandatory fields are not populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 1
+      page.submitPage().listErrors.size mustEqual 2
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutOtherMoneyPageContext {

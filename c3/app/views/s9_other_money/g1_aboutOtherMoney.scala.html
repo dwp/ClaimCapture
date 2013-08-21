@@ -18,8 +18,8 @@
 
             <ul class="group">
                 @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your Partner/Spouse" else "", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-
-
+                
+                @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), '_label -> Messages("anyPaymentsSinceClaimDate.answer.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
             </ul>
         </fieldset>
 

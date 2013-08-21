@@ -366,6 +366,7 @@ object Formulate {
   def aboutOtherMoney(browser: TestBrowser) = {
     browser.goTo("/other-money/about-other-money")
     browser.click("#yourBenefits_answer_yes")
+    browser.click("#anyPaymentsSinceClaimDate_answer_yes")
     browser.submit("button[type='submit']")
   }
 
