@@ -325,6 +325,7 @@ object ClaimScenarioFactory {
 
     claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
     claim.SelfEmployedHowMuchYouPayTowardsPensionScheme = "11.2"
+    claim.SelfEmployedHowoftenYouPayTowardsPensionScheme = "02"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
 

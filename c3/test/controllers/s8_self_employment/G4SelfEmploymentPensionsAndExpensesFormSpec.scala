@@ -10,6 +10,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
       G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map("doYouPayToPensionScheme.answer" -> "yes",
           "doYouPayToPensionScheme.howMuchDidYouPay" -> "11",
+          "doYouPayToPensionScheme.howOften" -> app.PensionPaymentFrequency.Weekly,
           "doYouPayToLookAfterYourChildren" -> "yes",
           "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
       ).fold(
@@ -67,5 +68,18 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
+
+    "reject if how often is not filled" in {
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
+        Map("pensionSchemeMapping.answer" -> "yes",
+        "pensionSchemeMapping.howMuchDidYouPay" -> "11",
+        "doYouPayToLookAfterYourChildren" -> "yes",
+        "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
   } section("unit", models.domain.SelfEmployment.id)
 }
