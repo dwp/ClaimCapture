@@ -9,7 +9,6 @@ final class G2JobDetailsPage(browser: TestBrowser, previousPage: Option[Page] = 
   declareYesNo("#finishedThisJob", "EmploymentHaveYouFinishedThisJob_" + iteration)
   declareDate("#lastWorkDate", "EmploymentWhenDidYouLastWork_" + iteration)
   declareInput("#hoursPerWeek", "EmploymentHowManyHoursAWeekYouNormallyWork_" + iteration)
-  declareInput("#jobTitle", "EmploymentJobTitle_" + iteration)
   declareInput("#payrollEmployeeNumber", "EmploymentPayrollOrEmployeeNumber_" + iteration)
 }
 

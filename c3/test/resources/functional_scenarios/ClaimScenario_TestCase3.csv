@@ -238,7 +238,6 @@ Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJo
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,Yes
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,01/07/2013
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,25
-Employment,Your Job,Job title,EmploymentJobTitle_1,Checkout Assistant
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,12345678
 Employment,Employers contact details,Address,EmploymentEmployerAddress_1,23 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY4 5TH
@@ -294,7 +293,6 @@ Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJo
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,Yes
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_2,01/07/2013
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,25
-Employment,Your Job,Job title,EmploymentJobTitle_2,Checkout Assistant
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_2,12345678
 Employment,Employers contact details,Address,EmploymentEmployerAddress_2,23 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_2,FY4 5TH
