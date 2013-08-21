@@ -11,7 +11,7 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
 class G2TheirContactDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G2TheirContactDetailsPage.url, G2TheirContactDetailsPage.title, previousPage) {
   declareAddress("#address", "AboutTheCareYouProvideAddressPersonCareFor")
   declareInput("#postcode", "AboutTheCareYouProvidePostcodePersonCareFor")
-  declareInput("#phoneNumber", "AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare")
+  declareInput("#phoneNumber", "AboutTheCareYouProvidePhoneNumberPersonYouCare")
 }
 
 /**

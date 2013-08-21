@@ -43,7 +43,7 @@ object ClaimScenarioFactory {
     // Your contact details
     claim.AboutYouAddress  = "An address"
     claim.AboutYouPostcode = "SE1 6EH"
-    claim.AboutYouDaytimePhoneNumber = "01253 111 111"
+    claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouMobileNumber = "07111 111 111"
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
@@ -64,7 +64,7 @@ object ClaimScenarioFactory {
     // Your contact details
     claim.AboutYouAddress  = "An address"
     claim.AboutYouPostcode = "SE1 6EH"
-    claim.AboutYouDaytimePhoneNumber = "01253 111 111"
+    claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouContactYouByTextphone = "No"
     claim.AboutYouMobileNumber = "07111 111 111"
     // Claim date
@@ -111,7 +111,7 @@ object ClaimScenarioFactory {
     // Their Contact Details
     claim.AboutTheCareYouProvideAddressPersonCareFor = "123 Colne Street&Line 2"
     claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"
-    claim.AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare = "07922 222 222"
+    claim.AboutTheCareYouProvidePhoneNumberPersonYouCare = "07922 222 222"
     // More About The Person
     claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "father"
     claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
@@ -125,7 +125,7 @@ object ClaimScenarioFactory {
     // Previous Carer Contact Details
     claim.AboutTheCareYouProvideAddressPreviousCarer = "123 Conway Road& Preston"
     claim.AboutTheCareYouProvidePostcodePreviousCarer = "BB9 1AB"
-    claim.AboutTheCareYouProvideDaytimePhoneNumberPreviousCarer = "02933 333 333"
+    claim.AboutTheCareYouProvidePhoneNumberPreviousCarer = "02933 333 333"
     claim.AboutTheCareYouProvideMobileNumberPreviousCarer = "07933 333 333"
     // Representatives For The Person
     claim.AboutTheCareYouProvideDoYouActforthePersonYouCareFor = "Yes"
