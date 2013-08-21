@@ -13,11 +13,13 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
   "Self Employment - Pensions and Expenses - Controller" should {
     val doYouPayToPensionScheme = "yes"
     val howMuchDidYouPay = "11"
+    val howOften = app.PensionPaymentFrequency.Weekly
     val doYouPayToLookAfterYourChildren = "yes"
     val didYouPayToLookAfterThePersonYouCaredFor = "yes"
 
     val selfEmploymentPensionsAndExpensesInput = Seq("doYouPayToPensionScheme.answer" -> doYouPayToPensionScheme,
       "doYouPayToPensionScheme.howMuchDidYouPay" -> howMuchDidYouPay,
+      "doYouPayToPensionScheme.howOften" -> howOften,
       "doYouPayToLookAfterYourChildren" -> doYouPayToLookAfterYourChildren,
       "didYouPayToLookAfterThePersonYouCaredFor" -> didYouPayToLookAfterThePersonYouCaredFor
     )
@@ -40,7 +42,8 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
       section.questionGroup(SelfEmploymentPensionsAndExpenses) must beLike {
         case Some(f: SelfEmploymentPensionsAndExpenses) => {
           f.pensionSchemeMapping.answer must equalTo(doYouPayToPensionScheme)
-          f.pensionSchemeMapping.text must equalTo(Some(howMuchDidYouPay))
+          f.pensionSchemeMapping.text1 must equalTo(Some(howMuchDidYouPay))
+          f.pensionSchemeMapping.text2 must equalTo(Some(howOften))
           f.doYouPayToLookAfterYourChildren must equalTo(doYouPayToLookAfterYourChildren)
           f.didYouPayToLookAfterThePersonYouCaredFor must equalTo(didYouPayToLookAfterThePersonYouCaredFor)
         }

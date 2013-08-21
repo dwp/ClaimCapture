@@ -210,8 +210,6 @@ object ClaimScenarioFactory {
     claim.EmploymentEmployerPostcode_1= "FY4 5TH"
     claim.EmploymentEmployerPhoneNumber_1= "01253 667889"
     claim.EmploymentWhenWereYouLastPaid_1= "08/07/2013"
-    claim.EmploymentWhatPeriodDidThisCoverFrom_1= "01/06/2013"
-    claim.EmploymentWhatPeriodDidThisCoverTo_1= "01/07/2013"
     claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1= "600"
     claim.EmploymentWhatWasIncludedInYourLastPay_1= "All amounts due"
     claim.EmploymentDoYouGettheSameAmountEachTime_1= "no"
@@ -323,6 +321,7 @@ object ClaimScenarioFactory {
 
     claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
     claim.SelfEmployedHowMuchYouPayTowardsPensionScheme = "11.2"
+    claim.SelfEmployedHowoftenYouPayTowardsPensionScheme = "02"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
 

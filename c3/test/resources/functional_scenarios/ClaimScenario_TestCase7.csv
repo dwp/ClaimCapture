@@ -215,8 +215,6 @@ Employment,Employers contact details,Address,EmploymentEmployerAddress_1,9923 Ye
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY8 5TH
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,24/12/2010
-Employment,Your last wage,What period did this cover?  From,EmploymentWhatPeriodDidThisCoverFrom_1,01/12/2010
-Employment,Your last wage,What period did this cover? To,EmploymentWhatPeriodDidThisCoverTo_1,24/12/2010
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,600
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,Everything including christmas bonus
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_1,No
@@ -270,8 +268,6 @@ Employment,Employers contact details,Address,EmploymentEmployerAddress_2,
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_2,
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_2,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_2,
-Employment,Your last wage,What period did this cover?  From,EmploymentWhatPeriodDidThisCoverFrom_2,
-Employment,Your last wage,What period did this cover? To,EmploymentWhatPeriodDidThisCoverTo_2,
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_2,
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_2,
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_2,
@@ -326,6 +322,7 @@ Self Employed,Accountant Contact Details,Telephone Number,SelfEmployedAccountant
 Self Employed,Accountant Contact Details,Fax Number,SelfEmployedAccountantFaxNumber,
 Self Employed,Pensions and Expenses,[Past=Did you] [Present=Do you] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,SelfEmployedDoYouPayTowardsPensionScheme,
 Self Employed,Pensions and Expenses,How much [past=did you] [present=do you] pay?,SelfEmployedHowMuchYouPayTowardsPensionScheme,
+Self Employed,Pensions and Expenses,How often do you pay into a Pension,SelfEmployedHowoftenYouPayTowardsPensionScheme,
 Self Employed,Pensions and Expenses,"White at work, [past=did you] [present=do you] pay anyone to look after your children?",SelfEmployedDoYouPayAnyonetoLookAfterYourChild,
 Self Employed,Pensions and Expenses,Is this the same as the expenses you have told us about during your employed work?,SelfEmployedChildCareIsThistheSameAsDuringYourEmployedWork,
 Self Employed,Pensions and Expenses,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after the person you normally care for?",SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor,

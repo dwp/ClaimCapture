@@ -8,7 +8,7 @@ import controllers.Mappings._
 import models.domain.{SelfEmploymentPensionsAndExpenses, Claim}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import models.yesNo.YesNoWithText
+import models.yesNo.{YesNoWith2Text}
 import controllers.s8_self_employment.SelfEmployment._
 import play.api.data.FormError
 import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
@@ -17,9 +17,11 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with SelfEmploymen
   val pensionSchemeMapping =
       "doYouPayToPensionScheme" -> mapping(
         "answer" -> nonEmptyText.verifying(validYesNo),
-        "howMuchDidYouPay" -> optional(nonEmptyText verifying validDecimalNumber)
-      )(YesNoWithText.apply)(YesNoWithText.unapply)
-        .verifying("howMuchDidYouPay", YesNoWithText.validateOnYes _)
+        "howMuchDidYouPay" -> optional(nonEmptyText verifying validDecimalNumber),
+        "howOften" -> optional(nonEmptyText)
+      )(YesNoWith2Text.apply)(YesNoWith2Text.unapply)
+        .verifying("howMuchDidYouPay", YesNoWith2Text.validateText1OnYes _)
+        .verifying("howOften", YesNoWith2Text.validateText2OnYes _)
 
   def form(implicit claim: Claim) = Form(
     mapping(
@@ -41,6 +43,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with SelfEmploymen
           .replaceError("doYouPayToLookAfterYourChildren", "error.required", FormError("doYouPayToLookAfterYourChildren", "error.required", Seq(pastPresent)))
           .replaceError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", FormError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", Seq(pastPresent)))
           .replaceError("doYouPayToPensionScheme", "howMuchDidYouPay", FormError("doYouPayToPensionScheme.howMuchDidYouPay", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("doYouPayToPensionScheme", "howOften", FormError("doYouPayToPensionScheme.howOften", "error.required"))
         BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrorsUpdate, completedQuestionGroups(SelfEmploymentPensionsAndExpenses)))
       },
       f => claim.update(f) -> Redirect(routes.G5ChildcareExpensesWhileAtWork.present()))

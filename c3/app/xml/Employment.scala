@@ -9,10 +9,11 @@ import scala.Some
 
 object Employment {
 
-  def employerXml(jobDetails: JobDetails, employerCD:EmployerContactDetails): Elem = {
+  def employerXml(jobDetails: JobDetails, employerCD: EmployerContactDetails): Elem = {
     <Employer>
       {<DateJobStarted/> +++ jobDetails.jobStartDate}
       {<DateJobEnded/> +++ jobDetails.lastWorkDate}
+      <JobType>TODO MOVED TO QG 8 AND SHOULD DEFAULT TO NOT_ASKED</JobType>
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
       <Address>{postalAddressStructure(employerCD.address,employerCD.postcode)}</Address>
@@ -34,9 +35,6 @@ object Employment {
         {<Amount/> +++ lastWage.grossPay}
       </GrossPayment>
       {<IncludedInWage/> +++ lastWage.payInclusions}
-      <PayPeriod>
-        {fromToStructure (lastWage.period)}
-      </PayPeriod>
       {paymentFrequency(additionalWageDetails.oftenGetPaid)}
       {<UsualPayDay/> +- additionalWageDetails.whenGetPaid}
       {<VaryingEarnings/> +!? lastWage.sameAmountEachTime}
