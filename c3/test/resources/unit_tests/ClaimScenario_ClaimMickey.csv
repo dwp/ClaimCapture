@@ -14,7 +14,7 @@ About You,Your Details,What is your marital or civil partnership status?,AboutYo
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,
 About You,Your contact details,Address,AboutYouAddress,1\nAnyplace street
 About You,Your contact details,Postcode,AboutYouPostcode,
-About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,
+About You,Your contact details,Phone number,AboutYouPhoneNumber,
 About You,Your contact details,Mobile number,AboutYouMobileNumber,
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,
 About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInYheUK,
@@ -52,7 +52,7 @@ About the care you provide,Details of the person you care for,Date of birth,Abou
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,10\nAnyplace street
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,
-About the care you provide,Contact details of the person you care for,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare,
+About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,wife
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,
 About the care you provide,Relationship and other claims,Has anyone else claimed Carer Allowance for this person before?,AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance,
@@ -63,7 +63,7 @@ About the care you provide,Details of Previous Carer ,National Insurance (NI) nu
 About the care you provide,Details of Previous Carer ,Date of birth,AboutTheCareYouProvideDateofBirthPreviousCarer,
 About the care you provide,Contact details of previous carer,Address,AboutTheCareYouProvideAddressPreviousCarer,
 About the care you provide,Contact details of previous carer,Post code,AboutTheCareYouProvidePostcodePreviousCarer,
-About the care you provide,Contact details of previous carer,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPreviousCarer,
+About the care you provide,Contact details of previous carer,Phone number,AboutTheCareYouProvidePhoneNumberPreviousCarer,
 About the care you provide,Contact details of previous carer,Mobile number,AboutTheCareYouProvideMobileNumberPreviousCarer,
 About the care you provide,Representatives for the person you care for,Do you act for the person you care for?,AboutTheCareYouProvideDoYouActforthePersonYouCareFor,no
 About the care you provide,Representatives for the person you care for,You act as,AboutTheCareYouProvideYouActAs,
