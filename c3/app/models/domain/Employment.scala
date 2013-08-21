@@ -118,7 +118,6 @@ object EmployerContactDetails extends QuestionGroup.Identifier {
 
 case class LastWage(jobID: String = "",
                     lastPaidDate: Option[DayMonthYear] = None,
-                    period: Option[PeriodFromTo] = None,
                     grossPay: Option[String] = None,
                     payInclusions: Option[String] = None,
                     sameAmountEachTime: Option[String] = None) extends QuestionGroup(LastWage) with Job.Identifier

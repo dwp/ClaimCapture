@@ -219,8 +219,6 @@ Employment,Employers contact details,Address,EmploymentEmployerAddress_1,23 Yead
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY4 5TH
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,01253 667889
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,08/07/2013
-Employment,Your last wage,What period did this cover?  From,EmploymentWhatPeriodDidThisCoverFrom_1,01/06/2013
-Employment,Your last wage,What period did this cover? To,EmploymentWhatPeriodDidThisCoverTo_1,01/07/2013
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,340
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,All amounts due
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_1,No
@@ -274,8 +272,6 @@ Employment,Employers contact details,Address,EmploymentEmployerAddress_2,
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_2,
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_2,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_2,
-Employment,Your last wage,What period did this cover?  From,EmploymentWhatPeriodDidThisCoverFrom_2,
-Employment,Your last wage,What period did this cover? To,EmploymentWhatPeriodDidThisCoverTo_2,
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_2,
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_2,
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_2,
