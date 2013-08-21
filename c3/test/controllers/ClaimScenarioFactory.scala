@@ -265,6 +265,7 @@ object ClaimScenarioFactory {
     claim.OtherMoneyHaveYouClaimedOtherBenefits = "no"
     claim.OtherMoneyAnyPaymentsSinceClaimDate = "no"
     claim.OtherMoneyWhoPaysYou = "The Man"
+    claim.OtherMoneyHowMuch = "Not much"
     // G5 Statutory Sick Pay
     claim.OtherMoneyHaveYouSSPSinceClaim = "no"
     // G6 Other Statutory Pay

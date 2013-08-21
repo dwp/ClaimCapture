@@ -22,6 +22,8 @@
                 @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), '_label -> Messages("anyPaymentsSinceClaimDate.answer.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
                 
                 @carersInputText(currentForm("whoPaysYou"), 'maxLength -> Mappings.Name.maxLength, '_label -> Messages("whoPaysYou.label"))
+                
+                @carersInputText(currentForm("howMuch"), 'maxLength -> Mappings.Name.maxLength, '_label -> Messages("howMuch.label"))
             </ul>
         </fieldset>
 
