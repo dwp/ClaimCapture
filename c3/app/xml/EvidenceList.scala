@@ -152,6 +152,9 @@ object EvidenceList {
 
     textSeparatorLine("Other Money") ++
       textLine("Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim? = ", aboutOtherMoney.yourBenefits.answer) ++
+      textLine("Have you received any payments for the person you care for or any other person since your claim date? = ", aboutOtherMoney.anyPaymentsSinceClaimDate.answer) ++
+      textLine("Who pays you? = ", aboutOtherMoney.whoPaysYou) ++
+      textLine("How much? = ", aboutOtherMoney.howMuch) ++
       textLine("Statutory Sick Pay: How much? = ", statutorySickPay.howMuch) ++
       textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.optionToString(statutorySickPay.howOften)) ++
       textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
