@@ -29,8 +29,8 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
     mapping(
       yourBenefitsMapping,
       // TODO add the following fields to the XML
-      anyPaymentsSinceClaimDateMapping
-      
+      anyPaymentsSinceClaimDateMapping,
+      "whoPaysYou" -> optional(nonEmptyText(maxLength = Name.maxLength))
     )(AboutOtherMoney.apply)(AboutOtherMoney.unapply))
 
   def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {

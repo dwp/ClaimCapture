@@ -367,6 +367,7 @@ object Formulate {
     browser.goTo("/other-money/about-other-money")
     browser.click("#yourBenefits_answer_yes")
     browser.click("#anyPaymentsSinceClaimDate_answer_yes")
+    browser.fill("#whoPaysYou") `with` "The Man"
     browser.submit("button[type='submit']")
   }
 

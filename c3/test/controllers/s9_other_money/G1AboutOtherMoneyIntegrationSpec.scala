@@ -4,6 +4,7 @@ import org.specs2.mutable.{ Tags, Specification }
 import controllers.{BrowserMatchers, Formulate, ClaimScenarioFactory}
 import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
+import utils.pageobjects.ClaimScenario
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "About Other Money" should {
@@ -37,7 +38,8 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
     "navigate to next page on valid submission with first two mandatory fields set to no" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
       browser.click("#yourBenefits_answer_no")
-      browser.click("#anyPaymentsSinceClaimDate_answer_yes")
+      browser.click("#anyPaymentsSinceClaimDate_answer_no")
+      browser.fill("#whoPaysYou") `with` "The Man"
       browser.submit("button[type='submit']")
       titleMustEqual("Statutory Sick Pay - About Other Money")
     }
@@ -61,5 +63,12 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G5StatutorySickPayPage]
     }
     
+    "contain errors on invalid submission" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      val claim = new ClaimScenario
+      page goToThePage()
+      page fillPageWith claim
+      val pageWithErrors = page.submitPage()
+      pageWithErrors.listErrors.size mustEqual 2
+    }
   } section("integration", models.domain.OtherMoney.id)
 }
