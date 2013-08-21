@@ -11,12 +11,15 @@ import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment.whenSectionVisible
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
+import play.api.data.FormError
+import scala.Some
 
 object G5ChildcareExpensesWhileAtWork extends Controller with SelfEmploymentRouting with CachedClaim {
   def form(implicit claim: Claim) = Form(
     mapping(
-      "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
       "whoLooksAfterChildren" -> nonEmptyText(maxLength = sixty),
+      "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
+      "howOftenPayChildCare" -> nonEmptyText,
       "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
       "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
       "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
@@ -48,6 +51,7 @@ object G5ChildcareExpensesWhileAtWork extends Controller with SelfEmploymentRout
         val formWithErrorsUpdate = formWithErrors
           .replaceError("howMuchYouPay", "error.required", FormError("howMuchYouPay", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
+          .replaceError("howOftenPayChildCare", "error.required", FormError("howOftenPayChildCare", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s8_self_employment.g5_childcareExpensesWhileAtWork(formWithErrorsUpdate, completedQuestionGroups(ChildcareExpensesWhileAtWork)))
       },

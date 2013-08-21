@@ -35,8 +35,9 @@ case class SelfEmploymentPensionsAndExpenses(pensionSchemeMapping: YesNoWith2Tex
                                              doYouPayToLookAfterYourChildren: String = "",
                                              didYouPayToLookAfterThePersonYouCaredFor: String = "") extends QuestionGroup(SelfEmploymentPensionsAndExpenses)
 
-case class ChildcareExpensesWhileAtWork(howMuchYouPay: String = "",
-                                        nameOfPerson: String = "",
+case class ChildcareExpensesWhileAtWork(nameOfPerson: String = "",
+                                        howMuchYouPay: String = "",
+                                        howOftenPayChildCare: String = "",
                                         whatRelationIsToYou: String = "",
                                         relationToPartner: Option[String] = None,
                                         whatRelationIsTothePersonYouCareFor: String = "") extends QuestionGroup(ChildcareExpensesWhileAtWork)

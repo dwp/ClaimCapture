@@ -43,7 +43,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with SelfEmploymen
           .replaceError("doYouPayToLookAfterYourChildren", "error.required", FormError("doYouPayToLookAfterYourChildren", "error.required", Seq(pastPresent)))
           .replaceError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", FormError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", Seq(pastPresent)))
           .replaceError("doYouPayToPensionScheme", "howMuchDidYouPay", FormError("doYouPayToPensionScheme.howMuchDidYouPay", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("doYouPayToPensionScheme", "howOften", FormError("doYouPayToPensionScheme.howOften", "error.required"))
+          .replaceError("doYouPayToPensionScheme", "howOften", FormError("doYouPayToPensionScheme.howOften", "error.required", Seq(pastPresent.toLowerCase)))
         BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrorsUpdate, completedQuestionGroups(SelfEmploymentPensionsAndExpenses)))
       },
       f => claim.update(f) -> Redirect(routes.G5ChildcareExpensesWhileAtWork.present()))

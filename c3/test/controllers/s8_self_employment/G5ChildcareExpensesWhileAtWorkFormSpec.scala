@@ -9,6 +9,7 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
     "map data into case class" in {
       G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()).bind(
         Map("howMuchYouPay" -> "12344455",
+          "howOftenPayChildCare" -> "02",
           "whoLooksAfterChildren" -> "myself",
           "whatRelationIsToYou" -> "son",
           "relationToPartner" -> "married",
