@@ -27,10 +27,6 @@ object Claimant {
         <Number>{contactDetails.phoneNumber.orNull}</Number>
         <Qualifier/>
       </DaytimePhoneNumber>
-      <HomePhoneNumber>
-        <Number>{contactDetails.mobileNumber.orNull}</Number>
-        <Qualifier/>
-      </HomePhoneNumber>
       <EmailAddress/>
       <ClaimedBefore>{XMLValues.NotAsked}</ClaimedBefore>
     </Claimant>

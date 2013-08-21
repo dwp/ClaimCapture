@@ -13,7 +13,7 @@ object Employment {
     <Employer>
       {<DateJobStarted/> +++ jobDetails.jobStartDate}
       {<DateJobEnded/> +++ jobDetails.lastWorkDate}
-      <JobType>TODO MOVED TO QG 8 AND SHOULD DEFAULT TO NOT_ASKED</JobType>
+      <JobType>TO MOVE TO QG 8 AND NOT_ASKED</JobType>
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
       <Address>{postalAddressStructure(employerCD.address,employerCD.postcode)}</Address>
