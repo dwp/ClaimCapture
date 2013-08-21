@@ -11,6 +11,9 @@ import utils.pageobjects.{XmlPage, ClaimScenario, Page}
  *         Date: 02/08/2013
  */
 class EndToEndSpec extends Specification with Tags {
+  sequential
+  isolated
+
   def validateAndPrintErrors(page: XmlPage, claim: ClaimScenario) = {
     val errors = page.validateXmlWith(claim)
 
