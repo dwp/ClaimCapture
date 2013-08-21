@@ -20,14 +20,14 @@ class EndToEndSpec extends Specification with Tags {
     val warnings = issues._2
 
     if (errors.nonEmpty) {
-      println("Number errors: " + errors.size)
-      println("List errors:\n[Error] " + errors.mkString("\n\n[Error] "))
+      println("Number of errors: " + errors.size)
+      println("[Error] " + errors.mkString("\n\n[Error] "))
       println(page.source())
     }
 
     if (warnings.nonEmpty) {
-      println("Number warnings: " + warnings.size)
-      println("List warnings:\n[Warning] " + warnings.mkString("\n[Warning] "))
+      println("Number of warnings: " + warnings.size)
+      println("[Warning] " + warnings.mkString("\n[Warning] "))
     }
 
     errors.isEmpty
