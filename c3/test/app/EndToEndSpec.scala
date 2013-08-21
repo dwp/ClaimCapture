@@ -20,11 +20,10 @@ class EndToEndSpec extends Specification with Tags {
     if (errors.nonEmpty) {
       println("Number errors: " + errors.size)
       println("List errors: " + errors)
-      println(page.source)
+      println(page.source())
     }
     errors.isEmpty
   }
-
 
   "The application " should {
     "Successfully run absolute Test Case 1 " in new WithBrowser with G1BenefitsPageContext {
@@ -37,7 +36,7 @@ class EndToEndSpec extends Specification with Tags {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) should beTrue
         }
-        case p: Page => println(p.source)
+        case p: Page => println(p.source())
       }
     }
 
@@ -51,7 +50,7 @@ class EndToEndSpec extends Specification with Tags {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) should beTrue
         }
-        case p: Page => println(p.source)
+        case p: Page => println(p.source())
       }
     }
 
@@ -65,7 +64,7 @@ class EndToEndSpec extends Specification with Tags {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) should beTrue
         }
-        case p: Page => println(p.source)
+        case p: Page => println(p.source())
       }
     }
 
@@ -79,9 +78,8 @@ class EndToEndSpec extends Specification with Tags {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) should beTrue
         }
-        case p: Page => println(p.source)
+        case p: Page => println(p.source())
       }
-
     }
 
     "Successfully run absolute Test Case 5 " in new WithBrowser with G1BenefitsPageContext {
@@ -94,10 +92,8 @@ class EndToEndSpec extends Specification with Tags {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) should beTrue
         }
-        case p: Page => println(p.source)
+        case p: Page => println(p.source())
       }
-
-
     }
 
     "Successfully run absolute Test Case 6 " in new WithBrowser with G1BenefitsPageContext {
@@ -110,9 +106,8 @@ class EndToEndSpec extends Specification with Tags {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) should beTrue
         }
-        case p: Page => println(p.source)
+        case p: Page => println(p.source())
       }
-
     }
 
     "Successfully run absolute Test Case 7 " in new WithBrowser with G1BenefitsPageContext {
@@ -125,9 +120,8 @@ class EndToEndSpec extends Specification with Tags {
         case p: XmlPage => {
           validateAndPrintErrors(p, claim) should beTrue
         }
-        case p: Page => println(p.source)
+        case p: Page => println(p.source())
       }
     }
-
   } section "functional"
 }

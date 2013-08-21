@@ -59,8 +59,6 @@ object Jobs extends QuestionGroup.Identifier {
 case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identifier] = Nil) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
   def employerName = jobDetails(_.employerName)
 
-  def title = jobDetails(_.jobTitle.getOrElse(""))
-
   def update(questionGroup: QuestionGroup with Job.Identifier): Job = {
     val updated = questionGroups map { qg => if (qg.identifier == questionGroup.identifier) questionGroup else qg }
     if (updated.contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
@@ -101,9 +99,8 @@ case class JobDetails(jobID: String = "",
                       finishedThisJob: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
                       hoursPerWeek: Option[String] = None,
-                      jobTitle: Option[String] = None,
                       payrollEmployeeNumber: Option[String] = None) extends QuestionGroup(JobDetails) with Job.Identifier {
-  override val definition = jobTitle.fold(Messages(identifier.id, employerName))(jt => Messages(identifier.id, s"$employerName, $jt"))
+  override val definition = Messages(identifier.id, employerName)
 }
 
 object JobDetails extends QuestionGroup.Identifier {

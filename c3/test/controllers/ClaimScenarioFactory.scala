@@ -29,7 +29,7 @@ object ClaimScenarioFactory {
   }
 
   def yourDetailsEnablingTimeOutsideUK() = {
-    val claim = yourDetailsWithNotTimeOutside
+    val claim = yourDetailsWithNotTimeOutside()
     claim.AboutYouHaveYouAlwaysLivedInTheUK = "No"
     claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
     claim.AboutYouWhenDidYouArriveInYheUK = "01/11/2003"
@@ -207,7 +207,6 @@ object ClaimScenarioFactory {
     claim.EmploymentHaveYouFinishedThisJob_1= "yes"
     claim.EmploymentWhenDidYouLastWork_1= "01/07/2013"
     claim.EmploymentHowManyHoursAWeekYouNormallyWork_1= "25"
-    claim.EmploymentJobTitle_1= "Checkout Assistant"
     claim.EmploymentPayrollOrEmployeeNumber_1= "12345678"
     claim.EmploymentEmployerAddress_1= "23 Yeadon Way&Blackpool&Lancashire"
     claim.EmploymentEmployerPostcode_1= "FY4 5TH"

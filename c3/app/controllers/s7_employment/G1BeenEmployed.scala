@@ -38,13 +38,11 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
       case Some(referer) if referer.contains(routes.Employment.completed().url) =>
         track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form.fill(BeenEmployed("no")))) }
 
-      case _ => {
-        claim.questionGroup[BeenEmployed] match {
-          case Some(b: BeenEmployed) => track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form.fill(b))) }
-          case _ =>
-            val (updatedClaim, _) = track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form)) }
-            updatedClaim -> Redirect(routes.G2JobDetails.present(JobID(form)))
-        }
+      case _ => claim.questionGroup[BeenEmployed] match {
+        case Some(b: BeenEmployed) => track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form.fill(b))) }
+        case _ =>
+          val (updatedClaim, _) = track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form)) }
+          updatedClaim -> Redirect(routes.G2JobDetails.present(JobID(form)))
       }
     }
   }
