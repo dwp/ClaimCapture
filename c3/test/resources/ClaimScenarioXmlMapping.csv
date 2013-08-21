@@ -5,8 +5,8 @@ Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,
 About You,Your Details,Title,AboutYouTitle,Claimant>Title
 About You,Your Details,First name,AboutYouFirstName,Claimant>OtherNames
 About You,Your Details,Middle name,AboutYouMiddleName,Claimant>OtherNames
-About You,Your Details,Surname or family name,AboutYouSurname,Claimant>Surname
-About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,Claimant>OtherSurnames
+About You,Your Details,Last name,AboutYouSurname,Claimant>Surname
+About You,Your Details,Other name or maiden name,AboutYouOtherNames,Claimant>OtherSurnames
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,Claimant>NationalInsuranceNumber
 About You,Your Details,Date of birth,AboutYouDateOfBirth,Claimant>DateOfBirth
 About You,Your Details,Nationality,AboutYouNationality,Residency>Nationality
@@ -14,8 +14,7 @@ About You,Your Details,What is your marital or civil partnership status?,AboutYo
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,DWPCAClaim>EvidenceList
 About You,Your contact details,Address,AboutYouAddress,Claimant>Address>Line
 About You,Your contact details,Postcode,AboutYouPostcode,Claimant>Address>PostCode
-About You,Your contact details,Phone number,AboutYouPhoneNumber,Claimant>DaytimePhoneNumber
-About You,Your contact details,Phone number,AboutYouPhoneNumber,Claimant>HomePhoneNumber
+About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,Claimant>DaytimePhoneNumber
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouTextPhone,DWPCAClaim>EvidenceList
 About You,Your contact details,Mobile number,AboutYouMobileNumber,DWPCAClaim>EvidenceList
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,DWPCAClaim>EvidenceList
@@ -32,32 +31,28 @@ About You,Employment,Have you been self-employed at any time since <ddmmyyyy> (t
 About Your Partner,Partner/Spouse details,Title,AboutYourPartnerTitle,Partner>Title
 About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,Partner>OtherNames
 About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,Partner>OtherNames
-About Your Partner,Partner/Spouse details,Surname or family name,AboutYourPartnerSurname,Partner>Surname
-About Your Partner,Partner/Spouse details,All other surnames or family names they have been used or have been known by,AboutYourPartnerOtherNames,Partner>OtherSurnames
+About Your Partner,Partner/Spouse details,Last name,AboutYourPartnerSurname,Partner>Surname
+About Your Partner,Partner/Spouse details,Other name or maiden name,AboutYourPartnerOtherNames,Partner>OtherSurnames
 About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,Partner>NationalInsuranceNumber
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,Partner>DateOfBirth
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,Partner>NationalityPartner
-About Your Partner,Partner/Spouse details,Does your partner/spouse live at the same address as you?,AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou,DWPCAClaim>EvidenceList
-About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,RelationshipStatus>SeparatedFromPartner
-About Your Partner,Contact Details,Address,AboutYourPartnerAddress,Partner>Address>Line
-About Your Partner,Contact Details,Postcode,AboutYourPartnerPostcode,Partner>Address>PostCode
+About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since your claim date <<ddmmyyyy>>,AboutYourPartnerHaveYouSeparatedfromYourPartner,RelationshipStatus>SeparatedFromPartner
 About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,DWPCAClaim>EvidenceList
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Caree>Title
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Caree>OtherNames
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,Caree>OtherNames
-About the care you provide,Details of the person you care for,Surname or family name,AboutTheCareYouProvideSurnamePersonCareFor,Caree>Surname
+About the care you provide,Details of the person you care for,Last name,AboutTheCareYouProvideSurnamePersonCareFor,Caree>Surname
 About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,Caree>NationalInsuranceNumber
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,Caree>DateOfBirth
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,EvidenceList
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,Caree>Address>Line
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,Caree>Address>PostCode
-About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,Caree>PhoneNumber>Number
+About the care you provide,Contact details of the person you care for,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare,Caree>DaytimePhoneNumber>Number
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Caree>RelationToClaimant
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,DWPCAClaim>EvidenceList
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Caree>Cared35hours
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date: <ddmmyyyy>?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,Caree>Cared35hoursBefore
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,Caree>DateStartedCaring
-About the care you provide,More about the care you provide,Has someone paid you to care for this person since your claim date: : <ddmmyyyy>?,AboutTheCareYouProvideHasSomeonePaidYoutoCare,Caree>PaidForCaring
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare,Caree>BreaksSinceClaim
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,Caree>BreaksBeforeClaim
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate,CareBreak>StartDateTime
@@ -176,7 +171,7 @@ Self Employed,Childcare expenses while you are at work,"What relation, if any, i
 Self Employed,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedCareExpensesHowMuchYouPay,SelfEmployment>CareExpenses>WeeklyPayment>Amount
 Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,SelfEmployment>CareExpenses>CarerName
 Self Employed,Expenses related to the person you care for while at work,How much do you pay them?,SelfEmployedCareExpensesHowMuch,SelfEmployment>CareExpenses>WeeklyPayment>Amount
-Self Employed,Expenses related to the person you care for while at work,How often do you pay expenses,SelfEmployedCareExpensesHowOften,DWPCAClaim>EvidenceList
+Self Employed,Expenses related to the person you care for while at work,How often do you pay expenses related to the person you care for,SelfEmployedCareExpensesHowOften,DWPCAClaim>EvidenceList
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",SelfEmployedCareExpensesWhatRelationIsToYou,SelfEmployment>CareExpenses>RelationshipCarerToClaimant
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,SelfEmployment>CareExpenses>RelationshipCarerToCaree
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,DWPCAClaim>EvidenceList
