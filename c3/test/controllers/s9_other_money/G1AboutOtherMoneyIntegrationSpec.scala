@@ -3,7 +3,7 @@ package controllers.s9_other_money
 import org.specs2.mutable.{ Tags, Specification }
 import controllers.{BrowserMatchers, Formulate, ClaimScenarioFactory}
 import play.api.test.WithBrowser
-import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPageContext
+import utils.pageobjects.s9_other_money._
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "About Other Money" should {
@@ -55,7 +55,11 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory.s8otherMoney
       page goToThePage()
       page fillPageWith claim
-      page submitPage()
+      
+      val nextPage = page submitPage()
+      
+      nextPage must beAnInstanceOf[G5StatutorySickPayPage]
     }
+    
   } section("integration", models.domain.OtherMoney.id)
 }

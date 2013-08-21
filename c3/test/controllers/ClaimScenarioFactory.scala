@@ -262,8 +262,9 @@ object ClaimScenarioFactory {
 
   def s8otherMoney = {
     val claim = s2AboutYouWithTimeOutside()
-    //About other money
+    // G1 About other money
     claim.OtherMoneyHaveYouClaimedOtherBenefits = "no"
+    claim.OtherMoneyAnyPaymentsSinceClaimDate = "no"
     // G5 Statutory Sick Pay
     claim.OtherMoneyHaveYouSSPSinceClaim = "no"
     // G6 Other Statutory Pay
