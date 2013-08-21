@@ -1,14 +1,16 @@
 package utils.pageobjects.s5_time_spent_abroad
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import utils.pageobjects.{ClaimPage, ClaimScenario, PageContext, Page}
 
 /**
  * * Page object for s5_time_spent_abroad g2_abroad_for_more_than_4_weeks.
  * @author Saqib Kayani
  *         Date: 31/07/2013
  */
-final class G2AbroadForMoreThan4WeeksPage (browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G2AbroadForMoreThan4WeeksPage.url, G2AbroadForMoreThan4WeeksPage.title, previousPage,iteration) {
+final class G2AbroadForMoreThan4WeeksPage (browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int)
+  extends ClaimPage(browser, G2AbroadForMoreThan4WeeksPage.url, G2AbroadForMoreThan4WeeksPage.title, previousPage,iteration) {
+
   declareYesNo("#anyTrips", "TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_" + iteration)
 
   override def fillPageWith(theClaim: ClaimScenario): Page = {

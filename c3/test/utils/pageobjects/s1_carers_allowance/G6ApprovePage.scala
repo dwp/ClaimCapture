@@ -1,14 +1,14 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * PageObject pattern associated to S1 carers allowance G5 approve page.
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-final class G6ApprovePage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6ApprovePage.url, G6ApprovePage.title, previousPage) {
+final class G6ApprovePage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G6ApprovePage.url, G6ApprovePage.title, previousPage) {
   def isApproved =  browser.find(".prompt").size != 0 && browser.find(".prompt.error]").size == 0
 
   def isNotApproved =  browser.find(".prompt.error]").size != 0

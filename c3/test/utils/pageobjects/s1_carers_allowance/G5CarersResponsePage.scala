@@ -1,9 +1,9 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import utils.pageobjects.{ClaimPage, ClaimScenario, PageContext, Page}
 
-final class G5CarersResponsePage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5CarersResponsePage.url, G5CarersResponsePage.title, previousPage) {
+final class G5CarersResponsePage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G5CarersResponsePage.url, G5CarersResponsePage.title, previousPage) {
   override def fillPageWith(theClaim: ClaimScenario): Page = this
 
   def isApproved =  browser.find(".prompt").size != 0 && browser.find(".prompt.error]").size == 0

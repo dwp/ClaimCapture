@@ -1,14 +1,14 @@
 package utils.pageobjects.S11_consent_and_declaration
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * Page Object for S10 G4 declaration.
  * @author Jorge Migueis
  *         Date: 05/08/2013
  */
-class G4DeclarationPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4DeclarationPage.url, G4DeclarationPage.title, previousPage) {
+class G4DeclarationPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G4DeclarationPage.url, G4DeclarationPage.title, previousPage) {
   declareCheck("#someoneElse","ConsentDeclarationSomeoneElseTickBox")
   declareCheck("#confirm","ConsentDeclarationDeclarationTickBox")
 }

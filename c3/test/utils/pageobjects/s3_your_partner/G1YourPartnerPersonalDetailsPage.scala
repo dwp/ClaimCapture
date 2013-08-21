@@ -1,14 +1,14 @@
 package utils.pageobjects.s3_your_partner
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * PageObject for page s3_your_partner g1_yourPartnerPersonalDetails.
  * @author Jorge Migueis
  *         Date: 19/07/2013
  */
-final class G1YourPartnerPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1YourPartnerPersonalDetailsPage.url, G1YourPartnerPersonalDetailsPage.title, previousPage) {
+final class G1YourPartnerPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1YourPartnerPersonalDetailsPage.url, G1YourPartnerPersonalDetailsPage.title, previousPage) {
   declareSelect("#title", "AboutYourPartnerTitle")
   declareInput("#firstName", "AboutYourPartnerFirstName")
   declareInput("#middleName", "AboutYourPartnerMiddleName")

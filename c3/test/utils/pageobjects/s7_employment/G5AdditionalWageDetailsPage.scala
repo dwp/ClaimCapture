@@ -1,9 +1,9 @@
 package utils.pageobjects.s7_employment
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G5AdditionalWageDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G5AdditionalWageDetailsPage.url.replace(":jobID", iteration.toString), G5AdditionalWageDetailsPage.title, previousPage, iteration) {
+final class G5AdditionalWageDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends ClaimPage(browser, G5AdditionalWageDetailsPage.url.replace(":jobID", iteration.toString), G5AdditionalWageDetailsPage.title, previousPage, iteration) {
 //  declarePaymentFrequency("#oftenGetPaid","EmploymentAddtionalWageHowOftenAreYouPaid_" + iteration)
   declareSelect("#oftenGetPaid_frequency","EmploymentAddtionalWageHowOftenAreYouPaid_" + iteration)
   declareInput("#oftenGetPaid_other","EmploymentAddtionalWageOther_" + iteration)

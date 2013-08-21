@@ -8,7 +8,7 @@ import utils.pageobjects._
  * @author Saqib Kayani
  *         Date: 01/08/2013
  */
-final class G2BankBuildingSocietyDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2BankBuildingSocietyDetailsPage.url, G2BankBuildingSocietyDetailsPage.title, previousPage) {
+final class G2BankBuildingSocietyDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G2BankBuildingSocietyDetailsPage.url, G2BankBuildingSocietyDetailsPage.title, previousPage) {
   declareInput("#accountHolderName", "HowWePayYouNameOfAccountHolder")
   declareInput("#bankFullName", "HowWePayYouFullNameOfBankorBuildingSociety")
   declareSortCode("#sortCode", "HowWePayYouSortCode")

@@ -1,9 +1,9 @@
 package utils.pageobjects.s7_employment
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G1BeenEmployedPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G1BeenEmployedPage.url, G1BeenEmployedPage.title, previousPage, iteration) {
+final class G1BeenEmployedPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends ClaimPage(browser, G1BeenEmployedPage.url, G1BeenEmployedPage.title, previousPage, iteration) {
   declareYesNo("#beenEmployed", "AboutYouHaveYouBeenEmployedAtAnyTime_"+iteration)
 }
 

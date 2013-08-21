@@ -1,14 +1,14 @@
 package utils.pageobjects.s3_your_partner
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * Page object for s3_your_partner g3_MoreAboutYourPartner.
  * @author Saqib Kayani
  *         Date: 22/07/2013
  */
-final class G3MoreAboutYourPartnerPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3MoreAboutYourPartnerPage.url, G3MoreAboutYourPartnerPage.title, previousPage) {
+final class G3MoreAboutYourPartnerPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G3MoreAboutYourPartnerPage.url, G3MoreAboutYourPartnerPage.title, previousPage) {
   declareYesNo("#startedLivingTogether_afterClaimDate", "AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate")
   declareDate("#startedLivingTogether_date", "AboutYourPartnertheDateWhenYouStartedLivingTogether")
   declareYesNo("#separated_fromPartner", "AboutYourPartnerHaveYouSeparatedfromYourPartner")

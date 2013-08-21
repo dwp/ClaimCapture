@@ -14,7 +14,7 @@ About You,Your Details,What is your marital or civil partnership status?,AboutYo
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,Yes
 About You,Your contact details,Address,AboutYouAddress,5 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
-About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,01772 888901
+About You,Your contact details,Phone number,AboutYouPhoneNumber,01772 888901
 About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419899
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,
 About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInYheUK,
@@ -52,37 +52,13 @@ About the care you provide,Details of the person you care for,Date of birth,Abou
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,Yes
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road&Preston&Lancashire
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,PR1 1HB
-About the care you provide,Contact details of the person you care for,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare,
+About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Sister
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,No
-About the care you provide,Relationship and other claims,Has anyone else claimed Carers Allowance for this person before?,AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance,No
-About the care you provide,Details of Previous Carer ,First name,AboutTheCareYouProvideFirstNamePreviousCarer,
-About the care you provide,Details of Previous Carer ,Middle name,AboutTheCareYouProvideMiddleNamePreviousCarer,
-About the care you provide,Details of Previous Carer ,Surname or family name,AboutTheCareYouProvideSurnamePreviousCarer,
-About the care you provide,Details of Previous Carer ,National Insurance (NI) number,AboutTheCareYouProvideNINOPreviousCarer,
-About the care you provide,Details of Previous Carer ,Date of birth,AboutTheCareYouProvideDateofBirthPreviousCarer,
-About the care you provide,Contact details of previous carer,Address,AboutTheCareYouProvideAddressPreviousCarer,
-About the care you provide,Contact details of previous carer,Post code,AboutTheCareYouProvidePostcodePreviousCarer,
-About the care you provide,Contact details of previous carer,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPreviousCarer,
-About the care you provide,Contact details of previous carer,Mobile number,AboutTheCareYouProvideMobileNumberPreviousCarer,
-About the care you provide,Representatives for the person you care for,Do you act for the person you care for?,AboutTheCareYouProvideDoYouActforthePersonYouCareFor,No
-About the care you provide,Representatives for the person you care for,You act as,AboutTheCareYouProvideYouActAs,
-About the care you provide,Representatives for the person you care for,Does someone else act for the person you care for?,AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor,Yes
-About the care you provide,Representatives for the person you care for,Person acts as,AboutTheCareYouProvidePersonActsAs,Appointee
-About the care you provide,Representatives for the person you care for,Full name,AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor,Mr John Appointee
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Yes
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date: <ddmmyyyy>?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,Yes
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,01/05/2012
 About the care you provide,More about the care you provide,Has someone paid you to care for this person since your claim date: : <ddmmyyyy>?,AboutTheCareYouProvideHasSomeonePaidYoutoCare,No
-About the care you provide,Details of the person/organisation who pays you ,Organisation (optional),AboutTheCareYouProvideOrganisationPaysYou,
-About the care you provide,Details of the person/organisation who pays you ,Title,AboutTheCareYouProvideTitlePersonPaysYou,
-About the care you provide,Details of the person/organisation who pays you ,First name,AboutTheCareYouProvideFirstNamePersonPaysYou,
-About the care you provide,Details of the person/organisation who pays you ,Middle name,AboutTheCareYouProvideMiddleNamePersonPaysYou,
-About the care you provide,Details of the person/organisation who pays you ,Surname or family name,AboutTheCareYouProvideSurnamePersonPaysYou,
-About the care you provide,Details of the person/organisation who pays you ,How much do you get paid a week?,AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek,
-About the care you provide,Details of the person/organisation who pays you ,When did the payments start?,AboutTheCareYouProvideWhenDidThePaymentsStart,
-About the care you provide,Contact details of the person who pays you.,Address ,AboutTheCareYouProvideAddressPersonPaysYou,
-About the care you provide,Contact details of the person who pays you.,Postcode,AboutTheCareYouProvidePostcodePersonPaysYou,
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,Yes
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_1,10/01/2010
@@ -373,7 +349,7 @@ Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPo
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,No
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
 Other Money,Details about other money,Who pays you?,OtherMoneyWhoPaysYou,The Man
-Other Money,Details about other money,Who pays you?,OtherMoneyHowMuch,Not much
+Other Money,Details about other money,How much?,OtherMoneyHowMuch,Not much
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
 Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,
 Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,

@@ -1,14 +1,14 @@
 package utils.pageobjects.s2_about_you
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimScenario, PageContext, Page}
+import utils.pageobjects.{ClaimPage, ClaimScenario, PageContext, Page}
 
 /**
  * PageObject for page s2_about_you g8_completed.
  * @author Jorge Migueis
  *         Date: 18/07/2013
  */
-final class G8AboutYouCompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G8AboutYouCompletedPage.url, G8AboutYouCompletedPage.title, previousPage) {
+final class G8AboutYouCompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G8AboutYouCompletedPage.url, G8AboutYouCompletedPage.title, previousPage) {
   /**
    * Does nothing. There is no form.
    * @param theClaim   Data to use to fill page

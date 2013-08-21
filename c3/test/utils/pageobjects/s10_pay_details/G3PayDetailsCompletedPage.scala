@@ -1,9 +1,9 @@
 package utils.pageobjects.s10_pay_details
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G3PayDetailsCompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3PayDetailsCompletedPage.url, G3PayDetailsCompletedPage.title, previousPage)
+final class G3PayDetailsCompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G3PayDetailsCompletedPage.url, G3PayDetailsCompletedPage.title, previousPage)
 
 object G3PayDetailsCompletedPage {
   val title = "Completion - How we pay you".toLowerCase

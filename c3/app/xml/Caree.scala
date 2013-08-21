@@ -42,8 +42,6 @@ object Caree {
     </Caree>
   }
 
-
-
   def breaksSinceClaim(claim: Claim) = {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
     <BreaksSinceClaim>{if (breaksInCare.hasBreaks) yes else no}</BreaksSinceClaim>

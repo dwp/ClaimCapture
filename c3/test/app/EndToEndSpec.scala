@@ -19,7 +19,7 @@ class EndToEndSpec extends Specification with Tags {
 
     if (errors.nonEmpty) {
       println("Number errors: " + errors.size)
-      println("List errors: " + errors)
+      println("List errors: " + errors.mkString("\n\n"))
       println(page.source())
     }
     errors.isEmpty

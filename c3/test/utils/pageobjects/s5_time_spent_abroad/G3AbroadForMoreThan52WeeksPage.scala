@@ -1,14 +1,14 @@
 package utils.pageobjects.s5_time_spent_abroad
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * * Page object for s5_time_spent_abroad g3_abroad_for_more_than_52_weeks.
  * @author Saqib Kayani
  *         Date: 31/07/2013
  */
-final class G3AbroadForMoreThan52WeeksPage (browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends Page(browser, G3AbroadForMoreThan52WeeksPage.url, G3AbroadForMoreThan52WeeksPage.title, previousPage,iteration) {
+final class G3AbroadForMoreThan52WeeksPage (browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) extends ClaimPage(browser, G3AbroadForMoreThan52WeeksPage.url, G3AbroadForMoreThan52WeeksPage.title, previousPage,iteration) {
   declareYesNo("#anyTrips", "TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_" + iteration)
 }
 

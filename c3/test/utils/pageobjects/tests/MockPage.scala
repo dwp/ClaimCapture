@@ -1,7 +1,7 @@
 package utils.pageobjects.tests
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{PageContext, ClaimScenario, Page}
+import utils.pageobjects.{ClaimPage, PageContext, ClaimScenario, Page}
 import org.specs2.mock.Mockito
 import org.fluentlenium.core.domain.{FluentWebElement, FluentList}
 import java.util
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-class MockPage (browser: TestBrowser, title: String, previousPage: Option[Page] = None) extends Page(browser, "/mock", title,previousPage){
+class MockPage (browser: TestBrowser, title: String, previousPage: Option[Page] = None) extends ClaimPage(browser, "/mock", title,previousPage){
   /**
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page

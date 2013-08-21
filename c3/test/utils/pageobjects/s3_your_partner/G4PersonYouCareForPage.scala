@@ -1,14 +1,14 @@
 package utils.pageobjects.s3_your_partner
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * Page object for s3_your_partner g4_PersonYouCareFor.
  * @author Saqib Kayani
  *         Date: 24/07/2013
  */
-final class G4PersonYouCareForPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4PersonYouCareForPage.url, G4PersonYouCareForPage.title, previousPage){
+final class G4PersonYouCareForPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G4PersonYouCareForPage.url, G4PersonYouCareForPage.title, previousPage){
   declareYesNo("#isPartnerPersonYouCareFor", "AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor")
 }
 
