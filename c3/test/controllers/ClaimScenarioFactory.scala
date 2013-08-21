@@ -49,7 +49,6 @@ object ClaimScenarioFactory {
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // More about you
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
-    claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "Yes"
     claim.AboutYouHaveYouBeenOnACourseOfEducation = "Yes"
     claim.AboutYouDoYouGetStatePension = "Yes"
     // Employment
@@ -71,7 +70,6 @@ object ClaimScenarioFactory {
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // More about you
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"
-    claim.AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits = "no"
     claim.AboutYouHaveYouBeenOnACourseOfEducation = "no"
     claim.AboutYouDoYouGetStatePension = "no"
     // Employment
