@@ -3,7 +3,8 @@ package utils.pageobjects
 import scala.collection.mutable
 
 /**
- * TODO write description
+ * To be used to declare a form field. It is injected into Page class, so the fields of an html form can be declared
+ * in a page object.
  * @author Jorge Migueis
  *         Date: 03/08/2013
  */
@@ -20,10 +21,8 @@ trait FormFields {
   val NINO = 'Nino
   val RADIO_LIST = 'RadioList
   val SELECT = 'Select
-//  val PAYMENT_FREQUENCY = 'PaymentFrequency
   val SORTCODE = 'SortCode
   val TIME = 'Time
-//  val WHEREABOUTS = 'Whereabouts
   val YESNO = 'YesNo
 
   def declareAddress(elementCssSelector: String, claimAttribute: String) = declareField(ADDRESS, elementCssSelector, claimAttribute)
@@ -50,15 +49,11 @@ trait FormFields {
 
   def declareSelect(elementCssSelector: String, claimAttribute: String) = declareField(SELECT, elementCssSelector, claimAttribute)
 
-//  def declarePaymentFrequency(elementCssSelector: String, claimAttribute: String) = declareField(PAYMENT_FREQUENCY, elementCssSelector, claimAttribute)
-
   def declareSortCode(elementCssSelector: String, claimAttribute: String) = declareField(SORTCODE, elementCssSelector, claimAttribute)
 
   def declareTime(elementCssSelector: String, claimAttribute: String) = declareField(TIME, elementCssSelector, claimAttribute)
 
   def declareYesNo(elementCssSelector: String, claimAttribute: String) = declareField(YESNO, elementCssSelector, claimAttribute)
-
-//  def declareWhereabouts(elementCssSelector: String, claimAttribute: String) = declareField(WHEREABOUTS, elementCssSelector, claimAttribute)
 
   private def declareField( fieldType:Symbol , elementCssSelector: String, claimAttribute: String) = fields += Tuple3(elementCssSelector, fieldType , claimAttribute )
 

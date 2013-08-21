@@ -1,9 +1,9 @@
 package utils.pageobjects.s4_care_you_provide
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G10BreaksInCarePage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G10BreaksInCarePage.url, G10BreaksInCarePage.title, previousPage, iteration) {
+final class G10BreaksInCarePage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G10BreaksInCarePage.url, G10BreaksInCarePage.title, previousPage, iteration) {
    declareYesNo("#answer", "AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_" + iteration)
 }
 

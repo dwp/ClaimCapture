@@ -1,14 +1,14 @@
 package utils.pageobjects.S11_consent_and_declaration
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * Page Object for S10 G2 consent.
  * @author Jorge Migueis
  *         Date: 05/08/2013
  */
-class G2ConsentPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2ConsentPage.url, G2ConsentPage.title, previousPage) {
+class G2ConsentPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G2ConsentPage.url, G2ConsentPage.title, previousPage) {
   declareYesNo("#gettingInformationFromAnyEmployer_informationFromEmployer", "ConsentDeclarationGettingInformationFromAnyEmployer")
   declareInput("#gettingInformationFromAnyEmployer_why", "ConsentDeclarationTellUsWhyEmployer")
   declareYesNo("#tellUsWhyEmployer_informationFromPerson","ConsentDeclarationGettingInformationFromAnyOther")

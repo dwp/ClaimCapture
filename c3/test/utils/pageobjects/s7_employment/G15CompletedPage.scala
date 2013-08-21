@@ -1,9 +1,9 @@
 package utils.pageobjects.s7_employment
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G15CompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G15CompletedPage.url, G15CompletedPage.title, previousPage) {
+final class G15CompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G15CompletedPage.url, G15CompletedPage.title, previousPage) {
 
 }
 

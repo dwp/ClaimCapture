@@ -1,9 +1,9 @@
 package utils.pageobjects.s8_self_employment
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G6ChildcareProvidersContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G6ChildcareProvidersContactDetailsPage.url, G6ChildcareProvidersContactDetailsPage.title, previousPage) {
+final class G6ChildcareProvidersContactDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G6ChildcareProvidersContactDetailsPage.url, G6ChildcareProvidersContactDetailsPage.title, previousPage) {
   declareAddress("#address", "SelfEmployedChildcareProviderAddress")
   declareInput("#postcode", "SelfEmployedChildcareProviderPostcode")
 }

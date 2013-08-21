@@ -1,14 +1,14 @@
 package utils.pageobjects.s2_about_you
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * PageObject for page s2_about_you g1_yourDetails.
  * @author Jorge Migueis
  *         Date: 09/07/2013
  */
-final class G1YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1YourDetailsPage.url, G1YourDetailsPage.title, previousPage) {
+final class G1YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1YourDetailsPage.url, G1YourDetailsPage.title, previousPage) {
   declareSelect("#title", "AboutYouTitle")
   declareInput("#firstName","AboutYouFirstName")
   declareInput("#middleName","AboutYouMiddleName")

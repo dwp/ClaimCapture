@@ -1,9 +1,9 @@
 package utils.pageobjects.s7_employment
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G13CareProviderPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G13CareProviderPage.url.replace(":jobID", iteration.toString), G13CareProviderPage.title, previousPage, iteration) {
+final class G13CareProviderPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G13CareProviderPage.url.replace(":jobID", iteration.toString), G13CareProviderPage.title, previousPage, iteration) {
   declareAddress("#address", "EmploymentAddressCareProvider_" + iteration)
   declareInput("#postcode", "EmploymentPostcodeCareProvider_" + iteration)
 }

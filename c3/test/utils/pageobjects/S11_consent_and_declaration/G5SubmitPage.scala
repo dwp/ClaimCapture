@@ -1,14 +1,14 @@
 package utils.pageobjects.S11_consent_and_declaration
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * Page Object for S10 G5 Submit page.
  * @author Jorge Migueis
  *         Date: 05/08/2013
  */
-class G5SubmitPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5SubmitPage.url, G5SubmitPage.title, previousPage)
+class G5SubmitPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G5SubmitPage.url, G5SubmitPage.title, previousPage)
 
 /**
  * Companion object that integrates factory method.

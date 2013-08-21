@@ -1,14 +1,14 @@
 package utils.pageobjects.s4_care_you_provide
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * Page object for s4_care_you_provide g2_their_contact_details.
  * @author Saqib Kayani
  *         Date: 25/07/2013
  */
-class G2TheirContactDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2TheirContactDetailsPage.url, G2TheirContactDetailsPage.title, previousPage) {
+class G2TheirContactDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G2TheirContactDetailsPage.url, G2TheirContactDetailsPage.title, previousPage) {
   declareAddress("#address", "AboutTheCareYouProvideAddressPersonCareFor")
   declareInput("#postcode", "AboutTheCareYouProvidePostcodePersonCareFor")
   declareInput("#phoneNumber", "AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare")

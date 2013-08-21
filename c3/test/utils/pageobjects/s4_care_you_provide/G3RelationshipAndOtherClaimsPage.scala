@@ -1,14 +1,14 @@
 package utils.pageobjects.s4_care_you_provide
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * Page object for s4_care_you_provide g3_more_about_the_person.
  * @author Saqib Kayani
  *         Date: 25/07/2013
  */
-final class G3RelationshipAndOtherClaimsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3RelationshipAndOtherClaimsPage.url, G3RelationshipAndOtherClaimsPage.title, previousPage)  {
+final class G3RelationshipAndOtherClaimsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G3RelationshipAndOtherClaimsPage.url, G3RelationshipAndOtherClaimsPage.title, previousPage)  {
   declareSelect("#relationship","AboutTheCareYouProvideWhatTheirRelationshipToYou")
   declareYesNo("#armedForcesPayment", "AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment")
 }

@@ -1,9 +1,9 @@
 package utils.pageobjects.s1_carers_allowance
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G4LivesInGBPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4LivesInGBPage.url, G4LivesInGBPage.title, previousPage) {
+final class G4LivesInGBPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G4LivesInGBPage.url, G4LivesInGBPage.title, previousPage) {
   declareYesNo("#answer", "CanYouGetCarersAllowanceDoYouNormallyLiveinGb")
 }
 

@@ -1,9 +1,9 @@
 package utils.pageobjects.s9_other_money
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G1AboutOtherMoneyPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1AboutOtherMoneyPage.url, G1AboutOtherMoneyPage.title, previousPage) {
+final class G1AboutOtherMoneyPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1AboutOtherMoneyPage.url, G1AboutOtherMoneyPage.title, previousPage) {
   declareYesNo("#yourBenefits_answer", "OtherMoneyHaveYouClaimedOtherBenefits")
 }
 
