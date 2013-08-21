@@ -368,6 +368,7 @@ object Formulate {
     browser.click("#yourBenefits_answer_yes")
     browser.click("#anyPaymentsSinceClaimDate_answer_yes")
     browser.fill("#whoPaysYou") `with` "The Man"
+    browser.fill("#howMuch") `with` "Not much"
     browser.submit("button[type='submit']")
   }
 

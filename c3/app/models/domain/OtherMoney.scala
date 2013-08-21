@@ -9,7 +9,8 @@ case object OtherMoney extends Section.Identifier {
 
 case class AboutOtherMoney(yourBenefits: YesNo = YesNo(""),
     anyPaymentsSinceClaimDate: YesNo = YesNo(""),
-    whoPaysYou: Option[String] = None) extends QuestionGroup(AboutOtherMoney)
+    whoPaysYou: Option[String] = None,
+    howMuch: Option[String] = None) extends QuestionGroup(AboutOtherMoney)
 
 object AboutOtherMoney extends QuestionGroup.Identifier {
   val id = s"${OtherMoney.id}.g1"

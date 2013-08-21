@@ -7,12 +7,14 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
     val yourBenefits = "yes"
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
+    val howMuch = "Not much"
 
     "map data into case class" in {
       G1AboutOtherMoney.form.bind(
         Map("yourBenefits.answer" -> yourBenefits,
           "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
-          "whoPaysYou" -> whoPaysYou)).fold(
+          "whoPaysYou" -> whoPaysYou, 
+          "howMuch" -> howMuch)).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
             f.yourBenefits.answer must equalTo(yourBenefits)
