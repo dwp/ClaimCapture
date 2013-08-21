@@ -15,27 +15,15 @@ object G2SelfEmploymentYourAccounts extends Controller with SelfEmploymentRoutin
     mapping(
       "whatWasOrIsYourTradingYearFrom" -> optional(dayMonthYear.verifying(validDateOnly)),
       "whatWasOrIsYourTradingYearTo" -> optional(dayMonthYear.verifying(validDateOnly)),
-      "areAccountsPreparedOnCashFlowBasis" -> nonEmptyText.verifying(validYesNo),
       "areIncomeOutgoingsProfitSimilarToTrading" -> optional(text verifying validYesNo),
-      "tellUsWhyAndWhenTheChangeHappened" -> optional(nonEmptyText(maxLength = 300)),
-      "doYouHaveAnAccountant" -> optional(text verifying validYesNo),
-      "canWeContactYourAccountant" -> optional(nonEmptyText.verifying(validYesNo))
+      "tellUsWhyAndWhenTheChangeHappened" -> optional(nonEmptyText(maxLength = 300))
     )(SelfEmploymentYourAccounts.apply)(SelfEmploymentYourAccounts.unapply)
-      .verifying("tellUsWhyAndWhenTheChangeHappened", validateChangeHappened _)
-      .verifying("canWeContactYourAccountant", validateContactAccountant _))
+      .verifying("tellUsWhyAndWhenTheChangeHappened", validateChangeHappened _))
 
   def validateChangeHappened(selfEmploymentYourAccounts: SelfEmploymentYourAccounts) = {
     selfEmploymentYourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
       case Some(`no`) => selfEmploymentYourAccounts.tellUsWhyAndWhenTheChangeHappened.isDefined
       case Some(`yes`) => true
-      case _ => true
-    }
-  }
-
-  def validateContactAccountant(selfEmploymentYourAccounts: SelfEmploymentYourAccounts) = {
-    selfEmploymentYourAccounts.doYouHaveAnAccountant match {
-      case Some(`yes`) => selfEmploymentYourAccounts.canWeContactYourAccountant.isDefined
-      case Some(`no`) => true
       case _ => true
     }
   }
@@ -49,9 +37,8 @@ object G2SelfEmploymentYourAccounts extends Controller with SelfEmploymentRoutin
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("tellUsWhyAndWhenTheChangeHappened", FormError("tellUsWhyAndWhenTheChangeHappened", "error.required"))
-          .replaceError("canWeContactYourAccountant", FormError("canWeContactYourAccountant", "error.required"))
         BadRequest(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(formWithErrorsUpdate, completedQuestionGroups(SelfEmploymentYourAccounts)))
       },
-      f => claim.update(f) -> Redirect(routes.G3SelfEmploymentAccountantContactDetails.present()))
+      f => claim.update(f) -> Redirect(routes.G4SelfEmploymentPensionsAndExpenses.present()))
   }
 }

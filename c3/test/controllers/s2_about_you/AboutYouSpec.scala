@@ -7,11 +7,12 @@ import play.api.test.Helpers._
 import models.domain._
 import models.domain.Claim
 import controllers.s2_about_you
+import models.view.CachedClaim
 
 class AboutYouSpec extends Specification with Tags {
   "About you" should {
     "accept all initial mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "firstName" -> "Scooby",
         "title" -> "Mr",
@@ -32,7 +33,7 @@ class AboutYouSpec extends Specification with Tags {
     }
 
     "highlight missing mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("firstName" -> "Scooby", "action" -> "next")
 
       val result = G1YourDetails.submit(request)
@@ -40,7 +41,7 @@ class AboutYouSpec extends Specification with Tags {
     }
 
     "highlight invalid date" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "firstName" -> "Scooby",
         "title" -> "Mr",
@@ -57,7 +58,7 @@ class AboutYouSpec extends Specification with Tags {
     }
 
     "not complain about a valid NI" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "firstName" -> "Scooby",
         "title" -> "Mr",
@@ -81,7 +82,7 @@ class AboutYouSpec extends Specification with Tags {
     }
 
     "complain about an invalid NI" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "firstName" -> "Scooby",
         "title" -> "Mr",
@@ -106,7 +107,7 @@ class AboutYouSpec extends Specification with Tags {
     }
 
     "not complain about a valid Postcode" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "address.lineOne" -> "123 Street",
         "postcode" -> "PR2 8AE")
@@ -116,7 +117,7 @@ class AboutYouSpec extends Specification with Tags {
     }
 
     "complain about an invalid Postcode" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "address.lineOne" -> "123 Street",
         "postcode" -> "1234567890")
@@ -126,7 +127,7 @@ class AboutYouSpec extends Specification with Tags {
     }
 
     "complain about an empty Address" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "address.lineOne" -> "",
         "address.lineTwo" -> "",
@@ -137,14 +138,14 @@ class AboutYouSpec extends Specification with Tags {
     }
 
     "present completion" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result = s2_about_you.AboutYou.completed(request)
       status(result) mustEqual OK
     }
 
     """present first "about you" page upon completing with missing forms""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val claim = Claim().update(mockQuestionGroup[YourDetails](YourDetails))
 
@@ -155,7 +156,7 @@ class AboutYouSpec extends Specification with Tags {
     }
 
     "continue to partner/spouse upon section completion when all forms are done" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val moreAboutYou = mockQuestionGroup[MoreAboutYou](MoreAboutYou)
       moreAboutYou.hadPartnerSinceClaimDate returns "yes"
@@ -174,7 +175,7 @@ class AboutYouSpec extends Specification with Tags {
     }
 
     "continue to partner/spouse upon section completion when all forms are done including 'About Your Time Outside The UK'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val yourDetails = mockQuestionGroup[YourDetails](YourDetails)
       yourDetails.alwaysLivedUK returns "no"

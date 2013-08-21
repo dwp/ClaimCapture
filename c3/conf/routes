@@ -70,23 +70,8 @@ POST    /care-you-provide/their-contact-details                         controll
 GET     /care-you-provide/relationship-and-other-claims                 controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.present
 POST    /care-you-provide/relationship-and-other-claims                 controllers.s4_care_you_provide.G3RelationshipAndOtherClaims.submit
 
-GET     /care-you-provide/previous-carer-personal-details               controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.present
-POST    /care-you-provide/previous-carer-personal-details               controllers.s4_care_you_provide.G4PreviousCarerPersonalDetails.submit
-
-GET     /care-you-provide/previous-carer-contact-details                controllers.s4_care_you_provide.G5PreviousCarerContactDetails.present
-POST    /care-you-provide/previous-carer-contact-details                controllers.s4_care_you_provide.G5PreviousCarerContactDetails.submit
-
-GET     /care-you-provide/representatives-for-person                    controllers.s4_care_you_provide.G6RepresentativesForThePerson.present
-POST    /care-you-provide/representatives-for-person                    controllers.s4_care_you_provide.G6RepresentativesForThePerson.submit
-
 GET     /care-you-provide/more-about-the-care                           controllers.s4_care_you_provide.G7MoreAboutTheCare.present
 POST    /care-you-provide/more-about-the-care                           controllers.s4_care_you_provide.G7MoreAboutTheCare.submit
-
-GET     /care-you-provide/one-who-pays-personal-details                 controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.present
-POST    /care-you-provide/one-who-pays-personal-details                 controllers.s4_care_you_provide.G8OneWhoPaysPersonalDetails.submit
-
-GET     /care-you-provide/contact-details-of-paying-person              controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.present
-POST    /care-you-provide/contact-details-of-paying-person              controllers.s4_care_you_provide.G9ContactDetailsOfPayingPerson.submit
 
 GET     /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.present
 POST    /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.submit
@@ -142,8 +127,7 @@ DELETE  /employment/job/:jobID                                          controll
 
 GET     /employment/job/:jobID                                          controllers.s7_employment.G2JobDetails.job(jobID: String)
 
-GET     /employment/job-details                                         controllers.s7_employment.G2JobDetails.present
-GET     /employment/job-details/:jobID                                  controllers.s7_employment.G2JobDetails.presentInJob(jobID: String)
+GET     /employment/job-details/:jobID                                  controllers.s7_employment.G2JobDetails.present(jobID: String)
 POST    /employment/job-details                                         controllers.s7_employment.G2JobDetails.submit
 
 GET     /employment/employers-contact-details/:jobID                    controllers.s7_employment.G3EmployerContactDetails.present(jobID: String)
@@ -193,9 +177,6 @@ POST    /self-employment/about-self-employment                          controll
 GET     /self-employment/your-accounts                                  controllers.s8_self_employment.G2SelfEmploymentYourAccounts.present
 POST    /self-employment/your-accounts                                  controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit
 
-GET     /self-employment/accountant-contact-details                     controllers.s8_self_employment.G3SelfEmploymentAccountantContactDetails.present
-POST    /self-employment/accountant-contact-details                     controllers.s8_self_employment.G3SelfEmploymentAccountantContactDetails.submit
-
 GET     /self-employment/pensions-and-expenses                          controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.present
 POST    /self-employment/pensions-and-expenses                          controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit
 
@@ -218,15 +199,6 @@ POST    /self-employment/completed                                      controll
 ###############
 GET     /other-money/about-other-money                                  controllers.s9_other_money.G1AboutOtherMoney.present
 POST    /other-money/about-other-money                                  controllers.s9_other_money.G1AboutOtherMoney.submit
-
-GET     /other-money/money-paid-to-someone-else-for-you                 controllers.s9_other_money.G2MoneyPaidToSomeoneElseForYou.present
-POST    /other-money/money-paid-to-someone-else-for-you                 controllers.s9_other_money.G2MoneyPaidToSomeoneElseForYou.submit
-
-GET     /other-money/person-who-gets-this-money                         controllers.s9_other_money.G3PersonWhoGetsThisMoney.present
-POST    /other-money/person-who-gets-this-money                         controllers.s9_other_money.G3PersonWhoGetsThisMoney.submit
-
-GET     /other-money/person-contact-details                             controllers.s9_other_money.G4PersonContactDetails.present
-POST    /other-money/person-contact-details                             controllers.s9_other_money.G4PersonContactDetails.submit
 
 GET     /other-money/statutory-sick-pay                                 controllers.s9_other_money.G5StatutorySickPay.present
 POST    /other-money/statutory-sick-pay                                 controllers.s9_other_money.G5StatutorySickPay.submit

@@ -6,6 +6,7 @@ import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.{Claiming, ChildcareProvidersContactDetails, Section, Claim}
 import models.{MultiLineAddress, domain}
+import models.view.CachedClaim
 
 class G6ChildcareProvidersContactDetailsSpec extends Specification with Tags {
   "Childcare provider's contact Details Form - Controller" should {
@@ -21,12 +22,12 @@ class G6ChildcareProvidersContactDetailsSpec extends Specification with Tags {
 
     "present 'Your Partner Contact Details' " in new WithApplication with Claiming {
 
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("doYouPayToPensionScheme.answer" -> "no", "doYouPayToLookAfterYourChildren" -> "yes","didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
       val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
-      val request2 = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request2 = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result2 = G6ChildcareProvidersContactDetails.present(request)
       status(result2) mustEqual OK
@@ -34,7 +35,7 @@ class G6ChildcareProvidersContactDetailsSpec extends Specification with Tags {
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(childcareProvidersContactDetailsInput: _*)
 
       val result = G6ChildcareProvidersContactDetails.submit(request)
@@ -50,7 +51,7 @@ class G6ChildcareProvidersContactDetailsSpec extends Specification with Tags {
     }
 
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
       val result = G6ChildcareProvidersContactDetails.submit(request)
@@ -58,7 +59,7 @@ class G6ChildcareProvidersContactDetailsSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(childcareProvidersContactDetailsInput: _*)
 
       val result = G6ChildcareProvidersContactDetails.submit(request)

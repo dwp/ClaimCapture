@@ -34,14 +34,10 @@ class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tag
       browser.find("div[class=completed] ul li").size() mustEqual 2
     }
 
-    "navigate to Previous Carer Details when submitting with claimedAllowanceBefore positive" in new WithBrowser with BrowserMatchers {
+    "navigate to More about the care when submitting with claimedAllowanceBefore positive" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutThePersonWithClaimedAllowanceBefore(browser)
-      titleMustEqual("Details of Previous or Existing Carer - About the care you provide")
+      titleMustEqual("More about the care you provide - About the care you provide")
     }
 
-    "navigate to Representatives For The Person when submitting with claimedAllowanceBefore negative" in new WithBrowser with BrowserMatchers {
-      Formulate.moreAboutThePersonWithNotClaimedAllowanceBefore(browser)
-      titleMustEqual("Representatives for the Person you care for - About the care you provide")
-    }
   } section("integration", models.domain.CareYouProvide.id)
 }

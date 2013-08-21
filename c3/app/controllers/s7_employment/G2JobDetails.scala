@@ -31,11 +31,7 @@ object G2JobDetails extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def present = claiming { implicit claim => implicit request =>
-    track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g2_jobDetails(form)) }
-  }
-
-  def presentInJob(jobID: String) = claiming { implicit claim => implicit request =>
+  def present(jobID: String) = claiming { implicit claim => implicit request =>
     track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
   }
 

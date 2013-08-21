@@ -19,7 +19,7 @@
         else dmy.`dd/MM/yyyy`)
 }
 
-@main(Messages("s4.g10") + " - " + Messages("s4.longName"), Some(yesNoForm), completedQuestionGroups) {
+@main(Messages("s4.g5") + " - " + Messages("s4.longName"), Some(yesNoForm), completedQuestionGroups) {
     <fieldset id="breaks" class="form-elements results-detail">
         <legend>Time period</legend>
 
@@ -68,7 +68,7 @@
 
     @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit) {
         <fieldset class="form-elements">
-            <legend>@Messages("s4.g10")</legend>
+            <legend>@Messages("s4.g5")</legend>
 
             <ul class="group">
                 @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>

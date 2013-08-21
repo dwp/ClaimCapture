@@ -9,9 +9,6 @@ import controllers.Mappings.no
 object OtherBenefits {
 
   def xml(claim: Claim) = {
-    val moneyPaidToSomeoneElseOption = claim.questionGroup[MoneyPaidToSomeoneElseForYou]
-    val personDetailsOption = claim.questionGroup[PersonWhoGetsThisMoney]
-    val contactDetailsOption = claim.questionGroup[PersonContactDetails]
     val statutorySickPayOption = claim.questionGroup[StatutorySickPay]
     val otherStatutoryPayOption = claim.questionGroup[OtherStatutoryPay]
 
@@ -51,29 +48,10 @@ object OtherBenefits {
         <NonSocialSecurityBenefit>{XMLValues.NotAsked}</NonSocialSecurityBenefit>
         <NoBenefits>{XMLValues.NotAsked}</NoBenefits>
       </PartnerBenefits>
-      {extraMoneyXml(moneyPaidToSomeoneElseOption, personDetailsOption, contactDetailsOption)}
+      <ExtraMoney>{XMLValues.NotAsked}</ExtraMoney>
       {otherMoneySPPXml(statutorySickPayOption)}
       {otherMoneySMPXml(otherStatutoryPayOption)}
     </OtherBenefits>
-  }
-
-  def extraMoneyXml(moneyPaidToSomeoneElseOption: Option[MoneyPaidToSomeoneElseForYou], personDetailsOption: Option[PersonWhoGetsThisMoney], contactDetailsOption: Option[PersonContactDetails]) = {
-
-    val moneyPaidToSomeoneElseForYou = moneyPaidToSomeoneElseOption.getOrElse(MoneyPaidToSomeoneElseForYou(moneyAddedToBenefitSinceClaimDate = no))
-    val personDetails = personDetailsOption.getOrElse(PersonWhoGetsThisMoney())
-    val contactDetails = contactDetailsOption.getOrElse(PersonContactDetails())
-
-    if(moneyPaidToSomeoneElseForYou.moneyAddedToBenefitSinceClaimDate == yes) {
-        <ExtraMoney>{moneyPaidToSomeoneElseForYou.moneyAddedToBenefitSinceClaimDate}</ExtraMoney>
-        <ExtraMoneyDetails>
-          <BenefitName>{personDetails.nameOfBenefit}</BenefitName>
-          <RecipientName>{personDetails.fullName}</RecipientName>
-          <RecipientAddress>{postalAddressStructure(contactDetails.address, contactDetails.postcode)}</RecipientAddress>
-          <ConfirmAddress>yes</ConfirmAddress>
-          <ReferenceNumber>{stringify(personDetails.nationalInsuranceNumber)}</ReferenceNumber>
-        </ExtraMoneyDetails>
-    }
-    else <ExtraMoney>{moneyPaidToSomeoneElseForYou.moneyAddedToBenefitSinceClaimDate}</ExtraMoney>
   }
 
   def otherMoneySPPXml(statutorySickPayOption: Option[StatutorySickPay]) = {

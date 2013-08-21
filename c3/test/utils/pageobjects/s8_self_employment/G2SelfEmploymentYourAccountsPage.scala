@@ -6,11 +6,8 @@ import utils.pageobjects.{PageContext, Page}
 final class G2SelfEmploymentYourAccountsPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G2SelfEmploymentYourAccountsPage.url, G2SelfEmploymentYourAccountsPage.title, previousPage) {
   declareDate("#whatWasOrIsYourTradingYearFrom", "SelfEmployedWhatWasIsYourTradingYearfrom")
   declareDate("#whatWasOrIsYourTradingYearTo", "SelfEmployedWhatWasIsYourTradingYearIs")
-  declareYesNo("#areAccountsPreparedOnCashFlowBasis", "SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis")
   declareYesNo("#areIncomeOutgoingsProfitSimilarToTrading", "SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent")
   declareInput("#tellUsWhyAndWhenTheChangeHappened", "SelfEmployedTellUsWhyandWhentheChangeHappened")
-  declareYesNo("#doYouHaveAnAccountant", "SelfEmployedDoYouHaveAnAccountant")             //SelfEmployedDoYouHaveAnAccountant
-  declareYesNo("#canWeContactYourAccountant", "SelfEmployedCanWeContactYourAccountant")
 }
 
 object G2SelfEmploymentYourAccountsPage {

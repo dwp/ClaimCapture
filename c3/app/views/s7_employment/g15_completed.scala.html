@@ -1,4 +1,4 @@
-@(completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@()(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,13 +7,13 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import models.domain.Employed
+@import models.domain._
 @import views.html.s7_employment.main
 
-@main("Completion - " + Messages("s7.longName"), None, completedQuestionGroups) {
+@main("Completion - " + Messages("s7.longName"), None, claim.questionGroup(BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg))) {
     @form(action = controllers.s7_employment.routes.Employment.submit()) {
         <nav class="form-steps">
-            <a id="backButton" href="@controllers.s7_employment.routes.G1BeenEmployed.present()" class="button secondary">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(Employed).name</button>
         </nav>
     }

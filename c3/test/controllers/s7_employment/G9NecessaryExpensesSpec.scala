@@ -5,6 +5,7 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
+import models.view.CachedClaim
 
 class G9NecessaryExpensesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
@@ -27,13 +28,13 @@ class G9NecessaryExpensesSpec extends Specification with Tags {
       val claim = Claim().update(jobs)
       Cache.set(claimKey, claim)
 
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
       val result = G9NecessaryExpenses.present(jobID)(request)
       status(result) mustEqual OK
     }
 
     "require all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID)
 
       val result = G9NecessaryExpenses.submit(request)
@@ -41,7 +42,7 @@ class G9NecessaryExpensesSpec extends Specification with Tags {
     }
 
     "accept all mandatory data." in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
         "whatAreThose" -> "blah", "howMuchCostEachWeek" -> "blah", "whyDoYouNeedThose" -> "blah")
 
       val result = G9NecessaryExpenses.submit(request)
@@ -49,13 +50,13 @@ class G9NecessaryExpensesSpec extends Specification with Tags {
     }
 
     "be added to a (current) job" in new WithApplication with Claiming {
-      G2JobDetails.submit(FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      G2JobDetails.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
-      val result = G9NecessaryExpenses.submit(FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+      val result = G9NecessaryExpenses.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
         "whatAreThose" -> "blah", "howMuchCostEachWeek" -> "blah", "whyDoYouNeedThose" -> "blah"))
 
       status(result) mustEqual SEE_OTHER

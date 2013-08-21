@@ -7,6 +7,7 @@ import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain
 import models.domain.Claim
+import models.view.CachedClaim
 
 class G1AboutOtherMoneySpec extends Specification with Tags {
   "Details about other money - Controller" should {
@@ -16,7 +17,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     val formInput = Seq("yourBenefits.answer" -> yourBenefits, "yourBenefits.text1" -> yourBenefitsText, "yourBenefits.text2" -> yourPartnerBenefitsText)
     
     "present 'Your course details'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result = G1AboutOtherMoney.present(request)
       
@@ -24,7 +25,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     }
         
     "add submitted data to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = G1AboutOtherMoney.submit(request)
@@ -34,13 +35,12 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
       section.questionGroup(AboutOtherMoney) must beLike {
         case Some(f: AboutOtherMoney) => {
           f.yourBenefits.answer must equalTo(yourBenefits)
-          f.yourBenefits.text1 must equalTo(Some(yourBenefitsText))
         }
       }
     }
     
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = G1AboutOtherMoney.submit(request)

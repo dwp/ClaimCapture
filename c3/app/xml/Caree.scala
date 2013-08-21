@@ -13,7 +13,6 @@ object Caree {
     val theirContactDetails = claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())
     val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-    val representatives = claim.questionGroup[RepresentativesForPerson].getOrElse(RepresentativesForPerson())
 
     <Caree>
       <Surname>{theirPersonalDetails.surname}</Surname>
@@ -31,45 +30,19 @@ object Caree {
       <RelationToClaimant>{moreAboutThePerson.relationship}</RelationToClaimant>
       <Cared35hours>{moreAboutTheCare.spent35HoursCaring}</Cared35hours>
       <CanCareeSign>{XMLValues.NotAsked}</CanCareeSign>
-      <CanSomeoneElseSign>{representatives.someoneElseAct.answer.getOrElse(XMLValues.NotAsked)}</CanSomeoneElseSign>
-      <CanClaimantSign>{representatives.youAct.answer}</CanClaimantSign>
-      {claimantActingType(claim)}
+      <CanSomeoneElseSign>{XMLValues.NotAsked}</CanSomeoneElseSign>
+      <CanClaimantSign>{XMLValues.NotAsked}</CanClaimantSign>
       {breaksSinceClaim(claim)}
       {careBreak(claim)}
       <Cared35hoursBefore>{moreAboutTheCare.spent35HoursCaringBeforeClaim.answer}</Cared35hoursBefore>
       {dateStartedCaring(moreAboutTheCare)}
       {breaksBeforeClaim(claim)}
       <PaidForCaring>{moreAboutTheCare.hasSomeonePaidYou}</PaidForCaring>
-      {payReceived(claim)}
-      <ClaimedPreviously>{moreAboutThePerson.claimedAllowanceBefore}</ClaimedPreviously>
-      {previousClaimant(claim)}
+      <ClaimedPreviously>{XMLValues.NotAsked}</ClaimedPreviously>
     </Caree>
   }
 
-  def claimantActingType(claim: Claim) = {
-    import app.ActingType._
-    val representatives = claim.questionGroup[RepresentativesForPerson].getOrElse(RepresentativesForPerson())
 
-    val claimantCanSign = representatives.youAct.answer == yes
-
-    if (claimantCanSign) {
-
-      val youAct = representatives.youAct
-      val parentOrGuardian = youAct.dropDownValue.orNull == Guardian.name
-      val attorney = youAct.dropDownValue.orNull == Attorney.name
-      val appointee = youAct.dropDownValue.orNull == Appointee.name
-      val judicial = youAct.dropDownValue.orNull == Judicial.name
-      val receiver = youAct.dropDownValue.orNull == Deputy.name || youAct.dropDownValue.orNull == Curator.name
-
-      <ClaimantActingType>
-        <ParentOrGuardian>{if (parentOrGuardian) yes}</ParentOrGuardian>
-        <PowerOfAttorney>{if (attorney) yes}</PowerOfAttorney>
-        <Appointee>{if (appointee) yes}</Appointee>
-        <JudicialFactor>{if (judicial) yes}</JudicialFactor>
-        <Receiver>{if (receiver) yes}</Receiver>
-      </ClaimantActingType>
-    } else NodeSeq.Empty
-  }
 
   def breaksSinceClaim(claim: Claim) = {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
@@ -106,40 +79,5 @@ object Caree {
         <AwayFromHome>{XMLValues.NotAsked}</AwayFromHome>
       </CareBreak>
     }
-  }
-
-  def payReceived(claim: Claim) = {
-    val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-    val hasReceivedPayment = moreAboutTheCare.hasSomeonePaidYou == yes
-
-    if (hasReceivedPayment && claim.questionGroup[OneWhoPaysPersonalDetails].isDefined) {
-      val oneWhoPays = claim.questionGroup[OneWhoPaysPersonalDetails].get
-      val contactDetailsPayingPerson = claim.questionGroup[ContactDetailsOfPayingPerson].getOrElse(ContactDetailsOfPayingPerson())
-
-      <PayReceived>
-        <PayerName>{oneWhoPays.organisation.orNull} {oneWhoPays.title.orNull} {oneWhoPays.firstName} {oneWhoPays.middleName.orNull} {oneWhoPays.surname}</PayerName>
-        <PayerAddress>{postalAddressStructure(contactDetailsPayingPerson.address, contactDetailsPayingPerson.postcode)}</PayerAddress>
-        <ConfirmAddress>{yes}</ConfirmAddress>
-        <Payment>{moneyStructure(oneWhoPays.amount)}</Payment>
-        <DatePaymentStarted>{oneWhoPays.startDatePayment.`yyyy-MM-dd`}</DatePaymentStarted>
-      </PayReceived>
-    } else NodeSeq.Empty
-  }
-
-  def previousClaimant(claim: Claim) = {
-    val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
-    val previousCarerPersonalDetails = claim.questionGroup[PreviousCarerPersonalDetails].getOrElse(PreviousCarerPersonalDetails(firstName = "", surname = ""))
-    val previousCarerContactDetails = claim.questionGroup[PreviousCarerContactDetails].getOrElse(PreviousCarerContactDetails())
-    val claimedAllowanceBefore = moreAboutThePerson.claimedAllowanceBefore == yes
-
-    if (claimedAllowanceBefore) {
-      <PreviousClaimant>
-        <Surname>{previousCarerPersonalDetails.surname}</Surname>
-        <OtherNames>{previousCarerPersonalDetails.firstName} {previousCarerPersonalDetails.middleName.orNull}</OtherNames>
-        <DateOfBirth>{stringify(previousCarerPersonalDetails.dateOfBirth)}</DateOfBirth>
-        <NationalInsuranceNumber>{stringify(previousCarerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
-        <Address>{postalAddressStructure(previousCarerContactDetails.address, previousCarerContactDetails.postcode)}</Address>
-      </PreviousClaimant>
-    } else NodeSeq.Empty
   }
 }

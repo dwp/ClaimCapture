@@ -8,6 +8,7 @@ import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Claim
 import models.NationalInsuranceNumber
+import models.view.CachedClaim
 
 class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
   val title = "Mr"
@@ -46,14 +47,14 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
     
   "Your Partner Personal Details - Controller" should {
     "present 'Your Partner Personal Details' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result = G1YourPartnerPersonalDetails.present(request)
       status(result) mustEqual OK
     }
     
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
 
       val result = G1YourPartnerPersonalDetails.submit(request)
@@ -76,7 +77,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
     }
     
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("foo" -> "bar")
 
       val result = G1YourPartnerPersonalDetails.submit(request)
@@ -84,7 +85,7 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
     }
     
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(yourPartnerPersonalDetailsInput: _*)
 
       val result = G1YourPartnerPersonalDetails.submit(request)

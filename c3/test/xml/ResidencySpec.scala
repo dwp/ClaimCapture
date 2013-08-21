@@ -22,7 +22,7 @@ class ResidencySpec extends Specification with Tags {
 
   val netherlands = "Netherlands"
 
-  val holidayOption = Some("Holiday")
+  val holidayOption = "Holiday"
 
   val fourWeekTrip1 = Trip(id = "four-one", start = startDate, end = endDate, where = netherlands, why = holidayOption)
 
@@ -53,25 +53,25 @@ class ResidencySpec extends Specification with Tags {
       val periodOne = periodsAbroadLastYearXml.theSeq(0)
       (periodOne \\ "Period" \\ "DateFrom").text mustEqual startDate.`yyyy-MM-dd`
       (periodOne \\ "Period" \\ "DateTo").text mustEqual endDate.`yyyy-MM-dd`
-      (periodOne \\ "Reason").text mustEqual holidayOption.get
+      (periodOne \\ "Reason").text mustEqual holidayOption
       (periodOne \\ "Country").text mustEqual netherlands
 
       val periodTwo = periodsAbroadLastYearXml.theSeq(0)
       (periodTwo \\ "Period" \\ "DateFrom").text mustEqual startDate.`yyyy-MM-dd`
       (periodTwo \\ "Period" \\ "DateTo").text mustEqual endDate.`yyyy-MM-dd`
-      (periodTwo \\ "Reason").text mustEqual holidayOption.get
+      (periodTwo \\ "Reason").text mustEqual holidayOption
       (periodTwo \\ "Country").text mustEqual netherlands
 
       val periodsAbroadDuringCareXml = residencyXml \\ "PeriodAbroadDuringCare"
       val periodCareOne = periodsAbroadDuringCareXml.theSeq(0)
       (periodCareOne \\ "Period" \\ "DateFrom").text mustEqual startDate.`yyyy-MM-dd`
       (periodCareOne \\ "Period" \\ "DateTo").text mustEqual endDate.`yyyy-MM-dd`
-      (periodCareOne \\ "Reason").text mustEqual holidayOption.get
+      (periodCareOne \\ "Reason").text mustEqual holidayOption
 
       val periodCareTwo = periodsAbroadDuringCareXml.theSeq(1)
       (periodCareTwo \\ "Period" \\ "DateFrom").text mustEqual startDate.`yyyy-MM-dd`
       (periodCareTwo \\ "Period" \\ "DateTo").text mustEqual endDate.`yyyy-MM-dd`
-      (periodCareTwo \\ "Reason").text mustEqual holidayOption.get
+      (periodCareTwo \\ "Reason").text mustEqual holidayOption
 
       (residencyXml \\ "OtherNationality" \\ "VisaReferenceNumber").text shouldEqual ""
     }

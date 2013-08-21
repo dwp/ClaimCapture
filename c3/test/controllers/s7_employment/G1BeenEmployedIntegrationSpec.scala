@@ -10,6 +10,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
+      back
       titleMustEqual("Your employment history - Employment History")
     }
 
@@ -23,7 +24,9 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
     "start employment entry" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim()
 
-      goTo("/employment/been-employed").click("#beenEmployed_yes")
+      goTo("/employment/been-employed")
+      back
+      click("#beenEmployed_yes")
       next
       titleMustEqual("Your job - Employment History")
     }
@@ -32,6 +35,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
+      back
       next
       titleMustEqual("Your employment history - Employment History")
       findMustEqualSize("div[class=validation-summary] ol li", 1)
@@ -40,7 +44,9 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
     """continue to "completion" when there are no more "jobs" to submit.""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim()
 
-      goTo("/employment/been-employed").click("#beenEmployed_no")
+      goTo("/employment/been-employed")
+      back
+      click("#beenEmployed_no")
       next
       titleMustEqual("Completion - Employment History")
     }
@@ -50,6 +56,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
 
       goTo("/employment/been-employed")
       back
+      back
       titleMustEqual("Completion - About your education")
     }
 
@@ -57,6 +64,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
+      back
       titleMustEqual("Your employment history - Employment History")
 
       click("#beenEmployed_yes")
@@ -90,6 +98,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
+      back
       titleMustEqual("Your employment history - Employment History")
 
       click("#beenEmployed_yes")
@@ -106,6 +115,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       beginClaim()
 
       goTo("/employment/been-employed")
+      back
       titleMustEqual("Your employment history - Employment History")
 
       click("#beenEmployed_no")

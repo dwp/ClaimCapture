@@ -9,8 +9,8 @@ class TimeSpentAbroadSpec extends Specification {
       val trips = Trips()
 
       val updatedTrips = trips
-        .update(Trip("1", DayMonthYear(1, 1, 2000), DayMonthYear(1, 1, 2000), "Scotland").as[FourWeeksTrip])
-        .update(Trip("2", DayMonthYear(1, 1, 2000), DayMonthYear(1, 1, 2000), "Greenland").as[FourWeeksTrip])
+        .update(Trip("1", DayMonthYear(1, 1, 2000), DayMonthYear(1, 1, 2000), "Scotland", "For Holiday").as[FourWeeksTrip])
+        .update(Trip("2", DayMonthYear(1, 1, 2000), DayMonthYear(1, 1, 2000), "Greenland", "For Holiday").as[FourWeeksTrip])
 
       trips.fourWeeksTrips.size mustEqual 0
       trips.fiftyTwoWeeksTrips.size mustEqual 0

@@ -7,6 +7,7 @@ import play.api.cache.Cache
 import models.domain.{Claiming, Claim, Section, TheirContactDetails}
 import models.domain
 import play.api.test.Helpers._
+import models.view.CachedClaim
 
 class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
 
@@ -17,7 +18,7 @@ class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
   "Their Contact Details - Controller" should {
 
     "add their contect details to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(theirContactDetailsInput: _*)
 
       val result = G2TheirContactDetails.submit(request)
@@ -34,7 +35,7 @@ class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
     }
 
     "return a BadRequest on an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "INVALID")
 
       val result = G2TheirContactDetails.submit(request)
@@ -42,7 +43,7 @@ class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(models.view.CachedClaim.CLAIM_KEY -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(theirContactDetailsInput: _*)
 
       val result = G2TheirContactDetails.submit(request)

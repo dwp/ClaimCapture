@@ -99,16 +99,11 @@ object EvidenceList {
   def careYouProvide(claim: Claim) = {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
-    val previousCarerContactDetails = claim.questionGroup[PreviousCarerContactDetails].getOrElse(PreviousCarerContactDetails())
-    val representativesForPerson = claim.questionGroup[RepresentativesForPerson].getOrElse(RepresentativesForPerson())
+
 
     textSeparatorLine("About Care You Provide") ++
       textLine("Do they live at the same address as you? = ", theirPersonalDetails.liveAtSameAddressCareYouProvide) ++
-      textLine("Does this person get Armed Forces Independence Payment? = ", moreAboutThePerson.armedForcesPayment) ++
-      textLine("Daytime phone number = ", previousCarerContactDetails.phoneNumber) ++
-      textLine("Mobile number = ", previousCarerContactDetails.mobileNumber) ++
-      textLine("Person acts as = ", representativesForPerson.someoneElseAct.dropDownValue) ++
-      textLine("Full name = ", representativesForPerson.someoneElseAct.text)
+      textLine("Does this person get Armed Forces Independence Payment? = ", moreAboutThePerson.armedForcesPayment)
   }
 
   def breaks(claim: Claim) = {
@@ -155,8 +150,6 @@ object EvidenceList {
 
     textSeparatorLine("Other Money") ++
       textLine("Have you [or your partner/spouse] claimed or received any other benefits since the date you want to claim? = ", aboutOtherMoney.yourBenefits.answer) ++
-      textLine("Please tell us the names of the benefits or entitlements you receive = ", aboutOtherMoney.yourBenefits.text1) ++
-      textLine("Please tell us the names of the benefits or entitlements your partner/spouse receive = ", aboutOtherMoney.yourBenefits.text2) ++
       textLine("Statutory Sick Pay: How much? = ", statutorySickPay.howMuch) ++
       textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.optionToString(statutorySickPay.howOften)) ++
       textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++

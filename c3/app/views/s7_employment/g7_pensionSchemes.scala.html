@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.PensionSchemes], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@(currentForm: Form[models.domain.PensionSchemes])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,13 +7,14 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
+@import controllers.s7_employment.Employment._
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 @import views.html.s7_employment.main
 @import app.PensionPaymentFrequency._
 
 
-@main(Messages("s7.g7") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups) {
+@main(Messages("s7.g7") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PensionSchemes, JobID(currentForm))) {
     @form(action = controllers.s7_employment.routes.G7PensionSchemes.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
@@ -42,7 +43,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

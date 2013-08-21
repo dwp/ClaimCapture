@@ -351,16 +351,8 @@ Self Employed,Your job,Have you ceased trading?,SelfEmployedHaveYouCeasedTrading
 Self Employed,Your job,Nature of your business,SelfEmployedNatureofYourBusiness,"Fruit and veg, delivery service"
 Self Employed,Your accounts,What was/is your trading year. From,SelfEmployedWhatWasIsYourTradingYearfrom,01/02/2012
 Self Employed,Your accounts,What was/is your trading year. Is,SelfEmployedWhatWasIsYourTradingYearIs,31/01/2013
-Self Employed,Your accounts,Are these accounts prepared on a cash flow basis?,SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis,Yes
 Self Employed,Your accounts,"Are the income, outgoings and profit in these accounts similar to your current level of trading?",SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent,No
 Self Employed,Your accounts,Please tell us why and when the change happened,SelfEmployedTellUsWhyandWhentheChangeHappened,"Depends on the seasons, and productivity of the fruit."
-Self Employed,Your accounts,Do you have an accountant?,SelfEmployedDoYouHaveAnAccountant,Yes
-Self Employed,Your accounts,Can we contact your accountant?,SelfEmployedCanWeContactYourAccountant,Yes
-Self Employed,Accountant Contact Details,Accountants Name,SelfEmployedAccountantName,Dickinsons Accountants
-Self Employed,Accountant Contact Details,Address,SelfEmployedAccountantAddress,123 Preston Road&Preston&Lancashire
-Self Employed,Accountant Contact Details,Postcode,SelfEmployedAccountantPostcode,PR4 5TH
-Self Employed,Accountant Contact Details,Telephone Number,SelfEmployedAccountantTelephoneNumber,01772 345617
-Self Employed,Accountant Contact Details,Fax Number,SelfEmployedAccountantFaxNumber,01772 345618
 Self Employed,Pensions and Expenses,[Past=Did you] [Present=Do you] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,SelfEmployedDoYouPayTowardsPensionScheme,Yes
 Self Employed,Pensions and Expenses,How much [past=did you] [present=do you] pay?,SelfEmployedHowMuchYouPayTowardsPensionScheme,100
 Self Employed,Pensions and Expenses,"White at work, [past=did you] [present=do you] pay anyone to look after your children?",SelfEmployedDoYouPayAnyonetoLookAfterYourChild,Yes
@@ -381,14 +373,6 @@ Self Employed,Expenses related to the person you care for while at work,"What re
 Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,124 Preston Road&Preston&Lancashire
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,PR5 6YH
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,No
-Other Money,Details about other money,Please tell us the names of the benefits or entitlements you receive,OtherMoneyTellUsNamesBenefitsYouReceived,
-Other Money,Details about other money,Please tell us the names of the benefits or entitlements your partner/spouse receive,OtherMoneyTellUsNamesBenefitsYourPartnerReceived,
-Other Money,Money paid to someone else for you,Has anyone had any money added to a benefit for you since your claim date: [claim date]?,OtherMoneyHasAnyoneHadMoneyForBenefitYouClaim,No
-Other Money,Person who gets this money,Full name,OtherMoneyOtherPersonFullName,
-Other Money,Person who gets this money,National Insurance (NI) number,OtherMoneyOtherPersonNINO,
-Other Money,Person who gets this money,Name of Benefit,OtherMoneyOtherPersonBenefit,
-Other Money,Person's contact details,Address,OtherMoneyOtherPersonAddress,
-Other Money,Person's contact details,Postcode,OtherMoneyOtherPersonPostcode,
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
 Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,
 Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,

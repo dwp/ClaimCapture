@@ -25,20 +25,11 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
     }
 
     "contain errors on invalid submission" in {
-      "missing mandatory field" in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
-        val claim = new ClaimScenario
-        page goToThePage(waitForPage = true, waitDuration = 500)
-        val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 500)
-        pageWithErrors.listErrors.size mustEqual 1
-      }
 
       "your accounts invalid date" in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
         val claim = new ClaimScenario
-        claim.SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis = "yes"
         claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "no"
         claim.SelfEmployedTellUsWhyandWhentheChangeHappened = "A Year back"
-        claim.SelfEmployedDoYouHaveAnAccountant = "yes"
-        claim.SelfEmployedCanWeContactYourAccountant = "yes"
         claim.SelfEmployedWhatWasIsYourTradingYearfrom = "01/01/0000"
         page goToThePage(waitForPage = true, waitDuration = 500)
         page fillPageWith claim
@@ -50,10 +41,7 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
 
     "your accounts tell us what happened not required if incoming and outgoing are current " in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
       val claim = new ClaimScenario
-      claim.SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis = "yes"
       claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "yes"
-      claim.SelfEmployedDoYouHaveAnAccountant = "yes"
-      claim.SelfEmployedCanWeContactYourAccountant = "yes"
       page goToThePage()
       page fillPageWith claim
       val pageWithErrors = page.submitPage()
@@ -62,9 +50,7 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
 
     "your accounts contact your accountant is not required if there is no accountant " in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
       val claim = new ClaimScenario
-      claim.SelfEmployedAreTheseAccountsPreparedonaCashFlowBasis = "yes"
       claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "yes"
-      claim.SelfEmployedDoYouHaveAnAccountant = "no"
       page goToThePage(waitForPage = true, waitDuration = 500)
       page fillPageWith claim
       val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 500)

@@ -8,32 +8,13 @@ class G3RelationshipAndOtherClaimsFormSpec extends Specification with Tags {
 
     "map data into case class" in {
       G3RelationshipAndOtherClaims.form.bind(
-        Map("relationship" -> "father", "armedForcesPayment" -> "yes", "claimedAllowanceBefore" -> "no")
+        Map("relationship" -> "father", "armedForcesPayment" -> "yes")
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         moreAboutThePerson => {
           moreAboutThePerson.relationship must equalTo("father")
           moreAboutThePerson.armedForcesPayment must equalTo(Some("yes"))
-          moreAboutThePerson.claimedAllowanceBefore must equalTo("no")
         }
-      )
-    }
-
-    "have a mandatory relationship" in {
-      G3RelationshipAndOtherClaims.form.bind(
-        Map("relationship" -> "", "" -> "", "claimedAllowanceBefore" -> "yes")
-      ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
-        moreAboutThePerson => "This mapping should not happen." must equalTo("Valid")
-      )
-    }
-
-    "have a mandatory 'has claimed Carer's Allowance before' question" in {
-      G3RelationshipAndOtherClaims.form.bind(
-        Map("relationship" -> "father", "" -> "", "claimedAllowanceBefore" -> "")
-      ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
-        moreAboutThePerson => "This mapping should not happen." must equalTo("Valid")
       )
     }
   } section("unit", models.domain.CareYouProvide.id)

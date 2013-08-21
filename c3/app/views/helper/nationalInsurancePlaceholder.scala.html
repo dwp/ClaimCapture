@@ -9,27 +9,22 @@
 @checkConstraintRequired(field)
 <ul class="inline ni-number label-strip" id="@field.id">
     <li>
-        <label for='@CarersCrypto.encryptAES(field("ni1").id)'>NI part one</label>
         @carersInputText(field("ni1"), 'placeholder -> "VO", 'maxlength -> 2)
     </li>
 
     <li>
-        <label for='@CarersCrypto.encryptAES(field("ni2").id)'>NI part two</label>
         @carersInputTel(field("ni2"), 'placeholder -> "12", 'maxlength -> 2)
     </li>
 
     <li>
-        <label for='@CarersCrypto.encryptAES(field("ni3").id)'>NI part three</label>
         @carersInputTel(field("ni3"), 'placeholder -> "34", 'maxlength -> 2)
     </li>
 
     <li>
-        <label for='@CarersCrypto.encryptAES(field("ni4").id)'>NI part four</label>
         @carersInputTel(field("ni4"), 'placeholder -> "56", 'maxlength -> 2)
     </li>
 
     <li>
-        <label for='@CarersCrypto.encryptAES(field("ni5").id)'>NI part five</label>
         @carersInputText(field("ni5"), 'placeholder -> "D", 'maxlength -> 1, 'class -> "single")
     </li>
 </ul>

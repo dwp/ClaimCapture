@@ -13,6 +13,7 @@ import play.api.cache.Cache
 import play.api.libs.ws.Response
 import play.api.Play.current
 import xml.DWPCAClaim
+import models.view.CachedClaim
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : ClaimSubmission) extends Submitter {
 
@@ -112,12 +113,12 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
   case class RetryData(corrId: String, pollUrl: String, txnId: String)
 
   def storeRetryData(data:RetryData, request : Request[AnyContent]) {
-    val uuid = request.session.get(models.view.CachedClaim.CLAIM_KEY)
+    val uuid = request.session.get(CachedClaim.claimKey)
     Cache.set(uuid+"_retry", data, 3000)
   }
 
   def retrieveRetryData(request : Request[AnyContent]) : Option[RetryData] = {
-    val uuid = request.session.get(models.view.CachedClaim.CLAIM_KEY)
+    val uuid = request.session.get(CachedClaim.claimKey)
     Cache.getAs[RetryData](uuid+"_retry")
   }
 
