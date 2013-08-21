@@ -83,7 +83,7 @@ object EvidenceList {
       textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK) ++
       textLine("Mobile number = ", yourContactDetails.mobileNumber) ++
       textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer) ++
-      textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension)
+      textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
       textLine("If you have speech or hearing difficulties, would you like us to contact you by textphone? = ", yourContactDetails.contactYouByTextphone)
   }
 
