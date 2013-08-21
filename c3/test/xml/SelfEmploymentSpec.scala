@@ -6,7 +6,6 @@ import controllers.Mappings._
 import models.DayMonthYear
 import models.yesNo.{YesNoWith2Text}
 import scala.Some
-import models.MultiLineAddress
 
 class SelfEmploymentSpec extends Specification with Tags {
 
