@@ -81,11 +81,11 @@
                         <DateOfBirth>1956-03-03</DateOfBirth>
                         <NationalInsuranceNumber>AB000000B</NationalInsuranceNumber>
                         <Address>
-                            <gds:Line>10</gds:Line>
-                            <gds:Line>Anyplace Street</gds:Line>
+                            <gds:Line>12 Preston Road</gds:Line>
+                            <gds:Line>Preston</gds:Line>
+                            <gds:Line>Lancashire</gds:Line>
                             <gds:Line></gds:Line>
-                            <gds:Line></gds:Line>
-                            <gds:PostCode></gds:PostCode>
+                            <gds:PostCode>PR1 1HB</gds:PostCode>
                         </Address>
                         <ConfirmAddress>yes</ConfirmAddress>
                         <HomePhoneNumber></HomePhoneNumber>
