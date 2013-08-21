@@ -238,7 +238,6 @@ Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJo
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,Yes
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,01/07/2013
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,25
-Employment,Your Job,Job title,EmploymentJobTitle_1,Checkout Assistant
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,12345678
 Employment,Employers contact details,Address,EmploymentEmployerAddress_1,23 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY4 5TH
@@ -294,7 +293,6 @@ Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJo
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,Yes
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_2,01/07/2013
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,25
-Employment,Your Job,Job title,EmploymentJobTitle_2,Checkout Assistant
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_2,12345678
 Employment,Employers contact details,Address,EmploymentEmployerAddress_2,23 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_2,FY4 5TH
@@ -373,6 +371,8 @@ Self Employed,Expenses related to the person you care for while at work,"What re
 Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,124 Preston Road&Preston&Lancashire
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,PR5 6YH
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
+Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
+Other Money,Details about other money,Who pays you?,OtherMoneyWhoPaysYou,The Man
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
 Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,
 Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,

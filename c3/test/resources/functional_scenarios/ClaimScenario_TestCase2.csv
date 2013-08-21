@@ -236,7 +236,6 @@ Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJo
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob,
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork,
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork,
-Employment,Your Job,Job title,EmploymentJobTitle,
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber,
 Employment,Employers contact details,Address,EmploymentEmployerAddress,
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode,
@@ -327,6 +326,8 @@ Self Employed,Expenses related to the person you care for while at work,"What re
 Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
+Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
+Other Money,Details about other money,Who pays you?,OtherMoneyWhoPaysYou,The Man
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,Yes
 Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,345
 Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,Monthly

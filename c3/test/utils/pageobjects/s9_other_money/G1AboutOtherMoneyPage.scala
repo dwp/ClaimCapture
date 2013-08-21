@@ -5,6 +5,8 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 final class G1AboutOtherMoneyPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1AboutOtherMoneyPage.url, G1AboutOtherMoneyPage.title, previousPage) {
   declareYesNo("#yourBenefits_answer", "OtherMoneyHaveYouClaimedOtherBenefits")
+  declareYesNo("#anyPaymentsSinceClaimDate_answer", "OtherMoneyAnyPaymentsSinceClaimDate")
+  declareInput("#whoPaysYou", "OtherMoneyWhoPaysYou")
 }
 
 object G1AboutOtherMoneyPage {

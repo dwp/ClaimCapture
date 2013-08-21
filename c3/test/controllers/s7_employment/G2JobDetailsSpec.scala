@@ -55,7 +55,6 @@ class G2JobDetailsSpec extends Specification with Tags {
         "lastWorkDate.month" -> "1",
         "lastWorkDate.year" -> "2001",
         "hoursPerWeek" -> "75",
-        "jobTitle" -> "Goblin",
         "payrollEmployeeNumber" -> "445566")
 
       val result = G2JobDetails.submit(request)
@@ -74,7 +73,6 @@ class G2JobDetailsSpec extends Specification with Tags {
         "lastWorkDate.month" -> "1",
         "lastWorkDate.year" -> "2001",
         "hoursPerWeek" -> "75",
-        "jobTitle" -> "Goblin",
         "payrollEmployeeNumber" -> "445566")
 
       val result = G2JobDetails.submit(request)

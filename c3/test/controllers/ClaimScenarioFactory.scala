@@ -29,7 +29,7 @@ object ClaimScenarioFactory {
   }
 
   def yourDetailsEnablingTimeOutsideUK() = {
-    val claim = yourDetailsWithNotTimeOutside
+    val claim = yourDetailsWithNotTimeOutside()
     claim.AboutYouHaveYouAlwaysLivedInTheUK = "No"
     claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
     claim.AboutYouWhenDidYouArriveInYheUK = "01/11/2003"
@@ -207,7 +207,6 @@ object ClaimScenarioFactory {
     claim.EmploymentHaveYouFinishedThisJob_1= "yes"
     claim.EmploymentWhenDidYouLastWork_1= "01/07/2013"
     claim.EmploymentHowManyHoursAWeekYouNormallyWork_1= "25"
-    claim.EmploymentJobTitle_1= "Checkout Assistant"
     claim.EmploymentPayrollOrEmployeeNumber_1= "12345678"
     claim.EmploymentEmployerAddress_1= "23 Yeadon Way&Blackpool&Lancashire"
     claim.EmploymentEmployerPostcode_1= "FY4 5TH"
@@ -262,8 +261,10 @@ object ClaimScenarioFactory {
 
   def s8otherMoney = {
     val claim = s2AboutYouWithTimeOutside()
-    //About other money
+    // G1 About other money
     claim.OtherMoneyHaveYouClaimedOtherBenefits = "no"
+    claim.OtherMoneyAnyPaymentsSinceClaimDate = "no"
+    claim.OtherMoneyWhoPaysYou = "The Man"
     // G5 Statutory Sick Pay
     claim.OtherMoneyHaveYouSSPSinceClaim = "no"
     // G6 Other Statutory Pay
