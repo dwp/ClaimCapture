@@ -89,8 +89,6 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerNINO = "AB123456A"
     claim.AboutYourPartnerDateofBirth = "12/07/1990"
     claim.AboutYourPartnerNationality = "British"
-    // More about your partner
-    claim.AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou = "No"
     // Person you care for
     claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
     claim

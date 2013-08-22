@@ -34,7 +34,7 @@ class EndToEndSpec extends Specification with Tags {
   }
 
   "The application " should {
-/*    "Successfully run absolute Test Case 1 " in new WithBrowser with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 1 " in new WithBrowser with G1BenefitsPageContext {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
@@ -47,7 +47,7 @@ class EndToEndSpec extends Specification with Tags {
         case p: Page => println(p.source())
       }
     }
-*/
+
     "Successfully run absolute Test Case 2 " in new WithBrowser with G1BenefitsPageContext {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase2.csv")
@@ -61,7 +61,7 @@ class EndToEndSpec extends Specification with Tags {
         case p: Page => println(p.source())
       }
     }
-/*
+
     "Successfully run absolute Test Case 3 " in new WithBrowser with G1BenefitsPageContext {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
@@ -130,6 +130,6 @@ class EndToEndSpec extends Specification with Tags {
         }
         case p: Page => println(p.source())
       }
-    }*/
+    }
   } section "functional"
 }
