@@ -45,7 +45,7 @@ object Employment {
     </Pay>
   }
 
-  def howMuchOwed(s: Option[String]) = {
+  def howMuchOwedXml(s: Option[String]) = {
     val showXml = s.isDefined
 
     if (showXml) {
@@ -53,24 +53,6 @@ object Employment {
         <Currency>GBP</Currency>
         <Amount>{s.get}</Amount>
       </Payment>
-    } else {
-      NodeSeq.Empty
-    }
-  }
-
-  def moneyOwedXml(moneyOwed: MoneyOwedbyEmployer) = {
-    val showXml = moneyOwed.jobID.nonEmpty
-
-    if (showXml) {
-        <MoneyOwed>
-          {howMuchOwed(moneyOwed.howMuchOwed)}
-          <Period>
-            {fromToStructure (moneyOwed.owedPeriod)}
-          </Period>
-          {<Reason/> ?+ moneyOwed.owedFor}
-          {<PaymentDueDate/> ?+ moneyOwed.shouldBeenPaidBy}
-          {<PaymentExpected/> +++ moneyOwed.whenWillGetIt}
-        </MoneyOwed>
     } else {
       NodeSeq.Empty
     }
@@ -220,14 +202,11 @@ object Employment {
           val employerContactDetails = job.questionGroup[EmployerContactDetails].getOrElse(EmployerContactDetails())
           val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
           val additionalWageDetails = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails())
-          val moneyOwedbyEmployer = job.questionGroup[MoneyOwedbyEmployer].getOrElse(MoneyOwedbyEmployer())
-
           <JobDetails>
             {employerXml(jobDetails,employerContactDetails)}
             {payXml(jobDetails,lastWage,additionalWageDetails)}
             <OtherThanMoney>{NotAsked}</OtherThanMoney>
             <OweMoney>{additionalWageDetails.employerOwesYouMoney}</OweMoney>
-            {moneyOwedXml(moneyOwedbyEmployer)}
             {childcareExpensesXml(job)}
             {careExpensesXml(job)}
             {pensionSchemeXml(job)}

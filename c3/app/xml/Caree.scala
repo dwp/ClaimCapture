@@ -1,10 +1,10 @@
 package xml
 
-import app.XMLValues
+import scala.xml.NodeSeq
+import app.XMLValues._
 import models.domain._
 import xml.XMLHelper._
 import controllers.Mappings.{yes, no}
-import scala.xml.NodeSeq
 
 object Caree {
 
@@ -29,16 +29,16 @@ object Caree {
       </DaytimePhoneNumber>
       <RelationToClaimant>{moreAboutThePerson.relationship}</RelationToClaimant>
       <Cared35hours>{moreAboutTheCare.spent35HoursCaring}</Cared35hours>
-      <CanCareeSign>{XMLValues.NotAsked}</CanCareeSign>
-      <CanSomeoneElseSign>{XMLValues.NotAsked}</CanSomeoneElseSign>
-      <CanClaimantSign>{XMLValues.NotAsked}</CanClaimantSign>
+      <CanCareeSign>{NotAsked}</CanCareeSign>
+      <CanSomeoneElseSign>{NotAsked}</CanSomeoneElseSign>
+      <CanClaimantSign>{NotAsked}</CanClaimantSign>
       {breaksSinceClaim(claim)}
       {careBreak(claim)}
       <Cared35hoursBefore>{moreAboutTheCare.spent35HoursCaringBeforeClaim.answer}</Cared35hoursBefore>
       {dateStartedCaring(moreAboutTheCare)}
       {breaksBeforeClaim(claim)}
-      <PaidForCaring>{XMLValues.NotAsked}</PaidForCaring>
-      <ClaimedPreviously>{XMLValues.NotAsked}</ClaimedPreviously>
+      <PaidForCaring>{NotAsked}</PaidForCaring>
+      <ClaimedPreviously>{NotAsked}</ClaimedPreviously>
     </Caree>
   }
 
@@ -74,7 +74,7 @@ object Caree {
         <EndDateTime>{if (break.end.isDefined) break.end.get.`yyyy-MM-dd'T'HH:mm:00`}</EndDateTime>
         <Reason>{break.whereYou.location}</Reason>
         <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
-        <AwayFromHome>{XMLValues.NotAsked}</AwayFromHome>
+        <AwayFromHome>{NotAsked}</AwayFromHome>
       </CareBreak>
     }
   }

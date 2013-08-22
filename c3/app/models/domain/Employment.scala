@@ -139,17 +139,6 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
   }
 }
 
-case class MoneyOwedbyEmployer(jobID: String = "",
-                               howMuchOwed: Option[String] = None,
-                               owedPeriod: Option[PeriodFromTo] = None,
-                               owedFor: Option[String] = None,
-                               shouldBeenPaidBy: Option[DayMonthYear] = None,
-                               whenWillGetIt: Option[String] = None) extends QuestionGroup(MoneyOwedbyEmployer) with Job.Identifier
-
-object MoneyOwedbyEmployer extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g6"
-}
-
 case class PensionSchemes(jobID: String = "",
                           payOccupationalPensionScheme: String = "",
                           howMuchPension: Option[String] = None,

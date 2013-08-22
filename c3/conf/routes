@@ -139,9 +139,6 @@ POST    /employment/last-wage                                           controll
 GET     /employment/additional-wage-details/:jobID                      controllers.s7_employment.G5AdditionalWageDetails.present(jobID: String)
 POST    /employment/additional-wage-details                             controllers.s7_employment.G5AdditionalWageDetails.submit
 
-GET     /employment/money-owed-by-employer/:jobID                       controllers.s7_employment.G6MoneyOwedbyEmployer.present(jobID: String)
-POST    /employment/money-owed-by-employer                              controllers.s7_employment.G6MoneyOwedbyEmployer.submit
-
 GET     /employment/pension-schemes/:jobID                              controllers.s7_employment.G7PensionSchemes.present(jobID: String)
 POST    /employment/pension-schemes                                     controllers.s7_employment.G7PensionSchemes.submit
 

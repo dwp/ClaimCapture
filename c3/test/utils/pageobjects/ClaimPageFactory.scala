@@ -69,7 +69,6 @@ object ClaimPageFactory extends PageFactory {
       case G3EmployerContactDetailsPage.title => G3EmployerContactDetailsPage buildPageWith(browser,previousPage,iteration)
       case G4LastWagePage.title => G4LastWagePage buildPageWith(browser,previousPage,iteration)
       case G5AdditionalWageDetailsPage.title => G5AdditionalWageDetailsPage buildPageWith(browser,previousPage,iteration)
-      case G6MoneyOwedByEmployerPage.title => G6MoneyOwedByEmployerPage buildPageWith(browser,previousPage,iteration)
       case G7PensionSchemesPage.title => G7PensionSchemesPage buildPageWith(browser,previousPage,iteration)
       case G8AboutExpensesPage.title => G8AboutExpensesPage buildPageWith(browser,previousPage,iteration)
       case G9NecessaryExpensesPage.title => G9NecessaryExpensesPage buildPageWith(browser,previousPage,iteration)
