@@ -8,12 +8,12 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
   "Their Personal Details" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/their-personal-details")
-      titleMustEqual("Details of the Person you care for - About the care you provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
     }
 
     "contain errors on invalid submission" in new WithBrowser {
       browser.goTo("/care-you-provide/their-personal-details")
-      browser.title mustEqual "Details of the Person you care for - About the care you provide"
+      browser.title mustEqual "Details of the person you care for - About the care you provide"
       browser.submit("button[type='submit']")
 
       browser.find("div[class=validation-summary] ol li").size mustEqual 5
@@ -21,7 +21,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the Person you care for - About the care you provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
     }
 
     """navigate back to "Completion - About your partner/spouse" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
@@ -56,7 +56,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       Formulate.personYouCareFor(browser)
       browser.submit("button[type='submit']")
 
-      titleMustEqual("Details of the Person you care for - About the care you provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
       findMustEqualValue("#firstName","John")
       findMustEqualValue("#surname", "Appleseed")
     }

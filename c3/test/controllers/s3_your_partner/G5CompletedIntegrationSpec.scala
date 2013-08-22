@@ -16,7 +16,7 @@ class G5CompletedIntegrationSpec extends Specification with Tags {
       browser.goTo("/your-partner/completed")
       browser.submit("button[type='submit']")
       browser.find("#submit").getText mustEqual "Continue to Care you provide"
-      titleMustEqual("Details of the Person you care for - About the care you provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
     }
     
     "contain the completed forms" in new WithBrowser with BrowserMatchers {

@@ -9,7 +9,7 @@ final class G13CareProviderPage(browser: TestBrowser, previousPage: Option[Page]
 }
 
 object G13CareProviderPage {
-  val title = "Care provider's contact Details - Employment History".toLowerCase
+  val title = "Care provider's contact details - Employment History".toLowerCase
 
   val url  = "/employment/care-provider/:jobID"
 
