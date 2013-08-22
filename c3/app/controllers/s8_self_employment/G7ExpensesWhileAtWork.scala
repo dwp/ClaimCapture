@@ -39,7 +39,7 @@ object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with 
 
     payToLookPersonYouCareFor match {
       case true => whenSectionVisible(Ok(views.html.s8_self_employment.g7_expensesWhileAtWork(form.fill(ExpensesWhileAtWork), completedQuestionGroups(ExpensesWhileAtWork))))
-      case false => claim.delete(ExpensesWhileAtWork) -> Redirect(routes.G8CareProvidersContactDetails.present())
+      case false => claim.delete(ExpensesWhileAtWork) ->  Redirect(routes.SelfEmployment.completed())
     }
   }
 
@@ -53,7 +53,7 @@ object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with 
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s8_self_employment.g7_expensesWhileAtWork(formWithErrorsUpdate, completedQuestionGroups(ExpensesWhileAtWork)))
       },
-      f => claim.update(f) -> Redirect(routes.G8CareProvidersContactDetails.present())
+      f => claim.update(f) ->  Redirect(routes.SelfEmployment.completed())
     )
   }
 }

@@ -186,9 +186,6 @@ POST    /self-employment/childcare-expenses-while-at-work               controll
 GET     /self-employment/expenses-while-at-work                         controllers.s8_self_employment.G7ExpensesWhileAtWork.present
 POST    /self-employment/expenses-while-at-work                         controllers.s8_self_employment.G7ExpensesWhileAtWork.submit
 
-GET     /self-employment/care-providers-contact-details                 controllers.s8_self_employment.G8CareProvidersContactDetails.present
-POST    /self-employment/care-providers-contact-details                 controllers.s8_self_employment.G8CareProvidersContactDetails.submit
-
 GET     /self-employment/completed                                      controllers.s8_self_employment.SelfEmployment.completed
 POST    /self-employment/completed                                      controllers.s8_self_employment.SelfEmployment.completedSubmit
 
