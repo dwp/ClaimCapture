@@ -312,7 +312,7 @@ Employment,About other employment history,Have you had another job at any time s
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,Yes
 Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,01/02/2010
 Self Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,
-Self Employed,Your job,Have you ceased trading?,SelfEmployedHaveYouCeasedTrading,No
+Self Employed,Your job,Have you ceased trading?,SelfEmployedHaveYouCeasedTrading,
 Self Employed,Your job,Nature of your business,SelfEmployedNatureofYourBusiness,"Fruit and veg, delivery service"
 Self Employed,Your accounts,What was/is your trading year. From,SelfEmployedWhatWasIsYourTradingYearfrom,01/02/2012
 Self Employed,Your accounts,What was/is your trading year. Is,SelfEmployedWhatWasIsYourTradingYearIs,31/01/2013

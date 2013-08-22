@@ -40,7 +40,7 @@ object G5ChildcareExpensesWhileAtWork extends Controller with SelfEmploymentRout
 
     payToLookAfterChildren match {
       case true => whenSectionVisible(Ok(views.html.s8_self_employment.g5_childcareExpensesWhileAtWork(form.fill(ChildcareExpensesWhileAtWork), completedQuestionGroups(ChildcareExpensesWhileAtWork))))
-      case false => claim.delete(ChildcareExpensesWhileAtWork) -> Redirect(routes.G6ChildcareProvidersContactDetails.present())
+      case false => claim.delete(ChildcareExpensesWhileAtWork) -> Redirect(routes.G7ExpensesWhileAtWork.present())
     }
   }
 
@@ -54,6 +54,6 @@ object G5ChildcareExpensesWhileAtWork extends Controller with SelfEmploymentRout
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s8_self_employment.g5_childcareExpensesWhileAtWork(formWithErrorsUpdate, completedQuestionGroups(ChildcareExpensesWhileAtWork)))
       },
-      f => claim.update(f) -> Redirect(routes.G6ChildcareProvidersContactDetails.present()))
+      f => claim.update(f) -> Redirect(routes.G7ExpensesWhileAtWork.present()))
   }
 }
