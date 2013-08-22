@@ -11,7 +11,6 @@ import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment.whenSectionVisible
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
-import scala.Some
 
 object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with CachedClaim {
   def form(implicit claim: Claim) = Form(
@@ -24,7 +23,6 @@ object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with 
       "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
     )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply)
     .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
-
 
   def validateRelationToPartner(implicit claim: Claim, expensesWhileAtWork: ExpensesWhileAtWork) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
@@ -51,6 +49,7 @@ object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with 
         val formWithErrorsUpdate = formWithErrors
           .replaceError("howMuchYouPay", "error.required", FormError("howMuchYouPay", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
+          .replaceError("howOftenPayExpenses", "error.required", FormError("howOftenPayExpenses", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s8_self_employment.g7_expensesWhileAtWork(formWithErrorsUpdate, completedQuestionGroups(ExpensesWhileAtWork)))
       },

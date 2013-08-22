@@ -5,7 +5,7 @@ import controllers.submission.{WebServiceSubmitter, XmlSubmitter, Submitter}
 import services.{PostgresTransactionIdService, TransactionIdService}
 import services.submission.{WebserviceClaimSubmission, ClaimSubmission}
 
-class ProdModule extends ScalaModule {
+object ProdModule extends ScalaModule {
   def configure() {
     bind[ClaimSubmission].to[WebserviceClaimSubmission]
     bind[Submitter].to[WebServiceSubmitter]
@@ -14,7 +14,7 @@ class ProdModule extends ScalaModule {
   }
 }
 
-class DevModule extends ScalaModule {
+object DevModule extends ScalaModule {
   def configure() {
     bind[Submitter].to[XmlSubmitter]
   }

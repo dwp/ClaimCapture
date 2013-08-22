@@ -34,7 +34,7 @@ object EvidenceList {
     if (employed || selfEmployed) {
       buffer += textLine("Send us the following documents below including your Name and National Insurance (NI) number.")
 
-      if (employed){
+      if (employed) {
         buffer += textLine()
         buffer += textLine("Your Employment documents")
         buffer += textLine("Last payslip you got before your claim date: ", claimDate.dateOfClaim.`dd/MM/yyyy`)
@@ -99,7 +99,6 @@ object EvidenceList {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
 
-
     textSeparatorLine("About Care You Provide") ++
       textLine("Do they live at the same address as you? = ", theirPersonalDetails.liveAtSameAddressCareYouProvide) ++
       textLine("Does this person get Armed Forces Independence Payment? = ", moreAboutThePerson.armedForcesPayment)
@@ -117,8 +116,6 @@ object EvidenceList {
   def timeSpentAbroad(claim: Claim) = {
     val normalResidenceAndCurrentLocation = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
     val trips  = claim.questionGroup[Trips].getOrElse(Trips())
-//    val abroadForMoreThan52Weeks = claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())
-//    val abroadForMoreThan4Weeks = claim.questionGroup[AbroadForMoreThan4Weeks].getOrElse(AbroadForMoreThan4Weeks())
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
 
     textSeparatorLine("Time abroad") ++
@@ -166,8 +163,6 @@ object EvidenceList {
       textLine("Are you, your wife, husband, civil partner or parent you are dependent on " +
         "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
   }
-
-
 
   def consentAndDeclaration(claim: Claim) = {
     val consent = claim.questionGroup[Consent].getOrElse(Consent())

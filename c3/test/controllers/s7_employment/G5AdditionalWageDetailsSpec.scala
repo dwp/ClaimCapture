@@ -18,7 +18,7 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
 
     """require "job ID" and "Employee owes you money".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1", "employerOwesYouMoney" -> "no", "anyOtherMoney" -> "no")
+        .withFormUrlEncodedBody("jobID" -> "1", "employerOwesYouMoney" -> "no")
 
       val result = G5AdditionalWageDetails.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -34,11 +34,7 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
         "finishedThisJob" -> "yes"))
 
       val result = G5AdditionalWageDetails.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
-                    .withFormUrlEncodedBody(
-                    "jobID" -> "1",
-                    "anyOtherMoney" -> "yes",
-                    "otherMoney" -> "nuthin",
-                    "employerOwesYouMoney" -> "no"))
+                    .withFormUrlEncodedBody("jobID" -> "1", "employerOwesYouMoney" -> "no"))
 
       status(result) mustEqual SEE_OTHER
 

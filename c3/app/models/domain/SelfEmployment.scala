@@ -2,7 +2,7 @@ package models.domain
 
 import models.DayMonthYear
 import models.MultiLineAddress
-import models.yesNo.{YesNoWith2Text}
+import models.yesNo.YesNoWith2Text
 
 case object SelfEmployment extends Section.Identifier {
   val id = "s8"
