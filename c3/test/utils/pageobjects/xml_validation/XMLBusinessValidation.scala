@@ -118,7 +118,7 @@ class XmlNode(val theNodes: NodeSeq) {
           else if (nodeName.startsWith(XmlNode.EvidenceListNode)) {
             // Awful code. Need to do something about it! (JMI)
             if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime"))
-              value.matches(".*haveyouhadanymoretripsoutofgreatbritain[^=]*=" + claimValue.value +".*")
+              value.matches(".*haveyouhadanymoretripsoutofgreatbritainformorethan[^=]*=" + claimValue.value +".*")
             else if (claimValue.attribute.contains("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor"))
               value.matches(".*haveyoubeenoutofgreatbritainwiththepersonyoucarefor[^=]*=" + claimValue.value +".*")
             else value.contains(claimValue.question + "=" + claimValue.value)
