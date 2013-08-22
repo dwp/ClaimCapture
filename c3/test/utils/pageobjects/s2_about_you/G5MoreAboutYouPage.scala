@@ -1,16 +1,15 @@
 package utils.pageobjects.s2_about_you
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * PageObject for page s2_about_you g5_moreAboutYou.
  * @author Jorge Migueis
  *         Date: 17/07/2013
  */
-final class G5MoreAboutYouPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5MoreAboutYouPage.url, G5MoreAboutYouPage.title, previousPage) {
+final class G5MoreAboutYouPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G5MoreAboutYouPage.url, G5MoreAboutYouPage.title, previousPage) {
   declareYesNo("#hadPartnerSinceClaimDate", "AboutYouHaveYouHadaPartnerSpouseatAnyTime")
-//  declareYesNo("#eitherClaimedBenefitSinceClaimDate", "AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits")
   declareYesNo("#beenInEducationSinceClaimDate", "AboutYouHaveYouBeenOnACourseOfEducation")
   declareYesNo("#receiveStatePension", "AboutYouDoYouGetStatePension")
 }

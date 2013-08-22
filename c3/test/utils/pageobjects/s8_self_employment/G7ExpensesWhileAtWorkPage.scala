@@ -1,11 +1,12 @@
 package utils.pageobjects.s8_self_employment
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G7ExpensesWhileAtWorkPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G7ExpensesWhileAtWorkPage.url, G7ExpensesWhileAtWorkPage.title, previousPage) {
-  declareInput("#howMuchYouPay", "SelfEmployedCareExpensesHowMuchYouPay")
+final class G7ExpensesWhileAtWorkPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G7ExpensesWhileAtWorkPage.url, G7ExpensesWhileAtWorkPage.title, previousPage) {
   declareInput("#nameOfPerson", "SelfEmployedCareExpensesNameOfPerson")
+  declareInput("#howMuchYouPay", "SelfEmployedCareExpensesHowMuchYouPay")
+  declareSelect("#howOftenPayExpenses", "SelfEmployedCareExpensesHowOften")
   declareSelect("#whatRelationIsToYou", "SelfEmployedCareExpensesWhatRelationIsToYou")
   declareSelect("#whatRelationIsTothePersonYouCareFor", "SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor")
 }

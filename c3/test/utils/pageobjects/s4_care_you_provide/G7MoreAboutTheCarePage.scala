@@ -1,14 +1,14 @@
 package utils.pageobjects.s4_care_you_provide
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * * Page object for s4_care_you_provide g7_more_about_the_care.
  * @author Saqib Kayani
  *         Date: 29/07/2013
  */
-final class G7MoreAboutTheCarePage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G7MoreAboutTheCarePage.url, G7MoreAboutTheCarePage.title, previousPage) {
+final class G7MoreAboutTheCarePage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G7MoreAboutTheCarePage.url, G7MoreAboutTheCarePage.title, previousPage) {
   declareYesNo("#spent35HoursCaring", "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek")
   declareYesNo("#beforeClaimCaring_answer", "AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours")
   declareDate("#beforeClaimCaring_date", "AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson")

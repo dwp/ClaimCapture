@@ -15,6 +15,9 @@ import scala.language.implicitConversions
  */
 class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.csv") {
 
+  val errors = mutable.MutableList.empty[String]
+  val warnings = mutable.MutableList.empty[String]
+
   def validateXMLClaim(claim: ClaimScenario, xmlString: String, throwException: Boolean): List[String] = validateXMLClaim(claim, XML.loadString(xmlString), throwException)
 
   /**
@@ -32,7 +35,7 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
 
     // Load the XML mapping
     val mapping = XMLBusinessValidation.buildXmlMappingFromFile(xmlMappingFile)
-    val listErrors = mutable.MutableList.empty[String]
+//    val listErrors = mutable.MutableList.empty[String]
 
     // Go through the attributes of the claim and check that there is a corresponding entry in the XML
     claim.map.foreach {
@@ -49,25 +52,25 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
               val elementValue = XmlNode(childNode(xml.\\(nodes(0)), nodes.drop(1)))
               if (!elementValue.isDefined) {
                 if (options.size > 1) validateNodeValue(options.drop(1))
-                else listErrors += attribute + " " + path + " XML element not found"
+                else errors += attribute + " " + path + " XML element not found"
               } else {
                 if (elementValue doesNotMatch ClaimValue(attribute, value, xPathNodesAndQuestion.get._2)) {
                   if (options.size > 1) validateNodeValue(options.drop(1))
-                  else listErrors += attribute + " " + path + elementValue.error
+                  else errors += attribute + " " + path + elementValue.error
                 }
               }
             }
 
             validateNodeValue(options)
-          }
+          } else  warnings += attribute + " does not have an XML path mapping defined."
         }
         catch {
-          case e:Exception => listErrors += attribute + " " + value + " Error: " + e.getMessage
+          case e:Exception => errors += attribute + " " + value + " Error: " + e.getMessage
         }
     }
 
-    if (listErrors.nonEmpty && throwException) throw new PageObjectException("XML validation failed", listErrors.toList)
-    listErrors.toList
+    if (errors.nonEmpty && throwException) throw new PageObjectException("XML validation failed", errors.toList)
+    errors.toList
   }
 }
 
@@ -112,7 +115,16 @@ class XmlNode(val theNodes: NodeSeq) {
 
         def valuesMatching = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
-          else if (nodeName.startsWith(XmlNode.EvidenceListNode)) value.contains(claimValue.question + "=" + claimValue.value)
+          else if (nodeName.startsWith(XmlNode.EvidenceListNode)) {
+            // Awful code. Need to do something about it! (JMI)
+            if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
+              if (iteration == 0 ) value.matches(".*haveyouhadanymoretripsoutofgreatbritainformorethan[^=]*=" + claimValue.value +".*") else true
+            }
+            else if (claimValue.attribute.contains("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor")) {
+              if (iteration == 0) value.matches(".*haveyoubeenoutofgreatbritainwiththepersonyoucarefor[^=]*=" + claimValue.value +".*") else true
+            }
+            else value.contains(claimValue.question + "=" + claimValue.value)
+          }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
           else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
           else value == claimValue.value

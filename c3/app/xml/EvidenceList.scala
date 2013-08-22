@@ -34,7 +34,7 @@ object EvidenceList {
     if (employed || selfEmployed) {
       buffer += textLine("Send us the following documents below including your Name and National Insurance (NI) number.")
 
-      if (employed){
+      if (employed) {
         buffer += textLine()
         buffer += textLine("Your Employment documents")
         buffer += textLine("Last payslip you got before your claim date: ", claimDate.dateOfClaim.`dd/MM/yyyy`)
@@ -83,12 +83,11 @@ object EvidenceList {
       textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK) ++
       textLine("Mobile number = ", yourContactDetails.mobileNumber) ++
       textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer) ++
-      textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension)
+      textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
       textLine("If you have speech or hearing difficulties, would you like us to contact you by textphone? = ", yourContactDetails.contactYouByTextphone)
   }
 
   def yourPartner(claim: Claim) = {
-    val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
 
     textSeparatorLine("About Your Partner") ++
@@ -99,7 +98,6 @@ object EvidenceList {
   def careYouProvide(claim: Claim) = {
     val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
-
 
     textSeparatorLine("About Care You Provide") ++
       textLine("Do they live at the same address as you? = ", theirPersonalDetails.liveAtSameAddressCareYouProvide) ++
@@ -117,16 +115,15 @@ object EvidenceList {
 
   def timeSpentAbroad(claim: Claim) = {
     val normalResidenceAndCurrentLocation = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
-    val abroadForMoreThan52Weeks = claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())
-    val abroadForMoreThan4Weeks = claim.questionGroup[AbroadForMoreThan4Weeks].getOrElse(AbroadForMoreThan4Weeks())
+    val trips  = claim.questionGroup[Trips].getOrElse(Trips())
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
 
-    textSeparatorLine("Abroad") ++
+    textSeparatorLine("Time abroad") ++
       textLine("Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = ", normalResidenceAndCurrentLocation.whereDoYouLive.answer) ++
       textLine("Have you had any more trips out of Great Britain for more than 52 weeks at a time, " +
-        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 156 weeks before your claim date)? = ", abroadForMoreThan52Weeks.anyTrips)
+        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 156 weeks before your claim date)? = ", if (trips.fiftyTwoWeeksTrips.size > 0) "yes" else "no") ++
       textLine(s"Have you been out of Great Britain with the person you care for, for more than four weeks at a time, " +
-        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 3 years before your claim date)? = ", abroadForMoreThan4Weeks.anyTrips)
+        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 3 years before your claim date)? = ",  if (trips.fourWeeksTrips.size > 0) "yes" else "no")
   }
 
   def fiftyTwoWeeksTrips(claim: Claim) = {
@@ -136,10 +133,14 @@ object EvidenceList {
 
   def selfEmployment(claim: Claim) = {
     val yourAccounts = claim.questionGroup[SelfEmploymentYourAccounts].getOrElse(SelfEmploymentYourAccounts())
+    val childCare = claim.questionGroup[ChildcareExpensesWhileAtWork].getOrElse(ChildcareExpensesWhileAtWork())
+    val expensesWhileAtWork = claim.questionGroup[ExpensesWhileAtWork].getOrElse(ExpensesWhileAtWork())
 
     textSeparatorLine("Self Employment") ++
       textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
-      textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened)
+      textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened) ++
+      textLine("How often [[past=did you]] [[present=do you]] childcare expenses = ", childCare.howOftenPayChildCare) ++
+      textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = " + expensesWhileAtWork.howMuchYouPay)
   }
 
   def otherMoney(claim: Claim) = {
@@ -149,7 +150,10 @@ object EvidenceList {
     val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
 
     textSeparatorLine("Other Money") ++
-      textLine("Have you [or your partner/spouse] claimed or received any other benefits since the date you want to claim? = ", aboutOtherMoney.yourBenefits.answer) ++
+      textLine("Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim? = ", aboutOtherMoney.yourBenefits.answer) ++
+      textLine("Have you received any payments for the person you care for or any other person since your claim date? = ", aboutOtherMoney.anyPaymentsSinceClaimDate.answer) ++
+      textLine("Details about other money: Who pays you? = ", aboutOtherMoney.whoPaysYou) ++
+      textLine("Details about other money: How much? = ", aboutOtherMoney.howMuch) ++
       textLine("Statutory Sick Pay: How much? = ", statutorySickPay.howMuch) ++
       textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.optionToString(statutorySickPay.howOften)) ++
       textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
@@ -160,12 +164,11 @@ object EvidenceList {
         "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
   }
 
-
-
   def consentAndDeclaration(claim: Claim) = {
     val consent = claim.questionGroup[Consent].getOrElse(Consent())
     val disclaimer = claim.questionGroup[Disclaimer].getOrElse(Disclaimer())
     val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
+    val additionalInfo = claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())
 
     textSeparatorLine("Consent and Declaration") ++
       textLine("Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? = ", consent.informationFromEmployer.answer) ++
@@ -174,7 +177,8 @@ object EvidenceList {
       textLine("Please tell us why = ", consent.informationFromPerson.text) ++
       textLine("Disclaimer text and tick box = ", booleanStringToYesNo(disclaimer.read)) ++
       textLine("Declaration tick box = ", booleanStringToYesNo(declaration.read)) ++
-      textLine("Someone else tick box = ", booleanStringToYesNo(stringify(declaration.someoneElse)))
+      textLine("Someone else tick box = ", booleanStringToYesNo(stringify(declaration.someoneElse))) ++
+      textLine("Do you live in Wales and would like to receive future communications in Welsh? = ", booleanStringToYesNo(additionalInfo.welshCommunication))
   }
 
   def textSeparatorLine(title: String) = {

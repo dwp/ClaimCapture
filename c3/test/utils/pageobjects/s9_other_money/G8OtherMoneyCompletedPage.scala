@@ -1,9 +1,9 @@
 package utils.pageobjects.s9_other_money
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G8OtherMoneyCompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G8OtherMoneyCompletedPage.url, G8OtherMoneyCompletedPage.title, previousPage)
+final class G8OtherMoneyCompletedPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G8OtherMoneyCompletedPage.url, G8OtherMoneyCompletedPage.title, previousPage)
 
 object G8OtherMoneyCompletedPage {
   val title = "Completion - About Other Money".toLowerCase

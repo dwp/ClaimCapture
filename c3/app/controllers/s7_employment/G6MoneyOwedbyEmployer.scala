@@ -13,7 +13,7 @@ import Employment._
 object G6MoneyOwedbyEmployer extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "howMuchOwed" -> optional(text),
+    "howMuchOwed" -> optional(text verifying(validDecimalNumber)),
     "owedPeriod" -> optional(periodFromTo),
     "owedFor" -> optional(text),
     "shouldBeenPaidBy" -> optional(dayMonthYear),

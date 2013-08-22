@@ -25,10 +25,9 @@ import play.api.Play.current
  * play -Dconfig.file=conf/application.test.conf run
  */
 object Global extends WithFilters(RefererCheck) {
-  private lazy val injector = Play.isProd match {
-    case true => Guice.createInjector(new ProdModule)
-    case false => Guice.createInjector(new DevModule)
-  }
+  lazy val injector = Guice.createInjector(module)
+
+  def module = if (Play.isProd) ProdModule else DevModule
 
   override def onStart(app: Application) {
     MDC.put("httpPort", Option(System.getProperty("http.port")).getOrElse("Value not set"))
@@ -43,18 +42,10 @@ object Global extends WithFilters(RefererCheck) {
     super.onLoadConfig(environmentOverridingConfiguration, path, classloader, mode)
   }
 
-  // 404 - page not found error     http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
-  override def onHandlerNotFound(request: RequestHeader): Result = {
-    NotFound(views.html.errors.onHandlerNotFound(request))
-  }
+  // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
+  override def onHandlerNotFound(request: RequestHeader): Result = NotFound(views.html.errors.onHandlerNotFound(request))
 
-  override def getControllerInstance[A](controllerClass: Class[A]): A = {
-    injector.getInstance(controllerClass)
-  }
-
-  override def onStop(app: Application) {
-    super.onStop(app)
-  }
+  override def getControllerInstance[A](controllerClass: Class[A]): A = injector.getInstance(controllerClass)
 }
 
 object RefererCheck extends Filter {

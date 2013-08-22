@@ -32,8 +32,6 @@ trait SelfEmploymentRouting extends Routing {
     case SelfEmploymentYourAccounts => routes.G2SelfEmploymentYourAccounts.present()
     case SelfEmploymentPensionsAndExpenses => routes.G4SelfEmploymentPensionsAndExpenses.present()
     case ChildcareExpensesWhileAtWork => routes.G5ChildcareExpensesWhileAtWork.present()
-    case ChildcareProvidersContactDetails => routes.G6ChildcareProvidersContactDetails.present()
     case ExpensesWhileAtWork => routes.G7ExpensesWhileAtWork.present()
-    case CareProvidersContactDetails => routes.G8CareProvidersContactDetails.present()
   }
 }

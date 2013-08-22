@@ -7,6 +7,7 @@
 @import models.domain.{MoreAboutYou,PersonYouCareFor}
 @import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
 @import views.html.s8_self_employment.main
+@import app.PensionPaymentFrequency._
 
 @main(Messages("s8.g5") + " - " + Messages("s8.longName"), Some(currentForm), completedQuestionGroups) {
 
@@ -18,9 +19,11 @@
             <legend>Childcare expenses while you are at work</legend>
 
             <ul class="group">
+                @carersInputText(currentForm("whoLooksAfterChildren"))
+
                 @carersShortInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'placeholder -> Messages("poundSign"))
 
-                @carersInputText(currentForm("whoLooksAfterChildren"))
+                @carersSelect(currentForm("howOftenPayChildCare"), Seq("" -> "Please Select",Weekly -> "Weekly", Fortnightly -> "fortnightly",FourWeekly -> "four-weekly", Monthly -> "monthly"), '_label -> Messages ("howOftenPayChildCare", didYouDoYouIfSelfEmployed.toLowerCase))
 
                 @relationshipSelect(currentForm("whatRelationIsToYou"))
 

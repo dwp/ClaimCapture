@@ -5,6 +5,7 @@ import org.specs2.mutable.{Tags, Specification}
 class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
   "Expenses related to the Person you care for while at work - Self Employment Form" should {
     val howMuchYouPay = "123"
+    val howOften = "02"
     val nameOfPerson = "b"
     val whatRelationIsToYou = "c"
     val whatRelationIsTothePersonYouCareFor = "d"
@@ -12,6 +13,7 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
     "map data into case class" in {
       G7ExpensesWhileAtWork.form(models.domain.Claim()).bind(
         Map("howMuchYouPay" -> howMuchYouPay,
+          "howOftenPayExpenses" -> howOften,
           "nameOfPerson" -> nameOfPerson,
           "whatRelationIsToYou" -> whatRelationIsToYou,
           "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor)

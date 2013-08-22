@@ -13,7 +13,9 @@
 }
 
 @renderListItem(currentSectionID: Section.Identifier) = {
-    <li @addClass(currentSectionID)><span>@Messages(currentSectionID.id + ".name")</span></li>
+    @if( claim.isSectionVisible(currentSectionID) ) {
+        <li @addClass(currentSectionID)><span>@Messages(currentSectionID.id + ".name")</span></li>
+    }
 }
 
 @renderEmployment = {

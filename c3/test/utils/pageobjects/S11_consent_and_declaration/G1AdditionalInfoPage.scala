@@ -1,14 +1,14 @@
 package utils.pageobjects.S11_consent_and_declaration
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * Page Object for S10 G1 Additional Information.
  * @author Jorge Migueis
  *         Date: 02/08/2013
  */
-class G1AdditionalInfoPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1AdditionalInfoPage.url, G1AdditionalInfoPage.title, previousPage) {
+class G1AdditionalInfoPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1AdditionalInfoPage.url, G1AdditionalInfoPage.title, previousPage) {
   declareYesNo("#welshCommunication", "ConsentDeclarationCommunicationWelsh")
   declareInput("#anythingElse", "ConsentDeclarationTellUsAnythingElseAboutClaim")
 }
@@ -18,7 +18,7 @@ class G1AdditionalInfoPage (browser: TestBrowser, previousPage: Option[Page] = N
  * It is used by PageFactory object defined in Page.scala
  */
 object G1AdditionalInfoPage {
-  val title = "Additional Information - Consent and Declaration".toLowerCase
+  val title = "Additional information - Consent and Declaration".toLowerCase
 
   val url = "/consent-and-declaration/additional-info"
 

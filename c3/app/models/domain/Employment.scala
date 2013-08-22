@@ -1,7 +1,6 @@
 package models.domain
 
 import models.DayMonthYear
-import controllers.Mappings._
 import models.PaymentFrequency
 import models.MultiLineAddress
 import models.PeriodFromTo
@@ -59,8 +58,6 @@ object Jobs extends QuestionGroup.Identifier {
 case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identifier] = Nil) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
   def employerName = jobDetails(_.employerName)
 
-  def title = jobDetails(_.jobTitle.getOrElse(""))
-
   def update(questionGroup: QuestionGroup with Job.Identifier): Job = {
     val updated = questionGroups map { qg => if (qg.identifier == questionGroup.identifier) questionGroup else qg }
     if (updated.contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
@@ -101,9 +98,8 @@ case class JobDetails(jobID: String = "",
                       finishedThisJob: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
                       hoursPerWeek: Option[String] = None,
-                      jobTitle: Option[String] = None,
                       payrollEmployeeNumber: Option[String] = None) extends QuestionGroup(JobDetails) with Job.Identifier {
-  override val definition = jobTitle.fold(Messages(identifier.id, employerName))(jt => Messages(identifier.id, s"$employerName, $jt"))
+  override val definition = Messages(identifier.id, employerName)
 }
 
 object JobDetails extends QuestionGroup.Identifier {
@@ -121,7 +117,6 @@ object EmployerContactDetails extends QuestionGroup.Identifier {
 
 case class LastWage(jobID: String = "",
                     lastPaidDate: Option[DayMonthYear] = None,
-                    period: Option[PeriodFromTo] = None,
                     grossPay: Option[String] = None,
                     payInclusions: Option[String] = None,
                     sameAmountEachTime: Option[String] = None) extends QuestionGroup(LastWage) with Job.Identifier
@@ -133,18 +128,10 @@ object LastWage extends QuestionGroup.Identifier {
 case class AdditionalWageDetails(jobID:String = "",
                                  oftenGetPaid: Option[PaymentFrequency] = None,
                                  whenGetPaid: Option[String] = None,
-                                 holidaySickPay: Option[String] = None,
-                                 anyOtherMoney: String = "",
-                                 otherMoney: Option[String] = None,
                                  employerOwesYouMoney: String = "") extends QuestionGroup(AdditionalWageDetails) with Job.Identifier
 
 object AdditionalWageDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g5"
-
-  def validateOtherMoney(input: AdditionalWageDetails): Boolean = input.anyOtherMoney match {
-    case `yes` => input.otherMoney.isDefined
-    case `no` => true
-  }
 
   def validateOftenGetPaid(input: AdditionalWageDetails): Boolean = input.oftenGetPaid match {
     case Some(pf) if pf.frequency == "other" => pf.other.isDefined

@@ -1,14 +1,14 @@
 package utils.pageobjects.s5_time_spent_abroad
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * * Page object for s5_time_spent_abroad g5_completed.
  * @author Saqib Kayani
  *         Date: 31/07/2013
  */
-class G5TimeAbroadCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G5TimeAbroadCompletedPage.url, G5TimeAbroadCompletedPage.title, previousPage)
+class G5TimeAbroadCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G5TimeAbroadCompletedPage.url, G5TimeAbroadCompletedPage.title, previousPage)
 
 /**
  * Companion object that integrates factory method.

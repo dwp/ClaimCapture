@@ -3,7 +3,6 @@ package controllers.s10_pay_details
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import play.api.i18n.Messages
 
 class G1HowWePayYouIntegrationSpec extends Specification with Tags {
   "How we pay you" should {
@@ -20,7 +19,7 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
       titleMustEqual("Employment - About you - the carer")
 
       browser.goTo("/pay-details/how-we-pay-you")
-      titleMustEqual("Additional Information - Consent and Declaration")
+      titleMustEqual("Additional information - Consent and Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {

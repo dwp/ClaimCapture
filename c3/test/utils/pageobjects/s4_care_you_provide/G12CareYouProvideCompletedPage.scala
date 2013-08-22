@@ -1,14 +1,14 @@
 package utils.pageobjects.s4_care_you_provide
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * * Page object for s5_time_spent_abroad g11_completed.
  * @author Saqib Kayani
  *         Date: 31/07/2013
  */
-class G12CareYouProvideCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G12CareYouProvideCompletedPage.url, G12CareYouProvideCompletedPage.title, previousPage)
+class G12CareYouProvideCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G12CareYouProvideCompletedPage.url, G12CareYouProvideCompletedPage.title, previousPage)
 
 /**
  * Companion object that integrates factory method.

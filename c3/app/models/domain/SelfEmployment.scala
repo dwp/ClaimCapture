@@ -2,7 +2,7 @@ package models.domain
 
 import models.DayMonthYear
 import models.MultiLineAddress
-import models.yesNo.YesNoWithText
+import models.yesNo.YesNoWith2Text
 
 case object SelfEmployment extends Section.Identifier {
   val id = "s8"
@@ -31,12 +31,13 @@ case object SelfEmploymentPensionsAndExpenses extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g4"
 }
 
-case class SelfEmploymentPensionsAndExpenses(pensionSchemeMapping: YesNoWithText = YesNoWithText(answer="", text=None),
+case class SelfEmploymentPensionsAndExpenses(pensionSchemeMapping: YesNoWith2Text = YesNoWith2Text(),
                                              doYouPayToLookAfterYourChildren: String = "",
                                              didYouPayToLookAfterThePersonYouCaredFor: String = "") extends QuestionGroup(SelfEmploymentPensionsAndExpenses)
 
-case class ChildcareExpensesWhileAtWork(howMuchYouPay: String = "",
-                                        nameOfPerson: String = "",
+case class ChildcareExpensesWhileAtWork(nameOfPerson: String = "",
+                                        howMuchYouPay: String = "",
+                                        howOftenPayChildCare: String = "",
                                         whatRelationIsToYou: String = "",
                                         relationToPartner: Option[String] = None,
                                         whatRelationIsTothePersonYouCareFor: String = "") extends QuestionGroup(ChildcareExpensesWhileAtWork)
@@ -45,26 +46,13 @@ case object ChildcareExpensesWhileAtWork extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g5"
 }
 
-case class ChildcareProvidersContactDetails(address: Option[MultiLineAddress] = None,
-                                            postcode: Option[String] = None) extends QuestionGroup(ChildcareProvidersContactDetails)
-
-case object ChildcareProvidersContactDetails extends QuestionGroup.Identifier {
-  val id = s"${SelfEmployment.id}.g6"
-}
-
-case class ExpensesWhileAtWork(howMuchYouPay: String = "",
-                               nameOfPerson: String = "",
+case class ExpensesWhileAtWork(nameOfPerson: String = "",
+                               howMuchYouPay: String = "",
+                               howOftenPayExpenses: String = "",
                                whatRelationIsToYou: String = "",
                                relationToPartner: Option[String] = None,
                                whatRelationIsTothePersonYouCareFor: String = "") extends QuestionGroup(ExpensesWhileAtWork)
 
 case object ExpensesWhileAtWork extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g7"
-}
-
-case class CareProvidersContactDetails(address: Option[MultiLineAddress] = None,
-                                       postcode: Option[String] = None) extends QuestionGroup(CareProvidersContactDetails)
-
-case object CareProvidersContactDetails extends QuestionGroup.Identifier {
-  val id = s"${SelfEmployment.id}.g8"
 }

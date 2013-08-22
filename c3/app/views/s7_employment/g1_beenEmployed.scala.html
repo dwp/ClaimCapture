@@ -21,7 +21,6 @@
             <thead>
                 <tr>
                     <th>Employer name</th>
-                    <th class="desc">Job title</th>
                     <th>Change</th>
                     <th>Delete</th>
                 </tr>
@@ -32,7 +31,6 @@
                     @for(job <- jobs) {
                         <tr id="@job.jobID" class="@job.jobID">
                             <td>@job.employerName</td>
-                            <td class="desc">@job.title</td>
                             <td><input type="button" class="button row secondary" value="Change"></td>
                             <td><input type="button" class="button row warning" value="Delete"></td>
                         </tr>

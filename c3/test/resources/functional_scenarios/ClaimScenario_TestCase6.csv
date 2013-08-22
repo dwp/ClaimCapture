@@ -14,7 +14,7 @@ About You,Your Details,What is your marital or civil partnership status?,AboutYo
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,No
 About You,Your contact details,Address,AboutYouAddress,6 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
-About You,Your contact details,Daytime phone number,AboutYouDaytimePhoneNumber,01772 888901
+About You,Your contact details,Phone number,AboutYouPhoneNumber,01772 888901
 About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419899
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,Yes
 About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInYheUK,28/09/2012
@@ -23,7 +23,6 @@ About You,About your time outside the UK,Do you plan to go back to that country?
 About You,About your time outside the UK,When do you plan to go back?,AboutYouWhenDoYouPlantoGoBack,28/09/2013
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,20/06/2013
 About You,More about you,Have you had a partner/spouse at any time since your claim date: <ddmmyyyy>?,AboutYouHaveYouHadaPartnerSpouseatAnyTime,No
-About You,More about you,Have you or your partner/spouse claimed or received any other benefits since your claim date:<ddmmyyyy>?,AboutYouHaveYouOrYourPartnerSpouseClaimedorReceivedAnyOtherBenefits,No
 About You,More about you,Have you been on a course of education since your claim date:<ddmmyyyy>? ,AboutYouHaveYouBeenOnACourseOfEducation,No
 About You,More about you,Do you get state Pension?,AboutYouDoYouGetStatePension,No
 About You,Employment,Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)?,AboutYouHaveYouBeenEmployedAtAnyTime_1,Yes
@@ -36,12 +35,7 @@ About Your Partner,Partner/Spouse details,All other surnames or family names the
 About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,
-About Your Partner,Partner/Spouse details,Does your partner/spouse live at the same address as you?,AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou,
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,
-About Your Partner,More about your partner/spouse,"Did your partner join your household, after your claim date <ddmmyyyy>>?",AboutYourPartnerDidYouStartedLivingTogetherAfterClaimDate,
-About Your Partner,More about your partner/spouse,What date did they join?,AboutYourPartnertheDateWhenYouStartedLivingTogether,
-About Your Partner,More about your partner/spouse,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,
-About Your Partner,Date of separation,When did you separate?,AboutYourPartnerwhenDidYouSeparate,
 About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Mr 
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Cared 
@@ -50,39 +44,15 @@ About the care you provide,Details of the person you care for,Surname or family 
 About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,12/10/1934
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,Yes
-About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,
-About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,
-About the care you provide,Contact details of the person you care for,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare,
+About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road&Preston&Lancashire
+About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,PR1 1HB
+About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Father
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,No
-About the care you provide,Relationship and other claims,Has anyone else claimed Carers Allowance for this person before?,AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance,No
-About the care you provide,Details of Previous Carer ,First name,AboutTheCareYouProvideFirstNamePreviousCarer,
-About the care you provide,Details of Previous Carer ,Middle name,AboutTheCareYouProvideMiddleNamePreviousCarer,
-About the care you provide,Details of Previous Carer ,Surname or family name,AboutTheCareYouProvideSurnamePreviousCarer,
-About the care you provide,Details of Previous Carer ,National Insurance (NI) number,AboutTheCareYouProvideNINOPreviousCarer,
-About the care you provide,Details of Previous Carer ,Date of birth,AboutTheCareYouProvideDateofBirthPreviousCarer,
-About the care you provide,Contact details of previous carer,Address,AboutTheCareYouProvideAddressPreviousCarer,
-About the care you provide,Contact details of previous carer,Post code,AboutTheCareYouProvidePostcodePreviousCarer,
-About the care you provide,Contact details of previous carer,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPreviousCarer,
-About the care you provide,Contact details of previous carer,Mobile number,AboutTheCareYouProvideMobileNumberPreviousCarer,
-About the care you provide,Representatives for the person you care for,Do you act for the person you care for?,AboutTheCareYouProvideDoYouActforthePersonYouCareFor,No
-About the care you provide,Representatives for the person you care for,You act as,AboutTheCareYouProvideYouActAs,
-About the care you provide,Representatives for the person you care for,Does someone else act for the person you care for?,AboutTheCareYouProvideDoesSomeoneElseActForThePersonYouCareFor,Yes
-About the care you provide,Representatives for the person you care for,Person acts as,AboutTheCareYouProvidePersonActsAs,Appointee
-About the care you provide,Representatives for the person you care for,Full name,AboutTheCareYouProvideFullNameRepresentativesPersonYouCareFor,Mr John Appointee
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,No
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date: <ddmmyyyy>?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,No
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,
 About the care you provide,More about the care you provide,Has someone paid you to care for this person since your claim date: : <ddmmyyyy>?,AboutTheCareYouProvideHasSomeonePaidYoutoCare,Yes
-About the care you provide,Details of the person/organisation who pays you ,Organisation (optional),AboutTheCareYouProvideOrganisationPaysYou,Carer's UK
-About the care you provide,Details of the person/organisation who pays you ,Title,AboutTheCareYouProvideTitlePersonPaysYou,Mr
-About the care you provide,Details of the person/organisation who pays you ,First name,AboutTheCareYouProvideFirstNamePersonPaysYou,Terry
-About the care you provide,Details of the person/organisation who pays you ,Middle name,AboutTheCareYouProvideMiddleNamePersonPaysYou,
-About the care you provide,Details of the person/organisation who pays you ,Surname or family name,AboutTheCareYouProvideSurnamePersonPaysYou,Henry
-About the care you provide,Details of the person/organisation who pays you ,How much do you get paid a week?,AboutTheCareYouProvideHowMuchDoYouGetPaidAWeek,545.2
-About the care you provide,Details of the person/organisation who pays you ,When did the payments start?,AboutTheCareYouProvideWhenDidThePaymentsStart,21/09/1985
-About the care you provide,Contact details of the person who pays you.,Address ,AboutTheCareYouProvideAddressPersonPaysYou,Carer's UK House&Newcastle&Tyneside
-About the care you provide,Contact details of the person who pays you.,Postcode,AboutTheCareYouProvidePostcodePersonPaysYou,NE24 9UJ
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,No
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_1,
@@ -238,24 +208,18 @@ Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJo
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,Yes
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,10/04/2013
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,45
-Employment,Your Job,Job title,EmploymentJobTitle_1,MOT tester
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,1234567
 Employment,Employers contact details,Address,EmploymentEmployerAddress_1,1223 Yeadon Way&Blackpool&Lancashire
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY4 5TH
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,08/07/2013
-Employment,Your last wage,What period did this cover?  From,EmploymentWhatPeriodDidThisCoverFrom_1,01/06/2013
-Employment,Your last wage,What period did this cover? To,EmploymentWhatPeriodDidThisCoverTo_1,01/07/2013
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,600
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,All amounts due
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_1,No
-Employment,Additional wage details,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_1,4W
-Employment,Additional wage details,Other,EmploymentAddtionalWageOther_1,
-Employment,Additional wage details,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_1,
-Employment,Additional wage details,[[past=Did you]] [[present=Do you]] get holiday pay or sick pay?,EmploymentAdditionalWageDoYouGetHolidayPayorSickPay_1,No
-Employment,Additional wage details,[[past=Did you]] [[present=Do you]] get paid any other money as well as your normal wage?,EmploymentAddtionalWageDoYouGetPaidAnyOtherMoney_1,Yes
-Employment,Additional wage details,Please tell us what other money you received ,EmploymentAdditionalWageOtherMoneyYouReceived_1,Money for this and that
-Employment,Additional wage details,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1,Yes
+Employment,Additional details on your last wage,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_1,4W
+Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOther_1,
+Employment,Additional details on your last wage,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_1,
+Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1,Yes
 Employment,Money owed to you by your employer,How much are you owed?,EmploymentHowMuchAreYouOwed_1,20
 Employment,Money owed to you by your employer,What period is it for? From,EmploymentWhatPeriodIsItForFrom_1,02/04/2013
 Employment,Money owed to you by your employer,What period is it for? To,EmploymentWhatPeriodIsItForTo_1,10/04/2013
@@ -278,13 +242,13 @@ Employment,Childcare expenses while you are at work,How much [[past=did you]] [[
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_1,Childcare UK
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,father
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1,
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,grandFather
+Employment,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,grandFather
 Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider_1,12 Baltimore Close&Lytham St Annes&Lancashire
 Employment,Childcare provider's contact details,Postcode,EmploymentPostcodeChildcareProvider_1,FY8 7TH
 Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_1,
 Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring_1,
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_1,
-Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,
+Employment,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1,
 Employment,Care providers contact Details,Address,EmploymentAddressCareProvider_1,
 Employment,Care providers contact Details,Postcode,EmploymentPostcodeCareProvider_1,
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,AboutYouHaveYouBeenEmployedAtAnyTime_2,no
@@ -294,23 +258,17 @@ Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJo
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_2,
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_2,
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_2,
-Employment,Your Job,Job title,EmploymentJobTitle_2,
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_2,
 Employment,Employers contact details,Address,EmploymentEmployerAddress_2,
 Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_2,
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_2,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_2,
-Employment,Your last wage,What period did this cover?  From,EmploymentWhatPeriodDidThisCoverFrom_2,
-Employment,Your last wage,What period did this cover? To,EmploymentWhatPeriodDidThisCoverTo_2,
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_2,
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_2,
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_2,
 Employment,Additional wage details,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_2,
 Employment,Additional wage details,Other,EmploymentAddtionalWageOther_2,
 Employment,Additional wage details,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_2,
-Employment,Additional wage details,[[past=Did you]] [[present=Do you]] get holiday pay or sick pay?,EmploymentAdditionalWageDoYouGetHolidayPayorSickPay_2,
-Employment,Additional wage details,[[past=Did you]] [[present=Do you]] get paid any other money as well as your normal wage?,EmploymentAddtionalWageDoYouGetPaidAnyOtherMoney_2,
-Employment,Additional wage details,Please tell us what other money you received ,EmploymentAdditionalWageOtherMoneyYouReceived_2,
 Employment,Additional wage details,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_2,
 Employment,Money owed to you by your employer,How much are you owed?,EmploymentHowMuchAreYouOwed_2,
 Employment,Money owed to you by your employer,What period is it for? From,EmploymentWhatPeriodIsItForFrom_2,
@@ -334,13 +292,13 @@ Employment,Childcare expenses while you are at work,How much [[past=did you]] [[
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_2,
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_2,
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_2,
-Employment,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_2,
+Employment,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_2,
 Employment,Childcare provider's contact details,Address,EmploymentAddressChildcareProvider_2,
 Employment,Childcare provider's contact details,Postcode,EmploymentPostcodeChildcareProvider_2,
 Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_2,
 Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring_2,
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_2,
-Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_2,
+Employment,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_2,
 Employment,Care providers contact Details,Address,EmploymentAddressCareProvider_2,
 Employment,Care providers contact Details,Postcode,EmploymentPostcodeCareProvider_2,
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,AboutYouHaveYouBeenEmployedAtAnyTime_3,
@@ -355,33 +313,37 @@ Self Employed,Your accounts,"Are the income, outgoings and profit in these accou
 Self Employed,Your accounts,Please tell us why and when the change happened,SelfEmployedTellUsWhyandWhentheChangeHappened,
 Self Employed,Pensions and Expenses,[Past=Did you] [Present=Do you] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,SelfEmployedDoYouPayTowardsPensionScheme,Yes
 Self Employed,Pensions and Expenses,How much [past=did you] [present=do you] pay?,SelfEmployedHowMuchYouPayTowardsPensionScheme,400
+Self Employed,Pensions and Expenses,How often do you pay into a Pension,SelfEmployedHowoftenYouPayTowardsPensionScheme,02
 Self Employed,Pensions and Expenses,"White at work, [past=did you] [present=do you] pay anyone to look after your children?",SelfEmployedDoYouPayAnyonetoLookAfterYourChild,No
 Self Employed,Pensions and Expenses,Is this the same as the expenses you have told us about during your employed work?,SelfEmployedChildCareIsThistheSameAsDuringYourEmployedWork,
 Self Employed,Pensions and Expenses,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after the person you normally care for?",SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor,No
 Self Employed,Pensions and Expenses,Is this the same as the expenses you have told us about during your employed work?,SelfEmployedCareIsThistheSameAsDuringYourEmployedWork,
 Self Employed,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedChildcareExpensesHowMuchYouPay,
+Self Employed,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] childcare expenses,SelfEmployedChildcareExpensesHowOften,
 Self Employed,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,SelfEmployedChildcareProviderNameOfPerson,
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to you?",SelfEmployedChildcareProviderWhatRelationIsToYou,
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",SelfEmployedChildcareProviderWhatRelationIsToYourPartner,
-Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to the person you care for? ",SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor,
-Self Employed,Childcare provider's contact details,Address,SelfEmployedChildcareProviderAddress,
-Self Employed,Childcare provider's contact details,Postcode,SelfEmployedChildcareProviderPostcode,
+Self Employed,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor,
 Self Employed,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedCareExpensesHowMuchYouPay,
+Self Employed,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for,SelfEmployedCareExpensesHowOften,
 Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",SelfEmployedCareExpensesWhatRelationIsToYou,
-Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,
+Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,
 Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAddress,
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
+Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
+Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,The Man
+Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,Not much
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,Yes
-Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,560
-Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,Monthly
+Other Money,Statutory Sick Pay,Statutory Sick Pay: How much?,OtherMoneySSPHowMuch,560
+Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOften,M
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,DWP
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,Palatine House&Preston
 Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,PR45 6YH
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,No
-Other Money,Other Statutory Pay,How much?,OtherMOneySMPHowMuch,
-Other Money,Other Statutory Pay,How often?,OtherMOneySMPHowOften,
+Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,
+Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,
@@ -398,8 +360,8 @@ How we pay you,International bank account details,Name of account holder,HowWePa
 How we pay you,International bank account details,Full name of bank,HowWePayYouFullNameofBank,
 How we pay you,International bank account details,Bank Identification Code (BIC),HowWePayYouBankIdentificationCode,
 How we pay you,International bank account details,International Bank Account Number (IBAN),HowWePayYouInternationalBankAccountNumber,
-Consent & Declaration,Additional Information,Please tell us anything else you think we should know about your claim.,ConsentDeclarationTellUsAnythingElseAboutClaim,
-Consent & Declaration,Additional Information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,No
+Consent & Declaration,Additional information,Please tell us anything else you think we should know about your claim.,ConsentDeclarationTellUsAnythingElseAboutClaim,
+Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,No
 Consent & Declaration,Consent & Declaration,Do you agree to us getting information from any current or previous employer you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyEmployer,Yes
 Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclarationTellUsWhyEmployer,
 Consent & Declaration,Consent & Declaration,Do you agree to us getting information from any other person or organisation you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyOther,Yes

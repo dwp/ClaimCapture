@@ -1,14 +1,14 @@
 package utils.pageobjects.s2_about_you
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * PageObject for page s2_about_you g4_claimDate.
  * @author Jorge Migueis
  *         Date: 16/07/2013
  */
-final class G4ClaimDatePage(browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G4ClaimDatePage.url, G4ClaimDatePage.title, previousPage) {
+final class G4ClaimDatePage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G4ClaimDatePage.url, G4ClaimDatePage.title, previousPage) {
   declareDate("#dateOfClaim", "AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart")
 }
 
@@ -17,7 +17,7 @@ final class G4ClaimDatePage(browser: TestBrowser, previousPage: Option[Page] = N
  * It is used by PageFactory object defined in Page.scala
  */
 object G4ClaimDatePage {
-  val title = "Your Claim Date - About you - the carer".toLowerCase
+  val title = "Your claim date - About you - the carer".toLowerCase
 
   val url  = "/about-you/claim-date"
 

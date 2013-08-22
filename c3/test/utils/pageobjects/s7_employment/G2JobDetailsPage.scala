@@ -1,15 +1,14 @@
 package utils.pageobjects.s7_employment
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G2JobDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G2JobDetailsPage.url.replace(":jobID", iteration.toString), G2JobDetailsPage.title, previousPage, iteration) {
+final class G2JobDetailsPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G2JobDetailsPage.url.replace(":jobID", iteration.toString), G2JobDetailsPage.title, previousPage, iteration) {
   declareInput("#employerName", "EmploymentEmployerName_" + iteration)
   declareDate("#jobStartDate", "EmploymentWhenDidYouStartYourJob_" + iteration)
   declareYesNo("#finishedThisJob", "EmploymentHaveYouFinishedThisJob_" + iteration)
   declareDate("#lastWorkDate", "EmploymentWhenDidYouLastWork_" + iteration)
   declareInput("#hoursPerWeek", "EmploymentHowManyHoursAWeekYouNormallyWork_" + iteration)
-  declareInput("#jobTitle", "EmploymentJobTitle_" + iteration)
   declareInput("#payrollEmployeeNumber", "EmploymentPayrollOrEmployeeNumber_" + iteration)
 }
 

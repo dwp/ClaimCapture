@@ -34,13 +34,13 @@ class G14JobCompletionIntegrationSpec extends Specification with Tags {
 
       /* The page we wish to go back to */
       browser.goTo(s"/employment/care-provider/$jobID")
-      titleMustEqual("Care provider's contact Details - Employment History")
+      titleMustEqual("Care provider's contact details - Employment History")
 
       browser.submit("button[type='submit']")
       titleMustEqual("Job Completion - Employment History")
 
       browser.click("#backButton")
-      titleMustEqual("Care provider's contact Details - Employment History")
+      titleMustEqual("Care provider's contact details - Employment History")
     }
   } section("integration", models.domain.Employed.id)
 }

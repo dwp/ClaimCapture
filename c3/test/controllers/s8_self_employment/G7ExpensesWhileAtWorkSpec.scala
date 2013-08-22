@@ -12,11 +12,13 @@ import models.view.CachedClaim
 class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
   "Expenses related to the Person you care for while at work - Self Employment - Controller" should {
     val howMuchYouPay = "123"
+    val howOften = "02"
     val nameOfPerson = "b"
     val whatRelationIsToYou = "c"
     val whatRelationIsTothePersonYouCareFor = "d"
 
     val expensesWhileAtWorkInput = Seq("howMuchYouPay" -> howMuchYouPay,
+          "howOftenPayExpenses" -> howOften,
           "nameOfPerson" -> nameOfPerson,
           "whatRelationIsToYou" -> whatRelationIsToYou,
           "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
@@ -45,6 +47,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
       section.questionGroup(ExpensesWhileAtWork) must beLike {
         case Some(f: ExpensesWhileAtWork) => {
           f.howMuchYouPay must equalTo(howMuchYouPay)
+          f.howOftenPayExpenses must equalTo(howOften)
           f.nameOfPerson must equalTo(nameOfPerson)
           f.whatRelationIsToYou must equalTo(whatRelationIsToYou)
           f.whatRelationIsTothePersonYouCareFor must equalTo(whatRelationIsTothePersonYouCareFor)

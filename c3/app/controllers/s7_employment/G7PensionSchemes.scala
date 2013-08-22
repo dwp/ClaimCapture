@@ -9,16 +9,17 @@ import models.domain.PensionSchemes
 import utils.helpers.CarersForm._
 import Employment._
 import utils.helpers.PastPresentLabelHelper._
+import controllers.Mappings._
 import play.api.data.FormError
 
 object G7PensionSchemes extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "payOccupationalPensionScheme" -> nonEmptyText,
-    "howMuchPension" -> optional(text),
+    "howMuchPension" -> optional(text verifying(validDecimalNumber)),
     "howOftenPension" -> optional(text),
     "payPersonalPensionScheme" -> nonEmptyText,
-    "howMuchPersonal" -> optional(text),
+    "howMuchPersonal" -> optional(text verifying(validDecimalNumber)),
     "howOftenPersonal" -> optional(text)
   )(PensionSchemes.apply)(PensionSchemes.unapply))
 
@@ -31,6 +32,8 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
       formWithErrors => {
         val pastPresent = pastPresentLabelForEmployment(claim, didYou, doYou , jobID)
         val formWithErrorsUpdate = formWithErrors
+          .replaceError("howMuchPension", "decimal.invalid", FormError("howMuchPension", "decimal.invalid", Seq(pastPresent.toLowerCase)))
+          .replaceError("howMuchPersonal", "decimal.invalid", FormError("howMuchPersonal", "decimal.invalid", Seq(pastPresent.toLowerCase)))
           .replaceError("payOccupationalPensionScheme", "error.required", FormError("payOccupationalPensionScheme", "error.required", Seq(pastPresent)))
           .replaceError("payPersonalPensionScheme", "error.required", FormError("payPersonalPensionScheme", "error.required", Seq(pastPresent)))
         BadRequest(views.html.s7_employment.g7_pensionSchemes(formWithErrorsUpdate))

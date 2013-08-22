@@ -1,9 +1,9 @@
 package utils.pageobjects.s4_care_you_provide
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G11BreakPage.url, G11BreakPage.title, previousPage, iteration) {
+final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G11BreakPage.url, G11BreakPage.title, previousPage, iteration) {
   declareDate("#start", "AboutTheCareYouProvideBreakStartDate_" + iteration)
   declareDate("#end", "AboutTheCareYouProvideBreakEndDate_" + iteration)
   declareTime("#start", "AboutTheCareYouProvideBreakStartTime_" + iteration)

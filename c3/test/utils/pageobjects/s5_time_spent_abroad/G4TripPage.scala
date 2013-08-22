@@ -1,14 +1,14 @@
 package utils.pageobjects.s5_time_spent_abroad
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * * Page object for s5_time_spent_abroad g4_trip.
  * @author Saqib Kayani
  *         Date: 31/07/2013
  */
-class G4TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G4TripPage.url, G4TripPage.title, previousPage, iteration) {
+class G4TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G4TripPage.url, G4TripPage.title, previousPage, iteration) {
   if (previousPage == None || previousPage.get.isInstanceOf[G2AbroadForMoreThan4WeeksPage]) {
     declareDate("#start", "TimeSpentAbroadDateYouLeftGB_" + iteration)
     declareDate("#end", "TimeSpentAbroadDateYouReturnedToGB_" + iteration)

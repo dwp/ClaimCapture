@@ -1,24 +1,24 @@
 package xml
 
+import scala.language.reflectiveCalls
+import scala.xml.{NodeSeq, Elem}
 import models.domain._
 import xml.XMLHelper._
 import models.{DayMonthYearComparator, DayMonthYear}
-import scala.language.reflectiveCalls
-import scala.xml.{NodeSeq, Elem}
-import scala.Some
+import app.XMLValues._
 
 object Employment {
 
-  def employerXml(jobDetails: JobDetails, employerCD:EmployerContactDetails): Elem = {
+  def employerXml(jobDetails: JobDetails, employerContactDetails: EmployerContactDetails): Elem = {
     <Employer>
       {<DateJobStarted/> +++ jobDetails.jobStartDate}
       {<DateJobEnded/> +++ jobDetails.lastWorkDate}
-      {<JobType/> +++ jobDetails.jobTitle}
+      <JobType>TO MOVE TO QG 8 AND NOT_ASKED</JobType>
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
-      <Address>{postalAddressStructure(employerCD.address,employerCD.postcode)}</Address>
+      <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
       <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
-      {<EmployersPhoneNumber/> +++ employerCD.phoneNumber}
+      {<EmployersPhoneNumber/> +++ employerContactDetails.phoneNumber}
       <EmployersFaxNumber/>
       <WagesDepartment/>
       <DepartmentPhoneFaxNumber/>
@@ -36,19 +36,19 @@ object Employment {
       </GrossPayment>
       {<IncludedInWage/> +++ lastWage.payInclusions}
       <PayPeriod>
-        {fromToStructure (lastWage.period)}
+        <DateFrom></DateFrom>
+        <DateTo></DateTo>
       </PayPeriod>
       {paymentFrequency(additionalWageDetails.oftenGetPaid)}
       {<UsualPayDay/> +- additionalWageDetails.whenGetPaid}
       {<VaryingEarnings/> +!? lastWage.sameAmountEachTime}
-      {<PaidForHolidays/> +++ additionalWageDetails.holidaySickPay}
     </Pay>
   }
 
   def howMuchOwed(s: Option[String]) = {
     val showXml = s.isDefined
 
-    if (showXml){
+    if (showXml) {
       <Payment>
         <Currency>GBP</Currency>
         <Amount>{s.get}</Amount>
@@ -61,7 +61,7 @@ object Employment {
   def moneyOwedXml(moneyOwed: MoneyOwedbyEmployer) = {
     val showXml = moneyOwed.jobID.nonEmpty
 
-    if (showXml){
+    if (showXml) {
         <MoneyOwed>
           {howMuchOwed(moneyOwed.howMuchOwed)}
           <Period>
@@ -100,7 +100,7 @@ object Employment {
     }
   }
 
-  def personalPensionSchemeXml(pensionScheme:PensionSchemes):NodeSeq = {
+  def personalPensionSchemeXml(pensionScheme:PensionSchemes): NodeSeq = {
     val showXml = pensionScheme.payPersonalPensionScheme == "yes"
 
     if (showXml) {
@@ -205,7 +205,7 @@ object Employment {
 
       // The date when he last worked will be the greater date of all the "last work date" dates of all the jobs.
       val dateLastWorked = jobsQG.jobs.map(_.apply(JobDetails) match {
-        case Some(j:JobDetails) => j.lastWorkDate
+        case Some(j: JobDetails) => j.lastWorkDate
         case _ => None
       }).max(DayMonthYearComparator) match {
         case Some(d) => d
@@ -225,8 +225,7 @@ object Employment {
           <JobDetails>
             {employerXml(jobDetails,employerContactDetails)}
             {payXml(jobDetails,lastWage,additionalWageDetails)}
-            <OtherThanMoney>{additionalWageDetails.anyOtherMoney}</OtherThanMoney>
-            <PayOtherThanMoney>{additionalWageDetails.anyOtherMoney}</PayOtherThanMoney>
+            <OtherThanMoney>{NotAsked}</OtherThanMoney>
             <OweMoney>{additionalWageDetails.employerOwesYouMoney}</OweMoney>
             {moneyOwedXml(moneyOwedbyEmployer)}
             {childcareExpensesXml(job)}

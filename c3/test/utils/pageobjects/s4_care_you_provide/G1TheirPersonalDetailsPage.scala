@@ -1,14 +1,14 @@
 package utils.pageobjects.s4_care_you_provide
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * Page object for s4_care_you_provide g1_their_personal_details.
  * @author Saqib Kayani
  *         Date: 25/07/2013
  */
-final class G1TheirPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G1TheirPersonalDetailsPage.url, G1TheirPersonalDetailsPage.title, previousPage) {
+final class G1TheirPersonalDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G1TheirPersonalDetailsPage.url, G1TheirPersonalDetailsPage.title, previousPage) {
   declareSelect("#title", "AboutTheCareYouProvideTitlePersonCareFor")
   declareInput("#firstName","AboutTheCareYouProvideFirstNamePersonCareFor")
   declareInput("#middleName", "AboutTheCareYouProvideMiddleNamePersonCareFor")
@@ -23,7 +23,7 @@ final class G1TheirPersonalDetailsPage (browser: TestBrowser, previousPage: Opti
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G1TheirPersonalDetailsPage {
-  val title = "Details of the Person you care for - About the care you provide".toLowerCase
+  val title = "Details of the person you care for - About the care you provide".toLowerCase
 
   val url  = "/care-you-provide/their-personal-details"
 

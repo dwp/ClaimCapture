@@ -12,12 +12,14 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
 
   "Self Employment - Child care expenses while at work - Controller" should {
     val howMuchYouPay = "123445"
+    val howOften = "02"
     val whoLooksAfterChildren = "myself"
     val whatRelationIsToYou = "son"
     val relationToPartner = "son"
     val whatRelationIsTothePersonYouCareFor = "parent"
 
     val selfEmploymentChildCareExpensesInput = Seq("howMuchYouPay" -> howMuchYouPay,
+      "howOftenPayChildCare" -> howOften,
       "whoLooksAfterChildren" -> whoLooksAfterChildren,
       "whatRelationIsToYou" -> whatRelationIsToYou,
       "relationToPartner" -> relationToPartner,
@@ -47,6 +49,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
       section.questionGroup(ChildcareExpensesWhileAtWork) must beLike {
         case Some(f: ChildcareExpensesWhileAtWork) => {
           f.howMuchYouPay must equalTo(howMuchYouPay)
+          f.howOftenPayChildCare must equalTo(howOften)
           f.nameOfPerson must equalTo(whoLooksAfterChildren)
           f.whatRelationIsToYou must equalTo(whatRelationIsToYou)
           f.relationToPartner must equalTo(Some(relationToPartner))

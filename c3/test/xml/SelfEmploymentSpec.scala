@@ -4,9 +4,8 @@ import org.specs2.mutable.{Tags, Specification}
 import models.domain._
 import controllers.Mappings._
 import models.DayMonthYear
-import models.yesNo.YesNoWithText
+import models.yesNo.{YesNoWith2Text}
 import scala.Some
-import models.MultiLineAddress
 
 class SelfEmploymentSpec extends Specification with Tags {
 
@@ -33,9 +32,7 @@ class SelfEmploymentSpec extends Specification with Tags {
       (selfEmploymentXml \\ "SelfEmployedNow").text mustEqual yes
       val recentJobDetailsXml = selfEmploymentXml \\ "CurrentJobDetails"
       (recentJobDetailsXml \\ "DateStarted").text mustEqual startDate.`yyyy-MM-dd`
-//      (recentJobDetailsXml \\ "DateEnded").text mustEqual endDate.`yyyy-MM-dd`
       (recentJobDetailsXml \\ "NatureOfBusiness").text mustEqual software
-//      (recentJobDetailsXml \\ "TradingCeased").text mustEqual no
     }
 
     "generate xml when data is missing" in {
@@ -45,12 +42,13 @@ class SelfEmploymentSpec extends Specification with Tags {
     }
 
     "generate <PensionScheme> if claimer has paid for pension scheme" in {
-      val pensionScheme = SelfEmploymentPensionsAndExpenses(pensionSchemeMapping=YesNoWithText(yes, Some(amount)))
+      val pensionScheme = SelfEmploymentPensionsAndExpenses(pensionSchemeMapping=YesNoWith2Text(yes, Some(amount), Some("02")))
       val claim = Claim().update(pensionScheme)
 
       val pensionSchemeXml = xml.SelfEmployment.pensionScheme(claim)
 
       (pensionSchemeXml \\ "Payment" \\ "Amount").text shouldEqual amount
+      (pensionSchemeXml \\ "Frequency").text shouldEqual "02"
     }
 
     "skip <PensionScheme> if claimer has NO pension scheme" in {
@@ -84,13 +82,11 @@ class SelfEmploymentSpec extends Specification with Tags {
       val grandSon = "grandSon"
       val postcode = "SE1 6EH"
       val expensesWhileAtWork:ExpensesWhileAtWork = ExpensesWhileAtWork(howMuchYouPay= amount, nameOfPerson="NameOfPerson", whatRelationIsToYou= grandSon, whatRelationIsTothePersonYouCareFor= grandSon)
-      val careProviderContactDetails = CareProvidersContactDetails(postcode = Some(postcode))
-      val claim = Claim().update(pensionScheme).update(expensesWhileAtWork).update(careProviderContactDetails)
+      val claim = Claim().update(pensionScheme).update(expensesWhileAtWork)
 
       val careExpensesXml = xml.SelfEmployment.careExpenses(claim)
 
       (careExpensesXml \\ "CarerName").text shouldEqual expensesWhileAtWork.nameOfPerson
-      (careExpensesXml \\ "CarerAddress" \\ "PostCode").text shouldEqual postcode
       (careExpensesXml \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
       (careExpensesXml \\ "RelationshipCarerToClaimant").text shouldEqual grandSon
       (careExpensesXml \\ "RelationshipCarerToCaree").text shouldEqual grandSon

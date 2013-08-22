@@ -21,7 +21,7 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       titleMustEqual("Your course details - About your education")
     }
 
-    "show the text 'Continue to Education' on the submit button when next section is 'Education'" in new WithBrowser with BrowserMatchers {
+    "show the text 'Continue to education' on the submit button when next section is 'Education'" in new WithBrowser with BrowserMatchers {
       Formulate.normalResidenceAndCurrentLocation(browser)
       titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
 
@@ -34,7 +34,7 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       browser.find("button[type='submit']").getText shouldEqual "Continue to education"
     }
 
-    "show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
+    "show the text 'Continue to employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
       titleMustEqual("Does the person you look after get one of these benefits? - Can you get Carer's Allowance?")
 

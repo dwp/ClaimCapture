@@ -17,7 +17,7 @@ class PartnerSpec extends Specification with Tags {
       val livingTogetherDate = DayMonthYear(Some(1), Some(2), Some(1970))
       val separatedDate = DayMonthYear(Some(4), Some(5), Some(2013))
       val dateOfBirth = DayMonthYear(Some(3), Some(4), Some(1950))
-      val yourPartnerPersonalDetails = YourPartnerPersonalDetails(title="mr", firstName="firstName", middleName=Some("middleName"), surname="surname", otherSurnames=Some("otherNames"), dateOfBirth=dateOfBirth)
+      val yourPartnerPersonalDetails = YourPartnerPersonalDetails(title="mr", firstName="firstName", middleName=Some("middleName"), surname="surname", otherSurnames=Some("otherNames"), dateOfBirth=dateOfBirth, separatedFromPartner="no")
 
       val claim = Claim().update(moreAboutYou).update(yourPartnerPersonalDetails)
 
@@ -31,7 +31,7 @@ class PartnerSpec extends Specification with Tags {
       (xml \\ "Address" \\ "PostCode").text shouldEqual ""
       (xml \\ "RelationshipStatus" \\ "JoinedHouseholdAfterDateOfClaim").text shouldEqual XMLValues.NotAsked
       (xml \\ "RelationshipStatus" \\ "JoinedHouseholdDate").text shouldEqual ""
-      (xml \\ "RelationshipStatus" \\ "SeparatedFromPartner").text shouldEqual XMLValues.NotAsked
+      (xml \\ "RelationshipStatus" \\ "SeparatedFromPartner").text shouldEqual yourPartnerPersonalDetails.separatedFromPartner
       (xml \\ "RelationshipStatus" \\ "SeparationDate").text shouldEqual ""
     }
 

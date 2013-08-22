@@ -47,7 +47,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
         page goToThePage()
         page fillPageWith claim
         val pageWithErrors = page.submitPage()
-        pageWithErrors.listErrors.size mustEqual 5
+        pageWithErrors.listErrors.size mustEqual 6
       }
     }
 
@@ -77,6 +77,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
 
 
       val claim = ClaimScenarioFactory.s9SelfEmploymentChildCareExpenses
+      claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "son"
       page goToThePage()
       page fillPageWith claim
       page submitPage(true)
@@ -108,12 +109,13 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
 
 
       val claim = ClaimScenarioFactory.s9SelfEmploymentChildCareExpenses
+      claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "son"
       page goToThePage()
       page fillPageWith claim
 
       val nextPage = page submitPage()
 
-      nextPage must not(beAnInstanceOf[G7ExpensesWhileAtWorkPage])
+      nextPage must beAnInstanceOf[G7ExpensesWhileAtWorkPage]
     }
   } section("integration", models.domain.SelfEmployment.id)
 }

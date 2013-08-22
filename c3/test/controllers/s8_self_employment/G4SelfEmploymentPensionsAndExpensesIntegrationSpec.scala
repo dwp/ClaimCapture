@@ -2,7 +2,7 @@ package controllers.s8_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s8_self_employment.{G4SelfEmploymentPensionsAndExpensesPage, G6ChildcareProvidersContactDetailsPage, G4SelfEmploymentPensionsAndExpensesPageContext}
+import utils.pageobjects.s8_self_employment.{G4SelfEmploymentPensionsAndExpensesPage, G4SelfEmploymentPensionsAndExpensesPageContext}
 import utils.pageobjects.ClaimScenario
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.{G8AboutYouCompletedPage, G4ClaimDatePageContext}
@@ -48,7 +48,7 @@ class G4SelfEmploymentPensionsAndExpensesIntegrationSpec extends Specification w
 
       val nextPage = page submitPage()
 
-      nextPage must not(beAnInstanceOf[G6ChildcareProvidersContactDetailsPage])
+      nextPage must not(beAnInstanceOf[G4SelfEmploymentPensionsAndExpensesPage])
     }
   } section("integration", models.domain.SelfEmployment.id)
 }

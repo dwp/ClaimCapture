@@ -11,7 +11,7 @@ import org.openqa.selenium.TimeoutException
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Int = 1) extends Object with FormFields with WebSearchActions with WebFillActions {
+abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Int = 1) extends Object with FormFields with WebSearchActions with WebFillActions {
 
   // Cache of the page source
   protected var pageSource = ""
@@ -74,12 +74,10 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
             case DATE_TO => fillDate(cssElem + "_to", theClaim.selectDynamic(claimAttribute))
             case INPUT => fillInput(cssElem, theClaim.selectDynamic(claimAttribute))
             case NINO => fillNino(cssElem, theClaim.selectDynamic(claimAttribute))
-           // case PAYMENT_FREQUENCY => fillPaymentFrequency(cssElem, theClaim.selectDynamic(claimAttribute))
             case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
             case SELECT => fillSelect(cssElem, theClaim.selectDynamic(claimAttribute))
             case SORTCODE => fillSortCode(cssElem, theClaim.selectDynamic(claimAttribute))
             case TIME => fillTime(cssElem, theClaim.selectDynamic(claimAttribute))
-           // case WHEREABOUTS => fillWhereabouts(cssElem, theClaim.selectDynamic(claimAttribute))
             case YESNO => fillYesNo(cssElem, theClaim.selectDynamic(claimAttribute))
           }
       }
@@ -255,8 +253,9 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
     } else "Could not get Page title from browser." //throw new PageObjectException("Could not get title from browser object.")
   }
 
+
   private def createPageWithTitle(title: String, newIterationNumber: Int) = {
-    val newPage = PageFactory buildPageFromTitle(browser, title, Some(this), newIterationNumber)
+    val newPage = pageFactory buildPageFromTitle(browser, title, Some(this), newIterationNumber)
     newPage
   }
 
@@ -277,7 +276,7 @@ abstract case class Page(browser: TestBrowser, url: String, pageTitle: String, p
  * @param browser  webDriver browser
  * @param pageTitle  Title of the unknown page
  */
-final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: Option[Page] = None) extends Page(browser, null, pageTitle, previousPage) {
+final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: Option[Page] = None) extends Page(null, browser, null, pageTitle, previousPage) {
   protected def createNextPage(): Page = this
 
   /**
@@ -285,7 +284,7 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * @param throwException Should the page throw an exception if landed on different page? By default yes.
    * @return Page object presenting the page. It could be different from current if landed on different page and specified no exception to be thrown.
    */
-  override def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = throw new PageObjectException("Cannot go to an unknown page: " + pageTitle)
+  override def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = throw new PageObjectException("Cannot leave an unknown page: " + pageTitle)
 
   /**
    * Throws a PageObjectException.

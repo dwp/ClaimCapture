@@ -19,10 +19,19 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
     "yourBenefits" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo)
     )(YesNo.apply)(YesNo.unapply)
+    
+    val anyPaymentsSinceClaimDateMapping =
+    "anyPaymentsSinceClaimDate" -> mapping(
+      "answer" -> nonEmptyText.verifying(validYesNo)
+    )(YesNo.apply)(YesNo.unapply)
 
   val form = Form(
     mapping(
-      yourBenefitsMapping
+      yourBenefitsMapping,
+      // TODO add the following fields to the XML
+      anyPaymentsSinceClaimDateMapping,
+      "whoPaysYou" -> optional(nonEmptyText(maxLength = Name.maxLength)),
+      "howMuch" -> optional(nonEmptyText(maxLength = Name.maxLength))
     )(AboutOtherMoney.apply)(AboutOtherMoney.unapply))
 
   def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {

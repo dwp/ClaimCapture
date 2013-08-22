@@ -1,14 +1,14 @@
 package utils.pageobjects.s6_education
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 /**
  * TODO write description
  * @author Jorge Migueis
  *         Date: 06/08/2013
  */
-class G3EducationCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(browser, G3EducationCompletedPage.url, G3EducationCompletedPage.title, previousPage) {
+class G3EducationCompletedPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G3EducationCompletedPage.url, G3EducationCompletedPage.title, previousPage) {
 
 }
 

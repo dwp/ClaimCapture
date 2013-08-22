@@ -3,17 +3,19 @@ package controllers.s7_employment
 import scala.language.reflectiveCalls
 import models.view.{Navigable, CachedClaim}
 import play.api.mvc.Controller
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import models.domain._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s7_employment.Employment._
+import utils.helpers.PastPresentLabelHelper._
+import play.api.data.FormError
 
 object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
     "jobID" -> nonEmptyText,
-    "howMuchCostChildcare" -> optional(text),
+    "howMuchCostChildcare" -> optional(text verifying(validDecimalNumber)),
     "whoLooksAfterChildren" -> nonEmptyText,
     "relationToYou" -> nonEmptyText,
     "relationToPartner" -> optional(nonEmptyText),
@@ -41,6 +43,7 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
+          .replaceError("howMuchCostChildcare", "decimal.invalid", FormError("howMuchCostChildcare", "decimal.invalid", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s7_employment.g10_childcareExpenses(formWithErrorsUpdate))
       },

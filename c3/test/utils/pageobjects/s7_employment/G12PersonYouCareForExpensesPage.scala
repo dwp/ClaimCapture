@@ -1,9 +1,9 @@
 package utils.pageobjects.s7_employment
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{PageContext, Page}
+import utils.pageobjects.{ClaimPage,Page, PageContext}
 
-final class G12PersonYouCareForExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends Page(browser, G12PersonYouCareForExpensesPage.url.replace(":jobID", iteration.toString), G12PersonYouCareForExpensesPage.title, previousPage, iteration) {
+final class G12PersonYouCareForExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G12PersonYouCareForExpensesPage.url.replace(":jobID", iteration.toString), G12PersonYouCareForExpensesPage.title, previousPage, iteration) {
   declareInput("#howMuchCostCare", "EmploymentCareExpensesHowMuchYouPayfor_" + iteration)
   declareInput("#whoDoYouPay", "EmploymentNameOfPersonYouPayForCaring_" + iteration)
   declareSelect("#relationToYou", "EmploymentCareExpensesWhatRelationIsToYou_" + iteration)

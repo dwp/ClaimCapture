@@ -89,7 +89,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
         titleMustEqual("Necessary expenses to do your job - Employment History")
 
         goTo(s"/employment/care-provider/$jobID")
-        titleMustEqual("Care provider's contact Details - Employment History")
+        titleMustEqual("Care provider's contact details - Employment History")
 
         next
         titleMustEqual("Job Completion - Employment History")
