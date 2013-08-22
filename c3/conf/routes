@@ -183,9 +183,6 @@ POST    /self-employment/pensions-and-expenses                          controll
 GET     /self-employment/childcare-expenses-while-at-work               controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.present
 POST    /self-employment/childcare-expenses-while-at-work               controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit
 
-GET     /self-employment/childcare-providers-contact-details            controllers.s8_self_employment.G6ChildcareProvidersContactDetails.present
-POST    /self-employment/childcare-providers-contact-details            controllers.s8_self_employment.G6ChildcareProvidersContactDetails.submit
-
 GET     /self-employment/expenses-while-at-work                         controllers.s8_self_employment.G7ExpensesWhileAtWork.present
 POST    /self-employment/expenses-while-at-work                         controllers.s8_self_employment.G7ExpensesWhileAtWork.submit
 

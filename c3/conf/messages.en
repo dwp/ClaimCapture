@@ -438,7 +438,7 @@ natureOfYourBusiness = Nature of business?
 howMuchYouPay = How much {0} pay them?
 nameOfPerson = Name of the person/organisation you pay
 whatRelationIsToYou = What relation, if any, is the person to you?
-whatRelationIsTothePersonYouCareFor = What relation, if any, is the person to the Person you care for?
+whatRelationIsTothePersonYouCareFor = What relation, if any, is the person to the child or children you care for?
 
 #SELF EMPLOYED - Your Details
 error.areAccountsPreparedOnCashFlowBasis = Please tell us if accounts prepared on cash flow basis?
