@@ -124,7 +124,7 @@ object EvidenceList {
     textSeparatorLine("Abroad") ++
       textLine("Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = ", normalResidenceAndCurrentLocation.whereDoYouLive.answer) ++
       textLine("Have you had any more trips out of Great Britain for more than 52 weeks at a time, " +
-        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 156 weeks before your claim date)? = ", abroadForMoreThan52Weeks.anyTrips)
+        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 156 weeks before your claim date)? = ", abroadForMoreThan52Weeks.anyTrips) ++
       textLine(s"Have you been out of Great Britain with the person you care for, for more than four weeks at a time, " +
         s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 3 years before your claim date)? = ", abroadForMoreThan4Weeks.anyTrips)
   }

@@ -115,7 +115,13 @@ class XmlNode(val theNodes: NodeSeq) {
 
         def valuesMatching = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
-          else if (nodeName.startsWith(XmlNode.EvidenceListNode)) value.contains(claimValue.question + "=" + claimValue.value)
+          else if (nodeName.startsWith(XmlNode.EvidenceListNode)) {
+            // Awful code. Need to do something about it! (JMI)
+            if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
+              println("Found Have you had any more trips out of Great Britain")
+              value.matches(".*Have you had any more trips out of Great Britain[^=]*=" + claimValue.value +".*")}
+            else value.contains(claimValue.question + "=" + claimValue.value)
+          }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
           else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
           else value == claimValue.value
