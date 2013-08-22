@@ -1,7 +1,6 @@
 package models.domain
 
 import models.DayMonthYear
-import controllers.Mappings._
 import models.PaymentFrequency
 import models.MultiLineAddress
 import models.PeriodFromTo
@@ -129,18 +128,10 @@ object LastWage extends QuestionGroup.Identifier {
 case class AdditionalWageDetails(jobID:String = "",
                                  oftenGetPaid: Option[PaymentFrequency] = None,
                                  whenGetPaid: Option[String] = None,
-                                 holidaySickPay: Option[String] = None,
-                                 anyOtherMoney: String = "",
-                                 otherMoney: Option[String] = None,
                                  employerOwesYouMoney: String = "") extends QuestionGroup(AdditionalWageDetails) with Job.Identifier
 
 object AdditionalWageDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g5"
-
-  def validateOtherMoney(input: AdditionalWageDetails): Boolean = input.anyOtherMoney match {
-    case `yes` => input.otherMoney.isDefined
-    case `no` => true
-  }
 
   def validateOftenGetPaid(input: AdditionalWageDetails): Boolean = input.oftenGetPaid match {
     case Some(pf) if pf.frequency == "other" => pf.other.isDefined

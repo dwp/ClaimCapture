@@ -11,7 +11,6 @@ import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment.whenSectionVisible
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
-import scala.Some
 
 object G5ChildcareExpensesWhileAtWork extends Controller with SelfEmploymentRouting with CachedClaim {
   def form(implicit claim: Claim) = Form(

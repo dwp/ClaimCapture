@@ -11,7 +11,6 @@ import controllers.Mappings._
 import controllers.s7_employment.Employment._
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
-import scala.Some
 
 object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
