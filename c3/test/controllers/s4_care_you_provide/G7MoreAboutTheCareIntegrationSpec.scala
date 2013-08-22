@@ -16,7 +16,7 @@ class G7MoreAboutTheCareIntegrationSpec extends Specification with Tags {
     "contain errors on invalid submission" in new WithBrowser {
       browser.goTo("/care-you-provide/more-about-the-care")
       browser.submit("button[type='submit']")
-      browser.find("div[class=validation-summary] ol li").size mustEqual 3
+      browser.find("div[class=validation-summary] ol li").size mustEqual 2
     }
 
     "contains errors for optional mandatory data" in new WithBrowser {

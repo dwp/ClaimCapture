@@ -52,7 +52,6 @@ About the care you provide,Relationship and other claims,Does this person get Ar
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Yes
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date: <ddmmyyyy>?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,Yes
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,21/01/2012
-About the care you provide,More about the care you provide,Has someone paid you to care for this person since your claim date: : <ddmmyyyy>?,AboutTheCareYouProvideHasSomeonePaidYoutoCare,No
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_1,No
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_1,
@@ -260,8 +259,6 @@ Employment,Expenses related to the person you care for while at work,How much [[
 Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring,
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou,
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor,
-Employment,Care providers contact Details,Address,EmploymentAddressCareProvider,
-Employment,Care providers contact Details,Postcode,EmploymentPostcodeCareProvider,
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouHadAnotherJobatAnyTimeSinceClaim6Months,
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,
 Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,

@@ -160,9 +160,6 @@ POST    /employment/childcare-provider                                  controll
 GET     /employment/person-you-care-for-expenses/:jobID                 controllers.s7_employment.G12PersonYouCareForExpenses.present(jobID: String)
 POST    /employment/person-you-care-for-expenses                        controllers.s7_employment.G12PersonYouCareForExpenses.submit
 
-GET     /employment/care-provider/:jobID                                controllers.s7_employment.G13CareProvider.present(jobID: String)
-POST    /employment/care-provider                                       controllers.s7_employment.G13CareProvider.submit
-
 GET     /employment/job-completion/:jobID                               controllers.s7_employment.G14JobCompletion.present(jobID: String)
 POST    /employment/job-completion                                      controllers.s7_employment.G14JobCompletion.submit
 

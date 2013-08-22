@@ -88,8 +88,11 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
         next
         titleMustEqual("Necessary expenses to do your job - Employment History")
 
-        goTo(s"/employment/care-provider/$jobID")
-        titleMustEqual("Care provider's contact details - Employment History")
+        goTo(s"/employment/person-you-care-for-expenses/$jobID")
+        titleMustEqual("Expenses related to the person you care for, while you are at work - Employment History")
+        browser.fill("#whoDoYouPay") `with` "someone"
+        browser.click("#relationToPersonYouCare option[value='brother']")
+        browser.click("#relationToYou option[value='sister']")
 
         next
         titleMustEqual("Job Completion - Employment History")

@@ -23,7 +23,7 @@ class CareeSpec extends Specification with Tags {
       val theirPersonalDetails = TheirPersonalDetails(title = "title", firstName = "firstName", middleName = Some("middleName"), surname = "surname", nationalInsuranceNumber = Some(nationalInsuranceNr), dateOfBirth = dateOfBirth)
       val theirContactDetails = TheirContactDetails(address = MultiLineAddress(Some("line1")), postcode = Some("postcode"), phoneNumber = Some("020-12302312"))
       val moreAboutThePerson = MoreAboutThePerson(relationship = "son")
-      val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaring = yes, spent35HoursCaringBeforeClaim = YesNoWithDate(no, Some(claimDate)), hasSomeonePaidYou = yes)
+      val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaring = yes, spent35HoursCaringBeforeClaim = YesNoWithDate(no, Some(claimDate)))
 
       val claim = Claim().update(theirPersonalDetails).update(theirContactDetails).update(moreAboutThePerson).update(moreAboutTheCare)
 
@@ -42,7 +42,6 @@ class CareeSpec extends Specification with Tags {
       (xml \\ "Cared35hours").text shouldEqual yes
       (xml \\ "BreaksSinceClaim").text shouldEqual no
       (xml \\ "Cared35hoursBefore").text shouldEqual moreAboutTheCare.spent35HoursCaringBeforeClaim.answer
-      (xml \\ "PaidForCaring").text shouldEqual moreAboutTheCare.hasSomeonePaidYou
     }
 
     "generate <BreaksSinceClaim> xml with" in {
