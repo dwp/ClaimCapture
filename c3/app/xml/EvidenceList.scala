@@ -122,7 +122,7 @@ object EvidenceList {
 //    val abroadForMoreThan4Weeks = claim.questionGroup[AbroadForMoreThan4Weeks].getOrElse(AbroadForMoreThan4Weeks())
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
 
-    textSeparatorLine("Abroad") ++
+    textSeparatorLine("Time abroad") ++
       textLine("Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = ", normalResidenceAndCurrentLocation.whereDoYouLive.answer) ++
       textLine("Have you had any more trips out of Great Britain for more than 52 weeks at a time, " +
         s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 156 weeks before your claim date)? = ", if (trips.fiftyTwoWeeksTrips.size > 0) "yes" else "no") ++

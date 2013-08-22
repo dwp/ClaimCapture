@@ -9,7 +9,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
   "Their Contact Details" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/care-you-provide/their-contact-details")
-      titleMustEqual("Contact details of the Person you care for - About the care you provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
     }
 
     "contain errors on empty submission" in new WithBrowser with BrowserMatchers {
@@ -28,7 +28,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
     "be prepopulated if they live at same address" in new WithBrowser with BrowserMatchers {
       Formulate.yourContactDetails(browser)
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the Person you care for - About the care you provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
       browser.find("#address_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
@@ -36,14 +36,14 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
     "be blank if they live at different address" in new WithBrowser with BrowserMatchers {
       Formulate.yourContactDetails(browser)
       Formulate.theirPersonalDetailsNotLiveAtSameAddress(browser)
-      titleMustEqual("Contact details of the Person you care for - About the care you provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
       browser.find("#address_lineOne").getValue mustEqual ""
       browser.find("#postcode").getValue mustEqual ""
     }
 
     "be blank if they live at same address but did not enter one" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the Person you care for - About the care you provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       browser.find("#address_lineOne").getValue mustEqual ""
       browser.find("#postcode").getValue mustEqual ""
@@ -51,11 +51,11 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
 
     "navigate back to Their Personal Details" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the Person you care for - About the care you provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       browser.goTo("/care-you-provide/their-contact-details")
       browser.click("#backButton")
-      titleMustEqual("Details of the Person you care for - About the care you provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
     }
 
     "navigate to next page on valid submission" in new WithBrowser with BrowserMatchers {

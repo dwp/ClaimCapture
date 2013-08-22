@@ -7,7 +7,7 @@ import models.domain.Claiming
 import models.view.CachedClaim
 
 class G1AdditionalInformationSpec extends Specification with Tags {
-  "Additional Information" should {
+  "Additional information" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 

@@ -15,7 +15,7 @@ class G2BankBuildingSocietyDetailsIntegrationSpec extends Specification with Tag
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
       browser.goTo("/pay-details/bank-building-society-details")
-      titleMustEqual("Additional Information - Consent and Declaration")
+      titleMustEqual("Additional information - Consent and Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {

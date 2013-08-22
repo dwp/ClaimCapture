@@ -32,9 +32,9 @@
                     'display -> currentForm("doYouPayToPensionScheme.answer").value.getOrElse("no")
                 )
 
-                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> Messages ("doYouPayToLookAfterYourChildren", didYouDoYouIfSelfEmployed))
+                @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> Messages ("doYouPayToLookAfterYourChildren", didYouDoYouIfSelfEmployed.toLowerCase))
 
-                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> Messages ("didYouPayToLookAfterThePersonYouCaredFor", didYouDoYouIfSelfEmployed))
+                @yesNoRadioGroup(currentForm("didYouPayToLookAfterThePersonYouCaredFor"), '_label -> Messages ("didYouPayToLookAfterThePersonYouCaredFor", didYouDoYouIfSelfEmployed.toLowerCase))
 
             </ul>
         </fieldset>

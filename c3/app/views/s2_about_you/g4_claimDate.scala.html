@@ -7,14 +7,14 @@
 @import views.html.helper.dates._
 @import views.html.s2_about_you.main
 
-@main("Your Claim Date" + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
+@main("Your claim date" + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
     @errorsSummary(claimDateForm)
     
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = controllers.s2_about_you.routes.G4ClaimDate.submit) {
         <fieldset class="form-elements">
-            <legend>Your Claim Date</legend>
+            <legend>Your claim date</legend>
 
             <ul class="group">
                 @inputDayMonthYear(claimDateForm("dateOfClaim"), 'helperBelow -> Messages("dateOfBirth.helper"))

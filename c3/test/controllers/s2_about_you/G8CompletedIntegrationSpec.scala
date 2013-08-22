@@ -19,9 +19,9 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
       Formulate.employment(browser)
       titleMustEqual("Completion - About you - the carer")
       
-      browser.find("#submit").getText mustEqual "Continue to Partner/Spouse"
+      browser.find("#submit").getText mustEqual "Continue to partner/spouse"
       browser.submit("button[type='submit']")
-      titleMustEqual("Partner/Spouse Details - About your partner/spouse")
+      titleMustEqual("Partner/Spouse details - About your partner/spouse")
     }
     
     """navigate to "Care You Provide" when next section is "Care You Provide"""" in new WithBrowser with BrowserMatchers {
@@ -34,7 +34,7 @@ class G8CompletedIntegrationSpec extends Specification with Tags {
 
       browser.find("#submit").getText mustEqual "Continue to Care you provide"
       browser.submit("button[type='submit']")
-      titleMustEqual("Details of the Person you care for - About the care you provide")
+      titleMustEqual("Details of the person you care for - About the care you provide")
     }
   } section("integration", models.domain.AboutYou.id)
 }

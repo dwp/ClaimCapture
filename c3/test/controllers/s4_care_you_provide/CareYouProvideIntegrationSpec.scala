@@ -9,7 +9,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
   "Care you provide" should {
     """be presented""" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the Person you care for - About the care you provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       browser.goTo("/care-you-provide/completed")
       titleMustEqual("Completion - About the care you provide")
@@ -20,7 +20,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       titleMustEqual("More about you - About you - the carer")
 
       Formulate.theirPersonalDetails(browser)
-      titleMustEqual("Contact details of the Person you care for - About the care you provide")
+      titleMustEqual("Contact details of the person you care for - About the care you provide")
 
       Formulate.theirContactDetails(browser)
       titleMustEqual("Relationship and other claims - About the care you provide")
@@ -34,7 +34,7 @@ class CareYouProvideIntegrationSpec extends Specification with Tags {
       browser.goTo("/care-you-provide/completed")
       titleMustEqual("Completion - About the care you provide")
 
-      browser.find("button[type='submit']").getText shouldEqual "Continue to abroad"
+      browser.find("button[type='submit']").getText shouldEqual "Continue to time abroad"
 
       browser.submit("button[type='submit']")
       titleMustEqual("Your normal residence and current location - Time Spent Abroad")

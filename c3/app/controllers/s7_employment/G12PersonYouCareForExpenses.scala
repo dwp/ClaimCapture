@@ -15,7 +15,7 @@ import play.api.data.FormError
 object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "howMuchCostCare" -> optional(text),
+    "howMuchCostCare" -> optional(text verifying(validDecimalNumber)),
     "whoDoYouPay" -> nonEmptyText,
     "relationToYou" -> nonEmptyText,
     "relationToPersonYouCare" -> nonEmptyText
@@ -34,6 +34,7 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
+          .replaceError("howMuchCostCare", "decimal.invalid", FormError("howMuchCostCare", "decimal.invalid", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
           .replaceError("whoDoYouPay", "error.required", FormError("whoDoYouPay", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , jobID))))
         BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrorsUpdate))
       },

@@ -6,15 +6,15 @@ import controllers.Formulate
 import controllers.BrowserMatchers
 
 class G1AdditionalInformationIntegrationSpec extends Specification with Tags {
-  "Additional Information" should {
+  "Additional information" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/consent-and-declaration/additional-info")
-      titleMustEqual("Additional Information - Consent and Declaration")
+      titleMustEqual("Additional information - Consent and Declaration")
     }
 
     "contain errors on invalid submission" in new WithBrowser with BrowserMatchers {
       browser.goTo("/consent-and-declaration/additional-info")
-      titleMustEqual("Additional Information - Consent and Declaration")
+      titleMustEqual("Additional information - Consent and Declaration")
       browser.submit("button[type='submit']")
 
       findMustEqualSize("div[class=validation-summary] ol li", 1)

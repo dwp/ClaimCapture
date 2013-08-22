@@ -18,7 +18,7 @@ class G3CompletedIntegrationSpec extends Specification with Tags {
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
       browser.goTo("/pay-details/completed")
-      titleMustEqual("Additional Information - Consent and Declaration")
+      titleMustEqual("Additional information - Consent and Declaration")
     }
 
     "contain the completed forms" in new WithBrowser with G1HowWePayYouPageContext {

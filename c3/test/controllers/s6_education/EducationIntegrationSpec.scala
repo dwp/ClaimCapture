@@ -34,14 +34,14 @@ class EducationIntegrationSpec extends Specification with Tags {
       pending("Skipped till show/hide employment logic is implemented")
     }
 
-    "show the text 'Continue to Employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
+    "show the text 'Continue to employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.employment(browser)
       Formulate.yourCourseDetails(browser)
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
       titleMustEqual("Completion - About your education")
 
-      browser.find("button[type='submit']").getText mustEqual "Continue to Employment"
+      browser.find("button[type='submit']").getText mustEqual "Continue to employment"
       browser.submit("button[type='submit']")
       titleMustEqual("Your job - Employment History")
     }
