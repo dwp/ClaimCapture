@@ -30,7 +30,7 @@ object Partner {
         <RelationshipStatus>
           <JoinedHouseholdAfterDateOfClaim>{XMLValues.NotAsked}</JoinedHouseholdAfterDateOfClaim>
           <JoinedHouseholdDate></JoinedHouseholdDate>
-          <SeparatedFromPartner>{XMLValues.NotAsked}</SeparatedFromPartner>
+          <SeparatedFromPartner>{yourPartnerPersonalDetails.separatedFromPartner}</SeparatedFromPartner>
           <SeparationDate></SeparationDate>
         </RelationshipStatus>
       </Partner>

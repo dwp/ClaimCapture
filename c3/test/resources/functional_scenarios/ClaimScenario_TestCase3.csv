@@ -365,17 +365,17 @@ Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAdd
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,PR5 6YH
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
-Other Money,Details about other money,Who pays you?,OtherMoneyWhoPaysYou,The Man
-Other Money,Details about other money,How much?,OtherMoneyHowMuch,Not much
+Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,The Man
+Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,Not much
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
-Other Money,Statutory Sick Pay,How much?,OtherMoneySSPHowMuch,
-Other Money,Statutory Sick Pay,How often?,OtherMoneySSPHowOften,
+Other Money,Statutory Sick Pay,Statutory Sick Pay: How much?,OtherMoneySSPHowMuch,
+Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOften,
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,
 Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,Yes
-Other Money,Other Statutory Pay,How much?,OtherMOneySMPHowMuch,145
-Other Money,Other Statutory Pay,How often?,OtherMOneySMPHowOften,m
+Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,145
+Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,m
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,Greggs Bakers
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,1012 Preston  Road&Preston&Lancashure
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,PR45 6YH
