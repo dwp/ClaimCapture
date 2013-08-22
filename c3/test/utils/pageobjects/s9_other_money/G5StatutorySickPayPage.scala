@@ -6,7 +6,8 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
 final class G5StatutorySickPayPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G5StatutorySickPayPage.url, G5StatutorySickPayPage.title, previousPage) {
   declareYesNo("#haveYouHadAnyStatutorySickPay", "OtherMoneyHaveYouSSPSinceClaim")
   declareInput("#howMuch", "OtherMoneySSPHowMuch")
-  declareInput("#howOften_frequency", "OtherMoneySSPHowOften")
+  declareSelect("#howOften_frequency", "OtherMoneySSPHowOften")
+  declareInput("#howOften_other", "OtherMoneySSPHowOftenOther")
   declareInput("#employersName", "OtherMoneySSPEmployerName")
   declareAddress("#employersAddress", "OtherMoneySSPEmployerAddress")
   declareInput("#employersPostcode", "OtherMoneyEmployerPostcode")
