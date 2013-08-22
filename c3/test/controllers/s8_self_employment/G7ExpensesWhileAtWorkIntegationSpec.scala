@@ -66,10 +66,9 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
     }
     
     "navigate back to previous page" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext {
-      skipped("One for Jorge")
-
-      val claim = ClaimScenarioFactory.s9SelfEmployment
-
+      skipped("One for Leon")
+      page goToThePage(waitForPage = true)
+      val claim = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val g7 = page runClaimWith(claim, G7ExpensesWhileAtWorkPage.title)
 
       g7.goBack() must beAnInstanceOf[G5ChildcareExpensesWhileAtWorkPage]
