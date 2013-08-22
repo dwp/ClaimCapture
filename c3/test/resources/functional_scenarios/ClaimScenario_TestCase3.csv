@@ -332,6 +332,7 @@ Self Employed,Childcare expenses while you are at work,"What relation, if any, i
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",SelfEmployedChildcareProviderWhatRelationIsToYourPartner,
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor,aunt
 Self Employed,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedCareExpensesHowMuchYouPay,450
+Self Employed,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for,SelfEmployedCareExpensesHowOften,02
 Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,Mrs Terry Smith
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",SelfEmployedCareExpensesWhatRelationIsToYou,aunt
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,aunt

@@ -53,8 +53,9 @@ case object ChildcareProvidersContactDetails extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g6"
 }
 
-case class ExpensesWhileAtWork(howMuchYouPay: String = "",
-                               nameOfPerson: String = "",
+case class ExpensesWhileAtWork(nameOfPerson: String = "",
+                               howMuchYouPay: String = "",
+                               howOftenPayExpenses: String = "",
                                whatRelationIsToYou: String = "",
                                relationToPartner: Option[String] = None,
                                whatRelationIsTothePersonYouCareFor: String = "") extends QuestionGroup(ExpensesWhileAtWork)

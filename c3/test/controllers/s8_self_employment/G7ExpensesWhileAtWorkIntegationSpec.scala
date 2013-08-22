@@ -47,7 +47,7 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       g7.listCompletedForms.size mustEqual 2
     }
 
-    " contain errors on invalid submission missing mandatory field" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
+    "contain errors on invalid submission missing mandatory field" in new WithBrowser with G7ExpensesWhileAtWorkPageContext {
       val claim = new ClaimScenario
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
@@ -61,14 +61,14 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
       page goToThePage (waitForPage = true, waitDuration = 1000)
       page fillPageWith claim
       val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 1000)
-      pageWithErrors.listErrors.size mustEqual 5
+      pageWithErrors.listErrors.size mustEqual 6
       pageWithErrors.listErrors(0).contains("nameOfPerson")
     }
     
     "navigate back to previous page" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext {
-      skipped("One for Jorge")
+      val claim = ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
 
-      val claim = ClaimScenarioFactory.s9SelfEmployment
+      page goToThePage()
 
       val g7 = page runClaimWith(claim, G7ExpensesWhileAtWorkPage.title)
 

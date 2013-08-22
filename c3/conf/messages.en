@@ -473,3 +473,6 @@ didYouPayToLookAfterThePersonYouCaredFor.isItTheSameExpenseDuringWorkForThePerso
 
 #SELF EMPLOYED - Childcare expenses
 howOftenPayChildCare = How often {0} pay childcare expenses?
+
+#SELF EMPLOYED - Expenses While At Work
+howOftenPayExpenses = How often {0} pay expenses related to the person you care for.
