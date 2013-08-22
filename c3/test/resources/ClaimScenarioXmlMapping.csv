@@ -197,3 +197,5 @@ Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil p
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,DWPCAClaim>EvidenceList
 About the care you provide,More about the care you provide,Has someone paid you to care for this person since your claim date: : <ddmmyyyy>?,AboutTheCareYouProvideHasSomeonePaidYoutoCare,Caree>PaidForCaring
 About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,Caree>DaytimePhoneNumber>Number
+Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,DWPCAClaim>EvidenceList
+Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,DWPCAClaim>EvidenceList
