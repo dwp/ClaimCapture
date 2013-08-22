@@ -172,6 +172,7 @@ object EvidenceList {
     val consent = claim.questionGroup[Consent].getOrElse(Consent())
     val disclaimer = claim.questionGroup[Disclaimer].getOrElse(Disclaimer())
     val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
+    val additionalInfo = claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())
 
     textSeparatorLine("Consent and Declaration") ++
       textLine("Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? = ", consent.informationFromEmployer.answer) ++
@@ -180,7 +181,8 @@ object EvidenceList {
       textLine("Please tell us why = ", consent.informationFromPerson.text) ++
       textLine("Disclaimer text and tick box = ", booleanStringToYesNo(disclaimer.read)) ++
       textLine("Declaration tick box = ", booleanStringToYesNo(declaration.read)) ++
-      textLine("Someone else tick box = ", booleanStringToYesNo(stringify(declaration.someoneElse)))
+      textLine("Someone else tick box = ", booleanStringToYesNo(stringify(declaration.someoneElse))) ++
+      textLine("Do you live in Wales and would like to receive future communications in Welsh? = ", booleanStringToYesNo(additionalInfo.welshCommunication))
   }
 
   def textSeparatorLine(title: String) = {
