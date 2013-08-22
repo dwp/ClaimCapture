@@ -113,7 +113,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
 
       val nextPage = page submitPage()
 
-      nextPage must not(beAnInstanceOf[G7ExpensesWhileAtWorkPage])
+      nextPage must beAnInstanceOf[G7ExpensesWhileAtWorkPage]
     }
   } section("integration", models.domain.SelfEmployment.id)
 }
