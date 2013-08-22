@@ -22,7 +22,7 @@ object Claimant {
       <ExistingNationalInsuranceNumber/>
       <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
       <ConfirmAddress>yes</ConfirmAddress>
-      <HomePhoneNumber>{contactDetails.mobileNumber.orNull}</HomePhoneNumber>
+      <HomePhoneNumber></HomePhoneNumber>
       <DaytimePhoneNumber>
         <Number>{contactDetails.phoneNumber.orNull}</Number>
         <Qualifier/>
@@ -32,3 +32,6 @@ object Claimant {
     </Claimant>
   }
 }
+
+// Put  how often other in evidence list
+// Remove or NotAsked HomePhoneNumber from Claimant
