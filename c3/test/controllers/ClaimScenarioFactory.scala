@@ -305,17 +305,8 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s9SelfEmploymentAccountantContactDetails = {
-    val claim = s9SelfEmploymentYourAccounts
-    //About self employment
-    claim.SelfEmployedAccountantName = "Hello 123"
-    claim.SelfEmployedAccountantAddress = "lineOne lineTwo lineThree"
-
-    claim
-  }
-
   def s9SelfEmploymentPensionsAndExpenses = {
-    val claim = s9SelfEmploymentAccountantContactDetails
+    val claim = s9SelfEmploymentYourAccounts
 
     claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
     claim.SelfEmployedHowMuchYouPayTowardsPensionScheme = "11.2"

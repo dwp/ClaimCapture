@@ -95,7 +95,6 @@ object ClaimPageFactory extends PageFactory {
       case G4SelfEmploymentPensionsAndExpensesPage.title => G4SelfEmploymentPensionsAndExpensesPage buildPageWith(browser, previousPage)
       case G5ChildcareExpensesWhileAtWorkPage.title => G5ChildcareExpensesWhileAtWorkPage buildPageWith(browser, previousPage)
       case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage buildPageWith(browser, previousPage)
-      case G8CareProvidersContactDetailsPage.title => G8CareProvidersContactDetailsPage buildPageWith(browser, previousPage)
       case s8_self_employment.G9CompletedPage.title => s8_self_employment.G9CompletedPage buildPageWith(browser, previousPage)
       // S10
       case G1AdditionalInfoPage.title => G1AdditionalInfoPage buildPageWith(browser,previousPage)

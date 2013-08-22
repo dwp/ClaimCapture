@@ -6,7 +6,7 @@
 @main("Completion - Self Employment", None, completedQuestionGroups) {
     @form(action = controllers.s8_self_employment.routes.SelfEmployment.completedSubmit) {
         <nav class="form-steps">
-            <a href="@controllers.s8_self_employment.routes.G8CareProvidersContactDetails.present" class="button secondary">Back</a>
+            <a href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Continue to other money</button>
         </nav>
     }
