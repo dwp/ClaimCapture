@@ -117,9 +117,10 @@ class XmlNode(val theNodes: NodeSeq) {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
           else if (nodeName.startsWith(XmlNode.EvidenceListNode)) {
             // Awful code. Need to do something about it! (JMI)
-            if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
-              println("Found Have you had any more trips out of Great Britain")
-              value.matches(".*Have you had any more trips out of Great Britain[^=]*=" + claimValue.value +".*")}
+            if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime"))
+              value.matches(".*haveyouhadanymoretripsoutofgreatbritain[^=]*=" + claimValue.value +".*")
+            else if (claimValue.attribute.contains("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor"))
+              value.matches(".*haveyoubeenoutofgreatbritainwiththepersonyoucarefor[^=]*=" + claimValue.value +".*")
             else value.contains(claimValue.question + "=" + claimValue.value)
           }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
