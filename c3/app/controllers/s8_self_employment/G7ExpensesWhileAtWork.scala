@@ -16,8 +16,9 @@ import scala.Some
 object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with CachedClaim {
   def form(implicit claim: Claim) = Form(
     mapping(
-      "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
       "nameOfPerson" -> nonEmptyText(maxLength = sixty),
+      "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
+      "howOftenPayExpenses" -> nonEmptyText,
       "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
       "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
       "whatRelationIsTothePersonYouCareFor" -> nonEmptyText

@@ -88,7 +88,6 @@ object EvidenceList {
   }
 
   def yourPartner(claim: Claim) = {
-    val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
 
     textSeparatorLine("About Your Partner") ++
@@ -138,11 +137,13 @@ object EvidenceList {
   def selfEmployment(claim: Claim) = {
     val yourAccounts = claim.questionGroup[SelfEmploymentYourAccounts].getOrElse(SelfEmploymentYourAccounts())
     val childCare = claim.questionGroup[ChildcareExpensesWhileAtWork].getOrElse(ChildcareExpensesWhileAtWork())
+    val expensesWhileAtWork = claim.questionGroup[ExpensesWhileAtWork].getOrElse(ExpensesWhileAtWork())
 
     textSeparatorLine("Self Employment") ++
       textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
       textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened) ++
-      textLine("How often [[past=did you]] [[present=do you]] childcare expenses = ", childCare.howOftenPayChildCare)
+      textLine("How often [[past=did you]] [[present=do you]] childcare expenses = ", childCare.howOftenPayChildCare) ++
+      textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = " + expensesWhileAtWork.howMuchYouPay)
   }
 
   def otherMoney(claim: Claim) = {
@@ -172,6 +173,7 @@ object EvidenceList {
     val consent = claim.questionGroup[Consent].getOrElse(Consent())
     val disclaimer = claim.questionGroup[Disclaimer].getOrElse(Disclaimer())
     val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
+    val additionalInfo = claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())
 
     textSeparatorLine("Consent and Declaration") ++
       textLine("Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? = ", consent.informationFromEmployer.answer) ++
@@ -180,7 +182,8 @@ object EvidenceList {
       textLine("Please tell us why = ", consent.informationFromPerson.text) ++
       textLine("Disclaimer text and tick box = ", booleanStringToYesNo(disclaimer.read)) ++
       textLine("Declaration tick box = ", booleanStringToYesNo(declaration.read)) ++
-      textLine("Someone else tick box = ", booleanStringToYesNo(stringify(declaration.someoneElse)))
+      textLine("Someone else tick box = ", booleanStringToYesNo(stringify(declaration.someoneElse))) ++
+      textLine("Do you live in Wales and would like to receive future communications in Welsh? = ", booleanStringToYesNo(additionalInfo.welshCommunication))
   }
 
   def textSeparatorLine(title: String) = {

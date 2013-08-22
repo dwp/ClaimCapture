@@ -4,8 +4,9 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 final class G7ExpensesWhileAtWorkPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G7ExpensesWhileAtWorkPage.url, G7ExpensesWhileAtWorkPage.title, previousPage) {
-  declareInput("#howMuchYouPay", "SelfEmployedCareExpensesHowMuchYouPay")
   declareInput("#nameOfPerson", "SelfEmployedCareExpensesNameOfPerson")
+  declareInput("#howMuchYouPay", "SelfEmployedCareExpensesHowMuchYouPay")
+  declareSelect("#howOftenPayExpenses", "SelfEmployedCareExpensesHowOften")
   declareSelect("#whatRelationIsToYou", "SelfEmployedCareExpensesWhatRelationIsToYou")
   declareSelect("#whatRelationIsTothePersonYouCareFor", "SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor")
 }
