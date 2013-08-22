@@ -150,14 +150,14 @@ object EvidenceList {
     val statutorySickPay = claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay())
     val otherStatutoryPay = claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay())
     val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-println("************************************** statutorySickPay.howOften: " + statutorySickPay.howOften)
+
     textSeparatorLine("Other Money") ++
       textLine("Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim? = ", aboutOtherMoney.yourBenefits.answer) ++
       textLine("Have you received any payments for the person you care for or any other person since your claim date? = ", aboutOtherMoney.anyPaymentsSinceClaimDate.answer) ++
       textLine("Details about other money: Who pays you? = ", aboutOtherMoney.whoPaysYou) ++
       textLine("Details about other money: How much? = ", aboutOtherMoney.howMuch) ++
       textLine("Statutory Sick Pay: How much? = ", statutorySickPay.howMuch) ++
-      textLine(" *********************************** Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.optionToString(statutorySickPay.howOften)) ++
+      textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.optionToString(statutorySickPay.howOften)) ++
       textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
       textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.optionToString(otherStatutoryPay.howOften)) ++
       textLine("Are you, your wife, husband, civil partner or parent you are dependent on, " +
