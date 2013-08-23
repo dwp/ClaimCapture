@@ -10,6 +10,7 @@ import utils.pageobjects._
  */
 final class G2BankBuildingSocietyDetailsPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G2BankBuildingSocietyDetailsPage.url, G2BankBuildingSocietyDetailsPage.title, previousPage) {
   declareInput("#accountHolderName", "HowWePayYouNameOfAccountHolder")
+  declareSelect("#whoseNameIsTheAccountIn", "WhoseNameOrNamesIsTheAccountIn")
   declareInput("#bankFullName", "HowWePayYouFullNameOfBankorBuildingSociety")
   declareSortCode("#sortCode", "HowWePayYouSortCode")
   declareInput("#accountNumber", "HowWePayYouAccountNumber")

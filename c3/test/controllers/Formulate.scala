@@ -253,6 +253,7 @@ object Formulate {
   def bankBuildingSocietyDetails(browser: TestBrowser) = {
     browser.goTo("/pay-details/bank-building-society-details")
     browser.fill("#accountHolderName") `with` "holder name"
+    browser.click("#whoseNameIsTheAccountIn option[value='yourName']")
     browser.fill("#bankFullName") `with` "bank name"
     browser.fill("#sortCode_sort1") `with` "10"
     browser.fill("#sortCode_sort2") `with` "11"

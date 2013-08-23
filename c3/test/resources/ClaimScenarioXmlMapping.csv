@@ -132,6 +132,7 @@ Employment,About other employment history,Have you had another job at any time s
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,Payment>InitialAccountQuestion
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Payment>PaymentFrequency
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Payment>Account>HolderName
+How we pay you,Bank/Building society details,Whose name or names is the account in?,WhoseNameOrNamesIsTheAccountIn,Payment>Account>AccountHolder
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,Payment>Account>BuildingSocietyDetails>Name
 How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,Payment>Account>BuildingSocietyDetails>SortCode
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,Payment>Account>BuildingSocietyDetails>AccountNumber

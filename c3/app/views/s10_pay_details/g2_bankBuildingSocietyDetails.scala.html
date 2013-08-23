@@ -8,6 +8,7 @@
 @import views.html.helper.dates._
 @import controllers.s10_pay_details._
 @import views.html.s10_pay_details.main
+@import app.WhoseNameAccount._
 
 @main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm),completedQuestionGroups) {
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
@@ -18,6 +19,8 @@
 
             <ul class="group">
                 @carersInputText(currentForm("accountHolderName"))
+
+                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> "Please Select", YourName.name -> "Your name", Yourpartner.name -> "Your partner's name", Both.name  -> "Both you and your partner", PersonActingBehalf.name -> "Person acting on your behalf", YouPersonBehalf.name -> "You and the person acting on behalf"))
 
                 @carersInputText(currentForm("bankFullName"))
 
