@@ -41,5 +41,20 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }
+    
+    "reject howOften frequency other but no other text" in {
+      G1AboutOtherMoney.form.bind(
+        Map("yourBenefits.answer" -> yourBenefits,
+          "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
+          "whoPaysYou" -> whoPaysYou,
+          "howMuch" -> howMuch,
+          "howOften.frequency" -> "other",
+          "howOften_other" -> "")).fold(
+          formWithErrors => {
+            formWithErrors.errors.length must equalTo(1)
+            formWithErrors.errors(0).message must equalTo("error.paymentFrequency")
+          },
+          f => "This mapping should not happen." must equalTo("Valid"))
+    }
   } section ("unit", models.domain.OtherMoney.id)
 }
