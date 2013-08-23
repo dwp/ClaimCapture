@@ -18,22 +18,23 @@
             <legend>@Messages("s9.g1")</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your Partner/Spouse" else "", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
-                
-                @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), '_label -> Messages("anyPaymentsSinceClaimDate.answer.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
-
-                @otherDetailPlaceHolder(
-                inputDef = Seq(carersInputText(currentForm("whoPaysYou"), 'maxLength -> Mappings.Name.maxLength, '_label -> Messages("whoPaysYou.label")),
-	                    carersInputText(currentForm("howMuch"), 'maxLength -> Mappings.Name.maxLength, '_label -> Messages("howMuch.label")),
-	                    paymentFrequencySelect(currentForm("howOften"), 
-	                      'id -> "howOften_frequency", 
-	                      'visibleOn -> "yes", 
-	                      'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
-	                      )
-                     ),
-                    'id -> "otherPayWrap",
-                    'display -> currentForm("otherPay").value.getOrElse("no")
-                )
+	            @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your Partner/Spouse" else "", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+	            
+	            @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), '_label -> Messages("anyPaymentsSinceClaimDate.answer.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
+	
+	            @otherDetailPlaceHolder(
+	             inputDef = Seq(
+	               carersInputText(currentForm("whoPaysYou"), 'maxLength -> Mappings.Name.maxLength, '_label -> Messages("whoPaysYou.label")),
+	                  carersShortInputText(currentForm("howMuch"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
+	                  paymentFrequencySelect(currentForm("howOften"), 
+	                    'id -> "howOften_frequency", 
+	                    'visibleOn -> "yes", 
+	                    'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+	                    )
+	               ),
+	               'id -> "otherPayWrap",
+	               'display -> currentForm("anyPaymentsSinceClaimDate.answer").value.getOrElse("no")
+	             )
             </ul>
         </fieldset>
 
