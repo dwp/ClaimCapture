@@ -1,7 +1,7 @@
 package controllers
 
 import utils.pageobjects.ClaimScenario
-import app.{ PaymentFrequency, AccountStatus }
+import app.{WhoseNameAccount, PaymentFrequency, AccountStatus}
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -189,6 +189,7 @@ object ClaimScenarioFactory {
     val claim = new ClaimScenario
 
     claim.HowWePayYouNameOfAccountHolder = "John Smith"
+    claim.WhoseNameOrNamesIsTheAccountIn = WhoseNameAccount.YourName.name
     claim.HowWePayYouFullNameOfBankorBuildingSociety = "Carers Bank"
     claim.HowWePayYouSortCode = "090126"
     claim.HowWePayYouAccountNumber = "12345678"

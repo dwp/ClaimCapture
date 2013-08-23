@@ -56,4 +56,12 @@ package object app {
     val NotAsked = "Not asked"
     val NotKnown = "Not known"
   }
+
+  object WhoseNameAccount {
+    val YourName = 'yourName
+    val Yourpartner = 'partner
+    val Both = 'bothNames
+    val PersonActingBehalf = 'onBehalfOfYou
+    val YouPersonBehalf = 'allNames
+  }
 }

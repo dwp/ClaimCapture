@@ -26,7 +26,7 @@ object Payment {
 
     <Account>
       <DirectPayment>{XMLValues.NotAsked}</DirectPayment>
-      <AccountHolder>{XMLValues.NotAsked}</AccountHolder>
+      <AccountHolder>{bankBuildingSocietyDetails.whoseNameIsTheAccountIn}</AccountHolder>
       <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
       <SecondHolderName/>
       <AccountType>bank</AccountType>
