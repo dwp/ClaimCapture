@@ -3,7 +3,7 @@ package xml
 import models.domain._
 import controllers.Mappings.yes
 import XMLHelper.{ stringify, booleanStringToYesNo }
-import scala.xml.{ NodeBuffer, Elem }
+import scala.xml.{NodeSeq, NodeBuffer, Elem}
 import app.{ XMLValues, StatutoryPaymentFrequency }
 
 object EvidenceList {
@@ -18,6 +18,7 @@ object EvidenceList {
       { breaks(claim) }
       { timeSpentAbroad(claim) }
       { fiftyTwoWeeksTrips(claim) }
+      { employment(claim) }
       { selfEmployment(claim) }
       { otherMoney(claim) }
       { consentAndDeclaration(claim) }
@@ -142,6 +143,28 @@ object EvidenceList {
       textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened) ++
       textLine("How often [[past=did you]] [[present=do you]] childcare expenses = ", childCare.howOftenPayChildCare) ++
       textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = " + expensesWhileAtWork.howMuchYouPay)
+  }
+
+  def employment(claim: Claim) = {
+    claim.questionGroup[Jobs] match {
+      case Some(jobs) =>
+        var nodeSeq = NodeSeq.Empty
+        nodeSeq = nodeSeq ++ textSeparatorLine("Employment")
+
+        for(job <- jobs){
+
+          val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
+          nodeSeq = nodeSeq ++ textLine("Employer:"+jobDetails.employerName)
+          if (jobDetails.p45LeavingDate.isDefined){
+            nodeSeq = nodeSeq ++ textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
+          }
+
+          nodeSeq = nodeSeq ++ textLine("")
+        }
+
+        nodeSeq
+      case None => NodeSeq.Empty
+    }
   }
 
   def otherMoney(claim: Claim) = {

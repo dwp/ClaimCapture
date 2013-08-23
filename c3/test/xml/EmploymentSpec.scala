@@ -16,7 +16,7 @@ class EmploymentSpec extends Specification with Tags {
     "generate xml when data is present" in {
       val employerName = "KFC"
       val hours = "70"
-      val jobDetails = JobDetails("1", employerName, Some(startDate), "no", Some(endDate), Some(hours), None)
+      val jobDetails = JobDetails("1", employerName, Some(startDate), "no", Some(endDate),Some(endDate), Some(hours), None)
       val jobs = Jobs(List(Job("1", jobDetails :: Nil)))
 
       val claim = Claim().update(Employed(beenEmployedSince6MonthsBeforeClaim = yes))

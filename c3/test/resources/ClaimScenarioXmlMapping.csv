@@ -199,3 +199,5 @@ Consent & Declaration,Additional information,Do you live in Wales and would like
 About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,Caree>DaytimePhoneNumber>Number
 Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,DWPCAClaim>EvidenceList
 Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,DWPCAClaim>EvidenceList
+Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45,DWPCAClaim>EvidenceList
+Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentJobTitle,Employment>JobDetails>Employer>JobType

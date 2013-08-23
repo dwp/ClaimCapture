@@ -103,6 +103,7 @@ case class JobDetails(jobID: String = "",
                       jobStartDate: Option[DayMonthYear] = None,
                       finishedThisJob: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
+                      p45LeavingDate:Option[DayMonthYear] = None,
                       hoursPerWeek: Option[String] = None,
                       payrollEmployeeNumber: Option[String] = None) extends QuestionGroup(JobDetails) with Job.Identifier {
   override val definition = Messages(identifier.id, employerName)
