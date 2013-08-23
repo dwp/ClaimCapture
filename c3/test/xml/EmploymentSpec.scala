@@ -81,8 +81,7 @@ class EmploymentSpec extends Specification with Tags {
       val relationToChild = "uncle"
       val job = Job("1", List(
                   AboutExpenses(payAnyoneToLookAfterChildren = "yes"),
-                  ChildcareExpenses(howMuchCostChildcare = Some(amount), whoLooksAfterChildren = childcareCarer, relationToYou = relation, relationToPersonYouCare = relationToChild),
-                  ChildcareProvider(address = Some(MultiLineAddress(Some(address))), postcode = Some(postcode))
+                  ChildcareExpenses(howMuchCostChildcare = Some(amount), whoLooksAfterChildren = childcareCarer, relationToYou = relation, relationToPersonYouCare = relationToChild)
       ))
 
       val childcareXml = Employment.childcareExpensesXml(job)
@@ -91,8 +90,6 @@ class EmploymentSpec extends Specification with Tags {
 
       val expenses = childcareXml \\ "ChildCareExpenses"
       (expenses \\ "CarerName").text shouldEqual childcareCarer
-      (expenses \\ "CarerAddress" \\ "Line").theSeq(0).text shouldEqual address
-      (expenses \\ "CarerAddress" \\ "PostCode").text shouldEqual postcode
       (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
       (expenses \\ "RelationshipCarerToClaimant").text shouldEqual relation
       (expenses \\ "ChildDetails" \\ "RelationToChild").text shouldEqual relationToChild
@@ -114,8 +111,7 @@ class EmploymentSpec extends Specification with Tags {
       val amount = "300"
       val job = Job("1", List(
         AboutExpenses(payAnyoneToLookAfterPerson = "yes"),
-        PersonYouCareForExpenses(howMuchCostCare = Some(amount), whoDoYouPay = carer, relationToYou = relation, relationToPersonYouCare = relation),
-        CareProvider(address = Some(MultiLineAddress(Some(address))), postcode = Some(postcode))
+        PersonYouCareForExpenses(howMuchCostCare = Some(amount), whoDoYouPay = carer, relationToYou = relation, relationToPersonYouCare = relation)
       ))
 
       val careExpensesXml = Employment.careExpensesXml(job)
@@ -124,8 +120,6 @@ class EmploymentSpec extends Specification with Tags {
 
       val expenses = careExpensesXml \\ "CareExpenses"
       (expenses \\ "CarerName").text shouldEqual carer
-      (expenses \\ "CarerAddress" \\ "Line").theSeq(0).text shouldEqual address
-      (expenses \\ "CarerAddress" \\ "PostCode").text shouldEqual postcode
       (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
       (expenses \\ "RelationshipCarerToClaimant").text shouldEqual relation
       (expenses \\ "RelationshipCarerToCaree").text shouldEqual relation

@@ -179,15 +179,6 @@ object ChildcareExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g10"
 }
 
-case class ChildcareProvider(jobID: String = "",
-                             address: Option[MultiLineAddress] = None,
-                             postcode: Option[String] = None) extends QuestionGroup(ChildcareProvider) with Job.Identifier
-
-
-object ChildcareProvider extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g11"
-}
-
 case class PersonYouCareForExpenses(jobID: String = "",
                                     howMuchCostCare: Option[String] = None,
                                     whoDoYouPay: String = "",
@@ -196,14 +187,6 @@ case class PersonYouCareForExpenses(jobID: String = "",
 
 object PersonYouCareForExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g12"
-}
-
-case class CareProvider(jobID: String = "",
-                        address: Option[MultiLineAddress] = None,
-                        postcode: Option[String] = None) extends QuestionGroup(CareProvider) with Job.Identifier
-
-object CareProvider extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g13"
 }
 
 object JobCompletion extends QuestionGroup.Identifier {

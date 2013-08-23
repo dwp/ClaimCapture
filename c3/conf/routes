@@ -151,9 +151,6 @@ POST    /employment/necessary-expenses                                  controll
 GET     /employment/childcare-expenses/:jobID                           controllers.s7_employment.G10ChildcareExpenses.present(jobID: String)
 POST    /employment/childcare-expenses                                  controllers.s7_employment.G10ChildcareExpenses.submit
 
-GET     /employment/childcare-provider/:jobID                           controllers.s7_employment.G11ChildcareProvider.present(jobID: String)
-POST    /employment/childcare-provider                                  controllers.s7_employment.G11ChildcareProvider.submit
-
 GET     /employment/person-you-care-for-expenses/:jobID                 controllers.s7_employment.G12PersonYouCareForExpenses.present(jobID: String)
 POST    /employment/person-you-care-for-expenses                        controllers.s7_employment.G12PersonYouCareForExpenses.submit
 
