@@ -18,6 +18,7 @@ object EvidenceList {
       { breaks(claim) }
       { timeSpentAbroad(claim) }
       { fiftyTwoWeeksTrips(claim) }
+      { selfEmployment(claim) }
       { otherMoney(claim) }
       { consentAndDeclaration(claim) }
     </EvidenceList>
