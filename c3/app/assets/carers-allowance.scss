@@ -848,7 +848,7 @@ main {
 						   margin: 0;
 						   cursor: pointer;
 
-						   .ie & {
+						   .ie8 &, .ie9 & {
 							   left: .7em;
 							   top: 28%;
 						   }
