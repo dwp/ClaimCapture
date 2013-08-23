@@ -289,8 +289,7 @@ main {
    	   }
    	   
    	   
-   	   	   /* section header */
-		   	
+   	   	   /* section header */		   	
 		   h1 {
 			   font-size: 3.6rem;
 			   font-weight: 700;
@@ -309,7 +308,7 @@ main {
 			    }
 		   }
 
-	   /* section header */
+	  
    	   
    	   
    	   
@@ -387,7 +386,7 @@ main {
 		   list-style: none;
 	   }
    }
-   /* section end */
+  
    
    
    
@@ -470,7 +469,7 @@ main {
 		   }
 	   }
    }
-   /* completed questions end */
+   
    
    
    
@@ -512,7 +511,7 @@ main {
 		   }
 	   }
    }
-   /* Validation panel end */
+
    
    
    
@@ -826,7 +825,7 @@ main {
 				   }
 		   }
 		   
-		   /* form list end */
+
 		  
 		   
 		   /* radio list - includes hit areas */
@@ -854,6 +853,7 @@ main {
 						   }
 						   .ie7 & {
 							   top: 25%;
+							   left: .7em;
 						   }
 						   .ie6 & {
 							   position: relative;
@@ -897,7 +897,7 @@ main {
 					   }
 				   }
 			 }
-			 /* radio */
+
 			 
 			 
 			 
@@ -943,7 +943,7 @@ main {
 				   }
 			   }
 		   }	
-		   /* list display - fully inline with label end */
+
 		   
 		   
 		   
@@ -978,7 +978,7 @@ main {
 				   }
 			   }
 		   }	
-		   /* list display - stacked list with label inline end */
+
 		   
 		   
 		   
@@ -1021,7 +1021,7 @@ main {
 				   }
 			   }
 		   }
-		   /* list display - date format layout end */ 
+
 		   
 		   
 		   
@@ -1060,7 +1060,7 @@ main {
 				   left: -9999px;
 			   }
 		   }
-		   /* list display - inline with labels stripped end */
+
 		   
 		   
 		   
@@ -1101,10 +1101,9 @@ main {
 				   }
 			   }
 		   }
-		   /* list display - national insurance number end */
 		   
 	   }
-	   /* form list end */
+
 	   
 	   
 	   
@@ -1307,13 +1306,9 @@ main {
 					}
 				}
 			}
-	   }
-	   /* table styling end */
-	   
-	   
-	   
+	   }   
    }
-   /* form elements end */
+
    
    
    
@@ -1465,7 +1460,7 @@ main {
 		   }
 	   }
    }
-   /* prompt panel end */
+
    
    
    
@@ -1571,7 +1566,8 @@ main {
 				}
 		   }
 	}
-	/* button styling end */
+
+
 	
 	
 	.send-info {
@@ -1618,7 +1614,7 @@ main {
 	
 	
 }
-/* carers wrapper */
+
 
 
 

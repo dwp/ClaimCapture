@@ -287,7 +287,6 @@ finishedThisJob = Have you finished this job?
 lastWorkDate = What date did you last work?
 p45LeavingDate = What is the leaving date on your P45, if you have one?
 hoursPerWeek = How many hours a week do you normally work?
-jobTitle = Job title
 payrollEmployeeNumber = Payroll or Employee number
 
 # EMPLOYER CONTACT DETAILS
@@ -321,6 +320,9 @@ payAnyoneToLookAfterChildren = While at work, {0} pay anyone to look after your 
 payAnyoneToLookAfterPerson = While at work, {0} pay anyone to look after the person you care for?
 
 # NECESSARY EXPENSES
+# What [[past = was]][[present = is]] your job title
+jobTitle.is = What is your job title?
+jobTitle.was = What was your job title?
 whatAreThose = What {0} these things?
 
 # CHILDCARE EXPENSES

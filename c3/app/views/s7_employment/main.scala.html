@@ -5,36 +5,36 @@
 
 @common.govMain(title) {
 	
-  	  <div class="carers-allowance">
-  	  
-            <div class="prototype">
-                <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
-            </div>
+    <div class="carers-allowance">
 
-            @progressBar(Employed)
-            
-            <section>
-
-                <h1>About your employment</h1>
-
-                @if(completedQuestionGroups.size > 0) {
-                    <div class="completed">
-                        <ul>
-                            @for(completedQuestionGroup <- completedQuestionGroups) {
-                                <li>
-                                    <h3>@completedQuestionGroup.definition</h3>
-                                    <a href="@claim.navigation(completedQuestionGroup.identifier)">Change these answers</a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
-
-                @if(currentForm.isDefined) {
-                    @errorsSummary(currentForm.get)
-                }
-
-                @content
-            </section>
+        <div class="prototype">
+            <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
         </div>
+
+        @progressBar(Employed)
+
+        <section>
+
+            <h1>About your employment</h1>
+
+            @if(completedQuestionGroups.size > 0) {
+                <div class="completed">
+                    <ul>
+                        @for(completedQuestionGroup <- completedQuestionGroups) {
+                            <li>
+                                <h3>@completedQuestionGroup.definition</h3>
+                                <a href="@claim.navigation(completedQuestionGroup.identifier)">Change these answers</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            @if(currentForm.isDefined) {
+                @errorsSummary(currentForm.get)
+            }
+
+            @content
+        </section>
+    </div>
 }

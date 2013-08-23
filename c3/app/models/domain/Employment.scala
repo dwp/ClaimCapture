@@ -57,6 +57,8 @@ object Jobs extends QuestionGroup.Identifier {
 case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identifier] = Nil) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
   def employerName = jobDetails(_.employerName)
 
+  def title = necessaryExpenses(_.jobTitle)
+
   def update(questionGroup: QuestionGroup with Job.Identifier): Job = {
     val updated = questionGroups map { qg => if (qg.identifier == questionGroup.identifier) questionGroup else qg }
     if (updated.contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
@@ -64,6 +66,11 @@ case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identi
 
   private def jobDetails(f: JobDetails => String) = questionGroups.find(_.isInstanceOf[JobDetails]) match {
     case Some(j: JobDetails) => f(j)
+    case _ => ""
+  }
+
+  private def necessaryExpenses(f: NecessaryExpenses => String) = questionGroups.find(_.isInstanceOf[NecessaryExpenses]) match {
+    case Some(n: NecessaryExpenses) => f(n)
     case _ => ""
   }
 
@@ -151,17 +158,17 @@ object PensionSchemes extends QuestionGroup.Identifier {
 }
 
 case class AboutExpenses(jobID: String = "",
-                          payForAnythingNecessary: String = "",
-                          payAnyoneToLookAfterChildren: String = "",
-                          payAnyoneToLookAfterPerson: String = "") extends QuestionGroup(AboutExpenses) with Job.Identifier
+                         payForAnythingNecessary: String = "",
+                         payAnyoneToLookAfterChildren: String = "",
+                         payAnyoneToLookAfterPerson: String = "") extends QuestionGroup(AboutExpenses) with Job.Identifier
 
 object AboutExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g8"
 }
 
 case class NecessaryExpenses(jobID: String = "",
+                             jobTitle: String = "",
                              whatAreThose: String = "") extends QuestionGroup(NecessaryExpenses) with Job.Identifier
-
 
 object NecessaryExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g9"
@@ -173,7 +180,6 @@ case class ChildcareExpenses(jobID: String = "",
                              relationToYou: String = "",
                              relationToPartner: Option[String] = None,
                              relationToPersonYouCare: String = "") extends QuestionGroup(ChildcareExpenses) with Job.Identifier
-
 
 object ChildcareExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g10"

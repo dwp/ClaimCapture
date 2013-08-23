@@ -9,11 +9,14 @@ import app.XMLValues._
 
 object Employment {
 
-  def employerXml(jobDetails: JobDetails, employerContactDetails: EmployerContactDetails): Elem = {
+  def employerXml(job: Job): Elem = {
+    val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
+    val employerContactDetails = job.questionGroup[EmployerContactDetails].getOrElse(EmployerContactDetails())
+
     <Employer>
       {<DateJobStarted/> +++ jobDetails.jobStartDate}
       {<DateJobEnded/> +++ jobDetails.lastWorkDate}
-      <JobType>TO MOVE TO QG 8 AND NOT_ASKED</JobType>
+      <JobType>{job.title}</JobType>
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
       <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
@@ -198,12 +201,12 @@ object Employment {
         <DateLastWorked>{dateLastWorked.`yyyy-MM-dd`}</DateLastWorked>
         {for (job <- jobsQG) yield {
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-          val employerContactDetails = job.questionGroup[EmployerContactDetails].getOrElse(EmployerContactDetails())
           val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
           val additionalWageDetails = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails())
+
           <JobDetails>
-            {employerXml(jobDetails,employerContactDetails)}
-            {payXml(jobDetails,lastWage,additionalWageDetails)}
+            {employerXml(job)}
+            {payXml(jobDetails, lastWage, additionalWageDetails)}
             <OtherThanMoney>{NotAsked}</OtherThanMoney>
             <OweMoney>{additionalWageDetails.employerOwesYouMoney}</OweMoney>
             {childcareExpensesXml(job)}

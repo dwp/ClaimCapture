@@ -4,6 +4,7 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 final class G9NecessaryExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G9NecessaryExpensesPage.url.replace(":jobID", iteration.toString), G9NecessaryExpensesPage.title, previousPage, iteration) {
+  declareInput("#jobTitle", "EmploymentJobTitle_" + iteration)
   declareInput("#whatAreThose", "EmploymentWhatAreNecessaryJobExpenses_" + iteration)
 }
 

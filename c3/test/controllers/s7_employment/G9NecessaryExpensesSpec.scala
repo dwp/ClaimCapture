@@ -12,18 +12,10 @@ class G9NecessaryExpensesSpec extends Specification with Tags {
 
   "Necessary expenses" should {
     "present" in new WithApplication with Claiming {
-      val aboutExpenses = mock[AboutExpenses]
-      aboutExpenses.identifier returns AboutExpenses
-      aboutExpenses.jobID returns jobID
-      aboutExpenses.payForAnythingNecessary returns "yes"
+      val aboutExpenses = AboutExpenses(jobID = jobID, payForAnythingNecessary = "yes")
 
-      val job = mock[Job]
-      job.questionGroups returns aboutExpenses :: Nil
-
-      val jobs = mock[Jobs]
-      jobs.identifier returns Jobs
-      jobs.jobs returns job :: Nil
-      jobs.questionGroup(jobID, AboutExpenses) returns Some(aboutExpenses)
+      val job = Job(jobID).update(aboutExpenses)
+      val jobs = Jobs().update(job)
 
       val claim = Claim().update(jobs)
       Cache.set(claimKey, claim)
@@ -43,7 +35,7 @@ class G9NecessaryExpensesSpec extends Specification with Tags {
 
     "accept all mandatory data." in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
-                                 .withFormUrlEncodedBody("jobID" -> jobID, "whatAreThose" -> "blah")
+                                 .withFormUrlEncodedBody("jobID" -> jobID, "jobTitle" -> "Hacker", "whatAreThose" -> "blah")
 
       val result = G9NecessaryExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -57,7 +49,7 @@ class G9NecessaryExpensesSpec extends Specification with Tags {
         "finishedThisJob" -> "yes"))
 
       val result = G9NecessaryExpenses.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
-                                                           .withFormUrlEncodedBody("jobID" -> jobID, "whatAreThose" -> "blah"))
+                                                           .withFormUrlEncodedBody("jobID" -> jobID, "jobTitle" -> "Hacker", "whatAreThose" -> "blah"))
 
       status(result) mustEqual SEE_OTHER
 

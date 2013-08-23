@@ -229,6 +229,7 @@ object ClaimScenarioFactory {
     claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "yes"
     claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1= "yes"
     claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1= "yes"
+    claim.EmploymentJobTitle_1 = "Hacker"
     claim.EmploymentWhatAreNecessaryJobExpenses_1= "Petrol money for driving"
     claim.EmploymentWhyYouNeedTheseExpensesToDoYourJob_1= "So I could deliver items."
     claim.EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1= "160.66"
@@ -250,7 +251,7 @@ object ClaimScenarioFactory {
   }
 
   def s9otherMoney = {
-    val claim = s7Employment
+    val claim = s7Employment()
     // G1 About other money
     claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
     claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
