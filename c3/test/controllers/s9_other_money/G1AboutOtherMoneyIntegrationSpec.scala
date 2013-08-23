@@ -67,7 +67,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
     "navigate to next page on valid submission with other field selected" in new WithBrowser with G1AboutOtherMoneyPageContext {
       val claim = ClaimScenarioFactory.s9otherMoney
       claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
-      claim.OtherMoneyAnyPaymentsSinceClaimDate = "no"
+      claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
       claim.OtherMoneyWhoPaysYou = "The Man"
       claim.OtherMoneyHowMuch = "Not much"
       claim.OtherMoneyHowOften = "other"
