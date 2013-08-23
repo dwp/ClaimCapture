@@ -10,7 +10,7 @@ object Payment {
 
   def xml(claim: Claim) = {
 
-    val howWePayYou = claim.questionGroup[HowWePayYou].get //OrElse(HowWePayYou())
+    val howWePayYou = claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())
 
     val showAccount = howWePayYou.likeToBePaid == AccountStatus.BankBuildingAccount.name
 
