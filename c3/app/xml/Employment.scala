@@ -123,14 +123,13 @@ object Employment {
   def childcareExpensesXml(job: Job) = {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
     val childcareExpenses: ChildcareExpenses = job.questionGroup[ChildcareExpenses].getOrElse(ChildcareExpenses())
-    val childcareProvider: ChildcareProvider = job.questionGroup[ChildcareProvider].getOrElse(ChildcareProvider())
     val showXml = aboutExpenses.payAnyoneToLookAfterChildren == "yes"
 
     if (showXml) {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
       <ChildCareExpenses>
         <CarerName>{childcareExpenses.whoLooksAfterChildren}</CarerName>
-        <CarerAddress>{postalAddressStructure(childcareProvider.address,childcareProvider.postcode)}</CarerAddress>
+        <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
         <ConfirmAddress>yes</ConfirmAddress>
         <WeeklyPayment>
           <Currency>GBP</Currency>
@@ -150,14 +149,14 @@ object Employment {
   def careExpensesXml(job: Job) = {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
     val personYouCareExpenses: PersonYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
-    val careProvider: CareProvider = job.questionGroup[CareProvider].getOrElse(CareProvider())
+
     val showXml = aboutExpenses.payAnyoneToLookAfterPerson == "yes"
 
     if (showXml) {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
       <CareExpenses>
         <CarerName>{personYouCareExpenses.whoDoYouPay}</CarerName>
-        <CarerAddress>{postalAddressStructure(careProvider.address,careProvider.postcode)}</CarerAddress>
+        <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
         <ConfirmAddress>yes</ConfirmAddress>
         <WeeklyPayment>
           <Currency>GBP</Currency>

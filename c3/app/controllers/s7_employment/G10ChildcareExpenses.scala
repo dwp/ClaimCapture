@@ -47,6 +47,6 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s7_employment.g10_childcareExpenses(formWithErrorsUpdate))
       },
-      childcareExpenses => claim.update(jobs.update(childcareExpenses)) -> Redirect(routes.G11ChildcareProvider.present(jobID)))
+      childcareExpenses => claim.update(jobs.update(childcareExpenses)) -> Redirect(routes.G12PersonYouCareForExpenses.present(jobID)))
   }
 }

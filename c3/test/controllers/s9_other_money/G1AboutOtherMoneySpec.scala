@@ -8,6 +8,7 @@ import play.api.cache.Cache
 import models.domain
 import models.domain.Claim
 import models.view.CachedClaim
+import models.PaymentFrequency
 
 class G1AboutOtherMoneySpec extends Specification with Tags {
   "Details about other money - Controller" should {
@@ -15,10 +16,14 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
     val howMuch = "Not much"
+    val howOften_frequency = "Weekly"
+    val howOften_other = "other"
     val formInput = Seq("yourBenefits.answer" -> yourBenefits,
       "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
       "whoPaysYou" -> whoPaysYou,
-      "howMuch" -> howMuch)
+      "howMuch" -> howMuch,
+      "howOften.frequency" -> howOften_frequency,
+      "howOften.other" -> howOften_other)
 
     "present 'Your course details'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
@@ -42,6 +47,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
           f.anyPaymentsSinceClaimDate.answer must equalTo(anyPaymentsSinceClaimDate)
           f.whoPaysYou must equalTo(Some(whoPaysYou))
           f.howMuch must equalTo(Some(howMuch))
+          f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_other))))
         }
       }
     }

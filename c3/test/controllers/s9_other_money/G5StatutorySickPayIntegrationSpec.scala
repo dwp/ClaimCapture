@@ -24,7 +24,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 1
       }
-      
+
       "had sick pay but then invalid postcode" in new WithBrowser with G5StatutorySickPayPageContext {
         val claim = new ClaimScenario
         claim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay = "yes"
@@ -39,7 +39,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
     }
 
     "contain the completed forms" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
+      val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage ()
       page fillPageWith claim
       val moneyPaidPage = page submitPage ()
@@ -48,7 +48,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
+      val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage ()
       page fillPageWith claim
       val nextPage = page.submitPage()
@@ -58,13 +58,28 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G5StatutorySickPayPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
-      page goToThePage()
+      val claim = ClaimScenarioFactory.s9otherMoney
+      page goToThePage ()
       page fillPageWith claim
 
-      val nextPage = page submitPage()
+      val nextPage = page submitPage ()
 
       nextPage must beAnInstanceOf[G6OtherStatutoryPayPage]
     }
-  } section("integration", models.domain.OtherMoney.id)
+
+    "navigate to next page on valid submission with other field selected" in new WithBrowser with G5StatutorySickPayPageContext {
+      val claim = new ClaimScenario
+      claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
+      claim.OtherMoneySSPHowMuch = "123"
+      claim.OtherMoneySSPHowOften = "other"
+      claim.OtherMoneySSPHowOftenOther = "every day and twice on Sundays"
+      claim.OtherMoneySSPEmployerName = "Burger King"
+      page goToThePage ()
+      page fillPageWith claim
+
+      val nextPage = page submitPage ()
+
+      nextPage must beAnInstanceOf[G6OtherStatutoryPayPage]
+    }
+  } section ("integration", models.domain.OtherMoney.id)
 }

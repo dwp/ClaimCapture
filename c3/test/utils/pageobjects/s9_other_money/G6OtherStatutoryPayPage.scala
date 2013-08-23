@@ -7,7 +7,7 @@ final class G6OtherStatutoryPayPage(browser: TestBrowser, previousPage: Option[P
   declareYesNo("#otherPay","OtherMoneyHaveYouSMPSinceClaim")
   declareInput("#howMuch", "OtherMOneySMPHowMuch")
   declareSelect("#howOften_frequency", "OtherMOneySMPHowOften")
-  declareInput("#howOften_other", "OtherMOneySMPHowOften")
+  declareInput("#howOften_other", "OtherMOneySMPHowOftenOther")
   declareInput("#employersName", "OtherMoneySMPEmployerName")
   declareAddress("#employersAddress", "OtherMoneySMPEmployerAddress")
   declareInput("#employersPostcode", "OtherMoneySMPEmployerPostcode")

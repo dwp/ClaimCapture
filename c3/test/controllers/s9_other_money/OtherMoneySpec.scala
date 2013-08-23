@@ -10,7 +10,7 @@ class OtherMoneySpec extends Specification with Tags {
 
   "OtherMoney Completion" should {
     """be presented""" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
+      val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage()
       page fillPageWith claim
       page submitPage()
@@ -19,7 +19,7 @@ class OtherMoneySpec extends Specification with Tags {
      }
 
     "contain the completed forms" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
+      val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage()
       page fillPageWith claim
       page submitPage()
@@ -29,7 +29,7 @@ class OtherMoneySpec extends Specification with Tags {
     }
 
     "navigate back to 'Other Statutory Pay'" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
+      val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage()
       page fillPageWith claim
       val completedPage = page submitPage() goToPage(new G8OtherMoneyCompletedPage(browser))
@@ -39,7 +39,7 @@ class OtherMoneySpec extends Specification with Tags {
     }
 
     "navigate to the Pay Details on clicking continue" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
+      val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage()
       page fillPageWith claim
       val completedPage = page submitPage() goToPage(new G8OtherMoneyCompletedPage(browser))

@@ -2,9 +2,10 @@
 $button-green: #006435;
 $button-green-hover: #004b27;
 
-#wrapper {
+main {
 	background: #fff;
 	border-bottom: 10px solid #f47738;
+	display: block;
 }
 
 .carers-allowance {
@@ -847,7 +848,7 @@ $button-green-hover: #004b27;
 						   margin: 0;
 						   cursor: pointer;
 
-						   .ie & {
+						   .ie8 &, .ie9 & {
 							   left: .7em;
 							   top: 28%;
 						   }

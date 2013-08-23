@@ -1,7 +1,7 @@
 package controllers
 
 import utils.pageobjects.ClaimScenario
-import app.{PaymentFrequency, AccountStatus}
+import app.{ PaymentFrequency, AccountStatus }
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -22,7 +22,7 @@ object ClaimScenarioFactory {
     claim.AboutYouDateOfBirth = "03/04/1950"
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
-    claim.AboutYouNINO ="AB123456C"
+    claim.AboutYouNINO = "AB123456C"
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
     claim.AboutYouPostcode = "FY1 2RW"
     claim
@@ -41,7 +41,7 @@ object ClaimScenarioFactory {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
     // Your contact details
-    claim.AboutYouAddress  = "An address"
+    claim.AboutYouAddress = "An address"
     claim.AboutYouPostcode = "SE1 6EH"
     claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouMobileNumber = "07111 111 111"
@@ -61,7 +61,7 @@ object ClaimScenarioFactory {
     val claim = new ClaimScenario
 
     // Your contact details
-    claim.AboutYouAddress  = "An address"
+    claim.AboutYouAddress = "An address"
     claim.AboutYouPostcode = "SE1 6EH"
     claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouContactYouByTextphone = "No"
@@ -178,10 +178,9 @@ object ClaimScenarioFactory {
     claim
   }
 
-
   def s6PayDetails() = {
     val claim = new ClaimScenario
-    claim.HowWePayYouHowWouldYouLikeToGetPaid =  AccountStatus.NotOpenAccount.name
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount.name
     claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek.name
     claim
   }
@@ -189,7 +188,7 @@ object ClaimScenarioFactory {
   def s6BankBuildingSocietyDetails() = {
     val claim = new ClaimScenario
 
-    claim.HowWePayYouNameOfAccountHolder =  "John Smith"
+    claim.HowWePayYouNameOfAccountHolder = "John Smith"
     claim.HowWePayYouFullNameOfBankorBuildingSociety = "Carers Bank"
     claim.HowWePayYouSortCode = "090126"
     claim.HowWePayYouAccountNumber = "12345678"
@@ -246,35 +245,35 @@ object ClaimScenarioFactory {
     claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1= "Other"
     claim.EmploymentAddressCareProvider_1= "1 London Road&Preston&Lancashire"
     claim.EmploymentPostcodeCareProvider_1= "PR4 5TH"
+
     claim
   }
 
-
-  def s8otherMoney = {
-    val claim = s2AboutYouWithTimeOutside()
+  def s9otherMoney = {
+    val claim = s7Employment
     // G1 About other money
-    claim.OtherMoneyHaveYouClaimedOtherBenefits = "no"
-    claim.OtherMoneyAnyPaymentsSinceClaimDate = "no"
+    claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
+    claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
     claim.OtherMoneyWhoPaysYou = "The Man"
     claim.OtherMoneyHowMuch = "Not much"
+    claim.OtherMoneyHowOften = "W"
     // G5 Statutory Sick Pay
     claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
     claim.OtherMoneySSPHowMuch = "123"
     claim.OtherMoneySSPHowOften = "W"
     claim.OtherMoneySSPEmployerName = "Burger King"
     // G6 Other Statutory Pay
-    claim.OtherMoneyHaveYouSMPSinceClaim = "no"
+    claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
     claim.OtherMoneySMPEmployerName = "Employers Name"
+    claim.OtherMoneyHowOften = "W"
 
     claim
   }
-  
-  
+
   def s9SelfEmployment = {
-    val claim = s8otherMoney
+    val claim = s9otherMoney
     // About self employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
-
 
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
@@ -339,6 +338,5 @@ object ClaimScenarioFactory {
 
     claim
   }
-
 
 }

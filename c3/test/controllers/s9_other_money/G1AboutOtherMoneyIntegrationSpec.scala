@@ -55,12 +55,28 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
+      val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage()
       page fillPageWith claim
       
       val nextPage = page submitPage()
       
+      nextPage must beAnInstanceOf[G5StatutorySickPayPage]
+    }
+    
+    "navigate to next page on valid submission with other field selected" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      val claim = ClaimScenarioFactory.s9otherMoney
+      claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
+      claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
+      claim.OtherMoneyWhoPaysYou = "The Man"
+      claim.OtherMoneyHowMuch = "Not much"
+      claim.OtherMoneyHowOften = "other"
+      claim.OtherMoneyHowOftenOther = "every day and twice on Sundays"
+        
+      page goToThePage()
+      page fillPageWith claim
+      
+      val nextPage = page submitPage()
       nextPage must beAnInstanceOf[G5StatutorySickPayPage]
     }
     

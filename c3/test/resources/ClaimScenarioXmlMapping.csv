@@ -92,7 +92,6 @@ Education,"School, college or universitys contact details",Fax Number, Education
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName,Employment>JobDetails>Employer>Name
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob,Employment>JobDetails>Employer>DateJobStarted
-Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob,
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork,Employment>JobDetails>Employer>DateJobEnded
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork,Employment>JobDetails>Pay>WeeklyHoursWorked
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber,Employment>JobDetails>Employer>ClockPayrollNumber
@@ -127,7 +126,6 @@ Employment,Childcare expenses while you are at work,How much [[past=did you]] [[
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToClaimant
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToPartner
 Employment,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor,Employment>JobDetails>ChildCareExpenses>ChildDetails>RelationToChild
-Employment,Childcare provider's contact details,Do you pay anyone else to look after your child/children while at work?,EmploymentDoYouPayAnyoneelsetoLookAfterYourChild,
 Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring,Employment>JobDetails>CareExpenses>CarerName
 Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor,Employment>JobDetails>CareExpenses>WeeklyPayment>Amount
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou,Employment>JobDetails>CareExpenses>RelationshipCarerToClaimant
@@ -177,6 +175,9 @@ Other Money,Details about other money,Have you <or your partner/spouse> claimed 
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,DWPCAClaim>EvidenceList
 Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,DWPCAClaim>EvidenceList
 Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,DWPCAClaim>EvidenceList
+Other Money,Details about other money,Details about other money: How often?,OtherMoneyHowOften,DWPCAClaim>EvidenceList
+Other Money,Details about other money,Details about other money: How often other?,OtherMoneyHowOftenOther,DWPCAClaim>EvidenceList
+Other Money,Statutory Sick Pay,Statutory Sick Pay: How often other?,OtherMoneySSPHowOther,DWPCAClaim>EvidenceList
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,OtherBenefits>OtherMoneySSP
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How much?,OtherMoneySSPHowMuch,DWPCAClaim>EvidenceList
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOften,DWPCAClaim>EvidenceList
@@ -188,6 +189,7 @@ Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,Ot
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,OtherBenefits>OtherMoneySMP
 Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,DWPCAClaim>EvidenceList
 Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,DWPCAClaim>EvidenceList
+Other Money,Other Statutory Pay,Other Statutory Pay: How often other?,OtherMOneySMPHowOftenOther,DWPCAClaim>EvidenceList
 Other Money,Other Statutory Pay,Other,OtherMoneySMPOther,DWPCAClaim>EvidenceList
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,OtherMoneySMPDetails>Name
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,OtherMoneySMPDetails>Address>Line
