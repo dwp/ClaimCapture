@@ -69,14 +69,12 @@ object ClaimPageFactory extends PageFactory {
       case G3EmployerContactDetailsPage.title => G3EmployerContactDetailsPage buildPageWith(browser,previousPage,iteration)
       case G4LastWagePage.title => G4LastWagePage buildPageWith(browser,previousPage,iteration)
       case G5AdditionalWageDetailsPage.title => G5AdditionalWageDetailsPage buildPageWith(browser,previousPage,iteration)
-      case G6MoneyOwedByEmployerPage.title => G6MoneyOwedByEmployerPage buildPageWith(browser,previousPage,iteration)
       case G7PensionSchemesPage.title => G7PensionSchemesPage buildPageWith(browser,previousPage,iteration)
       case G8AboutExpensesPage.title => G8AboutExpensesPage buildPageWith(browser,previousPage,iteration)
       case G9NecessaryExpensesPage.title => G9NecessaryExpensesPage buildPageWith(browser,previousPage,iteration)
       case G10ChildcareExpensesPage.title => G10ChildcareExpensesPage buildPageWith(browser,previousPage,iteration)
       case G11ChildcareProviderPage.title => G11ChildcareProviderPage buildPageWith(browser,previousPage,iteration)
       case G12PersonYouCareForExpensesPage.title => G12PersonYouCareForExpensesPage buildPageWith(browser,previousPage,iteration)
-      case G13CareProviderPage.title => G13CareProviderPage buildPageWith(browser,previousPage,iteration)
       case G14JobCompletionPage.title => G14JobCompletionPage buildPageWith(browser,previousPage,iteration)
       case G15CompletedPage.title => G15CompletedPage buildPageWith(browser,previousPage)
       // S8
@@ -95,7 +93,6 @@ object ClaimPageFactory extends PageFactory {
       case G4SelfEmploymentPensionsAndExpensesPage.title => G4SelfEmploymentPensionsAndExpensesPage buildPageWith(browser, previousPage)
       case G5ChildcareExpensesWhileAtWorkPage.title => G5ChildcareExpensesWhileAtWorkPage buildPageWith(browser, previousPage)
       case G7ExpensesWhileAtWorkPage.title => G7ExpensesWhileAtWorkPage buildPageWith(browser, previousPage)
-      case G8CareProvidersContactDetailsPage.title => G8CareProvidersContactDetailsPage buildPageWith(browser, previousPage)
       case s8_self_employment.G9CompletedPage.title => s8_self_employment.G9CompletedPage buildPageWith(browser, previousPage)
       // S10
       case G1AdditionalInfoPage.title => G1AdditionalInfoPage buildPageWith(browser,previousPage)

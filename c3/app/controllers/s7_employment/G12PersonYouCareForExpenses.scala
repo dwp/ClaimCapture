@@ -38,6 +38,6 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
           .replaceError("whoDoYouPay", "error.required", FormError("whoDoYouPay", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , jobID))))
         BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrorsUpdate))
       },
-      childcareProvider => claim.update(jobs.update(childcareProvider)) -> Redirect(routes.G13CareProvider.present(jobID)))
+      childcareProvider => claim.update(jobs.update(childcareProvider)) -> Redirect(routes.G14JobCompletion.present(jobID)))
   }
 }

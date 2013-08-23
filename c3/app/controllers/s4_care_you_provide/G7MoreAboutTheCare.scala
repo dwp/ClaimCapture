@@ -21,8 +21,7 @@ object G7MoreAboutTheCare extends Controller with CareYouProvideRouting with Cac
   val form = Form(
     mapping(
       "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
-      careMapping,
-      "hasSomeonePaidYou" -> nonEmptyText.verifying(validYesNo)
+      careMapping
     )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
 
   def present = claiming { implicit claim => implicit request =>

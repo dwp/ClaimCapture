@@ -42,8 +42,8 @@ class G9NecessaryExpensesSpec extends Specification with Tags {
     }
 
     "accept all mandatory data." in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whatAreThose" -> "blah", "howMuchCostEachWeek" -> "999", "whyDoYouNeedThose" -> "blah")
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+                                 .withFormUrlEncodedBody("jobID" -> jobID, "whatAreThose" -> "blah")
 
       val result = G9NecessaryExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -56,8 +56,8 @@ class G9NecessaryExpensesSpec extends Specification with Tags {
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
-      val result = G9NecessaryExpenses.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whatAreThose" -> "blah", "howMuchCostEachWeek" -> "999", "whyDoYouNeedThose" -> "blah"))
+      val result = G9NecessaryExpenses.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+                                                           .withFormUrlEncodedBody("jobID" -> jobID, "whatAreThose" -> "blah"))
 
       status(result) mustEqual SEE_OTHER
 

@@ -1,7 +1,7 @@
 package xml
 
 import models.domain._
-import controllers.Mappings.{yes}
+import controllers.Mappings.yes
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 
@@ -15,7 +15,6 @@ object SelfEmployment {
     val yourAccounts =  claim.questionGroup[SelfEmploymentYourAccounts].getOrElse(SelfEmploymentYourAccounts())
 
     val pensionAndExpenses = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())
-
 
     def jobDetails() = {
       if (aboutSelfEmployment.areYouSelfEmployedNow == yes) {
@@ -61,22 +60,19 @@ object SelfEmployment {
     } else NodeSeq.Empty
   }
 
-  def childCareExpenses(claim:Claim) = {
+  def childCareExpenses(claim: Claim) = {
     val pensionsAndExpensesOption = claim.questionGroup[SelfEmploymentPensionsAndExpenses]
     val pensionAndExpenses = pensionsAndExpensesOption.getOrElse(SelfEmploymentPensionsAndExpenses())
 
     val childCareExpensesOption =  claim.questionGroup[ChildcareExpensesWhileAtWork]
     val childCareExpenses =  childCareExpensesOption.getOrElse(ChildcareExpensesWhileAtWork())
 
-    val childcareProviderOption = claim.questionGroup[ChildcareProvidersContactDetails]
-    val childcareProvider = childcareProviderOption.getOrElse(ChildcareProvidersContactDetails())
-
     val hasChildCareExpenses = pensionAndExpenses.doYouPayToLookAfterYourChildren == yes
 
-    if(hasChildCareExpenses) {
+    if (hasChildCareExpenses) {
       <ChildCareExpenses>
         <CarerName>{childCareExpenses.nameOfPerson}</CarerName>
-        <CarerAddress>{postalAddressStructure(childcareProvider.address, childcareProvider.postcode)}</CarerAddress>
+        <CarerAddress>{postalAddressStructure(None, None)}</CarerAddress>
         <ConfirmAddress>yes</ConfirmAddress>
         <WeeklyPayment>{moneyStructure(childCareExpenses.howMuchYouPay)}</WeeklyPayment>
         <RelationshipCarerToClaimant>{childCareExpenses.whatRelationIsToYou}</RelationshipCarerToClaimant>
@@ -88,22 +84,19 @@ object SelfEmployment {
     } else NodeSeq.Empty
   }
 
-  def careExpenses(claim:Claim) = {
+  def careExpenses(claim: Claim) = {
     val pensionsAndExpensesOption = claim.questionGroup[SelfEmploymentPensionsAndExpenses]
     val pensionAndExpenses = pensionsAndExpensesOption.getOrElse(SelfEmploymentPensionsAndExpenses())
 
     val expensesWhileAtWorkOption = claim.questionGroup[ExpensesWhileAtWork]
     val expensesWhileAtWork =  expensesWhileAtWorkOption.getOrElse(ExpensesWhileAtWork())
 
-    val careProviderContactDetailsOption = claim.questionGroup[CareProvidersContactDetails]
-    val careProviderContactDetails = careProviderContactDetailsOption.getOrElse(CareProvidersContactDetails())
-
     val hasCareExpenses = pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor == yes
 
-    if(hasCareExpenses) {
+    if (hasCareExpenses) {
       <CareExpenses>
         <CarerName>{expensesWhileAtWork.nameOfPerson}</CarerName>
-        <CarerAddress>{postalAddressStructure(careProviderContactDetails.address, careProviderContactDetails.postcode)}</CarerAddress>
+        <CarerAddress>{postalAddressStructure(None, None)}</CarerAddress>
         <ConfirmAddress>yes</ConfirmAddress>
         <WeeklyPayment>
           <Currency>GBP</Currency>
@@ -115,13 +108,13 @@ object SelfEmployment {
     } else NodeSeq.Empty
   }
 
-  def pensionScheme(claim:Claim) = {
+  def pensionScheme(claim: Claim) = {
     val pensionsAndExpensesOption = claim.questionGroup[SelfEmploymentPensionsAndExpenses]
     val pensionAndExpenses = pensionsAndExpensesOption.getOrElse(SelfEmploymentPensionsAndExpenses())
 
     val hasPensionScheme = pensionAndExpenses.pensionSchemeMapping.answer == yes
 
-    if(hasPensionScheme) {
+    if (hasPensionScheme) {
       <PensionScheme>
         <Type>personal_private</Type>
         <Payment>{moneyStructure(pensionAndExpenses.pensionSchemeMapping.text1.orNull)}</Payment>

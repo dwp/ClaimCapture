@@ -24,7 +24,7 @@ object EvidenceList {
   }
 
   def evidence(claim: Claim): NodeBuffer = {
-    val employment = claim.questionGroup[Employment].getOrElse(models.domain.Employment())
+    val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment())
     val employed = employment.beenEmployedSince6MonthsBeforeClaim == yes
     val selfEmployed = employment.beenSelfEmployedSince1WeekBeforeClaim == yes
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
@@ -115,9 +115,7 @@ object EvidenceList {
 
   def timeSpentAbroad(claim: Claim) = {
     val normalResidenceAndCurrentLocation = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
-    val trips = claim.questionGroup[Trips].getOrElse(Trips())
-    //    val abroadForMoreThan52Weeks = claim.questionGroup[AbroadForMoreThan52Weeks].getOrElse(AbroadForMoreThan52Weeks())
-    //    val abroadForMoreThan4Weeks = claim.questionGroup[AbroadForMoreThan4Weeks].getOrElse(AbroadForMoreThan4Weeks())
+    val trips  = claim.questionGroup[Trips].getOrElse(Trips())
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
 
     textSeparatorLine("Time abroad") ++

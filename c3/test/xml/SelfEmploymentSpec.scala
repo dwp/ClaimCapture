@@ -82,13 +82,11 @@ class SelfEmploymentSpec extends Specification with Tags {
       val grandSon = "grandSon"
       val postcode = "SE1 6EH"
       val expensesWhileAtWork:ExpensesWhileAtWork = ExpensesWhileAtWork(howMuchYouPay= amount, nameOfPerson="NameOfPerson", whatRelationIsToYou= grandSon, whatRelationIsTothePersonYouCareFor= grandSon)
-      val careProviderContactDetails = CareProvidersContactDetails(postcode = Some(postcode))
-      val claim = Claim().update(pensionScheme).update(expensesWhileAtWork).update(careProviderContactDetails)
+      val claim = Claim().update(pensionScheme).update(expensesWhileAtWork)
 
       val careExpensesXml = xml.SelfEmployment.careExpenses(claim)
 
       (careExpensesXml \\ "CarerName").text shouldEqual expensesWhileAtWork.nameOfPerson
-      (careExpensesXml \\ "CarerAddress" \\ "PostCode").text shouldEqual postcode
       (careExpensesXml \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
       (careExpensesXml \\ "RelationshipCarerToClaimant").text shouldEqual grandSon
       (careExpensesXml \\ "RelationshipCarerToCaree").text shouldEqual grandSon

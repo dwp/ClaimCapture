@@ -12,7 +12,6 @@ final class G7MoreAboutTheCarePage (browser: TestBrowser, previousPage: Option[P
   declareYesNo("#spent35HoursCaring", "AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek")
   declareYesNo("#beforeClaimCaring_answer", "AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours")
   declareDate("#beforeClaimCaring_date", "AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson")
-  declareYesNo("#hasSomeonePaidYou", "AboutTheCareYouProvideHasSomeonePaidYoutoCare")
 }
 
 /**

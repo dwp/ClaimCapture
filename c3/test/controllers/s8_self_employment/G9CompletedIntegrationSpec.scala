@@ -21,9 +21,12 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
       g9.listCompletedForms.size mustEqual 1
     }
 
-    "navigate back to previous page" in new WithBrowser with G9CompletedPageContext {
+    "navigate back to previous page" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext  {
       page goToThePage()
-      page.goBack() must beAnInstanceOf[G8CareProvidersContactDetailsPage]
+
+      page runClaimWith(ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor, G9CompletedPage.title)
+
+      page.goBack() must beAnInstanceOf[G7ExpensesWhileAtWorkPage]
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G9CompletedPageContext {
