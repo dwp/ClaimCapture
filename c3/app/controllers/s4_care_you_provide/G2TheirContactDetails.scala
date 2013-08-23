@@ -6,7 +6,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
-import models.domain.TheirContactDetails
+import models.domain.{TheirPersonalDetails, ContactDetails, TheirContactDetails}
 
 object G2TheirContactDetails extends Controller with CareYouProvideRouting with CachedClaim {
   val form = Form(mapping(
@@ -16,7 +16,24 @@ object G2TheirContactDetails extends Controller with CareYouProvideRouting with 
   )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s4_care_you_provide.g2_theirContactDetails(form.fill(TheirContactDetails), completedQuestionGroups(TheirContactDetails)))
+
+    val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails) match {
+      case Some(t: TheirPersonalDetails) => t.liveAtSameAddressCareYouProvide == yes
+      case _ => false
+    }
+
+    val theirContactDetailsPrePopulatedForm = if (liveAtSameAddress) {
+      claim.questionGroup(ContactDetails) match {
+        case Some(cd: ContactDetails) => form.fill(TheirContactDetails(address = cd.address, postcode = cd.postcode))
+        case _ => form
+      }
+    } else {
+      claim.questionGroup(TheirContactDetails) match {
+        case Some(t: TheirContactDetails) => form.fill(t)
+        case _ => form
+      }
+    }
+    Ok(views.html.s4_care_you_provide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm, completedQuestionGroups(TheirContactDetails)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
