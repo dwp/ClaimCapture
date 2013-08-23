@@ -43,7 +43,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
             f => "This mapping should not happen." must equalTo("Valid"))
       }
 
-      "reject a howOften frequency if other with no other text entered" in {
+      "reject a howOften frequency of other with no other text entered" in {
         G1AboutOtherMoney.form.bind(
           Map("yourBenefits.answer" -> yourBenefits,
             "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,

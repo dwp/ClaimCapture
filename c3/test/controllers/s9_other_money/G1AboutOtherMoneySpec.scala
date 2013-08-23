@@ -70,7 +70,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
         status(result) mustEqual BAD_REQUEST
       }
 
-      "reject a howOften frequency if other with no other text entered" in new WithApplication with Claiming {
+      "reject a howOften frequency of other with no other text entered" in new WithApplication with Claiming {
         val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
           .withFormUrlEncodedBody("yourBenefits.answer" -> yourBenefits,
             "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,

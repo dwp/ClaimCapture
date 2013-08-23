@@ -89,7 +89,7 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
             f => "This mapping should not happen." must equalTo("Valid"))
       }
       
-      "reject a howOften frequency if other with no other text entered" in {
+      "reject a howOften frequency of other with no other text entered" in {
         G5StatutorySickPay.form.bind(
           Map("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay,
           "howMuch" -> howMuch,
