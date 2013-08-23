@@ -5,39 +5,38 @@
 
 @common.govMain(title) {
  
-        <div class="carers-allowance">
-    
-            <div class="prototype">
-                <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
-            </div>
+    <div class="carers-allowance">
 
-            @progressBar(YourPartner)
-
-            <section>
-            
-                <h1>About your Partner/Spouse</h1>
-
-                @if(completedQuestionGroups.size > 0) {
-                    <div class="completed">
-                        <ul>
-                            @for((completedQuestionGroup, call) <- completedQuestionGroups) {
-                                <li>
-                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                    <a href="@call">Change these answers</a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
-
-                @{ currentFormOption match {
-                    case Some(n) => errorsSummary(n)
-                    case _ => ""
-                   }
-                }
-
-                @content
-            </section>
+        <div class="prototype">
+            <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
         </div>
 
+        @progressBar(YourPartner)
+
+        <section>
+
+            <h1>About your Partner/Spouse</h1>
+
+            @if(completedQuestionGroups.size > 0) {
+                <div class="completed">
+                    <ul>
+                        @for((completedQuestionGroup, call) <- completedQuestionGroups) {
+                            <li>
+                                <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                <a href="@call">Change these answers</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            @{ currentFormOption match {
+                case Some(n) => errorsSummary(n)
+                case _ => ""
+               }
+            }
+
+            @content
+        </section>
+    </div>
 }
