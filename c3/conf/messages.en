@@ -320,7 +320,7 @@ payAnyoneToLookAfterChildren = While at work, {0} pay anyone to look after your 
 payAnyoneToLookAfterPerson = While at work, {0} pay anyone to look after the person you care for?
 
 # NECESSARY EXPENSES
-# What [[past = was]][[present = is]] your job title
+jobTitle = Job title
 jobTitle.is = What is your job title?
 jobTitle.was = What was your job title?
 whatAreThose = What {0} these things?
