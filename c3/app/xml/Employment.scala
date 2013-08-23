@@ -109,10 +109,10 @@ object Employment {
       <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
       <JobExpenses>
         <Expense>{necessaryExpenses.whatAreThose}</Expense>
-        <Reason>{necessaryExpenses.whyDoYouNeedThose}</Reason>
+        <Reason>{NotAsked}</Reason>
         <WeeklyPayment>
           <Currency>GBP</Currency>
-          <Amount>{necessaryExpenses.howMuchCostEachWeek}</Amount>
+          <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
       </JobExpenses>
     } else {
