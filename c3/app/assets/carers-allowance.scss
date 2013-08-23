@@ -1416,6 +1416,10 @@ $button-green-hover: #004b27;
 		   margin-left: 0;
 		   p {
 			   font-size: 1.6rem;
+			   margin: .75em 0 0 0;
+			   &:first-child {
+				   margin: 0;
+			   }
 			   .ie & {
 				   font-size: 16px;
 			   }
