@@ -3,7 +3,6 @@ package models.domain
 import models.DayMonthYear
 import models.PaymentFrequency
 import models.MultiLineAddress
-import models.PeriodFromTo
 import play.api.i18n.Messages
 import scala.reflect.ClassTag
 
@@ -161,9 +160,7 @@ object AboutExpenses extends QuestionGroup.Identifier {
 }
 
 case class NecessaryExpenses(jobID: String = "",
-                             whatAreThose: String = "",
-                             howMuchCostEachWeek: String = "",
-                             whyDoYouNeedThose: String = "") extends QuestionGroup(NecessaryExpenses) with Job.Identifier
+                             whatAreThose: String = "") extends QuestionGroup(NecessaryExpenses) with Job.Identifier
 
 
 object NecessaryExpenses extends QuestionGroup.Identifier {

@@ -18,7 +18,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
       pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-      pagePensionAndExpenses.submitPage(true)
+      pagePensionAndExpenses.submitPage(throwException = true)
 
       page goToThePage ()
     }
@@ -39,8 +39,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
         val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
         pagePensionAndExpenses goToThePage()
         pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-        pagePensionAndExpenses.submitPage(true)
-
+        pagePensionAndExpenses.submitPage(throwException = true)
 
         val claim = new ClaimScenario
 
@@ -57,30 +56,30 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       val pageClaimDate = new G4ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
-      val pageMoreAboutYou = pageClaimDate.submitPage(true)
+      val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
       pageMoreAboutYou fillPageWith claimDate
-      pageMoreAboutYou.submitPage(true)
+      pageMoreAboutYou.submitPage(throwException = true)
 
 
-      var claimAboutYourPartner = new ClaimScenario
+      val claimAboutYourPartner = new ClaimScenario
       claimAboutYourPartner.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "no"
       val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
       pageAboutYourPartner goToThePage()
       pageAboutYourPartner fillPageWith claimAboutYourPartner
-      pageAboutYourPartner.submitPage(true)
+      pageAboutYourPartner.submitPage(throwException = true)
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
       pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-      pagePensionAndExpenses.submitPage(true)
+      pagePensionAndExpenses.submitPage(throwException = true)
 
 
       val claim = ClaimScenarioFactory.s9SelfEmploymentChildCareExpenses
       claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "son"
       page goToThePage()
       page fillPageWith claim
-      page submitPage(true)
+      page submitPage true
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G5ChildcareExpensesWhileAtWorkPageContext {
@@ -89,24 +88,22 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       val pageClaimDate = new G4ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
-      val pageMoreAboutYou = pageClaimDate.submitPage(true)
+      val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
       pageMoreAboutYou fillPageWith claimDate
-      pageMoreAboutYou.submitPage(true)
+      pageMoreAboutYou.submitPage(throwException = true)
 
-
-      var claimAboutYourPartner = new ClaimScenario
+      val claimAboutYourPartner = new ClaimScenario
       claimAboutYourPartner.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "no"
       val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
       pageAboutYourPartner goToThePage()
       pageAboutYourPartner fillPageWith claimAboutYourPartner
-      pageAboutYourPartner.submitPage(true)
+      pageAboutYourPartner.submitPage(throwException = true)
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
       pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-      pagePensionAndExpenses.submitPage(true)
-
+      pagePensionAndExpenses.submitPage(throwException = true)
 
       val claim = ClaimScenarioFactory.s9SelfEmploymentChildCareExpenses
       claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "son"
