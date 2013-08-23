@@ -16,8 +16,8 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
     val howMuch = "Not much"
-    val howOften_frequency = "Weekly"
-    val howOften_other = "other"
+    val howOften_frequency = "other"
+    val howOften_other = "Every day and twice on Sundays"
     val formInput = Seq("yourBenefits.answer" -> yourBenefits,
       "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
       "whoPaysYou" -> whoPaysYou,
@@ -49,6 +49,38 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
           f.howMuch must equalTo(Some(howMuch))
           f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_other))))
         }
+      }
+    }
+
+    "return a bad request after an invalid submission" in {
+      "reject invalid yesNo answers" in new WithApplication with Claiming {
+        val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+          .withFormUrlEncodedBody("yourBenefits.answer" -> "INVALID",
+            "anyPaymentsSinceClaimDate.answer" -> "INVALID")
+
+        val result = controllers.s9_other_money.G1AboutOtherMoney.submit(request)
+        status(result) mustEqual BAD_REQUEST
+      }
+
+      "missing mandatory fields" in new WithApplication with Claiming {
+        val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+          .withFormUrlEncodedBody("" -> "")
+
+        val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
+        status(result) mustEqual BAD_REQUEST
+      }
+
+      "reject a howOften frequency if other with no other text entered" in new WithApplication with Claiming {
+        val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+          .withFormUrlEncodedBody("yourBenefits.answer" -> yourBenefits,
+            "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
+            "whoPaysYou" -> whoPaysYou,
+            "howMuch" -> howMuch,
+            "howOften.frequency" -> "other",
+            "howOften.other" -> "")
+
+        val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
+        status(result) mustEqual BAD_REQUEST
       }
     }
 
