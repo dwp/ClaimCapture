@@ -267,8 +267,8 @@ object ClaimScenarioFactory {
     // G6 Other Statutory Pay
     claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
     claim.OtherMoneySMPEmployerName = "Employers Name"
-    claim.OtherMoneyHowOften = "W"
-
+    claim.OtherMOneySMPHowOften = "W"
+    
     claim
   }
 

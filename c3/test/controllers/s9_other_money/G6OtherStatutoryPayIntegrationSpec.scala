@@ -15,13 +15,30 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
       page goToThePage ()
     }
 
-    "contain errors on invalid submission" in new WithBrowser with G6OtherStatutoryPayPageContext {
-      val claim = new ClaimScenario
-      claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
-      page goToThePage ()
-      page fillPageWith claim
-      val pageWithErrors = page.submitPage()
-      pageWithErrors.listErrors.size mustEqual 1
+    "contain errors on invalid submission" in {
+      "had sick pay but missing mandatory field" in new WithBrowser with G6OtherStatutoryPayPageContext {
+        val claim = new ClaimScenario
+        claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
+        page goToThePage ()
+        page fillPageWith claim
+        val pageWithErrors = page.submitPage()
+        pageWithErrors.listErrors.size mustEqual 1
+      }
+
+      "howOften frequency of other with no other text entered" in new WithBrowser with G6OtherStatutoryPayPageContext {
+        val claim = new ClaimScenario
+        claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
+        claim.OtherMoneySMPEmployerName = "Employers Name"
+        claim.OtherMOneySMPHowOften = "other"
+
+        page goToThePage ()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+
+        errors.size mustEqual 1
+        errors(0) must contain("How often?")
+      }
     }
 
     "contain the completed forms" in new WithBrowser with G5StatutorySickPayPageContext {
