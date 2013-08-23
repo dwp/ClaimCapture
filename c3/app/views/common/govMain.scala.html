@@ -65,8 +65,9 @@
         <meta name="og:image" content="@routes.Assets.at("images/opengraph-image-4e469785ca4cc8f8dd18d0627bc43d19.png")">
 
         <!--[if (lt IE 9) & (!IEMobile)]>
-        <script src="@routes.Assets.at("javascripts/respond.min.js")"></script>
+        	<script src="@routes.Assets.at("javascripts/respond.min.js")"></script>
         <![endif]-->
+
         
         <script src='@routes.Assets.at("javascripts/modernizr-2.5.3.min.js")'></script>
     </head>
@@ -100,9 +101,10 @@
             <p>For a safer, faster, better experience online you should upgrade your browser. <a href="/support/browsers">Find out more about browsers</a> <a href="#" class="dismiss" title="Dismiss this message">Close</a></p>
         </div>
 
-        <div id="wrapper" class="group">
+        <main role="main" id="content">
             @content
-        </div>
+        </main>
+      
 
         <footer class="group js-footer" id="footer" role="contentinfo">
             <div class="footer-wrapper carers-allowance-footer">
