@@ -1,7 +1,7 @@
 package controllers
 
 import utils.pageobjects.ClaimScenario
-import app.{PaymentFrequency, AccountStatus}
+import app.{ PaymentFrequency, AccountStatus }
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -22,7 +22,7 @@ object ClaimScenarioFactory {
     claim.AboutYouDateOfBirth = "03/04/1950"
     claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
-    claim.AboutYouNINO ="AB123456C"
+    claim.AboutYouNINO = "AB123456C"
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
     claim.AboutYouPostcode = "FY1 2RW"
     claim
@@ -41,7 +41,7 @@ object ClaimScenarioFactory {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
     // Your contact details
-    claim.AboutYouAddress  = "An address"
+    claim.AboutYouAddress = "An address"
     claim.AboutYouPostcode = "SE1 6EH"
     claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouMobileNumber = "07111 111 111"
@@ -61,7 +61,7 @@ object ClaimScenarioFactory {
     val claim = new ClaimScenario
 
     // Your contact details
-    claim.AboutYouAddress  = "An address"
+    claim.AboutYouAddress = "An address"
     claim.AboutYouPostcode = "SE1 6EH"
     claim.AboutYouPhoneNumber = "01253 111 111"
     claim.AboutYouContactYouByTextphone = "No"
@@ -178,10 +178,9 @@ object ClaimScenarioFactory {
     claim
   }
 
-
   def s6PayDetails() = {
     val claim = new ClaimScenario
-    claim.HowWePayYouHowWouldYouLikeToGetPaid =  AccountStatus.NotOpenAccount.name
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount.name
     claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek.name
     claim
   }
@@ -189,7 +188,7 @@ object ClaimScenarioFactory {
   def s6BankBuildingSocietyDetails() = {
     val claim = new ClaimScenario
 
-    claim.HowWePayYouNameOfAccountHolder =  "John Smith"
+    claim.HowWePayYouNameOfAccountHolder = "John Smith"
     claim.HowWePayYouFullNameOfBankorBuildingSociety = "Carers Bank"
     claim.HowWePayYouSortCode = "090126"
     claim.HowWePayYouAccountNumber = "12345678"
@@ -198,86 +197,85 @@ object ClaimScenarioFactory {
 
   def s7Employment() = {
     val claim = new ClaimScenario
-    claim.EmploymentEmployerName_1= "Tesco's"
-    claim.EmploymentWhenDidYouStartYourJob_1= "01/01/2013"
-    claim.EmploymentHaveYouFinishedThisJob_1= "yes"
-    claim.EmploymentWhenDidYouLastWork_1= "01/07/2013"
-    claim.EmploymentHowManyHoursAWeekYouNormallyWork_1= "25"
-    claim.EmploymentPayrollOrEmployeeNumber_1= "12345678"
-    claim.EmploymentEmployerAddress_1= "23 Yeadon Way&Blackpool&Lancashire"
-    claim.EmploymentEmployerPostcode_1= "FY4 5TH"
-    claim.EmploymentEmployerPhoneNumber_1= "01253 667889"
-    claim.EmploymentWhenWereYouLastPaid_1= "08/07/2013"
-    claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1= "600"
-    claim.EmploymentWhatWasIncludedInYourLastPay_1= "All amounts due"
-    claim.EmploymentDoYouGettheSameAmountEachTime_1= "no"
-    claim.EmploymentAddtionalWageHowOftenAreYouPaid_1= "other"
-    claim.EmploymentAddtionalWageOther_1= "Quarterly"
-    claim.EmploymentAddtionalWageWhenDoYouGetPaid_1= "two weeks ago"
-    claim.EmploymentAdditionalWageDoYouGetHolidayPayorSickPay_1= "no"
-    claim.EmploymentAddtionalWageDoYouGetPaidAnyOtherMoney_1= "yes"
-    claim.EmploymentAdditionalWageOtherMoneyYouReceived_1= "I sometimes received money for drop offs."
-    claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1= "yes"
-    claim.EmploymentHowMuchAreYouOwed_1= "1250"
-    claim.EmploymentWhatPeriodIsItForFrom_1= "03/04/2013"
-    claim.EmploymentWhatPeriodIsItForTo_1= "03/05/2013"
-    claim.EmploymentWhatIsTheMoneyOwedFor_1= "This and that"
-    claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_1= "06/05/2013"
-    claim.EmploymentWhenWillYouGetMoneyOwed_1= "08/08/2013"
-    claim.EmploymentDoYouPayTowardsanOccupationalPensionScheme_1= "yes"
-    claim.EmploymentHowMuchYouPayforOccupationalPension_1= "350"
-    claim.EmploymentHowOftenOccupationalPension_1= "05"
-    claim.EmploymentDoYouPayTowardsAPersonalPension_1= "yes"
-    claim.EmploymentHowMuchYouPayforPersonalPension_1= "120"
-    claim.EmploymentHowOftenPersonalPension_1= "05"
-    claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "yes"
-    claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1= "yes"
-    claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1= "yes"
-    claim.EmploymentWhatAreNecessaryJobExpenses_1= "Petrol money for driving"
-    claim.EmploymentWhyYouNeedTheseExpensesToDoYourJob_1= "So I could deliver items."
-    claim.EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1= "160.66"
-    claim.EmploymentChildcareExpensesHowMuchYouPayfor_1= "120.12"
-    claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1= "Mr Grandfather Senior"
-    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1= "Father"
-    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1= "fatherInLaw"
-    claim.EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1= "Grandfather"
-    claim.EmploymentAddressChildcareProvider_1= "12 Banbury Close&St Annes&Lancashire"
-    claim.EmploymentPostcodeChildcareProvider_1= "FY8 7TH"
-    claim.EmploymentCareExpensesHowMuchYouPayfor_1= "150.55"
-    claim.EmploymentNameOfPersonYouPayForCaring_1= "Carers UK Ltd"
-    claim.EmploymentCareExpensesWhatRelationIsToYou_1= "Uncle"
-    claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1= "Other"
-    claim.EmploymentAddressCareProvider_1= "1 London Road&Preston&Lancashire"
-    claim.EmploymentPostcodeCareProvider_1= "PR4 5TH"
+    claim.EmploymentEmployerName_1 = "Tesco's"
+    claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
+    claim.EmploymentHaveYouFinishedThisJob_1 = "yes"
+    claim.EmploymentWhenDidYouLastWork_1 = "01/07/2013"
+    claim.EmploymentHowManyHoursAWeekYouNormallyWork_1 = "25"
+    claim.EmploymentPayrollOrEmployeeNumber_1 = "12345678"
+    claim.EmploymentEmployerAddress_1 = "23 Yeadon Way&Blackpool&Lancashire"
+    claim.EmploymentEmployerPostcode_1 = "FY4 5TH"
+    claim.EmploymentEmployerPhoneNumber_1 = "01253 667889"
+    claim.EmploymentWhenWereYouLastPaid_1 = "08/07/2013"
+    claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1 = "600"
+    claim.EmploymentWhatWasIncludedInYourLastPay_1 = "All amounts due"
+    claim.EmploymentDoYouGettheSameAmountEachTime_1 = "no"
+    claim.EmploymentAddtionalWageHowOftenAreYouPaid_1 = "other"
+    claim.EmploymentAddtionalWageOther_1 = "Quarterly"
+    claim.EmploymentAddtionalWageWhenDoYouGetPaid_1 = "two weeks ago"
+    claim.EmploymentAdditionalWageDoYouGetHolidayPayorSickPay_1 = "no"
+    claim.EmploymentAddtionalWageDoYouGetPaidAnyOtherMoney_1 = "yes"
+    claim.EmploymentAdditionalWageOtherMoneyYouReceived_1 = "I sometimes received money for drop offs."
+    claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1 = "yes"
+    claim.EmploymentHowMuchAreYouOwed_1 = "1250"
+    claim.EmploymentWhatPeriodIsItForFrom_1 = "03/04/2013"
+    claim.EmploymentWhatPeriodIsItForTo_1 = "03/05/2013"
+    claim.EmploymentWhatIsTheMoneyOwedFor_1 = "This and that"
+    claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_1 = "06/05/2013"
+    claim.EmploymentWhenWillYouGetMoneyOwed_1 = "08/08/2013"
+    claim.EmploymentDoYouPayTowardsanOccupationalPensionScheme_1 = "yes"
+    claim.EmploymentHowMuchYouPayforOccupationalPension_1 = "350"
+    claim.EmploymentHowOftenOccupationalPension_1 = "05"
+    claim.EmploymentDoYouPayTowardsAPersonalPension_1 = "yes"
+    claim.EmploymentHowMuchYouPayforPersonalPension_1 = "120"
+    claim.EmploymentHowOftenPersonalPension_1 = "05"
+    claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "yes"
+    claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1 = "yes"
+    claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1 = "yes"
+    claim.EmploymentWhatAreNecessaryJobExpenses_1 = "Petrol money for driving"
+    claim.EmploymentWhyYouNeedTheseExpensesToDoYourJob_1 = "So I could deliver items."
+    claim.EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1 = "160.66"
+    claim.EmploymentChildcareExpensesHowMuchYouPayfor_1 = "120.12"
+    claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "fatherInLaw"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1 = "Grandfather"
+    claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
+    claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
+    claim.EmploymentCareExpensesHowMuchYouPayfor_1 = "150.55"
+    claim.EmploymentNameOfPersonYouPayForCaring_1 = "Carers UK Ltd"
+    claim.EmploymentCareExpensesWhatRelationIsToYou_1 = "Uncle"
+    claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1 = "Other"
+    claim.EmploymentAddressCareProvider_1 = "1 London Road&Preston&Lancashire"
+    claim.EmploymentPostcodeCareProvider_1 = "PR4 5TH"
     claim
   }
 
-
-  def s8otherMoney = {
-    val claim = s2AboutYouWithTimeOutside()
+  def s9otherMoney = {
+    val claim = s7Employment
     // G1 About other money
     claim.OtherMoneyHaveYouClaimedOtherBenefits = "no"
     claim.OtherMoneyAnyPaymentsSinceClaimDate = "no"
     claim.OtherMoneyWhoPaysYou = "The Man"
     claim.OtherMoneyHowMuch = "Not much"
+    claim.OtherMoneyHowOften = "W"
     // G5 Statutory Sick Pay
     claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
     claim.OtherMoneySSPHowMuch = "123"
     claim.OtherMoneySSPHowOften = "W"
     claim.OtherMoneySSPEmployerName = "Burger King"
     // G6 Other Statutory Pay
-    claim.OtherMoneyHaveYouSMPSinceClaim = "no"
+    claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
     claim.OtherMoneySMPEmployerName = "Employers Name"
+    claim.OtherMoneyHowOften = "W"
 
     claim
   }
-  
-  
+
   def s9SelfEmployment = {
-    val claim = s8otherMoney
+    val claim = s9otherMoney
     // About self employment
     claim.SelfEmployedAreYouSelfEmployedNow = "no"
-
 
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
@@ -351,6 +349,5 @@ object ClaimScenarioFactory {
 
     claim
   }
-
 
 }

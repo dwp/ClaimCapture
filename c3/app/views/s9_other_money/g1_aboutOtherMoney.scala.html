@@ -3,6 +3,7 @@
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
+@import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import views.html.s9_other_money.main
@@ -24,6 +25,12 @@
                 @carersInputText(currentForm("whoPaysYou"), 'maxLength -> Mappings.Name.maxLength, '_label -> Messages("whoPaysYou.label"))
                 
                 @carersInputText(currentForm("howMuch"), 'maxLength -> Mappings.Name.maxLength, '_label -> Messages("howMuch.label"))
+                
+                @paymentFrequencySelect(currentForm("howOften"), 
+                      'id -> "howOften_frequency", 
+                      'visibleOn -> "yes", 
+                      'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+                      )
             </ul>
         </fieldset>
 
@@ -33,3 +40,12 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s9_other_money/g1_aboutOtherMoney.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("howOften_frequency")", 
+          "@CarersCrypto.encryptAES("howOften_frequency_wrap")");
+    });
+</script>

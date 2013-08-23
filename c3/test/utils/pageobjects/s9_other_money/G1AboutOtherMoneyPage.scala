@@ -8,6 +8,8 @@ final class G1AboutOtherMoneyPage(browser: TestBrowser, previousPage: Option[Pag
   declareYesNo("#anyPaymentsSinceClaimDate_answer", "OtherMoneyAnyPaymentsSinceClaimDate")
   declareInput("#whoPaysYou", "OtherMoneyWhoPaysYou")
   declareInput("#howMuch", "OtherMoneyHowMuch")
+  declareSelect("#howOften_frequency", "OtherMoneyHowOften")
+  declareInput("#howOften_other", "OtherMoneyHowOftenOther")
 }
 
 object G1AboutOtherMoneyPage {

@@ -178,6 +178,9 @@ Other Money,Details about other money,Have you <or your partner/spouse> claimed 
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,DWPCAClaim>EvidenceList
 Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,DWPCAClaim>EvidenceList
 Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,DWPCAClaim>EvidenceList
+Other Money,Details about other money,Details about other money: How often?,OtherMoneyHowOften,DWPCAClaim>EvidenceList
+Other Money,Details about other money,Details about other money: How often other?,OtherMoneyHowOftenOther,DWPCAClaim>EvidenceList
+Other Money,Statutory Sick Pay,Statutory Sick Pay: How often other?,OtherMoneySSPHowOther,DWPCAClaim>EvidenceList
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,OtherBenefits>OtherMoneySSP
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How much?,OtherMoneySSPHowMuch,DWPCAClaim>EvidenceList
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOften,DWPCAClaim>EvidenceList
@@ -189,6 +192,7 @@ Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,Ot
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,OtherBenefits>OtherMoneySMP
 Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,DWPCAClaim>EvidenceList
 Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,DWPCAClaim>EvidenceList
+Other Money,Other Statutory Pay,Other Statutory Pay: How often other?,OtherMOneySMPHowOftenOther,DWPCAClaim>EvidenceList
 Other Money,Other Statutory Pay,Other,OtherMoneySMPOther,DWPCAClaim>EvidenceList
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,OtherMoneySMPDetails>Name
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,OtherMoneySMPDetails>Address>Line

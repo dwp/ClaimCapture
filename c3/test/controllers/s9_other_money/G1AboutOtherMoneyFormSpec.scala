@@ -1,6 +1,7 @@
 package controllers.s9_other_money
 
 import org.specs2.mutable.{ Tags, Specification }
+import models.PaymentFrequency
 
 class G1AboutOtherMoneyFormSpec extends Specification with Tags {
   "About Other Money Form" should {
@@ -8,18 +9,24 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
     val howMuch = "Not much"
+    val howOften_frequency = "Weekly"
+    val howOften_other = "other"
 
     "map data into case class" in {
       G1AboutOtherMoney.form.bind(
         Map("yourBenefits.answer" -> yourBenefits,
           "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
-          "whoPaysYou" -> whoPaysYou, 
-          "howMuch" -> howMuch)).fold(
+          "whoPaysYou" -> whoPaysYou,
+          "howMuch" -> howMuch,
+          "howOften.frequency" -> howOften_frequency,
+          "howOften.other" -> howOften_other)).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
             f.yourBenefits.answer must equalTo(yourBenefits)
             f.anyPaymentsSinceClaimDate.answer must equalTo(anyPaymentsSinceClaimDate)
             f.whoPaysYou must equalTo(Some(whoPaysYou))
+            f.howMuch must equalTo(Some(howMuch))
+            f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_other))))
           })
     }
 

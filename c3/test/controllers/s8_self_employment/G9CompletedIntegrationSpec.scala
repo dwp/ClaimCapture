@@ -27,7 +27,7 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G9CompletedPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
+      val claim = ClaimScenarioFactory.s9otherMoney
       page goToThePage()
       page fillPageWith claim
 
