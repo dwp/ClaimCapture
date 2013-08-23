@@ -229,7 +229,7 @@ Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension_1,
 Employment,About expenses to do with your employment,[[past=Did you]] [[present=Do you]] pay for anything necessary to do your job?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1,No
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after your children?",EmploymentDoYouPayAnyoneLookAfterYourChild_1,Yes
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after the person you normally care for?",EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1,No
-Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentJobTitle_1,Hacker
+Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentJobTitle_1,
 Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses_1,
 Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_1,120.23
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_1,Childcare UK
