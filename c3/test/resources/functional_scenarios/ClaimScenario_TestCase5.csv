@@ -202,7 +202,7 @@ Education,"School, college or universitys contact details",Post code,EducationPo
 Education,"School, college or universitys contact details",Phone number,EducationPhoneNumber,01772 891891
 Education,"School, college or universitys contact details",Fax Number,EducationFaxNumber ,01772 891893
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
-Employment,Your Job,Employers Name,EmploymentEmployerName_1,
+Employment,Your Job,Employers Name,EmploymentEmployerName_1,HackersRUS
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,
 Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob_1,
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,
@@ -228,8 +228,8 @@ Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension_1,
 Employment,About expenses to do with your employment,[[past=Did you]] [[present=Do you]] pay for anything necessary to do your job?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1,
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after your children?",EmploymentDoYouPayAnyoneLookAfterYourChild_1,
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after the person you normally care for?",EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1,
+Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentJobTitle_1,Hacker
 Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses_1,
-Employment,Necessary expenses to do your job,Why [[past=did you]] [[present=do you]] need these things to do your job?,EmploymentWhyYouNeedTheseExpensesToDoYourJob_1,
 Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_1,
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_1,
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,

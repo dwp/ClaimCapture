@@ -15,6 +15,7 @@ import play.api.data.FormError
 object G9NecessaryExpenses extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
+    "jobTitle" -> nonEmptyText,
     "whatAreThose" -> nonEmptyText
   )(NecessaryExpenses.apply)(NecessaryExpenses.unapply))
 
