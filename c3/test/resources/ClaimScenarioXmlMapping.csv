@@ -179,7 +179,7 @@ Other Money,Statutory Sick Pay,Statutory Sick Pay: How often other?,OtherMoneySS
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,OtherBenefits>OtherMoneySSP
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How much?,OtherMoneySSPHowMuch,DWPCAClaim>EvidenceList
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOften,DWPCAClaim>EvidenceList
-Other Money,Statutory Sick Pay,Statutory Sick Pay: How often other?,OtherMoneySSPHowOther,DWPCAClaim>EvidenceList
+Other Money,Statutory Sick Pay,Statutory Sick Pay: How often other?,OtherMoneySSPHowOftenOther,DWPCAClaim>EvidenceList
 Other Money,Statutory Sick Pay,Other,OtherMoneySSPOther,DWPCAClaim>EvidenceList
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,OtherMoneySSPDetails>Name
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,OtherMoneySSPDetails>Address>Line
