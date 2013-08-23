@@ -14,8 +14,8 @@ class G5StatutorySickPaySpec extends Specification with Tags {
   "Other Money - Statutory Pay - Controller" should {
     val haveYouHadAnyStatutorySickPay = "yes"
     val howMuch = "bar"
-    val howOften_frequency = "Weekly"
-    val howOften_other = "other"
+    val howOften_frequency = "other"
+    val howOften_other = "Every day and twice on Sundays"
     val employersName = "Johny B Good"
     val employersAddressLineOne =  "lineOne"
     val employersAddressLineTwo = "lineTwo"
@@ -74,6 +74,22 @@ class G5StatutorySickPaySpec extends Specification with Tags {
         val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
           .withFormUrlEncodedBody("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay)
   
+        val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
+        status(result) mustEqual BAD_REQUEST
+      }
+
+      "reject a howOften frequency of other with no other text entered" in new WithApplication with Claiming {
+        val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+          .withFormUrlEncodedBody("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay,
+            "howMuch" -> howMuch,
+            "howOften.frequency" -> howOften_frequency,
+            "howOften.other" -> "",
+            "employersName" -> employersName,
+            "employersAddress.lineOne" -> employersAddressLineOne,
+            "employersAddress.lineTwo" -> employersAddressLineTwo,
+            "employersAddress.lineThree" -> employersAddressLineThree,
+            "employersPostcode" -> employersPostcode)
+
         val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
         status(result) mustEqual BAD_REQUEST
       }

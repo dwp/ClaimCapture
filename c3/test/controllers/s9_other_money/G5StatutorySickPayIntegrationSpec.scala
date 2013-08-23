@@ -36,6 +36,21 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
         pageWithErrors.listErrors.size mustEqual 1
         pageWithErrors.listErrors(0).contains("postcode")
       }
+
+      "howOften frequency of other with no other text entered" in new WithBrowser with G5StatutorySickPayPageContext {
+        val claim = new ClaimScenario
+        claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
+        claim.OtherMoneySSPHowMuch = "123"
+        claim.OtherMoneySSPHowOften = "other"
+        claim.OtherMoneySSPEmployerName = "Burger King"
+        page goToThePage ()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+
+        errors.size mustEqual 1
+        errors(0) must contain("How often?")
+      }
     }
 
     "contain the completed forms" in new WithBrowser with G1AboutOtherMoneyPageContext {
