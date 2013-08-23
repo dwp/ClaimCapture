@@ -219,12 +219,6 @@ Employment,Additional details on your last wage,How often [[past=were you]] [[pr
 Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOther_1,
 Employment,Additional details on your last wage,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_1,
 Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1,Yes
-Employment,Money owed to you by your employer,How much are you owed?,EmploymentHowMuchAreYouOwed_1,20
-Employment,Money owed to you by your employer,What period is it for? From,EmploymentWhatPeriodIsItForFrom_1,02/04/2013
-Employment,Money owed to you by your employer,What period is it for? To,EmploymentWhatPeriodIsItForTo_1,10/04/2013
-Employment,Money owed to you by your employer,What is the money owed for?,EmploymentWhatIsTheMoneyOwedFor_1,Lunch
-Employment,Money owed to you by your employer,When should it have been paid?,EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_1,10/04/2013
-Employment,Money owed to you by your employer,When will you get it?,EmploymentWhenWillYouGetMoneyOwed_1,
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme_1,Yes
 Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension_1,500
 Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_1,02
@@ -236,7 +230,6 @@ Employment,About expenses to do with your employment,"While at work, [[past=did 
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after the person you normally care for?",EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1,No
 Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses_1,
 Employment,Necessary expenses to do your job,Why [[past=did you]] [[present=do you]] need these things to do your job?,EmploymentWhyYouNeedTheseExpensesToDoYourJob_1,
-Employment,Necessary expenses to do your job,How much did these things cost you each week?,EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1,
 Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_1,120.23
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_1,Childcare UK
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,father
@@ -265,12 +258,6 @@ Employment,Additional wage details,How often [[past=were you]] [[present=are you
 Employment,Additional wage details,Other,EmploymentAddtionalWageOther_2,
 Employment,Additional wage details,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_2,
 Employment,Additional wage details,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_2,
-Employment,Money owed to you by your employer,How much are you owed?,EmploymentHowMuchAreYouOwed_2,
-Employment,Money owed to you by your employer,What period is it for? From,EmploymentWhatPeriodIsItForFrom_2,
-Employment,Money owed to you by your employer,What period is it for? To,EmploymentWhatPeriodIsItForTo_2,
-Employment,Money owed to you by your employer,What is the money owed for?,EmploymentWhatIsTheMoneyOwedFor_2,
-Employment,Money owed to you by your employer,When should it have been paid?,EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_2,
-Employment,Money owed to you by your employer,When will you get it?,EmploymentWhenWillYouGetMoneyOwed_2,
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme_2,
 Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension_2,
 Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_2,
@@ -282,7 +269,6 @@ Employment,About expenses to do with your employment,"While at work, [[past=did 
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after the person you normally care for?",EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_2,
 Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses_2,
 Employment,Necessary expenses to do your job,Why [[past=did you]] [[present=do you]] need these things to do your job?,EmploymentWhyYouNeedTheseExpensesToDoYourJob_2,
-Employment,Necessary expenses to do your job,How much did these things cost you each week?,EmploymentHowMuchDidTheseExpensesCostYouEachWeek_2,
 Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_2,
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_2,
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_2,

@@ -43,7 +43,6 @@ class ProgressBarSpec extends Specification {
     }
 
     "remove hidden section" in {
-      skipped("One for Leon")
 
       val listItems = xml(TimeSpentAbroad, Claim()) \\ "ol" \\ "li"
       val yourPartnerNode = findNodeWithText(listItems, YourPartner.id + name)
