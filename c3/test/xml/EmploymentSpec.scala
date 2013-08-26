@@ -4,7 +4,6 @@ import org.specs2.mutable.{Tags, Specification}
 import models.domain.{Employment => Employed, _}
 import controllers.Mappings._
 import models.DayMonthYear
-import models.MultiLineAddress
 
 class EmploymentSpec extends Specification with Tags {
 
@@ -16,7 +15,7 @@ class EmploymentSpec extends Specification with Tags {
     "generate xml when data is present" in {
       val employerName = "KFC"
       val hours = "70"
-      val jobDetails = JobDetails("1", employerName, Some(startDate), "no", Some(endDate),Some(endDate), Some(hours), None)
+      val jobDetails = JobDetails("1", employerName, Some(startDate), "no", Some(endDate), Some(endDate), Some(hours), None)
       val jobs = Jobs(List(Job("1", jobDetails :: Nil)))
 
       val claim = Claim().update(Employed(beenEmployedSince6MonthsBeforeClaim = yes))
@@ -81,7 +80,7 @@ class EmploymentSpec extends Specification with Tags {
       val relationToChild = "uncle"
       val job = Job("1", List(
                   AboutExpenses(payAnyoneToLookAfterChildren = "yes"),
-                  ChildcareExpenses(howMuchCostChildcare = Some(amount), whoLooksAfterChildren = childcareCarer, relationToYou = relation, relationToPersonYouCare = relationToChild)
+                  ChildcareExpenses(whoLooksAfterChildren = childcareCarer, howMuchCostChildcare = amount, relationToYou = relation, relationToPersonYouCare = relationToChild)
       ))
 
       val childcareXml = Employment.childcareExpensesXml(job)

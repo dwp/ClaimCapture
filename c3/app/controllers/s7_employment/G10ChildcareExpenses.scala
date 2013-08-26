@@ -15,8 +15,8 @@ import play.api.data.FormError
 object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
     "jobID" -> nonEmptyText,
-    "howMuchCostChildcare" -> optional(text verifying(validDecimalNumber)),
     "whoLooksAfterChildren" -> nonEmptyText,
+    "howMuchCostChildcare" -> nonEmptyText.verifying(validDecimalNumber),
     "relationToYou" -> nonEmptyText,
     "relationToPartner" -> optional(nonEmptyText),
     "relationToPersonYouCare" -> nonEmptyText

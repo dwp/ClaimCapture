@@ -13,11 +13,11 @@ object G9NecessaryExpensesPage {
 
   val url  = "/employment/necessary-expenses/:jobID"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G9NecessaryExpensesPage(browser,previousPage,iteration)
+  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G9NecessaryExpensesPage(browser, previousPage, iteration)
 }
 
 trait G9NecessaryExpensesPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G9NecessaryExpensesPage buildPageWith(browser,iteration = 1)
+  val page = G9NecessaryExpensesPage buildPageWith(browser, iteration = 1)
 }

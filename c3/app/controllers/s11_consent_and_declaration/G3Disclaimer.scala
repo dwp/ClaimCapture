@@ -8,11 +8,10 @@ import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 
-object G3Disclaimer extends Controller with ConsentAndDeclarationRouting with CachedClaim{
-  val form = Form(
-    mapping(
-      "read" -> nonEmptyText
-    )(Disclaimer.apply)(Disclaimer.unapply))
+object G3Disclaimer extends Controller with ConsentAndDeclarationRouting with CachedClaim {
+  val form = Form(mapping(
+    "read" -> nonEmptyText
+  )(Disclaimer.apply)(Disclaimer.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s11_consent_and_declaration.g3_disclaimer(form.fill(Disclaimer), completedQuestionGroups(Disclaimer)))

@@ -3,8 +3,8 @@ package xml
 import models.domain.{BankBuildingSocietyDetails, Claim, HowWePayYou}
 import xml.XMLHelper._
 import scala.xml.NodeSeq
-import scala.Some
-import app.{XMLValues, AccountStatus}
+import app.AccountStatus
+import app.XMLValues._
 
 object Payment {
 
@@ -25,7 +25,7 @@ object Payment {
     val bankBuildingSocietyDetails = claim.questionGroup[BankBuildingSocietyDetails].getOrElse(BankBuildingSocietyDetails())
 
     <Account>
-      <DirectPayment>{XMLValues.NotAsked}</DirectPayment>
+      <DirectPayment>{NotAsked}</DirectPayment>
       <AccountHolder>{bankBuildingSocietyDetails.whoseNameIsTheAccountIn}</AccountHolder>
       <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
       <SecondHolderName/>
@@ -43,7 +43,4 @@ object Payment {
       </BuildingSocietyDetails>
     </Account>
   }
-
-
-
 }

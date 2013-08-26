@@ -136,7 +136,7 @@ object Employment {
         <ConfirmAddress>yes</ConfirmAddress>
         <WeeklyPayment>
           <Currency>GBP</Currency>
-          {<Amount/> +++ childcareExpenses.howMuchCostChildcare}
+          <Amount>{childcareExpenses.howMuchCostChildcare}</Amount>
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
         <ChildDetails>

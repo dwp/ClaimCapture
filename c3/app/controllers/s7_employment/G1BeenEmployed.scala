@@ -4,7 +4,7 @@ import models.view.{Navigable, CachedClaim}
 import play.api.mvc.{AnyContent, Request, Controller}
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{Claim, BeenEmployed}
+import models.domain.{Employment => Emp, Claim, BeenEmployed}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s7_employment.Employment.jobs
@@ -15,8 +15,8 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
   )(BeenEmployed.apply)(BeenEmployed.unapply))
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    claim.questionGroup[models.domain.Employment].collect {
-      case e: models.domain.Employment if e.beenEmployedSince6MonthsBeforeClaim == yes => c
+    claim.questionGroup[Emp].collect {
+      case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == yes => c
     }.getOrElse(redirect)
   }
 

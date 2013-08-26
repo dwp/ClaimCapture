@@ -9,11 +9,10 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 
 object G4Declaration extends Controller with ConsentAndDeclarationRouting with CachedClaim{
-  val form = Form(
-    mapping(
-      "confirm" -> nonEmptyText,
-      "someoneElse" -> optional(text)
-    )(Declaration.apply)(Declaration.unapply))
+  val form = Form(mapping(
+    "confirm" -> nonEmptyText,
+    "someoneElse" -> optional(text)
+  )(Declaration.apply)(Declaration.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s11_consent_and_declaration.g4_declaration(form.fill(Declaration), completedQuestionGroups(Declaration)))
