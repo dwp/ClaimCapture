@@ -15,7 +15,7 @@ class G10ChildcareExpensesIntegrationSpec extends Specification with Tags with A
       page submitPage()
     }
 
-    "contain 1 completed form" in new WithBrowser with G8AboutExpensesPageContext {
+    "contain 2 completed forms" in new WithBrowser with G8AboutExpensesPageContext {
       aboutYouAndPartner(browser)
 
       val claim = ClaimScenarioFactory s7Employment()
@@ -24,11 +24,6 @@ class G10ChildcareExpensesIntegrationSpec extends Specification with Tags with A
       page fillPageWith claim
       val p = page submitPage()
       p fillPageWith claim
-
-      /*p submitPage() match {
-        case p: G11ChildcareProviderPage => p numberSectionsCompleted() mustEqual 2
-        case _ => ko("Next Page is not of the right type.")
-      }*/
 
       p.submitPage() should beLike { case p: G12PersonYouCareForExpensesPage => p numberSectionsCompleted() mustEqual 2 }
     }
