@@ -1,7 +1,11 @@
 package models
 
 import controllers.Mappings._
-import models.yesNo.{YesNo, YesNoWith2Text, YesNoWithText, YesNoWithDate}
+import models.yesNo.{YesNoWith2Text, YesNoWithText, YesNoWithDate}
+import java.io.{FileOutputStream, OutputStreamWriter, BufferedWriter, File}
+import io.ResourceUtil._
+import models.yesNo.YesNo
+import scala.xml.{PrettyPrinter, Node}
 
 package object domain {
   val claim = Claim()
@@ -43,4 +47,23 @@ package object domain {
     .update(Consent(informationFromEmployer = YesNoWithText(answer = yes), informationFromPerson = YesNoWithText(answer = yes)))
     .update(Disclaimer(read = yes))
     .update(Declaration(read = yes))
+
+  def writeXML(xml: String)(implicit file: File = new File("acceptance/models/domain/claim.xml")): String = {
+    using(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))) { out =>
+      out.write(xml)
+    }
+
+    xml
+  }
+
+  def prettyXML(node: Node)(implicit file: File = new File("acceptance/models/domain/claim.xml"), prettyPrinter: PrettyPrinter = new PrettyPrinter(180, 2)): String = {
+    val encoding = "UTF-8"
+    val prettyXML = prettyPrinter.format(node)
+
+    using(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), encoding))) { out =>
+      out.write(s"""<?xml version="1.0" encoding="$encoding"?>\n$prettyXML""")
+    }
+
+    prettyXML
+  }
 }
