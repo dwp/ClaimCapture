@@ -20,7 +20,7 @@ class ClaimAcceptanceSpec extends Specification {
 }
 
 /*
-This case, when entered manually through browser gave:
+This case gives the following error:
 
 [info] application - Starting new claim (old claim will be erased!)
 [info] application - Build DWPCAClaim : TEST432
