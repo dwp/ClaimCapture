@@ -26,14 +26,9 @@
                 @paymentFrequencySelect(currentForm("oftenGetPaid"),
                     '_label -> Messages("oftenGetPaidFrequency", pastPresentLabelForEmployment(claim, wereYou, areYou, JobID(currentForm))))
 
-                @carersInputText(currentForm("whenGetPaid"), '_label -> Messages("whenGetPaid", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, JobID(currentForm))), 'helper -> Messages("whenGetPaid.helper"))
-
-                @yesNoRadioGroup(currentForm("anyOtherMoney"), '_label -> Messages("anyOtherMoney", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
-
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(carersInputTextArea(currentForm("otherMoney"), 'placeholder -> Messages("please.specify"))),
-                    'id -> "anyOtherMoney",
-                    'display -> currentForm("anyOtherMoney").value.getOrElse("no"))
+                @carersInputText(currentForm("whenGetPaid"),
+                    '_label -> Messages("whenGetPaid", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, JobID(currentForm))),
+                    'helper -> Messages("whenGetPaid.helper"))
 
                 @yesNoRadioGroup(currentForm("employerOwesYouMoney"))
             </ul>

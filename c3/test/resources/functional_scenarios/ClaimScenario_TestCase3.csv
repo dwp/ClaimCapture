@@ -269,10 +269,9 @@ Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension_2,05
 Employment,About expenses to do with your employment,[[past=Did you]] [[present=Do you]] pay for anything necessary to do your job?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_2,Yes
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after your children?",EmploymentDoYouPayAnyoneLookAfterYourChild_2,Yes
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after the person you normally care for?",EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_2,Yes
-Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentJobTitle_2,
+Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentJobTitle_2,Hacker
 Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses_2,Petrol money for driving
-Employment,Necessary expenses to do your job,Why [[past=did you]] [[present=do you]] need these things to do your job?,EmploymentWhyYouNeedTheseExpensesToDoYourJob_2,So I could deliver items.
-Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_2,235.99
+Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_2,120.12
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_2,Mr Grandfather Senior
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_2,father
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_2,
@@ -311,6 +310,10 @@ Self Employed,Expenses related to the person you care for while at work,"What re
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,aunt
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
+Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,
+Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,
+Other Money,Details about other money,Details about other money: How often?,OtherMoneyHowOften,
+Other Money,Details about other money,Details about other money: How often other?,OtherMoneyHowOftenOther,
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,
@@ -344,3 +347,4 @@ Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclaratio
 Consent & Declaration,Consent & Declaration,Disclaimer text and tick box,ConsentDeclarationDisclaimerTextAndTickBox,Yes
 Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,Yes
 Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,Yes
+About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,

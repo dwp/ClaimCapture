@@ -44,8 +44,8 @@ About the care you provide,Details of the person you care for,Surname or family 
 About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,12/10/1934
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,Yes
-About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road&Preston&Lancashire
-About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,PR1 1HB
+About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,
+About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,
 About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Father
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,No
@@ -208,12 +208,12 @@ Employment,Your Job,Have you finished this job?,EmploymentHaveYouFinishedThisJob
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork_1,10/04/2013
 Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45_1,25/12/2010
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork_1,45
-Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,1234567
+Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber_1,
 Employment,Employers contact details,Address,EmploymentEmployerAddress_1,1223 Yeadon Way&Blackpool&Lancashire
-Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY4 5TH
+Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,08/07/2013
-Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,600
+Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,610.01
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,All amounts due
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_1,No
 Employment,Additional details on your last wage,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_1,4W
@@ -292,7 +292,7 @@ Self Employed,Your accounts,What was/is your trading year. Is,SelfEmployedWhatWa
 Self Employed,Your accounts,"Are the income, outgoings and profit in these accounts similar to your current level of trading?",SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent,Yes
 Self Employed,Your accounts,Please tell us why and when the change happened,SelfEmployedTellUsWhyandWhentheChangeHappened,
 Self Employed,Pensions and Expenses,[Past=Did you] [Present=Do you] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,SelfEmployedDoYouPayTowardsPensionScheme,Yes
-Self Employed,Pensions and Expenses,How much [past=did you] [present=do you] pay?,SelfEmployedHowMuchYouPayTowardsPensionScheme,400
+Self Employed,Pensions and Expenses,How much [past=did you] [present=do you] pay?,SelfEmployedHowMuchYouPayTowardsPensionScheme,400.03
 Self Employed,Pensions and Expenses,How often do you pay into a Pension,SelfEmployedHowoftenYouPayTowardsPensionScheme,02
 Self Employed,Pensions and Expenses,"White at work, [past=did you] [present=do you] pay anyone to look after your children?",SelfEmployedDoYouPayAnyonetoLookAfterYourChild,No
 Self Employed,Pensions and Expenses,Is this the same as the expenses you have told us about during your employed work?,SelfEmployedChildCareIsThistheSameAsDuringYourEmployedWork,
@@ -313,8 +313,12 @@ Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAdd
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
+Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,
+Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,
+Other Money,Details about other money,Details about other money: How often?,OtherMoneyHowOften,
+Other Money,Details about other money,Details about other money: How often other?,OtherMoneyHowOftenOther,
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,Yes
-Other Money,Statutory Sick Pay,Statutory Sick Pay: How much?,OtherMoneySSPHowMuch,560
+Other Money,Statutory Sick Pay,Statutory Sick Pay: How much?,OtherMoneySSPHowMuch,560.12
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOften,M
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,DWP
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,Palatine House&Preston
@@ -345,4 +349,5 @@ Consent & Declaration,Consent & Declaration,Do you agree to us getting informati
 Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclarationTellUsWhyOther,
 Consent & Declaration,Consent & Declaration,Disclaimer text and tick box,ConsentDeclarationDisclaimerTextAndTickBox,Yes
 Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,Yes
-Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,Yes
+Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,
+About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,
