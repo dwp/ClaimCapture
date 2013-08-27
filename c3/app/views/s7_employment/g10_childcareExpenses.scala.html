@@ -22,9 +22,9 @@
             <legend>@Messages("s7.g10")</legend>
 
             <ul class="group">
-                @carersShortInputText(currentForm("howMuchCostChildcare"), '_label -> Messages ("howMuchCostChildcare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'placeholder -> Messages("poundSign"))
-
                 @carersInputText(currentForm("whoLooksAfterChildren"))
+
+                @carersShortInputText(currentForm("howMuchCostChildcare"), '_label -> Messages("howMuchCostChildcare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'placeholder -> Messages("poundSign"))
 
                 @relationshipSelect(currentForm("relationToYou"))
 

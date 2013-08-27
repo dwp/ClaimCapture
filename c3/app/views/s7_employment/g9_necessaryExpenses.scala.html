@@ -10,7 +10,13 @@
 @import controllers.s7_employment.Employment._
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
+@import models.domain._
 @import views.html.s7_employment.main
+
+@jobTitleLabel() = @{
+    Messages("jobTitle." + jobs.questionGroup(JobID(currentForm), JobDetails)
+                               .collect { case jd: JobDetails if (jd.finishedThisJob == "yes") => "was" }.getOrElse("is"))
+}
 
 @main(Messages("s7.g9") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.NecessaryExpenses, JobID(currentForm))) {
     @form(action = controllers.s7_employment.routes.G9NecessaryExpenses.submit()) {
@@ -20,11 +26,9 @@
             <legend>@Messages("s7.g9")</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("whatAreThose"), '_label -> Messages ("whatAreThose", pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , JobID(currentForm))))
+                @carersInputText(currentForm("jobTitle"), '_label -> jobTitleLabel)
 
-                @carersShortInputText(currentForm("howMuchCostEachWeek"), '_label -> Messages ("howMuchCostEachWeek", pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , JobID(currentForm))), 'placeholder -> Messages("poundSign"))
-
-                @carersInputText(currentForm("whyDoYouNeedThose"), '_label -> Messages ("whyDoYouNeedThose", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))))
+                @carersInputText(currentForm("whatAreThose"), '_label -> Messages("whatAreThose", pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , JobID(currentForm))))
             </ul>
         </fieldset>
 

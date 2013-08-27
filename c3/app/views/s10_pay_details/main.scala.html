@@ -5,35 +5,30 @@
 @import helper._
 
 @common.govMain(title) {
-    <main role="main" id="content">
-	
-   	 <div class="carers-allowance">
+    <div class="carers-allowance">
+        @progressBar(PayDetails)
 
-            @progressBar(PayDetails)
+        <section>
+            <h1>How we pay you</h1>
 
-            <section>
+            @if(completedQuestionGroups.size > 0) {
+                <div class="completed">
+                    <ul>
+                        @for((completedQuestionGroup, call) <- completedQuestionGroups) {
+                            <li>
+                                <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                <a href="@call">Change these answers</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
 
-                <h1>How we pay you</h1>
+            @if(currentForm.isDefined){
+                @errorsSummary(currentForm.get)
+            }
 
-                @if(completedQuestionGroups.size > 0) {
-                    <div class="completed">
-                        <ul>
-                            @for((completedQuestionGroup, call) <- completedQuestionGroups) {
-                                <li>
-                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                    <a href="@call">Change these answers</a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
-
-                @if(currentForm.isDefined){
-                    @errorsSummary(currentForm.get)
-                }
-
-                @content
-            </section>
-        </div>
-    </main>
+            @content
+        </section>
+    </div>
 }

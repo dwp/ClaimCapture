@@ -11,14 +11,13 @@ import utils.helpers.CarersForm._
 import SelfEmployment.whenSectionVisible
 
 object G1AboutSelfEmployment extends Controller with CachedClaim {
-  val form = Form(
-    mapping(
-      "areYouSelfEmployedNow" -> nonEmptyText.verifying(validYesNo),
-      "whenDidYouStartThisJob" -> optional(dayMonthYear.verifying(validDateOnly)),
-      "whenDidTheJobFinish" -> optional(dayMonthYear.verifying(validDateOnly)),
-      "haveYouCeasedTrading" -> optional(text.verifying(validYesNo)),
-      "natureOfYourBusiness" -> optional(text(maxLength = sixty))
-    )(AboutSelfEmployment.apply)(AboutSelfEmployment.unapply))
+  val form = Form(mapping(
+    "areYouSelfEmployedNow" -> nonEmptyText.verifying(validYesNo),
+    "whenDidYouStartThisJob" -> optional(dayMonthYear.verifying(validDateOnly)),
+    "whenDidTheJobFinish" -> optional(dayMonthYear.verifying(validDateOnly)),
+    "haveYouCeasedTrading" -> optional(text.verifying(validYesNo)),
+    "natureOfYourBusiness" -> optional(text(maxLength = sixty))
+  )(AboutSelfEmployment.apply)(AboutSelfEmployment.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     whenSectionVisible(Ok(views.html.s8_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment))))

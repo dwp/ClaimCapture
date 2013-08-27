@@ -39,7 +39,7 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
 
       val errors = page.submitPage().listErrors
       errors.size mustEqual 1
-      errors(0) contains("Nationality")
+      errors(0) must contain("Nationality")
     }
     
     "contain error if invalid nationality containing special characters" in new WithBrowser with G1YourDetailsPageContext {

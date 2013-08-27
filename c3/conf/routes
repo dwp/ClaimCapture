@@ -139,9 +139,6 @@ POST    /employment/last-wage                                           controll
 GET     /employment/additional-wage-details/:jobID                      controllers.s7_employment.G5AdditionalWageDetails.present(jobID: String)
 POST    /employment/additional-wage-details                             controllers.s7_employment.G5AdditionalWageDetails.submit
 
-GET     /employment/money-owed-by-employer/:jobID                       controllers.s7_employment.G6MoneyOwedbyEmployer.present(jobID: String)
-POST    /employment/money-owed-by-employer                              controllers.s7_employment.G6MoneyOwedbyEmployer.submit
-
 GET     /employment/pension-schemes/:jobID                              controllers.s7_employment.G7PensionSchemes.present(jobID: String)
 POST    /employment/pension-schemes                                     controllers.s7_employment.G7PensionSchemes.submit
 
@@ -154,14 +151,8 @@ POST    /employment/necessary-expenses                                  controll
 GET     /employment/childcare-expenses/:jobID                           controllers.s7_employment.G10ChildcareExpenses.present(jobID: String)
 POST    /employment/childcare-expenses                                  controllers.s7_employment.G10ChildcareExpenses.submit
 
-GET     /employment/childcare-provider/:jobID                           controllers.s7_employment.G11ChildcareProvider.present(jobID: String)
-POST    /employment/childcare-provider                                  controllers.s7_employment.G11ChildcareProvider.submit
-
 GET     /employment/person-you-care-for-expenses/:jobID                 controllers.s7_employment.G12PersonYouCareForExpenses.present(jobID: String)
 POST    /employment/person-you-care-for-expenses                        controllers.s7_employment.G12PersonYouCareForExpenses.submit
-
-GET     /employment/care-provider/:jobID                                controllers.s7_employment.G13CareProvider.present(jobID: String)
-POST    /employment/care-provider                                       controllers.s7_employment.G13CareProvider.submit
 
 GET     /employment/job-completion/:jobID                               controllers.s7_employment.G14JobCompletion.present(jobID: String)
 POST    /employment/job-completion                                      controllers.s7_employment.G14JobCompletion.submit

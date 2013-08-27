@@ -19,7 +19,8 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
     "nationalInsuranceNumber" -> optional(nino.verifying(validNinoOnly)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     "nationality" -> optional(text.verifying(validNationality)),
-    "separated.fromPartner" -> nonEmptyText.verifying(validYesNo))(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
+    "separated.fromPartner" -> nonEmptyText.verifying(validYesNo)
+  )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     YourPartner.whenSectionVisible(Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))))

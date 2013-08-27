@@ -1,7 +1,7 @@
 package controllers.s9_other_money
 
 import org.specs2.mutable.{ Tags, Specification }
-import controllers.{BrowserMatchers, Formulate, ClaimScenarioFactory}
+import controllers.{ BrowserMatchers, Formulate, ClaimScenarioFactory }
 import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.ClaimScenario
@@ -46,30 +46,64 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
     }
 
     "be presented" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      page goToThePage()
+      page goToThePage ()
     }
 
     "present errors if mandatory fields are not populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      page goToThePage()
+      page goToThePage ()
       page.submitPage().listErrors.size mustEqual 2
     }
-    
+
     "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = ClaimScenarioFactory.s8otherMoney
-      page goToThePage()
+      val claim = ClaimScenarioFactory.s9otherMoney
+      page goToThePage ()
       page fillPageWith claim
-      
-      val nextPage = page submitPage()
-      
+
+      val nextPage = page submitPage ()
+
       nextPage must beAnInstanceOf[G5StatutorySickPayPage]
     }
-    
-    "contain errors on invalid submission" in new WithBrowser with G1AboutOtherMoneyPageContext {
-      val claim = new ClaimScenario
-      page goToThePage()
+
+    "navigate to next page on valid submission with other field selected" in new WithBrowser with G1AboutOtherMoneyPageContext {
+      val claim = ClaimScenarioFactory.s9otherMoney
+      claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
+      claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
+      claim.OtherMoneyWhoPaysYou = "The Man"
+      claim.OtherMoneyHowMuch = "Not much"
+      claim.OtherMoneyHowOften = "other"
+      claim.OtherMoneyHowOftenOther = "every day and twice on Sundays"
+
+      page goToThePage ()
       page fillPageWith claim
-      val pageWithErrors = page.submitPage()
-      pageWithErrors.listErrors.size mustEqual 2
+
+      val nextPage = page submitPage ()
+      nextPage must beAnInstanceOf[G5StatutorySickPayPage]
     }
-  } section("integration", models.domain.OtherMoney.id)
+
+    "contain errors on invalid submission" in {
+      "mandatory fields empty" in new WithBrowser with G1AboutOtherMoneyPageContext {
+        val claim = new ClaimScenario
+        page goToThePage ()
+        page fillPageWith claim
+        val pageWithErrors = page.submitPage()
+        pageWithErrors.listErrors.size mustEqual 2
+      }
+
+      "howOften frequency of other with no other text entered" in new WithBrowser with G1AboutOtherMoneyPageContext {
+        val claim = new ClaimScenario
+        claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
+        claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
+        claim.OtherMoneyWhoPaysYou = "The Man"
+        claim.OtherMoneyHowMuch = "Not much"
+        claim.OtherMoneyHowOften = "other"
+        page goToThePage ()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+
+        errors.size mustEqual 1
+        errors(0) must contain("How often?")
+      }
+    }
+  } section ("integration", models.domain.OtherMoney.id)
 }

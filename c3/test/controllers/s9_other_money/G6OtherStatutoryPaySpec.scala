@@ -1,7 +1,7 @@
 package controllers.s9_other_money
 
-import org.specs2.mutable.{Tags, Specification}
-import play.api.test.{FakeRequest, WithApplication}
+import org.specs2.mutable.{ Tags, Specification }
+import play.api.test.{ FakeRequest, WithApplication }
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain._
@@ -66,8 +66,8 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
       "invalid postcode" in new WithApplication with Claiming {
         val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
           .withFormUrlEncodedBody("otherPay" -> yes,
-          "employersName" -> employersName,
-          "employersPostcode" -> "INVALID")
+            "employersName" -> employersName,
+            "employersPostcode" -> "INVALID")
 
         val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
         status(result) mustEqual BAD_REQUEST
@@ -76,6 +76,22 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
       "missing mandatory field" in new WithApplication with Claiming {
         val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
           .withFormUrlEncodedBody("otherPay" -> yes)
+
+        val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
+        status(result) mustEqual BAD_REQUEST
+      }
+
+      "reject a howOften frequency if other with no other text entered" in new WithApplication with Claiming {
+        val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+          .withFormUrlEncodedBody("otherPay" -> yes,
+            "howMuch" -> howMuch,
+            "howOften.frequency" -> howOften_frequency,
+            "howOften.other" -> "",
+            "employersName" -> employersName,
+            "employersAddress.lineOne" -> employersAddressLineOne,
+            "employersAddress.lineTwo" -> employersAddressLineTwo,
+            "employersAddress.lineThree" -> employersAddressLineThree,
+            "employersPostcode" -> employersPostcode)
 
         val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
         status(result) mustEqual BAD_REQUEST
@@ -89,5 +105,5 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
       val result = controllers.s9_other_money.G6OtherStatutoryPay.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit", models.domain.OtherMoney.id)
+  } section ("unit", models.domain.OtherMoney.id)
 }

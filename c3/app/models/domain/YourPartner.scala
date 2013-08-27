@@ -1,7 +1,6 @@
 package models.domain
 
-import models.{DayMonthYear, MultiLineAddress, NationalInsuranceNumber}
-import models.yesNo.YesNoWithDate
+import models.{DayMonthYear, NationalInsuranceNumber}
 
 object YourPartner extends Section.Identifier {
   val id = "s3"

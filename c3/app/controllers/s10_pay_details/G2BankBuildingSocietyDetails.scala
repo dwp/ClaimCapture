@@ -15,6 +15,7 @@ object G2BankBuildingSocietyDetails extends Controller with PayDetailsRouting wi
   val form = Form(
     mapping(
       "accountHolderName" -> nonEmptyText(maxLength = sixty),
+      "whoseNameIsTheAccountIn" -> nonEmptyText,
       "bankFullName" -> nonEmptyText(maxLength = 100),
       "sortCode" -> (sortCode verifying requiredSortCode),
       "accountNumber" -> nonEmptyText(minLength = 6, maxLength = 10),

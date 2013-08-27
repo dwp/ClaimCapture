@@ -4,35 +4,33 @@
 @import models.domain.Education
 
 @common.govMain(title) {
-    <main role="main" id="content">
 	
    	 <div class="carers-allowance">
 
-            @progressBar(Education)
+        @progressBar(Education)
 
-            <section>
+        <section>
 
-                <h1>About your education</h1>
+            <h1>About your education</h1>
 
-                @if(completedQuestionGroups.size > 0) {
-                    <div class="completed">
-                        <ul>
-                            @for((completedQuestionGroup, call) <- completedQuestionGroups) {
-                                <li>
-                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                    <a href="@call">Change these answers</a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
+            @if(completedQuestionGroups.size > 0) {
+                <div class="completed">
+                    <ul>
+                        @for((completedQuestionGroup, call) <- completedQuestionGroups) {
+                            <li>
+                                <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                <a href="@call">Change these answers</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
 
-                @if(currentForm.isDefined){
-                    @errorsSummary(currentForm.get)
-                }
+            @if(currentForm.isDefined){
+                @errorsSummary(currentForm.get)
+            }
 
-                @content
-            </section>
-        </div>
-    </main>
+            @content
+        </section>
+    </div>
 }

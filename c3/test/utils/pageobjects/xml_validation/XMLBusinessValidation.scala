@@ -175,16 +175,16 @@ object ClaimValue {
 
   private def prepareQuestion(question: String) = question.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
-  private def prepareClaimValue(claimValue: String) = {
+  private def prepareClaimValue(claimValue: String, attribute:String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
 
-    if (cleanValue.contains("/")) {
+    if (cleanValue.contains("/") && !attribute.startsWith("EmploymentLeavingDateP45")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
       date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
     } else cleanValue
   }
 
-  def apply(attribute: String, value: String, question: String) = new ClaimValue(attribute, prepareClaimValue(value), prepareQuestion(question))
+  def apply(attribute: String, value: String, question: String) = new ClaimValue(attribute, prepareClaimValue(value,attribute), prepareQuestion(question))
 
   //  implicit def fromString(source: String): ClaimValue = new ClaimValue(prepareClaimValue(source))
 }

@@ -3,14 +3,9 @@ package controllers
 import play.api.test.WithBrowser
 import org.fluentlenium.core.filter.Filter
 import org.fluentlenium.core.Fluent
-import org.fluentlenium.core.domain.FluentList
 
 trait WithBrowserHelper {
   this: WithBrowser[_] =>
-
-  def enter = this
-
-  def >(f: => Fluent) = f
 
   def fluent = browser clear "#nothing"
 
@@ -21,6 +16,10 @@ trait WithBrowserHelper {
   def back = browser click "#backButton"
 
   def click(cssSelector: String, filters: Filter*) = browser click(cssSelector, filters: _*)
+
+  def fill() = this
+
+  def in(f: => Fluent) = f
 
   def fill(cssSelector: String, filters: Filter*) = browser fill(cssSelector, filters: _*)
 

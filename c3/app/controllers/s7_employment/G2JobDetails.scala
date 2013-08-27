@@ -17,6 +17,7 @@ object G2JobDetails extends Controller with CachedClaim with Navigable {
     "jobStartDate" -> optional(dayMonthYear.verifying(validDateOnly)),
     "finishedThisJob" -> nonEmptyText,
     "lastWorkDate" -> optional(dayMonthYear.verifying(validDate)),
+    "p45LeavingDate" -> optional(dayMonthYear.verifying(validDateOnly)),
     "hoursPerWeek" -> optional(text),
     "payrollEmployeeNumber" -> optional(text)
   )(JobDetails.apply)(JobDetails.unapply))

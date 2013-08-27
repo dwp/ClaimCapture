@@ -25,6 +25,6 @@ object G5AdditionalWageDetails extends Controller with CachedClaim with Navigabl
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g5_additionalWageDetails(formWithErrors)),
-      wageDetails => claim.update(jobs.update(wageDetails)) -> Redirect(routes.G6MoneyOwedbyEmployer.present(jobID)))
+      wageDetails => claim.update(jobs.update(wageDetails)) -> Redirect(routes.G7PensionSchemes.present(jobID)))
   }
 }

@@ -3,7 +3,6 @@ package models.domain
 import models.DayMonthYear
 import models.PaymentFrequency
 import models.MultiLineAddress
-import models.PeriodFromTo
 import play.api.i18n.Messages
 import scala.reflect.ClassTag
 
@@ -58,6 +57,8 @@ object Jobs extends QuestionGroup.Identifier {
 case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identifier] = Nil) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
   def employerName = jobDetails(_.employerName)
 
+  def title = necessaryExpenses(_.jobTitle)
+
   def update(questionGroup: QuestionGroup with Job.Identifier): Job = {
     val updated = questionGroups map { qg => if (qg.identifier == questionGroup.identifier) questionGroup else qg }
     if (updated.contains(questionGroup)) copy(questionGroups = updated) else copy(questionGroups = questionGroups :+ questionGroup)
@@ -65,6 +66,11 @@ case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identi
 
   private def jobDetails(f: JobDetails => String) = questionGroups.find(_.isInstanceOf[JobDetails]) match {
     case Some(j: JobDetails) => f(j)
+    case _ => ""
+  }
+
+  private def necessaryExpenses(f: NecessaryExpenses => String) = questionGroups.find(_.isInstanceOf[NecessaryExpenses]) match {
+    case Some(n: NecessaryExpenses) => f(n)
     case _ => ""
   }
 
@@ -97,6 +103,7 @@ case class JobDetails(jobID: String = "",
                       jobStartDate: Option[DayMonthYear] = None,
                       finishedThisJob: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
+                      p45LeavingDate:Option[DayMonthYear] = None,
                       hoursPerWeek: Option[String] = None,
                       payrollEmployeeNumber: Option[String] = None) extends QuestionGroup(JobDetails) with Job.Identifier {
   override val definition = Messages(identifier.id, employerName)
@@ -139,17 +146,6 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
   }
 }
 
-case class MoneyOwedbyEmployer(jobID: String = "",
-                               howMuchOwed: Option[String] = None,
-                               owedPeriod: Option[PeriodFromTo] = None,
-                               owedFor: Option[String] = None,
-                               shouldBeenPaidBy: Option[DayMonthYear] = None,
-                               whenWillGetIt: Option[String] = None) extends QuestionGroup(MoneyOwedbyEmployer) with Job.Identifier
-
-object MoneyOwedbyEmployer extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g6"
-}
-
 case class PensionSchemes(jobID: String = "",
                           payOccupationalPensionScheme: String = "",
                           howMuchPension: Option[String] = None,
@@ -163,43 +159,31 @@ object PensionSchemes extends QuestionGroup.Identifier {
 }
 
 case class AboutExpenses(jobID: String = "",
-                          payForAnythingNecessary: String = "",
-                          payAnyoneToLookAfterChildren: String = "",
-                          payAnyoneToLookAfterPerson: String = "") extends QuestionGroup(AboutExpenses) with Job.Identifier
+                         payForAnythingNecessary: String = "",
+                         payAnyoneToLookAfterChildren: String = "",
+                         payAnyoneToLookAfterPerson: String = "") extends QuestionGroup(AboutExpenses) with Job.Identifier
 
 object AboutExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g8"
 }
 
 case class NecessaryExpenses(jobID: String = "",
-                             whatAreThose: String = "",
-                             howMuchCostEachWeek: String = "",
-                             whyDoYouNeedThose: String = "") extends QuestionGroup(NecessaryExpenses) with Job.Identifier
-
+                             jobTitle: String = "",
+                             whatAreThose: String = "") extends QuestionGroup(NecessaryExpenses) with Job.Identifier
 
 object NecessaryExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g9"
 }
 
 case class ChildcareExpenses(jobID: String = "",
-                             howMuchCostChildcare: Option[String] = None,
                              whoLooksAfterChildren: String = "",
+                             howMuchCostChildcare: String = "",
                              relationToYou: String = "",
                              relationToPartner: Option[String] = None,
                              relationToPersonYouCare: String = "") extends QuestionGroup(ChildcareExpenses) with Job.Identifier
 
-
 object ChildcareExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g10"
-}
-
-case class ChildcareProvider(jobID: String = "",
-                             address: Option[MultiLineAddress] = None,
-                             postcode: Option[String] = None) extends QuestionGroup(ChildcareProvider) with Job.Identifier
-
-
-object ChildcareProvider extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g11"
 }
 
 case class PersonYouCareForExpenses(jobID: String = "",
@@ -210,14 +194,6 @@ case class PersonYouCareForExpenses(jobID: String = "",
 
 object PersonYouCareForExpenses extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g12"
-}
-
-case class CareProvider(jobID: String = "",
-                        address: Option[MultiLineAddress] = None,
-                        postcode: Option[String] = None) extends QuestionGroup(CareProvider) with Job.Identifier
-
-object CareProvider extends QuestionGroup.Identifier {
-  val id = s"${Employed.id}.g13"
 }
 
 object JobCompletion extends QuestionGroup.Identifier {

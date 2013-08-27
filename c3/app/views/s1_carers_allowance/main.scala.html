@@ -5,41 +5,38 @@
 
 @common.govMain(title) {
 
-	<main role="main" id="content">
-	
     <div class="carers-allowance">
 
         <div class="prototype">
     		<p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
     	</div>
 
-            @progressBar(CarersAllowance)
-    	
-            <section>
+        @progressBar(CarersAllowance)
 
-                <h1>Can you get Carer's Allowance?</h1>
+        <section>
 
-                @if(completedQuestionGroups.size > 0) {
-                    <div class="completed">
-                        <ul>
-                            @for((completedQuestionGroup, call) <- completedQuestionGroups) {
-                                <li>
-                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                    <p>@completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation</p>
-                                    <a href="@call?changing=true">Change these answers</a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
+            <h1>Can you get Carer's Allowance?</h1>
 
-                @if(currentForm.isDefined) {
-                    @errorsSummary(currentForm.get)
-                }
+            @if(completedQuestionGroups.size > 0) {
+                <div class="completed">
+                    <ul>
+                        @for((completedQuestionGroup, call) <- completedQuestionGroups) {
+                            <li>
+                                <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                <p>@completedQuestionGroup.asInstanceOf[BooleanConfirmation].confirmation</p>
+                                <a href="@call?changing=true">Change this answer</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
 
-                @content
+            @if(currentForm.isDefined) {
+                @errorsSummary(currentForm.get)
+            }
 
-            </section>
-        </div>
-    </main>
+            @content
+
+        </section>
+    </div>
 }

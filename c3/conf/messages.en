@@ -59,14 +59,12 @@ s7.g2 = Your job
 s7.g3 = Employer''s contact details
 s7.g4 = Your last wage
 s7.g5 = Additional details on your last wage
-s7.g6 = Money owed to you by your employer
 s7.g7 = Pension schemes
 s7.g8 = About expenses to do with your employment
 s7.g9 = Necessary expenses to do your job
 s7.g10 = Childcare expenses while you are at work
 s7.g11 = Childcare provider''s contact details
 s7.g12 = Expenses related to the person you care for, while you are at work
-s7.g13 = Care provider''s contact details
 
 s8.g1 = Your job
 s8.g2 = Your accounts
@@ -289,7 +287,6 @@ finishedThisJob = Have you finished this job?
 lastWorkDate = What date did you last work?
 p45LeavingDate = What is the leaving date on your P45, if you have one?
 hoursPerWeek = How many hours a week do you normally work?
-jobTitle = Job title
 payrollEmployeeNumber = Payroll or Employee number
 
 # EMPLOYER CONTACT DETAILS
@@ -309,13 +306,6 @@ whenGetPaid = When {0} get paid?
 whenGetPaid.helper = E.g. day of the month
 employerOwesYouMoney = Does your employer owe you any money?
 
-# MONEY OWED BY EMPLOYER
-howMuchOwed = How much are you owed?
-owedPeriod = What period is it for?
-owedFor = What is the money owed for?
-shouldBeenPaidBy = When should it have been paid?
-whenWillGetIt = When will you get it?
-
 # PENSION SCHEME
 payOccupationalPensionScheme = {0} pay towards an occupational pension scheme?
 howMuchPension = How much {0} pay?
@@ -330,9 +320,10 @@ payAnyoneToLookAfterChildren = While at work, {0} pay anyone to look after your 
 payAnyoneToLookAfterPerson = While at work, {0} pay anyone to look after the person you care for?
 
 # NECESSARY EXPENSES
+jobTitle = Job title
+jobTitle.is = What is your job title?
+jobTitle.was = What was your job title?
 whatAreThose = What {0} these things?
-whyDoYouNeedThose = Why {0} need these things to do your job?
-howMuchCostEachWeek = How much {0} these things cost you each week?
 
 # CHILDCARE EXPENSES
 howMuchCostChildcare =  How much {0} pay them?
@@ -350,6 +341,7 @@ whoDoYouPay = Name of the person/organisation you {0} pay
 # ABOUT OTHER MONEY
 yourBenefits.answer.label = Have you {0} claimed or received any other benefits since your claim date: {1}?
 anyPaymentsSinceClaimDate.answer.label = Have you received any payments for the person you care for or any other person since your claim date {0}
+anyPaymentsSinceClaimDate.helper = Enter all payments from organisations or individuals, eg from a local authority, payments for fostering, direct payments, adult placements.
 whoPaysYou.label = Who pays you?
 moneyAddedToBenefitSinceClaimDate = Has anyone had any money added to a benefit for you since your claim date?
 moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
@@ -383,6 +375,7 @@ howWePayYou.helper = Select other if you want to be paid into an International B
 
 # BANK BUILDING SOCIETY DETAILS
 accountHolderName =  Name of account holder
+whoseNameIsTheAccountIn = Whose name or names is the account in?
 bankFullName = Full name of bank or building society
 sortCode = Sort code
 accountNumber = Account number

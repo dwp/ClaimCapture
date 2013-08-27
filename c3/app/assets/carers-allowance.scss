@@ -2,9 +2,10 @@
 $button-green: #006435;
 $button-green-hover: #004b27;
 
-#wrapper {
+main {
 	background: #fff;
 	border-bottom: 10px solid #f47738;
+	display: block;
 }
 
 .carers-allowance {
@@ -288,8 +289,7 @@ $button-green-hover: #004b27;
    	   }
    	   
    	   
-   	   	   /* section header */
-		   	
+   	   	   /* section header */		   	
 		   h1 {
 			   font-size: 3.6rem;
 			   font-weight: 700;
@@ -308,7 +308,7 @@ $button-green-hover: #004b27;
 			    }
 		   }
 
-	   /* section header */
+	  
    	   
    	   
    	   
@@ -386,7 +386,7 @@ $button-green-hover: #004b27;
 		   list-style: none;
 	   }
    }
-   /* section end */
+  
    
    
    
@@ -469,7 +469,7 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
-   /* completed questions end */
+   
    
    
    
@@ -511,7 +511,7 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
-   /* Validation panel end */
+
    
    
    
@@ -825,7 +825,7 @@ $button-green-hover: #004b27;
 				   }
 		   }
 		   
-		   /* form list end */
+
 		  
 		   
 		   /* radio list - includes hit areas */
@@ -847,12 +847,13 @@ $button-green-hover: #004b27;
 						   margin: 0;
 						   cursor: pointer;
 
-						   .ie & {
+						   .ie8 &, .ie9 & {
 							   left: .7em;
 							   top: 28%;
 						   }
 						   .ie7 & {
 							   top: 25%;
+							   left: .7em;
 						   }
 						   .ie6 & {
 							   position: relative;
@@ -896,7 +897,7 @@ $button-green-hover: #004b27;
 					   }
 				   }
 			 }
-			 /* radio */
+
 			 
 			 
 			 
@@ -942,7 +943,7 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }	
-		   /* list display - fully inline with label end */
+
 		   
 		   
 		   
@@ -977,7 +978,7 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }	
-		   /* list display - stacked list with label inline end */
+
 		   
 		   
 		   
@@ -1020,7 +1021,7 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }
-		   /* list display - date format layout end */ 
+
 		   
 		   
 		   
@@ -1059,7 +1060,7 @@ $button-green-hover: #004b27;
 				   left: -9999px;
 			   }
 		   }
-		   /* list display - inline with labels stripped end */
+
 		   
 		   
 		   
@@ -1100,10 +1101,9 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }
-		   /* list display - national insurance number end */
 		   
 	   }
-	   /* form list end */
+
 	   
 	   
 	   
@@ -1306,13 +1306,9 @@ $button-green-hover: #004b27;
 					}
 				}
 			}
-	   }
-	   /* table styling end */
-	   
-	   
-	   
+	   }   
    }
-   /* form elements end */
+
    
    
    
@@ -1416,6 +1412,10 @@ $button-green-hover: #004b27;
 		   margin-left: 0;
 		   p {
 			   font-size: 1.6rem;
+			   margin: .75em 0 0 0;
+			   &:first-child {
+				   margin: 0;
+			   }
 			   .ie & {
 				   font-size: 16px;
 			   }
@@ -1460,7 +1460,7 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
-   /* prompt panel end */
+
    
    
    
@@ -1566,7 +1566,8 @@ $button-green-hover: #004b27;
 				}
 		   }
 	}
-	/* button styling end */
+
+
 	
 	
 	.send-info {
@@ -1613,7 +1614,7 @@ $button-green-hover: #004b27;
 	
 	
 }
-/* carers wrapper */
+
 
 
 

@@ -3,6 +3,7 @@ package controllers
 import models.domain.{Claim, QuestionGroup}
 import play.api.mvc.Call
 
+@deprecated
 trait Routing {
   def route(questionGroupIdentifier: QuestionGroup.Identifier): Call
 

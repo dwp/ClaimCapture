@@ -11,10 +11,9 @@ import utils.helpers.CarersForm.formBinding
 import YourPartner.whenSectionVisible
 
 object G4PersonYouCareFor extends Controller with YourPartnerRouting with CachedClaim {
-  val form = Form(
-    mapping(
-      "isPartnerPersonYouCareFor" -> nonEmptyText.verifying(validYesNo)
-    )(PersonYouCareFor.apply)(PersonYouCareFor.unapply))
+  val form = Form(mapping(
+    "isPartnerPersonYouCareFor" -> nonEmptyText.verifying(validYesNo)
+  )(PersonYouCareFor.apply)(PersonYouCareFor.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     whenSectionVisible {

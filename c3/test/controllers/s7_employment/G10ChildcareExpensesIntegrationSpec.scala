@@ -30,7 +30,7 @@ class G10ChildcareExpensesIntegrationSpec extends Specification with Tags with A
         case _ => ko("Next Page is not of the right type.")
       }*/
 
-      p.submitPage() should beLike { case p: G11ChildcareProviderPage => p numberSectionsCompleted() mustEqual 2 }
+      p.submitPage() should beLike { case p: G12PersonYouCareForExpensesPage => p numberSectionsCompleted() mustEqual 2 }
     }
 
     "be able to navigate back to a completed form" in new WithBrowser with G8AboutExpensesPageContext {

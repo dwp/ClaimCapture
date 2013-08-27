@@ -16,12 +16,12 @@ class G7PensionSchemesIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
       page submitPage() match {
-        case p: G8AboutExpensesPage => p numberSectionsCompleted()  mustEqual 1
+        case p: G8AboutExpensesPage => p numberSectionsCompleted() mustEqual 1
         case _ => ko("Next Page is not of the right type.")
       }
     }
 
-    "be able to navigate back to a completed form" in new WithBrowser  with G6MoneyOwedByEmployerPageContext {
+    "be able to navigate back to a completed form" in new WithBrowser with G5AdditionalWageDetailsPageContext {
       val claim = ClaimScenarioFactory s7Employment()
       val url = routes.G5AdditionalWageDetails.present(page.iteration.toString).url
       browser.goTo(url)
@@ -32,7 +32,7 @@ class G7PensionSchemesIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
       val submitted = page submitPage()
       val backPage = submitted goBack ()
-      backPage must beAnInstanceOf[G6MoneyOwedByEmployerPage]
+      backPage must beAnInstanceOf[G5AdditionalWageDetailsPage]
     }
-  } section("integration",models.domain.Employed.id)
+  } section("integration", models.domain.Employed.id)
 }

@@ -15,13 +15,11 @@ class G5AdditionalWageDetailsIntegrationSpec extends Specification with Tags {
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim
-      page submitPage() match {
-        case p: G6MoneyOwedByEmployerPage => p numberSectionsCompleted()  mustEqual 1
-        case _ => ko("Next Page is not of the right type.")
-      }
+
+      page submitPage() should beLike { case p: G7PensionSchemesPage => p numberSectionsCompleted() shouldEqual 1 }
     }
 
-    "be able to navigate back to a completed form" in new WithBrowser  with G4LastWagePageContext {
+    "be able to navigate back to a completed form" in new WithBrowser with G4LastWagePageContext {
       val claim = ClaimScenarioFactory s7Employment()
       page goToThePage()
       page fillPageWith claim
@@ -29,5 +27,5 @@ class G5AdditionalWageDetailsIntegrationSpec extends Specification with Tags {
       val backPage = submitted goBack ()
       backPage must beAnInstanceOf[G4LastWagePage]
     }
-  } section("integration",models.domain.Employed.id)
+  } section("integration", models.domain.Employed.id)
 }

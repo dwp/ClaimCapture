@@ -87,7 +87,7 @@ trait CachedClaim {
         case None =>
           if (Play.isTest) {
             val claim = Claim()
-            Cache.set(key, claim, 20) // place an empty claim in the cache to satisfy tests
+            Cache.set(key, claim, 600) // place an empty claim in the cache to satisfy tests
             action(claim)
           } else {
             Logger.info("Claim timeout")

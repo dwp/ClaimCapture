@@ -43,7 +43,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
 
     "accept all mandatory data." in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whoLooksAfterChildren" -> "blah", "relationToYou" -> "father", "relationToPersonYouCare" -> "grandFather")
+        "whoLooksAfterChildren" -> "blah", "howMuchCostChildcare" -> "99.22", "relationToYou" -> "father", "relationToPersonYouCare" -> "grandFather")
 
       val result = G10ChildcareExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -57,7 +57,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
         "finishedThisJob" -> "yes"))
 
       val result = G10ChildcareExpenses.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whoLooksAfterChildren" -> "blah", "relationToYou" -> "father", "relationToPersonYouCare" -> "grandFather"))
+        "whoLooksAfterChildren" -> "blah", "howMuchCostChildcare" -> "99.22", "relationToYou" -> "father", "relationToPersonYouCare" -> "grandFather"))
 
       status(result) mustEqual SEE_OTHER
 
