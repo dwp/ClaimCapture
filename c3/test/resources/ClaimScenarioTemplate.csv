@@ -280,6 +280,8 @@ Other Money,Details about other money,Have you <or your partner/spouse> claimed 
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,
 Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,
 Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,
+Other Money,Details about other money,Details about other money: How often?,OtherMoneyHowOften,
+Other Money,Details about other money,Details about other money: How often other?,OtherMoneyHowOftenOther,
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How much?,OtherMoneySSPHowMuch,
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOften,
@@ -315,3 +317,4 @@ Consent & Declaration,Declaration,Disclaimer text and tick box,ConsentDeclaratio
 Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,
 Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,
+About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,

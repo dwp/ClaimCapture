@@ -10,7 +10,7 @@ About You,Your Details,All other surnames or family names you have used or have 
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,
 About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1976
 About You,Your Details,Nationality,AboutYouNationality,British
-About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,m
+About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,p
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,Yes
 About You,Your contact details,Address,AboutYouAddress,1 Preston Road&Preston
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 1HB
@@ -37,7 +37,7 @@ About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBi
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,
 About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,
-About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,Mrs
+About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,dame
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,Test
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,
 About the care you provide,Details of the person you care for,Surname or family name,AboutTheCareYouProvideSurnamePersonCareFor,Caseone
@@ -47,7 +47,7 @@ About the care you provide,Details of the person you care for,Do they live at th
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,1 Preston Road&Preston
 About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,PR1 1HB
 About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,
-About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,partner
+About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,partner	
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,Yes
 About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Yes
 About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date: <ddmmyyyy>?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,Yes
@@ -273,6 +273,10 @@ Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAdd
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,No
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
+Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,
+Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,
+Other Money,Details about other money,Details about other money: How often?,OtherMoneyHowOften,
+Other Money,Details about other money,Details about other money: How often other?,OtherMoneyHowOftenOther,
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,
@@ -304,3 +308,4 @@ Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclaratio
 Consent & Declaration,Consent & Declaration,Disclaimer text and tick box,ConsentDeclarationDisclaimerTextAndTickBox,Yes
 Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,Yes
 Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,Yes
+About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,

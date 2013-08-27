@@ -19,6 +19,7 @@ class XmlSubmitter extends Submitter {
     if (Configuration.root().getBoolean("validateXml", true)) {
       val validator = XmlValidatorFactory.buildCaValidator()
       val fullXmlString = fullXml.buildString(stripComments = true)
+
       validator.validate(fullXmlString) match {
         case true => Future(Ok(claimXml.buildString(stripComments = false)))
         case false => {
@@ -31,7 +32,7 @@ class XmlSubmitter extends Submitter {
     }
   }
 
-  private def buildFullClaim(claimXml: Elem) = {
+  def buildFullClaim(claimXml: Elem) = {
     <DWPBody xmlns:bs7666="http://www.govtalk.gov.uk/people/bs7666"
              xmlns="http://www.govtalk.gov.uk/dwp/ca/claim"
              xmlns:gds="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails"

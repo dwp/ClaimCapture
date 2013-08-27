@@ -264,7 +264,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
     if (!this.pageLeftOrSubmitted) this.pageSource = browser.pageSource()
     browser.goTo(page.url)
     if (!page.titleMatch) {
-      if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " - Page loaded with title: " + getTitleFromBrowser())
+      if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " Iteration("+iteration+") - Page loaded with title: " + getTitleFromBrowser())
       else this.createPageWithTitle(getTitleFromBrowser(), 1)
     } else if (waitForPage) page.waitForPage(waitDuration) else page
   }

@@ -44,8 +44,8 @@ About the care you provide,Details of the person you care for,Surname or family 
 About the care you provide,Details of the person you care for,National Insurance (NI) number,AboutTheCareYouProvideNINOPersonCareFor,JA789871C
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,12/09/1933
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,Yes
-About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road&Preston&Lancashire
-About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,PR1 1HB
+About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,
+About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,
 About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Sister
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,No
@@ -63,25 +63,25 @@ About the care you provide,About the breaks in care,Where was the person you car
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_1,Yes
 About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_2,Yes
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_2,20/01/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_2,10:45
+About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_2,
 About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_2,27/01/2010
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_2,17:00
+About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_2,
 About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_2,Holiday
 About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_2,Nursing Home
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_2,Yes
 About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_3,Yes
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_3,20/02/2010
 About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_3,12:15
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_3,27/02/2010
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_3,13:45
+About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_3,
+About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_3,
 About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_3,Respite Care
 About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_3,Care Home
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_3,Yes
 About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_4,Yes
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_4,20/03/2010
-About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_4,12:00
-About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_4,21/02/2010
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_4,13:30
+About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_4,
+About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_4,
+About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_4,
 About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_4,Holiday
 About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_4,Nursing Home
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_4,Yes
@@ -89,7 +89,7 @@ About the care you provide,About the breaks in care,Have you had any more breaks
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_5,20/03/2013
 About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime_5,12:00
 About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_5,21/02/2013
-About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_5,13:15
+About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_5,
 About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_5,Other
 About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_5,Other
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_5,No
@@ -141,17 +141,17 @@ Time Spent Abroad,When you went abroad for more than 4 weeks,"Have you been out 
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB_1,31/05/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB_1,09/06/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Where did you go?,TimeSpentAbroadWhereDidYouGoWithPersonCareFor_1,Spain
-Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor_1,Holiday
+Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor_1,Holiday Spain
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),"Have you had any more trips out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim date _ 3 years]] (this is 3 years before today)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_2,Yes
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB_2,11/06/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB_2,19/06/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Where did you go?,TimeSpentAbroadWhereDidYouGoWithPersonCareFor_2,France
-Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor_2,Holiday
+Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor_2,Holiday France
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),"Have you had any more trips out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim date _ 3 years]] (this is 3 years before today)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_3,Yes
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB_3,01/01/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB_3,09/01/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Where did you go?,TimeSpentAbroadWhereDidYouGoWithPersonCareFor_3,Scotland
-Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor_3,Holiday
+Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor_3,Holiday Scotland
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),"Have you had any more trips out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim date _ 3 years]] (this is 3 years before today)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_4,No
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB_4,
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB_4,
@@ -194,13 +194,13 @@ Education,Your course details,Course title,EducationCourseTitle,Geograpghy and H
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,09/09/2013
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,09/07/2014
 Education,Your course details,"If you are no longer on the course, when did you finish?",EducationWhenDidYouFinish,
-Education,Your course details,Your student reference number,EducationYourStudentReferenceNumber,12300000000000
+Education,Your course details,Your student reference number,EducationYourStudentReferenceNumber,
 Education,"School, college or universitys contact details","Name of school, college or university",EducationNameofSchool,Preston College
 Education,"School, college or universitys contact details",Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,Mr Steve Tudor
 Education,"School, college or universitys contact details",Address,EducationAddress,90 Preston Road&Preston&Lancashire
 Education,"School, college or universitys contact details",Post code,EducationPostcode,PR45 6YH
 Education,"School, college or universitys contact details",Phone number,EducationPhoneNumber,01772 891891
-Education,"School, college or universitys contact details",Fax Number,EducationFaxNumber ,01772 891893
+Education,"School, college or universitys contact details",Fax Number,EducationFaxNumber,
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
 Employment,Your Job,Employers Name,EmploymentEmployerName_1,
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob_1,
@@ -315,6 +315,10 @@ Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAdd
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,No
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
+Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,
+Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,
+Other Money,Details about other money,Details about other money: How often?,OtherMoneyHowOften,
+Other Money,Details about other money,Details about other money: How often other?,OtherMoneyHowOftenOther,
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,
@@ -348,3 +352,4 @@ Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclaratio
 Consent & Declaration,Consent & Declaration,Disclaimer text and tick box,ConsentDeclarationDisclaimerTextAndTickBox,Yes
 Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,Yes
 Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,Yes
+About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,no
