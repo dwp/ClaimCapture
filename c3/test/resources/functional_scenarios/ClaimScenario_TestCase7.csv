@@ -215,7 +215,7 @@ Employment,Employers contact details,Postcode ,EmploymentEmployerPostcode_1,FY8 
 Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_1,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,24/12/2010
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,600
-Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,Everything including christmas bonus
+Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,"Everything including christmas bonus !!?"s
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_1,No
 Employment,Additional details on your last wage,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_1,4W
 Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOther_1,
@@ -315,6 +315,10 @@ Self Employed,Care providers contact Details,Address,SelfEmployedCareProviderAdd
 Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPostcode,
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,No
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,No
+Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,
+Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,
+Other Money,Details about other money,Details about other money: How often?,OtherMoneyHowOften,
+Other Money,Details about other money,Details about other money: How often other?,OtherMoneyHowOftenOther,
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,No
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,
@@ -345,4 +349,5 @@ Consent & Declaration,Consent & Declaration,Do you agree to us getting informati
 Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclarationTellUsWhyOther,
 Consent & Declaration,Consent & Declaration,Disclaimer text and tick box,ConsentDeclarationDisclaimerTextAndTickBox,Yes
 Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,Yes
-Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,Yes
+Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,Yes 
+About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,
