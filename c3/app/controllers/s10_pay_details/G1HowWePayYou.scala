@@ -9,7 +9,7 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import PayDetails._
 
-object G1HowWePayYou extends Controller with CachedClaim{
+object G1HowWePayYou extends Controller with CachedClaim {
   val form = Form(
     mapping(
       "likeToPay" -> nonEmptyText(maxLength = 20),
