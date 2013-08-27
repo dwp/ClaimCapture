@@ -130,7 +130,7 @@ object EvidenceList {
     val textLines = textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
       textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened) ++
       textLine("How often [[past=did you]] [[present=do you]] childcare expenses = ", childCare.howOftenPayChildCare) ++
-      textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = ", expensesWhileAtWork.howMuchYouPay)
+      textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = ", expensesWhileAtWork.howOftenPayExpenses)
 
     if(sectionEmpty(textLines)) NodeSeq.Empty else textSeparatorLine("Self Employment") ++ textLines
   }
