@@ -20,11 +20,17 @@ case class Section(identifier: Section.Identifier, questionGroups: List[Question
     copy(questionGroups = updatedQuestionGroups.sortWith(_.identifier.index < _.identifier.index))
   }
 
+  def +(questionGroup: QuestionGroup): Section = update(questionGroup)
+
   def delete(questionGroup: QuestionGroup): Section = delete(questionGroup.identifier)
+
+  def -(questionGroup: QuestionGroup): Section = delete(questionGroup)
 
   def delete(questionGroupIdentifier: QuestionGroup.Identifier): Section = {
     copy(questionGroups = questionGroups.filterNot(qg => qg.identifier == questionGroupIdentifier))
   }
+
+  def -(questionGroupIdentifier: QuestionGroup.Identifier): Section = delete(questionGroupIdentifier)
 
   def precedingQuestionGroups(questionGroup: QuestionGroup): List[QuestionGroup] = precedingQuestionGroups(questionGroup.identifier)
 

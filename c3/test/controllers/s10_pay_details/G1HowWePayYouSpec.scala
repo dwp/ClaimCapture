@@ -25,7 +25,7 @@ class G1HowWePayYouSpec extends Specification with Tags {
     """accept customer gets paid by bank account or building society""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
                                  .withFormUrlEncodedBody("likeToPay" -> "01",
-                                                         "paymentFrequency"->"fourWeekly")
+                                                         "paymentFrequency"->"fourweekly")
 
       val result = G1HowWePayYou.submit(request)
       redirectLocation(result) must beSome("/pay-details/bank-building-society-details")

@@ -56,15 +56,21 @@ case class Claim(sections: List[Section])(implicit val navigation: Navigation = 
 
   def update(section: Section): Claim = Claim(sections.updated(section.identifier.index - 1, section))
 
+  def +(section: Section): Claim = update(section)
+
   def update(questionGroup: QuestionGroup): Claim = {
     val si = Section.sectionIdentifier(questionGroup.identifier)
     update(section(si).update(questionGroup))
   }
 
+  def +(questionGroup: QuestionGroup): Claim = update(questionGroup)
+
   def delete(questionGroupIdentifier: QuestionGroup.Identifier): Claim = {
     val sectionIdentifier = Section.sectionIdentifier(questionGroupIdentifier)
     update(section(sectionIdentifier).delete(questionGroupIdentifier))
   }
+
+  def -(questionGroupIdentifier: QuestionGroup.Identifier): Claim = delete(questionGroupIdentifier)
 
   def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate) match {
     case Some(c: ClaimDate) => Some(c.dateOfClaim)
@@ -91,7 +97,7 @@ object Claim {
       Section(CareYouProvide, firstPage = controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present(), lastPage = controllers.s4_care_you_provide.routes.CareYouProvide.completed()),
       Section(TimeSpentAbroad, firstPage = controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.present(), lastPage = controllers.s5_time_spent_abroad.routes.TimeSpentAbroad.completed()),
       Section(Education, firstPage = controllers.s6_education.routes.G1YourCourseDetails.present(), lastPage = controllers.s6_education.routes.Education.completed()),
-      Section(Employed, firstPage = controllers.s7_employment.routes.G2JobDetails.present("dummyID"), lastPage = controllers.s7_employment.routes.Employment.completed()),
+      Section(Employed, firstPage = controllers.s7_employment.routes.G2JobDetails.present(java.util.UUID.randomUUID.toString), lastPage = controllers.s7_employment.routes.Employment.completed()),
       Section(SelfEmployment, firstPage = controllers.s8_self_employment.routes.G1AboutSelfEmployment.present(), lastPage = controllers.s8_self_employment.routes.SelfEmployment.completed()),
       Section(OtherMoney, firstPage = controllers.s9_other_money.routes.G1AboutOtherMoney.present(), lastPage = controllers.s9_other_money.routes.OtherMoney.completed()),
       Section(PayDetails, firstPage = controllers.s10_pay_details.routes.G1HowWePayYou.present(), lastPage = controllers.s10_pay_details.routes.PayDetails.completed()),
