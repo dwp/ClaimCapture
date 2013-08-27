@@ -93,7 +93,7 @@ object EvidenceList {
     val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
 
     textSeparatorLine("About Your Partner") ++
-      textLine("Does your partner/spouse live at the same address as you? = ", { XMLValues.NotAsked }) ++
+     // textLine("Does your partner/spouse live at the same address as you? = ", { XMLValues.NotAsked }) ++
       textLine("Is your partner/spouse the person you are claiming Carer's Allowance for? = ", personYouCareFor.isPartnerPersonYouCareFor)
   }
 
