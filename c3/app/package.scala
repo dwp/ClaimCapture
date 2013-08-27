@@ -28,10 +28,10 @@ package object app {
   }
 
   object StatutoryPaymentFrequency {
-    val Weekly = "W"
-    val Fortnightly = "FN"
-    val FourWeekly = "4W"
-    val Monthly = "M"
+    val Weekly = "weekly"
+    val Fortnightly = "fortnightly"
+    val FourWeekly = "fourWeekly"
+    val Monthly = "monthly"
     val Other = "other"
 
     def optionToString(paymentFrequencyOption: Option[models.PaymentFrequency]): String = {
