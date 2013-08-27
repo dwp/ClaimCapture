@@ -2,14 +2,19 @@ package models.domain
 
 import org.specs2.mutable.Specification
 import xml.DWPCAClaim
+import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
+import controllers.submission.XmlSubmitter
 
 class ClaimAcceptanceSpec extends Specification {
   "Claim" should {
     """always lived in UK
        and other stuff""" in {
 
-      println(DWPCAClaim.xml(claim, "transactionID"))
-      // TODO Correct assertions
+      val claimXML = DWPCAClaim.xml(claim, "TEST224")
+      val xmlString = new XmlSubmitter().buildFullClaim(claimXML).buildString(stripComments = true)
+
+      val validator = XmlValidatorFactory.buildCaValidator()
+      validator.validate(xmlString) should beTrue
     }
   }
 }
