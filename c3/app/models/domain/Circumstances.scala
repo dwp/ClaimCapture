@@ -4,7 +4,7 @@ import models.{DayMonthYear, NationalInsuranceNumber}
 
 
 case object Circumstances extends Section.Identifier {
-  val id = "s1"
+  val id = "c1"
 }
 
 case class CircumstancesAboutYou(title: String = "",
