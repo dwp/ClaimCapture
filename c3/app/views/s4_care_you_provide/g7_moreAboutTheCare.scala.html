@@ -1,13 +1,14 @@
-@(currentForm: Form[models.domain.MoreAboutTheCare], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.MoreAboutTheCare])(implicit claim: models.domain.Claim)
 
 @import models.domain.{Claim,ClaimDate}
 @import views.html.helper._
 @import views.html.helper.dates._
 @import utils.helpers.CarersTemplate._
 @import utils.helpers.CarersCrypto
+@import models.domain.MoreAboutTheCare
 @import views.html.s4_care_you_provide.main
 
-@main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm), completedQuestionGroups) {
+@main(Messages("s4.g4") + " - " + Messages("s4.longName"), Some(currentForm), claim.completedQuestionGroups(MoreAboutTheCare)) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
@@ -18,7 +19,8 @@
             <ul class="group">
                 @yesNoRadioGroup(currentForm("spent35HoursCaring"))
 
-                @yesNoRadioGroup(currentForm("beforeClaimCaring.answer"), '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
+                @yesNoRadioGroup(currentForm("beforeClaimCaring.answer"),
+                                 '_label -> Messages("spent35HoursCaringBeforeClaim.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(inputDayMonthYear(currentForm("beforeClaimCaring.date"), 'helperBelow -> Messages("dateOfBirth.helper"))),
@@ -29,7 +31,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

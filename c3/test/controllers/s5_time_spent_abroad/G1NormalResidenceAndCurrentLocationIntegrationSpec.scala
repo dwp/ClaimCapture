@@ -3,7 +3,6 @@ package controllers.s5_time_spent_abroad
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{Formulate, BrowserMatchers}
-import play.api.i18n.Messages
 
 class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification with Tags {
   "Normal residence and current location" should {
@@ -37,6 +36,10 @@ class G1NormalResidenceAndCurrentLocationIntegrationSpec extends Specification w
 
     """go back to "completed care you provide".""" in new WithBrowser with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
+
+      browser.goTo("/care-you-provide/completed")
+      browser.submit("button[value='next']")
+
       browser.goTo("/time-spent-abroad/normal-residence-and-current-location")
       titleMustEqual("Your normal residence and current location - Time Spent Abroad")
 

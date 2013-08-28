@@ -1,16 +1,16 @@
 package controllers.s4_care_you_provide
 
 import language.reflectiveCalls
-import models.domain.MoreAboutTheCare
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
+import play.api.mvc.Controller
 import controllers.Mappings._
 import utils.helpers.CarersForm._
-import models.view.CachedClaim
-import play.api.mvc.Controller
+import models.view.{Navigable, CachedClaim}
+import models.domain.MoreAboutTheCare
 import models.yesNo.YesNoWithDate
 
-object G7MoreAboutTheCare extends Controller with CareYouProvideRouting with CachedClaim {
+object G7MoreAboutTheCare extends Controller with CachedClaim with Navigable {
   val careMapping =
     "beforeClaimCaring" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -18,21 +18,20 @@ object G7MoreAboutTheCare extends Controller with CareYouProvideRouting with Cac
     )(YesNoWithDate.apply)(YesNoWithDate.unapply)
       .verifying("required", YesNoWithDate.validate _)
 
-  val form = Form(
-    mapping(
-      "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
-      careMapping
-    )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
+  val form = Form(mapping(
+    "spent35HoursCaring" -> nonEmptyText.verifying(validYesNo),
+    careMapping
+  )(MoreAboutTheCare.apply)(MoreAboutTheCare.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s4_care_you_provide.g7_moreAboutTheCare(form.fill(MoreAboutTheCare), completedQuestionGroups(MoreAboutTheCare)))
+    track(MoreAboutTheCare) { implicit claim => Ok(views.html.s4_care_you_provide.g7_moreAboutTheCare(form.fill(MoreAboutTheCare))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("beforeClaimCaring", FormError("beforeClaimCaring.date", "error.required"))
-        BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrorsUpdate, completedQuestionGroups(MoreAboutTheCare)))
+        BadRequest(views.html.s4_care_you_provide.g7_moreAboutTheCare(formWithErrorsUpdate))
       },
       moreAboutTheCare => claim.update(moreAboutTheCare) -> Redirect(routes.G10BreaksInCare.present())
     )

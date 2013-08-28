@@ -10,15 +10,14 @@ import CareYouProvide.breaksInCare
 import models.domain.{BreaksInCare, Break}
 
 object G11Break extends Controller with CachedClaim {
-  val form = Form(
-    mapping(
-      "breakID" -> nonEmptyText,
-      "start" -> (dayMonthYear verifying validDate),
-      "end" -> optional(dayMonthYear verifying validDateOnly),
-      "whereYou" -> whereabouts.verifying(requiredWhereabouts),
-      "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
-      "medicalDuringBreak" -> nonEmptyText
-    )(Break.apply)(Break.unapply))
+  val form = Form(mapping(
+    "breakID" -> nonEmptyText,
+    "start" -> (dayMonthYear verifying validDate),
+    "end" -> optional(dayMonthYear verifying validDateOnly),
+    "whereYou" -> whereabouts.verifying(requiredWhereabouts),
+    "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
+    "medicalDuringBreak" -> nonEmptyText
+  )(Break.apply)(Break.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     Ok(views.html.s4_care_you_provide.g11_break(form))

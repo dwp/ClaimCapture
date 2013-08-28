@@ -92,6 +92,9 @@ s11.g3 = Disclaimer
 s11.g4 = Declaration
 s11.g5 = Documents you need to send us
 
+c1.g1 = Circumstances
+c1.longName = About you - the carer
+
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...
 
