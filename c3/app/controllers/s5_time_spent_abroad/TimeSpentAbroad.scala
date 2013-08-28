@@ -15,7 +15,6 @@ object TimeSpentAbroad extends Controller with CachedClaim with Navigable {
   def completed = claiming { implicit claim => implicit request =>
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1NormalResidenceAndCurrentLocation.present())
     else track(TimeSpentAbroad) { implicit claim => Ok(views.html.s5_time_spent_abroad.g6_completed())}
-    //completedQuestionGroups.filterNot(_.isInstanceOf[Trips]).map(qg => qg -> route(qg))
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
