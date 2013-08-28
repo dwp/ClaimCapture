@@ -4,7 +4,6 @@ import language.implicitConversions
 import reflect.ClassTag
 import play.api.mvc._
 import play.api.cache.Cache
-import models.domain.{Claim, QuestionGroup}
 import play.Configuration
 import play.api.Play._
 import play.api.mvc.Results.Redirect
@@ -13,6 +12,7 @@ import play.api.Play
 import play.api.Logger
 import play.api.http.HeaderNames._
 import java.util.UUID._
+import models.domain.{Claim, QuestionGroup}
 
 object CachedClaim {
   val claimKey = "claim"
@@ -39,7 +39,11 @@ trait CachedClaim {
   }
 
   def newClaim(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]) = Action {
-    request => action(Claim(), request)(f)
+    request => {
+      val (key, _) = keyAndExpiration(request)
+      val claim = if (request.getQueryString("changing").getOrElse("false") == "false") { Claim() } else Cache.getAs[Claim](key).getOrElse(Claim())
+      action(claim, request)(f)
+    }
   }
 
   def claiming(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]) = Action {
