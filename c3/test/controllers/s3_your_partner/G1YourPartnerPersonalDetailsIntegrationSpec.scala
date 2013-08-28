@@ -61,6 +61,9 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       Formulate.moreAboutYou(browser)
       titleMustEqual("Employment - About you - the carer")
 
+      Formulate.employment(browser)
+      titleMustEqual("Completion - About you - the carer")
+
       browser.goTo("/your-partner/personal-details")
       titleMustEqual("Partner/Spouse details - About your partner/spouse")
 

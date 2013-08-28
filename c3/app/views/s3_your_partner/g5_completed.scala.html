@@ -1,13 +1,13 @@
-@(completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@()(implicit claim: models.domain.Claim)
 
 @import helper._
 @import models.domain.YourPartner
 @import views.html.s3_your_partner.main
 
-@main("Completion - " + Messages("s3.longName"), None, completedQuestionGroups) {
+@main("Completion - " + Messages("s3.longName"), None, claim.completedQuestionGroups(models.domain.YourPartner)) {
     @form(action = controllers.s3_your_partner.routes.YourPartner.completedSubmit) {
         <nav class="form-steps">
-            <a href="@controllers.s3_your_partner.routes.G4PersonYouCareFor.present" class="button secondary">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(YourPartner).name</button>
         </nav>
     }

@@ -4,7 +4,7 @@ import models.domain._
 import controllers.Mappings.yes
 import XMLHelper.{stringify, booleanStringToYesNo}
 import scala.xml.{NodeSeq, NodeBuffer, Elem}
-import app.StatutoryPaymentFrequency
+import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 
 object EvidenceList {
 
@@ -81,9 +81,10 @@ object EvidenceList {
   def yourPartner(claim: Claim) = {
     val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
 
-    textSeparatorLine("About Your Partner") ++
-      // textLine("Does your partner/spouse live at the same address as you? = ", { XMLValues.NotAsked }) ++
-      textLine("Is your partner/spouse the person you are claiming Carer's Allowance for? = ", personYouCareFor.isPartnerPersonYouCareFor)
+    if (personYouCareFor.isPartnerPersonYouCareFor.nonEmpty) {
+      textSeparatorLine("About Your Partner") ++
+        textLine("Is your partner/spouse the person you are claiming Carer's Allowance for? = ", personYouCareFor.isPartnerPersonYouCareFor)
+    }
   }
 
   def careYouProvide(claim: Claim) = {
@@ -129,8 +130,8 @@ object EvidenceList {
 
     val textLines = textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
       textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened) ++
-      textLine("How often [[past=did you]] [[present=do you]] childcare expenses = ", childCare.howOftenPayChildCare) ++
-      textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = ", expensesWhileAtWork.howOftenPayExpenses)
+      textLine("How often [[past=did you]] [[present=do you]] childcare expenses = ", PensionPaymentFrequency.mapToHumanReadableString(childCare.howOftenPayChildCare)) ++
+      textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = ", PensionPaymentFrequency.mapToHumanReadableString(expensesWhileAtWork.howOftenPayExpenses))
 
     if(sectionEmpty(textLines)) NodeSeq.Empty else textSeparatorLine("Self Employment") ++ textLines
   }
@@ -181,13 +182,13 @@ object EvidenceList {
       textLine("Have you received any payments for the person you care for or any other person since your claim date? = ", aboutOtherMoney.anyPaymentsSinceClaimDate.answer) ++
       textLine("Details about other money: Who pays you? = ", aboutOtherMoney.whoPaysYou) ++
       textLine("Details about other money: How much? = ", aboutOtherMoney.howMuch) ++
-      textLine("Details about other money: How often? = ", StatutoryPaymentFrequency.optionToString(aboutOtherMoney.howOften)) ++
+      textLine("Details about other money: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.howOften)) ++
       textLine("Details about other money: How often other? = ", aboutOtherMoney_howOftenOther) ++
       textLine("Statutory Sick Pay: How much? = ", statutorySickPay.howMuch) ++
-      textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.optionToString(statutorySickPay.howOften)) ++
+      textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(statutorySickPay.howOften)) ++
       textLine("Statutory Sick Pay: How often other? = ", ssp_howOftenOther) ++
       textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
-      textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.optionToString(otherStatutoryPay.howOften)) ++
+      textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)) ++
       textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther) ++
       textLine("Are you, your wife, husband, civil partner or parent you are dependent on, " +
         "receiving  any pensions or benefits from another EEA State or Switzerland? = ", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland) ++
@@ -196,16 +197,11 @@ object EvidenceList {
   }
 
   def consentAndDeclaration(claim: Claim) = {
-    val consent = claim.questionGroup[Consent].getOrElse(Consent())
     val disclaimer = claim.questionGroup[Disclaimer].getOrElse(Disclaimer())
     val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
     val additionalInfo = claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())
 
     textSeparatorLine("Consent and Declaration") ++
-      textLine("Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? = ", consent.informationFromEmployer.answer) ++
-      textLine("Please tell us why = ", consent.informationFromEmployer.text) ++
-      textLine("Do you agree to us getting information from any other person or organisation you have told us about as part of this claim? = ", consent.informationFromPerson.answer) ++
-      textLine("Please tell us why = ", consent.informationFromPerson.text) ++
       textLine("Disclaimer text and tick box = ", booleanStringToYesNo(disclaimer.read)) ++
       textLine("Declaration tick box = ", booleanStringToYesNo(declaration.read)) ++
       textLine("Someone else tick box = ", booleanStringToYesNo(stringify(declaration.someoneElse))) ++

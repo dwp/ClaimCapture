@@ -54,10 +54,9 @@ class NavigationIntegrationSpec extends Specification with Tags {
       back.title shouldEqual "Your contact details - About you - the carer"
       back.title shouldEqual "Your details - About you - the carer"
 
-      fill in `/about-you/your-details` click "#alwaysLivedUK_no"
+      click("#alwaysLivedUK_no")
 
       next.title shouldEqual "Your contact details - About you - the carer"
-      fill in `/about-you/contact-details`
 
       next.title shouldEqual "About your time outside the UK - About you - the carer"
       back.title shouldEqual "Your contact details - About you - the carer"

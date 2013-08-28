@@ -2,14 +2,15 @@ package controllers.s3_your_partner
 
 import language.reflectiveCalls
 import controllers.Mappings._
-import models.domain.YourPartnerPersonalDetails
-import models.view.CachedClaim
+import models.domain.{Claim, YourPartnerPersonalDetails}
+import models.view.{Navigable, CachedClaim}
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.Controller
+import play.api.mvc.{Request, AnyContent, Controller}
 import utils.helpers.CarersForm.formBinding
+import YourPartner._
 
-object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
+object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "title" -> nonEmptyText(maxLength = 4),
     "firstName" -> nonEmptyText(maxLength = Name.maxLength),
@@ -23,7 +24,11 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim {
   )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    YourPartner.whenSectionVisible(Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))))
+    presentConditionally(yourPartnerPersonalDetails)
+  }
+
+  def yourPartnerPersonalDetails(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>

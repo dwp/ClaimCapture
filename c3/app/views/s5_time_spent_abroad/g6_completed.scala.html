@@ -1,13 +1,13 @@
-@(completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@()(implicit claim: models.domain.Claim)
 
 @import helper._
 @import models.domain.TimeSpentAbroad
 @import views.html.s5_time_spent_abroad.main
 
-@main("Completion - " + Messages("s5.longName"), None, completedQuestionGroups) {
+@main("Completion - " + Messages("s5.longName"), None, claim.completedQuestionGroups(models.domain.TimeSpentAbroad)) {
     @form(action = controllers.s5_time_spent_abroad.routes.TimeSpentAbroad.completedSubmit) {
         <nav class="form-steps">
-            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(TimeSpentAbroad).name</button>
         </nav>
     }

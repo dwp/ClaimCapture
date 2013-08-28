@@ -9,8 +9,9 @@ import models.domain.NormalResidenceAndCurrentLocation
 import controllers.Mappings._
 import models.yesNo.YesNoWithText
 import utils.helpers.CarersForm._
+import models.view.Navigable
 
-object G1NormalResidenceAndCurrentLocation extends Controller with CachedClaim {
+object G1NormalResidenceAndCurrentLocation extends Controller with CachedClaim with Navigable {
   val liveMapping =
     "liveInUK" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
@@ -25,7 +26,7 @@ object G1NormalResidenceAndCurrentLocation extends Controller with CachedClaim {
     )(NormalResidenceAndCurrentLocation.apply)(NormalResidenceAndCurrentLocation.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(form.fill(NormalResidenceAndCurrentLocation)))
+    track(NormalResidenceAndCurrentLocation) { implicit claim => Ok(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(form.fill(NormalResidenceAndCurrentLocation)))}
   }
 
   def submit = claiming { implicit claim => implicit request =>
