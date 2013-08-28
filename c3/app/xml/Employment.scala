@@ -114,7 +114,7 @@ object Employment {
         <Expense>{necessaryExpenses.whatAreThose}</Expense>
         <Reason>{NotAsked}</Reason>
         <WeeklyPayment>
-          <Currency>GBP</Currency>
+          <Currency></Currency>
           <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
       </JobExpenses>

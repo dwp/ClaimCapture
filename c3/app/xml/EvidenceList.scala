@@ -81,9 +81,10 @@ object EvidenceList {
   def yourPartner(claim: Claim) = {
     val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
 
-    textSeparatorLine("About Your Partner") ++
-      // textLine("Does your partner/spouse live at the same address as you? = ", { XMLValues.NotAsked }) ++
-      textLine("Is your partner/spouse the person you are claiming Carer's Allowance for? = ", personYouCareFor.isPartnerPersonYouCareFor)
+    if (personYouCareFor.isPartnerPersonYouCareFor.nonEmpty) {
+      textSeparatorLine("About Your Partner") ++
+        textLine("Is your partner/spouse the person you are claiming Carer's Allowance for? = ", personYouCareFor.isPartnerPersonYouCareFor)
+    }
   }
 
   def careYouProvide(claim: Claim) = {
