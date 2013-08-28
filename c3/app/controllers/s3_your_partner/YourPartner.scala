@@ -6,11 +6,9 @@ import models.domain._
 
 object YourPartner extends Controller with CachedClaim with Navigable {
   def completed = claiming { implicit claim => implicit request =>
-    presentConditionally(present)
-  }
-
-  def present(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    track(models.domain.YourPartner) { implicit claim => Ok(views.html.s3_your_partner.g5_completed()) }
+    presentConditionally {
+      track(models.domain.YourPartner) { implicit claim => Ok(views.html.s3_your_partner.g5_completed()) }
+    }
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
