@@ -9,9 +9,9 @@ final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None
   declareTime("#start", "AboutTheCareYouProvideBreakStartTime_" + iteration)
   declareTime("#end", "AboutTheCareYouProvideBreakEndTime_" + iteration)
   declareSelect("#whereYou_location", "AboutTheCareYouProvideWhereWereYouDuringTheBreak_" + iteration)
-  declareInput("#whereYou_location_other", "AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_" + iteration)
+  declareInput("#whereYou_other", "AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_" + iteration)
   declareSelect("#wherePerson_location", "AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_" + iteration)
-  declareInput("#wherePerson_location_other", "AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_" + iteration)
+  declareInput("#wherePerson_other", "AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_" + iteration)
   declareYesNo("#medicalDuringBreak", "AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_" + iteration)
 
   /**

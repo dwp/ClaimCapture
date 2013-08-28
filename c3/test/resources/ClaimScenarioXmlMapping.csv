@@ -59,9 +59,10 @@ About the care you provide,About the breaks in care,Break start date?,AboutTheCa
 About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime,CareBreak>StartDateTime
 About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate,CareBreak>EndDateTime
 About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime,CareBreak>EndDateTime
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak,CareBreak>Reason
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther,DWPCAClaim>EvidenceList
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak,DWPCAClaim>EvidenceList
+About the care you provide,About the breaks in care,Where were you during the break?,AboutTheCareYouProvideWhereWereYouDuringTheBreak,CareBreak>Reason
+About the care you provide,About the breaks in care,Where were you during the break? Other detail,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther,DWPCAClaim>EvidenceList
+About the care you provide,About the breaks in care,Where was the person you care for during the break?,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak,DWPCAClaim>EvidenceList
+About the care you provide,About the breaks in care,Where was the person you care for during the break? Other detail,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther,DWPCAClaim>EvidenceList
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment,CareBreak>MedicalCare
 Time Spent Abroad,Your normal residence & current location,"Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? ",TimeSpentAbroadDoYouNormallyLiveintheUk,DWPCAClaim>EvidenceList
 Time Spent Abroad,Your normal residence & current location,Where do you normally live? ,TimeSpentAbroadWhereDoYouNormallyLive,Residency>CountryNormallyLive
