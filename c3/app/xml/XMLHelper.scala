@@ -3,7 +3,7 @@ package xml
 import scala.xml._
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
-import app.XMLValues
+import app.{StatutoryPaymentFrequency, XMLValues}
 import models._
 import models.PaymentFrequency
 import models.MultiLineAddress
@@ -66,7 +66,7 @@ object XMLHelper {
   }
 
   def paymentFrequency(freq: PaymentFrequency): NodeBuffer = new NodeBuffer() +=
-    <PayFrequency>{freq.frequency}</PayFrequency> +=
+    <PayFrequency>{StatutoryPaymentFrequency.mapToHumanReadableString(freq.frequency,None)}</PayFrequency> +=
     (freq.other match {
       case Some(s) => <PayFrequencyOther>{s}</PayFrequencyOther>
       case _ => <PayFrequencyOther/>
