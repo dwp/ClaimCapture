@@ -2,26 +2,15 @@ package xml
 
 import models.domain._
 import controllers.Mappings.yes
-import XMLHelper.{ stringify, booleanStringToYesNo }
+import XMLHelper.{stringify, booleanStringToYesNo}
 import scala.xml.{NodeSeq, NodeBuffer, Elem}
-import app.{ XMLValues, StatutoryPaymentFrequency }
+import app.StatutoryPaymentFrequency
 
 object EvidenceList {
 
   def xml(claim: Claim) = {
     <EvidenceList>
-      { evidence(claim) }
-      { carersAllowance(claim) }
-      { aboutYou(claim) }
-      { yourPartner(claim) }
-      { careYouProvide(claim) }
-      { breaks(claim) }
-      { timeSpentAbroad(claim) }
-      { fiftyTwoWeeksTrips(claim) }
-      { employment(claim) }
-      { selfEmployment(claim) }
-      { otherMoney(claim) }
-      { consentAndDeclaration(claim) }
+      {evidence(claim)}{carersAllowance(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}{consentAndDeclaration(claim)}
     </EvidenceList>
   }
 
@@ -93,7 +82,7 @@ object EvidenceList {
     val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
 
     textSeparatorLine("About Your Partner") ++
-      textLine("Does your partner/spouse live at the same address as you? = ", { XMLValues.NotAsked }) ++
+      // textLine("Does your partner/spouse live at the same address as you? = ", { XMLValues.NotAsked }) ++
       textLine("Is your partner/spouse the person you are claiming Carer's Allowance for? = ", personYouCareFor.isPartnerPersonYouCareFor)
   }
 
@@ -109,7 +98,7 @@ object EvidenceList {
   def breaks(claim: Claim) = {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
-    for { break <- breaksInCare.breaks } yield {
+    for {break <- breaksInCare.breaks} yield {
       textLine("Where was the person you care for during the break? = ", break.wherePerson.location) ++
         textLine("Other detail ? = ", break.wherePerson.other)
     }
@@ -117,7 +106,7 @@ object EvidenceList {
 
   def timeSpentAbroad(claim: Claim) = {
     val normalResidenceAndCurrentLocation = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
-    val trips  = claim.questionGroup[Trips].getOrElse(Trips())
+    val trips = claim.questionGroup[Trips].getOrElse(Trips())
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
 
     textSeparatorLine("Time abroad") ++
@@ -130,7 +119,7 @@ object EvidenceList {
 
   def fiftyTwoWeeksTrips(claim: Claim) = {
     val trips = claim.questionGroup[Trips].getOrElse(Trips())
-    for { fiftyTwoWeekTrip <- trips.fiftyTwoWeeksTrips } yield textLine("Where did you go? = ", fiftyTwoWeekTrip.where)
+    for {fiftyTwoWeekTrip <- trips.fiftyTwoWeeksTrips} yield textLine("Where did you go? = ", fiftyTwoWeekTrip.where)
   }
 
   def selfEmployment(claim: Claim) = {
@@ -138,11 +127,12 @@ object EvidenceList {
     val childCare = claim.questionGroup[ChildcareExpensesWhileAtWork].getOrElse(ChildcareExpensesWhileAtWork())
     val expensesWhileAtWork = claim.questionGroup[ExpensesWhileAtWork].getOrElse(ExpensesWhileAtWork())
 
-    textSeparatorLine("Self Employment") ++
-      textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
+    val textLines = textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
       textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened) ++
       textLine("How often [[past=did you]] [[present=do you]] childcare expenses = ", childCare.howOftenPayChildCare) ++
-      textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = " + expensesWhileAtWork.howMuchYouPay)
+      textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = ", expensesWhileAtWork.howOftenPayExpenses)
+
+    if(sectionEmpty(textLines)) NodeSeq.Empty else textSeparatorLine("Self Employment") ++ textLines
   }
 
   def employment(claim: Claim) = {
@@ -151,11 +141,11 @@ object EvidenceList {
         var nodeSeq = NodeSeq.Empty
         nodeSeq = nodeSeq ++ textSeparatorLine("Employment")
 
-        for(job <- jobs){
+        for (job <- jobs) {
 
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-          nodeSeq = nodeSeq ++ textLine("Employer:"+jobDetails.employerName)
-          if (jobDetails.p45LeavingDate.isDefined){
+          nodeSeq = nodeSeq ++ textLine("Employer:" + jobDetails.employerName)
+          if (jobDetails.p45LeavingDate.isDefined) {
             nodeSeq = nodeSeq ++ textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
           }
 
@@ -226,20 +216,31 @@ object EvidenceList {
     val lineWidth = 54
     val padding = "=" * ((lineWidth - title.length) / 2)
 
-    <TextLine>{ s"$padding$title$padding" }</TextLine>
+    <TextLine>
+      {s"$padding$title$padding"}
+    </TextLine>
   }
+
+
+  def sectionEmpty(nodeSeq:NodeSeq) = { if(nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty }
 
   private def textLine(): Elem = <TextLine/>
 
-  private def textLine(text: String): Elem = <TextLine>{ text }</TextLine>
+  private def textLine(text: String): Elem = <TextLine>
+    {text}
+  </TextLine>
 
   private def textLine(label: String, value: String): Elem = value match {
     case "" => <TextLine/>
-    case _ => <TextLine>{ s"$label $value" }</TextLine>
+    case _ => <TextLine>
+      {s"$label $value"}
+    </TextLine>
   }
 
   private def textLine(label: String, value: Option[String]): Elem = value match {
-    case Some(s) => <TextLine>{ s"$label $s" }</TextLine>
+    case Some(s) => <TextLine>
+      {s"$label $s"}
+    </TextLine>
     case None => <TextLine/>
   }
 }

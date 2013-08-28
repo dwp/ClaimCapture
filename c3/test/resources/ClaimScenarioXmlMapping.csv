@@ -201,3 +201,4 @@ Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeon
 Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,DWPCAClaim>EvidenceList
 Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45,DWPCAClaim>EvidenceList
 Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentJobTitle,Employment>JobDetails>Employer>JobType
+About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,DWPCAClaim>EvidenceList

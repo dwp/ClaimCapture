@@ -32,6 +32,3 @@ object Claimant {
     </Claimant>
   }
 }
-
-// Put  how often other in evidence list
-// Remove or NotAsked HomePhoneNumber from Claimant

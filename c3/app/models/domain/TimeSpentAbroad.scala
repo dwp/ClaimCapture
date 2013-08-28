@@ -27,17 +27,23 @@ object AbroadForMoreThan52Weeks extends QuestionGroup.Identifier  {
 }
 
 case class Trips(fourWeeksTrips: List[FourWeeksTrip] = Nil, fiftyTwoWeeksTrips: List[FiftyTwoWeeksTrip] = Nil) extends QuestionGroup(Trips) {
-  def update(trip: FourWeeksTrip) = {
+  def update(trip: FourWeeksTrip): Trips = {
     val updated = fourWeeksTrips map { t => if (t.id == trip.id) trip else t }
     if (updated.contains(trip)) Trips(updated, fiftyTwoWeeksTrips) else Trips(fourWeeksTrips :+ trip, fiftyTwoWeeksTrips)
   }
 
-  def update(trip: FiftyTwoWeeksTrip) = {
+  def +(trip: FourWeeksTrip): Trips = update(trip)
+
+  def update(trip: FiftyTwoWeeksTrip): Trips = {
     val updated = fiftyTwoWeeksTrips map { t => if (t.id == trip.id) trip else t }
     if (updated.contains(trip)) Trips(fourWeeksTrips, updated) else Trips(fourWeeksTrips, fiftyTwoWeeksTrips :+ trip)
   }
 
-  def delete(tripID: String) = Trips(fourWeeksTrips.filterNot(_.id == tripID), fiftyTwoWeeksTrips.filterNot(_.id == tripID))
+  def +(trip: FiftyTwoWeeksTrip): Trips = update(trip)
+
+  def delete(tripID: String): Trips = Trips(fourWeeksTrips.filterNot(_.id == tripID), fiftyTwoWeeksTrips.filterNot(_.id == tripID))
+
+  def -(tripID: String): Trips = delete(tripID)
 }
 
 object Trips extends QuestionGroup.Identifier {

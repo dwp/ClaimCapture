@@ -3,6 +3,7 @@ package xml
 import models.domain._
 import controllers.Mappings.yes
 import scala.xml.NodeSeq
+import app.XMLValues.NotAsked
 import xml.XMLHelper._
 
 object SelfEmployment {
@@ -46,8 +47,8 @@ object SelfEmployment {
         <SelfEmployedNow>{aboutSelfEmployment.areYouSelfEmployedNow}</SelfEmployedNow>
         {jobDetails()}
         <Accountant>
-          <HasAccountant>no</HasAccountant>
-          <ContactAccountant>no</ContactAccountant>
+          <HasAccountant>{NotAsked}</HasAccountant>
+          <ContactAccountant>{NotAsked}</ContactAccountant>
         </Accountant>
         <CareExpensesChildren>{pensionAndExpenses.doYouPayToLookAfterYourChildren}</CareExpensesChildren>
         {childCareExpenses(claim)}

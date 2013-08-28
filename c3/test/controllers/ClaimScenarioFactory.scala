@@ -258,16 +258,16 @@ object ClaimScenarioFactory {
     claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
     claim.OtherMoneyWhoPaysYou = "The Man"
     claim.OtherMoneyHowMuch = "Not much"
-    claim.OtherMoneyHowOften = "W"
+    claim.OtherMoneyHowOften = "weekly"
     // G5 Statutory Sick Pay
     claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
     claim.OtherMoneySSPHowMuch = "123"
-    claim.OtherMoneySSPHowOften = "W"
+    claim.OtherMoneySSPHowOften = "weekly"
     claim.OtherMoneySSPEmployerName = "Burger King"
     // G6 Other Statutory Pay
     claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
     claim.OtherMoneySMPEmployerName = "Employers Name"
-    claim.OtherMOneySMPHowOften = "W"
+    claim.OtherMOneySMPHowOften = "weekly"
     
     claim
   }

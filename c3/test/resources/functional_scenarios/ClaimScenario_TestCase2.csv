@@ -2,7 +2,7 @@ Can you get Carers Allowance?,Does the person you care for get one of these bene
 Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you look after?,Do you spend 35 hours or more each week caring for the person you look after?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,Yes
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,Yes
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,Yes
-About You,Your Details,Title,AboutYouTitle,Mr
+About You,Your Details,Title,AboutYouTitle,rev
 About You,Your Details,First name,AboutYouFirstName,Test
 About You,Your Details,Middle name,AboutYouMiddleName,Middle
 About You,Your Details,Surname or family name,AboutYouSurname,CaseTwo
@@ -10,7 +10,7 @@ About You,Your Details,All other surnames or family names you have used or have 
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,JA486278A
 About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1976
 About You,Your Details,Nationality,AboutYouNationality,British
-About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,m
+About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,w
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,No
 About You,Your contact details,Address,AboutYouAddress,2 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
@@ -141,7 +141,7 @@ Time Spent Abroad,When you went abroad for more than 4 weeks,"Have you been out 
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB_1,31/05/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB_1,09/06/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Where did you go?,TimeSpentAbroadWhereDidYouGoWithPersonCareFor_1,Spain
-Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor_1,Holiday
+Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor_1,"Holiday, on the Costa del Sol."
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),"Have you had any more trips out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim date _ 3 years]] (this is 3 years before today)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_2,No
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB_2,
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB_2,
@@ -192,10 +192,10 @@ Education,Your course details,Type of course,EducationTypeOfCourse,BA honours in
 Education,Your course details,Course title,EducationCourseTitle,Bussines Studies
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,01/01/2013
 Education,Your course details,When do you expect the course to end?,EducationWhenDoYouExpectTheCourseToEnd,01/01/2014
-Education,Your course details,"If you are no longer on the course, when did you finish?",EducationWhenDidYouFinish,01/01/2014
+Education,Your course details,"If you are no longer on the course, when did you finish?",EducationWhenDidYouFinish,
 Education,Your course details,Your student reference number,EducationYourStudentReferenceNumber,91982
 Education,"School, college or universitys contact details","Name of school, college or university",EducationNameofSchool,Oxford College
-Education,"School, college or universitys contact details",Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,Mr Peter Professor
+Education,"School, college or universitys contact details",Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,
 Education,"School, college or universitys contact details",Address,EducationAddress,1 Oxford Road&Oxford&Oxfordshire
 Education,"School, college or universitys contact details",Post code,EducationPostcode,OX12 3RT
 Education,"School, college or universitys contact details",Phone number,EducationPhoneNumber,01776 829920
@@ -296,7 +296,7 @@ Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil p
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,bankBuildingAccount
 How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,everyWeek
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Mr Test Casetwo
-How we pay you,Bank/Building society details,Whose name or names is the account in?,WhoseNameOrNamesIsTheAccountIn,yourName
+How we pay you,Bank/Building society details,Whose name or names is the account in?,WhoseNameOrNamesIsTheAccountIn,partner
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,Santander
 How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,090126
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,12345678
@@ -314,3 +314,4 @@ Consent & Declaration,Consent & Declaration,Please tell us why,ConsentDeclaratio
 Consent & Declaration,Consent & Declaration,Disclaimer text and tick box,ConsentDeclarationDisclaimerTextAndTickBox,Yes
 Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,Yes
 Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,Yes
+About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,yes

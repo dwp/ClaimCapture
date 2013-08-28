@@ -1,8 +1,9 @@
 package xml
 
-import models.domain.{MoreAboutYou, Claim}
-import controllers.Mappings._
 import play.api.Logger
+import models.domain.{AdditionalInfo, MoreAboutYou, Claim}
+import controllers.Mappings._
+import xml.XMLHelper._
 
 object DWPCAClaim {
 
@@ -11,6 +12,8 @@ object DWPCAClaim {
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
 
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
+
+    val additionalInfo = claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())
 
     Logger.info(s"Build DWPCAClaim : $transactionId")
 
@@ -30,6 +33,7 @@ object DWPCAClaim {
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}
       {Payment.xml(claim)}
+      {<OtherInformation/> +++ additionalInfo.anythingElse}
       <ThirdParty>no</ThirdParty>
       {Declaration.xml(claim)}
       {EvidenceList.xml(claim)}
