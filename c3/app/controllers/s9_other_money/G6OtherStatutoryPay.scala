@@ -8,8 +8,9 @@ import play.api.data.Forms._
 import controllers.Mappings._
 import models.domain.OtherStatutoryPay
 import utils.helpers.CarersForm._
+import models.view.Navigable
 
-object G6OtherStatutoryPay extends Controller with OtherMoneyRouting with CachedClaim {
+object G6OtherStatutoryPay extends Controller with CachedClaim with Navigable {
   val form = Form(
     mapping(
       "otherPay" -> nonEmptyText.verifying(validYesNo),
@@ -29,14 +30,14 @@ object G6OtherStatutoryPay extends Controller with OtherMoneyRouting with Cached
   }
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_other_money.g6_otherStatutoryPay(form.fill(OtherStatutoryPay), completedQuestionGroups(OtherStatutoryPay)))
+    track(OtherStatutoryPay) { implicit claim => Ok(views.html.s9_other_money.g6_otherStatutoryPay(form.fill(OtherStatutoryPay)))}
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "employersName.required", FormError("employersName", "error.required"))
-        BadRequest(views.html.s9_other_money.g6_otherStatutoryPay(formWithErrorsUpdate, completedQuestionGroups(OtherStatutoryPay)))
+        BadRequest(views.html.s9_other_money.g6_otherStatutoryPay(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G7OtherEEAStateOrSwitzerland.present()))
   }

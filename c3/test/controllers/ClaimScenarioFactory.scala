@@ -268,6 +268,9 @@ object ClaimScenarioFactory {
     claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
     claim.OtherMoneySMPEmployerName = "Employers Name"
     claim.OtherMOneySMPHowOften = "weekly"
+    // G7 EEA state or Switzerland
+    claim.OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA = "yes"
+    claim.OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA = "yes"
     
     claim
   }

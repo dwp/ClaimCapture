@@ -1,6 +1,6 @@
 package controllers.s9_other_money
 
-import org.specs2.mutable.{Tags, Specification}
+import org.specs2.mutable.{ Tags, Specification }
 import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
 import controllers.ClaimScenarioFactory
@@ -18,35 +18,46 @@ class OtherMoneySpec extends Specification with Tags {
       page goToPage(new G8OtherMoneyCompletedPage(browser))
      }
 
-    "contain the completed forms" in new WithBrowser with G1AboutOtherMoneyPageContext {
+    "contain the completed forms" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
       val claim = ClaimScenarioFactory.s9otherMoney
-      page goToThePage()
+      page goToThePage ()
       page fillPageWith claim
-      page submitPage()
-      val completedPage = page goToPage(new G8OtherMoneyCompletedPage(browser))
+      
+      val completedPage = page submitPage ()
+      
       completedPage must beAnInstanceOf[G8OtherMoneyCompletedPage]
       completedPage.listCompletedForms.size shouldEqual 1
     }
 
-    "navigate back to 'Other Statutory Pay'" in new WithBrowser with G1AboutOtherMoneyPageContext {
+    "navigate back to 'Other Statutory Pay'" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
       val claim = ClaimScenarioFactory.s9otherMoney
-      page goToThePage()
+      page goToThePage ()
       page fillPageWith claim
-      val completedPage = page submitPage() goToPage(new G8OtherMoneyCompletedPage(browser))
-      completedPage must beAnInstanceOf[G8OtherMoneyCompletedPage]
-      val g6Page = completedPage.goBack()
-      g6Page must beAnInstanceOf[G6OtherStatutoryPayPage]
+      val g8 = page submitPage ()
+      g8 must beAnInstanceOf[G8OtherMoneyCompletedPage]
+
+      val g7Again = g8 goBack ()
+
+      g7Again must beAnInstanceOf[G7OtherEEAStateOrSwitzerlandPage]
     }
 
-    "navigate to the Pay Details on clicking continue" in new WithBrowser with G1AboutOtherMoneyPageContext {
+    "next button text contains the next section name" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
       val claim = ClaimScenarioFactory.s9otherMoney
-      page goToThePage()
+      page goToThePage ()
       page fillPageWith claim
-      val completedPage = page submitPage() goToPage(new G8OtherMoneyCompletedPage(browser))
+      val completedPage = page submitPage ()
+      
       browser.find("button[type='submit']").getText shouldEqual "Continue to pay details"
+    }
 
-      val payDetailsPage = completedPage submitPage()
+    "navigate to the Pay Details on clicking continue" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {
+      val claim = ClaimScenarioFactory.s9otherMoney
+      page goToThePage ()
+      page fillPageWith claim
+      val completedPage = page submitPage ()
+      
+      val payDetailsPage = completedPage submitPage ()
       payDetailsPage must beAnInstanceOf[G1HowWePayYouPage]
     }
-  } section("integration", models.domain.OtherMoney.id)
+  } section ("integration", models.domain.OtherMoney.id)
 }

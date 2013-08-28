@@ -12,8 +12,9 @@ import models.yesNo.YesNo
 import utils.helpers.CarersForm._
 import play.api.data.FormError
 import play.api.i18n.Messages
+import models.view.Navigable
 
-object G1AboutOtherMoney extends Controller with CachedClaim {
+object G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
 
   val yourBenefitsMapping =
     "yourBenefits" -> mapping(
@@ -40,7 +41,7 @@ object G1AboutOtherMoney extends Controller with CachedClaim {
   }
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_other_money.g1_aboutOtherMoney(form.fill(AboutOtherMoney), hadPartnerSinceClaimDate))
+    track(AboutOtherMoney) { implicit claim => Ok(views.html.s9_other_money.g1_aboutOtherMoney(form.fill(AboutOtherMoney), hadPartnerSinceClaimDate))}
   }
 
   def submit = claiming { implicit claim => implicit request =>

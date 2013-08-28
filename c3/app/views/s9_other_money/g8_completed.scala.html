@@ -1,13 +1,13 @@
-@(completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@()(implicit claim: models.domain.Claim)
 
 @import helper._
 @import models.domain.OtherMoney
 @import views.html.s9_other_money.main
 
-@main("Completion - " + Messages("s9.longName"), None, completedQuestionGroups) {
+@main("Completion - " + Messages("s9.longName"), None, claim.completedQuestionGroups(models.domain.OtherMoney)) {
     @form(action = controllers.s9_other_money.routes.OtherMoney.completedSubmit) {
         <nav class="form-steps">
-            <a href="@controllers.s9_other_money.routes.G6OtherStatutoryPay.present" class="button secondary">Back</a>
+            <a href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(OtherMoney).name</button>
         </nav>
     }

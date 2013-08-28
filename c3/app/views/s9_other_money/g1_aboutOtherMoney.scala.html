@@ -8,7 +8,7 @@
 @import utils.helpers.CarersCrypto
 @import views.html.s9_other_money.main
 
-@main(Messages("s9.g1") + " - " + Messages("s9.longName"), Some(currentForm)) {
+@main(Messages("s9.g1") + " - " + Messages("s9.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.AboutOtherMoney)) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
@@ -43,7 +43,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.previousSection(models.domain.AboutOtherMoney).lastPage" class="button secondary">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

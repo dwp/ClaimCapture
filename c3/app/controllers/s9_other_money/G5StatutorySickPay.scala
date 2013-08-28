@@ -8,8 +8,9 @@ import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
+import models.view.Navigable
 
-object G5StatutorySickPay extends Controller with OtherMoneyRouting with CachedClaim {
+object G5StatutorySickPay extends Controller with CachedClaim with Navigable {
   val form = Form(
     mapping(
       "haveYouHadAnyStatutorySickPay" -> nonEmptyText(maxLength = sixty),
@@ -29,14 +30,14 @@ object G5StatutorySickPay extends Controller with OtherMoneyRouting with CachedC
   }
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s9_other_money.g5_statutorySickPay(form.fill(StatutorySickPay), completedQuestionGroups(StatutorySickPay)))
+    track(StatutorySickPay) { implicit claim => Ok(views.html.s9_other_money.g5_statutorySickPay(form.fill(StatutorySickPay)))}
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "employersName.required", FormError("employersName", "error.required"))
-        BadRequest(views.html.s9_other_money.g5_statutorySickPay(formWithErrorsUpdate, completedQuestionGroups(StatutorySickPay)))
+        BadRequest(views.html.s9_other_money.g5_statutorySickPay(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G6OtherStatutoryPay.present()))
   }
