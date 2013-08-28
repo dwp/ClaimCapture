@@ -675,18 +675,46 @@ main {
 			   
 			   &.short-field {
 				   input[type="text"], input[type="tel"] {
-					   width: 12rem;
+					   width: 13rem;
 					   .ie & {
-						   width: 120px;
+						   width: 130px;
 					   }
 					   @media screen and (max-width: 500px) {
-						   width: 11.8rem;
+						   width: 12.8rem;
 						   .ie & {
-							   width: 118px;
+							   width: 128px;
 						   }
 					   }
 				   }
 			   }
+			   
+			   &.currency {
+			   	   position: relative;
+				   input[type="text"], input[type="tel"] {
+					   width: 11.8rem;
+					   position: relative;
+					   padding-left: 1em;
+					   .ie & {
+						   width: 118px;
+					   }
+					   @media screen and (max-width: 500px) {
+						   width: 11.6rem;
+						   .ie & {
+							   width: 116px;
+						   }
+					   }
+				   }
+				   &:before {
+						   position: absolute;
+						   bottom: 20px;
+						   left: 7px;
+						   z-index: 999;
+						   line-height: 1em;
+						   content: "\00a3";
+						   font-size: 19px;
+					   }
+			   }
+			   
 			   .helper {
 				   font-size: 1.6rem;
 				   margin-top: .4em;
@@ -1007,12 +1035,12 @@ main {
 				   input {
 					   width: 7.6rem;
 					   background: #f9f9f9;
+					   position: relative;
 					   .ie9 & {
 						   width: 76px;
 						   top: 3px;
 					   }
 					   .ie8 &, .ie7 & {
-					   	   position: relative;
 					   	   top: 3px;
 						   width: 60px;
 						   font-size: 14px;
@@ -1126,12 +1154,6 @@ main {
 	   .declaration {
 		   border: 1px solid #a2a2a2;
 		   padding: 1em 1.5em 1em 1em;
-		   height: 22rem;
-		   overflow: scroll;
-		   overflow-x: hidden;
-		   .ie & {
-			   height: 220px;
-		   }
 		   p {
 			   font-size: 1.6rem;
 			   line-height: 1.25em;

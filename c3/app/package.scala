@@ -25,31 +25,51 @@ package object app {
     val Fortnightly = "03"
     val FourWeekly = "04"
     val Monthly = "05"
-  }
 
-  object StatutoryPaymentFrequency {
-    val Weekly = "W"
-    val Fortnightly = "FN"
-    val FourWeekly = "4W"
-    val Monthly = "M"
-    val Other = "other"
-
-    def optionToString(paymentFrequencyOption: Option[models.PaymentFrequency]): String = {
-
-      def stringify(paymentFrequency: models.PaymentFrequency): String = paymentFrequency.frequency match {
+    def mapToHumanReadableString(code:String) = {
+      code match {
         case Weekly => "Weekly"
         case Fortnightly => "Fortnightly"
         case FourWeekly => "Four-weekly"
         case Monthly => "Monthly"
-        case Other => "Other: " + paymentFrequency.other.getOrElse("")
-        case _ => ""
-      }
-
-      paymentFrequencyOption match {
-        case Some(s) => stringify(s)
         case _ => ""
       }
     }
+  }
+
+  object StatutoryPaymentFrequency {
+    val Weekly = "weekly"
+    val Fortnightly = "fortnightly"
+    val FourWeekly = "fourWeekly"
+    val Monthly = "monthly"
+    val Other = "other"
+
+    def mapToHumanReadableString(frequencyCode:String, otherCode:Option[String]): String = {
+
+      frequencyCode match {
+        case Weekly => "Weekly"
+        case Fortnightly => "Fortnightly"
+        case FourWeekly => "Four-weekly"
+        case Monthly => "Monthly"
+        case Other =>  otherCode match {
+          case Some(s) => "Other: " + s
+          case _ => "Other"
+        } //+ paymentFrequency.other.getOrElse("")
+        case _ => ""
+      }
+    }
+
+    def mapToHumanReadableString(paymentFrequencyOption: Option[models.PaymentFrequency]): String = paymentFrequencyOption match {
+      case Some(s) => mapToHumanReadableString(s.frequency,None)
+      case _ => ""
+    }
+
+    def mapToHumanReadableStringWithOther(paymentFrequencyOption: Option[models.PaymentFrequency]): String = paymentFrequencyOption match {
+      case Some(s) => mapToHumanReadableString(s.frequency,s.other)
+      case _ => ""
+    }
+
+
   }
 
   object XMLValues {

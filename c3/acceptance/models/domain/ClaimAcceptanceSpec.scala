@@ -1,11 +1,8 @@
 package models.domain
 
-import java.io._
-import scala.xml.{Node, PrettyPrinter}
 import org.specs2.mutable.Specification
 import xml.DWPCAClaim
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
-import io.ResourceUtil._
 import controllers.submission.XmlSubmitter
 
 class ClaimAcceptanceSpec extends Specification {
@@ -20,29 +17,10 @@ class ClaimAcceptanceSpec extends Specification {
       validator.validate(writeXML(xmlString)) should beTrue
     }
   }
-
-  def writeXML(xml: String)(implicit file: File = new File("acceptance/models/domain/claim.xml")): String = {
-    using(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))) { out =>
-      out.write(xml)
-    }
-
-    xml
-  }
-
-  def prettyXML(node: Node)(implicit file: File = new File("acceptance/models/domain/claim.xml"), prettyPrinter: PrettyPrinter = new PrettyPrinter(180, 2)): String = {
-    val encoding = "UTF-8"
-    val prettyXML = prettyPrinter.format(node)
-
-    using(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), encoding))) { out =>
-      out.write(s"""<?xml version="1.0" encoding="$encoding"?>\n$prettyXML""")
-    }
-
-    prettyXML
-  }
 }
 
 /*
-This case, when entered manually through browser gave:
+This case gives the following error:
 
 [info] application - Starting new claim (old claim will be erased!)
 [info] application - Build DWPCAClaim : TEST432

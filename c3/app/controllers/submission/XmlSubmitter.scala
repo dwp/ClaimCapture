@@ -23,7 +23,7 @@ class XmlSubmitter extends Submitter {
       validator.validate(fullXmlString) match {
         case true => Future(Ok(claimXml.buildString(stripComments = false)))
         case false => {
-          Logger.error(fullXmlString)
+          //Logger.error(fullXmlString) // Must NOT be done in live due to security risk.
           Future(Ok("Failed validation"))
         }
       }

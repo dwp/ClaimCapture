@@ -28,7 +28,7 @@ abstract class FunctionalTestCommon extends Specification with Tags {
       println("Number of warnings: " + warnings.size)
       println("[Warning] " + warnings.mkString("\n[Warning] "))
     }
-
+    
     errors.isEmpty
   }
 

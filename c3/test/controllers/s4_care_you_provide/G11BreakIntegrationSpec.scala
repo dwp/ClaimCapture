@@ -5,8 +5,10 @@ import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers, Formulate}
 import models.DayMonthYear
 import java.util.concurrent.TimeUnit
+import utils.pageobjects.s4_care_you_provide.G10BreaksInCarePage
 
 class G11BreakIntegrationSpec extends Specification with Tags {
+
   "Break" should {
     "be presented" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo("/care-you-provide/break")
@@ -16,7 +18,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
     """present "completed" when no more breaks are required""" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       Formulate.theirPersonalDetails(browser)
       goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.click("#answer_no")
       next
@@ -42,7 +44,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
     """show 2 breaks in "break table" upon providing 2 breaks""" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.click("#answer_yes")
       next
@@ -50,7 +52,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       break()
       next
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.click("#answer_yes")
       next
@@ -58,7 +60,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       break()
       next
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.$("#breaks table tbody tr").size() shouldEqual 2
     }
@@ -67,7 +69,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       skipped("HTMLUnit not handling dynamics/jquery")
 
       goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.click("#answer_yes")
       next
@@ -75,7 +77,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       break()
       next
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
       browser.$("tbody tr").size mustEqual 1
 
       browser.click("input[value='Delete']")
@@ -96,7 +98,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       break()
       next
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.click("#answer_yes")
       next
@@ -104,7 +106,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       break()
       next
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.click("#answer_yes")
       next
@@ -112,7 +114,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       break()
       next
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.$("tbody tr").size() mustEqual 3
 
@@ -125,7 +127,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
     "add two breaks and edit the second's start year" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo("/care-you-provide/breaks-in-care")
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.click("#answer_yes")
       next
@@ -133,7 +135,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       break()
       next
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.click("#answer_yes")
       next
@@ -141,7 +143,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       break()
       next
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.findFirst("input[value='Change']").click()
       titleMustEqual("Break - About the care you provide")
@@ -149,7 +151,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       browser.fill("#start_year") `with` "1999"
       browser.submit("button[type='submit']")
-      titleMustEqual("Fewer than 35 hours a week of care - About the care you provide")
+      titleMustEqual(G10BreaksInCarePage.title)
 
       browser.$("tbody tr").size() mustEqual 2
       browser.$("tbody").findFirst("tr").findFirst("td").getText must contain("1999")

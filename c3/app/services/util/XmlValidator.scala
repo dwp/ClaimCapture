@@ -22,8 +22,8 @@ case class XmlValidator(xml: String, xsdFileName: String) {
       val validator = schema.newValidator()
       validator.validate(new StreamSource(new InputStreamReader(new ByteArrayInputStream(xml.getBytes))))
     } catch {
-      case ex: SAXException => Logger.error(ex.getMessage); return false
-      case ex: Exception => Logger.error(ex.getMessage); return false
+      case ex: SAXException => Logger.error(ex.getMessage, ex); return false
+      case ex: Exception => Logger.error(ex.getMessage, ex); return false
     }
     true
   }

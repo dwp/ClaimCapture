@@ -9,12 +9,11 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import PayDetails._
 
-object G1HowWePayYou extends Controller with CachedClaim{
-  val form = Form(
-    mapping(
-      "likeToPay" -> nonEmptyText(maxLength = 20),
-      "paymentFrequency" -> nonEmptyText(maxLength = 15)
-    )(HowWePayYou.apply)(HowWePayYou.unapply))
+object G1HowWePayYou extends Controller with CachedClaim {
+  val form = Form(mapping(
+    "likeToPay" -> nonEmptyText(maxLength = 20),
+    "paymentFrequency" -> nonEmptyText(maxLength = 15)
+  )(HowWePayYou.apply)(HowWePayYou.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     whenSectionVisible(Ok(views.html.s10_pay_details.g1_howWePayYou(form.fill(HowWePayYou))))

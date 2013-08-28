@@ -12,13 +12,13 @@ trait BrowserMatchers extends MustMatchers {
 
   def titleMustEqual(title: String) = {
     browser.waitUntil[Boolean](duration, TimeUnit.SECONDS) {
-      browser.title mustEqual title
+      browser.title.toLowerCase mustEqual title.toLowerCase
     }
   }
 
   def titleMustNotEqual(title: String) = {
     browser.waitUntil[Boolean](duration, TimeUnit.SECONDS) {
-      browser.title mustNotEqual title
+      browser.title.toLowerCase mustNotEqual title.toLowerCase
     }
   }
     
