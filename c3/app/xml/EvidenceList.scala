@@ -203,10 +203,6 @@ object EvidenceList {
     val additionalInfo = claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())
 
     textSeparatorLine("Consent and Declaration") ++
-      textLine("Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? = ", consent.informationFromEmployer.answer) ++
-      textLine("Please tell us why = ", consent.informationFromEmployer.text) ++
-      textLine("Do you agree to us getting information from any other person or organisation you have told us about as part of this claim? = ", consent.informationFromPerson.answer) ++
-      textLine("Please tell us why = ", consent.informationFromPerson.text) ++
       textLine("Disclaimer text and tick box = ", booleanStringToYesNo(disclaimer.read)) ++
       textLine("Declaration tick box = ", booleanStringToYesNo(declaration.read)) ++
       textLine("Someone else tick box = ", booleanStringToYesNo(stringify(declaration.someoneElse))) ++

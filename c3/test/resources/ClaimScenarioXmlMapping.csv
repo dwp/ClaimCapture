@@ -138,10 +138,10 @@ How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,Payme
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,Payment>Account>BuildingSocietyDetails>AccountNumber
 How we pay you,Bank/Building society details,Building society roll or reference number,HowWePayYouBuildingSocietyRollOrReferenceNumber,Payment>Account>BuildingSocietyDetails>RollNumber
 Consent & Declaration,Additional information,Please tell us anything else you think we should know about your claim.,ConsentDeclarationTellUsAnythingElseAboutClaim,DWPCAClaim>OtherInformation
-Consent & Declaration,Consent,Do you agree to us getting information from any current or previous employer you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyEmployer,DWPCAClaim>EvidenceList
-Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyEmployer,DWPCAClaim>EvidenceList
-Consent & Declaration,Consent,Do you agree to us getting information from any other person or organisation you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyOther,DWPCAClaim>EvidenceList
-Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyOther,DWPCAClaim>EvidenceList
+Consent & Declaration,Consent,Do you agree to us obtaining information from any current or previous employer(s) you may have listed on this claim form?,ConsentDeclarationGettingInformationFromAnyEmployer,DWPCAClaim>Declaration
+Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyEmployer,DWPCAClaim>Declaration
+Consent & Declaration,Consent,Do you agree to us obtaining information from any other persons or organisations you may have listed on this claim form?,ConsentDeclarationGettingInformationFromAnyOther,DWPCAClaim>Declaration
+Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyOther,DWPCAClaim>Declaration
 Consent & Declaration,Declaration,Disclaimer text and tick box,ConsentDeclarationDisclaimerTextAndTickBox,DWPCAClaim>EvidenceList
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,SelfEmployment>SelfEmployedNow
 Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,SelfEmployment>RecentJobDetails>DateStarted|SelfEmployment>CurrentJobDetails>DateStarted
