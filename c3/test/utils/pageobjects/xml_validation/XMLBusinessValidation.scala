@@ -6,6 +6,7 @@ import scala.xml.{NodeSeq, Elem, XML}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import scala.language.implicitConversions
+import app.{StatutoryPaymentFrequency, PensionPaymentFrequency}
 
 /**
  * Validates that an XML contains all the relevant data that was provided in a Claim.
@@ -114,6 +115,7 @@ class XmlNode(val theNodes: NodeSeq) {
 
         def valuesMatching = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
+          else if (claimValue.attribute.contains("EmploymentAddtionalWageHowOftenAreYouPaid")) value.contains(StatutoryPaymentFrequency.mapToHumanReadableString(claimValue.value,None).toLowerCase)
           else if (nodeName.startsWith(XmlNode.EvidenceListNode)) {
             // Awful code. Need to do something about it! (JMI)
             if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
@@ -122,6 +124,8 @@ class XmlNode(val theNodes: NodeSeq) {
             else if (claimValue.attribute.contains("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor")) {
               if (iteration == 0) value.matches(".*haveyoubeenoutofgreatbritainwiththepersonyoucarefor[^=]*=" + claimValue.value +".*") else true
             }
+            else if (claimValue.attribute == "SelfEmployedChildcareExpensesHowOften" || claimValue.attribute == "SelfEmployedCareExpensesHowOften")
+              value.contains(claimValue.question+"="+ PensionPaymentFrequency.mapToHumanReadableString(claimValue.value).toLowerCase)
             else value.contains(claimValue.question + "=" + claimValue.value)
           }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
