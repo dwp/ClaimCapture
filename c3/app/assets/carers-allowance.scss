@@ -1007,12 +1007,12 @@ main {
 				   input {
 					   width: 7.6rem;
 					   background: #f9f9f9;
+					   position: relative;
 					   .ie9 & {
 						   width: 76px;
 						   top: 3px;
 					   }
 					   .ie8 &, .ie7 & {
-					   	   position: relative;
 					   	   top: 3px;
 						   width: 60px;
 						   font-size: 14px;
