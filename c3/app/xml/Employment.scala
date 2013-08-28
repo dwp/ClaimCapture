@@ -114,7 +114,7 @@ object Employment {
         <Expense>{necessaryExpenses.whatAreThose}</Expense>
         <Reason>{NotAsked}</Reason>
         <WeeklyPayment>
-          <Currency>GBP</Currency>
+          <Currency></Currency>
           <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
       </JobExpenses>
@@ -140,7 +140,7 @@ object Employment {
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
         <ChildDetails>
-          <Name/>
+          <Name>{NotAsked}</Name>
           <RelationToChild>{childcareExpenses.relationToPersonYouCare}</RelationToChild>
         </ChildDetails>
       </ChildCareExpenses>

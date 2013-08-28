@@ -6,6 +6,7 @@ import scala.xml.{NodeSeq, Elem, XML}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import scala.language.implicitConversions
+import app.{StatutoryPaymentFrequency, PensionPaymentFrequency}
 
 /**
  * Validates that an XML contains all the relevant data that was provided in a Claim.
@@ -35,7 +36,6 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
 
     // Load the XML mapping
     val mapping = XMLBusinessValidation.buildXmlMappingFromFile(xmlMappingFile)
-//    val listErrors = mutable.MutableList.empty[String]
 
     // Go through the attributes of the claim and check that there is a corresponding entry in the XML
     claim.map.foreach {
@@ -98,7 +98,7 @@ class XmlNode(val theNodes: NodeSeq) {
     try {
       val nodeStart = theNodes(0).mkString
 
-      val isARepeatableNode = !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
+      val isARepeatableNode = !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains(XmlNode.DeclarationNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
 
       val isRepeatedAttribute = claimValue.attribute.contains( """_""")
 
@@ -115,6 +115,7 @@ class XmlNode(val theNodes: NodeSeq) {
 
         def valuesMatching = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
+          else if (claimValue.attribute.contains("EmploymentAddtionalWageHowOftenAreYouPaid")) value.contains(StatutoryPaymentFrequency.mapToHumanReadableString(claimValue.value,None).toLowerCase)
           else if (nodeName.startsWith(XmlNode.EvidenceListNode)) {
             // Awful code. Need to do something about it! (JMI)
             if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
@@ -123,10 +124,13 @@ class XmlNode(val theNodes: NodeSeq) {
             else if (claimValue.attribute.contains("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor")) {
               if (iteration == 0) value.matches(".*haveyoubeenoutofgreatbritainwiththepersonyoucarefor[^=]*=" + claimValue.value +".*") else true
             }
+            else if (claimValue.attribute == "SelfEmployedChildcareExpensesHowOften" || claimValue.attribute == "SelfEmployedCareExpensesHowOften")
+              value.contains(claimValue.question+"="+ PensionPaymentFrequency.mapToHumanReadableString(claimValue.value).toLowerCase)
             else value.contains(claimValue.question + "=" + claimValue.value)
           }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
           else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
+          else if (nodeName.startsWith(XmlNode.DeclarationNode)) value.contains(claimValue.question + claimValue.value)
           else value == claimValue.value
         }
 
@@ -154,12 +158,11 @@ class XmlNode(val theNodes: NodeSeq) {
 object XmlNode {
 
   val EvidenceListNode = "<EvidenceList>"
+  val DeclarationNode = "<Declaration>"
 
   private def prepareElement(elementValue: String) = elementValue.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
   def apply(nodes: NodeSeq) = new XmlNode(nodes)
-
-  //  implicit def fromString(source: String): XmlNode = new XmlNode(prepareElement(source))
 }
 
 /**
@@ -185,6 +188,4 @@ object ClaimValue {
   }
 
   def apply(attribute: String, value: String, question: String) = new ClaimValue(attribute, prepareClaimValue(value,attribute), prepareQuestion(question))
-
-  //  implicit def fromString(source: String): ClaimValue = new ClaimValue(prepareClaimValue(source))
 }
