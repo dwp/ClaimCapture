@@ -7,13 +7,13 @@ About You,Your Details,First name,AboutYouFirstName,Test
 About You,Your Details,Middle name,AboutYouMiddleName,Middle
 About You,Your Details,Surname or family name,AboutYouSurname,CaseTwo
 About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,Johnson
-About You,Your Details,National Insurance (NI) number,AboutYouNINO,JA486278A
+About You,Your Details,National Insurance (NI) number,AboutYouNINO,ja486278a
 About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1976
 About You,Your Details,Nationality,AboutYouNationality,British
 About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,w
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,No
 About You,Your contact details,Address,AboutYouAddress,2 Preston Road&Preston&Lancashire
-About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
+About You,Your contact details,Postcode,AboutYouPostcode,pr1 2th
 About You,Your contact details,Phone number,AboutYouPhoneNumber,01772 888901
 About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419808
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,Yes
@@ -45,7 +45,7 @@ About the care you provide,Details of the person you care for,National Insurance
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,12/09/1923
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,No
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road&Preston&Lancashire
-About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,PR1 2TH
+About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,pr1 2th
 About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,01772 998761
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Father
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,No
@@ -197,7 +197,7 @@ Education,Your course details,Your student reference number,EducationYourStudent
 Education,"School, college or universitys contact details","Name of school, college or university",EducationNameofSchool,Oxford College
 Education,"School, college or universitys contact details",Name of Main Teacher or Tutor,EducationNameOfMainTeacherOrTutor,
 Education,"School, college or universitys contact details",Address,EducationAddress,1 Oxford Road&Oxford&Oxfordshire
-Education,"School, college or universitys contact details",Post code,EducationPostcode,OX12 3RT
+Education,"School, college or universitys contact details",Post code,EducationPostcode,ox12 3rt
 Education,"School, college or universitys contact details",Phone number,EducationPhoneNumber,01776 829920
 Education,"School, college or universitys contact details",Fax Number,EducationFaxNumber ,01776 829921
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,
@@ -283,14 +283,14 @@ Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOf
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How often other?,OtherMoneySSPHowOftenOther,Every day and twice on Sundays
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,Burger King
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,102 Preston  Road&Preston&Lancashure
-Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,PR45 6YH
+Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,pr45 6yh
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,Yes
 Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,120
 Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,other
 Other Money,Other Statutory Pay,Other Statutory Pay: How often other?,OtherMOneySMPHowOftenOther,Every day and twice on Sundays
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,Burger King
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,102 Preston  Road&Preston&Lancashure
-Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,PR45 6YH
+Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,pr45 6yh
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on, receiving  any pensions or benefits from another EEA State or Switzerland?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,Yes
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on working in or paying insurance to another EEA State or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,Yes
 How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,bankBuildingAccount

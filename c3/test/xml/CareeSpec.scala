@@ -36,7 +36,7 @@ class CareeSpec extends Specification with Tags {
       (xml \\ "DateOfBirth").text shouldEqual dateOfBirth.`yyyy-MM-dd`
       (xml \\ "NationalInsuranceNumber").text shouldEqual nationalInsuranceNr.stringify
       (xml \\ "Address" \\ "Line").theSeq(0).text shouldEqual theirContactDetails.address.lineOne.get
-      (xml \\ "Address" \\ "PostCode").text shouldEqual theirContactDetails.postcode.get
+      (xml \\ "Address" \\ "PostCode").text shouldEqual theirContactDetails.postcode.get.toUpperCase
       (xml \\ "DaytimePhoneNumber" \\ "Number").text shouldEqual theirContactDetails.phoneNumber.get
       (xml \\ "RelationToClaimant").text shouldEqual moreAboutThePerson.relationship
       (xml \\ "Cared35hours").text shouldEqual yes
