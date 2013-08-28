@@ -1,14 +1,14 @@
 package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
-import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
+import models.view.{Navigable, CachedClaim}
 import models.domain.{TheirPersonalDetails, ContactDetails, TheirContactDetails}
 
-object G2TheirContactDetails extends Controller with CareYouProvideRouting with CachedClaim {
+object G2TheirContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "address" -> address.verifying(requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
@@ -16,29 +16,24 @@ object G2TheirContactDetails extends Controller with CareYouProvideRouting with 
   )(TheirContactDetails.apply)(TheirContactDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
+    val liveAtSameAddress = claim.questionGroup[TheirPersonalDetails].exists(_.liveAtSameAddressCareYouProvide == yes)
 
-    val liveAtSameAddress = claim.questionGroup(TheirPersonalDetails) match {
-      case Some(t: TheirPersonalDetails) => t.liveAtSameAddressCareYouProvide == yes
-      case _ => false
-    }
-
-    val theirContactDetailsPrePopulatedForm = if (liveAtSameAddress) {
-      claim.questionGroup(ContactDetails) match {
-        case Some(cd: ContactDetails) => form.fill(TheirContactDetails(address = cd.address, postcode = cd.postcode))
-        case _ => form
-      }
+    val theirContactDetailsForm = if (liveAtSameAddress) {
+      claim.questionGroup[ContactDetails].map { cd =>
+        form.fill(TheirContactDetails(address = cd.address, postcode = cd.postcode))
+      }.getOrElse(form)
     } else {
-      claim.questionGroup(TheirContactDetails) match {
-        case Some(t: TheirContactDetails) => form.fill(t)
-        case _ => form
-      }
+      claim.questionGroup[TheirContactDetails].map {
+        form.fill
+      }.getOrElse(form)
     }
-    Ok(views.html.s4_care_you_provide.g2_theirContactDetails(theirContactDetailsPrePopulatedForm, completedQuestionGroups(TheirContactDetails)))
+
+    track(TheirContactDetails) { implicit claim => Ok(views.html.s4_care_you_provide.g2_theirContactDetails(theirContactDetailsForm)) }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g2_theirContactDetails(formWithErrors, completedQuestionGroups(TheirContactDetails))),
+      formWithErrors => BadRequest(views.html.s4_care_you_provide.g2_theirContactDetails(formWithErrors)),
       theirContactDetails => claim.update(theirContactDetails) -> Redirect(routes.G3RelationshipAndOtherClaims.present()))
   }
 }
