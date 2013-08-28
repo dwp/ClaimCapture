@@ -8,11 +8,14 @@ import controllers.Mappings._
 import models.domain._
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import controllers.s8_self_employment.SelfEmployment.whenSectionVisible
+import controllers.s8_self_employment.SelfEmployment._
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
+import models.view.Navigable
+import play.api.mvc.Request
+import play.api.mvc.AnyContent
 
-object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with CachedClaim {
+object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(
     mapping(
       "nameOfPerson" -> nonEmptyText(maxLength = sixty),
@@ -32,13 +35,17 @@ object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with 
   }
 
   def present = claiming { implicit claim => implicit request =>
+    presentConditionally(expensesWhileAtWork)
+  }
+
+  def expensesWhileAtWork(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val payToLookPersonYouCareFor = claim.questionGroup(SelfEmploymentPensionsAndExpenses) match {
       case Some(s: SelfEmploymentPensionsAndExpenses) => s.didYouPayToLookAfterThePersonYouCaredFor == `yes`
       case _ => false
     }
 
     payToLookPersonYouCareFor match {
-      case true => whenSectionVisible(Ok(views.html.s8_self_employment.g7_expensesWhileAtWork(form.fill(ExpensesWhileAtWork), completedQuestionGroups(ExpensesWhileAtWork))))
+      case true => track(ExpensesWhileAtWork) { implicit claim => Ok(views.html.s8_self_employment.g7_expensesWhileAtWork(form.fill(ExpensesWhileAtWork)))}
       case false => claim.delete(ExpensesWhileAtWork) ->  Redirect(routes.SelfEmployment.completed())
     }
   }
@@ -51,7 +58,7 @@ object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with 
           .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("howOftenPayExpenses", "error.required", FormError("howOftenPayExpenses", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
-        BadRequest(views.html.s8_self_employment.g7_expensesWhileAtWork(formWithErrorsUpdate, completedQuestionGroups(ExpensesWhileAtWork)))
+        BadRequest(views.html.s8_self_employment.g7_expensesWhileAtWork(formWithErrorsUpdate))
       },
       f => claim.update(f) ->  Redirect(routes.SelfEmployment.completed())
     )

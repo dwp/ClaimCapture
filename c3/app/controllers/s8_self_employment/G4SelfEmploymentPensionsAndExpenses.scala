@@ -12,8 +12,11 @@ import models.yesNo.YesNoWith2Text
 import controllers.s8_self_employment.SelfEmployment._
 import play.api.data.FormError
 import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
+import models.view.Navigable
+import play.api.mvc.Request
+import play.api.mvc.AnyContent
 
-object G4SelfEmploymentPensionsAndExpenses extends Controller with SelfEmploymentRouting with CachedClaim {
+object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim with Navigable {
   val pensionSchemeMapping =
       "doYouPayToPensionScheme" -> mapping(
         "answer" -> nonEmptyText.verifying(validYesNo),
@@ -31,9 +34,13 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with SelfEmploymen
     )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses), completedQuestionGroups(SelfEmploymentPensionsAndExpenses))))
+    presentConditionally(selfEmploymentYourAccounts)
   }
 
+  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    track(SelfEmploymentPensionsAndExpenses) { implicit claim => Ok(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses)))}
+  }
+  
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
@@ -45,7 +52,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with SelfEmploymen
           .replaceError("doYouPayToPensionScheme", "howMuchDidYouPay", FormError("doYouPayToPensionScheme.howMuchDidYouPay", "error.required", Seq(pastPresent.toLowerCase)))
           .replaceError("doYouPayToPensionScheme", "howOften", FormError("doYouPayToPensionScheme.howOften", "error.required", Seq(pastPresent.toLowerCase)))
           .replaceError("doYouPayToPensionScheme.howMuchDidYouPay", "decimal.invalid", FormError("doYouPayToPensionScheme.howMuchDidYouPay", "decimal.invalid", Seq(pastPresent.toLowerCase)))
-        BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrorsUpdate, completedQuestionGroups(SelfEmploymentPensionsAndExpenses)))
+        BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G5ChildcareExpensesWhileAtWork.present()))
   }

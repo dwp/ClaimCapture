@@ -1,12 +1,12 @@
-@(completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@()(implicit claim: models.domain.Claim)
 
 @import helper._
 @import views.html.s8_self_employment.main
 
-@main("Completion - Self Employment", None, completedQuestionGroups) {
+@main("Completion - Self Employment", None, claim.completedQuestionGroups(models.domain.SelfEmployment)) {
     @form(action = controllers.s8_self_employment.routes.SelfEmployment.completedSubmit) {
         <nav class="form-steps">
-            <a href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <a href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Continue to other money</button>
         </nav>
     }

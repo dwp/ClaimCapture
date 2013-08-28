@@ -8,9 +8,13 @@ import models.domain.SelfEmploymentYourAccounts
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import play.api.data.{FormError, Form}
-import SelfEmployment.whenSectionVisible
+import SelfEmployment._
+import models.view.Navigable
+import models.domain.Claim
+import play.api.mvc.Request
+import play.api.mvc.AnyContent
 
-object G2SelfEmploymentYourAccounts extends Controller with SelfEmploymentRouting with CachedClaim {
+object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable {
   val form = Form(
     mapping(
       "whatWasOrIsYourTradingYearFrom" -> optional(dayMonthYear.verifying(validDateOnly)),
@@ -29,7 +33,11 @@ object G2SelfEmploymentYourAccounts extends Controller with SelfEmploymentRoutin
   }
 
   def present = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts), completedQuestionGroups(SelfEmploymentYourAccounts))))
+    presentConditionally(selfEmploymentYourAccounts)
+  }
+
+  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    track(SelfEmploymentYourAccounts) { implicit claim => Ok(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts)))}
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -37,7 +45,7 @@ object G2SelfEmploymentYourAccounts extends Controller with SelfEmploymentRoutin
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("tellUsWhyAndWhenTheChangeHappened", FormError("tellUsWhyAndWhenTheChangeHappened", "error.required"))
-        BadRequest(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(formWithErrorsUpdate, completedQuestionGroups(SelfEmploymentYourAccounts)))
+        BadRequest(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G4SelfEmploymentPensionsAndExpenses.present()))
   }

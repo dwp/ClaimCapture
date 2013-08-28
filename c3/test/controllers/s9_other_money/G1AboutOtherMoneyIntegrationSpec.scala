@@ -5,18 +5,14 @@ import controllers.{ BrowserMatchers, Formulate, ClaimScenarioFactory }
 import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.ClaimScenario
+import utils.pageobjects.s8_self_employment.G9CompletedPageContext
+import utils.pageobjects.s8_self_employment.G9CompletedPage
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "About Other Money" should {
     "be presented" in new WithBrowser with BrowserMatchers {
       browser.goTo("/other-money/about-other-money")
       titleMustEqual("Details about other money - About Other Money")
-    }
-
-    "navigate back to Completion - Self Employment" in new WithBrowser with BrowserMatchers {
-      browser.goTo("/other-money/about-other-money")
-      browser.click("#backButton")
-      titleMustEqual("Completion - Self Employment")
     }
 
     "contain errors on invalid submission" in {
@@ -104,6 +100,19 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
         errors.size mustEqual 1
         errors(0) must contain("How often?")
       }
+    }
+    
+    "navigate back to previous section" in new WithBrowser with G9CompletedPageContext {
+      val claim = ClaimScenarioFactory.s9SelfEmployment
+      page goToThePage()
+      page must beAnInstanceOf[G9CompletedPage]
+      page fillPageWith claim
+      val s9g1 = page submitPage()
+      s9g1 must beAnInstanceOf[G1AboutOtherMoneyPage]
+
+      val previous = s9g1.goBack()
+      
+      previous must beAnInstanceOf[G9CompletedPage]
     }
   } section ("integration", models.domain.OtherMoney.id)
 }

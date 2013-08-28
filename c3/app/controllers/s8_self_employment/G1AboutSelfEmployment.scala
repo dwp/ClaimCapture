@@ -8,9 +8,13 @@ import controllers.Mappings._
 import models.domain.AboutSelfEmployment
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import SelfEmployment.whenSectionVisible
+import SelfEmployment._
+import models.view.Navigable
+import models.domain.Claim
+import play.api.mvc.Request
+import play.api.mvc.AnyContent
 
-object G1AboutSelfEmployment extends Controller with CachedClaim {
+object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "areYouSelfEmployedNow" -> nonEmptyText.verifying(validYesNo),
     "whenDidYouStartThisJob" -> optional(dayMonthYear.verifying(validDateOnly)),
@@ -20,9 +24,13 @@ object G1AboutSelfEmployment extends Controller with CachedClaim {
   )(AboutSelfEmployment.apply)(AboutSelfEmployment.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s8_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment))))
+    presentConditionally(aboutSelfEmployment)
   }
 
+  def aboutSelfEmployment(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    track(AboutSelfEmployment) { implicit claim => Ok(views.html.s8_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment)))}
+  }
+  
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s8_self_employment.g1_aboutSelfEmployment(formWithErrors)),
