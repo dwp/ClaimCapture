@@ -6,10 +6,10 @@ import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import play.api.mvc.Controller
-import models.view.CachedClaim
+import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 
-object G1TheirPersonalDetails extends Controller with CachedClaim {
+object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "title" -> nonEmptyText(maxLength = 4),
     "firstName" -> nonEmptyText(maxLength = Name.maxLength),
@@ -21,6 +21,8 @@ object G1TheirPersonalDetails extends Controller with CachedClaim {
   )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
+    //val isPartnerPersonYouCareForX = claim.isSectionVisible(models.domain.YourPartner) && claim.questionGroup[PersonYouCareFor]
+
     val isPartnerPersonYouCareFor: Boolean = if (claim.isSectionVisible(models.domain.YourPartner)) {
       claim.questionGroup(PersonYouCareFor) match {
         case Some(t: PersonYouCareFor) => t.isPartnerPersonYouCareFor == "yes" // Get value the user selected previously.
@@ -40,7 +42,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim {
       form.fill(TheirPersonalDetails)
     }
 
-    Ok(views.html.s4_care_you_provide.g1_theirPersonalDetails(currentForm))
+    track(TheirPersonalDetails) { implicit claim => Ok(views.html.s4_care_you_provide.g1_theirPersonalDetails(currentForm)) }
   }
 
   def submit = claiming { implicit claim => implicit request =>
