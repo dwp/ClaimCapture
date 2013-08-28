@@ -157,7 +157,7 @@ dateOfClaim = When do you want your Carer''s Allowance claim to start?
 # MORE ABOUT YOU
 hadPartnerSinceClaimDate.label = Have you had a Partner/Spouse living with you since your claim date: {0}?
 hadPartnerSinceClaimDate = Have you had a Partner/Spouse living with you since your claim date: {0}?
-hadPartnerSinceClaimDate.helper = If you have separated from your Partner / Spouse since the date you want to claim Carer's Allowance from please tick ''Yes''
+hadPartnerSinceClaimDate.helper = If you have separated from your Partner/Spouse since the date you want to claim Carer's Allowance from please select ''Yes''
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
 receiveStatePension = Do you get State Pension?
