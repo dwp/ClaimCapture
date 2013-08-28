@@ -112,6 +112,13 @@ object Mappings {
     }
   }
 
+  def filledInNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.required") { nino =>
+    nino match {
+      case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => Valid
+      case _ => Invalid(ValidationError("error.required"))
+    }
+  }
+
   def validNino: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.nino") { nino =>
     nino match {
       case NationalInsuranceNumber(Some(_), Some(_), Some(_), Some(_), Some(_)) => ninoValidation(nino)
