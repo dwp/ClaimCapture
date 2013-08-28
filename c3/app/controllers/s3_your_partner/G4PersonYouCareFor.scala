@@ -1,34 +1,33 @@
 package controllers.s3_your_partner
 
 import language.reflectiveCalls
-import play.api.mvc.Controller
-import models.view.CachedClaim
+import play.api.mvc.{AnyContent, Request, Controller}
+import models.view.{Navigable, CachedClaim}
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
-import models.domain.PersonYouCareFor
+import models.domain.{YourPartnerPersonalDetails, Claim, PersonYouCareFor}
 import utils.helpers.CarersForm.formBinding
-import YourPartner.whenSectionVisible
+import YourPartner._
 
-object G4PersonYouCareFor extends Controller with YourPartnerRouting with CachedClaim {
+object G4PersonYouCareFor extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "isPartnerPersonYouCareFor" -> nonEmptyText.verifying(validYesNo)
   )(PersonYouCareFor.apply)(PersonYouCareFor.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    whenSectionVisible {
-      val currentForm: Form[PersonYouCareFor] = claim.questionGroup(PersonYouCareFor) match {
-        case Some(t: PersonYouCareFor) => form.fill(t)
-        case _ => form
-      }
+    presentConditionally(personYouCareFor)
+  }
 
-      Ok(views.html.s3_your_partner.g4_personYouCareFor(currentForm, completedQuestionGroups(PersonYouCareFor)))
+  def personYouCareFor(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    track(YourPartnerPersonalDetails) { implicit claim =>
+      Ok(views.html.s3_your_partner.g4_personYouCareFor(form.fill(PersonYouCareFor)))
     }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s3_your_partner.g4_personYouCareFor(formWithErrors, completedQuestionGroups(PersonYouCareFor))),
+      formWithErrors => BadRequest(views.html.s3_your_partner.g4_personYouCareFor(formWithErrors)),
       f => claim.update(f) -> Redirect(routes.YourPartner.completed())
     )
   }

@@ -7,7 +7,7 @@ import controllers.Mappings.no
 
 object AboutYou extends Controller with CachedClaim with Navigable {
   def completed = claiming { implicit claim => implicit request =>
-    track(AboutYou) { implicit claim => Ok(views.html.s2_about_you.g8_completed()) }
+    track(models.domain.AboutYou) { implicit claim => Ok(views.html.s2_about_you.g8_completed()) }
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>

@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.PersonYouCareFor], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.PersonYouCareFor])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,7 +7,7 @@
 @import views.html.helper.dates._
 @import views.html.s3_your_partner.main
 
-@main(Messages("s3.g4") + " - " + Messages("s3.longName"), Some(currentForm), completedQuestionGroups) {
+@main(Messages("s3.g4") + " - " + Messages("s3.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.PersonYouCareFor)) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
@@ -22,7 +22,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
