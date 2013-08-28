@@ -140,7 +140,7 @@ object Employment {
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
         <ChildDetails>
-          <Name/>
+          <Name>{NotAsked}</Name>
           <RelationToChild>{childcareExpenses.relationToPersonYouCare}</RelationToChild>
         </ChildDetails>
       </ChildCareExpenses>

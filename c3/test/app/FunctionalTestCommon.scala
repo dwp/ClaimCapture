@@ -21,16 +21,14 @@ abstract class FunctionalTestCommon extends Specification with Tags {
     if (errors.nonEmpty) {
       println("Number of errors: " + errors.size)
       println("[Error] " + errors.mkString("\n\n[Error] "))
-//      println(page.source())
+      println(page.source())
     }
 
     if (warnings.nonEmpty) {
       println("Number of warnings: " + warnings.size)
       println("[Warning] " + warnings.mkString("\n[Warning] "))
     }
-
-    println(page.source())
-
+    
     errors.isEmpty
   }
 
