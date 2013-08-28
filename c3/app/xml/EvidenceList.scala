@@ -102,7 +102,7 @@ object EvidenceList {
     for {break <- breaksInCare.breaks} yield {
       textLine("Where was the person you care for during the break? = ", break.wherePerson.location) ++
         textLine("Other detail ? = ", break.wherePerson.other)
-    }
+      }
   }
 
   def timeSpentAbroad(claim: Claim) = {
