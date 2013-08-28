@@ -10,8 +10,9 @@ import utils.helpers.CarersForm._
 import play.api.i18n.Messages
 import models.DayMonthYear
 import TimeSpentAbroad.trips
+import models.view.Navigable
 
-object G4Trip extends Controller with CachedClaim {
+object G4Trip extends Controller with CachedClaim with Navigable {
   val form = Form(
     mapping(
       "tripID" -> nonEmptyText,
