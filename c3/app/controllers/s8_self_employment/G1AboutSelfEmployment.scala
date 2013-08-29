@@ -4,6 +4,8 @@ import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
+import play.api.mvc.Request
+import play.api.mvc.AnyContent
 import controllers.Mappings._
 import models.domain.AboutSelfEmployment
 import models.view.CachedClaim
@@ -11,8 +13,6 @@ import utils.helpers.CarersForm._
 import SelfEmployment._
 import models.view.Navigable
 import models.domain.Claim
-import play.api.mvc.Request
-import play.api.mvc.AnyContent
 
 object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -28,7 +28,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
   }
 
   def aboutSelfEmployment(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    track(AboutSelfEmployment) { implicit claim => Ok(views.html.s8_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment)))}
+    track(AboutSelfEmployment) { implicit claim => Ok(views.html.s8_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment))) }
   }
   
   def submit = claiming { implicit claim => implicit request =>

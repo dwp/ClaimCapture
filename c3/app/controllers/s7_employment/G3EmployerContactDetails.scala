@@ -1,10 +1,10 @@
 package controllers.s7_employment
 
 import language.reflectiveCalls
-import models.view.{Navigable, CachedClaim}
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
+import models.view.{Navigable, CachedClaim}
 import models.domain.EmployerContactDetails
 import utils.helpers.CarersForm._
 import controllers.Mappings._

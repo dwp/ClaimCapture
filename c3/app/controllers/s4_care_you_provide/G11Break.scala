@@ -2,12 +2,12 @@ package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
 import play.api.data.Form
-import models.view.CachedClaim
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
 import CareYouProvide.breaksInCare
 import models.domain.{BreaksInCare, Break}
+import models.view.CachedClaim
 
 object G11Break extends Controller with CachedClaim {
   val form = Form(mapping(

@@ -3,8 +3,8 @@ package controllers.s2_about_you
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
-import controllers.Mappings._
 import play.api.mvc.Controller
+import controllers.Mappings._
 import models.domain._
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._

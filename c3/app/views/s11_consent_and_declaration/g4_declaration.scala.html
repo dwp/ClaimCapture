@@ -9,7 +9,7 @@
 @import controllers.s11_consent_and_declaration._
 @import views.html.s11_consent_and_declaration.main
 
-@main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Declaration)) {
+@main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Declaration)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G4Declaration.submit) {
         <fieldset class="form-elements">
             <legend>@Messages("s11.g4")</legend>

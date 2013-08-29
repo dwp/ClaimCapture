@@ -2,10 +2,10 @@ package controllers.s11_consent_and_declaration
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
-import models.view.CachedClaim
-import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
+import models.view.CachedClaim
+import models.domain._
 import utils.helpers.CarersForm._
 import models.view.Navigable
 
@@ -16,7 +16,7 @@ object G4Declaration extends Controller with CachedClaim with Navigable {
   )(Declaration.apply)(Declaration.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    track(Declaration) { implicit claim => Ok(views.html.s11_consent_and_declaration.g4_declaration(form.fill(Declaration)))}
+    track(Declaration) { implicit claim => Ok(views.html.s11_consent_and_declaration.g4_declaration(form.fill(Declaration))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>

@@ -1,12 +1,12 @@
 package controllers.s3_your_partner
 
 import language.reflectiveCalls
-import controllers.Mappings._
-import models.domain.{Claim, YourPartnerPersonalDetails}
-import models.view.{Navigable, CachedClaim}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{Request, AnyContent, Controller}
+import controllers.Mappings._
+import models.domain.{Claim, YourPartnerPersonalDetails}
+import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm.formBinding
 import YourPartner._
 

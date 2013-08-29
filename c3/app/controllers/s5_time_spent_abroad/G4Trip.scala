@@ -1,26 +1,25 @@
 package controllers.s5_time_spent_abroad
 
 import play.api.mvc.Controller
-import models.view.CachedClaim
+import play.api.i18n.Messages
 import play.api.data.Form
 import play.api.data.Forms._
+import models.view.CachedClaim
 import controllers.Mappings._
 import models.domain.{FiftyTwoWeeksTrip, Trip, FourWeeksTrip, Trips}
 import utils.helpers.CarersForm._
-import play.api.i18n.Messages
 import models.DayMonthYear
 import TimeSpentAbroad.trips
 import models.view.Navigable
 
 object G4Trip extends Controller with CachedClaim with Navigable {
-  val form = Form(
-    mapping(
-      "tripID" -> nonEmptyText,
-      "start" -> (dayMonthYear verifying validDate),
-      "end" -> (dayMonthYear verifying validDate),
-      "where" -> nonEmptyText,
-      "why" -> nonEmptyText
-    )(Trip.apply)(Trip.unapply))
+  val form = Form(mapping(
+    "tripID" -> nonEmptyText,
+    "start" -> (dayMonthYear verifying validDate),
+    "end" -> (dayMonthYear verifying validDate),
+    "where" -> nonEmptyText,
+    "why" -> nonEmptyText
+  )(Trip.apply)(Trip.unapply))
 
   def fourWeeks = claiming { implicit claim => implicit request =>
     Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fourWeeksSubmit()))

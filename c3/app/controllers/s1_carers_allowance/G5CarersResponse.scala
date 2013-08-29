@@ -6,10 +6,10 @@ import models.view.Navigable
 
 object G5CarersResponse extends Controller with CachedClaim with Navigable {
   def present = claiming { implicit claim => implicit request =>
-    track(models.domain.AboutYou) { implicit claim => Ok(views.html.s1_carers_allowance.g5_carersResponse())}
+    track(models.domain.AboutYou) { implicit claim => Ok(views.html.s1_carers_allowance.g5_carersResponse()) }
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    Redirect(claim.nextSection(models.domain.CarersAllowance).firstPage)
+    Redirect(controllers.s2_about_you.routes.G1YourDetails.present())
   }
 }

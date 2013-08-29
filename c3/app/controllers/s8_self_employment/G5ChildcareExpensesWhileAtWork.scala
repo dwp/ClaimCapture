@@ -16,16 +16,15 @@ import play.api.mvc.Request
 import play.api.mvc.AnyContent
 
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
-  def form(implicit claim: Claim) = Form(
-    mapping(
-      "whoLooksAfterChildren" -> nonEmptyText(maxLength = sixty),
-      "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
-      "howOftenPayChildCare" -> nonEmptyText,
-      "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
-      "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
-      "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
-    )(ChildcareExpensesWhileAtWork.apply)(ChildcareExpensesWhileAtWork.unapply)
-      .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
+  def form(implicit claim: Claim) = Form(mapping(
+    "whoLooksAfterChildren" -> nonEmptyText(maxLength = sixty),
+    "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
+    "howOftenPayChildCare" -> nonEmptyText,
+    "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
+    "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
+    "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
+  )(ChildcareExpensesWhileAtWork.apply)(ChildcareExpensesWhileAtWork.unapply)
+    .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
 
   def validateRelationToPartner(implicit claim: Claim, childcareExpensesWhileAtWork: ChildcareExpensesWhileAtWork) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {

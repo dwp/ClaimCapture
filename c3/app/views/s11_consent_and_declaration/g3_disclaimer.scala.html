@@ -10,7 +10,7 @@
 @import controllers.s11_consent_and_declaration._
 @import views.html.s11_consent_and_declaration.main
 
-@main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Disclaimer)) {
+@main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Disclaimer)) {
 
     @form(action = controllers.s11_consent_and_declaration.routes.G3Disclaimer.submit) {
         <fieldset class="form-elements">
@@ -20,7 +20,6 @@
                 @for(i <- 1 to 6) {
                     <p>
                         @defining(claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName + " " + m.middleName.getOrElse("") + (if (m.middleName.isDefined) " " else "") + m.surname )){ str =>
-
                             @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]", str))
                         }
                     </p>

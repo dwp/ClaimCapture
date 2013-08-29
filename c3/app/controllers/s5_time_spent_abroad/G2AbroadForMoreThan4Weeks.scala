@@ -1,20 +1,19 @@
 package controllers.s5_time_spent_abroad
 
 import play.api.mvc.Controller
-import utils.helpers.CarersForm._
-import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import models.domain.AbroadForMoreThan4Weeks
 import TimeSpentAbroad.trips
 import models.view.Navigable
+import utils.helpers.CarersForm._
+import models.view.CachedClaim
 
 object G2AbroadForMoreThan4Weeks extends Controller with CachedClaim with Navigable {
-  val form = Form(
-    mapping(
-      "anyTrips" -> nonEmptyText.verifying(validYesNo)
-    )(AbroadForMoreThan4Weeks.apply)(AbroadForMoreThan4Weeks.unapply))
+  val form = Form(mapping(
+    "anyTrips" -> nonEmptyText.verifying(validYesNo)
+  )(AbroadForMoreThan4Weeks.apply)(AbroadForMoreThan4Weeks.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     val filledForm = request.headers.get("referer") match {
@@ -25,7 +24,7 @@ object G2AbroadForMoreThan4Weeks extends Controller with CachedClaim with Naviga
       }
     }
 
-    track(AbroadForMoreThan4Weeks) { implicit claim => Ok(views.html.s5_time_spent_abroad.g2_abroad_for_more_than_4_weeks(filledForm, trips))}
+    track(AbroadForMoreThan4Weeks) { implicit claim => Ok(views.html.s5_time_spent_abroad.g2_abroad_for_more_than_4_weeks(filledForm, trips)) }
   }
 
   def submit = claiming { implicit claim => implicit request =>

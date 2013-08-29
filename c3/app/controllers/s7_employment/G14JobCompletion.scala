@@ -1,8 +1,8 @@
 package controllers.s7_employment
 
 import language.reflectiveCalls
-import models.view.{Navigable, CachedClaim}
 import play.api.mvc.Controller
+import models.view.{Navigable, CachedClaim}
 import models.domain.JobCompletion
 
 object G14JobCompletion extends Controller with CachedClaim with Navigable {
