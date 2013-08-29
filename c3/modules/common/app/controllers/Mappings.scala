@@ -8,6 +8,12 @@ import scala.util.Try
 import scala.util.Success
 import scala.util.Failure
 import play.api.data.validation.ValidationError
+import models._
+import models.domain._
+import scala.util.Failure
+import scala.Some
+import play.api.data.validation.ValidationError
+import scala.util.Success
 
 object Mappings {
   object Name {

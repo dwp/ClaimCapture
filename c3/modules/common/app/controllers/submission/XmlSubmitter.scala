@@ -7,6 +7,8 @@ import ExecutionContext.Implicits.global
 import scala.xml.Elem
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import play.Configuration
+import models.domain.Claim
+import xml.DWPCAClaim
 
 class XmlSubmitter extends Submitter {
   def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {

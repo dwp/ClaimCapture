@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.mvc.Call
+import models.domain.{Claim, QuestionGroup}
 
 trait Routing {
   def route(questionGroupIdentifier: QuestionGroup.Identifier): Call

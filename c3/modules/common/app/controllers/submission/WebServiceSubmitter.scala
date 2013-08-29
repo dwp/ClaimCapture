@@ -1,13 +1,19 @@
 package controllers.submission
 
 import play.api.mvc.Results.Redirect
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc.{AnyContent, Request, PlainResult}
 import play.api.{http, Logger}
 import com.google.inject.Inject
 import play.api.cache.Cache
 import play.api.libs.ws.Response
 import play.api.Play.current
+import services.TransactionIdService
+import services.submission.ClaimSubmission
+import models.domain.Claim
+import xml.DWPCAClaim
+import models.view.CachedClaim
+import ExecutionContext.Implicits.global
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : ClaimSubmission) extends Submitter {
 

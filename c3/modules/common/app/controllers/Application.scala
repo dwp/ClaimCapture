@@ -1,10 +1,11 @@
 package controllers
 
 import play.api.mvc._
+import models.view.CachedClaim
 
 object Application extends Controller with CachedClaim {
   def index = Action {
-    Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
+    Redirect("/allowance/benefits")
   }
 
   def timeout = Action {
