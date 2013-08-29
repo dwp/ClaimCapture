@@ -1,14 +1,11 @@
 package controllers.submission
 
 import play.api.mvc.Results.Ok
-import models.domain.Claim
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc.{AnyContent, Request, PlainResult}
 import ExecutionContext.Implicits.global
-import xml.DWPCAClaim
 import scala.xml.Elem
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
-import play.api.Logger
 import play.Configuration
 
 class XmlSubmitter extends Submitter {

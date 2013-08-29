@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc._
-import models.view.CachedClaim
 
 object Application extends Controller with CachedClaim {
   def index = Action {

@@ -1,6 +1,5 @@
 package controllers
 
-import models.domain.{Claim, QuestionGroup}
 import play.api.mvc.Call
 
 trait Routing {

@@ -1,10 +1,10 @@
 package controllers.submission
 
 import play.api.mvc._
-import models.view._
 import play.api.Logger
-import services.UnavailableTransactionIdException
 import com.google.inject._
+import models.view.CachedClaim
+import services.UnavailableTransactionIdException
 
 @Singleton
 class SubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim {

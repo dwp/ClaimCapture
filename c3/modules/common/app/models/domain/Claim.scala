@@ -91,18 +91,17 @@ case class Claim(sections: List[Section])(implicit val navigation: Navigation = 
 object Claim {
   def apply() = {
     val sections = List(
-      Section(CarersAllowance, firstPage = controllers.s1_carers_allowance.routes.G1Benefits.present(), lastPage = controllers.s1_carers_allowance.routes.CarersAllowance.approve()),
-      Section(AboutYou, firstPage = controllers.s2_about_you.routes.G1YourDetails.present(), lastPage = controllers.s2_about_you.routes.AboutYou.completed()),
-      Section(YourPartner, firstPage = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present(), lastPage = controllers.s3_your_partner.routes.YourPartner.completed()),
-      Section(CareYouProvide, firstPage = controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.present(), lastPage = controllers.s4_care_you_provide.routes.CareYouProvide.completed()),
-      Section(TimeSpentAbroad, firstPage = controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.present(), lastPage = controllers.s5_time_spent_abroad.routes.TimeSpentAbroad.completed()),
-      Section(Education, firstPage = controllers.s6_education.routes.G1YourCourseDetails.present(), lastPage = controllers.s6_education.routes.Education.completed()),
-      Section(Employed, firstPage = controllers.s7_employment.routes.G2JobDetails.present(java.util.UUID.randomUUID.toString), lastPage = controllers.s7_employment.routes.Employment.completed()),
-      Section(SelfEmployment, firstPage = controllers.s8_self_employment.routes.G1AboutSelfEmployment.present(), lastPage = controllers.s8_self_employment.routes.SelfEmployment.completed()),
-      Section(OtherMoney, firstPage = controllers.s9_other_money.routes.G1AboutOtherMoney.present(), lastPage = controllers.s9_other_money.routes.OtherMoney.completed()),
-      Section(PayDetails, firstPage = controllers.s10_pay_details.routes.G1HowWePayYou.present(), lastPage = controllers.s10_pay_details.routes.PayDetails.completed()),
-      Section(ConsentAndDeclaration, firstPage = controllers.s11_consent_and_declaration.routes.G1AdditionalInfo.present(), lastPage = controllers.s11_consent_and_declaration.routes.ConsentAndDeclaration.completed()))
-
+      Section(CarersAllowance, firstPage = "/allowance/benefits", lastPage = "/allowance/approve"),
+      Section(AboutYou, firstPage ="/about-you/your-details", lastPage ="/about-you/completed"),
+      Section(YourPartner, firstPage ="/your-partner/personal-details", lastPage ="/your-partner/completed"),
+      Section(CareYouProvide, firstPage ="/care-you-provide/their-personal-details", lastPage = "/care-you-provide/completed"),
+      Section(TimeSpentAbroad, firstPage ="/time-spent-abroad/normal-residence-and-current-location", lastPage ="/time-spent-abroad/completed"),
+      Section(Education, firstPage ="/education/your-course-details", lastPage = "/education/completed"),
+      Section(Employed, firstPage ="/employment/been-employed", lastPage ="/employment/completed"),
+      Section(SelfEmployment, firstPage ="/self-employment/about-self-employment", lastPage ="/self-employment/completed"),
+      Section(OtherMoney, firstPage ="/other-money/about-other-money", lastPage ="/other-money/completed"),
+      Section(PayDetails, firstPage ="/pay-details/how-we-pay-you", lastPage ="/pay-details/completed"),
+      Section(ConsentAndDeclaration, firstPage ="/consent-and-declaration/additional-info", lastPage = "/consent-and-declaration/completed"))
     new Claim(sections = sections)
   }
 }

@@ -1,6 +1,5 @@
 package controllers.submission
 
-import models.domain.Claim
 import scala.concurrent.Future
 import play.api.mvc.{AnyContent, Request, PlainResult}
 

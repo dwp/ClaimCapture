@@ -4,7 +4,7 @@ import play.api.mvc.Call
 import play.api.i18n.Messages
 
 case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil,
-                   visible: Boolean = true, firstPage: Call = Call("", ""), lastPage: Call = Call("", "")) {
+                   visible: Boolean = true, firstPage: String = "", lastPage: String = "") {
 
   def name = Messages(identifier.id + ".name")
 

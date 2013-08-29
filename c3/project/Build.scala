@@ -47,5 +47,9 @@ object ApplicationBuild extends Build {
 
   var appSettings: Seq[Project.Setting[_]] =  SassPlugin.sassSettings ++ sS ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f ++ jO
 
-  val main = play.Project(appName, appVersion, appDependencies).settings(appSettings: _*)
+  val common = play.Project(appName + "-common",appVersion,appDependencies,path = file("modules/common")).settings(sO++ sV++ sR : _*)
+
+  val s1 = play.Project(appName + "-s1",appVersion,appDependencies,path = file("modules/sections/s1")).settings(sO++ sV++ sR : _*).dependsOn(common % "test->test;compile->compile").aggregate(common)
+
+  val main = play.Project(appName, appVersion, appDependencies).settings(appSettings: _*).dependsOn(common % "test->test;compile->compile",s1%"test->test;compile->compile").aggregate(common,s1)
 }

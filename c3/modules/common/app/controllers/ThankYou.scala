@@ -1,6 +1,5 @@
 package controllers
 
-import models.view.CachedClaim
 import play.api.mvc.Controller
 
 object ThankYou extends Controller with CachedClaim {

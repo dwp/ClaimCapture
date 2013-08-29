@@ -5,11 +5,8 @@ import play.api.data.Mapping
 import play.api.data.Forms._
 import play.api.data.validation._
 import scala.util.Try
-import models._
 import scala.util.Success
-import models.MultiLineAddress
 import scala.util.Failure
-import models.NationalInsuranceNumber
 import play.api.data.validation.ValidationError
 
 object Mappings {

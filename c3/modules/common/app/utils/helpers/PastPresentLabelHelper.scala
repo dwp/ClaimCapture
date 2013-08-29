@@ -2,7 +2,6 @@ package utils.helpers
 
 import models.domain._
 import controllers.Mappings._
-import controllers.s7_employment.Employment._
 
 case class PastPresentLabelHelper(implicit claim: Claim)
 
