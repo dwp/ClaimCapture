@@ -21,7 +21,7 @@ class G4TripPage(browser: TestBrowser, previousPage: Option[Page] = None, iterat
     declareInput("#why", "TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_" + iteration)
   }
 
-  protected override def updateIterationNumber = iteration + 1
+  protected override def getNewIterationNumber = iteration + 1
 }
 
 /**

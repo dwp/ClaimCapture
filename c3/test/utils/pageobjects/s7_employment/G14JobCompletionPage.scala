@@ -4,7 +4,7 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 final class G14JobCompletionPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G14JobCompletionPage.url.replace(":jobID", iteration.toString), G14JobCompletionPage.title, previousPage, iteration) {
-  override def updateIterationNumber: Int = iteration + 1
+  override def getNewIterationNumber: Int = iteration + 1
 }
 
 object G14JobCompletionPage {

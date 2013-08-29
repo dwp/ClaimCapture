@@ -116,26 +116,23 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    * @return next Page or same page if errors detected and did not ask for exception.
    */
   def submitPage(throwException: Boolean = false, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
+    if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted. " + this.toString)
     try {
-      this.pageSource = getPageSource
+      this.pageSource = getPageSource()
       val fluent = browser.submit("button[type='submit']")
 
       if (errorsInPage(throwException)) this
       else {
         this.pageLeftOrSubmitted = true
 
-        def fluentTitle = {
-          try {
+        def fluentTitle =  try {
             if (fluent != null) fluent.title else pageTitle
-          }
-          catch {
+          } catch {
             case _:Exception  => pageTitle
           }
-        }
 
         if (waitForPage && (fluentTitle == pageTitle || (fluentTitle != null && fluentTitle.isEmpty))) waitForDifferentPage(waitDuration)
-        this createPageWithTitle(getTitleFromBrowser(), if (!resetIteration) updateIterationNumber() else 1)
+        this createPageWithTitle(getTitleFromBrowser(), if (!resetIteration) getNewIterationNumber else 1)
       }
     }
     catch {
@@ -198,7 +195,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
   //  NON PUBLIC FUNCTIONS
   // ==================================================================
 
-  protected def updateIterationNumber(): Int = iteration
+  protected def getNewIterationNumber: Int = iteration
 
   protected def waitForPage(waitDuration: Int) = {
     try {

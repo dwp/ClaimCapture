@@ -80,7 +80,7 @@ class XMLBusinessValidation(xmlMappingFile: String = "/ClaimScenarioXmlMapping.c
 object XMLBusinessValidation {
 
   def buildXmlMappingFromFile(fileName: String) = {
-    val map = mutable.Map.empty[String, Tuple2[String, String]]
+    val map = mutable.Map.empty[String, (String, String)]
     def converter(attribute: String)(path: String)(question: String): Unit = map += (attribute -> Tuple2(path, question))
     FactoryFromFile.buildFromFileLast3Columns(fileName, converter)
     map
