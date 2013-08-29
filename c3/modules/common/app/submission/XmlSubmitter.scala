@@ -1,4 +1,4 @@
-package controllers.submission
+package submission
 
 import play.api.mvc.Results.Ok
 import models.domain.Claim

@@ -1,4 +1,4 @@
-package controllers.submission
+package submission
 
 import play.api.mvc._
 import models.view._

@@ -1,4 +1,4 @@
-package controllers.submission
+package submission
 
 import models.domain.Claim
 import scala.concurrent.Future
