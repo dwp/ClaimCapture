@@ -57,6 +57,13 @@ object ApplicationBuild extends Build {
            .dependsOn(common % scope)
            .aggregate(common)
 
+
+  val s3 = play
+    .Project(appName + "-s3",appVersion,appDependencies,path = file("modules/sections/s3"))
+    .settings(sO++ sV++ sR : _*)
+    .dependsOn(common % scope)
+    .aggregate(common)
+
   val circs = play
             .Project(appName + "-circs",appVersion,appDependencies,path = file("modules/circs"))
             .settings(sO++ sV++ sR : _*)
@@ -66,6 +73,6 @@ object ApplicationBuild extends Build {
   val main = play
              .Project(appName, appVersion, appDependencies)
              .settings(appSettings: _*)
-             .dependsOn(common % scope, s1 % scope, circs % scope)
-             .aggregate(common, s1, circs)
+             .dependsOn(common % scope, s1 % scope, s3 % scope, circs % scope)
+             .aggregate(common, s1, s3, circs)
 }

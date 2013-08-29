@@ -18,8 +18,8 @@ object AboutYou extends Controller with CachedClaim with Navigable {
 
     val nrOfCompletedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou).distinct.size
 
-    if (yourDetailsVisible && nrOfCompletedQuestionGroups == 6) Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
-    else if (!yourDetailsVisible && nrOfCompletedQuestionGroups == 5) Redirect(controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.present())
+    if (yourDetailsVisible && nrOfCompletedQuestionGroups == 6) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
+    else if (!yourDetailsVisible && nrOfCompletedQuestionGroups == 5) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
     else Redirect(routes.G1YourDetails.present())
   }
 }

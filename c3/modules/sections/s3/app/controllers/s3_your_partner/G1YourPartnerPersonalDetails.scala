@@ -34,6 +34,8 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
-      f => claim.update(f) -> Redirect(routes.G4PersonYouCareFor.present()))
+      f => claim.update(f) -> Redirect(routes.G4PersonYouCareFor.present())
+    )
   }
 }
+

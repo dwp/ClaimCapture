@@ -7,6 +7,8 @@ GET     /                                                               controll
 
 ->  /allowance                                                          s1.Routes
 
+->  /your-partner                                                       s3.Routes
+
 
 # About you
 ###############
@@ -31,16 +33,7 @@ POST    /about-you/employment                                           controll
 GET     /about-you/completed                                            controllers.s2_about_you.AboutYou.completed
 POST    /about-you/completed                                            controllers.s2_about_you.AboutYou.completedSubmit
 
-# Your partner
-###############
-GET     /your-partner/personal-details                                  controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
-POST    /your-partner/personal-details                                  controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
 
-GET     /your-partner/person-you-care-for                               controllers.s3_your_partner.G4PersonYouCareFor.present
-POST    /your-partner/person-you-care-for                               controllers.s3_your_partner.G4PersonYouCareFor.submit
-
-GET     /your-partner/completed                                         controllers.s3_your_partner.YourPartner.completed
-POST    /your-partner/completed                                         controllers.s3_your_partner.YourPartner.completedSubmit
 
 # Care You Provide
 ###############
