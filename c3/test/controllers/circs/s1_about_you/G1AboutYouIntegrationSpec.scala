@@ -27,6 +27,6 @@ class G1AboutYouIntegrationSpec extends Specification with Tags {
       page submitPage()
     }
 
-  } section("integration", models.domain.CircumstancesAboutYou.id)
+  } section("integration", models.domain.Circumstances.id)
 
 }

@@ -1,0 +1,6 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /about-you                                        controllers.circs.s1_about_you.G1AboutYou.present
+POST    /about-you                                        controllers.circs.s1_about_you.G1AboutYou.submit

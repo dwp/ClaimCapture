@@ -83,5 +83,5 @@ class G1AboutYouSpec extends Specification with Tags{
       val result = controllers.circs.s1_about_you.G1AboutYou.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit", models.domain.CircumstancesAboutYou.id)
+  } section("unit", models.domain.Circumstances.id)
 }

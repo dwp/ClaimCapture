@@ -125,5 +125,5 @@ class G1AboutYouFormSpec extends Specification with Tags {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-  } section ("unit", models.domain.CircumstancesAboutYou.id)
+  } section ("unit", models.domain.Circumstances.id)
 }

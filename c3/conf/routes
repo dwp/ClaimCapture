@@ -246,5 +246,4 @@ GET     /thankyou/:txnId                                                controll
 GET     /assets/*file                                                   controllers.Assets.at(path="/public", file)
 
 # Circumstances
-GET     /circumstances/about-you                                        controllers.circs.s1_about_you.G1AboutYou.present
-POST    /circumstances/about-you                                        controllers.circs.s1_about_you.G1AboutYou.submit
+->      /circumstances                                                  circs.Routes
