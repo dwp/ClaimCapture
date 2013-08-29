@@ -78,7 +78,7 @@ object SelfEmployment {
         <WeeklyPayment>{moneyStructure(childCareExpenses.howMuchYouPay)}</WeeklyPayment>
         <RelationshipCarerToClaimant>{childCareExpenses.whatRelationIsToYou}</RelationshipCarerToClaimant>
         <ChildDetails>
-          <Name></Name>
+          <Name>{NotAsked}</Name>
           <RelationToChild>{childCareExpenses.whatRelationIsTothePersonYouCareFor}</RelationToChild>
         </ChildDetails>
       </ChildCareExpenses>

@@ -13,7 +13,7 @@ About You,Your Details,Nationality,AboutYouNationality,British
 About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,m
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,No
 About You,Your contact details,Address,AboutYouAddress,6 Preston Road&Preston&Lancashire
-About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
+About You,Your contact details,Postcode,AboutYouPostcode,pr1 2th
 About You,Your contact details,Phone number,AboutYouPhoneNumber,01772 888901
 About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419899
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,Yes
@@ -215,7 +215,7 @@ Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber_
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid_1,08/07/2013
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,610.01
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,All amounts due
-Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_1,No
+Employment,Your last wage,"About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time?",EmploymentDoYouGettheSameAmountEachTime_1,No
 Employment,Additional details on your last wage,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_1,fourweekly
 Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOther_1,
 Employment,Additional details on your last wage,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_1,
@@ -322,7 +322,7 @@ Other Money,Statutory Sick Pay,Statutory Sick Pay: How much?,OtherMoneySSPHowMuc
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOften,monthly
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,DWP
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,Palatine House&Preston
-Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,PR45 6YH
+Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,pr45 6yh
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,No
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,

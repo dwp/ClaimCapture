@@ -59,8 +59,10 @@ About the care you provide,About the breaks in care,Break start date?,AboutTheCa
 About the care you provide,About the breaks in care,Break start time?,AboutTheCareYouProvideBreakStartTime,CareBreak>StartDateTime
 About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate,CareBreak>EndDateTime
 About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime,CareBreak>EndDateTime
-About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak,CareBreak>Reason
-About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak,DWPCAClaim>EvidenceList,
+About the care you provide,About the breaks in care,Where were you during the break?,AboutTheCareYouProvideWhereWereYouDuringTheBreak,CareBreak>Reason
+About the care you provide,About the breaks in care,Where were you during the break? Other detail,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther,DWPCAClaim>EvidenceList
+About the care you provide,About the breaks in care,Where was the person you care for during the break?,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak,DWPCAClaim>EvidenceList
+About the care you provide,About the breaks in care,Where was the person you care for during the break? Other detail,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther,DWPCAClaim>EvidenceList
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment,CareBreak>MedicalCare
 Time Spent Abroad,Your normal residence & current location,"Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? ",TimeSpentAbroadDoYouNormallyLiveintheUk,DWPCAClaim>EvidenceList
 Time Spent Abroad,Your normal residence & current location,Where do you normally live? ,TimeSpentAbroadWhereDoYouNormallyLive,Residency>CountryNormallyLive
@@ -101,7 +103,7 @@ Employment,Employers contact details,Phone number,EmploymentEmployerPhoneNumber,
 Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid,Employment>JobDetails>Pay>DateLastPaid
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod,Employment>JobDetails>Pay>GrossPayment>Amount
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay,Employment>JobDetails>Pay>IncludedInWage
-Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime,Employment>JobDetails>Pay>VaryingEarnings
+Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime,DWPCAClaim>EvidenceList
 Employment,Additional details on your last wage,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid,Employment>JobDetails>Pay>PayFrequency
 Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOther,Employment>JobDetails>Pay>PayFrequencyOther
 Employment,Additional details on your last wage,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid,Employment>JobDetails>Pay>UsualPayDay
