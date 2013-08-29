@@ -3,8 +3,6 @@ import sbt.Keys._
 import play.Project._
 import net.litola.SassPlugin
 
-
-
 object ApplicationBuild extends Build {
   val appName         = "c3"
 

@@ -5,25 +5,8 @@
 # Home page
 GET     /                                                               controllers.Application.index
 
-# Allowance
-###############
-GET     /allowance/benefits                                             controllers.s1_carers_allowance.G1Benefits.present
-POST    /allowance/benefits                                             controllers.s1_carers_allowance.G1Benefits.submit
+->  /allowance                                                          s1.Routes
 
-GET     /allowance/hours                                                controllers.s1_carers_allowance.G2Hours.present
-POST    /allowance/hours                                                controllers.s1_carers_allowance.G2Hours.submit
-
-GET     /allowance/over-16                                              controllers.s1_carers_allowance.G3Over16.present
-POST    /allowance/over-16                                              controllers.s1_carers_allowance.G3Over16.submit
-
-GET     /allowance/lives-in-gb                                          controllers.s1_carers_allowance.G4LivesInGB.present
-POST    /allowance/lives-in-gb                                          controllers.s1_carers_allowance.G4LivesInGB.submit
-
-GET     /allowance/carers-response                                      controllers.s1_carers_allowance.G5CarersResponse.present
-POST    /allowance/carers-response                                      controllers.s1_carers_allowance.G5CarersResponse.submit
-
-GET     /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approve
-POST    /allowance/approve                                              controllers.s1_carers_allowance.CarersAllowance.approveSubmit
 
 # About you
 ###############
