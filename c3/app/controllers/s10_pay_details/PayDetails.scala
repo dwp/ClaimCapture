@@ -1,32 +1,25 @@
 package controllers.s10_pay_details
 
-import play.api.mvc.{Result, Controller}
-import models.view.CachedClaim
-import models.domain.{BankBuildingSocietyDetails, HowWePayYou, QuestionGroup, Claim}
-import controllers.Routing
+import play.api.mvc.{AnyContent, Request, Controller}
+import models.view.{Navigable, CachedClaim}
+import models.domain.Claim
 
-object PayDetails extends Controller with PayDetailsRouting with CachedClaim {
-  def whenSectionVisible(f: => Either[Result, (Claim, Result)])(implicit claim: Claim): Either[Result, (Claim, Result)] = {
-    if (claim.isSectionVisible(models.domain.PayDetails)) f
-    else Redirect(claim.nextSection(models.domain.PayDetails).firstPage)
-  }
-
+object PayDetails extends Controller with CachedClaim with Navigable {
   def completed = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s10_pay_details.g3_completed(completedQuestionGroups.map(qg => qg -> route(qg)))))
+    presentConditionally {
+      track(models.domain.PayDetails) { implicit claim => Ok(views.html.s10_pay_details.g3_completed()) }
+    }
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
     Redirect(claim.nextSection(models.domain.PayDetails).firstPage)
   }
 
-  private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {
-    claim.completedQuestionGroups(models.domain.PayDetails)
+  def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    if (claim.isSectionVisible(models.domain.PayDetails)) c
+    else redirect
   }
-}
 
-trait PayDetailsRouting extends Routing {
-  override def route(qgi: QuestionGroup.Identifier) = qgi match {
-    case HowWePayYou => routes.G1HowWePayYou.present()
-    case BankBuildingSocietyDetails => routes.G2BankBuildingSocietyDetails.present()
-  }
+  def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
+    claim -> Redirect(controllers.s11_consent_and_declaration.routes.G1AdditionalInfo.present())
 }

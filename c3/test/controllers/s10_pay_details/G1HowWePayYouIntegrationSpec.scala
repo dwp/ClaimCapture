@@ -38,9 +38,10 @@ class G1HowWePayYouIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to Other Money - Completed" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/other-money/completed")
+
       browser.goTo("/pay-details/how-we-pay-you")
       browser.click(".form-steps a")
-      //Other Income completed page does a redirect to first page
       titleMustEqual("Details about other money - About Other Money")
     }
 

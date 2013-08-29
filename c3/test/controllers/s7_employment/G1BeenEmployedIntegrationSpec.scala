@@ -53,6 +53,7 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
 
     """go back to "education".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim()
+      goTo("/education/completed")
 
       goTo("/employment/been-employed")
       back

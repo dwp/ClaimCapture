@@ -1,29 +1,37 @@
 package controllers.s6_education
 
 import language.reflectiveCalls
-import play.api.mvc.Controller
-import models.view.CachedClaim
+import play.api.mvc.{AnyContent, Request, Controller}
+import models.view.{Navigable, CachedClaim}
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.YourCourseDetails
+import models.domain.{Claim, YourCourseDetails}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
-import Education._
 
-object G1YourCourseDetails extends Controller with CachedClaim {
-  val form = Form(
-    mapping(
-      "courseType" -> optional(text(maxLength = sixty)),
-      "courseTitle" -> optional(text(maxLength = sixty)),
-      "startDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-      "expectedEndDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-      "finishedDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-      "studentReferenceNumber" -> optional(text(maxLength = sixty))
-    )(YourCourseDetails.apply)(YourCourseDetails.unapply))
+object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
+  val form = Form(mapping(
+    "courseType" -> optional(text(maxLength = sixty)),
+    "courseTitle" -> optional(text(maxLength = sixty)),
+    "startDate" -> optional(dayMonthYear.verifying(validDateOnly)),
+    "expectedEndDate" -> optional(dayMonthYear.verifying(validDateOnly)),
+    "finishedDate" -> optional(dayMonthYear.verifying(validDateOnly)),
+    "studentReferenceNumber" -> optional(text(maxLength = sixty))
+  )(YourCourseDetails.apply)(YourCourseDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails))))
+    presentConditionally {
+      track(YourCourseDetails) { implicit claim => Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails))) }
+    }
   }
+
+  def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    if (claim.isSectionVisible(models.domain.Education)) c
+    else redirect
+  }
+
+  def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
+    claim -> Redirect(controllers.s7_employment.routes.G1BeenEmployed.present())
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(

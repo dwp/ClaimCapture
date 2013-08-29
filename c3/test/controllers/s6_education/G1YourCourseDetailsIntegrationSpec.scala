@@ -41,6 +41,8 @@ class G1YourCourseDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back" in new WithBrowser with BrowserMatchers {
+      browser.goTo("/care-you-provide/breaks-in-care")
+
       browser.goTo("/education/your-course-details")
       browser.click("#backButton")
       titleMustNotEqual("Your course details - About your education")

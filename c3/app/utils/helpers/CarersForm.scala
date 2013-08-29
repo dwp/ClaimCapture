@@ -1,10 +1,10 @@
 package utils.helpers
 
+import scala.language.implicitConversions
 import play.api.data.{FormError, Form}
-import play.api.mvc.Request
+import play.api.mvc.{AnyContent, Request}
 import scala.util.{Failure, Success, Try}
 import play.api.Logger
-import scala.language.implicitConversions
 
 object CarersForm {
 
@@ -12,7 +12,7 @@ object CarersForm {
     def bindEncrypted: Form[T] = {
       bindDecrypt(
         (request.body match {
-          case body: play.api.mvc.AnyContent if body.asFormUrlEncoded.isDefined => body.asFormUrlEncoded.get
+          case body: AnyContent if body.asFormUrlEncoded.isDefined => body.asFormUrlEncoded.get
           case _ => Map.empty[String, Seq[String]]
         }) ++ request.queryString, form
       )
@@ -23,9 +23,9 @@ object CarersForm {
         map.foldLeft(Map.empty[String, String]) {
           case (s, (key, values)) =>
             val cKey = Try(CarersCrypto.decryptAES(key)) match {
-              case Success(s) =>
-                Logger.trace(s"Field decryption: $key -> $s")
-                s
+              case Success(k) =>
+                Logger.trace(s"Field decryption: $key -> $k")
+                k
               case Failure(_) => key
             }
 

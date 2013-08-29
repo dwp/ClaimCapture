@@ -14,15 +14,6 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
     "beenEmployed" -> (nonEmptyText verifying validYesNo)
   )(BeenEmployed.apply)(BeenEmployed.unapply))
 
-  def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    claim.questionGroup[Emp].collect {
-      case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == yes => c
-    }.getOrElse(redirect)
-  }
-
-  def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present())
-
   def present = claiming { implicit claim => implicit request =>
     presentConditionally(beenEmployed)
   }
@@ -46,6 +37,15 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
       }
     }
   }
+
+  def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+    claim.questionGroup[Emp].collect {
+      case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == yes => c
+    }.getOrElse(redirect)
+  }
+
+  def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
+    claim -> Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present())
 
   def submit = claiming { implicit claim => implicit request =>
     import controllers.Mappings.yes

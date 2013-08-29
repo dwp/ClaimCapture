@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.BankBuildingSocietyDetails], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.BankBuildingSocietyDetails])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -9,8 +9,9 @@
 @import controllers.s10_pay_details._
 @import views.html.s10_pay_details.main
 @import app.WhoseNameAccount._
+@import models.domain.BankBuildingSocietyDetails
 
-@main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm),completedQuestionGroups) {
+@main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm), claim.completedQuestionGroups(BankBuildingSocietyDetails)) {
     <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
     
     @form(action = controllers.s10_pay_details.routes.G2BankBuildingSocietyDetails.submit) {
@@ -33,7 +34,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

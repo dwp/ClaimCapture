@@ -1,13 +1,13 @@
-@(completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@()(implicit claim: models.domain.Claim)
 
 @import helper._
-@import models.domain.YourCourseDetails
+@import models.domain.{Education, YourCourseDetails}
 @import views.html.s6_education.main
 
-@main("Completion - " + Messages("s6.longName"), None, completedQuestionGroups) {
+@main("Completion - " + Messages("s6.longName"), None, claim.completedQuestionGroups(Education)) {
     @form(action = controllers.s6_education.routes.Education.completedSubmit) {
         <nav class="form-steps">
-            <a href="@controllers.s6_education.routes.G2AddressOfSchoolCollegeOrUniversity.present" class="button secondary" id="backButton">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(YourCourseDetails).name</button>
         </nav>
     }

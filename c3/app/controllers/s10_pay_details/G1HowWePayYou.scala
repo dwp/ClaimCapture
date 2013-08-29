@@ -2,21 +2,23 @@ package controllers.s10_pay_details
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
-import models.view.CachedClaim
-import models.domain.HowWePayYou
 import play.api.data.Form
 import play.api.data.Forms._
+import models.view.{Navigable, CachedClaim}
+import models.domain.HowWePayYou
 import utils.helpers.CarersForm._
 import PayDetails._
 
-object G1HowWePayYou extends Controller with CachedClaim {
+object G1HowWePayYou extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "likeToPay" -> nonEmptyText(maxLength = 20),
     "paymentFrequency" -> nonEmptyText(maxLength = 15)
   )(HowWePayYou.apply)(HowWePayYou.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    whenSectionVisible(Ok(views.html.s10_pay_details.g1_howWePayYou(form.fill(HowWePayYou))))
+    presentConditionally {
+      track(HowWePayYou) { implicit claim => Ok(views.html.s10_pay_details.g1_howWePayYou(form.fill(HowWePayYou))) }
+    }
   }
 
   def submit = claiming { implicit claim => implicit request =>

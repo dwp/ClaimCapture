@@ -3,7 +3,6 @@ package controllers.s9_other_money
 import play.api.mvc._
 import models.view.CachedClaim
 import models.domain._
-import controllers.Routing
 import models.view.Navigable
 
 object OtherMoney extends Controller with CachedClaim with Navigable {

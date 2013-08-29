@@ -11,13 +11,6 @@ class G2AddressOfSchoolCollegeOrUniversityIntegrationSpec extends Specification 
       titleMustEqual("School, college or university's contact details - About your education")
     }
 
-    "not be presented if section not visible" in new WithBrowser with BrowserMatchers {
-      Formulate.claimDate(browser)
-      Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
-      browser.goTo("/education/address-of-school-college-or-university")
-      titleMustNotEqual("School, college or university's contact details - About your education")
-    }
-
     "contain errors on invalid submission" in new WithBrowser {
       browser.goTo("/education/address-of-school-college-or-university")
       browser.fill("#postcode") `with` "INVALID"

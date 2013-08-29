@@ -19,11 +19,10 @@ object G1NormalResidenceAndCurrentLocation extends Controller with CachedClaim w
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("required", YesNoWithText.validateOnNo _)
 
-  val form = Form(
-    mapping(
-      liveMapping,
-      "inGBNow" -> nonEmptyText.verifying(validYesNo)
-    )(NormalResidenceAndCurrentLocation.apply)(NormalResidenceAndCurrentLocation.unapply))
+  val form = Form(mapping(
+    liveMapping,
+    "inGBNow" -> nonEmptyText.verifying(validYesNo)
+  )(NormalResidenceAndCurrentLocation.apply)(NormalResidenceAndCurrentLocation.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     track(NormalResidenceAndCurrentLocation) { implicit claim => Ok(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(form.fill(NormalResidenceAndCurrentLocation)))}
