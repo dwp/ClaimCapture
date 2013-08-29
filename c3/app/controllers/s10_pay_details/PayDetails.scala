@@ -12,7 +12,7 @@ object PayDetails extends Controller with CachedClaim with Navigable {
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    Redirect(claim.nextSection(models.domain.PayDetails).firstPage)
+    redirect
   }
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {

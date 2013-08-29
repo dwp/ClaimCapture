@@ -1,14 +1,14 @@
 package controllers.s2_about_you
 
 import language.reflectiveCalls
-import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
-import controllers.Mappings._
+import play.api.data.validation.Constraints._
 import play.api.mvc.Controller
+import controllers.Mappings._
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
-import play.api.data.validation.Constraints._
+import models.domain._
 
 object G2ContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

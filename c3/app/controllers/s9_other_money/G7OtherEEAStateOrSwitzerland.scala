@@ -11,14 +11,13 @@ import utils.helpers.CarersForm._
 import models.view.Navigable
 
 object G7OtherEEAStateOrSwitzerland extends Controller with CachedClaim with Navigable {
-  val form = Form(
-    mapping(
-      "benefitsFromOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo),
-      "workingForOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo)
-    )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply))
+  val form = Form(mapping(
+    "benefitsFromOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo),
+    "workingForOtherEEAStateOrSwitzerland" -> nonEmptyText.verifying(validYesNo)
+  )(OtherEEAStateOrSwitzerland.apply)(OtherEEAStateOrSwitzerland.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    track(OtherEEAStateOrSwitzerland) { implicit claim => Ok(views.html.s9_other_money.g7_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland)))}
+    track(OtherEEAStateOrSwitzerland) { implicit claim => Ok(views.html.s9_other_money.g7_otherEEAStateOrSwitzerland(form.fill(OtherEEAStateOrSwitzerland))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>

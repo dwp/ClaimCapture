@@ -1,9 +1,9 @@
 package controllers.s7_employment
 
 import scala.language.implicitConversions
+import scala.reflect.ClassTag
 import play.api.mvc._
 import play.api.data.Form
-import scala.reflect.ClassTag
 import play.api.i18n.Messages
 import models.view.{Navigable, CachedClaim}
 import models.domain._

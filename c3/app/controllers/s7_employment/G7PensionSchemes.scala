@@ -1,16 +1,16 @@
 package controllers.s7_employment
 
 import scala.language.reflectiveCalls
-import models.view.{Navigable, CachedClaim}
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.data.FormError
+import models.view.{Navigable, CachedClaim}
 import models.domain.PensionSchemes
 import utils.helpers.CarersForm._
 import Employment._
 import utils.helpers.PastPresentLabelHelper._
 import controllers.Mappings._
-import play.api.data.FormError
 
 object G7PensionSchemes extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

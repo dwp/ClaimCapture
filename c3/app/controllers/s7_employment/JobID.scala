@@ -1,8 +1,8 @@
 package controllers.s7_employment
 
 import java.util.UUID._
-import models.domain.Claim
 import play.api.mvc.Request
+import models.domain.Claim
 
 object JobID {
   def apply(form: play.api.data.Form[_])(implicit claim: Claim, request: Request[_]): String = {

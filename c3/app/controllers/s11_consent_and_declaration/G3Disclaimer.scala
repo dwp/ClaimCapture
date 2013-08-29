@@ -2,10 +2,10 @@ package controllers.s11_consent_and_declaration
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
-import models.view.CachedClaim
-import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
+import models.view.CachedClaim
+import models.domain._
 import utils.helpers.CarersForm._
 import models.view.Navigable
 
@@ -15,7 +15,7 @@ object G3Disclaimer extends Controller with CachedClaim with Navigable {
   )(Disclaimer.apply)(Disclaimer.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    track(Disclaimer) { implicit claim => Ok(views.html.s11_consent_and_declaration.g3_disclaimer(form.fill(Disclaimer)))}
+    track(Disclaimer) { implicit claim => Ok(views.html.s11_consent_and_declaration.g3_disclaimer(form.fill(Disclaimer))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>

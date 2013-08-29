@@ -1,21 +1,21 @@
 package controllers.s7_employment
 
 import scala.language.reflectiveCalls
-import models.view.{Navigable, CachedClaim}
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.data.FormError
+import models.view.{Navigable, CachedClaim}
 import models.domain.{AboutExpenses, PersonYouCareForExpenses}
 import utils.helpers.CarersForm._
 import Employment._
 import controllers.Mappings._
 import utils.helpers.PastPresentLabelHelper._
-import play.api.data.FormError
 
 object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "howMuchCostCare" -> optional(text verifying(validDecimalNumber)),
+    "howMuchCostCare" -> optional(text verifying validDecimalNumber),
     "whoDoYouPay" -> nonEmptyText,
     "relationToYou" -> nonEmptyText,
     "relationToPersonYouCare" -> nonEmptyText

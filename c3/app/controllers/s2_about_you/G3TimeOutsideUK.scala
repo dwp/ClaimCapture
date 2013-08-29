@@ -1,15 +1,15 @@
 package controllers.s2_about_you
 
 import language.reflectiveCalls
-import models.domain._
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import controllers.Mappings._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedClaim}
+import controllers.Mappings._
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithDate
 import models.LivingInUK
+import models.domain._
 
 object G3TimeOutsideUK extends Controller with CachedClaim with Navigable {
   val goBackMapping =

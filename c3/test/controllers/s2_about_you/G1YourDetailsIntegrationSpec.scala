@@ -13,6 +13,8 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to approve page" in new WithBrowser with G1YourDetailsPageContext {
+      browser goTo "/allowance/approve"
+
       page goToThePage()
       val backPage = page goBack()
       backPage must beAnInstanceOf[G6ApprovePage]

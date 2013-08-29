@@ -2,9 +2,9 @@ package controllers.s6_education
 
 import language.reflectiveCalls
 import play.api.mvc.{AnyContent, Request, Controller}
-import models.view.{Navigable, CachedClaim}
 import play.api.data.Form
 import play.api.data.Forms._
+import models.view.{Navigable, CachedClaim}
 import models.domain.{Claim, YourCourseDetails}
 import utils.helpers.CarersForm._
 import controllers.Mappings._

@@ -8,7 +8,6 @@ import ExecutionContext.Implicits.global
 import xml.DWPCAClaim
 import scala.xml.Elem
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
-import play.api.Logger
 import play.Configuration
 
 class XmlSubmitter extends Submitter {

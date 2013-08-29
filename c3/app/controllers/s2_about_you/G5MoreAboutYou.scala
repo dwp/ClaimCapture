@@ -1,7 +1,6 @@
 package controllers.s2_about_you
 
 import language.reflectiveCalls
-import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
@@ -9,6 +8,7 @@ import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import controllers.Mappings.validYesNo
 import controllers.Mappings._
+import models.domain._
 
 object G5MoreAboutYou extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

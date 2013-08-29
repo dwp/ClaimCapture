@@ -1,24 +1,23 @@
 package controllers.s1_carers_allowance
 
+import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
+import play.api.data.FormError
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain.Hours
-import language.reflectiveCalls
 import controllers.Mappings._
-import play.api.data.FormError
 import models.view.Navigable
 
 object G2Hours extends Controller with CachedClaim with Navigable {
-  val form = Form(
-    mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo)
-    )(Hours.apply)(Hours.unapply))
+  val form = Form(mapping(
+    "answer" -> nonEmptyText.verifying(validYesNo)
+  )(Hours.apply)(Hours.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    track(Hours) { implicit claim => Ok(views.html.s1_carers_allowance.g2_hours(form.fill(Hours)))}
+    track(Hours) { implicit claim => Ok(views.html.s1_carers_allowance.g2_hours(form.fill(Hours))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>

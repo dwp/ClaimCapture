@@ -1,13 +1,13 @@
 package controllers.s7_employment
 
-import models.view.{Navigable, CachedClaim}
 import play.api.mvc.{AnyContent, Request, Controller}
 import play.api.data.Form
 import play.api.data.Forms._
 import models.domain.{Employment => Emp, Claim, BeenEmployed}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
-import Employment.jobs
+import controllers.s7_employment.Employment.jobs
+import models.view.{Navigable, CachedClaim}
 
 object G1BeenEmployed extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

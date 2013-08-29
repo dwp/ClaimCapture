@@ -3,26 +3,25 @@ package controllers.s8_self_employment
 import language.reflectiveCalls
 import play.api.data.Forms._
 import play.api.mvc.Controller
+import play.api.mvc.Request
+import play.api.mvc.AnyContent
+import play.api.data.{FormError, Form}
 import controllers.Mappings._
 import models.domain.SelfEmploymentYourAccounts
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import play.api.data.{FormError, Form}
 import SelfEmployment._
 import models.view.Navigable
 import models.domain.Claim
-import play.api.mvc.Request
-import play.api.mvc.AnyContent
 
 object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable {
-  val form = Form(
-    mapping(
-      "whatWasOrIsYourTradingYearFrom" -> optional(dayMonthYear.verifying(validDateOnly)),
-      "whatWasOrIsYourTradingYearTo" -> optional(dayMonthYear.verifying(validDateOnly)),
-      "areIncomeOutgoingsProfitSimilarToTrading" -> optional(text verifying validYesNo),
-      "tellUsWhyAndWhenTheChangeHappened" -> optional(nonEmptyText(maxLength = 300))
-    )(SelfEmploymentYourAccounts.apply)(SelfEmploymentYourAccounts.unapply)
-      .verifying("tellUsWhyAndWhenTheChangeHappened", validateChangeHappened _))
+  val form = Form(mapping(
+    "whatWasOrIsYourTradingYearFrom" -> optional(dayMonthYear.verifying(validDateOnly)),
+    "whatWasOrIsYourTradingYearTo" -> optional(dayMonthYear.verifying(validDateOnly)),
+    "areIncomeOutgoingsProfitSimilarToTrading" -> optional(text verifying validYesNo),
+    "tellUsWhyAndWhenTheChangeHappened" -> optional(nonEmptyText(maxLength = 300))
+  )(SelfEmploymentYourAccounts.apply)(SelfEmploymentYourAccounts.unapply)
+    .verifying("tellUsWhyAndWhenTheChangeHappened", validateChangeHappened _))
 
   def validateChangeHappened(selfEmploymentYourAccounts: SelfEmploymentYourAccounts) = {
     selfEmploymentYourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
@@ -37,7 +36,7 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
   }
 
   def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    track(SelfEmploymentYourAccounts) { implicit claim => Ok(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts)))}
+    track(SelfEmploymentYourAccounts) { implicit claim => Ok(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>

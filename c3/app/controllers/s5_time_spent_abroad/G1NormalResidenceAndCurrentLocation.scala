@@ -25,7 +25,7 @@ object G1NormalResidenceAndCurrentLocation extends Controller with CachedClaim w
   )(NormalResidenceAndCurrentLocation.apply)(NormalResidenceAndCurrentLocation.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    track(NormalResidenceAndCurrentLocation) { implicit claim => Ok(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(form.fill(NormalResidenceAndCurrentLocation)))}
+    track(NormalResidenceAndCurrentLocation) { implicit claim => Ok(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(form.fill(NormalResidenceAndCurrentLocation))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>

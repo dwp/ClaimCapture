@@ -1,24 +1,23 @@
 package controllers.s1_carers_allowance
 
+import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
+import play.api.data.FormError
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain.LivesInGB
-import language.reflectiveCalls
 import controllers.Mappings._
-import play.api.data.FormError
 import models.view.Navigable
 
 object G4LivesInGB extends Controller with CachedClaim with Navigable {
-  val form = Form(
-    mapping(
-      "answer" -> nonEmptyText.verifying(validYesNo)
-    )(LivesInGB.apply)(LivesInGB.unapply))
+  val form = Form(mapping(
+    "answer" -> nonEmptyText.verifying(validYesNo)
+  )(LivesInGB.apply)(LivesInGB.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g4_livesInGB(form.fill(LivesInGB)))}
+    track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g4_livesInGB(form.fill(LivesInGB))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>
