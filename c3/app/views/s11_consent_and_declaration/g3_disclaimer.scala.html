@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Disclaimer], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.Disclaimer])(implicit claim: models.domain.Claim)
 
 @import models.domain.TheirPersonalDetails
 @import helper._
@@ -10,7 +10,7 @@
 @import controllers.s11_consent_and_declaration._
 @import views.html.s11_consent_and_declaration.main
 
-@main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm),completedQuestionGroups) {
+@main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Disclaimer)) {
 
     @form(action = controllers.s11_consent_and_declaration.routes.G3Disclaimer.submit) {
         <fieldset class="form-elements">
@@ -33,7 +33,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

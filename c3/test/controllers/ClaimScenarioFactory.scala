@@ -343,5 +343,13 @@ object ClaimScenarioFactory {
 
     claim
   }
+  
+  def s11ConsentAndDeclaration = {
+    val claim = s9SelfEmployment
+
+    claim.ConsentDeclarationCommunicationWelsh = "no"
+
+    claim
+  }
 
 }

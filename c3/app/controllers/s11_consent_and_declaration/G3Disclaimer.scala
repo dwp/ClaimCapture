@@ -7,19 +7,20 @@ import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
+import models.view.Navigable
 
-object G3Disclaimer extends Controller with ConsentAndDeclarationRouting with CachedClaim {
+object G3Disclaimer extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "read" -> nonEmptyText
   )(Disclaimer.apply)(Disclaimer.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s11_consent_and_declaration.g3_disclaimer(form.fill(Disclaimer), completedQuestionGroups(Disclaimer)))
+    track(Disclaimer) { implicit claim => Ok(views.html.s11_consent_and_declaration.g3_disclaimer(form.fill(Disclaimer)))}
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s11_consent_and_declaration.g3_disclaimer(formWithErrors,completedQuestionGroups(Disclaimer))),
+      formWithErrors => BadRequest(views.html.s11_consent_and_declaration.g3_disclaimer(formWithErrors)),
       disclaimer => claim.update(disclaimer) -> Redirect(routes.G4Declaration.present()))
   }
 }

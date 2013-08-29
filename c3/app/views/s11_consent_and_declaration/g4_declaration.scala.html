@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Declaration], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
+@(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.EmptyTemplate._
@@ -9,7 +9,7 @@
 @import controllers.s11_consent_and_declaration._
 @import views.html.s11_consent_and_declaration.main
 
-@main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm),completedQuestionGroups) {
+@main(Messages("s11.g4") + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Declaration)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G4Declaration.submit) {
         <fieldset class="form-elements">
             <legend>@Messages("s11.g4")</legend>
@@ -34,7 +34,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <a id="backButton" href="@if(completedQuestionGroups != Nil){@completedQuestionGroups.last._2}" class="button secondary">Back</a>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }

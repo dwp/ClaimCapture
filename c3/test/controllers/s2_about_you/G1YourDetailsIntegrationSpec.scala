@@ -1,8 +1,8 @@
-package controllers.s2_about_you
+package pl
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s2_about_you.G1YourDetailsPageContext
+import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s1_carers_allowance.G6ApprovePage
 import controllers.ClaimScenarioFactory
 
@@ -28,7 +28,9 @@ class G1YourDetailsIntegrationSpec extends Specification with Tags {
       page goToThePage()
       page fillPageWith claim
 
-      page submitPage()
+      val g2 = page submitPage()
+      
+      g2 must beAnInstanceOf[G2ContactDetailsPage]
     }
     
     "contain error if invalid nationality containing numbers" in new WithBrowser with G1YourDetailsPageContext {

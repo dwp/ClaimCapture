@@ -10,8 +10,9 @@ import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithText
 import play.api.data.FormError
+import models.view.Navigable
 
-object G2Consent extends Controller with ConsentAndDeclarationRouting with CachedClaim {
+object G2Consent extends Controller with CachedClaim with Navigable {
   val informationFromEmployerMapping =
     "gettingInformationFromAnyEmployer" -> mapping(
       "informationFromEmployer" -> nonEmptyText,
@@ -32,7 +33,7 @@ object G2Consent extends Controller with ConsentAndDeclarationRouting with Cache
     .verifying("whyPerson", validateWhyPerson _))
 
   def present = claiming { implicit claim => implicit request =>
-    Ok(views.html.s11_consent_and_declaration.g2_consent(form.fill(Consent), completedQuestionGroups(Consent)))
+    track(Consent) { implicit claim => Ok(views.html.s11_consent_and_declaration.g2_consent(form.fill(Consent)))}
   }
 
   def submit = claiming { implicit claim => implicit request =>
@@ -41,7 +42,7 @@ object G2Consent extends Controller with ConsentAndDeclarationRouting with Cache
         val formWithErrorsUpdate = formWithErrors
             .replaceError("gettingInformationFromAnyEmployer", FormError("gettingInformationFromAnyEmployer.why", "error.required"))
             .replaceError("tellUsWhyEmployer", FormError("tellUsWhyEmployer.whyPerson", "error.required"))
-        BadRequest(views.html.s11_consent_and_declaration.g2_consent(formWithErrorsUpdate, completedQuestionGroups(Consent)))},
+        BadRequest(views.html.s11_consent_and_declaration.g2_consent(formWithErrorsUpdate))},
       consent => claim.update(consent) -> Redirect(routes.G3Disclaimer.present()))
   }
 }
