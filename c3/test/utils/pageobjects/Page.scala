@@ -245,12 +245,14 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
   protected def getTitleFromBrowser(index:Int = 0):String = {
     if (index < 20) {
       try {
-        browser.title()
+        val theTitle = browser.title()
+        if (theTitle != null && theTitle.isEmpty) getTitleFromBrowser(index + 1)
+        theTitle
       }
       catch {
         case _:Exception => getTitleFromBrowser(index + 1)
       }
-    } else "Could not get Page title from browser." //throw new PageObjectException("Could not get title from browser object.")
+    } else "Could not get Page title from browser."
   }
 
 
@@ -298,7 +300,7 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * @param theClaim   Data to use to fill page
    */
   override def fillPageWith(theClaim: ClaimScenario): Page = {
-    throw new PageObjectException("Cannot fill an unknown page [" + pageTitle +"] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]" )
+    throw new PageObjectException("Cannot fill an unknown page [" + pageTitle +"] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]. Page content is" + source() )
   }
 }
 
