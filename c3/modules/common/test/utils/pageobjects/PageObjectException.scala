@@ -1,6 +1,5 @@
 package utils.pageobjects
 
-
 /**
  * Exception thrown by the Page Object test framework                  .
  * @author Jorge Migueis

@@ -1,7 +1,7 @@
 package controllers
 
-import utils.pageobjects.ClaimScenario
 import app.{WhoseNameAccount, PaymentFrequency, AccountStatus}
+import utils.pageobjects.ClaimScenario
 
 /**
  * To change this template use Preferences | File and Code Templates.

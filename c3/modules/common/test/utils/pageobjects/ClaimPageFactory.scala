@@ -5,14 +5,14 @@ import scala.language.dynamics
 import utils.pageobjects.s1_carers_allowance._
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s3_your_partner._
-import utils.pageobjects.s8_self_employment._
 import utils.pageobjects.s4_care_you_provide._
 import utils.pageobjects.s5_time_spent_abroad._
-import utils.pageobjects.s10_pay_details._
-import utils.pageobjects.s7_employment._
-import utils.pageobjects.s9_other_money._
-import utils.pageobjects.S11_consent_and_declaration._
 import utils.pageobjects.s6_education._
+import utils.pageobjects.s7_employment._
+import utils.pageobjects.s8_self_employment._
+import utils.pageobjects.s9_other_money._
+import utils.pageobjects.s10_pay_details._
+import utils.pageobjects.S11_consent_and_declaration._
 
 /**
  * Factory used by Page to create from an html page the right page object.
