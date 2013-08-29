@@ -7,7 +7,7 @@ import play.api.data.Forms._
 import models.domain.{Employment => Emp, Claim, BeenEmployed}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
-import controllers.s7_employment.Employment.jobs
+import Employment.jobs
 
 object G1BeenEmployed extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(

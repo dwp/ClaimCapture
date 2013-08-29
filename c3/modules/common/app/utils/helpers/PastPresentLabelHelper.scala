@@ -34,8 +34,14 @@ object PastPresentLabelHelper {
     }
   }
 
-  private def isTheJobFinished(claim: Claim, jobID: String) = jobs(claim).questionGroup(jobID, JobDetails) match {
+  private def isTheJobFinished(claim: Claim, jobID: String) = theJobs(claim).questionGroup(jobID, JobDetails) match {
     case Some(j: JobDetails) => j.finishedThisJob == no
     case _ => false
   }
+
+  def theJobs(implicit claim: Claim) = claim.questionGroup(Jobs) match {
+    case Some(js: Jobs) => js
+    case _ => Jobs()
+  }
+
 }
