@@ -118,7 +118,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
   def submitPage(throwException: Boolean = false, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
     if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
     try {
-      this.pageSource = browser.pageSource()    
+      this.pageSource = getPageSource
       val fluent = browser.submit("button[type='submit']")
 
       if (errorsInPage(throwException)) this
@@ -159,7 +159,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    * Returns html code of the page.
    * @return source code of the page encapsulated in a String
    */
-  def source() = if (this.pageLeftOrSubmitted) this.pageSource else browser.pageSource()
+  def source() = if (this.pageLeftOrSubmitted) this.pageSource else getPageSource()
 
   /**
    * Provides the list of errors displayed in a page. If there is no error then return None.
@@ -263,12 +263,21 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
 
 
   private def goToUrl(page: Page, throwException: Boolean, waitForPage: Boolean, waitDuration: Int) = {
-    if (!this.pageLeftOrSubmitted) this.pageSource = browser.pageSource()
+    if (!this.pageLeftOrSubmitted) this.pageSource = getPageSource()
     browser.goTo(page.url)
     if (!page.titleMatch) {
       if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " Iteration("+iteration+") - Page loaded with title: " + getTitleFromBrowser())
       else this.createPageWithTitle(getTitleFromBrowser(), 1)
     } else if (waitForPage) page.waitForPage(waitDuration) else page
+  }
+
+  private def getPageSource() = {
+    try {
+      browser.pageSource()
+    }
+    catch {
+      case _:Exception => ""
+    }
   }
 }
 
