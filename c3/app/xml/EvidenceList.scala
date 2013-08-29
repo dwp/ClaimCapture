@@ -10,7 +10,7 @@ object EvidenceList {
 
   def xml(claim: Claim) = {
     <EvidenceList>
-      {evidence(claim)}{carersAllowance(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}{consentAndDeclaration(claim)}
+      {evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}{consentAndDeclaration(claim)}
     </EvidenceList>
   }
 
@@ -49,19 +49,6 @@ object EvidenceList {
     }
 
     buffer
-  }
-
-  def carersAllowance(claim: Claim) = {
-    val benefits = claim.questionGroup[Benefits].getOrElse(Benefits())
-    val hours = claim.questionGroup[Hours].getOrElse(Hours())
-    val over16 = claim.questionGroup[Over16].getOrElse(Over16())
-    val livesInGB = claim.questionGroup[LivesInGB].getOrElse(LivesInGB())
-
-    textSeparatorLine("Can you get Carers Allowance?") ++
-      textLine("Does the person you care for get one of these benefits? = ", benefits.answerYesNo) ++
-      textLine("Do you spend 35 hours or more each week caring for the person you look after? = ", hours.answerYesNo) ++
-      textLine("Do you normally live in Great Britain? = ", livesInGB.answerYesNo) ++
-      textLine("Are you aged 16 or over? = ", over16.answerYesNo)
   }
 
   def aboutYou(claim: Claim) = {
