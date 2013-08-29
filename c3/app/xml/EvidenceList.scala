@@ -100,9 +100,10 @@ object EvidenceList {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     for {break <- breaksInCare.breaks} yield {
+      textLine("Where were you during the break? Other detail =", break.whereYou.other) ++
       textLine("Where was the person you care for during the break? = ", break.wherePerson.location) ++
-        textLine("Other detail ? = ", break.wherePerson.other)
-    }
+        textLine("Where was the person you care for during the break? Other detail = ", break.wherePerson.other)
+      }
   }
 
   def timeSpentAbroad(claim: Claim) = {
@@ -145,9 +146,13 @@ object EvidenceList {
         for (job <- jobs) {
 
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
+          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
           nodeSeq = nodeSeq ++ textLine("Employer:" + jobDetails.employerName)
           if (jobDetails.p45LeavingDate.isDefined) {
             nodeSeq = nodeSeq ++ textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
+          }
+          if (lastWage.sameAmountEachTime.isDefined) {
+            nodeSeq = nodeSeq ++ textLine("About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? =", lastWage.sameAmountEachTime.get)
           }
 
           nodeSeq = nodeSeq ++ textLine("")

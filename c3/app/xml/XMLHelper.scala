@@ -40,7 +40,7 @@ object XMLHelper {
     <gds:Line>{address.lineOne.orNull}</gds:Line>
     <gds:Line>{address.lineTwo.orNull}</gds:Line>
     <gds:Line>{address.lineThree.orNull}</gds:Line>
-    <gds:PostCode>{postcode}</gds:PostCode>
+    <gds:PostCode>{if (null!=postcode) postcode.toUpperCase else ""}</gds:PostCode>
   }
 
   def moneyStructure(amount: String) = {

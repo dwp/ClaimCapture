@@ -44,7 +44,7 @@ object Employment {
       </PayPeriod>
       {paymentFrequency(additionalWageDetails.oftenGetPaid)}
       {<UsualPayDay/> +- additionalWageDetails.whenGetPaid}
-      {<VaryingEarnings/> +!? lastWage.sameAmountEachTime}
+      <VaryingEarnings>{NotAsked}</VaryingEarnings>
     </Pay>
   }
 
