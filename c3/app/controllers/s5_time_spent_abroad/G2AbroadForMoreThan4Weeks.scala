@@ -16,15 +16,8 @@ object G2AbroadForMoreThan4Weeks extends Controller with CachedClaim with Naviga
   )(AbroadForMoreThan4Weeks.apply)(AbroadForMoreThan4Weeks.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val filledForm = request.headers.get("referer") match {
-      case Some(referer) if referer endsWith routes.G4Trip.fourWeeks().url => form
-      case _ => claim.questionGroup[AbroadForMoreThan4Weeks] match {
-        case Some(a: AbroadForMoreThan4Weeks) => form.fill(a)
-        case _ => form
-      }
-    }
-
-    track(AbroadForMoreThan4Weeks) { implicit claim => Ok(views.html.s5_time_spent_abroad.g2_abroad_for_more_than_4_weeks(filledForm, trips)) }
+    val `4WeeksForm` = claim.questionGroup[AbroadForMoreThan4Weeks].map(form.fill).getOrElse(form)
+    track(AbroadForMoreThan4Weeks) { implicit claim => Ok(views.html.s5_time_spent_abroad.g2_abroad_for_more_than_4_weeks(`4WeeksForm`, trips)) }
   }
 
   def submit = claiming { implicit claim => implicit request =>
