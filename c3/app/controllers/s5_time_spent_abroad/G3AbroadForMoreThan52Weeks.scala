@@ -10,21 +10,13 @@ import models.domain.AbroadForMoreThan52Weeks
 import TimeSpentAbroad.trips
 
 object G3AbroadForMoreThan52Weeks extends Controller with TimeSpentAbroadRouting with CachedClaim {
-  val form = Form(
-    mapping(
-      "anyTrips" -> nonEmptyText.verifying(validYesNo)
-    )(AbroadForMoreThan52Weeks.apply)(AbroadForMoreThan52Weeks.unapply))
+  val form = Form(mapping(
+    "anyTrips" -> nonEmptyText.verifying(validYesNo)
+  )(AbroadForMoreThan52Weeks.apply)(AbroadForMoreThan52Weeks.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val filledForm = request.headers.get("referer") match {
-      case Some(referer) if referer endsWith routes.G4Trip.fiftyTwoWeeks().url => form
-      case _ => claim.questionGroup[AbroadForMoreThan52Weeks] match {
-        case Some(a: AbroadForMoreThan52Weeks) => form.fill(a)
-        case _ => form
-      }
-    }
-
-    Ok(views.html.s5_time_spent_abroad.g3_abroad_for_more_than_52_weeks(filledForm, trips, completedQuestionGroups(AbroadForMoreThan52Weeks)))
+    val `52WeeksForm` = claim.questionGroup[AbroadForMoreThan52Weeks].map(form.fill).getOrElse(form)
+    Ok(views.html.s5_time_spent_abroad.g3_abroad_for_more_than_52_weeks(`52WeeksForm`, trips, completedQuestionGroups(AbroadForMoreThan52Weeks)))
   }
 
   def submit = claiming { implicit claim => implicit request =>
