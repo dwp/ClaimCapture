@@ -10,9 +10,7 @@
 @import controllers.s7_employment.Employment._
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
-@import views.html.s7_employment.main
 @import app.PensionPaymentFrequency._
-
 
 @main(Messages("s7.g7") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PensionSchemes, JobID(currentForm))) {
     @form(action = controllers.s7_employment.routes.G7PensionSchemes.submit()) {

@@ -1,7 +1,6 @@
 @(approved: Boolean)(implicit claim: models.domain.Claim)
 
 @import helper._
-@import views.html.s1_carers_allowance.main
 
 @main("Can you get Carer's Allowance?", None, claim.completedQuestionGroups(models.domain.CarersAllowance)) {
     @if(approved) {

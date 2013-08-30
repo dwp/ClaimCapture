@@ -13,13 +13,13 @@
 }
 
 @renderListItem(currentSectionID: Section.Identifier) = {
-    @if( claim.isSectionVisible(currentSectionID) ) {
+    @if(currentSectionID.visible) {
         <li @addClass(currentSectionID)><span>@Messages(currentSectionID.id + ".name")</span></li>
     }
 }
 
 @renderEmployment = {
-    @if( claim.isSectionVisible(Employed) || claim.isSectionVisible(SelfEmployment)) {
+    @if( Employed.visible || SelfEmployment.visible) {
         @if(sectionID == Employed || sectionID == SelfEmployment) {
             <li class="active"><span>@Messages(Employed.id + ".name")</span></li>
         } else {

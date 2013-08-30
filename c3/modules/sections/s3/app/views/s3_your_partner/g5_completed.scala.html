@@ -1,14 +1,13 @@
 @()(implicit claim: models.domain.Claim)
 
 @import helper._
-@import models.domain.YourPartner
-@import views.html.s3_your_partner.main
+@import models.domain.{CareYouProvide, YourPartner}
 
-@main("Completion - " + Messages("s3.longName"), None, claim.completedQuestionGroups(models.domain.YourPartner)) {
+@main("Completion - " + Messages("s3.longName"), None, claim.completedQuestionGroups(YourPartner)) {
     @form(action = controllers.s3_your_partner.routes.YourPartner.completedSubmit) {
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(YourPartner).name</button>
+            <button type="submit" name="action" value="next" class="button">Continue to @CareYouProvide.name</button>
         </nav>
     }
 }

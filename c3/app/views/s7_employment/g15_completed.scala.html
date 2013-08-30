@@ -8,13 +8,14 @@
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
 @import models.domain._
-@import views.html.s7_employment.main
+
+@nextSection = @{ if (SelfEmployment.visible) SelfEmployment.name else OtherMoney.name }
 
 @main("Completion - " + Messages("s7.longName"), None, claim.questionGroup(BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg))) {
     @form(action = controllers.s7_employment.routes.Employment.submit()) {
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(Employed).name</button>
+            <button type="submit" name="action" value="next" class="button">Continue to @nextSection</button>
         </nav>
     }
 }

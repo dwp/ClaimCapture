@@ -1,14 +1,19 @@
 @()(implicit claim: models.domain.Claim)
 
 @import helper._
-@import models.domain.{Education, YourCourseDetails}
-@import views.html.s6_education.main
+@import models.domain.{Education, Employed, OtherMoney, SelfEmployment}
+
+@nextSection = @{
+    if (Employed.visible) Employed.name
+    else if (SelfEmployment.visible) SelfEmployment.name
+    else OtherMoney.name
+}
 
 @main("Completion - " + Messages("s6.longName"), None, claim.completedQuestionGroups(Education)) {
     @form(action = controllers.s6_education.routes.Education.completedSubmit) {
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(YourCourseDetails).name</button>
+            <button type="submit" name="action" value="next" class="button">Continue to @nextSection</button>
         </nav>
     }
 }

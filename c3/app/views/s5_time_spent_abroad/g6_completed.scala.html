@@ -1,14 +1,20 @@
 @()(implicit claim: models.domain.Claim)
 
 @import helper._
-@import models.domain.TimeSpentAbroad
-@import views.html.s5_time_spent_abroad.main
+@import models.domain.{Education, Employed, OtherMoney, SelfEmployment, TimeSpentAbroad}
 
-@main("Completion - " + Messages("s5.longName"), None, claim.completedQuestionGroups(models.domain.TimeSpentAbroad)) {
+@nextSection = @{
+    if (Education.visible) Education.name
+    else if (Employed.visible) Employed.name
+    else if (SelfEmployment.visible) SelfEmployment.name
+    else OtherMoney.name
+}
+
+@main("Completion - " + Messages("s5.longName"), None, claim.completedQuestionGroups(TimeSpentAbroad)) {
     @form(action = controllers.s5_time_spent_abroad.routes.TimeSpentAbroad.completedSubmit) {
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(TimeSpentAbroad).name</button>
+            <button type="submit" name="action" value="next" class="button">Continue to @nextSection</button>
         </nav>
     }
 }

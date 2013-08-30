@@ -10,6 +10,7 @@ object G5CarersResponse extends Controller with CachedClaim with Navigable {
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    Redirect(claim.nextSection(models.domain.CarersAllowance).firstPage)
+    /* TODO Sort out hardcoding */
+    Redirect("/about-you/your-details")
   }
 }

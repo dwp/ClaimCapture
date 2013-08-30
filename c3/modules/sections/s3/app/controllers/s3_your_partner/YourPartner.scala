@@ -16,10 +16,11 @@ object YourPartner extends Controller with CachedClaim with Navigable {
   }
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    if (claim.isSectionVisible(models.domain.YourPartner)) c
+    if (models.domain.YourPartner.visible) c
     else redirect
   }
 
   def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect(claim.nextSection(models.domain.YourPartner).firstPage)
+    /* TODO Sort out hardcoding */
+    claim -> Redirect("/care-you-provide/their-personal-details")
 }

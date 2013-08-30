@@ -3,7 +3,7 @@ package controllers.s2_about_you
 import play.api.mvc._
 import models.view.{Navigable, CachedClaim}
 import models.domain._
-import controllers.Mappings.no
+import controllers.Mappings._
 
 object AboutYou extends Controller with CachedClaim with Navigable {
   def completed = claiming { implicit claim => implicit request =>
@@ -18,8 +18,9 @@ object AboutYou extends Controller with CachedClaim with Navigable {
 
     val nrOfCompletedQuestionGroups = claim.completedQuestionGroups(models.domain.AboutYou).distinct.size
 
-    if (yourDetailsVisible && nrOfCompletedQuestionGroups == 6) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
-    else if (!yourDetailsVisible && nrOfCompletedQuestionGroups == 5) Redirect(claim.nextSection(models.domain.AboutYou).firstPage)
+    /* TODO Sort out hardcoding */
+    if (yourDetailsVisible && nrOfCompletedQuestionGroups == 6) Redirect("/your-partner/personal-details")
+    else if (!yourDetailsVisible && nrOfCompletedQuestionGroups == 5) Redirect("/your-partner/personal-details")
     else Redirect(routes.G1YourDetails.present())
   }
 }

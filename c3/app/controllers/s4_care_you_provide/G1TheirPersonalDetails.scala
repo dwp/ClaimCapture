@@ -21,7 +21,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
   )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val isPartnerPersonYouCareFor = claim.isSectionVisible(models.domain.YourPartner) &&
+    val isPartnerPersonYouCareFor = YourPartner.visible &&
                                     claim.questionGroup[PersonYouCareFor].exists(_.isPartnerPersonYouCareFor == "yes")
 
     val currentForm = if (isPartnerPersonYouCareFor) {

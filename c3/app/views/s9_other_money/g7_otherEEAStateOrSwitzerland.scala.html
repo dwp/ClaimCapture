@@ -4,9 +4,9 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
-@import views.html.s9_other_money.main
+@import models.domain.OtherEEAStateOrSwitzerland
 
-@main(Messages("s9.g7") + " - " + Messages("s9.longName"), Some(otherEEAStateOrSwitzerlandForm), claim.completedQuestionGroups(models.domain.OtherEEAStateOrSwitzerland)) {
+@main(Messages("s9.g7") + " - " + Messages("s9.longName"), Some(otherEEAStateOrSwitzerlandForm), claim.completedQuestionGroups(OtherEEAStateOrSwitzerland)) {
 
 	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 

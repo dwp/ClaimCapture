@@ -17,7 +17,7 @@ object SelfEmployment extends Controller with CachedClaim with Navigable {
   }
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    if (claim.isSectionVisible(models.domain.SelfEmployment)) c
+    if (models.domain.SelfEmployment.visible) c
     else redirect
   }
 

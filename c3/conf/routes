@@ -6,10 +6,10 @@
 GET     /                                                               controllers.Application.index
 
 ->  /allowance                                                          s1.Routes
+
 ->  /about-you                                                          s2.Routes
 
 ->  /your-partner                                                       s3.Routes
-
 
 # About you
 ###############

@@ -5,7 +5,7 @@ import models.{DayMonthYear, Timestamped}
 import scala.reflect.ClassTag
 import models.view.Navigation
 
-case class Claim(sections: List[Section])(implicit val navigation: Navigation = Navigation()) extends Timestamped {
+case class Claim(sections: List[Section] = List())(implicit val navigation: Navigation = Navigation()) extends Timestamped {
   def section(sectionIdentifier: Section.Identifier): Section = sections.find(s => s.identifier == sectionIdentifier) match {
     case Some(s: Section) => s
     case _ => Section(sectionIdentifier, List())
@@ -19,15 +19,6 @@ case class Claim(sections: List[Section])(implicit val navigation: Navigation = 
   }
 
   def previousSection(questionGroupIdentifier: QuestionGroup.Identifier): Section = previousSection(Section.sectionIdentifier(questionGroupIdentifier))
-
-  def nextSection(sectionIdentifier: Section.Identifier): Section = {
-    sections.filter(s => s.identifier.index > sectionIdentifier.index && s.visible).headOption match {
-      case Some(s: Section) => s
-      case _ => section(sectionIdentifier)
-    }
-  }
-
-  def nextSection(questionGroupIdentifier: QuestionGroup.Identifier): Section = nextSection(Section.sectionIdentifier(questionGroupIdentifier))
 
   def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
     val si = Section.sectionIdentifier(questionGroupIdentifier)
@@ -54,7 +45,13 @@ case class Claim(sections: List[Section])(implicit val navigation: Navigation = 
     section(si).precedingQuestionGroups(questionGroupIdentifier)
   }
 
-  def update(section: Section): Claim = Claim(sections.updated(section.identifier.index - 1, section))
+  def update(section: Section): Claim = {
+    val updatedSections = sections.takeWhile(_.identifier.index < section.identifier.index) :::
+                          List(section) :::
+                          sections.dropWhile(_.identifier.index <= section.identifier.index)
+
+    copy(sections = updatedSections.sortWith(_.identifier.index < _.identifier.index))
+  }
 
   def +(section: Section): Claim = update(section)
 
@@ -77,31 +74,11 @@ case class Claim(sections: List[Section])(implicit val navigation: Navigation = 
     case _ => None
   }
 
-  def isSectionVisible(sectionIdentifier: Section.Identifier) = section(sectionIdentifier).visible
-
   def hideSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).hide)
 
   def showSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).show)
 
   def showHideSection(visible: Boolean, sectionIdentifier: Section.Identifier) = {
     if (visible) showSection(sectionIdentifier) else hideSection(sectionIdentifier)
-  }
-}
-
-object Claim {
-  def apply() = {
-    val sections = List(
-      Section(CarersAllowance, firstPage = "/allowance/benefits", lastPage = "/allowance/approve"),
-      Section(AboutYou, firstPage ="/about-you/your-details", lastPage ="/about-you/completed"),
-      Section(YourPartner, firstPage ="/your-partner/personal-details", lastPage ="/your-partner/completed"),
-      Section(CareYouProvide, firstPage ="/care-you-provide/their-personal-details", lastPage = "/care-you-provide/completed"),
-      Section(TimeSpentAbroad, firstPage ="/time-spent-abroad/normal-residence-and-current-location", lastPage ="/time-spent-abroad/completed"),
-      Section(Education, firstPage ="/education/your-course-details", lastPage = "/education/completed"),
-      Section(Employed, firstPage ="/employment/been-employed", lastPage ="/employment/completed"),
-      Section(SelfEmployment, firstPage ="/self-employment/about-self-employment", lastPage ="/self-employment/completed"),
-      Section(OtherMoney, firstPage ="/other-money/about-other-money", lastPage ="/other-money/completed"),
-      Section(PayDetails, firstPage ="/pay-details/how-we-pay-you", lastPage ="/pay-details/completed"),
-      Section(ConsentAndDeclaration, firstPage ="/consent-and-declaration/additional-info", lastPage = "/consent-and-declaration/completed"))
-    new Claim(sections = sections)
   }
 }

@@ -1,14 +1,13 @@
 @()(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import helper._
-@import models.domain.PayDetails
-@import views.html.s10_pay_details.main
+@import models.domain.{ConsentAndDeclaration, PayDetails}
 
 @main("Completion - " + Messages("s10.longName"), None, claim.completedQuestionGroups(PayDetails)) {
     @form(action = controllers.s10_pay_details.routes.PayDetails.completedSubmit()) {
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Continue to consent and declaration</button>
+            <button type="submit" name="action" value="next" class="button">Continue to ConsentAndDeclaration.name</button>
         </nav>
     }
 }

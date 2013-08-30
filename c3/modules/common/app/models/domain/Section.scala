@@ -1,11 +1,8 @@
 package models.domain
 
-import play.api.mvc.Call
 import play.api.i18n.Messages
 
-case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil,
-                   visible: Boolean = true, firstPage: String = "", lastPage: String = "") {
-
+case class Section(identifier: Section.Identifier, questionGroups: List[QuestionGroup] = Nil, visible: Boolean = true) {
   def name = Messages(identifier.id + ".name")
 
   def questionGroup(questionGroupIdentifier: QuestionGroup.Identifier): Option[QuestionGroup] = {
@@ -54,6 +51,10 @@ case object Section {
     val id: String
     
     def index = id.drop(1).toInt
+
+    def name(implicit claim: Claim) = claim.section(this).name
+
+    def visible(implicit claim: Claim) = claim.section(this).visible
 
     override def equals(other: Any) = other match {
       case that: Identifier => id == that.id
