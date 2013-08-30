@@ -31,7 +31,7 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
   }
 
   def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect(controllers.s7_employment.routes.G1BeenEmployed.present())
+    claim -> Redirect("/employment/been-employed")
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
