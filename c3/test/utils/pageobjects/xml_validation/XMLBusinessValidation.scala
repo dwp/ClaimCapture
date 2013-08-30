@@ -106,13 +106,12 @@ class XmlNode(val theNodes: NodeSeq) {
 
       if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(XmlNode.EvidenceListNode)) true
       else {
-        val isPensionScheme = theNodes.mkString.contains("<PensionScheme>") && theNodes.mkString.contains("<Amount>") // Because of bug in Schema :(
+        val isPensionScheme = theNodes.mkString.contains("<PensionScheme>") // Because of bug in Schema :(  Do not like it
 
         val index = if (isRepeatedAttribute && isARepeatableNode && !isPensionScheme) iteration else 0
 
         val value = XmlNode.prepareElement(if (isPensionScheme) theNodes.text else theNodes(index).text)
         val nodeName = theNodes(index).mkString
-
         def valuesMatching = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
           else if (claimValue.attribute.contains("EmploymentAddtionalWageHowOftenAreYouPaid")) value.contains(StatutoryPaymentFrequency.mapToHumanReadableString(claimValue.value,None).toLowerCase)
