@@ -30,7 +30,7 @@ object Employment {
 
   def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails): Elem = {
     <Pay>
-      {<WeeklyHoursWorked/> +++ jobDetails.hoursPerWeek}
+      {<WeeklyHoursWorked/> ?+ jobDetails.hoursPerWeek}
       <DateLastWorked/>
       {<DateLastPaid/> +++ lastWage.lastPaidDate}
       <GrossPayment>
