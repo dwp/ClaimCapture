@@ -4,7 +4,6 @@ import play.api.mvc.Controller
 import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
-import controllers.Mappings._
 import models.domain.{FiftyTwoWeeksTrip, Trip, FourWeeksTrip, Trips}
 import utils.helpers.CarersForm._
 import play.api.i18n.Messages

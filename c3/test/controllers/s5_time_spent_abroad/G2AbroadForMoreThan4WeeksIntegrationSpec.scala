@@ -2,7 +2,6 @@ package controllers.s5_time_spent_abroad
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import controllers.{WithBrowserHelper, Formulate, BrowserMatchers}
 import controllers._
 
 class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
