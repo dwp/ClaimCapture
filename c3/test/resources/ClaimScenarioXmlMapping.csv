@@ -1,7 +1,7 @@
-Can you get Carers Allowance?,Does the person you care for get one of these benefits?,Does the person you care for get one of these benefits?,CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits,DWPCAClaim>EvidenceList
-Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you look after?,Do you spend 35 hours or more each week caring for the person you look after?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,DWPCAClaim>EvidenceList
-Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,DWPCAClaim>EvidenceList
-Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,DWPCAClaim>EvidenceList
+Can you get Carers Allowance?,Does the person you care for get one of these benefits?,Does the person you care for get one of these benefits?,CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits,
+Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you look after?,Do you spend 35 hours or more each week caring for the person you look after?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,
+Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,
+Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,
 About You,Your Details,Title,AboutYouTitle,Claimant>Title
 About You,Your Details,First name,AboutYouFirstName,Claimant>OtherNames
 About You,Your Details,Middle name,AboutYouMiddleName,Claimant>OtherNames
@@ -110,10 +110,10 @@ Employment,Additional details on your last wage,When [[past=did you]] [[present=
 Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney,Employment>JobDetails>OweMoney
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme,Employment>JobDetails>PaidForOccupationalPension
 Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension,Employment>JobDetails>PensionScheme
-Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension,Employment>JobDetails>PensionScheme>Frequency
+Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension,Employment>JobDetails>PensionScheme
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,EmploymentDoYouPayTowardsAPersonalPension,Employment>JobDetails>PaidForPersonalPension
 Employment,Pension schemes,How much [[past=Did you]] [[present=Do you]] pay?,EmploymentHowMuchYouPayforPersonalPension,Employment>JobDetails>PensionScheme
-Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension,Employment>JobDetails>PensionScheme>Frequency
+Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension,Employment>JobDetails>PensionScheme
 Employment,About expenses to do with your employment,[[past=Did you]] [[present=Do you]] pay for anything necessary to do your job?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob,Employment>JobDetails>PaidForJobExpenses
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after your children?",EmploymentDoYouPayAnyoneLookAfterYourChild,Employment>JobDetails>CareExpensesChildren
 Employment,About expenses to do with your employment,Is this the same as the other job you have told us about?,EmploymentIsThistheSameAsTheOtherJobChild,
@@ -197,7 +197,7 @@ Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,OtherMoneySMPDetails>Address>PostCode
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on, receiving  any pensions or benefits from another EEA State or Switzerland?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,DWPCAClaim>EvidenceList
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on working in or paying insurance to another EEA State or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,DWPCAClaim>EvidenceList
-Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,DWPCAClaim>EvidenceList
+Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,DWPCAClaim>Declaration
 About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,Caree>DaytimePhoneNumber>Number
 Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,DWPCAClaim>EvidenceList
 Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,DWPCAClaim>EvidenceList

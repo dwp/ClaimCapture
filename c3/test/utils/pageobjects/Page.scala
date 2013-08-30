@@ -16,6 +16,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
   // Cache of the page source
   protected var pageSource = ""
 
+  // Indicates whether we need to reset iteration number because we are leaving an iterative section.
   protected var resetIteration = false
 
   /* Has the user successfully left this page? if yes then she should not be able to modify it.
@@ -30,7 +31,9 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    * @param waitForPage Does the test need add extra time to wait every time it goes a page? By default set to true.
    * @return Page object presenting the page. It could be different from current if landed on different page and specified no exception to be thrown.
    */
-  def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = goToUrl(this, throwException, waitForPage, waitDuration)
+  def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
+    goToUrl(this, throwException, waitForPage, waitDuration)
+  }
 
   /**
    * Go to the html page corresponding to the page passed as parameter.
@@ -116,26 +119,23 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    * @return next Page or same page if errors detected and did not ask for exception.
    */
   def submitPage(throwException: Boolean = false, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
+    if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted. " + this.toString)
     try {
-      this.pageSource = getPageSource
+      this.pageSource = getPageSource()
       val fluent = browser.submit("button[type='submit']")
 
       if (errorsInPage(throwException)) this
       else {
         this.pageLeftOrSubmitted = true
 
-        def fluentTitle = {
-          try {
+        def fluentTitle =  try {
             if (fluent != null) fluent.title else pageTitle
-          }
-          catch {
+          } catch {
             case _:Exception  => pageTitle
           }
-        }
 
-        if (waitForPage && (fluentTitle == pageTitle || (fluentTitle != null && fluentTitle.isEmpty))) waitForDifferentPage(waitDuration)
-        this createPageWithTitle(getTitleFromBrowser(), if (!resetIteration) updateIterationNumber() else 1)
+        val title = if (fluentTitle == pageTitle || (fluentTitle != null && fluentTitle.isEmpty)) waitForDifferentPage(waitDuration) else fluentTitle
+        this createPageWithTitle(title, if (!resetIteration) getNewIterationNumber else 1)
       }
     }
     catch {
@@ -198,12 +198,12 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
   //  NON PUBLIC FUNCTIONS
   // ==================================================================
 
-  protected def updateIterationNumber(): Int = iteration
+  protected def getNewIterationNumber: Int = iteration
 
   protected def waitForPage(waitDuration: Int) = {
     try {
       browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) {
-        titleMatch()
+        titleMatch()._1
       }
     }
     catch {
@@ -214,23 +214,25 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
 
   protected def waitForDifferentPage(waitDuration: Int) = {
     try {
+      var matchResult = (false,"")
       browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) {
-        !titleMatch()
+        matchResult = titleMatch()
+        !matchResult._1
       }
+      matchResult._2
     }
     catch {
       case e: TimeoutException => throw new PageObjectException("Time out while awaiting for a page with title different from [" + this.pageTitle + "]")
     }
-    this
   }
 
-  protected def titleMatch(): Boolean = {
+  protected def titleMatch(): (Boolean,String) = {
     try { 
       val titleRead = getTitleFromBrowser() 
-      if ( titleRead != null) titleRead.toLowerCase == this.pageTitle.toLowerCase else false
+      (if (titleRead != null) titleRead.toLowerCase == this.pageTitle.toLowerCase else false,titleRead)
     }
     catch {
-      case _:Exception => false
+      case _:Exception => (false,"")
     }
   }
 
@@ -265,9 +267,10 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
   private def goToUrl(page: Page, throwException: Boolean, waitForPage: Boolean, waitDuration: Int) = {
     if (!this.pageLeftOrSubmitted) this.pageSource = getPageSource()
     browser.goTo(page.url)
-    if (!page.titleMatch) {
-      if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " Iteration("+iteration+") - Page loaded with title: " + getTitleFromBrowser())
-      else this.createPageWithTitle(getTitleFromBrowser(), 1)
+    val matchResult = page.titleMatch()
+    if (!matchResult._1) {
+      if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " Iteration("+iteration+") - Page loaded with title: " + matchResult._2)
+      else this.createPageWithTitle(matchResult._2, 1)
     } else if (waitForPage) page.waitForPage(waitDuration) else page
   }
 

@@ -14,7 +14,7 @@ import org.openqa.selenium.By
 trait WebFillActions {
   this: { val browser: TestBrowser } =>
 
-  def click(elementCssSelector: String) = {
+  private def click(elementCssSelector: String) = {
     if (browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
     browser.click(elementCssSelector)
   }
@@ -121,7 +121,7 @@ trait WebFillActions {
   }
 
   private def handleUnknownElement(elementCssSelector: String) = {
-    throw new PageObjectException("Unknown element with CSS selector " + elementCssSelector + "in html:\n" + browser.pageSource())
+    throw new PageObjectException("Unknown element with CSS selector " + elementCssSelector + " in html:\n" + browser.pageSource())
   }
 
 }

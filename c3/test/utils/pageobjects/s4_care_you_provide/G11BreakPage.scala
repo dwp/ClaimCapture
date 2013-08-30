@@ -18,7 +18,7 @@ final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None
    * Called by submitPage of Page. A new G10 will be built with an incremented iteration number.
    * @return Incremented iteration number.
    */
-  protected override def updateIterationNumber = iteration + 1
+  protected override def getNewIterationNumber = iteration + 1
 }
 
 /**
