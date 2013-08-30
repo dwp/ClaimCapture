@@ -1,0 +1,42 @@
+@(detailsForm: Form[models.domain.DetailsOfThePersonYouCareFor])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.common._
+@import views.html.helper._
+@import views.html.helper.dropdowns._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import controllers.Mappings._
+
+
+@main(Messages("c1.g3") + " - " + Messages("c1.longName"), Some(detailsForm), claim.completedQuestionGroups(models.domain.DetailsOfThePersonYouCareFor)) {
+
+<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+@form(action = controllers.circs.s1_about_you.routes.G3DetailsOfThePersonYouCareFor.submit) {
+<fieldset class="form-elements">
+    <legend>@Messages("c1.g3")</legend>
+
+    <ul class="group">
+        @titleSelect(detailsForm("title"))
+
+        @carersInputText(detailsForm("firstName"), 'maxLength -> Name.maxLength)
+
+        @carersInputText(detailsForm("middleName"), 'maxLength -> Name.maxLength)
+
+        @carersInputText(detailsForm("lastName"), 'maxLength -> Name.maxLength)
+
+        @nationalInsuranceNumber(detailsForm("nationalInsuranceNumber"), 'helperBelow -> Messages("nationalInsuranceNumber.helper"))
+
+        @inputDayMonthYear(detailsForm("dateOfBirth"), 'helperBelow -> Messages("dateOfBirth.helper"))
+
+    </ul>
+</fieldset>
+
+<nav class="form-steps">
+    <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
+    <button type="submit" name="action" value="next" class="button">Next</button>
+</nav>
+}
+}

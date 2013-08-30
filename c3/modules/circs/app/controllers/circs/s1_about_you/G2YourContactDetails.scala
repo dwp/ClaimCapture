@@ -25,7 +25,7 @@ object G2YourContactDetails extends Controller with CachedClaim with Navigable {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s1_about_you.g2_yourContactDetails(formWithErrors)),
-      circumstancesYourContactDetails => claim.update(circumstancesYourContactDetails) -> Redirect(routes.G2YourContactDetails.present()))
+      circumstancesYourContactDetails => claim.update(circumstancesYourContactDetails) -> Redirect(routes.G3DetailsOfThePersonYouCareFor.present()))
   }
 
 }
