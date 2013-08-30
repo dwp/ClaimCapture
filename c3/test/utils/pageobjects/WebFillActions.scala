@@ -5,6 +5,8 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import scala.collection.convert.Wrappers.JListWrapper
 import org.openqa.selenium.By
+import utils.helpers.StringPadding._
+
 
 /**
  * Fill operations on the web elements composing a page.
@@ -105,8 +107,8 @@ trait WebFillActions {
       val extractor = """([^:]*):([^:]*)""".r
       val extractor(hour, minute) = value
 
-      fillSelect(elementCssSelector + "_hour", if (hour.length == 1) s"0$hour" else hour)
-      fillSelect(elementCssSelector + "_minutes", if (minute.length == 1) s"0$minute" else minute)
+      fillSelect(elementCssSelector + "_hour", leftPadWithZero(2,hour))
+      fillSelect(elementCssSelector + "_minutes", leftPadWithZero(2,minute))
     }
     catch {
       case e: MatchError => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)

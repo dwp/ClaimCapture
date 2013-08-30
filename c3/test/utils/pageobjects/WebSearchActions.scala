@@ -4,7 +4,7 @@ import play.api.test.TestBrowser
 import scala.collection.convert.Wrappers.JListWrapper
 import org.openqa.selenium.By
 import scala.collection.mutable
-
+import utils.helpers.StringPadding._
 
 
 /**
@@ -30,6 +30,14 @@ trait WebSearchActions {
     val addressLines = mutable.ArrayBuffer.empty[String]
     extensions.foreach(s => addressLines += readInput(elementCssSelector+s).orNull )
     if (addressLines.nonEmpty) Some(addressLines.mkString("&").dropRight(1)) else None
+  }
+
+  def readDate(elementCssSelector: String):Option[String] = {
+    val day = readSelect(elementCssSelector + "_day")
+    val month = readSelect(elementCssSelector + "_month")
+    val year = readInput(elementCssSelector + "_year")
+    if (day.isDefined && month.isDefined && year.isDefined) Some(leftPadWithZero(2,day.get) + "/" +leftPadWithZero(2,month.get) + "/" + year.get)
+    else None
   }
 
   def readInput(elementCssSelector: String):Option[String] = {
