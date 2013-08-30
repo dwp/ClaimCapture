@@ -1,0 +1,23 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /normal-residence-and-current-location        controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.present
+POST    /normal-residence-and-current-location        controllers.s5_time_spent_abroad.G1NormalResidenceAndCurrentLocation.submit
+
+GET     /abroad-for-more-than-4-weeks                 controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.present
+POST    /abroad-for-more-than-4-weeks                 controllers.s5_time_spent_abroad.G2AbroadForMoreThan4Weeks.submit
+
+GET     /abroad-for-more-than-52-weeks                controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.present
+POST    /abroad-for-more-than-52-weeks                controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.submit
+
+GET     /trip/4-weeks                                 controllers.s5_time_spent_abroad.G4Trip.fourWeeks
+POST    /trip/4-weeks                                 controllers.s5_time_spent_abroad.G4Trip.fourWeeksSubmit
+GET     /trip/52-weeks                                controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeks
+POST    /trip/52-weeks                                controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeksSubmit
+
+GET     /trip/:id                                     controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
+DELETE  /trip/:id                                     controllers.s5_time_spent_abroad.G4Trip.delete(id: String)
+
+GET     /completed                                    controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
+POST    /completed                                    controllers.s5_time_spent_abroad.TimeSpentAbroad.completedSubmit

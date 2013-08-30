@@ -28,3 +28,15 @@ case class CircumstancesYourContactDetails(address: MultiLineAddress = MultiLine
 object CircumstancesYourContactDetails extends QuestionGroup.Identifier {
   val id = s"${Circumstances.id}.g2"
 }
+
+case class DetailsOfThePersonYouCareFor(title: String = "",
+                                 firstName: String = "",
+                                 middleName: Option[String] = None,
+                                 lastName: String = "",
+                                 nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
+                                 dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)
+                                  ) extends QuestionGroup(DetailsOfThePersonYouCareFor)
+
+object DetailsOfThePersonYouCareFor extends QuestionGroup.Identifier {
+  val id = s"${Circumstances.id}.g3"
+}

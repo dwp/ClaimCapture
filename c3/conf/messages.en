@@ -20,6 +20,7 @@ s10.name = pay details
 s10.longName = How we pay you
 s11.name = declaration
 s11.longName = Consent and Declaration
+c1.longName = About you - the carer
 
 s1.g1 = Does the person you look after get one of these benefits?
 s1.g2 = Do you spend 35 hours or more each week caring for the person you look after?
@@ -93,10 +94,11 @@ s11.g4 = Declaration
 s11.g5 = Documents you need to send us
 
 c1.g1 = Circumstances
-c1.longName = About you - the carer
 
-c2.g2 = Your contact details
-c2.longName = About you - the carer
+
+c1.g2 = Your contact details
+
+c1.g3 = Details of the person you care for
 
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...
@@ -472,3 +474,7 @@ howOftenPayChildCare = How often {0} pay childcare expenses?
 
 #SELF EMPLOYED - Expenses While At Work
 howOftenPayExpenses = How often {0} pay expenses related to the person you care for.
+
+#CIRCUMSTANCES
+#ABOUT YOU - About you
+lastName = Last name

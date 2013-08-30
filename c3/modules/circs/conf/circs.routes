@@ -8,3 +8,5 @@ POST    /about-you                                        controllers.circs.s1_a
 GET     /your-contact-details                             controllers.circs.s1_about_you.G2YourContactDetails.present
 POST    /your-contact-details                             controllers.circs.s1_about_you.G2YourContactDetails.submit
 
+GET     /details-of-the-person-you-care-for               controllers.circs.s1_about_you.G3DetailsOfThePersonYouCareFor.present
+POST    /details-of-the-person-you-care-for               controllers.circs.s1_about_you.G3DetailsOfThePersonYouCareFor.submit
