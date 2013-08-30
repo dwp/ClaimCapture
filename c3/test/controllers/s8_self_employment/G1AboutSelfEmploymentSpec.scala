@@ -52,7 +52,7 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
       section.questionGroup(AboutSelfEmployment) must beLike {
         case Some(f: AboutSelfEmployment) => {
           f.areYouSelfEmployedNow must equalTo(areYouSelfEmployedNow)
-          f.whenDidYouStartThisJob must equalTo(Some(DayMonthYear(Some(startDay), Some(startMonth), Some(startYear), None, None)))
+          f.whenDidYouStartThisJob must equalTo(DayMonthYear(Some(startDay), Some(startMonth), Some(startYear), None, None))
           f.whenDidTheJobFinish must equalTo(Some(DayMonthYear(Some(finishDay), Some(finishMonth), Some(finishYear), None, None)))
           f.haveYouCeasedTrading must equalTo(Some(haveYouCeasedTrading))
           f.natureOfYourBusiness must equalTo(Some(natureOfYourBusiness))

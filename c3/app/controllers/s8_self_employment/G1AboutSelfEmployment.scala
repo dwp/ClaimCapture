@@ -11,9 +11,10 @@ import utils.helpers.CarersForm._
 import SelfEmployment.whenSectionVisible
 
 object G1AboutSelfEmployment extends Controller with CachedClaim {
+
   val form = Form(mapping(
     "areYouSelfEmployedNow" -> nonEmptyText.verifying(validYesNo),
-    "whenDidYouStartThisJob" -> optional(dayMonthYear.verifying(validDateOnly)),
+    "whenDidYouStartThisJob" -> dayMonthYear.verifying(validDateOnly),
     "whenDidTheJobFinish" -> optional(dayMonthYear.verifying(validDateOnly)),
     "haveYouCeasedTrading" -> optional(text.verifying(validYesNo)),
     "natureOfYourBusiness" -> optional(text(maxLength = sixty))

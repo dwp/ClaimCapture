@@ -36,7 +36,10 @@ class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
 
     "About Self Employment - Allow optional fields to be left blank" in {
       G1AboutSelfEmployment.form.bind(
-        Map("areYouSelfEmployedNow" -> "yes")
+        Map("areYouSelfEmployedNow" -> "yes",
+          "whenDidYouStartThisJob.day" -> "11",
+          "whenDidYouStartThisJob.month" -> "11",
+          "whenDidYouStartThisJob.year" -> "2011")
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {

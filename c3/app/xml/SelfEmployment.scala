@@ -20,7 +20,7 @@ object SelfEmployment {
     def jobDetails() = {
       if (aboutSelfEmployment.areYouSelfEmployedNow == yes) {
         <CurrentJobDetails>
-          <DateStarted>{stringify(aboutSelfEmployment.whenDidYouStartThisJob)}</DateStarted>
+          <DateStarted>{aboutSelfEmployment.whenDidYouStartThisJob.`yyyy-MM-dd`}</DateStarted>
           <NatureOfBusiness>{aboutSelfEmployment.natureOfYourBusiness.orNull}</NatureOfBusiness>
           <TradingYear>
             <DateFrom>{stringify(yourAccounts.whatWasOrIsYourTradingYearFrom)}</DateFrom>
@@ -29,7 +29,7 @@ object SelfEmployment {
         </CurrentJobDetails>
       } else {
         <RecentJobDetails>
-          <DateStarted>{stringify(aboutSelfEmployment.whenDidYouStartThisJob)}</DateStarted>
+          <DateStarted>{aboutSelfEmployment.whenDidYouStartThisJob.`yyyy-MM-dd`}</DateStarted>
           <NatureOfBusiness>{aboutSelfEmployment.natureOfYourBusiness.orNull}</NatureOfBusiness>
           <TradingYear>
             <DateFrom>{stringify(yourAccounts.whatWasOrIsYourTradingYearFrom)}</DateFrom>

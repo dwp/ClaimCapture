@@ -29,7 +29,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
         val claim = new ClaimScenario
         page goToThePage()
         val pageWithErrors = page.submitPage()
-        pageWithErrors.listErrors.size mustEqual 1
+        pageWithErrors.listErrors.size mustEqual 2
       }
       
       "self employed now but invalid date" in new WithBrowser with G1AboutSelfEmploymentPageContext {
