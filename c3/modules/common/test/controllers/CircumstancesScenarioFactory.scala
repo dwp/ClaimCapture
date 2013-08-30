@@ -16,4 +16,13 @@ object CircumstancesScenarioFactory {
     claim
   }
 
+  def yourContactDetails = {
+    val claim = new ClaimScenario
+    claim.CircumstancesYourContactDetailsAddress = "101 Clifton Street&Blackpool"
+    claim.CircumstancesYourContactDetailsPostcode = "PE1 4AQ"
+    claim.CircumstancesYourContactDetailsPhoneNumber = "123456"
+    claim.CircumstancesYourContactDetailsMobileNumber = "34343434"
+    claim
+  }
+
 }

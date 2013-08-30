@@ -1,6 +1,6 @@
 package models.domain
 
-import models.{DayMonthYear, NationalInsuranceNumber}
+import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
 
 case object Circumstances extends Section.Identifier {
@@ -17,4 +17,14 @@ case class CircumstancesAboutYou(title: String = "",
 
 object CircumstancesAboutYou extends QuestionGroup.Identifier {
   val id = s"${Circumstances.id}.g1"
+}
+
+case class CircumstancesYourContactDetails(address: MultiLineAddress = MultiLineAddress(None, None, None),
+                                           postcode: Option[String] = None,
+                                           phoneNumber: Option[String] = None,
+                                           mobileNumber: Option[String] = None
+                                  ) extends QuestionGroup(CircumstancesYourContactDetails)
+
+object CircumstancesYourContactDetails extends QuestionGroup.Identifier {
+  val id = s"${Circumstances.id}.g2"
 }

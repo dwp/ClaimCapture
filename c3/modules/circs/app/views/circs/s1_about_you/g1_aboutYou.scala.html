@@ -10,9 +10,7 @@
 @import controllers.Mappings._
 
 
-@main(Messages("c1.g1") + " - " + Messages("c1.longName")) {
-    @errorsSummary(aboutYouForm)
-
+@main(Messages("c1.g1") + " - " + Messages("c1.longName"), Some(aboutYouForm), claim.completedQuestionGroups(models.domain.CircumstancesAboutYou)) {
 
 <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
@@ -37,7 +35,6 @@
 </fieldset>
 
 <nav class="form-steps">
-    <a id="backButton" href="@claim.previousSection(models.domain.CircumstancesAboutYou).lastPage" class="button secondary">Back</a>
     <button type="submit" name="action" value="next" class="button">Next</button>
 </nav>
 }

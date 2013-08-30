@@ -3,12 +3,11 @@ package controllers.circs.s1_about_you
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
-import controllers.Mappings._
 import play.api.mvc.Controller
-import models.domain._
 import models.view.{Navigable, CachedClaim}
+import controllers.Mappings._
+import models.domain.CircumstancesAboutYou
 import utils.helpers.CarersForm._
-
 
 
 object G1AboutYou extends Controller with CachedClaim with Navigable {
@@ -37,7 +36,7 @@ object G1AboutYou extends Controller with CachedClaim with Navigable {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s1_about_you.g1_aboutYou(formWithErrors)),
-      circumstancesAboutYou => claim.update(circumstancesAboutYou) -> Redirect(routes.G1AboutYou.present()))
+      circumstancesAboutYou => claim.update(circumstancesAboutYou) -> Redirect(routes.G2YourContactDetails.present()))
   }
 
 }
