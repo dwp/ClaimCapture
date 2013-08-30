@@ -1,18 +1,19 @@
 package controllers.s5_time_spent_abroad
 
 import play.api.mvc.Controller
-import play.api.i18n.Messages
+import models.view.CachedClaim
 import play.api.data.Form
 import play.api.data.Forms._
-import models.view.CachedClaim
 import controllers.Mappings._
 import models.domain.{FiftyTwoWeeksTrip, Trip, FourWeeksTrip, Trips}
 import utils.helpers.CarersForm._
+import play.api.i18n.Messages
 import models.DayMonthYear
 import TimeSpentAbroad.trips
-import models.view.Navigable
+import controllers.Mappings._
+import scala.Some
 
-object G4Trip extends Controller with CachedClaim with Navigable {
+object G4Trip extends Controller with CachedClaim {
   val form = Form(mapping(
     "tripID" -> nonEmptyText,
     "start" -> (dayMonthYear verifying validDate),
@@ -22,12 +23,12 @@ object G4Trip extends Controller with CachedClaim with Navigable {
   )(Trip.apply)(Trip.unapply))
 
   def fourWeeks = claiming { implicit claim => implicit request =>
-    Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fourWeeksSubmit()))
+    Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fourWeeksSubmit(), routes.G2AbroadForMoreThan4Weeks.present()))
   }
 
   def fourWeeksSubmit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, routes.G4Trip.fourWeeksSubmit())),
+      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, routes.G4Trip.fourWeeksSubmit(), routes.G2AbroadForMoreThan4Weeks.present())),
       trip => {
         val updatedTrips = if (trips.fourWeeksTrips.size >= 5) trips else trips.update(trip.as[FourWeeksTrip])
         claim.update(updatedTrips) -> Redirect(routes.G2AbroadForMoreThan4Weeks.present())
@@ -35,12 +36,12 @@ object G4Trip extends Controller with CachedClaim with Navigable {
   }
 
   def fiftyTwoWeeks = claiming { implicit claim => implicit request =>
-    Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fiftyTwoWeeksSubmit()))
+    Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fiftyTwoWeeksSubmit(), routes.G3AbroadForMoreThan52Weeks.present()))
   }
 
   def fiftyTwoWeeksSubmit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, routes.G4Trip.fiftyTwoWeeksSubmit())),
+      formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, routes.G4Trip.fiftyTwoWeeksSubmit(), routes.G3AbroadForMoreThan52Weeks.present())),
       trip => {
         val updatedTrips = if (trips.fiftyTwoWeeksTrips.size >= 5) trips else trips.update(trip.as[FiftyTwoWeeksTrip])
         claim.update(updatedTrips) -> Redirect(routes.G3AbroadForMoreThan52Weeks.present())
@@ -50,9 +51,9 @@ object G4Trip extends Controller with CachedClaim with Navigable {
   def trip(id: String) = claiming { implicit claim => implicit request =>
     claim.questionGroup(Trips) match {
       case Some(ts: Trips) => ts.fourWeeksTrips.find(_.id == id) match {
-        case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t), routes.G4Trip.fourWeeksSubmit()))
+        case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t), routes.G4Trip.fourWeeksSubmit(), routes.G2AbroadForMoreThan4Weeks.present()))
         case _ => ts.fiftyTwoWeeksTrips.find(_.id == id) match {
-          case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t), routes.G4Trip.fiftyTwoWeeksSubmit()))
+          case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t), routes.G4Trip.fiftyTwoWeeksSubmit(), routes.G3AbroadForMoreThan52Weeks.present()))
           case _ => Redirect(routes.G1NormalResidenceAndCurrentLocation.present())
         }
       }
