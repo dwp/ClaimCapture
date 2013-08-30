@@ -1,14 +1,15 @@
-@(tripForm: Form[models.domain.Trip], actionCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@(tripForm: Form[models.domain.Trip], actionCall: Call, backCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dates._
+@import views.html.s5_time_spent_abroad.main
 
-@main(Messages("s5.g4") + " - " + Messages("s5.longName"), Some(tripForm), claim.completedQuestionGroups(models.domain.Trips)) {
+@main(Messages("s5.g4") + " - " + Messages("s5.longName"), Some(tripForm)) {
 
-	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
 
     @form(action = actionCall) {
         <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
@@ -28,12 +29,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            @if(request.headers.get("referer").isDefined) {
-                <a id="backButton" href='@request.headers("referer")' class="button secondary">Back</a>
-            } else {
-                <a id="backButton" onclick="history.go(-1); return false;" href="#" class="button secondary">Back</a>
-            }
-
+            <a id="backButton" href='@backCall' class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
         </nav>
     }
