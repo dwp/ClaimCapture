@@ -10,14 +10,14 @@ import models.view.CachedClaim
 class G4TripSpec extends Specification with Tags {
   "4 week trip" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withHeaders("referer" -> "")
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result = G4Trip.fourWeeks(request)
       status(result) mustEqual OK
     }
 
     "be rejected for missing mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withHeaders("referer" -> "")
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result = G4Trip.fourWeeksSubmit(request)
       status(result) mustEqual BAD_REQUEST
