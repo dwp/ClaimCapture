@@ -129,7 +129,7 @@ class G4TripSpec extends Specification with Tags {
         "why" -> "For Holidays")
 
       val result = G4Trip.fourWeeksSubmit(request)
-      redirectLocation(result) must beSome("/time-spent-abroad/abroad-for-more-than-4-weeks")
+      redirectLocation(result) must beSome("/abroad-for-more-than-4-weeks")
 
       Cache.getAs[Claim](claimKey).get.questionGroup(Trips) must beLike {
         case Some(ts: Trips) => ts.fourWeeksTrips.size shouldEqual 5

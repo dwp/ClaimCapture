@@ -27,21 +27,21 @@ class G10BreaksInCareSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("answer" -> "yes")
 
       val result = G10BreaksInCare.submit(request)
-      redirectLocation(result) must beSome("/care-you-provide/break")
+      redirectLocation(result) must beSome("/break")
     }
 
     """accept "no" to "Have you had any breaks in caring for this person".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("answer" -> "no")
 
       val result = G10BreaksInCare.submit(request)
-      redirectLocation(result) must beSome("/care-you-provide/completed")
+      redirectLocation(result) must beSome("/completed")
     }
 
     "complete upon indicating that there are no more breaks having provided zero break details" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("answer" -> "no")
 
       val result = G10BreaksInCare.submit(request)
-      redirectLocation(result) must beSome("/care-you-provide/completed")
+      redirectLocation(result) must beSome("/completed")
 
       val claim = Cache.getAs[Claim](claimKey).get
 
@@ -60,12 +60,12 @@ class G10BreaksInCareSpec extends Specification with Tags {
         "medicalDuringBreak" -> "no")
 
       val result1 = G11Break.submit(request1)
-      redirectLocation(result1) must beSome("/care-you-provide/breaks-in-care")
+      redirectLocation(result1) must beSome("/breaks-in-care")
 
       val request2 = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("answer" -> "no")
 
       val result2 = G10BreaksInCare.submit(request2)
-      redirectLocation(result2) must beSome("/care-you-provide/completed")
+      redirectLocation(result2) must beSome("/completed")
 
       val claim = Cache.getAs[Claim](claimKey).get
 
@@ -85,7 +85,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
           "medicalDuringBreak" -> "no")
 
         val result = G11Break.submit(request)
-        redirectLocation(result) must beSome("/care-you-provide/breaks-in-care")
+        redirectLocation(result) must beSome("/breaks-in-care")
       }
 
       Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
@@ -103,7 +103,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
         "medicalDuringBreak" -> "no")
 
       val result = G11Break.submit(request)
-      redirectLocation(result) must beSome("/care-you-provide/breaks-in-care")
+      redirectLocation(result) must beSome("/breaks-in-care")
 
       Cache.getAs[Claim](claimKey).get.questionGroup(BreaksInCare) must beLike {
         case Some(b: BreaksInCare) => b.breaks.size mustEqual 10

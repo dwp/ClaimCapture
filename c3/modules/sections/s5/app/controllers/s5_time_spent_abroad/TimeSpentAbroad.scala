@@ -17,7 +17,7 @@ object TimeSpentAbroad extends Controller with CachedClaim with Navigable {
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    if (completedQuestionGroups.distinct.size == 4) Redirect(controllers.s6_education.routes.G1YourCourseDetails.present())
+    if (completedQuestionGroups.distinct.size == 4) Redirect("/education/your-course-details")
     else Redirect(controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.present())
   }
 

@@ -48,6 +48,7 @@ object ApplicationBuild extends Build {
   var appSettings: Seq[Project.Setting[_]] =  SassPlugin.sassSettings ++ sS ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f ++ jO
 
   val scope = "test->test;compile->compile"
+
   val modulesCommonSettings = sO++ sV++ sR
 
   val common = play
@@ -60,18 +61,65 @@ object ApplicationBuild extends Build {
           .dependsOn(common % scope)
           .aggregate(common)
 
-
-  val s3 = play
-          .Project(appName + "-s3",appVersion,appDependencies,path = file("modules/sections/s3"))
-          .settings(modulesCommonSettings : _*)
-          .dependsOn(common % scope)
-          .aggregate(common)
-
   val s2 = play
           .Project(appName + "-s2",appVersion,appDependencies,path = file("modules/sections/s2"))
           .settings(modulesCommonSettings : _*)
           .dependsOn(common % scope)
           .aggregate(common)
+
+  val s3 = play
+    .Project(appName + "-s3",appVersion,appDependencies,path = file("modules/sections/s3"))
+    .settings(modulesCommonSettings : _*)
+    .dependsOn(common % scope)
+    .aggregate(common)
+
+  val s4 = play
+    .Project(appName + "-s4",appVersion,appDependencies,path = file("modules/sections/s4"))
+    .settings(modulesCommonSettings : _*)
+    .dependsOn(common % scope)
+    .aggregate(common)
+
+  val s5 = play
+    .Project(appName + "-s5",appVersion,appDependencies,path = file("modules/sections/s5"))
+    .settings(modulesCommonSettings : _*)
+    .dependsOn(common % scope)
+    .aggregate(common)
+
+  val s6 = play
+    .Project(appName + "-s6",appVersion,appDependencies,path = file("modules/sections/s6"))
+    .settings(modulesCommonSettings : _*)
+    .dependsOn(common % scope)
+    .aggregate(common)
+
+  val s7 = play
+    .Project(appName + "-s7",appVersion,appDependencies,path = file("modules/sections/s7"))
+    .settings(modulesCommonSettings : _*)
+    .dependsOn(common % scope)
+    .aggregate(common)
+
+  val s8 = play
+    .Project(appName + "-s8",appVersion,appDependencies,path = file("modules/sections/s8"))
+    .settings(modulesCommonSettings : _*)
+    .dependsOn(common % scope)
+    .aggregate(common)
+
+  val s9 = play
+    .Project(appName + "-s9",appVersion,appDependencies,path = file("modules/sections/s9"))
+    .settings(modulesCommonSettings : _*)
+    .dependsOn(common % scope)
+    .aggregate(common)
+
+  val s10 = play
+    .Project(appName + "-s10",appVersion,appDependencies,path = file("modules/sections/s10"))
+    .settings(modulesCommonSettings : _*)
+    .dependsOn(common % scope)
+    .aggregate(common)
+
+  val s11 = play
+    .Project(appName + "-s11",appVersion,appDependencies,path = file("modules/sections/s11"))
+    .settings(modulesCommonSettings : _*)
+    .dependsOn(common % scope)
+    .aggregate(common)
 
   val circs = play
             .Project(appName + "-circs",appVersion,appDependencies,path = file("modules/circs"))
@@ -82,6 +130,9 @@ object ApplicationBuild extends Build {
   val main = play
              .Project(appName, appVersion, appDependencies)
              .settings(appSettings: _*)
-             .dependsOn(common % scope, s1 % scope, s2 % scope, s3 % scope, circs % scope)
-             .aggregate(common, s1, s2, s3, circs)
+             .dependsOn(common % scope, s1 % scope, s2 % scope,
+                        s3 % scope, s4 % scope, s5 % scope, s6 % scope,
+                        s7 % scope, s8 % scope, s9 % scope, s10 % scope, s11 % scope,
+                        circs % scope)
+             .aggregate(common, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, circs)
 }

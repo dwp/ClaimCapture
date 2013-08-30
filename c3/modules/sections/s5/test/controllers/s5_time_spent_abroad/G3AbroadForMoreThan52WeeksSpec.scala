@@ -26,7 +26,7 @@ class G3AbroadForMoreThan52WeeksSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("anyTrips" -> "yes")
 
       val result = G3AbroadForMoreThan52Weeks.submit(request)
-      redirectLocation(result) must beSome("/time-spent-abroad/trip/52-weeks")
+      redirectLocation(result) must beSome("/trip/52-weeks")
     }
 
     """accept "no" to "abroad for more than 52 weeks".""" in new WithApplication with Claiming {
@@ -34,7 +34,7 @@ class G3AbroadForMoreThan52WeeksSpec extends Specification with Tags {
       /*val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("anyTrips" -> "no")
 
       val result = G2AbroadForMoreThan4Weeks.submit(request)
-      redirectLocation(result) must beSome("/time-spent-abroad/other-eea-state-switzerland")*/
+      redirectLocation(result) must beSome("/other-eea-state-switzerland")*/
     }
 
     "complete upon indicating that there are no more 52 week trips having provided zero trip details" in new WithApplication with Claiming {

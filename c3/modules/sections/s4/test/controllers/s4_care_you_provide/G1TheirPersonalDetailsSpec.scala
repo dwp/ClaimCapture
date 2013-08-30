@@ -55,7 +55,7 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
         .withFormUrlEncodedBody(theirPersonalDetailsInput: _*)
 
       val result = G1TheirPersonalDetails.submit(request)
-      redirectLocation(result) must beSome("/care-you-provide/their-contact-details")
+      redirectLocation(result) must beSome("/their-contact-details")
     }
   } section("unit", models.domain.CareYouProvide.id)
 }
