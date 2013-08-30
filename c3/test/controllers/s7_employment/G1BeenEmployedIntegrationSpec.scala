@@ -60,60 +60,6 @@ class G1BeenEmployedIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - About your education")
     }
 
-    """not record the "yes/no" answer upon starting to add a new employment but "cancel".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
-      beginClaim()
-
-      goTo("/employment/been-employed")
-      back
-      titleMustEqual("Your employment history - Employment History")
-
-      click("#beenEmployed_yes")
-      next
-      titleMustEqual("Your job - Employment History")
-
-      back
-      titleMustEqual("Your employment history - Employment History")
-      findFirst("#beenEmployed_yes").isSelected should beFalse
-      findFirst("#beenEmployed_no").isSelected should beFalse
-    }
-
-    """allow an employment to be added but not record the "yes/no" answer""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
-      def job() = {
-        val jobID = "dummyJobID"
-
-        goTo(s"/employment/about-expenses/$jobID")
-        click("#payForAnythingNecessary_yes")
-        click("#payAnyoneToLookAfterChildren_yes")
-        click("#payAnyoneToLookAfterPerson_yes")
-        next
-        titleMustEqual("Necessary expenses to do your job - Employment History")
-
-        goTo(s"/employment/person-you-care-for-expenses/$jobID")
-        titleMustEqual("Expenses related to the person you care for, while you are at work - Employment History")
-        browser.fill("#whoDoYouPay") `with` "someone"
-        browser.click("#relationToPersonYouCare option[value='brother']")
-        browser.click("#relationToYou option[value='sister']")
-
-        next
-        titleMustEqual("Job Completion - Employment History")
-      }
-
-      beginClaim()
-
-      goTo("/employment/been-employed")
-      back
-      titleMustEqual("Your employment history - Employment History")
-
-      click("#beenEmployed_yes")
-      next
-
-      job()
-      next
-      titleMustEqual("Your employment history - Employment History")
-      findFirst("#beenEmployed_yes").isSelected should beFalse
-      findFirst("#beenEmployed_no").isSelected should beFalse
-    }
-
     """remember "employment" upon stating "employment" and returning""" in new WithBrowser with WithBrowserHelper with BrowserMatchers with EmployedSinceClaimDate {
       beginClaim()
 

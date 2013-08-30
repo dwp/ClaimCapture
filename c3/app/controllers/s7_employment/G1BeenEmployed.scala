@@ -28,22 +28,11 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
   }
 
   def beenEmployed(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    request.headers.get("referer") match {
-      case Some(referer) if referer.contains(routes.G2JobDetails.present("").url) ||
-                            referer.contains(routes.G2JobDetails.job("").url) ||
-                            referer.contains(routes.G14JobCompletion.submit().url) => {
-        track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form)) }
-      }
-
-      case Some(referer) if referer.contains(routes.Employment.completed().url) =>
-        track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form.fill(BeenEmployed("no")))) }
-
-      case _ => claim.questionGroup[BeenEmployed] match {
-        case Some(b: BeenEmployed) => track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form.fill(b))) }
-        case _ =>
-          val (updatedClaim, _) = track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form)) }
-          updatedClaim -> Redirect(routes.G2JobDetails.present(JobID(form)))
-      }
+    claim.questionGroup[BeenEmployed] match {
+      case Some(b: BeenEmployed) => track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form.fill(b))) }
+      case _ =>
+        val (updatedClaim, _) = track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form)) }
+        updatedClaim.update(BeenEmployed("")) -> Redirect(routes.G2JobDetails.present(JobID(form)))
     }
   }
 
