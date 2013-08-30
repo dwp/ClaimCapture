@@ -1,0 +1,14 @@
+@()(implicit claim: models.domain.Claim)
+
+@import helper._
+@import models.domain.AboutYou
+@import views.html.s2_about_you.main
+
+@main("Completion - " + Messages("s2.longName"), claim.completedQuestionGroups(AboutYou)) {
+    @form(action = controllers.s2_about_you.routes.AboutYou.completedSubmit) {
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
+            <button id="submit" type="submit" name="action" value="next" class="button">Continue to @claim.nextSection(AboutYou).name</button>
+        </nav>
+    }
+}

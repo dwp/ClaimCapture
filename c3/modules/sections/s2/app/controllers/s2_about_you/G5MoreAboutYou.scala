@@ -20,7 +20,7 @@ object G5MoreAboutYou extends Controller with CachedClaim with Navigable {
   def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(ClaimDate) match {
       case Some(n) => track(MoreAboutYou) { implicit claim => Ok(views.html.s2_about_you.g5_moreAboutYou(form.fill(MoreAboutYou))) }
-      case _ => Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
+      case _ => Redirect("/")
     }
   }
 

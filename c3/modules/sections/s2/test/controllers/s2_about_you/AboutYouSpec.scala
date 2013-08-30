@@ -25,7 +25,7 @@ class AboutYouSpec extends Specification with Tags {
         "alwaysLivedUK" -> "yes")
 
       val result = G1YourDetails.submit(request)
-      redirectLocation(result) must beSome("/about-you/contact-details")
+      redirectLocation(result) must beSome("/contact-details")
 
       val claim = Cache.getAs[Claim](claimKey).get
 
@@ -152,7 +152,7 @@ class AboutYouSpec extends Specification with Tags {
       Cache.set(claimKey, claim)
 
       val result = s2_about_you.AboutYou.completedSubmit(request)
-      redirectLocation(result) must beSome("/about-you/your-details")
+      redirectLocation(result) must beSome("/your-details")
     }
 
     "continue to partner/spouse upon section completion when all forms are done" in new WithApplication with Claiming {

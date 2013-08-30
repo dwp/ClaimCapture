@@ -48,31 +48,40 @@ object ApplicationBuild extends Build {
   var appSettings: Seq[Project.Setting[_]] =  SassPlugin.sassSettings ++ sS ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f ++ jO
 
   val scope = "test->test;compile->compile"
+  val modulesCommonSettings = sO++ sV++ sR
 
-  val common = play.Project(appName + "-common",appVersion,appDependencies,path = file("modules/common")).settings(sO++ sV++ sR : _*)
+  val common = play
+               .Project(appName + "-common",appVersion,appDependencies,path = file("modules/common"))
+               .settings(modulesCommonSettings : _*)
 
   val s1 = play
-           .Project(appName + "-s1",appVersion,appDependencies,path = file("modules/sections/s1"))
-           .settings(sO++ sV++ sR : _*)
-           .dependsOn(common % scope)
-           .aggregate(common)
+          .Project(appName + "-s1",appVersion,appDependencies,path = file("modules/sections/s1"))
+          .settings(modulesCommonSettings : _*)
+          .dependsOn(common % scope)
+          .aggregate(common)
 
 
   val s3 = play
-    .Project(appName + "-s3",appVersion,appDependencies,path = file("modules/sections/s3"))
-    .settings(sO++ sV++ sR : _*)
-    .dependsOn(common % scope)
-    .aggregate(common)
+          .Project(appName + "-s3",appVersion,appDependencies,path = file("modules/sections/s3"))
+          .settings(modulesCommonSettings : _*)
+          .dependsOn(common % scope)
+          .aggregate(common)
+
+  val s2 = play
+          .Project(appName + "-s2",appVersion,appDependencies,path = file("modules/sections/s2"))
+          .settings(modulesCommonSettings : _*)
+          .dependsOn(common % scope)
+          .aggregate(common)
 
   val circs = play
             .Project(appName + "-circs",appVersion,appDependencies,path = file("modules/circs"))
-            .settings(sO++ sV++ sR : _*)
+            .settings(modulesCommonSettings : _*)
             .dependsOn(common % scope)
             .aggregate(common)
 
   val main = play
              .Project(appName, appVersion, appDependencies)
              .settings(appSettings: _*)
-             .dependsOn(common % scope, s1 % scope, s3 % scope, circs % scope)
-             .aggregate(common, s1, s3, circs)
+             .dependsOn(common % scope, s1 % scope, s2 % scope, s3 % scope, circs % scope)
+             .aggregate(common, s1, s2, s3, circs)
 }
