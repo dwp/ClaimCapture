@@ -21,7 +21,7 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
   }
 
   def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present())
+    claim -> Redirect("/self-employment/about-self-employment")
 
   def present = claiming { implicit claim => implicit request =>
     presentConditionally(beenEmployed)

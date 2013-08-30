@@ -1,0 +1,44 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+
+GET     /been-employed                                       controllers.s7_employment.G1BeenEmployed.present
+POST    /been-employed                                       controllers.s7_employment.G1BeenEmployed.submit
+
+DELETE  /job/:jobID                                          controllers.s7_employment.Employment.delete(jobID: String)
+
+GET     /job/:jobID                                          controllers.s7_employment.G2JobDetails.job(jobID: String)
+
+GET     /job-details/:jobID                                  controllers.s7_employment.G2JobDetails.present(jobID: String)
+POST    /job-details                                         controllers.s7_employment.G2JobDetails.submit
+
+GET     /employers-contact-details/:jobID                    controllers.s7_employment.G3EmployerContactDetails.present(jobID: String)
+POST    /employers-contact-details                           controllers.s7_employment.G3EmployerContactDetails.submit
+
+GET     /last-wage/:jobID                                    controllers.s7_employment.G4LastWage.present(jobID: String)
+POST    /last-wage                                           controllers.s7_employment.G4LastWage.submit
+
+GET     /additional-wage-details/:jobID                      controllers.s7_employment.G5AdditionalWageDetails.present(jobID: String)
+POST    /additional-wage-details                             controllers.s7_employment.G5AdditionalWageDetails.submit
+
+GET     /pension-schemes/:jobID                              controllers.s7_employment.G7PensionSchemes.present(jobID: String)
+POST    /pension-schemes                                     controllers.s7_employment.G7PensionSchemes.submit
+
+GET     /about-expenses/:jobID                               controllers.s7_employment.G8AboutExpenses.present(jobID: String)
+POST    /about-expenses                                      controllers.s7_employment.G8AboutExpenses.submit
+
+GET     /necessary-expenses/:jobID                           controllers.s7_employment.G9NecessaryExpenses.present(jobID: String)
+POST    /necessary-expenses                                  controllers.s7_employment.G9NecessaryExpenses.submit
+
+GET     /childcare-expenses/:jobID                           controllers.s7_employment.G10ChildcareExpenses.present(jobID: String)
+POST    /childcare-expenses                                  controllers.s7_employment.G10ChildcareExpenses.submit
+
+GET     /person-you-care-for-expenses/:jobID                 controllers.s7_employment.G12PersonYouCareForExpenses.present(jobID: String)
+POST    /person-you-care-for-expenses                        controllers.s7_employment.G12PersonYouCareForExpenses.submit
+
+GET     /job-completion/:jobID                               controllers.s7_employment.G14JobCompletion.present(jobID: String)
+POST    /job-completion                                      controllers.s7_employment.G14JobCompletion.submit
+
+GET     /completed                                           controllers.s7_employment.Employment.completed
+POST    /completed                                           controllers.s7_employment.Employment.submit

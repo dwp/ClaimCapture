@@ -34,7 +34,7 @@ object Employment extends Controller with CachedClaim  with Navigable{
   }
 
   def submit = claiming { implicit claim => implicit request =>
-    Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present())
+    Redirect("/self-employment/about-self-employment")
   }
 
   def delete(jobID: String) = claiming { implicit claim => implicit request =>
