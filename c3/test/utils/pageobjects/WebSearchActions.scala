@@ -3,6 +3,8 @@ package utils.pageobjects
 import play.api.test.TestBrowser
 import scala.collection.convert.Wrappers.JListWrapper
 import org.openqa.selenium.By
+import scala.collection.mutable
+
 
 
 /**
@@ -24,8 +26,10 @@ trait WebSearchActions {
   def numberSectionsCompleted(location: String = "div[class=completed] ul li") = browser.find(location).size()
 
   def readAddress(elementCssSelector: String):Option[String] = {
-    this checkElement elementCssSelector
-    Some(browser.value(elementCssSelector).get(0))
+    val extensions = Array("_lineOne", "_lineTwo", "_lineThree")
+    val addressLines = mutable.ArrayBuffer.empty[String]
+    extensions.foreach(s => addressLines += readInput(elementCssSelector+s).orNull )
+    if (addressLines.nonEmpty) Some(addressLines.mkString("&").dropRight(1)) else None
   }
 
   def readInput(elementCssSelector: String):Option[String] = {
