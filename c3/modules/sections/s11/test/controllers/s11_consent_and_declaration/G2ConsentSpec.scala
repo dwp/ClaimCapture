@@ -30,7 +30,7 @@ class G2ConsentSpec extends Specification with Tags {
           "tellUsWhyEmployer.whyPerson" -> "reason")
 
       val result = G2Consent.submit(request)
-      redirectLocation(result) must beSome("/consent-and-declaration/disclaimer")
+      redirectLocation(result) must beSome("/disclaimer")
     }
 
     "redirect to the next page after a valid submission (both yes)" in new WithApplication with Claiming {
@@ -39,7 +39,7 @@ class G2ConsentSpec extends Specification with Tags {
           "tellUsWhyEmployer.informationFromPerson" -> "yes")
 
       val result = G2Consent.submit(request)
-      redirectLocation(result) must beSome("/consent-and-declaration/disclaimer")
+      redirectLocation(result) must beSome("/disclaimer")
     }
   } section ("unit", models.domain.ConsentAndDeclaration.id)
 }
