@@ -5,6 +5,7 @@ import scala.collection.convert.Wrappers.JListWrapper
 import org.specs2.specification.Scope
 import play.api.test.TestBrowser
 import org.openqa.selenium.TimeoutException
+import org.fluentlenium.core.Fluent
 
 /**
  * Super-class of all the PageObject pattern compliant classes representing an application page.
@@ -31,9 +32,8 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    * @param waitForPage Does the test need add extra time to wait every time it goes a page? By default set to true.
    * @return Page object presenting the page. It could be different from current if landed on different page and specified no exception to be thrown.
    */
-  def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    goToUrl(this, throwException, waitForPage, waitDuration)
-  }
+  def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) =
+    goToPage(this, throwException, waitForPage, waitDuration)
 
   /**
    * Go to the html page corresponding to the page passed as parameter.
@@ -44,8 +44,9 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    * @return Page object presenting the page. It could be different from target page if landed on different page and specified no exception to be thrown.
    */
   def goToPage(page: Page, throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    this.pageLeftOrSubmitted = true
-    goToUrl(page, throwException, waitForPage, waitDuration)
+    val newPage = goToUrl(page, throwException, waitForPage, waitDuration)
+    if (page != this) this.pageLeftOrSubmitted = true
+    newPage
   }
 
   /**
@@ -54,11 +55,9 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    * @return Page object representing the html page the UI went back to.
    */
   def goBack(waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    this.pageLeftOrSubmitted = true
-    val backPageTile = browser.click(".form-steps a").title
-    val newPage = createPageWithTitle(backPageTile, iteration)
-    if (waitForPage) newPage.waitForPage(waitDuration) else newPage
-
+    val fluent = browser.click(".form-steps a")
+    val title = getPageTitle(fluent, waitForPage, waitDuration)
+    createPageWithTitle(title, iteration)
   }
 
   /**
@@ -101,10 +100,9 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    * @return Last page
    */
   final def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, throwException: Boolean = true, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION, trace: Boolean = false): Page = {
-    if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted." + this.toString)
-    if (pageTitle == upToPageWithTitle) {
-      this
-    } else {
+    if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be (re)submitted." + this.toString)
+    if (pageTitle == upToPageWithTitle) this
+    else {
       if (trace) println(this.pageTitle + " @ " + url + " : Iteration " + iteration)
       this fillPageWith theClaim
       submitPage(throwException, waitForPage, waitDuration) runClaimWith(theClaim, upToPageWithTitle, throwException, waitForPage, waitDuration, trace)
@@ -121,21 +119,12 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
   def submitPage(throwException: Boolean = false, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
     if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be submitted. " + this.toString)
     try {
-      this.pageSource = getPageSource()
+      this.pageSource = getPageSource() // cache page source so can always look back at html as it was when submitting.
       val fluent = browser.submit("button[type='submit']")
-
       if (errorsInPage(throwException)) this
       else {
-        this.pageLeftOrSubmitted = true
-
-        def fluentTitle =  try {
-            if (fluent != null) fluent.title else pageTitle
-          } catch {
-            case _:Exception  => pageTitle
-          }
-
-        val title = if (fluentTitle == pageTitle || (fluentTitle != null && fluentTitle.isEmpty)) waitForDifferentPage(waitDuration) else fluentTitle
-        this createPageWithTitle(title, if (!resetIteration) getNewIterationNumber else 1)
+        val title = getPageTitle(fluent, waitForPage, waitDuration)
+        createPageWithTitle(title, if (!resetIteration) getNewIterationNumber else 1)
       }
     }
     catch {
@@ -150,9 +139,9 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    * @return
    */
   def goToCompletedSection(waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    browser.click("div[class=completed] ul li a")
-    if (waitForPage) waitForDifferentPage(waitDuration)
-    createPageWithTitle(getTitleFromBrowser(), iteration)
+    val fluent = browser.click("div[class=completed] ul li a")
+    val title = getPageTitle(fluent, waitForPage, waitDuration)
+    createPageWithTitle(title, iteration)
   }
 
   /**
@@ -188,9 +177,8 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
 
   def fullPagePath: String = {
     if (previousPage == None) this.pageTitle
-    else previousPage.get.fullPagePath + " > " + this.pageTitle
+    else this.pageTitle + " < " + previousPage.get.fullPagePath
   }
-
 
   def getUrl = url
 
@@ -207,17 +195,17 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
       }
     }
     catch {
-      case e: TimeoutException => throw new PageObjectException("Time out while awaiting html page title [" + getTitleFromBrowser() + "] matches title expected page [" + this.pageTitle + "]")
+      case e: TimeoutException => throw new PageObjectException("Time out. Framework in page [" + getTitleFromBrowser() + "] while expected to reach page [" + this.pageTitle + "]")
     }
     this
   }
 
-  protected def waitForDifferentPage(waitDuration: Int) = {
+  protected def waitForNewTitle(waitDuration: Int) = {
     try {
       var matchResult = (false,"")
       browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) {
-        matchResult = titleMatch()
-        !matchResult._1
+        matchResult = titleDoesNotMatch("")
+        matchResult._1
       }
       matchResult._2
     }
@@ -226,52 +214,66 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
     }
   }
 
-  protected def titleMatch(): (Boolean,String) = {
+  protected def titleMatch(expectedTitle: String = this.pageTitle): (Boolean, String) = {
     try { 
-      val titleRead = getTitleFromBrowser() 
-      (if (titleRead != null) titleRead.toLowerCase == this.pageTitle.toLowerCase else false,titleRead)
+      val titleRead = getTitleFromBrowser()
+      (if (titleRead != null) titleRead.toLowerCase == expectedTitle.toLowerCase else false, titleRead)
     }
     catch {
       case _:Exception => (false,"")
     }
   }
 
-  protected def errorsInPage(throwException: Boolean = false) = {
-    if (!this.listErrors.isEmpty) {
-      if (throwException) throw new PageObjectException( "Page " + this.getClass + " \"" + pageTitle + "\" Submit failed with errors: ", this.listErrors)
-      true
-    }
-    else false
+  protected def titleDoesNotMatch(expectedTitle: String = this.pageTitle): (Boolean, String) = {
+    val matching = titleMatch(expectedTitle)
+    (!matching._1, matching._2)
   }
 
   protected def getTitleFromBrowser(index:Int = 0):String = {
-    if (index < 20) {
+    if (index < 5) {
       try {
-        val theTitle = browser.title()
-        if (theTitle != null && theTitle.isEmpty) getTitleFromBrowser(index + 1)
-        theTitle
+        val htmlTitle = browser.title()
+        if (htmlTitle != null && htmlTitle.isEmpty) getTitleFromBrowser(index + 1)
+        else htmlTitle
       }
       catch {
         case _:Exception => getTitleFromBrowser(index + 1)
       }
-    } else "Could not get Page title from browser."
+    } else "" //Could not get Page title from browser."
   }
 
+
+  protected def getPageTitle(fluent: Fluent, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION): String = {
+    def htmlTitle = try {
+      if (fluent != null) fluent.title else getTitleFromBrowser()
+    } catch {
+      case _: Exception => getTitleFromBrowser()
+    }
+
+    if (waitForPage && htmlTitle != null && htmlTitle.isEmpty) waitForNewTitle(waitDuration) else htmlTitle
+  }
 
   private def createPageWithTitle(title: String, newIterationNumber: Int) = {
-    val newPage = pageFactory buildPageFromTitle(browser, title, Some(this), newIterationNumber)
-    newPage
+    this.pageLeftOrSubmitted = true
+    pageFactory buildPageFromTitle(browser, title, Some(this), newIterationNumber)
   }
-
 
   private def goToUrl(page: Page, throwException: Boolean, waitForPage: Boolean, waitDuration: Int) = {
     if (!this.pageLeftOrSubmitted) this.pageSource = getPageSource()
-    browser.goTo(page.url)
-    val matchResult = page.titleMatch()
-    if (!matchResult._1) {
-      if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " Iteration("+iteration+") - Page loaded with title: " + matchResult._2)
-      else this.createPageWithTitle(matchResult._2, 1)
-    } else if (waitForPage) page.waitForPage(waitDuration) else page
+    val fluent = browser.goTo(page.url)
+    val title = getPageTitle(fluent, waitForPage, waitDuration)
+    if (title.toLowerCase != page.pageTitle.toLowerCase) {
+      if (throwException) throw new PageObjectException("Could not go to page with title: " + page.pageTitle + " Iteration(" + iteration + ") - Page loaded with title: " + title)
+      else this.createPageWithTitle(title, 1)
+    } else page
+  }
+
+  protected def errorsInPage(throwException: Boolean = false) = {
+    if (!this.listErrors.isEmpty) {
+      if (throwException) throw new PageObjectException("Page " + this.getClass + " \"" + pageTitle + "\" Submit failed with errors: ", this.listErrors)
+      true
+    }
+    else false
   }
 
   private def getPageSource() = {
@@ -279,7 +281,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
       browser.pageSource()
     }
     catch {
-      case _:Exception => ""
+      case _: Exception => "Error: Page source not available."
     }
   }
 }
@@ -298,22 +300,23 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * @param throwException Should the page throw an exception if landed on different page? By default yes.
    * @return Page object presenting the page. It could be different from current if landed on different page and specified no exception to be thrown.
    */
-  override def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = throw new PageObjectException("Cannot leave an unknown page: " + pageTitle)
+  override def goToThePage(throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) =
+    throw new PageObjectException("Cannot leave an unknown page: " + pageTitle)
 
   /**
    * Throws a PageObjectException.
    * @param throwException Specify whether should throw an exception if a page displays errors. By default set to false.
    * @return next Page or same page if errors detected and did not ask for exception.
    */
-  override def submitPage(throwException: Boolean = false, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = throw new PageObjectException("Cannot submit an unknown page: " + pageTitle)
+  override def submitPage(throwException: Boolean = false, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) =
+    throw new PageObjectException("Cannot submit an unknown page: " + pageTitle)
 
   /**
    * Throws a PageObjectException.
    * @param theClaim   Data to use to fill page
    */
-  override def fillPageWith(theClaim: ClaimScenario): Page = {
+  override def fillPageWith(theClaim: ClaimScenario): Page =
     throw new PageObjectException("Cannot fill an unknown page [" + pageTitle +"] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]. Page content is" + source() )
-  }
 }
 
 object Page {

@@ -41,14 +41,14 @@ class PageSpec extends Specification {
       there was one(browser).find("div[class=validation-summary] ol li")
     }
 
-    "Throw exception if cannot go to the write page" in new MockPageWrongTitleContext {
+    "Throw exception if cannot go to the right page" in new MockPageWrongTitleContext {
       page.goToThePage() must throwA[PageObjectException]
     }
 
     "be able to provide full path of pages used to reach the current page." in new MockPageContext {
       val page2 = new MockPage(browser,"Page 2", Some(page))
       val page3 = new MockPage(browser,"Page 3", Some(page2))
-      page3.fullPagePath mustEqual "Mock Page > Page 2 > Page 3"
+      page3.fullPagePath mustEqual "Page 3 < Page 2 < Mock Page"
     }
 
     }
