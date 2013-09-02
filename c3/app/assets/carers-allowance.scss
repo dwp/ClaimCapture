@@ -282,6 +282,7 @@ main {
 			}
 			h1 {
 				font-size: 5rem;
+				@media screen and (max-width: 480px) {font-size: 30px;}
 				.ie & {
 					font-size: 50px;
 				}
@@ -870,25 +871,29 @@ main {
 					   }
 					   input[type="radio"] {
 						   position: absolute;
-						   top: 34%;
-						   left: 1.2em;
+						   top: 13px;
+						   left: 14px;
 						   margin: 0;
 						   cursor: pointer;
+						   line-height: 1em;
+						   
+						   .ie & {
+							   top: 10px;
+							   left: 10px;
+						   }
+						   
+						   .ie8 & {
+							   top: 11px;
+						   }
 
-						   .ie8 &, .ie9 & {
-							   left: .7em;
-							   top: 28%;
-						   }
-						   .ie7 & {
-							   top: 25%;
-							   left: .7em;
-						   }
 						   .ie6 & {
 							   position: relative;
 							   top: auto;
 							   left: auto;
 							   display: inline;
 						   }
+						   
+					
 
 					   &:focus {
 							   outline: none;
@@ -897,17 +902,16 @@ main {
 					   label {
 						   display: block;
 						   background: #eee;
-						   padding: .5em 1em .4em 2.2em;
+						   padding: 12px 14px 10px 34px;
 						   font-size: 1.7rem;
 						   cursor: pointer;
-						   line-height: inherit;
+						   line-height: 1em;
 						   border: 1px solid #fff;
+						   font-weight: 500;
 						   .ie & {
 							   font-size: 17px;
 						   }
-						   .ie7 &, .ie8 & {
-							   padding: .4em 1em .3em 2em;
-						   }
+						   
 						   .ie6 & {
 							   display: inline;
 							   padding-left: 0;
@@ -988,6 +992,9 @@ main {
 				   		.ie & {
 					   		margin-top: 0;
 				   		}
+				   		&:focus {
+							   outline: none;
+						   }
 				   		&[type=checkbox]:checked + label, &[type=radio]:checked + label {color: #0b0c0c;}
 				   }
 				   label {
@@ -1210,6 +1217,13 @@ main {
 				   -o-transition: all 200ms ease-in;
 				   transition: all 200ms ease-in;
 			   }
+			   .ie & {
+				   left: .8em;
+			   }
+			   &:focus {
+					outline: none;
+				  }
+			   
 		   }
 		   &.secondary {
 			   margin-top: 1em;
@@ -1706,6 +1720,17 @@ main {
     clear: both;
 }
 
+
+/* firefix radio fix */
+@-moz-document url-prefix() {
+	.radio {
+		input[type="radio"] {
+				top: 15px!important;
+				left: 12px!important;
+			}
+		}
+}
+									 
 
 
 
