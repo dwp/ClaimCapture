@@ -1,7 +1,7 @@
 package controllers
 
 import utils.pageobjects.ClaimScenario
-import app.{WhoseNameAccount, PaymentFrequency, AccountStatus}
+import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -235,6 +235,7 @@ object ClaimScenarioFactory {
     claim.EmploymentWhyYouNeedTheseExpensesToDoYourJob_1 = "So I could deliver items."
     claim.EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1 = "160.66"
     claim.EmploymentChildcareExpensesHowMuchYouPayfor_1 = "120.12"
+    claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Weekly
     claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "fatherInLaw"

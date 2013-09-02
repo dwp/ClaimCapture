@@ -22,10 +22,14 @@ class G10ChildcareExpensesIntegrationSpec extends Specification with Tags with A
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "no"
       page goToThePage()
       page fillPageWith claim
-      val p = page submitPage()
-      p fillPageWith claim
+      val s7g10 = page submitPage()
+      s7g10 fillPageWith claim
 
-      p.submitPage() should beLike { case p: G12PersonYouCareForExpensesPage => p numberSectionsCompleted() mustEqual 2 }
+      val s7G15CompletedPage = s7g10.submitPage()
+
+      s7G15CompletedPage should beLike {
+        case p: G12PersonYouCareForExpensesPage => p numberSectionsCompleted() must equalTo(2)
+      }
     }
 
     "be able to navigate back to a completed form" in new WithBrowser with G8AboutExpensesPageContext {

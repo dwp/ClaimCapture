@@ -5,6 +5,7 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 final class G10ChildcareExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G10ChildcareExpensesPage.url.replace(":jobID", iteration.toString), G10ChildcareExpensesPage.title, previousPage, iteration) {
   declareInput("#howMuchCostChildcare", "EmploymentChildcareExpensesHowMuchYouPayfor_" + iteration)
+  declareSelect("#howOftenPayChildCare", "EmploymentChildcareExpensesHowOften_" + iteration)
   declareInput("#whoLooksAfterChildren", "EmploymentNameOfthePersonWhoLooksAfterYourChild_" + iteration)
   declareSelect("#relationToYou", "EmploymentChildcareExpensesWhatRelationIsthePersontoYou_" + iteration)
   declareSelect("#relationToPartner", "EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_" + iteration)
