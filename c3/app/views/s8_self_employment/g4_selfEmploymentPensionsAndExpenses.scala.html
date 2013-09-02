@@ -25,7 +25,7 @@
 
                 @otherDetailPlaceHolder(
                 inputDef = Seq(
-                    carersShortInputText(currentForm("doYouPayToPensionScheme.howMuchDidYouPay"), '_label -> Messages ("doYouPayToPensionScheme.howMuchDidYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxLength -> 8, 'placeholder -> Messages("poundSign")),
+                    carersCurrency(currentForm("doYouPayToPensionScheme.howMuchDidYouPay"), '_label -> Messages ("doYouPayToPensionScheme.howMuchDidYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxLength -> 8, 'maxlength -> 4),
                     carersSelect(currentForm("doYouPayToPensionScheme.howOften"), Seq("" -> "Please Select",Weekly -> "Weekly", Fortnightly -> "fortnightly",FourWeekly -> "four-weekly", Monthly -> "monthly"), '_label -> Messages ("doYouPayToPensionScheme.howOften", didYouDoYouIfSelfEmployed.toLowerCase))
                     ),
                     'id -> "selfEmployedPensionWrap",

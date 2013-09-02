@@ -22,7 +22,7 @@
 	
 	            @otherDetailPlaceHolder(
 	             inputDef = Seq(
-	               carersShortInputText(currentForm("howMuch"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
+	               carersCurrency(currentForm("howMuch"), 'type -> "tel", 'maxlength -> 4, '_label -> Messages("howMuch.label")),
 	               paymentFrequencySelect(currentForm("howOften"), 
 	                 'id -> "howOften_frequency", 
 	                 'visibleOn -> "yes", 
