@@ -18,7 +18,7 @@ class SelfEmploymentSpec extends Specification with Tags {
 
     "generate xml when data is present" in {
       val aboutSelfEmployment =  AboutSelfEmployment(areYouSelfEmployedNow = yes,
-        whenDidYouStartThisJob=Some(startDate),
+        whenDidYouStartThisJob=startDate,
         whenDidTheJobFinish=Some(endDate),
         haveYouCeasedTrading = Some(no),
         natureOfYourBusiness = Some(software)

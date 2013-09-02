@@ -25,22 +25,35 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in {
-      "missing mandatory field" in new WithBrowser with G1AboutSelfEmploymentPageContext {
+      "missing mandatory fields" in new WithBrowser with G1AboutSelfEmploymentPageContext {
         val claim = new ClaimScenario
         page goToThePage()
         val pageWithErrors = page.submitPage()
-        pageWithErrors.listErrors.size mustEqual 1
+        pageWithErrors.listErrors.size mustEqual 2
+        pageWithErrors.listErrors(0) must contain("This field is required")
       }
-      
-      "self employed now but invalid date" in new WithBrowser with G1AboutSelfEmploymentPageContext {
+
+      "self employed now but missing date" in new WithBrowser with G1AboutSelfEmploymentPageContext {
         val claim = new ClaimScenario
-        claim.SelfEmployedAreYouSelfEmployedNow = "yes"
-        claim.SelfEmployedWhenDidYouStartThisJob = "01/01/0000"
+        claim.SelfEmployedAreYouSelfEmployedNow = "no"
+        claim.SelfEmployedWhenDidYouStartThisJob = "11/09/2001"
         page goToThePage ()
         page fillPageWith claim
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 1
-        pageWithErrors.listErrors(0).contains("date")
+        pageWithErrors.listErrors(0) must contain("This field is required")
+      }
+      
+      "self employed now but invalid date" in new WithBrowser with G1AboutSelfEmploymentPageContext {
+        val claim = new ClaimScenario
+        claim.SelfEmployedAreYouSelfEmployedNow = "no"
+        claim.SelfEmployedWhenDidYouStartThisJob = "11/09/2001"
+        claim.SelfEmployedWhenDidTheJobFinish = "01/01/0000"
+        page goToThePage ()
+        page fillPageWith claim
+        val pageWithErrors = page.submitPage()
+        pageWithErrors.listErrors.size mustEqual 1
+        pageWithErrors.listErrors(0) must contain("Invalid value")
       }
     }
     

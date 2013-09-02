@@ -12,7 +12,7 @@ case object AboutSelfEmployment extends QuestionGroup.Identifier {
 }
 
 case class AboutSelfEmployment(areYouSelfEmployedNow: String = "",
-                               whenDidYouStartThisJob: Option[DayMonthYear] = None,
+                               whenDidYouStartThisJob: DayMonthYear = DayMonthYear(None, None, None),
                                whenDidTheJobFinish: Option[DayMonthYear] = None,
                                haveYouCeasedTrading: Option[String] = None,
                                natureOfYourBusiness: Option[String] = None) extends QuestionGroup(AboutSelfEmployment)

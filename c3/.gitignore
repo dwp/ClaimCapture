@@ -22,3 +22,6 @@ bin
 *.cache
 *.target
 logfile
+*.classpath
+*.project
+*.settings

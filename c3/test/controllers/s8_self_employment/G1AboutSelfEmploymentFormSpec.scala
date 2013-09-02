@@ -1,46 +1,102 @@
 package controllers.s8_self_employment
 
 import org.specs2.mutable.{Tags, Specification}
+import models.DayMonthYear
 
 class G1AboutSelfEmploymentFormSpec extends Specification with Tags {
-
   "About Self Employment - About Self Employment Form" should {
+    val areYouSelfEmployedNow = "no"
+    val whenDidYouStartThisJob_day = 11
+    val whenDidYouStartThisJob_month = 9
+    val whenDidYouStartThisJob_year = 2001
+    val whenDidTheJobFinish_day = 7
+    val whenDidTheJobFinish_month = 7
+    val whenDidTheJobFinish_year = 2005
+    val haveYouCeasedTrading = "no"
+    val natureOfYourBusiness = "Consulting"
 
     "map data into case class" in {
       G1AboutSelfEmployment.form.bind(
-        Map("areYouSelfEmployedNow" -> "yes",
-          "whenDidYouStartThisJob.day" -> "11",
-          "whenDidYouStartThisJob.month" -> "11",
-          "whenDidYouStartThisJob.year" -> "2011",
-          "whenDidTheJobFinish.day" -> "11",
-          "whenDidTheJobFinish.month" -> "11",
-          "whenDidTheJobFinish.year" -> "2018",
-          "haveYouCeasedTrading" -> "no",
-          "natureOfYourBusiness" -> "Consulting")
+        Map("areYouSelfEmployedNow" -> areYouSelfEmployedNow,
+          "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
+          "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,
+          "whenDidYouStartThisJob.year" -> whenDidYouStartThisJob_year.toString,
+          "whenDidTheJobFinish.day" -> whenDidTheJobFinish_day.toString,
+          "whenDidTheJobFinish.month" -> whenDidTheJobFinish_month.toString,
+          "whenDidTheJobFinish.year" -> whenDidTheJobFinish_year.toString,
+          "haveYouCeasedTrading" -> haveYouCeasedTrading,
+          "natureOfYourBusiness" -> natureOfYourBusiness)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.natureOfYourBusiness must equalTo(Some("Consulting"))
+          f.areYouSelfEmployedNow must equalTo(areYouSelfEmployedNow)
+          f.whenDidYouStartThisJob should beLike {
+            case dmy: DayMonthYear =>
+              dmy.day must equalTo(Some(whenDidYouStartThisJob_day))
+              dmy.month must equalTo(Some(whenDidYouStartThisJob_month))
+              dmy.year must equalTo(Some(whenDidYouStartThisJob_year))
+          }
+          f.whenDidTheJobFinish should beLike {
+            case Some(dmy: DayMonthYear) =>
+              dmy.day must equalTo(Some(whenDidTheJobFinish_day))
+              dmy.month must equalTo(Some(whenDidTheJobFinish_month))
+              dmy.year must equalTo(Some(whenDidTheJobFinish_year))
+          }
+          f.haveYouCeasedTrading must equalTo(Some(haveYouCeasedTrading))
+          f.natureOfYourBusiness must equalTo(Some(natureOfYourBusiness))
         }
       )
     }
 
     "reject if areYouSelfEmployedNow is not filled" in {
       G1AboutSelfEmployment.form.bind(
-        Map("natureOfYourBusiness" -> "Consulting")
+        Map("areYouSelfEmployedNow" -> "no",
+          "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
+          "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,
+          "whenDidYouStartThisJob.year" -> whenDidYouStartThisJob_year.toString)
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("whenDidTheJobFinish.error.required"),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
 
-    "About Self Employment - Allow optional fields to be left blank" in {
+    "reject if areYouSelfEmployedNow answered no but whenDidTheJobFinish not filled in" in {
       G1AboutSelfEmployment.form.bind(
-        Map("areYouSelfEmployedNow" -> "yes")
+        Map("areYouSelfEmployedNow" -> "no",
+          "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
+          "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,
+          "whenDidYouStartThisJob.year" -> whenDidYouStartThisJob_year.toString)
+      ).fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("whenDidTheJobFinish.error.required"),
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
+
+    "allow optional fields to be left blank" in {
+      G1AboutSelfEmployment.form.bind(
+        Map("areYouSelfEmployedNow" -> "no",
+          "whenDidYouStartThisJob.day" -> whenDidYouStartThisJob_day.toString,
+          "whenDidYouStartThisJob.month" -> whenDidYouStartThisJob_month.toString,
+          "whenDidYouStartThisJob.year" -> whenDidYouStartThisJob_year.toString,
+          "whenDidTheJobFinish.day" -> whenDidTheJobFinish_day.toString,
+          "whenDidTheJobFinish.month" -> whenDidTheJobFinish_month.toString,
+          "whenDidTheJobFinish.year" -> whenDidTheJobFinish_year.toString)
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.areYouSelfEmployedNow must equalTo("yes")
+          f.areYouSelfEmployedNow must equalTo(areYouSelfEmployedNow)
+          f.whenDidYouStartThisJob should beLike {
+            case dmy: DayMonthYear =>
+              dmy.day must equalTo(Some(whenDidYouStartThisJob_day))
+              dmy.month must equalTo(Some(whenDidYouStartThisJob_month))
+              dmy.year must equalTo(Some(whenDidYouStartThisJob_year))
+          }
+          f.whenDidTheJobFinish should beLike {
+            case Some(dmy: DayMonthYear) =>
+              dmy.day must equalTo(Some(whenDidTheJobFinish_day))
+              dmy.month must equalTo(Some(whenDidTheJobFinish_month))
+              dmy.year must equalTo(Some(whenDidTheJobFinish_year))
+          }
         }
       )
     }
