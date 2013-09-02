@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import models.domain._
 import controllers.Mappings._
 import models.DayMonthYear
-import models.yesNo.{YesNoWith2Text}
+import models.yesNo.YesNoWith2Text
 import scala.Some
 
 class SelfEmploymentSpec extends Specification with Tags {
@@ -17,9 +17,9 @@ class SelfEmploymentSpec extends Specification with Tags {
     val amount = "15.5"
 
     "generate xml when data is present" in {
-      val aboutSelfEmployment =  AboutSelfEmployment(areYouSelfEmployedNow = yes,
-        whenDidYouStartThisJob=startDate,
-        whenDidTheJobFinish=Some(endDate),
+      val aboutSelfEmployment = AboutSelfEmployment(areYouSelfEmployedNow = yes,
+        whenDidYouStartThisJob = startDate,
+        whenDidTheJobFinish = Some(endDate),
         haveYouCeasedTrading = Some(no),
         natureOfYourBusiness = Some(software)
       )
@@ -42,7 +42,7 @@ class SelfEmploymentSpec extends Specification with Tags {
     }
 
     "generate <PensionScheme> if claimer has paid for pension scheme" in {
-      val pensionScheme = SelfEmploymentPensionsAndExpenses(pensionSchemeMapping=YesNoWith2Text(yes, Some(amount), Some("02")))
+      val pensionScheme = SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWith2Text(yes, Some(amount), Some("02")))
       val claim = Claim().update(pensionScheme)
 
       val pensionSchemeXml = xml.SelfEmployment.pensionScheme(claim)
@@ -66,7 +66,7 @@ class SelfEmploymentSpec extends Specification with Tags {
       val childcareXml = xml.SelfEmployment.childCareExpenses(claim)
       (childcareXml \\ "CarerName").text shouldEqual childcareExpenses.nameOfPerson
       (childcareXml \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
-      (childcareXml \\ "RelationshipCarerToClaimant").text  shouldEqual childcareExpenses.whatRelationIsToYou
+      (childcareXml \\ "RelationshipCarerToClaimant").text shouldEqual childcareExpenses.whatRelationIsToYou
       (childcareXml \\ "ChildDetails" \\ "RelationToChild").text shouldEqual childcareExpenses.whatRelationIsTothePersonYouCareFor
     }
 
@@ -81,7 +81,7 @@ class SelfEmploymentSpec extends Specification with Tags {
       val pensionScheme = SelfEmploymentPensionsAndExpenses(didYouPayToLookAfterThePersonYouCaredFor = yes)
       val grandSon = "grandSon"
       val postcode = "SE1 6EH"
-      val expensesWhileAtWork:ExpensesWhileAtWork = ExpensesWhileAtWork(howMuchYouPay= amount, nameOfPerson="NameOfPerson", whatRelationIsToYou= grandSon, whatRelationIsTothePersonYouCareFor= grandSon)
+      val expensesWhileAtWork: ExpensesWhileAtWork = ExpensesWhileAtWork(howMuchYouPay = amount, nameOfPerson = "NameOfPerson", whatRelationIsToYou = grandSon, whatRelationIsTothePersonYouCareFor = grandSon)
       val claim = Claim().update(pensionScheme).update(expensesWhileAtWork)
 
       val careExpensesXml = xml.SelfEmployment.careExpenses(claim)
