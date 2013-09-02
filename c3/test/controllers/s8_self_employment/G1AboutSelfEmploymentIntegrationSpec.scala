@@ -31,7 +31,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 2
       }
-      
+
       "self employed now but invalid date" in new WithBrowser with G1AboutSelfEmploymentPageContext {
         val claim = new ClaimScenario
         claim.SelfEmployedAreYouSelfEmployedNow = "yes"
@@ -43,14 +43,14 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
         pageWithErrors.listErrors(0).contains("date")
       }
     }
-    
+
     "accept submit if all mandatory fields are populated" in new WithBrowser with G1AboutSelfEmploymentPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
       page fillPageWith claim
       page submitPage()
     }
-    
+
     "navigate to next page on valid submission" in new WithBrowser with G1AboutSelfEmploymentPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmployment
       page goToThePage()
