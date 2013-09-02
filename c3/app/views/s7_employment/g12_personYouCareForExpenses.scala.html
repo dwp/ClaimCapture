@@ -20,9 +20,9 @@
             <legend>@Messages("s7.g12")</legend>
 
             <ul class="group">
-                @carersShortInputText(currentForm("howMuchCostCare"), '_label -> Messages ("howMuchCostCare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'placeholder -> Messages("poundSign"))
-
                 @carersInputText(currentForm("whoDoYouPay"), '_label -> Messages ("whoDoYouPay", pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , JobID(currentForm))))
+
+                @carersShortInputText(currentForm("howMuchCostCare"), '_label -> Messages ("howMuchCostCare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'placeholder -> Messages("poundSign"))
 
                 @relationshipSelect(currentForm("relationToYou"))
 
