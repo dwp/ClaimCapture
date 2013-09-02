@@ -8,10 +8,10 @@ POST    /about-you                                        controllers.circs.s1_a
 GET     /your-contact-details                             controllers.circs.s1_about_you.G2YourContactDetails.present
 POST    /your-contact-details                             controllers.circs.s1_about_you.G2YourContactDetails.submit
 
-POST    /about-you                                        controllers.circs.s1_about_you.G1AboutYou.submit
+GET     /details-of-the-person-you-care-for               controllers.circs.s1_about_you.G3DetailsOfThePersonYouCareFor.present
+POST    /details-of-the-person-you-care-for               controllers.circs.s1_about_you.G3DetailsOfThePersonYouCareFor.submit
 
 GET     /additional-info                                  controllers.circs.s2_additional_info.G1OtherChangeInfo.present
 POST    /additional-info                                  controllers.circs.s2_additional_info.G1OtherChangeInfo.submit
 
-GET     /details-of-the-person-you-care-for               controllers.circs.s1_about_you.G3DetailsOfThePersonYouCareFor.present
-POST    /details-of-the-person-you-care-for               controllers.circs.s1_about_you.G3DetailsOfThePersonYouCareFor.submit
+GET     /consent-and-declaration                          controllers.circs.s3_consent_and_declaration.G1Declaration.present
