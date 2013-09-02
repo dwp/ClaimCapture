@@ -21,7 +21,7 @@ object G3AbroadForMoreThan52Weeks extends Controller with TimeSpentAbroadRouting
 
   def submit = claiming { implicit claim => implicit request =>
     def next(abroadForMoreThan52Weeks: AbroadForMoreThan52Weeks) = abroadForMoreThan52Weeks.anyTrips match {
-      case `yes` if trips.fiftyTwoWeeksTrips.size < 10 => Redirect(routes.G4Trip.fiftyTwoWeeks())
+      case `yes` if trips.fiftyTwoWeeksTrips.size < 5 => Redirect(routes.G4Trip.fiftyTwoWeeks())
       case `yes` => Redirect(routes.G3AbroadForMoreThan52Weeks.present())
       case _ => Redirect(routes.TimeSpentAbroad.completed())
     }
