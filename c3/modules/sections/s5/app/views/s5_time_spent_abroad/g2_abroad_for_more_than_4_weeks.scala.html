@@ -3,6 +3,7 @@
 @import scala.language.postfixOps
 @import views.html.helper._
 @import models.domain.Trips
+@import utils.helpers.CarersCrypto
 @import models.DayMonthYear
 
 @main(Messages("s5.g2") + " - " + Messages("s5.longName"), Some(abroadForMoreThan4WeeksForm), claim.completedQuestionGroups(models.domain.AbroadForMoreThan4Weeks)) {
@@ -59,6 +60,12 @@
                     @yesNoRadioGroup(abroadForMoreThan4WeeksForm("anyTrips"), '_label -> Messages(label, (DayMonthYear.today - 3 years).`dd/MM/yyyy`))
                 }
             </ul>
+
+            <div id="warningMessageWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
+                <p>We will contact you about more trips.</p>
+                <span>!</span>
+            </div>
+
         </fieldset>
 
         <nav class="form-steps">
@@ -69,3 +76,8 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s5_time_spent_abroad/trips.js")'></script>
+<script type="text/javascript">
+    $(function () {
+        window.initEvents("@CarersCrypto.encryptAES("anyTrips_yes")", "@CarersCrypto.encryptAES("anyTrips_no")");
+    });
+</script>

@@ -4,6 +4,8 @@
 @import views.html.helper._
 @import models.domain.Trips
 @import models.DayMonthYear
+@import utils.helpers.CarersCrypto
+@import views.html.s5_time_spent_abroad.main
 
 @main(Messages("s5.g3") + " - " + Messages("s5.longName"), Some(AbroadForMoreThan52WeeksForm), claim.completedQuestionGroups(models.domain.AbroadForMoreThan52Weeks)) {
     <fieldset id="trips" class="form-elements results-detail">
@@ -59,6 +61,12 @@
                     @yesNoRadioGroup(AbroadForMoreThan52WeeksForm("anyTrips"), '_label -> Messages(label, claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy => (dmy - 156 weeks).`dd/MM/yyyy`)))
                 }
             </ul>
+
+            <div id="warningMessageWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
+                <p>We will contact you about more trips.</p>
+                <span>!</span>
+            </div>
+
         </fieldset>
 
         <nav class="form-steps">
@@ -69,3 +77,8 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s5_time_spent_abroad/trips.js")'></script>
+<script type="text/javascript">
+    $(function () {
+        window.initEvents("@CarersCrypto.encryptAES("anyTrips_yes")", "@CarersCrypto.encryptAES("anyTrips_no")");
+    });
+</script>
