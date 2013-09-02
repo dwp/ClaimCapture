@@ -21,6 +21,7 @@ s10.longName = How we pay you
 s11.name = declaration
 s11.longName = Consent and Declaration
 c1.longName = About you - the carer
+c2.longName = Additional Info
 
 s1.g1 = Does the person you look after get one of these benefits?
 s1.g2 = Do you spend 35 hours or more each week caring for the person you look after?

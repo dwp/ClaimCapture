@@ -36,4 +36,10 @@ object CircumstancesScenarioFactory {
     claim
   }
 
+  def otherChangeInfo = {
+    val claim = new ClaimScenario
+    claim.CircumstancesOtherChangeInfoChange
+    claim
+  }
+
 }
