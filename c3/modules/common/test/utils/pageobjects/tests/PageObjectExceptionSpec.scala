@@ -15,7 +15,7 @@ class PageObjectExceptionSpec extends Specification {
     "create the exception message by aggregating all the error messages passed as argument" in {
       val otherMessages = List("Other1", "Other2", "Other3")
       val exception = new PageObjectException("First Message", otherMessages)
-      exception getMessage() mustEqual ("First Message. Other1. Other2. Other3")
+      exception getMessage() mustEqual "First Message. Other1. Other2. Other3"
     }
   }
 }

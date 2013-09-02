@@ -10,7 +10,7 @@ import scala.collection.mutable
  */
 trait FormFields {
 
-  protected val fields = mutable.ArrayBuffer.empty[Tuple3[String,Symbol,String]]
+  protected val fields = mutable.ArrayBuffer.empty[(String,Symbol,String)]
 
   val ADDRESS = 'Address
   val CHECK = 'Check

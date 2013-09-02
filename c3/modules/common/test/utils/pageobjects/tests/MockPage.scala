@@ -42,7 +42,7 @@ class MockPageContext extends PageContext with Mockito {
     mockedBrowser
   }
 
-  val page = MockPage buildPage(browser)
+  val page = MockPage buildPage browser
 }
 
 /** The context for Specs tests */
@@ -56,5 +56,5 @@ trait MockPageWrongTitleContext extends PageContext with Mockito {
     mockedBrowser
   }
 
-  val page = MockPage buildPage(browser)
+  val page = MockPage buildPage browser
 }

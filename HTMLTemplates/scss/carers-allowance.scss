@@ -2,9 +2,10 @@
 $button-green: #006435;
 $button-green-hover: #004b27;
 
-#wrapper {
+main {
 	background: #fff;
 	border-bottom: 10px solid #f47738;
+	display: block;
 }
 
 .carers-allowance {
@@ -288,8 +289,7 @@ $button-green-hover: #004b27;
    	   }
    	   
    	   
-   	   	   /* section header */
-		   	
+   	   	   /* section header */		   	
 		   h1 {
 			   font-size: 3.6rem;
 			   font-weight: 700;
@@ -308,7 +308,7 @@ $button-green-hover: #004b27;
 			    }
 		   }
 
-	   /* section header */
+	  
    	   
    	   
    	   
@@ -386,7 +386,7 @@ $button-green-hover: #004b27;
 		   list-style: none;
 	   }
    }
-   /* section end */
+  
    
    
    
@@ -469,7 +469,7 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
-   /* completed questions end */
+   
    
    
    
@@ -511,7 +511,7 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
-   /* Validation panel end */
+
    
    
    
@@ -675,18 +675,46 @@ $button-green-hover: #004b27;
 			   
 			   &.short-field {
 				   input[type="text"], input[type="tel"] {
-					   width: 12rem;
+					   width: 13rem;
 					   .ie & {
-						   width: 120px;
+						   width: 130px;
 					   }
 					   @media screen and (max-width: 500px) {
-						   width: 11.8rem;
+						   width: 12.8rem;
 						   .ie & {
-							   width: 118px;
+							   width: 128px;
 						   }
 					   }
 				   }
 			   }
+			   
+			   &.currency {
+			   	   position: relative;
+				   input[type="text"], input[type="tel"] {
+					   width: 11.8rem;
+					   position: relative;
+					   padding-left: 1em;
+					   .ie & {
+						   width: 118px;
+					   }
+					   @media screen and (max-width: 500px) {
+						   width: 11.6rem;
+						   .ie & {
+							   width: 116px;
+						   }
+					   }
+				   }
+				   &:before {
+						   position: absolute;
+						   bottom: 20px;
+						   left: 7px;
+						   z-index: 999;
+						   line-height: 1em;
+						   content: "\00a3";
+						   font-size: 19px;
+					   }
+			   }
+			   
 			   .helper {
 				   font-size: 1.6rem;
 				   margin-top: .4em;
@@ -825,7 +853,7 @@ $button-green-hover: #004b27;
 				   }
 		   }
 		   
-		   /* form list end */
+
 		  
 		   
 		   /* radio list - includes hit areas */
@@ -847,12 +875,13 @@ $button-green-hover: #004b27;
 						   margin: 0;
 						   cursor: pointer;
 
-						   .ie & {
+						   .ie8 &, .ie9 & {
 							   left: .7em;
 							   top: 28%;
 						   }
 						   .ie7 & {
 							   top: 25%;
+							   left: .7em;
 						   }
 						   .ie6 & {
 							   position: relative;
@@ -896,7 +925,7 @@ $button-green-hover: #004b27;
 					   }
 				   }
 			 }
-			 /* radio */
+
 			 
 			 
 			 
@@ -942,7 +971,7 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }	
-		   /* list display - fully inline with label end */
+
 		   
 		   
 		   
@@ -977,7 +1006,7 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }	
-		   /* list display - stacked list with label inline end */
+
 		   
 		   
 		   
@@ -1006,12 +1035,12 @@ $button-green-hover: #004b27;
 				   input {
 					   width: 7.6rem;
 					   background: #f9f9f9;
+					   position: relative;
 					   .ie9 & {
 						   width: 76px;
 						   top: 3px;
 					   }
 					   .ie8 &, .ie7 & {
-					   	   position: relative;
 					   	   top: 3px;
 						   width: 60px;
 						   font-size: 14px;
@@ -1020,7 +1049,7 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }
-		   /* list display - date format layout end */ 
+
 		   
 		   
 		   
@@ -1059,7 +1088,7 @@ $button-green-hover: #004b27;
 				   left: -9999px;
 			   }
 		   }
-		   /* list display - inline with labels stripped end */
+
 		   
 		   
 		   
@@ -1100,10 +1129,9 @@ $button-green-hover: #004b27;
 				   }
 			   }
 		   }
-		   /* list display - national insurance number end */
 		   
 	   }
-	   /* form list end */
+
 	   
 	   
 	   
@@ -1126,12 +1154,6 @@ $button-green-hover: #004b27;
 	   .declaration {
 		   border: 1px solid #a2a2a2;
 		   padding: 1em 1.5em 1em 1em;
-		   height: 22rem;
-		   overflow: scroll;
-		   overflow-x: hidden;
-		   .ie & {
-			   height: 220px;
-		   }
 		   p {
 			   font-size: 1.6rem;
 			   line-height: 1.25em;
@@ -1306,13 +1328,9 @@ $button-green-hover: #004b27;
 					}
 				}
 			}
-	   }
-	   /* table styling end */
-	   
-	   
-	   
+	   }   
    }
-   /* form elements end */
+
    
    
    
@@ -1409,10 +1427,17 @@ $button-green-hover: #004b27;
 			    }
 		   }
 	   }
+	   &.breaks-error-prompt {
+		   margin: 0;
+	   }
 	   &.eligibility-prompt {
 		   margin-left: 0;
 		   p {
 			   font-size: 1.6rem;
+			   margin: .75em 0 0 0;
+			   &:first-child {
+				   margin: 0;
+			   }
 			   .ie & {
 				   font-size: 16px;
 			   }
@@ -1457,7 +1482,7 @@ $button-green-hover: #004b27;
 		   }
 	   }
    }
-   /* prompt panel end */
+
    
    
    
@@ -1563,7 +1588,8 @@ $button-green-hover: #004b27;
 				}
 		   }
 	}
-	/* button styling end */
+
+
 	
 	
 	.send-info {
@@ -1610,7 +1636,7 @@ $button-green-hover: #004b27;
 	
 	
 }
-/* carers wrapper */
+
 
 
 
@@ -1681,18 +1707,6 @@ $button-green-hover: #004b27;
 }
 
 
-
-main {
-	background: red;
-	margin: 0 auto; 
-	width: 600px;
-	display: block;
-	p {
-		font-size: 24px;
-		font-weight: bold;
-		color: yellow;
-	}
-}
 
 
 

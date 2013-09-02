@@ -42,7 +42,7 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
 
       page goToThePage(waitForPage = true, waitDuration = 1000)
       page fillPageWith claim
-      val g2 = page submitPage(waitForPage = true, waitDuration = 1000)
+      val g2 = page submitPage(throwException = true, waitForPage = true, waitDuration = 1000)
       val g7 = g2 goToPage (new G7ExpensesWhileAtWorkPage(browser), waitForPage = true, waitDuration = 1000)
       g7.listCompletedForms.size mustEqual 2
     }

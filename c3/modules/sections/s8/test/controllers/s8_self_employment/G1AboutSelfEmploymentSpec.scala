@@ -33,7 +33,7 @@ class G1AboutSelfEmploymentSpec extends Specification with Tags {
       "whenDidTheJobFinish.year" -> finishYear.toString,
       "haveYouCeasedTrading" -> haveYouCeasedTrading,
       "natureOfYourBusiness" -> natureOfYourBusiness
-      )
+    )
 
     "present 'About Self Employment' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)

@@ -8,8 +8,6 @@ POST    /about-you                                        controllers.circs.s1_a
 GET     /your-contact-details                             controllers.circs.s1_about_you.G2YourContactDetails.present
 POST    /your-contact-details                             controllers.circs.s1_about_you.G2YourContactDetails.submit
 
-POST    /about-you                                        controllers.circs.s1_about_you.G1AboutYou.submit
-
 GET     /additional-info                                  controllers.circs.s2_additional_info.G1OtherChangeInfo.present
 POST    /additional-info                                  controllers.circs.s2_additional_info.G1OtherChangeInfo.submit
 
