@@ -1,0 +1,33 @@
+@(otherInfoForm: Form[models.domain.CircumstancesOtherInfo])(implicit claim: models.domain.Claim)
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.common._
+@import views.html.helper._
+@import views.html.helper.dropdowns._
+@import views.html.helper.base._
+@import views.html.helper.dates._
+@import controllers.Mappings._
+
+
+@main(Messages("c2.g1") + " - " + Messages("c2.longName")) {
+@errorsSummary(otherInfoForm)
+
+
+<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+@form(action = controllers.circs.s2_additional_info.routes.G1OtherChangeInfo.submit) {
+<fieldset class="form-elements">
+    <legend>@Messages("c2.g1")</legend>
+
+    <ul class="group">
+        @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000)
+    </ul>
+</fieldset>
+
+<nav class="form-steps">
+    <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
+    <button type="submit" name="action" value="next" class="button">Next</button>
+</nav>
+}
+}

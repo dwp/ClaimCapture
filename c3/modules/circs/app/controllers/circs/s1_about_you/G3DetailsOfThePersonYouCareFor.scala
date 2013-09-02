@@ -36,7 +36,7 @@ object G3DetailsOfThePersonYouCareFor extends Controller with CachedClaim with N
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s1_about_you.g3_detailsOfThePersonYouCareFor(formWithErrors)),
-      f => claim.update(f) -> Redirect(routes.G3DetailsOfThePersonYouCareFor.present()))
+      f => claim.update(f) -> Redirect(controllers.circs.s2_additional_info.routes.G1OtherChangeInfo.present()))
   }
 
 }

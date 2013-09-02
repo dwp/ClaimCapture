@@ -94,11 +94,11 @@ s11.g4 = Declaration
 s11.g5 = Documents you need to send us
 
 c1.g1 = Circumstances
-
-
 c1.g2 = Your contact details
-
 c1.g3 = Details of the person you care for
+
+c2.g1 = Other Change Information
+changeInCircs = Tell us about your change in circumstances
 
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...

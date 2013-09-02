@@ -29,6 +29,13 @@ object CircumstancesYourContactDetails extends QuestionGroup.Identifier {
   val id = s"${Circumstances.id}.g2"
 }
 
+case class CircumstancesOtherInfo(change: String = "") extends QuestionGroup(CircumstancesOtherInfo)
+
+object CircumstancesOtherInfo extends QuestionGroup.Identifier {
+  val id = s"${Circumstances.id}.g2"
+}
+
+
 case class DetailsOfThePersonYouCareFor(title: String = "",
                                  firstName: String = "",
                                  middleName: Option[String] = None,
