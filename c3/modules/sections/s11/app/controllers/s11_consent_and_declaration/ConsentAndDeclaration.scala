@@ -10,6 +10,6 @@ object ConsentAndDeclaration extends Controller with CachedClaim with Navigable 
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    Redirect(controllers.s1_carers_allowance.routes.G1Benefits.present())
+    Redirect("/allowance/benefits")
   }
 }

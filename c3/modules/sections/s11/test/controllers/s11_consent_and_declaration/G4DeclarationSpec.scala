@@ -6,28 +6,28 @@ import play.api.test.Helpers._
 import models.domain.Claiming
 import models.view.CachedClaim
 
-class G3DisclaimerSpec extends Specification with Tags {
-  "Disclaimer" should {
+class G4DeclarationSpec extends Specification with Tags {
+  "Declaration" should {
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
-      val result = G3Disclaimer.present(request)
+      val result = G4Declaration.present(request)
       status(result) mustEqual OK
     }
 
     """enforce answer""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
-      val result = G3Disclaimer.submit(request)
+      val result = G4Declaration.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """accept answers""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
-                                 .withFormUrlEncodedBody("read" -> "yes")
+                                 .withFormUrlEncodedBody("confirm" -> "checked","someoneElse" -> "checked")
 
-      val result = G3Disclaimer.submit(request)
-      redirectLocation(result) must beSome("/consent-and-declaration/declaration")
+      val result = G4Declaration.submit(request)
+      redirectLocation(result) must beSome("/submit")
     }
   } section("unit", models.domain.ConsentAndDeclaration.id)
 }

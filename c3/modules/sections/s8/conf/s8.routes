@@ -1,0 +1,20 @@
+
+
+
+GET     /about-self-employment                          controllers.s8_self_employment.G1AboutSelfEmployment.present
+POST    /about-self-employment                          controllers.s8_self_employment.G1AboutSelfEmployment.submit
+
+GET     /your-accounts                                  controllers.s8_self_employment.G2SelfEmploymentYourAccounts.present
+POST    /your-accounts                                  controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit
+
+GET     /pensions-and-expenses                          controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.present
+POST    /pensions-and-expenses                          controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit
+
+GET     /childcare-expenses-while-at-work               controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.present
+POST    /childcare-expenses-while-at-work               controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit
+
+GET     /expenses-while-at-work                         controllers.s8_self_employment.G7ExpensesWhileAtWork.present
+POST    /expenses-while-at-work                         controllers.s8_self_employment.G7ExpensesWhileAtWork.submit
+
+GET     /completed                                      controllers.s8_self_employment.SelfEmployment.completed
+POST    /completed                                      controllers.s8_self_employment.SelfEmployment.completedSubmit

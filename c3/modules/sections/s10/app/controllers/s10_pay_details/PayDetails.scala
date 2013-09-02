@@ -21,5 +21,5 @@ object PayDetails extends Controller with CachedClaim with Navigable {
   }
 
   def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
-    claim -> Redirect(controllers.s11_consent_and_declaration.routes.G1AdditionalInfo.present())
+    claim -> Redirect("/consent-and-declaration/additional-info")
 }

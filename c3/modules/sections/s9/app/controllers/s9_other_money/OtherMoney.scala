@@ -12,7 +12,7 @@ object OtherMoney extends Controller with CachedClaim with Navigable {
   }
 
   def completedSubmit = claiming { implicit claim => implicit request =>
-    Redirect(controllers.s10_pay_details.routes.G1HowWePayYou.present())
+    Redirect("/pay-details/how-we-pay-you")
   }
 
   private def completedQuestionGroups(implicit claim: Claim): List[QuestionGroup] = {

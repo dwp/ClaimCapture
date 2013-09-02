@@ -22,14 +22,6 @@ class G9CompletedSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    "not present 'Completed' if section not visible" in new WithBrowser with G4ClaimDatePageContext {
-      val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
-      page goToThePage()
-      page runClaimWith (claim, G8AboutYouCompletedPage.title, waitForPage = true, waitDuration = 500)
-
-      val nextPage = page goToPage( throwException = false, page = new G9CompletedPage(browser))
-      nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
-    }
     
     "redirect to the next page on clicking continue" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)

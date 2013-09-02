@@ -1,0 +1,23 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /additional-info                        controllers.s11_consent_and_declaration.G1AdditionalInfo.present
+POST    /additional-info                        controllers.s11_consent_and_declaration.G1AdditionalInfo.submit
+
+GET     /consent                                controllers.s11_consent_and_declaration.G2Consent.present
+POST    /consent                                controllers.s11_consent_and_declaration.G2Consent.submit
+
+GET     /disclaimer                             controllers.s11_consent_and_declaration.G3Disclaimer.present
+POST    /disclaimer                             controllers.s11_consent_and_declaration.G3Disclaimer.submit
+
+GET     /declaration                            controllers.s11_consent_and_declaration.G4Declaration.present
+POST    /declaration                            controllers.s11_consent_and_declaration.G4Declaration.submit
+
+GET     /submit                                 controllers.s11_consent_and_declaration.G5Submit.present
+POST    /submit                                 controllers.s11_consent_and_declaration.G5Submit.submit
+
+GET     /error                                  controllers.s11_consent_and_declaration.G6Error.present
+
+GET     /completed                              controllers.s11_consent_and_declaration.ConsentAndDeclaration.completed
+POST    /completed                              controllers.s11_consent_and_declaration.ConsentAndDeclaration.completedSubmit
