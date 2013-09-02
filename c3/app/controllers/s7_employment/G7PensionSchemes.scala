@@ -11,17 +11,23 @@ import Employment._
 import utils.helpers.PastPresentLabelHelper._
 import controllers.Mappings._
 import play.api.data.FormError
+import models.LivingInUK
 
 object G7PensionSchemes extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "payOccupationalPensionScheme" -> nonEmptyText,
-    "howMuchPension" -> optional(text verifying(validDecimalNumber)),
-    "howOftenPension" -> optional(text),
+    "howMuchPension" -> optional(nonEmptyText verifying(validDecimalNumber)),
+    "howOftenPension" -> optional(nonEmptyText),
     "payPersonalPensionScheme" -> nonEmptyText,
-    "howMuchPersonal" -> optional(text verifying(validDecimalNumber)),
-    "howOftenPersonal" -> optional(text)
-  )(PensionSchemes.apply)(PensionSchemes.unapply))
+    "howMuchPersonal" -> optional(nonEmptyText verifying(validDecimalNumber)),
+    "howOftenPersonal" -> optional(nonEmptyText)
+  )(PensionSchemes.apply)(PensionSchemes.unapply)
+    .verifying("howMuchP", PensionSchemes.validateHowMuchPension _)
+    .verifying("howOftenPension", PensionSchemes.validateHowOftenPension _)
+    .verifying("howMuchPe", PensionSchemes.validateHowMuchPersonal _)
+    .verifying("howOftenPersonal", PensionSchemes.validateHowOftenPersonal _)
+  )
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
     track(PensionSchemes) { implicit claim => Ok(views.html.s7_employment.g7_pensionSchemes(form.fillWithJobID(PensionSchemes, jobID))) }
