@@ -28,7 +28,9 @@ class G7PensionSchemesSpec extends Specification with Tags {
 
     "accept all mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> jobID, "payOccupationalPensionScheme" -> "blah", "payPersonalPensionScheme" -> "blah")
+        .withFormUrlEncodedBody("jobID" -> jobID,
+                                "payOccupationalPensionScheme" -> "yes", "howMuchPension" -> "100", "howOftenPension" -> "fortnightly",
+                                "payPersonalPensionScheme" -> "yes", "howMuchPersonal" -> "100", "howOftenPersonal" -> "fortnightly")
 
       val result = G7PensionSchemes.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -42,7 +44,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
         "finishedThisJob" -> "yes"))
 
       val result = G7PensionSchemes.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> jobID, "payOccupationalPensionScheme" -> "blah", "payPersonalPensionScheme" -> "blah"))
+        .withFormUrlEncodedBody("jobID" -> jobID, "payOccupationalPensionScheme" -> "no", "payPersonalPensionScheme" -> "no"))
 
       status(result) mustEqual SEE_OTHER
 

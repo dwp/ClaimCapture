@@ -5,6 +5,10 @@ import models.PaymentFrequency
 import models.MultiLineAddress
 import play.api.i18n.Messages
 import scala.reflect.ClassTag
+import controllers.Mappings._
+import models.PaymentFrequency
+import scala.Some
+import models.MultiLineAddress
 
 object Employed extends Section.Identifier {
   val id = "s7"
@@ -156,6 +160,26 @@ case class PensionSchemes(jobID: String = "",
 
 object PensionSchemes extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g7"
+
+  def validateHowMuchPension(input: PensionSchemes): Boolean = input.payOccupationalPensionScheme match {
+    case `yes` => input.howMuchPension.isDefined
+    case `no` => true
+  }
+
+  def validateHowOftenPension(input: PensionSchemes): Boolean = input.payOccupationalPensionScheme match {
+    case `yes` => input.howOftenPension.isDefined
+    case `no` => true
+  }
+
+  def validateHowMuchPersonal(input: PensionSchemes): Boolean = input.payPersonalPensionScheme match {
+    case `yes` => input.howMuchPersonal.isDefined
+    case `no` => true
+  }
+
+  def validateHowOftenPersonal(input: PensionSchemes): Boolean = input.payPersonalPensionScheme match {
+    case `yes` => input.howOftenPersonal.isDefined
+    case `no` => true
+  }
 }
 
 case class AboutExpenses(jobID: String = "",
