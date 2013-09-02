@@ -318,9 +318,11 @@ employerOwesYouMoney = Does your employer owe you any money?
 # PENSION SCHEME
 payOccupationalPensionScheme = {0} pay towards an occupational pension scheme?
 howMuchPension = How much {0} pay?
+howMuchP = How much do you pay for pension?
 howOftenPension = How often?
 payPersonalPensionScheme = {0} pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
 howMuchPersonal = How much {0} pay?
+howMuchPe= How much do you pay for personal pension?
 howOftenPersonal = How often?
 
 # ABOUT EXPENSES
