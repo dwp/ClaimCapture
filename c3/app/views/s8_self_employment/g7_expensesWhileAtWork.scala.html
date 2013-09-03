@@ -21,7 +21,7 @@
             <ul class="group">
                 @carersInputText(currentForm("nameOfPerson"))
 
-                @carersCurrency(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxlength -> 4)
+                @carersCurrency(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxlength -> Mappings.sixty)
 
                 @carersSelect(currentForm("howOftenPayExpenses"), Seq("" -> "Please Select",Weekly -> "Weekly", Fortnightly -> "fortnightly",FourWeekly -> "four-weekly", Monthly -> "monthly"), '_label -> Messages ("howOftenPayExpenses", didYouDoYouIfSelfEmployed.toLowerCase))
 
