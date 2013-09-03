@@ -17,6 +17,7 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
     "jobID" -> nonEmptyText,
     "whoLooksAfterChildren" -> nonEmptyText,
     "howMuchCostChildcare" -> nonEmptyText.verifying(validDecimalNumber),
+    "howOftenPayChildCare" -> nonEmptyText,
     "relationToYou" -> nonEmptyText,
     "relationToPartner" -> optional(nonEmptyText),
     "relationToPersonYouCare" -> nonEmptyText
