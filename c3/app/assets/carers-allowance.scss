@@ -888,6 +888,11 @@ main {
 							   left: 10px;
 						   }
 						   
+						   .ie10 & {
+							   top: 10px;
+							   left: 10px;
+						   }
+						   
 						   .ie8 & {
 							   top: 11px;
 						   }
