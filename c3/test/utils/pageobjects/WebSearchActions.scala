@@ -46,12 +46,12 @@ trait WebSearchActions {
     else None
   }
 
-  def readDateFromTo(elementCssSelector: String):Option[(String,String)] = {
-    val fromDate = readDate(elementCssSelector + "_from")
-    val toDate = readDate(elementCssSelector + "_to")
-    if (fromDate.isDefined && toDate.isDefined) Some((fromDate.get, toDate.get))
-    else None
-  }
+//  def readDateFromTo(elementCssSelector: String):Option[(String,String)] = {
+//    val fromDate = readDate(elementCssSelector + "_from")
+//    val toDate = readDate(elementCssSelector + "_to")
+//    if (fromDate.isDefined && toDate.isDefined) Some((fromDate.get, toDate.get))
+//    else None
+//  }
 
   def readInput(elementCssSelector: String):Option[String] = {
     this checkElement elementCssSelector
