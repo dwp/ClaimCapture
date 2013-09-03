@@ -716,6 +716,12 @@ main {
 					   }
 			   }
 			   
+			   &.validation {
+				   &:before {
+					   left: 16px;
+				   }
+			   }
+			   
 			   .helper {
 				   font-size: 1.6rem;
 				   margin-top: .4em;
@@ -878,6 +884,11 @@ main {
 						   line-height: 1em;
 						   
 						   .ie & {
+							   top: 10px;
+							   left: 10px;
+						   }
+						   
+						   .ie10 & {
 							   top: 10px;
 							   left: 10px;
 						   }

@@ -243,6 +243,7 @@ object ClaimScenarioFactory {
     claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
     claim.EmploymentCareExpensesHowMuchYouPayfor_1 = "150.55"
+    claim.EmploymentCareExpensesHowOftenYouPayfor_1 = "02"
     claim.EmploymentNameOfPersonYouPayForCaring_1 = "Carers UK Ltd"
     claim.EmploymentCareExpensesWhatRelationIsToYou_1 = "Uncle"
     claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1 = "Other"

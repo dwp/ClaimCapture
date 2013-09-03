@@ -212,8 +212,9 @@ object ChildcareExpenses extends QuestionGroup.Identifier {
 }
 
 case class PersonYouCareForExpenses(jobID: String = "",
-                                    howMuchCostCare: Option[String] = None,
                                     whoDoYouPay: String = "",
+                                    howMuchCostCare: String = "",
+                                    howOftenPayCare: String = "",
                                     relationToYou: String = "",
                                     relationToPersonYouCare: String = "") extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier
 

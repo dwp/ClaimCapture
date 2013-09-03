@@ -4,8 +4,9 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 final class G12PersonYouCareForExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G12PersonYouCareForExpensesPage.url.replace(":jobID", iteration.toString), G12PersonYouCareForExpensesPage.title, previousPage, iteration) {
-  declareInput("#howMuchCostCare", "EmploymentCareExpensesHowMuchYouPayfor_" + iteration)
   declareInput("#whoDoYouPay", "EmploymentNameOfPersonYouPayForCaring_" + iteration)
+  declareInput("#howMuchCostCare", "EmploymentCareExpensesHowMuchYouPayfor_" + iteration)
+  declareSelect("#howOftenPayCare", "EmploymentCareExpensesHowOftenYouPayfor_" + iteration)
   declareSelect("#relationToYou", "EmploymentCareExpensesWhatRelationIsToYou_" + iteration)
   declareSelect("#relationToPersonYouCare", "EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_" + iteration)
 }

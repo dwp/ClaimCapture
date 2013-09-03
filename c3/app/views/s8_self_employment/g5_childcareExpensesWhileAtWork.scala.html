@@ -21,7 +21,7 @@
             <ul class="group">
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 
-                @carersShortInputText(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'placeholder -> Messages("poundSign"))
+                @carersCurrency(currentForm("howMuchYouPay"), '_label -> Messages ("howMuchYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxlength -> Mappings.sixty)
 
                 @carersSelect(currentForm("howOftenPayChildCare"), Seq("" -> "Please Select",Weekly -> "Weekly", Fortnightly -> "fortnightly",FourWeekly -> "four-weekly", Monthly -> "monthly"), '_label -> Messages ("howOftenPayChildCare", didYouDoYouIfSelfEmployed.toLowerCase))
 
