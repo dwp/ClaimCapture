@@ -28,6 +28,9 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
       G2JobDetails.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> "1",
+        "jobStartDate.day" -> "1",
+        "jobStartDate.month" -> "1",
+        "jobStartDate.year" -> "2000",
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 

@@ -25,6 +25,9 @@ class G2JobDetailsSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
+        "jobStartDate.day" -> "1",
+        "jobStartDate.month" -> "1",
+        "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "yes")
 
       val result = G2JobDetails.submit(request)
