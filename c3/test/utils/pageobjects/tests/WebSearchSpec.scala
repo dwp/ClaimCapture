@@ -70,4 +70,26 @@ class WebSearchSpec  extends Specification with Tags{
     }
 
   } section "integration"
+
+  "A page with Web Search Actions " should {
+    "be able to populate a claim using data read with WebSearchActions." in new WithBrowser with G1YourDetailsPageContext {
+      val claimSource = ClaimScenarioFactory yourDetailsEnablingTimeOutsideUK()
+      val claimRead = new ClaimScenario
+      page goToThePage()
+      page fillPageWith claimSource
+      page populateClaim claimRead
+      val contactPage = page submitPage()
+      contactPage fillPageWith claimSource
+      contactPage populateClaim claimRead
+      val outsideUkPage  = contactPage.submitPage()
+      outsideUkPage fillPageWith claimSource
+      outsideUkPage populateClaim claimRead
+      claimRead.AboutYouFirstName  mustEqual claimSource.AboutYouFirstName
+      claimRead.AboutYouTitle mustEqual claimSource.AboutYouTitle
+      claimRead.AboutYouNINO mustEqual claimSource.AboutYouNINO
+      claimRead.AboutYouAddress mustEqual claimSource.AboutYouAddress
+      claimRead.AboutYouPostcode mustEqual claimSource.AboutYouPostcode
+      claimRead.AboutYouWhenDidYouArriveInYheUK mustEqual claimSource.AboutYouWhenDidYouArriveInYheUK
+    }
+  }section "integration"
 }
