@@ -42,11 +42,6 @@ trait WebFillActions {
     fillInput(elementCssSelector + "_year", date.year().getAsText)
   }
 
-//  def fillDateFromTo(elementCssSelector: String, from: String, to: String) = if (null != from && null != to) {
-//    fillDate(elementCssSelector + "_from", from)
-//    fillDate(elementCssSelector + "_to", to)
-//  }
-
   def fillInput(elementCssSelector: String, value: String) = if (null != value) {
     try {
       if (browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
