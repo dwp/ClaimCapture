@@ -79,8 +79,9 @@ trait WebFillActions {
 
   def fillSelect(elementCssSelector: String, value: String):Unit = if (null != value) {
     try {
-      val select = browser.find(elementCssSelector, 0).getElement
-      val allOptions = new JListWrapper(select.findElements(By.tagName("option"))) // Java list
+      val webElement = browser.find(elementCssSelector)
+      if (webElement.isEmpty) handleUnknownElement(elementCssSelector)
+      val allOptions = new JListWrapper(webElement.first().getElement.findElements(By.tagName("option"))) // Java list
       var found = false
       for (option <- allOptions; if option.getAttribute("value").toLowerCase == value.toLowerCase) {
         found = true
