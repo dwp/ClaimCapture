@@ -1,4 +1,4 @@
-package controllers.circs.s1_about_you
+package controllers.circs.s1_identification
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
@@ -27,6 +27,6 @@ class G1AboutYouIntegrationSpec extends Specification with Tags {
       page submitPage()
     }
 
-  } section("integration", models.domain.Circumstances.id)
+  } section("integration", models.domain.CircumstancesIdentification.id)
 
 }

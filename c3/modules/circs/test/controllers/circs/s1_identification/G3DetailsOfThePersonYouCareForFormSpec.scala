@@ -1,9 +1,9 @@
-package controllers.circs.s1_about_you
+package controllers.circs.s1_identification
 
 import org.specs2.mutable.{Tags, Specification}
 
 
-class G1AboutYouFormSpec extends Specification with Tags {
+class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
 
   "Change of circumstances - About You Form" should {
 
@@ -22,7 +22,7 @@ class G1AboutYouFormSpec extends Specification with Tags {
     val dateOfBirthYear = 1990
 
     "map data into case class" in {
-      G1AboutYou.form.bind(
+      G3DetailsOfThePersonYouCareFor.form.bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middelName,
@@ -45,7 +45,7 @@ class G1AboutYouFormSpec extends Specification with Tags {
     }
 
     "reject too many characters in text fields" in {
-      G1AboutYou.form.bind(
+      G3DetailsOfThePersonYouCareFor.form.bind(
         Map("title" -> title,
           "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
@@ -68,7 +68,7 @@ class G1AboutYouFormSpec extends Specification with Tags {
     }
 
     "have 6 mandatory fields" in {
-      G1AboutYou.form.bind(
+      G3DetailsOfThePersonYouCareFor.form.bind(
         Map("middleName" -> "middle name is optional")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(6)
@@ -83,7 +83,7 @@ class G1AboutYouFormSpec extends Specification with Tags {
     }
 
     "reject invalid national insurance number" in {
-      G1AboutYou.form.bind(
+      G3DetailsOfThePersonYouCareFor.form.bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middelName,
@@ -105,7 +105,7 @@ class G1AboutYouFormSpec extends Specification with Tags {
     }
 
     "reject invalid date" in {
-      G1AboutYou.form.bind(
+      G3DetailsOfThePersonYouCareFor.form.bind(
         Map("title" -> title,
           "firstName" -> firstName,
           "middleName" -> middelName,
@@ -125,5 +125,5 @@ class G1AboutYouFormSpec extends Specification with Tags {
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
-  } section ("unit", models.domain.Circumstances.id)
+  } section ("unit", models.domain.DetailsOfThePersonYouCareFor.id)
 }

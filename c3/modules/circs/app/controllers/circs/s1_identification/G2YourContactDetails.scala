@@ -1,4 +1,4 @@
-package controllers.circs.s1_about_you
+package controllers.circs.s1_identification
 
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedClaim}
@@ -19,12 +19,12 @@ object G2YourContactDetails extends Controller with CachedClaim with Navigable {
   )(CircumstancesYourContactDetails.apply)(CircumstancesYourContactDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    track(CircumstancesYourContactDetails) { implicit claim => Ok(views.html.circs.s1_about_you.g2_yourContactDetails(form.fill(CircumstancesYourContactDetails))) }
+    track(CircumstancesYourContactDetails) { implicit claim => Ok(views.html.circs.s1_identification.g2_yourContactDetails(form.fill(CircumstancesYourContactDetails))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.s1_about_you.g2_yourContactDetails(formWithErrors)),
+      formWithErrors => BadRequest(views.html.circs.s1_identification.g2_yourContactDetails(formWithErrors)),
       circumstancesYourContactDetails => claim.update(circumstancesYourContactDetails) -> Redirect(routes.G3DetailsOfThePersonYouCareFor.present()))
   }
 

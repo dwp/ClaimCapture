@@ -2,16 +2,19 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /about-you                                        controllers.circs.s1_about_you.G1AboutYou.present
-POST    /about-you                                        controllers.circs.s1_about_you.G1AboutYou.submit
+GET     /identification/about-you                                        controllers.circs.s1_identification.G1AboutYou.present
+POST    /identification/about-you                                        controllers.circs.s1_identification.G1AboutYou.submit
 
-GET     /your-contact-details                             controllers.circs.s1_about_you.G2YourContactDetails.present
-POST    /your-contact-details                             controllers.circs.s1_about_you.G2YourContactDetails.submit
+GET     /identification/your-contact-details                             controllers.circs.s1_identification.G2YourContactDetails.present
+POST    /identification/your-contact-details                             controllers.circs.s1_identification.G2YourContactDetails.submit
 
-GET     /details-of-the-person-you-care-for               controllers.circs.s1_about_you.G3DetailsOfThePersonYouCareFor.present
-POST    /details-of-the-person-you-care-for               controllers.circs.s1_about_you.G3DetailsOfThePersonYouCareFor.submit
+GET     /identification/details-of-the-person-you-care-for               controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.present
+POST    /identification/details-of-the-person-you-care-for               controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.submit
 
-GET     /additional-info                                  controllers.circs.s2_additional_info.G1OtherChangeInfo.present
-POST    /additional-info                                  controllers.circs.s2_additional_info.G1OtherChangeInfo.submit
+GET     /identification/completed                                        controllers.circs.s1_identification.Identification.completed
+POST    /identification/completed                                        controllers.circs.s1_identification.Identification.submit
 
-GET     /consent-and-declaration                          controllers.circs.s3_consent_and_declaration.G1Declaration.present
+GET     /additional-info/other-change                                    controllers.circs.s2_additional_info.G1OtherChangeInfo.present
+POST    /additional-info/other-change                                    controllers.circs.s2_additional_info.G1OtherChangeInfo.submit
+
+GET     /consent-and-declaration                                         controllers.circs.s3_consent_and_declaration.G1Declaration.present

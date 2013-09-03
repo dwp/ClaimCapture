@@ -36,6 +36,6 @@ class G1OtherChangeInfoIntegrationSpec extends Specification with Tags {
       nextPage must beAnInstanceOf[G1DeclarationPage]
     }
 
-  } section("integration", models.domain.Circumstances.id)
+  } section("integration", models.domain.CircumstancesIdentification.id)
 
 }

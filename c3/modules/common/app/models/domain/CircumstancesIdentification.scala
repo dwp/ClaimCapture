@@ -3,7 +3,7 @@ package models.domain
 import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
 
-case object Circumstances extends Section.Identifier {
+case object CircumstancesIdentification extends Section.Identifier {
   val id = "c1"
 }
 
@@ -16,7 +16,7 @@ case class CircumstancesAboutYou(title: String = "",
                      ) extends QuestionGroup(CircumstancesAboutYou)
 
 object CircumstancesAboutYou extends QuestionGroup.Identifier {
-  val id = s"${Circumstances.id}.g1"
+  val id = s"${CircumstancesIdentification.id}.g1"
 }
 
 case class CircumstancesYourContactDetails(address: MultiLineAddress = MultiLineAddress(None, None, None),
@@ -26,14 +26,10 @@ case class CircumstancesYourContactDetails(address: MultiLineAddress = MultiLine
                                   ) extends QuestionGroup(CircumstancesYourContactDetails)
 
 object CircumstancesYourContactDetails extends QuestionGroup.Identifier {
-  val id = s"${Circumstances.id}.g2"
+  val id = s"${CircumstancesIdentification.id}.g2"
 }
 
-case class CircumstancesOtherInfo(change: String = "") extends QuestionGroup(CircumstancesOtherInfo)
 
-object CircumstancesOtherInfo extends QuestionGroup.Identifier {
-  val id = s"${Circumstances.id}.g2"
-}
 
 
 case class DetailsOfThePersonYouCareFor(title: String = "",
@@ -45,5 +41,5 @@ case class DetailsOfThePersonYouCareFor(title: String = "",
                                   ) extends QuestionGroup(DetailsOfThePersonYouCareFor)
 
 object DetailsOfThePersonYouCareFor extends QuestionGroup.Identifier {
-  val id = s"${Circumstances.id}.g3"
+  val id = s"${CircumstancesIdentification.id}.g3"
 }

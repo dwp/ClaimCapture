@@ -1,0 +1,13 @@
+@()(implicit claim: models.domain.Claim)
+
+@import helper._
+@import models.domain.{CircumstancesIdentification, CircumstancesAdditionalInfo}
+
+@main("Completion - " + Messages("c1.longName"), None, claim.completedQuestionGroups(CircumstancesIdentification)) {
+    @form(action = controllers.circs.s1_identification.routes.Identification.submit) {
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Continue to @CircumstancesAdditionalInfo.name</button>
+        </nav>
+    }
+}

@@ -45,6 +45,6 @@ class G1OtherChangeInfoSpec extends Specification with Tags{
       status(result) mustEqual SEE_OTHER
     }
 
-  } section("unit", models.domain.Circumstances.id)
+  } section("unit", models.domain.CircumstancesAdditionalInfo.id)
 
 }

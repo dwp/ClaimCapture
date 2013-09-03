@@ -17,6 +17,6 @@ class G1OtherChangeInfoFormSpec extends Specification with Tags {
         }
       )
     }
-  }
+  } section("unit", models.domain.CircumstancesAdditionalInfo.id)
 
 }

@@ -1,4 +1,4 @@
-package controllers.circs.s1_about_you
+package controllers.circs.s1_identification
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
@@ -45,7 +45,7 @@ class G1AboutYouSpec extends Specification with Tags{
     "present 'Circumstances About You' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
-      val result = controllers.circs.s1_about_you.G1AboutYou.present(request)
+      val result = controllers.circs.s1_identification.G1AboutYou.present(request)
       status(result) mustEqual OK
     }
 
@@ -53,9 +53,9 @@ class G1AboutYouSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
-      val result = controllers.circs.s1_about_you.G1AboutYou.submit(request)
+      val result = controllers.circs.s1_identification.G1AboutYou.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(models.domain.Circumstances)
+      val section: Section = claim.section(models.domain.CircumstancesIdentification)
       section.questionGroup(CircumstancesAboutYou) must beLike {
         case Some(f: CircumstancesAboutYou) => {
           f.title must equalTo(title)
@@ -72,7 +72,7 @@ class G1AboutYouSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("firstName" -> "")
 
-      val result = controllers.circs.s1_about_you.G1AboutYou.submit(request)
+      val result = controllers.circs.s1_identification.G1AboutYou.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -80,8 +80,8 @@ class G1AboutYouSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
-      val result = controllers.circs.s1_about_you.G1AboutYou.submit(request)
+      val result = controllers.circs.s1_identification.G1AboutYou.submit(request)
       status(result) mustEqual SEE_OTHER
     }
-  } section("unit", models.domain.Circumstances.id)
+  } section("unit", models.domain.CircumstancesIdentification.id)
 }

@@ -1,4 +1,4 @@
-package controllers.circs.s1_about_you
+package controllers.circs.s1_identification
 
 import language.reflectiveCalls
 import play.api.data.Form
@@ -28,12 +28,12 @@ object G1AboutYou extends Controller with CachedClaim with Navigable {
   )(CircumstancesAboutYou.apply)(CircumstancesAboutYou.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    track(CircumstancesAboutYou) { implicit claim => Ok(views.html.circs.s1_about_you.g1_aboutYou(form.fill(CircumstancesAboutYou))) }
+    track(CircumstancesAboutYou) { implicit claim => Ok(views.html.circs.s1_identification.g1_aboutYou(form.fill(CircumstancesAboutYou))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.s1_about_you.g1_aboutYou(formWithErrors)),
+      formWithErrors => BadRequest(views.html.circs.s1_identification.g1_aboutYou(formWithErrors)),
       circumstancesAboutYou => claim.update(circumstancesAboutYou) -> Redirect(routes.G2YourContactDetails.present()))
   }
 }

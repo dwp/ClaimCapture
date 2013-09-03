@@ -1,4 +1,4 @@
-package controllers.circs.s1_about_you
+package controllers.circs.s1_identification
 
 import language.reflectiveCalls
 import play.api.data.Form
@@ -30,13 +30,13 @@ object G3DetailsOfThePersonYouCareFor extends Controller with CachedClaim with N
   )(DetailsOfThePersonYouCareFor.apply)(DetailsOfThePersonYouCareFor.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    track(DetailsOfThePersonYouCareFor) { implicit claim => Ok(views.html.circs.s1_about_you.g3_detailsOfThePersonYouCareFor(form.fill(DetailsOfThePersonYouCareFor))) }
+    track(DetailsOfThePersonYouCareFor) { implicit claim => Ok(views.html.circs.s1_identification.g3_detailsOfThePersonYouCareFor(form.fill(DetailsOfThePersonYouCareFor))) }
   }
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.s1_about_you.g3_detailsOfThePersonYouCareFor(formWithErrors)),
-      f => claim.update(f) -> Redirect(controllers.circs.s2_additional_info.routes.G1OtherChangeInfo.present()))
+      formWithErrors => BadRequest(views.html.circs.s1_identification.g3_detailsOfThePersonYouCareFor(formWithErrors)),
+      f => claim.update(f) -> Redirect(routes.Identification.completed()))
   }
 
 }

@@ -1,4 +1,4 @@
-package controllers.circs.s1_about_you
+package controllers.circs.s1_identification
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
@@ -32,7 +32,7 @@ class G2YourContactDetailsSpec extends Specification with Tags{
     "present 'Circumstances Your contact details' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
-      val result = controllers.circs.s1_about_you.G2YourContactDetails.present(request)
+      val result = controllers.circs.s1_identification.G2YourContactDetails.present(request)
       status(result) mustEqual OK
     }
 
@@ -41,9 +41,9 @@ class G2YourContactDetailsSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(yourContactDetailsInput: _*)
 
-      val result = controllers.circs.s1_about_you.G2YourContactDetails.submit(request)
+      val result = controllers.circs.s1_identification.G2YourContactDetails.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
-      val section: Section = claim.section(models.domain.Circumstances)
+      val section: Section = claim.section(models.domain.CircumstancesIdentification)
       section.questionGroup(CircumstancesYourContactDetails) must beLike {
         case Some(f: CircumstancesYourContactDetails) => {
           f.address.lineOne must equalTo(Some(addressLineOne))
@@ -61,7 +61,7 @@ class G2YourContactDetailsSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "")
 
-      val result = controllers.circs.s1_about_you.G2YourContactDetails.submit(request)
+      val result = controllers.circs.s1_identification.G2YourContactDetails.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
@@ -69,7 +69,7 @@ class G2YourContactDetailsSpec extends Specification with Tags{
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(yourContactDetailsInput: _*)
 
-      val result = controllers.circs.s1_about_you.G2YourContactDetails.submit(request)
+      val result = controllers.circs.s1_identification.G2YourContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
