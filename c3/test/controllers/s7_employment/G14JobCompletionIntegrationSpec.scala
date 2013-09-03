@@ -38,6 +38,10 @@ class G14JobCompletionIntegrationSpec extends Specification with Tags {
       goTo(s"/employment/person-you-care-for-expenses/$jobID")
       titleMustEqual("Expenses related to the person you care for, while you are at work - Employment History")
       fill("#whoDoYouPay") `with` "someone"
+
+      fill("#howMuchCostCare") `with` "123.45"
+      click("#howOftenPayCare option[value='02']")
+
       click("#relationToPersonYouCare option[value='brother']")
       click("#relationToYou option[value='sister']")
 

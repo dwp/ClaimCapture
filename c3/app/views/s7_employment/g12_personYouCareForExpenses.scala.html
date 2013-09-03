@@ -11,6 +11,7 @@
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
 @import views.html.s7_employment.main
+@import app.PensionPaymentFrequency._
 
 @main(Messages("s7.g12") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PersonYouCareForExpenses, JobID(currentForm))) {
     @form(action = controllers.s7_employment.routes.G12PersonYouCareForExpenses.submit()) {
@@ -23,6 +24,8 @@
                 @carersInputText(currentForm("whoDoYouPay"), '_label -> Messages ("whoDoYouPay", pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , JobID(currentForm))))
 
                 @carersShortInputText(currentForm("howMuchCostCare"), '_label -> Messages ("howMuchCostCare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'placeholder -> Messages("poundSign"))
+
+                @carersSelect(currentForm("howOftenPayCare"), Seq("" -> "Please Select",Weekly -> "Weekly", Fortnightly -> "fortnightly",FourWeekly -> "four-weekly", Monthly -> "monthly"), '_label -> Messages ("howOftenPayChildCare", didYouDoYouIfSelfEmployed.toLowerCase))
 
                 @relationshipSelect(currentForm("relationToYou"))
 

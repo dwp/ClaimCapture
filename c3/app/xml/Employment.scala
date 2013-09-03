@@ -163,7 +163,7 @@ object Employment {
         <ConfirmAddress>yes</ConfirmAddress>
         <WeeklyPayment>
           <Currency>GBP</Currency>
-          {<Amount/> +++ personYouCareExpenses.howMuchCostCare}
+          {<Amount/> +++ Some(personYouCareExpenses.howMuchCostCare)}
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{personYouCareExpenses.relationToYou}</RelationshipCarerToClaimant>
         <RelationshipCarerToCaree>{personYouCareExpenses.relationToPersonYouCare}</RelationshipCarerToCaree>
