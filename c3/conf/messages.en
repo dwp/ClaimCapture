@@ -163,8 +163,8 @@ beenInEducationSinceClaimDate = Have you been on a course of education since you
 receiveStatePension = Do you get State Pension?
 
 # EMPLOYMENT
-beenEmployedSince6MonthsBeforeClaim.label = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
-beenEmployedSince6MonthsBeforeClaim = Have you been employed at any time since six months before your claim date?
+beenEmployedSince6MonthsBeforeClaim.label = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
+beenEmployedSince6MonthsBeforeClaim = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
 beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
 beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
 
