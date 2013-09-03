@@ -716,6 +716,12 @@ main {
 					   }
 			   }
 			   
+			   &.validation {
+				   &:before {
+					   left: 16px;
+				   }
+			   }
+			   
 			   .helper {
 				   font-size: 1.6rem;
 				   margin-top: .4em;

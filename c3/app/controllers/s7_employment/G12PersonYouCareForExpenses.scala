@@ -15,8 +15,8 @@ import play.api.data.FormError
 object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "howMuchCostCare" -> optional(text verifying(validDecimalNumber)),
     "whoDoYouPay" -> nonEmptyText,
+    "howMuchCostCare" -> optional(text verifying(validDecimalNumber)),
     "relationToYou" -> nonEmptyText,
     "relationToPersonYouCare" -> nonEmptyText
   )(PersonYouCareForExpenses.apply)(PersonYouCareForExpenses.unapply))

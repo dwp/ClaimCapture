@@ -63,6 +63,10 @@ disable = ->
     $(".form-steps").children().attr("disabled", "true").addClass("disabled")
 
 window.initEvents = (answer_yes, answer_no) ->
+  if ($("#" + answer_yes).is ":checked") && $("tbody").children().length is 5
+    $("#warningMessageWrap").slideDown()
+    $("#warningMessageWrap").css('display', "block")
+
   $("#" + answer_yes).on "click", ->
     if $("tbody").children().length is 5
       $("#warningMessageWrap").slideDown()
