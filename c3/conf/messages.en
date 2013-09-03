@@ -35,7 +35,7 @@ s2.g6 = Employment
 
 s3.g1 = Partner/Spouse details
 s3.g2 = Contact details
-s3.g3 = More about your Partner/Spouse
+s3.g3 = More about your partner/spouse
 s3.g4 = Person you care for
 
 s4.g1 = Details of the person you care for
@@ -155,9 +155,9 @@ livingInUK.goBack.answer = Do you plan to go back to that country?
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
 
 # MORE ABOUT YOU
-hadPartnerSinceClaimDate.label = Have you had a Partner/Spouse living with you since your claim date: {0}?
-hadPartnerSinceClaimDate = Have you had a Partner/Spouse living with you since your claim date: {0}?
-hadPartnerSinceClaimDate.helper = If you have separated from your Partner/Spouse since the date you want to claim Carer's Allowance from please select ''Yes''
+hadPartnerSinceClaimDate.label = Have you had a partner/spouse living with you since your claim date: {0}?
+hadPartnerSinceClaimDate = Have you had a partner/spouse living with you since your claim date: {0}?
+hadPartnerSinceClaimDate.helper = If you have separated from your partner/spouse since the date you want to claim Carer's Allowance from please select ''Yes''
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
 receiveStatePension = Do you get State Pension?
@@ -172,23 +172,23 @@ beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time 
 ## YOUR PARTNER
 
 # MORE ABOUT YOUR PARTNER
-startedLivingTogether_afterClaimDate.label = Did you and your Partner/Spouse start living together, after your claim date: {0}?
+startedLivingTogether_afterClaimDate.label = Did you and your partner/spouse start living together, after your claim date: {0}?
 startedLivingTogether_date = What date did you start living together?
 startedLivingTogether.date = What date did you start living together?
-separated_fromPartner.label = Have you separated from your Partner/Spouse since the date you want to claim from: {0}?
-separated.fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
+separated_fromPartner.label = Have you separated from your partner/spouse since the date you want to claim from: {0}?
+separated.fromPartner = Have you separated from your partner/spouse since the date you want to claim from?
 separated.date = When did you separate?
 separated_date = When did you separate?
 
 # Person you care for
-isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming Carer''s Allowance for?
+isPartnerPersonYouCareFor = Is your partner/spouse the person you are claiming Carer''s Allowance for?
 
 
 ## CARE YOU PROVIDE
 
 # THEIR PERSONAL DETAILS
 liveAtSameAddressCareYouProvide = Do they live at the same address as you?
-liveAtSameAddress = Does your Partner/Spouse live at the same address as you?
+liveAtSameAddress = Does your partner/spouse live at the same address as you?
 
 # MORE ABOUT THE PERSON
 relationship = What''s their relationship to you?
@@ -332,7 +332,7 @@ howMuchCostChildcare =  How much {0} pay them?
 employment_howOftenPayChildCare = How often {0} pay childcare expenses?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
 relationToYou = What relation, if any, is the person to you?
-relationToPartner = What relation, if any, is the person to your Partner/Spouse?
+relationToPartner = What relation, if any, is the person to your partner/spouse?
 relationToPersonYouCare = What relation, if any, is this person to the person you care for?
 
 # Person you care for EXPENSES
