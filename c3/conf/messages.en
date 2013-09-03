@@ -163,8 +163,8 @@ beenInEducationSinceClaimDate = Have you been on a course of education since you
 receiveStatePension = Do you get State Pension?
 
 # EMPLOYMENT
-beenEmployedSince6MonthsBeforeClaim.label = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
-beenEmployedSince6MonthsBeforeClaim = Have you been employed at any time since six months before your claim date?
+beenEmployedSince6MonthsBeforeClaim.label = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
+beenEmployedSince6MonthsBeforeClaim = Have you had another job at any time since {0} (this is six months before your claim date: {1})?
 beenSelfEmployedSince1WeekBeforeClaim.label = Have you been self-employed at any time since {0} (this is one week before your claim date: {1})?
 beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time since one week before your claim date?
 
@@ -329,6 +329,7 @@ whatAreThose = What {0} these things?
 
 # CHILDCARE EXPENSES
 howMuchCostChildcare =  How much {0} pay them?
+employment_howOftenPayChildCare = How often {0} pay childcare expenses?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
 relationToYou = What relation, if any, is the person to you?
 relationToPartner = What relation, if any, is the person to your Partner/Spouse?
@@ -336,6 +337,7 @@ relationToPersonYouCare = What relation, if any, is this person to the person yo
 
 # Person you care for EXPENSES
 howMuchCostCare = How much {0} pay them?
+howOftenPayCare = How often {0} pay them?
 whoDoYouPay = Name of the person/organisation you {0} pay
 
 
