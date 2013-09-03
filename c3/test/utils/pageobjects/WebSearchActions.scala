@@ -32,11 +32,24 @@ trait WebSearchActions {
     if (addressLines.nonEmpty) Some(addressLines.mkString("&").dropRight(1)) else None
   }
 
+  def readCheck(elementCssSelector: String):Option[String] = {
+    this checkElement elementCssSelector
+    if (browser.find(elementCssSelector,0).isSelected) Some("yes")
+    else None
+  }
+
   def readDate(elementCssSelector: String):Option[String] = {
     val day = readSelect(elementCssSelector + "_day")
     val month = readSelect(elementCssSelector + "_month")
     val year = readInput(elementCssSelector + "_year")
     if (day.isDefined && month.isDefined && year.isDefined) Some(leftPadWithZero(2,day.get) + "/" +leftPadWithZero(2,month.get) + "/" + year.get)
+    else None
+  }
+
+  def readDateFromTo(elementCssSelector: String):Option[(String,String)] = {
+    val fromDate = readDate(elementCssSelector + "_from")
+    val toDate = readDate(elementCssSelector + "_to")
+    if (fromDate.isDefined && toDate.isDefined) Some((fromDate.get, toDate.get))
     else None
   }
 
@@ -51,9 +64,9 @@ trait WebSearchActions {
     val n3 = readInput(elementCssSelector + "_ni3")
     val n4 = readInput(elementCssSelector + "_ni4")
     val n5 = readInput(elementCssSelector + "_ni5")
-    if (n1.isDefined) Some(n1.get+n2.get+n3.get+n4.get+n5.get) else None
+    if (n1.isDefined) Some(n1.get+n2.get+n3.get+n4.get+n5.get)
+    else None
   }
-
 
   def readSelect(elementCssSelector: String):Option[String] = {
     this checkElement elementCssSelector
@@ -64,6 +77,14 @@ trait WebSearchActions {
       value = option.getAttribute("value")
     }
     if (value.nonEmpty) Some(value) else None
+  }
+
+  def readSortCode(elementCssSelector: String):Option[String] = {
+    val n1 = readInput(elementCssSelector + "_sort1")
+    val n2 = readInput(elementCssSelector + "_sort2")
+    val n3 = readInput(elementCssSelector + "_sort3")
+    if (n1.isDefined && n2.isDefined && n3.isDefined) Some(n1.get+n2.get+n3.get)
+    else None
   }
 
   def readTime(elementCssSelector: String):Option[String] = {

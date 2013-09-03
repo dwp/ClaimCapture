@@ -16,7 +16,8 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "whoDoYouPay" -> nonEmptyText,
-    "howMuchCostCare" -> optional(text verifying(validDecimalNumber)),
+    "howMuchCostCare" -> (nonEmptyText verifying(validDecimalNumber)),
+    "howOftenPayCare" -> nonEmptyText,
     "relationToYou" -> nonEmptyText,
     "relationToPersonYouCare" -> nonEmptyText
   )(PersonYouCareForExpenses.apply)(PersonYouCareForExpenses.unapply))

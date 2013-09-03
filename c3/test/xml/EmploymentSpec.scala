@@ -103,14 +103,13 @@ class EmploymentSpec extends Specification with Tags {
     }
 
     "generate <CareExpenses> if claimer has care expenses" in {
-      val address = "someAddress"
-      val postcode = "M1"
       val relation = "other"
       val carer = "someGipsy"
       val amount = "300"
+      val howOftenPayCare = "02"
       val job = Job("1", List(
         AboutExpenses(payAnyoneToLookAfterPerson = "yes"),
-        PersonYouCareForExpenses(howMuchCostCare = Some(amount), whoDoYouPay = carer, relationToYou = relation, relationToPersonYouCare = relation)
+        PersonYouCareForExpenses(whoDoYouPay = carer, howMuchCostCare = amount, howOftenPayCare = howOftenPayCare, relationToYou = relation, relationToPersonYouCare = relation)
       ))
 
       val careExpensesXml = Employment.careExpensesXml(job)
