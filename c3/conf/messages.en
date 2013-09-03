@@ -329,6 +329,7 @@ whatAreThose = What {0} these things?
 
 # CHILDCARE EXPENSES
 howMuchCostChildcare =  How much {0} pay them?
+employment_howOftenPayChildCare = How often {0} pay childcare expenses?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
 relationToYou = What relation, if any, is the person to you?
 relationToPartner = What relation, if any, is the person to your Partner/Spouse?
