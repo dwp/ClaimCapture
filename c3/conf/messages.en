@@ -279,6 +279,9 @@ faxNumber = Fax number
 
 ## EMPLOYED
 beenEmployed = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
+aboutYou_beenEmployedSince6MonthsBeforeClaim.label = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
+aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label = Have you been employed at any time since {0} (this is one week before your claim date: {1})?
+
 
 # JOB DETAIL
 employerName = Employer''s name
