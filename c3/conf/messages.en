@@ -336,6 +336,7 @@ relationToPersonYouCare = What relation, if any, is this person to the person yo
 
 # Person you care for EXPENSES
 howMuchCostCare = How much {0} pay them?
+howOftenPayCare = How often {0} pay them?
 whoDoYouPay = Name of the person/organisation you {0} pay
 
 
