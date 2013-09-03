@@ -104,7 +104,7 @@ object Job {
 
 case class JobDetails(jobID: String = "",
                       employerName: String = "",
-                      jobStartDate: Option[DayMonthYear] = None,
+                      jobStartDate: DayMonthYear = DayMonthYear(None, None, None),
                       finishedThisJob: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
                       p45LeavingDate:Option[DayMonthYear] = None,

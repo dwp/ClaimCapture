@@ -14,7 +14,7 @@ object Employment {
     val employerContactDetails = job.questionGroup[EmployerContactDetails].getOrElse(EmployerContactDetails())
 
     <Employer>
-      {<DateJobStarted/> +++ jobDetails.jobStartDate}
+      {<DateJobStarted/> +++ Some(jobDetails.jobStartDate)}
       {<DateJobEnded/> +++ jobDetails.lastWorkDate}
       <JobType>{job.title}</JobType>
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}

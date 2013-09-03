@@ -46,6 +46,9 @@ class G9NecessaryExpensesSpec extends Specification with Tags {
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
+        "jobStartDate.day" -> "1",
+        "jobStartDate.month" -> "1",
+        "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "yes"))
 
       val result = G9NecessaryExpenses.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
