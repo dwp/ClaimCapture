@@ -17,6 +17,7 @@ object CircumstancesPageFactory extends PageFactory {
       case G1AboutYouPage.title => G1AboutYouPage buildPageWith(browser, previousPage)
       case G2YourContactDetailsPage.title => G2YourContactDetailsPage buildPageWith(browser, previousPage)
       case G3DetailsOfThePersonYouCareForPage.title => G3DetailsOfThePersonYouCareForPage buildPageWith(browser, previousPage)
+      case G4CompletedPage.title => G4CompletedPage buildPageWith(browser, previousPage)
       case G1OtherChangeInfoPage.title => G1OtherChangeInfoPage buildPageWith(browser, previousPage)
       case G1DeclarationPage.title => G1DeclarationPage buildPageWith(browser, previousPage)
       case _ => new UnknownPage(browser, title, previousPage)

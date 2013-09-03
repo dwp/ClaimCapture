@@ -7,7 +7,7 @@ object CircumstancesScenarioFactory {
 
   def aboutDetails = {
     val claim = new ClaimScenario
-    claim.CircumstancesAboutYouTitle = "Mr"
+    claim.CircumstancesAboutYouTitle = "mr"
     claim.CircumstancesAboutYouFirstName = "John"
     claim.CircumstancesAboutYouMiddleName = "Roger"
     claim.CircumstancesAboutYouLastName = "Smith"
@@ -27,7 +27,7 @@ object CircumstancesScenarioFactory {
 
   def detailsOfThePersonYouCareFor = {
     val claim = new ClaimScenario
-    claim.CircumstancesDetailsOfThePersonYouCareForTitle = "Mr"
+    claim.CircumstancesDetailsOfThePersonYouCareForTitle = "mr"
     claim.CircumstancesDetailsOfThePersonYouCareForFirstName = "John"
     claim.CircumstancesDetailsOfThePersonYouCareForMiddleName = "Roger"
     claim.CircumstancesDetailsOfThePersonYouCareForLastName = "Smith"

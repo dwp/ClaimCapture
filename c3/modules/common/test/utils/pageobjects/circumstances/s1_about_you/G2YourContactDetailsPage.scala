@@ -18,7 +18,7 @@ final class G2YourContactDetailsPage(browser: TestBrowser, previousPage: Option[
 object G2YourContactDetailsPage {
   val title = "Your contact details - About you - the carer".toLowerCase
 
-  val url  = "/circumstances/your-contact-details"
+  val url  = "/circumstances/identification/your-contact-details"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2YourContactDetailsPage(browser, previousPage)
 }

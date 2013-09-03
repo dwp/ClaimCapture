@@ -17,4 +17,4 @@ POST    /identification/completed                                        control
 GET     /additional-info/other-change                                    controllers.circs.s2_additional_info.G1OtherChangeInfo.present
 POST    /additional-info/other-change                                    controllers.circs.s2_additional_info.G1OtherChangeInfo.submit
 
-GET     /consent-and-declaration                                         controllers.circs.s3_consent_and_declaration.G1Declaration.present
+GET     /consent-and-declaration/declaration                             controllers.circs.s3_consent_and_declaration.G1Declaration.present

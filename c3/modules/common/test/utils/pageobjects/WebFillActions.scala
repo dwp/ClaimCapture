@@ -89,7 +89,7 @@ trait WebFillActions {
       if (!found) throw new PageObjectException("Option " + value + " is invalid for combobox " + elementCssSelector)
     }
     catch {
-      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value + " in html:\n" + browser.pageSource(), exception = e)
     }
   }
 

@@ -20,7 +20,7 @@ final class G3DetailsOfThePersonYouCareForPage(browser: TestBrowser, previousPag
 object G3DetailsOfThePersonYouCareForPage {
   val title = "Details of the person you care for - About you - the carer".toLowerCase
 
-  val url  = "/circumstances/details-of-the-person-you-care-for"
+  val url  = "/circumstances/identification/details-of-the-person-you-care-for"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3DetailsOfThePersonYouCareForPage(browser, previousPage)
 }

@@ -8,7 +8,7 @@ class G1DeclarationPage (browser: TestBrowser, previousPage: Option[Page] = None
 object G1DeclarationPage {
   val title = "Declaration - Changes of Circumstances".toLowerCase
 
-  val url  = "/circumstances/consent-and-declaration"
+  val url  = "/circumstances//consent-and-declaration/declaration"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1DeclarationPage(browser, previousPage)
 }

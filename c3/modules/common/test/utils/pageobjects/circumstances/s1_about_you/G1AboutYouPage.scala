@@ -20,7 +20,7 @@ final class G1AboutYouPage(browser: TestBrowser, previousPage: Option[Page] = No
 object G1AboutYouPage {
   val title = "Circumstances - About you - the carer".toLowerCase
 
-  val url  = "/circumstances/about-you"
+  val url  = "/circumstances/identification/about-you"
 
   def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1AboutYouPage(browser, previousPage)
 }
