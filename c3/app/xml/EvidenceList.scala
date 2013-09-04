@@ -130,25 +130,31 @@ object EvidenceList {
   def employment(claim: Claim) = {
     claim.questionGroup[Jobs] match {
       case Some(jobs) =>
-        var nodeSeq = NodeSeq.Empty
-        nodeSeq = nodeSeq ++ textSeparatorLine("Employment")
+        var textlines = NodeSeq.Empty
+        textlines = textlines ++ textSeparatorLine("Employment")
 
         for (job <- jobs) {
 
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
           val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
-          nodeSeq = nodeSeq ++ textLine("Employer:" + jobDetails.employerName)
+          val childcareExpenses = job.questionGroup[ChildcareExpenses].getOrElse(ChildcareExpenses())
+          val personYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
+
+
+          textlines = textlines ++ textLine("Employer:" + jobDetails.employerName)
           if (jobDetails.p45LeavingDate.isDefined) {
-            nodeSeq = nodeSeq ++ textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
+            textlines = textlines ++ textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
           }
           if (lastWage.sameAmountEachTime.isDefined) {
-            nodeSeq = nodeSeq ++ textLine("About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? =", lastWage.sameAmountEachTime.get)
+            textlines = textlines ++ textLine("About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? =", lastWage.sameAmountEachTime.get)
           }
-
-          nodeSeq = nodeSeq ++ textLine("")
+          textlines = textlines ++
+            textLine("How often [[past=did you]] [[present=do you]] childcare expenses = ", PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare)) ++
+            textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = ", PensionPaymentFrequency.mapToHumanReadableString(personYouCareForExpenses.howOftenPayCare)) ++
+            textLine("")
         }
 
-        nodeSeq
+        textlines
       case None => NodeSeq.Empty
     }
   }
