@@ -17,7 +17,6 @@ trait WebSearchActions {
   this: { val browser: TestBrowser } =>
 
   // Read operations
-
   def readAddress(elementCssSelector: String):Option[String] = {
     val extensions = Array("_lineOne", "_lineTwo", "_lineThree")
     val addressLines = mutable.ArrayBuffer.empty[String]
@@ -95,21 +94,30 @@ trait WebSearchActions {
   }
 
   // Other search operations
-
+  def titleOfSubmitButton = browser.find("#submit").getText
 
   def isSpecifiedSectionCompleted(index: Integer, name: String, value: String, location: String = "div[class=completed] ul li") = {
+    this checkElement location
     val completed = browser.find(location).get(index).getText
     completed.contains(name) && completed.contains(value)
   }
+  def hasSectionsBeenCompleted(location: String = "div[class=completed] ul li") = this hasListOfElements location
+  def numberSectionsCompleted(location: String = "div[class=completed] ul li") = this sizeLitOfElements location
 
-  def haveSectionsBeenCompleted(location: String = "div[class=completed] ul li") = !browser.find(location).isEmpty
+  def hasTableEntriesChangeable(location: String = "input[value='Change']") = this hasListOfElements location
+  def numberTableEntriesChangeable(location: String = "input[value='Change']") = this sizeLitOfElements location
 
-  def numberSectionsCompleted(location: String = "div[class=completed] ul li") = browser.find(location).size()
+  def hasTable = !browser.find("table").isEmpty
 
-  def titleOfSubmitButton = browser.find("#submit").getText
+  protected def hasListOfElements(location:String) = {
+    this checkElement location
+    !browser.find(location).isEmpty
+  }
 
-  def haveTableEntriesChangeable(location: String = "input[value='Change']") = !browser.find(location).isEmpty
-  def numberTableEntriesChangeable(location: String = "input[value='Change']") = browser.find(location).size()
+  protected def sizeLitOfElements(location:String) = {
+    this checkElement location
+    browser.find(location).size()
+  }
 
   protected def checkElement(elementCssSelector:String) {
     if (browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)

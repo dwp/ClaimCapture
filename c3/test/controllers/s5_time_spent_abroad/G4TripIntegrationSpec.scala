@@ -3,9 +3,9 @@ package controllers.s5_time_spent_abroad
 import language.reflectiveCalls
 import org.specs2.mutable.{Specification, Tags}
 import play.api.test.WithBrowser
-import controllers.{ClaimScenarioFactory, WithBrowserHelper, BrowserMatchers}
+import controllers.{WithBrowserHelper, BrowserMatchers}
 import implicits.Iteration._
-import utils.pageobjects.s5_time_spent_abroad.G3AbroadForMoreThan52WeeksPageContext
+import utils.pageobjects.s5_time_spent_abroad.{G3AbroadForMoreThan52WeeksPage, G3AbroadForMoreThan52WeeksPageContext}
 import utils.pageobjects.ClaimScenario
 
 class G4TripIntegrationSpec extends Specification with Tags {
@@ -218,20 +218,13 @@ class G4TripIntegrationSpec extends Specification with Tags {
       claim.TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_2 = "Visit Family 2"
       claim.TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_3 = "No"
 
-      val anotherTrip1 = page goToThePage()
-      anotherTrip1 fillPageWith claim
-      val trip1  =  page submitPage()
-      trip1 fillPageWith claim
-      val anotherTrip2 = trip1 submitPage()
-      anotherTrip2 fillPageWith claim
-      val trip2 = anotherTrip2  submitPage()
-      trip2   fillPageWith claim
-      val anotherTrip3 = trip2 submitPage()
-      val entry = anotherTrip3  goToPageFromIterationsTableAtIndex(1)
+      page goToThePage()
+      val anotherTrip3 = page runClaimWith (claim, G3AbroadForMoreThan52WeeksPage.title,3)
+      val entry = anotherTrip3  goToPageFromIterationsTableAtIndex(1)  // index starts at 0
       entry fillDate("#start","09/05/2013")
       val newAnotherTrip3 = entry submitPage()
-//      println (newAnotherTrip3.source())
-
+      println (newAnotherTrip3.source())
+      newAnotherTrip3.hasTable must beTrue
 //      def trip() = {
 //        click("#start_day option[value='1']")
 //        click("#start_month option[value='1']")
