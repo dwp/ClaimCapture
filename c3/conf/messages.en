@@ -230,10 +230,9 @@ start.time = Start time?
 end = End date?
 end.time = End time?
 whereYou = Where you were?
-whereYou_location = Where you were?
 whereYou.location = Where you were?
+breaks.whereYou.label = Where were you during the break?
 wherePerson = Where the person you care for was?
-wherePerson_location = Where the person you care for was?
 wherePerson.location = Where the person you care for was?
 medicalDuringBreak = Did you or the person you care for get any medical treatment or professional care during this time?
 
