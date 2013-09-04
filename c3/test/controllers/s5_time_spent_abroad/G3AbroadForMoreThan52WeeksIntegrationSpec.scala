@@ -41,18 +41,30 @@ class G3AbroadForMoreThan52WeeksIntegrationSpec extends Specification with Tags 
       titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
     }
 
-    """remember "no more 52 weeks trips" upon stating "52 weeks trips" and returning""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
+    """DE201 should not remember yes/no upon stating "52 weeks trips" and returning""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser goTo "/time-spent-abroad/abroad-for-more-than-52-weeks"
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
-
-      browser.click("#anyTrips_no")
+      browser.click("#anyTrips_yes")
       next
-      titleMustEqual("Completion - Time Spent Abroad")
 
-      back
+      def trip() = {
+        click("#start_day option[value='1']")
+        click("#start_month option[value='1']")
+        fill("#start_year") `with` "2000"
+
+        click("#end_day option[value='1']")
+        click("#end_month option[value='1']")
+        fill("#end_year") `with` "2000"
+
+        fill("#where") `with` "Scotland"
+        fill("#why") `with` "For Holidays"
+      }
+
+      trip()
+      next
       titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+
       browser.findFirst("#anyTrips_yes").isSelected should beFalse
-      browser.findFirst("#anyTrips_no").isSelected should beTrue
+      browser.findFirst("#anyTrips_no").isSelected should beFalse
     }
   } section("integration", models.domain.TimeSpentAbroad.id)
 }
