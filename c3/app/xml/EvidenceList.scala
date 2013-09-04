@@ -56,13 +56,16 @@ object EvidenceList {
     val yourContactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
     val timeOutsideUK = claim.questionGroup[TimeOutsideUK].getOrElse(TimeOutsideUK())
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
-
-    textSeparatorLine("About You") ++
-      textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK) ++
+    var nodeSeq = NodeSeq.Empty ++ textSeparatorLine("About You")
+    nodeSeq ++= textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK)++
       textLine("Mobile number = ", yourContactDetails.mobileNumber) ++
-      textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer) ++
-      textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
+      textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer)
+    if (timeOutsideUK.livingInUK.answer.toLowerCase == "yes")
+      nodeSeq ++= textLine("When did you arrive in the UK? = ", timeOutsideUK.livingInUK.date.get.`dd/MM/yyyy`)
+    nodeSeq ++= textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
       textLine("If you have speech or hearing difficulties, would you like us to contact you by textphone? = ", yourContactDetails.contactYouByTextphone)
+
+    nodeSeq
   }
 
   def yourPartner(claim: Claim) = {
@@ -91,9 +94,9 @@ object EvidenceList {
 
     for {break <- breaksInCare.breaks} yield {
       textLine("Where were you during the break? Other detail =", break.whereYou.other) ++
-      textLine("Where was the person you care for during the break? = ", break.wherePerson.location) ++
+        textLine("Where was the person you care for during the break? = ", break.wherePerson.location) ++
         textLine("Where was the person you care for during the break? Other detail = ", break.wherePerson.other)
-      }
+    }
   }
 
   def timeSpentAbroad(claim: Claim) = {
