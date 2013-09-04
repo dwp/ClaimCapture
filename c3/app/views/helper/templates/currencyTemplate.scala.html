@@ -4,7 +4,7 @@
 
 @import utils.helpers._
 
-@if(elements.hasErrors){ <li class="validation"> } else { <li> }
+@if(elements.hasErrors){ <li class="validation currency"> } else { <li class="currency"> }
 
     @if(elements.hasErrors){
         <p class="error">@elements.errors.mkString(", ")</p>
