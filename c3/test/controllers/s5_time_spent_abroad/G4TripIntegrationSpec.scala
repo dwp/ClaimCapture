@@ -227,7 +227,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       val trip2 = anotherTrip2  submitPage()
       trip2   fillPageWith claim
       val anotherTrip3 = trip2 submitPage()
-      val entry = anotherTrip3  goToPageFromIterationsTableWithIndex(1)
+      val entry = anotherTrip3  goToPageFromIterationsTableAtIndex(1)
       entry fillDate("#start","09/05/2013")
       val newAnotherTrip3 = entry submitPage()
 //      println (newAnotherTrip3.source())

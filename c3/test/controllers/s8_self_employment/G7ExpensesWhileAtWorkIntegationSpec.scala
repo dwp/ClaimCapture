@@ -15,19 +15,19 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
-      pagePensionAndExpenses goToThePage(waitForPage = true, waitDuration = 1000)
+      pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-      pagePensionAndExpenses.submitPage(throwException = true, waitForPage = true, waitDuration = 1000)
+      pagePensionAndExpenses.submitPage(throwException = true)
 
       page goToThePage ()
     }
 
     "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
-      page goToThePage(waitForPage = true, waitDuration = 1000)
-      page runClaimWith (claim, G8AboutYouCompletedPage.title, waitForPage = true, waitDuration = 1000)
+      page goToThePage()
+      page runClaimWith (claim, G8AboutYouCompletedPage.title)
 
-      val nextPage = page goToPage( throwException = false, page = new G7ExpensesWhileAtWorkPage(browser), waitForPage = true, waitDuration = 1000)
+      val nextPage = page goToPage( throwException = false, page = new G7ExpensesWhileAtWorkPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 
@@ -36,14 +36,14 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
-      pagePensionAndExpenses goToThePage(waitForPage = true, waitDuration = 1000)
+      pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-      pagePensionAndExpenses.submitPage(throwException = true, waitForPage = true, waitDuration = 1000)
+      pagePensionAndExpenses.submitPage(throwException = true)
 
-      page goToThePage(waitForPage = true, waitDuration = 1000)
+      page goToThePage()
       page fillPageWith claim
-      val g2 = page submitPage(throwException = true, waitForPage = true, waitDuration = 1000)
-      val g7 = g2 goToPage (new G7ExpensesWhileAtWorkPage(browser), waitForPage = true, waitDuration = 1000)
+      val g2 = page submitPage(throwException = true)
+      val g7 = g2 goToPage (new G7ExpensesWhileAtWorkPage(browser))
       g7.listCompletedForms.size mustEqual 2
     }
 
@@ -52,15 +52,15 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
-      pagePensionAndExpenses goToThePage(waitForPage = true, waitDuration = 1000)
+      pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-      pagePensionAndExpenses.submitPage(throwException = true, waitForPage = true, waitDuration = 1000)
+      pagePensionAndExpenses.submitPage(throwException = true)
 
 
       claim.SelfEmployedCareExpensesNameOfPerson = ""
-      page goToThePage (waitForPage = true, waitDuration = 1000)
+      page goToThePage ()
       page fillPageWith claim
-      val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 1000)
+      val pageWithErrors = page.submitPage()
       pageWithErrors.listErrors.size mustEqual 6
       pageWithErrors.listErrors(0).contains("nameOfPerson")
     }
@@ -80,14 +80,14 @@ class G7ExpensesWhileAtWorkIntegationSpec extends Specification with Tags {
 
       val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
       val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
-      pagePensionAndExpenses goToThePage(waitForPage = true, waitDuration = 1000)
+      pagePensionAndExpenses goToThePage()
       pagePensionAndExpenses fillPageWith claimPensionAndExpenses
-      pagePensionAndExpenses.submitPage(throwException = true, waitForPage = true, waitDuration = 1000)
+      pagePensionAndExpenses.submitPage(throwException = true)
 
-      page goToThePage(waitForPage = true, waitDuration = 1000)
+      page goToThePage()
       page fillPageWith claim
 
-      val nextPage = page submitPage(waitForPage = true, waitDuration = 1000)
+      val nextPage = page submitPage()
 
       nextPage must not(beAnInstanceOf[G7ExpensesWhileAtWorkPageContext])
     }
