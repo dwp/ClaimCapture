@@ -21,8 +21,8 @@ s10.longName = How we pay you
 s11.name = declaration
 s11.longName = Consent and Declaration
 
-s1.g1 = Does the person you look after get one of these benefits?
-s1.g2 = Do you spend 35 hours or more each week caring for the person you look after?
+s1.g1 = Does the person you care for get one of these benefits?
+s1.g2 = Do you spend 35 hours or more each week caring for the person you care for?
 s1.g3 = Are you aged 16 or over?
 s1.g4 = Do you normally live in Great Britain?
 
@@ -97,8 +97,8 @@ please.specify =  Please specify...
 
 ## CARERS ALLOWANCE
 ################
-benefits.answer = Does the person you look after get one of these benefits?
-hours.answer = Do you spend 35 hours or more each week caring for the person you look after?
+benefits.answer = Does the person you care for get one of these benefits?
+hours.answer = Do you spend 35 hours or more each week caring for the person you care for?
 over16.answer = Are you aged 16 or over?
 livesInGB.answer = Do you normally live in Great Britain?
 
@@ -235,7 +235,7 @@ whereYou.location = Where you were?
 wherePerson = Where the person you care for was?
 wherePerson_location = Where the person you care for was?
 wherePerson.location = Where the person you care for was?
-medicalDuringBreak = Did you or the person you look after get any medical treatment or professional care during this time?
+medicalDuringBreak = Did you or the person you care for get any medical treatment or professional care during this time?
 
 
 ## TIME SPENT ABROAD
@@ -250,8 +250,8 @@ inGBNow = Are you in Great Britain now?
 anyTrips = Have you been out of Great Britain
 
 # 4 WEEKS
-4Weeks.label = Have you been out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
-4Weeks.more.label = Have you had any more trips out of Great Britain with the person you look after for more than 4 weeks at a time, since {0} (this is 3 years from today)?
+4Weeks.label = Have you been out of Great Britain with the person you care for for more than 4 weeks at a time, since {0} (this is 3 years from today)?
+4Weeks.more.label = Have you had any more trips out of Great Britain with the person you care for for more than 4 weeks at a time, since {0} (this is 3 years from today)?
 
 # 52 WEEKS
 52Weeks.label = Have you been out of Great Britain for more than 52 weeks, since {0} (this is 3 years before your claim date)?
@@ -320,8 +320,8 @@ howOftenPersonal = How often?
 
 # ABOUT EXPENSES
 payForAnythingNecessary = {0} pay for anything necessary to do your job?
-payAnyoneToLookAfterChildren = While at work, {0} pay anyone to look after your children?
-payAnyoneToLookAfterPerson = While at work, {0} pay anyone to look after the person you care for?
+payAnyoneToLookAfterChildren = While at work, {0} pay anyone to care for your children?
+payAnyoneToLookAfterPerson = While at work, {0} pay anyone to care for the person you care for?
 
 # NECESSARY EXPENSES
 jobTitle = Job title
@@ -458,8 +458,8 @@ doYouPayToPensionScheme_howMuchDidYouPay = How much {0} pay?
 doYouPayToPensionScheme.howMuchDidYouPay = How much {0} pay
 doYouPayToPensionScheme_howOften = How often {0} pay into a Pension?
 doYouPayToPensionScheme.howOften = How often {0} pay into a Pension?
-doYouPayToLookAfterYourChildren = While at work, {0} pay anyone to look after your children?
-didYouPayToLookAfterThePersonYouCaredFor = While at work, {0} pay anyone to look after the person you care for?
+doYouPayToLookAfterYourChildren = While at work, {0} pay anyone to care for your children?
+didYouPayToLookAfterThePersonYouCaredFor = While at work, {0} pay anyone to care for the person you care for?
 
 #SELF EMPLOYED - Childcare expenses
 howOftenPayChildCare = How often {0} pay childcare expenses?

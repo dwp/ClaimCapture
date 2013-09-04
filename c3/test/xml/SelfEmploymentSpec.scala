@@ -57,7 +57,7 @@ class SelfEmploymentSpec extends Specification with Tags {
       pensionSchemeXml.text must beEmpty
     }
 
-    "generate <ChildCareExpenses> if claimer pays anyone to look after children" in {
+    "generate <ChildCareExpenses> if claimer pays anyone to care for children" in {
 
       val pensionScheme = SelfEmploymentPensionsAndExpenses(doYouPayToLookAfterYourChildren = yes)
       val childcareExpenses = ChildcareExpensesWhileAtWork(howMuchYouPay = amount, nameOfPerson = "Andy", whatRelationIsToYou = "grandSon", whatRelationIsTothePersonYouCareFor = "relation")

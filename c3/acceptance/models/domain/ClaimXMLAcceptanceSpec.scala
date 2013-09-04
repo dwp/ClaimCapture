@@ -320,7 +320,7 @@ class ClaimXMLAcceptanceSpec extends Specification {
       </TextLine><TextLine>
         Does the person you care for get one of these benefits? =  yes
       </TextLine><TextLine>
-        Do you spend 35 hours or more each week caring for the person you look after? =  yes
+        Do you spend 35 hours or more each week caring for the person you care for? =  yes
       </TextLine><TextLine>
         Do you normally live in Great Britain? =  yes
       </TextLine><TextLine>

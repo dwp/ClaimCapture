@@ -18,7 +18,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
 
     "be presented without claim date" in new WithBrowser with BrowserMatchers {
       browser.goTo("/about-you/employment")
-      titleMustEqual("Does the person you look after get one of these benefits? - Can you get Carer's Allowance?")
+      titleMustEqual("Does the person you care for get one of these benefits? - Can you get Carer's Allowance?")
     }
 
     "contain 4 completed forms" in new WithBrowser with BrowserMatchers {
