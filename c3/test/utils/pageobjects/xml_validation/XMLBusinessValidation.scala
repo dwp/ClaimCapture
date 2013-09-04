@@ -180,7 +180,7 @@ object ClaimValue {
   private def prepareClaimValue(claimValue: String, attribute:String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
 
-    if (cleanValue.contains("/") && !attribute.startsWith("EmploymentLeavingDateP45")) {
+    if (cleanValue.contains("/") && !attribute.startsWith("EmploymentLeavingDateP45") && !attribute.startsWith("AboutYouWhenDidYouArriveInYheUK")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
       date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
     } else cleanValue

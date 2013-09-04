@@ -16,6 +16,9 @@
 @import app.PensionPaymentFrequency._
 
 @main(Messages("s7.g10") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.ChildcareExpenses, JobID(currentForm))) {
+
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s7_employment.routes.G10ChildcareExpenses.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
