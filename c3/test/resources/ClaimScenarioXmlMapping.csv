@@ -18,7 +18,7 @@ About You,Your contact details,Daytime phone number,AboutYouPhoneNumber,Claimant
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouTextPhone,DWPCAClaim>EvidenceList
 About You,Your contact details,Mobile number,AboutYouMobileNumber,DWPCAClaim>EvidenceList
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,DWPCAClaim>EvidenceList
-About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInYheUK,Residency>OtherNationality>DateArrivedInGreatBritain
+About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInYheUK,DWPCAClaim>EvidenceList
 About You,About your time outside the UK,What country did you come from?,AboutYouWhatCountryDidYouComeFrom,Residency>OtherNationality>CountryArrivedFrom
 About You,About your time outside the UK,Do you plan to go back to that country?,AboutYouDoYouPlantoGoBacktoThatCountry,Residency>OtherNationality>IntendToReturn
 About You,About your time outside the UK,When do you plan to go back?,AboutYouWhenDoYouPlantoGoBack,Residency>OtherNationality>DateReturn
