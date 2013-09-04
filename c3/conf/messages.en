@@ -222,9 +222,8 @@ hasSomeonePaidYou = Has someone paid you to care for this person since your clai
 hasSomeonePaidYou.label = Has someone paid you to care for this person since your claim date: {0}?
 
 # BREAKS IN CARE
-answer = Have you had any breaks in caring for this person since claim date?
 answer.label = Have you had any breaks in caring for this person since {0}?
-answer.more.label = Have you had any more breaks in care for this person since your claim date: {0}?
+answer.more.label = Have you had any more breaks in caring for this person since {0}?
 
 start = Start date?
 start.time = Start time?
