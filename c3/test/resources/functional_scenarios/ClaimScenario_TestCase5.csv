@@ -157,7 +157,7 @@ About the care you provide,About the breaks in care,Have you had any more breaks
 Time Spent Abroad,Your normal residence & current location,"Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? ",TimeSpentAbroadDoYouNormallyLiveintheUk,Yes
 Time Spent Abroad,Your normal residence & current location,Where do you normally live? ,TimeSpentAbroadWhereDoYouNormallyLive,
 Time Spent Abroad,Your normal residence & current location,Are you in Great Britain now?,TimeSpentAbroadAreYouinGBNow,yes
-Time Spent Abroad,When you went abroad for more than 4 weeks,"Have you been out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim Date _ 3 years]] (this is 3 years since your claim date)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_1,Yes
+Time Spent Abroad,When you went Details of time abroad with the person you care for,"Have you been out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim Date _ 3 years]] (this is 3 years since your claim date)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_1,Yes
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB_1,31/05/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB_1,09/06/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Where did you go?,TimeSpentAbroadWhereDidYouGoWithPersonCareFor_1,Spain
@@ -184,31 +184,31 @@ Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks)
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor_5,
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),"Have you had any more trips out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim date _ 3 years]] (this is 3 years before today)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_6,
 Time Spent Abroad,When you went abroad for more than 52 weeks,"Have you been out of Great Britain for more than 52 weeks, since [[Claim Date _ 156weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_1,Yes
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_1,31/05/2012
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_1,01/06/2012
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_1,Bangor
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_1,Long holiday
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_2,Yes
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_2,04/06/2012
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_2,08/06/2012
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_2,Spain
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_2,Long holiday
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_3,Yes
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_3,14/06/2012
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_3,18/06/2012
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_3,USA
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_3,Long holiday
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_4,Yes
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_4,04/06/2012
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_4,08/06/2012
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_4,Spain
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_4,Long holiday
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_5,Yes
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_5,14/06/2012
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_5,18/06/2012
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_5,USA
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_5,Long holiday
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_6,No
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_1,31/05/2012
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_1,01/06/2012
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_1,Bangor
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_1,Long holiday
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_2,Yes
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_2,04/06/2012
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_2,08/06/2012
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_2,Spain
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_2,Long holiday
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_3,Yes
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_3,14/06/2012
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_3,18/06/2012
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_3,USA
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_3,Long holiday
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_4,Yes
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_4,04/06/2012
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_4,08/06/2012
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_4,Spain
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_4,Long holiday
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_5,Yes
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_5,14/06/2012
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks_5,18/06/2012
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks_5,USA
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks_5,Long holiday
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_6,No
 Education,Your course details,Type of course,EducationTypeOfCourse,A-Levels
 Education,Your course details,Course title,EducationCourseTitle,Geograpghy and History
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,09/09/2013

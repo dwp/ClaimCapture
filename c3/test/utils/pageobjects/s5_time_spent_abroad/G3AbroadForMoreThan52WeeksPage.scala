@@ -17,7 +17,7 @@ final class G3AbroadForMoreThan52WeeksPage (browser: TestBrowser, previousPage: 
  * It is used by PageFactory object defined in PageFactory.scala
  */
 object G3AbroadForMoreThan52WeeksPage {
-  val title = "Abroad for more than 52 weeks - Time Spent Abroad".toLowerCase
+  val title = "Details of time abroad for more than 52 weeks - Time Spent Abroad".toLowerCase
 
   val url  = "/time-spent-abroad/abroad-for-more-than-52-weeks"
 

@@ -8,12 +8,12 @@ class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
   "Abroad for more that 4 weeks" should {
     "present" in new WithBrowser with BrowserMatchers {
       browser goTo "/time-spent-abroad/abroad-for-more-than-4-weeks"
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
     }
 
     "provide for trip entry" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser goTo "/time-spent-abroad/abroad-for-more-than-4-weeks"
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
 
       browser click "#anyTrips_yes"
       next
@@ -22,16 +22,16 @@ class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
 
     """present "52 weeks trips" when no more 4 week trips are required""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       browser goTo "/time-spent-abroad/abroad-for-more-than-4-weeks"
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
 
       browser click "#anyTrips_no"
       next
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad for more than 52 weeks - Time Spent Abroad")
     }
 
     """go back to "normal residence and current location".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       Formulate.normalResidenceAndCurrentLocation(browser)
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
 
       back
       titleMustEqual("Your normal residence and current location - Time Spent Abroad")
@@ -58,7 +58,7 @@ class G2AbroadForMoreThan4WeeksIntegrationSpec extends Specification with Tags {
       trip()
       next
 
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
       browser.findFirst("#anyTrips_yes").isSelected should beFalse
       browser.findFirst("#anyTrips_no").isSelected should beFalse
     }
