@@ -29,7 +29,7 @@ class BrowserIntegrationSpec extends Specification with Tags {
       s1g2SecondTime should beLike { case p: G2HoursPage =>
         p numberSectionsCompleted() shouldEqual 1
         val completed = p.findTarget("div[class=completed] ul li")
-        completed(0) must contain("Does the person you look after get one of these benefits?")
+        completed(0) must contain("Does the person you care for get one of these benefits?")
         completed(0) must contain("No")
       }
     }
