@@ -34,7 +34,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
     "fill all fields" in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
-      page runClaimWith(claim, G8AboutYouCompletedPage.title, waitForPage = true, waitDuration = 600)
+      page runClaimWith(claim, G8AboutYouCompletedPage.title)
     }
 
     "failed to fill the form" in new WithBrowser with BrowserMatchers {

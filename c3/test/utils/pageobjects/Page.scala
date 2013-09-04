@@ -6,6 +6,7 @@ import org.specs2.specification.Scope
 import play.api.test.TestBrowser
 import org.openqa.selenium.TimeoutException
 import org.fluentlenium.core.Fluent
+import scala.util.Try
 
 /**
  * Super-class of all the PageObject pattern compliant classes representing an application page.
@@ -111,7 +112,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
             case DATE_TO => assignToClaimAttribute(readDate(cssElem + "_to"))
             case INPUT => assignToClaimAttribute(readInput(cssElem))
             case NINO => assignToClaimAttribute(readNino(cssElem))
-//            case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
+// TODO            case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
             case SELECT => assignToClaimAttribute(readSelect(cssElem))
             case SORTCODE => assignToClaimAttribute(readSortCode(cssElem))
             case TIME => assignToClaimAttribute(readTime(cssElem))
@@ -132,19 +133,22 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    * asks next page to run the claim. By default throws a PageObjectException if a page displays errors.
    * @param theClaim  Data to use to populate all the pages relevant to the scenario tested.
    * @param upToPageWithTitle  Title of the page where the automated completion should stop.
+   * @param upToIteration Iteration number of the page the automated completion should stop. By default set to 1.
    * @param throwException Specify whether should throw an exception if a page displays errors. By default set to true.
-   * @param waitForPage Does the test need add extra time to wait for the next page every time it submits a page? By default set to false.
+   * @param waitForPage Does the test need add extra time to wait for the next page every time it submits a page? By default set to true.
+   * @param trace If set to yes, then print to console the titles, iterations and url of pages traversed.
    * @return Last page
    */
-  final def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, throwException: Boolean = true, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION, trace: Boolean = false): Page = {
+  final def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, upToIteration:Int = 1,throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION, trace: Boolean = false): Page = {
     if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be (re)submitted." + this.toString)
-    if (pageTitle == upToPageWithTitle) this
+    if (pageTitle == upToPageWithTitle && iteration == upToIteration) this
     else {
       if (trace) println(this.pageTitle + " @ " + url + " : Iteration " + iteration)
       this fillPageWith theClaim
-      submitPage(throwException, waitForPage, waitDuration) runClaimWith(theClaim, upToPageWithTitle, throwException, waitForPage, waitDuration, trace)
+      submitPage(throwException, waitForPage, waitDuration) runClaimWith(theClaim, upToPageWithTitle,upToIteration, throwException, waitForPage, waitDuration, trace)
     }
   }
+
 
   /**
    * Click the submit/next button of a page. By default does not throw a PageObjectException if a page displays errors.
@@ -180,6 +184,13 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
     val title = getPageTitle(fluent, waitForPage, waitDuration)
     createPageWithTitle(title, iteration)
   }
+
+  def goToPageFromIterationsTableAtIndex(index:Int, location: String = "input[value='Change']",waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
+    browser.find(location,index).click
+    val title = getPageTitle(null, waitForPage, waitDuration)
+    createPageWithTitle(title, iteration)
+  }
+
 
   /**
    * Returns html code of the page.
@@ -276,11 +287,11 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
       catch {
         case _:Exception => getTitleFromBrowser(index + 1)
       }
-    } else "" //Could not get Page title from browser."
+    } else ""
   }
 
 
-  protected def getPageTitle(fluent: Fluent, waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION): String = {
+  protected def getPageTitle(fluent: Fluent, waitForPage:Boolean, waitDuration:Int): String = {
     def htmlTitle = try {
       if (fluent != null) fluent.title else getTitleFromBrowser()
     } catch {
@@ -305,7 +316,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
     } else page
   }
 
-  protected def errorsInPage(throwException: Boolean = false) = {
+  protected def errorsInPage(throwException: Boolean) = {
     if (!this.listErrors.isEmpty) {
       if (throwException) throw new PageObjectException("Page " + this.getClass + " \"" + pageTitle + "\" Submit failed with errors: ", this.listErrors)
       true
@@ -357,7 +368,7 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
 }
 
 object Page {
-  val WAIT_FOR_DURATION: Int = 30
+  val WAIT_FOR_DURATION: Int = Try(System.getProperty("waitSeconds", "30").toInt).getOrElse(30)
 }
 
 trait PageContext extends Scope {
