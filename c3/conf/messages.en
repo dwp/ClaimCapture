@@ -126,7 +126,7 @@ dateOfBirth.month = Date of birth (Month)
 dateOfBirth.year = Date of birth (Year)
 dateOfBirth.helper = eg: 27 June 2013
 nationality = Nationality
-maritalStatus = Marital Status?
+maritalStatus = Marital status?
 alwaysLivedUK = Have you always lived in the United Kingdom?
 firstName.error = Please fill your first name
 
@@ -399,7 +399,7 @@ tellUsWhyEmployer.informationFromPerson = Do you agree to us getting information
 tellUsWhyEmployer_informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
 tellUsWhyEmployer.whyPerson = Please tell us why
 tellUsWhyEmployer_whyPerson = Please tell us why
-why_placeholder = Enter text...
+why_placeholder = Please specify...
 
 
 # DISCLAIMER
