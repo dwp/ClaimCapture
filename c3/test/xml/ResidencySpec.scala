@@ -89,7 +89,7 @@ class ResidencySpec extends Specification with Tags {
 
       val xml = Residency.otherNationality(claim)
 
-      (xml \\ "DateArrivedInGreatBritain").text shouldEqual dayMonthYearInUK.`yyyy-MM-dd`
+      (xml \\ "DateArrivedInGreatBritain").text shouldEqual "Not asked"
       (xml \\ "CountryArrivedFrom").text shouldEqual netherlands
       (xml \\ "IntendToReturn").text shouldEqual yes
       (xml \\ "DateReturn").text shouldEqual dayMonthYear.`yyyy-MM-dd`
