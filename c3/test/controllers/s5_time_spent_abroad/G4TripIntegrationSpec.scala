@@ -33,7 +33,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       titleMustEqual("Trips - Time Spent Abroad")
       trip()
       next
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "where".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
@@ -73,7 +73,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         titleMustEqual("Trips - Time Spent Abroad")
         trip()
         next
-        titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+        titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
       }
 
       $("#trips table tbody tr") size() shouldEqual 2
@@ -102,7 +102,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         titleMustEqual("Trips - Time Spent Abroad")
         trip()
         next
-        titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+        titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
       }
 
       findFirst("input[value='Change']") click()
@@ -111,7 +111,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
       fill("#start_year") `with` "1999"
       next
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
 
       $("tbody tr") size() shouldEqual 2
       $("tbody") findFirst "tr" findFirst "td" getText() must contain("1999")
@@ -119,13 +119,13 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     "allow cancellation" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       goTo("/time-spent-abroad/abroad-for-more-than-4-weeks")
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
 
       goTo("/time-spent-abroad/trip/4-weeks")
       titleMustEqual("Trips - Time Spent Abroad")
 
       back
-      titleMustEqual("Abroad for more than 4 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
     }
   } section ("integration", models.domain.TimeSpentAbroad.id)
 
@@ -153,7 +153,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       titleMustEqual("Trips - Time Spent Abroad")
       trip()
       next
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad for more than 52 weeks - Time Spent Abroad")
     }
 
     """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "where".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
@@ -193,7 +193,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
         titleMustEqual("Trips - Time Spent Abroad")
         trip()
         next
-        titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+        titleMustEqual("Details of time abroad for more than 52 weeks - Time Spent Abroad")
       }
 
       $("#trips table tbody tr") size() shouldEqual 2
@@ -250,7 +250,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
 //        titleMustEqual("Trips - Time Spent Abroad")
 //        trip()
 //        next
-//        titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+//        titleMustEqual("Details of time abroad for more than 52 weeks - Time Spent Abroad")
 //      }
 //
 //      findFirst("input[value='Change']") click()
@@ -259,7 +259,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
 //
 //      fill("#start_year") `with` "1999"
 //      next
-//      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+//      titleMustEqual("Details of time abroad for more than 52 weeks - Time Spent Abroad")
 //
 //      $("tbody tr") size() shouldEqual 2
 //      $("tbody") findFirst "tr" findFirst "td" getText() must contain("1999")
@@ -267,13 +267,13 @@ class G4TripIntegrationSpec extends Specification with Tags {
 
     "allow cancellation" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       goTo("/time-spent-abroad/abroad-for-more-than-52-weeks")
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad for more than 52 weeks - Time Spent Abroad")
 
       goTo("/time-spent-abroad/trip/52-weeks")
       titleMustEqual("Trips - Time Spent Abroad")
 
       back
-      titleMustEqual("Abroad for more than 52 weeks - Time Spent Abroad")
+      titleMustEqual("Details of time abroad for more than 52 weeks - Time Spent Abroad")
     }
   } section ("integration", models.domain.TimeSpentAbroad.id)
 }
