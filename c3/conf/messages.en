@@ -35,7 +35,7 @@ s2.g6 = Employment
 
 s3.g1 = Partner/Spouse details
 s3.g2 = Contact details
-s3.g3 = More about your Partner/Spouse
+s3.g3 = More about your partner/spouse
 s3.g4 = Person you care for
 
 s4.g1 = Details of the person you care for
@@ -155,9 +155,9 @@ livingInUK.goBack.answer = Do you plan to go back to that country?
 dateOfClaim = When do you want your Carer''s Allowance claim to start?
 
 # MORE ABOUT YOU
-hadPartnerSinceClaimDate.label = Have you had a Partner/Spouse living with you since your claim date: {0}?
-hadPartnerSinceClaimDate = Have you had a Partner/Spouse living with you since your claim date: {0}?
-hadPartnerSinceClaimDate.helper = If you have separated from your Partner/Spouse since the date you want to claim Carer's Allowance from please select ''Yes''
+hadPartnerSinceClaimDate.label = Have you had a partner/spouse living with you since your claim date: {0}?
+hadPartnerSinceClaimDate = Have you had a partner/spouse living with you since your claim date: {0}?
+hadPartnerSinceClaimDate.helper = If you have separated from your partner/spouse since the date you want to claim Carer's Allowance from please select ''Yes''
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
 receiveStatePension = Do you get State Pension?
@@ -172,23 +172,23 @@ beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time 
 ## YOUR PARTNER
 
 # MORE ABOUT YOUR PARTNER
-startedLivingTogether_afterClaimDate.label = Did you and your Partner/Spouse start living together, after your claim date: {0}?
+startedLivingTogether_afterClaimDate.label = Did you and your partner/spouse start living together, after your claim date: {0}?
 startedLivingTogether_date = What date did you start living together?
 startedLivingTogether.date = What date did you start living together?
-separated_fromPartner.label = Have you separated from your Partner/Spouse since the date you want to claim from: {0}?
-separated.fromPartner = Have you separated from your Partner/Spouse since the date you want to claim from?
+separated_fromPartner.label = Have you separated from your partner/spouse since the date you want to claim from: {0}?
+separated.fromPartner = Have you separated from your partner/spouse since the date you want to claim from?
 separated.date = When did you separate?
 separated_date = When did you separate?
 
 # Person you care for
-isPartnerPersonYouCareFor = Is your Partner/Spouse the person you are claiming Carer''s Allowance for?
+isPartnerPersonYouCareFor = Is your partner/spouse the person you are claiming Carer''s Allowance for?
 
 
 ## CARE YOU PROVIDE
 
 # THEIR PERSONAL DETAILS
 liveAtSameAddressCareYouProvide = Do they live at the same address as you?
-liveAtSameAddress = Does your Partner/Spouse live at the same address as you?
+liveAtSameAddress = Does your partner/spouse live at the same address as you?
 
 # MORE ABOUT THE PERSON
 relationship = What''s their relationship to you?
@@ -279,6 +279,9 @@ faxNumber = Fax number
 
 ## EMPLOYED
 beenEmployed = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
+aboutYou_beenEmployedSince6MonthsBeforeClaim.label = Have you been employed at any time since {0} (this is six months before your claim date: {1})?
+aboutYou_beenSelfEmployedSince1WeekBeforeClaim.label = Have you been employed at any time since {0} (this is one week before your claim date: {1})?
+
 
 # JOB DETAIL
 employerName = Employer''s name
@@ -332,7 +335,7 @@ howMuchCostChildcare =  How much {0} pay them?
 employment_howOftenPayChildCare = How often {0} pay childcare expenses?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
 relationToYou = What relation, if any, is the person to you?
-relationToPartner = What relation, if any, is the person to your Partner/Spouse?
+relationToPartner = What relation, if any, is the person to your partner/spouse?
 relationToPersonYouCare = What relation, if any, is this person to the person you care for?
 
 # Person you care for EXPENSES
@@ -414,7 +417,7 @@ declaration.1 = I declare that I understand the <a href="http://www.gov.uk/carer
 declaration.2 = I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
 declaration.3 = I will phone 08456084321 or write to Carer''s allowance Unit, Palantine House, Preston, Lancaster, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
 declaration.4 = If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Carer''s Allowance may be stopped or reduced and any overpayment of Carer''s Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.
-confirm = Please tick this box to confirm that you understand and make the declarations above.
+confirm = If so, please tick this box to confirm that you understand and make the declarations above.
 declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.
 someoneElse = Please tick this box if this claim form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
 

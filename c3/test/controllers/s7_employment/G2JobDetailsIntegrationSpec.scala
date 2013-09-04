@@ -11,19 +11,26 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       goTo("/employment/job-details/dummyJobID").title shouldEqual "Your job - Employment History"
     }
 
-    "show 2 errors upon submitting no mandatory data" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      goTo("/employment/job-details/dummyJobID")
-      next
+    "show 3 errors upon submitting no mandatory data" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
+      browser.goTo(s"/employment/job-details/dummyJobID")
+
+      browser.submit("button[type='submit']")
+
       titleMustEqual("Your job - Employment History")
-      findMustEqualSize("div[class=validation-summary] ol li", 2)
+      findMustEqualSize("div[class=validation-summary] ol li", 3)
     }
 
     "accept only mandatory data" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
-      goTo("/employment/job-details/dummyJobID")
-      fill("#employerName") `with` "Toys r not Us"
-      click("#finishedThisJob_no")
+      browser.goTo(s"/employment/job-details/dummyJobID")
+      browser.fill("#employerName") `with` "Toys r not Us"
+      browser.click("#jobStartDate_day option[value='1']")
+      browser.click("#jobStartDate_month option[value='1']")
+      browser.fill("#jobStartDate_year") `with` "2000"
+      browser.click("#finishedThisJob_yes")
 
-      next.title shouldEqual "Employer's contact details - Employment History"
+      browser.submit("button[type='submit']")
+
+      titleMustEqual("Employer's contact details - Employment History")
     }
 
     "accept all data" in new WithBrowser with EmploymentFiller {

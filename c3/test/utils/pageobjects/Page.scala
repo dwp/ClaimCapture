@@ -181,6 +181,13 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
     createPageWithTitle(title, iteration)
   }
 
+  def goToPageFromIterationsTableWithIndex(index:Int, location: String = "input[value='Change']",waitForPage: Boolean = false, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
+    browser.find(location,index).click
+    val title = getPageTitle(null, waitForPage, waitDuration)
+    createPageWithTitle(title, iteration)
+  }
+
+
   /**
    * Returns html code of the page.
    * @return source code of the page encapsulated in a String
@@ -276,7 +283,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
       catch {
         case _:Exception => getTitleFromBrowser(index + 1)
       }
-    } else "" //Could not get Page title from browser."
+    } else ""
   }
 
 

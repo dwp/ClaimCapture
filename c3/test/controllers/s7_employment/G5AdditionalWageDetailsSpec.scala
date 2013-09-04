@@ -31,6 +31,9 @@ class G5AdditionalWageDetailsSpec extends Specification with Tags {
         withFormUrlEncodedBody(
         "jobID" -> "1",
         "employerName" -> "Toys r not us",
+        "jobStartDate.day" -> "1",
+        "jobStartDate.month" -> "1",
+        "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "yes"))
 
       val result = G5AdditionalWageDetails.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey)

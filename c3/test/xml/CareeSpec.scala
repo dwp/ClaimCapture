@@ -39,9 +39,9 @@ class CareeSpec extends Specification with Tags {
       (xml \\ "Address" \\ "PostCode").text shouldEqual theirContactDetails.postcode.get.toUpperCase
       (xml \\ "DaytimePhoneNumber" \\ "Number").text shouldEqual theirContactDetails.phoneNumber.get
       (xml \\ "RelationToClaimant").text shouldEqual moreAboutThePerson.relationship
-      (xml \\ "Cared35hours").text shouldEqual yes
+      (xml \\ "Cared35hours").text shouldEqual "Not asked"
       (xml \\ "BreaksSinceClaim").text shouldEqual no
-      (xml \\ "Cared35hoursBefore").text shouldEqual moreAboutTheCare.spent35HoursCaringBeforeClaim.answer
+      (xml \\ "Cared35hoursBefore").text shouldEqual "Not asked"
     }
 
     "generate <BreaksSinceClaim> xml with" in {

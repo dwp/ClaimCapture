@@ -16,14 +16,7 @@ import utils.helpers.StringPadding._
 trait WebSearchActions {
   this: { val browser: TestBrowser } =>
 
-  def isSpecifiedSectionCompleted(index: Integer, name: String, value: String, location: String = "div[class=completed] ul li") = {
-    val completed = browser.find(location).get(index).getText
-    completed.contains(name) && completed.contains(value)
-  }
-
-  def haveSectionsBeenCompleted(location: String = "div[class=completed] ul li") = !browser.find(location).isEmpty
-
-  def numberSectionsCompleted(location: String = "div[class=completed] ul li") = browser.find(location).size()
+  // Read operations
 
   def readAddress(elementCssSelector: String):Option[String] = {
     val extensions = Array("_lineOne", "_lineTwo", "_lineThree")
@@ -45,13 +38,6 @@ trait WebSearchActions {
     if (day.isDefined && month.isDefined && year.isDefined) Some(leftPadWithZero(2,day.get) + "/" +leftPadWithZero(2,month.get) + "/" + year.get)
     else None
   }
-
-//  def readDateFromTo(elementCssSelector: String):Option[(String,String)] = {
-//    val fromDate = readDate(elementCssSelector + "_from")
-//    val toDate = readDate(elementCssSelector + "_to")
-//    if (fromDate.isDefined && toDate.isDefined) Some((fromDate.get, toDate.get))
-//    else None
-//  }
 
   def readInput(elementCssSelector: String):Option[String] = {
     this checkElement elementCssSelector
@@ -108,7 +94,22 @@ trait WebSearchActions {
     else None
   }
 
+  // Other search operations
+
+
+  def isSpecifiedSectionCompleted(index: Integer, name: String, value: String, location: String = "div[class=completed] ul li") = {
+    val completed = browser.find(location).get(index).getText
+    completed.contains(name) && completed.contains(value)
+  }
+
+  def haveSectionsBeenCompleted(location: String = "div[class=completed] ul li") = !browser.find(location).isEmpty
+
+  def numberSectionsCompleted(location: String = "div[class=completed] ul li") = browser.find(location).size()
+
   def titleOfSubmitButton = browser.find("#submit").getText
+
+  def haveTableEntriesChangeable(location: String = "input[value='Change']") = !browser.find(location).isEmpty
+  def numberTableEntriesChangeable(location: String = "input[value='Change']") = browser.find(location).size()
 
   protected def checkElement(elementCssSelector:String) {
     if (browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
