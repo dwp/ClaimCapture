@@ -17,8 +17,8 @@ class FunctionalTestCase7Spec extends FunctionalTestCommon {
     "Successfully run absolute Test Case 7 " in new WithBrowser with G1BenefitsPageContext {
 
       val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase7.csv")
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, XmlPage.title, waitForPage = true, waitDuration = 500, trace = false)
+      page goToThePage()
+      val lastPage = page runClaimWith(claim, XmlPage.title)
 
       lastPage match {
         case p: XmlPage => {
