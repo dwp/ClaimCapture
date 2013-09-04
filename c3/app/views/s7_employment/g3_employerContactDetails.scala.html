@@ -13,9 +13,7 @@
 
 @main(Messages("s7.g3") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.EmployerContactDetails, JobID(currentForm))) {
 
-	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
-
-    @form(action = controllers.s7_employment.routes.G3EmployerContactDetails.submit()) {
+	@form(action = controllers.s7_employment.routes.G3EmployerContactDetails.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
         <fieldset class="form-elements">
