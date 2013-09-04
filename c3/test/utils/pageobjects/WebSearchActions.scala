@@ -109,6 +109,18 @@ trait WebSearchActions {
 
   def hasTable = !browser.find("table").isEmpty
 
+  def readTableCell(row:Int, column:Int, elementCssSelector:String = "tbody"):Option[String] = {
+    this checkElement elementCssSelector
+    val rowWebElement = browser.find("tbody",0) find("tr",row)
+    if (rowWebElement != null) {
+      val columnWebElement = rowWebElement find("td",column)
+      if (columnWebElement != null) Some(columnWebElement.getElement.getText)
+      else None
+    }
+    else None
+
+  }
+
   protected def hasListOfElements(location:String) = {
     this checkElement location
     !browser.find(location).isEmpty
