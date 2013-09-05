@@ -290,6 +290,8 @@ main {
    	   }
    	   
    	   
+   	   
+   	   
    	   	   /* section header */		   	
 		   h1 {
 			   font-size: 3.6rem;
@@ -726,7 +728,6 @@ main {
 				   font-size: 1.6rem;
 				   margin-top: .4em;
 				   font-weight: 300;
-				   color: #6f777b;
 				   .ie & {
 					   font-size: 16px;
 				   }
@@ -1346,7 +1347,7 @@ main {
 				th, td {
 					text-align: left;
 					&:first-child {
-						width: 40%;
+						width: 65%;
 					}
 					&.desc {
 						width: 40%;
@@ -1715,6 +1716,7 @@ main {
 .content-panel {
 	margin-top: 2em;
 }
+
 
 
 /* ==========================================================================
