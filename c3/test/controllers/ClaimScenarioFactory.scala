@@ -238,6 +238,7 @@ object ClaimScenarioFactory {
     claim.EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1 = "160.66"
     claim.EmploymentChildcareExpensesHowMuchYouPayfor_1 = "120.12"
     claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Weekly
+    claim.EmploymentChildcareExpensesHowOftenOther_1 = "why is my train 80 minutes late"
     claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "fatherInLaw"

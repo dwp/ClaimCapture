@@ -17,12 +17,14 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
     "jobID" -> nonEmptyText,
     "whoLooksAfterChildren" -> nonEmptyText,
     "howMuchCostChildcare" -> nonEmptyText.verifying(validDecimalNumber),
-    "howOftenPayChildCare" -> nonEmptyText,
+    "howOftenPayChildCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "relationToYou" -> nonEmptyText,
     "relationToPartner" -> optional(nonEmptyText),
     "relationToPersonYouCare" -> nonEmptyText
   )(ChildcareExpenses.apply)(ChildcareExpenses.unapply)
-    .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
+    .verifying("relationToPartner.required", validateRelationToPartner(claim, _))
+  )
+
 
   def validateRelationToPartner(implicit claim: Claim, childcareExpenses: ChildcareExpenses) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
