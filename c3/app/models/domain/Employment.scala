@@ -153,7 +153,7 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
 case class PensionSchemes(jobID: String = "",
                           payOccupationalPensionScheme: String = "",
                           howMuchPension: Option[String] = None,
-                          howOftenPension:Option[String] = None,
+                          howOftenPension: Option[PaymentFrequency] = None,
                           payPersonalPensionScheme: String = "",
                           howMuchPersonal: Option[String] = None,
                           howOftenPersonal: Option[String] = None) extends QuestionGroup(PensionSchemes) with Job.Identifier

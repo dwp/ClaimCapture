@@ -3,7 +3,7 @@ package xml
 import org.specs2.mutable.{Tags, Specification}
 import models.domain.{Employment => Employed, _}
 import controllers.Mappings._
-import models.DayMonthYear
+import models.{PaymentFrequency, DayMonthYear}
 
 class EmploymentSpec extends Specification with Tags {
 
@@ -43,12 +43,12 @@ class EmploymentSpec extends Specification with Tags {
 
     "generate <PensionScheme> if claimer has paid for occupational pension scheme" in {
       val amount = "200"
-      val pensionScheme = Job("1", List(PensionSchemes(payOccupationalPensionScheme = "yes", howMuchPension = Some(amount), howOftenPension = Some("W"))))
+      val pensionScheme = Job("1", List(PensionSchemes(payOccupationalPensionScheme = "yes", howMuchPension = Some(amount), howOftenPension = Some(PaymentFrequency("weekly")))))
 
       val pensionSchemeXml = Employment.pensionSchemeXml(pensionScheme)
       (pensionSchemeXml \\ "PaidForOccupationalPension").text mustEqual "yes"
       (pensionSchemeXml \\ "PensionScheme" \\ "Payment" \\ "Amount").text shouldEqual amount
-      (pensionSchemeXml \\ "PensionScheme" \\ "Frequency").text shouldEqual "W"
+      (pensionSchemeXml \\ "PensionScheme" \\ "Frequency").text shouldEqual "Weekly"
       (pensionSchemeXml \\ "PaidForPersonalPension").text must beEmpty
     }
 

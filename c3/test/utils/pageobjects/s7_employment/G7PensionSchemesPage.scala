@@ -6,7 +6,8 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
 final class G7PensionSchemesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G7PensionSchemesPage.url.replace(":jobID", iteration.toString), G7PensionSchemesPage.title, previousPage, iteration) {
   declareYesNo("#payOccupationalPensionScheme", "EmploymentDoYouPayTowardsanOccupationalPensionScheme_" + iteration)
   declareInput("#howMuchPension", "EmploymentHowMuchYouPayforOccupationalPension_" + iteration)
-  declareSelect("#howOftenPension", "EmploymentHowOftenOccupationalPension_" + iteration)
+  declareSelect("#howOftenPension_frequency","EmploymentHowOftenOccupationalPension_" + iteration)
+  declareInput("#howOftenPension_other","EmploymentHowOftenOtherOccupationalPension_" + iteration)
   declareYesNo("#payPersonalPensionScheme", "EmploymentDoYouPayTowardsAPersonalPension_" + iteration)
   declareInput("#howMuchPersonal", "EmploymentHowMuchYouPayforPersonalPension_" + iteration)
   declareSelect("#howOftenPersonal", "EmploymentHowOftenPersonalPension_" + iteration)
