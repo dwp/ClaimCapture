@@ -13,7 +13,7 @@ object G5StatutorySickPay extends Controller with OtherMoneyRouting with CachedC
   val form = Form(
     mapping(
       "haveYouHadAnyStatutorySickPay" -> nonEmptyText(maxLength = sixty),
-      "howMuch" -> optional(text(maxLength = sixty)),
+      "howMuch" -> optional(nonEmptyText verifying(validDecimalNumber)),
       "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
       "employersName" -> optional(nonEmptyText(maxLength = sixty)),
       "employersAddress" -> optional(address),

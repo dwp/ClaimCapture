@@ -18,7 +18,7 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
     "jobID" -> nonEmptyText,
     "payOccupationalPensionScheme" -> nonEmptyText,
     "howMuchPension" -> optional(nonEmptyText verifying(validDecimalNumber)),
-    "howOftenPension" -> optional(nonEmptyText),
+    "howOftenPension" -> optional(paymentFrequency),
     "payPersonalPensionScheme" -> nonEmptyText,
     "howMuchPersonal" -> optional(nonEmptyText verifying(validDecimalNumber)),
     "howOftenPersonal" -> optional(nonEmptyText)
