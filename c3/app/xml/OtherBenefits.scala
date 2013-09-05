@@ -1,10 +1,9 @@
 package xml
 
-import app.XMLValues
+import app.XMLValues._
 import models.domain._
 import XMLHelper._
-import controllers.Mappings.yes
-import controllers.Mappings.no
+
 
 object OtherBenefits {
 
@@ -14,41 +13,41 @@ object OtherBenefits {
 
     <OtherBenefits>
       <ClaimantBenefits>
-        <JobseekersAllowance>no</JobseekersAllowance>
-        <IncomeSupport>no</IncomeSupport>
-        <PensionCredit>no</PensionCredit>
-        <StatePension>no</StatePension>
-        <IncapacityBenefit>no</IncapacityBenefit>
-        <SevereDisablementAllowance>no</SevereDisablementAllowance>
-        <MaternityAllowance>no</MaternityAllowance>
-        <UnemployabilitySupplement>no</UnemployabilitySupplement>
-        <WindowsBenefit>no</WindowsBenefit>
-        <WarWidowsPension>no</WarWidowsPension>
-        <IndustrialDeathBenefit>no</IndustrialDeathBenefit>
-        <GovernmentTrainingAllowance>no</GovernmentTrainingAllowance>
-        <LoneParentChildBenefit>no</LoneParentChildBenefit>
-        <OtherSocialSecurityBenefit>{XMLValues.NotAsked}</OtherSocialSecurityBenefit>
-        <NonSocialSecurityBenefit>{XMLValues.NotAsked}</NonSocialSecurityBenefit>
-        <NoBenefits>{XMLValues.NotAsked}</NoBenefits>
+        <JobseekersAllowance>{no}</JobseekersAllowance>
+        <IncomeSupport>{no}</IncomeSupport>
+        <PensionCredit>{no}</PensionCredit>
+        <StatePension>{no}</StatePension>
+        <IncapacityBenefit>{no}</IncapacityBenefit>
+        <SevereDisablementAllowance>{no}</SevereDisablementAllowance>
+        <MaternityAllowance>{no}</MaternityAllowance>
+        <UnemployabilitySupplement>{no}</UnemployabilitySupplement>
+        <WindowsBenefit>{no}</WindowsBenefit>
+        <WarWidowsPension>{no}</WarWidowsPension>
+        <IndustrialDeathBenefit>{no}</IndustrialDeathBenefit>
+        <GovernmentTrainingAllowance>{no}</GovernmentTrainingAllowance>
+        <LoneParentChildBenefit>{no}</LoneParentChildBenefit>
+        <OtherSocialSecurityBenefit>{NotAsked}</OtherSocialSecurityBenefit>
+        <NonSocialSecurityBenefit>{NotAsked}</NonSocialSecurityBenefit>
+        <NoBenefits>{NotAsked}</NoBenefits>
       </ClaimantBenefits>
       <PartnerBenefits>
-        <JobseekersAllowance>no</JobseekersAllowance>
-        <IncomeSupport>no</IncomeSupport>
-        <PensionCredit>no</PensionCredit>
-        <StatePension>no</StatePension>
-        <IncapacityBenefit>no</IncapacityBenefit>
-        <SevereDisablementAllowance>no</SevereDisablementAllowance>
-        <MaternityAllowance>no</MaternityAllowance>
-        <UnemployabilitySupplement>no</UnemployabilitySupplement>
-        <WindowsBenefit>no</WindowsBenefit>
-        <WarWidowsPension>no</WarWidowsPension>
-        <IndustrialDeathBenefit>no</IndustrialDeathBenefit>
-        <GovernmentTrainingAllowance>no</GovernmentTrainingAllowance>
-        <OtherSocialSecurityBenefit>{XMLValues.NotAsked}</OtherSocialSecurityBenefit>
-        <NonSocialSecurityBenefit>{XMLValues.NotAsked}</NonSocialSecurityBenefit>
-        <NoBenefits>{XMLValues.NotAsked}</NoBenefits>
+        <JobseekersAllowance>{no}</JobseekersAllowance>
+        <IncomeSupport>{no}</IncomeSupport>
+        <PensionCredit>{no}</PensionCredit>
+        <StatePension>{no}</StatePension>
+        <IncapacityBenefit>{no}</IncapacityBenefit>
+        <SevereDisablementAllowance>{no}</SevereDisablementAllowance>
+        <MaternityAllowance>{no}</MaternityAllowance>
+        <UnemployabilitySupplement>{no}</UnemployabilitySupplement>
+        <WindowsBenefit>{no}</WindowsBenefit>
+        <WarWidowsPension>{no}</WarWidowsPension>
+        <IndustrialDeathBenefit>{no}</IndustrialDeathBenefit>
+        <GovernmentTrainingAllowance>{no}</GovernmentTrainingAllowance>
+        <OtherSocialSecurityBenefit>{NotAsked}</OtherSocialSecurityBenefit>
+        <NonSocialSecurityBenefit>{NotAsked}</NonSocialSecurityBenefit>
+        <NoBenefits>{NotAsked}</NoBenefits>
       </PartnerBenefits>
-      <ExtraMoney>{XMLValues.NotAsked}</ExtraMoney>
+      <ExtraMoney>{NotAsked}</ExtraMoney>
       {otherMoneySPPXml(statutorySickPayOption)}
       {otherMoneySMPXml(otherStatutoryPayOption)}
     </OtherBenefits>
@@ -78,7 +77,7 @@ object OtherBenefits {
       <OtherMoneySMPDetails>
         <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
         <Address>{postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}</Address>
-        <ConfirmAddress>yes</ConfirmAddress>
+        <ConfirmAddress>{yes}</ConfirmAddress>
       </OtherMoneySMPDetails>
     }
     else <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>

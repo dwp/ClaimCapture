@@ -2,10 +2,8 @@ package xml
 
 import models.domain._
 import XMLHelper.{stringify, postalAddressStructure}
-import models.yesNo.YesNoWithDate
-import controllers.Mappings._
 import scala.xml.NodeSeq
-import app.XMLValues
+import app.XMLValues._
 
 object Partner {
 
@@ -25,10 +23,10 @@ object Partner {
         <Title>{yourPartnerPersonalDetails.title}</Title>
         <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
-        <Address>{postalAddressStructure(models.MultiLineAddress(Some(XMLValues.NotAsked)), "")}</Address>
-        <ConfirmAddress>yes</ConfirmAddress>
+        <Address>{postalAddressStructure(models.MultiLineAddress(Some(NotAsked)), "")}</Address>
+        <ConfirmAddress>{yes}</ConfirmAddress>
         <RelationshipStatus>
-          <JoinedHouseholdAfterDateOfClaim>{XMLValues.NotAsked}</JoinedHouseholdAfterDateOfClaim>
+          <JoinedHouseholdAfterDateOfClaim>{NotAsked}</JoinedHouseholdAfterDateOfClaim>
           <JoinedHouseholdDate></JoinedHouseholdDate>
           <SeparatedFromPartner>{yourPartnerPersonalDetails.separatedFromPartner}</SeparatedFromPartner>
           <SeparationDate></SeparationDate>

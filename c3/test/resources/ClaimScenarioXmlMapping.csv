@@ -111,9 +111,11 @@ Employment,Additional details on your last wage,Does your employer owe you any m
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme,Employment>JobDetails>PaidForOccupationalPension
 Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension,Employment>JobDetails>PensionScheme
 Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension,Employment>JobDetails>PensionScheme
+Employment,Pension schemes,How often other (Occupational Pension Scheme)?,EmploymentHowOftenOtherOccupationalPension,DWPCAClaim>EvidenceList
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,EmploymentDoYouPayTowardsAPersonalPension,Employment>JobDetails>PaidForPersonalPension
 Employment,Pension schemes,How much [[past=Did you]] [[present=Do you]] pay?,EmploymentHowMuchYouPayforPersonalPension,Employment>JobDetails>PensionScheme
 Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension,Employment>JobDetails>PensionScheme
+Employment,Pension schemes,How often other (Personal Pension Scheme)?,EmploymentHowOftenOtherPersonalPension,DWPCAClaim>EvidenceList
 Employment,About expenses to do with your employment,[[past=Did you]] [[present=Do you]] pay for anything necessary to do your job?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob,Employment>JobDetails>PaidForJobExpenses
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for your children?",EmploymentDoYouPayAnyoneLookAfterYourChild,Employment>JobDetails>CareExpensesChildren
 Employment,About expenses to do with your employment,Is this the same as the other job you have told us about?,EmploymentIsThistheSameAsTheOtherJobChild,
@@ -122,12 +124,13 @@ Employment,About expenses to do with your employment,Is this the same as the oth
 Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentWhatIsYourJobTitle,Employment>Employer>JobType
 Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses,JobExpenses>Expense
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild,Employment>JobDetails>ChildCareExpenses>CarerName
-Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor,Employment>JobDetails>ChildCareExpenses>WeeklyPayment>Amount
+Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them (childcare expenses)?,EmploymentChildcareExpensesHowMuchYouPayfor,DWPCAClaim>EvidenceList
+Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] childcare expenses,SelfEmployedChildcareExpensesHowOften,DWPCAClaim>EvidenceList
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToClaimant
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToPartner
 Employment,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor,Employment>JobDetails>ChildCareExpenses>ChildDetails>RelationToChild
 Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring,Employment>JobDetails>CareExpenses>CarerName
-Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor,Employment>JobDetails>CareExpenses>WeeklyPayment>Amount
+Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them (person you care for expenses)?,EmploymentCareExpensesHowMuchYouPayfor,DWPCAClaim>EvidenceList
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou,Employment>JobDetails>CareExpenses>RelationshipCarerToClaimant
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",EmploymentCareExpensesWhatRelationIsToPersonYouCareFor,Employment>JobDetails>CareExpenses>RelationshipCarerToCaree
 Employment,About other employment history,Have you had another job at any time since [[Claim Date _ 6months]] (this is six months before your claim date:[[Claim Date]])?,EmploymentHaveYouHadAnotherJobatAnyTimeSinceClaim6Months,

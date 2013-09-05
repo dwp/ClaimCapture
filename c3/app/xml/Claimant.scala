@@ -1,6 +1,6 @@
 package xml
 
-import app.XMLValues
+import app.XMLValues._
 import models.domain.{ContactDetails, YourDetails, Claim}
 import scala.xml.Elem
 import xml.XMLHelper._
@@ -21,14 +21,14 @@ object Claimant {
       <NationalInsuranceNumber>{stringify(yourDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
       <ExistingNationalInsuranceNumber/>
       <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
-      <ConfirmAddress>yes</ConfirmAddress>
+      <ConfirmAddress>{yes}</ConfirmAddress>
       <HomePhoneNumber></HomePhoneNumber>
       <DaytimePhoneNumber>
         <Number>{contactDetails.phoneNumber.orNull}</Number>
         <Qualifier/>
       </DaytimePhoneNumber>
       <EmailAddress/>
-      <ClaimedBefore>{XMLValues.NotAsked}</ClaimedBefore>
+      <ClaimedBefore>{NotAsked}</ClaimedBefore>
     </Claimant>
   }
 }

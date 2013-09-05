@@ -1,5 +1,6 @@
 package xml
 
+import app.PensionPaymentFrequency
 import scala.language.reflectiveCalls
 import scala.xml.{NodeSeq, Elem}
 import models.domain._
@@ -20,7 +21,7 @@ object Employment {
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
       <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
-      <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
+      <ConfirmAddress>{yes}</ConfirmAddress> <!-- Always default to yes -->
       {<EmployersPhoneNumber/> +++ employerContactDetails.phoneNumber}
       <EmployersFaxNumber/>
       <WagesDepartment/>
@@ -34,7 +35,7 @@ object Employment {
       <DateLastWorked/>
       {<DateLastPaid/> +++ lastWage.lastPaidDate}
       <GrossPayment>
-        <Currency>GBP</Currency>
+        <Currency>{GBP}</Currency>
         {<Amount/> +++ lastWage.grossPay}
       </GrossPayment>
       {<IncludedInWage/> +++ lastWage.payInclusions}
@@ -53,7 +54,7 @@ object Employment {
 
     if (showXml) {
       <Payment>
-        <Currency>GBP</Currency>
+        <Currency>{GBP}</Currency>
         <Amount>{s.get}</Amount>
       </Payment>
     } else {
@@ -68,19 +69,17 @@ object Employment {
   }
 
   def occupationalPensionSchemeXml(pensionScheme: PensionSchemes) = {
-    val showXml = pensionScheme.payOccupationalPensionScheme == "yes"
+    val showXml = pensionScheme.payOccupationalPensionScheme == yes
 
     if (showXml) {
       <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
         <PensionScheme>
           <Type>occupational</Type>
           <Payment>
-            <Currency>GBP</Currency>
+            <Currency>{GBP}</Currency>
             {<Amount/> +++ pensionScheme.howMuchPension}
           </Payment>
-          {if(pensionScheme.howOftenPension.isDefined)
-            <Frequency>{pensionScheme.howOftenPension.get.frequency}</Frequency>
-          }
+          <Frequency>{pensionScheme.howOftenPension.get.frequency}</Frequency>
         </PensionScheme>
     } else {
       <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
@@ -88,19 +87,17 @@ object Employment {
   }
 
   def personalPensionSchemeXml(pensionScheme:PensionSchemes): NodeSeq = {
-    val showXml = pensionScheme.payPersonalPensionScheme == "yes"
+    val showXml = pensionScheme.payPersonalPensionScheme == yes
 
     if (showXml) {
       <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
       <PensionScheme>
         <Type>personal_private</Type>
         <Payment>
-          <Currency>GBP</Currency>
+          <Currency>{GBP}</Currency>
           {<Amount/> +++ pensionScheme.howMuchPersonal}
         </Payment>
-      {if(pensionScheme.howOftenPersonal.isDefined)
         <Frequency>{pensionScheme.howOftenPersonal.get.frequency}</Frequency>
-      }
       </PensionScheme>
     } else {
       <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
@@ -130,17 +127,17 @@ object Employment {
   def childcareExpensesXml(job: Job) = {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
     val childcareExpenses: ChildcareExpenses = job.questionGroup[ChildcareExpenses].getOrElse(ChildcareExpenses())
-    val showXml = aboutExpenses.payAnyoneToLookAfterChildren == "yes"
+    val showXml = aboutExpenses.payAnyoneToLookAfterChildren == yes
 
     if (showXml) {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
       <ChildCareExpenses>
         <CarerName>{childcareExpenses.whoLooksAfterChildren}</CarerName>
         <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-        <ConfirmAddress>yes</ConfirmAddress>
+        <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
-          <Currency>GBP</Currency>
-          <Amount>{childcareExpenses.howMuchCostChildcare}</Amount>
+          <Currency>{GBP}</Currency>
+          <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
         <ChildDetails>
@@ -157,17 +154,17 @@ object Employment {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
     val personYouCareExpenses: PersonYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
 
-    val showXml = aboutExpenses.payAnyoneToLookAfterPerson == "yes"
+    val showXml = aboutExpenses.payAnyoneToLookAfterPerson == yes
 
     if (showXml) {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
       <CareExpenses>
         <CarerName>{personYouCareExpenses.whoDoYouPay}</CarerName>
         <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-        <ConfirmAddress>yes</ConfirmAddress>
+        <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
-          <Currency>GBP</Currency>
-          {<Amount/> +++ Some(personYouCareExpenses.howMuchCostCare)}
+          <Currency></Currency>
+          <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{personYouCareExpenses.relationToYou}</RelationshipCarerToClaimant>
         <RelationshipCarerToCaree>{personYouCareExpenses.relationToPersonYouCare}</RelationshipCarerToCaree>
@@ -184,11 +181,11 @@ object Employment {
     if (jobsQG.jobs.length > 0 && employment.fold(false)(_.beenEmployedSince6MonthsBeforeClaim == "yes")) {
       // We will search in all jobs for at least one case finishedThisJob = "no" because that means he is currently employed
       val currentlyEmployed = jobsQG.jobs.count(_.apply(JobDetails) match {
-        case Some(j: JobDetails) => j.finishedThisJob == "no"
+        case Some(j: JobDetails) => j.finishedThisJob == no
         case _ => false
       }) match {
-        case i if i > 0 => "yes"
-        case _ => "no"
+        case i if i > 0 => yes
+        case _ => no
       }
 
       // The date when he last worked will be the greater date of all the "last work date" dates of all the jobs.
