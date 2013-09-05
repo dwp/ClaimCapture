@@ -30,7 +30,7 @@
 									),
 	                carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
 	                inputAddress(currentForm("employersAddress")),
-	                carersInputText(currentForm("employersPostcode"))
+	                carersInputText(currentForm("employersPostcode"), 'class -> "postcode")
 	              ),
                 'id -> "otherPayWrap",
                 'display -> currentForm("otherPay").value.getOrElse("no")
