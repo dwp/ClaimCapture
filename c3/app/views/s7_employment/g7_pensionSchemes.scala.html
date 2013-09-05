@@ -42,7 +42,8 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         carersCurrency(currentForm("howMuchPersonal"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPersonal", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
-                        carersSelect(currentForm("howOftenPersonal"), Seq("" -> "Please Select", Weekly -> "Weekly", Fortnightly -> "fortnightly", FourWeekly -> "four-weekly", Monthly -> "monthly"))),
+                        pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"))
+                    ),
                     'id -> "payPersonalPensionScheme",
                     'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
             </ul>
