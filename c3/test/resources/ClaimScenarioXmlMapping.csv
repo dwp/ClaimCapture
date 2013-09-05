@@ -122,7 +122,8 @@ Employment,About expenses to do with your employment,Is this the same as the oth
 Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentWhatIsYourJobTitle,Employment>Employer>JobType
 Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses,JobExpenses>Expense
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild,Employment>JobDetails>ChildCareExpenses>CarerName
-Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor,Employment>JobDetails>ChildCareExpenses>WeeklyPayment>Amount
+Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them (childcare expenses)?,EmploymentChildcareExpensesHowMuchYouPayfor,DWPCAClaim>EvidenceList
+Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] childcare expenses,SelfEmployedChildcareExpensesHowOften,DWPCAClaim>EvidenceList
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToClaimant
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner,Employment>JobDetails>ChildCareExpenses>RelationshipCarerToPartner
 Employment,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor,Employment>JobDetails>ChildCareExpenses>ChildDetails>RelationToChild

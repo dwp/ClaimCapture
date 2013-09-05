@@ -116,9 +116,9 @@ object XMLHelper {
 
   def formatValue(value:String):String = if (value != null)
      value match {
-       case yes => Yes
-       case no => No
-       case _ => _
+       case "yes" => Yes
+       case "no" => No
+       case _ => value
      }
     else ""
 }

@@ -1,9 +1,8 @@
 package xml
 
 import models.domain._
-import controllers.Mappings.yes
 import scala.xml.NodeSeq
-import app.XMLValues.NotAsked
+import app.XMLValues._
 import xml.XMLHelper._
 
 object SelfEmployment {
@@ -74,7 +73,7 @@ object SelfEmployment {
       <ChildCareExpenses>
         <CarerName>{childCareExpenses.nameOfPerson}</CarerName>
         <CarerAddress>{postalAddressStructure(None, None)}</CarerAddress>
-        <ConfirmAddress>yes</ConfirmAddress>
+        <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>{moneyStructure(childCareExpenses.howMuchYouPay)}</WeeklyPayment>
         <RelationshipCarerToClaimant>{childCareExpenses.whatRelationIsToYou}</RelationshipCarerToClaimant>
         <ChildDetails>
@@ -98,9 +97,9 @@ object SelfEmployment {
       <CareExpenses>
         <CarerName>{expensesWhileAtWork.nameOfPerson}</CarerName>
         <CarerAddress>{postalAddressStructure(None, None)}</CarerAddress>
-        <ConfirmAddress>yes</ConfirmAddress>
+        <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
-          <Currency>GBP</Currency>
+          <Currency>{GBP}</Currency>
           <Amount>{expensesWhileAtWork.howMuchYouPay}</Amount>
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{expensesWhileAtWork.whatRelationIsToYou}</RelationshipCarerToClaimant>

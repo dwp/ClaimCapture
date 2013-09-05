@@ -56,16 +56,16 @@ object EvidenceList {
     val yourContactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
     val timeOutsideUK = claim.questionGroup[TimeOutsideUK].getOrElse(TimeOutsideUK())
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
-    var nodeSeq = NodeSeq.Empty ++ textSeparatorLine("About You")
-    nodeSeq ++= textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK)++
+    var textlines = NodeSeq.Empty ++ textSeparatorLine("About You")
+    textlines ++= textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK)++
       textLine("Mobile number = ", yourContactDetails.mobileNumber) ++
       textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer)
     if (timeOutsideUK.livingInUK.answer.toLowerCase == yes)
-      nodeSeq ++= textLine("When did you arrive in the UK? = ", timeOutsideUK.livingInUK.date.get.`dd/MM/yyyy`)
-    nodeSeq ++= textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
+      textlines ++= textLine("When did you arrive in the UK? = ", timeOutsideUK.livingInUK.date.get.`dd/MM/yyyy`)
+    textlines ++= textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
       textLine("If you have speech or hearing difficulties, would you like us to contact you by textphone? = ", yourContactDetails.contactYouByTextphone)
 
-    nodeSeq
+    textlines
   }
 
   def yourPartner(claim: Claim) = {
@@ -134,7 +134,7 @@ object EvidenceList {
     claim.questionGroup[Jobs] match {
       case Some(jobs) =>
         var textlines = NodeSeq.Empty
-        textlines = textlines ++ textSeparatorLine("Employment")
+        textlines ++= textSeparatorLine("Employment")
 
         for (job <- jobs) {
 
@@ -144,15 +144,17 @@ object EvidenceList {
           val personYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
 
 
-          textlines = textlines ++ textLine("Employer:" + jobDetails.employerName)
+          textlines ++= textLine("Employer:" + jobDetails.employerName)
           if (jobDetails.p45LeavingDate.isDefined) {
-            textlines = textlines ++ textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
+            textlines ++= textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
           }
           if (lastWage.sameAmountEachTime.isDefined) {
-            textlines = textlines ++ textLine("About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? =", lastWage.sameAmountEachTime.get)
+            textlines ++= textLine("About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? =", lastWage.sameAmountEachTime.get)
           }
-          textlines = textlines ++
-            textLine("How often [[past=did you]] [[present=do you]] childcare expenses = ", PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare)) ++
+
+          if (childcareExpenses.howMuchCostChildcare.nonEmpty)
+            textlines ++= textLine("How much [[past=did you]] [[present=do you]] pay them (childcare expenses)? = ",childcareExpenses.howMuchCostChildcare)
+          textlines ++= textLine("How often [[past=did you]] [[present=do you]] childcare expenses = ", PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare)) ++
             textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = ", PensionPaymentFrequency.mapToHumanReadableString(personYouCareForExpenses.howOftenPayCare)) ++
             textLine("")
         }
@@ -236,9 +238,7 @@ object EvidenceList {
   }
 
   private def textLine(label: String, value: Option[String]): Elem = value match {
-    case Some(s) => <TextLine>
-      {s"$label $s"}
-    </TextLine>
+    case Some(s) => textLine(label,value.get)
     case None => <TextLine/>
   }
 }
