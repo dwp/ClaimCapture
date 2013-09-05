@@ -160,9 +160,9 @@ object EvidenceList {
             textlines ++= textLine("How much [[past=did you]] [[present=do you]] pay them (person you care for expenses)? = ",personYouCareForExpenses.howMuchCostCare)
           textlines ++= textLine("How often [[past=did you]] [[present=do you]] pay expenses related to the person you care for = ", PensionPaymentFrequency.mapToHumanReadableString(personYouCareForExpenses.howOftenPayCare))
 
-          if (pensionScheme.howOftenPension.get.frequency == PensionPaymentFrequency.Other)
+          if (pensionScheme.howOftenPension.isDefined && pensionScheme.howOftenPension.get.frequency == PensionPaymentFrequency.Other)
             textlines ++= textLine("How often other (Occupational Pension Scheme)? = ", pensionScheme.howOftenPension.get.other.getOrElse(""))
-          if (pensionScheme.howOftenPersonal.get.frequency == PensionPaymentFrequency.Other)
+          if (pensionScheme.howOftenPersonal.isDefined && pensionScheme.howOftenPersonal.get.frequency == PensionPaymentFrequency.Other)
             textlines ++= textLine("How often other (Personal Pension Scheme)? = ", pensionScheme.howOftenPersonal.get.other.getOrElse(""))
             textLine("")
         }
