@@ -32,7 +32,7 @@ class G7PensionSchemesSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID,
                                 "payOccupationalPensionScheme" -> "yes", "howMuchPension" -> "100", "howOftenPension.frequency" -> howOften_frequency, "howOftenPension.other" -> howOften_other,
-                                "payPersonalPensionScheme" -> "yes", "howMuchPersonal" -> "100", "howOftenPersonal" -> "fortnightly")
+                                "payPersonalPensionScheme" -> "yes", "howMuchPersonal" -> "100", "howOftenPersonal.frequency" -> howOften_frequency, "howOftenPersonal.other" -> howOften_other)
 
       val result = G7PensionSchemes.submit(request)
       status(result) mustEqual SEE_OTHER
