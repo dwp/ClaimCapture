@@ -97,7 +97,7 @@ object Employment {
           <Currency>{GBP}</Currency>
           {<Amount/> +++ pensionScheme.howMuchPersonal}
         </Payment>
-        {<Frequency/> +++ pensionScheme.howOftenPersonal}
+        <Frequency>{pensionScheme.howOftenPersonal.get.frequency}</Frequency>
       </PensionScheme>
     } else {
       <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
@@ -107,7 +107,7 @@ object Employment {
   def jobExpensesXml(job: Job) = {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
     val necessaryExpenses: NecessaryExpenses = job.questionGroup[NecessaryExpenses].getOrElse(NecessaryExpenses())
-    val showXml = aboutExpenses.payForAnythingNecessary == yes
+    val showXml = aboutExpenses.payForAnythingNecessary == "yes"
 
     if (showXml) {
       <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
@@ -115,7 +115,7 @@ object Employment {
         <Expense>{necessaryExpenses.whatAreThose}</Expense>
         <Reason>{NotAsked}</Reason>
         <WeeklyPayment>
-          <Currency>{GBP}</Currency>
+          <Currency></Currency>
           <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
       </JobExpenses>
