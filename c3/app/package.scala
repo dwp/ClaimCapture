@@ -25,6 +25,7 @@ package object app {
     val Fortnightly = "03"
     val FourWeekly = "04"
     val Monthly = "05"
+    val Other = "other" // TODO [SKW] the xsd is inconsistent and needs changing as there is no value for other, so I just made up a value and Jorge will change the schema and can replace this with a sensible value.
 
     def mapToHumanReadableString(code:String) = {
       code match {
@@ -32,6 +33,7 @@ package object app {
         case Fortnightly => "Fortnightly"
         case FourWeekly => "Four-weekly"
         case Monthly => "Monthly"
+        case Other => "Other"
         case _ => ""
       }
     }

@@ -53,6 +53,10 @@ object Mappings {
     "frequency" -> text(maxLength = sixty),
     "other" -> optional(text(maxLength = sixty)))(PaymentFrequency.apply)(PaymentFrequency.unapply)
 
+  val pensionPaymentFrequency: Mapping[PensionPaymentFrequency] = mapping(
+    "frequency" -> text(maxLength = sixty),
+    "other" -> optional(text(maxLength = sixty)))(PensionPaymentFrequency.apply)(PensionPaymentFrequency.unapply)
+
   val sortCode: Mapping[SortCode] = mapping(
     "sort1" -> text(maxLength = two),
     "sort2" -> text(maxLength = two),
@@ -167,6 +171,16 @@ object Mappings {
 
   def validPaymentFrequencyOnly: Constraint[PaymentFrequency] = Constraint[PaymentFrequency]("constraint.validatePaymentFrequency") {
     pf => paymentFrequencyValidation(pf)
+  }
+
+  def pensionPaymentFrequencyValidation(pf: PensionPaymentFrequency): ValidationResult = Try(new PensionPaymentFrequency(pf.frequency, pf.other)) match {
+    case Success(p: PensionPaymentFrequency) if p.frequency.toLowerCase == "other" && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
+    case Success(p: PensionPaymentFrequency) => Valid
+    case Failure(_) => Invalid(ValidationError("error.invalid"))
+  }
+
+  def validPensionPaymentFrequencyOnly: Constraint[PensionPaymentFrequency] = Constraint[PensionPaymentFrequency]("constraint.validatePaymentFrequency") {
+    pf => pensionPaymentFrequencyValidation(pf)
   }
 
   def validNationality: Constraint[String] = Constraint[String]("constraint.nationality") { nationality =>

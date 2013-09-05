@@ -78,7 +78,9 @@ object Employment {
             <Currency>GBP</Currency>
             {<Amount/> +++ pensionScheme.howMuchPension}
           </Payment>
-          {<Frequency/> +++ pensionScheme.howOftenPension}
+          {if(pensionScheme.howOftenPension.isDefined)
+            <Frequency>{pensionScheme.howOftenPension.get.frequency}</Frequency>
+          }
         </PensionScheme>
     } else {
       <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
@@ -96,7 +98,9 @@ object Employment {
           <Currency>GBP</Currency>
           {<Amount/> +++ pensionScheme.howMuchPersonal}
         </Payment>
-        {<Frequency/> +++ pensionScheme.howOftenPersonal}
+      {if(pensionScheme.howOftenPersonal.isDefined)
+        <Frequency>{pensionScheme.howOftenPersonal.get.frequency}</Frequency>
+      }
       </PensionScheme>
     } else {
       <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
