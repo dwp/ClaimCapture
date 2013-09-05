@@ -54,7 +54,7 @@ object Residency {
       val goBack = timeOutsideUK.livingInUK.goBack.getOrElse(YesNoWithDate("", None))
       <OtherNationality>
         <EUEEASwissNationalChildren/>
-        <DateArrivedInGreatBritain>{stringify(timeOutsideUK.livingInUK.date)}</DateArrivedInGreatBritain>
+        <DateArrivedInGreatBritain>{XMLValues.NotAsked}</DateArrivedInGreatBritain>
         <CountryArrivedFrom>{timeOutsideUK.livingInUK.text.orNull}</CountryArrivedFrom>
         <IntendToReturn>{goBack.answer}</IntendToReturn>
         <DateReturn>{stringify(goBack.date)}</DateReturn>

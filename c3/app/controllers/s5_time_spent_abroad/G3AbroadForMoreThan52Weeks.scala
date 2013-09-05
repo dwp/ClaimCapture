@@ -15,7 +15,7 @@ object G3AbroadForMoreThan52Weeks extends Controller with TimeSpentAbroadRouting
   )(AbroadForMoreThan52Weeks.apply)(AbroadForMoreThan52Weeks.unapply))
 
   def present = claiming { implicit claim => implicit request =>
-    val `52WeeksForm` = claim.questionGroup[AbroadForMoreThan52Weeks].map(form.fill).getOrElse(form)
+    val `52WeeksForm` = form // [SKW] DE201 the yes/no radio button should be blank, forcing the user to answer Yes or No. This change only affects presentation and not the saving (which is done in the submit).
     Ok(views.html.s5_time_spent_abroad.g3_abroad_for_more_than_52_weeks(`52WeeksForm`, trips, completedQuestionGroups(AbroadForMoreThan52Weeks)))
   }
 

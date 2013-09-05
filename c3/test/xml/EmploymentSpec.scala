@@ -71,7 +71,7 @@ class EmploymentSpec extends Specification with Tags {
       (pensionSchemeXml \\ "PensionScheme").isEmpty should beTrue
     }
 
-    "generate <ChildCareExpenses> if claimer pays anyone to look after children" in {
+    "generate <ChildCareExpenses> if claimer pays anyone to care for children" in {
       val childcareCarer = "Mark"
       val address = "someAddress"
       val postcode = "M1"
