@@ -25,6 +25,7 @@ package object app {
     val Fortnightly = "03"
     val FourWeekly = "04"
     val Monthly = "05"
+    val Other = "other"
 
     def mapToHumanReadableString(code:String) = {
       code match {
@@ -32,6 +33,7 @@ package object app {
         case Fortnightly => "Fortnightly"
         case FourWeekly => "Four-weekly"
         case Monthly => "Monthly"
+        case Other => "Other"
         case _ => ""
       }
     }
