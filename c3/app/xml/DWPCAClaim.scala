@@ -1,8 +1,8 @@
 package xml
 
+import app.XMLValues._
 import play.api.Logger
 import models.domain.{AdditionalInfo, MoreAboutYou, Claim}
-import controllers.Mappings._
 import xml.XMLHelper._
 
 object DWPCAClaim {
@@ -20,7 +20,7 @@ object DWPCAClaim {
     <DWPCAClaim id={transactionId}>
       {Claimant.xml(claim)}
       {Caree.xml(claim)}
-      <ClaimADI>no</ClaimADI>
+      <ClaimADI>{no}</ClaimADI>
       {Residency.xml(claim)}
       <CourseOfEducation>{moreAboutYou.beenInEducationSinceClaimDate}</CourseOfEducation>
       {FullTimeEducation.xml(claim)}
@@ -34,7 +34,7 @@ object DWPCAClaim {
       {OtherBenefits.xml(claim)}
       {Payment.xml(claim)}
       {<OtherInformation/> +++ additionalInfo.anythingElse}
-      <ThirdParty>no</ThirdParty>
+      <ThirdParty>{no}</ThirdParty>
       {Declaration.xml(claim)}
       {EvidenceList.xml(claim)}
     </DWPCAClaim>

@@ -3,7 +3,8 @@ package xml
 import scala.xml._
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
-import app.{StatutoryPaymentFrequency, XMLValues}
+import app.StatutoryPaymentFrequency
+import app.XMLValues._
 import models._
 import models.PaymentFrequency
 import models.MultiLineAddress
@@ -44,7 +45,7 @@ object XMLHelper {
   }
 
   def moneyStructure(amount: String) = {
-    <Currency>GBP</Currency>
+    <Currency>{GBP}</Currency>
     <Amount>{amount}</Amount>
   }
 
@@ -95,21 +96,29 @@ object XMLHelper {
   implicit def attachToNode(elem: Elem) = new {
     def +++[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem)
 
-    def +-[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, XMLValues.NotAsked)
+    def +-[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, NotAsked)
 
-    def +?[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, "yes")
+    def +?[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, yes)
 
-    def +!?[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, "no")
+    def +!?[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, no)
 
     def ?+[T](option: Option[T])(implicit classTag: ClassTag[T]): NodeSeq = optionalEmpty(option, elem)
   }
 
   def booleanStringToYesNo(booleanString: String) = booleanString match {
-    case "true" => "yes"
-    case "false" => "no"
+    case "true" => yes
+    case "false" => no
     case null => ""
     case _ => booleanString
   }
 
   def titleCase(s: String) = if(s != null && s.length() > 0) s.head.toUpper + s.tail.toLowerCase else ""
+
+  def formatValue(value:String):String = if (value != null)
+     value match {
+       case yes => Yes
+       case no => No
+       case _ => _
+     }
+    else ""
 }

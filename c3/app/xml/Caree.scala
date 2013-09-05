@@ -4,7 +4,6 @@ import scala.xml.NodeSeq
 import app.XMLValues._
 import models.domain._
 import xml.XMLHelper._
-import controllers.Mappings.{yes, no}
 
 object Caree {
 

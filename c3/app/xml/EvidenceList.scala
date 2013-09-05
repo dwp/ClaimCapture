@@ -1,10 +1,10 @@
 package xml
 
 import models.domain._
-import controllers.Mappings.yes
-import XMLHelper.{stringify, booleanStringToYesNo}
+import XMLHelper.{stringify, booleanStringToYesNo,formatValue}
 import scala.xml.{NodeSeq, NodeBuffer, Elem}
 import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
+import app.XMLValues._
 
 object EvidenceList {
 
@@ -60,7 +60,7 @@ object EvidenceList {
     nodeSeq ++= textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK)++
       textLine("Mobile number = ", yourContactDetails.mobileNumber) ++
       textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer)
-    if (timeOutsideUK.livingInUK.answer.toLowerCase == "yes")
+    if (timeOutsideUK.livingInUK.answer.toLowerCase == yes)
       nodeSeq ++= textLine("When did you arrive in the UK? = ", timeOutsideUK.livingInUK.date.get.`dd/MM/yyyy`)
     nodeSeq ++= textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
       textLine("If you have speech or hearing difficulties, would you like us to contact you by textphone? = ", yourContactDetails.contactYouByTextphone)
@@ -107,9 +107,9 @@ object EvidenceList {
     textSeparatorLine("Time abroad") ++
       textLine("Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = ", normalResidenceAndCurrentLocation.whereDoYouLive.answer) ++
       textLine("Have you had any more trips out of Great Britain for more than 52 weeks at a time, " +
-        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 156 weeks before your claim date)? = ", if (trips.fiftyTwoWeeksTrips.size > 0) "yes" else "no") ++
+        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 156 weeks before your claim date)? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No) ++
       textLine(s"Have you been out of Great Britain with the person you care for, for more than four weeks at a time, " +
-        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 3 years before your claim date)? = ", if (trips.fourWeeksTrips.size > 0) "yes" else "no")
+        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 3 years before your claim date)? = ", if (trips.fourWeeksTrips.size > 0) Yes else No)
   }
 
   def fiftyTwoWeeksTrips(claim: Claim) = {
@@ -231,7 +231,7 @@ object EvidenceList {
   private def textLine(label: String, value: String): Elem = value match {
     case "" => <TextLine/>
     case _ => <TextLine>
-      {s"$label $value"}
+      {s"$label " + formatValue(value)}
     </TextLine>
   }
 

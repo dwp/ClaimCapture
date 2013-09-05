@@ -20,7 +20,7 @@ object Employment {
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
       <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
-      <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
+      <ConfirmAddress>{yes}</ConfirmAddress> <!-- Always default to yes -->
       {<EmployersPhoneNumber/> +++ employerContactDetails.phoneNumber}
       <EmployersFaxNumber/>
       <WagesDepartment/>
@@ -34,7 +34,7 @@ object Employment {
       <DateLastWorked/>
       {<DateLastPaid/> +++ lastWage.lastPaidDate}
       <GrossPayment>
-        <Currency>GBP</Currency>
+        <Currency>{GBP}</Currency>
         {<Amount/> +++ lastWage.grossPay}
       </GrossPayment>
       {<IncludedInWage/> +++ lastWage.payInclusions}
@@ -53,7 +53,7 @@ object Employment {
 
     if (showXml) {
       <Payment>
-        <Currency>GBP</Currency>
+        <Currency>{GBP}</Currency>
         <Amount>{s.get}</Amount>
       </Payment>
     } else {
