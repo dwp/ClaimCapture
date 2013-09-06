@@ -13,15 +13,15 @@ class G4SelfEmploymentPensionsAndExpensesIntegrationSpec extends Specification w
 
   "About Self Employment" should {
     "be presented" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext {
-      page goToThePage ()
+      page goToThePage()
     }
 
     "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
       page goToThePage()
-      page runClaimWith (claim, G8AboutYouCompletedPage.title, waitForPage = true)
+      page runClaimWith(claim, G8AboutYouCompletedPage.title, waitForPage = true)
 
-      val nextPage = page goToPage( throwException = false, page = new G4SelfEmploymentPensionsAndExpensesPage(browser))
+      val nextPage = page goToPage(throwException = false, page = new G4SelfEmploymentPensionsAndExpensesPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
     }
 

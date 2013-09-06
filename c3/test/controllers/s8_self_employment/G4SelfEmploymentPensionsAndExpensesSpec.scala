@@ -19,7 +19,8 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
     val doYouPayToLookAfterYourChildren = "yes"
     val didYouPayToLookAfterThePersonYouCaredFor = "yes"
 
-    val selfEmploymentPensionsAndExpensesInput = Seq("doYouPayToPensionScheme" -> doYouPayToPensionScheme,
+    val selfEmploymentPensionsAndExpensesInput = Seq(
+      "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
       "howMuchDidYouPay" -> howMuchDidYouPay,
       "howOften.frequency" -> howOften_frequency,
       "howOften.frequency.other" -> howOften_frequency_other,
@@ -53,34 +54,85 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
       }
     }
 
-    "missing mandatory field" in new WithApplication with Claiming {
+    "reject missing mandatory field doYouPayToPensionScheme" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
-        "doYouPayToPensionScheme.answer" -> "no",
-        "doYouPayToLookAfterYourChildren.answer" -> "yes",
-        "didYouPayToLookAfterThePersonYouCaredFor.answer" -> "")
+        "howMuchDidYouPay" -> howMuchDidYouPay,
+        "howOften.frequency" -> howOften_frequency,
+        "howOften.frequency.other" -> howOften_frequency_other,
+        "doYouPayToLookAfterYourChildren" -> doYouPayToLookAfterYourChildren,
+        "didYouPayToLookAfterThePersonYouCaredFor" -> didYouPayToLookAfterThePersonYouCaredFor
+      )
 
       val result = controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
-    "missing mandatory field doYouPayToLookAfterYourChildren" in new WithApplication with Claiming {
+    "reject missing mandatory field doYouPayToLookAfterYourChildren" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
-        "doYouPayToPensionScheme.answer" -> "no",
-        "doYouPayToLookAfterYourChildren.answer" -> "",
-        "didYouPayToLookAfterThePersonYouCaredFor.answer" -> "yes")
+        "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
+        "howMuchDidYouPay" -> howMuchDidYouPay,
+        "howOften.frequency" -> howOften_frequency,
+        "howOften.frequency.other" -> howOften_frequency_other,
+        "didYouPayToLookAfterThePersonYouCaredFor" -> didYouPayToLookAfterThePersonYouCaredFor
+      )
 
       val result = controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
-    "missing mandatory field doYouPayToPensionScheme" in new WithApplication with Claiming {
+    "reject missing mandatory field didYouPayToLookAfterThePersonYouCaredFor" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
-        "doYouPayToPensionScheme.answer" -> "",
-        "doYouPayToLookAfterYourChildren.answer" -> "yes",
-        "didYouPayToLookAfterThePersonYouCaredFor.answer" -> "yes")
+        "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
+        "howMuchDidYouPay" -> howMuchDidYouPay,
+        "howOften.frequency" -> howOften_frequency,
+        "howOften.frequency.other" -> howOften_frequency_other,
+        "doYouPayToLookAfterYourChildren" -> doYouPayToLookAfterYourChildren
+      )
+
+      val result = controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "reject missing howMuch" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        .withFormUrlEncodedBody(
+        "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
+        "howOften.frequency" -> howOften_frequency,
+        "howOften.frequency.other" -> howOften_frequency_other,
+        "doYouPayToLookAfterYourChildren" -> doYouPayToLookAfterYourChildren,
+        "didYouPayToLookAfterThePersonYouCaredFor" -> didYouPayToLookAfterThePersonYouCaredFor
+      )
+
+      val result = controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "reject missing howOften frequency" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        .withFormUrlEncodedBody(
+        "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
+        "howMuchDidYouPay" -> howMuchDidYouPay,
+        "howOften.frequency.other" -> howOften_frequency_other,
+        "doYouPayToLookAfterYourChildren" -> doYouPayToLookAfterYourChildren,
+        "didYouPayToLookAfterThePersonYouCaredFor" -> didYouPayToLookAfterThePersonYouCaredFor
+      )
+
+      val result = controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "reject other selected but not filled in" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        .withFormUrlEncodedBody(
+        "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
+        "howMuchDidYouPay" -> howMuchDidYouPay,
+        "howOften.frequency" -> howOften_frequency,
+        "doYouPayToLookAfterYourChildren" -> doYouPayToLookAfterYourChildren,
+        "didYouPayToLookAfterThePersonYouCaredFor" -> didYouPayToLookAfterThePersonYouCaredFor
+      )
 
       val result = controllers.s8_self_employment.G4SelfEmploymentPensionsAndExpenses.submit(request)
       status(result) mustEqual BAD_REQUEST
