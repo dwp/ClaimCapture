@@ -3,6 +3,7 @@ package controllers.s7_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers}
+import utils.pageobjects.s7_employment.{G15CompletedPage, G1BeenEmployedPage, G2JobDetailsPageContext}
 
 class G1BeenEmployedIntegrationSpec extends Specification with Tags {
   "Been Employed" should {

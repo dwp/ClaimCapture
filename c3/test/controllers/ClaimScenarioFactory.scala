@@ -196,6 +196,67 @@ object ClaimScenarioFactory {
     claim
   }
 
+
+  def s7EmploymentMinimal() = {
+
+    val claim = new ClaimScenario
+    claim.EmploymentEmployerName_1 = "Tesco's"
+    claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
+    claim.EmploymentHaveYouFinishedThisJob_1 = "yes"
+    claim.EmploymentWhenDidYouLastWork_1 = "01/07/2013"
+    claim.EmploymentHowManyHoursAWeekYouNormallyWork_1 = "25"
+    claim.EmploymentPayrollOrEmployeeNumber_1 = "12345678"
+    claim.EmploymentEmployerAddress_1 = "23 Yeadon Way&Blackpool&Lancashire"
+    claim.EmploymentEmployerPostcode_1 = "FY4 5TH"
+    claim.EmploymentEmployerPhoneNumber_1 = "01253 667889"
+    claim.EmploymentWhenWereYouLastPaid_1 = "08/07/2013"
+    claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1 = "600"
+    claim.EmploymentWhatWasIncludedInYourLastPay_1 = "All amounts due"
+    claim.EmploymentDoYouGettheSameAmountEachTime_1 = "no"
+    claim.EmploymentAddtionalWageHowOftenAreYouPaid_1 = "other"
+    claim.EmploymentAddtionalWageOther_1 = "Quarterly"
+    claim.EmploymentAddtionalWageWhenDoYouGetPaid_1 = "two weeks ago"
+    claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1 = "no"
+//    claim.EmploymentHowMuchAreYouOwed_1 = "1250"
+    claim.EmploymentWhatPeriodIsItForFrom_1 = "03/04/2013"
+    claim.EmploymentWhatPeriodIsItForTo_1 = "03/05/2013"
+    claim.EmploymentWhatIsTheMoneyOwedFor_1 = "This and that"
+    claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_1 = "06/05/2013"
+    claim.EmploymentWhenWillYouGetMoneyOwed_1 = "08/08/2013"
+    claim.EmploymentDoYouPayTowardsanOccupationalPensionScheme_1 = "no"
+//    claim.EmploymentHowMuchYouPayforOccupationalPension_1 = "350"
+//    claim.EmploymentHowOftenOccupationalPension_1 = "other"
+//    claim.EmploymentHowOftenOtherOccupationalPension_1 = "every 5 minutes"
+    claim.EmploymentDoYouPayTowardsAPersonalPension_1 = "no"
+//    claim.EmploymentHowMuchYouPayforPersonalPension_1 = "120"
+//    claim.EmploymentHowOftenPersonalPension_1 = "other"
+//    claim.EmploymentHowOftenOtherPersonalPension_1 = "every 5 minutes"
+    claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "no"
+    claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1 = "no"
+    claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1 = "no"
+    claim.EmploymentJobTitle_1 = "Hacker"
+    claim.EmploymentWhatAreNecessaryJobExpenses_1 = "Petrol money for driving"
+    claim.EmploymentWhyYouNeedTheseExpensesToDoYourJob_1 = "So I could deliver items."
+    claim.EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1 = "160.66"
+    claim.EmploymentChildcareExpensesHowMuchYouPayfor_1 = "120.12"
+    claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Weekly
+    claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "fatherInLaw"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1 = "Grandfather"
+    claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
+    claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
+    claim.EmploymentCareExpensesHowMuchYouPayfor_1 = "150.55"
+    claim.EmploymentCareExpensesHowOftenYouPayfor_1 = "02"
+    claim.EmploymentNameOfPersonYouPayForCaring_1 = "Carers UK Ltd"
+    claim.EmploymentCareExpensesWhatRelationIsToYou_1 = "Uncle"
+    claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1 = "Other"
+    claim.EmploymentAddressCareProvider_1 = "1 London Road&Preston&Lancashire"
+    claim.EmploymentPostcodeCareProvider_1 = "PR4 5TH"
+
+    claim
+  }
+
   def s7Employment() = {
     val claim = new ClaimScenario
     claim.EmploymentEmployerName_1 = "Tesco's"

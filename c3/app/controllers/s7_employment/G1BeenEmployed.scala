@@ -4,7 +4,7 @@ import models.view.{Navigable, CachedClaim}
 import play.api.mvc.{AnyContent, Request, Controller}
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{Employment => Emp, Claim, BeenEmployed}
+import models.domain.{Employment => Emp, Jobs, Claim, BeenEmployed}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s7_employment.Employment.jobs
@@ -15,16 +15,14 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
   )(BeenEmployed.apply)(BeenEmployed.unapply))
 
   def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
-    claim.questionGroup[Emp].collect {
-      case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == yes => c
-    }.getOrElse(redirect)
+    if (claim.isSectionVisible(models.domain.Employed)) c else redirect
   }
 
   def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
     claim -> Redirect(controllers.s8_self_employment.routes.G1AboutSelfEmployment.present())
 
   def present = claiming { implicit claim => implicit request =>
-    presentConditionally(beenEmployed)
+      presentConditionally(beenEmployed)
   }
 
   def beenEmployed(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
@@ -47,6 +45,12 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
 
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g1_beenEmployed(formWithErrors)),
-      beenEmployed => claim.update(beenEmployed) -> next(beenEmployed))
+      beenEmployed => clearUnfinishedJobs.update(beenEmployed) -> next(beenEmployed))
   }
+
+  def clearUnfinishedJobs(implicit claim:Claim) = {
+    val jobs = claim.questionGroup[Jobs].getOrElse(Jobs())
+    claim.update(Jobs(jobs.jobs.filter(_.completed == true)))
+  }
+
 }
