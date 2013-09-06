@@ -1,3 +1,9 @@
+var IE10 = (navigator.userAgent.match(/(MSIE 10.0)/g) ? true : false);
+if (IE10) {
+	$('html').addClass('ie10');
+}
+
+
 $(document).ready(function() {
 
 // view more / view less
@@ -27,8 +33,6 @@ $('a[href^="#"]').bind('click.smoothscroll',function (e) {
         window.location.hash = target;
     });
 }); 	 
-
-	 
-	 
+ 
 	 
 });

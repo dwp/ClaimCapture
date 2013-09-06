@@ -8,6 +8,10 @@ import scala.Some
 import models.PaymentFrequency
 import scala.Some
 import models.MultiLineAddress
+import models.PaymentFrequency
+import scala.Some
+import models.PensionPaymentFrequency
+import models.MultiLineAddress
 
 object Employed extends Section.Identifier {
   val id = "s7"
@@ -201,7 +205,7 @@ object NecessaryExpenses extends QuestionGroup.Identifier {
 case class ChildcareExpenses(jobID: String = "",
                              whoLooksAfterChildren: String = "",
                              howMuchCostChildcare: String = "",
-                             howOftenPayChildCare: String = "",
+                             howOftenPayChildCare: PensionPaymentFrequency = models.PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly),
                              relationToYou: String = "",
                              relationToPartner: Option[String] = None,
                              relationToPersonYouCare: String = "") extends QuestionGroup(ChildcareExpenses) with Job.Identifier
