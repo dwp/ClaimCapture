@@ -114,7 +114,8 @@ class XmlNode(val theNodes: NodeSeq) {
         val nodeName = theNodes(index).mkString
         def valuesMatching = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
-          else if (claimValue.attribute.contains("EmploymentAddtionalWageHowOftenAreYouPaid") || claimValue.attribute.contains("EmploymentChildcareExpensesHowOften") || claimValue.attribute.contains("EmploymentCareExpensesHowOftenYouPayfor"))
+          else if (claimValue.attribute.contains("EmploymentAddtionalWageHowOftenAreYouPaid") || claimValue.attribute.contains("EmploymentChildcareExpensesHowOften") || claimValue.attribute.contains("EmploymentCareExpensesHowOftenYouPayfor")
+          || claimValue.attribute.contains("SelfEmployedCareExpensesHowOften") || claimValue.attribute.contains("SelfEmployedChildcareExpensesHowOften"))
             value.contains(StatutoryPaymentFrequency.mapToHumanReadableString(claimValue.value,None).toLowerCase)
           else if (nodeName.startsWith(XmlNode.EvidenceListNode)) {
             // Awful code. Need to do something about it! (JMI)

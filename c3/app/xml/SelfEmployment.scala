@@ -74,7 +74,10 @@ object SelfEmployment {
         <CarerName>{childCareExpenses.nameOfPerson}</CarerName>
         <CarerAddress>{postalAddressStructure(None, None)}</CarerAddress>
         <ConfirmAddress>{yes}</ConfirmAddress>
-        <WeeklyPayment>{moneyStructure(childCareExpenses.howMuchYouPay)}</WeeklyPayment>
+        <WeeklyPayment>
+          <Currency></Currency>
+          <Amount>{NotAsked}</Amount>
+        </WeeklyPayment>
         <RelationshipCarerToClaimant>{childCareExpenses.whatRelationIsToYou}</RelationshipCarerToClaimant>
         <ChildDetails>
           <Name>{NotAsked}</Name>
@@ -99,8 +102,8 @@ object SelfEmployment {
         <CarerAddress>{postalAddressStructure(None, None)}</CarerAddress>
         <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
-          <Currency>{GBP}</Currency>
-          <Amount>{expensesWhileAtWork.howMuchYouPay}</Amount>
+          <Currency></Currency>
+          <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{expensesWhileAtWork.whatRelationIsToYou}</RelationshipCarerToClaimant>
         <RelationshipCarerToCaree>{expensesWhileAtWork.whatRelationIsTothePersonYouCareFor}</RelationshipCarerToCaree>

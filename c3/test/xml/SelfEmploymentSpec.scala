@@ -2,10 +2,10 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
-import controllers.Mappings._
 import models.DayMonthYear
 import models.yesNo.YesNoWith2Text
 import scala.Some
+import app.XMLValues._
 
 class SelfEmploymentSpec extends Specification with Tags {
 
@@ -65,7 +65,7 @@ class SelfEmploymentSpec extends Specification with Tags {
 
       val childcareXml = xml.SelfEmployment.childCareExpenses(claim)
       (childcareXml \\ "CarerName").text shouldEqual childcareExpenses.nameOfPerson
-      (childcareXml \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
+      (childcareXml \\ "WeeklyPayment" \\ "Amount").text shouldEqual NotAsked
       (childcareXml \\ "RelationshipCarerToClaimant").text shouldEqual childcareExpenses.whatRelationIsToYou
       (childcareXml \\ "ChildDetails" \\ "RelationToChild").text shouldEqual childcareExpenses.whatRelationIsTothePersonYouCareFor
     }
@@ -87,7 +87,7 @@ class SelfEmploymentSpec extends Specification with Tags {
       val careExpensesXml = xml.SelfEmployment.careExpenses(claim)
 
       (careExpensesXml \\ "CarerName").text shouldEqual expensesWhileAtWork.nameOfPerson
-      (careExpensesXml \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
+      (careExpensesXml \\ "WeeklyPayment" \\ "Amount").text shouldEqual NotAsked
       (careExpensesXml \\ "RelationshipCarerToClaimant").text shouldEqual grandSon
       (careExpensesXml \\ "RelationshipCarerToCaree").text shouldEqual grandSon
     }

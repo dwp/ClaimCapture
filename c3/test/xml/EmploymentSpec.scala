@@ -2,8 +2,8 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain.{Employment => Employed, _}
-import controllers.Mappings._
-import models.{PensionPaymentFrequency, PaymentFrequency, DayMonthYear}
+import models.{PensionPaymentFrequency, DayMonthYear}
+import app.XMLValues._
 
 class EmploymentSpec extends Specification with Tags {
 
@@ -15,7 +15,7 @@ class EmploymentSpec extends Specification with Tags {
     "generate xml when data is present" in {
       val employerName = "KFC"
       val hours = "70"
-      val jobDetails = JobDetails("1", employerName, startDate, "no", Some(endDate), Some(endDate), Some(hours), None)
+      val jobDetails = JobDetails("1", employerName, startDate, no, Some(endDate), Some(endDate), Some(hours), None)
       val jobs = Jobs(List(Job("1", jobDetails :: Nil)))
 
       val claim = Claim().update(Employed(beenEmployedSince6MonthsBeforeClaim = yes))
@@ -43,10 +43,10 @@ class EmploymentSpec extends Specification with Tags {
 
     "generate <PensionScheme> if claimer has paid for occupational pension scheme" in {
       val amount = "200"
-      val pensionScheme = Job("1", List(PensionSchemes(payOccupationalPensionScheme = "yes", howMuchPension = Some(amount), howOftenPension = Some(PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly)))))
+      val pensionScheme = Job("1", List(PensionSchemes(payOccupationalPensionScheme = yes, howMuchPension = Some(amount), howOftenPension = Some(PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly)))))
 
       val pensionSchemeXml = Employment.pensionSchemeXml(pensionScheme)
-      (pensionSchemeXml \\ "PaidForOccupationalPension").text mustEqual "yes"
+      (pensionSchemeXml \\ "PaidForOccupationalPension").text mustEqual yes
       (pensionSchemeXml \\ "PensionScheme" \\ "Payment" \\ "Amount").text shouldEqual amount
       (pensionSchemeXml \\ "PensionScheme" \\ "Frequency").text shouldEqual "02"
       (pensionSchemeXml \\ "PaidForPersonalPension").text must beEmpty
@@ -54,10 +54,10 @@ class EmploymentSpec extends Specification with Tags {
 
     "generate <PensionScheme> if claimer has paid for personal pension scheme" in {
       val amount = "200"
-      val pensionScheme = Job("1", List(PensionSchemes(payPersonalPensionScheme = "yes", howMuchPersonal = Some(amount), howOftenPersonal = Some(PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly)))))
+      val pensionScheme = Job("1", List(PensionSchemes(payPersonalPensionScheme = yes, howMuchPersonal = Some(amount), howOftenPersonal = Some(PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly)))))
 
       val pensionSchemeXml = xml.Employment.pensionSchemeXml(pensionScheme)
-      (pensionSchemeXml \\ "PaidForPersonalPension").text mustEqual "yes"
+      (pensionSchemeXml \\ "PaidForPersonalPension").text mustEqual yes
       (pensionSchemeXml \\ "PensionScheme" \\ "Payment" \\ "Amount").text shouldEqual amount
       (pensionSchemeXml \\ "PensionScheme" \\ "Frequency").text shouldEqual "02"
       (pensionSchemeXml \\ "PaidForOccupationalPension").text must beEmpty
@@ -79,26 +79,26 @@ class EmploymentSpec extends Specification with Tags {
       val relation = "brother"
       val relationToChild = "uncle"
       val job = Job("1", List(
-                  AboutExpenses(payAnyoneToLookAfterChildren = "yes"),
+                  AboutExpenses(payAnyoneToLookAfterChildren = yes),
                   ChildcareExpenses(whoLooksAfterChildren = childcareCarer, howMuchCostChildcare = amount, relationToYou = relation, relationToPersonYouCare = relationToChild)
       ))
 
       val childcareXml = Employment.childcareExpensesXml(job)
 
-      (childcareXml \\ "CareExpensesChildren").text shouldEqual "yes"
+      (childcareXml \\ "CareExpensesChildren").text shouldEqual yes
 
       val expenses = childcareXml \\ "ChildCareExpenses"
       (expenses \\ "CarerName").text shouldEqual childcareCarer
-      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual "Not asked"
+      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual NotAsked
       (expenses \\ "RelationshipCarerToClaimant").text shouldEqual relation
       (expenses \\ "ChildDetails" \\ "RelationToChild").text shouldEqual relationToChild
     }
 
     "skip <ChildCareExpenses> if claimer has NO childcare expenses" in {
-      val job = Job("1", List(AboutExpenses(payAnyoneToLookAfterChildren = "no")))
+      val job = Job("1", List(AboutExpenses(payAnyoneToLookAfterChildren = no)))
 
       val childcareXml = Employment.childcareExpensesXml(job)
-      (childcareXml \\ "CareExpensesChildren").text mustEqual "no"
+      (childcareXml \\ "CareExpensesChildren").text mustEqual no
       (childcareXml \\ "ChildCareExpenses").isEmpty must beTrue
     }
 
@@ -108,29 +108,29 @@ class EmploymentSpec extends Specification with Tags {
       val amount = "300"
       val howOftenPayCare = "02"
       val job = Job("1", List(
-        AboutExpenses(payAnyoneToLookAfterPerson = "yes"),
+        AboutExpenses(payAnyoneToLookAfterPerson = yes),
         PersonYouCareForExpenses(whoDoYouPay = carer, howMuchCostCare = amount, howOftenPayCare = howOftenPayCare, relationToYou = relation, relationToPersonYouCare = relation)
       ))
 
       val careExpensesXml = Employment.careExpensesXml(job)
 
-      (careExpensesXml \\ "CareExpensesCaree").text shouldEqual "yes"
+      (careExpensesXml \\ "CareExpensesCaree").text shouldEqual yes
 
       val expenses = careExpensesXml \\ "CareExpenses"
       (expenses \\ "CarerName").text shouldEqual carer
-      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual "Not asked"
+      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual NotAsked
       (expenses \\ "RelationshipCarerToClaimant").text shouldEqual relation
       (expenses \\ "RelationshipCarerToCaree").text shouldEqual relation
     }
 
     "skip <CareExpenses> if claimer has NO care expenses" in {
       val job = Job("1",List(
-        AboutExpenses(payAnyoneToLookAfterPerson = "no")
+        AboutExpenses(payAnyoneToLookAfterPerson = no)
       ))
 
       val careExpensesXml = Employment.careExpensesXml(job)
 
-      (careExpensesXml \\ "CareExpensesCaree").text shouldEqual "no"
+      (careExpensesXml \\ "CareExpensesCaree").text shouldEqual no
       (careExpensesXml \\ "CareExpenses").isEmpty must beTrue
     }
   } section "unit"
