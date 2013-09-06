@@ -48,18 +48,13 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       titleMustEqual("Your employment history - Employment History")
     }
 
-    "begin twice, kicking off 2 jobs and choose to start editing the first job" in new WithBrowser with WithBrowserHelper with EmployedSinceClaimDate with EmploymentFiller {
+    "kick off a job, but not complete it and it should not be shown in the employment overview list " in new WithBrowser with WithBrowserHelper with EmployedSinceClaimDate with EmploymentFiller {
       beginClaim()
 
       jobDetails("dummyJobID1")
-      jobDetails("dummyJobID2")
-
       goTo("/employment/been-employed")
       back
-      $("#jobs table tbody tr").size() shouldEqual 2
-
-      findFirst("input[value='Change']").click()
-      titleMustEqual("Your job - Employment History")
+      $("#jobs table tbody tr").size() shouldEqual 0
     }
   } section("integration", models.domain.Employed.id)
 
