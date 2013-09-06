@@ -88,6 +88,7 @@ package object app {
     val yes = "yes"
     val no = "no"
     val GBP = "GBP"
+    val Other = "Other"
   }
 
   object WhoseNameAccount {
