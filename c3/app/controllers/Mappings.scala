@@ -75,7 +75,7 @@ object Mappings {
   def requiredWhereabouts: Constraint[Whereabouts] = Constraint[Whereabouts]("constraint.required") { whereabouts =>
     whereabouts match {
       case Whereabouts(location, other) => if (location.isEmpty) Invalid(ValidationError("error.required"))
-        else if(location == "other" && other.isEmpty) Invalid(ValidationError("error.location.other.required"))
+        else if(location == app.Whereabouts.Other && other.isEmpty) Invalid(ValidationError("error.required"))
         else Valid
     }
   }
