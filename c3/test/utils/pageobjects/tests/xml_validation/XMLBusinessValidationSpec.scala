@@ -4,8 +4,6 @@ import utils.pageobjects.xml_validation.XMLClaimBusinessValidation
 import org.specs2.mutable.Specification
 import controllers.ClaimScenarioFactory
 import scala.io.Source
-import utils.pageobjects.TestData
-
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -27,7 +25,7 @@ class XMLBusinessValidationSpec extends Specification {
 
   "The XML Business Validation class" should {
     "be able to parse a claim and raise exception with list errors if content xml differs from claim object" in {
-      val validator = new XMLClaimBusinessValidation("/ClaimScenarioXmlMapping.csv")
+      val validator = new XMLClaimBusinessValidation
       val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
       val xml = Source.fromURL(getClass getResource "/unit_tests/Claim.xml").mkString
 

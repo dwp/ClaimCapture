@@ -13,7 +13,7 @@ class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None) extends 
    pageSource = browser.pageSource()
 
   def validateXmlWith(claim: TestData) = {
-    val validator = new XMLClaimBusinessValidation("/ClaimScenarioXmlMapping.csv")
+    val validator = new XMLClaimBusinessValidation
     Tuple2(validator.validateXMLClaim(claim, pageSource, throwException = false),validator.warnings)
   }
 
