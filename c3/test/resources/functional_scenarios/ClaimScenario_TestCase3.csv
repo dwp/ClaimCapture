@@ -222,10 +222,12 @@ Employment,Additional details on your last wage,When [[past=did you]] [[present=
 Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1,Yes
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme_1,Yes
 Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension_1,350.1
-Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_1,05
+Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_1,other
+Employment,Pension schemes,How often other (Occupational Pension Scheme)?,EmploymentHowOftenOtherOccupationalPension_1,Other frequency fo occupational scheme
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,EmploymentDoYouPayTowardsAPersonalPension_1,Yes
 Employment,Pension schemes,How much [[past=Did you]] [[present=Do you]] pay?,EmploymentHowMuchYouPayforPersonalPension_1,200.1
-Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension_1,05
+Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension_1,other
+Employment,Pension schemes,How often other (Personal Pension Scheme)?,EmploymentHowOftenOtherPersonalPension_1,Another reason
 Employment,About expenses to do with your employment,[[past=Did you]] [[present=Do you]] pay for anything necessary to do your job?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1,Yes
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for your children?",EmploymentDoYouPayAnyoneLookAfterYourChild_1,Yes
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for the person you normally care for?",EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1,Yes

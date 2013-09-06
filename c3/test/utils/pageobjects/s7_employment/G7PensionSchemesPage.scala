@@ -11,7 +11,7 @@ final class G7PensionSchemesPage(browser: TestBrowser, previousPage: Option[Page
   declareYesNo("#payPersonalPensionScheme", "EmploymentDoYouPayTowardsAPersonalPension_" + iteration)
   declareInput("#howMuchPersonal", "EmploymentHowMuchYouPayforPersonalPension_" + iteration)
   declareSelect("#howOftenPersonal_frequency", "EmploymentHowOftenPersonalPension_" + iteration)
-  declareInput("#howOftenPersonal_other","EmploymentHowOftenOtherPersonalPension_1" + iteration)
+  declareInput("#howOftenPersonal_other","EmploymentHowOftenOtherPersonalPension_" + iteration)
 }
 
 object G7PensionSchemesPage {

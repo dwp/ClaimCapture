@@ -89,7 +89,7 @@ class EmploymentSpec extends Specification with Tags {
 
       val expenses = childcareXml \\ "ChildCareExpenses"
       (expenses \\ "CarerName").text shouldEqual childcareCarer
-      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
+      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual "Not asked"
       (expenses \\ "RelationshipCarerToClaimant").text shouldEqual relation
       (expenses \\ "ChildDetails" \\ "RelationToChild").text shouldEqual relationToChild
     }
@@ -118,7 +118,7 @@ class EmploymentSpec extends Specification with Tags {
 
       val expenses = careExpensesXml \\ "CareExpenses"
       (expenses \\ "CarerName").text shouldEqual carer
-      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
+      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual "Not asked"
       (expenses \\ "RelationshipCarerToClaimant").text shouldEqual relation
       (expenses \\ "RelationshipCarerToCaree").text shouldEqual relation
     }

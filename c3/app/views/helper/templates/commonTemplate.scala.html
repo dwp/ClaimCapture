@@ -1,0 +1,20 @@
+@(elements: helper.FieldElements)
+
+@if(elements.hasErrors) {
+    <p class="error">@elements.errors.mkString(", ")</p>
+}
+
+@if(elements.args.contains('prompt)) {
+    <div class="prompt helper-prompt">@Html(Messages(elements.args.get('prompt).get.toString))</div>
+}
+
+@elements.input
+
+@if(elements.args.contains('helper)) {
+    <p class="helper right">@elements.args.get('helper).get.toString</p>
+}
+
+@if(elements.args.contains('helperBelow)) {
+    <p class="helper">@Html(elements.args.get('helperBelow).get.toString)</p>
+}
+

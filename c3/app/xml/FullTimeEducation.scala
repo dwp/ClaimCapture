@@ -2,7 +2,7 @@ package xml
 
 import models.domain._
 import XMLHelper._
-import controllers.Mappings._
+import app.XMLValues._
 import scala.xml.NodeSeq
 
 object FullTimeEducation {
