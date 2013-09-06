@@ -8,7 +8,7 @@
         <label for="@CarersCrypto.encryptAES(field.id)">@if(required){@Html("<em>*</em>")}@{Space.*} @labelOrId(field.id,args:_*)</label>       <!-- carersSelect -->
     }
 
-    <select id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>
+    <select id="@CarersCrypto.encryptAES(field.id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>
         @args.toMap.get('_default).map { defaultValue =>
             <option class="blank" value="">@defaultValue</option>
         }

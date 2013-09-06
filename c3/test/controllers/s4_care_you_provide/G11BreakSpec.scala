@@ -9,6 +9,8 @@ import models.view.CachedClaim
 
 class G11BreakSpec extends Specification with Tags {
   "Break" should {
+    val breakId1 = "1"
+
     "present" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
@@ -16,17 +18,66 @@ class G11BreakSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    "be rejected for missing mandatory data" in new WithApplication with Claiming {
+    "reject when submitted with missing mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
 
       val result = G11Break.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
+    "redirect to the next page after a valid submission" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        .withFormUrlEncodedBody(
+        "breakID" -> breakId1,
+        "start.day" -> "1",
+        "start.month" -> "1",
+        "start.year" -> "2001",
+        "whereYou.location" -> "Holiday",
+        "wherePerson.location" -> "Holiday",
+        "medicalDuringBreak" -> "no")
+
+      val result = G11Break.submit(request)
+      status(result) mustEqual SEE_OTHER
+    }
+
+    "reject when submitted with other selected but missing other data" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        .withFormUrlEncodedBody(
+        "breakID" -> breakId1,
+        "start.day" -> "1",
+        "start.month" -> "1",
+        "start.year" -> "2001",
+        "whereYou.location" -> "other",
+        "whereYou.location.other" -> "",
+        "wherePerson.location" -> "other",
+        "wherePerson.location.other" -> "",
+        "medicalDuringBreak" -> "no")
+
+      val result = G11Break.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "redirect to the next page after a valid submission with other selected" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        .withFormUrlEncodedBody(
+        "breakID" -> breakId1,
+        "start.day" -> "1",
+        "start.month" -> "1",
+        "start.year" -> "2001",
+        "whereYou.location" -> "other",
+        "whereYou.location.other" -> "Outer space",
+        "wherePerson.location" -> "other",
+        "wherePerson.location.other" -> "Underwater",
+        "medicalDuringBreak" -> "no")
+
+      val result = G11Break.submit(request)
+      status(result) mustEqual SEE_OTHER
+    }
+
     "add 2 breaks" in new WithApplication with Claiming {
       val request1 = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
-        "breakID" -> "1",
+        "breakID" -> breakId1,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
@@ -54,11 +105,9 @@ class G11BreakSpec extends Specification with Tags {
     }
 
     "update existing break" in new WithApplication with Claiming {
-      val breakID = "1"
-
       val requestNew = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
-        "breakID" -> breakID,
+        "breakID" -> breakId1,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
@@ -72,7 +121,7 @@ class G11BreakSpec extends Specification with Tags {
 
       val requestUpdate = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
-        "breakID" -> breakID,
+        "breakID" -> breakId1,
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> yearUpdate.toString,

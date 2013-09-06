@@ -6,14 +6,15 @@ import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
 import models.view.CachedClaim
+import app.StatutoryPaymentFrequency._
 
 class G10ChildcareExpensesSpec extends Specification with Tags {
   "Childcare expenses while you are at work - Controller" should {
     val jobID = "Dummy job ID"
     val whoLooksAfterChildren = "myself"
     val howMuchYouPay = "123445"
-    val howOften_frequency = "other"
-    val howOften_other = "Every day and twice on Sundays"
+    val howOften_frequency = Other
+    val howOften_frequency_other = "Every day and twice on Sundays"
     val whatRelationIsToYou = "son"
     val whatRelationIsToThePersonYouCareFor = "parent"
 
@@ -53,7 +54,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchCostChildcare" -> howMuchYouPay,
         "howOftenPayChildCare.frequency" -> howOften_frequency,
-        "howOftenPayChildCare.other" -> howOften_other,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
         "relationToYou" -> whatRelationIsToYou,
         "relationToPersonYouCare" -> whatRelationIsToThePersonYouCareFor)
 
@@ -75,7 +76,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchCostChildcare" -> howMuchYouPay,
         "howOftenPayChildCare.frequency" -> howOften_frequency,
-        "howOftenPayChildCare.other" -> howOften_other,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
         "relationToYou" -> whatRelationIsToYou,
         "relationToPersonYouCare" -> whatRelationIsToThePersonYouCareFor))
 

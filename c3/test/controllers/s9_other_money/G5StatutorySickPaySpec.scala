@@ -15,7 +15,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
     val haveYouHadAnyStatutorySickPay = "yes"
     val howMuch = "123.45"
     val howOften_frequency = "other"
-    val howOften_other = "Every day and twice on Sundays"
+    val howOften_frequency_other = "Every day and twice on Sundays"
     val employersName = "Johny B Good"
     val employersAddressLineOne =  "lineOne"
     val employersAddressLineTwo = "lineTwo"
@@ -25,7 +25,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
     val statutorySickPayInput = Seq("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay,
       "howMuch" -> howMuch,
       "howOften.frequency" -> howOften_frequency,
-      "howOften.other" -> howOften_other,
+      "howOften.frequency.other" -> howOften_frequency_other,
       "employersName" -> employersName,
       "employersAddress.lineOne" -> employersAddressLineOne, 
       "employersAddress.lineTwo" -> employersAddressLineTwo, 
@@ -51,7 +51,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
         case Some(f: StatutorySickPay) => {
           f.haveYouHadAnyStatutorySickPay must equalTo(haveYouHadAnyStatutorySickPay)
           f.howMuch must equalTo(Some(howMuch))
-          f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_other))))
+          f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
           f.employersName must equalTo(Some(employersName))
           f.employersAddress must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
           f.employersPostcode must equalTo(Some(employersPostcode))
@@ -83,7 +83,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
           .withFormUrlEncodedBody("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay,
             "howMuch" -> howMuch,
             "howOften.frequency" -> howOften_frequency,
-            "howOften.other" -> "",
+            "howOften.frequency.other" -> "",
             "employersName" -> employersName,
             "employersAddress.lineOne" -> employersAddressLineOne,
             "employersAddress.lineTwo" -> employersAddressLineTwo,

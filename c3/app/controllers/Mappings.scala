@@ -47,15 +47,15 @@ object Mappings {
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> nonEmptyText,
-    "other" -> optional(text(maxLength = sixty)))(Whereabouts.apply)(Whereabouts.unapply)
+    "location.other" -> optional(text(maxLength = sixty)))(Whereabouts.apply)(Whereabouts.unapply)
 
   val paymentFrequency: Mapping[PaymentFrequency] = mapping(
     "frequency" -> text(maxLength = sixty),
-    "other" -> optional(text(maxLength = sixty)))(PaymentFrequency.apply)(PaymentFrequency.unapply)
+    "frequency.other" -> optional(text(maxLength = sixty)))(PaymentFrequency.apply)(PaymentFrequency.unapply)
 
   val pensionPaymentFrequency: Mapping[PensionPaymentFrequency] = mapping(
     "frequency" -> nonEmptyText(maxLength = sixty),
-    "other" -> optional(text(maxLength = sixty)))(PensionPaymentFrequency.apply)(PensionPaymentFrequency.unapply)
+    "frequency.other" -> optional(text(maxLength = sixty)))(PensionPaymentFrequency.apply)(PensionPaymentFrequency.unapply)
 
   val sortCode: Mapping[SortCode] = mapping(
     "sort1" -> text(maxLength = two),
@@ -74,7 +74,9 @@ object Mappings {
 
   def requiredWhereabouts: Constraint[Whereabouts] = Constraint[Whereabouts]("constraint.required") { whereabouts =>
     whereabouts match {
-      case Whereabouts(s, _) => if (s.isEmpty) Invalid(ValidationError("error.required")) else Valid
+      case Whereabouts(location, other) => if (location.isEmpty) Invalid(ValidationError("error.required"))
+        else if(location == "other" && other.isEmpty) Invalid(ValidationError("error.location.other.required"))
+        else Valid
     }
   }
 
