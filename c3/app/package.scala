@@ -17,6 +17,16 @@ package object app {
     val Curator = 'curator
   }
 
+  object Whereabouts {
+    val AtHome = "At Home"
+    val Hospital = "Hospital"
+    val Holiday = "Holiday"
+    val RespiteCare = "Respite Care"
+    val CareHome = "Care Home"
+    val NursingHome = "Nursing Home"
+    val Other = "Other"
+  }
+
   object PaymentFrequency {
     val EveryWeek = 'everyWeek
     val FourWeekly = 'fourWeekly

@@ -7,10 +7,11 @@ import models.domain._
 import play.api.cache.Cache
 import models.domain.Claim
 import models.view.CachedClaim
+import app.PensionPaymentFrequency._
 
 class G7PensionSchemesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
-  val howOften_frequency = "other"
+  val howOften_frequency = Other
   val howOften_other = "Every day and twice on Sundays"
 
   "Pension schemes - Controller" should {
