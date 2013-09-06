@@ -54,7 +54,7 @@ object Mappings {
     "other" -> optional(text(maxLength = sixty)))(PaymentFrequency.apply)(PaymentFrequency.unapply)
 
   val pensionPaymentFrequency: Mapping[PensionPaymentFrequency] = mapping(
-    "frequency" -> text(maxLength = sixty),
+    "frequency" -> nonEmptyText(maxLength = sixty),
     "other" -> optional(text(maxLength = sixty)))(PensionPaymentFrequency.apply)(PensionPaymentFrequency.unapply)
 
   val sortCode: Mapping[SortCode] = mapping(
