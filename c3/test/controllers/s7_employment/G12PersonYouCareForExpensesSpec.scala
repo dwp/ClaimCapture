@@ -6,6 +6,7 @@ import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
 import models.view.CachedClaim
+import app.PensionPaymentFrequency._
 
 class G12PersonYouCareForExpensesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
@@ -41,9 +42,33 @@ class G12PersonYouCareForExpensesSpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
+    "reject submission with howOftenPayCare not selected" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+        "whoDoYouPay" -> "blah", "howMuchCostCare" -> "123.45", "relationToYou" -> "fatherInLaw", "relationToPersonYouCare" -> "grandFather")
+
+      val result = G12PersonYouCareForExpenses.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "reject submission with other selected but no text" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+        "whoDoYouPay" -> "blah", "howMuchCostCare" -> "123.45", "howOftenPayCare.frequency" -> Other, "howOftenPayCare.frequency.other" -> "", "relationToYou" -> "fatherInLaw", "relationToPersonYouCare" -> "grandFather")
+
+      val result = G12PersonYouCareForExpenses.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "accept submission with other selected and filled in" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+        "whoDoYouPay" -> "blah", "howMuchCostCare" -> "123.45", "howOftenPayCare.frequency" -> Other, "howOftenPayCare.frequency.other" -> "other text", "relationToYou" -> "fatherInLaw", "relationToPersonYouCare" -> "grandFather")
+
+      val result = G12PersonYouCareForExpenses.submit(request)
+      status(result) mustEqual SEE_OTHER
+    }
+
     "accept all mandatory data." in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whoDoYouPay" -> "blah", "howMuchCostCare" -> "123.45", "howOftenPayCare" -> "02", "relationToYou" -> "fatherInLaw", "relationToPersonYouCare" -> "grandFather")
+        "whoDoYouPay" -> "blah", "howMuchCostCare" -> "123.45", "howOftenPayCare.frequency" -> Weekly, "relationToYou" -> "fatherInLaw", "relationToPersonYouCare" -> "grandFather")
 
       val result = G12PersonYouCareForExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -60,7 +85,7 @@ class G12PersonYouCareForExpensesSpec extends Specification with Tags {
         "finishedThisJob" -> "yes"))
 
       val result = G12PersonYouCareForExpenses.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whoDoYouPay" -> "blah", "howMuchCostCare" -> "123.45", "howOftenPayCare" -> "02", "relationToYou" -> "fatherInLaw", "relationToPersonYouCare" -> "grandFather"))
+        "whoDoYouPay" -> "blah", "howMuchCostCare" -> "123.45", "howOftenPayCare.frequency" -> Weekly, "relationToYou" -> "fatherInLaw", "relationToPersonYouCare" -> "grandFather"))
 
       status(result) mustEqual SEE_OTHER
 

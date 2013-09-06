@@ -6,6 +6,7 @@ import controllers.{WithBrowserHelper, BrowserMatchers, Formulate}
 import models.DayMonthYear
 import java.util.concurrent.TimeUnit
 import utils.pageobjects.s4_care_you_provide.G10BreaksInCarePage
+import app.Whereabouts._
 
 class G11BreakIntegrationSpec extends Specification with Tags {
 
@@ -164,8 +165,8 @@ trait BreakFiller {
 
   def break(start: DayMonthYear = DayMonthYear(1, 1, 2001),
             end: DayMonthYear = DayMonthYear(1, 1, 2001),
-            whereYouLocation: String = "Hospital",
-            wherePersonLocation: String = "Hospital",
+            whereYouLocation: String = AtHome,
+            wherePersonLocation: String = Hospital,
             medicalDuringBreak: Boolean = false) = {
     browser.click(s"#start_day option[value='${start.day.get}']")
     browser.click(s"#start_month option[value='${start.month.get}']")

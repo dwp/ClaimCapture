@@ -247,7 +247,7 @@ object ClaimScenarioFactory {
     claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
     claim.EmploymentCareExpensesHowMuchYouPayfor_1 = "150.55"
-    claim.EmploymentCareExpensesHowOftenYouPayfor_1 = "02"
+    claim.EmploymentCareExpensesHowOftenYouPayfor_1 = PensionPaymentFrequency.Weekly
     claim.EmploymentNameOfPersonYouPayForCaring_1 = "Carers UK Ltd"
     claim.EmploymentCareExpensesWhatRelationIsToYou_1 = "Uncle"
     claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1 = "Other"
@@ -298,7 +298,8 @@ object ClaimScenarioFactory {
     claim.EmploymentWhyYouNeedTheseExpensesToDoYourJob_1 = "So I could deliver items."
     claim.EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1 = "160.66"
     claim.EmploymentChildcareExpensesHowMuchYouPayfor_1 = "120.12"
-    claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Weekly
+    claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Other
+    claim.EmploymentChildcareExpensesHowOftenOther_1 = "other text"
     claim.EmploymentChildcareExpensesHowOftenOther_1 = "why is my train 80 minutes late"
     claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
@@ -307,7 +308,8 @@ object ClaimScenarioFactory {
     claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
     claim.EmploymentCareExpensesHowMuchYouPayfor_1 = "150.55"
-    claim.EmploymentCareExpensesHowOftenYouPayfor_1 = "02"
+    claim.EmploymentCareExpensesHowOftenYouPayfor_1 = PensionPaymentFrequency.Other
+    claim.EmploymentCareExpensesHowOftenYouPayforOther_1 = "other text"
     claim.EmploymentNameOfPersonYouPayForCaring_1 = "Carers UK Ltd"
     claim.EmploymentCareExpensesWhatRelationIsToYou_1 = "Uncle"
     claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1 = "Other"

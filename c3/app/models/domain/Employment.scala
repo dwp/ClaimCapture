@@ -223,7 +223,7 @@ object ChildcareExpenses extends QuestionGroup.Identifier {
 case class PersonYouCareForExpenses(jobID: String = "",
                                     whoDoYouPay: String = "",
                                     howMuchCostCare: String = "",
-                                    howOftenPayCare: String = "",
+                                    howOftenPayCare: PensionPaymentFrequency = models.PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly),
                                     relationToYou: String = "",
                                     relationToPersonYouCare: String = "") extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier
 

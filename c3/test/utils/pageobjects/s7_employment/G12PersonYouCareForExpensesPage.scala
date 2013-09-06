@@ -6,7 +6,8 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
 final class G12PersonYouCareForExpensesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G12PersonYouCareForExpensesPage.url.replace(":jobID", iteration.toString), G12PersonYouCareForExpensesPage.title, previousPage, iteration) {
   declareInput("#whoDoYouPay", "EmploymentNameOfPersonYouPayForCaring_" + iteration)
   declareInput("#howMuchCostCare", "EmploymentCareExpensesHowMuchYouPayfor_" + iteration)
-  declareSelect("#howOftenPayCare", "EmploymentCareExpensesHowOftenYouPayfor_" + iteration)
+  declareSelect("#howOftenPayCare_frequency", "EmploymentCareExpensesHowOftenYouPayfor_" + iteration)
+  declareInput("#howOftenPayCare_frequency_other","EmploymentCareExpensesHowOftenYouPayforOther_" + iteration)
   declareSelect("#relationToYou", "EmploymentCareExpensesWhatRelationIsToYou_" + iteration)
   declareSelect("#relationToPersonYouCare", "EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_" + iteration)
 }

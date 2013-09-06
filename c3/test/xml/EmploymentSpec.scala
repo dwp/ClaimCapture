@@ -4,6 +4,8 @@ import org.specs2.mutable.{Tags, Specification}
 import models.domain.{Employment => Employed, _}
 import controllers.Mappings._
 import models.{PensionPaymentFrequency, PaymentFrequency, DayMonthYear}
+import app.PensionPaymentFrequency._
+import models.PensionPaymentFrequency
 
 class EmploymentSpec extends Specification with Tags {
 
@@ -106,7 +108,7 @@ class EmploymentSpec extends Specification with Tags {
       val relation = "other"
       val carer = "someGipsy"
       val amount = "300"
-      val howOftenPayCare = "02"
+      val howOftenPayCare = PensionPaymentFrequency(Other, Some("other text"))
       val job = Job("1", List(
         AboutExpenses(payAnyoneToLookAfterPerson = "yes"),
         PersonYouCareForExpenses(whoDoYouPay = carer, howMuchCostCare = amount, howOftenPayCare = howOftenPayCare, relationToYou = relation, relationToPersonYouCare = relation)
