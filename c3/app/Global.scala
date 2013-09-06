@@ -34,7 +34,7 @@ object Global extends WithFilters(RefererCheck) {
     MDC.put("hostName", Option(InetAddress.getLocalHost.getHostName).getOrElse("Value not set"))
     MDC.put("envName", Option(System.getProperty("env.name")).getOrElse("Value not set"))
     super.onStart(app)
-    Logger.info("c3 Started")
+    Logger.info("c3 Started") // used for operations, do not remove
   }
 
   override def onLoadConfig(configuration: Configuration, path: File, classloader: ClassLoader, mode: Mode.Mode): Configuration = {
@@ -45,7 +45,7 @@ object Global extends WithFilters(RefererCheck) {
 
   override def onStop(app: Application) {
     super.onStop(app)
-    Logger.info("c3 Stopped")
+    Logger.info("c3 Stopped") // used for operations, do not remove
   }
 
   // 404 - page not found error http://alvinalexander.com/scala/handling-scala-play-framework-2-404-500-errors
