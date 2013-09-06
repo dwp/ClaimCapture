@@ -52,7 +52,7 @@
      The top ancestor is root; thus all loggers will log to the application log and graylog. -->
     <root level="ERROR">
         <appender-ref ref="GELF"/>
-        <appender-ref ref="APPLICATION_LOG"/>
+        <appender-ref ref="ASYNC_APPLICATION_LOG"/>
     </root>
 
 </configuration>
