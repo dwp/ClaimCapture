@@ -28,6 +28,11 @@ $('a[href^="#"]').bind('click.smoothscroll',function (e) {
     });
 }); 	 
 
+
+var IE10 = (navigator.userAgent.match(/(MSIE 10.0)/g) ? true : false);
+if (IE10) {
+	$('html').addClass('ie10');
+}
 	 
 	 
 	 
