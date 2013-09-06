@@ -1,7 +1,7 @@
 package utils.pageobjects.s5_time_spent_abroad
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage, ClaimScenario, PageContext, Page}
+import utils.pageobjects.{ClaimPage, TestData, PageContext, Page}
 
 /**
  * * Page object for s5_time_spent_abroad g2_abroad_for_more_than_4_weeks.
@@ -13,7 +13,7 @@ final class G2AbroadForMoreThan4WeeksPage (browser: TestBrowser, previousPage: O
 
   declareYesNo("#anyTrips", "TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_" + iteration)
 
-  override def fillPageWith(theClaim: ClaimScenario): Page = {
+  override def fillPageWith(theClaim: TestData): Page = {
     super.fillPageWith(theClaim)
 
     if (theClaim.selectDynamic("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_" + iteration).toLowerCase == "no") resetIteration = true

@@ -6,7 +6,7 @@ import utils.pageobjects.s8_self_employment._
 import utils.pageobjects.s2_about_you.{G4ClaimDatePage, G8AboutYouCompletedPage, G4ClaimDatePageContext}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 import utils.pageobjects.s3_your_partner.G4PersonYouCareForPage
 
 class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
@@ -41,7 +41,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
         pagePensionAndExpenses fillPageWith claimPensionAndExpenses
         pagePensionAndExpenses.submitPage(throwException = true)
 
-        val claim = new ClaimScenario
+        val claim = new TestData
 
         page goToThePage()
         page fillPageWith claim
@@ -61,7 +61,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       pageMoreAboutYou.submitPage(throwException = true)
 
 
-      val claimAboutYourPartner = new ClaimScenario
+      val claimAboutYourPartner = new TestData
       claimAboutYourPartner.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "no"
       val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
       pageAboutYourPartner goToThePage()
@@ -92,7 +92,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       pageMoreAboutYou fillPageWith claimDate
       pageMoreAboutYou.submitPage(throwException = true)
 
-      val claimAboutYourPartner = new ClaimScenario
+      val claimAboutYourPartner = new TestData
       claimAboutYourPartner.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "no"
       val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
       pageAboutYourPartner goToThePage()

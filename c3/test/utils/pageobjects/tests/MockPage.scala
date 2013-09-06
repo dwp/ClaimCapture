@@ -1,7 +1,7 @@
 package utils.pageobjects.tests
 
 import play.api.test.TestBrowser
-import utils.pageobjects.{ClaimPage, PageContext, ClaimScenario, Page}
+import utils.pageobjects.{ClaimPage, PageContext, TestData, Page}
 import org.specs2.mock.Mockito
 import org.fluentlenium.core.domain.{FluentWebElement, FluentList}
 import java.util
@@ -17,7 +17,7 @@ class MockPage (browser: TestBrowser, title: String, previousPage: Option[Page] 
    * Sub-class reads theClaim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  override def fillPageWith(theClaim: ClaimScenario): Page = this
+  override def fillPageWith(theClaim: TestData): Page = this
 }
 
 /**

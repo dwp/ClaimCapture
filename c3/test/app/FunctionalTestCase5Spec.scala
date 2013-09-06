@@ -2,7 +2,7 @@ package app
 
 import play.api.test.WithBrowser
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
-import utils.pageobjects.{XmlPage, ClaimScenario, Page}
+import utils.pageobjects.{XmlPage, TestData, Page}
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
@@ -16,7 +16,7 @@ class FunctionalTestCase5Spec extends FunctionalTestCommon {
 
     "Successfully run absolute Test Case 5 " in new WithBrowser with G1BenefitsPageContext {
 
-      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase5.csv")
+      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase5.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title)
 

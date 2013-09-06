@@ -12,7 +12,7 @@ import scala.collection.mutable
  * @author Jorge Migueis
  *         Date: 10/07/2013
  */
-class ClaimScenario extends Dynamic {
+class TestData extends Dynamic {
 
   val map = mutable.Map.empty[String, String]
 
@@ -23,9 +23,9 @@ class ClaimScenario extends Dynamic {
   }
 }
 
-object ClaimScenario {
-  def buildClaimFromFile(fileName: String) = {
-    val claim = new ClaimScenario
+object TestData {
+  def readTestDataFromFile(fileName: String) = {
+    val claim = new TestData
     FactoryFromFile.buildFromFileLast2Columns(fileName, claim.updateDynamic)
     claim
   }

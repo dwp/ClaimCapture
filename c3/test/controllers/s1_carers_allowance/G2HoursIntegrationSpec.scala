@@ -2,7 +2,7 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 import utils.pageobjects.s1_carers_allowance.G2HoursPageContext
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.s1_carers_allowance.G2HoursPage
@@ -16,7 +16,7 @@ class G2HoursIntegrationSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G2HoursPageContext {
-        val claim = new ClaimScenario
+        val claim = new TestData
         claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = ""
         page goToThePage()
         page fillPageWith claim
@@ -26,7 +26,7 @@ class G2HoursIntegrationSpec extends Specification with Tags {
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with G2HoursPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       page goToThePage()
       page fillPageWith claim
@@ -34,7 +34,7 @@ class G2HoursIntegrationSpec extends Specification with Tags {
     }
     
     "navigate to next page on valid submission" in new WithBrowser with G2HoursPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       page goToThePage()
       page fillPageWith claim
@@ -45,7 +45,7 @@ class G2HoursIntegrationSpec extends Specification with Tags {
     }
     
     "contain the completed forms" in new WithBrowser with G1BenefitsPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
       page goToThePage()
       page fillPageWith claim

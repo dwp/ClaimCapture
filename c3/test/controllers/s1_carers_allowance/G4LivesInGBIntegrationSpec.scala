@@ -2,7 +2,7 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 import utils.pageobjects.s1_carers_allowance.G3Over16PageContext
 import utils.pageobjects.s1_carers_allowance.G3Over16Page
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
@@ -20,7 +20,7 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G4LivesInGBPageContext {
-        val claim = new ClaimScenario
+        val claim = new TestData
         page goToThePage()
         page fillPageWith claim
         val pageWithErrors = page.submitPage()
@@ -29,7 +29,7 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
     }
     
     "accept submit if all mandatory fields are populated" in new WithBrowser with G4LivesInGBPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
       page goToThePage()
       page fillPageWith claim
@@ -37,7 +37,7 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G4LivesInGBPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
       page goToThePage()
       page fillPageWith claim
@@ -48,7 +48,7 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
     }
 
     "contain the completed forms" in new WithBrowser with G1BenefitsPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "no"

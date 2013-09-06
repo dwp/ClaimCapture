@@ -1,7 +1,7 @@
 package utils.pageobjects.tests
 
 import org.specs2.mutable.Specification
-import utils.pageobjects.{UnknownPage, PageObjectException, ClaimScenario}
+import utils.pageobjects.{UnknownPage, PageObjectException, TestData}
 
 
 /**
@@ -36,7 +36,7 @@ class PageSpec extends Specification {
 
     "allow running claim" in new MockPageContext {
       page goToThePage()
-      page runClaimWith (new ClaimScenario, MockPage.title)
+      page runClaimWith (new TestData, MockPage.title)
       there was one(browser).submit("button[type='submit']")
       there was one(browser).find("div[class=validation-summary] ol li")
     }

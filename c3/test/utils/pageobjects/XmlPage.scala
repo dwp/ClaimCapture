@@ -1,7 +1,7 @@
 package utils.pageobjects
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.xml_validation.XMLBusinessValidation
+import utils.pageobjects.xml_validation.XMLClaimBusinessValidation
 
 /**
  * Represents the test page where the XML "Submitted" is dumped into.
@@ -12,8 +12,8 @@ class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None) extends 
 
    pageSource = browser.pageSource()
 
-  def validateXmlWith(claim: ClaimScenario) = {
-    val validator = new XMLBusinessValidation("/ClaimScenarioXmlMapping.csv")
+  def validateXmlWith(claim: TestData) = {
+    val validator = new XMLClaimBusinessValidation("/ClaimScenarioXmlMapping.csv")
     Tuple2(validator.validateXMLClaim(claim, pageSource, throwException = false),validator.warnings)
   }
 
@@ -28,7 +28,7 @@ class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None) extends 
    * Throws a PageObjectException.
    * @param theClaim   Data to use to fill page
    */
-  override def fillPageWith(theClaim: ClaimScenario): Page = {
+  override def fillPageWith(theClaim: TestData): Page = {
     throw new PageObjectException("Cannot fill the XML test page [" + pageTitle +"] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]" )
   }
 }
