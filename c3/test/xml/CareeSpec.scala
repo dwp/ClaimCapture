@@ -3,13 +3,12 @@ package xml
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
 import models.DayMonthYear
-import controllers.Mappings.{yes, no}
-import models.yesNo.{YesNoWithDropDownAndText, YesNoWithDropDown, YesNoWithDate}
+import models.yesNo.YesNoWithDate
 import models.NationalInsuranceNumber
 import models.Whereabouts
 import models.MultiLineAddress
 import models.domain.Break
-import app.ActingType._
+import app.XMLValues._
 
 class CareeSpec extends Specification with Tags {
 
@@ -39,9 +38,9 @@ class CareeSpec extends Specification with Tags {
       (xml \\ "Address" \\ "PostCode").text shouldEqual theirContactDetails.postcode.get.toUpperCase
       (xml \\ "DaytimePhoneNumber" \\ "Number").text shouldEqual theirContactDetails.phoneNumber.get
       (xml \\ "RelationToClaimant").text shouldEqual moreAboutThePerson.relationship
-      (xml \\ "Cared35hours").text shouldEqual "Not asked"
+      (xml \\ "Cared35hours").text shouldEqual NotAsked
       (xml \\ "BreaksSinceClaim").text shouldEqual no
-      (xml \\ "Cared35hoursBefore").text shouldEqual "Not asked"
+      (xml \\ "Cared35hoursBefore").text shouldEqual NotAsked
     }
 
     "generate <BreaksSinceClaim> xml with" in {

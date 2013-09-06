@@ -1,7 +1,6 @@
 package utils.pageobjects
 
 import java.util.concurrent.TimeUnit
-import scala.collection.convert.Wrappers.JListWrapper
 import org.specs2.specification.Scope
 import play.api.test.TestBrowser
 import org.openqa.selenium.TimeoutException
@@ -13,7 +12,7 @@ import scala.util.Try
  * @author Jorge Migueis
  *         Date: 08/07/2013
  */
-abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Int = 1) extends Object with FormFields with WebSearchActions with WebFillActions {
+abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: String, pageTitle: String, previousPage: Option[Page] = None, iteration: Int = 1) extends Object with FormFields with WebSearchActions with WebFillActions {
 
   // Cache of the page source
   protected var pageSource = ""
@@ -88,20 +87,20 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
       this
     }
     catch {
-      case e:Exception => throw new PageObjectException("Error when filling form in page [" + pageTitle + "]",exception = e)
+      case e: Exception => throw new PageObjectException("Error when filling form in page [" + pageTitle + "]", exception = e)
     }
   }
 
   /**
    * Read a claim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
+   * @param theClaim   Claim to populate
    */
   def populateClaim(theClaim: ClaimScenario): Page = {
     try {
       fields foreach {
         case (cssElem: String, fieldType: Symbol, claimAttribute: String) =>
 
-          def assignToClaimAttribute(value:Option[String]) =
+          def assignToClaimAttribute(value: Option[String]) =
             if (value.isDefined) theClaim.updateDynamic(claimAttribute)(value.get)
 
           fieldType match {
@@ -112,7 +111,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
             case DATE_TO => assignToClaimAttribute(readDate(cssElem + "_to"))
             case INPUT => assignToClaimAttribute(readInput(cssElem))
             case NINO => assignToClaimAttribute(readNino(cssElem))
-// TODO            case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
+            // TODO            case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
             case SELECT => assignToClaimAttribute(readSelect(cssElem))
             case SORTCODE => assignToClaimAttribute(readSortCode(cssElem))
             case TIME => assignToClaimAttribute(readTime(cssElem))
@@ -123,7 +122,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
       this
     }
     catch {
-      case e:Exception => throw new PageObjectException("Error when reading form in page [" + pageTitle + "]",exception = e)
+      case e: Exception => throw new PageObjectException("Error when reading form in page [" + pageTitle + "]", exception = e)
     }
   }
 
@@ -139,13 +138,13 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    * @param trace If set to yes, then print to console the titles, iterations and url of pages traversed.
    * @return Last page
    */
-  final def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, upToIteration:Int = 1,throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION, trace: Boolean = false): Page = {
+  final def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, upToIteration: Int = 1, throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION, trace: Boolean = false): Page = {
     if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be (re)submitted." + this.toString)
     if (pageTitle == upToPageWithTitle && iteration == upToIteration) this
     else {
       if (trace) println(this.pageTitle + " @ " + url + " : Iteration " + iteration)
       this fillPageWith theClaim
-      submitPage(throwException, waitForPage, waitDuration) runClaimWith(theClaim, upToPageWithTitle,upToIteration, throwException, waitForPage, waitDuration, trace)
+      submitPage(throwException, waitForPage, waitDuration) runClaimWith(theClaim, upToPageWithTitle, upToIteration, throwException, waitForPage, waitDuration, trace)
     }
   }
 
@@ -169,7 +168,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
       }
     }
     catch {
-      case e:Exception => throw new PageObjectException("Could not submit page [" + this.pageTitle + "] because " + e.getMessage,exception = e)
+      case e: Exception => throw new PageObjectException("Could not submit page [" + this.pageTitle + "] because " + e.getMessage, exception = e)
     }
   }
 
@@ -185,8 +184,8 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
     createPageWithTitle(title, iteration)
   }
 
-  def goToPageFromIterationsTableAtIndex(index:Int, location: String = "input[value='Change']",waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    browser.find(location,index).click
+  def goToPageFromIterationsTableAtIndex(index: Int, location: String = "input[value='Change']", waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
+    browser.find(location, index).click
     val title = getPageTitle(null, waitForPage, waitDuration)
     createPageWithTitle(title, iteration)
   }
@@ -198,30 +197,6 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
    */
   def source() = if (this.pageLeftOrSubmitted) this.pageSource else getPageSource()
 
-  /**
-   * Provides the list of errors displayed in a page. If there is no error then return None.
-   * @return a Option containing the list of errors displayed by a page.
-   */
-  def listErrors: List[String] = {
-    try {
-      val rawErrors = browser.find("div[class=validation-summary] ol li")
-
-      if (!rawErrors.isEmpty) {
-        new JListWrapper(rawErrors.getTexts).toList
-      } else List[String]()
-    }
-    catch {
-      case e: Exception => List[String]()
-    }
-  }
-
-  def listCompletedForms = findTarget("div[class=completed] ul li")
-
-  def findTarget(target: String): List[String] = {
-    val rawErrors = browser.find(target)
-    if (!rawErrors.isEmpty) new JListWrapper(rawErrors.getTexts).toList
-    else List()
-  }
 
   def fullPagePath: String = {
     if (previousPage == None) this.pageTitle
@@ -250,7 +225,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
 
   protected def waitForNewTitle(waitDuration: Int) = {
     try {
-      var matchResult = (false,"")
+      var matchResult = (false, "")
       browser.waitUntil[Boolean](waitDuration, TimeUnit.SECONDS) {
         matchResult = titleDoesNotMatch("")
         matchResult._1
@@ -263,12 +238,12 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
   }
 
   protected def titleMatch(expectedTitle: String = this.pageTitle): (Boolean, String) = {
-    try { 
+    try {
       val titleRead = getTitleFromBrowser()
       (if (titleRead != null) titleRead.toLowerCase == expectedTitle.toLowerCase else false, titleRead)
     }
     catch {
-      case _:Exception => (false,"")
+      case _: Exception => (false, "")
     }
   }
 
@@ -277,7 +252,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
     (!matching._1, matching._2)
   }
 
-  protected def getTitleFromBrowser(index:Int = 0):String = {
+  protected def getTitleFromBrowser(index: Int = 0): String = {
     if (index < 5) {
       try {
         val htmlTitle = browser.title()
@@ -285,13 +260,13 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
         else htmlTitle
       }
       catch {
-        case _:Exception => getTitleFromBrowser(index + 1)
+        case _: Exception => getTitleFromBrowser(index + 1)
       }
     } else ""
   }
 
 
-  protected def getPageTitle(fluent: Fluent, waitForPage:Boolean, waitDuration:Int): String = {
+  protected def getPageTitle(fluent: Fluent, waitForPage: Boolean, waitDuration: Int): String = {
     def htmlTitle = try {
       if (fluent != null) fluent.title else getTitleFromBrowser()
     } catch {
@@ -364,7 +339,14 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * @param theClaim   Data to use to fill page
    */
   override def fillPageWith(theClaim: ClaimScenario): Page =
-    throw new PageObjectException("Cannot fill an unknown page [" + pageTitle +"] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]. Page content is" + source() )
+    throw new PageObjectException("Cannot fill an unknown page [" + pageTitle + "] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
+
+  /**
+   * Throws a PageObjectException.
+   * @param theClaim   Claim to populate.
+   */
+  override def populateClaim(theClaim: ClaimScenario): Page =
+    throw new PageObjectException("Cannot populate a claim from an unknown page [" + pageTitle + "] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
 }
 
 object Page {
