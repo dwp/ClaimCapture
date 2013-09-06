@@ -93,7 +93,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
 
   /**
    * Read a claim and interacts with browser to populate page.
-   * @param theClaim   Data to use to fill page
+   * @param theClaim   Claim to populate
    */
   def populateClaim(theClaim: ClaimScenario): Page = {
     try {
@@ -340,6 +340,13 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    */
   override def fillPageWith(theClaim: ClaimScenario): Page =
     throw new PageObjectException("Cannot fill an unknown page [" + pageTitle + "] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
+
+  /**
+   * Throws a PageObjectException.
+   * @param theClaim   Claim to populate.
+   */
+  override def populateClaim(theClaim: ClaimScenario): Page =
+    throw new PageObjectException("Cannot populate a claim from an unknown page [" + pageTitle + "] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
 }
 
 object Page {
