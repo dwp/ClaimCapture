@@ -54,7 +54,7 @@ class EmploymentSpec extends Specification {
 
       val updatedJobs = jobs.update(updatedJob1)
       updatedJobs.size shouldEqual 2
-      updatedJobs.find(_.jobID == "1") must beLike { case Some(Job("1", qgs)) => qgs.size shouldEqual 2 }
+      updatedJobs.find(_.jobID == "1") must beLike { case Some(Job("1", qgs, false)) => qgs.size shouldEqual 2 }
     }
 
     "update existing question group in existing job" in new Claiming {
@@ -71,7 +71,7 @@ class EmploymentSpec extends Specification {
       updatedJobs.size shouldEqual 2
 
       updatedJobs.find(_.jobID == "1") must beLike {
-        case Some(Job("1", qgs)) => qgs.find(_.isInstanceOf[EmployerContactDetails]) must beLike {
+        case Some(Job("1", qgs, false)) => qgs.find(_.isInstanceOf[EmployerContactDetails]) must beLike {
           case Some(e: EmployerContactDetails) => e.phoneNumber must beSome("222")
         }
       }
@@ -88,7 +88,7 @@ class EmploymentSpec extends Specification {
       updatedJobs.size shouldEqual 2
 
       updatedJobs.find(_.jobID == "1") must beLike {
-        case Some(Job("1", qgs)) => qgs.find(_.isInstanceOf[EmployerContactDetails]) must beLike {
+        case Some(Job("1", qgs, false)) => qgs.find(_.isInstanceOf[EmployerContactDetails]) must beLike {
           case Some(e: EmployerContactDetails) => e.phoneNumber must beSome("222")
         }
       }
@@ -106,7 +106,7 @@ class EmploymentSpec extends Specification {
 
       val updatedJobs = jobs.update(updatedJob1)
       updatedJobs.size shouldEqual 2
-      updatedJobs.find(_.jobID == "1") must beLike { case Some(Job("1", qgs)) => qgs.size shouldEqual 2 }
+      updatedJobs.find(_.jobID == "1") must beLike { case Some(Job("1", qgs, false)) => qgs.size shouldEqual 2 }
 
       val claim = Claim().update(updatedJobs)
 

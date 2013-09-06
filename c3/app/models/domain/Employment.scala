@@ -4,7 +4,6 @@ import models._
 import play.api.i18n.Messages
 import scala.reflect.ClassTag
 import controllers.Mappings._
-import scala.Some
 import models.PaymentFrequency
 import scala.Some
 import models.MultiLineAddress
@@ -35,6 +34,13 @@ case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Jobs) with Iterable
     case _ => update(Job(questionGroup.jobID, questionGroup :: Nil))
   }
 
+  def completeJob(jobID: String): Jobs = {
+    job(jobID) match {
+        case Some(j:Job) => update(j.copy( completed = j.questionGroups.size > 5 ))
+        case _ => copy()
+      }
+  }
+
   def delete(jobID: String): Jobs = Jobs(jobs.filterNot(_.jobID == jobID))
 
   def delete(jobID: String, questionGroup: QuestionGroup.Identifier): Jobs = jobs.find(_.jobID == jobID) match {
@@ -61,7 +67,7 @@ object Jobs extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g99"
 }
 
-case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identifier] = Nil) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
+case class Job(jobID: String="", questionGroups: List[QuestionGroup with Job.Identifier] = Nil, completed:Boolean=false) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
   def employerName = jobDetails(_.employerName)
 
   def title = necessaryExpenses(_.jobTitle)
