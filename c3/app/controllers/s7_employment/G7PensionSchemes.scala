@@ -36,6 +36,7 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
+        println("*** form " + form + " errors " + form.errors)
         val pastPresent = pastPresentLabelForEmployment(claim, didYou, doYou , jobID)
         val formWithErrorsUpdate = formWithErrors
           .replaceError("howMuchPension", "decimal.invalid", FormError("howMuchPension", "decimal.invalid", Seq(pastPresent.toLowerCase)))

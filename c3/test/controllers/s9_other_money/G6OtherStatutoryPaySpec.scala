@@ -16,7 +16,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
     val yes = "yes"
     val howMuch = "howMuch"
     val howOften_frequency = "frequency"
-    val howOften_other = "Weekly"
+    val howOften_frequency_other = "Weekly"
     val employersName = "Johny B Good"
     val employersAddressLineOne = "lineOne"
     val employersAddressLineTwo = "lineTwo"
@@ -26,7 +26,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
     val formInput = Seq("otherPay" -> yes,
       "howMuch" -> howMuch,
       "howOften.frequency" -> howOften_frequency,
-      "howOften.other" -> howOften_other,
+      "howOften.frequency.other" -> howOften_frequency_other,
       "employersName" -> employersName,
       "employersAddress.lineOne" -> employersAddressLineOne,
       "employersAddress.lineTwo" -> employersAddressLineTwo,
@@ -54,7 +54,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
         case Some(f: OtherStatutoryPay) => {
           f.otherPay must equalTo(yes)
           f.howMuch must equalTo(Some(howMuch))
-          f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_other))))
+          f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
           f.employersName must equalTo(Some(employersName))
           f.employersAddress must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
           f.employersPostcode must equalTo(Some(employersPostcode))
@@ -86,7 +86,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
           .withFormUrlEncodedBody("otherPay" -> yes,
             "howMuch" -> howMuch,
             "howOften.frequency" -> howOften_frequency,
-            "howOften.other" -> "",
+            "howOften.frequency.other" -> "",
             "employersName" -> employersName,
             "employersAddress.lineOne" -> employersAddressLineOne,
             "employersAddress.lineTwo" -> employersAddressLineTwo,

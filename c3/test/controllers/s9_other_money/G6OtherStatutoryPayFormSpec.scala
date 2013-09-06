@@ -10,7 +10,7 @@ class G6OtherStatutoryPayFormSpec extends Specification with Tags {
     val no = "no"
     val howMuch = "howMuch"
     val howOften_frequency = "other"
-    val howOften_other = "Every day and twice on Sundays"
+    val howOften_frequency_other = "Every day and twice on Sundays"
     val employersName = "Johny B Good"
     val employersAddressLineOne = "lineOne"
     val employersAddressLineTwo = "lineTwo"
@@ -23,7 +23,7 @@ class G6OtherStatutoryPayFormSpec extends Specification with Tags {
           "otherPay" -> yes,
           "howMuch" -> howMuch,
           "howOften.frequency" -> howOften_frequency,
-          "howOften.other" -> howOften_other,
+          "howOften.frequency.other" -> howOften_frequency_other,
           "employersName" -> employersName,
           "employersAddress.lineOne" -> employersAddressLineOne,
           "employersAddress.lineTwo" -> employersAddressLineTwo,
@@ -33,7 +33,7 @@ class G6OtherStatutoryPayFormSpec extends Specification with Tags {
           f => {
             f.otherPay must equalTo(yes)
             f.howMuch must equalTo(Some(howMuch))
-            f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_other))))
+            f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
             f.employersName must equalTo(Some(employersName))
             f.employersAddress must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
             f.employersPostcode must equalTo(Some(employersPostcode))
@@ -86,7 +86,7 @@ class G6OtherStatutoryPayFormSpec extends Specification with Tags {
           Map("otherPay" -> yes,
             "howMuch" -> howMuch,
             "howOften.frequency" -> howOften_frequency,
-            "howOften.other" -> "",
+            "howOften.frequency.other" -> "",
             "employersName" -> employersName,
             "employersAddress.lineOne" -> employersAddressLineOne,
             "employersAddress.lineTwo" -> employersAddressLineTwo,

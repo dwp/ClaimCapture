@@ -13,7 +13,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
     val whoLooksAfterChildren = "myself"
     val howMuchYouPay = "123445"
     val howOften_frequency = "other"
-    val howOften_other = "Every day and twice on Sundays"
+    val howOften_frequency_other = "Every day and twice on Sundays"
     val whatRelationIsToYou = "son"
     val whatRelationIsToThePersonYouCareFor = "parent"
 
@@ -53,7 +53,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchCostChildcare" -> howMuchYouPay,
         "howOftenPayChildCare.frequency" -> howOften_frequency,
-        "howOftenPayChildCare.other" -> howOften_other,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
         "relationToYou" -> whatRelationIsToYou,
         "relationToPersonYouCare" -> whatRelationIsToThePersonYouCareFor)
 
@@ -75,7 +75,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchCostChildcare" -> howMuchYouPay,
         "howOftenPayChildCare.frequency" -> howOften_frequency,
-        "howOftenPayChildCare.other" -> howOften_other,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
         "relationToYou" -> whatRelationIsToYou,
         "relationToPersonYouCare" -> whatRelationIsToThePersonYouCareFor))
 
