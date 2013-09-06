@@ -5,30 +5,25 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
-import models.domain.{SelfEmploymentPensionsAndExpenses, Claim}
+import models.domain.{PensionSchemes, SelfEmploymentPensionsAndExpenses, Claim}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
-import models.yesNo.YesNoWith2Text
 import controllers.s8_self_employment.SelfEmployment._
 import play.api.data.FormError
 import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
 
 object G4SelfEmploymentPensionsAndExpenses extends Controller with SelfEmploymentRouting with CachedClaim {
-  val pensionSchemeMapping =
-      "doYouPayToPensionScheme" -> mapping(
-        "answer" -> nonEmptyText.verifying(validYesNo),
-        "howMuchDidYouPay" -> optional(nonEmptyText verifying validDecimalNumber),
-        "howOften" -> optional(nonEmptyText)
-      )(YesNoWith2Text.apply)(YesNoWith2Text.unapply)
-        .verifying("howMuchDidYouPay", YesNoWith2Text.validateText1OnYes _)
-        .verifying("howOften", YesNoWith2Text.validateText2OnYes _)
-
   def form(implicit claim: Claim) = Form(
     mapping(
-      pensionSchemeMapping,
+      "doYouPayToPensionScheme" -> nonEmptyText.verifying(validYesNo),
+      "howMuchDidYouPay" -> optional(nonEmptyText verifying validDecimalNumber),
+      "howOften" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
       "doYouPayToLookAfterYourChildren" -> nonEmptyText.verifying(validYesNo),
       "didYouPayToLookAfterThePersonYouCaredFor" -> nonEmptyText.verifying(validYesNo)
-    )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply))
+    )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply)
+      .verifying("howMuchDidYouPay", PensionSchemes.validateHowMuchSelfEmployed _)
+      .verifying("howOften", PensionSchemes.validateHowOftenSelfEmployed _)
+  )
 
   def present = claiming { implicit claim => implicit request =>
     whenSectionVisible(Ok(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses), completedQuestionGroups(SelfEmploymentPensionsAndExpenses))))

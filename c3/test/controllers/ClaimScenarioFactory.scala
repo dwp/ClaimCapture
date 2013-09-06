@@ -378,7 +378,7 @@ object ClaimScenarioFactory {
 
     claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
     claim.SelfEmployedHowMuchYouPayTowardsPensionScheme = "11.2"
-    claim.SelfEmployedHowoftenYouPayTowardsPensionScheme = "02"
+    claim.SelfEmployedHowoftenYouPayTowardsPensionScheme = app.PensionPaymentFrequency.Weekly
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
 
@@ -389,7 +389,7 @@ object ClaimScenarioFactory {
     val claim = s9SelfEmploymentPensionsAndExpenses
 
     claim.SelfEmployedChildcareExpensesHowMuchYouPay = "123456"
-    claim.SelfEmployedChildcareExpensesHowOften = "02"
+    claim.SelfEmployedChildcareExpensesHowOften = app.PensionPaymentFrequency.Weekly
     claim.SelfEmployedChildcareProviderNameOfPerson = "hello123"
     claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "son"
     claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "son"
@@ -400,7 +400,7 @@ object ClaimScenarioFactory {
     val claim = s9SelfEmploymentChildCareExpenses
 
     claim.SelfEmployedCareExpensesHowMuchYouPay = "900.9"
-    claim.SelfEmployedCareExpensesHowOften = "02"
+    claim.SelfEmployedCareExpensesHowOften = app.PensionPaymentFrequency.Weekly
     claim.SelfEmployedCareExpensesNameOfPerson = "John"
     claim.SelfEmployedCareExpensesWhatRelationIsToYou = "grandSon"
     claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "son"

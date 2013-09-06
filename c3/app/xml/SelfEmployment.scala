@@ -53,7 +53,7 @@ object SelfEmployment {
         {childCareExpenses(claim)}
         <CareExpensesCaree>{pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor}</CareExpensesCaree>
         {careExpenses(claim)}
-        <PaidForPension>{pensionAndExpenses.pensionSchemeMapping.answer}</PaidForPension>
+        <PaidForPension>{pensionAndExpenses.doYouPayToPensionScheme}</PaidForPension>
         {pensionScheme(claim)}
       </SelfEmployment>
 
@@ -115,13 +115,13 @@ object SelfEmployment {
     val pensionsAndExpensesOption = claim.questionGroup[SelfEmploymentPensionsAndExpenses]
     val pensionAndExpenses = pensionsAndExpensesOption.getOrElse(SelfEmploymentPensionsAndExpenses())
 
-    val hasPensionScheme = pensionAndExpenses.pensionSchemeMapping.answer == yes
+    val hasPensionScheme = pensionAndExpenses.doYouPayToPensionScheme == yes
 
     if (hasPensionScheme) {
       <PensionScheme>
         <Type>personal_private</Type>
-        <Payment>{moneyStructure(pensionAndExpenses.pensionSchemeMapping.text1.orNull)}</Payment>
-        <Frequency>{pensionAndExpenses.pensionSchemeMapping.text2.orNull}</Frequency>
+        <Payment>{moneyStructure(pensionAndExpenses.howMuchDidYouPay.orNull)}</Payment>
+        <Frequency>{if(pensionAndExpenses.howOften.isEmpty){} else pensionAndExpenses.howOften.get.frequency}</Frequency>
       </PensionScheme>
     } else NodeSeq.Empty
   }

@@ -2,10 +2,10 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
-import models.DayMonthYear
-import models.yesNo.YesNoWith2Text
+import models.{PensionPaymentFrequency, DayMonthYear}
 import scala.Some
 import app.XMLValues._
+import app.PensionPaymentFrequency._
 
 class SelfEmploymentSpec extends Specification with Tags {
 
@@ -42,7 +42,12 @@ class SelfEmploymentSpec extends Specification with Tags {
     }
 
     "generate <PensionScheme> if claimer has paid for pension scheme" in {
-      val pensionScheme = SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWith2Text(yes, Some(amount), Some("02")))
+      val pensionScheme = SelfEmploymentPensionsAndExpenses(doYouPayToPensionScheme = "yes",
+      howMuchDidYouPay = Some(amount),
+      howOften = Some(PensionPaymentFrequency(Weekly)),
+      doYouPayToLookAfterYourChildren= "yes",
+      didYouPayToLookAfterThePersonYouCaredFor = "yes")
+
       val claim = Claim().update(pensionScheme)
 
       val pensionSchemeXml = xml.SelfEmployment.pensionScheme(claim)

@@ -21,15 +21,15 @@
             <legend>@Messages("s8.g4")</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme.answer"), '_label -> Messages ("doYouPayToPensionScheme.answer", didYouDoYouIfSelfEmployed))
+                @yesNoRadioGroup(currentForm("doYouPayToPensionScheme"), '_label -> Messages ("doYouPayToPensionScheme.answer", didYouDoYouIfSelfEmployed))
 
                 @otherDetailPlaceHolder(
-                inputDef = Seq(
-                    carersCurrency(currentForm("doYouPayToPensionScheme.howMuchDidYouPay"), '_label -> Messages ("doYouPayToPensionScheme.howMuchDidYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxLength -> Mappings.sixty),
-                    carersSelect(currentForm("doYouPayToPensionScheme.howOften"), Seq("" -> "Please Select",Weekly -> "Weekly", Fortnightly -> "fortnightly",FourWeekly -> "four-weekly", Monthly -> "monthly"), '_label -> Messages ("doYouPayToPensionScheme.howOften", didYouDoYouIfSelfEmployed.toLowerCase))
+                    inputDef = Seq(
+                        carersCurrency(currentForm("howMuchDidYouPay"), '_label -> Messages ("doYouPayToPensionScheme.howMuchDidYouPay", didYouDoYouIfSelfEmployed.toLowerCase), 'maxLength -> Mappings.sixty),
+                        pensionPaymentFrequencySelect(currentForm("howOften"), '_label -> Messages ("doYouPayToPensionScheme.howOften", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOften")
                     ),
                     'id -> "selfEmployedPensionWrap",
-                    'display -> currentForm("doYouPayToPensionScheme.answer").value.getOrElse("no")
+                    'display -> currentForm("doYouPayToPensionScheme").value.getOrElse("no")
                 )
 
                 @yesNoRadioGroup(currentForm("doYouPayToLookAfterYourChildren"), '_label -> Messages ("doYouPayToLookAfterYourChildren", didYouDoYouIfSelfEmployed.toLowerCase))
@@ -48,8 +48,11 @@
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s8_self_employment/g4_selfEmploymentPensionsAndExpenses.js")'></script>
 
-<script type="text/javascript">
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
+
+
+    <script type="text/javascript">
     $(function() {
-        window.initEvents("@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_yes")","@CarersCrypto.encryptAES("doYouPayToPensionScheme_answer_no")");
+    window.initEvents("@CarersCrypto.encryptAES("doYouPayToPensionScheme_yes")","@CarersCrypto.encryptAES("doYouPayToPensionScheme_no")");
     });
 </script>

@@ -7,19 +7,22 @@ import play.api.test.Helpers._
 import play.api.cache.Cache
 import scala.Some
 import models.view.CachedClaim
+import models.PensionPaymentFrequency
 
 class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
 
   "Self Employment - Pensions and Expenses - Controller" should {
     val doYouPayToPensionScheme = "yes"
-    val howMuchDidYouPay = "11"
-    val howOften = app.PensionPaymentFrequency.Weekly
+    val howMuchDidYouPay = "123.45"
+    val howOften_frequency = app.PensionPaymentFrequency.Other
+    val howOften_frequency_other = "Every day and twice on Sundays"
     val doYouPayToLookAfterYourChildren = "yes"
     val didYouPayToLookAfterThePersonYouCaredFor = "yes"
 
-    val selfEmploymentPensionsAndExpensesInput = Seq("doYouPayToPensionScheme.answer" -> doYouPayToPensionScheme,
-      "doYouPayToPensionScheme.howMuchDidYouPay" -> howMuchDidYouPay,
-      "doYouPayToPensionScheme.howOften" -> howOften,
+    val selfEmploymentPensionsAndExpensesInput = Seq("doYouPayToPensionScheme" -> doYouPayToPensionScheme,
+      "howMuchDidYouPay" -> howMuchDidYouPay,
+      "howOften.frequency" -> howOften_frequency,
+      "howOften.frequency.other" -> howOften_frequency_other,
       "doYouPayToLookAfterYourChildren" -> doYouPayToLookAfterYourChildren,
       "didYouPayToLookAfterThePersonYouCaredFor" -> didYouPayToLookAfterThePersonYouCaredFor
     )
@@ -41,9 +44,9 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
 
       section.questionGroup(SelfEmploymentPensionsAndExpenses) must beLike {
         case Some(f: SelfEmploymentPensionsAndExpenses) => {
-          f.pensionSchemeMapping.answer must equalTo(doYouPayToPensionScheme)
-          f.pensionSchemeMapping.text1 must equalTo(Some(howMuchDidYouPay))
-          f.pensionSchemeMapping.text2 must equalTo(Some(howOften))
+          f.doYouPayToPensionScheme must equalTo(doYouPayToPensionScheme)
+          f.howMuchDidYouPay must equalTo(Some(howMuchDidYouPay))
+          f.howOften must equalTo(Some(PensionPaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
           f.doYouPayToLookAfterYourChildren must equalTo(doYouPayToLookAfterYourChildren)
           f.didYouPayToLookAfterThePersonYouCaredFor must equalTo(didYouPayToLookAfterThePersonYouCaredFor)
         }
