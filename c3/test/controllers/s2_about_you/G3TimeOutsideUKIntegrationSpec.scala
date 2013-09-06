@@ -3,12 +3,12 @@ package controllers.s2_about_you
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s2_about_you.{G4ClaimDatePage, G3TimeOutsideUKPageContext}
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 
 class G3TimeOutsideUKIntegrationSpec extends Specification with Tags {
   "About Your Time Outside The UK" should {
     "accept the minimal mandatory data" in new WithBrowser with G3TimeOutsideUKPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.AboutYouAreYouCurrentlyLivingintheUk = "No"
       page goToThePage()
       page fillPageWith claim
@@ -17,7 +17,7 @@ class G3TimeOutsideUKIntegrationSpec extends Specification with Tags {
     }
 
     "have a valid date when currently living in UK" in new WithBrowser with G3TimeOutsideUKPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
       page goToThePage()
       page fillPageWith claim
@@ -25,7 +25,7 @@ class G3TimeOutsideUKIntegrationSpec extends Specification with Tags {
     }
 
     "accept a valid date when currently living in UK" in new WithBrowser with G3TimeOutsideUKPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.AboutYouAreYouCurrentlyLivingintheUk = "Yes"
       claim.AboutYouWhenDidYouArriveInYheUK = "01/11/2003"
       claim.AboutYouDoYouPlantoGoBacktoThatCountry = "No"

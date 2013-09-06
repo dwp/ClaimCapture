@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 
 import controllers.ClaimScenarioFactory
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 import utils.pageobjects.s9_other_money._
 import play.api.test.WithBrowser
 
@@ -17,7 +17,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in {
       "had sick pay but missing mandatory field" in new WithBrowser with G5StatutorySickPayPageContext {
-        val claim = new ClaimScenario
+        val claim = new TestData
         claim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay = "yes"
         page goToThePage ()
         page fillPageWith claim
@@ -26,7 +26,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
       }
 
       "had sick pay but then invalid postcode" in new WithBrowser with G5StatutorySickPayPageContext {
-        val claim = new ClaimScenario
+        val claim = new TestData
         claim.OtherMoneyStatutorySickPayHaveYouHadAnyStatutorySickPay = "yes"
         claim.OtherMoneyStatutorySickPayEmployersNameEmployers = "Johnny B Good"
         claim.OtherMoneyStatutorySickPayEmployersPostCode = "INVALID"
@@ -38,7 +38,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
       }
 
       "howOften frequency of other with no other text entered" in new WithBrowser with G5StatutorySickPayPageContext {
-        val claim = new ClaimScenario
+        val claim = new TestData
         claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
         claim.OtherMoneySSPHowMuch = "123"
         claim.OtherMoneySSPHowOften = "other"
@@ -83,7 +83,7 @@ class G5StatutorySickPayIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next page on valid submission with other field selected" in new WithBrowser with G5StatutorySickPayPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.OtherMoneyHaveYouSSPSinceClaim = "yes"
       claim.OtherMoneySSPHowMuch = "123"
       claim.OtherMoneySSPHowOften = "other"

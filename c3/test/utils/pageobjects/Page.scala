@@ -64,7 +64,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
    * Read a claim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
-  def fillPageWith(theClaim: ClaimScenario): Page = {
+  def fillPageWith(theClaim: TestData): Page = {
     try {
       fields foreach {
         case (cssElem: String, fieldType: Symbol, claimAttribute: String) =>
@@ -95,7 +95,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
    * Read a claim and interacts with browser to populate page.
    * @param theClaim   Claim to populate
    */
-  def populateClaim(theClaim: ClaimScenario): Page = {
+  def populateClaim(theClaim: TestData): Page = {
     try {
       fields foreach {
         case (cssElem: String, fieldType: Symbol, claimAttribute: String) =>
@@ -138,7 +138,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
    * @param trace If set to yes, then print to console the titles, iterations and url of pages traversed.
    * @return Last page
    */
-  final def runClaimWith(theClaim: ClaimScenario, upToPageWithTitle: String, upToIteration: Int = 1, throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION, trace: Boolean = false): Page = {
+  final def runClaimWith(theClaim: TestData, upToPageWithTitle: String, upToIteration: Int = 1, throwException: Boolean = true, waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION, trace: Boolean = false): Page = {
     if (this.pageLeftOrSubmitted) throw PageObjectException("This page was already left or submitted. It cannot be (re)submitted." + this.toString)
     if (pageTitle == upToPageWithTitle && iteration == upToIteration) this
     else {
@@ -338,14 +338,14 @@ final class UnknownPage(browser: TestBrowser, pageTitle: String, previousPage: O
    * Throws a PageObjectException.
    * @param theClaim   Data to use to fill page
    */
-  override def fillPageWith(theClaim: ClaimScenario): Page =
+  override def fillPageWith(theClaim: TestData): Page =
     throw new PageObjectException("Cannot fill an unknown page [" + pageTitle + "] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
 
   /**
    * Throws a PageObjectException.
    * @param theClaim   Claim to populate.
    */
-  override def populateClaim(theClaim: ClaimScenario): Page =
+  override def populateClaim(theClaim: TestData): Page =
     throw new PageObjectException("Cannot populate a claim from an unknown page [" + pageTitle + "] Previous page was [" + previousPage.getOrElse(this).pageTitle + "]. Page content is" + source())
 }
 

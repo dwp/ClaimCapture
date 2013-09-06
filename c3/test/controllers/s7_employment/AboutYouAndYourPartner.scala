@@ -3,7 +3,7 @@ package controllers.s7_employment
 import play.api.test.TestBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.G4ClaimDatePage
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 import utils.pageobjects.s3_your_partner.G4PersonYouCareForPage
 
 trait AboutYouAndYourPartner {
@@ -19,7 +19,7 @@ trait AboutYouAndYourPartner {
     pageMoreAboutYou.submitPage(throwException = true)
 
 
-    val claimAboutYourPartner = new ClaimScenario
+    val claimAboutYourPartner = new TestData
     claimAboutYourPartner.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "no"
 
     val pageAboutYourPartner = new G4PersonYouCareForPage(browser)

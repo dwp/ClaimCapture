@@ -3,7 +3,7 @@ package controllers.s8_self_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment.{G2SelfEmploymentYourAccountsPage, G2SelfEmploymentYourAccountsPageContext}
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.{G8AboutYouCompletedPage, G4ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
@@ -27,7 +27,7 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
     "contain errors on invalid submission" in {
 
       "your accounts invalid date" in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
-        val claim = new ClaimScenario
+        val claim = new TestData
         claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "no"
         claim.SelfEmployedTellUsWhyandWhentheChangeHappened = "A Year back"
         claim.SelfEmployedWhatWasIsYourTradingYearfrom = "01/01/0000"
@@ -40,7 +40,7 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
     }
 
     "your accounts tell us what happened not required if incoming and outgoing are current " in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "yes"
       page goToThePage()
       page fillPageWith claim
@@ -49,7 +49,7 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
     }
 
     "your accounts contact your accountant is not required if there is no accountant " in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "yes"
       page goToThePage()
       page fillPageWith claim

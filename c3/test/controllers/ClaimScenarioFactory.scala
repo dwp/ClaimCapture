@@ -1,6 +1,6 @@
 package controllers
 
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
 
 /**
@@ -14,7 +14,7 @@ object ClaimScenarioFactory {
   val partnerPostcode = "RM11 1AA"
 
   def yourDetailsWithNotTimeOutside() = {
-    val claim = new ClaimScenario
+    val claim = new TestData
     claim.AboutYouTitle = "mr"
     claim.AboutYouFirstName = "John"
     claim.AboutYouSurname = "Appleseed"
@@ -58,7 +58,7 @@ object ClaimScenarioFactory {
   }
 
   def s2AnsweringNoToQuestions() = {
-    val claim = new ClaimScenario
+    val claim = new TestData
 
     // Your contact details
     claim.AboutYouAddress = "An address"
@@ -179,14 +179,14 @@ object ClaimScenarioFactory {
   }
 
   def s6PayDetails() = {
-    val claim = new ClaimScenario
+    val claim = new TestData
     claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount.name
     claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek.name
     claim
   }
 
   def s6BankBuildingSocietyDetails() = {
-    val claim = new ClaimScenario
+    val claim = new TestData
 
     claim.HowWePayYouNameOfAccountHolder = "John Smith"
     claim.WhoseNameOrNamesIsTheAccountIn = WhoseNameAccount.YourName.name
@@ -199,7 +199,7 @@ object ClaimScenarioFactory {
 
   def s7EmploymentMinimal() = {
 
-    val claim = new ClaimScenario
+    val claim = new TestData
     claim.EmploymentEmployerName_1 = "Tesco's"
     claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
     claim.EmploymentHaveYouFinishedThisJob_1 = "yes"
@@ -258,7 +258,7 @@ object ClaimScenarioFactory {
   }
 
   def s7Employment() = {
-    val claim = new ClaimScenario
+    val claim = new TestData
     claim.EmploymentEmployerName_1 = "Tesco's"
     claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
     claim.EmploymentHaveYouFinishedThisJob_1 = "yes"

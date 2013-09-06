@@ -4,7 +4,7 @@ import org.specs2.mutable.{ Tags, Specification }
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
 import utils.pageobjects.s8_self_employment.G1AboutSelfEmploymentPageContext
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 import utils.pageobjects.s3_your_partner.G4PersonYouCareForPageContext
 import utils.pageobjects.s4_care_you_provide.{G3RelationshipAndOtherClaimsPageContext, G3RelationshipAndOtherClaimsPage}
 
@@ -44,7 +44,7 @@ class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tag
     }
 
     "pre populate relationship dropdown if person you care for is your partner" in new WithBrowser with G4PersonYouCareForPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "yes"
 
       page goToThePage ()
@@ -54,7 +54,7 @@ class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tag
       val relationshipPage = page.goToPage(new G3RelationshipAndOtherClaimsPage(browser))
       relationshipPage must beAnInstanceOf[G3RelationshipAndOtherClaimsPage]
 
-      val dummyClaim = new ClaimScenario
+      val dummyClaim = new TestData
       relationshipPage populateClaim dummyClaim
 
       dummyClaim.AboutTheCareYouProvideWhatTheirRelationshipToYou mustEqual "partner"
@@ -64,7 +64,7 @@ class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tag
       page goToThePage ()
       page must beAnInstanceOf[G3RelationshipAndOtherClaimsPage]
 
-      val dummyClaim = new ClaimScenario
+      val dummyClaim = new TestData
       page populateClaim dummyClaim
 
       dummyClaim.AboutTheCareYouProvideWhatTheirRelationshipToYou must beNull

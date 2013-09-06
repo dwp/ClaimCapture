@@ -1,7 +1,7 @@
 package utils.pageobjects.s2_about_you
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimPage, ClaimScenario, PageContext, Page}
+import utils.pageobjects.{ClaimPage, TestData, PageContext, Page}
 
 /**
  * PageObject for page s2_about_you g8_completed.
@@ -13,7 +13,7 @@ final class G8AboutYouCompletedPage(browser: TestBrowser, previousPage: Option[P
    * Does nothing. There is no form.
    * @param theClaim   Data to use to fill page
    */
-  override  def fillPageWith(theClaim: ClaimScenario): Page = this
+  override  def fillPageWith(theClaim: TestData): Page = this
 }
 
 /**

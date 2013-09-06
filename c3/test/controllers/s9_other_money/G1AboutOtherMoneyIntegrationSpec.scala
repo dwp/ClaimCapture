@@ -4,7 +4,7 @@ import org.specs2.mutable.{ Tags, Specification }
 import controllers.{ BrowserMatchers, Formulate, ClaimScenarioFactory }
 import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 
 class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
   "About Other Money" should {
@@ -82,7 +82,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
 
     "contain errors on invalid submission" in {
       "mandatory fields empty" in new WithBrowser with G1AboutOtherMoneyPageContext {
-        val claim = new ClaimScenario
+        val claim = new TestData
         page goToThePage ()
         page fillPageWith claim
         val pageWithErrors = page.submitPage()
@@ -90,7 +90,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       }
 
       "howOften frequency of other with no other text entered" in new WithBrowser with G1AboutOtherMoneyPageContext {
-        val claim = new ClaimScenario
+        val claim = new TestData
         claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
         claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
         claim.OtherMoneyWhoPaysYou = "The Man"
