@@ -6,6 +6,7 @@ import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.{Claiming, BreaksInCare, Claim}
 import models.view.CachedClaim
+import app.Whereabouts._
 
 class G11BreakSpec extends Specification with Tags {
   "Break" should {
@@ -32,8 +33,8 @@ class G11BreakSpec extends Specification with Tags {
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
+        "whereYou.location" -> Holiday,
+        "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
 
       val result = G11Break.submit(request)
@@ -47,9 +48,9 @@ class G11BreakSpec extends Specification with Tags {
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "other",
+        "whereYou.location" -> Other,
         "whereYou.location.other" -> "",
-        "wherePerson.location" -> "other",
+        "wherePerson.location" -> Other,
         "wherePerson.location.other" -> "",
         "medicalDuringBreak" -> "no")
 
@@ -64,9 +65,9 @@ class G11BreakSpec extends Specification with Tags {
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "other",
+        "whereYou.location" -> Other,
         "whereYou.location.other" -> "Outer space",
-        "wherePerson.location" -> "other",
+        "wherePerson.location" -> Other,
         "wherePerson.location.other" -> "Underwater",
         "medicalDuringBreak" -> "no")
 
@@ -81,8 +82,8 @@ class G11BreakSpec extends Specification with Tags {
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
+        "whereYou.location" -> Holiday,
+        "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
 
       G11Break.submit(request1)
@@ -93,8 +94,8 @@ class G11BreakSpec extends Specification with Tags {
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
+        "whereYou.location" -> Holiday,
+        "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
 
       G11Break.submit(request2)
@@ -111,8 +112,8 @@ class G11BreakSpec extends Specification with Tags {
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> "2001",
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
+        "whereYou.location" -> Holiday,
+        "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
 
       G11Break.submit(requestNew)
@@ -125,8 +126,8 @@ class G11BreakSpec extends Specification with Tags {
         "start.day" -> "1",
         "start.month" -> "1",
         "start.year" -> yearUpdate.toString,
-        "whereYou.location" -> "Holiday",
-        "wherePerson.location" -> "Holiday",
+        "whereYou.location" -> Holiday,
+        "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
 
       G11Break.submit(requestUpdate)

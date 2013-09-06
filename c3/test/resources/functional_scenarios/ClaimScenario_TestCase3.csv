@@ -91,7 +91,9 @@ About the care you provide,About the breaks in care,Break start time?,AboutTheCa
 About the care you provide,About the breaks in care,Break end date?,AboutTheCareYouProvideBreakEndDate_5,21/02/2013
 About the care you provide,About the breaks in care,Break end time?,AboutTheCareYouProvideBreakEndTime_5,13:15
 About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreak_5,Other
+About the care you provide,About the breaks in care,Where were you during the break? ,AboutTheCareYouProvideWhereWereYouDuringTheBreakOther_5,Other text
 About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreak_5,Other
+About the care you provide,About the breaks in care,Where was the person you care for during the break? ,AboutTheCareYouProvideWhereWasThePersonYouCareForDuringtheBreakOther_5,Other text
 About the care you provide,About the breaks in care,Did you or the person you care for get any medical treatment or professional care during the break?,AboutTheCareYouProvideDidYouOrthePersonYouCareForGetAnyMedicalTreatment_5,No
 About the care you provide,About the breaks in care,Have you had any more breaks in care for this person since your claim date: : <ddmmyyyy>?  ,AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare_6,No
 About the care you provide,About the breaks in care,Break start date?,AboutTheCareYouProvideBreakStartDate_6,

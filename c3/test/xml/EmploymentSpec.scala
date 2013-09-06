@@ -5,6 +5,7 @@ import models.domain.{Employment => Employed, _}
 import models.{PensionPaymentFrequency, DayMonthYear}
 import app.XMLValues._
 
+
 class EmploymentSpec extends Specification with Tags {
 
   "Employment" should {
@@ -106,7 +107,7 @@ class EmploymentSpec extends Specification with Tags {
       val relation = "other"
       val carer = "someGipsy"
       val amount = "300"
-      val howOftenPayCare = "02"
+      val howOftenPayCare = PensionPaymentFrequency(Other, Some("other text"))
       val job = Job("1", List(
         AboutExpenses(payAnyoneToLookAfterPerson = yes),
         PersonYouCareForExpenses(whoDoYouPay = carer, howMuchCostCare = amount, howOftenPayCare = howOftenPayCare, relationToYou = relation, relationToPersonYouCare = relation)

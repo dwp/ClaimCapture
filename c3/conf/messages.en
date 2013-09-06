@@ -233,6 +233,7 @@ whereYou = Where you were?
 whereYou.location = Where you were?
 breaks.whereYou.label = Where were you during the break?
 wherePerson = Where was the person you care for during the break?
+wherePerson.location = Where was the person you care for during the break?
 medicalDuringBreak = Did you or the person you care for get any medical treatment or professional care during this time?
 
 

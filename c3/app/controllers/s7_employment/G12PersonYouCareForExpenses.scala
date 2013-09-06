@@ -17,7 +17,7 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
     "jobID" -> nonEmptyText,
     "whoDoYouPay" -> nonEmptyText,
     "howMuchCostCare" -> (nonEmptyText verifying(validDecimalNumber)),
-    "howOftenPayCare" -> nonEmptyText,
+    "howOftenPayCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "relationToYou" -> nonEmptyText,
     "relationToPersonYouCare" -> nonEmptyText
   )(PersonYouCareForExpenses.apply)(PersonYouCareForExpenses.unapply))

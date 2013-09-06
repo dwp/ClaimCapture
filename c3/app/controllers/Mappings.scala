@@ -75,7 +75,7 @@ object Mappings {
   def requiredWhereabouts: Constraint[Whereabouts] = Constraint[Whereabouts]("constraint.required") { whereabouts =>
     whereabouts match {
       case Whereabouts(location, other) => if (location.isEmpty) Invalid(ValidationError("error.required"))
-        else if(location == "other" && other.isEmpty) Invalid(ValidationError("error.location.other.required"))
+        else if(location == app.Whereabouts.Other && other.isEmpty) Invalid(ValidationError("error.required"))
         else Valid
     }
   }
@@ -166,7 +166,7 @@ object Mappings {
   }
   
   def paymentFrequencyValidation(pf: PaymentFrequency): ValidationResult = Try(new PaymentFrequency(pf.frequency, pf.other)) match {
-    case Success(p: PaymentFrequency) if p.frequency.toLowerCase == "other" && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
+    case Success(p: PaymentFrequency) if p.frequency.toLowerCase == app.PensionPaymentFrequency.Other && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
     case Success(p: PaymentFrequency) => Valid
     case Failure(_) => Invalid(ValidationError("error.invalid"))
   }
