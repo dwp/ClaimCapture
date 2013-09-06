@@ -17,12 +17,14 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
     "jobID" -> nonEmptyText,
     "whoLooksAfterChildren" -> nonEmptyText,
     "howMuchCostChildcare" -> nonEmptyText.verifying(validDecimalNumber),
-    "howOftenPayChildCare" -> nonEmptyText,
+    "howOftenPayChildCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "relationToYou" -> nonEmptyText,
     "relationToPartner" -> optional(nonEmptyText),
     "relationToPersonYouCare" -> nonEmptyText
   )(ChildcareExpenses.apply)(ChildcareExpenses.unapply)
-    .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
+    .verifying("relationToPartner.required", validateRelationToPartner(claim, _))
+  )
+
 
   def validateRelationToPartner(implicit claim: Claim, childcareExpenses: ChildcareExpenses) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
@@ -47,6 +49,7 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
           .replaceError("howMuchCostChildcare", "error.required", FormError("howMuchCostChildcare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
           .replaceError("howMuchCostChildcare", "decimal.invalid", FormError("howMuchCostChildcare", "decimal.invalid", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
           .replaceError("howOftenPayChildCare", "error.required", FormError("howOftenPayChildCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
+          .replaceError("howOftenPayChildCare.frequency","error.required", FormError("howOftenPayChildCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s7_employment.g10_childcareExpenses(formWithErrorsUpdate))
       },
