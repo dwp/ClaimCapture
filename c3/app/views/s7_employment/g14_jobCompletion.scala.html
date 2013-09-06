@@ -13,6 +13,8 @@
 
 @main("Job Completion - " + Messages("s7.longName"), None, completedQuestionGroups(models.domain.JobCompletion, jobID)) {
     @form(action = controllers.s7_employment.routes.G14JobCompletion.submit()) {
+        <input type="hidden" name="jobID" value="@jobID">
+
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
             <button type="submit" name="action" value="next" class="button">Next</button>
