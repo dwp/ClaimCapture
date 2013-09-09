@@ -94,6 +94,22 @@ object ClaimScenarioFactory {
     claim
   }
 
+  def s3YourPartnerNotThePersonYouCareFor() = {
+    val claim = s2AboutYouWithTimeOutside()
+    // Partner personal details
+    claim.AboutYourPartnerTitle = "mrs"
+    claim.AboutYourPartnerFirstName = "Cloe"
+    claim.AboutYourPartnerMiddleName = "Scott"
+    claim.AboutYourPartnerSurname = "Smith"
+    claim.AboutYourPartnerOtherNames = "Doe"
+    claim.AboutYourPartnerNINO = "AB123456A"
+    claim.AboutYourPartnerDateofBirth = "12/07/1990"
+    claim.AboutYourPartnerNationality = "British"
+    // Person you care for
+    claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
+    claim
+  }
+
   def s4CareYouProvide() = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
@@ -388,11 +404,12 @@ object ClaimScenarioFactory {
   def s9SelfEmploymentChildCareExpenses = {
     val claim = s9SelfEmploymentPensionsAndExpenses
 
-    claim.SelfEmployedChildcareExpensesHowMuchYouPay = "123456"
+    claim.SelfEmployedChildcareExpensesHowMuchYouPay = "123.45"
     claim.SelfEmployedChildcareExpensesHowOften = app.PensionPaymentFrequency.Weekly
-    claim.SelfEmployedChildcareProviderNameOfPerson = "hello123"
-    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "son"
-    claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "son"
+    claim.SelfEmployedChildcareProviderNameOfPerson = "myself"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "wife"
+    claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "wife"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "wife"
     claim
   }
 
