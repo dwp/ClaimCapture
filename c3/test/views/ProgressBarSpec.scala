@@ -6,7 +6,7 @@ import models.domain._
 
 class ProgressBarSpec extends Specification {
 
-  val name = ".name"
+  val name = ".progressbar.name"
 
   def xml(sectionIdentifier: Section.Identifier, claim: Claim) = {
     val resultHtml: play.api.templates.Html = views.html.progressBar(sectionIdentifier)(claim)
