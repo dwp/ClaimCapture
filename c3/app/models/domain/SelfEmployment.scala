@@ -49,7 +49,7 @@ case class SelfEmploymentPensionsAndExpenses(doYouPayToPensionScheme: String = "
 
 case class ChildcareExpensesWhileAtWork(nameOfPerson: String = "",
                                         howMuchYouPay: String = "",
-                                        howOftenPayChildCare: PensionPaymentFrequency = models.PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly),
+                                        howOftenPayChildCare: PensionPaymentFrequency = models.PensionPaymentFrequency(""),
                                         whatRelationIsToYou: String = "",
                                         relationToPartner: Option[String] = None,
                                         whatRelationIsTothePersonYouCareFor: String = "") extends QuestionGroup(ChildcareExpensesWhileAtWork)
