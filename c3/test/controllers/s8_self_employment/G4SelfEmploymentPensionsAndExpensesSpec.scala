@@ -68,7 +68,7 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
-    "reject missing mandatory field doYouPayToLookAfterYourChildren" in new WithApplication with Claiming {
+    "reject missing mandatory field mandatory field doYouPayToLookAfterYourChildren" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
@@ -82,7 +82,7 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
-    "reject missing mandatory field didYouPayToLookAfterThePersonYouCaredFor" in new WithApplication with Claiming {
+    "reject missing mandatory field mandatory field didYouPayToLookAfterThePersonYouCaredFor" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
@@ -96,7 +96,7 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
-    "reject missing howMuch" in new WithApplication with Claiming {
+    "reject missing mandatory field howMuch" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
@@ -110,7 +110,7 @@ class G4SelfEmploymentPensionsAndExpensesSpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
-    "reject missing howOften frequency" in new WithApplication with Claiming {
+    "reject missing mandatory field howOften frequency" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "doYouPayToPensionScheme" -> doYouPayToPensionScheme,
