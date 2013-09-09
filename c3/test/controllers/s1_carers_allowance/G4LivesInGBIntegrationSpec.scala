@@ -65,7 +65,7 @@ class G4LivesInGBIntegrationSpec extends Specification with Tags {
       s1g4 match {
         case p: G4LivesInGBPage => {
           p numberSectionsCompleted() mustEqual 3
-          val completed = p.findTarget("div[class=completed] ul li")
+          val completed = p.listCompletedForms
           completed(0) must contain("No")
           completed(1) must contain("Yes")
           completed(2) must contain("No")
