@@ -314,6 +314,7 @@ Self Employed,Childcare expenses while you are at work,"What relation, if any, i
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor,
 Self Employed,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedCareExpensesHowMuchYouPay,
 Self Employed,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] pay them - expenses related to person you care for?,SelfEmployedCareExpensesHowOften,
+Self Employed,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] Other - expenses related to person you care for?,SelfEmployedCareExpensesHowOftenOther,
 Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",SelfEmployedCareExpensesWhatRelationIsToYou,
 Self Employed,Expenses related to the person you care for while at work,"What relation, if any, is this person to the person you care for? ",SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor,

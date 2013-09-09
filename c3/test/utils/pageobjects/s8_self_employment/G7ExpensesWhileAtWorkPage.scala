@@ -7,7 +7,7 @@ final class G7ExpensesWhileAtWorkPage(browser: TestBrowser, previousPage: Option
   declareInput("#nameOfPerson", "SelfEmployedCareExpensesNameOfPerson")
   declareInput("#howMuchYouPay", "SelfEmployedCareExpensesHowMuchYouPay")
   declareSelect("#howOftenPayExpenses_frequency","SelfEmployedCareExpensesHowOften")
-  declareInput("#howOftenPayExpenses_frequency_other","SelfEmployedCareExpensesHowOftenOther") // TODO need to add to a .csv
+  declareInput("#howOftenPayExpenses_frequency_other","SelfEmployedCareExpensesHowOftenOther")
   declareSelect("#whatRelationIsToYou", "SelfEmployedCareExpensesWhatRelationIsToYou")
   declareSelect("#relationToPartner", "SelfEmployedCareExpensesWhatRelationToPartner")
   declareSelect("#whatRelationIsTothePersonYouCareFor", "SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor")
