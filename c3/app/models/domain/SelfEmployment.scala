@@ -60,7 +60,7 @@ case object ChildcareExpensesWhileAtWork extends QuestionGroup.Identifier {
 
 case class ExpensesWhileAtWork(nameOfPerson: String = "",
                                howMuchYouPay: String = "",
-                               howOftenPayExpenses: String = "",
+                               howOftenPayExpenses: PensionPaymentFrequency = models.PensionPaymentFrequency(""),
                                whatRelationIsToYou: String = "",
                                relationToPartner: Option[String] = None,
                                whatRelationIsTothePersonYouCareFor: String = "") extends QuestionGroup(ExpensesWhileAtWork)
