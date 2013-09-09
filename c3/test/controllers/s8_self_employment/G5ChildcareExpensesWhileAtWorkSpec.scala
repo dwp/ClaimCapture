@@ -8,13 +8,14 @@ import play.api.cache.Cache
 import models.view.CachedClaim
 import app.PensionPaymentFrequency._
 import scala.Some
+import models.PensionPaymentFrequency
 
 class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
 
   "Self Employment - Child care expenses while at work - Controller" should {
     val whoLooksAfterChildren = "myself"
     val howMuchYouPay = "123.45"
-    val howOften_frequency = Weekly //Other
+    val howOften_frequency = Other
     val howOften_frequency_other = "Every day and twice on Sundays"
     val whatRelationIsToYou = "son"
     val relationToPartner = "married"
@@ -23,8 +24,8 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
     val selfEmploymentChildCareExpensesInput = Seq(
       "whoLooksAfterChildren" -> whoLooksAfterChildren,
       "howMuchYouPay" -> howMuchYouPay,
-      "howOftenPayChildCare" -> howOften_frequency,
-      //"howOften.frequency.other" -> howOften_frequency_other,
+      "howOftenPayChildCare.frequency" -> howOften_frequency,
+      "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
       "whatRelationIsToYou" -> whatRelationIsToYou,
       "relationToPartner" -> relationToPartner,
       "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
@@ -53,7 +54,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
       section.questionGroup(ChildcareExpensesWhileAtWork) must beLike {
         case Some(f: ChildcareExpensesWhileAtWork) => {
           f.howMuchYouPay must equalTo(howMuchYouPay)
-          f.howOftenPayChildCare must equalTo(howOften_frequency)
+          f.howOftenPayChildCare must equalTo(PensionPaymentFrequency(howOften_frequency, Some(howOften_frequency_other))) // TODO
           f.nameOfPerson must equalTo(whoLooksAfterChildren)
           f.whatRelationIsToYou must equalTo(whatRelationIsToYou)
           f.relationToPartner must equalTo(Some(relationToPartner))
@@ -67,8 +68,8 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> "",
         "howMuchYouPay" -> howMuchYouPay,
-        "howOftenPayChildCare" -> howOften_frequency,
-        //"howOften.frequency.other" -> howOften_frequency_other,
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
         "whatRelationIsToYou" -> whatRelationIsToYou,
         "relationToPartner" -> relationToPartner,
         "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
@@ -83,8 +84,8 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchYouPay" -> "",
-        "howOftenPayChildCare" -> howOften_frequency,
-        //"howOften.frequency.other" -> howOften_frequency_other,
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
         "whatRelationIsToYou" -> whatRelationIsToYou,
         "relationToPartner" -> relationToPartner,
         "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
@@ -99,8 +100,8 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchYouPay" -> howMuchYouPay,
-        "howOftenPayChildCare" -> "",
-        //"howOften.frequency.other" -> howOften_frequency_other,
+        "howOftenPayChildCare.frequency" -> "",
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
         "whatRelationIsToYou" -> whatRelationIsToYou,
         "relationToPartner" -> relationToPartner,
         "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
@@ -110,14 +111,13 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
       status(result) mustEqual BAD_REQUEST
     }
 
-/*
     "reject other selected but other not filled on" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchYouPay" -> howMuchYouPay,
-        "howOftenPayChildCare" -> howOften_frequency,
-        "howOften.frequency.other" -> "",
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> "",
         "whatRelationIsToYou" -> whatRelationIsToYou,
         "relationToPartner" -> relationToPartner,
         "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
@@ -126,14 +126,14 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
       val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
-*/
+
     "reject missing mandatory field whatRelationIsToYou" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchYouPay" -> howMuchYouPay,
-        "howOftenPayChildCare" -> howOften_frequency,
-        //"howOften.frequency.other" -> howOften_frequency_other,
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
         "whatRelationIsToYou" -> "",
         "relationToPartner" -> relationToPartner,
         "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
@@ -148,8 +148,8 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
         .withFormUrlEncodedBody(
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchYouPay" -> howMuchYouPay,
-        "howOftenPayChildCare" -> howOften_frequency,
-        //"howOften.frequency.other" -> howOften_frequency_other,
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
         "whatRelationIsToYou" -> whatRelationIsToYou,
         "relationToPartner" -> relationToPartner,
         "whatRelationIsTothePersonYouCareFor" -> ""

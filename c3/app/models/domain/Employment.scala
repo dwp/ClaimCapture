@@ -189,16 +189,6 @@ object PensionSchemes extends QuestionGroup.Identifier {
     case `yes` => input.howOftenPersonal.isDefined
     case `no` => true
   }
-
-  def validateHowMuchSelfEmployed(input: SelfEmploymentPensionsAndExpenses): Boolean = input.doYouPayToPensionScheme match {
-    case `yes` => input.howMuchDidYouPay.isDefined
-    case `no` => true
-  }
-
-  def validateHowOftenSelfEmployed(input: SelfEmploymentPensionsAndExpenses): Boolean = input.doYouPayToPensionScheme match {
-    case `yes` => input.howOften.isDefined
-    case `no` => true
-  }
 }
 
 case class AboutExpenses(jobID: String = "",

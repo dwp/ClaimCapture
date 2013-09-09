@@ -394,7 +394,8 @@ object ClaimScenarioFactory {
 
     claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
     claim.SelfEmployedHowMuchYouPayTowardsPensionScheme = "11.2"
-    claim.SelfEmployedHowoftenYouPayTowardsPensionScheme = app.PensionPaymentFrequency.Weekly
+    claim.SelfEmployedHowoftenYouPayTowardsPensionScheme = app.PensionPaymentFrequency.Other
+    claim.SelfEmployedHowOftenOtherYouPayTowardsPensionScheme = "Every day and twice on Sunday's"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
 
@@ -404,12 +405,14 @@ object ClaimScenarioFactory {
   def s9SelfEmploymentChildCareExpenses = {
     val claim = s9SelfEmploymentPensionsAndExpenses
 
-    claim.SelfEmployedChildcareExpensesHowMuchYouPay = "123.45"
-    claim.SelfEmployedChildcareExpensesHowOften = app.PensionPaymentFrequency.Weekly
     claim.SelfEmployedChildcareProviderNameOfPerson = "myself"
-    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "wife"
-    claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "wife"
-    claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "wife"
+    claim.SelfEmployedChildcareExpensesHowMuchYouPay = "123.45"
+    claim.SelfEmployedChildcareExpensesHowOften = app.PensionPaymentFrequency.Other
+    claim.SelfEmployedChildcareExpensesHowOftenOther = "Every day and twice on Sunday's"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "father"
+    claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "father"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "father"
+
     claim
   }
 
@@ -419,8 +422,9 @@ object ClaimScenarioFactory {
     claim.SelfEmployedCareExpensesHowMuchYouPay = "900.9"
     claim.SelfEmployedCareExpensesHowOften = app.PensionPaymentFrequency.Weekly
     claim.SelfEmployedCareExpensesNameOfPerson = "John"
-    claim.SelfEmployedCareExpensesWhatRelationIsToYou = "grandSon"
-    claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "son"
+    claim.SelfEmployedCareExpensesWhatRelationIsToYou = "father"
+    claim.SelfEmployedCareExpensesWhatRelationToPartner = "father"
+    claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "father"
 
     claim
   }

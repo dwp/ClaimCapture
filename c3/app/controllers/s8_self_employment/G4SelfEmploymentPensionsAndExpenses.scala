@@ -21,8 +21,8 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with SelfEmploymen
       "doYouPayToLookAfterYourChildren" -> nonEmptyText.verifying(validYesNo),
       "didYouPayToLookAfterThePersonYouCaredFor" -> nonEmptyText.verifying(validYesNo)
     )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply)
-      .verifying("howMuchDidYouPay", PensionSchemes.validateHowMuchSelfEmployed _)
-      .verifying("howOften", PensionSchemes.validateHowOftenSelfEmployed _)
+      .verifying("howMuchDidYouPay", SelfEmploymentPensionsAndExpenses.validateHowMuchSelfEmployed _)
+      .verifying("howOften", SelfEmploymentPensionsAndExpenses.validateHowOftenSelfEmployed _)
   )
 
   def present = claiming { implicit claim => implicit request =>
