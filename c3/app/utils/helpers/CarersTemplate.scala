@@ -19,5 +19,5 @@ object ShortFieldTemplate {
 }
 
 object CurrencyTemplate {
-  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.currencyTemplate.f)
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.shortFieldCurrencyTemplate.f)
 }
