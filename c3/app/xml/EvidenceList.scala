@@ -157,10 +157,14 @@ object EvidenceList {
           if (childcareExpenses.howMuchCostChildcare.nonEmpty)
             textlines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare expenses? = ",childcareExpenses.howMuchCostChildcare)
           textlines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare))
+          if (childcareExpenses.howOftenPayChildCare.other.isDefined)
+            textlines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childcareExpenses.howOftenPayChildCare.other.get)
 
           if (personYouCareForExpenses.howMuchCostCare.nonEmpty)
             textlines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ",personYouCareForExpenses.howMuchCostCare)
           textlines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to the person you care for? = ", PensionPaymentFrequency.mapToHumanReadableString(personYouCareForExpenses.howOftenPayCare))
+          if (personYouCareForExpenses.howOftenPayCare.other.isDefined)
+            textlines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to the person you care for? = ", personYouCareForExpenses.howOftenPayCare.other.get)
 
           if (pensionScheme.howOftenPension.isDefined && pensionScheme.howOftenPension.get.frequency == PensionPaymentFrequency.Other)
             textlines ++= textLine("How often other - Occupational Pension Scheme? = ", pensionScheme.howOftenPension.get.other.getOrElse(""))
