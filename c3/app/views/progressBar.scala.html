@@ -12,23 +12,28 @@
     }
 }
 
+@addClassEmployment() = {
+    @if(sectionID == Employed || sectionID == SelfEmployment) {
+        class="active"
+    } else {
+        @if(SelfEmployment.index < sectionID.index) {
+            class="complete"
+        }
+    }
+}
+
 @renderListItem(currentSectionID: Section.Identifier) = {
     @if( claim.isSectionVisible(currentSectionID) ) {
-        <li @addClass(currentSectionID)><span>@Messages(currentSectionID.id + ".name")</span></li>
+        <li @addClass(currentSectionID)><span>@Messages(currentSectionID.id + ".progressbar.name")</span></li>
     }
 }
 
 @renderEmployment = {
     @if( claim.isSectionVisible(Employed) || claim.isSectionVisible(SelfEmployment)) {
-        @if(sectionID == Employed || sectionID == SelfEmployment) {
-            <li class="active"><span>@Messages(Employed.id + ".name")</span></li>
-        } else {
-            @if(SelfEmployment.index < sectionID.index) {
-                <li class="complete"><span>@Messages(Employed.id + ".name")</span></li>
-            } else {
-                <li><span>@Messages(Employed.id + ".name")</span></li>
-            }
+        @defining(addClassEmployment){ clazz =>
+            <li @clazz ><span>@Messages(Employed.id + ".progressbar.name")</span></li>
         }
+
     }
 }
 
