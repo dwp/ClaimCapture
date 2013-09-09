@@ -5,6 +5,7 @@ import scala.collection.convert.Wrappers.JListWrapper
 import org.openqa.selenium.By
 import scala.collection.mutable
 import utils.helpers.StringPadding._
+import org.fluentlenium.core.filter.FilterConstructor._
 
 
 /**
@@ -93,9 +94,13 @@ trait WebSearchActions {
     else None
   }
 
+  //====================================================================================================================
   // Other search operations
+  //====================================================================================================================
+
   def titleOfSubmitButton = browser.find("#submit").getText
 
+  // Completed Sections
   def isSpecifiedSectionCompleted(index: Integer, name: String, value: String, location: String = "div[class=completed] ul li") = {
     this checkElement location
     val completed = browser.find(location).get(index).getText
@@ -106,6 +111,13 @@ trait WebSearchActions {
 
   def numberSectionsCompleted(location: String = "div[class=completed] ul li") = this sizeLitOfElements location
 
+  /**
+   * Provides the list of completed sections displayed in a page. If there is no completed section then returns an empty list.
+   * @return The list of completed sections.
+   */
+  def listCompletedForms = findTarget("div[class=completed] ul li")
+
+  // Table
   def hasTableEntriesChangeable(location: String = "input[value='Change']") = this hasListOfElements location
 
   def numberTableEntriesChangeable(location: String = "input[value='Change']") = this sizeLitOfElements location
@@ -123,35 +135,44 @@ trait WebSearchActions {
     else None
   }
 
+  // Errors
   /**
    * Provides the list of errors displayed in a page. If there is no error then returns an empty list.
    * @return The list of errors displayed by a page.
    */
-  def listErrors: List[String] = try {
-    findTarget("div[class=validation-summary] ol li")
-  }
-  catch {
-    case e: Exception => List[String]()
-  }
+  def listErrors: List[String] = findTarget("div[class=validation-summary] ol li")
 
+
+  // Prompt messages
   /**
-   * Provides the list of completed sections displayed in a page. If there is no completed section then returns an empty list.
-   * @return The list of completed sections.
+   * Provides the list of prompt messages displayed in a page. If there is no prompt message then returns an empty list.
+   * @return The list of prompt messages displayed by a page.
    */
-  def listCompletedForms = try {
-    findTarget("div[class=completed] ul li")
-  }
-  catch {
-    case e: Exception => List[String]()
-  }
-
-  def findTarget(target: String): List[String] = {
+  def listDisplayedPromptMessages: List[String] = try {
+    val target = "div.prompt"
     this checkElement target
-    val rawTarget = browser.find(target)
+    val rawTarget = browser.find(target, `with`("style").notContains("display: none"))
     if (!rawTarget.isEmpty) new JListWrapper(rawTarget.getTexts).toList
     else List()
+  } catch {
+    case e: Exception => List[String]()
   }
 
+  //====================================================================================================================
+  // Protected & private functions
+  //====================================================================================================================
+
+  protected def findTarget(target: String): List[String] = {
+    try {
+      this checkElement target
+      val rawTarget = browser.find(target)
+      if (!rawTarget.isEmpty) new JListWrapper(rawTarget.getTexts).toList
+      else List()
+    }
+    catch {
+      case e: Exception => List[String]()
+    }
+  }
 
   protected def hasListOfElements(location: String) = {
     this checkElement location

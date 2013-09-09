@@ -55,7 +55,7 @@ class G2HoursIntegrationSpec extends Specification with Tags {
       nextPage match {
         case p: G2HoursPage => {
           p numberSectionsCompleted() mustEqual 1
-          val completed = p.findTarget("div[class=completed] ul li")
+          val completed = p.listCompletedForms
           completed(0) must contain("Yes")
         }
         case _ => ko("Next Page is not of the right type.")

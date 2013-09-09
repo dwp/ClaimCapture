@@ -95,7 +95,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
         case p: G6ApprovePage => {
           p numberSectionsCompleted() mustEqual 4
 
-          val completed = p.findTarget("div[class=completed] ul li")
+          val completed = p.listCompletedForms
 
           completed(0) must contain("No")
           completed(1) must contain("Yes")

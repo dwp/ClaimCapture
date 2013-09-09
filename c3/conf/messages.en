@@ -241,8 +241,8 @@ start = Start date?
 start.time = Start time?
 end = End date?
 end.time = End time?
-whereYou = Where you were?
-whereYou.location = Where you were?
+whereYou = Where were you during the break?
+whereYou.location = Where were you during the break?
 breaks.whereYou.label = Where were you during the break?
 wherePerson = Where was the person you care for during the break?
 wherePerson.location = Where was the person you care for during the break?
@@ -427,7 +427,7 @@ read = Please tick this box to declare that you have understood the notes and yo
 #DECLARATION
 declaration.1 = I declare that I understand the <a href="http://www.gov.uk/carers-allowance" target="_blank">Carer''s Allowance Claim Notes</a> and that the information provided on this claim form is correct and complete.
 declaration.2 = I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
-declaration.3 = I will phone 08456084321 or write to Carer''s allowance Unit, Palantine House, Preston, Lancaster, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
+declaration.3 = I will phone 08456084321 or write to Carer''s Allowance Unit, Palatine House, Preston, Lancaster, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
 declaration.4 = If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Carer''s Allowance may be stopped or reduced and any overpayment of Carer''s Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.
 confirm = Please tick this box to confirm that you understand and make the declarations above.
 declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.

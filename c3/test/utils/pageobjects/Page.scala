@@ -197,7 +197,10 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
    */
   def source() = if (this.pageLeftOrSubmitted) this.pageSource else getPageSource()
 
-
+  /**
+   * Provides the full list of pages traversed to get to the current page.
+   * @return String that lists the titles of the pages traversed, separated by '<'.
+   */
   def fullPagePath: String = {
     if (previousPage == None) this.pageTitle
     else this.pageTitle + " < " + previousPage.get.fullPagePath
@@ -299,13 +302,11 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
     else false
   }
 
-  private def getPageSource() = {
-    try {
-      browser.pageSource()
-    }
-    catch {
-      case _: Exception => "Error: Page source not available."
-    }
+  private def getPageSource() = try {
+    browser.pageSource()
+  }
+  catch {
+    case _: Exception => "Error: Page source not available."
   }
 }
 
