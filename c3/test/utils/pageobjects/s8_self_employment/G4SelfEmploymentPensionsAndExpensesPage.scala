@@ -6,7 +6,8 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
 final class G4SelfEmploymentPensionsAndExpensesPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G4SelfEmploymentPensionsAndExpensesPage.url, G4SelfEmploymentPensionsAndExpensesPage.title, previousPage) {
   declareYesNo("#doYouPayToPensionScheme", "SelfEmployedDoYouPayTowardsPensionScheme")
   declareInput("#howMuchDidYouPay", "SelfEmployedHowMuchYouPayTowardsPensionScheme")
-  declareSelect("#howOften_frequency", "SelfEmployedHowoftenYouPayTowardsPensionScheme") // TODO other
+  declareSelect("#howOften_frequency", "SelfEmployedHowoftenYouPayTowardsPensionScheme")
+  declareInput("#howOften_frequency_other","SelfEmployedHowOftenOtherYouPayTowardsPensionScheme")
   declareYesNo("#doYouPayToLookAfterYourChildren", "SelfEmployedDoYouPayAnyonetoLookAfterYourChild")
   declareYesNo("#didYouPayToLookAfterThePersonYouCaredFor", "SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor")
 }
