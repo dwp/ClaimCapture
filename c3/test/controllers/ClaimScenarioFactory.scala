@@ -421,6 +421,7 @@ object ClaimScenarioFactory {
 
     claim.SelfEmployedCareExpensesHowMuchYouPay = "900.9"
     claim.SelfEmployedCareExpensesHowOften = app.PensionPaymentFrequency.Weekly
+    claim.SelfEmployedCareExpensesHowOftenOther = "Every day and twice on Sunday's"
     claim.SelfEmployedCareExpensesNameOfPerson = "John"
     claim.SelfEmployedCareExpensesWhatRelationIsToYou = "father"
     claim.SelfEmployedCareExpensesWhatRelationToPartner = "father"
