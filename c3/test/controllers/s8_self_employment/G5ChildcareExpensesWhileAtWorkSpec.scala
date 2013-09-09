@@ -5,22 +5,27 @@ import models.domain._
 import play.api.test.Helpers._
 import org.specs2.mutable.{Tags, Specification}
 import play.api.cache.Cache
-import scala.Some
 import models.view.CachedClaim
+import app.PensionPaymentFrequency._
+import scala.Some
+import models.PensionPaymentFrequency
 
 class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
 
   "Self Employment - Child care expenses while at work - Controller" should {
-    val howMuchYouPay = "123445"
-    val howOften = "W"
     val whoLooksAfterChildren = "myself"
+    val howMuchYouPay = "123.45"
+    val howOften_frequency = Other
+    val howOften_frequency_other = "Every day and twice on Sundays"
     val whatRelationIsToYou = "son"
-    val relationToPartner = "son"
-    val whatRelationIsTothePersonYouCareFor = "parent"
+    val relationToPartner = "married"
+    val whatRelationIsTothePersonYouCareFor = "mother"
 
-    val selfEmploymentChildCareExpensesInput = Seq("howMuchYouPay" -> howMuchYouPay,
-      "howOftenPayChildCare" -> howOften,
+    val selfEmploymentChildCareExpensesInput = Seq(
       "whoLooksAfterChildren" -> whoLooksAfterChildren,
+      "howMuchYouPay" -> howMuchYouPay,
+      "howOftenPayChildCare.frequency" -> howOften_frequency,
+      "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
       "whatRelationIsToYou" -> whatRelationIsToYou,
       "relationToPartner" -> relationToPartner,
       "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
@@ -28,7 +33,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
 
     "present 'Child Care Expenses while at work' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
-        .withFormUrlEncodedBody("doYouPayToPensionScheme" -> "no", "doYouPayToLookAfterYourChildren" -> "yes","didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
+        .withFormUrlEncodedBody("doYouPayToPensionScheme" -> "no", "doYouPayToLookAfterYourChildren" -> "yes", "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
       val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
@@ -49,7 +54,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
       section.questionGroup(ChildcareExpensesWhileAtWork) must beLike {
         case Some(f: ChildcareExpensesWhileAtWork) => {
           f.howMuchYouPay must equalTo(howMuchYouPay)
-          f.howOftenPayChildCare must equalTo(howOften)
+          f.howOftenPayChildCare must equalTo(PensionPaymentFrequency(howOften_frequency, Some(howOften_frequency_other))) // TODO
           f.nameOfPerson must equalTo(whoLooksAfterChildren)
           f.whatRelationIsToYou must equalTo(whatRelationIsToYou)
           f.relationToPartner must equalTo(Some(relationToPartner))
@@ -58,10 +63,97 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
       }
     }
 
-    "missing mandatory field" in new WithApplication with Claiming {
+    "reject when missing mandatory field whoLooksAfterChildren" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody(
-        "whatRelationIsToYou" -> whatRelationIsToYou)
+        "whoLooksAfterChildren" -> "",
+        "howMuchYouPay" -> howMuchYouPay,
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
+        "whatRelationIsToYou" -> whatRelationIsToYou,
+        "relationToPartner" -> relationToPartner,
+        "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
+      )
+
+      val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "reject missing mandatory field howMuchYouPay" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        .withFormUrlEncodedBody(
+        "whoLooksAfterChildren" -> whoLooksAfterChildren,
+        "howMuchYouPay" -> "",
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
+        "whatRelationIsToYou" -> whatRelationIsToYou,
+        "relationToPartner" -> relationToPartner,
+        "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
+      )
+
+      val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "reject missing mandatory field howOftenPayChildCare" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        .withFormUrlEncodedBody(
+        "whoLooksAfterChildren" -> whoLooksAfterChildren,
+        "howMuchYouPay" -> howMuchYouPay,
+        "howOftenPayChildCare.frequency" -> "",
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
+        "whatRelationIsToYou" -> whatRelationIsToYou,
+        "relationToPartner" -> relationToPartner,
+        "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
+      )
+
+      val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "reject other selected but other not filled on" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        .withFormUrlEncodedBody(
+        "whoLooksAfterChildren" -> whoLooksAfterChildren,
+        "howMuchYouPay" -> howMuchYouPay,
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> "",
+        "whatRelationIsToYou" -> whatRelationIsToYou,
+        "relationToPartner" -> relationToPartner,
+        "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
+      )
+
+      val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "reject missing mandatory field whatRelationIsToYou" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        .withFormUrlEncodedBody(
+        "whoLooksAfterChildren" -> whoLooksAfterChildren,
+        "howMuchYouPay" -> howMuchYouPay,
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
+        "whatRelationIsToYou" -> "",
+        "relationToPartner" -> relationToPartner,
+        "whatRelationIsTothePersonYouCareFor" -> whatRelationIsTothePersonYouCareFor
+      )
+
+      val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "reject missing mandatory field whatRelationIsTothePersonYouCareFor" in new WithApplication with Claiming {
+      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        .withFormUrlEncodedBody(
+        "whoLooksAfterChildren" -> whoLooksAfterChildren,
+        "howMuchYouPay" -> howMuchYouPay,
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
+        "whatRelationIsToYou" -> whatRelationIsToYou,
+        "relationToPartner" -> relationToPartner,
+        "whatRelationIsTothePersonYouCareFor" -> ""
+      )
 
       val result = controllers.s8_self_employment.G5ChildcareExpensesWhileAtWork.submit(request)
       status(result) mustEqual BAD_REQUEST

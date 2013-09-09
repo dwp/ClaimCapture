@@ -189,16 +189,6 @@ object PensionSchemes extends QuestionGroup.Identifier {
     case `yes` => input.howOftenPersonal.isDefined
     case `no` => true
   }
-
-  def validateHowMuchSelfEmployed(input: SelfEmploymentPensionsAndExpenses): Boolean = input.doYouPayToPensionScheme match {
-    case `yes` => input.howMuchDidYouPay.isDefined
-    case `no` => true
-  }
-
-  def validateHowOftenSelfEmployed(input: SelfEmploymentPensionsAndExpenses): Boolean = input.doYouPayToPensionScheme match {
-    case `yes` => input.howOften.isDefined
-    case `no` => true
-  }
 }
 
 case class AboutExpenses(jobID: String = "",
@@ -221,7 +211,7 @@ object NecessaryExpenses extends QuestionGroup.Identifier {
 case class ChildcareExpenses(jobID: String = "",
                              whoLooksAfterChildren: String = "",
                              howMuchCostChildcare: String = "",
-                             howOftenPayChildCare: PensionPaymentFrequency = models.PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly),
+                             howOftenPayChildCare: PensionPaymentFrequency = models.PensionPaymentFrequency(""),
                              relationToYou: String = "",
                              relationToPartner: Option[String] = None,
                              relationToPersonYouCare: String = "") extends QuestionGroup(ChildcareExpenses) with Job.Identifier
@@ -233,7 +223,7 @@ object ChildcareExpenses extends QuestionGroup.Identifier {
 case class PersonYouCareForExpenses(jobID: String = "",
                                     whoDoYouPay: String = "",
                                     howMuchCostCare: String = "",
-                                    howOftenPayCare: PensionPaymentFrequency = models.PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly),
+                                    howOftenPayCare: PensionPaymentFrequency = models.PensionPaymentFrequency(""),
                                     relationToYou: String = "",
                                     relationToPersonYouCare: String = "") extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier
 
