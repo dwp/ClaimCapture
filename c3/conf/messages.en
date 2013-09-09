@@ -21,10 +21,22 @@ s10.longName = How we pay you
 s11.name = declaration
 s11.longName = Consent and Declaration
 
+s1.progressbar.name = Eligibility
+s2.progressbar.name = About you
+s3.progressbar.name = Partner/Spouse
+s4.progressbar.name = Care
+s5.progressbar.name = Time abroad
+s6.progressbar.name = Education
+s7.progressbar.name = Employment
+s8.progressbar.name = Self-employment
+s9.progressbar.name = Other money
+s10.progressbar.name = Pay details
+s11.progressbar.name = Declaration
+
 s1.g1 = Does the person you care for get one of these benefits?
 s1.g2 = Do you spend 35 hours or more each week caring for the person you care for?
 s1.g3 = Are you aged 16 or over?
-s1.g4 = Do you normally live in Great Britain?
+s1.g4 = Do you live in England, Scotland or Wales?
 
 s2.g1 = Your details
 s2.g2 = Your contact details
@@ -100,7 +112,7 @@ please.specify =  Please specify...
 benefits.answer = Does the person you care for get one of these benefits?
 hours.answer = Do you spend 35 hours or more each week caring for the person you care for?
 over16.answer = Are you aged 16 or over?
-livesInGB.answer = Do you normally live in Great Britain?
+livesInGB.answer = Do you live in England, Scotland or Wales?
 
 ## ABOUT YOU
 
@@ -468,3 +480,6 @@ howOftenPayChildCare = How often {0} pay childcare expenses?
 
 #SELF EMPLOYED - Expenses While At Work
 howOftenPayExpenses = How often {0} pay expenses related to the person you care for.
+
+
+error.required = This is required
