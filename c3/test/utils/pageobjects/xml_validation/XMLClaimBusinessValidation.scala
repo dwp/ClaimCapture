@@ -110,7 +110,7 @@ class ClaimXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml,
             }
             else if (claimValue.attribute == "SelfEmployedChildcareExpensesHowOften" || claimValue.attribute == "SelfEmployedCareExpensesHowOften")
               value.contains(claimValue.question+"="+ PensionPaymentFrequency.mapToHumanReadableString(claimValue.value).toLowerCase)
-            else value.contains(claimValue.question + "=" + claimValue.value)
+            else value.contains(claimValue.question + "=" + claimValue.value) ||value.contains(claimValue.question + "=£" + claimValue.value)
           }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
           else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)

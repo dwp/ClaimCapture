@@ -93,7 +93,7 @@ object EvidenceList {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     for {break <- breaksInCare.breaks} yield {
-      textLine("Where were you during the break? Other detail =", break.whereYou.other) ++
+      textLine("Where were you during the break? Other detail = ", break.whereYou.other) ++
         textLine("Where was the person you care for during the break? = ", break.wherePerson.location) ++
         textLine("Where was the person you care for during the break? Other detail = ", break.wherePerson.other)
     }
@@ -125,12 +125,12 @@ object EvidenceList {
 
     var textLines = textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
       textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened) ++
-      textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare? = ", childCare.howMuchYouPay)++
+      textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare? = £", childCare.howMuchYouPay)++
       textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childCare.howOftenPayChildCare))
     if(childCare.howOftenPayChildCare.other.isDefined )
       textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childCare.howOftenPayChildCare.other.get)
 
-    textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ", expensesWhileAtWork.howMuchYouPay) ++
+    textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = £", expensesWhileAtWork.howMuchYouPay) ++
       textLine("How often [[past=did you]] [[present=do you]] - expenses related to person you care for? = ", PensionPaymentFrequency.mapToHumanReadableString(expensesWhileAtWork.howOftenPayExpenses))
 
     if (pensionScheme.howOften.isDefined && pensionScheme.howOften.get.other.isDefined)
@@ -158,17 +158,17 @@ object EvidenceList {
             textLines ++= textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
           }
           if (lastWage.sameAmountEachTime.isDefined) {
-            textLines ++= textLine("About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? =", lastWage.sameAmountEachTime.get)
+            textLines ++= textLine("About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? = ", lastWage.sameAmountEachTime.get)
           }
 
           if (childcareExpenses.howMuchCostChildcare.nonEmpty)
-            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare expenses? = ",childcareExpenses.howMuchCostChildcare)
+            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare expenses? = £",childcareExpenses.howMuchCostChildcare)
           textLines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare))
           if (childcareExpenses.howOftenPayChildCare.other.isDefined)
             textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childcareExpenses.howOftenPayChildCare.other.get)
 
           if (personYouCareForExpenses.howMuchCostCare.nonEmpty)
-            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ",personYouCareForExpenses.howMuchCostCare)
+            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = £",personYouCareForExpenses.howMuchCostCare)
           textLines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to the person you care for? = ", PensionPaymentFrequency.mapToHumanReadableString(personYouCareForExpenses.howOftenPayCare))
           if (personYouCareForExpenses.howOftenPayCare.other.isDefined)
             textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to the person you care for? = ", personYouCareForExpenses.howOftenPayCare.other.get)
@@ -211,10 +211,10 @@ object EvidenceList {
       textLine("Details about other money: How much? = ", aboutOtherMoney.howMuch) ++
       textLine("Details about other money: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.howOften)) ++
       textLine("Details about other money: How often other? = ", aboutOtherMoney_howOftenOther) ++
-      textLine("Statutory Sick Pay: How much? = ", statutorySickPay.howMuch) ++
+      textLine("Statutory Sick Pay: How much? = £", statutorySickPay.howMuch) ++
       textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(statutorySickPay.howOften)) ++
       textLine("Statutory Sick Pay: How often other? = ", ssp_howOftenOther) ++
-      textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
+      textLine("Other Statutory Pay: How much? = £", otherStatutoryPay.howMuch) ++
       textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)) ++
       textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther) ++
       textLine("Are you, your wife, husband, civil partner or parent you are dependent on, " +
@@ -254,7 +254,7 @@ object EvidenceList {
   private def textLine(label: String, value: String): Elem = value match {
     case "" => <TextLine/>
     case _ => <TextLine>
-      {s"$label " + formatValue(value)}
+      {s"$label" + formatValue(value)}
     </TextLine>
   }
 
