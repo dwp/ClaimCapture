@@ -9,8 +9,7 @@ import play.Configuration
 import play.api.Play._
 import play.api.mvc.Results.Redirect
 import play.api.data.Form
-import play.api.Play
-import play.api.Logger
+import play.api.{mvc, Play, Logger}
 import play.api.http.HeaderNames._
 import java.util.UUID._
 
@@ -20,6 +19,8 @@ object CachedClaim {
 
 trait CachedClaim {
   type ClaimResult = (Claim, Result)
+  // This val is crated so we can check wether we come from the second page to the first one so we don't create a new claim, and we load the one we have in the cache.
+  private val secondPage = "/allowance/hours"
 
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
     def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = {
@@ -46,16 +47,18 @@ trait CachedClaim {
         .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
         .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
 
-      if (request.getQueryString("changing").getOrElse("false") == "false") {
+      if (request.getQueryString("changing").getOrElse("false") == "false" && !request.headers.get("referer").getOrElse("").contains(secondPage)) {
         val claim = Claim()
         Cache.set(key, claim, expiration)
         Logger.info("Starting new claim (old claim will be erased!)")
         apply(claim)
-      } else {
+      } else if (request.getQueryString("changing").getOrElse("false") == "true" || request.headers.get("referer").getOrElse("").contains(secondPage)) {
         Cache.getAs[Claim](key) match {
           case Some(claim) => apply(claim)
           case None => Redirect("/timeout")
         }
+      } else {
+        Redirect("/timeout")
       }
     }
   }
