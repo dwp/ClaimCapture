@@ -6,8 +6,10 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
 final class G7ExpensesWhileAtWorkPage(browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G7ExpensesWhileAtWorkPage.url, G7ExpensesWhileAtWorkPage.title, previousPage) {
   declareInput("#nameOfPerson", "SelfEmployedCareExpensesNameOfPerson")
   declareInput("#howMuchYouPay", "SelfEmployedCareExpensesHowMuchYouPay")
-  declareSelect("#howOftenPayExpenses", "SelfEmployedCareExpensesHowOften")
+  declareSelect("#howOftenPayExpenses_frequency","SelfEmployedCareExpensesHowOften")
+  declareInput("#howOftenPayExpenses_frequency_other","SelfEmployedCareExpensesHowOftenOther")
   declareSelect("#whatRelationIsToYou", "SelfEmployedCareExpensesWhatRelationIsToYou")
+  declareSelect("#relationToPartner", "SelfEmployedCareExpensesWhatRelationToPartner")
   declareSelect("#whatRelationIsTothePersonYouCareFor", "SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor")
 }
 

@@ -1,10 +1,9 @@
 package controllers.s8_self_employment
 
 import language.reflectiveCalls
-import play.api.data.Form
+import play.api.data.{Form, FormError}
 import play.api.data.Forms._
 import play.api.mvc.Controller
-import play.api.data.FormError
 import play.api.mvc.Request
 import play.api.mvc.AnyContent
 import controllers.Mappings._
@@ -16,15 +15,16 @@ import utils.helpers.PastPresentLabelHelper._
 import models.view.Navigable
 
 object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
-  def form(implicit claim: Claim) = Form(mapping(
-    "nameOfPerson" -> nonEmptyText(maxLength = sixty),
-    "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
-    "howOftenPayExpenses" -> nonEmptyText,
-    "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
-    "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
-    "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
-  )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply)
-  .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
+  def form(implicit claim: Claim) = Form(
+    mapping(
+      "nameOfPerson" -> nonEmptyText(maxLength = sixty),
+      "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
+      "howOftenPayExpenses" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
+      "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
+      "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
+      "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
+    )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply)
+      .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
 
   def validateRelationToPartner(implicit claim: Claim, expensesWhileAtWork: ExpensesWhileAtWork) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {

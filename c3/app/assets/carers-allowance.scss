@@ -8,6 +8,7 @@ main {
 	display: block;
 }
 
+
 .carers-allowance {
    background: #fff;
    padding: 0 1em 2em 1em;
@@ -720,7 +721,8 @@ main {
 			   
 			   &.validation {
 				   &:before {
-					   left: 16px;
+					   left: 18px;
+					   bottom: 19px;
 				   }
 			   }
 			   

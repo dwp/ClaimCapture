@@ -8,7 +8,7 @@ final class G4LivesInGBPage(browser: TestBrowser, previousPage: Option[Page] = N
 }
 
 object G4LivesInGBPage {
-  val title = "Do you normally live in Great Britain? - Can you get Carer's Allowance?".toLowerCase
+  val title = "Do you live in England, Scotland or Wales? - Can you get Carer's Allowance?".toLowerCase
 
   val url = "/allowance/lives-in-gb"
 

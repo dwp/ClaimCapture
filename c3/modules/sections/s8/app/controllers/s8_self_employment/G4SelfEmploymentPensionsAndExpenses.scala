@@ -24,8 +24,8 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
       "doYouPayToLookAfterYourChildren" -> nonEmptyText.verifying(validYesNo),
       "didYouPayToLookAfterThePersonYouCaredFor" -> nonEmptyText.verifying(validYesNo)
     )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply)
-      .verifying("howMuchDidYouPay", PensionSchemes.validateHowMuchSelfEmployed _)
-      .verifying("howOften", PensionSchemes.validateHowOftenSelfEmployed _)
+      .verifying("howMuchDidYouPay", SelfEmploymentPensionsAndExpenses.validateHowMuchSelfEmployed _)
+      .verifying("howOften", SelfEmploymentPensionsAndExpenses.validateHowOftenSelfEmployed _)
   )
 
   def present = claiming { implicit claim => implicit request =>
@@ -42,11 +42,11 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
         val pastPresent = didYouDoYouIfSelfEmployed
         val formWithErrorsUpdate = formWithErrors
           .replaceError("doYouPayToPensionScheme", "error.required", FormError("doYouPayToPensionScheme.answer", "error.required", Seq(pastPresent)))
+          .replaceError("", "howMuchDidYouPay", FormError("howMuchDidYouPay", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("howMuchDidYouPay", "decimal.invalid", FormError("howMuchDidYouPay", "decimal.invalid", Seq(pastPresent.toLowerCase)))
+          .replaceError("howOften", "error.paymentFrequency", FormError("doYouPayToPensionScheme.howOften", "error.required", Seq(pastPresent.toLowerCase)))
           .replaceError("doYouPayToLookAfterYourChildren", "error.required", FormError("doYouPayToLookAfterYourChildren", "error.required", Seq(pastPresent.toLowerCase)))
           .replaceError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", FormError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("", "howMuchDidYouPay", FormError("howMuchDidYouPay", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("" ,"howOften", FormError("howOften", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("howMuchDidYouPay", "decimal.invalid", FormError("howMuchDidYouPay", "decimal.invalid", Seq(pastPresent.toLowerCase)))
         BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G5ChildcareExpensesWhileAtWork.present()))

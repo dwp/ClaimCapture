@@ -1,6 +1,8 @@
 package models.domain
 
 import models.{PensionPaymentFrequency, DayMonthYear}
+import controllers.Mappings._
+import models.PensionPaymentFrequency
 
 case object SelfEmployment extends Section.Identifier {
   val id = "s8"
@@ -27,6 +29,16 @@ case class SelfEmploymentYourAccounts(whatWasOrIsYourTradingYearFrom: Option[Day
 
 case object SelfEmploymentPensionsAndExpenses extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g4"
+
+  def validateHowMuchSelfEmployed(input: SelfEmploymentPensionsAndExpenses): Boolean = input.doYouPayToPensionScheme match {
+    case `yes` => input.howMuchDidYouPay.isDefined
+    case `no` => true
+  }
+
+  def validateHowOftenSelfEmployed(input: SelfEmploymentPensionsAndExpenses): Boolean = input.doYouPayToPensionScheme match {
+    case `yes` => input.howOften.isDefined
+    case `no` => true
+  }
 }
 
 case class SelfEmploymentPensionsAndExpenses(doYouPayToPensionScheme: String = "",
@@ -37,7 +49,7 @@ case class SelfEmploymentPensionsAndExpenses(doYouPayToPensionScheme: String = "
 
 case class ChildcareExpensesWhileAtWork(nameOfPerson: String = "",
                                         howMuchYouPay: String = "",
-                                        howOftenPayChildCare: String = "",
+                                        howOftenPayChildCare: PensionPaymentFrequency = models.PensionPaymentFrequency(""),
                                         whatRelationIsToYou: String = "",
                                         relationToPartner: Option[String] = None,
                                         whatRelationIsTothePersonYouCareFor: String = "") extends QuestionGroup(ChildcareExpensesWhileAtWork)
@@ -48,7 +60,7 @@ case object ChildcareExpensesWhileAtWork extends QuestionGroup.Identifier {
 
 case class ExpensesWhileAtWork(nameOfPerson: String = "",
                                howMuchYouPay: String = "",
-                               howOftenPayExpenses: String = "",
+                               howOftenPayExpenses: PensionPaymentFrequency = models.PensionPaymentFrequency(""),
                                whatRelationIsToYou: String = "",
                                relationToPartner: Option[String] = None,
                                whatRelationIsTothePersonYouCareFor: String = "") extends QuestionGroup(ExpensesWhileAtWork)

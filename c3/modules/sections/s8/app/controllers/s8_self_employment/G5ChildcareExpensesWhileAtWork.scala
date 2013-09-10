@@ -1,7 +1,7 @@
 package controllers.s8_self_employment
 
 import language.reflectiveCalls
-import play.api.data.Form
+import play.api.data.{Form, FormError}
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import controllers.Mappings._
@@ -10,21 +10,22 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment._
 import utils.helpers.PastPresentLabelHelper._
-import play.api.data.FormError
 import models.view.Navigable
 import play.api.mvc.Request
 import play.api.mvc.AnyContent
 
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
-  def form(implicit claim: Claim) = Form(mapping(
-    "whoLooksAfterChildren" -> nonEmptyText(maxLength = sixty),
-    "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
-    "howOftenPayChildCare" -> nonEmptyText,
-    "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
-    "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
-    "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
-  )(ChildcareExpensesWhileAtWork.apply)(ChildcareExpensesWhileAtWork.unapply)
-    .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
+  def form(implicit claim: Claim) = Form(
+    mapping(
+      "whoLooksAfterChildren" -> nonEmptyText(maxLength = sixty),
+      "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
+      "howOftenPayChildCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
+      "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
+      "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
+      "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
+    )(ChildcareExpensesWhileAtWork.apply)(ChildcareExpensesWhileAtWork.unapply)
+      .verifying("relationToPartner.required", validateRelationToPartner(claim, _))
+  )
 
   def validateRelationToPartner(implicit claim: Claim, childcareExpensesWhileAtWork: ChildcareExpensesWhileAtWork) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
@@ -55,7 +56,6 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with N
         val formWithErrorsUpdate = formWithErrors
           .replaceError("howMuchYouPay", "error.required", FormError("howMuchYouPay", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
-          .replaceError("howOftenPayChildCare", "error.required", FormError("howOftenPayChildCare", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s8_self_employment.g5_childcareExpensesWhileAtWork(formWithErrorsUpdate))
       },

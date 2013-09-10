@@ -93,7 +93,7 @@ object EvidenceList {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     for {break <- breaksInCare.breaks} yield {
-      textLine("Where were you during the break? Other detail =", break.whereYou.other) ++
+      textLine("Where were you during the break? Other detail = ", break.whereYou.other) ++
         textLine("Where was the person you care for during the break? = ", break.wherePerson.location) ++
         textLine("Where was the person you care for during the break? Other detail = ", break.wherePerson.other)
     }
@@ -121,13 +121,23 @@ object EvidenceList {
     val yourAccounts = claim.questionGroup[SelfEmploymentYourAccounts].getOrElse(SelfEmploymentYourAccounts())
     val childCare = claim.questionGroup[ChildcareExpensesWhileAtWork].getOrElse(ChildcareExpensesWhileAtWork())
     val expensesWhileAtWork = claim.questionGroup[ExpensesWhileAtWork].getOrElse(ExpensesWhileAtWork())
+    val pensionScheme = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())
 
-    val textLines = textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
+    var textLines = textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
       textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened) ++
-      textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare? = ", childCare.howMuchYouPay)++
-      textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childCare.howOftenPayChildCare)) ++
-      textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ", expensesWhileAtWork.howMuchYouPay) ++
+      textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare? = £", childCare.howMuchYouPay)++
+      textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childCare.howOftenPayChildCare))
+    if(childCare.howOftenPayChildCare.other.isDefined )
+      textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childCare.howOftenPayChildCare.other.get)
+
+    textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = £", expensesWhileAtWork.howMuchYouPay) ++
       textLine("How often [[past=did you]] [[present=do you]] - expenses related to person you care for? = ", PensionPaymentFrequency.mapToHumanReadableString(expensesWhileAtWork.howOftenPayExpenses))
+
+    if (expensesWhileAtWork.howOftenPayExpenses.other.isDefined)
+      textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to person you care for? = ",expensesWhileAtWork.howOftenPayExpenses.other.get)
+
+    if (pensionScheme.howOften.isDefined && pensionScheme.howOften.get.other.isDefined)
+      textLines ++= textLine("How often do you pay into a Pension? Other = ",pensionScheme.howOften.get.other.get)
 
     if(sectionEmpty(textLines)) NodeSeq.Empty else textSeparatorLine("Self Employment") ++ textLines
   }
@@ -135,8 +145,8 @@ object EvidenceList {
   def employment(claim: Claim) = {
     claim.questionGroup[Jobs] match {
       case Some(jobs) =>
-        var textlines = NodeSeq.Empty
-        textlines ++= textSeparatorLine("Employment")
+        var textLines = NodeSeq.Empty
+        textLines ++= textSeparatorLine("Employment")
 
         for (job <- jobs) {
 
@@ -146,30 +156,34 @@ object EvidenceList {
           val personYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
           val pensionScheme = job.questionGroup[PensionSchemes].getOrElse(PensionSchemes())
 
-          textlines ++= textLine("Employer:" + jobDetails.employerName)
+          textLines ++= textLine("Employer:" + jobDetails.employerName)
           if (jobDetails.p45LeavingDate.isDefined) {
-            textlines ++= textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
+            textLines ++= textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
           }
           if (lastWage.sameAmountEachTime.isDefined) {
-            textlines ++= textLine("About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? =", lastWage.sameAmountEachTime.get)
+            textLines ++= textLine("About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? = ", lastWage.sameAmountEachTime.get)
           }
 
           if (childcareExpenses.howMuchCostChildcare.nonEmpty)
-            textlines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare expenses? = ",childcareExpenses.howMuchCostChildcare)
-          textlines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare))
+            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare expenses? = £",childcareExpenses.howMuchCostChildcare)
+          textLines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare))
+          if (childcareExpenses.howOftenPayChildCare.other.isDefined)
+            textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childcareExpenses.howOftenPayChildCare.other.get)
 
           if (personYouCareForExpenses.howMuchCostCare.nonEmpty)
-            textlines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ",personYouCareForExpenses.howMuchCostCare)
-          textlines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to the person you care for? = ", PensionPaymentFrequency.mapToHumanReadableString(personYouCareForExpenses.howOftenPayCare))
+            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = £",personYouCareForExpenses.howMuchCostCare)
+          textLines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to the person you care for? = ", PensionPaymentFrequency.mapToHumanReadableString(personYouCareForExpenses.howOftenPayCare))
+          if (personYouCareForExpenses.howOftenPayCare.other.isDefined)
+            textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to the person you care for? = ", personYouCareForExpenses.howOftenPayCare.other.get)
 
           if (pensionScheme.howOftenPension.isDefined && pensionScheme.howOftenPension.get.frequency == PensionPaymentFrequency.Other)
-            textlines ++= textLine("How often other - Occupational Pension Scheme? = ", pensionScheme.howOftenPension.get.other.getOrElse(""))
+            textLines ++= textLine("How often other - Occupational Pension Scheme? = ", pensionScheme.howOftenPension.get.other.getOrElse(""))
           if (pensionScheme.howOftenPersonal.isDefined && pensionScheme.howOftenPersonal.get.frequency == PensionPaymentFrequency.Other)
-            textlines ++= textLine("How often other - Personal Pension Scheme? = ", pensionScheme.howOftenPersonal.get.other.getOrElse(""))
+            textLines ++= textLine("How often other - Personal Pension Scheme? = ", pensionScheme.howOftenPersonal.get.other.getOrElse(""))
             textLine("")
         }
 
-        textlines
+        textLines
       case None => NodeSeq.Empty
     }
   }
@@ -200,10 +214,10 @@ object EvidenceList {
       textLine("Details about other money: How much? = ", aboutOtherMoney.howMuch) ++
       textLine("Details about other money: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.howOften)) ++
       textLine("Details about other money: How often other? = ", aboutOtherMoney_howOftenOther) ++
-      textLine("Statutory Sick Pay: How much? = ", statutorySickPay.howMuch) ++
+      textLine("Statutory Sick Pay: How much? = £", statutorySickPay.howMuch) ++
       textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(statutorySickPay.howOften)) ++
       textLine("Statutory Sick Pay: How often other? = ", ssp_howOftenOther) ++
-      textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
+      textLine("Other Statutory Pay: How much? = £", otherStatutoryPay.howMuch) ++
       textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)) ++
       textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther) ++
       textLine("Are you, your wife, husband, civil partner or parent you are dependent on, " +
@@ -243,7 +257,7 @@ object EvidenceList {
   private def textLine(label: String, value: String): Elem = value match {
     case "" => <TextLine/>
     case _ => <TextLine>
-      {s"$label " + formatValue(value)}
+      {s"$label" + formatValue(value)}
     </TextLine>
   }
 

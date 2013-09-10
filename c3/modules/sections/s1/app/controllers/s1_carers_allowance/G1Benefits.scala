@@ -1,5 +1,6 @@
 package controllers.s1_carers_allowance
 
+import controllers.Mappings._
 import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
@@ -8,8 +9,8 @@ import play.api.data.FormError
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import models.domain.Benefits
-import controllers.Mappings._
 import models.view.Navigable
+import play.api.data.FormError
 
 object G1Benefits extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -27,6 +28,6 @@ object G1Benefits extends Controller with CachedClaim with Navigable {
           .replaceError("answer", FormError("benefits.answer", "error.required"))
         BadRequest(views.html.s1_carers_allowance.g1_benefits(formWithErrorsUpdate))
       },
-      benefits => claim.update(benefits) -> Redirect(routes.G2Hours.present()))
+      f => claim.update(f) -> Redirect(routes.G2Hours.present()))
   }
 }

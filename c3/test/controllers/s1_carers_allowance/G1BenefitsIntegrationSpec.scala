@@ -28,13 +28,22 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       page fillPageWith claim
       page submitPage()
     }
-    
+
+    "warn if answer no to person get one of benefits" in new WithBrowser with G1BenefitsPageContext {
+      val claim = new TestData
+      claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
+      page goToThePage()
+      page fillPageWith claim
+      page.listDisplayedPromptMessages.size mustEqual 1
+    }
+
     "navigate to next page on valid submission" in new WithBrowser with G1BenefitsPageContext {
       val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "yes"
       page goToThePage()
       page fillPageWith claim
-      
+      page.listDisplayedPromptMessages.size mustEqual 0
+
       val nextPage = page submitPage()
 
       nextPage must beAnInstanceOf[G2HoursPage]

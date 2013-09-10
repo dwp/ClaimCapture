@@ -6,6 +6,8 @@ import utils.pageobjects.s8_self_employment._
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s2_about_you._
 import controllers.ClaimScenarioFactory
+import utils.pageobjects.s2_about_you.G4ClaimDatePage
+import utils.pageobjects.s3_your_partner.G4PersonYouCareForPage
 
 class G9CompletedIntegrationSpec extends Specification with Tags {
 
@@ -33,14 +35,34 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
     }
 
     "navigate back to previous page" in new WithBrowser with G4SelfEmploymentPensionsAndExpensesPageContext  {
-      page goToThePage()
+      val pageClaimDate = new G4ClaimDatePage(browser)
+      pageClaimDate goToThePage()
+      pageClaimDate fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      val pageMoreAboutYou = pageClaimDate.submitPage(throwException = true)
+      pageMoreAboutYou fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
+      pageMoreAboutYou.submitPage(throwException = true)
 
-      page runClaimWith(ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor, G9CompletedPage.title)
+      val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
+      pageAboutYourPartner goToThePage()
+      pageAboutYourPartner fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
+      pageAboutYourPartner.submitPage(throwException = true)
 
-      page.goBack() must beAnInstanceOf[G7ExpensesWhileAtWorkPage]
+      val g4 = new G4SelfEmploymentPensionsAndExpensesPage(browser)
+      g4 goToThePage()
+      g4 fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
+      val g5 = g4.submitPage(throwException = true)
+      g5 fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
+      val g7 = g5.submitPage(throwException = true)
+      g7 fillPageWith ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
+
+      val nextPage = g7.submitPage(throwException = true)
+      nextPage must beAnInstanceOf[G9CompletedPage]
+
+      nextPage.goBack() must beAnInstanceOf[G7ExpensesWhileAtWorkPage]
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G9CompletedPageContext {
+      val claim = ClaimScenarioFactory.s9SelfEmploymentExpensesRelatedToPersonYouCareFor
       page goToThePage()
 
       val nextPage = page submitPage()

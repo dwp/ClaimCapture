@@ -30,7 +30,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
         page goToThePage()
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 2
-        pageWithErrors.listErrors(0) must contain("This field is required")
+        pageWithErrors.listErrors(0) must contain("This is required")
       }
 
       "self employed now but missing date" in new WithBrowser with G1AboutSelfEmploymentPageContext {
@@ -41,7 +41,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
         page fillPageWith claim
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 1
-        pageWithErrors.listErrors(0) must contain("This field is required")
+        pageWithErrors.listErrors(0) must contain("This is required")
       }
 
       "self employed now but invalid date" in new WithBrowser with G1AboutSelfEmploymentPageContext {

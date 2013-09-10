@@ -1,7 +1,7 @@
 package utils.pageobjects.xml_validation
 
 import scala.collection.mutable
-import utils.pageobjects.{PageObjectException, TestData, FactoryFromFile}
+import utils.pageobjects.{TestDatumValue, PageObjectException, TestData}
 import scala.xml.{NodeSeq, Elem, XML}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
@@ -29,13 +29,8 @@ class XMLClaimBusinessValidation extends XMLBusinessValidation  {
    * @return List of errors found. The list is empty if no errors were found.
    */
   def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean) = {
-
-    // Internal function used to recursively go through the xPath provided to find value
-    def childNode(xml: NodeSeq, children: Array[String]): NodeSeq =
-      if (children.size == 0) xml else childNode(xml \ children(0), children.drop(1))
-
     // Load the XML mapping
-    val mapping = XMLClaimBusinessValidation.buildXmlMappingFromFile("/ClaimScenarioXmlMapping.csv")
+    val mapping = XMLBusinessValidation.buildXmlMappingFromFile("/ClaimScenarioXmlMapping.csv")
 
     // Go through the attributes of the claim and check that there is a corresponding entry in the XML
     claim.map.foreach {
@@ -49,7 +44,7 @@ class XMLClaimBusinessValidation extends XMLBusinessValidation  {
 
             def validateNodeValue(options: Array[String]) {
               val nodes = options(0).split(">")
-              val elementValue = XmlNode(childNode(xml.\\(nodes(0)), nodes.drop(1)))
+              val elementValue = new ClaimXmlNode(xml,nodes)
               if (!elementValue.isDefined) {
                 if (options.size > 1) validateNodeValue(options.drop(1))
                 else errors += attribute + " " + path + " XML element not found"
@@ -75,49 +70,37 @@ class XMLClaimBusinessValidation extends XMLBusinessValidation  {
 }
 
 /**
- * Contains method to read XML mapping file.
- */
-object XMLClaimBusinessValidation {
-
-  def buildXmlMappingFromFile(fileName: String) = {
-    val map = mutable.Map.empty[String, (String, String)]
-    def converter(attribute: String)(path: String)(question: String): Unit = map += (attribute -> Tuple2(path, question))
-    FactoryFromFile.buildFromFileLast3Columns(fileName, converter)
-    map
-  }
-}
-
-/**
  * Represents an Xml Node once "cleaned", i.e. trimmed and line returns removed.
  */
-class XmlNode(val theNodes: NodeSeq) {
+class ClaimXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml, path) {
 
-  var error = ""
+  val EvidenceListNode = "<EvidenceList>"
+  val DeclarationNode = "<Declaration>"
 
   def matches(claimValue: ClaimValue): Boolean = {
     try {
       val nodeStart = theNodes(0).mkString
 
-      val isARepeatableNode = !nodeStart.contains(XmlNode.EvidenceListNode) && !nodeStart.contains(XmlNode.DeclarationNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
+      val isARepeatableNode = !nodeStart.contains(EvidenceListNode) && !nodeStart.contains(DeclarationNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
 
       val isRepeatedAttribute = claimValue.attribute.contains( """_""")
 
       val iteration = if (isRepeatedAttribute) claimValue.attribute.split("_")(1).toInt - 1 else 0
 
-      if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(XmlNode.EvidenceListNode)) true
+      if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(EvidenceListNode)) true
       else {
         val isPensionScheme = theNodes.mkString.contains("<PensionScheme>") // Because of bug in Schema :(  Do not like it
 
         val index = if (isRepeatedAttribute && isARepeatableNode && !isPensionScheme) iteration else 0
 
-        val value = XmlNode.prepareElement(if (isPensionScheme) theNodes.text else theNodes(index).text)
+        val value = XMLValidationNode.prepareElement(if (isPensionScheme) theNodes.text else theNodes(index).text)
         val nodeName = theNodes(index).mkString
         def valuesMatching = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
           else if (claimValue.attribute.contains("EmploymentAddtionalWageHowOftenAreYouPaid") || claimValue.attribute.contains("EmploymentChildcareExpensesHowOften") || claimValue.attribute.contains("EmploymentCareExpensesHowOftenYouPayfor")
           || claimValue.attribute.contains("SelfEmployedCareExpensesHowOften") || claimValue.attribute.contains("SelfEmployedChildcareExpensesHowOften"))
             value.contains(StatutoryPaymentFrequency.mapToHumanReadableString(claimValue.value,None).toLowerCase)
-          else if (nodeName.startsWith(XmlNode.EvidenceListNode)) {
+          else if (nodeName.startsWith(EvidenceListNode)) {
             // Awful code. Need to do something about it! (JMI)
             if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
               if (iteration == 0 ) value.matches(".*haveyouhadanymoretripsoutofgreatbritainformorethan[^=]*=" + claimValue.value +".*") else true
@@ -127,18 +110,18 @@ class XmlNode(val theNodes: NodeSeq) {
             }
             else if (claimValue.attribute == "SelfEmployedChildcareExpensesHowOften" || claimValue.attribute == "SelfEmployedCareExpensesHowOften")
               value.contains(claimValue.question+"="+ PensionPaymentFrequency.mapToHumanReadableString(claimValue.value).toLowerCase)
-            else value.contains(claimValue.question + "=" + claimValue.value)
+            else value.contains(claimValue.question + "=" + claimValue.value) ||value.contains(claimValue.question + "=£" + claimValue.value)
           }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
           else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
-          else if (nodeName.startsWith(XmlNode.DeclarationNode)) value.contains(claimValue.question + claimValue.value)
+          else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
           else value == claimValue.value
         }
 
         val matching = valuesMatching
 
         if (!matching)
-          error = " value expected: [" + (if (nodeName.startsWith(XmlNode.EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + value + "]"
+          error = " value expected: [" + (if (nodeName.startsWith(EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + value + "]"
         matching
       }
     }
@@ -147,33 +130,9 @@ class XmlNode(val theNodes: NodeSeq) {
     }
   }
 
-  def doesNotMatch(claimValue: ClaimValue): Boolean = !matches(claimValue)
-
-  def size = theNodes.size
-
-  def isDefined = theNodes.nonEmpty
-
-  override def toString = theNodes.mkString(",")
 }
 
-object XmlNode {
-
-  val EvidenceListNode = "<EvidenceList>"
-  val DeclarationNode = "<Declaration>"
-
-  private def prepareElement(elementValue: String) = elementValue.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
-
-  def apply(nodes: NodeSeq) = new XmlNode(nodes)
-}
-
-/**
- * Represents a claimvalue once "cleaned", i.e trimmed and date reformated to yyyy-MM-dd as in the XML.
- * @param value value cleaned from the claim.
- */
-class ClaimValue(val attribute: String, val value: String, val question: String) {
-
-  override def toString = question + " - " + attribute + ": " + value
-}
+class ClaimValue(attribute: String, value: String, question: String) extends TestDatumValue(attribute, value, question) {}
 
 object ClaimValue {
 
