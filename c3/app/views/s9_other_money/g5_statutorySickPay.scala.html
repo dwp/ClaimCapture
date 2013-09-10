@@ -30,7 +30,7 @@
 	                ),
 	               carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
 	               inputAddress(currentForm("employersAddress")),
-	               carersInputText(currentForm("employersPostcode"), 'class -> "postcode")
+	               carersInputTel(currentForm("employersPostcode"), 'class -> "postcode")
 	             ),
 	             'id -> "sickPayWrap",
 	             'display -> currentForm("haveYouHadAnyStatutorySickPay").value.getOrElse("no")
