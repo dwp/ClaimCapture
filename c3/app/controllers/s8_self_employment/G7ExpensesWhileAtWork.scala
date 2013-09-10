@@ -17,7 +17,7 @@ object G7ExpensesWhileAtWork extends Controller with SelfEmploymentRouting with 
     mapping(
       "nameOfPerson" -> nonEmptyText(maxLength = sixty),
       "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
-      "howOftenPayExpenses" -> nonEmptyText,
+      "howOftenPayExpenses" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
       "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
       "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
       "whatRelationIsTothePersonYouCareFor" -> nonEmptyText

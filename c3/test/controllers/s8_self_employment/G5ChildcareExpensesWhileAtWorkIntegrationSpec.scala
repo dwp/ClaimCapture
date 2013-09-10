@@ -34,7 +34,6 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
 
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G5ChildcareExpensesWhileAtWorkPageContext {
-
         val claimPensionAndExpenses = ClaimScenarioFactory.s9SelfEmploymentPensionsAndExpenses
         val pagePensionAndExpenses = new G4SelfEmploymentPensionsAndExpensesPage(browser)
         pagePensionAndExpenses goToThePage()
@@ -51,7 +50,6 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
     }
 
     "accept submit if all mandatory fields are populated" in new WithBrowser with G5ChildcareExpensesWhileAtWorkPageContext {
-
       val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       val pageClaimDate = new G4ClaimDatePage(browser)
       pageClaimDate goToThePage()
@@ -60,9 +58,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       pageMoreAboutYou fillPageWith claimDate
       pageMoreAboutYou.submitPage(throwException = true)
 
-
-      val claimAboutYourPartner = new TestData
-      claimAboutYourPartner.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "no"
+      val claimAboutYourPartner = ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
       val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
       pageAboutYourPartner goToThePage()
       pageAboutYourPartner fillPageWith claimAboutYourPartner
@@ -76,15 +72,14 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
 
 
       val claim = ClaimScenarioFactory.s9SelfEmploymentChildCareExpenses
-      claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "son"
+      //claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "son"
       page goToThePage()
       page fillPageWith claim
       page submitPage true
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G5ChildcareExpensesWhileAtWorkPageContext {
-
-      val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
+      val claimDate = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       val pageClaimDate = new G4ClaimDatePage(browser)
       pageClaimDate goToThePage()
       pageClaimDate fillPageWith claimDate
@@ -92,8 +87,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       pageMoreAboutYou fillPageWith claimDate
       pageMoreAboutYou.submitPage(throwException = true)
 
-      val claimAboutYourPartner = new TestData
-      claimAboutYourPartner.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "no"
+      val claimAboutYourPartner = ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
       val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
       pageAboutYourPartner goToThePage()
       pageAboutYourPartner fillPageWith claimAboutYourPartner
@@ -106,7 +100,6 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       pagePensionAndExpenses.submitPage(throwException = true)
 
       val claim = ClaimScenarioFactory.s9SelfEmploymentChildCareExpenses
-      claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "son"
       page goToThePage()
       page fillPageWith claim
 

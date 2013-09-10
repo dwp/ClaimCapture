@@ -17,12 +17,13 @@ object G5ChildcareExpensesWhileAtWork extends Controller with SelfEmploymentRout
     mapping(
       "whoLooksAfterChildren" -> nonEmptyText(maxLength = sixty),
       "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
-      "howOftenPayChildCare" -> nonEmptyText,
+      "howOftenPayChildCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
       "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
       "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
       "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
     )(ChildcareExpensesWhileAtWork.apply)(ChildcareExpensesWhileAtWork.unapply)
-      .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
+      .verifying("relationToPartner.required", validateRelationToPartner(claim, _))
+  )
 
   def validateRelationToPartner(implicit claim: Claim, childcareExpensesWhileAtWork: ChildcareExpensesWhileAtWork) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
@@ -49,7 +50,6 @@ object G5ChildcareExpensesWhileAtWork extends Controller with SelfEmploymentRout
         val formWithErrorsUpdate = formWithErrors
           .replaceError("howMuchYouPay", "error.required", FormError("howMuchYouPay", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
-          .replaceError("howOftenPayChildCare", "error.required", FormError("howOftenPayChildCare", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s8_self_employment.g5_childcareExpensesWhileAtWork(formWithErrorsUpdate, completedQuestionGroups(ChildcareExpensesWhileAtWork)))
       },

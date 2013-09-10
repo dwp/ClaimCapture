@@ -6,7 +6,8 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
 final class G5ChildcareExpensesWhileAtWorkPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G5ChildcareExpensesWhileAtWorkPage.url, G5ChildcareExpensesWhileAtWorkPage.title, previousPage) {
   declareInput("#whoLooksAfterChildren", "SelfEmployedChildcareProviderNameOfPerson")
   declareInput("#howMuchYouPay", "SelfEmployedChildcareExpensesHowMuchYouPay")
-  declareSelect("#howOftenPayChildCare", "SelfEmployedChildcareExpensesHowOften")
+  declareSelect("#howOftenPayChildCare_frequency","SelfEmployedChildcareExpensesHowOften")
+  declareInput("#howOftenPayChildCare_frequency_other","SelfEmployedChildcareExpensesHowOftenOther")
   declareSelect("#whatRelationIsToYou", "SelfEmployedChildcareProviderWhatRelationIsToYou")
   declareSelect("#relationToPartner", "SelfEmployedChildcareProviderWhatRelationIsToYourPartner")
   declareSelect("#whatRelationIsTothePersonYouCareFor", "SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor")
