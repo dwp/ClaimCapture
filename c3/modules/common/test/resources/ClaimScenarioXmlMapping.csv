@@ -1,5 +1,5 @@
 Can you get Carers Allowance?,Does the person you care for get one of these benefits?,Does the person you care for get one of these benefits?,CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits,
-Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you look after?,Do you spend 35 hours or more each week caring for the person you look after?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,
+Can you get Carers Allowance?,Do you spend 35 hours or more each week caring for the person you care for?,Do you spend 35 hours or more each week caring for the person you care for?,CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring,
 Can you get Carers Allowance?,Do you normally live in Great Britain?,Do you normally live in Great Britain?,CanYouGetCarersAllowanceDoYouNormallyLiveinGb,
 Can you get Carers Allowance?,Are you aged 16 or over?,Are you aged 16 or over?,CanYouGetCarersAllowanceAreYouAged16OrOver,
 About You,Your Details,Title,AboutYouTitle,Claimant>Title
@@ -18,7 +18,7 @@ About You,Your contact details,Daytime phone number,AboutYouPhoneNumber,Claimant
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouTextPhone,DWPCAClaim>EvidenceList
 About You,Your contact details,Mobile number,AboutYouMobileNumber,DWPCAClaim>EvidenceList
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,DWPCAClaim>EvidenceList
-About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInYheUK,Residency>OtherNationality>DateArrivedInGreatBritain
+About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInYheUK,DWPCAClaim>EvidenceList
 About You,About your time outside the UK,What country did you come from?,AboutYouWhatCountryDidYouComeFrom,Residency>OtherNationality>CountryArrivedFrom
 About You,About your time outside the UK,Do you plan to go back to that country?,AboutYouDoYouPlantoGoBacktoThatCountry,Residency>OtherNationality>IntendToReturn
 About You,About your time outside the UK,When do you plan to go back?,AboutYouWhenDoYouPlantoGoBack,Residency>OtherNationality>DateReturn
@@ -50,8 +50,8 @@ About the care you provide,Contact details of the person you care for,Postcode,A
 About the care you provide,Contact details of the person you care for,Daytime phone number,AboutTheCareYouProvideDaytimePhoneNumberPersonYouCare,Caree>DaytimePhoneNumber>Number
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Caree>RelationToClaimant
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,DWPCAClaim>EvidenceList
-About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,Caree>Cared35hours
-About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date: <ddmmyyyy>?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,Caree>Cared35hoursBefore
+About the care you provide,More about the care you provide,Do you spend 35 hours or more each week caring for this person?,AboutTheCareYouProvideDoYouSpend35HoursorMoreEachWeek,DWPCAClaim>EvidenceList
+About the care you provide,More about the care you provide,Did you care for this person for 35 hours or more each week before your claim date ?,AboutTheCareYouProvideDidYouCareForThisPersonfor35Hours,DWPCAClaim>EvidenceList
 About the care you provide,More about the care you provide,When did you start to care for this person?,AboutTheCareYouProvideWhenDidYouStarttoCareForThisPerson,Caree>DateStartedCaring
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare,Caree>BreaksSinceClaim
 About the care you provide,Breaks in Care,"Have you had any breaks in caring for this person since, [[Claim Date _ 6 months]]?",AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare6Months,Caree>BreaksBeforeClaim
@@ -67,18 +67,18 @@ About the care you provide,About the breaks in care,Did you or the person you ca
 Time Spent Abroad,Your normal residence & current location,"Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? ",TimeSpentAbroadDoYouNormallyLiveintheUk,DWPCAClaim>EvidenceList
 Time Spent Abroad,Your normal residence & current location,Where do you normally live? ,TimeSpentAbroadWhereDoYouNormallyLive,Residency>CountryNormallyLive
 Time Spent Abroad,Your normal residence & current location,Are you in Great Britain now?,TimeSpentAbroadAreYouinGBNow,Residency>InGreatBritainNow
-Time Spent Abroad,When you went abroad for more than 4 weeks,"Have you been out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim Date _ 3 years]] (this is 3 years since your claim date)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor,DWPCAClaim>EvidenceList
+Time Spent Abroad,When you went Details of time abroad with the person you care for,"Have you been out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim Date _ 3 years]] (this is 3 years since your claim date)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor,DWPCAClaim>EvidenceList
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB,PeriodAbroadLastYear>Period>DateFrom
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB,PeriodAbroadLastYear>Period>DateTo
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Where did you go?,TimeSpentAbroadWhereDidYouGoWithPersonCareFor,PeriodAbroadLastYear>Country
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor,PeriodAbroadLastYear>Reason
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),"Have you had any more trips out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim date _ 3 years]] (this is 3 years before today)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime,DWPCAClaim>EvidenceList
 Time Spent Abroad,When you went abroad for more than 52 weeks,"Have you been out of Great Britain for more than 52 weeks, since [[Claim Date _ 156weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks,
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks,PeriodAbroadDuringCare>Period>DateFrom
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks,PeriodAbroadDuringCare>Period>DateTo
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks,DWPCAClaim>EvidenceList
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks,PeriodAbroadDuringCare>Reason
-Time Spent Abroad,Details of trips abroad for more than 52 weeks ,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime,DWPCAClaim>EvidenceList
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you left Great Britain,TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks,PeriodAbroadDuringCare>Period>DateFrom
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGBTripForMoreThan52Weeks,PeriodAbroadDuringCare>Period>DateTo
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Where did you go?,TimeSpentAbroadWhereDidYouGoForMoreThan52Weeks,DWPCAClaim>EvidenceList
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,Why did you go?,TimeSpentAbroadWhyDidYouGoForMoreThan52Weeks,PeriodAbroadDuringCare>Reason
+Time Spent Abroad,Details of trips abroad for more than 52 weeks,"Have you had any more trips out of Great Britain for more than 52 weeks at a time, since [[Claim Date _ 156 weeks]] (this is 156 weeks before your claim date)?",TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime,DWPCAClaim>EvidenceList
 Education,Your course details,Type of course,EducationTypeOfCourse,FullTimeEducation>CourseDetails>Type
 Education,Your course details,Course title,EducationCourseTitle,FullTimeEducation>CourseDetails>Title
 Education,Your course details,When did you start the course?,EducationWhenDidYouStartTheCourse,FullTimeEducation>CourseDetails>DateStarted
@@ -115,9 +115,9 @@ Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards a per
 Employment,Pension schemes,How much [[past=Did you]] [[present=Do you]] pay?,EmploymentHowMuchYouPayforPersonalPension,Employment>JobDetails>PensionScheme
 Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension,Employment>JobDetails>PensionScheme
 Employment,About expenses to do with your employment,[[past=Did you]] [[present=Do you]] pay for anything necessary to do your job?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob,Employment>JobDetails>PaidForJobExpenses
-Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after your children?",EmploymentDoYouPayAnyoneLookAfterYourChild,Employment>JobDetails>CareExpensesChildren
+Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for your children?",EmploymentDoYouPayAnyoneLookAfterYourChild,Employment>JobDetails>CareExpensesChildren
 Employment,About expenses to do with your employment,Is this the same as the other job you have told us about?,EmploymentIsThistheSameAsTheOtherJobChild,
-Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after the person you normally care for?",EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor,Employment>JobDetails>CareExpensesCaree
+Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for the person you normally care for?",EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor,Employment>JobDetails>CareExpensesCaree
 Employment,About expenses to do with your employment,Is this the same as the other job you have told us about?,EmploymentIsThistheSameAsTheOtherJobPersonYouCareFor,
 Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentWhatIsYourJobTitle,Employment>Employer>JobType
 Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses,JobExpenses>Expense
@@ -157,8 +157,8 @@ Self Employed,Your accounts,Please tell us why and when the change happened,Self
 Self Employed,Pensions and Expenses,[Past=Did you] [Present=Do you] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,SelfEmployedDoYouPayTowardsPensionScheme,SelfEmployment>PaidForPension
 Self Employed,Pensions and Expenses,How much [past=did you] [present=do you] pay?,SelfEmployedHowMuchYouPayTowardsPensionScheme,SelfEmployment>PensionScheme>Payment>Amount
 Self Employed,Pensions and Expenses,How often do you pay into a Pension,SelfEmployedHowoftenYouPayTowardsPensionScheme,SelfEmployment>PensionScheme>Frequency
-Self Employed,Pensions and Expenses,"White at work, [past=did you] [present=do you] pay anyone to look after your children?",SelfEmployedDoYouPayAnyonetoLookAfterYourChild,SelfEmployment>CareExpensesChildren
-Self Employed,Pensions and Expenses,"While at work, [[past=did you]] [[present=do you]] pay anyone to look after the person you normally care for?",SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor,SelfEmployment>CareExpensesCaree
+Self Employed,Pensions and Expenses,"White at work, [past=did you] [present=do you] pay anyone to care for your children?",SelfEmployedDoYouPayAnyonetoLookAfterYourChild,SelfEmployment>CareExpensesChildren
+Self Employed,Pensions and Expenses,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for the person you normally care for?",SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor,SelfEmployment>CareExpensesCaree
 Self Employed,Pensions and Expenses,Is this the same as the expenses you have told us about during your employed work?,SelfEmployedCareIsThistheSameAsDuringYourEmployedWork,
 Self Employed,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,SelfEmployedChildcareProviderNameOfPerson,SelfEmployment>ChildCareExpenses>CarerName
 Self Employed,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,SelfEmployedChildcareExpensesHowMuchYouPay,SelfEmployment>ChildCareExpenses>WeeklyPayment>Amount

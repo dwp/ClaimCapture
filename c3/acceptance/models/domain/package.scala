@@ -24,7 +24,7 @@ package object domain {
     TheirContactDetails(address = MultiLineAddress(lineOne = Some("Scooby Street"))) +
     MoreAboutThePerson(relationship = "wife") +
     MoreAboutTheCare(spent35HoursCaring = yes, spent35HoursCaringBeforeClaim = YesNoWithDate(answer = yes, date = Some(DayMonthYear(1, 1, 2000)))) +
-    BreaksInCare(Break(start = DayMonthYear(1, 1, 2000), whereYou = Whereabouts(location = "Home"), wherePerson = Whereabouts(location = "Hospital"), medicalDuringBreak = no) :: Nil) +
+    BreaksInCare(Break(start = DayMonthYear(1, 1, 2000), whereYou = Whereabouts(location = "At Home"), wherePerson = Whereabouts(location = "Hospital"), medicalDuringBreak = no) :: Nil) +
     NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = yes), inGBNow = yes) +
     (Trips() + Trip(id = "trip1", start = DayMonthYear(1, 1, 2010), end = DayMonthYear(1, 2, 2010), where = "Scotland", why = "Get a suntan").as[FourWeeksTrip]
              + Trip(id = "trip2", start = DayMonthYear(1, 2, 2010), end = DayMonthYear(1, 2, 2011), where = "Scotland", why = "Get a suntan").as[FiftyTwoWeeksTrip]) +

@@ -16,15 +16,7 @@ import utils.helpers.StringPadding._
 trait WebSearchActions {
   this: { val browser: TestBrowser } =>
 
-  def isSpecifiedSectionCompleted(index: Integer, name: String, value: String, location: String = "div[class=completed] ul li") = {
-    val completed = browser.find(location).get(index).getText
-    completed.contains(name) && completed.contains(value)
-  }
-
-  def haveSectionsBeenCompleted(location: String = "div[class=completed] ul li") = !browser.find(location).isEmpty
-
-  def numberSectionsCompleted(location: String = "div[class=completed] ul li") = browser.find(location).size()
-
+  // Read operations
   def readAddress(elementCssSelector: String):Option[String] = {
     val extensions = Array("_lineOne", "_lineTwo", "_lineThree")
     val addressLines = mutable.ArrayBuffer.empty[String]
@@ -45,13 +37,6 @@ trait WebSearchActions {
     if (day.isDefined && month.isDefined && year.isDefined) Some(leftPadWithZero(2,day.get) + "/" +leftPadWithZero(2,month.get) + "/" + year.get)
     else None
   }
-
-//  def readDateFromTo(elementCssSelector: String):Option[(String,String)] = {
-//    val fromDate = readDate(elementCssSelector + "_from")
-//    val toDate = readDate(elementCssSelector + "_to")
-//    if (fromDate.isDefined && toDate.isDefined) Some((fromDate.get, toDate.get))
-//    else None
-//  }
 
   def readInput(elementCssSelector: String):Option[String] = {
     this checkElement elementCssSelector
@@ -108,7 +93,43 @@ trait WebSearchActions {
     else None
   }
 
+  // Other search operations
   def titleOfSubmitButton = browser.find("#submit").getText
+
+  def isSpecifiedSectionCompleted(index: Integer, name: String, value: String, location: String = "div[class=completed] ul li") = {
+    this checkElement location
+    val completed = browser.find(location).get(index).getText
+    completed.contains(name) && completed.contains(value)
+  }
+  def hasSectionsBeenCompleted(location: String = "div[class=completed] ul li") = this hasListOfElements location
+  def numberSectionsCompleted(location: String = "div[class=completed] ul li") = this sizeLitOfElements location
+
+  def hasTableEntriesChangeable(location: String = "input[value='Change']") = this hasListOfElements location
+  def numberTableEntriesChangeable(location: String = "input[value='Change']") = this sizeLitOfElements location
+
+  def hasTable = !browser.find("table").isEmpty
+
+  def readTableCell(row:Int, column:Int, elementCssSelector:String = "tbody"):Option[String] = {
+    this checkElement elementCssSelector
+    val rowWebElement = browser.find("tbody",0) find("tr",row)
+    if (rowWebElement != null) {
+      val columnWebElement = rowWebElement find("td",column)
+      if (columnWebElement != null) Some(columnWebElement.getElement.getText)
+      else None
+    }
+    else None
+
+  }
+
+  protected def hasListOfElements(location:String) = {
+    this checkElement location
+    !browser.find(location).isEmpty
+  }
+
+  protected def sizeLitOfElements(location:String) = {
+    this checkElement location
+    browser.find(location).size()
+  }
 
   protected def checkElement(elementCssSelector:String) {
     if (browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)

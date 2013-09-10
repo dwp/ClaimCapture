@@ -21,9 +21,9 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
 
     "contain the completed forms" in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
-      page goToThePage(waitDuration = 500)
+      page goToThePage()
 
-      page runClaimWith (claim, G5MoreAboutYouPage.title, waitForPage = true, waitDuration = 500)
+      page runClaimWith (claim, G5MoreAboutYouPage.title)
       page numberSectionsCompleted() mustEqual 4
     }
 
@@ -49,7 +49,7 @@ class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
     "navigate to next page on valid submission" in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside
       page goToThePage()
-      page runClaimWith (claim, G6EmploymentPage.title, waitForPage = true, waitDuration = 500)
+      page runClaimWith (claim, G6EmploymentPage.title)
     }
   } section("integration", models.domain.AboutYou.id)
 }

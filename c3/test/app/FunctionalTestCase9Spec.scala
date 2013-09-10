@@ -7,16 +7,16 @@ import utils.pageobjects.{XmlPage, ClaimScenario, Page}
 /**
  * End-to-End functional tests using input files created by Steve Moody.
  * @author Jorge Migueis
- *         Date: 02/08/2013
+ *         Date: 03/09/2013
  */
-class FunctionalTestCase6Spec extends FunctionalTestCommon {
+class FunctionalTestCase9Spec extends FunctionalTestCommon {
   isolated
 
   "The application " should {
 
-    "Successfully run absolute Test Case 6 " in new WithBrowser with G1BenefitsPageContext {
+    "Successfully run absolute Test Case 9 " in new WithBrowser with G1BenefitsPageContext {
 
-      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase6.csv")
+      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase9.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title)
 
@@ -27,6 +27,5 @@ class FunctionalTestCase6Spec extends FunctionalTestCommon {
         case p: Page => println(p.source())
       }
     }
-
   } section "functional"
 }

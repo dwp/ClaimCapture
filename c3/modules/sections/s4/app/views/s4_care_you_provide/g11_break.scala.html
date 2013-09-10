@@ -21,7 +21,7 @@
 
                 @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-                @whereabouts(breakForm("whereYou"), Seq("", "Home", "Hospital", "Holiday", "Respite Care", "Other").map(v => if (v == "") "" -> "Please select" else v -> v))
+                @whereabouts(breakForm("whereYou"), Seq("", "At Home", "Hospital", "Holiday", "Respite Care", "Other").map(v => if (v == "") "" -> "Please select" else v -> v))
 
                 @whereabouts(breakForm("wherePerson"), Seq("", "Hospital", "Respite Care", "Care Home", "Nursing Home", "Other").map(v => if (v == "") "" -> "Please select" else v -> v))
 

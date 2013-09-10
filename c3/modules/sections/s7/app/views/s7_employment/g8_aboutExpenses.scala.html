@@ -12,6 +12,9 @@
 @import utils.helpers.PastPresentLabelHelper._
 
 @main(Messages("s7.g8") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.AboutExpenses, JobID(currentForm))) {
+
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     @form(action = controllers.s7_employment.routes.G8AboutExpenses.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 

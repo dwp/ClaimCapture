@@ -12,7 +12,7 @@ import utils.pageobjects.s1_carers_allowance.G4LivesInGBPage
 class G5ApproveIntegrationSpec extends Specification with Tags {
   "Approve" should {
     "be presented" in new WithBrowser with G6ApprovePageContext {
-      page goToThePage(waitForPage = true, waitDuration = 500)
+      page goToThePage()
     }
   } section("integration",models.domain.CarersAllowance.id)
 
@@ -25,15 +25,15 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "Yes"
-      page goToThePage(waitForPage = true, waitDuration = 500)
+      page goToThePage()
       page fillPageWith claim
-      val hoursPage = page submitPage(waitForPage = true, waitDuration = 500)
+      val hoursPage = page submitPage()
       hoursPage fillPageWith claim
-      val over16Page = hoursPage submitPage(waitForPage = true, waitDuration = 500)
+      val over16Page = hoursPage submitPage()
       over16Page fillPageWith claim
-      val livingGBPage = over16Page submitPage(waitForPage = true, waitDuration = 500)
+      val livingGBPage = over16Page submitPage()
       livingGBPage fillPageWith claim
-      val approvePage = livingGBPage submitPage(waitForPage = true, waitDuration = 500)
+      val approvePage = livingGBPage submitPage()
 
       approvePage match {
         case p: G6ApprovePage => {
@@ -50,8 +50,8 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val approvePage = page runClaimWith (claim, G6ApprovePage.title, waitForPage = true, waitDuration = 500)
+      page goToThePage()
+      val approvePage = page runClaimWith (claim, G6ApprovePage.title)
 
       approvePage match {
         case p: G6ApprovePage => {
@@ -68,8 +68,8 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "No"
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      page runClaimWith (claim, G1YourDetailsPage.title, waitForPage = true, waitDuration = 500)
+      page goToThePage()
+      page runClaimWith (claim, G1YourDetailsPage.title)
     }
 
     "contain the completed forms" in new WithBrowser with G1BenefitsPageContext {
@@ -78,18 +78,18 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "no"
       claim.CanYouGetCarersAllowanceDoYouNormallyLiveinGb = "yes"
-      page goToThePage(waitForPage = true, waitDuration = 500)
+      page goToThePage()
       page fillPageWith claim
-      val s1g2 = page submitPage(waitForPage = true, waitDuration = 500)
+      val s1g2 = page submitPage()
       
       s1g2 fillPageWith claim
-      val s1g3 = s1g2 submitPage(waitForPage = true, waitDuration = 500)
+      val s1g3 = s1g2 submitPage()
       
       s1g3 fillPageWith claim
-      val s1g4 = s1g3 submitPage(waitForPage = true, waitDuration = 500)
+      val s1g4 = s1g3 submitPage()
       
       s1g4 fillPageWith claim
-      val s1g5 = s1g4 submitPage(waitForPage = true, waitDuration = 500)
+      val s1g5 = s1g4 submitPage()
 
       s1g5 match {
         case p: G6ApprovePage => {

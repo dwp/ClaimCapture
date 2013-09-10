@@ -17,8 +17,8 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
 
     "not be presented if section not visible" in new WithBrowser with G4ClaimDatePageContext {
       val claim = ClaimScenarioFactory.s2AnsweringNoToQuestions()
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      page runClaimWith (claim, G8AboutYouCompletedPage.title, waitForPage = true, waitDuration = 500)
+      page goToThePage()
+      page runClaimWith (claim, G8AboutYouCompletedPage.title)
 
       val nextPage = page goToPage( throwException = false, page = new G2SelfEmploymentYourAccountsPage(browser))
       nextPage must beAnInstanceOf[G1AboutOtherMoneyPage]
@@ -31,9 +31,9 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
         claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "no"
         claim.SelfEmployedTellUsWhyandWhentheChangeHappened = "A Year back"
         claim.SelfEmployedWhatWasIsYourTradingYearfrom = "01/01/0000"
-        page goToThePage(waitForPage = true, waitDuration = 500)
+        page goToThePage()
         page fillPageWith claim
-        val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 500)
+        val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 1
         pageWithErrors.listErrors(0).contains("date")
       }
@@ -51,22 +51,22 @@ class G2SelfEmploymentYourAccountsIntegrationSpec extends Specification with Tag
     "your accounts contact your accountant is not required if there is no accountant " in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
       val claim = new ClaimScenario
       claim.SelfEmployedAretheIncomeOutgoingSimilartoYourCurrent = "yes"
-      page goToThePage(waitForPage = true, waitDuration = 500)
+      page goToThePage()
       page fillPageWith claim
-      val pageWithErrors = page.submitPage(waitForPage = true, waitDuration = 500)
+      val pageWithErrors = page.submitPage()
       pageWithErrors.listErrors.size mustEqual 0
     }
 
     "accept submit if all mandatory fields are populated" in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
-      page goToThePage(waitForPage = true, waitDuration = 500)
+      page goToThePage()
       page fillPageWith claim
       page submitPage()
     }
 
     "navigate to next page on valid submission" in new WithBrowser with G2SelfEmploymentYourAccountsPageContext {
       val claim = ClaimScenarioFactory.s9SelfEmploymentYourAccounts
-      page goToThePage(waitForPage = true, waitDuration = 500)
+      page goToThePage()
       page fillPageWith claim
 
       val nextPage = page submitPage()

@@ -18,7 +18,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
 
     "be presented without claim date" in new WithBrowser with BrowserMatchers {
       browser.goTo("/about-you/employment")
-      titleMustEqual("Does the person you look after get one of these benefits? - Can you get Carer's Allowance?")
+      titleMustEqual("Does the person you care for get one of these benefits? - Can you get Carer's Allowance?")
     }
 
     "contain 4 completed forms" in new WithBrowser with BrowserMatchers {
@@ -34,7 +34,7 @@ class G6EmploymentIntegrationSpec extends Specification with Tags {
     "fill all fields" in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory.s2AboutYouWithTimeOutside()
       page goToThePage()
-      page runClaimWith(claim, G8AboutYouCompletedPage.title, waitForPage = true, waitDuration = 600)
+      page runClaimWith(claim, G8AboutYouCompletedPage.title)
     }
 
     "failed to fill the form" in new WithBrowser with BrowserMatchers {

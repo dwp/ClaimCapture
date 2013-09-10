@@ -7,9 +7,7 @@
 
 @main(Messages("s6.g1") + " - " + Messages("s6.longName"), Some(currentForm)) {
 
-	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
-
-    @form(action = controllers.s6_education.routes.G1YourCourseDetails.submit) {
+	@form(action = controllers.s6_education.routes.G1YourCourseDetails.submit) {
 
         <fieldset class="form-elements">
             <legend>@Messages("s6.g1")</legend>

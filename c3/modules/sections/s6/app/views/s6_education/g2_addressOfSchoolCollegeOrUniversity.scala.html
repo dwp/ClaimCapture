@@ -8,9 +8,7 @@
 
 @main(Messages("s6.g2") + " - " + Messages("s6.longName"), Some(currentForm), claim.completedQuestionGroups(AddressOfSchoolCollegeOrUniversity)) {
 
-	<p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
-
-    @form(action = controllers.s6_education.routes.G2AddressOfSchoolCollegeOrUniversity.submit) {
+	@form(action = controllers.s6_education.routes.G2AddressOfSchoolCollegeOrUniversity.submit) {
     
         <fieldset class="form-elements">
             <legend>@Messages("s6.g2")</legend>

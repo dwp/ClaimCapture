@@ -155,7 +155,7 @@ object ClaimScenarioFactory {
     claim.TimeSpentAbroadDoYouNormallyLiveintheUk = "No"
     claim.TimeSpentAbroadWhereDoYouNormallyLive = "Spain"
     claim.TimeSpentAbroadAreYouinGBNow = "Yes"
-    // Abroad For More Than 4 Weeks
+    // Details of time abroad with the person you care for
     claim.TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_1 = "Yes"
     // Abroad For More Than 52 Weeks
     claim.TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"

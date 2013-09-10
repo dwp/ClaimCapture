@@ -21,7 +21,6 @@ class G9CompletedSpec extends Specification with Tags {
       val result = controllers.s8_self_employment.SelfEmployment.completed(request)
       status(result) mustEqual OK
     }
-
     
     "redirect to the next page on clicking continue" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)

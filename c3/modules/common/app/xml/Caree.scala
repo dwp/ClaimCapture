@@ -28,13 +28,13 @@ object Caree {
         <Qualifier/>
       </DaytimePhoneNumber>
       <RelationToClaimant>{moreAboutThePerson.relationship}</RelationToClaimant>
-      <Cared35hours>{moreAboutTheCare.spent35HoursCaring}</Cared35hours>
+      <Cared35hours>{NotAsked}</Cared35hours>
       <CanCareeSign>{NotAsked}</CanCareeSign>
       <CanSomeoneElseSign>{NotAsked}</CanSomeoneElseSign>
       <CanClaimantSign>{NotAsked}</CanClaimantSign>
       {breaksSinceClaim(claim)}
       {careBreak(claim)}
-      <Cared35hoursBefore>{moreAboutTheCare.spent35HoursCaringBeforeClaim.answer}</Cared35hoursBefore>
+      <Cared35hoursBefore>{NotAsked}</Cared35hoursBefore>
       {dateStartedCaring(moreAboutTheCare)}
       {breaksBeforeClaim(claim)}
       <PaidForCaring>{NotAsked}</PaidForCaring>
