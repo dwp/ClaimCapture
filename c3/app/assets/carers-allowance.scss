@@ -75,6 +75,9 @@ main {
 			   margin-bottom: -12px;
 			   zoom: 1;
 		   }
+		   .ie8 & {
+			   background: none;
+		   }
 		   @media screen and (max-width: 760px) {
 			   padding-bottom: 0;
 		   }
@@ -357,6 +360,10 @@ main {
 						background-position: center -567px;
 					}
 				}
+			}
+			
+			.ie7 & {
+				zoom: 1;
 			}
 		}
 	   
@@ -926,6 +933,11 @@ main {
 							   font-size: 17px;
 						   }
 						   
+						   .ie7 &:hover, .ie8 &:hover {
+							   background: #fff;
+							   border: 1px solid #a2a2a2;
+						   }
+						   
 						   .ie6 & {
 							   display: inline;
 							   padding-left: 0;
@@ -1485,6 +1497,9 @@ main {
 		   margin: .5em 0 1em 0;
 		   border: 1px solid #a2a2a2;
 		   background: #fff;
+		   .ie7 & {
+			   zoom: 1;
+		   }
 		   p {
 			   font-size: 1.6rem;
 			   margin-top: 1em;
