@@ -6,16 +6,17 @@ import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
 import models.view.CachedClaim
+import app.StatutoryPaymentFrequency._
 
 class G10ChildcareExpensesSpec extends Specification with Tags {
-  val jobID = "Dummy job ID"
-
   "Childcare expenses while you are at work - Controller" should {
+    val jobID = "Dummy job ID"
     val whoLooksAfterChildren = "myself"
     val howMuchYouPay = "123445"
-    val howOften = "W"
+    val howOften_frequency = Other
+    val howOften_frequency_other = "Every day and twice on Sundays"
     val whatRelationIsToYou = "son"
-    val whatRelationIsTothePersonYouCareFor = "parent"
+    val whatRelationIsToThePersonYouCareFor = "parent"
 
 
     "present" in new WithApplication with Claiming {
@@ -52,9 +53,10 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchCostChildcare" -> howMuchYouPay,
-        "howOftenPayChildCare" -> howOften,
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
         "relationToYou" -> whatRelationIsToYou,
-        "relationToPersonYouCare" -> whatRelationIsTothePersonYouCareFor)
+        "relationToPersonYouCare" -> whatRelationIsToThePersonYouCareFor)
 
       val result = G10ChildcareExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -73,9 +75,10 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
       val result = G10ChildcareExpenses.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchCostChildcare" -> howMuchYouPay,
-        "howOftenPayChildCare" -> howOften,
+        "howOftenPayChildCare.frequency" -> howOften_frequency,
+        "howOftenPayChildCare.frequency.other" -> howOften_frequency_other,
         "relationToYou" -> whatRelationIsToYou,
-        "relationToPersonYouCare" -> whatRelationIsTothePersonYouCareFor))
+        "relationToPersonYouCare" -> whatRelationIsToThePersonYouCareFor))
 
       status(result) mustEqual SEE_OTHER
 

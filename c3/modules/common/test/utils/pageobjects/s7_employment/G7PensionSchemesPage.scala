@@ -1,17 +1,17 @@
 package utils.pageobjects.s7_employment
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{ClaimScenario, ClaimPage, Page, PageContext}
+import utils.pageobjects.{TestData, ClaimPage, Page, PageContext}
 
 final class G7PensionSchemesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G7PensionSchemesPage.url.replace(":jobID", iteration.toString), G7PensionSchemesPage.title, previousPage, iteration) {
   declareYesNo("#payOccupationalPensionScheme", "EmploymentDoYouPayTowardsanOccupationalPensionScheme_" + iteration)
   declareInput("#howMuchPension", "EmploymentHowMuchYouPayforOccupationalPension_" + iteration)
   declareSelect("#howOftenPension_frequency","EmploymentHowOftenOccupationalPension_" + iteration)
-  declareInput("#howOftenPension_other","EmploymentHowOftenOtherOccupationalPension_" + iteration)
+  declareInput("#howOftenPension_frequency_other","EmploymentHowOftenOtherOccupationalPension_" + iteration)
   declareYesNo("#payPersonalPensionScheme", "EmploymentDoYouPayTowardsAPersonalPension_" + iteration)
   declareInput("#howMuchPersonal", "EmploymentHowMuchYouPayforPersonalPension_" + iteration)
   declareSelect("#howOftenPersonal_frequency", "EmploymentHowOftenPersonalPension_" + iteration)
-  declareInput("#howOftenPersonal_other","EmploymentHowOftenOtherPersonalPension_" + iteration)
+  declareInput("#howOftenPersonal_frequency_other","EmploymentHowOftenOtherPersonalPension_" + iteration)
 }
 
 object G7PensionSchemesPage {

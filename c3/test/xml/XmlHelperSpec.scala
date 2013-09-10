@@ -1,6 +1,7 @@
 package xml
 
 import org.specs2.mutable.{Tags, Specification}
+import app.XMLValues._
 
 class XMLHelperSpec extends Specification with Tags {
 
@@ -29,11 +30,11 @@ class XMLHelperSpec extends Specification with Tags {
 
     "convert boolean string to yes/no" in {
       "when true" in {
-        XMLHelper.booleanStringToYesNo("true") shouldEqual "yes"
+        XMLHelper.booleanStringToYesNo("true") shouldEqual yes
       }
 
       "when false" in {
-        XMLHelper.booleanStringToYesNo("false") shouldEqual "no"
+        XMLHelper.booleanStringToYesNo("false") shouldEqual no
       }
 
       "when other" in {

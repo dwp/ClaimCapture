@@ -5,6 +5,8 @@
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 @import views.html.helper.dates._
+@import views.html.s4_care_you_provide.main
+@import app.Whereabouts._
 
 @main("Break - About the care you provide", Some(breakForm)) {
 
@@ -21,9 +23,9 @@
 
                 @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-                @whereabouts(breakForm("whereYou"), Seq("", "At Home", "Hospital", "Holiday", "Respite Care", "Other").map(v => if (v == "") "" -> "Please select" else v -> v))
+                @whereabouts(breakForm("whereYou"), Seq("", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v), '_label -> Messages("whereYou.location"))
 
-                @whereabouts(breakForm("wherePerson"), Seq("", "Hospital", "Respite Care", "Care Home", "Nursing Home", "Other").map(v => if (v == "") "" -> "Please select" else v -> v))
+                @whereabouts(breakForm("wherePerson"), Seq("", Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "") "" -> "Please select" else v -> v), '_label -> Messages("wherePerson.location"))
 
                 @yesNoRadioGroup(breakForm("medicalDuringBreak"))
             </ul>

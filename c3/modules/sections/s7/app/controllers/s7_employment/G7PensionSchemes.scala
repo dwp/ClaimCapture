@@ -46,8 +46,8 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
           .replaceError("payPersonalPensionScheme", "error.required", FormError("payPersonalPensionScheme", "error.required", Seq(pastPresent)))
           .replaceError("", "howMuchPension", FormError("howMuchPension", "error.required", Seq(pastPresent.toLowerCase)))
           .replaceError("", "howMuchPersonal", FormError("howMuchPersonal", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("", "howOftenPension", FormError("howOftenPension", "error.required"))
-          .replaceError("", "howOftenPersonal", FormError("howOftenPersonal", "error.required"))
+          .replaceError("", "howOftenPension", FormError("howOftenPension", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("", "howOftenPersonal", FormError("howOftenPersonal", "error.required", Seq(pastPresent.toLowerCase)))
         BadRequest(views.html.s7_employment.g7_pensionSchemes(formWithErrorsUpdate))
       },
       schemes => claim.update(jobs.update(schemes)) -> Redirect(routes.G8AboutExpenses.present(jobID)))

@@ -28,7 +28,7 @@
 
                 @carersCurrency(currentForm("howMuchCostChildcare"), '_label -> Messages("howMuchCostChildcare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'maxlength -> Mappings.sixty)
 
-                @carersSelect(currentForm("howOftenPayChildCare"), Seq("" -> "Please Select",Weekly -> "Weekly", Fortnightly -> "fortnightly",FourWeekly -> "four-weekly", Monthly -> "monthly"), '_label -> Messages ("employment_howOftenPayChildCare", didYouDoYouIfSelfEmployed.toLowerCase))
+                @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> Messages ("employment_howOftenPayChildCare", didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayChildCare")
 
                 @relationshipSelect(currentForm("relationToYou"))
 
@@ -50,3 +50,5 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>

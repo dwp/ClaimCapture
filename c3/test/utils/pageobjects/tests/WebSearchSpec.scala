@@ -2,20 +2,18 @@ package utils.pageobjects.tests
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s2_about_you.{G2ContactDetailsPage, G1YourDetailsPageContext, G2ContactDetailsPageContext}
+import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s10_pay_details.G1HowWePayYouPageContext
-import utils.pageobjects.ClaimScenario
 import utils.pageobjects.S11_consent_and_declaration.G3DisclaimerPageContext
+import utils.pageobjects.TestData
 
-/**
- * TODO write description
- * @author Jorge Migueis
- *         Date: 29/08/2013
- */
-class WebSearchSpec  extends Specification with Tags{
+class WebSearchSpec extends Specification with Tags{
   "Web Search Actions " should {
 
+    "be presented" in new WithBrowser with G1YourDetailsPageContext {
+      page goToThePage()
+    }
 
     "be able to read Input, Select, Nino, YesNo, Address and Date elements." in new WithBrowser with G1YourDetailsPageContext {
       val claim = ClaimScenarioFactory yourDetailsEnablingTimeOutsideUK()
@@ -42,7 +40,7 @@ class WebSearchSpec  extends Specification with Tags{
     }
 
     "be able to read SortCode" in new WithBrowser with G1HowWePayYouPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.HowWePayYouHowWouldYouLikeToGetPaid = "bankBuildingAccount"
       claim.HowWePayYouHowOftenDoYouWantToGetPaid = "fourWeekly"
       claim.HowWePayYouNameOfAccountHolder = "Despicable me"
@@ -59,7 +57,7 @@ class WebSearchSpec  extends Specification with Tags{
     }
 
     "be able to read Check box" in new WithBrowser with G3DisclaimerPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.ConsentDeclarationDisclaimerTextAndTickBox = "yes"
       page goToThePage()
       val checked = page.readCheck("#read")
@@ -68,13 +66,12 @@ class WebSearchSpec  extends Specification with Tags{
       val checked2 = page.readCheck("#read")
       checked2.get mustEqual "yes"
     }
-
   } section "integration"
 
   "A page with Web Search Actions " should {
     "be able to populate a claim using data read with WebSearchActions." in new WithBrowser with G1YourDetailsPageContext {
       val claimSource = ClaimScenarioFactory yourDetailsEnablingTimeOutsideUK()
-      val claimRead = new ClaimScenario
+      val claimRead = new TestData
       page goToThePage()
       page fillPageWith claimSource
       page populateClaim claimRead

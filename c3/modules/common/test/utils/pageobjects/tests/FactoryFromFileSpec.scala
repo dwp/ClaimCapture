@@ -1,7 +1,7 @@
 package utils.pageobjects.tests
 
 import org.specs2.mutable.Specification
-import utils.pageobjects.{ClaimScenario, FactoryFromFile}
+import utils.pageobjects.{TestData, FactoryFromFile}
 
 /**
  * Unit test of FactoryFromFile
@@ -13,7 +13,7 @@ class FactoryFromFileSpec extends Specification {
   "The Factory from file" should {
 
     "be able to build a claim from a valid csv file" in {
-      val claim = new ClaimScenario
+      val claim = new TestData
       FactoryFromFile.buildFromFileLast2Columns("/unit_tests/tests.csv", claim.updateDynamic)
 
       claim.AboutYouAllOtherSurnamesorFamilyNames mustEqual "value 4"

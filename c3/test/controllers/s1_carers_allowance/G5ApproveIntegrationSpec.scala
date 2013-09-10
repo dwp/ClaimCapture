@@ -2,7 +2,7 @@ package controllers.s1_carers_allowance
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 import utils.pageobjects.s2_about_you.G1YourDetailsPage
 import utils.pageobjects.s1_carers_allowance.G6ApprovePageContext
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
@@ -20,7 +20,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
     val notRightPage: String = "Next Page is not of the right type."
 
     "be approved" in new WithBrowser with G1BenefitsPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
@@ -45,7 +45,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
     }
 
     "be declined" in new WithBrowser with G1BenefitsPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
@@ -63,7 +63,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
     }
 
     "navigate to next section" in new WithBrowser with G1BenefitsPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "Yes"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "Yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "Yes"
@@ -73,7 +73,7 @@ class G5ApproveIntegrationSpec extends Specification with Tags {
     }
 
     "contain the completed forms" in new WithBrowser with G1BenefitsPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.CanYouGetCarersAllowanceDoesthePersonYouCareforGetOneofTheseBenefits = "no"
       claim.CanYouGetCarersAllowanceDoYouSpend35HoursorMoreEachWeekCaring = "yes"
       claim.CanYouGetCarersAllowanceAreYouAged16OrOver = "no"

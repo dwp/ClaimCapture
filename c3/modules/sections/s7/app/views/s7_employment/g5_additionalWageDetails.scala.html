@@ -23,7 +23,8 @@
 
             <ul class="group">
                 @paymentFrequencySelect(currentForm("oftenGetPaid"),
-                    '_label -> Messages("oftenGetPaidFrequency", pastPresentLabelForEmployment(claim, wereYou, areYou, JobID(currentForm))))
+                    '_label -> Messages("oftenGetPaidFrequency", pastPresentLabelForEmployment(claim, wereYou, areYou, JobID(currentForm))),
+                    'id -> "oftenGetPaid")
 
                 @carersInputText(currentForm("whenGetPaid"),
                     '_label -> Messages("whenGetPaid", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, JobID(currentForm))),

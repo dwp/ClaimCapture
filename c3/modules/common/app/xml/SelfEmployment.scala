@@ -53,7 +53,7 @@ object SelfEmployment {
         {childCareExpenses(claim)}
         <CareExpensesCaree>{pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor}</CareExpensesCaree>
         {careExpenses(claim)}
-        <PaidForPension>{pensionAndExpenses.pensionSchemeMapping.answer}</PaidForPension>
+        <PaidForPension>{pensionAndExpenses.doYouPayToPensionScheme}</PaidForPension>
         {pensionScheme(claim)}
       </SelfEmployment>
 
@@ -74,7 +74,10 @@ object SelfEmployment {
         <CarerName>{childCareExpenses.nameOfPerson}</CarerName>
         <CarerAddress>{postalAddressStructure(None, None)}</CarerAddress>
         <ConfirmAddress>{yes}</ConfirmAddress>
-        <WeeklyPayment>{moneyStructure(childCareExpenses.howMuchYouPay)}</WeeklyPayment>
+        <WeeklyPayment>
+          <Currency></Currency>
+          <Amount>{NotAsked}</Amount>
+        </WeeklyPayment>
         <RelationshipCarerToClaimant>{childCareExpenses.whatRelationIsToYou}</RelationshipCarerToClaimant>
         <ChildDetails>
           <Name>{NotAsked}</Name>
@@ -99,8 +102,8 @@ object SelfEmployment {
         <CarerAddress>{postalAddressStructure(None, None)}</CarerAddress>
         <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
-          <Currency>{GBP}</Currency>
-          <Amount>{expensesWhileAtWork.howMuchYouPay}</Amount>
+          <Currency></Currency>
+          <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{expensesWhileAtWork.whatRelationIsToYou}</RelationshipCarerToClaimant>
         <RelationshipCarerToCaree>{expensesWhileAtWork.whatRelationIsTothePersonYouCareFor}</RelationshipCarerToCaree>
@@ -112,13 +115,13 @@ object SelfEmployment {
     val pensionsAndExpensesOption = claim.questionGroup[SelfEmploymentPensionsAndExpenses]
     val pensionAndExpenses = pensionsAndExpensesOption.getOrElse(SelfEmploymentPensionsAndExpenses())
 
-    val hasPensionScheme = pensionAndExpenses.pensionSchemeMapping.answer == yes
+    val hasPensionScheme = pensionAndExpenses.doYouPayToPensionScheme == yes
 
     if (hasPensionScheme) {
       <PensionScheme>
         <Type>personal_private</Type>
-        <Payment>{moneyStructure(pensionAndExpenses.pensionSchemeMapping.text1.orNull)}</Payment>
-        <Frequency>{pensionAndExpenses.pensionSchemeMapping.text2.orNull}</Frequency>
+        <Payment>{moneyStructure(pensionAndExpenses.howMuchDidYouPay.orNull)}</Payment>
+        <Frequency>{if(pensionAndExpenses.howOften.isEmpty){} else pensionAndExpenses.howOften.get.frequency}</Frequency>
       </PensionScheme>
     } else NodeSeq.Empty
   }

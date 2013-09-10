@@ -1,7 +1,7 @@
 package models
 
 import controllers.Mappings._
-import models.yesNo.{YesNoWith2Text, YesNoWithText, YesNoWithDate}
+import models.yesNo.{YesNoWithText, YesNoWithDate}
 import java.io.{FileOutputStream, OutputStreamWriter, BufferedWriter, File}
 import io.ResourceUtil._
 import models.yesNo.YesNo
@@ -38,7 +38,7 @@ package object domain {
     AboutExpenses(payForAnythingNecessary = no, payAnyoneToLookAfterChildren = no, payAnyoneToLookAfterPerson = no) +
     AboutSelfEmployment(areYouSelfEmployedNow = no) +
     SelfEmploymentYourAccounts() +
-    SelfEmploymentPensionsAndExpenses(pensionSchemeMapping = YesNoWith2Text(answer = no), doYouPayToLookAfterYourChildren = no, didYouPayToLookAfterThePersonYouCaredFor = no) +
+    SelfEmploymentPensionsAndExpenses(doYouPayToPensionScheme = no, doYouPayToLookAfterYourChildren = no, didYouPayToLookAfterThePersonYouCaredFor = no) +
     AboutOtherMoney(yourBenefits = YesNo(answer = no), anyPaymentsSinceClaimDate = YesNo(answer = no)) +
     StatutorySickPay(haveYouHadAnyStatutorySickPay = no) +
     OtherStatutoryPay(otherPay = no) +

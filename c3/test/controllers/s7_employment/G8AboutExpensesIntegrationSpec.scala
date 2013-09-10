@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s7_employment._
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 
 class G8AboutExpensesIntegrationSpec extends Specification with Tags {
   "About expenses" should {
@@ -23,7 +23,7 @@ class G8AboutExpensesIntegrationSpec extends Specification with Tags {
     }
 
     "go to job completion directly" in new WithBrowser with G8AboutExpensesPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "no"
       claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1= "no"
       claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1= "no"
@@ -34,7 +34,7 @@ class G8AboutExpensesIntegrationSpec extends Specification with Tags {
     }
 
     "go to childcare" in new WithBrowser with G8AboutExpensesPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "no"
       claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1= "yes"
       claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1= "yes"
@@ -45,7 +45,7 @@ class G8AboutExpensesIntegrationSpec extends Specification with Tags {
     }
 
     "go to care" in new WithBrowser with G8AboutExpensesPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1= "no"
       claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1= "no"
       claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1= "yes"

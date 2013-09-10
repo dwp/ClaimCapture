@@ -3,6 +3,7 @@ package controllers.s7_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers}
+import app.PensionPaymentFrequency._
 
 class G14JobCompletionIntegrationSpec extends Specification with Tags {
   val jobID = "dummyJobID"
@@ -40,7 +41,7 @@ class G14JobCompletionIntegrationSpec extends Specification with Tags {
       fill("#whoDoYouPay") `with` "someone"
 
       fill("#howMuchCostCare") `with` "123.45"
-      click("#howOftenPayCare option[value='02']")
+      click("#howOftenPayCare_frequency option[value='" + Weekly + "']")
 
       click("#relationToPersonYouCare option[value='brother']")
       click("#relationToYou option[value='sister']")

@@ -4,9 +4,9 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 final class G4SelfEmploymentPensionsAndExpensesPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G4SelfEmploymentPensionsAndExpensesPage.url, G4SelfEmploymentPensionsAndExpensesPage.title, previousPage) {
-  declareYesNo("#doYouPayToPensionScheme_answer", "SelfEmployedDoYouPayTowardsPensionScheme")
-  declareInput("#doYouPayToPensionScheme_howMuchDidYouPay", "SelfEmployedHowMuchYouPayTowardsPensionScheme")
-  declareSelect("#doYouPayToPensionScheme_howOften", "SelfEmployedHowoftenYouPayTowardsPensionScheme")
+  declareYesNo("#doYouPayToPensionScheme", "SelfEmployedDoYouPayTowardsPensionScheme")
+  declareInput("#howMuchDidYouPay", "SelfEmployedHowMuchYouPayTowardsPensionScheme")
+  declareSelect("#howOften_frequency", "SelfEmployedHowoftenYouPayTowardsPensionScheme") // TODO other
   declareYesNo("#doYouPayToLookAfterYourChildren", "SelfEmployedDoYouPayAnyonetoLookAfterYourChild")
   declareYesNo("#didYouPayToLookAfterThePersonYouCaredFor", "SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor")
 }

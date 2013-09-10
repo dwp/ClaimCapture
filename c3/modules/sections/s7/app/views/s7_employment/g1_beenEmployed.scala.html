@@ -28,11 +28,13 @@
             <tbody>
                 @claim.questionGroup[Jobs].map { jobs =>
                     @for(job <- jobs) {
-                        <tr id="@job.jobID" class="@job.jobID">
-                            <td>@job.employerName</td>
-                            <td><input type="button" class="button row secondary" value="Change"></td>
-                            <td><input type="button" class="button row warning" value="Delete"></td>
-                        </tr>
+                        @if(job.completed) {
+                            <tr id="@job.jobID" class="@job.jobID">
+                                <td>@job.employerName</td>
+                                <td><input type="button" class="button row secondary" value="Change"></td>
+                                <td><input type="button" class="button row warning" value="Delete"></td>
+                            </tr>
+                        }
                     }
                 }
             </tbody>

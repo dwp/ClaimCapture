@@ -2,6 +2,8 @@ package controllers
 
 import app.{WhoseNameAccount, PaymentFrequency, AccountStatus}
 import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
+
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
 
 /**
@@ -15,7 +17,7 @@ object ClaimScenarioFactory {
   val partnerPostcode = "RM11 1AA"
 
   def yourDetailsWithNotTimeOutside() = {
-    val claim = new ClaimScenario
+    val claim = new TestData
     claim.AboutYouTitle = "mr"
     claim.AboutYouFirstName = "John"
     claim.AboutYouSurname = "Appleseed"
@@ -59,7 +61,7 @@ object ClaimScenarioFactory {
   }
 
   def s2AnsweringNoToQuestions() = {
-    val claim = new ClaimScenario
+    val claim = new TestData
 
     // Your contact details
     claim.AboutYouAddress = "An address"
@@ -180,14 +182,14 @@ object ClaimScenarioFactory {
   }
 
   def s6PayDetails() = {
-    val claim = new ClaimScenario
+    val claim = new TestData
     claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount.name
     claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek.name
     claim
   }
 
   def s6BankBuildingSocietyDetails() = {
-    val claim = new ClaimScenario
+    val claim = new TestData
 
     claim.HowWePayYouNameOfAccountHolder = "John Smith"
     claim.WhoseNameOrNamesIsTheAccountIn = WhoseNameAccount.YourName.name
@@ -197,8 +199,69 @@ object ClaimScenarioFactory {
     claim
   }
 
+
+  def s7EmploymentMinimal() = {
+
+    val claim = new TestData
+    claim.EmploymentEmployerName_1 = "Tesco's"
+    claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
+    claim.EmploymentHaveYouFinishedThisJob_1 = "yes"
+    claim.EmploymentWhenDidYouLastWork_1 = "01/07/2013"
+    claim.EmploymentHowManyHoursAWeekYouNormallyWork_1 = "25"
+    claim.EmploymentPayrollOrEmployeeNumber_1 = "12345678"
+    claim.EmploymentEmployerAddress_1 = "23 Yeadon Way&Blackpool&Lancashire"
+    claim.EmploymentEmployerPostcode_1 = "FY4 5TH"
+    claim.EmploymentEmployerPhoneNumber_1 = "01253 667889"
+    claim.EmploymentWhenWereYouLastPaid_1 = "08/07/2013"
+    claim.EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1 = "600"
+    claim.EmploymentWhatWasIncludedInYourLastPay_1 = "All amounts due"
+    claim.EmploymentDoYouGettheSameAmountEachTime_1 = "no"
+    claim.EmploymentAddtionalWageHowOftenAreYouPaid_1 = "other"
+    claim.EmploymentAddtionalWageOther_1 = "Quarterly"
+    claim.EmploymentAddtionalWageWhenDoYouGetPaid_1 = "two weeks ago"
+    claim.EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1 = "no"
+//    claim.EmploymentHowMuchAreYouOwed_1 = "1250"
+    claim.EmploymentWhatPeriodIsItForFrom_1 = "03/04/2013"
+    claim.EmploymentWhatPeriodIsItForTo_1 = "03/05/2013"
+    claim.EmploymentWhatIsTheMoneyOwedFor_1 = "This and that"
+    claim.EmploymentWhenShouldTheMoneyOwedHaveBeenPaid_1 = "06/05/2013"
+    claim.EmploymentWhenWillYouGetMoneyOwed_1 = "08/08/2013"
+    claim.EmploymentDoYouPayTowardsanOccupationalPensionScheme_1 = "no"
+//    claim.EmploymentHowMuchYouPayforOccupationalPension_1 = "350"
+//    claim.EmploymentHowOftenOccupationalPension_1 = "other"
+//    claim.EmploymentHowOftenOtherOccupationalPension_1 = "every 5 minutes"
+    claim.EmploymentDoYouPayTowardsAPersonalPension_1 = "no"
+//    claim.EmploymentHowMuchYouPayforPersonalPension_1 = "120"
+//    claim.EmploymentHowOftenPersonalPension_1 = "other"
+//    claim.EmploymentHowOftenOtherPersonalPension_1 = "every 5 minutes"
+    claim.EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1 = "no"
+    claim.EmploymentDoYouPayAnyoneLookAfterYourChild_1 = "no"
+    claim.EmploymentDoYouPayAnyonetoLookAfterPersonYouCareFor_1 = "no"
+    claim.EmploymentJobTitle_1 = "Hacker"
+    claim.EmploymentWhatAreNecessaryJobExpenses_1 = "Petrol money for driving"
+    claim.EmploymentWhyYouNeedTheseExpensesToDoYourJob_1 = "So I could deliver items."
+    claim.EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1 = "160.66"
+    claim.EmploymentChildcareExpensesHowMuchYouPayfor_1 = "120.12"
+    claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Weekly
+    claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "fatherInLaw"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1 = "Grandfather"
+    claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
+    claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
+    claim.EmploymentCareExpensesHowMuchYouPayfor_1 = "150.55"
+    claim.EmploymentCareExpensesHowOftenYouPayfor_1 = PensionPaymentFrequency.Weekly
+    claim.EmploymentNameOfPersonYouPayForCaring_1 = "Carers UK Ltd"
+    claim.EmploymentCareExpensesWhatRelationIsToYou_1 = "Uncle"
+    claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1 = "Other"
+    claim.EmploymentAddressCareProvider_1 = "1 London Road&Preston&Lancashire"
+    claim.EmploymentPostcodeCareProvider_1 = "PR4 5TH"
+
+    claim
+  }
+
   def s7Employment() = {
-    val claim = new ClaimScenario
+    val claim = new TestData
     claim.EmploymentEmployerName_1 = "Tesco's"
     claim.EmploymentWhenDidYouStartYourJob_1 = "01/01/2013"
     claim.EmploymentHaveYouFinishedThisJob_1 = "yes"
@@ -238,7 +301,9 @@ object ClaimScenarioFactory {
     claim.EmploymentWhyYouNeedTheseExpensesToDoYourJob_1 = "So I could deliver items."
     claim.EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1 = "160.66"
     claim.EmploymentChildcareExpensesHowMuchYouPayfor_1 = "120.12"
-    claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Weekly
+    claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Other
+    claim.EmploymentChildcareExpensesHowOftenOther_1 = "other text"
+    claim.EmploymentChildcareExpensesHowOftenOther_1 = "why is my train 80 minutes late"
     claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "fatherInLaw"
@@ -246,7 +311,8 @@ object ClaimScenarioFactory {
     claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
     claim.EmploymentCareExpensesHowMuchYouPayfor_1 = "150.55"
-    claim.EmploymentCareExpensesHowOftenYouPayfor_1 = "02"
+    claim.EmploymentCareExpensesHowOftenYouPayfor_1 = PensionPaymentFrequency.Other
+    claim.EmploymentCareExpensesHowOftenYouPayforOther_1 = "other text"
     claim.EmploymentNameOfPersonYouPayForCaring_1 = "Carers UK Ltd"
     claim.EmploymentCareExpensesWhatRelationIsToYou_1 = "Uncle"
     claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1 = "Other"
@@ -322,7 +388,7 @@ object ClaimScenarioFactory {
 
     claim.SelfEmployedDoYouPayTowardsPensionScheme = "yes"
     claim.SelfEmployedHowMuchYouPayTowardsPensionScheme = "11.2"
-    claim.SelfEmployedHowoftenYouPayTowardsPensionScheme = "02"
+    claim.SelfEmployedHowoftenYouPayTowardsPensionScheme = app.PensionPaymentFrequency.Weekly
     claim.SelfEmployedDoYouPayAnyonetoLookAfterYourChild = "yes"
     claim.SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor = "yes"
 
@@ -333,7 +399,7 @@ object ClaimScenarioFactory {
     val claim = s9SelfEmploymentPensionsAndExpenses
 
     claim.SelfEmployedChildcareExpensesHowMuchYouPay = "123456"
-    claim.SelfEmployedChildcareExpensesHowOften = "02"
+    claim.SelfEmployedChildcareExpensesHowOften = app.PensionPaymentFrequency.Weekly
     claim.SelfEmployedChildcareProviderNameOfPerson = "hello123"
     claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "son"
     claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "son"
@@ -344,7 +410,7 @@ object ClaimScenarioFactory {
     val claim = s9SelfEmploymentChildCareExpenses
 
     claim.SelfEmployedCareExpensesHowMuchYouPay = "900.9"
-    claim.SelfEmployedCareExpensesHowOften = "02"
+    claim.SelfEmployedCareExpensesHowOften = app.PensionPaymentFrequency.Weekly
     claim.SelfEmployedCareExpensesNameOfPerson = "John"
     claim.SelfEmployedCareExpensesWhatRelationIsToYou = "grandSon"
     claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "son"

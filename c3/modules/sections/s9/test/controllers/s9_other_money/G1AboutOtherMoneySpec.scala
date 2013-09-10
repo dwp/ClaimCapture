@@ -17,13 +17,13 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     val whoPaysYou = "The Man"
     val howMuch = "Not much"
     val howOften_frequency = "other"
-    val howOften_other = "Every day and twice on Sundays"
+    val howOften_frequency_other = "Every day and twice on Sundays"
     val formInput = Seq("yourBenefits.answer" -> yourBenefits,
       "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
       "whoPaysYou" -> whoPaysYou,
       "howMuch" -> howMuch,
       "howOften.frequency" -> howOften_frequency,
-      "howOften.other" -> howOften_other)
+      "howOften.frequency.other" -> howOften_frequency_other)
 
     "present 'Your course details'" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
@@ -47,7 +47,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
           f.anyPaymentsSinceClaimDate.answer must equalTo(anyPaymentsSinceClaimDate)
           f.whoPaysYou must equalTo(Some(whoPaysYou))
           f.howMuch must equalTo(Some(howMuch))
-          f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_other))))
+          f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
         }
       }
     }
@@ -77,7 +77,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
             "whoPaysYou" -> whoPaysYou,
             "howMuch" -> howMuch,
             "howOften.frequency" -> "other",
-            "howOften.other" -> "")
+            "howOften.frequency.other" -> "")
 
         val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
         status(result) mustEqual BAD_REQUEST

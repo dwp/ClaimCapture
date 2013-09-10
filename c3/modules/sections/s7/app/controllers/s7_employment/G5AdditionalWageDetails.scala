@@ -13,7 +13,7 @@ import Employment._
 object G5AdditionalWageDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "oftenGetPaid" -> optional(paymentFrequency),
+    "oftenGetPaid" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
     "whenGetPaid" -> optional(text),
     "employerOwesYouMoney" -> (nonEmptyText verifying validYesNo)
   )(AdditionalWageDetails.apply)(AdditionalWageDetails.unapply))

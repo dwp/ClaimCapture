@@ -1,7 +1,6 @@
 package models.domain
 
-import models.DayMonthYear
-import models.yesNo.YesNoWith2Text
+import models.{PensionPaymentFrequency, DayMonthYear}
 
 case object SelfEmployment extends Section.Identifier {
   val id = "s8"
@@ -30,7 +29,9 @@ case object SelfEmploymentPensionsAndExpenses extends QuestionGroup.Identifier {
   val id = s"${SelfEmployment.id}.g4"
 }
 
-case class SelfEmploymentPensionsAndExpenses(pensionSchemeMapping: YesNoWith2Text = YesNoWith2Text(),
+case class SelfEmploymentPensionsAndExpenses(doYouPayToPensionScheme: String = "",
+                                             howMuchDidYouPay: Option[String] = None,
+                                             howOften: Option[PensionPaymentFrequency] = None,
                                              doYouPayToLookAfterYourChildren: String = "",
                                              didYouPayToLookAfterThePersonYouCaredFor: String = "") extends QuestionGroup(SelfEmploymentPensionsAndExpenses)
 

@@ -28,7 +28,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
 
     "present 'Child Care Expenses while at work' " in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
-        .withFormUrlEncodedBody("doYouPayToPensionScheme.answer" -> "no", "doYouPayToLookAfterYourChildren" -> "yes","didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
+        .withFormUrlEncodedBody("doYouPayToPensionScheme" -> "no", "doYouPayToLookAfterYourChildren" -> "yes","didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
       val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 

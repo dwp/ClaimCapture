@@ -6,7 +6,7 @@ import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers}
 import implicits.Iteration._
 import utils.pageobjects.s5_time_spent_abroad.{G2AbroadForMoreThan4WeeksPage, G2AbroadForMoreThan4WeeksPageContext, G3AbroadForMoreThan52WeeksPage, G3AbroadForMoreThan52WeeksPageContext}
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 
 class G4TripIntegrationSpec extends Specification with Tags {
   "4 weeks trip" should {
@@ -83,7 +83,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
       pending
     }
     "add two trips and edit the second's start year" in new WithBrowser with G2AbroadForMoreThan4WeeksPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "no"
       claim.TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_1 = "Yes"
       // Trips
@@ -225,7 +225,7 @@ class G4TripIntegrationSpec extends Specification with Tags {
     }
 
     "add two trips and edit the second's start year" in new WithBrowser with G3AbroadForMoreThan52WeeksPageContext {
-      val claim = new ClaimScenario
+      val claim = new TestData
       claim.TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime_1 = "Yes"
       // Trip
       claim.TimeSpentAbroadDateYouLeftGBTripForMoreThan52Weeks_1 = "10/04/2013"

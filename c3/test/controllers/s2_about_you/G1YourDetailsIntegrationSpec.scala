@@ -1,10 +1,13 @@
-package pl
+package controllers.s2_about_you
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s2_about_you._
 import utils.pageobjects.s1_carers_allowance.G6ApprovePage
 import controllers.ClaimScenarioFactory
+import utils.pageobjects.s10_pay_details.G1HowWePayYouPageContext
+import utils.pageobjects.S11_consent_and_declaration.G3DisclaimerPageContext
+import utils.pageobjects.TestData
 
 class G1YourDetailsIntegrationSpec extends Specification with Tags {
   "Your Details" should {

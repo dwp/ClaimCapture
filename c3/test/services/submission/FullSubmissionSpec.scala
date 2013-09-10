@@ -2,7 +2,7 @@ package services.submission
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeApplication, WithBrowser}
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.TestData
 import play.api.{Mode, Configuration, GlobalSettings}
 import java.io.File
 import com.typesafe.config.ConfigFactory
@@ -43,7 +43,7 @@ class FullSubmissionSpec extends Specification with Tags {
 
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST223"
-      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, thankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
     }
@@ -52,7 +52,7 @@ class FullSubmissionSpec extends Specification with Tags {
 
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST224"
-      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
     }
@@ -61,7 +61,7 @@ class FullSubmissionSpec extends Specification with Tags {
 
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST225"
-      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
     }
@@ -70,7 +70,7 @@ class FullSubmissionSpec extends Specification with Tags {
 
       val idService = injector.getInstance(classOf[TransactionIdService])
       idService.id = "TEST225"
-      val claim = ClaimScenario.buildClaimFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       // first time through stores val in session
       page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)

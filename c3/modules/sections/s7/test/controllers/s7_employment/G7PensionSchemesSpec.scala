@@ -7,11 +7,12 @@ import models.domain._
 import play.api.cache.Cache
 import models.domain.Claim
 import models.view.CachedClaim
+import app.PensionPaymentFrequency._
 
 class G7PensionSchemesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
-  val howOften_frequency = "other"
-  val howOften_other = "Every day and twice on Sundays"
+  val howOften_frequency = Other
+  val howOften_frequency_other = "Every day and twice on Sundays"
 
   "Pension schemes - Controller" should {
     "present" in new WithApplication with Claiming {
@@ -31,8 +32,8 @@ class G7PensionSchemesSpec extends Specification with Tags {
     "accept all mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID,
-                                "payOccupationalPensionScheme" -> "yes", "howMuchPension" -> "100", "howOftenPension.frequency" -> howOften_frequency, "howOftenPension.other" -> howOften_other,
-                                "payPersonalPensionScheme" -> "yes", "howMuchPersonal" -> "100", "howOftenPersonal.frequency" -> howOften_frequency, "howOftenPersonal.other" -> howOften_other)
+                                "payOccupationalPensionScheme" -> "yes", "howMuchPension" -> "100", "howOftenPension.frequency" -> howOften_frequency, "howOftenPension.frequency.other" -> howOften_frequency_other,
+                                "payPersonalPensionScheme" -> "yes", "howMuchPersonal" -> "100", "howOftenPersonal.frequency" -> howOften_frequency, "howOftenPersonal.frequency.other" -> howOften_frequency_other)
 
       val result = G7PensionSchemes.submit(request)
       status(result) mustEqual SEE_OTHER

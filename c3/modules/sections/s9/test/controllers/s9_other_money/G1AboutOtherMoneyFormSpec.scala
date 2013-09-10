@@ -10,7 +10,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
     val whoPaysYou = "The Man"
     val howMuch = "Not much"
     val howOften_frequency = "other"
-    val howOften_other = "Every day and twice on Sundays"
+    val howOften_frequency_other = "Every day and twice on Sundays"
 
     "map data into case class" in {
       G1AboutOtherMoney.form.bind(
@@ -19,14 +19,14 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
           "whoPaysYou" -> whoPaysYou,
           "howMuch" -> howMuch,
           "howOften.frequency" -> howOften_frequency,
-          "howOften.other" -> howOften_other)).fold(
+          "howOften.frequency.other" -> howOften_frequency_other)).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
             f.yourBenefits.answer must equalTo(yourBenefits)
             f.anyPaymentsSinceClaimDate.answer must equalTo(anyPaymentsSinceClaimDate)
             f.whoPaysYou must equalTo(Some(whoPaysYou))
             f.howMuch must equalTo(Some(howMuch))
-            f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_other))))
+            f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
           })
     }
 
@@ -50,7 +50,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
             "whoPaysYou" -> whoPaysYou,
             "howMuch" -> howMuch,
             "howOften.frequency" -> "other",
-            "howOften_other" -> "")).fold(
+            "howOften.frequency.other" -> "")).fold(
             formWithErrors => {
               formWithErrors.errors.length must equalTo(1)
               formWithErrors.errors(0).message must equalTo("error.paymentFrequency")

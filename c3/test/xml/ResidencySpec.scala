@@ -5,8 +5,7 @@ import models.domain._
 import models.yesNo.{YesNoWithDate, YesNoWithText}
 import controllers.Mappings
 import models.{LivingInUK, DayMonthYear}
-import Mappings.{yes, no}
-import app.XMLValues
+import app.XMLValues._
 
 class ResidencySpec extends Specification with Tags {
 
@@ -47,7 +46,7 @@ class ResidencySpec extends Specification with Tags {
       (residencyXml \\ "Nationality").text mustEqual yourDetails.nationality
       (residencyXml \\ "CountryNormallyLive").text mustEqual "UK"
       (residencyXml \\ "InGreatBritainNow").text mustEqual yes
-      (residencyXml \\ "OutOfGreatBritain").text mustEqual XMLValues.NotAsked
+      (residencyXml \\ "OutOfGreatBritain").text mustEqual NotAsked
 
       val periodsAbroadLastYearXml = residencyXml \\ "PeriodAbroadLastYear"
       val periodOne = periodsAbroadLastYearXml.theSeq(0)
@@ -89,11 +88,11 @@ class ResidencySpec extends Specification with Tags {
 
       val xml = Residency.otherNationality(claim)
 
-      (xml \\ "DateArrivedInGreatBritain").text shouldEqual "Not asked"
+      (xml \\ "DateArrivedInGreatBritain").text shouldEqual NotAsked
       (xml \\ "CountryArrivedFrom").text shouldEqual netherlands
       (xml \\ "IntendToReturn").text shouldEqual yes
       (xml \\ "DateReturn").text shouldEqual dayMonthYear.`yyyy-MM-dd`
-      (xml \\ "VisaReferenceNumber").text shouldEqual "Not asked"
+      (xml \\ "VisaReferenceNumber").text shouldEqual NotAsked
     }
 
     "skip <OtherNationality> if user has always lived in UK" in {

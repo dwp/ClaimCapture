@@ -1,3 +1,5 @@
+import models.PensionPaymentFrequency
+
 package object app {
 
   object AccountStatus {
@@ -15,6 +17,16 @@ package object app {
     val Curator = 'curator
   }
 
+  object Whereabouts {
+    val AtHome = "At Home"
+    val Hospital = "Hospital"
+    val Holiday = "Holiday"
+    val RespiteCare = "Respite Care"
+    val CareHome = "Care Home"
+    val NursingHome = "Nursing Home"
+    val Other = "Other"
+  }
+
   object PaymentFrequency {
     val EveryWeek = 'everyWeek
     val FourWeekly = 'fourWeekly
@@ -27,7 +39,11 @@ package object app {
     val Monthly = "05"
     val Other = "other" // TODO [SKW] the xsd is inconsistent and needs changing as there is no value for other, so I just made up a value and Jorge will change the schema and can replace this with a sensible value.
 
-    def mapToHumanReadableString(code:String) = {
+    def mapToHumanReadableString(code:models.PensionPaymentFrequency): String = {
+      mapToHumanReadableString(code.frequency)
+    }
+
+    def mapToHumanReadableString(code:String): String = {
       code match {
         case Weekly => "Weekly"
         case Fortnightly => "Fortnightly"
@@ -82,6 +98,7 @@ package object app {
     val yes = "yes"
     val no = "no"
     val GBP = "GBP"
+    val Other = "Other"
   }
 
   object WhoseNameAccount {

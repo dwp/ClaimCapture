@@ -4,9 +4,12 @@ import models._
 import play.api.i18n.Messages
 import scala.reflect.ClassTag
 import controllers.Mappings._
-import scala.Some
 import models.PaymentFrequency
 import scala.Some
+import models.MultiLineAddress
+import models.PaymentFrequency
+import scala.Some
+import models.PensionPaymentFrequency
 import models.MultiLineAddress
 
 object Employed extends Section.Identifier {
@@ -29,6 +32,13 @@ case class Jobs(jobs: List[Job] = Nil) extends QuestionGroup(Jobs) with Iterable
   def update(questionGroup: QuestionGroup with Job.Identifier): Jobs = jobs.find(_.jobID == questionGroup.jobID) match {
     case Some(job: Job) => update(job.update(questionGroup))
     case _ => update(Job(questionGroup.jobID, questionGroup :: Nil))
+  }
+
+  def completeJob(jobID: String): Jobs = {
+    job(jobID) match {
+        case Some(j:Job) => update(j.copy( completed = j.questionGroups.size > 5 ))
+        case _ => copy()
+      }
   }
 
   def delete(jobID: String): Jobs = Jobs(jobs.filterNot(_.jobID == jobID))
@@ -57,7 +67,7 @@ object Jobs extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g99"
 }
 
-case class Job(jobID: String, questionGroups: List[QuestionGroup with Job.Identifier] = Nil) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
+case class Job(jobID: String="", questionGroups: List[QuestionGroup with Job.Identifier] = Nil, completed:Boolean=false) extends Job.Identifier with Iterable[QuestionGroup with Job.Identifier] {
   def employerName = jobDetails(_.employerName)
 
   def title = necessaryExpenses(_.jobTitle)
@@ -179,6 +189,16 @@ object PensionSchemes extends QuestionGroup.Identifier {
     case `yes` => input.howOftenPersonal.isDefined
     case `no` => true
   }
+
+  def validateHowMuchSelfEmployed(input: SelfEmploymentPensionsAndExpenses): Boolean = input.doYouPayToPensionScheme match {
+    case `yes` => input.howMuchDidYouPay.isDefined
+    case `no` => true
+  }
+
+  def validateHowOftenSelfEmployed(input: SelfEmploymentPensionsAndExpenses): Boolean = input.doYouPayToPensionScheme match {
+    case `yes` => input.howOften.isDefined
+    case `no` => true
+  }
 }
 
 case class AboutExpenses(jobID: String = "",
@@ -201,7 +221,7 @@ object NecessaryExpenses extends QuestionGroup.Identifier {
 case class ChildcareExpenses(jobID: String = "",
                              whoLooksAfterChildren: String = "",
                              howMuchCostChildcare: String = "",
-                             howOftenPayChildCare: String = "",
+                             howOftenPayChildCare: PensionPaymentFrequency = models.PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly),
                              relationToYou: String = "",
                              relationToPartner: Option[String] = None,
                              relationToPersonYouCare: String = "") extends QuestionGroup(ChildcareExpenses) with Job.Identifier
@@ -213,7 +233,7 @@ object ChildcareExpenses extends QuestionGroup.Identifier {
 case class PersonYouCareForExpenses(jobID: String = "",
                                     whoDoYouPay: String = "",
                                     howMuchCostCare: String = "",
-                                    howOftenPayCare: String = "",
+                                    howOftenPayCare: PensionPaymentFrequency = models.PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly),
                                     relationToYou: String = "",
                                     relationToPersonYouCare: String = "") extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier
 

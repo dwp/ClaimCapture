@@ -3,7 +3,7 @@ package controllers.s8_self_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s8_self_employment.{G1AboutSelfEmploymentPage, G1AboutSelfEmploymentPageContext}
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.{ClaimScenario, TestData}
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.{G8AboutYouCompletedPage, G4ClaimDatePageContext}
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
@@ -25,8 +25,8 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
     }
 
     "contain errors on invalid submission" in {
-      "missing mandatory fields" in new WithBrowser with G1AboutSelfEmploymentPageContext {
-        val claim = new ClaimScenario
+      "missing mandatory field" in new WithBrowser with G1AboutSelfEmploymentPageContext {
+        val claim = new TestData
         page goToThePage()
         val pageWithErrors = page.submitPage()
         pageWithErrors.listErrors.size mustEqual 2
@@ -34,7 +34,7 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
       }
 
       "self employed now but missing date" in new WithBrowser with G1AboutSelfEmploymentPageContext {
-        val claim = new ClaimScenario
+        val claim = new TestData
         claim.SelfEmployedAreYouSelfEmployedNow = "no"
         claim.SelfEmployedWhenDidYouStartThisJob = "11/09/2001"
         page goToThePage ()
@@ -45,10 +45,9 @@ class G1AboutSelfEmploymentIntegrationSpec extends Specification with Tags {
       }
 
       "self employed now but invalid date" in new WithBrowser with G1AboutSelfEmploymentPageContext {
-        val claim = new ClaimScenario
-        claim.SelfEmployedAreYouSelfEmployedNow = "no"
-        claim.SelfEmployedWhenDidYouStartThisJob = "11/09/2001"
-        claim.SelfEmployedWhenDidTheJobFinish = "01/01/0000"
+        val claim = new TestData
+        claim.SelfEmployedAreYouSelfEmployedNow = "yes"
+        claim.SelfEmployedWhenDidYouStartThisJob = "01/01/0000"
         page goToThePage ()
         page fillPageWith claim
         val pageWithErrors = page.submitPage()

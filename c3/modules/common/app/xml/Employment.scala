@@ -136,7 +136,7 @@ object Employment {
         <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
         <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
-          <Currency>{GBP}</Currency>
+          <Currency></Currency>
           <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>

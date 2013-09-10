@@ -242,6 +242,7 @@ whereYou = Where you were?
 whereYou.location = Where you were?
 breaks.whereYou.label = Where were you during the break?
 wherePerson = Where was the person you care for during the break?
+wherePerson.location = Where was the person you care for during the break?
 medicalDuringBreak = Did you or the person you care for get any medical treatment or professional care during this time?
 
 
@@ -464,7 +465,8 @@ canWeContactYourAccountant.helper = You could be charged by your accountant for 
 doYouPayToPensionScheme_answer = {0} pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?
 doYouPayToPensionScheme.answer = {0} pay towards a personal or stakeholder pension scheme or a retirement annuity scheme
 doYouPayToPensionScheme_howMuchDidYouPay = How much {0} pay?
-doYouPayToPensionScheme.howMuchDidYouPay = How much {0} pay
+doYouPayToPensionScheme.howMuchDidYouPay = How much {0} pay?
+howMuchDidYouPay = How much {0} pay?
 doYouPayToPensionScheme_howOften = How often {0} pay into a Pension?
 doYouPayToPensionScheme.howOften = How often {0} pay into a Pension?
 doYouPayToLookAfterYourChildren = While at work, {0} pay anyone to care for your children?

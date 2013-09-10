@@ -1,7 +1,7 @@
 package app
 
 import org.specs2.mutable.{Tags, Specification}
-import utils.pageobjects.{XmlPage, ClaimScenario}
+import utils.pageobjects.{XmlPage, TestData}
 
 /**
  * Provides XML validation capacity to End to End tests.
@@ -11,7 +11,7 @@ import utils.pageobjects.{XmlPage, ClaimScenario}
 abstract class FunctionalTestCommon extends Specification with Tags {
   isolated
 
-  def validateAndPrintErrors(page: XmlPage, claim: ClaimScenario) = {
+  def validateAndPrintErrors(page: XmlPage, claim: TestData) = {
     val issues = page.validateXmlWith(claim)
     val errors = issues._1
     val warnings = issues._2

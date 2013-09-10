@@ -1,12 +1,12 @@
 package controllers
 
-import utils.pageobjects.ClaimScenario
+import utils.pageobjects.{TestData, ClaimScenario}
 
 
 object CircumstancesScenarioFactory {
 
   def aboutDetails = {
-    val claim = new ClaimScenario
+    val claim = new TestData
     claim.CircumstancesAboutYouTitle = "mr"
     claim.CircumstancesAboutYouFirstName = "John"
     claim.CircumstancesAboutYouMiddleName = "Roger"
@@ -17,7 +17,7 @@ object CircumstancesScenarioFactory {
   }
 
   def yourContactDetails = {
-    val claim = new ClaimScenario
+    val claim = aboutDetails
     claim.CircumstancesYourContactDetailsAddress = "101 Clifton Street&Blackpool"
     claim.CircumstancesYourContactDetailsPostcode = "PE1 4AQ"
     claim.CircumstancesYourContactDetailsPhoneNumber = "123456"
@@ -26,7 +26,7 @@ object CircumstancesScenarioFactory {
   }
 
   def detailsOfThePersonYouCareFor = {
-    val claim = new ClaimScenario
+    val claim = yourContactDetails
     claim.CircumstancesDetailsOfThePersonYouCareForTitle = "mr"
     claim.CircumstancesDetailsOfThePersonYouCareForFirstName = "John"
     claim.CircumstancesDetailsOfThePersonYouCareForMiddleName = "Roger"
@@ -37,7 +37,7 @@ object CircumstancesScenarioFactory {
   }
 
   def otherChangeInfo = {
-    val claim = new ClaimScenario
+    val claim = detailsOfThePersonYouCareFor
     claim.CircumstancesOtherChangeInfoChange
     claim
   }

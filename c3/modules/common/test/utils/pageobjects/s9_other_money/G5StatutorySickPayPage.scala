@@ -7,7 +7,7 @@ final class G5StatutorySickPayPage(browser: TestBrowser, previousPage: Option[Pa
   declareYesNo("#haveYouHadAnyStatutorySickPay", "OtherMoneyHaveYouSSPSinceClaim")
   declareInput("#howMuch", "OtherMoneySSPHowMuch")
   declareSelect("#howOften_frequency", "OtherMoneySSPHowOften")
-  declareInput("#howOften_other", "OtherMoneySSPHowOftenOther")
+  declareInput("#howOften_frequency_other", "OtherMoneySSPHowOftenOther")
   declareInput("#employersName", "OtherMoneySSPEmployerName")
   declareAddress("#employersAddress", "OtherMoneySSPEmployerAddress")
   declareInput("#employersPostcode", "OtherMoneyEmployerPostcode")

@@ -118,6 +118,7 @@ object XMLHelper {
      value match {
        case "yes" => Yes
        case "no" => No
+       case "other" => Other
        case _ => value
      }
     else ""
