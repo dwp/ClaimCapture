@@ -4,16 +4,15 @@ import language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.{FormError, Form}
 import play.api.data.Forms._
-import models.view.CachedClaim
+import models.view.{CachedClaim, Navigable}
 import models.domain.StatutorySickPay
 import controllers.Mappings._
 import utils.helpers.CarersForm._
-import models.view.Navigable
 
 object G5StatutorySickPay extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "haveYouHadAnyStatutorySickPay" -> nonEmptyText(maxLength = sixty),
-    "howMuch" -> optional(text(maxLength = sixty)),
+    "howMuch" -> optional(nonEmptyText verifying(validDecimalNumber)),
     "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
     "employersName" -> optional(nonEmptyText(maxLength = sixty)),
     "employersAddress" -> optional(address),
@@ -21,9 +20,11 @@ object G5StatutorySickPay extends Controller with CachedClaim with Navigable {
   )(StatutorySickPay.apply)(StatutorySickPay.unapply)
     .verifying("employersName.required", validateEmployerName _))
 
-  def validateEmployerName(statutorySickPay: StatutorySickPay) = statutorySickPay.haveYouHadAnyStatutorySickPay match {
-    case `yes` => statutorySickPay.employersName.isDefined
-    case _ => true
+  def validateEmployerName(statutorySickPay: StatutorySickPay) = {
+    statutorySickPay.haveYouHadAnyStatutorySickPay match {
+      case `yes` => statutorySickPay.employersName.isDefined
+      case _ => true
+    }
   }
 
   def present = claiming { implicit claim => implicit request =>

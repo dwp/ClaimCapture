@@ -135,7 +135,7 @@ dateOfBirth.month = Date of birth (Month)
 dateOfBirth.year = Date of birth (Year)
 dateOfBirth.helper = eg: 27 June 2013
 nationality = Nationality
-maritalStatus = Marital Status?
+maritalStatus = Marital status?
 alwaysLivedUK = Have you always lived in the United Kingdom?
 firstName.error = Please fill your first name
 
@@ -407,7 +407,7 @@ tellUsWhyEmployer.informationFromPerson = Do you agree to us getting information
 tellUsWhyEmployer_informationFromPerson = Do you agree to us getting information from any other person or organisation you have told us about on this form?
 tellUsWhyEmployer.whyPerson = Please tell us why
 tellUsWhyEmployer_whyPerson = Please tell us why
-why_placeholder = Enter text...
+why_placeholder = Please specify...
 
 
 # DISCLAIMER
@@ -425,9 +425,9 @@ declaration.1 = I declare that I understand the <a href="http://www.gov.uk/carer
 declaration.2 = I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
 declaration.3 = I will phone 08456084321 or write to Carer''s allowance Unit, Palantine House, Preston, Lancaster, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
 declaration.4 = If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Carer''s Allowance may be stopped or reduced and any overpayment of Carer''s Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.
-confirm = If so, please tick this box to confirm that you understand and make the declarations above.
+confirm = Please tick this box to confirm that you understand and make the declarations above.
 declaration.title = The declarations below sets out your legal responsibilities in respect of your claim.
-someoneElse = Please tick this box if this claim form has been filled in by someone else. Please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
+someoneElse = Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf.
 
 #ADDITIONAL INFO
 anythingElse = Please tell us anything else you think we should know about your claim

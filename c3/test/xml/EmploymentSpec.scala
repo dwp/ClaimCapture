@@ -3,7 +3,7 @@ package xml
 import org.specs2.mutable.{Tags, Specification}
 import models.domain.{Employment => Employed, _}
 import controllers.Mappings._
-import models.DayMonthYear
+import models.{PensionPaymentFrequency, PaymentFrequency, DayMonthYear}
 
 class EmploymentSpec extends Specification with Tags {
 
@@ -43,23 +43,23 @@ class EmploymentSpec extends Specification with Tags {
 
     "generate <PensionScheme> if claimer has paid for occupational pension scheme" in {
       val amount = "200"
-      val pensionScheme = Job("1", List(PensionSchemes(payOccupationalPensionScheme = "yes", howMuchPension = Some(amount), howOftenPension = Some("W"))))
+      val pensionScheme = Job("1", List(PensionSchemes(payOccupationalPensionScheme = "yes", howMuchPension = Some(amount), howOftenPension = Some(PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly)))))
 
       val pensionSchemeXml = Employment.pensionSchemeXml(pensionScheme)
       (pensionSchemeXml \\ "PaidForOccupationalPension").text mustEqual "yes"
       (pensionSchemeXml \\ "PensionScheme" \\ "Payment" \\ "Amount").text shouldEqual amount
-      (pensionSchemeXml \\ "PensionScheme" \\ "Frequency").text shouldEqual "W"
+      (pensionSchemeXml \\ "PensionScheme" \\ "Frequency").text shouldEqual "02"
       (pensionSchemeXml \\ "PaidForPersonalPension").text must beEmpty
     }
 
     "generate <PensionScheme> if claimer has paid for personal pension scheme" in {
       val amount = "200"
-      val pensionScheme = Job("1", List(PensionSchemes(payPersonalPensionScheme = "yes", howMuchPersonal = Some(amount), howOftenPersonal = Some("W"))))
+      val pensionScheme = Job("1", List(PensionSchemes(payPersonalPensionScheme = "yes", howMuchPersonal = Some(amount), howOftenPersonal = Some(PensionPaymentFrequency(app.PensionPaymentFrequency.Weekly)))))
 
       val pensionSchemeXml = xml.Employment.pensionSchemeXml(pensionScheme)
       (pensionSchemeXml \\ "PaidForPersonalPension").text mustEqual "yes"
       (pensionSchemeXml \\ "PensionScheme" \\ "Payment" \\ "Amount").text shouldEqual amount
-      (pensionSchemeXml \\ "PensionScheme" \\ "Frequency").text shouldEqual "W"
+      (pensionSchemeXml \\ "PensionScheme" \\ "Frequency").text shouldEqual "02"
       (pensionSchemeXml \\ "PaidForOccupationalPension").text must beEmpty
     }
 
@@ -89,7 +89,7 @@ class EmploymentSpec extends Specification with Tags {
 
       val expenses = childcareXml \\ "ChildCareExpenses"
       (expenses \\ "CarerName").text shouldEqual childcareCarer
-      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
+      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual "Not asked"
       (expenses \\ "RelationshipCarerToClaimant").text shouldEqual relation
       (expenses \\ "ChildDetails" \\ "RelationToChild").text shouldEqual relationToChild
     }
@@ -118,7 +118,7 @@ class EmploymentSpec extends Specification with Tags {
 
       val expenses = careExpensesXml \\ "CareExpenses"
       (expenses \\ "CarerName").text shouldEqual carer
-      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual amount
+      (expenses \\ "WeeklyPayment" \\ "Amount").text shouldEqual "Not asked"
       (expenses \\ "RelationshipCarerToClaimant").text shouldEqual relation
       (expenses \\ "RelationshipCarerToCaree").text shouldEqual relation
     }

@@ -1,11 +1,10 @@
 package models.domain
 
-import models.DayMonthYear
-import models.PaymentFrequency
-import models.MultiLineAddress
+import models._
 import play.api.i18n.Messages
 import scala.reflect.ClassTag
 import controllers.Mappings._
+import scala.Some
 import models.PaymentFrequency
 import scala.Some
 import models.MultiLineAddress
@@ -153,10 +152,10 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
 case class PensionSchemes(jobID: String = "",
                           payOccupationalPensionScheme: String = "",
                           howMuchPension: Option[String] = None,
-                          howOftenPension:Option[String] = None,
+                          howOftenPension: Option[PensionPaymentFrequency] = None,
                           payPersonalPensionScheme: String = "",
                           howMuchPersonal: Option[String] = None,
-                          howOftenPersonal: Option[String] = None) extends QuestionGroup(PensionSchemes) with Job.Identifier
+                          howOftenPersonal: Option[PensionPaymentFrequency] = None) extends QuestionGroup(PensionSchemes) with Job.Identifier
 
 object PensionSchemes extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g7"

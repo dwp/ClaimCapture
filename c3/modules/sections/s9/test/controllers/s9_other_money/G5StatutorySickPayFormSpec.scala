@@ -7,7 +7,7 @@ import models.PaymentFrequency
 class G5StatutorySickPayFormSpec extends Specification with Tags {
   "Statutory Sick Pay Form" should {
     val haveYouHadAnyStatutorySickPay = "yes"
-    val howMuch = "bar"
+    val howMuch = "123.45"
     val howOften_frequency = "other"
     val howOften_other = "Every day and twice on Sundays"
     val employersName = "Johny B Good"

@@ -28,16 +28,20 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         carersCurrency(currentForm("howMuchPension"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPension", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
-                        carersSelect(currentForm("howOftenPension"), Seq("" -> "Please Select", Weekly -> "Weekly", Fortnightly -> "fortnightly",FourWeekly -> "four-weekly", Monthly -> "monthly"))),
+                        pensionPaymentFrequencySelect(currentForm("howOftenPension"), '_label -> Messages("howOftenPension"))
+                    ),
                     'id -> "payOccupationalPensionScheme",
                     'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
+
+
 
                 @yesNoRadioGroup(currentForm("payPersonalPensionScheme"), '_label -> Messages ("payPersonalPensionScheme", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                         carersCurrency(currentForm("howMuchPersonal"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPersonal", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
-                        carersSelect(currentForm("howOftenPersonal"), Seq("" -> "Please Select", Weekly -> "Weekly", Fortnightly -> "fortnightly", FourWeekly -> "four-weekly", Monthly -> "monthly"))),
+                        pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"))
+                    ),
                     'id -> "payPersonalPensionScheme",
                     'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
             </ul>
@@ -49,6 +53,8 @@
         </nav>
     }
 }
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
 
 <script type="text/javascript">
     $(function() {

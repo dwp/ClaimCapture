@@ -1,15 +1,15 @@
 package xml
 
 import models.domain.Claim
-import app.XMLValues
+import app.XMLValues._
 
 object PropertyRentedOut {
 
   def xml(claim: Claim) = {
     <PropertyRentedOut>
       <PayNationalInsuranceContributions/>
-      <RentOutProperty>{XMLValues.NotAsked}</RentOutProperty>
-      <SubletHome>{XMLValues.NotAsked}</SubletHome>
+      <RentOutProperty>{NotAsked}</RentOutProperty>
+      <SubletHome>{NotAsked}</SubletHome>
     </PropertyRentedOut>
   }
 }

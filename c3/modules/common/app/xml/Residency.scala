@@ -1,9 +1,8 @@
 package xml
 
-import app.XMLValues
+import app.XMLValues._
 import models.domain._
 import models.yesNo.YesNoWithDate
-import controllers.Mappings.yes
 import scala.xml.NodeSeq
 import xml.XMLHelper.stringify
 
@@ -16,15 +15,15 @@ object Residency {
 
     <Residency>
       <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
-      <EUEEASwissNational>{XMLValues.NotAsked}</EUEEASwissNational>
-      <CountryNormallyLive>{normalResidence.whereDoYouLive.text.getOrElse(XMLValues.NotAsked)}</CountryNormallyLive>
-      <CountryNormallyLiveOther>{XMLValues.NotAsked}</CountryNormallyLiveOther>
+      <EUEEASwissNational>{NotAsked}</EUEEASwissNational>
+      <CountryNormallyLive>{normalResidence.whereDoYouLive.text.getOrElse(NotAsked)}</CountryNormallyLive>
+      <CountryNormallyLiveOther>{NotAsked}</CountryNormallyLiveOther>
       <InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>
-      <InGreatBritain26Weeks>{XMLValues.NotAsked}</InGreatBritain26Weeks>
+      <InGreatBritain26Weeks>{NotAsked}</InGreatBritain26Weeks>
       {periodAbroadLastYear(tripsOption)}
-      <BritishOverseasPassport>{XMLValues.NotAsked}</BritishOverseasPassport>
+      <BritishOverseasPassport>{NotAsked}</BritishOverseasPassport>
       {otherNationality(claim)}
-      <OutOfGreatBritain>{XMLValues.NotAsked}</OutOfGreatBritain>
+      <OutOfGreatBritain>{NotAsked}</OutOfGreatBritain>
       {periodAbroadDuringCare(tripsOption)}
     </Residency>
   }
@@ -54,11 +53,11 @@ object Residency {
       val goBack = timeOutsideUK.livingInUK.goBack.getOrElse(YesNoWithDate("", None))
       <OtherNationality>
         <EUEEASwissNationalChildren/>
-        <DateArrivedInGreatBritain>{XMLValues.NotAsked}</DateArrivedInGreatBritain>
+        <DateArrivedInGreatBritain>{NotAsked}</DateArrivedInGreatBritain>
         <CountryArrivedFrom>{timeOutsideUK.livingInUK.text.orNull}</CountryArrivedFrom>
         <IntendToReturn>{goBack.answer}</IntendToReturn>
         <DateReturn>{stringify(goBack.date)}</DateReturn>
-        <VisaReferenceNumber>{XMLValues.NotAsked}</VisaReferenceNumber>
+        <VisaReferenceNumber>{NotAsked}</VisaReferenceNumber>
       </OtherNationality>
 
     } else NodeSeq.Empty

@@ -13,16 +13,17 @@ import Employment._
 import utils.helpers.PastPresentLabelHelper._
 import controllers.Mappings._
 import play.api.data.FormError
+import models.PensionPaymentFrequency
 
 object G7PensionSchemes extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "payOccupationalPensionScheme" -> nonEmptyText,
     "howMuchPension" -> optional(nonEmptyText verifying(validDecimalNumber)),
-    "howOftenPension" -> optional(nonEmptyText),
+    "howOftenPension" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "payPersonalPensionScheme" -> nonEmptyText,
     "howMuchPersonal" -> optional(nonEmptyText verifying(validDecimalNumber)),
-    "howOftenPersonal" -> optional(nonEmptyText)
+    "howOftenPersonal" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly)
   )(PensionSchemes.apply)(PensionSchemes.unapply)
     .verifying("howMuchPension", PensionSchemes.validateHowMuchPension _)
     .verifying("howOftenPension", PensionSchemes.validateHowOftenPension _)
