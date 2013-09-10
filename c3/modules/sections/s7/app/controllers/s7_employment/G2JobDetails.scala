@@ -14,7 +14,7 @@ object G2JobDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "employerName"-> nonEmptyText,
-    "jobStartDate" -> optional(dayMonthYear.verifying(validDateOnly)),
+    "jobStartDate" -> dayMonthYear.verifying(validDateOnly),
     "finishedThisJob" -> nonEmptyText,
     "lastWorkDate" -> optional(dayMonthYear.verifying(validDate)),
     "p45LeavingDate" -> optional(dayMonthYear.verifying(validDateOnly)),

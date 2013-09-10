@@ -15,8 +15,9 @@ import utils.helpers.PastPresentLabelHelper._
 object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "howMuchCostCare" -> optional(text verifying validDecimalNumber),
     "whoDoYouPay" -> nonEmptyText,
+    "howMuchCostCare" -> (nonEmptyText verifying(validDecimalNumber)),
+    "howOftenPayCare" -> nonEmptyText,
     "relationToYou" -> nonEmptyText,
     "relationToPersonYouCare" -> nonEmptyText
   )(PersonYouCareForExpenses.apply)(PersonYouCareForExpenses.unapply))
@@ -34,9 +35,12 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("howMuchCostCare", "decimal.invalid", FormError("howMuchCostCare", "decimal.invalid", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
           .replaceError("whoDoYouPay", "error.required", FormError("whoDoYouPay", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , jobID))))
-        BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrorsUpdate))
+          .replaceError("howMuchCostCare", "error.required", FormError("howMuchCostCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
+          .replaceError("howMuchCostCare", "decimal.invalid", FormError("howMuchCostCare", "decimal.invalid", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
+          .replaceError("howOftenPayCare", "error.required", FormError("howOftenPayCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
+
+          BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrorsUpdate))
       },
       childcareProvider => claim.update(jobs.update(childcareProvider)) -> Redirect(routes.G14JobCompletion.present(jobID)))
   }

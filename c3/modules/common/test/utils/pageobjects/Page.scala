@@ -61,7 +61,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
   }
 
   /**
-   * Sub-class reads theClaim and interacts with browser to populate page.
+   * Read a claim and interacts with browser to populate page.
    * @param theClaim   Data to use to fill page
    */
   def fillPageWith(theClaim: ClaimScenario): Page = {
@@ -81,6 +81,7 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
             case SORTCODE => fillSortCode(cssElem, theClaim.selectDynamic(claimAttribute))
             case TIME => fillTime(cssElem, theClaim.selectDynamic(claimAttribute))
             case YESNO => fillYesNo(cssElem, theClaim.selectDynamic(claimAttribute))
+            case _ => throw new PageObjectException("Framework error in Page.fillPageWith. Unhandled fieldType: " + fieldType.name)
           }
       }
       this
@@ -89,6 +90,42 @@ abstract case class Page(pageFactory:PageFactory, browser: TestBrowser, url: Str
       case e:Exception => throw new PageObjectException("Error when filling form in page [" + pageTitle + "]",exception = e)
     }
   }
+
+  /**
+   * Read a claim and interacts with browser to populate page.
+   * @param theClaim   Data to use to fill page
+   */
+  def populateClaim(theClaim: ClaimScenario): Page = {
+    try {
+      fields foreach {
+        case (cssElem: String, fieldType: Symbol, claimAttribute: String) =>
+
+          def assignToClaimAttribute(value:Option[String]) =
+            if (value.isDefined) theClaim.updateDynamic(claimAttribute)(value.get)
+
+          fieldType match {
+            case ADDRESS => assignToClaimAttribute(readAddress(cssElem))
+            case CHECK => assignToClaimAttribute(readCheck(cssElem))
+            case DATE => assignToClaimAttribute(readDate(cssElem))
+            case DATE_FROM => assignToClaimAttribute(readDate(cssElem + "_from"))
+            case DATE_TO => assignToClaimAttribute(readDate(cssElem + "_to"))
+            case INPUT => assignToClaimAttribute(readInput(cssElem))
+            case NINO => assignToClaimAttribute(readNino(cssElem))
+//            case RADIO_LIST => fillRadioList(cssElem, theClaim.selectDynamic(claimAttribute))
+            case SELECT => assignToClaimAttribute(readSelect(cssElem))
+            case SORTCODE => assignToClaimAttribute(readSortCode(cssElem))
+            case TIME => assignToClaimAttribute(readTime(cssElem))
+            case YESNO => assignToClaimAttribute(readYesNo(cssElem))
+            case _ => throw new PageObjectException("Framework error in Page.populateClaim. Unhandled fieldType: " + fieldType.name)
+          }
+      }
+      this
+    }
+    catch {
+      case e:Exception => throw new PageObjectException("Error when reading form in page [" + pageTitle + "]",exception = e)
+    }
+  }
+
 
   /**
    * Reads theClaim, interacts with browser to populate the page, submit the page and

@@ -17,6 +17,7 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
     "jobID" -> nonEmptyText,
     "whoLooksAfterChildren" -> nonEmptyText,
     "howMuchCostChildcare" -> nonEmptyText.verifying(validDecimalNumber),
+    "howOftenPayChildCare" -> nonEmptyText,
     "relationToYou" -> nonEmptyText,
     "relationToPartner" -> optional(nonEmptyText),
     "relationToPersonYouCare" -> nonEmptyText
@@ -43,7 +44,9 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
+          .replaceError("howMuchCostChildcare", "error.required", FormError("howMuchCostChildcare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
           .replaceError("howMuchCostChildcare", "decimal.invalid", FormError("howMuchCostChildcare", "decimal.invalid", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
+          .replaceError("howOftenPayChildCare", "error.required", FormError("howOftenPayChildCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s7_employment.g10_childcareExpenses(formWithErrorsUpdate))
       },

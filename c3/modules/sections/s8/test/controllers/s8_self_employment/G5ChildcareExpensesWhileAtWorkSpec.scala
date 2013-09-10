@@ -12,7 +12,7 @@ class G5ChildcareExpensesWhileAtWorkSpec extends Specification with Tags {
 
   "Self Employment - Child care expenses while at work - Controller" should {
     val howMuchYouPay = "123445"
-    val howOften = "02"
+    val howOften = "W"
     val whoLooksAfterChildren = "myself"
     val whatRelationIsToYou = "son"
     val relationToPartner = "son"

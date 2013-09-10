@@ -2,6 +2,7 @@ package controllers
 
 import app.{WhoseNameAccount, PaymentFrequency, AccountStatus}
 import utils.pageobjects.ClaimScenario
+import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -235,6 +236,7 @@ object ClaimScenarioFactory {
     claim.EmploymentWhyYouNeedTheseExpensesToDoYourJob_1 = "So I could deliver items."
     claim.EmploymentHowMuchDidTheseExpensesCostYouEachWeek_1 = "160.66"
     claim.EmploymentChildcareExpensesHowMuchYouPayfor_1 = "120.12"
+    claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Weekly
     claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "fatherInLaw"
@@ -242,6 +244,7 @@ object ClaimScenarioFactory {
     claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
     claim.EmploymentCareExpensesHowMuchYouPayfor_1 = "150.55"
+    claim.EmploymentCareExpensesHowOftenYouPayfor_1 = "02"
     claim.EmploymentNameOfPersonYouPayForCaring_1 = "Carers UK Ltd"
     claim.EmploymentCareExpensesWhatRelationIsToYou_1 = "Uncle"
     claim.EmploymentCareExpensesWhatRelationIsToPersonYouCareFor_1 = "Other"

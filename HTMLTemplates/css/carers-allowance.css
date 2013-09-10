@@ -71,7 +71,7 @@ main {
           padding-top: 2em; } }
       .ie6 .carers-allowance .progress-steps ol, .ie7 .carers-allowance .progress-steps ol, .ie8 .carers-allowance .progress-steps ol {
         padding-bottom: 0;
-        background: url("images/nav-line.png") 0 56px repeat-x;
+        background: url("../img/nav-line.png") 0 56px repeat-x;
         margin-bottom: -12px;
         zoom: 1; }
       @media screen and (max-width: 760px) {
@@ -94,7 +94,7 @@ main {
         padding: 35px 0 0 0;
         line-height: 1em; }
         .ie6 .carers-allowance .progress-steps ol li, .ie7 .carers-allowance .progress-steps ol li, .ie8 .carers-allowance .progress-steps ol li {
-          background: url("images/nav-default.png") center 0 no-repeat;
+          background: url("../img/nav-default.png") center 0 no-repeat;
           padding-bottom: 5px; }
         .ie6 .carers-allowance .progress-steps ol li {
           padding-bottom: 20px; }
@@ -150,7 +150,7 @@ main {
         .carers-allowance .progress-steps ol li.active {
           padding-top: 48px; }
           .ie6 .carers-allowance .progress-steps ol li.active, .ie7 .carers-allowance .progress-steps ol li.active, .ie8 .carers-allowance .progress-steps ol li.active {
-            background: url("images/nav-active.png") center 0 no-repeat;
+            background: url("../img/nav-active.png") center 0 no-repeat;
             top: -8px;
             padding-top: 55px; }
           @media screen and (max-width: 760px) {
@@ -184,7 +184,7 @@ main {
               .ie8 .carers-allowance .progress-steps ol li.active span:before {
                 display: none; }
         .ie6 .carers-allowance .progress-steps ol li.complete, .ie7 .carers-allowance .progress-steps ol li.complete, .ie8 .carers-allowance .progress-steps ol li.complete {
-          background: url("images/nav-complete.png") center 0 no-repeat; }
+          background: url("../img/nav-complete.png") center 0 no-repeat; }
         .carers-allowance .progress-steps ol li.complete span:before {
           background: #006435;
           content: "\203a";
@@ -280,7 +280,7 @@ main {
       .carers-allowance section.response article h2 {
         font-size: 2.4rem;
         line-height: 1.3em;
-        background-image: url("images/response-bg.png");
+        background-image: url("../img/response-bg.png");
         background-position: center 0;
         background-repeat: no-repeat;
         padding-top: 180px; }
@@ -336,7 +336,7 @@ main {
         .carers-allowance .completed .start-again a:hover {
           background: #004b27; }
     .carers-allowance .completed ul li {
-      background: #d5e8f3 url("images/progress-tick.png") 1.2em 1.3em no-repeat;
+      background: #d5e8f3 url("../img/progress-tick.png") 1.2em 1.3em no-repeat;
       border-bottom: 1px solid #b6d6d2;
       padding: 1em 11em 1em 2.9em;
       position: relative; }
@@ -1245,7 +1245,7 @@ main {
           padding: 0 0 2px 20px;
           line-height: 1.4em;
           font-size: 1.7rem;
-          background: url("images/progress-tick.png") 0 3px no-repeat; }
+          background: url("../img/progress-tick.png") 0 3px no-repeat; }
       .carers-allowance .send-info article.address {
         margin-top: 1.25em; }
         .carers-allowance .send-info article.address span {

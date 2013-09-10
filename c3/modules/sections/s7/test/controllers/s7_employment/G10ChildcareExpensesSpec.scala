@@ -11,6 +11,13 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
   val jobID = "Dummy job ID"
 
   "Childcare expenses while you are at work - Controller" should {
+    val whoLooksAfterChildren = "myself"
+    val howMuchYouPay = "123445"
+    val howOften = "W"
+    val whatRelationIsToYou = "son"
+    val whatRelationIsTothePersonYouCareFor = "parent"
+
+
     "present" in new WithApplication with Claiming {
       val aboutExpenses = mock[AboutExpenses]
       aboutExpenses.identifier returns AboutExpenses
@@ -43,7 +50,11 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
 
     "accept all mandatory data." in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whoLooksAfterChildren" -> "blah", "howMuchCostChildcare" -> "99.22", "relationToYou" -> "father", "relationToPersonYouCare" -> "grandFather")
+        "whoLooksAfterChildren" -> whoLooksAfterChildren,
+        "howMuchCostChildcare" -> howMuchYouPay,
+        "howOftenPayChildCare" -> howOften,
+        "relationToYou" -> whatRelationIsToYou,
+        "relationToPersonYouCare" -> whatRelationIsTothePersonYouCareFor)
 
       val result = G10ChildcareExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -54,10 +65,17 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
+        "jobStartDate.day" -> "1",
+        "jobStartDate.month" -> "1",
+        "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "yes"))
 
       val result = G10ChildcareExpenses.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "whoLooksAfterChildren" -> "blah", "howMuchCostChildcare" -> "99.22", "relationToYou" -> "father", "relationToPersonYouCare" -> "grandFather"))
+        "whoLooksAfterChildren" -> whoLooksAfterChildren,
+        "howMuchCostChildcare" -> howMuchYouPay,
+        "howOftenPayChildCare" -> howOften,
+        "relationToYou" -> whatRelationIsToYou,
+        "relationToPersonYouCare" -> whatRelationIsTothePersonYouCareFor))
 
       status(result) mustEqual SEE_OTHER
 
@@ -67,7 +85,9 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
         case Some(js: Jobs) => {
           js.size shouldEqual 1
 
-          js.find(_.jobID == jobID) must beLike { case Some(j: Job) => j.questionGroups.size shouldEqual 2 }
+          js.find(_.jobID == jobID) must beLike {
+            case Some(j: Job) => j.questionGroups.size shouldEqual 2
+          }
         }
       }
     }

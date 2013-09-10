@@ -104,7 +104,7 @@ object Job {
 
 case class JobDetails(jobID: String = "",
                       employerName: String = "",
-                      jobStartDate: Option[DayMonthYear] = None,
+                      jobStartDate: DayMonthYear = DayMonthYear(None, None, None),
                       finishedThisJob: String = "",
                       lastWorkDate:Option[DayMonthYear] = None,
                       p45LeavingDate:Option[DayMonthYear] = None,
@@ -202,6 +202,7 @@ object NecessaryExpenses extends QuestionGroup.Identifier {
 case class ChildcareExpenses(jobID: String = "",
                              whoLooksAfterChildren: String = "",
                              howMuchCostChildcare: String = "",
+                             howOftenPayChildCare: String = "",
                              relationToYou: String = "",
                              relationToPartner: Option[String] = None,
                              relationToPersonYouCare: String = "") extends QuestionGroup(ChildcareExpenses) with Job.Identifier
@@ -211,8 +212,9 @@ object ChildcareExpenses extends QuestionGroup.Identifier {
 }
 
 case class PersonYouCareForExpenses(jobID: String = "",
-                                    howMuchCostCare: Option[String] = None,
                                     whoDoYouPay: String = "",
+                                    howMuchCostCare: String = "",
+                                    howOftenPayCare: String = "",
                                     relationToYou: String = "",
                                     relationToPersonYouCare: String = "") extends QuestionGroup(PersonYouCareForExpenses) with Job.Identifier
 

@@ -15,7 +15,7 @@ class EmploymentSpec extends Specification with Tags {
     "generate xml when data is present" in {
       val employerName = "KFC"
       val hours = "70"
-      val jobDetails = JobDetails("1", employerName, Some(startDate), "no", Some(endDate), Some(endDate), Some(hours), None)
+      val jobDetails = JobDetails("1", employerName, startDate, "no", Some(endDate), Some(endDate), Some(hours), None)
       val jobs = Jobs(List(Job("1", jobDetails :: Nil)))
 
       val claim = Claim().update(Employed(beenEmployedSince6MonthsBeforeClaim = yes))
@@ -103,14 +103,13 @@ class EmploymentSpec extends Specification with Tags {
     }
 
     "generate <CareExpenses> if claimer has care expenses" in {
-      val address = "someAddress"
-      val postcode = "M1"
       val relation = "other"
       val carer = "someGipsy"
       val amount = "300"
+      val howOftenPayCare = "02"
       val job = Job("1", List(
         AboutExpenses(payAnyoneToLookAfterPerson = "yes"),
-        PersonYouCareForExpenses(howMuchCostCare = Some(amount), whoDoYouPay = carer, relationToYou = relation, relationToPersonYouCare = relation)
+        PersonYouCareForExpenses(whoDoYouPay = carer, howMuchCostCare = amount, howOftenPayCare = howOftenPayCare, relationToYou = relation, relationToPersonYouCare = relation)
       ))
 
       val careExpensesXml = Employment.careExpensesXml(job)

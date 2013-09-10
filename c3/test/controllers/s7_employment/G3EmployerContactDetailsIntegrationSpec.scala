@@ -31,6 +31,9 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
     """go back to "job details".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       goTo("/employment/job-details/dummyJobID")
       fill("#employerName") `with` "Toys r not Us"
+      browser.click("#jobStartDate_day option[value='1']")
+      browser.click("#jobStartDate_month option[value='1']")
+      browser.fill("#jobStartDate_year") `with` "2000"
       click("#finishedThisJob_no")
       next
       titleMustEqual("Employer's contact details - Employment History")
@@ -42,6 +45,9 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
     "get first completed question group for a job" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
       goTo("/employment/job-details/dummyJobID")
       fill("#employerName") `with` "Toys r not Us"
+      browser.click("#jobStartDate_day option[value='1']")
+      browser.click("#jobStartDate_month option[value='1']")
+      browser.fill("#jobStartDate_year") `with` "2000"
       click("#finishedThisJob_no")
       next
       titleMustEqual("Employer's contact details - Employment History")

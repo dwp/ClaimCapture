@@ -24,9 +24,9 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
     "howMuchPersonal" -> optional(nonEmptyText verifying(validDecimalNumber)),
     "howOftenPersonal" -> optional(nonEmptyText)
   )(PensionSchemes.apply)(PensionSchemes.unapply)
-    .verifying("howMuchP", PensionSchemes.validateHowMuchPension _)
+    .verifying("howMuchPension", PensionSchemes.validateHowMuchPension _)
     .verifying("howOftenPension", PensionSchemes.validateHowOftenPension _)
-    .verifying("howMuchPe", PensionSchemes.validateHowMuchPersonal _)
+    .verifying("howMuchPersonal", PensionSchemes.validateHowMuchPersonal _)
     .verifying("howOftenPersonal", PensionSchemes.validateHowOftenPersonal _)
   )
 
@@ -43,6 +43,10 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
           .replaceError("howMuchPersonal", "decimal.invalid", FormError("howMuchPersonal", "decimal.invalid", Seq(pastPresent.toLowerCase)))
           .replaceError("payOccupationalPensionScheme", "error.required", FormError("payOccupationalPensionScheme", "error.required", Seq(pastPresent)))
           .replaceError("payPersonalPensionScheme", "error.required", FormError("payPersonalPensionScheme", "error.required", Seq(pastPresent)))
+          .replaceError("", "howMuchPension", FormError("howMuchPension", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("", "howMuchPersonal", FormError("howMuchPersonal", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("", "howOftenPension", FormError("howOftenPension", "error.required"))
+          .replaceError("", "howOftenPersonal", FormError("howOftenPersonal", "error.required"))
         BadRequest(views.html.s7_employment.g7_pensionSchemes(formWithErrorsUpdate))
       },
       schemes => claim.update(jobs.update(schemes)) -> Redirect(routes.G8AboutExpenses.present(jobID)))

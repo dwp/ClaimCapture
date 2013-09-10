@@ -20,13 +20,13 @@
 	            @yesNoRadioGroup(currentForm("otherPay"), '_label -> Messages("otherPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 	
 	            @otherDetailPlaceHolder(
-	             inputDef = Seq( 
-                                carersShortInputText(currentForm("howMuch"), 'type -> "tel", 'placeholder -> Messages("poundSign"), 'maxLength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
-                                paymentFrequencySelect(currentForm("howOften"),
-                                  'id -> "howOften_frequency",
-                                  'visibleOn -> "yes",
-                                  'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
-                                ),
+	             inputDef = Seq(
+									carersCurrency(currentForm("howMuch"), 'type -> "tel", 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
+									paymentFrequencySelect(currentForm("howOften"), 
+									  'id -> "howOften_frequency", 
+									  'visibleOn -> "yes", 
+									  'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
+									),
 	                carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
 	                inputAddress(currentForm("employersAddress")),
 	                carersInputText(currentForm("employersPostcode"))
