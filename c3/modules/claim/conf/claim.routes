@@ -73,9 +73,9 @@ POST          /care-you-provide/more-about-the-care                           co
 
 GET           /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.present
 POST          /care-you-provide/breaks-in-care                                controllers.s4_care_you_provide.G10BreaksInCare.submit
-DELETE        /care-you-provide/breaks-in-care/care-you-provide/:id           controllers.s4_care_you_provide.G10BreaksInCare.delete(id: String)
+DELETE        /care-you-provide/breaks-in-care/:id                            controllers.s4_care_you_provide.G10BreaksInCare.delete(id: String)
 
-GET           /care-you-provide/breaks/care-you-provide/:id                   controllers.s4_care_you_provide.G11Break.break(id: String)
+GET           /care-you-provide/breaks/:id                                    controllers.s4_care_you_provide.G11Break.break(id: String)
 GET           /care-you-provide/break                                         controllers.s4_care_you_provide.G11Break.present
 POST          /care-you-provide/break                                         controllers.s4_care_you_provide.G11Break.submit
 
@@ -93,13 +93,13 @@ POST          /time-spent-abroad/abroad-for-more-than-4-weeks                 co
 GET           /time-spent-abroad/abroad-for-more-than-52-weeks                controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.present
 POST          /time-spent-abroad/abroad-for-more-than-52-weeks                controllers.s5_time_spent_abroad.G3AbroadForMoreThan52Weeks.submit
 
-GET           /time-spent-abroad/trip/4-weeks               controllers.s5_time_spent_abroad.G4Trip.fourWeeks
-POST          /time-spent-abroad/trip/4-weeks               controllers.s5_time_spent_abroad.G4Trip.fourWeeksSubmit
-GET           /time-spent-abroad/trip/52-weeks              controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeks
-POST          /time-spent-abroad/trip/52-weeks              controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeksSubmit
+GET           /time-spent-abroad/trip/4-weeks                                 controllers.s5_time_spent_abroad.G4Trip.fourWeeks
+POST          /time-spent-abroad/trip/4-weeks                                 controllers.s5_time_spent_abroad.G4Trip.fourWeeksSubmit
+GET           /time-spent-abroad/trip/52-weeks                                controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeks
+POST          /time-spent-abroad/trip/52-weeks                                controllers.s5_time_spent_abroad.G4Trip.fiftyTwoWeeksSubmit
 
-GET           /time-spent-abroad/trip/:id                   controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
-DELETE        /time-spent-abroad/trip/:id                   controllers.s5_time_spent_abroad.G4Trip.delete(id: String)
+GET           /time-spent-abroad/trip/:id                                     controllers.s5_time_spent_abroad.G4Trip.trip(id: String)
+DELETE        /time-spent-abroad/trip/:id                                     controllers.s5_time_spent_abroad.G4Trip.delete(id: String)
 
 GET           /time-spent-abroad/completed                                    controllers.s5_time_spent_abroad.TimeSpentAbroad.completed
 POST          /time-spent-abroad/completed                                    controllers.s5_time_spent_abroad.TimeSpentAbroad.completedSubmit
