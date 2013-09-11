@@ -23,12 +23,8 @@ class XMLCircumstancesBusinessValidation extends XMLBusinessValidation  {
    * @param throwException Specify whether the validation should throw an exception if mismatches are found.
    * @return List of errors found. The list is empty if no errors were found.
    */
-  def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean) = {
+  def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean): List[String] = {
     super.validateXMLClaim(claim, xml, throwException, mappingFilename, createXMLValidationNode)
-  }
-
-  def validateXMLClaim(claim: TestData, xmlString: String, throwException: Boolean): List[String] = {
-    super.validateXMLClaim(claim, xmlString, throwException, mappingFilename, createXMLValidationNode)
   }
 }
 

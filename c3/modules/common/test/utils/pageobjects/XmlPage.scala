@@ -1,7 +1,7 @@
 package utils.pageobjects
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.xml_validation.XMLClaimBusinessValidation
+import utils.pageobjects.xml_validation.{XMLBusinessValidation, XMLClaimBusinessValidation}
 
 /**
  * Represents the test page where the XML "Submitted" is dumped into.
@@ -12,9 +12,11 @@ class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None) extends 
 
    pageSource = browser.pageSource()
 
-  def validateXmlWith(claim: TestData) = {
-    val validator = new XMLClaimBusinessValidation
-    Tuple2(validator.validateXMLClaim(claim, pageSource, throwException = false),validator.warnings)
+  def validateXmlWith(claim: TestData, validator: XMLBusinessValidation) = {
+    Tuple2(
+      validator.validateXMLClaim(claim, pageSource, throwException = false),
+      validator.warnings
+    )
   }
 
   /**

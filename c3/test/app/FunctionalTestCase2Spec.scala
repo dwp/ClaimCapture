@@ -4,6 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.{XmlPage, TestData, Page}
+import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusinessValidation}
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
@@ -23,7 +24,8 @@ class FunctionalTestCase2Spec extends FunctionalTestCommon  {
 
       lastPage match {
         case p: XmlPage => {
-          validateAndPrintErrors(p, claim) should beTrue
+          val validator: XMLBusinessValidation = new XMLClaimBusinessValidation
+          validateAndPrintErrors(p, claim, validator) should beTrue
         }
         case p: Page => println(p.source())
       }
