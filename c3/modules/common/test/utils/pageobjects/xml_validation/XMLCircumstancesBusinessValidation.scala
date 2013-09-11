@@ -1,12 +1,10 @@
 package utils.pageobjects.xml_validation
 
-import scala.collection.mutable
+import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
+import scala.xml.Elem
 import utils.pageobjects.{TestDatumValue, PageObjectException, TestData}
-import scala.xml.{NodeSeq, Elem, XML}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import scala.language.implicitConversions
-import app.{StatutoryPaymentFrequency, PensionPaymentFrequency}
 
 /**
  * Validates that an XML contains all the relevant data that was provided in a Claim.
@@ -14,9 +12,9 @@ import app.{StatutoryPaymentFrequency, PensionPaymentFrequency}
  * @author Jorge Migueis
  *         Date: 23/07/2013
  */
-class XMLClaimBusinessValidation extends XMLBusinessValidation  {
-  val mappingFilename = "/ClaimScenarioXmlMapping.csv"
-  def createXMLValidationNode = (xml: Elem, nodes: Array[String]) => new ClaimXmlNode(xml,nodes)
+class XMLCircumstancesBusinessValidation extends XMLBusinessValidation  {
+  val mappingFilename = "/CircumstancesXmlMapping.csv"
+  def createXMLValidationNode = (xml: Elem, nodes: Array[String]) => new CircumstancesXmlNode(xml,nodes)
 
   /**
    * Performs the validation of a claim XML against the data used to populate the claim forms.
@@ -37,7 +35,7 @@ class XMLClaimBusinessValidation extends XMLBusinessValidation  {
 /**
  * Represents an Xml Node once "cleaned", i.e. trimmed and line returns removed.
  */
-class ClaimXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml, path) {
+class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml, path) {
 
   val EvidenceListNode = "<EvidenceList>"
   val DeclarationNode = "<Declaration>"
@@ -46,7 +44,7 @@ class ClaimXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml,
     try {
       val nodeStart = theNodes(0).mkString
 
-      val isARepeatableNode = !nodeStart.contains(EvidenceListNode) && !nodeStart.contains(DeclarationNode) && !nodeStart.contains("<Employed>") && !nodeStart.contains("<BreaksSinceClaim>")
+      val isARepeatableNode = !nodeStart.contains(EvidenceListNode) && !nodeStart.contains(DeclarationNode)
 
       val isRepeatedAttribute = claimValue.attribute.contains( """_""")
 
@@ -54,31 +52,15 @@ class ClaimXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml,
 
       if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(EvidenceListNode)) true
       else {
-        val isPensionScheme = theNodes.mkString.contains("<PensionScheme>") // Because of bug in Schema :(  Do not like it
+        val index = if (isRepeatedAttribute && isARepeatableNode) iteration else 0
 
-        val index = if (isRepeatedAttribute && isARepeatableNode && !isPensionScheme) iteration else 0
-
-        val value = XMLValidationNode.prepareElement(if (isPensionScheme) theNodes.text else theNodes(index).text)
+        val value = XMLValidationNode.prepareElement(theNodes(index).text)
         val nodeName = theNodes(index).mkString
         def valuesMatching: Boolean = {
-          if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
-          else if (claimValue.attribute.contains("EmploymentAddtionalWageHowOftenAreYouPaid") || claimValue.attribute.contains("EmploymentChildcareExpensesHowOften") || claimValue.attribute.contains("EmploymentCareExpensesHowOftenYouPayfor")
-          || claimValue.attribute.contains("SelfEmployedCareExpensesHowOften") || claimValue.attribute.contains("SelfEmployedChildcareExpensesHowOften"))
-            value.contains(StatutoryPaymentFrequency.mapToHumanReadableString(claimValue.value,None).toLowerCase)
-          else if (nodeName.startsWith(EvidenceListNode)) {
-            // Awful code. Need to do something about it! (JMI)
-            if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
-              if (iteration == 0 ) value.matches(".*haveyouhadanymoretripsoutofgreatbritainformorethan[^=]*=" + claimValue.value +".*") else true
-            }
-            else if (claimValue.attribute.contains("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor")) {
-              if (iteration == 0) value.matches(".*haveyoubeenoutofgreatbritainwiththepersonyoucarefor[^=]*=" + claimValue.value +".*") else true
-            }
-            else if (claimValue.attribute == "SelfEmployedChildcareExpensesHowOften" || claimValue.attribute == "SelfEmployedCareExpensesHowOften")
-              value.contains(claimValue.question+"="+ PensionPaymentFrequency.mapToHumanReadableString(claimValue.value).toLowerCase)
-            else value.contains(claimValue.question + "=" + claimValue.value)
+          if (nodeName.startsWith(EvidenceListNode)) {
+            value.contains(claimValue.question + "=" + claimValue.value)
           }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
-          else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
           else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
           else value == claimValue.value
         }
