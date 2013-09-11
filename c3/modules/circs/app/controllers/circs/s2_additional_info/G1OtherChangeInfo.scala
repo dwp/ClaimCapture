@@ -15,11 +15,11 @@ object G1OtherChangeInfo extends Controller with CachedClaim with Navigable {
     change -> text(maxLength = 2000)
   )(CircumstancesOtherInfo.apply)(CircumstancesOtherInfo.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingCircs { implicit claim => implicit request =>
     track(CircumstancesOtherInfo) { implicit claim => Ok(views.html.circs.s2_additional_info.g1_otherChangeInfo(form.fill(CircumstancesOtherInfo))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingCircs { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s2_additional_info.g1_otherChangeInfo(formWithErrors)),
       data => claim.update(data) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present()))

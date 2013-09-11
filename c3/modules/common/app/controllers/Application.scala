@@ -12,6 +12,10 @@ object Application extends Controller with CachedClaim {
     Ok(views.html.common.session_timeout())
   }
 
+  def circsTimeout = Action {
+    Ok(views.html.common.session_timeout("/circumstances/identification/about-you"))
+  }
+
   def error = Action {
     Ok(views.html.common.error())
   }

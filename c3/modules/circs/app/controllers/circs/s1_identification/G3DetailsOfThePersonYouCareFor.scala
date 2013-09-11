@@ -29,11 +29,11 @@ object G3DetailsOfThePersonYouCareFor extends Controller with CachedClaim with N
     dateOfBirth -> dayMonthYear.verifying(validDate)
   )(DetailsOfThePersonYouCareFor.apply)(DetailsOfThePersonYouCareFor.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claimingCircs { implicit claim => implicit request =>
     track(DetailsOfThePersonYouCareFor) { implicit claim => Ok(views.html.circs.s1_identification.g3_detailsOfThePersonYouCareFor(form.fill(DetailsOfThePersonYouCareFor))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingCircs { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s1_identification.g3_detailsOfThePersonYouCareFor(formWithErrors)),
       f => claim.update(f) -> Redirect(routes.Identification.completed()))

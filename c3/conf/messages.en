@@ -21,7 +21,10 @@ s10.longName = How we pay you
 s11.name = declaration
 s11.longName = Consent and Declaration
 c1.longName = About you - the carer
-c2.name = Additional Info
+c2.name = additional info
+c2.longName = Additional Info
+c3.name = consent and declaration
+c3.longName = Consent and declaration
 
 s1.progressbar.name = Eligibility
 s2.progressbar.name = About you
@@ -111,6 +114,8 @@ c1.g2 = Your contact details
 c1.g3 = Details of the person you care for
 
 c2.g1 = Other Change Information
+
+c3.g1 = Declaration
 changeInCircs = Tell us about your change in circumstances
 
 date.helper = eg: 27 June 2013
@@ -342,8 +347,8 @@ howOftenPersonal = How often?
 
 # ABOUT EXPENSES
 payForAnythingNecessary = {0} pay for anything necessary to do your job?
-payAnyoneToLookAfterChildren = While at work, {0} pay anyone to care for your children?
-payAnyoneToLookAfterPerson = While at work, {0} pay anyone to care for the person you care for?
+payAnyoneToLookAfterChildren = While at work, {0} pay anyone to look after your children?
+payAnyoneToLookAfterPerson = While at work, {0} pay anyone to look after the person you care for?
 
 # NECESSARY EXPENSES
 jobTitle = Job title
@@ -353,15 +358,13 @@ whatAreThose = What {0} these things?
 
 # CHILDCARE EXPENSES
 howMuchCostChildcare =  How much {0} pay them?
-employment_howOftenPayChildCare = How often {0} pay childcare expenses?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
 relationToYou = What relation, if any, is the person to you?
-relationToPartner = What relation, if any, is the person to your partner/spouse?
+relationToPartner = What relation, if any, is the person to your Partner/Spouse?
 relationToPersonYouCare = What relation, if any, is this person to the person you care for?
 
 # Person you care for EXPENSES
 howMuchCostCare = How much {0} pay them?
-howOftenPayCare = How often {0} pay them?
 whoDoYouPay = Name of the person/organisation you {0} pay
 
 
@@ -495,3 +498,7 @@ howOftenPayExpenses = How often {0} pay expenses related to the person you care 
 lastName = Last name
 
 error.required = This is required
+
+#DECLARATION
+obtainInfoAgreement = Do you agree to us obtaining information from any other persons or organisations you may have listed on this form?
+obtainInfoWhy = Please tell us why not

@@ -22,6 +22,7 @@ GET        /                               controllers.Application.index
 
 # Cache Timeout
 GET        /timeout                        controllers.Application.timeout
+GET        /circs-timeout                  controllers.Application.circsTimeout
 
 # Unrecoverable error
 GET        /error                          controllers.Application.error

@@ -1,3 +1,4 @@
+@(url:String = "/allowance/benefits")
 @common.govMain("Session has timed out") {
 	
     <div class="carers-allowance">
@@ -10,7 +11,7 @@
                 <h1>Your session has timed out</h1>
 
                 <nav class="form-steps">
-                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href='/allowance/benefits'">Restart claim</button>
+                    <button type="submit" name="action" value="next" class="button secondary" onClick="location.href='@url'">Restart claim</button>
                 </nav>
             </section>
         </div>

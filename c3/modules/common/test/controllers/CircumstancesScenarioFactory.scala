@@ -42,4 +42,12 @@ object CircumstancesScenarioFactory {
     claim
   }
 
+  def declaration = {
+    val claim = otherChangeInfo
+    claim.CircumstancesDeclarationInfoAgreement = "yes"
+    claim.CircumstancesDeclarationWhy = "Cause I want"
+    claim.CircumstancesDeclarationConfirmation = "yes"
+    claim
+  }
+
 }
