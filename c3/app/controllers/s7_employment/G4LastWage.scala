@@ -14,7 +14,7 @@ object G4LastWage extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "lastPaidDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "grossPay" -> optional(text),
+    "grossPay" -> optional(nonEmptyText.verifying(validDecimalNumber)),
     "payInclusions" -> optional(text),
     "sameAmountEachTime" -> optional(text)
   )(LastWage.apply)(LastWage.unapply))
