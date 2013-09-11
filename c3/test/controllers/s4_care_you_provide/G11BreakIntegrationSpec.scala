@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import controllers.{WithBrowserHelper, BrowserMatchers, Formulate}
 import models.DayMonthYear
 import java.util.concurrent.TimeUnit
-import utils.pageobjects.s4_care_you_provide.G10BreaksInCarePage
+import utils.pageobjects.s4_care_you_provide.{G11BreakPage, G10BreaksInCarePage}
 import app.Whereabouts._
 
 class G11BreakIntegrationSpec extends Specification with Tags {
@@ -147,7 +147,8 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       titleMustEqual(G10BreaksInCarePage.title)
 
       browser.findFirst("input[value='Change']").click()
-      titleMustEqual("Break - About the care you provide")
+
+      titleMustEqual(G11BreakPage.title)
       browser.$("#start_year").getValue mustEqual 2001.toString
 
       browser.fill("#start_year") `with` "1999"

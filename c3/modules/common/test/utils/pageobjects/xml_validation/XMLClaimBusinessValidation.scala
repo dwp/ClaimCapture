@@ -15,11 +15,8 @@ import app.{StatutoryPaymentFrequency, PensionPaymentFrequency}
  *         Date: 23/07/2013
  */
 class XMLClaimBusinessValidation extends XMLBusinessValidation  {
-
-  val errors = mutable.MutableList.empty[String]
-  val warnings = mutable.MutableList.empty[String]
-
-  def validateXMLClaim(claim: TestData, xmlString: String, throwException: Boolean): List[String] = validateXMLClaim(claim, XML.loadString(xmlString), throwException)
+  val mappingFilename = "/ClaimScenarioXmlMapping.csv"
+  def createXMLValidationNode = (xml: Elem, nodes: Array[String]) => new ClaimXmlNode(xml,nodes)
 
   /**
    * Performs the validation of a claim XML against the data used to populate the claim forms.
@@ -29,43 +26,11 @@ class XMLClaimBusinessValidation extends XMLBusinessValidation  {
    * @return List of errors found. The list is empty if no errors were found.
    */
   def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean) = {
-    // Load the XML mapping
-    val mapping = XMLBusinessValidation.buildXmlMappingFromFile("/ClaimScenarioXmlMapping.csv")
+    super.validateXMLClaim(claim, xml, throwException, mappingFilename, createXMLValidationNode)
+  }
 
-    // Go through the attributes of the claim and check that there is a corresponding entry in the XML
-    claim.map.foreach {
-      case (attribute, value) =>
-        try {
-          val xPathNodesAndQuestion = mapping.get(attribute.split("_")(0))
-
-          if (xPathNodesAndQuestion != None) {
-            val path = xPathNodesAndQuestion.get._1
-            val options = path.split("[|]")
-
-            def validateNodeValue(options: Array[String]) {
-              val nodes = options(0).split(">")
-              val elementValue = new ClaimXmlNode(xml,nodes)
-              if (!elementValue.isDefined) {
-                if (options.size > 1) validateNodeValue(options.drop(1))
-                else errors += attribute + " " + path + " XML element not found"
-              } else {
-                if (elementValue doesNotMatch ClaimValue(attribute, value, xPathNodesAndQuestion.get._2)) {
-                  if (options.size > 1) validateNodeValue(options.drop(1))
-                  else errors += attribute + " " + path + elementValue.error
-                }
-              }
-            }
-
-            validateNodeValue(options)
-          } else  warnings += attribute + " does not have an XML path mapping defined."
-        }
-        catch {
-          case e:Exception => errors += attribute + " " + value + " Error: " + e.getMessage
-        }
-    }
-
-    if (errors.nonEmpty && throwException) throw new PageObjectException("XML validation failed", errors.toList)
-    errors.toList
+  def validateXMLClaim(claim: TestData, xmlString: String, throwException: Boolean): List[String] = {
+    super.validateXMLClaim(claim, xmlString, throwException, mappingFilename, createXMLValidationNode)
   }
 }
 
@@ -77,7 +42,7 @@ class ClaimXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml,
   val EvidenceListNode = "<EvidenceList>"
   val DeclarationNode = "<Declaration>"
 
-  def matches(claimValue: ClaimValue): Boolean = {
+  def matches(claimValue: TestDatumValue): Boolean = {
     try {
       val nodeStart = theNodes(0).mkString
 
@@ -95,7 +60,7 @@ class ClaimXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml,
 
         val value = XMLValidationNode.prepareElement(if (isPensionScheme) theNodes.text else theNodes(index).text)
         val nodeName = theNodes(index).mkString
-        def valuesMatching = {
+        def valuesMatching: Boolean = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
           else if (claimValue.attribute.contains("EmploymentAddtionalWageHowOftenAreYouPaid") || claimValue.attribute.contains("EmploymentChildcareExpensesHowOften") || claimValue.attribute.contains("EmploymentCareExpensesHowOftenYouPayfor")
           || claimValue.attribute.contains("SelfEmployedCareExpensesHowOften") || claimValue.attribute.contains("SelfEmployedChildcareExpensesHowOften"))
