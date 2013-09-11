@@ -42,7 +42,7 @@ class ClaimXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml,
   val EvidenceListNode = "<EvidenceList>"
   val DeclarationNode = "<Declaration>"
 
-  def matches(claimValue: ClaimValue): Boolean = {
+  def matches(claimValue: TestDatumValue): Boolean = {
     try {
       val nodeStart = theNodes(0).mkString
 

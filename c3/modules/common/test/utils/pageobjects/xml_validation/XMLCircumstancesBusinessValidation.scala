@@ -40,7 +40,7 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
   val EvidenceListNode = "<EvidenceList>"
   val DeclarationNode = "<Declaration>"
 
-  def matches(claimValue: ClaimValue): Boolean = {
+  def matches(claimValue: TestDatumValue): Boolean = {
     try {
       val nodeStart = theNodes(0).mkString
 
@@ -79,13 +79,13 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
 
 }
 
-class ClaimValue(attribute: String, value: String, question: String) extends TestDatumValue(attribute, value, question) {}
+class CircValue(attribute: String, value: String, question: String) extends TestDatumValue(attribute, value, question) {}
 
-object ClaimValue {
+object CircValue {
 
   private def prepareQuestion(question: String) = question.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
 
-  private def prepareClaimValue(claimValue: String, attribute:String) = {
+  private def prepareCircValue(claimValue: String, attribute:String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
 
     if (cleanValue.contains("/") && !attribute.startsWith("EmploymentLeavingDateP45") && !attribute.startsWith("AboutYouWhenDidYouArriveInYheUK")) {
@@ -94,5 +94,5 @@ object ClaimValue {
     } else cleanValue
   }
 
-  def apply(attribute: String, value: String, question: String) = new ClaimValue(attribute, prepareClaimValue(value,attribute), prepareQuestion(question))
+  def apply(attribute: String, value: String, question: String) = new CircValue(attribute, prepareCircValue(value,attribute), prepareQuestion(question))
 }
