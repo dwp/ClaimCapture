@@ -10,14 +10,14 @@ import play.api.libs.ws.Response
 import play.api.Play.current
 import services.TransactionIdService
 import services.submission.ClaimSubmission
-import models.domain.Claim
+import models.domain.{DigitalForm, Claim}
 import xml.DWPCAClaim
 import models.view.CachedClaim
 import ExecutionContext.Implicits.global
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : ClaimSubmission) extends Submitter {
 
-  def submit(claim: Claim, request : Request[AnyContent]): Future[PlainResult] = {
+  def submit(claim: DigitalForm, request : Request[AnyContent]): Future[PlainResult] = {
     retrieveRetryData(request) match {
       case Some(retryData) => {
         claimSubmission.retryClaim(pollXml(retryData.corrId, retryData.pollUrl)).map(
@@ -38,7 +38,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
       case None => {
         val txnId = idService.generateId
         Logger.info(s"Retrieved Id : $txnId")
-        val claimXml = DWPCAClaim.xml(claim, txnId)
+        val claimXml = claim.xml(txnId)
 
         claimSubmission.submitClaim(claimXml).map(
           response => {

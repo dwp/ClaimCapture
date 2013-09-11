@@ -12,14 +12,14 @@ import play.api.Play
 import play.api.Logger
 import play.api.http.HeaderNames._
 import java.util.UUID._
-import models.domain.{Claim, QuestionGroup}
+import models.domain.{DigitalForm, Claim, QuestionGroup}
 
 object CachedClaim {
   val claimKey = "claim"
 }
 
 trait CachedClaim {
-  type ClaimResult = (Claim, Result)
+  type ClaimResult = (DigitalForm, Result)
 
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
     def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = {
@@ -38,7 +38,7 @@ trait CachedClaim {
     r.session.get(CachedClaim.claimKey).getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
   }
 
-  def newClaim(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]) = Action {
+  def newClaim(f: (DigitalForm) => Request[AnyContent] => Either[Result, ClaimResult]) = Action {
     request => {
       val (key, _) = keyAndExpiration(request)
       val claim = if (request.getQueryString("changing").getOrElse("false") == "false") { Claim() } else Cache.getAs[Claim](key).getOrElse(Claim())
@@ -46,7 +46,7 @@ trait CachedClaim {
     }
   }
 
-  def newCircs(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]) = Action {
+  def newCircs(f: (DigitalForm) => Request[AnyContent] => Either[Result, ClaimResult]) = Action {
     request => {
       val secondPage = "/circumstances/identification/your-contact-details"
       val (key, _) = keyAndExpiration(request)
@@ -55,9 +55,9 @@ trait CachedClaim {
     }
   }
 
-  def claimingCircs(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]) = claiming(f,"/circs-timeout")
+  def claimingCircs(f: (DigitalForm) => Request[AnyContent] => Either[Result, ClaimResult]) = claiming(f,"/circs-timeout")
 
-  def claiming(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult],timeoutUrl: String = "/timeout") = Action {
+  def claiming(f: (DigitalForm) => Request[AnyContent] => Either[Result, ClaimResult],timeoutUrl: String = "/timeout") = Action {
     request => {
       val (key, expiration) = keyAndExpiration(request)
 
@@ -77,7 +77,7 @@ trait CachedClaim {
     }
   }
 
-  def action(claim: Claim, request: Request[AnyContent])(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]): Result = {
+  def action(claim: DigitalForm, request: Request[AnyContent])(f: (DigitalForm) => Request[AnyContent] => Either[Result, ClaimResult]): Result = {
     val (key, expiration) = keyAndExpiration(request)
 
     f(claim)(request) match {
@@ -86,7 +86,7 @@ trait CachedClaim {
           .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
           .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
 
-      case Right((c: Claim, r: Result)) => {
+      case Right((c: DigitalForm, r: Result)) => {
         Cache.set(key, c, expiration)
 
         r.withSession(CachedClaim.claimKey -> key)
@@ -98,7 +98,7 @@ trait CachedClaim {
 
   type JobID = String
 
-  def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action { request =>
+  def claimingInJob(f: (JobID) => DigitalForm => Request[AnyContent] => Either[Result, ClaimResult]) = Action { request =>
     claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
   }
 }
