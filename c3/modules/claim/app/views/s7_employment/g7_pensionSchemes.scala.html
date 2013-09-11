@@ -1,0 +1,95 @@
+@(currentForm: Form[models.domain.PensionSchemes])(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import utils.helpers.CarersCrypto
+@import controllers.s7_employment.Employment._
+@import controllers.s7_employment.JobID
+@import utils.helpers.PastPresentLabelHelper._
+@import app.PensionPaymentFrequency._
+
+@main(Messages("s7.g7") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PensionSchemes, JobID(currentForm))) {
+
+    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s7_employment.routes.G7PensionSchemes.submit()) {
+        <input type="hidden" name="jobID" value="@JobID(currentForm)">
+
+        <fieldset class="form-elements">
+            <legend>@Messages("s7.g7")</legend>
+
+            <ul class="group">
+                @yesNoRadioGroup(currentForm("payOccupationalPensionScheme"), '_label -> Messages ("payOccupationalPensionScheme", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersCurrency(currentForm("howMuchPension"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPension", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
+                        pensionPaymentFrequencySelect(currentForm("howOftenPension"), '_label -> Messages("howOftenPension"), 'id -> "howOftenPension")
+                    ),
+                    'id -> "payOccupationalPensionScheme",
+                    'display -> currentForm("payOccupationalPensionScheme").value.getOrElse("no"))
+
+
+
+                @yesNoRadioGroup(currentForm("payPersonalPensionScheme"), '_label -> Messages ("payPersonalPensionScheme", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersCurrency(currentForm("howMuchPersonal"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPersonal", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
+                        pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"), 'id -> "howOftenPersonal")
+                    ),
+                    'id -> "payPersonalPensionScheme",
+                    'display -> currentForm("payPersonalPensionScheme").value.getOrElse("no"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/selectOther.js")'></script>
+
+<script type="text/javascript">
+    $(function() {
+        @if(currentForm("payOccupationalPensionScheme").value.getOrElse("../../../../common/public") != "yes") {
+            $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_yes")").closest("ul").parent().next().hide();
+        }
+
+        $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_yes")").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_no")").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+
+    $(function() {
+        @if(currentForm("payPersonalPensionScheme").value.getOrElse("../../../../common/public") != "yes") {
+            $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_yes")").closest("ul").parent().next().hide();
+        }
+
+        $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_yes")").change(function() {
+            if ($(this).val() === "yes") {
+                return $(this).closest("ul").parent().next().slideDown();
+            }
+        });
+
+        return $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_no")").change(function() {
+            if ($(this).val() === "no") {
+                return $(this).closest("ul").parent().next().slideUp();
+            }
+        });
+    });
+</script>

@@ -3,10 +3,14 @@ package utils.pageobjects.circumstances.s3_consent_and_declaration
 import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{CircumstancesPage, PageContext, Page}
 
-class G1DeclarationPage (browser: TestBrowser, previousPage: Option[Page] = None) extends CircumstancesPage(browser, G1DeclarationPage.url, G1DeclarationPage.title, previousPage)
+final class G1DeclarationPage (browser: TestBrowser, previousPage: Option[Page] = None) extends CircumstancesPage(browser, G1DeclarationPage.url, G1DeclarationPage.title, previousPage){
+  declareYesNo("#obtainInfoAgreement","CircumstancesDeclarationInfoAgreement")
+  declareInput("#obtainInfoWhy","CircumstancesDeclarationWhy")
+  declareCheck("#confirmation","CircumstancesDeclarationConfirmation")
+}
 
 object G1DeclarationPage {
-  val title = "Declaration - Changes of Circumstances".toLowerCase
+  val title = "Declaration - consent and declaration".toLowerCase
 
   val url  = "/circumstances/consent-and-declaration/declaration"
 

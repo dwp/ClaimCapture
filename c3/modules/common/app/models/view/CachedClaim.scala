@@ -46,7 +46,18 @@ trait CachedClaim {
     }
   }
 
-  def claiming(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]) = Action {
+  def newCircs(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]) = Action {
+    request => {
+      val secondPage = "/circumstances/identification/your-contact-details"
+      val (key, _) = keyAndExpiration(request)
+      val claim = if (request.getQueryString("changing").getOrElse("false") == "false" && !request.headers.get("referer").getOrElse("").contains(secondPage)) { Claim() } else Cache.getAs[Claim](key).getOrElse(Claim())
+      action(claim, request)(f)
+    }
+  }
+
+  def claimingCircs(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]) = claiming(f,"/circs-timeout")
+
+  def claiming(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult],timeoutUrl: String = "/timeout") = Action {
     request => {
       val (key, expiration) = keyAndExpiration(request)
 
@@ -60,7 +71,7 @@ trait CachedClaim {
             action(claim, request)(f)
           } else {
             Logger.info("Claim timeout")
-            Redirect("/timeout").withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+            Redirect(timeoutUrl).withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
           }
       }
     }

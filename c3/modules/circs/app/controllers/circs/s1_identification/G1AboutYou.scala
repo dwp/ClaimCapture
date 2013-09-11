@@ -27,11 +27,11 @@ object G1AboutYou extends Controller with CachedClaim with Navigable {
     dateOfBirth -> dayMonthYear.verifying(validDate)
   )(CircumstancesAboutYou.apply)(CircumstancesAboutYou.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = newCircs { implicit claim => implicit request =>
     track(CircumstancesAboutYou) { implicit claim => Ok(views.html.circs.s1_identification.g1_aboutYou(form.fill(CircumstancesAboutYou))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claimingCircs { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s1_identification.g1_aboutYou(formWithErrors)),
       circumstancesAboutYou => claim.update(circumstancesAboutYou) -> Redirect(routes.G2YourContactDetails.present()))
