@@ -1,7 +1,7 @@
 package utils.pageobjects
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.xml_validation.{XMLBusinessValidation, XMLClaimBusinessValidation}
+import utils.pageobjects.xml_validation.{XMLBusinessValidation}
 
 /**
  * Represents the test page where the XML "Submitted" is dumped into.

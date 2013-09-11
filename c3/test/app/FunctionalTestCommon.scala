@@ -2,7 +2,7 @@ package app
 
 import org.specs2.mutable.{Tags, Specification}
 import utils.pageobjects.{XmlPage, TestData}
-import utils.pageobjects.xml_validation.{XMLBusinessValidation, XMLClaimBusinessValidation}
+import utils.pageobjects.xml_validation.XMLBusinessValidation
 
 /**
  * Provides XML validation capacity to End to End tests.
@@ -27,7 +27,7 @@ abstract class FunctionalTestCommon extends Specification with Tags {
       println("Number of warnings: " + warnings.size)
       println("[Warning] " + warnings.mkString("\n[Warning] "))
     }
-//    println(page.source())
+    //    println(page.source())
     errors.isEmpty
   }
 
