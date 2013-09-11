@@ -1,0 +1,38 @@
+@(currentForm: Form[models.domain.Disclaimer])(implicit claim: models.domain.Claim)
+
+@import models.domain.TheirPersonalDetails
+@import helper._
+@import utils.helpers.EmptyTemplate._
+@import views.html.helper._
+@import views.html.helper.base._
+@import views.html.helper.dropdowns._
+@import views.html.helper.dates._
+@import controllers.s11_consent_and_declaration._
+
+@main(Messages("s11.g3") + " - " + Messages("s11.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.Disclaimer)) {
+
+    @form(action = controllers.s11_consent_and_declaration.routes.G3Disclaimer.submit) {
+        <fieldset class="form-elements">
+            <legend>@Messages("s11.g3")</legend>
+
+            <div class="declaration">
+                @for(i <- 1 to 6) {
+                    <p>
+                        @defining(claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName + " " + m.middleName.getOrElse("../../../../common/public") + (if (m.middleName.isDefined) " " else "../../../../common/public") + m.surname )){ str =>
+                            @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]", str))
+                        }
+                    </p>
+                }
+            </div>
+
+            <div class="group declare">
+                @carersDeclareCheck(currentForm("read"))
+            </div>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}

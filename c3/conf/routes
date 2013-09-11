@@ -4,20 +4,7 @@
 
 # Home page
 GET        /                               controllers.Application.index
-
-->         /allowance                      s1.Routes
-->         /about-you                      s2.Routes
-->         /your-partner                   s3.Routes
-->         /care-you-provide               s4.Routes
-->         /time-spent-abroad              s5.Routes
-
-->         /education                      s6.Routes
-
-->         /employment                     s7.Routes
-->         /self-employment                s8.Routes
-->         /other-money                    s9.Routes
-->         /pay-details                    s10.Routes
-->         /consent-and-declaration        s11.Routes
+->         /                               claim.Routes
 
 
 # Cache Timeout

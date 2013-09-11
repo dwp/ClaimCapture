@@ -1,0 +1,41 @@
+@(breakForm: Form[models.domain.Break])(implicit claim: models.domain.Claim)
+
+@import models.domain.BreaksInCare
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import views.html.helper._
+@import views.html.helper.dates._
+@import views.html.s4_care_you_provide.main
+@import app.Whereabouts._
+
+@main("Break - About the care you provide", Some(breakForm)) {
+
+  <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
+    @form(action = controllers.s4_care_you_provide.routes.G11Break.submit) {
+        <input type="hidden" name="breakID" value='@breakForm("breakID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
+
+        <fieldset class="form-elements">
+            <legend>About the breaks in care</legend>
+
+            <ul class="group">
+                @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
+
+                @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
+
+                @whereabouts(breakForm("whereYou"), Seq("../../../../common/public", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "../../../../common/public") "../../../../common/public" -> "Please select" else v -> v), '_label -> Messages("whereYou.location"))
+
+                @whereabouts(breakForm("wherePerson"), Seq("../../../../common/public", Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "../../../../common/public") "../../../../common/public" -> "Please select" else v -> v), '_label -> Messages("wherePerson.location"))
+
+                @yesNoRadioGroup(breakForm("medicalDuringBreak"))
+            </ul>
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g11_break.js")'></script>
