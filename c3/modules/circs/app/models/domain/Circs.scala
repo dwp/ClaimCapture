@@ -3,6 +3,7 @@ package models.domain
 import models.view.{CachedCircs, Navigation}
 import scala.xml.Elem
 import xml.DWPCoCircs
+import models.DayMonthYear
 
 /**
  * TODO write description
@@ -15,4 +16,6 @@ case class Circs()(sections: List[Section] = List())(implicit navigation: Naviga
   def xml(transactionId:String): Elem = DWPCoCircs.xml(this,transactionId)
 
   def cacheKey = CachedCircs.key
+
+  def dateOfClaim: Option[DayMonthYear] = None
 }

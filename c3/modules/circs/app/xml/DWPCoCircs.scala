@@ -2,7 +2,6 @@ package xml
 
 import models.domain.Circs
 import scala.xml.Elem
-import xml.Claimant
 
 /**
  * TODO write description

@@ -20,6 +20,8 @@ abstract class DigitalForm(val sections: List[Section] = List())(implicit val na
 
   def cacheKey:String
 
+  def dateOfClaim: Option[DayMonthYear]
+
   // ==================================================================================================================
   // Common Features: sections, question groups....
   // ==================================================================================================================
@@ -85,11 +87,6 @@ abstract class DigitalForm(val sections: List[Section] = List())(implicit val na
   }
 
   def -(questionGroupIdentifier: QuestionGroup.Identifier): DigitalForm = delete(questionGroupIdentifier)
-
-  def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate) match {
-    case Some(c: ClaimDate) => Some(c.dateOfClaim)
-    case _ => None
-  }
 
   def hideSection(sectionIdentifier: Section.Identifier): DigitalForm = update(section(sectionIdentifier).hide)
 

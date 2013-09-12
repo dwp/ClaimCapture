@@ -4,7 +4,7 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import models.domain._
 import play.api.test.Helpers._
-import models.view.CachedDigitalForm
+import models.view.CachedClaim
 
 class G5CompletedSpec extends Specification with Tags {
   
@@ -12,14 +12,14 @@ class G5CompletedSpec extends Specification with Tags {
     
   "Person you care for - Controller" should {
     "present 'Completed'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val result = controllers.s3_your_partner.YourPartner.completed(request)
       status(result) mustEqual OK
     }
     
     "redirect to the next page on clicking continue" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(personYouCareForInput: _*)
 
       val result = controllers.s3_your_partner.YourPartner.completedSubmit(request)

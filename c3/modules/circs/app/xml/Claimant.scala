@@ -12,7 +12,6 @@ object Claimant {
     val contactDetails = circs.questionGroup[CircumstancesYourContactDetails].getOrElse(CircumstancesYourContactDetails())
 
     <Claimant>
-      <DateOfClaim>{stringify(circs.dateOfClaim)}</DateOfClaim>
       <Surname>{yourDetails.lastName}</Surname>
       <OtherNames>{yourDetails.otherNames}</OtherNames>
       <OtherSurnames>{NotAsked}</OtherSurnames>
@@ -29,7 +28,6 @@ object Claimant {
         <Qualifier>mobile</Qualifier>
       </DaytimePhoneNumber>
       <EmailAddress/>
-      <ClaimedBefore>{NotAsked}</ClaimedBefore>
     </Claimant>
   }
 }

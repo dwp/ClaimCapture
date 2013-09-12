@@ -6,7 +6,7 @@ import models.domain._
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain.Claim
-import models.view.CachedDigitalForm
+import models.view.CachedClaim
 import app.PensionPaymentFrequency._
 import scala.Some
 import models.PensionPaymentFrequency
@@ -32,19 +32,19 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     )
 
     "present 'Expenses related to the Person you care for while at work' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("doYouPayToPensionScheme" -> "no", "doYouPayToLookAfterYourChildren" -> "yes", "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
       val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
-      val request2 = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request2 = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val result2 = G7ExpensesWhileAtWork.present(request)
       status(result2) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(expensesWhileAtWorkInput: _*)
 
       val result = controllers.s8_self_employment.G7ExpensesWhileAtWork.submit(request)
@@ -63,7 +63,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field nameOfPerson" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "nameOfPerson" -> "",
         "howMuchYouPay" -> howMuchYouPay,
@@ -79,7 +79,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field howMuchYouPay" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "nameOfPerson" -> nameOfPerson,
         "howMuchYouPay" -> "",
@@ -95,7 +95,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field howOftenPayExpenses.frequency" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "nameOfPerson" -> nameOfPerson,
         "howMuchYouPay" -> howMuchYouPay,
@@ -111,7 +111,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when other selected but other not filled in" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "nameOfPerson" -> nameOfPerson,
         "howMuchYouPay" -> howMuchYouPay,
@@ -127,7 +127,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field whatRelationIsToYou" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "nameOfPerson" -> nameOfPerson,
         "howMuchYouPay" -> howMuchYouPay,
@@ -143,7 +143,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field whatRelationIsTothePersonYouCareFor" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "nameOfPerson" -> nameOfPerson,
         "howMuchYouPay" -> howMuchYouPay,
@@ -159,7 +159,7 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(expensesWhileAtWorkInput: _*)
 
       val result = controllers.s8_self_employment.G7ExpensesWhileAtWork.submit(request)
@@ -167,12 +167,12 @@ class G7ExpensesWhileAtWorkSpec extends Specification with Tags {
     }
 
     "redirect to next page when payAnyoneToLookAfterPerson is not in About Employment" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("doYouPayToPensionScheme_answer" -> "no", "doYouPayToLookAfterYourChildren" -> "yes", "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
 
       val result = G4SelfEmploymentPensionsAndExpenses.submit(request)
 
-      val request2 = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request2 = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val result2 = G7ExpensesWhileAtWork.present(request)
       status(result2) mustEqual SEE_OTHER

@@ -2,7 +2,7 @@ package controllers.circs.s3_consent_and_declaration
 
 import play.api.test.{FakeRequest, WithApplication}
 import models.domain._
-import models.view.CachedDigitalForm
+import models.view.CachedCircs
 import play.api.cache.Cache
 import play.api.test.Helpers._
 import org.specs2.mutable.{Tags, Specification}
@@ -19,16 +19,16 @@ class G1DeclarationSpec extends Specification with Tags{
 
   "Circumstances - OtherChangeInfo - Controller" should {
 
-    "present 'Other Change Information' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+    "present 'Other Change Information' " in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedCircs.key -> claimKey)
 
       val result = controllers.circs.s3_consent_and_declaration.G1Declaration.present(request)
       status(result) mustEqual OK
     }
 
 
-    "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+    "add submitted form to the cached claim" in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedCircs.key -> claimKey)
         .withFormUrlEncodedBody(otherChangeInfoInput: _*)
 
       val result = controllers.circs.s3_consent_and_declaration.G1Declaration.submit(request)
@@ -42,8 +42,8 @@ class G1DeclarationSpec extends Specification with Tags{
       }
     }
 
-    "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+    "redirect to the next page after a valid submission" in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedCircs.key -> claimKey)
         .withFormUrlEncodedBody(otherChangeInfoInput: _*)
 
       val result = controllers.circs.s3_consent_and_declaration.G1Declaration.submit(request)

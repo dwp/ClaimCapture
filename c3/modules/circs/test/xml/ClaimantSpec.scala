@@ -11,7 +11,6 @@ import scala.Some
 
 class ClaimantSpec extends Specification with Tags {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
-
   val nationalInsuranceNrOption = nationalInsuranceNr
 
   val yourDetails = CircumstancesAboutYou(title = "mr",
@@ -28,12 +27,9 @@ class ClaimantSpec extends Specification with Tags {
 
   "Claimant" should {
     "generate Claimant xml from a given circumstances" in {
-      val claim = Circs()().update(ClaimDate(DayMonthYear(1, 1, 1999)))
-        .update(yourDetails).update(contactDetails)
-
+      val claim = Circs()().update(yourDetails).update(contactDetails)
       val claimantXml = Claimant.xml(claim.asInstanceOf[Circs])
 
-      (claimantXml \\ "DateOfClaim").text shouldEqual "1999-01-01"
       (claimantXml \\ "Surname").text shouldEqual yourDetails.lastName
       (claimantXml \\ "OtherNames").text shouldEqual yourDetails.otherNames
       (claimantXml \\ "OtherSurnames").text shouldEqual NotAsked
@@ -46,7 +42,6 @@ class ClaimantSpec extends Specification with Tags {
       (claimantXml \\ "HomePhoneNumber").text shouldEqual contactDetails.phoneNumber.get
       (claimantXml \\ "DaytimePhoneNumber" \\ "Number").text shouldEqual contactDetails.mobileNumber.get
       (claimantXml \\ "DaytimePhoneNumber" \\ "Qualifier").text shouldEqual "mobile"
-      (claimantXml \\ "ClaimedBefore").text shouldEqual NotAsked
     }
   } section "unit"
 }

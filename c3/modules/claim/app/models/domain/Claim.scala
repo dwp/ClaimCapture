@@ -4,6 +4,7 @@ import language.postfixOps
 import models.view.{CachedClaim, Navigation}
 import scala.xml.Elem
 import xml.DWPCAClaim
+import models.DayMonthYear
 
 case class Claim()(sections: List[Section] = List())(implicit navigation: Navigation = Navigation()) extends DigitalForm(sections)(navigation) {
 
@@ -12,4 +13,10 @@ case class Claim()(sections: List[Section] = List())(implicit navigation: Naviga
   def xml(transactionId:String): Elem = DWPCAClaim.xml(this,transactionId)
 
   def cacheKey = CachedClaim.key
+
+  def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate) match {
+    case Some(c: ClaimDate) => Some(c.dateOfClaim)
+    case _ => None
+  }
+
 }
