@@ -1,6 +1,7 @@
 package utils.pageobjects.xml_validation
 
 import scala.xml.{Elem, NodeSeq}
+import utils.pageobjects.TestDatumValue
 
 /**
  * Represents an XML Node once "cleaned", i.e. trimmed and line returns removed.
@@ -11,9 +12,9 @@ abstract class XMLValidationNode(xml: Elem, path:Array[String]) {
 
   var error = ""
 
-  def matches(claimValue: ClaimValue): Boolean
+  def matches(claimValue: TestDatumValue): Boolean
 
-  def doesNotMatch(claimValue: ClaimValue): Boolean = !matches(claimValue)
+  def doesNotMatch(claimValue: TestDatumValue): Boolean = !matches(claimValue)
 
   def size = theNodes.size
 
