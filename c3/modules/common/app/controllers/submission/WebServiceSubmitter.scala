@@ -35,7 +35,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(RETRY) ! ${e.getMessage}")
-            errorAndCleanup(retryData.txnId, UNKNOWN_ERROR)
+            errorAndCleanup(claim.cacheKey,retryData.txnId, UNKNOWN_ERROR)
           }
         }
       }
@@ -56,7 +56,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
-            errorAndCleanup(txnId, UNKNOWN_ERROR)
+            errorAndCleanup(claim.cacheKey,txnId, UNKNOWN_ERROR)
           }
         }
       }
@@ -96,27 +96,27 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
           case _ => {
             Logger.info(s"Received result : $result")
-            errorAndCleanup(txnId, UNKNOWN_ERROR)
+            errorAndCleanup(cacheKey,txnId, UNKNOWN_ERROR)
           }
         }
       case http.Status.BAD_REQUEST =>
         Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}")
-        errorAndCleanup(txnId, BAD_REQUEST_ERROR)
+        errorAndCleanup(cacheKey,txnId, BAD_REQUEST_ERROR)
       case http.Status.REQUEST_TIMEOUT =>
         Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}")
-        errorAndCleanup(txnId, REQUEST_TIMEOUT_ERROR)
+        errorAndCleanup(cacheKey,txnId, REQUEST_TIMEOUT_ERROR)
       case http.Status.INTERNAL_SERVER_ERROR =>
         Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}")
-        errorAndCleanup(txnId, INTERNAL_SERVER_ERROR)
+        errorAndCleanup(cacheKey,txnId, INTERNAL_SERVER_ERROR)
       case _ =>
         Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}")
-        errorAndCleanup(txnId, UNKNOWN_ERROR)
+        errorAndCleanup(cacheKey,txnId, UNKNOWN_ERROR)
     }
   }
 
-  private def errorAndCleanup(txnId: String, code: String): PlainResult = {
+  private def errorAndCleanup(cacheKey:String, txnId: String, code: String): PlainResult = {
     idService.updateStatus(txnId, code)
-    Redirect("/error")
+    Redirect(s"/error?key=$cacheKey")
   }
 
   case class RetryData(corrId: String, pollUrl: String, txnId: String)

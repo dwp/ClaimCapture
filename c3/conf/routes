@@ -12,7 +12,7 @@ GET        /timeout                        controllers.Application.timeout
 GET        /circs-timeout                  controllers.Application.circsTimeout
 
 # Unrecoverable error
-GET        /error                          controllers.Application.error
+GET        /error/:key                     controllers.Application.error(key:String)
 
 # Claim submission
 GET        /submit        @controllers.submission.ClaimSubmissionController.submit
