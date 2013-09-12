@@ -14,7 +14,7 @@ object Claimant {
     <Claimant>
       <DateOfClaim>{stringify(circs.dateOfClaim)}</DateOfClaim>
       <Surname>{yourDetails.lastName}</Surname>
-      <OtherNames>{stringify(yourDetails.middleName)}</OtherNames>
+      <OtherNames>{yourDetails.otherNames}</OtherNames>
       <OtherSurnames>{NotAsked}</OtherSurnames>
       <Title>{yourDetails.title}</Title>
       <MaritalStatus>{NotAsked}</MaritalStatus>
@@ -23,10 +23,10 @@ object Claimant {
       <ExistingNationalInsuranceNumber/>
       <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
       <ConfirmAddress>{yes}</ConfirmAddress>
-      <HomePhoneNumber></HomePhoneNumber>
+      <HomePhoneNumber>{contactDetails.phoneNumber.orNull}</HomePhoneNumber>
       <DaytimePhoneNumber>
-        <Number>{contactDetails.phoneNumber.orNull}</Number>
-        <Qualifier/>
+        <Number>{contactDetails.mobileNumber.orNull}</Number>
+        <Qualifier>mobile</Qualifier>
       </DaytimePhoneNumber>
       <EmailAddress/>
       <ClaimedBefore>{NotAsked}</ClaimedBefore>
