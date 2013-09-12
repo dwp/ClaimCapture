@@ -29,7 +29,7 @@ object Declaration {
         }
       }
       <TextLine>This is my claim for Carer's Allowance.</TextLine>
-      { (1 to 6).foreach(n => <TextLine>{ Messages(s"disclaimer.$n").replace("[[first name, middle name, surname]]", fullName(claim)) }</TextLine>) }
+      { (1 to 7).foreach(n => <TextLine>{ Messages(s"disclaimer.$n").replace("[[first name, middle name, surname]]", fullName(claim)) }</TextLine>) }
       <TextLine>Do you live in Wales and would like to receive future communications in Welsh? {titleCase(additionalInfo.welshCommunication)}</TextLine>
       <TextLine>If you want to view or print a full, printer-friendly version of the information you have entered on this claim, please use the buttons provided.</TextLine>
       <TextLine>Do not send us the printed version. This is for your personal records only.</TextLine>
