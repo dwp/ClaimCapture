@@ -15,7 +15,7 @@ import utils.helpers.PastPresentLabelHelper._
 import models.view.Navigable
 
 object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
-  def form(implicit claim: Claim) = Form(
+  def form(implicit claim: DigitalForm) = Form(
     mapping(
       "nameOfPerson" -> nonEmptyText(maxLength = sixty),
       "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
@@ -26,18 +26,18 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
     )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply)
       .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
 
-  def validateRelationToPartner(implicit claim: Claim, expensesWhileAtWork: ExpensesWhileAtWork) = {
+  def validateRelationToPartner(implicit claim: DigitalForm, expensesWhileAtWork: ExpensesWhileAtWork) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
       case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => expensesWhileAtWork.relationToPartner.isDefined
       case _ => true
     }
   }
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = executeOnForm {implicit claim => implicit request =>
     presentConditionally(expensesWhileAtWork)
   }
 
-  def expensesWhileAtWork(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def expensesWhileAtWork(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
     val payToLookPersonYouCareFor = claim.questionGroup(SelfEmploymentPensionsAndExpenses) match {
       case Some(s: SelfEmploymentPensionsAndExpenses) => s.didYouPayToLookAfterThePersonYouCaredFor == `yes`
       case _ => false
@@ -49,7 +49,7 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
     }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = executeOnForm {implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

@@ -10,19 +10,17 @@ import play.api.libs.ws.Response
 import play.api.Play.current
 import services.TransactionIdService
 import services.submission.ClaimSubmission
-import models.domain.{DigitalForm, Claim}
-import xml.DWPCAClaim
-import models.view.CachedClaim
+import models.domain.DigitalForm
 import ExecutionContext.Implicits.global
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : ClaimSubmission) extends Submitter {
 
   def submit(claim: DigitalForm, request : Request[AnyContent]): Future[PlainResult] = {
-    retrieveRetryData(request) match {
+    retrieveRetryData(claim.cacheKey, request) match {
       case Some(retryData) => {
         claimSubmission.retryClaim(pollXml(retryData.corrId, retryData.pollUrl)).map(
           response => {
-            processResponse(retryData.txnId, response, request)
+            processResponse(claim.cacheKey, retryData.txnId, response, request)
           }
         ).recover {
           case e: java.net.ConnectException => {
@@ -43,7 +41,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         claimSubmission.submitClaim(claimXml).map(
           response => {
             idService.registerId(txnId, SUBMITTED)
-            processResponse(txnId, response, request)
+            processResponse(claim.cacheKey, txnId, response, request)
           }
         ).recover {
           case e: java.net.ConnectException => {
@@ -59,7 +57,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     }
   }
 
-  def processResponse(txnId: String, response: Response, request: Request[AnyContent]): PlainResult = {
+  private def processResponse(cacheKey:String, txnId: String, response: Response, request: Request[AnyContent]): PlainResult = {
     response.status match {
       case http.Status.OK =>
         val responseStr = response.body
@@ -76,7 +74,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
             idService.updateStatus(txnId, ACKNOWLEDGED)
             val correlationID = (responseXml \\ "correlationID").text
             val pollEndpoint = (responseXml \\ "pollEndpoint").text
-            storeRetryData(RetryData(correlationID, pollEndpoint, txnId), request)
+            storeRetryData(cacheKey,RetryData(correlationID, pollEndpoint, txnId), request)
             Redirect("/consent-and-declaration/error")
           }
           case "error" => {
@@ -105,24 +103,24 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     }
   }
 
-  def errorAndCleanup(txnId: String, code: String): PlainResult = {
+  private def errorAndCleanup(txnId: String, code: String): PlainResult = {
     idService.updateStatus(txnId, code)
     Redirect("/error").withNewSession
   }
 
   case class RetryData(corrId: String, pollUrl: String, txnId: String)
 
-  def storeRetryData(data:RetryData, request : Request[AnyContent]) {
-    val uuid = request.session.get(CachedClaim.claimKey)
+  private def storeRetryData(cacheKey:String, data:RetryData, request : Request[AnyContent]) {
+    val uuid = request.session.get(cacheKey)
     Cache.set(uuid+"_retry", data, 3000)
   }
 
-  def retrieveRetryData(request : Request[AnyContent]) : Option[RetryData] = {
-    val uuid = request.session.get(CachedClaim.claimKey)
+  private def retrieveRetryData(cacheKey:String, request : Request[AnyContent]) : Option[RetryData] = {
+    val uuid = request.session.get(cacheKey)
     Cache.getAs[RetryData](uuid+"_retry")
   }
 
-  def pollXml(correlationID: String, pollEndpoint: String) = {
+  private def pollXml(correlationID: String, pollEndpoint: String) = {
     <poll>
       <correlationID>
         {correlationID}

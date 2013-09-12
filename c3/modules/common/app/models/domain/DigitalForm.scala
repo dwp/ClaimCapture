@@ -9,14 +9,16 @@ import scala.xml.Elem
  * Represents the data gathered from customers through the views.
  * The data are divided into sections, themselves sub-divided into question groups.
  */
-abstract class DigitalForm(sections: List[Section] = List())(implicit val navigation: Navigation = Navigation()) extends Timestamped {
+abstract class DigitalForm(val sections: List[Section] = List())(implicit val navigation: Navigation = Navigation()) extends Timestamped {
 
   // ==================================================================================================================
   // Abstract methods
   // ==================================================================================================================
-  def copyForm(sections: List[Section]):DigitalForm
+  def copyForm(sections: List[Section])(implicit navigation: Navigation):DigitalForm
 
   def xml(transactionId: String):Elem
+
+  def cacheKey:String
 
   // ==================================================================================================================
   // Common Features: sections, question groups....
@@ -60,7 +62,7 @@ abstract class DigitalForm(sections: List[Section] = List())(implicit val naviga
     section(si).precedingQuestionGroups(questionGroupIdentifier)
   }
 
-  def update(section: Section): DigitalForm = {
+  def update(section: Section) = {
     val updatedSections = sections.takeWhile(_.identifier.index < section.identifier.index) :::
       List(section) :::
       sections.dropWhile(_.identifier.index <= section.identifier.index)
@@ -68,7 +70,7 @@ abstract class DigitalForm(sections: List[Section] = List())(implicit val naviga
     copyForm(sections = updatedSections.sortWith(_.identifier.index < _.identifier.index))
   }
 
-  def +(section: Section): DigitalForm = update(section)
+  def +(section: Section) = update(section)
 
   def update(questionGroup: QuestionGroup): DigitalForm = {
     val si = Section.sectionIdentifier(questionGroup.identifier)

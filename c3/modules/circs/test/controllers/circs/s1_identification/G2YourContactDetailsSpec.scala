@@ -3,7 +3,7 @@ package controllers.circs.s1_identification
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import models.domain._
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import scala.Some
@@ -30,7 +30,7 @@ class G2YourContactDetailsSpec extends Specification with Tags{
     )
 
     "present 'Circumstances Your contact details' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
 
       val result = controllers.circs.s1_identification.G2YourContactDetails.present(request)
       status(result) mustEqual OK
@@ -38,11 +38,11 @@ class G2YourContactDetailsSpec extends Specification with Tags{
 
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(yourContactDetailsInput: _*)
 
       val result = controllers.circs.s1_identification.G2YourContactDetails.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = Cache.getAs[DigitalForm](claimKey).get
       val section: Section = claim.section(models.domain.CircumstancesIdentification)
       section.questionGroup(CircumstancesYourContactDetails) must beLike {
         case Some(f: CircumstancesYourContactDetails) => {
@@ -58,7 +58,7 @@ class G2YourContactDetailsSpec extends Specification with Tags{
 
 
     "missing mandatory field" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody("postcode" -> "")
 
       val result = controllers.circs.s1_identification.G2YourContactDetails.submit(request)
@@ -66,7 +66,7 @@ class G2YourContactDetailsSpec extends Specification with Tags{
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(yourContactDetailsInput: _*)
 
       val result = controllers.circs.s1_identification.G2YourContactDetails.submit(request)

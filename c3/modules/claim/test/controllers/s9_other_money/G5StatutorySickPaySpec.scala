@@ -8,7 +8,7 @@ import models.MultiLineAddress
 import scala.Some
 import models.domain.{Section, StatutorySickPay, Claim, Claiming}
 import models.PaymentFrequency
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 
 class G5StatutorySickPaySpec extends Specification with Tags {
   "Other Money - Statutory Pay - Controller" should {
@@ -33,14 +33,14 @@ class G5StatutorySickPaySpec extends Specification with Tags {
       "employersPostcode" -> employersPostcode)
             
     "present 'Statutory Pay' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
 
       val result = controllers.s9_other_money.G5StatutorySickPay.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(statutorySickPayInput: _*)
 
       val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
@@ -61,7 +61,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
 
     "return a bad request after an invalid submission" in {
       "invalid postcode" in new WithApplication with Claiming {
-        val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
           .withFormUrlEncodedBody("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay, 
               "employersName" -> employersName,
               "employersPostcode" -> "INVALID")
@@ -71,7 +71,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
       }
       
       "missing mandatory field" in new WithApplication with Claiming {
-        val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
           .withFormUrlEncodedBody("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay)
   
         val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
@@ -79,7 +79,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
       }
 
       "reject a howOften frequency of other with no other text entered" in new WithApplication with Claiming {
-        val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
           .withFormUrlEncodedBody("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay,
             "howMuch" -> howMuch,
             "howOften.frequency" -> howOften_frequency,
@@ -96,7 +96,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(statutorySickPayInput: _*)
 
       val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)

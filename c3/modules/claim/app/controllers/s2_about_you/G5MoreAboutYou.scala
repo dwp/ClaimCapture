@@ -17,14 +17,14 @@ object G5MoreAboutYou extends Controller with CachedClaim with Navigable {
     "receiveStatePension" -> nonEmptyText.verifying(validYesNo)
   )(MoreAboutYou.apply)(MoreAboutYou.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = executeOnForm {implicit claim => implicit request =>
     claim.questionGroup(ClaimDate) match {
       case Some(n) => track(MoreAboutYou) { implicit claim => Ok(views.html.s2_about_you.g5_moreAboutYou(form.fill(MoreAboutYou))) }
       case _ => Redirect("/")
     }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = executeOnForm {implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g5_moreAboutYou(formWithErrors)),
       moreAboutYou => {

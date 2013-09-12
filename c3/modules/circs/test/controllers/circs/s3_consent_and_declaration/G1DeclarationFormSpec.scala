@@ -1,7 +1,6 @@
 package controllers.circs.s3_consent_and_declaration
 
 import org.specs2.mutable.{Tags, Specification}
-import play.api.data.Forms._
 
 class G1DeclarationFormSpec extends Specification with Tags {
 

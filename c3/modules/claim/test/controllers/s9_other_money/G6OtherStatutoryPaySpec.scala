@@ -9,7 +9,7 @@ import models.PaymentFrequency
 import models.MultiLineAddress
 import models.domain.Claim
 import scala.Some
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 
 class G6OtherStatutoryPaySpec extends Specification with Tags {
   "Other Statutory Controller" should {
@@ -34,14 +34,14 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
       "employersPostcode" -> employersPostcode)
 
     "present 'Other Statutory Pay - Other Money' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
 
       val result = controllers.s9_other_money.G6OtherStatutoryPay.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = controllers.s9_other_money.G6OtherStatutoryPay.submit(request)
@@ -64,7 +64,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
 
     "return a bad request after an invalid submission" in {
       "invalid postcode" in new WithApplication with Claiming {
-        val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
           .withFormUrlEncodedBody("otherPay" -> yes,
             "employersName" -> employersName,
             "employersPostcode" -> "INVALID")
@@ -74,7 +74,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
       }
 
       "missing mandatory field" in new WithApplication with Claiming {
-        val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
           .withFormUrlEncodedBody("otherPay" -> yes)
 
         val result = controllers.s9_other_money.G5StatutorySickPay.submit(request)
@@ -82,7 +82,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
       }
 
       "reject a howOften frequency if other with no other text entered" in new WithApplication with Claiming {
-        val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+        val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
           .withFormUrlEncodedBody("otherPay" -> yes,
             "howMuch" -> howMuch,
             "howOften.frequency" -> howOften_frequency,
@@ -99,7 +99,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = controllers.s9_other_money.G6OtherStatutoryPay.submit(request)

@@ -6,21 +6,21 @@ import models.domain._
 import models.view.Navigable
 
 object SelfEmployment extends Controller with CachedClaim with Navigable {
-  def completed = claiming { implicit claim => implicit request =>
+  def completed = executeOnForm {implicit claim => implicit request =>
     presentConditionally {
       track(models.domain.SelfEmployment) { implicit claim => Ok(views.html.s8_self_employment.g9_completed()) }
     }
   }
 
-  def completedSubmit = claiming { implicit claim => implicit request =>
+  def completedSubmit = executeOnForm {implicit claim => implicit request =>
     redirect
   }
 
-  def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def presentConditionally(c: => FormResult)(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
     if (models.domain.SelfEmployment.visible) c
     else redirect
   }
 
-  def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
+  def redirect(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult =
     claim -> Redirect("/other-money/about-other-money")
 }

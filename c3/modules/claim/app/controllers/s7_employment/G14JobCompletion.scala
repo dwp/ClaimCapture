@@ -3,12 +3,11 @@ package controllers.s7_employment
 import language.reflectiveCalls
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedClaim}
-import models.domain.JobCompletion
 import models.domain.{BeenEmployed, JobCompletion}
 import controllers.s7_employment.Employment._
 
 object G14JobCompletion extends Controller with CachedClaim with Navigable {
-  def present(jobID: String) = claiming { implicit claim => implicit request =>
+  def present(jobID: String) = executeOnForm {implicit claim => implicit request =>
     track(JobCompletion) { implicit claim => Ok(views.html.s7_employment.g14_jobCompletion(jobID)) }
   }
 

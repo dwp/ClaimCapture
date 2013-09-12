@@ -5,7 +5,7 @@ import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 import app.StatutoryPaymentFrequency._
 
 class G10ChildcareExpensesSpec extends Specification with Tags {
@@ -33,16 +33,16 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
       jobs.jobs returns job :: Nil
       jobs.questionGroup(jobID, AboutExpenses) returns Some(aboutExpenses)
 
-      val claim = Claim().update(jobs)
+      val claim = Claim()().update(jobs)
       Cache.set(claimKey, claim)
 
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
       val result = G10ChildcareExpenses.present(jobID)(request)
       status(result) mustEqual OK
     }
 
     "require all mandatory data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody("jobID" -> jobID)
 
       val result = G10ChildcareExpenses.submit(request)
@@ -50,7 +50,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
     }
 
     "accept all mandatory data." in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchCostChildcare" -> howMuchYouPay,
         "howOftenPayChildCare.frequency" -> howOften_frequency,
@@ -63,7 +63,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
     }
 
     "be added to a (current) job" in new WithApplication with Claiming {
-      G2JobDetails.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      G2JobDetails.submit(FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> jobID,
         "employerName" -> "Toys r not us",
@@ -72,7 +72,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
         "jobStartDate.year" -> "2000",
         "finishedThisJob" -> "yes"))
 
-      val result = G10ChildcareExpenses.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
+      val result = G10ChildcareExpenses.submit(FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
         "whoLooksAfterChildren" -> whoLooksAfterChildren,
         "howMuchCostChildcare" -> howMuchYouPay,
         "howOftenPayChildCare.frequency" -> howOften_frequency,

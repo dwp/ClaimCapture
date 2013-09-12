@@ -1,11 +1,12 @@
 package controllers.circs.s3_consent_and_declaration
 
 import play.api.test.{FakeRequest, WithApplication}
-import models.domain.{CircumstancesDeclaration, CircumstancesOtherInfo, Claim, Claiming}
-import models.view.CachedClaim
+import models.domain._
+import models.view.CachedDigitalForm
 import play.api.cache.Cache
 import play.api.test.Helpers._
 import org.specs2.mutable.{Tags, Specification}
+import scala.Some
 
 
 class G1DeclarationSpec extends Specification with Tags{
@@ -19,7 +20,7 @@ class G1DeclarationSpec extends Specification with Tags{
   "Circumstances - OtherChangeInfo - Controller" should {
 
     "present 'Other Change Information' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
 
       val result = controllers.circs.s3_consent_and_declaration.G1Declaration.present(request)
       status(result) mustEqual OK
@@ -27,11 +28,11 @@ class G1DeclarationSpec extends Specification with Tags{
 
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(otherChangeInfoInput: _*)
 
       val result = controllers.circs.s3_consent_and_declaration.G1Declaration.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = Cache.getAs[DigitalForm](claimKey).get
       claim.questionGroup[CircumstancesDeclaration] must beLike {
         case Some(f: CircumstancesDeclaration) => {
           f.obtainInfoAgreement must equalTo(infoAgreement)
@@ -42,7 +43,7 @@ class G1DeclarationSpec extends Specification with Tags{
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(otherChangeInfoInput: _*)
 
       val result = controllers.circs.s3_consent_and_declaration.G1Declaration.submit(request)
