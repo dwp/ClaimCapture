@@ -13,7 +13,7 @@ object G1Declaration extends Controller with CachedCircs with Navigable {
   val form = Form(mapping(
     "obtainInfoAgreement" -> nonEmptyText,
     "obtainInfoWhy" -> optional(nonEmptyText(maxLength = 2000)),
-    "confirm" ->       nonEmptyText
+    "confirm" -> nonEmptyText
   )(CircumstancesDeclaration.apply)(CircumstancesDeclaration.unapply)
     .verifying("obtainInfoWhy", CircumstancesDeclaration.validateWhy _))
 
@@ -25,10 +25,9 @@ object G1Declaration extends Controller with CachedCircs with Navigable {
     form.bindEncrypted.fold(
       formWithErrors => {
         val f = formWithErrors.replaceError("", "obtainInfoWhy", FormError("obtainInfoWhy", "error.required"))
-
-        BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(f))
-      },
-      data => claim.update(data) -> Ok(<html><title>Submission</title><body>{claim.update(data).toString}</body></html>).as(HTML))
+          BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(f))
+        },
+        data => claim.update(data) -> Redirect("/circs-submit")
+      )
   }
-
 }

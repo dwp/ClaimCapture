@@ -5,6 +5,7 @@ import play.api.Logger
 import com.google.inject._
 import models.view.CachedClaim
 import services.UnavailableTransactionIdException
+import play.api.mvc.Results._
 
 @Singleton
 class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim {

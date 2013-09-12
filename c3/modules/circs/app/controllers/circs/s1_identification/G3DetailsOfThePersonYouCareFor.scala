@@ -9,19 +9,14 @@ import controllers.Mappings._
 import models.domain.DetailsOfThePersonYouCareFor
 import utils.helpers.CarersForm._
 
-
 object G3DetailsOfThePersonYouCareFor extends Controller with CachedCircs with Navigable {
-
-  val title = "title"
   val firstName = "firstName"
   val middleName = "middleName"
   val lastName = "lastName"
   val nationalInsuranceNumber = "nationalInsuranceNumber"
   val dateOfBirth = "dateOfBirth"
 
-
   val form = Form(mapping(
-    title -> nonEmptyText(maxLength = 4),
     firstName -> nonEmptyText(maxLength = Name.maxLength),
     middleName -> optional(text(maxLength = Name.maxLength)),
     lastName -> nonEmptyText(maxLength = Name.maxLength),

@@ -33,9 +33,6 @@ class XMLCircumstancesBusinessValidation extends XMLBusinessValidation  {
  */
 class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml, path) {
 
-  val EvidenceListNode = "<EvidenceList>"
-  val DeclarationNode = "<Declaration>"
-
   def matches(claimValue: TestDatumValue): Boolean = {
     try {
       val nodeStart = theNodes(0).mkString
