@@ -3,7 +3,10 @@ package controllers.submission
 import play.api.mvc.Results.Redirect
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc.{AnyContent, Request, PlainResult}
+import services.TransactionIdService
 import play.api.{http, Logger}
+import services.submission.ClaimSubmission
+import ExecutionContext.Implicits.global
 import com.google.inject.Inject
 import play.api.cache.Cache
 import play.api.libs.ws.Response
@@ -12,8 +15,11 @@ import services.TransactionIdService
 import services.submission.ClaimSubmission
 import models.domain.DigitalForm
 import ExecutionContext.Implicits.global
+import play.Configuration
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : ClaimSubmission) extends Submitter {
+
+  val thankYouPageUrl = Configuration.root().getString("thankyou.page")
 
   def submit(claim: DigitalForm, request : Request[AnyContent]): Future[PlainResult] = {
     retrieveRetryData(claim.cacheKey, request) match {
@@ -68,7 +74,12 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         result match {
           case "response" => {
             idService.updateStatus(txnId, SUCCESS)
-            Redirect(s"/thankyou/$txnId").withNewSession
+            Logger.info(s"Successful submission : $txnId")
+            // Clear the cache to ensure no duplicate submission
+            val key = request.session.get(cacheKey).orNull
+            Cache.set(key, None)
+
+            Redirect(thankYouPageUrl)
           }
           case "acknowledgement" => {
             idService.updateStatus(txnId, ACKNOWLEDGED)
@@ -105,7 +116,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
   private def errorAndCleanup(txnId: String, code: String): PlainResult = {
     idService.updateStatus(txnId, code)
-    Redirect("/error").withNewSession
+    Redirect("/error")
   }
 
   case class RetryData(corrId: String, pollUrl: String, txnId: String)

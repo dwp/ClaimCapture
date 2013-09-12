@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Disclaimer])(implicit claim: models.domain.DigitalForm)
+@(currentForm: Form[models.domain.Disclaimer], completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)])(implicit claim: models.domain.Claim)
 
 @import models.domain.TheirPersonalDetails
 @import helper._
@@ -16,10 +16,11 @@
             <legend>@Messages("s11.g3")</legend>
 
             <div class="declaration">
-                @for(i <- 1 to 6) {
+                @for(i <- 1 to 7) {
                     <p>
-                        @defining(claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName + " " + m.middleName.getOrElse("../../../../common/public") + (if (m.middleName.isDefined) " " else "../../../../common/public") + m.surname )){ str =>
-                            @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]", str))
+                        @defining(claim.questionGroup(TheirPersonalDetails).asInstanceOf[Option[TheirPersonalDetails]].fold("#NO DATA#  ")(m => m.firstName + " " + m.middleName.getOrElse("") + (if (m.middleName.isDefined) " " else "") + m.surname )){ str =>
+
+                            @Html(Messages(s"disclaimer.${i}").replace("[[first name, middle name, surname]]", s"<b>$str</b>"))
                         }
                     </p>
                 }
