@@ -14,7 +14,9 @@ abstract class XMLBusinessValidation {
   val errors = mutable.MutableList.empty[String]
   val warnings = mutable.MutableList.empty[String]
 
-  def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean)
+  def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean): List[String]
+
+  def validateXMLClaim(claim: TestData, xmlString: String, throwException: Boolean): List[String] = validateXMLClaim(claim, XML.loadString(xmlString), throwException)
 
   def validateXMLClaim(claim: TestData,
                        xmlString: String,
@@ -33,7 +35,7 @@ abstract class XMLBusinessValidation {
                        xml: Elem,
                        throwException: Boolean,
                        mappingFileName: String,
-                       createXMLValidationNode: (Elem, Array[String]) => XMLValidationNode) = {
+                       createXMLValidationNode: (Elem, Array[String]) => XMLValidationNode): List[String] = {
     val mapping = XMLBusinessValidation.buildXmlMappingFromFile(mappingFileName) // Load the XML mapping
 
     // Go through the attributes of the claim and check that there is a corresponding entry in the XML

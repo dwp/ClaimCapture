@@ -1,8 +1,8 @@
 package utils.pageobjects.tests.xml_validation
 
-import utils.pageobjects.xml_validation.{XMLBusinessValidation, XMLClaimBusinessValidation}
+import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation, XMLClaimBusinessValidation}
 import org.specs2.mutable.Specification
-import controllers.ClaimScenarioFactory
+import controllers.{CircumstancesScenarioFactory, ClaimScenarioFactory}
 import scala.io.Source
 
 /**
@@ -26,21 +26,30 @@ class XMLBusinessValidationSpec extends Specification {
   "The XML Business Validation class" should {
     "be able to parse a claim and raise exception with list errors if content xml differs from claim object" in {
       val validator = new XMLClaimBusinessValidation
-      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside()
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside
       val xml = Source.fromURL(getClass getResource "/unit_tests/Claim.xml").mkString
 
       val errors = validator.validateXMLClaim(claim, xml, throwException = false)
       errors.nonEmpty should beTrue
     }
 
-//    "be able to parse a claim from a file and check XML content is valid" in {
-//      val validator = new XMLBusinessValidation("/ClaimScenarioXmlMapping.csv")
-//      val claim = ClaimScenario.buildClaimFromFile("/unit_tests/ClaimScenario_ClaimMickey.csv")
-//      val xml = Source.fromURL(getClass getResource "/unit_tests/ClaimMickey.xml").mkString
-//
-//      val errors = validator.validateXMLClaim(claim, xml,throwException = true)
-//      errors.isEmpty should beTrue
-//    }
+    "be able to parse a claim from a file and check XML content is valid" in {
+      val validator = new XMLClaimBusinessValidation
+      val claim = ClaimScenarioFactory.yourDetailsWithNotTimeOutside
+      val xml = Source.fromURL(getClass getResource "/unit_tests/ClaimMickey.xml").mkString
+
+      val errors = validator.validateXMLClaim(claim, xml, throwException = false)
+      errors.isEmpty should beTrue
+    }.pendingUntilFixed("Problem validating the example xml file")
+
+    "be able to parse a circumstances and raise exception with list errors if content xml differs from circumstances object" in {
+      val validator = new XMLCircumstancesBusinessValidation
+      val claim = CircumstancesScenarioFactory.aboutDetails
+      val xml = Source.fromURL(getClass getResource "/unit_tests/Claim.xml").mkString
+
+      val errors = validator.validateXMLClaim(claim, xml, throwException = false)
+      errors.nonEmpty should beTrue
+    }
   }
 
 }
