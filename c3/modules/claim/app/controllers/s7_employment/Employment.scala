@@ -10,7 +10,7 @@ import models.domain._
 
 object Employment extends Controller with CachedClaim  with Navigable{
   implicit def jobFormFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
-    def fillWithJobID(qi: QuestionGroup.Identifier, jobID: String)(implicit claim: Claim): Form[Q] = {
+    def fillWithJobID(qi: QuestionGroup.Identifier, jobID: String)(implicit claim: DigitalForm): Form[Q] = {
       claim.questionGroup(Jobs).getOrElse(Jobs()).asInstanceOf[Jobs].jobs.find(_.jobID == jobID).getOrElse(Job("", List())).find(_.identifier.id == qi.id) match {
         case Some(q: Q) => form.fill(q)
         case _ => form
@@ -18,26 +18,26 @@ object Employment extends Controller with CachedClaim  with Navigable{
     }
   }
 
-  def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier, jobID: String)(implicit claim: Claim): List[QuestionGroup] = {
+  def completedQuestionGroups(questionGroupIdentifier: QuestionGroup.Identifier, jobID: String)(implicit claim: DigitalForm): List[QuestionGroup] = {
     (for { jobs <- claim.questionGroup[Jobs]
            job <- jobs.find(_.jobID == jobID) }
       yield job.questionGroups.filter(_.identifier.index < questionGroupIdentifier.index)).getOrElse(Nil)
   }
 
-  def jobs(implicit claim: Claim) = claim.questionGroup(Jobs) match {
+  def jobs(implicit claim: DigitalForm) = claim.questionGroup(Jobs) match {
     case Some(js: Jobs) => js
     case _ => Jobs()
   }
 
-  def completed = claiming { implicit claim => implicit request =>
+  def completed = executeOnForm {implicit claim => implicit request =>
     track(Employed) { implicit claim => Ok(views.html.s7_employment.g15_completed()) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = executeOnForm {implicit claim => implicit request =>
     Redirect("/self-employment/about-self-employment")
   }
 
-  def delete(jobID: String) = claiming { implicit claim => implicit request =>
+  def delete(jobID: String) = executeOnForm {implicit claim => implicit request =>
     import play.api.libs.json.Json
 
     val updatedJobs = jobs.delete(jobID)

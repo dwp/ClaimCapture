@@ -4,26 +4,26 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 
 class G3AbroadForMoreThan52WeeksSpec extends Specification with Tags {
   "Abroad more than 52 weeks" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
 
       val result = G3AbroadForMoreThan52Weeks.present(request)
       status(result) mustEqual OK
     }
 
     """enforce answer to "Details of time abroad for more than 52 weeks".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
 
       val result = G3AbroadForMoreThan52Weeks.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """accept "yes" to "Details of time abroad for more than 52 weeks".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("anyTrips" -> "yes")
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey).withFormUrlEncodedBody("anyTrips" -> "yes")
 
       val result = G3AbroadForMoreThan52Weeks.submit(request)
       redirectLocation(result) must beSome("/time-spent-abroad/trip/52-weeks")

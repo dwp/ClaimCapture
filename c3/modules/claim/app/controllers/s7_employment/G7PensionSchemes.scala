@@ -1,11 +1,9 @@
 package controllers.s7_employment
 
 import scala.language.reflectiveCalls
-import models.view.{Navigable, CachedClaim}
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.FormError
 import models.view.{Navigable, CachedClaim}
 import models.domain.PensionSchemes
 import utils.helpers.CarersForm._
@@ -13,7 +11,6 @@ import Employment._
 import utils.helpers.PastPresentLabelHelper._
 import controllers.Mappings._
 import play.api.data.FormError
-import models.PensionPaymentFrequency
 
 object G7PensionSchemes extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -31,7 +28,7 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
     .verifying("howOftenPersonal", PensionSchemes.validateHowOftenPersonal _)
   )
 
-  def present(jobID: String) = claiming { implicit claim => implicit request =>
+  def present(jobID: String) = executeOnForm {implicit claim => implicit request =>
     track(PensionSchemes) { implicit claim => Ok(views.html.s7_employment.g7_pensionSchemes(form.fillWithJobID(PensionSchemes, jobID))) }
   }
 

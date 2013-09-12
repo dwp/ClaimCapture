@@ -24,8 +24,8 @@ class SelfEmploymentSpec extends Specification with Tags {
         natureOfYourBusiness = Some(software)
       )
 
-      val claim = Claim().update(models.domain.Employment(beenSelfEmployedSince1WeekBeforeClaim = yes))
-        .update(aboutSelfEmployment)
+      val claim = Claim()().update(models.domain.Employment(beenSelfEmployedSince1WeekBeforeClaim = yes))
+        .update(aboutSelfEmployment).asInstanceOf[Claim]
 
       val selfEmploymentXml = xml.SelfEmployment.xml(claim)
 
@@ -36,7 +36,7 @@ class SelfEmploymentSpec extends Specification with Tags {
     }
 
     "generate xml when data is missing" in {
-      val claim = Claim().update(models.domain.Employment(beenSelfEmployedSince1WeekBeforeClaim = no))
+      val claim = Claim()().update(models.domain.Employment(beenSelfEmployedSince1WeekBeforeClaim = no)).asInstanceOf[Claim]
       val selfEmploymentXml = xml.SelfEmployment.xml(claim)
       selfEmploymentXml.text must beEmpty
     }
@@ -48,7 +48,7 @@ class SelfEmploymentSpec extends Specification with Tags {
       doYouPayToLookAfterYourChildren= "yes",
       didYouPayToLookAfterThePersonYouCaredFor = "yes")
 
-      val claim = Claim().update(pensionScheme)
+      val claim = Claim()().update(pensionScheme).asInstanceOf[Claim]
 
       val pensionSchemeXml = xml.SelfEmployment.pensionScheme(claim)
 
@@ -57,7 +57,7 @@ class SelfEmploymentSpec extends Specification with Tags {
     }
 
     "skip <PensionScheme> if claimer has NO pension scheme" in {
-      val pensionSchemeXml = xml.SelfEmployment.pensionScheme(Claim())
+      val pensionSchemeXml = xml.SelfEmployment.pensionScheme(Claim()())
 
       pensionSchemeXml.text must beEmpty
     }
@@ -66,7 +66,7 @@ class SelfEmploymentSpec extends Specification with Tags {
 
       val pensionScheme = SelfEmploymentPensionsAndExpenses(doYouPayToLookAfterYourChildren = yes)
       val childcareExpenses = ChildcareExpensesWhileAtWork(howMuchYouPay = amount, nameOfPerson = "Andy", whatRelationIsToYou = "grandSon", whatRelationIsTothePersonYouCareFor = "relation")
-      val claim = Claim().update(pensionScheme).update(childcareExpenses)
+      val claim = Claim()().update(pensionScheme).update(childcareExpenses).asInstanceOf[Claim]
 
       val childcareXml = xml.SelfEmployment.childCareExpenses(claim)
       (childcareXml \\ "CarerName").text shouldEqual childcareExpenses.nameOfPerson
@@ -77,7 +77,7 @@ class SelfEmploymentSpec extends Specification with Tags {
 
     "skip <ChildCareExpenses> if claimer has NO childcare expenses" in {
       val pensionScheme = SelfEmploymentPensionsAndExpenses(doYouPayToLookAfterYourChildren = no)
-      val claim = Claim().update(pensionScheme)
+      val claim = Claim()().update(pensionScheme).asInstanceOf[Claim]
       val childcareXml = xml.SelfEmployment.childCareExpenses(claim)
       childcareXml.text must beEmpty
     }
@@ -85,9 +85,8 @@ class SelfEmploymentSpec extends Specification with Tags {
     "generate <CareExpenses> if claimer has care expenses" in {
       val pensionScheme = SelfEmploymentPensionsAndExpenses(didYouPayToLookAfterThePersonYouCaredFor = yes)
       val grandSon = "grandSon"
-      val postcode = "SE1 6EH"
       val expensesWhileAtWork: ExpensesWhileAtWork = ExpensesWhileAtWork(howMuchYouPay = amount, nameOfPerson = "NameOfPerson", whatRelationIsToYou = grandSon, whatRelationIsTothePersonYouCareFor = grandSon)
-      val claim = Claim().update(pensionScheme).update(expensesWhileAtWork)
+      val claim = Claim()().update(pensionScheme).update(expensesWhileAtWork).asInstanceOf[Claim]
 
       val careExpensesXml = xml.SelfEmployment.careExpenses(claim)
 
@@ -99,7 +98,7 @@ class SelfEmploymentSpec extends Specification with Tags {
 
     "skip <CareExpenses> if claimer has NO care expenses" in {
       val pensionScheme = SelfEmploymentPensionsAndExpenses(didYouPayToLookAfterThePersonYouCaredFor = no)
-      val claim = Claim().update(pensionScheme)
+      val claim = Claim()().update(pensionScheme).asInstanceOf[Claim]
 
       val careExpensesXml = xml.SelfEmployment.careExpenses(claim)
 

@@ -7,42 +7,42 @@ import models.domain._
 import play.api.cache.Cache
 import models.domain.{Employment => EmploymentDomain}
 import controllers.Mappings._
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 
 class G1BeenEmployedSpec extends Specification with Tags {
   "Been Employed" should {
     "first present job details" in new WithApplication with Claiming {
-      val claim = Claim()
+      val claim = Claim()()
         .update(ClaimDate())
         .update(EmploymentDomain(beenEmployedSince6MonthsBeforeClaim = yes))
 
       Cache.set(claimKey, claim)
 
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
       val result = G1BeenEmployed.present(request)
       status(result) mustEqual SEE_OTHER
     }
 
     "submit no data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
       val result = G1BeenEmployed.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     "submit been employed" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "yes")
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "yes")
       val result = G1BeenEmployed.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     "submit not been employed" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "no")
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "no")
       val result = G1BeenEmployed.submit(request)
       status(result) mustEqual SEE_OTHER
     }
 
     "submit with bad data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "asdf")
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey).withFormUrlEncodedBody("beenEmployed" -> "asdf")
       val result = G1BeenEmployed.submit(request)
       status(result) mustEqual BAD_REQUEST
     }

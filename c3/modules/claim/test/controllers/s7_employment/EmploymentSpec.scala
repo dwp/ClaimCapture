@@ -3,20 +3,20 @@ package controllers.s7_employment
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 import play.api.cache.Cache
 import models.domain.{Claim, EmployerContactDetails, Job, Jobs, JobDetails, Claiming}
 
 class EmploymentSpec extends Specification with Tags {
   "Employment" should {
     "present completion" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
       val result = Employment.completed(request)
       status(result) mustEqual OK
     }
 
     """progress to "next section".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
       val result = Employment.submit(request)
       status(result) mustEqual SEE_OTHER
     }
@@ -28,10 +28,10 @@ class EmploymentSpec extends Specification with Tags {
       val job = Job(jobID).update(jobDetails)
       val jobs = new Jobs().update(job)
 
-      val claim = Claim().update(jobs)
+      val claim = Claim()().update(jobs)
       Cache.set(claimKey, claim)
 
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
       val completedQuestionGroups = Employment.completedQuestionGroups(EmployerContactDetails, jobID)(claim)
       println(completedQuestionGroups)
     }

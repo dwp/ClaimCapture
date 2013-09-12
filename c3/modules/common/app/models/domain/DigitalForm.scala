@@ -1,11 +1,28 @@
 package models.domain
 
-import language.postfixOps
-import models.{DayMonthYear, Timestamped}
 import scala.reflect.ClassTag
+import models.{Timestamped, DayMonthYear}
 import models.view.Navigation
+import scala.xml.Elem
 
-case class Claim(sections: List[Section] = List())(implicit val navigation: Navigation = Navigation()) extends Timestamped {
+/**
+ * Represents the data gathered from customers through the views.
+ * The data are divided into sections, themselves sub-divided into question groups.
+ */
+abstract class DigitalForm(val sections: List[Section] = List())(implicit val navigation: Navigation = Navigation()) extends Timestamped {
+
+  // ==================================================================================================================
+  // Abstract methods
+  // ==================================================================================================================
+  def copyForm(sections: List[Section])(implicit navigation: Navigation):DigitalForm
+
+  def xml(transactionId: String):Elem
+
+  def cacheKey:String
+
+  // ==================================================================================================================
+  // Common Features: sections, question groups....
+  // ==================================================================================================================
   def section(sectionIdentifier: Section.Identifier): Section = sections.find(s => s.identifier == sectionIdentifier) match {
     case Some(s: Section) => s
     case _ => Section(sectionIdentifier, List())
@@ -45,40 +62,41 @@ case class Claim(sections: List[Section] = List())(implicit val navigation: Navi
     section(si).precedingQuestionGroups(questionGroupIdentifier)
   }
 
-  def update(section: Section): Claim = {
+  def update(section: Section) = {
     val updatedSections = sections.takeWhile(_.identifier.index < section.identifier.index) :::
-                          List(section) :::
-                          sections.dropWhile(_.identifier.index <= section.identifier.index)
+      List(section) :::
+      sections.dropWhile(_.identifier.index <= section.identifier.index)
 
-    copy(sections = updatedSections.sortWith(_.identifier.index < _.identifier.index))
+    copyForm(sections = updatedSections.sortWith(_.identifier.index < _.identifier.index))
   }
 
-  def +(section: Section): Claim = update(section)
+  def +(section: Section) = update(section)
 
-  def update(questionGroup: QuestionGroup): Claim = {
+  def update(questionGroup: QuestionGroup): DigitalForm = {
     val si = Section.sectionIdentifier(questionGroup.identifier)
     update(section(si).update(questionGroup))
   }
 
-  def +(questionGroup: QuestionGroup): Claim = update(questionGroup)
+  def +(questionGroup: QuestionGroup): DigitalForm = update(questionGroup)
 
-  def delete(questionGroupIdentifier: QuestionGroup.Identifier): Claim = {
+  def delete(questionGroupIdentifier: QuestionGroup.Identifier): DigitalForm = {
     val sectionIdentifier = Section.sectionIdentifier(questionGroupIdentifier)
     update(section(sectionIdentifier).delete(questionGroupIdentifier))
   }
 
-  def -(questionGroupIdentifier: QuestionGroup.Identifier): Claim = delete(questionGroupIdentifier)
+  def -(questionGroupIdentifier: QuestionGroup.Identifier): DigitalForm = delete(questionGroupIdentifier)
 
   def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate) match {
     case Some(c: ClaimDate) => Some(c.dateOfClaim)
     case _ => None
   }
 
-  def hideSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).hide)
+  def hideSection(sectionIdentifier: Section.Identifier): DigitalForm = update(section(sectionIdentifier).hide)
 
-  def showSection(sectionIdentifier: Section.Identifier): Claim = update(section(sectionIdentifier).show)
+  def showSection(sectionIdentifier: Section.Identifier): DigitalForm = update(section(sectionIdentifier).show)
 
   def showHideSection(visible: Boolean, sectionIdentifier: Section.Identifier) = {
     if (visible) showSection(sectionIdentifier) else hideSection(sectionIdentifier)
   }
+
 }

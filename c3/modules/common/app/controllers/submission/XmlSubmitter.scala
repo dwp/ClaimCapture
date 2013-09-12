@@ -7,12 +7,11 @@ import ExecutionContext.Implicits.global
 import scala.xml.Elem
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import play.Configuration
-import models.domain.Claim
-import xml.DWPCAClaim
+import models.domain.DigitalForm
 
 class XmlSubmitter extends Submitter {
-  def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
-    val claimXml = DWPCAClaim.xml(claim, "TEST432")
+  def submit(claim: DigitalForm, request: Request[AnyContent]): Future[PlainResult] = {
+    val claimXml = claim.xml("TEST432")
     val fullXml = buildFullClaim(claimXml)
 
     if (Configuration.root().getBoolean("validateXml", true)) {

@@ -20,10 +20,10 @@ class ClaimantSpec extends Specification with Tags {
 
   "Claimant" should {
     "generate Claimant xml from a given claim" in {
-      val claim = Claim().update(ClaimDate(DayMonthYear(1, 1, 1999)))
+      val claim = Claim()().update(ClaimDate(DayMonthYear(1, 1, 1999)))
                          .update(yourDetails).update(contactDetails)
 
-      val claimantXml = Claimant.xml(claim)
+      val claimantXml = Claimant.xml(claim.asInstanceOf[Claim])
 
       (claimantXml \\ "DateOfClaim").text shouldEqual "1999-01-01"
       (claimantXml \\ "Surname").text shouldEqual yourDetails.surname

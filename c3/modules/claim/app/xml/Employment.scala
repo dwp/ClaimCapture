@@ -1,6 +1,5 @@
 package xml
 
-import app.PensionPaymentFrequency
 import scala.language.reflectiveCalls
 import scala.xml.{NodeSeq, Elem}
 import models.domain._

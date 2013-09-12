@@ -15,7 +15,7 @@ import play.api.mvc.Request
 import play.api.mvc.AnyContent
 
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
-  def form(implicit claim: Claim) = Form(
+  def form(implicit claim: DigitalForm) = Form(
     mapping(
       "whoLooksAfterChildren" -> nonEmptyText(maxLength = sixty),
       "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
@@ -27,18 +27,18 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with N
       .verifying("relationToPartner.required", validateRelationToPartner(claim, _))
   )
 
-  def validateRelationToPartner(implicit claim: Claim, childcareExpensesWhileAtWork: ChildcareExpensesWhileAtWork) = {
+  def validateRelationToPartner(implicit claim: DigitalForm, childcareExpensesWhileAtWork: ChildcareExpensesWhileAtWork) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
       case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => childcareExpensesWhileAtWork.relationToPartner.isDefined
       case _ => true
     }
   }
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = executeOnForm {implicit claim => implicit request =>
     presentConditionally(childcareExpensesWhileAtWork)
   }
 
-  def childcareExpensesWhileAtWork(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def childcareExpensesWhileAtWork(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
     val payToLookAfterChildren = claim.questionGroup(SelfEmploymentPensionsAndExpenses) match {
       case Some(s: SelfEmploymentPensionsAndExpenses) => s.doYouPayToLookAfterYourChildren == `yes`
       case _ => false
@@ -50,7 +50,7 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with N
     }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = executeOnForm {implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

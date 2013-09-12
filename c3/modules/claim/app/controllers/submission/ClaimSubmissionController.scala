@@ -7,9 +7,9 @@ import models.view.CachedClaim
 import services.UnavailableTransactionIdException
 
 @Singleton
-class SubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim {
+class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim {
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = executeOnForm { implicit claim => implicit request =>
     try {
       Async {
         submitter.submit(claim, request)
