@@ -4,7 +4,7 @@ import models.view.{Navigable, CachedClaim}
 import play.api.mvc.{AnyContent, Request, Controller}
 import play.api.data.Form
 import play.api.data.Forms._
-import models.domain.{Employment => Emp, Jobs, Claim, BeenEmployed}
+import models.domain.{Employment => Emp, DigitalForm, Jobs, BeenEmployed}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s7_employment.Employment.jobs
@@ -14,20 +14,20 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
     "beenEmployed" -> (nonEmptyText verifying validYesNo)
   )(BeenEmployed.apply)(BeenEmployed.unapply))
 
-  def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def presentConditionally(c: => FormResult)(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
     claim.questionGroup[Emp].collect {
       case e: Emp if e.beenEmployedSince6MonthsBeforeClaim == yes => c
     }.getOrElse(redirect)
   }
 
-  def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
+  def redirect(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult =
     claim -> Redirect("/self-employment/about-self-employment")
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = executeOnForm {implicit claim => implicit request =>
       presentConditionally(beenEmployed)
   }
 
-  def beenEmployed(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def beenEmployed(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
     claim.questionGroup[BeenEmployed] match {
       case Some(b: BeenEmployed) => track(BeenEmployed) { implicit claim => Ok(views.html.s7_employment.g1_beenEmployed(form.fill(b))) }
       case _ =>
@@ -36,7 +36,7 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = executeOnForm {implicit claim => implicit request =>
     import controllers.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {
@@ -50,7 +50,7 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
       beenEmployed => clearUnfinishedJobs.update(beenEmployed) -> next(beenEmployed))
   }
 
-  def clearUnfinishedJobs(implicit claim:Claim) = {
+  def clearUnfinishedJobs(implicit claim:DigitalForm) = {
     val jobs = claim.questionGroup[Jobs].getOrElse(Jobs())
     claim.update(Jobs(jobs.jobs.filter(_.completed == true)))
   }

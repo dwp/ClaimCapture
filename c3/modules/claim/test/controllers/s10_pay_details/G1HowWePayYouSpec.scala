@@ -4,26 +4,26 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import play.api.test.Helpers._
 import models.domain.Claiming
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 
 class G1HowWePayYouSpec extends Specification with Tags {
   "How we pay you" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
 
       val result = G1HowWePayYou.present(request)
       status(result) mustEqual OK
     }
 
     """enforce answer to "How would you like to be paid?" and "How often do you want to get paid?".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
 
       val result = G1HowWePayYou.submit(request)
       status(result) mustEqual BAD_REQUEST
     }
 
     """accept customer gets paid by bank account or building society""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
                                  .withFormUrlEncodedBody("likeToPay" -> "01",
                                                          "paymentFrequency"->"fourweekly")
 

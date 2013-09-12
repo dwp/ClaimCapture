@@ -29,11 +29,11 @@ object G6OtherStatutoryPay extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = executeOnForm {implicit claim => implicit request =>
     track(OtherStatutoryPay) { implicit claim => Ok(views.html.s9_other_money.g6_otherStatutoryPay(form.fill(OtherStatutoryPay)))}
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = executeOnForm {implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "employersName.required", FormError("employersName", "error.required"))

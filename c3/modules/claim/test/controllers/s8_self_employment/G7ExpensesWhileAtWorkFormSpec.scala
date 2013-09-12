@@ -15,7 +15,7 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
     val whatRelationIsTothePersonYouCareFor = "mother"
 
     "map data into case class" in {
-      G7ExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G7ExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "nameOfPerson" -> nameOfPerson,
           "howMuchYouPay" -> howMuchYouPay,
@@ -39,7 +39,7 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field nameOfPerson" in {
-      G7ExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G7ExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "nameOfPerson" -> "",
           "howMuchYouPay" -> howMuchYouPay,
@@ -56,7 +56,7 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field howMuchYouPay" in {
-      G7ExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G7ExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "nameOfPerson" -> nameOfPerson,
           "howMuchYouPay" -> "",
@@ -73,7 +73,7 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field howOftenPayExpenses.frequency" in {
-      G7ExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G7ExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "nameOfPerson" -> nameOfPerson,
           "howMuchYouPay" -> howMuchYouPay,
@@ -90,7 +90,7 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when other selected but other not filled in" in {
-      G7ExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G7ExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "nameOfPerson" -> nameOfPerson,
           "howMuchYouPay" -> howMuchYouPay,
@@ -107,7 +107,7 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field whatRelationIsToYou" in {
-      G7ExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G7ExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "nameOfPerson" -> nameOfPerson,
           "howMuchYouPay" -> howMuchYouPay,
@@ -124,7 +124,7 @@ class G7ExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field whatRelationIsTothePersonYouCareFor" in {
-      G7ExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G7ExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "nameOfPerson" -> nameOfPerson,
           "howMuchYouPay" -> howMuchYouPay,

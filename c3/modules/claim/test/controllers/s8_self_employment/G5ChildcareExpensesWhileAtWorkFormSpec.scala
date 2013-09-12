@@ -15,7 +15,7 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
     val whatRelationIsTothePersonYouCareFor = "mother"
 
     "map data into case class" in {
-      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "whoLooksAfterChildren" -> whoLooksAfterChildren,
           "howMuchYouPay" -> howMuchYouPay,
@@ -39,7 +39,7 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field whoLooksAfterChildren" in {
-      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "whoLooksAfterChildren" -> "",
           "howMuchYouPay" -> howMuchYouPay,
@@ -56,7 +56,7 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field howMuchYouPay" in {
-      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "whoLooksAfterChildren" -> whoLooksAfterChildren,
           "howMuchYouPay" -> "",
@@ -73,7 +73,7 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field howOftenPayChildCare" in {
-      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "whoLooksAfterChildren" -> whoLooksAfterChildren,
           "howMuchYouPay" -> howMuchYouPay,
@@ -90,7 +90,7 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when other selected but other not filled in" in {
-      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "whoLooksAfterChildren" -> whoLooksAfterChildren,
           "howMuchYouPay" -> howMuchYouPay,
@@ -107,7 +107,7 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field whatRelationIsToYou" in {
-      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "whoLooksAfterChildren" -> whoLooksAfterChildren,
           "howMuchYouPay" -> howMuchYouPay,
@@ -124,7 +124,7 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
     }
 
     "reject when missing mandatory field whatRelationIsTothePersonYouCareFor" in {
-      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()).bind(
+      G5ChildcareExpensesWhileAtWork.form(models.domain.Claim()()).bind(
         Map(
           "whoLooksAfterChildren" -> whoLooksAfterChildren,
           "howMuchYouPay" -> howMuchYouPay,

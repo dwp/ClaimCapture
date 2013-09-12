@@ -21,11 +21,11 @@ object G4Trip extends Controller with CachedClaim {
     "why" -> nonEmptyText
   )(Trip.apply)(Trip.unapply))
 
-  def fourWeeks = claiming { implicit claim => implicit request =>
+  def fourWeeks = executeOnForm {implicit claim => implicit request =>
     Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fourWeeksSubmit(), routes.G2AbroadForMoreThan4Weeks.present()))
   }
 
-  def fourWeeksSubmit = claiming { implicit claim => implicit request =>
+  def fourWeeksSubmit = executeOnForm {implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, routes.G4Trip.fourWeeksSubmit(), routes.G2AbroadForMoreThan4Weeks.present())),
       trip => {
@@ -34,11 +34,11 @@ object G4Trip extends Controller with CachedClaim {
       })
   }
 
-  def fiftyTwoWeeks = claiming { implicit claim => implicit request =>
+  def fiftyTwoWeeks = executeOnForm {implicit claim => implicit request =>
     Ok(views.html.s5_time_spent_abroad.g4_trip(form, routes.G4Trip.fiftyTwoWeeksSubmit(), routes.G3AbroadForMoreThan52Weeks.present()))
   }
 
-  def fiftyTwoWeeksSubmit = claiming { implicit claim => implicit request =>
+  def fiftyTwoWeeksSubmit = executeOnForm {implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, routes.G4Trip.fiftyTwoWeeksSubmit(), routes.G3AbroadForMoreThan52Weeks.present())),
       trip => {
@@ -47,7 +47,7 @@ object G4Trip extends Controller with CachedClaim {
       })
   }
 
-  def trip(id: String) = claiming { implicit claim => implicit request =>
+  def trip(id: String) = executeOnForm {implicit claim => implicit request =>
     claim.questionGroup(Trips) match {
       case Some(ts: Trips) => ts.fourWeeksTrips.find(_.id == id) match {
         case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t), routes.G4Trip.fourWeeksSubmit(), routes.G2AbroadForMoreThan4Weeks.present()))
@@ -61,7 +61,7 @@ object G4Trip extends Controller with CachedClaim {
     }
   }
 
-  def delete(id: String) = claiming { implicit claim => implicit request =>
+  def delete(id: String) = executeOnForm {implicit claim => implicit request =>
     import play.api.libs.json.Json
     import language.postfixOps
 

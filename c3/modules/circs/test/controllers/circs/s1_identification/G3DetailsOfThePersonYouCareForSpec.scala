@@ -2,12 +2,13 @@ package controllers.circs.s1_identification
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 import play.api.test.Helpers._
 import play.api.cache.Cache
-import models.{NationalInsuranceNumber, DayMonthYear}
+import models.DayMonthYear
+import models.domain._
+import models.NationalInsuranceNumber
 import scala.Some
-import models.domain.{DetailsOfThePersonYouCareFor, Section, Claim, Claiming}
 
 
 class G3DetailsOfThePersonYouCareForSpec extends Specification with Tags{
@@ -42,18 +43,18 @@ class G3DetailsOfThePersonYouCareForSpec extends Specification with Tags{
     )
 
     "present 'Circumstances About You' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
 
       val result = controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
       val result = controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.submit(request)
-      val claim = Cache.getAs[Claim](claimKey).get
+      val claim = Cache.getAs[DigitalForm](claimKey).get
       val section: Section = claim.section(models.domain.CircumstancesIdentification)
       section.questionGroup(DetailsOfThePersonYouCareFor) must beLike {
         case Some(f: DetailsOfThePersonYouCareFor) => {
@@ -67,7 +68,7 @@ class G3DetailsOfThePersonYouCareForSpec extends Specification with Tags{
     }
 
     "missing mandatory field" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody("firstName" -> "")
 
       val result = controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.submit(request)
@@ -75,7 +76,7 @@ class G3DetailsOfThePersonYouCareForSpec extends Specification with Tags{
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
       val result = controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor.submit(request)

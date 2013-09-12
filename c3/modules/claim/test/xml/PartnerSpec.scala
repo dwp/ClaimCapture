@@ -4,8 +4,6 @@ import org.specs2.mutable.{Tags, Specification}
 import models.domain._
 import controllers.Mappings.{yes,no}
 import models.DayMonthYear
-import models.yesNo.YesNoWithDate
-import models.MultiLineAddress
 import scala.Some
 import app.XMLValues
 
@@ -14,12 +12,10 @@ class PartnerSpec extends Specification with Tags {
   "Partner" should {
     "generate <Partner> xml when claimer had a partner" in {
       val moreAboutYou = MoreAboutYou(hadPartnerSinceClaimDate = yes)
-      val livingTogetherDate = DayMonthYear(Some(1), Some(2), Some(1970))
-      val separatedDate = DayMonthYear(Some(4), Some(5), Some(2013))
       val dateOfBirth = DayMonthYear(Some(3), Some(4), Some(1950))
       val yourPartnerPersonalDetails = YourPartnerPersonalDetails(title="mr", firstName="firstName", middleName=Some("middleName"), surname="surname", otherSurnames=Some("otherNames"), dateOfBirth=dateOfBirth, separatedFromPartner="no")
 
-      val claim = Claim().update(moreAboutYou).update(yourPartnerPersonalDetails)
+      val claim = Claim()().update(moreAboutYou).update(yourPartnerPersonalDetails).asInstanceOf[Claim]
 
       val xml = Partner.xml(claim)
 
@@ -37,7 +33,7 @@ class PartnerSpec extends Specification with Tags {
 
     "skip <Partner> xml when claimer didn't had a partner" in {
       val moreAboutYou = MoreAboutYou(hadPartnerSinceClaimDate = no)
-      val xml = Partner.xml(Claim().update(moreAboutYou))
+      val xml = Partner.xml(Claim()().update(moreAboutYou).asInstanceOf[Claim])
       xml.text must beEmpty
     }
   }

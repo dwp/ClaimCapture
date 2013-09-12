@@ -5,7 +5,7 @@ import play.api.mvc.{AnyContent, Request, Controller}
 import play.api.data.Form
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
-import models.domain.{Claim, YourCourseDetails}
+import models.domain.{DigitalForm, YourCourseDetails}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 
@@ -19,21 +19,21 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
     "studentReferenceNumber" -> optional(text(maxLength = sixty))
   )(YourCourseDetails.apply)(YourCourseDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = executeOnForm {implicit claim => implicit request =>
     presentConditionally {
       track(YourCourseDetails) { implicit claim => Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails))) }
     }
   }
 
-  def presentConditionally(c: => ClaimResult)(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def presentConditionally(c: => FormResult)(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
     if (models.domain.Education.visible) c
     else redirect
   }
 
-  def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
+  def redirect(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult =
     claim -> Redirect("/employment/been-employed")
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = executeOnForm {implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrors)),
       yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(routes.G2AddressOfSchoolCollegeOrUniversity.present()))

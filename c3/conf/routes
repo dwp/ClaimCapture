@@ -15,9 +15,8 @@ GET        /circs-timeout          controllers.Application.circsTimeout
 GET        /error                  controllers.Application.error
 
 # Claim submission
-GET        /submit                 @controllers.submission.SubmissionController.submit
-
-GET        /circumstancesSubmit   @controllers.submission.SubmissionController.circumstancesSubmit
+GET        /submit        @controllers.submission.ClaimSubmissionController.submit
+GET        /circs-submit  @controllers.circs.submission.CircsSubmissionController.submit
 
 # Thank you
 GET        /thankyou/:txnId        controllers.ThankYou.present(txnId: String)

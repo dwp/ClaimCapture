@@ -7,7 +7,7 @@ import play.api.mvc.Controller
 import play.api.mvc.Request
 import play.api.mvc.AnyContent
 import controllers.Mappings._
-import models.domain.{AboutSelfEmployment, Claim}
+import models.domain.{DigitalForm, AboutSelfEmployment}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import SelfEmployment._
@@ -28,18 +28,18 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
     case _ => true
   }
 
-  def present = claiming {
+  def present = executeOnForm {
     implicit claim => implicit request =>
       presentConditionally(aboutSelfEmployment)
   }
 
-  def aboutSelfEmployment(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
+  def aboutSelfEmployment(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
     track(AboutSelfEmployment) {
       implicit claim => Ok(views.html.s8_self_employment.g1_aboutSelfEmployment(form.fill(AboutSelfEmployment)))
     }
   }
 
-  def submit = claiming {
+  def submit = executeOnForm {
     implicit claim => implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => {

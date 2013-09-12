@@ -15,12 +15,12 @@ object G3AbroadForMoreThan52Weeks extends Controller with CachedClaim with Navig
     "anyTrips" -> nonEmptyText.verifying(validYesNo)
   )(AbroadForMoreThan52Weeks.apply)(AbroadForMoreThan52Weeks.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = executeOnForm {implicit claim => implicit request =>
     val `52WeeksForm` = form // [SKW] DE201 the yes/no radio button should be blank, forcing the user to answer Yes or No. This change only affects presentation and not the saving (which is done in the submit).
     track(AbroadForMoreThan52Weeks) { implicit claim => Ok(views.html.s5_time_spent_abroad.g3_abroad_for_more_than_52_weeks(`52WeeksForm`, trips)) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = executeOnForm {implicit claim => implicit request =>
     def next(abroadForMoreThan52Weeks: AbroadForMoreThan52Weeks) = abroadForMoreThan52Weeks.anyTrips match {
       case `yes` if trips.fiftyTwoWeeksTrips.size < 5 => Redirect(routes.G4Trip.fiftyTwoWeeks())
       case `yes` => Redirect(routes.G3AbroadForMoreThan52Weeks.present())

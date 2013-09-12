@@ -6,18 +6,18 @@ import play.api.test.Helpers._
 import models.domain._
 import play.api.cache.Cache
 import models.domain.Claim
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 
 class G3EmployerContactDetailsSpec extends Specification with Tags {
   "Employer's contact details" should {
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
       val result = G3EmployerContactDetails.present("Dummy job ID")(request)
       status(result) mustEqual OK
     }
 
     """require only "job ID".""" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1")
 
       val result = G3EmployerContactDetails.submit(request)
@@ -25,7 +25,7 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
     }
 
     """be added to a (current) job""" in new WithApplication with Claiming {
-      G2JobDetails.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      G2JobDetails.submit(FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         withFormUrlEncodedBody(
         "jobID" -> "1",
         "jobStartDate.day" -> "1",
@@ -34,7 +34,7 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
         "employerName" -> "Toys r not us",
         "finishedThisJob" -> "yes"))
 
-      val result = G3EmployerContactDetails.submit(FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val result = G3EmployerContactDetails.submit(FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1"))
 
       status(result) mustEqual SEE_OTHER

@@ -6,7 +6,7 @@ import models.domain._
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.DayMonthYear
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 
 class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
 
@@ -32,14 +32,14 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
     )
 
     "present 'Self Employment Your Accounts' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
 
       val result = controllers.s8_self_employment.G2SelfEmploymentYourAccounts.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(selfEmploymentYourAccountsInput: _*)
 
       val result = controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit(request)
@@ -57,7 +57,7 @@ class G2SelfEmploymentYourAccountsSpec extends Specification with Tags{
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
         .withFormUrlEncodedBody(selfEmploymentYourAccountsInput: _*)
 
       val result = controllers.s8_self_employment.G2SelfEmploymentYourAccounts.submit(request)

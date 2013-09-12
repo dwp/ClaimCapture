@@ -7,20 +7,20 @@ import models.domain._
 import play.api.cache.Cache
 import models.domain
 import models.domain.Claim
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 
 class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
   "Normal residence and current location" should {
     "present" in new WithApplication with Claiming {
 
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
 
       val result = G1NormalResidenceAndCurrentLocation.present(request)
       status(result) mustEqual OK
     }
 
     "add 'NormalResidenceAndCurrentLocation' to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "no", "liveInUK.whereDoYouLive" -> "Italy", "inGBNow" -> "no")
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "no", "liveInUK.whereDoYouLive" -> "Italy", "inGBNow" -> "no")
 
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       val claim = Cache.getAs[Claim](claimKey).get
@@ -36,7 +36,7 @@ class G1NormalResidenceAndCurrentLocationSpec extends Specification with Tags {
     }
 
     "return bad request on invalid data" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "")
+      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey).withFormUrlEncodedBody("liveInUK.answer" -> "")
 
       val result = G1NormalResidenceAndCurrentLocation.submit(request)
       status(result) mustEqual BAD_REQUEST

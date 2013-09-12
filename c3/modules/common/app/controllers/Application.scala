@@ -1,9 +1,9 @@
 package controllers
 
 import play.api.mvc._
-import models.view.CachedClaim
+import models.view.CachedDigitalForm
 
-object Application extends Controller with CachedClaim {
+object Application extends Controller {
   def index = Action {
     Redirect("/allowance/benefits")
   }

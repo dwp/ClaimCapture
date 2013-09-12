@@ -24,9 +24,9 @@ class CareeSpec extends Specification with Tags {
       val moreAboutThePerson = MoreAboutThePerson(relationship = "son")
       val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaring = yes, spent35HoursCaringBeforeClaim = YesNoWithDate(no, Some(claimDate)))
 
-      val claim = Claim().update(theirPersonalDetails).update(theirContactDetails).update(moreAboutThePerson).update(moreAboutTheCare)
+      val claim = Claim()().update(theirPersonalDetails).update(theirContactDetails).update(moreAboutThePerson).update(moreAboutTheCare)
 
-      val xml = Caree.xml(claim)
+      val xml = Caree.xml(claim.asInstanceOf[Claim])
 
       (xml \\ "Surname").text shouldEqual theirPersonalDetails.surname
       (xml \\ "OtherNames").text must contain(theirPersonalDetails.firstName)
@@ -48,19 +48,19 @@ class CareeSpec extends Specification with Tags {
         val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(no, None))
         val breaks = BreaksInCare().update(Break())
 
-        val xml = Caree.breaksSinceClaim(Claim().update(moreAboutTheCare).update(breaks))
+        val xml = Caree.breaksSinceClaim(Claim()().update(moreAboutTheCare).update(breaks).asInstanceOf[Claim])
         xml.text shouldEqual yes
       }
 
       "no when claimer has breaks and spent 35 hours caring BEFORE claim date" in {
         val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(yes, None))
-        val xml = Caree.breaksSinceClaim(Claim().update(moreAboutTheCare))
+        val xml = Caree.breaksSinceClaim(Claim()().update(moreAboutTheCare).asInstanceOf[Claim])
         xml.text shouldEqual no
       }
 
       "no when claimer has NO breaks and NOT spent 35 hours caring BEFORE claim date" in {
         val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(no, None))
-        val xml = Caree.breaksSinceClaim(Claim().update(moreAboutTheCare))
+        val xml = Caree.breaksSinceClaim(Claim()().update(moreAboutTheCare).asInstanceOf[Claim])
         xml.text shouldEqual no
       }
     }
@@ -70,19 +70,19 @@ class CareeSpec extends Specification with Tags {
         val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(yes, None))
         val breaks = BreaksInCare().update(Break())
 
-        val xml = Caree.breaksBeforeClaim(Claim().update(moreAboutTheCare).update(breaks))
+        val xml = Caree.breaksBeforeClaim(Claim()().update(moreAboutTheCare).update(breaks).asInstanceOf[Claim])
         xml.text shouldEqual yes
       }
 
       "no when claimer has no breaks and spent 35 hours caring BEFORE claim date" in {
         val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(yes, None))
-        val xml = Caree.breaksBeforeClaim(Claim().update(moreAboutTheCare))
+        val xml = Caree.breaksBeforeClaim(Claim()().update(moreAboutTheCare).asInstanceOf[Claim])
         xml.text shouldEqual no
       }
     }
 
     "skip <BreaksBeforeClaim> xml if claimer did NOT spent 35 hours caring BEFORE claim date" in {
-      val xml = Caree.breaksBeforeClaim(Claim())
+      val xml = Caree.breaksBeforeClaim(Claim()())
       xml.text must beEmpty
     }
 
@@ -91,7 +91,7 @@ class CareeSpec extends Specification with Tags {
       val endDate = DayMonthYear(Some(1), Some(2), Some(2012))
       val breakOne = Break(id = "1", start = startDate, end = Some(endDate), whereYou = Whereabouts(location = "Netherlands"), medicalDuringBreak = yes)
       val breakTwo = Break(id = "2", whereYou = Whereabouts(location = "Spain"), medicalDuringBreak = no)
-      val claim = Claim().update(BreaksInCare().update(breakOne).update(breakTwo))
+      val claim = Claim()().update(BreaksInCare().update(breakOne).update(breakTwo)).asInstanceOf[Claim]
       val xml = Caree.careBreak(claim)
 
       (xml \\ "CareBreak").length shouldEqual 2
@@ -103,7 +103,7 @@ class CareeSpec extends Specification with Tags {
     }
 
     "skip <CareBreak> xml when claimer has NO breaks" in {
-      val xml = Caree.careBreak(Claim())
+      val xml = Caree.careBreak(Claim()())
       xml.text must beEmpty
     }
 
