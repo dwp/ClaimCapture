@@ -2,6 +2,7 @@ package xml
 
 import models.domain.Circs
 import scala.xml.Elem
+import xml.Claimant
 
 /**
  * TODO write description
@@ -12,6 +13,7 @@ object DWPCoCircs {
 
   def xml(circs: Circs, transactionId : String):Elem = {
     <DWPCAClaim id={transactionId}>
+      {Claimant.xml(circs)}
     </DWPCAClaim>
   }
 
