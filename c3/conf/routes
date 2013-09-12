@@ -3,26 +3,26 @@
 # ~~~~
 
 # Home page
-GET        /                       controllers.Application.index
-->         /                       claim.Routes
+GET        /                               controllers.Application.index
+->         /                               claim.Routes
 
 
 # Cache Timeout
-GET        /timeout                controllers.Application.timeout
-GET        /circs-timeout          controllers.Application.circsTimeout
+GET        /timeout                        controllers.Application.timeout
+GET        /circs-timeout                  controllers.Application.circsTimeout
 
 # Unrecoverable error
-GET        /error                  controllers.Application.error
+GET        /error/:key                     controllers.Application.error(key:String)
 
 # Claim submission
 GET        /submit        @controllers.submission.ClaimSubmissionController.submit
 GET        /circs-submit  @controllers.circs.submission.CircsSubmissionController.submit
 
 # Thank you
-GET        /thankyou/:txnId        controllers.ThankYou.present(txnId: String)
+GET        /thankyou/:txnId                controllers.ThankYou.present(txnId: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file           controllers.Assets.at(path="/public", file)
+GET        /assets/*file                   controllers.Assets.at(path="/public", file)
 
 # Circumstances
-->         /circumstances          circs.Routes
+->         /circumstances                  circs.Routes

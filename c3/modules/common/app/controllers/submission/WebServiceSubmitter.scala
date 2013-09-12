@@ -3,7 +3,10 @@ package controllers.submission
 import play.api.mvc.Results.Redirect
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc.{AnyContent, Request, PlainResult}
+import services.TransactionIdService
 import play.api.{http, Logger}
+import services.submission.ClaimSubmission
+import ExecutionContext.Implicits.global
 import com.google.inject.Inject
 import play.api.cache.Cache
 import play.api.libs.ws.Response
@@ -12,8 +15,11 @@ import services.TransactionIdService
 import services.submission.ClaimSubmission
 import models.domain.DigitalForm
 import ExecutionContext.Implicits.global
+import play.Configuration
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : ClaimSubmission) extends Submitter {
+
+  val thankYouPageUrl = Configuration.root().getString("thankyou.page")
 
   def submit(claim: DigitalForm, request : Request[AnyContent]): Future[PlainResult] = {
     retrieveRetryData(claim.cacheKey, request) match {
@@ -29,7 +35,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(RETRY) ! ${e.getMessage}")
-            errorAndCleanup(retryData.txnId, UNKNOWN_ERROR)
+            errorAndCleanup(claim.cacheKey,retryData.txnId, UNKNOWN_ERROR)
           }
         }
       }
@@ -50,7 +56,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
-            errorAndCleanup(txnId, UNKNOWN_ERROR)
+            errorAndCleanup(claim.cacheKey,txnId, UNKNOWN_ERROR)
           }
         }
       }
@@ -68,7 +74,12 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         result match {
           case "response" => {
             idService.updateStatus(txnId, SUCCESS)
-            Redirect(s"/thankyou/$txnId").withNewSession
+            Logger.info(s"Successful submission : $txnId")
+            // Clear the cache to ensure no duplicate submission
+            val key = request.session.get(cacheKey).orNull
+            Cache.set(key, None)
+
+            Redirect(thankYouPageUrl)
           }
           case "acknowledgement" => {
             idService.updateStatus(txnId, ACKNOWLEDGED)
@@ -85,27 +96,27 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
           case _ => {
             Logger.info(s"Received result : $result")
-            errorAndCleanup(txnId, UNKNOWN_ERROR)
+            errorAndCleanup(cacheKey,txnId, UNKNOWN_ERROR)
           }
         }
       case http.Status.BAD_REQUEST =>
         Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}")
-        errorAndCleanup(txnId, BAD_REQUEST_ERROR)
+        errorAndCleanup(cacheKey,txnId, BAD_REQUEST_ERROR)
       case http.Status.REQUEST_TIMEOUT =>
         Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}")
-        errorAndCleanup(txnId, REQUEST_TIMEOUT_ERROR)
+        errorAndCleanup(cacheKey,txnId, REQUEST_TIMEOUT_ERROR)
       case http.Status.INTERNAL_SERVER_ERROR =>
         Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}")
-        errorAndCleanup(txnId, INTERNAL_SERVER_ERROR)
+        errorAndCleanup(cacheKey,txnId, INTERNAL_SERVER_ERROR)
       case _ =>
         Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}")
-        errorAndCleanup(txnId, UNKNOWN_ERROR)
+        errorAndCleanup(cacheKey,txnId, UNKNOWN_ERROR)
     }
   }
 
-  private def errorAndCleanup(txnId: String, code: String): PlainResult = {
+  private def errorAndCleanup(cacheKey:String, txnId: String, code: String): PlainResult = {
     idService.updateStatus(txnId, code)
-    Redirect("/error").withNewSession
+    Redirect(s"/error?key=$cacheKey")
   }
 
   case class RetryData(corrId: String, pollUrl: String, txnId: String)

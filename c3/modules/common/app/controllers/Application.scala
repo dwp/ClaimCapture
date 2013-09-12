@@ -1,7 +1,8 @@
 package controllers
 
 import play.api.mvc._
-import models.view.CachedDigitalForm
+import play.api.cache.Cache
+import play.api.Play.current
 
 object Application extends Controller {
   def index = Action {
@@ -16,7 +17,10 @@ object Application extends Controller {
     Ok(views.html.common.session_timeout("/circumstances/identification/about-you"))
   }
 
-  def error = Action {
+  def error(key:String) = Action { request =>
+    // Clear the cache to ensure no duplicate submission
+    val cacheKey = request.session.get(key).orNull
+    Cache.set(cacheKey, None)
     Ok(views.html.common.error())
   }
 }
