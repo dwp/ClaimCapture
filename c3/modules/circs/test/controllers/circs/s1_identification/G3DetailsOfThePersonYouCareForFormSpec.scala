@@ -7,7 +7,6 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
 
   "Change of circumstances - About You Form" should {
 
-    val title = "Mr"
     val firstName = "John"
     val middelName = ""
     val lastName = "Smith"
@@ -23,7 +22,7 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
 
     "map data into case class" in {
       G3DetailsOfThePersonYouCareFor.form.bind(
-        Map("title" -> title,
+        Map(
           "firstName" -> firstName,
           "middleName" -> middelName,
           "lastName" -> lastName,
@@ -46,7 +45,7 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
 
     "reject too many characters in text fields" in {
       G3DetailsOfThePersonYouCareFor.form.bind(
-        Map("title" -> title,
+        Map(
           "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "lastName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
@@ -71,20 +70,19 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
       G3DetailsOfThePersonYouCareFor.form.bind(
         Map("middleName" -> "middle name is optional")).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(6)
+          formWithErrors.errors.length must equalTo(5)
           formWithErrors.errors(0).message must equalTo("error.required")
           formWithErrors.errors(1).message must equalTo("error.required")
           formWithErrors.errors(2).message must equalTo("error.required")
-          formWithErrors.errors(3).message must equalTo("error.required")
-          formWithErrors.errors(4).message must equalTo("error.nationalInsuranceNumber")
-          formWithErrors.errors(5).message must equalTo("error.required")
+          formWithErrors.errors(3).message must equalTo("error.nationalInsuranceNumber")
+          formWithErrors.errors(4).message must equalTo("error.required")
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject invalid national insurance number" in {
       G3DetailsOfThePersonYouCareFor.form.bind(
-        Map("title" -> title,
+        Map(
           "firstName" -> firstName,
           "middleName" -> middelName,
           "lastName" -> lastName,
@@ -106,7 +104,7 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
 
     "reject invalid date" in {
       G3DetailsOfThePersonYouCareFor.form.bind(
-        Map("title" -> title,
+        Map(
           "firstName" -> firstName,
           "middleName" -> middelName,
           "lastName" -> lastName,

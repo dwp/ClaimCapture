@@ -32,8 +32,7 @@ object CircumstancesYourContactDetails extends QuestionGroup.Identifier {
 
 
 
-case class DetailsOfThePersonYouCareFor(title: String = "",
-                                 firstName: String = "",
+case class DetailsOfThePersonYouCareFor(firstName: String = "",
                                  middleName: Option[String] = None,
                                  lastName: String = "",
                                  nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),

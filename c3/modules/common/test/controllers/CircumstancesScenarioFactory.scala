@@ -27,7 +27,6 @@ object CircumstancesScenarioFactory {
 
   def detailsOfThePersonYouCareFor = {
     val claim = yourContactDetails
-    claim.CircumstancesDetailsOfThePersonYouCareForTitle = "mr"
     claim.CircumstancesDetailsOfThePersonYouCareForFirstName = "John"
     claim.CircumstancesDetailsOfThePersonYouCareForMiddleName = "Roger"
     claim.CircumstancesDetailsOfThePersonYouCareForLastName = "Smith"

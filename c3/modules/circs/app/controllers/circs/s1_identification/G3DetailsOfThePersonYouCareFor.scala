@@ -11,8 +11,6 @@ import utils.helpers.CarersForm._
 
 
 object G3DetailsOfThePersonYouCareFor extends Controller with CachedClaim with Navigable {
-
-  val title = "title"
   val firstName = "firstName"
   val middleName = "middleName"
   val lastName = "lastName"
@@ -21,7 +19,6 @@ object G3DetailsOfThePersonYouCareFor extends Controller with CachedClaim with N
 
 
   val form = Form(mapping(
-    title -> nonEmptyText(maxLength = 4),
     firstName -> nonEmptyText(maxLength = Name.maxLength),
     middleName -> optional(text(maxLength = Name.maxLength)),
     lastName -> nonEmptyText(maxLength = Name.maxLength),

@@ -8,7 +8,7 @@ import utils.pageobjects.xml_validation.{XMLBusinessValidation}
  * @author Jorge Migueis
  *         Date: 02/08/2013
  */
-class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None) extends Page(null,browser, XmlPage.url, XmlPage.title, previousPage) {
+class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None, url: String = XmlPage.url, title: String = XmlPage.title) extends Page(null,browser, url, title, previousPage) {
 
    pageSource = browser.pageSource()
 
@@ -42,7 +42,7 @@ class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None) extends 
  */
 object XmlPage {
   val title = null
-  val url = "/submit"
+  val url = "/submit" // or circumstancesSubmit
   def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new XmlPage(browser, previousPage)
 }
 
