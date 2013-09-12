@@ -19,12 +19,12 @@ class CircsSubmissionController @Inject()(submitter: Submitter) extends Controll
     catch {
       case e: UnavailableTransactionIdException => {
         Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
-        Redirect("/error")
+        Redirect(s"/error?key=${CachedCircs.key}")
       }
       case e: java.lang.Exception => {
         Logger.error(s"InternalServerError ! ${e.getMessage}")
         Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
-        Redirect("/error")
+        Redirect(s"/error?key=${CachedCircs.key}")
       }
     }
   }
