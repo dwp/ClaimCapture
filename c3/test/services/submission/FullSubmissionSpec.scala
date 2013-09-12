@@ -16,7 +16,7 @@ import utils.pageobjects.S11_consent_and_declaration.G5SubmitPage
 class FullSubmissionSpec extends Specification with Tags {
   sequential
 
-  val thankYouPageTitle = "GOV.UK - The best place to find government services and information"
+  val thankYouPageTitle = "Carer's Allowance referrer"
 
   val cAndDError = "Error"
 

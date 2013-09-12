@@ -2,6 +2,8 @@ package controllers
 
 import play.api.mvc._
 import models.view.CachedClaim
+import play.api.cache.Cache
+import play.api.Play.current
 
 object Application extends Controller with CachedClaim {
   def index = Action {
@@ -13,6 +15,10 @@ object Application extends Controller with CachedClaim {
   }
 
   def error = Action {
-    Ok(views.html.common.error())
+    request =>
+    // Clear the cache to ensure no duplicate submission
+      val key = request.session.get(CachedClaim.claimKey).orNull
+      Cache.set(key, None)
+      Ok(views.html.common.error())
   }
 }

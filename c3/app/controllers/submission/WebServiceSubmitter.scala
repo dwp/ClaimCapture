@@ -1,6 +1,6 @@
 package controllers.submission
 
-import play.api.mvc.Results.Redirect
+import play.api.mvc.Results._
 import models.domain.Claim
 import scala.concurrent.{Future, ExecutionContext}
 import play.api.mvc.{AnyContent, Request, PlainResult}
@@ -14,8 +14,11 @@ import play.api.libs.ws.Response
 import play.api.Play.current
 import xml.DWPCAClaim
 import models.view.CachedClaim
+import play.Configuration
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : ClaimSubmission) extends Submitter {
+
+  val thankYouPageUrl = Configuration.root().getString("thankyou.page")
 
   def submit(claim: Claim, request : Request[AnyContent]): Future[PlainResult] = {
     retrieveRetryData(request) match {
@@ -70,7 +73,12 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         result match {
           case "response" => {
             idService.updateStatus(txnId, SUCCESS)
-            Redirect(s"/thankyou/$txnId").withNewSession
+            Logger.info(s"Successful submission : $txnId")
+            // Clear the cache to ensure no duplicate submission
+            val key = request.session.get(CachedClaim.claimKey).orNull
+            Cache.set(key, None)
+
+            Redirect(thankYouPageUrl)
           }
           case "acknowledgement" => {
             idService.updateStatus(txnId, ACKNOWLEDGED)
@@ -107,7 +115,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
   def errorAndCleanup(txnId: String, code: String): PlainResult = {
     idService.updateStatus(txnId, code)
-    Redirect("/error").withNewSession
+    Redirect("/error")
   }
 
   case class RetryData(corrId: String, pollUrl: String, txnId: String)
