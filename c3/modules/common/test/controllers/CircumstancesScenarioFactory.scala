@@ -37,7 +37,7 @@ object CircumstancesScenarioFactory {
 
   def otherChangeInfo = {
     val claim = detailsOfThePersonYouCareFor
-    claim.CircumstancesOtherChangeInfoChange
+    claim.CircumstancesOtherChangeInfoChange = "I put in the wrong date of birth"
     claim
   }
 

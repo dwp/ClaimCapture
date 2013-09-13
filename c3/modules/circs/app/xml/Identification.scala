@@ -1,13 +1,27 @@
 package xml
 
 import app.XMLValues._
-import models.domain._
-import scala.xml.Elem
+import models.domain.{CircumstancesYourContactDetails, CircumstancesAboutYou, DetailsOfThePersonYouCareFor, Circs}
+import scala.xml.{NodeSeq, Elem}
+import models.domain.Circs
+import scala.Some
 import xml.XMLHelper._
 import models.domain.Circs
+import scala.Some
 
-object Claimant {
-  def xml(circs: Circs): Elem = {
+object Identification {
+
+  def xml(circs :Circs):NodeSeq = {
+
+    <Claim>
+      {claimant(circs)}
+      {careeDetails(circs)}
+    </Claim>
+
+
+  }
+
+  def claimant(circs: Circs): NodeSeq = {
     val yourDetails = circs.questionGroup[CircumstancesAboutYou].getOrElse(CircumstancesAboutYou())
     val contactDetails = circs.questionGroup[CircumstancesYourContactDetails].getOrElse(CircumstancesYourContactDetails())
 
@@ -30,4 +44,17 @@ object Claimant {
       <EmailAddress/>
     </Claimant>
   }
+
+
+  def careeDetails(circs: Circs):NodeSeq = {
+    val detailsOfThePerson = circs.questionGroup[DetailsOfThePersonYouCareFor].getOrElse(DetailsOfThePersonYouCareFor())
+
+    <CareeDetails>
+      <OtherNames>{detailsOfThePerson.otherNames}</OtherNames>
+      <Surname>{detailsOfThePerson.lastName}</Surname>
+      <NationalInsuranceNumber>{detailsOfThePerson.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
+      <DateOfBirth>{detailsOfThePerson.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
+    </CareeDetails>
+  }
+
 }

@@ -13,8 +13,8 @@ case class CircumstancesAboutYou(title: String = "",
                     lastName: String = "",
                     nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
                     dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)
-                     ) extends QuestionGroup(CircumstancesAboutYou)
-{
+                     ) extends QuestionGroup(CircumstancesAboutYou){
+
   def otherNames = firstName + middleName.map(" " + _).getOrElse("")
 }
 
@@ -40,7 +40,10 @@ case class DetailsOfThePersonYouCareFor(firstName: String = "",
                                  lastName: String = "",
                                  nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
                                  dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)
-                                  ) extends QuestionGroup(DetailsOfThePersonYouCareFor)
+                                  ) extends QuestionGroup(DetailsOfThePersonYouCareFor){
+
+  def otherNames = firstName + middleName.map(" " + _).getOrElse("")
+}
 
 object DetailsOfThePersonYouCareFor extends QuestionGroup.Identifier {
   val id = s"${CircumstancesIdentification.id}.g3"
