@@ -9,7 +9,7 @@ class G1AboutYouFormSpec extends Specification with Tags {
 
     val title = "Mr"
     val firstName = "John"
-    val middelName = ""
+    val middelName = "Joe"
     val lastName = "Smith"
     val ni1 = "AB"
     val ni2 = 12
