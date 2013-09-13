@@ -38,16 +38,14 @@ class IdentificationSpec extends Specification with Tags {
 
       (xml \\ "Surname").text shouldEqual yourDetails.lastName
       (xml \\ "OtherNames").text shouldEqual yourDetails.otherNames
-      (xml \\ "OtherSurnames").text shouldEqual NotAsked
       (xml \\ "Title").text shouldEqual yourDetails.title
-      (xml \\ "MaritalStatus").text shouldEqual NotAsked
       (xml \\ "DateOfBirth").text shouldEqual yourDetails.dateOfBirth.`yyyy-MM-dd`
       (xml \\ "NationalInsuranceNumber").text shouldEqual nationalInsuranceNr.stringify
       (xml \\ "Address" \\ "PostCode").text shouldEqual contactDetails.postcode.get
       (xml \\ "ConfirmAddress").text shouldEqual yes
-      (xml \\ "HomePhoneNumber").text shouldEqual contactDetails.phoneNumber.get
-      (xml \\ "DaytimePhoneNumber" \\ "Number").text shouldEqual contactDetails.mobileNumber.get
-      (xml \\ "DaytimePhoneNumber" \\ "Qualifier").text shouldEqual "mobile"
+      (xml \\ "HomePhone").text shouldEqual contactDetails.phoneNumber.get
+      (xml \\ "DaytimePhone" \\ "Number").text shouldEqual contactDetails.mobileNumber.get
+      (xml \\ "DaytimePhone" \\ "Qualifier").text shouldEqual "mobile"
     }
 
     "generate Caree xml from a given circumstances" in {
@@ -56,7 +54,6 @@ class IdentificationSpec extends Specification with Tags {
 
       (xml \\ "Surname").text shouldEqual careeDetails.lastName
       (xml \\ "OtherNames").text shouldEqual careeDetails.otherNames
-      (xml \\ "OtherSurnames").text shouldEqual NotAsked
       (xml \\ "DateOfBirth").text shouldEqual yourDetails.dateOfBirth.`yyyy-MM-dd`
       (xml \\ "NationalInsuranceNumber").text shouldEqual nationalInsuranceNr.stringify
 

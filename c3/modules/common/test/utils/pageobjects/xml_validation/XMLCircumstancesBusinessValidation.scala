@@ -50,7 +50,8 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
         val value = XMLValidationNode.prepareElement(theNodes(index).text)
         val nodeName = theNodes(index).mkString
         def valuesMatching: Boolean = {
-          if (nodeName.startsWith(EvidenceListNode)) {
+          if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value) 
+          else if (nodeName.startsWith(EvidenceListNode)) {
             value.contains(claimValue.question + "=" + claimValue.value)
           }
           else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
@@ -81,7 +82,7 @@ object CircValue {
   private def prepareCircValue(claimValue: String, attribute:String) = {
     val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
 
-    if (cleanValue.contains("/") && !attribute.startsWith("EmploymentLeavingDateP45") && !attribute.startsWith("AboutYouWhenDidYouArriveInYheUK")) {
+    if (cleanValue.contains("/")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
       date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
     } else cleanValue
