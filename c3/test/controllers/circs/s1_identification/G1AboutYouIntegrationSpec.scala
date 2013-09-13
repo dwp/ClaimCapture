@@ -35,55 +35,104 @@ class G1AboutYouIntegrationSpec extends Specification with Tags {
       page submitPage()
     }
 
-    "contain error if missing title field" in new WithBrowser with G1AboutYouPageContext {
-      val claim = new TestData
-      claim.CircumstancesAboutYouFirstName = firstName
-      claim.CircumstancesAboutYouMiddleName = middelName
-      claim.CircumstancesAboutYouLastName = lastName
-      claim.CircumstancesAboutYouNationalInsuranceNumber = nino
-      claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
+    "contain errors on invalid submission" in {
+      "missing title field" in new WithBrowser with G1AboutYouPageContext {
+        val claim = new TestData
+        claim.CircumstancesAboutYouFirstName = firstName
+        claim.CircumstancesAboutYouMiddleName = middelName
+        claim.CircumstancesAboutYouLastName = lastName
+        claim.CircumstancesAboutYouNationalInsuranceNumber = nino
+        claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
 
-      page goToThePage()
-      page fillPageWith claim
+        page goToThePage()
+        page fillPageWith claim
 
-      val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) must contain("Title - This is required")
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Title - This is required")
+      }
+
+      "missing firstName field" in new WithBrowser with G1AboutYouPageContext {
+        val claim = new TestData
+        claim.CircumstancesAboutYouTitle = title
+        claim.CircumstancesAboutYouMiddleName = middelName
+        claim.CircumstancesAboutYouLastName = lastName
+        claim.CircumstancesAboutYouNationalInsuranceNumber = nino
+        claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("First name - This is required")
+      }
+
+      "missing lastName field" in new WithBrowser with G1AboutYouPageContext {
+        val claim = new TestData
+        claim.CircumstancesAboutYouTitle = title
+        claim.CircumstancesAboutYouFirstName = firstName
+        claim.CircumstancesAboutYouMiddleName = middelName
+        claim.CircumstancesAboutYouNationalInsuranceNumber = nino
+        claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Last name - This is required")
+      }
+
+      "missing nino field" in new WithBrowser with G1AboutYouPageContext {
+        val claim = new TestData
+        claim.CircumstancesAboutYouTitle = title
+        claim.CircumstancesAboutYouFirstName = firstName
+        claim.CircumstancesAboutYouMiddleName = middelName
+        claim.CircumstancesAboutYouLastName = lastName
+        claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 2
+        errors(0) must contain("National Insurance number - This is required")
+      }
+
+      "invalid nino containing numbers" in new WithBrowser with G1AboutYouPageContext {
+        val claim = new TestData
+        claim.CircumstancesAboutYouTitle = title
+        claim.CircumstancesAboutYouFirstName = firstName
+        claim.CircumstancesAboutYouMiddleName = middelName
+        claim.CircumstancesAboutYouLastName = lastName
+        claim.CircumstancesAboutYouNationalInsuranceNumber = "11abcdef1"
+        claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("National Insurance number - A National insurance number must be in the format VO 12 34 56 D")
+      }
+
+      "missing dateOfBirth field" in new WithBrowser with G1AboutYouPageContext {
+        val claim = new TestData
+        claim.CircumstancesAboutYouTitle = title
+        claim.CircumstancesAboutYouFirstName = firstName
+        claim.CircumstancesAboutYouMiddleName = middelName
+        claim.CircumstancesAboutYouLastName = lastName
+        claim.CircumstancesAboutYouNationalInsuranceNumber = nino
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Date of birth - This is required")
+      }
     }
-
-    "contain error if missing nino field" in new WithBrowser with G1AboutYouPageContext {
-      val claim = new TestData
-      claim.CircumstancesAboutYouTitle = title
-      claim.CircumstancesAboutYouFirstName = firstName
-      claim.CircumstancesAboutYouMiddleName = middelName
-      claim.CircumstancesAboutYouLastName = lastName
-      claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
-
-      page goToThePage()
-      page fillPageWith claim
-
-      val errors = page.submitPage().listErrors
-      errors.size mustEqual 2
-      errors(0) must contain("National Insurance number - This is required")
-    }
-
-    "contain error if invalid nino containing numbers" in new WithBrowser with G1AboutYouPageContext {
-      val claim = new TestData
-      claim.CircumstancesAboutYouTitle = title
-      claim.CircumstancesAboutYouFirstName = firstName
-      claim.CircumstancesAboutYouMiddleName = middelName
-      claim.CircumstancesAboutYouLastName = lastName
-      claim.CircumstancesAboutYouNationalInsuranceNumber = "11abcdef1"
-      claim.CircumstancesAboutYouDateOfBirth = dateOfBirth
-
-      page goToThePage()
-      page fillPageWith claim
-
-      val errors = page.submitPage().listErrors
-      errors.size mustEqual 1
-      errors(0) must contain("National Insurance number - A National insurance number must be in the format VO 12 34 56 D")
-    }
-
   } section("integration", models.domain.CircumstancesIdentification.id)
 
 }
