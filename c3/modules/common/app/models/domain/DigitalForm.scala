@@ -4,6 +4,7 @@ import scala.reflect.ClassTag
 import models.{Timestamped, DayMonthYear}
 import models.view.Navigation
 import scala.xml.Elem
+import com.dwp.carers.s2.xml.validation.XmlValidator
 
 /**
  * Represents the data gathered from customers through the views.
@@ -17,6 +18,8 @@ abstract class DigitalForm(val sections: List[Section] = List())(implicit val na
   def copyForm(sections: List[Section])(implicit navigation: Navigation):DigitalForm
 
   def xml(transactionId: String):Elem
+
+  def xmlValidator: XmlValidator
 
   def cacheKey:String
 
