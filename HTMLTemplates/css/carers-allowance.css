@@ -74,6 +74,8 @@ main {
         background: url("../img/nav-line.png") 0 56px repeat-x;
         margin-bottom: -12px;
         zoom: 1; }
+      .ie8 .carers-allowance .progress-steps ol {
+        background: none; }
       @media screen and (max-width: 760px) {
         .carers-allowance .progress-steps ol {
           padding-bottom: 0; } }
@@ -195,29 +197,31 @@ main {
               width: 26px; } }
           .ie8 .carers-allowance .progress-steps ol li.complete span:before {
             display: none; }
-  @media screen and (max-width: 500px) {
-    .carers-allowance .short-steps ol:after {
-      display: block; } }
-  .carers-allowance .short-steps ol li {
-    width: 25%; }
-    @media screen and (max-width: 760px) {
-      .carers-allowance .short-steps ol li {
-        text-indent: -9999px;
-        padding: 35px 0 0 0; }
+  .carers-allowance .short-steps ol {
+    display: none; }
+    @media screen and (max-width: 500px) {
+      .carers-allowance .short-steps ol:after {
+        display: block; } }
+    .carers-allowance .short-steps ol li {
+      width: 25%; }
+      @media screen and (max-width: 760px) {
+        .carers-allowance .short-steps ol li {
+          text-indent: -9999px;
+          padding: 35px 0 0 0; }
+          .carers-allowance .short-steps ol li span {
+            text-indent: 0; } }
+      @media screen and (max-width: 480px) {
+        .carers-allowance .short-steps ol li {
+          width: 25%;
+          margin-left: 0; }
+          .carers-allowance .short-steps ol li:first-child {
+            margin-left: 0; } }
+      @media screen and (max-width: 330px) {
+        .carers-allowance .short-steps ol li {
+          width: 25%; } }
+      @media screen and (max-width: 770px) {
         .carers-allowance .short-steps ol li span {
-          text-indent: 0; } }
-    @media screen and (max-width: 480px) {
-      .carers-allowance .short-steps ol li {
-        width: 25%;
-        margin-left: 0; }
-        .carers-allowance .short-steps ol li:first-child {
-          margin-left: 0; } }
-    @media screen and (max-width: 330px) {
-      .carers-allowance .short-steps ol li {
-        width: 25%; } }
-    @media screen and (max-width: 770px) {
-      .carers-allowance .short-steps ol li span {
-        font-size: 13px; } }
+          font-size: 13px; } }
   .carers-allowance section {
     background: #fff;
     position: relative;
@@ -244,6 +248,9 @@ main {
             margin-right: 0; } }
       .carers-allowance section.error-statement h1 {
         font-size: 5rem; }
+        @media screen and (max-width: 480px) {
+          .carers-allowance section.error-statement h1 {
+            font-size: 30px; } }
         .ie .carers-allowance section.error-statement h1 {
           font-size: 50px; }
     .carers-allowance section h1 {
@@ -294,6 +301,8 @@ main {
         background-position: center -279px; }
       .carers-allowance section.response article.education h2 {
         background-position: center -567px; }
+    .ie7 .carers-allowance section.response {
+      zoom: 1; }
     .carers-allowance section p {
       margin: 0;
       font-size: 1.9rem;
@@ -588,11 +597,13 @@ main {
             line-height: 1em;
             content: "\00a3";
             font-size: 19px; }
+        .carers-allowance .form-elements ul li.validation:before {
+          left: 18px;
+          bottom: 19px; }
         .carers-allowance .form-elements ul li .helper {
           font-size: 1.6rem;
           margin-top: .4em;
-          font-weight: 300;
-          color: #6f777b; }
+          font-weight: 300; }
           .ie .carers-allowance .form-elements ul li .helper {
             font-size: 16px; }
           .carers-allowance .form-elements ul li .helper.above {
@@ -712,16 +723,19 @@ main {
             margin-left: 0; }
           .carers-allowance .form-elements ul.radio li input[type="radio"] {
             position: absolute;
-            top: 34%;
-            left: 1.2em;
+            top: 13px;
+            left: 14px;
             margin: 0;
-            cursor: pointer; }
-            .ie8 .carers-allowance .form-elements ul.radio li input[type="radio"], .ie9 .carers-allowance .form-elements ul.radio li input[type="radio"] {
-              left: .7em;
-              top: 28%; }
-            .ie7 .carers-allowance .form-elements ul.radio li input[type="radio"] {
-              top: 25%;
-              left: .7em; }
+            cursor: pointer;
+            line-height: 1em; }
+            .ie .carers-allowance .form-elements ul.radio li input[type="radio"] {
+              top: 10px;
+              left: 10px; }
+            .ie10 .carers-allowance .form-elements ul.radio li input[type="radio"] {
+              top: 10px;
+              left: 10px; }
+            .ie8 .carers-allowance .form-elements ul.radio li input[type="radio"] {
+              top: 11px; }
             .ie6 .carers-allowance .form-elements ul.radio li input[type="radio"] {
               position: relative;
               top: auto;
@@ -732,15 +746,17 @@ main {
           .carers-allowance .form-elements ul.radio li label {
             display: block;
             background: #eee;
-            padding: .5em 1em .4em 2.2em;
+            padding: 12px 14px 10px 34px;
             font-size: 1.7rem;
             cursor: pointer;
-            line-height: inherit;
-            border: 1px solid #fff; }
+            line-height: 1em;
+            border: 1px solid #fff;
+            font-weight: 500; }
             .ie .carers-allowance .form-elements ul.radio li label {
               font-size: 17px; }
-            .ie7 .carers-allowance .form-elements ul.radio li label, .ie8 .carers-allowance .form-elements ul.radio li label {
-              padding: .4em 1em .3em 2em; }
+            .ie7 .carers-allowance .form-elements ul.radio li label:hover, .ie8 .carers-allowance .form-elements ul.radio li label:hover {
+              background: #fff;
+              border: 1px solid #a2a2a2; }
             .ie6 .carers-allowance .form-elements ul.radio li label {
               display: inline;
               padding-left: 0;
@@ -788,6 +804,8 @@ main {
           margin-top: .38rem; }
           .ie .carers-allowance .form-elements ul.inline-stack li input {
             margin-top: 0; }
+          .carers-allowance .form-elements ul.inline-stack li input:focus {
+            outline: none; }
           .carers-allowance .form-elements ul.inline-stack li input[type=checkbox]:checked + label, .carers-allowance .form-elements ul.inline-stack li input[type=radio]:checked + label {
             color: #0b0c0c; }
         .carers-allowance .form-elements ul.inline-stack li label {
@@ -931,6 +949,10 @@ main {
           -ms-transition: all 200ms ease-in;
           -o-transition: all 200ms ease-in;
           transition: all 200ms ease-in; }
+        .ie .carers-allowance .form-elements .declare input {
+          left: .8em; }
+        .carers-allowance .form-elements .declare input:focus {
+          outline: none; }
       .carers-allowance .form-elements .declare.secondary {
         margin-top: 1em; }
     .carers-allowance .form-elements .dec ul {
@@ -1013,7 +1035,7 @@ main {
       .carers-allowance .form-elements table.employment th, .carers-allowance .form-elements table.employment td {
         text-align: left; }
         .carers-allowance .form-elements table.employment th:first-child, .carers-allowance .form-elements table.employment td:first-child {
-          width: 40%; }
+          width: 65%; }
         .carers-allowance .form-elements table.employment th.desc, .carers-allowance .form-elements table.employment td.desc {
           width: 40%; }
   .carers-allowance .prompt {
@@ -1126,6 +1148,8 @@ main {
       margin: .5em 0 1em 0;
       border: 1px solid #a2a2a2;
       background: #fff; }
+      .ie7 .carers-allowance .prompt.helper-prompt {
+        zoom: 1; }
       .carers-allowance .prompt.helper-prompt p {
         font-size: 1.6rem;
         margin-top: 1em; }
@@ -1304,6 +1328,12 @@ main {
 
 .clearfix:after {
   clear: both; }
+
+/* firefix radio fix */
+@-moz-document url-prefix() {
+  .radio input[type="radio"] {
+    top: 15px !important;
+    left: 12px !important; } }
 
 /* Purely for demo purposes - can be deleted later on */
 textarea.demo {

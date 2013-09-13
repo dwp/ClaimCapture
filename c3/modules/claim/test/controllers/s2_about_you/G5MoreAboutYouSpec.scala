@@ -6,12 +6,12 @@ import play.api.cache.Cache
 import models.domain
 import models.domain.Claim
 import org.specs2.mutable.{Tags, Specification}
-import models.view.CachedDigitalForm
+import models.view.CachedClaim
 
 class G5MoreAboutYouSpec extends Specification with Tags {
   "More About You - Controller" should {
     "make Your Partner Section visible" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "yes",
         "beenInEducationSinceClaimDate" -> "yes",
         "receiveStatePension" -> "yes")
@@ -24,7 +24,7 @@ class G5MoreAboutYouSpec extends Specification with Tags {
     }
 
     "hide Your Partner Section" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "no",
         "beenInEducationSinceClaimDate" -> "yes",
         "receiveStatePension" -> "yes")
@@ -37,7 +37,7 @@ class G5MoreAboutYouSpec extends Specification with Tags {
     }
     
     "make Education Section visible" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "yes",
         "beenInEducationSinceClaimDate" -> "yes",
         "receiveStatePension" -> "yes")
@@ -50,7 +50,7 @@ class G5MoreAboutYouSpec extends Specification with Tags {
     }
 
     "hide Education Section" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("hadPartnerSinceClaimDate" -> "yes",
         "beenInEducationSinceClaimDate" -> "no",
         "receiveStatePension" -> "yes")

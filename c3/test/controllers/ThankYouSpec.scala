@@ -14,7 +14,7 @@ import models.view.CachedDigitalForm
 class ThankYouSpec extends Specification with Mockito with Tags {
   "Thank You - Controller" should {
     "present 'Thank You' page" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession("claim" -> claimKey)
 
       val result = controllers.ThankYou.present("TEST234")(request)
       status(result) mustEqual OK

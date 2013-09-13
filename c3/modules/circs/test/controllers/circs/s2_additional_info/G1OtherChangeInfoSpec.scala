@@ -1,8 +1,8 @@
 package controllers.circs.s2_additional_info
 
 import play.api.test.{FakeRequest, WithApplication}
-import models.domain.{DigitalForm, CircumstancesOtherInfo, Claiming}
-import models.view.CachedDigitalForm
+import models.domain.{DigitalForm, CircumstancesOtherInfo, MockForm}
+import models.view.CachedCircs
 import play.api.cache.Cache
 import play.api.test.Helpers._
 import org.specs2.mutable.{Tags, Specification}
@@ -16,16 +16,16 @@ class G1OtherChangeInfoSpec extends Specification with Tags{
 
   "Circumstances - OtherChangeInfo - Controller" should {
 
-    "present 'Other Change Information' " in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+    "present 'Other Change Information' " in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedCircs.key -> claimKey)
 
       val result = controllers.circs.s2_additional_info.G1OtherChangeInfo.present(request)
       status(result) mustEqual OK
     }
 
 
-    "add submitted form to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+    "add submitted form to the cached claim" in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedCircs.key -> claimKey)
         .withFormUrlEncodedBody(otherChangeInfoInput: _*)
 
       val result = controllers.circs.s2_additional_info.G1OtherChangeInfo.submit(request)
@@ -37,8 +37,8 @@ class G1OtherChangeInfoSpec extends Specification with Tags{
       }
     }
 
-    "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+    "redirect to the next page after a valid submission" in new WithApplication with MockForm {
+      val request = FakeRequest().withSession(CachedCircs.key -> claimKey)
         .withFormUrlEncodedBody(otherChangeInfoInput: _*)
 
       val result = controllers.circs.s2_additional_info.G1OtherChangeInfo.submit(request)

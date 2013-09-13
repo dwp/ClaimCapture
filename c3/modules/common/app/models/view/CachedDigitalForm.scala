@@ -14,10 +14,6 @@ import play.api.http.HeaderNames._
 import java.util.UUID._
 import models.domain.{DigitalForm, QuestionGroup}
 
-object CachedDigitalForm {
-  val claimKey = "claim"
-}
-
 trait CachedDigitalForm {
   type FormResult = (DigitalForm, Result)
 
@@ -46,13 +42,6 @@ trait CachedDigitalForm {
     }
   }
 
-//  def newClaim(f: (DigitalForm) => Request[AnyContent] => Either[Result, FormResult]) = Action {
-//    request => {
-//      val (key, _) = keyAndExpiration(request)
-//      val claim = if (request.getQueryString("changing").getOrElse("false") == "false") { Claim() } else Cache.getAs[Claim](key).getOrElse(Claim())
-//      action(claim, request)(f)
-//    }
-//  }
 
   def executeOnForm(f: (DigitalForm) => Request[AnyContent] => Either[Result, FormResult]):Action[AnyContent]  = Action {
     request => {
@@ -77,29 +66,6 @@ trait CachedDigitalForm {
   def timeoutUrl:String
   def cacheKey:String
   protected def buildForm:DigitalForm
-
-
-//  def claimingCircs(f: (DigitalForm) => Request[AnyContent] => Either[Result, FormResult]) = claiming(f,"/circs-timeout")
-
-//  def claiming(f: (DigitalForm) => Request[AnyContent] => Either[Result, FormResult],timeoutUrl: String = "/timeout") = Action {
-//    request => {
-//      val (key, expiration) = keyAndExpiration(request)
-//
-//      Cache.getAs[Claim](key) match {
-//        case Some(claim) => action(claim, request)(f)
-//
-//        case None =>
-//          if (Play.isTest) {
-//            val claim = Claim()
-//            Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
-//            action(claim, request)(f)
-//          } else {
-//            Logger.info("Claim timeout")
-//            Redirect(timeoutUrl).withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
-//          }
-//      }
-//    }
-//  }
 
   def action(claim: DigitalForm, request: Request[AnyContent])(f: (DigitalForm) => Request[AnyContent] => Either[Result, FormResult]): Result = {
     val (key, expiration) = keyAndExpiration(request)

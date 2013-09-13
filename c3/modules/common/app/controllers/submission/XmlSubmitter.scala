@@ -5,7 +5,6 @@ import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc.{AnyContent, Request, PlainResult}
 import ExecutionContext.Implicits.global
 import scala.xml.Elem
-import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 import play.Configuration
 import models.domain.DigitalForm
 
@@ -15,7 +14,7 @@ class XmlSubmitter extends Submitter {
     val fullXml = buildFullClaim(claimXml)
 
     if (Configuration.root().getBoolean("validateXml", true)) {
-      val validator = XmlValidatorFactory.buildCaValidator()
+      val validator = claim.xmlValidator
       val fullXmlString = fullXml.buildString(stripComments = true)
 
       validator.validate(fullXmlString) match {

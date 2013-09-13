@@ -5,6 +5,7 @@ import play.api.Logger
 import com.google.inject._
 import models.view.CachedClaim
 import services.UnavailableTransactionIdException
+import play.api.mvc.Results._
 
 @Singleton
 class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim {
@@ -18,12 +19,12 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     catch {
       case e: UnavailableTransactionIdException => {
         Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
-        Redirect("/error")
+        Redirect(s"/error?key=${CachedClaim.key}")
       }
       case e: java.lang.Exception => {
         Logger.error(s"InternalServerError ! ${e.getMessage}")
         Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
-        Redirect("/error")
+        Redirect(s"/error?key=${CachedClaim.key}")
       }
     }
   }

@@ -1,16 +1,18 @@
-COC Identification,Your details,Title,CircumstancesAboutYouTitle,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Title
-COC Identification,Your details,First Name,CircumstancesAboutYouFirstName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>OtherNames
-COC Identification,Your details,Middle Name,CircumstancesAboutYouMiddleName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>OtherNames
-COC Identification,Your details,Last Name,CircumstancesAboutYouLastName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Surname
-COC Identification,Your details,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>NationalInsuranceNumber
-COC Identification,Your details,Date of Birth,CircumstancesAboutYouDateOfBirth,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>DateOfBirth
-COC Identification,Your contact details,Address,CircumstancesYourContactDetailsAddress,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Address>Line
-COC Identification,Your contact details,Postcode,CircumstancesYourContactDetailsPostcode,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Address>PostCode
-COC Identification,Your contact details,Daytime phone number,CircumstancesYourContactDetailsPhoneNumber,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>HomePhone
-COC Identification,Your contact details,Mobile number,CircumstancesYourContactDetailsMobileNumber,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>DaytimePhone>Number
-COC Identification,Details of the person you care for,First Name,CircumstancesDetailsOfThePersonYouCareForFirstName,DWPCAChangeOfCircumstances>Claim>CareeDetails>OtherNames
-COC Identification,Details of the person you care for,Middle Name,CircumstancesDetailsOfThePersonYouCareForMiddleName,DWPCAChangeOfCircumstances>Claim>CareeDetails>OtherNames
-COC Identification,Details of the person you care for,Last Name,CircumstancesDetailsOfThePersonYouCareForLastName,DWPCAChangeOfCircumstances>Claim>CareeDetails>Surname
-COC Identification,Details of the person you care for,National Insurance number,CircumstancesDetailsOfThePersonYouCareForNationalInsuranceNumber,DWPCAChangeOfCircumstances>Claim>CareeDetails>NationalInsuranceNumber
-COC Identification,Details of the person you care for,Date of Birth,CircumstancesDetailsOfThePersonYouCareForDateOfBirth,DWPCAChangeOfCircumstances>Claim>CareeDetails>DateOfBirth
-COC Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges
+About you - the carer,Circumstances,Title,CircumstancesAboutYouTitle,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Title
+About you - the carer,Circumstances,First Name,CircumstancesAboutYouFirstName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>OtherNames
+About you - the carer,Circumstances,Middle Name,CircumstancesAboutYouMiddleName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>OtherNames
+About you - the carer,Circumstances,Last Name,CircumstancesAboutYouLastName,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Surname
+About you - the carer,Circumstances,National Insurance number,CircumstancesAboutYouNationalInsuranceNumber,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>NationalInsuranceNumber
+About you - the carer,Circumstances,Date of Birth,CircumstancesAboutYouDateOfBirth,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>DateOfBirth
+About you - the carer,Your contact details,Address,CircumstancesYourContactDetailsAddress,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Address>Line
+About you - the carer,Your contact details,Postcode,CircumstancesYourContactDetailsPostcode,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>Address>PostCode
+About you - the carer,Your contact details,Daytime phone number,CircumstancesYourContactDetailsPhoneNumber,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>HomePhone
+About you - the carer,Your contact details,Mobile number,CircumstancesYourContactDetailsMobileNumber,DWPCAChangeOfCircumstances>Claim>ClaimantDetails>DaytimePhone>Number
+About you - the carer,Details of the person you care for,First Name,CircumstancesDetailsOfThePersonYouCareForFirstName,DWPCAChangeOfCircumstances>Claim>CareeDetails>OtherNames
+About you - the carer,Details of the person you care for,Middle Name,CircumstancesDetailsOfThePersonYouCareForMiddleName,DWPCAChangeOfCircumstances>Claim>CareeDetails>OtherNames
+About you - the carer,Details of the person you care for,Last Name,CircumstancesDetailsOfThePersonYouCareForLastName,DWPCAChangeOfCircumstances>Claim>CareeDetails>Surname
+About you - the carer,Details of the person you care for,National Insurance number,CircumstancesDetailsOfThePersonYouCareForNationalInsuranceNumber,DWPCAChangeOfCircumstances>Claim>CareeDetails>NationalInsuranceNumber
+About you - the carer,Details of the person you care for,Date of Birth,CircumstancesDetailsOfThePersonYouCareForDateOfBirth,DWPCAChangeOfCircumstances>Claim>CareeDetails>DateOfBirth
+Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges
+Consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have listed on this form?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Declaration
+Consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above,CircumstancesDeclarationConfirmation,DWPCAChangeOfCircumstances>Declaration

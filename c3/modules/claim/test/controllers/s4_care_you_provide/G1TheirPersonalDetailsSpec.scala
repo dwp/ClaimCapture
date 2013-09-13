@@ -7,7 +7,7 @@ import models.domain._
 import models.{DayMonthYear, domain}
 import play.api.test.Helpers._
 import models.domain.Claim
-import models.view.CachedDigitalForm
+import models.view.CachedClaim
 
 class G1TheirPersonalDetailsSpec extends Specification with Tags {
 
@@ -17,14 +17,14 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
   "Their Personal Details - Controller" should {
 
     "present 'Their Personal Details'." in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val result = G1TheirPersonalDetails.present(request)
       status(result) mustEqual OK
     }
 
     "add 'Their Personal Details' to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(theirPersonalDetailsInput: _*)
 
       val result = G1TheirPersonalDetails.submit(request)
@@ -43,7 +43,7 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
     }
 
     "return a bad request after an invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("title" -> "Mr")
 
       val result = G1TheirPersonalDetails.submit(request)
@@ -51,7 +51,7 @@ class G1TheirPersonalDetailsSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(theirPersonalDetailsInput: _*)
 
       val result = G1TheirPersonalDetails.submit(request)

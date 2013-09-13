@@ -19,3 +19,4 @@ POST        /additional-info/other-change                             controller
 
 GET         /consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.present
 POST        /consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.submit
+

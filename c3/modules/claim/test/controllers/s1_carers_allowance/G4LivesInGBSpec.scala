@@ -6,7 +6,7 @@ import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain._
 import models.domain.Claim
-import models.view.CachedDigitalForm
+import models.view.CachedClaim
 
 class G4LivesInGBSpec extends Specification with Tags {
   "Carer's Allowance - LivesInGB - Controller" should {
@@ -14,14 +14,14 @@ class G4LivesInGBSpec extends Specification with Tags {
     val hoursInput = Seq("answer" -> answerYesNo)
 
     "present" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val result = controllers.s1_carers_allowance.G4LivesInGB.present(request)
       status(result) mustEqual OK
     }
 
     "missing mandatory field" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("answer" -> "")
 
       val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)
@@ -29,7 +29,7 @@ class G4LivesInGBSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(hoursInput: _*)
 
       val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)
@@ -37,7 +37,7 @@ class G4LivesInGBSpec extends Specification with Tags {
     }
 
     "add submitted form to the cached claim when answered 'yes'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(hoursInput: _*)
 
       val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)
@@ -51,7 +51,7 @@ class G4LivesInGBSpec extends Specification with Tags {
     }
 
     "add submitted form to the cached claim when answered 'no'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("answer" -> "no")
 
       val result = controllers.s1_carers_allowance.G4LivesInGB.submit(request)

@@ -16,7 +16,7 @@ class G3DetailsOfThePersonYouCareForIntegrationSpec extends Specification with T
     "present errors if mandatory fields are not populated" in new WithBrowser with G3DetailsOfThePersonYouCareForPageContext {
       page goToThePage()
 
-      page.submitPage().listErrors.size mustEqual 6
+      page.submitPage().listErrors.size mustEqual 5
     }
 
     "Accept submit if all mandatory fields are populated" in new WithBrowser with G3DetailsOfThePersonYouCareForPageContext {

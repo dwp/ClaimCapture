@@ -12,6 +12,7 @@ object DWPCoCircs {
 
   def xml(circs: Circs, transactionId : String):Elem = {
     <DWPCAClaim id={transactionId}>
+      {Claimant.xml(circs)}
     </DWPCAClaim>
   }
 

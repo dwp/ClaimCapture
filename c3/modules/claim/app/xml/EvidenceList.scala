@@ -27,15 +27,15 @@ object EvidenceList {
 
       if (employed) {
         buffer += textLine()
-        buffer += textLine("Your Employment documents")
+        buffer += textLine("Your Employment documents.")
         buffer += textLine("Last payslip you got before your claim date: ", claimDate.dateOfClaim.`dd/MM/yyyy`)
-        buffer += textLine("Any payslips you have had since then")
+        buffer += textLine("Any payslips you have had since then.")
       }
 
       if (selfEmployed) {
         buffer += textLine()
-        buffer += textLine("Your Self-employed documents")
-        buffer += textLine("Most recent finalised accounts you have for your busines")
+        buffer += textLine("Your Self-employed documents.")
+        buffer += textLine("Most recent finalised accounts you have for your business.")
       }
 
       buffer += textLine()

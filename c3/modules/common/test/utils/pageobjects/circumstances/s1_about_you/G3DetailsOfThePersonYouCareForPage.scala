@@ -5,7 +5,6 @@ import utils.pageobjects.{CircumstancesPage, PageContext, Page}
 
 
 final class G3DetailsOfThePersonYouCareForPage(browser: TestBrowser, previousPage: Option[Page] = None) extends CircumstancesPage(browser, G3DetailsOfThePersonYouCareForPage.url, G3DetailsOfThePersonYouCareForPage.title, previousPage) {
-  declareSelect("#title", "CircumstancesDetailsOfThePersonYouCareForTitle")
   declareInput("#firstName","CircumstancesDetailsOfThePersonYouCareForFirstName")
   declareInput("#middleName","CircumstancesDetailsOfThePersonYouCareForMiddleName")
   declareInput("#lastName","CircumstancesDetailsOfThePersonYouCareForLastName")

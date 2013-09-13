@@ -8,7 +8,7 @@ import play.api.cache.Cache
 import models.{DayMonthYear, domain}
 import models.domain.Claim
 import scala.Some
-import models.view.CachedDigitalForm
+import models.view.CachedClaim
 
 class G1YourCourseDetailsSpec extends Specification with Tags {
 
@@ -20,14 +20,14 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
 
   "Your course details - Controller" should {
     "present 'Your course details'" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val result = G1YourCourseDetails.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted data to the cached claim" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = controllers.s6_education.G1YourCourseDetails.submit(request)
@@ -46,7 +46,7 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
     }
 
     "return bad request on invalid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("finishedDate.day" -> "1")
 
       val result = controllers.s6_education.G1YourCourseDetails.submit(request)
@@ -54,7 +54,7 @@ class G1YourCourseDetailsSpec extends Specification with Tags {
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedDigitalForm.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(formInput: _*)
 
       val result = controllers.s6_education.G1YourCourseDetails.submit(request)

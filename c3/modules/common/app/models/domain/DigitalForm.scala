@@ -4,6 +4,7 @@ import scala.reflect.ClassTag
 import models.{Timestamped, DayMonthYear}
 import models.view.Navigation
 import scala.xml.Elem
+import com.dwp.carers.s2.xml.validation.XmlValidator
 
 /**
  * Represents the data gathered from customers through the views.
@@ -18,7 +19,11 @@ abstract class DigitalForm(val sections: List[Section] = List())(implicit val na
 
   def xml(transactionId: String):Elem
 
+  def xmlValidator: XmlValidator
+
   def cacheKey:String
+
+  def dateOfClaim: Option[DayMonthYear]
 
   // ==================================================================================================================
   // Common Features: sections, question groups....
@@ -85,11 +90,6 @@ abstract class DigitalForm(val sections: List[Section] = List())(implicit val na
   }
 
   def -(questionGroupIdentifier: QuestionGroup.Identifier): DigitalForm = delete(questionGroupIdentifier)
-
-  def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate) match {
-    case Some(c: ClaimDate) => Some(c.dateOfClaim)
-    case _ => None
-  }
 
   def hideSection(sectionIdentifier: Section.Identifier): DigitalForm = update(section(sectionIdentifier).hide)
 

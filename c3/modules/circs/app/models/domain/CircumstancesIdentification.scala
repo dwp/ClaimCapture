@@ -14,6 +14,9 @@ case class CircumstancesAboutYou(title: String = "",
                     nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
                     dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)
                      ) extends QuestionGroup(CircumstancesAboutYou)
+{
+  def otherNames = firstName + middleName.map(" " + _).getOrElse("")
+}
 
 object CircumstancesAboutYou extends QuestionGroup.Identifier {
   val id = s"${CircumstancesIdentification.id}.g1"
@@ -32,8 +35,7 @@ object CircumstancesYourContactDetails extends QuestionGroup.Identifier {
 
 
 
-case class DetailsOfThePersonYouCareFor(title: String = "",
-                                 firstName: String = "",
+case class DetailsOfThePersonYouCareFor(firstName: String = "",
                                  middleName: Option[String] = None,
                                  lastName: String = "",
                                  nationalInsuranceNumber: NationalInsuranceNumber = NationalInsuranceNumber(Some(""), Some(""), Some(""), Some(""), Some("")),
