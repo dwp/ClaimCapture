@@ -18,14 +18,14 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
   "The application Claim" should {
     "Successfully run absolute Claim Test Case 1" in new WithBrowser with G1BenefitsPageContext {
 
-      val cofc = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage()
-      val lastPage = page runClaimWith(cofc, XmlPage.title)
+      val lastPage = page runClaimWith(claim, XmlPage.title)
 
       lastPage match {
         case p: XmlPage => {
           val validator: XMLBusinessValidation = new XMLClaimBusinessValidation
-          validateAndPrintErrors(p, cofc, validator) should beTrue
+          validateAndPrintErrors(p, claim, validator) should beTrue
         }
         case p: Page => println(p.source())
       }

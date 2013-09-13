@@ -3,7 +3,7 @@ package models.domain
 import language.postfixOps
 import models.view.{CachedClaim, Navigation}
 import scala.xml.Elem
-import xml.DWPCAClaim
+import xml.{DWPCAClaim}
 import models.DayMonthYear
 import com.dwp.carers.s2.xml.validation.{XmlValidatorFactory, XmlValidator}
 
@@ -16,10 +16,6 @@ case class Claim()(sections: List[Section] = List())(implicit navigation: Naviga
 
   def copyForm(sections: List[Section])(implicit navigation:Navigation): DigitalForm = this.copy()(sections)(navigation)
 
-  def xml(transactionId:String): Elem = DWPCAClaim.xml(this,transactionId)
-
-  def xmlValidator: XmlValidator = XmlValidatorFactory.buildCaValidator()
-
   def cacheKey = CachedClaim.key
 
   def dateOfClaim: Option[DayMonthYear] = questionGroup(ClaimDate) match {
@@ -27,4 +23,7 @@ case class Claim()(sections: List[Section] = List())(implicit navigation: Naviga
     case _ => None
   }
 
+  def xml(transactionId: String) = DWPCAClaim.xml(this, transactionId)
+
+  def xmlValidator = XmlValidatorFactory.buildCaValidator()
 }

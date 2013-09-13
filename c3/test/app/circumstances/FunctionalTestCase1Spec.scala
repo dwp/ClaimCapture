@@ -18,19 +18,19 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
   "The application Circumstances" should {
     "Successfully run absolute Circumstances Test Case 1" in new WithBrowser with G1AboutYouPageContext {
 
-      val claim = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase1.csv")
+      val circs = TestData.readTestDataFromFile("/functional_scenarios/circumstances/TestCase1.csv")
       page goToThePage()
 
-      val lastPage = page runClaimWith(claim, XmlPage.title)
+      val lastPage = page runClaimWith(circs, XmlPage.title)
 
       lastPage match {
         case p: XmlPage => {
           val validator: XMLBusinessValidation = new XMLCircumstancesBusinessValidation
-          validateAndPrintErrors(p, claim, validator) should beTrue
+          validateAndPrintErrors(p, circs, validator) should beTrue
         }
         case p: Page => println(p.source())
       }
-    }.pendingUntilFixed("throws a 'SAXParseException: Content is not allowed in prolog' because we are not returning valid XML yet")
+    }//.pendingUntilFixed("throws a 'SAXParseException: Content is not allowed in prolog' because we are not returning valid XML yet")
 
   } section "functional"
 }

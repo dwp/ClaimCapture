@@ -17,9 +17,9 @@ abstract class DigitalForm(val sections: List[Section] = List())(implicit val na
   // ==================================================================================================================
   def copyForm(sections: List[Section])(implicit navigation: Navigation):DigitalForm
 
-  def xml(transactionId: String):Elem
+  def xmlValidator:XmlValidator
 
-  def xmlValidator: XmlValidator
+  def xml(transactionId: String):Elem
 
   def cacheKey:String
 

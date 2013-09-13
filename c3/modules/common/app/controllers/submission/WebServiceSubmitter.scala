@@ -3,10 +3,7 @@ package controllers.submission
 import play.api.mvc.Results.Redirect
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc.{AnyContent, Request, PlainResult}
-import services.TransactionIdService
 import play.api.{http, Logger}
-import services.submission.ClaimSubmission
-import ExecutionContext.Implicits.global
 import com.google.inject.Inject
 import play.api.cache.Cache
 import play.api.libs.ws.Response

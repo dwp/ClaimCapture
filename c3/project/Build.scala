@@ -13,7 +13,7 @@ object ApplicationBuild extends Build {
     jdbc,
     "org.specs2" %% "specs2" % "1.14" % "test" withSources() withJavadoc(),
     "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
-    "com.dwp.carers" % "carersXMLValidation" % "0.15.1",
+    "com.dwp.carers" % "carersXMLValidation" % "0.16.0",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "me.moocar" % "logback-gelf" % "0.9.6p2",
     "com.google.inject" % "guice" % "3.0",

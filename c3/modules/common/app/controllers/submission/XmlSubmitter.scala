@@ -7,13 +7,16 @@ import ExecutionContext.Implicits.global
 import scala.xml.Elem
 import play.Configuration
 import models.domain.DigitalForm
+import com.dwp.carers.s2.xml.validation.XmlValidator
 
 class XmlSubmitter extends Submitter {
+  val transactionId = "TEST432"
+
   def submit(claim: DigitalForm, request: Request[AnyContent]): Future[PlainResult] = {
-    val claimXml = claim.xml("TEST432")
-    val fullXml = buildFullClaim(claimXml)
+    val claimXml = claim.xml(transactionId)
 
     if (Configuration.root().getBoolean("validateXml", true)) {
+      val fullXml = buildFullClaim(claim.xmlValidator, claimXml)
       val validator = claim.xmlValidator
       val fullXmlString = fullXml.buildString(stripComments = true)
 
@@ -29,16 +32,16 @@ class XmlSubmitter extends Submitter {
     }
   }
 
-  def buildFullClaim(claimXml: Elem) = {
+  def buildFullClaim(validator:XmlValidator,claimXml:Elem) = {
     <DWPBody xmlns:bs7666="http://www.govtalk.gov.uk/people/bs7666"
-             xmlns="http://www.govtalk.gov.uk/dwp/ca/claim"
+             xmlns={validator.getGlobalXmlns}
              xmlns:gds="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails"
              xmlns:dc="http://purl.org/dc/elements/1.1/"
              xmlns:dcq="http://purl.org/dc/terms/"
              xmlns:gms="http://www.govtalk.gov.uk/CM/gms"
              xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.govtalk.gov.uk/dwp/ca/claim file:/Users/jmi/Temp/dwp-ca-claim-v1_10.xsd">
+             xsi:schemaLocation={validator.getSchemaLocation}>
       <DWPEnvelope>
         <DWPCAHeader>
           <TestMessage>5</TestMessage>
@@ -60,7 +63,7 @@ class XmlSubmitter extends Submitter {
               <TopElementName>vaN1Eh5z61pekYlfOv-vP0sGy</TopElementName>
             </Reference>
           </Manifest>
-          <TransactionId>{(claimXml \\ "DWPCAClaim" \ "@id").text}</TransactionId>
+          <TransactionId>{transactionId}</TransactionId>
         </DWPCAHeader>{claimXml}
       </DWPEnvelope>
     </DWPBody>
