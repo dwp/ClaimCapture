@@ -4,11 +4,17 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.circumstances.s1_about_you.G2YourContactDetailsPageContext
 import controllers.CircumstancesScenarioFactory
+import utils.pageobjects.TestData
 
 
 class G2YourContactDetailsIntegrationSpec extends Specification with Tags {
 
   "Your contact details" should {
+    val address = "101 Clifton Street&Blackpool"
+    val postCode = "PR2 8AE"
+    val phoneNumber = "1234466"
+    val mobileNumber = "444444"
+
     "be presented" in new WithBrowser with G2YourContactDetailsPageContext {
       page goToThePage()
     }
@@ -28,6 +34,67 @@ class G2YourContactDetailsIntegrationSpec extends Specification with Tags {
       page submitPage()
     }
 
+    "contain errors on invalid submission" in {
+      "missing address field" in new WithBrowser with G2YourContactDetailsPageContext {
+        val claim = new TestData
+        claim.CircumstancesYourContactDetailsPostcode = postCode
+        claim.CircumstancesYourContactDetailsPhoneNumber = phoneNumber
+        claim.CircumstancesYourContactDetailsMobileNumber = mobileNumber
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Address - Missing first line")
+      }
+
+      "invalid postcode field" in new WithBrowser with G2YourContactDetailsPageContext {
+        val claim = new TestData
+        claim.CircumstancesYourContactDetailsAddress = address
+        claim.CircumstancesYourContactDetailsPostcode = "INVALID"
+        claim.CircumstancesYourContactDetailsPhoneNumber = phoneNumber
+        claim.CircumstancesYourContactDetailsMobileNumber = mobileNumber
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Postcode - A post code must be in the format PR2 8AE")
+      }
+
+      "invalid phoneNumber field" in new WithBrowser with G2YourContactDetailsPageContext {
+        val claim = new TestData
+        claim.CircumstancesYourContactDetailsAddress = address
+        claim.CircumstancesYourContactDetailsPostcode = postCode
+        claim.CircumstancesYourContactDetailsPhoneNumber = "INVALID"
+        claim.CircumstancesYourContactDetailsMobileNumber = mobileNumber
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Phone number - Invalid value")
+      }
+
+      "invalid mobileNumber field" in new WithBrowser with G2YourContactDetailsPageContext {
+        val claim = new TestData
+        claim.CircumstancesYourContactDetailsAddress = address
+        claim.CircumstancesYourContactDetailsPostcode = postCode
+        claim.CircumstancesYourContactDetailsPhoneNumber = phoneNumber
+        claim.CircumstancesYourContactDetailsMobileNumber = "INVALID"
+
+        page goToThePage()
+        page fillPageWith claim
+
+        val errors = page.submitPage().listErrors
+        errors.size mustEqual 1
+        errors(0) must contain("Mobile number - Invalid value")
+      }
+
+    }
   } section("integration", models.domain.CircumstancesYourContactDetails.id)
 
 }
