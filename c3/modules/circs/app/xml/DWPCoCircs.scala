@@ -2,6 +2,7 @@ package xml
 
 import models.domain.Circs
 import scala.xml.Elem
+import play.api.Logger
 
 /**
  * TODO write description
@@ -11,9 +12,11 @@ import scala.xml.Elem
 object DWPCoCircs {
 
   def xml(circs: Circs, transactionId : String):Elem = {
-    <DWPCAClaim id={transactionId}>
-      {Claimant.xml(circs)}
-    </DWPCAClaim>
+    Logger.info(s"Build DWPCoCircs : $transactionId")
+    <DWPCAChangeOfCircumstances id={transactionId}>
+      {Identification.xml(circs)}
+      {AdditionalInfo.xml(circs)}
+    </DWPCAChangeOfCircumstances>
   }
 
 }
