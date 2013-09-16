@@ -6,7 +6,7 @@ import play.api.libs.ws.Response
 import ExecutionContext.Implicits.global
 import play.api.{Logger, http}
 
-class MockClaimSubmission extends ClaimSubmission {
+class MockFormSubmission extends FormSubmission {
 
   def submitClaim(claimSubmission: Elem): Future[Response] = {
     val txnId: String = claimSubmission \\ "DWPCAClaim" \ "@id" toString()

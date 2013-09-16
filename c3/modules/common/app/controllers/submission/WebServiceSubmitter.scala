@@ -9,12 +9,12 @@ import play.api.cache.Cache
 import play.api.libs.ws.Response
 import play.api.Play.current
 import services.TransactionIdService
-import services.submission.ClaimSubmission
+import services.submission.FormSubmission
 import models.domain.DigitalForm
 import ExecutionContext.Implicits.global
 import play.Configuration
 
-class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : ClaimSubmission) extends Submitter {
+class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : FormSubmission) extends Submitter {
 
   val thankYouPageUrl = Configuration.root().getString("thankyou.page")
 

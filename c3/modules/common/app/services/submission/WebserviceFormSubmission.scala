@@ -8,7 +8,7 @@ import scala.xml.Elem
 import play.api.Logger
 import services.util.CharacterStripper
 
-class WebserviceClaimSubmission extends ClaimSubmission {
+class WebserviceFormSubmission extends FormSubmission {
 
   def submitClaim(claimSubmission: Elem): Future[ws.Response] = {
     // Logger.info(s"Claim submitting transactionId : ${claimSubmission \\ "DWPCAClaim" \ "@id" toString()}") : Better to change this to debug : If debug turned off in production

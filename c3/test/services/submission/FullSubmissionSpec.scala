@@ -23,7 +23,7 @@ class FullSubmissionSpec extends Specification with Tags {
   private lazy val injector = Guice.createInjector(new ScalaModule {
     def configure() {
       bind[Submitter].to[WebServiceSubmitter]
-      bind[ClaimSubmission].to[MockClaimSubmission].in[Singleton]
+      bind[FormSubmission].to[MockFormSubmission].in[Singleton]
       bind[TransactionIdService].to[MockTransactionIdService].in[Singleton]
     }
   })
