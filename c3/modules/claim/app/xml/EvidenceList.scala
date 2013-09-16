@@ -5,14 +5,21 @@ import XMLHelper.{stringify, booleanStringToYesNo, formatValue}
 import scala.xml.{NodeSeq, NodeBuffer, Elem}
 import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import app.XMLValues._
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.DateTime
 
 object EvidenceList {
 
   def xml(claim: Claim) = {
     <EvidenceList>
-      {evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}{consentAndDeclaration(claim)}
+      {xmlGenerated()}{evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}{consentAndDeclaration(claim)}
     </EvidenceList>
   }
+
+  def xmlGenerated() = {
+    textLine("XML Generated at: "+DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").print(DateTime.now()))
+  }
+
 
   def evidence(claim: Claim): NodeBuffer = {
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment())
