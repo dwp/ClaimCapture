@@ -108,7 +108,7 @@ class EmploymentSpec extends Specification {
       updatedJobs.size shouldEqual 2
       updatedJobs.find(_.jobID == "1") must beLike { case Some(Job("1", qgs, false)) => qgs.size shouldEqual 2 }
 
-      val claim = Claim()().update(updatedJobs)
+      val claim = Claim().update(updatedJobs)
 
       val form = G3EmployerContactDetails.form.fillWithJobID(EmployerContactDetails, "1")(claim)
       form.value.isDefined should beTrue
@@ -119,7 +119,7 @@ class EmploymentSpec extends Specification {
   "Claim" should {
     "iterate over 2 jobs" in {
       val jobs = Jobs().update(Job("1")).update(Job("2"))
-      val claim = Claim()().update(jobs)
+      val claim = Claim().update(jobs)
 
       claim.questionGroup(Jobs) must beLike { case Some(js: Jobs) => js.size shouldEqual 2 }
     }
@@ -130,7 +130,7 @@ class EmploymentSpec extends Specification {
       jobDetails.employerName returns "Toys r not us"
 
       val jobs = Jobs().update(Job("1")).update(Job("2").update(jobDetails))
-      val claim = Claim()().update(jobs)
+      val claim = Claim().update(jobs)
 
       claim.questionGroup(Jobs).collect {
         case js: Jobs => js.jobs.find(_.jobID == "2").collect {

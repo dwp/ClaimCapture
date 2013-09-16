@@ -15,7 +15,7 @@ class PartnerSpec extends Specification with Tags {
       val dateOfBirth = DayMonthYear(Some(3), Some(4), Some(1950))
       val yourPartnerPersonalDetails = YourPartnerPersonalDetails(title="mr", firstName="firstName", middleName=Some("middleName"), surname="surname", otherSurnames=Some("otherNames"), dateOfBirth=dateOfBirth, separatedFromPartner="no")
 
-      val claim = Claim()().update(moreAboutYou).update(yourPartnerPersonalDetails).asInstanceOf[Claim]
+      val claim = Claim().update(moreAboutYou).update(yourPartnerPersonalDetails).asInstanceOf[Claim]
 
       val xml = Partner.xml(claim)
 
@@ -33,7 +33,7 @@ class PartnerSpec extends Specification with Tags {
 
     "skip <Partner> xml when claimer didn't had a partner" in {
       val moreAboutYou = MoreAboutYou(hadPartnerSinceClaimDate = no)
-      val xml = Partner.xml(Claim()().update(moreAboutYou).asInstanceOf[Claim])
+      val xml = Partner.xml(Claim().update(moreAboutYou).asInstanceOf[Claim])
       xml.text must beEmpty
     }
   }

@@ -33,7 +33,7 @@ class IdentificationSpec extends Specification with Tags {
 
   "Identification" should {
     "generate Claimant xml from a given circumstances" in {
-      val claim = Circs()().update(yourDetails).update(contactDetails)
+      val claim = Circs().update(yourDetails).update(contactDetails)
       val xml = Identification.xml(claim.asInstanceOf[Circs])
 
       (xml \\ "Surname").text shouldEqual yourDetails.lastName
@@ -49,7 +49,7 @@ class IdentificationSpec extends Specification with Tags {
     }
 
     "generate Caree xml from a given circumstances" in {
-      val claim = Circs()().update(careeDetails)
+      val claim = Circs().update(careeDetails)
       val xml = Identification.xml(claim.asInstanceOf[Circs])
 
       (xml \\ "Surname").text shouldEqual careeDetails.lastName

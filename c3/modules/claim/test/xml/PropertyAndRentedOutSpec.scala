@@ -8,7 +8,7 @@ class PropertyAndRentedOutSpec extends Specification with Tags {
 
   "PropertyRentedOut" should {
     "generate xml" in {
-      val claim = Claim()()
+      val claim = Claim()
       val xml = PropertyRentedOut.xml(claim)
 
       (xml \\ "RentOutProperty").text shouldEqual NotAsked

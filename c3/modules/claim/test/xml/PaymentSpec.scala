@@ -13,7 +13,7 @@ class PaymentSpec extends Specification with Tags {
 
     "generate xml" in {
       val howWePayYou = HowWePayYou(likeToBePaid=BankBuildingAccount.name, paymentFrequency=EveryWeek.name)
-      val xml = Payment.xml(Claim()().update(howWePayYou).asInstanceOf[Claim])
+      val xml = Payment.xml(Claim().update(howWePayYou).asInstanceOf[Claim])
 
       (xml \\ "PaymentFrequency").text shouldEqual EveryWeek.name
       (xml \\ "InitialAccountQuestion").text shouldEqual BankBuildingAccount.name
@@ -26,7 +26,7 @@ class PaymentSpec extends Specification with Tags {
       val howWePayYou = HowWePayYou(likeToBePaid=BankBuildingAccount.name, paymentFrequency=EveryWeek.name)
       val sortCode =  SortCode("AB", "123456", "D")
       val bankBuildingSocietyDetails = BankBuildingSocietyDetails(accountHolderName="accountHolder", bankFullName="bankFullName", sortCode=sortCode, accountNumber="accountNumber", rollOrReferenceNumber="rollNumber" )
-      val xml = Payment.account(Claim()().update(howWePayYou).update(bankBuildingSocietyDetails).asInstanceOf[Claim])
+      val xml = Payment.account(Claim().update(howWePayYou).update(bankBuildingSocietyDetails).asInstanceOf[Claim])
 
       (xml \\ "HolderName").text shouldEqual bankBuildingSocietyDetails.accountHolderName
       (xml \\ "BuildingSocietyDetails" \\ "AccountNumber").text shouldEqual bankBuildingSocietyDetails.accountNumber
@@ -38,7 +38,7 @@ class PaymentSpec extends Specification with Tags {
 
     "skip <Account> xml if how to be paid is NOT: " + BankBuildingAccount.name  in {
       val howWePayYou = HowWePayYou(likeToBePaid=AppliedForAccount.name, paymentFrequency=EveryWeek.name)
-      val xml = Payment.xml(Claim()().update(howWePayYou).asInstanceOf[Claim])
+      val xml = Payment.xml(Claim().update(howWePayYou).asInstanceOf[Claim])
 
       (xml \\ "Account").text  must beEmpty
     }

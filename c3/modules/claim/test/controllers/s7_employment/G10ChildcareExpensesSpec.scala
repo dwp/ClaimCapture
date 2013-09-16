@@ -33,7 +33,7 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
       jobs.jobs returns job :: Nil
       jobs.questionGroup(jobID, AboutExpenses) returns Some(aboutExpenses)
 
-      val claim = Claim()().update(jobs)
+      val claim = Claim().update(jobs)
       Cache.set(claimKey, claim)
 
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)

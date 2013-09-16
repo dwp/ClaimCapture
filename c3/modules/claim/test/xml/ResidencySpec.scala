@@ -35,7 +35,8 @@ class ResidencySpec extends Specification with Tags {
   "Residency" should {
 
     "generate xml when data is present" in {
-      val claim = Claim()().update(yourDetails)
+      val claim = Claim()
+        .update(yourDetails)
         .update(normalResidence)
         .update(abroadForMoreThan4Weeks)
         .update(trips).update(TimeOutsideUK()).asInstanceOf[Claim]
@@ -83,7 +84,7 @@ class ResidencySpec extends Specification with Tags {
       val livingInUK = LivingInUK(answer = yes, date = Some(dayMonthYearInUK), text = Some(netherlands), goBack = Some(goBack))
       val timeOutsideUK = TimeOutsideUK(livingInUK = livingInUK)
 
-      val claim = Claim()().update(yourDetails).update(timeOutsideUK).asInstanceOf[Claim]
+      val claim = Claim().update(yourDetails).update(timeOutsideUK).asInstanceOf[Claim]
 
       val xml = Residency.otherNationality(claim)
 
@@ -96,7 +97,7 @@ class ResidencySpec extends Specification with Tags {
 
     "skip <OtherNationality> if user has always lived in UK" in {
       val yourDetails = YourDetails(alwaysLivedUK = yes)
-      val claim = Claim()().update(yourDetails).asInstanceOf[Claim]
+      val claim = Claim().update(yourDetails).asInstanceOf[Claim]
       val xml = Residency.otherNationality(claim)
 
       xml.text must beEmpty

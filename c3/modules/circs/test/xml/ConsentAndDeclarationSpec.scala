@@ -12,7 +12,7 @@ class ConsentAndDeclarationSpec extends Specification with Tags {
     val confirmation: String = "yes"
 
     "generate xml" in {
-      val claim = Circs()().update(CircumstancesDeclaration(obtainInfoAgreement = infoAgreement,obtainInfoWhy = Some("Because I don't want"), confirm = confirmation))
+      val claim = Circs().update(CircumstancesDeclaration(obtainInfoAgreement = infoAgreement,obtainInfoWhy = Some("Because I don't want"), confirm = confirmation))
       val xml = ConsentAndDeclaration.xml(claim.asInstanceOf[Circs])
 
       (xml \\ "Declaration" \\ "TextLine").theSeq(4).text must(contain(infoAgreement))

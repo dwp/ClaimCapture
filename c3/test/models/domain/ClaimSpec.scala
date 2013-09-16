@@ -3,14 +3,14 @@ package models.domain
 import org.specs2.mutable.Specification
 
 class ClaimSpec extends Specification {
-  val claim = Claim()().update(Benefits("no"))
+  val claim = Claim().update(Benefits("no"))
                      .update(Hours("no"))
                      .update(LivesInGB("no"))
                      .update(Over16("no"))
 
   "Claim" should {
     "contain the sectionId with the question group after adding" in {
-      val claim = Claim()()
+      val claim = Claim()
       val questionGroup = Benefits(answerYesNo = "no")
       val updatedClaim = claim.update(questionGroup)
       val sectionIdentifier = Section.sectionIdentifier(questionGroup)
@@ -21,7 +21,7 @@ class ClaimSpec extends Specification {
     }
 
     "contain the sectionId with the question group after updating" in {
-      val claim = Claim()()
+      val claim = Claim()
       val trueQuestionGroup = Benefits(answerYesNo = "yes")
       val falseQuestionGroup = Benefits(answerYesNo = "no")
 
@@ -53,12 +53,12 @@ class ClaimSpec extends Specification {
     }
 
     "be able hide a section" in {
-      val updatedClaim = Claim()().hideSection(YourPartner)
+      val updatedClaim = Claim().hideSection(YourPartner)
       YourPartner.visible(updatedClaim) must beFalse
     }
 
     "be able show a section" in {
-      val updatedClaim = Claim()().showSection(YourPartner)
+      val updatedClaim = Claim().showSection(YourPartner)
       YourPartner.visible(updatedClaim) must beTrue
     }
 
@@ -71,7 +71,7 @@ class ClaimSpec extends Specification {
     }
 
     "give previous question group within same section" in new Claiming {
-      val claim = Claim()().update(mockQuestionGroup[AbroadForMoreThan4Weeks](AbroadForMoreThan4Weeks))
+      val claim = Claim().update(mockQuestionGroup[AbroadForMoreThan4Weeks](AbroadForMoreThan4Weeks))
                          .update(mockQuestionGroup[NormalResidenceAndCurrentLocation](NormalResidenceAndCurrentLocation))
 
       val qgiCurrent: QuestionGroup.Identifier = AbroadForMoreThan4Weeks
@@ -131,7 +131,7 @@ class ClaimSpec extends Specification {
 
       val jobs = new Jobs(job1 :: job2 :: Nil)
 
-      val claim = Claim()().update(jobs)
+      val claim = Claim().update(jobs)
 
       val js = claim.questionGroup[Jobs] map { jobs =>
         for (job <- jobs) yield {
@@ -143,7 +143,7 @@ class ClaimSpec extends Specification {
     }
 
     "iterate over no jobs" in {
-      val claim = Claim()()
+      val claim = Claim()
 
       val js = claim.questionGroup[Jobs] map { jobs =>
         for (job <- jobs) yield {
@@ -155,7 +155,7 @@ class ClaimSpec extends Specification {
     }
 
     "give empty list" in {
-      Claim()().questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
+      Claim().questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
     }
   }
 }

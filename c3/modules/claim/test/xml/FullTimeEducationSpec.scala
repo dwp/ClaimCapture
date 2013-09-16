@@ -29,7 +29,7 @@ class FullTimeEducationSpec extends Specification with Tags {
       val moreAboutYou = MoreAboutYou(beenInEducationSinceClaimDate = yes)
       val yourCourseDetails = YourCourseDetails(courseType, courseTitle, startDate, expectedEndDate, finishedDate, studentRefNr)
       val addressOfSchool = AddressOfSchoolCollegeOrUniversity(schoolName, tutorName, address, postcode, phoneNumber, faxNumber)
-      val claim = Claim()().update(moreAboutYou).update(Section(Education, yourCourseDetails :: addressOfSchool :: Nil)).asInstanceOf[Claim]
+      val claim = Claim().update(moreAboutYou).update(Section(Education, yourCourseDetails :: addressOfSchool :: Nil)).asInstanceOf[Claim]
       val educationXml = FullTimeEducation.xml(claim)
 
       val courseDetailsXml = educationXml \\ "FullTimeEducation" \\ "CourseDetails"
@@ -53,7 +53,7 @@ class FullTimeEducationSpec extends Specification with Tags {
 
     "skip <FullTimeEducation> xml when claimer has NOT been in education" in {
       val moreAboutYou = MoreAboutYou(beenInEducationSinceClaimDate = no)
-      val claim = Claim()().update(moreAboutYou)
+      val claim = Claim().update(moreAboutYou)
       val educationXml = FullTimeEducation.xml(claim.asInstanceOf[Claim])
 
       educationXml.text must beEmpty
