@@ -42,7 +42,6 @@ trait CachedDigitalForm {
     }
   }
 
-
   def executeOnForm(f: (DigitalForm) => Request[AnyContent] => Either[Result, FormResult]):Action[AnyContent]  = Action {
     request => {
       val (key, expiration) = keyAndExpiration(request)
@@ -63,9 +62,11 @@ trait CachedDigitalForm {
     }
   }
 
-  def timeoutUrl:String
-  def cacheKey:String
-  protected def buildForm:DigitalForm
+  def timeoutUrl: String
+
+  def cacheKey: String
+
+  protected def buildForm: DigitalForm
 
   def action(claim: DigitalForm, request: Request[AnyContent])(f: (DigitalForm) => Request[AnyContent] => Either[Result, FormResult]): Result = {
     val (key, expiration) = keyAndExpiration(request)

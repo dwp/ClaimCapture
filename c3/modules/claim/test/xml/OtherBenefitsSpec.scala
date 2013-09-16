@@ -31,7 +31,7 @@ class OtherBenefitsSpec extends Specification with Tags {
     "generate xml when data is present" in {
       val otherMoneySection = Section(OtherMoney, statutorySickPay :: otherStatutoryPay :: Nil)
 
-      val claim = Claim()().update(otherMoneySection).asInstanceOf[Claim]
+      val claim = Claim().update(otherMoneySection).asInstanceOf[Claim]
       val otherBenefitsXml = OtherBenefits.xml(claim)
 
       val extraMoneyXml = otherBenefitsXml \\ "ExtraMoney"
@@ -56,7 +56,7 @@ class OtherBenefitsSpec extends Specification with Tags {
     }
 
     "generate xml when data is missing" in {
-      val claim = Claim()().update(Section(OtherMoney, Nil)).asInstanceOf[Claim]
+      val claim = Claim().update(Section(OtherMoney, Nil)).asInstanceOf[Claim]
       val otherMoneyXml = OtherBenefits.xml(claim)
 
       val extraMoneyXml = otherMoneyXml \\ "ExtraMoney"

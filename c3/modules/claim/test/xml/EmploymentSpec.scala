@@ -19,7 +19,7 @@ class EmploymentSpec extends Specification with Tags {
       val jobDetails = JobDetails("1", employerName, startDate, no, Some(endDate), Some(endDate), Some(hours), None)
       val jobs = Jobs(List(Job("1", jobDetails :: Nil)))
 
-      val claim = Claim()().update(Employed(beenEmployedSince6MonthsBeforeClaim = yes))
+      val claim = Claim().update(Employed(beenEmployedSince6MonthsBeforeClaim = yes))
                          .update(jobs)
 
       val employment = Employment.xml(claim.asInstanceOf[Claim])
@@ -37,7 +37,7 @@ class EmploymentSpec extends Specification with Tags {
     }
 
     "generate xml when data is missing" in {
-      val claim = Claim()().update(Employed(beenEmployedSince6MonthsBeforeClaim = no))
+      val claim = Claim().update(Employed(beenEmployedSince6MonthsBeforeClaim = no))
       val employment = Employment.xml(claim.asInstanceOf[Claim])
       employment.text must beEmpty
     }

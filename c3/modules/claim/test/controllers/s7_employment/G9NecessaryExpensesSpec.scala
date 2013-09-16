@@ -17,7 +17,7 @@ class G9NecessaryExpensesSpec extends Specification with Tags {
       val job = Job(jobID).update(aboutExpenses)
       val jobs = Jobs().update(job)
 
-      val claim = Claim()().update(jobs)
+      val claim = Claim().update(jobs)
       Cache.set(claimKey, claim)
 
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)

@@ -28,7 +28,7 @@ class EmploymentSpec extends Specification with Tags {
       val job = Job(jobID).update(jobDetails)
       val jobs = new Jobs().update(job)
 
-      val claim = Claim()().update(jobs)
+      val claim = Claim().update(jobs)
       Cache.set(claimKey, claim)
 
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)

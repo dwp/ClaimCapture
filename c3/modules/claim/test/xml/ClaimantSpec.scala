@@ -20,7 +20,7 @@ class ClaimantSpec extends Specification with Tags {
 
   "Claimant" should {
     "generate Claimant xml from a given claim" in {
-      val claim = Claim()().update(ClaimDate(DayMonthYear(1, 1, 1999)))
+      val claim = Claim().update(ClaimDate(DayMonthYear(1, 1, 1999)))
                          .update(yourDetails).update(contactDetails)
 
       val claimantXml = Claimant.xml(claim.asInstanceOf[Claim])

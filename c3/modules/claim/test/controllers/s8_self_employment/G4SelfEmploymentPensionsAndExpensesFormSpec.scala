@@ -9,7 +9,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     val howOften_frequency_other = "Every day and twice on Sundays"
 
     "map data into case class" in {
-      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()()).bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map(
           "doYouPayToPensionScheme" -> "yes",
           "howMuchDidYouPay" -> "11",
@@ -26,7 +26,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     }
 
     "reject if doYouPayToPensionScheme is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()()).bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map(
           "doYouPayToLookAfterYourChildren" -> "yes",
           "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
@@ -37,7 +37,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     }
 
     "reject if howMuchDidYouPay is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()()).bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map(
           "doYouPayToPensionScheme" -> "yes",
           "howOften.frequency" -> howOften_frequency,
@@ -51,7 +51,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     }
 
     "reject if doYouPayToLookAfterYourChildren is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()()).bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map(
           "doYouPayToPensionScheme" -> "yes",
           "howMuchDidYouPay" -> "11",
@@ -66,7 +66,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
 
 
     "reject if didYouPayToLookAfterThePersonYouCaredFor is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()()).bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map(
           "doYouPayToPensionScheme" -> "yes",
           "howMuchDidYouPay" -> "11",
@@ -80,7 +80,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     }
 
     "reject if how often is not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()()).bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map("doYouPayToPensionScheme" -> "yes",
           "howMuchDidYouPay" -> "11",
           "doYouPayToLookAfterYourChildren" -> "yes",
@@ -92,7 +92,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
     }
 
     "reject if other is select but not filled" in {
-      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()()).bind(
+      G4SelfEmploymentPensionsAndExpenses.form(models.domain.Claim()).bind(
         Map("doYouPayToPensionScheme" -> "yes",
           "howMuchDidYouPay" -> "11",
           "howOften.frequency" -> howOften_frequency,

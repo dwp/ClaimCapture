@@ -147,7 +147,7 @@ class AboutYouSpec extends Specification with Tags {
     """present first "about you" page upon completing with missing forms""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
-      val claim = Claim()().update(mockQuestionGroup[YourDetails](YourDetails))
+      val claim = Claim().update(mockQuestionGroup[YourDetails](YourDetails))
 
       Cache.set(claimKey, claim)
 
@@ -161,7 +161,7 @@ class AboutYouSpec extends Specification with Tags {
       val moreAboutYou = mockQuestionGroup[MoreAboutYou](MoreAboutYou)
       moreAboutYou.hadPartnerSinceClaimDate returns "yes"
 
-      val claim = Claim()()
+      val claim = Claim()
         .update(mockQuestionGroup[YourDetails](YourDetails))
         .update(mockQuestionGroup[ContactDetails](ContactDetails))
         .update(mockQuestionGroup[ClaimDate](ClaimDate))
@@ -183,7 +183,7 @@ class AboutYouSpec extends Specification with Tags {
       val moreAboutYou = mockQuestionGroup[MoreAboutYou](MoreAboutYou)
       moreAboutYou.hadPartnerSinceClaimDate returns "yes"
 
-      val claim = Claim()()
+      val claim = Claim()
         .update(yourDetails)
         .update(mockQuestionGroup[ContactDetails](ContactDetails))
         .update(mockQuestionGroup[TimeOutsideUK](TimeOutsideUK))

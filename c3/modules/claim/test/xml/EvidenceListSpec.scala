@@ -16,7 +16,7 @@ class EvidenceListSpec extends Specification with Tags {
 
       "when employed" in {
         val employment = models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = yes)
-        val claim = Claim()().update(employment)
+        val claim = Claim().update(employment)
         val xml = EvidenceList.xml(claim.asInstanceOf[Claim])
 
         xml.text must contain(employmentDocuments)
@@ -25,7 +25,7 @@ class EvidenceListSpec extends Specification with Tags {
 
       "when self employed" in {
         val employment = models.domain.Employment(beenSelfEmployedSince1WeekBeforeClaim = yes)
-        val claim = Claim()().update(employment)
+        val claim = Claim().update(employment)
         val xml = EvidenceList.xml(claim.asInstanceOf[Claim])
 
         xml.text must contain(selfEmploymentDocuments)
@@ -34,7 +34,7 @@ class EvidenceListSpec extends Specification with Tags {
 
       "when both employed and self employed" in {
         val employment = models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = yes, beenSelfEmployedSince1WeekBeforeClaim = yes)
-        val claim = Claim()().update(employment)
+        val claim = Claim().update(employment)
         val xml = EvidenceList.xml(claim.asInstanceOf[Claim])
         xml.text must contain(employmentDocuments)
         xml.text must contain(selfEmploymentDocuments)
@@ -44,14 +44,14 @@ class EvidenceListSpec extends Specification with Tags {
 
     "generate self employment section when something answered" in {
       val yourAccounts = SelfEmploymentYourAccounts(areIncomeOutgoingsProfitSimilarToTrading = Some("true") )
-      val claim = Claim()().update(yourAccounts)
+      val claim = Claim().update(yourAccounts)
       val xml = EvidenceList.selfEmployment(claim.asInstanceOf[Claim])
 
       xml.text must not(beEmpty)
     }
 
     "skip self employment section when nothing answered" in {
-      val xml = EvidenceList.selfEmployment(Claim()())
+      val xml = EvidenceList.selfEmployment(Claim())
 
       xml.text must beEmpty
     }

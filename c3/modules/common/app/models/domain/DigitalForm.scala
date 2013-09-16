@@ -11,10 +11,6 @@ import com.dwp.carers.s2.xml.validation.XmlValidator
  * The data are divided into sections, themselves sub-divided into question groups.
  */
 abstract class DigitalForm(val sections: List[Section] = List())(implicit val navigation: Navigation = Navigation()) extends Timestamped {
-
-  // ==================================================================================================================
-  // Abstract methods
-  // ==================================================================================================================
   def copyForm(sections: List[Section])(implicit navigation: Navigation):DigitalForm
 
   def xmlValidator:XmlValidator
@@ -25,9 +21,6 @@ abstract class DigitalForm(val sections: List[Section] = List())(implicit val na
 
   def dateOfClaim: Option[DayMonthYear]
 
-  // ==================================================================================================================
-  // Common Features: sections, question groups....
-  // ==================================================================================================================
   def section(sectionIdentifier: Section.Identifier): Section = sections.find(s => s.identifier == sectionIdentifier) match {
     case Some(s: Section) => s
     case _ => Section(sectionIdentifier, List())
@@ -98,5 +91,4 @@ abstract class DigitalForm(val sections: List[Section] = List())(implicit val na
   def showHideSection(visible: Boolean, sectionIdentifier: Section.Identifier) = {
     if (visible) showSection(sectionIdentifier) else hideSection(sectionIdentifier)
   }
-
 }

@@ -5,12 +5,7 @@ import org.specs2.mock.Mockito
 import java.util.UUID._
 import scala.reflect.ClassTag
 
-/**
- * TODO write description
- * @author Jorge Migueis
- *         Date: 12/09/2013
- */
-trait MockForm  extends Scope with Mockito {
+trait MockForm extends Scope with Mockito {
   val claimKey = randomUUID.toString
 
   def mockQuestionGroup[Q <: QuestionGroup](qi: QuestionGroup.Identifier)(implicit classTag: ClassTag[Q]): Q = {
@@ -28,5 +23,4 @@ trait MockForm  extends Scope with Mockito {
 
     questionGroup
   }
-
 }
