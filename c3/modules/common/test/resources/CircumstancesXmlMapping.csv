@@ -15,4 +15,5 @@ About you - the carer,Details of the person you care for,National Insurance numb
 About you - the carer,Details of the person you care for,Date of Birth,CircumstancesDetailsOfThePersonYouCareForDateOfBirth,DWPCAChangeOfCircumstances>Claim>CareeDetails>DateOfBirth
 Additional Info,Other Change Information,Other Circumstances,CircumstancesOtherChangeInfoChange,DWPCAChangeOfCircumstances>OtherChanges
 Consent and declaration,Declaration,Do you agree to us obtaining information from any other persons or organisations you may have listed on this form?,CircumstancesDeclarationInfoAgreement,DWPCAChangeOfCircumstances>Declaration
+Consent and declaration,Declaration,I don't agree to you obtaining information from any other persons or organisations because,CircumstancesDeclarationWhyNot,DWPCAChangeOfCircumstances>EvidenceList
 Consent and declaration,Declaration,Please tick this box to confirm that you understand and make the declarations above,CircumstancesDeclarationConfirmation,DWPCAChangeOfCircumstances>EvidenceList
