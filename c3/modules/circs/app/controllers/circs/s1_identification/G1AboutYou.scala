@@ -27,13 +27,23 @@ object G1AboutYou extends Controller with CachedCircs with Navigable {
     dateOfBirth -> dayMonthYear.verifying(validDate)
   )(CircumstancesAboutYou.apply)(CircumstancesAboutYou.unapply))
 
-  def present = newForm { implicit claim => implicit request =>
-    track(CircumstancesAboutYou) { implicit claim => Ok(views.html.circs.s1_identification.g1_aboutYou(form.fill(CircumstancesAboutYou))) }
+  def present = newForm {
+    implicit claim => implicit request =>
+      track(CircumstancesAboutYou) {
+        implicit claim => Ok(views.html.circs.s1_identification.g1_aboutYou(form.fill(CircumstancesAboutYou)))
+      }
   }
 
-  def submit = executeOnForm { implicit claim => implicit request =>
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.s1_identification.g1_aboutYou(formWithErrors)),
-      circumstancesAboutYou => claim.update(circumstancesAboutYou) -> Redirect(routes.G2YourContactDetails.present()))
+  def submit = executeOnForm {
+    implicit claim => implicit request =>
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.circs.s1_identification.g1_aboutYou(formWithErrors)),
+        f => claim.update(f) -> {
+          claim.isBot(f) match {
+            case true => NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
+            case false => Redirect(routes.G2YourContactDetails.present())
+          }
+        }
+      )
   }
 }

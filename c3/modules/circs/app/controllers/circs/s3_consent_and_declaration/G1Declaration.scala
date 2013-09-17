@@ -6,10 +6,9 @@ import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import models.domain.{CircumstancesDeclaration, CircumstancesOtherInfo}
+import controllers.circs.s1_identification.routes
 
 object G1Declaration extends Controller with CachedCircs with Navigable {
-
-
   val form = Form(mapping(
     "obtainInfoAgreement" -> nonEmptyText,
     "obtainInfoWhy" -> optional(nonEmptyText(maxLength = 2000)),
@@ -27,7 +26,12 @@ object G1Declaration extends Controller with CachedCircs with Navigable {
         val f = formWithErrors.replaceError("", "obtainInfoWhy", FormError("obtainInfoWhy", "error.required"))
           BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(f))
         },
-        data => claim.update(data) -> Redirect("/circs-submit")
+        f => claim.update(f) -> {
+          claim.isBot(f) match {
+            case true => NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
+            case false => Redirect("/circs-submit")
+          }
+        }
       )
   }
 }

@@ -4,6 +4,7 @@ import play.api.i18n.Messages
 
 abstract class QuestionGroup(val identifier: QuestionGroup.Identifier) {
   val definition: String = Messages(identifier.id)
+  def numberOfCharactersInput: Int = 0
 }
 
 object QuestionGroup {

@@ -38,6 +38,14 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
     }
     case Failure(_) => this
   }
+
+  def numberOfCharactersInput: Int = {
+    {day match {case Some(s) => s.toString.length case _ => 0}} +
+      {month match {case Some(s) => s.toString.length case _ => 0}} +
+      {year match {case Some(s) => s.toString.length case _ => 0}} +
+      {hour match {case Some(s) => s.toString.length case _ => 0}} +
+      {minutes match {case Some(s) => s.toString.length case _ => 0}}
+  }
 }
 
 object DayMonthYearComparator extends Ordering[Option[DayMonthYear]]{
