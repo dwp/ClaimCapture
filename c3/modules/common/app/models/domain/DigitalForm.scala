@@ -96,24 +96,35 @@ abstract class DigitalForm(val sections: List[Section] = List())(implicit val na
     if (visible) showSection(sectionIdentifier) else hideSection(sectionIdentifier)
   }
 
-  def isBot(questionGroup: QuestionGroup): Boolean = {
+  def isBot(qg: QuestionGroup): Boolean = {
     DigitalForm.checkForBot match {
-      case true => isFormFilledFasterThanAHumanCanType(questionGroup, System.currentTimeMillis(), created)
+      case true => {
+
+        val isAlreadyFilledIn = questionGroup(qg.identifier) match {
+          case Some(q) => true
+          case _ => false
+        }
+
+        isAlreadyFilledIn match {
+          case true => false // We have already checked this form the first time it was filled in.
+          case false => isFormFilledFasterThanAHumanCanType(qg, System.currentTimeMillis(), created)
+        }
+      }
       case false => false
     }
   }
 
-  def isFormFilledFasterThanAHumanCanType(questionGroup: QuestionGroup, currentTime: Long, formCreatedTime: Long): Boolean = {
+  def isFormFilledFasterThanAHumanCanType(qg: QuestionGroup, currentTime: Long, formCreatedTime: Long): Boolean = {
     val worldRecordWordsPerMinute = 212 // http://en.wikipedia.org/wiki/Words_per_minute
     val conversionFactorToCharactersPerWord = 5
     val millisecondsPerCharacter: Double = (60000: Double) / (worldRecordWordsPerMinute * conversionFactorToCharactersPerWord) //(25940: Double) / (160: Double) // http://blog.gsmarena.com/world-record-in-fast-texting-broken-160-characters-typed-in-25-94-seconds-on-a-galaxy-s/
-    val minimumMillisToInputThisNumOfChars: Double = questionGroup.numberOfCharactersInput * millisecondsPerCharacter
+    val minimumMillisToInputThisNumOfChars: Double = qg.numberOfCharactersInput * millisecondsPerCharacter
     val millisBetweenPresentAndSubmit = currentTime - formCreatedTime
 
     millisBetweenPresentAndSubmit < minimumMillisToInputThisNumOfChars
   }
 }
 
-object DigitalForm{
+object DigitalForm {
   val checkForBot: Boolean = play.Configuration.root().getBoolean("checkForBot", false) //Play.configuration.getBoolean("checkForBot").getOrElse(true) //Play.current.configuration.getBoolean("checkForBot").getOrElse(true) //play.Configuration.root().getBoolean("checkForBot", true)
 }

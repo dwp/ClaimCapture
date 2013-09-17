@@ -6,7 +6,6 @@ import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import models.domain.{CircumstancesDeclaration, CircumstancesOtherInfo}
-import controllers.circs.s1_identification.routes
 
 object G1Declaration extends Controller with CachedCircs with Navigable {
   val form = Form(mapping(

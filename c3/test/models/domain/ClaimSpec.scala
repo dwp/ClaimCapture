@@ -160,9 +160,9 @@ class ClaimSpec extends Specification {
 
     "isFormFilledFasterThanAHumanCanType" in {
       "returns true given input was too fast to be human" in {
-        val questionGroup = claim.questionGroup(Benefits)
+        val qg = claim.questionGroup(Benefits)
 
-        val result = claim.isFormFilledFasterThanAHumanCanType(questionGroup = questionGroup.get,
+        val result = claim.isFormFilledFasterThanAHumanCanType(qg = qg.get,
           currentTime = 0,
           formCreatedTime = 0
         )
@@ -171,9 +171,9 @@ class ClaimSpec extends Specification {
       }
 
       "returns false given input was slow enough to be human" in {
-        val questionGroup = claim.questionGroup(Benefits)
+        val qg = claim.questionGroup(Benefits)
 
-        val result = claim.isFormFilledFasterThanAHumanCanType(questionGroup = questionGroup.get,
+        val result = claim.isFormFilledFasterThanAHumanCanType(qg = qg.get,
           currentTime = 99999,
           formCreatedTime = 0
         )

@@ -8,7 +8,6 @@ import controllers.Mappings._
 import models.domain.CircumstancesYourContactDetails
 import utils.helpers.CarersForm._
 
-
 object G2YourContactDetails extends Controller with CachedCircs with Navigable {
 
   val form = Form(mapping(
