@@ -1,4 +1,4 @@
-@(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)
+@(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit request: Request[AnyContent])
 
 @import helper.base._
 @import utils.helpers.CarersCrypto

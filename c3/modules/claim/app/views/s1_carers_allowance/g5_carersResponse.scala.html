@@ -1,4 +1,4 @@
-@()(implicit claim: models.domain.DigitalForm)
+@()(implicit claim: models.domain.DigitalForm,request: play.api.mvc.Request[AnyContent])
 
 @import helper._
 @import models.domain._
@@ -39,7 +39,7 @@
 
                     <div class="form-steps">
                         <a href="@claim.navigation.previous" class="button secondary">Back</a>
-                        <button type="submit" name="action" value="next" class="button">Next</button>
+                        <button type="submit" name="action" value="next" class="button" >Next</button>
                     </div>
                 }
             </section>
