@@ -4,6 +4,8 @@ import models.domain.{CircumstancesDeclaration, Circs}
 import scala.xml.NodeSeq
 
 import xml.XMLHelper._
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.DateTime
 
 /**
  * @author Jorge Migueis
@@ -21,9 +23,24 @@ object ConsentAndDeclaration {
       <TextLine/>
       <TextLine>Do you agree to us obtaining information from any other persons or organisations you may have listed on this form? {declaration.obtainInfoAgreement}</TextLine>
     </Declaration>
-    <EvidenceList> 
+    <EvidenceList>
+      <TextLine>XML Generated at: {DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").print(DateTime.now())}</TextLine>
+      {textSeparatorLine("Consent and declaration")}
       <TextLine>Please tick this box to confirm that you understand and make the declarations above = {booleanStringToYesNo(declaration.confirm)}</TextLine>
+      {if(declaration.obtainInfoAgreement == "no"){
+        <TextLine>I don't agree to you obtaining information from any other persons or organisations because = {declaration.obtainInfoWhy.getOrElse("")}</TextLine>
+      }}
     </EvidenceList>
+  }
+
+
+  def textSeparatorLine(title: String) = {
+    val lineWidth = 54
+    val padding = "=" * ((lineWidth - title.length) / 2)
+
+    <TextLine>
+      {s"$padding$title$padding"}
+    </TextLine>
   }
 
 }

@@ -31,7 +31,7 @@ object Identification {
       <HomePhone>{contactDetails.phoneNumber.orNull}</HomePhone>
       <DaytimePhone>
         <Number>{contactDetails.mobileNumber.orNull}</Number>
-        <Qualifier>mobile</Qualifier>
+        <Qualifier>{if (contactDetails.mobileNumber.isDefined){"mobile"}else{""}}</Qualifier>
       </DaytimePhone>
       <EmailAddress/>
     </ClaimantDetails>

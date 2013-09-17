@@ -5,7 +5,7 @@ import utils.pageobjects.{CircumstancesPage, PageContext, Page}
 
 final class G1DeclarationPage (browser: TestBrowser, previousPage: Option[Page] = None) extends CircumstancesPage(browser, G1DeclarationPage.url, G1DeclarationPage.title, previousPage){
   declareYesNo("#obtainInfoAgreement","CircumstancesDeclarationInfoAgreement")
-  declareInput("#obtainInfoWhy","CircumstancesDeclarationWhy")
+  declareInput("#obtainInfoWhy","CircumstancesDeclarationWhyNot")
   declareCheck("#confirm","CircumstancesDeclarationConfirmation")
 }
 
