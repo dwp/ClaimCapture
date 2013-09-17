@@ -1,13 +1,26 @@
-@(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang)
+@(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang, request: Request[AnyContent])
 
 @import utils.helpers.CarersCrypto
+@import play.api.Play
+@import play.api.Play.current
 
-@helper.input(field, args:_*) { (id, name, value, htmlArgs) =>
+    @trackStr(id: String,v: (String,String)) = @{
+        s"""_gaq.push(['_trackEvent','${request.path}','${if (args.find(_._1 == 'trackLabel).isDefined) Messages(args.find(_._1 == 'trackLabel).get._2.toString()) else Messages(id+".tracking")}','${v._2}'])"""
+    }
+    @gaTrack(id: String,v: (String,String)) = @{
+        if(!Play.isTest &&
+                play.Configuration.root().getBoolean("include_analytics", false) &&
+                args.find(p => p._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]){
+            trackStr(id,v)
+        }
+    }
+
+@helper.input(field, args.filter(p => p._1 != 'track && p._1 != 'trackLabel):_*) { (id, name, value, htmlArgs) =>
 
     @options.map { v =>
         <li>
-            <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+v._1)" name="@CarersCrypto.encryptAES(field.name)" value="@v._1" @(if(value == Some(v._1)) "checked" else "") @toHtmlArgs(htmlArgs)>
             <label for="@CarersCrypto.encryptAES(id+"_"+v._1)">@v._2</label>
+            <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+v._1)" name="@CarersCrypto.encryptAES(field.name)" onclick="@gaTrack(id,v)"  value="@v._1" @(if(value == Some(v._1)) "checked" else "") @toHtmlArgs(htmlArgs)>
         </li>
     }
 

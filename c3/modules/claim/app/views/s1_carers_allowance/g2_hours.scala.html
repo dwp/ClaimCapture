@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Hours])(implicit claim: models.domain.DigitalForm)
+@(currentForm: Form[models.domain.Hours])(implicit claim: models.domain.DigitalForm,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -19,7 +19,7 @@
             <p>For example, cooking meals, or helping them with their shopping.</p>
             
             <ul class="group">
-                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("hours.answer"), '_showLabel -> false)
+                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages("hours.answer"), '_showLabel -> false,'track -> true, 'trackLabel -> "hours.answer")
             </ul>
 
             @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>
