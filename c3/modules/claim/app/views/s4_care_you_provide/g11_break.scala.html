@@ -23,9 +23,9 @@
 
                 @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-                @whereabouts(breakForm("whereYou"), Seq("../../../../common/public", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "../../../../common/public") "../../../../common/public" -> "Please select" else v -> v), '_label -> Messages("whereYou.location"))
+                @whereabouts(breakForm("whereYou"), Seq("", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v), '_label -> Messages("whereYou.location"))
 
-                @whereabouts(breakForm("wherePerson"), Seq("../../../../common/public", Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "../../../../common/public") "../../../../common/public" -> "Please select" else v -> v), '_label -> Messages("wherePerson.location"))
+                @whereabouts(breakForm("wherePerson"), Seq("", AtHome, Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "") "" -> "Please select" else v -> v), '_label -> Messages("wherePerson.location"))
 
                 @yesNoRadioGroup(breakForm("medicalDuringBreak"))
             </ul>
