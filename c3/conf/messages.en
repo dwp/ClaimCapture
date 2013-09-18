@@ -362,9 +362,11 @@ whoLooksAfterChildren = Name of the person/organisation who looks after your chi
 relationToYou = What relation, if any, is the person to you?
 relationToPartner = What relation, if any, is the person to your Partner/Spouse?
 relationToPersonYouCare = What relation, if any, is this person to the person you care for?
+employment_howOftenPayChildCare = How often {0} pay childcare expenses?
 
 # Person you care for EXPENSES
 howMuchCostCare = How much {0} pay them?
+howOftenPayCare = How often {0} pay them?
 whoDoYouPay = Name of the person/organisation you {0} pay
 
 
