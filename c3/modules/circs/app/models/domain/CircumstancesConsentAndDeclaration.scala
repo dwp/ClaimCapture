@@ -8,13 +8,7 @@ case object CircumstancesConsentAndDeclaration extends Section.Identifier {
   //override val expectedMinTimeToCompleteInMillis: Long = 10000
 }
 
-case class CircumstancesDeclaration(obtainInfoAgreement: String = "",obtainInfoWhy: Option[String] = Some(""), confirm: String = "") extends QuestionGroup(CircumstancesDeclaration){
-  override def numberOfCharactersInput: Int = {
-    obtainInfoAgreement.length +
-    {obtainInfoWhy match {case Some(s) => s.length case _ => 0}} +
-    confirm.length
-  }
-}
+case class CircumstancesDeclaration(obtainInfoAgreement: String = "",obtainInfoWhy: Option[String] = Some(""), confirm: String = "") extends QuestionGroup(CircumstancesDeclaration)
 
 object CircumstancesDeclaration extends QuestionGroup.Identifier {
   val id = s"${CircumstancesConsentAndDeclaration.id}.g1"

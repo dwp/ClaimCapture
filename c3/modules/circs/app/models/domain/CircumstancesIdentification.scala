@@ -16,15 +16,6 @@ case class CircumstancesAboutYou(title: String = "",
                     dateOfBirth: DayMonthYear = DayMonthYear(None, None, None)
                      ) extends QuestionGroup(CircumstancesAboutYou){
   def otherNames = firstName + middleName.map(" " + _).getOrElse("")
-
-  override def numberOfCharactersInput: Int = {
-    title.length +
-    firstName.length +
-    {middleName match {case Some(s) => s.length case _ => 0}} +
-    lastName.length +
-    nationalInsuranceNumber.numberOfCharactersInput +
-    dateOfBirth.numberOfCharactersInput
-  }
 }
 
 object CircumstancesAboutYou extends QuestionGroup.Identifier {
@@ -36,12 +27,6 @@ case class CircumstancesYourContactDetails(address: MultiLineAddress = MultiLine
                                            phoneNumber: Option[String] = None,
                                            mobileNumber: Option[String] = None
                                   ) extends QuestionGroup(CircumstancesYourContactDetails){
-  override def numberOfCharactersInput: Int = {
-    address.numberOfCharactersInput +
-    {postcode match {case Some(s) => s.length case _ => 0}} +
-    {phoneNumber match {case Some(s) => s.length case _ => 0}} +
-    {mobileNumber match {case Some(s) => s.length case _ => 0}}
-  }
 }
 
 object CircumstancesYourContactDetails extends QuestionGroup.Identifier {
@@ -59,14 +44,6 @@ case class DetailsOfThePersonYouCareFor(firstName: String = "",
                                   ) extends QuestionGroup(DetailsOfThePersonYouCareFor){
 
   def otherNames = firstName + middleName.map(" " + _).getOrElse("")
-
-  override def numberOfCharactersInput: Int = {
-    firstName.length +
-    {middleName match {case Some(s) => s.length case _ => 0}} +
-    lastName.length +
-    nationalInsuranceNumber.numberOfCharactersInput +
-    dateOfBirth.numberOfCharactersInput
-  }
 }
 
 object DetailsOfThePersonYouCareFor extends QuestionGroup.Identifier {

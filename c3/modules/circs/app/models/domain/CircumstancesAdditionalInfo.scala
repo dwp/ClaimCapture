@@ -5,9 +5,7 @@ case object CircumstancesAdditionalInfo extends Section.Identifier {
   //override val expectedMinTimeToCompleteInMillis: Long = 10000
 }
 
-case class CircumstancesOtherInfo(change: String = "") extends QuestionGroup(CircumstancesOtherInfo){
-  override def numberOfCharactersInput: Int = change.length
-}
+case class CircumstancesOtherInfo(change: String = "") extends QuestionGroup(CircumstancesOtherInfo)
 
 object CircumstancesOtherInfo extends QuestionGroup.Identifier {
   val id = s"${CircumstancesAdditionalInfo.id}.g2"

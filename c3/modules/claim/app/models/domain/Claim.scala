@@ -5,6 +5,7 @@ import models.view.{CachedClaim, Navigation}
 import xml.DWPCAClaim
 import models.DayMonthYear
 import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
+import app.PensionPaymentFrequency._
 
 /**
  * Represents data gathered for a claim.
@@ -25,4 +26,35 @@ case class Claim(override val sections: List[Section] = List(), override val sta
   def xml(transactionId: String) = DWPCAClaim.xml(this, transactionId)
 
   def xmlValidator = XmlValidatorFactory.buildCaValidator()
+
+  def honeyPot: Boolean = {
+    (questionGroup(ChildcareExpenses) match {
+      case Some(q) => {
+        val h = q.asInstanceOf[ChildcareExpenses]
+        (h.howOftenPayChildCare.frequency != Other && h.howOftenPayChildCare.other.isDefined)
+      }
+      case _ => false
+    }) ||
+      (questionGroup(PersonYouCareForExpenses) match {
+        case Some(q) => {
+          val h = q.asInstanceOf[PersonYouCareForExpenses]
+          (h.howOftenPayCare.frequency != Other && h.howOftenPayCare.other.isDefined)
+        }
+        case _ => false
+      }) ||
+      (questionGroup(ChildcareExpensesWhileAtWork) match {
+        case Some(q) => {
+          val h = q.asInstanceOf[ChildcareExpensesWhileAtWork]
+          (h.howOftenPayChildCare.frequency != Other && h.howOftenPayChildCare.other.isDefined)
+        }
+        case _ => false
+      }) ||
+      (questionGroup(ExpensesWhileAtWork) match {
+        case Some(q) => {
+          val h = q.asInstanceOf[ExpensesWhileAtWork]
+          (h.howOftenPayExpenses.frequency != Other && h.howOftenPayExpenses.other.isDefined)
+        }
+        case _ => false
+      })
+  }
 }

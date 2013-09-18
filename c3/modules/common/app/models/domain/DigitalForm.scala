@@ -94,7 +94,7 @@ abstract class DigitalForm(val sections: List[Section] = List(), val startDigita
     if (visible) showSection(sectionIdentifier) else hideSection(sectionIdentifier)
   }
 
-  def isBot: Boolean = if (DigitalForm.checkForBot) checkTimeToCompleteAllSections()
+  def isBot: Boolean = if (DigitalForm.checkForBot) checkTimeToCompleteAllSections() || honeyPot
   else false
 
 
@@ -129,6 +129,8 @@ abstract class DigitalForm(val sections: List[Section] = List(), val startDigita
     //println("actual: " + actualTimeToCompleteAllSections + ", expected: " + expectedMinTimeToCompleteAllSections)
     (actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections)
   }
+
+  def honeyPot: Boolean
 }
 
 object DigitalForm {

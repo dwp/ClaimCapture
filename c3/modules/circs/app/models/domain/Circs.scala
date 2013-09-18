@@ -21,4 +21,6 @@ case class Circs(override val sections: List[Section] = List(), override val sta
   def xml(transactionId: String) = DWPCoCircs.xml(this, transactionId)
 
   def xmlValidator = XmlValidatorFactory.buildCocValidator()
+
+  def honeyPot: Boolean = false
 }
