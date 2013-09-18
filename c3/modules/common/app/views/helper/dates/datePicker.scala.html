@@ -1,0 +1,13 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang)
+
+@import helper._
+@import views.html.helper.base._
+@import utils.helpers._
+
+@input(field, args: _*) { (id, name, value, htmlArgs) =>
+    @defining(field.constraints.collectFirst{ case (k, _) if k == "constraint.required" => Html("<em>*</em>") }.getOrElse("")) { requirement =>
+        <label for="@CarersCrypto.encryptAES(field.id)">@requirement@{Space.*}@labelOrId(field.id, args: _*)</label>
+    }
+
+    <input type="text" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" class="datepicker" @toHtmlArgs(htmlArgs)>
+}

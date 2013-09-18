@@ -158,25 +158,25 @@ class ClaimSpec extends Specification {
       Claim().questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
     }
 
-    "isFormFilledFasterThanAHumanCanType" in {
+    "checkTimeToCompleteAllSections" in {
       "returns true given input was too fast to be human" in {
-        val qg = claim.questionGroup(Benefits)
+        val claim = Claim(startDigitalFormTime = Long.MinValue).update(Benefits("no"))
+          .update(Hours("no"))
+          .update(LivesInGB("no"))
+          .update(Over16("no"))
 
-        val result = claim.isFormFilledFasterThanAHumanCanType(qg = qg.get,
-          currentTime = 0,
-          formCreatedTime = 0
-        )
+        val result = claim.checkTimeToCompleteAllSections(currentTime = 0)
 
         result must beTrue
       }
 
       "returns false given input was slow enough to be human" in {
-        val qg = claim.questionGroup(Benefits)
+        val claim = Claim(startDigitalFormTime = 0).update(Benefits("no"))
+          .update(Hours("no"))
+          .update(LivesInGB("no"))
+          .update(Over16("no"))
 
-        val result = claim.isFormFilledFasterThanAHumanCanType(qg = qg.get,
-          currentTime = 99999,
-          formCreatedTime = 0
-        )
+        val result = claim.checkTimeToCompleteAllSections(currentTime = Long.MaxValue)
 
         result must beFalse
       }

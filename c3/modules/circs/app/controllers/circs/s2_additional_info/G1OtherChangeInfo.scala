@@ -26,12 +26,7 @@ object G1OtherChangeInfo extends Controller with CachedCircs with Navigable {
     implicit claim => implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.circs.s2_additional_info.g1_otherChangeInfo(formWithErrors)),
-        f => claim.update(f) -> {
-          claim.isBot(f) match {
-            case true => NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
-            case false => Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
-          }
-        }
+        f => claim.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
       )
   }
 }

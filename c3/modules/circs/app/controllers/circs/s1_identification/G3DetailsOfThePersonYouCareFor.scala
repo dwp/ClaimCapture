@@ -35,12 +35,7 @@ object G3DetailsOfThePersonYouCareFor extends Controller with CachedCircs with N
     implicit claim => implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.circs.s1_identification.g3_detailsOfThePersonYouCareFor(formWithErrors)),
-        f => claim.update(f) -> {
-          claim.isBot(f) match {
-            case true => NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
-            case false => Redirect(routes.Identification.completed())
-          }
-        }
+        f => claim.update(f) -> Redirect(routes.Identification.completed())
       )
   }
 }

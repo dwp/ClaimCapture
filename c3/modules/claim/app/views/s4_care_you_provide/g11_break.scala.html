@@ -1,12 +1,12 @@
 @(breakForm: Form[models.domain.Break])(implicit claim: models.domain.DigitalForm,request: Request[AnyContent])
 
-@import models.domain.BreaksInCare
 @import helper._
-@import utils.helpers.CarersTemplate._
+@import models.domain.BreaksInCare
 @import views.html.helper._
 @import views.html.helper.dates._
-@import views.html.s4_care_you_provide.main
+@import utils.helpers.CarersTemplate._
 @import app.Whereabouts._
+@import utils.helpers._
 
 @main("Break - About the care you provide", Some(breakForm)) {
 
@@ -19,6 +19,16 @@
             <legend>About the breaks in care</legend>
 
             <ul class="group">
+                <li>
+                    <label for="date">Datepicker Single - From Chris</label>
+                    <input type="text" name="date" id="date" class="datepicker">
+                </li>
+
+
+                @datePicker(breakForm("start"))
+
+
+
                 @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
                 @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))

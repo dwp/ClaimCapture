@@ -38,12 +38,7 @@ object G1AboutYou extends Controller with CachedCircs with Navigable {
     implicit claim => implicit request =>
       form.bindEncrypted.fold(
         formWithErrors => BadRequest(views.html.circs.s1_identification.g1_aboutYou(formWithErrors)),
-        f => claim.update(f) -> {
-          claim.isBot(f) match {
-            case true => NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
-            case false => Redirect(routes.G2YourContactDetails.present())
-          }
-        }
+        f => claim.update(f) -> Redirect(routes.G2YourContactDetails.present())
       )
   }
 }
