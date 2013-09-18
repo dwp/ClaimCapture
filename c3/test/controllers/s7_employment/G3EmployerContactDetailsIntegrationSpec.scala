@@ -14,7 +14,7 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
     "accept only mandatory data" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/employers-contact-details/dummyJobID")
       browser.submit("button[type='submit']")
-      titleMustEqual("Your last wage - Employment History")
+      titleMustEqual("Employer's contact details - Employment History")
     }
 
     "accept all data" in new WithBrowser with BrowserMatchers {

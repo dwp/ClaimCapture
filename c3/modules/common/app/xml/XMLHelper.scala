@@ -37,6 +37,8 @@ object XMLHelper {
     case _ => postalAddressStructure(MultiLineAddress(None, None, None), postcodeOption.orNull)
   }
 
+  def postalAddressStructure(addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeBuffer = postalAddressStructure(addressOption, postcodeOption.orNull)
+
   def postalAddressStructure(address: MultiLineAddress, postcode: String): NodeBuffer = {
     <gds:Line>{address.lineOne.orNull}</gds:Line>
     <gds:Line>{address.lineTwo.orNull}</gds:Line>
