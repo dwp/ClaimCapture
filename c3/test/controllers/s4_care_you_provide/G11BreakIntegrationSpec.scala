@@ -7,8 +7,6 @@ import models.DayMonthYear
 import java.util.concurrent.TimeUnit
 import utils.pageobjects.s4_care_you_provide.{G11BreakPage, G10BreaksInCarePage}
 import app.Whereabouts._
-import java.util.Collections
-import java.util
 
 class G11BreakIntegrationSpec extends Specification with Tags {
   "Break" should {

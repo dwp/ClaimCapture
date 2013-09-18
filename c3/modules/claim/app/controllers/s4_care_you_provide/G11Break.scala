@@ -19,17 +19,6 @@ object G11Break extends Controller with CachedClaim {
     "medicalDuringBreak" -> nonEmptyText
   )(Break.apply)(Break.unapply))
 
-  // .verifying("wherePerson.other.required", x _)
-
-  def x(break: Break) = {
-    println("===> " + break.wherePerson.location)
-
-    break.wherePerson.location match {
-      case "Other" => break.wherePerson.other.isDefined
-      case _ => true
-    }
-  }
-
   def present = executeOnForm { implicit claim => implicit request =>
     Ok(views.html.s4_care_you_provide.g11_break(form))
   }

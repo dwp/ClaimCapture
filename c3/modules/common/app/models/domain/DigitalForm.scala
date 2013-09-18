@@ -5,23 +5,19 @@ import models.{Timestamped, DayMonthYear}
 import models.view.Navigation
 import scala.xml.Elem
 import com.dwp.carers.s2.xml.validation.XmlValidator
-import play.Configuration
-import scala.concurrent.ExecutionContext
-import play.api.Play
-import play.api.Play.current
 
 /**
  * Represents the data gathered from customers through the views.
  * The data are divided into sections, themselves sub-divided into question groups.
  */
 abstract class DigitalForm(val sections: List[Section] = List())(implicit val navigation: Navigation = Navigation()) extends Timestamped {
-  def copyForm(sections: List[Section])(implicit navigation: Navigation):DigitalForm
+  def copyForm(sections: List[Section])(implicit navigation: Navigation): DigitalForm
 
-  def xmlValidator:XmlValidator
+  def xmlValidator: XmlValidator
 
-  def xml(transactionId: String):Elem
+  def xml(transactionId: String): Elem
 
-  def cacheKey:String
+  def cacheKey: String
 
   def dateOfClaim: Option[DayMonthYear]
 
