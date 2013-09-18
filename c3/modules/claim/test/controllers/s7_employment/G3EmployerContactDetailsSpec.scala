@@ -16,9 +16,9 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    """require only "job ID".""" in new WithApplication with Claiming {
+    """require "job ID" and address.""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1")
+        .withFormUrlEncodedBody("jobID" -> "1","address.lineOne"->"someStreet")
 
       val result = G3EmployerContactDetails.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -35,7 +35,7 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
         "finishedThisJob" -> "yes"))
 
       val result = G3EmployerContactDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1"))
+        .withFormUrlEncodedBody("jobID" -> "1","address.lineOne"->"someStreet"))
 
       status(result) mustEqual SEE_OTHER
 
