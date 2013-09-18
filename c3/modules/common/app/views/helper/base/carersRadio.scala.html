@@ -19,8 +19,8 @@
 
     @options.map { v =>
         <li>
-            <label for="@CarersCrypto.encryptAES(id+"_"+v._1)">@v._2</label>
             <input type="radio" id="@CarersCrypto.encryptAES(id+"_"+v._1)" name="@CarersCrypto.encryptAES(field.name)" onclick="@gaTrack(id,v)"  value="@v._1" @(if(value == Some(v._1)) "checked" else "") @toHtmlArgs(htmlArgs)>
+            <label for="@CarersCrypto.encryptAES(id+"_"+v._1)">@v._2</label>
         </li>
     }
 
