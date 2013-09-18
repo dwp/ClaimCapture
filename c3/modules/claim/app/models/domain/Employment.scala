@@ -127,7 +127,7 @@ object JobDetails extends QuestionGroup.Identifier {
 }
 
 case class EmployerContactDetails(jobID: String = "",
-                                  address: Option[MultiLineAddress] = None,
+                                  address: MultiLineAddress = MultiLineAddress(),
                                   postcode: Option[String] = None,
                                   phoneNumber: Option[String] = None) extends QuestionGroup(EmployerContactDetails) with Job.Identifier
 

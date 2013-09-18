@@ -13,7 +13,7 @@ import Employment._
 object G3EmployerContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "address" -> optional(address),
+    "address" -> (address verifying requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
     "phoneNumber" -> optional(text)
   )(EmployerContactDetails.apply)(EmployerContactDetails.unapply))
