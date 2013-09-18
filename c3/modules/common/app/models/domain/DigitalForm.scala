@@ -10,7 +10,7 @@ import com.dwp.carers.s2.xml.validation.XmlValidator
  * Represents the data gathered from customers through the views.
  * The data are divided into sections, themselves sub-divided into question groups.
  */
-abstract class DigitalForm(val sections: List[Section] = List())(implicit val navigation: Navigation = Navigation()) extends Timestamped {
+abstract class DigitalForm(val sections: List[Section] = List(), val startDigitalFormTime: Long)(implicit val navigation: Navigation = Navigation()) extends Timestamped {
   def copyForm(sections: List[Section])(implicit navigation: Navigation): DigitalForm
 
   def xmlValidator: XmlValidator
@@ -21,9 +21,11 @@ abstract class DigitalForm(val sections: List[Section] = List())(implicit val na
 
   def dateOfClaim: Option[DayMonthYear]
 
-  def section(sectionIdentifier: Section.Identifier): Section = sections.find(s => s.identifier == sectionIdentifier) match {
-    case Some(s: Section) => s
-    case _ => Section(sectionIdentifier, List())
+  def section(sectionIdentifier: Section.Identifier): Section = {
+    sections.find(s => s.identifier == sectionIdentifier) match {
+      case Some(s: Section) => s
+      case _ => Section(sectionIdentifier, List())
+    }
   }
 
   def previousSection(sectionIdentifier: Section.Identifier): Section = {
@@ -92,32 +94,27 @@ abstract class DigitalForm(val sections: List[Section] = List())(implicit val na
     if (visible) showSection(sectionIdentifier) else hideSection(sectionIdentifier)
   }
 
-  def isBot(qg: QuestionGroup): Boolean = {
-    DigitalForm.checkForBot match {
-      case true => {
+  def isBot: Boolean = if (DigitalForm.checkForBot) checkTimeToCompleteAllSections()
+  else false
 
-        val isAlreadyFilledIn = questionGroup(qg.identifier) match {
-          case Some(q) => true
-          case _ => false
-        }
 
-        isAlreadyFilledIn match {
-          case true => false // We have already checked this form the first time it was filled in.
-          case false => isFormFilledFasterThanAHumanCanType(qg, System.currentTimeMillis(), created)
-        }
+  def checkTimeToCompleteAllSections(currentTime: Long = System.currentTimeMillis()) = {
+    val sectionExpectedTimes = Map[String, Long](
+      "c1" -> 10000,
+      "c2" -> 10000,
+      "c3" -> 10000
+    )
+
+    val expectedMinTimeToCompleteAllSections: Long = sections.map(s => {
+      sectionExpectedTimes.get(s.identifier.id) match {
+        case Some(n) => n
+        case _ => 0
       }
-      case false => false
-    }
-  }
+    }).reduce(_ + _) // Aggregate all of the sectionExpectedTimes for completed sections only.
 
-  def isFormFilledFasterThanAHumanCanType(qg: QuestionGroup, currentTime: Long, formCreatedTime: Long): Boolean = {
-    val worldRecordWordsPerMinute = 212 // http://en.wikipedia.org/wiki/Words_per_minute
-    val conversionFactorToCharactersPerWord = 5
-    val millisecondsPerCharacter: Double = (60000: Double) / (worldRecordWordsPerMinute * conversionFactorToCharactersPerWord) //(25940: Double) / (160: Double) // http://blog.gsmarena.com/world-record-in-fast-texting-broken-160-characters-typed-in-25-94-seconds-on-a-galaxy-s/
-    val minimumMillisToInputThisNumOfChars: Double = qg.numberOfCharactersInput * millisecondsPerCharacter
-    val millisBetweenPresentAndSubmit = currentTime - formCreatedTime
-
-    millisBetweenPresentAndSubmit < minimumMillisToInputThisNumOfChars
+    val actualTimeToCompleteAllSections: Long = currentTime - startDigitalFormTime
+println(actualTimeToCompleteAllSections + ", expected: " + expectedMinTimeToCompleteAllSections)
+    (actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections)
   }
 }
 

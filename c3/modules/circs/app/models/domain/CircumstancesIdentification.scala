@@ -5,6 +5,7 @@ import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
 
 case object CircumstancesIdentification extends Section.Identifier {
   val id = "c1"
+  //override val expectedMinTimeToCompleteInMillis: Long = 10000
 }
 
 case class CircumstancesAboutYou(title: String = "",

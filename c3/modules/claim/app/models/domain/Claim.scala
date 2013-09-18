@@ -11,7 +11,7 @@ import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
  * The structure is defined in DigitalForm.
  * Here, we handle specific behaviour as the generation of XML from the data gathered and the key identifying the cache holding instances of this class.
  */
-case class Claim(override val sections: List[Section] = List())(implicit navigation: Navigation = Navigation()) extends DigitalForm(sections)(navigation) {
+case class Claim(override val sections: List[Section] = List(), override val startDigitalFormTime: Long = System.currentTimeMillis())(implicit navigation: Navigation = Navigation()) extends DigitalForm(sections, startDigitalFormTime)(navigation) {
 
   def copyForm(sections: List[Section])(implicit navigation:Navigation): DigitalForm = copy(sections)(navigation)
 

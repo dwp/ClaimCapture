@@ -44,11 +44,15 @@ case object Section {
   def sectionIdentifier(questionGroup: QuestionGroup): Section.Identifier = sectionIdentifier(questionGroup.identifier)
 
   def sectionIdentifier(questionGroupIdentifier: QuestionGroup.Identifier): Section.Identifier = {
-    new Section.Identifier { override val id: String = questionGroupIdentifier.id.split('.')(0) }
+    new Section.Identifier {
+      override val id: String = questionGroupIdentifier.id.split('.')(0)
+    }
   }
 
   trait Identifier {
     val id: String
+
+    //val expectedMinTimeToCompleteInMillis: Long
     
     def index = id.drop(1).toInt
 
