@@ -157,5 +157,29 @@ class ClaimSpec extends Specification {
     "give empty list" in {
       Claim().questionGroup(models.domain.BeenEmployed).fold(List[QuestionGroup]())(qg => List(qg)) should containAllOf(List())
     }
+
+    "isFormFilledFasterThanAHumanCanType" in {
+      "returns true given input was too fast to be human" in {
+        val qg = claim.questionGroup(Benefits)
+
+        val result = claim.isFormFilledFasterThanAHumanCanType(qg = qg.get,
+          currentTime = 0,
+          formCreatedTime = 0
+        )
+
+        result must beTrue
+      }
+
+      "returns false given input was slow enough to be human" in {
+        val qg = claim.questionGroup(Benefits)
+
+        val result = claim.isFormFilledFasterThanAHumanCanType(qg = qg.get,
+          currentTime = 99999,
+          formCreatedTime = 0
+        )
+
+        result must beFalse
+      }
+    }
   }
 }

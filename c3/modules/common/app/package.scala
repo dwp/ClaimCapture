@@ -1,5 +1,3 @@
-import models.PensionPaymentFrequency
-
 package object app {
 
   object AccountStatus {
@@ -39,11 +37,11 @@ package object app {
     val Monthly = "05"
     val Other = "other" // TODO [SKW] the xsd is inconsistent and needs changing as there is no value for other, so I just made up a value and Jorge will change the schema and can replace this with a sensible value.
 
-    def mapToHumanReadableString(code:models.PensionPaymentFrequency): String = {
+    def mapToHumanReadableString(code: models.PensionPaymentFrequency): String = {
       mapToHumanReadableString(code.frequency)
     }
 
-    def mapToHumanReadableString(code:String): String = {
+    def mapToHumanReadableString(code: String): String = {
       code match {
         case Weekly => "Weekly"
         case Fortnightly => "Fortnightly"
@@ -62,19 +60,16 @@ package object app {
     val Monthly = "monthly"
     val Other = "other"
 
-    def mapToHumanReadableString(frequencyCode:String, otherCode:Option[String]): String = {
-
-      frequencyCode match {
-        case Weekly => "Weekly"
-        case Fortnightly => "Fortnightly"
-        case FourWeekly => "Four-weekly"
-        case Monthly => "Monthly"
-        case Other =>  otherCode match {
-          case Some(s) => "Other: " + s
-          case _ => "Other"
-        } //+ paymentFrequency.other.getOrElse("")
-        case _ => ""
-      }
+    def mapToHumanReadableString(frequencyCode: String, otherCode: Option[String]): String = frequencyCode match {
+      case Weekly => "Weekly"
+      case Fortnightly => "Fortnightly"
+      case FourWeekly => "Four-weekly"
+      case Monthly => "Monthly"
+      case Other => otherCode match {
+        case Some(s) => "Other: " + s
+        case _ => "Other"
+      } //+ paymentFrequency.other.getOrElse("")
+      case _ => ""
     }
 
     def mapToHumanReadableString(paymentFrequencyOption: Option[models.PaymentFrequency]): String = paymentFrequencyOption match {
@@ -86,8 +81,6 @@ package object app {
       case Some(s) => mapToHumanReadableString(s.frequency,s.other)
       case _ => ""
     }
-
-
   }
 
   object XMLValues {

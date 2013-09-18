@@ -28,9 +28,8 @@
             <legend>@Messages("s7.g9")</legend>
 
             <ul class="group">
-                @carersInputText(currentForm("jobTitle"), '_label -> jobTitleLabel)
-
                 @carersInputText(currentForm("whatAreThose"), '_label -> Messages("whatAreThose", pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , JobID(currentForm))))
+                @carersInputText(currentForm("jobTitle"), '_label -> jobTitleLabel)
             </ul>
         </fieldset>
 

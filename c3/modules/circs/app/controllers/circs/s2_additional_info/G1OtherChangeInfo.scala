@@ -15,14 +15,23 @@ object G1OtherChangeInfo extends Controller with CachedCircs with Navigable {
     change -> text(maxLength = 2000)
   )(CircumstancesOtherInfo.apply)(CircumstancesOtherInfo.unapply))
 
-  def present = executeOnForm { implicit claim => implicit request =>
-    track(CircumstancesOtherInfo) { implicit claim => Ok(views.html.circs.s2_additional_info.g1_otherChangeInfo(form.fill(CircumstancesOtherInfo))) }
+  def present = executeOnForm {
+    implicit claim => implicit request =>
+      track(CircumstancesOtherInfo) {
+        implicit claim => Ok(views.html.circs.s2_additional_info.g1_otherChangeInfo(form.fill(CircumstancesOtherInfo)))
+      }
   }
 
-  def submit = executeOnForm { implicit claim => implicit request =>
-    form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.circs.s2_additional_info.g1_otherChangeInfo(formWithErrors)),
-      data => claim.update(data) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present()))
+  def submit = executeOnForm {
+    implicit claim => implicit request =>
+      form.bindEncrypted.fold(
+        formWithErrors => BadRequest(views.html.circs.s2_additional_info.g1_otherChangeInfo(formWithErrors)),
+        f => claim.update(f) -> {
+          claim.isBot(f) match {
+            case true => NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
+            case false => Redirect(controllers.circs.s3_consent_and_declaration.routes.G1Declaration.present())
+          }
+        }
+      )
   }
-
 }

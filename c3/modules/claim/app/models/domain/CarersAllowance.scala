@@ -10,6 +10,8 @@ case class Benefits(answerYesNo: String = "") extends QuestionGroup(Benefits) wi
     case "yes" => true
     case _ => false
   }
+
+  override def numberOfCharactersInput: Int = 1
 }
 
 object Benefits extends QuestionGroup.Identifier {
@@ -21,6 +23,8 @@ case class Hours(answerYesNo: String = "") extends QuestionGroup(Hours) with Boo
     case "yes" => true
     case _ => false
   }
+
+  override def numberOfCharactersInput: Int = 1
 }
 
 object Hours extends QuestionGroup.Identifier {
@@ -33,6 +37,8 @@ case class Over16(answerYesNo: String = "") extends QuestionGroup(Over16) with B
     case "yes" => true
     case _ => false
   }
+
+  override def numberOfCharactersInput: Int = 1
 }
 
 object Over16 extends QuestionGroup.Identifier {
@@ -44,6 +50,8 @@ case class LivesInGB(answerYesNo: String = "") extends QuestionGroup(LivesInGB) 
     case "yes" => true
     case _ => false
   }
+
+  override def numberOfCharactersInput: Int = 1
 }
 
 object LivesInGB extends QuestionGroup.Identifier {

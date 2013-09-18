@@ -28,4 +28,8 @@ trait WithBrowserHelper {
   def findFirst(name: String, filters: Filter*) = browser findFirst(name, filters: _*)
 
   def findAll(name: String, filters: Filter*) = browser find(name, filters: _*)
+
+  def text(name: String, filters: Filter*) = browser text(name, filters: _*)
+
+  def await() = browser.await()
 }

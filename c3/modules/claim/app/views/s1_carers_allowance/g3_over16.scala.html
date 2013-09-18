@@ -1,4 +1,4 @@
-@(currentForm: Form[models.domain.Over16])(implicit claim: models.domain.DigitalForm)
+@(currentForm: Form[models.domain.Over16])(implicit claim: models.domain.DigitalForm,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -17,7 +17,7 @@
             <legend><span>Q3</span>@Messages("s1.g3")</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("over16.answer"), '_showLabel -> false)
+                @yesNoRadioGroup(currentForm("answer"), '_label -> Messages ("over16.answer"), '_showLabel -> false,'track -> true, 'trackLabel -> "over16.answer")
             </ul>
                 
             @defining(currentForm("answer").value.getOrElse("don't know") match { case "no" => "block" case _ => "none" }) { styleDisplay =>

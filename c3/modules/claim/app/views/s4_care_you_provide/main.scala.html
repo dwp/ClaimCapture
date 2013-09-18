@@ -1,4 +1,4 @@
-@(title: String, currentFormOption: Option[Form[_]], completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.DigitalForm)
+@(title: String, currentForm: Option[Form[_]], completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.DigitalForm)
 
 @import models.domain.CareYouProvide
 @import models.domain.ClaimDate
@@ -31,10 +31,8 @@
                 </div>
             }
 
-            @{ currentFormOption match {
-                case Some(e) => errorsSummary(e)
-                case _ => "../../../../common/public"
-              }
+            @if(currentForm.isDefined) {
+                @errorsSummary(currentForm.get)
             }
 
             @content

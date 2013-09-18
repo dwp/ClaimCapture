@@ -5,13 +5,8 @@ import play.api.data.Mapping
 import play.api.data.Forms._
 import play.api.data.validation._
 import scala.util.Try
-import scala.util.Success
-import scala.util.Failure
-import play.api.data.validation.ValidationError
 import models._
-import models.domain._
 import scala.util.Failure
-import scala.Some
 import play.api.data.validation.ValidationError
 import scala.util.Success
 
@@ -77,8 +72,12 @@ object Mappings {
 
   def requiredWhereabouts: Constraint[Whereabouts] = Constraint[Whereabouts]("constraint.required") { whereabouts =>
     whereabouts match {
-      case Whereabouts(location, other) => if (location.isEmpty) Invalid(ValidationError("error.required"))
-        else if(location == app.Whereabouts.Other && other.isEmpty) Invalid(ValidationError("error.required"))
+      case Whereabouts(location, other) =>
+        println(s"l = $location")
+        println(s"o = $other")
+
+        if (location.isEmpty) Invalid(ValidationError("error.required"))
+        else if (location == app.Whereabouts.Other && other.isEmpty) Invalid(ValidationError("error.required"))
         else Valid
     }
   }

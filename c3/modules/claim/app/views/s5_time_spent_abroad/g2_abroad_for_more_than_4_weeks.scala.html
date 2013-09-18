@@ -1,4 +1,4 @@
-@(abroadForMoreThan4WeeksForm: Form[models.domain.AbroadForMoreThan4Weeks], trips: models.domain.Trips)(implicit claim: models.domain.DigitalForm)
+@(abroadForMoreThan4WeeksForm: Form[models.domain.AbroadForMoreThan4Weeks], trips: models.domain.Trips)(implicit claim: models.domain.DigitalForm,request: Request[AnyContent])
 
 @import scala.language.postfixOps
 @import views.html.helper._
