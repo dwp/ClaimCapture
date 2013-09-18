@@ -100,9 +100,22 @@ abstract class DigitalForm(val sections: List[Section] = List(), val startDigita
 
   def checkTimeToCompleteAllSections(currentTime: Long = System.currentTimeMillis()) = {
     val sectionExpectedTimes = Map[String, Long](
+      // Change of circs
       "c1" -> 10000,
       "c2" -> 10000,
-      "c3" -> 10000
+      "c3" -> 10000,
+      // Claim
+      "s1" -> 10000,
+      "s2" -> 10000,
+      "s3" -> 10000,
+      "s4" -> 10000,
+      "s5" -> 10000,
+      "s6" -> 10000,
+      "s7" -> 10000,
+      "s8" -> 10000,
+      "s9" -> 10000,
+      "s10" -> 10000,
+      "s11" -> 10000
     )
 
     val expectedMinTimeToCompleteAllSections: Long = sections.map(s => {
@@ -113,7 +126,7 @@ abstract class DigitalForm(val sections: List[Section] = List(), val startDigita
     }).reduce(_ + _) // Aggregate all of the sectionExpectedTimes for completed sections only.
 
     val actualTimeToCompleteAllSections: Long = currentTime - startDigitalFormTime
-println(actualTimeToCompleteAllSections + ", expected: " + expectedMinTimeToCompleteAllSections)
+    //println("actual: " + actualTimeToCompleteAllSections + ", expected: " + expectedMinTimeToCompleteAllSections)
     (actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections)
   }
 }

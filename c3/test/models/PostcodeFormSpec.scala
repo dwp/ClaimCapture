@@ -62,6 +62,12 @@ class PostcodeFormSpec extends Specification {
         formWithErrors => formWithErrors.errors.head.message must equalTo("error.postcode"),
         postcode => "This mapping should not happen." must equalTo("Valid"))
     }
+
+    "reject input that fails regex" in {
+      createPostcodeForm("LE2 OAJ").fold(
+        formWithErrors => formWithErrors.errors.head.message must equalTo("error.postcode"),
+        postcode => "This mapping should not happen." must equalTo("Valid"))
+    }
   }
 
   private def createPostcodeForm(postcode: String)
