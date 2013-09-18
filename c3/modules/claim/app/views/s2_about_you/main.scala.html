@@ -6,37 +6,36 @@
 @common.govMain(title) {
 
     <div class="carers-allowance">
-            <div class="prototype">
-                <p><strong>BETA</strong> This is a prototype. You cannot claim Carer's Allowance using this service. <a href="https://www.gov.uk/carers-allowance/how-to-claim">Claim for Carer's Allowance using the live service</a></p>
-            </div>
-            
-             @progressBar(AboutYou)
 
-            <section>
+        @common.protoType()
 
-                <h1>About you - the carer</h1>
+        @progressBar(AboutYou)
 
-                @if(completedQuestionGroups.size > 0) {
-                    <div class="completed">
-                        <ul>
-                            @for(completedQuestionGroup <- completedQuestionGroups) {
-                                <li>
-                                    @if(completedQuestionGroup.identifier == ClaimDate) {
-                                        <h3>@Messages(completedQuestionGroup.identifier.id, claim.dateOfClaim.get.`dd/MM/yyyy`)</h3>
-                                        <a href="@claim.navigation(completedQuestionGroup.identifier)">Change this answer</a>
-                                    } else {
-                                        <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                                        <a href="@claim.navigation(completedQuestionGroup.identifier)">Change these answers</a>
-                                    }
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                }
+        <section>
 
-                @content
+            <h1>About you - the carer</h1>
 
-            </section>
-        </div>
+            @if(completedQuestionGroups.size > 0) {
+                <div class="completed">
+                    <ul>
+                        @for(completedQuestionGroup <- completedQuestionGroups) {
+                            <li>
+                                @if(completedQuestionGroup.identifier == ClaimDate) {
+                                    <h3>@Messages(completedQuestionGroup.identifier.id, claim.dateOfClaim.get.`dd/MM/yyyy`)</h3>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)">Change this answer</a>
+                                } else {
+                                    <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                                    <a href="@claim.navigation(completedQuestionGroup.identifier)">Change these answers</a>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            @content
+
+        </section>
+    </div>
 
 }
