@@ -197,31 +197,29 @@ main {
               width: 26px; } }
           .ie8 .carers-allowance .progress-steps ol li.complete span:before {
             display: none; }
-  .carers-allowance .short-steps ol {
-    display: none; }
-    @media screen and (max-width: 500px) {
-      .carers-allowance .short-steps ol:after {
-        display: block; } }
-    .carers-allowance .short-steps ol li {
-      width: 25%; }
-      @media screen and (max-width: 760px) {
-        .carers-allowance .short-steps ol li {
-          text-indent: -9999px;
-          padding: 35px 0 0 0; }
-          .carers-allowance .short-steps ol li span {
-            text-indent: 0; } }
-      @media screen and (max-width: 480px) {
-        .carers-allowance .short-steps ol li {
-          width: 25%;
-          margin-left: 0; }
-          .carers-allowance .short-steps ol li:first-child {
-            margin-left: 0; } }
-      @media screen and (max-width: 330px) {
-        .carers-allowance .short-steps ol li {
-          width: 25%; } }
-      @media screen and (max-width: 770px) {
+  @media screen and (max-width: 500px) {
+    .carers-allowance .short-steps ol:after {
+      display: block; } }
+  .carers-allowance .short-steps ol li {
+    width: 25%; }
+    @media screen and (max-width: 760px) {
+      .carers-allowance .short-steps ol li {
+        text-indent: -9999px;
+        padding: 35px 0 0 0; }
         .carers-allowance .short-steps ol li span {
-          font-size: 13px; } }
+          text-indent: 0; } }
+    @media screen and (max-width: 480px) {
+      .carers-allowance .short-steps ol li {
+        width: 25%;
+        margin-left: 0; }
+        .carers-allowance .short-steps ol li:first-child {
+          margin-left: 0; } }
+    @media screen and (max-width: 330px) {
+      .carers-allowance .short-steps ol li {
+        width: 25%; } }
+    @media screen and (max-width: 770px) {
+      .carers-allowance .short-steps ol li span {
+        font-size: 13px; } }
   .carers-allowance section {
     background: #fff;
     position: relative;
@@ -668,6 +666,11 @@ main {
             text-transform: uppercase; }
           .ie7 .carers-allowance .form-elements ul li input[type="text"], .ie8 .carers-allowance .form-elements ul li input[type="text"], .ie7 .carers-allowance .form-elements ul li input[type="number"], .ie8 .carers-allowance .form-elements ul li input[type="number"], .ie7 .carers-allowance .form-elements ul li input[type="tel"], .ie8 .carers-allowance .form-elements ul li input[type="tel"], .ie7 .carers-allowance .form-elements ul li textarea, .ie8 .carers-allowance .form-elements ul li textarea {
             padding: 0.2em 0 0.4em 0.4em; }
+          .carers-allowance .form-elements ul li input[type="text"].datepicker, .carers-allowance .form-elements ul li input[type="number"].datepicker, .carers-allowance .form-elements ul li input[type="tel"].datepicker, .carers-allowance .form-elements ul li textarea.datepicker {
+            cursor: pointer;
+            background: #f9f9f9 url("../img/calendar-icon.png") 97% 50% no-repeat;
+            position: relative;
+            z-index: 20; }
         .carers-allowance .form-elements ul li input[type="radio"] {
           width: auto;
           vertical-align: top; }
@@ -1315,6 +1318,22 @@ main {
 
 .content-panel {
   margin-top: 2em; }
+
+/* datepicker */
+.picker__header select {
+  width: auto;
+  max-width: auto !important;
+  min-width: 10px !important; }
+
+.ie7 .date-stack {
+  zoom: 1; }
+
+.ie7 .picker__frame {
+  width: 700px;
+  left: auto;
+  right: 0;
+  top: 10% !important;
+  background: #fff; }
 
 /* ==========================================================================
    clearfix

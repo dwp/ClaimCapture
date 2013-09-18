@@ -53,6 +53,8 @@
 
 <!-- / New -->
 <link rel="stylesheet" href="../css/carers-allowance.css">
+<link rel="stylesheet" href="../css/themes/default.css" id="theme_base">
+<link rel="stylesheet" href="../css/themes/default.date.css" id="theme_date">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="og:image" content="https://assets.digital.cabinet-office.gov.uk/static/opengraph-image-4e469785ca4cc8f8dd18d0627bc43d19.png">
@@ -100,9 +102,12 @@
         </nav>
       </div>  -->
 
-    <!-- carers allowance -->
-    <div id="wrapper" class="carers-allowance">
-    <div class="carers-container">
+   <!-- carers allowance -->
+    <div id="wrapper" class="group">
+    
+    <main role="main" id="main">
+	
+    <div class="carers-allowance">
 
     	
     	<div class="progress-steps">
@@ -536,7 +541,26 @@
 							<li><input type="radio" name="q2-no" id="q2-no"><label for="q2-no">No</label></li>
 						</ul>
 					</li>
+					
+					<li>
+						<label for="date">Datepicker Single</label>
+						<input type="text" name="date" id="date" class="datepicker">
+					</li>
 
+					
+					<li>
+						<ul class="date-stack">
+							<li>
+								<label for="date3">Datepicker Start</label>
+								<input type="text" name="date3" id="date3" class="datepicker">
+							</li>
+							<li>
+								<label for="date4">Datepicker End</label>
+								<input type="text" name="date4" id="date4" class="datepicker">
+							</li>
+						</ul>
+					</li>
+					
 				</ul>
 				
 			</fieldset>
@@ -552,6 +576,7 @@
     	</section>
     
     </div>
+    </main>
     </div>
     <!-- / carers allowance end -->
 
@@ -612,9 +637,13 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<script src="../js/custom.js"></script>
+
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="../js/lib/picker.js"></script>
+<script src="../js/lib/picker.date.js"></script>
+<script src="../js/lib/picker.time.js"></script>
+<script src="../js/lib/legacy.js"></script>
+<script src="../js/custom.js"></script>
 
 
   </body>

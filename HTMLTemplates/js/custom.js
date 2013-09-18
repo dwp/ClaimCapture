@@ -26,7 +26,14 @@ $('a[href^="#"]').bind('click.smoothscroll',function (e) {
     }, 750, 'swing', function () {
         window.location.hash = target;
     });
-}); 	 
+}); 
+
+
+$( '.datepicker' ).pickadate({
+    selectYears: true,
+    selectMonths: true
+    
+});
 
 	 
 	 
