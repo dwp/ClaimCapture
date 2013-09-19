@@ -46,6 +46,15 @@ case class Claim(override val sections: List[Section] = List(), override val sta
       }
     }
 
+    def checkNormalResidenceAndCurrentLocation: Boolean = {
+      questionGroup[NormalResidenceAndCurrentLocation] match {
+        case Some(q) => {
+          q.whereDoYouLive.answer == "yes" && q.whereDoYouLive.text.isDefined
+        }
+        case _ => false
+      }
+    }
+
     def checkPensionSchemes: Boolean = {
       questionGroup[PensionSchemes] match {
         case Some(q) => {
@@ -105,6 +114,7 @@ case class Claim(override val sections: List[Section] = List(), override val sta
 
     checkTimeOutsideUK ||
       checkMoreAboutTheCare ||
+      checkNormalResidenceAndCurrentLocation ||
       checkPensionSchemes ||
       checkChildcareExpenses ||
       checkPersonYouCareForExpenses ||

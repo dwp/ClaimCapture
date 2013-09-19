@@ -2,7 +2,7 @@ package models.domain
 
 import org.specs2.mutable.Specification
 import models.{DayMonthYear, LivingInUK}
-import models.yesNo.YesNoWithDate
+import models.yesNo.{YesNoWithText, YesNoWithDate}
 
 class ClaimSpec extends Specification {
   val claim = Claim().update(Benefits("no"))
@@ -60,9 +60,6 @@ class ClaimSpec extends Specification {
         result must beTrue
       }
 
-
-
-
       "returns false given MoreAboutTheCare answered yes and honeyPot filled" in {
         val claim = Claim().update(MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "yes", date = Some(DayMonthYear()))))
 
@@ -87,10 +84,35 @@ class ClaimSpec extends Specification {
         result must beTrue
       }
 
+      "returns false given NormalResidenceAndCurrentLocation answered no and honeyPot filled" in {
+        val claim = Claim().update(NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = "no", text = Some("some text"))))
+
+        val result = claim.honeyPot
+
+        result must beFalse
+      }
+
+      "returns false given NormalResidenceAndCurrentLocation answered yes and honeyPot not filled" in {
+        val claim = Claim().update(NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = "yes", text = None)))
+
+        val result = claim.honeyPot
+
+        result must beFalse
+      }
+
+      "returns true given NormalResidenceAndCurrentLocation answered yes and honeyPot filled" in {
+        val claim = Claim().update(NormalResidenceAndCurrentLocation(whereDoYouLive = YesNoWithText(answer = "yes", text = Some("some text"))))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
 
 
 
-      "returns false given ChildcareExpenses honeyPot not filled (frequency not other)" in {
+
+
+      "returns false given NormalResidenceAndCurrentLocation honeyPot not filled (frequency not other)" in {
         val claim = Claim().update(ChildcareExpenses(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None)))
 
         val result = claim.honeyPot
