@@ -22,7 +22,7 @@ object CircumstancesAboutYou extends QuestionGroup.Identifier {
   val id = s"${CircumstancesIdentification.id}.g1"
 }
 
-case class CircumstancesYourContactDetails(address: MultiLineAddress = MultiLineAddress(None, None, None),
+case class CircumstancesYourContactDetails(address: MultiLineAddress =new  MultiLineAddress(),
                                            postcode: Option[String] = None,
                                            phoneNumber: Option[String] = None,
                                            mobileNumber: Option[String] = None

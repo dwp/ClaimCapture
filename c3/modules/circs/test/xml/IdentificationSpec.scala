@@ -3,10 +3,8 @@ package xml
 import app.XMLValues._
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
-import models.DayMonthYear
+import models.{Street, DayMonthYear, MultiLineAddress, NationalInsuranceNumber}
 import models.domain.Circs
-import models.MultiLineAddress
-import models.NationalInsuranceNumber
 import scala.Some
 
 class IdentificationSpec extends Specification with Tags {
@@ -26,7 +24,7 @@ class IdentificationSpec extends Specification with Tags {
     nationalInsuranceNumber = nationalInsuranceNr,
     dateOfBirth = DayMonthYear(1, 1, 1963))
 
-  val contactDetails = CircumstancesYourContactDetails(address = MultiLineAddress(Some("Line1"), None, None),
+  val contactDetails = CircumstancesYourContactDetails(address = MultiLineAddress(Street(Some("Line1"))),
     postcode = Some("PR2 8AE"),
     phoneNumber = Some("01772 700806"),
     mobileNumber = Some("01818 118181"))

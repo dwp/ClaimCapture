@@ -2,7 +2,7 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
-import models.{NationalInsuranceNumber, DayMonthYear, MultiLineAddress}
+import models.{Street, NationalInsuranceNumber, DayMonthYear, MultiLineAddress}
 
 class ClaimantSpec extends Specification with Tags {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
@@ -12,7 +12,7 @@ class ClaimantSpec extends Specification with Tags {
                                 otherSurnames = Some("O'Dwyer"), nationalInsuranceNumber = nationalInsuranceNrOption, nationality = "French",
                                 dateOfBirth = DayMonthYear(1, 1, 1963), maritalStatus = "m", alwaysLivedUK = "yes")
 
-  val contactDetails = ContactDetails(address = MultiLineAddress(Some("Line1"), None, None),
+  val contactDetails = ContactDetails(address = MultiLineAddress(Street(Some("Line1"))),
                                       postcode = Some("PR2 8AE"), 
                                       phoneNumber = Some("01772 700806"), 
                                       contactYouByTextphone = None, 

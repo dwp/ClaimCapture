@@ -12,7 +12,7 @@ import models.domain._
 
 object G2ContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "address" -> address.verifying(requiredAddress),
+    "address" -> address,
     "postcode" -> optional(text verifying validPostcode),
     "phoneNumber" -> optional(text verifying pattern( """[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid")),
     "contactYouByTextphone" -> optional(text(maxLength = 3).verifying(validYesNo)),

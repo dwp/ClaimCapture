@@ -2,13 +2,16 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
-import models.DayMonthYear
+import models._
 import models.yesNo.YesNoWithDate
+import models.domain.Break
+import app.XMLValues._
+import models.domain.Claim
 import models.NationalInsuranceNumber
+import scala.Some
 import models.Whereabouts
 import models.MultiLineAddress
 import models.domain.Break
-import app.XMLValues._
 
 class CareeSpec extends Specification with Tags {
 
@@ -20,7 +23,7 @@ class CareeSpec extends Specification with Tags {
       val dateOfBirth = DayMonthYear(Some(3), Some(4), Some(1950))
       val claimDate = DayMonthYear(Some(10), Some(10), Some(2013))
       val theirPersonalDetails = TheirPersonalDetails(title = "title", firstName = "firstName", middleName = Some("middleName"), surname = "surname", nationalInsuranceNumber = Some(nationalInsuranceNr), dateOfBirth = dateOfBirth)
-      val theirContactDetails = TheirContactDetails(address = MultiLineAddress(Some("line1")), postcode = Some("postcode"), phoneNumber = Some("020-12302312"))
+      val theirContactDetails = TheirContactDetails(address = MultiLineAddress(Street(Some("line1"))), postcode = Some("postcode"), phoneNumber = Some("020-12302312"))
       val moreAboutThePerson = MoreAboutThePerson(relationship = "son")
       val moreAboutTheCare = MoreAboutTheCare(spent35HoursCaring = yes, spent35HoursCaringBeforeClaim = YesNoWithDate(no, Some(claimDate)))
 

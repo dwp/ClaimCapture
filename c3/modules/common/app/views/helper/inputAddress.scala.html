@@ -1,9 +1,14 @@
 @(field: play.api.data.Field, args: (Symbol, Any)*)
 
+@import views.html.helper.townCityPlaceholder
+@import views.html.helper.line
 @import utils.helpers.CarersTemplate._
-@import views.html.helper.addressPlaceholder
 
-@input(field, args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
 
-    @addressPlaceholder(field)
+@input(field("street"), args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
+    @line(field("street"))
+}
+
+@input(field("town"), args.filter(_._1 != 'type): _*) { (id, name, value, htmlArgs) =>
+    @townCityPlaceholder(field("town"))
 }

@@ -16,9 +16,9 @@ class G2AddressOfSchoolCollegeOrUniversityFormSpec extends Specification with Ta
         Map(
             "nameOfSchoolCollegeOrUniversity" -> nameOfSchoolCollegeOrUniversity,
             "nameOfMainTeacherOrTutor" -> nameOfMainTeacherOrTutor,
-            "address.lineOne" -> addressLineOne,
-            "address.lineTwo" -> "lineTwo",
-            "address.lineThree" -> "lineThree",
+            "address.street.lineOne" -> addressLineOne,
+            "address.town.lineTwo" -> "lineTwo",
+            "address.town.lineThree" -> "lineThree",
             "postcode" -> postcode,
             "phoneNumber" -> phoneNumber,
             "faxNumber" -> faxNumber
@@ -40,7 +40,7 @@ class G2AddressOfSchoolCollegeOrUniversityFormSpec extends Specification with Ta
     
     "allow optional fields to be left blank" in {
       G2AddressOfSchoolCollegeOrUniversity.form.bind(
-        Map("address.lineOne" -> "")
+        Map("address.street.lineOne" -> "")
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {

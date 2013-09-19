@@ -5,8 +5,7 @@ import play.api.test.{ FakeRequest, WithApplication }
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.domain._
-import models.PaymentFrequency
-import models.MultiLineAddress
+import models.{Town, Street, PaymentFrequency, MultiLineAddress}
 import models.domain.Claim
 import scala.Some
 import models.view.CachedClaim
@@ -28,9 +27,9 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
       "howOften.frequency" -> howOften_frequency,
       "howOften.frequency.other" -> howOften_frequency_other,
       "employersName" -> employersName,
-      "employersAddress.lineOne" -> employersAddressLineOne,
-      "employersAddress.lineTwo" -> employersAddressLineTwo,
-      "employersAddress.lineThree" -> employersAddressLineThree,
+      "employersAddress.street.lineOne" -> employersAddressLineOne,
+      "employersAddress.town.lineTwo" -> employersAddressLineTwo,
+      "employersAddress.town.lineThree" -> employersAddressLineThree,
       "employersPostcode" -> employersPostcode)
 
     "present 'Other Statutory Pay - Other Money' " in new WithApplication with Claiming {
@@ -56,7 +55,7 @@ class G6OtherStatutoryPaySpec extends Specification with Tags {
           f.howMuch must equalTo(Some(howMuch))
           f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
           f.employersName must equalTo(Some(employersName))
-          f.employersAddress must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
+          f.employersAddress must equalTo(Some(MultiLineAddress(Street(Some(employersAddressLineOne)), Some(Town(Some(employersAddressLineTwo), Some(employersAddressLineThree))))))
           f.employersPostcode must equalTo(Some(employersPostcode))
         }
       }

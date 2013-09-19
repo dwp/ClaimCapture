@@ -34,7 +34,7 @@ object XMLHelper {
 
   def postalAddressStructure(addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeBuffer = addressOption match {
     case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption.orNull)
-    case _ => postalAddressStructure(MultiLineAddress(None, None, None), postcodeOption.orNull)
+    case _ => postalAddressStructure(new MultiLineAddress(), postcodeOption.orNull)
   }
 
   def postalAddressStructure(addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeBuffer = postalAddressStructure(addressOption, postcodeOption.orNull)

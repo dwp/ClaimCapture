@@ -3,9 +3,8 @@ package xml
 import org.specs2.mutable.Specification
 import org.specs2.mutable.Tags
 import models.domain._
-import models.DayMonthYear
+import models.{Street, Town, DayMonthYear, MultiLineAddress}
 import controllers.Mappings._
-import models.MultiLineAddress
 
 class FullTimeEducationSpec extends Specification with Tags {
 
@@ -18,7 +17,7 @@ class FullTimeEducationSpec extends Specification with Tags {
 
   val schoolName = Some("schoolName")
   val tutorName = Some("tutorName")
-  val address = Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3")))
+  val address = Some(MultiLineAddress(Street(Some("line1")), Some(Town(Some("line2"), Some("line3")))))
   val postcode = Some("SE1 6EH")
   val phoneNumber = Some("020192827273")
   val faxNumber = Some("0302928273")

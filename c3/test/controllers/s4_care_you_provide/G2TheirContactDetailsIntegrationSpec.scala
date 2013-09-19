@@ -29,7 +29,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       Formulate.yourContactDetails(browser)
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")
-      browser.find("#address_lineOne").getValue mustEqual "My Address"
+      browser.find("#address_street_lineOne").getValue mustEqual "My Address"
       browser.find("#postcode").getValue mustEqual "SE1 6EH"
     }
 
@@ -37,7 +37,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       Formulate.yourContactDetails(browser)
       Formulate.theirPersonalDetailsNotLiveAtSameAddress(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")
-      browser.find("#address_lineOne").getValue mustEqual ""
+      browser.find("#address_street_lineOne").getValue mustEqual ""
       browser.find("#postcode").getValue mustEqual ""
     }
 
@@ -45,7 +45,7 @@ class G2TheirContactDetailsIntegrationSpec extends Specification with Tags {
       Formulate.theirPersonalDetails(browser)
       titleMustEqual("Contact details of the person you care for - About the care you provide")
 
-      browser.find("#address_lineOne").getValue mustEqual ""
+      browser.find("#address_street_lineOne").getValue mustEqual ""
       browser.find("#postcode").getValue mustEqual ""
     }
 

@@ -14,14 +14,14 @@ package object domain {
     Over16(yes) +
     LivesInGB(yes) +
     YourDetails(title = "mr", firstName = "Scooby", surname = "Doo", nationality = "Scottish", dateOfBirth = DayMonthYear(1, 1, 1980), alwaysLivedUK = yes, maritalStatus = "m") +
-    ContactDetails(address = MultiLineAddress(lineOne = Some("Scooby Street"))) +
+    ContactDetails(address = MultiLineAddress(Street(Some("Scooby Street")))) +
     ClaimDate(dateOfClaim = DayMonthYear(1, 1, 2013)) +
     MoreAboutYou(hadPartnerSinceClaimDate = yes, beenInEducationSinceClaimDate = yes, receiveStatePension = yes) +
     Employment(beenSelfEmployedSince1WeekBeforeClaim = yes, beenEmployedSince6MonthsBeforeClaim = yes) +
     YourPartnerPersonalDetails(title = "Mrs", firstName = "Daphne", surname = "Schoo", dateOfBirth = DayMonthYear(1, 1, 1980), separatedFromPartner = no) +
     PersonYouCareFor(isPartnerPersonYouCareFor = yes) +
     TheirPersonalDetails(title = "mrs", firstName = "Daphne", surname = "Schoo", dateOfBirth = DayMonthYear(1, 1, 1980), liveAtSameAddressCareYouProvide = yes) +
-    TheirContactDetails(address = MultiLineAddress(lineOne = Some("Scooby Street"))) +
+    TheirContactDetails(address = MultiLineAddress(Street(Some("Scooby Street")))) +
     MoreAboutThePerson(relationship = "wife") +
     MoreAboutTheCare(spent35HoursCaring = yes, spent35HoursCaringBeforeClaim = YesNoWithDate(answer = yes, date = Some(DayMonthYear(1, 1, 2000)))) +
     BreaksInCare(Break(start = DayMonthYear(1, 1, 2000), whereYou = Whereabouts(location = "At Home"), wherePerson = Whereabouts(location = "Hospital"), medicalDuringBreak = no) :: Nil) +

@@ -19,7 +19,7 @@ trait WebSearchActions {
 
   // Read operations
   def readAddress(elementCssSelector: String): Option[String] = {
-    val extensions = Array("_lineOne", "_lineTwo", "_lineThree")
+    val extensions = Array("_street_lineOne", "_town_lineTwo", "_town_lineThree")
     val addressLines = mutable.ArrayBuffer.empty[String]
     extensions.foreach(s => addressLines += readInput(elementCssSelector + s).orNull)
     if (addressLines.nonEmpty) Some(addressLines.mkString("&").dropRight(1)) else None

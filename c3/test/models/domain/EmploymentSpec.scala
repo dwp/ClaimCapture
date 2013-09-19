@@ -113,7 +113,8 @@ class EmploymentSpec extends Specification {
 
       val form = G3EmployerContactDetails.form.fillWithJobID(EmployerContactDetails, "1")(claim)
       form.value.isDefined should beTrue
-      form.value.get must beLike { case EmployerContactDetails(jid, MultiLineAddress(None,None,None), None, Some(v)) => jid shouldEqual "1" and(v shouldEqual "111") }
+      val address = new MultiLineAddress()
+      form.value.get must beLike { case EmployerContactDetails(jid,address, None, Some(v)) => jid shouldEqual "1" and(v shouldEqual "111") }
     }
   }
 

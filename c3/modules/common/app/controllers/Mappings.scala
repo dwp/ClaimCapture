@@ -38,10 +38,19 @@ object Mappings {
     "from" -> dayMonthYear.verifying(validDate),
     "to" -> dayMonthYear.verifying(validDate))(PeriodFromTo.apply)(PeriodFromTo.unapply)
 
-  val address: Mapping[MultiLineAddress] = mapping(
-    "lineOne" -> optional(text(maxLength = sixty)),
+  val street: Mapping[Street] = mapping(
+    "lineOne" -> optional(text(maxLength = sixty))
+  )(Street.apply)(Street.unapply)
+
+  val town: Mapping[Town] = mapping(
     "lineTwo" -> optional(text(maxLength = sixty)),
-    "lineThree" -> optional(text(maxLength = sixty)))(MultiLineAddress.apply)(MultiLineAddress.unapply)
+    "lineThree" -> optional(text(maxLength = sixty))
+  )(Town.apply)(Town.unapply)
+
+  val address: Mapping[MultiLineAddress] = mapping(
+    "street" -> (street verifying requiredStreet),
+    "town" -> optional(town)
+    )(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> nonEmptyText,
@@ -60,6 +69,13 @@ object Mappings {
     "sort2" -> text(maxLength = two),
     "sort3" -> text(maxLength = two))(SortCode.apply)(SortCode.unapply)
 
+  def requiredStreet: Constraint[Street] = Constraint[Street]("constraint.required"){street =>
+    street match {
+      case Street(s) if s.isDefined => Valid
+      case _ => Invalid(ValidationError("error.required"))
+    }
+
+  }
   def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") { sortCode =>
     sortCode match {
       case SortCode(s1, s2, s3) => if (s1.isEmpty || s2.isEmpty || s3.isEmpty) Invalid(ValidationError("error.required"))
@@ -94,10 +110,6 @@ object Mappings {
 
   def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") { dmy =>
     dateTimeValidation(dmy)
-  }
-
-  def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
-    if (a.lineOne.isEmpty) Invalid(ValidationError("error.missingLineOne")) else Valid
   }
 
   def nino: Mapping[NationalInsuranceNumber] = mapping(

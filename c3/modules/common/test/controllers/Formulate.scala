@@ -49,7 +49,7 @@ object Formulate {
 
   def yourContactDetails(browser: TestBrowser) = {
     browser.goTo("/about-you/contact-details")
-    browser.fill("#address_lineOne") `with` "My Address"
+    browser.fill("#address_street_lineOne") `with` "My Address"
     browser.fill("#postcode") `with` "SE1 6EH"
     browser.submit("button[type='submit']")
   }
@@ -178,14 +178,14 @@ object Formulate {
 
   def theirContactDetails(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-contact-details")
-    browser.fill("#address_lineOne") `with` "Their Address"
+    browser.fill("#address_street_lineOne") `with` "Their Address"
     browser.fill("#postcode") `with` "RM11 1DA"
     browser.submit("button[type='submit']")
   }
   
   def theirContactDetailsInvalidPhoneNumber(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-contact-details")
-    browser.fill("#address_lineOne") `with` "Their Address"
+    browser.fill("#address_street_lineOne") `with` "Their Address"
     browser.fill("#postcode") `with` "RM11 1DA"
     browser.fill("#phoneNumber") `with` "INVALID"
     browser.submit("button[type='submit']")
@@ -357,7 +357,7 @@ object Formulate {
     browser.goTo("/education/address-of-school-college-or-university")
     browser.fill("#nameOfSchoolCollegeOrUniversity") `with` nameOfSchoolCollegeOrUniversity
     browser.fill("#nameOfMainTeacherOrTutor") `with` nameOfMainTeacherOrTutor
-    browser.fill("#address_lineOne") `with` addressLineOne
+    browser.fill("#address_street_lineOne") `with` addressLineOne
     browser.fill("#postcode") `with` postcode
     browser.fill("#phoneNumber") `with` phoneNumber
     browser.fill("#faxNumber") `with` faxNumber

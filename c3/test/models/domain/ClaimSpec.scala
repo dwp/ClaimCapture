@@ -1,7 +1,7 @@
 package models.domain
 
 import org.specs2.mutable.Specification
-import models.{MultiLineAddress, DayMonthYear, LivingInUK}
+import models.{Street, MultiLineAddress, DayMonthYear, LivingInUK}
 import models.yesNo.{YesNo, YesNoWithText, YesNoWithDate}
 
 class ClaimSpec extends Specification {
@@ -317,7 +317,7 @@ class ClaimSpec extends Specification {
       }
 
       "returns true given StatutorySickPay answered no and honeyPot employersAddress filled" in {
-        val claim = Claim().update(StatutorySickPay(haveYouHadAnyStatutorySickPay = "no", employersAddress = Some(MultiLineAddress(lineOne = Some("some lineOne")))))
+        val claim = Claim().update(StatutorySickPay(haveYouHadAnyStatutorySickPay = "no", employersAddress = Some(MultiLineAddress(Street(Some("some lineOne"))))))
 
         val result = claim.honeyPot
 
@@ -373,7 +373,7 @@ class ClaimSpec extends Specification {
       }
 
       "returns true given OtherStatutoryPay answered no and honeyPot employersAddress filled" in {
-        val claim = Claim().update(OtherStatutoryPay(otherPay = "no", employersAddress = Some(MultiLineAddress(lineOne = Some("some lineOne")))))
+        val claim = Claim().update(OtherStatutoryPay(otherPay = "no", employersAddress = Some(MultiLineAddress(Street(Some("some lineOne"))))))
 
         val result = claim.honeyPot
 

@@ -2,8 +2,7 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
-import models.NationalInsuranceNumber
-import models.MultiLineAddress
+import models.{Street, Town, NationalInsuranceNumber, MultiLineAddress}
 import controllers.Mappings.yes
 import controllers.Mappings.no
 import app.XMLValues
@@ -13,7 +12,7 @@ class OtherBenefitsSpec extends Specification with Tags {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
 
   val nationalInsuranceNrOption = Some(nationalInsuranceNr)
-  val address = Some(MultiLineAddress(Some("line1"), Some("line2"), Some("line3")))
+  val address = Some(MultiLineAddress(Street(Some("line1")), Some(Town(Some("line2"), Some("line3")))))
   val postcode = Some("SE1 6EH")
 
   val fullName = "fullName"
