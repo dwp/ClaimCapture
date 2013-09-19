@@ -114,7 +114,16 @@ case class Claim(override val sections: List[Section] = List(), override val sta
     def checkAboutOtherMoney: Boolean = {
       questionGroup[AboutOtherMoney] match {
         case Some(q) => {
-          q.anyPaymentsSinceClaimDate.answer == "no" && (q.whoPaysYou.isDefined || q.howMuch.isDefined || q.howOften.isDefined) // Bot given field whoPaysYou was not visible.
+          q.anyPaymentsSinceClaimDate.answer == "no" && (q.whoPaysYou.isDefined || q.howMuch.isDefined || q.howOften.isDefined) // Bot given fields were not visible.
+        }
+        case _ => false
+      }
+    }
+
+    def checkStatutorySickPay: Boolean = {
+      questionGroup[StatutorySickPay] match {
+        case Some(q) => {
+          q.haveYouHadAnyStatutorySickPay == "no" && (q.howMuch.isDefined || q.howOften.isDefined || q.employersName.isDefined || q.employersAddress.isDefined || q.employersPostcode.isDefined) // Bot given fields were not visible.
         }
         case _ => false
       }
@@ -129,6 +138,7 @@ case class Claim(override val sections: List[Section] = List(), override val sta
       checkPersonYouCareForExpenses ||
       checkChildcareExpensesWhileAtWork ||
       checkExpensesWhileAtWork ||
-      checkAboutOtherMoney
+      checkAboutOtherMoney ||
+      checkStatutorySickPay
   }
 }
