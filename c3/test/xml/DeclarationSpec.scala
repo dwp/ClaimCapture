@@ -1,7 +1,10 @@
 package xml
 
 import org.specs2.mutable.{Tags, Specification}
-import models.domain.{YourDetails, Claim}
+import models.domain._
+import models.yesNo.YesNoWithText
+import play.test.WithApplication
+import scala.Some
 
 class DeclarationSpec extends Specification with Tags {
 
@@ -20,6 +23,16 @@ class DeclarationSpec extends Specification with Tags {
         val fullName = Declaration.fullName(Claim().update(personalDetails))
 
         fullName mustEqual "firstName middleName surname"
+      }
+
+      "declaration and disclaimer are present" in {
+        val personalDetails = YourDetails(firstName = "firstName", middleName=Some("middleName"), surname="surname")
+        val consent = Consent(YesNoWithText(answer = "yes", text = None),YesNoWithText(answer = "yes", text = None))
+        val additionalInfo = AdditionalInfo()
+        val claim = Claim() + personalDetails + consent + additionalInfo
+        val xml = Declaration.xml(claim)
+        xml.text must contain("declaration.1.pdf")
+        xml.text must contain("disclaimer.7")
       }
     }
   } section "unit"
