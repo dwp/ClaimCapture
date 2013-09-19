@@ -21,7 +21,7 @@ class ClaimSpec extends Specification {
       }
 
       "returns false given TimeOutsideUK answered yes and honeyPot filled" in {
-        val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "yes", text = Some("some text"))))
+        val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "yes", date = Some(DayMonthYear()), text = Some("some text"), goBack = Some(YesNoWithDate(answer = "yes", date = Some(DayMonthYear()))))))
 
         val result = claim.honeyPot
 
@@ -29,20 +29,39 @@ class ClaimSpec extends Specification {
       }
 
       "returns false given TimeOutsideUK answered no and honeyPot not filled" in {
-        val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", text = None)))
+        val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", date = None, text = None, goBack = None)))
 
         val result = claim.honeyPot
 
         result must beFalse
       }
 
-      "returns true given TimeOutsideUK answered no and honeyPot filled" in {
+      "returns true given TimeOutsideUK answered no and honeyPot date filled" in {
+        val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", date = Some(DayMonthYear()))))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+      "returns true given TimeOutsideUK answered no and honeyPot text filled" in {
         val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", text = Some("some text"))))
 
         val result = claim.honeyPot
 
         result must beTrue
       }
+
+      "returns true given TimeOutsideUK answered no and honeyPot goBack filled" in {
+        val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", goBack = Some(YesNoWithDate(answer = "yes", date = Some(DayMonthYear()))))))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+
+
 
       "returns false given MoreAboutTheCare answered yes and honeyPot filled" in {
         val claim = Claim().update(MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "yes", date = Some(DayMonthYear()))))

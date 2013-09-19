@@ -31,7 +31,7 @@ case class Claim(override val sections: List[Section] = List(), override val sta
     def checkTimeOutsideUK: Boolean = {
       questionGroup[TimeOutsideUK] match {
         case Some(q) => {
-          q.livingInUK.answer == "no" && q.livingInUK.text.isDefined
+          q.livingInUK.answer == "no" && (q.livingInUK.date.isDefined || q.livingInUK.text.isDefined || q.livingInUK.goBack.isDefined)
         }
         case _ => false
       }
