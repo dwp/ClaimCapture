@@ -37,6 +37,15 @@ case class Claim(override val sections: List[Section] = List(), override val sta
       }
     }
 
+    def checkMoreAboutTheCare: Boolean = {
+      questionGroup[MoreAboutTheCare] match {
+        case Some(q) => {
+          q.spent35HoursCaringBeforeClaim.answer == "no" && q.spent35HoursCaringBeforeClaim.date.isDefined
+        }
+        case _ => false
+      }
+    }
+
     def checkPensionSchemes: Boolean = {
       questionGroup[PensionSchemes] match {
         case Some(q) => {
@@ -95,6 +104,7 @@ case class Claim(override val sections: List[Section] = List(), override val sta
 
 
     checkTimeOutsideUK ||
+      checkMoreAboutTheCare ||
       checkPensionSchemes ||
       checkChildcareExpenses ||
       checkPersonYouCareForExpenses ||

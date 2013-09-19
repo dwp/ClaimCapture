@@ -1,7 +1,8 @@
 package models.domain
 
 import org.specs2.mutable.Specification
-import models.LivingInUK
+import models.{DayMonthYear, LivingInUK}
+import models.yesNo.YesNoWithDate
 
 class ClaimSpec extends Specification {
   val claim = Claim().update(Benefits("no"))
@@ -18,9 +19,6 @@ class ClaimSpec extends Specification {
 
         result must beFalse
       }
-
-
-
 
       "returns false given TimeOutsideUK answered yes and honeyPot filled" in {
         val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "yes", text = Some("some text"))))
@@ -40,6 +38,30 @@ class ClaimSpec extends Specification {
 
       "returns true given TimeOutsideUK answered no and honeyPot filled" in {
         val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", text = Some("some text"))))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+      "returns false given MoreAboutTheCare answered yes and honeyPot filled" in {
+        val claim = Claim().update(MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "yes", date = Some(DayMonthYear()))))
+
+        val result = claim.honeyPot
+
+        result must beFalse
+      }
+
+      "returns false given MoreAboutTheCare answered no and honeyPot not filled" in {
+        val claim = Claim().update(MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "no", date = None)))
+
+        val result = claim.honeyPot
+
+        result must beFalse
+      }
+
+      "returns true given MoreAboutTheCare answered no and honeyPot filled" in {
+        val claim = Claim().update(MoreAboutTheCare(spent35HoursCaringBeforeClaim = YesNoWithDate(answer = "no", date = Some(DayMonthYear()))))
 
         val result = claim.honeyPot
 
