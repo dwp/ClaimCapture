@@ -129,6 +129,14 @@ case class Claim(override val sections: List[Section] = List(), override val sta
       }
     }
 
+    def checkOtherStatutoryPay: Boolean = {
+      questionGroup[OtherStatutoryPay] match {
+        case Some(q) => {
+          q.otherPay == "no" && (q.howMuch.isDefined || q.howOften.isDefined || q.employersName.isDefined || q.employersAddress.isDefined || q.employersPostcode.isDefined) // Bot given fields were not visible.
+        }
+        case _ => false
+      }
+    }
 
     checkTimeOutsideUK ||
       checkMoreAboutTheCare ||
@@ -139,6 +147,7 @@ case class Claim(override val sections: List[Section] = List(), override val sta
       checkChildcareExpensesWhileAtWork ||
       checkExpensesWhileAtWork ||
       checkAboutOtherMoney ||
-      checkStatutorySickPay
+      checkStatutorySickPay ||
+      checkOtherStatutoryPay
   }
 }

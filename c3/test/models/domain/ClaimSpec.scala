@@ -6,9 +6,9 @@ import models.yesNo.{YesNo, YesNoWithText, YesNoWithDate}
 
 class ClaimSpec extends Specification {
   val claim = Claim().update(Benefits("no"))
-                     .update(Hours("no"))
-                     .update(LivesInGB("no"))
-                     .update(Over16("no"))
+    .update(Hours("no"))
+    .update(LivesInGB("no"))
+    .update(Over16("no"))
 
   "Claim" should {
     "honeypot" in {
@@ -276,8 +276,6 @@ class ClaimSpec extends Specification {
         result must beTrue
       }
 
-
-
       "returns false given StatutorySickPay answered yes and honeyPot filled" in {
         val claim = Claim().update(StatutorySickPay(haveYouHadAnyStatutorySickPay = "yes", howMuch = Some("some howMuch")))
 
@@ -328,6 +326,62 @@ class ClaimSpec extends Specification {
 
       "returns true given StatutorySickPay answered no and honeyPot employersPostcode filled" in {
         val claim = Claim().update(StatutorySickPay(haveYouHadAnyStatutorySickPay = "no", employersPostcode = Some("some employersPostcode")))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+      "returns false given OtherStatutoryPay answered yes and honeyPot filled" in {
+        val claim = Claim().update(OtherStatutoryPay(otherPay = "yes", howMuch = Some("some howMuch")))
+
+        val result = claim.honeyPot
+
+        result must beFalse
+      }
+
+      "returns false given OtherStatutoryPay answered no and honeyPot not filled" in {
+        val claim = Claim().update(OtherStatutoryPay(otherPay = "no", howMuch = None))
+
+        val result = claim.honeyPot
+
+        result must beFalse
+      }
+
+      "returns true given OtherStatutoryPay answered no and honeyPot howMuch filled" in {
+        val claim = Claim().update(OtherStatutoryPay(otherPay = "no", howMuch = Some("some howMuch")))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+      "returns true given OtherStatutoryPay answered no and honeyPot howOften filled" in {
+        val claim = Claim().update(OtherStatutoryPay(otherPay = "no", howOften = Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text")))))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+      "returns true given OtherStatutoryPay answered no and honeyPot employersName filled" in {
+        val claim = Claim().update(OtherStatutoryPay(otherPay = "no", employersName = Some("some employersName")))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+      "returns true given OtherStatutoryPay answered no and honeyPot employersAddress filled" in {
+        val claim = Claim().update(OtherStatutoryPay(otherPay = "no", employersAddress = Some(MultiLineAddress(lineOne = Some("some lineOne")))))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+      "returns true given OtherStatutoryPay answered no and honeyPot employersPostcode filled" in {
+        val claim = Claim().update(OtherStatutoryPay(otherPay = "no", employersPostcode = Some("some employersPostcode")))
 
         val result = claim.honeyPot
 
