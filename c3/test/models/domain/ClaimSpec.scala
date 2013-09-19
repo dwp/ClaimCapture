@@ -2,7 +2,7 @@ package models.domain
 
 import org.specs2.mutable.Specification
 import models.{DayMonthYear, LivingInUK}
-import models.yesNo.{YesNoWithText, YesNoWithDate}
+import models.yesNo.{YesNo, YesNoWithText, YesNoWithDate}
 
 class ClaimSpec extends Specification {
   val claim = Claim().update(Benefits("no"))
@@ -107,10 +107,6 @@ class ClaimSpec extends Specification {
 
         result must beTrue
       }
-
-
-
-
 
       "returns false given NormalResidenceAndCurrentLocation honeyPot not filled (frequency not other)" in {
         val claim = Claim().update(ChildcareExpenses(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None)))
@@ -234,6 +230,46 @@ class ClaimSpec extends Specification {
 
       "returns true given PensionSchemes honeyPot filled (frequency not other and text entered)" in {
         val claim = Claim().update(PensionSchemes(payPersonalPensionScheme = "yes", howOftenPersonal = Some(models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text")))))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+      "returns false given AboutOtherMoney answered yes and honeyPot filled" in {
+        val claim = Claim().update(AboutOtherMoney(anyPaymentsSinceClaimDate = YesNo("yes"), whoPaysYou = Some("some whoPaysYou")))
+
+        val result = claim.honeyPot
+
+        result must beFalse
+      }
+
+      "returns false given AboutOtherMoney answered no and honeyPot not filled" in {
+        val claim = Claim().update(AboutOtherMoney(anyPaymentsSinceClaimDate = YesNo("no"), whoPaysYou = None))
+
+        val result = claim.honeyPot
+
+        result must beFalse
+      }
+
+      "returns false given AboutOtherMoney answered no and honeyPot whoPaysYou filled" in {
+        val claim = Claim().update(AboutOtherMoney(anyPaymentsSinceClaimDate = YesNo("no"), whoPaysYou = Some("some whoPaysYou")))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+      "returns false given AboutOtherMoney answered no and honeyPot howMuch filled" in {
+        val claim = Claim().update(AboutOtherMoney(anyPaymentsSinceClaimDate = YesNo("no"), howMuch = Some("some howMuch")))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+      "returns false given AboutOtherMoney answered no and honeyPot howOften filled" in {
+        val claim = Claim().update(AboutOtherMoney(anyPaymentsSinceClaimDate = YesNo("no"), howOften = Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text")))))
 
         val result = claim.honeyPot
 

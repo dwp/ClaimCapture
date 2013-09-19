@@ -31,7 +31,7 @@ case class Claim(override val sections: List[Section] = List(), override val sta
     def checkTimeOutsideUK: Boolean = {
       questionGroup[TimeOutsideUK] match {
         case Some(q) => {
-          q.livingInUK.answer == "no" && (q.livingInUK.date.isDefined || q.livingInUK.text.isDefined || q.livingInUK.goBack.isDefined)
+          q.livingInUK.answer == "no" && (q.livingInUK.date.isDefined || q.livingInUK.text.isDefined || q.livingInUK.goBack.isDefined) // Bot given fields were not visible.
         }
         case _ => false
       }
@@ -40,7 +40,7 @@ case class Claim(override val sections: List[Section] = List(), override val sta
     def checkMoreAboutTheCare: Boolean = {
       questionGroup[MoreAboutTheCare] match {
         case Some(q) => {
-          q.spent35HoursCaringBeforeClaim.answer == "no" && q.spent35HoursCaringBeforeClaim.date.isDefined
+          q.spent35HoursCaringBeforeClaim.answer == "no" && q.spent35HoursCaringBeforeClaim.date.isDefined // Bot given field spent35HoursCaringBeforeClaim.date was not visible.
         }
         case _ => false
       }
@@ -49,7 +49,7 @@ case class Claim(override val sections: List[Section] = List(), override val sta
     def checkNormalResidenceAndCurrentLocation: Boolean = {
       questionGroup[NormalResidenceAndCurrentLocation] match {
         case Some(q) => {
-          q.whereDoYouLive.answer == "yes" && q.whereDoYouLive.text.isDefined
+          q.whereDoYouLive.answer == "yes" && q.whereDoYouLive.text.isDefined // Bot given field whereDoYouLive.text was not visible.
         }
         case _ => false
       }
@@ -111,6 +111,15 @@ case class Claim(override val sections: List[Section] = List(), override val sta
       }
     }
 
+    def checkAboutOtherMoney: Boolean = {
+      questionGroup[AboutOtherMoney] match {
+        case Some(q) => {
+          q.anyPaymentsSinceClaimDate.answer == "no" && (q.whoPaysYou.isDefined || q.howMuch.isDefined || q.howOften.isDefined) // Bot given field whoPaysYou was not visible.
+        }
+        case _ => false
+      }
+    }
+
 
     checkTimeOutsideUK ||
       checkMoreAboutTheCare ||
@@ -119,6 +128,7 @@ case class Claim(override val sections: List[Section] = List(), override val sta
       checkChildcareExpenses ||
       checkPersonYouCareForExpenses ||
       checkChildcareExpensesWhileAtWork ||
-      checkExpensesWhileAtWork
+      checkExpensesWhileAtWork ||
+      checkAboutOtherMoney
   }
 }
