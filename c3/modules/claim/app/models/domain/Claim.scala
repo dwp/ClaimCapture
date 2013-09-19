@@ -28,18 +28,26 @@ case class Claim(override val sections: List[Section] = List(), override val sta
   def xmlValidator = XmlValidatorFactory.buildCaValidator()
 
   def honeyPot: Boolean = {
-    def checkPensionSchemes: Boolean = {
-      questionGroup(PensionSchemes) match {
+    def checkTimeOutsideUK: Boolean = {
+      questionGroup[TimeOutsideUK] match {
         case Some(q) => {
-          val h = q.asInstanceOf[PensionSchemes]
-          if (h.payPersonalPensionScheme == "no") {
-            h.howOftenPersonal match {
+          q.livingInUK.answer == "no" && q.livingInUK.text.isDefined
+        }
+        case _ => false
+      }
+    }
+
+    def checkPensionSchemes: Boolean = {
+      questionGroup[PensionSchemes] match {
+        case Some(q) => {
+          if (q.payPersonalPensionScheme == "no") {
+            q.howOftenPersonal match {
               case Some(f) => true // Bot given field howOftenPersonal was not visible.
               case _ => false
             }
           }
           else {
-            h.howOftenPersonal match {
+            q.howOftenPersonal match {
               case Some(f) => f.frequency != Other && f.other.isDefined // Bot given field howOftenPersonal.other was not visible.
               case _ => false
             }
@@ -50,47 +58,44 @@ case class Claim(override val sections: List[Section] = List(), override val sta
     }
 
     def checkChildcareExpenses: Boolean = {
-      questionGroup(ChildcareExpenses) match {
+      questionGroup[ChildcareExpenses] match {
         case Some(q) => {
-          val h = q.asInstanceOf[ChildcareExpenses]
-          h.howOftenPayChildCare.frequency != Other && h.howOftenPayChildCare.other.isDefined // Bot given field howOftenPayChildCare.other was not visible.
+          q.howOftenPayChildCare.frequency != Other && q.howOftenPayChildCare.other.isDefined // Bot given field howOftenPayChildCare.other was not visible.
         }
         case _ => false
       }
     }
 
     def checkPersonYouCareForExpenses: Boolean = {
-      questionGroup(PersonYouCareForExpenses) match {
+      questionGroup[PersonYouCareForExpenses] match {
         case Some(q) => {
-          val h = q.asInstanceOf[PersonYouCareForExpenses]
-          h.howOftenPayCare.frequency != Other && h.howOftenPayCare.other.isDefined // Bot given field howOftenPayCare.other was not visible.
+          q.howOftenPayCare.frequency != Other && q.howOftenPayCare.other.isDefined // Bot given field howOftenPayCare.other was not visible.
         }
         case _ => false
       }
     }
 
     def checkChildcareExpensesWhileAtWork: Boolean = {
-      questionGroup(ChildcareExpensesWhileAtWork) match {
+      questionGroup[ChildcareExpensesWhileAtWork] match {
         case Some(q) => {
-          val h = q.asInstanceOf[ChildcareExpensesWhileAtWork]
-          h.howOftenPayChildCare.frequency != Other && h.howOftenPayChildCare.other.isDefined // Bot given field howOftenPayChildCare.other was not visible.
+          q.howOftenPayChildCare.frequency != Other && q.howOftenPayChildCare.other.isDefined // Bot given field howOftenPayChildCare.other was not visible.
         }
         case _ => false
       }
     }
 
     def checkExpensesWhileAtWork: Boolean = {
-      questionGroup(ExpensesWhileAtWork) match {
+      questionGroup[ExpensesWhileAtWork] match {
         case Some(q) => {
-          val h = q.asInstanceOf[ExpensesWhileAtWork]
-          h.howOftenPayExpenses.frequency != Other && h.howOftenPayExpenses.other.isDefined // Bot given field howOftenPayExpenses.other was not visible.
+          q.howOftenPayExpenses.frequency != Other && q.howOftenPayExpenses.other.isDefined // Bot given field howOftenPayExpenses.other was not visible.
         }
         case _ => false
       }
     }
 
 
-    checkPensionSchemes ||
+    checkTimeOutsideUK ||
+      checkPensionSchemes ||
       checkChildcareExpenses ||
       checkPersonYouCareForExpenses ||
       checkChildcareExpensesWhileAtWork ||

@@ -1,6 +1,7 @@
 package models.domain
 
 import org.specs2.mutable.Specification
+import models.LivingInUK
 
 class ClaimSpec extends Specification {
   val claim = Claim().update(Benefits("no"))
@@ -17,6 +18,36 @@ class ClaimSpec extends Specification {
 
         result must beFalse
       }
+
+
+
+
+      "returns false given TimeOutsideUK answered yes and honeyPot filled" in {
+        val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "yes", text = Some("some text"))))
+
+        val result = claim.honeyPot
+
+        result must beFalse
+      }
+
+      "returns false given TimeOutsideUK answered no and honeyPot not filled" in {
+        val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", text = None)))
+
+        val result = claim.honeyPot
+
+        result must beFalse
+      }
+
+      "returns true given TimeOutsideUK answered no and honeyPot filled" in {
+        val claim = Claim().update(TimeOutsideUK(LivingInUK(answer = "no", text = Some("some text"))))
+
+        val result = claim.honeyPot
+
+        result must beTrue
+      }
+
+
+
 
       "returns false given ChildcareExpenses honeyPot not filled (frequency not other)" in {
         val claim = Claim().update(ChildcareExpenses(howOftenPayChildCare = models.PensionPaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = None)))
