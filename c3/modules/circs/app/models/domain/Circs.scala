@@ -22,5 +22,23 @@ case class Circs(override val sections: List[Section] = List(), override val sta
 
   def xmlValidator = XmlValidatorFactory.buildCocValidator()
 
-  def honeyPot: Boolean = false
+  def honeyPot: Boolean = {
+    def checkDeclaration: Boolean = {
+      questionGroup(CircumstancesDeclaration) match {
+        case Some(q) => {
+          val h = q.asInstanceOf[CircumstancesDeclaration]
+          if (h.obtainInfoAgreement == "yes") {
+            h.obtainInfoWhy match {
+              case Some(f) => true // Bot given field howOftenPersonal was not visible.
+              case _ => false
+            }
+          }
+          else false
+        }
+        case _ => false
+      }
+    }
+
+    checkDeclaration
+  }
 }
