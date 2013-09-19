@@ -252,7 +252,7 @@ class ClaimSpec extends Specification {
         result must beFalse
       }
 
-      "returns false given AboutOtherMoney answered no and honeyPot whoPaysYou filled" in {
+      "returns true given AboutOtherMoney answered no and honeyPot whoPaysYou filled" in {
         val claim = Claim().update(AboutOtherMoney(anyPaymentsSinceClaimDate = YesNo("no"), whoPaysYou = Some("some whoPaysYou")))
 
         val result = claim.honeyPot
@@ -260,7 +260,7 @@ class ClaimSpec extends Specification {
         result must beTrue
       }
 
-      "returns false given AboutOtherMoney answered no and honeyPot howMuch filled" in {
+      "returns true given AboutOtherMoney answered no and honeyPot howMuch filled" in {
         val claim = Claim().update(AboutOtherMoney(anyPaymentsSinceClaimDate = YesNo("no"), howMuch = Some("some howMuch")))
 
         val result = claim.honeyPot
@@ -268,7 +268,7 @@ class ClaimSpec extends Specification {
         result must beTrue
       }
 
-      "returns false given AboutOtherMoney answered no and honeyPot howOften filled" in {
+      "returns true given AboutOtherMoney answered no and honeyPot howOften filled" in {
         val claim = Claim().update(AboutOtherMoney(anyPaymentsSinceClaimDate = YesNo("no"), howOften = Some(models.PaymentFrequency(frequency = app.PensionPaymentFrequency.Weekly, other = Some("other text")))))
 
         val result = claim.honeyPot
