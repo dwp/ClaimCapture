@@ -1,8 +1,8 @@
 package xml
 
 import models.domain._
-import play.api.i18n.Messages
 import XMLHelper.titleCase
+import play.api.i18n.Messages
 
 object Declaration {
 
@@ -12,7 +12,10 @@ object Declaration {
     val consent = claim.questionGroup[Consent].getOrElse(Consent())
 
     <Declaration>
-      { (1 to 4).foreach(n => <TextLine>{ Messages(s"declaration.$n") }</TextLine>) }
+      <TextLine>{Messages("declaration.1.pdf")}</TextLine>
+      <TextLine>{Messages("declaration.2")}</TextLine>
+      <TextLine>{Messages("declaration.3")}</TextLine>
+      <TextLine>{Messages("declaration.4")}</TextLine>
       <TextLine>We may wish to contact any current or previous employers, or other persons or organisations you have listed on this claim form to obtain information about your claim. You do not have to agree to this but if you do not, it may mean that we are unable to obtain enough information to satisfy ourselves that you meet the conditions of entitlement for your claim.</TextLine>
       <TextLine>Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? {titleCase(consent.informationFromEmployer.answer)}</TextLine>
       {
@@ -29,10 +32,14 @@ object Declaration {
         }
       }
       <TextLine>This is my claim for Carer's Allowance.</TextLine>
-      { (1 to 7).foreach(n => <TextLine>{ Messages(s"disclaimer.$n").replace("[[first name, middle name, surname]]", fullName(claim)) }</TextLine>) }
+      <TextLine>{Messages("disclaimer.1").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
+      <TextLine>{Messages("disclaimer.2").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
+      <TextLine>{Messages("disclaimer.3").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
+      <TextLine>{Messages("disclaimer.4").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
+      <TextLine>{Messages("disclaimer.5").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
+      <TextLine>{Messages("disclaimer.6").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
+      <TextLine>{Messages("disclaimer.7").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
       <TextLine>Do you live in Wales and would like to receive future communications in Welsh? {titleCase(additionalInfo.welshCommunication)}</TextLine>
-      <TextLine>If you want to view or print a full, printer-friendly version of the information you have entered on this claim, please use the buttons provided.</TextLine>
-      <TextLine>Do not send us the printed version. This is for your personal records only.</TextLine>
     </Declaration>
   }
 
