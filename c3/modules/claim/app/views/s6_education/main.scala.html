@@ -8,7 +8,6 @@
    	 <div class="carers-allowance">
 
         @progressBar(Education)
-
         <section>
 
             <h1>About your education</h1>
@@ -28,6 +27,7 @@
 
             @if(currentForm.isDefined){
                 @errorsSummary(currentForm.get)
+                @mandatoryFields(currentForm.get)
             }
 
             @content

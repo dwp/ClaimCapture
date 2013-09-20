@@ -9,8 +9,8 @@
 
 @main(Messages("s2.g5") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.MoreAboutYou)) {
     @errorsSummary(moreAboutYouForm)
-    
-    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+    @mandatoryFields(moreAboutYouForm)
+
 
     @form(action = controllers.s2_about_you.routes.G5MoreAboutYou.submit) {
         <fieldset class="form-elements">

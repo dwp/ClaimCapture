@@ -41,7 +41,7 @@
                         <td>
                             @{break.start.`dd/MM/yyyy`}
                             @if(break.end.isDefined){<span>to</span>}
-                            @{break.end.fold("../../../../common/public")(_.`dd/MM/yyyy`)}
+                            @{break.end.fold("")(_.`dd/MM/yyyy`)}
                         </td>
 
                         <td class="desc">@break.whereYou.location</td>
@@ -62,7 +62,7 @@
         </div>
     </fieldset>
     
-    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
 
     @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit) {
         <fieldset class="form-elements">

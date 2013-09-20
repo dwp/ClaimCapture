@@ -8,8 +8,8 @@
 
 @main("Your claim date" + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ClaimDate)) {
     @errorsSummary(claimDateForm)
-    
-    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+    @mandatoryFields(claimDateForm)
+
 
     @form(action = controllers.s2_about_you.routes.G4ClaimDate.submit) {
         <fieldset class="form-elements">

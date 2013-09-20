@@ -9,7 +9,7 @@
 
 @main(Messages("s5.g4") + " - " + Messages("s5.longName"), Some(tripForm)) {
 
-    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
 
     @form(action = actionCall) {
         <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>

@@ -11,7 +11,7 @@
 @import models.domain.BankBuildingSocietyDetails
 
 @main(Messages("s10.g2") + " - " + Messages("s10.longName"), Some(currentForm), claim.completedQuestionGroups(BankBuildingSocietyDetails)) {
-    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
     
     @form(action = controllers.s10_pay_details.routes.G2BankBuildingSocietyDetails.submit) {
         <fieldset class="form-elements">

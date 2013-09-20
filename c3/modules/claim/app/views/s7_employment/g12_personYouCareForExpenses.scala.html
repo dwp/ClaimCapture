@@ -15,7 +15,7 @@
 
 @main(Messages("s7.g12") + " - " + Messages("s7.longName"), Some(currentForm), completedQuestionGroups(models.domain.PersonYouCareForExpenses, JobID(currentForm))) {
 
-    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+
 
     @form(action = controllers.s7_employment.routes.G12PersonYouCareForExpenses.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">

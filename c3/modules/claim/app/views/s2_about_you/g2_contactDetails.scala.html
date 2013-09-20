@@ -8,8 +8,8 @@
 
 @main(Messages("s2.g2") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.ContactDetails)) {
     @errorsSummary(contactDetailsForm)
-    
-    <p class="mandatory">Fields marked with <em>*</em> are mandatory</p>
+    @mandatoryFields(contactDetailsForm)
+
 
     @form(action = controllers.s2_about_you.routes.G2ContactDetails.submit) {
         <fieldset class="form-elements">
