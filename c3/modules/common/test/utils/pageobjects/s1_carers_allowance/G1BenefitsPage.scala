@@ -12,11 +12,11 @@ object G1BenefitsPage {
 
   val url = "/allowance/benefits"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1BenefitsPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1BenefitsPage(browser, previousPage)
 }
 
 trait G1BenefitsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1BenefitsPage buildPageWith browser
+  val page = G1BenefitsPage (browser)
 }

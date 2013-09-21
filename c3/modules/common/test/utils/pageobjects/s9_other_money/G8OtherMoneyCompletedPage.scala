@@ -10,11 +10,11 @@ object G8OtherMoneyCompletedPage {
 
   val url = "/other-money/completed"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G8OtherMoneyCompletedPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G8OtherMoneyCompletedPage(browser, previousPage)
 }
 
 trait G8OtherMoneyCompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G8OtherMoneyCompletedPage buildPageWith browser
+  val page = G8OtherMoneyCompletedPage (browser)
 }

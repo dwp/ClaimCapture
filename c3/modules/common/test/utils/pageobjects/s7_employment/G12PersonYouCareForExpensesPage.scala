@@ -17,11 +17,11 @@ object G12PersonYouCareForExpensesPage {
 
   val url  = "/employment/person-you-care-for-expenses/:jobID"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G12PersonYouCareForExpensesPage(browser,previousPage,iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G12PersonYouCareForExpensesPage(browser,previousPage,iteration)
 }
 
 trait G12PersonYouCareForExpensesPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G12PersonYouCareForExpensesPage buildPageWith(browser,iteration = 1)
+  val page = G12PersonYouCareForExpensesPage (browser,iteration = 1)
 }

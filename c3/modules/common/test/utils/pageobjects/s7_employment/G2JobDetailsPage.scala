@@ -18,11 +18,11 @@ object G2JobDetailsPage {
 
   val url  = "/employment/job-details/:jobID"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G2JobDetailsPage(browser, previousPage, iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G2JobDetailsPage(browser, previousPage, iteration)
 }
 
 trait G2JobDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2JobDetailsPage buildPageWith (browser, iteration = 1)
+  val page = G2JobDetailsPage (browser, iteration = 1)
 }

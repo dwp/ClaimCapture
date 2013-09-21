@@ -21,12 +21,12 @@ object G4ClaimDatePage {
 
   val url  = "/about-you/claim-date"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4ClaimDatePage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G4ClaimDatePage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G4ClaimDatePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G4ClaimDatePage buildPageWith browser
+  val page = G4ClaimDatePage (browser)
 }

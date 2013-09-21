@@ -12,12 +12,12 @@ object G1OtherChangeInfoPage {
 
   val url  = "/circumstances/additional-info/other-change"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1OtherChangeInfoPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1OtherChangeInfoPage(browser, previousPage)
 }
 
 trait G1OtherChangeInfoPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1OtherChangeInfoPage buildPageWith browser
+  val page = G1OtherChangeInfoPage(browser)
 }
 

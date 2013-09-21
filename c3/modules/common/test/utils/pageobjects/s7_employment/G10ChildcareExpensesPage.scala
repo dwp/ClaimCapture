@@ -18,11 +18,11 @@ object G10ChildcareExpensesPage {
 
   val url  = "/employment/childcare-expenses/:jobID"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G10ChildcareExpensesPage(browser,previousPage,iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G10ChildcareExpensesPage(browser,previousPage,iteration)
 }
 
 trait G10ChildcareExpensesPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G10ChildcareExpensesPage buildPageWith(browser,iteration = 1)
+  val page = G10ChildcareExpensesPage (browser,iteration = 1)
 }

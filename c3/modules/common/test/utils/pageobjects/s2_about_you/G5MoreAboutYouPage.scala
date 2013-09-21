@@ -23,12 +23,12 @@ object G5MoreAboutYouPage {
 
   val url  = "/about-you/more-about-you"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5MoreAboutYouPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G5MoreAboutYouPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G5MoreAboutYouPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5MoreAboutYouPage buildPageWith browser
+  val page = G5MoreAboutYouPage (browser)
 }

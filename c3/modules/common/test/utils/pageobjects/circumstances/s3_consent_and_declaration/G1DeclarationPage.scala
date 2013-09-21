@@ -14,12 +14,12 @@ object G1DeclarationPage {
 
   val url  = "/circumstances/consent-and-declaration/declaration"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1DeclarationPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1DeclarationPage(browser, previousPage)
 }
 
 trait G1DeclarationPageContext extends PageContext {
   this: WithBrowser[_] =>
-  val page = G1DeclarationPage buildPageWith browser
+  val page = G1DeclarationPage(browser)
 }
 
 

@@ -14,11 +14,11 @@ object G2SelfEmploymentYourAccountsPage {
   val title = "Your accounts - About self-employment".toLowerCase
   val url = "/self-employment/your-accounts"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2SelfEmploymentYourAccountsPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G2SelfEmploymentYourAccountsPage(browser, previousPage)
 }
 
 trait G2SelfEmploymentYourAccountsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2SelfEmploymentYourAccountsPage buildPageWith browser
+  val page = G2SelfEmploymentYourAccountsPage (browser)
 }

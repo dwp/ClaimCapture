@@ -43,11 +43,11 @@ class XmlPage (browser: TestBrowser, previousPage: Option[Page] = None, url: Str
 object XmlPage {
   val title = null
   val url = "/submit" // or circumstancesSubmit
-  def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new XmlPage(browser, previousPage)
+  def apply(browser: TestBrowser,previousPage: Option[Page] = None) = new XmlPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait TestPageContext extends PageContext {
   this: WithBrowser[_] =>
-  val page = XmlPage buildPageWith browser
+  val page = XmlPage (browser)
 }

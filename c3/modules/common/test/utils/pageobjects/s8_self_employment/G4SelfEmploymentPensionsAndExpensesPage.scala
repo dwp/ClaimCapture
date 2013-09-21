@@ -16,11 +16,11 @@ object G4SelfEmploymentPensionsAndExpensesPage {
   val title = "Pensions and expenses - About self-employment".toLowerCase
   val url = "/self-employment/pensions-and-expenses"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4SelfEmploymentPensionsAndExpensesPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G4SelfEmploymentPensionsAndExpensesPage(browser, previousPage)
 }
 
 trait G4SelfEmploymentPensionsAndExpensesPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G4SelfEmploymentPensionsAndExpensesPage buildPageWith browser
+  val page = G4SelfEmploymentPensionsAndExpensesPage (browser)
 }

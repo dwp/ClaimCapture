@@ -12,11 +12,11 @@ object G3Over16Page {
 
   val url = "/allowance/over-16"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3Over16Page(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G3Over16Page(browser, previousPage)
 }
 
 trait G3Over16PageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3Over16Page buildPageWith browser
+  val page = G3Over16Page (browser)
 }

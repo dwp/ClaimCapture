@@ -19,12 +19,12 @@ object G5TimeAbroadCompletedPage {
 
   val url  = "/time-spent-abroad/completed"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5TimeAbroadCompletedPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G5TimeAbroadCompletedPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G5TimeAbroadCompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5TimeAbroadCompletedPage buildPageWith browser
+  val page = G5TimeAbroadCompletedPage (browser)
 }

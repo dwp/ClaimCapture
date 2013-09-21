@@ -17,11 +17,11 @@ object G7ExpensesWhileAtWorkPage {
   val title = "Expenses related to the person you care for while at work - About self-employment".toLowerCase
   val url = "/self-employment/expenses-while-at-work"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G7ExpensesWhileAtWorkPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G7ExpensesWhileAtWorkPage(browser, previousPage)
 }
 
 trait G7ExpensesWhileAtWorkPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G7ExpensesWhileAtWorkPage buildPageWith browser
+  val page = G7ExpensesWhileAtWorkPage (browser)
 }
