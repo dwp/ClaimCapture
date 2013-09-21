@@ -184,7 +184,7 @@ trait WebSearchActions {
     browser.find(location).size()
   }
 
-  protected def checkElement(elementCssSelector: String) {
+  protected def checkElement(elementCssSelector: String) = {
     if (browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
   }
 
