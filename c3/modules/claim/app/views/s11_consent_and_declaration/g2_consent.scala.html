@@ -7,6 +7,8 @@
 @import utils.helpers.CarersCrypto
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
+@import models.domain.Employment
+@import controllers.Mappings._
 
 @main(Messages("s11.g2") + " - " + Messages("s11.longName"), Some(currentForm),claim.completedQuestionGroups(models.domain.Consent)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G2Consent.submit) {
@@ -14,13 +16,16 @@
             <legend>@Messages("s11.g2")</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
 
-                @otherDetailPlaceHolder(
-                    inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder") )),
-                    'id->"whyWrapper",
-                    'display -> {if( currentForm("gettingInformationFromAnyEmployer.informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
-                )
+                @if(claim.questionGroup[Employment].getOrElse(Employment()).beenEmployedSince6MonthsBeforeClaim == `yes`){
+                    @yesNoRadioGroup(currentForm("gettingInformationFromAnyEmployer.informationFromEmployer"))
+
+                    @otherDetailPlaceHolder(
+                        inputDef = Seq(carersInputTextArea(currentForm("gettingInformationFromAnyEmployer.why"), 'placeholder->Messages("why_placeholder") )),
+                        'id->"whyWrapper",
+                        'display -> {if( currentForm("gettingInformationFromAnyEmployer.informationFromEmployer").value.getOrElse("yes") == "no" ) "yes" else "no"}
+                    )
+                }
 
                 @yesNoRadioGroup(currentForm("tellUsWhyEmployer.informationFromPerson"))
 
