@@ -15,7 +15,6 @@ object  Declaration {
     val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
 
     <Declaration>
-      <TextLine>Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? {titleCase(consent.informationFromEmployer.answer)}</TextLine>
       {
         consent.informationFromEmployer.answer match {
           case Some(answer) => <TextLine>Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? {titleCase(answer)}</TextLine>
@@ -28,7 +27,7 @@ object  Declaration {
           case _ =>
         }
       }
-      }
+
       <TextLine>Do you agree to us getting information from any other person or organisation you have told us about as part of this claim? {titleCase(consent.informationFromPerson.answer)}</TextLine>
       {
       consent.informationFromPerson.answer match {

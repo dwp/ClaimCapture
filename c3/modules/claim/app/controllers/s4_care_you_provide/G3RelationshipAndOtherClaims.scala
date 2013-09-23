@@ -17,8 +17,7 @@ object G3RelationshipAndOtherClaims extends Controller with CachedClaim with Nav
 
   def present = executeOnForm {implicit claim => implicit request =>
     track(MoreAboutThePerson) { implicit claim =>
-      val updatedClaim = defaultRelationShipToPartnerSpouse
-      Ok(views.html.s4_care_you_provide.g3_relationshipAndOtherClaims(form.fill(MoreAboutThePerson)(updatedClaim)))
+      Ok(views.html.s4_care_you_provide.g3_relationshipAndOtherClaims(form.fill(MoreAboutThePerson)(claim)))
     }
   }
 
@@ -26,17 +25,5 @@ object G3RelationshipAndOtherClaims extends Controller with CachedClaim with Nav
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g3_relationshipAndOtherClaims(formWithErrors)),
       moreAboutThePerson => claim.update(moreAboutThePerson) -> Redirect(routes.G7MoreAboutTheCare.present()))
-  }
-
-  def defaultRelationShipToPartnerSpouse(implicit claim:DigitalForm):DigitalForm = {
-    val isPartnerPersonYouCareFor = claim.questionGroup[PersonYouCareFor] match {
-      case Some(p: PersonYouCareFor) => p.isPartnerPersonYouCareFor == yes
-      case _ => false
-    }
-
-    claim.questionGroup[MoreAboutThePerson] match {
-      case None if isPartnerPersonYouCareFor => claim.update(MoreAboutThePerson(relationship = "partner"))
-      case _ => claim
-    }
   }
 }
