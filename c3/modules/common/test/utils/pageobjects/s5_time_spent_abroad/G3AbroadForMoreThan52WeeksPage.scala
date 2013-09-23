@@ -21,12 +21,12 @@ object G3AbroadForMoreThan52WeeksPage {
 
   val url  = "/time-spent-abroad/abroad-for-more-than-52-weeks"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G3AbroadForMoreThan52WeeksPage(browser,previousPage,iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G3AbroadForMoreThan52WeeksPage(browser,previousPage,iteration)
 }
 
 /** The context for Specs tests */
 trait G3AbroadForMoreThan52WeeksPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3AbroadForMoreThan52WeeksPage buildPageWith (browser , iteration = 1)
+  val page = G3AbroadForMoreThan52WeeksPage (browser , iteration = 1)
 }

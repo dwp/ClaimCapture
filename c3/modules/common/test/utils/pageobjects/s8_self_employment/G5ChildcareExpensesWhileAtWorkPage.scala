@@ -17,11 +17,11 @@ object G5ChildcareExpensesWhileAtWorkPage {
   val title = "Childcare expenses while you are at work - About self-employment".toLowerCase
   val url = "/self-employment/childcare-expenses-while-at-work"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5ChildcareExpensesWhileAtWorkPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G5ChildcareExpensesWhileAtWorkPage(browser, previousPage)
 }
 
 trait G5ChildcareExpensesWhileAtWorkPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5ChildcareExpensesWhileAtWorkPage buildPageWith browser
+  val page = G5ChildcareExpensesWhileAtWorkPage (browser)
 }

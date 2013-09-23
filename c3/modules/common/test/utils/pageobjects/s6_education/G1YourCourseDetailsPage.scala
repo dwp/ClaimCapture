@@ -26,12 +26,12 @@ object G1YourCourseDetailsPage {
 
   val url  = "/education/your-course-details"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1YourCourseDetailsPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1YourCourseDetailsPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G1YourCourseDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1YourCourseDetailsPage buildPageWith browser
+  val page = G1YourCourseDetailsPage (browser)
 }

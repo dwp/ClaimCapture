@@ -19,11 +19,11 @@ object G7PensionSchemesPage {
 
   val url  = "/employment/pension-schemes/:jobID"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G7PensionSchemesPage(browser,previousPage,iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G7PensionSchemesPage(browser,previousPage,iteration)
 }
 
 trait G7PensionSchemesPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G7PensionSchemesPage buildPageWith(browser,iteration = 1)
+  val page = G7PensionSchemesPage (browser,iteration = 1)
 }

@@ -21,12 +21,12 @@ object G3DetailsOfThePersonYouCareForPage {
 
   val url  = "/circumstances/identification/details-of-the-person-you-care-for"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3DetailsOfThePersonYouCareForPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G3DetailsOfThePersonYouCareForPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G3DetailsOfThePersonYouCareForPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3DetailsOfThePersonYouCareForPage buildPageWith browser
+  val page = G3DetailsOfThePersonYouCareForPage(browser)
 }

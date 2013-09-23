@@ -10,10 +10,10 @@ final class G15CompletedPage(browser: TestBrowser, previousPage: Option[Page] = 
 object G15CompletedPage {
   val title = "Completion - Employment History".toLowerCase
   val url  = "/employment/completed"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G15CompletedPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G15CompletedPage(browser,previousPage)
 }
 
 trait G15CompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
-  val page = G15CompletedPage buildPageWith browser
+  val page = G15CompletedPage (browser)
 }

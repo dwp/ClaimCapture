@@ -10,14 +10,14 @@ object G4CompletedPage {
 
   val url  = "circumstances/identification/completed"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4CompletedPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G4CompletedPage(browser, previousPage)
 }
 
 
 trait G4CompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G4CompletedPage buildPageWith browser
+  val page = G4CompletedPage(browser)
 }
 
 

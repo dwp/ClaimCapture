@@ -15,11 +15,11 @@ object G5AdditionalWageDetailsPage {
 
   val url  = "/employment/additional-wage-details/:jobID"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G5AdditionalWageDetailsPage(browser,previousPage, iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G5AdditionalWageDetailsPage(browser,previousPage, iteration)
 }
 
 trait G5AdditionalWageDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5AdditionalWageDetailsPage buildPageWith (browser, iteration = 1)
+  val page = G5AdditionalWageDetailsPage (browser, iteration = 1)
 }

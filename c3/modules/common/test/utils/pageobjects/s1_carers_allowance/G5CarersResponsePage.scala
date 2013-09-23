@@ -16,11 +16,11 @@ object G5CarersResponsePage {
 
   val url = "/allowance/carers-response"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5CarersResponsePage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G5CarersResponsePage(browser, previousPage)
 }
 
 trait G5CarersResponsePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5CarersResponsePage buildPageWith browser
+  val page = G5CarersResponsePage (browser)
 }

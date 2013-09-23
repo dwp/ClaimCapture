@@ -19,12 +19,12 @@ object G12CareYouProvideCompletedPage {
 
   val url  = "/care-you-provide/completed"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G12CareYouProvideCompletedPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G12CareYouProvideCompletedPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G12CareYouProvideCompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G12CareYouProvideCompletedPage buildPageWith browser
+  val page = G12CareYouProvideCompletedPage (browser)
 }

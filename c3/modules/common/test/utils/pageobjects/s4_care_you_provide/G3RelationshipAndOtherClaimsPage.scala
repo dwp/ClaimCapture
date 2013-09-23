@@ -22,12 +22,12 @@ object G3RelationshipAndOtherClaimsPage {
 
   val url  = "/care-you-provide/relationship-and-other-claims"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3RelationshipAndOtherClaimsPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G3RelationshipAndOtherClaimsPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G3RelationshipAndOtherClaimsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3RelationshipAndOtherClaimsPage buildPageWith browser
+  val page = G3RelationshipAndOtherClaimsPage (browser)
 }

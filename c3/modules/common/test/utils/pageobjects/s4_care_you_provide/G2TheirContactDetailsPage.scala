@@ -23,12 +23,12 @@ object G2TheirContactDetailsPage {
 
   val url  = "/care-you-provide/their-contact-details"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2TheirContactDetailsPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G2TheirContactDetailsPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G2TheirContactDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2TheirContactDetailsPage buildPageWith browser
+  val page = G2TheirContactDetailsPage (browser)
 }

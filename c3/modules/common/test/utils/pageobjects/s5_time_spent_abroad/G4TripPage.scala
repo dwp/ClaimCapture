@@ -33,12 +33,12 @@ object G4TripPage {
 
   val url = "/time-spent-abroad/trip/4-weeks"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G4TripPage(browser, previousPage, iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G4TripPage(browser, previousPage, iteration)
 }
 
 /** The context for Specs tests */
 trait G4TripPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G4TripPage buildPageWith(browser = browser, iteration = 1)
+  val page = G4TripPage (browser = browser, iteration = 1)
 }

@@ -21,12 +21,12 @@ object G3DisclaimerPage {
 
   val url = "/consent-and-declaration/disclaimer"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3DisclaimerPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G3DisclaimerPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G3DisclaimerPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3DisclaimerPage buildPageWith browser
+  val page = G3DisclaimerPage (browser)
 }

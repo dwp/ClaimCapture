@@ -30,12 +30,12 @@ object G11BreakPage {
 
   val url  = "/care-you-provide/break"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G11BreakPage(browser,previousPage,iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G11BreakPage(browser,previousPage,iteration)
 }
 
 /** The context for Specs tests */
 trait G11BreakPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G11BreakPage buildPageWith (browser = browser, iteration = 1)
+  val page = G11BreakPage (browser = browser, iteration = 1)
 }

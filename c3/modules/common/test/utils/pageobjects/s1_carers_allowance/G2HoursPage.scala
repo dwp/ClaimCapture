@@ -12,11 +12,11 @@ object G2HoursPage {
 
   val url = "/allowance/hours"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2HoursPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G2HoursPage(browser, previousPage)
 }
 
 trait G2HoursPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2HoursPage buildPageWith browser
+  val page = G2HoursPage (browser)
 }

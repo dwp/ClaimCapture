@@ -22,12 +22,12 @@ object G1AboutYouPage {
 
   val url  = "/circumstances/identification/about-you"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1AboutYouPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1AboutYouPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G1AboutYouPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1AboutYouPage buildPageWith browser
+  val page = G1AboutYouPage(browser)
 }

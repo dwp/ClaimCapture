@@ -22,12 +22,12 @@ object G4DeclarationPage {
 
   val url = "/consent-and-declaration/declaration"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4DeclarationPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G4DeclarationPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G4DeclarationPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G4DeclarationPage buildPageWith browser
+  val page = G4DeclarationPage (browser)
 }

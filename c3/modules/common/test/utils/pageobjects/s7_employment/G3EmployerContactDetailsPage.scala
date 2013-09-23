@@ -14,11 +14,11 @@ object G3EmployerContactDetailsPage {
 
   val url  = "/employment/employers-contact-details/:jobID"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G3EmployerContactDetailsPage(browser,previousPage,iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G3EmployerContactDetailsPage(browser,previousPage,iteration)
 }
 
 trait G3EmployerContactDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3EmployerContactDetailsPage buildPageWith (browser,iteration = 1)
+  val page = G3EmployerContactDetailsPage (browser,iteration = 1)
 }

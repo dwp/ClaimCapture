@@ -22,12 +22,12 @@ object G1AdditionalInfoPage {
 
   val url = "/consent-and-declaration/additional-info"
 
-  def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new G1AdditionalInfoPage(browser, previousPage)
+  def apply(browser: TestBrowser,previousPage: Option[Page] = None) = new G1AdditionalInfoPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G1AdditionalInfoPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1AdditionalInfoPage buildPageWith browser
+  val page = G1AdditionalInfoPage (browser)
 }

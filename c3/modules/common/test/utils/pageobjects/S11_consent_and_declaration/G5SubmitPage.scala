@@ -19,12 +19,12 @@ object G5SubmitPage {
 
   val url = "/consent-and-declaration/submit"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5SubmitPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G5SubmitPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G5SubmitPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5SubmitPage buildPageWith browser
+  val page = G5SubmitPage (browser)
 }

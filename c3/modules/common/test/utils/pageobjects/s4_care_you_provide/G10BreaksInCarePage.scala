@@ -16,12 +16,12 @@ object G10BreaksInCarePage {
 
   val url  = "/care-you-provide/breaks-in-care"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G10BreaksInCarePage(browser,previousPage,iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G10BreaksInCarePage(browser,previousPage,iteration)
 }
 
 /** The context for Specs tests */
 trait G10BreaksInCarePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G10BreaksInCarePage buildPageWith (browser = browser, iteration = 1)
+  val page = G10BreaksInCarePage apply(browser = browser, iteration = 1)
 }

@@ -19,11 +19,11 @@ class G3EducationCompletedPage (browser: TestBrowser, previousPage: Option[Page]
 object G3EducationCompletedPage {
   val title = "Completion - About your education".toLowerCase
   val url  = "/education/completed"
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3EducationCompletedPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G3EducationCompletedPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G3EducationCompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
-  val page = G3EducationCompletedPage buildPageWith browser
+  val page = G3EducationCompletedPage (browser)
 }

@@ -26,12 +26,12 @@ object G2BankBuildingSocietyDetailsPage {
 
   val url  = "/pay-details/bank-building-society-details"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2BankBuildingSocietyDetailsPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G2BankBuildingSocietyDetailsPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G2BankBuildingSocietyDetailsPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2BankBuildingSocietyDetailsPage buildPageWith browser
+  val page = G2BankBuildingSocietyDetailsPage (browser)
 }

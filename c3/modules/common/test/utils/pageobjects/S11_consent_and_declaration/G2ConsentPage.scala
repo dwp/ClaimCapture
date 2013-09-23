@@ -24,12 +24,12 @@ object G2ConsentPage {
 
   val url = "/consent-and-declaration/consent"
 
-  def buildPageWith(browser: TestBrowser,previousPage: Option[Page] = None) = new G2ConsentPage(browser, previousPage)
+  def apply(browser: TestBrowser,previousPage: Option[Page] = None) = new G2ConsentPage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G2ConsentPagePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2ConsentPage buildPageWith browser
+  val page = G2ConsentPage (browser)
 }

@@ -10,11 +10,11 @@ object G3PayDetailsCompletedPage {
 
   val url = "/pay-details/completed"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3PayDetailsCompletedPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G3PayDetailsCompletedPage(browser, previousPage)
 }
 
 trait G3PayDetailsCompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3PayDetailsCompletedPage buildPageWith browser
+  val page = G3PayDetailsCompletedPage (browser)
 }
