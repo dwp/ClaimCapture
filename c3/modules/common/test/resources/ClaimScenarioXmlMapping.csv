@@ -150,7 +150,7 @@ Consent & Declaration,Consent,Do you agree to us getting information from any cu
 Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyEmployer,DWPCAClaim>Declaration
 Consent & Declaration,Consent,Do you agree to us getting information from any other person or organisation you have told us about as part of this claim?,ConsentDeclarationGettingInformationFromAnyOther,DWPCAClaim>Declaration
 Consent & Declaration,Consent,Please tell us why,ConsentDeclarationTellUsWhyOther,DWPCAClaim>Declaration
-Consent & Declaration,Declaration,Disclaimer text and tick box,ConsentDeclarationDisclaimerTextAndTickBox,DWPCAClaim>EvidenceList
+Consent & Declaration,Declaration,Disclaimer text and tick box =,ConsentDeclarationDisclaimerTextAndTickBox,DWPCAClaim>Declaration
 Self Employed,Your job,Are you self employed now?,SelfEmployedAreYouSelfEmployedNow,SelfEmployment>SelfEmployedNow
 Self Employed,Your job,When did you start this job?,SelfEmployedWhenDidYouStartThisJob,SelfEmployment>RecentJobDetails>DateStarted|SelfEmployment>CurrentJobDetails>DateStarted
 Self Employed,Your job,When did the job finish?,SelfEmployedWhenDidTheJobFinish,SelfEmployment>RecentJobDetails>DateEnded
@@ -207,8 +207,8 @@ Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil p
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on working in or paying insurance to another EEA State or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,DWPCAClaim>EvidenceList
 Consent & Declaration,Additional information,Do you live in Wales and would like to receive future communications in Welsh?,ConsentDeclarationCommunicationWelsh,DWPCAClaim>Declaration
 About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,Caree>DaytimePhoneNumber>Number
-Consent & Declaration,Declaration,Someone else tick box,ConsentDeclarationSomeoneElseTickBox,DWPCAClaim>EvidenceList
-Consent & Declaration,Declaration,Declaration tick box,ConsentDeclarationDeclarationTickBox,DWPCAClaim>EvidenceList
+Consent & Declaration,Declaration,Someone else tick box =,ConsentDeclarationSomeoneElseTickBox,DWPCAClaim>Declaration
+Consent & Declaration,Declaration,Declaration tick box =,ConsentDeclarationDeclarationTickBox,DWPCAClaim>Declaration
 Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45,DWPCAClaim>EvidenceList
 Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentJobTitle,Employment>JobDetails>Employer>JobType
 About You,Your contact details,"If you have speech or hearing difficulties, would you like us to contact you by textphone?",AboutYouContactYouByTextphone,DWPCAClaim>EvidenceList

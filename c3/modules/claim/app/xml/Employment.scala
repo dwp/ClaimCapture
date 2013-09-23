@@ -198,7 +198,7 @@ object Employment {
 
       <Employment>
         <CurrentlyEmployed>{currentlyEmployed}</CurrentlyEmployed>
-        <DateLastWorked>{dateLastWorked.`yyyy-MM-dd`}</DateLastWorked>
+        <DateLastWorked>{NotAsked}</DateLastWorked>
         {for (job <- jobsQG) yield {
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
           val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())

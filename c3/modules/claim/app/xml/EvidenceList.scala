@@ -12,7 +12,7 @@ object EvidenceList {
 
   def xml(claim: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}{consentAndDeclaration(claim)}
+      {xmlGenerated()}{evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}
     </EvidenceList>
   }
 
@@ -230,16 +230,6 @@ object EvidenceList {
         "receiving  any pensions or benefits from another EEA State or Switzerland? = ", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland) ++
       textLine("Are you, your wife, husband, civil partner or parent you are dependent on " +
         "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
-  }
-
-  def consentAndDeclaration(claim: Claim) = {
-    val disclaimer = claim.questionGroup[Disclaimer].getOrElse(Disclaimer())
-    val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
-
-    textSeparatorLine("Consent and Declaration") ++
-      textLine("Disclaimer text and tick box = ", booleanStringToYesNo(disclaimer.read)) ++
-      textLine("Declaration tick box = ", booleanStringToYesNo(declaration.read)) ++
-      textLine("Someone else tick box = ", booleanStringToYesNo(stringify(declaration.someoneElse)))
   }
 
   def textSeparatorLine(title: String) = {

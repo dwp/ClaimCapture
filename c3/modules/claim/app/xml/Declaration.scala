@@ -1,22 +1,21 @@
 package xml
 
 import models.domain._
-import XMLHelper.titleCase
+import xml.XMLHelper._
 import play.api.i18n.Messages
+import scala.Some
 
-object Declaration {
+object  Declaration {
 
   def xml(claim: Claim) = {
 
     val additionalInfo = claim.questionGroup[AdditionalInfo].getOrElse(AdditionalInfo())
     val consent = claim.questionGroup[Consent].getOrElse(Consent())
+    val disclaimer = claim.questionGroup[Disclaimer].getOrElse(Disclaimer())
+    val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
 
     <Declaration>
-      <TextLine>{Messages("declaration.1.pdf")}</TextLine>
-      <TextLine>{Messages("declaration.2")}</TextLine>
-      <TextLine>{Messages("declaration.3")}</TextLine>
-      <TextLine>{Messages("declaration.4")}</TextLine>
-      <TextLine>We may wish to contact any current or previous employers, or other persons or organisations you have listed on this claim form to obtain information about your claim. You do not have to agree to this but if you do not, it may mean that we are unable to obtain enough information to satisfy ourselves that you meet the conditions of entitlement for your claim.</TextLine>
+      <TextLine>Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? {titleCase(consent.informationFromEmployer.answer)}</TextLine>
       {
         consent.informationFromEmployer.answer match {
           case Some(answer) => <TextLine>Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? {titleCase(answer)}</TextLine>
@@ -29,13 +28,15 @@ object Declaration {
           case _ =>
         }
       }
+      }
       <TextLine>Do you agree to us getting information from any other person or organisation you have told us about as part of this claim? {titleCase(consent.informationFromPerson.answer)}</TextLine>
       {
-        consent.informationFromPerson.answer match {
-          case "yes" =>
-          case "no" => <TextLine>If you answered No please tell us why</TextLine> <TextLine>{ consent.informationFromPerson.text.orNull }</TextLine>
-        }
+      consent.informationFromPerson.answer match {
+        case "yes" =>
+        case "no" => <TextLine>If you answered No please tell us why</TextLine> <TextLine>{ consent.informationFromPerson.text.orNull }</TextLine>
       }
+      }
+
       <TextLine>This is my claim for Carer's Allowance.</TextLine>
       <TextLine>{Messages("disclaimer.1").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
       <TextLine>{Messages("disclaimer.2").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
@@ -44,6 +45,18 @@ object Declaration {
       <TextLine>{Messages("disclaimer.5").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
       <TextLine>{Messages("disclaimer.6").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
       <TextLine>{Messages("disclaimer.7").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
+      <TextLine></TextLine>
+      <TextLine>Disclaimer text and tick box = {booleanStringToYesNo(disclaimer.read)}</TextLine>
+
+      <TextLine>{Messages("declaration.1.pdf")}</TextLine>
+      <TextLine>{Messages("declaration.2")}</TextLine>
+      <TextLine>{Messages("declaration.3")}</TextLine>
+      <TextLine>{Messages("declaration.4")}</TextLine>
+      <TextLine>We may wish to contact any current or previous employers, or other persons or organisations you have listed on this claim form to obtain information about your claim. You do not have to agree to this but if you do not, it may mean that we are unable to obtain enough information to satisfy ourselves that you meet the conditions of entitlement for your claim.</TextLine>
+      <TextLine></TextLine>
+      <TextLine>Declaration tick box = {booleanStringToYesNo(declaration.read)}</TextLine>
+      <TextLine>Someone else tick box = {booleanStringToYesNo(stringify(declaration.someoneElse))}</TextLine>
+
       <TextLine>Do you live in Wales and would like to receive future communications in Welsh? {titleCase(additionalInfo.welshCommunication)}</TextLine>
     </Declaration>
   }
