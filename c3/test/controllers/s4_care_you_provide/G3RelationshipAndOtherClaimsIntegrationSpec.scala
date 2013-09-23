@@ -43,23 +43,6 @@ class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tag
       titleMustEqual("More about the care you provide - About the care you provide")
     }
 
-    "pre populate relationship dropdown if person you care for is your partner" in new WithBrowser with G4PersonYouCareForPageContext {
-      val claim = new TestData
-      claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "yes"
-
-      page goToThePage ()
-      page fillPageWith claim
-      page submitPage()
-
-      val relationshipPage = page.goToPage(new G3RelationshipAndOtherClaimsPage(browser))
-      relationshipPage must beAnInstanceOf[G3RelationshipAndOtherClaimsPage]
-
-      val dummyClaim = new TestData
-      relationshipPage populateClaim dummyClaim
-
-      dummyClaim.AboutTheCareYouProvideWhatTheirRelationshipToYou mustEqual "partner"
-    }
-
     "do NOT default relationship dropdown if person you care for is NOT your partner" in new WithBrowser with G3RelationshipAndOtherClaimsPageContext {
       page goToThePage ()
       page must beAnInstanceOf[G3RelationshipAndOtherClaimsPage]
