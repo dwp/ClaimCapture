@@ -158,7 +158,7 @@ firstName.error = Please fill your first name
 
 # CONTACT DETAILS
 address = Address
-address_street = Street name
+address_street_lineOne = Street name
 address.street = Street name
 address_town = Town / City
 address.town = Town / City

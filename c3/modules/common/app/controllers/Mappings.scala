@@ -39,7 +39,7 @@ object Mappings {
     "to" -> dayMonthYear.verifying(validDate))(PeriodFromTo.apply)(PeriodFromTo.unapply)
 
   val street: Mapping[Street] = mapping(
-    "lineOne" -> optional(text(maxLength = sixty))
+    "lineOne" -> optional(text(maxLength = sixty).verifying(Constraints.nonEmpty))
   )(Street.apply)(Street.unapply)
 
   val town: Mapping[Town] = mapping(

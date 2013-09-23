@@ -2,7 +2,7 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
-import models.yesNo.YesNoWithText
+import models.yesNo.{OptYesNoWithText, YesNoWithText}
 import play.test.WithApplication
 import scala.Some
 
@@ -27,7 +27,7 @@ class DeclarationSpec extends Specification with Tags {
 
       "declaration and disclaimer are present" in {
         val personalDetails = YourDetails(firstName = "firstName", middleName=Some("middleName"), surname="surname")
-        val consent = Consent(YesNoWithText(answer = "yes", text = None),YesNoWithText(answer = "yes", text = None))
+        val consent = Consent(OptYesNoWithText(answer = Some("yes"), text = None),YesNoWithText(answer = "yes", text = None))
         val additionalInfo = AdditionalInfo()
         val claim = Claim() + personalDetails + consent + additionalInfo
         val x = xml.Declaration.xml(claim.asInstanceOf[Claim])

@@ -42,15 +42,21 @@ trait CachedDigitalForm {
     }
   }
 
+  def fromCache(request:Request[AnyContent]):Option[DigitalForm] = {
+    val (key, expiration) = keyAndExpiration(request)
+
+    Cache.getAs[DigitalForm](key)
+  }
+
   def executeOnForm(f: (DigitalForm) => Request[AnyContent] => Either[Result, FormResult]):Action[AnyContent]  = Action {
     request => {
-      val (key, expiration) = keyAndExpiration(request)
 
-      Cache.getAs[DigitalForm](key) match {
+      fromCache(request) match {
         case Some(claim) => action(claim, request)(f)
 
         case None =>
           if (Play.isTest) {
+            val (key, expiration) = keyAndExpiration(request)
             val claim = buildForm
             Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
             action(claim, request)(f)

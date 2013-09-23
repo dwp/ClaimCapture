@@ -1,7 +1,7 @@
 package models.domain
 
 import controllers.Mappings._
-import models.yesNo.YesNoWithText
+import models.yesNo.{OptYesNoWithText, YesNoWithText}
 
 object ConsentAndDeclaration extends Section.Identifier {
   val id = "s11"
@@ -13,20 +13,10 @@ object AdditionalInfo extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g1"
 }
 
-case class Consent(informationFromEmployer: YesNoWithText = YesNoWithText(answer = "", text = None), informationFromPerson: YesNoWithText = YesNoWithText(answer="", text = None)) extends QuestionGroup(Consent)
+case class Consent(informationFromEmployer: OptYesNoWithText = OptYesNoWithText(answer = Some(""), text = None), informationFromPerson: YesNoWithText = YesNoWithText(answer="", text = None)) extends QuestionGroup(Consent)
 
 object Consent extends QuestionGroup.Identifier {
   val id = s"${ConsentAndDeclaration.id}.g2"
-
-  def validateWhy(input: Consent): Boolean = input.informationFromEmployer.answer match {
-    case `no` => input.informationFromEmployer.text.isDefined
-    case `yes` => true
-  }
-
-  def validateWhyPerson(input: Consent): Boolean = input.informationFromPerson.answer match {
-    case `no` => input.informationFromPerson.text.isDefined
-    case `yes` => true
-  }
 }
 
 case class Disclaimer(read: String = "") extends QuestionGroup(Disclaimer)

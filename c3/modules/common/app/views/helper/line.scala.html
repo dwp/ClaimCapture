@@ -5,9 +5,4 @@
 @import utils.helpers._
 @import views.html.helper.checkConstraintRequired
 
-@checkConstraintRequired(field)
-<ul class="address-stack">
-    <li>
-    @carersInputText(field("lineOne"))
-    </li>
-</ul>
+@carersInputText(field("lineOne"))
