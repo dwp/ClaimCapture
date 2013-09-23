@@ -152,6 +152,7 @@ dateOfBirth.month = Date of birth (Month)
 dateOfBirth.year = Date of birth (Year)
 dateOfBirth.helper = eg: 27 June 2013
 nationality = Nationality
+nationality.helper = For example, British. If you have a current passport, please give your nationality as shown on your passport.
 maritalStatus = Marital status?
 alwaysLivedUK = Have you always lived in the United Kingdom?
 firstName.error = Please fill your first name
