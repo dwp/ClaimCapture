@@ -25,12 +25,12 @@ object G3TimeOutsideUKPage {
 
   val url  = "/about-you/time-outside-uk"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G3TimeOutsideUKPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G3TimeOutsideUKPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G3TimeOutsideUKPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G3TimeOutsideUKPage buildPageWith browser
+  val page = G3TimeOutsideUKPage (browser)
 }

@@ -21,12 +21,12 @@ object G4PersonYouCareForPage {
 
   val url  = "/your-partner/person-you-care-for"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4PersonYouCareForPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G4PersonYouCareForPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G4PersonYouCareForPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G4PersonYouCareForPage buildPageWith browser
+  val page = G4PersonYouCareForPage (browser)
 }

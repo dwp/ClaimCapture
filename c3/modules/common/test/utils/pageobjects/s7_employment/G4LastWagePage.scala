@@ -15,11 +15,11 @@ object G4LastWagePage {
 
   val url  = "/employment/last-wage/:jobID"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G4LastWagePage(browser,previousPage,iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration:Int) = new G4LastWagePage(browser,previousPage,iteration)
 }
 
 trait G4LastWagePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G4LastWagePage buildPageWith (browser,iteration = 1)
+  val page = G4LastWagePage (browser,iteration = 1)
 }

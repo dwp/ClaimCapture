@@ -18,11 +18,11 @@ object G5StatutorySickPayPage {
 
   val url = "/other-money/statutory-sick-pay"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5StatutorySickPayPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G5StatutorySickPayPage(browser, previousPage)
 }
 
 trait G5StatutorySickPayPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5StatutorySickPayPage buildPageWith browser
+  val page = G5StatutorySickPayPage (browser)
 }

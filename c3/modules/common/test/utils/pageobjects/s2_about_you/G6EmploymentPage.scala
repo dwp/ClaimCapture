@@ -22,12 +22,12 @@ object G6EmploymentPage {
 
   val url  = "/about-you/employment"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G6EmploymentPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G6EmploymentPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G6EmploymentPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G6EmploymentPage buildPageWith browser
+  val page = G6EmploymentPage (browser)
 }

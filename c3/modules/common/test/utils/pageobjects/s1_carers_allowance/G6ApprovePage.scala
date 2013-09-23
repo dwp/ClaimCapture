@@ -23,12 +23,12 @@ object G6ApprovePage {
 
   val url = "/allowance/approve"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G6ApprovePage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G6ApprovePage(browser, previousPage)
 }
 
 /** The context for Specs tests */
 trait G6ApprovePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G6ApprovePage buildPageWith browser
+  val page = G6ApprovePage (browser)
 }

@@ -14,11 +14,11 @@ object G8AboutExpensesPage {
 
   val url  = "/employment/about-expenses/:jobID"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G8AboutExpensesPage(browser,previousPage,iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G8AboutExpensesPage(browser,previousPage,iteration)
 }
 
 trait G8AboutExpensesPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G8AboutExpensesPage buildPageWith(browser,iteration = 1)
+  val page = G8AboutExpensesPage (browser,iteration = 1)
 }

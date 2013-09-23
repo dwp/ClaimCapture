@@ -12,11 +12,11 @@ object G4LivesInGBPage {
 
   val url = "/allowance/lives-in-gb"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G4LivesInGBPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G4LivesInGBPage(browser, previousPage)
 }
 
 trait G4LivesInGBPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G4LivesInGBPage buildPageWith browser
+  val page = G4LivesInGBPage (browser)
 }

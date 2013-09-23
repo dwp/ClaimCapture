@@ -26,12 +26,12 @@ object G2AddressOfSchoolCollegeOrUniversityPage {
 
   val url  = "/education/address-of-school-college-or-university"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G2AddressOfSchoolCollegeOrUniversityPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G2AddressOfSchoolCollegeOrUniversityPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G2AddressOfSchoolCollegeOrUniversityPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G2AddressOfSchoolCollegeOrUniversityPage buildPageWith browser
+  val page = G2AddressOfSchoolCollegeOrUniversityPage (browser)
 }

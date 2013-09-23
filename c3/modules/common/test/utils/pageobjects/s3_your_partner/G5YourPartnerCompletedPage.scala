@@ -19,12 +19,12 @@ object G5YourPartnerCompletedPage {
 
   val url  = "/your-partner/completed"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G5YourPartnerCompletedPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G5YourPartnerCompletedPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G5YourPartnerCompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G5YourPartnerCompletedPage buildPageWith browser
+  val page = G5YourPartnerCompletedPage (browser)
 }

@@ -17,11 +17,11 @@ object G1AboutOtherMoneyPage {
 
   val url  = "/other-money/about-other-money"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1AboutOtherMoneyPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1AboutOtherMoneyPage(browser,previousPage)
 }
 
 trait G1AboutOtherMoneyPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1AboutOtherMoneyPage buildPageWith browser
+  val page = G1AboutOtherMoneyPage (browser)
 }

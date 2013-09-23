@@ -23,12 +23,12 @@ object G1NormalResidenceAndCurrentLocationPage {
 
   val url  = "/time-spent-abroad/normal-residence-and-current-location"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G1NormalResidenceAndCurrentLocationPage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G1NormalResidenceAndCurrentLocationPage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G1NormalResidenceAndCurrentLocationPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G1NormalResidenceAndCurrentLocationPage buildPageWith browser
+  val page = G1NormalResidenceAndCurrentLocationPage (browser)
 }

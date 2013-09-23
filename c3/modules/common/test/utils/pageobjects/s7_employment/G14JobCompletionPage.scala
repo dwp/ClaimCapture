@@ -12,11 +12,11 @@ object G14JobCompletionPage {
 
   val url  = "/employment/job-completion/:jobID"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G14JobCompletionPage(browser,previousPage,iteration)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) = new G14JobCompletionPage(browser,previousPage,iteration)
 }
 
 trait G14JobCompletionPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G14JobCompletionPage buildPageWith(browser,iteration = 1)
+  val page = G14JobCompletionPage (browser,iteration = 1)
 }

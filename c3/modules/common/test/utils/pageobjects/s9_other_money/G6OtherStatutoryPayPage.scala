@@ -18,11 +18,11 @@ object G6OtherStatutoryPayPage {
 
   val url = "/other-money/other-statutory-pay"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G6OtherStatutoryPayPage(browser, previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G6OtherStatutoryPayPage(browser, previousPage)
 }
 
 trait G6OtherStatutoryPayPageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G6OtherStatutoryPayPage buildPageWith browser
+  val page = G6OtherStatutoryPayPage (browser)
 }

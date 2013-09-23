@@ -23,12 +23,12 @@ object G7MoreAboutTheCarePage {
 
   val url  = "/care-you-provide/more-about-the-care"
 
-  def buildPageWith(browser: TestBrowser, previousPage: Option[Page] = None) = new G7MoreAboutTheCarePage(browser,previousPage)
+  def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G7MoreAboutTheCarePage(browser,previousPage)
 }
 
 /** The context for Specs tests */
 trait G7MoreAboutTheCarePageContext extends PageContext {
   this: WithBrowser[_] =>
 
-  val page = G7MoreAboutTheCarePage buildPageWith browser
+  val page = G7MoreAboutTheCarePage (browser)
 }
