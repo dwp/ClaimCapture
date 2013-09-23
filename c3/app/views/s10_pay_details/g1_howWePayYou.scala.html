@@ -16,7 +16,7 @@
   
     @form(action = controllers.s10_pay_details.routes.G1HowWePayYou.submit) {
         <fieldset class="form-elements">
-            <legend>@Messages("s9.g1")</legend>
+            <legend>@Messages("s10.g1")</legend>
 
             <ul class="group">
                 @listRadioGroup(currentForm("likeToPay"), 'items -> Seq(BankBuildingAccount.name -> "UK bank or building society account", AppliedForAccount.name -> "You don't have an account but intend to open one", NotOpenAccount.name -> "Other - you would like more information"), 'helperBelow -> Messages("howWePayYou.helper"))
