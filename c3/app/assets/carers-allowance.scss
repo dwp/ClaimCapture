@@ -1178,6 +1178,10 @@ main {
 		   margin-top: 1.2em;
 		   p {
 			   font-size: 1.6rem;
+			   margin-top: 1em;
+			   &:first-child {
+				   margin: 0;
+			   }
 			   .ie & {
 				   font-size: 16px;
 			   }
