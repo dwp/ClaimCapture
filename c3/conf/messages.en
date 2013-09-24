@@ -312,7 +312,7 @@ jobStartDate = When did you start your job?
 finishedThisJob = Have you finished this job?
 lastWorkDate = What date did you last work?
 p45LeavingDate = What is the leaving date on your P45, if you have one?
-hoursPerWeek = How many hours a week do you normally work?
+hoursPerWeek = How many hours a week {0} normally work?
 hoursPerWeek.help = e.g. 16 hours 30 minutes should be entered 16.50
 payrollEmployeeNumber = Payroll or Employee number
 

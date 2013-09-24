@@ -28,10 +28,10 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(inputDayMonthYear(currentForm("lastWorkDate"), 'helperBelow -> Messages("date.helper")),
                                    inputDayMonthYear(currentForm("p45LeavingDate"), 'helperBelow -> Messages("date.helper"))),
-                    'id -> "finishedThisJob",
+                    'id -> "lastWorkData",
                     'display -> currentForm("finishedThisJob").value.getOrElse("no"))
 
-                @carersShortInputText(currentForm("hoursPerWeek"), 'placeholder -> "00.00", 'maxlength -> 5, 'helperBelow -> Messages("hoursPerWeek.help"))
+                @carersShortInputText(currentForm("hoursPerWeek"), '_label -> Messages ("hoursPerWeek", didYouDoYouIfSelfEmployedLower),'placeholder -> "00.00", 'maxlength -> 5, 'helperBelow -> Messages("hoursPerWeek.help"))
 
                 @carersInputText(currentForm("payrollEmployeeNumber"), 'maxLength -> Mappings.sixty)
             </ul>
@@ -46,24 +46,22 @@
 
 <script type="text/javascript">
     $(function() {
-        @if(currentForm("finishedThisJob").value.getOrElse("") != "yes") {
-            $("#@CarersCrypto.encryptAES("finishedThisJob_yes")").closest("ul").parent().next().hide();
-            $("label[for='hoursPerWeek']").text("How many hours a week do you normally work?")
-        } else {
-            $("label[for='hoursPerWeek']").text("How many hours a week did you normally work?")
-        }
+        var hoursPerWeek = $("label[for='hoursPerWeek']");
+        var lastWorkData = $("#lastWorkData");
+        var finishedJobY = $("#@CarersCrypto.encryptAES("finishedThisJob_yes")");
+        var finishedJobN = $("#@CarersCrypto.encryptAES("finishedThisJob_no")");
 
-        $("#@CarersCrypto.encryptAES("finishedThisJob_yes")").change(function() {
+        finishedJobY.change(function() {
             if ($(this).val() === "yes") {
-                $("label[for='hoursPerWeek']").text("How many hours a week did you normally work?")
-                return $(this).closest("ul").parent().next().slideDown();
+                hoursPerWeek.text(hoursPerWeek.text().replace("do","did"));
+                lastWorkData.slideDown();
             }
         });
 
-        return $("#@CarersCrypto.encryptAES("finishedThisJob_no")").change(function() {
+        finishedJobN.change(function() {
             if ($(this).val() === "no") {
-                $("label[for='hoursPerWeek']").text("How many hours a week do you normally work?")
-                return $(this).closest("ul").parent().next().slideUp();
+                hoursPerWeek.text(hoursPerWeek.text().replace("did","do"));
+                lastWorkData.slideUp();
             }
         });
     });

@@ -22,6 +22,12 @@ object PastPresentLabelHelper {
     case false => "Did you"
   }
 
+  def didYouDoYouIfSelfEmployedLower(implicit claim: DigitalForm) = claim.questionGroup(AboutSelfEmployment) match {
+    case None => "do you"
+    case Some(a: AboutSelfEmployment) if a.areYouSelfEmployedNow == "yes" => "do you"
+    case _ => false
+  }
+
   private def isSelfEmployed(claim: DigitalForm) = claim.questionGroup(AboutSelfEmployment) match {
     case Some(a: AboutSelfEmployment) => a.areYouSelfEmployedNow == "yes"
     case _ => false
