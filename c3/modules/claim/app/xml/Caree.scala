@@ -8,7 +8,7 @@ import xml.XMLHelper._
 object Caree {
 
   def xml(claim: Claim) = {
-    val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(models.domain.TheirPersonalDetails())
+    val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
     val theirContactDetails = claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())
     val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
@@ -65,6 +65,8 @@ object Caree {
   }
 
   def careBreak(claim: Claim) = {
+    import models.DayMonthYear._
+
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     for (break <- breaksInCare.breaks) yield {

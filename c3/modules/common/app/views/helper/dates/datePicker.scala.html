@@ -5,7 +5,7 @@
 @import utils.helpers._
 
 @input(field, args: _*) { (id, name, value, htmlArgs) =>
-    @carersLabel(field,args:_*)
+    @carersLabel(field, args: _*)
 
-    <input type="text" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" class="datepicker" @toHtmlArgs(htmlArgs)>
+    <input type="text" id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" class="datepicker" value='@value.getOrElse("")' @toHtmlArgs(htmlArgs)>
 }

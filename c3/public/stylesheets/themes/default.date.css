@@ -87,7 +87,7 @@
 }
 .picker__select--month:focus,
 .picker__select--year:focus {
-  border-color: #005ea5;
+  border-color: #0089ec;
 }
 /**
  * The month navigation buttons.
@@ -147,7 +147,7 @@
   border-spacing: 0;
   table-layout: fixed;
   font-size: inherit;
-  width: 100%!important;
+  width: 100%;
   margin-top: .75em;
   margin-bottom: .5em;
 }
@@ -158,12 +158,7 @@
 }
 .picker__table td {
   margin: 0;
-  padding: 0!important;
-}
-
-.picker__table th {
-	text-align: center;
-	padding: .6em 0 .4em 0!important;
+  padding: 0;
 }
 /**
  * The weekday labels
@@ -171,24 +166,27 @@
 .picker__weekday {
   width: 14.285714286%;
   font-size: .75em;
-  padding: 0;
+  padding-bottom: .25em;
   color: #999999;
   font-weight: 500;
   /* Increase the spacing a tad */
 
 }
-
+@media (min-height: 33.875em) {
+  .picker__weekday {
+    padding-bottom: .5em;
+  }
+}
 /**
  * The days on the calendar
  */
 .picker__day {
-  padding: .6em 0;
+  padding: .3125em 0;
   font-weight: 200;
   border: 1px solid transparent;
-  text-align: center;
 }
 .picker__day--today {
-  color: #005ea5;
+  color: #0089ec;
   position: relative;
 }
 .picker__day--today:before {
@@ -203,7 +201,7 @@
 }
 .picker__day--selected,
 .picker__day--selected:hover {
-  border-color: #005ea5;
+  border-color: #0089ec;
 }
 .picker__day--highlighted {
   background: #b1dcfb;
@@ -226,7 +224,7 @@
 }
 .picker__day--highlighted:hover,
 .picker--focused .picker__day--highlighted {
-  background: #005ea5;
+  background: #0089ec;
   color: #ffffff;
 }
 .picker__day--disabled,
@@ -267,7 +265,7 @@
 .picker__button--today:focus,
 .picker__button--clear:focus {
   background: #b1dcfb;
-  border-color: #005ea5;
+  border-color: #0089ec;
   outline: none;
 }
 .picker__button--today:before,

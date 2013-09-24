@@ -1,4 +1,4 @@
-@(breakForm: Form[models.domain.Break])(implicit claim: models.domain.DigitalForm,request: Request[AnyContent])
+@(breakForm: Form[models.domain.Break])(implicit claim: models.domain.DigitalForm, request: Request[AnyContent])
 
 @import utils.helpers.CarersCrypto
 @import models.domain.MoreAboutTheCare
@@ -29,12 +29,9 @@
             <legend>About the break in care since @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
 
             <ul class="group">
-
                 @datePicker(breakForm("start"))
 
-                @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
-
-                @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
+                @datePicker(breakForm("end"))
 
                 @whereabouts(breakForm("whereYou"), Seq("", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
                              '_label -> Messages("whereYou.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)
@@ -57,8 +54,65 @@
 <script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript">
-$(function(){
-    window.areaCounter({selector:"@CarersCrypto.encryptAES("whereYou_location_other")",maxChars:60});
-    window.areaCounter({selector:"@CarersCrypto.encryptAES("wherePerson_location_other")",maxChars:60});
-})
+    $(function(){
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("whereYou_location_other")", maxChars: 60});
+        window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_location_other")", maxChars: 60});
+    })
 </script>
+
+@import play.api.Play
+@import play.api.Play.current
+
+@if(!Play.isTest) {
+    <script>
+        $(function() {
+            var startPicker = $('#start.datepicker').pickadate().pickadate('picker');
+            var endPicker = $('#end.datepicker').pickadate().pickadate('picker');
+
+            var startValue = $('#start.datepicker').val();
+            var endValue = $('#end.datepicker').val();
+
+            if (startValue !== '') {
+                var startDate = new Date(startValue);
+                endPicker.set('min', startDate);
+                endPicker.set('highlight', startDate);
+            }
+
+            if (endValue !== '') {
+                startPicker.set('max', new Date(endValue));
+            }
+
+            startPicker.on('set', function(event) {
+                if ('select' in event) {
+                    var startValue = $("input[name='start.hidden']").val();
+                    var startDate = new Date(startValue);
+                    var endMinDate = endPicker.get('min');
+
+                    if (!isFinite(endMinDate.year) || endMinDate.year != startDate.getFullYear() || endMinDate.month != startDate.getMonth() || (endMinDate.date) != startDate.getDate()) {
+                        endPicker.set('min', startDate);
+                    }
+                }
+
+                if ('clear' in event) {
+                    endPicker.set('min', false);
+                }
+            });
+
+            endPicker.on('set', function(event) {
+                if ('select' in event) {
+                    var endValue = $("input[name='end.hidden']").val();
+                    var endDate = new Date(endValue);
+                    var startMaxDate = startPicker.get('max');
+
+                    if (!isFinite(startMaxDate.year) || startMaxDate.year != endDate.getFullYear() || startMaxDate.month != endDate.getMonth() || (startMaxDate.date) != endDate.getDate()) {
+                        startPicker.set('max', endDate);
+                    }
+                }
+
+                if ('clear' in event) {
+                    startPicker.set('max', false);
+                }
+            });
+        });
+    </script>
+}

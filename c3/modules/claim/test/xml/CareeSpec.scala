@@ -18,7 +18,6 @@ class CareeSpec extends Specification with Tags {
   "Caree" should {
 
     "generate <Caree> xml" in {
-
       val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
       val dateOfBirth = DayMonthYear(Some(3), Some(4), Some(1950))
       val claimDate = DayMonthYear(Some(10), Some(10), Some(2013))
@@ -90,8 +89,11 @@ class CareeSpec extends Specification with Tags {
     }
 
     "generate <CareBreak> xml when claimer has breaks" in {
-      val startDate = DayMonthYear(Some(1), Some(2), Some(2012), Some(15), Some(5))
-      val endDate = DayMonthYear(Some(1), Some(2), Some(2012))
+      import org.joda.time.DateTime
+      import models.DayMonthYear._
+
+      val startDate = new DateTime(2012, 2, 1, 0, 0)
+      val endDate = new DateTime(2012, 2, 1, 0, 0)
       val breakOne = Break(id = "1", start = startDate, end = Some(endDate), whereYou = Whereabouts(location = "Netherlands"), medicalDuringBreak = yes)
       val breakTwo = Break(id = "2", whereYou = Whereabouts(location = "Spain"), medicalDuringBreak = no)
       val claim = Claim().update(BreaksInCare().update(breakOne).update(breakTwo)).asInstanceOf[Claim]

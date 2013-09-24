@@ -12,8 +12,6 @@
 
 @main(Messages("s7.g2") + " - " + Messages("s7.longName"), Some(currentForm)) {
 
-
-
     @form(action = controllers.s7_employment.routes.G2JobDetails.submit()) {
         <input type="hidden" name="jobID" value="@JobID(currentForm)">
 
@@ -32,7 +30,6 @@
                                    inputDayMonthYear(currentForm("p45LeavingDate"), 'helperBelow -> Messages("date.helper"))),
                     'id -> "finishedThisJob",
                     'display -> currentForm("finishedThisJob").value.getOrElse("no"))
-
 
                 @carersShortInputText(currentForm("hoursPerWeek"), 'placeholder -> "00.00", 'maxlength -> 5, 'helperBelow -> Messages("hoursPerWeek.help"))
 

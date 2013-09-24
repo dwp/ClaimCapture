@@ -109,17 +109,10 @@ s11.g3 = Disclaimer
 s11.g4 = Declaration
 s11.g5 = Documents you need to send us
 
-c1.g1 = Circumstances
-c1.g2 = Your contact details
-c1.g3 = Details of the person you care for
-
-c2.g1 = Other Change Information
-
-c3.g1 = Declaration
-changeInCircs = Tell us about your change in circumstances
-
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...
+error.required = This is required
+error.date = This is required
 
 ## CARERS ALLOWANCE
 ################
@@ -506,10 +499,18 @@ howOftenPayChildCare = How often {0} pay childcare expenses?
 howOftenPayExpenses = How often {0} pay expenses related to the person you care for?
 
 #CIRCUMSTANCES
+c1.g1 = Circumstances
+c1.g2 = Your contact details
+c1.g3 = Details of the person you care for
+
+c2.g1 = Other Change Information
+
+c3.g1 = Declaration
+
+changeInCircs = Tell us about your change in circumstances
+
 #ABOUT YOU - About you
 lastName = Last name
-
-error.required = This is required
 
 #DECLARATION
 obtainInfoAgreement = Do you agree to us obtaining information from any other persons or organisations you may have listed on this form?

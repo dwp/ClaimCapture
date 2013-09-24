@@ -25,14 +25,11 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - About the care you provide")
     }
 
-    """give 2 errors when missing 2 mandatory fields of data - missing "start year" and "medical" """ in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
+    """give 2 errors when missing 2 mandatory fields of data - missing "start" date and "medical" """ in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo("/care-you-provide/breaks-in-care")
       click("#answer_yes")
       next
       titleMustEqual("Break - About the care you provide")
-
-      click("#start_day option[value='1']")
-      click("#start_month option[value='1']")
 
       click("#whereYou_location option[value='Hospital']")
       click("#wherePerson_location option[value='Hospital']")
@@ -148,14 +145,14 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       findFirst("input[value='Change']").click()
 
       titleMustEqual(G11BreakPage.title)
-      $("#start_year").getValue mustEqual 2001.toString
+      $("#start").getValue shouldEqual "01 January, 2001"
 
-      fill("#start_year") `with` "1999"
+      fill("#start") `with` "1 January, 1999"
       next
       titleMustEqual(G10BreaksInCarePage.title)
 
       $("tbody tr").size() mustEqual 2
-      $("tbody").findFirst("tr").findFirst("td").getText must contain("1999")
+      $("tbody").findFirst("tr").findFirst("td").getText shouldEqual "01/01/1999 to 01/01/2001"
     }
 
     """show "all options" for "Where was the person you care for during the break?".""" in new WithBrowser with WithBrowserHelper with BrowserMatchers {
@@ -170,24 +167,19 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 }
 
 trait BreakFiller {
-  this: WithBrowser[_] =>
+  this: WithBrowser[_] with WithBrowserHelper =>
 
   def break(start: DayMonthYear = DayMonthYear(1, 1, 2001),
             end: DayMonthYear = DayMonthYear(1, 1, 2001),
             whereYouLocation: String = AtHome,
             wherePersonLocation: String = Hospital,
             medicalDuringBreak: Boolean = false) = {
-    browser.click(s"#start_day option[value='${start.day.get}']")
-    browser.click(s"#start_month option[value='${start.month.get}']")
-    browser.fill("#start_year") `with` s"${start.year.get}"
+    fill("#start") `with` start.`dd month, yyyy`
+    fill("#end") `with` end.`dd month, yyyy`
 
-    browser.click(s"#end_day option[value='${end.day.get}']")
-    browser.click(s"#end_month option[value='${end.month.get}']")
-    browser.fill("#end_year") `with` s"${end.year.get}"
+    click(s"#whereYou_location option[value='$whereYouLocation']")
+    click(s"#wherePerson_location option[value='$wherePersonLocation']")
 
-    browser.click(s"#whereYou_location option[value='$whereYouLocation']")
-    browser.click(s"#wherePerson_location option[value='$wherePersonLocation']")
-
-    browser.click(s"""#medicalDuringBreak_${if (medicalDuringBreak) "yes" else "no"}""")
+    click(s"""#medicalDuringBreak_${if (medicalDuringBreak) "yes" else "no"}""")
   }
 }

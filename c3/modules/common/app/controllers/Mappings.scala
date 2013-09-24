@@ -69,13 +69,19 @@ object Mappings {
     "sort2" -> text(maxLength = two),
     "sort3" -> text(maxLength = two))(SortCode.apply)(SortCode.unapply)
 
+  def required[T](mapping: Mapping[T]): Mapping[T] = {
+    def required: Constraint[T] = Constraint[T]("constraint.required") { o => Valid }
+
+    mapping.verifying(required)
+  }
+
   def requiredStreet: Constraint[Street] = Constraint[Street]("constraint.required"){street =>
     street match {
       case Street(s) if s.isDefined => Valid
       case _ => Invalid(ValidationError("error.required"))
     }
-
   }
+
   def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") { sortCode =>
     sortCode match {
       case SortCode(s1, s2, s3) => if (s1.isEmpty || s2.isEmpty || s3.isEmpty) Invalid(ValidationError("error.required"))

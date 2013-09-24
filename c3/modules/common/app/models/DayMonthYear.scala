@@ -1,21 +1,17 @@
 package models
 
 import scala.util.{Failure, Success, Try}
-import org.joda.time.{DateTime, DateMidnight}
+import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
 case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
                         hour: Option[Int] = None, minutes: Option[Int] = None) {
 
-  def `yyyy-MM-dd`: String = Try(new DateMidnight(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0))) match {
-    case Success(dt: DateMidnight) => DateTimeFormat.forPattern("yyyy-MM-dd").print(dt)
-    case Failure(_) => ""
-  }
+  def `yyyy-MM-dd`: String = format("yyyy-MM-dd")
 
-  def `yyyy-MM-dd'T'HH:mm:00`: String = Try(new DateTime(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0), hour.getOrElse(0), minutes.getOrElse(0))) match {
-    case Success(dt: DateTime) => DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:00").print(dt)
-    case Failure(_) => ""
-  }
+  def `dd month, yyyy`: String = format("dd MMMM, yyyy")
+
+  def `yyyy-MM-dd'T'HH:mm:00`: String = format("yyyy-MM-dd'T'HH:mm:00")
 
   def `dd/MM/yyyy`: String = pad(day) + "/" + pad(month) + "/" + year.fold("")(_.toString)
 
@@ -29,6 +25,8 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
     override def years = adjust { _.minusYears(amount) }
   }
 
+  def numberOfCharactersInput = List(day, month, year, hour, minutes).foldLeft(0) { (x, i) => x + i.fold(0)(_.toString.length) }
+
   private def pad(i: Option[Int]): String = i.fold("")(i => if (i < 10) s"0$i" else s"$i")
 
   private def adjust(f: DateTime => DateTime) = Try(new DateTime(year.get, month.get, day.get, 0, 0)) match {
@@ -37,6 +35,11 @@ case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
       DayMonthYear(Some(newDateTime.dayOfMonth().get), Some(newDateTime.monthOfYear().get), Some(newDateTime.year().get), hour, minutes)
     }
     case Failure(_) => this
+  }
+
+  private def format(pattern: String): String = Try(new DateTime(year.getOrElse(0), month.getOrElse(0), day.getOrElse(0), hour.getOrElse(0), minutes.getOrElse(0))) match {
+    case Success(dt: DateTime) => DateTimeFormat.forPattern(pattern).print(dt)
+    case Failure(_) => ""
   }
 }
 
@@ -54,9 +57,17 @@ object DayMonthYearComparator extends Ordering[Option[DayMonthYear]]{
 }
 
 object DayMonthYear {
+  import scala.language.implicitConversions
+
+  implicit def dateTimeToDayMonthYear(dt: DateTime) = apply(dt)
+
   def apply() = new DayMonthYear(Some(1), Some(1), Some(1970))
 
   def apply(day: Int, month: Int, year: Int) = new DayMonthYear(Some(day), Some(month), Some(year))
+
+  def apply(dt: DateTime) = {
+    new DayMonthYear(Some(dt.dayOfMonth().get), Some(dt.monthOfYear().get), Some(dt.year().get), Some(dt.hourOfDay().get()), Some(dt.minuteOfHour().get))
+  }
 
   def today = {
     val now = DateTime.now()

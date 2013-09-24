@@ -1,6 +1,7 @@
 package models
 
 import org.specs2.mutable.Specification
+import org.joda.time.DateTime
 
 class DayMonthYearSpec extends Specification {
   "DayMonthYear" should {
@@ -63,6 +64,24 @@ class DayMonthYearSpec extends Specification {
     "Format to yyyy-MM-dd'T'HH:mm:00" in {
       val dmy = DayMonthYear(Some(30), Some(5), Some(2002), Some(9), Some(45))
       dmy.`yyyy-MM-dd'T'HH:mm:00` mustEqual "2002-05-30T09:45:00"
+    }
+
+    "have 7 digits given" in {
+      val dmy = DayMonthYear(26, 6, 2010)
+      dmy.numberOfCharactersInput shouldEqual 7
+    }
+
+    "accept a Joda DateTime" in {
+      val dmy = DayMonthYear(new DateTime(2013, 2, 23, 0, 0))
+
+      dmy.day should beSome(23)
+      dmy.month should beSome(2)
+      dmy.year should beSome(2013)
+    }
+
+    "format as '23 September, 2013' " in {
+      val dmy = DayMonthYear(23, 9, 2013)
+      dmy.`dd month, yyyy` shouldEqual "23 September, 2013"
     }
   }
 }

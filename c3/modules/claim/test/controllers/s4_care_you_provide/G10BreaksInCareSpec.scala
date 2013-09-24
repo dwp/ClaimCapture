@@ -52,9 +52,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
       val request1 = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> "newID",
-        "start.day" -> "1",
-        "start.month" -> "1",
-        "start.year" -> "2001",
+        "start" -> "1 January, 2001",
         "whereYou.location" -> "Holiday",
         "wherePerson.location" -> "Holiday",
         "medicalDuringBreak" -> "no")
@@ -77,9 +75,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
         val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
           .withFormUrlEncodedBody(
           "breakID" -> i.toString,
-          "start.day" -> "1",
-          "start.month" -> "1",
-          "start.year" -> "2001",
+          "start" -> "1 January, 2001",
           "whereYou.location" -> "Holiday",
           "wherePerson.location" -> "Holiday",
           "medicalDuringBreak" -> "no")
@@ -95,9 +91,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> "999",
-        "start.day" -> "1",
-        "start.month" -> "1",
-        "start.year" -> "2001",
+        "start" -> "1 January, 2001",
         "whereYou.location" -> "Holiday",
         "wherePerson.location" -> "Holiday",
         "medicalDuringBreak" -> "no")
@@ -116,9 +110,7 @@ class G10BreaksInCareSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> breakID,
-        "start.day" -> "1",
-        "start.month" -> "1",
-        "start.year" -> "2001",
+        "start" -> "1 January, 2001",
         "whereYou.location" -> "Holiday",
         "wherePerson.location" -> "Holiday",
         "medicalDuringBreak" -> "no")
