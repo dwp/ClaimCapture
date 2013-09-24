@@ -238,3 +238,14 @@
 /**
  * For `large` screens, transform into an inline picker.
  */
+ 
+.ie8 .picker__wrap {
+  display: table;
+  width: 100%;
+  height: auto;
+  margin-top: 160px;
+  border: 2px solid #000;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  background: #fff;
+}

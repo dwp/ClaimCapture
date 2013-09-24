@@ -11,11 +11,11 @@ $(document).ready(function() {
         $('#content').toggle(false);
     }
 
-    if ($(".completed li:last").length > 0 && $(".completed li:last").offset() != null){
+  /*  if ($(".completed li:last").length > 0 && $(".completed li:last").offset() != null){
         $("html, body").animate({
             scrollTop: $(".completed li:last").offset().top+$(".completed li:last").height()
         },1500);
-    }
+    } */
 
 });
 

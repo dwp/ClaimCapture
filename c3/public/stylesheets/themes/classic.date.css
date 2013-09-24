@@ -147,7 +147,6 @@
   border-spacing: 0;
   table-layout: fixed;
   font-size: inherit;
-  width: 100%;
   margin-top: .75em;
   margin-bottom: .5em;
 }
@@ -291,42 +290,28 @@
   font-size: 1.1em;
 }
 
-/* ==========================================================================
-   $CLASSIC-DATE-PICKER
-   ========================================================================== */
-/* ==========================================================================
-   $VARIABLES
-   ========================================================================== */
-/**
- * Base colors
- */
-/**
- * Backgrounds
- */
-/**
- * Borders
- */
-/**
- * Buttons
- */
-/**
- * Picker base
- */
-/**
- * Date picker options
- */
-/**
- * Theme configurations
- */
-/* ==========================================================================
-   $MIXINS
-   ========================================================================== */
-/**
- * Common picker item states
- */
-/**
- * Opacity
- */
-/**
- * Vendor prefixes
- */
+
+/* Datepicker table */
+.ie7 .picker__box table th {
+font-size: 14px!important;
+text-align: center;
+}
+.ie7 .picker__box table th:first-child {
+width: auto!important;
+}
+.ie7 .picker__box table td {
+font-size: 14px!important;
+padding: 0!important;
+border: 0;
+text-align: center;
+}  
+.ie7 .picker__box table td div {
+padding: .8em 0!important;
+}
+.ie7 .picker__box {
+padding-top: .5em;
+}
+.ie7 .picker__holder {
+top: 1px;
+left: 5px;
+}

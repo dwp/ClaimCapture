@@ -922,12 +922,7 @@ main {
 							   left: auto;
 							   display: inline;
 						   }
-						   
-					
 
-					/*   &:focus {
-							   outline: none;
-						   }  */
 					   }
 					   
 					   label {
@@ -1028,9 +1023,6 @@ main {
 				   		.ie & {
 					   		margin-top: 0;
 				   		}
-				   		&:focus {
-							   outline: none;
-						   }
 				   		&[type=checkbox]:checked + label, &[type=radio]:checked + label {color: #0b0c0c;}
 				   }
 				   label {
@@ -1256,9 +1248,7 @@ main {
 			   .ie & {
 				   left: .8em;
 			   }
-			   &:focus {
-					outline: none;
-				  }
+
 			   
 		   }
 		   &.secondary {
@@ -1382,8 +1372,7 @@ main {
    }
 
    
-   
-   
+  
    
    
    /* prompt panel */
@@ -1584,8 +1573,8 @@ main {
 		   position: relative;	
 		   overflow: visible;
 		   &:focus {
-			 outline: none;
-		   } 
+			   outline: 3px solid #ffbf47;
+		   }
 		   &:before {
 			   content: "";
 			   background: transparent;
@@ -1763,16 +1752,11 @@ main {
 .ie7 .date-stack {
 	zoom: 1;
 }
-.ie7 .picker__frame {
-  width: 700px;
-  left: auto;
-  right: 0;
-  top: 10%!important;
-  background: #fff;
+
+.ie7 .picker__holder {
+	max-width: 650px;
+	max-height: 800px!important;
 }
-
-
-
 
 /* ==========================================================================
    clearfix
