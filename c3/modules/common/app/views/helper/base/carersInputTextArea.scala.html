@@ -3,13 +3,12 @@
 @import helper._
 @import utils.helpers.CarersCrypto
 @import utils.helpers._
+@import views.html.helper.base.carersLabel
 
 
 @input(field, args ++ Seq('autocomplete -> "off"):_*) { (id, name, value, htmlArgs) =>
 
-    @defining(field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
-    <label for="@CarersCrypto.encryptAES(field.id)">@if(required){@Html("<em>*</em>")}@{Space.*} @Html(Messages(field.id))</label>
-    }
+    @carersLabel(field,args:_*)
 
     <textarea id="@CarersCrypto.encryptAES(id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>@value</textarea>
 }

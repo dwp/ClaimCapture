@@ -2,28 +2,12 @@
 
 @import views.html.helper.base.carersInputText
 @import utils.helpers.EmptyTemplate._
-@import utils.helpers._
+@import views.html.helper.base.carersLabel
 
 @showLabel = @{ args.toMap.get('_showLabel).getOrElse(true) == true }
 
-@mandatorySymbol(field: play.api.data.Field) = {
-  @defining(field.constraints.find(p => p._1 == "constraint.required") match { case Some(n) => true case None => false }) { required =>
-    @if(required){
-      @Html("<em>*</em>")
-    }
-  }
-}
-
 @if(showLabel) {
   <p>
-    @mandatorySymbol(field)
-    
-    @{Space.*} 
-    
-    @if(args.toList.exists(_._1 == '_label)) {
-      @Html(args.toList.find(_._1 == '_label).get._2.toString)
-    } else {
-      @Html(Messages(field.id))
-    }
+    @carersLabel(field,args:_*)
   </p>
 }

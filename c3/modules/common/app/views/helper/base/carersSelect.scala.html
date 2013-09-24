@@ -1,12 +1,12 @@
 @(field: play.api.data.Field, options: Seq[(String, String)], args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang)
 
+
+@import views.html.helper.base.carersLabel
 @import utils.helpers.CarersCrypto
 @import utils.helpers._
 
 @helper.input(field, args:_*) { (id, name, value, htmlArgs) =>
-    @defining(field.constraints.find( p => p._1 == "constraint.required") match { case Some(n) => true case None => false}) { required =>
-        <label for="@CarersCrypto.encryptAES(field.id)">@if(required){@Html("<em>*</em>")}@{Space.*} @labelOrId(field.id,args:_*)</label>       <!-- carersSelect -->
-    }
+    @carersLabel(field,args:_*)
 
     <select id="@CarersCrypto.encryptAES(field.id)" name="@CarersCrypto.encryptAES(name)" @toHtmlArgs(htmlArgs)>
         @args.toMap.get('_default).map { defaultValue =>
