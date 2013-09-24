@@ -17,9 +17,9 @@
             <legend>@Messages("s2.g5")</legend>
 
             <ul class="group">
-                @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("../../../../common/public")(_.`dd/MM/yyyy`)), 'helperBelow -> Messages("hadPartnerSinceClaimDate.helper"))
+                @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperBelow -> Messages("hadPartnerSinceClaimDate.helper"))
 
-                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("../../../../common/public")(_.`dd/MM/yyyy`)))
+                @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 
                 @yesNoRadioGroup(moreAboutYouForm("receiveStatePension"), '_label -> Messages("receiveStatePension"))
             </ul>

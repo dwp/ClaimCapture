@@ -23,8 +23,9 @@
 	             inputDef = Seq(
 	               carersCurrency(currentForm("howMuch"), 'type -> "tel", 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
 	               paymentFrequencySelect(currentForm("howOften"), 
-	                 'id -> "howOften_frequency", 
-	                 'visibleOn -> "yes", 
+	                 'id -> "howOften",
+	                 'visibleOn -> "yes",
+                     'textAreaHelper -> "60 characters left", 'maxLength -> 60,
 	                 'display -> {if(currentForm("howOften.frequency").value.getOrElse("no") == "other") "yes" else "no"}
 	                ),
 	               carersInputText(currentForm("employersName"), 'maxLength -> Mappings.sixty),
@@ -45,12 +46,15 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s9_other_money/g5_statutorySickPay.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
 
 <script type="text/javascript">
     $(function() {
         window.initEvents("@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_yes")", 
           "@CarersCrypto.encryptAES("haveYouHadAnyStatutorySickPay_no")",
           "@CarersCrypto.encryptAES("howOften_frequency")", 
-          "@CarersCrypto.encryptAES("howOften_frequency_wrap")");
+          "howOften_wrap");
+        window.areaCounter({selector:"@CarersCrypto.encryptAES("howOften_frequency_other")",maxChars:60});
     });
 </script>
