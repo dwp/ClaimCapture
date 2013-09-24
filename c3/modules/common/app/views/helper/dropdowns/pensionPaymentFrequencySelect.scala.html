@@ -7,5 +7,5 @@
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
 
-    @views.html.helper.selectWithOtherPlaceholder(field("frequency"), Seq("../../../../../../public" -> "Please select", Weekly->"Weekly", Fortnightly->"Fortnightly",FourWeekly-> "Four-weekly",Monthly-> "Monthly",Other->"Other"), args:_*)
+    @views.html.helper.selectWithOtherPlaceholder(field("frequency"), Seq("" -> "Please select", Weekly->"Weekly", Fortnightly->"Fortnightly",FourWeekly-> "Four-weekly",Monthly-> "Monthly",Other->"Other"), args:_*)
 }

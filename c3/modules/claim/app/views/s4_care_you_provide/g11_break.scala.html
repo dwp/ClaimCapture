@@ -1,5 +1,6 @@
 @(breakForm: Form[models.domain.Break])(implicit claim: models.domain.DigitalForm,request: Request[AnyContent])
 
+@import utils.helpers.CarersCrypto
 @import models.domain.MoreAboutTheCare
 @import views.html.helper._
 @import views.html.helper.dates._
@@ -40,9 +41,11 @@
 
                 @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-                @whereabouts(breakForm("whereYou"), Seq("", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v), '_label -> Messages("whereYou.location"))
+                @whereabouts(breakForm("whereYou"), Seq("", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
+                             '_label -> Messages("whereYou.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)
 
-                @whereabouts(breakForm("wherePerson"), Seq("", AtHome, Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "") "" -> "Please select" else v -> v), '_label -> Messages("wherePerson.location"))
+                @whereabouts(breakForm("wherePerson"), Seq("", AtHome, Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
+                             '_label -> Messages("wherePerson.location"),'textAreaHelper -> "60 characters left", 'maxLength -> 60)
 
                 @yesNoRadioGroup(breakForm("medicalDuringBreak"))
             </ul>
@@ -56,3 +59,11 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s4_care_you_provide/g11_break.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
+
+<script type="text/javascript">
+$(function(){
+    window.areaCounter({selector:"@CarersCrypto.encryptAES("whereYou_location_other")",maxChars:60});
+    window.areaCounter({selector:"@CarersCrypto.encryptAES("wherePerson_location_other")",maxChars:60});
+})
+</script>

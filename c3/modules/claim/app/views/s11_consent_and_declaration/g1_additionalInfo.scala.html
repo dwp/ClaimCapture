@@ -27,10 +27,10 @@
     }
 }
 
-<script type="text/javascript" src='@routes.Assets.at("javascripts/s11_consent_and_declaration/g4_additionalInfo.js")'></script>
+<script type="text/javascript" src='@routes.Assets.at("javascripts/textAreaCounter.js")'></script>
 
 <script type="text/javascript">
     $(function(){
-        window.initEvents( "@CarersCrypto.encryptAES("anythingElse")",2000);
+        window.areaCounter([{selector:"@CarersCrypto.encryptAES("anythingElse")",maxChars:2000}]);
     })
 </script>

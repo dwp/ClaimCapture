@@ -48,7 +48,7 @@
 
 <script type="text/javascript">
     $(function() {
-        @if(currentForm("finishedThisJob").value.getOrElse("../../../../common/public") != "yes") {
+        @if(currentForm("finishedThisJob").value.getOrElse("") != "yes") {
             $("#@CarersCrypto.encryptAES("finishedThisJob_yes")").closest("ul").parent().next().hide();
             $("label[for='hoursPerWeek']").text("How many hours a week do you normally work?")
         } else {
