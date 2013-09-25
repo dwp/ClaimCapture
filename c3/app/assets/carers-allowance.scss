@@ -824,6 +824,9 @@ main {
 						background: #f9f9f9 url('images/calendar-icon.png') 97% 50% no-repeat;
 						position: relative;
 						z-index: 20;
+						.ie7 & {
+							cursor: default;
+						}
 					}
 			   }
 			   input[type="radio"] {

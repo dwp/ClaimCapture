@@ -157,7 +157,7 @@
 }
 .picker__table td {
   margin: 0;
-  padding: 0;
+  padding: 0!important;
 }
 /**
  * The weekday labels
@@ -315,3 +315,10 @@ padding-top: .5em;
 top: 1px;
 left: 5px;
 }
+.ie7 .picker__holder {
+	z-index: 999!important;
+	background: red;
+	zoom: 1;
+}
+
+.ie7 .picker__weekday, .ie7 .picker__day {padding: 0; zoom: 1;}
