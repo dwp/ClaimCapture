@@ -47,7 +47,7 @@ class OtherMoneySpec extends Specification with Tags {
       page fillPageWith claim
       val completedPage = page submitPage ()
       
-      browser.find("button[type='submit']").getText shouldEqual "Continue to pay details"
+      browser.find("button[type='submit']").getText shouldEqual "Continue"
     }
 
     "navigate to the Pay Details on clicking continue" in new WithBrowser with G7OtherEEAStateOrSwitzerlandPageContext {

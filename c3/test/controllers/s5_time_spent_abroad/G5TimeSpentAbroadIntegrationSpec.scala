@@ -21,7 +21,7 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       titleMustEqual("Your course details - About your education")
     }
 
-    "show the text 'Continue to education' on the submit button when next section is 'Education'" in new WithBrowser with BrowserMatchers {
+    "show the text 'Continue' on the submit button when next section is 'Education'" in new WithBrowser with BrowserMatchers {
       Formulate.normalResidenceAndCurrentLocation(browser)
       titleMustEqual("Details of time abroad with the person you care for - Time Spent Abroad")
 
@@ -31,10 +31,10 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       Formulate.abroadForMoreThan52Weeks(browser)
       titleMustEqual("Completion - Time Spent Abroad")
 
-      browser.find("button[type='submit']").getText shouldEqual "Continue to education"
+      browser.find("button[type='submit']").getText shouldEqual "Continue"
     }
 
-    "show the text 'Continue to employment' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
+    "show the text 'Continue' on the submit button when next section is 'Employment'" in new WithBrowser with BrowserMatchers {
       Formulate.moreAboutYouNotBeenInEducationSinceClaimDate(browser)
       titleMustEqual("Does the person you care for get one of these benefits? - Can you get Carer's Allowance?")
 
@@ -44,7 +44,7 @@ class G5TimeSpentAbroadIntegrationSpec extends Specification with Tags {
       Formulate.addressOfSchoolCollegeOrUniversity(browser)
       titleMustEqual("Completion - About your education")
 
-      browser.find("button[type='submit']").getText shouldEqual "Continue to employment"
+      browser.find("button[type='submit']").getText shouldEqual "Continue"
     }
   } section("integration", models.domain.TimeSpentAbroad.id)
 }
