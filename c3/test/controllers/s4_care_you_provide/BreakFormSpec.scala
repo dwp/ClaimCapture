@@ -47,9 +47,9 @@ class BreakFormSpec extends Specification with Tags {
     }
 
     """state that "start" has a constraint of "required" """ in {
-      skipped("Contraints no longer working after changing required fields from '*' to adding '(optional)' on optional fields")
+      skipped("Contraints not working, and mandatorys no longer have *")
 
-      val startRequirement = G11Break.form.bind(data)("start").constraints.collectFirst{ case (k, _) if k == "constraint.required" => "<em>*</em>"}.getOrElse("")
+      val startRequirement = G11Break.form.bind(data)("start").constraints.collectFirst { case (k, _) if k == "constraint.required" => "<em>*</em>" }.getOrElse("")
       startRequirement shouldEqual "<em>*</em>"
     }
 

@@ -26,10 +26,11 @@ object G11Break extends Controller with CachedClaim {
   def submit = executeOnForm { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val fwe = formWithErrors.replaceError("start.hour", FormError("start.time", "error.required"))
-                                .replaceError("start.minutes", FormError("start.time", "error.required"))
-                                .replaceError("end.hour", FormError("end.time", "error.required"))
-                                .replaceError("end.minutes", FormError("end.time", "error.required"))
+        val newFormError = FormError("start.time", "error.required")
+
+        val fwe = formWithErrors.replaceError("start.hour", newFormError).replaceError("start.minutes", newFormError)
+                                .replaceError("end.hour", newFormError).replaceError("end.minutes", newFormError)
+
         BadRequest(views.html.s4_care_you_provide.g11_break(fwe))
       },
       break => {
