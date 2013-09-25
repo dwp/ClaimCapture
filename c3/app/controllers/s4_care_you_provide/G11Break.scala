@@ -1,7 +1,7 @@
 package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
@@ -12,8 +12,8 @@ import models.view.CachedClaim
 object G11Break extends Controller with CachedClaim {
   val form = Form(mapping(
     "breakID" -> nonEmptyText,
-    "start" -> required(jodaDate("dd MMMM, yyyy")),
-    "end" -> optional(jodaDate("dd MMMM, yyyy")),
+    "start" -> required(jodaDateTime()),
+    "end" -> optional(jodaDateTime()),
     "whereYou" -> whereabouts.verifying(requiredWhereabouts),
     "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
     "medicalDuringBreak" -> nonEmptyText
@@ -25,7 +25,13 @@ object G11Break extends Controller with CachedClaim {
 
   def submit = executeOnForm { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g11_break(formWithErrors)),
+      formWithErrors => {
+        val fwe = formWithErrors.replaceError("start.hour", FormError("start.time", "error.required"))
+                                .replaceError("start.minutes", FormError("start.time", "error.required"))
+                                .replaceError("end.hour", FormError("end.time", "error.required"))
+                                .replaceError("end.minutes", FormError("end.time", "error.required"))
+        BadRequest(views.html.s4_care_you_provide.g11_break(fwe))
+      },
       break => {
         val updatedBreaksInCare = if (breaksInCare.breaks.size >= 10) breaksInCare else breaksInCare.update(break)
         claim.update(updatedBreaksInCare) -> Redirect(routes.G10BreaksInCare.present())
@@ -35,7 +41,11 @@ object G11Break extends Controller with CachedClaim {
   def break(id: String) = executeOnForm { implicit claim => implicit request =>
     claim.questionGroup(BreaksInCare) match {
       case Some(b: BreaksInCare) => b.breaks.find(_.id == id) match {
-        case Some(b: Break) => Ok(views.html.s4_care_you_provide.g11_break(form.fill(b)))
+        case Some(b: Break) => {
+          println(s"Break to Change = $b")
+          println(s"... and the filled in form = ${form.fill(b)}")
+          Ok(views.html.s4_care_you_provide.g11_break(form.fill(b)))
+        }
         case _ => Redirect(routes.G10BreaksInCare.present())
       }
 

@@ -83,5 +83,10 @@ class DayMonthYearSpec extends Specification {
       val dmy = DayMonthYear(23, 9, 2013)
       dmy.`dd month, yyyy` shouldEqual "23 September, 2013"
     }
+
+    "include time" in {
+      val dmyWithTime = DayMonthYear(23, 9, 2013).withTime(hour = 14, minutes = 55)
+      dmyWithTime shouldEqual DayMonthYear(Some(23), Some(9), Some(2013), Some(14), Some(55))
+    }
   }
 }

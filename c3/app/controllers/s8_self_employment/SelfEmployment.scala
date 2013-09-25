@@ -12,7 +12,7 @@ object SelfEmployment extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def completedSubmit = executeOnForm {implicit claim => implicit request =>
+  def completedSubmit = executeOnForm { implicit claim => implicit request =>
     redirect
   }
 

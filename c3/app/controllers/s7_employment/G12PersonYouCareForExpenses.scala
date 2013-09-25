@@ -16,13 +16,13 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "whoDoYouPay" -> nonEmptyText,
-    "howMuchCostCare" -> (nonEmptyText verifying(validDecimalNumber)),
+    "howMuchCostCare" -> (nonEmptyText verifying validDecimalNumber),
     "howOftenPayCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "relationToYou" -> nonEmptyText,
     "relationToPersonYouCare" -> nonEmptyText
   )(PersonYouCareForExpenses.apply)(PersonYouCareForExpenses.unapply))
 
-  def present(jobID: String) = executeOnForm {implicit claim => implicit request =>
+  def present(jobID: String) = executeOnForm { implicit claim => implicit request =>
     jobs.questionGroup(jobID, AboutExpenses) match {
       case Some(a: AboutExpenses) if a.payAnyoneToLookAfterPerson == `yes`=>
         track(PersonYouCareForExpenses) { implicit claim => Ok(views.html.s7_employment.g12_personYouCareForExpenses(form.fillWithJobID(PersonYouCareForExpenses, jobID))) }

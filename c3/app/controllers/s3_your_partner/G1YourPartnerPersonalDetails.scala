@@ -23,7 +23,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
     "separated.fromPartner" -> nonEmptyText.verifying(validYesNo)
   )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = executeOnForm { implicit claim => implicit request =>
     presentConditionally(yourPartnerPersonalDetails)
   }
 
@@ -31,7 +31,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
     track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))) }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = executeOnForm { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
       f => claim.update(f) -> Redirect(routes.G4PersonYouCareFor.present())

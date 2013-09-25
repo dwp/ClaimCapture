@@ -38,16 +38,20 @@ object CarersForm {
     }
 
     def replaceError(key: String, newError: FormError): Form[T] = {
-      val updatedForm = form.error(key) match {
-        case Some(s) => form.withError(newError)
-        case None => form
+      val updatedFormErrors = form.errors.flatMap { fe =>
+        if (fe.key == key) {
+          if (form.error(newError.key).isDefined) None
+          else Some(newError)
+        } else {
+          Some(fe)
+        }
       }
 
-      updatedForm.copy(errors = updatedForm.errors.filter(p => p.key != key))
+      form.copy(errors = updatedFormErrors)
     }
 
     def replaceError(key: String, message: String, newError: FormError): Form[T] = {
-      def matchingError(e:FormError) = e.key == key && e.message == message
+      def matchingError(e: FormError) = e.key == key && e.message == message
 
       if (form.errors.exists(matchingError)) {
         form.copy(errors = form.errors.filterNot(e => e.key == key && e.message == message)).withError(newError)

@@ -8,7 +8,7 @@ object Education extends Controller with CachedClaim with Navigable {
     track(models.domain.Education) { implicit claim => Ok(views.html.s6_education.g3_completed()) }
   }
 
-  def completedSubmit = executeOnForm {implicit claim => implicit request =>
+  def completedSubmit = executeOnForm { implicit claim => implicit request =>
     Redirect("/employment/been-employed")
   }
 }

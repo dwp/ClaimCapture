@@ -37,7 +37,7 @@ object G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
     case _ => false
   }
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = executeOnForm { implicit claim => implicit request =>
     track(AboutOtherMoney) { implicit claim => Ok(views.html.s9_other_money.g1_aboutOtherMoney(form.fill(AboutOtherMoney), hadPartnerSinceClaimDate)) }
   }
 

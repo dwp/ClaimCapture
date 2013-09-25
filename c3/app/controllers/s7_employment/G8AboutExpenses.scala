@@ -18,7 +18,7 @@ object G8AboutExpenses extends Controller with CachedClaim with Navigable {
     "payAnyoneToLookAfterPerson" -> nonEmptyText
   )(AboutExpenses.apply)(AboutExpenses.unapply))
 
-  def present(jobID: String) = executeOnForm {implicit claim => implicit request =>
+  def present(jobID: String) = executeOnForm { implicit claim => implicit request =>
     track(AboutExpenses) { implicit claim => Ok(views.html.s7_employment.g8_aboutExpenses(form.fillWithJobID(AboutExpenses, jobID))) }
   }
 

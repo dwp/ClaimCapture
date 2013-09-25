@@ -6,6 +6,7 @@ import org.joda.time.format.DateTimeFormat
 
 case class DayMonthYear(day: Option[Int], month: Option[Int], year: Option[Int],
                         hour: Option[Int] = None, minutes: Option[Int] = None) {
+  def withTime(hour: Int, minutes: Int) = copy(hour = Some(hour), minutes = Some(minutes))
 
   def `yyyy-MM-dd`: String = format("yyyy-MM-dd")
 

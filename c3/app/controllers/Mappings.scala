@@ -75,7 +75,16 @@ object Mappings {
     mapping.verifying(required)
   }
 
-  def requiredStreet: Constraint[Street] = Constraint[Street]("constraint.required"){street =>
+  def jodaDateTime(date: Mapping[DateTime] = required(jodaDate("dd MMMM, yyyy")),
+                   hour: Mapping[Int] = number(max = 24, min = 0),
+                   minutes: Mapping[Int] = number(max = 60, min = 0)): Mapping[DateTime] = mapping(
+    "date" -> date,
+    "hour" -> hour,
+    "minutes" -> minutes
+  )((dt, h, m) => new DateTime(dt.year().get(), dt.monthOfYear().get(), dt.dayOfMonth().get(), h, m)
+   )((dt: DateTime) => Some((dt, dt.getHourOfDay, dt.getMinuteOfHour)))
+
+  def requiredStreet: Constraint[Street] = Constraint[Street]("constraint.required") { street =>
     street match {
       case Street(s) if s.isDefined => Valid
       case _ => Invalid(ValidationError("error.required"))

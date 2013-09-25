@@ -22,7 +22,7 @@ object G2JobDetails extends Controller with CachedClaim with Navigable {
     "payrollEmployeeNumber" -> optional(text)
   )(JobDetails.apply)(JobDetails.unapply))
 
-  def job(jobID: String) = executeOnForm {implicit claim => implicit request =>
+  def job(jobID: String) = executeOnForm { implicit claim => implicit request =>
     claim.questionGroup(Jobs) match {
       case Some(js: Jobs) if js.job(jobID).isDefined =>
         track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
@@ -35,7 +35,7 @@ object G2JobDetails extends Controller with CachedClaim with Navigable {
     track(JobDetails) { implicit claim => Ok(views.html.s7_employment.g2_jobDetails(form.fillWithJobID(JobDetails, jobID))) }
   }
 
-  def submit = claimingInJob {jobID => implicit claim => implicit request =>
+  def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g2_jobDetails(formWithErrors)),
       jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present(jobID)))

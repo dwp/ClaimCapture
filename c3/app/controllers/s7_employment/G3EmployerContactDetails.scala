@@ -18,7 +18,7 @@ object G3EmployerContactDetails extends Controller with CachedClaim with Navigab
     "phoneNumber" -> optional(text)
   )(EmployerContactDetails.apply)(EmployerContactDetails.unapply))
 
-  def present(jobID: String) = executeOnForm {implicit claim => implicit request =>
+  def present(jobID: String) = executeOnForm { implicit claim => implicit request =>
     track(EmployerContactDetails) { implicit claim => Ok(views.html.s7_employment.g3_employerContactDetails(form.fillWithJobID(EmployerContactDetails, jobID))) }
   }
 

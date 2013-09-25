@@ -35,7 +35,7 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
     else claim.delete(BankBuildingSocietyDetails) -> Redirect(routes.PayDetails.completed())
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = executeOnForm { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s10_pay_details.g2_bankBuildingSocietyDetails(formWithErrors)),
       howWePayYou => claim.update(howWePayYou) -> Redirect(routes.PayDetails.completed()))

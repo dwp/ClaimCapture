@@ -19,7 +19,7 @@ object G4LastWage extends Controller with CachedClaim with Navigable {
     "sameAmountEachTime" -> optional(text)
   )(LastWage.apply)(LastWage.unapply))
 
-  def present(jobID: String) = executeOnForm {implicit claim => implicit request =>
+  def present(jobID: String) = executeOnForm { implicit claim => implicit request =>
     track(LastWage) { implicit claim => Ok(views.html.s7_employment.g4_lastWage(form.fillWithJobID(LastWage, jobID))) }
   }
 

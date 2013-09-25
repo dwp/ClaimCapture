@@ -16,10 +16,10 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "payOccupationalPensionScheme" -> nonEmptyText,
-    "howMuchPension" -> optional(nonEmptyText verifying(validDecimalNumber)),
+    "howMuchPension" -> optional(nonEmptyText verifying validDecimalNumber),
     "howOftenPension" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "payPersonalPensionScheme" -> nonEmptyText,
-    "howMuchPersonal" -> optional(nonEmptyText verifying(validDecimalNumber)),
+    "howMuchPersonal" -> optional(nonEmptyText verifying validDecimalNumber),
     "howOftenPersonal" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly)
   )(PensionSchemes.apply)(PensionSchemes.unapply)
     .verifying("howMuchPension", PensionSchemes.validateHowMuchPension _)
@@ -28,7 +28,7 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
     .verifying("howOftenPersonal", PensionSchemes.validateHowOftenPersonal _)
   )
 
-  def present(jobID: String) = executeOnForm {implicit claim => implicit request =>
+  def present(jobID: String) = executeOnForm { implicit claim => implicit request =>
     track(PensionSchemes) { implicit claim => Ok(views.html.s7_employment.g7_pensionSchemes(form.fillWithJobID(PensionSchemes, jobID))) }
   }
 

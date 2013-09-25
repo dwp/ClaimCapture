@@ -34,7 +34,7 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with N
     }
   }
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = executeOnForm { implicit claim => implicit request =>
     presentConditionally(childcareExpensesWhileAtWork)
   }
 
@@ -50,7 +50,7 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with N
     }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = executeOnForm { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

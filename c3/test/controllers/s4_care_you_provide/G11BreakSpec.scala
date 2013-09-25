@@ -30,7 +30,9 @@ class G11BreakSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
-        "start" -> "1 January, 2001",
+        "start.date" -> "1 January, 2001",
+        "start.hour" -> "14",
+        "start.minutes" -> "45",
         "whereYou.location" -> Holiday,
         "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
@@ -43,7 +45,9 @@ class G11BreakSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
-        "start" -> "1 January, 2001",
+        "start.date" -> "1 January, 2001",
+        "start.hour" -> "14",
+        "start.minutes" -> "45",
         "whereYou.location" -> Other,
         "whereYou.location.other" -> "",
         "wherePerson.location" -> Other,
@@ -58,7 +62,9 @@ class G11BreakSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
-        "start" -> "1 January, 2001",
+        "start.date" -> "1 January, 2001",
+        "start.hour" -> "14",
+        "start.minutes" -> "45",
         "whereYou.location" -> Other,
         "whereYou.location.other" -> "Outer space",
         "wherePerson.location" -> Other,
@@ -73,7 +79,9 @@ class G11BreakSpec extends Specification with Tags {
       val request1 = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
-        "start" -> "1 January, 2001",
+        "start.date" -> "1 January, 2001",
+        "start.hour" -> "14",
+        "start.minutes" -> "45",
         "whereYou.location" -> Holiday,
         "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
@@ -83,7 +91,9 @@ class G11BreakSpec extends Specification with Tags {
       val request2 = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> "2",
-        "start" -> "1 January, 2001",
+        "start.date" -> "1 January, 2001",
+        "start.hour" -> "14",
+        "start.minutes" -> "45",
         "whereYou.location" -> Holiday,
         "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
@@ -99,7 +109,9 @@ class G11BreakSpec extends Specification with Tags {
       val requestNew = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
-        "start" -> "1 January, 2001",
+        "start.date" -> "1 January, 2001",
+        "start.hour" -> "14",
+        "start.minutes" -> "45",
         "whereYou.location" -> Holiday,
         "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
@@ -111,7 +123,9 @@ class G11BreakSpec extends Specification with Tags {
       val requestUpdate = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
-        "start" -> s"1 January, $yearUpdate",
+        "start.date" -> s"1 January, $yearUpdate",
+        "start.hour" -> "14",
+        "start.minutes" -> "45",
         "whereYou.location" -> Holiday,
         "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")

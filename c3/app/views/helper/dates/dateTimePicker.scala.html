@@ -1,0 +1,16 @@
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit handler: helper.FieldConstructor, lang: play.api.i18n.Lang)
+
+@import helper._
+@import views.html.helper.base._
+@import utils.helpers._
+
+@input(field, args: _*) { (id, name, value, htmlArgs) =>
+    @carersLabel(field, args: _*)
+
+    <input type="text" id="@{CarersCrypto.encryptAES(id)}_date" name="@{CarersCrypto.encryptAES(name)}.date" class="datepicker" value='@field("date").value.getOrElse("")' @toHtmlArgs(htmlArgs)>
+
+    <li>
+        <p>@Messages(name + ".time")</p>
+        @timePlaceholder(field)
+    </li>
+}

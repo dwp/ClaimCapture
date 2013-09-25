@@ -11,12 +11,12 @@ object TimeSpentAbroad extends Controller with CachedClaim with Navigable {
     case _ => Trips()
   }
 
-  def completed = executeOnForm {implicit claim => implicit request =>
+  def completed = executeOnForm { implicit claim => implicit request =>
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1NormalResidenceAndCurrentLocation.present())
     else track(TimeSpentAbroad) { implicit claim => Ok(views.html.s5_time_spent_abroad.g6_completed())}
   }
 
-  def completedSubmit = executeOnForm {implicit claim => implicit request =>
+  def completedSubmit = executeOnForm { implicit claim => implicit request =>
     if (completedQuestionGroups.distinct.size == 4) Redirect("/education/your-course-details")
     else Redirect(controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.present())
   }

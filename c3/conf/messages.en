@@ -249,8 +249,10 @@ answer.label = Have you had any breaks in caring for this person since {0}?
 answer.more.label = Have you had any more breaks in caring for this person since {0}?
 
 start = Start date?
+start.date = Start date?
 start.time = Start time?
 end = End date?
+end.date = End date?
 end.time = End time?
 whereYou = Where were you during the break?
 whereYou.location = Where were you during the break?

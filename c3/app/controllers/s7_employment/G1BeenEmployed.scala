@@ -23,7 +23,7 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
   def redirect(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult =
     claim -> Redirect("/self-employment/about-self-employment")
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = executeOnForm { implicit claim => implicit request =>
       presentConditionally(beenEmployed)
   }
 
@@ -36,7 +36,7 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = executeOnForm { implicit claim => implicit request =>
     import controllers.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {

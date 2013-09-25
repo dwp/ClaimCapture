@@ -1,15 +1,15 @@
-@(field:Field,args: (Symbol,Any)*)
+@(field:Field, args: (Symbol, Any)*)
 
 @import helper._
 @import utils.helpers.CarersCrypto
 @import utils.helpers._
 @import views.html.helper.base.labelOrId
 
-
 <label for="@CarersCrypto.encryptAES(field.id)">
     @{Space.*}
-    @labelOrId(field.id,args:_*)
-    @if(!field.constraints.find(_._1 == "constraint.required")){
+    @labelOrId(field.id,args: _*)
+
+    @if(!field.constraints.find(_._1 == "constraint.required")) {
         <em>(optional)</em>
     }
 </label>

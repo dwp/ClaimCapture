@@ -31,7 +31,7 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
     }
   }
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = executeOnForm { implicit claim => implicit request =>
     presentConditionally(selfEmploymentYourAccounts)
   }
 
@@ -39,7 +39,7 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
     track(SelfEmploymentYourAccounts) { implicit claim => Ok(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts))) }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = executeOnForm { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

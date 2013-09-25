@@ -15,11 +15,11 @@ object G4Declaration extends Controller with CachedClaim with Navigable {
     "someoneElse" -> optional(text)
   )(Declaration.apply)(Declaration.unapply))
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = executeOnForm { implicit claim => implicit request =>
     track(Declaration) { implicit claim => Ok(views.html.s11_consent_and_declaration.g4_declaration(form.fill(Declaration))) }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = executeOnForm { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s11_consent_and_declaration.g4_declaration(formWithErrors)),
       declaration => claim.update(declaration) -> Redirect(routes.G5Submit.present()))

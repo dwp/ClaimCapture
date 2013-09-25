@@ -11,7 +11,7 @@ object OtherMoney extends Controller with CachedClaim with Navigable {
     else track(models.domain.OtherMoney) { implicit claim => Ok(views.html.s9_other_money.g8_completed())}
   }
 
-  def completedSubmit = executeOnForm {implicit claim => implicit request =>
+  def completedSubmit = executeOnForm { implicit claim => implicit request =>
     Redirect("/pay-details/how-we-pay-you")
   }
 

@@ -12,7 +12,7 @@ import utils.helpers.CarersForm._
 object G5StatutorySickPay extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "haveYouHadAnyStatutorySickPay" -> nonEmptyText(maxLength = sixty),
-    "howMuch" -> optional(nonEmptyText verifying(validDecimalNumber)),
+    "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
     "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
     "employersName" -> optional(nonEmptyText(maxLength = sixty)),
     "employersAddress" -> optional(address),
@@ -27,11 +27,11 @@ object G5StatutorySickPay extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = executeOnForm { implicit claim => implicit request =>
     track(StatutorySickPay) { implicit claim => Ok(views.html.s9_other_money.g5_statutorySickPay(form.fill(StatutorySickPay))) }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = executeOnForm { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("", "employersName.required", FormError("employersName", "error.required"))

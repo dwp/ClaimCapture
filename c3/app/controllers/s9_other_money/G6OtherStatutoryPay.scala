@@ -29,7 +29,7 @@ object G6OtherStatutoryPay extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = executeOnForm { implicit claim => implicit request =>
     track(OtherStatutoryPay) { implicit claim => Ok(views.html.s9_other_money.g6_otherStatutoryPay(form.fill(OtherStatutoryPay)))}
   }
 

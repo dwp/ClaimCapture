@@ -9,7 +9,7 @@ object G5Submit extends Controller with CachedClaim with Navigable {
     track(models.domain.Submit) { implicit claim => Ok(views.html.s11_consent_and_declaration.g5_submit()) }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = executeOnForm { implicit claim => implicit request =>
     Redirect("/consent-and-declaration/submitting")
   }
 }

@@ -29,15 +29,15 @@ object Employment extends Controller with CachedClaim  with Navigable{
     case _ => Jobs()
   }
 
-  def completed = executeOnForm {implicit claim => implicit request =>
+  def completed = executeOnForm { implicit claim => implicit request =>
     track(Employed) { implicit claim => Ok(views.html.s7_employment.g15_completed()) }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = executeOnForm { implicit claim => implicit request =>
     Redirect("/self-employment/about-self-employment")
   }
 
-  def delete(jobID: String) = executeOnForm {implicit claim => implicit request =>
+  def delete(jobID: String) = executeOnForm { implicit claim => implicit request =>
     import play.api.libs.json.Json
 
     val updatedJobs = jobs.delete(jobID)

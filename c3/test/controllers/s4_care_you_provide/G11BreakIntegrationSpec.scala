@@ -25,7 +25,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - About the care you provide")
     }
 
-    """give 2 errors when missing 2 mandatory fields of data - missing "start" date and "medical" """ in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
+    """give 3 errors when missing 3 mandatory fields of data - missing "start" date/time and "medical" """ in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo("/care-you-provide/breaks-in-care")
       click("#answer_yes")
       next
@@ -36,7 +36,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       next
       titleMustEqual("Break - About the care you provide")
-      findAll("div[class=validation-summary] ol li").size shouldEqual 2
+      findAll("div[class=validation-summary] ol li").size shouldEqual 3
     }
 
     """show 2 breaks in "break table" upon providing 2 breaks""" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
@@ -145,9 +145,9 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       findFirst("input[value='Change']").click()
 
       titleMustEqual(G11BreakPage.title)
-      $("#start").getValue shouldEqual "01 January, 2001"
+      $("#start_date").getValue shouldEqual "01 January, 2001"
 
-      fill("#start") `with` "1 January, 1999"
+      fill("#start_date") `with` "01 January, 1999"
       next
       titleMustEqual(G10BreaksInCarePage.title)
 
@@ -169,13 +169,29 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 trait BreakFiller {
   this: WithBrowser[_] with WithBrowserHelper =>
 
-  def break(start: DayMonthYear = DayMonthYear(1, 1, 2001),
-            end: DayMonthYear = DayMonthYear(1, 1, 2001),
+  def break(start: DayMonthYear = DayMonthYear(1, 1, 2001).withTime(9, 45),
+            end: DayMonthYear = DayMonthYear(1, 1, 2001).withTime(9, 45),
             whereYouLocation: String = AtHome,
             wherePersonLocation: String = Hospital,
             medicalDuringBreak: Boolean = false) = {
-    fill("#start") `with` start.`dd month, yyyy`
-    fill("#end") `with` end.`dd month, yyyy`
+    import language.implicitConversions
+
+    implicit def optionIntToInt(i: Option[Int]) = i.getOrElse(0)
+
+    def minutesValue(m: Int): String = {
+      if ((0 to 14).contains(m)) "00"
+      else if ((15 to 29).contains(m)) "15"
+      else if ((30 to 44).contains(m)) "30"
+      else "45"
+    }
+
+    fill("#start_date") `with` start.`dd month, yyyy`
+    click(s"#start_hour option[value='${start.hour.getOrElse(0)}']")
+    click(s"#start_minutes option[value='${minutesValue(start.minutes)}']")
+
+    fill("#end_date") `with` end.`dd month, yyyy`
+    click(s"#end_hour option[value='${end.hour.getOrElse(0)}']")
+    click(s"#end_minutes option[value='${minutesValue(end.minutes)}']")
 
     click(s"#whereYou_location option[value='$whereYouLocation']")
     click(s"#wherePerson_location option[value='$wherePersonLocation']")
