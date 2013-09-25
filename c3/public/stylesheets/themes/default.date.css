@@ -158,7 +158,8 @@
 }
 .picker__table td {
   margin: 0;
-  padding: 0;
+  padding: 0!important;
+  text-align: center;
 }
 /**
  * The weekday labels
@@ -166,9 +167,11 @@
 .picker__weekday {
   width: 14.285714286%;
   font-size: .75em;
-  padding-bottom: .25em;
+  padding: .7em 0!important;
   color: #999999;
   font-weight: 500;
+  text-align: center;
+  font-size: 14px!important;
   /* Increase the spacing a tad */
 
 }
@@ -181,9 +184,10 @@
  * The days on the calendar
  */
 .picker__day {
-  padding: .3125em 0;
+  padding: .7em 0!important;
   font-weight: 200;
   border: 1px solid transparent;
+  font-size: 14px!important;
 }
 .picker__day--today {
   color: #0089ec;
@@ -248,7 +252,7 @@
 .picker__button--clear {
   border: 1px solid #ffffff;
   background: #ffffff;
-  font-size: .8em;
+  font-size: 16px;
   padding: .66em 0;
   font-weight: bold;
   width: 50%;
