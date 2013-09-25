@@ -2,7 +2,7 @@ package xml
 
 import app.XMLValues._
 import play.api.Logger
-import models.domain.{AdditionalInfo, MoreAboutYou, Claim}
+import models.domain.{MoreAboutYou, Claim}
 import xml.XMLHelper._
 
 object DWPCAClaim {
@@ -13,7 +13,7 @@ object DWPCAClaim {
 
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
 
-    val additionalInfo = claim.questionGroup[AdditionalInfo].getOrElse(models.domain.AdditionalInfo())
+    val additionalInfo = claim.questionGroup[models.domain.AdditionalInfo].getOrElse(models.domain.AdditionalInfo())
 
     Logger.info(s"Build DWPCAClaim : $transactionId")
 
