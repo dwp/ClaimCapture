@@ -31,8 +31,6 @@ class G11BreakSpec extends Specification with Tags {
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
         "start.date" -> "1 January, 2001",
-        "start.hour" -> "14",
-        "start.minutes" -> "45",
         "whereYou.location" -> Holiday,
         "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
@@ -46,8 +44,6 @@ class G11BreakSpec extends Specification with Tags {
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
         "start.date" -> "1 January, 2001",
-        "start.hour" -> "14",
-        "start.minutes" -> "45",
         "whereYou.location" -> Other,
         "whereYou.location.other" -> "",
         "wherePerson.location" -> Other,
@@ -63,8 +59,6 @@ class G11BreakSpec extends Specification with Tags {
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
         "start.date" -> "1 January, 2001",
-        "start.hour" -> "14",
-        "start.minutes" -> "45",
         "whereYou.location" -> Other,
         "whereYou.location.other" -> "Outer space",
         "wherePerson.location" -> Other,
@@ -110,8 +104,6 @@ class G11BreakSpec extends Specification with Tags {
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
         "start.date" -> "1 January, 2001",
-        "start.hour" -> "14",
-        "start.minutes" -> "45",
         "whereYou.location" -> Holiday,
         "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")
@@ -124,8 +116,6 @@ class G11BreakSpec extends Specification with Tags {
         .withFormUrlEncodedBody(
         "breakID" -> breakId1,
         "start.date" -> s"1 January, $yearUpdate",
-        "start.hour" -> "14",
-        "start.minutes" -> "45",
         "whereYou.location" -> Holiday,
         "wherePerson.location" -> Holiday,
         "medicalDuringBreak" -> "no")

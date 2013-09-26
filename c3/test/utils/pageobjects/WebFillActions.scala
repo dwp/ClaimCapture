@@ -7,7 +7,6 @@ import scala.collection.convert.Wrappers.JListWrapper
 import org.openqa.selenium.By
 import utils.helpers.StringPadding._
 
-
 /**
  * Fill operations on the web elements composing a page.
  * @author Jorge Migueis
@@ -88,7 +87,6 @@ trait WebFillActions {
       case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value + " in html:\n" + browser.pageSource(), exception = e)
     }
   }
-
 
   def fillSortCode(elementCssSelector: String, value: String) = if (null != value) {
     val extractor = """(\d{2})(\d{2})(\d{2})""".r

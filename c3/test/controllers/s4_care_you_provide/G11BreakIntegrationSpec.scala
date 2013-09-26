@@ -25,7 +25,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       titleMustEqual("Completion - About the care you provide")
     }
 
-    """give 3 errors when missing 3 mandatory fields of data - missing "start" date/time and "medical" """ in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
+    """give 2 errors when missing 3 mandatory fields of data - missing "start date" and "medical" """ in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {
       goTo("/care-you-provide/breaks-in-care")
       click("#answer_yes")
       next
@@ -36,7 +36,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       next
       titleMustEqual("Break - About the care you provide")
-      findAll("div[class=validation-summary] ol li").size shouldEqual 3
+      findAll("div[class=validation-summary] ol li").size shouldEqual 2
     }
 
     """show 2 breaks in "break table" upon providing 2 breaks""" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {

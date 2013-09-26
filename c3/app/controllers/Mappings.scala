@@ -1,15 +1,14 @@
 package controllers
 
-import org.joda.time.DateTime
+import scala.util.Try
+import scala.util.{Failure, Success}
 import play.api.data.Mapping
 import play.api.data.Forms._
 import play.api.data.validation._
-import scala.util.Try
-import models._
-import scala.util.Failure
 import play.api.data.validation.ValidationError
-import scala.util.Success
+import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import models._
 
 object Mappings {
   object Name {
@@ -78,10 +77,10 @@ object Mappings {
 
   def jodaDateTime(dateTimePatterns: String*): Mapping[DateTime] = mapping(
     "date" -> nonEmptyText.verifying(validDateTimePattern(dateTimePatterns: _*)).transform(stringToDateTime(dateTimePatterns: _*), dateTimeToString),
-    "hour" -> number(max = 24, min = 0),
-    "minutes" -> number(max = 60, min = 0)
-  )((dt, h, m) => new DateTime(dt.year().get(), dt.monthOfYear().get(), dt.dayOfMonth().get(), h, m)
-   )((dt: DateTime) => Some((dt, dt.getHourOfDay, dt.getMinuteOfHour)))
+    "hour" -> optional(number(max = 24, min = 0)),
+    "minutes" -> optional(number(max = 60, min = 0))
+  )((dt, h, m) => new DateTime(dt.year().get(), dt.monthOfYear().get(), dt.dayOfMonth().get(), h.getOrElse(0), m.getOrElse(0))
+   )((dt: DateTime) => Some((dt, Some(dt.getHourOfDay), Some(dt.getMinuteOfHour))))
 
   def validDateTimePattern(dateTimePatterns: String*) = (date: String) => Try(stringToDateTime(dateTimePatterns: _*)(date)).isSuccess
 

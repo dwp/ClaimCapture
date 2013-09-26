@@ -31,7 +31,6 @@ trait FormFields {
 
   def declareDate(elementCssSelector: String, claimAttribute: String) = declareField(DATE, elementCssSelector, claimAttribute)
 
-
   def declareDateFromTo(elementCssSelector: String, claimAttributeFrom: String,claimAttributeTo: String) = {
       declareDateFrom(elementCssSelector, claimAttributeFrom)
       declareDateTo(elementCssSelector, claimAttributeTo)
@@ -56,6 +55,4 @@ trait FormFields {
   def declareYesNo(elementCssSelector: String, claimAttribute: String) = declareField(YESNO, elementCssSelector, claimAttribute)
 
   private def declareField( fieldType:Symbol , elementCssSelector: String, claimAttribute: String) = fields += Tuple3(elementCssSelector, fieldType , claimAttribute )
-
-
 }

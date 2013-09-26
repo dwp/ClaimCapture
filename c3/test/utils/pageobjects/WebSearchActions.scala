@@ -7,7 +7,6 @@ import scala.collection.mutable
 import utils.helpers.StringPadding._
 import org.fluentlenium.core.filter.FilterConstructor._
 
-
 /**
  * Search operations on the web elements composing a page.
  * To be used by assertions in tests.
