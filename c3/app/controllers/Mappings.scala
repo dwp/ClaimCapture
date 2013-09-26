@@ -77,8 +77,8 @@ object Mappings {
 
   def jodaDateTime(dateTimePatterns: String*): Mapping[DateTime] = mapping(
     "date" -> nonEmptyText.verifying(validDateTimePattern(dateTimePatterns: _*)).transform(stringToDateTime(dateTimePatterns: _*), dateTimeToString),
-    "hour" -> optional(number(max = 24, min = 0)),
-    "minutes" -> optional(number(max = 60, min = 0))
+    "hour" -> optional(number(min = 0, max = 24)),
+    "minutes" -> optional(number(min = 0, max = 60))
   )((dt, h, m) => new DateTime(dt.year().get(), dt.monthOfYear().get(), dt.dayOfMonth().get(), h.getOrElse(0), m.getOrElse(0))
    )((dt: DateTime) => Some((dt, Some(dt.getHourOfDay), Some(dt.getMinuteOfHour))))
 

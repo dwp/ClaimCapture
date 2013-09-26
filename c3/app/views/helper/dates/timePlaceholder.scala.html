@@ -7,7 +7,7 @@
 
 <ul class="inline year">
     <li>
-        @carersSelect(field("hour"), options = Seq("" -> "Hour") ++ ((0 to 23) map(v => (v toString) -> (if (v < 10) "0" + v else (v toString)))).asInstanceOf[Seq[(String, String)]])
+        @carersSelect(field("hour"), options = Seq("" -> "Hour") ++ ((0 to 23) map(v => (v toString) -> (if (v < 10) "0" + v else (v toString)))))
     </li>
 
     <li>
