@@ -9,18 +9,26 @@ import CareYouProvide.breaksInCare
 import models.domain.BreaksInCare
 import models.view.CachedClaim
 import play.api.data.FormError
-import scala.Some
 import models.domain.Break
+import play.api.data.validation.{Valid, ValidationError, Invalid, Constraint}
+import org.joda.time.DateTime
 
 object G11Break extends Controller with CachedClaim {
   val form = Form(mapping(
     "breakID" -> nonEmptyText,
-    "start" -> required(jodaDateTime()),
+    "start" -> required(jodaDateTime()).verifying(validDate),
     "end" -> optional(jodaDateTime()),
     "whereYou" -> whereabouts.verifying(requiredWhereabouts),
     "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
     "medicalDuringBreak" -> nonEmptyText
   )(Break.apply)(Break.unapply))
+
+  def validDate: Constraint[DateTime] = Constraint[DateTime]("constraint.required") { dt =>
+    dt match {
+      case d: DateTime => Valid
+      case _ => Invalid(ValidationError("error.required"))
+    }
+  }
 
   def present = executeOnForm { implicit claim => implicit request =>
     Ok(views.html.s4_care_you_provide.g11_break(form))

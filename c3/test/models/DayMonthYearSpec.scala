@@ -2,6 +2,8 @@ package models
 
 import org.specs2.mutable.Specification
 import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
+import scala.util.Try
 
 class DayMonthYearSpec extends Specification {
   "DayMonthYear" should {
@@ -87,6 +89,14 @@ class DayMonthYearSpec extends Specification {
     "include time" in {
       val dmyWithTime = DayMonthYear(23, 9, 2013).withTime(hour = 14, minutes = 55)
       dmyWithTime shouldEqual DayMonthYear(Some(23), Some(9), Some(2013), Some(14), Some(55))
+    }
+
+    """accept format "01 September, 2001" """ in {
+      Try(DateTimeFormat.forPattern("dd MMMM, yyyy").parseDateTime("01 September, 2001")).isSuccess should beTrue
+    }
+
+    """accept format "01 September 2001" """ in {
+      Try(DateTimeFormat.forPattern("dd MMMM yyyy").parseDateTime("01 September 2001")).isSuccess should beTrue
     }
   }
 }

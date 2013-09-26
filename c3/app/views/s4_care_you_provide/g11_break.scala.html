@@ -33,10 +33,12 @@
 
                 @dateTimePicker(breakForm("end"))
 
-                @whereabouts(breakForm("whereYou"), Seq("", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
+                @whereabouts(breakForm("whereYou"),
+                             Seq("", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
                              '_label -> Messages("whereYou.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)
 
-                @whereabouts(breakForm("wherePerson"), Seq("", AtHome, Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
+                @whereabouts(breakForm("wherePerson"),
+                             Seq("", AtHome, Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
                              '_label -> Messages("wherePerson.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)
 
                 @yesNoRadioGroup(breakForm("medicalDuringBreak"))

@@ -62,7 +62,7 @@ class BreakFormSpec extends Specification with Tags {
 
     "reject badly formatted start date" in {
       val form: Form[Break] = G11Break.form.bind(data + ("start.date" -> "1-02/1999"))
-      form.errors should contain(FormError("start", "error.required"))
+      form.errors should contain(FormError("start.date", "error.unknown"))
     }
 
     "contain start date formatted as dd/mm/yyyy" in {

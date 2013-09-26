@@ -71,17 +71,19 @@ object Mappings {
     "sort3" -> text(maxLength = two))(SortCode.apply)(SortCode.unapply)
 
   def required[T](mapping: Mapping[T]): Mapping[T] = {
-    def required: Constraint[T] = Constraint[T]("constraint.required") { o => Valid }
+    def required: Constraint[T] = Constraint[T]("constraint.required") { t => Valid }
 
     mapping.verifying(required)
   }
 
   def jodaDateTime(dateTimePatterns: String*): Mapping[DateTime] = mapping(
-    "date" -> nonEmptyText.transform(stringToDateTime(dateTimePatterns: _*), dateTimeToString),
+    "date" -> nonEmptyText.verifying(validDateTimePattern(dateTimePatterns: _*)).transform(stringToDateTime(dateTimePatterns: _*), dateTimeToString),
     "hour" -> number(max = 24, min = 0),
     "minutes" -> number(max = 60, min = 0)
   )((dt, h, m) => new DateTime(dt.year().get(), dt.monthOfYear().get(), dt.dayOfMonth().get(), h, m)
    )((dt: DateTime) => Some((dt, dt.getHourOfDay, dt.getMinuteOfHour)))
+
+  def validDateTimePattern(dateTimePatterns: String*) = (date: String) => Try(stringToDateTime(dateTimePatterns: _*)(date)).isSuccess
 
   def stringToDateTime(dateTimePatterns: String*) = (date: String) => {
     val longDateTimePattern = "dd MMMM, yyyy"
@@ -92,7 +94,7 @@ object Mappings {
       case h :: t => Try(DateTimeFormat.forPattern(h).parseDateTime(date)).getOrElse(dateTime(t))
     }
 
-    dateTime(if (dateTimePatterns.isEmpty) List(longDateTimePattern, shortDateTimePattern) else dateTimePatterns.toList)
+    dateTime(if (dateTimePatterns.isEmpty) List(longDateTimePattern, shortDateTimePattern, "dd MMMM yyyy") else dateTimePatterns.toList)
   }
 
   def dateTimeToString(dateTime: DateTime) = DateTimeFormat.forPattern("dd MMMM, yyyy").print(dateTime)
