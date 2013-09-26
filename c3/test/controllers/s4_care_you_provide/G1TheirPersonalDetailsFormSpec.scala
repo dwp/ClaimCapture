@@ -67,5 +67,23 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
         theirPersonalDetails => "This mapping should not happen." must equalTo("Valid")
       )
     }
+
+    "reject first and last names with forbidden characters" in {
+      G1TheirPersonalDetails.form.bind(
+        Map("title" -> "Mr",
+          "firstName" -> "Fir>name;",
+          "middleName" -> "Mc",
+          "surname" -> "Surname<",
+          "dateOfBirth.day" -> "3",
+          "dateOfBirth.month" -> "4",
+          "dateOfBirth.year" -> "1980",
+          "liveAtSameAddressCareYouProvide" -> "yes"
+        )
+      ).fold(formWithErrors => {
+        formWithErrors.errors.length must equalTo(2)
+        formWithErrors.errors.head.message must equalTo("error.forbidden.characters")
+      },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
   } section("unit", models.domain.CareYouProvide.id)
 }

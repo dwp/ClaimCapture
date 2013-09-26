@@ -13,9 +13,9 @@ import YourPartner._
 object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "title" -> nonEmptyText(maxLength = 4),
-    "firstName" -> nonEmptyText(maxLength = Name.maxLength),
+    "firstName" -> nonEmptyText(maxLength = Name.maxLength).verifying(validForbiddenCharacters),
     "middleName" -> optional(text(maxLength = Name.maxLength)),
-    "surname" -> nonEmptyText(maxLength = Name.maxLength),
+    "surname" -> nonEmptyText(maxLength = Name.maxLength).verifying(validForbiddenCharacters),
     "otherNames" -> optional(text(maxLength = sixty)),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNinoOnly)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),

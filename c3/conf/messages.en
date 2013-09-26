@@ -518,3 +518,7 @@ lastName = Last name
 #DECLARATION
 obtainInfoAgreement = Do you agree to us obtaining information from any other persons or organisations you may have listed on this form?
 obtainInfoWhy = Please tell us why not
+
+#ERROR MESSAGES
+error.required = This is required
+error.forbidden.characters = A name must not contain special characters
