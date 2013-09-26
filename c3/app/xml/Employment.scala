@@ -4,7 +4,6 @@ import scala.language.reflectiveCalls
 import scala.xml.{NodeSeq, Elem}
 import models.domain._
 import xml.XMLHelper._
-import models.{DayMonthYearComparator, DayMonthYear}
 import app.XMLValues._
 
 object Employment {
@@ -185,15 +184,6 @@ object Employment {
       }) match {
         case i if i > 0 => yes
         case _ => no
-      }
-
-      // The date when he last worked will be the greater date of all the "last work date" dates of all the jobs.
-      val dateLastWorked = jobsQG.jobs.map(_.apply(JobDetails) match {
-        case Some(j: JobDetails) => j.lastWorkDate
-        case _ => None
-      }).max(DayMonthYearComparator) match {
-        case Some(d) => d
-        case _ => DayMonthYear()
       }
 
       <Employment>
