@@ -2,6 +2,6 @@
 
 @import utils.helpers._
 
-@if(elements.hasErrors){ <li class="validation"> } else { <li> }
+<li @if(elements.hasErrors) { class="validation" }>
     @commonTemplate(elements)
 </li>
