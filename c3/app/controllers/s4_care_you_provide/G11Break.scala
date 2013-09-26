@@ -1,13 +1,16 @@
 package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import controllers.Mappings._
 import utils.helpers.CarersForm._
 import CareYouProvide.breaksInCare
-import models.domain.{BreaksInCare, Break}
+import models.domain.BreaksInCare
 import models.view.CachedClaim
+import play.api.data.FormError
+import scala.Some
+import models.domain.Break
 
 object G11Break extends Controller with CachedClaim {
   val form = Form(mapping(
@@ -42,11 +45,7 @@ object G11Break extends Controller with CachedClaim {
   def break(id: String) = executeOnForm { implicit claim => implicit request =>
     claim.questionGroup(BreaksInCare) match {
       case Some(b: BreaksInCare) => b.breaks.find(_.id == id) match {
-        case Some(b: Break) => {
-          println(s"Break to Change = $b")
-          println(s"... and the filled in form = ${form.fill(b)}")
-          Ok(views.html.s4_care_you_provide.g11_break(form.fill(b)))
-        }
+        case Some(b: Break) => Ok(views.html.s4_care_you_provide.g11_break(form.fill(b)))
         case _ => Redirect(routes.G10BreaksInCare.present())
       }
 
