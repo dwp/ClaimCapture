@@ -14,8 +14,8 @@ import models.domain.Break
 object G11Break extends Controller with CachedClaim {
   val form = Form(mapping(
     "breakID" -> nonEmptyText,
-    "start" -> required(jodaDateTime()),
-    "end" -> optional(jodaDateTime()),
+    "start" -> required(dayMonthYear()),
+    "end" -> optional(dayMonthYear()),
     "whereYou" -> whereabouts.verifying(requiredWhereabouts),
     "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
     "medicalDuringBreak" -> nonEmptyText

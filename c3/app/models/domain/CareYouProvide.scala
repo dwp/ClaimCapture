@@ -5,7 +5,6 @@ import models.Whereabouts
 import models.MultiLineAddress
 import models.NationalInsuranceNumber
 import yesNo.YesNoWithDate
-import org.joda.time.DateTime
 
 case object CareYouProvide extends Section.Identifier {
   val id = "s4"
@@ -58,6 +57,6 @@ case object BreaksInCare extends QuestionGroup.Identifier {
 }
 
 case class Break(id: String = "",
-                 start: DateTime = DateTime.now, end: Option[DateTime] = None,
+                 start: DayMonthYear = DayMonthYear(None, None, None), end: Option[DayMonthYear] = None,
                  whereYou: Whereabouts = Whereabouts(), wherePerson: Whereabouts=Whereabouts(),
                  medicalDuringBreak: String = "")

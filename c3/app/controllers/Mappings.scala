@@ -75,27 +75,35 @@ object Mappings {
     mapping.verifying(required)
   }
 
-  def jodaDateTime(dateTimePatterns: String*): Mapping[DateTime] = mapping(
-    "date" -> nonEmptyText.verifying(validDateTimePattern(dateTimePatterns: _*)).transform(stringToDateTime(dateTimePatterns: _*), dateTimeToString),
+  def dayMonthYear(datePatterns: String*): Mapping[DayMonthYear] = mapping(
+    "date" -> nonEmptyText.verifying(validDayMonthYear(datePatterns: _*)).transform(stringToDayMonthYear(datePatterns: _*), (dmy: DayMonthYear) => dmy.`dd month, yyyy`),
     "hour" -> optional(number(min = 0, max = 24)),
     "minutes" -> optional(number(min = 0, max = 60))
-  )((dt, h, m) => new DateTime(dt.year().get(), dt.monthOfYear().get(), dt.dayOfMonth().get(), h.getOrElse(0), m.getOrElse(0))
-   )((dt: DateTime) => Some((dt, Some(dt.getHourOfDay), Some(dt.getMinuteOfHour))))
+  )((dmy, h, m) => (h, m) match {
+      case (Some(h), Some(m)) => dmy.withTime(h, m)
+      case _ => dmy
+    }
+   )((dmy: DayMonthYear) => Some((dmy, dmy.hour, dmy.minutes)))
 
-  def validDateTimePattern(dateTimePatterns: String*) = (date: String) => Try(stringToDateTime(dateTimePatterns: _*)(date)).isSuccess
+  def validDayMonthYear(datePatterns: String*) = (date: String) => Try(stringToDayMonthYear(datePatterns: _*)(date)).isSuccess
 
-  def stringToDateTime(dateTimePatterns: String*) = (date: String) => {
-    val dateTimePatternDefault = "dd MMMM, yyyy"
+  def stringToDayMonthYear(datePatterns: String*) = (date: String) => {
+    val datePatternDefault = "dd MMMM, yyyy"
 
-    def dateTime(dtps: List[String]): DateTime = dtps match {
-      case Nil => DateTimeFormat.forPattern(dateTimePatternDefault).parseDateTime(date)
-      case h :: t => Try(DateTimeFormat.forPattern(h).parseDateTime(date)).getOrElse(dateTime(t))
+    def jodaDateTime(datePattern: String) = DateTimeFormat.forPattern(datePattern).parseDateTime(date)
+
+    def dmy(datePattern: String) = {
+      val jdt = jodaDateTime(datePattern)
+      DayMonthYear(jdt.getDayOfMonth, jdt.getMonthOfYear, jdt.getYear)
     }
 
-    dateTime(if (dateTimePatterns.isEmpty) List(dateTimePatternDefault, "dd MMMM yyyy", "dd/MM/yyyy") else dateTimePatterns.toList)
-  }
+    def dayMonthYear(dps: List[String]): DayMonthYear = dps match {
+      case Nil => dmy(datePatternDefault)
+      case h :: t => Try(dmy(h)).getOrElse(dayMonthYear(t))
+    }
 
-  def dateTimeToString(dateTime: DateTime) = DateTimeFormat.forPattern("dd MMMM, yyyy").print(dateTime)
+    dayMonthYear(if (datePatterns.isEmpty) List(datePatternDefault, "dd MMMM yyyy", "dd/MM/yyyy") else datePatterns.toList)
+  }
 
   def requiredStreet: Constraint[Street] = Constraint[Street]("constraint.required") { street =>
     street match {
