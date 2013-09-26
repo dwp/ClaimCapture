@@ -36,7 +36,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
 
       next
       titleMustEqual("Break - About the care you provide")
-      findAll("div[class=validation-summary] ol li").size shouldEqual 4
+      findAll("div[class=validation-summary] ol li").size shouldEqual 3
     }
 
     """show 2 breaks in "break table" upon providing 2 breaks""" in new WithBrowser with BreakFiller with WithBrowserHelper with BrowserMatchers {

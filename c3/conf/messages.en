@@ -112,6 +112,7 @@ s11.g5 = Documents you need to send us
 date.helper = eg: 27 June 2013
 please.specify =  Please specify...
 error.required = This is required
+error.unknown = Invalid
 error.date = This is required
 
 ## CARERS ALLOWANCE

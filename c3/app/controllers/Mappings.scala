@@ -86,15 +86,14 @@ object Mappings {
   def validDateTimePattern(dateTimePatterns: String*) = (date: String) => Try(stringToDateTime(dateTimePatterns: _*)(date)).isSuccess
 
   def stringToDateTime(dateTimePatterns: String*) = (date: String) => {
-    val longDateTimePattern = "dd MMMM, yyyy"
-    val shortDateTimePattern = "dd/MM/yyyy"
+    val dateTimePatternDefault = "dd MMMM, yyyy"
 
-    def dateTime(dtp: List[String]): DateTime = dtp match {
-      case Nil => DateTimeFormat.forPattern(longDateTimePattern).parseDateTime(date)
+    def dateTime(dtps: List[String]): DateTime = dtps match {
+      case Nil => DateTimeFormat.forPattern(dateTimePatternDefault).parseDateTime(date)
       case h :: t => Try(DateTimeFormat.forPattern(h).parseDateTime(date)).getOrElse(dateTime(t))
     }
 
-    dateTime(if (dateTimePatterns.isEmpty) List(longDateTimePattern, shortDateTimePattern, "dd MMMM yyyy") else dateTimePatterns.toList)
+    dateTime(if (dateTimePatterns.isEmpty) List(dateTimePatternDefault, "dd MMMM yyyy", "dd/MM/yyyy") else dateTimePatterns.toList)
   }
 
   def dateTimeToString(dateTime: DateTime) = DateTimeFormat.forPattern("dd MMMM, yyyy").print(dateTime)

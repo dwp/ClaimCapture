@@ -48,7 +48,7 @@ object CarersForm {
         }
       }
 
-      form.copy(errors = updatedFormErrors)
+      form.copy(errors = updatedFormErrors.foldLeft(Seq[FormError]()) { (z, fe) => if (z.groupBy(_.key).contains(fe.key)) z else z :+ fe })
     }
 
     def replaceError(key: String, message: String, newError: FormError): Form[T] = {
