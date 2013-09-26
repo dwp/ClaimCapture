@@ -2,9 +2,8 @@ package controllers.s4_care_you_provide
 
 import play.api.data.{FormError, Form}
 import org.specs2.mutable.{Tags, Specification}
-import models.Whereabouts
+import models.{DayMonthYear, Whereabouts}
 import models.domain.Break
-import org.joda.time.DateTime
 
 class BreakFormSpec extends Specification with Tags {
   val data = Map(
@@ -28,7 +27,7 @@ class BreakFormSpec extends Specification with Tags {
       val b: Break = G11Break.form.bind(data - "end.date" - "end.hour" - "end.minutes").get
 
       b.id shouldEqual "id1"
-      b.start shouldEqual new DateTime(2001, 1, 1, 14, 55)
+      b.start shouldEqual DayMonthYear(1, 1, 2001).withTime(14, 55)
       b.end should beNone
       b.whereYou shouldEqual Whereabouts("Holiday")
       b.wherePerson shouldEqual Whereabouts("Holiday")
@@ -39,8 +38,8 @@ class BreakFormSpec extends Specification with Tags {
       val b: Break = G11Break.form.bind(data).get
 
       b.id shouldEqual "id1"
-      b.start shouldEqual new DateTime(2001, 1, 1, 14, 55)
-      b.end should beSome(new DateTime(2001, 2, 25, 9, 0))
+      b.start shouldEqual DayMonthYear(1, 1, 2001).withTime(14, 55)
+      b.end should beSome(DayMonthYear(25, 2, 2001).withTime(9, 0))
       b.whereYou shouldEqual Whereabouts("Holiday")
       b.wherePerson shouldEqual Whereabouts("Holiday")
       b.medicalDuringBreak shouldEqual "no"
@@ -69,7 +68,7 @@ class BreakFormSpec extends Specification with Tags {
       val b: Break = G11Break.form.bind(data - "end.date" - "end.hour" - "end.minutes" + ("start.date" -> "1/02/1999")).get
 
       b.id shouldEqual "id1"
-      b.start shouldEqual new DateTime(1999, 2, 1, 14, 55)
+      b.start shouldEqual DayMonthYear(1, 2, 1999).withTime(14, 55)
       b.end should beNone
       b.whereYou shouldEqual Whereabouts("Holiday")
       b.wherePerson shouldEqual Whereabouts("Holiday")
