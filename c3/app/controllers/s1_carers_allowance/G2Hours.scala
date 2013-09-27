@@ -16,11 +16,11 @@ object G2Hours extends Controller with CachedClaim with Navigable {
     "answer" -> nonEmptyText.verifying(validYesNo)
   )(Hours.apply)(Hours.unapply))
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     track(Hours) { implicit claim => Ok(views.html.s1_carers_allowance.g2_hours(form.fill(Hours))) }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

@@ -22,7 +22,7 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
     "relationToPersonYouCare" -> nonEmptyText
   )(PersonYouCareForExpenses.apply)(PersonYouCareForExpenses.unapply))
 
-  def present(jobID: String) = executeOnForm { implicit claim => implicit request =>
+  def present(jobID: String) = claiming { implicit claim => implicit request =>
     jobs.questionGroup(jobID, AboutExpenses) match {
       case Some(a: AboutExpenses) if a.payAnyoneToLookAfterPerson == `yes`=>
         track(PersonYouCareForExpenses) { implicit claim => Ok(views.html.s7_employment.g12_personYouCareForExpenses(form.fillWithJobID(PersonYouCareForExpenses, jobID))) }

@@ -10,7 +10,7 @@ import play.api.libs.ws.Response
 import play.api.Play.current
 import services.TransactionIdService
 import services.submission.FormSubmission
-import models.domain.DigitalForm
+import models.domain.Claim
 import ExecutionContext.Implicits.global
 import play.Configuration
 
@@ -18,12 +18,12 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
   val thankYouPageUrl = Configuration.root().getString("thankyou.page")
 
-  def submit(claim: DigitalForm, request : Request[AnyContent]): Future[PlainResult] = {
-    retrieveRetryData(claim.cacheKey, request) match {
+  override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
+    retrieveRetryData(claim.key, request) match {
       case Some(retryData) => {
         claimSubmission.retryClaim(pollXml(retryData.corrId, retryData.pollUrl)).map(
           response => {
-            processResponse(claim.cacheKey, retryData.txnId, response, request)
+            processResponse(claim.key, retryData.txnId, response, request)
           }
         ).recover {
           case e: java.net.ConnectException => {
@@ -32,19 +32,18 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(RETRY) ! ${e.getMessage}")
-            errorAndCleanup(claim.cacheKey,retryData.txnId, UNKNOWN_ERROR)
+            errorAndCleanup(claim.key,retryData.txnId, UNKNOWN_ERROR)
           }
         }
       }
       case None => {
-        val txnId = idService.generateId
-        Logger.info(s"Retrieved Id : $txnId")
-        val claimXml = claim.xml(txnId)
+        val txnID = idService.generateId
+        Logger.info(s"Retrieved Id : $txnID")
 
-        claimSubmission.submitClaim(claimXml).map(
+        claimSubmission.submitClaim(xml(claim, txnID)).map(
           response => {
-            idService.registerId(txnId, SUBMITTED)
-            processResponse(claim.cacheKey, txnId, response, request)
+            idService.registerId(txnID, SUBMITTED)
+            processResponse(claim.key, txnID, response, request)
           }
         ).recover {
           case e: java.net.ConnectException => {
@@ -53,7 +52,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
-            errorAndCleanup(claim.cacheKey,txnId, UNKNOWN_ERROR)
+            errorAndCleanup(claim.key, txnID, UNKNOWN_ERROR)
           }
         }
       }

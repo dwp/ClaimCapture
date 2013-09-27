@@ -1,19 +1,14 @@
 package xml
 
-import models.domain.Circs
+import models.domain.Claim
 import scala.xml.Elem
 import play.api.Logger
 import app.XMLValues._
 
-/**
- * Generate XML for a Change of Circumstances.
- * @author Jorge Migueis
- *         Date: 11/09/2013
- */
 object DWPCoCircs {
-
-  def xml(circs: Circs, transactionId : String):Elem = {
+  def xml(circs: Claim, transactionId : String):Elem = {
     Logger.info(s"Build DWPCoCircs : $transactionId")
+
     <DWPCAChangeOfCircumstances id={transactionId}>
       <InitialQuestions>
         <ChangeAddress>{NotAsked}</ChangeAddress>

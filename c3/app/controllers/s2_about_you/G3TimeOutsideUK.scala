@@ -32,14 +32,14 @@ object G3TimeOutsideUK extends Controller with CachedClaim with Navigable {
     livingInUKMapping
   )(TimeOutsideUK.apply)(TimeOutsideUK.unapply))
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     claim.questionGroup(YourDetails) match {
       case Some(y: YourDetails) if y.alwaysLivedUK == "yes" => claim.delete(TimeOutsideUK) -> Redirect(routes.G4ClaimDate.present())
       case _ => track(TimeOutsideUK) { implicit claim => Ok(views.html.s2_about_you.g3_timeOutsideUK(form.fill(TimeOutsideUK))) }
     }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

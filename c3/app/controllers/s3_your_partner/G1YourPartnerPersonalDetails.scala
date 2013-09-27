@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{Request, AnyContent, Controller}
 import controllers.Mappings._
-import models.domain.{DigitalForm, YourPartnerPersonalDetails}
+import models.domain.{Claim, YourPartnerPersonalDetails}
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm.formBinding
 import YourPartner._
@@ -23,15 +23,15 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
     "separated.fromPartner" -> nonEmptyText.verifying(validYesNo)
   )(YourPartnerPersonalDetails.apply)(YourPartnerPersonalDetails.unapply))
 
-  def present = executeOnForm { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     presentConditionally(yourPartnerPersonalDetails)
   }
 
-  def yourPartnerPersonalDetails(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
+  def yourPartnerPersonalDetails(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     track(YourPartnerPersonalDetails) { implicit claim => Ok(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(form.fill(YourPartnerPersonalDetails))) }
   }
 
-  def submit = executeOnForm { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s3_your_partner.g1_yourPartnerPersonalDetails(formWithErrors)),
       f => claim.update(f) -> Redirect(routes.G4PersonYouCareFor.present())

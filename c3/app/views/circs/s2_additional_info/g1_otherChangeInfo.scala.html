@@ -1,4 +1,4 @@
-@(otherInfoForm: Form[models.domain.CircumstancesOtherInfo])(implicit claim: models.domain.DigitalForm)
+@(otherInfoForm: Form[models.domain.CircumstancesOtherInfo])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -9,25 +9,21 @@
 @import views.html.helper.dates._
 @import controllers.Mappings._
 
-
 @main(Messages("c2.g1") + " - " + Messages("c2.name")) {
-@errorsSummary(otherInfoForm)
+    @errorsSummary(otherInfoForm)
 
+    @form(action = controllers.circs.s2_additional_info.routes.G1OtherChangeInfo.submit) {
+        <fieldset class="form-elements">
+            <legend>@Messages("c2.g1")</legend>
 
+            <ul class="group">
+                @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000)
+            </ul>
+        </fieldset>
 
-
-@form(action = controllers.circs.s2_additional_info.routes.G1OtherChangeInfo.submit) {
-<fieldset class="form-elements">
-    <legend>@Messages("c2.g1")</legend>
-
-    <ul class="group">
-        @carersInputTextArea(otherInfoForm("changeInCircs"), 'maxLength -> 2000)
-    </ul>
-</fieldset>
-
-<nav class="form-steps">
-    <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
-    <button type="submit" name="action" value="next" class="button">Next</button>
-</nav>
-}
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
+            <button type="submit" name="action" value="next" class="button">Next</button>
+        </nav>
+    }
 }

@@ -4,8 +4,6 @@ import app.XMLValues._
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
 import models.{Street, DayMonthYear, MultiLineAddress, NationalInsuranceNumber}
-import models.domain.Circs
-import scala.Some
 
 class IdentificationSpec extends Specification with Tags {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
@@ -31,8 +29,8 @@ class IdentificationSpec extends Specification with Tags {
 
   "Identification" should {
     "generate Claimant xml from a given circumstances" in {
-      val claim = Circs().update(yourDetails).update(contactDetails)
-      val xml = Identification.xml(claim.asInstanceOf[Circs])
+      val claim = Claim().update(yourDetails).update(contactDetails)
+      val xml = Identification.xml(claim)
 
       (xml \\ "Surname").text shouldEqual yourDetails.lastName
       (xml \\ "OtherNames").text shouldEqual yourDetails.otherNames
@@ -47,8 +45,8 @@ class IdentificationSpec extends Specification with Tags {
     }
 
     "generate Caree xml from a given circumstances" in {
-      val claim = Circs().update(careeDetails)
-      val xml = Identification.xml(claim.asInstanceOf[Circs])
+      val claim = Claim().update(careeDetails)
+      val xml = Identification.xml(claim)
 
       (xml \\ "Surname").text shouldEqual careeDetails.lastName
       (xml \\ "OtherNames").text shouldEqual careeDetails.otherNames

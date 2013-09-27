@@ -1,36 +1,36 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.DigitalForm)
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim)
 
 @import models.domain.CircumstancesAboutYou
 @import helper._
 
 @common.govMain(title) {
 
-<div class="carers-allowance">
+    <div class="carers-allowance">
 
-    @common.protoType()
+        @common.protoType()
 
-    <section>
+        <section>
 
-        <h1>Declaration</h1>
+            <h1>Declaration</h1>
 
-        @if(completedQuestionGroups.size > 0) {
-            <div class="completed">
-                <ul>
-                    @for((completedQuestionGroup, call) <- completedQuestionGroups) {
-                    <li>
-                        <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                        <a href="@call">Change these answers</a>
-                    </li>
-                    }
-                </ul>
-            </div>
-        }
+            @if(completedQuestionGroups.size > 0) {
+                <div class="completed">
+                    <ul>
+                        @for((completedQuestionGroup, call) <- completedQuestionGroups) {
+                        <li>
+                            <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
+                            <a href="@call">Change these answers</a>
+                        </li>
+                        }
+                    </ul>
+                </div>
+            }
 
-        @if(currentForm.isDefined) {
-            @errorsSummary(currentForm.get)
-        }
+            @if(currentForm.isDefined) {
+                @errorsSummary(currentForm.get)
+            }
 
-        @content
-    </section>
-</div>
+            @content
+        </section>
+    </div>
 }

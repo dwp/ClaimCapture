@@ -15,29 +15,28 @@ import utils.helpers.PastPresentLabelHelper._
 import models.view.Navigable
 
 object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
-  def form(implicit claim: DigitalForm) = Form(
-    mapping(
-      "nameOfPerson" -> nonEmptyText(maxLength = sixty),
-      "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
-      "howOftenPayExpenses" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
-      "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
-      "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
-      "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
-    )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply)
-      .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
+  def form(implicit claim: Claim) = Form(mapping(
+    "nameOfPerson" -> nonEmptyText(maxLength = sixty),
+    "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
+    "howOftenPayExpenses" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
+    "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
+    "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
+    "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
+  )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply)
+    .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
 
-  def validateRelationToPartner(implicit claim: DigitalForm, expensesWhileAtWork: ExpensesWhileAtWork) = {
+  def validateRelationToPartner(implicit claim: Claim, expensesWhileAtWork: ExpensesWhileAtWork) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
       case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => expensesWhileAtWork.relationToPartner.isDefined
       case _ => true
     }
   }
 
-  def present = executeOnForm { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     presentConditionally(expensesWhileAtWork)
   }
 
-  def expensesWhileAtWork(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
+  def expensesWhileAtWork(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val payToLookPersonYouCareFor = claim.questionGroup(SelfEmploymentPensionsAndExpenses) match {
       case Some(s: SelfEmploymentPensionsAndExpenses) => s.didYouPayToLookAfterThePersonYouCaredFor == `yes`
       case _ => false
@@ -49,7 +48,7 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
     }
   }
 
-  def submit = executeOnForm { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

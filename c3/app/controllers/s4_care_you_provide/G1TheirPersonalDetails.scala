@@ -20,7 +20,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
     "liveAtSameAddressCareYouProvide" -> nonEmptyText.verifying(validYesNo)
   )(TheirPersonalDetails.apply)(TheirPersonalDetails.unapply))
 
-  def present = executeOnForm { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     val isPartnerPersonYouCareFor = YourPartner.visible &&
                                     claim.questionGroup[PersonYouCareFor].exists(_.isPartnerPersonYouCareFor == "yes")
 
@@ -39,7 +39,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
     track(TheirPersonalDetails) { implicit claim => Ok(views.html.s4_care_you_provide.g1_theirPersonalDetails(currentForm)) }
   }
 
-  def submit = executeOnForm { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s4_care_you_provide.g1_theirPersonalDetails(formWithErrors)),
       theirPersonalDetails => claim.update(theirPersonalDetails) -> Redirect(routes.G2TheirContactDetails.present()))

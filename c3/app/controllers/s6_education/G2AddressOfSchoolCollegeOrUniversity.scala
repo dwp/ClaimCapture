@@ -20,11 +20,11 @@ object G2AddressOfSchoolCollegeOrUniversity extends Controller with CachedClaim 
     "faxNumber" -> optional(text verifying validPhoneNumber)
   )(AddressOfSchoolCollegeOrUniversity.apply)(AddressOfSchoolCollegeOrUniversity.unapply))
 
-  def present = executeOnForm { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     track(AddressOfSchoolCollegeOrUniversity) { implicit claim => Ok(views.html.s6_education.g2_addressOfSchoolCollegeOrUniversity(form.fill(AddressOfSchoolCollegeOrUniversity))) }
   }
 
-  def submit = executeOnForm { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s6_education.g2_addressOfSchoolCollegeOrUniversity(formWithErrors)),
       f => claim.update(f) -> Redirect(routes.Education.completed()))

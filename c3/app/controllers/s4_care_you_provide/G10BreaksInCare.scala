@@ -16,7 +16,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
     "answer" -> nonEmptyText.verifying(validYesNo)
   )(YesNo.apply)(YesNo.unapply))
 
-  def present = executeOnForm { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     val filledForm = request.headers.get("referer") match {
       case Some(referer) if referer endsWith routes.G11Break.present().url => form
       case _ if claim.questionGroup[BreaksInCare].isDefined => form.fill(YesNo(no))
@@ -26,7 +26,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
     track(BreaksInCare) { implicit claim => Ok(views.html.s4_care_you_provide.g10_breaksInCare(filledForm, breaksInCare)) }
   }
 
-  def submit = executeOnForm { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     import controllers.Mappings.yes
 
     def next(hasBreaks: YesNo) = hasBreaks.answer match {
@@ -40,7 +40,7 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
       hasBreaks => claim.update(breaksInCare) -> next(hasBreaks))
   }
 
-  def delete(id: String) = executeOnForm { implicit claim => implicit request =>
+  def delete(id: String) = claiming { implicit claim => implicit request =>
     import play.api.libs.json.Json
 
     claim.questionGroup(BreaksInCare) match {

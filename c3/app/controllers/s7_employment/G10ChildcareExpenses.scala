@@ -13,7 +13,7 @@ import controllers.s7_employment.Employment._
 import utils.helpers.PastPresentLabelHelper._
 
 object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
-  def form(implicit claim: DigitalForm) = Form(mapping(
+  def form(implicit claim: Claim) = Form(mapping(
     "jobID" -> nonEmptyText,
     "whoLooksAfterChildren" -> nonEmptyText,
     "howMuchCostChildcare" -> nonEmptyText.verifying(validDecimalNumber),
@@ -22,18 +22,17 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
     "relationToPartner" -> optional(nonEmptyText),
     "relationToPersonYouCare" -> nonEmptyText
   )(ChildcareExpenses.apply)(ChildcareExpenses.unapply)
-    .verifying("relationToPartner.required", validateRelationToPartner(claim, _))
-  )
+    .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
 
 
-  def validateRelationToPartner(implicit claim: DigitalForm, childcareExpenses: ChildcareExpenses) = {
+  def validateRelationToPartner(implicit claim: Claim, childcareExpenses: ChildcareExpenses) = {
     claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
       case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => childcareExpenses.relationToPartner.isDefined
       case _ => true
     }
   }
 
-  def present(jobID: String) = executeOnForm {implicit claim => implicit request =>
+  def present(jobID: String) = claiming { implicit claim => implicit request =>
     jobs.questionGroup(jobID, AboutExpenses) match {
       case Some(a: AboutExpenses) if a.payAnyoneToLookAfterChildren == `yes`=>
         track(ChildcareExpenses) { implicit claim => Ok(views.html.s7_employment.g10_childcareExpenses(form.fillWithJobID(ChildcareExpenses, jobID))) }

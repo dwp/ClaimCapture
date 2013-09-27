@@ -1,19 +1,13 @@
 package xml
 
-import models.domain.{CircumstancesDeclaration, Circs}
+import models.domain.{Claim, CircumstancesDeclaration}
 import scala.xml.NodeSeq
-
 import xml.XMLHelper._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 
-/**
- * @author Jorge Migueis
- *         Date: 13/09/2013
- */
 object ConsentAndDeclaration {
-
-  def xml(circs :Circs):NodeSeq = {
+  def xml(circs: Claim): NodeSeq = {
     val declaration = circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration())
 
     <Declaration>
@@ -33,7 +27,6 @@ object ConsentAndDeclaration {
     </EvidenceList>
   }
 
-
   def textSeparatorLine(title: String) = {
     val lineWidth = 54
     val padding = "=" * ((lineWidth - title.length) / 2)
@@ -42,5 +35,4 @@ object ConsentAndDeclaration {
       {s"$padding$title$padding"}
     </TextLine>
   }
-
 }

@@ -3,7 +3,7 @@ package controllers.circs.s1_identification
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeRequest, WithApplication}
 import models.domain._
-import models.view.CachedCircs
+import models.view.CachedChangeOfCircs
 import play.api.test.Helpers._
 import play.api.cache.Cache
 import models.{NationalInsuranceNumber, DayMonthYear}
@@ -43,18 +43,18 @@ class G1AboutYouSpec extends Specification with Tags{
     )
 
     "present 'Circumstances About You' " in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedCircs.key -> claimKey)
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
 
       val result = controllers.circs.s1_identification.G1AboutYou.present(request)
       status(result) mustEqual OK
     }
 
     "add submitted form to the cached claim" in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedCircs.key -> claimKey)
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
       val result = controllers.circs.s1_identification.G1AboutYou.submit(request)
-      val claim = Cache.getAs[DigitalForm](claimKey).get
+      val claim = Cache.getAs[Claim](claimKey).get
       val section: Section = claim.section(models.domain.CircumstancesIdentification)
       section.questionGroup(CircumstancesAboutYou) must beLike {
         case Some(f: CircumstancesAboutYou) => {
@@ -69,7 +69,7 @@ class G1AboutYouSpec extends Specification with Tags{
     }
 
     "missing mandatory field" in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedCircs.key -> claimKey)
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody("firstName" -> "")
 
       val result = controllers.circs.s1_identification.G1AboutYou.submit(request)
@@ -77,7 +77,7 @@ class G1AboutYouSpec extends Specification with Tags{
     }
 
     "redirect to the next page after a valid submission" in new WithApplication with MockForm {
-      val request = FakeRequest().withSession(CachedCircs.key -> claimKey)
+      val request = FakeRequest().withSession(CachedChangeOfCircs.key -> claimKey)
         .withFormUrlEncodedBody(aboutYouInput: _*)
 
       val result = controllers.circs.s1_identification.G1AboutYou.submit(request)

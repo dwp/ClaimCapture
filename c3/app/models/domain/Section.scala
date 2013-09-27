@@ -51,14 +51,12 @@ case object Section {
 
   trait Identifier {
     val id: String
-
-    //val expectedMinTimeToCompleteInMillis: Long
     
     def index = id.drop(1).toInt
 
-    def name(implicit claim: DigitalForm) = claim.section(this).name
+    def name(implicit claim: Claim) = claim.section(this).name
 
-    def visible(implicit claim: DigitalForm) = claim.section(this).visible
+    def visible(implicit claim: Claim) = claim.section(this).visible
 
     override def equals(other: Any) = other match {
       case that: Identifier => id == that.id

@@ -1,4 +1,4 @@
-@(contactDetailsForm: Form[models.domain.CircumstancesYourContactDetails])(implicit claim: models.domain.DigitalForm)
+@(contactDetailsForm: Form[models.domain.CircumstancesYourContactDetails])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -6,10 +6,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 
-
 @main(Messages("c1.g2") + " - " + Messages("c1.longName"), Some(contactDetailsForm), claim.completedQuestionGroups(models.domain.CircumstancesYourContactDetails)) {
-
-
 
     @form(action = controllers.circs.s1_identification.routes.G2YourContactDetails.submit) {
         <fieldset class="form-elements">

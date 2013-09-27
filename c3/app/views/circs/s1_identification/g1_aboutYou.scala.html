@@ -1,4 +1,4 @@
-@(aboutYouForm: Form[models.domain.CircumstancesAboutYou])(implicit claim: models.domain.DigitalForm)
+@(aboutYouForm: Form[models.domain.CircumstancesAboutYou])(implicit claim: models.domain.Claim)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -10,8 +10,6 @@
 @import controllers.Mappings._
 
 @main(Messages("c1.g1") + " - " + Messages("c1.longName"), Some(aboutYouForm), claim.completedQuestionGroups(models.domain.CircumstancesAboutYou)) {
-
-
 
     @form(action = controllers.circs.s1_identification.routes.G1AboutYou.submit) {
         <fieldset class="form-elements">

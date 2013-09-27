@@ -8,7 +8,7 @@ import play.api.mvc.Request
 import play.api.mvc.AnyContent
 import play.api.data.FormError
 import controllers.Mappings._
-import models.domain.{DigitalForm, SelfEmploymentPensionsAndExpenses}
+import models.domain.{Claim, SelfEmploymentPensionsAndExpenses}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment._
@@ -16,27 +16,25 @@ import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
 import models.view.Navigable
 
 object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim with Navigable {
-  def form(implicit claim: DigitalForm) = Form(
-    mapping(
-      "doYouPayToPensionScheme" -> nonEmptyText.verifying(validYesNo),
-      "howMuchDidYouPay" -> optional(nonEmptyText verifying validDecimalNumber),
-      "howOften" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
-      "doYouPayToLookAfterYourChildren" -> nonEmptyText.verifying(validYesNo),
-      "didYouPayToLookAfterThePersonYouCaredFor" -> nonEmptyText.verifying(validYesNo)
-    )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply)
-      .verifying("howMuchDidYouPay", SelfEmploymentPensionsAndExpenses.validateHowMuchSelfEmployed _)
-      .verifying("howOften", SelfEmploymentPensionsAndExpenses.validateHowOftenSelfEmployed _)
-  )
+  def form(implicit claim: Claim) = Form(mapping(
+    "doYouPayToPensionScheme" -> nonEmptyText.verifying(validYesNo),
+    "howMuchDidYouPay" -> optional(nonEmptyText verifying validDecimalNumber),
+    "howOften" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
+    "doYouPayToLookAfterYourChildren" -> nonEmptyText.verifying(validYesNo),
+    "didYouPayToLookAfterThePersonYouCaredFor" -> nonEmptyText.verifying(validYesNo)
+  )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply)
+    .verifying("howMuchDidYouPay", SelfEmploymentPensionsAndExpenses.validateHowMuchSelfEmployed _)
+    .verifying("howOften", SelfEmploymentPensionsAndExpenses.validateHowOftenSelfEmployed _))
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     presentConditionally(selfEmploymentYourAccounts)
   }
 
-  def selfEmploymentYourAccounts(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
+  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     track(SelfEmploymentPensionsAndExpenses) { implicit claim => Ok(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(form.fill(SelfEmploymentPensionsAndExpenses))) }
   }
   
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val pastPresent = didYouDoYouIfSelfEmployed

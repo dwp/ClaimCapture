@@ -9,7 +9,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.OK
 import play.api.test.Helpers.status
 import play.api.test.WithApplication
-import models.view.CachedDigitalForm
 
 class ThankYouSpec extends Specification with Mockito with Tags {
   "Thank You - Controller" should {

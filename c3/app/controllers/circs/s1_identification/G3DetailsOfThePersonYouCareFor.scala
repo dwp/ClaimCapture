@@ -4,12 +4,12 @@ import language.reflectiveCalls
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
-import models.view.{Navigable, CachedCircs}
+import models.view.{Navigable, CachedChangeOfCircs}
 import controllers.Mappings._
 import models.domain.DetailsOfThePersonYouCareFor
 import utils.helpers.CarersForm._
 
-object G3DetailsOfThePersonYouCareFor extends Controller with CachedCircs with Navigable {
+object G3DetailsOfThePersonYouCareFor extends Controller with CachedChangeOfCircs with Navigable {
   val firstName = "firstName"
   val middleName = "middleName"
   val lastName = "lastName"
@@ -24,18 +24,16 @@ object G3DetailsOfThePersonYouCareFor extends Controller with CachedCircs with N
     dateOfBirth -> dayMonthYear.verifying(validDate)
   )(DetailsOfThePersonYouCareFor.apply)(DetailsOfThePersonYouCareFor.unapply))
 
-  def present = executeOnForm {
-    implicit claim => implicit request =>
-      track(DetailsOfThePersonYouCareFor) {
-        implicit claim => Ok(views.html.circs.s1_identification.g3_detailsOfThePersonYouCareFor(form.fill(DetailsOfThePersonYouCareFor)))
-      }
+  def present = claiming { implicit claim => implicit request =>
+    track(DetailsOfThePersonYouCareFor) {
+      implicit claim => Ok(views.html.circs.s1_identification.g3_detailsOfThePersonYouCareFor(form.fill(DetailsOfThePersonYouCareFor)))
+    }
   }
 
-  def submit = executeOnForm {
-    implicit claim => implicit request =>
-      form.bindEncrypted.fold(
-        formWithErrors => BadRequest(views.html.circs.s1_identification.g3_detailsOfThePersonYouCareFor(formWithErrors)),
-        f => claim.update(f) -> Redirect(routes.Identification.completed())
-      )
+  def submit = claiming { implicit claim => implicit request =>
+    form.bindEncrypted.fold(
+      formWithErrors => BadRequest(views.html.circs.s1_identification.g3_detailsOfThePersonYouCareFor(formWithErrors)),
+      f => claim.update(f) -> Redirect(routes.Identification.completed())
+    )
   }
 }
