@@ -20,6 +20,8 @@ object CachedClaim {
 trait CachedClaim {
   type ClaimResult = (Claim, Result)
 
+  val cacheKey = CachedClaim.key
+
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
     def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = claim.questionGroup(qi) match {
       case Some(q: Q) => form.fill(q)
@@ -31,8 +33,12 @@ trait CachedClaim {
 
   implicit def claimAndResultToRight(claimingResult: ClaimResult) = Right(claimingResult)
 
+  def newInstance: Claim = new Claim(cacheKey) with FullClaim
+
+  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections)(claim.navigation) with FullClaim
+
   def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get(CachedClaim.key).getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
+    r.session.get(cacheKey).getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
   }
 
   def fromCache(request:Request[AnyContent]): Option[Claim] = {
@@ -45,8 +51,8 @@ trait CachedClaim {
     request => {
       val (key, _) = keyAndExpiration(request)
 
-      val claim = if (request.getQueryString("changing").getOrElse("false") == "false") new Claim(CachedClaim.key) with FullClaim
-                  else Cache.getAs[Claim with FullClaim](key).getOrElse(new Claim(CachedClaim.key) with FullClaim)
+      val claim = if (request.getQueryString("changing").getOrElse("false") == "false") newInstance
+                  else Cache.getAs[Claim](key).getOrElse(newInstance)
 
       action(claim, request)(f)
     }
@@ -56,12 +62,12 @@ trait CachedClaim {
     request => {
 
       fromCache(request) match {
-        case Some(claim) => action(new Claim(claim.key, claim.sections)(claim.navigation) with FullClaim, request)(f)
+        case Some(claim) => action(copyInstance(claim), request)(f)
 
         case None =>
           if (Play.isTest) {
             val (key, expiration) = keyAndExpiration(request)
-            val claim = new Claim(CachedClaim.key) with FullClaim
+            val claim = newInstance
             Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
             action(claim, request)(f)
           } else {
