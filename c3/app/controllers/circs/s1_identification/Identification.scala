@@ -4,16 +4,16 @@ import play.api.mvc.Controller
 import models.view.{Navigable, CachedChangeOfCircs}
 
 object Identification extends Controller with CachedChangeOfCircs with Navigable {
-  def completed = claiming { implicit claim => implicit request =>
-    val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CircumstancesIdentification)
+  def completed = claiming { implicit circs => implicit request =>
+    val completedQuestionGroups = circs.completedQuestionGroups(models.domain.CircumstancesIdentification)
 
     if (completedQuestionGroups.isEmpty) Redirect(routes.G1AboutYou.present())
     else track(models.domain.CircumstancesIdentification) {
-      implicit claim => Ok(views.html.circs.s1_identification.g4_completed())
+      implicit circs => Ok(views.html.circs.s1_identification.g4_completed())
     }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit circs => implicit request =>
     Redirect(controllers.circs.s2_additional_info.routes.G1OtherChangeInfo.present())
   }
 }

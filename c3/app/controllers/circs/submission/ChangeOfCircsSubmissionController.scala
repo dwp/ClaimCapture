@@ -13,14 +13,14 @@ import models.domain.Claim
 @Singleton
 class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs {
 
-  def submit = claiming { implicit claim => implicit request =>
-    if (isBot(claim)) {
+  def submit = claiming { implicit circs => implicit request =>
+    if (isBot(circs)) {
       NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
     }
     else {
       try {
         Async {
-          submitter.submit(claim, request)
+          submitter.submit(circs, request)
         }
       }
       catch {
@@ -39,34 +39,32 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
 
   val checkForBot: Boolean = Configuration.root().getBoolean("checkForBot", false)
 
-  def isBot(claim: Claim): Boolean = {
-    if (checkForBot) checkTimeToCompleteAllSections(claim) || honeyPot(claim)
+  def isBot(circs: Claim): Boolean = {
+    if (checkForBot) checkTimeToCompleteAllSections(circs) || honeyPot(circs)
     else false
   }
 
-  def checkTimeToCompleteAllSections(claim: Claim, currentTime: Long = System.currentTimeMillis()) = {
+  def checkTimeToCompleteAllSections(circs: Claim, currentTime: Long = System.currentTimeMillis()) = {
     val sectionExpectedTimes = Map[String, Long](
-      // Change of circs
       "c1" -> 10000,
       "c2" -> 10000,
       "c3" -> 10000
     )
 
-    val expectedMinTimeToCompleteAllSections: Long = claim.sections.map(s => {
+    val expectedMinTimeToCompleteAllSections: Long = circs.sections.map(s => {
       sectionExpectedTimes.get(s.identifier.id) match {
         case Some(n) => n
         case _ => 0
       }
     }).reduce(_ + _) // Aggregate all of the sectionExpectedTimes for completed sections only.
 
-    val actualTimeToCompleteAllSections: Long = currentTime - claim.created
-    //println("actual: " + actualTimeToCompleteAllSections + ", expected: " + expectedMinTimeToCompleteAllSections)
+    val actualTimeToCompleteAllSections: Long = currentTime - circs.created
     actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
   }
 
-  def honeyPot(claim: Claim): Boolean = {
+  def honeyPot(circs: Claim): Boolean = {
     def checkDeclaration: Boolean = {
-      claim.questionGroup(CircumstancesDeclaration) match {
+      circs.questionGroup(CircumstancesDeclaration) match {
         case Some(q) => {
           val h = q.asInstanceOf[CircumstancesDeclaration]
           if (h.obtainInfoAgreement == "yes") {
