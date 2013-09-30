@@ -17,7 +17,8 @@ object ApplicationBuild extends Build {
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "me.moocar" % "logback-gelf" % "0.9.6p2",
     "com.google.inject" % "guice" % "3.0",
-    "com.tzavellas" % "sse-guice" % "0.7.1"
+    "com.tzavellas" % "sse-guice" % "0.7.1",
+    "com.github.rjeschke" % "txtmark" % "0.10"
   )
 
   var sS: Seq[Project.Setting[_]] = Seq(testOptions in Test += Tests.Argument("sequential", "true"))
