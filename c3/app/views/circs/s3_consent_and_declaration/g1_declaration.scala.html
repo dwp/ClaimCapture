@@ -1,4 +1,4 @@
-@(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.DigitalForm,request: Request[AnyContent])
+@(declarationForm: Form[models.domain.CircumstancesDeclaration])(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -11,12 +11,8 @@
 @import models.domain._
 @import utils.helpers.CarersCrypto
 
-
 @main(Messages("c3.g1") + " - " + Messages("c3.name")) {
     @errorsSummary(declarationForm)
-
-
-
 
     @form(action = controllers.circs.s3_consent_and_declaration.routes.G1Declaration.submit) {
         <fieldset class="form-elements">
@@ -53,10 +49,11 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/circs/s3_consent_and_declaration/g1_declaration.js")'></script>
+
 <script type="text/javascript">
-$(function(){
-    window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
-                      "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
-                      "@CarersCrypto.encryptAES("obtainInfoWhy")");
-})
+    $(function() {
+        window.initEvents("@CarersCrypto.encryptAES("obtainInfoAgreement_yes")",
+                          "@CarersCrypto.encryptAES("obtainInfoAgreement_no")",
+                          "@CarersCrypto.encryptAES("obtainInfoWhy")");
+    })
 </script>

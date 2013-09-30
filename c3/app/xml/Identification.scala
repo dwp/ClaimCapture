@@ -1,22 +1,21 @@
 package xml
 
-import models.domain.{CircumstancesYourContactDetails, CircumstancesAboutYou, DetailsOfThePersonYouCareFor}
+import models.domain._
 import scala.xml.NodeSeq
 import xml.XMLHelper._
-import models.domain.Circs
-import scala.Some
 import app.XMLValues._
+import scala.Some
 
 object Identification {
 
-  def xml(circs :Circs):NodeSeq = {
+  def xml(circs :Claim): NodeSeq = {
     <Claim>
       {claimant(circs)}
       {careeDetails(circs)}
     </Claim>
   }
 
-  def claimant(circs: Circs): NodeSeq = {
+  def claimant(circs: Claim): NodeSeq = {
     val yourDetails = circs.questionGroup[CircumstancesAboutYou].getOrElse(CircumstancesAboutYou())
     val contactDetails = circs.questionGroup[CircumstancesYourContactDetails].getOrElse(CircumstancesYourContactDetails())
 
@@ -37,8 +36,7 @@ object Identification {
     </ClaimantDetails>
   }
 
-
-  def careeDetails(circs: Circs):NodeSeq = {
+  def careeDetails(circs: Claim):NodeSeq = {
     val detailsOfThePerson = circs.questionGroup[DetailsOfThePersonYouCareFor].getOrElse(DetailsOfThePersonYouCareFor())
 
     <CareeDetails>
@@ -48,5 +46,4 @@ object Identification {
       <NationalInsuranceNumber>{detailsOfThePerson.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
     </CareeDetails>
   }
-
 }

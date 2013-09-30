@@ -2,10 +2,10 @@ package controllers.s7_employment
 
 import java.util.UUID._
 import play.api.mvc.Request
-import models.domain.DigitalForm
+import models.domain.Claim
 
 object JobID {
-  def apply(form: play.api.data.Form[_])(implicit claim: DigitalForm, request: Request[_]): String = {
+  def apply(form: play.api.data.Form[_])(implicit claim: Claim, request: Request[_]): String = {
     val regex = """^(?:.*?)/employment/(?:.*?)(?:/(.*?))?$""".r
 
     form("jobID").value.getOrElse(regex.findFirstMatchIn(request.path).map {

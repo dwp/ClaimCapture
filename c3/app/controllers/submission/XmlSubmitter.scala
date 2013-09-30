@@ -6,33 +6,29 @@ import play.api.mvc.{AnyContent, Request, PlainResult}
 import ExecutionContext.Implicits.global
 import scala.xml.Elem
 import play.Configuration
-import models.domain.DigitalForm
+import models.domain.Claim
 import com.dwp.carers.s2.xml.validation.XmlValidator
 
 class XmlSubmitter extends Submitter {
-  val transactionId = "TEST432"
+  val transactionID = "TEST432"
 
-  def submit(claim: DigitalForm, request: Request[AnyContent]): Future[PlainResult] = {
-    val claimXml = claim.xml(transactionId)
+  override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
+    val (xml, validator) = xmlAndValidator(claim, transactionID)
 
     if (Configuration.root().getBoolean("validateXml", true)) {
-      val fullXml = buildFullClaim(claim.xmlValidator, claimXml)
-      val validator = claim.xmlValidator
+      val fullXml = buildFullClaim(xmlValidator(claim), xml)
       val fullXmlString = fullXml.buildString(stripComments = true)
 
       validator.validate(fullXmlString) match {
-        case true => Future(Ok(claimXml.buildString(stripComments = false)))
-        case false => {
-          //Logger.error(fullXmlString) // Must NOT be done in live due to security risk.
-          Future(Ok("Failed validation"))
-        }
+        case true => Future(Ok(xml.buildString(stripComments = false)))
+        case false => Future(Ok("Failed validation"))
       }
     } else {
-      Future(Ok(claimXml.buildString(stripComments = false)))
+      Future(Ok(xml.buildString(stripComments = false)))
     }
   }
 
-  def buildFullClaim(validator:XmlValidator,claimXml:Elem) = {
+  def buildFullClaim(validator: XmlValidator, claimXML: Elem) =
     <DWPBody xmlns:bs7666="http://www.govtalk.gov.uk/people/bs7666"
              xmlns={validator.getGlobalXmlns}
              xmlns:gds="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails"
@@ -63,9 +59,8 @@ class XmlSubmitter extends Submitter {
               <TopElementName>vaN1Eh5z61pekYlfOv-vP0sGy</TopElementName>
             </Reference>
           </Manifest>
-          <TransactionId>{transactionId}</TransactionId>
-        </DWPCAHeader>{claimXml}
+          <TransactionId>{transactionID}</TransactionId>
+        </DWPCAHeader>{claimXML}
       </DWPEnvelope>
     </DWPBody>
-  }
 }

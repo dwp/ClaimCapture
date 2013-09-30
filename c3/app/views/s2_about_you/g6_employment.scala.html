@@ -1,9 +1,9 @@
-@(employmentForm: Form[models.domain.Employment])(implicit claim: models.domain.DigitalForm,request: Request[AnyContent])
+@(employmentForm: Form[models.domain.Employment])(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import scala.language.postfixOps
 @import helper._
 @import views.html.common._
-@import models.domain.DigitalForm
+@import models.domain.Claim
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 

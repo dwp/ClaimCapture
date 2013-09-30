@@ -3,7 +3,6 @@ package utils.pageobjects.circumstances.s1_about_you
 import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{CircumstancesPage, PageContext, Page}
 
-
 final class G1AboutYouPage(browser: TestBrowser, previousPage: Option[Page] = None) extends CircumstancesPage(browser, G1AboutYouPage.url, G1AboutYouPage.title, previousPage) {
   declareSelect("#title", "CircumstancesAboutYouTitle")
   declareInput("#firstName","CircumstancesAboutYouFirstName")

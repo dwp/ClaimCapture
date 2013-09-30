@@ -16,11 +16,11 @@ object G3Over16 extends Controller with CachedClaim with Navigable {
     "answer" -> nonEmptyText.verifying(validYesNo)
   )(Over16.apply)(Over16.unapply))
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     track(Over16) { implicit claim => Ok(views.html.s1_carers_allowance.g3_over16(form.fill(Over16))) }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

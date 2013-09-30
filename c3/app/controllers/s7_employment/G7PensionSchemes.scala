@@ -28,7 +28,7 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
     .verifying("howOftenPersonal", PensionSchemes.validateHowOftenPersonal _)
   )
 
-  def present(jobID: String) = executeOnForm { implicit claim => implicit request =>
+  def present(jobID: String) = claiming { implicit claim => implicit request =>
     track(PensionSchemes) { implicit claim => Ok(views.html.s7_employment.g7_pensionSchemes(form.fillWithJobID(PensionSchemes, jobID))) }
   }
 

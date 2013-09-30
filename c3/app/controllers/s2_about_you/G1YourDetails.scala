@@ -23,11 +23,11 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
     "maritalStatus" -> nonEmptyText(maxLength = 1)
   )(YourDetails.apply)(YourDetails.unapply))
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     track(YourDetails) { implicit claim => Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails))) }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g1_yourDetails(formWithErrors)),
       yourDetails => claim.update(yourDetails) -> Redirect(routes.G2ContactDetails.present()))

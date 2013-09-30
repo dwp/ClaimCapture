@@ -1,15 +1,15 @@
 package models.view
 
 import play.api.mvc.{Request, Result, AnyContent}
-import models.domain.DigitalForm
+import models.domain.Claim
 import scala.reflect.ClassTag
 
 trait Navigable {
-  this: CachedDigitalForm =>
+  this: CachedClaim =>
 
-  def track[T](t: T)(f: (DigitalForm) => Result)(implicit claim: DigitalForm, request: Request[AnyContent], classTag: ClassTag[T]): FormResult = {
+  def track[T](t: T)(f: => Claim => Result)(implicit claim: Claim, request: Request[AnyContent], classTag: ClassTag[T]): ClaimResult = {
     val updatedNavigation = claim.navigation.track(t)(request.uri)
-    val updatedClaim = claim.copyForm(claim.sections)(updatedNavigation)
+    val updatedClaim = claim.copy(claim.key, claim.sections)(updatedNavigation)
 
     updatedClaim -> f(updatedClaim)
   }

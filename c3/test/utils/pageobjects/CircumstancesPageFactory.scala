@@ -5,7 +5,6 @@ import utils.pageobjects.circumstances.s1_about_you._
 import utils.pageobjects.circumstances.s2_additional_info.G1OtherChangeInfoPage
 import utils.pageobjects.circumstances.s3_consent_and_declaration.G1DeclarationPage
 
-
 object CircumstancesPageFactory extends PageFactory {
 
   def buildPageFromTitle(browser: TestBrowser, title: String, previousPage: Option[Page], iteration: Int) = {

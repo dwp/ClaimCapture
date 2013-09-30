@@ -21,11 +21,11 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
     "rollOrReferenceNumber" -> text(maxLength = 18)
   )(BankBuildingSocietyDetails.apply)(BankBuildingSocietyDetails.unapply))
 
-  def present = executeOnForm {implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     presentConditionally(bankBuildingSocietyDetails)
   }
 
-  def bankBuildingSocietyDetails(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
+  def bankBuildingSocietyDetails(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     val iAmVisible = claim.questionGroup(HowWePayYou) match {
       case Some(y: HowWePayYou) => y.likeToBePaid == AccountStatus.BankBuildingAccount.name
       case _ => true
@@ -35,7 +35,7 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
     else claim.delete(BankBuildingSocietyDetails) -> Redirect(routes.PayDetails.completed())
   }
 
-  def submit = executeOnForm { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s10_pay_details.g2_bankBuildingSocietyDetails(formWithErrors)),
       howWePayYou => claim.update(howWePayYou) -> Redirect(routes.PayDetails.completed()))

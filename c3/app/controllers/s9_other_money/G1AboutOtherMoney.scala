@@ -7,7 +7,7 @@ import play.api.data.Forms._
 import play.api.data.FormError
 import play.api.i18n.Messages
 import models.view.CachedClaim
-import models.domain.{DigitalForm, AboutOtherMoney, MoreAboutYou}
+import models.domain.{Claim, AboutOtherMoney, MoreAboutYou}
 import controllers.Mappings._
 import models.yesNo.YesNo
 import utils.helpers.CarersForm._
@@ -32,16 +32,16 @@ object G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
     "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly)
   )(AboutOtherMoney.apply)(AboutOtherMoney.unapply))
 
-  def hadPartnerSinceClaimDate(implicit claim: DigitalForm): Boolean = claim.questionGroup(MoreAboutYou) match {
+  def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {
     case Some(m: MoreAboutYou) => m.hadPartnerSinceClaimDate == yes
     case _ => false
   }
 
-  def present = executeOnForm { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     track(AboutOtherMoney) { implicit claim => Ok(views.html.s9_other_money.g1_aboutOtherMoney(form.fill(AboutOtherMoney), hadPartnerSinceClaimDate)) }
   }
 
-  def submit = executeOnForm {implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val yourBenefitsAnswerErrorMessage = Messages("yourBenefits.answer.label",

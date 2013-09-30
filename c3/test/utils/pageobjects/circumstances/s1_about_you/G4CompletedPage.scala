@@ -13,7 +13,6 @@ object G4CompletedPage {
   def apply(browser: TestBrowser, previousPage: Option[Page] = None) = new G4CompletedPage(browser, previousPage)
 }
 
-
 trait G4CompletedPageContext extends PageContext {
   this: WithBrowser[_] =>
 

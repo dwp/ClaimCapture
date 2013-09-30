@@ -249,7 +249,7 @@ object Mappings {
     }
   }
 
-  def validForbiddenCharacters: Constraint[String] = Constraint[String]("constraint.forbiddenCharacters")  { input =>
+  def validForbiddenCharacters: Constraint[String] = Constraint[String]("constraint.forbiddenCharacters") { input =>
     val forbiddenPattern = """.*[<>;].*""".r
 
     forbiddenPattern.pattern.matcher(input).matches match {
@@ -257,6 +257,5 @@ object Mappings {
       case true => Invalid(ValidationError("error.forbidden.characters"))
 
     }
-
   }
 }

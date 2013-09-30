@@ -7,12 +7,11 @@ import play.api.mvc.Request
 import play.api.mvc.AnyContent
 import play.api.data.{FormError, Form}
 import controllers.Mappings._
-import models.domain.SelfEmploymentYourAccounts
+import models.domain.{Claim, SelfEmploymentYourAccounts}
 import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import SelfEmployment._
 import models.view.Navigable
-import models.domain.DigitalForm
 
 object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -31,15 +30,15 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
     }
   }
 
-  def present = executeOnForm { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request =>
     presentConditionally(selfEmploymentYourAccounts)
   }
 
-  def selfEmploymentYourAccounts(implicit claim: DigitalForm, request: Request[AnyContent]): FormResult = {
+  def selfEmploymentYourAccounts(implicit claim: Claim, request: Request[AnyContent]): ClaimResult = {
     track(SelfEmploymentYourAccounts) { implicit claim => Ok(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(form.fill(SelfEmploymentYourAccounts))) }
   }
 
-  def submit = executeOnForm { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

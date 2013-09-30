@@ -1,9 +1,9 @@
-@(moreAboutYouForm: Form[models.domain.MoreAboutYou])(implicit claim: models.domain.DigitalForm,request: Request[AnyContent])
+@(moreAboutYouForm: Form[models.domain.MoreAboutYou])(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import common._
 @import helper._
 @import views.html.common._
-@import models.domain.DigitalForm
+@import models.domain.Claim
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
 
