@@ -3,6 +3,7 @@ package controllers
 import play.api.mvc.{Controller, Action}
 import com.github.rjeschke.txtmark.Processor
 import play.api.templates.Html
+import views.html.markdown.markdownWrapper
 
 
 object Markdown extends Controller{
@@ -15,7 +16,7 @@ object Markdown extends Controller{
 
     val html = Processor.process(string)
 
-    Ok(Html(html))
+    Ok(markdownWrapper(Html(html)))
   }
 
 }
