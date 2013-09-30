@@ -10,7 +10,7 @@ import app.PensionPaymentFrequency._
 import play.Configuration
 
 @Singleton
-class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim {
+class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim  {
   def submit = claiming { implicit claim => implicit request =>
     if (isBot(claim)) {
       NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
@@ -35,7 +35,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     }
   }
 
-  val checkForBot: Boolean = Configuration.root().getBoolean("checkForBot", false)
+  lazy val checkForBot: Boolean = Configuration.root().getBoolean("checkForBot", false)
 
   def isBot(claim: Claim): Boolean = {
     if (checkForBot) checkTimeToCompleteAllSections(claim) || honeyPot(claim)
