@@ -66,7 +66,11 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
 
     val actualTimeToCompleteAllSections: Long = currentTime - claim.created
 
-    actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
+    val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
+
+    if(result) Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
+
+    result
   }
 
   def honeyPot(claim: Claim): Boolean = {

@@ -5,7 +5,7 @@ import reflect.ClassTag
 import models.view.{CachedClaim, Navigation}
 import models.{Timestamped, DayMonthYear}
 
-case class Claim(key: String = CachedClaim.key, sections: List[Section] = List())(implicit val navigation: Navigation = Navigation()) extends Claimable with Timestamped {
+case class Claim(key: String = CachedClaim.key, sections: List[Section] = List(), override val created: Long = System.currentTimeMillis())(implicit val navigation: Navigation = Navigation()) extends Claimable with Timestamped {
   def section(sectionIdentifier: Section.Identifier): Section = {
     sections.find(s => s.identifier == sectionIdentifier) match {
       case Some(s: Section) => s

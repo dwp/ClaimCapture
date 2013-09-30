@@ -1,5 +1,5 @@
 package models
 
 trait Timestamped {
-  val created = System.currentTimeMillis()
+  val created: Long = System.currentTimeMillis()
 }

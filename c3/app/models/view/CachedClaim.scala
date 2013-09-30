@@ -38,7 +38,7 @@ trait CachedClaim {
 
   def newInstance: Claim = new Claim(cacheKey) with FullClaim
 
-  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections)(claim.navigation) with FullClaim
+  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created)(claim.navigation) with FullClaim
 
   def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
     r.session.get(cacheKey).getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
