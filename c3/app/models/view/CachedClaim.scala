@@ -22,6 +22,8 @@ trait CachedClaim {
 
   val cacheKey = CachedClaim.key
 
+  val timeOutURL = "/timeout"
+
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
     def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = claim.questionGroup(qi) match {
       case Some(q: Q) => form.fill(q)
@@ -72,7 +74,7 @@ trait CachedClaim {
             action(claim, request)(f)
           } else {
             Logger.info("Claim timeout")
-            Redirect("/timeout").withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+            Redirect(timeOutURL).withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
           }
       }
     }
