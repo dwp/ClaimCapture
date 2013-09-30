@@ -4,7 +4,7 @@
 
 # Home page
 GET     /                                                               controllers.Application.index
-GET     /markdown                                                       controllers.Markdown.test
+GET     /claim-notes                                                    controllers.ClaimNotes.notes
 
 # Allowance
 ###############
