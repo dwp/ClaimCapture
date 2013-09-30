@@ -3,15 +3,15 @@ package controllers
 import play.api.mvc.{Controller, Action}
 import com.github.rjeschke.txtmark.Processor
 import play.api.templates.Html
-import views.html.markdown.markdownWrapper
+import views.html.claimNotes.markdownWrapper
 
 
-object Markdown extends Controller{
+object ClaimNotes extends Controller{
 
-  def test() = Action{
+  def notes() = Action{
     implicit request =>
 
-    val t = views.html.markdown.main()
+    val t = views.html.claimNotes.main()
     val string = t.buffer.toString()
 
     val html = Processor.process(string)
