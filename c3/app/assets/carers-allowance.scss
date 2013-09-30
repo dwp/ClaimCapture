@@ -609,7 +609,7 @@ main {
 		   	   width: 100%;
 		   }
    	   }
-   	   h2 {
+   	   h2, p.title {
 	   	   font-size: 1.9rem;
 	   	   font-weight: 600;
 	   	   line-height: 1.4em;
@@ -747,6 +747,12 @@ main {
 					   margin-top: 0;
 				   }
 			   }
+			   .specific-help {
+				   display: none;
+				   .ie7 & {
+					   display: block;
+				   }
+			   }
 			   .helper-more {
 				   cursor: pointer;
 				   display: block;
@@ -825,7 +831,8 @@ main {
 						position: relative;
 						z-index: 20;
 						.ie7 & {
-							cursor: default;
+							cursor: auto;
+							background: #f9f9f9;
 						}
 					}
 			   }
