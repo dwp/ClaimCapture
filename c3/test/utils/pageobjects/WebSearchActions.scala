@@ -149,7 +149,7 @@ trait WebSearchActions {
    * @return The list of prompt messages displayed by a page.
    */
   def listDisplayedPromptMessages: List[String] = try {
-    val target = "div.prompt"
+    val target = "div.breaks-prompt"
     this checkElement target
     val rawTarget = browser.find(target, `with`("style").notContains("display: none"))
     if (!rawTarget.isEmpty) new JListWrapper(rawTarget.getTexts).toList
