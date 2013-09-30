@@ -2,6 +2,7 @@ package models.view
 
 import models.domain.ChangeOfCircs
 import models.domain.Claim
+import controllers.routes
 
 object CachedChangeOfCircs {
   val key = "change-of-circs"
@@ -10,7 +11,7 @@ object CachedChangeOfCircs {
 trait CachedChangeOfCircs extends CachedClaim {
   override val cacheKey = CachedChangeOfCircs.key
 
-  override val timeOutURL = "/circs-timeout"
+  override val timeout = routes.Application.circsTimeout()
 
   override def newInstance: Claim = new Claim(cacheKey) with ChangeOfCircs
 
