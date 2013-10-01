@@ -560,6 +560,9 @@ main {
 	   	    p {
 		   	    padding-right: 2em;
 		   	    @media screen and (max-width: 750px) {padding-right: 0;}
+		   	    &.helper-message {
+			   	    margin: 0 0 1em 0;
+		   	    }
 	   	    }
    	    }
    	    &.results-detail {
@@ -606,7 +609,7 @@ main {
 		   	   width: 100%;
 		   }
    	   }
-   	   h2 {
+   	   h2, p.title {
 	   	   font-size: 1.9rem;
 	   	   font-weight: 600;
 	   	   line-height: 1.4em;
@@ -742,6 +745,12 @@ main {
 				   }
 				   &.above {
 					   margin-top: 0;
+				   }
+			   }
+			   .specific-help {
+				   display: none;
+				   .ie7 & {
+					   display: block;
 				   }
 			   }
 			   .helper-more {
@@ -1493,6 +1502,11 @@ main {
 			   }
 		   }
 	   }
+	   &.question-prompt {
+		   margin: .5em 0 0 0;
+		   border: 1px solid #a2a2a2;
+		   background: #fff;
+		   }
 	   &.helper-prompt {
 		   margin: .5em 0 1em 0;
 		   border: 1px solid #a2a2a2;
