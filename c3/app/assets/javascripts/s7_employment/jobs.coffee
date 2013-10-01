@@ -13,17 +13,22 @@ $ ->
 
     $("tbody").on "click", "input[value='Delete']", ->
         disable()
+        enableConfirmation()
 
         tr = $(this).closest("tr")
         tbody = $(this).closest("tbody")
 
-        $(".breaks-prompt").slideDown ->
+        $("#jobs .breaks-prompt").slideDown ->
+            $("input[value='No']").unbind "click"
+            $("input[value='Yes']").unbind "click"
+
             $("input[value='No']").on "click", ->
                 enable()
-
                 $(".breaks-prompt").slideUp()
 
             $("input[value='Yes']").on "click", ->
+                disableConfirmation()
+
                 $.ajax
                     type: "DELETE"
                     url: "/employment/job/" + tr.attr("id")
@@ -32,30 +37,28 @@ $ ->
                         $("label[for='answer']").text(data.answer)
                         enable()
 
-                        $(".breaks-prompt").slideUp()
+                        $("#jobs .breaks-prompt").slideUp()
 
-                        element = undefined
-
-                        if tbody.children().length is 1
-                            element = $("#jobs")
+                        if tr.closest("tbody").children().length is 1
+                            $("#jobs").wrapInner("<div />").children().slideUp -> tr.remove()
                         else
-                            element = tr.children("td")
-
-                        element.animate(
-                            padding: 0
-                            margin: 0
-                        ).wrapInner("<div />").children().slideUp -> tr.remove()
+                            tr.find("td").wrapInner "<div>"
+                            tr.find("td div:not(:last)").slideUp()
+                            tr.find("td div:last").slideUp -> tr.remove()
 
                     error: ->
-                        enable()
+                        location.reload(true)
 
-                        $(".breaks-prompt").slideUp()
-                        alert "Failed to delete job - Contact Support"
+enableConfirmation = ->
+    $("#jobs .breaks-prompt input[type='button']").removeAttr("disabled").removeClass("disabled")
 
 enable = ->
     $("tr input[type='button']").removeAttr("disabled").removeClass("disabled")
     $("input[type='radio']").removeAttr("disabled", "true").removeClass("disabled")
     $(".form-steps").children().removeAttr("disabled").removeClass("disabled")
+
+disableConfirmation = ->
+    $("#jobs .breaks-prompt input[type='button']").attr("disabled", "true").addClass("disabled")
 
 disable = ->
     $("tr input[type='button']").attr("disabled", "true").addClass("disabled")

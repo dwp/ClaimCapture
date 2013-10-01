@@ -42,7 +42,8 @@ object Employment extends Controller with CachedClaim  with Navigable{
 
     val updatedJobs = jobs.delete(jobID)
 
-    if (updatedJobs.isEmpty) claim.update(updatedJobs) -> Ok(Json.obj("answer" -> Messages("answer.label")))
+    if (updatedJobs == jobs) BadRequest(s"""Failed to delete job with ID "$jobID" as it does not exist""")
+    else if (updatedJobs.isEmpty) claim.update(updatedJobs) -> Ok(Json.obj("answer" -> Messages("answer.label")))
     else claim.update(updatedJobs) -> Ok(Json.obj("answer" -> Messages("answer.more.label")))
   }
 }

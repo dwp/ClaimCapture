@@ -35,5 +35,10 @@ class EmploymentSpec extends Specification with Tags {
       val completedQuestionGroups = Employment.completedQuestionGroups(EmployerContactDetails, jobID)(claim)
       println(completedQuestionGroups)
     }
+
+    "issue an 'error' when deleting a non-existing job" in new WithApplication with Claiming {
+      val result = Employment.delete("nonExistingJobID")(FakeRequest().withSession(CachedClaim.claimKey -> claimKey))
+      status(result) shouldEqual BAD_REQUEST
+    }
   } section("unit", models.domain.Employed.id)
 }
