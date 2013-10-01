@@ -137,7 +137,7 @@ class G4TripSpec extends Specification with Tags {
     }
 
     "issue an 'error' when deleting a non-existing job" in new WithApplication with Claiming {
-      val result = G4Trip.delete("nonExistingTripID")(FakeRequest().withSession(CachedClaim.claimKey -> claimKey))
+      val result = G4Trip.delete("nonExistingTripID")(FakeRequest().withSession(CachedClaim.key -> claimKey))
       status(result) shouldEqual BAD_REQUEST
     }
   } section ("unit", models.domain.TimeSpentAbroad.id)

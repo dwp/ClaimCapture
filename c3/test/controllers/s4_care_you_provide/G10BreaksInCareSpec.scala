@@ -133,25 +133,23 @@ class G10BreaksInCareSpec extends Specification with Tags {
     }
 
     "issue an 'error' when deleting a non-existing break when there are no existing breaks" in new WithApplication with Claiming {
-      val result = G10BreaksInCare.delete("nonExistingBreakID")(FakeRequest().withSession(CachedClaim.claimKey -> claimKey))
+      val result = G10BreaksInCare.delete("nonExistingBreakID")(FakeRequest().withSession(CachedClaim.key -> claimKey))
       status(result) shouldEqual BAD_REQUEST
       contentAsString(result) shouldEqual """Failed to delete break with ID "nonExistingBreakID" as claim currently has no breaks"""
     }
 
     "issue an 'error' when deleting a non-existing break when there are existing breaks" in new WithApplication with Claiming {
-      val request = FakeRequest().withSession(CachedClaim.claimKey -> claimKey)
+      val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
         "breakID" -> "1",
-        "start.day" -> "1",
-        "start.month" -> "1",
-        "start.year" -> "2001",
+        "start.date" -> "1 January, 2001",
         "whereYou.location" -> "Holiday",
         "wherePerson.location" -> "Holiday",
         "medicalDuringBreak" -> "no")
 
       G11Break.submit(request)
 
-      val result = G10BreaksInCare.delete("nonExistingBreakID")(FakeRequest().withSession(CachedClaim.claimKey -> claimKey))
+      val result = G10BreaksInCare.delete("nonExistingBreakID")(FakeRequest().withSession(CachedClaim.key -> claimKey))
       status(result) shouldEqual BAD_REQUEST
       contentAsString(result) shouldEqual """Failed to delete break with ID "nonExistingBreakID" as it does not exist in claim"""
     }
