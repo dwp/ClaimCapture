@@ -21,6 +21,8 @@ object CachedClaim {
 trait CachedClaim {
   type ClaimResult = (Claim, Result)
 
+  type JobID = String
+
   val cacheKey = CachedClaim.key
 
   val timeout = routes.Application.timeout()
@@ -99,8 +101,6 @@ trait CachedClaim {
       }
     }
   }
-
-  type JobID = String
 
   def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action { request =>
     claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
