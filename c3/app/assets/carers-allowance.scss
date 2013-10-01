@@ -291,6 +291,14 @@ main {
 					font-size: 50px;
 				}
 			}
+			&.service-statement {
+				background: url('images/portcullis.png') 91% center no-repeat;
+				@media screen and (max-width: 700px) {background: none;}
+				h1 {
+					padding-right: 20%;
+					@media screen and (max-width: 700px) {padding-right: 0;}
+				}
+			}
    	   }
    	   
    	   
