@@ -135,5 +135,10 @@ class G4TripSpec extends Specification with Tags {
         case Some(ts: Trips) => ts.fourWeeksTrips.size shouldEqual 5
       }
     }
+
+    "issue an 'error' when deleting a non-existing job" in new WithApplication with Claiming {
+      val result = G4Trip.delete("nonExistingTripID")(FakeRequest().withSession(CachedClaim.claimKey -> claimKey))
+      status(result) shouldEqual BAD_REQUEST
+    }
   } section ("unit", models.domain.TimeSpentAbroad.id)
 }

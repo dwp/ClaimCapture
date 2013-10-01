@@ -48,7 +48,8 @@ object G10BreaksInCare extends Controller with CareYouProvideRouting with Cached
       case Some(b: BreaksInCare) => {
         val updatedBreaksInCare = b.delete(id)
 
-        if (updatedBreaksInCare.breaks.isEmpty) claim.update(updatedBreaksInCare) -> Ok(Json.obj("answer" -> Messages("answer.label")))
+        if (updatedBreaksInCare.breaks == b.breaks) BadRequest(s"""Failed to delete break with ID "$id" as it does not exist in claim""")
+        else if (updatedBreaksInCare.breaks.isEmpty) claim.update(updatedBreaksInCare) -> Ok(Json.obj("answer" -> Messages("answer.label")))
         else claim.update(updatedBreaksInCare) -> Ok(Json.obj("answer" -> Messages("answer.more.label")))
       }
 
