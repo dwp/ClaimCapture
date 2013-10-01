@@ -6,8 +6,8 @@
 @main("Completion - " + Messages("s10.longName"), None, claim.completedQuestionGroups(PayDetails)) {
     @form(action = controllers.s10_pay_details.routes.PayDetails.completedSubmit()) {
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Continue</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="Continue button">Continue</button>
         </nav>
     }
 }

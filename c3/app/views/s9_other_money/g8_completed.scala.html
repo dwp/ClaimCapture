@@ -11,8 +11,8 @@
 @main("Completion - " + Messages("s9.longName"), None, claim.completedQuestionGroups(OtherMoney)) {
     @form(action = controllers.s9_other_money.routes.OtherMoney.completedSubmit) {
         <nav class="form-steps">
-            <a href="@claim.navigation.previous" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button">Continue</button>
+            <a href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="Continue button">Continue</button>
         </nav>
     }
 }

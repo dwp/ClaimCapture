@@ -57,8 +57,8 @@
         }
 
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
-            <button type="submit" name="action" value="next" class="button" @views.html.helper.trackSubmit(true)>Submit your claim</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="Submit claim button" @views.html.helper.trackSubmit(true)>Submit your claim</button>
         </nav>
     }
 }
