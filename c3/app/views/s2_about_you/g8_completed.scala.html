@@ -8,8 +8,8 @@
 @main("Completion - " + Messages("s2.longName"), claim.completedQuestionGroups(AboutYou)) {
     @form(action = controllers.s2_about_you.routes.AboutYou.completedSubmit) {
         <nav class="form-steps">
-            <a id="backButton" href="@claim.navigation.previous" class="button secondary">Back</a>
-            <button id="submit" type="submit" name="action" value="next" class="button">Continue</button>
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
+            <button id="submit" type="submit" name="action" value="next" class="button" aria-label="Continue button">Continue</button>
         </nav>
     }
 }
