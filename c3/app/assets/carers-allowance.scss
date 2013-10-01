@@ -617,7 +617,7 @@ main {
 	   	   .ie & {
 		   	   font-size: 19px;
 	   	   }
-	   	   &.first {
+	   	   &:first-child {
 		   	   padding-top: 0;
 	   	   }
    	   }
