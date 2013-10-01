@@ -291,6 +291,14 @@ main {
 					font-size: 50px;
 				}
 			}
+			&.service-statement {
+				background: url('../img/portcullis.png') 91% center no-repeat;
+				@media screen and (max-width: 700px) {background: none;}
+				h1 {
+					padding-right: 20%;
+					@media screen and (max-width: 700px) {padding-right: 0;}
+				}
+			}
    	   }
    	   
    	   
@@ -560,6 +568,9 @@ main {
 	   	    p {
 		   	    padding-right: 2em;
 		   	    @media screen and (max-width: 750px) {padding-right: 0;}
+		   	    &.helper-message {
+			   	    margin: 0 0 1em 0;
+		   	    }
 	   	    }
    	    }
    	    &.results-detail {
@@ -606,7 +617,7 @@ main {
 		   	   width: 100%;
 		   }
    	   }
-   	   h2 {
+   	   h2, p.title {
 	   	   font-size: 1.9rem;
 	   	   font-weight: 600;
 	   	   line-height: 1.4em;
@@ -614,7 +625,7 @@ main {
 	   	   .ie & {
 		   	   font-size: 19px;
 	   	   }
-	   	   &.first {
+	   	   &:first-child {
 		   	   padding-top: 0;
 	   	   }
    	   }
@@ -744,6 +755,12 @@ main {
 					   margin-top: 0;
 				   }
 			   }
+			   .specific-help {
+				   display: none;
+				   .ie7 & {
+					   display: block;
+				   }
+			   }
 			   .helper-more {
 				   cursor: pointer;
 				   display: block;
@@ -821,6 +838,10 @@ main {
 						background: #f9f9f9 url('../img/calendar-icon.png') 97% 50% no-repeat;
 						position: relative;
 						z-index: 20;
+						.ie7 & {
+							cursor: auto;
+							background: #f9f9f9;
+						}
 					}
 			   }
 			   input[type="radio"] {
@@ -919,13 +940,9 @@ main {
 							   left: auto;
 							   display: inline;
 						   }
-						   
-					
 
-					   &:focus {
-							   outline: none;
-						   } 
 					   }
+					   
 					   label {
 						   display: block;
 						   background: #eee;
@@ -1024,9 +1041,6 @@ main {
 				   		.ie & {
 					   		margin-top: 0;
 				   		}
-				   		&:focus {
-							   outline: none;
-						   }
 				   		&[type=checkbox]:checked + label, &[type=radio]:checked + label {color: #0b0c0c;}
 				   }
 				   label {
@@ -1182,6 +1196,10 @@ main {
 		   margin-top: 1.2em;
 		   p {
 			   font-size: 1.6rem;
+			   margin-top: 1em;
+			   &:first-child {
+				   margin: 0;
+			   }
 			   .ie & {
 				   font-size: 16px;
 			   }
@@ -1252,9 +1270,7 @@ main {
 			   .ie & {
 				   left: .8em;
 			   }
-			   &:focus {
-					outline: none;
-				  }
+
 			   
 		   }
 		   &.secondary {
@@ -1378,8 +1394,7 @@ main {
    }
 
    
-   
-   
+  
    
    
    /* prompt panel */
@@ -1499,6 +1514,11 @@ main {
 			   }
 		   }
 	   }
+	   &.question-prompt {
+		   margin: .5em 0 0 0;
+		   border: 1px solid #a2a2a2;
+		   background: #fff;
+		   }
 	   &.helper-prompt {
 		   margin: .5em 0 1em 0;
 		   border: 1px solid #a2a2a2;
@@ -1575,8 +1595,8 @@ main {
 		   position: relative;	
 		   overflow: visible;
 		   &:focus {
-			 outline: none;
-		   } 
+			   outline: 3px solid #ffbf47;
+		   }
 		   &:before {
 			   content: "";
 			   background: transparent;
@@ -1754,16 +1774,11 @@ main {
 .ie7 .date-stack {
 	zoom: 1;
 }
-.ie7 .picker__frame {
-  width: 700px;
-  left: auto;
-  right: 0;
-  top: 10%!important;
-  background: #fff;
+
+.ie7 .picker__holder {
+	max-width: 650px;
+	max-height: 800px!important;
 }
-
-
-
 
 /* ==========================================================================
    clearfix

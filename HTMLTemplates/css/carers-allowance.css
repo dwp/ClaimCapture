@@ -251,6 +251,16 @@ main {
             font-size: 30px; } }
         .ie .carers-allowance section.error-statement h1 {
           font-size: 50px; }
+      .carers-allowance section.error-statement.service-statement {
+        background: url("../img/portcullis.png") 91% center no-repeat; }
+        @media screen and (max-width: 700px) {
+          .carers-allowance section.error-statement.service-statement {
+            background: none; } }
+        .carers-allowance section.error-statement.service-statement h1 {
+          padding-right: 20%; }
+          @media screen and (max-width: 700px) {
+            .carers-allowance section.error-statement.service-statement h1 {
+              padding-right: 0; } }
     .carers-allowance section h1 {
       font-size: 3.6rem;
       font-weight: 700;
@@ -462,6 +472,8 @@ main {
       @media screen and (max-width: 750px) {
         .carers-allowance .form-elements.q1 p {
           padding-right: 0; } }
+      .carers-allowance .form-elements.q1 p.helper-message {
+        margin: 0 0 1em 0; }
     .carers-allowance .form-elements.results-detail {
       margin-right: 0;
       padding-left: 0;
@@ -500,14 +512,14 @@ main {
           font-size: 15px; }
       .carers-allowance .form-elements legend div {
         width: 100%; }
-    .carers-allowance .form-elements h2 {
+    .carers-allowance .form-elements h2, .carers-allowance .form-elements p.title {
       font-size: 1.9rem;
       font-weight: 600;
       line-height: 1.4em;
       padding-top: 1em; }
-      .ie .carers-allowance .form-elements h2 {
+      .ie .carers-allowance .form-elements h2, .ie .carers-allowance .form-elements p.title {
         font-size: 19px; }
-      .carers-allowance .form-elements h2.first {
+      .carers-allowance .form-elements h2:first-child, .carers-allowance .form-elements p.title:first-child {
         padding-top: 0; }
     .carers-allowance .form-elements ul {
       margin-top: 0;
@@ -606,6 +618,10 @@ main {
             font-size: 16px; }
           .carers-allowance .form-elements ul li .helper.above {
             margin-top: 0; }
+        .carers-allowance .form-elements ul li .specific-help {
+          display: none; }
+          .ie7 .carers-allowance .form-elements ul li .specific-help {
+            display: block; }
         .carers-allowance .form-elements ul li .helper-more {
           cursor: pointer;
           display: block;
@@ -671,6 +687,9 @@ main {
             background: #f9f9f9 url("../img/calendar-icon.png") 97% 50% no-repeat;
             position: relative;
             z-index: 20; }
+            .ie7 .carers-allowance .form-elements ul li input[type="text"].datepicker, .ie7 .carers-allowance .form-elements ul li input[type="number"].datepicker, .ie7 .carers-allowance .form-elements ul li input[type="tel"].datepicker, .ie7 .carers-allowance .form-elements ul li textarea.datepicker {
+              cursor: auto;
+              background: #f9f9f9; }
         .carers-allowance .form-elements ul li input[type="radio"] {
           width: auto;
           vertical-align: top; }
@@ -744,8 +763,6 @@ main {
               top: auto;
               left: auto;
               display: inline; }
-            .carers-allowance .form-elements ul.radio li input[type="radio"]:focus {
-              outline: none; }
           .carers-allowance .form-elements ul.radio li label {
             display: block;
             background: #eee;
@@ -807,8 +824,6 @@ main {
           margin-top: .38rem; }
           .ie .carers-allowance .form-elements ul.inline-stack li input {
             margin-top: 0; }
-          .carers-allowance .form-elements ul.inline-stack li input:focus {
-            outline: none; }
           .carers-allowance .form-elements ul.inline-stack li input[type=checkbox]:checked + label, .carers-allowance .form-elements ul.inline-stack li input[type=radio]:checked + label {
             color: #0b0c0c; }
         .carers-allowance .form-elements ul.inline-stack li label {
@@ -903,7 +918,10 @@ main {
       padding: 1em 1.25em;
       margin-top: 1.2em; }
       .carers-allowance .form-elements .info p {
-        font-size: 1.6rem; }
+        font-size: 1.6rem;
+        margin-top: 1em; }
+        .carers-allowance .form-elements .info p:first-child {
+          margin: 0; }
         .ie .carers-allowance .form-elements .info p {
           font-size: 16px; }
     .carers-allowance .form-elements .declaration {
@@ -954,8 +972,6 @@ main {
           transition: all 200ms ease-in; }
         .ie .carers-allowance .form-elements .declare input {
           left: .8em; }
-        .carers-allowance .form-elements .declare input:focus {
-          outline: none; }
       .carers-allowance .form-elements .declare.secondary {
         margin-top: 1em; }
     .carers-allowance .form-elements .dec ul {
@@ -1147,6 +1163,10 @@ main {
           .carers-allowance .prompt.eligibility-prompt p {
             padding-right: 0;
             margin-top: 20px; } }
+    .carers-allowance .prompt.question-prompt {
+      margin: .5em 0 0 0;
+      border: 1px solid #a2a2a2;
+      background: #fff; }
     .carers-allowance .prompt.helper-prompt {
       margin: .5em 0 1em 0;
       border: 1px solid #a2a2a2;
@@ -1204,7 +1224,7 @@ main {
     position: relative;
     overflow: visible; }
     .carers-allowance .button:focus {
-      outline: none; }
+      outline: 3px solid #ffbf47; }
     .carers-allowance .button:before {
       content: "";
       background: transparent;
@@ -1328,12 +1348,9 @@ main {
 .ie7 .date-stack {
   zoom: 1; }
 
-.ie7 .picker__frame {
-  width: 700px;
-  left: auto;
-  right: 0;
-  top: 10% !important;
-  background: #fff; }
+.ie7 .picker__holder {
+  max-width: 650px;
+  max-height: 800px !important; }
 
 /* ==========================================================================
    clearfix
