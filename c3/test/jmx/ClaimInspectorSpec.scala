@@ -15,19 +15,14 @@ class ClaimInspectorSpec extends TestKit(ActorSystem("claimInspectorActorSpec"))
   "Claim Inspector" must {
 
     "get current number of sessions" in {
-
       claimInspector ! GetSessionCount
-
       expectMsg(0)
     }
 
     "accept a timestamped claim" in {
-
       claimInspector ! ClaimSubmitted(DateTime.now,DateTime.now().plusHours(1))
-
       claimInspector ! GetClaimStatistics
       expectMsg(ClaimStatistics(numberOfClaims=1,averageTime=60*60))
-
     }
   }
 }

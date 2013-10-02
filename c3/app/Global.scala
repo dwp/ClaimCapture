@@ -1,9 +1,7 @@
-import akka.actor.Props
 import com.google.inject.Guice
 import com.typesafe.config.ConfigFactory
 import java.io.File
 import java.net.InetAddress
-import jmx.ClaimInspector
 import modules.{ProdModule, DevModule}
 import org.slf4j.MDC
 import play.api._
@@ -88,4 +86,3 @@ class JMXFilter extends Filter {
     else f
   }
 }
-
