@@ -17,7 +17,7 @@
 
             @if(completedQuestionGroups.size > 0) {
                 <div class="completed">
-                    <ul>
+                    <ul aria-label="Completed questions">
                         @for(completedQuestionGroup <- completedQuestionGroups; if completedQuestionGroup.identifier != Trips) {
                             <li>
                                 <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
