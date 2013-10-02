@@ -1,3 +1,4 @@
+import com.typesafe.config.ConfigFactory
 import sbt._
 import sbt.Keys._
 import play.Project._
@@ -13,14 +14,17 @@ object ApplicationBuild extends Build {
     jdbc,
     "org.specs2" %% "specs2" % "1.14" % "test" withSources() withJavadoc(),
     "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
+    "org.scalatest" %% "scalatest" % "2.0.M7" % "test",
+    "com.typesafe.akka" %% "akka-testkit" % "2.2.1" % "test",
+    "com.typesafe.akka" %% "akka-agent" % "2.2.1" % "test",
+    "com.typesafe.akka" %% "akka-actor" % "2.2.1" % "test",
+    "com.typesafe.akka" %% "akka-remote" % "2.2.1" % "test",
     "com.dwp.carers" % "carersXMLValidation" % "0.16.2",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "me.moocar" % "logback-gelf" % "0.9.6p2",
     "com.google.inject" % "guice" % "3.0",
     "com.tzavellas" % "sse-guice" % "0.7.1"
   )
-
-  var sS: Seq[Project.Setting[_]] = Seq(testOptions in Test += Tests.Argument("sequential", "true"))
 
   var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
 
@@ -45,7 +49,7 @@ object ApplicationBuild extends Build {
 
   var f: Seq[Project.Setting[_]] = Seq(sbt.Keys.fork in Test := false)
 
-  var appSettings: Seq[Project.Setting[_]] =  SassPlugin.sassSettings ++ sS ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f ++ jO
+  var appSettings: Seq[Project.Setting[_]] =  SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f ++ jO
 
   val main = play.Project(appName, appVersion, appDependencies).settings(appSettings: _*)
 }

@@ -3,9 +3,8 @@ import com.google.inject.Guice
 import com.typesafe.config.ConfigFactory
 import java.io.File
 import java.net.InetAddress
-import jmx.{RequestMonitor, RequestDetails}
+import jmx.{ClaimInspector, RequestTimeWrapper}
 import modules.{ProdModule, DevModule}
-import org.joda.time.DateTime
 import org.slf4j.MDC
 import play.api._
 import play.api.Configuration
@@ -27,7 +26,8 @@ import play.api.Play.current
  * To override and stipulate a particular "conf" e.g.
  * play -Dconfig.file=conf/application.test.conf run
  */
-object Global extends WithFilters(RefererCheck, RequestFilter) {
+
+object Global extends GlobalSettings {
   lazy val injector = Guice.createInjector(module)
 
   def module = if (Play.isProd) ProdModule else DevModule
@@ -55,6 +55,14 @@ object Global extends WithFilters(RefererCheck, RequestFilter) {
   override def onHandlerNotFound(request: RequestHeader): Result = NotFound(views.html.errors.onHandlerNotFound(request))
 
   override def getControllerInstance[A](controllerClass: Class[A]): A = injector.getInstance(controllerClass)
+
+
+  override def doFilter(action: EssentialAction) = {
+
+    val composedFunction = (RefererCheck(_:EssentialAction)) compose(RequestTime(_:EssentialAction))
+
+    composedFunction(action)
+  }
 }
 
 object RefererCheck extends Filter {
@@ -76,19 +84,35 @@ object RefererCheck extends Filter {
   }
 }
 
-object RequestFilter extends Filter {
-  override def apply(next: RequestHeader => Result)(request: RequestHeader): Result = {
-    val requestDateTime = DateTime.now()
-    val n = next(request)
-    val resultDateTime = DateTime.now()
-    Actors.requestMonitor ! RequestDetails(request, requestDateTime, resultDateTime)
+class JMXFilter extends Filter {
 
-    n
+  def apply(f: (RequestHeader) => Result)(rh: RequestHeader): Result = {
+    f(rh)
+  }
+
+  override def apply(f: EssentialAction):EssentialAction = {
+    if (play.Configuration.root().getBoolean("jmxEnabled")){
+      super.apply(f)
+    } else{
+      f
+    }
+  }
+}
+
+object RequestTime extends JMXFilter {
+  override def apply(f: (RequestHeader) => Result)(rh: RequestHeader): Result = {
+    val requestTime = System.currentTimeMillis()
+    val ret = f(rh)
+    if (!""".*\..*""".r.pattern.matcher(rh.path).matches()){
+      Logger.info("Filter!")
+      Actors.claimInspector ! RequestTimeWrapper(rh.path,requestTime,System.currentTimeMillis())
+    }
+    ret
   }
 }
 
 object Actors {
   import play.api.libs.concurrent.Akka
 
-  val requestMonitor = Akka.system.actorOf(Props[RequestMonitor], name = "request-monitor")
+  val claimInspector = Akka.system.actorOf(Props[ClaimInspector], name = "claim-inspector")
 }
