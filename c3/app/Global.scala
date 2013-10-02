@@ -85,7 +85,7 @@ class JMXFilter extends Filter {
   def apply(f: (RequestHeader) => Result)(rh: RequestHeader): Result = f(rh)
 
   override def apply(f: EssentialAction):EssentialAction = {
-    if (play.Configuration.root().getBoolean("jmxEnabled")) super.apply(f)
+    if (play.Configuration.root().getBoolean("jmxEnabled",false)) super.apply(f)
     else f
   }
 }
