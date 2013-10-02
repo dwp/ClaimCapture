@@ -5,7 +5,6 @@ import akka.actor.{Props, ActorSystem}
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 
 class ClaimInspectorSpec extends TestKit(ActorSystem("claimInspectorActorSpec")) with ImplicitSender with WordSpecLike with Matchers with BeforeAndAfterAll {
-
   override def afterAll() {
     system.shutdown()
   }
