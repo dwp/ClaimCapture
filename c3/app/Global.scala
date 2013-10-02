@@ -3,7 +3,7 @@ import com.google.inject.Guice
 import com.typesafe.config.ConfigFactory
 import java.io.File
 import java.net.InetAddress
-import jmx.{ClaimInspector, RequestTimeWrapper}
+import jmx.ClaimInspector
 import modules.{ProdModule, DevModule}
 import org.slf4j.MDC
 import play.api._
@@ -57,8 +57,7 @@ object Global extends GlobalSettings {
   override def getControllerInstance[A](controllerClass: Class[A]): A = injector.getInstance(controllerClass)
 
   override def doFilter(action: EssentialAction) = {
-    val composedFunction = (RefererCheck(_:EssentialAction)) compose(RequestTime(_:EssentialAction))
-    composedFunction(action)
+    (RefererCheck(_:EssentialAction))(action)
   }
 }
 
@@ -90,22 +89,3 @@ class JMXFilter extends Filter {
   }
 }
 
-object RequestTime extends JMXFilter {
-  override def apply(f: (RequestHeader) => Result)(rh: RequestHeader): Result = {
-    val requestTime = System.currentTimeMillis()
-    val ret = f(rh)
-
-    if (!""".*\..*""".r.pattern.matcher(rh.path).matches()) {
-      Logger.info("Filter!")
-      Actors.claimInspector ! RequestTimeWrapper(rh.path, requestTime, System.currentTimeMillis())
-    }
-
-    ret
-  }
-}
-
-object Actors {
-  import play.api.libs.concurrent.Akka
-
-  val claimInspector = Akka.system.actorOf(Props[ClaimInspector], name = "claim-inspector")
-}
