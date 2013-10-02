@@ -39,7 +39,7 @@ class ClaimInspector() extends Actor with ClaimInspectorMBean {
     case GetSessionCount =>
       sender ! getSessionCount
 
-    case ClaimSubmitted(start,end) =>
+    case ClaimSubmitted(start, end) =>
       claimCount = claimCount + 1
       averageClaimTime = (averageClaimTime + Seconds.secondsBetween(start, end).getSeconds) / claimCount
 

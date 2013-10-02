@@ -20,9 +20,9 @@ class ClaimInspectorSpec extends TestKit(ActorSystem("claimInspectorActorSpec"))
     }
 
     "accept a timestamped claim" in {
-      claimInspector ! ClaimSubmitted(DateTime.now,DateTime.now().plusHours(1))
+      claimInspector ! ClaimSubmitted(DateTime.now, DateTime.now().plusHours(1))
       claimInspector ! GetClaimStatistics
-      expectMsg(ClaimStatistics(numberOfClaims=1,averageTime=60*60))
+      expectMsg(ClaimStatistics(numberOfClaims = 1, averageTime = 60 * 60))
     }
   }
 }

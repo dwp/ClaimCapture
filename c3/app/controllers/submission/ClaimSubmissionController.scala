@@ -16,20 +16,20 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
   def submit = claiming { implicit claim => implicit request =>
     if (isBot(claim)) {
       NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
-    }else {
+    } else {
       try {
         Async {
-          val ret = submitter.submit(claim, request)
-          JMXActors.claimInspector ! ClaimSubmitted(new DateTime(claim.created),DateTime.now())
+          val result = submitter.submit(claim, request)
+          JMXActors.claimInspector ! ClaimSubmitted(new DateTime(claim.created), DateTime.now())
 
-          ret
+          result
         }
-      }catch {
+      } catch {
         case e: UnavailableTransactionIdException => {
           Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
           Redirect(s"/error?key=${CachedClaim.key}")
 
-        }case e: java.lang.Exception => {
+        } case e: java.lang.Exception => {
           Logger.error(s"InternalServerError ! ${e.getMessage}")
           Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
           Redirect(s"/error?key=${CachedClaim.key}")
