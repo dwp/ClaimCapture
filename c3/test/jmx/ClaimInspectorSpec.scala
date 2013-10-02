@@ -1,28 +1,32 @@
 package jmx
 
-import akka.testkit.{ImplicitSender, TestKit}
-import akka.actor.{Props, ActorSystem}
-import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
+import org.specs2.mutable._
+import akka.actor._
+import org.specs2.time.NoTimeConversions
+import scala.concurrent.duration._
 import org.joda.time.DateTime
+import specs2.akka.AkkaTestkitSpecs2Support
 
-class ClaimInspectorSpec extends TestKit(ActorSystem("claimInspectorActorSpec")) with ImplicitSender with WordSpecLike with Matchers with BeforeAndAfterAll {
-  override def afterAll() {
-    system.shutdown()
-  }
+class ClaimInspectorSpec extends Specification with Tags with NoTimeConversions {
 
-  val claimInspector = system.actorOf(Props[ClaimInspector])
+  "Claim Inspector" should {
 
-  "Claim Inspector" must {
+    "get current number of sessions" in new AkkaTestkitSpecs2Support {
+      within(5 seconds) {
 
-    "get current number of sessions" in {
-      claimInspector ! GetSessionCount
-      expectMsg(0)
+        system.actorOf(Props[ClaimInspector]) ! GetSessionCount
+        expectMsgType[Int] must be equalTo 0
+      }
     }
 
-    "accept a timestamped claim" in {
-      claimInspector ! ClaimSubmitted(DateTime.now, DateTime.now().plusHours(1))
-      claimInspector ! GetClaimStatistics
-      expectMsg(ClaimStatistics(numberOfClaims = 1, averageTime = 60 * 60))
+    "accept a timestamped claim" in new AkkaTestkitSpecs2Support {
+      within(5 seconds) {
+
+        val actor = system.actorOf(Props[ClaimInspector])
+        actor ! ClaimSubmitted(DateTime.now, DateTime.now().plusHours(1))
+        actor ! GetClaimStatistics
+        expectMsgType[ClaimStatistics] must be equalTo ClaimStatistics(1, 60 * 60)
+      }
     }
   }
 }

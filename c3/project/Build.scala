@@ -14,7 +14,6 @@ object ApplicationBuild extends Build {
     jdbc,
     "org.specs2" %% "specs2" % "1.14" % "test" withSources() withJavadoc(),
     "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
-    "org.scalatest" %% "scalatest" % "2.0.M7" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-testkit" % "2.2.1" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-agent" % "2.2.1" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-actor" % "2.2.1" % "test" withSources() withJavadoc(),

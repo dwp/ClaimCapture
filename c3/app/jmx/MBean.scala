@@ -16,7 +16,13 @@ object MBeanRegistry {
   val mbeanServer = ManagementFactory.getPlatformMBeanServer
 
   def register(mbean: MBean) = {
-    Logger.info("Registering mbean " + mbean.name)
-    mbeanServer.registerMBean(mbean, new ObjectName(mbean.name))
+    val mbeanObjectName = new ObjectName(mbean.name)
+
+    if (mbeanServer.isRegistered(mbeanObjectName)) {
+      mbeanServer.getObjectInstance(mbeanObjectName)
+    } else {
+      Logger.info("Registering mbean " + mbean.name)
+      mbeanServer.registerMBean(mbean, mbeanObjectName)
+    }
   }
 }
