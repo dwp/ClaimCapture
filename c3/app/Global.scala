@@ -1,8 +1,11 @@
+import akka.actor.Props
 import com.google.inject.Guice
 import com.typesafe.config.ConfigFactory
 import java.io.File
 import java.net.InetAddress
+import jmx.{RequestMonitor, RequestDetails}
 import modules.{ProdModule, DevModule}
+import org.joda.time.DateTime
 import org.slf4j.MDC
 import play.api._
 import play.api.Configuration
@@ -24,7 +27,7 @@ import play.api.Play.current
  * To override and stipulate a particular "conf" e.g.
  * play -Dconfig.file=conf/application.test.conf run
  */
-object Global extends WithFilters(RefererCheck) {
+object Global extends WithFilters(RefererCheck, RequestFilter) {
   lazy val injector = Guice.createInjector(module)
 
   def module = if (Play.isProd) ProdModule else DevModule
@@ -71,4 +74,21 @@ object RefererCheck extends Filter {
       next(request)
     }
   }
+}
+
+object RequestFilter extends Filter {
+  override def apply(next: RequestHeader => Result)(request: RequestHeader): Result = {
+    val requestDateTime = DateTime.now()
+    val n = next(request)
+    val resultDateTime = DateTime.now()
+    Actors.requestMonitor ! RequestDetails(request, requestDateTime, resultDateTime)
+
+    n
+  }
+}
+
+object Actors {
+  import play.api.libs.concurrent.Akka
+
+  val requestMonitor = Akka.system.actorOf(Props[RequestMonitor], name = "request-monitor")
 }
