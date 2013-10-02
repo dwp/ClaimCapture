@@ -13,12 +13,10 @@ trait MBean {
 }
 
 object MBeanRegistry {
-  val mbs = ManagementFactory.getPlatformMBeanServer
-
-  val mBeanServer = ManagementFactory.getPlatformMBeanServer
+  val mbeanServer = ManagementFactory.getPlatformMBeanServer
 
   def register(mbean: MBean) = {
-    Logger.info("Registering bean " + mbean.name)
-    mBeanServer.registerMBean(mbean, new ObjectName(mbean.name))
+    Logger.info("Registering mbean " + mbean.name)
+    mbeanServer.registerMBean(mbean, new ObjectName(mbean.name))
   }
 }
