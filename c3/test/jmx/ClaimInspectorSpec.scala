@@ -13,7 +13,6 @@ class ClaimInspectorSpec extends Specification with Tags with NoTimeConversions 
 
     "get current number of sessions" in new AkkaTestkitSpecs2Support {
       within(5 seconds) {
-
         system.actorOf(Props[ClaimInspector]) ! GetSessionCount
         expectMsgType[Int] must be equalTo 0
       }
@@ -21,7 +20,6 @@ class ClaimInspectorSpec extends Specification with Tags with NoTimeConversions 
 
     "accept a timestamped claim" in new AkkaTestkitSpecs2Support {
       within(5 seconds) {
-
         val actor = system.actorOf(Props[ClaimInspector])
         actor ! ClaimSubmitted(DateTime.now, DateTime.now().plusHours(1))
         actor ! GetClaimStatistics
