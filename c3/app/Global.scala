@@ -56,11 +56,8 @@ object Global extends GlobalSettings {
 
   override def getControllerInstance[A](controllerClass: Class[A]): A = injector.getInstance(controllerClass)
 
-
   override def doFilter(action: EssentialAction) = {
-
     val composedFunction = (RefererCheck(_:EssentialAction)) compose(RequestTime(_:EssentialAction))
-
     composedFunction(action)
   }
 }
@@ -85,17 +82,11 @@ object RefererCheck extends Filter {
 }
 
 class JMXFilter extends Filter {
-
-  def apply(f: (RequestHeader) => Result)(rh: RequestHeader): Result = {
-    f(rh)
-  }
+  def apply(f: (RequestHeader) => Result)(rh: RequestHeader): Result = f(rh)
 
   override def apply(f: EssentialAction):EssentialAction = {
-    if (play.Configuration.root().getBoolean("jmxEnabled")) {
-      super.apply(f)
-    } else {
-      f
-    }
+    if (play.Configuration.root().getBoolean("jmxEnabled")) super.apply(f)
+    else f
   }
 }
 
@@ -103,10 +94,12 @@ object RequestTime extends JMXFilter {
   override def apply(f: (RequestHeader) => Result)(rh: RequestHeader): Result = {
     val requestTime = System.currentTimeMillis()
     val ret = f(rh)
-    if (!""".*\..*""".r.pattern.matcher(rh.path).matches()){
+
+    if (!""".*\..*""".r.pattern.matcher(rh.path).matches()) {
       Logger.info("Filter!")
-      Actors.claimInspector ! RequestTimeWrapper(rh.path,requestTime,System.currentTimeMillis())
+      Actors.claimInspector ! RequestTimeWrapper(rh.path, requestTime, System.currentTimeMillis())
     }
+
     ret
   }
 }
