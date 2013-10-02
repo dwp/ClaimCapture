@@ -10,11 +10,11 @@ class ClaimAcceptanceSpec extends Specification {
     """always lived in UK
        and other stuff""" in {
 
+      val xmlValidator = XmlValidatorFactory.buildCaValidator()
       val claimXML = DWPCAClaim.xml(claim, "TEST224")
-      val xmlString = new XmlSubmitter().buildFullClaim(claimXML).buildString(stripComments = true)
+      val xmlString = new XmlSubmitter().buildFullClaim(xmlValidator, claimXML).buildString(stripComments = true)
 
-      val validator = XmlValidatorFactory.buildCaValidator()
-      validator.validate(writeXML(xmlString)) should beTrue
+      xmlValidator.validate(writeXML(xmlString)) should beTrue
     }
   }
 }

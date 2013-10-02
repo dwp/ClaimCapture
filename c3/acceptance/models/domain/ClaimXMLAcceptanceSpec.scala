@@ -7,15 +7,14 @@ import controllers.submission.XmlSubmitter
 class ClaimXMLAcceptanceSpec extends Specification {
   "Claim XML" should {
     "validate" in {
+      val xmlValidator = XmlValidatorFactory.buildCaValidator()
+      val xmlString = new XmlSubmitter().buildFullClaim(xmlValidator, claimXML).buildString(stripComments = true)
 
-      val xmlString = new XmlSubmitter().buildFullClaim(xml).buildString(stripComments = true)
-
-      val validator = XmlValidatorFactory.buildCaValidator()
-      validator.validate(writeXML(xmlString)) should beTrue
+      xmlValidator.validate(writeXML(xmlString)) should beTrue
     }
   }
 
-  val xml =
+  val claimXML =
     <DWPCAClaim id="TEST432">
       <Claimant>
         <DateOfClaim>2013-01-05</DateOfClaim>

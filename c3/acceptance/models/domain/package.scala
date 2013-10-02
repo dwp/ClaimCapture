@@ -1,10 +1,9 @@
 package models
 
 import controllers.Mappings._
-import models.yesNo.{YesNoWithText, YesNoWithDate}
+import models.yesNo.{OptYesNoWithText, YesNoWithText, YesNoWithDate, YesNo}
 import java.io.{FileOutputStream, OutputStreamWriter, BufferedWriter, File}
 import io.ResourceUtil._
-import models.yesNo.YesNo
 import scala.xml.{PrettyPrinter, Node}
 
 package object domain {
@@ -44,7 +43,7 @@ package object domain {
     OtherStatutoryPay(otherPay = no) +
     OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland = no, workingForOtherEEAStateOrSwitzerland = no) +
     AdditionalInfo(welshCommunication = no) +
-    Consent(informationFromEmployer = YesNoWithText(answer = yes), informationFromPerson = YesNoWithText(answer = yes)) +
+    Consent(informationFromEmployer = OptYesNoWithText(answer = Some(yes)), informationFromPerson = YesNoWithText(answer = yes)) +
     Disclaimer(read = yes) +
     Declaration(read = yes)
 
