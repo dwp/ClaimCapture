@@ -2,10 +2,8 @@ import com.google.inject.Guice
 import com.typesafe.config.ConfigFactory
 import java.io.File
 import java.net.InetAddress
-import jmx.{RefererRedirect, ClaimSubmitted, JMXActors}
-import models.domain.Claim
+import jmx.{RefererRedirect, JMXActors}
 import modules.{ProdModule, DevModule}
-import org.joda.time.DateTime
 import org.slf4j.MDC
 import play.api._
 import play.api.Configuration

@@ -37,11 +37,12 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
     }
   }
 
-  lazy val checkForBot: Boolean = Configuration.root().getBoolean("checkForBot", false)
-
-  def isBot(circs: Claim): Boolean = {
-    if (checkForBot) checkTimeToCompleteAllSections(circs) || honeyPot(circs)
-    else false
+  def isBot(claim: Claim): Boolean = {
+    if (Configuration.root().getBoolean("checkForBot", false)) {
+      checkTimeToCompleteAllSections(claim) || honeyPot(claim)
+    } else {
+      false
+    }
   }
 
   def checkTimeToCompleteAllSections(circs: Claim, currentTime: Long = System.currentTimeMillis()) = {

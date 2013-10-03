@@ -8,9 +8,9 @@ import scala.util.Try
 trait MBean {
   self =>
 
-    if (Try(play.Configuration.root().getBoolean("jmxEnabled",false).asInstanceOf[Boolean]).getOrElse(false)){
-      MBeanRegistry.register(self)
-    }
+  if (Try(play.Configuration.root().getBoolean("jmxEnabled", false).asInstanceOf[Boolean]).getOrElse(false)) {
+    MBeanRegistry.register(self)
+  }
 
   def name: String
 }

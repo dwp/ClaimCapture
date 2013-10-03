@@ -6,42 +6,46 @@ import models._
 import models.yesNo._
 import org.specs2.mock.Mockito
 import play.api.cache.Cache
-import play.api.test.{FakeApplication, WithServer, FakeRequest, WithApplication}
-import jmx.{GetClaimStatistics, JMXActors}
+import play.api.test.{FakeRequest, WithApplication}
+import jmx.{JMXActors, GetClaimStatistics, ClaimStatistics}
 import java.util.concurrent.TimeUnit
 import models.Street
 import models.MultiLineAddress
-import jmx.ClaimStatistics
 import models.domain.Claim
 import models.yesNo.YesNo
 import models.view.CachedClaim
-import play.api.libs.concurrent.Akka
+import play.api.mvc.{PlainResult, AnyContent, Request}
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class ClaimSubmissionControllerSpec extends Specification with Mockito {
-  val controller = new ClaimSubmissionController(new XmlSubmitter)
+  val controller = new ClaimSubmissionController(new Submitter {
+    def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = Future(mock[PlainResult])
+  })
 
   val claim = Claim().update(Benefits("no"))
     .update(Hours("no"))
     .update(LivesInGB("no"))
     .update(Over16("no"))
-  
+
   "Claim submission" should {
-    "fire 'claim submitted' message upon claim submission" in new WithApplication(FakeApplication()) with Claiming {
+    "fire 'claim submitted' message upon claim submission" in new WithApplication with Claiming {
+      import scala.concurrent.Await
       import akka.pattern.ask
       import akka.util.Timeout
-      import Claims._
-      import scala.concurrent.Await
+      import JMXActors.claimInspector
 
-      implicit val timeout = Timeout(60, TimeUnit.SECONDS)
-      Cache.set(claimKey, completedClaim)
+      implicit val timeout = Timeout(10, TimeUnit.SECONDS)
 
-      controller.submit(FakeRequest().withSession(CachedClaim.key -> claimKey))
+      Cache.set(claimKey, claim)
+      implicit val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
+      controller.submit(request)
 
-      val future = JMXActors.claimInspector ? GetClaimStatistics
+      val future = claimInspector ? GetClaimStatistics
 
       val claimStatistics = Await.result(future, timeout.duration).asInstanceOf[ClaimStatistics]
 
-      claimStatistics should beLike { case ClaimStatistics(numberOfClaims, averageTime) => numberOfClaims shouldEqual 1 }
+      claimStatistics should beLike { case ClaimStatistics(numberOfClaims, averageTime) => numberOfClaims should be_>(0) }
     }
 
     "be flagged for completing sections too quickly e.g. a bot" in {
