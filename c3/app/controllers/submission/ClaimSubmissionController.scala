@@ -33,11 +33,12 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     }
   }
 
-  lazy val checkForBot: Boolean = Configuration.root().getBoolean("checkForBot", false)
-
   def isBot(claim: Claim): Boolean = {
-    if (checkForBot) checkTimeToCompleteAllSections(claim) || honeyPot(claim)
-    else false
+    if (Configuration.root().getBoolean("checkForBot", false)) {
+      checkTimeToCompleteAllSections(claim) || honeyPot(claim)
+    } else {
+      false
+    }
   }
 
   def checkTimeToCompleteAllSections(claim: Claim, currentTime: Long = System.currentTimeMillis()) = {
@@ -66,7 +67,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
 
     val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
 
-    if(result) Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
+    if (result) Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
 
     result
   }
