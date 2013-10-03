@@ -8,13 +8,6 @@ import services.UnavailableTransactionIdException
 import models.domain._
 import app.PensionPaymentFrequency._
 import play.Configuration
-import jmx.FastClaimDetected
-
-trait FastClaimsNotifier{
-  def fireNotification() = {
-    jmx.JMXActors.claimInspector ! FastClaimDetected
-  }
-}
 
 @Singleton
 class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim with ClaimSubmissionNotifier with FastClaimsNotifier  {
