@@ -34,5 +34,17 @@ class ClaimInspectorSpec extends Specification with Tags with NoTimeConversions 
         expectMsgType[Int] must be equalTo 2
       }
     }
+
+    "receive fast claim notifications" in new AkkaTestkitSpecs2Support {
+      within(60 seconds){
+        val actor = system.actorOf(Props[ClaimInspector])
+        for( v <- 0 to 100){
+          actor ! FastClaimDetected
+        }
+
+        actor ! GetFastClaimsDetected
+        expectMsgType[Int] must be equalTo 101
+      }
+    }
   }section("unit")
 }
