@@ -2,8 +2,10 @@ import com.google.inject.Guice
 import com.typesafe.config.ConfigFactory
 import java.io.File
 import java.net.InetAddress
-import jmx.JMXActors
+import jmx.{RefererRedirect, ClaimSubmitted, JMXActors}
+import models.domain.Claim
 import modules.{ProdModule, DevModule}
+import org.joda.time.DateTime
 import org.slf4j.MDC
 import play.api._
 import play.api.Configuration
@@ -63,11 +65,17 @@ object Global extends GlobalSettings {
   }
 
   def actorSystems = {
-    if (play.Configuration.root().getBoolean("jmxEnabled", false)) JMXActors
+    JMXActors
   }
 }
 
-object RefererCheck extends Filter {
+trait RefererFilterNotifier {
+  def fireNotification() = {
+    jmx.JMXActors.claimInspector ! RefererRedirect
+  }
+}
+
+object RefererCheck extends Filter with RefererFilterNotifier {
   override def apply(next: RequestHeader => Result)(request: RequestHeader): Result = {
     val expectedReferer = Option(play.Configuration.root().getString("referer")).get
     val host = request.headers.get("Host").getOrElse("No Host in header")
@@ -79,6 +87,7 @@ object RefererCheck extends Filter {
       Logger.debug(s"HTTP Referer : $httpReferer")
       Logger.debug(s"Conf Referer : $expectedReferer")
       Logger.debug(s"HTTP Host : $host")
+      fireNotification()
       Redirect(expectedReferer)
     } else {
       next(request)

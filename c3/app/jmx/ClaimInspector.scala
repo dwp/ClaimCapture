@@ -13,12 +13,22 @@ case class ClaimStatistics(numberOfClaims: Int, averageTime: Int)
 
 case object GetSessionCount
 
+case object RefererRedirect
+
+case object GetRefererRedirects
+
 trait ClaimInspectorMBean extends MBean {
   override def name = "c3:name=ClaimCapture"
 
   def getSessionCount: Int
 
   def setSessionCount(i: Int): Unit
+
+  def getAverageClaimTime:Int
+
+  def getClaimCount:Int
+
+  def getRefererRedirects:Int
 }
 
 class ClaimInspector() extends Actor with ClaimInspectorMBean {
@@ -28,10 +38,18 @@ class ClaimInspector() extends Actor with ClaimInspectorMBean {
 
   var averageClaimTime: Int = 0
 
+  var refererRedirects: Int = 0
+
   override def getSessionCount: Int = {
     sessionCount = Try(CacheManager.getInstance().getCache("play").getKeys.size()).getOrElse(0)
     sessionCount
   }
+
+  override def getAverageClaimTime = averageClaimTime
+
+  override def getClaimCount = claimCount
+
+  override def getRefererRedirects = refererRedirects
 
   override def setSessionCount(i: Int) = sessionCount = i
 
@@ -45,5 +63,11 @@ class ClaimInspector() extends Actor with ClaimInspectorMBean {
 
     case GetClaimStatistics =>
       sender ! ClaimStatistics(claimCount, averageClaimTime)
+
+    case RefererRedirect =>
+      refererRedirects = refererRedirects + 1
+
+    case GetRefererRedirects =>
+      sender ! getRefererRedirects
   }
 }

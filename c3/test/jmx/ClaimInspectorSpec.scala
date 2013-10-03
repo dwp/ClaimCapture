@@ -24,5 +24,15 @@ class ClaimInspectorSpec extends Specification with Tags with NoTimeConversions 
         expectMsgType[ClaimStatistics] must be equalTo ClaimStatistics(1, 60 * 60)
       }
     }
-  }
+
+    "receive a referer redirect" in new AkkaTestkitSpecs2Support {
+      within(60 seconds){
+        val actor = system.actorOf(Props[ClaimInspector])
+        actor ! RefererRedirect
+        actor ! RefererRedirect
+        actor ! GetRefererRedirects
+        expectMsgType[Int] must be equalTo 2
+      }
+    }
+  }section("unit")
 }

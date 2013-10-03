@@ -17,7 +17,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
     } else {
       try {
         Async {
-          notity(claim) { submitter.submit(claim, request) }
+          notify(claim) { submitter.submit(claim, request) }
         }
       } catch {
         case e: UnavailableTransactionIdException => {
@@ -34,14 +34,15 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
   }
 
   def isBot(claim: Claim): Boolean = {
+
     if (Configuration.root().getBoolean("checkForBot", false)) {
-      checkTimeToCompleteAllSections(claim) || honeyPot(claim)
+      checkTimeToCompleteAllSections(claim,System.currentTimeMillis()) || honeyPot(claim)
     } else {
       false
     }
   }
 
-  def checkTimeToCompleteAllSections(claim: Claim, currentTime: Long = System.currentTimeMillis()) = {
+  def checkTimeToCompleteAllSections(claim: Claim, currentTime: Long) = {
     val sectionExpectedTimes = Map[String, Long](
       "s1" -> 10000,
       "s2" -> 10000,
@@ -67,7 +68,9 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
 
     val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
 
-    if (result) Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
+    if (result){
+      Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
+    }
 
     result
   }

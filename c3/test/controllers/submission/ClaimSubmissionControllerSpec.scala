@@ -6,7 +6,7 @@ import models._
 import models.yesNo._
 import org.specs2.mock.Mockito
 import play.api.cache.Cache
-import play.api.test.{FakeRequest, WithApplication}
+import play.api.test.{FakeApplication, WithServer, FakeRequest, WithApplication}
 import jmx.{GetClaimStatistics, JMXActors}
 import java.util.concurrent.TimeUnit
 import models.Street
@@ -15,6 +15,7 @@ import jmx.ClaimStatistics
 import models.domain.Claim
 import models.yesNo.YesNo
 import models.view.CachedClaim
+import play.api.libs.concurrent.Akka
 
 class ClaimSubmissionControllerSpec extends Specification with Mockito {
   val controller = new ClaimSubmissionController(new XmlSubmitter)
@@ -25,18 +26,19 @@ class ClaimSubmissionControllerSpec extends Specification with Mockito {
     .update(Over16("no"))
   
   "Claim submission" should {
-    "fire 'claim submitted' message upon claim submission" in new WithApplication with Claiming {
-      import scala.concurrent.Await
+    "fire 'claim submitted' message upon claim submission" in new WithApplication(FakeApplication()) with Claiming {
       import akka.pattern.ask
       import akka.util.Timeout
       import Claims._
+      import scala.concurrent.Await
 
       implicit val timeout = Timeout(60, TimeUnit.SECONDS)
-      
       Cache.set(claimKey, completedClaim)
+
       controller.submit(FakeRequest().withSession(CachedClaim.key -> claimKey))
 
       val future = JMXActors.claimInspector ? GetClaimStatistics
+
       val claimStatistics = Await.result(future, timeout.duration).asInstanceOf[ClaimStatistics]
 
       claimStatistics should beLike { case ClaimStatistics(numberOfClaims, averageTime) => numberOfClaims shouldEqual 1 }
