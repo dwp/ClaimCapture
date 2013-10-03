@@ -2,6 +2,7 @@ import com.google.inject.Guice
 import com.typesafe.config.ConfigFactory
 import java.io.File
 import java.net.InetAddress
+import jmx.JMXActors
 import modules.{ProdModule, DevModule}
 import org.slf4j.MDC
 import play.api._
@@ -35,6 +36,9 @@ object Global extends GlobalSettings {
     MDC.put("hostName", Option(InetAddress.getLocalHost.getHostName).getOrElse("Value not set"))
     MDC.put("envName", Option(System.getProperty("env.name")).getOrElse("Value not set"))
     super.onStart(app)
+
+    actorSystems
+
     Logger.info("c3 Started") // used for operations, do not remove
   }
 
@@ -56,6 +60,10 @@ object Global extends GlobalSettings {
 
   override def doFilter(action: EssentialAction) = {
     (RefererCheck(_:EssentialAction))(action)
+  }
+
+  def actorSystems = {
+    if (play.Configuration.root().getBoolean("jmxEnabled", false)) JMXActors
   }
 }
 
@@ -81,8 +89,8 @@ object RefererCheck extends Filter {
 class JMXFilter extends Filter {
   def apply(f: (RequestHeader) => Result)(rh: RequestHeader): Result = f(rh)
 
-  override def apply(f: EssentialAction):EssentialAction = {
-    if (play.Configuration.root().getBoolean("jmxEnabled",false)) super.apply(f)
+  override def apply(f: EssentialAction): EssentialAction = {
+    if (play.Configuration.root().getBoolean("jmxEnabled", false)) super.apply(f)
     else f
   }
 }

@@ -8,21 +8,16 @@ import services.UnavailableTransactionIdException
 import models.domain._
 import app.PensionPaymentFrequency._
 import play.Configuration
-import jmx.{ClaimSubmitted, JMXActors}
-import org.joda.time.DateTime
 
 @Singleton
-class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim  {
+class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim with ClaimSubmissionNotifier  {
   def submit = claiming { implicit claim => implicit request =>
     if (isBot(claim)) {
       NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
     } else {
       try {
         Async {
-          val result = submitter.submit(claim, request)
-          JMXActors.claimInspector ! ClaimSubmitted(new DateTime(claim.created), DateTime.now())
-
-          result
+          notity(claim) { submitter.submit(claim, request) }
         }
       } catch {
         case e: UnavailableTransactionIdException => {
