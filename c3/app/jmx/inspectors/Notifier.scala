@@ -5,8 +5,8 @@ import models.domain.Claim
 import jmx.JMXActors._
 
 trait ClaimSubmissionNotifier {
-  def fireNotification[R](claim: Claim)(action: => R = Unit) = {
-    val result = action
+  def fireNotification[R](claim: Claim)(proceed: => R = Unit) = {
+    val result = proceed
     claimInspector ! ClaimSubmitted(new DateTime(claim.created), DateTime.now())
     result
   }
@@ -17,8 +17,8 @@ trait FastClaimsNotifier {
 }
 
 trait ChangeOfCircsSubmissionNotifier {
-  def fireNotification[R](claim: Claim)(action: => R = Unit) = {
-    val result = action
+  def fireNotification[R](claim: Claim)(proceed: => R = Unit) = {
+    val result = proceed
     changeOfCircsInspector ! ChangeOfCircsSubmitted(new DateTime(claim.created), DateTime.now())
     result
   }
