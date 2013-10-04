@@ -27,10 +27,3 @@ trait ChangeOfCircsSubmissionNotifier {
 trait FastChangeOfCircsNotifier {
   def fireNotification() = changeOfCircsInspector ! FastChangeOfCircsDetected
 }
-
-trait RefererFilterNotifier {
-  def fireNotification[R](proceed: => R) = {
-    claimInspector ! RefererRedirect
-    proceed
-  }
-}

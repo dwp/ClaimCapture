@@ -13,12 +13,6 @@ class ChangeOfCircsInspector() extends ClaimInspector {
     case GetChangeOfCircsStatistics =>
       sender ! ChangeOfCircsStatistics(count, averageTime)
 
-    case RefererRedirect =>
-      refererRedirects = refererRedirects + 1
-
-    case GetRefererRedirects =>
-      sender ! getRefererRedirects
-
     case FastChangeOfCircsDetected =>
       fastCount = fastCount + 1
 

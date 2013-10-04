@@ -14,12 +14,6 @@ case class ClaimStatistics(numberOfClaims: Int, averageTime: Int)
 
 case class ChangeOfCircsStatistics(numberOfChangeOfCircs: Int, averageTime: Int)
 
-case object GetSessionCount
-
-case object RefererRedirect
-
-case object GetRefererRedirects
-
 case object FastClaimDetected
 
 case object FastChangeOfCircsDetected

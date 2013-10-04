@@ -8,8 +8,7 @@ import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.Play.current
 import com.google.inject.Guice
-import jmx.claiminspector.RefererFilterNotifier
-import jmx.JMXActors
+import jmx.{RefererFilterNotifier, JMXActors}
 import modules.{ProdModule, DevModule}
 
 /**
