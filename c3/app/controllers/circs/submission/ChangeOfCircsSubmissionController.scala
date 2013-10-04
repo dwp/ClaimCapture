@@ -9,9 +9,10 @@ import controllers.submission.Submitter
 import play.Configuration
 import models.domain._
 import models.domain.Claim
+import jmx.claiminspector.{ChangeOfCircsSubmissionNotifier, FastChangeOfCircsNotifier}
 
 @Singleton
-class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs {
+class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs with ChangeOfCircsSubmissionNotifier with FastChangeOfCircsNotifier {
 
   def submit = claiming { implicit circs => implicit request =>
     if (isBot(circs)) {
@@ -20,7 +21,7 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
     else {
       try {
         Async {
-          submitter.submit(circs, request)
+          fireNotification(circs) { submitter.submit(circs, request) }
         }
       }
       catch {
@@ -60,7 +61,14 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
     }).reduce(_ + _) // Aggregate all of the sectionExpectedTimes for completed sections only.
 
     val actualTimeToCompleteAllSections: Long = currentTime - circs.created
-    actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
+    val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
+
+    if (result) {
+      fireNotification()
+      Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
+    }
+
+    result
   }
 
   def honeyPot(circs: Claim): Boolean = {

@@ -16,6 +16,18 @@ trait FastClaimsNotifier {
   def fireNotification() = claimInspector ! FastClaimDetected
 }
 
+trait ChangeOfCircsSubmissionNotifier {
+  def fireNotification[R](claim: Claim)(action: => R) = {
+    val result = action
+    claimInspector ! ChangeOfCircsSubmitted(new DateTime(claim.created), DateTime.now())
+    result
+  }
+}
+
+trait FastChangeOfCircsNotifier {
+  def fireNotification() = claimInspector ! FastChangeOfCircsDetected
+}
+
 trait RefererFilterNotifier {
   def fireNotification[R](proceed: => R) = {
     claimInspector ! RefererRedirect
