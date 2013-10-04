@@ -5,6 +5,7 @@ import akka.actor._
 import org.specs2.time.NoTimeConversions
 import scala.concurrent.duration._
 import specs2.akka.AkkaTestkitSpecs2Support
+import jmx.inspectors.{GetRefererRedirects, RefererRedirect, GetSessionCount, ApplicationInspector}
 
 class ApplicationInspectorSpec extends Specification with Tags with NoTimeConversions {
   "Application Inspector" should {

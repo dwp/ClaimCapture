@@ -1,7 +1,7 @@
 package jmx
 
 import akka.actor.{ActorSystem, Props}
-import jmx.inspectors.{ChangeOfCircsInspector, ClaimInspector}
+import jmx.inspectors.{ApplicationInspector, ChangeOfCircsInspector, ClaimInspector}
 
 object JMXActors {
   val actorSystem = ActorSystem("jmx-actor-system")

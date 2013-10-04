@@ -1,8 +1,9 @@
-package jmx
+package jmx.inspectors
 
 import scala.util.Try
 import akka.actor.Actor
 import net.sf.ehcache.CacheManager
+import jmx.MBean
 
 trait ApplicationInspectorMBean extends MBean {
   override def name = "c3:name=Application"

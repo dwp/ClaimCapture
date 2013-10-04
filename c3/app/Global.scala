@@ -1,6 +1,7 @@
 import java.io.File
 import java.net.InetAddress
 import com.typesafe.config.ConfigFactory
+import jmx.inspectors.RefererFilterNotifier
 import org.slf4j.MDC
 import play.api._
 import play.api.Configuration
@@ -8,7 +9,7 @@ import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.Play.current
 import com.google.inject.Guice
-import jmx.{RefererFilterNotifier, JMXActors}
+import jmx.JMXActors
 import modules.{ProdModule, DevModule}
 
 /**
