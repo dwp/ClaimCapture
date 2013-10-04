@@ -1,4 +1,4 @@
-package jmx.claiminspector
+package jmx.inspectors
 
 import akka.actor.Actor
 import org.joda.time.Seconds

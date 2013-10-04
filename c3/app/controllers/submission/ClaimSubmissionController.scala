@@ -8,7 +8,7 @@ import services.UnavailableTransactionIdException
 import models.domain._
 import app.PensionPaymentFrequency._
 import play.Configuration
-import jmx.claiminspector.{ClaimSubmissionNotifier, FastClaimsNotifier}
+import jmx.inspectors.{ClaimSubmissionNotifier, FastClaimsNotifier}
 
 @Singleton
 class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim with ClaimSubmissionNotifier with FastClaimsNotifier  {

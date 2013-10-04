@@ -9,7 +9,7 @@ import controllers.submission.Submitter
 import play.Configuration
 import models.domain._
 import models.domain.Claim
-import jmx.claiminspector.{ChangeOfCircsSubmissionNotifier, FastChangeOfCircsNotifier}
+import jmx.inspectors.{ChangeOfCircsSubmissionNotifier, FastChangeOfCircsNotifier}
 
 @Singleton
 class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs with ChangeOfCircsSubmissionNotifier with FastChangeOfCircsNotifier {

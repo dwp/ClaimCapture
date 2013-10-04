@@ -17,7 +17,7 @@ import models.view.CachedClaim
 import play.api.mvc.{PlainResult, AnyContent, Request}
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import jmx.claiminspector.{ClaimStatistics, GetClaimStatistics}
+import jmx.inspectors.{ClaimStatistics, GetClaimStatistics}
 
 class ClaimSubmissionControllerSpec extends Specification with Mockito {
   val controller = new ClaimSubmissionController(new Submitter {

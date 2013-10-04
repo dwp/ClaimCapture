@@ -1,4 +1,4 @@
-package jmx.claiminspector
+package jmx.inspectors
 
 import org.joda.time.DateTime
 

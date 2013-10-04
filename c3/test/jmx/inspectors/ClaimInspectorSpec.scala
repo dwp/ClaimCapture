@@ -1,4 +1,4 @@
-package jmx.claiminspector
+package jmx.inspectors
 
 import org.specs2.mutable._
 import akka.actor._
