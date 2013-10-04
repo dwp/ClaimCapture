@@ -1,8 +1,7 @@
-package controllers.submission
+package jmx.claiminspector
 
 import org.joda.time.DateTime
 import models.domain.Claim
-import jmx.{FastClaimDetected, ClaimSubmitted}
 import jmx.JMXActors.claimInspector
 
 trait ClaimSubmissionNotifier {
@@ -15,4 +14,11 @@ trait ClaimSubmissionNotifier {
 
 trait FastClaimsNotifier {
   def fireNotification() = claimInspector ! FastClaimDetected
+}
+
+trait RefererFilterNotifier {
+  def fireNotification[R](proceed: => R) = {
+    claimInspector ! RefererRedirect
+    proceed
+  }
 }

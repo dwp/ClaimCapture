@@ -2,8 +2,8 @@ package jmx
 
 import java.lang.management.ManagementFactory
 import javax.management.ObjectName
-import play.api.Logger
 import scala.util.Try
+import play.api.Logger
 
 trait MBean {
   self =>

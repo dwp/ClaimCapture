@@ -7,7 +7,7 @@ import models.yesNo._
 import org.specs2.mock.Mockito
 import play.api.cache.Cache
 import play.api.test.{FakeRequest, WithApplication}
-import jmx.{JMXActors, GetClaimStatistics, ClaimStatistics}
+import jmx.{JMXActors}
 import java.util.concurrent.TimeUnit
 import models.Street
 import models.MultiLineAddress
@@ -17,6 +17,7 @@ import models.view.CachedClaim
 import play.api.mvc.{PlainResult, AnyContent, Request}
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import jmx.claiminspector.{ClaimStatistics, GetClaimStatistics}
 
 class ClaimSubmissionControllerSpec extends Specification with Mockito {
   val controller = new ClaimSubmissionController(new Submitter {

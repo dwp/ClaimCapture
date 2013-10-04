@@ -6,6 +6,9 @@ import org.specs2.time.NoTimeConversions
 import scala.concurrent.duration._
 import org.joda.time.DateTime
 import specs2.akka.AkkaTestkitSpecs2Support
+import jmx.claiminspector._
+import jmx.claiminspector.ClaimSubmitted
+import jmx.claiminspector.ClaimStatistics
 
 class ClaimInspectorSpec extends Specification with Tags with NoTimeConversions {
   "Claim Inspector" should {

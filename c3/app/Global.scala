@@ -1,15 +1,16 @@
-import com.google.inject.Guice
-import com.typesafe.config.ConfigFactory
 import java.io.File
 import java.net.InetAddress
-import jmx.{RefererRedirect, JMXActors}
-import modules.{ProdModule, DevModule}
+import com.typesafe.config.ConfigFactory
 import org.slf4j.MDC
 import play.api._
 import play.api.Configuration
 import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.Play.current
+import com.google.inject.Guice
+import jmx.claiminspector.RefererFilterNotifier
+import jmx.JMXActors
+import modules.{ProdModule, DevModule}
 
 /**
  * Application configuration is in a hierarchy of files:
@@ -67,12 +68,6 @@ object Global extends GlobalSettings {
   }
 }
 
-trait RefererFilterNotifier {
-  def fireNotification() = {
-    jmx.JMXActors.claimInspector ! RefererRedirect
-  }
-}
-
 object RefererCheck extends Filter with RefererFilterNotifier {
   override def apply(next: RequestHeader => Result)(request: RequestHeader): Result = {
     val expectedReferer = Option(play.Configuration.root().getString("referer")).get
@@ -85,8 +80,7 @@ object RefererCheck extends Filter with RefererFilterNotifier {
       Logger.debug(s"HTTP Referer : $httpReferer")
       Logger.debug(s"Conf Referer : $expectedReferer")
       Logger.debug(s"HTTP Host : $host")
-      fireNotification()
-      Redirect(expectedReferer)
+      fireNotification(Redirect(expectedReferer))
     } else {
       next(request)
     }

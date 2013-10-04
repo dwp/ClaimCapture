@@ -8,6 +8,7 @@ import services.UnavailableTransactionIdException
 import models.domain._
 import app.PensionPaymentFrequency._
 import play.Configuration
+import jmx.claiminspector.{ClaimSubmissionNotifier, FastClaimsNotifier}
 
 @Singleton
 class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim with ClaimSubmissionNotifier with FastClaimsNotifier  {
@@ -34,9 +35,8 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
   }
 
   def isBot(claim: Claim): Boolean = {
-
     if (Configuration.root().getBoolean("checkForBot", false)) {
-      checkTimeToCompleteAllSections(claim,System.currentTimeMillis()) || honeyPot(claim)
+      checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) || honeyPot(claim)
     } else {
       false
     }
@@ -68,7 +68,7 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
 
     val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
 
-    if (result){
+    if (result) {
       fireNotification()
       Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
     }

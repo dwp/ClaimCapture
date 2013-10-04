@@ -1,25 +1,10 @@
-package jmx
+package jmx.claiminspector
 
 import scala.util.Try
 import akka.actor.Actor
 import net.sf.ehcache.CacheManager
-import org.joda.time.{Seconds, DateTime}
-
-case class ClaimSubmitted(start: DateTime, end: DateTime)
-
-case object GetClaimStatistics
-
-case class ClaimStatistics(numberOfClaims: Int, averageTime: Int)
-
-case object GetSessionCount
-
-case object RefererRedirect
-
-case object GetRefererRedirects
-
-case object FastClaimDetected
-
-case object GetFastClaimsDetected
+import org.joda.time.Seconds
+import jmx.MBean
 
 trait ClaimInspectorMBean extends MBean {
   override def name = "c3:name=ClaimCapture"
