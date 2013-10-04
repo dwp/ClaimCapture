@@ -3,7 +3,6 @@ package jmx
 import scala.util.Try
 import akka.actor.Actor
 import net.sf.ehcache.CacheManager
-import jmx.JMXActors._
 
 trait ApplicationInspectorMBean extends MBean {
   override def name = "c3:name=Application"
@@ -34,12 +33,5 @@ class ApplicationInspector() extends Actor with ApplicationInspectorMBean {
 
     case GetRefererRedirects =>
       sender ! getRefererRedirects
-  }
-}
-
-trait RefererFilterNotifier {
-  def fireNotification[R](proceed: => R) = {
-    applicationInspector ! RefererRedirect
-    proceed
   }
 }
