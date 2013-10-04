@@ -15,35 +15,23 @@ trait ClaimInspectorMBean extends MBean {
 
   def getRefererRedirects: Int
 
-  def getAverageClaimTime: Int
+  def getAverageTime: Int
 
-  def getAverageChangeOfCircsTime: Int
+  def getCount: Int
 
-  def getClaimCount: Int
-
-  def getChangeOfCircsCount: Int
-
-  def getFastClaimsDetected: Int
-
-  def getFastChangeOfCircsDetected: Int
+  def getFastCount: Int
 }
 
 class ClaimInspector() extends Actor with ClaimInspectorMBean {
   var sessionCount: Int = 0
 
-  var fastClaimsDetected: Int = 0
-
-  var claimCount: Int = 0
-
-  var changeOfCircsCount: Int = 0
-
-  var averageClaimTime: Int = 0
-
-  var averageChangeOfCircsTime: Int = 0
-
   var refererRedirects: Int = 0
 
-  var fastChangeOfCircsDetected: Int = 0
+  var count: Int = 0
+
+  var fastCount: Int = 0
+
+  var averageTime: Int = 0
 
   override def getSessionCount: Int = {
     sessionCount = Try(CacheManager.getInstance().getCache("play").getKeys.size()).getOrElse(0)
@@ -54,35 +42,22 @@ class ClaimInspector() extends Actor with ClaimInspectorMBean {
 
   override def getRefererRedirects = refererRedirects
 
-  override def getAverageClaimTime = averageClaimTime
+  override def getAverageTime = averageTime
 
-  override def getAverageChangeOfCircsTime = averageChangeOfCircsTime
+  override def getCount = count
 
-  override def getClaimCount = claimCount
-
-  override def getChangeOfCircsCount = changeOfCircsCount
-
-  override def getFastClaimsDetected = fastClaimsDetected
-
-  override def getFastChangeOfCircsDetected = fastChangeOfCircsDetected
+  override def getFastCount = fastCount
 
   def receive = {
     case GetSessionCount =>
       sender ! getSessionCount
 
     case ClaimSubmitted(start, end) =>
-      claimCount = claimCount + 1
-      averageClaimTime = (averageClaimTime + Seconds.secondsBetween(start, end).getSeconds) / claimCount
-
-    case ChangeOfCircsSubmitted(start, end) =>
-      changeOfCircsCount = changeOfCircsCount + 1
-      averageChangeOfCircsTime = (averageChangeOfCircsTime + Seconds.secondsBetween(start, end).getSeconds) / changeOfCircsCount
+      count = count + 1
+      averageTime = (averageTime + Seconds.secondsBetween(start, end).getSeconds) / count
 
     case GetClaimStatistics =>
-      sender ! ClaimStatistics(claimCount, averageClaimTime)
-
-    case GetChangeOfCircsStatistics =>
-      sender ! ChangeOfCircsStatistics(changeOfCircsCount, averageChangeOfCircsTime)
+      sender ! ClaimStatistics(count, averageTime)
 
     case RefererRedirect =>
       refererRedirects = refererRedirects + 1
@@ -91,15 +66,10 @@ class ClaimInspector() extends Actor with ClaimInspectorMBean {
       sender ! getRefererRedirects
 
     case FastClaimDetected =>
-      fastClaimsDetected = fastClaimsDetected + 1
-
-    case FastChangeOfCircsDetected =>
-      fastChangeOfCircsDetected = fastChangeOfCircsDetected + 1
+      fastCount = fastCount + 1
 
     case GetFastClaimsDetected =>
-      sender ! getFastClaimsDetected
+      sender ! getFastCount
 
-    case GetFastChangeOfCircsDetected =>
-      sender ! getFastChangeOfCircsDetected
   }
 }
