@@ -10,8 +10,6 @@ trait ApplicationInspectorMBean extends MBean {
 
   def getSessionCount: Int
 
-  def setSessionCount(i: Int): Unit
-
   def getRefererRedirects: Int
 }
 
@@ -24,8 +22,6 @@ class ApplicationInspector() extends Actor with ApplicationInspectorMBean {
     sessionCount = Try(CacheManager.getInstance().getCache("play").getKeys.size()).getOrElse(0)
     sessionCount
   }
-
-  override def setSessionCount(i: Int) = sessionCount = i
 
   override def getRefererRedirects = refererRedirects
 
