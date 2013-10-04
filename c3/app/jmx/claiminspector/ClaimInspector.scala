@@ -7,11 +7,11 @@ import jmx.MBean
 trait ClaimInspectorMBean extends MBean {
   override def name = "c3:name=ClaimCapture"
 
-  def getAverageTime: Int
-
   def getCount: Int
 
   def getFastCount: Int
+
+  def getAverageTime: Int
 }
 
 class ClaimInspector() extends Actor with ClaimInspectorMBean {
@@ -21,11 +21,11 @@ class ClaimInspector() extends Actor with ClaimInspectorMBean {
 
   var averageTime: Int = 0
 
-  override def getAverageTime = averageTime
-
   override def getCount = count
 
   override def getFastCount = fastCount
+
+  override def getAverageTime = averageTime
 
   def receive = {
     case ClaimSubmitted(start, end) =>
