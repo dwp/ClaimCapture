@@ -9,10 +9,10 @@ import controllers.submission.Submitter
 import play.Configuration
 import models.domain._
 import models.domain.Claim
-import jmx.inspectors.{ChangeOfCircsSubmissionNotifier, FastChangeOfCircsNotifier}
+import jmx.inspectors.{FastSubmissionNotifier, SubmissionNotifier}
 
 @Singleton
-class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs with ChangeOfCircsSubmissionNotifier with FastChangeOfCircsNotifier {
+class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs with SubmissionNotifier with FastSubmissionNotifier {
 
   def submit = claiming { implicit circs => implicit request =>
     if (isBot(circs)) {
@@ -64,7 +64,7 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
     val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
 
     if (result) {
-      fireNotification()
+      fireFastNotification(circs)
       Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
     }
 

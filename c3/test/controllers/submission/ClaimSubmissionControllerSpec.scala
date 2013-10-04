@@ -19,15 +19,18 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import jmx.inspectors.{ClaimStatistics, GetClaimStatistics}
 
-class ClaimSubmissionControllerSpec extends Specification with Mockito {
+class ClaimSubmissionControllerSpec extends Specification with Mockito with CachedClaim {
   val controller = new ClaimSubmissionController(new Submitter {
     def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = Future(mock[PlainResult])
   })
 
-  val claim = Claim().update(Benefits("no"))
+  var claim = copyInstance(new Claim()
+    .update(Benefits("no"))
     .update(Hours("no"))
     .update(LivesInGB("no"))
-    .update(Over16("no"))
+    .update(Over16("no")))
+
+
 
   "Claim submission" should {
     "fire 'claim submitted' message upon claim submission" in new WithApplication with Claiming {

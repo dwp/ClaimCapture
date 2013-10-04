@@ -1,7 +1,7 @@
 package jmx.inspectors
 
 import org.joda.time.DateTime
-import models.domain.Claim
+import models.domain.{Claimable, ChangeOfCircs, FullClaim, Claim}
 import jmx.JMXActors._
 
 trait RefererFilterNotifier {
@@ -11,26 +11,25 @@ trait RefererFilterNotifier {
   }
 }
 
-trait ClaimSubmissionNotifier {
+trait SubmissionNotifier {
   def fireNotification[R](claim: Claim)(proceed: => R = Unit) = {
     val result = proceed
-    claimInspector ! ClaimSubmitted(new DateTime(claim.created), DateTime.now())
+    claim match{
+      case c: Claim with FullClaim => claimInspector ! ClaimSubmitted(new DateTime(claim.created), DateTime.now())
+      case c: Claim with ChangeOfCircs => changeOfCircsInspector ! ChangeOfCircsSubmitted(new DateTime(claim.created), DateTime.now())
+    }
+
     result
   }
+
 }
 
-trait FastClaimsNotifier {
-  def fireNotification() = claimInspector ! FastClaimDetected
-}
+trait FastSubmissionNotifier {
 
-trait ChangeOfCircsSubmissionNotifier {
-  def fireNotification[R](claim: Claim)(proceed: => R = Unit) = {
-    val result = proceed
-    changeOfCircsInspector ! ChangeOfCircsSubmitted(new DateTime(claim.created), DateTime.now())
-    result
+  def fireFastNotification[R](claim: Claim) = {
+    claim match{
+      case c: Claim with FullClaim => claimInspector ! FastClaimDetected
+      case c: Claim with ChangeOfCircs => changeOfCircsInspector ! FastChangeOfCircsDetected
+    }
   }
-}
-
-trait FastChangeOfCircsNotifier {
-  def fireNotification() = changeOfCircsInspector ! FastChangeOfCircsDetected
 }
