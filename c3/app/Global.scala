@@ -80,7 +80,7 @@ object RefererCheck extends Filter with RefererFilterNotifier {
       Logger.debug(s"HTTP Referer : $httpReferer")
       Logger.debug(s"Conf Referer : $expectedReferer")
       Logger.debug(s"HTTP Host : $host")
-      fireNotification(Redirect(expectedReferer))
+      fireNotification { Redirect(expectedReferer) }
     } else {
       next(request)
     }
