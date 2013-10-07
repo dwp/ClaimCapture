@@ -9,9 +9,10 @@ import controllers.submission.Submitter
 import play.Configuration
 import models.domain._
 import models.domain.Claim
+import jmx.inspectors.{FastSubmissionNotifier, SubmissionNotifier}
 
 @Singleton
-class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs {
+class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs with SubmissionNotifier with FastSubmissionNotifier {
 
   def submit = claiming { implicit circs => implicit request =>
     if (isBot(circs)) {
@@ -20,7 +21,7 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
     else {
       try {
         Async {
-          submitter.submit(circs, request)
+          fireNotification(circs) { submitter.submit(circs, request) }
         }
       }
       catch {
@@ -37,11 +38,12 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
     }
   }
 
-  lazy val checkForBot: Boolean = Configuration.root().getBoolean("checkForBot", false)
-
-  def isBot(circs: Claim): Boolean = {
-    if (checkForBot) checkTimeToCompleteAllSections(circs) || honeyPot(circs)
-    else false
+  def isBot(claim: Claim): Boolean = {
+    if (Configuration.root().getBoolean("checkForBot", false)) {
+      checkTimeToCompleteAllSections(claim) || honeyPot(claim)
+    } else {
+      false
+    }
   }
 
   def checkTimeToCompleteAllSections(circs: Claim, currentTime: Long = System.currentTimeMillis()) = {
@@ -59,7 +61,14 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
     }).reduce(_ + _) // Aggregate all of the sectionExpectedTimes for completed sections only.
 
     val actualTimeToCompleteAllSections: Long = currentTime - circs.created
-    actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
+    val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
+
+    if (result) {
+      fireFastNotification(circs)
+      Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
+    }
+
+    result
   }
 
   def honeyPot(circs: Claim): Boolean = {

@@ -2,12 +2,15 @@ package jmx
 
 import java.lang.management.ManagementFactory
 import javax.management.ObjectName
+import scala.util.Try
 import play.api.Logger
 
 trait MBean {
   self =>
 
-  MBeanRegistry.register(self)
+  if (Try(play.Configuration.root().getBoolean("jmxEnabled", false).asInstanceOf[Boolean]).getOrElse(false)) {
+    MBeanRegistry.register(self)
+  }
 
   def name: String
 }

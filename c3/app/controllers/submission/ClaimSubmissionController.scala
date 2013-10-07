@@ -8,16 +8,17 @@ import services.UnavailableTransactionIdException
 import models.domain._
 import app.PensionPaymentFrequency._
 import play.Configuration
+import jmx.inspectors.{FastSubmissionNotifier, SubmissionNotifier}
 
 @Singleton
-class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim with ClaimSubmissionNotifier  {
+class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim with SubmissionNotifier with FastSubmissionNotifier  {
   def submit = claiming { implicit claim => implicit request =>
     if (isBot(claim)) {
       NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
     } else {
       try {
         Async {
-          notity(claim) { submitter.submit(claim, request) }
+          fireNotification(claim) { submitter.submit(claim, request) }
         }
       } catch {
         case e: UnavailableTransactionIdException => {
@@ -35,13 +36,13 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
 
   def isBot(claim: Claim): Boolean = {
     if (Configuration.root().getBoolean("checkForBot", false)) {
-      checkTimeToCompleteAllSections(claim) || honeyPot(claim)
+      checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) || honeyPot(claim)
     } else {
       false
     }
   }
 
-  def checkTimeToCompleteAllSections(claim: Claim, currentTime: Long = System.currentTimeMillis()) = {
+  def checkTimeToCompleteAllSections(claim: Claim with Claimable, currentTime: Long) = {
     val sectionExpectedTimes = Map[String, Long](
       "s1" -> 10000,
       "s2" -> 10000,
@@ -67,7 +68,10 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
 
     val result = actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections
 
-    if (result) Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
+    if (result) {
+      fireFastNotification(claim)
+      Logger.error(s"Detected bot completing sections too quickly! actualTimeToCompleteAllSections: $actualTimeToCompleteAllSections < expectedMinTimeToCompleteAllSections: $expectedMinTimeToCompleteAllSections")
+    }
 
     result
   }
