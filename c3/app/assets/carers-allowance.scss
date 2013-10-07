@@ -715,7 +715,6 @@ main {
 				   input[type="text"], input[type="tel"] {
 					   width: 11.8rem;
 					   position: relative;
-					   padding-left: 1em;
 					   .ie & {
 						   width: 118px;
 					   }
@@ -726,15 +725,6 @@ main {
 						   }
 					   }
 				   }
-				   &:before {
-						   position: absolute;
-						   bottom: 20px;
-						   left: 7px;
-						   z-index: 999;
-						   line-height: 1em;
-						   content: "\00a3";
-						   font-size: 19px;
-					   }
 			   }
 			   
 			   &.validation {
@@ -1106,7 +1096,7 @@ main {
 		   
 		   
 		   
-		   /* sort code */
+		     /* sort code */
 			 &.sort-code {
 			 	   li {
 				 	   margin-left: .5em;
@@ -1805,12 +1795,6 @@ main {
 		}
 }
 									 
-
-
-
-
-/* Purely for demo purposes - can be deleted later on */
-textarea.demo {text-align: left!important; width: 120%!important; font-size: 1.5rem!important; height: 20rem!important; margin-top: 1em; border-color: red!important; padding: 1rem!important; background: #eee!important; margin-bottom: 3em!important}
 
 
 /* Header - Global Overrides - inc !important overrides */
