@@ -27,7 +27,7 @@
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        carersCurrency(currentForm("howMuchPension"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPension", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
+                        carersCurrency(currentForm("howMuchPension"), 'placeholder -> Messages("poundSign"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPension", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
                         pensionPaymentFrequencySelect(currentForm("howOftenPension"), '_label -> Messages("howOftenPension"), 'id -> "howOftenPension",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
                     ),
                     'id -> "payOccupationalPensionScheme",
@@ -39,7 +39,7 @@
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                        carersCurrency(currentForm("howMuchPersonal"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPersonal", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
+                        carersCurrency(currentForm("howMuchPersonal"), 'placeholder -> Messages("poundSign"), 'maxlength -> Mappings.sixty, '_label -> Messages ("howMuchPersonal", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm)))),
                         pensionPaymentFrequencySelect(currentForm("howOftenPersonal"), '_label -> Messages("howOftenPersonal"), 'id -> "howOftenPersonal",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
                     ),
                     'id -> "payPersonalPensionScheme",

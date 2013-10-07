@@ -21,7 +21,7 @@
 	
 	            @otherDetailPlaceHolder(
 	             inputDef = Seq(
-									carersCurrency(currentForm("howMuch"), 'type -> "tel", 'maxlength -> Mappings.sixty, '_label -> Messages("howMuch.label")),
+									carersCurrency(currentForm("howMuch"), 'type -> "tel", 'maxlength -> Mappings.sixty, 'placeholder -> Messages("poundSign"), '_label -> Messages("howMuch.label")),
 									paymentFrequencySelect(currentForm("howOften"), 
 									  'id -> "howOften",
                                       'textAreaHelper -> "60 characters left", 'maxLength -> 60,
