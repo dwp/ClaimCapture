@@ -1,6 +1,3 @@
-/* == sass globals == */
-$button-green: #006435;
-$button-green-hover: #004b27;
 
 main {
 	background: #fff;
@@ -71,7 +68,7 @@ main {
 		    @media screen and (max-width: 760px) {padding-top: 2em;}
 		   .ie6 &, .ie7 &, .ie8 & {
 			   padding-bottom: 0;
-			   background: url('../img/nav-line.png') 0 56px repeat-x;
+			   background: url('images/nav-line.png') 0 56px repeat-x;
 			   margin-bottom: -12px;
 			   zoom: 1;
 		   }
@@ -99,7 +96,7 @@ main {
 			   padding: 35px 0 0 0;
 			   line-height: 1em;
 			   .ie6 &, .ie7 &, .ie8 & {
-				   background: url('../img/nav-default.png') center 0 no-repeat;
+				   background: url('images/nav-default.png') center 0 no-repeat;
 				   padding-bottom: 5px;
 			   }
 			   .ie6 & {
@@ -165,7 +162,7 @@ main {
 			   &.active {
 			   	padding-top: 48px;
 			   	.ie6 &, .ie7 &, .ie8 & {
-				   background: url('../img/nav-active.png') center 0 no-repeat;
+				   background: url('images/nav-active.png') center 0 no-repeat;
 				   top: -8px;
 				   padding-top: 55px;
 			   }
@@ -207,11 +204,11 @@ main {
 			   
 			   &.complete {
 			   .ie6 &, .ie7 &, .ie8 & {
-				   background: url('../img/nav-complete.png') center 0 no-repeat;
+				   background: url('images/nav-complete.png') center 0 no-repeat;
 			   }
 				   span {
 					   &:before {
-						   background: $button-green;
+						   background: #006435;
 						   content:"\203a";
 						   padding-left: 0;
 						   width: 30px;
@@ -292,7 +289,7 @@ main {
 				}
 			}
 			&.service-statement {
-				background: url('../img/portcullis.png') 91% center no-repeat;
+				background: url('images/portcullis.png') 91% center no-repeat;
 				@media screen and (max-width: 700px) {background: none;}
 				h1 {
 					padding-right: 20%;
@@ -344,7 +341,7 @@ main {
 				h2 {
 					font-size: 2.4rem;
 					line-height: 1.3em;
-					background-image: url('../img/response-bg.png');
+					background-image: url('images/response-bg.png');
 					background-position: center 0;
 					background-repeat: no-repeat;
 					padding-top: 180px;
@@ -418,7 +415,7 @@ main {
 	   	   text-align: right;
 	   	   a {
 		   	   display: inline-block;
-		   	   background: $button-green;
+		   	   background: #006435;
 		   	   font-size: 1.9rem;
 		   	   padding: .7em 1.75em;
 		   	   color: #fff;
@@ -434,7 +431,7 @@ main {
    	   }
 	   ul {
 		   li {
-			   background: #d5e8f3 url('../img/progress-tick.png') 1.2em 1.3em no-repeat;
+			   background: #d5e8f3 url('images/progress-tick.png') 1.2em 1.3em no-repeat;
 			   border-bottom: 1px solid #b6d6d2;
 			   padding: 1em 11em 1em 2.9em;
 			   position: relative;
@@ -687,6 +684,11 @@ main {
 					       background: transparent;
 				       }
 			       }
+			       
+			       .inline-stack {
+					   	border-left: none;
+					   	padding-left: 0;
+					   	}
 			   }
 			   
 			   &.date-time {
@@ -715,7 +717,6 @@ main {
 				   input[type="text"], input[type="tel"] {
 					   width: 11.8rem;
 					   position: relative;
-					   padding-left: 1em;
 					   .ie & {
 						   width: 118px;
 					   }
@@ -726,15 +727,6 @@ main {
 						   }
 					   }
 				   }
-				   &:before {
-						   position: absolute;
-						   bottom: 20px;
-						   left: 7px;
-						   z-index: 999;
-						   line-height: 1em;
-						   content: "\00a3";
-						   font-size: 19px;
-					   }
 			   }
 			   
 			   &.validation {
@@ -835,7 +827,7 @@ main {
 					}
 					&.datepicker {
 						cursor: pointer;
-						background: #f9f9f9 url('../img/calendar-icon.png') 97% 50% no-repeat;
+						background: #f9f9f9 url('images/calendar-icon.png') 97% 50% no-repeat;
 						position: relative;
 						z-index: 20;
 						.ie7 & {
@@ -1030,6 +1022,9 @@ main {
 		   
 		   /* list display - stacked list with label inline */	   
 		   &.inline-stack {
+		   	border-left: 5px solid #eee;
+		   	padding-left: .5em;
+		   	margin-bottom: .75em;
 			   li {
 				   display: block;
 				   margin: 0;
@@ -1041,7 +1036,7 @@ main {
 				   		.ie & {
 					   		margin-top: 0;
 				   		}
-				   		&[type=checkbox]:checked + label, &[type=radio]:checked + label {color: #0b0c0c;}
+				   		&[type=checkbox]:checked + label, &[type=radio]:checked + label {color: #000;}
 				   }
 				   label {
 				   	   width: auto;
@@ -1106,7 +1101,7 @@ main {
 		   
 		   
 		   
-		   /* sort code */
+		     /* sort code */
 			 &.sort-code {
 			 	   li {
 				 	   margin-left: .5em;
@@ -1588,7 +1583,7 @@ main {
 		   -webkit-appearance: none;
 		   display: inline-block;
 		   margin: .8em .25em 0 0;
-		   background: $button-green;
+		   background: #006435;
 		   font-weight: 500;
 		   text-decoration: none;
 		   top: 0;
@@ -1618,11 +1613,11 @@ main {
 			   padding: .4em 1em;
 		   }
 		   &:hover {
-			   background: $button-green-hover;
+			   background: #004b27;
 		   }
 		   &:active {	
 		   	   top: 3px;
-			   background: $button-green-hover;
+			   background: #004b27;
 			   box-shadow: 0 0 0 transparent;
 			   .ie7 &, .ie8 & {
 				   top: 0;
@@ -1686,7 +1681,7 @@ main {
 					padding: 0 0 2px 20px;
 					line-height: 1.4em;
 					font-size: 1.7rem;
-					background: url('../img/progress-tick.png') 0 3px no-repeat;
+					background: url('images/progress-tick.png') 0 3px no-repeat;
 				}
 			}
 			&.address {
@@ -1805,12 +1800,6 @@ main {
 		}
 }
 									 
-
-
-
-
-/* Purely for demo purposes - can be deleted later on */
-textarea.demo {text-align: left!important; width: 120%!important; font-size: 1.5rem!important; height: 20rem!important; margin-top: 1em; border-color: red!important; padding: 1rem!important; background: #eee!important; margin-bottom: 3em!important}
 
 
 /* Header - Global Overrides - inc !important overrides */
