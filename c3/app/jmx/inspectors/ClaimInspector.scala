@@ -14,7 +14,7 @@ trait ClaimInspectorMBean extends MBean {
   def getAverageTime: Int
 }
 
-class ClaimInspector() extends Actor with ClaimInspectorMBean {
+class ClaimInspector() extends Actor with ClaimInspectorMBean with PlayMBean{
   var count: Int = 0
 
   var fastCount: Int = 0
