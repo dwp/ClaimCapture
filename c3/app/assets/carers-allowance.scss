@@ -14,15 +14,18 @@ main {
    .ie6 & {
 	   width: 980px;
    }
-   @media screen and (max-width: 500px) {padding-left: .75em; padding-right: .75em;}
-   @media screen and (max-width: 640px) {border-top: 10px solid #f47738;}
+   @media screen and (max-width: 500px)
+   	{padding-left: .75em; padding-right: .75em;}
+   @media screen and (max-width: 640px)
+    {border-top: 10px solid #f47738;}
 
 	   .prototype {
 		   background: #f47738;
 		   overflow: hidden;
 		   zoom: 1;
 		   padding: 0.7em 1em 0 1em;
-		   @media screen and (max-width: 640px) {padding-bottom: .7em; margin-top: .9em;}
+		   @media screen and (max-width: 640px)
+		     {padding-bottom: .7em; margin-top: .9em;}
 		   p {
 			   margin: 0;
 			   padding: 0;
@@ -58,14 +61,16 @@ main {
    /* progress steps */
    .progress-steps {
 	   border-top: 10px solid #f47738;
-	   @media screen and (max-width: 760px) {border-top: 0;}
-	   clear: both;
+	   @media screen and (max-width: 760px)
+	     {border-top: 0;}
+	     clear: both;
 	   ol {
 		   list-style: none;
 		   margin: 0;
 		   overflow: hidden;
 		   padding: 2.5em 0 0.3em 0;
-		    @media screen and (max-width: 760px) {padding-top: 2em;}
+		    @media screen and (max-width: 760px)
+		     {padding-top: 2em;}
 		   .ie6 &, .ie7 &, .ie8 & {
 			   padding-bottom: 0;
 			   background: url('images/nav-line.png') 0 56px repeat-x;
@@ -270,30 +275,36 @@ main {
 	   background: #fff;
 	   position: relative;
 	   padding: 1.6em 0 0 1em;
-	   @media screen and (max-width: 640px) {padding-left: 0; padding-right: 0; border: 0;}
+	   @media screen and (max-width: 640px)
+	   {padding-left: 0; padding-right: 0; border: 0;}
 	   
 	   &.error-statement {
 		margin: 0;
 		padding: 5em 0 5em 1em;
 		border-top: 10px solid #f47738;
-		@media screen and (max-width: 640px) {border-top: 0; padding-left: 0; padding-right: 0;}
+		@media screen and (max-width: 640px)
+		{border-top: 0; padding-left: 0; padding-right: 0;}
 			p {
 				margin: 2em 40% 0 0;
-				@media screen and (max-width: 700px) {margin-right: 0;}
+				@media screen and (max-width: 700px)
+				{margin-right: 0;}
 			}
 			h1 {
 				font-size: 5rem;
-				@media screen and (max-width: 480px) {font-size: 30px;}
+				@media screen and (max-width: 480px)
+				{font-size: 30px;}
 				.ie & {
 					font-size: 50px;
 				}
 			}
 			&.service-statement {
 				background: url('images/portcullis.png') 91% center no-repeat;
-				@media screen and (max-width: 700px) {background: none;}
+				@media screen and (max-width: 700px)
+				{background: none;}
 				h1 {
 					padding-right: 20%;
-					@media screen and (max-width: 700px) {padding-right: 0;}
+					@media screen and (max-width: 700px)
+					{padding-right: 0;}
 				}
 			}
    	   }
@@ -309,7 +320,8 @@ main {
 			   margin-bottom: .25em;
 			   margin-right: 20%;
 			   margin-left: -2px;
-			   @media screen and (max-width: 700px) {margin-right: 0;}
+			   @media screen and (max-width: 700px)
+			   {margin-right: 0;}
 			   .ie & {
 				   font-size: 36px;
 			   }
@@ -327,7 +339,8 @@ main {
    	   &.response {
    	   			p.intro {
 					padding-right: 20%;
-				    @media screen and (max-width: 700px) {padding-right: 0;}
+				    @media screen and (max-width: 700px)
+				    {padding-right: 0;}
 				}
 			article {
 				float: left;
