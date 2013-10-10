@@ -55,7 +55,7 @@
         <fieldset class="form-elements">
             <legend>@Messages("s5.g2")</legend>
 
-            <ul class="group">
+            <ul>
                 @defining(if(trips.fourWeeksTrips == Nil || trips.fourWeeksTrips.isEmpty) {"4Weeks.label"} else {"4Weeks.more.label"}) { label =>
                     @yesNoRadioGroup(abroadForMoreThan4WeeksForm("anyTrips"), '_label -> Messages(label, (DayMonthYear.today - 3 years).`dd/MM/yyyy`))
                 }

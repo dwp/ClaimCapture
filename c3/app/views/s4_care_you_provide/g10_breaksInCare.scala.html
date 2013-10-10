@@ -69,7 +69,7 @@
         <fieldset class="form-elements">
             <legend>@Messages("s4.g5")</legend>
 
-            <ul class="group">
+            <ul>
                 @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
                     @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim))
                 }

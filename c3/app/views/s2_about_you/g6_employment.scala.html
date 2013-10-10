@@ -43,7 +43,7 @@
                 </ul>
             </div>
 
-            <ul class="group">
+            <ul>
                 @yesNoRadioGroup(employmentForm("beenEmployedSince6MonthsBeforeClaim"),
                     '_label -> Messages("aboutYou_beenEmployedSince6MonthsBeforeClaim.label", (claim.dateOfClaim.get - 6 months) `dd/MM/yyyy`, claim.dateOfClaim.get.`dd/MM/yyyy`))
 

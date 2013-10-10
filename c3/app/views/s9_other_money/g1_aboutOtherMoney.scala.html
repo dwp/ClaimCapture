@@ -16,7 +16,7 @@
         <fieldset class="form-elements">
             <legend>@Messages("s9.g1")</legend>
 
-            <ul class="group">
+            <ul>
 	            @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your Partner/Spouse" else "", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 	            
 	            @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), 
