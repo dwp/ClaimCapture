@@ -30,5 +30,5 @@ class ClaimInspectorSpec extends Specification with Tags with NoTimeConversions 
         expectMsgType[Int] must be equalTo 101
       }
     }
-  } section "unit"
+  } section ("unit","jmx")
 }

@@ -25,5 +25,5 @@ class ApplicationInspectorSpec extends Specification with Tags with NoTimeConver
         expectMsgType[Int] must be equalTo 2
       }
     }
-  } section "unit"
+  } section ("unit","jmx")
 }
