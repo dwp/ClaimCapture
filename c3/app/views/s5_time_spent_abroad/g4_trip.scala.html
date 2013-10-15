@@ -15,7 +15,7 @@
         <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
         <fieldset class="form-elements">
-            <legend>Details of time abroad with the person you care for</legend>
+            <legend>@Messages("s5.g3")</legend>
 
             <ul class="group">
                 @inputDayMonthYear(tripForm("start"), '_label -> Messages("start.trip"))
