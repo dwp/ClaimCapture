@@ -68,53 +68,8 @@
 @if(!Play.isTest) {
     <script>
         $(function() {
-            var startPicker = $('#start_date.datepicker').pickadate().pickadate('picker');
-            var endPicker = $('#end_date.datepicker').pickadate().pickadate('picker');
-
-            var startValue = $('#start_date.datepicker').val();
-            var endValue = $('#end_date.datepicker').val();
-
-            if (startValue !== '') {
-                var startDate = new Date(startValue);
-                endPicker.set('min', startDate);
-                endPicker.set('highlight', startDate);
-            }
-
-            if (endValue !== '') {
-                startPicker.set('max', new Date(endValue));
-            }
-
-            startPicker.on('set', function(event) {
-                if ('select' in event) {
-                    var startValue = $("input[name='start.date.hidden']").val();
-                    var startDate = new Date(startValue);
-                    var endMinDate = endPicker.get('min');
-
-                    if (!isFinite(endMinDate.year) || endMinDate.year != startDate.getFullYear() || endMinDate.month != startDate.getMonth() || (endMinDate.date) != startDate.getDate()) {
-                        endPicker.set('min', startDate);
-                    }
-                }
-
-                if ('clear' in event) {
-                    endPicker.set('min', false);
-                }
-            });
-
-            endPicker.on('set', function(event) {
-                if ('select' in event) {
-                    var endValue = $("input[name='end.date.hidden']").val();
-                    var endDate = new Date(endValue);
-                    var startMaxDate = startPicker.get('max');
-
-                    if (!isFinite(startMaxDate.year) || startMaxDate.year != endDate.getFullYear() || startMaxDate.month != endDate.getMonth() || (startMaxDate.date) != endDate.getDate()) {
-                        startPicker.set('max', endDate);
-                    }
-                }
-
-                if ('clear' in event) {
-                    startPicker.set('max', false);
-                }
-            });
+            var picker = datepicker('#@CarersCrypto.encryptAES("start")_date');
+            var endpicker = datepicker('#@CarersCrypto.encryptAES("end")_date');
         });
     </script>
 }

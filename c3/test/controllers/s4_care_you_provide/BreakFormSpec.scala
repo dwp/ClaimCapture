@@ -8,10 +8,10 @@ import models.domain.Break
 class BreakFormSpec extends Specification with Tags {
   val data = Map(
     "breakID" -> "id1",
-    "start.date" -> "1 January, 2001",
+    "start.date" -> "01/01/2001",
     "start.hour" -> "14",
     "start.minutes" -> "55",
-    "end.date" -> "25 February, 2001",
+    "end.date" -> "25/02/2001",
     "end.hour" -> "09",
     "end.minutes" -> "00",
     "whereYou.location" -> "Holiday",
@@ -20,7 +20,7 @@ class BreakFormSpec extends Specification with Tags {
 
   "Break Form" should {
     "contain start date" in {
-      G11Break.form.bind(data)("start")("date").value should beSome("1 January, 2001")
+      G11Break.form.bind(data)("start")("date").value should beSome("01/01/2001")
     }
 
     "map all mandatory data into case class" in {

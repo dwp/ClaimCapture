@@ -21,3 +21,7 @@ object ShortFieldTemplate {
 object CurrencyTemplate {
   implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.shortFieldCurrencyTemplate.f)
 }
+
+object DatepickerTemplate {
+  implicit val fieldConstructor = FieldConstructor(views.html.helper.templates.datepickerTemplate.f)
+}

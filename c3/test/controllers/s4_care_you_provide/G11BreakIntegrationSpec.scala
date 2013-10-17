@@ -145,9 +145,9 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       findFirst("input[value='Change']").click()
 
       titleMustEqual(G11BreakPage.title)
-      $("#start_date").getValue shouldEqual "01 January, 2001"
+      $("#start_date").getValue shouldEqual "01/01/2001"
 
-      fill("#start_date") `with` "01 January, 1999"
+      fill("#start_date") `with` "01/01/1999"
       next
       titleMustEqual(G10BreaksInCarePage.title)
 
@@ -185,11 +185,11 @@ trait BreakFiller {
       else "45"
     }
 
-    fill("#start_date") `with` start.`dd month, yyyy`
+    fill("#start_date") `with` start.`dd/MM/yyyy`
     click(s"#start_hour option[value='${start.hour.getOrElse(0)}']")
     click(s"#start_minutes option[value='${minutesValue(start.minutes)}']")
 
-    fill("#end_date") `with` end.`dd month, yyyy`
+    fill("#end_date") `with` end.`dd/MM/yyyy`
     click(s"#end_hour option[value='${end.hour.getOrElse(0)}']")
     click(s"#end_minutes option[value='${minutesValue(end.minutes)}']")
 

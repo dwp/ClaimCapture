@@ -1,0 +1,7 @@
+@(elements: helper.FieldElements)
+
+@import utils.helpers._
+
+<li @if(elements.hasErrors) { class="date-picker" }>
+    @commonTemplate(elements)
+</li>

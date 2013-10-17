@@ -7,7 +7,7 @@
 @input(field, args: _*) { (id, name, value, htmlArgs) =>
     @carersLabel(field, args: _*)
 
-    <input type="text" id="@{CarersCrypto.encryptAES(id)}_date" name="@{CarersCrypto.encryptAES(name)}.date" class="datepicker" value='@field("date").value.getOrElse("")' @toHtmlArgs(htmlArgs)>
+    <input type="tel" id="@{CarersCrypto.encryptAES(id)}_date" name="@{CarersCrypto.encryptAES(name)}.date" value='@field("date").value.getOrElse("")' @toHtmlArgs(htmlArgs)>
     <p class="helper specific-help">Help</p>
 
     <li>
