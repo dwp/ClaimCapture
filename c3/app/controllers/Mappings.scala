@@ -41,9 +41,9 @@ object Mappings {
     "to" -> dayMonthYear.verifying(validDate))(PeriodFromTo.apply)(PeriodFromTo.unapply)
 
   val address: Mapping[MultiLineAddress] = mapping(
-    "lineOne" -> optional(text(maxLength = sixty).verifying(simpleTextLine)),
-    "lineTwo" -> optional(text(maxLength = sixty).verifying(simpleTextLine)),
-    "lineThree" -> optional(text(maxLength = sixty).verifying(simpleTextLine)))(MultiLineAddress.apply)(MultiLineAddress.unapply)
+    "lineOne" -> optional(text(maxLength = 35).verifying(simpleTextLine)),
+    "lineTwo" -> optional(text(maxLength = 35).verifying(simpleTextLine)),
+    "lineThree" -> optional(text(maxLength = 35).verifying(simpleTextLine)))(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> nonEmptyText(maxLength = 35),
