@@ -444,7 +444,7 @@ disclaimer.7 = We may contact [[first name, middle name, surname]] or their repr
 read = Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits.
 
 #DECLARATION
-declaration.1 = I declare that I understand the <a href="http://www.gov.uk/carers-allowance" target="_blank">Carer''s Allowance Claim Notes</a> and that the information provided on this claim form is correct and complete.
+declaration.1 = I declare that I understand the <a href="/claim-notes" target="_blank">Carer''s Allowance Claim Notes</a> and that the information provided on this claim form is correct and complete.
 declaration.1.pdf = I declare that I understand the Carer''s Allowance Claim Notes and that the information provided on this claim form is correct and complete.
 declaration.2 = I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
 declaration.3 = I will phone 08456084321 or write to Carer''s Allowance Unit, Palatine House, Preston, Lancaster, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.

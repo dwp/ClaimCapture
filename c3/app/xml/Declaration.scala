@@ -45,7 +45,7 @@ object  Declaration {
       <TextLine>{Messages("disclaimer.6").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
       <TextLine>{Messages("disclaimer.7").replace("[[first name, middle name, surname]]", fullName(claim))}</TextLine>
       <TextLine></TextLine>
-      <TextLine>Disclaimer text and tick box = {booleanStringToYesNo(disclaimer.read)}</TextLine>
+      <TextLine>Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits. = {booleanStringToYesNo(disclaimer.read)}</TextLine>
 
       <TextLine>{Messages("declaration.1.pdf")}</TextLine>
       <TextLine>{Messages("declaration.2")}</TextLine>
@@ -53,8 +53,8 @@ object  Declaration {
       <TextLine>{Messages("declaration.4")}</TextLine>
       <TextLine>We may wish to contact any current or previous employers, or other persons or organisations you have listed on this claim form to obtain information about your claim. You do not have to agree to this but if you do not, it may mean that we are unable to obtain enough information to satisfy ourselves that you meet the conditions of entitlement for your claim.</TextLine>
       <TextLine></TextLine>
-      <TextLine>Declaration tick box = {booleanStringToYesNo(declaration.read)}</TextLine>
-      <TextLine>Someone else tick box = {booleanStringToYesNo(stringify(declaration.someoneElse))}</TextLine>
+      <TextLine>Please tick this box to confirm that you understand and make the declarations above. = {booleanStringToYesNo(declaration.read)}</TextLine>
+      <TextLine>Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf. = {booleanStringToYesNo(stringify(declaration.someoneElse))}</TextLine>
 
       <TextLine>Do you live in Wales and would like to receive future communications in Welsh? {titleCase(additionalInfo.welshCommunication)}</TextLine>
     </Declaration>

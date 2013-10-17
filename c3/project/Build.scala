@@ -18,11 +18,12 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-agent" % "2.2.1" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-actor" % "2.2.1" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.2.1" % "test" withSources() withJavadoc(),
-    "com.dwp.carers" %% "carerscommon" % "0.5" ,
+    "com.dwp.carers" %% "carerscommon" % "0.8" ,
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "me.moocar" % "logback-gelf" % "0.9.6p2",
     "com.google.inject" % "guice" % "3.0",
-    "com.tzavellas" % "sse-guice" % "0.7.1"
+    "com.tzavellas" % "sse-guice" % "0.7.1",
+    "com.github.rjeschke" % "txtmark" % "0.10"
   )
 
   var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
