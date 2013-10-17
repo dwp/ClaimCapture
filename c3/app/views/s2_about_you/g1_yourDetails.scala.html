@@ -7,6 +7,7 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.base._
 @import views.html.helper.dates._
+@import views.html.s2_about_you.main
 
 @main(Messages("s2.g1") + " - " + Messages("s2.longName")) {
     @errorsSummary(yourDetailsForm)
@@ -31,7 +32,7 @@
 
                 @inputDayMonthYear(yourDetailsForm("dateOfBirth"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-                @carersInputText(yourDetailsForm("nationality"), 'helperBelow -> Messages("nationality.helper"))
+                @carersInputText(yourDetailsForm("nationality"), 'helperBelow -> Messages("nationality.helper"), 'maxLength -> 35)
                 
                 @yesNoRadioGroup(yourDetailsForm("alwaysLivedUK"))
 

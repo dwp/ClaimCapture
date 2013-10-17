@@ -20,7 +20,7 @@ class G3EmployerContactDetailsIntegrationSpec extends Specification with Tags {
     "accept all data" in new WithBrowser with BrowserMatchers {
       browser.goTo("/employment/employers-contact-details/dummyJobID")
 
-      browser.fill("#address_street_lineOne") `with` "Employer's address line one"
+      browser.fill("#address_street_lineOne") `with` "Employers address line one"
       browser.fill("#postcode") `with` "EC1 1DA"
       browser.fill("#phoneNumber") `with` "0207 111 2222"
 

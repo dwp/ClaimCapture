@@ -39,12 +39,12 @@ object Mappings {
     "to" -> dayMonthYear.verifying(validDate))(PeriodFromTo.apply)(PeriodFromTo.unapply)
 
   val street: Mapping[Street] = mapping(
-    "lineOne" -> optional(text(maxLength = sixty).verifying(Constraints.nonEmpty))
+    "lineOne" -> optional(text(maxLength = sixty).verifying(simpleTextLine).verifying(Constraints.nonEmpty))
   )(Street.apply)(Street.unapply)
 
   val town: Mapping[Town] = mapping(
-    "lineTwo" -> optional(text(maxLength = sixty)),
-    "lineThree" -> optional(text(maxLength = sixty))
+    "lineTwo" -> optional(text(maxLength = sixty).verifying(simpleTextLine)),
+    "lineThree" -> optional(text(maxLength = sixty).verifying(simpleTextLine))
   )(Town.apply)(Town.unapply)
 
   val address: Mapping[MultiLineAddress] = mapping(
@@ -53,8 +53,8 @@ object Mappings {
     )(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
-    "location" -> nonEmptyText,
-    "location.other" -> optional(text(maxLength = sixty)))(Whereabouts.apply)(Whereabouts.unapply)
+    "location" -> nonEmptyText(maxLength = 35),
+    "location.other" -> optional(text(maxLength = 35)))(Whereabouts.apply)(Whereabouts.unapply)
 
   val paymentFrequency: Mapping[PaymentFrequency] = mapping(
     "frequency" -> text(maxLength = sixty),
@@ -258,4 +258,14 @@ object Mappings {
 
     }
   }
+
+  def simpleTextLine: Constraint[String] = Constraint[String]("constraint.addressLine") { simpleTextLine =>
+    val simpleTextLinePattern = """^[a-zA-Z0-9 ]*$""".r
+
+    simpleTextLinePattern.pattern.matcher(simpleTextLine).matches match {
+      case true => Valid
+      case false => Invalid(ValidationError("error.address.characters"))
+    }
+  }
+
 }

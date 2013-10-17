@@ -15,7 +15,7 @@ object G1NormalResidenceAndCurrentLocation extends Controller with CachedClaim w
   val liveMapping =
     "liveInUK" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whereDoYouLive" -> optional(nonEmptyText(maxLength = sixty))
+      "whereDoYouLive" -> optional(nonEmptyText(maxLength = 35))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("required", YesNoWithText.validateOnNo _)
 

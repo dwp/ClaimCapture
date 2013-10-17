@@ -138,7 +138,7 @@ nationalInsuranceNumber.ni4 = National Insurance (NI) number fourth field
 nationalInsuranceNumber.ni5 = National Insurance (NI) number fifth field
 error.nationalInsuranceNumber = A National insurance number must be in the format VO 12 34 56 D
 nationalInsuranceNumber.helper = e.g. VO 12 34 56 D<br>This is on your NI number card, benefit letter, payslip or P60. (Not providing your NI number may delay your claim.)
-error.nationality = A nationality must be under 60 characters and not contain numbers or special characters
+error.nationality = A nationality must be under 35 characters and not contain numbers or special characters
 
 dateOfBirth = Date of birth
 dateOfBirth.day = Date of birth (Day)
@@ -522,3 +522,4 @@ obtainInfoWhy = Please tell us why not
 #ERROR MESSAGES
 error.required = This is required
 error.forbidden.characters = A name must not contain special characters
+error.address.characters = Address must not contain special characters
