@@ -55,7 +55,7 @@ object  Declaration {
   }
 
   def fullName(claim: Claim) = {
-    val personalDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
+    val personalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
 
     personalDetails.middleName match {
       case Some(middleName) => personalDetails.firstName + " " + middleName + " " + personalDetails.surname
