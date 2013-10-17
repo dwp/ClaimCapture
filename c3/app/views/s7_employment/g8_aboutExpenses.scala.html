@@ -21,7 +21,7 @@
         <fieldset class="form-elements">
             <legend>@Messages("s7.g8")</legend>
 
-            <ul class="group">
+            <ul>
                 @yesNoRadioGroup(currentForm("payForAnythingNecessary"), '_label -> Messages ("payForAnythingNecessary", pastPresentLabelForEmployment(claim, didYou, doYou , JobID(currentForm))))
 
                 @yesNoRadioGroup(currentForm("payAnyoneToLookAfterChildren"), '_label -> Messages ("payAnyoneToLookAfterChildren", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))))

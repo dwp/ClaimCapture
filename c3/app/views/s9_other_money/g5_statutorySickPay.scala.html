@@ -16,7 +16,7 @@
         <fieldset class="form-elements">
             <legend>@Messages("s9.g5")</legend>
 
-            <ul class="group">
+            <ul>
 	            @yesNoRadioGroup(currentForm("haveYouHadAnyStatutorySickPay"), '_label -> Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
 	
 	            @otherDetailPlaceHolder(

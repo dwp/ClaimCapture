@@ -15,7 +15,7 @@
         <fieldset class="form-elements">
             <legend>@Messages("s2.g1")</legend>
 
-            <ul class="group">
+            <ul>
                 @titleSelect(aboutYouForm("title"))
 
                 @carersInputText(aboutYouForm("firstName"), 'maxLength -> Name.maxLength)
@@ -32,7 +32,7 @@
         </fieldset>
 
         <nav class="form-steps">
-            <button type="submit" name="action" value="next" class="button">Next</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
         </nav>
     }
 }

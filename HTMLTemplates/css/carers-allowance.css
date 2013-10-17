@@ -250,16 +250,6 @@ main {
             font-size: 30px; } }
         .ie .carers-allowance section.error-statement h1 {
           font-size: 50px; }
-      .carers-allowance section.error-statement.service-statement {
-        background: url("images/portcullis.png") 91% center no-repeat; }
-        @media screen and (max-width: 700px) {
-          .carers-allowance section.error-statement.service-statement {
-            background: none; } }
-        .carers-allowance section.error-statement.service-statement h1 {
-          padding-right: 20%; }
-          @media screen and (max-width: 700px) {
-            .carers-allowance section.error-statement.service-statement h1 {
-              padding-right: 0; } }
     .carers-allowance section h1 {
       font-size: 3.6rem;
       font-weight: 700;
@@ -522,6 +512,7 @@ main {
         padding-top: 0; }
     .carers-allowance .form-elements ul {
       margin-top: 0;
+      zoom: 1;
       /* radio list - includes hit areas */
       /* Address stack */
       /* list display - fully inline with label */
@@ -588,6 +579,22 @@ main {
               width: 12.8rem; }
               .ie .carers-allowance .form-elements ul li.short-field input[type="text"], .ie .carers-allowance .form-elements ul li.short-field input[type="tel"] {
                 width: 128px; } }
+        .carers-allowance .form-elements ul li.date-picker input[type="tel"] {
+          cursor: pointer;
+          position: relative; }
+          .carers-allowance .form-elements ul li.date-picker input[type="tel"]:before {
+            content: "\f073";
+            font-size: 16px;
+            position: absolute;
+            top: 5px;
+            right: 6px;
+            font-family: 'FontAwesome';
+            font-weight: normal;
+            font-style: normal;
+            text-decoration: inherit;
+            -webkit-font-smoothing: antialiased; }
+          .ie7 .carers-allowance .form-elements ul li.date-picker input[type="tel"] {
+            background: url("../img/date.png") 97% center no-repeat; }
         .carers-allowance .form-elements ul li.currency {
           position: relative; }
           .carers-allowance .form-elements ul li.currency input[type="text"], .carers-allowance .form-elements ul li.currency input[type="tel"] {
@@ -959,7 +966,7 @@ main {
       .carers-allowance .form-elements .declare input {
         position: absolute;
         top: 17px;
-        left: 1.4em; }
+        left: 1.1em; }
         .carers-allowance .form-elements .declare input[type=checkbox]:checked + label {
           background: #fff;
           -webkit-transition: all 200ms ease-in;
@@ -1206,7 +1213,6 @@ main {
     font-size: 1.9rem;
     line-height: 1em;
     color: #fff;
-    border-radius: 3px;
     box-shadow: 0 3px 0 #000;
     border: 0;
     padding: 0.4em 1em 0.25em 1em;

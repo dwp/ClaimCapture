@@ -21,7 +21,7 @@
         <fieldset class="form-elements">
             <legend>@Messages("s7.g5")</legend>
 
-            <ul class="group">
+            <ul>
                 @paymentFrequencySelect(currentForm("oftenGetPaid"),
                     '_label -> Messages("oftenGetPaidFrequency", pastPresentLabelForEmployment(claim, wereYou, areYou, JobID(currentForm))),
                     'id -> "oftenGetPaid",'textAreaHelper -> "60 characters left", 'maxLength -> 60)

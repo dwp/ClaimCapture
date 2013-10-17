@@ -297,16 +297,7 @@ main {
 					font-size: 50px;
 				}
 			}
-			&.service-statement {
-				background: url('images/portcullis.png') 91% center no-repeat;
-				@media screen and (max-width: 700px)
-				{background: none;}
-				h1 {
-					padding-right: 20%;
-					@media screen and (max-width: 700px)
-					{padding-right: 0;}
-				}
-			}
+	
    	   }
    	   
    	   
@@ -722,6 +713,28 @@ main {
 						   .ie & {
 							   width: 128px;
 						   }
+					   }
+				   }
+			   }
+			   
+			   &.date-picker {
+				   input[type="tel"] {
+					   cursor: pointer;
+					   position: relative;
+					   &:before {
+						   content: "\f073";
+						   font-size: 16px;
+						   position: absolute;
+						   top: 5px;
+						   right: 6px;
+						   font-family: 'FontAwesome';
+						   font-weight: normal;
+						   font-style: normal;
+						   text-decoration: inherit;
+						   -webkit-font-smoothing: antialiased;
+					   }
+					   .ie7 & {
+						   background: url('../img/date.png') 97% center no-repeat;
 					   }
 				   }
 			   }
@@ -1589,7 +1602,6 @@ main {
 		   font-size: 1.9rem;
 		   line-height: 1em;
 		   color: #fff;
-		   border-radius: 3px;
 		   box-shadow: 0 3px 0 #000;
 		   border: 0;
 		   padding: 0.4em 1em 0.25em 1em;

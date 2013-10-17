@@ -23,7 +23,7 @@
         <fieldset class="form-elements">
             <legend>@Messages("s7.g10")</legend>
 
-            <ul class="group">
+            <ul>
                 @carersInputText(currentForm("whoLooksAfterChildren"))
 
                 @carersCurrency(currentForm("howMuchCostChildcare"), 'placeholder -> Messages("poundSign"), '_label -> Messages("howMuchCostChildcare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , JobID(currentForm))), 'maxlength -> Mappings.sixty)

@@ -29,11 +29,20 @@ $('a[href^="#"]').bind('click.smoothscroll',function (e) {
 }); 
 
 
-$( '.datepicker' ).pickadate({
-    selectYears: true,
-    selectMonths: true
+$("#start-date, #end-date").datepicker({
+		dateFormat: 'dd/mm/yy',
+        showButtonPanel: true,
+        closeText: 'Clear',
+             onClose: function (dateText, inst) {
+            if ($(window.event.srcElement).hasClass('ui-datepicker-close'))
+            {
+                document.getElementById(this.id).value = '';
+            }
+        }
+    });
     
-});
+    
+   
 
 	 
 	 
