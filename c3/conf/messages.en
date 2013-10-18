@@ -487,3 +487,5 @@ howOftenPayExpenses = How often {0} pay expenses related to the person you care 
 error.required = This is required
 error.forbidden.characters = A name must not contain special characters
 error.address.characters = Address must not contain special characters
+number.invalid = The value must be a whole number
+

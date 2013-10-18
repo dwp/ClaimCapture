@@ -157,6 +157,16 @@ object Mappings {
     }
   }
 
+  def validNumber: Constraint[String] = Constraint[String]("constraint.decimal") { number =>
+    val numberPattern = """^[0-9]*$""".r
+
+    numberPattern.pattern.matcher(number).
+      matches match {
+      case true => Valid
+      case false => Invalid(ValidationError("number.invalid"))
+    }
+  }
+
   def validYesNo: Constraint[String] = Constraint[String]("constraint.yesNo") { answer =>
     answer match {
       case `yes` => Valid
