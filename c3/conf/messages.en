@@ -153,8 +153,8 @@ firstName.error = Please fill your first name
 
 # CONTACT DETAILS
 address = Address
-address_street_lineOne = Street name
-address.street = Street name
+address_street_lineOne = Street
+address.street = Street
 address_town = Town / City
 error.missingLineOne = Missing first line
 postcode = Postcode
@@ -386,8 +386,8 @@ error.paymentFrequency = Please tell us how often
 howMuch_howOften = '
 employersName = Employer''s name
 employersAddress = Employer''s address
-employersAddress_street_lineOne = Employer''s Street name
-employersAddress.street = Employer''s Street name
+employersAddress_street_lineOne = Employer''s street
+employersAddress.street = Employer''s street
 employersAddress_town = Employer''s Town / City
 employersPostcode = Employer''s postcode
 
