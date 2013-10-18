@@ -2,6 +2,6 @@
 
 @import utils.helpers._
 
-<li @if(elements.hasErrors) { class="date-picker" }>
+<li class="date-picker @if(elements.hasErrors) { validation }">
     @commonTemplate(elements)
 </li>
