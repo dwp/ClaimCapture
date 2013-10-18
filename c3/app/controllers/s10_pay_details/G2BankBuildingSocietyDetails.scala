@@ -14,7 +14,7 @@ import app.AccountStatus
 object G2BankBuildingSocietyDetails extends Controller with PayDetailsRouting with CachedClaim {
   val form = Form(
     mapping(
-      "accountHolderName" -> nonEmptyText(maxLength = sixty),
+      "accountHolderName" -> nonEmptyText(maxLength = 40),
       "whoseNameIsTheAccountIn" -> nonEmptyText,
       "bankFullName" -> nonEmptyText(maxLength = 100),
       "sortCode" -> (sortCode verifying requiredSortCode),
