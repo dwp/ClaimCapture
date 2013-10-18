@@ -21,6 +21,7 @@ trait WithBrowserHelper {
 
   def in(f: => Fluent) = f
 
+  def jsFill(cssSelector: String, value: String) = browser executeScript("$(\""+cssSelector+"\").val(\""+value+"\")")
   def fill(cssSelector: String, filters: Filter*) = browser fill(cssSelector, filters: _*)
 
   def $(name: String, filters: Filter*) = browser $(name, filters: _*)

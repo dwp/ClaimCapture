@@ -45,8 +45,15 @@ trait WebFillActions {
     try {
       if (browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
       browser.fill(elementCssSelector).`with`(value)
+    }catch {
+      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
     }
-    catch {
+  }
+
+  def fillJSInput(elementCssSelector: String, value: String) = if (null != value) {
+    try {
+      browser.executeScript("$(\""+elementCssSelector+"\").val(\""+value+"\")")
+    }catch {
       case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
     }
   }

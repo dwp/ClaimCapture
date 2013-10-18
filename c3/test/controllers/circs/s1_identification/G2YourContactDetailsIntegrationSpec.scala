@@ -46,7 +46,7 @@ class G2YourContactDetailsIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Street name - This is required")
+        errors(0) must contain("Street - This is required")
       }
 
       "invalid postcode field" in new WithBrowser with G2YourContactDetailsPageContext {

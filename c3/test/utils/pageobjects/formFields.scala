@@ -18,6 +18,7 @@ trait FormFields {
   val DATE_FROM = 'DateFrom
   val DATE_TO = 'DateTo
   val INPUT = 'Input
+  val JSINPUT = 'JSInput
   val NINO = 'Nino
   val RADIO_LIST = 'RadioList
   val SELECT = 'Select
@@ -41,6 +42,7 @@ trait FormFields {
   private def declareDateTo(elementCssSelector: String, claimAttribute: String) = declareField(DATE_TO, elementCssSelector, claimAttribute)
 
   def declareInput(elementCssSelector: String, claimAttribute: String) = declareField(INPUT, elementCssSelector, claimAttribute)
+  def declareJSInput(elementCssSelector: String, claimAttribute: String) = declareField(JSINPUT, elementCssSelector, claimAttribute)
 
   def declareNino(elementCssSelector: String, claimAttribute: String) = declareField(NINO, elementCssSelector, claimAttribute)
 

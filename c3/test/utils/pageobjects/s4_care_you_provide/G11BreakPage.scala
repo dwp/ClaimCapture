@@ -4,8 +4,8 @@ import play.api.test.{WithBrowser, TestBrowser}
 import utils.pageobjects.{ClaimPage,Page, PageContext}
 
 final class G11BreakPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G11BreakPage.url, G11BreakPage.title, previousPage, iteration) {
-  declareInput("#start_date", "AboutTheCareYouProvideBreakStartDate_" + iteration)
-  declareInput("#end_date", "AboutTheCareYouProvideBreakEndDate_" + iteration)
+  declareJSInput("#start_date", "AboutTheCareYouProvideBreakStartDate_" + iteration)
+  declareJSInput("#end_date", "AboutTheCareYouProvideBreakEndDate_" + iteration)
   declareTime("#start", "AboutTheCareYouProvideBreakStartTime_" + iteration)
   declareTime("#end", "AboutTheCareYouProvideBreakEndTime_" + iteration)
   declareSelect("#whereYou_location", "AboutTheCareYouProvideWhereWereYouDuringTheBreak_" + iteration)
