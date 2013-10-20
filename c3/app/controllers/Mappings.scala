@@ -214,12 +214,23 @@ object Mappings {
     }
   }
 
-  def simpleTextLine: Constraint[String] = Constraint[String]("constraint.addressLine") { simpleTextLine =>
+  def simpleTextLine: Constraint[String] = Constraint[String]("constraint.simpleTextLine") { simpleTextLine =>
     val simpleTextLinePattern = """^[a-zA-Z0-9 ]*$""".r
 
     simpleTextLinePattern.pattern.matcher(simpleTextLine).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.address.characters"))
+    }
+  }
+
+  def restrictedStringText: Constraint[String] = Constraint[String]("constraint.restrictedStringText") { restrictedString =>
+    // This is the same allowable characters as per the xml schema with some characters removed
+    // The removed characters are : £()@<>
+    val restrictedStringPattern = """^[A-Za-z0-9\s~!"#$%&'\*\+,\-\./:;=\?\[\\\]_\{\}\^]*$""".r
+
+    restrictedStringPattern.pattern.matcher(restrictedString).matches match {
+      case true => Valid
+      case false => Invalid(ValidationError("error.restricted.characters"))
     }
   }
 
