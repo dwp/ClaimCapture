@@ -30,6 +30,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         ).recover {
           case e: java.net.ConnectException => {
             Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
+            idService.updateStatus(retryData.txnId, COMMUNICATION_ERROR)
             Redirect("/consent-and-declaration/error")
           }
           case e: java.lang.Exception => {
@@ -51,6 +52,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         ).recover {
           case e: java.net.ConnectException => {
             Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
+            idService.updateStatus(txnId, COMMUNICATION_ERROR)
             Redirect("/consent-and-declaration/error")
           }
           case e: java.lang.Exception => {
@@ -132,12 +134,8 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
   def pollXml(correlationID: String, pollEndpoint: String) = {
     <poll>
-      <correlationID>
-        {correlationID}
-      </correlationID>
-      <pollEndpoint>
-        {pollEndpoint}
-      </pollEndpoint>
+      <correlationID>{correlationID}</correlationID>
+      <pollEndpoint>{pollEndpoint}</pollEndpoint>
     </poll>
   }
 
@@ -148,4 +146,5 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
   val BAD_REQUEST_ERROR = "9002"
   val REQUEST_TIMEOUT_ERROR = "9003"
   val INTERNAL_SERVER_ERROR = "9004"
+  val COMMUNICATION_ERROR = "9005"
 }
