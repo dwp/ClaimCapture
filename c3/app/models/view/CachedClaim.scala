@@ -12,6 +12,7 @@ import play.api.data.Form
 import play.api.{mvc, Play, Logger}
 import play.api.http.HeaderNames._
 import java.util.UUID._
+import akka.actor.FSM.->
 
 object CachedClaim {
   val claimKey = "claim"
@@ -35,13 +36,31 @@ trait CachedClaim {
 
   implicit def claimAndResultToRight(claimingResult: ClaimResult) = Right(claimingResult)
 
-  def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get(CachedClaim.claimKey).getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
+  def newKeyAndExpiration(r: Request[AnyContent]): (String, Int) = {
+    (r.session.get(CachedClaim.claimKey) match {
+      case Some(key) => {
+        Logger.warn("Session key being re-used !!!")
+        key
+      }
+      case None => {
+        randomUUID.toString
+      }
+    }) -> Configuration.root().getInt("cache.expiry", 3600)
+  }
+
+  def existingKeyAndExpiration(r: Request[AnyContent]): (String, Int) = {
+    (r.session.get(CachedClaim.claimKey) match {
+      case Some(key) => key
+      case None => {
+        Logger.warn("Session key is being regenerated !!!")
+        randomUUID.toString
+      }
+    }) -> Configuration.root().getInt("cache.expiry", 3600)
   }
 
   def newClaim(f: => Claim => Request[AnyContent] => Result) = Action {
     implicit request => {
-      val (key, expiration) = keyAndExpiration(request)
+      val (key, expiration) = newKeyAndExpiration(request)
 
       def apply(claim: Claim) = f(claim)(request).withSession(CachedClaim.claimKey -> key)
         .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
@@ -65,7 +84,7 @@ trait CachedClaim {
 
   def claiming(f: => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action {
     request => {
-      val (key, expiration) = keyAndExpiration(request)
+      val (key, expiration) = existingKeyAndExpiration(request)
 
       def action(claim: Claim): Result = {
         f(claim)(request) match {
