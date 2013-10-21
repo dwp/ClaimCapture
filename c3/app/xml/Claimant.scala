@@ -18,7 +18,7 @@ object Claimant {
       <Title>{yourDetails.title}</Title>
       <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
       <DateOfBirth>{yourDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
-      <NationalInsuranceNumber>{stringify(yourDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
+      <NationalInsuranceNumber>{yourDetails.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
       <ExistingNationalInsuranceNumber/>
       <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
       <ConfirmAddress>{yes}</ConfirmAddress>

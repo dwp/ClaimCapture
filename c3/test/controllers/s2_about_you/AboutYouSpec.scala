@@ -22,7 +22,12 @@ class AboutYouSpec extends Specification with Tags {
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "1990",
         "maritalStatus" -> "s",
-        "alwaysLivedUK" -> "yes")
+        "alwaysLivedUK" -> "yes",
+        "nationalInsuranceNumber.ni1" -> "AB",
+        "nationalInsuranceNumber.ni2" -> "12",
+        "nationalInsuranceNumber.ni3" -> "34",
+        "nationalInsuranceNumber.ni4" -> "56",
+        "nationalInsuranceNumber.ni5" -> "C")
 
       val result = G1YourDetails.submit(request)
       redirectLocation(result) must beSome("/about-you/contact-details")

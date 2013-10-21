@@ -48,7 +48,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
             f.middleName must equalTo(Some(middleName))
             f.surname must equalTo(surname)
             f.otherSurnames must equalTo(Some(otherNames))
-            f.nationalInsuranceNumber must equalTo(Some(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5))))
+            f.nationalInsuranceNumber must equalTo(NationalInsuranceNumber(Some(ni1), Some(ni2.toString), Some(ni3.toString), Some(ni4.toString), Some(ni5)))
             f.nationality must equalTo(nationality)
             f.dateOfBirth must equalTo(DayMonthYear(Some(dateOfBirthDay), Some(dateOfBirthMonth), Some(dateOfBirthYear), None, None))
             f.alwaysLivedUK must equalTo(alwaysLivedUK)
@@ -89,12 +89,12 @@ class G1YourDetailsFormSpec extends Specification with Tags {
       G1YourDetails.form.bind(
         Map("middleName" -> "middle name is optional")).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(7)
+            formWithErrors.errors.length must equalTo(9)
             formWithErrors.errors(0).message must equalTo("error.required")
             formWithErrors.errors(1).message must equalTo("error.required")
             formWithErrors.errors(2).message must equalTo("error.required")
             formWithErrors.errors(3).message must equalTo("error.required")
-            formWithErrors.errors(4).message must equalTo("error.required")
+            formWithErrors.errors(4).message must equalTo("error.nationalInsuranceNumber")
             formWithErrors.errors(5).message must equalTo("error.required")
             formWithErrors.errors(6).message must equalTo("error.required")
           },
