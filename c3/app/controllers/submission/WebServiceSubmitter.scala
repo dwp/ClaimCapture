@@ -49,7 +49,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         ).recover {
           case e: java.net.ConnectException => {
             Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-            idService.updateStatus(txnId, COMMUNICATION_ERROR)
+            idService.updateStatus(txnID, COMMUNICATION_ERROR)
             Redirect("/consent-and-declaration/error")
           }
           case e: java.lang.Exception => {
@@ -129,7 +129,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     Cache.getAs[RetryData](uuid+"_retry")
   }
 
-  private def pollXml(correlationID: String, pollEndpoint: String) = {
+  private[submission] def pollXml(correlationID: String, pollEndpoint: String) = {
     <poll>
       <correlationID>{correlationID}</correlationID>
       <pollEndpoint>{pollEndpoint}</pollEndpoint>
