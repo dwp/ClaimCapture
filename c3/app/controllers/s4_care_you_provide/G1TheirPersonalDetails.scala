@@ -13,7 +13,7 @@ object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable
   val form = Form(mapping(
     "title" -> nonEmptyText(maxLength = 4),
     "firstName" -> nonEmptyText(maxLength = Name.maxLength).verifying(validForbiddenCharacters),
-    "middleName" -> optional(text(maxLength = Name.maxLength)),
+    "middleName" -> optional(text(maxLength = Name.maxLength).verifying(validForbiddenCharacters)),
     "surname" -> nonEmptyText(maxLength = Name.maxLength).verifying(validForbiddenCharacters),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),

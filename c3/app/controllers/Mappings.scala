@@ -39,12 +39,12 @@ object Mappings {
     "to" -> dayMonthYear.verifying(validDate))(PeriodFromTo.apply)(PeriodFromTo.unapply)
 
   val street: Mapping[Street] = mapping(
-    "lineOne" -> optional(text(maxLength = sixty).verifying(simpleTextLine).verifying(Constraints.nonEmpty))
+    "lineOne" -> optional(text(maxLength = 35).verifying(simpleTextLine).verifying(Constraints.nonEmpty))
   )(Street.apply)(Street.unapply)
 
   val town: Mapping[Town] = mapping(
-    "lineTwo" -> optional(text(maxLength = sixty).verifying(simpleTextLine)),
-    "lineThree" -> optional(text(maxLength = sixty).verifying(simpleTextLine))
+    "lineTwo" -> optional(text(maxLength = 35).verifying(simpleTextLine)),
+    "lineThree" -> optional(text(maxLength = 35).verifying(simpleTextLine))
   )(Town.apply)(Town.unapply)
 
   val address: Mapping[MultiLineAddress] = mapping(
@@ -211,6 +211,16 @@ object Mappings {
     }
   }
 
+  def validNumber: Constraint[String] = Constraint[String]("constraint.number") { number =>
+    val numberPattern = """^[0-9]*$""".r
+
+    numberPattern.pattern.matcher(number).
+      matches match {
+      case true => Valid
+      case false => Invalid(ValidationError("number.invalid"))
+    }
+  }
+
   def validYesNo: Constraint[String] = Constraint[String]("constraint.yesNo") { answer =>
     answer match {
       case `yes` => Valid
@@ -231,7 +241,6 @@ object Mappings {
 
   def pensionPaymentFrequencyValidation(pf: PensionPaymentFrequency): ValidationResult = Try(new PensionPaymentFrequency(pf.frequency, pf.other)) match {
     case Success(p: PensionPaymentFrequency) if p.frequency.toLowerCase == "other" && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
-    case Success(p: PensionPaymentFrequency) if p.frequency.toLowerCase != "other" && p.other.isDefined => Invalid(ValidationError("error.paymentFrequency"))
     case Success(p: PensionPaymentFrequency) => Valid
     case Failure(_) => Invalid(ValidationError("error.invalid"))
   }
@@ -259,12 +268,23 @@ object Mappings {
     }
   }
 
-  def simpleTextLine: Constraint[String] = Constraint[String]("constraint.addressLine") { simpleTextLine =>
+  def simpleTextLine: Constraint[String] = Constraint[String]("constraint.simpleTextLine") { simpleTextLine =>
     val simpleTextLinePattern = """^[a-zA-Z0-9 ]*$""".r
 
     simpleTextLinePattern.pattern.matcher(simpleTextLine).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.address.characters"))
+    }
+  }
+
+  def restrictedStringText: Constraint[String] = Constraint[String]("constraint.restrictedStringText") { restrictedString =>
+    // This is the same allowable characters as per the xml schema with some characters removed
+    // The removed characters are : £()@<>
+    val restrictedStringPattern = """^[A-Za-z0-9\s~!"#$%&'\*\+,\-\./:;=\?\[\\\]_\{\}\^]*$""".r
+
+    restrictedStringPattern.pattern.matcher(restrictedString).matches match {
+      case true => Valid
+      case false => Invalid(ValidationError("error.restricted.characters"))
     }
   }
 

@@ -7,6 +7,6 @@ object CharacterStripper {
   }
 
   def stripNonPdf(stringToStrip:String) = {
-    strip(stringToStrip, "£()@") // dodgy pdf chars
+    strip(stringToStrip, "£()@`") // dodgy pdf chars
   }
 }
