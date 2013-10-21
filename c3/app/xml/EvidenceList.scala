@@ -5,6 +5,7 @@ import XMLHelper.{stringify, booleanStringToYesNo, formatValue}
 import scala.xml.{NodeSeq, NodeBuffer, Elem}
 import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import app.XMLValues._
+import models.DayMonthYear
 
 object EvidenceList {
 
@@ -103,16 +104,19 @@ object EvidenceList {
   }
 
   def timeSpentAbroad(claim: Claim) = {
+    import scala.language.postfixOps
+
     val normalResidenceAndCurrentLocation = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
     val trips = claim.questionGroup[Trips].getOrElse(Trips())
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
 
     textSeparatorLine("Time abroad") ++
       textLine("Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = ", normalResidenceAndCurrentLocation.whereDoYouLive.answer) ++
-      textLine("Have you had any more trips out of Great Britain for more than 52 weeks at a time, " +
-        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 156 weeks before your claim date)? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No) ++
-      textLine(s"Have you been out of Great Britain with the person you care for, for more than four weeks at a time, " +
-        s"since ${claimDate.dateOfClaim.`dd/MM/yyyy`} (this is 3 years before your claim date)? = ", if (trips.fourWeeksTrips.size > 0) Yes else No)
+      textLine("Have you been out of Great Britain with the person you care for for more than 4 weeks at a time,"+
+        s"since ${(DayMonthYear.today - 3 years).`dd/MM/yyyy`} (this is 3 years from today)? = ", if (trips.fourWeeksTrips.size > 0) Yes else No) ++
+      textLine("Have you been out of Great Britain for more than 52 weeks," +
+        s" since ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`} (this is 3 years before your claim date)? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
+
   }
 
   def fiftyTwoWeeksTrips(claim: Claim) = {
