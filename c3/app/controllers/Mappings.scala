@@ -157,7 +157,7 @@ object Mappings {
     }
   }
 
-  def validNumber: Constraint[String] = Constraint[String]("constraint.decimal") { number =>
+  def validNumber: Constraint[String] = Constraint[String]("constraint.number") { number =>
     val numberPattern = """^[0-9]*$""".r
 
     numberPattern.pattern.matcher(number).
