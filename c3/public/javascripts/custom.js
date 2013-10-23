@@ -18,13 +18,6 @@ function datepicker(dateFieldId) {
     });
 }
 
-
-$.extend($.datepicker, {
-         _doKeyDown: function(event){
-               console.log("test");
-         }
-    });
-
 $(function() {
     // view more / view less
     $('.helper-more').click(function(){
