@@ -18,6 +18,10 @@ object DWPCAClaim {
     Logger.info(s"Build DWPCAClaim : $transactionId")
 
     <DWPCAClaim>
+      <DateOfClaim>
+        <QuestionLabel>When do you want your Carer's Allowance claim to start?</QuestionLabel>
+        <Answer>{stringify(claim.dateOfClaim)}</Answer>
+      </DateOfClaim>
       {Claimant.xml(claim)}
       {Caree.xml(claim)}
       <ClaimADI>{no}</ClaimADI>

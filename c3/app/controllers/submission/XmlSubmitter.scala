@@ -38,8 +38,10 @@ println("*** fullXmlString: " + fullXmlString)
              xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation={validator.getSchemaLocation}>
+      <Version>0.9</Version>
       <DWPCATransaction>
         <TransactionId>{transactionID}</TransactionId>
+        <DateTimeGenerated>02-10-2010 14:36</DateTimeGenerated>
         {claimXML}
       </DWPCATransaction>
     </DWPBody>

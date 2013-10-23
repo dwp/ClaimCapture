@@ -15,7 +15,7 @@ object XMLHelper {
 
   def stringify(value: Option[_], default: String = ""): String = value match {
     case Some(s: String) => s
-    case Some(dmy: DayMonthYear) => dmy.`yyyy-MM-dd`
+    case Some(dmy: DayMonthYear) => dmy.`dd-MM-yyyy`
     case Some(nr: NationalInsuranceNumber) => nr.stringify
     case Some(sc: SortCode) => sc.stringify
     case Some(pf: PaymentFrequency) => pf.stringify

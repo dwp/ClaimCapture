@@ -11,10 +11,9 @@ object Claimant {
     val contactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
 
     <Claimant>
-      <DateOfClaim>{stringify(claim.dateOfClaim)}</DateOfClaim>
       <Surname>{yourDetails.surname}</Surname>
       <OtherNames>{yourDetails.otherNames}</OtherNames>
-      <OtherSurnames>{yourDetails.otherSurnames.orNull}</OtherSurnames>
+      {if(!yourDetails.otherSurnames.isEmpty) <OtherSurnames>{yourDetails.otherSurnames.orNull}</OtherSurnames> }
       <Title>{yourDetails.title}</Title>
       <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
       <DateOfBirth>{yourDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
