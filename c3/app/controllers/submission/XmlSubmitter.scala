@@ -38,29 +38,9 @@ class XmlSubmitter extends Submitter {
              xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation={validator.getSchemaLocation}>
-      <DWPEnvelope>
-        <DWPCAHeader>
-          <TestMessage>5</TestMessage>
-          <Keys>
-            <Key type="}~e"></Key>
-            <Key type="Z}"></Key>
-          </Keys>
-          <Language>en</Language>
-          <DefaultCurrency>GBP</DefaultCurrency>
-          <Manifest>
-            <Reference>
-              <Namespace>http://PtqKCMVh/</Namespace>
-              <SchemaVersion></SchemaVersion>
-              <TopElementName>FZXic.rwPpxsw5wsX</TopElementName>
-            </Reference>
-            <Reference>
-              <Namespace>http://jwJGvJlj/</Namespace>
-              <SchemaVersion></SchemaVersion>
-              <TopElementName>vaN1Eh5z61pekYlfOv-vP0sGy</TopElementName>
-            </Reference>
-          </Manifest>
-          <TransactionId>{transactionID}</TransactionId>
-        </DWPCAHeader>{claimXML}
-      </DWPEnvelope>
+      <DWPCATransaction>
+        <TransactionId>{transactionID}</TransactionId>
+        {claimXML}
+      </DWPCATransaction>
     </DWPBody>
 }
