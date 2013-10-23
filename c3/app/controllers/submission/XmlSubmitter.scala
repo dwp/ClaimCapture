@@ -18,7 +18,7 @@ class XmlSubmitter extends Submitter {
     if (Configuration.root().getBoolean("validateXml", true)) {
       val fullXml = buildFullClaim(xmlValidator(claim), xml)
       val fullXmlString = fullXml.buildString(stripComments = true)
-
+println("*** fullXmlString: " + fullXmlString)
       validator.validate(fullXmlString) match {
         case true => Future(Ok(xml.buildString(stripComments = false)))
         case false => Future(Ok("Failed validation"))

@@ -37,12 +37,15 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
     "validate Claim Test Case 1 with schema" in new WithBrowser with G1BenefitsPageContext {
 
       page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title)
+      val lastPage = page runClaimWith(claim, XmlPage.title, throwException = true)
+
+      println("*** lastPage: " + lastPage.source())
 
       lastPage match {
         case p: XmlPage => {
+          println("*** p: " + p.source())
+
           val validator = XmlValidatorFactory.buildCaValidator()
-          println(p.source())
           validator.validate(p.source()) should beTrue
         }
         case p: Page => println(p.source()); failure("bad")

@@ -17,7 +17,7 @@ object DWPCAClaim {
 
     Logger.info(s"Build DWPCAClaim : $transactionId")
 
-    <DWPCAClaim id={transactionId}>
+    <DWPCAClaim>
       {Claimant.xml(claim)}
       {Caree.xml(claim)}
       <ClaimADI>{no}</ClaimADI>
