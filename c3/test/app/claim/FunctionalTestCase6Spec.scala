@@ -5,6 +5,7 @@ import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.{XmlPage, TestData, Page}
 import utils.pageobjects.xml_validation.{XMLClaimBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
+import com.dwp.carers.s2.xml.validation.XmlValidatorFactory
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.
@@ -16,9 +17,9 @@ class FunctionalTestCase6Spec extends FunctionalTestCommon {
 
   "The application " should {
 
+    val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase6.csv")
     "Successfully run absolute Test Case 6 " in new WithBrowser with G1BenefitsPageContext {
 
-      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase6.csv")
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title)
 
@@ -27,7 +28,21 @@ class FunctionalTestCase6Spec extends FunctionalTestCommon {
           val validator: XMLBusinessValidation = new XMLClaimBusinessValidation
           validateAndPrintErrors(p, claim, validator) should beTrue
         }
-        case p: Page => println(p.source())
+        case p: Page => println(p.source()); failure("bad")
+      }
+    }
+
+    "validate Claim Test Case 6 with schema" in new WithBrowser with G1BenefitsPageContext {
+
+      page goToThePage()
+      val lastPage = page runClaimWith(claim, XmlPage.title)
+
+      lastPage match {
+        case p: XmlPage => {
+          val validator = XmlValidatorFactory.buildCaValidator()
+          validator.validate(p.source()) should beTrue
+        }
+        case p: Page => println(p.source()); failure("bad")
       }
     }
 
