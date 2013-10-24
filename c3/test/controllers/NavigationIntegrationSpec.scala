@@ -68,7 +68,7 @@ trait DataFiller {
   this: WithBrowserHelper =>
 
   def `/about-you/your-details`: Fluent = {
-    click("#title option[value='mr']")
+    click("#title option[value='Mr']")
     fill("#firstName") `with` "Scooby"
     fill("#surname") `with` "Doo"
     fill("#nationalInsuranceNumber_ni1") `with` "AB"
@@ -80,7 +80,7 @@ trait DataFiller {
     click("#dateOfBirth_month option[value='4']")
     fill("#dateOfBirth_year") `with` "1950"
     fill("#nationality") `with` "British"
-    click("#maritalStatus option[value='s']")
+    click("#maritalStatus option[value='Single']")
     click("#alwaysLivedUK_yes")
   }
 

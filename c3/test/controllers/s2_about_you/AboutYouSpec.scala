@@ -21,7 +21,7 @@ class AboutYouSpec extends Specification with Tags {
         "dateOfBirth.day" -> "5",
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "1990",
-        "maritalStatus" -> "s",
+        "maritalStatus" -> "Single",
         "alwaysLivedUK" -> "yes",
         "nationalInsuranceNumber.ni1" -> "AB",
         "nationalInsuranceNumber.ni2" -> "12",
@@ -55,7 +55,7 @@ class AboutYouSpec extends Specification with Tags {
         "dateOfBirth.day" -> "5",
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "199000001",
-        "maritalStatus" -> "s",
+        "maritalStatus" -> "Single",
         "alwaysLivedUK" -> "yes")
 
       val result = G1YourDetails.submit(request)
@@ -79,7 +79,7 @@ class AboutYouSpec extends Specification with Tags {
         "dateOfBirth.day" -> "5",
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "1990",
-        "maritalStatus" -> "s",
+        "maritalStatus" -> "Single",
         "alwaysLivedUK" -> "yes")
 
       val result = G1YourDetails.submit(request)
@@ -103,7 +103,7 @@ class AboutYouSpec extends Specification with Tags {
         "dateOfBirth.month" -> "12",
         "dateOfBirth.year" -> "1990",
         "nationality" -> "US",
-        "maritalStatus" -> "s",
+        "maritalStatus" -> "Single",
         "alwaysLivedUK" -> "yes"
       )
 

@@ -21,7 +21,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
     val dateOfBirthMonth = 12
     val dateOfBirthYear = 1990
     val alwaysLivedUK = "yes"
-    val maritalStatus = "m"
+    val maritalStatus = "Divorced or civil partnership dissolved"
 
     "map data into case class" in {
       G1YourDetails.form.bind(
@@ -73,14 +73,15 @@ class G1YourDetailsFormSpec extends Specification with Tags {
           "dateOfBirth.month" -> dateOfBirthMonth.toString,
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "alwaysLivedUK" -> alwaysLivedUK,
-          "maritalStatus" -> maritalStatus)).fold(
+          "maritalStatus" -> "Divorced or civil partnership dissolved Divorced or civil partnership dissolved")).fold(
           formWithErrors => {
-            formWithErrors.errors.length must equalTo(5)
+            formWithErrors.errors.length must equalTo(6)
             formWithErrors.errors(0).message must equalTo("error.maxLength")
             formWithErrors.errors(1).message must equalTo("error.maxLength")
             formWithErrors.errors(2).message must equalTo("error.maxLength")
             formWithErrors.errors(3).message must equalTo("error.maxLength")
             formWithErrors.errors(4).message must equalTo("error.nationality")
+            formWithErrors.errors(5).message must equalTo("error.maxLength")
           },
           f => "This mapping should not happen." must equalTo("Valid"))
     }

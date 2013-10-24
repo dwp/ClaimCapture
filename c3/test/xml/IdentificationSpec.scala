@@ -9,7 +9,7 @@ class IdentificationSpec extends Specification with Tags {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
 
 
-  val yourDetails = CircumstancesAboutYou(title = "mr",
+  val yourDetails = CircumstancesAboutYou(title = "Mr",
     firstName = "Phil",
     middleName = Some("Joe"),
     lastName = "Smith",
@@ -35,7 +35,7 @@ class IdentificationSpec extends Specification with Tags {
       (xml \\ "Surname").text shouldEqual yourDetails.lastName
       (xml \\ "OtherNames").text shouldEqual yourDetails.otherNames
       (xml \\ "Title").text shouldEqual yourDetails.title
-      (xml \\ "DateOfBirth").text shouldEqual yourDetails.dateOfBirth.`yyyy-MM-dd`
+      (xml \\ "DateOfBirth").text shouldEqual yourDetails.dateOfBirth.`dd-MM-yyyy`
       (xml \\ "NationalInsuranceNumber").text shouldEqual nationalInsuranceNr.stringify
       (xml \\ "Address" \\ "PostCode").text shouldEqual contactDetails.postcode.get
       (xml \\ "ConfirmAddress").text shouldEqual yes
@@ -50,7 +50,7 @@ class IdentificationSpec extends Specification with Tags {
 
       (xml \\ "Surname").text shouldEqual careeDetails.lastName
       (xml \\ "OtherNames").text shouldEqual careeDetails.otherNames
-      (xml \\ "DateOfBirth").text shouldEqual yourDetails.dateOfBirth.`yyyy-MM-dd`
+      (xml \\ "DateOfBirth").text shouldEqual yourDetails.dateOfBirth.`dd-MM-yyyy`
       (xml \\ "NationalInsuranceNumber").text shouldEqual nationalInsuranceNr.stringify
 
     }

@@ -15,19 +15,14 @@ object Claimant {
       <OtherNames>{yourDetails.otherNames}</OtherNames>
       {if(!yourDetails.otherSurnames.isEmpty) <OtherSurnames>{yourDetails.otherSurnames.orNull}</OtherSurnames> }
       <Title>{yourDetails.title}</Title>
-      <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
-      <DateOfBirth>{yourDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
+      <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{yourDetails.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
-      <ExistingNationalInsuranceNumber/>
       <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
-      <ConfirmAddress>{yes}</ConfirmAddress>
-      <HomePhoneNumber></HomePhoneNumber>
-      <DaytimePhoneNumber>
+      <DayTimePhoneNumber>
         <Number>{contactDetails.phoneNumber.orNull}</Number>
         <Qualifier/>
-      </DaytimePhoneNumber>
-      <EmailAddress/>
-      <ClaimedBefore>{NotAsked}</ClaimedBefore>
+      </DayTimePhoneNumber>
+      <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
     </Claimant>
   }
 }

@@ -22,7 +22,7 @@ object Partner {
         <OtherNames>{yourPartnerPersonalDetails.firstName} {yourPartnerPersonalDetails.middleName.orNull}</OtherNames>
         <OtherSurnames>{yourPartnerPersonalDetails.otherSurnames.orNull}</OtherSurnames>
         <Title>{yourPartnerPersonalDetails.title}</Title>
-        <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
+        <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
         <Address>{postalAddressStructure(models.MultiLineAddress(Street(Some(NotAsked))), "")}</Address>
         <ConfirmAddress>{yes}</ConfirmAddress>

@@ -20,8 +20,9 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
     "nationality" -> nonEmptyText.verifying(validNationality),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo),
-    "maritalStatus" -> nonEmptyText(maxLength = 1)
+    "maritalStatus" -> nonEmptyText(maxLength = 40)
   )(YourDetails.apply)(YourDetails.unapply))
+
 
   def present = claiming { implicit claim => implicit request =>
     track(YourDetails) { implicit claim => Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails))) }

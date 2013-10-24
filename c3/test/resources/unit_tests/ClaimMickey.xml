@@ -53,7 +53,7 @@
                         <Surname>Mouse</Surname>
                         <OtherNames>Mickey</OtherNames>
                         <OtherSurnames></OtherSurnames>
-                        <Title>mr</Title>
+                        <Title>Mr</Title>
                         <MaritalStatus>m</MaritalStatus>
                         <DateOfBirth>1960-06-05</DateOfBirth>
                         <NationalInsuranceNumber>AB000000A</NationalInsuranceNumber>
@@ -77,7 +77,7 @@
                     <Caree>
                         <Surname>Mouse</Surname>
                         <OtherNames>Minnie</OtherNames>
-                        <Title>mrs</Title>
+                        <Title>Mrs</Title>
                         <DateOfBirth>1956-03-03</DateOfBirth>
                         <NationalInsuranceNumber>AB000000B</NationalInsuranceNumber>
                         <Address>
@@ -221,7 +221,7 @@
                         <Surname>Mouse</Surname>
                         <OtherNames>Minnie</OtherNames>
                         <OtherSurnames></OtherSurnames>
-                        <Title>mrs</Title>
+                        <Title>Mrs</Title>
                         <DateOfBirth>1956-03-03</DateOfBirth>
                         <NationalInsuranceNumber>AB000000B</NationalInsuranceNumber>
                         <Address>

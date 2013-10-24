@@ -32,18 +32,31 @@ object XMLHelper {
     case _ => new NodeBuffer += Text("")
   }
 
-  def postalAddressStructure(addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeBuffer = addressOption match {
+  def postalAddressStructure(addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
     case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption.orNull)
     case _ => postalAddressStructure(new MultiLineAddress(), postcodeOption.orNull)
   }
 
-  def postalAddressStructure(addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeBuffer = postalAddressStructure(addressOption, postcodeOption.orNull)
+  def postalAddressStructure(addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeSeq = postalAddressStructure(addressOption, postcodeOption.orNull)
 
-  def postalAddressStructure(address: MultiLineAddress, postcode: String): NodeBuffer = {
-    <gds:Line>{address.lineOne.orNull}</gds:Line>
-    <gds:Line>{address.lineTwo.orNull}</gds:Line>
-    <gds:Line>{address.lineThree.orNull}</gds:Line>
-    <gds:PostCode>{if (null!=postcode) postcode.toUpperCase else ""}</gds:PostCode>
+  /*
+  def lineTwo(address: MultiLineAddress): scala.xml.Node =   address.lineTwo match {
+    case Some(n) => <Line>{address.lineTwo.orNull}</Line>
+    case _ =>
+  }
+  def lineThree(address: MultiLineAddress): scala.xml.Node =   address.lineThree match {
+    case Some(n) => <Line>{address.lineThree.orNull}</Line>
+    case _ =>
+  } */
+
+  def postalAddressStructure(address: MultiLineAddress, postcode: String): NodeSeq = {
+    val n = Seq(<Line>address.lineOne</Line>, <Line>address.lineTwo</Line>, <Line>address.lineThree</Line>)
+    NodeSeq.fromSeq(n)
+  /*
+    lineTwo(address),
+    lineThree(address),
+    <PostCode>{if (null!=postcode) postcode.toUpperCase else ""}</PostCode>).flatten
+ */
   }
 
   def moneyStructure(amount: String) = {

@@ -11,7 +11,7 @@ object Formulate {
     
   def yourDetails(browser: TestBrowser) = {
     browser.goTo("/about-you/your-details")
-    browser.click("#title option[value='mr']")
+    browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
@@ -23,14 +23,14 @@ object Formulate {
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
     browser.fill("#nationality") `with` "English"
-    browser.click("#maritalStatus option[value='s']")
+    browser.click("#maritalStatus option[value='Single']")
     browser.click("#alwaysLivedUK_yes")
     browser.submit("button[type='submit']")
   }
 
   def yourDetailsEnablingTimeOutsideUK(browser: TestBrowser) = {
     browser.goTo("/about-you/your-details")
-    browser.click("#title option[value='mr']")
+    browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
@@ -42,7 +42,7 @@ object Formulate {
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
     browser.fill("#nationality") `with` "English"
-    browser.click("#maritalStatus option[value='s']")
+    browser.click("#maritalStatus option[value='Single']")
     browser.click("#alwaysLivedUK_no")
     browser.submit("button[type='submit']")
   }
@@ -117,7 +117,7 @@ object Formulate {
   // Your partner
   def yourPartnerPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/your-partner/personal-details")
-    browser.click("#title option[value='mr']")
+    browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#middleName") `with` "Dave"
     browser.fill("#surname") `with` "Appleseed"
@@ -154,7 +154,7 @@ object Formulate {
   // Care You Provide
   def theirPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-personal-details")
-    browser.click("#title option[value='mr']")
+    browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.click("#dateOfBirth_day option[value='3']")
@@ -166,7 +166,7 @@ object Formulate {
 
   def theirPersonalDetailsNotLiveAtSameAddress(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-personal-details")
-    browser.click("#title option[value='mr']")
+    browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.click("#dateOfBirth_day option[value='3']")

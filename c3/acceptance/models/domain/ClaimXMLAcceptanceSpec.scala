@@ -21,7 +21,7 @@ class ClaimXMLAcceptanceSpec extends Specification {
         <Surname>CaseFour</Surname>
         <OtherNames>Test Middle</OtherNames>
         <OtherSurnames>Thornhill</OtherSurnames>
-        <Title>mr</Title>
+        <Title>Mr</Title>
         <MaritalStatus>m</MaritalStatus>
         <DateOfBirth>1951-01-01</DateOfBirth>
         <NationalInsuranceNumber>JB486248C</NationalInsuranceNumber>
@@ -39,7 +39,7 @@ class ClaimXMLAcceptanceSpec extends Specification {
       <Caree>
         <Surname>watson</Surname>
         <OtherNames>Cloe scott</OtherNames>
-        <Title>dame</Title>
+        <Title>Dame</Title>
         <DateOfBirth>1951-07-03</DateOfBirth>
         <NationalInsuranceNumber></NationalInsuranceNumber>
         <Address><gds:Line>12 Preston Road</gds:Line><gds:Line>Preston</gds:Line><gds:Line>Lancashire</gds:Line><gds:PostCode>PR1 1HB</gds:PostCode></Address>

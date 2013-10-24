@@ -18,12 +18,12 @@ object ClaimScenarioFactory {
 
   def yourDetailsWithNotTimeOutside() = {
     val claim = new TestData
-    claim.AboutYouTitle = "mr"
+    claim.AboutYouTitle = "Mr"
     claim.AboutYouFirstName = "John"
     claim.AboutYouSurname = "Appleseed"
     claim.AboutYouNationality = "English"
     claim.AboutYouDateOfBirth = "03/04/1950"
-    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
     claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
     claim.AboutYouNINO = "AB123456C"
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
@@ -84,7 +84,7 @@ object ClaimScenarioFactory {
   def s2ands3WithTimeOUtsideUKAndProperty() = {
     val claim = s2AboutYouWithTimeOutside()
     // Partner personal details
-    claim.AboutYourPartnerTitle = "mrs"
+    claim.AboutYourPartnerTitle = "Mrs"
     claim.AboutYourPartnerFirstName = "Cloe"
     claim.AboutYourPartnerMiddleName = "Scott"
     claim.AboutYourPartnerSurname = "Smith"
@@ -100,7 +100,7 @@ object ClaimScenarioFactory {
   def s3YourPartnerNotThePersonYouCareFor() = {
     val claim = s2AboutYouWithTimeOutside()
     // Partner personal details
-    claim.AboutYourPartnerTitle = "mrs"
+    claim.AboutYourPartnerTitle = "Mrs"
     claim.AboutYourPartnerFirstName = "Cloe"
     claim.AboutYourPartnerMiddleName = "Scott"
     claim.AboutYourPartnerSurname = "Smith"
@@ -116,7 +116,7 @@ object ClaimScenarioFactory {
   def s4CareYouProvide() = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
-    claim.AboutTheCareYouProvideTitlePersonCareFor = "mr"
+    claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
     claim.AboutTheCareYouProvideFirstNamePersonCareFor = "Tom"
     claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "Potter"
     claim.AboutTheCareYouProvideSurnamePersonCareFor = "Wilson"
@@ -155,7 +155,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
     // One Who Pays Personal Details
     claim.AboutTheCareYouProvideOrganisationPaysYou = "Valtech"
-    claim.AboutTheCareYouProvideTitlePersonPaysYou = "mr"
+    claim.AboutTheCareYouProvideTitlePersonPaysYou = "Mr"
     claim.AboutTheCareYouProvideFirstNamePersonPaysYou = "Brian"
     claim.AboutTheCareYouProvideMiddleNamePersonPaysYou = "Green"
     claim.AboutTheCareYouProvideSurnamePersonPaysYou = "Eldred"

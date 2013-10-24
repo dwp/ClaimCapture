@@ -7,7 +7,7 @@ object CircumstancesScenarioFactory {
 
   def aboutDetails = {
     val claim = new TestData
-    claim.CircumstancesAboutYouTitle = "mr"
+    claim.CircumstancesAboutYouTitle = "Mr"
     claim.CircumstancesAboutYouFirstName = "John"
     claim.CircumstancesAboutYouMiddleName = "Roger"
     claim.CircumstancesAboutYouLastName = "Smith"

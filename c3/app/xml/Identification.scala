@@ -22,7 +22,7 @@ object Identification {
     <ClaimantDetails>
       <Surname>{yourDetails.lastName}</Surname>
       <OtherNames>{yourDetails.otherNames}</OtherNames>
-      <DateOfBirth>{yourDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
+      <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{stringify(Some(yourDetails.nationalInsuranceNumber))}</NationalInsuranceNumber>
       <Title>{yourDetails.title}</Title>
       <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
@@ -42,7 +42,7 @@ object Identification {
     <CareeDetails>
       <Surname>{detailsOfThePerson.lastName}</Surname>
       <OtherNames>{detailsOfThePerson.otherNames}</OtherNames>
-      <DateOfBirth>{detailsOfThePerson.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
+      <DateOfBirth>{detailsOfThePerson.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{detailsOfThePerson.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
     </CareeDetails>
   }
