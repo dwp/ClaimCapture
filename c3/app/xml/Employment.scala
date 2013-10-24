@@ -34,7 +34,7 @@ object Employment {
       {<DateLastPaid/> +++ lastWage.lastPaidDate}
       <GrossPayment>
         <Currency>{GBP}</Currency>
-        {<Amount/> +++ lastWage.grossPay}
+        <Amount>{lastWage.grossPay}</Amount>
       </GrossPayment>
       {<IncludedInWage/> +++ lastWage.payInclusions}
       <PayPeriod>

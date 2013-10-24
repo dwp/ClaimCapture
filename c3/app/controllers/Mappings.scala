@@ -202,6 +202,21 @@ object Mappings {
     }
   }
 
+
+  def validDecimalNumberRequired: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
+    val decimalPattern = """^[0-9]{1,12}(\.[0-9]{1,2})?$""".r
+
+    if(decimal != null && !decimal.isEmpty()) {
+      decimalPattern.pattern.matcher(decimal).matches match {
+        case true => Valid
+        case false => Invalid(ValidationError("decimal.invalid"))
+      }
+    } else {
+       Valid
+    }
+  }
+
+
   def validDecimalNumber: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
     val decimalPattern = """^[0-9]{1,12}(\.[0-9]{1,2})?$""".r
 
