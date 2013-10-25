@@ -17,6 +17,16 @@ class G1OtherChangeInfoFormSpec extends Specification with Tags {
         }
       )
     }
+    "fail if no data into case class" in {
+      G1OtherChangeInfo.form.bind(
+        Map("changeInCircs" -> "")
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors(0).message must equalTo("error.required")
+        },
+        f => "This mapping should not happen." must equalTo("Valid")
+      )
+    }
   } section("unit", models.domain.CircumstancesAdditionalInfo.id)
 
 }

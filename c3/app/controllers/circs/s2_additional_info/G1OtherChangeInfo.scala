@@ -12,7 +12,7 @@ object G1OtherChangeInfo extends Controller with CachedChangeOfCircs with Naviga
   val change = "changeInCircs"
 
   val form = Form(mapping(
-    change -> text(maxLength = 2000)
+    change -> nonEmptyText(maxLength = 2000)
   )(CircumstancesOtherInfo.apply)(CircumstancesOtherInfo.unapply))
 
   def present = claiming { implicit circs => implicit request =>
