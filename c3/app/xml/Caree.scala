@@ -79,7 +79,10 @@ object Caree {
     val startedCaringBeforeClaimDate = moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == yes
 
     if (startedCaringBeforeClaimDate) {
-      <DateStartedCaring>{stringify(moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}</DateStartedCaring>
+        <DateStartCaring>
+          <QuestionLabel>DateStartedCaring?</QuestionLabel>
+          <Answer>{stringify(moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}</Answer>
+        </DateStartCaring>
     } else NodeSeq.Empty
   }
 
