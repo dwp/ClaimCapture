@@ -41,8 +41,8 @@ object XMLHelper {
 
   def postalAddressStructure(address: MultiLineAddress, postcode: String): NodeSeq = {
     val n = Seq(<Line>{address.lineOne().orNull}</Line>,
-      <Line>{address.lineTwo().orNull}</Line>,
-      <Line>{address.lineThree().orNull}</Line>,
+      {if(address.lineTwo().isEmpty){null}else{<Line>{address.lineTwo().orNull}</Line>}},
+      {if(address.lineThree().isEmpty){null}else{<Line>{address.lineThree().orNull}</Line>}},
       <PostCode>{postcode}</PostCode>)
     NodeSeq.fromSeq(n)
   }
