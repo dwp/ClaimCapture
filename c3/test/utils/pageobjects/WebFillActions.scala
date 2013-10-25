@@ -83,6 +83,7 @@ trait WebFillActions {
       val webElement = browser.find(elementCssSelector)
       if (webElement.isEmpty) handleUnknownElement(elementCssSelector)
       val allOptions = new JListWrapper(webElement.first().getElement.findElements(By.tagName("option"))) // Java list
+      //println("***** allOptions: " + allOptions)
       var found = false
       for (option <- allOptions; if option.getAttribute("value").toLowerCase == value.toLowerCase) {
         found = true

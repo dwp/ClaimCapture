@@ -18,10 +18,12 @@ object Claimant {
       <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{yourDetails.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
       <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
-      <DayTimePhoneNumber>
-        <Number>{contactDetails.phoneNumber.orNull}</Number>
-        <Qualifier/>
-      </DayTimePhoneNumber>
+      {if(!contactDetails.phoneNumber.isEmpty){
+          <DayTimePhoneNumber>
+            <Number>{contactDetails.phoneNumber.orNull}</Number>
+            <Qualifier/>
+          </DayTimePhoneNumber>
+        }}
       <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
     </Claimant>
   }

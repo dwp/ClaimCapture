@@ -39,24 +39,9 @@ object XMLHelper {
 
   def postalAddressStructure(addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeSeq = postalAddressStructure(addressOption, postcodeOption.orNull)
 
-  /*
-  def lineTwo(address: MultiLineAddress): scala.xml.Node =   address.lineTwo match {
-    case Some(n) => <Line>{address.lineTwo.orNull}</Line>
-    case _ =>
-  }
-  def lineThree(address: MultiLineAddress): scala.xml.Node =   address.lineThree match {
-    case Some(n) => <Line>{address.lineThree.orNull}</Line>
-    case _ =>
-  } */
-
   def postalAddressStructure(address: MultiLineAddress, postcode: String): NodeSeq = {
     val n = Seq(<Line>address.lineOne.orNull</Line>, <Line>address.lineTwo.orNull</Line>, <Line>address.lineThree.orNull</Line>)
     NodeSeq.fromSeq(n)
-  /*
-    lineTwo(address),
-    lineThree(address),
-    <PostCode>{if (null!=postcode) postcode.toUpperCase else ""}</PostCode>).flatten
- */
   }
 
   def moneyStructure(amount: String) = {
