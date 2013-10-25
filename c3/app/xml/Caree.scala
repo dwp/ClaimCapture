@@ -41,6 +41,16 @@ object Caree {
       </Cared35Hours>
       {breaksSinceClaim(claim)}
       {careBreak(claim)}
+
+      <Cared35HoursBefore>
+        <QuestionLabel>spent35HoursCaringBeforeClaim?</QuestionLabel>
+        <Answer>{moreAboutTheCare.spent35HoursCaringBeforeClaim.answer match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </Cared35HoursBefore>
+
       {dateStartedCaring(moreAboutTheCare)}
       {breaksBeforeClaim(claim)}
     </Caree>
