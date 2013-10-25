@@ -7,13 +7,13 @@ import models.domain.{PersonYouCareFor, Claim, MoreAboutThePerson}
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
-import controllers.Mappings.yes
+import controllers.Mappings._
 
 object G3RelationshipAndOtherClaims extends Controller with CareYouProvideRouting with CachedClaim {
   val form = Form(
     mapping(
       "relationship" -> nonEmptyText(maxLength = 20),
-      "armedForcesPayment" -> optional(text)
+      "armedForcesPayment" -> nonEmptyText.verifying(validYesNo)
     )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
 
   def present = claiming { implicit claim => implicit request =>

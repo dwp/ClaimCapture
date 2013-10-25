@@ -13,7 +13,7 @@ class G3RelationshipAndOtherClaimsFormSpec extends Specification with Tags {
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         moreAboutThePerson => {
           moreAboutThePerson.relationship must equalTo("father")
-          moreAboutThePerson.armedForcesPayment must equalTo(Some("yes"))
+          moreAboutThePerson.armedForcesPayment must equalTo("yes")
         }
       )
     }
