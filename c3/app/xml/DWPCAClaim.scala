@@ -24,7 +24,6 @@ object DWPCAClaim {
       </DateOfClaim>
       {Claimant.xml(claim)}
       {Caree.xml(claim)}
-      <ClaimADI>{no}</ClaimADI>
       {Residency.xml(claim)}
       <CourseOfEducation>{moreAboutYou.beenInEducationSinceClaimDate}</CourseOfEducation>
       {FullTimeEducation.xml(claim)}

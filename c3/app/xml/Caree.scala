@@ -63,6 +63,17 @@ object Caree {
         }}</Answer>
       </LiveSameAddress>
 
+      {moreAboutThePerson.armedForcesPayment match {
+        case Some(n) => {<ArmedForcesIndependencePayment>
+          <QuestionLabel>Does this person get Armed Forces Independence Payment?</QuestionLabel>
+          <Answer>{n match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }}</Answer>
+        </ArmedForcesIndependencePayment>}
+        case _ => NodeSeq.Empty
+      }}
     </Caree>
   }
 

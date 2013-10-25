@@ -67,7 +67,6 @@ class ClaimXMLAcceptanceSpec extends Specification {
         <PaidForCaring>Not asked</PaidForCaring>
         <ClaimedPreviously>Not asked</ClaimedPreviously>
       </Caree>
-      <ClaimADI>no</ClaimADI>
       <Residency>
         <Nationality>British</Nationality>
         <EUEEASwissNational>Not asked</EUEEASwissNational>
