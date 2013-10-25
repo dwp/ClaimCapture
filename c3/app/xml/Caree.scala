@@ -52,7 +52,17 @@ object Caree {
       </Cared35HoursBefore>
 
       {dateStartedCaring(moreAboutTheCare)}
-      {breaksBeforeClaim(claim)}
+      <!--{breaksBeforeClaim(claim)}-->
+
+      <LiveSameAddress>
+        <QuestionLabel>Do they live at the same address as you?</QuestionLabel>
+        <Answer>{theirPersonalDetails.liveAtSameAddressCareYouProvide match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </LiveSameAddress>
+
     </Caree>
   }
 
