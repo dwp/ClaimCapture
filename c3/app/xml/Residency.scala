@@ -1,19 +1,35 @@
 package xml
 
+import app.XMLValues
 import app.XMLValues._
 import models.domain._
 import models.yesNo.YesNoWithDate
 import scala.xml.NodeSeq
 import xml.XMLHelper.stringify
+import models.domain.Claim
 
 object Residency {
 
   def xml(claim: Claim) = {
+    val livesInGB = claim.questionGroup[LivesInGB]
     val yourDetailsOption = claim.questionGroup[YourDetails]
     val normalResidence = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
     val tripsOption = claim.questionGroup[Trips]
 
     <Residency>
+
+      <NormallyLiveInGB>
+        <QuestionLabel>NormallyLiveInGB?</QuestionLabel>
+        <Answer>{livesInGB match {
+          case Some(n) => n.answerYesNo match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }
+          case _ => NodeSeq.Empty
+        }}</Answer>
+      </NormallyLiveInGB>
+
       <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
       <EUEEASwissNational>{NotAsked}</EUEEASwissNational>
       <CountryNormallyLive>{normalResidence.whereDoYouLive.text.getOrElse(NotAsked)}</CountryNormallyLive>
