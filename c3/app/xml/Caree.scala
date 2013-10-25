@@ -26,7 +26,10 @@ object Caree {
         <Qualifier/>
       </DayTimePhoneNumber>
       }}
-      <RelationToClaimant>{moreAboutThePerson.relationship}</RelationToClaimant>
+      <RelationToClaimant>
+        <QuestionLabel>What's their relationship to you?</QuestionLabel>
+        <Answer>{moreAboutThePerson.relationship}</Answer>
+      </RelationToClaimant>
       <Cared35hours>{NotAsked}</Cared35hours>
       <CanCareeSign>{NotAsked}</CanCareeSign>
       <CanSomeoneElseSign>{NotAsked}</CanSomeoneElseSign>
