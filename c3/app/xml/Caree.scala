@@ -30,7 +30,10 @@ object Caree {
         <QuestionLabel>What's their relationship to you?</QuestionLabel>
         <Answer>{moreAboutThePerson.relationship}</Answer>
       </RelationToClaimant>
-      <Cared35hours>{NotAsked}</Cared35hours>
+      <Cared35Hours>
+        <QuestionLabel>Do you spend 35 hours or more each week caring for this person?</QuestionLabel>
+        <Answer>{moreAboutTheCare.spent35HoursCaring}</Answer>
+      </Cared35Hours>
       <CanCareeSign>{NotAsked}</CanCareeSign>
       <CanSomeoneElseSign>{NotAsked}</CanSomeoneElseSign>
       <CanClaimantSign>{NotAsked}</CanClaimantSign>
