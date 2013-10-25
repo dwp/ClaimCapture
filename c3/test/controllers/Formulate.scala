@@ -193,7 +193,7 @@ object Formulate {
 
   def moreAboutThePersonWithClaimedAllowanceBefore(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/relationship-and-other-claims")
-    browser.click("#relationship option[value='father']")
+    browser.click("#relationship option[value='Father']")
     browser.click("#armedForcesPayment_yes")
     browser.click("#claimedAllowanceBefore_yes")
     browser.submit("button[type='submit']")
@@ -201,7 +201,7 @@ object Formulate {
 
   def moreAboutThePersonWithNotClaimedAllowanceBefore(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/relationship-and-other-claims")
-    browser.click("#relationship option[value='father']")
+    browser.click("#relationship option[value='Father']")
     browser.click("#armedForcesPayment_no")
     browser.click("#claimedAllowanceBefore_no")
     browser.submit("button[type='submit']")
