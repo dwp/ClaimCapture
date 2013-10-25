@@ -20,12 +20,12 @@ object Caree {
       <DateOfBirth>{theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{stringify(theirPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
       <Address>{postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode.orNull)}</Address>
-      <ConfirmAddress>{yes}</ConfirmAddress>
-      <HomePhoneNumber/>
-      <DaytimePhoneNumber>
+      {if(!theirContactDetails.phoneNumber.isEmpty){
+      <DayTimePhoneNumber>
         <Number>{theirContactDetails.phoneNumber.orNull}</Number>
         <Qualifier/>
-      </DaytimePhoneNumber>
+      </DayTimePhoneNumber>
+      }}
       <RelationToClaimant>{moreAboutThePerson.relationship}</RelationToClaimant>
       <Cared35hours>{NotAsked}</Cared35hours>
       <CanCareeSign>{NotAsked}</CanCareeSign>
