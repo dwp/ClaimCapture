@@ -46,7 +46,7 @@ trait WebFillActions {
       if (browser.find(elementCssSelector).isEmpty) handleUnknownElement(elementCssSelector)
       browser.fill(elementCssSelector).`with`(value)
     }catch {
-      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+      case e: Exception => throw new PageObjectException("Could not fillInput " + elementCssSelector + " with value " + value, exception = e)
     }
   }
 
@@ -54,7 +54,7 @@ trait WebFillActions {
     try {
       browser.executeScript("$(\""+elementCssSelector+"\").val(\""+value+"\")")
     }catch {
-      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+      case e: Exception => throw new PageObjectException("Could not fillJSInput " + elementCssSelector + " with value " + value, exception = e)
     }
   }
 
@@ -73,7 +73,7 @@ trait WebFillActions {
       click(listName + sep + value)
     }
     catch {
-      case e: Exception => throw new PageObjectException("Could not fill " + listName + " with value " + value, exception = e)
+      case e: Exception => throw new PageObjectException("Could not fillRadioList " + listName + " with value " + value, exception = e)
     }
 
   }
@@ -91,7 +91,7 @@ trait WebFillActions {
       if (!found) throw new PageObjectException("Option " + value + " is invalid for combobox " + elementCssSelector)
     }
     catch {
-      case e: Exception => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value + " in html:\n" + browser.pageSource(), exception = e)
+      case e: Exception => throw new PageObjectException("Could not fillSelect " + elementCssSelector + " with value " + value + " in html:\n" + browser.pageSource(), exception = e)
     }
   }
 
@@ -112,7 +112,7 @@ trait WebFillActions {
       fillSelect(elementCssSelector + "_minutes", leftPadWithZero(2,minute))
     }
     catch {
-      case e: MatchError => throw new PageObjectException("Could not fill " + elementCssSelector + " with value " + value, exception = e)
+      case e: MatchError => throw new PageObjectException("Could not fillTime " + elementCssSelector + " with value " + value, exception = e)
     }
   }
 
