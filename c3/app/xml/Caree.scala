@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import scala.xml.NodeSeq
 import app.XMLValues._
 import models.domain._
@@ -32,7 +33,11 @@ object Caree {
       </RelationToClaimant>
       <Cared35Hours>
         <QuestionLabel>Do you spend 35 hours or more each week caring for this person?</QuestionLabel>
-        <Answer>{moreAboutTheCare.spent35HoursCaring}</Answer>
+        <Answer>{moreAboutTheCare.spent35HoursCaring match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
       </Cared35Hours>
       <CanCareeSign>{NotAsked}</CanCareeSign>
       <CanSomeoneElseSign>{NotAsked}</CanSomeoneElseSign>
