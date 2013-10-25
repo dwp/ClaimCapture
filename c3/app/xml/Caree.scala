@@ -39,22 +39,20 @@ object Caree {
           case n => n
         }}</Answer>
       </Cared35Hours>
-      <CanCareeSign>{NotAsked}</CanCareeSign>
-      <CanSomeoneElseSign>{NotAsked}</CanSomeoneElseSign>
-      <CanClaimantSign>{NotAsked}</CanClaimantSign>
       {breaksSinceClaim(claim)}
       {careBreak(claim)}
-      <Cared35hoursBefore>{NotAsked}</Cared35hoursBefore>
       {dateStartedCaring(moreAboutTheCare)}
       {breaksBeforeClaim(claim)}
-      <PaidForCaring>{NotAsked}</PaidForCaring>
-      <ClaimedPreviously>{NotAsked}</ClaimedPreviously>
     </Caree>
   }
 
   def breaksSinceClaim(claim: Claim) = {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
-    <BreaksSinceClaim>{if (breaksInCare.hasBreaks) yes else no}</BreaksSinceClaim>
+
+    <BreaksSinceClaim>
+      <QuestionLabel>Have you had any breaks in caring for this person since claim date?</QuestionLabel>
+      <Answer>{if (breaksInCare.hasBreaks) Yes else No}</Answer>
+    </BreaksSinceClaim>
   }
 
   def breaksBeforeClaim(claim: Claim) = {
@@ -86,7 +84,6 @@ object Caree {
         <EndDateTime>{if (break.end.isDefined) break.end.get.`yyyy-MM-dd'T'HH:mm:00`}</EndDateTime>
         <Reason>{break.whereYou.location}</Reason>
         <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
-        <AwayFromHome>{NotAsked}</AwayFromHome>
       </CareBreak>
     }
   }

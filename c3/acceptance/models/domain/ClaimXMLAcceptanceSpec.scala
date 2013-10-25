@@ -51,7 +51,6 @@ class ClaimXMLAcceptanceSpec extends Specification {
         </DaytimePhoneNumber>
         <RelationToClaimant>mother</RelationToClaimant>
         <Cared35hours>yes</Cared35hours>
-        <CanCareeSign>Not asked</CanCareeSign>
         <CanSomeoneElseSign>Not asked</CanSomeoneElseSign>
         <CanClaimantSign>Not asked</CanClaimantSign>
         <BreaksSinceClaim>yes</BreaksSinceClaim>
