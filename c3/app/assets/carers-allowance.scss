@@ -441,6 +441,17 @@ main {
 						}
 					}
 			}
+			&.security-message {
+				margin-bottom: 1em;
+				font-size: 1.6rem;
+				.ie & {
+					font-size: 16px;
+				}
+				strong {
+					font-weight: 600;
+					text-decoration: underline;
+				}
+			}
 	   }
 	   ul {
 		   margin: 0;
@@ -1830,6 +1841,7 @@ main {
 .content-panel {
 	margin-top: 2em;
 }
+
 
 
 
