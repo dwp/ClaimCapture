@@ -58,7 +58,7 @@ object OtherBenefits {
         <ConfirmAddress>yes</ConfirmAddress>
       </OtherMoneySSPDetails>
     }
-    else <OtherMoneySSP>{statutorySickPay.haveYouHadAnyStatutorySickPay}</OtherMoneySSP>
+    else NodeSeq.Empty
   }
 
   def otherMoneySMPXml(otherStatutoryPay: OtherStatutoryPay) = {
@@ -69,6 +69,6 @@ object OtherBenefits {
         <ConfirmAddress>{yes}</ConfirmAddress>
       </OtherMoneySMPDetails>
     }
-    else <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>
+    else NodeSeq.Empty
   }
 }

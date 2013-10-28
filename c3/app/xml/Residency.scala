@@ -13,7 +13,6 @@ object Residency {
   def xml(claim: Claim) = {
     val livesInGB = claim.questionGroup[LivesInGB]
     val yourDetailsOption = claim.questionGroup[YourDetails]
-    val normalResidence = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
     val tripsOption = claim.questionGroup[Trips]
     val trips = claim.questionGroup[Trips].getOrElse(Trips())
 
@@ -31,7 +30,18 @@ object Residency {
         }}</Answer>
       </NormallyLiveInGB>
 
-      <CountryNormallyLive>{normalResidence.whereDoYouLive.text.getOrElse(NotAsked)}</CountryNormallyLive>
+      {claim.questionGroup[NormalResidenceAndCurrentLocation] match {
+        case Some(normalResidence) => {
+          <CountryNormallyLive>
+            <QuestionLabel>CountryNormallyLive?</QuestionLabel>
+            <Answer>{normalResidence.whereDoYouLive.text match {
+              case Some(n) => n
+              case None => NotAsked
+            }}</Answer>
+          </CountryNormallyLive>}
+        case _ => NodeSeq.Empty
+      }}
+
       <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
 
       <TimeOutsideGBLast3Years>

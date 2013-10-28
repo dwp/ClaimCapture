@@ -241,9 +241,9 @@ object EvidenceList {
     val lineWidth = 54
     val padding = "=" * ((lineWidth - title.length) / 2)
 
-    <TextLine>
+    <Evidence>
       {s"$padding$title$padding"}
-    </TextLine>
+    </Evidence>
   }
 
 
@@ -251,21 +251,21 @@ object EvidenceList {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
   }
 
-  private def textLine(): Elem = <TextLine/>
+  private def textLine(): Elem = <Evidence/>
 
-  private def textLine(text: String): Elem = <TextLine>
+  private def textLine(text: String): Elem = <Evidence>
     {text}
-  </TextLine>
+  </Evidence>
 
   private def textLine(label: String, value: String): Elem = value match {
-    case "" => <TextLine/>
-    case _ => <TextLine>
+    case "" => <Evidence/>
+    case _ => <Evidence>
       {s"$label" + formatValue(value)}
-    </TextLine>
+    </Evidence>
   }
 
   private def textLine(label: String, value: Option[String]): Elem = value match {
     case Some(s) => textLine(label, value.get)
-    case None => <TextLine/>
+    case None => <Evidence/>
   }
 }
