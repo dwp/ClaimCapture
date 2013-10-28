@@ -117,12 +117,10 @@ object XMLHelper {
 
   def titleCase(s: String) = if(s != null && s.length() > 0) s.head.toUpper + s.tail.toLowerCase else ""
 
-  def formatValue(value:String):String = if (value != null)
-     value match {
+  def formatValue(value:String):String = value match {
        case "yes" => Yes
        case "no" => No
        case "other" => Other
        case _ => value
      }
-    else ""
 }
