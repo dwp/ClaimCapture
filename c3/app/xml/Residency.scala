@@ -55,7 +55,6 @@ object Residency {
       <!--<InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>-->
       {periodAbroadLastYear(tripsOption)}
       {otherNationality(claim)}
-      {periodAbroadDuringCare(tripsOption)}
     </Residency>
   }
 
@@ -104,21 +103,5 @@ object Residency {
       </OtherNationality>
 
     } else NodeSeq.Empty
-  }
-
-  def periodAbroadDuringCare(tripsOption: Option[Trips]) = {
-    val trips = tripsOption.getOrElse(Trips())
-
-    def xml(trip: TripPeriod) = {
-      <PeriodAbroadDuringCare>
-        <Period>
-          <DateFrom>{trip.start.`yyyy-MM-dd`}</DateFrom>
-          <DateTo>{trip.end.`yyyy-MM-dd`}</DateTo>
-        </Period>
-        <Reason>{trip.why}</Reason>
-      </PeriodAbroadDuringCare>
-    }
-
-    {for {fiftyTwoWeeksTrip <- trips.fiftyTwoWeeksTrips} yield xml(fiftyTwoWeeksTrip)}
   }
 }

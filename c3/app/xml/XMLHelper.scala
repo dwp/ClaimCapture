@@ -70,7 +70,7 @@ object XMLHelper {
   }
 
   def paymentFrequency(freq: PaymentFrequency): NodeBuffer = new NodeBuffer() +=
-    <PayFrequency>{StatutoryPaymentFrequency.mapToHumanReadableString(freq.frequency,None)}</PayFrequency> +=
+    <PayFrequency><QuestionLabel>job.pay.frequency</QuestionLabel><Answer>{StatutoryPaymentFrequency.mapToHumanReadableString(freq.frequency,None)}</Answer></PayFrequency> +=
     (freq.other match {
       case Some(s) => <PayFrequencyOther>{s}</PayFrequencyOther>
       case _ => <PayFrequencyOther/>

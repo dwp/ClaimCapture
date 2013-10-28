@@ -72,10 +72,6 @@ object SelfEmployment {
           <Answer>{aboutSelfEmployment.areYouSelfEmployedNow}</Answer>
         </SelfEmployedNow>
         {jobDetails()}
-        <Accountant>
-          <HasAccountant>{NotAsked}</HasAccountant>
-          <ContactAccountant>{NotAsked}</ContactAccountant>
-        </Accountant>
         <CareExpensesChildren>{pensionAndExpenses.doYouPayToLookAfterYourChildren}</CareExpensesChildren>
         {childCareExpenses(claim)}
         <CareExpensesCaree>{pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor}</CareExpensesCaree>
@@ -99,10 +95,6 @@ object SelfEmployment {
     if (hasChildCareExpenses) {
       <ChildCareExpenses>
         <CarerName>{childCareExpenses.nameOfPerson}</CarerName>
-        <CarerAddress>{postalAddressStructure(None, None)}</CarerAddress>
-        <WeeklyPayment>
-          <Currency></Currency>
-        </WeeklyPayment>
         <RelationshipCarerToClaimant>{childCareExpenses.whatRelationIsToYou}</RelationshipCarerToClaimant>
         <ChildDetails>
           <RelationToChild>{childCareExpenses.whatRelationIsTothePersonYouCareFor}</RelationToChild>
@@ -123,10 +115,6 @@ object SelfEmployment {
     if (hasCareExpenses) {
       <CareExpenses>
         <CarerName>{expensesWhileAtWork.nameOfPerson}</CarerName>
-        <CarerAddress>{postalAddressStructure(None, None)}</CarerAddress>
-        <WeeklyPayment>
-          <Currency></Currency>
-        </WeeklyPayment>
         <RelationshipCarerToClaimant>{expensesWhileAtWork.whatRelationIsToYou}</RelationshipCarerToClaimant>
         <RelationshipCarerToCaree>{expensesWhileAtWork.whatRelationIsTothePersonYouCareFor}</RelationshipCarerToCaree>
       </CareExpenses>
