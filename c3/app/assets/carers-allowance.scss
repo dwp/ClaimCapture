@@ -587,7 +587,7 @@ main {
 	   	    @media screen and (max-width: 640px) {padding-left: 2.6em;}
 	   	    legend {
 		   	    padding: .12em 0 1em 1.56em;
-		   	    margin-left: -1.62em;
+		   	    margin-left: -1.64em;
 		   	    color: inherit;
 		   	    .ie7 & {
 			   	    display: block;
@@ -651,7 +651,7 @@ main {
 		   	   line-height: 1em;
 		   	   position: absolute;
 		   	   top: 1px; 
-		   	   left: 0;
+		   	   left: 1px;
 		   	   .ie & {
 			   	   font-size: 15px;
 		   	   }
