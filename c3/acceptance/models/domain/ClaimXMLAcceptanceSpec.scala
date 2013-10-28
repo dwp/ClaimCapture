@@ -125,7 +125,6 @@ class ClaimXMLAcceptanceSpec extends Specification {
       <Employed>yes</Employed>
       <Employment>
         <CurrentlyEmployed>yes</CurrentlyEmployed>
-        <DateLastWorked>1970-01-01</DateLastWorked>
         <JobDetails>
           <Employer>
             <DateJobStarted>2013-01-01</DateJobStarted>
@@ -137,12 +136,9 @@ class ClaimXMLAcceptanceSpec extends Specification {
             <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
             <EmployersPhoneNumber>01253 667889</EmployersPhoneNumber>
             <EmployersFaxNumber/>
-            <WagesDepartment/>
-            <DepartmentPhoneFaxNumber/>
           </Employer>
           <Pay>
             <WeeklyHoursWorked>25</WeeklyHoursWorked>
-            <DateLastWorked/>
             <DateLastPaid>2013-07-08</DateLastPaid>
             <GrossPayment>
               <Currency>GBP</Currency>

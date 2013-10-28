@@ -159,7 +159,6 @@
                     <Employed>yes</Employed>
                     <Employment>
                         <CurrentlyEmployed>yes</CurrentlyEmployed>
-                        <DateLastWorked>2013-06-10</DateLastWorked>
                         <JobDetails>
                             <Employer>
                                 <DateJobStarted>2009-10-09</DateJobStarted>
@@ -182,7 +181,6 @@
                             </Employer>
                             <Pay>
                                 <WeeklyHoursWorked>40</WeeklyHoursWorked>
-                                <DateLastWorked></DateLastWorked>
                                 <DateLastPaid>2013-05-31</DateLastPaid>
                                 <GrossPayment>
                                     <Currency>GBP</Currency>

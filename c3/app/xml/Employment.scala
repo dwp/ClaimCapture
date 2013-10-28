@@ -29,7 +29,6 @@ object Employment {
   def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails): Elem = {
     <Pay>
       {<WeeklyHoursWorked/> ?+ jobDetails.hoursPerWeek}
-      <DateLastWorked/>
       {<DateLastPaid/> +++ lastWage.lastPaidDate}
       <GrossPayment>
         <Currency>{GBP}</Currency>
@@ -177,7 +176,6 @@ object Employment {
 
       <Employment>
         <CurrentlyEmployed>{currentlyEmployed}</CurrentlyEmployed>
-        <DateLastWorked>{NotAsked}</DateLastWorked>
         {for (job <- jobsQG) yield {
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
           val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
