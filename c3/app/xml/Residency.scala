@@ -63,14 +63,20 @@ object Residency {
     val trips = tripsOption.getOrElse(Trips())
 
     def xml(trip: TripPeriod) = {
-      <PeriodAbroadLastYear>
+      <PeriodAbroad>
         <Period>
-          <DateFrom>{trip.start.`yyyy-MM-dd`}</DateFrom>
-          <DateTo>{trip.end.`yyyy-MM-dd`}</DateTo>
+          <DateFrom>
+            <QuestionLabel>DateFrom?</QuestionLabel>
+            <Answer>{trip.start.`dd-MM-yyyy`}</Answer>
+          </DateFrom>
+          <DateTo>
+            <QuestionLabel>DateTo?</QuestionLabel>
+            <Answer>{trip.end.`dd-MM-yyyy`}</Answer>
+          </DateTo>
         </Period>
         <Reason>{trip.why}</Reason>
         <Country>{trip.where}</Country>
-      </PeriodAbroadLastYear>
+      </PeriodAbroad>
     }
 
     {for {fourWeeksTrip <- trips.fourWeeksTrips} yield xml(fourWeeksTrip)}
