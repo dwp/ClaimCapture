@@ -67,6 +67,29 @@ class G1AboutYouFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid"))
     }
 
+    "reject special characters in text fields" in {
+      G1AboutYou.form.bind(
+        Map("title" -> title,
+          "firstName" -> "John >",
+          "middleName" -> "Fred£",
+          "lastName" -> "Smithé",
+          "nationalInsuranceNumber.ni1" -> ni1,
+          "nationalInsuranceNumber.ni2" -> ni2.toString,
+          "nationalInsuranceNumber.ni3" -> ni3.toString,
+          "nationalInsuranceNumber.ni4" -> ni4.toString,
+          "nationalInsuranceNumber.ni5" -> ni5,
+          "dateOfBirth.day" -> dateOfBirthDay.toString,
+          "dateOfBirth.month" -> dateOfBirthMonth.toString,
+          "dateOfBirth.year" -> dateOfBirthYear.toString)).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(3)
+          formWithErrors.errors(0).message must equalTo("error.restricted.characters")
+          formWithErrors.errors(1).message must equalTo("error.restricted.characters")
+          formWithErrors.errors(2).message must equalTo("error.restricted.characters")
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
     "have 6 mandatory fields" in {
       G1AboutYou.form.bind(
         Map("middleName" -> "middle name is optional")).fold(

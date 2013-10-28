@@ -6,13 +6,14 @@ import play.api.data.Form
 import play.api.data.Forms._
 import models.domain.CircumstancesOtherInfo
 import utils.helpers.CarersForm._
+import controllers.CarersForms._
 
 object G1OtherChangeInfo extends Controller with CachedChangeOfCircs with Navigable {
 
   val change = "changeInCircs"
 
   val form = Form(mapping(
-    change -> nonEmptyText(maxLength = 2000)
+    change -> carersNonEmptyText(maxLength = 2000)
   )(CircumstancesOtherInfo.apply)(CircumstancesOtherInfo.unapply))
 
   def present = claiming { implicit circs => implicit request =>

@@ -8,6 +8,7 @@ import models.view.{Navigable, CachedChangeOfCircs}
 import controllers.Mappings._
 import models.domain.CircumstancesAboutYou
 import utils.helpers.CarersForm._
+import controllers.CarersForms._
 
 object G1AboutYou extends Controller with CachedChangeOfCircs with Navigable {
 
@@ -20,9 +21,9 @@ object G1AboutYou extends Controller with CachedChangeOfCircs with Navigable {
 
   val form = Form(mapping(
     title -> nonEmptyText(maxLength = 4),
-    firstName -> nonEmptyText(maxLength = Name.maxLength),
-    middleName -> optional(text(maxLength = Name.maxLength)),
-    lastName -> nonEmptyText(maxLength = Name.maxLength),
+    firstName -> carersNonEmptyText(maxLength = Name.maxLength),
+    middleName -> optional(carersText(maxLength = Name.maxLength)),
+    lastName -> carersNonEmptyText(maxLength = Name.maxLength),
     nationalInsuranceNumber -> nino.verifying(filledInNino, validNino),
     dateOfBirth -> dayMonthYear.verifying(validDate)
   )(CircumstancesAboutYou.apply)(CircumstancesAboutYou.unapply))
