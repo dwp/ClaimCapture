@@ -26,10 +26,28 @@ object FullTimeEducation {
     <CourseDetails>
       <Type>{courseDetails.courseType.orNull}</Type>
       <Title>{courseDetails.title.orNull}</Title>
-      <HoursSpent></HoursSpent>
-      <DateStarted>{stringify(courseDetails.startDate)}</DateStarted>
-      <DateStopped>{stringify(courseDetails.finishedDate)}</DateStopped>
-      <ExpectedEndDate>{stringify(courseDetails.expectedEndDate)}</ExpectedEndDate>
+      <DateStarted>
+        <QuestionLabel>education.started?</QuestionLabel>
+        <Answer>{stringify(courseDetails.startDate)}</Answer>
+      </DateStarted>
+      {courseDetails.finishedDate match {
+        case Some(n) =>
+          <DateStopped>
+            <QuestionLabel>education.stopped?</QuestionLabel>
+            <Answer>{stringify(courseDetails.finishedDate)}</Answer>
+          </DateStopped>
+        case None =>
+        }
+      }
+      {courseDetails.expectedEndDate match {
+          case Some(n) =>
+            <ExpectedEndDate>
+              <QuestionLabel>education.expectedEndDate?</QuestionLabel>
+              <Answer>{stringify(courseDetails.expectedEndDate)}</Answer>
+            </ExpectedEndDate>
+          case None =>
+        }
+      }
     </CourseDetails>
   }
 

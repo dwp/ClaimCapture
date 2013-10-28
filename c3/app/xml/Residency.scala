@@ -54,8 +54,8 @@ object Residency {
 
       <!--<InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>-->
       {periodAbroadLastYear(tripsOption)}
-      {otherNationality(claim)}
-      {periodAbroadDuringCare(tripsOption)}
+      <!--{otherNationality(claim)}-->
+      <!--{periodAbroadDuringCare(tripsOption)}-->
     </Residency>
   }
 

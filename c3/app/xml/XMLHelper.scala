@@ -33,7 +33,7 @@ object XMLHelper {
   }
 
   def postalAddressStructure(addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
-    case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption.orNull)
+    case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption.orNull.toUpperCase(gi))
     case _ => postalAddressStructure(new MultiLineAddress(), postcodeOption.orNull)
   }
 
