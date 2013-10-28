@@ -10,12 +10,14 @@ import controllers.Mappings._
 import models.yesNo.YesNoWithText
 import utils.helpers.CarersForm._
 import models.view.Navigable
+import controllers.CarersForms._
+import play.api.data.FormError
 
 object G1NormalResidenceAndCurrentLocation extends Controller with CachedClaim with Navigable {
   val liveMapping =
     "liveInUK" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
-      "whereDoYouLive" -> optional(nonEmptyText(maxLength = 35))
+      "whereDoYouLive" -> optional(carersNonEmptyText(maxLength = 35))
     )(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("required", YesNoWithText.validateOnNo _)
 

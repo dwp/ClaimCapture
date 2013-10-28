@@ -8,13 +8,15 @@ import controllers.Mappings._
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import models.domain._
+import controllers.CarersForms._
+import scala.Some
 
 object G1TheirPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "title" -> nonEmptyText(maxLength = 4),
-    "firstName" -> nonEmptyText(maxLength = Name.maxLength).verifying(validForbiddenCharacters),
-    "middleName" -> optional(text(maxLength = Name.maxLength).verifying(validForbiddenCharacters)),
-    "surname" -> nonEmptyText(maxLength = Name.maxLength).verifying(validForbiddenCharacters),
+    "firstName" -> carersNonEmptyText(maxLength = Name.maxLength),
+    "middleName" -> optional(carersText(maxLength = Name.maxLength)),
+    "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     "liveAtSameAddressCareYouProvide" -> nonEmptyText.verifying(validYesNo)

@@ -15,10 +15,10 @@ import play.api.data.FormError
 object G7PensionSchemes extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "payOccupationalPensionScheme" -> nonEmptyText,
+    "payOccupationalPensionScheme" -> nonEmptyText.verifying(validYesNo),
     "howMuchPension" -> optional(nonEmptyText verifying validDecimalNumber),
     "howOftenPension" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
-    "payPersonalPensionScheme" -> nonEmptyText,
+    "payPersonalPensionScheme" -> nonEmptyText.verifying(validYesNo),
     "howMuchPersonal" -> optional(nonEmptyText verifying validDecimalNumber),
     "howOftenPersonal" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly)
   )(PensionSchemes.apply)(PensionSchemes.unapply)

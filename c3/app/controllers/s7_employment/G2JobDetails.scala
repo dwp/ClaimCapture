@@ -9,11 +9,13 @@ import models.domain.{Jobs, JobDetails}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
+import controllers.CarersForms._
+import scala.Some
 
 object G2JobDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "employerName"-> nonEmptyText,
+    "employerName"-> carersNonEmptyText(maxLength = 60),
     "jobStartDate" -> dayMonthYear.verifying(validDate),
     "finishedThisJob" -> nonEmptyText,
     "lastWorkDate" -> optional(dayMonthYear.verifying(validDate)),

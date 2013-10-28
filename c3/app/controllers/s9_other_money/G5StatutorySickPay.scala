@@ -2,19 +2,21 @@ package controllers.s9_other_money
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
-import play.api.data.{FormError, Form}
+import play.api.data.Form
 import play.api.data.Forms._
 import models.view.{CachedClaim, Navigable}
 import models.domain.StatutorySickPay
 import controllers.Mappings._
 import utils.helpers.CarersForm._
+import controllers.CarersForms._
+import play.api.data.FormError
 
 object G5StatutorySickPay extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "haveYouHadAnyStatutorySickPay" -> nonEmptyText(maxLength = sixty),
+    "haveYouHadAnyStatutorySickPay" ->  nonEmptyText.verifying(validYesNo),
     "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
     "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
-    "employersName" -> optional(nonEmptyText(maxLength = sixty)),
+    "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
     "employersAddress" -> optional(address),
     "employersPostcode" -> optional(text verifying validPostcode)
   )(StatutorySickPay.apply)(StatutorySickPay.unapply)
