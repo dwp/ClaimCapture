@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import models.domain._
 import scala.xml.NodeSeq
 import app.XMLValues._
@@ -69,16 +70,40 @@ object SelfEmployment {
       <SelfEmployment>
         <SelfEmployedNow>
           <QuestionLabel>selfepmloyed.now</QuestionLabel>
-          <Answer>{aboutSelfEmployment.areYouSelfEmployedNow}</Answer>
+          <Answer>{aboutSelfEmployment.areYouSelfEmployedNow match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }}</Answer>
         </SelfEmployedNow>
         {jobDetails()}
-        <CareExpensesChildren>{pensionAndExpenses.doYouPayToLookAfterYourChildren}</CareExpensesChildren>
+        <CareExpensesChildren>
+          <QuestionLabel>chld.expenses</QuestionLabel>
+          <Answer>{pensionAndExpenses.doYouPayToLookAfterYourChildren match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }}</Answer>
+        </CareExpensesChildren>
+
+
         {childCareExpenses(claim)}
-        <CareExpensesCaree>{pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor}</CareExpensesCaree>
+        <CareExpensesCaree>
+          <QuestionLabel>care.expenses</QuestionLabel>
+          <Answer>{pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }}</Answer>
+        </CareExpensesCaree>
         {careExpenses(claim)}
         <PaidForPension>
           <QuestionLabel>self.pension</QuestionLabel>
-          <Answer>{pensionAndExpenses.doYouPayToPensionScheme}</Answer>
+          <Answer>{pensionAndExpenses.doYouPayToPensionScheme match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }}</Answer>
         </PaidForPension>
         {pensionScheme(claim)}
       </SelfEmployment>
@@ -97,8 +122,14 @@ object SelfEmployment {
 
     if (hasChildCareExpenses) {
       <ChildCareExpenses>
-        <CarerName>{childCareExpenses.nameOfPerson}</CarerName>
-        <RelationshipCarerToClaimant>{childCareExpenses.whatRelationIsToYou}</RelationshipCarerToClaimant>
+        <CarerName>
+          <QuestionLabel>child.carer</QuestionLabel>
+          <Answer>{childCareExpenses.nameOfPerson}</Answer>
+        </CarerName>
+        <RelationshipCarerToClaimant>
+          <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+          <Answer>{childCareExpenses.whatRelationIsToYou}</Answer>
+        </RelationshipCarerToClaimant>
       </ChildCareExpenses>
     } else NodeSeq.Empty
   }
@@ -114,9 +145,18 @@ object SelfEmployment {
 
     if (hasCareExpenses) {
       <CareExpenses>
-        <CarerName>{expensesWhileAtWork.nameOfPerson}</CarerName>
-        <RelationshipCarerToClaimant>{expensesWhileAtWork.whatRelationIsToYou}</RelationshipCarerToClaimant>
-        <RelationshipCarerToCaree>{expensesWhileAtWork.whatRelationIsTothePersonYouCareFor}</RelationshipCarerToCaree>
+        <CarerName>
+          <QuestionLabel>child.carer</QuestionLabel>
+          <Answer>{expensesWhileAtWork.nameOfPerson}</Answer>
+        </CarerName>
+        <RelationshipCarerToClaimant>
+          <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+          <Answer>{expensesWhileAtWork.whatRelationIsToYou}</Answer>
+        </RelationshipCarerToClaimant>
+        <RelationshipCarerToCaree>
+          <QuestionLabel>care.carer.rel.caree</QuestionLabel>
+          <Answer>{expensesWhileAtWork.whatRelationIsTothePersonYouCareFor}</Answer>
+        </RelationshipCarerToCaree>
       </CareExpenses>
     } else NodeSeq.Empty
   }
