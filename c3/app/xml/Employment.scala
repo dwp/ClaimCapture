@@ -19,7 +19,6 @@ object Employment {
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
       <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
-      <ConfirmAddress>{yes}</ConfirmAddress> <!-- Always default to yes -->
       {<EmployersPhoneNumber/> +++ employerContactDetails.phoneNumber}
       <EmployersFaxNumber/>
       <WagesDepartment/>
@@ -131,15 +130,11 @@ object Employment {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
       <ChildCareExpenses>
         <CarerName>{childcareExpenses.whoLooksAfterChildren}</CarerName>
-        <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-        <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
           <Currency></Currency>
-          <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
         <ChildDetails>
-          <Name>{NotAsked}</Name>
           <RelationToChild>{childcareExpenses.relationToPersonYouCare}</RelationToChild>
         </ChildDetails>
       </ChildCareExpenses>
@@ -158,11 +153,8 @@ object Employment {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
       <CareExpenses>
         <CarerName>{personYouCareExpenses.whoDoYouPay}</CarerName>
-        <CarerAddress><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:Line>{NotAsked}</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-        <ConfirmAddress>{yes}</ConfirmAddress>
         <WeeklyPayment>
           <Currency></Currency>
-          <Amount>{NotAsked}</Amount>
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{personYouCareExpenses.relationToYou}</RelationshipCarerToClaimant>
         <RelationshipCarerToCaree>{personYouCareExpenses.relationToPersonYouCare}</RelationshipCarerToCaree>

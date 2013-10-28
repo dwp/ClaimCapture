@@ -25,9 +25,7 @@ object Partner {
         <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
         <Address>{postalAddressStructure(models.MultiLineAddress(Street(Some(NotAsked))), "")}</Address>
-        <ConfirmAddress>{yes}</ConfirmAddress>
         <RelationshipStatus>
-          <JoinedHouseholdAfterDateOfClaim>{NotAsked}</JoinedHouseholdAfterDateOfClaim>
           <JoinedHouseholdDate></JoinedHouseholdDate>
           <SeparatedFromPartner>{yourPartnerPersonalDetails.separatedFromPartner}</SeparatedFromPartner>
           <SeparationDate></SeparationDate>

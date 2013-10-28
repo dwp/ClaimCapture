@@ -55,7 +55,6 @@ object OtherBenefits {
       <OtherMoneySSPDetails>
         <Name>{statutorySickPay.employersName.orNull}</Name>
         <Address>{postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}</Address>
-        <ConfirmAddress>yes</ConfirmAddress>
       </OtherMoneySSPDetails>
     }
     else NodeSeq.Empty
@@ -66,7 +65,6 @@ object OtherBenefits {
       <OtherMoneySMPDetails>
         <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
         <Address>{postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}</Address>
-        <ConfirmAddress>{yes}</ConfirmAddress>
       </OtherMoneySMPDetails>
     }
     else NodeSeq.Empty

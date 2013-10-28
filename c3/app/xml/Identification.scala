@@ -26,7 +26,6 @@ object Identification {
       <NationalInsuranceNumber>{stringify(Some(yourDetails.nationalInsuranceNumber))}</NationalInsuranceNumber>
       <Title>{yourDetails.title}</Title>
       <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
-      <ConfirmAddress>{yes}</ConfirmAddress>
       <HomePhone>{contactDetails.phoneNumber.orNull}</HomePhone>
       <DaytimePhone>
         <Number>{contactDetails.mobileNumber.orNull}</Number>

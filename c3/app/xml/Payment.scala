@@ -52,7 +52,6 @@ object Payment {
         <Name>{bankBuildingSocietyDetails.bankFullName}</Name>
         <Branch></Branch>
         <Address>{postalAddressStructure(None, None)}</Address>
-        <ConfirmAddress>{yes}</ConfirmAddress>
       </BuildingSocietyDetails>
     </Account>
   }
