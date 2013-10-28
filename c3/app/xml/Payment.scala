@@ -3,7 +3,7 @@ package xml
 import models.domain.{BankBuildingSocietyDetails, Claim, HowWePayYou}
 import xml.XMLHelper._
 import scala.xml.NodeSeq
-import app.AccountStatus
+import app.{PaymentFrequency, XMLValues, AccountStatus}
 import app.XMLValues._
 
 object Payment {
@@ -15,7 +15,15 @@ object Payment {
     val showAccount = howWePayYou.likeToBePaid == AccountStatus.BankBuildingAccount.name
 
     <Payment>
-      <PaymentFrequency>{howWePayYou.paymentFrequency}</PaymentFrequency>
+      <PaymentFrequency>
+        <QuestionLabel>PaymentFrequency?</QuestionLabel>
+        <Answer>{howWePayYou.paymentFrequency match {
+          case PaymentFrequency.EveryWeek.name => "Weekly"
+          case PaymentFrequency.FourWeekly.name => "Four-Weekly"
+          case n => "Weekly" // TODO check what the default should be.
+        }}</Answer>
+      </PaymentFrequency>
+
       <InitialAccountQuestion>{howWePayYou.likeToBePaid}</InitialAccountQuestion>
       {if (showAccount) account(claim) else NodeSeq.Empty}
     </Payment>

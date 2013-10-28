@@ -258,7 +258,8 @@ object EvidenceList {
     val padding = "=" * ((lineWidth - title.length) / 2)
 
     <Evidence>
-      {s"$padding$title$padding"}
+      <Title>{s"$padding$title$padding"}</Title>
+      <Content></Content>
     </Evidence>
   }
 
