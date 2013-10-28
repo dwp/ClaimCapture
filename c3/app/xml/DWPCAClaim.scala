@@ -37,7 +37,6 @@ object DWPCAClaim {
       {OtherBenefits.xml(claim)}
       {Payment.xml(claim)}
       {<OtherInformation/> +++ additionalInfo.anythingElse}
-      <ThirdParty>{no}</ThirdParty>
       {Declaration.xml(claim)}
       {EvidenceList.xml(claim)}
     </DWPCAClaim>

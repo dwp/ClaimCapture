@@ -63,7 +63,6 @@ object OtherBenefits {
 
   def otherMoneySMPXml(otherStatutoryPay: OtherStatutoryPay) = {
     if (otherStatutoryPay.otherPay == yes) {
-      <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>
       <OtherMoneySMPDetails>
         <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
         <Address>{postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}</Address>
