@@ -148,10 +148,6 @@ class ClaimXMLAcceptanceSpec extends Specification {
               </Answer>
             </GrossPayment>
             <IncludedInWage>All amounts due</IncludedInWage>
-            <PayPeriod>
-              <DateFrom></DateFrom>
-              <DateTo></DateTo>
-            </PayPeriod>
             <PayFrequency>other</PayFrequency><PayFrequencyOther>Other Frequency</PayFrequencyOther>
             <UsualPayDay>two weeks ago</UsualPayDay>
             <VaryingEarnings>no</VaryingEarnings>

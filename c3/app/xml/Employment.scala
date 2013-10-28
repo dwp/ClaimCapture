@@ -27,7 +27,10 @@ object Employment {
   def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails): Elem = {
     <Pay>
       {<WeeklyHoursWorked/> ?+ jobDetails.hoursPerWeek}
-      {<DateLastPaid/> +++ lastWage.lastPaidDate}
+      <DateLastPaid>
+        <QuestionLabel>job.lastpaid</QuestionLabel>
+        {<Answer>+++ lastWage.lastPaidDate</Answer>}
+      </DateLastPaid>
       <GrossPayment>
         <QuestionLabel>job.pay</QuestionLabel>
         <Answer>
@@ -36,13 +39,11 @@ object Employment {
         </Answer>
       </GrossPayment>
       {<IncludedInWage/> +++ lastWage.payInclusions}
-      <PayPeriod>
-        <DateFrom></DateFrom>
-        <DateTo></DateTo>
-      </PayPeriod>
       {paymentFrequency(additionalWageDetails.oftenGetPaid)}
-      {<UsualPayDay/> +- additionalWageDetails.whenGetPaid}
-      <VaryingEarnings>{NotAsked}</VaryingEarnings>
+      <UsualPayDay>
+        <QuestionLabel>job.day</QuestionLabel>
+        {<Answer/>+- additionalWageDetails.whenGetPaid}
+      </UsualPayDay>
     </Pay>
   }
 
@@ -69,15 +70,24 @@ object Employment {
     val showXml = pensionScheme.payOccupationalPensionScheme == yes
 
     if (showXml) {
-      <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
-        <PensionScheme>
-          <Type>occupational</Type>
+      <PaidForOccupationalPension>
+        <QuestionLabel>pension.occupational</QuestionLabel>
+        <Answer>{pensionScheme.payOccupationalPensionScheme}</Answer>
+      </PaidForOccupationalPension>
+
+        <OccupationalPension>
           <Payment>
-            <Currency>{GBP}</Currency>
-            {<Amount/> +++ pensionScheme.howMuchPension}
+            <QuestionLabel>pension.occ.amount</QuestionLabel>
+            <Answer>
+              <Currency>{GBP}</Currency>
+              {<Amount/> +++ pensionScheme.howMuchPension}
+            </Answer>
           </Payment>
-          <Frequency>{pensionScheme.howOftenPension.get.frequency}</Frequency>
-        </PensionScheme>
+          <Frequency>
+            <QuestionLabel>pension.occ.frequency</QuestionLabel>
+            <Answer>{pensionScheme.howOftenPension.get.frequency}</Answer>
+          </Frequency>
+        </OccupationalPension>
     } else {
       <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
     }
@@ -87,15 +97,23 @@ object Employment {
     val showXml = pensionScheme.payPersonalPensionScheme == yes
 
     if (showXml) {
-      <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
-      <PensionScheme>
-        <Type>personal_private</Type>
-        <Payment>
-          <Currency>{GBP}</Currency>
-          {<Amount/> +++ pensionScheme.howMuchPersonal}
-        </Payment>
-        <Frequency>{pensionScheme.howOftenPersonal.get.frequency}</Frequency>
-      </PensionScheme>
+      <PaidForPersonalPension>
+        <QuestionLabel>pension.personal</QuestionLabel>
+        <Answer>{pensionScheme.payPersonalPensionScheme}</Answer>
+      </PaidForPersonalPension>
+        <PersonalPension>
+          <Payment>
+            <QuestionLabel>pension.per.amount</QuestionLabel>
+            <Answer>
+              <Currency>{GBP}</Currency>
+              {<Amount/> +++ pensionScheme.howMuchPersonal}
+            </Answer>
+          </Payment>
+          <Frequency>
+            <QuestionLabel>pension.per.frequency</QuestionLabel>
+            <Answer>{pensionScheme.howOftenPersonal.get.frequency}</Answer>
+          </Frequency>
+        </PersonalPension>
     } else {
       <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
     }
@@ -130,9 +148,6 @@ object Employment {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
       <ChildCareExpenses>
         <CarerName>{childcareExpenses.whoLooksAfterChildren}</CarerName>
-        <WeeklyPayment>
-          <Currency></Currency>
-        </WeeklyPayment>
         <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
       </ChildCareExpenses>
     } else {
@@ -150,9 +165,6 @@ object Employment {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
       <CareExpenses>
         <CarerName>{personYouCareExpenses.whoDoYouPay}</CarerName>
-        <WeeklyPayment>
-          <Currency></Currency>
-        </WeeklyPayment>
         <RelationshipCarerToClaimant>{personYouCareExpenses.relationToYou}</RelationshipCarerToClaimant>
         <RelationshipCarerToCaree>{personYouCareExpenses.relationToPersonYouCare}</RelationshipCarerToCaree>
       </CareExpenses>
@@ -185,7 +197,6 @@ object Employment {
           <JobDetails>
             {employerXml(job)}
             {payXml(jobDetails, lastWage, additionalWageDetails)}
-            <OtherThanMoney>{NotAsked}</OtherThanMoney>
             <OweMoney>{additionalWageDetails.employerOwesYouMoney}</OweMoney>
             {childcareExpensesXml(job)}
             {careExpensesXml(job)}
