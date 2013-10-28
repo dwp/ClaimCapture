@@ -1,6 +1,7 @@
 package controllers.circs.s2_additional_info
 
 import org.specs2.mutable.{Tags, Specification}
+import controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor
 
 class G1OtherChangeInfoFormSpec extends Specification with Tags {
 
@@ -27,6 +28,19 @@ class G1OtherChangeInfoFormSpec extends Specification with Tags {
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }
+
+    "reject special characters in text fields" in {
+      G1OtherChangeInfo.form.bind(
+        Map("changeInCircs" -> "<>")
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors(0).message must equalTo("error.restricted.characters")
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
+
   } section("unit", models.domain.CircumstancesAdditionalInfo.id)
 
 }
