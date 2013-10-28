@@ -74,7 +74,10 @@ object Residency {
             <Answer>{trip.end.`dd-MM-yyyy`}</Answer>
           </DateTo>
         </Period>
-        <Reason>{trip.why}</Reason>
+        <Reason>
+          <QuestionLabel>abroad.reason?</QuestionLabel>
+          <Answer>{trip.why}</Answer>
+        </Reason>
         <Country>{trip.where}</Country>
       </PeriodAbroad>
     }
