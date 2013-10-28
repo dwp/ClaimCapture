@@ -61,7 +61,10 @@ object FullTimeEducation {
       <PhoneNumber>{schoolData.phoneNumber.orNull}</PhoneNumber>
       <FaxNumber>{schoolData.faxNumber.orNull}</FaxNumber>
       <StudentReferenceNumber>{courseDetails.studentReferenceNumber.orNull}</StudentReferenceNumber>
-      <Tutor>{schoolData.nameOfMainTeacherOrTutor.orNull}</Tutor>
+      {schoolData.nameOfMainTeacherOrTutor match {
+        case Some(n) => <Tutor>{schoolData.nameOfMainTeacherOrTutor.orNull}</Tutor>
+        case None =>
+      }}
     </LocationDetails>
   }
 }
