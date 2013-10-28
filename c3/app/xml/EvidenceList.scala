@@ -1,19 +1,35 @@
 package xml
 
 import models.domain._
-import XMLHelper.{stringify, booleanStringToYesNo, formatValue}
+import xml.XMLHelper._
 import scala.xml.{NodeSeq, NodeBuffer, Elem}
 import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import app.XMLValues._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import models.DayMonthYear
+import scala.Some
+import models.domain.Claim
+import xml.XMLHelper._
 
 object EvidenceList {
 
-  def xml(claim: Claim) = {
+  def buildXml(claim: Claim) = {
+    val theirContactDetails = claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())
+
     <EvidenceList>
-      {xmlGenerated()}{evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}
+      {xmlGenerated()}
+      <RecipientAddress>{xml.XMLHelper.postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode.orNull)}</RecipientAddress>
+      {evidence(claim)}
+      {aboutYou(claim)}
+      {yourPartner(claim)}
+      {careYouProvide(claim)}
+      {breaks(claim)}
+      {timeSpentAbroad(claim)}
+      {fiftyTwoWeeksTrips(claim)}
+      {employment(claim)}
+      {selfEmployment(claim)}
+      {otherMoney(claim)}
     </EvidenceList>
   }
 

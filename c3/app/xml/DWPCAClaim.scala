@@ -53,7 +53,7 @@ object DWPCAClaim {
       {Payment.xml(claim)}
       {<OtherInformation/> +++ additionalInfo.anythingElse}
       {Declaration.xml(claim)}
-      {EvidenceList.xml(claim)}
+      {EvidenceList.buildXml(claim)}
     </DWPCAClaim>
   }
 }
