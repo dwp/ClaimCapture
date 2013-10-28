@@ -33,7 +33,7 @@ object XMLHelper {
   }
 
   def postalAddressStructure(addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
-    case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption.orNull.toUpperCase(gi))
+    case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption.orNull.toUpperCase())
     case _ => postalAddressStructure(new MultiLineAddress(), postcodeOption.orNull)
   }
 
@@ -70,7 +70,7 @@ object XMLHelper {
   }
 
   def paymentFrequency(freq: PaymentFrequency): NodeBuffer = new NodeBuffer() +=
-    <PayFrequency>{StatutoryPaymentFrequency.mapToHumanReadableString(freq.frequency,None)}</PayFrequency> +=
+    <PayFrequency><QuestionLabel>job.pay.frequency</QuestionLabel><Answer>{StatutoryPaymentFrequency.mapToHumanReadableString(freq.frequency,None)}</Answer></PayFrequency> +=
     (freq.other match {
       case Some(s) => <PayFrequencyOther>{s}</PayFrequencyOther>
       case _ => <PayFrequencyOther/>

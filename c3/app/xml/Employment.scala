@@ -29,11 +29,13 @@ object Employment {
   def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails): Elem = {
     <Pay>
       {<WeeklyHoursWorked/> ?+ jobDetails.hoursPerWeek}
-      <DateLastWorked/>
       {<DateLastPaid/> +++ lastWage.lastPaidDate}
       <GrossPayment>
-        <Currency>{GBP}</Currency>
-        {<Amount/> +++ lastWage.grossPay}
+        <QuestionLabel>job.pay</QuestionLabel>
+        <Answer>
+          <Currency>{GBP}</Currency>
+          {<Amount/> +++ lastWage.grossPay}
+        </Answer>
       </GrossPayment>
       {<IncludedInWage/> +++ lastWage.payInclusions}
       <PayPeriod>
@@ -134,9 +136,6 @@ object Employment {
           <Currency></Currency>
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
-        <ChildDetails>
-          <RelationToChild>{childcareExpenses.relationToPersonYouCare}</RelationToChild>
-        </ChildDetails>
       </ChildCareExpenses>
     } else {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
@@ -180,7 +179,6 @@ object Employment {
 
       <Employment>
         <CurrentlyEmployed>{currentlyEmployed}</CurrentlyEmployed>
-        <DateLastWorked>{NotAsked}</DateLastWorked>
         {for (job <- jobsQG) yield {
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
           val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())

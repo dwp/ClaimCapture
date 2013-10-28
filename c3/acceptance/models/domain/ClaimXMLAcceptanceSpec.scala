@@ -93,45 +93,38 @@ class ClaimXMLAcceptanceSpec extends Specification {
             <DateTo>2013-01-31</DateTo>
           </TradingYear>
         </CurrentJobDetails>
-        <Accountant>
-          <HasAccountant>Not asked</HasAccountant>
-          <ContactAccountant>Not asked</ContactAccountant>
-        </Accountant>
         <CareExpensesChildren>yes</CareExpensesChildren>
         <ChildCareExpenses>
           <CarerName>Mr John Johnson</CarerName>
-          <CarerAddress><gds:Line></gds:Line><gds:Line></gds:Line><gds:Line></gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-          <ConfirmAddress>yes</ConfirmAddress>
-          <WeeklyPayment><Currency>GBP</Currency><Amount>234</Amount></WeeklyPayment>
           <RelationshipCarerToClaimant>brother</RelationshipCarerToClaimant>
-          <ChildDetails>
-            <Name></Name>
-            <RelationToChild>stepBrother</RelationToChild>
-          </ChildDetails>
         </ChildCareExpenses>
         <CareExpensesCaree>yes</CareExpensesCaree>
         <CareExpenses>
           <CarerName>Mrs Terry Thornhill</CarerName>
-          <CarerAddress><gds:Line></gds:Line><gds:Line></gds:Line><gds:Line></gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-          <ConfirmAddress>yes</ConfirmAddress>
-          <WeeklyPayment>
-            <Currency>GBP</Currency>
-            <Amount>1235.1</Amount>
-          </WeeklyPayment>
           <RelationshipCarerToClaimant>aunt</RelationshipCarerToClaimant>
           <RelationshipCarerToCaree>adoptedSon</RelationshipCarerToCaree>
         </CareExpenses>
-        <PaidForPension>yes</PaidForPension>
+        <PaidForPension>
+          <QuestionLabel>self.pension</QuestionLabel>
+          <Answer>Yes</Answer>
+        </PaidForPension>
         <PensionScheme>
-          <Type>personal_private</Type>
-          <Payment><Currency>GBP</Currency><Amount>100</Amount></Payment>
-          <Frequency>02</Frequency>
+          <Payment>
+            <QuestionLabel>self.pension.amount</QuestionLabel>
+            <Answer>
+              <Currency>GBP</Currency>
+              <Amount>15.23</Amount>
+            </Answer>
+          </Payment>
+          <Frequency>
+            <QuestionLabel>self.pension.frequency</QuestionLabel>
+            <Answer>Weekly</Answer>
+          </Frequency>
         </PensionScheme>
       </SelfEmployment>
       <Employed>yes</Employed>
       <Employment>
         <CurrentlyEmployed>yes</CurrentlyEmployed>
-        <DateLastWorked>1970-01-01</DateLastWorked>
         <JobDetails>
           <Employer>
             <DateJobStarted>2013-01-01</DateJobStarted>
@@ -143,16 +136,16 @@ class ClaimXMLAcceptanceSpec extends Specification {
             <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
             <EmployersPhoneNumber>01253 667889</EmployersPhoneNumber>
             <EmployersFaxNumber/>
-            <WagesDepartment/>
-            <DepartmentPhoneFaxNumber/>
           </Employer>
           <Pay>
             <WeeklyHoursWorked>25</WeeklyHoursWorked>
-            <DateLastWorked/>
             <DateLastPaid>2013-07-08</DateLastPaid>
             <GrossPayment>
-              <Currency>GBP</Currency>
-              <Amount>340</Amount>
+              <QuestionLabel>job.pay</QuestionLabel>
+              <Answer>
+                <Currency>GBP</Currency>
+                <Amount>340.00</Amount>
+              </Answer>
             </GrossPayment>
             <IncludedInWage>All amounts due</IncludedInWage>
             <PayPeriod>
@@ -163,30 +156,13 @@ class ClaimXMLAcceptanceSpec extends Specification {
             <UsualPayDay>two weeks ago</UsualPayDay>
             <VaryingEarnings>no</VaryingEarnings>
           </Pay>
-          <OtherThanMoney>Not asked</OtherThanMoney>
           <OweMoney>no</OweMoney>
           <CareExpensesChildren>yes</CareExpensesChildren><ChildCareExpenses>
           <CarerName>Mr Grandfather Senior</CarerName>
-          <CarerAddress><gds:Line>Not asked</gds:Line><gds:Line>Not asked</gds:Line><gds:Line>Not asked</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-          <ConfirmAddress>yes</ConfirmAddress>
-          <WeeklyPayment>
-            <Currency>GBP</Currency>
-            <Amount>120.03</Amount>
-          </WeeklyPayment>
           <RelationshipCarerToClaimant>father</RelationshipCarerToClaimant>
-          <ChildDetails>
-            <Name/>
-            <RelationToChild>grandFather</RelationToChild>
-          </ChildDetails>
         </ChildCareExpenses>
           <CareExpensesCaree>yes</CareExpensesCaree><CareExpenses>
           <CarerName>Carers UK Ltd</CarerName>
-          <CarerAddress><gds:Line>Not asked</gds:Line><gds:Line>Not asked</gds:Line><gds:Line>Not asked</gds:Line><gds:PostCode></gds:PostCode></CarerAddress>
-          <ConfirmAddress>yes</ConfirmAddress>
-          <WeeklyPayment>
-            <Currency>GBP</Currency>
-            <Amount>150.89</Amount>
-          </WeeklyPayment>
           <RelationshipCarerToClaimant>father</RelationshipCarerToClaimant>
           <RelationshipCarerToCaree>other</RelationshipCarerToCaree>
         </CareExpenses>
