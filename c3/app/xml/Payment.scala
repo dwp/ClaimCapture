@@ -14,19 +14,24 @@ object Payment {
 
     val showAccount = howWePayYou.likeToBePaid == AccountStatus.BankBuildingAccount.name
 
-    <Payment>
-      <PaymentFrequency>
-        <QuestionLabel>PaymentFrequency?</QuestionLabel>
-        <Answer>{howWePayYou.paymentFrequency match {
-          case PaymentFrequency.EveryWeek.name => "Weekly"
-          case PaymentFrequency.FourWeekly.name => "Four-Weekly"
-          case n => "Weekly" // TODO check what the default should be.
-        }}</Answer>
-      </PaymentFrequency>
+    claim.questionGroup[HowWePayYou] match {
+      case Some(howWePayYou) => {
+        <Payment>
+          <PaymentFrequency>
+            <QuestionLabel>PaymentFrequency?</QuestionLabel>
+            <Answer>{howWePayYou.paymentFrequency match {
+              case PaymentFrequency.EveryWeek.name => "Weekly"
+              case PaymentFrequency.FourWeekly.name => "Four-Weekly"
+              case n => n // TODO should it throw if type not matched?
+            }}</Answer>
+          </PaymentFrequency>
 
-      <InitialAccountQuestion>{howWePayYou.likeToBePaid}</InitialAccountQuestion>
-      {if (showAccount) account(claim) else NodeSeq.Empty}
-    </Payment>
+          <InitialAccountQuestion>{howWePayYou.likeToBePaid}</InitialAccountQuestion>
+          {if (showAccount) account(claim) else NodeSeq.Empty}
+        </Payment>
+      }
+      case None => NodeSeq.Empty
+    }
   }
 
   def account(claim:Claim) = {
