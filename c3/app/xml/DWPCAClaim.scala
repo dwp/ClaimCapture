@@ -31,7 +31,7 @@ object DWPCAClaim {
       {SelfEmployment.xml(claim)}
       <Employed>{employment.beenEmployedSince6MonthsBeforeClaim}</Employed>
       {Employment.xml(claim)}
-      {PropertyRentedOut.xml(claim)}
+      <!--{PropertyRentedOut.xml(claim)}-->
       <HavePartner>{moreAboutYou.hadPartnerSinceClaimDate}</HavePartner>
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}

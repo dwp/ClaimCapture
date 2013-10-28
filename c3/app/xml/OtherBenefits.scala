@@ -1,34 +1,32 @@
 package xml
 
+import app.XMLValues
 import app.XMLValues._
 import models.domain._
 import XMLHelper._
+import scala.xml.NodeSeq
 
 
 object OtherBenefits {
 
   def xml(claim: Claim) = {
+    val moreAboutYou = claim.questionGroup[MoreAboutYou]
     val statutorySickPayOption = claim.questionGroup[StatutorySickPay]
     val otherStatutoryPayOption = claim.questionGroup[OtherStatutoryPay]
 
     <OtherBenefits>
       <ClaimantBenefits>
-        <JobseekersAllowance>{no}</JobseekersAllowance>
-        <IncomeSupport>{no}</IncomeSupport>
-        <PensionCredit>{no}</PensionCredit>
-        <StatePension>{no}</StatePension>
-        <IncapacityBenefit>{no}</IncapacityBenefit>
-        <SevereDisablementAllowance>{no}</SevereDisablementAllowance>
-        <MaternityAllowance>{no}</MaternityAllowance>
-        <UnemployabilitySupplement>{no}</UnemployabilitySupplement>
-        <WindowsBenefit>{no}</WindowsBenefit>
-        <WarWidowsPension>{no}</WarWidowsPension>
-        <IndustrialDeathBenefit>{no}</IndustrialDeathBenefit>
-        <GovernmentTrainingAllowance>{no}</GovernmentTrainingAllowance>
-        <LoneParentChildBenefit>{no}</LoneParentChildBenefit>
-        <OtherSocialSecurityBenefit>{NotAsked}</OtherSocialSecurityBenefit>
-        <NonSocialSecurityBenefit>{NotAsked}</NonSocialSecurityBenefit>
-        <NoBenefits>{NotAsked}</NoBenefits>
+        <StatePension>
+          <QuestionLabel>StatePension?</QuestionLabel>
+          <Answer>{moreAboutYou match {
+            case Some(n) => n.receiveStatePension match {
+              case "yes" => XMLValues.Yes
+              case "no" => XMLValues.No
+              case n => n
+            }
+            case _ => NodeSeq.Empty
+          }}</Answer>
+        </StatePension>
       </ClaimantBenefits>
       <PartnerBenefits>
         <JobseekersAllowance>{no}</JobseekersAllowance>

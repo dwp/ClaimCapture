@@ -15,6 +15,7 @@ object Residency {
     val yourDetailsOption = claim.questionGroup[YourDetails]
     val normalResidence = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
     val tripsOption = claim.questionGroup[Trips]
+    val trips = claim.questionGroup[Trips].getOrElse(Trips())
 
     <Residency>
 
@@ -30,16 +31,20 @@ object Residency {
         }}</Answer>
       </NormallyLiveInGB>
 
-      <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
-      <EUEEASwissNational>{NotAsked}</EUEEASwissNational>
       <CountryNormallyLive>{normalResidence.whereDoYouLive.text.getOrElse(NotAsked)}</CountryNormallyLive>
-      <CountryNormallyLiveOther>{NotAsked}</CountryNormallyLiveOther>
-      <InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>
-      <InGreatBritain26Weeks>{NotAsked}</InGreatBritain26Weeks>
+      <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
+
+      <TimeOutsideGBLast3Years>
+        <QuestionLabel>TimeOutsideGBLast3Years?</QuestionLabel>
+        <Answer>{(trips.fourWeeksTrips.size > 0) match {
+          case true => XMLValues.Yes
+          case false => XMLValues.No
+        }}</Answer>
+      </TimeOutsideGBLast3Years>
+
+      <!--<InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>-->
       {periodAbroadLastYear(tripsOption)}
-      <BritishOverseasPassport>{NotAsked}</BritishOverseasPassport>
       {otherNationality(claim)}
-      <OutOfGreatBritain>{NotAsked}</OutOfGreatBritain>
       {periodAbroadDuringCare(tripsOption)}
     </Residency>
   }
