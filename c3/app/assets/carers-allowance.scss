@@ -21,7 +21,7 @@ main {
 
 .carers-allowance {
    background: #fff;
-   padding: 0 1em 2em 1em;
+   padding: 0 1em 4em 1em;
    margin: 0 auto;
    max-width: 980px;
    .ie6 & {
@@ -378,7 +378,7 @@ main {
 			article {
 				float: left;
 				width: 30%;
-				margin: 2em 0 1em 5%;
+				margin: 2em 0 2em 5%;
 				@media screen and (max-width: 640px) {
 					width: 100%;
 					float: none;
