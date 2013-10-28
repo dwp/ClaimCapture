@@ -176,8 +176,6 @@
                                 <ConfirmAddress>yes</ConfirmAddress>
                                 <EmployersPhoneNumber>08907 1234567</EmployersPhoneNumber>
                                 <EmployersFaxNumber></EmployersFaxNumber>
-                                <WagesDepartment></WagesDepartment>
-                                <DepartmentPhoneFaxNumber>07890 1234567</DepartmentPhoneFaxNumber>
                             </Employer>
                             <Pay>
                                 <WeeklyHoursWorked>40</WeeklyHoursWorked>
