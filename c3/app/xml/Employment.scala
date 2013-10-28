@@ -134,9 +134,6 @@ object Employment {
           <Currency></Currency>
         </WeeklyPayment>
         <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
-        <ChildDetails>
-          <RelationToChild>{childcareExpenses.relationToPersonYouCare}</RelationToChild>
-        </ChildDetails>
       </ChildCareExpenses>
     } else {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>

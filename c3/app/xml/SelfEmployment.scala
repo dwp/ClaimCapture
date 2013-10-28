@@ -96,9 +96,6 @@ object SelfEmployment {
       <ChildCareExpenses>
         <CarerName>{childCareExpenses.nameOfPerson}</CarerName>
         <RelationshipCarerToClaimant>{childCareExpenses.whatRelationIsToYou}</RelationshipCarerToClaimant>
-        <ChildDetails>
-          <RelationToChild>{childCareExpenses.whatRelationIsTothePersonYouCareFor}</RelationToChild>
-        </ChildDetails>
       </ChildCareExpenses>
     } else NodeSeq.Empty
   }

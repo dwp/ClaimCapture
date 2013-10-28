@@ -97,10 +97,6 @@ class ClaimXMLAcceptanceSpec extends Specification {
         <ChildCareExpenses>
           <CarerName>Mr John Johnson</CarerName>
           <RelationshipCarerToClaimant>brother</RelationshipCarerToClaimant>
-          <ChildDetails>
-            <Name></Name>
-            <RelationToChild>stepBrother</RelationToChild>
-          </ChildDetails>
         </ChildCareExpenses>
         <CareExpensesCaree>yes</CareExpensesCaree>
         <CareExpenses>
