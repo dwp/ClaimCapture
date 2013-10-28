@@ -17,6 +17,7 @@ class FunctionalTestCase3Spec extends FunctionalTestCommon {
 
   "The application " should {
     val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase3.csv")
+    /*
     "Successfully run absolute Test Case 3 " in new WithBrowser with G1BenefitsPageContext {
 
 
@@ -30,7 +31,7 @@ class FunctionalTestCase3Spec extends FunctionalTestCommon {
         }
         case p: Page => println(p.source()); failure("bad")
       }
-    }
+    } */
 
     "validate Claim Test Case 3 with schema" in new WithBrowser with G1BenefitsPageContext {
 

@@ -22,10 +22,7 @@ object Caree {
       <NationalInsuranceNumber>{stringify(theirPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
       <Address>{postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode.orNull)}</Address>
       {if(!theirContactDetails.phoneNumber.isEmpty){
-      <DayTimePhoneNumber>
-        <Number>{theirContactDetails.phoneNumber.orNull}</Number>
-        <Qualifier/>
-      </DayTimePhoneNumber>
+      <DayTimePhoneNumber>{theirContactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
       }}
       <RelationToClaimant>
         <QuestionLabel>What's their relationship to you?</QuestionLabel>

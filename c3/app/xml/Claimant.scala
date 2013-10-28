@@ -18,10 +18,7 @@ object Claimant {
       <NationalInsuranceNumber>{yourDetails.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
       <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
       {if(!contactDetails.phoneNumber.isEmpty){
-        <DayTimePhoneNumber>
-          <Number>{contactDetails.phoneNumber.orNull}</Number>
-          <Qualifier/>
-        </DayTimePhoneNumber>
+        <DayTimePhoneNumber>{contactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
       }}
       <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
     </Claimant>
