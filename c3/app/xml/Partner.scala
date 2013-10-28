@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import models.domain._
 import XMLHelper.{stringify, postalAddressStructure}
 import scala.xml.NodeSeq
@@ -25,7 +26,14 @@ object Partner {
         <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
         <NationalityPartner>{yourPartnerPersonalDetails.nationality.orNull}</NationalityPartner>
         <RelationshipStatus>
-          <SeparatedFromPartner>{yourPartnerPersonalDetails.separatedFromPartner}</SeparatedFromPartner>
+          <SeparatedFromPartner>
+            <QuestionLabel>yourPartnerPersonalDetails.separatedFromPartner?</QuestionLabel>
+            <Answer>{yourPartnerPersonalDetails.separatedFromPartner match {
+              case "yes" => XMLValues.Yes
+              case "no" => XMLValues.No
+              case n => n
+            }}</Answer>
+          </SeparatedFromPartner>
         </RelationshipStatus>
       </Partner>
     } else NodeSeq.Empty
