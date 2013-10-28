@@ -76,7 +76,10 @@ object SelfEmployment {
         {childCareExpenses(claim)}
         <CareExpensesCaree>{pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor}</CareExpensesCaree>
         {careExpenses(claim)}
-        <PaidForPension>{pensionAndExpenses.doYouPayToPensionScheme}</PaidForPension>
+        <PaidForPension>
+          <QuestionLabel>self.pension</QuestionLabel>
+          <Answer>{pensionAndExpenses.doYouPayToPensionScheme}</Answer>
+        </PaidForPension>
         {pensionScheme(claim)}
       </SelfEmployment>
 
@@ -125,11 +128,19 @@ object SelfEmployment {
     val hasPensionScheme = pensionAndExpenses.doYouPayToPensionScheme == yes
 
     if (hasPensionScheme) {
-      <PensionScheme>
-        <Type>personal_private</Type>
-        <Payment>{moneyStructure(pensionAndExpenses.howMuchDidYouPay.orNull)}</Payment>
-        <Frequency>{if(pensionAndExpenses.howOften.isEmpty){} else pensionAndExpenses.howOften.get.frequency}</Frequency>
-      </PensionScheme>
+        <PensionScheme>
+          <Payment>
+            <QuestionLabel>self.pension.amount</QuestionLabel>
+            <Answer>
+              <Currency>GBP</Currency>
+              <Amount>{moneyStructure(pensionAndExpenses.howMuchDidYouPay.orNull)}</Amount>
+            </Answer>
+          </Payment>
+          <Frequency>
+            <QuestionLabel>self.pension.frequency</QuestionLabel>
+            <Answer>{if(pensionAndExpenses.howOften.isEmpty){} else pensionAndExpenses.howOften.get.frequency}</Answer>
+          </Frequency>
+        </PensionScheme>
     } else NodeSeq.Empty
   }
 }

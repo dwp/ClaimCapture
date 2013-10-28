@@ -188,10 +188,6 @@
                                     </Answer>
                                 </GrossPayment>
                                 <IncludedInWage>Basic wage</IncludedInWage>
-                                <PayPeriod>
-                                    <DateFrom>2013-05-01</DateFrom>
-                                    <DateTo>2013-05-31</DateTo>
-                                </PayPeriod>
                                 <PayFrequency>05</PayFrequency>
                                 <PayFrequencyOther></PayFrequencyOther>
                                 <UsualPayDay>Last day of month</UsualPayDay>
