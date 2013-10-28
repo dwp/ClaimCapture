@@ -21,8 +21,6 @@ object Employment {
       <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
       {<EmployersPhoneNumber/> +++ employerContactDetails.phoneNumber}
       <EmployersFaxNumber/>
-      <WagesDepartment/>
-      <DepartmentPhoneFaxNumber/>
     </Employer>
   }
 
