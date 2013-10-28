@@ -15,7 +15,7 @@ class ConsentAndDeclarationSpec extends Specification with Tags {
       val xml = ConsentAndDeclaration.xml(claim)
 
       (xml \\ "Declaration" \\ "TextLine").theSeq(4).text must(contain(infoAgreement))
-      (xml \\ "EvidenceList" \\ "TextLine").text must contain(confirmation)
+      (xml \\ "Declaration" \\ "TextLine").text must contain(confirmation)
     }
 
   } section "unit"
