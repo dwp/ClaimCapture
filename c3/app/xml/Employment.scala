@@ -31,8 +31,11 @@ object Employment {
       {<WeeklyHoursWorked/> ?+ jobDetails.hoursPerWeek}
       {<DateLastPaid/> +++ lastWage.lastPaidDate}
       <GrossPayment>
-        <Currency>{GBP}</Currency>
-        {<Amount/> +++ lastWage.grossPay}
+        <QuestionLabel>job.pay</QuestionLabel>
+        <Answer>
+          <Currency>{GBP}</Currency>
+          {<Amount/> +++ lastWage.grossPay}
+        </Answer>
       </GrossPayment>
       {<IncludedInWage/> +++ lastWage.payInclusions}
       <PayPeriod>

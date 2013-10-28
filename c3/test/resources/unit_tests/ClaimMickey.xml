@@ -183,8 +183,11 @@
                                 <WeeklyHoursWorked>40</WeeklyHoursWorked>
                                 <DateLastPaid>2013-05-31</DateLastPaid>
                                 <GrossPayment>
-                                    <Currency>GBP</Currency>
-                                    <Amount>2000.00</Amount>
+                                    <QuestionLabel>job.pay</QuestionLabel>
+                                    <Answer>
+                                        <Currency>GBP</Currency>
+                                        <Amount>2000.00</Amount>
+                                    </Answer>
                                 </GrossPayment>
                                 <IncludedInWage>Basic wage</IncludedInWage>
                                 <PayPeriod>

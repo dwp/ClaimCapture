@@ -141,8 +141,11 @@ class ClaimXMLAcceptanceSpec extends Specification {
             <WeeklyHoursWorked>25</WeeklyHoursWorked>
             <DateLastPaid>2013-07-08</DateLastPaid>
             <GrossPayment>
-              <Currency>GBP</Currency>
-              <Amount>340</Amount>
+              <QuestionLabel>job.pay</QuestionLabel>
+              <Answer>
+                <Currency>GBP</Currency>
+                <Amount>340.00</Amount>
+              </Answer>
             </GrossPayment>
             <IncludedInWage>All amounts due</IncludedInWage>
             <PayPeriod>
