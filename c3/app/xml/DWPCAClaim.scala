@@ -44,10 +44,25 @@ object DWPCAClaim {
         }}</Answer>
       </SelfEmployed>
       {SelfEmployment.xml(claim)}
-      <Employed>{employment.beenEmployedSince6MonthsBeforeClaim}</Employed>
+      <Employed>
+        <QuestionLabel>Employed?</QuestionLabel>
+        <Answer>{employment.beenEmployedSince6MonthsBeforeClaim match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </Employed>
       {Employment.xml(claim)}
       <!--{PropertyRentedOut.xml(claim)}-->
-      <HavePartner>{moreAboutYou.hadPartnerSinceClaimDate}</HavePartner>
+      <HavePartner>
+        <QuestionLabel>HavePartner?</QuestionLabel>
+        <Answer>{moreAboutYou.hadPartnerSinceClaimDate match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </HavePartner>
+
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}
       {Payment.xml(claim)}

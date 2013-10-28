@@ -18,8 +18,8 @@ object EvidenceList {
     val theirContactDetails = claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())
 
     <EvidenceList>
-      {xmlGenerated()}
       <RecipientAddress>{xml.XMLHelper.postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode.orNull)}</RecipientAddress>
+      {xmlGenerated()}
       {evidence(claim)}
       {aboutYou(claim)}
       {yourPartner(claim)}
@@ -270,13 +270,15 @@ object EvidenceList {
   private def textLine(): Elem = <Evidence/>
 
   private def textLine(text: String): Elem = <Evidence>
-    {text}
+    <Title></Title>
+    <Content>{text}</Content>
   </Evidence>
 
   private def textLine(label: String, value: String): Elem = value match {
     case "" => <Evidence/>
     case _ => <Evidence>
-      {s"$label" + formatValue(value)}
+      <Title></Title>
+      <Content>{s"$label" + formatValue(value)}</Content>
     </Evidence>
   }
 
