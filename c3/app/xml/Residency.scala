@@ -78,7 +78,10 @@ object Residency {
           <QuestionLabel>abroad.reason?</QuestionLabel>
           <Answer>{trip.why}</Answer>
         </Reason>
-        <Country>{trip.where}</Country>
+        <Country>
+          <QuestionLabel>trip.where?</QuestionLabel>
+          <Answer>{trip.where}</Answer>
+        </Country>
       </PeriodAbroad>
     }
 
