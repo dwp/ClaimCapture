@@ -11,8 +11,9 @@ object OtherBenefits {
 
   def xml(claim: Claim) = {
     val moreAboutYou = claim.questionGroup[MoreAboutYou]
-    val statutorySickPayOption = claim.questionGroup[StatutorySickPay]
-    val otherStatutoryPayOption = claim.questionGroup[OtherStatutoryPay]
+    val statutorySickPay = claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay(haveYouHadAnyStatutorySickPay = no))
+    val otherStatutoryPayOption = claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay(otherPay = no))
+
 
     <OtherBenefits>
       <ClaimantBenefits>
@@ -28,35 +29,29 @@ object OtherBenefits {
           }}</Answer>
         </StatePension>
       </ClaimantBenefits>
-      <PartnerBenefits>
-        <JobseekersAllowance>{no}</JobseekersAllowance>
-        <IncomeSupport>{no}</IncomeSupport>
-        <PensionCredit>{no}</PensionCredit>
-        <StatePension>{no}</StatePension>
-        <IncapacityBenefit>{no}</IncapacityBenefit>
-        <SevereDisablementAllowance>{no}</SevereDisablementAllowance>
-        <MaternityAllowance>{no}</MaternityAllowance>
-        <UnemployabilitySupplement>{no}</UnemployabilitySupplement>
-        <WindowsBenefit>{no}</WindowsBenefit>
-        <WarWidowsPension>{no}</WarWidowsPension>
-        <IndustrialDeathBenefit>{no}</IndustrialDeathBenefit>
-        <GovernmentTrainingAllowance>{no}</GovernmentTrainingAllowance>
-        <OtherSocialSecurityBenefit>{NotAsked}</OtherSocialSecurityBenefit>
-        <NonSocialSecurityBenefit>{NotAsked}</NonSocialSecurityBenefit>
-        <NoBenefits>{NotAsked}</NoBenefits>
-      </PartnerBenefits>
-      <ExtraMoney>{NotAsked}</ExtraMoney>
-      {otherMoneySPPXml(statutorySickPayOption)}
+      <OtherMoneySSP>
+        <QuestionLabel>OtherMoneySSP?</QuestionLabel>
+        <Answer>{statutorySickPay.haveYouHadAnyStatutorySickPay match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </OtherMoneySSP>
+      {otherMoneySPPXml(statutorySickPay)}
+      <OtherMoneySP>
+        <QuestionLabel>OtherMoneySP?</QuestionLabel>
+        <Answer>{otherStatutoryPayOption.otherPay match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </OtherMoneySP>
       {otherMoneySMPXml(otherStatutoryPayOption)}
     </OtherBenefits>
   }
 
-  def otherMoneySPPXml(statutorySickPayOption: Option[StatutorySickPay]) = {
-
-    val statutorySickPay = statutorySickPayOption.getOrElse(StatutorySickPay(haveYouHadAnyStatutorySickPay = no))
-
+  def otherMoneySPPXml(statutorySickPay: StatutorySickPay) = {
     if (statutorySickPay.haveYouHadAnyStatutorySickPay == yes) {
-      <OtherMoneySSP>{statutorySickPay.haveYouHadAnyStatutorySickPay}</OtherMoneySSP>
       <OtherMoneySSPDetails>
         <Name>{statutorySickPay.employersName.orNull}</Name>
         <Address>{postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}</Address>
@@ -66,10 +61,7 @@ object OtherBenefits {
     else <OtherMoneySSP>{statutorySickPay.haveYouHadAnyStatutorySickPay}</OtherMoneySSP>
   }
 
-  def otherMoneySMPXml(otherStatutoryPayOption: Option[OtherStatutoryPay]) = {
-
-    val otherStatutoryPay = otherStatutoryPayOption.getOrElse(OtherStatutoryPay(otherPay = no))
-
+  def otherMoneySMPXml(otherStatutoryPay: OtherStatutoryPay) = {
     if (otherStatutoryPay.otherPay == yes) {
       <OtherMoneySMP>{otherStatutoryPay.otherPay}</OtherMoneySMP>
       <OtherMoneySMPDetails>
