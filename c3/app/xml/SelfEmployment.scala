@@ -19,20 +19,44 @@ object SelfEmployment {
     def jobDetails() = {
       if (aboutSelfEmployment.areYouSelfEmployedNow == yes) {
         <CurrentJobDetails>
-          <DateStarted>{stringify(Some(aboutSelfEmployment.whenDidYouStartThisJob))}</DateStarted>
-          <NatureOfBusiness>{aboutSelfEmployment.natureOfYourBusiness.orNull}</NatureOfBusiness>
+          <DateStarted>
+            <QuestionLabel>selfemployed.started</QuestionLabel>
+            <Answer>{stringify(Some(aboutSelfEmployment.whenDidYouStartThisJob))}</Answer>
+          </DateStarted>
+          <NatureBusiness>
+            <QuestionLabel>selfemployed.business</QuestionLabel>
+            <Answer>{aboutSelfEmployment.natureOfYourBusiness.orNull}</Answer>
+          </NatureBusiness>
           <TradingYear>
-            <DateFrom>{stringify(yourAccounts.whatWasOrIsYourTradingYearFrom)}</DateFrom>
-            <DateTo>{stringify(yourAccounts.whatWasOrIsYourTradingYearTo)}</DateTo>
+            <DateFrom>
+              <QuestionLabel>trading.from</QuestionLabel>
+              <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearFrom)}</Answer>
+            </DateFrom>
+            <DateTo>
+              <QuestionLabel>trading.to</QuestionLabel>
+              <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearTo)}</Answer>
+            </DateTo>
           </TradingYear>
         </CurrentJobDetails>
       } else {
         <RecentJobDetails>
-          <DateStarted>{stringify(Some(aboutSelfEmployment.whenDidYouStartThisJob))}</DateStarted>
-          <NatureOfBusiness>{aboutSelfEmployment.natureOfYourBusiness.orNull}</NatureOfBusiness>
+          <DateStarted>
+            <QuestionLabel>selfemployed.started</QuestionLabel>
+            <Answer>{stringify(Some(aboutSelfEmployment.whenDidYouStartThisJob))}</Answer>
+          </DateStarted>
+          <NatureBusiness>
+            <QuestionLabel>selfemployed.business</QuestionLabel>
+            <Answer>{aboutSelfEmployment.natureOfYourBusiness.orNull}</Answer>
+          </NatureBusiness>
           <TradingYear>
-            <DateFrom>{stringify(yourAccounts.whatWasOrIsYourTradingYearFrom)}</DateFrom>
-            <DateTo>{stringify(yourAccounts.whatWasOrIsYourTradingYearTo)}</DateTo>
+            <DateFrom>
+              <QuestionLabel>trading.from</QuestionLabel>
+              <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearFrom)}</Answer>
+            </DateFrom>
+            <DateTo>
+              <QuestionLabel>trading.to</QuestionLabel>
+              <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearTo)}</Answer>
+            </DateTo>
           </TradingYear>
           <DateEnded>{stringify(aboutSelfEmployment.whenDidTheJobFinish)}</DateEnded>
           <TradingCeased>{aboutSelfEmployment.haveYouCeasedTrading.orNull}</TradingCeased>
@@ -43,7 +67,10 @@ object SelfEmployment {
     if (employment.beenSelfEmployedSince1WeekBeforeClaim == yes) {
 
       <SelfEmployment>
-        <SelfEmployedNow>{aboutSelfEmployment.areYouSelfEmployedNow}</SelfEmployedNow>
+        <SelfEmployedNow>
+          <QuestionLabel>selfepmloyed.now</QuestionLabel>
+          <Answer>{aboutSelfEmployment.areYouSelfEmployedNow}</Answer>
+        </SelfEmployedNow>
         {jobDetails()}
         <Accountant>
           <HasAccountant>{NotAsked}</HasAccountant>
