@@ -17,18 +17,15 @@ object Partner {
 
     if (hadPartner) {
       <Partner>
-        <NationalityPartner>{yourPartnerPersonalDetails.nationality.orNull}</NationalityPartner>
         <Surname>{yourPartnerPersonalDetails.surname}</Surname>
         <OtherNames>{yourPartnerPersonalDetails.firstName} {yourPartnerPersonalDetails.middleName.orNull}</OtherNames>
         <OtherSurnames>{yourPartnerPersonalDetails.otherSurnames.orNull}</OtherSurnames>
         <Title>{yourPartnerPersonalDetails.title}</Title>
         <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
-        <Address>{postalAddressStructure(models.MultiLineAddress(Street(Some(NotAsked))), "")}</Address>
+        <NationalityPartner>{yourPartnerPersonalDetails.nationality.orNull}</NationalityPartner>
         <RelationshipStatus>
-          <JoinedHouseholdDate></JoinedHouseholdDate>
           <SeparatedFromPartner>{yourPartnerPersonalDetails.separatedFromPartner}</SeparatedFromPartner>
-          <SeparationDate></SeparationDate>
         </RelationshipStatus>
       </Partner>
     } else NodeSeq.Empty
