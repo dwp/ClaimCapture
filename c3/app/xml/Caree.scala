@@ -22,7 +22,7 @@ object Caree {
       <NationalInsuranceNumber>{stringify(theirPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
       <Address>{postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode.orNull)}</Address>
       {if(!theirContactDetails.phoneNumber.isEmpty){
-      <DayTimePhoneNumber>{theirContactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
+        <DayTimePhoneNumber>{theirContactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
       }}
       <RelationToClaimant>
         <QuestionLabel>What's their relationship to you?</QuestionLabel>
@@ -111,10 +111,16 @@ object Caree {
 
     for (break <- breaksInCare.breaks) yield {
       <CareBreak>
-        <StartDateTime>{break.start.`yyyy-MM-dd'T'HH:mm:00`}</StartDateTime>
-        <EndDateTime>{if (break.end.isDefined) break.end.get.`yyyy-MM-dd'T'HH:mm:00`}</EndDateTime>
-        <Reason>{break.whereYou.location}</Reason>
-        <MedicalCare>{break.medicalDuringBreak}</MedicalCare>
+        <StartDateTime>{break.start.`dd-MM-yyyy HH:mm`}</StartDateTime>
+        <EndDateTime>{if (break.end.isDefined) break.end.get.`dd-MM-yyyy HH:mm`}</EndDateTime>
+         <MedicalCare>
+             <QuestionLabel>Did you or the person you care for receive any medical treatment or professional care during the break?</QuestionLabel>
+             <Answer>{break.medicalDuringBreak match {
+                case "yes" => XMLValues.Yes
+                case "no" => XMLValues.No
+                case n => n
+            }}</Answer>
+        </MedicalCare>
       </CareBreak>
     }
   }
