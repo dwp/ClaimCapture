@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import app.XMLValues._
 import play.api.Logger
 import models.domain.{MoreAboutYou, Claim}
@@ -25,9 +26,23 @@ object DWPCAClaim {
       {Claimant.xml(claim)}
       {Caree.xml(claim)}
       {Residency.xml(claim)}
-      <CourseOfEducation>{moreAboutYou.beenInEducationSinceClaimDate}</CourseOfEducation>
+      <CourseOfEducation>
+        <QuestionLabel>CourseOfEducation?</QuestionLabel>
+        <Answer>{moreAboutYou.beenInEducationSinceClaimDate match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </CourseOfEducation>
       {FullTimeEducation.xml(claim)}
-      <SelfEmployed>{employment.beenSelfEmployedSince1WeekBeforeClaim}</SelfEmployed>
+      <SelfEmployed>
+        <QuestionLabel>SelfEmployed?</QuestionLabel>
+        <Answer>{employment.beenSelfEmployedSince1WeekBeforeClaim match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </SelfEmployed>
       {SelfEmployment.xml(claim)}
       <Employed>{employment.beenEmployedSince6MonthsBeforeClaim}</Employed>
       {Employment.xml(claim)}
