@@ -189,9 +189,7 @@
                                 </GrossPayment>
                                 <IncludedInWage>Basic wage</IncludedInWage>
                                 <PayFrequency>05</PayFrequency>
-                                <PayFrequencyOther></PayFrequencyOther>
                                 <UsualPayDay>Last day of month</UsualPayDay>
-                                <VaryingEarnings>no</VaryingEarnings>
                                 <PaidForHolidays>no</PaidForHolidays>
                             </Pay>
                             <OweMoney>no</OweMoney>

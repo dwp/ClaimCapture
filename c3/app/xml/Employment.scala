@@ -128,11 +128,6 @@ object Employment {
       <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
       <JobExpenses>
         <Expense>{necessaryExpenses.whatAreThose}</Expense>
-        <Reason>{NotAsked}</Reason>
-        <WeeklyPayment>
-          <Currency></Currency>
-          <Amount>{NotAsked}</Amount>
-        </WeeklyPayment>
       </JobExpenses>
     } else {
       <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>

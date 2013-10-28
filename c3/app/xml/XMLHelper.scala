@@ -66,7 +66,7 @@ object XMLHelper {
 
   def paymentFrequency(freq: Option[PaymentFrequency]): NodeBuffer = freq match {
     case Some(p) => paymentFrequency(p)
-    case _ => new NodeBuffer() += <PayFrequency/> += <PayFrequencyOther/>
+    case _ => new NodeBuffer() += <PayFrequency/>
   }
 
   def paymentFrequency(freq: PaymentFrequency): NodeBuffer = new NodeBuffer() +=
