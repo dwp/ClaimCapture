@@ -50,7 +50,6 @@ object EvidenceList {
       buffer += textLine("Send us the following documents below including your Name and National Insurance (NI) number.")
 
       if (employed) {
-        buffer += textLine()
         buffer += textLine("Your Employment documents.")
         buffer += textLine("Last payslip you got before your claim date: ", claimDate.dateOfClaim.`dd/MM/yyyy`)
         buffer += textLine("Any payslips you have had since then.")
@@ -59,20 +58,17 @@ object EvidenceList {
       }
 
       if (selfEmployed) {
-        buffer += textLine()
         buffer += textLine("Your Self-employed documents.")
         buffer += textLine("Most recent finalised accounts you have for your business.")
         buffer += textLine("Any pension statements you may have.")
       }
 
-      buffer += textLine()
       buffer += textLine("Send the above documents to:")
       buffer += textLine("CA Freepost")
       buffer += textLine("Palatine House")
       buffer += textLine("Preston")
       buffer += textLine("PR1 1HN")
       buffer += textLine("The Carer's Allowance unit will contact you if they need any further information.")
-      buffer += textLine()
     }
 
     buffer
@@ -83,7 +79,7 @@ object EvidenceList {
     val yourContactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
     val timeOutsideUK = claim.questionGroup[TimeOutsideUK].getOrElse(TimeOutsideUK())
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
-    var textLines = NodeSeq.Empty ++ textSeparatorLine("About You")
+    var textLines = NodeSeq.Empty
     textLines ++= textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK) ++
       textLine("Mobile number = ", yourContactDetails.mobileNumber) ++
       textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer)
@@ -99,17 +95,13 @@ object EvidenceList {
     val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
 
     if (personYouCareFor.isPartnerPersonYouCareFor.nonEmpty) {
-      textSeparatorLine("About Your Partner") ++
         textLine("Is your partner/spouse the person you are claiming Carer's Allowance for? = ", personYouCareFor.isPartnerPersonYouCareFor)
     }
   }
 
   def careYouProvide(claim: Claim) = {
-    val theirPersonalDetails = claim.questionGroup[TheirPersonalDetails].getOrElse(TheirPersonalDetails())
-    val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
 
-    textSeparatorLine("About Care You Provide") ++
       textLine("Do you spend 35 hours or more each week caring for this person? = ", moreAboutTheCare.spent35HoursCaring) ++
       textLine("Did you care for this person for 35 hours or more each week before your claim date ? = ", moreAboutTheCare.spent35HoursCaringBeforeClaim.answer)
   }
@@ -131,7 +123,6 @@ object EvidenceList {
     val trips = claim.questionGroup[Trips].getOrElse(Trips())
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
 
-    textSeparatorLine("Time abroad") ++
       textLine("Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = ", normalResidenceAndCurrentLocation.whereDoYouLive.answer) ++
       textLine("Have you been out of Great Britain with the person you care for for more than 4 weeks at a time,"+
         s"since ${(DayMonthYear.today - 3 years).`dd/MM/yyyy`} (this is 3 years from today)? = ", if (trips.fourWeeksTrips.size > 0) Yes else No) ++
@@ -167,14 +158,13 @@ object EvidenceList {
     if (pensionScheme.howOften.isDefined && pensionScheme.howOften.get.other.isDefined)
       textLines ++= textLine("How often do you pay into a Pension? Other = ", pensionScheme.howOften.get.other.get)
 
-    if (sectionEmpty(textLines)) NodeSeq.Empty else textSeparatorLine("Self Employment") ++ textLines
+    if (sectionEmpty(textLines)) NodeSeq.Empty else textLines
   }
 
   def employment(claim: Claim) = {
     claim.questionGroup[Jobs] match {
       case Some(jobs) =>
         var textLines = NodeSeq.Empty
-        textLines ++= textSeparatorLine("Employment")
 
         for (job <- jobs) {
 
@@ -207,7 +197,6 @@ object EvidenceList {
             textLines ++= textLine("How often other - Occupational Pension Scheme? = ", pensionScheme.howOftenPension.get.other.getOrElse(""))
           if (pensionScheme.howOftenPersonal.isDefined && pensionScheme.howOftenPersonal.get.frequency == PensionPaymentFrequency.Other)
             textLines ++= textLine("How often other - Personal Pension Scheme? = ", pensionScheme.howOftenPersonal.get.other.getOrElse(""))
-          textLine()
         }
 
         textLines
@@ -234,7 +223,6 @@ object EvidenceList {
       case _ => ""
     }
 
-    textSeparatorLine("Other Money") ++
       textLine("Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim? = ", aboutOtherMoney.yourBenefits.answer) ++
       textLine("Have you received any payments for the person you care for or any other person since your claim date? = ", aboutOtherMoney.anyPaymentsSinceClaimDate.answer) ++
       textLine("Details about other money: Who pays you? = ", aboutOtherMoney.whoPaysYou) ++
@@ -253,38 +241,24 @@ object EvidenceList {
         "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
   }
 
-  def textSeparatorLine(title: String) = {
-    val lineWidth = 54
-    val padding = "=" * ((lineWidth - title.length) / 2)
-
-    <Evidence>
-      <Title>{s"$padding$title$padding"}</Title>
-      <Content></Content>
-    </Evidence>
-  }
-
-
   def sectionEmpty(nodeSeq: NodeSeq) = {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
   }
-
-  private def textLine(): Elem = <Evidence/>
 
   private def textLine(text: String): Elem = <Evidence>
     <Title></Title>
     <Content>{text}</Content>
   </Evidence>
 
-  private def textLine(label: String, value: String): Elem = value match {
-    case "" => <Evidence/>
-    case _ => <Evidence>
-      <Title></Title>
-      <Content>{s"$label" + formatValue(value)}</Content>
+  private def textLine(label: String, value: String): Elem = {
+    <Evidence>
+      <Title>{label}</Title>
+      <Content>{formatValue(value)}</Content>
     </Evidence>
   }
 
   private def textLine(label: String, value: Option[String]): Elem = value match {
-    case Some(s) => textLine(label, value.get)
+    case Some(s) => textLine(label, value.getOrElse(""))
     case None => <Evidence/>
   }
 }
