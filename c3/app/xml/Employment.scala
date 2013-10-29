@@ -84,7 +84,12 @@ object Employment {
           </IncludedInWage>}
         case None => NodeSeq.Empty
       }}
-      {paymentFrequency(additionalWageDetails.oftenGetPaid)}
+
+
+      {additionalWageDetails.oftenGetPaid match {
+        case Some(n) => paymentFrequency(additionalWageDetails.oftenGetPaid.orNull)
+        case None => NodeSeq.Empty
+      }}
       {additionalWageDetails.whenGetPaid match {
         case Some(n) => {
           <UsualPayDay>
