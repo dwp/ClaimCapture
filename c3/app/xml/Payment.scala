@@ -28,7 +28,13 @@ object Payment {
 
           <InitialAccountQuestion>
             <QuestionLabel>InitialAccountQuestion?</QuestionLabel>
-            <Answer>{howWePayYou.likeToBePaid}</Answer>
+            <Answer>{howWePayYou.likeToBePaid match {
+              case AccountStatus.BankBuildingAccount.name => "UK bank or building society"
+              case AccountStatus.AppliedForAccount.name => "You don't have an account but intend to open one"
+              case AccountStatus.NotOpenAccount.name => "Other - you would like more information"
+              case n => n
+              }
+            }</Answer>
           </InitialAccountQuestion>
 
           {if (showAccount) account(claim) else NodeSeq.Empty}
@@ -42,7 +48,6 @@ object Payment {
     val bankBuildingSocietyDetails = claim.questionGroup[BankBuildingSocietyDetails].getOrElse(BankBuildingSocietyDetails())
 
     <Account>
-      <DirectPayment>{NotAsked}</DirectPayment>
       <AccountHolder>{bankBuildingSocietyDetails.whoseNameIsTheAccountIn}</AccountHolder>
       <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
       <SecondHolderName/>
