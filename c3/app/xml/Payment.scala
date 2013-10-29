@@ -47,20 +47,19 @@ object Payment {
   def account(claim:Claim) = {
     val bankBuildingSocietyDetails = claim.questionGroup[BankBuildingSocietyDetails].getOrElse(BankBuildingSocietyDetails())
 
+
+    // TODO If fields below are no longer in the schema then they don't need to be on the website e.g. AccountHolder
     <Account>
-      <AccountHolder>{bankBuildingSocietyDetails.whoseNameIsTheAccountIn}</AccountHolder>
+      <!--<AccountHolder>{bankBuildingSocietyDetails.whoseNameIsTheAccountIn}</AccountHolder>-->
       <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
-      <SecondHolderName/>
-      <AccountType>bank</AccountType>
-      <OtherBenefitsToBePaidDirect/>
       <BuildingSocietyDetails>
-        <BuildingSocietyQualifier/>
         <AccountNumber>{bankBuildingSocietyDetails.accountNumber}</AccountNumber>
-        <RollNumber>{bankBuildingSocietyDetails.rollOrReferenceNumber}</RollNumber>
+
+        {if(bankBuildingSocietyDetails.rollOrReferenceNumber.isEmpty) NodeSeq.Empty
+        else <RollNumber>{bankBuildingSocietyDetails.rollOrReferenceNumber}</RollNumber>}
+
         <SortCode>{stringify(Some(bankBuildingSocietyDetails.sortCode))}</SortCode>
         <Name>{bankBuildingSocietyDetails.bankFullName}</Name>
-        <Branch></Branch>
-        <Address>{postalAddressStructure(None, None)}</Address>
       </BuildingSocietyDetails>
     </Account>
   }
