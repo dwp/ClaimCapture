@@ -186,7 +186,14 @@ object Employment {
         </Expense>
       </JobExpenses>
     } else {
-      <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
+      <PaidForJobExpenses>
+        <QuestionLabel>job.expenses</QuestionLabel>
+        <Answer>{aboutExpenses.payForAnythingNecessary match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </PaidForJobExpenses>
     }
   }
 
@@ -216,7 +223,14 @@ object Employment {
         </RelationshipCarerToClaimant>
       </ChildCareExpenses>
     } else {
-      <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
+      <CareExpensesCaree>
+        <QuestionLabel>aboutExpenses.payAnyoneToLookAfterPerson</QuestionLabel>
+        <Answer>{aboutExpenses.payAnyoneToLookAfterPerson match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </CareExpensesCaree>
     }
   }
 
@@ -250,7 +264,14 @@ object Employment {
         </RelationshipCarerToCaree>
       </CareExpenses>
     } else {
-      <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
+      <CareExpensesCaree>
+        <QuestionLabel>aboutExpenses.payAnyoneToLookAfterPerson</QuestionLabel>
+        <Answer>{aboutExpenses.payAnyoneToLookAfterPerson match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </CareExpensesCaree>
     }
   }
 
