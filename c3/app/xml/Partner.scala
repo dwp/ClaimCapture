@@ -2,10 +2,9 @@ package xml
 
 import app.XMLValues
 import models.domain._
-import XMLHelper.{stringify, postalAddressStructure}
+import XMLHelper.{stringify}
 import scala.xml.NodeSeq
 import app.XMLValues._
-import models.Street
 
 object Partner {
 

@@ -37,14 +37,24 @@ object XMLHelper {
     case _ => postalAddressStructure(new MultiLineAddress(), postcodeOption.orNull)
   }
 
-  def postalAddressStructure(addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeSeq = postalAddressStructure(addressOption, postcodeOption.orNull)
+  def postalAddressStructure(addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeSeq = postalAddressStructure(addressOption, postcodeOption.getOrElse(""))
 
-  def postalAddressStructure(address: MultiLineAddress, postcode: String): NodeSeq = {
-    val n = Seq(<Line>{address.lineOne().orNull}</Line>,
-      {if(address.lineTwo().isEmpty){null}else{<Line>{address.lineTwo().orNull}</Line>}},
-      {if(address.lineThree().isEmpty){null}else{<Line>{address.lineThree().orNull}</Line>}},
-      <PostCode>{postcode}</PostCode>)
-    NodeSeq.fromSeq(n)
+  def postalAddressStructure(address: MultiLineAddress, postcode: String): Elem = {
+    <Address>
+      <Line>{address.lineOne().orNull}</Line>
+      {if(address.lineTwo().isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo().orNull}</Line>}}
+      {if(address.lineThree().isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree().orNull}</Line>}}
+      {if(postcode == null || postcode == "") NodeSeq.Empty else <PostCode>{postcode}</PostCode>}
+    </Address>
+  }
+
+  def postalAddressStructureRecipientAddress(address: MultiLineAddress, postcode: String): Elem = {
+    <RecipientAddress>
+      <Line>{address.lineOne().orNull}</Line>
+      {if(address.lineTwo().isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo().orNull}</Line>}}
+      {if(address.lineThree().isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree().orNull}</Line>}}
+      {if(postcode == null || postcode == "") NodeSeq.Empty else <PostCode>{postcode}</PostCode>}
+    </RecipientAddress>
   }
 
   def moneyStructure(amount: String) = {

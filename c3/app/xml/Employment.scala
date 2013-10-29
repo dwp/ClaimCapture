@@ -36,7 +36,7 @@ object Employment {
       }}
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
-      <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
+      {postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}
       {<EmployersPhoneNumber/> +++ employerContactDetails.phoneNumber}
     </Employer>
   }

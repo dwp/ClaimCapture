@@ -60,7 +60,7 @@ object FullTimeEducation {
         case Some(n) => <Name>{schoolData.nameOfSchoolCollegeOrUniversity.orNull}</Name>
         case None => NodeSeq.Empty
       }}
-      <Address>{postalAddressStructure(schoolData.address, schoolData.postcode)}</Address>
+      {postalAddressStructure(schoolData.address, schoolData.postcode)}
       <PhoneNumber>{schoolData.phoneNumber.orNull}</PhoneNumber>
       { schoolData.faxNumber match {
         case Some(n) => <FaxNumber>{schoolData.faxNumber.orNull}</FaxNumber>

@@ -16,7 +16,7 @@ object Claimant {
       <Title>{yourDetails.title}</Title>
       <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{yourDetails.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
-      <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
+      {postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}
       {if(!contactDetails.phoneNumber.isEmpty){
         <DayTimePhoneNumber>{contactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
       }}

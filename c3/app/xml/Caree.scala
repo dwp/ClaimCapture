@@ -23,7 +23,7 @@ object Caree {
         case Some(n) => <NationalInsuranceNumber>{stringify(theirPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
         case None => NodeSeq.Empty
       }}
-      <Address>{postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode.orNull)}</Address>
+      {postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode.orNull)}
       {if(!theirContactDetails.phoneNumber.isEmpty){
         <DayTimePhoneNumber>{theirContactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
       }}

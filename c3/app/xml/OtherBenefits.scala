@@ -54,7 +54,7 @@ object OtherBenefits {
     if (statutorySickPay.haveYouHadAnyStatutorySickPay == yes) {
       <OtherMoneySSPDetails>
         <Name>{statutorySickPay.employersName.orNull}</Name>
-        <Address>{postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}</Address>
+        {postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}
       </OtherMoneySSPDetails>
     }
     else NodeSeq.Empty
@@ -64,7 +64,7 @@ object OtherBenefits {
     if (otherStatutoryPay.otherPay == yes) {
       <OtherMoneySPDetails>
         <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
-        <Address>{postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}</Address>
+        {postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}
       </OtherMoneySPDetails>
     }
     else NodeSeq.Empty

@@ -18,7 +18,7 @@ object EvidenceList {
     val theirContactDetails = claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())
 
     <EvidenceList>
-      <RecipientAddress>{xml.XMLHelper.postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode.orNull)}</RecipientAddress>
+      {xml.XMLHelper.postalAddressStructureRecipientAddress(theirContactDetails.address, theirContactDetails.postcode.orNull)}
       {xmlGenerated()}
       {evidence(claim)}
       {aboutYou(claim)}

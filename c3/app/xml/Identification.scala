@@ -25,7 +25,7 @@ object Identification {
       <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{stringify(Some(yourDetails.nationalInsuranceNumber))}</NationalInsuranceNumber>
       <Title>{yourDetails.title}</Title>
-      <Address>{postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}</Address>
+      {postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}
       <HomePhone>{contactDetails.phoneNumber.orNull}</HomePhone>
       <DaytimePhone>
         <Number>{contactDetails.mobileNumber.orNull}</Number>
