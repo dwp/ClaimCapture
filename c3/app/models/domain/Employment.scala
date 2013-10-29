@@ -154,7 +154,7 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g5"
 
   def validateOftenGetPaid(input: AdditionalWageDetails): Boolean = input.oftenGetPaid match {
-    case Some(pf) if pf.frequency == "other" => pf.other.isDefined
+    case Some(pf) if pf.frequency == "Other" => pf.other.isDefined
     case _ => true
   }
 }

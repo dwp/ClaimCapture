@@ -63,7 +63,7 @@ package object app {
     def mapToHumanReadableString(frequencyCode: String, otherCode: Option[String]): String = frequencyCode match {
       case Weekly => "Weekly"
       case Fortnightly => "Fortnightly"
-      case FourWeekly => "Four-weekly"
+      case FourWeekly => "Four-Weekly"
       case Monthly => "Monthly"
       case Other => otherCode match {
         case Some(s) => "Other: " + s

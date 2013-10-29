@@ -165,7 +165,10 @@
                                     <QuestionLabel>job.started</QuestionLabel>
                                     <Answer>09-10-2009</Answer>
                                 </DateJobStarted>
-                                <JobType>Cheese Taster</JobType>
+                                <JobType>
+                                    <QuestionLabel>job.title</QuestionLabel>
+                                    <Answer>Cheese Taster</Answer>
+                                </JobType>
                                 <ClockPayrollNumber>89765432</ClockPayrollNumber>
                                 <Name>Cheeseworld</Name>
                                 <Address>
@@ -177,11 +180,17 @@
                                 </Address>
                                 <ConfirmAddress>yes</ConfirmAddress>
                                 <EmployersPhoneNumber>08907 1234567</EmployersPhoneNumber>
-                                <EmployersFaxNumber></EmployersFaxNumber>
+                                <EmployersFaxNumber>01253 667889</EmployersFaxNumber>
                             </Employer>
                             <Pay>
-                                <WeeklyHoursWorked>40</WeeklyHoursWorked>
-                                <DateLastPaid>2013-05-31</DateLastPaid>
+                                <WeeklyHoursWorked>
+                                    <QuestionLabel>job.hours</QuestionLabel>
+                                    <Answer>40</Answer>
+                                </WeeklyHoursWorked>
+                                <DateLastPaid>
+                                    <QuestionLabel>job.lastpaid</QuestionLabel>
+                                    <Answer>31-05-2013</Answer>
+                                </DateLastPaid>
                                 <GrossPayment>
                                     <QuestionLabel>job.pay</QuestionLabel>
                                     <Answer>
@@ -189,12 +198,18 @@
                                         <Amount>2000.00</Amount>
                                     </Answer>
                                 </GrossPayment>
-                                <IncludedInWage>Basic wage</IncludedInWage>
-                                <PayFrequency>05</PayFrequency>
+                                <IncludedInWage>
+                                    <QuestionLabel>job.pay.include</QuestionLabel>
+                                    <Answer>Basic wage</Answer>
+                                </IncludedInWage>
+                                <PayFrequency><QuestionLabel>job.pay.frequency</QuestionLabel><Answer>Other</Answer></PayFrequency>
                                 <UsualPayDay>Last day of month</UsualPayDay>
                                 <PaidForHolidays>no</PaidForHolidays>
                             </Pay>
-                            <OweMoney>no</OweMoney>
+                            <OweMoney>
+                                <QuestionLabel>job.owe</QuestionLabel>
+                                <Answer>No</Answer>
+                            </OweMoney>
                             <CareExpensesChildren>
                                 <QuestionLabel>chld.expenses</QuestionLabel>
                                 <Answer>No</Answer>
@@ -204,8 +219,14 @@
                                 <Answer>No</Answer>
                             </CareExpensesCaree>
                             <PaidForOccupationalPension>no</PaidForOccupationalPension>
-                            <PaidForPersonalPension>no</PaidForPersonalPension>
-                            <PaidForJobExpenses>no</PaidForJobExpenses>
+                            <PaidForPersonalPension>
+                                <QuestionLabel>pension.personal</QuestionLabel>
+                                <Answer>No</Answer>
+                            </PaidForPersonalPension>
+                            <PaidForJobExpenses>
+                                <QuestionLabel>job.expenses</QuestionLabel>
+                                <Answer>No</Answer>
+                            </PaidForJobExpenses>
                         </JobDetails>
                     </Employment>
                     <PropertyRentedOut>
