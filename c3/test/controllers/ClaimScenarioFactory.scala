@@ -128,7 +128,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"
     claim.AboutTheCareYouProvidePhoneNumberPersonYouCare = "07922 222 222"
     // More About The Person
-    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "father"
+    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
     claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
     claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
     // Previous Carer Personal Details
@@ -261,7 +261,7 @@ object ClaimScenarioFactory {
     claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Weekly
     claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
-    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "fatherInLaw"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "Father-In-Law"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1 = "Grandfather"
     claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
@@ -322,7 +322,7 @@ object ClaimScenarioFactory {
     claim.EmploymentChildcareExpensesHowOftenOther_1 = "why is my train 80 minutes late"
     claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
-    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "fatherInLaw"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "Father-In-Law"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1 = "Grandfather"
     claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
@@ -419,9 +419,9 @@ object ClaimScenarioFactory {
     claim.SelfEmployedChildcareExpensesHowMuchYouPay = "123.45"
     claim.SelfEmployedChildcareExpensesHowOften = app.PensionPaymentFrequency.Other
     claim.SelfEmployedChildcareExpensesHowOftenOther = "Every day and twice on Sunday's"
-    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "father"
-    claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "father"
-    claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "father"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "Father"
+    claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "Father"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "Father"
 
     claim
   }
@@ -433,9 +433,9 @@ object ClaimScenarioFactory {
     claim.SelfEmployedCareExpensesHowOften = app.PensionPaymentFrequency.Weekly
     claim.SelfEmployedCareExpensesHowOftenOther = "Every day and twice on Sunday's"
     claim.SelfEmployedCareExpensesNameOfPerson = "John"
-    claim.SelfEmployedCareExpensesWhatRelationIsToYou = "father"
-    claim.SelfEmployedCareExpensesWhatRelationToPartner = "father"
-    claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "father"
+    claim.SelfEmployedCareExpensesWhatRelationIsToYou = "Father"
+    claim.SelfEmployedCareExpensesWhatRelationToPartner = "Father"
+    claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "Father"
 
     claim
   }

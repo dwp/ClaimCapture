@@ -15,8 +15,8 @@ class G10ChildcareExpensesSpec extends Specification with Tags {
     val howMuchYouPay = "123445"
     val howOften_frequency = Other
     val howOften_frequency_other = "Every day and twice on Sundays"
-    val whatRelationIsToYou = "son"
-    val whatRelationIsToThePersonYouCareFor = "parent"
+    val whatRelationIsToYou = "Son"
+    val whatRelationIsToThePersonYouCareFor = "Parent"
 
 
     "present" in new WithApplication with Claiming {

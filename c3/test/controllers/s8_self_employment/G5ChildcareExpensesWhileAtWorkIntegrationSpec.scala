@@ -72,7 +72,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
 
 
       val claim = ClaimScenarioFactory.s9SelfEmploymentChildCareExpenses
-      //claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "son"
+      //claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "Son"
       page goToThePage()
       page fillPageWith claim
       page submitPage true

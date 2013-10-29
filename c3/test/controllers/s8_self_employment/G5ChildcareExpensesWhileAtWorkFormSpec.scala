@@ -9,8 +9,8 @@ class G5ChildcareExpensesWhileAtWorkFormSpec extends Specification with Tags {
     val howMuchYouPay = "123.45"
     val howOften_frequency = "other"
     val howOften_frequency_other = "Every day and twice on Sundays"
-    val whatRelationIsToYou = "son"
-    val relationToPartner = "married"
+    val whatRelationIsToYou = "Son"
+    val relationToPartner = "Married"
     val whatRelationIsTothePersonYouCareFor = "mother"
 
     "map data into case class" in {

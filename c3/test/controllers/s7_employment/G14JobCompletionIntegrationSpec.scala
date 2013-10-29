@@ -43,8 +43,8 @@ class G14JobCompletionIntegrationSpec extends Specification with Tags {
       fill("#howMuchCostCare") `with` "123.45"
       click("#howOftenPayCare_frequency option[value='" + Weekly + "']")
 
-      click("#relationToPersonYouCare option[value='brother']")
-      click("#relationToYou option[value='sister']")
+      click("#relationToPersonYouCare option[value='Brother']")
+      click("#relationToYou option[value='Sister']")
 
       next
       titleMustEqual("Job Completion - Employment History")
