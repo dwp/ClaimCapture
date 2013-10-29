@@ -35,12 +35,7 @@ object Employment {
         case true => NodeSeq.Empty
       }}
       {jobDetails.payrollEmployeeNumber.isEmpty match {
-        case false => {
-          <ClockPayrollNumber>
-            <QuestionLabel>jobDetails.payrollEmployeeNumber</QuestionLabel>
-            <Answer>{jobDetails.payrollEmployeeNumber}</Answer>
-          </ClockPayrollNumber>
-        }
+        case false => <ClockPayrollNumber>{jobDetails.payrollEmployeeNumber.orNull}</ClockPayrollNumber>
         case true => NodeSeq.Empty
       }}
       <Name>{jobDetails.employerName}</Name>
