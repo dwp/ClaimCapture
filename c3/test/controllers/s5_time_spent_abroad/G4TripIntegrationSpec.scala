@@ -90,12 +90,12 @@ class G4TripIntegrationSpec extends Specification with Tags {
       claim.TimeSpentAbroadDateYouLeftGB_1 = "10/04/2013"
       claim.TimeSpentAbroadDateYouReturnedToGB_1 = "20/04/2013"
       claim.TimeSpentAbroadWhereDidYouGoWithPersonCareFor_1 = "Anywhere"
-      claim.TimeSpentAbroadWhyDidYouGoWithPersonCareFor_1 = "Visit Friends"
+      claim.TimeSpentAbroadWhyDidYouGoWithPersonCareFor_1 = "Holiday"
       claim.TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_2 = "Yes"
       claim.TimeSpentAbroadDateYouLeftGB_2 = "10/05/2013"
       claim.TimeSpentAbroadDateYouReturnedToGB_2 = "20/05/2013"
       claim.TimeSpentAbroadWhereDidYouGoWithPersonCareFor_2 = "Everywhere"
-      claim.TimeSpentAbroadWhyDidYouGoWithPersonCareFor_2 = "Visit Family 2"
+      claim.TimeSpentAbroadWhyDidYouGoWithPersonCareFor_2 = "Holiday"
       claim.TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_3 = "No"
 
       page goToThePage()
