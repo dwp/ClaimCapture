@@ -152,17 +152,26 @@ class ClaimXMLAcceptanceSpec extends Specification {
               <QuestionLabel>job.started</QuestionLabel>
               <Answer>01-01-2013</Answer>
             </DateJobStarted>
-            <JobType>Hacker</JobType>
+            <JobType>
+              <QuestionLabel>job.title</QuestionLabel>
+              <Answer>Hacker</Answer>
+            </JobType>
             <ClockPayrollNumber>12345678</ClockPayrollNumber>
             <Name>Tesco's Bank</Name>
             <Address><gds:Line>23 Yeadon Way</gds:Line><gds:Line>Blackpool</gds:Line><gds:Line>Lancashire</gds:Line><gds:PostCode>FY4 5TH</gds:PostCode></Address>
             <ConfirmAddress>yes</ConfirmAddress> <!-- Always default to yes -->
             <EmployersPhoneNumber>01253 667889</EmployersPhoneNumber>
-            <EmployersFaxNumber/>
+            <EmployersFaxNumber>01253 667889</EmployersFaxNumber>
           </Employer>
           <Pay>
-            <WeeklyHoursWorked>25</WeeklyHoursWorked>
-            <DateLastPaid>2013-07-08</DateLastPaid>
+            <WeeklyHoursWorked>
+              <QuestionLabel>job.hours</QuestionLabel>
+              <Answer>25</Answer>
+            </WeeklyHoursWorked>
+            <DateLastPaid>
+              <QuestionLabel>job.lastpaid</QuestionLabel>
+              <Answer>08-07-2013</Answer>
+            </DateLastPaid>
             <GrossPayment>
               <QuestionLabel>job.pay</QuestionLabel>
               <Answer>
@@ -170,11 +179,17 @@ class ClaimXMLAcceptanceSpec extends Specification {
                 <Amount>340.00</Amount>
               </Answer>
             </GrossPayment>
-            <IncludedInWage>All amounts due</IncludedInWage>
-            <PayFrequency>other</PayFrequency>
+            <IncludedInWage>
+              <QuestionLabel>job.pay.include</QuestionLabel>
+              <Answer>All amounts due</Answer>
+            </IncludedInWage>
+            <PayFrequency>Other</PayFrequency>
             <UsualPayDay>two weeks ago</UsualPayDay>
           </Pay>
-          <OweMoney>no</OweMoney>
+          <OweMoney>
+            <QuestionLabel>job.owe</QuestionLabel>
+            <Answer>No</Answer>
+          </OweMoney>
           <CareExpensesChildren>
             <QuestionLabel>chld.expenses</QuestionLabel>
             <Answer>Yes</Answer>
@@ -208,9 +223,20 @@ class ClaimXMLAcceptanceSpec extends Specification {
             <Answer>Other</Answer>
           </RelationshipCarerToCaree>
         </CareExpenses>
-          <PaidForOccupationalPension>no</PaidForOccupationalPension><PaidForPersonalPension>no</PaidForPersonalPension>
-          <PaidForJobExpenses>yes</PaidForJobExpenses><JobExpenses>
-          <Expense>Petrol money for driving</Expense>
+          <PaidForOccupationalPension>no</PaidForOccupationalPension>
+          <PaidForPersonalPension>
+            <QuestionLabel>pension.personal</QuestionLabel>
+            <Answer>No</Answer>
+          </PaidForPersonalPension>
+          <PaidForJobExpenses>
+            <QuestionLabel>job.expenses</QuestionLabel>
+            <Answer>Yes</Answer>
+          </PaidForJobExpenses>
+          <JobExpenses>
+          <Expense>
+            <QuestionLabel>job.expense</QuestionLabel>
+            <Answer>Petrol money for driving</Answer>
+          </Expense>
         </JobExpenses>
         </JobDetails>
       </Employment>

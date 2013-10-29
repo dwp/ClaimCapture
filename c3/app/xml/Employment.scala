@@ -16,25 +16,41 @@ object Employment {
     <Employer>
       <DateJobStarted>
         <QuestionLabel>job.started</QuestionLabel>
-        {<Answer/> +++ Some(jobDetails.jobStartDate)}
+        {<Answer/> +++ Some(jobDetails.jobStartDate.`dd-MM-yyyy`)}
       </DateJobStarted>
-      {<DateJobEnded/> +++ jobDetails.lastWorkDate}
-      <JobType>{job.title}</JobType>
+
+      {if(!jobDetails.lastWorkDate.isEmpty){
+        <DateJobEnded>
+          <QuestionLabel>job.ended</QuestionLabel>
+          {<Answer/> +++ jobDetails.lastWorkDate}
+        </DateJobEnded>
+      }}
+
+      <JobType>
+        <QuestionLabel>job.title</QuestionLabel>
+        <Answer>{job.title}</Answer>
+      </JobType>
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
       <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
       {<EmployersPhoneNumber/> +++ employerContactDetails.phoneNumber}
-      <EmployersFaxNumber/>
     </Employer>
   }
 
   def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails): Elem = {
     <Pay>
-      {<WeeklyHoursWorked/> ?+ jobDetails.hoursPerWeek}
-      <DateLastPaid>
-        <QuestionLabel>job.lastpaid</QuestionLabel>
-        {<Answer/>+++ lastWage.lastPaidDate}
-      </DateLastPaid>
+      <WeeklyHoursWorked>
+        <QuestionLabel>job.hours</QuestionLabel>
+        {<Answer/> ?+ jobDetails.hoursPerWeek}
+      </WeeklyHoursWorked>
+
+      {if(!lastWage.lastPaidDate.isEmpty){
+        <DateLastPaid>
+          <QuestionLabel>job.lastpaid</QuestionLabel>
+          {<Answer/> +++ lastWage.lastPaidDate}
+        </DateLastPaid>
+      }}
+
       <GrossPayment>
         <QuestionLabel>job.pay</QuestionLabel>
         <Answer>
@@ -42,7 +58,10 @@ object Employment {
           {<Amount/> +++ lastWage.grossPay}
         </Answer>
       </GrossPayment>
-      {<IncludedInWage/> +++ lastWage.payInclusions}
+      <IncludedInWage>
+        <QuestionLabel>job.pay.include</QuestionLabel>
+        {<Answer/> +++ lastWage.payInclusions}
+      </IncludedInWage>
       {paymentFrequency(additionalWageDetails.oftenGetPaid)}
       <UsualPayDay>
         <QuestionLabel>job.day</QuestionLabel>
@@ -129,9 +148,19 @@ object Employment {
     val showXml = aboutExpenses.payForAnythingNecessary == "yes"
 
     if (showXml) {
-      <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
+        <PaidForJobExpenses>
+          <QuestionLabel>job.expenses</QuestionLabel>
+          <Answer>{aboutExpenses.payForAnythingNecessary match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }}</Answer>
+        </PaidForJobExpenses>
       <JobExpenses>
-        <Expense>{necessaryExpenses.whatAreThose}</Expense>
+        <Expense>
+          <QuestionLabel>job.expense</QuestionLabel>
+          <Answer>{necessaryExpenses.whatAreThose}</Answer>
+        </Expense>
       </JobExpenses>
     } else {
       <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
@@ -233,7 +262,14 @@ object Employment {
           <JobDetails>
             {employerXml(job)}
             {payXml(jobDetails, lastWage, additionalWageDetails)}
-            <OweMoney>{additionalWageDetails.employerOwesYouMoney}</OweMoney>
+            <OweMoney>
+              <QuestionLabel>job.owe</QuestionLabel>
+              <Answer>{additionalWageDetails.employerOwesYouMoney match {
+                case "yes" => XMLValues.Yes
+                case "no" => XMLValues.No
+                case n => n
+              }}</Answer>
+            </OweMoney>
             {childcareExpensesXml(job)}
             {careExpensesXml(job)}
             {pensionSchemeXml(job)}
