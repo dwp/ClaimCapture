@@ -24,7 +24,7 @@ object XMLHelper {
 
   def nodify(value: Option[_]): NodeBuffer = value match {
     case Some(s: String) => new NodeBuffer += Text(s)
-    case Some(dmy: DayMonthYear) => new NodeBuffer += Text(dmy.`yyyy-MM-dd`)
+    case Some(dmy: DayMonthYear) => new NodeBuffer += Text(dmy.`dd-MM-yyyy`)
     case Some(nr: NationalInsuranceNumber) => new NodeBuffer += Text(nr.stringify)
     case Some(pf: PaymentFrequency) => paymentFrequency(pf)
     case Some(pft: PeriodFromTo) => fromToStructure(pft)
