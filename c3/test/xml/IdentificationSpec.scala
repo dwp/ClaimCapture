@@ -38,7 +38,6 @@ class IdentificationSpec extends Specification with Tags {
       (xml \\ "DateOfBirth").text shouldEqual yourDetails.dateOfBirth.`dd-MM-yyyy`
       (xml \\ "NationalInsuranceNumber").text shouldEqual nationalInsuranceNr.stringify
       (xml \\ "Address" \\ "PostCode").text shouldEqual contactDetails.postcode.get
-      (xml \\ "ConfirmAddress").text shouldEqual yes
       (xml \\ "HomePhone").text shouldEqual contactDetails.phoneNumber.get
       (xml \\ "DaytimePhone" \\ "Number").text shouldEqual contactDetails.mobileNumber.get
       (xml \\ "DaytimePhone" \\ "Qualifier").text shouldEqual "mobile"
