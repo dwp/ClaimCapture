@@ -20,7 +20,10 @@ object Partner {
       <Partner>
         <Surname>{yourPartnerPersonalDetails.surname}</Surname>
         <OtherNames>{yourPartnerPersonalDetails.firstName} {yourPartnerPersonalDetails.middleName.orNull}</OtherNames>
-        <OtherSurnames>{yourPartnerPersonalDetails.otherSurnames.orNull}</OtherSurnames>
+        {yourPartnerPersonalDetails.otherSurnames match {
+          case Some(n) => <OtherSurnames>{yourPartnerPersonalDetails.otherSurnames.orNull}</OtherSurnames>
+          case None => NodeSeq.Empty
+        }}
         <Title>{yourPartnerPersonalDetails.title}</Title>
         <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>

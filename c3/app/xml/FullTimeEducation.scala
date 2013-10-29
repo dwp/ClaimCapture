@@ -56,14 +56,23 @@ object FullTimeEducation {
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <LocationDetails>
-      <Name>{schoolData.nameOfSchoolCollegeOrUniversity.orNull}</Name>
+      {schoolData.nameOfSchoolCollegeOrUniversity match {
+        case Some(n) => <Name>{schoolData.nameOfSchoolCollegeOrUniversity.orNull}</Name>
+        case None => NodeSeq.Empty
+      }}
       <Address>{postalAddressStructure(schoolData.address, schoolData.postcode)}</Address>
       <PhoneNumber>{schoolData.phoneNumber.orNull}</PhoneNumber>
-      <FaxNumber>{schoolData.faxNumber.orNull}</FaxNumber>
-      <StudentReferenceNumber>{courseDetails.studentReferenceNumber.orNull}</StudentReferenceNumber>
+      { schoolData.faxNumber match {
+        case Some(n) => <FaxNumber>{schoolData.faxNumber.orNull}</FaxNumber>
+        case None => NodeSeq.Empty
+      }}
+      { courseDetails.studentReferenceNumber match {
+        case Some(n) => <StudentReferenceNumber>{courseDetails.studentReferenceNumber.orNull}</StudentReferenceNumber>
+        case None => NodeSeq.Empty
+      }}
       {schoolData.nameOfMainTeacherOrTutor match {
         case Some(n) => <Tutor>{schoolData.nameOfMainTeacherOrTutor.orNull}</Tutor>
-        case None =>
+        case None => NodeSeq.Empty
       }}
     </LocationDetails>
   }
