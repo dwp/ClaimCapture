@@ -1,6 +1,6 @@
 package xml
 
-import app.XMLValues
+import app.{PensionPaymentFrequency, XMLValues}
 import models.domain._
 import scala.xml.NodeSeq
 import app.XMLValues._
@@ -177,7 +177,7 @@ object SelfEmployment {
           </Payment>
           <Frequency>
             <QuestionLabel>self.pension.frequency</QuestionLabel>
-            <Answer>{if(pensionAndExpenses.howOften.isEmpty){} else pensionAndExpenses.howOften.get.frequency}</Answer>
+            <Answer>{if(pensionAndExpenses.howOften.isEmpty){} else PensionPaymentFrequency.mapToHumanReadableString(pensionAndExpenses.howOften.get)}</Answer>
           </Frequency>
         </PensionScheme>
     } else NodeSeq.Empty
