@@ -95,7 +95,11 @@ object Employment {
     if (showXml) {
       <PaidForOccupationalPension>
         <QuestionLabel>pension.occupational</QuestionLabel>
-        <Answer>{pensionScheme.payOccupationalPensionScheme}</Answer>
+        <Answer>{pensionScheme.payOccupationalPensionScheme  match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+        }}</Answer>
       </PaidForOccupationalPension>
 
         <OccupationalPension>
@@ -112,7 +116,7 @@ object Employment {
           </Frequency>
         </OccupationalPension>
     } else {
-      <PaidForOccupationalPension>{pensionScheme.payOccupationalPensionScheme}</PaidForOccupationalPension>
+      NodeSeq.Empty
     }
   }
 
@@ -122,7 +126,11 @@ object Employment {
     if (showXml) {
       <PaidForPersonalPension>
         <QuestionLabel>pension.personal</QuestionLabel>
-        <Answer>{pensionScheme.payPersonalPensionScheme}</Answer>
+        <Answer>{pensionScheme.payPersonalPensionScheme  match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
       </PaidForPersonalPension>
         <PersonalPension>
           <Payment>
@@ -138,7 +146,7 @@ object Employment {
           </Frequency>
         </PersonalPension>
     } else {
-      <PaidForPersonalPension>{pensionScheme.payPersonalPensionScheme}</PaidForPersonalPension>
+      NodeSeq.Empty
     }
   }
 
