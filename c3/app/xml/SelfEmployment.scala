@@ -24,10 +24,13 @@ object SelfEmployment {
             <QuestionLabel>selfemployed.started</QuestionLabel>
             <Answer>{stringify(Some(aboutSelfEmployment.whenDidYouStartThisJob))}</Answer>
           </DateStarted>
-          <NatureBusiness>
-            <QuestionLabel>selfemployed.business</QuestionLabel>
-            <Answer>{aboutSelfEmployment.natureOfYourBusiness.orNull}</Answer>
-          </NatureBusiness>
+          {aboutSelfEmployment.natureOfYourBusiness match {
+            case Some(n) =>{<NatureBusiness>
+              <QuestionLabel>selfemployed.business</QuestionLabel>
+              <Answer>{aboutSelfEmployment.natureOfYourBusiness.orNull}</Answer>
+            </NatureBusiness>}
+            case None => NodeSeq.Empty
+          }}
           <TradingYear>
             <DateFrom>
               <QuestionLabel>trading.from</QuestionLabel>
@@ -45,10 +48,13 @@ object SelfEmployment {
             <QuestionLabel>selfemployed.started</QuestionLabel>
             <Answer>{stringify(Some(aboutSelfEmployment.whenDidYouStartThisJob))}</Answer>
           </DateStarted>
-          <NatureBusiness>
-            <QuestionLabel>selfemployed.business</QuestionLabel>
-            <Answer>{aboutSelfEmployment.natureOfYourBusiness.orNull}</Answer>
-          </NatureBusiness>
+          {aboutSelfEmployment.natureOfYourBusiness match {
+            case Some(n) =>{<NatureBusiness>
+              <QuestionLabel>selfemployed.business</QuestionLabel>
+              <Answer>{aboutSelfEmployment.natureOfYourBusiness.orNull}</Answer>
+            </NatureBusiness>}
+            case None => NodeSeq.Empty
+          }}
           <TradingYear>
             <DateFrom>
               <QuestionLabel>trading.from</QuestionLabel>
