@@ -25,11 +25,15 @@ object Employment {
           {<Answer/> +++ jobDetails.lastWorkDate}
         </DateJobEnded>
       }}
-
-      <JobType>
-        <QuestionLabel>job.title</QuestionLabel>
-        <Answer>{job.title}</Answer>
-      </JobType>
+      {job.title.isEmpty match {
+        case false => {
+          <JobType>
+            <QuestionLabel>job.title</QuestionLabel>
+            <Answer>{job.title}</Answer>
+          </JobType>
+        }
+        case true => NodeSeq.Empty
+      }}
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
       <Name>{jobDetails.employerName}</Name>
       <Address>{postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}</Address>
