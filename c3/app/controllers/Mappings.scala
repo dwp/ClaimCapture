@@ -179,11 +179,6 @@ object Mappings {
     }
   }
 
-  def validNinoOnly: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.validNationalInsuranceNumber") {
-    nino =>
-      ninoValidation(nino)
-  }
-
   def validPostcode: Constraint[String] = Constraint[String]("constraint.postcode") { postcode =>
     val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z]))))[ ]?[0-9][A-Z]{2})$""".r
 

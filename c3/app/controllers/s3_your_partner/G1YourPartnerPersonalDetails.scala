@@ -19,7 +19,7 @@ object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Nav
     "middleName" -> optional(carersText(maxLength = Name.maxLength)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
     "otherNames" -> optional(carersText(maxLength = sixty)),
-    "nationalInsuranceNumber" -> optional(nino.verifying(validNinoOnly)),
+    "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     "nationality" -> optional(text.verifying(validNationality)),
     "separated.fromPartner" -> nonEmptyText.verifying(validYesNo)
