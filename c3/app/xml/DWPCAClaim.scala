@@ -5,6 +5,7 @@ import app.XMLValues._
 import play.api.Logger
 import models.domain.{MoreAboutYou, Claim}
 import xml.XMLHelper._
+import scala.xml.NodeSeq
 
 object DWPCAClaim {
 
@@ -66,7 +67,27 @@ object DWPCAClaim {
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}
       {Payment.xml(claim)}
-      {<OtherInformation/> +++ additionalInfo.anythingElse}
+      {
+        <OtherInformation>
+          <WelshCommunication>
+            <QuestionLabel>welsh.communication</QuestionLabel>
+            <Answer>{additionalInfo.welshCommunication match {
+              case "yes" => XMLValues.Yes
+              case "no" => XMLValues.No
+              case n => n
+            }}</Answer>
+          </WelshCommunication>
+          {additionalInfo.anythingElse match {
+            case Some(n) => {
+              <AdditionalInformation>
+                <QuestionLabel>anything.else</QuestionLabel>
+                <Answer>{additionalInfo.anythingElse}</Answer>
+              </AdditionalInformation>
+            }
+            case None => NodeSeq.Empty
+        }}
+        </OtherInformation>
+      }
       {Declaration.xml(claim)}
       {EvidenceList.buildXml(claim)}
     </DWPCAClaim>
