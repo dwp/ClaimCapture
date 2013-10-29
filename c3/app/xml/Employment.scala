@@ -49,11 +49,15 @@ object Employment {
 
   def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails): Elem = {
     <Pay>
-      <WeeklyHoursWorked>
-        <QuestionLabel>job.hours</QuestionLabel>
-        {<Answer/> ?+ jobDetails.hoursPerWeek}
-      </WeeklyHoursWorked>
-
+      {jobDetails.hoursPerWeek match {
+        case Some(n) => {
+          <WeeklyHoursWorked>
+            <QuestionLabel>job.hours</QuestionLabel>
+            <Answer>{jobDetails.hoursPerWeek}</Answer>
+          </WeeklyHoursWorked>
+        }
+        case None => NodeSeq.Empty
+      }}
       {if(!lastWage.lastPaidDate.isEmpty){
         <DateLastPaid>
           <QuestionLabel>job.lastpaid</QuestionLabel>
