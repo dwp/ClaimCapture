@@ -172,8 +172,7 @@ object SelfEmployment {
           <Payment>
             <QuestionLabel>self.pension.amount</QuestionLabel>
             <Answer>
-              <Currency>GBP</Currency>
-              <Amount>{moneyStructure(pensionAndExpenses.howMuchDidYouPay.orNull)}</Amount>
+              {moneyStructure(pensionAndExpenses.howMuchDidYouPay.orNull)}
             </Answer>
           </Payment>
           <Frequency>
