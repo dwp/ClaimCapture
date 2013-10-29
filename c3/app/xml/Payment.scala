@@ -26,7 +26,11 @@ object Payment {
             }}</Answer>
           </PaymentFrequency>
 
-          <InitialAccountQuestion>{howWePayYou.likeToBePaid}</InitialAccountQuestion>
+          <InitialAccountQuestion>
+            <QuestionLabel>InitialAccountQuestion?</QuestionLabel>
+            <Answer>{howWePayYou.likeToBePaid}</Answer>
+          </InitialAccountQuestion>
+
           {if (showAccount) account(claim) else NodeSeq.Empty}
         </Payment>
       }
