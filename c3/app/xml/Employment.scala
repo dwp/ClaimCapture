@@ -64,23 +64,35 @@ object Employment {
           {<Answer/> +++ lastWage.lastPaidDate}
         </DateLastPaid>
       }}
+      {lastWage.grossPay match {
+        case Some(n) => {
+          <GrossPayment>
+            <QuestionLabel>job.pay</QuestionLabel>
+            <Answer>
+              <Currency>{GBP}</Currency>
+              {<Amount/> +++ lastWage.grossPay}
+            </Answer>
+          </GrossPayment>}
+        case None => NodeSeq.Empty
+      }}
 
-      <GrossPayment>
-        <QuestionLabel>job.pay</QuestionLabel>
-        <Answer>
-          <Currency>{GBP}</Currency>
-          {<Amount/> +++ lastWage.grossPay}
-        </Answer>
-      </GrossPayment>
-      <IncludedInWage>
-        <QuestionLabel>job.pay.include</QuestionLabel>
-        {<Answer/> +++ lastWage.payInclusions}
-      </IncludedInWage>
+      {lastWage.payInclusions match {
+        case Some(n) => {
+          <IncludedInWage>
+            <QuestionLabel>job.pay.include</QuestionLabel>
+            {<Answer/> +++ lastWage.payInclusions}
+          </IncludedInWage>}
+        case None => NodeSeq.Empty
+      }}
       {paymentFrequency(additionalWageDetails.oftenGetPaid)}
-      <UsualPayDay>
-        <QuestionLabel>job.day</QuestionLabel>
-        {<Answer/>+- additionalWageDetails.whenGetPaid}
-      </UsualPayDay>
+      {additionalWageDetails.whenGetPaid match {
+        case Some(n) => {
+          <UsualPayDay>
+            <QuestionLabel>job.day</QuestionLabel>
+            {<Answer/>+- additionalWageDetails.whenGetPaid}
+          </UsualPayDay>}
+        case None => NodeSeq.Empty
+      }}
     </Pay>
   }
 
