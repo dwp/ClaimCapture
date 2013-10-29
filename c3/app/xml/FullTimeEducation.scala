@@ -24,28 +24,37 @@ object FullTimeEducation {
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <CourseDetails>
-      <Type>{courseDetails.courseType.orNull}</Type>
-      <Title>{courseDetails.title.orNull}</Title>
-      <DateStarted>
-        <QuestionLabel>education.started?</QuestionLabel>
-        <Answer>{stringify(courseDetails.startDate)}</Answer>
-      </DateStarted>
+      {courseDetails.courseType match {
+        case Some(n) => <Type>{courseDetails.courseType.orNull}</Type>
+        case None => NodeSeq.Empty
+      }}
+      {courseDetails.title match {
+        case Some(n) => <Title>{courseDetails.title.orNull}</Title>
+        case None => NodeSeq.Empty
+      }}
+      {courseDetails.startDate match {
+        case Some(n) => {
+          <DateStarted>
+            <QuestionLabel>education.started?</QuestionLabel>
+            <Answer>{stringify(courseDetails.startDate)}</Answer>
+          </DateStarted>}
+        case None => NodeSeq.Empty
+      }}
       {courseDetails.finishedDate match {
         case Some(n) =>
           <DateStopped>
             <QuestionLabel>education.stopped?</QuestionLabel>
             <Answer>{stringify(courseDetails.finishedDate)}</Answer>
           </DateStopped>
-        case None =>
-        }
-      }
+        case None => NodeSeq.Empty
+      }}
       {courseDetails.expectedEndDate match {
           case Some(n) =>
             <ExpectedEndDate>
               <QuestionLabel>education.expectedEndDate?</QuestionLabel>
               <Answer>{stringify(courseDetails.expectedEndDate)}</Answer>
             </ExpectedEndDate>
-          case None =>
+          case None => NodeSeq.Empty
         }
       }
     </CourseDetails>
@@ -60,8 +69,14 @@ object FullTimeEducation {
         case Some(n) => <Name>{schoolData.nameOfSchoolCollegeOrUniversity.orNull}</Name>
         case None => NodeSeq.Empty
       }}
-      {postalAddressStructure(schoolData.address, schoolData.postcode)}
-      <PhoneNumber>{schoolData.phoneNumber.orNull}</PhoneNumber>
+      {schoolData.address match {
+        case Some(n) => postalAddressStructure(schoolData.address, schoolData.postcode)
+        case None => NodeSeq.Empty
+      }}
+      {schoolData.phoneNumber match {
+        case Some(n) => <PhoneNumber>{schoolData.phoneNumber.orNull}</PhoneNumber>
+        case None => NodeSeq.Empty
+      }}
       { schoolData.faxNumber match {
         case Some(n) => <FaxNumber>{schoolData.faxNumber.orNull}</FaxNumber>
         case None => NodeSeq.Empty

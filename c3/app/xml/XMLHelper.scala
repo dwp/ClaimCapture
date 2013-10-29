@@ -41,7 +41,7 @@ object XMLHelper {
 
   def postalAddressStructure(address: MultiLineAddress, postcode: String): Elem = {
     <Address>
-      <Line>{address.lineOne().orNull}</Line>
+      {if(address.lineOne().isEmpty){NodeSeq.Empty}else{<Line>{address.lineOne().orNull}</Line>}}
       {if(address.lineTwo().isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo().orNull}</Line>}}
       {if(address.lineThree().isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree().orNull}</Line>}}
       {if(postcode == null || postcode == "") NodeSeq.Empty else <PostCode>{postcode}</PostCode>}
