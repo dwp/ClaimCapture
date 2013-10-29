@@ -34,10 +34,21 @@ object Employment {
         }
         case true => NodeSeq.Empty
       }}
-      {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
+      {jobDetails.payrollEmployeeNumber.isEmpty match {
+        case false => {
+          <ClockPayrollNumber>
+            <QuestionLabel>jobDetails.payrollEmployeeNumber</QuestionLabel>
+            <Answer>{jobDetails.payrollEmployeeNumber}</Answer>
+          </ClockPayrollNumber>
+        }
+        case true => NodeSeq.Empty
+      }}
       <Name>{jobDetails.employerName}</Name>
       {postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}
-      {<EmployersPhoneNumber/> +++ employerContactDetails.phoneNumber}
+      {employerContactDetails.phoneNumber.isEmpty match {
+        case false => <EmployersPhoneNumber>{employerContactDetails.phoneNumber.orNull}</EmployersPhoneNumber>
+        case true => NodeSeq.Empty
+      }}
     </Employer>
   }
 
