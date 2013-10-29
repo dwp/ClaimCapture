@@ -112,7 +112,10 @@ object Caree {
     for (break <- breaksInCare.breaks) yield {
       <CareBreak>
         <StartDateTime>{break.start.`dd-MM-yyyy HH:mm`}</StartDateTime>
-        <EndDateTime>{if (break.end.isDefined) break.end.get.`dd-MM-yyyy HH:mm`}</EndDateTime>
+        {break.end match {
+          case Some(n) => <EndDateTime>{break.end.get.`dd-MM-yyyy HH:mm`}</EndDateTime>
+          case None => NodeSeq.Empty
+        }}
          <MedicalCare>
              <QuestionLabel>Did you or the person you care for receive any medical treatment or professional care during the break?</QuestionLabel>
              <Answer>{break.medicalDuringBreak match {
