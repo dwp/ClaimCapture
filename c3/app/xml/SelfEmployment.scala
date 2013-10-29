@@ -67,26 +67,50 @@ object SelfEmployment {
           }}
           <TradingYear>
             {yourAccounts.whatWasOrIsYourTradingYearFrom match {
-            case Some(n) => {
-              <DateFrom>
-                <QuestionLabel>trading.from</QuestionLabel>
-                <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearFrom)}</Answer>
-              </DateFrom>
-            }
-            case None => NodeSeq.Empty
-          }}
+              case Some(n) => {
+                <DateFrom>
+                  <QuestionLabel>trading.from</QuestionLabel>
+                  <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearFrom)}</Answer>
+                </DateFrom>
+              }
+              case None => NodeSeq.Empty
+            }}
             {yourAccounts.whatWasOrIsYourTradingYearTo match {
+              case Some(n) => {
+                <DateTo>
+                  <QuestionLabel>trading.to</QuestionLabel>
+                  <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearTo)}</Answer>
+                </DateTo>
+              }
+              case None => NodeSeq.Empty
+            }}
+          </TradingYear>
+          {aboutSelfEmployment.whenDidTheJobFinish match {
             case Some(n) => {
-              <DateTo>
-                <QuestionLabel>trading.to</QuestionLabel>
-                <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearTo)}</Answer>
-              </DateTo>
+              <DateEnded>
+                <QuestionLabel>aboutSelfEmployment.whenDidTheJobFinish</QuestionLabel>
+                <Answer>{stringify(aboutSelfEmployment.whenDidTheJobFinish)}</Answer>
+              </DateEnded>
             }
             case None => NodeSeq.Empty
           }}
-          </TradingYear>
-          <DateEnded>{stringify(aboutSelfEmployment.whenDidTheJobFinish)}</DateEnded>
-          <TradingCeased>{aboutSelfEmployment.haveYouCeasedTrading.orNull}</TradingCeased>
+          {aboutSelfEmployment.haveYouCeasedTrading match {
+          case Some(n) => {
+            <TradingCeased>
+              <QuestionLabel>aboutSelfEmployment.haveYouCeasedTrading</QuestionLabel>
+              <Answer>{aboutSelfEmployment.haveYouCeasedTrading match {
+                case Some(n) => n match {
+                  case "yes" => XMLValues.Yes
+                  case "no" => XMLValues.No
+                  case n => n
+                }
+                case _ => NodeSeq.Empty
+              }}</Answer>
+            </TradingCeased>
+          }
+          case None => NodeSeq.Empty
+        }}
+
         </RecentJobDetails>
       }
     }
