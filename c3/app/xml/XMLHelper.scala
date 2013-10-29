@@ -66,15 +66,11 @@ object XMLHelper {
 
   def paymentFrequency(freq: Option[PaymentFrequency]): NodeBuffer = freq match {
     case Some(p) => paymentFrequency(p)
-    case _ => new NodeBuffer() += <PayFrequency/> += <PayFrequencyOther/>
+    case _ => new NodeBuffer() += <PayFrequency/>
   }
 
   def paymentFrequency(freq: PaymentFrequency): NodeBuffer = new NodeBuffer() +=
-    <PayFrequency><QuestionLabel>job.pay.frequency</QuestionLabel><Answer>{StatutoryPaymentFrequency.mapToHumanReadableString(freq.frequency,None)}</Answer></PayFrequency> +=
-    (freq.other match {
-      case Some(s) => <PayFrequencyOther>{s}</PayFrequencyOther>
-      case _ => <PayFrequencyOther/>
-    })
+    <PayFrequency><QuestionLabel>job.pay.frequency</QuestionLabel><Answer>{StatutoryPaymentFrequency.mapToHumanReadableString(freq.frequency,None)}</Answer></PayFrequency>
 
   def optional[T](option: Option[T], elem: Elem)(implicit classTag: ClassTag[T]): Elem = option match {
     case Some(o) => addChild(elem, nodify(option))

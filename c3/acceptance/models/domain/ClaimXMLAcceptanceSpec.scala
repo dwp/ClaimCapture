@@ -93,16 +93,37 @@ class ClaimXMLAcceptanceSpec extends Specification {
             <DateTo>2013-01-31</DateTo>
           </TradingYear>
         </CurrentJobDetails>
-        <CareExpensesChildren>yes</CareExpensesChildren>
+        <CareExpensesChildren>
+          <QuestionLabel>chld.expenses</QuestionLabel>
+          <Answer>Yes</Answer>
+        </CareExpensesChildren>
         <ChildCareExpenses>
-          <CarerName>Mr John Johnson</CarerName>
-          <RelationshipCarerToClaimant>brother</RelationshipCarerToClaimant>
+          <CarerName>
+            <QuestionLabel>child.carer</QuestionLabel>
+            <Answer>Mr John Johnson</Answer>
+          </CarerName>
+          <RelationshipCarerToClaimant>
+            <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+            <Answer>Brother</Answer>
+          </RelationshipCarerToClaimant>
         </ChildCareExpenses>
-        <CareExpensesCaree>yes</CareExpensesCaree>
+        <CareExpensesCaree>
+          <QuestionLabel>care.expenses</QuestionLabel>
+          <Answer>Yes</Answer>
+        </CareExpensesCaree>
         <CareExpenses>
-          <CarerName>Mrs Terry Thornhill</CarerName>
-          <RelationshipCarerToClaimant>aunt</RelationshipCarerToClaimant>
-          <RelationshipCarerToCaree>adoptedSon</RelationshipCarerToCaree>
+          <CarerName>
+            <QuestionLabel>child.carer</QuestionLabel>
+            <Answer>Mrs Terry Thornhill</Answer>
+          </CarerName>
+          <RelationshipCarerToClaimant>
+            <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+            <Answer>Aunt</Answer>
+          </RelationshipCarerToClaimant>
+          <RelationshipCarerToCaree>
+            <QuestionLabel>care.carer.rel.caree</QuestionLabel>
+            <Answer>adoptedSon</Answer>
+          </RelationshipCarerToCaree>
         </CareExpenses>
         <PaidForPension>
           <QuestionLabel>self.pension</QuestionLabel>
@@ -127,8 +148,10 @@ class ClaimXMLAcceptanceSpec extends Specification {
         <CurrentlyEmployed>yes</CurrentlyEmployed>
         <JobDetails>
           <Employer>
-            <DateJobStarted>2013-01-01</DateJobStarted>
-            <DateJobEnded/>
+            <DateJobStarted>
+              <QuestionLabel>job.started</QuestionLabel>
+              <Answer>01-01-2013</Answer>
+            </DateJobStarted>
             <JobType>Hacker</JobType>
             <ClockPayrollNumber>12345678</ClockPayrollNumber>
             <Name>Tesco's Bank</Name>
@@ -148,28 +171,46 @@ class ClaimXMLAcceptanceSpec extends Specification {
               </Answer>
             </GrossPayment>
             <IncludedInWage>All amounts due</IncludedInWage>
-            <PayFrequency>other</PayFrequency><PayFrequencyOther>Other Frequency</PayFrequencyOther>
+            <PayFrequency>other</PayFrequency>
             <UsualPayDay>two weeks ago</UsualPayDay>
-            <VaryingEarnings>no</VaryingEarnings>
           </Pay>
           <OweMoney>no</OweMoney>
-          <CareExpensesChildren>yes</CareExpensesChildren><ChildCareExpenses>
-          <CarerName>Mr Grandfather Senior</CarerName>
-          <RelationshipCarerToClaimant>father</RelationshipCarerToClaimant>
+          <CareExpensesChildren>
+            <QuestionLabel>chld.expenses</QuestionLabel>
+            <Answer>Yes</Answer>
+          </CareExpensesChildren>
+          <ChildCareExpenses>
+          <CarerName>
+            <QuestionLabel>child.carer</QuestionLabel>
+            <Answer>Mr Grandfather Senior</Answer>
+          </CarerName>
+            <RelationshipCarerToClaimant>
+              <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+              <Answer>Father</Answer>
+            </RelationshipCarerToClaimant>
         </ChildCareExpenses>
-          <CareExpensesCaree>yes</CareExpensesCaree><CareExpenses>
-          <CarerName>Carers UK Ltd</CarerName>
-          <RelationshipCarerToClaimant>father</RelationshipCarerToClaimant>
-          <RelationshipCarerToCaree>other</RelationshipCarerToCaree>
+          <CareExpensesCaree>
+            <QuestionLabel>care.expenses</QuestionLabel>
+            <Answer>Yes</Answer>
+          </CareExpensesCaree>
+          <CareExpenses>
+          <CarerName>
+            <QuestionLabel>child.carer</QuestionLabel>
+            <Answer>Carers UK Ltd</Answer>
+          </CarerName>
+          <RelationshipCarerToClaimant>
+            <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+            <Answer>Father</Answer>
+          </RelationshipCarerToClaimant>
+          <RelationshipCarerToCaree>
+            <QuestionLabel>care.carer.rel.caree</QuestionLabel>
+            <Other>None</Other>
+            <Answer>Other</Answer>
+          </RelationshipCarerToCaree>
         </CareExpenses>
           <PaidForOccupationalPension>no</PaidForOccupationalPension><PaidForPersonalPension>no</PaidForPersonalPension>
           <PaidForJobExpenses>yes</PaidForJobExpenses><JobExpenses>
           <Expense>Petrol money for driving</Expense>
-          <Reason>Not asked</Reason>
-          <WeeklyPayment>
-            <Currency>GBP</Currency>
-            <Amount>Not asked</Amount>
-          </WeeklyPayment>
         </JobExpenses>
         </JobDetails>
       </Employment>

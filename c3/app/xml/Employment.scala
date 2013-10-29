@@ -1,5 +1,6 @@
 package xml
 
+import app.XMLValues
 import scala.language.reflectiveCalls
 import scala.xml.{NodeSeq, Elem}
 import models.domain._
@@ -13,7 +14,10 @@ object Employment {
     val employerContactDetails = job.questionGroup[EmployerContactDetails].getOrElse(EmployerContactDetails())
 
     <Employer>
-      {<DateJobStarted/> +++ Some(jobDetails.jobStartDate)}
+      <DateJobStarted>
+        <QuestionLabel>job.started</QuestionLabel>
+        {<Answer/> +++ Some(jobDetails.jobStartDate)}
+      </DateJobStarted>
       {<DateJobEnded/> +++ jobDetails.lastWorkDate}
       <JobType>{job.title}</JobType>
       {<ClockPayrollNumber/> +++ jobDetails.payrollEmployeeNumber}
@@ -29,7 +33,7 @@ object Employment {
       {<WeeklyHoursWorked/> ?+ jobDetails.hoursPerWeek}
       <DateLastPaid>
         <QuestionLabel>job.lastpaid</QuestionLabel>
-        {<Answer>+++ lastWage.lastPaidDate</Answer>}
+        {<Answer/>+++ lastWage.lastPaidDate}
       </DateLastPaid>
       <GrossPayment>
         <QuestionLabel>job.pay</QuestionLabel>
@@ -128,11 +132,6 @@ object Employment {
       <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
       <JobExpenses>
         <Expense>{necessaryExpenses.whatAreThose}</Expense>
-        <Reason>{NotAsked}</Reason>
-        <WeeklyPayment>
-          <Currency></Currency>
-          <Amount>{NotAsked}</Amount>
-        </WeeklyPayment>
       </JobExpenses>
     } else {
       <PaidForJobExpenses>{aboutExpenses.payForAnythingNecessary}</PaidForJobExpenses>
@@ -145,10 +144,24 @@ object Employment {
     val showXml = aboutExpenses.payAnyoneToLookAfterChildren == yes
 
     if (showXml) {
-      <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
+        <CareExpensesChildren>
+          <QuestionLabel>chld.expenses</QuestionLabel>
+          <Answer>{aboutExpenses.payAnyoneToLookAfterChildren match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }}</Answer>
+        </CareExpensesChildren>
+
       <ChildCareExpenses>
-        <CarerName>{childcareExpenses.whoLooksAfterChildren}</CarerName>
-        <RelationshipCarerToClaimant>{childcareExpenses.relationToYou}</RelationshipCarerToClaimant>
+        <CarerName>
+          <QuestionLabel>child.carer</QuestionLabel>
+          <Answer>{childcareExpenses.whoLooksAfterChildren}</Answer>
+        </CarerName>
+        <RelationshipCarerToClaimant>
+          <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+          <Answer>{childcareExpenses.relationToYou}</Answer>
+        </RelationshipCarerToClaimant>
       </ChildCareExpenses>
     } else {
       <CareExpensesChildren>{aboutExpenses.payAnyoneToLookAfterChildren}</CareExpensesChildren>
@@ -162,11 +175,27 @@ object Employment {
     val showXml = aboutExpenses.payAnyoneToLookAfterPerson == yes
 
     if (showXml) {
-      <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
+      <CareExpensesCaree>
+        <QuestionLabel>care.expenses</QuestionLabel>
+        <Answer>{aboutExpenses.payAnyoneToLookAfterPerson match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </CareExpensesCaree>
       <CareExpenses>
-        <CarerName>{personYouCareExpenses.whoDoYouPay}</CarerName>
-        <RelationshipCarerToClaimant>{personYouCareExpenses.relationToYou}</RelationshipCarerToClaimant>
-        <RelationshipCarerToCaree>{personYouCareExpenses.relationToPersonYouCare}</RelationshipCarerToCaree>
+        <CarerName>
+          <QuestionLabel>child.carer</QuestionLabel>
+          <Answer>{personYouCareExpenses.whoDoYouPay}</Answer>
+        </CarerName>
+        <RelationshipCarerToClaimant>
+          <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+          <Answer>{personYouCareExpenses.relationToYou}</Answer>
+        </RelationshipCarerToClaimant>
+        <RelationshipCarerToCaree>
+          <QuestionLabel>care.carer.rel.caree</QuestionLabel>
+          <Answer>{personYouCareExpenses.relationToPersonYouCare}</Answer>
+        </RelationshipCarerToCaree>
       </CareExpenses>
     } else {
       <CareExpensesCaree>{aboutExpenses.payAnyoneToLookAfterPerson}</CareExpensesCaree>
@@ -188,7 +217,14 @@ object Employment {
       }
 
       <Employment>
-        <CurrentlyEmployed>{currentlyEmployed}</CurrentlyEmployed>
+        <CurrentlyEmployed>
+          <QuestionLabel>employed.currently</QuestionLabel>
+          <Answer>{currentlyEmployed match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }}</Answer>
+        </CurrentlyEmployed>
         {for (job <- jobsQG) yield {
           val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
           val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())

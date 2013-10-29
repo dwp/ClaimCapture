@@ -105,7 +105,6 @@ Employment,Your last wage,What was the gross pay for this period?,EmploymentWhat
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay,Employment>JobDetails>Pay>IncludedInWage
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime,DWPCAClaim>EvidenceList
 Employment,Additional details on your last wage,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid,Employment>JobDetails>Pay>PayFrequency
-Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOther,Employment>JobDetails>Pay>PayFrequencyOther
 Employment,Additional details on your last wage,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid,Employment>JobDetails>Pay>UsualPayDay
 Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney,Employment>JobDetails>OweMoney
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme,Employment>JobDetails>PaidForOccupationalPension

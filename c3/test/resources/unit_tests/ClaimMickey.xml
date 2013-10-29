@@ -161,8 +161,10 @@
                         <CurrentlyEmployed>yes</CurrentlyEmployed>
                         <JobDetails>
                             <Employer>
-                                <DateJobStarted>2009-10-09</DateJobStarted>
-                                <DateJobEnded></DateJobEnded>
+                                <DateJobStarted>
+                                    <QuestionLabel>job.started</QuestionLabel>
+                                    <Answer>09-10-2009</Answer>
+                                </DateJobStarted>
                                 <JobType>Cheese Taster</JobType>
                                 <ClockPayrollNumber>89765432</ClockPayrollNumber>
                                 <Name>Cheeseworld</Name>
@@ -189,14 +191,18 @@
                                 </GrossPayment>
                                 <IncludedInWage>Basic wage</IncludedInWage>
                                 <PayFrequency>05</PayFrequency>
-                                <PayFrequencyOther></PayFrequencyOther>
                                 <UsualPayDay>Last day of month</UsualPayDay>
-                                <VaryingEarnings>no</VaryingEarnings>
                                 <PaidForHolidays>no</PaidForHolidays>
                             </Pay>
                             <OweMoney>no</OweMoney>
-                            <CareExpensesChildren>no</CareExpensesChildren>
-                            <CareExpensesCaree>no</CareExpensesCaree>
+                            <CareExpensesChildren>
+                                <QuestionLabel>chld.expenses</QuestionLabel>
+                                <Answer>No</Answer>
+                            </CareExpensesChildren>
+                            <CareExpensesCaree>
+                                <QuestionLabel>care.expenses</QuestionLabel>
+                                <Answer>No</Answer>
+                            </CareExpensesCaree>
                             <PaidForOccupationalPension>no</PaidForOccupationalPension>
                             <PaidForPersonalPension>no</PaidForPersonalPension>
                             <PaidForJobExpenses>no</PaidForJobExpenses>
