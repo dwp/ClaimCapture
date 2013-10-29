@@ -1,9 +1,9 @@
 $ ->
     $("select[selectWithOther=true] option:selected").each ->
-        $(this).closest("li").next().hide() if ($(this).val() != "other")
+        $(this).closest("li").next().hide() if ($(this).val().toLowerCase() != "other")
 
     $("select[selectWithOther=true]").change ->
-        if $(this).val() is "other"
+        if $(this).val().toLowerCase() is "other"
             $(this).parent().next().slideDown()
         else
             textArea = $(this).parent().next().find("textarea")

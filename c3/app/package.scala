@@ -35,7 +35,7 @@ package object app {
     val Fortnightly = "03"
     val FourWeekly = "04"
     val Monthly = "05"
-    val Other = "other" // TODO [SKW] the xsd is inconsistent and needs changing as there is no value for other, so I just made up a value and Jorge will change the schema and can replace this with a sensible value.
+    val Other = "Other" // TODO [SKW] the xsd is inconsistent and needs changing as there is no value for other, so I just made up a value and Jorge will change the schema and can replace this with a sensible value.
 
     def mapToHumanReadableString(code: models.PensionPaymentFrequency): String = {
       mapToHumanReadableString(code.frequency)
@@ -58,7 +58,7 @@ package object app {
     val Fortnightly = "fortnightly"
     val FourWeekly = "fourWeekly"
     val Monthly = "monthly"
-    val Other = "other"
+    val Other = "Other"
 
     def mapToHumanReadableString(frequencyCode: String, otherCode: Option[String]): String = frequencyCode match {
       case Weekly => "Weekly"

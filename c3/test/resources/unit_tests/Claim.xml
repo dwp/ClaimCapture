@@ -54,7 +54,11 @@
 </CareExpensesChildren> <CareExpensesCaree>
     <QuestionLabel>care.expenses</QuestionLabel>
     <Answer>No</Answer>
-</CareExpensesCaree><PaidForOccupationalPension>no</PaidForOccupationalPension>
+</CareExpensesCaree>
+    <PaidForOccupationalPension>
+        <QuestionLabel>pension.occupational</QuestionLabel>
+        <Answer>No</Answer>
+    </PaidForOccupationalPension>
     <PaidForPersonalPension>
         <QuestionLabel>pension.personal</QuestionLabel>
         <Answer>No</Answer>

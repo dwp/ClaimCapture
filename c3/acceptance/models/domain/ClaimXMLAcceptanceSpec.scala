@@ -183,7 +183,10 @@ class ClaimXMLAcceptanceSpec extends Specification {
               <QuestionLabel>job.pay.include</QuestionLabel>
               <Answer>All amounts due</Answer>
             </IncludedInWage>
-            <PayFrequency>Other</PayFrequency>
+            <PayFrequency>
+              <QuestionLabel>job.pay.frequency</QuestionLabel>
+              <Answer>Other</Answer>
+            </PayFrequency>
             <UsualPayDay>two weeks ago</UsualPayDay>
           </Pay>
           <OweMoney>
@@ -223,7 +226,10 @@ class ClaimXMLAcceptanceSpec extends Specification {
             <Answer>Other</Answer>
           </RelationshipCarerToCaree>
         </CareExpenses>
-          <PaidForOccupationalPension>no</PaidForOccupationalPension>
+          <PaidForOccupationalPension>
+            <QuestionLabel>pension.occupational</QuestionLabel>
+            <Answer>No</Answer>
+          </PaidForOccupationalPension>
           <PaidForPersonalPension>
             <QuestionLabel>pension.personal</QuestionLabel>
             <Answer>No</Answer>

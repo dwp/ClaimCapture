@@ -218,7 +218,7 @@
                                 <QuestionLabel>care.expenses</QuestionLabel>
                                 <Answer>No</Answer>
                             </CareExpensesCaree>
-                            <PaidForOccupationalPension>no</PaidForOccupationalPension>
+                            <PaidForOccupationalPension>No</PaidForOccupationalPension>
                             <PaidForPersonalPension>
                                 <QuestionLabel>pension.personal</QuestionLabel>
                                 <Answer>No</Answer>

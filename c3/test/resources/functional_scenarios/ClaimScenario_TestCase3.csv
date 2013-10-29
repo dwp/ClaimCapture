@@ -35,8 +35,8 @@ About Your Partner,Partner/Spouse details,All other surnames or family names the
 About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,BA234567A
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,28/09/1937
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,British
-About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,no
-About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,yes
+About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,No
+About Your Partner,Person you care for,Is your partner/spouse the person you are claiming Carer's Allowance for?,AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor,Yes
 About the care you provide,Details of the person you care for,Title,AboutTheCareYouProvideTitlePersonCareFor,
 About the care you provide,Details of the person you care for,First name ,AboutTheCareYouProvideFirstNamePersonCareFor,
 About the care you provide,Details of the person you care for,Middle name,AboutTheCareYouProvideMiddleNamePersonCareFor,
@@ -224,11 +224,11 @@ Employment,Additional details on your last wage,When [[past=did you]] [[present=
 Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1,Yes
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme_1,Yes
 Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension_1,350.1
-Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_1,other
+Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_1,Other
 Employment,Pension schemes,How often other (Occupational Pension Scheme)?,EmploymentHowOftenOtherOccupationalPension_1,Other frequency fo occupational scheme
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,EmploymentDoYouPayTowardsAPersonalPension_1,Yes
 Employment,Pension schemes,How much [[past=Did you]] [[present=Do you]] pay?,EmploymentHowMuchYouPayforPersonalPension_1,200.1
-Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension_1,other
+Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension_1,Other
 Employment,Pension schemes,How often other (Personal Pension Scheme)?,EmploymentHowOftenOtherPersonalPension_1,Another reason
 Employment,About expenses to do with your employment,[[past=Did you]] [[present=Do you]] pay for anything necessary to do your job?,EmploymentDoYouPayforAnythingNecessaryToDoYourJob_1,Yes
 Employment,About expenses to do with your employment,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for your children?",EmploymentDoYouPayAnyoneLookAfterYourChild_1,Yes
@@ -236,14 +236,14 @@ Employment,About expenses to do with your employment,"While at work, [[past=did 
 Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] your job title?,EmploymentJobTitle_1,Hacker
 Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses_1,Petrol money for driving
 Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_1,120.12
-Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses?,EmploymentChildcareExpensesHowOften_1,other
+Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses?,EmploymentChildcareExpensesHowOften_1,Other
 Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses?,EmploymentChildcareExpensesHowOftenOther_1,Quaterly
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_1,Mr Grandfather Senior
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1,Father
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1,
 Employment,Childcare expenses while you are at work,"What relation, if any, is this person to the person you care for? ",EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1,Grandfather
 Employment,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentCareExpensesHowMuchYouPayfor_1,150.55
-Employment,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] pay them - expenses related to person you care for?,EmploymentCareExpensesHowOftenYouPayfor_1,other
+Employment,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] pay them - expenses related to person you care for?,EmploymentCareExpensesHowOftenYouPayfor_1,Other
 Employment,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] pay them Other- expenses related to person you care for?,EmploymentCareExpensesHowOftenYouPayforOther_1,Annually
 Employment,Expenses related to the person you care for while at work,Name of the person/organisation you pay,EmploymentNameOfPersonYouPayForCaring_1,Carers UK Ltd
 Employment,Expenses related to the person you care for while at work,"What relation, if any, is the person to you?",EmploymentCareExpensesWhatRelationIsToYou_1,Uncle
