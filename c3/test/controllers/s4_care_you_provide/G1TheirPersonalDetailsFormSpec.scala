@@ -68,11 +68,11 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "reject first and last names with forbidden characters" in {
+    "reject special characters" in {
       G1TheirPersonalDetails.form.bind(
         Map("title" -> "Mr",
           "firstName" -> "Fir>name;",
-          "middleName" -> "Mc",
+          "middleName" -> "Mcƒ",
           "surname" -> "Surname<",
           "dateOfBirth.day" -> "3",
           "dateOfBirth.month" -> "4",
@@ -80,8 +80,8 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
           "liveAtSameAddressCareYouProvide" -> "yes"
         )
       ).fold(formWithErrors => {
-        formWithErrors.errors.length must equalTo(2)
-        formWithErrors.errors.head.message must equalTo("error.forbidden.characters")
+        formWithErrors.errors.length must equalTo(3)
+        formWithErrors.errors.head.message must equalTo("error.restricted.characters")
       },
         f => "This mapping should not happen." must equalTo("Valid"))
     }

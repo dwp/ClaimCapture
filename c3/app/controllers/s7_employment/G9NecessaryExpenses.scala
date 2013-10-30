@@ -11,12 +11,13 @@ import controllers.Mappings._
 import Employment._
 import utils.helpers.PastPresentLabelHelper._
 import play.api.data.FormError
+import controllers.CarersForms._
 
 object G9NecessaryExpenses extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "jobTitle" -> nonEmptyText,
-    "whatAreThose" -> nonEmptyText
+    "jobTitle" -> carersNonEmptyText,
+    "whatAreThose" -> carersNonEmptyText
   )(NecessaryExpenses.apply)(NecessaryExpenses.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>

@@ -12,6 +12,7 @@ import play.api.Play.current
 import com.google.inject.Guice
 import jmx.JMXActors
 import modules.{ProdModule, DevModule}
+import scala.concurrent.Future
 
 /**
  * Application configuration is in a hierarchy of files:
@@ -65,6 +66,11 @@ object Global extends GlobalSettings {
 
   override def doFilter(action: EssentialAction) = {
     (RefererCheck(_:EssentialAction))(action)
+  }
+
+  override def onError(request: RequestHeader, ex: Throwable) = {
+    Logger.error(ex.getMessage)
+    Ok(views.html.common.error())
   }
 
   def actorSystems = {

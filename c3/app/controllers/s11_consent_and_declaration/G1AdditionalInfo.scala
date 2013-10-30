@@ -8,10 +8,11 @@ import models.view.CachedClaim
 import models.domain._
 import utils.helpers.CarersForm._
 import models.view.Navigable
+import controllers.CarersForms._
 
 object G1AdditionalInfo extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "anythingElse" -> optional(text(maxLength = 2000)),
+    "anythingElse" -> optional(carersText(maxLength = 2000)),
     "welshCommunication" -> nonEmptyText
   )(AdditionalInfo.apply)(AdditionalInfo.unapply))
 

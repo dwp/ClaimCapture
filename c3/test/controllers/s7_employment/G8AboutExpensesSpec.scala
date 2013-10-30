@@ -28,7 +28,7 @@ class G8AboutExpensesSpec extends Specification with Tags {
 
     "accept all mandatory data" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "payForAnythingNecessary" -> "blah", "payAnyoneToLookAfterChildren" -> "blah", "payAnyoneToLookAfterPerson" -> "blah")
+        "payForAnythingNecessary" -> "yes", "payAnyoneToLookAfterChildren" -> "yes", "payAnyoneToLookAfterPerson" -> "yes")
 
       val result = G8AboutExpenses.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -45,7 +45,7 @@ class G8AboutExpensesSpec extends Specification with Tags {
         "finishedThisJob" -> "yes"))
 
       val result = G8AboutExpenses.submit(FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
-        "payForAnythingNecessary" -> "blah", "payAnyoneToLookAfterChildren" -> "blah", "payAnyoneToLookAfterPerson" -> "blah"))
+        "payForAnythingNecessary" -> "yes", "payAnyoneToLookAfterChildren" -> "yes", "payAnyoneToLookAfterPerson" -> "yes"))
 
       status(result) mustEqual SEE_OTHER
 

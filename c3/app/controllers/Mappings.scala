@@ -179,11 +179,6 @@ object Mappings {
     }
   }
 
-  def validNinoOnly: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.validNationalInsuranceNumber") {
-    nino =>
-      ninoValidation(nino)
-  }
-
   def validPostcode: Constraint[String] = Constraint[String]("constraint.postcode") { postcode =>
     val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z]))))[ ]?[0-9][A-Z]{2})$""".r
 
@@ -270,16 +265,6 @@ object Mappings {
     nationalityPattern.pattern.matcher(nationality).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.nationality"))
-    }
-  }
-
-  def validForbiddenCharacters: Constraint[String] = Constraint[String]("constraint.forbiddenCharacters") { input =>
-    val forbiddenPattern = """.*[<>;].*""".r
-
-    forbiddenPattern.pattern.matcher(input).matches match {
-      case false => Valid
-      case true => Invalid(ValidationError("error.forbidden.characters"))
-
     }
   }
 

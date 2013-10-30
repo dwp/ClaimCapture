@@ -9,13 +9,15 @@ import models.domain.AboutExpenses
 import utils.helpers.CarersForm._
 import Employment._
 import utils.helpers.PastPresentLabelHelper._
+import controllers.Mappings._
+import play.api.data.FormError
 
 object G8AboutExpenses extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "payForAnythingNecessary" -> nonEmptyText,
-    "payAnyoneToLookAfterChildren" -> nonEmptyText,
-    "payAnyoneToLookAfterPerson" -> nonEmptyText
+    "payForAnythingNecessary" -> nonEmptyText.verifying(validYesNo),
+    "payAnyoneToLookAfterChildren" -> nonEmptyText.verifying(validYesNo),
+    "payAnyoneToLookAfterPerson" -> nonEmptyText.verifying(validYesNo)
   )(AboutExpenses.apply)(AboutExpenses.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>

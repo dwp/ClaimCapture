@@ -9,14 +9,15 @@ import models.domain.LastWage
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
+import controllers.CarersForms._
 
 object G4LastWage extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "lastPaidDate" -> optional(dayMonthYear.verifying(validDateOnly)),
     "grossPay" -> required(nonEmptyText.verifying(validDecimalNumberRequired)),
-    "payInclusions" -> optional(text),
-    "sameAmountEachTime" -> optional(text)
+    "payInclusions" -> optional(carersText(maxLength = 500)),
+    "sameAmountEachTime" -> optional(text.verifying(validYesNo))
   )(LastWage.apply)(LastWage.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>

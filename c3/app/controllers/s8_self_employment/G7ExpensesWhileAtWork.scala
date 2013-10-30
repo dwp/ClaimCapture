@@ -13,13 +13,17 @@ import utils.helpers.CarersForm._
 import controllers.s8_self_employment.SelfEmployment._
 import utils.helpers.PastPresentLabelHelper._
 import models.view.Navigable
+import controllers.CarersForms._
+import play.api.data.FormError
+import models.domain.Claim
+import scala.Some
 
 object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
-    "nameOfPerson" -> nonEmptyText(maxLength = sixty),
+    "nameOfPerson" -> carersNonEmptyText(maxLength = sixty),
     "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
     "howOftenPayExpenses" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
-    "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
+    "whatRelationIsToYou" -> carersNonEmptyText(maxLength = sixty),
     "relationToPartner" -> optional(nonEmptyText(maxLength = sixty)),
     "whatRelationIsTothePersonYouCareFor" -> nonEmptyText
   )(ExpensesWhileAtWork.apply)(ExpensesWhileAtWork.unapply)
