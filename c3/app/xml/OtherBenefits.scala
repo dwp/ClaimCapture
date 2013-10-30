@@ -70,19 +70,15 @@ object OtherBenefits {
       {aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
           case "yes" =>{
               <OtherMoneyDetails>
-                {aboutOtherMoney.whoPaysYou match {
-                case Some(n) => {<Name>
-                  <QuestionLabel>WhoPaysYou?</QuestionLabel>
-                  <Answer>{aboutOtherMoney.whoPaysYou.orNull}</Answer>
-                </Name>}
-                case None => NodeSeq.Empty
-              }}
                 <Payment>
                   {aboutOtherMoney.howMuch match {
                   case Some(n) => {
                     <Payment>
                       <QuestionLabel>HowMuch?</QuestionLabel>
-                      <Answer>{aboutOtherMoney.howMuch.orNull}</Answer>
+                      <Answer>
+                        <Currency>{GBP}</Currency>
+                        <Amount>{aboutOtherMoney.howMuch.orNull}</Amount>
+                      </Answer>
                     </Payment>
 
                   }
@@ -94,7 +90,7 @@ object OtherBenefits {
                     <Frequency>
                       <QuestionLabel>HowOften?</QuestionLabel>
                       {howOften.frequency match {
-                        case "Other" => <Other>{howOften.other}</Other>
+                        case "Other" => <Other>{howOften.other.orNull}</Other>
                         case _ => NodeSeq.Empty
                       }}
                       <Answer>{StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.howOften)}</Answer>
@@ -103,6 +99,15 @@ object OtherBenefits {
                   case None => NodeSeq.Empty
                 }}
                 </Payment>
+
+                {aboutOtherMoney.whoPaysYou match {
+                  case Some(n) => {<Name>
+                    <QuestionLabel>WhoPaysYou?</QuestionLabel>
+                    <Answer>{aboutOtherMoney.whoPaysYou.orNull}</Answer>
+                  </Name>}
+                  case None => NodeSeq.Empty
+                }}
+
               </OtherMoneyDetails>
           }
           case "no" => NodeSeq.Empty

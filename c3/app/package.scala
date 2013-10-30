@@ -65,10 +65,7 @@ package object app {
       case Fortnightly => "Fortnightly"
       case FourWeekly => "Four-Weekly"
       case Monthly => "Monthly"
-      case Other => otherCode match {
-        case Some(s) => "Other: " + s
-        case _ => "Other"
-      } //+ paymentFrequency.other.getOrElse("")
+      case Other => "Other"
       case _ => ""
     }
 
