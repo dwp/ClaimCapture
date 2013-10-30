@@ -53,7 +53,7 @@ object Employment {
         case Some(n) => {
           <WeeklyHoursWorked>
             <QuestionLabel>job.hours</QuestionLabel>
-            <Answer>{jobDetails.hoursPerWeek}</Answer>
+            <Answer>{jobDetails.hoursPerWeek.orNull}</Answer>
           </WeeklyHoursWorked>
         }
         case None => NodeSeq.Empty
@@ -107,7 +107,7 @@ object Employment {
     if (showXml) {
       <Payment>
         <Currency>{GBP}</Currency>
-        <Amount>{s.get}</Amount>
+        <Amount>{s.orNull}</Amount>
       </Payment>
     } else {
       NodeSeq.Empty
