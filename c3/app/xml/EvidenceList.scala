@@ -24,7 +24,6 @@ object EvidenceList {
       {fiftyTwoWeeksTrips(claim)}
       {employment(claim)}
       {selfEmployment(claim)}
-      {otherMoney(claim)}
     </EvidenceList>
   }
 
@@ -175,38 +174,6 @@ object EvidenceList {
         textLines
       case None => NodeSeq.Empty
     }
-  }
-
-  def otherMoney(claim: Claim) = {
-    val aboutOtherMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
-    val statutorySickPay = claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay())
-    val otherStatutoryPay = claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay())
-    val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-
-    val aboutOtherMoney_howOftenOther = aboutOtherMoney.howOften match {
-      case Some(s) => s.other.getOrElse("")
-      case _ => ""
-    }
-    val ssp_howOftenOther = statutorySickPay.howOften match {
-      case Some(s) => s.other.getOrElse("")
-      case _ => ""
-    }
-    val smp_howOftenOther = otherStatutoryPay.howOften match {
-      case Some(s) => s.other.getOrElse("")
-      case _ => ""
-    }
-
-      textLine("Have you received any payments for the person you care for or any other person since your claim date? = ", aboutOtherMoney.anyPaymentsSinceClaimDate.answer) ++
-      textLine("Details about other money: Who pays you? = ", aboutOtherMoney.whoPaysYou) ++
-      textLine("Details about other money: How much? = ", aboutOtherMoney.howMuch) ++
-      textLine("Details about other money: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.howOften)) ++
-      textLine("Details about other money: How often other? = ", aboutOtherMoney_howOftenOther) ++
-      textLine("Statutory Sick Pay: How much? = ", statutorySickPay.howMuch) ++
-      textLine("Statutory Sick Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(statutorySickPay.howOften)) ++
-      textLine("Statutory Sick Pay: How often other? = ", ssp_howOftenOther) ++
-      textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
-      textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)) ++
-      textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther)
   }
 
   def sectionEmpty(nodeSeq: NodeSeq) = {

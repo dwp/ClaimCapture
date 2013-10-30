@@ -48,7 +48,7 @@ object OtherBenefits {
           case n => n
         }}</Answer>
       </OtherMoneySP>
-      {otherMoneySMPXml(otherStatutoryPayOption)}
+      {otherMoneySPDetails(otherStatutoryPayOption)}
       <OtherMoney>
         <QuestionLabel>OtherMoney?</QuestionLabel>
         <Answer>{aboutOtherMoney.yourBenefits.answer match {
@@ -132,17 +132,69 @@ object OtherBenefits {
   def otherMoneySPPXml(statutorySickPay: StatutorySickPay) = {
     if (statutorySickPay.haveYouHadAnyStatutorySickPay == yes) {
       <OtherMoneySSPDetails>
-        <Name>{statutorySickPay.employersName.orNull}</Name>
+          <Name>{statutorySickPay.employersName.orNull}</Name>
+          <Payment>
+            {statutorySickPay.howMuch match {
+            case Some(n) => {
+              <Payment>
+                <QuestionLabel>HowMuchSSP?</QuestionLabel>
+                <Answer>{statutorySickPay.howMuch.orNull}</Answer>
+              </Payment>
+  
+            }
+            case None => NodeSeq.Empty
+          }}
+
+          {statutorySickPay.howOften match {
+          case Some(howOften) => {
+            <Frequency>
+              <QuestionLabel>HowOftenSSP?</QuestionLabel>
+              {howOften.frequency match {
+              case "Other" => <Other>{howOften.other}</Other>
+              case _ => NodeSeq.Empty
+            }}
+              <Answer>{StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(statutorySickPay.howOften)}</Answer>
+            </Frequency>
+          }
+          case None => NodeSeq.Empty
+        }}
+        </Payment>
         {postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}
       </OtherMoneySSPDetails>
     }
     else NodeSeq.Empty
   }
 
-  def otherMoneySMPXml(otherStatutoryPay: OtherStatutoryPay) = {
+  def otherMoneySPDetails(otherStatutoryPay: OtherStatutoryPay) = {
     if (otherStatutoryPay.otherPay == yes) {
       <OtherMoneySPDetails>
-        <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
+          <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
+          <Payment>
+            {otherStatutoryPay.howMuch match {
+            case Some(n) => {
+              <Payment>
+                <QuestionLabel>HowMuchSP?</QuestionLabel>
+                <Answer>{otherStatutoryPay.howMuch.orNull}</Answer>
+              </Payment>
+
+            }
+            case None => NodeSeq.Empty
+          }}
+
+          {otherStatutoryPay.howOften match {
+          case Some(howOften) => {
+            <Frequency>
+              <QuestionLabel>HowOftenSP?</QuestionLabel>
+              {howOften.frequency match {
+              case "Other" => <Other>{howOften.other}</Other>
+              case _ => NodeSeq.Empty
+            }}
+              <Answer>{StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)}</Answer>
+            </Frequency>
+          }
+          case None => NodeSeq.Empty
+        }}
+        </Payment>
         {postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}
       </OtherMoneySPDetails>
     }
