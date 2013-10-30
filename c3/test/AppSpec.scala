@@ -15,7 +15,7 @@ class AppSpec extends Specification with Tags {
       }
 
       "for 4W" in {
-        mapToHumanReadableString(Some(PaymentFrequency(FourWeekly))) shouldEqual "Four-weekly"
+        mapToHumanReadableString(Some(PaymentFrequency(FourWeekly))) shouldEqual "Four-Weekly"
       }
 
       "for M" in {
@@ -23,8 +23,8 @@ class AppSpec extends Specification with Tags {
         mapToHumanReadableStringWithOther(Some(PaymentFrequency(Monthly))) shouldEqual "Monthly"
       }
 
-      "for other" in {
-        mapToHumanReadableStringWithOther(Some(PaymentFrequency(Other, Some("once per year")))) shouldEqual "Other: once per year"
+      "for Other" in {
+        mapToHumanReadableStringWithOther(Some(PaymentFrequency(Other, Some("once per year")))) shouldEqual "Other"
       }
 
       "for None" in {
