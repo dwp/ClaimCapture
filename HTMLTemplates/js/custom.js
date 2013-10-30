@@ -29,6 +29,16 @@ $('a[href^="#"]').bind('click.smoothscroll',function (e) {
 }); 
 
 
+
+$.extend($.datepicker, {
+         _doKeyDown: function(event){
+               console.log("test");
+         }
+    });
+    
+    $("#start-date, #end-date").datepicker()
+
+
 $("#start-date, #end-date").datepicker({
 		dateFormat: 'dd/mm/yy',
         showButtonPanel: true,
