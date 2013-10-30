@@ -240,7 +240,10 @@ object Mappings {
   }
 
   def pensionPaymentFrequencyValidation(pf: PensionPaymentFrequency): ValidationResult = Try(new PensionPaymentFrequency(pf.frequency, pf.other)) match {
-    case Success(p: PensionPaymentFrequency) if p.frequency.toLowerCase == "other" && p.other.isEmpty => Invalid(ValidationError("error.paymentFrequency"))
+    case Success(p: PensionPaymentFrequency) if p.frequency.toLowerCase == "other" && p.other.isEmpty => {
+      println("***Mappings:pensionPaymentFrequencyValidation:Frequency "+p.frequency)
+      println("***Mappings:pensionPaymentFrequencyValidation:Other "+p.other)
+      Invalid(ValidationError("error.paymentFrequency"))}
     case Success(p: PensionPaymentFrequency) => Valid
     case Failure(_) => Invalid(ValidationError("error.invalid"))
   }

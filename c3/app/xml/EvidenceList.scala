@@ -1,16 +1,13 @@
 package xml
 
 import models.domain._
-import xml.XMLHelper._
-import scala.xml.{NodeSeq, NodeBuffer, Elem}
 import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import app.XMLValues._
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.DateTime
-import models.DayMonthYear
-import scala.Some
 import models.domain.Claim
 import xml.XMLHelper._
+import scala.xml.{NodeBuffer, Elem, NodeSeq}
+import org.joda.time.format.DateTimeFormat
+import org.joda.time.DateTime
 
 object EvidenceList {
 
@@ -23,9 +20,7 @@ object EvidenceList {
       {evidence(claim)}
       {aboutYou(claim)}
       {yourPartner(claim)}
-      {careYouProvide(claim)}
       {breaks(claim)}
-      {timeSpentAbroad(claim)}
       {fiftyTwoWeeksTrips(claim)}
       {employment(claim)}
       {selfEmployment(claim)}
@@ -99,13 +94,6 @@ object EvidenceList {
     }
   }
 
-  def careYouProvide(claim: Claim) = {
-    val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-
-      textLine("Do you spend 35 hours or more each week caring for this person? = ", moreAboutTheCare.spent35HoursCaring) ++
-      textLine("Did you care for this person for 35 hours or more each week before your claim date ? = ", moreAboutTheCare.spent35HoursCaringBeforeClaim.answer)
-  }
-
   def breaks(claim: Claim) = {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
@@ -114,21 +102,6 @@ object EvidenceList {
         textLine("Where was the person you care for during the break? = ", break.wherePerson.location) ++
         textLine("Where was the person you care for during the break? Other detail = ", break.wherePerson.other)
     }
-  }
-
-  def timeSpentAbroad(claim: Claim) = {
-    import scala.language.postfixOps
-
-    val normalResidenceAndCurrentLocation = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
-    val trips = claim.questionGroup[Trips].getOrElse(Trips())
-    val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-
-      textLine("Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = ", normalResidenceAndCurrentLocation.whereDoYouLive.answer) ++
-      textLine("Have you been out of Great Britain with the person you care for for more than 4 weeks at a time,"+
-        s"since ${(DayMonthYear.today - 3 years).`dd/MM/yyyy`} (this is 3 years from today)? = ", if (trips.fourWeeksTrips.size > 0) Yes else No) ++
-      textLine("Have you been out of Great Britain for more than 52 weeks," +
-        s" since ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`} (this is 3 years before your claim date)? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
-
   }
 
   def fiftyTwoWeeksTrips(claim: Claim) = {
@@ -223,7 +196,6 @@ object EvidenceList {
       case _ => ""
     }
 
-      textLine("Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim? = ", aboutOtherMoney.yourBenefits.answer) ++
       textLine("Have you received any payments for the person you care for or any other person since your claim date? = ", aboutOtherMoney.anyPaymentsSinceClaimDate.answer) ++
       textLine("Details about other money: Who pays you? = ", aboutOtherMoney.whoPaysYou) ++
       textLine("Details about other money: How much? = ", aboutOtherMoney.howMuch) ++
@@ -234,11 +206,7 @@ object EvidenceList {
       textLine("Statutory Sick Pay: How often other? = ", ssp_howOftenOther) ++
       textLine("Other Statutory Pay: How much? = ", otherStatutoryPay.howMuch) ++
       textLine("Other Statutory Pay: How often? = ", StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)) ++
-      textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther) ++
-      textLine("Are you, your wife, husband, civil partner or parent you are dependent on, " +
-        "receiving  any pensions or benefits from another EEA State or Switzerland? = ", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland) ++
-      textLine("Are you, your wife, husband, civil partner or parent you are dependent on " +
-        "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
+      textLine("Other Statutory Pay: How often other? = ", smp_howOftenOther)
   }
 
   def sectionEmpty(nodeSeq: NodeSeq) = {

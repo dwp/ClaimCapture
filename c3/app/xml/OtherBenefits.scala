@@ -1,6 +1,6 @@
 package xml
 
-import app.XMLValues
+import app.{StatutoryPaymentFrequency, XMLValues}
 import app.XMLValues._
 import models.domain._
 import XMLHelper._
@@ -13,6 +13,8 @@ object OtherBenefits {
     val moreAboutYou = claim.questionGroup[MoreAboutYou]
     val statutorySickPay = claim.questionGroup[StatutorySickPay].getOrElse(StatutorySickPay(haveYouHadAnyStatutorySickPay = no))
     val otherStatutoryPayOption = claim.questionGroup[OtherStatutoryPay].getOrElse(OtherStatutoryPay(otherPay = no))
+    val aboutOtherMoney = claim.questionGroup[AboutOtherMoney].getOrElse(AboutOtherMoney())
+    val otherEEAState = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
 
 
     <OtherBenefits>
@@ -47,6 +49,83 @@ object OtherBenefits {
         }}</Answer>
       </OtherMoneySP>
       {otherMoneySMPXml(otherStatutoryPayOption)}
+      <OtherMoney>
+        <QuestionLabel>OtherMoney?</QuestionLabel>
+        <Answer>{aboutOtherMoney.yourBenefits.answer match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </OtherMoney>
+      <OtherMoneyPayments>
+        <QuestionLabel>OtherMoneyPayments?</QuestionLabel>
+        <Answer>{aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
+          case "yes" => XMLValues.Yes
+          case "no" => XMLValues.No
+          case n => n
+        }}</Answer>
+      </OtherMoneyPayments>
+
+
+      {aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
+          case "yes" =>{
+              <OtherMoneyDetails>
+                {aboutOtherMoney.whoPaysYou match {
+                case Some(n) => {<Name>
+                  <QuestionLabel>WhoPaysYou?</QuestionLabel>
+                  <Answer>{aboutOtherMoney.whoPaysYou.orNull}</Answer>
+                </Name>}
+                case None => NodeSeq.Empty
+              }}
+                <Payment>
+                  {aboutOtherMoney.howMuch match {
+                  case Some(n) => {
+                    <Payment>
+                      <QuestionLabel>HowMuch?</QuestionLabel>
+                      <Answer>{aboutOtherMoney.howMuch.orNull}</Answer>
+                    </Payment>
+
+                  }
+                  case None => NodeSeq.Empty
+                }}
+
+                {aboutOtherMoney.howOften match {
+                  case Some(howOften) => {
+                    <Frequency>
+                      <QuestionLabel>HowOften?</QuestionLabel>
+                      {howOften.frequency match {
+                        case "Other" => <Other>{howOften.other}</Other>
+                        case _ => NodeSeq.Empty
+                      }}
+                      <Answer>{StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.howOften)}</Answer>
+                    </Frequency>
+                  }
+                  case None => NodeSeq.Empty
+                }}
+                </Payment>
+              </OtherMoneyDetails>
+          }
+          case "no" => NodeSeq.Empty
+          case n => throw new RuntimeException("AnyPaymentsSinceClaimDate is either Yes Or No")
+        }}
+      <EEA>
+        <EEAReceivePensionsBenefits>
+          <QuestionLabel>EEAReceivePensionsBenefits?</QuestionLabel>
+          <Answer>{otherEEAState.benefitsFromOtherEEAStateOrSwitzerland match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }}</Answer>
+        </EEAReceivePensionsBenefits>
+        <EEAWorkingInsurance>
+          <QuestionLabel>EEAWorkingInsurance?</QuestionLabel>
+          <Answer>{otherEEAState.workingForOtherEEAStateOrSwitzerland match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }}</Answer>
+        </EEAWorkingInsurance>
+      </EEA>
     </OtherBenefits>
   }
 

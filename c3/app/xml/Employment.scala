@@ -1,11 +1,10 @@
 package xml
 
-import app.XMLValues
-import scala.language.reflectiveCalls
-import scala.xml.{NodeSeq, Elem}
+import app.{PensionPaymentFrequency, XMLValues}
 import models.domain._
 import xml.XMLHelper._
 import app.XMLValues._
+import scala.xml.{Elem, NodeSeq}
 
 object Employment {
 
@@ -22,7 +21,7 @@ object Employment {
       {if(!jobDetails.lastWorkDate.isEmpty){
         <DateJobEnded>
           <QuestionLabel>job.ended</QuestionLabel>
-          {<Answer/> +++ jobDetails.lastWorkDate}
+          {<Answer/> +++ Some(jobDetails.lastWorkDate.get.`dd-MM-yyyy`)}
         </DateJobEnded>
       }}
       {job.title.isEmpty match {
@@ -58,10 +57,11 @@ object Employment {
         }
         case None => NodeSeq.Empty
       }}
+
       {if(!lastWage.lastPaidDate.isEmpty){
         <DateLastPaid>
           <QuestionLabel>job.lastpaid</QuestionLabel>
-          {<Answer/> +++ lastWage.lastPaidDate}
+          {<Answer/> +++ Some(lastWage.lastPaidDate.get.`dd-MM-yyyy`)}
         </DateLastPaid>
       }}
       {lastWage.grossPay match {
@@ -143,7 +143,13 @@ object Employment {
           </Payment>
           <Frequency>
             <QuestionLabel>pension.occ.frequency</QuestionLabel>
-            <Answer>{pensionScheme.howOftenPension.get.frequency}</Answer>
+            {pensionScheme.howOftenPension match {
+              case Some(n) if (n.equals("Other")) => {
+                <Other>{n.other}</Other>
+              }
+              case _ => NodeSeq.Empty
+            }}
+            <Answer>{PensionPaymentFrequency.mapToHumanReadableString(pensionScheme.howOftenPension.get)}</Answer>
           </Frequency>
         </OccupationalPension>
     } else {
@@ -157,7 +163,7 @@ object Employment {
     if (showXml) {
       <PaidForPersonalPension>
         <QuestionLabel>pension.personal</QuestionLabel>
-        <Answer>{pensionScheme.payPersonalPensionScheme  match {
+        <Answer>{pensionScheme.payPersonalPensionScheme match {
           case "yes" => XMLValues.Yes
           case "no" => XMLValues.No
           case n => n
@@ -173,7 +179,10 @@ object Employment {
           </Payment>
           <Frequency>
             <QuestionLabel>pension.per.frequency</QuestionLabel>
-            <Answer>{pensionScheme.howOftenPersonal.get.frequency}</Answer>
+            {if(PensionPaymentFrequency.mapToHumanReadableString(pensionScheme.howOftenPersonal.get) == "Other"){
+              <Other>{pensionScheme.howOftenPersonal.get.other}</Other>
+            }}
+            <Answer>{PensionPaymentFrequency.mapToHumanReadableString(pensionScheme.howOftenPersonal.get)}</Answer>
           </Frequency>
         </PersonalPension>
     } else {

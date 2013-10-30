@@ -227,6 +227,9 @@ object SelfEmployment {
           </Payment>
           <Frequency>
             <QuestionLabel>self.pension.frequency</QuestionLabel>
+            {if(!pensionAndExpenses.howOften.isEmpty && PensionPaymentFrequency.mapToHumanReadableString(pensionAndExpenses.howOften.get) == "Other"){
+              <Other>{pensionAndExpenses.howOften.get.other}</Other>
+            }}
             <Answer>{if(pensionAndExpenses.howOften.isEmpty){} else PensionPaymentFrequency.mapToHumanReadableString(pensionAndExpenses.howOften.get)}</Answer>
           </Frequency>
         </PensionScheme>
