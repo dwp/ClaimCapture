@@ -29,7 +29,7 @@ class G6OtherStatutoryPayIntegrationSpec extends Specification with Tags {
         val claim = new TestData
         claim.OtherMoneyHaveYouSMPSinceClaim = "yes"
         claim.OtherMoneySMPEmployerName = "Employers Name"
-        claim.OtherMOneySMPHowOften = "other"
+        claim.OtherMOneySMPHowOften = "Other"
 
         page goToThePage ()
         page fillPageWith claim

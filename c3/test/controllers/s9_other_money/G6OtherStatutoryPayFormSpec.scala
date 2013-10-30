@@ -9,7 +9,7 @@ class G6OtherStatutoryPayFormSpec extends Specification with Tags {
     val yes = "yes"
     val no = "no"
     val howMuch = "howMuch"
-    val howOften_frequency = "other"
+    val howOften_frequency = app.PensionPaymentFrequency.Other
     val howOften_frequency_other = "Every day and twice on Sundays"
     val employersName = "Johny B Good"
     val employersAddressLineOne = "lineOne"

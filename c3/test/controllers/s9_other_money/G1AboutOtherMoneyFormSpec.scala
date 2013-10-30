@@ -9,7 +9,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
     val howMuch = "Not much"
-    val howOften_frequency = "other"
+    val howOften_frequency = app.PensionPaymentFrequency.Other
     val howOften_frequency_other = "Every day and twice on Sundays"
 
     "map data into case class" in {
@@ -49,7 +49,7 @@ class G1AboutOtherMoneyFormSpec extends Specification with Tags {
             "anyPaymentsSinceClaimDate.answer" -> anyPaymentsSinceClaimDate,
             "whoPaysYou" -> whoPaysYou,
             "howMuch" -> howMuch,
-            "howOften.frequency" -> "other",
+            "howOften.frequency" -> howOften_frequency,
             "howOften.frequency.other" -> "")).fold(
             formWithErrors => {
               formWithErrors.errors.length must equalTo(1)

@@ -68,7 +68,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
       claim.OtherMoneyWhoPaysYou = "The Man"
       claim.OtherMoneyHowMuch = "Not much"
-      claim.OtherMoneyHowOften = "other"
+      claim.OtherMoneyHowOften = "Other"
       claim.OtherMoneyHowOftenOther = "every day and twice on Sundays"
 
       page goToThePage ()
@@ -93,7 +93,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
         claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
         claim.OtherMoneyWhoPaysYou = "The Man"
         claim.OtherMoneyHowMuch = "Not much"
-        claim.OtherMoneyHowOften = "other"
+        claim.OtherMoneyHowOften = "Other"
         page goToThePage ()
         page fillPageWith claim
 
