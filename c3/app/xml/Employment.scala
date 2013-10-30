@@ -1,8 +1,6 @@
 package xml
 
 import app.{PensionPaymentFrequency, XMLValues}
-import scala.language.reflectiveCalls
-import scala.xml.{NodeSeq, Elem}
 import models.domain._
 import xml.XMLHelper._
 import app.XMLValues._
@@ -141,8 +139,11 @@ object Employment {
           </Payment>
           <Frequency>
             <QuestionLabel>pension.occ.frequency</QuestionLabel>
-            {if(PensionPaymentFrequency.mapToHumanReadableString(pensionScheme.howOftenPension.get) == "Other"){
-              <Other>{pensionScheme.howOftenPension.get.other}</Other>
+            {pensionScheme.howOftenPension match {
+              case Some(n) if (n.equals("Other")) => {
+                <Other>{n.other}</Other>
+              }
+              case _ => NodeSeq.Empty
             }}
             <Answer>{PensionPaymentFrequency.mapToHumanReadableString(pensionScheme.howOftenPension.get)}</Answer>
           </Frequency>
