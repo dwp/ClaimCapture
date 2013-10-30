@@ -132,13 +132,15 @@ object OtherBenefits {
   def otherMoneySPPXml(statutorySickPay: StatutorySickPay) = {
     if (statutorySickPay.haveYouHadAnyStatutorySickPay == yes) {
       <OtherMoneySSPDetails>
-          <Name>{statutorySickPay.employersName.orNull}</Name>
           <Payment>
             {statutorySickPay.howMuch match {
             case Some(n) => {
               <Payment>
                 <QuestionLabel>HowMuchSSP?</QuestionLabel>
-                <Answer>{statutorySickPay.howMuch.orNull}</Answer>
+                <Answer>
+                  <Currency>{GBP}</Currency>
+                  <Amount>{statutorySickPay.howMuch.orNull}</Amount>
+                </Answer>
               </Payment>
   
             }
@@ -159,6 +161,7 @@ object OtherBenefits {
           case None => NodeSeq.Empty
         }}
         </Payment>
+        <Name>{statutorySickPay.employersName.orNull}</Name>
         {postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}
       </OtherMoneySSPDetails>
     }
@@ -168,13 +171,15 @@ object OtherBenefits {
   def otherMoneySPDetails(otherStatutoryPay: OtherStatutoryPay) = {
     if (otherStatutoryPay.otherPay == yes) {
       <OtherMoneySPDetails>
-          <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
           <Payment>
             {otherStatutoryPay.howMuch match {
             case Some(n) => {
               <Payment>
                 <QuestionLabel>HowMuchSP?</QuestionLabel>
-                <Answer>{otherStatutoryPay.howMuch.orNull}</Answer>
+                <Answer>
+                  <Currency>{GBP}</Currency>
+                  <Amount>{otherStatutoryPay.howMuch.orNull}</Amount>
+                </Answer>
               </Payment>
 
             }
@@ -195,6 +200,7 @@ object OtherBenefits {
           case None => NodeSeq.Empty
         }}
         </Payment>
+        <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
         {postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}
       </OtherMoneySPDetails>
     }
