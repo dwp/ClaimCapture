@@ -5,7 +5,8 @@
 @import utils.helpers._
 @import views.html.helper.base.labelOrId
 
-<label for="@CarersCrypto.encryptAES(field.id)">
-    @{Space.*}
-    @carersLabelText(field,args:_*)
-</label>
+@labelOrId(field.id,args: _*)
+
+@if(!field.constraints.find(_._1 == "constraint.required")) {
+    <em>(optional)</em>
+}
