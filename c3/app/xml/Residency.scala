@@ -19,7 +19,7 @@ object Residency {
     <Residency>
 
       <NormallyLiveInGB>
-        <QuestionLabel>NormallyLiveInGB?</QuestionLabel>
+          <QuestionLabel>NormallyLiveInGB?</QuestionLabel>
         <Answer>{livesInGB match {
           case Some(n) => n.answerYesNo match {
             case "yes" => XMLValues.Yes

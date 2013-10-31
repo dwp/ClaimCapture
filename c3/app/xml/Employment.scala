@@ -43,6 +43,24 @@ object Employment {
         case false => <EmployersPhoneNumber>{employerContactDetails.phoneNumber.orNull}</EmployersPhoneNumber>
         case true => NodeSeq.Empty
       }}
+      {jobDetails.p45LeavingDate.isEmpty match {
+      case false =>
+        <P45LeavingDate>
+        <QuestionLabel>TextPhoneContact?</QuestionLabel>
+          <Answer>{jobDetails.p45LeavingDate match {
+            case Some(n) => { n match {
+              case "yes" => XMLValues.Yes
+              case "no" => XMLValues.No
+              case n => n
+            }
+            }
+            case None => NodeSeq.Empty
+          }}</Answer>
+        </P45LeavingDate>
+
+      case true => NodeSeq.Empty
+      }}
+
     </Employer>
   }
 

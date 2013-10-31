@@ -1,7 +1,8 @@
 package xml
 
+import app.XMLValues
 import models.domain.{ContactDetails, YourDetails, Claim}
-import scala.xml.Elem
+import scala.xml.{NodeSeq, Elem}
 import xml.XMLHelper._
 
 object Claimant {
@@ -20,7 +21,26 @@ object Claimant {
       {if(!contactDetails.phoneNumber.isEmpty){
         <DayTimePhoneNumber>{contactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
       }}
+      {if(!contactDetails.mobileNumber.isEmpty){
+        <MobileNumber>{contactDetails.mobileNumber.orNull}</MobileNumber>
+      }}
       <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
+      {contactDetails.contactYouByTextphone match {
+        case Some(n) =>
+        <TextPhoneContact>
+          <QuestionLabel>TextPhoneContact?</QuestionLabel>
+          <Answer>{contactDetails.contactYouByTextphone match {
+            case Some(n) => { n match {
+                case "yes" => XMLValues.Yes
+                case "no" => XMLValues.No
+                case n => n
+              }
+            }
+            case None => NodeSeq.Empty
+          }}</Answer>
+        </TextPhoneContact>
+        case _ => NodeSeq.Empty
+    }}
     </Claimant>
   }
 }

@@ -18,10 +18,6 @@ object EvidenceList {
       {xml.XMLHelper.postalAddressStructureRecipientAddress(theirContactDetails.address, theirContactDetails.postcode.orNull)}
       {xmlGenerated()}
       {evidence(claim)}
-      {aboutYou(claim)}
-      {yourPartner(claim)}
-      {breaks(claim)}
-      {fiftyTwoWeeksTrips(claim)}
       {employment(claim)}
       {selfEmployment(claim)}
     </EvidenceList>
@@ -68,46 +64,6 @@ object EvidenceList {
     buffer
   }
 
-  def aboutYou(claim: Claim) = {
-    val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
-    val yourContactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
-    val timeOutsideUK = claim.questionGroup[TimeOutsideUK].getOrElse(TimeOutsideUK())
-    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
-    var textLines = NodeSeq.Empty
-    textLines ++= textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK) ++
-      textLine("Mobile number = ", yourContactDetails.mobileNumber) ++
-      textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer)
-    if (timeOutsideUK.livingInUK.answer.toLowerCase == yes)
-      textLines ++= textLine("When did you arrive in the UK? = ", timeOutsideUK.livingInUK.date.get.`dd/MM/yyyy`)
-    textLines ++= textLine("Do you get state Pension? = ", moreAboutYou.receiveStatePension) ++
-      textLine("If you have speech or hearing difficulties, would you like us to contact you by textphone? = ", yourContactDetails.contactYouByTextphone)
-
-    textLines
-  }
-
-  def yourPartner(claim: Claim) = {
-    val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
-
-    if (personYouCareFor.isPartnerPersonYouCareFor.nonEmpty) {
-        textLine("Is your partner/spouse the person you are claiming Carer's Allowance for? = ", personYouCareFor.isPartnerPersonYouCareFor)
-    }
-  }
-
-  def breaks(claim: Claim) = {
-    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
-
-    for {break <- breaksInCare.breaks} yield {
-      textLine("Where were you during the break? Other detail = ", break.whereYou.other) ++
-        textLine("Where was the person you care for during the break? = ", break.wherePerson.location) ++
-        textLine("Where was the person you care for during the break? Other detail = ", break.wherePerson.other)
-    }
-  }
-
-  def fiftyTwoWeeksTrips(claim: Claim) = {
-    val trips = claim.questionGroup[Trips].getOrElse(Trips())
-    for {fiftyTwoWeekTrip <- trips.fiftyTwoWeeksTrips} yield textLine("Where did you go? = ", fiftyTwoWeekTrip.where)
-  }
-
   def selfEmployment(claim: Claim) = {
     val yourAccounts = claim.questionGroup[SelfEmploymentYourAccounts].getOrElse(SelfEmploymentYourAccounts())
     val childCare = claim.questionGroup[ChildcareExpensesWhileAtWork].getOrElse(ChildcareExpensesWhileAtWork())
@@ -146,7 +102,6 @@ object EvidenceList {
           val personYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
           val pensionScheme = job.questionGroup[PensionSchemes].getOrElse(PensionSchemes())
 
-          textLines ++= textLine("Employer:" + jobDetails.employerName)
           if (jobDetails.p45LeavingDate.isDefined)
             textLines ++= textLine("What is the leaving date on your P45, if you have one? = ", jobDetails.p45LeavingDate.get.`dd/MM/yyyy`)
 

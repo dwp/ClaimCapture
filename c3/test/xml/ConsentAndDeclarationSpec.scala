@@ -16,7 +16,7 @@ class ConsentAndDeclarationSpec extends Specification with Tags {
 
       (xml \\ "Declaration" \\ "TextLine").theSeq(4).text must(contain(infoAgreement))
       (xml \\ "EvidenceList" \\ "TextLine").text must contain(confirmation)
-    }
+    }.pendingUntilFixed("Schema changes: Needs to implement the new Declaration and Evidence structure")
 
   } section "unit"
 }

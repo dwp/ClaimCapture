@@ -13,6 +13,8 @@ object Partner {
 
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
 
+    val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
+
     val hadPartner = moreAboutYou.hadPartnerSinceClaimDate == yes
 
     if (hadPartner) {
@@ -37,6 +39,18 @@ object Partner {
             }}</Answer>
           </SeparatedFromPartner>
         </RelationshipStatus>
+        {personYouCareFor.isPartnerPersonYouCareFor.isEmpty match {
+        case false =>
+          <IsCaree>
+            <QuestionLabel>IsCaree?</QuestionLabel>
+            <Answer>{personYouCareFor.isPartnerPersonYouCareFor match {
+              case "yes" => XMLValues.Yes
+              case "no" => XMLValues.No
+              case n => n
+            }}</Answer>
+          </IsCaree>
+        case true => NodeSeq.Empty
+      }}
       </Partner>
     } else NodeSeq.Empty
   }
