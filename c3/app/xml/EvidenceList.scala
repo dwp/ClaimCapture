@@ -18,7 +18,6 @@ object EvidenceList {
       {xml.XMLHelper.postalAddressStructureRecipientAddress(theirContactDetails.address, theirContactDetails.postcode.orNull)}
       {xmlGenerated()}
       {evidence(claim)}
-      {selfEmployment(claim)}
     </EvidenceList>
   }
 
@@ -61,31 +60,6 @@ object EvidenceList {
     }
 
     buffer
-  }
-
-  def selfEmployment(claim: Claim) = {
-    val yourAccounts = claim.questionGroup[SelfEmploymentYourAccounts].getOrElse(SelfEmploymentYourAccounts())
-    val childCare = claim.questionGroup[ChildcareExpensesWhileAtWork].getOrElse(ChildcareExpensesWhileAtWork())
-    val expensesWhileAtWork = claim.questionGroup[ExpensesWhileAtWork].getOrElse(ExpensesWhileAtWork())
-    val pensionScheme = claim.questionGroup[SelfEmploymentPensionsAndExpenses].getOrElse(SelfEmploymentPensionsAndExpenses())
-
-    var textLines = textLine("Are the income, outgoings and profit in these accounts similar to your current level of trading? = ", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading) ++
-      textLine("Please tell us why and when the change happened = ", yourAccounts.tellUsWhyAndWhenTheChangeHappened) ++
-      textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare? = ", childCare.howMuchYouPay) ++
-      textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childCare.howOftenPayChildCare))
-    if (childCare.howOftenPayChildCare.other.isDefined)
-      textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childCare.howOftenPayChildCare.other.get)
-
-    textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ", expensesWhileAtWork.howMuchYouPay) ++
-      textLine("How often [[past=did you]] [[present=do you]] - expenses related to person you care for? = ", PensionPaymentFrequency.mapToHumanReadableString(expensesWhileAtWork.howOftenPayExpenses))
-
-    if (expensesWhileAtWork.howOftenPayExpenses.other.isDefined)
-      textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to person you care for? = ", expensesWhileAtWork.howOftenPayExpenses.other.get)
-
-    if (pensionScheme.howOften.isDefined && pensionScheme.howOften.get.other.isDefined)
-      textLines ++= textLine("How often do you pay into a Pension? Other = ", pensionScheme.howOften.get.other.get)
-
-    if (sectionEmpty(textLines)) NodeSeq.Empty else textLines
   }
 
   def employment(claim: Claim) = {

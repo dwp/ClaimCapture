@@ -85,6 +85,26 @@ object SelfEmployment {
               case None => NodeSeq.Empty
             }}
           </TradingYear>
+          {yourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
+            case Some(n) =>
+              <SameIncomeOutgoingLevels>
+                <QuestionLabel>SameIncomeOutgoingLevels?</QuestionLabel>
+                <Answer>{yourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
+                  case Some(n) => n match {
+                    case "yes" => XMLValues.Yes
+                    case "no" => XMLValues.No
+                    case n => n
+                  }
+                  case _ => NodeSeq.Empty
+                }}</Answer>
+              </SameIncomeOutgoingLevels>
+            case None => NodeSeq.Empty
+          }}
+          {yourAccounts.tellUsWhyAndWhenTheChangeHappened match {
+            case Some(n) =>
+              <WhyWhenChange>{n}</WhyWhenChange>
+            case None => NodeSeq.Empty
+          }}
           {aboutSelfEmployment.whenDidTheJobFinish match {
             case Some(n) => {
               <DateEnded>
@@ -176,6 +196,25 @@ object SelfEmployment {
           <QuestionLabel>child.carer</QuestionLabel>
           <Answer>{childCareExpenses.nameOfPerson}</Answer>
         </CarerName>
+        <Expense>
+          <Payment>
+            <QuestionLabel>ChildCareExpensesHowMuch?</QuestionLabel>
+            <Answer>
+              <Currency>{GBP}</Currency>
+              <Amount>{childCareExpenses.howMuchYouPay}</Amount>
+            </Answer>
+          </Payment>
+          <Frequency>
+            <QuestionLabel>ChildCareExpensesFrequency?</QuestionLabel>
+            {childCareExpenses.howOftenPayChildCare.other match {
+            case Some(n) => {
+              <Other>{n}</Other>
+            }
+            case _ => NodeSeq.Empty
+          }}
+            <Answer>{PensionPaymentFrequency.mapToHumanReadableString(childCareExpenses.howOftenPayChildCare)}</Answer>
+          </Frequency>
+        </Expense>
         <RelationshipCarerToClaimant>
           <QuestionLabel>child.care.rel.claimant</QuestionLabel>
           <Answer>{childCareExpenses.whatRelationIsToYou}</Answer>
@@ -199,6 +238,25 @@ object SelfEmployment {
           <QuestionLabel>child.carer</QuestionLabel>
           <Answer>{expensesWhileAtWork.nameOfPerson}</Answer>
         </CarerName>
+        <Expense>
+          <Payment>
+            <QuestionLabel>CareExpensesHowMuch?</QuestionLabel>
+            <Answer>
+              <Currency>{GBP}</Currency>
+              <Amount>{expensesWhileAtWork.howMuchYouPay}</Amount>
+            </Answer>
+          </Payment>
+          <Frequency>
+            <QuestionLabel>CareExpensesFrequency?</QuestionLabel>
+            {expensesWhileAtWork.howOftenPayExpenses.other match {
+            case Some(n) => {
+              <Other>{n}</Other>
+            }
+            case _ => NodeSeq.Empty
+          }}
+            <Answer>{PensionPaymentFrequency.mapToHumanReadableString(expensesWhileAtWork.howOftenPayExpenses)}</Answer>
+          </Frequency>
+        </Expense>
         <RelationshipCarerToClaimant>
           <QuestionLabel>child.care.rel.claimant</QuestionLabel>
           <Answer>{expensesWhileAtWork.whatRelationIsToYou}</Answer>

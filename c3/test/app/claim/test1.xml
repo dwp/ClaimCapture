@@ -1,0 +1,859 @@
+<DWPBody xsi:schemaLocation="http://www.govtalk.gov.uk/dwp/carers-allowance CarersAllowance_Schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:gms="http://www.govtalk.gov.uk/CM/gms" xmlns:dcq="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:gds="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance" xmlns:bs7666="http://www.govtalk.gov.uk/people/bs7666">
+    <Version>0.9</Version>
+    <DWPCATransaction>
+        <TransactionId>TEST432</TransactionId>
+        <DateTimeGenerated>02-10-2010 14:36</DateTimeGenerated>
+        <DWPCAClaim>
+            <DateOfClaim>
+                <QuestionLabel>When do you want your Carer's Allowance claim to start?</QuestionLabel>
+                <Answer>01-01-2010</Answer>
+            </DateOfClaim>
+            <Claimant>
+                <Surname>CaseThree</Surname>
+                <OtherNames>Test Middle</OtherNames>
+                <OtherSurnames>Smithson</OtherSurnames>
+                <Title>Mr</Title>
+                <DateOfBirth>01-01-1931</DateOfBirth>
+                <NationalInsuranceNumber>JB486278C</NationalInsuranceNumber>
+                <Address>
+                    <Line>3 Preston Road</Line>
+                    <Line>Preston</Line>
+                    <Line>Lancashire</Line>
+                    <PostCode>PR1 2TH</PostCode>
+                </Address>
+                <DayTimePhoneNumber>01772 888901</DayTimePhoneNumber>
+                <MobileNumber>0771 5419808</MobileNumber>
+                <MaritalStatus>Married or civil partner</MaritalStatus>
+                <TextPhoneContact>
+                    <QuestionLabel>TextPhoneContact?</QuestionLabel>
+                    <Answer></Answer>
+                </TextPhoneContact>
+            </Claimant>
+            <Caree>
+                <Surname>CaseThree</Surname>
+                <OtherNames>Test Middle</OtherNames>
+                <Title>Mrs</Title>
+                <DateOfBirth>28-09-1937</DateOfBirth>
+                <NationalInsuranceNumber>AB123456C</NationalInsuranceNumber>
+                <Address>
+                    <Line>12 Preston Road</Line>
+                    <Line>Preston</Line>
+                    <Line>Lancashire</Line>
+                    <PostCode>PR1 2TH</PostCode>
+                </Address>
+                <DayTimePhoneNumber>01772 998761</DayTimePhoneNumber>
+                <RelationToClaimant>
+                    <QuestionLabel>What's their relationship to you?</QuestionLabel>
+                    <Answer>Wife</Answer>
+                </RelationToClaimant>
+                <Cared35Hours>
+                    <QuestionLabel>Do you spend 35 hours or more each week caring for this person?</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </Cared35Hours>
+                <BreaksSinceClaim>
+                    <QuestionLabel>Have you had any breaks in caring for this person since claim date?</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </BreaksSinceClaim>
+                <CareBreak>
+                    <StartDateTime>10-01-2010 10:00</StartDateTime>
+                    <EndDateTime>17-01-2010 17:00</EndDateTime>
+                    <MedicalCare>
+                        <QuestionLabel>Did you or the person you care for receive any medical treatment or professional care during the break?</QuestionLabel>
+                        <Answer>Yes</Answer>
+                    </MedicalCare>
+                </CareBreak><CareBreak>
+                <StartDateTime>20-01-2010 10:00</StartDateTime>
+                <EndDateTime>27-01-2010 17:00</EndDateTime>
+                <MedicalCare>
+                    <QuestionLabel>Did you or the person you care for receive any medical treatment or professional care during the break?</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </MedicalCare>
+            </CareBreak><CareBreak>
+                <StartDateTime>20-02-2010 12:00</StartDateTime>
+                <EndDateTime>27-02-2010 13:00</EndDateTime>
+                <MedicalCare>
+                    <QuestionLabel>Did you or the person you care for receive any medical treatment or professional care during the break?</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </MedicalCare>
+            </CareBreak><CareBreak>
+                <StartDateTime>20-03-2010 12:00</StartDateTime>
+                <EndDateTime>21-02-2010 13:00</EndDateTime>
+                <MedicalCare>
+                    <QuestionLabel>Did you or the person you care for receive any medical treatment or professional care during the break?</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </MedicalCare>
+            </CareBreak><CareBreak>
+                <StartDateTime>20-03-2013 12:15</StartDateTime>
+                <EndDateTime>21-02-2013 13:15</EndDateTime>
+                <MedicalCare>
+                    <QuestionLabel>Did you or the person you care for receive any medical treatment or professional care during the break?</QuestionLabel>
+                    <Answer>No</Answer>
+                </MedicalCare>
+            </CareBreak>
+
+                <Cared35HoursBefore>
+                    <QuestionLabel>spent35HoursCaringBeforeClaim?</QuestionLabel>
+                    <Answer>No</Answer>
+                </Cared35HoursBefore>
+
+
+                <!--{breaksBeforeClaim(claim)}-->
+
+                <LiveSameAddress>
+                    <QuestionLabel>Do they live at the same address as you?</QuestionLabel>
+                    <Answer>No</Answer>
+                </LiveSameAddress>
+
+                <ArmedForcesIndependencePayment>
+                    <QuestionLabel>Does this person get Armed Forces Independence Payment?</QuestionLabel>
+                    <Answer>No</Answer>
+                </ArmedForcesIndependencePayment>
+            </Caree>
+            <Residency>
+
+                <NormallyLiveInGB>
+                    <QuestionLabel>NormallyLiveInGB?</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </NormallyLiveInGB>
+
+                <CountryNormallyLive>
+                    <QuestionLabel>CountryNormallyLive?</QuestionLabel>
+                    <Answer>Not asked</Answer>
+                </CountryNormallyLive>
+
+                <Nationality>British</Nationality>
+
+                <TimeOutsideGBLast3Years>
+                    <QuestionLabel>TimeOutsideGBLast3Years?</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </TimeOutsideGBLast3Years>
+
+                <!--<InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>-->
+                <PeriodAbroad>
+                    <Period>
+                        <DateFrom>
+                            <QuestionLabel>DateFrom?</QuestionLabel>
+                            <Answer>31-05-2013</Answer>
+                        </DateFrom>
+                        <DateTo>
+                            <QuestionLabel>DateTo?</QuestionLabel>
+                            <Answer>09-06-2013</Answer>
+                        </DateTo>
+                    </Period>
+                    <Reason>
+                        <QuestionLabel>abroad.reason?</QuestionLabel>
+                        <Answer>Holiday</Answer>
+                    </Reason>
+                    <Country>
+                        <QuestionLabel>trip.where?</QuestionLabel>
+                        <Answer>Spain</Answer>
+                    </Country>
+                </PeriodAbroad><PeriodAbroad>
+                <Period>
+                    <DateFrom>
+                        <QuestionLabel>DateFrom?</QuestionLabel>
+                        <Answer>11-06-2013</Answer>
+                    </DateFrom>
+                    <DateTo>
+                        <QuestionLabel>DateTo?</QuestionLabel>
+                        <Answer>19-06-2013</Answer>
+                    </DateTo>
+                </Period>
+                <Reason>
+                    <QuestionLabel>abroad.reason?</QuestionLabel>
+                    <Answer>Holiday</Answer>
+                </Reason>
+                <Country>
+                    <QuestionLabel>trip.where?</QuestionLabel>
+                    <Answer>France</Answer>
+                </Country>
+            </PeriodAbroad><PeriodAbroad>
+                <Period>
+                    <DateFrom>
+                        <QuestionLabel>DateFrom?</QuestionLabel>
+                        <Answer>01-01-2013</Answer>
+                    </DateFrom>
+                    <DateTo>
+                        <QuestionLabel>DateTo?</QuestionLabel>
+                        <Answer>09-01-2013</Answer>
+                    </DateTo>
+                </Period>
+                <Reason>
+                    <QuestionLabel>abroad.reason?</QuestionLabel>
+                    <Answer>Holiday</Answer>
+                </Reason>
+                <Country>
+                    <QuestionLabel>trip.where?</QuestionLabel>
+                    <Answer>Scotland</Answer>
+                </Country>
+            </PeriodAbroad><PeriodAbroad>
+                <Period>
+                    <DateFrom>
+                        <QuestionLabel>DateFrom?</QuestionLabel>
+                        <Answer>01-03-2013</Answer>
+                    </DateFrom>
+                    <DateTo>
+                        <QuestionLabel>DateTo?</QuestionLabel>
+                        <Answer>05-03-2013</Answer>
+                    </DateTo>
+                </Period>
+                <Reason>
+                    <QuestionLabel>abroad.reason?</QuestionLabel>
+                    <Answer>Holiday</Answer>
+                </Reason>
+                <Country>
+                    <QuestionLabel>trip.where?</QuestionLabel>
+                    <Answer>Northumberland</Answer>
+                </Country>
+            </PeriodAbroad><PeriodAbroad>
+                <Period>
+                    <DateFrom>
+                        <QuestionLabel>DateFrom?</QuestionLabel>
+                        <Answer>31-03-2013</Answer>
+                    </DateFrom>
+                    <DateTo>
+                        <QuestionLabel>DateTo?</QuestionLabel>
+                        <Answer>04-04-2013</Answer>
+                    </DateTo>
+                </Period>
+                <Reason>
+                    <QuestionLabel>abroad.reason?</QuestionLabel>
+                    <Answer>Holiday</Answer>
+                </Reason>
+                <Country>
+                    <QuestionLabel>trip.where?</QuestionLabel>
+                    <Answer>London</Answer>
+                </Country>
+            </PeriodAbroad>
+                <!--{otherNationality(claim)}-->
+                <!--{periodAbroadDuringCare(tripsOption)}-->
+            </Residency>
+            <CourseOfEducation>
+                <QuestionLabel>CourseOfEducation?</QuestionLabel>
+                <Answer>No</Answer>
+            </CourseOfEducation>
+
+            <SelfEmployed>
+                <QuestionLabel>SelfEmployed?</QuestionLabel>
+                <Answer>Yes</Answer>
+            </SelfEmployed>
+            <SelfEmployment>
+                <SelfEmployedNow>
+                    <QuestionLabel>selfepmloyed.now</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </SelfEmployedNow>
+                <CurrentJobDetails>
+                    <DateStarted>
+                        <QuestionLabel>selfemployed.started</QuestionLabel>
+                        <Answer>01-02-2010</Answer>
+                    </DateStarted>
+                    <NatureBusiness>
+                        <QuestionLabel>selfemployed.business</QuestionLabel>
+                        <Answer>Fruit and veg, delivery service</Answer>
+                    </NatureBusiness>
+                    <TradingYear>
+                        <DateFrom>
+                            <QuestionLabel>trading.from</QuestionLabel>
+                            <Answer>01-02-2012</Answer>
+                        </DateFrom>
+                        <DateTo>
+                            <QuestionLabel>trading.to</QuestionLabel>
+                            <Answer>31-01-2013</Answer>
+                        </DateTo>
+                    </TradingYear>
+                </CurrentJobDetails>
+                <CareExpensesChildren>
+                    <QuestionLabel>chld.expenses</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </CareExpensesChildren>
+
+
+                <ChildCareExpenses>
+                    <CarerName>
+                        <QuestionLabel>child.carer</QuestionLabel>
+                        <Answer>Mr John Smith</Answer>
+                    </CarerName>
+                    <RelationshipCarerToClaimant>
+                        <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+                        <Answer>Uncle</Answer>
+                    </RelationshipCarerToClaimant>
+                </ChildCareExpenses>
+                <CareExpensesCaree>
+                    <QuestionLabel>care.expenses</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </CareExpensesCaree>
+                <CareExpenses>
+                    <CarerName>
+                        <QuestionLabel>child.carer</QuestionLabel>
+                        <Answer>Mrs Terry Smith</Answer>
+                    </CarerName>
+                    <RelationshipCarerToClaimant>
+                        <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+                        <Answer>Aunt</Answer>
+                    </RelationshipCarerToClaimant>
+                    <RelationshipCarerToCaree>
+                        <QuestionLabel>care.carer.rel.caree</QuestionLabel>
+                        <Answer>Aunt</Answer>
+                    </RelationshipCarerToCaree>
+                </CareExpenses>
+                <PaidForPension>
+                    <QuestionLabel>self.pension</QuestionLabel>
+                    <Answer>No</Answer>
+                </PaidForPension>
+
+            </SelfEmployment>
+            <Employed>
+                <QuestionLabel>Employed?</QuestionLabel>
+                <Answer>Yes</Answer>
+            </Employed>
+            <Employment>
+                <CurrentlyEmployed>
+                    <QuestionLabel>employed.currently</QuestionLabel>
+                    <Answer>No</Answer>
+                </CurrentlyEmployed>
+                <JobDetails>
+                    <Employer>
+                        <DateJobStarted>
+                            <QuestionLabel>job.started</QuestionLabel>
+                            <Answer>01-01-2013</Answer>
+                        </DateJobStarted>
+
+                        <DateJobEnded>
+                            <QuestionLabel>job.ended</QuestionLabel>
+                            <Answer>01-07-2013</Answer>
+                        </DateJobEnded>
+                        <JobType>
+                            <QuestionLabel>job.title</QuestionLabel>
+                            <Answer>Hacker</Answer>
+                        </JobType>
+                        <ClockPayrollNumber>12345678</ClockPayrollNumber>
+                        <Name>Tesco's</Name>
+                        <Address>
+                            <Line>23 Yeadon Way</Line>
+                            <Line>Blackpool</Line>
+                            <Line>Lancashire</Line>
+                            <PostCode>FY4 5TH</PostCode>
+                        </Address>
+                        <EmployersPhoneNumber>01253 667889</EmployersPhoneNumber>
+                    </Employer>
+                    <Pay>
+                        <WeeklyHoursWorked>
+                            <QuestionLabel>job.hours</QuestionLabel>
+                            <Answer>25</Answer>
+                        </WeeklyHoursWorked>
+
+
+                        <GrossPayment>
+                            <QuestionLabel>job.pay</QuestionLabel>
+                            <Answer>
+                                <Currency>GBP</Currency>
+                                <Amount>600</Amount>
+                            </Answer>
+                        </GrossPayment>
+
+                        <IncludedInWage>
+                            <QuestionLabel>job.pay.include</QuestionLabel>
+                            <Answer>All amounts due</Answer>
+                        </IncludedInWage>
+
+
+                        <PayFrequency><QuestionLabel>job.pay.frequency</QuestionLabel><Answer>Four-Weekly</Answer></PayFrequency>
+                        <UsualPayDay>
+                            <QuestionLabel>job.day</QuestionLabel>
+                            <Answer>two weeks ago</Answer>
+                        </UsualPayDay>
+                    </Pay>
+                    <OweMoney>
+                        <QuestionLabel>job.owe</QuestionLabel>
+                        <Answer>Yes</Answer>
+                    </OweMoney>
+                    <CareExpensesChildren>
+                        <QuestionLabel>chld.expenses</QuestionLabel>
+                        <Answer>Yes</Answer>
+                    </CareExpensesChildren><ChildCareExpenses>
+                    <CarerName>
+                        <QuestionLabel>child.carer</QuestionLabel>
+                        <Answer>Mr Grandfather Senior</Answer>
+                    </CarerName>
+                    <RelationshipCarerToClaimant>
+                        <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+                        <Answer>Father</Answer>
+                    </RelationshipCarerToClaimant>
+                </ChildCareExpenses>
+                    <CareExpensesCaree>
+                        <QuestionLabel>care.expenses</QuestionLabel>
+                        <Answer>Yes</Answer>
+                    </CareExpensesCaree><CareExpenses>
+                    <CarerName>
+                        <QuestionLabel>child.carer</QuestionLabel>
+                        <Answer>Carers UK Ltd</Answer>
+                    </CarerName>
+                    <RelationshipCarerToClaimant>
+                        <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+                        <Answer>Uncle</Answer>
+                    </RelationshipCarerToClaimant>
+                    <RelationshipCarerToCaree>
+                        <QuestionLabel>care.carer.rel.caree</QuestionLabel>
+                        <Answer>Other</Answer>
+                    </RelationshipCarerToCaree>
+                </CareExpenses>
+                    <PaidForOccupationalPension>
+                        <QuestionLabel>pension.occupational</QuestionLabel>
+                        <Answer>Yes</Answer>
+                    </PaidForOccupationalPension><OccupationalPension>
+                    <Payment>
+                        <QuestionLabel>pension.occ.amount</QuestionLabel>
+                        <Answer>
+                            <Currency>GBP</Currency>
+                            <Amount>350.1</Amount>
+                        </Answer>
+                    </Payment>
+                    <Frequency>
+                        <QuestionLabel>pension.occ.frequency</QuestionLabel>
+
+                        <Answer>Other</Answer>
+                    </Frequency>
+                </OccupationalPension><PaidForPersonalPension>
+                    <QuestionLabel>pension.personal</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </PaidForPersonalPension><PersonalPension>
+                    <Payment>
+                        <QuestionLabel>pension.per.amount</QuestionLabel>
+                        <Answer>
+                            <Currency>GBP</Currency>
+                            <Amount>200.1</Amount>
+                        </Answer>
+                    </Payment>
+                    <Frequency>
+                        <QuestionLabel>pension.per.frequency</QuestionLabel>
+                        <Other>Some(Another reason)</Other>
+                        <Answer>Other</Answer>
+                    </Frequency>
+                </PersonalPension>
+                    <PaidForJobExpenses>
+                        <QuestionLabel>job.expenses</QuestionLabel>
+                        <Answer>Yes</Answer>
+                    </PaidForJobExpenses><JobExpenses>
+                    <Expense>
+                        <QuestionLabel>job.expense</QuestionLabel>
+                        <Answer>Petrol money for driving</Answer>
+                    </Expense>
+                </JobExpenses>
+                </JobDetails><JobDetails>
+                <Employer>
+                    <DateJobStarted>
+                        <QuestionLabel>job.started</QuestionLabel>
+                        <Answer>01-01-2013</Answer>
+                    </DateJobStarted>
+
+
+                    <JobType>
+                        <QuestionLabel>job.title</QuestionLabel>
+                        <Answer>Hacker</Answer>
+                    </JobType>
+                    <ClockPayrollNumber>12345678</ClockPayrollNumber>
+                    <Name>Tesco's</Name>
+                    <Address>
+                        <Line>23 Yeadon Way</Line>
+                        <Line>Blackpool</Line>
+                        <Line>Lancashire</Line>
+                        <PostCode>FY4 5TH</PostCode>
+                    </Address>
+                    <EmployersPhoneNumber>01253 667889</EmployersPhoneNumber>
+                </Employer>
+                <Pay>
+
+
+                    <DateLastPaid>
+                        <QuestionLabel>job.lastpaid</QuestionLabel>
+                        <Answer>08-07-2013</Answer>
+                    </DateLastPaid>
+                    <GrossPayment>
+                        <QuestionLabel>job.pay</QuestionLabel>
+                        <Answer>
+                            <Currency>GBP</Currency>
+                            <Amount>600</Amount>
+                        </Answer>
+                    </GrossPayment>
+
+
+
+
+
+
+                </Pay>
+                <OweMoney>
+                    <QuestionLabel>job.owe</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </OweMoney>
+                <CareExpensesChildren>
+                    <QuestionLabel>chld.expenses</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </CareExpensesChildren><ChildCareExpenses>
+                <CarerName>
+                    <QuestionLabel>child.carer</QuestionLabel>
+                    <Answer>Mr Grandfather Senior</Answer>
+                </CarerName>
+                <RelationshipCarerToClaimant>
+                    <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+                    <Answer>Father</Answer>
+                </RelationshipCarerToClaimant>
+            </ChildCareExpenses>
+                <CareExpensesCaree>
+                    <QuestionLabel>care.expenses</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </CareExpensesCaree><CareExpenses>
+                <CarerName>
+                    <QuestionLabel>child.carer</QuestionLabel>
+                    <Answer>Age Concern K Ltd</Answer>
+                </CarerName>
+                <RelationshipCarerToClaimant>
+                    <QuestionLabel>child.care.rel.claimant</QuestionLabel>
+                    <Answer>Other</Answer>
+                </RelationshipCarerToClaimant>
+                <RelationshipCarerToCaree>
+                    <QuestionLabel>care.carer.rel.caree</QuestionLabel>
+                    <Answer>Other</Answer>
+                </RelationshipCarerToCaree>
+            </CareExpenses>
+                <PaidForOccupationalPension>
+                    <QuestionLabel>pension.occupational</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </PaidForOccupationalPension><OccupationalPension>
+                <Payment>
+                    <QuestionLabel>pension.occ.amount</QuestionLabel>
+                    <Answer>
+                        <Currency>GBP</Currency>
+                        <Amount>120.03</Amount>
+                    </Answer>
+                </Payment>
+                <Frequency>
+                    <QuestionLabel>pension.occ.frequency</QuestionLabel>
+
+                    <Answer>Fortnightly</Answer>
+                </Frequency>
+            </OccupationalPension><PaidForPersonalPension>
+                <QuestionLabel>pension.personal</QuestionLabel>
+                <Answer>Yes</Answer>
+            </PaidForPersonalPension><PersonalPension>
+                <Payment>
+                    <QuestionLabel>pension.per.amount</QuestionLabel>
+                    <Answer>
+                        <Currency>GBP</Currency>
+                        <Amount>345.2</Amount>
+                    </Answer>
+                </Payment>
+                <Frequency>
+                    <QuestionLabel>pension.per.frequency</QuestionLabel>
+
+                    <Answer>Fortnightly</Answer>
+                </Frequency>
+            </PersonalPension>
+                <PaidForJobExpenses>
+                    <QuestionLabel>job.expenses</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </PaidForJobExpenses><JobExpenses>
+                <Expense>
+                    <QuestionLabel>job.expense</QuestionLabel>
+                    <Answer>Petrol money for driving</Answer>
+                </Expense>
+            </JobExpenses>
+            </JobDetails>
+            </Employment>
+            <!--{PropertyRentedOut.xml(claim)}-->
+            <HavePartner>
+                <QuestionLabel>HavePartner?</QuestionLabel>
+                <Answer>Yes</Answer>
+            </HavePartner>
+
+            <Partner>
+                <Surname>CaseThree</Surname>
+                <OtherNames>Test Middle</OtherNames>
+                <OtherSurnames>Dixon</OtherSurnames>
+                <Title>Mrs</Title>
+                <DateOfBirth>28-09-1937</DateOfBirth>
+                <NationalInsuranceNumber>BA234567A</NationalInsuranceNumber>
+                <NationalityPartner>British</NationalityPartner>
+                <RelationshipStatus>
+                    <SeparatedFromPartner>
+                        <QuestionLabel>yourPartnerPersonalDetails.separatedFromPartner?</QuestionLabel>
+                        <Answer>No</Answer>
+                    </SeparatedFromPartner>
+                </RelationshipStatus>
+            </Partner>
+            <OtherBenefits>
+                <ClaimantBenefits>
+                    <StatePension>
+                        <QuestionLabel>StatePension?</QuestionLabel>
+                        <Answer>No</Answer>
+                    </StatePension>
+                </ClaimantBenefits>
+                <OtherMoneySSP>
+                    <QuestionLabel>OtherMoneySSP?</QuestionLabel>
+                    <Answer>No</Answer>
+                </OtherMoneySSP>
+
+                <OtherMoneySP>
+                    <QuestionLabel>OtherMoneySP?</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </OtherMoneySP>
+                <OtherMoneySPDetails>
+                    <Payment>
+                        <Payment>
+                            <QuestionLabel>HowMuchSP?</QuestionLabel>
+                            <Answer>
+                                <Currency>GBP</Currency>
+                                <Amount>145</Amount>
+                            </Answer>
+                        </Payment>
+
+                        <Frequency>
+                            <QuestionLabel>HowOftenSP?</QuestionLabel>
+
+                            <Answer>Monthly</Answer>
+                        </Frequency>
+                    </Payment>
+                    <Name>Greggs Bakers</Name>
+                    <Address>
+                        <Line>1012 Preston  Road</Line>
+                        <Line>Preston</Line>
+                        <Line>Lancashure</Line>
+                        <PostCode>PR45 6YH</PostCode>
+                    </Address>
+                </OtherMoneySPDetails>
+                <OtherMoney>
+                    <QuestionLabel>OtherMoney?</QuestionLabel>
+                    <Answer>Yes</Answer>
+                </OtherMoney>
+                <OtherMoneyPayments>
+                    <QuestionLabel>OtherMoneyPayments?</QuestionLabel>
+                    <Answer>No</Answer>
+                </OtherMoneyPayments>
+
+
+
+                <EEA>
+                    <EEAReceivePensionsBenefits>
+                        <QuestionLabel>EEAReceivePensionsBenefits?</QuestionLabel>
+                        <Answer>No</Answer>
+                    </EEAReceivePensionsBenefits>
+                    <EEAWorkingInsurance>
+                        <QuestionLabel>EEAWorkingInsurance?</QuestionLabel>
+                        <Answer>No</Answer>
+                    </EEAWorkingInsurance>
+                </EEA>
+            </OtherBenefits>
+            <Payment>
+                <PaymentFrequency>
+                    <QuestionLabel>PaymentFrequency?</QuestionLabel>
+                    <Answer>Four-Weekly</Answer>
+                </PaymentFrequency>
+
+                <InitialAccountQuestion>
+                    <QuestionLabel>InitialAccountQuestion?</QuestionLabel>
+                    <Answer>Other - you would like more information</Answer>
+                </InitialAccountQuestion>
+
+
+            </Payment>
+            <OtherInformation>
+                <WelshCommunication>
+                    <QuestionLabel>welsh.communication</QuestionLabel>
+                    <Answer>No</Answer>
+                </WelshCommunication>
+
+            </OtherInformation>
+            <Declaration>
+                Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? Yes
+
+
+                Do you agree to us getting information from any other person or organisation you have told us about as part of this claim? Yes
+
+
+                This is my claim for Carer's Allowance.
+                I understand that if I am paid Carer's Allowance it may affect the benefits paid to Test Middle CaseThree.
+                If the person you are caring for receives certain benefits, the amount they receive may be affected by your claim for Carer's Allowance. Because of this we need both of you to understand the potential consequences of your claim to Carer's Allowance.
+                If Test Middle CaseThree gets a Severe Disability Premium with their income-based Jobseeker's Allowance, Income Support, income-related Employment and Support Allowance, Housing Benefit, they may no longer get that premium if we pay Carer's Allowance to you.
+                If Test Middle CaseThree's Pension Credit includes an extra amount for severe disability, they may no longer get that extra amount if we pay Carer's Allowance to you.
+                This could also affect any reduction in Council Tax Test Middle CaseThree may be entitled to. To find out more about it, please contact the Local Authority.
+                We will need to check Test Middle CaseThree entitlement to Disability Living Allowance, Personal Independence Payment, Attendance Allowance, Constant Attendance Allowance or Armed Forces Independence Payment when considering your claim.
+                We may contact Test Middle CaseThree or their representative to establish whether 35 hours caring per week is taking place.
+
+                Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits. = yes
+
+                I declare that I understand the Carer's Allowance Claim Notes and that the information provided on this claim form is correct and complete.
+                I understand that I must report all changes in my circumstances or that of the person that I am caring for which may affect my entitlement promptly and by failing to do so I may be liable to prosecution or face a financial penalty.
+                I will phone 08456084321 or write to Carer's Allowance Unit, Palatine House, Preston, Lancaster, PR1 1HB to report a change in my circumstances or that of the person that I am caring for.
+                If I give false or incomplete information or fail to report changes in my circumstances or that of the person that I am caring for promptly, I understand that my Carer's Allowance may be stopped or reduced and any overpayment of Carer's Allowance may be recovered. In addition I may be prosecuted or face a financial penalty.
+                We may wish to contact any current or previous employers, or other persons or organisations you have listed on this claim form to obtain information about your claim. You do not have to agree to this but if you do not, it may mean that we are unable to obtain enough information to satisfy ourselves that you meet the conditions of entitlement for your claim.
+
+                Please tick this box to confirm that you understand and make the declarations above. = yes
+                Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf. = yes
+
+                Do you live in Wales and would like to receive future communications in Welsh? No
+            </Declaration>
+            <EvidenceList>
+                <RecipientAddress>
+                    <Line>12 Preston Road</Line>
+                    <Line>Preston</Line>
+                    <Line>Lancashire</Line>
+                    <PostCode>PR1 2TH</PostCode>
+                </RecipientAddress>
+                <Evidence>
+                    <Title></Title>
+                    <Content>XML Generated at: 2013-10-31T13:41:54</Content>
+                </Evidence>
+                <Evidence>
+                    <Title></Title>
+                    <Content>Send us the following documents below including your Name and National Insurance (NI) number.</Content>
+                </Evidence><Evidence>
+                <Title></Title>
+                <Content>Your Employment documents.</Content>
+            </Evidence><Evidence>
+                <Title>Last payslip you got before your claim date: </Title>
+                <Content>01/01/2010</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>Any payslips you have had since then.</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>Any pension statements you may have.</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>Your Self-employed documents.</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>Most recent finalised accounts you have for your business.</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>Any pension statements you may have.</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>Send the above documents to:</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>CA Freepost</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>Palatine House</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>Preston</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>PR1 1HN</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>The Carer's Allowance unit will contact you if they need any further information.</Content>
+            </Evidence>
+                <Evidence>
+                    <Title>Is your partner/spouse the person you are claiming Carer's Allowance for? = </Title>
+                    <Content>Yes</Content>
+                </Evidence>
+                <Evidence/><Evidence>
+                <Title>Where was the person you care for during the break? = </Title>
+                <Content>Hospital</Content>
+            </Evidence><Evidence/><Evidence/><Evidence>
+                <Title>Where was the person you care for during the break? = </Title>
+                <Content>Nursing Home</Content>
+            </Evidence><Evidence/><Evidence/><Evidence>
+                <Title>Where was the person you care for during the break? = </Title>
+                <Content>Care Home</Content>
+            </Evidence><Evidence/><Evidence/><Evidence>
+                <Title>Where was the person you care for during the break? = </Title>
+                <Content>Nursing Home</Content>
+            </Evidence><Evidence/><Evidence>
+                <Title>Where were you during the break? Other detail = </Title>
+                <Content>Other text</Content>
+            </Evidence><Evidence>
+                <Title>Where was the person you care for during the break? = </Title>
+                <Content>Other</Content>
+            </Evidence><Evidence>
+                <Title>Where was the person you care for during the break? Other detail = </Title>
+                <Content>Other text</Content>
+            </Evidence>
+                <Evidence>
+                    <Title>Where did you go? = </Title>
+                    <Content>Bangor</Content>
+                </Evidence><Evidence>
+                <Title>Where did you go? = </Title>
+                <Content>Spain</Content>
+            </Evidence><Evidence>
+                <Title>Where did you go? = </Title>
+                <Content>USA</Content>
+            </Evidence>
+                <Evidence>
+                    <Title></Title>
+                    <Content>Employer:Tesco's</Content>
+                </Evidence><Evidence>
+                <Title>How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare expenses? = </Title>
+                <Content>120.12</Content>
+            </Evidence><Evidence>
+                <Title>How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = </Title>
+                <Content>Other</Content>
+            </Evidence><Evidence>
+                <Title>How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = </Title>
+                <Content>Quaterly</Content>
+            </Evidence><Evidence>
+                <Title>How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = </Title>
+                <Content>150.55</Content>
+            </Evidence><Evidence>
+                <Title>How often [[past=did you]] [[present=do you]] - expenses related to the person you care for? = </Title>
+                <Content>Other</Content>
+            </Evidence><Evidence>
+                <Title>How often [[past=did you]] [[present=do you]] Other - expenses related to the person you care for? = </Title>
+                <Content>Annually</Content>
+            </Evidence><Evidence>
+                <Title>How often other - Occupational Pension Scheme? = </Title>
+                <Content>Other frequency fo occupational scheme</Content>
+            </Evidence><Evidence>
+                <Title>How often other - Personal Pension Scheme? = </Title>
+                <Content>Another reason</Content>
+            </Evidence><Evidence>
+                <Title></Title>
+                <Content>Employer:Tesco's</Content>
+            </Evidence><Evidence>
+                <Title>What is the leaving date on your P45, if you have one? = </Title>
+                <Content>25/12/2010</Content>
+            </Evidence><Evidence>
+                <Title>About your wage,[[past=Did you]] [[present=Do you]] get the same amount each time? = </Title>
+                <Content>No</Content>
+            </Evidence><Evidence>
+                <Title>How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare expenses? = </Title>
+                <Content>120.12</Content>
+            </Evidence><Evidence>
+                <Title>How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = </Title>
+                <Content>Weekly</Content>
+            </Evidence><Evidence>
+                <Title>How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = </Title>
+                <Content>150.20</Content>
+            </Evidence><Evidence>
+                <Title>How often [[past=did you]] [[present=do you]] - expenses related to the person you care for? = </Title>
+                <Content>Fortnightly</Content>
+            </Evidence>
+                <Evidence>
+                    <Title>Are the income, outgoings and profit in these accounts similar to your current level of trading? = </Title>
+                    <Content>No</Content>
+                </Evidence><Evidence>
+                <Title>Please tell us why and when the change happened = </Title>
+                <Content>Depends on the seasons, and productivity of the fruit.</Content>
+            </Evidence><Evidence>
+                <Title>How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare? = </Title>
+                <Content>120</Content>
+            </Evidence><Evidence>
+                <Title>How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = </Title>
+                <Content>Weekly</Content>
+            </Evidence><Evidence>
+                <Title>How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = </Title>
+                <Content>450</Content>
+            </Evidence><Evidence>
+                <Title>How often [[past=did you]] [[present=do you]] - expenses related to person you care for? = </Title>
+                <Content>Other</Content>
+            </Evidence><Evidence>
+                <Title>How often [[past=did you]] [[present=do you]] Other - expenses related to person you care for? = </Title>
+                <Content>Other expenses frequency</Content>
+            </Evidence>
+            </EvidenceList>
+        </DWPCAClaim>
+    </DWPCATransaction>
+</DWPBody>
