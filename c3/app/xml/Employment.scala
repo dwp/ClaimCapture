@@ -17,7 +17,6 @@ object Employment {
         <QuestionLabel>job.started</QuestionLabel>
         {<Answer/> +++ Some(jobDetails.jobStartDate.`dd-MM-yyyy`)}
       </DateJobStarted>
-
       {if(!jobDetails.lastWorkDate.isEmpty){
         <DateJobEnded>
           <QuestionLabel>job.ended</QuestionLabel>
@@ -43,24 +42,15 @@ object Employment {
         case false => <EmployersPhoneNumber>{employerContactDetails.phoneNumber.orNull}</EmployersPhoneNumber>
         case true => NodeSeq.Empty
       }}
-      {jobDetails.p45LeavingDate.isEmpty match {
-      case false =>
+      {jobDetails.p45LeavingDate match {
+      case Some(n) => {
         <P45LeavingDate>
-        <QuestionLabel>TextPhoneContact?</QuestionLabel>
-          <Answer>{jobDetails.p45LeavingDate match {
-            case Some(n) => { n match {
-              case "yes" => XMLValues.Yes
-              case "no" => XMLValues.No
-              case n => n
-            }
-            }
-            case None => NodeSeq.Empty
-          }}</Answer>
+          <QuestionLabel>p45LeavingDate?</QuestionLabel>
+          {<Answer/> +++ Some(n.`dd-MM-yyyy`)}
         </P45LeavingDate>
-
-      case true => NodeSeq.Empty
-      }}
-
+      }
+      case None => NodeSeq.Empty
+    }}
     </Employer>
   }
 
@@ -75,7 +65,6 @@ object Employment {
         }
         case None => NodeSeq.Empty
       }}
-
       {if(!lastWage.lastPaidDate.isEmpty){
         <DateLastPaid>
           <QuestionLabel>job.lastpaid</QuestionLabel>
@@ -114,6 +103,20 @@ object Employment {
             <QuestionLabel>job.day</QuestionLabel>
             {<Answer/>+- additionalWageDetails.whenGetPaid}
           </UsualPayDay>}
+        case None => NodeSeq.Empty
+      }}
+      {lastWage.sameAmountEachTime match {
+        case Some(n) => {
+          <ConstantEarnings>
+            <QuestionLabel>sameAmountEachTime?</QuestionLabel>
+            <Answer>{n match {
+                case "yes" => XMLValues.Yes
+                case "no" => XMLValues.No
+                case n => n
+              }
+            }</Answer>
+          </ConstantEarnings>
+        }
         case None => NodeSeq.Empty
       }}
     </Pay>

@@ -57,6 +57,8 @@ object OtherBenefits {
           case n => n
         }}</Answer>
       </OtherMoney>
+
+      {
       <OtherMoneyPayments>
         <QuestionLabel>OtherMoneyPayments?</QuestionLabel>
         <Answer>{aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
@@ -65,7 +67,7 @@ object OtherBenefits {
           case n => n
         }}</Answer>
       </OtherMoneyPayments>
-
+      }
 
       {aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
           case "yes" =>{
