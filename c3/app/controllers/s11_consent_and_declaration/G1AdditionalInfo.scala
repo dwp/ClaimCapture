@@ -7,11 +7,12 @@ import models.domain._
 import play.api.data.Form
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
+import controllers.CarersForms
 
 object G1AdditionalInfo extends Controller with CachedClaim{
   val form = Form(
     mapping(
-      "anythingElse" -> optional(text(maxLength = 2000)),
+      "anythingElse" -> optional(CarersForms.carersText(maxLength = 2000)),
       "welshCommunication" -> nonEmptyText
     )(AdditionalInfo.apply)(AdditionalInfo.unapply))
 

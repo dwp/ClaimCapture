@@ -10,11 +10,12 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s10_pay_details.PayDetails._
 import app.AccountStatus
+import controllers.CarersForms
 
 object G2BankBuildingSocietyDetails extends Controller with PayDetailsRouting with CachedClaim {
   val form = Form(
     mapping(
-      "accountHolderName" -> nonEmptyText(maxLength = 40),
+      "accountHolderName" -> CarersForms.carersNonEmptyText(maxLength = 40),
       "whoseNameIsTheAccountIn" -> nonEmptyText,
       "bankFullName" -> nonEmptyText(maxLength = 100),
       "sortCode" -> (sortCode verifying requiredSortCode),
