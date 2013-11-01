@@ -23,7 +23,7 @@ object G3TimeOutsideUK extends Controller with CachedClaim with Navigable {
     "livingInUK" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "arrivalDate" -> optional(dayMonthYear.verifying(validDate)),
-      "originCountry" -> optional(carersText(maxLength = sixty)),
+      "originCountry" -> optional(carersText(maxLength = 35)),
       goBackMapping
     )(LivingInUK.apply)(LivingInUK.unapply)
       .verifying("arrivalDate", LivingInUK.validateDate _)
