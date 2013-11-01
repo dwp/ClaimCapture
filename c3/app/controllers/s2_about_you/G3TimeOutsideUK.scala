@@ -10,6 +10,7 @@ import utils.helpers.CarersForm._
 import models.yesNo.YesNoWithDate
 import models.LivingInUK
 import models.domain._
+import controllers.CarersForms._
 
 object G3TimeOutsideUK extends Controller with CachedClaim with Navigable {
   val goBackMapping =
@@ -22,7 +23,7 @@ object G3TimeOutsideUK extends Controller with CachedClaim with Navigable {
     "livingInUK" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo),
       "arrivalDate" -> optional(dayMonthYear.verifying(validDate)),
-      "originCountry" -> optional(text(maxLength = sixty)),
+      "originCountry" -> optional(carersText(maxLength = sixty)),
       goBackMapping
     )(LivingInUK.apply)(LivingInUK.unapply)
       .verifying("arrivalDate", LivingInUK.validateDate _)
