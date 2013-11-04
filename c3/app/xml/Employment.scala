@@ -1,6 +1,6 @@
 package xml
 
-import app.{PensionPaymentFrequency, XMLValues}
+import app.{PensionPaymentFrequency, StatutoryPaymentFrequency, XMLValues}
 import models.domain._
 import xml.XMLHelper._
 import app.XMLValues._
@@ -257,12 +257,43 @@ object Employment {
             case n => n
           }}</Answer>
         </CareExpensesChildren>
-
       <ChildCareExpenses>
         <CarerName>
           <QuestionLabel>child.carer</QuestionLabel>
           <Answer>{childcareExpenses.whoLooksAfterChildren}</Answer>
         </CarerName>
+        {childcareExpenses.howMuchCostChildcare.isEmpty match {
+        case false => {
+          <Expense>
+              {childcareExpenses.howMuchCostChildcare.isEmpty match {
+              case false => {
+                <Payment>
+                  <QuestionLabel>HowMuch?</QuestionLabel>
+                  <Answer>
+                    <Currency>{GBP}</Currency>
+                    <Amount>{childcareExpenses.howMuchCostChildcare}</Amount>
+                  </Answer>
+                </Payment>
+              }
+              case true => NodeSeq.Empty
+            }}
+              {Some(childcareExpenses.howOftenPayChildCare) match {
+              case Some(howOften) => {
+                <Frequency>
+                  <QuestionLabel>HowOften?</QuestionLabel>
+                  {howOften.frequency match {
+                  case "Other" => <Other>{howOften.other.orNull}</Other>
+                  case _ => NodeSeq.Empty
+                }}
+                  <Answer>{PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare)}</Answer>
+                </Frequency>
+              }
+              case _ => NodeSeq.Empty
+            }}
+          </Expense>
+        }
+        case _ => NodeSeq.Empty
+      }}
         <RelationshipCarerToClaimant>
           <QuestionLabel>child.care.rel.claimant</QuestionLabel>
           <Answer>{childcareExpenses.relationToYou}</Answer>
@@ -300,6 +331,38 @@ object Employment {
           <QuestionLabel>child.carer</QuestionLabel>
           <Answer>{personYouCareExpenses.whoDoYouPay}</Answer>
         </CarerName>
+        {personYouCareExpenses.howMuchCostCare.isEmpty match {
+        case false => {
+          <Expense>
+            {personYouCareExpenses.howMuchCostCare.isEmpty match {
+            case false => {
+              <Payment>
+                <QuestionLabel>HowMuch?</QuestionLabel>
+                <Answer>
+                  <Currency>{GBP}</Currency>
+                  <Amount>{personYouCareExpenses.howMuchCostCare}</Amount>
+                </Answer>
+              </Payment>
+            }
+            case true => NodeSeq.Empty
+          }}
+            {Some(personYouCareExpenses.howOftenPayCare) match {
+            case Some(howOften) => {
+              <Frequency>
+                <QuestionLabel>HowOften?</QuestionLabel>
+                {howOften.frequency match {
+                case "Other" => <Other>{howOften.other.orNull}</Other>
+                case _ => NodeSeq.Empty
+              }}
+                <Answer>{PensionPaymentFrequency.mapToHumanReadableString(personYouCareExpenses.howOftenPayCare)}</Answer>
+              </Frequency>
+            }
+            case _ => NodeSeq.Empty
+          }}
+          </Expense>
+        }
+        case _ => NodeSeq.Empty
+      }}
         <RelationshipCarerToClaimant>
           <QuestionLabel>child.care.rel.claimant</QuestionLabel>
           <Answer>{personYouCareExpenses.relationToYou}</Answer>

@@ -62,45 +62,6 @@ object EvidenceList {
     buffer
   }
 
-  def employment(claim: Claim) = {
-    claim.questionGroup[Jobs] match {
-      case Some(jobs) =>
-        var textLines = NodeSeq.Empty
-
-        for (job <- jobs) {
-
-          val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
-          val childcareExpenses = job.questionGroup[ChildcareExpenses].getOrElse(ChildcareExpenses())
-          val personYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
-          val pensionScheme = job.questionGroup[PensionSchemes].getOrElse(PensionSchemes())
-
-// Not present in the new question list, but there are what appear to be equivalents
-//          if (childcareExpenses.howMuchCostChildcare.nonEmpty)
-//            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare expenses? = ", childcareExpenses.howMuchCostChildcare)
-//          textLines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare))
-//          if (childcareExpenses.howOftenPayChildCare.other.isDefined)
-//            textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childcareExpenses.howOftenPayChildCare.other.get)
-
-// Not present in the new question list, but there are what appear to be equivalents
-//          if (personYouCareForExpenses.howMuchCostCare.nonEmpty)
-//            textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ", personYouCareForExpenses.howMuchCostCare)
-//          textLines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to the person you care for? = ", PensionPaymentFrequency.mapToHumanReadableString(personYouCareForExpenses.howOftenPayCare))
-//          if (personYouCareForExpenses.howOftenPayCare.other.isDefined)
-//            textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to the person you care for? = ", personYouCareForExpenses.howOftenPayCare.other.get)
-
-// Not present in the new question list, but there are what appear to be equivalents
-//          if (pensionScheme.howOftenPension.isDefined && pensionScheme.howOftenPension.get.frequency == PensionPaymentFrequency.Other)
-//            textLines ++= textLine("How often other - Occupational Pension Scheme? = ", pensionScheme.howOftenPension.get.other.getOrElse(""))
-//          if (pensionScheme.howOftenPersonal.isDefined && pensionScheme.howOftenPersonal.get.frequency == PensionPaymentFrequency.Other)
-//            textLines ++= textLine("How often other - Personal Pension Scheme? = ", pensionScheme.howOftenPersonal.get.other.getOrElse(""))
-        }
-
-        textLines
-      case None => NodeSeq.Empty
-    }
-  }
-
   def sectionEmpty(nodeSeq: NodeSeq) = {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
   }
