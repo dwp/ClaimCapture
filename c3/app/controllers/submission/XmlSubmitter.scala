@@ -9,6 +9,8 @@ import play.Configuration
 import models.domain.Claim
 import com.dwp.carers.s2.xml.validation.XmlValidator
 
+
+
 class XmlSubmitter extends Submitter {
   val transactionID = "TEST432"
 
@@ -30,20 +32,18 @@ println(fullXmlString)
   }
 
   def buildFullClaim(validator: XmlValidator, claimXML: Elem) =
-    <DWPBody xmlns:bs7666="http://www.govtalk.gov.uk/people/bs7666"
-             xmlns={validator.getGlobalXmlns}
-             xmlns:gds="http://www.govtalk.gov.uk/people/AddressAndPersonalDetails"
-             xmlns:dc="http://purl.org/dc/elements/1.1/"
-             xmlns:dcq="http://purl.org/dc/terms/"
-             xmlns:gms="http://www.govtalk.gov.uk/CM/gms"
-             xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation={validator.getSchemaLocation}>
-      <Version>0.9</Version>
+      <DWPBody  xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance"
+      xmlns:xs="http://www.w3.org/2001/XMLSchema"
+      xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation={validator.getSchemaLocation}>
+
+     <Version>0.9</Version>
       <DWPCATransaction>
         <TransactionId>{transactionID}</TransactionId>
         <DateTimeGenerated>02-10-2010 14:36</DateTimeGenerated>
         {claimXML}
       </DWPCATransaction>
+      {Signature.signatureXml}
     </DWPBody>
 }

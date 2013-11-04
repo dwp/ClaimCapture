@@ -90,6 +90,7 @@ object DWPCAClaim {
       }
       {Declaration.xml(claim)}
       {EvidenceList.buildXml(claim)}
+      {Consents.xml(claim)}
     </DWPCAClaim>
   }
 }

@@ -10,33 +10,13 @@ object  Declaration {
   def xml(claim: Claim) = {
 
     val additionalInfo = claim.questionGroup[AdditionalInfo].getOrElse(models.domain.AdditionalInfo())
-    val consent = claim.questionGroup[Consent].getOrElse(Consent())
     val disclaimer = claim.questionGroup[Disclaimer].getOrElse(Disclaimer())
     val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
 
     <Declaration>
-      {
-        consent.informationFromEmployer.answer match {
-          case Some(answer) => "Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? " + {titleCase(answer)}
-          case _ =>
-        }
-      }
-      {
-        consent.informationFromEmployer.answer.getOrElse("") match {
-          case "no" => "If you answered No please tell us why " + { consent.informationFromEmployer.text.orNull }
-          case _ =>
-        }
-      }
-
-      Do you agree to us getting information from any other person or organisation you have told us about as part of this claim? {titleCase(consent.informationFromPerson.answer)}
-      {
-      consent.informationFromPerson.answer match {
-        case "no" => "If you answered No please tell us why " + { consent.informationFromPerson.text.orNull }
-        case _ =>
-      }
-      }
-
       This is my claim for Carer's Allowance.
+
+      <!-- : Should be moved to disclaimer
       {Messages("disclaimer.1").replace("[[first name, middle name, surname]]", fullName(claim))}
       {Messages("disclaimer.2").replace("[[first name, middle name, surname]]", fullName(claim))}
       {Messages("disclaimer.3").replace("[[first name, middle name, surname]]", fullName(claim))}
@@ -45,7 +25,7 @@ object  Declaration {
       {Messages("disclaimer.6").replace("[[first name, middle name, surname]]", fullName(claim))}
       {Messages("disclaimer.7").replace("[[first name, middle name, surname]]", fullName(claim))}
       
-      Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits. = {booleanStringToYesNo(disclaimer.read)}
+      Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits. = {booleanStringToYesNo(disclaimer.read)} : Should be moved to disclaimer-->
 
       {Messages("declaration.1.pdf")}
       {Messages("declaration.2")}
@@ -56,7 +36,6 @@ object  Declaration {
       Please tick this box to confirm that you understand and make the declarations above. = {booleanStringToYesNo(declaration.read)}
       Please tick this box if this claim form has been filled in by someone else, if so, please ensure that you understand the declarations above as another person cannot make the declarations on your behalf. = {booleanStringToYesNo(stringify(declaration.someoneElse))}
 
-      Do you live in Wales and would like to receive future communications in Welsh? {titleCase(additionalInfo.welshCommunication)}
     </Declaration>
   }
 
