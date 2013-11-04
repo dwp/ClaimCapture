@@ -33,6 +33,15 @@ $(function() {
             $(this).text('Close');
         }
     });
+    
+    
+    
+    
+    
+    // Nino auto jump
+	$('#nationalInsuranceNumber_ni1, #nationalInsuranceNumber_ni2, #nationalInsuranceNumber_ni3, #nationalInsuranceNumber_ni4, #nationalInsuranceNumber_ni5').autotab_magic();
+    
+    
 
     // smooth scroll
     $('a[href^="#"]').bind('click.smoothscroll', function (e) {

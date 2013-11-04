@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 // view more / view less
     $('.helper-more').click(function(){
-       $(this).toggleClass("helper-less")
+       $(this).toggleClass("helper-less");
        $(this).next(".helper-info").slideToggle("medium");
        if($(this).text() === 'Close')
        {
@@ -36,8 +36,6 @@ $.extend($.datepicker, {
          }
     });
     
-    $("#start-date, #end-date").datepicker()
-
 
 $("#start-date, #end-date").datepicker({
 		dateFormat: 'dd/mm/yy',
