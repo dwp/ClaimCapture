@@ -54,11 +54,11 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
     "allow optional fields to be left blank when answer is yes" in {
       G5StatutorySickPay.form.bind(
         Map("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay,
+          "howMuch" -> howMuch,
           "employersName" -> employersName)).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
             f.haveYouHadAnyStatutorySickPay must equalTo(haveYouHadAnyStatutorySickPay)
-            f.howMuch must equalTo(None)
             f.howOften must equalTo(None)
             f.employersName must equalTo(Some(employersName))
             f.employersAddress must equalTo(None)
@@ -82,7 +82,7 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
         G5StatutorySickPay.form.bind(
           Map("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay)).fold(
             formWithErrors => {
-              formWithErrors.errors.length must equalTo(1)
+              formWithErrors.errors.length must equalTo(2)
               formWithErrors.errors(0).message must equalTo("employersName.required")
             },
             f => "This mapping should not happen." must equalTo("Valid"))

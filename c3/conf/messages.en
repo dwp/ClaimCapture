@@ -386,6 +386,7 @@ howOften = How often?
 error.paymentFrequency = Please tell us how often
 howMuch_howOften = '
 employersName = Employer''s name
+howMuch = How much
 employersAddress = Employer''s address
 employersAddress_street_lineOne = Employer''s street
 employersAddress.street = Employer''s street
