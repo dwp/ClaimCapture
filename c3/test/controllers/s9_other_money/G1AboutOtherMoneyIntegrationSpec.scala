@@ -38,7 +38,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       browser.click("#yourBenefits_answer_no")
       browser.click("#anyPaymentsSinceClaimDate_answer_no")
       browser.fill("#whoPaysYou") `with` "The Man"
-      browser.fill("#howMuch") `with` "Not much"
+      browser.fill("#howMuch") `with` "12"
       browser.submit("button[type='submit']")
       titleMustEqual("Statutory Sick Pay - About Other Money")
     }
@@ -67,7 +67,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
       claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
       claim.OtherMoneyWhoPaysYou = "The Man"
-      claim.OtherMoneyHowMuch = "Not much"
+      claim.OtherMoneyHowMuch = "12"
       claim.OtherMoneyHowOften = "other"
       claim.OtherMoneyHowOftenOther = "every day and twice on Sundays"
 
@@ -92,7 +92,7 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
         claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
         claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
         claim.OtherMoneyWhoPaysYou = "The Man"
-        claim.OtherMoneyHowMuch = "Not much"
+        claim.OtherMoneyHowMuch = "34"
         claim.OtherMoneyHowOften = "other"
         page goToThePage ()
         page fillPageWith claim

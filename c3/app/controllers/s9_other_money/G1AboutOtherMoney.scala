@@ -7,7 +7,7 @@ import play.api.data.Forms._
 import play.api.data.FormError
 import play.api.i18n.Messages
 import models.view.CachedClaim
-import models.domain.{Claim, AboutOtherMoney, MoreAboutYou}
+import models.domain.{StatutorySickPay, Claim, AboutOtherMoney, MoreAboutYou}
 import controllers.Mappings._
 import models.yesNo.YesNo
 import utils.helpers.CarersForm._
@@ -28,9 +28,26 @@ object G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
     yourBenefitsMapping,
     anyPaymentsSinceClaimDateMapping,
     "whoPaysYou" -> optional(nonEmptyText(maxLength = Name.maxLength)),
-    "howMuch" -> optional(nonEmptyText(maxLength = Name.maxLength)),
+    "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
     "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly)
-  )(AboutOtherMoney.apply)(AboutOtherMoney.unapply))
+  )(AboutOtherMoney.apply)(AboutOtherMoney.unapply)
+    .verifying("howMuch.required", validateHowMuch _)
+    .verifying("whoPaysYou.required", validateWhoPays _)
+  )
+
+  def validateWhoPays(aboutOtherMoney: AboutOtherMoney) = {
+    aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
+      case `yes` => aboutOtherMoney.whoPaysYou.isDefined
+      case _ => true
+    }
+  }
+
+  def validateHowMuch(aboutOtherMoney: AboutOtherMoney) = {
+    aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
+      case `yes` => aboutOtherMoney.howMuch.isDefined
+      case _ => true
+    }
+  }
 
   def hadPartnerSinceClaimDate(implicit claim: Claim): Boolean = claim.questionGroup(MoreAboutYou) match {
     case Some(m: MoreAboutYou) => m.hadPartnerSinceClaimDate == yes
@@ -49,6 +66,8 @@ object G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
                                                       claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))
 
         val formWithErrorsUpdate = formWithErrors
+          .replaceError("", "howMuch.required", FormError("howMuch", "error.required"))
+          .replaceError("", "whoPaysYou.required", FormError("whoPaysYou", "error.required"))
           .replaceError("yourBenefits.answer", FormError(yourBenefitsAnswerErrorMessage, "error.required"))
 
         BadRequest(views.html.s9_other_money.g1_aboutOtherMoney(formWithErrorsUpdate, hadPartnerSinceClaimDate))

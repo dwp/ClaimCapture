@@ -400,6 +400,8 @@ nameOfBenefit = Name of benefit
 # OTHER STATUTORY PAY
 otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
 howOften_frequency = How often
+whoPaysYou = Who pays you
+howMuch = How much
 
 # OTHER EEA STATE OR SWITZERLAND
 benefitsFromOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partner or parent you are dependent on, receiving any pensions or benefits from another EEA State or Switzerland?
