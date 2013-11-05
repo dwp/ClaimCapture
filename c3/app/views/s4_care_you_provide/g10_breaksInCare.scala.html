@@ -68,18 +68,7 @@
     @form(action = controllers.s4_care_you_provide.routes.G10BreaksInCare.submit) {
         <fieldset class="form-elements">
             <legend>@Messages("s4.g5")</legend>
-
-            <ul>
-                @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
-                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim))
-                }
-            </ul>
-
-            <div id="warningMessageWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
-                <p>We will contact you about more breaks in care.</p>
-                <span>!</span>
-            </div>
-
+            
             <div class="prompt helper-prompt">
                 <p>Enter all breaks you've had. Some of them might not affect your entitlement.</p>
 
@@ -92,6 +81,19 @@
                     <li>You were in hospital or on holiday without them..</li>
                 </ul>
             </div>
+
+            <ul>
+                @defining(if(breaksInCare.breaks == Nil || breaksInCare.breaks.isEmpty) {"answer.label"} else {"answer.more.label"}) { answerLabel =>
+                    @yesNoRadioGroup(yesNoForm("answer"), '_label -> Messages(answerLabel, dateOfClaimCheckIfSpent35HoursCaringBeforeClaim))
+                }
+            </ul>
+
+            <div id="warningMessageWrap" class="prompt breaks-prompt breaks-error-prompt" style="display: none;">
+                <p>We will contact you about more breaks in care.</p>
+                <span>!</span>
+            </div>
+
+            
 
         </fieldset>
 
