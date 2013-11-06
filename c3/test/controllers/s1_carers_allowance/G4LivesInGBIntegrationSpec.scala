@@ -3,14 +3,10 @@ package controllers.s1_carers_allowance
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.TestData
-import utils.pageobjects.s1_carers_allowance.G3Over16PageContext
-import utils.pageobjects.s1_carers_allowance.G3Over16Page
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.s1_carers_allowance.G4LivesInGBPageContext
-import utils.pageobjects.s1_carers_allowance.G5CarersResponsePage
 import utils.pageobjects.s1_carers_allowance.G6ApprovePage
 import utils.pageobjects.s1_carers_allowance.G4LivesInGBPage
-import scala.Some
 
 class G4LivesInGBIntegrationSpec extends Specification with Tags {
   "Carer's Allowance - Benefits - Integration" should {

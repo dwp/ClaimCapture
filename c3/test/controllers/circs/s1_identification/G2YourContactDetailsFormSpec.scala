@@ -17,9 +17,9 @@ class G2YourContactDetailsFormSpec extends Specification with Tags {
 
     "map data into case class" in {
       G2YourContactDetails.form.bind(
-        Map("address.street.lineOne" -> addressLineOne,
-          "address.town.lineTwo" -> addressLineTwo,
-          "address.town.lineThree" -> addressLineThree,
+        Map("address.lineOne" -> addressLineOne,
+          "address.lineTwo" -> addressLineTwo,
+          "address.lineThree" -> addressLineThree,
           "postcode" -> postCode,
           "phoneNumber" -> phoneNumber,
           "mobileNumber" -> mobileNumber
@@ -27,7 +27,7 @@ class G2YourContactDetailsFormSpec extends Specification with Tags {
       ).fold(
         formWithErrors => "This mapping should not happen." must equalTo("Error"),
         f => {
-          f.address.street.lineOne must equalTo(Some("one"))
+          f.address.lineOne must equalTo(Some("one"))
         }
       )
     }
@@ -44,7 +44,7 @@ class G2YourContactDetailsFormSpec extends Specification with Tags {
 
     "reject invalid postcode" in {
       G2YourContactDetails.form.bind(
-        Map("address.street.lineOne" -> addressLineOne, "postcode" -> "e1234")).fold(
+        Map("address.lineOne" -> addressLineOne, "postcode" -> "e1234")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
           formWithErrors.errors(0).message must equalTo("error.postcode")
@@ -54,7 +54,7 @@ class G2YourContactDetailsFormSpec extends Specification with Tags {
 
     "reject invalid phonenumber" in {
       G2YourContactDetails.form.bind(
-        Map("address.street.lineOne" -> addressLineOne, "phoneNumber" -> "123abc")).fold(
+        Map("address.lineOne" -> addressLineOne, "phoneNumber" -> "123abc")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
           formWithErrors.errors(0).message must equalTo("error.invalid")
@@ -64,7 +64,7 @@ class G2YourContactDetailsFormSpec extends Specification with Tags {
 
     "reject invalid mobileNumber" in {
       G2YourContactDetails.form.bind(
-        Map("address.street.lineOne" -> addressLineOne, "mobileNumber" -> "123def")).fold(
+        Map("address.lineOne" -> addressLineOne, "mobileNumber" -> "123def")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(1)
           formWithErrors.errors(0).message must equalTo("error.invalid")

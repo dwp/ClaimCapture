@@ -11,7 +11,7 @@ import models.view.CachedClaim
 
 class G2TheirContactDetailsSpec extends Specification with Mockito with Tags {
 
-  val theirContactDetailsInput = Seq("address.street.lineOne" -> "123 Street",
+  val theirContactDetailsInput = Seq("address.lineOne" -> "123 Street",
     "postcode" -> "PR2 8AE",
     "phoneNumber" -> "020-76541058")
 

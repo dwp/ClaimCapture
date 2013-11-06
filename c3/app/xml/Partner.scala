@@ -4,7 +4,6 @@ import models.domain._
 import XMLHelper.{stringify, postalAddressStructure}
 import scala.xml.NodeSeq
 import app.XMLValues._
-import models.Street
 
 object Partner {
 
@@ -24,7 +23,7 @@ object Partner {
         <Title>{yourPartnerPersonalDetails.title}</Title>
         <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
-        <Address>{postalAddressStructure(models.MultiLineAddress(Street(Some(NotAsked))), "")}</Address>
+        <Address>{postalAddressStructure(models.MultiLineAddress(Some(NotAsked)), "")}</Address>
         <ConfirmAddress>{yes}</ConfirmAddress>
         <RelationshipStatus>
           <JoinedHouseholdAfterDateOfClaim>{NotAsked}</JoinedHouseholdAfterDateOfClaim>

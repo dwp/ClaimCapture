@@ -10,9 +10,9 @@ class G2TheirContactDetailsFormSpec extends Specification with Tags {
 
     "map data into case class" in {
       G2TheirContactDetails.form.bind(
-        Map("address.street.lineOne" -> "lineOne",
-          "address.town.lineTwo" -> "lineTwo",
-          "address.town.lineThree" -> "lineThree",
+        Map("address.lineOne" -> "lineOne",
+          "address.lineTwo" -> "lineTwo",
+          "address.lineThree" -> "lineThree",
           "postcode" -> validPostcode,
           "phoneNumber" -> validPhoneNumber)).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
@@ -27,23 +27,23 @@ class G2TheirContactDetailsFormSpec extends Specification with Tags {
 
     "have a mandatory address" in {
       G2TheirContactDetails.form.bind(
-        Map("address.street.lineOne" -> "", "address.town.lineTwo" -> "", "address.town.lineThree" -> "", "postcode" -> "", "phoneNumber" -> "")).fold(
+        Map("address.lineOne" -> "", "address.lineTwo" -> "", "address.lineThree" -> "", "postcode" -> "", "phoneNumber" -> "")).fold(
           formWithErrors => formWithErrors.errors.head.message must equalTo("error.required"),
           theirContactDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject an invalid postcode" in {
       G2TheirContactDetails.form.bind(
-        Map("address.street.lineOne" -> "lineOne", "address.town.lineTwo" -> "", "address.town.lineThree" -> "", "postcode" -> "INVALID")).fold(
+        Map("address.lineOne" -> "lineOne", "address.lineTwo" -> "", "address.lineThree" -> "", "postcode" -> "INVALID")).fold(
           formWithErrors => formWithErrors.errors.head.message must equalTo("error.postcode"),
           theirContactDetails => "This mapping should not happen." must equalTo("Valid"))
     }
 
     "reject letters in a phone number" in {
       G2TheirContactDetails.form.bind(
-        Map("address.street.lineOne" -> "lineOne",
-          "address.town.lineTwo" -> "lineTwo",
-          "address.town.lineThree" -> "lineThree",
+        Map("address.lineOne" -> "lineOne",
+          "address.lineTwo" -> "lineTwo",
+          "address.lineThree" -> "lineThree",
           "postcode" -> validPostcode,
           "phoneNumber" -> "INVALID")).fold(
           formWithErrors => formWithErrors.errors.head.message must equalTo("error.invalid"),
