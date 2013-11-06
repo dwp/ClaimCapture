@@ -520,7 +520,7 @@ changeInCircs = Tell us about your change in circumstances
 lastName = Last name
 
 #DECLARATION
-obtainInfoAgreement = Do you agree to us obtaining information from any other persons or organisations you may have listed on this form?
+obtainInfoAgreement = Do you agree to us obtaining information from any other persons or organisations you may have told us about?
 obtainInfoWhy = Please tell us why not
 
 #ERROR MESSAGES

@@ -27,6 +27,10 @@
                 </ul>
             </article>
 
+            <div class="group declare">
+            @declareCheckPlaceholder(declarationForm("confirm"))
+            </div>
+
             <ul>
                 @yesNoRadioGroup(declarationForm("obtainInfoAgreement"))
                 @otherDetailPlaceHolder(
@@ -36,9 +40,6 @@
                     'display -> (if (claim.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration()).obtainInfoAgreement == "no" || declarationForm("obtainInfoAgreement").value.getOrElse("") == "no" ) "yes" else "no"))
 
             </ul>
-            <div class="group declare">
-                @declareCheckPlaceholder(declarationForm("confirm"))
-            </div>
         </fieldset>
 
         <nav class="form-steps">
