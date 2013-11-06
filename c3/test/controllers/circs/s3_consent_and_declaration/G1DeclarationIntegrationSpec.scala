@@ -53,7 +53,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Do you agree to us obtaining information from any other persons or organisations you may have listed on this form? - This is required")
+        errors(0) must contain("Do you agree to us obtaining information from any other persons or organisations you may have told us about? - This is required")
       }
 
       "given obtainInfoAgreement is set to 'no' missing obtainInfoWhy field" in new WithBrowser with G1DeclarationPageContext {
