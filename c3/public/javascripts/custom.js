@@ -39,7 +39,7 @@ $(function() {
     
     
     // Nino auto jump
-	$('#nationalInsuranceNumber_ni1, #nationalInsuranceNumber_ni2, #nationalInsuranceNumber_ni3, #nationalInsuranceNumber_ni4, #nationalInsuranceNumber_ni5').autotab_magic();
+	$('.ni-number input').autotab_magic();
     
     
 
