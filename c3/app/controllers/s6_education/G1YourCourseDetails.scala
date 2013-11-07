@@ -17,7 +17,7 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
     "startDate" -> optional(dayMonthYear.verifying(validDateOnly)),
     "expectedEndDate" -> optional(dayMonthYear.verifying(validDateOnly)),
     "finishedDate" -> optional(dayMonthYear.verifying(validDateOnly)),
-    "studentReferenceNumber" -> optional(text(maxLength = sixty))
+    "studentReferenceNumber" -> optional(carersText(maxLength = sixty))
   )(YourCourseDetails.apply)(YourCourseDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>

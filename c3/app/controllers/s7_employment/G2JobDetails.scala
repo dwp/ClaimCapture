@@ -21,7 +21,7 @@ object G2JobDetails extends Controller with CachedClaim with Navigable {
     "lastWorkDate" -> optional(dayMonthYear.verifying(validDate)),
     "p45LeavingDate" -> optional(dayMonthYear.verifying(validDateOnly)),
     "hoursPerWeek" -> optional(text(maxLength = 2).verifying(validNumber)),
-    "payrollEmployeeNumber" -> optional(text)
+    "payrollEmployeeNumber" -> optional(carersText)
   )(JobDetails.apply)(JobDetails.unapply))
 
   def job(jobID: String) = claiming { implicit claim => implicit request =>
