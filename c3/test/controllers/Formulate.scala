@@ -373,6 +373,24 @@ object Formulate {
     browser.submit("button[type='submit']")
   }
 
+  def statutorySickPay(browser: TestBrowser) = {
+    browser.goTo("/other-money/statutory-sick-pay")
+    browser.click("#haveYouHadAnyStatutorySickPay_yes")
+    browser.fill("#howMuch") `with` "1234"
+    browser.fill("#employersName") `with` "Some name"
+    browser.fill("#employersAddress_lineOne") `with` "Some address"
+    browser.submit("button[type='submit']")
+  }
+
+  def otherSickPay(browser: TestBrowser) = {
+    browser.goTo("/other-money/other-statutory-pay")
+    browser.click("#otherPay_yes")
+    browser.fill("#howMuch") `with` "1234"
+    browser.fill("#employersName") `with` "Some name"
+    browser.fill("#employersAddress_lineOne") `with` "Some address"
+    browser.submit("button[type='submit']")
+  }
+
   def personContactDetails(browser:TestBrowser) = {
     browser.goTo("/other-money/person-contact-details")
     browser.submit("button[type='submit']")

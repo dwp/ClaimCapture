@@ -13,7 +13,7 @@ import models.yesNo.YesNo
 import utils.helpers.CarersForm._
 import models.view.Navigable
 
-object G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
+object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
   val yourBenefitsMapping =
     "yourBenefits" -> mapping(
       "answer" -> nonEmptyText.verifying(validYesNo)
