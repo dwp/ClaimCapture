@@ -30,7 +30,7 @@ object G1Declaration extends Controller with CachedChangeOfCircs with Navigable 
           .replaceError("", "obtainInfoWhy", FormError("obtainInfoWhy", "error.required"))
         BadRequest(views.html.circs.s3_consent_and_declaration.g1_declaration(formWithErrorsUpdate))
       },
-      f => circs.update(f) -> Redirect("/circs-submit")
+      f => circs.update(f) -> Redirect(controllers.circs.s3_consent_and_declaration.routes.G2Submitting.present())
     )
   }
 }
