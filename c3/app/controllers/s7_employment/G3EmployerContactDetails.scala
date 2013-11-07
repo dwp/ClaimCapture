@@ -15,7 +15,7 @@ object G3EmployerContactDetails extends Controller with CachedClaim with Navigab
     "jobID" -> nonEmptyText,
     "address" -> address,
     "postcode" -> optional(text verifying validPostcode),
-    "phoneNumber" -> optional(text)
+    "phoneNumber" -> optional(text verifying validPhoneNumber)
   )(EmployerContactDetails.apply)(EmployerContactDetails.unapply))
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
