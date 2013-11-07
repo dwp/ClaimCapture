@@ -19,11 +19,11 @@
             <ul>
                 @titleSelect(currentForm("title"))
 
-                @carersInputText(currentForm("firstName"), 'maxLength -> Mappings.sixty)
+                @carersInputText(currentForm("firstName"), 'maxLength -> 35)
 
-                @carersInputText(currentForm("middleName"), 'maxLength -> Mappings.sixty)
+                @carersInputText(currentForm("middleName"), 'maxLength -> 35)
 
-                @carersInputText(currentForm("surname"), 'maxLength -> Mappings.sixty)
+                @carersInputText(currentForm("surname"), 'maxLength -> 35)
 
                 @nationalInsuranceNumber(currentForm("nationalInsuranceNumber"), 'helperBelow-> Messages("nationalInsuranceNumber.helper"))
 
