@@ -13,7 +13,7 @@
 
     @form(action = controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.submit) {
     
-        <fieldset class="form-elements">
+        <fieldset class="form-elements" data-journey="carers-allowance:page:care-you-provide">
             <legend>@Messages("s4.g1")</legend>
 
             <ul>
@@ -39,3 +39,8 @@
         </nav>
     }
 }
+<script type="text/javascript">
+    $(function(){
+        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
+    })
+</script>

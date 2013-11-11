@@ -14,7 +14,7 @@
 
 
     @form(action = controllers.s2_about_you.routes.G1YourDetails.submit) {
-        <fieldset class="form-elements">
+        <fieldset class="form-elements" data-journey="carers-allowance:page:about-you">
             <legend>@Messages("s2.g1")</legend>
 
             <ul>
@@ -46,3 +46,8 @@
         </nav>
     }
 }
+<script type="text/javascript">
+    $(function(){
+        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
+    })
+</script>

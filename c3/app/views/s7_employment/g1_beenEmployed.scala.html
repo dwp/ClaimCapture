@@ -11,7 +11,7 @@
 @import models.domain.Jobs
 
 @main("Your employment history - " + Messages("s7.longName"), Some(currentForm)) {
-    <fieldset id="jobs" class="form-elements results-detail">
+    <fieldset id="jobs" class="form-elements results-detail" data-journey="carers-allowance:page:employment">
         <legend>Employment you have added</legend>
 
         <table class="employment">
@@ -67,3 +67,8 @@
 }
 
 <script type="text/javascript" src='@routes.Assets.at("javascripts/s7_employment/jobs.js")'></script>
+<script type="text/javascript">
+    $(function(){
+        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
+    })
+</script>

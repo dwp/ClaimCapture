@@ -10,7 +10,7 @@
 
 	@form(action = controllers.s6_education.routes.G1YourCourseDetails.submit) {
 
-        <fieldset class="form-elements">
+        <fieldset class="form-elements" data-journey="carers-allowance:page:education">
             <legend>@Messages("s6.g1")</legend>
 
             <ul>
@@ -34,3 +34,8 @@
         </nav>
     }
 }
+<script type="text/javascript">
+    $(function(){
+        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
+    })
+</script>

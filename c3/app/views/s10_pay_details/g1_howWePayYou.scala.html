@@ -14,7 +14,7 @@
 
   
     @form(action = controllers.s10_pay_details.routes.G1HowWePayYou.submit) {
-        <fieldset class="form-elements">
+        <fieldset class="form-elements" data-journey="carers-allowance:page:pay-details">
             <legend>@Messages("s10.g1")</legend>
 
             <ul>
@@ -30,3 +30,8 @@
         </nav>
     }
 }
+<script type="text/javascript">
+    $(function(){
+        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
+    })
+</script>

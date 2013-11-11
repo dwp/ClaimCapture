@@ -13,7 +13,7 @@
 
     @form(action = controllers.s3_your_partner.routes.G1YourPartnerPersonalDetails.submit) {
     
-        <fieldset class="form-elements">
+        <fieldset class="form-elements" data-journey="carers-allowance:page:your-partner">
             <legend>@Messages("s3.g1")</legend>
 
             <ul>
@@ -43,3 +43,8 @@
         </nav>
     }
 }
+<script type="text/javascript">
+    $(function(){
+        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
+    })
+</script>

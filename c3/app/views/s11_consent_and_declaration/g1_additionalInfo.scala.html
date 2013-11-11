@@ -10,7 +10,7 @@
 
 @main(Messages("s11.g1") + " - " + Messages("s11.longName"), Some(currentForm)) {
     @form(action = controllers.s11_consent_and_declaration.routes.G1AdditionalInfo.submit) {
-        <fieldset class="form-elements">
+        <fieldset class="form-elements" data-journey="carers-allowance:page:consent-and-declaration">
             <legend>@Messages("s11.g1")</legend>
 
             <ul>
@@ -32,5 +32,6 @@
 <script type="text/javascript">
     $(function(){
         window.areaCounter({selector:"@CarersCrypto.encryptAES("anythingElse")",maxChars:2000});
+        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
     })
 </script>
