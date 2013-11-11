@@ -65,14 +65,14 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     response.status match {
       case http.Status.OK =>
         val responseStr = response.body
-        Logger.info(s"Received response : $responseStr")
+        Logger.info(s"Received response : $cacheKey : $responseStr")
         val responseXml = scala.xml.XML.loadString(responseStr)
         val result = (responseXml \\ "result").text
-        Logger.info(s"Received result : $result")
+        Logger.info(s"Received result : $cacheKey : $result")
         result match {
           case "response" => {
             idService.updateStatus(txnId, SUCCESS)
-            Logger.info(s"Successful submission : $txnId")
+            Logger.info(s"Successful submission : $cacheKey : $txnId")
             // Clear the cache to ensure no duplicate submission
             val key = request.session.get(cacheKey).orNull
             Cache.set(key, None)
@@ -89,7 +89,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           case "error" => {
             val errorCode = (responseXml \\ "errorCode").text
             idService.updateStatus(txnId, errorCode)
-            Logger.error(s"Received error : $result")
+            Logger.error(s"Received error : $cacheKey : $result")
             Redirect("/consent-and-declaration/error")
           }
           case _ => {
@@ -113,6 +113,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
   }
 
   private def errorAndCleanup(cacheKey:String, txnId: String, code: String): PlainResult = {
+    Logger.error(s"errorAndCleanup : $cacheKey : $txnId : $code")
     idService.updateStatus(txnId, code)
     Redirect(s"/error?key=$cacheKey")
   }
