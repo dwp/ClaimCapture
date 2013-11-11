@@ -13,10 +13,12 @@ import services.submission.FormSubmission
 import models.domain.Claim
 import ExecutionContext.Implicits.global
 import play.Configuration
+import models.view.{CachedChangeOfCircs, CachedClaim}
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : FormSubmission) extends Submitter {
 
-  val thankYouPageUrl = Configuration.root().getString("thankyou.page")
+  val claimThankYouPageUrl = Configuration.root().getString("claim.thankyou.page")
+  val cofcThankYouPageUrl = Configuration.root().getString("cofc.thankyou.page")
 
   override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
     retrieveRetryData(claim.key, request) match {
@@ -76,8 +78,12 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
             // Clear the cache to ensure no duplicate submission
             val key = request.session.get(cacheKey).orNull
             Cache.set(key, None)
-
-            Redirect(thankYouPageUrl)
+            cacheKey match {
+              case CachedClaim.key =>
+                Redirect(claimThankYouPageUrl)
+              case CachedChangeOfCircs.key =>
+                Redirect(cofcThankYouPageUrl)
+            }
           }
           case "acknowledgement" => {
             idService.updateStatus(txnId, ACKNOWLEDGED)
