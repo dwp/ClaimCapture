@@ -1,4 +1,3 @@
-import com.typesafe.config.ConfigFactory
 import sbt._
 import sbt.Keys._
 import play.Project._
@@ -18,7 +17,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-agent" % "2.2.1" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-actor" % "2.2.1" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.2.1" % "test" withSources() withJavadoc(),
-    "com.dwp.carers" %% "carerscommon" % "0.10",
+    "com.dwp.carers" %% "carerscommon" % "0.11",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "me.moocar" % "logback-gelf" % "0.9.6p2",
     "com.google.inject" % "guice" % "3.0",
