@@ -54,7 +54,6 @@ object DWPCAClaim {
         }}</Answer>
       </Employed>
       {Employment.xml(claim)}
-      <!--{PropertyRentedOut.xml(claim)}-->
       <HavePartner>
         <QuestionLabel>HavePartner?</QuestionLabel>
         <Answer>{moreAboutYou.hadPartnerSinceClaimDate match {
@@ -92,5 +91,6 @@ object DWPCAClaim {
       {EvidenceList.buildXml(claim)}
       {Consents.xml(claim)}
     </DWPCAClaim>
+
   }
 }

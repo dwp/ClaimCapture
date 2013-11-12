@@ -38,12 +38,8 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
       page goToThePage()
       val lastPage = page runClaimWith(claim, XmlPage.title, throwException = true)
 
-      println("*** lastPage: " + lastPage.source())
-
       lastPage match {
         case p: XmlPage => {
-          println("*** p: " + p.source())
-
           val validator = XmlValidatorFactory.buildCaValidator()
           validator.validate(p.source()) should beTrue
         }

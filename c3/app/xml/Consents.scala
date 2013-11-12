@@ -20,10 +20,11 @@ object Consents {
             <Consent>
               <QuestionLabel>Do you agree to us getting information from any current or previous employer you have told us about as part of this claim? </QuestionLabel>
               <Answer>{titleCase(answer)}</Answer>
-              {titleCase(answer) match{
+              {//TODO: Fix this
+               /*titleCase(answer) match{
                 case "No" => "If you answered No please tell us why " + { consent.informationFromEmployer.text.orNull }
                 case _ =>
-              }}
+              }*/}
             </Consent>
           case _ => NodeSeq.Empty
         }
@@ -35,10 +36,10 @@ object Consents {
           <Consent>
             <QuestionLabel>Do you agree to us getting information from any other person or organisation you have told us about as part of this claim? </QuestionLabel>
             <Answer>{titleCase(consent.informationFromPerson.answer)}</Answer>
-            {titleCase(consent.informationFromPerson.answer) match{
+            {/*titleCase(consent.informationFromPerson.answer) match{
             case "No" => "If you answered No please tell us why " + { consent.informationFromPerson.text.orNull }
             case _ =>
-          }}
+            }*/}
           </Consent>
           case _ => NodeSeq.Empty
         }
