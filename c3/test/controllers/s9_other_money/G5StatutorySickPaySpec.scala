@@ -13,7 +13,7 @@ class G5StatutorySickPaySpec extends Specification with Tags {
   "Other Money - Statutory Pay - Controller" should {
     val haveYouHadAnyStatutorySickPay = "yes"
     val howMuch = "123.45"
-    val howOften_frequency = "other"
+    val howOften_frequency = "Other"
     val howOften_frequency_other = "Every day and twice on Sundays"
     val employersName = "Johny B Good"
     val employersAddressLineOne =  "lineOne"

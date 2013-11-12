@@ -33,7 +33,7 @@ object XMLHelper {
   }
 
   def postalAddressStructure(addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
-    case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption.orNull.toUpperCase())
+    case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption.orNull.toUpperCase)
     case _ => postalAddressStructure(new MultiLineAddress(), postcodeOption.orNull)
   }
 
@@ -41,18 +41,18 @@ object XMLHelper {
 
   def postalAddressStructure(address: MultiLineAddress, postcode: String): Elem = {
     <Address>
-      {if(address.lineOne().isEmpty){NodeSeq.Empty}else{<Line>{address.lineOne().orNull}</Line>}}
-      {if(address.lineTwo().isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo().orNull}</Line>}}
-      {if(address.lineThree().isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree().orNull}</Line>}}
+      {if(address.lineOne.isEmpty){NodeSeq.Empty}else{<Line>{address.lineOne.orNull}</Line>}}
+      {if(address.lineTwo.isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo.orNull}</Line>}}
+      {if(address.lineThree.isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree.orNull}</Line>}}
       {if(postcode == null || postcode == "") NodeSeq.Empty else <PostCode>{postcode}</PostCode>}
     </Address>
   }
 
   def postalAddressStructureRecipientAddress(address: MultiLineAddress, postcode: String): Elem = {
     <RecipientAddress>
-      <Line>{address.lineOne().orNull}</Line>
-      {if(address.lineTwo().isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo().orNull}</Line>}}
-      {if(address.lineThree().isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree().orNull}</Line>}}
+      <Line>{address.lineOne.orNull}</Line>
+      {if(address.lineTwo.isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo.orNull}</Line>}}
+      {if(address.lineThree.isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree.orNull}</Line>}}
       {if(postcode == null || postcode == "") NodeSeq.Empty else <PostCode>{postcode}</PostCode>}
     </RecipientAddress>
   }

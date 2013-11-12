@@ -71,17 +71,14 @@ object Employment {
           {<Answer/> +++ Some(lastWage.lastPaidDate.get.`dd-MM-yyyy`)}
         </DateLastPaid>
       }}
-      {lastWage.grossPay match {
-        case Some(n) => {
-          <GrossPayment>
-            <QuestionLabel>job.pay</QuestionLabel>
-            <Answer>
-              <Currency>{GBP}</Currency>
-              <Amount>{lastWage.grossPay}</Amount>
-            </Answer>
-          </GrossPayment>}
-        case None => NodeSeq.Empty
-      }}
+      <GrossPayment>
+        <QuestionLabel>job.pay</QuestionLabel>
+        <Answer>
+          <Currency>{GBP}</Currency>
+          <Amount>{lastWage.grossPay}</Amount>
+        </Answer>
+      </GrossPayment>
+
 
       {lastWage.payInclusions match {
         case Some(n) => {
