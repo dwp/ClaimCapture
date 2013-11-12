@@ -1,0 +1,1 @@
+ALTER TABLE carerstransactions_db.public.transactionstatus ADD COLUMN type INTEGER;
