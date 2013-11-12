@@ -19,21 +19,21 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
   val thankYouPageUrl = Configuration.root().getString("thankyou.page")
 
   override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
-    retrieveRetryData(claim.key, request) match {
+    retrieveRetryData(claim, request) match {
       case Some(retryData) => {
         claimSubmission.retryClaim(pollXml(retryData.corrId, retryData.pollUrl)).map(
           response => {
-            processResponse(claim.key, retryData.txnId, response, request)
+            processResponse(claim, retryData.txnId, response, request)
           }
         ).recover {
           case e: java.net.ConnectException => {
             Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-            idService.updateStatus(retryData.txnId, COMMUNICATION_ERROR)
+            updateStatus(claim,retryData.txnId, COMMUNICATION_ERROR)
             Redirect("/consent-and-declaration/error")
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(RETRY) ! ${e.getMessage}")
-            errorAndCleanup(claim.key,retryData.txnId, UNKNOWN_ERROR)
+            errorAndCleanup(claim,retryData.txnId, UNKNOWN_ERROR)
           }
         }
       }
@@ -43,25 +43,25 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
         claimSubmission.submitClaim(xml(claim, txnID)).map(
           response => {
-            idService.registerId(txnID, SUBMITTED)
-            processResponse(claim.key, txnID, response, request)
+            registerId(claim,txnID, SUBMITTED)
+            processResponse(claim, txnID, response, request)
           }
         ).recover {
           case e: java.net.ConnectException => {
             Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-            idService.updateStatus(txnID, COMMUNICATION_ERROR)
+            updateStatus(claim,txnID, COMMUNICATION_ERROR)
             Redirect("/consent-and-declaration/error")
           }
           case e: java.lang.Exception => {
             Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
-            errorAndCleanup(claim.key, txnID, UNKNOWN_ERROR)
+            errorAndCleanup(claim, txnID, UNKNOWN_ERROR)
           }
         }
       }
     }
   }
 
-  private def processResponse(cacheKey:String, txnId: String, response: Response, request: Request[AnyContent]): PlainResult = {
+  private def processResponse(claim:Claim, txnId: String, response: Response, request: Request[AnyContent]): PlainResult = {
     response.status match {
       case http.Status.OK =>
         val responseStr = response.body
@@ -71,61 +71,61 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         Logger.info(s"Received result : $result")
         result match {
           case "response" => {
-            idService.updateStatus(txnId, SUCCESS)
+            updateStatus(claim,txnId, SUCCESS)
             Logger.info(s"Successful submission : $txnId")
             // Clear the cache to ensure no duplicate submission
-            val key = request.session.get(cacheKey).orNull
+            val key = request.session.get(claim.key).orNull
             Cache.set(key, None)
 
             Redirect(thankYouPageUrl)
           }
           case "acknowledgement" => {
-            idService.updateStatus(txnId, ACKNOWLEDGED)
+            updateStatus(claim,txnId, ACKNOWLEDGED)
             val correlationID = (responseXml \\ "correlationID").text
             val pollEndpoint = (responseXml \\ "pollEndpoint").text
-            storeRetryData(cacheKey,RetryData(correlationID, pollEndpoint, txnId), request)
+            storeRetryData(claim,RetryData(correlationID, pollEndpoint, txnId), request)
             Redirect("/consent-and-declaration/error")
           }
           case "error" => {
             val errorCode = (responseXml \\ "errorCode").text
-            idService.updateStatus(txnId, errorCode)
+            updateStatus(claim,txnId, errorCode)
             Logger.error(s"Received error : $result")
             Redirect("/consent-and-declaration/error")
           }
           case _ => {
             Logger.info(s"Received result : $result")
-            errorAndCleanup(cacheKey,txnId, UNKNOWN_ERROR)
+            errorAndCleanup(claim,txnId, UNKNOWN_ERROR)
           }
         }
       case http.Status.BAD_REQUEST =>
         Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}")
-        errorAndCleanup(cacheKey,txnId, BAD_REQUEST_ERROR)
+        errorAndCleanup(claim,txnId, BAD_REQUEST_ERROR)
       case http.Status.REQUEST_TIMEOUT =>
         Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}")
-        errorAndCleanup(cacheKey,txnId, REQUEST_TIMEOUT_ERROR)
+        errorAndCleanup(claim,txnId, REQUEST_TIMEOUT_ERROR)
       case http.Status.INTERNAL_SERVER_ERROR =>
         Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}")
-        errorAndCleanup(cacheKey,txnId, INTERNAL_SERVER_ERROR)
+        errorAndCleanup(claim,txnId, INTERNAL_SERVER_ERROR)
       case _ =>
         Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}")
-        errorAndCleanup(cacheKey,txnId, UNKNOWN_ERROR)
+        errorAndCleanup(claim,txnId, UNKNOWN_ERROR)
     }
   }
 
-  private def errorAndCleanup(cacheKey:String, txnId: String, code: String): PlainResult = {
-    idService.updateStatus(txnId, code)
-    Redirect(s"/error?key=$cacheKey")
+  private def errorAndCleanup(claim:Claim, txnId: String, code: String): PlainResult = {
+    updateStatus(claim,txnId, code)
+    Redirect(s"/error?key=${claim.key}")
   }
 
   case class RetryData(corrId: String, pollUrl: String, txnId: String)
 
-  private def storeRetryData(cacheKey:String, data:RetryData, request : Request[AnyContent]) {
-    val uuid = request.session.get(cacheKey)
+  private def storeRetryData(claim:Claim, data:RetryData, request : Request[AnyContent]) {
+    val uuid = request.session.get(claim.key)
     Cache.set(uuid+"_retry", data, 3000)
   }
 
-  private def retrieveRetryData(cacheKey:String, request : Request[AnyContent]) : Option[RetryData] = {
-    val uuid = request.session.get(cacheKey)
+  private def retrieveRetryData(claim:Claim, request : Request[AnyContent]) : Option[RetryData] = {
+    val uuid = request.session.get(claim.key)
     Cache.getAs[RetryData](uuid+"_retry")
   }
 
@@ -134,6 +134,14 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
       <correlationID>{correlationID}</correlationID>
       <pollEndpoint>{pollEndpoint}</pollEndpoint>
     </poll>
+  }
+
+  private def updateStatus(claim:Claim, id: String, statusCode: String) = {
+    idService.updateStatus(id, SUCCESS,claimType(claim))
+  }
+
+  private def registerId(claim:Claim, id: String, statusCode:String) = {
+    idService.registerId(id, SUBMITTED,claimType(claim))
   }
 
   val SUBMITTED = "0000"
