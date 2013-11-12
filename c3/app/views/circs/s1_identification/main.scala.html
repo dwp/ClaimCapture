@@ -19,7 +19,7 @@
                         @for(completedQuestionGroup <- completedQuestionGroups) {
                         <li>
                             <h3>@Messages(completedQuestionGroup.identifier.id)</h3>
-                            <a href="@claim.navigation(completedQuestionGroup.identifier)">Change these answers</a>
+                            <a href="@claim.navigation(completedQuestionGroup.identifier)?changing=true">Change these answers</a>
                         </li>
                         }
                     </ul>

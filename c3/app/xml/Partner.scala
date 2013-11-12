@@ -2,7 +2,7 @@ package xml
 
 import app.XMLValues
 import models.domain._
-import XMLHelper.{stringify}
+import XMLHelper.{stringify, postalAddressStructure}
 import scala.xml.NodeSeq
 import app.XMLValues._
 
@@ -28,6 +28,7 @@ object Partner {
         <Title>{yourPartnerPersonalDetails.title}</Title>
         <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
+        <Address>{postalAddressStructure(models.MultiLineAddress(Some(NotAsked)), "")}</Address>
         <NationalityPartner>{yourPartnerPersonalDetails.nationality.orNull}</NationalityPartner>
         <RelationshipStatus>
           <SeparatedFromPartner>

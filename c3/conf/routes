@@ -268,3 +268,6 @@ POST        /circumstances/additional-info/other-change                         
 
 GET         /circumstances/consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.present
 POST        /circumstances/consent-and-declaration/declaration                      controllers.circs.s3_consent_and_declaration.G1Declaration.submit
+
+GET         /circumstances/consent-and-declaration/submitting                       controllers.circs.s3_consent_and_declaration.G2Submitting.present
+POST        /circumstances/consent-and-declaration/submitting                       controllers.circs.s3_consent_and_declaration.G2Submitting.submit

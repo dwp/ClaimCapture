@@ -9,11 +9,12 @@ import utils.helpers.CarersForm.formBinding
 import controllers.Mappings._
 import models.domain.AddressOfSchoolCollegeOrUniversity
 import models.view.{Navigable, CachedClaim}
+import controllers.CarersForms._
 
 object G2AddressOfSchoolCollegeOrUniversity extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "nameOfSchoolCollegeOrUniversity" -> optional(text),
-    "nameOfMainTeacherOrTutor" -> optional(text),
+    "nameOfSchoolCollegeOrUniversity" -> optional(carersText(maxLength = sixty)),
+    "nameOfMainTeacherOrTutor" -> optional(carersText(maxLength = sixty)),
     "address" -> optional(address),
     "postcode" -> optional(text verifying validPostcode),
     "phoneNumber" -> optional(text verifying validPhoneNumber),

@@ -16,9 +16,10 @@ class G4LastWageSpec extends Specification with Tags {
       status(result) mustEqual OK
     }
 
-    """require only "job ID".""" in new WithApplication with Claiming {
+    """require "job ID" and "grossPay".""" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1")
+        .withFormUrlEncodedBody("jobID" -> "1",
+                                 "grossPay" ->"3")
 
       val result = G4LastWage.submit(request)
       status(result) mustEqual SEE_OTHER
@@ -35,7 +36,8 @@ class G4LastWageSpec extends Specification with Tags {
         "finishedThisJob" -> "yes"))
 
       val result = G4LastWage.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
-        .withFormUrlEncodedBody("jobID" -> "1"))
+        .withFormUrlEncodedBody("jobID" -> "1",
+        "grossPay" ->"3"))
 
       status(result) mustEqual SEE_OTHER
 

@@ -38,19 +38,10 @@ object Mappings {
     "from" -> dayMonthYear.verifying(validDate),
     "to" -> dayMonthYear.verifying(validDate))(PeriodFromTo.apply)(PeriodFromTo.unapply)
 
-  val street: Mapping[Street] = mapping(
-    "lineOne" -> optional(text(maxLength = 35).verifying(simpleTextLine).verifying(Constraints.nonEmpty))
-  )(Street.apply)(Street.unapply)
-
-  val town: Mapping[Town] = mapping(
-    "lineTwo" -> optional(text(maxLength = 35).verifying(simpleTextLine)),
-    "lineThree" -> optional(text(maxLength = 35).verifying(simpleTextLine))
-  )(Town.apply)(Town.unapply)
-
   val address: Mapping[MultiLineAddress] = mapping(
-    "street" -> (street verifying requiredStreet),
-    "town" -> optional(town)
-    )(MultiLineAddress.apply)(MultiLineAddress.unapply)
+    "lineOne" -> optional(text(maxLength = 35).verifying(simpleTextLine)),
+    "lineTwo" -> optional(text(maxLength = 35).verifying(simpleTextLine)),
+    "lineThree" -> optional(text(maxLength = 35).verifying(simpleTextLine)))(MultiLineAddress.apply)(MultiLineAddress.unapply).verifying(requiredAddress)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> nonEmptyText(maxLength = 35),
@@ -105,11 +96,8 @@ object Mappings {
     dayMonthYear(if (datePatterns.isEmpty) List(datePatternDefault, "dd/MM/yyyy") else datePatterns.toList)
   }
 
-  def requiredStreet: Constraint[Street] = Constraint[Street]("constraint.required") { street =>
-    street match {
-      case Street(s) if s.isDefined => Valid
-      case _ => Invalid(ValidationError("error.required"))
-    }
+  def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
+    if (a.lineOne.isEmpty) Invalid(ValidationError("error.required")) else Valid
   }
 
   def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") { sortCode =>
@@ -179,11 +167,6 @@ object Mappings {
     }
   }
 
-  def validNinoOnly: Constraint[NationalInsuranceNumber] = Constraint[NationalInsuranceNumber]("constraint.validNationalInsuranceNumber") {
-    nino =>
-      ninoValidation(nino)
-  }
-
   def validPostcode: Constraint[String] = Constraint[String]("constraint.postcode") { postcode =>
     val postcodePattern = """^(?i)(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z]))))[ ]?[0-9][A-Z]{2})$""".r
 
@@ -201,6 +184,21 @@ object Mappings {
       case false => Invalid(ValidationError("error.invalid"))
     }
   }
+
+
+  def validDecimalNumberRequired: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
+    val decimalPattern = """^[0-9]{1,12}(\.[0-9]{1,2})?$""".r
+
+    if(decimal != null && !decimal.isEmpty()) {
+      decimalPattern.pattern.matcher(decimal).matches match {
+        case true => Valid
+        case false => Invalid(ValidationError("decimal.invalid"))
+      }
+    } else {
+       Valid
+    }
+  }
+
 
   def validDecimalNumber: Constraint[String] = Constraint[String]("constraint.decimal") { decimal =>
     val decimalPattern = """^[0-9]{1,12}(\.[0-9]{1,2})?$""".r
@@ -258,16 +256,6 @@ object Mappings {
     nationalityPattern.pattern.matcher(nationality).matches match {
       case true => Valid
       case false => Invalid(ValidationError("error.nationality"))
-    }
-  }
-
-  def validForbiddenCharacters: Constraint[String] = Constraint[String]("constraint.forbiddenCharacters") { input =>
-    val forbiddenPattern = """.*[<>;].*""".r
-
-    forbiddenPattern.pattern.matcher(input).matches match {
-      case false => Valid
-      case true => Invalid(ValidationError("error.forbidden.characters"))
-
     }
   }
 

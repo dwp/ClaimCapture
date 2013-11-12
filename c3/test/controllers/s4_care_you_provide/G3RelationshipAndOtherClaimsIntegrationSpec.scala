@@ -3,9 +3,7 @@ package controllers.s4_care_you_provide
 import org.specs2.mutable.{ Tags, Specification }
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, Formulate}
-import utils.pageobjects.s8_self_employment.G1AboutSelfEmploymentPageContext
 import utils.pageobjects.TestData
-import utils.pageobjects.s3_your_partner.G4PersonYouCareForPageContext
 import utils.pageobjects.s4_care_you_provide.{G3RelationshipAndOtherClaimsPageContext, G3RelationshipAndOtherClaimsPage}
 
 class G3RelationshipAndOtherClaimsIntegrationSpec extends Specification with Tags {

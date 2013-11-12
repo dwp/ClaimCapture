@@ -7,9 +7,5 @@
 
 <label for="@CarersCrypto.encryptAES(field.id)">
     @{Space.*}
-    @labelOrId(field.id,args: _*)
-
-    @if(!field.constraints.find(_._1 == "constraint.required")) {
-        <em>(optional)</em>
-    }
+    @carersLabelText(field,args:_*)
 </label>

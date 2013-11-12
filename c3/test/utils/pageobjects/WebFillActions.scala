@@ -23,7 +23,7 @@ trait WebFillActions {
   def fillAddress(elementCssSelector: String, value: String) = if (null != value) {
 
     val lines =  value.split("&")
-    val extensions = Array("_street_lineOne", "_town_lineTwo", "_town_lineThree")
+    val extensions = Array("_lineOne", "_lineTwo", "_lineThree")
     for (i <- 0 to lines.size - 1) {
       fillInput(elementCssSelector + extensions(i), lines(i))
     }

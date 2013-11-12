@@ -12,13 +12,17 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import SelfEmployment._
 import models.view.Navigable
+import controllers.CarersForms._
+import play.api.data.FormError
+import models.domain.Claim
+import scala.Some
 
 object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "whatWasOrIsYourTradingYearFrom" -> optional(dayMonthYear.verifying(validDateOnly)),
     "whatWasOrIsYourTradingYearTo" -> optional(dayMonthYear.verifying(validDateOnly)),
     "areIncomeOutgoingsProfitSimilarToTrading" -> optional(text verifying validYesNo),
-    "tellUsWhyAndWhenTheChangeHappened" -> optional(nonEmptyText(maxLength = 300))
+    "tellUsWhyAndWhenTheChangeHappened" -> optional(carersNonEmptyText(maxLength = 300))
   )(SelfEmploymentYourAccounts.apply)(SelfEmploymentYourAccounts.unapply)
     .verifying("tellUsWhyAndWhenTheChangeHappened", validateChangeHappened _))
 

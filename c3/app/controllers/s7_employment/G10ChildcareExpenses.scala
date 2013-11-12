@@ -11,11 +11,12 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s7_employment.Employment._
 import utils.helpers.PastPresentLabelHelper._
+import controllers.CarersForms._
 
 object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
     "jobID" -> nonEmptyText,
-    "whoLooksAfterChildren" -> nonEmptyText,
+    "whoLooksAfterChildren" -> carersNonEmptyText(maxLength = sixty),
     "howMuchCostChildcare" -> nonEmptyText.verifying(validDecimalNumber),
     "howOftenPayChildCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "relationToYou" -> nonEmptyText,

@@ -5,7 +5,6 @@ import org.specs2.mutable.{Tags, Specification}
 import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate}
 import utils.pageobjects.s2_about_you.{G6EmploymentPage, G5MoreAboutYouPage, G1YourDetailsPageContext, G5MoreAboutYouPageContext}
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPage
-import play.api.i18n.Messages
 
 class G5MoreAboutYouIntegrationSpec extends Specification with Tags {
   "More About You" should {

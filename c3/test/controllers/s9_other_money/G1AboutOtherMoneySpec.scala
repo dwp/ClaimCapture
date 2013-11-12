@@ -15,7 +15,7 @@ class G1AboutOtherMoneySpec extends Specification with Tags {
     val yourBenefits = "yes"
     val anyPaymentsSinceClaimDate = "yes"
     val whoPaysYou = "The Man"
-    val howMuch = "Not much"
+    val howMuch = "12"
     val howOften_frequency = "other"
     val howOften_frequency_other = "Every day and twice on Sundays"
     val formInput = Seq("yourBenefits.answer" -> yourBenefits,

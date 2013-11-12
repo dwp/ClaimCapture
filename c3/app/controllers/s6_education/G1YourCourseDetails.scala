@@ -8,11 +8,12 @@ import models.view.{Navigable, CachedClaim}
 import models.domain.{Claim, YourCourseDetails}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
+import controllers.CarersForms._
 
 object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "courseType" -> optional(text(maxLength = sixty)),
-    "courseTitle" -> optional(text(maxLength = sixty)),
+    "courseType" -> optional(carersText(maxLength = 50)),
+    "courseTitle" -> optional(carersText(maxLength = 50)),
     "startDate" -> optional(dayMonthYear.verifying(validDateOnly)),
     "expectedEndDate" -> optional(dayMonthYear.verifying(validDateOnly)),
     "finishedDate" -> optional(dayMonthYear.verifying(validDateOnly)),

@@ -1,14 +1,14 @@
-@(approved: Boolean)(implicit claim: models.domain.Claim)
+@(approved: Boolean)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 
 @main("Can you get Carer's Allowance?", None, claim.completedQuestionGroups(models.domain.CarersAllowance)) {
     @if(approved) {
-        <div class="prompt">
+        <div class="prompt entitlement">
             <p>Based on your answers you may be entitled to Carer's Allowance.</p>
         </div>
     } else {
-        <div class="prompt error">
+        <div class="prompt entitlement-error">
             <h3>Based on your answers you may not be entitled to Carer's Allowance.</h3>
             <p>If your circumstances change, you may be entitled to Carer's Allowance <a href="https://www.gov.uk/carers-allowance/how-to-claim" target="_blank">Find out more about Carer's Allowance</a>.</p>
         </div>

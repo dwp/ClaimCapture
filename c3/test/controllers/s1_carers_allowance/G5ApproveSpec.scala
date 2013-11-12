@@ -22,7 +22,7 @@ class G5ApproveSpec extends Specification with Tags {
       Cache.set(claimKey, claim)
 
       val result = s1_carers_allowance.CarersAllowance.approve(request)
-      contentAsString(result) must contain("div class=\"prompt\"")
+      contentAsString(result) must contain("div class=\"prompt entitlement\"")
     }
 
     "note that the carer is not eligible for allowance" in new WithApplication with Claiming {
@@ -37,7 +37,7 @@ class G5ApproveSpec extends Specification with Tags {
 
       val result = s1_carers_allowance.CarersAllowance.approve(request)
 
-      contentAsString(result) must contain("div class=\"prompt error\"")
+      contentAsString(result) must contain("div class=\"prompt entitlement-error\"")
     }
   } section("unit", models.domain.CarersAllowance.id)
 }

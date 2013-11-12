@@ -1,7 +1,5 @@
 package controllers
 
-import app.{WhoseNameAccount, PaymentFrequency, AccountStatus}
-import utils.pageobjects.ClaimScenario
 import utils.pageobjects.TestData
 
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
@@ -344,7 +342,7 @@ object ClaimScenarioFactory {
     claim.OtherMoneyHaveYouClaimedOtherBenefits = "yes"
     claim.OtherMoneyAnyPaymentsSinceClaimDate = "yes"
     claim.OtherMoneyWhoPaysYou = "The Man"
-    claim.OtherMoneyHowMuch = "Not much"
+    claim.OtherMoneyHowMuch = "12"
     claim.OtherMoneyHowOften = "weekly"
     // G5 Statutory Sick Pay
     claim.OtherMoneyHaveYouSSPSinceClaim = "yes"

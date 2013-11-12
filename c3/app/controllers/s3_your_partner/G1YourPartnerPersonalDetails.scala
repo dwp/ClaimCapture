@@ -9,15 +9,17 @@ import models.domain.{Claim, YourPartnerPersonalDetails}
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm.formBinding
 import YourPartner._
+import controllers.CarersForms._
+import models.domain.Claim
 
 object G1YourPartnerPersonalDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "title" -> nonEmptyText(maxLength = 4),
-    "firstName" -> nonEmptyText(maxLength = Name.maxLength).verifying(validForbiddenCharacters),
-    "middleName" -> optional(text(maxLength = Name.maxLength).verifying(validForbiddenCharacters)),
-    "surname" -> nonEmptyText(maxLength = Name.maxLength).verifying(validForbiddenCharacters),
-    "otherNames" -> optional(text(maxLength = sixty)),
-    "nationalInsuranceNumber" -> optional(nino.verifying(validNinoOnly)),
+    "firstName" -> carersNonEmptyText(maxLength = Name.maxLength),
+    "middleName" -> optional(carersText(maxLength = Name.maxLength)),
+    "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
+    "otherNames" -> optional(carersText(maxLength = sixty)),
+    "nationalInsuranceNumber" -> optional(nino.verifying(validNino)),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     "nationality" -> optional(text.verifying(validNationality)),
     "separated.fromPartner" -> nonEmptyText.verifying(validYesNo)

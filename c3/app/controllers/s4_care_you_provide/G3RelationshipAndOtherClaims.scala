@@ -7,12 +7,14 @@ import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
 import models.domain.MoreAboutThePerson
 import utils.helpers.CarersForm._
+import controllers.Mappings._
 
 object G3RelationshipAndOtherClaims extends Controller with CachedClaim with Navigable {
-  val form = Form(mapping(
-    "relationship" -> nonEmptyText(maxLength = 20),
-    "armedForcesPayment" -> optional(text)
-  )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
+  val form = Form(
+    mapping(
+      "relationship" -> nonEmptyText(maxLength = 20),
+      "armedForcesPayment" -> nonEmptyText.verifying(validYesNo)
+    )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
 
   def present = claiming { implicit claim => implicit request =>
     track(MoreAboutThePerson) { implicit claim =>

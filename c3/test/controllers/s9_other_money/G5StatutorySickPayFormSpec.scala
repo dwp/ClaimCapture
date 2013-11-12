@@ -1,7 +1,7 @@
 package controllers.s9_other_money
 
 import org.specs2.mutable.{ Tags, Specification }
-import models.{Street, Town, MultiLineAddress, PaymentFrequency}
+import models.{MultiLineAddress, PaymentFrequency}
 
 class G5StatutorySickPayFormSpec extends Specification with Tags {
   "Statutory Sick Pay Form" should {
@@ -22,9 +22,9 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
           "howOften.frequency" -> howOften_frequency,
           "howOften.frequency.other" -> howOften_frequency_other,
           "employersName" -> employersName,
-          "employersAddress.street.lineOne" -> employersAddressLineOne,
-          "employersAddress.town.lineTwo" -> employersAddressLineTwo,
-          "employersAddress.town.lineThree" -> employersAddressLineThree,
+          "employersAddress.lineOne" -> employersAddressLineOne,
+          "employersAddress.lineTwo" -> employersAddressLineTwo,
+          "employersAddress.lineThree" -> employersAddressLineThree,
           "employersPostcode" -> employersPostcode)).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
@@ -32,7 +32,7 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
             f.howMuch must equalTo(Some(howMuch))
             f.howOften must equalTo(Some(PaymentFrequency(howOften_frequency, Some(howOften_frequency_other))))
             f.employersName must equalTo(Some(employersName))
-            f.employersAddress must equalTo(Some(MultiLineAddress(Street(Some(employersAddressLineOne)), Some(Town(Some(employersAddressLineTwo), Some(employersAddressLineThree))))))
+            f.employersAddress must equalTo(Some(MultiLineAddress(Some(employersAddressLineOne), Some(employersAddressLineTwo), Some(employersAddressLineThree))))
             f.employersPostcode must equalTo(Some(employersPostcode))
           })
     }
@@ -54,11 +54,11 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
     "allow optional fields to be left blank when answer is yes" in {
       G5StatutorySickPay.form.bind(
         Map("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay,
+          "howMuch" -> howMuch,
           "employersName" -> employersName)).fold(
           formWithErrors => "This mapping should not happen." must equalTo("Error"),
           f => {
             f.haveYouHadAnyStatutorySickPay must equalTo(haveYouHadAnyStatutorySickPay)
-            f.howMuch must equalTo(None)
             f.howOften must equalTo(None)
             f.employersName must equalTo(Some(employersName))
             f.employersAddress must equalTo(None)
@@ -82,7 +82,7 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
         G5StatutorySickPay.form.bind(
           Map("haveYouHadAnyStatutorySickPay" -> haveYouHadAnyStatutorySickPay)).fold(
             formWithErrors => {
-              formWithErrors.errors.length must equalTo(1)
+              formWithErrors.errors.length must equalTo(2)
               formWithErrors.errors(0).message must equalTo("employersName.required")
             },
             f => "This mapping should not happen." must equalTo("Valid"))
@@ -95,9 +95,9 @@ class G5StatutorySickPayFormSpec extends Specification with Tags {
           "howOften.frequency" -> howOften_frequency,
           "howOften.frequency.other" -> "",
           "employersName" -> employersName,
-          "employersAddress.street.lineOne" -> employersAddressLineOne,
-          "employersAddress.town.lineTwo" -> employersAddressLineTwo,
-          "employersAddress.town.lineThree" -> employersAddressLineThree,
+          "employersAddress.lineOne" -> employersAddressLineOne,
+          "employersAddress.lineTwo" -> employersAddressLineTwo,
+          "employersAddress.lineThree" -> employersAddressLineThree,
           "employersPostcode" -> employersPostcode)).fold(
             formWithErrors => {
               formWithErrors.errors.length must equalTo(1)

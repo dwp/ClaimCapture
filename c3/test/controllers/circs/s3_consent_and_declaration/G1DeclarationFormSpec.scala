@@ -21,6 +21,18 @@ class G1DeclarationFormSpec extends Specification with Tags {
         }
       )
     }
+
+    "reject special characters in text fields" in {
+      G1Declaration.form.bind(
+        Map("obtainInfoAgreement" -> infoAgreement, "obtainInfoWhy" -> "whyé", "confirm" -> confirm)
+      ).fold(
+        formWithErrors => {
+          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors(0).message must equalTo("error.restricted.characters")
+        },
+        f => "This mapping should not happen." must equalTo("Valid"))
+    }
+
   } section("unit", models.domain.CircumstancesConsentAndDeclaration.id)
 
 }

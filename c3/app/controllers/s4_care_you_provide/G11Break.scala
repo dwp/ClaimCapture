@@ -14,8 +14,8 @@ import models.domain.Break
 object G11Break extends Controller with CachedClaim {
   val form = Form(mapping(
     "breakID" -> nonEmptyText,
-    "start" -> required(dayMonthYear()),
-    "end" -> optional(dayMonthYear()),
+    "start" -> (dayMonthYear verifying validDate),
+    "end" -> optional(dayMonthYear verifying validDateOnly),
     "whereYou" -> whereabouts.verifying(requiredWhereabouts),
     "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
     "medicalDuringBreak" -> nonEmptyText
@@ -28,12 +28,10 @@ object G11Break extends Controller with CachedClaim {
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val startTimeFormError = FormError("start.time", "error.required")
-        val endTimeFormError = FormError("start.time", "error.required")
-
-        val fwe = formWithErrors.replaceError("start.hour", startTimeFormError).replaceError("start.minutes", startTimeFormError)
-                                .replaceError("end.hour", endTimeFormError).replaceError("end.minutes", endTimeFormError)
-
+        val fwe = formWithErrors
+        .replaceError("whereYou.location", "error.required", FormError("whereYou","error.required",Seq("This is required")))
+        .replaceError("wherePerson.location", "error.required", FormError("wherePerson","error.required",Seq("This is required")))
+        .replaceError("start.date","error.required", FormError("start","error.required", Seq("This is required")))
         BadRequest(views.html.s4_care_you_provide.g11_break(fwe))
       },
       break => {

@@ -1,6 +1,5 @@
 package app.claim
 
-import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.{XmlPage, TestData, Page}

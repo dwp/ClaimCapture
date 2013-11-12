@@ -114,7 +114,7 @@ class AboutYouSpec extends Specification with Tags {
     "not complain about a valid Postcode" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
-        "address.street.lineOne" -> "123 Street",
+        "address.lineOne" -> "123 Street",
         "postcode" -> "PR2 8AE")
 
       val result = G2ContactDetails.submit(request)
@@ -124,7 +124,7 @@ class AboutYouSpec extends Specification with Tags {
     "complain about an invalid Postcode" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
-        "address.street.lineOne" -> "123 Street",
+        "address.lineOne" -> "123 Street",
         "postcode" -> "1234567890")
 
       val result = G2ContactDetails.submit(request)
@@ -134,9 +134,9 @@ class AboutYouSpec extends Specification with Tags {
     "complain about an empty Address" in new WithApplication with Claiming {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody(
-        "address.street.lineOne" -> "",
-        "address.town.lineTwo" -> "",
-        "address.town.lineThree" -> "")
+        "address.lineOne" -> "",
+        "address.lineTwo" -> "",
+        "address.lineThree" -> "")
 
       val result = G2ContactDetails.submit(request)
       status(result) mustEqual BAD_REQUEST

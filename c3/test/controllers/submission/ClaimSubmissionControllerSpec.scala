@@ -7,9 +7,8 @@ import models.yesNo._
 import org.specs2.mock.Mockito
 import play.api.cache.Cache
 import play.api.test.{FakeRequest, WithApplication}
-import jmx.{JMXActors}
+import jmx.JMXActors
 import java.util.concurrent.TimeUnit
-import models.Street
 import models.MultiLineAddress
 import models.domain.Claim
 import models.yesNo.YesNo
@@ -250,7 +249,7 @@ class ClaimSubmissionControllerSpec extends Specification with Mockito with Cach
     }
 
     "returns true given StatutorySickPay answered no and honeyPot employersAddress filled" in {
-      val claim = Claim().update(StatutorySickPay(haveYouHadAnyStatutorySickPay = "no", employersAddress = Some(MultiLineAddress(Street(Some("some lineOne"))))))
+      val claim = Claim().update(StatutorySickPay(haveYouHadAnyStatutorySickPay = "no", employersAddress = Some(MultiLineAddress(Some("some lineOne")))))
       controller.honeyPot(claim) should beTrue
     }
 
@@ -285,7 +284,7 @@ class ClaimSubmissionControllerSpec extends Specification with Mockito with Cach
     }
 
     "returns true given OtherStatutoryPay answered no and honeyPot employersAddress filled" in {
-      val claim = Claim().update(OtherStatutoryPay(otherPay = "no", employersAddress = Some(MultiLineAddress(Street(Some("some lineOne"))))))
+      val claim = Claim().update(OtherStatutoryPay(otherPay = "no", employersAddress = Some(MultiLineAddress(Some("some lineOne")))))
       controller.honeyPot(claim) should beTrue
     }
 

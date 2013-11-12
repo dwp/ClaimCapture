@@ -1,4 +1,15 @@
 
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('fonts/fontawesome-webfont.eot?v=3.2.1');
+  src: url('fonts/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'),
+  url('fonts/fontawesome-webfont.woff?v=3.2.1') format('woff'),
+  url('fonts/fontawesome-webfont.ttf?v=3.2.1') format('truetype'),
+  url('fonts/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 main {
 	background: #fff;
 	border-bottom: 10px solid #f47738;
@@ -6,9 +17,11 @@ main {
 }
 
 
+
+
 .carers-allowance {
    background: #fff;
-   padding: 0 1em 2em 1em;
+   padding: 0 1em 4em 1em;
    margin: 0 auto;
    max-width: 980px;
    .ie6 & {
@@ -55,12 +68,41 @@ main {
 		   }
 	   }
  
+ 
+ 
+   /* Claim info */
+   .claim-info {
+	   margin: 0;
+	   padding: 10px 1.2em 10px 0;
+	   list-style: none;
+	   text-align: right;
+	   li {
+		   margin-left: 15px;
+		   display: inline;
+		   &:first-child {
+			   border: 0;
+			   margin: 0;
+			   padding: 0;
+		   }
+		   a {
+			   font-size: 14px;
+			   color: #000;
+			   font-weight: 500;
+			   display: inline-block;
+			   padding-top: 5px;
+			   &:hover {
+				   color: #315843;
+			   }
+		   }
+	   }
+   }
    
    
    
    /* progress steps */
    .progress-steps {
 	   border-top: 10px solid #f47738;
+	   padding-bottom: .5em;
 	   @media screen and (max-width: 760px)
 	     {border-top: 0;}
 	     clear: both;
@@ -68,7 +110,7 @@ main {
 		   list-style: none;
 		   margin: 0;
 		   overflow: hidden;
-		   padding: 2.5em 0 0.3em 0;
+		   padding: 1.8em 0 0.3em 0;
 		    @media screen and (max-width: 760px)
 		     {padding-top: 2em;}
 		   .ie6 &, .ie7 &, .ie8 & {
@@ -336,7 +378,7 @@ main {
 			article {
 				float: left;
 				width: 30%;
-				margin: 2em 0 1em 5%;
+				margin: 2em 0 2em 5%;
 				@media screen and (max-width: 640px) {
 					width: 100%;
 					float: none;
@@ -398,6 +440,17 @@ main {
 							font-size: 19px;
 						}
 					}
+			}
+			&.security-message {
+				margin-bottom: 1em;
+				font-size: 1.6rem;
+				.ie & {
+					font-size: 16px;
+				}
+				strong {
+					font-weight: 600;
+					text-decoration: underline;
+				}
 			}
 	   }
 	   ul {
@@ -545,7 +598,7 @@ main {
 	   	    @media screen and (max-width: 640px) {padding-left: 2.6em;}
 	   	    legend {
 		   	    padding: .12em 0 1em 1.56em;
-		   	    margin-left: -1.62em;
+		   	    margin-left: -1.64em;
 		   	    color: inherit;
 		   	    .ie7 & {
 			   	    display: block;
@@ -609,7 +662,7 @@ main {
 		   	   line-height: 1em;
 		   	   position: absolute;
 		   	   top: 1px; 
-		   	   left: 0;
+		   	   left: 1px;
 		   	   .ie & {
 			   	   font-size: 15px;
 		   	   }
@@ -718,7 +771,7 @@ main {
 			   }
 			   
 			   &.date-picker {
-				   input[type="tel"] {
+				   input[type="tel"], input[type="date"] {
 					   cursor: pointer;
 					   position: relative;
 					   &:before {
@@ -734,7 +787,7 @@ main {
 						   -webkit-font-smoothing: antialiased;
 					   }
 					   .ie7 & {
-						   background: url('../img/date.png') 97% center no-repeat;
+						   background: url('../images/date.png') 97% center no-repeat;
 					   }
 				   }
 			   }
@@ -832,7 +885,7 @@ main {
 			   }
 			  
 			   
-			   input[type="text"], input[type="number"], input[type="tel"], textarea {
+			   input[type="text"], input[type="number"], input[type="tel"], input[type="date"], textarea {
 				    background: #f9f9f9;
 					border: 1px solid #a2a2a2;
 					font-size: 1.9rem;
@@ -1234,7 +1287,7 @@ main {
 		   border: 1px solid #a2a2a2;
 		   padding: 1em 1.5em 1em 1em;
 		   p {
-			   font-size: 1.6rem;
+			   font-size: 1.7rem;
 			   line-height: 1.25em;
 			   margin-top: 1em;
 			   &:first-child {
@@ -1269,12 +1322,12 @@ main {
 			   display: block;
 			   padding: 1em 1em 1em 2.3em;
 			   background: #eee;
-			   font-size: 1.6rem;
+			   font-size: 1.7rem;
 			   line-height: 1.25em;
 			   cursor: pointer;
 			   border: 1px solid #a2a2a2;
 			   .ie & {
-				   font-size: 16px;
+				   font-size: 17px;
 			   }
 		   }
 		   input {
@@ -1472,6 +1525,14 @@ main {
 				    }
 			    }
 		   }
+	   }
+	   
+	   &.entitlement {
+		   background: #fff; border: 1px solid #a2a2a2;
+	   }
+	   
+	   &.entitlement-error {
+		   background: #fef7f7; border: 3px solid #df3034;
 	   }
 	  
 	   &.breaks-prompt {
@@ -1783,23 +1844,7 @@ main {
 
 
 
-/* datepicker */
 
-.picker__header select {
-	width: auto;
-	max-width: auto!important;
-	min-width: 10px!important;
-}
-
-
-.ie7 .date-stack {
-	zoom: 1;
-}
-
-.ie7 .picker__holder {
-	max-width: 650px;
-	max-height: 800px!important;
-}
 
 /* ==========================================================================
    clearfix
@@ -1836,3 +1881,8 @@ html {background: #dee0e2!important;}
 .carers-allowance-footer {padding-top: 30px!important; padding-bottom: 30px!important;}
 .carers-allowance-footer .footer-meta {border-top: none!important; padding-top: 0!important; padding-bottom: 0!important; margin-top: 0!important;}
 .carers-allowance-footer .footer-meta .copyright {position: relative; top: 2px;}
+#footer .footer-meta nav {
+	@media screen and (max-width: 640px) {
+		text-align: center;
+		}
+}

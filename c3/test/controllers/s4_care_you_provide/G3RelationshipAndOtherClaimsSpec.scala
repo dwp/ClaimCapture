@@ -33,7 +33,7 @@ class G3RelationshipAndOtherClaimsSpec extends Specification with Mockito with T
       section.questionGroup(MoreAboutThePerson) must beLike {
         case Some(m: MoreAboutThePerson) => {
           m.relationship mustEqual "Father"
-          m.armedForcesPayment mustEqual Some("yes")
+          m.armedForcesPayment mustEqual "yes"
         }
       }
     }

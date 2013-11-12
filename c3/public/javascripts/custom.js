@@ -33,6 +33,15 @@ $(function() {
             $(this).text('Close');
         }
     });
+    
+    
+    
+    
+    
+    // Nino auto jump
+	$('.ni-number input').autotab_magic();
+    
+    
 
     // smooth scroll
     $('a[href^="#"]').bind('click.smoothscroll', function (e) {

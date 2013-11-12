@@ -8,6 +8,7 @@ import models.view.{Navigable, CachedChangeOfCircs}
 import controllers.Mappings._
 import models.domain.DetailsOfThePersonYouCareFor
 import utils.helpers.CarersForm._
+import controllers.CarersForms._
 
 object G3DetailsOfThePersonYouCareFor extends Controller with CachedChangeOfCircs with Navigable {
   val firstName = "firstName"
@@ -17,9 +18,9 @@ object G3DetailsOfThePersonYouCareFor extends Controller with CachedChangeOfCirc
   val dateOfBirth = "dateOfBirth"
 
   val form = Form(mapping(
-    firstName -> nonEmptyText(maxLength = Name.maxLength),
-    middleName -> optional(text(maxLength = Name.maxLength)),
-    lastName -> nonEmptyText(maxLength = Name.maxLength),
+    firstName -> carersNonEmptyText(maxLength = Name.maxLength),
+    middleName -> optional(carersText(maxLength = Name.maxLength)),
+    lastName -> carersNonEmptyText(maxLength = Name.maxLength),
     nationalInsuranceNumber -> nino.verifying(filledInNino, validNino),
     dateOfBirth -> dayMonthYear.verifying(validDate)
   )(DetailsOfThePersonYouCareFor.apply)(DetailsOfThePersonYouCareFor.unapply))

@@ -10,15 +10,18 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import controllers.s10_pay_details.PayDetails._
 import app.AccountStatus
+import controllers.CarersForms._
+import models.domain.Claim
+import scala.Some
 
 object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "accountHolderName" -> nonEmptyText(maxLength = 40),
-    "whoseNameIsTheAccountIn" -> nonEmptyText,
-    "bankFullName" -> nonEmptyText(maxLength = 100),
+    "accountHolderName" -> carersNonEmptyText(maxLength = 40),
+    "whoseNameIsTheAccountIn" -> carersNonEmptyText(maxLength = 40),
+    "bankFullName" -> carersNonEmptyText(maxLength = 100),
     "sortCode" -> (sortCode verifying requiredSortCode),
-    "accountNumber" -> nonEmptyText(minLength = 6, maxLength = 10),
-    "rollOrReferenceNumber" -> text(maxLength = 18)
+    "accountNumber" -> carersNonEmptyText(minLength = 6, maxLength = 10),
+    "rollOrReferenceNumber" -> carersText(maxLength = 18)
   )(BankBuildingSocietyDetails.apply)(BankBuildingSocietyDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>

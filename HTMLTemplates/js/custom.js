@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 // view more / view less
     $('.helper-more').click(function(){
-       $(this).toggleClass("helper-less")
+       $(this).toggleClass("helper-less");
        $(this).next(".helper-info").slideToggle("medium");
        if($(this).text() === 'Close')
        {
@@ -28,6 +28,14 @@ $('a[href^="#"]').bind('click.smoothscroll',function (e) {
     });
 }); 
 
+
+
+$.extend($.datepicker, {
+         _doKeyDown: function(event){
+               console.log("test");
+         }
+    });
+    
 
 $("#start-date, #end-date").datepicker({
 		dateFormat: 'dd/mm/yy',

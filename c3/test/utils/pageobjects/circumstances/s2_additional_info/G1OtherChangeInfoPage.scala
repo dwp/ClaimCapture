@@ -8,7 +8,7 @@ final class G1OtherChangeInfoPage(browser: TestBrowser, previousPage: Option[Pag
 }
 
 object G1OtherChangeInfoPage {
-  val title = "Other Change Information - Additional Info".toLowerCase
+  val title = "Other Change Information - change in circumstances".toLowerCase
 
   val url  = "/circumstances/additional-info/other-change"
 

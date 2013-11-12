@@ -7,7 +7,7 @@ import play.api.cache.Cache
 import models.domain.{Claiming, Claim, Section}
 import play.api.test.Helpers._
 import models.domain.AddressOfSchoolCollegeOrUniversity
-import models.{Street, MultiLineAddress, domain}
+import models.{MultiLineAddress, domain}
 import controllers.s6_education
 import models.view.CachedClaim
 
@@ -22,9 +22,9 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
       
     val addressOfSchoolCollegeOrUniversityInput = Seq("nameOfSchoolCollegeOrUniversity" -> nameOfSchoolCollegeOrUniversity,
       "nameOfMainTeacherOrTutor" -> nameOfMainTeacherOrTutor,
-      "address.street.lineOne" -> addressLineOne,
-      "address.town.lineTwo" -> "",
-      "address.town.lineThree" -> "",
+      "address.lineOne" -> addressLineOne,
+      "address.lineTwo" -> "",
+      "address.lineThree" -> "",
       "postcode" -> postcode,
       "phoneNumber" -> phoneNumber,
       "faxNumber" -> faxNumber)
@@ -48,7 +48,7 @@ class G2AddressOfSchoolCollegeOrUniversitySpec extends Specification with Mockit
         case Some(f: AddressOfSchoolCollegeOrUniversity) => {
           f.nameOfSchoolCollegeOrUniversity mustEqual Some(nameOfSchoolCollegeOrUniversity)
           f.nameOfMainTeacherOrTutor mustEqual Some(nameOfMainTeacherOrTutor)
-          f.address must equalTo(Some(MultiLineAddress(Street(Some(addressLineOne)))))
+          f.address must equalTo(Some(MultiLineAddress(Some(addressLineOne))))
           f.postcode mustEqual Some(postcode)
           f.phoneNumber mustEqual Some(phoneNumber)
           f.faxNumber mustEqual Some(faxNumber)

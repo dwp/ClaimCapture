@@ -1,6 +1,7 @@
 import java.io.File
 import java.net.InetAddress
 import com.typesafe.config.ConfigFactory
+import java.util.UUID
 import jmx.inspectors.RefererFilterNotifier
 import org.slf4j.MDC
 import play.api._
@@ -11,6 +12,7 @@ import play.api.Play.current
 import com.google.inject.Guice
 import jmx.JMXActors
 import modules.{ProdModule, DevModule}
+import scala.concurrent.Future
 
 /**
  * Application configuration is in a hierarchy of files:
@@ -44,8 +46,11 @@ object Global extends GlobalSettings {
   }
 
   override def onLoadConfig(configuration: Configuration, path: File, classloader: ClassLoader, mode: Mode.Mode): Configuration = {
+    val dynamicConfig = Configuration.from(Map("session.cookieName" -> UUID.randomUUID().toString.substring(0, 16)))
     val applicationConf = System.getProperty("config.file", s"application.${mode.toString.toLowerCase}.conf")
-    val environmentOverridingConfiguration = configuration ++ Configuration(ConfigFactory.load(applicationConf))
+    val environmentOverridingConfiguration = configuration ++
+      Configuration(ConfigFactory.load(applicationConf)) ++
+      dynamicConfig
     super.onLoadConfig(environmentOverridingConfiguration, path, classloader, mode)
   }
 
@@ -61,6 +66,11 @@ object Global extends GlobalSettings {
 
   override def doFilter(action: EssentialAction) = {
     (RefererCheck(_:EssentialAction))(action)
+  }
+
+  override def onError(request: RequestHeader, ex: Throwable) = {
+    Logger.error(ex.getMessage)
+    Ok(views.html.common.error())
   }
 
   def actorSystems = {

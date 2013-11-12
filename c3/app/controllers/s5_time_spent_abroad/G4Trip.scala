@@ -10,14 +10,19 @@ import play.api.i18n.Messages
 import models.DayMonthYear
 import TimeSpentAbroad.trips
 import controllers.Mappings._
+import controllers.CarersForms._
+import models.domain.Trip
+import scala.Some
+import models.domain.Trip
+import scala.Some
 
 object G4Trip extends Controller with CachedClaim {
   val form = Form(mapping(
     "tripID" -> nonEmptyText,
     "start" -> (dayMonthYear verifying validDate),
     "end" -> (dayMonthYear verifying validDate),
-    "where" -> nonEmptyText,
-    "why" -> nonEmptyText
+    "where" -> carersNonEmptyText,
+    "why" -> carersNonEmptyText
   )(Trip.apply)(Trip.unapply))
 
   def fourWeeks = claiming { implicit claim => implicit request =>

@@ -29,9 +29,9 @@
             <legend>About the break in care since @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
 
             <ul>
-                @dateTimePicker(breakForm("start"))
+                @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
-                @dateTimePicker(breakForm("end"))
+                @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
                 @whereabouts(breakForm("whereYou"),
                              Seq("", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
@@ -61,15 +61,3 @@
         window.areaCounter({selector: "@CarersCrypto.encryptAES("wherePerson_location_other")", maxChars: 60});
     })
 </script>
-
-@import play.api.Play
-@import play.api.Play.current
-
-@if(!Play.isTest) {
-    <script>
-        $(function() {
-            var picker = datepicker('#@CarersCrypto.encryptAES("start")_date');
-            var endpicker = datepicker('#@CarersCrypto.encryptAES("end")_date');
-        });
-    </script>
-}

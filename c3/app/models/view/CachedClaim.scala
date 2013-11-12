@@ -56,8 +56,11 @@ trait CachedClaim {
     request => {
       val (key, _) = keyAndExpiration(request)
 
-      val claim = if (request.getQueryString("changing").getOrElse("false") == "false") newInstance
-                  else Cache.getAs[Claim](key).getOrElse(newInstance)
+      val claim = if (request.getQueryString("changing").getOrElse("false") == "false") {
+        Logger.info("Starting new claim")
+        newInstance
+      }
+      else Cache.getAs[Claim](key).getOrElse(newInstance)
 
       action(claim, request)(f)
     }
