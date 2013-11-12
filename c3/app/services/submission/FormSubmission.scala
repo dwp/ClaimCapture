@@ -7,6 +7,4 @@ import scala.xml.Elem
 trait FormSubmission {
 
   def submitClaim(claimSubmission: Elem): Future[ws.Response]
-
-  def retryClaim(claimRetry: Elem): Future[ws.Response]
 }

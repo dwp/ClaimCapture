@@ -10,9 +10,9 @@ package object submission {
   val CHANGE_CIRCUMSTANCES = 2
   type TransactionID = String
 
-  def xml(claim: Claim, txnID: TransactionID) = claim match {
-    case _: Claim with FullClaim => DWPCAClaim.xml(claim, txnID)
-    case _: Claim with ChangeOfCircs => DWPCoCircs.xml(claim, txnID)
+  def xmlGenerator(claim: Claim) = claim match {
+    case _: Claim with FullClaim => DWPCAClaim.xml(claim)
+    case _: Claim with ChangeOfCircs => DWPCoCircs.xml(claim)
   }
 
   def xmlValidator(claim: Claim) = claim match {
@@ -21,8 +21,8 @@ package object submission {
   }
 
   def xmlAndValidator(claim: Claim, txnID: TransactionID): (Elem, XmlValidator) = claim match {
-    case _: Claim with FullClaim => (DWPCAClaim.xml(claim, txnID), XmlValidatorFactory.buildCaValidator())
-    case _: Claim with ChangeOfCircs => (DWPCoCircs.xml(claim, txnID), XmlValidatorFactory.buildCocValidator())
+    case _: Claim with FullClaim => (DWPCAClaim.xml(claim), XmlValidatorFactory.buildCaValidator())
+    case _: Claim with ChangeOfCircs => (DWPCoCircs.xml(claim), XmlValidatorFactory.buildCocValidator())
   }
 
   def claimType(claim:Claim) = claim match {

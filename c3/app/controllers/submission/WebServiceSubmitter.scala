@@ -3,7 +3,7 @@ package controllers.submission
 import play.api.mvc.Results.Redirect
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc.{AnyContent, Request, PlainResult}
-import play.api.{http, Logger}
+import play.api.{Play, http, Logger}
 import com.google.inject.Inject
 import play.api.cache.Cache
 import play.api.libs.ws.Response
@@ -12,36 +12,17 @@ import services.TransactionIdService
 import services.submission.FormSubmission
 import models.domain.Claim
 import ExecutionContext.Implicits.global
-import play.Configuration
+import xml.DWPBody
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : FormSubmission) extends Submitter {
 
-  val thankYouPageUrl = Configuration.root().getString("thankyou.page")
+  val thankYouPageUrl = Play.current.configuration.getString("thankyou.page").getOrElse("ThankYouPageNotConfigured")
 
   override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
-    retrieveRetryData(claim, request) match {
-      case Some(retryData) => {
-        claimSubmission.retryClaim(pollXml(retryData.corrId, retryData.pollUrl)).map(
-          response => {
-            processResponse(claim, retryData.txnId, response, request)
-          }
-        ).recover {
-          case e: java.net.ConnectException => {
-            Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-            updateStatus(claim,retryData.txnId, COMMUNICATION_ERROR)
-            Redirect("/consent-and-declaration/error")
-          }
-          case e: java.lang.Exception => {
-            Logger.error(s"InternalServerError(RETRY) ! ${e.getMessage}")
-            errorAndCleanup(claim,retryData.txnId, UNKNOWN_ERROR)
-          }
-        }
-      }
-      case None => {
         val txnID = idService.generateId
         Logger.info(s"Retrieved Id : $txnID")
 
-        claimSubmission.submitClaim(xml(claim, txnID)).map(
+        claimSubmission.submitClaim(DWPBody.xml(claim, txnID)).map(
           response => {
             registerId(claim,txnID, SUBMITTED)
             processResponse(claim, txnID, response, request)
@@ -58,8 +39,6 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
         }
       }
-    }
-  }
 
   private def processResponse(claim:Claim, txnId: String, response: Response, request: Request[AnyContent]): PlainResult = {
     response.status match {
@@ -78,13 +57,6 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
             Cache.set(key, None)
 
             Redirect(thankYouPageUrl)
-          }
-          case "acknowledgement" => {
-            updateStatus(claim,txnId, ACKNOWLEDGED)
-            val correlationID = (responseXml \\ "correlationID").text
-            val pollEndpoint = (responseXml \\ "pollEndpoint").text
-            storeRetryData(claim,RetryData(correlationID, pollEndpoint, txnId), request)
-            Redirect("/consent-and-declaration/error")
           }
           case "error" => {
             val errorCode = (responseXml \\ "errorCode").text
@@ -115,25 +87,6 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
   private def errorAndCleanup(claim:Claim, txnId: String, code: String): PlainResult = {
     updateStatus(claim,txnId, code)
     Redirect(s"/error?key=${claim.key}")
-  }
-
-  case class RetryData(corrId: String, pollUrl: String, txnId: String)
-
-  private def storeRetryData(claim:Claim, data:RetryData, request : Request[AnyContent]) {
-    val uuid = request.session.get(claim.key)
-    Cache.set(uuid+"_retry", data, 3000)
-  }
-
-  private def retrieveRetryData(claim:Claim, request : Request[AnyContent]) : Option[RetryData] = {
-    val uuid = request.session.get(claim.key)
-    Cache.getAs[RetryData](uuid+"_retry")
-  }
-
-  private[submission] def pollXml(correlationID: String, pollEndpoint: String) = {
-    <poll>
-      <correlationID>{correlationID}</correlationID>
-      <pollEndpoint>{pollEndpoint}</pollEndpoint>
-    </poll>
   }
 
   private def updateStatus(claim:Claim, id: String, statusCode: String) = {

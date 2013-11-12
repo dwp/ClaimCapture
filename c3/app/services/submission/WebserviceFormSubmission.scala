@@ -2,32 +2,21 @@ package services.submission
 
 import play.api.libs.ws.WS
 import play.api.libs.ws
+import play.api._
 import scala.concurrent.Future
-import play.Configuration
 import scala.xml.Elem
 import play.api.Logger
 import services.util.CharacterStripper
 
-class WebserviceFormSubmission extends FormSubmission {
+trait WebserviceFormSubmission extends FormSubmission {
 
   def submitClaim(claimSubmission: Elem): Future[ws.Response] = {
     // Logger.info(s"Claim submitting transactionId : ${claimSubmission \\ "DWPCAClaim" \ "@id" toString()}") : Better to change this to debug : If debug turned off in production
-    val submissionServerEndpoint: String =
-      Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "submit/claim"
-    Logger.debug(s"Submission Server : $submissionServerEndpoint")
-    val result = WS.url(submissionServerEndpoint)
+    val ingressServerEndpoint: String =  Play.current.configuration.getString("ingressServerUrl").getOrElse("IngressServerEndpointNotSet") + "submit/claim"
+    Logger.debug(s"Ingress Service URL: $ingressServerEndpoint")
+    val result = WS.url(ingressServerEndpoint)
       .withHeaders(("Content-Type", "text/xml"))
       .post(CharacterStripper.stripNonPdf(claimSubmission.buildString(stripComments = true)))
-    result
-  }
-
-  def retryClaim(claimRetry: Elem): Future[ws.Response] = {
-    val retryServerEndpoint: String =
-      Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "retry/claim"
-    Logger.debug(s"Submission Server retry : $retryServerEndpoint")
-    val result = WS.url(retryServerEndpoint)
-      .withHeaders(("Content-Type", "text/xml"))
-      .post(claimRetry.buildString(stripComments = true))
     result
   }
 }

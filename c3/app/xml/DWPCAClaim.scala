@@ -9,7 +9,7 @@ import scala.xml.NodeSeq
 
 object DWPCAClaim {
 
-  def xml(claim: Claim, transactionId : String) = {
+  def xml(claim: Claim) = {
 
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
 
@@ -17,7 +17,7 @@ object DWPCAClaim {
 
     val additionalInfo = claim.questionGroup[models.domain.AdditionalInfo].getOrElse(models.domain.AdditionalInfo())
 
-    Logger.info(s"Build DWPCAClaim : $transactionId")
+    Logger.info(s"Build DWPCAClaim")
 
     <DWPCAClaim>
       <DateOfClaim>

@@ -6,10 +6,10 @@ import play.api.Logger
 import app.XMLValues._
 
 object DWPCoCircs {
-  def xml(circs: Claim, transactionId : String):Elem = {
-    Logger.info(s"Build DWPCoCircs : $transactionId")
+  def xml(circs: Claim):Elem = {
+    Logger.info(s"Build DWPCoCircs")
 
-    <DWPCAChangeOfCircumstances id={transactionId}>
+    <DWPCAChangeOfCircumstances>
       <InitialQuestions>
         <ChangeAddress>{NotAsked}</ChangeAddress>
         <ChangeName>{NotAsked}</ChangeName>
