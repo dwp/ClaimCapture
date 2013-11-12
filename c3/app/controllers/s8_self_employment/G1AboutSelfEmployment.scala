@@ -12,6 +12,9 @@ import models.view.CachedClaim
 import utils.helpers.CarersForm._
 import SelfEmployment._
 import models.view.Navigable
+import controllers.CarersForms._
+import play.api.data.FormError
+import models.domain.Claim
 
 object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -19,7 +22,7 @@ object G1AboutSelfEmployment extends Controller with CachedClaim with Navigable 
     "whenDidYouStartThisJob" -> dayMonthYear.verifying(validDate),
     "whenDidTheJobFinish" -> optional(dayMonthYear.verifying(validDate)),
     "haveYouCeasedTrading" -> optional(text.verifying(validYesNo)),
-    "natureOfYourBusiness" -> optional(text(maxLength = sixty))
+    "natureOfYourBusiness" -> optional(carersText(maxLength = sixty))
   )(AboutSelfEmployment.apply)(AboutSelfEmployment.unapply)
     .verifying("whenDidTheJobFinish.error.required", validateWhenDidTheJobFinish _))
 

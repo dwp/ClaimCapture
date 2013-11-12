@@ -1,7 +1,6 @@
 package utils.pageobjects
 
 import play.api.test.TestBrowser
-import scala.collection.mutable
 
 /**
  * Base class of all the PageFactories, used by utils.pageobjects.Page to determine thanks to a page title which Page Object to build.

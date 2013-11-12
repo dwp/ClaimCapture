@@ -2,7 +2,7 @@ package utils.pageobjects.tests
 
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
-import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext}
+import utils.pageobjects.s2_about_you.G1YourDetailsPageContext
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s10_pay_details.G1HowWePayYouPageContext
 import utils.pageobjects.S11_consent_and_declaration.G3DisclaimerPageContext

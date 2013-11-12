@@ -4,7 +4,6 @@ import org.specs2.mutable.{Tags, Specification}
 import play.api.test.WithBrowser
 import controllers.{BrowserMatchers, ClaimScenarioFactory, Formulate}
 import utils.pageobjects.s2_about_you.{G1YourDetailsPageContext, G8AboutYouCompletedPage}
-import play.api.i18n.Messages
 
 class G6EmploymentIntegrationSpec extends Specification with Tags {
   sequential

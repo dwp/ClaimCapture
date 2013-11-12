@@ -1,6 +1,6 @@
 package controllers
 
-import utils.pageobjects.{TestData, ClaimScenario}
+import utils.pageobjects.TestData
 
 
 object CircumstancesScenarioFactory {

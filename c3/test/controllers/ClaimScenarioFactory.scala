@@ -1,7 +1,5 @@
 package controllers
 
-import app.{WhoseNameAccount, PaymentFrequency, AccountStatus}
-import utils.pageobjects.ClaimScenario
 import utils.pageobjects.TestData
 
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}

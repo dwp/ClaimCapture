@@ -21,9 +21,9 @@ class G2YourContactDetailsSpec extends Specification with Tags{
     val phoneNumber = "1234466"
     val mobileNumber = "444444"
 
-    val yourContactDetailsInput = Seq("address.street.lineOne" -> addressLineOne,
-      "address.town.lineTwo" -> addressLineTwo,
-      "address.town.lineThree" -> addressLineThree,
+    val yourContactDetailsInput = Seq("address.lineOne" -> addressLineOne,
+      "address.lineTwo" -> addressLineTwo,
+      "address.lineThree" -> addressLineThree,
       "postcode" -> postCode,
       "phoneNumber" -> phoneNumber,
       "mobileNumber" -> mobileNumber

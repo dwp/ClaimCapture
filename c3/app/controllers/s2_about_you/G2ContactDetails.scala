@@ -14,9 +14,9 @@ object G2ContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "address" -> address,
     "postcode" -> optional(text verifying validPostcode),
-    "phoneNumber" -> optional(text verifying pattern( """[0-9 \-]{1,20}""".r, "constraint.invalid", "error.invalid")),
+    "phoneNumber" -> optional(text verifying validPhoneNumber),
     "contactYouByTextphone" -> optional(text(maxLength = 3).verifying(validYesNo)),
-    "mobileNumber" -> optional(text)
+    "mobileNumber" -> optional(text verifying validPhoneNumber)
   )(ContactDetails.apply)(ContactDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>

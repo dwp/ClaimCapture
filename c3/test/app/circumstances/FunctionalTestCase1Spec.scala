@@ -5,7 +5,7 @@ import play.api.test.WithBrowser
 import utils.pageobjects.{XmlPage, TestData, Page}
 import utils.pageobjects.xml_validation.{XMLCircumstancesBusinessValidation, XMLBusinessValidation}
 import app.FunctionalTestCommon
-import utils.pageobjects.circumstances.s1_about_you.{G1AboutYouPageContext}
+import utils.pageobjects.circumstances.s1_about_you.G1AboutYouPageContext
 
 /**
  * End-to-End functional tests using input files created by Steve Moody.

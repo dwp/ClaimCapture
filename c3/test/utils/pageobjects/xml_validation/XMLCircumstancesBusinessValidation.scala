@@ -1,6 +1,5 @@
 package utils.pageobjects.xml_validation
 
-import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import scala.xml.Elem
 import utils.pageobjects.{TestDatumValue, PageObjectException, TestData}
 import org.joda.time.DateTime

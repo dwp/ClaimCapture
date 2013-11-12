@@ -5,7 +5,6 @@ import utils.pageobjects.circumstances.s2_additional_info._
 import controllers.CircumstancesScenarioFactory
 import org.specs2.mutable.{Tags, Specification}
 import utils.pageobjects.circumstances.s3_consent_and_declaration.{G1DeclarationPageContext, G1DeclarationPage}
-import utils.pageobjects.circumstances.s1_about_you.{G4CompletedPage, G3DetailsOfThePersonYouCareForPageContext}
 import utils.pageobjects.TestData
 
 class G1DeclarationIntegrationSpec extends Specification with Tags {
@@ -53,7 +52,7 @@ class G1DeclarationIntegrationSpec extends Specification with Tags {
 
         val errors = page.submitPage().listErrors
         errors.size mustEqual 1
-        errors(0) must contain("Do you agree to us obtaining information from any other persons or organisations you may have listed on this form? - This is required")
+        errors(0) must contain("Do you agree to us obtaining information from any other persons or organisations you may have told us about? - This is required")
       }
 
       "given obtainInfoAgreement is set to 'no' missing obtainInfoWhy field" in new WithBrowser with G1DeclarationPageContext {

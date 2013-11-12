@@ -1,7 +1,6 @@
 package controllers.circs.s2_additional_info
 
 import org.specs2.mutable.{Tags, Specification}
-import controllers.circs.s1_identification.G3DetailsOfThePersonYouCareFor
 
 class G1OtherChangeInfoFormSpec extends Specification with Tags {
 

@@ -4,7 +4,6 @@ import org.specs2.mutable.{ Tags, Specification }
 import controllers.{ BrowserMatchers, Formulate, ClaimScenarioFactory }
 import play.api.test.WithBrowser
 import utils.pageobjects.s9_other_money._
-import utils.pageobjects.ClaimScenario
 import utils.pageobjects.s8_self_employment.G9CompletedPageContext
 import utils.pageobjects.s8_self_employment.G9CompletedPage
 import utils.pageobjects.TestData

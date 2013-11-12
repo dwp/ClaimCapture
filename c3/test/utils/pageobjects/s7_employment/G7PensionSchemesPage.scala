@@ -1,7 +1,7 @@
 package utils.pageobjects.s7_employment
 
 import play.api.test.{WithBrowser, TestBrowser}
-import utils.pageobjects.{TestData, ClaimPage, Page, PageContext}
+import utils.pageobjects.{ClaimPage, Page, PageContext}
 
 final class G7PensionSchemesPage(browser: TestBrowser, previousPage: Option[Page] = None, iteration: Int) extends ClaimPage(browser, G7PensionSchemesPage.url.replace(":jobID", iteration.toString), G7PensionSchemesPage.title, previousPage, iteration) {
   declareYesNo("#payOccupationalPensionScheme", "EmploymentDoYouPayTowardsanOccupationalPensionScheme_" + iteration)

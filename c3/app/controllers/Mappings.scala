@@ -9,6 +9,18 @@ import play.api.data.validation.ValidationError
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import models._
+import controllers.CarersForms._
+import models.SortCode
+import models.PaymentFrequency
+import scala.util.Failure
+import models.NationalInsuranceNumber
+import scala.Some
+import play.api.data.validation.ValidationError
+import models.Whereabouts
+import models.PensionPaymentFrequency
+import scala.util.Success
+import models.MultiLineAddress
+import models.PeriodFromTo
 
 object Mappings {
   object Name {
@@ -38,36 +50,27 @@ object Mappings {
     "from" -> dayMonthYear.verifying(validDate),
     "to" -> dayMonthYear.verifying(validDate))(PeriodFromTo.apply)(PeriodFromTo.unapply)
 
-  val street: Mapping[Street] = mapping(
-    "lineOne" -> optional(text(maxLength = 35).verifying(simpleTextLine).verifying(Constraints.nonEmpty))
-  )(Street.apply)(Street.unapply)
-
-  val town: Mapping[Town] = mapping(
-    "lineTwo" -> optional(text(maxLength = 35).verifying(simpleTextLine)),
-    "lineThree" -> optional(text(maxLength = 35).verifying(simpleTextLine))
-  )(Town.apply)(Town.unapply)
-
   val address: Mapping[MultiLineAddress] = mapping(
-    "street" -> (street verifying requiredStreet),
-    "town" -> optional(town)
-    )(MultiLineAddress.apply)(MultiLineAddress.unapply)
+    "lineOne" -> optional(carersText(maxLength = 35)),
+    "lineTwo" -> optional(carersText(maxLength = 35)),
+    "lineThree" -> optional(carersText(maxLength = 35)))(MultiLineAddress.apply)(MultiLineAddress.unapply).verifying(requiredAddress)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
-    "location" -> nonEmptyText(maxLength = 35),
-    "location.other" -> optional(text(maxLength = 35)))(Whereabouts.apply)(Whereabouts.unapply)
+    "location" -> carersNonEmptyText(maxLength = 35),
+    "location.other" -> optional(carersText(maxLength = 35)))(Whereabouts.apply)(Whereabouts.unapply)
 
   val paymentFrequency: Mapping[PaymentFrequency] = mapping(
     "frequency" -> text(maxLength = sixty),
-    "frequency.other" -> optional(text(maxLength = sixty)))(PaymentFrequency.apply)(PaymentFrequency.unapply)
+    "frequency.other" -> optional(carersText(maxLength = sixty)))(PaymentFrequency.apply)(PaymentFrequency.unapply)
 
   val pensionPaymentFrequency: Mapping[PensionPaymentFrequency] = mapping(
-    "frequency" -> nonEmptyText(maxLength = sixty),
-    "frequency.other" -> optional(text(maxLength = sixty)))(PensionPaymentFrequency.apply)(PensionPaymentFrequency.unapply)
+    "frequency" -> carersNonEmptyText(maxLength = sixty),
+    "frequency.other" -> optional(carersText(maxLength = sixty)))(PensionPaymentFrequency.apply)(PensionPaymentFrequency.unapply)
 
   val sortCode: Mapping[SortCode] = mapping(
-    "sort1" -> text(maxLength = two),
-    "sort2" -> text(maxLength = two),
-    "sort3" -> text(maxLength = two))(SortCode.apply)(SortCode.unapply)
+    "sort1" -> carersText(maxLength = two),
+    "sort2" -> carersText(maxLength = two),
+    "sort3" -> carersText(maxLength = two))(SortCode.apply)(SortCode.unapply)
 
   def required[T](mapping: Mapping[T]): Mapping[T] = {
     def required: Constraint[T] = Constraint[T]("constraint.required") { t => Valid }
@@ -105,11 +108,8 @@ object Mappings {
     dayMonthYear(if (datePatterns.isEmpty) List(datePatternDefault, "dd/MM/yyyy") else datePatterns.toList)
   }
 
-  def requiredStreet: Constraint[Street] = Constraint[Street]("constraint.required") { street =>
-    street match {
-      case Street(s) if s.isDefined => Valid
-      case _ => Invalid(ValidationError("error.required"))
-    }
+  def requiredAddress: Constraint[MultiLineAddress] = Constraint[MultiLineAddress]("constraint.required") { a =>
+    if (a.lineOne.isEmpty) Invalid(ValidationError("error.required")) else Valid
   }
 
   def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") { sortCode =>

@@ -12,6 +12,9 @@ import models.view.Navigable
 import controllers.Mappings._
 import play.api.data.FormError
 import play.api.mvc.Request
+import controllers.CarersForms._
+import play.api.data.FormError
+import scala.Some
 
 object G2Consent extends Controller with CachedClaim with Navigable {
 
@@ -26,7 +29,7 @@ object G2Consent extends Controller with CachedClaim with Navigable {
   def informationFromEmployerMapping(implicit request: Request[AnyContent]) =
     "gettingInformationFromAnyEmployer" -> mapping(
       "informationFromEmployer" -> optional(nonEmptyText),
-      "why" -> optional(nonEmptyText(maxLength = 300)))(OptYesNoWithText.apply)(OptYesNoWithText.unapply)
+      "why" -> optional(carersNonEmptyText(maxLength = 300)))(OptYesNoWithText.apply)(OptYesNoWithText.unapply)
       .verifying("employerRequired", validateEmpRequired _)
       .verifying("required", OptYesNoWithText.validateOnNo _)
 
@@ -34,7 +37,7 @@ object G2Consent extends Controller with CachedClaim with Navigable {
   val informationFromPersonMapping =
     "tellUsWhyEmployer" -> mapping(
       "informationFromPerson" -> nonEmptyText,
-      "whyPerson" -> optional(nonEmptyText(maxLength = 300)))(YesNoWithText.apply)(YesNoWithText.unapply)
+      "whyPerson" -> optional(carersNonEmptyText(maxLength = 300)))(YesNoWithText.apply)(YesNoWithText.unapply)
       .verifying("required", YesNoWithText.validateOnNo _)
       
   def form(implicit request: Request[AnyContent]) = Form(mapping(
