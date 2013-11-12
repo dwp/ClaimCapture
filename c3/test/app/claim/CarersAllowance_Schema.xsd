@@ -452,6 +452,7 @@
                                             </xs:element>
                                             <xs:element minOccurs="0" name="OtherChanges" type="QuestionLongTextType"/>
                                             <xs:element name="Declaration" type="DeclarationType"> </xs:element>
+                                            <xs:element minOccurs="0" name="Disclaimer" type="DisclaimerType"> </xs:element>
                                             <xs:element name="EvidenceList" minOccurs="0" type="EvidenceListType"> </xs:element>
                                             <xs:element name="Consents" type="ConsentsType"/>
                                         </xs:sequence>
@@ -851,6 +852,12 @@
         </xs:sequence>
     </xs:complexType>
     <xs:simpleType name="DeclarationType">
+        <xs:restriction base="RestrictedStringType">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DisclaimerType">
         <xs:restriction base="RestrictedStringType">
             <xs:minLength value="1"/>
             <xs:maxLength value="2000"/>
