@@ -55,28 +55,28 @@ class FullSubmissionSpec extends Specification with Tags {
       idService.id = "TEST224"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, cAndDError, trace = false)
     }
-
-    "Recoverable acknowledgement submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-
-      val idService = injector.getInstance(classOf[TransactionIdService])
-      idService.id = "TEST225"
-      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
-    }
-
-    "Retry submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
-
-      val idService = injector.getInstance(classOf[TransactionIdService])
-      idService.id = "TEST225"
-      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
-      // first time through stores val in session
-      page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
-      val submissionPage = lastPage goToPage(new G5SubmitPage(browser, Some(lastPage)), waitForPage = true, waitDuration = 500)
-      val finalPage = submissionPage submitPage ()
-    }
+//
+//    "Recoverable acknowledgement submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+//
+//      val idService = injector.getInstance(classOf[TransactionIdService])
+//      idService.id = "TEST225"
+//      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+//      page goToThePage(waitForPage = true, waitDuration = 500)
+//      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+//    }
+//
+//    "Retry submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
+//
+//      val idService = injector.getInstance(classOf[TransactionIdService])
+//      idService.id = "TEST225"
+//      val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
+//      // first time through stores val in session
+//      page goToThePage(waitForPage = true, waitDuration = 500)
+//      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
+//      val submissionPage = lastPage goToPage(new G5SubmitPage(browser, Some(lastPage)), waitForPage = true, waitDuration = 500)
+//      val finalPage = submissionPage submitPage ()
+//    }
   } section "functional"
 }

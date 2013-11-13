@@ -6,11 +6,12 @@ import play.api.libs.ws.Response
 import ExecutionContext.Implicits.global
 import play.api.{Logger, http}
 import services.submission.FormSubmission
+import xml.XMLHelper
 
 class MockFormSubmission extends FormSubmission {
 
   def submitClaim(claimSubmission: Elem): Future[Response] = {
-    val txnId: String = claimSubmission \\ "DWPCAClaim" \ "@id" toString()
+    val txnId: String = XMLHelper.extractIdFrom(claimSubmission)
     Logger.info(s"Claim submitting mock transactionId : ${ txnId}")
 
     val resp =
@@ -22,21 +23,21 @@ class MockFormSubmission extends FormSubmission {
     Future(resp)
   }
 
-  def retryClaim(claimRetry: Elem): Future[Response] = {
-    println("retryClaim")
-    val resp = new Response(null) {
-      override def status: Int = http.Status.OK
-      override lazy val body: String =
-        <response>
-          <result>response</result>
-          <correlationID>correlationID</correlationID>
-          <pollEndpoint>pollEndpoint</pollEndpoint>
-          <errorCode></errorCode>
-        </response>
-          .buildString(stripComments = false)
-    }
-    Future(resp)
-  }
+//  def retryClaim(claimRetry: Elem): Future[Response] = {
+//    println("retryClaim")
+//    val resp = new Response(null) {
+//      override def status: Int = http.Status.OK
+//      override lazy val body: String =
+//        <response>
+//          <result>response</result>
+//          <correlationID>correlationID</correlationID>
+//          <pollEndpoint>pollEndpoint</pollEndpoint>
+//          <errorCode></errorCode>
+//        </response>
+//          .buildString(stripComments = false)
+//    }
+//    Future(resp)
+//  }
 
   def getBodyString(txnId: String): String = {
     txnId match {
@@ -64,6 +65,15 @@ class MockFormSubmission extends FormSubmission {
           <correlationID>correlationID</correlationID>
           <pollEndpoint>pollEndpoint</pollEndpoint>
           <errorCode></errorCode>
+        </response>
+          .buildString(stripComments = false)
+      }
+      case transactionId:String => {
+        <response>
+          <result>error</result>
+          <correlationID>unknown id {transactionId}</correlationID>
+          <pollEndpoint>pollEndpoint</pollEndpoint>
+          <errorCode>9999</errorCode>
         </response>
           .buildString(stripComments = false)
       }

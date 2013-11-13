@@ -129,4 +129,7 @@ object XMLHelper {
        case "other" => Other
        case _ => value
      }
+
+  def extractIdFrom(xml:Elem):String = {(xml \\ "TransactionId").text}
+
 }
