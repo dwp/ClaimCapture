@@ -46,7 +46,7 @@ class FullSubmissionSpec extends Specification with Tags {
       idService.id = "TEST223"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, thankYouPageTitle, waitForPage = true, waitDuration = 500, trace = false)
+      val lastPage = page runClaimWith(claim, thankYouPageTitle, trace = true)
     }
 
     "Recoverable Error submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
