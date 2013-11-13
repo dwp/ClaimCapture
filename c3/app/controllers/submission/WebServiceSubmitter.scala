@@ -22,7 +22,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         val txnID = idService.generateId
         Logger.info(s"Retrieved Id : $txnID")
 
-        claimSubmission.submitClaim(DWPBody.xml(claim, txnID)).map(
+        claimSubmission.submitClaim(DWPBody().xml(claim, txnID)).map(
           response => {
             registerId(claim,txnID, SUBMITTED)
             processResponse(claim, txnID, response, request)
