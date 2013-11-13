@@ -8,7 +8,7 @@ import scala.xml.Elem
 import play.api.Logger
 import services.util.CharacterStripper
 
-trait WebserviceFormSubmission extends FormSubmission {
+class WebserviceFormSubmission extends FormSubmission {
 
   def submitClaim(claimSubmission: Elem): Future[ws.Response] = {
     val ingressServerEndpoint: String =  Play.current.configuration.getString("ingressServerUrl").getOrElse("IngressServerEndpointNotSet") + "submit/claim"

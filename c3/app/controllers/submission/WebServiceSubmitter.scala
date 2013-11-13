@@ -46,10 +46,10 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         val responseStr = response.body
         Logger.info(s"Received response : $responseStr")
         val responseXml = scala.xml.XML.loadString(responseStr)
-        val result = (responseXml \\ "result").text
-        Logger.info(s"Received result : $result")
-        result match {
-          case "response" => {
+        val status = (responseXml \\ "statusCode").text
+        Logger.info(s"Received status code : $status")
+        status match {
+          case "0000" => {
             updateStatus(claim,txnId, SUCCESS)
             Logger.info(s"Successful submission : $txnId")
             // Clear the cache to ensure no duplicate submission
@@ -58,15 +58,15 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
             Redirect(thankYouPageUrl)
           }
-          case "error" => {
-            val errorCode = (responseXml \\ "errorCode").text
-            updateStatus(claim,txnId, errorCode)
-            Logger.error(s"Received error : $result")
-            Redirect("/consent-and-declaration/error")
-          }
+//          case "error" => {
+//            val errorCode = (responseXml \\ "errorCode").text
+//            updateStatus(claim,txnId, errorCode)
+//            Logger.error(s"Received error : $result")
+//            Redirect("/consent-and-declaration/error")
+//          }
           case _ => {
-            Logger.info(s"Received result : $result")
-            errorAndCleanup(claim,txnId, UNKNOWN_ERROR)
+            Logger.info(s"Received result : $status")
+            errorAndCleanup(claim,txnId, status)
           }
         }
       case http.Status.BAD_REQUEST =>

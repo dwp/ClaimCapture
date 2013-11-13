@@ -3,7 +3,7 @@ package services.submission
 import org.specs2.mutable.{Tags, Specification}
 import play.api.test.{FakeApplication, WithBrowser}
 import utils.pageobjects.TestData
-import play.api.{Mode, Configuration, GlobalSettings}
+import play.api.{Play, Mode, Configuration, GlobalSettings}
 import java.io.File
 import com.typesafe.config.ConfigFactory
 import controllers.submission.{WebServiceSubmitter, Submitter}
@@ -13,13 +13,14 @@ import com.google.inject._
 import utils.pageobjects.s1_carers_allowance.G1BenefitsPageContext
 import utils.pageobjects.S11_consent_and_declaration.G5SubmitPage
 import submission._
+import utils.pageobjects.common.ErrorPage
 
 class FullSubmissionSpec extends Specification with Tags {
   sequential
 
-  val thankYouPageTitle = "Carer's Allowance referrer"
+  val thankYouPageTitle =  "Carer's Allowance referrer"
 
-  val cAndDError = "Error"
+//  val cAndDError = "Error"
 
   private lazy val injector = Guice.createInjector(new ScalaModule {
     def configure() {
@@ -55,7 +56,7 @@ class FullSubmissionSpec extends Specification with Tags {
       idService.id = "TEST224"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, cAndDError, trace = false)
+      val lastPage = page runClaimWith(claim, ErrorPage.title, trace = false)
     }
 
 //    "Recoverable acknowledgement submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {

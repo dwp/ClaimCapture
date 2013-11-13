@@ -7,6 +7,8 @@ import ExecutionContext.Implicits.global
 import play.api.{Logger, http}
 import services.submission.FormSubmission
 import xml.XMLHelper
+import org.joda.time.DateTime
+
 
 class MockFormSubmission extends FormSubmission {
 
@@ -17,64 +19,32 @@ class MockFormSubmission extends FormSubmission {
     val resp =
       new Response(null) {
         override def status: Int = http.Status.OK
-        override lazy val body: String =
-          getBodyString(txnId)
+        override lazy val body: String = getBodyString(txnId)
       }
     Future(resp)
   }
 
-//  def retryClaim(claimRetry: Elem): Future[Response] = {
-//    println("retryClaim")
-//    val resp = new Response(null) {
-//      override def status: Int = http.Status.OK
-//      override lazy val body: String =
-//        <response>
-//          <result>response</result>
-//          <correlationID>correlationID</correlationID>
-//          <pollEndpoint>pollEndpoint</pollEndpoint>
-//          <errorCode></errorCode>
-//        </response>
-//          .buildString(stripComments = false)
-//    }
-//    Future(resp)
-//  }
-
   def getBodyString(txnId: String): String = {
     txnId match {
       case "TEST223" => {
-        <response>
-          <result>response</result>
-          <correlationID>correlationID</correlationID>
-          <pollEndpoint>pollEndpoint</pollEndpoint>
-          <errorCode></errorCode>
-        </response>
+        <Response>
+          <statusCode>0000</statusCode>
+          <timestamp>{DateTime.now().toString()}</timestamp>
+        </Response>
           .buildString(stripComments = false)
       }
       case "TEST224" => {
-        <response>
-          <result>error</result>
-          <correlationID>correlationID</correlationID>
-          <pollEndpoint>pollEndpoint</pollEndpoint>
-          <errorCode>3001</errorCode>
-        </response>
-          .buildString(stripComments = false)
-      }
-      case "TEST225" => {
-        <response>
-          <result>acknowledgement</result>
-          <correlationID>correlationID</correlationID>
-          <pollEndpoint>pollEndpoint</pollEndpoint>
-          <errorCode></errorCode>
-        </response>
+        <Response>
+          <statusCode>2006</statusCode>
+          <timestamp>{DateTime.now().toString()}</timestamp>
+        </Response>
           .buildString(stripComments = false)
       }
       case transactionId:String => {
-        <response>
-          <result>error</result>
-          <correlationID>unknown id {transactionId}</correlationID>
-          <pollEndpoint>pollEndpoint</pollEndpoint>
-          <errorCode>9999</errorCode>
-        </response>
+        <Response>
+          <statusCode>unknown {transactionId}</statusCode>
+          <timestamp>{DateTime.now().toString()}</timestamp>
+        </Response>
           .buildString(stripComments = false)
       }
     }
