@@ -46,7 +46,7 @@ class FullSubmissionSpec extends Specification with Tags {
       idService.id = "TEST223"
       val claim = TestData.readTestDataFromFile("/functional_scenarios/ClaimScenario_TestCase1.csv")
       page goToThePage(waitForPage = true, waitDuration = 500)
-      val lastPage = page runClaimWith(claim, thankYouPageTitle, trace = true)
+      val lastPage = page runClaimWith(claim, thankYouPageTitle, trace = false)
     }
 
     "Recoverable Error submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
@@ -57,7 +57,7 @@ class FullSubmissionSpec extends Specification with Tags {
       page goToThePage(waitForPage = true, waitDuration = 500)
       val lastPage = page runClaimWith(claim, cAndDError, trace = false)
     }
-//
+
 //    "Recoverable acknowledgement submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
 //
 //      val idService = injector.getInstance(classOf[TransactionIdService])
@@ -66,7 +66,7 @@ class FullSubmissionSpec extends Specification with Tags {
 //      page goToThePage(waitForPage = true, waitDuration = 500)
 //      val lastPage = page runClaimWith(claim, cAndDError, waitForPage = true, waitDuration = 500, trace = false)
 //    }
-//
+////
 //    "Retry submission" in new WithBrowser(app = FakeApplication(withGlobal = Some(global))) with G1BenefitsPageContext {
 //
 //      val idService = injector.getInstance(classOf[TransactionIdService])

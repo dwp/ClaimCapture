@@ -13,6 +13,7 @@ import utils.pageobjects.s8_self_employment._
 import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s10_pay_details._
 import utils.pageobjects.S11_consent_and_declaration._
+import utils.pageobjects.common.ErrorPage
 
 /**
  * Factory used by Page to create from an html page the right page object.
@@ -99,6 +100,8 @@ object ClaimPageFactory extends PageFactory {
       case G3DisclaimerPage.title => G3DisclaimerPage (browser,previousPage)
       case G4DeclarationPage.title => G4DeclarationPage (browser,previousPage)
       case G5SubmitPage.title => G5SubmitPage (browser,previousPage)
+      //Common
+      case ErrorPage.title => ErrorPage (browser,previousPage)
       // Catch pages not covered by framework
       case _ => new UnknownPage(browser, title, previousPage)
     }
