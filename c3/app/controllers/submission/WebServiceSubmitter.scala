@@ -114,7 +114,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
   private def errorAndCleanup(claim:Claim, txnId: String, code: String): PlainResult = {
     updateStatus(claim,txnId, code)
-    Redirect(s"/error?key=${claim.key}")
+    Redirect(controllers.routes.Application.error(claim.key))
   }
 
   case class RetryData(corrId: String, pollUrl: String, txnId: String)
