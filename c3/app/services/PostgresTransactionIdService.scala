@@ -33,7 +33,7 @@ class PostgresTransactionIdService extends TransactionIdService {
         val statement = connection.prepareStatement(insertSql)
         statement.setString(1, id)
         statement.setString(2, statusCode)
-        statement.setInt(2,claimType)
+        statement.setInt(3,claimType)
         statement.execute()
     }
   }
