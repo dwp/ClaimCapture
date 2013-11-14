@@ -112,12 +112,11 @@ object Mappings {
     if (a.lineOne.isEmpty) Invalid(ValidationError("error.required")) else Valid
   }
 
-  def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") { sortCode =>
-    sortCode match {
-      case SortCode(s1, s2, s3) => if (s1.isEmpty || s2.isEmpty || s3.isEmpty) Invalid(ValidationError("error.required"))
+  def requiredSortCode: Constraint[SortCode] = Constraint[SortCode]("constraint.required") {
+    case SortCode(s1, s2, s3) =>
+      if (s1.length < 2 || s2.length < 2 || s3.length < 2) Invalid(ValidationError("error.sortcode.length"))
       else if (!(areAllDigits(s1) && areAllDigits(s2) && areAllDigits(s3))) Invalid(ValidationError("error.number"))
       else Valid
-    }
   }
 
   def areAllDigits(x: String) = x forall Character.isDigit
