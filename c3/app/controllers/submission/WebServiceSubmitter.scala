@@ -14,33 +14,33 @@ import models.domain.Claim
 import ExecutionContext.Implicits.global
 import xml.DWPBody
 
-class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission : FormSubmission) extends Submitter {
+class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission: FormSubmission) extends Submitter {
 
   val thankYouPageUrl = Play.current.configuration.getString("thankyou.page").getOrElse("ThankYouPageNotConfigured")
 
   override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
-        val txnID = idService.generateId
-        Logger.info(s"Retrieved Id : $txnID")
+    val txnID = idService.generateId
+    Logger.info(s"Retrieved Id : $txnID")
+    registerId(claim, txnID, SUBMITTED)
 
-        claimSubmission.submitClaim(DWPBody().xml(claim, txnID)).map(
-          response => {
-            registerId(claim,txnID, SUBMITTED)
-            processResponse(claim, txnID, response, request)
-          }
-        ).recover {
-          case e: java.net.ConnectException => {
-            Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-            updateStatus(claim,txnID, COMMUNICATION_ERROR)
-            Redirect("/consent-and-declaration/error")
-          }
-          case e: java.lang.Exception => {
-            Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}", e)
-            errorAndCleanup(claim, txnID, UNKNOWN_ERROR)
-          }
-        }
+    claimSubmission.submitClaim(DWPBody().xml(claim, txnID)).map(
+      response => {
+        processResponse(claim, txnID, response, request)
       }
+    ).recover {
+      case e: java.net.ConnectException => {
+        Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
+        updateStatus(claim, txnID, COMMUNICATION_ERROR)
+        Redirect("/consent-and-declaration/error")
+      }
+      case e: java.lang.Exception => {
+        Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}", e)
+        errorAndCleanup(claim, txnID, UNKNOWN_ERROR)
+      }
+    }
+  }
 
-  private def processResponse(claim:Claim, txnId: String, response: Response, request: Request[AnyContent]): PlainResult = {
+  private def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): PlainResult = {
     response.status match {
       case http.Status.OK =>
         val responseStr = response.body
@@ -50,7 +50,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         Logger.info(s"Received status code : $status")
         status match {
           case "0000" => {
-            updateStatus(claim,txnId, SUCCESS)
+            updateStatus(claim, txnId, SUCCESS)
             Logger.info(s"Successful submission : $txnId")
             // Clear the cache to ensure no duplicate submission
             val key = request.session.get(claim.key).orNull
@@ -58,43 +58,37 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
             Redirect(thankYouPageUrl)
           }
-//          case "error" => {
-//            val errorCode = (responseXml \\ "errorCode").text
-//            updateStatus(claim,txnId, errorCode)
-//            Logger.error(s"Received error : $result")
-//            Redirect("/consent-and-declaration/error")
-//          }
           case _ => {
             Logger.info(s"Received result : $status")
-            errorAndCleanup(claim,txnId, status)
+            errorAndCleanup(claim, txnId, status)
           }
         }
       case http.Status.BAD_REQUEST =>
         Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}")
-        errorAndCleanup(claim,txnId, BAD_REQUEST_ERROR)
+        errorAndCleanup(claim, txnId, BAD_REQUEST_ERROR)
       case http.Status.REQUEST_TIMEOUT =>
         Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}")
-        errorAndCleanup(claim,txnId, REQUEST_TIMEOUT_ERROR)
+        errorAndCleanup(claim, txnId, REQUEST_TIMEOUT_ERROR)
       case http.Status.INTERNAL_SERVER_ERROR =>
         Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}")
-        errorAndCleanup(claim,txnId, INTERNAL_SERVER_ERROR)
+        errorAndCleanup(claim, txnId, INTERNAL_SERVER_ERROR)
       case _ =>
         Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}")
-        errorAndCleanup(claim,txnId, UNKNOWN_ERROR)
+        errorAndCleanup(claim, txnId, UNKNOWN_ERROR)
     }
   }
 
-  private def errorAndCleanup(claim:Claim, txnId: String, code: String): PlainResult = {
-    updateStatus(claim,txnId, code)
+  private def errorAndCleanup(claim: Claim, txnId: String, code: String): PlainResult = {
+    updateStatus(claim, txnId, code)
     Redirect(controllers.routes.Application.error(claim.key))
   }
 
-  private def updateStatus(claim:Claim, id: String, statusCode: String) = {
-    idService.updateStatus(id, SUCCESS,claimType(claim))
+  private def updateStatus(claim: Claim, id: String, statusCode: String) = {
+    idService.updateStatus(id, statusCode, claimType(claim))
   }
 
-  private def registerId(claim:Claim, id: String, statusCode:String) = {
-    idService.registerId(id, SUBMITTED,claimType(claim))
+  private def registerId(claim: Claim, id: String, statusCode: String) = {
+    idService.registerId(id, SUBMITTED, claimType(claim))
   }
 
   val SUBMITTED = "0000"
