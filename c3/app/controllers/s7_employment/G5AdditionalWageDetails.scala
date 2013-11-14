@@ -9,12 +9,13 @@ import models.domain.AdditionalWageDetails
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
+import controllers.CarersForms._
 
 object G5AdditionalWageDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
     "oftenGetPaid" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
-    "whenGetPaid" -> optional(text),
+    "whenGetPaid" -> optional(carersText),
     "employerOwesYouMoney" -> (nonEmptyText verifying validYesNo)
   )(AdditionalWageDetails.apply)(AdditionalWageDetails.unapply))
 
