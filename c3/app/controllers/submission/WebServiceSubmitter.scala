@@ -34,7 +34,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
             Redirect("/consent-and-declaration/error")
           }
           case e: java.lang.Exception => {
-            Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
+            Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}", e)
             errorAndCleanup(claim, txnID, UNKNOWN_ERROR)
           }
         }

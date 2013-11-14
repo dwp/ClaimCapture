@@ -11,7 +11,7 @@ import services.util.CharacterStripper
 class WebserviceFormSubmission extends FormSubmission {
 
   def submitClaim(claimSubmission: Elem): Future[ws.Response] = {
-    val ingressServerEndpoint: String =  Play.current.configuration.getString("ingressServerUrl").getOrElse("IngressServerEndpointNotSet") + "submit/claim"
+    val ingressServerEndpoint: String =  Play.current.configuration.getString("ingressServerUrl").getOrElse("IngressServerEndpointNotSet") + "submission"
     Logger.debug(s"Ingress Service URL: $ingressServerEndpoint")
     val result = WS.url(ingressServerEndpoint)
       .withHeaders(("Content-Type", "text/xml"))
