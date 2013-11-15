@@ -40,6 +40,7 @@ main {
 		   @media screen and (max-width: 640px)
 		     {
 		     	margin-top: .9em;
+		     	padding-bottom: 0.7em;
 		     }
 		   p {
 			   margin: 0;
@@ -79,6 +80,9 @@ main {
 	   list-style: none;
 	   text-align: right;
 	   border-top: 10px solid #f47738;
+	   @media screen and (max-width: 640px) {
+		   border: 0;
+	   }
 	   li {
 		   margin-left: 15px;
 		   display: inline;
