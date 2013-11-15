@@ -26,7 +26,7 @@ class PostgresTransactionIdService extends TransactionIdService {
   /**
    * Record that an ID has been used
    */
-  def registerId(id: String, statusCode:String, claimType:Int) {
+  def registerId(id: String, statusCode:String, claimType:Int) = {
     DB.withConnection("carers") {
       connection =>
         val insertSql: String = "INSERT INTO transactionstatus (transaction_id, status,type) VALUES (?,?,?);"
@@ -38,7 +38,7 @@ class PostgresTransactionIdService extends TransactionIdService {
     }
   }
 
-  def updateStatus(id: String, statusCode:String, claimType:Int) {
+  def updateStatus(id: String, statusCode:String, claimType:Int) = {
     DB.withConnection("carers") {
       connection =>
         val insertSql: String = "UPDATE transactionstatus set status=?, type=? WHERE transaction_id=?;"

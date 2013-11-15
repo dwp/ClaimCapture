@@ -11,7 +11,7 @@ import com.dwp.carers.s2.xml.signing.XmlSignatureFactory
  * It is a class to make it testable.
  * @author Jorge Migueis
  */
- class DWPBody {
+ class DWPBody extends XMLBuilder {
   def xml(claim: Claim, transactionId : String): Elem = {
     signDwpClaim(<DWPBody xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

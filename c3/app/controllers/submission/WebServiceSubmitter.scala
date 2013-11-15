@@ -12,18 +12,19 @@ import services.TransactionIdService
 import services.submission.FormSubmission
 import models.domain.Claim
 import ExecutionContext.Implicits.global
-import xml.DWPBody
+import xml.{XMLBuilder, ValidXMLBuilder}
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission: FormSubmission) extends Submitter {
 
   val thankYouPageUrl = Play.current.configuration.getString("thankyou.page").getOrElse("ThankYouPageNotConfigured")
+  lazy val xmlBuilder: XMLBuilder = ValidXMLBuilder()
 
   override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
     val txnID = idService.generateId
     Logger.info(s"Retrieved Id : $txnID")
     registerId(claim, txnID, SUBMITTED)
 
-    claimSubmission.submitClaim(DWPBody().xml(claim, txnID)).map(
+    claimSubmission.submitClaim(xmlBuilder.xml(claim, txnID)).map(
       response => {
         processResponse(claim, txnID, response, request)
       }
@@ -35,7 +36,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
       }
       case e: java.lang.Exception => {
         Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}", e)
-        errorAndCleanup(claim, txnID, UNKNOWN_ERROR)
+        errorAndRedirect(claim, txnID, UNKNOWN_ERROR)
       }
     }
   }
@@ -60,25 +61,25 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
           case _ => {
             Logger.info(s"Received result : $status")
-            errorAndCleanup(claim, txnId, status)
+            errorAndRedirect(claim, txnId, status)
           }
         }
       case http.Status.BAD_REQUEST =>
         Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}")
-        errorAndCleanup(claim, txnId, BAD_REQUEST_ERROR)
+        errorAndRedirect(claim, txnId, BAD_REQUEST_ERROR)
       case http.Status.REQUEST_TIMEOUT =>
         Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}")
-        errorAndCleanup(claim, txnId, REQUEST_TIMEOUT_ERROR)
+        errorAndRedirect(claim, txnId, REQUEST_TIMEOUT_ERROR)
       case http.Status.INTERNAL_SERVER_ERROR =>
         Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}")
-        errorAndCleanup(claim, txnId, INTERNAL_SERVER_ERROR)
+        errorAndRedirect(claim, txnId, INTERNAL_SERVER_ERROR)
       case _ =>
         Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}")
-        errorAndCleanup(claim, txnId, UNKNOWN_ERROR)
+        errorAndRedirect(claim, txnId, UNKNOWN_ERROR)
     }
   }
 
-  private def errorAndCleanup(claim: Claim, txnId: String, code: String): PlainResult = {
+  private def errorAndRedirect(claim: Claim, txnId: String, code: String): PlainResult = {
     updateStatus(claim, txnId, code)
     Redirect(controllers.routes.Application.error(claim.key))
   }
