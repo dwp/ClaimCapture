@@ -21,7 +21,7 @@ object G4Trip extends Controller with CachedClaim {
     "tripID" -> nonEmptyText,
     "start" -> (dayMonthYear verifying validDate),
     "end" -> (dayMonthYear verifying validDate),
-    "where" -> carersNonEmptyText,
+    "where" -> carersNonEmptyText(maxLength = 35),
     "why" -> carersNonEmptyText
   )(Trip.apply)(Trip.unapply))
 

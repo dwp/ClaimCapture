@@ -12,7 +12,7 @@ class StaticTransactionIdService() extends TransactionIdService {
     id
   }
 
-  def registerId(id: String, statusCode: String) {}
+  def registerId(id: String, statusCode: String, claimType:Int) {}
 
-  def updateStatus(id: String, statusCode: String) {}
+  def updateStatus(id: String, statusCode: String, claimType:Int) {}
 }

@@ -529,4 +529,5 @@ error.forbidden.characters = A name must not contain special characters
 error.restricted.characters = The text must not contain special characters
 error.address.characters = Address must not contain special characters
 number.invalid = The value must be a whole number
+error.sortcode.length = A sort code must be 6 digits long
 
