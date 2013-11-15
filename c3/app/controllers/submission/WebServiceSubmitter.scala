@@ -103,7 +103,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
   private def errorAndCleanup(claim: Claim, txnId: String, code: String): PlainResult = {
     Logger.error(s"errorAndCleanup : $claim.key : $txnId : $code")
     updateStatus(claim, txnId, code)
-    Redirect(s"/error?key=${claim.key}")
+    Redirect(controllers.routes.Application.error(claim.key))
   }
 
   private[submission] def pollXml(correlationID: String, pollEndpoint: String) = {
