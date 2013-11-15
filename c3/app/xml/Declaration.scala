@@ -13,17 +13,6 @@ object  Declaration {
 
     <Declaration>
 
-      <!-- : Should be moved to disclaimer
-      {Messages("disclaimer.1").replace("[[first name, middle name, surname]]", fullName(claim))}
-      {Messages("disclaimer.2").replace("[[first name, middle name, surname]]", fullName(claim))}
-      {Messages("disclaimer.3").replace("[[first name, middle name, surname]]", fullName(claim))}
-      {Messages("disclaimer.4").replace("[[first name, middle name, surname]]", fullName(claim))}
-      {Messages("disclaimer.5").replace("[[first name, middle name, surname]]", fullName(claim))}
-      {Messages("disclaimer.6").replace("[[first name, middle name, surname]]", fullName(claim))}
-      {Messages("disclaimer.7").replace("[[first name, middle name, surname]]", fullName(claim))}
-      
-      Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits. = {booleanStringToYesNo(disclaimer.read)} : Should be moved to disclaimer-->
-
       <DeclarationStatement>
         <Title>This is my claim for Carer's Allowance.</Title>
         <Content>{Messages("declaration.1.pdf")}</Content>

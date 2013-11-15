@@ -88,6 +88,7 @@ object DWPCAClaim {
         </OtherInformation>
       }
       {Declaration.xml(claim)}
+      {Disclaimer.xml(claim)}
       {EvidenceList.buildXml(claim)}
       {Consents.xml(claim)}
     </DWPCAClaim>
