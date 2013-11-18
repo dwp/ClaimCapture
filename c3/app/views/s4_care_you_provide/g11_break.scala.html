@@ -29,17 +29,20 @@
             <legend>About the break in care since @dateOfClaimCheckIfSpent35HoursCaringBeforeClaim</legend>
 
             <ul>
+            
+            	@whereabouts(breakForm("whereYou"),
+                             Seq("", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
+                             '_label -> Messages("whereYou.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+                             
+                @whereabouts(breakForm("wherePerson"),
+                             Seq("", AtHome, Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
+                             '_label -> Messages("wherePerson.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)             
+                             
+            
                 @inputDayMonthYearHM(breakForm("start"), 'helperBelow -> Messages("dateOfBirth.helper"))
 
                 @inputDayMonthYearHM(breakForm("end"), 'helperBelow -> Messages("dateOfBirth.helper"))
-
-                @whereabouts(breakForm("whereYou"),
-                             Seq("", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
-                             '_label -> Messages("whereYou.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)
-
-                @whereabouts(breakForm("wherePerson"),
-                             Seq("", AtHome, Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
-                             '_label -> Messages("wherePerson.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)
+    
 
                 @yesNoRadioGroup(breakForm("medicalDuringBreak"))
             </ul>
