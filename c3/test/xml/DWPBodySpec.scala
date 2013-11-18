@@ -26,6 +26,7 @@ class DWPBodySpec extends Specification with Tags {
       val xml = new DWPBodyWithShortXMLClaim xml(null,"NB1212X")
       val date = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date())
       (xml \\ "DWPBody" \ "DWPCATransaction" \ "DateTimeGenerated").text mustEqual date
+      (xml \\ "DWPBody" \ "DWPCATransaction" \ "@id").text mustEqual "NB1212X"
       (xml \\ "DWPBody" \ "DWPCATransaction" \ "TransactionId").text mustEqual "NB1212X"
       (xml \\ "Signature" \\ "DigestValue").text.isEmpty must beFalse
       (xml \\"Signature" \\ "SignatureValue").text.isEmpty must beFalse
