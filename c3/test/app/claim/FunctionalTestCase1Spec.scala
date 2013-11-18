@@ -22,7 +22,7 @@ class FunctionalTestCase1Spec extends FunctionalTestCommon {
 
     "Successfully run absolute Claim Test Case 1" in new WithBrowser with G1BenefitsPageContext {
       page goToThePage()
-      val lastPage = page runClaimWith(claim, XmlPage.title)
+      val lastPage = page runClaimWith(claim, XmlPage.title,trace = true)
 
       lastPage match {
         case p: XmlPage => {

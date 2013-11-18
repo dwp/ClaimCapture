@@ -5,6 +5,7 @@ import xml.XMLHelper._
 import scala.xml.NodeSeq
 import app.{PaymentFrequency, XMLValues, AccountStatus}
 import app.XMLValues._
+import play.api.i18n.Messages
 
 object Payment {
 
@@ -12,7 +13,7 @@ object Payment {
 
     val howWePayYou = claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())
 
-    val showAccount = howWePayYou.likeToBePaid == AccountStatus.BankBuildingAccount.name
+    val showAccount = howWePayYou.likeToBePaid == Messages(AccountStatus.BankBuildingAccount.name)
 
     claim.questionGroup[HowWePayYou] match {
       case Some(howWePayYou) => {
@@ -29,9 +30,9 @@ object Payment {
           <InitialAccountQuestion>
             <QuestionLabel>InitialAccountQuestion?</QuestionLabel>
             <Answer>{howWePayYou.likeToBePaid match {
-              case AccountStatus.BankBuildingAccount.name => "UK bank or building society"
-              case AccountStatus.AppliedForAccount.name => "You don't have an account but intend to open one"
-              case AccountStatus.NotOpenAccount.name => "Other - you would like more information"
+              case AccountStatus.BankBuildingAccount.name => Messages(AccountStatus.BankBuildingAccount.name)
+              case AccountStatus.AppliedForAccount.name => Messages(AccountStatus.AppliedForAccount.name)
+              case AccountStatus.NotOpenAccount.name => Messages(AccountStatus.NotOpenAccount.name)
               case n => n
               }
             }</Answer>

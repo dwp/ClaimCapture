@@ -58,19 +58,7 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
           else if (claimValue.attribute.contains("EmploymentAddtionalWageHowOftenAreYouPaid") || claimValue.attribute.contains("EmploymentChildcareExpensesHowOften") || claimValue.attribute.contains("EmploymentCareExpensesHowOftenYouPayfor")
             || claimValue.attribute.contains("SelfEmployedCareExpensesHowOften") || claimValue.attribute.contains("SelfEmployedChildcareExpensesHowOften"))
             value.contains(StatutoryPaymentFrequency.mapToHumanReadableString(claimValue.value, None).toLowerCase)
-          else if (nodeName.startsWith(EvidenceListNode)) {
-            // Awful code. Need to do something about it! (JMI)
-            if (claimValue.attribute.contains("TimeSpentAbroadMoreTripsOutOfGBforMoreThan52WeeksAtATime")) {
-              if (iteration == 0 ) value.matches(".*haveyoubeenoutofgreatbritainformorethan[^=]*=" + claimValue.value +".*") else true
-            }
-            else if (claimValue.attribute.contains("TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor")) {
-              if (iteration == 0) value.matches(".*haveyoubeenoutofgreatbritainwith[^=]*=" + claimValue.value +".*") else true
-            }
-            else if (claimValue.attribute == "SelfEmployedChildcareExpensesHowOften" || claimValue.attribute == "SelfEmployedCareExpensesHowOften")
-              value.contains(claimValue.question + "=" + PensionPaymentFrequency.mapToHumanReadableString(claimValue.value).toLowerCase)
-            else value.contains(claimValue.question + "=" + claimValue.value)
-          }
-          else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
+          else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
           else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
           else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
           else value == claimValue.value
@@ -101,7 +89,7 @@ object ClaimValue {
 
     if (cleanValue.contains("/") && !attribute.startsWith("EmploymentLeavingDateP45") && !attribute.startsWith("AboutYouWhenDidYouArriveInYheUK")) {
       val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
-      date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
+      date.toString(DateTimeFormat.forPattern("dd-MM-yyy"))
     } else cleanValue
   }
 
