@@ -19,11 +19,7 @@
                 @form(action = controllers.s1_carers_allowance.routes.G5CarersResponse.submit) {
 
                     <h1>What you need to know before you claim...</h1>
-
-					<article class="benefits">
-                        <h2>This may effect the benefits paid to the person you care for</h2>
-                        <p>The amount the person you care for receives for certain benefits might be affected if you get paid Carer's Allowance. Please see the <a href="/claim-notes" target="_blank">claim notes</a> for more information.</p>
-                    </article>
+                    
 
                     <article class="partner">
                         <h2>This could effect your partner's benefits</h2>
@@ -31,14 +27,17 @@
                     </article>
 
                     <article class="earnings">
-                        <h2>You need to be earning less than &pound;100 a week</h2>
-                        <p>If your income after tax is more than &pound;100 a week after tax you won't be entitled to Carer's Allowance. Please see the <a href="/claim-notes" target="_blank">claim notes</a> for allowable expenses. You will need to enter your employment details</p>
+                        <h2>You need to be earning less than &pound;100 a week net</h2>
+                        <p>If your income after tax, National Insurance and certain allowable expenses is more than &pound;100 a week you won't be entitled to Carer's Allowance. Please see the <a href="/claim-notes" target="_blank">claim notes</a> for allowable expenses. You will need to enter your employment details.</p>
                     </article>
+                   
 
                     <article class="education">
                         <h2>If you're in full time education you might not get Carer's Allowance</h2>
                         <p>If you're studying 21 hours a week or more you might not be entitled. You will need to enter details of any education courses you're studying for.</p>
                     </article>
+  
+                    
 
                     <div class="form-steps">
                         <a href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
