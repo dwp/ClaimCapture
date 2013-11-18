@@ -415,6 +415,9 @@ paymentFrequency = How often do you want to get paid?
 howWePayYou.helper = Select other if you want to be paid into an International Bank Account and provide details in the additional information section.
 
 # BANK BUILDING SOCIETY DETAILS
+bankBuildingAccount = UK bank or building society
+appliedForAccount = You don't have an account but intend to open one
+notOpenAccount = Other - you would like more information
 accountHolderName =  Name of account holder
 whoseNameIsTheAccountIn = Whose name or names is the account in?
 bankFullName = Full name of bank or building society

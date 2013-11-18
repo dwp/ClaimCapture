@@ -3,6 +3,7 @@ package controllers
 import utils.pageobjects.TestData
 
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
+import play.api.i18n.Messages
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -197,7 +198,7 @@ object ClaimScenarioFactory {
 
   def s6PayDetails() = {
     val claim = new TestData
-    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount.name
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = Messages(AccountStatus.NotOpenAccount.name)
     claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek.name
     claim
   }

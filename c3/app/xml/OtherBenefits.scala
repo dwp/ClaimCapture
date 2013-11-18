@@ -159,7 +159,7 @@ object OtherBenefits {
             <Frequency>
               <QuestionLabel>HowOftenSSP?</QuestionLabel>
               {howOften.frequency match {
-              case "Other" => <Other>{howOften.other}</Other>
+              case "Other" => <Other>{howOften.other.getOrElse("")}</Other>
               case _ => NodeSeq.Empty
             }}
               <Answer>{StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(statutorySickPay.howOften)}</Answer>
@@ -198,7 +198,7 @@ object OtherBenefits {
             <Frequency>
               <QuestionLabel>HowOftenSP?</QuestionLabel>
               {howOften.frequency match {
-              case "Other" => <Other>{howOften.other}</Other>
+              case "Other" => <Other>{howOften.other.getOrElse("")}</Other>
               case _ => NodeSeq.Empty
             }}
               <Answer>{StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)}</Answer>
