@@ -1,4 +1,4 @@
-@(tripForm: Form[models.domain.Trip], actionCall: Call, backCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
+@(tripForm: Form[models.domain.Trip], legend :String, actionCall: Call, backCall: Call)(implicit claim: models.domain.Claim, request: play.api.mvc.Request[_])
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -15,7 +15,7 @@
         <input type="hidden" name="tripID" value='@tripForm("tripID").value.getOrElse(java.util.UUID.randomUUID.toString)'>
 
         <fieldset class="form-elements">
-            <legend>@Messages("s5.g3")</legend>
+            <legend>@Messages(legend)</legend>
 
             <ul class="group">
                 @inputDayMonthYear(tripForm("start"), '_label -> Messages("start.trip"))
