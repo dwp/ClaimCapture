@@ -15,5 +15,5 @@ trait CachedChangeOfCircs extends CachedClaim {
 
   override def newInstance: Claim = new Claim(cacheKey) with ChangeOfCircs
 
-  override def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections)(claim.navigation) with ChangeOfCircs
+  override def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created)(claim.navigation) with ChangeOfCircs
 }
