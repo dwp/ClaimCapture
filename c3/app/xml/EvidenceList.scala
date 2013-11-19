@@ -8,6 +8,7 @@ import xml.XMLHelper._
 import scala.xml.{NodeBuffer, Elem, NodeSeq}
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
+import play.api.i18n.Messages
 
 object EvidenceList {
 
@@ -35,28 +36,28 @@ object EvidenceList {
     val buffer = new NodeBuffer
 
     if (employed || selfEmployed) {
-      buffer += textLine("Send us the following documents below including your Name and National Insurance (NI) number.")
+      buffer += textLine({Messages("evidence.statement1")})
 
       if (employed) {
-        buffer += textLine("Your Employment documents.")
-        buffer += textLine("Last payslip you got before your claim date: ", claimDate.dateOfClaim.`dd/MM/yyyy`)
-        buffer += textLine("Any payslips you have had since then.")
-        buffer += textLine("Any pension statements you may have.")
+        buffer += textLine({Messages("evidence.employed.statement1")})
+        buffer += textLine({Messages("evidence.employed.statement2")}, claimDate.dateOfClaim.`dd/MM/yyyy`)
+        buffer += textLine({Messages("evidence.employed.statement3")})
+        buffer += textLine({Messages("evidence.employed.statement4")})
 
       }
 
       if (selfEmployed) {
-        buffer += textLine("Your Self-employed documents.")
-        buffer += textLine("Most recent finalised accounts you have for your business.")
-        buffer += textLine("Any pension statements you may have.")
+        buffer += textLine({Messages("evidence.selfemployed.statement1")})
+        buffer += textLine({Messages("evidence.selfemployed.statement2")})
+        buffer += textLine({Messages("evidence.selfemployed.statement3")})
       }
 
-      buffer += textLine("Send the above documents to:")
-      buffer += textLine("CA Freepost")
-      buffer += textLine("Palatine House")
-      buffer += textLine("Preston")
-      buffer += textLine("PR1 1HN")
-      buffer += textLine("The Carer's Allowance unit will contact you if they need any further information.")
+      buffer += textLine({Messages("evidence.statement2")})
+      buffer += textLine({Messages("evidence.statement3")})
+      buffer += textLine({Messages("evidence.statement4")})
+      buffer += textLine({Messages("evidence.statement5")})
+      buffer += textLine({Messages("evidence.statement6")})
+      buffer += textLine({Messages("evidence.statement7")})
     }
 
     buffer
