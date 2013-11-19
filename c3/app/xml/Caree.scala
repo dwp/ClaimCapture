@@ -1,6 +1,6 @@
 package xml
 
-import app.XMLValues
+import app.{Whereabouts, XMLValues}
 import scala.xml.NodeSeq
 import app.XMLValues._
 import models.domain._
@@ -104,7 +104,6 @@ object Caree {
   }
 
   def careBreak(claim: Claim) = {
-    import models.DayMonthYear._
 
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
@@ -123,6 +122,22 @@ object Caree {
                 case n => n
             }}</Answer>
         </MedicalCare>
+        <ReasonClaimant>
+          <QuestionLabel>Where were you during the break?</QuestionLabel>
+          {break.whereYou.location match{
+            case Whereabouts.Other => <Other>{break.whereYou.other.get}</Other>
+            case _ =>
+          }}
+          <Answer>{break.whereYou.location}</Answer>
+        </ReasonClaimant>
+        <ReasonCaree>
+          <QuestionLabel>Where was the person you care for during the break?</QuestionLabel>
+          {break.wherePerson.location match{
+            case Whereabouts.Other => <Other>{break.wherePerson.other.get}</Other>
+            case _ =>
+          }}
+          <Answer>{break.wherePerson.location}</Answer>
+        </ReasonCaree>
       </CareBreak>
     }
   }

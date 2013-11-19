@@ -163,7 +163,7 @@ object Employment {
             <QuestionLabel>pension.occ.frequency</QuestionLabel>
             {pensionScheme.howOftenPension match {
               case Some(n) if (n.equals("Other")) => {
-                <Other>{n.other}</Other>
+                <Other>{n.other.get}</Other>
               }
               case _ => NodeSeq.Empty
             }}
@@ -198,7 +198,7 @@ object Employment {
           <Frequency>
             <QuestionLabel>pension.per.frequency</QuestionLabel>
             {if(PensionPaymentFrequency.mapToHumanReadableString(pensionScheme.howOftenPersonal.get) == "Other"){
-              <Other>{pensionScheme.howOftenPersonal.get.other}</Other>
+              <Other>{pensionScheme.howOftenPersonal.get.other.get}</Other>
             }}
             <Answer>{PensionPaymentFrequency.mapToHumanReadableString(pensionScheme.howOftenPersonal.get)}</Answer>
           </Frequency>
