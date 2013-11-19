@@ -63,11 +63,11 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           case "error" => {
             val errorCode = (responseXml \\ "errorCode").text
             updateStatus(claim, txnId, errorCode)
-            Logger.error(s"Received error : $result")
+            Logger.error(s"Received error : $result, TxnId : $txnId, Headers : ${request.headers}")
             Redirect("/consent-and-declaration/error")
           }
           case _ => {
-            Logger.info(s"Received result : $result")
+             Logger.error(s"Received error : $result, TxnId : $txnId, Headers : ${request.headers}")
             errorAndCleanup(claim, txnId, UNKNOWN_ERROR)
           }
         }
