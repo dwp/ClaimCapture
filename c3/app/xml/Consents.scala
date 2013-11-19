@@ -21,11 +21,12 @@ object Consents {
             <Consent>
               <QuestionLabel>{Messages("gettingInformationFromAnyEmployer.informationFromEmployer")}</QuestionLabel>
               <Answer>{titleCase(answer)}</Answer>
-              {//TODO: Fix this
-               /*titleCase(answer) match{
-                case "No" => "If you answered No please tell us why " + { consent.informationFromEmployer.text.orNull }
-                case _ =>
-              }*/}
+              {
+                 titleCase(answer) match{
+                  case "No" => <Why>{ consent.informationFromEmployer.text.orNull }</Why>
+                  case _ =>
+                }
+              }
             </Consent>
           case _ => NodeSeq.Empty
         }
@@ -37,10 +38,12 @@ object Consents {
           <Consent>
             <QuestionLabel>{Messages("tellUsWhyEmployer.informationFromPerson")}</QuestionLabel>
             <Answer>{titleCase(consent.informationFromPerson.answer)}</Answer>
-            {/*titleCase(consent.informationFromPerson.answer) match{
-            case "No" => "If you answered No please tell us why " + { consent.informationFromPerson.text.orNull }
-            case _ =>
-            }*/}
+            {
+              titleCase(consent.informationFromPerson.answer) match{
+              case "No" => <Why>{ consent.informationFromPerson.text.orNull }</Why>
+              case _ =>
+              }
+            }
           </Consent>
           case _ => NodeSeq.Empty
         }

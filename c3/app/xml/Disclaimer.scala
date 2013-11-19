@@ -15,7 +15,7 @@ object  Disclaimer{
 
       <DisclaimerStatement>
         <Title>This is my claim for Carer's Allowance.</Title>
-        <Content>{Messages("disclaimer.1.pdf")}</Content>
+        <Content>{Messages("disclaimer.1")}</Content>
         <Content>{Messages("disclaimer.2")}</Content>
         <Content>{Messages("disclaimer.3")}</Content>
         <Content>{Messages("disclaimer.4")}</Content>

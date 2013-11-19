@@ -1,7 +1,7 @@
 package utils.pageobjects.xml_validation
 
 import utils.pageobjects.{TestDatumValue, PageObjectException, TestData}
-import scala.xml.Elem
+import scala.xml.{Node, Elem}
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import scala.language.implicitConversions
@@ -36,6 +36,8 @@ class XMLClaimBusinessValidation extends XMLBusinessValidation {
 class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml, path) {
 
   def matches(claimValue: TestDatumValue): Boolean = {
+    import XMLValidationNode.prepareElement
+
     try {
       val nodeStart = theNodes(0).mkString
 
@@ -51,27 +53,36 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
 
         val index = if (isRepeatedAttribute && isARepeatableNode && !isPensionScheme) iteration else 0
 
-        val value = XMLValidationNode.prepareElement(if (isPensionScheme) theNodes.text else theNodes(index).text)
+        val value = prepareElement(if (isPensionScheme) theNodes.text else theNodes(index).text)
         val nodeName = theNodes(index).mkString
+
         def valuesMatching: Boolean = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
           else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
           else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
-          else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
+          else if (nodeName.startsWith(DeclarationNode)) claimValue.value == answerText(theNodes(index), "DeclarationQuestion",claimValue.question)
+          else if (nodeName.startsWith(DisclaimerNode))  claimValue.value == answerText(theNodes(index), "DisclaimerQuestion", claimValue.question)
+          else if (nodeName.startsWith(ConsentNode))  claimValue.value == answerText(theNodes(index), "Consent", claimValue.question)//TODO: If consent is no, check why
           else if (nodeName.endsWith("DateTime>")) value.contains(claimValue.value)
           else value == claimValue.value
         }
 
         val matching = valuesMatching
 
-        if (!matching)
+        if (!matching){
           error = " value expected: [" + (if (nodeName.startsWith(EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + value + "]"
+        }
+
         matching
       }
     }
     catch {
       case e: IndexOutOfBoundsException => throw new PageObjectException("XML Validation failed" + this.toString() + " - " + claimValue.attribute)// + " Cause:"+e.getCause+" Trace:"+e.getStackTraceString)
     }
+  }
+
+  def answerText(node:Node,questionTag:String,questionLabel:String) = {
+    XMLValidationNode.prepareElement(((node \\ questionTag).filter { n => XMLValidationNode.prepareElement(n \\ "QuestionLabel" text) == questionLabel } \\ "Answer").text)
   }
 
 }
