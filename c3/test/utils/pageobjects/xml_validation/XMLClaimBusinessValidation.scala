@@ -55,12 +55,10 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
         val nodeName = theNodes(index).mkString
         def valuesMatching: Boolean = {
           if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || isPensionScheme) value.contains(claimValue.value)
-          else if (claimValue.attribute.contains("EmploymentAddtionalWageHowOftenAreYouPaid") || claimValue.attribute.contains("EmploymentChildcareExpensesHowOften") || claimValue.attribute.contains("EmploymentCareExpensesHowOftenYouPayfor")
-            || claimValue.attribute.contains("SelfEmployedCareExpensesHowOften") || claimValue.attribute.contains("SelfEmployedChildcareExpensesHowOften"))
-            value.contains(StatutoryPaymentFrequency.mapToHumanReadableString(claimValue.value, None).toLowerCase)
           else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
           else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
           else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
+          else if (nodeName.endsWith("DateTime>")) value.contains(claimValue.value)
           else value == claimValue.value
         }
 
@@ -72,7 +70,7 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
       }
     }
     catch {
-      case e: IndexOutOfBoundsException => throw new PageObjectException("XML Validation failed" + this.toString() + " - " + claimValue.attribute)
+      case e: IndexOutOfBoundsException => throw new PageObjectException("XML Validation failed" + this.toString() + " - " + claimValue.attribute)// + " Cause:"+e.getCause+" Trace:"+e.getStackTraceString)
     }
   }
 
