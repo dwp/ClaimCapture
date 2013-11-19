@@ -3,7 +3,7 @@ package xml
 import app.XMLValues
 import app.XMLValues._
 import play.api.Logger
-import models.domain.{HowWePayYou, MoreAboutYou, Claim}
+import models.domain.{MoreAboutYou, Claim}
 import xml.XMLHelper._
 import scala.xml.NodeSeq
 

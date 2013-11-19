@@ -8,10 +8,7 @@ import scala.xml.Elem
 import java.util.Date
 import java.text.SimpleDateFormat
 
-/**
- * TODO write description
- * @author Jorge Migueis
- */
+
 class DWPBodySpec extends Specification with Tags {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))
 
