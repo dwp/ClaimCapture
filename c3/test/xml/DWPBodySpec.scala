@@ -1,14 +1,10 @@
 package xml
 
 import org.specs2.mutable.{Tags, Specification}
-import models.{MultiLineAddress, DayMonthYear, NationalInsuranceNumber}
-import models.domain._
-import models.MultiLineAddress
 import models.domain.Claim
 import models.NationalInsuranceNumber
 import scala.Some
 import scala.xml.Elem
-import play.api.Logger
 import java.util.Date
 import java.text.SimpleDateFormat
 

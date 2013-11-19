@@ -1,7 +1,7 @@
 package xml
 
 import models.domain.Claim
-import scala.xml.{XML, NodeSeq, Elem}
+import scala.xml.{XML, Elem}
 import java.text.SimpleDateFormat
 import java.util.Date
 import com.dwp.carers.s2.xml.signing.XmlSignatureFactory
