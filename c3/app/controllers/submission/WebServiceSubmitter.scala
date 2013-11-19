@@ -47,10 +47,10 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     response.status match {
       case http.Status.OK =>
         val responseStr = response.body
-        Logger.info(s"Received response : $claim.key : $responseStr")
+        Logger.info(s"Received response : ${claim.key} : $responseStr")
         val responseXml = scala.xml.XML.loadString(responseStr)
         val result = (responseXml \\ "result").text
-        Logger.info(s"Received result : $claim.key : $result")
+        Logger.info(s"Received result : ${claim.key} : $result")
         result match {
           case "response" => {
             updateStatus(claim, txnId, SUCCESS)
@@ -88,7 +88,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
 
   def respondWithSuccess(claim: Claim, txnId: String, request: Request[AnyContent]): SimpleResult[Results.EmptyContent] = {
-    Logger.info(s"Successful submission : $claim.key : $txnId")
+    Logger.info(s"Successful submission : ${claim.key} : $txnId")
     // Clear the cache to ensure no duplicate submission
     val key = request.session.get(claim.key).orNull
     Cache.set(key, None)
@@ -101,7 +101,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
   }
 
   private def errorAndCleanup(claim: Claim, txnId: String, code: String): PlainResult = {
-    Logger.error(s"errorAndCleanup : $claim.key : $txnId : $code")
+    Logger.error(s"errorAndCleanup : ${claim.key} : $txnId : $code")
     updateStatus(claim, txnId, code)
     Redirect(controllers.routes.Application.error(claim.key))
   }
