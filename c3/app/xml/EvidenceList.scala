@@ -36,7 +36,9 @@ object EvidenceList {
     val buffer = new NodeBuffer
 
     if (employed || selfEmployed) {
+      buffer += textLine({Messages("evidence.title1")})
       buffer += textLine({Messages("evidence.statement1")})
+      buffer += textLine({Messages("evidence.title2")})
 
       if (employed) {
         buffer += textLine({Messages("evidence.employed.statement1")})

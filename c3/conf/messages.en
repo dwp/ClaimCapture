@@ -534,6 +534,8 @@ error.address.characters = Address must not contain special characters
 number.invalid = The value must be a whole number
 
 #Evidence List
+evidence.title1 = After you submit your claim
+evidence.title2 = Write down the documents and address before you submit your claim
 evidence.statement1 = Send us the following documents below including your Name and National Insurance (NI) number.
 evidence.statement2 = Send the above documents to:
 evidence.statement3 = CA Freepost
