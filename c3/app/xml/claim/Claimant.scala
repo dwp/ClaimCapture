@@ -2,11 +2,12 @@ package xml.claim
 
 import app.XMLValues
 import models.domain.{ContactDetails, YourDetails, Claim}
-import scala.xml.{NodeSeq, Elem}
+import scala.xml.NodeSeq
 import xml.XMLHelper._
+import xml.XMLComponent
 
-object Claimant {
-  def xml(claim: Claim): Elem = {
+object Claimant extends XMLComponent {
+  def xml(claim: Claim) = {
     val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
     val contactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
 

@@ -2,8 +2,9 @@ package xml.claim
 
 import models.domain.Claim
 import app.XMLValues._
+import xml.XMLComponent
 
-object PropertyRentedOut {
+object PropertyRentedOut extends XMLComponent {
 
   def xml(claim: Claim) = {
     <PropertyRentedOut>

@@ -7,8 +7,9 @@ import models.yesNo.YesNoWithDate
 import scala.xml.NodeSeq
 import xml.XMLHelper.stringify
 import models.domain.Claim
+import xml.XMLComponent
 
-object Residency {
+object Residency extends XMLComponent{
 
   def xml(claim: Claim) = {
     val livesInGB = claim.questionGroup[LivesInGB]

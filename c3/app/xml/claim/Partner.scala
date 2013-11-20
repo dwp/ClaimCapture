@@ -7,8 +7,9 @@ import app.XMLValues._
 import xml.XMLHelper._
 import models.domain.Claim
 import scala.Some
+import xml.XMLComponent
 
-object Partner {
+object Partner extends XMLComponent {
 
   def xml(claim: Claim) = {
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(hadPartnerSinceClaimDate = no))

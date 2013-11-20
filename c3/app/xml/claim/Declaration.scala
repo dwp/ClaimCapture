@@ -3,9 +3,9 @@ package xml.claim
 import models.domain._
 import xml.XMLHelper._
 import play.api.i18n.Messages
-import scala.Some
+import xml.XMLComponent
 
-object  Declaration {
+object  Declaration extends XMLComponent {
 
   def xml(claim: Claim) = {
 

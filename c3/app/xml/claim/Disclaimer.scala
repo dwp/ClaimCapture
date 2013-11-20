@@ -4,8 +4,9 @@ import models.domain._
 import xml.XMLHelper._
 import play.api.i18n.Messages
 import scala.Some
+import xml.XMLComponent
 
-object  Disclaimer{
+object  Disclaimer extends XMLComponent{
 
   def xml(claim: Claim) = {
 

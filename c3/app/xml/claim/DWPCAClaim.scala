@@ -3,14 +3,14 @@ package xml.claim
 import app.XMLValues
 import app.XMLValues._
 import play.api.Logger
-import models.domain.{MoreAboutYou, Claim}
+import models.domain.MoreAboutYou
 import xml.XMLHelper._
 import scala.xml.NodeSeq
 import xml._
 import models.domain.Claim
 import scala.Some
 
-object DWPCAClaim {
+object DWPCAClaim extends XMLComponent {
 
   def xml(claim: Claim) = {
 

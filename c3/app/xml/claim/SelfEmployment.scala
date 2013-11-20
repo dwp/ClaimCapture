@@ -5,8 +5,9 @@ import models.domain._
 import scala.xml.NodeSeq
 import app.XMLValues._
 import xml.XMLHelper._
+import xml.XMLComponent
 
-object SelfEmployment {
+object SelfEmployment extends XMLComponent{
 
   def xml(claim: Claim) = {
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment())

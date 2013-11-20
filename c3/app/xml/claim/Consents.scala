@@ -1,14 +1,14 @@
 package xml.claim
 
-import app.XMLValues
 import models.domain.{Consent, Claim}
 import xml.XMLHelper._
 import scala.Some
 import scala.xml.NodeSeq
 import play.api.i18n.Messages
+import xml.XMLComponent
 
 
-object Consents {
+object Consents extends XMLComponent {
 
   def xml(claim: Claim) = {
 

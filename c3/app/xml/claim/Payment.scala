@@ -3,11 +3,11 @@ package xml.claim
 import models.domain.{BankBuildingSocietyDetails, Claim, HowWePayYou}
 import xml.XMLHelper._
 import scala.xml.NodeSeq
-import app.{PaymentFrequency, XMLValues, AccountStatus}
-import app.XMLValues._
+import app.{PaymentFrequency, AccountStatus}
 import play.api.i18n.Messages
+import xml.XMLComponent
 
-object Payment {
+object Payment extends XMLComponent {
 
   def xml(claim: Claim) = {
 
