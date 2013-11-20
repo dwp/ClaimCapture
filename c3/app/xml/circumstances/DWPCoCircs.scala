@@ -15,6 +15,7 @@ object DWPCoCircs {
       </Claim>
       {OtherChanges.xml(circs)}
       {Declaration.xml(circs)}
+      {Consents.xml(circs)}
     </DWPCAChangeOfCircumstances>
   }
 

@@ -31,11 +31,11 @@ class XMLHelperSpec extends Specification with Tags {
 
     "convert boolean string to yes/no" in {
       "when true" in {
-        XMLHelper.booleanStringToYesNo("true") shouldEqual yes
+        XMLHelper.booleanStringToYesNo("true") shouldEqual Yes
       }
 
       "when false" in {
-        XMLHelper.booleanStringToYesNo("false") shouldEqual no
+        XMLHelper.booleanStringToYesNo("false") shouldEqual No
       }
 
       "when other" in {

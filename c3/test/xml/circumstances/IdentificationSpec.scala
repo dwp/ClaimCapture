@@ -33,12 +33,12 @@ class IdentificationSpec extends Specification with Tags {
       val xml = ClaimantDetails.xml(claim)
 
       (xml \\ "Surname").text shouldEqual yourDetails.lastName
-      (xml \\ "OtherNames").text shouldEqual yourDetails.otherNames
+      (xml \\ "OtherNames").text shouldEqual s"${yourDetails.firstName} ${yourDetails.middleName.get}"
       (xml \\ "Title").text shouldEqual yourDetails.title
       (xml \\ "DateOfBirth").text shouldEqual yourDetails.dateOfBirth.`dd-MM-yyyy`
       (xml \\ "NationalInsuranceNumber").text shouldEqual nationalInsuranceNr.stringify
       (xml \\ "Address" \\ "PostCode").text shouldEqual contactDetails.postcode.get
-      (xml \\ "DaytimePhonePhoneNumber").text shouldEqual contactDetails.phoneNumber.get
+      (xml \\ "DayTimePhoneNumber").text shouldEqual contactDetails.phoneNumber.get
       (xml \\ "MobileNumber").text shouldEqual contactDetails.mobileNumber.get
     }
 

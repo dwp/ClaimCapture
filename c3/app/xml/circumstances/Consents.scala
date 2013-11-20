@@ -17,7 +17,7 @@ object Consents extends XMLComponent{
     <Consents>
       <Consent>
         <QuestionLabel>{Messages("obtainInfoAgreement")}</QuestionLabel>
-        <Answer>{consent.obtainInfoAgreement}</Answer>
+        <Answer>{formatValue(consent.obtainInfoAgreement)}</Answer>
         {<Why/> ?+ consent.obtainInfoWhy}
       </Consent>
     </Consents>

@@ -19,7 +19,7 @@ object Declaration  extends XMLComponent {
       </DeclarationStatement>
       <DeclarationQuestion>
         <QuestionLabel>{Messages("confirm")}</QuestionLabel>
-        <Answer>{declaration.confirm}</Answer>
+        <Answer>{booleanStringToYesNo(declaration.confirm)}</Answer>
       </DeclarationQuestion>
     </Declaration>
   }

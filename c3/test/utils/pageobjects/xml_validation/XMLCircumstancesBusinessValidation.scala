@@ -53,7 +53,7 @@ class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationN
           else if (nodeName.startsWith(EvidenceListNode)) {
             value.contains(claimValue.question + "=" + claimValue.value)
           }
-          else if (nodeName.endsWith("gds:Line>")) claimValue.value.contains(value)
+          else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
           else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
           else value == claimValue.value
         }
