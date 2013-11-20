@@ -10,6 +10,7 @@ import models.PaymentFrequency
 import models.MultiLineAddress
 import models.PeriodFromTo
 import models.NationalInsuranceNumber
+import play.api.i18n.Messages
 
 object XMLHelper {
 
@@ -62,10 +63,22 @@ object XMLHelper {
     <Amount>{amount}</Amount>
   }
 
+
+  def question(questionLabelCode: String, answerText: String): NodeSeq = {
+    val questionNode = <QuestionLabel>{Messages(questionLabelCode)}</QuestionLabel>
+    questionNode ++ <Answer>{formatValue(answerText)}</Answer>
+  }
+
+  def questionOther(questionLabelCode: String, answerText: String, otherText: Option[String]): NodeSeq = {
+    val other = <Other/>
+    val questionNode = <QuestionLabel>{Messages(questionLabelCode)}</QuestionLabel>
+    questionNode ++ <Answer>{formatValue(answerText)}</Answer> ++ optionalEmpty(otherText,other)
+  }
+
   def fromToStructure(period: Option[PeriodFromTo]): NodeBuffer = {
     period.fold(
-      <DateFrom/>
-      <DateTo/>
+        <DateFrom/>
+          <DateTo/>
     )(fromToStructure)
   }
 

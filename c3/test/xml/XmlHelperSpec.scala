@@ -2,6 +2,7 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import app.XMLValues._
+import play.api.test.WithApplication
 
 class XMLHelperSpec extends Specification with Tags {
 
@@ -48,6 +49,18 @@ class XMLHelperSpec extends Specification with Tags {
       "when null" in {
         XMLHelper.booleanStringToYesNo(null) shouldEqual ""
       }
+    }
+
+    "construct a basic question" in {
+      "when question is employed and answer yes" in new WithApplication {
+        XMLHelper.question("s7.g1", "Yes").toString shouldEqual "<QuestionLabel>Have you been employed?</QuestionLabel><Answer>Yes</Answer>"
+      }
+    }
+  }
+
+  "construct an other question" in {
+    "when question is employed and answer yes" in new WithApplication{
+      XMLHelper.questionOther("s7.g1", "Other", Some("Maybe")).toString shouldEqual "<QuestionLabel>Have you been employed?</QuestionLabel><Answer>Other</Answer><Other>Maybe</Other>"
     }
   }
 }
