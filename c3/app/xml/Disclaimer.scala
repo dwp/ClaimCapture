@@ -15,17 +15,17 @@ object  Disclaimer{
 
       <DisclaimerStatement>
         <Title>This is my claim for Carer's Allowance.</Title>
-        <Content>{Messages("disclaimer.1.pdf")}</Content>
+        <Content>{Messages("disclaimer.1").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
         <Content>{Messages("disclaimer.2")}</Content>
-        <Content>{Messages("disclaimer.3")}</Content>
-        <Content>{Messages("disclaimer.4")}</Content>
-        <Content>{Messages("disclaimer.5")}</Content>
-        <Content>{Messages("disclaimer.6")}</Content>
-        <Content>{Messages("disclaimer.7")}</Content>
+        <Content>{Messages("disclaimer.3").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
+        <Content>{Messages("disclaimer.4").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
+        <Content>{Messages("disclaimer.5").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
+        <Content>{Messages("disclaimer.6").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
+        <Content>{Messages("disclaimer.7").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
       </DisclaimerStatement>
 
       <DisclaimerQuestion>
-        <QuestionLabel>Please tick this box to declare that you have understood the notes and you have made / will make the person you are caring for / or their representative aware that there could be a change to their benefits.</QuestionLabel>
+        <QuestionLabel>{Messages("read")}</QuestionLabel>
         <Answer>{titleCase(booleanStringToYesNo(disclaimer.read))}</Answer>
       </DisclaimerQuestion>
 
