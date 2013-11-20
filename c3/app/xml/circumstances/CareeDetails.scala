@@ -12,10 +12,11 @@ object CareeDetails extends XMLComponent {
       val detailsOfThePerson = circs.questionGroup[DetailsOfThePersonYouCareFor].getOrElse(DetailsOfThePersonYouCareFor())
 
     <CareeDetails>
-        <Surname>{detailsOfThePerson.lastName}</Surname>
-        <OtherNames>{detailsOfThePerson.otherNames}</OtherNames>
-        <DateOfBirth>{detailsOfThePerson.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
-        <NationalInsuranceNumber>{detailsOfThePerson.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
-      </CareeDetails>
+      <Surname>{detailsOfThePerson.lastName}</Surname>
+      <OtherNames>{detailsOfThePerson.otherNames}</OtherNames>
+      <OtherSurnames>{detailsOfThePerson.middleName}</OtherSurnames>
+      <DateOfBirth>{detailsOfThePerson.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
+      <NationalInsuranceNumber>{detailsOfThePerson.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
+    </CareeDetails>
   }
 }

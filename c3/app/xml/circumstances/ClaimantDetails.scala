@@ -14,6 +14,7 @@ object ClaimantDetails extends XMLComponent {
     <ClaimantDetails>
       <Surname>{yourDetails.lastName}</Surname>
       <OtherNames>{yourDetails.otherNames}</OtherNames>
+      <OtherSurnames>{yourDetails.middleName}</OtherSurnames>
       <Title>{yourDetails.title}</Title>
       <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{stringify(Some(yourDetails.nationalInsuranceNumber))}</NationalInsuranceNumber>
@@ -21,6 +22,5 @@ object ClaimantDetails extends XMLComponent {
       <DaytimePhonePhoneNumber>{contactDetails.phoneNumber.orNull}</DaytimePhonePhoneNumber>
       <MobileNumber>{contactDetails.mobileNumber.orNull}</MobileNumber>
     </ClaimantDetails>
-
   }
 }
