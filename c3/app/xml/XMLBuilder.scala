@@ -4,7 +4,7 @@ import models.domain.Claim
 import scala.xml.Elem
 
 /**
- * TODO write description
+ * Interface of the classes/Objects that build a full XML.
  * @author Jorge Migueis
  */
 trait XMLBuilder {

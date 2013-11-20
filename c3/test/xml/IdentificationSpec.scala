@@ -4,6 +4,7 @@ import app.XMLValues._
 import org.specs2.mutable.{Tags, Specification}
 import models.domain._
 import models.{DayMonthYear, MultiLineAddress, NationalInsuranceNumber}
+import xml.circumstances.Identification
 
 class IdentificationSpec extends Specification with Tags {
   val nationalInsuranceNr = NationalInsuranceNumber(Some("VO"), Some("12"), Some("34"), Some("56"), Some("D"))

@@ -1,9 +1,10 @@
 package controllers
 
 import models.domain.{ChangeOfCircs, FullClaim, Claim}
-import xml.{DWPCoCircs, DWPCAClaim}
+import xml.{DWPCAClaim}
 import com.dwp.carers.s2.xml.validation.{XmlValidator, XmlValidatorFactory}
 import scala.xml.Elem
+import xml.circumstances.DWPCoCircs
 
 package object submission {
   val FULL_CLAIM = 1

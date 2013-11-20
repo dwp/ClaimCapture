@@ -1,19 +1,18 @@
-package xml
+package xml.circumstances
 
 import models.domain._
 import scala.xml.NodeSeq
 import xml.XMLHelper._
-import app.XMLValues._
 import scala.Some
+import xml.XMLComponent
 
-object Identification {
+object Identification extends XMLComponent {
 
   def xml(circs :Claim): NodeSeq = {
-    <Claim>
       {claimant(circs)}
       {careeDetails(circs)}
-    </Claim>
   }
+
 
   def claimant(circs: Claim): NodeSeq = {
     val yourDetails = circs.questionGroup[CircumstancesAboutYou].getOrElse(CircumstancesAboutYou())
@@ -22,16 +21,12 @@ object Identification {
     <ClaimantDetails>
       <Surname>{yourDetails.lastName}</Surname>
       <OtherNames>{yourDetails.otherNames}</OtherNames>
+      <Title>{yourDetails.title}</Title>
       <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{stringify(Some(yourDetails.nationalInsuranceNumber))}</NationalInsuranceNumber>
-      <Title>{yourDetails.title}</Title>
       {postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}
-      <HomePhone>{contactDetails.phoneNumber.orNull}</HomePhone>
-      <DaytimePhone>
-        <Number>{contactDetails.mobileNumber.orNull}</Number>
-        <Qualifier>{if (contactDetails.mobileNumber.isDefined){"mobile"}else{""}}</Qualifier>
-      </DaytimePhone>
-      <EmailAddress/>
+      <DaytimePhone>{contactDetails.phoneNumber.orNull}</DaytimePhone>
+      <HomePhone>{contactDetails.mobileNumber.orNull}</HomePhone>
     </ClaimantDetails>
   }
 
