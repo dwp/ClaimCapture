@@ -71,7 +71,7 @@ Education,"School, college or universitys contact details",Phone number,Educatio
 Education,"School, college or universitys contact details",Fax Number, EducationFaxNumber ,FullTimeEducation>LocationDetails>FaxNumber
 Employment,Been Employed,Been Employed,EmploymentBeenEmployed,DWPCAClaim>Employed>Answer
 Employment,Your Job,"What is the leaving date on your P45, if you have one?",Employment>JobDetails>Employer>P45LeavingDate>Answer
-Employment,Your Job,Employers Name,EmploymentEmployerName,Employment>JobDetails>Employer>JobType>Answer
+Employment,Your Job,Employers Name,EmploymentEmployerName,Employment>JobDetails>Employer>Name
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob,Employment>JobDetails>Employer>DateJobStarted>Answer
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork,Employment>JobDetails>Employer>DateJobEnded>Answer
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork,Employment>JobDetails>Pay>WeeklyHoursWorked>Answer
@@ -131,12 +131,12 @@ Self Employed,Pensions and Expenses,"White at work, [past=did you] [present=do y
 Self Employed,Pensions and Expenses,"While at work, [[past=did you]] [[present=do you]] pay anyone to care for the person you normally care for?",SelfEmployedDoYouPayAnyonetoLookAfterPersonYouCareFor,SelfEmployment>CareExpensesCaree>Answer
 Self Employed,Pensions and Expenses,Is this the same as the expenses you have told us about during your employed work?,SelfEmployedCareIsThistheSameAsDuringYourEmployedWork,
 Self Employed,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,SelfEmployedChildcareProviderNameOfPerson,SelfEmployment>ChildCareExpenses>CarerName>Answer
-Self Employed,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare?,SelfEmployedChildcareExpensesHowMuchYouPay,SelfEmployment>ChildCareExpenses>Expense>Payment>Answer
+Self Employed,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them - expenses related to childcare?,SelfEmployedChildcareExpensesHowMuchYouPay,SelfEmployment>ChildCareExpenses>Expense>Payment>Answer>Amount
 Self Employed,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses?,SelfEmployedChildcareExpensesHowOften,SelfEmployment>ChildCareExpenses>Expense>Frequency>Answer
 Self Employed,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses?,SelfEmployedChildcareExpensesHowOftenOther,SelfEmployment>ChildCareExpenses>Expense>Frequency>Other
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to you?",SelfEmployedChildcareProviderWhatRelationIsToYou,SelfEmployment>ChildCareExpenses>RelationshipCarerToClaimant>Answer
 Self Employed,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",SelfEmployedChildcareProviderWhatRelationIsToYourPartner,SelfEmployment>ChildCareExpenses>RelationshipCarerToPartner>Answer
-Self Employed,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for?,SelfEmployedCareExpensesHowMuchYouPay,SelfEmployment>CareExpenses>Expense>Payment>Answer
+Self Employed,Expenses related to the person you care for while at work,How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for?,SelfEmployedCareExpensesHowMuchYouPay,SelfEmployment>CareExpenses>Expense>Payment>Answer>Amount
 Self Employed,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] - expenses related to person you care for?,SelfEmployedCareExpensesHowOften,SelfEmployment>CareExpenses>Expense>Frequency>Answer
 Self Employed,Expenses related to the person you care for while at work,How often [[past=did you]] [[present=do you]] Other - expenses related to person you care for?,SelfEmployedCareExpensesHowOftenOther,SelfEmployment>CareExpenses>Expense>Frequency>Other
 Self Employed,Expenses related to the person you care for while at work,Name of the person/organisation you pay,SelfEmployedCareExpensesNameOfPerson,SelfEmployment>CareExpenses>CarerName>Answer

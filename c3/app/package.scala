@@ -26,7 +26,7 @@ package object app {
   }
 
   object PaymentFrequency {
-    val EveryWeek = 'Weekly
+    val EveryWeek = 'everyWeek
     val FourWeekly = 'fourWeekly
   }
 

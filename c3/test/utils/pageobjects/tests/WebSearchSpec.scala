@@ -7,7 +7,7 @@ import controllers.ClaimScenarioFactory
 import utils.pageobjects.s10_pay_details.G1HowWePayYouPageContext
 import utils.pageobjects.S11_consent_and_declaration.G3DisclaimerPageContext
 import utils.pageobjects.TestData
-import app.AccountStatus
+import app._
 import play.api.i18n.Messages
 
 class WebSearchSpec extends Specification with Tags{
@@ -44,7 +44,7 @@ class WebSearchSpec extends Specification with Tags{
     "be able to read SortCode" in new WithBrowser with G1HowWePayYouPageContext {
       val claim = new TestData
       claim.HowWePayYouHowWouldYouLikeToGetPaid = Messages(AccountStatus.BankBuildingAccount.name)
-      claim.HowWePayYouHowOftenDoYouWantToGetPaid = "fourWeekly"
+      claim.HowWePayYouHowOftenDoYouWantToGetPaid = Messages(PaymentFrequency.FourWeekly.name)
       claim.HowWePayYouNameOfAccountHolder = "Despicable me"
       claim.WhoseNameOrNamesIsTheAccountIn = "yourName"
       claim.HowWePayYouFullNameOfBankorBuildingSociety = "HSBC Plc"

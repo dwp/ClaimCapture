@@ -199,7 +199,7 @@ object ClaimScenarioFactory {
   def s6PayDetails() = {
     val claim = new TestData
     claim.HowWePayYouHowWouldYouLikeToGetPaid = Messages(AccountStatus.NotOpenAccount.name)
-    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek.name
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = Messages(PaymentFrequency.EveryWeek.name)
     claim
   }
 

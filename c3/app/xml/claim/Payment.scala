@@ -20,22 +20,12 @@ object Payment extends XMLComponent {
         <Payment>
           <PaymentFrequency>
             <QuestionLabel>PaymentFrequency?</QuestionLabel>
-            <Answer>{howWePayYou.paymentFrequency match {
-              case PaymentFrequency.EveryWeek.name => "Weekly"
-              case PaymentFrequency.FourWeekly.name => "Four-Weekly"
-              case n => n // TODO should it throw if type not matched?
-            }}</Answer>
+            <Answer>{howWePayYou.paymentFrequency}</Answer>
           </PaymentFrequency>
 
           <InitialAccountQuestion>
             <QuestionLabel>InitialAccountQuestion?</QuestionLabel>
-            <Answer>{howWePayYou.likeToBePaid match {
-              case AccountStatus.BankBuildingAccount.name => Messages(AccountStatus.BankBuildingAccount.name)
-              case AccountStatus.AppliedForAccount.name => Messages(AccountStatus.AppliedForAccount.name)
-              case AccountStatus.NotOpenAccount.name => Messages(AccountStatus.NotOpenAccount.name)
-              case n => n
-              }
-            }</Answer>
+            <Answer>{howWePayYou.likeToBePaid}</Answer>
           </InitialAccountQuestion>
 
           {if (showAccount) account(claim) else NodeSeq.Empty}

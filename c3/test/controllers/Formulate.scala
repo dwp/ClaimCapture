@@ -2,7 +2,7 @@ package controllers
 
 import play.api.test.TestBrowser
 import java.util.concurrent.TimeUnit
-import app.AccountStatus
+import app._
 import play.api.i18n.Messages
 
 object Formulate {
@@ -247,7 +247,7 @@ object Formulate {
   def howWePayYou(browser: TestBrowser) = {
     browser.goTo("/pay-details/how-we-pay-you")
     browser.click("#likeToPay_" + Messages(AccountStatus.BankBuildingAccount.name).replace(" ","_"))
-    browser.click("#paymentFrequency option[value='fourWeekly']")
+    browser.click(s"#paymentFrequency option[value='${Messages(PaymentFrequency.FourWeekly.name)}']")
     browser.submit("button[type='submit']")
   }
 
