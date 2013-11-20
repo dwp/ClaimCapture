@@ -72,16 +72,16 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
         }
       case http.Status.BAD_REQUEST =>
-        Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}")
+        Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
         errorAndCleanup(claim, txnId, BAD_REQUEST_ERROR)
       case http.Status.REQUEST_TIMEOUT =>
-        Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}")
+        Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
         errorAndCleanup(claim, txnId, REQUEST_TIMEOUT_ERROR)
       case http.Status.INTERNAL_SERVER_ERROR =>
-        Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}")
+        Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
         errorAndCleanup(claim, txnId, INTERNAL_SERVER_ERROR)
       case _ =>
-        Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}")
+        Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
         errorAndCleanup(claim, txnId, UNKNOWN_ERROR)
     }
   }
