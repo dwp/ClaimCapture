@@ -31,7 +31,6 @@ class IdentificationSpec extends Specification with Tags {
     "generate Claimant xml from a given circumstances" in {
       val claim = Claim().update(yourDetails).update(contactDetails)
       val xml = ClaimantDetails.xml(claim)
-      println(xml.toString())
 
       (xml \\ "Surname").text shouldEqual yourDetails.lastName
       (xml \\ "OtherNames").text shouldEqual yourDetails.otherNames

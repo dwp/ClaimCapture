@@ -2,7 +2,7 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain.{Claim, CircumstancesDeclaration}
-import xml.circumstances.ConsentAndDeclaration
+import xml.circumstances.Declaration
 
 class ConsentAndDeclarationSpec extends Specification with Tags {
   val otherInfo = "Some other info"
@@ -13,7 +13,7 @@ class ConsentAndDeclarationSpec extends Specification with Tags {
 
     "generate xml" in {
       val claim = Claim().update(CircumstancesDeclaration(obtainInfoAgreement = infoAgreement,obtainInfoWhy = Some("Because I don't want"), confirm = confirmation))
-      val xml = ConsentAndDeclaration.xml(claim)
+      val xml = Declaration.xml(claim)
 
       (xml \\ "Declaration" \\ "TextLine").theSeq(6).text must(contain(infoAgreement))
       (xml \\ "EvidenceList" \\ "TextLine").text must contain(confirmation)
