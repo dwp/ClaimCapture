@@ -3,6 +3,7 @@ package utils.pageobjects.xml_validation
 import utils.pageobjects.{PageObjectException, FactoryFromFile, TestData}
 import scala.xml.{Elem, XML}
 import scala.collection.mutable
+import scala.language.postfixOps
 
 /**
  * Interface of the XML Business Validation classes.

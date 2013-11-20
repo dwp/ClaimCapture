@@ -1,4 +1,4 @@
-package xml
+package xml.claim
 
 import app.XMLValues
 import models.domain.{Consent, Claim}

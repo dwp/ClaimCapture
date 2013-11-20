@@ -1,4 +1,4 @@
-package xml
+package xml.claim
 
 import app.{Whereabouts, XMLValues}
 import scala.xml.NodeSeq

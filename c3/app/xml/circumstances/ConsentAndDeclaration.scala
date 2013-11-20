@@ -1,12 +1,13 @@
-package xml
+package xml.circumstances
 
 import models.domain.{Claim, CircumstancesDeclaration}
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
+import xml.XMLComponent
 
-object ConsentAndDeclaration {
+object ConsentAndDeclaration  extends XMLComponent {
   def xml(circs: Claim): NodeSeq = {
     val declaration = circs.questionGroup[CircumstancesDeclaration].getOrElse(CircumstancesDeclaration())
 

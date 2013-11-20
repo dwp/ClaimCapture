@@ -1,4 +1,4 @@
-package xml
+package xml.claim
 
 import app.{PensionPaymentFrequency, StatutoryPaymentFrequency, XMLValues}
 import models.domain._

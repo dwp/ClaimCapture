@@ -39,7 +39,7 @@ object XMLHelper {
 
   def postalAddressStructure(addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeSeq = postalAddressStructure(addressOption, postcodeOption.getOrElse(""))
 
-  def postalAddressStructure(address: MultiLineAddress, postcode: String): Elem = {
+  def postalAddressStructure(address: MultiLineAddress, postcode: String): NodeSeq = {
     <Address>
       {if(address.lineOne.isEmpty){NodeSeq.Empty}else{<Line>{address.lineOne.orNull}</Line>}}
       {if(address.lineTwo.isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo.orNull}</Line>}}
@@ -48,7 +48,7 @@ object XMLHelper {
     </Address>
   }
 
-  def postalAddressStructureRecipientAddress(address: MultiLineAddress, postcode: String): Elem = {
+  def postalAddressStructureRecipientAddress(address: MultiLineAddress, postcode: String): NodeSeq = {
     <RecipientAddress>
       <Line>{address.lineOne.orNull}</Line>
       {if(address.lineTwo.isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo.orNull}</Line>}}

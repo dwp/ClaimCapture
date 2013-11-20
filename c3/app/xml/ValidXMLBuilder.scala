@@ -5,7 +5,7 @@ import scala.xml.Elem
 import play.api.Play
 
 /**
- * Validates the XML built by an underlying XML builder.
+ * Validates the XML built by an underlying XML builder, by default [[xml.DWPBody]].
  * Return the XML if valid, otherwise throws a RuntimeException.
  * Used by [[controllers.submission.WebServiceSubmitter]]
  * @author Jorge Migueis

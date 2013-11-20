@@ -11,7 +11,8 @@ object DWPCoCircs {
 
     <DWPCAChangeOfCircumstances>
       <Claim>
-        {Identification.xml(circs)}
+        {ClaimantDetails.xml(circs)}
+        {CareeDetails.xml(circs)}
       </Claim>
     </DWPCAChangeOfCircumstances>
   }

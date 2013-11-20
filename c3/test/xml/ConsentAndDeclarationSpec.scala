@@ -2,6 +2,7 @@ package xml
 
 import org.specs2.mutable.{Tags, Specification}
 import models.domain.{Claim, CircumstancesDeclaration}
+import xml.circumstances.ConsentAndDeclaration
 
 class ConsentAndDeclarationSpec extends Specification with Tags {
   val otherInfo = "Some other info"

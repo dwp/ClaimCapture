@@ -1,10 +1,12 @@
-package xml
+package xml.claim
 
 import app.XMLValues
 import models.domain._
-import XMLHelper.{stringify, postalAddressStructure}
 import scala.xml.NodeSeq
 import app.XMLValues._
+import xml.XMLHelper._
+import models.domain.Claim
+import scala.Some
 
 object Partner {
 
