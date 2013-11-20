@@ -115,8 +115,8 @@ object XMLHelper {
   }
 
   def booleanStringToYesNo(booleanString: String) = booleanString match {
-    case "true" => yes
-    case "false" => no
+    case "true" => Yes
+    case "false" => No
     case null => ""
     case _ => booleanString
   }

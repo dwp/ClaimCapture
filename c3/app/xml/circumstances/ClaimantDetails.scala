@@ -13,13 +13,12 @@ object ClaimantDetails extends XMLComponent {
     val contactDetails = circs.questionGroup[CircumstancesYourContactDetails].getOrElse(CircumstancesYourContactDetails())
     <ClaimantDetails>
       <Surname>{yourDetails.lastName}</Surname>
-      <OtherNames>{yourDetails.otherNames}</OtherNames>
-      <OtherSurnames>{yourDetails.middleName}</OtherSurnames>
+      <OtherNames>{yourDetails.firstName} {yourDetails.middleName.getOrElse("")}</OtherNames>
       <Title>{yourDetails.title}</Title>
       <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{stringify(Some(yourDetails.nationalInsuranceNumber))}</NationalInsuranceNumber>
       {postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}
-      <DaytimePhonePhoneNumber>{contactDetails.phoneNumber.orNull}</DaytimePhonePhoneNumber>
+      <DayTimePhoneNumber>{contactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
       <MobileNumber>{contactDetails.mobileNumber.orNull}</MobileNumber>
     </ClaimantDetails>
   }
