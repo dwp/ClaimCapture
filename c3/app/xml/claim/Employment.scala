@@ -5,8 +5,60 @@ import models.domain._
 import xml.XMLHelper._
 import app.XMLValues._
 import scala.xml.{Elem, NodeSeq}
+import xml.XMLComponent
 
-object Employment {
+object Employment extends XMLComponent{
+
+  def xml(claim: Claim) = {
+    val jobsQG = claim.questionGroup[Jobs].getOrElse(Jobs())
+    val employment = claim.questionGroup[models.domain.Employment]
+
+    if (jobsQG.jobs.length > 0 && employment.fold(false)(_.beenEmployedSince6MonthsBeforeClaim == "yes")) {
+      // We will search in all jobs for at least one case finishedThisJob = "no" because that means he is currently employed
+      val currentlyEmployed = jobsQG.jobs.count(_.apply(JobDetails) match {
+        case Some(j: JobDetails) => j.finishedThisJob == no
+        case _ => false
+      }) match {
+        case i if i > 0 => yes
+        case _ => no
+      }
+
+      <Employment>
+        <CurrentlyEmployed>
+          <QuestionLabel>employed.currently</QuestionLabel>
+          <Answer>{currentlyEmployed match {
+            case "yes" => XMLValues.Yes
+            case "no" => XMLValues.No
+            case n => n
+          }}</Answer>
+        </CurrentlyEmployed>
+        {for (job <- jobsQG) yield {
+        val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
+        val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
+        val additionalWageDetails = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails())
+
+        <JobDetails>
+          {employerXml(job)}
+          {payXml(jobDetails, lastWage, additionalWageDetails)}
+          <OweMoney>
+            <QuestionLabel>job.owe</QuestionLabel>
+            <Answer>{additionalWageDetails.employerOwesYouMoney match {
+              case "yes" => XMLValues.Yes
+              case "no" => XMLValues.No
+              case n => n
+            }}</Answer>
+          </OweMoney>
+          {childcareExpensesXml(job)}
+          {careExpensesXml(job)}
+          {pensionSchemeXml(job)}
+          {jobExpensesXml(job)}
+        </JobDetails>
+      }}
+      </Employment>
+    } else {
+      NodeSeq.Empty
+    }
+  }
 
   def employerXml(job: Job): Elem = {
     val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
@@ -381,54 +433,5 @@ object Employment {
     }
   }
 
-  def xml(claim: Claim) = {
-    val jobsQG = claim.questionGroup[Jobs].getOrElse(Jobs())
-    val employment = claim.questionGroup[models.domain.Employment]
 
-    if (jobsQG.jobs.length > 0 && employment.fold(false)(_.beenEmployedSince6MonthsBeforeClaim == "yes")) {
-      // We will search in all jobs for at least one case finishedThisJob = "no" because that means he is currently employed
-      val currentlyEmployed = jobsQG.jobs.count(_.apply(JobDetails) match {
-        case Some(j: JobDetails) => j.finishedThisJob == no
-        case _ => false
-      }) match {
-        case i if i > 0 => yes
-        case _ => no
-      }
-
-      <Employment>
-        <CurrentlyEmployed>
-          <QuestionLabel>employed.currently</QuestionLabel>
-          <Answer>{currentlyEmployed match {
-            case "yes" => XMLValues.Yes
-            case "no" => XMLValues.No
-            case n => n
-          }}</Answer>
-        </CurrentlyEmployed>
-        {for (job <- jobsQG) yield {
-          val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
-          val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
-          val additionalWageDetails = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails())
-
-          <JobDetails>
-            {employerXml(job)}
-            {payXml(jobDetails, lastWage, additionalWageDetails)}
-            <OweMoney>
-              <QuestionLabel>job.owe</QuestionLabel>
-              <Answer>{additionalWageDetails.employerOwesYouMoney match {
-                case "yes" => XMLValues.Yes
-                case "no" => XMLValues.No
-                case n => n
-              }}</Answer>
-            </OweMoney>
-            {childcareExpensesXml(job)}
-            {careExpensesXml(job)}
-            {pensionSchemeXml(job)}
-            {jobExpensesXml(job)}
-          </JobDetails>
-        }}
-      </Employment>
-    } else {
-      NodeSeq.Empty
-    }
-  }
 }
