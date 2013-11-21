@@ -8,6 +8,8 @@ import xml.XMLHelper._
 import models.domain.Claim
 import scala.Some
 import xml.XMLComponent
+import models.domain.Claim
+import scala.Some
 
 
 object OtherBenefits extends XMLComponent {
@@ -22,17 +24,19 @@ object OtherBenefits extends XMLComponent {
 
     <OtherBenefits>
       <ClaimantBenefits>
-        <StatePension>
-          <QuestionLabel>StatePension?</QuestionLabel>
-          <Answer>{moreAboutYou match {
-            case Some(n) => n.receiveStatePension match {
-              case "yes" => XMLValues.Yes
-              case "no" => XMLValues.No
-              case n => n
+          {
+          moreAboutYou match {
+            case Some(n) => n.receiveStatePension.isEmpty match {
+              case false => {
+              <StatePension>
+                {question("receiveStatePension", moreAboutYou.get.receiveStatePension)}
+                </StatePension>
+               }
+              case _ => NodeSeq.Empty
             }
             case _ => NodeSeq.Empty
-          }}</Answer>
-        </StatePension>
+          }
+        }
       </ClaimantBenefits>
       <OtherMoneySSP>
         <QuestionLabel>OtherMoneySSP?</QuestionLabel>
