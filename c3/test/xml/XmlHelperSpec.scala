@@ -60,7 +60,7 @@ class XMLHelperSpec extends Specification with Tags {
 
   "construct an other question" in {
     "when question is employed and answer yes" in new WithApplication{
-      XMLHelper.questionOther("s7.g1", "Other", Some("Maybe")).toString shouldEqual "<QuestionLabel>Have you been employed?</QuestionLabel><Answer>Other</Answer><Other>Maybe</Other>"
+      XMLHelper.questionOther("s7.g1", "Other", Some("Maybe")).toString shouldEqual "<QuestionLabel>Have you been employed?</QuestionLabel><Other>Maybe</Other><Answer>Other</Answer>"
     }
   }
 }

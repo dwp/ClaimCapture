@@ -14,8 +14,10 @@ import play.api.i18n.Messages
 
 object XMLHelper {
 
+  // CJR : Note that I'm changing the text to format it
   def stringify(value: Option[_], default: String = ""): String = value match {
-    case Some(s: String) => s
+    case Some(s: String) => formatValue(s)
+//    case Some(s: String) => s
     case Some(dmy: DayMonthYear) => dmy.`dd-MM-yyyy`
     case Some(nr: NationalInsuranceNumber) => nr.stringify
     case Some(sc: SortCode) => sc.stringify
@@ -23,8 +25,10 @@ object XMLHelper {
     case _ => default
   }
 
+  // CJR : Note that I'm changing the text to format it
   def nodify(value: Option[_]): NodeBuffer = value match {
-    case Some(s: String) => new NodeBuffer += Text(s)
+    case Some(s: String) => new NodeBuffer += Text(formatValue(s))
+//    case Some(s: String) => new NodeBuffer += Text(s)
     case Some(dmy: DayMonthYear) => new NodeBuffer += Text(dmy.`dd-MM-yyyy`)
     case Some(nr: NationalInsuranceNumber) => new NodeBuffer += Text(nr.stringify)
     case Some(pf: PaymentFrequency) => paymentFrequency(pf)
@@ -69,10 +73,23 @@ object XMLHelper {
     questionNode ++ <Answer>{formatValue(answerText)}</Answer>
   }
 
+  def question(questionLabelCode: String, answer: Option[String]): NodeSeq = {
+    val emptyAnswer = <Answer/>
+    val questionNode = <QuestionLabel>{Messages(questionLabelCode)}</QuestionLabel>
+    questionNode ++ optionalEmpty(answer,emptyAnswer)
+  }
+
   def questionOther(questionLabelCode: String, answerText: String, otherText: Option[String]): NodeSeq = {
     val other = <Other/>
     val questionNode = <QuestionLabel>{Messages(questionLabelCode)}</QuestionLabel>
-    questionNode ++ <Answer>{formatValue(answerText)}</Answer> ++ optionalEmpty(otherText,other)
+    questionNode ++ optionalEmpty(otherText,other) ++ <Answer>{formatValue(answerText)}</Answer>
+  }
+
+  // We should only see a why text supplied if the answer is no, but add the why text regardless if supplied
+  def questionWhy(questionLabelCode: String, answerText: String, whyText: Option[String]): NodeSeq = {
+    val why = <Why/>
+    val questionNode = <QuestionLabel>{Messages(questionLabelCode)}</QuestionLabel>
+    questionNode ++ <Answer>{formatValue(answerText)}</Answer> ++ optionalEmpty(whyText,why)
   }
 
   def fromToStructure(period: Option[PeriodFromTo]): NodeBuffer = {

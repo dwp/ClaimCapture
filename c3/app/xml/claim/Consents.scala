@@ -19,14 +19,7 @@ object Consents extends XMLComponent {
         consent.informationFromEmployer.answer match {
           case Some(answer) =>
             <Consent>
-              <QuestionLabel>{Messages("gettingInformationFromAnyEmployer.informationFromEmployer")}</QuestionLabel>
-              <Answer>{titleCase(answer)}</Answer>
-              {
-                 titleCase(answer) match{
-                  case "No" => <Why>{ consent.informationFromEmployer.text.orNull }</Why>
-                  case _ =>
-                }
-              }
+              {questionWhy("gettingInformationFromAnyEmployer.informationFromEmployer", titleCase(answer), consent.informationFromEmployer.text)}
             </Consent>
           case _ => NodeSeq.Empty
         }
@@ -36,14 +29,7 @@ object Consents extends XMLComponent {
         consent.informationFromPerson.answer.isEmpty match {
           case false =>
           <Consent>
-            <QuestionLabel>{Messages("tellUsWhyEmployer.informationFromPerson")}</QuestionLabel>
-            <Answer>{titleCase(consent.informationFromPerson.answer)}</Answer>
-            {
-              titleCase(consent.informationFromPerson.answer) match{
-              case "No" => <Why>{ consent.informationFromPerson.text.orNull }</Why>
-              case _ =>
-              }
-            }
+            {questionWhy("tellUsWhyEmployer.informationFromPerson", titleCase(consent.informationFromPerson.answer), consent.informationFromPerson.text)}
           </Consent>
           case _ => NodeSeq.Empty
         }

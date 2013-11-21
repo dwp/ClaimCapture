@@ -29,16 +29,7 @@ object Claimant extends XMLComponent {
       {contactDetails.contactYouByTextphone match {
         case Some(n) =>
         <TextPhoneContact>
-          <QuestionLabel>TextPhoneContact?</QuestionLabel>
-          <Answer>{contactDetails.contactYouByTextphone match {
-            case Some(n) => { n match {
-                case "yes" => XMLValues.Yes
-                case "no" => XMLValues.No
-                case n => n
-              }
-            }
-            case None => NodeSeq.Empty
-          }}</Answer>
+          {question("contactYouByTextphone", contactDetails.contactYouByTextphone)}
         </TextPhoneContact>
         case _ => NodeSeq.Empty
     }}

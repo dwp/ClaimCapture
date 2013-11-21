@@ -29,48 +29,28 @@ object Caree extends XMLComponent {
         <DayTimePhoneNumber>{theirContactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
       }}
       <RelationToClaimant>
-        <QuestionLabel>What's their relationship to you?</QuestionLabel>
-        <Answer>{moreAboutThePerson.relationship}</Answer>
+        {question("whatRelationIsToYou", moreAboutThePerson.relationship)}
       </RelationToClaimant>
       <Cared35Hours>
-        <QuestionLabel>Do you spend 35 hours or more each week caring for this person?</QuestionLabel>
-        <Answer>{moreAboutTheCare.spent35HoursCaring match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
+        {question("hours.answer", moreAboutTheCare.spent35HoursCaring)}
       </Cared35Hours>
       {breaksSinceClaim(claim)}
       {careBreak(claim)}
 
       <Cared35HoursBefore>
-        <QuestionLabel>spent35HoursCaringBeforeClaim?</QuestionLabel>
-        <Answer>{moreAboutTheCare.spent35HoursCaringBeforeClaim.answer match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
+        {question("beforeClaimCaring.answer", moreAboutTheCare.spent35HoursCaringBeforeClaim.answer)}
       </Cared35HoursBefore>
 
       {dateStartedCaring(moreAboutTheCare)}
       <!--{breaksBeforeClaim(claim)}-->
 
       <LiveSameAddress>
-        <QuestionLabel>Do they live at the same address as you?</QuestionLabel>
-        <Answer>{theirPersonalDetails.liveAtSameAddressCareYouProvide match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
+        {question("liveAtSameAddressCareYouProvide", theirPersonalDetails.liveAtSameAddressCareYouProvide)}
       </LiveSameAddress>
 
      <ArmedForcesIndependencePayment>
-          <QuestionLabel>Does this person get Armed Forces Independence Payment?</QuestionLabel>
-          <Answer>{moreAboutThePerson.armedForcesPayment match {
-            case "yes" => XMLValues.Yes
-            case "no" => XMLValues.No
-          }}</Answer>
-        </ArmedForcesIndependencePayment>
+       {question("armedForcesPayment", moreAboutThePerson.armedForcesPayment)}
+      </ArmedForcesIndependencePayment>
     </Caree>
   }
 
@@ -78,8 +58,7 @@ object Caree extends XMLComponent {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     <BreaksSinceClaim>
-      <QuestionLabel>Have you had any breaks in caring for this person since claim date?</QuestionLabel>
-      <Answer>{if (breaksInCare.hasBreaks) Yes else No}</Answer>
+      {question("answer.label", if (breaksInCare.hasBreaks) Yes else No)}
     </BreaksSinceClaim>
   }
 
@@ -98,8 +77,7 @@ object Caree extends XMLComponent {
 
     if (startedCaringBeforeClaimDate) {
         <DateStartCaring>
-          <QuestionLabel>DateStartedCaring?</QuestionLabel>
-          <Answer>{stringify(moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}</Answer>
+          {question("beforeClaimCaring_date", stringify(moreAboutTheCare.spent35HoursCaringBeforeClaim.date))}
         </DateStartCaring>
     } else NodeSeq.Empty
   }
@@ -116,28 +94,13 @@ object Caree extends XMLComponent {
           case None => NodeSeq.Empty
         }}
          <MedicalCare>
-             <QuestionLabel>Did you or the person you care for receive any medical treatment or professional care during the break?</QuestionLabel>
-             <Answer>{break.medicalDuringBreak match {
-                case "yes" => XMLValues.Yes
-                case "no" => XMLValues.No
-                case n => n
-            }}</Answer>
+           {question("medicalDuringBreak", break.medicalDuringBreak)}
         </MedicalCare>
         <ReasonClaimant>
-          <QuestionLabel>Where were you during the break?</QuestionLabel>
-          {break.whereYou.location match{
-            case Whereabouts.Other => <Other>{break.whereYou.other.get}</Other>
-            case _ =>
-          }}
-          <Answer>{break.whereYou.location}</Answer>
+          {questionOther("whereYou", break.whereYou.location, break.whereYou.other)}
         </ReasonClaimant>
         <ReasonCaree>
-          <QuestionLabel>Where was the person you care for during the break?</QuestionLabel>
-          {break.wherePerson.location match{
-            case Whereabouts.Other => <Other>{break.wherePerson.other.get}</Other>
-            case _ =>
-          }}
-          <Answer>{break.wherePerson.location}</Answer>
+          {questionOther("wherePerson", break.wherePerson.location, break.wherePerson.other)}
         </ReasonCaree>
       </CareBreak>
     }
