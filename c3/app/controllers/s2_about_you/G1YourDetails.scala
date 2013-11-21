@@ -16,7 +16,7 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
     "firstName" -> carersNonEmptyText(maxLength = Name.maxLength),
     "middleName" -> optional(carersText(maxLength = Name.maxLength)),
     "surname" -> carersNonEmptyText(maxLength = Name.maxLength),
-    "otherNames" -> optional(carersText(maxLength = sixty)),
+    "otherNames" -> optional(carersText(maxLength = Name.maxLength)),
     "nationalInsuranceNumber" -> nino.verifying(filledInNino,validNino),
     "nationality" -> nonEmptyText.verifying(validNationality),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),

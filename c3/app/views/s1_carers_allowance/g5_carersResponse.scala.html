@@ -9,30 +9,35 @@
         <div class="carers-allowance">
 
             @common.protoType()
+        
+			@common.helpLine()
+			
+			@progressBar(CarersAllowance)
 
-            @progressBar(CarersAllowance)
 
             <section class="response clearfix">
                 @form(action = controllers.s1_carers_allowance.routes.G5CarersResponse.submit) {
 
-                    <h1>How we work out if you qualify for Carer's Allowance</h1>
-
-                    <p class="intro">As part of your claim you will be asked to provide information about you, the Person you care for, your nationality, income (including employment and self-employment), any benefits you and/or a Partner/Spouse may be receiving, and details of a course of education. You will also be required to acknowledge that you have read and understood both the declaration and disclaimer before submitting your claim. <a href="/claim-notes" target="_blank">Find out more about Carer's Allowance</a>.</p>
+                    <h1>What you need to know before you claim...</h1>
+                    
 
                     <article class="partner">
-                        <h2>Do you have a Partner/Spouse?</h2>
-                        <p>Certain benefits received by a Partner/Spouse can be affected by the receipt of Carer's Allowance. Partner/Spouse details are required in order to ensure the correct benefit entitlement is received.</p>
+                        <h2>This could effect your partner's benefits</h2>
+                        <p>Some benefits your partner might get can also be affected. You will need to enter their details so the Department for Work and Pensions can work out how much they're still entitled to.</p>
                     </article>
 
                     <article class="earnings">
-                        <h2>Do you earn more than &pound;100 a week?</h2>
-                        <p>The weekly earnings limit is &pound;100 net. This figure is what you are left with once income tax, National Insurance contributions and half of any contributions to an occupational or personal pension are deducted from earnings. Refer to the notes for more information on other allowable expenses.</p>
+                        <h2>You need to be earning less than &pound;100 a week net</h2>
+                        <p>If your income after tax, National Insurance and certain allowable expenses is more than &pound;100 a week you won't be entitled to Carer's Allowance. Please see the <a href="/claim-notes" target="_blank">claim notes</a> for allowable expenses. You will need to enter your employment details.</p>
                     </article>
+                   
 
                     <article class="education">
-                        <h2>Are you in a course of education?</h2>
-                        <p>You may not get Carer's Allowance if you're in full time education and studying for 21 hours a week or more.</p>
+                        <h2>If you're in full time education you might not get Carer's Allowance</h2>
+                        <p>If you're studying 21 hours a week or more you might not be entitled. You will need to enter details of any education courses you're studying for.</p>
                     </article>
+  
+                    
 
                     <div class="form-steps">
                         <a href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>

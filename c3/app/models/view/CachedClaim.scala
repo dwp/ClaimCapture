@@ -57,7 +57,7 @@ trait CachedClaim {
       val (key, _) = keyAndExpiration(request)
 
       val claim = if (request.getQueryString("changing").getOrElse("false") == "false") {
-        Logger.info("Starting new claim")
+        Logger.info(s"Starting new $cacheKey")
         newInstance
       }
       else Cache.getAs[Claim](key).getOrElse(newInstance)
@@ -79,7 +79,7 @@ trait CachedClaim {
             Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
             action(claim, request)(f)
           } else {
-            Logger.info("Claim timeout")
+            Logger.info(s"$cacheKey timeout")
             Redirect(timeout).withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
           }
       }

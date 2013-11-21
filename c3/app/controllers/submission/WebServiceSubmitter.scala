@@ -13,10 +13,12 @@ import services.submission.FormSubmission
 import models.domain.Claim
 import ExecutionContext.Implicits.global
 import xml.{XMLBuilder, ValidXMLBuilder}
+import models.view.{CachedChangeOfCircs, CachedClaim}
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission: FormSubmission) extends Submitter {
 
-  val thankYouPageUrl = Play.current.configuration.getString("thankyou.page").getOrElse("ThankYouPageNotConfigured")
+  val claimThankYouPageUrl = Play.current.configuration.getString("claim.thankyou.page").getOrElse("ThankYouPageNotConfigured")
+  val cofcThankYouPageUrl = Play.current.configuration.getString("cofc.thankyou.page").getOrElse("ThankYouPageNotConfigured")
   lazy val xmlBuilder: XMLBuilder = ValidXMLBuilder()
 
   override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
@@ -45,7 +47,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     response.status match {
       case http.Status.OK =>
         val responseStr = response.body
-        Logger.info(s"Received response : $responseStr")
+        Logger.info(s"Received response : ${claim.key} : $responseStr")
         val responseXml = scala.xml.XML.loadString(responseStr)
         val status = (responseXml \\ "statusCode").text
         Logger.info(s"Received status code : $status")
@@ -56,8 +58,12 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
             // Clear the cache to ensure no duplicate submission
             val key = request.session.get(claim.key).orNull
             Cache.set(key, None)
-
-            Redirect(thankYouPageUrl)
+            claim.key match {
+              case CachedClaim.key =>
+                Redirect(claimThankYouPageUrl)
+              case CachedChangeOfCircs.key =>
+                Redirect(cofcThankYouPageUrl)
+            }
           }
           case _ => {
             Logger.info(s"Received result : $status")
@@ -65,16 +71,16 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
         }
       case http.Status.BAD_REQUEST =>
-        Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}")
+        Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
         errorAndRedirect(claim, txnId, BAD_REQUEST_ERROR)
       case http.Status.REQUEST_TIMEOUT =>
-        Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}")
+        Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
         errorAndRedirect(claim, txnId, REQUEST_TIMEOUT_ERROR)
       case http.Status.INTERNAL_SERVER_ERROR =>
-        Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}")
+        Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
         errorAndRedirect(claim, txnId, INTERNAL_SERVER_ERROR)
       case _ =>
-        Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}")
+        Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
         errorAndRedirect(claim, txnId, UNKNOWN_ERROR)
     }
   }

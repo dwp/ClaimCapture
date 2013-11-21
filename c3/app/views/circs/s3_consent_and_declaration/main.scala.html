@@ -1,6 +1,5 @@
 @(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[(models.domain.QuestionGroup, play.api.mvc.Call)] = Nil)(content: Html)(implicit claim: models.domain.Claim)
 
-@import models.domain.CircumstancesAboutYou
 @import helper._
 
 @common.govMain(title) {
@@ -8,6 +7,8 @@
     <div class="carers-allowance">
 
         @common.protoType()
+
+        @common.helpLine()
 
         <section>
 
