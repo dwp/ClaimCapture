@@ -52,6 +52,27 @@ object SelfEmployment extends XMLComponent{
               case None => NodeSeq.Empty
             }}
           </TradingYear>
+          {yourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
+            case Some(areIncomeOutgoingsProfitSimilarToTrading) =>
+              <SameIncomeOutgoingLevels>
+                <QuestionLabel>SameIncomeOutgoingLevels?</QuestionLabel>
+                <Answer>{
+                  areIncomeOutgoingsProfitSimilarToTrading match {
+                    case "yes" => XMLValues.Yes
+                    case "no" => XMLValues.No
+                    case n => n
+                  }}</Answer>
+              </SameIncomeOutgoingLevels>
+            case None => NodeSeq.Empty
+          }}
+          {yourAccounts.tellUsWhyAndWhenTheChangeHappened match {
+            case Some(n) =>
+              <WhyWhenChange>
+                <QuestionLabel>why.when</QuestionLabel>
+                <Answer>{n}</Answer>
+              </WhyWhenChange>
+            case None => NodeSeq.Empty
+          }}
         </CurrentJobDetails>
       } else {
         <RecentJobDetails>
@@ -87,23 +108,24 @@ object SelfEmployment extends XMLComponent{
             }}
           </TradingYear>
           {yourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
-            case Some(n) =>
+            case Some(areIncomeOutgoingsProfitSimilarToTrading) =>
               <SameIncomeOutgoingLevels>
                 <QuestionLabel>SameIncomeOutgoingLevels?</QuestionLabel>
-                <Answer>{yourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
-                  case Some(n) => n match {
+                <Answer>{
+                  areIncomeOutgoingsProfitSimilarToTrading match {
                     case "yes" => XMLValues.Yes
                     case "no" => XMLValues.No
                     case n => n
-                  }
-                  case _ => NodeSeq.Empty
-                }}</Answer>
+                  }}</Answer>
               </SameIncomeOutgoingLevels>
             case None => NodeSeq.Empty
           }}
           {yourAccounts.tellUsWhyAndWhenTheChangeHappened match {
             case Some(n) =>
-              <WhyWhenChange>{n}</WhyWhenChange>
+              <WhyWhenChange>
+                <QuestionLabel>why.when</QuestionLabel>
+                <Answer>{n}</Answer>
+              </WhyWhenChange>
             case None => NodeSeq.Empty
           }}
           {aboutSelfEmployment.whenDidTheJobFinish match {
