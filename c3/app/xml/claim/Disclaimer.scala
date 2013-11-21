@@ -26,8 +26,7 @@ object  Disclaimer extends XMLComponent{
       </DisclaimerStatement>
 
       <DisclaimerQuestion>
-        <QuestionLabel>{Messages("read")}</QuestionLabel>
-        <Answer>{titleCase(booleanStringToYesNo(disclaimer.read))}</Answer>
+        {question("read", titleCase(booleanStringToYesNo(disclaimer.read)))}
       </DisclaimerQuestion>
 
     </Disclaimer>

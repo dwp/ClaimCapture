@@ -22,12 +22,10 @@ object  Declaration extends XMLComponent {
       </DeclarationStatement>
 
       <DeclarationQuestion>
-        <QuestionLabel>{Messages("someoneElse")}</QuestionLabel>
-        <Answer>{titleCase(booleanStringToYesNo(declaration.read))}</Answer>
+        {question("someoneElse", titleCase(booleanStringToYesNo(declaration.read)))}
       </DeclarationQuestion>
       <DeclarationQuestion>
-        <QuestionLabel>{Messages("confirm")}</QuestionLabel>
-        <Answer>{titleCase(booleanStringToYesNo(stringify(declaration.someoneElse)))}</Answer>
+        {question("confirm", titleCase(booleanStringToYesNo(stringify(declaration.someoneElse))))}
       </DeclarationQuestion>
 
     </Declaration>
