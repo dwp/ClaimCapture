@@ -72,18 +72,12 @@ object DWPCAClaim extends XMLComponent {
       {
         <OtherInformation>
           <WelshCommunication>
-            <QuestionLabel>welsh.communication</QuestionLabel>
-            <Answer>{additionalInfo.welshCommunication match {
-              case "yes" => XMLValues.Yes
-              case "no" => XMLValues.No
-              case n => n
-            }}</Answer>
+            {question("welshCommunication", titleCase(booleanStringToYesNo(additionalInfo.welshCommunication)))}
           </WelshCommunication>
           {additionalInfo.anythingElse match {
             case Some(n) => {
               <AdditionalInformation>
-                <QuestionLabel>anything.else</QuestionLabel>
-                <Answer>{additionalInfo.anythingElse}</Answer>
+                {question("anythingElse", additionalInfo.anythingElse)}
               </AdditionalInformation>
             }
             case None => NodeSeq.Empty

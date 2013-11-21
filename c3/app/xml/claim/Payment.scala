@@ -1,11 +1,13 @@
 package xml.claim
 
-import models.domain.{BankBuildingSocietyDetails, Claim, HowWePayYou}
+import models.domain.{BankBuildingSocietyDetails, HowWePayYou}
 import xml.XMLHelper._
 import scala.xml.NodeSeq
-import app.{PaymentFrequency, AccountStatus}
+import app.AccountStatus
 import play.api.i18n.Messages
 import xml.XMLComponent
+import models.domain.Claim
+import scala.Some
 
 object Payment extends XMLComponent {
 
@@ -19,13 +21,11 @@ object Payment extends XMLComponent {
       case Some(howWePayYou) => {
         <Payment>
           <PaymentFrequency>
-            <QuestionLabel>PaymentFrequency?</QuestionLabel>
-            <Answer>{howWePayYou.paymentFrequency}</Answer>
+            {question("paymentFrequency", howWePayYou.paymentFrequency)}
           </PaymentFrequency>
 
           <InitialAccountQuestion>
-            <QuestionLabel>InitialAccountQuestion?</QuestionLabel>
-            <Answer>{howWePayYou.likeToBePaid}</Answer>
+            {question("likeToPay", howWePayYou.likeToBePaid)}
           </InitialAccountQuestion>
 
           {if (showAccount) account(claim) else NodeSeq.Empty}
@@ -48,6 +48,8 @@ object Payment extends XMLComponent {
 
         {if(bankBuildingSocietyDetails.rollOrReferenceNumber.isEmpty) NodeSeq.Empty
         else <RollNumber>{bankBuildingSocietyDetails.rollOrReferenceNumber}</RollNumber>}
+
+
 
         <SortCode>{stringify(Some(bankBuildingSocietyDetails.sortCode))}</SortCode>
         <Name>{bankBuildingSocietyDetails.bankFullName}</Name>
