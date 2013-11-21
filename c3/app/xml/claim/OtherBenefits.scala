@@ -3,13 +3,14 @@ package xml.claim
 import app.{StatutoryPaymentFrequency, XMLValues}
 import app.XMLValues._
 import models.domain._
-import scala.xml.NodeSeq
+import scala.xml.{Node, NodeSeq}
 import xml.XMLHelper._
 import models.domain.Claim
 import scala.Some
 import xml.XMLComponent
 import models.domain.Claim
 import scala.Some
+import play.api.i18n.Messages
 
 
 object OtherBenefits extends XMLComponent {
@@ -28,9 +29,8 @@ object OtherBenefits extends XMLComponent {
           moreAboutYou match {
             case Some(n) => n.receiveStatePension.isEmpty match {
               case false => {
-              <StatePension>
-                {question("receiveStatePension", moreAboutYou.get.receiveStatePension)}
-                </StatePension>
+              val parentNode = <StatePension></StatePension>
+                  optionalQuestions(n.receiveStatePension,parentNode,question("receiveStatePension", n.receiveStatePension))
                }
               case _ => NodeSeq.Empty
             }
@@ -38,14 +38,9 @@ object OtherBenefits extends XMLComponent {
           }
         }
       </ClaimantBenefits>
-      <OtherMoneySSP>
-        <QuestionLabel>OtherMoneySSP?</QuestionLabel>
-        <Answer>{statutorySickPay.haveYouHadAnyStatutorySickPay match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
-      </OtherMoneySSP>
+      {val parentNode = <OtherMoneySSP/>
+       optionalQuestions(statutorySickPay.haveYouHadAnyStatutorySickPay,parentNode,question("haveYouHadAnyStatutorySickPay.label", statutorySickPay.haveYouHadAnyStatutorySickPay))
+      }
       {otherMoneySPPXml(statutorySickPay)}
       <OtherMoneySP>
         <QuestionLabel>OtherMoneySP?</QuestionLabel>
@@ -149,14 +144,9 @@ object OtherBenefits extends XMLComponent {
           <Payment>
             {statutorySickPay.howMuch match {
             case Some(n) => {
-              <Payment>
-                <QuestionLabel>HowMuchSSP?</QuestionLabel>
-                <Answer>
-                  <Currency>{GBP}</Currency>
-                  <Amount>{statutorySickPay.howMuch.orNull}</Amount>
-                </Answer>
-              </Payment>
-  
+              {val parentNode = <Payment/>
+                optionalQuestions(statutorySickPay.howMuch.orNull,parentNode,questionCurrency("howMuch", statutorySickPay.howMuch.orNull))
+              }
             }
             case None => NodeSeq.Empty
           }}
@@ -164,7 +154,7 @@ object OtherBenefits extends XMLComponent {
           {statutorySickPay.howOften match {
           case Some(howOften) => {
             <Frequency>
-              <QuestionLabel>HowOftenSSP?</QuestionLabel>
+              <QuestionLabel>{Messages("howOften_frequency")}</QuestionLabel>
               {howOften.frequency match {
               case "Other" => <Other>{howOften.other.getOrElse("")}</Other>
               case _ => NodeSeq.Empty

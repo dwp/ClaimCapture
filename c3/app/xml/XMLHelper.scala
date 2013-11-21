@@ -73,6 +73,11 @@ object XMLHelper {
     questionNode ++ <Answer>{formatValue(answerText)}</Answer>
   }
 
+  def questionCurrency(questionLabelCode: String, amount:String): NodeSeq = {
+    val questionNode = <QuestionLabel>{Messages(questionLabelCode)}</QuestionLabel>
+    questionNode ++ <Answer>{moneyStructure(amount)}</Answer>
+  }
+
   def question(questionLabelCode: String, answer: Option[String]): NodeSeq = {
     val emptyAnswer = <Answer/>
     val questionNode = <QuestionLabel>{Messages(questionLabelCode)}</QuestionLabel>
@@ -161,5 +166,13 @@ object XMLHelper {
      }
 
   def extractIdFrom(xml:Elem):String = {(xml \\ "TransactionId").text}
+
+  // relies on the question function being passed
+  def optionalQuestions (conditionField:String, parentNode:Node, questionNode:NodeSeq) = {
+    conditionField.isEmpty match {
+      case false => addChild(parentNode, questionNode)
+      case true => NodeSeq.Empty
+    }
+  }
 
 }
