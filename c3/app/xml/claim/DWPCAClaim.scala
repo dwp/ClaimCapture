@@ -9,6 +9,7 @@ import scala.xml.NodeSeq
 import xml._
 import models.domain.Claim
 import scala.Some
+import play.api.i18n.Messages
 
 object DWPCAClaim extends XMLComponent {
 
@@ -49,7 +50,7 @@ object DWPCAClaim extends XMLComponent {
       </SelfEmployed>
       {SelfEmployment.xml(claim)}
       <Employed>
-        <QuestionLabel>Employed?</QuestionLabel>
+        <QuestionLabel>{Messages("beenEmployed")}</QuestionLabel>
         <Answer>{employment.beenEmployedSince6MonthsBeforeClaim match {
           case "yes" => XMLValues.Yes
           case "no" => XMLValues.No
@@ -58,7 +59,7 @@ object DWPCAClaim extends XMLComponent {
       </Employed>
       {Employment.xml(claim)}
       <HavePartner>
-        <QuestionLabel>HavePartner?</QuestionLabel>
+        <QuestionLabel>{Messages("hadPartnerSinceClaimDate.label")}</QuestionLabel>
         <Answer>{moreAboutYou.hadPartnerSinceClaimDate match {
           case "yes" => XMLValues.Yes
           case "no" => XMLValues.No
