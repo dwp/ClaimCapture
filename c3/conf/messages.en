@@ -381,6 +381,7 @@ whoPaysYou.label = Who pays you?
 moneyAddedToBenefitSinceClaimDate = Has anyone had any money added to a benefit for you since your claim date?
 moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
 haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Sick Pay (SSP) since the date you want to claim from {0}?
+othermoney.label=Have you <or your Partner/Spouse> claimed or received any other benefits since the date you want to claim?
 howMuch.label = How much?
 howOften = How often?
 error.paymentFrequency = Please tell us how often

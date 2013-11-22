@@ -3,10 +3,8 @@ package xml.claim
 import app.{StatutoryPaymentFrequency, XMLValues}
 import app.XMLValues._
 import models.domain._
-import scala.xml.{Node, NodeSeq}
+import scala.xml.NodeSeq
 import xml.XMLHelper._
-import models.domain.Claim
-import scala.Some
 import xml.XMLComponent
 import models.domain.Claim
 import scala.Some
@@ -43,7 +41,7 @@ object OtherBenefits extends XMLComponent {
       }
       {otherMoneySPPXml(statutorySickPay)}
       <OtherMoneySP>
-        <QuestionLabel>OtherMoneySP?</QuestionLabel>
+        <QuestionLabel>{Messages("otherPay.label")}</QuestionLabel>
         <Answer>{otherStatutoryPayOption.otherPay match {
           case "yes" => XMLValues.Yes
           case "no" => XMLValues.No
@@ -52,7 +50,7 @@ object OtherBenefits extends XMLComponent {
       </OtherMoneySP>
       {otherMoneySPDetails(otherStatutoryPayOption)}
       <OtherMoney>
-        <QuestionLabel>OtherMoney?</QuestionLabel>
+        <QuestionLabel>{Messages("othermoney.label")}</QuestionLabel>
         <Answer>{aboutOtherMoney.yourBenefits.answer match {
           case "yes" => XMLValues.Yes
           case "no" => XMLValues.No
@@ -62,7 +60,7 @@ object OtherBenefits extends XMLComponent {
 
       {
       <OtherMoneyPayments>
-        <QuestionLabel>OtherMoneyPayments?</QuestionLabel>
+        <QuestionLabel>{Messages("anyPaymentsSinceClaimDate.answer.label")}</QuestionLabel>
         <Answer>{aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
           case "yes" => XMLValues.Yes
           case "no" => XMLValues.No
@@ -78,7 +76,7 @@ object OtherBenefits extends XMLComponent {
                   {aboutOtherMoney.howMuch match {
                   case Some(n) => {
                     <Payment>
-                      <QuestionLabel>HowMuch?</QuestionLabel>
+                      <QuestionLabel>{Messages("howMuch.label")}</QuestionLabel>
                       <Answer>
                         <Currency>{GBP}</Currency>
                         <Amount>{aboutOtherMoney.howMuch.orNull}</Amount>
@@ -92,7 +90,7 @@ object OtherBenefits extends XMLComponent {
                 {aboutOtherMoney.howOften match {
                   case Some(howOften) => {
                     <Frequency>
-                      <QuestionLabel>HowOften?</QuestionLabel>
+                      <QuestionLabel>{Messages("howOftenPension")}</QuestionLabel>
                       {howOften.frequency match {
                         case "Other" => <Other>{howOften.other.orNull}</Other>
                         case _ => NodeSeq.Empty
@@ -106,7 +104,7 @@ object OtherBenefits extends XMLComponent {
 
                 {aboutOtherMoney.whoPaysYou match {
                   case Some(n) => {<Name>
-                    <QuestionLabel>WhoPaysYou?</QuestionLabel>
+                    <QuestionLabel>{Messages("whoPaysYou.label")}</QuestionLabel>
                     <Answer>{aboutOtherMoney.whoPaysYou.orNull}</Answer>
                   </Name>}
                   case None => NodeSeq.Empty
@@ -119,7 +117,7 @@ object OtherBenefits extends XMLComponent {
         }}
       <EEA>
         <EEAReceivePensionsBenefits>
-          <QuestionLabel>EEAReceivePensionsBenefits?</QuestionLabel>
+          <QuestionLabel>{Messages("benefitsFromOtherEEAStateOrSwitzerland")}</QuestionLabel>
           <Answer>{otherEEAState.benefitsFromOtherEEAStateOrSwitzerland match {
             case "yes" => XMLValues.Yes
             case "no" => XMLValues.No
@@ -127,7 +125,7 @@ object OtherBenefits extends XMLComponent {
           }}</Answer>
         </EEAReceivePensionsBenefits>
         <EEAWorkingInsurance>
-          <QuestionLabel>EEAWorkingInsurance?</QuestionLabel>
+          <QuestionLabel>{Messages("workingForOtherEEAStateOrSwitzerland")}</QuestionLabel>
           <Answer>{otherEEAState.workingForOtherEEAStateOrSwitzerland match {
             case "yes" => XMLValues.Yes
             case "no" => XMLValues.No
@@ -179,7 +177,7 @@ object OtherBenefits extends XMLComponent {
             {otherStatutoryPay.howMuch match {
             case Some(n) => {
               <Payment>
-                <QuestionLabel>HowMuchSP?</QuestionLabel>
+                <QuestionLabel>{Messages("howMuch")}</QuestionLabel>
                 <Answer>
                   <Currency>{GBP}</Currency>
                   <Amount>{otherStatutoryPay.howMuch.orNull}</Amount>
@@ -193,7 +191,7 @@ object OtherBenefits extends XMLComponent {
           {otherStatutoryPay.howOften match {
           case Some(howOften) => {
             <Frequency>
-              <QuestionLabel>HowOftenSP?</QuestionLabel>
+              <QuestionLabel>{Messages("howOften_frequency")}</QuestionLabel>
               {howOften.frequency match {
               case "Other" => <Other>{howOften.other.getOrElse("")}</Other>
               case _ => NodeSeq.Empty
