@@ -8,6 +8,7 @@ import xml.XMLHelper._
 import models.domain.Claim
 import scala.Some
 import xml.XMLComponent
+import play.api.i18n.Messages
 
 object Partner extends XMLComponent {
 
@@ -35,7 +36,7 @@ object Partner extends XMLComponent {
         <NationalityPartner>{yourPartnerPersonalDetails.nationality.orNull}</NationalityPartner>
         <RelationshipStatus>
           <SeparatedFromPartner>
-            <QuestionLabel>yourPartnerPersonalDetails.separatedFromPartner?</QuestionLabel>
+            <QuestionLabel>{Messages("separated_fromPartner.label")}</QuestionLabel>
             <Answer>{yourPartnerPersonalDetails.separatedFromPartner match {
               case "yes" => XMLValues.Yes
               case "no" => XMLValues.No
@@ -46,7 +47,7 @@ object Partner extends XMLComponent {
         {personYouCareFor.isPartnerPersonYouCareFor.isEmpty match {
         case false =>
           <IsCaree>
-            <QuestionLabel>IsCaree?</QuestionLabel>
+            <QuestionLabel>{Messages("isPartnerPersonYouCareFor")}</QuestionLabel>
             <Answer>{personYouCareFor.isPartnerPersonYouCareFor match {
               case "yes" => XMLValues.Yes
               case "no" => XMLValues.No
