@@ -119,13 +119,12 @@ object XMLHelper {
   def paymentFrequency(freq: PaymentFrequency): NodeSeq =
     <PayFrequency>
       <QuestionLabel>job.pay.frequency</QuestionLabel>
-      <Answer>{freq.frequency}</Answer>
       {
-        freq.other match{
-          case Some(s) => <Other>{s}</Other>
-          case _ => NodeSeq.Empty
-        }
+      freq.other match{
+        case Some(s) => <Other>{s}</Other>
+        case _ => NodeSeq.Empty
       }
+      }<Answer>{freq.frequency}</Answer>
     </PayFrequency>
 
   def optional[T](option: Option[T], elem: Elem)(implicit classTag: ClassTag[T]): Elem = option match {

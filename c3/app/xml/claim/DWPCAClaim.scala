@@ -10,6 +10,7 @@ import xml._
 import models.domain.Claim
 import scala.Some
 import play.api.i18n.Messages
+import scala.language.postfixOps
 
 object DWPCAClaim extends XMLComponent {
 

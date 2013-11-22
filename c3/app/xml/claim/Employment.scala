@@ -250,13 +250,21 @@ object Employment extends XMLComponent{
               {<Amount/> +++ pensionScheme.howMuchPersonal}
             </Answer>
           </Payment>
-          <Frequency>
-            <QuestionLabel>pension.per.frequency</QuestionLabel>
-            {if(PensionPaymentFrequency.mapToHumanReadableString(pensionScheme.howOftenPersonal.get) == "Other"){
-              <Other>{pensionScheme.howOftenPersonal.get.other.get}</Other>
-            }}
-            <Answer>{PensionPaymentFrequency.mapToHumanReadableString(pensionScheme.howOftenPersonal.get)}</Answer>
-          </Frequency>
+          {
+            pensionScheme.howOftenPersonal match{
+              case Some(howOften) =>
+                <Frequency>
+                  <QuestionLabel>pension.per.frequency</QuestionLabel>
+                  {howOften.other match{
+                    case Some(s) => <Other>{s}</Other>
+                    case _ => NodeSeq.Empty
+                  }}
+                  <Answer>{howOften.frequency}</Answer>
+                </Frequency>
+              case _ => NodeSeq.Empty
+            }
+          }
+
         </PersonalPension>
     } else {
       NodeSeq.Empty
@@ -318,30 +326,27 @@ object Employment extends XMLComponent{
         case false => {
           <Expense>
               {childcareExpenses.howMuchCostChildcare.isEmpty match {
-              case false => {
-                <Payment>
-                  <QuestionLabel>HowMuch?</QuestionLabel>
-                  <Answer>
-                    <Currency>{GBP}</Currency>
-                    <Amount>{childcareExpenses.howMuchCostChildcare}</Amount>
-                  </Answer>
-                </Payment>
-              }
-              case true => NodeSeq.Empty
+                case false => {
+                  <Payment>
+                    <QuestionLabel>HowMuch?</QuestionLabel>
+                    <Answer>
+                      <Currency>{GBP}</Currency>
+                      <Amount>{childcareExpenses.howMuchCostChildcare}</Amount>
+                    </Answer>
+                  </Payment>
+                }
+                case true => NodeSeq.Empty
             }}
-              {Some(childcareExpenses.howOftenPayChildCare) match {
-              case Some(howOften) => {
-                <Frequency>
-                  <QuestionLabel>HowOften?</QuestionLabel>
-                  {howOften.frequency match {
-                  case "Other" => <Other>{howOften.other.orNull}</Other>
-                  case _ => NodeSeq.Empty
-                }}
-                  <Answer>{PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare)}</Answer>
-                </Frequency>
-              }
-              case _ => NodeSeq.Empty
-            }}
+            <Frequency>
+              <QuestionLabel>HowOften?</QuestionLabel>
+              {childcareExpenses.howOftenPayChildCare.other match {
+                case Some(s) => <Other>{s}</Other>
+                case _ => NodeSeq.Empty
+              }}
+              <Answer>{childcareExpenses.howOftenPayChildCare.frequency}</Answer>
+            </Frequency>
+
+
           </Expense>
         }
         case _ => NodeSeq.Empty
@@ -398,19 +403,16 @@ object Employment extends XMLComponent{
             }
             case true => NodeSeq.Empty
           }}
-            {Some(personYouCareExpenses.howOftenPayCare) match {
-            case Some(howOften) => {
-              <Frequency>
-                <QuestionLabel>HowOften?</QuestionLabel>
-                {howOften.frequency match {
-                case "Other" => <Other>{howOften.other.orNull}</Other>
+            <Frequency>
+              <QuestionLabel>HowOften?</QuestionLabel>
+              {personYouCareExpenses.howOftenPayCare.other match {
+                case Some(s) => <Other>{s}</Other>
                 case _ => NodeSeq.Empty
               }}
-                <Answer>{PensionPaymentFrequency.mapToHumanReadableString(personYouCareExpenses.howOftenPayCare)}</Answer>
-              </Frequency>
-            }
-            case _ => NodeSeq.Empty
-          }}
+              <Answer>{personYouCareExpenses.howOftenPayCare.frequency}</Answer>
+            </Frequency>
+
+
           </Expense>
         }
         case _ => NodeSeq.Empty

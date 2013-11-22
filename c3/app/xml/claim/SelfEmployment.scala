@@ -230,12 +230,10 @@ object SelfEmployment extends XMLComponent{
           <Frequency>
             <QuestionLabel>ChildCareExpensesFrequency?</QuestionLabel>
             {childCareExpenses.howOftenPayChildCare.other match {
-            case Some(n) => {
-              <Other>{n}</Other>
-            }
-            case _ => NodeSeq.Empty
-          }}
-            <Answer>{PensionPaymentFrequency.mapToHumanReadableString(childCareExpenses.howOftenPayChildCare)}</Answer>
+              case Some(n) => <Other>{n}</Other>
+              case _ => NodeSeq.Empty
+            }}
+            <Answer>{childCareExpenses.howOftenPayChildCare.frequency}</Answer>
           </Frequency>
         </Expense>
         <RelationshipCarerToClaimant>
@@ -272,12 +270,10 @@ object SelfEmployment extends XMLComponent{
           <Frequency>
             <QuestionLabel>CareExpensesFrequency?</QuestionLabel>
             {expensesWhileAtWork.howOftenPayExpenses.other match {
-            case Some(n) => {
-              <Other>{n}</Other>
-            }
-            case _ => NodeSeq.Empty
-          }}
-            <Answer>{PensionPaymentFrequency.mapToHumanReadableString(expensesWhileAtWork.howOftenPayExpenses)}</Answer>
+              case Some(n) => <Other>{n}</Other>
+              case _ => NodeSeq.Empty
+            }}
+            <Answer>{expensesWhileAtWork.howOftenPayExpenses.frequency}</Answer>
           </Frequency>
         </Expense>
         <RelationshipCarerToClaimant>
@@ -306,13 +302,21 @@ object SelfEmployment extends XMLComponent{
               {moneyStructure(pensionAndExpenses.howMuchDidYouPay.orNull)}
             </Answer>
           </Payment>
-          <Frequency>
-            <QuestionLabel>self.pension.frequency</QuestionLabel>
-            {if(!pensionAndExpenses.howOften.isEmpty && PensionPaymentFrequency.mapToHumanReadableString(pensionAndExpenses.howOften.get) == "Other"){
-              <Other>{pensionAndExpenses.howOften.get.other}</Other>
-            }}
-            <Answer>{if(pensionAndExpenses.howOften.isEmpty){} else PensionPaymentFrequency.mapToHumanReadableString(pensionAndExpenses.howOften.get)}</Answer>
-          </Frequency>
+          {
+          pensionAndExpenses.howOften match{
+            case Some(howOften) =>
+              <Frequency>
+                <QuestionLabel>self.pension.frequency</QuestionLabel>
+                {
+                howOften.other match {
+                  case Some(s) => <Other>{s}</Other>
+                  case _ => NodeSeq.Empty
+                }
+                }<Answer>{howOften.frequency}</Answer>
+              </Frequency>
+            case _ => NodeSeq.Empty
+          }
+          }
         </PensionScheme>
     } else NodeSeq.Empty
   }
