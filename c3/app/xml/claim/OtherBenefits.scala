@@ -37,11 +37,11 @@ object OtherBenefits extends XMLComponent {
         }
       </ClaimantBenefits>
       {val parentNode = <OtherMoneySSP/>
-       optionalQuestions(statutorySickPay.haveYouHadAnyStatutorySickPay,parentNode,question("haveYouHadAnyStatutorySickPay.label", statutorySickPay.haveYouHadAnyStatutorySickPay))
+       optionalQuestions(statutorySickPay.haveYouHadAnyStatutorySickPay,parentNode,questionWithMessageFormatted(Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)), statutorySickPay.haveYouHadAnyStatutorySickPay))
       }
       {otherMoneySPPXml(statutorySickPay)}
       <OtherMoneySP>
-        <QuestionLabel>{Messages("otherPay.label")}</QuestionLabel>
+        <QuestionLabel>{Messages("otherPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}</QuestionLabel>
         <Answer>{otherStatutoryPayOption.otherPay match {
           case "yes" => XMLValues.Yes
           case "no" => XMLValues.No
@@ -60,7 +60,7 @@ object OtherBenefits extends XMLComponent {
 
       {
       <OtherMoneyPayments>
-        <QuestionLabel>{Messages("anyPaymentsSinceClaimDate.answer.label")}</QuestionLabel>
+        <QuestionLabel>{Messages("anyPaymentsSinceClaimDate.answer.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}</QuestionLabel>
         <Answer>{aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
           case "yes" => XMLValues.Yes
           case "no" => XMLValues.No

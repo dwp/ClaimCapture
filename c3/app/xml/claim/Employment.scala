@@ -6,6 +6,8 @@ import xml.XMLHelper._
 import app.XMLValues._
 import scala.xml.{Elem, NodeSeq}
 import xml.XMLComponent
+import play.api.i18n.Messages
+import utils.helpers.PastPresentLabelHelper
 
 object Employment extends XMLComponent{
 
@@ -25,7 +27,7 @@ object Employment extends XMLComponent{
 
       <Employment>
         <CurrentlyEmployed>
-          <QuestionLabel>employed.currently</QuestionLabel>
+          <QuestionLabel>{Messages("finishedThisJob")}</QuestionLabel>
           <Answer>{currentlyEmployed match {
             case "yes" => XMLValues.Yes
             case "no" => XMLValues.No
@@ -39,7 +41,7 @@ object Employment extends XMLComponent{
 
         <JobDetails>
           {employerXml(job)}
-          {payXml(jobDetails, lastWage, additionalWageDetails)}
+          {payXml(jobDetails, lastWage, additionalWageDetails, claim)}
           <OweMoney>
             <QuestionLabel>job.owe</QuestionLabel>
             <Answer>{additionalWageDetails.employerOwesYouMoney match {
@@ -66,19 +68,23 @@ object Employment extends XMLComponent{
 
     <Employer>
       <DateJobStarted>
-        <QuestionLabel>job.started</QuestionLabel>
+        <QuestionLabel>{Messages("jobStartDate")}</QuestionLabel>
         {<Answer/> +++ Some(jobDetails.jobStartDate.`dd-MM-yyyy`)}
       </DateJobStarted>
       {if(!jobDetails.lastWorkDate.isEmpty){
         <DateJobEnded>
-          <QuestionLabel>job.ended</QuestionLabel>
+          <QuestionLabel>{Messages("lastWorkDate")}</QuestionLabel>
           {<Answer/> +++ Some(jobDetails.lastWorkDate.get.`dd-MM-yyyy`)}
         </DateJobEnded>
       }}
       {job.title.isEmpty match {
         case false => {
           <JobType>
-            <QuestionLabel>job.title</QuestionLabel>
+            <QuestionLabel>{Messages("jobTitle." +jobDetails.finishedThisJob match {
+              case "yes" => "was"
+              case _ => "is"
+                })
+              }</QuestionLabel>
             <Answer>{job.title}</Answer>
           </JobType>
         }
@@ -97,7 +103,7 @@ object Employment extends XMLComponent{
       {jobDetails.p45LeavingDate match {
       case Some(n) => {
         <P45LeavingDate>
-          <QuestionLabel>p45LeavingDate?</QuestionLabel>
+          <QuestionLabel>{Messages("p45LeavingDate")}</QuestionLabel>
           {<Answer/> +++ Some(n.`dd-MM-yyyy`)}
         </P45LeavingDate>
       }
@@ -106,12 +112,12 @@ object Employment extends XMLComponent{
     </Employer>
   }
 
-  def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails): Elem = {
+  def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails, claim: Claim): Elem = {
     <Pay>
       {jobDetails.hoursPerWeek match {
         case Some(n) => {
           <WeeklyHoursWorked>
-            <QuestionLabel>job.hours</QuestionLabel>
+            <QuestionLabel>{Messages("hoursPerWeek", PastPresentLabelHelper.didYouDoYouIfSelfEmployedLower(claim))}</QuestionLabel>
             <Answer>{jobDetails.hoursPerWeek.orNull}</Answer>
           </WeeklyHoursWorked>
         }

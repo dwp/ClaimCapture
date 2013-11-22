@@ -14,10 +14,9 @@ import play.api.i18n.Messages
 
 object XMLHelper {
 
-  // CJR : Note that I'm changing the text to format it
+
   def stringify(value: Option[_], default: String = ""): String = value match {
     case Some(s: String) => formatValue(s)
-//    case Some(s: String) => s
     case Some(dmy: DayMonthYear) => dmy.`dd-MM-yyyy`
     case Some(nr: NationalInsuranceNumber) => nr.stringify
     case Some(sc: SortCode) => sc.stringify
@@ -25,10 +24,9 @@ object XMLHelper {
     case _ => default
   }
 
-  // CJR : Note that I'm changing the text to format it
+
   def nodify(value: Option[_]): NodeBuffer = value match {
     case Some(s: String) => new NodeBuffer += Text(formatValue(s))
-//    case Some(s: String) => new NodeBuffer += Text(s)
     case Some(dmy: DayMonthYear) => new NodeBuffer += Text(dmy.`dd-MM-yyyy`)
     case Some(nr: NationalInsuranceNumber) => new NodeBuffer += Text(nr.stringify)
     case Some(pf: PaymentFrequency) => paymentFrequency(pf)
@@ -95,6 +93,11 @@ object XMLHelper {
     val why = <Why/>
     val questionNode = <QuestionLabel>{Messages(questionLabelCode)}</QuestionLabel>
     questionNode ++ <Answer>{formatValue(answerText)}</Answer> ++ optionalEmpty(whyText,why)
+  }
+
+  def questionWithMessageFormatted(questionLabelCode: String, answerText: String): NodeSeq = {
+    val questionNode = <QuestionLabel>{questionLabelCode}</QuestionLabel>
+    questionNode ++ <Answer>{formatValue(answerText)}</Answer>
   }
 
   def fromToStructure(period: Option[PeriodFromTo]): NodeBuffer = {

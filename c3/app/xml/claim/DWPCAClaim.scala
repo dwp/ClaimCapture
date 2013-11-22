@@ -50,7 +50,7 @@ object DWPCAClaim extends XMLComponent {
       </SelfEmployed>
       {SelfEmployment.xml(claim)}
       <Employed>
-        <QuestionLabel>{Messages("beenEmployed")}</QuestionLabel>
+        <QuestionLabel>{Messages("beenEmployedSince6MonthsBeforeClaim.label", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => (dmy - 6 months).`dd/MM/yyyy`), claim.dateOfClaim.fold("{CLAIM DATE}")(_.`dd/MM/yyyy`))}</QuestionLabel>
         <Answer>{employment.beenEmployedSince6MonthsBeforeClaim match {
           case "yes" => XMLValues.Yes
           case "no" => XMLValues.No
@@ -59,7 +59,7 @@ object DWPCAClaim extends XMLComponent {
       </Employed>
       {Employment.xml(claim)}
       <HavePartner>
-        <QuestionLabel>{Messages("hadPartnerSinceClaimDate.label")}</QuestionLabel>
+        <QuestionLabel>{Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}</QuestionLabel>
         <Answer>{moreAboutYou.hadPartnerSinceClaimDate match {
           case "yes" => XMLValues.Yes
           case "no" => XMLValues.No
