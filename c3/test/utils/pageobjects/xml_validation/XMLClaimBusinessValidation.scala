@@ -54,7 +54,7 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
         val matches = anyMatches(theNodes.iterator,claimValue,res = false)
 
         if (!matches){
-          error = " value expected: [" + (if (theNodes.mkString.startsWith(EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + theNodes.text + "]"
+          error = " value expected: [" + (if (theNodes.mkString.startsWith(EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + theNodes.text + "] theNode:"+theNodes
         }
 
         matches

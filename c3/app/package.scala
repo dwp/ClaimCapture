@@ -59,25 +59,6 @@ package object app {
     val FourWeekly = "fourWeekly"
     val Monthly = "monthly"
     val Other = "Other"
-
-    def mapToHumanReadableString(frequencyCode: String, otherCode: Option[String]): String = frequencyCode match {
-      case Weekly => "Weekly"
-      case Fortnightly => "Fortnightly"
-      case FourWeekly => "Four-Weekly"
-      case Monthly => "Monthly"
-      case Other => "Other"
-      case _ => ""
-    }
-
-    def mapToHumanReadableString(paymentFrequencyOption: Option[models.PaymentFrequency]): String = paymentFrequencyOption match {
-      case Some(s) => mapToHumanReadableString(s.frequency,None)
-      case _ => ""
-    }
-
-    def mapToHumanReadableStringWithOther(paymentFrequencyOption: Option[models.PaymentFrequency]): String = paymentFrequencyOption match {
-      case Some(s) => mapToHumanReadableString(s.frequency,s.other)
-      case _ => ""
-    }
   }
 
   object XMLValues {

@@ -413,6 +413,9 @@ workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partne
 # HOW WE PAY YOU
 everyWeek=Weekly
 fourWeekly=Four-Weekly
+fortnightly=Fortnightly
+monthly=Monthly
+other=Other
 likeToPay =  How would you like to get paid?
 paymentFrequency = How often do you want to get paid?
 howWePayYou.helper = Select other if you want to be paid into an International Bank Account and provide details in the additional information section.

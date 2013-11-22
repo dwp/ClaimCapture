@@ -80,10 +80,8 @@ object Employment extends XMLComponent{
       {job.title.isEmpty match {
         case false => {
           <JobType>
-            <QuestionLabel>{Messages("jobTitle." +jobDetails.finishedThisJob match {
-              case "yes" => "was"
-              case _ => "is"
-                })
+            <QuestionLabel>{
+              Messages(s"jobTitle.${if (jobDetails.finishedThisJob == "yes") "was" else "is"}")
               }</QuestionLabel>
             <Answer>{job.title}</Answer>
           </JobType>
@@ -146,12 +144,7 @@ object Employment extends XMLComponent{
           </IncludedInWage>}
         case None => NodeSeq.Empty
       }}
-
-
-      {additionalWageDetails.oftenGetPaid match {
-        case Some(n) => paymentFrequency(additionalWageDetails.oftenGetPaid.orNull)
-        case None => NodeSeq.Empty
-      }}
+      {paymentFrequency(additionalWageDetails.oftenGetPaid)}
       {additionalWageDetails.whenGetPaid match {
         case Some(n) => {
           <UsualPayDay>
@@ -217,16 +210,20 @@ object Employment extends XMLComponent{
               {<Amount/> +++ pensionScheme.howMuchPension}
             </Answer>
           </Payment>
-          <Frequency>
-            <QuestionLabel>pension.occ.frequency</QuestionLabel>
-            {pensionScheme.howOftenPension match {
-              case Some(n) if (n.equals("Other")) => {
-                <Other>{n.other.get}</Other>
+          {pensionScheme.howOftenPension match{
+            case Some(f) =>
+            <Frequency>
+              <QuestionLabel>pension.occ.frequency</QuestionLabel>
+              {f.other match {
+                case Some(s) => <Other>{s}</Other>
+                case _ => NodeSeq.Empty
               }
-              case _ => NodeSeq.Empty
-            }}
-            <Answer>{PensionPaymentFrequency.mapToHumanReadableString(pensionScheme.howOftenPension.get)}</Answer>
-          </Frequency>
+              }
+              <Answer>{f.frequency}</Answer>
+            </Frequency>
+            case _ => NodeSeq.Empty
+            }
+          }
         </OccupationalPension>
     } else {
       NodeSeq.Empty

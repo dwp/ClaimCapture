@@ -24,15 +24,15 @@ object XMLHelper {
     case _ => default
   }
 
-
-  def nodify(value: Option[_]): NodeBuffer = value match {
-    case Some(s: String) => new NodeBuffer += Text(formatValue(s))
-    case Some(dmy: DayMonthYear) => new NodeBuffer += Text(dmy.`dd-MM-yyyy`)
-    case Some(nr: NationalInsuranceNumber) => new NodeBuffer += Text(nr.stringify)
+  // CJR : Note that I'm changing the text to format it
+  def nodify(value: Option[_]): NodeSeq = value match {
+    case Some(s: String) => Text(formatValue(s))
+    case Some(dmy: DayMonthYear) => Text(dmy.`dd-MM-yyyy`)
+    case Some(nr: NationalInsuranceNumber) => Text(nr.stringify)
     case Some(pf: PaymentFrequency) => paymentFrequency(pf)
     case Some(pft: PeriodFromTo) => fromToStructure(pft)
-    case Some(sc: SortCode) => new NodeBuffer += Text(sc.sort1 + sc.sort2 + sc.sort2)
-    case _ => new NodeBuffer += Text("")
+    case Some(sc: SortCode) => Text(sc.sort1 + sc.sort2 + sc.sort2)
+    case _ => Text("")
   }
 
   def postalAddressStructure(addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
@@ -100,25 +100,33 @@ object XMLHelper {
     questionNode ++ <Answer>{formatValue(answerText)}</Answer>
   }
 
-  def fromToStructure(period: Option[PeriodFromTo]): NodeBuffer = {
+  def fromToStructure(period: Option[PeriodFromTo]): NodeSeq = {
     period.fold(
-        <DateFrom/>
-          <DateTo/>
+      (<DateFrom/><DateTo/>).asInstanceOf[NodeSeq]
     )(fromToStructure)
   }
 
-  def fromToStructure(period: PeriodFromTo): NodeBuffer = {
+  def fromToStructure(period: PeriodFromTo): NodeSeq = {
     <DateFrom>{period.from.`yyyy-MM-dd`}</DateFrom>
     <DateTo>{period.to.`yyyy-MM-dd`}</DateTo>
   }
 
-  def paymentFrequency(freq: Option[PaymentFrequency]): NodeBuffer = freq match {
+  def paymentFrequency(freq: Option[PaymentFrequency]): NodeSeq = freq match {
     case Some(p) => paymentFrequency(p)
-    case _ => new NodeBuffer()
+    case _ => NodeSeq.Empty
   }
 
-  def paymentFrequency(freq: PaymentFrequency): NodeBuffer = new NodeBuffer() +=
-    <PayFrequency><QuestionLabel>job.pay.frequency</QuestionLabel><Answer>{StatutoryPaymentFrequency.mapToHumanReadableString(freq.frequency,None)}</Answer></PayFrequency>
+  def paymentFrequency(freq: PaymentFrequency): NodeSeq =
+    <PayFrequency>
+      <QuestionLabel>job.pay.frequency</QuestionLabel>
+      <Answer>{freq.frequency}</Answer>
+      {
+        freq.other match{
+          case Some(s) => <Other>{s}</Other>
+          case _ => NodeSeq.Empty
+        }
+      }
+    </PayFrequency>
 
   def optional[T](option: Option[T], elem: Elem)(implicit classTag: ClassTag[T]): Elem = option match {
     case Some(o) => addChild(elem, nodify(option))

@@ -22,7 +22,7 @@ class XmlSubmitter extends Submitter {
       val fullXml = buildFullClaim(xmlValidator(claim), xml)
       val fullXmlString = fullXml.buildString(stripComments = true)
       Logger.debug(s"generate xml : ${claim.key}")
-
+      //Logger.debug(s"XML:${fullXml.mkString}")
       validator.validate(fullXmlString) match {
         case true => Future(Ok(xml.buildString(stripComments = false)))
         case false => Future(Ok("Failed validation"))

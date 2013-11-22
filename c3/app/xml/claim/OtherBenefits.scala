@@ -95,7 +95,7 @@ object OtherBenefits extends XMLComponent {
                         case "Other" => <Other>{howOften.other.orNull}</Other>
                         case _ => NodeSeq.Empty
                       }}
-                      <Answer>{StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(aboutOtherMoney.howOften)}</Answer>
+                      <Answer>{howOften.frequency}</Answer>
                     </Frequency>
                   }
                   case None => NodeSeq.Empty
@@ -157,7 +157,7 @@ object OtherBenefits extends XMLComponent {
               case "Other" => <Other>{howOften.other.getOrElse("")}</Other>
               case _ => NodeSeq.Empty
             }}
-              <Answer>{StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(statutorySickPay.howOften)}</Answer>
+              <Answer>{howOften.frequency}</Answer>
             </Frequency>
           }
           case None => NodeSeq.Empty
@@ -196,7 +196,7 @@ object OtherBenefits extends XMLComponent {
               case "Other" => <Other>{howOften.other.getOrElse("")}</Other>
               case _ => NodeSeq.Empty
             }}
-              <Answer>{StatutoryPaymentFrequency.mapToHumanReadableStringWithOther(otherStatutoryPay.howOften)}</Answer>
+              <Answer>{howOften.frequency}</Answer>
             </Frequency>
           }
           case None => NodeSeq.Empty
