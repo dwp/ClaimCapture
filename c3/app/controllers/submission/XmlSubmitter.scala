@@ -8,6 +8,7 @@ import scala.xml.Elem
 import play.Configuration
 import models.domain.Claim
 import com.dwp.carers.s2.xml.validation.XmlValidator
+import play.api.Logger
 
 class XmlSubmitter extends Submitter {
   val transactionID = "TEST432"
@@ -18,6 +19,7 @@ class XmlSubmitter extends Submitter {
     if (Configuration.root().getBoolean("validateXml", true)) {
       val fullXml = buildFullClaim(xmlValidator(claim), xml)
       val fullXmlString = fullXml.buildString(stripComments = true)
+      Logger.debug(s"generate xml : ${claim.key}")
 
       validator.validate(fullXmlString) match {
         case true => Future(Ok(xml.buildString(stripComments = false)))

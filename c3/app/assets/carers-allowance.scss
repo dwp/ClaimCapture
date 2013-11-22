@@ -38,7 +38,10 @@ main {
 		   zoom: 1;
 		   padding: 0.7em 1em 0 1em;
 		   @media screen and (max-width: 640px)
-		     {padding-bottom: .7em; margin-top: .9em;}
+		     {
+		     	margin-top: .9em;
+		     	padding-bottom: 0.7em;
+		     }
 		   p {
 			   margin: 0;
 			   padding: 0;
@@ -76,6 +79,10 @@ main {
 	   padding: 10px 1.2em 10px 0;
 	   list-style: none;
 	   text-align: right;
+	   border-top: 10px solid #f47738;
+	   @media screen and (max-width: 640px) {
+		   border: 0;
+	   }
 	   li {
 		   margin-left: 15px;
 		   display: inline;
@@ -102,14 +109,10 @@ main {
    
    /* progress steps */
    .progress-steps {
-	   border-top: 10px solid #f47738;
 	   padding-bottom: .5em;
 	   @media print {
 		   display: none;
 	   }
-	   @media screen and (max-width: 760px)
-	     {border-top: 0;}
-	     clear: both;
 	   ol {
 		   list-style: none;
 		   margin: 0;
@@ -327,9 +330,8 @@ main {
 	   &.error-statement {
 		margin: 0;
 		padding: 5em 0 5em 1em;
-		border-top: 10px solid #f47738;
 		@media screen and (max-width: 640px)
-		{border-top: 0; padding-left: 0; padding-right: 0;}
+		{padding-left: 0; padding-right: 0;}
 			p {
 				margin: 2em 40% 0 0;
 				@media screen and (max-width: 700px)
@@ -374,45 +376,41 @@ main {
    	   
    	   
    	   &.response {
-   	   			p.intro {
-					padding-right: 20%;
-				    @media screen and (max-width: 700px)
-				    {padding-right: 0;}
-				}
+   	   		h1 {
+	   	   		margin-right: 0;
+   	   		}
 			article {
-				float: left;
-				width: 30%;
-				margin: 2em 0 2em 5%;
-				@media screen and (max-width: 640px) {
-					width: 100%;
-					float: none;
-					margin-left: 0;
+				margin: 2em 0;
+				background-image: url('images/response-trio.png');
+				background-position: 0 0;
+				background-repeat: no-repeat;
+				padding: 0 0 0 8em;
+				min-height: 100px;
+				@media screen and (max-width: 500px) {
+					padding: 7em 0 0 0;
+					background-position: center 0;
 				}
 				h2 {
 					font-size: 2.4rem;
 					line-height: 1.3em;
-					background-image: url('images/response-bg.png');
-					background-position: center 0;
-					background-repeat: no-repeat;
-					padding-top: 180px;
+					padding-top: .3em;
 					.ie & {
 						font-size: 24px;
 					}
 				}
 				p {
-					margin-top: .75em;
-				}
-				&.partner {
-					margin-left: 0;
+					margin-top: .25em;
 				}
 				&.earnings {
-					h2 {
-						background-position: center -279px;
+					background-position: 0 -350px;
+					@media screen and (max-width: 500px) {
+						background-position: center -350px;
 					}
 				}
 				&.education {
-					h2 {
-						background-position: center -567px;
+					background-position: 0 -700px;
+					@media screen and (max-width: 500px) {
+						background-position: center -700px;
 					}
 				}
 			}
@@ -1533,6 +1531,9 @@ main {
 	   
 	   &.entitlement {
 		   background: #fff; border: 1px solid #a2a2a2;
+		   p {
+			   font-weight: 600;
+		   }
 	   }
 	   
 	   &.entitlement-error {

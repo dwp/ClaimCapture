@@ -12,6 +12,11 @@ class G1BenefitsIntegrationSpec extends Specification with Tags {
       page goToThePage ()
     }
 
+    "contain a link to gov.uk" in new WithBrowser with G1BenefitsPageContext {
+      page goToThePage ()
+      page source() must contain("https://www.gov.uk")
+    }
+
     "contain errors on invalid submission" in {
       "missing mandatory field" in new WithBrowser with G1BenefitsPageContext {
         val claim = new TestData

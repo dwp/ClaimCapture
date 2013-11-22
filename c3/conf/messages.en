@@ -250,12 +250,12 @@ hasSomeonePaidYou.label = Has someone paid you to care for this person since you
 answer.label = Have you had any breaks in caring for this person since {0}?
 answer.more.label = Have you had any more breaks in caring for this person since {0}?
 
-start = Start date?
-start.date = Start date?
-start.time = Start time?
-end = End date?
-end.date = End date?
-end.time = End time?
+start = When did the break start?
+start.date = When did the break start?
+start.time = Break start time?
+end = When did the break end?
+end.date = When did the break end?
+end.time = Break end time?
 whereYou = Where were you during the break?
 whereYou.location = Where were you during the break?
 breaks.whereYou.label = Where were you during the break?
@@ -529,4 +529,5 @@ error.forbidden.characters = A name must not contain special characters
 error.restricted.characters = The text must not contain special characters
 error.address.characters = Address must not contain special characters
 number.invalid = The value must be a whole number
+error.sortcode.length = A sort code must be 6 digits long
 

@@ -27,12 +27,12 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
       catch {
         case e: UnavailableTransactionIdException => {
           Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
-          Redirect(s"/error?key=${CachedChangeOfCircs.key}")
+          Redirect(controllers.routes.Application.error(CachedChangeOfCircs.key))
         }
         case e: java.lang.Exception => {
           Logger.error(s"InternalServerError ! ${e.getMessage}")
           Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
-          Redirect(s"/error?key=${CachedChangeOfCircs.key}")
+          Redirect(controllers.routes.Application.error(CachedChangeOfCircs.key))
         }
       }
     }
