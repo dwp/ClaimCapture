@@ -13,7 +13,8 @@ import org.joda.time.format.DateTimeFormat
  */
 class XMLCircumstancesBusinessValidation extends XMLBusinessValidation  {
   val mappingFilename = "/CircumstancesXmlMapping.csv"
-  def createXMLValidationNode = (xml: Elem, nodes: Array[String]) => new CircumstancesXmlNode(xml,nodes)
+
+  def createXMLValidationNode = (xml: Elem, nodes: Array[String]) => new XmlNode(xml,nodes)
 
   /**
    * Performs the validation of a claim XML against the data used to populate the claim forms.
@@ -25,67 +26,4 @@ class XMLCircumstancesBusinessValidation extends XMLBusinessValidation  {
   def validateXMLClaim(claim: TestData, xml: Elem, throwException: Boolean): List[String] = {
     super.validateXMLClaim(claim, xml, throwException, mappingFilename, createXMLValidationNode)
   }
-}
-
-/**
- * Represents an Xml Node once "cleaned", i.e. trimmed and line returns removed.
- */
-class CircumstancesXmlNode(xml: Elem, path:Array[String]) extends XMLValidationNode(xml, path) {
-
-  def matches(claimValue: TestDatumValue): Boolean = {
-    try {
-      val nodeStart = theNodes(0).mkString
-
-      val isARepeatableNode = !nodeStart.contains(EvidenceListNode) && !nodeStart.contains(DeclarationNode)
-
-      val isRepeatedAttribute = claimValue.attribute.contains( """_""")
-
-      val iteration = if (isRepeatedAttribute) claimValue.attribute.split("_")(1).toInt - 1 else 0
-
-      if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(EvidenceListNode)) true
-      else {
-        val index = if (isRepeatedAttribute && isARepeatableNode) iteration else 0
-
-        val value = XMLValidationNode.prepareElement(theNodes(index).text)
-        val nodeName = theNodes(index).mkString
-        def valuesMatching: Boolean = {
-          if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>")) value.contains(claimValue.value) 
-          else if (nodeName.startsWith(EvidenceListNode)) {
-            value.contains(claimValue.question + "=" + claimValue.value)
-          }
-          else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
-          else if (nodeName.startsWith(DeclarationNode)) value.contains(claimValue.question + claimValue.value)
-          else value == claimValue.value
-        }
-
-        val matching = valuesMatching
-
-        if (!matching)
-          error = " value expected: [" + (if (nodeName.startsWith(EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + value + "]"
-        matching
-      }
-    }
-    catch {
-      case e: IndexOutOfBoundsException => throw new PageObjectException("XML Validation failed" + this.toString() + " - " + claimValue.attribute)
-    }
-  }
-
-}
-
-class CircValue(attribute: String, value: String, question: String) extends TestDatumValue(attribute, value, question) {}
-
-object CircValue {
-
-  private def prepareQuestion(question: String) = question.replace("\\n", "").replace("\n", "").replace(" ", "").trim.toLowerCase
-
-  private def prepareCircValue(claimValue: String, attribute:String) = {
-    val cleanValue = claimValue.replace("\\n", "").replace(" ", "").trim.toLowerCase
-
-    if (cleanValue.contains("/")) {
-      val date = DateTime.parse(cleanValue, DateTimeFormat.forPattern("dd/MM/yyyy"))
-      date.toString(DateTimeFormat.forPattern("yyyy-MM-dd"))
-    } else cleanValue
-  }
-
-  def apply(attribute: String, value: String, question: String) = new CircValue(attribute, prepareCircValue(value,attribute), prepareQuestion(question))
 }

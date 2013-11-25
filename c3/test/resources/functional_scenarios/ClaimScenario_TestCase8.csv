@@ -32,7 +32,7 @@ About Your Partner,Partner/Spouse details,First name,AboutYourPartnerFirstName,
 About Your Partner,Partner/Spouse details,Middle name,AboutYourPartnerMiddleName,
 About Your Partner,Partner/Spouse details,Surname or family name,AboutYourPartnerSurname,
 About Your Partner,Partner/Spouse details,All other surnames or family names they have been used or have been known by,AboutYourPartnerOtherNames,
-About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,AB123456C
+About Your Partner,Partner/Spouse details,National Insurance (NI) number,AboutYourPartnerNINO,
 About Your Partner,Partner/Spouse details,Date of birth,AboutYourPartnerDateofBirth,
 About Your Partner,Partner/Spouse details, Nationality,AboutYourPartnerNationality,
 About Your Partner,Partner/Spouse details,Have you separated from your partner/spouse since the date you want to claim from?,AboutYourPartnerHaveYouSeparatedfromYourPartner,
@@ -277,7 +277,7 @@ Employment,Necessary expenses to do your job,What [[past=was]] [[present=is]] yo
 Employment,Necessary expenses to do your job,What [[past=were]] [[present=are]] these things?,EmploymentWhatAreNecessaryJobExpenses_2,
 Employment,Necessary expenses to do your job,Why [[past=did you]] [[present=do you]] need these things to do your job?,EmploymentWhyYouNeedTheseExpensesToDoYourJob_2,
 Employment,Childcare expenses while you are at work,How much [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowMuchYouPayfor_2,
-Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowOften_2,Weekly
+Employment,Childcare expenses while you are at work,How often [[past=did you]] [[present=do you]] pay them?,EmploymentChildcareExpensesHowOften_2,
 Employment,Childcare expenses while you are at work,Name of the person/organisation who looks after your child/children,EmploymentNameOfthePersonWhoLooksAfterYourChild_2,
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to you?",EmploymentChildcareExpensesWhatRelationIsthePersontoYou_2,
 Employment,Childcare expenses while you are at work,"What relation, if any, is the person to your partner/spouse?",EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_2,

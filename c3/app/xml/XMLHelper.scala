@@ -153,7 +153,7 @@ object XMLHelper {
 
   def paymentFrequency(freq: PaymentFrequency): NodeSeq =
     <PayFrequency>
-      <QuestionLabel>job.pay.frequency</QuestionLabel>
+      <QuestionLabel>{Messages("paymentFrequency")}</QuestionLabel>
       {
       freq.other match{
         case Some(s) => <Other>{s}</Other>
