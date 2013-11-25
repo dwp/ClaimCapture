@@ -68,7 +68,7 @@ class XmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml, pat
     else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
     else if (nodeName.startsWith(DeclarationNode)) claimValue.value == answerText(node, "DeclarationQuestion",claimValue.question)
     else if (nodeName.startsWith(DisclaimerNode))  claimValue.value == answerText(node, "DisclaimerQuestion", claimValue.question)
-    else if (nodeName.startsWith(ConsentNode))  claimValue.value == answerText(node, "Consent", claimValue.question)//TODO: If consent is no, check why
+    else if (nodeName.startsWith(ConsentNode))  claimValue.value == answerText(node, "Consent", claimValue.question)
     else value == claimValue.value
   }
 
