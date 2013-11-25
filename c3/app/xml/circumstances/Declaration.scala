@@ -18,8 +18,7 @@ object Declaration  extends XMLComponent {
         <Content>I understand that I must promptly tell the office that pays my Carer's Allowance of anything that may affect my entitlement to, or the amount of, that benefit.</Content>
       </DeclarationStatement>
       <DeclarationQuestion>
-        <QuestionLabel>{Messages("confirm")}</QuestionLabel>
-        <Answer>{booleanStringToYesNo(declaration.confirm)}</Answer>
+        {question("confirm",declaration.confirm) }
       </DeclarationQuestion>
     </Declaration>
   }

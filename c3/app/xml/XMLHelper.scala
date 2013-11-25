@@ -77,9 +77,9 @@ object XMLHelper {
   }
 
   def question(questionLabelCode: String, answer: Option[String]): NodeSeq = {
-    val emptyAnswer = <Answer/>
-    val questionNode = <QuestionLabel>{Messages(questionLabelCode)}</QuestionLabel>
-    questionNode ++ optionalEmpty(answer,emptyAnswer)
+    if (answer.isDefined)
+       question(questionLabelCode,answer.get)
+     else NodeSeq.Empty
   }
 
   def questionOther(questionLabelCode: String, answerText: String, otherText: Option[String]): NodeSeq = {
@@ -88,7 +88,8 @@ object XMLHelper {
     questionNode ++ optionalEmpty(otherText,other) ++ <Answer>{formatValue(answerText)}</Answer>
   }
 
-  // We should only see a why text supplied if the answer is no, but add the why text regardless if supplied
+  // We should only see a why text supplied if the answer is no, but add the why text regardless if supplied.
+  // The business logic should be in the UI not in XML generation.
   def questionWhy(questionLabelCode: String, answerText: String, whyText: Option[String]): NodeSeq = {
     val why = <Why/>
     val questionNode = <QuestionLabel>{Messages(questionLabelCode)}</QuestionLabel>
@@ -172,6 +173,8 @@ object XMLHelper {
        case "yes" => Yes
        case "no" => No
        case "other" => Other
+       case "true" => Yes
+       case "false" => No
        case _ => value
      }
 
