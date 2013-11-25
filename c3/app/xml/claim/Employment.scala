@@ -193,16 +193,16 @@ object Employment extends XMLComponent{
   def occupationalPensionSchemeXml(pensionScheme: PensionSchemes, claim:Claim, job:Job) = {
     val showXml = pensionScheme.payOccupationalPensionScheme == yes
 
-    if (showXml) {
-      <PaidForOccupationalPension>
-        <QuestionLabel>{Messages("payOccupationalPensionScheme", pastPresentLabelForEmployment(claim, didYou, doYou , job.jobID))}</QuestionLabel>
-        <Answer>{pensionScheme.payOccupationalPensionScheme  match {
-            case "yes" => XMLValues.Yes
-            case "no" => XMLValues.No
-            case n => n
-        }}</Answer>
-      </PaidForOccupationalPension>
-
+    println("printing PaidForOccupationalPension")
+    <PaidForOccupationalPension>
+      <QuestionLabel>{Messages("payOccupationalPensionScheme", pastPresentLabelForEmployment(claim, didYou, doYou , job.jobID))}</QuestionLabel>
+      <Answer>{pensionScheme.payOccupationalPensionScheme  match {
+        case "yes" => XMLValues.Yes
+        case "no" => XMLValues.No
+        case n => n
+      }}</Answer>
+    </PaidForOccupationalPension> ++
+    (if (showXml) {
         <OccupationalPension>
           <Payment>
             <QuestionLabel>{Messages ("howMuchPension", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , job.jobID))}</QuestionLabel>
@@ -228,21 +228,21 @@ object Employment extends XMLComponent{
         </OccupationalPension>
     } else {
       NodeSeq.Empty
-    }
+    })
   }
 
   def personalPensionSchemeXml(pensionScheme:PensionSchemes, claim:Claim, job:Job): NodeSeq = {
     val showXml = pensionScheme.payPersonalPensionScheme == yes
 
-    if (showXml) {
-      <PaidForPersonalPension>
-        <QuestionLabel>{Messages("payPersonalPensionScheme", pastPresentLabelForEmployment(claim, didYou, doYou,job.jobID))}</QuestionLabel>
-        <Answer>{pensionScheme.payPersonalPensionScheme match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
-      </PaidForPersonalPension>
+    <PaidForPersonalPension>
+      <QuestionLabel>{Messages("payPersonalPensionScheme", pastPresentLabelForEmployment(claim, didYou, doYou,job.jobID))}</QuestionLabel>
+      <Answer>{pensionScheme.payPersonalPensionScheme match {
+        case "yes" => XMLValues.Yes
+        case "no" => XMLValues.No
+        case n => n
+      }}</Answer>
+    </PaidForPersonalPension> ++
+    (if (showXml) {
         <PersonalPension>
           <Payment>
             <QuestionLabel>{Messages ("howMuchPersonal", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , job.jobID))}</QuestionLabel>
@@ -269,7 +269,7 @@ object Employment extends XMLComponent{
         </PersonalPension>
     } else {
       NodeSeq.Empty
-    }
+    })
   }
 
   def jobExpensesXml(job: Job, claim:Claim) = {

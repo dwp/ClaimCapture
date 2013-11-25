@@ -49,7 +49,7 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
 
       val iteration = if (isRepeatedAttribute) claimValue.attribute.split("_")(1).toInt - 1 else 0
 
-      if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(EvidenceListNode) || iteration > 1 && isUniqueValueInRepetitions(claimValue)){
+      if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(EvidenceListNode) || iteration > 0 && isUniqueValueInRepetitions(claimValue)){
         true
       }
       else {
