@@ -7,6 +7,7 @@ import org.joda.time.format.DateTimeFormat
 import scala.language.implicitConversions
 import XMLValidationNode.prepareElement
 import scala.annotation.tailrec
+import scala.language.postfixOps
 
 /**
  * Validates that an XML contains all the relevant data that was provided in a Claim.
@@ -48,13 +49,15 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
 
       val iteration = if (isRepeatedAttribute) claimValue.attribute.split("_")(1).toInt - 1 else 0
 
-      if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(EvidenceListNode)) true
+      if (!isARepeatableNode && iteration > 0 && !nodeStart.contains(EvidenceListNode) || iteration > 1 && isUniqueValueInRepetitions(claimValue)){
+        true
+      }
       else {
 
         val matches = anyMatches(theNodes.iterator,claimValue,res = false)
 
         if (!matches){
-          error = " value expected: [" + (if (theNodes.mkString.startsWith(EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + theNodes.text + "] theNode:"+theNodes
+          error = " value expected: [" + (if (theNodes.mkString.startsWith(EvidenceListNode)) claimValue.question + "=" + claimValue.value else claimValue.value) + "] within value read: [" + theNodes.text + "]"
         }
 
         matches
@@ -65,6 +68,12 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
     }
   }
 
+
+  private def isUniqueValueInRepetitions(claimValue:TestDatumValue):Boolean = {
+    //We will test if this value is collected in repeated values like breaks, employment, time abroad, but it's saved in a non-repetition xml node
+    //If the iteration is 1, these values are going to be tested, but they don't need to be testes further this point.
+    claimValue.attribute.startsWith("AboutTheCareYouProvideHaveYouHadAnyMoreBreaksInCare") || claimValue.attribute.startsWith("AboutYouHaveYouBeenEmployedAtAnyTime")
+  }
   @tailrec
   private def anyMatches(iterator:Iterator[Node],claimValue:TestDatumValue,res:Boolean):Boolean = {
     if (iterator.hasNext) {
@@ -77,19 +86,17 @@ class ClaimXmlNode(xml: Elem, path: Array[String]) extends XMLValidationNode(xml
   def valuesMatching(claimValue:TestDatumValue,node:Node): Boolean = {
     val nodeName = node.mkString
     val value = prepareElement(node.text)
-    if (value.matches( """\d{4}-\d{2}-\d{2}[tT]\d{2}:\d{2}:\d{2}""") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || node.mkString.contains("<PensionScheme>")) value.contains(claimValue.value)
+
+    if (nodeName.endsWith("DateTime>") || nodeName.endsWith("OtherNames>") || nodeName.endsWith("PayerName>") || node.mkString.contains("<PensionScheme>")) value.contains(claimValue.value)
     else if (nodeName.endsWith("Line>")) claimValue.value.contains(value)
     else if (nodeName.startsWith("<ClaimantActing")) nodeName.toLowerCase.contains(claimValue.value + ">" + value)
     else if (nodeName.startsWith(DeclarationNode)) claimValue.value == answerText(node, "DeclarationQuestion",claimValue.question)
     else if (nodeName.startsWith(DisclaimerNode))  claimValue.value == answerText(node, "DisclaimerQuestion", claimValue.question)
     else if (nodeName.startsWith(ConsentNode))  claimValue.value == answerText(node, "Consent", claimValue.question)//TODO: If consent is no, check why
-    else if (nodeName.endsWith("DateTime>")) value.contains(claimValue.value)
     else value == claimValue.value
   }
 
   def answerText(node:Node,questionTag:String,questionLabel:String) = {
-    import scala.language.postfixOps
-
     XMLValidationNode.prepareElement(((node \\ questionTag).filter { n => XMLValidationNode.prepareElement(n \\ "QuestionLabel" text) == questionLabel } \\ "Answer").text)
   }
 
