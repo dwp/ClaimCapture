@@ -28,6 +28,11 @@ class XmlHelperSpec extends Specification with Tags {
       "when question has an answer of type nodeSeq." in new WithApplication {
         XMLHelper.question(<Test/>,"s7.g1", <myNode>hello</myNode>).toString shouldEqual "<Test><QuestionLabel>Have you been employed?</QuestionLabel><Answer><myNode>hello</myNode></Answer></Test>"
       }
+
+      "when question with question label having two arguments." in new WithApplication {
+        XMLHelper.question(<Test/>,"beenEmployedSince6MonthsBeforeClaim", <myNode>hello</myNode>,"arg1","arg2").toString shouldEqual "<Test><QuestionLabel>Have you had another job at any time since arg1 (this is six months before your claim date: arg2)?</QuestionLabel><Answer><myNode>hello</myNode></Answer></Test>"
+      }
+
     }
   }
 

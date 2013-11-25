@@ -26,19 +26,11 @@ object OtherBenefits extends XMLComponent {
           {
           moreAboutYou match {
             case Some(n) => {question(<StatePension/>,"receiveStatePension", n.receiveStatePension) }
-
-              //              n.receiveStatePension.isEmpty match {
-//              case false => {
-//              val parentNode = <StatePension></StatePension>
-//                  optionalQuestions(n.receiveStatePension,parentNode,question("receiveStatePension", n.receiveStatePension))
-//               }
-//              case _ => NodeSeq.Empty
-//            }
             case None => NodeSeq.Empty
           }
        }
       </ClaimantBenefits>
-      {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label",statutorySickPay.haveYouHadAnyStatutorySickPay,Some(claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))}
+      {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label",statutorySickPay.haveYouHadAnyStatutorySickPay,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
       {otherMoneySPPXml(statutorySickPay)}
       <OtherMoneySP>
         <QuestionLabel>{Messages("otherPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}</QuestionLabel>

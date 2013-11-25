@@ -80,52 +80,49 @@ object XMLHelper {
   }
 
 
-  def question[T](wrappingNode:Node,questionLabelCode: String, answerText: T,labelParameters: Option[String] = None): NodeSeq = {
-    if (answerText.isInstanceOf[Option[_]]) questionOptional(wrappingNode,questionLabelCode,answerText.asInstanceOf[Option[_]],labelParameters)
+  def question[T](wrappingNode:Node,questionLabelCode: String, answerText: T,labelParameters: String*): NodeSeq = {
+    if (answerText.isInstanceOf[Option[_]]) questionOptional(wrappingNode,questionLabelCode,answerText.asInstanceOf[Option[_]],labelParameters:_*)
     else {
       val answer:NodeSeq = nodify(answerText)
-      if (answer.length > 0) addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters) ++ <Answer>{answer}</Answer>)
+      if (answer.length > 0) addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ <Answer>{answer}</Answer>)
       else NodeSeq.Empty
     }
 
   }
 
-  private def questionOptional[T](wrappingNode:Node,questionLabelCode: String, answer:Option[T],labelParameters: Option[String] = None ): NodeSeq = {
-    if (answer.isDefined) question(wrappingNode,questionLabelCode,answer.get,labelParameters)
+  private def questionOptional[T](wrappingNode:Node,questionLabelCode: String, answer:Option[T],labelParameters: String* ): NodeSeq = {
+    if (answer.isDefined) question(wrappingNode,questionLabelCode,answer.get,labelParameters:_*)
     else NodeSeq.Empty
   }
 
-  private def questionLabel(questionLabelCode: String,labelParameters: Option[String]) = {
-    <QuestionLabel>{labelParameters match {
-      case Some(p) => Messages(questionLabelCode, p)
-      case None => Messages(questionLabelCode)
-    }}</QuestionLabel>
+  private def questionLabel(questionLabelCode: String,labelParameters: String*) = {
+    <QuestionLabel>{Messages(questionLabelCode, labelParameters: _*)}</QuestionLabel>
   }
 
-  def questionOther[T](wrappingNode:Node,questionLabelCode: String, answerText: T, otherText: Option[String],labelParameters: Option[String] = None): NodeSeq = {
+  def questionOther[T](wrappingNode:Node,questionLabelCode: String, answerText: T, otherText: Option[String],labelParameters: String *): NodeSeq = {
     val other = <Other/>
-    addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters) ++ optionalEmpty(otherText,other) ++ <Answer>{stringify(answerText)}</Answer>)
+    addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ optionalEmpty(otherText,other) ++ <Answer>{stringify(answerText)}</Answer>)
   }
 
   // We should only see a why text supplied if the answer is no, but add the why text regardless if supplied.
   // The business logic should be in the UI not in XML generation.
-  def questionWhy[T](wrappingNode:Node,questionLabelCode: String, answerText: T, whyText: Option[String],labelParameters: Option[String] = None): NodeSeq = {
-    if (answerText.isInstanceOf[Option[_]]) questionOptionalWhy(wrappingNode,questionLabelCode,answerText.asInstanceOf[Option[_]],whyText,labelParameters)
+  def questionWhy[T](wrappingNode:Node,questionLabelCode: String, answerText: T, whyText: Option[String],labelParameters: String*): NodeSeq = {
+    if (answerText.isInstanceOf[Option[_]]) questionOptionalWhy(wrappingNode,questionLabelCode,answerText.asInstanceOf[Option[_]],whyText,labelParameters:_*)
      else {
     val why = <Why/>
-    addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters) ++ <Answer>{stringify(answerText)}</Answer> ++ optionalEmpty(whyText,why))
+    addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ <Answer>{stringify(answerText)}</Answer> ++ optionalEmpty(whyText,why))
     }
   }
 
-  private def questionOptionalWhy[T](wrappingNode:Node,questionLabelCode: String, answerOption: Option[T], whyText: Option[String],labelParameters: Option[String] = None): NodeSeq = {
+  private def questionOptionalWhy[T](wrappingNode:Node,questionLabelCode: String, answerOption: Option[T], whyText: Option[String],labelParameters: String*): NodeSeq = {
     if (answerOption.isDefined) {
-      questionWhy(wrappingNode,questionLabelCode,answerOption.get,whyText,labelParameters )
+      questionWhy(wrappingNode,questionLabelCode,answerOption.get,whyText,labelParameters:_* )
     } else NodeSeq.Empty
   }
 
-  def questionCurrency(wrappingNode:Node,questionLabelCode: String, amount:Option[String],labelParameters: Option[String] = None): NodeSeq = {
+  def questionCurrency(wrappingNode:Node,questionLabelCode: String, amount:Option[String],labelParameters: String*): NodeSeq = {
     if (amount.isDefined) {
-      question(wrappingNode,questionLabelCode,moneyStructure(amount.get),labelParameters)
+      question(wrappingNode,questionLabelCode,moneyStructure(amount.get),labelParameters:_*)
     }
     else NodeSeq.Empty
   }
@@ -195,7 +192,7 @@ object XMLHelper {
   def booleanToYesNo(value:Boolean) = if (value) Yes else No
 
 
-  @deprecated("Should use stringify or formatValue", "25.11.2013")
+  @deprecated("Should use stringify or formatValue or nothing since question function already take care of formatting.", "25.11.2013")
   def titleCase(s: String) = if(s != null && s.length() > 0) s.head.toUpper + s.tail.toLowerCase else ""
 
   def formatValue(value:String):String = value match {
@@ -208,13 +205,5 @@ object XMLHelper {
      }
 
   def extractIdFrom(xml:Elem):String = {(xml \\ "TransactionId").text}
-
-  // relies on the question function being passed
-//  def optionalQuestions (conditionField:String, parentNode:Node, questionNode:NodeSeq) = {
-//    conditionField.isEmpty match {
-//      case false => addChild(parentNode, questionNode)
-//      case true => NodeSeq.Empty
-//    }
-//  }
 
 }
