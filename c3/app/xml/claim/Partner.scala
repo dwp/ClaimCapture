@@ -36,7 +36,7 @@ object Partner extends XMLComponent {
         <NationalityPartner>{yourPartnerPersonalDetails.nationality.orNull}</NationalityPartner>
         <RelationshipStatus>
           <SeparatedFromPartner>
-            <QuestionLabel>{Messages("separated_fromPartner.label")}</QuestionLabel>
+            <QuestionLabel>{Messages("separated_fromPartner.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}</QuestionLabel>
             <Answer>{yourPartnerPersonalDetails.separatedFromPartner match {
               case "yes" => XMLValues.Yes
               case "no" => XMLValues.No

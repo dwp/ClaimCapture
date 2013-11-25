@@ -405,7 +405,7 @@ object Employment extends XMLComponent{
             case true => NodeSeq.Empty
           }}
             <Frequency>
-              <QuestionLabel>{Messages("howMuchCostChildcare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , job.jobID))}</QuestionLabel>
+              <QuestionLabel>{Messages("employment_howOftenPayChildCare", pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , job.jobID))}</QuestionLabel>
               {personYouCareExpenses.howOftenPayCare.other match {
                 case Some(s) => <Other>{s}</Other>
                 case _ => NodeSeq.Empty
