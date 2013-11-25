@@ -10,7 +10,7 @@ import scala.language.postfixOps
  * @author Jorge Migueis
  *         Date: 06/09/2013
  */
-abstract class XMLBusinessValidation {
+abstract class XMLBusinessValidation() {
 
   val errors = mutable.MutableList.empty[String]
   val warnings = mutable.MutableList.empty[String]
