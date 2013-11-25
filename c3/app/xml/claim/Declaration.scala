@@ -8,11 +8,9 @@ import xml.XMLComponent
 object  Declaration extends XMLComponent {
 
   def xml(claim: Claim) = {
-
     val declaration = claim.questionGroup[models.domain.Declaration].getOrElse(models.domain.Declaration())
 
     <Declaration>
-
       <DeclarationStatement>
         <Title>{Messages("declaration.title")}</Title>
         <Content>{Messages("declaration.1.pdf")}</Content>
@@ -20,14 +18,8 @@ object  Declaration extends XMLComponent {
         <Content>{Messages("declaration.3")}</Content>
         <Content>{Messages("declaration.4")}</Content>
       </DeclarationStatement>
-
-      <DeclarationQuestion>
-        {question("someoneElse", titleCase(booleanStringToYesNo(declaration.read)))}
-      </DeclarationQuestion>
-      <DeclarationQuestion>
-        {question("confirm", titleCase(booleanStringToYesNo(stringify(declaration.someoneElse))))}
-      </DeclarationQuestion>
-
+      {question(<DeclarationQuestion/>,"someoneElse", titleCase(booleanStringToYesNo(declaration.read)))}
+      {question(<DeclarationQuestion/>,"confirm", titleCase(booleanStringToYesNo(stringify(declaration.someoneElse))))}
     </Declaration>
   }
 }

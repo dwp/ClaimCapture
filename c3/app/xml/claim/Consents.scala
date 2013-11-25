@@ -15,27 +15,8 @@ object Consents extends XMLComponent {
     val consent = claim.questionGroup[Consent].getOrElse(Consent())
 
     <Consents>
-      {
-        consent.informationFromEmployer.answer match {
-          case Some(answer) =>
-            <Consent>
-              {questionWhy("gettingInformationFromAnyEmployer.informationFromEmployer", titleCase(answer), consent.informationFromEmployer.text)}
-            </Consent>
-          case _ => NodeSeq.Empty
-        }
-      }
-
-      {
-        consent.informationFromPerson.answer.isEmpty match {
-          case false =>
-          <Consent>
-            {questionWhy("tellUsWhyEmployer.informationFromPerson", titleCase(consent.informationFromPerson.answer), consent.informationFromPerson.text)}
-          </Consent>
-          case _ => NodeSeq.Empty
-        }
-      }
-
+      {questionWhy(<Consent/>,"gettingInformationFromAnyEmployer.informationFromEmployer", consent.informationFromEmployer.answer, consent.informationFromEmployer.text)}
+      {questionWhy(<Consent/>,"tellUsWhyEmployer.informationFromPerson", consent.informationFromPerson.answer, consent.informationFromPerson.text)}
     </Consents>
-
   }
 }

@@ -18,16 +18,10 @@ object Payment extends XMLComponent {
     val showAccount = howWePayYou.likeToBePaid == Messages(AccountStatus.BankBuildingAccount.name)
 
     claim.questionGroup[HowWePayYou] match {
-      case Some(howWePayYou) => {
+      case Some(how) => {
         <Payment>
-          <PaymentFrequency>
-            {question("paymentFrequency", howWePayYou.paymentFrequency)}
-          </PaymentFrequency>
-
-          <InitialAccountQuestion>
-            {question("likeToPay", howWePayYou.likeToBePaid)}
-          </InitialAccountQuestion>
-
+          {question(<PaymentFrequency/>,"paymentFrequency", how.paymentFrequency)}
+          {question(<InitialAccountQuestion/>,"likeToPay", how.likeToBePaid)}
           {if (showAccount) account(claim) else NodeSeq.Empty}
         </Payment>
       }
@@ -45,12 +39,8 @@ object Payment extends XMLComponent {
       <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
       <BuildingSocietyDetails>
         <AccountNumber>{bankBuildingSocietyDetails.accountNumber}</AccountNumber>
-
         {if(bankBuildingSocietyDetails.rollOrReferenceNumber.isEmpty) NodeSeq.Empty
         else <RollNumber>{bankBuildingSocietyDetails.rollOrReferenceNumber}</RollNumber>}
-
-
-
         <SortCode>{stringify(Some(bankBuildingSocietyDetails.sortCode))}</SortCode>
         <Name>{bankBuildingSocietyDetails.bankFullName}</Name>
       </BuildingSocietyDetails>

@@ -1,6 +1,5 @@
 package xml.claim
 
-import app.XMLValues
 import models.domain.{ContactDetails, YourDetails, Claim}
 import scala.xml.NodeSeq
 import xml.XMLHelper._
@@ -28,9 +27,7 @@ object Claimant extends XMLComponent {
       <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
       {contactDetails.contactYouByTextphone match {
         case Some(n) =>
-        <TextPhoneContact>
-          {question("contactYouByTextphone", contactDetails.contactYouByTextphone)}
-        </TextPhoneContact>
+        {question(<TextPhoneContact/>,"contactYouByTextphone", contactDetails.contactYouByTextphone)}
         case _ => NodeSeq.Empty
     }}
     </Claimant>

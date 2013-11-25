@@ -25,20 +25,20 @@ object OtherBenefits extends XMLComponent {
       <ClaimantBenefits>
           {
           moreAboutYou match {
-            case Some(n) => n.receiveStatePension.isEmpty match {
-              case false => {
-              val parentNode = <StatePension></StatePension>
-                  optionalQuestions(n.receiveStatePension,parentNode,question("receiveStatePension", n.receiveStatePension))
-               }
-              case _ => NodeSeq.Empty
-            }
-            case _ => NodeSeq.Empty
+            case Some(n) => {question(<StatePension/>,"receiveStatePension", n.receiveStatePension) }
+
+              //              n.receiveStatePension.isEmpty match {
+//              case false => {
+//              val parentNode = <StatePension></StatePension>
+//                  optionalQuestions(n.receiveStatePension,parentNode,question("receiveStatePension", n.receiveStatePension))
+//               }
+//              case _ => NodeSeq.Empty
+//            }
+            case None => NodeSeq.Empty
           }
-        }
+       }
       </ClaimantBenefits>
-      {val parentNode = <OtherMoneySSP/>
-       optionalQuestions(statutorySickPay.haveYouHadAnyStatutorySickPay,parentNode,questionWithMessageFormatted(Messages("haveYouHadAnyStatutorySickPay.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)), statutorySickPay.haveYouHadAnyStatutorySickPay))
-      }
+      {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label",statutorySickPay.haveYouHadAnyStatutorySickPay,Some(claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))}
       {otherMoneySPPXml(statutorySickPay)}
       <OtherMoneySP>
         <QuestionLabel>{Messages("otherPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}</QuestionLabel>
@@ -140,25 +140,19 @@ object OtherBenefits extends XMLComponent {
     if (statutorySickPay.haveYouHadAnyStatutorySickPay == yes) {
       <OtherMoneySSPDetails>
           <Payment>
-            {statutorySickPay.howMuch match {
-            case Some(n) => {
-              {val parentNode = <Payment/>
-                optionalQuestions(statutorySickPay.howMuch.orNull,parentNode,questionCurrency("howMuch", statutorySickPay.howMuch.orNull))
-              }
-            }
-            case None => NodeSeq.Empty
-          }}
-
+          {questionCurrency(<Payment/>,"howMuch",statutorySickPay.howMuch) }
           {statutorySickPay.howOften match {
           case Some(howOften) => {
-            <Frequency>
-              <QuestionLabel>{Messages("howOften_frequency")}</QuestionLabel>
-              {howOften.frequency match {
-              case "Other" => <Other>{howOften.other.getOrElse("")}</Other>
-              case _ => NodeSeq.Empty
-            }}
-              <Answer>{howOften.frequency}</Answer>
-            </Frequency>
+            {questionOther(<Frequency/>,"howOften_frequency",howOften.frequency,howOften.other)}
+//
+//            <Frequency>
+//              <QuestionLabel>{Messages("howOften_frequency")}</QuestionLabel>
+//              {howOften.frequency match {
+//              case "Other" => <Other>{howOften.other.getOrElse("")}</Other>
+//              case _ => NodeSeq.Empty
+//            }}
+//              <Answer>{howOften.frequency}</Answer>
+//            </Frequency>
           }
           case None => NodeSeq.Empty
         }}

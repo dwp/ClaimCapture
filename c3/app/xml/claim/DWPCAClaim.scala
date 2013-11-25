@@ -73,17 +73,8 @@ object DWPCAClaim extends XMLComponent {
       {Payment.xml(claim)}
       {
         <OtherInformation>
-          <WelshCommunication>
-            {question("welshCommunication", titleCase(booleanStringToYesNo(additionalInfo.welshCommunication)))}
-          </WelshCommunication>
-          {additionalInfo.anythingElse match {
-            case Some(n) => {
-              <AdditionalInformation>
-                {question("anythingElse", additionalInfo.anythingElse)}
-              </AdditionalInformation>
-            }
-            case None => NodeSeq.Empty
-        }}
+          {question(<WelshCommunication/>,"welshCommunication", titleCase(booleanStringToYesNo(additionalInfo.welshCommunication)))}
+          {question(<AdditionalInformation/>,"anythingElse", additionalInfo.anythingElse)}
         </OtherInformation>
       }
       {Declaration.xml(claim)}

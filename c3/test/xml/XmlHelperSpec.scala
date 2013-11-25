@@ -53,14 +53,14 @@ class XMLHelperSpec extends Specification with Tags {
 
     "construct a basic question" in {
       "when question is employed and answer yes" in new WithApplication {
-        XMLHelper.question("s7.g1", "Yes").toString shouldEqual "<QuestionLabel>Have you been employed?</QuestionLabel><Answer>Yes</Answer>"
+        XMLHelper.question(<Test/>,"s7.g1", "Yes").toString shouldEqual "<Test><QuestionLabel>Have you been employed?</QuestionLabel><Answer>Yes</Answer></Test>"
       }
     }
   }
 
   "construct an other question" in {
     "when question is employed and answer yes" in new WithApplication{
-      XMLHelper.questionOther("s7.g1", "Other", Some("Maybe")).toString shouldEqual "<QuestionLabel>Have you been employed?</QuestionLabel><Other>Maybe</Other><Answer>Other</Answer>"
+      XMLHelper.questionOther(<Test/>,"s7.g1", "Other", Some("Maybe")).toString shouldEqual "<Test><QuestionLabel>Have you been employed?</QuestionLabel><Other>Maybe</Other><Answer>Other</Answer></Test>"
     }
   }
 }

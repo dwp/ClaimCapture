@@ -17,9 +17,7 @@ object Declaration  extends XMLComponent {
         <Content>I understand that if I knowingly give information that is incorrect or incomplete, I may be liable to prosecution or other action.</Content>
         <Content>I understand that I must promptly tell the office that pays my Carer's Allowance of anything that may affect my entitlement to, or the amount of, that benefit.</Content>
       </DeclarationStatement>
-      <DeclarationQuestion>
-        {question("confirm",declaration.confirm) }
-      </DeclarationQuestion>
+      {question(<DeclarationQuestion/>,"confirm",declaration.confirm) }
     </Declaration>
   }
 }
