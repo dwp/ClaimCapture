@@ -16,7 +16,7 @@ import play.api.Logger
 object XMLHelper {
 
 
-  def stringifyOption(value: Option[_], default: String = ""):String = value match {
+  private def stringifyOption(value: Option[_], default: String = ""):String = value match {
     case Some(s) => stringify(s,default)
     case None => default
   }
@@ -128,7 +128,7 @@ object XMLHelper {
 
   def questionCurrency(wrappingNode:Node,questionLabelCode: String, amount:Option[String],labelParameters: Option[String] = None): NodeSeq = {
     if (amount.isDefined) {
-      Logger.debug("amount: " + amount.get )
+//      Logger.debug("amount: " + amount.get )
       question(wrappingNode,questionLabelCode,moneyStructure(amount.get),labelParameters)
     }
     else NodeSeq.Empty

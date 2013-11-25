@@ -25,11 +25,7 @@ object Claimant extends XMLComponent {
         <MobileNumber>{contactDetails.mobileNumber.orNull}</MobileNumber>
       }}
       <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
-      {contactDetails.contactYouByTextphone match {
-        case Some(n) =>
-        {question(<TextPhoneContact/>,"contactYouByTextphone", contactDetails.contactYouByTextphone)}
-        case _ => NodeSeq.Empty
-    }}
+      {question(<TextPhoneContact/>,"contactYouByTextphone", contactDetails.contactYouByTextphone)}
     </Claimant>
   }
 }
