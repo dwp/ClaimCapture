@@ -296,12 +296,7 @@ object SelfEmployment extends XMLComponent{
 
     if (hasPensionScheme) {
         <PensionScheme>
-          <Payment>
-            <QuestionLabel>self.pension.amount</QuestionLabel>
-            <Answer>
-              {moneyStructure(pensionAndExpenses.howMuchDidYouPay.orNull)}
-            </Answer>
-          </Payment>
+          {questionCurrency(<Payment/>,"self.pension.amount",pensionAndExpenses.howMuchDidYouPay)}
           {
           pensionAndExpenses.howOften match{
             case Some(howOften) =>

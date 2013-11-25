@@ -11,7 +11,6 @@ import models.PeriodFromTo
 import models.NationalInsuranceNumber
 import play.api.i18n.Messages
 import scala.deprecated
-import play.api.Logger
 
 object XMLHelper {
 
@@ -33,13 +32,13 @@ object XMLHelper {
   }
 
   // CJR : Note that I'm changing the text to format it
-  private def nodifyOption(value: Option[_]): NodeSeq = value match {
+  private def nodifyOption(value: Option[_], default: String = ""): NodeSeq = value match {
     case Some(s) => nodify(s)
-    case _ => Text("")
+    case _ => Text(default)
   }
 
   // CJR : Note that I'm changing the text to format it
-  private def nodify[T](value: T): NodeSeq = value match {
+  private def nodify[T](value: T, default: String = ""): NodeSeq = value match {
     case dmy: DayMonthYear => Text(dmy.`dd-MM-yyyy`)
     case nr: NationalInsuranceNumber => Text(nr.stringify)
     case pf: PaymentFrequency => paymentFrequency(pf)
@@ -47,7 +46,7 @@ object XMLHelper {
     case sc: SortCode => Text(sc.sort1 + sc.sort2 + sc.sort2)
     case opt: Option[_] => nodifyOption(opt)
     case nd: NodeSeq => nd
-    case _ => Text(stringify(value))
+    case _ => Text(stringify(value,default))
   }
 
   def postalAddressStructure(addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
@@ -75,7 +74,7 @@ object XMLHelper {
     </RecipientAddress>
   }
 
-  def moneyStructure(amount: String):NodeSeq = {
+  private def moneyStructure(amount: String):NodeSeq = {
     <Currency>{GBP}</Currency>
     <Amount>{amount}</Amount>
   }
@@ -121,37 +120,28 @@ object XMLHelper {
   private def questionOptionalWhy[T](wrappingNode:Node,questionLabelCode: String, answerOption: Option[T], whyText: Option[String],labelParameters: Option[String] = None): NodeSeq = {
     if (answerOption.isDefined) {
       questionWhy(wrappingNode,questionLabelCode,answerOption.get,whyText,labelParameters )
-//      val why = <Why/>
-//      addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters) ++ <Answer>{formatValue(answerText.get)}</Answer> ++ optionalEmpty(whyText,why))
     } else NodeSeq.Empty
   }
 
   def questionCurrency(wrappingNode:Node,questionLabelCode: String, amount:Option[String],labelParameters: Option[String] = None): NodeSeq = {
     if (amount.isDefined) {
-//      Logger.debug("amount: " + amount.get )
       question(wrappingNode,questionLabelCode,moneyStructure(amount.get),labelParameters)
     }
     else NodeSeq.Empty
   }
 
-
-  def fromToStructure(period: Option[PeriodFromTo]): NodeSeq = {
-    period.fold(
-      (<DateFrom/><DateTo/>).asInstanceOf[NodeSeq]
-    )(fromToStructure)
-  }
-
-  def fromToStructure(period: PeriodFromTo): NodeSeq = {
+  private def fromToStructure(period: PeriodFromTo): NodeSeq = {
     <DateFrom>{period.from.`yyyy-MM-dd`}</DateFrom>
     <DateTo>{period.to.`yyyy-MM-dd`}</DateTo>
   }
 
+  @deprecated("Should use new question function", "25.11.2013")
   def paymentFrequency(freq: Option[PaymentFrequency]): NodeSeq = freq match {
     case Some(p) => paymentFrequency(p)
     case _ => NodeSeq.Empty
   }
 
-  def paymentFrequency(freq: PaymentFrequency): NodeSeq =
+  private def paymentFrequency(freq: PaymentFrequency): NodeSeq =
     <PayFrequency>
       <QuestionLabel>{Messages("paymentFrequency")}</QuestionLabel>
       {
@@ -177,7 +167,7 @@ object XMLHelper {
     case _ => NodeSeq.Empty
   }
 
-  def addChild(n: Node, children: NodeSeq) = n match {
+  private def addChild(n: Node, children: NodeSeq) = n match {
     case Elem(prefix, label, attribs, scope, child @ _*) => Elem(prefix, label, attribs, scope, true, child ++ children : _*)
     case _ => <error>failed adding children</error>
   }
@@ -204,6 +194,8 @@ object XMLHelper {
 
   def booleanToYesNo(value:Boolean) = if (value) Yes else No
 
+
+  @deprecated("Should use stringify or formatValue", "25.11.2013")
   def titleCase(s: String) = if(s != null && s.length() > 0) s.head.toUpper + s.tail.toLowerCase else ""
 
   def formatValue(value:String):String = value match {
