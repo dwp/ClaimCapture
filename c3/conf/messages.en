@@ -412,6 +412,7 @@ workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partne
 ## PAY DETAILS
 # HOW WE PAY YOU
 everyWeek=Weekly
+weekly=Weekly
 fourWeekly=Four-Weekly
 fortnightly=Fortnightly
 monthly=Monthly
@@ -421,7 +422,7 @@ paymentFrequency = How often do you want to get paid?
 howWePayYou.helper = Select other if you want to be paid into an International Bank Account and provide details in the additional information section.
 
 # BANK BUILDING SOCIETY DETAILS
-bankBuildingAccount = UK bank or building society
+bankBuildingAccount = UK bank or building society account
 appliedForAccount = You don't have an account but intend to open one
 notOpenAccount = Other - you would like more information
 accountHolderName =  Name of account holder
