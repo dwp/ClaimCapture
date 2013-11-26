@@ -544,8 +544,8 @@ next.last = The Carer's Allowance unit will contact you if they need any further
 change.head = If your circumstances change
 change.link = Please contact the <a href="https://www.gov.uk/carers-allowance-report-change">Carer’s Allowance unit</a> as soon as possible
 feedback.head = Feedback
-claim.feedback.link = If you want to leave any feedback, <a href="https://www.gov.uk/done/apply-carers-allowance">please follow this link</a>
-circs.feedback.link = If you want to leave any feedback, <a href="https://www.gov.uk/done/report-change-carers-allowance">please follow this link</a>
+claim.feedback.link = If you would like to complete our survey, <a href="https://www.gov.uk/done/apply-carers-allowance">please follow this link</a>
+circs.feedback.link = If you would like to complete our survey, <a href="https://www.gov.uk/done/report-change-carers-allowance">please follow this link</a>
 # Thank you page end
 
 
