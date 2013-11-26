@@ -10,16 +10,12 @@ import play.api.Play.current
 import services.TransactionIdService
 import services.submission.FormSubmission
 import ExecutionContext.Implicits.global
-import play.Configuration
 import models.view.{CachedChangeOfCircs, CachedClaim}
 import play.api.libs.ws.Response
 import models.domain.Claim
 import play.api.mvc.SimpleResult
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission: FormSubmission) extends Submitter {
-
-  val claimThankYouPageUrl = Configuration.root().getString("claim.thankyou.page")
-  val cofcThankYouPageUrl = Configuration.root().getString("cofc.thankyou.page")
 
   override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
     val txnID = idService.generateId
@@ -33,12 +29,11 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     ).recover {
       case e: java.net.ConnectException => {
         Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
-        updateStatus(claim, txnID, COMMUNICATION_ERROR)
-        Redirect("/consent-and-declaration/error")
+        errorAndCleanup(claim, txnID, COMMUNICATION_ERROR, request)
       }
       case e: java.lang.Exception => {
         Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
-        errorAndCleanup(claim, txnID, UNKNOWN_ERROR)
+        errorAndCleanup(claim, txnID, UNKNOWN_ERROR, request)
       }
     }
   }
@@ -62,48 +57,54 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
           }
           case "error" => {
             val errorCode = (responseXml \\ "errorCode").text
-            updateStatus(claim, txnId, errorCode)
-            Logger.error(s"Received error : $result, TxnId : $txnId, Headers : ${request.headers}")
-            Redirect("/consent-and-declaration/error")
+            errorAndCleanup(claim, txnId, errorCode, request)
           }
           case _ => {
-             Logger.error(s"Received error : $result, TxnId : $txnId, Headers : ${request.headers}")
-            errorAndCleanup(claim, txnId, UNKNOWN_ERROR)
+            Logger.error(s"Received error : $result, TxnId : $txnId, Headers : ${request.headers}")
+            errorAndCleanup(claim, txnId, UNKNOWN_ERROR, request)
           }
         }
       case http.Status.BAD_REQUEST =>
         Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
-        errorAndCleanup(claim, txnId, BAD_REQUEST_ERROR)
+        errorAndCleanup(claim, txnId, BAD_REQUEST_ERROR, request)
       case http.Status.REQUEST_TIMEOUT =>
         Logger.error(s"REQUEST_TIMEOUT : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
-        errorAndCleanup(claim, txnId, REQUEST_TIMEOUT_ERROR)
+        errorAndCleanup(claim, txnId, REQUEST_TIMEOUT_ERROR, request)
       case http.Status.INTERNAL_SERVER_ERROR =>
         Logger.error(s"INTERNAL_SERVER_ERROR : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
-        errorAndCleanup(claim, txnId, INTERNAL_SERVER_ERROR)
+        errorAndCleanup(claim, txnId, INTERNAL_SERVER_ERROR, request)
       case _ =>
         Logger.error(s"Unexpected response ! ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
-        errorAndCleanup(claim, txnId, UNKNOWN_ERROR)
+        errorAndCleanup(claim, txnId, UNKNOWN_ERROR, request)
     }
   }
-
 
   def respondWithSuccess(claim: Claim, txnId: String, request: Request[AnyContent]): SimpleResult[Results.EmptyContent] = {
     Logger.info(s"Successful submission : ${claim.key} : $txnId")
-    // Clear the cache to ensure no duplicate submission
-    val key = request.session.get(claim.key).orNull
-    Cache.set(key, None)
+    clearCache(request, claim)
+    Logger.debug(s"claim.key = ${claim.key}, $txnId")
     claim.key match {
-      case CachedClaim.key =>
-        Redirect(claimThankYouPageUrl)
+      case CachedClaim.key => {
+        Logger.debug(s"claim.key = ${claim.key}, $txnId")
+        Redirect(controllers.routes.ThankYou.claim(txnId))
+      }
       case CachedChangeOfCircs.key =>
-        Redirect(cofcThankYouPageUrl)
+        Redirect(controllers.routes.ThankYou.circs(txnId))
     }
   }
 
-  private def errorAndCleanup(claim: Claim, txnId: String, code: String): PlainResult = {
+  private def errorAndCleanup(claim: Claim, txnId: String, code: String, request: Request[AnyContent]): PlainResult = {
     Logger.error(s"errorAndCleanup : ${claim.key} : $txnId : $code")
+    clearCache(request, claim)
     updateStatus(claim, txnId, code)
     Redirect(controllers.routes.Application.error(claim.key))
+  }
+
+  def clearCache(request: Request[AnyContent], claim: Claim) {
+    // Clear the cache to ensure no duplicate submission
+    val key = request.session.get(claim.key).orNull
+    Logger.debug(s"key = $key")
+    Cache.set(key, None)
   }
 
   private[submission] def pollXml(correlationID: String, pollEndpoint: String) = {

@@ -17,9 +17,9 @@ import submission._
 class FullSubmissionSpec extends Specification with Tags {
   sequential
 
-  val thankYouPageTitle = "Carer's Allowance referrer"
+  val thankYouPageTitle = "Thank you,"
 
-  val cAndDError = "Error"
+  val cAndDError = "An unrecoverable error has occurred"
 
   private lazy val injector = Guice.createInjector(new ScalaModule {
     def configure() {

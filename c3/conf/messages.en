@@ -531,3 +531,25 @@ error.address.characters = Address must not contain special characters
 number.invalid = The value must be a whole number
 error.sortcode.length = A sort code must be 6 digits long
 
+# Thank you page start
+thankyou =Thank you,
+claim.received = Your claim has been successfully received
+circs.received = Your change has been successfully received
+next = What happens next?
+claim.next.1 = The Carer's Allowance unit will now check the information you have provided and decide whether you qualify for Carer's Allowance.
+claim.next.2 = This can take 4 to 6 weeks.
+claim.next.3 = Once a decision has been made you will receive a 'decision letter' by post.
+circs.next.1 = The Carer's Allowance unit will now check the information you have provided.
+next.last = The Carer's Allowance unit will contact you if they need any further information.
+change.head = If your circumstances change
+change.link = Please contact the <a href="https://www.gov.uk/carers-allowance-report-change">Carer’s Allowance unit</a> as soon as possible
+feedback.head = Feedback
+claim.feedback.link = If you want to leave any feedback, <a href="https://www.gov.uk/done/apply-carers-allowance">please follow this link</a>
+circs.feedback.link = If you want to leave any feedback, <a href="https://www.gov.uk/done/report-change-carers-allowance">please follow this link</a>
+# Thank you page end
+
+
+
+
+
+

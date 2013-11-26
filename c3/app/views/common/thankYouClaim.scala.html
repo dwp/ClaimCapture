@@ -1,0 +1,29 @@
+@(txnId:String)
+    @import play.api.i18n._
+
+    @common.govMain(Messages("thankyou")) {
+
+
+        <div class="carers-allowance">
+
+            @common.protoType()
+
+            @common.helpLine()
+
+            <section>
+                <h1>@Messages("thankyou")</h1>
+                <h2>@Messages("claim.received")</h2>
+                <h2>@Messages("next")</h2>
+                <ul>
+                    <li>@Html(Messages("claim.next.1"))</li>
+                    <li>@Html(Messages("claim.next.2"))</li>
+                    <li>@Html(Messages("claim.next.3"))</li>
+                    <li>@Html(Messages("next.last"))</li>
+                </ul>
+                <h2>@Messages("change.head")</h2>
+                <p>@Html(Messages("change.link"))</p>
+                <h2>@Messages("feedback.head")</h2>
+                <p>@Html(Messages("claim.feedback.link"))</p>
+            </section>
+        </div>
+    }
