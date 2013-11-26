@@ -13,8 +13,7 @@ object CareeDetails extends XMLComponent {
 
     <CareeDetails>
       <Surname>{detailsOfThePerson.lastName}</Surname>
-      <OtherNames>{detailsOfThePerson.otherNames}</OtherNames>
-      <OtherSurnames>{detailsOfThePerson.middleName}</OtherSurnames>
+      <OtherNames>{detailsOfThePerson.firstName} {detailsOfThePerson.middleName.getOrElse("")}</OtherNames>
       <DateOfBirth>{detailsOfThePerson.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{detailsOfThePerson.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
     </CareeDetails>
