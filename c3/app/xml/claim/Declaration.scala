@@ -18,8 +18,8 @@ object  Declaration extends XMLComponent {
         <Content>{Messages("declaration.3")}</Content>
         <Content>{Messages("declaration.4")}</Content>
       </DeclarationStatement>
-      {question(<DeclarationQuestion/>,"someoneElse", titleCase(booleanStringToYesNo(declaration.read)))}
-      {question(<DeclarationQuestion/>,"confirm", titleCase(booleanStringToYesNo(stringify(declaration.someoneElse))))}
+      {question(<DeclarationQuestion/>,"someoneElse", declaration.read)}
+      {question(<DeclarationQuestion/>,"confirm", stringify(declaration.someoneElse))}
     </Declaration>
   }
 }

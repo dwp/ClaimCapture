@@ -84,7 +84,7 @@ object XMLHelper {
     if (answerText.isInstanceOf[Option[_]]) questionOptional(wrappingNode,questionLabelCode,answerText.asInstanceOf[Option[_]],labelParameters:_*)
     else {
       val answer:NodeSeq = nodify(answerText)
-      if (answer.length > 0) addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ <Answer>{answer}</Answer>)
+      if (answer.text.length > 0) addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ <Answer>{answer}</Answer>)
       else NodeSeq.Empty
     }
 

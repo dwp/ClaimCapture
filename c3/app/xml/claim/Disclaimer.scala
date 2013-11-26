@@ -24,7 +24,7 @@ object  Disclaimer extends XMLComponent{
         <Content>{Messages("disclaimer.6").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
         <Content>{Messages("disclaimer.7").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>
       </DisclaimerStatement>
-      {question(<DisclaimerQuestion/>,"read", titleCase(booleanStringToYesNo(disclaimer.read)))}
+      {question(<DisclaimerQuestion/>,"read", disclaimer.read)}
     </Disclaimer>
   }
 
