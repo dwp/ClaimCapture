@@ -12,7 +12,7 @@ import controllers.Mappings._
 object G3RelationshipAndOtherClaims extends Controller with CachedClaim with Navigable {
   val form = Form(
     mapping(
-      "relationship" -> nonEmptyText(maxLength = 20),
+      "relationship" -> nonEmptyText(maxLength = 30),
       "armedForcesPayment" -> nonEmptyText.verifying(validYesNo)
     )(MoreAboutThePerson.apply)(MoreAboutThePerson.unapply))
 

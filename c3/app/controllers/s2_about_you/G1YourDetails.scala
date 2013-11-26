@@ -21,7 +21,7 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
     "nationality" -> nonEmptyText.verifying(validNationality),
     "dateOfBirth" -> dayMonthYear.verifying(validDate),
     "alwaysLivedUK" -> nonEmptyText.verifying(validYesNo),
-    "maritalStatus" -> nonEmptyText(maxLength = 40)
+    "maritalStatus" -> nonEmptyText(maxLength = 45)
   )(YourDetails.apply)(YourDetails.unapply))
 
 
