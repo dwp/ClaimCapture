@@ -17,7 +17,7 @@ object ApplicationBuild extends Build {
     "com.typesafe.akka" %% "akka-agent" % "2.2.1" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-actor" % "2.2.1" % "test" withSources() withJavadoc(),
     "com.typesafe.akka" %% "akka-remote" % "2.2.1" % "test" withSources() withJavadoc(),
-    "com.dwp.carers" %% "carerscommon" % "0.16",
+    "com.dwp.carers" %% "carerscommon" % "0.17",
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "me.moocar" % "logback-gelf" % "0.9.6p2",
     "com.google.inject" % "guice" % "3.0",
@@ -27,7 +27,7 @@ object ApplicationBuild extends Build {
 
   var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
 
-  var sV: Seq[Project.Setting[_]] = Seq(scalaVersion := "2.10.2")
+  var sV: Seq[Project.Setting[_]] = Seq(scalaVersion := "2.10.3")
 
   var sR: Seq[Project.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
 
