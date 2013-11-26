@@ -21,186 +21,42 @@ object SelfEmployment extends XMLComponent{
     def jobDetails() = {
       if (aboutSelfEmployment.areYouSelfEmployedNow == yes) {
         <CurrentJobDetails>
-          <DateStarted>
-            <QuestionLabel>selfemployed.started</QuestionLabel>
-            <Answer>{stringify(Some(aboutSelfEmployment.whenDidYouStartThisJob))}</Answer>
-          </DateStarted>
-          {aboutSelfEmployment.natureOfYourBusiness match {
-            case Some(n) =>{<NatureBusiness>
-              <QuestionLabel>selfemployed.business</QuestionLabel>
-              <Answer>{aboutSelfEmployment.natureOfYourBusiness.orNull}</Answer>
-            </NatureBusiness>}
-            case None => NodeSeq.Empty
-          }}
+          {question(<DateStarted/>, "whenDidYouStartThisJob", aboutSelfEmployment.whenDidYouStartThisJob)}
+          {question(<NatureBusiness/>, "natureOfYourBusiness", aboutSelfEmployment.natureOfYourBusiness)}
           <TradingYear>
-            {yourAccounts.whatWasOrIsYourTradingYearFrom match {
-              case Some(n) => {
-                <DateFrom>
-                  <QuestionLabel>trading.from</QuestionLabel>
-                  <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearFrom)}</Answer>
-                </DateFrom>
-              }
-              case None => NodeSeq.Empty
-            }}
-            {yourAccounts.whatWasOrIsYourTradingYearTo match {
-              case Some(n) => {
-                <DateTo>
-                  <QuestionLabel>trading.to</QuestionLabel>
-                  <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearTo)}</Answer>
-                </DateTo>
-              }
-              case None => NodeSeq.Empty
-            }}
+            {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom)}
+            {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo)}
           </TradingYear>
-          {yourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
-            case Some(areIncomeOutgoingsProfitSimilarToTrading) =>
-              <SameIncomeOutgoingLevels>
-                <QuestionLabel>SameIncomeOutgoingLevels?</QuestionLabel>
-                <Answer>{
-                  areIncomeOutgoingsProfitSimilarToTrading match {
-                    case "yes" => XMLValues.Yes
-                    case "no" => XMLValues.No
-                    case n => n
-                  }}</Answer>
-              </SameIncomeOutgoingLevels>
-            case None => NodeSeq.Empty
-          }}
-          {yourAccounts.tellUsWhyAndWhenTheChangeHappened match {
-            case Some(n) =>
-              <WhyWhenChange>
-                <QuestionLabel>why.when</QuestionLabel>
-                <Answer>{n}</Answer>
-              </WhyWhenChange>
-            case None => NodeSeq.Empty
-          }}
+          {question(<SameIncomeOutgoingLevels/>, "areIncomeOutgoingsProfitSimilarToTrading", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading)}
+          {question(<WhyWhenChange/>, "tellUsWhyAndWhenTheChangeHappened", yourAccounts.tellUsWhyAndWhenTheChangeHappened)}
         </CurrentJobDetails>
       } else {
         <RecentJobDetails>
-          <DateStarted>
-            <QuestionLabel>selfemployed.started</QuestionLabel>
-            <Answer>{stringify(Some(aboutSelfEmployment.whenDidYouStartThisJob))}</Answer>
-          </DateStarted>
-          {aboutSelfEmployment.natureOfYourBusiness match {
-            case Some(n) =>{<NatureBusiness>
-              <QuestionLabel>selfemployed.business</QuestionLabel>
-              <Answer>{aboutSelfEmployment.natureOfYourBusiness.orNull}</Answer>
-            </NatureBusiness>}
-            case None => NodeSeq.Empty
-          }}
+          {question(<DateStarted/>, "whenDidYouStartThisJob", aboutSelfEmployment.whenDidYouStartThisJob)}
+          {question(<NatureBusiness/>, "natureOfYourBusiness", aboutSelfEmployment.natureOfYourBusiness)}
           <TradingYear>
-            {yourAccounts.whatWasOrIsYourTradingYearFrom match {
-              case Some(n) => {
-                <DateFrom>
-                  <QuestionLabel>trading.from</QuestionLabel>
-                  <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearFrom)}</Answer>
-                </DateFrom>
-              }
-              case None => NodeSeq.Empty
-            }}
-            {yourAccounts.whatWasOrIsYourTradingYearTo match {
-              case Some(n) => {
-                <DateTo>
-                  <QuestionLabel>trading.to</QuestionLabel>
-                  <Answer>{stringify(yourAccounts.whatWasOrIsYourTradingYearTo)}</Answer>
-                </DateTo>
-              }
-              case None => NodeSeq.Empty
-            }}
+            {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom)}
+            {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo)}
           </TradingYear>
-          {yourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
-            case Some(areIncomeOutgoingsProfitSimilarToTrading) =>
-              <SameIncomeOutgoingLevels>
-                <QuestionLabel>SameIncomeOutgoingLevels?</QuestionLabel>
-                <Answer>{
-                  areIncomeOutgoingsProfitSimilarToTrading match {
-                    case "yes" => XMLValues.Yes
-                    case "no" => XMLValues.No
-                    case n => n
-                  }}</Answer>
-              </SameIncomeOutgoingLevels>
-            case None => NodeSeq.Empty
-          }}
-          {yourAccounts.tellUsWhyAndWhenTheChangeHappened match {
-            case Some(n) =>
-              <WhyWhenChange>
-                <QuestionLabel>why.when</QuestionLabel>
-                <Answer>{n}</Answer>
-              </WhyWhenChange>
-            case None => NodeSeq.Empty
-          }}
-          {aboutSelfEmployment.whenDidTheJobFinish match {
-            case Some(n) => {
-              <DateEnded>
-                <QuestionLabel>aboutSelfEmployment.whenDidTheJobFinish</QuestionLabel>
-                <Answer>{stringify(aboutSelfEmployment.whenDidTheJobFinish)}</Answer>
-              </DateEnded>
-            }
-            case None => NodeSeq.Empty
-          }}
-          {aboutSelfEmployment.haveYouCeasedTrading match {
-          case Some(n) => {
-            <TradingCeased>
-              <QuestionLabel>aboutSelfEmployment.haveYouCeasedTrading</QuestionLabel>
-              <Answer>{aboutSelfEmployment.haveYouCeasedTrading match {
-                case Some(n) => n match {
-                  case "yes" => XMLValues.Yes
-                  case "no" => XMLValues.No
-                  case n => n
-                }
-                case _ => NodeSeq.Empty
-              }}</Answer>
-            </TradingCeased>
-          }
-          case None => NodeSeq.Empty
-        }}
-
+          {question(<SameIncomeOutgoingLevels/>, "areIncomeOutgoingsProfitSimilarToTrading", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading)}
+          {question(<WhyWhenChange/>, "tellUsWhyAndWhenTheChangeHappened", yourAccounts.tellUsWhyAndWhenTheChangeHappened)}
+          {question(<DateEnded/>, "whenDidTheJobFinish", aboutSelfEmployment.whenDidTheJobFinish)}
+          {question(<TradingCeased/>, "haveYouCeasedTrading", aboutSelfEmployment.haveYouCeasedTrading)}
         </RecentJobDetails>
       }
     }
 
     if (employment.beenSelfEmployedSince1WeekBeforeClaim == yes) {
-
       <SelfEmployment>
-        <SelfEmployedNow>
-          <QuestionLabel>selfepmloyed.now</QuestionLabel>
-          <Answer>{aboutSelfEmployment.areYouSelfEmployedNow match {
-            case "yes" => XMLValues.Yes
-            case "no" => XMLValues.No
-            case n => n
-          }}</Answer>
-        </SelfEmployedNow>
+        {question(<SelfEmployedNow/>, "areYouSelfEmployedNow", aboutSelfEmployment.areYouSelfEmployedNow)}
         {jobDetails()}
-        <CareExpensesChildren>
-          <QuestionLabel>chld.expenses</QuestionLabel>
-          <Answer>{pensionAndExpenses.doYouPayToLookAfterYourChildren match {
-            case "yes" => XMLValues.Yes
-            case "no" => XMLValues.No
-            case n => n
-          }}</Answer>
-        </CareExpensesChildren>
-
-
+        {question(<CareExpensesChildren/>, "doYouPayToLookAfterYourChildren", pensionAndExpenses.doYouPayToLookAfterYourChildren)}
         {childCareExpenses(claim)}
-        <CareExpensesCaree>
-          <QuestionLabel>care.expenses</QuestionLabel>
-          <Answer>{pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor match {
-            case "yes" => XMLValues.Yes
-            case "no" => XMLValues.No
-            case n => n
-          }}</Answer>
-        </CareExpensesCaree>
+        {question(<CareExpensesCaree/>, "didYouPayToLookAfterThePersonYouCaredFor", pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor)}
         {careExpenses(claim)}
-        <PaidForPension>
-          <QuestionLabel>self.pension</QuestionLabel>
-          <Answer>{pensionAndExpenses.doYouPayToPensionScheme match {
-            case "yes" => XMLValues.Yes
-            case "no" => XMLValues.No
-            case n => n
-          }}</Answer>
-        </PaidForPension>
+        {question(<PaidForPension/>, "doYouPayToPensionScheme.answer", pensionAndExpenses.doYouPayToPensionScheme)}
         {pensionScheme(claim)}
       </SelfEmployment>
-
     } else NodeSeq.Empty
   }
 
@@ -215,18 +71,12 @@ object SelfEmployment extends XMLComponent{
 
     if (hasChildCareExpenses) {
       <ChildCareExpenses>
-        <CarerName>
-          <QuestionLabel>child.carer</QuestionLabel>
-          <Answer>{childCareExpenses.nameOfPerson}</Answer>
-        </CarerName>
+        {question(<CarerName/>, "whoLooksAfterChildren", childCareExpenses.nameOfPerson)}
         <Expense>
-          <Payment>
-            <QuestionLabel>ChildCareExpensesHowMuch?</QuestionLabel>
-            <Answer>
-              <Currency>{GBP}</Currency>
-              <Amount>{childCareExpenses.howMuchYouPay}</Amount>
-            </Answer>
-          </Payment>
+          {questionCurrency(<Payment/>, "howMuchCostChildcare", Some(childCareExpenses.howMuchYouPay))}
+         {
+          // TODO Refactor this to use the new helper functions
+          }
           <Frequency>
             <QuestionLabel>ChildCareExpensesFrequency?</QuestionLabel>
             {childCareExpenses.howOftenPayChildCare.other match {
@@ -236,10 +86,7 @@ object SelfEmployment extends XMLComponent{
             <Answer>{childCareExpenses.howOftenPayChildCare.frequency}</Answer>
           </Frequency>
         </Expense>
-        <RelationshipCarerToClaimant>
-          <QuestionLabel>child.care.rel.claimant</QuestionLabel>
-          <Answer>{childCareExpenses.whatRelationIsToYou}</Answer>
-        </RelationshipCarerToClaimant>
+        {question(<RelationshipCarerToClaimant/>, "relationToYou", childCareExpenses.whatRelationIsToYou)}
       </ChildCareExpenses>
     } else NodeSeq.Empty
   }
@@ -255,18 +102,13 @@ object SelfEmployment extends XMLComponent{
 
     if (hasCareExpenses) {
       <CareExpenses>
-        <CarerName>
-          <QuestionLabel>child.carer</QuestionLabel>
-          <Answer>{expensesWhileAtWork.nameOfPerson}</Answer>
-        </CarerName>
+        {question(<CarerName/>, "whoDoYouPay", expensesWhileAtWork.nameOfPerson)}
+
         <Expense>
-          <Payment>
-            <QuestionLabel>CareExpensesHowMuch?</QuestionLabel>
-            <Answer>
-              <Currency>{GBP}</Currency>
-              <Amount>{expensesWhileAtWork.howMuchYouPay}</Amount>
-            </Answer>
-          </Payment>
+          {questionCurrency(<Payment/>, "howMuchCostCare", Some(expensesWhileAtWork.howMuchYouPay))}
+          {
+          // TODO Refactor this to use the new helper functions
+          }
           <Frequency>
             <QuestionLabel>CareExpensesFrequency?</QuestionLabel>
             {expensesWhileAtWork.howOftenPayExpenses.other match {
@@ -276,14 +118,8 @@ object SelfEmployment extends XMLComponent{
             <Answer>{expensesWhileAtWork.howOftenPayExpenses.frequency}</Answer>
           </Frequency>
         </Expense>
-        <RelationshipCarerToClaimant>
-          <QuestionLabel>child.care.rel.claimant</QuestionLabel>
-          <Answer>{expensesWhileAtWork.whatRelationIsToYou}</Answer>
-        </RelationshipCarerToClaimant>
-        <RelationshipCarerToCaree>
-          <QuestionLabel>care.carer.rel.caree</QuestionLabel>
-          <Answer>{expensesWhileAtWork.whatRelationIsTothePersonYouCareFor}</Answer>
-        </RelationshipCarerToCaree>
+          {question(<RelationshipCarerToClaimant/>, "whatRelationIsToYou", expensesWhileAtWork.whatRelationIsToYou)}
+          {question(<RelationshipCarerToCaree/>, "whatRelationIsTothePersonYouCareFor", expensesWhileAtWork.whatRelationIsTothePersonYouCareFor)}
       </CareExpenses>
     } else NodeSeq.Empty
   }

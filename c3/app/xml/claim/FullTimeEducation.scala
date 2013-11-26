@@ -7,6 +7,8 @@ import xml.XMLHelper._
 import models.domain.Claim
 import scala.Some
 import xml.XMLComponent
+import models.domain.Claim
+import scala.Some
 
 object FullTimeEducation extends XMLComponent {
 
@@ -35,31 +37,9 @@ object FullTimeEducation extends XMLComponent {
         case Some(n) => <Title>{courseDetails.title.orNull}</Title>
         case None => NodeSeq.Empty
       }}
-      {courseDetails.startDate match {
-        case Some(n) => {
-          <DateStarted>
-            <QuestionLabel>education.started?</QuestionLabel>
-            <Answer>{stringify(courseDetails.startDate)}</Answer>
-          </DateStarted>}
-        case None => NodeSeq.Empty
-      }}
-      {courseDetails.finishedDate match {
-        case Some(n) =>
-          <DateStopped>
-            <QuestionLabel>education.stopped?</QuestionLabel>
-            <Answer>{stringify(courseDetails.finishedDate)}</Answer>
-          </DateStopped>
-        case None => NodeSeq.Empty
-      }}
-      {courseDetails.expectedEndDate match {
-          case Some(n) =>
-            <ExpectedEndDate>
-              <QuestionLabel>education.expectedEndDate?</QuestionLabel>
-              <Answer>{stringify(courseDetails.expectedEndDate)}</Answer>
-            </ExpectedEndDate>
-          case None => NodeSeq.Empty
-        }
-      }
+      {question(<DateStarted/>, "startDate", courseDetails.startDate)}
+      {question(<DateStopped/>, "finishedDate", courseDetails.finishedDate)}
+      {question(<ExpectedEndDate/>, "expectedEndDate", courseDetails.expectedEndDate)}
     </CourseDetails>
   }
 
