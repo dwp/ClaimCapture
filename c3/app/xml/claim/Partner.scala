@@ -32,7 +32,6 @@ object Partner extends XMLComponent {
         <Title>{yourPartnerPersonalDetails.title}</Title>
         <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
         <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
-        {postalAddressStructure(models.MultiLineAddress(Some(NotAsked)), "")}
         <NationalityPartner>{yourPartnerPersonalDetails.nationality.orNull}</NationalityPartner>
         <RelationshipStatus>
           <SeparatedFromPartner>

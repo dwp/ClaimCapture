@@ -50,18 +50,18 @@ object XMLHelper {
   }
 
   def postalAddressStructure(addressOption: Option[MultiLineAddress], postcodeOption: Option[String]): NodeSeq = addressOption match {
-    case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption.orNull)
-    case _ => postalAddressStructure(new MultiLineAddress(), postcodeOption.orNull)
+    case Some(address:MultiLineAddress) => postalAddressStructure(address, postcodeOption)
+    case _ => postalAddressStructure(new MultiLineAddress(), postcodeOption)
   }
 
   def postalAddressStructure(addressOption: MultiLineAddress, postcodeOption: Option[String]): NodeSeq = postalAddressStructure(addressOption, postcodeOption.getOrElse(""))
 
-  def postalAddressStructure(address: MultiLineAddress, postcode: String): NodeSeq = {
+  private def postalAddressStructure(address: MultiLineAddress, postcode: String): NodeSeq = {
     <Address>
-      {if(address.lineOne.isEmpty){NodeSeq.Empty}else{<Line>{address.lineOne.orNull}</Line>}}
-      {if(address.lineTwo.isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo.orNull}</Line>}}
-      {if(address.lineThree.isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree.orNull}</Line>}}
-      {if(postcode == null || postcode == "") NodeSeq.Empty else <PostCode>{postcode.toUpperCase}</PostCode>}
+      {if(address.lineOne.isEmpty){NodeSeq.Empty}else{<Line>{address.lineOne.get}</Line>}}
+      {if(address.lineTwo.isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo.get}</Line>}}
+      {if(address.lineThree.isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree.get}</Line>}}
+      {if(postcode == null || postcode.isEmpty) NodeSeq.Empty else <PostCode>{postcode.toUpperCase}</PostCode>}
     </Address>
   }
 

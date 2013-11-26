@@ -17,7 +17,7 @@ object Claimant extends XMLComponent {
       <Title>{yourDetails.title}</Title>
       <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
       <NationalInsuranceNumber>{yourDetails.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
-      {postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}
+      {postalAddressStructure(contactDetails.address, contactDetails.postcode)}
       {if(!contactDetails.phoneNumber.isEmpty){
         <DayTimePhoneNumber>{contactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
       }}

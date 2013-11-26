@@ -23,7 +23,7 @@ object Caree extends XMLComponent {
         case Some(n) => <NationalInsuranceNumber>{stringify(theirPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
         case None => NodeSeq.Empty
       }}
-      {postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode.orNull)}
+      {postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode)}
       {if(!theirContactDetails.phoneNumber.isEmpty){
         <DayTimePhoneNumber>{theirContactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
       }}

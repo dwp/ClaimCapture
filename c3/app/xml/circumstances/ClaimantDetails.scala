@@ -3,7 +3,6 @@ package xml.circumstances
 import models.domain._
 import scala.xml.NodeSeq
 import xml.XMLHelper._
-import scala.Some
 import xml.XMLComponent
 
 object ClaimantDetails extends XMLComponent {
@@ -16,10 +15,10 @@ object ClaimantDetails extends XMLComponent {
       <OtherNames>{yourDetails.firstName} {yourDetails.middleName.getOrElse("")}</OtherNames>
       <Title>{yourDetails.title}</Title>
       <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
-      <NationalInsuranceNumber>{stringify(Some(yourDetails.nationalInsuranceNumber))}</NationalInsuranceNumber>
-      {postalAddressStructure(contactDetails.address, contactDetails.postcode.orNull)}
-      <DayTimePhoneNumber>{contactDetails.phoneNumber.orNull}</DayTimePhoneNumber>
-      <MobileNumber>{contactDetails.mobileNumber.orNull}</MobileNumber>
+      <NationalInsuranceNumber>{stringify(yourDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
+      {postalAddressStructure(contactDetails.address, contactDetails.postcode)}
+      {<DayTimePhoneNumber/> ?+ contactDetails.phoneNumber}
+      {<MobileNumber/> ?+ contactDetails.mobileNumber}
     </ClaimantDetails>
   }
 }
