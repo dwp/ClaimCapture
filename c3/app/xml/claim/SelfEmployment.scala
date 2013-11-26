@@ -74,17 +74,7 @@ object SelfEmployment extends XMLComponent{
         {question(<CarerName/>, "whoLooksAfterChildren", childCareExpenses.nameOfPerson)}
         <Expense>
           {questionCurrency(<Payment/>, "howMuchCostChildcare", Some(childCareExpenses.howMuchYouPay))}
-         {
-          // TODO Refactor this to use the new helper functions
-          }
-          <Frequency>
-            <QuestionLabel>ChildCareExpensesFrequency?</QuestionLabel>
-            {childCareExpenses.howOftenPayChildCare.other match {
-              case Some(n) => <Other>{n}</Other>
-              case _ => NodeSeq.Empty
-            }}
-            <Answer>{childCareExpenses.howOftenPayChildCare.frequency}</Answer>
-          </Frequency>
+          {questionOther(<Frequency/>, "howOftenPayChildCare", Some(childCareExpenses.howOftenPayChildCare.frequency), childCareExpenses.howOftenPayChildCare.other)}
         </Expense>
         {question(<RelationshipCarerToClaimant/>, "relationToYou", childCareExpenses.whatRelationIsToYou)}
       </ChildCareExpenses>
@@ -103,23 +93,12 @@ object SelfEmployment extends XMLComponent{
     if (hasCareExpenses) {
       <CareExpenses>
         {question(<CarerName/>, "whoDoYouPay", expensesWhileAtWork.nameOfPerson)}
-
         <Expense>
           {questionCurrency(<Payment/>, "howMuchCostCare", Some(expensesWhileAtWork.howMuchYouPay))}
-          {
-          // TODO Refactor this to use the new helper functions
-          }
-          <Frequency>
-            <QuestionLabel>CareExpensesFrequency?</QuestionLabel>
-            {expensesWhileAtWork.howOftenPayExpenses.other match {
-              case Some(n) => <Other>{n}</Other>
-              case _ => NodeSeq.Empty
-            }}
-            <Answer>{expensesWhileAtWork.howOftenPayExpenses.frequency}</Answer>
-          </Frequency>
+          {questionOther(<Frequency/>, "howOftenPayExpenses", Some(expensesWhileAtWork.howOftenPayExpenses.frequency), expensesWhileAtWork.howOftenPayExpenses.other)}
         </Expense>
-          {question(<RelationshipCarerToClaimant/>, "whatRelationIsToYou", expensesWhileAtWork.whatRelationIsToYou)}
-          {question(<RelationshipCarerToCaree/>, "whatRelationIsTothePersonYouCareFor", expensesWhileAtWork.whatRelationIsTothePersonYouCareFor)}
+        {question(<RelationshipCarerToClaimant/>, "whatRelationIsToYou", expensesWhileAtWork.whatRelationIsToYou)}
+        {question(<RelationshipCarerToCaree/>, "whatRelationIsTothePersonYouCareFor", expensesWhileAtWork.whatRelationIsTothePersonYouCareFor)}
       </CareExpenses>
     } else NodeSeq.Empty
   }
@@ -132,22 +111,8 @@ object SelfEmployment extends XMLComponent{
 
     if (hasPensionScheme) {
         <PensionScheme>
-          {questionCurrency(<Payment/>,"self.pension.amount",pensionAndExpenses.howMuchDidYouPay)}
-          {
-          pensionAndExpenses.howOften match{
-            case Some(howOften) =>
-              <Frequency>
-                <QuestionLabel>self.pension.frequency</QuestionLabel>
-                {
-                howOften.other match {
-                  case Some(s) => <Other>{s}</Other>
-                  case _ => NodeSeq.Empty
-                }
-                }<Answer>{howOften.frequency}</Answer>
-              </Frequency>
-            case _ => NodeSeq.Empty
-          }
-          }
+          {questionCurrency(<Payment/>,"howMuchDidYouPay",pensionAndExpenses.howMuchDidYouPay)}
+          {questionOther(<Frequency/>, "doYouPayToPensionScheme.howOften", pensionAndExpenses.howOften.orElse(None).get.frequency, pensionAndExpenses.howOften.orElse(None).get.other)}
         </PensionScheme>
     } else NodeSeq.Empty
   }
