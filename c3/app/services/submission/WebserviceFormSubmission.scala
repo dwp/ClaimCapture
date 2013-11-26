@@ -6,7 +6,6 @@ import play.api._
 import scala.concurrent.Future
 import scala.xml.Elem
 import play.api.Logger
-import services.util.CharacterStripper
 
 class WebserviceFormSubmission extends FormSubmission {
 
@@ -15,7 +14,7 @@ class WebserviceFormSubmission extends FormSubmission {
     Logger.debug(s"Ingress Service URL: $ingressServerEndpoint")
     val result = WS.url(ingressServerEndpoint)
       .withHeaders(("Content-Type", "text/xml"))
-      .post(CharacterStripper.stripNonPdf(claimSubmission.buildString(stripComments = true)))
+      .post(claimSubmission.buildString(stripComments = false))
     result
   }
 }
