@@ -11,6 +11,7 @@ About You,Your Details,National Insurance (NI) number,AboutYouNINO,Claimant>Nati
 About You,Your Details,Date of birth,AboutYouDateOfBirth,Claimant>DateOfBirth
 About You,Your Details,Nationality,AboutYouNationality,Residency>Nationality
 About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Claimant>MaritalStatus
+About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,
 About You,Your contact details,Address,AboutYouAddress,Claimant>Address>Line
 About You,Your contact details,Postcode,AboutYouPostcode,Claimant>Address>PostCode
 About You,Your contact details,Daytime phone number,AboutYouPhoneNumber,Claimant>DayTimePhoneNumber
@@ -74,6 +75,7 @@ Employment,Your Job,"What is the leaving date on your P45, if you have one?",Emp
 Employment,Your Job,Employers Name,EmploymentEmployerName,Employment>JobDetails>Employer>Name
 Employment,Your Job,When did you start your job?,EmploymentWhenDidYouStartYourJob,Employment>JobDetails>Employer>DateJobStarted>Answer
 Employment,Your Job,When did you last work? ,EmploymentWhenDidYouLastWork,Employment>JobDetails>Employer>DateJobEnded>Answer
+Employment,Your Job,"What is the leaving date on your P45, if you have one?",EmploymentLeavingDateP45,Employment>JobDetails>Employer>P45LeavingDate>Answer
 Employment,Your Job,How many hours a week [[past=did you]] [[present=do you]] normally work?,EmploymentHowManyHoursAWeekYouNormallyWork,Employment>JobDetails>Pay>WeeklyHoursWorked>Answer
 Employment,Your Job,Payroll or Employee number,EmploymentPayrollOrEmployeeNumber,Employment>JobDetails>Employer>ClockPayrollNumber
 Employment,Employers contact details,Address,EmploymentEmployerAddress,Employment>JobDetails>Employer>Address>Line
