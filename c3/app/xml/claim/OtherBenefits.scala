@@ -9,6 +9,8 @@ import xml.XMLComponent
 import models.domain.Claim
 import scala.Some
 import play.api.i18n.Messages
+import models.domain.Claim
+import scala.Some
 
 
 object OtherBenefits extends XMLComponent {
@@ -25,105 +27,34 @@ object OtherBenefits extends XMLComponent {
       <ClaimantBenefits>
           {
           moreAboutYou match {
-            case Some(n) => {question(<StatePension/>,"receiveStatePension", n.receiveStatePension) }
-            case None => NodeSeq.Empty
+            case Some(n) => question(<StatePension></StatePension>,"receiveStatePension",n.receiveStatePension)
+            case _ => NodeSeq.Empty
           }
-       }
+        }
       </ClaimantBenefits>
-      {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label",statutorySickPay.haveYouHadAnyStatutorySickPay,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
+      {question(<OtherMoneySSP/>,"haveYouHadAnyStatutorySickPay.label", statutorySickPay.haveYouHadAnyStatutorySickPay,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
       {otherMoneySPPXml(statutorySickPay)}
-      <OtherMoneySP>
-        <QuestionLabel>{Messages("otherPay.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}</QuestionLabel>
-        <Answer>{otherStatutoryPayOption.otherPay match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
-      </OtherMoneySP>
+      {question(<OtherMoneySP/>,"otherPay.label",otherStatutoryPayOption.otherPay,claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
       {otherMoneySPDetails(otherStatutoryPayOption)}
-      <OtherMoney>
-        <QuestionLabel>{Messages("othermoney.label")}</QuestionLabel>
-        <Answer>{aboutOtherMoney.yourBenefits.answer match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
-      </OtherMoney>
-
-      {
-      <OtherMoneyPayments>
-        <QuestionLabel>{Messages("anyPaymentsSinceClaimDate.answer.label", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}</QuestionLabel>
-        <Answer>{aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
-      </OtherMoneyPayments>
-      }
+      {question(<OtherMoney/>,"othermoney.label", aboutOtherMoney.yourBenefits.answer)}
+      {question(<OtherMoneyPayments/>,"anyPaymentsSinceClaimDate.answer.label",aboutOtherMoney.anyPaymentsSinceClaimDate.answer,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
 
       {aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
           case "yes" =>{
-              <OtherMoneyDetails>
-                <Payment>
-                  {aboutOtherMoney.howMuch match {
-                  case Some(n) => {
-                    <Payment>
-                      <QuestionLabel>{Messages("howMuch.label")}</QuestionLabel>
-                      <Answer>
-                        <Currency>{GBP}</Currency>
-                        <Amount>{aboutOtherMoney.howMuch.orNull}</Amount>
-                      </Answer>
-                    </Payment>
-
-                  }
-                  case None => NodeSeq.Empty
-                }}
-
-                {aboutOtherMoney.howOften match {
-                  case Some(howOften) => {
-                    <Frequency>
-                      <QuestionLabel>{Messages("howOftenPension")}</QuestionLabel>
-                      {howOften.frequency match {
-                        case "Other" => <Other>{howOften.other.orNull}</Other>
-                        case _ => NodeSeq.Empty
-                      }}
-                      <Answer>{howOften.frequency}</Answer>
-                    </Frequency>
-                  }
-                  case None => NodeSeq.Empty
-                }}
-                </Payment>
-
-                {aboutOtherMoney.whoPaysYou match {
-                  case Some(n) => {<Name>
-                    <QuestionLabel>{Messages("whoPaysYou.label")}</QuestionLabel>
-                    <Answer>{aboutOtherMoney.whoPaysYou.orNull}</Answer>
-                  </Name>}
-                  case None => NodeSeq.Empty
-                }}
-
-              </OtherMoneyDetails>
-          }
-          case "no" => NodeSeq.Empty
-          case n => throw new RuntimeException("AnyPaymentsSinceClaimDate is either Yes Or No")
+                <OtherMoneyDetails>
+                  <Payment>
+                    {questionCurrency(<Payment/>,"howMuch.label", aboutOtherMoney.howMuch)}
+                    {questionOther(<Frequency/>,"howOftenPension", aboutOtherMoney.howOften.get.frequency, aboutOtherMoney.howOften.get.other)}
+                  </Payment>
+                  {question(<Name/>,"whoPaysYou.label", aboutOtherMoney.whoPaysYou)}
+                  </OtherMoneyDetails>
+                }
+                case "no" => NodeSeq.Empty
+                case n => throw new RuntimeException("AnyPaymentsSinceClaimDate is either Yes Or No")
         }}
       <EEA>
-        <EEAReceivePensionsBenefits>
-          <QuestionLabel>{Messages("benefitsFromOtherEEAStateOrSwitzerland")}</QuestionLabel>
-          <Answer>{otherEEAState.benefitsFromOtherEEAStateOrSwitzerland match {
-            case "yes" => XMLValues.Yes
-            case "no" => XMLValues.No
-            case n => n
-          }}</Answer>
-        </EEAReceivePensionsBenefits>
-        <EEAWorkingInsurance>
-          <QuestionLabel>{Messages("workingForOtherEEAStateOrSwitzerland")}</QuestionLabel>
-          <Answer>{otherEEAState.workingForOtherEEAStateOrSwitzerland match {
-            case "yes" => XMLValues.Yes
-            case "no" => XMLValues.No
-            case n => n
-          }}</Answer>
-        </EEAWorkingInsurance>
+        {question(<EEAReceivePensionsBenefits/>,"benefitsFromOtherEEAStateOrSwitzerland", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland)}
+        {question(<EEAWorkingInsurance/>,"workingForOtherEEAStateOrSwitzerland", otherEEAState.workingForOtherEEAStateOrSwitzerland)}
       </EEA>
     </OtherBenefits>
   }
@@ -132,22 +63,8 @@ object OtherBenefits extends XMLComponent {
     if (statutorySickPay.haveYouHadAnyStatutorySickPay == yes) {
       <OtherMoneySSPDetails>
           <Payment>
-          {questionCurrency(<Payment/>,"howMuch",statutorySickPay.howMuch) }
-          {statutorySickPay.howOften match {
-          case Some(howOften) => {
-            {questionOther(<Frequency/>,"howOften_frequency",howOften.frequency,howOften.other)}
-//
-//            <Frequency>
-//              <QuestionLabel>{Messages("howOften_frequency")}</QuestionLabel>
-//              {howOften.frequency match {
-//              case "Other" => <Other>{howOften.other.getOrElse("")}</Other>
-//              case _ => NodeSeq.Empty
-//            }}
-//              <Answer>{howOften.frequency}</Answer>
-//            </Frequency>
-          }
-          case None => NodeSeq.Empty
-        }}
+            {questionCurrency(<Payment/>,"howMuch",statutorySickPay.howMuch)}
+            {questionOther(<Frequency/>,"howOften_frequency", statutorySickPay.howOften.get.frequency, statutorySickPay.howOften.get.other)}
         </Payment>
         <Name>{statutorySickPay.employersName.orNull}</Name>
         {postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}
@@ -160,33 +77,8 @@ object OtherBenefits extends XMLComponent {
     if (otherStatutoryPay.otherPay == yes) {
       <OtherMoneySPDetails>
           <Payment>
-            {otherStatutoryPay.howMuch match {
-            case Some(n) => {
-              <Payment>
-                <QuestionLabel>{Messages("howMuch")}</QuestionLabel>
-                <Answer>
-                  <Currency>{GBP}</Currency>
-                  <Amount>{otherStatutoryPay.howMuch.orNull}</Amount>
-                </Answer>
-              </Payment>
-
-            }
-            case None => NodeSeq.Empty
-          }}
-
-          {otherStatutoryPay.howOften match {
-          case Some(howOften) => {
-            <Frequency>
-              <QuestionLabel>{Messages("howOften_frequency")}</QuestionLabel>
-              {howOften.frequency match {
-              case "Other" => <Other>{howOften.other.getOrElse("")}</Other>
-              case _ => NodeSeq.Empty
-            }}
-              <Answer>{howOften.frequency}</Answer>
-            </Frequency>
-          }
-          case None => NodeSeq.Empty
-        }}
+           {questionCurrency(<Payment/>, "howMuch", otherStatutoryPay.howMuch)}
+           {questionOther(<Frequency/>,"howOften_frequency", otherStatutoryPay.howOften.get.frequency, otherStatutoryPay.howOften.get.other)}
         </Payment>
         <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
         {postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}

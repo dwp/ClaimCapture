@@ -5,9 +5,11 @@ import app.XMLValues._
 import models.domain._
 import models.yesNo.YesNoWithDate
 import scala.xml.NodeSeq
-import xml.XMLHelper.stringify
+import xml.XMLHelper._
 import models.domain.Claim
 import xml.XMLComponent
+import models.domain.Claim
+import scala.Some
 
 object Residency extends XMLComponent{
 
@@ -19,39 +21,25 @@ object Residency extends XMLComponent{
 
     <Residency>
 
-      <NormallyLiveInGB>
-          <QuestionLabel>NormallyLiveInGB?</QuestionLabel>
-        <Answer>{livesInGB match {
-          case Some(n) => n.answerYesNo match {
-            case "yes" => XMLValues.Yes
-            case "no" => XMLValues.No
-            case n => n
-          }
-          case _ => NodeSeq.Empty
-        }}</Answer>
-      </NormallyLiveInGB>
+      { livesInGB match {
+      case Some(n) => question(<NormallyLiveInGB/>, "liveInUK.answer", n.answerYesNo)
+      case _ => NodeSeq.Empty
+        }
+      }
 
       {claim.questionGroup[NormalResidenceAndCurrentLocation] match {
-        case Some(normalResidence) => {
-          <CountryNormallyLive>
-            <QuestionLabel>CountryNormallyLive?</QuestionLabel>
-            <Answer>{normalResidence.whereDoYouLive.text match {
-              case Some(n) => n
-              case None => NotAsked
-            }}</Answer>
-          </CountryNormallyLive>}
-        case _ => NodeSeq.Empty
-      }}
+      case Some(normalResidence) => {
+          normalResidence.whereDoYouLive.text match {
+          case Some(n) => question(<CountryNormallyLive/>, "liveInUK.whereDoYouLive", n)
+          case None => question(<CountryNormallyLive/>, "liveInUK.whereDoYouLive", NotAsked)
+        }
+      }
+      case _ => NodeSeq.Empty
+    }}
 
       <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
 
-      <TimeOutsideGBLast3Years>
-        <QuestionLabel>TimeOutsideGBLast3Years?</QuestionLabel>
-        <Answer>{(trips.fourWeeksTrips.size > 0) match {
-          case true => XMLValues.Yes
-          case false => XMLValues.No
-        }}</Answer>
-      </TimeOutsideGBLast3Years>
+      {question(<TimeOutsideGBLast3Years/>, "anyTrips", booleanToYesNo(trips.fourWeeksTrips.size > 0))}
 
       <!--<InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>-->
       {periodAbroadLastYear(tripsOption)}
@@ -66,23 +54,11 @@ object Residency extends XMLComponent{
     def xml(trip: TripPeriod) = {
       <PeriodAbroad>
         <Period>
-          <DateFrom>
-            <QuestionLabel>DateFrom?</QuestionLabel>
-            <Answer>{trip.start.`dd-MM-yyyy`}</Answer>
-          </DateFrom>
-          <DateTo>
-            <QuestionLabel>DateTo?</QuestionLabel>
-            <Answer>{trip.end.`dd-MM-yyyy`}</Answer>
-          </DateTo>
+          {question(<DateFrom/>, "start.trip", trip.start.`dd-MM-yyyy`)}
+          {question(<DateTo/>, "end.trip", trip.end.`dd-MM-yyyy`)}
         </Period>
-        <Reason>
-          <QuestionLabel>abroad.reason?</QuestionLabel>
-          <Answer>{trip.why}</Answer>
-        </Reason>
-        <Country>
-          <QuestionLabel>trip.where?</QuestionLabel>
-          <Answer>{trip.where}</Answer>
-        </Country>
+        {question(<Reason/>, "why", trip.why)}
+        {question(<Country/>, "where", trip.where)}
       </PeriodAbroad>
     }
 

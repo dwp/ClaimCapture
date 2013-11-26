@@ -50,30 +50,15 @@ object DWPCAClaim extends XMLComponent {
         }}</Answer>
       </SelfEmployed>
       {SelfEmployment.xml(claim)}
-      <Employed>
-        <QuestionLabel>{Messages("beenEmployedSince6MonthsBeforeClaim.label", claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => (dmy - 6 months).`dd/MM/yyyy`), claim.dateOfClaim.fold("{CLAIM DATE}")(_.`dd/MM/yyyy`))}</QuestionLabel>
-        <Answer>{employment.beenEmployedSince6MonthsBeforeClaim match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
-      </Employed>
+      {question(<Employed/>,"beenEmployedSince6MonthsBeforeClaim.label",employment.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => (dmy - 6 months).`dd/MM/yyyy`), claim.dateOfClaim.fold("{CLAIM DATE}")(_.`dd/MM/yyyy`))}
       {Employment.xml(claim)}
-      <HavePartner>
-        <QuestionLabel>{Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}</QuestionLabel>
-        <Answer>{moreAboutYou.hadPartnerSinceClaimDate match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
-      </HavePartner>
-
+      {question(<HavePartner/>,"hadPartnerSinceClaimDate.label",moreAboutYou.hadPartnerSinceClaimDate,claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
       {Partner.xml(claim)}
       {OtherBenefits.xml(claim)}
       {Payment.xml(claim)}
       {
         <OtherInformation>
-          {question(<WelshCommunication/>,"welshCommunication", titleCase(booleanStringToYesNo(additionalInfo.welshCommunication)))}
+          {question(<WelshCommunication/>,"welshCommunication",additionalInfo.welshCommunication)}
           {question(<AdditionalInformation/>,"anythingElse", additionalInfo.anythingElse)}
         </OtherInformation>
       }
