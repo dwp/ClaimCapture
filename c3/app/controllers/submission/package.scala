@@ -21,11 +21,6 @@ package object submission {
     case _: Claim with ChangeOfCircs => XmlValidatorFactory.buildCocValidator()
   }
 
-  def xmlAndValidator(claim: Claim, txnID: TransactionID): (Elem, XmlValidator) = claim match {
-    case _: Claim with FullClaim => (DWPCAClaim.xml(claim), XmlValidatorFactory.buildCaValidator())
-    case _: Claim with ChangeOfCircs => (DWPCoCircs.xml(claim), XmlValidatorFactory.buildCocValidator())
-  }
-
   def claimType(claim:Claim) = claim match {
     case _: Claim with FullClaim => FULL_CLAIM
     case _: Claim with ChangeOfCircs => CHANGE_CIRCUMSTANCES
