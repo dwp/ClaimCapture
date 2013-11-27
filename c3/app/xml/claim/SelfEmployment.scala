@@ -6,6 +6,7 @@ import scala.xml.NodeSeq
 import app.XMLValues._
 import xml.XMLHelper._
 import xml.XMLComponent
+import utils.helpers.PastPresentLabelHelper._
 
 object SelfEmployment extends XMLComponent{
 
@@ -24,8 +25,8 @@ object SelfEmployment extends XMLComponent{
           {question(<DateStarted/>, "whenDidYouStartThisJob", aboutSelfEmployment.whenDidYouStartThisJob)}
           {question(<NatureBusiness/>, "natureOfYourBusiness", aboutSelfEmployment.natureOfYourBusiness)}
           <TradingYear>
-            {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom)}
-            {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo)}
+            {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom, isWasIfSelfEmployed(claim).toLowerCase)}
+            {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo, isWasIfSelfEmployed(claim).toLowerCase)}
           </TradingYear>
           {question(<SameIncomeOutgoingLevels/>, "areIncomeOutgoingsProfitSimilarToTrading", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading)}
           {question(<WhyWhenChange/>, "tellUsWhyAndWhenTheChangeHappened", yourAccounts.tellUsWhyAndWhenTheChangeHappened)}
@@ -35,8 +36,8 @@ object SelfEmployment extends XMLComponent{
           {question(<DateStarted/>, "whenDidYouStartThisJob", aboutSelfEmployment.whenDidYouStartThisJob)}
           {question(<NatureBusiness/>, "natureOfYourBusiness", aboutSelfEmployment.natureOfYourBusiness)}
           <TradingYear>
-            {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom)}
-            {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo)}
+            {question(<DateFrom/>, "whatWasOrIsYourTradingYearFrom", yourAccounts.whatWasOrIsYourTradingYearFrom, isWasIfSelfEmployed(claim).toLowerCase)}
+            {question(<DateTo/>, "whatWasOrIsYourTradingYearTo", yourAccounts.whatWasOrIsYourTradingYearTo, isWasIfSelfEmployed(claim).toLowerCase)}
           </TradingYear>
           {question(<SameIncomeOutgoingLevels/>, "areIncomeOutgoingsProfitSimilarToTrading", yourAccounts.areIncomeOutgoingsProfitSimilarToTrading)}
           {question(<WhyWhenChange/>, "tellUsWhyAndWhenTheChangeHappened", yourAccounts.tellUsWhyAndWhenTheChangeHappened)}
@@ -50,11 +51,11 @@ object SelfEmployment extends XMLComponent{
       <SelfEmployment>
         {question(<SelfEmployedNow/>, "areYouSelfEmployedNow", aboutSelfEmployment.areYouSelfEmployedNow)}
         {jobDetails()}
-        {question(<CareExpensesChildren/>, "doYouPayToLookAfterYourChildren", pensionAndExpenses.doYouPayToLookAfterYourChildren)}
+        {question(<CareExpensesChildren/>, "doYouPayToLookAfterYourChildren", pensionAndExpenses.doYouPayToLookAfterYourChildren, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
         {childCareExpenses(claim)}
-        {question(<CareExpensesCaree/>, "didYouPayToLookAfterThePersonYouCaredFor", pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor)}
+        {question(<CareExpensesCaree/>, "didYouPayToLookAfterThePersonYouCaredFor", pensionAndExpenses.didYouPayToLookAfterThePersonYouCaredFor, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
         {careExpenses(claim)}
-        {question(<PaidForPension/>, "doYouPayToPensionScheme.answer", pensionAndExpenses.doYouPayToPensionScheme)}
+        {question(<PaidForPension/>, "doYouPayToPensionScheme.answer", pensionAndExpenses.doYouPayToPensionScheme, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
         {pensionScheme(claim)}
       </SelfEmployment>
     } else NodeSeq.Empty
@@ -73,8 +74,8 @@ object SelfEmployment extends XMLComponent{
       <ChildCareExpenses>
         {question(<CarerName/>, "whoLooksAfterChildren", childCareExpenses.nameOfPerson)}
         <Expense>
-          {questionCurrency(<Payment/>, "howMuchCostChildcare", Some(childCareExpenses.howMuchYouPay))}
-          {questionOther(<Frequency/>, "howOftenPayChildCare", Some(childCareExpenses.howOftenPayChildCare.frequency), childCareExpenses.howOftenPayChildCare.other)}
+          {questionCurrency(<Payment/>, "howMuchCostChildcare", Some(childCareExpenses.howMuchYouPay), didYouDoYouIfSelfEmployed(claim))}
+          {questionOther(<Frequency/>, "howOftenPayChildCare", Some(childCareExpenses.howOftenPayChildCare.frequency), childCareExpenses.howOftenPayChildCare.other, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
         </Expense>
         {question(<RelationshipCarerToClaimant/>, "relationToYou", childCareExpenses.whatRelationIsToYou)}
       </ChildCareExpenses>
@@ -92,10 +93,10 @@ object SelfEmployment extends XMLComponent{
 
     if (hasCareExpenses) {
       <CareExpenses>
-        {question(<CarerName/>, "whoDoYouPay", expensesWhileAtWork.nameOfPerson)}
+        {question(<CarerName/>, "whoDoYouPay", expensesWhileAtWork.nameOfPerson, didYouDoYouIfSelfEmployed(claim))}
         <Expense>
-          {questionCurrency(<Payment/>, "howMuchCostCare", Some(expensesWhileAtWork.howMuchYouPay))}
-          {questionOther(<Frequency/>, "howOftenPayExpenses", Some(expensesWhileAtWork.howOftenPayExpenses.frequency), expensesWhileAtWork.howOftenPayExpenses.other)}
+          {questionCurrency(<Payment/>, "howMuchCostCare", Some(expensesWhileAtWork.howMuchYouPay), didYouDoYouIfSelfEmployed(claim))}
+          {questionOther(<Frequency/>, "howOftenPayExpenses", Some(expensesWhileAtWork.howOftenPayExpenses.frequency), expensesWhileAtWork.howOftenPayExpenses.other, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
         </Expense>
         {question(<RelationshipCarerToClaimant/>, "whatRelationIsToYou", expensesWhileAtWork.whatRelationIsToYou)}
         {question(<RelationshipCarerToCaree/>, "whatRelationIsTothePersonYouCareFor", expensesWhileAtWork.whatRelationIsTothePersonYouCareFor)}
@@ -111,8 +112,8 @@ object SelfEmployment extends XMLComponent{
 
     if (hasPensionScheme) {
         <PensionScheme>
-          {questionCurrency(<Payment/>,"howMuchDidYouPay",pensionAndExpenses.howMuchDidYouPay)}
-          {questionOther(<Frequency/>, "doYouPayToPensionScheme.howOften", pensionAndExpenses.howOften.orElse(None).get.frequency, pensionAndExpenses.howOften.orElse(None).get.other)}
+          {questionCurrency(<Payment/>,"howMuchDidYouPay",pensionAndExpenses.howMuchDidYouPay, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
+          {questionOther(<Frequency/>, "doYouPayToPensionScheme.howOften", pensionAndExpenses.howOften.orElse(None).get.frequency, pensionAndExpenses.howOften.orElse(None).get.other, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
         </PensionScheme>
     } else NodeSeq.Empty
   }

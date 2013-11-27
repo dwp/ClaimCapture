@@ -25,30 +25,13 @@ object DWPCAClaim extends XMLComponent {
     Logger.info(s"Build DWPCAClaim")
 
     <DWPCAClaim>
-      <DateOfClaim>
-        <QuestionLabel>When do you want your Carer's Allowance claim to start?</QuestionLabel>
-        <Answer>{stringify(claim.dateOfClaim)}</Answer>
-      </DateOfClaim>
+      {question(<DateOfClaim/>, "dateOfClaim",claim.dateOfClaim)}
       {Claimant.xml(claim)}
       {Caree.xml(claim)}
       {Residency.xml(claim)}
-      <CourseOfEducation>
-        <QuestionLabel>CourseOfEducation?</QuestionLabel>
-        <Answer>{moreAboutYou.beenInEducationSinceClaimDate match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
-      </CourseOfEducation>
+      {question(<CourseOfEducation/>, "beenInEducationSinceClaimDate.label",moreAboutYou.beenInEducationSinceClaimDate)}
       {FullTimeEducation.xml(claim)}
-      <SelfEmployed>
-        <QuestionLabel>SelfEmployed?</QuestionLabel>
-        <Answer>{employment.beenSelfEmployedSince1WeekBeforeClaim match {
-          case "yes" => XMLValues.Yes
-          case "no" => XMLValues.No
-          case n => n
-        }}</Answer>
-      </SelfEmployed>
+      {question(<SelfEmployed/>, "beenSelfEmployedSince1WeekBeforeClaim.label",employment.beenSelfEmployedSince1WeekBeforeClaim, claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`))}
       {SelfEmployment.xml(claim)}
       {question(<Employed/>,"beenEmployedSince6MonthsBeforeClaim.label",employment.beenEmployedSince6MonthsBeforeClaim, claim.dateOfClaim.fold("{CLAIM DATE - 6 months}")(dmy => (dmy - 6 months).`dd/MM/yyyy`), claim.dateOfClaim.fold("{CLAIM DATE}")(_.`dd/MM/yyyy`))}
       {Employment.xml(claim)}
