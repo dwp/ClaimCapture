@@ -22,21 +22,14 @@ object Residency extends XMLComponent{
         }
       }
       {claim.questionGroup[NormalResidenceAndCurrentLocation] match {
-      case Some(normalResidence) => {
+      case Some(normalResidence) =>
         question(<CountryNormallyLive/>, "liveInUK.whereDoYouLive", normalResidence.whereDoYouLive.text)
-//          normalResidence.whereDoYouLive.text match {
-//          case Some(n) => question(<CountryNormallyLive/>, "liveInUK.whereDoYouLive", n)
-//          case None => question(<CountryNormallyLive/>, "liveInUK.whereDoYouLive", NotAsked)
-//        }
-      }
+
       case _ => NodeSeq.Empty
     }}
       {if (yourDetailsOption.isDefined) <Nationality>{yourDetailsOption.get.nationality}</Nationality>}
       {question(<TimeOutsideGBLast3Years/>, "anyTrips", booleanToYesNo(trips.fourWeeksTrips.size > 0))}
-      <!--<InGreatBritainNow>{normalResidence.inGBNow}</InGreatBritainNow>-->
       {periodAbroadLastYear(tripsOption)}
-      <!--{otherNationality(claim)}-->
-      <!--{periodAbroadDuringCare(tripsOption)}-->
     </Residency>
   }
 
