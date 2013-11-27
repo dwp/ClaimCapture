@@ -19,7 +19,7 @@ object  Declaration extends XMLComponent {
         <Content>{Messages("declaration.4")}</Content>
       </DeclarationStatement>
       {question(<DeclarationQuestion/>,"someoneElse", declaration.read)}
-      {question(<DeclarationQuestion/>,"confirm", stringify(declaration.someoneElse))}
+      {question(<DeclarationQuestion/>,"confirm", declaration.someoneElse)}
     </Declaration>
   }
 }

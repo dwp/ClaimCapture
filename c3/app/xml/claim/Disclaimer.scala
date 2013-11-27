@@ -13,7 +13,6 @@ object  Disclaimer extends XMLComponent{
     val disclaimer = claim.questionGroup[models.domain.Disclaimer].getOrElse(models.domain.Disclaimer())
 
     <Disclaimer>
-
       <DisclaimerStatement>
         <Title>This is my claim for Carer's Allowance.</Title>
         <Content>{Messages("disclaimer.1").replaceAllLiterally("[first name, middle name, surname]", fullName(claim))}</Content>

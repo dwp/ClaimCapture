@@ -59,20 +59,21 @@ object XMLHelper {
 
   private def postalAddressStructure(address: MultiLineAddress, postcode: String): NodeSeq = {
     <Address>
-      {if(address.lineOne.isEmpty){NodeSeq.Empty}else{<Line>{address.lineOne.get}</Line>}}
-      {if(address.lineTwo.isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo.get}</Line>}}
-      {if(address.lineThree.isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree.get}</Line>}}
-      {if(postcode == null || postcode.isEmpty) NodeSeq.Empty else <PostCode>{postcode.toUpperCase}</PostCode>}
+      {postalAddress(address, postcode)}
     </Address>
   }
 
-  def postalAddressStructureRecipientAddress(address: MultiLineAddress, postcode: String): NodeSeq = {
+  def postalAddressStructureRecipientAddress(address: MultiLineAddress, postcode: Option[String]): NodeSeq = {
     <RecipientAddress>
-      <Line>{address.lineOne.orNull}</Line>
-      {if(address.lineTwo.isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo.orNull}</Line>}}
-      {if(address.lineThree.isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree.orNull}</Line>}}
-      {if(postcode == null || postcode == "") NodeSeq.Empty else <PostCode>{postcode.toUpperCase}</PostCode>}
+      {postalAddress(address, postcode.orNull)}
     </RecipientAddress>
+  }
+
+  private def postalAddress(address: MultiLineAddress, postcode: String):NodeSeq = {
+    {if(address.lineOne.isEmpty){NodeSeq.Empty}else{<Line>{address.lineOne.get}</Line>}} ++
+    {if(address.lineTwo.isEmpty){NodeSeq.Empty}else{<Line>{address.lineTwo.get}</Line>}} ++
+    {if(address.lineThree.isEmpty){NodeSeq.Empty}else{<Line>{address.lineThree.get}</Line>}} ++
+    {if(postcode == null || postcode.isEmpty) NodeSeq.Empty else <PostCode>{postcode.toUpperCase}</PostCode>}
   }
 
   private def moneyStructure(amount: String):NodeSeq = {

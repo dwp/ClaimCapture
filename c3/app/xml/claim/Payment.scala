@@ -12,9 +12,7 @@ import scala.Some
 object Payment extends XMLComponent {
 
   def xml(claim: Claim) = {
-
     val howWePayYou = claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())
-
     val showAccount = howWePayYou.likeToBePaid == Messages(AccountStatus.BankBuildingAccount.name)
 
     claim.questionGroup[HowWePayYou] match {
@@ -32,10 +30,7 @@ object Payment extends XMLComponent {
   def account(claim:Claim) = {
     val bankBuildingSocietyDetails = claim.questionGroup[BankBuildingSocietyDetails].getOrElse(BankBuildingSocietyDetails())
 
-
-    // TODO If fields below are no longer in the schema then they don't need to be on the website e.g. AccountHolder
     <Account>
-      <!--<AccountHolder>{bankBuildingSocietyDetails.whoseNameIsTheAccountIn}</AccountHolder>-->
       <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
       <BuildingSocietyDetails>
         <AccountNumber>{bankBuildingSocietyDetails.accountNumber}</AccountNumber>
