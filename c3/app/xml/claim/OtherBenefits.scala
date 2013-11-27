@@ -68,7 +68,7 @@ object OtherBenefits extends XMLComponent {
   }
 
   def otherMoneySPDetails(otherStatutoryPay: OtherStatutoryPay) = {
-    if (otherStatutoryPay.otherPay == yes) {
+    if (otherStatutoryPay.otherPay.toLowerCase == yes) {
       <OtherMoneySPDetails>
           <Payment>
            {questionCurrency(<Payment/>, "howMuch", otherStatutoryPay.howMuch)}
