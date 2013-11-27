@@ -27,6 +27,7 @@ object XMLHelper {
     case nr: NationalInsuranceNumber => nr.stringify
     case sc: SortCode => sc.stringify
     case pf: PaymentFrequency => pf.stringify
+    case ppf: PensionPaymentFrequency => ppf.stringify
     case opt: Option[_] => stringifyOption(opt, default)
     case _ => default
   }
@@ -139,15 +140,8 @@ object XMLHelper {
   }
 
   private def paymentFrequency(freq: PaymentFrequency): NodeSeq =
-    <PayFrequency>
-      <QuestionLabel>{Messages("paymentFrequency")}</QuestionLabel>
-      {
-      freq.other match{
-        case Some(s) => <Other>{s}</Other>
-        case _ => NodeSeq.Empty
-      }
-      }<Answer>{freq.frequency}</Answer>
-    </PayFrequency>
+      questionOther(<PayFrequency/>,"paymentFrequency",freq.frequency,freq.other)
+
 
   def optional[T](option: Option[T], elem: Elem)(implicit classTag: ClassTag[T]): Elem = option match {
     case Some(o) => addChild(elem, nodify(option))

@@ -4,8 +4,6 @@ import models.domain._
 import app.XMLValues._
 import scala.xml.NodeSeq
 import xml.XMLHelper._
-import models.domain.Claim
-import scala.Some
 import xml.XMLComponent
 import models.domain.Claim
 import scala.Some
@@ -49,7 +47,7 @@ object FullTimeEducation extends XMLComponent {
 
     <LocationDetails>
       {schoolData.nameOfSchoolCollegeOrUniversity match {
-        case Some(n) => <Name>{schoolData.nameOfSchoolCollegeOrUniversity.orNull}</Name>
+        case Some(n) => <Name>{schoolData.nameOfSchoolCollegeOrUniversity.get}</Name>
         case None => NodeSeq.Empty
       }}
       {schoolData.address match {
@@ -57,19 +55,19 @@ object FullTimeEducation extends XMLComponent {
         case None => NodeSeq.Empty
       }}
       {schoolData.phoneNumber match {
-        case Some(n) => <PhoneNumber>{schoolData.phoneNumber.orNull}</PhoneNumber>
+        case Some(n) => <PhoneNumber>{schoolData.phoneNumber.get}</PhoneNumber>
         case None => NodeSeq.Empty
       }}
       { schoolData.faxNumber match {
-        case Some(n) => <FaxNumber>{schoolData.faxNumber.orNull}</FaxNumber>
+        case Some(n) => <FaxNumber>{schoolData.faxNumber.get}</FaxNumber>
         case None => NodeSeq.Empty
       }}
       { courseDetails.studentReferenceNumber match {
-        case Some(n) => <StudentReferenceNumber>{courseDetails.studentReferenceNumber.orNull}</StudentReferenceNumber>
+        case Some(n) => <StudentReferenceNumber>{courseDetails.studentReferenceNumber.get}</StudentReferenceNumber>
         case None => NodeSeq.Empty
       }}
       {schoolData.nameOfMainTeacherOrTutor match {
-        case Some(n) => <Tutor>{schoolData.nameOfMainTeacherOrTutor.orNull}</Tutor>
+        case Some(n) => <Tutor>{schoolData.nameOfMainTeacherOrTutor.get}</Tutor>
         case None => NodeSeq.Empty
       }}
     </LocationDetails>
