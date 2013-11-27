@@ -1,14 +1,10 @@
 package xml.claim
 
-import app.{StatutoryPaymentFrequency, XMLValues}
 import app.XMLValues._
 import models.domain._
 import scala.xml.NodeSeq
 import xml.XMLHelper._
 import xml.XMLComponent
-import models.domain.Claim
-import scala.Some
-import play.api.i18n.Messages
 import models.domain.Claim
 import scala.Some
 
@@ -25,9 +21,8 @@ object OtherBenefits extends XMLComponent {
 
     <OtherBenefits>
       <ClaimantBenefits>
-          {
-          moreAboutYou match {
-            case Some(n) => question(<StatePension></StatePension>,"receiveStatePension",n.receiveStatePension)
+        { moreAboutYou match {
+            case Some(n) => question(<StatePension/>,"receiveStatePension",n.receiveStatePension)
             case _ => NodeSeq.Empty
           }
         }
@@ -38,19 +33,18 @@ object OtherBenefits extends XMLComponent {
       {otherMoneySPDetails(otherStatutoryPayOption)}
       {question(<OtherMoney/>,"othermoney.label", aboutOtherMoney.yourBenefits.answer)}
       {question(<OtherMoneyPayments/>,"anyPaymentsSinceClaimDate.answer.label",aboutOtherMoney.anyPaymentsSinceClaimDate.answer,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
-
       {aboutOtherMoney.anyPaymentsSinceClaimDate.answer match {
           case "yes" =>{
-                <OtherMoneyDetails>
-                  <Payment>
-                    {questionCurrency(<Payment/>,"howMuch.label", aboutOtherMoney.howMuch)}
-                    {questionOther(<Frequency/>,"howOftenPension", aboutOtherMoney.howOften.get.frequency, aboutOtherMoney.howOften.get.other)}
-                  </Payment>
-                  {question(<Name/>,"whoPaysYou.label", aboutOtherMoney.whoPaysYou)}
-                  </OtherMoneyDetails>
-                }
-                case "no" => NodeSeq.Empty
-                case n => throw new RuntimeException("AnyPaymentsSinceClaimDate is either Yes Or No")
+            <OtherMoneyDetails>
+              <Payment>
+                {questionCurrency(<Payment/>,"howMuch.label", aboutOtherMoney.howMuch)}
+                {questionOther(<Frequency/>,"howOftenPension", aboutOtherMoney.howOften.get.frequency, aboutOtherMoney.howOften.get.other)}
+              </Payment>
+              {question(<Name/>,"whoPaysYou.label", aboutOtherMoney.whoPaysYou)}
+              </OtherMoneyDetails>
+          }
+          case "no" => NodeSeq.Empty
+          case _ => throw new RuntimeException("AnyPaymentsSinceClaimDate is either Yes Or No")
         }}
       <EEA>
         {question(<EEAReceivePensionsBenefits/>,"benefitsFromOtherEEAStateOrSwitzerland", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland)}
@@ -60,13 +54,13 @@ object OtherBenefits extends XMLComponent {
   }
 
   def otherMoneySPPXml(statutorySickPay: StatutorySickPay) = {
-    if (statutorySickPay.haveYouHadAnyStatutorySickPay == yes) {
+    if (statutorySickPay.haveYouHadAnyStatutorySickPay.toLowerCase == yes) {
       <OtherMoneySSPDetails>
           <Payment>
             {questionCurrency(<Payment/>,"howMuch",statutorySickPay.howMuch)}
             {questionOther(<Frequency/>,"howOften_frequency", statutorySickPay.howOften.get.frequency, statutorySickPay.howOften.get.other)}
         </Payment>
-        <Name>{statutorySickPay.employersName.orNull}</Name>
+        {if (statutorySickPay.employersName.isDefined) <Name>{statutorySickPay.employersName.get}</Name>}
         {postalAddressStructure(statutorySickPay.employersAddress, statutorySickPay.employersPostcode)}
       </OtherMoneySSPDetails>
     }
@@ -80,7 +74,7 @@ object OtherBenefits extends XMLComponent {
            {questionCurrency(<Payment/>, "howMuch", otherStatutoryPay.howMuch)}
            {questionOther(<Frequency/>,"howOften_frequency", otherStatutoryPay.howOften.get.frequency, otherStatutoryPay.howOften.get.other)}
         </Payment>
-        <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>
+        {if (otherStatutoryPay.employersName.isDefined) <Name>{otherStatutoryPay.employersName.getOrElse("empty")}</Name>}
         {postalAddressStructure(otherStatutoryPay.employersAddress, otherStatutoryPay.employersPostcode)}
       </OtherMoneySPDetails>
     }
