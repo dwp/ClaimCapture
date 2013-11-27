@@ -39,7 +39,7 @@ $(function() {
     
     
     // Nino auto jump
-	$('.ni-number input').autotab_magic();
+	$('.ni-number input, .sort-code input').autotab_magic();
     
     
 

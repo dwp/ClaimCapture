@@ -344,11 +344,33 @@ main {
 				.ie & {
 					font-size: 50px;
 				}
-			}
-	
+			}	
+			
    	   }
-   	   
-   	   
+
+
+   	   &.finish-statement {
+
+	   	   article {
+		   	   margin-top: 1.5em;
+		   	   &.finish-next {
+			   	   margin-top: 1.4em;
+			   	   margin-right: 1em;
+			   	   @media screen and (max-width: 640px) {
+				   	   margin-right: 0;
+			   	   }
+		   	   }
+		   	   li {
+			   	   font-size: 1.6rem;
+			   	   margin-top: .6em;
+		   	   }
+		   	   p {
+		   	   	   font-size: 1.7rem;
+			   	   margin-top: .5em;
+		   	   }
+		   	   
+	   	   }
+   	   }
    	   
    	   
    	   	   /* section header */		   	

@@ -10,20 +10,27 @@
 
             @common.helpLine()
 
-            <section>
+            <section class="finish-statement">
                 <h1>@Messages("thankyou")</h1>
-                <h2>@Messages("claim.received")</h2>
-                <h2>@Messages("next")</h2>
+                <p>@Messages("claim.received")</p>
+                
+                <article class="finish-next prompt helper-prompt">
+                <h3>@Messages("next")</h3>
                 <ul>
                     <li>@Html(Messages("claim.next.1"))</li>
                     <li>@Html(Messages("claim.next.2"))</li>
                     <li>@Html(Messages("claim.next.3"))</li>
                     <li>@Html(Messages("next.last"))</li>
                 </ul>
-                <h2>@Messages("change.head")</h2>
+                </article>
+                <article>
+                <h3>@Messages("change.head")</h3>
                 <p>@Html(Messages("change.link"))</p>
-                <h2>@Messages("feedback.head")</h2>
+                </article>
+                <article>
+                <h3>@Messages("feedback.head")</h3>
                 <p>@Html(Messages("claim.feedback.link"))</p>
+                </article>
             </section>
         </div>
     }
