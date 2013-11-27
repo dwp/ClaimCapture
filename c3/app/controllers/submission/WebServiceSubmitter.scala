@@ -86,10 +86,10 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     claim.key match {
       case CachedClaim.key => {
         Logger.debug(s"claim.key = ${claim.key}, $txnId")
-        Redirect(controllers.routes.ThankYou.claim(txnId))
+        Redirect(controllers.routes.ThankYou.claim())
       }
       case CachedChangeOfCircs.key =>
-        Redirect(controllers.routes.ThankYou.circs(txnId))
+        Redirect(controllers.routes.ThankYou.circs())
     }
   }
 

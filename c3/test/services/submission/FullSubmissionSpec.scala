@@ -17,7 +17,7 @@ import submission._
 class FullSubmissionSpec extends Specification with Tags {
   sequential
 
-  val thankYouPageTitle = "Thank you,"
+  val thankYouPageTitle = "Thank you"
 
   val cAndDError = "An unrecoverable error has occurred"
 

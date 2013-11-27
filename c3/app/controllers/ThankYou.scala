@@ -4,11 +4,10 @@ import play.api.mvc.{Action, Controller}
 import play.api.Logger
 
 object ThankYou extends Controller {
-  def claim(txnId:String) = Action { request =>
-    Logger.debug(txnId)
-    Ok(views.html.common.thankYouClaim(txnId))
+  def claim = Action { request =>
+    Ok(views.html.common.thankYouClaim())
   }
-  def circs(txnId:String) = Action { request =>
-    Ok(views.html.common.thankYouCircs(txnId))
+  def circs = Action { request =>
+    Ok(views.html.common.thankYouCircs())
   }
 }
