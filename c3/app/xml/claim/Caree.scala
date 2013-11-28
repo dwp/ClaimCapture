@@ -1,7 +1,6 @@
 package xml.claim
 
 import scala.xml.NodeSeq
-import app.XMLValues._
 import models.domain._
 import xml.XMLHelper._
 import xml.XMLComponent
@@ -13,23 +12,19 @@ object Caree extends XMLComponent {
     val theirContactDetails = claim.questionGroup[TheirContactDetails].getOrElse(TheirContactDetails())
     val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
     val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
+    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     <Caree>
       <Surname>{theirPersonalDetails.surname}</Surname>
       <OtherNames>{theirPersonalDetails.firstName} {theirPersonalDetails.middleName.getOrElse("")}</OtherNames>
       <Title>{theirPersonalDetails.title}</Title>
       <DateOfBirth>{theirPersonalDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
-      {theirPersonalDetails.nationalInsuranceNumber match {
-        case Some(n) => <NationalInsuranceNumber>{stringify(theirPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
-        case None => NodeSeq.Empty
-      }}
+      {statement(<NationalInsuranceNumber/>,theirPersonalDetails.nationalInsuranceNumber)}
       {postalAddressStructure(theirContactDetails.address, theirContactDetails.postcode)}
-      {if(!theirContactDetails.phoneNumber.isEmpty){
-        <DayTimePhoneNumber>{theirContactDetails.phoneNumber.get}</DayTimePhoneNumber>
-      }}
+      {statement(<DayTimePhoneNumber/>,theirContactDetails.phoneNumber)}
       {question(<RelationToClaimant/>,"whatRelationIsToYou", moreAboutThePerson.relationship)}
       {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}
-      {breaksSinceClaim(claim)}
+      {question(<BreaksSinceClaim/>,"answer.label",breaksInCare.hasBreaks)}
       {careBreak(claim)}
       {question(<Cared35HoursBefore/>,"beforeClaimCaring.answer", moreAboutTheCare.spent35HoursCaringBeforeClaim.answer)}
       {question(<DateStartCaring/>,"beforeClaimCaring_date", moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}
@@ -38,23 +33,17 @@ object Caree extends XMLComponent {
     </Caree>
   }
 
-  def breaksSinceClaim(claim: Claim) = {
-    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
-    question(<BreaksSinceClaim/>,"answer.label",breaksInCare.hasBreaks)
-  }
+//  private def breaksBeforeClaim(claim: Claim) = {
+//    val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
+//    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
+//    val hasSpent35HoursCaringBeforeClaimDate = moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == yes
+//
+//    if (hasSpent35HoursCaringBeforeClaimDate) {
+//      <BreaksBeforeClaim>{stringify(breaksInCare.hasBreaks)}</BreaksBeforeClaim>
+//    } else NodeSeq.Empty
+//  }
 
-  def breaksBeforeClaim(claim: Claim) = {
-    val moreAboutTheCare = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-    val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
-    val hasSpent35HoursCaringBeforeClaimDate = moreAboutTheCare.spent35HoursCaringBeforeClaim.answer == yes
-
-    if (hasSpent35HoursCaringBeforeClaimDate) {
-      <BreaksBeforeClaim>{stringify(breaksInCare.hasBreaks)}</BreaksBeforeClaim>
-    } else NodeSeq.Empty
-  }
-
-  def careBreak(claim: Claim) = {
-
+  private def careBreak(claim: Claim) = {
     val breaksInCare = claim.questionGroup[BreaksInCare].getOrElse(BreaksInCare())
 
     for (break <- breaksInCare.breaks) yield {

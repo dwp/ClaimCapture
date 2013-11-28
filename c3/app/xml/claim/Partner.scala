@@ -5,7 +5,6 @@ import scala.xml.NodeSeq
 import app.XMLValues._
 import xml.XMLHelper._
 import models.domain.Claim
-import scala.Some
 import xml.XMLComponent
 
 object Partner extends XMLComponent {
@@ -20,13 +19,10 @@ object Partner extends XMLComponent {
       <Partner>
         <Surname>{yourPartnerPersonalDetails.surname}</Surname>
         <OtherNames>{yourPartnerPersonalDetails.firstName} {yourPartnerPersonalDetails.middleName.getOrElse("")}</OtherNames>
-        {yourPartnerPersonalDetails.otherSurnames match {
-          case Some(n) => <OtherSurnames>{yourPartnerPersonalDetails.otherSurnames.get}</OtherSurnames>
-          case None => NodeSeq.Empty
-        }}
+        {statement(<OtherSurnames/>,yourPartnerPersonalDetails.otherSurnames)}
         <Title>{yourPartnerPersonalDetails.title}</Title>
-        <DateOfBirth>{yourPartnerPersonalDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
-        <NationalInsuranceNumber>{stringify(yourPartnerPersonalDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
+        {statement(<DateOfBirth/>,yourPartnerPersonalDetails.dateOfBirth)}
+        {statement(<NationalInsuranceNumber/>,yourPartnerPersonalDetails.nationalInsuranceNumber)}
         <NationalityPartner>{yourPartnerPersonalDetails.nationality.get}</NationalityPartner>
         <RelationshipStatus>
           {question(<SeparatedFromPartner/>, "separated_fromPartner.label", yourPartnerPersonalDetails.separatedFromPartner, claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}

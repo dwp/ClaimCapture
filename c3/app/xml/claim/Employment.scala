@@ -46,7 +46,7 @@ object Employment extends XMLComponent{
     }
   }
 
-  def employerXml(job: Job): Elem = {
+  private def employerXml(job: Job): Elem = {
     val jobDetails = job.questionGroup[JobDetails].getOrElse(JobDetails())
     val employerContactDetails = job.questionGroup[EmployerContactDetails].getOrElse(EmployerContactDetails())
 
@@ -54,21 +54,15 @@ object Employment extends XMLComponent{
       {question(<DateJobStarted/>, "jobStartDate", jobDetails.jobStartDate)}
       {question(<DateJobEnded/>, "lastWorkDate",jobDetails.lastWorkDate)}
       {question(<JobType/>,s"jobTitle.${if (jobDetails.finishedThisJob == "yes") "was" else "is"}", job.title)}
-      {jobDetails.payrollEmployeeNumber.isEmpty match {
-        case false => <ClockPayrollNumber>{jobDetails.payrollEmployeeNumber.get}</ClockPayrollNumber>
-        case true => NodeSeq.Empty
-      }}
+      {statement(<ClockPayrollNumber/>,jobDetails.payrollEmployeeNumber)}
       <Name>{jobDetails.employerName}</Name>
       {postalAddressStructure(employerContactDetails.address, employerContactDetails.postcode)}
-      {employerContactDetails.phoneNumber.isEmpty match {
-        case false => <EmployersPhoneNumber>{employerContactDetails.phoneNumber.get}</EmployersPhoneNumber>
-        case true => NodeSeq.Empty
-      }}
+      {statement(<EmployersPhoneNumber/>,employerContactDetails.phoneNumber)}
       {question(<P45LeavingDate/>, "p45LeavingDate", jobDetails.p45LeavingDate)}
     </Employer>
   }
 
-  def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails, claim: Claim): Elem = {
+  private def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails, claim: Claim): Elem = {
     <Pay>
       {question(<WeeklyHoursWorked/>, "hoursPerWeek", jobDetails.hoursPerWeek, pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, jobDetails.jobID))}
       {question(<DateLastPaid/>, "lastPaidDate", lastWage.lastPaidDate)}
@@ -84,13 +78,13 @@ object Employment extends XMLComponent{
     </Pay>
   }
 
-  def pensionSchemeXml(job: Job, claim:Claim) = {
+  private def pensionSchemeXml(job: Job, claim:Claim) = {
     val pensionScheme:PensionSchemes = job.questionGroup[PensionSchemes].getOrElse(PensionSchemes())
 
     occupationalPensionSchemeXml(pensionScheme, claim, job) ++ personalPensionSchemeXml(pensionScheme, claim, job)
   }
 
-  def occupationalPensionSchemeXml(pensionScheme: PensionSchemes, claim:Claim, job:Job):NodeSeq = {
+  private def occupationalPensionSchemeXml(pensionScheme: PensionSchemes, claim:Claim, job:Job):NodeSeq = {
     val showXml = pensionScheme.payOccupationalPensionScheme.toLowerCase == yes
 
     question(<PaidForOccupationalPension/>,"payOccupationalPensionScheme",pensionScheme.payOccupationalPensionScheme,pastPresentLabelForEmployment(claim, didYou, doYou , job.jobID)) ++
@@ -104,7 +98,7 @@ object Employment extends XMLComponent{
     })
   }
 
-  def personalPensionSchemeXml(pensionScheme:PensionSchemes, claim:Claim, job:Job): NodeSeq = {
+  private def personalPensionSchemeXml(pensionScheme:PensionSchemes, claim:Claim, job:Job): NodeSeq = {
     val showXml = pensionScheme.payPersonalPensionScheme.toLowerCase == yes
 
     question(<PaidForPersonalPension/>,"payPersonalPensionScheme",pensionScheme.payPersonalPensionScheme,pastPresentLabelForEmployment(claim, didYou, doYou,job.jobID)) ++
@@ -118,7 +112,7 @@ object Employment extends XMLComponent{
     })
   }
 
-  def jobExpensesXml(job: Job, claim:Claim):NodeSeq = {
+  private def jobExpensesXml(job: Job, claim:Claim):NodeSeq = {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
     val necessaryExpenses: NecessaryExpenses = job.questionGroup[NecessaryExpenses].getOrElse(NecessaryExpenses())
     val showXml = aboutExpenses.payForAnythingNecessary.toLowerCase == "yes"
@@ -133,7 +127,7 @@ object Employment extends XMLComponent{
     }
   }
 
-  def childcareExpensesXml(job: Job, claim:Claim):NodeSeq = {
+  private def childcareExpensesXml(job: Job, claim:Claim):NodeSeq = {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
     val childcareExpenses: ChildcareExpenses = job.questionGroup[ChildcareExpenses].getOrElse(ChildcareExpenses())
     val showXml = aboutExpenses.payAnyoneToLookAfterChildren.toLowerCase == yes
@@ -158,7 +152,7 @@ object Employment extends XMLComponent{
     }
   }
 
-  def careExpensesXml(job: Job, claim:Claim):NodeSeq = {
+  private def careExpensesXml(job: Job, claim:Claim):NodeSeq = {
     val aboutExpenses: AboutExpenses = job.questionGroup[AboutExpenses].getOrElse(AboutExpenses())
     val personYouCareExpenses: PersonYouCareForExpenses = job.questionGroup[PersonYouCareForExpenses].getOrElse(PersonYouCareForExpenses())
     val showXml = aboutExpenses.payAnyoneToLookAfterPerson.toUpperCase == yes.toUpperCase
