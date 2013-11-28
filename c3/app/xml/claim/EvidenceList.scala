@@ -32,67 +32,45 @@ object EvidenceList {
     val employed = employment.beenEmployedSince6MonthsBeforeClaim.toLowerCase == yes
     val selfEmployed = employment.beenSelfEmployedSince1WeekBeforeClaim.toLowerCase == yes
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
-    val buffer = new NodeBuffer
 
-    if (employed || selfEmployed) {
-      evidence("evidence.title1", Messages("evidence.statement1")) ++
-      <Evidence>
-       <Title>{Messages("evidence.title2")}</Title>
+    val evidenceStatements = Seq("evidence.statement2", "evidence.statement3", "evidence.statement4", "evidence.statement5", "evidence.statement6", "evidence.statement7")
+    val evidenceEmployedStatements = Seq("evidence.employed.statement1", "evidence.employed.statement2", "evidence.employed.statement3", "evidence.employed.statement4")
+    val evidenceSelfEmployedStatements = Seq("evidence.selfemployed.statement1", "evidence.selfemployed.statement2", "evidence.selfemployed.statement3")
 
-      {
-      // TODO : Confirm that what we're doing here actually works, ie that I get the evidence lines that I expect
-      }
 
-      {if (employed) {
-        content("evidence.employed.statement1")
-        content("evidence.employed.statement2")
-        // TODO : Sort out what to do about this date, do we actually need it?
+    {evidenceSection("evidence.title1", Seq("evidence.statement1"))}
+
+    if (employed && selfEmployed){
+      //{evidenceSection("evidence.title2", evidenceEmployedStatements ++ evidenceSelfEmployedStatements ++ evidenceStatements)}
+      {evidenceSection("evidence.title2", evidenceStatements)}
+    } else if (employed){
+      {evidenceSection("evidence.title2", evidenceEmployedStatements ++ evidenceStatements)}
+    } else if (selfEmployed) {
+      // TODO : Apply the claim date to the message translation
       //, stringify(claimDate.dateOfClaim))
-        content("evidence.employed.statement3")
-        content("evidence.employed.statement4")
-        }
-      }
-
-      {if (selfEmployed) {
-        content("evidence.selfemployed.statement1")
-        content("evidence.selfemployed.statement2")
-        content("evidence.selfemployed.statement3")
-        }
-      }
-
-      {
-      content("evidence.statement2")
-      content("evidence.statement3")
-      content("evidence.statement4")
-      content("evidence.statement5")
-      content("evidence.statement6")
-      content("evidence.statement7")
-      }
-    </Evidence>
+      {evidenceSection("evidence.title2", evidenceSelfEmployedStatements ++ evidenceStatements)}
+    } else {
+      {evidenceSection("evidence.title2", evidenceStatements)}
+    }
   }
 
-  def sectionEmpty(nodeSeq: NodeSeq) = {
+  def  sectionEmpty(nodeSeq: NodeSeq) = {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
   }
 
-    // TODO : Make this a private def
-    def content(text: String): NodeSeq = {
-      <Content>{Messages(text)}</Content>
-    }
-//  private def textLine(text: String): NodeSeq = <Evidence>
-//    <Title></Title>
-//    <Content>{Messages(text)}</Content>
-//  </Evidence>
-
-  private def evidence(label: String, value: String): NodeSeq  = {
+  def evidenceSection (titleText: String, contents: Seq[String]): NodeSeq = {
     <Evidence>
-      <Title>{Messages(label)}</Title>
-      <Content>{value}</Content>
+      {title(titleText)}
+      {contents map(c => content(c))}
     </Evidence>
   }
 
-//  private def textLine(label: String, value: Option[String]): Elem = value match {
-//    case Some(s) => textLine(label, value.getOrElse(""))
-//    case None => <Evidence/>
-//  }
+  private def title(text: String): NodeSeq = {
+    <Title>{Messages(text)}</Title>
+  }
+
+  private def content(text: String): NodeSeq = {
+    <Content>{Messages(text)}</Content>
+  }
+
 }
