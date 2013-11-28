@@ -24,9 +24,8 @@ object EvidenceList {
     val selfEmployed = employment.beenSelfEmployedSince1WeekBeforeClaim.toLowerCase == yes
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     val alwaysPrint = true
-
     val evidenceInitialStatements = Seq("evidence.title2", "evidence.statement1")
-    val evidenceAddressStatements = Seq("evidence.statement3", "evidence.statement4", "evidence.statement5", "evidence.statement6", "evidence.statement7")
+//    val evidenceAddressStatements = Seq("evidence.statement3", "evidence.statement4", "evidence.statement5", "evidence.statement6", "evidence.statement7")
     val evidenceEmployedStatements = Seq(Messages("evidence.employed.statement2", stringify(claimDate.dateOfClaim)), "evidence.employed.statement3", "evidence.employed.statement4")
     val evidenceSelfEmployedStatements = Seq("evidence.selfemployed.statement2", "evidence.selfemployed.statement3")
 

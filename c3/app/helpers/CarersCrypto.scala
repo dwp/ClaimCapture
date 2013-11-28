@@ -5,7 +5,7 @@ import play.api.libs.Crypto
 import java.util.UUID
 
 object CarersCrypto {
-  val encrypt = Configuration.root().getBoolean("encryptFields", true)
+  val encrypt = Configuration.root().getBoolean("encryptFields", false)
 
   val staticSecret = Configuration.root().getBoolean("staticSecret", false)
 
