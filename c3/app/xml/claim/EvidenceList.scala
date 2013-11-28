@@ -1,13 +1,9 @@
 package xml.claim
 
 import models.domain._
-import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import app.XMLValues._
 import models.domain.Claim
-import xml.XMLHelper._
-import scala.xml.{NodeBuffer, Elem, NodeSeq, Node}
-import org.joda.time.format.DateTimeFormat
-import org.joda.time.DateTime
+import scala.xml.NodeSeq
 import play.api.i18n.Messages
 import xml.XMLHelper._
 
@@ -21,28 +17,23 @@ object EvidenceList {
       {evidence(claim)}
     </EvidenceList>
   }
-//
-//  def xmlGenerated() = {
-//    textLine("XML Generated at: "+DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").print(DateTime.now()))
-//  }
-
 
   def evidence(claim: Claim): NodeSeq = {
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment())
     val employed = employment.beenEmployedSince6MonthsBeforeClaim.toLowerCase == yes
     val selfEmployed = employment.beenSelfEmployedSince1WeekBeforeClaim.toLowerCase == yes
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+    val alwaysPrint = true
 
-    val evidenceStatements = Seq("evidence.statement3", "evidence.statement4", "evidence.statement5", "evidence.statement6", "evidence.statement7")
-    val evidenceEmployedStatements = Seq("evidence.employed.statement2", "evidence.employed.statement3", "evidence.employed.statement4")
+    val evidenceInitialStatements = Seq("evidence.title2", "evidence.statement1")
+    val evidenceAddressStatements = Seq("evidence.statement3", "evidence.statement4", "evidence.statement5", "evidence.statement6", "evidence.statement7")
+    val evidenceEmployedStatements = Seq(Messages("evidence.employed.statement2", stringify(claimDate.dateOfClaim)), "evidence.employed.statement3", "evidence.employed.statement4")
     val evidenceSelfEmployedStatements = Seq("evidence.selfemployed.statement2", "evidence.selfemployed.statement3")
 
-
-    evidenceSection(true, "evidence.title1", Seq("evidence.statement1"))++
-    evidenceSection(true, "evidence.title2", Seq(" "))++
+    evidenceSection(alwaysPrint, "evidence.title1", evidenceInitialStatements)++
     evidenceSection(employed, "evidence.employed.statement1", evidenceEmployedStatements)++
     evidenceSection(selfEmployed, "evidence.selfemployed.statement1", evidenceSelfEmployedStatements)++
-    evidenceSection(true, "evidence.statement2", evidenceStatements)
+    evidenceSection(alwaysPrint, "evidence.statement2", evidenceAddressStatements)
   }
 
   def  sectionEmpty(nodeSeq: NodeSeq) = {
