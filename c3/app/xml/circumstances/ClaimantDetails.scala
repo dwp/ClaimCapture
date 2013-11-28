@@ -15,10 +15,10 @@ object ClaimantDetails extends XMLComponent {
       <OtherNames>{yourDetails.firstName} {yourDetails.middleName.getOrElse("")}</OtherNames>
       <Title>{yourDetails.title}</Title>
       <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
-      <NationalInsuranceNumber>{stringify(yourDetails.nationalInsuranceNumber)}</NationalInsuranceNumber>
+      {statement(<NationalInsuranceNumber/>,yourDetails.nationalInsuranceNumber)}
       {postalAddressStructure(contactDetails.address, contactDetails.postcode)}
-      {<DayTimePhoneNumber/> ?+ contactDetails.phoneNumber}
-      {<MobileNumber/> ?+ contactDetails.mobileNumber}
+      {statement(<DayTimePhoneNumber/>,contactDetails.phoneNumber)}
+      {statement(<MobileNumber/>,contactDetails.mobileNumber)}
     </ClaimantDetails>
   }
 }

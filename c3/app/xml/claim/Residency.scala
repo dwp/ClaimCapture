@@ -28,7 +28,7 @@ object Residency extends XMLComponent{
       case _ => NodeSeq.Empty
     }}
       {if (yourDetailsOption.isDefined) <Nationality>{yourDetailsOption.get.nationality}</Nationality>}
-      {question(<TimeOutsideGBLast3Years/>, "anyTrips", booleanToYesNo(trips.fourWeeksTrips.size > 0))}
+      {question(<TimeOutsideGBLast3Years/>, "anyTrips", trips.fourWeeksTrips.size > 0)}
       {periodAbroadLastYear(tripsOption)}
     </Residency>
   }

@@ -10,17 +10,55 @@ import models.MultiLineAddress
 import models.PeriodFromTo
 import models.NationalInsuranceNumber
 import play.api.i18n.Messages
-import scala.deprecated
 
 object XMLHelper {
 
+  def statement[T](wrappingNode:Node,answer: T): NodeSeq = {
+    if (answer.isInstanceOf[Option[_]]) statementOptional(wrappingNode,answer.asInstanceOf[Option[_]])
+    else {
+      val answerNode:NodeSeq = nodify(answer)
+      if (answerNode.text.length > 0) addChild(wrappingNode,answerNode)
+      else NodeSeq.Empty
+    }
+  }
+
+  def question[T](wrappingNode:Node,questionLabelCode: String, answerText: T,labelParameters: String*): NodeSeq = {
+    if (answerText.isInstanceOf[Option[_]]) questionOptional(wrappingNode,questionLabelCode,answerText.asInstanceOf[Option[_]],labelParameters:_*)
+    else {
+      val answer:NodeSeq = nodify(answerText)
+      if (answer.text.length > 0) addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ <Answer>{answer}</Answer>)
+      else NodeSeq.Empty
+    }
+  }
+
+  def questionOther[T](wrappingNode:Node,questionLabelCode: String, answerText: T, otherText: Option[String],labelParameters: String *): NodeSeq = {
+    val other = <Other/>
+    addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ optionalEmpty(otherText,other) ++ <Answer>{stringify(answerText)}</Answer>)
+  }
+
+  // We should only see a why text supplied if the answer is no, but add the why text regardless if supplied.
+  // The business logic should be in the UI not in XML generation.
+  def questionWhy[T](wrappingNode:Node,questionLabelCode: String, answerText: T, whyText: Option[String],labelParameters: String*): NodeSeq = {
+    if (answerText.isInstanceOf[Option[_]]) questionOptionalWhy(wrappingNode,questionLabelCode,answerText.asInstanceOf[Option[_]],whyText,labelParameters:_*)
+    else {
+      val why = <Why/>
+      addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ <Answer>{stringify(answerText)}</Answer> ++ optionalEmpty(whyText,why))
+    }
+  }
+
+  def questionCurrency(wrappingNode:Node,questionLabelCode: String, amount:Option[String],labelParameters: String*): NodeSeq = {
+    if (amount.isDefined) {
+      question(wrappingNode,questionLabelCode,moneyStructure(amount.get),labelParameters:_*)
+    }
+    else NodeSeq.Empty
+  }
 
   private def stringifyOption(value: Option[_], default: String = ""):String = value match {
     case Some(s) => stringify(s,default)
     case None => default
   }
 
-  def stringify[T](value: T, default: String = ""): String = value match {
+  private def stringify[T](value: T, default: String = ""): String = value match {
     case s: String => formatValue(s)
     case b: Boolean => booleanToYesNo(b)
     case dmy: DayMonthYear => dmy.`dd-MM-yyyy`
@@ -32,13 +70,11 @@ object XMLHelper {
     case _ => default
   }
 
-  // CJR : Note that I'm changing the text to format it
   private def nodifyOption(value: Option[_], default: String = ""): NodeSeq = value match {
     case Some(s) => nodify(s)
     case _ => Text(default)
   }
 
-  // CJR : Note that I'm changing the text to format it
   private def nodify[T](value: T, default: String = ""): NodeSeq = value match {
     case dmy: DayMonthYear => Text(dmy.`dd-MM-yyyy`)
     case nr: NationalInsuranceNumber => Text(nr.stringify)
@@ -81,17 +117,6 @@ object XMLHelper {
     <Amount>{amount}</Amount>
   }
 
-
-  def question[T](wrappingNode:Node,questionLabelCode: String, answerText: T,labelParameters: String*): NodeSeq = {
-    if (answerText.isInstanceOf[Option[_]]) questionOptional(wrappingNode,questionLabelCode,answerText.asInstanceOf[Option[_]],labelParameters:_*)
-    else {
-      val answer:NodeSeq = nodify(answerText)
-      if (answer.text.length > 0) addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ <Answer>{answer}</Answer>)
-      else NodeSeq.Empty
-    }
-
-  }
-
   private def questionOptional[T](wrappingNode:Node,questionLabelCode: String, answer:Option[T],labelParameters: String* ): NodeSeq = {
     if (answer.isDefined) question(wrappingNode,questionLabelCode,answer.get,labelParameters:_*)
     else NodeSeq.Empty
@@ -101,30 +126,9 @@ object XMLHelper {
     <QuestionLabel>{Messages(questionLabelCode, labelParameters: _*)}</QuestionLabel>
   }
 
-  def questionOther[T](wrappingNode:Node,questionLabelCode: String, answerText: T, otherText: Option[String],labelParameters: String *): NodeSeq = {
-    val other = <Other/>
-    addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ optionalEmpty(otherText,other) ++ <Answer>{stringify(answerText)}</Answer>)
-  }
-
-  // We should only see a why text supplied if the answer is no, but add the why text regardless if supplied.
-  // The business logic should be in the UI not in XML generation.
-  def questionWhy[T](wrappingNode:Node,questionLabelCode: String, answerText: T, whyText: Option[String],labelParameters: String*): NodeSeq = {
-    if (answerText.isInstanceOf[Option[_]]) questionOptionalWhy(wrappingNode,questionLabelCode,answerText.asInstanceOf[Option[_]],whyText,labelParameters:_*)
-     else {
-    val why = <Why/>
-    addChild(wrappingNode,questionLabel(questionLabelCode,labelParameters:_*) ++ <Answer>{stringify(answerText)}</Answer> ++ optionalEmpty(whyText,why))
-    }
-  }
-
   private def questionOptionalWhy[T](wrappingNode:Node,questionLabelCode: String, answerOption: Option[T], whyText: Option[String],labelParameters: String*): NodeSeq = {
     if (answerOption.isDefined) {
       questionWhy(wrappingNode,questionLabelCode,answerOption.get,whyText,labelParameters:_* )
-    } else NodeSeq.Empty
-  }
-
-  def questionCurrency(wrappingNode:Node,questionLabelCode: String, amount:Option[String],labelParameters: String*): NodeSeq = {
-    if (amount.isDefined) {
-      question(wrappingNode,questionLabelCode,moneyStructure(amount.get),labelParameters:_*)
     }
     else NodeSeq.Empty
   }
@@ -133,40 +137,15 @@ object XMLHelper {
     if (answerText.isDefined) statement(wrappingNode,answerText.get)
     else NodeSeq.Empty
   }
-  
-  def statement[T](wrappingNode:Node,answer: T): NodeSeq = {
-    if (answer.isInstanceOf[Option[_]]) statementOptional(wrappingNode,answer.asInstanceOf[Option[_]])
-    else {
-      val answerNode:NodeSeq = nodify(answer)
-      if (answerNode.text.length > 0) addChild(wrappingNode,answerNode)
-      else NodeSeq.Empty
-    }
-  }
 
   private def fromToStructure(period: PeriodFromTo): NodeSeq = {
     <DateFrom>{period.from.`yyyy-MM-dd`}</DateFrom>
     <DateTo>{period.to.`yyyy-MM-dd`}</DateTo>
   }
 
-  @deprecated("Should use new question function", "25.11.2013")
-  def paymentFrequency(freq: Option[PaymentFrequency]): NodeSeq = freq match {
-    case Some(p) => paymentFrequency(p)
-    case _ => NodeSeq.Empty
-  }
-
   private def paymentFrequency(freq: PaymentFrequency): NodeSeq =
       questionOther(<PayFrequency/>,"paymentFrequency",freq.frequency,freq.other)
 
-
-  def optional[T](option: Option[T], elem: Elem)(implicit classTag: ClassTag[T]): Elem = option match {
-    case Some(o) => addChild(elem, nodify(option))
-    case _ => elem
-  }
-
-  def optional[T](option: Option[T], elem: Elem, default: String)(implicit classTag: ClassTag[T]): Elem = option match {
-    case Some(o) => addChild(elem, nodify(option))
-    case _ => addChild(elem, Text(default))
-  }
 
   def optionalEmpty[T](option: Option[T], elem: Elem)(implicit classTag: ClassTag[T]): NodeSeq = option match {
     case Some(o) => addChild(elem, nodify(option))
@@ -178,33 +157,9 @@ object XMLHelper {
     case _ => <error>failed adding children</error>
   }
 
-  implicit def attachToNode(elem: Elem) = new {
-    def +++[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem)
+  private def booleanToYesNo(value:Boolean) = if (value) Yes else No
 
-    def +-[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, NotAsked)
-
-    def +?[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, yes)
-
-    def +!?[T](option: Option[T])(implicit classTag: ClassTag[T]): Elem = optional(option, elem, no)
-
-    def ?+[T](option: Option[T])(implicit classTag: ClassTag[T]): NodeSeq = optionalEmpty(option, elem)
-  }
-
-  @deprecated("Should be replaced by call to formatValue", "25.11.2013")
-  def booleanStringToYesNo(booleanString: String) = booleanString match {
-    case "true" => Yes
-    case "false" => No
-    case null => ""
-    case _ => booleanString
-  }
-
-  def booleanToYesNo(value:Boolean) = if (value) Yes else No
-
-
-  @deprecated("Should use stringify or formatValue or nothing since question function already take care of formatting.", "25.11.2013")
-  def titleCase(s: String) = if(s != null && s.length() > 0) s.head.toUpper + s.tail.toLowerCase else ""
-
-  def formatValue(value:String):String = value match {
+  private def formatValue(value:String):String = value match {
        case "yes" => Yes
        case "no" => No
        case "other" => Other
@@ -214,5 +169,4 @@ object XMLHelper {
      }
 
   def extractIdFrom(xml:Elem):String = {(xml \\ "TransactionId").text}
-
 }

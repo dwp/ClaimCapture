@@ -1,22 +1,11 @@
 package xml
 
 import org.specs2.mutable.{Tags, Specification}
-import app.XMLValues._
 import play.api.test.WithApplication
 
 class XmlHelperSpec extends Specification with Tags {
 
   "XMLHelper" should {
-
-    "convert boolean string to yes/no" in {
-      "when true" in {
-        XMLHelper.booleanToYesNo(true) shouldEqual Yes
-      }
-
-      "when false" in {
-        XMLHelper.booleanToYesNo(false) shouldEqual No
-      }
-    }
 
     "construct a basic question" in {
       "when question has an answer of type text." in new WithApplication {
