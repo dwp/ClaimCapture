@@ -32,8 +32,7 @@ object EvidenceList {
 
     evidenceSection(alwaysPrint, "evidence.title1", evidenceInitialStatements)++
     evidenceSection(employed, "evidence.employed.statement1", evidenceEmployedStatements)++
-    evidenceSection(selfEmployed, "evidence.selfemployed.statement1", evidenceSelfEmployedStatements)++
-    evidenceSection(alwaysPrint, "evidence.statement2", evidenceAddressStatements)
+    evidenceSection(selfEmployed, "evidence.selfemployed.statement1", evidenceSelfEmployedStatements)
   }
 
   def  sectionEmpty(nodeSeq: NodeSeq) = {

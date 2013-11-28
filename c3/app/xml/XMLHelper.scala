@@ -58,7 +58,7 @@ object XMLHelper {
     case None => default
   }
 
-  private def stringify[T](value: T, default: String = ""): String = value match {
+  def stringify[T](value: T, default: String = ""): String = value match {
     case s: String => formatValue(s)
     case b: Boolean => booleanToYesNo(b)
     case dmy: DayMonthYear => dmy.`dd-MM-yyyy`
