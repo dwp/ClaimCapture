@@ -34,9 +34,8 @@ object Payment extends XMLComponent {
       <HolderName>{bankBuildingSocietyDetails.accountHolderName}</HolderName>
       <BuildingSocietyDetails>
         <AccountNumber>{bankBuildingSocietyDetails.accountNumber}</AccountNumber>
-        {if(bankBuildingSocietyDetails.rollOrReferenceNumber.isEmpty) NodeSeq.Empty
-        else <RollNumber>{bankBuildingSocietyDetails.rollOrReferenceNumber}</RollNumber>}
-        <SortCode>{stringify(Some(bankBuildingSocietyDetails.sortCode))}</SortCode>
+        {statement(<RollNumber/>,bankBuildingSocietyDetails.rollOrReferenceNumber)}
+        {statement(<SortCode/>,bankBuildingSocietyDetails.sortCode)}
         <Name>{bankBuildingSocietyDetails.bankFullName}</Name>
       </BuildingSocietyDetails>
     </Account>

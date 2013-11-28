@@ -1,15 +1,11 @@
 package xml.claim
 
-import app.XMLValues
 import app.XMLValues._
 import play.api.Logger
 import models.domain.MoreAboutYou
 import xml.XMLHelper._
-import scala.xml.NodeSeq
 import xml._
 import models.domain.Claim
-import scala.Some
-import play.api.i18n.Messages
 import scala.language.postfixOps
 
 object DWPCAClaim extends XMLComponent {
@@ -17,9 +13,7 @@ object DWPCAClaim extends XMLComponent {
   def xml(claim: Claim) = {
 
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(beenInEducationSinceClaimDate = no))
-
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment(beenEmployedSince6MonthsBeforeClaim = no, beenSelfEmployedSince1WeekBeforeClaim = no))
-
     val additionalInfo = claim.questionGroup[models.domain.AdditionalInfo].getOrElse(models.domain.AdditionalInfo())
 
     Logger.info(s"Build DWPCAClaim")

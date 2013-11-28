@@ -44,7 +44,7 @@ object XMLHelper {
     case nr: NationalInsuranceNumber => Text(nr.stringify)
     case pf: PaymentFrequency => paymentFrequency(pf)
     case pft: PeriodFromTo => fromToStructure(pft)
-    case sc: SortCode => Text(sc.sort1 + sc.sort2 + sc.sort2)
+    case sc: SortCode => Text(sc.sort1 + sc.sort2 + sc.sort3)
     case opt: Option[_] => nodifyOption(opt)
     case nd: NodeSeq => nd
     case _ => Text(stringify(value,default))
@@ -127,6 +127,20 @@ object XMLHelper {
       question(wrappingNode,questionLabelCode,moneyStructure(amount.get),labelParameters:_*)
     }
     else NodeSeq.Empty
+  }
+  
+  private def statementOptional[T](wrappingNode:Node,answerText: Option[T]): NodeSeq = {
+    if (answerText.isDefined) statement(wrappingNode,answerText.get)
+    else NodeSeq.Empty
+  }
+  
+  def statement[T](wrappingNode:Node,answer: T): NodeSeq = {
+    if (answer.isInstanceOf[Option[_]]) statementOptional(wrappingNode,answer.asInstanceOf[Option[_]])
+    else {
+      val answerNode:NodeSeq = nodify(answer)
+      if (answerNode.text.length > 0) addChild(wrappingNode,answerNode)
+      else NodeSeq.Empty
+    }
   }
 
   private def fromToStructure(period: PeriodFromTo): NodeSeq = {

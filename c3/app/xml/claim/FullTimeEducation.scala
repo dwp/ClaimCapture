@@ -27,14 +27,8 @@ object FullTimeEducation extends XMLComponent {
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <CourseDetails>
-      {courseDetails.courseType match {
-        case Some(n) => <Type>{courseDetails.courseType.orNull}</Type>
-        case None => NodeSeq.Empty
-      }}
-      {courseDetails.title match {
-        case Some(n) => <Title>{courseDetails.title.orNull}</Title>
-        case None => NodeSeq.Empty
-      }}
+      {statement(<Type/>,courseDetails.courseType)}
+      {statement(<Title/>,courseDetails.title)}
       {question(<DateStarted/>, "startDate", courseDetails.startDate)}
       {question(<DateStopped/>, "finishedDate", courseDetails.finishedDate)}
       {question(<ExpectedEndDate/>, "expectedEndDate", courseDetails.expectedEndDate)}
@@ -46,30 +40,15 @@ object FullTimeEducation extends XMLComponent {
     val courseDetails = claim.questionGroup[YourCourseDetails].getOrElse(YourCourseDetails())
 
     <LocationDetails>
-      {schoolData.nameOfSchoolCollegeOrUniversity match {
-        case Some(n) => <Name>{schoolData.nameOfSchoolCollegeOrUniversity.get}</Name>
-        case None => NodeSeq.Empty
-      }}
+      {statement(<Name/>,schoolData.nameOfSchoolCollegeOrUniversity)}
       {schoolData.address match {
         case Some(n) => postalAddressStructure(schoolData.address, schoolData.postcode)
         case None => NodeSeq.Empty
       }}
-      {schoolData.phoneNumber match {
-        case Some(n) => <PhoneNumber>{schoolData.phoneNumber.get}</PhoneNumber>
-        case None => NodeSeq.Empty
-      }}
-      { schoolData.faxNumber match {
-        case Some(n) => <FaxNumber>{schoolData.faxNumber.get}</FaxNumber>
-        case None => NodeSeq.Empty
-      }}
-      { courseDetails.studentReferenceNumber match {
-        case Some(n) => <StudentReferenceNumber>{courseDetails.studentReferenceNumber.get}</StudentReferenceNumber>
-        case None => NodeSeq.Empty
-      }}
-      {schoolData.nameOfMainTeacherOrTutor match {
-        case Some(n) => <Tutor>{schoolData.nameOfMainTeacherOrTutor.get}</Tutor>
-        case None => NodeSeq.Empty
-      }}
+      {statement(<PhoneNumber/>,schoolData.phoneNumber)}
+      {statement(<FaxNumber/>,schoolData.faxNumber)}
+      {statement(<StudentReferenceNumber/>,courseDetails.studentReferenceNumber)}
+      {statement(<Tutor/>,schoolData.nameOfMainTeacherOrTutor)}
     </LocationDetails>
   }
 }
