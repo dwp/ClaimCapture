@@ -33,36 +33,32 @@ object EvidenceList {
     val selfEmployed = employment.beenSelfEmployedSince1WeekBeforeClaim.toLowerCase == yes
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
 
-    val evidenceStatements = Seq("evidence.statement2", "evidence.statement3", "evidence.statement4", "evidence.statement5", "evidence.statement6", "evidence.statement7")
-    val evidenceEmployedStatements = Seq("evidence.employed.statement1", "evidence.employed.statement2", "evidence.employed.statement3", "evidence.employed.statement4")
-    val evidenceSelfEmployedStatements = Seq("evidence.selfemployed.statement1", "evidence.selfemployed.statement2", "evidence.selfemployed.statement3")
+    val evidenceStatements = Seq("evidence.statement3", "evidence.statement4", "evidence.statement5", "evidence.statement6", "evidence.statement7")
+    val evidenceEmployedStatements = Seq("evidence.employed.statement2", "evidence.employed.statement3", "evidence.employed.statement4")
+    val evidenceSelfEmployedStatements = Seq("evidence.selfemployed.statement2", "evidence.selfemployed.statement3")
 
 
-    {evidenceSection("evidence.title1", Seq("evidence.statement1"))}
-
-    if (employed && selfEmployed){
-      //{evidenceSection("evidence.title2", evidenceEmployedStatements ++ evidenceSelfEmployedStatements ++ evidenceStatements)}
-      {evidenceSection("evidence.title2", evidenceStatements)}
-    } else if (employed){
-      {evidenceSection("evidence.title2", evidenceEmployedStatements ++ evidenceStatements)}
-    } else if (selfEmployed) {
-      // TODO : Apply the claim date to the message translation
-      //, stringify(claimDate.dateOfClaim))
-      {evidenceSection("evidence.title2", evidenceSelfEmployedStatements ++ evidenceStatements)}
-    } else {
-      {evidenceSection("evidence.title2", evidenceStatements)}
-    }
+    evidenceSection(true, "evidence.title1", Seq("evidence.statement1"))++
+    evidenceSection(true, "evidence.title2", Seq(" "))++
+    evidenceSection(employed, "evidence.employed.statement1", evidenceEmployedStatements)++
+    evidenceSection(selfEmployed, "evidence.selfemployed.statement1", evidenceSelfEmployedStatements)++
+    evidenceSection(true, "evidence.statement2", evidenceStatements)
   }
 
   def  sectionEmpty(nodeSeq: NodeSeq) = {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
   }
 
-  def evidenceSection (titleText: String, contents: Seq[String]): NodeSeq = {
-    <Evidence>
-      {title(titleText)}
-      {contents map(c => content(c))}
-    </Evidence>
+  def evidenceSection (condition: Boolean, titleText: String, contents: Seq[String]): NodeSeq = {
+    condition match {
+      case true =>{
+        <Evidence>
+          {title(titleText)}
+          {contents map(c => content(c))}
+        </Evidence>
+      }
+      case _ => NodeSeq.Empty
+    }
   }
 
   private def title(text: String): NodeSeq = {
