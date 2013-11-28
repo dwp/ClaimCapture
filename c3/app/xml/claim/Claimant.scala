@@ -14,8 +14,8 @@ object Claimant extends XMLComponent {
       <OtherNames>{yourDetails.firstName} {yourDetails.middleName.getOrElse("")}</OtherNames>
       {statement(<OtherSurnames/>,yourDetails.otherSurnames)}
       <Title>{yourDetails.title}</Title>
-      <DateOfBirth>{yourDetails.dateOfBirth.`dd-MM-yyyy`}</DateOfBirth>
-      <NationalInsuranceNumber>{yourDetails.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
+      {statement(<DateOfBirth/>,yourDetails.dateOfBirth)}
+      {statement(<NationalInsuranceNumber/>,yourDetails.nationalInsuranceNumber)}
       {postalAddressStructure(contactDetails.address, contactDetails.postcode)}
       {statement(<DayTimePhoneNumber/>,contactDetails.phoneNumber)}
       {statement(<MobileNumber/>,contactDetails.mobileNumber)}

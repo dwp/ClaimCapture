@@ -24,7 +24,7 @@ object Caree extends XMLComponent {
       {statement(<DayTimePhoneNumber/>,theirContactDetails.phoneNumber)}
       {question(<RelationToClaimant/>,"whatRelationIsToYou", moreAboutThePerson.relationship)}
       {question(<Cared35Hours/>,"hours.answer", moreAboutTheCare.spent35HoursCaring)}
-      {question(<BreaksSinceClaim/>,"answer.label",breaksInCare.hasBreaks)}
+      {question(<BreaksSinceClaim/>,"answer.label",breaksInCare.hasBreaks,claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))}
       {careBreak(claim)}
       {question(<Cared35HoursBefore/>,"beforeClaimCaring.answer", moreAboutTheCare.spent35HoursCaringBeforeClaim.answer)}
       {question(<DateStartCaring/>,"beforeClaimCaring_date", moreAboutTheCare.spent35HoursCaringBeforeClaim.date)}
