@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import helper._
 @import models.domain.Education
@@ -7,7 +7,7 @@
 	
    	 <div class="carers-allowance">
    	 
-   	 	@common.helpLine()
+   	 	@common.helpLine(request)
 
         @progressBar(Education)
         <section>

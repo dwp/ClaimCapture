@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, currentForm: Option[Form[_]] = None, completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim,request: Request[AnyContent])
 
 @import models.domain._
 @import helper._
@@ -9,7 +9,7 @@
 
         @common.protoType()
         
-        @common.helpLine()
+        @common.helpLine(request)
 
         @progressBar(TimeSpentAbroad)
 

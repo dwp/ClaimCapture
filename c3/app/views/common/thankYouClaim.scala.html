@@ -1,4 +1,4 @@
-@(txnId:String)
+@(txnId:String)(implicit request:Request[AnyContent])
     @import play.api.i18n._
 
     @common.govMain(Messages("thankyou")) {
@@ -8,7 +8,7 @@
 
             @common.protoType()
 
-            @common.helpLine()
+            @common.helpLine(request)
 
             <section class="finish-statement">
                 <h1>@Messages("thankyou")</h1>

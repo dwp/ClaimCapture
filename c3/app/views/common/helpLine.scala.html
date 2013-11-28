@@ -1,4 +1,21 @@
+@(request:Request[AnyContent] = null)
+
+    @section() = @{
+        request match{
+            case null => ""
+            case u if u.path contains "pay-details" => "#6"
+            case u if u.path contains "child" => "#10"
+            case u if u.path contains "benefits" => "#8"
+            case u if u.path contains "allowance" => "#2"
+            case u if u.path contains "thankyou" => "#7"
+            case _ => ""
+        }
+    }
+
 <ul class="claim-info">
 	<li>Helpline : 0845 601 8040</li>
 	<li><a href="mailto:cau.e-service-feedback@@dwp.gsi.gov.uk?subject=Carers">Your Feedback</a></li>
+    <li>
+        <a href="/claim-notes@section()">?</a>
+    </li>
 </ul>
