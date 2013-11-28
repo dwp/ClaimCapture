@@ -5,6 +5,7 @@ import scala.xml.{XML, Elem}
 import java.text.SimpleDateFormat
 import java.util.Date
 import com.dwp.carers.s2.xml.signing.XmlSignatureFactory
+import controllers.submission.xmlValidator
 
 /**
  * Generates the full XML, including the digital signature.
@@ -15,7 +16,7 @@ import com.dwp.carers.s2.xml.signing.XmlSignatureFactory
   def xml(claim: Claim, transactionId : String): Elem = {
     signDwpClaim(<DWPBody xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.govtalk.gov.uk/dwp/carers-allowance"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.govtalk.gov.uk/dwp/carers-allowance file:./CarersAllowance_Schema.xsd">
+             xsi:schemaLocation={xmlValidator(claim).getSchemaLocation}>
     <Version>0.1</Version>
     <DWPCATransaction id={transactionId}>
       <TransactionId>{transactionId}</TransactionId>

@@ -1,7 +1,7 @@
 package xml
 
 import org.specs2.mutable.{Tags, Specification}
-import models.domain.Claim
+import models.domain.{FullClaim, Claim}
 import models.NationalInsuranceNumber
 import scala.Some
 import scala.xml.Elem
@@ -16,7 +16,7 @@ class DWPBodySpec extends Specification with Tags {
 
   "DWPBody" should {
     "Shoulg generate a full XML with signature" in {
-      val xml = new DWPBodyWithShortXMLClaim xml(null,"NB1212X")
+      val xml = new DWPBodyWithShortXMLClaim xml(new Claim with FullClaim {},"NB1212X")
       val date = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date())
       (xml \\ "DWPBody" \ "DWPCATransaction" \ "DateTimeGenerated").text mustEqual date
       (xml \\ "DWPBody" \ "DWPCATransaction" \ "@id").text mustEqual "NB1212X"
