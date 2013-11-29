@@ -46,8 +46,8 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
     "reject too many characters in text fields" in {
       G3DetailsOfThePersonYouCareFor.form.bind(
         Map(
-          "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
-          "middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
+          "firstName" -> "HARACTERS,CHARACTE",
+          "middleName" -> "HARACTERS,CHARACTER",
           "lastName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "nationalInsuranceNumber.ni1" -> ni1,
           "nationalInsuranceNumber.ni2" -> ni2.toString,
@@ -91,7 +91,7 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
 
     "have 6 mandatory fields" in {
       G3DetailsOfThePersonYouCareFor.form.bind(
-        Map("middleName" -> "middle name is optional")).fold(
+        Map("middleName" -> "middle optional")).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(5)
           formWithErrors.errors(0).message must equalTo("error.required")

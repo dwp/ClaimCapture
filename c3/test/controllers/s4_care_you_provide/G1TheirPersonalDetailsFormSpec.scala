@@ -34,8 +34,8 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
     "reject too long firstName, middleName or surname" in {
       G1TheirPersonalDetails.form.bind(
         Map("title" -> "Mr",
-          "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
-          "middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
+          "firstName" -> "HARACTERS,CHARACTE",
+          "middleName" -> "HARACTERS,CHARACTER",
           "surname" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "dateOfBirth.day" -> "1",
           "dateOfBirth.month" -> "1",
@@ -54,7 +54,7 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
 
     "have 5 mandatory fields" in {
       G1TheirPersonalDetails.form.bind(
-        Map("middleName" -> "middle name is optional")
+        Map("middleName" -> "middle optional")
       ).fold(
         formWithErrors => {
           formWithErrors.errors.length must equalTo(5)
