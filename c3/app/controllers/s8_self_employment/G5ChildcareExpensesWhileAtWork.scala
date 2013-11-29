@@ -56,6 +56,7 @@ object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with N
         val formWithErrorsUpdate = formWithErrors
           .replaceError("howMuchYouPay", "error.required", FormError("howMuchYouPay", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
+          .replaceError("howOftenPayChildCare.frequency","error.required", FormError("howOftenPayChildCare", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
         BadRequest(views.html.s8_self_employment.g5_childcareExpensesWhileAtWork(formWithErrorsUpdate))
       },
