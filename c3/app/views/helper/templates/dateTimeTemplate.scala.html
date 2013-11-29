@@ -18,9 +18,7 @@
         </li>
 
         <li>
-            <p>@elements.args.get('timeLabel).getOrElse(Messages(elements.field.name+".time"))</p>
-
-            @timePlaceholder(elements.field)
+            @timePlaceholder(elements.field,elements.args.toList:_*)
         </li>
     </ul>
 </li>
