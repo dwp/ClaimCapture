@@ -53,7 +53,7 @@ object Mappings {
   val address: Mapping[MultiLineAddress] = mapping(
     "lineOne" -> optional(carersText(maxLength = 35)),
     "lineTwo" -> optional(carersText(maxLength = 35)),
-    "lineThree" -> optional(carersText(maxLength = 35)))(MultiLineAddress.apply)(MultiLineAddress.unapply).verifying(requiredAddress)
+    "lineThree" -> optional(carersText(maxLength = 35)))(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> carersNonEmptyText(maxLength = 35),
