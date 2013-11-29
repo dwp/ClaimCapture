@@ -8,6 +8,7 @@ import app.XMLValues._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import models.DayMonthYear
+import play.api.i18n.Messages
 
 object EvidenceList {
 
@@ -182,6 +183,8 @@ object EvidenceList {
           textLines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare))
           if (childcareExpenses.howOftenPayChildCare.other.isDefined)
             textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childcareExpenses.howOftenPayChildCare.other.get)
+          if (childcareExpenses.relationToPartner.nonEmpty)
+            textLines ++= textLine(Messages("relationToPartner") + " = ",childcareExpenses.relationToPartner.get)
 
           if (personYouCareForExpenses.howMuchCostCare.nonEmpty)
             textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ", personYouCareForExpenses.howMuchCostCare)
