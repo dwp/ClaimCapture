@@ -2,7 +2,7 @@ package controllers.s7_employment
 
 import language.reflectiveCalls
 import play.api.mvc.Controller
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import models.view.{Navigable, CachedClaim}
 import models.domain.{Jobs, JobDetails}
@@ -22,7 +22,9 @@ object G2JobDetails extends Controller with CachedClaim with Navigable {
     "p45LeavingDate" -> optional(dayMonthYear.verifying(validDateOnly)),
     "hoursPerWeek" -> optional(text(maxLength = 2).verifying(validNumber)),
     "payrollEmployeeNumber" -> optional(carersText)
-  )(JobDetails.apply)(JobDetails.unapply))
+  )(JobDetails.apply)(JobDetails.unapply)
+    .verifying("lastWorkDate", JobDetails.validateLastWorkDate _)
+  )
 
   def job(jobID: String) = claiming { implicit claim => implicit request =>
     claim.questionGroup(Jobs) match {
@@ -39,7 +41,9 @@ object G2JobDetails extends Controller with CachedClaim with Navigable {
 
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s7_employment.g2_jobDetails(formWithErrors)),
-      jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present(jobID)))
+      formWithErrors =>{
+        val form = formWithErrors.replaceError("", "lastWorkDate", FormError("lastWorkDate", "error.required"))
+        BadRequest(views.html.s7_employment.g2_jobDetails(form))
+      },jobDetails => claim.update(jobs.update(jobDetails)) -> Redirect(routes.G3EmployerContactDetails.present(jobID)))
   }
 }
