@@ -12,7 +12,7 @@ class G2YourContactDetailsIntegrationSpec extends Specification with Tags {
   "Your contact details" should {
     val address = "101 Clifton Street&Blackpool"
     val postCode = "PR2 8AE"
-    val phoneNumber = "1234466"
+    val phoneNumber = "01772700806"
     val mobileNumber = "444444"
 
     "be presented" in new WithBrowser with G2YourContactDetailsPageContext {
@@ -22,7 +22,7 @@ class G2YourContactDetailsIntegrationSpec extends Specification with Tags {
 
     "present errors if mandatory fields are not populated" in new WithBrowser with G2YourContactDetailsPageContext {
       page goToThePage()
-      page.submitPage().listErrors.size mustEqual 1
+      page.submitPage().listErrors.size mustEqual 3
     }
 
 
