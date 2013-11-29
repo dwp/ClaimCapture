@@ -59,8 +59,8 @@ class G1YourDetailsFormSpec extends Specification with Tags {
     "reject too many characters in text fields" in {
       G1YourDetails.form.bind(
         Map("title" -> title,
-          "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
-          "middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
+          "firstName" -> "HARACTERS,CHARACTE",
+          "middleName" -> "HARACTERS,CHARACTER",
           "surname" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "otherNames" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "nationalInsuranceNumber.ni1" -> ni1,
