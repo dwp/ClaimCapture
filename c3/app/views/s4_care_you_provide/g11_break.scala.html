@@ -34,11 +34,11 @@
             <ul>
             
             	@whereabouts(breakForm("whereYou"),
-                             Seq("", AtHome, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
+                             Seq("", Home, Hospital, Holiday, RespiteCare, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
                              '_label -> Messages("whereYou.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)
                              
                 @whereabouts(breakForm("wherePerson"),
-                             Seq("", AtHome, Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
+                             Seq("", Home, Hospital, RespiteCare, CareHome, NursingHome, Other).map(v => if (v == "") "" -> "Please select" else v -> v),
                              '_label -> Messages("wherePerson.location"), 'textAreaHelper -> "60 characters left", 'maxLength -> 60)             
                              
             

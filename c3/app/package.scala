@@ -16,7 +16,7 @@ package object app {
   }
 
   object Whereabouts {
-    val AtHome = "At Home"
+    val Home = "Home"
     val Hospital = "Hospital"
     val Holiday = "Holiday"
     val RespiteCare = "Respite Care"
