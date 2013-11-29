@@ -13,10 +13,12 @@ import utils.helpers.PastPresentLabelHelper._
 import models.view.Navigable
 import play.api.mvc.Request
 import play.api.mvc.AnyContent
+import controllers.CarersForms._
+
 
 object G5ChildcareExpensesWhileAtWork extends Controller with CachedClaim with Navigable {
   def form(implicit claim: Claim) = Form(mapping(
-    "whoLooksAfterChildren" -> nonEmptyText(maxLength = sixty),
+    "whoLooksAfterChildren" -> carersNonEmptyText(maxLength = sixty),
     "howMuchYouPay" -> nonEmptyText(maxLength = 8).verifying(validDecimalNumber),
     "howOftenPayChildCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "whatRelationIsToYou" -> nonEmptyText(maxLength = sixty),
