@@ -124,6 +124,11 @@ case class JobDetails(jobID: String = "",
 
 object JobDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g2"
+
+  def validateLastWorkDate(input: JobDetails):Boolean = input.finishedThisJob match {
+    case `yes` => input.lastWorkDate.isDefined
+    case `no` => true
+  }
 }
 
 case class EmployerContactDetails(jobID: String = "",

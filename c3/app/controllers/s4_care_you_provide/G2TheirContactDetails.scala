@@ -10,7 +10,7 @@ import models.domain.{TheirPersonalDetails, ContactDetails, TheirContactDetails}
 
 object G2TheirContactDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
-    "address" -> address,
+    "address" -> address.verifying(requiredAddress),
     "postcode" -> optional(text verifying validPostcode),
     "phoneNumber" -> optional(text verifying validPhoneNumber)
   )(TheirContactDetails.apply)(TheirContactDetails.unapply))

@@ -82,7 +82,7 @@ class G12PersonYouCareForExpensesSpec extends Specification with Tags {
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
-        "finishedThisJob" -> "yes"))
+        "finishedThisJob" -> "no"))
 
       val result = G12PersonYouCareForExpenses.submit(FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
         "whoDoYouPay" -> "blah", "howMuchCostCare" -> "123.45", "howOftenPayCare.frequency" -> Weekly, "relationToYou" -> "fatherInLaw", "relationToPersonYouCare" -> "grandFather"))

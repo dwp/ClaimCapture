@@ -42,7 +42,7 @@ class G8AboutExpensesSpec extends Specification with Tags {
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
-        "finishedThisJob" -> "yes"))
+        "finishedThisJob" -> "no"))
 
       val result = G8AboutExpenses.submit(FakeRequest().withSession(CachedClaim.key -> claimKey).withFormUrlEncodedBody("jobID" -> jobID,
         "payForAnythingNecessary" -> "yes", "payAnyoneToLookAfterChildren" -> "yes", "payAnyoneToLookAfterPerson" -> "yes"))
