@@ -10,7 +10,7 @@ package object modules {
     def configure() {
       bind[FormSubmission].to[WebserviceFormSubmission]
       bind[Submitter].to[WebServiceSubmitter]
-      bind[TransactionIdService].to[StaticTransactionIdService]
+      bind[TransactionIdService].to[PostgresTransactionIdService]
     }
   }
 
