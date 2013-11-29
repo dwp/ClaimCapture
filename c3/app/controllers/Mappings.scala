@@ -65,7 +65,7 @@ object Mappings {
 
   val pensionPaymentFrequency: Mapping[PensionPaymentFrequency] = mapping(
     "frequency" -> carersNonEmptyText(maxLength = sixty),
-    "frequency.other" -> optional(carersText(maxLength = sixty)))(PensionPaymentFrequency.apply)(PensionPaymentFrequency.unapply)
+    "frequency.other" -> optional(carersNonEmptyText(maxLength = sixty)))(PensionPaymentFrequency.apply)(PensionPaymentFrequency.unapply)
 
   val sortCode: Mapping[SortCode] = mapping(
     "sort1" -> carersText(maxLength = two),
