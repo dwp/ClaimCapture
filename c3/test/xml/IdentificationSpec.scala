@@ -24,7 +24,7 @@ class IdentificationSpec extends Specification with Tags {
 
   val contactDetails = CircumstancesYourContactDetails(address = MultiLineAddress(Some("Line1")),
     postcode = Some("PR2 8AE"),
-    phoneNumber = Some("01772 700806"),
+    phoneNumber = "01772 700806",
     mobileNumber = Some("01818 118181"))
 
   "Identification" should {
@@ -39,7 +39,7 @@ class IdentificationSpec extends Specification with Tags {
       (xml \\ "NationalInsuranceNumber").text shouldEqual nationalInsuranceNr.stringify
       (xml \\ "Address" \\ "PostCode").text shouldEqual contactDetails.postcode.get
       (xml \\ "ConfirmAddress").text shouldEqual yes
-      (xml \\ "HomePhone").text shouldEqual contactDetails.phoneNumber.get
+      (xml \\ "HomePhone").text shouldEqual contactDetails.phoneNumber
       (xml \\ "DaytimePhone" \\ "Number").text shouldEqual contactDetails.mobileNumber.get
       (xml \\ "DaytimePhone" \\ "Qualifier").text shouldEqual "mobile"
     }

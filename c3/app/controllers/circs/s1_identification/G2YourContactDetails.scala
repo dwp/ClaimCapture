@@ -12,7 +12,7 @@ object G2YourContactDetails extends Controller with CachedChangeOfCircs with Nav
   val form = Form(mapping(
     "address" -> address,
     "postcode" -> optional(text verifying validPostcode),
-    "phoneNumber" -> optional(text verifying validPhoneNumber),
+    "phoneNumber" -> nonEmptyText.verifying(validPhoneNumber),
     "mobileNumber" -> optional(text verifying validPhoneNumber)
   )(CircumstancesYourContactDetails.apply)(CircumstancesYourContactDetails.unapply))
 
