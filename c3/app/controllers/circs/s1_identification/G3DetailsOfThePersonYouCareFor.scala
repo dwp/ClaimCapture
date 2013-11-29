@@ -19,7 +19,7 @@ object G3DetailsOfThePersonYouCareFor extends Controller with CachedChangeOfCirc
 
   val form = Form(mapping(
     firstName -> carersNonEmptyText(maxLength = 17),
-    middleName -> optional(carersText(maxLength = 18)),
+    middleName -> optional(carersText(maxLength = 17)),
     lastName -> carersNonEmptyText(maxLength = Name.maxLength),
     nationalInsuranceNumber -> nino.verifying(filledInNino, validNino),
     dateOfBirth -> dayMonthYear.verifying(validDate)

@@ -22,7 +22,7 @@ object G1AboutYou extends Controller with CachedChangeOfCircs with Navigable {
   val form = Form(mapping(
     title -> nonEmptyText(maxLength = 4),
     firstName -> carersNonEmptyText(maxLength = 17),
-    middleName -> optional(carersText(maxLength = 18)),
+    middleName -> optional(carersText(maxLength = 17)),
     lastName -> carersNonEmptyText(maxLength = Name.maxLength),
     nationalInsuranceNumber -> nino.verifying(filledInNino, validNino),
     dateOfBirth -> dayMonthYear.verifying(validDate)

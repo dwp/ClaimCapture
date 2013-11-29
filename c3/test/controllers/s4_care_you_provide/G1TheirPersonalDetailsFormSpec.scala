@@ -35,7 +35,7 @@ class G1TheirPersonalDetailsFormSpec extends Specification with Tags {
       G1TheirPersonalDetails.form.bind(
         Map("title" -> "Mr",
           "firstName" -> "HARACTERS,CHARACTE",
-          "middleName" -> "HARACTERS,CHARACTER",
+          "middleName" -> "HARACTERS,CHARACTE",
           "surname" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "dateOfBirth.day" -> "1",
           "dateOfBirth.month" -> "1",

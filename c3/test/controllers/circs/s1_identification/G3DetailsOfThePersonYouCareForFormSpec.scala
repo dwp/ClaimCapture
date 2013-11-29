@@ -47,7 +47,7 @@ class G3DetailsOfThePersonYouCareForFormSpec extends Specification with Tags {
       G3DetailsOfThePersonYouCareFor.form.bind(
         Map(
           "firstName" -> "HARACTERS,CHARACTE",
-          "middleName" -> "HARACTERS,CHARACTER",
+          "middleName" -> "HARACTERS,CHARACTE",
           "lastName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "nationalInsuranceNumber.ni1" -> ni1,
           "nationalInsuranceNumber.ni2" -> ni2.toString,
