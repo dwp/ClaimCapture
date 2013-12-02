@@ -1,7 +1,7 @@
 package controllers.s4_care_you_provide
 
 import play.api.mvc.Controller
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.i18n.Messages
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
@@ -36,7 +36,10 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
     }
 
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrors, breaksInCare)),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors.replaceError("answer", FormError("answer.label", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
+        BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrorsUpdate, breaksInCare))
+      },
       hasBreaks => claim.update(breaksInCare) -> next(hasBreaks))
   }
 
