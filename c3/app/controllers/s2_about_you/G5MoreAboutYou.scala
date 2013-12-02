@@ -1,7 +1,7 @@
 package controllers.s2_about_you
 
 import language.reflectiveCalls
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedClaim}
@@ -26,7 +26,10 @@ object G5MoreAboutYou extends Controller with CachedClaim with Navigable {
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g5_moreAboutYou(formWithErrors)),
+      formWithErrors => {
+        val formWithErrorsUpdate = formWithErrors.replaceError("hadPartnerSinceClaimDate", "error.required", FormError("hadPartnerSinceClaimDate", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
+        BadRequest(views.html.s2_about_you.g5_moreAboutYou(formWithErrorsUpdate))}
+      ,
       moreAboutYou => {
         val updatedClaim = claim.showHideSection(moreAboutYou.hadPartnerSinceClaimDate == yes, YourPartner)
                                 .showHideSection(moreAboutYou.beenInEducationSinceClaimDate == yes, Education)
