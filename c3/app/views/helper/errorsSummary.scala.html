@@ -9,10 +9,12 @@
 
         <ol>
             @for(error <- form.errors) {
-                @defining(error.args.isEmpty match { case true => "" case false => error.args.head}) { value =>
-                        <li><a href="#@CarersCrypto.encryptAES(error.key.replace(".","_"))">@Messages(error.key, value) - @Messages(error.message, error.args: _*)</a></li>
-                    }
-                }
+                <li>
+                    <a href="#@CarersCrypto.encryptAES(error.key.replace(".","_"))">
+                        @Messages(error.key, error.args: _*) - @Messages(error.message, error.args: _*)
+                    </a>
+                </li>
+            }
         </ol>
     </div>
 }
