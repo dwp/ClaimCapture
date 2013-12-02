@@ -1,7 +1,7 @@
 @(currentForm: Form[models.domain.Declaration])(implicit claim: models.domain.Claim)
 
 @import helper._
-@import utils.helpers.EmptyTemplate._
+@import utils.helpers.DeclareCheckTemplate._
 @import views.html.helper._
 @import views.html.helper.base._
 @import views.html.helper.dropdowns._
@@ -23,13 +23,9 @@
                 </ul>
             </article>
 
-            <div class="group declare">
-                @carersDeclareCheck(currentForm("someoneElse"))
-            </div>
+             @carersDeclareCheck(currentForm("someoneElse"))
 
-            <div class="group declare secondary">
-                @carersDeclareCheck(currentForm("confirm"))
-            </div>
+             @carersDeclareCheck(currentForm("confirm"),'secondary->true)
         </fieldset>
 
         <nav class="form-steps">
