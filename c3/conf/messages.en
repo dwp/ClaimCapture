@@ -371,7 +371,7 @@ employment_howOftenPayChildCare = How often {0} pay childcare expenses?
 
 # Person you care for EXPENSES
 howMuchCostCare = How much {0} pay them?
-howOftenPayCare = How often {0} pay them?
+howOftenPayCare = How often {1} pay them?
 whoDoYouPay = Name of the person/organisation you {0} pay
 
 
@@ -503,10 +503,10 @@ doYouPayToLookAfterYourChildren = While at work, {0} pay anyone to care for your
 didYouPayToLookAfterThePersonYouCaredFor = While at work, {0} pay anyone to care for the person you care for?
 
 #SELF EMPLOYED - Childcare expenses
-howOftenPayChildCare = How often {0} pay childcare expenses?
+howOftenPayChildCare = How often {1} pay childcare expenses?
 
 #SELF EMPLOYED - Expenses While At Work
-howOftenPayExpenses = How often {0} pay expenses related to the person you care for?
+howOftenPayExpenses = How often {1} pay expenses related to the person you care for?
 
 #CIRCUMSTANCES
 c1.g1 = Your details

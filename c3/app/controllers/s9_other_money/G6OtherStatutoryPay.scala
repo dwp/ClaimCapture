@@ -37,7 +37,9 @@ object G6OtherStatutoryPay extends Controller with CachedClaim with Navigable {
   def submit = claiming {implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
-        val formWithErrorsUpdate = formWithErrors.replaceError("", "employersName.required", FormError("employersName", "error.required"))
+        val formWithErrorsUpdate = formWithErrors
+          .replaceError("", "employersName.required", FormError("employersName", "error.required"))
+          .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
         BadRequest(views.html.s9_other_money.g6_otherStatutoryPay(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G7OtherEEAStateOrSwitzerland.present()))
