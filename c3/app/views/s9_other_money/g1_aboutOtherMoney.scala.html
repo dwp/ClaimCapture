@@ -17,10 +17,10 @@
             <legend>@Messages("s9.g1")</legend>
 
             <ul>
-	            @yesNoRadioGroup(currentForm("yourBenefits.answer"), '_label -> Messages("yourBenefits.answer.label", if(hadPartnerSinceClaimDate) "or your Partner/Spouse" else "", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))
+	            @yesNoRadioGroup(currentForm("yourBenefits")("answer"), '_label -> Messages("yourBenefits.answer", if(hadPartnerSinceClaimDate) "or your Partner/Spouse" else "", claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)))
 	            
 	            @yesNoRadioGroup(currentForm("anyPaymentsSinceClaimDate.answer"), 
-	              '_label -> Messages("anyPaymentsSinceClaimDate.answer.label", 
+	              '_label -> Messages("anyPaymentsSinceClaimDate.answer",
 	              claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`)),
 	              'helperBelow -> Messages("anyPaymentsSinceClaimDate.helper")
 	            )
