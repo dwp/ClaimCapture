@@ -38,7 +38,7 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
           .replaceError("whoDoYouPay", "error.required", FormError("whoDoYouPay", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , jobID))))
           .replaceError("howMuchCostCare", "error.required", FormError("howMuchCostCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
           .replaceError("howMuchCostCare", "decimal.invalid", FormError("howMuchCostCare", "decimal.invalid", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
-          .replaceError("howOftenPayCare", "error.required", FormError("howOftenPayCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
+          .replaceError("howOftenPayCare.frequency", "error.required", FormError("howOftenPayCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
 
           BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrorsUpdate))
       },
