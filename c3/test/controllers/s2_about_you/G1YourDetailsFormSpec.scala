@@ -59,8 +59,8 @@ class G1YourDetailsFormSpec extends Specification with Tags {
     "reject too many characters in text fields" in {
       G1YourDetails.form.bind(
         Map("title" -> title,
-          "firstName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
-          "middleName" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
+          "firstName" -> "HARACTERS,CHARACTE",
+          "middleName" -> "HARACTERS,CHARACTE",
           "surname" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "otherNames" -> "CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS,CHARACTERS",
           "nationalInsuranceNumber.ni1" -> ni1,
@@ -116,7 +116,7 @@ class G1YourDetailsFormSpec extends Specification with Tags {
 
     "have 5 mandatory fields" in {
       G1YourDetails.form.bind(
-        Map("middleName" -> "middle name is optional")).fold(
+        Map("middleName" -> "middle optional")).fold(
           formWithErrors => {
             formWithErrors.errors.length must equalTo(9)
             formWithErrors.errors(0).message must equalTo("error.required")

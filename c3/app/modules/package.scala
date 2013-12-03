@@ -1,5 +1,3 @@
-import services.submission.StaticTransactionIdService
-
 package object modules {
   import com.tzavellas.sse.guice.ScalaModule
   import controllers.submission.{WebServiceSubmitter, XmlSubmitter, Submitter}
