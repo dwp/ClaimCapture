@@ -2,7 +2,7 @@
 
 @import utils.helpers.CarersCrypto
 
-<div class="group declare @if(elements.hasErrors) { validation } @if(elements.args.contains('secondary)) {secondary}">
+<div class="group declare @if(elements.hasErrors) { validation-check } @if(elements.args.contains('secondary)) {secondary}">
 @if(elements.hasErrors) {
     <p class="error">@elements.errors.mkString(", ")</p>
 }
