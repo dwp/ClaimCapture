@@ -6,10 +6,11 @@ import play.api.i18n.Messages
 import play.api.data.Forms._
 import utils.helpers.CarersForm._
 import controllers.Mappings._
-import models.domain.BreaksInCare
+import models.domain.{MoreAboutTheCare, BreaksInCare}
 import models.view.{Navigable, CachedClaim}
 import models.yesNo.YesNo
 import CareYouProvide.breaksInCare
+import scala.language.postfixOps
 
 object G10BreaksInCare extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -37,7 +38,12 @@ object G10BreaksInCare extends Controller with CachedClaim with Navigable {
 
     form.bindEncrypted.fold(
       formWithErrors => {
-        val formWithErrorsUpdate = formWithErrors.replaceError("answer", FormError("answer.label", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
+        val sixMonth = claim.questionGroup(MoreAboutTheCare) match {
+          case Some(m: MoreAboutTheCare) => m.spent35HoursCaringBeforeClaim.answer.toLowerCase == "yes"
+          case _ => false
+        }
+        val formWithErrorsUpdate = formWithErrors.replaceError("answer", FormError("answer.label", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+          if (sixMonth) (dmy - 6 months).`dd/MM/yyyy` else dmy.`dd/MM/yyyy`))))
         BadRequest(views.html.s4_care_you_provide.g10_breaksInCare(formWithErrorsUpdate, breaksInCare))
       },
       hasBreaks => claim.update(breaksInCare) -> next(hasBreaks))
