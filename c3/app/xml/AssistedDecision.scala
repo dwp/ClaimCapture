@@ -1,0 +1,101 @@
+package xml
+
+import app.StatutoryPaymentFrequency
+import models.domain._
+import models.domain.Claim
+import scala.Some
+import scala.xml.NodeSeq
+import org.joda.time.DateTime
+import models.{DayMonthYearComparator, DayMonthYear}
+
+/**
+ * Generate the XML presenting the Assisted decisions.
+ * @author Jorge Migueis
+ */
+object AssistedDecision {
+
+  def xml(claim: Claim) = {
+    var assisted = caringHours(claim)
+    assisted ++= employmentGrossPay(claim)
+    assisted ++= rightAge(claim)
+    assisted ++= getAFIP(claim)
+    if (assisted.length > 0) textSeparatorLine("Assisted Decision") ++ assisted
+    else NodeSeq.Empty
+  }
+
+  // ============ Decision functions ====================
+
+  private def caringHours(claim:Claim):NodeSeq = {
+    val hours = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
+    if (hours.spent35HoursCaring.toLowerCase != "yes") textLine("Do not spend 35 hours or more each week caring. NIL decision, but need to check advisory additional notes.")
+    else NodeSeq.Empty
+  }
+
+
+  private def employmentGrossPay(claim:Claim):NodeSeq = {
+    // Weekly earning requirements
+    //    Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)? = Yes
+    //      AND
+    //      What was the  gross pay for this period? is > £100 for a week, £200.01 for 2 weeks, £400.03 for 4 weeks, £433.37 for a month
+    //      AND
+    //      No is answered to all Pensions and Expenses
+    var weeklyEarning: Double = 0.0d
+    claim.questionGroup[Jobs] match {
+      case Some(jobs) => for (job <- jobs) {
+        if (weeklyEarning > -1 && !job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined && !job.questionGroup[PensionSchemes].isDefined) {
+          val earning = job.questionGroup[LastWage].getOrElse(LastWage()).grossPay.toDouble
+          val frequencyFactor: Double = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid match {
+            case Some(p) => p.frequency match {
+              case StatutoryPaymentFrequency.Weekly => 1.0
+              case StatutoryPaymentFrequency.Fortnightly => 2.0001
+              case StatutoryPaymentFrequency.FourWeekly => 4.0003
+              case StatutoryPaymentFrequency.Monthly => 4.3337
+              case _ => 0d
+            }
+            case None => 0d
+          }
+          if (frequencyFactor == 0) {
+            if (weeklyEarning <= 100.00) weeklyEarning = -1  // We do no know frequency so we cannot compute earning and assist the decision. If we had already > 100 then do not change decision.
+          }
+          else weeklyEarning += earning / frequencyFactor
+        }
+        else weeklyEarning = -1  // A pension or expense is link to a job so cannot trigger nil decision
+      }
+      case None => 0.0f
+    }
+    if (weeklyEarning > 100.0d) textLine(s"Total weekly gross pay ${"%.2f".format((weeklyEarning*100).ceil/100d)} > £100. NIL decision, but need to check advisory additional notes.")
+    else NodeSeq.Empty
+  }
+
+
+  private def rightAge(claim: Claim): NodeSeq = {
+    val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
+    val sixteenYearsAgo = DateTime.now().minusYears(16)
+    if (yourDetails.dateOfBirth.year.isDefined) {
+      val dob = new DateTime(yourDetails.dateOfBirth.year.get, yourDetails.dateOfBirth.month.get, yourDetails.dateOfBirth.day.get, 0, 0)
+      if (dob.isAfter(sixteenYearsAgo)) textLine(s"Customer Date of Birth ${yourDetails.dateOfBirth.`dd/MM/yyyy`} is < 16 years old. NIL decision, but need to check advisory additional notes.")
+      else NodeSeq.Empty
+    } else NodeSeq.Empty
+  }
+
+  private def getAFIP(claim:Claim):NodeSeq = {
+    val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
+    if (moreAboutThePerson.armedForcesPayment.toLowerCase == "yes") textLine("Person receives Armed Forces Independence Payment. Transfer to Armed Forces Independent Payments team.")
+    else NodeSeq.Empty
+  }
+  // =========== Formatting Functions ===================
+
+  private def textSeparatorLine(title: String):NodeSeq = {
+    val lineWidth = 54
+    val padding = "=" * ((lineWidth - title.length) / 2)
+
+    <TextLine>
+      {s"$padding$title$padding"}
+    </TextLine>
+  }
+
+  private def textLine(text: String) = <TextLine>
+    {text}
+  </TextLine>
+
+}
