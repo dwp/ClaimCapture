@@ -20,6 +20,7 @@ object AssistedDecision {
     assisted ++= getAFIP(claim)
     assisted ++= noEEABenefits(claim)
     assisted ++= noEEAWork(claim)
+    assisted ++= dateOfClaim(claim)
     if (assisted.length > 0) textSeparatorLine("Assisted Decision") ++ assisted
     else NodeSeq.Empty
   }
@@ -100,6 +101,9 @@ object AssistedDecision {
     else NodeSeq.Empty
   }
 
+  private def dateOfClaim(claim:Claim) : NodeSeq = {
+    NodeSeq.Empty
+  }
   // =========== Formatting Functions ===================
 
   private def textSeparatorLine(title: String): NodeSeq = {

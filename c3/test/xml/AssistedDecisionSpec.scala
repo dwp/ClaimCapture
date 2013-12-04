@@ -3,7 +3,7 @@ package xml
 import models.domain._
 import org.specs2.mutable.{Tags, Specification}
 import app.StatutoryPaymentFrequency
-import models.{DayMonthYear, PaymentFrequency}
+import models.DayMonthYear
 import org.joda.time.DateTime
 import models.PaymentFrequency
 import models.domain.Claim
@@ -221,6 +221,24 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team or potential disallowance."
+    }
+
+    "Create an assisted decision section if date of claim > 3 months and 1 day" in {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
+      val now = DateTime.now()
+      val details = ClaimDate(DayMonthYear(now.minusMonths(3).minusDays(2)))
+      val claim = Claim().update(moreAboutTheCare).update(details)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must contain("Date of Claim too far in the future. NIL decision.")
+    }
+
+    "Not create an assisted decision section if date of claim <= 3 month and 1 day" in {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
+      val now = DateTime.now()
+      val details = ClaimDate(DayMonthYear(now.minusMonths(3)))
+      val claim = Claim().update(moreAboutTheCare).update(details)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must not contain "Date of Claim too far in the future. NIL decision."
     }
 
   } section "unit"
