@@ -15,12 +15,15 @@ object AssistedDecision {
 
   def xml(claim: Claim) = {
     var assisted = caringHours(claim)
-    assisted ++= employmentGrossPay(claim)
-    assisted ++= rightAge(claim)
-    assisted ++= getAFIP(claim)
-    assisted ++= noEEABenefits(claim)
-    assisted ++= noEEAWork(claim)
+    if (assisted.length == 0 ) {
+      assisted ++= employmentGrossPay(claim)
+      assisted ++= getAFIP(claim)
+      assisted ++= noEEABenefits(claim)
+      assisted ++= noEEAWork(claim)
+      assisted ++= inGBNow(claim)
+    }
     assisted ++= dateOfClaim(claim)
+    assisted ++= rightAge(claim)
     if (assisted.length > 0) textSeparatorLine("Assisted Decision") ++ assisted
     else NodeSeq.Empty
   }
@@ -106,6 +109,12 @@ object AssistedDecision {
     else NodeSeq.Empty
   }
 
+  private def inGBNow(claim:Claim) : NodeSeq = {
+    val isInGBNow = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
+    if (isInGBNow.inGBNow.toLowerCase != "yes") textLine("Person does not reside in GB now. Transfer to Exportability team or potential disallowance.")
+    else NodeSeq.Empty
+  }
+
   // =========== Formatting Functions ===================
 
   private def textSeparatorLine(title: String): NodeSeq = {
@@ -115,10 +124,9 @@ object AssistedDecision {
     <TextLine>
       {s"$padding$title$padding"}
     </TextLine>
+
   }
 
-  private def textLine(text: String) = <TextLine>
-    {text}
-  </TextLine>
+  private def textLine(text: String) = <TextLine>{text}</TextLine>
 
 }
