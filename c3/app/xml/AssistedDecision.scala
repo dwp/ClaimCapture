@@ -33,7 +33,6 @@ object AssistedDecision {
     else NodeSeq.Empty
   }
 
-
   private def employmentGrossPay(claim: Claim): NodeSeq = {
     // Weekly earning requirements
     //    Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)? = Yes
@@ -71,7 +70,6 @@ object AssistedDecision {
     else NodeSeq.Empty
   }
 
-
   private def rightAge(claim: Claim): NodeSeq = {
     val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
     val sixteenYearsAgo = DateTime.now().minusYears(16)
@@ -88,7 +86,6 @@ object AssistedDecision {
     else NodeSeq.Empty
   }
 
-
   private def noEEABenefits(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
     if (otherEEAStateOrSwitzerland.benefitsFromOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team or potential disallowance.")
@@ -102,8 +99,13 @@ object AssistedDecision {
   }
 
   private def dateOfClaim(claim:Claim) : NodeSeq = {
-    NodeSeq.Empty
+    val claimDateAnswer = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
+    val monthsFuture = DateTime.now().plusMonths(3).plusDays(1)
+    val claimDate = new DateTime(claimDateAnswer.dateOfClaim.year.get, claimDateAnswer.dateOfClaim.month.get,claimDateAnswer.dateOfClaim.day.get,0,0)
+    if (claimDate.isAfter(monthsFuture)) textLine("Date of Claim too far in the future. NIL decision.")
+    else NodeSeq.Empty
   }
+
   // =========== Formatting Functions ===================
 
   private def textSeparatorLine(title: String): NodeSeq = {

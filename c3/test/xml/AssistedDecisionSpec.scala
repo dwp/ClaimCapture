@@ -226,7 +226,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Create an assisted decision section if date of claim > 3 months and 1 day" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val now = DateTime.now()
-      val details = ClaimDate(DayMonthYear(now.minusMonths(3).minusDays(2)))
+      val details = ClaimDate(DayMonthYear(now.plusMonths(3).plusDays(2)))
       val claim = Claim().update(moreAboutTheCare).update(details)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Date of Claim too far in the future. NIL decision.")
@@ -235,7 +235,7 @@ class AssistedDecisionSpec extends Specification with Tags {
     "Not create an assisted decision section if date of claim <= 3 month and 1 day" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
       val now = DateTime.now()
-      val details = ClaimDate(DayMonthYear(now.minusMonths(3)))
+      val details = ClaimDate(DayMonthYear(now.plusMonths(3)))
       val claim = Claim().update(moreAboutTheCare).update(details)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must not contain "Date of Claim too far in the future. NIL decision."
