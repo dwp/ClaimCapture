@@ -268,9 +268,12 @@ object EvidenceList {
             }
             case None => 0d
           }
-          if (frequencyFactor == 0) weeklyEarning = -1
+          if (frequencyFactor == 0) {
+           if (weeklyEarning <= 100.00) weeklyEarning = -1  // We do no know frequency so we cannot compute earning and assist the decision. If we had already > 100 then do not change decision.
+          }
           else weeklyEarning += earning / frequencyFactor
         }
+        else weeklyEarning = -1  // A pension or expense is link to a job so cannot trigger nil decision
       }
       case None => 0.0f
     }
