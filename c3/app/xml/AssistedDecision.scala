@@ -2,11 +2,10 @@ package xml
 
 import app.StatutoryPaymentFrequency
 import models.domain._
-import models.domain.Claim
-import scala.Some
 import scala.xml.NodeSeq
 import org.joda.time.DateTime
-import models.{DayMonthYearComparator, DayMonthYear}
+import models.domain.Claim
+import scala.Some
 
 /**
  * Generate the XML presenting the Assisted decisions.
@@ -19,6 +18,8 @@ object AssistedDecision {
     assisted ++= employmentGrossPay(claim)
     assisted ++= rightAge(claim)
     assisted ++= getAFIP(claim)
+    assisted ++= noEEABenefits(claim)
+    assisted ++= noEEAWork(claim)
     if (assisted.length > 0) textSeparatorLine("Assisted Decision") ++ assisted
     else NodeSeq.Empty
   }
@@ -83,6 +84,20 @@ object AssistedDecision {
     if (moreAboutThePerson.armedForcesPayment.toLowerCase == "yes") textLine("Person receives Armed Forces Independence Payment. Transfer to Armed Forces Independent Payments team.")
     else NodeSeq.Empty
   }
+
+
+  private def noEEABenefits(claim:Claim):NodeSeq = {
+    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
+    if (otherEEAStateOrSwitzerland.benefitsFromOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team or potential disallowance.")
+    else NodeSeq.Empty
+  }
+
+  private def noEEAWork(claim:Claim):NodeSeq = {
+    val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
+    if (otherEEAStateOrSwitzerland.workingForOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team or potential disallowance.")
+    else NodeSeq.Empty
+  }
+
   // =========== Formatting Functions ===================
 
   private def textSeparatorLine(title: String):NodeSeq = {

@@ -2,10 +2,12 @@ package xml
 
 import models.domain._
 import org.specs2.mutable.{Tags, Specification}
-import models.domain.Claim
 import app.StatutoryPaymentFrequency
 import models.{DayMonthYear, PaymentFrequency}
 import org.joda.time.DateTime
+import models.PaymentFrequency
+import models.domain.Claim
+import scala.Some
 
 
 class AssistedDecisionSpec extends Specification with Tags {
@@ -161,6 +163,37 @@ class AssistedDecisionSpec extends Specification with Tags {
       (xml \\ "TextLine").text must not contain "Person receives Armed Forces Independence Payment. Transfer to Armed Forces Independent Payments team."
     }
 
+    "Create an assisted decision section if EEA pension" in {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland="yes")
+      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must contain("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team or potential disallowance.")
+    }
+
+    "Not create an assisted decision section if no EEA pension" in {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland="no")
+      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team or potential disallowance."
+    }
+
+    "Create an assisted decision section if EEA insurance or working" in {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForOtherEEAStateOrSwitzerland="yes")
+      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must contain("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team or potential disallowance.")
+    }
+
+    "Not create an assisted decision section if no EEA insurance or working" in {
+      val moreAboutTheCare = MoreAboutTheCare("yes")
+      val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForOtherEEAStateOrSwitzerland="no")
+      val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
+      val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team or potential disallowance."
+    }
 
   } section "unit"
 
