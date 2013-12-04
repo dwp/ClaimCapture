@@ -1,7 +1,7 @@
 package xml
 
 import models.domain._
-import XMLHelper.{stringify, booleanStringToYesNo, formatValue}
+import XMLHelper.formatValue
 import scala.xml.{NodeSeq, NodeBuffer, Elem}
 import app.{PensionPaymentFrequency, StatutoryPaymentFrequency}
 import app.XMLValues._
@@ -9,13 +9,12 @@ import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import models.DayMonthYear
 import play.api.i18n.Messages
-import play.api.Logger
 
 object EvidenceList {
 
   def xml(claim: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}{assistedDecision(claim)}
+      {xmlGenerated()}{evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}{AssistedDecision.xml(claim)}
     </EvidenceList>
   }
 
@@ -243,46 +242,6 @@ object EvidenceList {
         "receiving  any pensions or benefits from another EEA State or Switzerland? = ", otherEEAState.benefitsFromOtherEEAStateOrSwitzerland) ++
       textLine("Are you, your wife, husband, civil partner or parent you are dependent on " +
         "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
-  }
-
-  def assistedDecision(claim: Claim) = {
-    val hours = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-    // Weekly earning requirements
-    //    Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)? = Yes
-    //      AND
-    //      What was the  gross pay for this period? is > £100 for a week, £200.01 for 2 weeks, £400.03 for 4 weeks, £433.37 for a month
-    //      AND
-    //      No is answered to all Pensions and Expenses
-    var weeklyEarning: Double = 0.0d
-    claim.questionGroup[Jobs] match {
-      case Some(jobs) => for (job <- jobs) {
-        if (weeklyEarning > -1 && !job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined && !job.questionGroup[PensionSchemes].isDefined) {
-          val earning = job.questionGroup[LastWage].getOrElse(LastWage()).grossPay.toDouble
-          val frequencyFactor: Double = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid match {
-            case Some(p) => p.frequency match {
-              case StatutoryPaymentFrequency.Weekly => 1.0
-              case StatutoryPaymentFrequency.Fortnightly => 2.0001
-              case StatutoryPaymentFrequency.FourWeekly => 4.0003
-              case StatutoryPaymentFrequency.Monthly => 4.3337
-              case _ => 0d
-            }
-            case None => 0d
-          }
-          if (frequencyFactor == 0) {
-           if (weeklyEarning <= 100.00) weeklyEarning = -1  // We do no know frequency so we cannot compute earning and assist the decision. If we had already > 100 then do not change decision.
-          }
-          else weeklyEarning += earning / frequencyFactor
-        }
-        else weeklyEarning = -1  // A pension or expense is link to a job so cannot trigger nil decision
-      }
-      case None => 0.0f
-    }
-    var assisted = NodeSeq.Empty
-
-    assisted ++= textSeparatorLine("Assisted Decision")
-    if (hours.spent35HoursCaring.toLowerCase != "yes") assisted ++= textLine("Do not spend 35 hours or more each week caring. NIL decision, but need to check advisory additional notes.")
-    if (weeklyEarning > 100.0d) assisted ++= textLine(s"Total weekly gross pay ${"%.2f".format((weeklyEarning*100).ceil/100d)} > £100. NIL decision, but need to check advisory additional notes.")
-    assisted
   }
 
   private def textSeparatorLine(title: String) = {
