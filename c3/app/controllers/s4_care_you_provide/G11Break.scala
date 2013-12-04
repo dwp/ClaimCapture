@@ -32,6 +32,9 @@ object G11Break extends Controller with CachedClaim {
         .replaceError("whereYou.location", "error.required", FormError("whereYou","error.required",Seq("This is required")))
         .replaceError("wherePerson.location", "error.required", FormError("wherePerson","error.required",Seq("This is required")))
         .replaceError("start.date","error.required", FormError("start","error.required", Seq("This is required")))
+        .replaceError("whereYou.location.other","error.maxLength",FormError("whereYou","error.maxLength"))
+        .replaceError("wherePerson.location.other","error.maxLength",FormError("wherePerson","error.maxLength"))
+
         BadRequest(views.html.s4_care_you_provide.g11_break(fwe))
       },
       break => {

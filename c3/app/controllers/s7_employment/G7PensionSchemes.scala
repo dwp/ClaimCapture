@@ -23,9 +23,9 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
     "howOftenPersonal" -> optional(pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly)
   )(PensionSchemes.apply)(PensionSchemes.unapply)
     .verifying("howMuchPension", PensionSchemes.validateHowMuchPension _)
-    .verifying("howOftenPension", PensionSchemes.validateHowOftenPension _)
+    .verifying("howOftenPension.required", PensionSchemes.validateHowOftenPension _)
     .verifying("howMuchPersonal", PensionSchemes.validateHowMuchPersonal _)
-    .verifying("howOftenPersonal", PensionSchemes.validateHowOftenPersonal _)
+    .verifying("howOftenPersonal.required", PensionSchemes.validateHowOftenPersonal _)
   )
 
   def present(jobID: String) = claiming { implicit claim => implicit request =>
@@ -43,8 +43,10 @@ object G7PensionSchemes extends Controller with CachedClaim with Navigable {
           .replaceError("payPersonalPensionScheme", "error.required", FormError("payPersonalPensionScheme", "error.required", Seq(pastPresent)))
           .replaceError("", "howMuchPension", FormError("howMuchPension", "error.required", Seq(pastPresent.toLowerCase)))
           .replaceError("", "howMuchPersonal", FormError("howMuchPersonal", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("", "howOftenPension", FormError("howOftenPension", "error.required", Seq(pastPresent.toLowerCase)))
-          .replaceError("", "howOftenPersonal", FormError("howOftenPersonal", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("", "howOftenPension.required", FormError("howOftenPension", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("", "howOftenPersonal.required", FormError("howOftenPersonal", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("howOftenPension.frequency.other","error.maxLength",FormError("howOftenPension","error.maxLength"))
+          .replaceError("howOftenPersonal.frequency.other","error.maxLength",FormError("howOftenPersonal","error.maxLength"))
         BadRequest(views.html.s7_employment.g7_pensionSchemes(formWithErrorsUpdate))
       },
       schemes => claim.update(jobs.update(schemes)) -> Redirect(routes.G8AboutExpenses.present(jobID)))

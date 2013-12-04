@@ -29,7 +29,7 @@ class G2SelfEmploymentYourAccountsFormSpec extends Specification with Tags {
         Map("areAccountsPreparedOnCashFlowBasis" -> "yes",
           "areIncomeOutgoingsProfitSimilarToTrading" -> "no")
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("tellUsWhyAndWhenTheChangeHappened"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("required"),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }

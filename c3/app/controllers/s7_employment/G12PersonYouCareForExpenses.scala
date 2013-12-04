@@ -34,11 +34,14 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
+        val pastPresentLabel = pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, jobID)
         val formWithErrorsUpdate = formWithErrors
           .replaceError("whoDoYouPay", "error.required", FormError("whoDoYouPay", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , jobID))))
-          .replaceError("howMuchCostCare", "error.required", FormError("howMuchCostCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
-          .replaceError("howMuchCostCare", "decimal.invalid", FormError("howMuchCostCare", "decimal.invalid", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
-          .replaceError("howOftenPayCare", "error.required", FormError("howOftenPayCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
+          .replaceError("howMuchCostCare", "error.required", FormError("howMuchCostCare", "error.required", Seq(pastPresentLabel)))
+          .replaceError("howMuchCostCare", "decimal.invalid", FormError("howMuchCostCare", "decimal.invalid", Seq(pastPresentLabel)))
+          .replaceError("howOftenPayCare.frequency", "error.required", FormError("howOftenPayCare", "error.required", Seq("",pastPresentLabel)))
+          .replaceError("howOftenPayCare.frequency.other","error.maxLength",FormError("howOftenPayCare","error.maxLength",Seq("60",pastPresentLabel)))
+          .replaceError("howOftenPayCare","error.paymentFrequency",FormError("howOftenPayCare","error.paymentFrequency",Seq("",pastPresentLabel)))
 
           BadRequest(views.html.s7_employment.g12_personYouCareForExpenses(formWithErrorsUpdate))
       },

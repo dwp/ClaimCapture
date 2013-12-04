@@ -24,7 +24,7 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
     "areIncomeOutgoingsProfitSimilarToTrading" -> optional(text verifying validYesNo),
     "tellUsWhyAndWhenTheChangeHappened" -> optional(carersNonEmptyText(maxLength = 300))
   )(SelfEmploymentYourAccounts.apply)(SelfEmploymentYourAccounts.unapply)
-    .verifying("tellUsWhyAndWhenTheChangeHappened", validateChangeHappened _))
+    .verifying("required", validateChangeHappened _))
 
   def validateChangeHappened(selfEmploymentYourAccounts: SelfEmploymentYourAccounts) = {
     selfEmploymentYourAccounts.areIncomeOutgoingsProfitSimilarToTrading match {
@@ -46,7 +46,7 @@ object G2SelfEmploymentYourAccounts extends Controller with CachedClaim with Nav
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("tellUsWhyAndWhenTheChangeHappened", FormError("tellUsWhyAndWhenTheChangeHappened", "error.required"))
+          .replaceError("","required", FormError("tellUsWhyAndWhenTheChangeHappened", "error.required"))
         BadRequest(views.html.s8_self_employment.g2_selfEmploymentYourAccounts(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G4SelfEmploymentPensionsAndExpenses.present()))

@@ -8,14 +8,14 @@
 @checkConstraintRequired(field)
 <ul class="address-stack">
     <li>
-        @carersInputText(field("lineOne"))
+        @carersInputText(field("lineOne"),'maxLength -> 35)
     </li>
 
     <li>
-        @carersInputText(field("lineTwo"))
+        @carersInputText(field("lineTwo"),'maxLength -> 35)
     </li>
 
     <li>
-        @carersInputText(field("lineThree"))
+        @carersInputText(field("lineThree"),'maxLength -> 35)
     </li>
 </ul>

@@ -53,11 +53,11 @@ object Mappings {
   val address: Mapping[MultiLineAddress] = mapping(
     "lineOne" -> optional(carersText(maxLength = 35)),
     "lineTwo" -> optional(carersText(maxLength = 35)),
-    "lineThree" -> optional(carersText(maxLength = 35)))(MultiLineAddress.apply)(MultiLineAddress.unapply).verifying(requiredAddress)
+    "lineThree" -> optional(carersText(maxLength = 35)))(MultiLineAddress.apply)(MultiLineAddress.unapply)
 
   val whereabouts: Mapping[Whereabouts] = mapping(
     "location" -> carersNonEmptyText(maxLength = 35),
-    "location.other" -> optional(carersText(maxLength = 35)))(Whereabouts.apply)(Whereabouts.unapply)
+    "location.other" -> optional(carersText(maxLength = sixty)))(Whereabouts.apply)(Whereabouts.unapply)
 
   val paymentFrequency: Mapping[PaymentFrequency] = mapping(
     "frequency" -> text(maxLength = sixty),
@@ -65,7 +65,7 @@ object Mappings {
 
   val pensionPaymentFrequency: Mapping[PensionPaymentFrequency] = mapping(
     "frequency" -> carersNonEmptyText(maxLength = sixty),
-    "frequency.other" -> optional(carersText(maxLength = sixty)))(PensionPaymentFrequency.apply)(PensionPaymentFrequency.unapply)
+    "frequency.other" -> optional(carersNonEmptyText(maxLength = sixty)))(PensionPaymentFrequency.apply)(PensionPaymentFrequency.unapply)
 
   val sortCode: Mapping[SortCode] = mapping(
     "sort1" -> carersText(maxLength = two),

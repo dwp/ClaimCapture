@@ -17,6 +17,6 @@ object CarersForms  {
     text verifying Constraints.nonEmpty verifying restrictedStringText
 
   def carersNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
-    text(minLength, maxLength) verifying Constraints.nonEmpty verifying restrictedStringText
+    nonEmptyText(minLength, maxLength) verifying restrictedStringText
 
 }

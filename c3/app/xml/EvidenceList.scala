@@ -8,17 +8,19 @@ import app.XMLValues._
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTime
 import models.DayMonthYear
+import play.api.i18n.Messages
+import play.api.Logger
 
 object EvidenceList {
 
   def xml(claim: Claim) = {
     <EvidenceList>
-      {xmlGenerated()}{evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}
+      {xmlGenerated()}{evidence(claim)}{aboutYou(claim)}{yourPartner(claim)}{careYouProvide(claim)}{breaks(claim)}{timeSpentAbroad(claim)}{fiftyTwoWeeksTrips(claim)}{employment(claim)}{selfEmployment(claim)}{otherMoney(claim)}{assistedDecision(claim)}
     </EvidenceList>
   }
 
   def xmlGenerated() = {
-    textLine("XML Generated at: "+DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").print(DateTime.now()))
+    textLine("XML Generated at: " + DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss").print(DateTime.now()))
   }
 
 
@@ -119,7 +121,7 @@ object EvidenceList {
 
     textSeparatorLine("Time abroad") ++
       textLine("Do you normally live in the UK, Republic of Ireland, Isle of Man or the Channel Islands? = ", normalResidenceAndCurrentLocation.whereDoYouLive.answer) ++
-      textLine("Have you been out of Great Britain with the person you care for for more than 4 weeks at a time,"+
+      textLine("Have you been out of Great Britain with the person you care for for more than 4 weeks at a time," +
         s"since ${(DayMonthYear.today - 3 years).`dd/MM/yyyy`} (this is 3 years from today)? = ", if (trips.fourWeeksTrips.size > 0) Yes else No) ++
       textLine("Have you been out of Great Britain for more than 52 weeks," +
         s" since ${(claimDate.dateOfClaim - 3 years).`dd/MM/yyyy`} (this is 3 years before your claim date)? = ", if (trips.fiftyTwoWeeksTrips.size > 0) Yes else No)
@@ -143,6 +145,8 @@ object EvidenceList {
       textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childCare.howOftenPayChildCare))
     if (childCare.howOftenPayChildCare.other.isDefined)
       textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childCare.howOftenPayChildCare.other.get)
+    if (childCare.relationToPartner.nonEmpty)
+      textLines ++= textLine(Messages("relationToPartner") + " = ", childCare.relationToPartner.get)
 
     textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ", expensesWhileAtWork.howMuchYouPay) ++
       textLine("How often [[past=did you]] [[present=do you]] - expenses related to person you care for? = ", PensionPaymentFrequency.mapToHumanReadableString(expensesWhileAtWork.howOftenPayExpenses))
@@ -182,6 +186,8 @@ object EvidenceList {
           textLines ++= textLine("How often [[past=did you]] [[present=do you]] - expenses related to childcare expenses? = ", PensionPaymentFrequency.mapToHumanReadableString(childcareExpenses.howOftenPayChildCare))
           if (childcareExpenses.howOftenPayChildCare.other.isDefined)
             textLines ++= textLine("How often [[past=did you]] [[present=do you]] Other - expenses related to childcare expenses? = ", childcareExpenses.howOftenPayChildCare.other.get)
+          if (childcareExpenses.relationToPartner.nonEmpty)
+            textLines ++= textLine(Messages("relationToPartner") + " = ", childcareExpenses.relationToPartner.get)
 
           if (personYouCareForExpenses.howMuchCostCare.nonEmpty)
             textLines ++= textLine("How much [[past=did you]] [[present=do you]] pay them - expenses related to person you care for? = ", personYouCareForExpenses.howMuchCostCare)
@@ -239,7 +245,44 @@ object EvidenceList {
         "working in or paying insurance to another EEA State or Switzerland? = ", otherEEAState.workingForOtherEEAStateOrSwitzerland)
   }
 
-  def textSeparatorLine(title: String) = {
+  def assistedDecision(claim: Claim) = {
+    val hours = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
+    // Weekly earning requirements
+    //    Have you been employed at any time since <ddmmyyyy_1> (this is six months before your claim date:< ddmmyyyy>)? = Yes
+    //      AND
+    //      What was the  gross pay for this period? is > £100 for a week, £200.01 for 2 weeks, £400.03 for 4 weeks, £433.37 for a month
+    //      AND
+    //      No is answered to all Pensions and Expenses
+    var weeklyEarning: Double = 0.0d
+    claim.questionGroup[Jobs] match {
+      case Some(jobs) => for (job <- jobs) {
+        if (weeklyEarning > -1 && !job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined && !job.questionGroup[PensionSchemes].isDefined) {
+          val earning = job.questionGroup[LastWage].getOrElse(LastWage()).grossPay.toDouble
+          val frequencyFactor: Double = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid match {
+            case Some(p) => p.frequency match {
+              case StatutoryPaymentFrequency.Weekly => 1.0
+              case StatutoryPaymentFrequency.Fortnightly => 2.0001
+              case StatutoryPaymentFrequency.FourWeekly => 4.0003
+              case StatutoryPaymentFrequency.Monthly => 4.3337
+              case _ => 0d
+            }
+            case None => 0d
+          }
+          if (frequencyFactor == 0) weeklyEarning = -1
+          else weeklyEarning += earning / frequencyFactor
+        }
+      }
+      case None => 0.0f
+    }
+    var assisted = NodeSeq.Empty
+
+    assisted ++= textSeparatorLine("Assisted Decision")
+    if (hours.spent35HoursCaring.toLowerCase != "yes") assisted ++= textLine("Do not spend 35 hours or more each week caring. NIL decision, but need to check advisory additional notes.")
+    if (weeklyEarning > 100.0d) assisted ++= textLine(s"Total weekly gross pay $weeklyEarning > £100. NIL decision, but need to check advisory additional notes.")
+    assisted
+  }
+
+  private def textSeparatorLine(title: String) = {
     val lineWidth = 54
     val padding = "=" * ((lineWidth - title.length) / 2)
 
@@ -249,7 +292,7 @@ object EvidenceList {
   }
 
 
-  def sectionEmpty(nodeSeq: NodeSeq) = {
+  private def sectionEmpty(nodeSeq: NodeSeq) = {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
   }
 

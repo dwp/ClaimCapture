@@ -26,7 +26,7 @@ class G2JobDetailsIntegrationSpec extends Specification with Tags {
       browser.click("#jobStartDate_day option[value='1']")
       browser.click("#jobStartDate_month option[value='1']")
       browser.fill("#jobStartDate_year") `with` "2000"
-      browser.click("#finishedThisJob_yes")
+      browser.click("#finishedThisJob_no")
 
       browser.submit("button[type='submit']")
 

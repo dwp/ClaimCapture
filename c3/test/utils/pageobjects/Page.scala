@@ -55,7 +55,7 @@ abstract case class Page(pageFactory: PageFactory, browser: TestBrowser, url: St
    * @return Page object representing the html page the UI went back to.
    */
   def goBack(waitForPage: Boolean = true, waitDuration: Int = Page.WAIT_FOR_DURATION) = {
-    val fluent = browser.click(".form-steps a")
+    val fluent = browser.click("#backButton")
     val title = getPageTitle(fluent, waitForPage, waitDuration)
     createPageWithTitle(title, iteration)
   }

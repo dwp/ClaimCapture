@@ -58,8 +58,10 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
         val formWithErrorsUpdate = formWithErrors
           .replaceError("howMuchYouPay", "error.required", FormError("howMuchYouPay", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("howMuchYouPay", "decimal.invalid", FormError("howMuchYouPay", "decimal.invalid", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
-          .replaceError("howOftenPayExpenses", "error.required", FormError("howOftenPayExpenses", "error.required", Seq(didYouDoYouIfSelfEmployed.toLowerCase)))
+          .replaceError("howOftenPayExpenses.frequency", "error.required", FormError("howOftenPayExpenses", "error.required", Seq("",didYouDoYouIfSelfEmployed.toLowerCase)))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
+          .replaceError("howOftenPayExpenses.frequency.other","error.maxLength",FormError("howOftenPayExpenses","error.maxLength",Seq("60",didYouDoYouIfSelfEmployed.toLowerCase)))
+          .replaceError("howOftenPayExpenses","error.paymentFrequency",FormError("howOftenPayExpenses","error.paymentFrequency",Seq("",didYouDoYouIfSelfEmployed.toLowerCase)))
         BadRequest(views.html.s8_self_employment.g7_expensesWhileAtWork(formWithErrorsUpdate))
       },
       f => claim.update(f) ->  Redirect(routes.SelfEmployment.completed())
