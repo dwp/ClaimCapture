@@ -23,41 +23,41 @@ object EvidenceList {
   }
 
 
-  def evidence(claim: Claim): NodeBuffer = {
+  def evidence(claim: Claim): NodeSeq = {
     val employment = claim.questionGroup[models.domain.Employment].getOrElse(models.domain.Employment())
     val employed = employment.beenEmployedSince6MonthsBeforeClaim == yes
     val selfEmployed = employment.beenSelfEmployedSince1WeekBeforeClaim == yes
     val claimDate = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
 
-    val buffer = new NodeBuffer
+    val buffer = NodeSeq.Empty
 
     if (employed || selfEmployed) {
-      buffer += textLine("Send us the following documents below including your Name and National Insurance (NI) number.")
+      buffer ++ textLine("Send us the following documents below including your Name and National Insurance (NI) number.")
 
       if (employed) {
-        buffer += textLine()
-        buffer += textLine("Your Employment documents.")
-        buffer += textLine("Last payslip you got before your claim date: ", claimDate.dateOfClaim.`dd/MM/yyyy`)
-        buffer += textLine("Any payslips you have had since then.")
-        buffer += textLine("Any pension statements you may have.")
+        buffer ++ textLine()
+        buffer ++ textLine("Your Employment documents.")
+        buffer ++ textLine("Last payslip you got before your claim date: ", claimDate.dateOfClaim.`dd/MM/yyyy`)
+        buffer ++ textLine("Any payslips you have had since then.")
+        buffer ++ textLine("Any pension statements you may have.")
 
       }
 
       if (selfEmployed) {
-        buffer += textLine()
-        buffer += textLine("Your Self-employed documents.")
-        buffer += textLine("Most recent finalised accounts you have for your business.")
-        buffer += textLine("Any pension statements you may have.")
+        buffer ++ textLine()
+        buffer ++ textLine("Your Self-employed documents.")
+        buffer ++ textLine("Most recent finalised accounts you have for your business.")
+        buffer ++ textLine("Any pension statements you may have.")
       }
 
-      buffer += textLine()
-      buffer += textLine("Send the above documents to:")
-      buffer += textLine("CA Freepost")
-      buffer += textLine("Palatine House")
-      buffer += textLine("Preston")
-      buffer += textLine("PR1 1HN")
-      buffer += textLine("The Carer's Allowance unit will contact you if they need any further information.")
-      buffer += textLine()
+      buffer ++ textLine()
+      buffer ++ textLine("Send the above documents to:")
+      buffer ++ textLine("CA Freepost")
+      buffer ++ textLine("Palatine House")
+      buffer ++ textLine("Preston")
+      buffer ++ textLine("PR1 1HN")
+      buffer ++ textLine("The Carer's Allowance unit will contact you if they need any further information.")
+      buffer ++ textLine()
     }
 
     buffer
@@ -258,21 +258,21 @@ object EvidenceList {
     if (nodeSeq == null || nodeSeq.isEmpty) true else nodeSeq.text.isEmpty
   }
 
-  private def textLine(): Elem = <TextLine/>
+  private def textLine(): NodeSeq = <TextLine/>
 
-  private def textLine(text: String): Elem = <TextLine>
+  private def textLine(text: String): NodeSeq = <TextLine>
     {text}
   </TextLine>
 
-  private def textLine(label: String, value: String): Elem = value match {
-    case "" => <TextLine/>
+  private def textLine(label: String, value: String): NodeSeq = value match {
+    case "" => NodeSeq.Empty
     case _ => <TextLine>
       {s"$label" + formatValue(value)}
     </TextLine>
   }
 
-  private def textLine(label: String, value: Option[String]): Elem = value match {
+  private def textLine(label: String, value: Option[String]): NodeSeq = value match {
     case Some(s) => textLine(label, value.get)
-    case None => <TextLine/>
+    case None => NodeSeq.Empty
   }
 }

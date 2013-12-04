@@ -364,9 +364,9 @@ whatAreThose = What {0} these things?
 # CHILDCARE EXPENSES
 howMuchCostChildcare =  How much {0} pay them?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
-relationToYou = What relation, if any, is the person to you?
-relationToPartner = What relation, if any, is the person to your Partner/Spouse?
-relationToPersonYouCare = What relation, if any, is this person to the person you care for?
+relationToYou = What relation, if any, is the person/organisation to you?
+relationToPartner = What relation, if any, is the person/organisation to your Partner/Spouse?
+relationToPersonYouCare = What relation, if any, is this person/organisation to the person you care for?
 employment_howOftenPayChildCare = How often {0} pay childcare expenses?
 
 # Person you care for EXPENSES
@@ -474,8 +474,8 @@ haveYouCeasedTrading = Have you ceased trading?
 natureOfYourBusiness = Nature of business?
 howMuchYouPay = How much {0} pay them?
 nameOfPerson = Name of the person/organisation you pay
-whatRelationIsToYou = What relation, if any, is the person to you?
-whatRelationIsTothePersonYouCareFor = What relation, if any, is this person to the person you care for?
+whatRelationIsToYou = What relation, if any, is the person/organisation to you?
+whatRelationIsTothePersonYouCareFor = What relation, if any, is this person/organisation to the person you care for?
 
 #SELF EMPLOYED - Your Details
 error.areAccountsPreparedOnCashFlowBasis = Please tell us if accounts prepared on cash flow basis?
