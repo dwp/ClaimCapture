@@ -278,7 +278,7 @@ object EvidenceList {
 
     assisted ++= textSeparatorLine("Assisted Decision")
     if (hours.spent35HoursCaring.toLowerCase != "yes") assisted ++= textLine("Do not spend 35 hours or more each week caring. NIL decision, but need to check advisory additional notes.")
-    if (weeklyEarning > 100.0d) assisted ++= textLine(s"Total weekly gross pay $weeklyEarning > £100. NIL decision, but need to check advisory additional notes.")
+    if (weeklyEarning > 100.0d) assisted ++= textLine(s"Total weekly gross pay ${"%.2f".format((weeklyEarning*100).ceil/100d)} > £100. NIL decision, but need to check advisory additional notes.")
     assisted
   }
 
