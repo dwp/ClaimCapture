@@ -1,13 +1,14 @@
 package xml
 
 import app.XMLValues._
-import models.domain.{ContactDetails, YourDetails, Claim}
+import models.domain.{MoreAboutYou, ContactDetails, YourDetails, Claim}
 import scala.xml.Elem
 import xml.XMLHelper._
 
 object Claimant {
   def xml(claim: Claim): Elem = {
     val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
+    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
     val contactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
 
     <Claimant>
@@ -16,7 +17,7 @@ object Claimant {
       <OtherNames>{yourDetails.otherNames}</OtherNames>
       <OtherSurnames>{yourDetails.otherSurnames.orNull}</OtherSurnames>
       <Title>{yourDetails.title}</Title>
-      <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
+      <MaritalStatus>{moreAboutYou.maritalStatus}</MaritalStatus>
       <DateOfBirth>{yourDetails.dateOfBirth.`yyyy-MM-dd`}</DateOfBirth>
       <NationalInsuranceNumber>{yourDetails.nationalInsuranceNumber.stringify}</NationalInsuranceNumber>
       <ExistingNationalInsuranceNumber/>

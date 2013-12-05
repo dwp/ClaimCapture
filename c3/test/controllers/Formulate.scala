@@ -23,7 +23,6 @@ object Formulate {
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
     browser.fill("#nationality") `with` "English"
-    browser.click("#maritalStatus option[value='s']")
     browser.click("#alwaysLivedUK_yes")
     browser.submit("button[type='submit']")
   }
@@ -42,7 +41,6 @@ object Formulate {
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
     browser.fill("#nationality") `with` "English"
-    browser.click("#maritalStatus option[value='s']")
     browser.click("#alwaysLivedUK_no")
     browser.submit("button[type='submit']")
   }
@@ -83,6 +81,7 @@ object Formulate {
 
   def moreAboutYou(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
+    browser.click("#maritalStatus option[value='s']")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_yes")
     browser.click("#receiveStatePension_yes")
@@ -91,6 +90,7 @@ object Formulate {
 
   def moreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
+    browser.click("#maritalStatus option[value='s']")
     browser.click("#hadPartnerSinceClaimDate_no")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_yes")
@@ -100,6 +100,7 @@ object Formulate {
   
   def moreAboutYouNotBeenInEducationSinceClaimDate(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
+    browser.click("#maritalStatus option[value='s']")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_no")

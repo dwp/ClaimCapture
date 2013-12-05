@@ -6,6 +6,8 @@
 @import models.domain.Claim
 @import models.domain.ClaimDate
 @import utils.helpers.CarersTemplate._
+@import views.html.helper.dropdowns._
+
 
 @main(Messages("s2.g5") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.MoreAboutYou)) {
     @errorsSummary(moreAboutYouForm)
@@ -16,6 +18,8 @@
             <legend>@Messages("s2.g5")</legend>
 
             <ul>
+                @maritalStatusSelect(moreAboutYouForm("maritalStatus"))
+
                 @yesNoRadioGroup(moreAboutYouForm("hadPartnerSinceClaimDate"), '_label -> Messages("hadPartnerSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)), 'helperBelow -> Messages("hadPartnerSinceClaimDate.helper"))
 
                 @yesNoRadioGroup(moreAboutYouForm("beenInEducationSinceClaimDate"), '_label -> Messages("beenInEducationSinceClaimDate.label", claim.dateOfClaim.fold("")(_.`dd/MM/yyyy`)))

@@ -17,7 +17,6 @@ final class G1YourDetailsPage(browser: TestBrowser, previousPage: Option[Page] =
   declareNino("#nationalInsuranceNumber","AboutYouNINO")
   declareDate("#dateOfBirth", "AboutYouDateOfBirth")
   declareInput("#nationality", "AboutYouNationality")
-  declareSelect("#maritalStatus", "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus")
   declareYesNo("#alwaysLivedUK", "AboutYouHaveYouAlwaysLivedInTheUK")
 }
 

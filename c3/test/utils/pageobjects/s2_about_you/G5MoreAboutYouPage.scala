@@ -9,6 +9,7 @@ import utils.pageobjects.{ClaimPage,Page, PageContext}
  *         Date: 17/07/2013
  */
 final class G5MoreAboutYouPage (browser: TestBrowser, previousPage: Option[Page] = None) extends ClaimPage(browser, G5MoreAboutYouPage.url, G5MoreAboutYouPage.title, previousPage) {
+  declareSelect("#maritalStatus", "AboutYouWhatIsYourMaritalOrCivilPartnershipStatus")
   declareYesNo("#hadPartnerSinceClaimDate", "AboutYouHaveYouHadaPartnerSpouseatAnyTime")
   declareYesNo("#beenInEducationSinceClaimDate", "AboutYouHaveYouBeenOnACourseOfEducation")
   declareYesNo("#receiveStatePension", "AboutYouDoYouGetStatePension")
