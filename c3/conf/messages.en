@@ -127,6 +127,7 @@ livesInGB.answer = Do you live in England, Scotland or Wales?
 # YOUR DETAILS
 title = Title
 firstName = First name
+your.name.helper = Enter name as shown on your birth certificate or passport.
 middleName = Middle name
 surname = Last name
 otherNames = Other surname or maiden name
@@ -198,6 +199,8 @@ beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time 
 
 
 ## YOUR PARTNER
+
+their.name.helper = Enter name as shown on their birth certificate or passport.
 
 # MORE ABOUT YOUR PARTNER
 startedLivingTogether_afterClaimDate.label = Did you and your partner/spouse start living together, after your claim date: {0}?

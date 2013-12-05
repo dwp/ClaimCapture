@@ -19,7 +19,7 @@
             <ul>
                 @titleSelect(currentForm("title"))
 
-                @carersInputText(currentForm("firstName"), 'maxLength -> 17)
+                @carersInputText(currentForm("firstName"),'helperBelow -> Messages("their.name.helper"), 'maxLength -> 17)
 
                 @carersInputText(currentForm("middleName"), 'maxLength -> 17)
 
