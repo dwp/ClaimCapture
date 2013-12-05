@@ -5,7 +5,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.PastPresentLabelHelper.didYouDoYouIfSelfEmployed
-@import models.domain.{MoreAboutYou,PersonYouCareFor}
+@import models.domain.{MoreAboutYou,YourPartnerPersonalDetails}
 @import views.html.helper.dropdowns.pensionPaymentFrequencySelect
 
 @main(Messages("s8.g7") + " - " + Messages("s8.longName"), Some(currentForm), claim.completedQuestionGroups(models.domain.ExpensesWhileAtWork)) {
@@ -29,8 +29,8 @@
                 @otherDetailPlaceHolder(
                 inputDef = Seq(
                 relationshipSelect(currentForm("relationToPartner"))),
-                'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
-                case (Some(m: MoreAboutYou),Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
+                'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
+                case (Some(m: MoreAboutYou),Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
                 case _ => "no"
                 }))
 

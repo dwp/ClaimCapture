@@ -72,9 +72,6 @@ POST        /about-you/completed                                                
 GET         /your-partner/personal-details                                          controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
 POST        /your-partner/personal-details                                          controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
 
-GET         /your-partner/person-you-care-for                                       controllers.s3_your_partner.G4PersonYouCareFor.present
-POST        /your-partner/person-you-care-for                                       controllers.s3_your_partner.G4PersonYouCareFor.submit
-
 GET         /your-partner/completed                                                 controllers.s3_your_partner.YourPartner.completed
 POST        /your-partner/completed                                                 controllers.s3_your_partner.YourPartner.completedSubmit
 

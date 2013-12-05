@@ -27,8 +27,8 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
 
 
   def validateRelationToPartner(implicit claim: Claim, childcareExpenses: ChildcareExpenses) = {
-    claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
-      case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => childcareExpenses.relationToPartner.isDefined
+    claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
+      case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => childcareExpenses.relationToPartner.isDefined
       case _ => true
     }
   }

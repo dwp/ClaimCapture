@@ -43,7 +43,8 @@ class G1YourPartnerPersonalDetailsSpec extends Specification with Tags {
           "dateOfBirth.year" -> dateOfBirthYear.toString,
           "nationality" -> nationality,
           "liveAtSameAddress" -> liveAtSameAddress,
-          "separated.fromPartner" -> separatedFromPartner)
+          "separated.fromPartner" -> separatedFromPartner,
+          "isPartnerPersonYouCareFor" -> "yes")
     
   "Your Partner Personal Details - Controller" should {
     "present 'Your Partner Personal Details' " in new WithApplication with Claiming {

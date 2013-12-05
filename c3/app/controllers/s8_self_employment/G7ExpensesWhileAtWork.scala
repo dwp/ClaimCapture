@@ -30,8 +30,8 @@ object G7ExpensesWhileAtWork extends Controller with CachedClaim with Navigable 
     .verifying("relationToPartner.required", validateRelationToPartner(claim, _)))
 
   def validateRelationToPartner(implicit claim: Claim, expensesWhileAtWork: ExpensesWhileAtWork) = {
-    claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
-      case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => expensesWhileAtWork.relationToPartner.isDefined
+    claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
+      case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => expensesWhileAtWork.relationToPartner.isDefined
       case _ => true
     }
   }

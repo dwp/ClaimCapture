@@ -132,11 +132,6 @@ object Formulate {
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
     browser.click("#separated_fromPartner_no]")
-    browser.submit("button[type='submit']")
-  }
-
-  def personYouCareFor(browser: TestBrowser) = {
-    browser.goTo("/your-partner/person-you-care-for")
     browser.click("#isPartnerPersonYouCareFor_yes]")
     browser.submit("button[type='submit']")
   }

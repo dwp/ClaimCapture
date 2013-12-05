@@ -7,7 +7,7 @@
 @import views.html.helper.dropdowns._
 @import views.html.helper.dates._
 @import utils.helpers.CarersCrypto
-@import models.domain.{MoreAboutYou, PersonYouCareFor}
+@import models.domain.{MoreAboutYou,YourPartnerPersonalDetails}
 @import controllers.s7_employment.Employment._
 @import controllers.s7_employment.JobID
 @import utils.helpers.PastPresentLabelHelper._
@@ -35,8 +35,8 @@
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
                     relationshipSelect(currentForm("relationToPartner"))),
-                    'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
-                        case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
+                    'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
+                        case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
                         case _ => "no"
                     }))
 

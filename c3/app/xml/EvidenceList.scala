@@ -81,7 +81,7 @@ object EvidenceList {
   }
 
   def yourPartner(claim: Claim) = {
-    val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
+    val personYouCareFor = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
 
     if (personYouCareFor.isPartnerPersonYouCareFor.nonEmpty) {
       textSeparatorLine("About Your Partner") ++
