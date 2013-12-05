@@ -7,7 +7,6 @@ import scala.reflect.ClassTag
 import play.api.Play.current
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import play.api.data.Form
-import play.Configuration
 import play.api.cache.Cache
 import play.api.{Logger, Play}
 import play.api.mvc.Results._
@@ -18,6 +17,7 @@ import models.domain.Claim
 import scala.Some
 
 object CachedClaim {
+  val missingRefererConfig = "Referer not set in config"
   val key = "claim"
 }
 
@@ -27,6 +27,8 @@ trait CachedClaim {
   type JobID = String
 
   val cacheKey = CachedClaim.key
+
+  val expectedReferer = getProperty("claim.referer", default = CachedClaim.missingRefererConfig)
 
   val timeout = routes.Application.timeout()
 
@@ -47,6 +49,10 @@ trait CachedClaim {
 
   def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
     r.session.get(cacheKey).getOrElse(randomUUID.toString) ->  getProperty("cache.expiry", 3600)
+  }
+
+  def refererAndHost(r: Request[AnyContent]): (String, String) = {
+    r.headers.get("Referer").getOrElse("No Referer in header") -> r.headers.get("Host").getOrElse("No Host in header")
   }
 
   def fromCache(request:Request[AnyContent]): Option[Claim] = {
@@ -83,27 +89,47 @@ trait CachedClaim {
             action(claim, request)(f)
           } else {
             Logger.info(s"$cacheKey timeout")
-            Redirect(timeout).withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+            Redirect(timeout)
+              .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
           }
       }
     }
   }
 
   def action(claim: Claim, request: Request[AnyContent])(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]): Result = {
-    val (key, expiration) = keyAndExpiration(request)
 
-    f(claim)(request) match {
-      case Left(r: Result) =>
-        r.withSession(claim.key -> key)
-          .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
-          .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+    def next: Result = {
+      val (key, expiration) = keyAndExpiration(request)
 
-      case Right((c: Claim, r: Result)) => {
-        Cache.set(key, c, expiration)
+      f(claim)(request) match {
+        case Left(r: Result) =>
+          r.withSession(claim.key -> key)
+            .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+            .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
 
-        r.withSession(claim.key -> key)
-          .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
-          .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+        case Right((c: Claim, r: Result)) => {
+          Cache.set(key, c, expiration)
+
+          r.withSession(claim.key -> key)
+            .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+            .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+        }
+      }
+    }
+
+    val (referer, host) = refererAndHost(request)
+    val redirect: Boolean = getProperty("enforceRedirect", default = true)
+    val configReferer = expectedReferer
+    if (referer.contains(host) || referer.startsWith(configReferer)) {
+      next
+    } else {
+      if (redirect) {
+        Logger.warn(s"HTTP Referer : $referer")
+        Logger.warn(s"Conf Referer : $configReferer")
+        Logger.warn(s"HTTP Host : $host")
+        TemporaryRedirect(configReferer)
+      } else {
+        next
       }
     }
   }

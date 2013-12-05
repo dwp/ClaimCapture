@@ -1,9 +1,7 @@
-import app.ConfigProperties._
 import java.io.File
 import java.net.InetAddress
 import com.typesafe.config.ConfigFactory
 import java.util.UUID
-import jmx.inspectors.RefererFilterNotifier
 import org.slf4j.MDC
 import play.api._
 import play.api.Configuration
@@ -65,10 +63,6 @@ object Global extends GlobalSettings {
 
   override def getControllerInstance[A](controllerClass: Class[A]): A = injector.getInstance(controllerClass)
 
-  override def doFilter(action: EssentialAction) = {
-    (RefererCheck(_:EssentialAction))(action)
-  }
-
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
     Ok(views.html.common.error())
@@ -76,25 +70,6 @@ object Global extends GlobalSettings {
 
   def actorSystems = {
     JMXActors
-  }
-}
-
-object RefererCheck extends Filter with RefererFilterNotifier {
-  override def apply(next: RequestHeader => Result)(request: RequestHeader): Result = {
-    val expectedReferer = Option(play.Configuration.root().getString("referer")).get
-    val host = request.headers.get("Host").getOrElse("No Host in header")
-    val httpReferer = request.headers.get("Referer").getOrElse("No Referer in header")
-
-    if (httpReferer.contains(host) || httpReferer.startsWith(expectedReferer)) {
-      next(request)
-    } else if (getProperty("enforceRedirect",default=true) ) {
-      Logger.debug(s"HTTP Referer : $httpReferer")
-      Logger.debug(s"Conf Referer : $expectedReferer")
-      Logger.debug(s"HTTP Host : $host")
-      fireNotification { Redirect(expectedReferer) }
-    } else {
-      next(request)
-    }
   }
 }
 
