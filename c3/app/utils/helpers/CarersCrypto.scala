@@ -1,13 +1,13 @@
 package utils.helpers
 
-import play.Configuration
+import app.ConfigProperties._
 import play.api.libs.Crypto
 import java.util.UUID
 
 object CarersCrypto {
-  val encrypt = Configuration.root().getBoolean("encryptFields", true)
+  val encrypt = getProperty("encryptFields", true)
 
-  val staticSecret = Configuration.root().getBoolean("staticSecret", false)
+  val staticSecret = getProperty("staticSecret", false)
 
   val secretKey = if (staticSecret) "1234567890123456" else generateKey
 

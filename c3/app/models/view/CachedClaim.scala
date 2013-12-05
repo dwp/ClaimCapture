@@ -1,5 +1,6 @@
 package models.view
 
+import app.ConfigProperties._
 import java.util.UUID._
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
@@ -13,6 +14,8 @@ import play.api.mvc.Results._
 import play.api.http.HeaderNames._
 import models.domain._
 import controllers.routes
+import models.domain.Claim
+import scala.Some
 
 object CachedClaim {
   val key = "claim"
@@ -43,7 +46,7 @@ trait CachedClaim {
   def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created)(claim.navigation) with FullClaim
 
   def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
-    r.session.get(cacheKey).getOrElse(randomUUID.toString) -> Configuration.root().getInt("cache.expiry", 3600)
+    r.session.get(cacheKey).getOrElse(randomUUID.toString) ->  getProperty("cache.expiry", 3600)
   }
 
   def fromCache(request:Request[AnyContent]): Option[Claim] = {

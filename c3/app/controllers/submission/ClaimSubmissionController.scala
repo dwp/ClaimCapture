@@ -7,8 +7,10 @@ import models.view.CachedClaim
 import services.UnavailableTransactionIdException
 import models.domain._
 import app.PensionPaymentFrequency._
-import play.Configuration
 import jmx.inspectors.{FastSubmissionNotifier, SubmissionNotifier}
+import app.ConfigProperties._
+import models.domain.Claim
+import scala.Some
 
 @Singleton
 class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim with SubmissionNotifier with FastSubmissionNotifier  {
@@ -21,21 +23,21 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
           fireNotification(claim) { submitter.submit(claim, request) }
         }
       } catch {
-        case e: UnavailableTransactionIdException => {
+        case e: UnavailableTransactionIdException =>
           Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
           Redirect(controllers.routes.Application.error(CachedClaim.key))
 
-        } case e: java.lang.Exception => {
+        case e: java.lang.Exception =>
           Logger.error(s"InternalServerError ! ${e.getMessage}")
           Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
           Redirect(controllers.routes.Application.error(CachedClaim.key))
-        }
+
       }
     }
   }
 
   def isBot(claim: Claim): Boolean = {
-    if (Configuration.root().getBoolean("checkForBot", false)) {
+    if (getProperty("checkForBot",default=false)) {
       checkTimeToCompleteAllSections(claim, System.currentTimeMillis()) || honeyPot(claim)
     } else {
       false
@@ -44,17 +46,17 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
 
   def checkTimeToCompleteAllSections(claim: Claim with Claimable, currentTime: Long) = {
     val sectionExpectedTimes = Map[String, Long](
-      "s1" -> 10000,
-      "s2" -> 10000,
-      "s3" -> 10000,
-      "s4" -> 10000,
-      "s5" -> 10000,
-      "s6" -> 10000,
-      "s7" -> 10000,
-      "s8" -> 10000,
-      "s9" -> 10000,
-      "s10" -> 10000,
-      "s11" -> 10000
+      "s1" -> getProperty("speed.s1",5000L),
+      "s2" -> getProperty("speed.s2",5000L),
+      "s3" -> getProperty("speed.s3",5000L),
+      "s4" -> getProperty("speed.s4",5000L),
+      "s5" -> getProperty("speed.s5",5000L),
+      "s6" -> getProperty("speed.s6",5000L),
+      "s7" -> getProperty("speed.s7",5000L),
+      "s8" -> getProperty("speed.s8",5000L),
+      "s9" ->  getProperty("speed.s9",5000L),
+      "s10" -> getProperty("speed.s10",5000L),
+      "s11" -> getProperty("speed.s11",5000L)
     )
 
     val expectedMinTimeToCompleteAllSections: Long = claim.sections.map(s => {
@@ -79,34 +81,34 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
   def honeyPot(claim: Claim): Boolean = {
     def checkTimeOutsideUK: Boolean = {
       claim.questionGroup[TimeOutsideUK] match {
-        case Some(q) => {
+        case Some(q) =>
           q.livingInUK.answer == "no" && (q.livingInUK.date.isDefined || q.livingInUK.text.isDefined || q.livingInUK.goBack.isDefined) // Bot given fields were not visible.
-        }
+
         case _ => false
       }
     }
 
     def checkMoreAboutTheCare: Boolean = {
       claim.questionGroup[MoreAboutTheCare] match {
-        case Some(q) => {
+        case Some(q) =>
           q.spent35HoursCaringBeforeClaim.answer == "no" && q.spent35HoursCaringBeforeClaim.date.isDefined // Bot given field spent35HoursCaringBeforeClaim.date was not visible.
-        }
+
         case _ => false
       }
     }
 
     def checkNormalResidenceAndCurrentLocation: Boolean = {
       claim.questionGroup[NormalResidenceAndCurrentLocation] match {
-        case Some(q) => {
+        case Some(q) =>
           q.whereDoYouLive.answer == "yes" && q.whereDoYouLive.text.isDefined // Bot given field whereDoYouLive.text was not visible.
-        }
+
         case _ => false
       }
     }
 
     def checkPensionSchemes: Boolean = {
       claim.questionGroup[PensionSchemes] match {
-        case Some(q) => {
+        case Some(q) =>
           if (q.payPersonalPensionScheme == "no") {
             q.howOftenPersonal match {
               case Some(f) => true // Bot given field howOftenPersonal was not visible.
@@ -119,70 +121,70 @@ class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controll
               case _ => false
             }
           }
-        }
+
         case _ => false
       }
     }
 
     def checkChildcareExpenses: Boolean = {
       claim.questionGroup[ChildcareExpenses] match {
-        case Some(q) => {
+        case Some(q) =>
           q.howOftenPayChildCare.frequency != Other && q.howOftenPayChildCare.other.isDefined // Bot given field howOftenPayChildCare.other was not visible.
-        }
+
         case _ => false
       }
     }
 
     def checkPersonYouCareForExpenses: Boolean = {
       claim.questionGroup[PersonYouCareForExpenses] match {
-        case Some(q) => {
+        case Some(q) =>
           q.howOftenPayCare.frequency != Other && q.howOftenPayCare.other.isDefined // Bot given field howOftenPayCare.other was not visible.
-        }
+
         case _ => false
       }
     }
 
     def checkChildcareExpensesWhileAtWork: Boolean = {
       claim.questionGroup[ChildcareExpensesWhileAtWork] match {
-        case Some(q) => {
+        case Some(q) =>
           q.howOftenPayChildCare.frequency != Other && q.howOftenPayChildCare.other.isDefined // Bot given field howOftenPayChildCare.other was not visible.
-        }
+
         case _ => false
       }
     }
 
     def checkExpensesWhileAtWork: Boolean = {
       claim.questionGroup[ExpensesWhileAtWork] match {
-        case Some(q) => {
+        case Some(q) =>
           q.howOftenPayExpenses.frequency != Other && q.howOftenPayExpenses.other.isDefined // Bot given field howOftenPayExpenses.other was not visible.
-        }
+
         case _ => false
       }
     }
 
     def checkAboutOtherMoney: Boolean = {
       claim.questionGroup[AboutOtherMoney] match {
-        case Some(q) => {
+        case Some(q) =>
           q.anyPaymentsSinceClaimDate.answer == "no" && (q.whoPaysYou.isDefined || q.howMuch.isDefined || q.howOften.isDefined) // Bot given fields were not visible.
-        }
+
         case _ => false
       }
     }
 
     def checkStatutorySickPay: Boolean = {
       claim.questionGroup[StatutorySickPay] match {
-        case Some(q) => {
+        case Some(q) =>
           q.haveYouHadAnyStatutorySickPay == "no" && (q.howMuch.isDefined || q.howOften.isDefined || q.employersName.isDefined || q.employersAddress.isDefined || q.employersPostcode.isDefined) // Bot given fields were not visible.
-        }
+
         case _ => false
       }
     }
 
     def checkOtherStatutoryPay: Boolean = {
       claim.questionGroup[OtherStatutoryPay] match {
-        case Some(q) => {
+        case Some(q) =>
           q.otherPay == "no" && (q.howMuch.isDefined || q.howOften.isDefined || q.employersName.isDefined || q.employersAddress.isDefined || q.employersPostcode.isDefined) // Bot given fields were not visible.
-        }
+
         case _ => false
       }
     }

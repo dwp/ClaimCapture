@@ -1,12 +1,13 @@
 package jmx.inspectors
 
+import app.ConfigProperties._
 import scala.util.Try
 import akka.actor.Actor
 import net.sf.ehcache.CacheManager
 import jmx.MBean
 
 trait PlayMBean extends MBean {
-  def jmxEnabled():Boolean = play.Configuration.root().getBoolean("jmxEnabled",false)
+  def jmxEnabled():Boolean = getProperty("jmxEnabled",default=false)
 }
 
 trait ApplicationInspectorMBean extends MBean {

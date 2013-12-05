@@ -1,5 +1,6 @@
 package services.submission
 
+import app.ConfigProperties._
 import play.api.libs.ws.WS
 import play.api.libs.ws
 import scala.concurrent.Future
@@ -22,8 +23,7 @@ class WebserviceFormSubmission extends FormSubmission {
   }
 
   def retryClaim(claimRetry: Elem): Future[ws.Response] = {
-    val retryServerEndpoint: String =
-      Configuration.root().getString("submissionServerUrl", "SubmissionServerEndpointNotSet") + "retry/claim"
+    val retryServerEndpoint: String =getProperty("submissionServerUrl", "SubmissionServerEndpointNotSet") + "retry/claim"
     Logger.debug(s"Submission Server retry : $retryServerEndpoint")
     val result = WS.url(retryServerEndpoint)
       .withHeaders(("Content-Type", "text/xml"))

@@ -1,3 +1,4 @@
+import app.ConfigProperties._
 import java.io.File
 import java.net.InetAddress
 import com.typesafe.config.ConfigFactory
@@ -12,7 +13,6 @@ import play.api.Play.current
 import com.google.inject.Guice
 import jmx.JMXActors
 import modules.{ProdModule, DevModule}
-import scala.concurrent.Future
 
 /**
  * Application configuration is in a hierarchy of files:
@@ -87,7 +87,7 @@ object RefererCheck extends Filter with RefererFilterNotifier {
 
     if (httpReferer.contains(host) || httpReferer.startsWith(expectedReferer)) {
       next(request)
-    } else if (play.Configuration.root().getBoolean("enforceRedirect", true)) {
+    } else if (getProperty("enforceRedirect",default=true) ) {
       Logger.debug(s"HTTP Referer : $httpReferer")
       Logger.debug(s"Conf Referer : $expectedReferer")
       Logger.debug(s"HTTP Host : $host")
