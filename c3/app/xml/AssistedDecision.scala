@@ -49,15 +49,12 @@ object AssistedDecision {
         if (weeklyEarning > -1d && lastWage.sameAmountEachTime.getOrElse("").toLowerCase == "yes") {
           if (!job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined && !job.questionGroup[PensionSchemes].isDefined) {
             val earning = lastWage.grossPay.toDouble
-            val frequencyFactor: Double = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid match {
-              case Some(p) => p.frequency match {
+            val frequencyFactor: Double = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency match {
                 case StatutoryPaymentFrequency.Weekly => 1.0
                 case StatutoryPaymentFrequency.Fortnightly => 2.0001
                 case StatutoryPaymentFrequency.FourWeekly => 4.0003
                 case StatutoryPaymentFrequency.Monthly => 4.3337
                 case _ => 0d
-              }
-              case None => 0d
             }
             if (frequencyFactor == 0) {
               if (weeklyEarning <= 100.00) weeklyEarning = -1 // We do no know frequency so we cannot compute earning and assist the decision. If we had already > 100 then do not change decision.

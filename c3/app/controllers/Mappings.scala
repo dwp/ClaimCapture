@@ -63,6 +63,10 @@ object Mappings {
     "frequency" -> text(maxLength = sixty),
     "frequency.other" -> optional(carersText(maxLength = sixty)))(PaymentFrequency.apply)(PaymentFrequency.unapply)
 
+  val mandatoryPaymentFrequency: Mapping[PaymentFrequency] = mapping(
+    "frequency" -> nonEmptyText(maxLength = sixty),
+    "frequency.other" -> optional(carersText(maxLength = sixty)))(PaymentFrequency.apply)(PaymentFrequency.unapply)
+
   val pensionPaymentFrequency: Mapping[PensionPaymentFrequency] = mapping(
     "frequency" -> carersNonEmptyText(maxLength = sixty),
     "frequency.other" -> optional(carersNonEmptyText(maxLength = sixty)))(PensionPaymentFrequency.apply)(PensionPaymentFrequency.unapply)
@@ -121,13 +125,19 @@ object Mappings {
 
   def areAllDigits(x: String) = x forall Character.isDigit
 
-  def requiredWhereabouts: Constraint[Whereabouts] = Constraint[Whereabouts]("constraint.required") { whereabouts =>
-    whereabouts match {
-      case Whereabouts(location, other) =>
-        if (location.isEmpty) Invalid(ValidationError("error.required"))
-        else if (location == app.Whereabouts.Other && other.isEmpty) Invalid(ValidationError("error.required"))
-        else Valid
-    }
+  def requiredWhereabouts: Constraint[Whereabouts] = Constraint[Whereabouts]("constraint.required") {
+    case Whereabouts(location, other) =>
+      if (location.isEmpty) Invalid(ValidationError("error.required"))
+      else if (location == app.Whereabouts.Other && other.isEmpty) Invalid(ValidationError("error.required"))
+      else Valid
+
+  }
+
+  def requiredFrequency: Constraint[PaymentFrequency] = Constraint[PaymentFrequency]("constraint.required") {
+    case PaymentFrequency(frequency,other) =>
+      if (frequency.isEmpty) Invalid(ValidationError("error.required"))
+      else if (frequency == app.Whereabouts.Other && other.isEmpty) Invalid(ValidationError("error.required"))
+      else Valid
   }
 
   def dateTimeValidation(dmy: DayMonthYear): ValidationResult = Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
@@ -136,11 +146,9 @@ object Mappings {
     case Failure(_) => Invalid(ValidationError("error.invalid"))
   }
 
-  def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") { dmy =>
-    dmy match {
+  def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
       case DayMonthYear(None, None, None, _, _) => Invalid(ValidationError("error.required"))
-      case DayMonthYear(_, _, _, _, _) => dateTimeValidation(dmy)
-    }
+      case dmy@DayMonthYear(_, _, _, _, _) => dateTimeValidation(dmy)
   }
 
   def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") { dmy =>
