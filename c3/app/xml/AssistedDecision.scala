@@ -6,6 +6,7 @@ import scala.xml.NodeSeq
 import org.joda.time.DateTime
 import models.domain.Claim
 import scala.Some
+import play.api.Logger
 
 /**
  * Generate the XML presenting the Assisted decisions.
@@ -47,8 +48,13 @@ object AssistedDecision {
       case Some(jobs) => for (job <- jobs) {
         val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
         if (weeklyEarning > -1d && lastWage.sameAmountEachTime.getOrElse("").toLowerCase == "yes") {
-          if (!job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined && !job.questionGroup[PensionSchemes].isDefined) {
+//          Logger.info(">>>>> child expense " + job.questionGroup[ChildcareExpenses])
+//          Logger.info(">>>>> Person you care expenses " + job.questionGroup[PersonYouCareForExpenses])
+//          Logger.info(">>>>> Pension schemes " + job.questionGroup[PensionSchemes])
+          if (!job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined
+            && (!job.questionGroup[PensionSchemes].isDefined || (job.questionGroup[PensionSchemes].get.payPersonalPensionScheme.toLowerCase != "yes" && job.questionGroup[PensionSchemes].get.payOccupationalPensionScheme.toLowerCase != "yes"))) {
             val earning = lastWage.grossPay.toDouble
+            Logger.info(">>>>>> Pay frequency " + job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency)
             val frequencyFactor: Double = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency match {
                 case StatutoryPaymentFrequency.Weekly => 1.0
                 case StatutoryPaymentFrequency.Fortnightly => 2.0001
