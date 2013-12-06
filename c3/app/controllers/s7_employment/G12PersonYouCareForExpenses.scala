@@ -4,18 +4,20 @@ import scala.language.reflectiveCalls
 import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.FormError
 import models.view.{Navigable, CachedClaim}
 import models.domain.{AboutExpenses, PersonYouCareForExpenses}
 import utils.helpers.CarersForm._
 import Employment._
 import controllers.Mappings._
 import utils.helpers.PastPresentLabelHelper._
+import controllers.CarersForms._
+import play.api.data.FormError
+import scala.Some
 
 object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "jobID" -> nonEmptyText,
-    "whoDoYouPay" -> nonEmptyText,
+    "whoDoYouPay" -> carersNonEmptyText,
     "howMuchCostCare" -> (nonEmptyText verifying validDecimalNumber),
     "howOftenPayCare" -> (pensionPaymentFrequency verifying validPensionPaymentFrequencyOnly),
     "relationToYou" -> nonEmptyText,
@@ -37,6 +39,7 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
         val pastPresentLabel = pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, jobID)
         val formWithErrorsUpdate = formWithErrors
           .replaceError("whoDoYouPay", "error.required", FormError("whoDoYouPay", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , jobID))))
+          .replaceError("whoDoYouPay", "error.restricted.characters", FormError("whoDoYouPay", "error.restricted.characters", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase.take(3), doYou.toLowerCase.take(2) , jobID))))
           .replaceError("howMuchCostCare", "error.required", FormError("howMuchCostCare", "error.required", Seq(pastPresentLabel)))
           .replaceError("howMuchCostCare", "decimal.invalid", FormError("howMuchCostCare", "decimal.invalid", Seq(pastPresentLabel)))
           .replaceError("howOftenPayCare.frequency", "error.required", FormError("howOftenPayCare", "error.required", Seq("",pastPresentLabel)))

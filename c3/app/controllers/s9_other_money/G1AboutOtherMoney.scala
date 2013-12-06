@@ -5,9 +5,9 @@ import play.api.mvc.Controller
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.FormError
-import play.api.i18n.Messages
+import controllers.CarersForms._
 import models.view.CachedClaim
-import models.domain.{StatutorySickPay, Claim, AboutOtherMoney, MoreAboutYou}
+import models.domain.{Claim, AboutOtherMoney, MoreAboutYou}
 import controllers.Mappings._
 import models.yesNo.YesNo
 import utils.helpers.CarersForm._
@@ -27,7 +27,7 @@ object  G1AboutOtherMoney extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     yourBenefitsMapping,
     anyPaymentsSinceClaimDateMapping,
-    "whoPaysYou" -> optional(nonEmptyText(maxLength = Name.maxLength)),
+    "whoPaysYou" -> optional(carersNonEmptyText(maxLength = Name.maxLength)),
     "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
     "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly)
   )(AboutOtherMoney.apply)(AboutOtherMoney.unapply)
