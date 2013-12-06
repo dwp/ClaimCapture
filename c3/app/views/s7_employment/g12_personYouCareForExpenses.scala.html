@@ -30,9 +30,9 @@
 
                 @pensionPaymentFrequencySelect(currentForm("howOftenPayCare"), '_label -> Messages ("howOftenPayCare", "",didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayCare",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
 
-                @relationshipSelect(currentForm("relationToYou"))
+                @relationshipSelectWithNone(currentForm("relationToYou"))
 
-                @relationshipSelect(currentForm("relationToPersonYouCare"))
+                @relationshipSelectWithNone(currentForm("relationToPersonYouCare"))
             </ul>
         </fieldset>
 

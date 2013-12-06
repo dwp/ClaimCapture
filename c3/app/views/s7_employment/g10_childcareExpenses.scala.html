@@ -30,17 +30,17 @@
 
                 @pensionPaymentFrequencySelect(currentForm("howOftenPayChildCare"), '_label -> Messages ("employment_howOftenPayChildCare", "",didYouDoYouIfSelfEmployed.toLowerCase), 'id -> "howOftenPayChildCare",'textAreaHelper -> "60 characters left", 'maxLength -> 60)
 
-                @relationshipSelect(currentForm("relationToYou"))
+                @relationshipSelectWithNone(currentForm("relationToYou"))
 
                 @otherDetailPlaceHolder(
                     inputDef = Seq(
-                    relationshipSelect(currentForm("relationToPartner"))),
+                    relationshipSelectWithNone(currentForm("relationToPartner"))),
                     'display -> (claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
                         case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => "yes"
                         case _ => "no"
                     }))
 
-                @relationshipSelect(currentForm("relationToPersonYouCare"))
+                @relationshipSelectWithNone(currentForm("relationToPersonYouCare"))
             </ul>
         </fieldset>
 
