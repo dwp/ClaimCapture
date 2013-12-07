@@ -6,6 +6,7 @@ import scala.xml.NodeSeq
 import org.joda.time.DateTime
 import models.domain.Claim
 import scala.Some
+import play.api.Logger
 
 /**
  * Generate the XML presenting the Assisted decisions.
@@ -32,7 +33,7 @@ object AssistedDecision {
 
   private def caringHours(claim: Claim): NodeSeq = {
     val hours = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-    if (hours.spent35HoursCaring.toLowerCase != "yes") textLine("Do not spend 35 hours or more each week caring. NIL decision, but need to check advisory additional notes.")
+    if (hours.spent35HoursCaring.toLowerCase != "yes") textLine("Do not spend 35 hours or more each week caring. Potential disallowance, but need to check advisory additional notes.")
     else NodeSeq.Empty
   }
 
@@ -47,8 +48,13 @@ object AssistedDecision {
       case Some(jobs) => for (job <- jobs) {
         val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
         if (weeklyEarning > -1d && lastWage.sameAmountEachTime.getOrElse("").toLowerCase == "yes") {
-          if (!job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined && !job.questionGroup[PensionSchemes].isDefined) {
+//          Logger.info(">>>>> child expense " + job.questionGroup[ChildcareExpenses])
+//          Logger.info(">>>>> Person you care expenses " + job.questionGroup[PersonYouCareForExpenses])
+//          Logger.info(">>>>> Pension schemes " + job.questionGroup[PensionSchemes])
+          if (!job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined
+            && (!job.questionGroup[PensionSchemes].isDefined || (job.questionGroup[PensionSchemes].get.payPersonalPensionScheme.toLowerCase != "yes" && job.questionGroup[PensionSchemes].get.payOccupationalPensionScheme.toLowerCase != "yes"))) {
             val earning = lastWage.grossPay.toDouble
+            Logger.info(">>>>>> Pay frequency " + job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency)
             val frequencyFactor: Double = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency match {
                 case StatutoryPaymentFrequency.Weekly => 1.0
                 case StatutoryPaymentFrequency.Fortnightly => 2.0001
@@ -66,7 +72,7 @@ object AssistedDecision {
       }
       case None => 0.0f
     }
-    if (weeklyEarning > 100.0d) textLine(s"Total weekly gross pay ${"%.2f".format((weeklyEarning * 100).ceil / 100d)} > £100. NIL decision, but need to check advisory additional notes.")
+    if (weeklyEarning > 100.0d) textLine(s"Total weekly gross pay ${"%.2f".format((weeklyEarning * 100).ceil / 100d)} > £100. Potential disallowance, but need to check advisory additional notes.")
     else NodeSeq.Empty
   }
 
@@ -75,7 +81,7 @@ object AssistedDecision {
     val sixteenYearsAgo = DateTime.now().minusYears(16)
     if (yourDetails.dateOfBirth.year.isDefined) {
       val dob = new DateTime(yourDetails.dateOfBirth.year.get, yourDetails.dateOfBirth.month.get, yourDetails.dateOfBirth.day.get, 0, 0)
-      if (dob.isAfter(sixteenYearsAgo)) textLine(s"Customer Date of Birth ${yourDetails.dateOfBirth.`dd/MM/yyyy`} is < 16 years old. NIL decision, but need to check advisory additional notes.")
+      if (dob.isAfter(sixteenYearsAgo)) textLine(s"Customer Date of Birth ${yourDetails.dateOfBirth.`dd/MM/yyyy`} is < 16 years old. Potential disallowance, but need to check advisory additional notes.")
       else NodeSeq.Empty
     } else NodeSeq.Empty
   }
@@ -102,7 +108,7 @@ object AssistedDecision {
     val claimDateAnswer = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     val monthsFuture = DateTime.now().plusMonths(3).plusDays(1)
     val claimDate = new DateTime(claimDateAnswer.dateOfClaim.year.get, claimDateAnswer.dateOfClaim.month.get,claimDateAnswer.dateOfClaim.day.get,0,0)
-    if (claimDate.isAfter(monthsFuture)) textLine("Date of Claim too far in the future. NIL decision.")
+    if (claimDate.isAfter(monthsFuture)) textLine("Date of Claim too far in the future. Potential disallowance.")
     else NodeSeq.Empty
   }
 

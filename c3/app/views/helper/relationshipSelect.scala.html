@@ -1,4 +1,4 @@
-@(field: Field)
+@(field: Field,withNone:Boolean=false)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -8,7 +8,7 @@
     carersOptGroupSelect(field,
         optGroups = Seq(
                 "Common" -> Seq("wife"->"Wife or civil partner", "husband"->"Husband  or civil partner", "partner"->"Partner","son"->"Son","daughter"->"Daughter", "mother"->"Mother", "father"->"Father"),
-                "Other" -> Seq("friend"->"Friend","other"->"Other","none"->"None"),
+                "Other" -> (Seq("friend"->"Friend","other"->"Other")++(if (withNone)Seq("none"->"None") else Seq())),
                 "Parents" -> Seq("stepFather"->"Stepfather", "stepMother"->"Stepmother","stepDaughter"->"Stepdaughter","stepSon"->"Stepson"),
                 "Siblings" -> Seq("brother" -> "Brother","halfBrother"->"Half Brother","halfSister"->"Half Sister","sister"->"Sister","stepBrother"->"Stepbrother","stepSister"->"Stepsister"),
                 "Dependant" -> Seq("adoptedDaughter" -> "Adopted Daughter","adoptedSon" -> "Adopted Son"),
