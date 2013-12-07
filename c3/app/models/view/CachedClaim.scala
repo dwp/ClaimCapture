@@ -28,9 +28,14 @@ trait CachedClaim {
 
   val cacheKey = CachedClaim.key
 
+  val redirect = getProperty("enforceRedirect", default = false)
+
   val expectedReferer = getProperty("claim.referer", default = CachedClaim.missingRefererConfig)
 
-  val timeout = routes.Application.timeout()
+  val timeoutPage = routes.Application.timeout()
+
+  val errorPage = routes.Application.error()
+
 
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
     def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = claim.questionGroup(qi) match {
@@ -63,78 +68,101 @@ trait CachedClaim {
 
   def newClaim(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
-      val (key, _) = keyAndExpiration(request)
+      implicit val r = request
 
-      val claim = if (request.getQueryString("changing").getOrElse("false") == "false") {
+      if (request.getQueryString("changing").getOrElse("false") == "false") {
         Logger.info(s"Starting new $cacheKey")
-        newInstance
+        originCheck(refererCheck, action(newInstance, request)(f))
       }
-      else Cache.getAs[Claim](key).getOrElse(newInstance)
-
-      action(claim, request)(f)
+      else {
+        Logger.info(s"Changing $cacheKey")
+        val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
+        val claim = Cache.getAs[Claim](key).getOrElse(throw new RuntimeException("I expected a claim in the cache!"))
+        originCheck(sameHostCheck, action(claim, request)(f))
+      }
     }
   }
 
   def claiming(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
+      implicit val r = request
+      originCheck(sameHostCheck,
+        fromCache(request) match {
+          case Some(claim) => action(copyInstance(claim), request)(f)
 
-      fromCache(request) match {
-        case Some(claim) => action(copyInstance(claim), request)(f)
-
-        case None =>
-          if (Play.isTest) {
-            val (key, expiration) = keyAndExpiration(request)
-            val claim = newInstance
-            Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
-            action(claim, request)(f)
-          } else {
-            Logger.info(s"$cacheKey timeout")
-            Redirect(timeout)
-              .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
-          }
-      }
+          case None =>
+            if (Play.isTest) {
+              val (key, expiration) = keyAndExpiration(request)
+              val claim = newInstance
+              Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
+              action(claim, request)(f)
+            } else {
+              Logger.info(s"$cacheKey timeout")
+              Redirect(timeoutPage)
+                .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+            }
+        })
     }
   }
 
-  def action(claim: Claim, request: Request[AnyContent])(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]): Result = {
-
-    def next: Result = {
-      val (key, expiration) = keyAndExpiration(request)
-
-      f(claim)(request) match {
-        case Left(r: Result) =>
-          r.withSession(claim.key -> key)
-            .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
-            .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
-
-        case Right((c: Claim, r: Result)) => {
-          Cache.set(key, c, expiration)
-
-          r.withSession(claim.key -> key)
-            .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
-            .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
-        }
-      }
-    }
-
-    val (referer, host) = refererAndHost(request)
-    val redirect: Boolean = getProperty("enforceRedirect", default = true)
-    val configReferer = expectedReferer
-    if (referer.contains(host) || referer.startsWith(configReferer)) {
-      next
-    } else {
-      if (redirect) {
-        Logger.warn(s"HTTP Referer : $referer")
-        Logger.warn(s"Conf Referer : $configReferer")
-        Logger.warn(s"HTTP Host : $host")
-        TemporaryRedirect(configReferer)
-      } else {
-        next
-      }
+  def ending(f: => Result): Action[AnyContent] = Action {
+    request => {
+      implicit val r = request
+      val (key, _) = keyAndExpiration(request)
+      Cache.set(key, None)
+      originCheck(sameHostCheck, f).withNewSession
     }
   }
 
   def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action { request =>
     claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
   }
+
+  private def action(claim: Claim, request: Request[AnyContent])(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]): Result = {
+
+    val (key, expiration) = keyAndExpiration(request)
+
+    f(claim)(request) match {
+      case Left(r: Result) =>
+        r.withSession(claim.key -> key)
+          .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+          .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+
+      case Right((c: Claim, r: Result)) => {
+        Cache.set(key, c, expiration)
+
+        r.withSession(claim.key -> key)
+          .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+          .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+      }
+    }
+  }
+
+  private def sameHostCheck()(implicit request: Request[AnyContent]) = {
+    val (referer, host) = refererAndHost(request)
+    referer.contains(host)
+  }
+
+  private def refererCheck()(implicit request: Request[AnyContent]) = {
+    val (referer, _) = refererAndHost(request)
+    referer.startsWith(expectedReferer)
+  }
+
+  private def originCheck(doCheck: => Boolean, action: => Result)(implicit request: Request[AnyContent])  = {
+    val (referer, host) = refererAndHost(request)
+    if (doCheck) {
+      action
+    } else {
+      if (redirect) {
+        Logger.warn(s"HTTP Referer : $referer")
+        Logger.warn(s"Conf Referer : $expectedReferer")
+        Logger.warn(s"HTTP Host : $host")
+        Redirect(expectedReferer)
+      } else {
+        action
+      }
+    }
+  }
+
+
 }

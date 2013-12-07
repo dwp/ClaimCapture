@@ -2,12 +2,13 @@ package controllers
 
 import play.api.mvc.{Action, Controller}
 import play.api.Logger
+import models.view.CachedClaim
 
-object ThankYou extends Controller {
-  def claim = Action { request =>
+object ThankYou extends Controller with CachedClaim {
+  def claim = ending {
     Ok(views.html.common.thankYouClaim())
   }
-  def circs = Action { request =>
+  def circs = ending {
     Ok(views.html.common.thankYouCircs())
   }
 }

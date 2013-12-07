@@ -65,7 +65,7 @@ object Global extends GlobalSettings {
 
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
-    Ok(views.html.common.error())
+    Ok(views.html.common.error("https://www.gov.uk/carers-allowance"))
   }
 
   def actorSystems = {

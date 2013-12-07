@@ -5,7 +5,6 @@ import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc._
 import play.api.{http, Logger}
 import com.google.inject.Inject
-import play.api.cache.Cache
 import play.api.Play.current
 import services.TransactionIdService
 import services.submission.FormSubmission
@@ -27,14 +26,12 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         processResponse(claim, txnID, response, request)
       }
     ).recover {
-      case e: java.net.ConnectException => {
+      case e: java.net.ConnectException =>
         Logger.error(s"ServiceUnavailable ! ${e.getMessage}")
         errorAndCleanup(claim, txnID, COMMUNICATION_ERROR, request)
-      }
-      case e: java.lang.Exception => {
+      case e: java.lang.Exception =>
         Logger.error(s"InternalServerError(SUBMIT) ! ${e.getMessage}")
         errorAndCleanup(claim, txnID, UNKNOWN_ERROR, request)
-      }
     }
   }
 
@@ -47,22 +44,18 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         val result = (responseXml \\ "result").text
         Logger.info(s"Received result : ${claim.key} : $result")
         result match {
-          case "response" => {
+          case "response" =>
             updateStatus(claim, txnId, SUCCESS)
             respondWithSuccess(claim, txnId, request)
-          }
-          case "acknowledgement" => {
+          case "acknowledgement" =>
             updateStatus(claim, txnId, ACKNOWLEDGED)
             respondWithSuccess(claim, txnId, request)
-          }
-          case "error" => {
+          case "error" =>
             val errorCode = (responseXml \\ "errorCode").text
             errorAndCleanup(claim, txnId, errorCode, request)
-          }
-          case _ => {
+          case _ =>
             Logger.error(s"Received error : $result, TxnId : $txnId, Headers : ${request.headers}")
             errorAndCleanup(claim, txnId, UNKNOWN_ERROR, request)
-          }
         }
       case http.Status.BAD_REQUEST =>
         Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
@@ -81,13 +74,9 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
   def respondWithSuccess(claim: Claim, txnId: String, request: Request[AnyContent]): SimpleResult[Results.EmptyContent] = {
     Logger.info(s"Successful submission : ${claim.key} : $txnId")
-    clearCache(request, claim)
-    Logger.debug(s"claim.key = ${claim.key}, $txnId")
     claim.key match {
-      case CachedClaim.key => {
-        Logger.debug(s"claim.key = ${claim.key}, $txnId")
+      case CachedClaim.key =>
         Redirect(controllers.routes.ThankYou.claim())
-      }
       case CachedChangeOfCircs.key =>
         Redirect(controllers.routes.ThankYou.circs())
     }
@@ -95,17 +84,15 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
   private def errorAndCleanup(claim: Claim, txnId: String, code: String, request: Request[AnyContent]): PlainResult = {
     Logger.error(s"errorAndCleanup : ${claim.key} : $txnId : $code")
-    clearCache(request, claim)
     updateStatus(claim, txnId, code)
-    Redirect(controllers.routes.Application.error(claim.key))
+    claim.key match {
+      case CachedClaim.key =>
+        Redirect(controllers.routes.Application.error())
+      case CachedChangeOfCircs.key =>
+        Redirect(controllers.routes.Application.circsError())
+    }
   }
 
-  def clearCache(request: Request[AnyContent], claim: Claim) {
-    // Clear the cache to ensure no duplicate submission
-    val key = request.session.get(claim.key).orNull
-    Logger.debug(s"key = $key")
-    Cache.set(key, None)
-  }
 
   private[submission] def pollXml(correlationID: String, pollEndpoint: String) = {
     <poll>
