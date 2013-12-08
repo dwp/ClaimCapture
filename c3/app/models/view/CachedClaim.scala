@@ -98,8 +98,7 @@ trait CachedClaim {
               action(claim, request)(f)
             } else {
               Logger.info(s"$cacheKey timeout")
-              Redirect(timeoutPage)
-                .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
+              withHeaders(Redirect(timeoutPage))
             }
         })
     }
@@ -110,7 +109,8 @@ trait CachedClaim {
       implicit val r = request
       val (key, _) = keyAndExpiration(request)
       Cache.set(key, None)
-      originCheck(sameHostCheck, f).withNewSession
+      withHeaders(originCheck(sameHostCheck, f)
+        .withNewSession)
     }
   }
 
@@ -124,18 +124,17 @@ trait CachedClaim {
 
     f(claim)(request) match {
       case Left(r: Result) =>
-        r.withSession(claim.key -> key)
-          .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
-          .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
-
-      case Right((c: Claim, r: Result)) => {
+        withHeaders(r.withSession(claim.key -> key))
+      case Right((c: Claim, r: Result)) =>
         Cache.set(key, c, expiration)
-
-        r.withSession(claim.key -> key)
-          .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
-          .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
-      }
+        withHeaders(r.withSession(claim.key -> key))
     }
+  }
+
+  private def withHeaders(result:Result) : Result = {
+    result
+      .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+      .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
   }
 
   private def sameHostCheck()(implicit request: Request[AnyContent]) = {
