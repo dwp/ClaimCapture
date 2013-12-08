@@ -76,9 +76,9 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     Logger.info(s"Successful submission : ${claim.key} : $txnId")
     claim.key match {
       case CachedClaim.key =>
-        Redirect(controllers.routes.ThankYou.claim())
+        Redirect(controllers.routes.ClaimEnding.thankyou())
       case CachedChangeOfCircs.key =>
-        Redirect(controllers.routes.ThankYou.circs())
+        Redirect(controllers.routes.CircsEnding.thankyou())
     }
   }
 
@@ -87,9 +87,9 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     updateStatus(claim, txnId, code)
     claim.key match {
       case CachedClaim.key =>
-        Redirect(controllers.routes.Application.error())
+        Redirect(controllers.routes.ClaimEnding.error())
       case CachedChangeOfCircs.key =>
-        Redirect(controllers.routes.Application.circsError())
+        Redirect(controllers.routes.CircsEnding.error())
     }
   }
 

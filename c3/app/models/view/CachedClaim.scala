@@ -15,6 +15,8 @@ import models.domain._
 import controllers.routes
 import models.domain.Claim
 import scala.Some
+import scala.util.Try
+import net.sf.ehcache.CacheManager
 
 object CachedClaim {
   val missingRefererConfig = "Referer not set in config"
@@ -32,9 +34,9 @@ trait CachedClaim {
 
   val expectedReferer = getProperty("claim.referer", default = CachedClaim.missingRefererConfig)
 
-  val timeoutPage = routes.Application.timeout()
+  val timeoutPage = routes.ClaimEnding.timeout()
 
-  val errorPage = routes.Application.error()
+  val errorPage = routes.CircsEnding.error()
 
 
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
@@ -71,7 +73,6 @@ trait CachedClaim {
       implicit val r = request
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
-        Logger.info(s"Starting new $cacheKey")
         originCheck(refererCheck, action(newInstance, request)(f))
       }
       else {
@@ -98,7 +99,7 @@ trait CachedClaim {
               action(claim, request)(f)
             } else {
               Logger.info(s"$cacheKey timeout")
-              withHeaders(Redirect(timeoutPage))
+              Redirect(timeoutPage)
             }
         })
     }
@@ -107,10 +108,9 @@ trait CachedClaim {
   def ending(f: => Result): Action[AnyContent] = Action {
     request => {
       implicit val r = request
-      val (key, _) = keyAndExpiration(request)
-      Cache.set(key, None)
-      withHeaders(originCheck(sameHostCheck, f)
-        .withNewSession)
+      val sessionCount = Try(CacheManager.getInstance().getCache("play").getKeys.size()).getOrElse(0)
+      Logger.info(s"sessionCount : $sessionCount")
+      originCheck(sameHostCheck, f).withNewSession
     }
   }
 
@@ -124,17 +124,11 @@ trait CachedClaim {
 
     f(claim)(request) match {
       case Left(r: Result) =>
-        withHeaders(r.withSession(claim.key -> key))
+        r.withSession(claim.key -> key)
       case Right((c: Claim, r: Result)) =>
         Cache.set(key, c, expiration)
-        withHeaders(r.withSession(claim.key -> key))
+        r.withSession(claim.key -> key)
     }
-  }
-
-  private def withHeaders(result:Result) : Result = {
-    result
-      .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
-      .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
   }
 
   private def sameHostCheck()(implicit request: Request[AnyContent]) = {
@@ -149,8 +143,9 @@ trait CachedClaim {
 
   private def originCheck(doCheck: => Boolean, action: => Result)(implicit request: Request[AnyContent])  = {
     val (referer, host) = refererAndHost(request)
+
     if (doCheck) {
-      action
+      withHeaders(action)
     } else {
       if (redirect) {
         Logger.warn(s"HTTP Referer : $referer")
@@ -158,9 +153,15 @@ trait CachedClaim {
         Logger.warn(s"HTTP Host : $host")
         Redirect(expectedReferer)
       } else {
-        action
+        withHeaders(action)
       }
     }
+  }
+
+  private def withHeaders(result:Result) : Result = {
+    result
+      .withHeaders(CACHE_CONTROL -> "no-cache, no-store")
+      .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
   }
 
 

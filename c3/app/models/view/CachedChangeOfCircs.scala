@@ -16,9 +16,9 @@ trait CachedChangeOfCircs extends CachedClaim {
 
   override val expectedReferer = getProperty("cofc.referer", default = CachedClaim.missingRefererConfig)
 
-  override val timeoutPage = routes.Application.circsTimeout()
+  override val timeoutPage = routes.CircsEnding.timeout()
 
-  override val errorPage = routes.Application.circsError()
+  override val errorPage = routes.CircsEnding.error()
 
   override def newInstance: Claim = new Claim(cacheKey) with ChangeOfCircs
 

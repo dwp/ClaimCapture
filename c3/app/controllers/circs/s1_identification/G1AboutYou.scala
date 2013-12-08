@@ -9,6 +9,7 @@ import controllers.Mappings._
 import models.domain.CircumstancesAboutYou
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
+import play.api.Logger
 
 object G1AboutYou extends Controller with CachedChangeOfCircs with Navigable {
 
@@ -29,6 +30,7 @@ object G1AboutYou extends Controller with CachedChangeOfCircs with Navigable {
   )(CircumstancesAboutYou.apply)(CircumstancesAboutYou.unapply))
 
   def present = newClaim { implicit circs => implicit request =>
+    Logger.info(s"Starting new $cacheKey")
     track(CircumstancesAboutYou) { implicit circs => Ok(views.html.circs.s1_identification.g1_aboutYou(form.fill(CircumstancesAboutYou))) }
   }
 

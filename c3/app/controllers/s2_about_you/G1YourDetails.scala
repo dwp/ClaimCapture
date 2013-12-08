@@ -9,6 +9,7 @@ import models.domain._
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import controllers.CarersForms._
+import play.api.Logger
 
 object G1YourDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -24,6 +25,7 @@ object G1YourDetails extends Controller with CachedClaim with Navigable {
   )(YourDetails.apply)(YourDetails.unapply))
 
   def present = claiming { implicit claim => implicit request =>
+    Logger.info(s"Start your details")
     track(YourDetails) { implicit claim => Ok(views.html.s2_about_you.g1_yourDetails(form.fill(YourDetails))) }
   }
 
