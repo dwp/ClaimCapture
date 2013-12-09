@@ -31,7 +31,6 @@ object G5AdditionalWageDetails extends Controller with CachedClaim with Navigabl
         val newForm = formWithErrors
           .replaceError("oftenGetPaid.frequency.other","error.maxLength",FormError("oftenGetPaid","error.maxLength"))
           .replaceError("oftenGetPaid.frequency","error.required",FormError("oftenGetPaid","error.required"))
-          .replaceError("whenGetPaid","error.required", FormError("whenGetPaid","error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, jobID))))
           .replaceError("whenGetPaid","error.restricted.characters", FormError("whenGetPaid","error.restricted.characters", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, jobID))))
         BadRequest(views.html.s7_employment.g5_additionalWageDetails(newForm))
       },
