@@ -76,15 +76,16 @@ main {
    /* Claim info */
    .claim-info {
 	   margin: 0;
-	   padding: 10px 1.2em 10px 0;
+	   padding: 10px 1em 10px 0;
 	   list-style: none;
 	   text-align: right;
 	   border-top: 10px solid #f47738;
 	   @media screen and (max-width: 640px) {
 		   border: 0;
+		   padding-right: 0;
 	   }
 	   li {
-		   margin-left: 15px;
+		   margin-left: 10px;
 		   display: inline;
 		   font-size: 14px;
 		   color: #000;
@@ -93,6 +94,11 @@ main {
 			   border: 0;
 			   margin: 0;
 			   padding: 0;
+		   }
+		   @media screen and (max-width: 480px) {
+			   &.feedback {
+				   display: none;
+			   }
 		   }
 		   a {
 			   color: #000;
