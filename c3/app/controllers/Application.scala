@@ -1,26 +1,15 @@
 package controllers
 
+import app.ConfigProperties._
 import play.api.mvc._
 import play.api.cache.Cache
 import play.api.Play.current
+import models.view.CachedClaim
 
-object Application extends Controller {
+object Application extends Controller with CachedClaim {
+  val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
+
   def index = Action {
-    Redirect("/allowance/benefits")
-  }
-
-  def timeout = Action {
-    Ok(views.html.common.session_timeout())
-  }
-
-  def circsTimeout = Action {
-    Ok(views.html.common.session_timeout("/circumstances/identification/about-you"))
-  }
-
-  def error(key:String) = Action { request =>
-    // Clear the cache to ensure no duplicate submission
-    val cacheKey = request.session.get(key).orNull
-    Cache.set(cacheKey, None)
-    Ok(views.html.common.error())
+    Redirect(startUrl)
   }
 }

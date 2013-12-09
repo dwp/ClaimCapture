@@ -7,19 +7,20 @@ GET     /                                                                       
 GET     /claim-notes                                                                controllers.ClaimNotes.notes
 
 # Cache Timeout
-GET         /timeout                                                                controllers.Application.timeout
-GET         /circs-timeout                                                          controllers.Application.circsTimeout
+GET         /timeout                                                                controllers.ClaimEnding.timeout
+GET         /circs-timeout                                                          controllers.CircsEnding.timeout
 
 # Unrecoverable error
-GET         /error/:key                                                             controllers.Application.error(key:String)
+GET         /error                                                                  controllers.ClaimEnding.error
+GET         /circs-error                                                            controllers.CircsEnding.error
 
 # Claim submission
 GET         /submit                                                                 @controllers.submission.ClaimSubmissionController.submit
 GET         /circs-submit                                                           @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
 
 # Thank you
-GET         /thankyou/apply-carers                                                  controllers.ThankYou.claim
-GET         /thankyou/change-carers                                                 controllers.ThankYou.circs
+GET         /thankyou/apply-carers                                                  controllers.ClaimEnding.thankyou
+GET         /thankyou/change-carers                                                 controllers.CircsEnding.thankyou
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                           controllers.Assets.at(path="/public", file)

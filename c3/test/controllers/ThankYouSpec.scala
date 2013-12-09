@@ -15,13 +15,13 @@ class ThankYouSpec extends Specification with Mockito with Tags {
     "present 'Thank You' page for claim" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("claim" -> claimKey)
 
-      val result = controllers.ThankYou.claim()(request)
+      val result = controllers.ClaimEnding.thankyou()(request)
       status(result) mustEqual OK
     }
     "present 'Thank You' page for circs" in new WithApplication with Claiming {
       val request = FakeRequest().withSession("claim" -> claimKey)
 
-      val result = controllers.ThankYou.circs()(request)
+      val result = controllers.CircsEnding.thankyou()(request)
       status(result) mustEqual OK
     }
   } section "unit"
