@@ -1,3 +1,4 @@
+import app.ConfigProperties._
 import java.io.File
 import java.net.InetAddress
 import com.typesafe.config.ConfigFactory
@@ -65,7 +66,8 @@ object Global extends GlobalSettings {
 
   override def onError(request: RequestHeader, ex: Throwable) = {
     Logger.error(ex.getMessage)
-    Ok(views.html.common.error("https://www.gov.uk/carers-allowance"))
+    val startUrl: String = getProperty("claim.start.page", "/allowance/benefits")
+    Ok(views.html.common.error(startUrl))
   }
 
   def actorSystems = {
