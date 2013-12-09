@@ -12,7 +12,7 @@ object PastPresentLabelHelper {
   val wereYou = "were you"
   val areYou = "are you"
 
-  def isWasIfSelfEmployed(implicit claim: Claim) = isSelfEmployed(claim) match {
+  def isWasIfSelfEmployed(implicit claim: Claim): String = isSelfEmployed(claim) match {
     case true => "is"
     case false => "was"
   }
