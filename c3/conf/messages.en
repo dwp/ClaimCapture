@@ -172,11 +172,13 @@ error.postcode = A post code must be in the format PR2 8AE
 
 # TIME OUTSIDE UK
 livingInUK_answer = Are you currently living in the UK?
+livingInUK.answer = Are you currently living in the UK?
 livingInUK_arrivalDate = When did you arrive in the UK?
 livingInUK.arrivalDate = When did you arrive in the UK?
 livingInUK_originCountry = What country did you come from?
+livingInUK.originCountry = What country did you come from?
 livingInUK_goBack_date = When do you plan to go back?
-
+livingInUK.goBack.date = When do you plan to go back?
 livingInUK_goBack_answer = Do you plan to go back to that country?
 livingInUK.goBack.answer = Do you plan to go back to that country?
 
