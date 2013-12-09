@@ -1,13 +1,14 @@
 package controllers.s2_about_you
 
 import language.reflectiveCalls
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.mvc.Controller
 import models.view.{Navigable, CachedClaim}
 import utils.helpers.CarersForm._
 import controllers.Mappings._
 import models.domain._
+import scala.language.postfixOps
 
 object G6Employment extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -24,7 +25,12 @@ object G6Employment extends Controller with CachedClaim with Navigable {
 
   def submit = claiming { implicit claim => implicit request =>
     form.bindEncrypted.fold(
-      formWithErrors => BadRequest(views.html.s2_about_you.g6_employment(formWithErrors)),
+      formWithErrors => {
+    val formWithErrorsUpdate = formWithErrors
+      .replaceError("beenEmployedSince6MonthsBeforeClaim", "error.required", FormError("beenEmployedSince6MonthsBeforeClaim", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(dmy =>
+      (dmy - 6 months).`dd/MM/yyyy`),claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
+        BadRequest(views.html.s2_about_you.g6_employment(formWithErrorsUpdate))}
+      ,
       employment => {
         val updatedClaim = claim.showHideSection(employment.beenEmployedSince6MonthsBeforeClaim == yes, Employed)
                                 .showHideSection(employment.beenSelfEmployedSince1WeekBeforeClaim == yes, SelfEmployment)
