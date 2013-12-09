@@ -12,7 +12,7 @@
     @form(action = controllers.s9_other_money.routes.OtherMoney.completedSubmit) {
         <nav class="form-steps">
             <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
-            <button type="submit" name="action" value="next" class="button" aria-label="Continue button" @views.html.helper.trackSubmit()>Continue</button>
+            <button type="submit" name="action" value="next" class="button" aria-label="Continue button" @views.html.ga.trackSubmit()>Continue</button>
         </nav>
     }
 }
