@@ -1,4 +1,4 @@
-@(title: String)(content: Html)(implicit footerCategories: Html = Html.empty)
+@(title: String)(content: Html)(implicit footerCategories: Html = Html.empty, lang: Lang)
 
 @import play.api.Play
 @import play.api.Play.current
@@ -6,5 +6,5 @@
 @if(Play.isTest) {
     @govMainTest(title)(content)(footerCategories)
 } else {
-    @govMainDefault(title)(content)(footerCategories)
+    @govMainDefault(title)(content)(footerCategories, lang)
 }

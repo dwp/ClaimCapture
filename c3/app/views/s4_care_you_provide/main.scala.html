@@ -1,4 +1,4 @@
-@(title: String, currentForm: Option[Form[_]], completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim)
+@(title: String, currentForm: Option[Form[_]], completedQuestionGroups: List[models.domain.QuestionGroup] = Nil)(content: Html)(implicit claim: models.domain.Claim, lang: Lang)
 
 @import models.domain.CareYouProvide
 @import models.domain.ClaimDate

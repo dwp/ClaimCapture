@@ -1,4 +1,4 @@
-@()
+@()(implicit lang: Lang)
 
 @import views.html.helper._
 
@@ -24,9 +24,7 @@
         </div>
     </div>
     }
-}{
-    @views.html.common.submittingFooter()
-}
+}(views.html.common.submittingFooter(), lang)
 
 <script type="text/javascript">
     var n = 0
