@@ -1,4 +1,4 @@
-@(url:String)
+@(url:String)(implicit lang: Lang)
 @common.govMain("An unrecoverable error has occurred") {
 	
     <div class="carers-allowance">
@@ -17,6 +17,4 @@
                 </nav>
             </section>
         </div>
-} {
-    <!-- Empty -->
-}
+}(Html("<!-- Empty -->"),lang)
