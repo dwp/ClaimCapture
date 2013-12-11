@@ -15,7 +15,7 @@ import play.api.data.FormError
 object G6OtherStatutoryPay extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
     "otherPay" -> nonEmptyText.verifying(validYesNo),
-    "howMuch" -> optional(carersText(maxLength = sixty)),
+    "howMuch" -> optional(nonEmptyText verifying validDecimalNumber),
     "howOften" -> optional(paymentFrequency verifying validPaymentFrequencyOnly),
     "employersName" -> optional(carersNonEmptyText(maxLength = sixty)),
     "employersAddress" -> optional(address),
@@ -40,6 +40,10 @@ object G6OtherStatutoryPay extends Controller with CachedClaim with Navigable {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("", "employersName.required", FormError("employersName", "error.required"))
           .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength"))
+          .replaceError("otherPay","error.required", FormError("otherPay", "error.required",Seq(claim.dateOfClaim.fold("{NO CLAIM DATE}")(_.`dd/MM/yyyy`))))
+          .replaceError("employersAddress.lineOne", FormError("employersAddress", "error.restricted.characters"))
+          .replaceError("employersAddress.lineTwo",  FormError("employersAddress", "error.restricted.characters"))
+          .replaceError("employersAddress.lineThree", FormError("employersAddress", "error.restricted.characters"))
         BadRequest(views.html.s9_other_money.g6_otherStatutoryPay(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G7OtherEEAStateOrSwitzerland.present()))

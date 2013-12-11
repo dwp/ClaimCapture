@@ -10,6 +10,8 @@ import utils.helpers.CarersForm._
 import controllers.Mappings._
 import Employment._
 import controllers.CarersForms._
+import utils.helpers.PastPresentLabelHelper._
+
 
 object G5AdditionalWageDetails extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -29,6 +31,7 @@ object G5AdditionalWageDetails extends Controller with CachedClaim with Navigabl
         val newForm = formWithErrors
           .replaceError("oftenGetPaid.frequency.other","error.maxLength",FormError("oftenGetPaid","error.maxLength"))
           .replaceError("oftenGetPaid.frequency","error.required",FormError("oftenGetPaid","error.required"))
+          .replaceError("whenGetPaid","error.restricted.characters", FormError("whenGetPaid","error.restricted.characters", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, jobID))))
         BadRequest(views.html.s7_employment.g5_additionalWageDetails(newForm))
       },
       wageDetails => claim.update(jobs.update(wageDetails)) -> Redirect(routes.G7PensionSchemes.present(jobID)))

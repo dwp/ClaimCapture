@@ -140,7 +140,8 @@ object Mappings {
       else Valid
   }
 
-  def dateTimeValidation(dmy: DayMonthYear): ValidationResult = Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
+  private def dateValidation(dmy: DayMonthYear): ValidationResult = Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, 0, 0)) match {
+    case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError("error.invalid"))
     case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError("error.invalid"))
     case Success(dt: DateTime) => Valid
     case Failure(_) => Invalid(ValidationError("error.invalid"))
@@ -148,11 +149,30 @@ object Mappings {
 
   def validDate: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
       case DayMonthYear(None, None, None, _, _) => Invalid(ValidationError("error.required"))
-      case dmy@DayMonthYear(_, _, _, _, _) => dateTimeValidation(dmy)
+      case dmy@DayMonthYear(_, _, _, _, _) => dateValidation(dmy)
   }
 
   def validDateOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") { dmy =>
-    dateTimeValidation(dmy)
+    dateValidation(dmy)
+  }
+
+  private def dateTimeValidation(dmy: DayMonthYear): ValidationResult =   Try(new DateTime(dmy.year.get, dmy.month.get, dmy.day.get, dmy.hour.getOrElse(0), dmy.minutes.getOrElse(0))) match {
+    case Success(dt: DateTime) if dt.getYear > 9999 || dt.getYear < 999 => Invalid(ValidationError("error.invalid"))
+    case Success(dt: DateTime) => Valid
+    case Failure(_) => Invalid(ValidationError("error.invalid"))
+  }
+
+  def validDateTime: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.required") {
+    case DayMonthYear(None, None, None, _, _) => Invalid(ValidationError("error.required"))
+    case DayMonthYear(_, _, _, Some(h), None) => Invalid(ValidationError("error.invalid"))
+    case DayMonthYear(_, _, _, None, Some(m)) => Invalid(ValidationError("error.invalid"))
+    case dmy@DayMonthYear(_, _, _, _, _) => dateTimeValidation(dmy)
+  }
+
+  def validDateTimeOnly: Constraint[DayMonthYear] = Constraint[DayMonthYear]("constraint.validateDate") {
+    case DayMonthYear(_, _, _, Some(h), None) => Invalid(ValidationError("error.invalid"))
+    case DayMonthYear(_, _, _, None, Some(m)) => Invalid(ValidationError("error.invalid"))
+    case dmy@DayMonthYear(_, _, _, _, _) => dateTimeValidation(dmy)
   }
 
   def nino: Mapping[NationalInsuranceNumber] = mapping(
