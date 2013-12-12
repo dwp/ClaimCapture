@@ -16,10 +16,11 @@ class AssistedDecisionSpec extends Specification with Tags {
 
     "Create an assisted decision section if care less than 35 hours" in {
       val moreAboutTheCare = MoreAboutTheCare("no")
-      val claim = Claim().update(moreAboutTheCare)
+      val residency = NormalResidenceAndCurrentLocation(inGBNow = "yes")
+      val claim = Claim().update(moreAboutTheCare).update(residency)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Do not spend 35 hours or more each week caring. Potential disallowance, but need to check advisory additional notes.")
-    }
+    }.pendingUntilFixed("Postponed by busines")
 
     "Not create an assisted decision section if care more than 35 hours" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
@@ -37,7 +38,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(jobs)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Total weekly gross pay 100.01 > £100. Potential disallowance, but need to check advisory additional notes.")
-    }
+    }.pendingUntilFixed("Postponed by busines")
 
     "Create an assisted decision section if employment with £200.02 a fortnight and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
@@ -48,7 +49,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(jobs)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Total weekly gross pay 100.01 > £100. Potential disallowance, but need to check advisory additional notes.")
-    }
+    }.pendingUntilFixed("Postponed by busines")
 
     "Create an assisted decision section if employment with £400.04 every 4 weeks and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
@@ -59,7 +60,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(jobs)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Total weekly gross pay 100.01 > £100. Potential disallowance, but need to check advisory additional notes.")
-    }
+    }.pendingUntilFixed("Postponed by busines")
 
     "Create an assisted decision section if employment with £433.38 a month and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
@@ -70,7 +71,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(jobs)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Total weekly gross pay 100.01 > £100. Potential disallowance, but need to check advisory additional notes.")
-    }
+    }.pendingUntilFixed("Postponed by busines")
 
     "Create an assisted decision section if employment with 2 jobs one £50 a week and one 200.04 four-weekly and no expenses, pension schemes." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
@@ -84,7 +85,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(jobs)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Total weekly gross pay 100.01 > £100. Potential disallowance, but need to check advisory additional notes.")
-    }
+    }.pendingUntilFixed("Postponed by busines")
 
     "Create an assisted decision section if employment with 2 jobs one £100.01 a week and one 200.04 with no frequency." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
@@ -98,7 +99,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(jobs)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Total weekly gross pay 100.01 > £100. Potential disallowance, but need to check advisory additional notes.")
-    }
+    } .pendingUntilFixed("Postponed by busines")
 
     "Not create an assisted decision section if employment with 2 jobs one £50 a week and one 200.04 four-weekly and job 2 has an expense." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
@@ -141,7 +142,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(jobs)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Total weekly gross pay 100.01 > £100. Potential disallowance, but need to check advisory additional notes.")
-    }
+    }.pendingUntilFixed("Postponed by busines")
 
     "Not create an assisted decision section if employment with 2 jobs one £100.01 a week and one 22.13 both with not same amount each time." in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
@@ -170,7 +171,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must not contain "Total weekly gross pay"
       (xml \\ "TextLine").text must contain("Do not spend 35 hours or more each week caring. Potential disallowance, but need to check advisory additional notes.")
-    }
+    }.pendingUntilFixed("Postponed by busines")
 
     "Create an assisted decision section if less than 16 years old" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
@@ -179,7 +180,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(details)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Customer Date of Birth")
-    }
+    }.pendingUntilFixed("Postponed by busines")
 
     "Not create an assisted decision section if care 16 years old" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
@@ -211,7 +212,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland = "yes")
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must contain("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team or potential disallowance.")
+      (xml \\ "TextLine").text must contain("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
     }
 
     "Not create an assisted decision section if no EEA pension" in {
@@ -219,7 +220,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(benefitsFromOtherEEAStateOrSwitzerland = "no")
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team or potential disallowance."
+      (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team."
     }
 
     "Create an assisted decision section if EEA insurance or working" in {
@@ -227,7 +228,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForOtherEEAStateOrSwitzerland = "yes")
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must contain("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team or potential disallowance.")
+      (xml \\ "TextLine").text must contain("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team.")
     }
 
     "Not create an assisted decision section if no EEA insurance or working" in {
@@ -235,7 +236,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val otherEEAStateOrSwitzerland = OtherEEAStateOrSwitzerland(workingForOtherEEAStateOrSwitzerland = "no")
       val claim = Claim().update(moreAboutTheCare).update(otherEEAStateOrSwitzerland)
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team or potential disallowance."
+      (xml \\ "TextLine").text must not contain "Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team."
     }
 
     "Create an assisted decision section if date of claim > 3 months and 1 day" in {
@@ -245,7 +246,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val claim = Claim().update(moreAboutTheCare).update(details)
       val xml = AssistedDecision.xml(claim)
       (xml \\ "TextLine").text must contain("Date of Claim too far in the future. Potential disallowance.")
-    }
+    }.pendingUntilFixed("Postponed by busines")
 
     "Not create an assisted decision section if date of claim <= 3 month and 1 day" in {
       val moreAboutTheCare = MoreAboutTheCare("yes")
@@ -261,7 +262,8 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NormalResidenceAndCurrentLocation(inGBNow = "no")
       val claim = Claim().update(moreAboutTheCare).update(residency)
       val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must contain("Person does not reside in GB now. Transfer to Exportability team or potential disallowance.")
+      (xml \\ "TextLine").text must contain("Keep In View")
+      (xml \\ "TextLine").text must contain("Person does not reside in GB now. Transfer to Exportability team.")
     }
 
     "Not create an assisted decision section if person is in Great Britain Now" in {
@@ -269,17 +271,10 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NormalResidenceAndCurrentLocation(inGBNow = "yes")
       val claim = Claim().update(moreAboutTheCare).update(residency)
       val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must not contain "Keep In View"
       (xml \\ "TextLine").text must not contain "Person does not reside in GB now. Transfer to Exportability team or potential disallowance."
     }
 
-    "Create an assisted decision section if person is in Great Britain Now but care less than 35 hours" in {
-      val moreAboutTheCare = MoreAboutTheCare("no")
-      val residency = NormalResidenceAndCurrentLocation(inGBNow = "yes")
-      val claim = Claim().update(moreAboutTheCare).update(residency)
-      val xml = AssistedDecision.xml(claim)
-      (xml \\ "TextLine").text must not contain "Transfer to Exportability team or potential disallowance"
-      (xml \\ "TextLine").text must contain("Do not spend 35 hours or more each week caring. Potential disallowance, but need to check advisory additional notes.")
-    }
   } section "unit"
 
 }
