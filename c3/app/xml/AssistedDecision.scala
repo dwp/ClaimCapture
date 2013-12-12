@@ -14,17 +14,19 @@ import scala.Some
 object AssistedDecision {
 
   def xml(claim: Claim) = {
-    var assisted = caringHours(claim)
-    if (assisted.length == 0 ) {
-      assisted ++= employmentGrossPay(claim)
-      assisted ++= getAFIP(claim)
-      assisted ++= noEEABenefits(claim)
-      assisted ++= noEEAWork(claim)
-      assisted ++= inGBNow(claim)
-    }
-    assisted ++= dateOfClaim(claim)
-    assisted ++= rightAge(claim)
-    if (assisted.length > 0) textSeparatorLine("Assisted Decision") ++ assisted
+
+    // Business postponed some assisted decisions; Thus the commented code.
+    //    var assisted = caringHours(claim)
+    //    if (assisted.length == 0 ) {
+    //      assisted ++= employmentGrossPay(claim)
+    var assisted = getAFIP(claim)
+    assisted ++= noEEABenefits(claim)
+    assisted ++= noEEAWork(claim)
+    assisted ++= inGBNow(claim)
+    //    }
+    //    assisted ++= dateOfClaim(claim)
+    //    assisted ++= rightAge(claim)
+    if (assisted.length > 0) textSeparatorLine(" Keep In View ") ++ assisted
     else NodeSeq.Empty
   }
 
@@ -47,19 +49,19 @@ object AssistedDecision {
       case Some(jobs) => for (job <- jobs) {
         val lastWage = job.questionGroup[LastWage].getOrElse(LastWage())
         if (weeklyEarning > -1d && lastWage.sameAmountEachTime.getOrElse("").toLowerCase == "yes") {
-//          Logger.debug("Assisted decision - child expense " + job.questionGroup[ChildcareExpenses])
-//          Logger.debug("Assisted decision - Person you care expenses " + job.questionGroup[PersonYouCareForExpenses])
-//          Logger.debug("Assisted decision - Pension schemes " + job.questionGroup[PensionSchemes])
+          //          Logger.debug("Assisted decision - child expense " + job.questionGroup[ChildcareExpenses])
+          //          Logger.debug("Assisted decision - Person you care expenses " + job.questionGroup[PersonYouCareForExpenses])
+          //          Logger.debug("Assisted decision - Pension schemes " + job.questionGroup[PensionSchemes])
           if (!job.questionGroup[ChildcareExpenses].isDefined && !job.questionGroup[PersonYouCareForExpenses].isDefined
             && (!job.questionGroup[PensionSchemes].isDefined || (job.questionGroup[PensionSchemes].get.payPersonalPensionScheme.toLowerCase != "yes" && job.questionGroup[PensionSchemes].get.payOccupationalPensionScheme.toLowerCase != "yes"))) {
             val earning = lastWage.grossPay.toDouble
-//            Logger.debug("Assisted decision - Pay frequency " + job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency)
+            //            Logger.debug("Assisted decision - Pay frequency " + job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency)
             val frequencyFactor: Double = job.questionGroup[AdditionalWageDetails].getOrElse(AdditionalWageDetails()).oftenGetPaid.frequency match {
-                case StatutoryPaymentFrequency.Weekly => 1.0
-                case StatutoryPaymentFrequency.Fortnightly => 2.0001
-                case StatutoryPaymentFrequency.FourWeekly => 4.0003
-                case StatutoryPaymentFrequency.Monthly => 4.3337
-                case _ => 0d
+              case StatutoryPaymentFrequency.Weekly => 1.0
+              case StatutoryPaymentFrequency.Fortnightly => 2.0001
+              case StatutoryPaymentFrequency.FourWeekly => 4.0003
+              case StatutoryPaymentFrequency.Monthly => 4.3337
+              case _ => 0d
             }
             if (frequencyFactor == 0) {
               if (weeklyEarning <= 100.00) weeklyEarning = -1 // We do no know frequency so we cannot compute earning and assist the decision. If we had already > 100 then do not change decision.
@@ -93,27 +95,27 @@ object AssistedDecision {
 
   private def noEEABenefits(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.benefitsFromOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team or potential disallowance.")
+    if (otherEEAStateOrSwitzerland.benefitsFromOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
   private def noEEAWork(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.workingForOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team or potential disallowance.")
+    if (otherEEAStateOrSwitzerland.workingForOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
-  private def dateOfClaim(claim:Claim) : NodeSeq = {
+  private def dateOfClaim(claim: Claim): NodeSeq = {
     val claimDateAnswer = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     val monthsFuture = DateTime.now().plusMonths(3).plusDays(1)
-    val claimDate = new DateTime(claimDateAnswer.dateOfClaim.year.get, claimDateAnswer.dateOfClaim.month.get,claimDateAnswer.dateOfClaim.day.get,0,0)
+    val claimDate = new DateTime(claimDateAnswer.dateOfClaim.year.get, claimDateAnswer.dateOfClaim.month.get, claimDateAnswer.dateOfClaim.day.get, 0, 0)
     if (claimDate.isAfter(monthsFuture)) textLine("Date of Claim too far in the future. Potential disallowance.")
     else NodeSeq.Empty
   }
 
-  private def inGBNow(claim:Claim) : NodeSeq = {
+  private def inGBNow(claim: Claim): NodeSeq = {
     val isInGBNow = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
-    if (isInGBNow.inGBNow.toLowerCase != "yes") textLine("Person does not reside in GB now. Transfer to Exportability team or potential disallowance.")
+    if (isInGBNow.inGBNow.toLowerCase != "yes") textLine("Person does not reside in GB now. Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
@@ -129,6 +131,8 @@ object AssistedDecision {
 
   }
 
-  private def textLine(text: String) = <TextLine>{text}</TextLine>
+  private def textLine(text: String) = <TextLine>
+    {text}
+  </TextLine>
 
 }
