@@ -262,6 +262,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NormalResidenceAndCurrentLocation(inGBNow = "no")
       val claim = Claim().update(moreAboutTheCare).update(residency)
       val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must contain("Keep In View")
       (xml \\ "TextLine").text must contain("Person does not reside in GB now. Transfer to Exportability team.")
     }
 
@@ -270,6 +271,7 @@ class AssistedDecisionSpec extends Specification with Tags {
       val residency = NormalResidenceAndCurrentLocation(inGBNow = "yes")
       val claim = Claim().update(moreAboutTheCare).update(residency)
       val xml = AssistedDecision.xml(claim)
+      (xml \\ "TextLine").text must not contain "Keep In View"
       (xml \\ "TextLine").text must not contain "Person does not reside in GB now. Transfer to Exportability team or potential disallowance."
     }
 

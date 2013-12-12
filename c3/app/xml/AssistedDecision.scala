@@ -26,7 +26,7 @@ object AssistedDecision {
     //    }
     //    assisted ++= dateOfClaim(claim)
     //    assisted ++= rightAge(claim)
-    if (assisted.length > 0) textSeparatorLine("Assisted Decision") ++ assisted
+    if (assisted.length > 0) textSeparatorLine(" Keep In View ") ++ assisted
     else NodeSeq.Empty
   }
 
