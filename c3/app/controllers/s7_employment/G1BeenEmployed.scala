@@ -23,7 +23,7 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
   def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
     claim -> Redirect("/self-employment/about-self-employment")
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request => implicit lang =>
       presentConditionally(beenEmployed)
   }
 
@@ -36,7 +36,7 @@ object G1BeenEmployed extends Controller with CachedClaim with Navigable {
     }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     import controllers.Mappings.yes
 
     def next(beenEmployed: BeenEmployed) = beenEmployed.beenEmployed match {

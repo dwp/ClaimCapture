@@ -7,13 +7,13 @@ import play.api.data.FormError
 
 object G2Submitting extends Controller with CachedChangeOfCircs with Navigable {
 
-  def present = claiming { implicit circs => implicit request =>
+  def present = claiming { implicit circs => implicit request => implicit lang =>
     track(CircumstancesOtherInfo) {
       implicit circs => Ok(views.html.circs.s3_consent_and_declaration.g2_submitting())
     }
   }
 
-  def submit = claiming { implicit circs => implicit request =>
+  def submit = claiming { implicit circs => implicit request => implicit lang =>
     Redirect("/circs-submit")
   }
 

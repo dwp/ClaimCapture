@@ -26,11 +26,11 @@ object G1NormalResidenceAndCurrentLocation extends Controller with CachedClaim w
     "inGBNow" -> nonEmptyText.verifying(validYesNo)
   )(NormalResidenceAndCurrentLocation.apply)(NormalResidenceAndCurrentLocation.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request => implicit lang =>
     track(NormalResidenceAndCurrentLocation) { implicit claim => Ok(views.html.s5_time_spent_abroad.g1_normalResidenceAndCurrentLocation(form.fill(NormalResidenceAndCurrentLocation))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors.replaceError("liveInUK", FormError("liveInUK.whereDoYouLive", "error.required"))

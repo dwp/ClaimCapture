@@ -28,11 +28,11 @@ object G4Trip extends Controller with CachedClaim {
   val fourWeeksLabel = "s5.g2"
   val fiftyTwoWeeksLabel = "s5.g3"
 
-  def fourWeeks = claiming { implicit claim => implicit request =>
+  def fourWeeks = claiming { implicit claim => implicit request => implicit lang =>
     Ok(views.html.s5_time_spent_abroad.g4_trip(form, fourWeeksLabel, routes.G4Trip.fourWeeksSubmit(),  routes.G2AbroadForMoreThan4Weeks.present()))
   }
 
-  def fourWeeksSubmit = claiming { implicit claim => implicit request =>
+  def fourWeeksSubmit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, fourWeeksLabel, routes.G4Trip.fourWeeksSubmit(), routes.G2AbroadForMoreThan4Weeks.present())),
       trip => {
@@ -41,11 +41,11 @@ object G4Trip extends Controller with CachedClaim {
       })
   }
 
-  def fiftyTwoWeeks = claiming { implicit claim => implicit request =>
+  def fiftyTwoWeeks = claiming { implicit claim => implicit request => implicit lang =>
     Ok(views.html.s5_time_spent_abroad.g4_trip(form, fiftyTwoWeeksLabel, routes.G4Trip.fiftyTwoWeeksSubmit(), routes.G3AbroadForMoreThan52Weeks.present()))
   }
 
-  def fiftyTwoWeeksSubmit = claiming { implicit claim => implicit request =>
+  def fiftyTwoWeeksSubmit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s5_time_spent_abroad.g4_trip(formWithErrors, fiftyTwoWeeksLabel, routes.G4Trip.fiftyTwoWeeksSubmit(), routes.G3AbroadForMoreThan52Weeks.present())),
       trip => {
@@ -54,7 +54,7 @@ object G4Trip extends Controller with CachedClaim {
       })
   }
 
-  def trip(id: String) = claiming { implicit claim => implicit request =>
+  def trip(id: String) = claiming { implicit claim => implicit request => implicit lang =>
     claim.questionGroup(Trips) match {
       case Some(ts: Trips) => ts.fourWeeksTrips.find(_.id == id) match {
         case Some(t: Trip) => Ok(views.html.s5_time_spent_abroad.g4_trip(form.fill(t), fourWeeksLabel, routes.G4Trip.fourWeeksSubmit(), routes.G2AbroadForMoreThan4Weeks.present()))
@@ -68,7 +68,7 @@ object G4Trip extends Controller with CachedClaim {
     }
   }
 
-  def delete(id: String) = claiming { implicit claim => implicit request =>
+  def delete(id: String) = claiming { implicit claim => implicit request => implicit lang =>
     import play.api.libs.json.Json
     import language.postfixOps
 

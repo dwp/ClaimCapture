@@ -20,7 +20,7 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
     "studentReferenceNumber" -> optional(carersText(maxLength = sixty))
   )(YourCourseDetails.apply)(YourCourseDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request => implicit lang =>
     presentConditionally {
       track(YourCourseDetails) { implicit claim => Ok(views.html.s6_education.g1_yourCourseDetails(form.fill(YourCourseDetails))) }
     }
@@ -34,7 +34,7 @@ object G1YourCourseDetails extends Controller with CachedClaim with Navigable {
   def redirect(implicit claim: Claim, request: Request[AnyContent]): ClaimResult =
     claim -> Redirect("/employment/been-employed")
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s6_education.g1_yourCourseDetails(formWithErrors)),
       yourCourseDetails => claim.update(yourCourseDetails) -> Redirect(routes.G2AddressOfSchoolCollegeOrUniversity.present()))

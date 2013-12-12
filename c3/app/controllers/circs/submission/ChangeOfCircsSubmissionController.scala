@@ -16,7 +16,7 @@ import scala.Some
 @Singleton
 class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs with SubmissionNotifier with FastSubmissionNotifier {
 
-  def submit = claiming { implicit circs => implicit request =>
+  def submit = claiming { implicit circs => implicit request => implicit lang =>
     if (isBot(circs)) {
       NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
     }

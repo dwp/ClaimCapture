@@ -16,11 +16,11 @@ object G4LivesInGB extends Controller with CachedClaim with Navigable {
     "answer" -> nonEmptyText.verifying(validYesNo)
   )(LivesInGB.apply)(LivesInGB.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request => implicit lang =>
     track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g4_livesInGB(form.fill(LivesInGB))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

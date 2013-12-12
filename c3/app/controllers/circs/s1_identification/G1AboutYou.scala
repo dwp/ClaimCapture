@@ -29,12 +29,12 @@ object G1AboutYou extends Controller with CachedChangeOfCircs with Navigable {
     dateOfBirth -> dayMonthYear.verifying(validDate)
   )(CircumstancesAboutYou.apply)(CircumstancesAboutYou.unapply))
 
-  def present = newClaim { implicit circs => implicit request =>
+  def present = newClaim { implicit circs => implicit request => implicit lang =>
     Logger.info(s"Starting new $cacheKey")
     track(CircumstancesAboutYou) { implicit circs => Ok(views.html.circs.s1_identification.g1_aboutYou(form.fill(CircumstancesAboutYou))) }
   }
 
-  def submit = claiming { implicit circs => implicit request =>
+  def submit = claiming { implicit circs => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s1_identification.g1_aboutYou(formWithErrors)),
       f => circs.update(f) -> Redirect(routes.G2YourContactDetails.present())

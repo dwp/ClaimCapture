@@ -6,13 +6,13 @@ import models.domain._
 import models.view.Navigable
 
 object SelfEmployment extends Controller with CachedClaim with Navigable {
-  def completed = claiming {implicit claim => implicit request =>
+  def completed = claiming {implicit claim => implicit request => implicit lang =>
     presentConditionally {
       track(models.domain.SelfEmployment) { implicit claim => Ok(views.html.s8_self_employment.g9_completed()) }
     }
   }
 
-  def completedSubmit = claiming { implicit claim => implicit request =>
+  def completedSubmit = claiming { implicit claim => implicit request => implicit lang =>
     redirect
   }
 

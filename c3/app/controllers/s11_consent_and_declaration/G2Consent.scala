@@ -47,11 +47,11 @@ object G2Consent extends Controller with CachedClaim with Navigable {
     informationFromPersonMapping
   )(Consent.apply)(Consent.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request => implicit lang =>
     track(Consent) { implicit claim => Ok(views.html.s11_consent_and_declaration.g2_consent(form.fill(Consent))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

@@ -20,11 +20,11 @@ object G8AboutExpenses extends Controller with CachedClaim with Navigable {
     "payAnyoneToLookAfterPerson" -> nonEmptyText.verifying(validYesNo)
   )(AboutExpenses.apply)(AboutExpenses.unapply))
 
-  def present(jobID: String) = claiming { implicit claim => implicit request =>
+  def present(jobID: String) = claiming { implicit claim => implicit request => implicit lang =>
     track(AboutExpenses) { implicit claim => Ok(views.html.s7_employment.g8_aboutExpenses(form.fillWithJobID(AboutExpenses, jobID))) }
   }
 
-  def submit = claimingInJob { jobID => implicit claim => implicit request =>
+  def submit = claimingInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val pastPresent = pastPresentLabelForEmployment(claim, didYou, doYou , jobID)

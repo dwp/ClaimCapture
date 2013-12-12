@@ -1,8 +1,8 @@
-@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent])
+@(field: play.api.data.Field, args: (Symbol, Any)*)(implicit request: Request[AnyContent], lang: Lang)
 
 @import utils.helpers.CarersTemplate._
 @import views.html.helper._
 
 @helper.input(field, args: _*) { (id, name, value, htmlArgs) =>
-    @yesNoPlaceholder(field, Seq("yes" -> "Yes", "no" -> "No"), args.filter(_._1 != 'label):_*)
+    @yesNoPlaceholder(field, Seq("yes" -> Messages("label.yes"), "no" -> Messages("label.no")), args.filter(_._1 != 'label):_*)
 }

@@ -17,13 +17,13 @@ object G1Declaration extends Controller with CachedChangeOfCircs with Navigable 
   )(CircumstancesDeclaration.apply)(CircumstancesDeclaration.unapply)
     .verifying("obtainInfoWhy", CircumstancesDeclaration.validateWhy _))
 
-  def present = claiming { implicit circs => implicit request =>
+  def present = claiming { implicit circs => implicit request => implicit lang =>
     track(CircumstancesOtherInfo) {
       implicit circs => Ok(views.html.circs.s3_consent_and_declaration.g1_declaration(form.fill(CircumstancesDeclaration)))
     }
   }
 
-  def submit = claiming { implicit circs => implicit request =>
+  def submit = claiming { implicit circs => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

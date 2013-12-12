@@ -17,12 +17,12 @@ object G1Benefits extends Controller with CachedClaim with Navigable {
     "answer" -> nonEmptyText.verifying(validYesNo)
   )(Benefits.apply)(Benefits.unapply))
 
-  def present = newClaim { implicit claim => implicit request =>
+  def present = newClaim { implicit claim => implicit request => implicit lang =>
     Logger.info(s"Starting new $cacheKey")
     track(Benefits) { implicit claim => Ok(views.html.s1_carers_allowance.g1_benefits(form.fill(Benefits))) }
   }
 
-  def submit = claiming {implicit claim => implicit request =>
+  def submit = claiming {implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors

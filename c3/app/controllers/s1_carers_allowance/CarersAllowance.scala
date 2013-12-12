@@ -5,14 +5,14 @@ import models.view._
 import models.domain._
 
 object CarersAllowance extends Controller with CachedClaim with Navigable {
-  def approve = claiming {implicit claim => implicit request =>
+  def approve = claiming {implicit claim => implicit request => implicit lang =>
     val completedQuestionGroups = claim.completedQuestionGroups(models.domain.CarersAllowance)
     val approved = completedQuestionGroups.length == 4 && completedQuestionGroups.forall(_.asInstanceOf[BooleanConfirmation].answer)
 
     track(LivesInGB) { implicit claim => Ok(views.html.s1_carers_allowance.g6_approve(approved)) }
   }
 
-  def approveSubmit = claiming {implicit claim => implicit request =>
+  def approveSubmit = claiming {implicit claim => implicit request => implicit lang =>
     Redirect(controllers.s1_carers_allowance.routes.G5CarersResponse.present())
   }
 }

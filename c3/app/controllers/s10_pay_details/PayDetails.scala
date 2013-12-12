@@ -5,13 +5,13 @@ import models.view.{Navigable, CachedClaim}
 import models.domain.Claim
 
 object PayDetails extends Controller with CachedClaim with Navigable {
-  def completed = claiming { implicit claim => implicit request =>
+  def completed = claiming { implicit claim => implicit request => implicit lang =>
     presentConditionally {
       track(models.domain.PayDetails) { implicit claim => Ok(views.html.s10_pay_details.g3_completed()) }
     }
   }
 
-  def completedSubmit = claiming { implicit claim => implicit request =>
+  def completedSubmit = claiming { implicit claim => implicit request => implicit lang =>
     redirect
   }
 

@@ -16,7 +16,7 @@ object G2YourContactDetails extends Controller with CachedChangeOfCircs with Nav
     "mobileNumber" -> optional(text verifying validPhoneNumber)
   )(CircumstancesYourContactDetails.apply)(CircumstancesYourContactDetails.unapply))
 
-  def present = claiming { implicit circs => implicit request =>
+  def present = claiming { implicit circs => implicit request => implicit lang =>
     track(CircumstancesYourContactDetails) {
       implicit circs => {
         Ok(views.html.circs.s1_identification.g2_yourContactDetails(form.fill(CircumstancesYourContactDetails)))
@@ -24,7 +24,7 @@ object G2YourContactDetails extends Controller with CachedChangeOfCircs with Nav
     }
   }
 
-  def submit = claiming { implicit circs => implicit request =>
+  def submit = claiming { implicit circs => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.circs.s1_identification.g2_yourContactDetails(formWithErrors)),
       f => circs.update(f) -> Redirect(routes.G3DetailsOfThePersonYouCareFor.present())

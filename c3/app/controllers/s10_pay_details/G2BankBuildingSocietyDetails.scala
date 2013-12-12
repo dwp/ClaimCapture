@@ -24,7 +24,7 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
     "rollOrReferenceNumber" -> carersText(maxLength = 18)
   )(BankBuildingSocietyDetails.apply)(BankBuildingSocietyDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request => implicit lang =>
     presentConditionally(bankBuildingSocietyDetails)
   }
 
@@ -38,7 +38,7 @@ object G2BankBuildingSocietyDetails extends Controller with CachedClaim with Nav
     else claim.delete(BankBuildingSocietyDetails) -> Redirect(routes.PayDetails.completed())
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s10_pay_details.g2_bankBuildingSocietyDetails(formWithErrors)),
       howWePayYou => claim.update(howWePayYou) -> Redirect(routes.PayDetails.completed()))

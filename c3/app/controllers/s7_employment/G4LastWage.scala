@@ -20,11 +20,11 @@ object G4LastWage extends Controller with CachedClaim with Navigable {
     "sameAmountEachTime" -> optional(text.verifying(validYesNo))
   )(LastWage.apply)(LastWage.unapply))
 
-  def present(jobID: String) = claiming { implicit claim => implicit request =>
+  def present(jobID: String) = claiming { implicit claim => implicit request => implicit lang =>
     track(LastWage) { implicit claim => Ok(views.html.s7_employment.g4_lastWage(form.fillWithJobID(LastWage, jobID))) }
   }
 
-  def submit = claimingInJob { jobID => implicit claim => implicit request =>
+  def submit = claimingInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s7_employment.g4_lastWage(formWithErrors)),
       lastWage => claim.update(jobs.update(lastWage)) -> Redirect(routes.G5AdditionalWageDetails.present(jobID)))

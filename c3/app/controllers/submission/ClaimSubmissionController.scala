@@ -14,7 +14,7 @@ import scala.Some
 
 @Singleton
 class ClaimSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedClaim with SubmissionNotifier with FastSubmissionNotifier  {
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     if (isBot(claim)) {
       NotFound(views.html.errors.onHandlerNotFound(request)) // Send bot to 404 page.
     } else {

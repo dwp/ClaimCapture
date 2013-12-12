@@ -19,11 +19,11 @@ object G2ContactDetails extends Controller with CachedClaim with Navigable {
     "mobileNumber" -> optional(text verifying validPhoneNumber)
   )(ContactDetails.apply)(ContactDetails.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request => implicit lang =>
     track(ContactDetails) { implicit claim => Ok(views.html.s2_about_you.g2_contactDetails(form.fill(ContactDetails))) }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => BadRequest(views.html.s2_about_you.g2_contactDetails(formWithErrors)),
       contactDetails => claim.update(contactDetails) -> Redirect(routes.G3TimeOutsideUK.present()))

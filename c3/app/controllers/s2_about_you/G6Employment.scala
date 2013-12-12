@@ -16,14 +16,14 @@ object G6Employment extends Controller with CachedClaim with Navigable {
     "beenEmployedSince6MonthsBeforeClaim" -> nonEmptyText.verifying(validYesNo)
   )(Employment.apply)(Employment.unapply))
 
-  def present = claiming { implicit claim => implicit request =>
+  def present = claiming { implicit claim => implicit request => implicit lang =>
     claim.questionGroup(ClaimDate) match {
       case Some(n) => track(Employment) { implicit claim => Ok(views.html.s2_about_you.g6_employment(form.fill(Employment))) }
       case _ => Redirect("/")
     }
   }
 
-  def submit = claiming { implicit claim => implicit request =>
+  def submit = claiming { implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
     val formWithErrorsUpdate = formWithErrors

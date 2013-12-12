@@ -17,6 +17,7 @@ import models.domain.Claim
 import scala.Some
 import scala.util.Try
 import net.sf.ehcache.CacheManager
+import play.api.i18n.Lang
 
 object CachedClaim {
   val missingRefererConfig = "Referer not set in config"
@@ -52,7 +53,7 @@ trait CachedClaim {
 
   def newInstance: Claim = new Claim(cacheKey) with FullClaim
 
-  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created)(claim.navigation) with FullClaim
+  def copyInstance(claim: Claim): Claim = new Claim(claim.key, claim.sections, claim.created, claim.lang)(claim.navigation) with FullClaim
 
   def keyAndExpiration(r: Request[AnyContent]): (String, Int) = {
     r.session.get(cacheKey).getOrElse(randomUUID.toString) ->  getProperty("cache.expiry", 3600)
@@ -68,35 +69,39 @@ trait CachedClaim {
     Cache.getAs[Claim](key)
   }
 
-  def newClaim(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]): Action[AnyContent] = Action {
+  def newClaim(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
       implicit val r = request
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
-        originCheck(refererCheck, action(newInstance, request)(f))
+        //TODO Replace default cases in newClaim and claiming for default lang case
+        originCheck(refererCheck, action(newInstance, request, Lang("en"))(f))
       }
       else {
         Logger.info(s"Changing $cacheKey")
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
         val claim = Cache.getAs[Claim](key).getOrElse(throw new RuntimeException("I expected a claim in the cache!"))
-        originCheck(sameHostCheck, action(claim, request)(f))
+        originCheck(sameHostCheck, action(claim, request, claim.lang.getOrElse(Lang("en")))(f))
       }
     }
   }
 
-  def claiming(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]): Action[AnyContent] = Action {
+  def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
       implicit val r = request
       originCheck(sameHostCheck,
         fromCache(request) match {
-          case Some(claim) => action(copyInstance(claim), request)(f)
+          case Some(claim) => {
+            val lang = claim.lang.getOrElse(Lang("en"))
+            action(copyInstance(claim), request, lang)(f)
+          }
 
           case None =>
             if (Play.isTest) {
               val (key, expiration) = keyAndExpiration(request)
               val claim = newInstance
               Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
-              action(claim, request)(f)
+              action(claim, request, Lang("en"))(f)
             } else {
               Logger.info(s"$cacheKey timeout")
               Redirect(timeoutPage)
@@ -114,15 +119,15 @@ trait CachedClaim {
     }
   }
 
-  def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action { request =>
+  def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Lang => Either[Result, ClaimResult]) = Action { request =>
     claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
   }
 
-  private def action(claim: Claim, request: Request[AnyContent])(f: (Claim) => Request[AnyContent] => Either[Result, ClaimResult]): Result = {
+  private def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {
 
     val (key, expiration) = keyAndExpiration(request)
 
-    f(claim)(request) match {
+    f(claim)(request)(lang) match {
       case Left(r: Result) =>
         r.withSession(claim.key -> key)
       case Right((c: Claim, r: Result)) =>

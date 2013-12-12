@@ -24,7 +24,7 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
     "relationToPersonYouCare" -> nonEmptyText
   )(PersonYouCareForExpenses.apply)(PersonYouCareForExpenses.unapply))
 
-  def present(jobID: String) = claiming { implicit claim => implicit request =>
+  def present(jobID: String) = claiming { implicit claim => implicit request => implicit lang =>
     jobs.questionGroup(jobID, AboutExpenses) match {
       case Some(a: AboutExpenses) if a.payAnyoneToLookAfterPerson == `yes`=>
         track(PersonYouCareForExpenses) { implicit claim => Ok(views.html.s7_employment.g12_personYouCareForExpenses(form.fillWithJobID(PersonYouCareForExpenses, jobID))) }
@@ -33,7 +33,7 @@ object G12PersonYouCareForExpenses extends Controller with CachedClaim with Navi
     }
   }
 
-  def submit = claimingInJob { jobID => implicit claim => implicit request =>
+  def submit = claimingInJob { jobID => implicit claim => implicit request => implicit lang =>
     form.bindEncrypted.fold(
       formWithErrors => {
         val pastPresentLabel = pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, jobID)
