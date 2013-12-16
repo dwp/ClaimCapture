@@ -232,7 +232,8 @@ object Formulate {
   def moreAboutTheCareWithNotSpent35HoursCaringBeforeClaim(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/more-about-the-care")
     browser.click("#spent35HoursCaring_yes")
-    browser.click("#spent35HoursCaringBeforeClaim_no")
+    browser.click("#spent35HoursCaringBefo" +
+      "reClaim_no")
     browser.click("#hasSomeonePaidYou_yes")
     browser.submit("button[type='submit']")
   }
@@ -241,8 +242,8 @@ object Formulate {
 
   def howWePayYou(browser: TestBrowser) = {
     browser.goTo("/pay-details/how-we-pay-you")
-    browser.click("#likeToPay_" + AccountStatus.BankBuildingAccount)
-    browser.click("#paymentFrequency option[value='fourWeekly']")
+    browser.click("#likeToPay_" + AccountStatus.BankBuildingAccount.replace(' ','_'))
+    browser.click("#paymentFrequency option[value='Four-Weekly']")
     browser.submit("button[type='submit']")
   }
 

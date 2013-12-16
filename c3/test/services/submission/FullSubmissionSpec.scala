@@ -18,7 +18,7 @@ import utils.pageobjects.common.ErrorPage
 class FullSubmissionSpec extends Specification with Tags {
   sequential
 
-  val thankYouPageTitle =  "Carer's Allowance referrer"
+  val thankYouPageTitle =  "Thank you"
 
 //  val cAndDError = "Error"
 

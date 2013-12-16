@@ -46,7 +46,7 @@ class WebSearchSpec extends Specification with Tags{
       claim.HowWePayYouHowWouldYouLikeToGetPaid = Messages(AccountStatus.BankBuildingAccount)
       claim.HowWePayYouHowOftenDoYouWantToGetPaid = Messages(PaymentFrequency.FourWeekly)
       claim.HowWePayYouNameOfAccountHolder = "Despicable me"
-      claim.WhoseNameOrNamesIsTheAccountIn = "yourName"
+      claim.WhoseNameOrNamesIsTheAccountIn = "Your name"
       claim.HowWePayYouFullNameOfBankorBuildingSociety = "HSBC Plc"
       claim.HowWePayYouSortCode = "091234"
       claim.HowWePayYouAccountNumber = "987234987"
