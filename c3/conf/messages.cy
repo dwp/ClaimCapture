@@ -604,3 +604,17 @@ titleSelect.sir=Syr
 titleSelect.lord=Arglwydd
 titleSelect.lady=Lady
 titleSelect.dame=Y Fonesig
+
+datePlaceholder.month=Mis
+datePlaceholder.January=Ionawr
+datePlaceholder.February=Chwefror
+datePlaceholder.March=Mawrth
+datePlaceholder.April=Ebrill
+datePlaceholder.May=Mai
+datePlaceholder.June=Mehefin
+datePlaceholder.July=Gorffennaf
+datePlaceholder.August=Awst
+datePlaceholder.September=Medi
+datePlaceholder.October=Hydref
+datePlaceholder.November=Tachwedd
+datePlaceholder.December=Rhagfyr

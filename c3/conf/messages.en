@@ -604,3 +604,17 @@ titleSelect.sir=Sir
 titleSelect.lord=Lord
 titleSelect.lady=Lady
 titleSelect.dame=Dame
+
+datePlaceholder.month=Month
+datePlaceholder.January=January
+datePlaceholder.February=February
+datePlaceholder.March=March
+datePlaceholder.April=April
+datePlaceholder.May=May
+datePlaceholder.June=June
+datePlaceholder.July=July
+datePlaceholder.August=August
+datePlaceholder.September=September
+datePlaceholder.October=October
+datePlaceholder.November=November
+datePlaceholder.December=December
