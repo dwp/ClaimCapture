@@ -44,7 +44,7 @@ object Language extends Controller {
   def redirectUrl(request: Request[AnyContent]): String = {
     val (referer, host) = refererAndHost(request)
     val url = referer.substring(referer.indexOf(host) + host.length)
-    if (url.contains("/allowance/benefits") || url.contains("/circumstances/identification/about-you"))
+    if ((url.contains("/allowance/benefits") || url.contains("/circumstances/identification/about-you")) && (!url.contains("?changing=true")))
       url + "?changing=true"
     else
       url
