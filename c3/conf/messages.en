@@ -592,3 +592,15 @@ footer.helpdesk = Helpdesk
 footer.privacyAndCookies = Privacy &amp; Cookies
 footer.builtBy = Built by
 footer.crownCopyright = Crown Copyright
+
+titleSelect.pleaseSelect=Please select
+titleSelect.mr=Mr
+titleSelect.mrs=Mrs
+titleSelect.miss=Miss
+titleSelect.ms=Ms
+titleSelect.dr=Dr
+titleSelect.rev=Rev
+titleSelect.sir=Sir
+titleSelect.lord=Lord
+titleSelect.lady=Lady
+titleSelect.dame=Dame

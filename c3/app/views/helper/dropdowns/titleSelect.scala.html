@@ -1,4 +1,4 @@
-@(field: Field)
+@(field: Field)(implicit lang: Lang)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,17 +7,17 @@
 @{
     carersSelect(field,
         options = options(
-            "" -> "Please select",
-            "mr" -> "Mr",
-            "mrs" -> "Mrs",
-            "miss" -> "Miss",
-            "ms" -> "Ms",
-            "dr"  ->"Dr",
-            "rev" ->"Rev",
-            "sir" ->"Sir",
-            "lord"->"Lord",
-            "lady"->"Lady",
-            "dame"->"Dame"),
+            "" -> Messages("titleSelect.pleaseSelect"),
+            "mr" -> Messages("titleSelect.mr"),
+            "mrs" -> Messages("titleSelect.mrs"),
+            "miss" -> Messages("titleSelect.miss"),
+            "ms" -> Messages("titleSelect.ms"),
+            "dr"  -> Messages("titleSelect.dr"),
+            "rev" -> Messages("titleSelect.rev"),
+            "sir" -> Messages("titleSelect.sir"),
+            "lord"-> Messages("titleSelect.lord"),
+            "lady"-> Messages("titleSelect.lady"),
+            "dame"-> Messages("titleSelect.dame")),
         '_label -> Messages("title")
     )
 }

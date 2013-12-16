@@ -592,3 +592,15 @@ footer.helpdesk = Desg Gymorth
 footer.privacyAndCookies = Preifatrwydd a Chwcis
 footer.builtBy = Adeiladwyd gan
 footer.crownCopyright = Hawlfraint y Goron
+
+titleSelect.pleaseSelect=Dewiswch
+titleSelect.mr=Mr
+titleSelect.mrs=Mrs
+titleSelect.miss=Miss
+titleSelect.ms=Ms
+titleSelect.dr=Dr
+titleSelect.rev=Rev
+titleSelect.sir=Syr
+titleSelect.lord=Arglwydd
+titleSelect.lady=Lady
+titleSelect.dame=Y Fonesig
