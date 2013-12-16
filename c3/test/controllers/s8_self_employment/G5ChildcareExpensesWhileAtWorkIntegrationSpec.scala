@@ -7,7 +7,7 @@ import utils.pageobjects.s2_about_you.{G4ClaimDatePage, G8AboutYouCompletedPage,
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s9_other_money.G1AboutOtherMoneyPage
 import utils.pageobjects.TestData
-import utils.pageobjects.s3_your_partner.G4PersonYouCareForPage
+import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 
 class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with Tags {
 
@@ -59,7 +59,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       pageMoreAboutYou.submitPage(throwException = true)
 
       val claimAboutYourPartner = ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
-      val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
+      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(browser)
       pageAboutYourPartner goToThePage()
       pageAboutYourPartner fillPageWith claimAboutYourPartner
       pageAboutYourPartner.submitPage(throwException = true)
@@ -88,7 +88,7 @@ class G5ChildcareExpensesWhileAtWorkIntegrationSpec extends Specification with T
       pageMoreAboutYou.submitPage(throwException = true)
 
       val claimAboutYourPartner = ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
-      val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
+      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(browser)
       pageAboutYourPartner goToThePage()
       pageAboutYourPartner fillPageWith claimAboutYourPartner
       pageAboutYourPartner.submitPage(throwException = true)

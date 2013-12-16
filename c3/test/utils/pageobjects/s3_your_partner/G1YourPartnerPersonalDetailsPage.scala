@@ -19,6 +19,7 @@ final class G1YourPartnerPersonalDetailsPage (browser: TestBrowser, previousPage
   declareInput("#nationality", "AboutYourPartnerNationality")
   //declareYesNo("#liveAtSameAddress", "AboutYourPartnerDoesYourPartnerLiveAtTheSameAddressAsYou")
   declareYesNo("#separated_fromPartner", "AboutYourPartnerHaveYouSeparatedfromYourPartner")
+  declareYesNo("#isPartnerPersonYouCareFor", "AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor")
 }
 
 /**

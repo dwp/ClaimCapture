@@ -10,7 +10,7 @@
 
 
     @form(action = controllers.s5_time_spent_abroad.routes.G1NormalResidenceAndCurrentLocation.submit) {
-        <fieldset class="form-elements">
+        <fieldset class="form-elements" data-journey="carers-allowance:page:time-spent-abroad">
             <legend>@Messages("s5.g1")</legend>
 
             <ul>
@@ -39,5 +39,6 @@
 <script type="text/javascript">
     $(function() {
         window.initEvents("@CarersCrypto.encryptAES("liveInUK_answer_yes")", "@CarersCrypto.encryptAES("liveInUK_answer_no")");
+GOVUK.performance.stageprompt.setupForGoogleAnalytics();
     });
 </script>

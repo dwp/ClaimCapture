@@ -1,3 +1,4 @@
+import com.typesafe.config.ConfigFactory
 import sbt._
 import sbt.Keys._
 import play.Project._

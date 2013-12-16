@@ -19,7 +19,7 @@
             
             <p class="helper-message">You can only qualify for Carer's Allowance if the Person you care for is in receipt of one of the qualifying benefits listed below.</p>
             
-            <div class="prompt question-prompt">
+            <div class="prompt question-prompt" data-journey="carers-allowance:page:eligibility">
 
 	            <p class="title">Personal Independence Payment (PIP)</p>
 	
@@ -65,5 +65,6 @@
 <script type="text/javascript">
     $(function () {
         window.initEvents("@CarersCrypto.encryptAES("answer_yes")", "@CarersCrypto.encryptAES("answer_no")");
+        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
     });
 </script>

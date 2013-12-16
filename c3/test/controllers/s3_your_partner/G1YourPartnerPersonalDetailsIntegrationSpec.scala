@@ -51,7 +51,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About you - the carer")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Person you care for - About your partner/spouse")
+      titleMustEqual("Completion - About your partner/spouse")
     }
 
     "navigate back to About you - the carer - Completed" in new WithBrowser with BrowserMatchers {
@@ -79,7 +79,7 @@ class G1YourPartnerPersonalDetailsIntegrationSpec extends Specification with Tag
       titleMustEqual("Employment - About you - the carer")
 
       Formulate.yourPartnerPersonalDetails(browser)
-      titleMustEqual("Person you care for - About your partner/spouse")
+      titleMustEqual("Completion - About your partner/spouse")
       findMustEqualSize("div[class=completed] ul li", 1)
     }
   } section("integration", models.domain.YourPartner.id)

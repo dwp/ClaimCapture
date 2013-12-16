@@ -27,7 +27,7 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
     """navigate back to "Completion - About your partner/spouse" when they have had a partner/spouse at any time since the claim date""" in new WithBrowser with BrowserMatchers {
       Formulate.claimDate(browser)
       Formulate.moreAboutYou(browser)
-      Formulate.personYouCareFor(browser)
+      Formulate.yourPartnerPersonalDetails(browser)
       browser.goTo("/care-you-provide/their-personal-details")
       browser.click("#backButton")
       titleMustEqual("Completion - About your partner/spouse")
@@ -55,7 +55,6 @@ class G1TheirPersonalDetailsIntegrationSpec extends Specification with Tags {
       Formulate.moreAboutYou(browser)
       Formulate.employment(browser)
       Formulate.yourPartnerPersonalDetails(browser)
-      Formulate.personYouCareFor(browser)
       browser.submit("button[type='submit']")
 
       titleMustEqual("Details of the person you care for - About the care you provide")

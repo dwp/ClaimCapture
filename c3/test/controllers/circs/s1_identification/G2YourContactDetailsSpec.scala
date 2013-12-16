@@ -50,7 +50,7 @@ class G2YourContactDetailsSpec extends Specification with Tags{
           f.address.lineTwo must equalTo(Some(addressLineTwo))
           f.address.lineThree must equalTo(Some(addressLineThree))
           f.postcode must equalTo(Some(postCode))
-          f.phoneNumber must equalTo(Some(phoneNumber))
+          f.phoneNumber must equalTo(phoneNumber)
           f.mobileNumber must equalTo(Some(mobileNumber))
         }
       }

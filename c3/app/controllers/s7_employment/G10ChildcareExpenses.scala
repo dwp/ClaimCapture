@@ -27,8 +27,8 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
 
 
   def validateRelationToPartner(implicit claim: Claim, childcareExpenses: ChildcareExpenses) = {
-    claim.questionGroup(MoreAboutYou) -> claim.questionGroup(PersonYouCareFor) match {
-      case (Some(m: MoreAboutYou), Some(p: PersonYouCareFor)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => childcareExpenses.relationToPartner.isDefined
+    claim.questionGroup(MoreAboutYou) -> claim.questionGroup(YourPartnerPersonalDetails) match {
+      case (Some(m: MoreAboutYou), Some(p: YourPartnerPersonalDetails)) if m.hadPartnerSinceClaimDate == "yes" && p.isPartnerPersonYouCareFor == "no" => childcareExpenses.relationToPartner.isDefined
       case _ => true
     }
   }
@@ -45,12 +45,14 @@ object G10ChildcareExpenses extends Controller with CachedClaim with Navigable {
   def submit = claimingInJob { jobID => implicit claim => implicit request =>
     form.bindEncrypted.fold(
       formWithErrors => {
+        val pastPResentLabel = pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID)
         val formWithErrorsUpdate = formWithErrors
-          .replaceError("howMuchCostChildcare", "error.required", FormError("howMuchCostChildcare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
-          .replaceError("howMuchCostChildcare", "decimal.invalid", FormError("howMuchCostChildcare", "decimal.invalid", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
-          .replaceError("howOftenPayChildCare", "error.required", FormError("howOftenPayChildCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
-          .replaceError("howOftenPayChildCare.frequency","error.required", FormError("howOftenPayChildCare", "error.required", Seq(pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , jobID))))
+          .replaceError("howMuchCostChildcare", "error.required", FormError("howMuchCostChildcare", "error.required", Seq(pastPResentLabel)))
+          .replaceError("howMuchCostChildcare", "decimal.invalid", FormError("howMuchCostChildcare", "decimal.invalid", Seq(pastPResentLabel)))
+          .replaceError("howOftenPayChildCare.frequency","error.required", FormError("howOftenPayChildCare", "error.required",Seq("",pastPResentLabel)))
           .replaceError("", "relationToPartner.required", FormError("relationToPartner", "error.required"))
+          .replaceError("howOftenPayChildCare.frequency.other","error.maxLength",FormError("howOftenPayChildCare","error.maxLength",Seq("60",pastPResentLabel)))
+          .replaceError("howOftenPayChildCare","error.paymentFrequency",FormError("howOftenPayChildCare","error.paymentFrequency",Seq("",pastPResentLabel)))
         BadRequest(views.html.s7_employment.g10_childcareExpenses(formWithErrorsUpdate))
       },
       childcareExpenses => claim.update(jobs.update(childcareExpenses)) -> Redirect(routes.G12PersonYouCareForExpenses.present(jobID)))

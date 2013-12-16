@@ -28,7 +28,7 @@ class G2JobDetailsSpec extends Specification with Tags {
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
-        "finishedThisJob" -> "yes")
+        "finishedThisJob" -> "no")
 
       val result = G2JobDetails.submit(request)
       status(result) mustEqual SEE_OTHER

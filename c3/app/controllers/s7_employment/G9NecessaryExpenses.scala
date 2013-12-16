@@ -34,6 +34,7 @@ object G9NecessaryExpenses extends Controller with CachedClaim with Navigable {
       formWithErrors => {
         val formWithErrorsUpdate = formWithErrors
           .replaceError("whatAreThose", "error.required", FormError("whatAreThose", "error.required", Seq(pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , jobID))))
+          .replaceError("whatAreThose", "error.restricted.characters", FormError("whatAreThose", "error.restricted.characters", Seq(pastPresentLabelForEmployment(claim, wereYou.toLowerCase.take(4), areYou.toLowerCase.take(3) , jobID))))
         BadRequest(views.html.s7_employment.g9_necessaryExpenses(formWithErrorsUpdate))
       },
       necessaryExpenses => claim.update(jobs.update(necessaryExpenses)) -> Redirect(routes.G10ChildcareExpenses.present(jobID)))

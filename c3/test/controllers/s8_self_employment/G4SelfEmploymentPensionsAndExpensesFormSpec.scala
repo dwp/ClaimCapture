@@ -86,7 +86,7 @@ class G4SelfEmploymentPensionsAndExpensesFormSpec extends Specification with Tag
           "doYouPayToLookAfterYourChildren" -> "yes",
           "didYouPayToLookAfterThePersonYouCaredFor" -> "yes")
       ).fold(
-        formWithErrors => formWithErrors.errors.head.message must equalTo("howOften"),
+        formWithErrors => formWithErrors.errors.head.message must equalTo("howOften.required"),
         f => "This mapping should not happen." must equalTo("Valid")
       )
     }

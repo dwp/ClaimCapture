@@ -78,7 +78,10 @@ $(function(){
 
         return $("#@CarersCrypto.encryptAES("payOccupationalPensionScheme_no")").change(function() {
             if ($(this).val() === "no") {
-                return $(this).closest("ul").parent().next().slideUp();
+                return $(this).closest("ul").parent().next().slideUp(400,function(){
+                    $("#@CarersCrypto.encryptAES("howOftenPension_frequency_other")").val("");
+                    $("#@CarersCrypto.encryptAES("howOftenPension_frequency")").val("");
+                });
             }
         });
     });
@@ -96,7 +99,10 @@ $(function(){
 
         return $("#@CarersCrypto.encryptAES("payPersonalPensionScheme_no")").change(function() {
             if ($(this).val() === "no") {
-                return $(this).closest("ul").parent().next().slideUp();
+                return $(this).closest("ul").parent().next().slideUp(400,function(){
+                    $("#@CarersCrypto.encryptAES("howOftenPersonal_frequency_other")").val("");
+                    $("#@CarersCrypto.encryptAES("howOftenPersonal_frequency")").val("");
+                });
             }
         });
     });

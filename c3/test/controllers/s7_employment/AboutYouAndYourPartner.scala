@@ -4,7 +4,7 @@ import play.api.test.TestBrowser
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.G4ClaimDatePage
 import utils.pageobjects.TestData
-import utils.pageobjects.s3_your_partner.G4PersonYouCareForPage
+import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 
 trait AboutYouAndYourPartner {
 
@@ -19,10 +19,9 @@ trait AboutYouAndYourPartner {
     pageMoreAboutYou.submitPage(throwException = true)
 
 
-    val claimAboutYourPartner = new TestData
-    claimAboutYourPartner.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "no"
+    val claimAboutYourPartner = ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
 
-    val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
+    val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(browser)
     pageAboutYourPartner goToThePage()
     pageAboutYourPartner fillPageWith claimAboutYourPartner
     pageAboutYourPartner.submitPage(throwException = true)

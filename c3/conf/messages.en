@@ -127,6 +127,7 @@ livesInGB.answer = Do you live in England, Scotland or Wales?
 # YOUR DETAILS
 title = Title
 firstName = First name
+your.name.helper = Enter name as shown on your birth certificate or passport.
 middleName = Middle name
 surname = Last name
 otherNames = Other surname or maiden name
@@ -154,6 +155,9 @@ firstName.error = Please fill your first name
 
 # CONTACT DETAILS
 address = Address
+address.lineOne = Address
+address.lineTwo = Address
+address.lineThree = Address
 address_street_lineOne = Street
 address.street = Street
 address_town = Town / City
@@ -168,11 +172,13 @@ error.postcode = A post code must be in the format PR2 8AE
 
 # TIME OUTSIDE UK
 livingInUK_answer = Are you currently living in the UK?
+livingInUK.answer = Are you currently living in the UK?
 livingInUK_arrivalDate = When did you arrive in the UK?
 livingInUK.arrivalDate = When did you arrive in the UK?
 livingInUK_originCountry = What country did you come from?
+livingInUK.originCountry = What country did you come from?
 livingInUK_goBack_date = When do you plan to go back?
-
+livingInUK.goBack.date = When do you plan to go back?
 livingInUK_goBack_answer = Do you plan to go back to that country?
 livingInUK.goBack.answer = Do you plan to go back to that country?
 
@@ -182,7 +188,7 @@ dateOfClaim = When do you want your Carer''s Allowance claim to start?
 # MORE ABOUT YOU
 hadPartnerSinceClaimDate.label = Have you had a partner/spouse living with you since your claim date: {0}?
 hadPartnerSinceClaimDate = Have you had a partner/spouse living with you since your claim date: {0}?
-hadPartnerSinceClaimDate.helper = If you have separated from your partner/spouse since the date you want to claim Carer's Allowance from please select ''Yes''
+hadPartnerSinceClaimDate.helper = If you have separated from your partner/spouse since the date you want to claim Carer''s Allowance from please select ''Yes''
 beenInEducationSinceClaimDate.label = Have you been on a course of education since your claim date: {0}?
 beenInEducationSinceClaimDate = Have you been on a course of education since your claim date?
 receiveStatePension = Do you get State Pension?
@@ -195,6 +201,8 @@ beenSelfEmployedSince1WeekBeforeClaim = Have you been self-employed at any time 
 
 
 ## YOUR PARTNER
+
+their.name.helper = Enter name as shown on their birth certificate or passport.
 
 # MORE ABOUT YOUR PARTNER
 startedLivingTogether_afterClaimDate.label = Did you and your partner/spouse start living together, after your claim date: {0}?
@@ -361,27 +369,27 @@ whatAreThose = What {0} these things?
 # CHILDCARE EXPENSES
 howMuchCostChildcare =  How much {0} pay them?
 whoLooksAfterChildren = Name of the person/organisation who looks after your child/children
-relationToYou = What relation, if any, is the person to you?
-relationToPartner = What relation, if any, is the person to your Partner/Spouse?
-relationToPersonYouCare = What relation, if any, is this person to the person you care for?
+relationToYou = What relation, if any, is the person/organisation to you?
+relationToPartner = What relation, if any, is the person/organisation to your Partner/Spouse?
+relationToPersonYouCare = What relation, if any, is this person/organisation to the person you care for?
 employment_howOftenPayChildCare = How often {0} pay childcare expenses?
 
 # Person you care for EXPENSES
 howMuchCostCare = How much {0} pay them?
-howOftenPayCare = How often {0} pay them?
+howOftenPayCare = How often {1} pay them?
 whoDoYouPay = Name of the person/organisation you {0} pay
 
 
 ## OTHER MONEY
 # ABOUT OTHER MONEY
-yourBenefits.answer.label = Have you {0} claimed or received any other benefits since your claim date: {1}?
-anyPaymentsSinceClaimDate.answer.label = Have you received any payments for the person you care for or any other person since your claim date {0}
+yourBenefits.answer = Have you {0} claimed or received any other benefits since your claim date: {1}?
+anyPaymentsSinceClaimDate.answer = Have you received any payments for the person you care for or any other person since your claim date {0}
 anyPaymentsSinceClaimDate.helper = Enter all payments from organisations or individuals, eg from a local authority, payments for fostering, direct payments, adult placements.
 whoPaysYou.label = Who pays you?
 moneyAddedToBenefitSinceClaimDate = Has anyone had any money added to a benefit for you since your claim date?
 moneyAddedToBenefitSinceClaimDate.label = Has anyone had any money added to a benefit for you since your claim date: {0}?
 haveYouHadAnyStatutorySickPay.label = Have you had any Statutory Sick Pay (SSP) since the date you want to claim from {0}?
-othermoney.label=Have you <or your Partner/Spouse> claimed or received any other benefits since the date you want to claim?
+haveYouHadAnyStatutorySickPay = Have you had any Statutory Sick Pay (SSP) since the date you want to claim from {0}?
 howMuch.label = How much?
 howOften = How often?
 error.paymentFrequency = Please tell us how often
@@ -400,6 +408,7 @@ nameOfBenefit = Name of benefit
 
 # OTHER STATUTORY PAY
 otherPay.label = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
+otherPay = Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from {0}?
 howOften_frequency = How often
 whoPaysYou = Who pays you
 howMuch = How much
@@ -411,20 +420,11 @@ workingForOtherEEAStateOrSwitzerland = Are you, your wife, husband, civil partne
 
 ## PAY DETAILS
 # HOW WE PAY YOU
-everyWeek=Weekly
-weekly=Weekly
-fourWeekly=Four-Weekly
-fortnightly=Fortnightly
-monthly=Monthly
-other=Other
 likeToPay =  How would you like to get paid?
 paymentFrequency = How often do you want to get paid?
 howWePayYou.helper = Select other if you want to be paid into an International Bank Account and provide details in the additional information section.
 
 # BANK BUILDING SOCIETY DETAILS
-bankBuildingAccount = UK bank or building society account
-appliedForAccount = You don't have an account but intend to open one
-notOpenAccount = Other - you would like more information
 accountHolderName =  Name of account holder
 whoseNameIsTheAccountIn = Whose name or names is the account in?
 bankFullName = Full name of bank or building society
@@ -481,8 +481,8 @@ haveYouCeasedTrading = Have you ceased trading?
 natureOfYourBusiness = Nature of business?
 howMuchYouPay = How much {0} pay them?
 nameOfPerson = Name of the person/organisation you pay
-whatRelationIsToYou = What relation, if any, is the person to you?
-whatRelationIsTothePersonYouCareFor = What relation, if any, is this person to the person you care for?
+whatRelationIsToYou = What relation, if any, is the person/organisation to you?
+whatRelationIsTothePersonYouCareFor = What relation, if any, is this person/organisation to the person you care for?
 
 #SELF EMPLOYED - Your Details
 error.areAccountsPreparedOnCashFlowBasis = Please tell us if accounts prepared on cash flow basis?
@@ -510,10 +510,10 @@ doYouPayToLookAfterYourChildren = While at work, {0} pay anyone to care for your
 didYouPayToLookAfterThePersonYouCaredFor = While at work, {0} pay anyone to care for the person you care for?
 
 #SELF EMPLOYED - Childcare expenses
-howOftenPayChildCare = How often {0} pay childcare expenses?
+howOftenPayChildCare = How often {1} pay childcare expenses?
 
 #SELF EMPLOYED - Expenses While At Work
-howOftenPayExpenses = How often {0} pay expenses related to the person you care for?
+howOftenPayExpenses = How often {1} pay expenses related to the person you care for?
 
 #CIRCUMSTANCES
 c1.g1 = Your details
@@ -541,24 +541,25 @@ error.address.characters = Address must not contain special characters
 number.invalid = The value must be a whole number
 error.sortcode.length = A sort code must be 6 digits long
 
-#Evidence List
-evidence.title1 = After you submit your claim
-evidence.title2 = Write down the documents and address before you submit your claim
-evidence.statement1 = Send us the following documents below including your Name and National Insurance (NI) number.
-evidence.statement2 = Send the above documents to:
-evidence.statement3 = CA Freepost
-evidence.statement4 = Palatine House
-evidence.statement5 = Preston
-evidence.statement6 = PR1 1HN
-evidence.statement7 = The Carer's Allowance unit will contact you if they need any further information.
+# Thank you page start
+thankyou =Thank you
+claim.received = Your claim has been successfully received
+circs.received = Your change has been successfully received
+next = What happens next?
+claim.next.1 = The Carer''s Allowance unit will now check the information you have provided and decide whether you qualify for Carer''s Allowance.
+claim.next.2 = This can take 4 to 6 weeks.
+claim.next.3 = Once a decision has been made you will receive a 'decision letter' by post.
+circs.next.1 = The Carer''s Allowance unit will now check the information you have provided.
+next.last = The Carer''s Allowance unit will contact you if they need any further information.
+change.head = If your circumstances change
+change.link = You should contact us as soon as possible. You may contact the <a href="https://www.gov.uk/carers-allowance-report-change">Carer''s Allowance unit online</a> to notify the changes.
+feedback.head = Feedback
+claim.feedback.link = If you would like to complete our survey, <a href="https://www.gov.uk/done/apply-carers-allowance">please follow this link</a>
+circs.feedback.link = If you would like to complete our survey, <a href="https://www.gov.uk/done/report-change-carers-allowance">please follow this link</a>
+# Thank you page end
 
-evidence.employed.statement1 = Your Employment documents.
-evidence.employed.statement2 = Last payslip you got before your claim date:
-evidence.employed.statement3 = Any payslips you have had since then.
-evidence.employed.statement4 = Any pension statements you may have.
 
-evidence.selfemployed.statement1 = Your Self-employed documents.
-evidence.selfemployed.statement2 = Most recent finalised accounts you have for your business.
-evidence.selfemployed.statement3 = Any pension statements you may have.
+
+
 
 

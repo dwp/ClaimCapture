@@ -32,7 +32,7 @@ class G2YourContactDetailsFormSpec extends Specification with Tags {
       )
     }
 
-    "have 1 mandatory field" in {
+    "have 2 mandatory field" in {
       G2YourContactDetails.form.bind(
         Map("phoneNumber" -> phoneNumber)).fold(
         formWithErrors => {
@@ -46,7 +46,7 @@ class G2YourContactDetailsFormSpec extends Specification with Tags {
       G2YourContactDetails.form.bind(
         Map("address.lineOne" -> addressLineOne, "postcode" -> "e1234")).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(1)
+          formWithErrors.errors.length must equalTo(2)
           formWithErrors.errors(0).message must equalTo("error.postcode")
         },
         f => "This mapping should not happen." must equalTo("Valid"))
@@ -66,8 +66,8 @@ class G2YourContactDetailsFormSpec extends Specification with Tags {
       G2YourContactDetails.form.bind(
         Map("address.lineOne" -> addressLineOne, "mobileNumber" -> "123def")).fold(
         formWithErrors => {
-          formWithErrors.errors.length must equalTo(1)
-          formWithErrors.errors(0).message must equalTo("error.invalid")
+          formWithErrors.errors.length must equalTo(2)
+          formWithErrors.errors(1).message must equalTo("error.invalid")
         },
         f => "This mapping should not happen." must equalTo("Valid"))
     }

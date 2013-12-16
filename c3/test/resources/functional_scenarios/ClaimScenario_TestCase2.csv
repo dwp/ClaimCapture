@@ -10,10 +10,9 @@ About You,Your Details,All other surnames or family names you have used or have 
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,ja486278a
 About You,Your Details,Date of birth,AboutYouDateOfBirth,28/09/1976
 About You,Your Details,Nationality,AboutYouNationality,British
-About You,Your Details,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Widowed or surviving civil partner
 About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,No
 About You,Your contact details,Address,AboutYouAddress,2 Preston Road&Preston&Lancashire
-About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
+About You,Your contact details,Postcode,AboutYouPostcode,pr1 2th
 About You,Your contact details,Phone number,AboutYouPhoneNumber,01772 888901
 About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419808
 About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,Yes
@@ -22,6 +21,7 @@ About You,About your time outside the UK,What country did you come from?,AboutYo
 About You,About your time outside the UK,Do you plan to go back to that country?,AboutYouDoYouPlantoGoBacktoThatCountry,Yes
 About You,About your time outside the UK,When do you plan to go back?,AboutYouWhenDoYouPlantoGoBack,28/09/2013
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,22/03/2013
+About You,More about you,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,w
 About You,More about you,Have you had a partner/spouse at any time since your claim date: <ddmmyyyy>?,AboutYouHaveYouHadaPartnerSpouseatAnyTime,Yes
 About You,More about you,Have you been on a course of education since your claim date:<ddmmyyyy>? ,AboutYouHaveYouBeenOnACourseOfEducation,Yes
 About You,More about you,Do you get state Pension?,AboutYouDoYouGetStatePension,No
@@ -45,7 +45,7 @@ About the care you provide,Details of the person you care for,National Insurance
 About the care you provide,Details of the person you care for,Date of birth,AboutTheCareYouProvideDateofBirthPersonYouCareFor,12/09/1923
 About the care you provide,Details of the person you care for,Do they live at the same address as you?,AboutTheCareYouProvideDoTheyLiveAtTheSameAddressAsYou,No
 About the care you provide,Contact details of the person you care for,Address,AboutTheCareYouProvideAddressPersonCareFor,12 Preston Road&Preston&Lancashire
-About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,PR1 1HB
+About the care you provide,Contact details of the person you care for,Postcode,AboutTheCareYouProvidePostcodePersonCareFor,pr1 2th
 About the care you provide,Contact details of the person you care for,Phone number,AboutTheCareYouProvidePhoneNumberPersonYouCare,01772 998761
 About the care you provide,Relationship and other claims,What's their relationship to you?,AboutTheCareYouProvideWhatTheirRelationshipToYou,Father
 About the care you provide,Relationship and other claims,Does this person get Armed Forces Independence Payment?,AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment,No
@@ -141,7 +141,7 @@ Time Spent Abroad,When you went Details of time abroad with the person you care 
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB_1,31/05/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB_1,09/06/2013
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Where did you go?,TimeSpentAbroadWhereDidYouGoWithPersonCareFor_1,Spain
-Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor_1,Holiday
+Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Why did you go?,TimeSpentAbroadWhyDidYouGoWithPersonCareFor_1,"Holiday, on the Costa del Sol."
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),"Have you had any more trips out of Great Britain with the person you care for, for more than four weeks at a time, since [[Claim date _ 3 years]] (this is 3 years before today)?",TimeSpentAbroadHaveYouBeenOutOfGBWithThePersonYouCareFor_2,No
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you left Great Britain,TimeSpentAbroadDateYouLeftGB_2,
 Time Spent Abroad,Details of trips abroad with the person you care for (4 weeks),Date you returned to Great Britain,TimeSpentAbroadDateYouReturnedToGB_2,
@@ -281,27 +281,27 @@ Self Employed,Care providers contact Details,Postcode,SelfEmployedCareProviderPo
 Other Money,Details about other money,Have you <or your partner/spouse> claimed or received any other benefits since the date you want to claim?,OtherMoneyHaveYouClaimedOtherBenefits,Yes
 Other Money,Details about other money,Have you received any payments for the person you care for or any other person since your claim date?,OtherMoneyAnyPaymentsSinceClaimDate,Yes
 Other Money,Details about other money,Details about other money: Who pays you?,OtherMoneyWhoPaysYou,The Man
-Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,123.33
-Other Money,Details about other money,Details about other money: How often?,OtherMoneyHowOften,Other
+Other Money,Details about other money,Details about other money: How much?,OtherMoneyHowMuch,123
+Other Money,Details about other money,Details about other money: How often?,OtherMoneyHowOften,other
 Other Money,Details about other money,Details about other money: How often other?,OtherMoneyHowOftenOther,Every day and twice on Sundays
 Other Money,Statutory Sick Pay,Have you had any Statutory Sick Pay (SSP) since the date you want to claim from?,OtherMoneyHaveYouSSPSinceClaim,Yes
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How much?,OtherMoneySSPHowMuch,123
-Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOften,Other
+Other Money,Statutory Sick Pay,Statutory Sick Pay: How often?,OtherMoneySSPHowOften,other
 Other Money,Statutory Sick Pay,Statutory Sick Pay: How often other?,OtherMoneySSPHowOftenOther,Every day and twice on Sundays
 Other Money,Statutory Sick Pay,Employer's Name,OtherMoneySSPEmployerName,Burger King
 Other Money,Statutory Sick Pay,Employer's Address,OtherMoneySSPEmployerAddress,102 Preston  Road&Preston&Lancashure
 Other Money,Statutory Sick Pay,Employer's Postcode,OtherMoneyEmployerPostcode,pr45 6yh
 Other Money,Other Statutory Pay,"Have you had any Statutory Maternity Pay (SMP), Statutory Paternity Pay (SPP) or Statutory Adoption Pay (SAP) since the date you want to claim from?",OtherMoneyHaveYouSMPSinceClaim,Yes
 Other Money,Other Statutory Pay,Other Statutory Pay: How much?,OtherMOneySMPHowMuch,120
-Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,Other
+Other Money,Other Statutory Pay,Other Statutory Pay: How often?,OtherMOneySMPHowOften,other
 Other Money,Other Statutory Pay,Other Statutory Pay: How often other?,OtherMOneySMPHowOftenOther,Every day and twice on Sundays
 Other Money,Other Statutory Pay,Employer's Name,OtherMoneySMPEmployerName,Burger King
 Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,102 Preston  Road&Preston&Lancashure
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,pr45 6yh
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on, receiving  any pensions or benefits from another EEA State or Switzerland?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,Yes
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on working in or paying insurance to another EEA State or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,Yes
-How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,UK bank or building society account
-How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Weekly
+How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,bankBuildingAccount
+How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,everyWeek
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Mr Test Casetwo
 How we pay you,Bank/Building society details,Whose name or names is the account in?,WhoseNameOrNamesIsTheAccountIn,partner
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,Santander

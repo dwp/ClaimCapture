@@ -164,7 +164,7 @@ class G11BreakIntegrationSpec extends Specification with Tags {
       goTo("/care-you-provide/break")
       titleMustEqual("Break - About the care you provide")
 
-      text("#wherePerson_location option").asScala should containAllOf(List("Please select", "At Home", "Hospital", "Respite Care", "Care Home", "Nursing Home", "Other"))
+      text("#wherePerson_location option").asScala should containAllOf(List("Please select", "Home", "Hospital", "Respite Care", "Care Home", "Nursing Home", "Other"))
     }
   } section("integration", models.domain.CareYouProvide.id)
 }
@@ -174,7 +174,7 @@ trait BreakFiller {
 
   def break(start: DayMonthYear = DayMonthYear(1, 1, 2001),
             end: DayMonthYear = DayMonthYear(1, 1, 2001),
-            whereYouLocation: String = AtHome,
+            whereYouLocation: String = Home,
             wherePersonLocation: String = Hospital,
             medicalDuringBreak: Boolean = false) = {
     browser.click(s"#start_day option[value='${start.day.get}']")

@@ -3,7 +3,6 @@ package controllers
 import utils.pageobjects.TestData
 
 import app.{PensionPaymentFrequency, WhoseNameAccount, PaymentFrequency, AccountStatus}
-import play.api.i18n.Messages
 
 /**
  * To change this template use Preferences | File and Code Templates.
@@ -17,12 +16,11 @@ object ClaimScenarioFactory {
 
   def yourDetailsWithNotTimeOutside() = {
     val claim = new TestData
-    claim.AboutYouTitle = "Mr"
+    claim.AboutYouTitle = "mr"
     claim.AboutYouFirstName = "John"
     claim.AboutYouSurname = "Appleseed"
     claim.AboutYouNationality = "English"
     claim.AboutYouDateOfBirth = "03/04/1950"
-    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "Single"
     claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
     claim.AboutYouNINO = "AB123456C"
     claim.AboutYouAddress = "101 Clifton Street&Blackpool"
@@ -50,6 +48,7 @@ object ClaimScenarioFactory {
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // More about you
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "Yes"
     claim.AboutYouHaveYouBeenOnACourseOfEducation = "Yes"
     claim.AboutYouDoYouGetStatePension = "Yes"
@@ -71,6 +70,7 @@ object ClaimScenarioFactory {
     // Claim date
     claim.AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart = "03/05/2014"
     // More about you
+    claim.AboutYouWhatIsYourMaritalOrCivilPartnershipStatus = "s"
     claim.AboutYouHaveYouHadaPartnerSpouseatAnyTime = "no"
     claim.AboutYouHaveYouBeenOnACourseOfEducation = "no"
     claim.AboutYouDoYouGetStatePension = "no"
@@ -83,7 +83,7 @@ object ClaimScenarioFactory {
   def s2ands3WithTimeOUtsideUKAndProperty() = {
     val claim = s2AboutYouWithTimeOutside()
     // Partner personal details
-    claim.AboutYourPartnerTitle = "Mrs"
+    claim.AboutYourPartnerTitle = "mrs"
     claim.AboutYourPartnerFirstName = "Cloe"
     claim.AboutYourPartnerMiddleName = "Scott"
     claim.AboutYourPartnerSurname = "Smith"
@@ -91,6 +91,7 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerNINO = "AB123456A"
     claim.AboutYourPartnerDateofBirth = "12/07/1990"
     claim.AboutYourPartnerNationality = "British"
+    claim.AboutYourPartnerHaveYouSeparatedfromYourPartner = "Yes"
     // Person you care for
     claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "Yes"
     claim
@@ -99,7 +100,7 @@ object ClaimScenarioFactory {
   def s3YourPartnerNotThePersonYouCareFor() = {
     val claim = s2AboutYouWithTimeOutside()
     // Partner personal details
-    claim.AboutYourPartnerTitle = "Mrs"
+    claim.AboutYourPartnerTitle = "mrs"
     claim.AboutYourPartnerFirstName = "Cloe"
     claim.AboutYourPartnerMiddleName = "Scott"
     claim.AboutYourPartnerSurname = "Smith"
@@ -107,6 +108,7 @@ object ClaimScenarioFactory {
     claim.AboutYourPartnerNINO = "AB123456A"
     claim.AboutYourPartnerDateofBirth = "12/07/1990"
     claim.AboutYourPartnerNationality = "British"
+    claim.AboutYourPartnerHaveYouSeparatedfromYourPartner = "Yes"
     // Person you care for
     claim.AboutYourPartnerIsYourPartnerThePersonYouAreClaimingCarersAllowancefor = "No"
     claim
@@ -115,7 +117,7 @@ object ClaimScenarioFactory {
   def s4CareYouProvide() = {
     val claim = s2ands3WithTimeOUtsideUKAndProperty()
     // Their Personal Details
-    claim.AboutTheCareYouProvideTitlePersonCareFor = "Mr"
+    claim.AboutTheCareYouProvideTitlePersonCareFor = "mr"
     claim.AboutTheCareYouProvideFirstNamePersonCareFor = "Tom"
     claim.AboutTheCareYouProvideMiddleNamePersonCareFor = "Potter"
     claim.AboutTheCareYouProvideSurnamePersonCareFor = "Wilson"
@@ -127,7 +129,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvidePostcodePersonCareFor = "BB9 2AD"
     claim.AboutTheCareYouProvidePhoneNumberPersonYouCare = "07922 222 222"
     // More About The Person
-    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "Father"
+    claim.AboutTheCareYouProvideWhatTheirRelationshipToYou = "father"
     claim.AboutTheCareYouProvideDoesPersonGetArmedForcesIndependencePayment = "No"
     claim.AboutTheCareYouProvideHasAnyoneelseClaimedCarerAllowance = "Yes"
     // Previous Carer Personal Details
@@ -154,7 +156,7 @@ object ClaimScenarioFactory {
     claim.AboutTheCareYouProvideHasSomeonePaidYoutoCare = "Yes"
     // One Who Pays Personal Details
     claim.AboutTheCareYouProvideOrganisationPaysYou = "Valtech"
-    claim.AboutTheCareYouProvideTitlePersonPaysYou = "Mr"
+    claim.AboutTheCareYouProvideTitlePersonPaysYou = "mr"
     claim.AboutTheCareYouProvideFirstNamePersonPaysYou = "Brian"
     claim.AboutTheCareYouProvideMiddleNamePersonPaysYou = "Green"
     claim.AboutTheCareYouProvideSurnamePersonPaysYou = "Eldred"
@@ -198,8 +200,8 @@ object ClaimScenarioFactory {
 
   def s6PayDetails() = {
     val claim = new TestData
-    claim.HowWePayYouHowWouldYouLikeToGetPaid = Messages(AccountStatus.NotOpenAccount.name)
-    claim.HowWePayYouHowOftenDoYouWantToGetPaid = Messages(PaymentFrequency.EveryWeek.name)
+    claim.HowWePayYouHowWouldYouLikeToGetPaid = AccountStatus.NotOpenAccount.name
+    claim.HowWePayYouHowOftenDoYouWantToGetPaid = PaymentFrequency.EveryWeek.name
     claim
   }
 
@@ -260,7 +262,7 @@ object ClaimScenarioFactory {
     claim.EmploymentChildcareExpensesHowOften_1 = PensionPaymentFrequency.Weekly
     claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
-    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "Father-In-Law"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "fatherInLaw"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1 = "Grandfather"
     claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
@@ -321,7 +323,7 @@ object ClaimScenarioFactory {
     claim.EmploymentChildcareExpensesHowOftenOther_1 = "why is my train 80 minutes late"
     claim.EmploymentNameOfthePersonWhoLooksAfterYourChild_1 = "Mr Grandfather Senior"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYou_1 = "Father"
-    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "Father-In-Law"
+    claim.EmploymentChildcareExpensesWhatRelationIsthePersontoYourPartner_1 = "fatherInLaw"
     claim.EmploymentChildcareExpensesWhatRelationIsthePersonToThePersonYouCareFor_1 = "Grandfather"
     claim.EmploymentAddressChildcareProvider_1 = "12 Banbury Close&St Annes&Lancashire"
     claim.EmploymentPostcodeChildcareProvider_1 = "FY8 7TH"
@@ -418,9 +420,9 @@ object ClaimScenarioFactory {
     claim.SelfEmployedChildcareExpensesHowMuchYouPay = "123.45"
     claim.SelfEmployedChildcareExpensesHowOften = app.PensionPaymentFrequency.Other
     claim.SelfEmployedChildcareExpensesHowOftenOther = "Every day and twice on Sunday's"
-    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "Father"
-    claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "Father"
-    claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "Father"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "father"
+    claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "father"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "father"
 
     claim
   }
@@ -432,9 +434,9 @@ object ClaimScenarioFactory {
     claim.SelfEmployedCareExpensesHowOften = app.PensionPaymentFrequency.Weekly
     claim.SelfEmployedCareExpensesHowOftenOther = "Every day and twice on Sunday's"
     claim.SelfEmployedCareExpensesNameOfPerson = "John"
-    claim.SelfEmployedCareExpensesWhatRelationIsToYou = "Father"
-    claim.SelfEmployedCareExpensesWhatRelationToPartner = "Father"
-    claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "Father"
+    claim.SelfEmployedCareExpensesWhatRelationIsToYou = "father"
+    claim.SelfEmployedCareExpensesWhatRelationToPartner = "father"
+    claim.SelfEmployedCareExpensesWhatRelationIsTothePersonYouCareFor = "father"
 
     claim
   }

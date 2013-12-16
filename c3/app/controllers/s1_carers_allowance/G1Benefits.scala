@@ -10,6 +10,7 @@ import utils.helpers.CarersForm._
 import models.domain._
 import models.view.Navigable
 import play.api.data.FormError
+import play.api.Logger
 
 object G1Benefits extends Controller with CachedClaim with Navigable {
   val form = Form(mapping(
@@ -17,6 +18,7 @@ object G1Benefits extends Controller with CachedClaim with Navigable {
   )(Benefits.apply)(Benefits.unapply))
 
   def present = newClaim { implicit claim => implicit request =>
+    Logger.info(s"Starting new $cacheKey")
     track(Benefits) { implicit claim => Ok(views.html.s1_carers_allowance.g1_benefits(form.fill(Benefits))) }
   }
 

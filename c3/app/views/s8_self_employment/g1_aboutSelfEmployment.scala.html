@@ -14,7 +14,7 @@
 
     @form(action = controllers.s8_self_employment.routes.G1AboutSelfEmployment.submit) {
 
-        <fieldset class="form-elements">
+        <fieldset class="form-elements" data-journey="carers-allowance:page:self-employment">
             <legend>@Messages("s8.g1")</legend>
 
             <ul>
@@ -46,5 +46,6 @@
 <script type="text/javascript">
     $(function () {
         window.initEvents("@CarersCrypto.encryptAES("areYouSelfEmployedNow_yes")", "@CarersCrypto.encryptAES("areYouSelfEmployedNow_no")");
+        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
     });
 </script>

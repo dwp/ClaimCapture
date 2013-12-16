@@ -14,8 +14,8 @@ import models.domain.Break
 object G11Break extends Controller with CachedClaim {
   val form = Form(mapping(
     "breakID" -> nonEmptyText,
-    "start" -> (dayMonthYear verifying validDate),
-    "end" -> optional(dayMonthYear verifying validDateOnly),
+    "start" -> (dayMonthYear verifying validDateTime),
+    "end" -> optional(dayMonthYear verifying validDateTimeOnly),
     "whereYou" -> whereabouts.verifying(requiredWhereabouts),
     "wherePerson" -> whereabouts.verifying(requiredWhereabouts),
     "medicalDuringBreak" -> nonEmptyText
@@ -32,6 +32,8 @@ object G11Break extends Controller with CachedClaim {
         .replaceError("whereYou.location", "error.required", FormError("whereYou","error.required",Seq("This is required")))
         .replaceError("wherePerson.location", "error.required", FormError("wherePerson","error.required",Seq("This is required")))
         .replaceError("start.date","error.required", FormError("start","error.required", Seq("This is required")))
+        .replaceError("whereYou.location.other","error.maxLength",FormError("whereYou","error.maxLength"))
+        .replaceError("wherePerson.location.other","error.maxLength",FormError("wherePerson","error.maxLength"))
         BadRequest(views.html.s4_care_you_provide.g11_break(fwe))
       },
       break => {

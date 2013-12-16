@@ -1,4 +1,4 @@
-@(field: Field)
+@(field: Field,withNone:Boolean=false)
 
 @import helper._
 @import utils.helpers.CarersTemplate._
@@ -7,15 +7,15 @@
 @{
     carersOptGroupSelect(field,
         optGroups = Seq(
-                "Common" -> Seq("Wife or civil partner"->"Wife or civil partner", "Husband or civil partner"->"Husband or civil partner", "Partner"->"Partner","Son"->"Son","Daughter"->"Daughter", "Mother"->"Mother", "Father"->"Father"),
-                "Other" -> Seq("Friend"->"Friend","Other"->"Other"),
-                "Parents" -> Seq("Stepfather"->"Stepfather", "Stepmother"->"Stepmother","Stepdaughter"->"Stepdaughter","Stepson"->"Stepson"),
-                "Siblings" -> Seq("Brother" -> "Brother","Half Brother"->"Half Brother","Half Sister"->"Half Sister","Sister"->"Sister","Stepbrother"->"Stepbrother","Stepsister"->"Stepsister"),
-                "Dependant" -> Seq("Adopted Daughter" -> "Adopted Daughter","Adopted Son" -> "Adopted Son"),
-                "Grandparents" -> Seq("Grandmother"->"Grandmother","Great-Grandmother"->"Great-Grandmother","Grandfather"->"Grandfather","Great-Grandfather"->"Great-Grandfather"),
-                "Grandchildren" -> Seq("Grand Son"->"Grand Son","Great-Grandson"->"Great-Grandson","Granddaughter"->"Granddaughter", "Great-Granddaughter"->"Great-Granddaughter"),
-                "In-Laws" -> Seq("Brother-In-Law"  ->"Brother-In-Law","Daughter-In-Law" ->"Daughter-In-Law","Father-In-Law"->"Father-In-Law","Mother-In-Law"->"Mother-In-Law","Sister-In-Law"->"Sister-In-Law","Son-In-Law"->"Son-In-Law"),
-                "Other Family" -> Seq("Aunt" -> "Aunt","Nephew"->"Nephew","Niece"->"Niece","Uncle"->"Uncle")
+                "Common" -> Seq("wife"->"Wife or civil partner", "husband"->"Husband  or civil partner", "partner"->"Partner","son"->"Son","daughter"->"Daughter", "mother"->"Mother", "father"->"Father"),
+                "Other" -> (Seq("friend"->"Friend","other"->"Other")++(if (withNone)Seq("none"->"None") else Seq())),
+                "Parents" -> Seq("stepFather"->"Stepfather", "stepMother"->"Stepmother","stepDaughter"->"Stepdaughter","stepSon"->"Stepson"),
+                "Siblings" -> Seq("brother" -> "Brother","halfBrother"->"Half Brother","halfSister"->"Half Sister","sister"->"Sister","stepBrother"->"Stepbrother","stepSister"->"Stepsister"),
+                "Dependant" -> Seq("adoptedDaughter" -> "Adopted Daughter","adoptedSon" -> "Adopted Son"),
+                "Grandparents" -> Seq("grandMother"->"Grandmother","greatGrandMother"->"Great-Grandmother","grandFather"->"Grandfather","greatGrandFather"->"Great-Grandfather"),
+                "Grandchildren" -> Seq("grandSon"->"Grand Son","greatGrandSon"->"Great-Grandson","grandDaughter"->"Granddaughter", "greatGrandDaughter"->"Great-Granddaughter"),
+                "In-Laws" -> Seq("brotherInLaw"  ->"Brother-In-Law","daughterInLaw" ->"Daughter-In-Law","fatherInLaw"->"Father-In-Law","motherInLaw"->"Mother-In-Law","sisterInLaw"->"Sister-In-Law","sonInLaw"->"Son-In-Law"),
+                "Other Family" -> Seq("aunt" -> "Aunt","nephew"->"Nephew","niece"->"Niece","uncle"->"Uncle")
             )
     )
 }

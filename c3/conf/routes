@@ -3,22 +3,24 @@
 # ~~~~
 
 # Home page
-GET     /                                                               controllers.Application.index
-GET     /claim-notes                                                    controllers.ClaimNotes.notes
+GET     /                                                                           controllers.Application.index
+GET     /claim-notes                                                                controllers.ClaimNotes.notes
 
 # Cache Timeout
-GET         /timeout                                                                controllers.Application.timeout
-GET         /circs-timeout                                                          controllers.Application.circsTimeout
+GET         /timeout                                                                controllers.ClaimEnding.timeout
+GET         /circs-timeout                                                          controllers.CircsEnding.timeout
 
 # Unrecoverable error
-GET         /error/:key                                                             controllers.Application.error(key:String)
+GET         /error                                                                  controllers.ClaimEnding.error
+GET         /circs-error                                                            controllers.CircsEnding.error
 
 # Claim submission
 GET         /submit                                                                 @controllers.submission.ClaimSubmissionController.submit
 GET         /circs-submit                                                           @controllers.circs.submission.ChangeOfCircsSubmissionController.submit
 
 # Thank you
-GET         /thankyou/:txnId                                                        controllers.ThankYou.present(txnId: String)
+GET         /thankyou/apply-carers                                                  controllers.ClaimEnding.thankyou
+GET         /thankyou/change-carers                                                 controllers.CircsEnding.thankyou
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                                           controllers.Assets.at(path="/public", file)
@@ -70,9 +72,6 @@ POST        /about-you/completed                                                
 ###############
 GET         /your-partner/personal-details                                          controllers.s3_your_partner.G1YourPartnerPersonalDetails.present
 POST        /your-partner/personal-details                                          controllers.s3_your_partner.G1YourPartnerPersonalDetails.submit
-
-GET         /your-partner/person-you-care-for                                       controllers.s3_your_partner.G4PersonYouCareFor.present
-POST        /your-partner/person-you-care-for                                       controllers.s3_your_partner.G4PersonYouCareFor.submit
 
 GET         /your-partner/completed                                                 controllers.s3_your_partner.YourPartner.completed
 POST        /your-partner/completed                                                 controllers.s3_your_partner.YourPartner.completedSubmit

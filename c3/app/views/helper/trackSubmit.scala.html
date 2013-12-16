@@ -1,6 +1,0 @@
-@(isClaimSubmit:Boolean = false)(implicit request:play.api.mvc.Request[AnyContent])
-@import play.api.Play
-@import play.api.Play.current
-@trackStr() = @{s"""_gaq.push(['_trackEvent', '${request.path}', '${if(isClaimSubmit)"Claim" else "Section"} completed']);"""}
-@gaTrack() = @{ if(!Play.isTest && play.Configuration.root().getBoolean("include_analytics", false)){trackStr()} }
-onclick="@gaTrack()"

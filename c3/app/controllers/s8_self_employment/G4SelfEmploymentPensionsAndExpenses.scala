@@ -24,7 +24,7 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
     "didYouPayToLookAfterThePersonYouCaredFor" -> nonEmptyText.verifying(validYesNo)
   )(SelfEmploymentPensionsAndExpenses.apply)(SelfEmploymentPensionsAndExpenses.unapply)
     .verifying("howMuchDidYouPay", SelfEmploymentPensionsAndExpenses.validateHowMuchSelfEmployed _)
-    .verifying("howOften", SelfEmploymentPensionsAndExpenses.validateHowOftenSelfEmployed _))
+    .verifying("howOften.required", SelfEmploymentPensionsAndExpenses.validateHowOftenSelfEmployed _))
 
   def present = claiming { implicit claim => implicit request =>
     presentConditionally(selfEmploymentYourAccounts)
@@ -41,10 +41,14 @@ object G4SelfEmploymentPensionsAndExpenses extends Controller with CachedClaim w
         val formWithErrorsUpdate = formWithErrors
           .replaceError("doYouPayToPensionScheme", "error.required", FormError("doYouPayToPensionScheme.answer", "error.required", Seq(pastPresent)))
           .replaceError("", "howMuchDidYouPay", FormError("howMuchDidYouPay", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("", "howOften.required", FormError("howOften", "error.required", Seq(pastPresent.toLowerCase)))
           .replaceError("howMuchDidYouPay", "decimal.invalid", FormError("howMuchDidYouPay", "decimal.invalid", Seq(pastPresent.toLowerCase)))
-          .replaceError("howOften", "error.paymentFrequency", FormError("doYouPayToPensionScheme.howOften", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("howOften", "error.paymentFrequency", FormError("howOften", "error.paymentFrequency", Seq(pastPresent.toLowerCase)))
           .replaceError("doYouPayToLookAfterYourChildren", "error.required", FormError("doYouPayToLookAfterYourChildren", "error.required", Seq(pastPresent.toLowerCase)))
           .replaceError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", FormError("didYouPayToLookAfterThePersonYouCaredFor", "error.required", Seq(pastPresent.toLowerCase)))
+          .replaceError("howOften.frequency.other","error.maxLength",FormError("howOften","error.maxLength",Seq("60",pastPresent.toLowerCase)))
+
+        formWithErrorsUpdate.errors.foreach(println _)
         BadRequest(views.html.s8_self_employment.g4_selfEmploymentPensionsAndExpenses(formWithErrorsUpdate))
       },
       f => claim.update(f) -> Redirect(routes.G5ChildcareExpensesWhileAtWork.present()))

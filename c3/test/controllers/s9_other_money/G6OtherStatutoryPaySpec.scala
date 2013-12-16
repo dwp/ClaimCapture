@@ -13,7 +13,7 @@ import models.view.CachedClaim
 class G6OtherStatutoryPaySpec extends Specification with Tags {
   "Other Statutory Controller" should {
     val yes = "yes"
-    val howMuch = "howMuch"
+    val howMuch = "120.12"
     val howOften_frequency = "frequency"
     val howOften_frequency_other = "Weekly"
     val employersName = "Johny B Good"

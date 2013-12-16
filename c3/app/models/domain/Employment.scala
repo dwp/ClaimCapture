@@ -124,6 +124,11 @@ case class JobDetails(jobID: String = "",
 
 object JobDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g2"
+
+  def validateLastWorkDate(input: JobDetails):Boolean = input.finishedThisJob match {
+    case `yes` => input.lastWorkDate.isDefined
+    case `no` => true
+  }
 }
 
 case class EmployerContactDetails(jobID: String = "",
@@ -146,7 +151,7 @@ object LastWage extends QuestionGroup.Identifier {
 }
 
 case class AdditionalWageDetails(jobID:String = "",
-                                 oftenGetPaid: Option[PaymentFrequency] = None,
+                                 oftenGetPaid: PaymentFrequency = PaymentFrequency(),
                                  whenGetPaid: Option[String] = None,
                                  employerOwesYouMoney: String = "") extends QuestionGroup(AdditionalWageDetails) with Job.Identifier
 
@@ -154,7 +159,7 @@ object AdditionalWageDetails extends QuestionGroup.Identifier {
   val id = s"${Employed.id}.g5"
 
   def validateOftenGetPaid(input: AdditionalWageDetails): Boolean = input.oftenGetPaid match {
-    case Some(pf) if pf.frequency == "Other" => pf.other.isDefined
+    case payment if payment.frequency == "other" => payment.other.isDefined
     case _ => true
   }
 }

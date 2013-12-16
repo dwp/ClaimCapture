@@ -76,15 +76,16 @@ main {
    /* Claim info */
    .claim-info {
 	   margin: 0;
-	   padding: 10px 1.2em 10px 0;
+	   padding: 10px 1em 10px 0;
 	   list-style: none;
 	   text-align: right;
 	   border-top: 10px solid #f47738;
 	   @media screen and (max-width: 640px) {
 		   border: 0;
+		   padding-right: 0;
 	   }
 	   li {
-		   margin-left: 15px;
+		   margin-left: 10px;
 		   display: inline;
 		   font-size: 14px;
 		   color: #000;
@@ -93,6 +94,11 @@ main {
 			   border: 0;
 			   margin: 0;
 			   padding: 0;
+		   }
+		   @media screen and (max-width: 480px) {
+			   &.feedback {
+				   display: none;
+			   }
 		   }
 		   a {
 			   color: #000;
@@ -344,11 +350,39 @@ main {
 				.ie & {
 					font-size: 50px;
 				}
-			}
-	
+			}	
+			
    	   }
-   	   
-   	   
+
+
+   	   &.finish-statement {
+
+	   	   article {
+		   	   margin-top: 1.5em;
+		   	   &.finish-next {
+			   	   margin-top: 1.4em;
+			   	   margin-right: 1em;
+			   	   @media screen and (max-width: 640px) {
+				   	   margin-right: 0;
+			   	   }
+		   	   }
+		   	   li {
+			   	   font-size: 1.6rem;
+			   	   .ie & {
+				   	   font-size: 16px;
+			   	   }
+			   	   margin-top: .6em;
+		   	   }
+		   	   p {
+		   	   	   font-size: 1.7rem;
+		   	   	   .ie & {
+			   	   	   font-size: 17px;
+		   	   	   }
+			   	   margin-top: .5em;
+		   	   }
+		   	   
+	   	   }
+   	   }
    	   
    	   
    	   	   /* section header */		   	
@@ -1332,6 +1366,7 @@ main {
 				   font-size: 17px;
 			   }
 		   }
+
 		   input {
 			   position: absolute;
 			   top: 17px;
@@ -1353,7 +1388,31 @@ main {
 		   &.secondary {
 			   margin-top: 1em;
 		   }
+		   &.validation-check {  	
+		   	border-left: 3px solid #df3034;
+		   	background: #fef7f7;
+			   label {
+			   	   border: 0;
+				   background: #fef7f7;
+				   padding-top: 0;
+			   }
+			   input {
+				   top: 45px;
+				   &[type=checkbox]:checked + label {
+				   background: #fef7f7;
+				   }
+			   }
+			   .error {
+				   font-size: 1.6rem;
+				   color: #df3034;
+				   padding: 1em 0 .5em .8em;
+				   .ie & {
+					   font-size: 16px;
+				   }
+			   }
+		   }
 	   }
+	   
 	   .dec {
 	   	   ul {
 		   	   margin: 0 0 0 1.3em;
@@ -1858,6 +1917,8 @@ main {
     }
   }
 }
+
+
 
 
 

@@ -13,15 +13,15 @@
 
     @form(action = controllers.s4_care_you_provide.routes.G1TheirPersonalDetails.submit) {
     
-        <fieldset class="form-elements">
+        <fieldset class="form-elements" data-journey="carers-allowance:page:care-you-provide">
             <legend>@Messages("s4.g1")</legend>
 
             <ul>
                 @titleSelect(currentForm("title"))
 
-                @carersInputText(currentForm("firstName"), 'maxLength -> 35)
+                @carersInputText(currentForm("firstName"),'helperBelow -> Messages("their.name.helper"), 'maxLength -> 17)
 
-                @carersInputText(currentForm("middleName"), 'maxLength -> 35)
+                @carersInputText(currentForm("middleName"), 'maxLength -> 17)
 
                 @carersInputText(currentForm("surname"), 'maxLength -> 35)
 
@@ -39,3 +39,8 @@
         </nav>
     }
 }
+<script type="text/javascript">
+    $(function(){
+        GOVUK.performance.stageprompt.setupForGoogleAnalytics();
+    })
+</script>

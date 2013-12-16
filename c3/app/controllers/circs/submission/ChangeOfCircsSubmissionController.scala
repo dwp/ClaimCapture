@@ -1,5 +1,6 @@
 package controllers.circs.submission
 
+import app.ConfigProperties._
 import play.api.mvc._
 import play.api.Logger
 import com.google.inject._
@@ -8,8 +9,9 @@ import services.UnavailableTransactionIdException
 import controllers.submission.Submitter
 import play.Configuration
 import models.domain._
-import models.domain.Claim
 import jmx.inspectors.{FastSubmissionNotifier, SubmissionNotifier}
+import models.domain.Claim
+import scala.Some
 
 @Singleton
 class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends Controller with CachedChangeOfCircs with SubmissionNotifier with FastSubmissionNotifier {
@@ -25,21 +27,21 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
         }
       }
       catch {
-        case e: UnavailableTransactionIdException => {
+        case e: UnavailableTransactionIdException =>
           Logger.error(s"UnavailableTransactionIdException ! ${e.getMessage}")
-          Redirect(controllers.routes.Application.error(CachedChangeOfCircs.key))
-        }
-        case e: java.lang.Exception => {
+          Redirect(errorPage)
+
+        case e: java.lang.Exception =>
           Logger.error(s"InternalServerError ! ${e.getMessage}")
           Logger.error(s"InternalServerError ! ${e.getStackTraceString}")
-          Redirect(controllers.routes.Application.error(CachedChangeOfCircs.key))
-        }
+          Redirect(errorPage)
+
       }
     }
   }
 
   def isBot(claim: Claim): Boolean = {
-    if (Configuration.root().getBoolean("checkForBot", false)) {
+    if (getProperty("checkForBot",default=false)) {
       checkTimeToCompleteAllSections(claim) || honeyPot(claim)
     } else {
       false
@@ -48,9 +50,9 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
 
   def checkTimeToCompleteAllSections(circs: Claim, currentTime: Long = System.currentTimeMillis()) = {
     val sectionExpectedTimes = Map[String, Long](
-      "c1" -> 10000,
-      "c2" -> 10000,
-      "c3" -> 10000
+      "c1" -> getProperty("speed.c1",5000L),
+      "c2" -> getProperty("speed.c2",5000L),
+      "c3" -> getProperty("speed.c3",5000L)
     )
 
     val expectedMinTimeToCompleteAllSections: Long = circs.sections.map(s => {
@@ -74,7 +76,7 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
   def honeyPot(circs: Claim): Boolean = {
     def checkDeclaration: Boolean = {
       circs.questionGroup(CircumstancesDeclaration) match {
-        case Some(q) => {
+        case Some(q) =>
           val h = q.asInstanceOf[CircumstancesDeclaration]
           if (h.obtainInfoAgreement == "yes") {
             h.obtainInfoWhy match {
@@ -83,7 +85,7 @@ class ChangeOfCircsSubmissionController @Inject()(submitter: Submitter) extends 
             }
           }
           else false
-        }
+
         case _ => false
       }
     }

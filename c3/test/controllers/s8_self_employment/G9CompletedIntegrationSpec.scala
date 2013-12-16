@@ -7,7 +7,7 @@ import utils.pageobjects.s9_other_money._
 import utils.pageobjects.s2_about_you._
 import controllers.ClaimScenarioFactory
 import utils.pageobjects.s2_about_you.G4ClaimDatePage
-import utils.pageobjects.s3_your_partner.G4PersonYouCareForPage
+import utils.pageobjects.s3_your_partner.G1YourPartnerPersonalDetailsPage
 
 class G9CompletedIntegrationSpec extends Specification with Tags {
 
@@ -42,7 +42,7 @@ class G9CompletedIntegrationSpec extends Specification with Tags {
       pageMoreAboutYou fillPageWith ClaimScenarioFactory.s2AboutYouWithTimeOutside
       pageMoreAboutYou.submitPage(throwException = true)
 
-      val pageAboutYourPartner = new G4PersonYouCareForPage(browser)
+      val pageAboutYourPartner = new G1YourPartnerPersonalDetailsPage(browser)
       pageAboutYourPartner goToThePage()
       pageAboutYourPartner fillPageWith ClaimScenarioFactory.s3YourPartnerNotThePersonYouCareFor
       pageAboutYourPartner.submitPage(throwException = true)

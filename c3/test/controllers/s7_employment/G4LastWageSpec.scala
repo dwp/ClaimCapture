@@ -33,7 +33,7 @@ class G4LastWageSpec extends Specification with Tags {
         "jobStartDate.day" -> "1",
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
-        "finishedThisJob" -> "yes"))
+        "finishedThisJob" -> "no"))
 
       val result = G4LastWage.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1",

@@ -32,7 +32,7 @@ class G3EmployerContactDetailsSpec extends Specification with Tags {
         "jobStartDate.month" -> "1",
         "jobStartDate.year" -> "2000",
         "employerName" -> "Toys r not us",
-        "finishedThisJob" -> "yes"))
+        "finishedThisJob" -> "no"))
 
       val result = G3EmployerContactDetails.submit(FakeRequest().withSession(CachedClaim.key -> claimKey)
         .withFormUrlEncodedBody("jobID" -> "1","address.lineOne"->"someStreet"))

@@ -3,15 +3,14 @@
 @import utils.helpers.CarersCrypto
 @import play.api.Play
 @import play.api.Play.current
+@import utils.helpers.GAHelper._
+@import app.ConfigProperties._
 
-    @trackStr(id: String,v: (String,String)) = @{
-        s"""_gaq.push(['_trackEvent','${request.path}','${if (args.find(_._1 == 'trackLabel).isDefined) Messages(args.find(_._1 == 'trackLabel).get._2.toString()) else Messages(id+".tracking")}','${v._2}'])"""
-    }
     @gaTrack(id: String,v: (String,String)) = @{
-        if(!Play.isTest &&
-                play.Configuration.root().getBoolean("include_analytics", false) &&
-                args.find(p => p._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]){
-            trackStr(id,v)
+        val tracking = args.find(_._1 == 'track).getOrElse('track->false)._2.asInstanceOf[Boolean]
+
+        if(!Play.isTest && getProperty("include_analytics", false) && tracking){
+            trackEvent(request.path,args.find(_._1 == 'trackLabel).getOrElse('trackLabel->(id+".tracking"))._2.toString,Some(v._2))
         }
     }
 
