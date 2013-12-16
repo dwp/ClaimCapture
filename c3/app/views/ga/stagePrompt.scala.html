@@ -1,0 +1,6 @@
+@()
+@import play.api.Play
+@import play.api.Play.current
+@if(!Play.isTest){
+GOVUK.performance.stageprompt.setupForGoogleAnalytics();
+}
