@@ -21,7 +21,7 @@ About You,About your time outside the UK,What country did you come from?,AboutYo
 About You,About your time outside the UK,Do you plan to go back to that country?,AboutYouDoYouPlantoGoBacktoThatCountry,
 About You,About your time outside the UK,When do you plan to go back?,AboutYouWhenDoYouPlantoGoBack,
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,23/07/2013
-About You,More about you,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,m
+About You,More about you,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,Married or civil partner
 About You,More about you,Have you had a partner/spouse at any time since your claim date: <ddmmyyyy>?,AboutYouHaveYouHadaPartnerSpouseatAnyTime,Yes
 About You,More about you,Have you been on a course of education since your claim date:<ddmmyyyy>? ,AboutYouHaveYouBeenOnACourseOfEducation,No
 About You,More about you,Do you get state Pension?,AboutYouDoYouGetStatePension,No
@@ -217,13 +217,13 @@ Employment,Your last wage,When were you last paid?,EmploymentWhenWereYouLastPaid
 Employment,Your last wage,What was the gross pay for this period?,EmploymentWhatWasTheGrossPayForTheLastPayPeriod_1,600
 Employment,Your last wage,What was included in this pay?,EmploymentWhatWasIncludedInYourLastPay_1,"Everything including christmas bonus !!?"s
 Employment,Your last wage,[[past=Did you]] [[present=Do you]] get the same amount each time?,EmploymentDoYouGettheSameAmountEachTime_1,No
-Employment,Additional details on your last wage,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_1,fourweekly
+Employment,Additional details on your last wage,How often [[past=were you]] [[present=are you]] paid?,EmploymentAddtionalWageHowOftenAreYouPaid_1,Four-Weekly
 Employment,Additional details on your last wage,Other,EmploymentAddtionalWageOther_1,
 Employment,Additional details on your last wage,When [[past=did you]] [[present=do you]] get paid?,EmploymentAddtionalWageWhenDoYouGetPaid_1,
 Employment,Additional details on your last wage,Does your employer owe you any money?,EmploymentAdditionalWageDoesYourEmployerOweYouAnyMoney_1,No
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards an occupational pension scheme?,EmploymentDoYouPayTowardsanOccupationalPensionScheme_1,Yes
 Employment,Pension schemes,How much [[past=did you]] [[present=do you]] pay?,EmploymentHowMuchYouPayforOccupationalPension_1,100
-Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_1,02
+Employment,Pension schemes,How often?,EmploymentHowOftenOccupationalPension_1,Weekly
 Employment,Pension schemes,[[past=Did you]] [[present=Do you]] pay towards a personal or stakeholder pension scheme or a retirement annuity scheme?,EmploymentDoYouPayTowardsAPersonalPension_1,No
 Employment,Pension schemes,How much [[past=Did you]] [[present=Do you]] pay?,EmploymentHowMuchYouPayforPersonalPension_1,
 Employment,Pension schemes,How often?,EmploymentHowOftenPersonalPension_1,
@@ -337,10 +337,10 @@ Other Money,Other Statutory Pay,Employer's Address,OtherMoneySMPEmployerAddress,
 Other Money,Other Statutory Pay,Employer's Postcode,OtherMoneySMPEmployerPostcode,
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on, receiving  any pensions or benefits from another EEA State or Switzerland?",OtherMoneyOtherAreYouReceivingPensionFromAnotherEEA,No
 Other Money,Other EEA State or Switzerland,"Are you, your wife, husband, civil partner or parent you are dependent on working in or paying insurance to another EEA State or Switzerland?",OtherMoneyOtherAreYouPayingInsuranceToAnotherEEA,No
-How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,bankBuildingAccount
-How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,everyWeek
+How we pay you,How would you like to get paid? ,How would you like to get paid?,HowWePayYouHowWouldYouLikeToGetPaid,UK bank or building society account
+How we pay you,How would you like to get paid? ,How often do you want to get paid?,HowWePayYouHowOftenDoYouWantToGetPaid,Weekly
 How we pay you,Bank/Building society details,Name of account holder,HowWePayYouNameOfAccountHolder,Mr Test Caseseven
-How we pay you,Bank/Building society details,Whose name or names is the account in?,WhoseNameOrNamesIsTheAccountIn,yourName
+How we pay you,Bank/Building society details,Whose name or names is the account in?,WhoseNameOrNamesIsTheAccountIn,Your name
 How we pay you,Bank/Building society details,Full name of bank or building society ,HowWePayYouFullNameOfBankorBuildingSociety,Barclays
 How we pay you,Bank/Building society details,Sort code,HowWePayYouSortCode,090123
 How we pay you,Bank/Building society details,Account number,HowWePayYouAccountNumber,12345678

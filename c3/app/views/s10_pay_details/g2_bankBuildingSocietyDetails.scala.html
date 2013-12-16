@@ -20,7 +20,7 @@
             <ul>
                 @carersInputText(currentForm("accountHolderName"), 'maxLength -> "40")
 
-                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> "Please Select", YourName.name -> "Your name", Yourpartner.name -> "Your partner's name", Both.name  -> "Both you and your partner", PersonActingBehalf.name -> "Person acting on your behalf", YouPersonBehalf.name -> "You and the person acting on behalf"))
+                @carersSelect(currentForm("whoseNameIsTheAccountIn"), Seq("" -> "Please Select", YourName -> YourName, Yourpartner -> Yourpartner, Both  -> Both, PersonActingBehalf -> PersonActingBehalf, YouPersonBehalf -> YouPersonBehalf))
 
                 @carersInputText(currentForm("bankFullName"))
 

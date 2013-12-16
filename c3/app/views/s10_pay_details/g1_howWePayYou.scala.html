@@ -20,7 +20,7 @@
             <ul>
                 @listRadioGroup(currentForm("likeToPay"), 'items -> Seq(BankBuildingAccount.name, AppliedForAccount.name, NotOpenAccount.name ).map(s=>Messages(s)->Messages(s)), 'helperBelow -> Messages("howWePayYou.helper"))
 
-                @carersSelect(currentForm("paymentFrequency"), Seq("" -> "Please Select")++Seq(EveryWeek.name,FourWeekly.name).map(s=>Messages(s)->Messages(s)))
+                @carersSelect(currentForm("paymentFrequency"), Seq("" -> "Please Select")++Seq(EveryWeek,FourWeekly).map(s=>Messages(s)->Messages(s)))
             </ul>
         </fieldset>
 

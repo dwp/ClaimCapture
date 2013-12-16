@@ -72,6 +72,7 @@ object SelfEmployment extends XMLComponent{
           {questionOther(<Frequency/>, "howOftenPayChildCare", childCareExpenses.howOftenPayChildCare.frequency, childCareExpenses.howOftenPayChildCare.other, didYouDoYouIfSelfEmployed(claim).toLowerCase)}
         </Expense>
         {question(<RelationshipCarerToClaimant/>, "relationToYou", childCareExpenses.whatRelationIsToYou)}
+        {question(<RelationshipCarerToPartner/>, "relationToPartner",childCareExpenses.relationToPartner)}
       </ChildCareExpenses>
     } else NodeSeq.Empty
   }

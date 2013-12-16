@@ -2,7 +2,7 @@ package xml
 
 import models.domain.Claim
 import scala.xml.Elem
-import play.api.Play
+import app.ConfigProperties._
 
 /**
  * Validates the XML built by an underlying XML builder, by default [[xml.DWPBody]].
@@ -14,7 +14,7 @@ class ValidXMLBuilder(underlying:XMLBuilder)  extends XMLBuilder {
   def xml(claim: Claim, transactionId: String): Elem = {
     val xmlGenerated = underlying.xml(claim,transactionId)
     val validator = controllers.submission.xmlValidator(claim)
-    if (Play.current.configuration.getBoolean("validateXml").orElse(Some(true)).get
+    if (getProperty("validateXml",default=true)
       && !validator.validate(xmlGenerated.toString())) throw new RuntimeException("Invalid XML generated. See log file.")
     xmlGenerated
   }

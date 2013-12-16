@@ -63,16 +63,13 @@ object Employment extends XMLComponent{
   }
 
   private def payXml(jobDetails: JobDetails, lastWage: LastWage, additionalWageDetails: AdditionalWageDetails, claim: Claim): Elem = {
+    val oftenPaid = additionalWageDetails.oftenGetPaid
     <Pay>
       {question(<WeeklyHoursWorked/>, "hoursPerWeek", jobDetails.hoursPerWeek, pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, jobDetails.jobID))}
       {question(<DateLastPaid/>, "lastPaidDate", lastWage.lastPaidDate)}
       {questionCurrency(<GrossPayment/>, "grossPay",Some(lastWage.grossPay))}
       {question(<IncludedInWage/>, "payInclusions", lastWage.payInclusions)}
-      {additionalWageDetails.oftenGetPaid match {
-        case Some(n) => questionOther(<PayFrequency/>,"paymentFrequency",n.frequency,n.other)
-        case _ => NodeSeq.Empty
-        }
-      }
+      {questionOther(<PayFrequency/>,"paymentFrequency",oftenPaid.frequency,oftenPaid.other)}
       {question(<UsualPayDay/>, "whenGetPaid", additionalWageDetails.whenGetPaid, pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase, jobDetails.jobID))}
       {question(<ConstantEarnings/>,"sameAmountEachTime",lastWage.sameAmountEachTime,pastPresentLabelForEmployment(claim, didYou, doYou, jobDetails.jobID))}
     </Pay>
@@ -137,15 +134,16 @@ object Employment extends XMLComponent{
       <ChildCareExpenses>
         {question(<CarerName/>, "whoLooksAfterChildren",childcareExpenses.whoLooksAfterChildren)}
         {childcareExpenses.howMuchCostChildcare.isEmpty match {
-          case false => {
+          case false =>
             <Expense>
               {questionCurrency(<Payment/>, "howMuchCostChildcare",Some(childcareExpenses.howMuchCostChildcare), pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , job.jobID))}
               {questionOther(<Frequency/>, "employment_howOftenPayChildCare",childcareExpenses.howOftenPayChildCare.frequency,childcareExpenses.howOftenPayChildCare.other, pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , job.jobID))}
             </Expense>
-          }
+
           case _ => NodeSeq.Empty
         }}
         {question(<RelationshipCarerToClaimant/>, "relationToYou",childcareExpenses.relationToYou)}
+        {question(<RelationshipCarerToPartner/>, "relationToPartner",childcareExpenses.relationToPartner)}
       </ChildCareExpenses>
     } else {
       {question(<CareExpensesChildren/>, "payAnyoneToLookAfterChildren",aboutExpenses.payAnyoneToLookAfterChildren,pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , job.jobID))}
@@ -162,12 +160,12 @@ object Employment extends XMLComponent{
       <CareExpenses>
         {question(<CarerName/>,"whoLooksAfterChildren",personYouCareExpenses.whoDoYouPay)}
         {personYouCareExpenses.howMuchCostCare.isEmpty match {
-          case false => {
+          case false =>
             <Expense>
               {questionCurrency(<Payment/>,"howMuchCostChildcare",Some(personYouCareExpenses.howMuchCostCare),pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase,job.jobID))}
               {questionOther(<Frequency/>,"employment_howOftenPayChildCare",personYouCareExpenses.howOftenPayCare.frequency,personYouCareExpenses.howOftenPayCare.other,pastPresentLabelForEmployment(claim, didYou.toLowerCase, doYou.toLowerCase , job.jobID))}
             </Expense>
-          }
+
           case _ => NodeSeq.Empty
         }}
         {question(<RelationshipCarerToClaimant/>,"relationToYou",personYouCareExpenses.relationToYou)}

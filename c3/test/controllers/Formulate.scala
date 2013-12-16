@@ -11,7 +11,7 @@ object Formulate {
     
   def yourDetails(browser: TestBrowser) = {
     browser.goTo("/about-you/your-details")
-    browser.click("#title option[value='mr']")
+    browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
@@ -29,7 +29,7 @@ object Formulate {
 
   def yourDetailsEnablingTimeOutsideUK(browser: TestBrowser) = {
     browser.goTo("/about-you/your-details")
-    browser.click("#title option[value='mr']")
+    browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.fill("#nationalInsuranceNumber_ni1") `with` "AB" // Pattern AB123456C
@@ -81,7 +81,7 @@ object Formulate {
 
   def moreAboutYou(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus option[value='s']")
+    browser.click("#maritalStatus option[value='Single']")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_yes")
     browser.click("#receiveStatePension_yes")
@@ -90,7 +90,7 @@ object Formulate {
 
   def moreAboutYouNotHadPartnerSinceClaimDate(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus option[value='s']")
+    browser.click("#maritalStatus option[value='Single']")
     browser.click("#hadPartnerSinceClaimDate_no")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_yes")
@@ -100,7 +100,7 @@ object Formulate {
   
   def moreAboutYouNotBeenInEducationSinceClaimDate(browser: TestBrowser) = {
     browser.goTo("/about-you/more-about-you")
-    browser.click("#maritalStatus option[value='s']")
+    browser.click("#maritalStatus option[value='Single']")
     browser.click("#hadPartnerSinceClaimDate_yes")
     browser.click("#eitherClaimedBenefitSinceClaimDate_yes")
     browser.click("#beenInEducationSinceClaimDate_no")
@@ -118,7 +118,7 @@ object Formulate {
   // Your partner
   def yourPartnerPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/your-partner/personal-details")
-    browser.click("#title option[value='mr']")
+    browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#middleName") `with` "Dave"
     browser.fill("#surname") `with` "Appleseed"
@@ -150,7 +150,7 @@ object Formulate {
   // Care You Provide
   def theirPersonalDetails(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-personal-details")
-    browser.click("#title option[value='mr']")
+    browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.click("#dateOfBirth_day option[value='3']")
@@ -162,7 +162,7 @@ object Formulate {
 
   def theirPersonalDetailsNotLiveAtSameAddress(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/their-personal-details")
-    browser.click("#title option[value='mr']")
+    browser.click("#title option[value='Mr']")
     browser.fill("#firstName") `with` "John"
     browser.fill("#surname") `with` "Appleseed"
     browser.click("#dateOfBirth_day option[value='3']")
@@ -189,7 +189,7 @@ object Formulate {
 
   def moreAboutThePersonWithClaimedAllowanceBefore(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/relationship-and-other-claims")
-    browser.click("#relationship option[value='father']")
+    browser.click("#relationship option[value='Father']")
     browser.click("#armedForcesPayment_yes")
     browser.click("#claimedAllowanceBefore_yes")
     browser.submit("button[type='submit']")
@@ -197,7 +197,7 @@ object Formulate {
 
   def moreAboutThePersonWithNotClaimedAllowanceBefore(browser: TestBrowser) = {
     browser.goTo("/care-you-provide/relationship-and-other-claims")
-    browser.click("#relationship option[value='father']")
+    browser.click("#relationship option[value='Father']")
     browser.click("#armedForcesPayment_no")
     browser.click("#claimedAllowanceBefore_no")
     browser.submit("button[type='submit']")
@@ -241,7 +241,7 @@ object Formulate {
 
   def howWePayYou(browser: TestBrowser) = {
     browser.goTo("/pay-details/how-we-pay-you")
-    browser.click("#likeToPay_" + AccountStatus.BankBuildingAccount.name)
+    browser.click("#likeToPay_" + AccountStatus.BankBuildingAccount)
     browser.click("#paymentFrequency option[value='fourWeekly']")
     browser.submit("button[type='submit']")
   }
@@ -249,7 +249,7 @@ object Formulate {
   def bankBuildingSocietyDetails(browser: TestBrowser) = {
     browser.goTo("/pay-details/bank-building-society-details")
     browser.fill("#accountHolderName") `with` "holder name"
-    browser.click("#whoseNameIsTheAccountIn option[value='yourName']")
+    browser.click("#whoseNameIsTheAccountIn option[value='Your name']")
     browser.fill("#bankFullName") `with` "bank name"
     browser.fill("#sortCode_sort1") `with` "10"
     browser.fill("#sortCode_sort2") `with` "11"
@@ -322,8 +322,8 @@ object Formulate {
   def yourCourseDetails(browser: TestBrowser) = {
     val courseType = "University"
     val courseTitle = "Law"
-    val startDateDay = "16"
-    val studentReferenceNumber = "ST-2828281"
+//    val startDateDay = "16"
+//    val studentReferenceNumber = "ST-2828281"
 
     browser.goTo("/education/your-course-details")
     browser.fill("#courseType") `with` courseType

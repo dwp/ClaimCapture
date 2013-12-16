@@ -4,18 +4,18 @@ import scala.util.{Success, Try}
 package object app {
 
   object AccountStatus {
-    val BankBuildingAccount = 'bankBuildingAccount
-    val AppliedForAccount = 'appliedForAccount
-    val NotOpenAccount = 'notOpenAccount
+    val BankBuildingAccount = "UK bank or building society account"
+    val AppliedForAccount = "You don't have an account but intend to open one"
+    val NotOpenAccount = "Other - you would like more information"
   }
 
   object ActingType {
-    val Guardian = 'guardian
-    val Attorney = 'attorney
-    val Appointee = 'appointee
-    val Judicial = 'judicial
-    val Deputy = 'deputy
-    val Curator = 'curator
+    val Guardian = "Parent or guardian"
+    val Attorney = "Attorney"
+    val Appointee = "Appointee"
+    val Judicial = "Judicial factor"
+    val Deputy = "Deputy"
+    val Curator = "Curator bonis"
   }
 
   object Whereabouts {
@@ -29,8 +29,8 @@ package object app {
   }
 
   object PaymentFrequency {
-    val EveryWeek = 'everyWeek
-    val FourWeekly = 'fourWeekly
+    val EveryWeek = "Weekly"
+    val FourWeekly = "Four-Weekly"
   }
 
   object PensionPaymentFrequency {
@@ -42,10 +42,10 @@ package object app {
   }
 
   object StatutoryPaymentFrequency {
-    val Weekly = "weekly"
-    val Fortnightly = "fortnightly"
-    val FourWeekly = "fourWeekly"
-    val Monthly = "monthly"
+    val Weekly = "Weekly"
+    val Fortnightly = "Fortnightly"
+    val FourWeekly = "Four-Weekly"
+    val Monthly = "Monthly"
     val Other = "Other"
   }
 
@@ -59,11 +59,11 @@ package object app {
   }
 
   object WhoseNameAccount {
-    val YourName = 'yourName
-    val Yourpartner = 'partner
-    val Both = 'bothNames
-    val PersonActingBehalf = 'onBehalfOfYou
-    val YouPersonBehalf = 'allNames
+    val YourName = "Your name"
+    val Yourpartner = "Your partner's name"
+    val Both = "Both you and your partner"
+    val PersonActingBehalf = "Person acting on your behalf"
+    val YouPersonBehalf = "You and the person acting on behalf"
   }
 
 

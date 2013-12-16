@@ -13,7 +13,7 @@ object Payment extends XMLComponent {
 
   def xml(claim: Claim) = {
     val howWePayYou = claim.questionGroup[HowWePayYou].getOrElse(HowWePayYou())
-    val showAccount = howWePayYou.likeToBePaid == Messages(AccountStatus.BankBuildingAccount.name)
+    val showAccount = howWePayYou.likeToBePaid == Messages(AccountStatus.BankBuildingAccount)
 
     claim.questionGroup[HowWePayYou] match {
       case Some(how) => {

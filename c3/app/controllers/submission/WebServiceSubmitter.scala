@@ -3,11 +3,9 @@ package controllers.submission
 import play.api.mvc.Results.Redirect
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.mvc.{AnyContent, Request, PlainResult}
-import play.api.{Play, http, Logger}
+import play.api.{http, Logger}
 import com.google.inject.Inject
-import play.api.cache.Cache
 import play.api.libs.ws.Response
-import play.api.Play.current
 import services.TransactionIdService
 import services.submission.FormSubmission
 import models.domain.Claim
@@ -17,8 +15,11 @@ import models.view.{CachedChangeOfCircs, CachedClaim}
 
 class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmission: FormSubmission) extends Submitter {
 
-  val claimThankYouPageUrl = Play.current.configuration.getString("claim.thankyou.page").getOrElse("ThankYouPageNotConfigured")
-  val cofcThankYouPageUrl = Play.current.configuration.getString("cofc.thankyou.page").getOrElse("ThankYouPageNotConfigured")
+  val claimThankYouPageUrl = controllers.routes.ClaimEnding.thankyou()
+  val cofcThankYouPageUrl = controllers.routes.CircsEnding.thankyou()
+  val claimErrorPageUrl = controllers.routes.ClaimEnding.error()
+  val cofcErrorPageUrl = controllers.routes.CircsEnding.error()
+
   lazy val xmlBuilder: XMLBuilder = ValidXMLBuilder()
 
   override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
@@ -52,23 +53,11 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
         val status = (responseXml \\ "statusCode").text
         Logger.info(s"Received status code : $status")
         status match {
-          case "0000" => {
-            updateStatus(claim, txnId, SUCCESS)
-            Logger.info(s"Successful submission : $txnId")
-            // Clear the cache to ensure no duplicate submission
-            val key = request.session.get(claim.key).orNull
-            Cache.set(key, None)
-            claim.key match {
-              case CachedClaim.key =>
-                Redirect(claimThankYouPageUrl)
-              case CachedChangeOfCircs.key =>
-                Redirect(cofcThankYouPageUrl)
-            }
-          }
-          case _ => {
+          case SUBMITTED =>
+            respondWithSuccess(claim,txnId,SUCCESS)
+          case _ =>
             Logger.info(s"Received result : $status")
             errorAndRedirect(claim, txnId, status)
-          }
         }
       case http.Status.BAD_REQUEST =>
         Logger.error(s"BAD_REQUEST : ${response.status} : ${response.toString}, TxnId : $txnId, Headers : ${request.headers}")
@@ -85,9 +74,24 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     }
   }
 
-  private def errorAndRedirect(claim: Claim, txnId: String, code: String): PlainResult = {
+  private def respondWithSuccess(claim: Claim, txnId: String, code: String) : PlainResult = {
+    Logger.info(s"Successful submission : ${claim.key} : $txnId")
     updateStatus(claim, txnId, code)
-    Redirect(controllers.routes.Application.error(claim.key))
+    claim.key match {
+      case CachedClaim.key =>
+        Redirect(controllers.routes.ClaimEnding.thankyou())
+      case CachedChangeOfCircs.key =>
+        Redirect(controllers.routes.CircsEnding.thankyou())
+    }
+  }
+
+  private def errorAndRedirect(claim: Claim, txnId: String, code: String): PlainResult = {
+    Logger.error(s"errorAndCleanup : ${claim.key} : $txnId : $code")
+    updateStatus(claim, txnId, code)
+    claim.key match {
+      case CachedClaim.key => Redirect(claimErrorPageUrl)
+      case CachedChangeOfCircs.key => Redirect(cofcErrorPageUrl)
+    }
   }
 
   private def updateStatus(claim: Claim, id: String, statusCode: String) = {

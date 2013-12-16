@@ -43,8 +43,8 @@ class WebSearchSpec extends Specification with Tags{
 
     "be able to read SortCode" in new WithBrowser with G1HowWePayYouPageContext {
       val claim = new TestData
-      claim.HowWePayYouHowWouldYouLikeToGetPaid = Messages(AccountStatus.BankBuildingAccount.name)
-      claim.HowWePayYouHowOftenDoYouWantToGetPaid = Messages(PaymentFrequency.FourWeekly.name)
+      claim.HowWePayYouHowWouldYouLikeToGetPaid = Messages(AccountStatus.BankBuildingAccount)
+      claim.HowWePayYouHowOftenDoYouWantToGetPaid = Messages(PaymentFrequency.FourWeekly)
       claim.HowWePayYouNameOfAccountHolder = "Despicable me"
       claim.WhoseNameOrNamesIsTheAccountIn = "yourName"
       claim.HowWePayYouFullNameOfBankorBuildingSociety = "HSBC Plc"

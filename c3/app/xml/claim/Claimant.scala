@@ -1,6 +1,6 @@
 package xml.claim
 
-import models.domain.{ContactDetails, YourDetails, Claim}
+import models.domain.{MoreAboutYou, ContactDetails, YourDetails, Claim}
 import xml.XMLHelper._
 import xml.XMLComponent
 
@@ -8,6 +8,7 @@ object Claimant extends XMLComponent {
   def xml(claim: Claim) = {
     val yourDetails = claim.questionGroup[YourDetails].getOrElse(YourDetails())
     val contactDetails = claim.questionGroup[ContactDetails].getOrElse(ContactDetails())
+    val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
 
     <Claimant>
       <Surname>{yourDetails.surname}</Surname>
@@ -19,7 +20,7 @@ object Claimant extends XMLComponent {
       {postalAddressStructure(contactDetails.address, contactDetails.postcode)}
       {statement(<DayTimePhoneNumber/>,contactDetails.phoneNumber)}
       {statement(<MobileNumber/>,contactDetails.mobileNumber)}
-      <MaritalStatus>{yourDetails.maritalStatus}</MaritalStatus>
+      <MaritalStatus>{moreAboutYou.maritalStatus}</MaritalStatus>
       {question(<TextPhoneContact/>,"contactYouByTextphone", contactDetails.contactYouByTextphone)}
     </Claimant>
   }

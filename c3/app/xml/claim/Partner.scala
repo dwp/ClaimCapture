@@ -12,7 +12,7 @@ object Partner extends XMLComponent {
   def xml(claim: Claim) = {
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou(hadPartnerSinceClaimDate = no))
     val yourPartnerPersonalDetails = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
-    val personYouCareFor = claim.questionGroup[PersonYouCareFor].getOrElse(PersonYouCareFor())
+    val personYouCareFor = claim.questionGroup[YourPartnerPersonalDetails].getOrElse(YourPartnerPersonalDetails())
     val hadPartner = moreAboutYou.hadPartnerSinceClaimDate.toLowerCase == yes
 
     if (hadPartner) {
