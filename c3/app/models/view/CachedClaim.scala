@@ -39,6 +39,7 @@ trait CachedClaim {
 
   val errorPage = routes.CircsEnding.error()
 
+  val defaultLang = "en"
 
   implicit def formFiller[Q <: QuestionGroup](form: Form[Q])(implicit classTag: ClassTag[Q]) = new {
     def fill(qi: QuestionGroup.Identifier)(implicit claim: Claim): Form[Q] = claim.questionGroup(qi) match {
@@ -74,14 +75,13 @@ trait CachedClaim {
       implicit val r = request
 
       if (request.getQueryString("changing").getOrElse("false") == "false") {
-        //TODO Replace default cases in newClaim and claiming for default lang case
-        originCheck(refererCheck, action(newInstance, request, Lang("en"))(f))
+        originCheck(refererCheck, action(newInstance, request, bestLang)(f))
       }
       else {
         Logger.info(s"Changing $cacheKey")
         val key = request.session.get(cacheKey).getOrElse(throw new RuntimeException("I expected a key in the session!"))
         val claim = Cache.getAs[Claim](key).getOrElse(throw new RuntimeException("I expected a claim in the cache!"))
-        originCheck(sameHostCheck, action(claim, request, claim.lang.getOrElse(Lang("en")))(f))
+        originCheck(sameHostCheck, action(claim, request, claim.lang.getOrElse(bestLang))(f))
       }
     }
   }
@@ -89,10 +89,11 @@ trait CachedClaim {
   def claiming(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Action[AnyContent] = Action {
     request => {
       implicit val r = request
+
       originCheck(sameHostCheck,
         fromCache(request) match {
           case Some(claim) => {
-            val lang = claim.lang.getOrElse(Lang("en"))
+            val lang = claim.lang.getOrElse(bestLang)
             action(copyInstance(claim), request, lang)(f)
           }
 
@@ -101,7 +102,7 @@ trait CachedClaim {
               val (key, expiration) = keyAndExpiration(request)
               val claim = newInstance
               Cache.set(key, claim, expiration) // place an empty claim in the cache to satisfy tests
-              action(claim, request, Lang("en"))(f)
+              action(claim, request, bestLang)(f)
             } else {
               Logger.info(s"$cacheKey timeout")
               Redirect(timeoutPage)
@@ -124,15 +125,16 @@ trait CachedClaim {
   }
 
   private def action(claim: Claim, request: Request[AnyContent], lang: Lang)(f: (Claim) => Request[AnyContent] => Lang => Either[Result, ClaimResult]): Result = {
-
     val (key, expiration) = keyAndExpiration(request)
 
     f(claim)(request)(lang) match {
-      case Left(r: Result) =>
+      case Left(r: Result) => {
         r.withSession(claim.key -> key)
-      case Right((c: Claim, r: Result)) =>
+      }
+      case Right((c: Claim, r: Result)) => {
         Cache.set(key, c, expiration)
         r.withSession(claim.key -> key)
+      }
     }
   }
 
@@ -169,5 +171,14 @@ trait CachedClaim {
       .withHeaders("X-Frame-Options" -> "SAMEORIGIN") // stop click jacking
   }
 
+  def bestLang()(implicit request: Request[AnyContent]) = {
+    val implementedLangs = getProperty("application.langs", defaultLang)
 
+    val listOfPossibleLangs = request.acceptLanguages.flatMap(aL => implementedLangs.split(",").toList.filter(iL => iL == aL.code))
+
+    if (listOfPossibleLangs.size > 0)
+      Lang(listOfPossibleLangs.head)
+    else
+      Lang(defaultLang)
+  }
 }
