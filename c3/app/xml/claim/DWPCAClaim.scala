@@ -43,6 +43,7 @@ object DWPCAClaim extends XMLComponent {
       {Disclaimer.xml(claim)}
       {EvidenceList.buildXml(claim)}
       {Consents.xml(claim)}
+      {AssistedDecision.xml(claim)}
     </DWPCAClaim>
 
   }

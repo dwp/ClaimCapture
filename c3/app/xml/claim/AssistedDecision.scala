@@ -1,4 +1,4 @@
-package xml
+package xml.claim
 
 import app.StatutoryPaymentFrequency
 import models.domain._
@@ -6,12 +6,13 @@ import scala.xml.NodeSeq
 import org.joda.time.DateTime
 import models.domain.Claim
 import scala.Some
+import xml.XMLComponent
 
 /**
  * Generate the XML presenting the Assisted decisions.
  * @author Jorge Migueis
  */
-object AssistedDecision {
+object AssistedDecision extends XMLComponent {
 
   def xml(claim: Claim) = {
 
@@ -26,7 +27,7 @@ object AssistedDecision {
     //    }
     //    assisted ++= dateOfClaim(claim)
     //    assisted ++= rightAge(claim)
-    if (assisted.length > 0) textSeparatorLine(" Keep In View ") ++ assisted
+    if (assisted.length > 0) <AssistedDecisions>{assisted}</AssistedDecisions>
     else NodeSeq.Empty
   }
 
@@ -34,7 +35,7 @@ object AssistedDecision {
 
   private def caringHours(claim: Claim): NodeSeq = {
     val hours = claim.questionGroup[MoreAboutTheCare].getOrElse(MoreAboutTheCare())
-    if (hours.spent35HoursCaring.toLowerCase != "yes") textLine("Do not spend 35 hours or more each week caring. Potential disallowance, but need to check advisory additional notes.")
+    if (hours.spent35HoursCaring.toLowerCase != "yes") decisionElement("Do not spend 35 hours or more each week caring.","Potential disallowance, but need to check advisory additional notes.")
     else NodeSeq.Empty
   }
 
@@ -73,7 +74,7 @@ object AssistedDecision {
       }
       case None => 0.0f
     }
-    if (weeklyEarning > 100.0d) textLine(s"Total weekly gross pay ${"%.2f".format((weeklyEarning * 100).ceil / 100d)} > £100. Potential disallowance, but need to check advisory additional notes.")
+    if (weeklyEarning > 100.0d) decisionElement(s"Total weekly gross pay ${"%.2f".format((weeklyEarning * 100).ceil / 100d)} > £100.","Potential disallowance, but need to check advisory additional notes.")
     else NodeSeq.Empty
   }
 
@@ -82,26 +83,26 @@ object AssistedDecision {
     val sixteenYearsAgo = DateTime.now().minusYears(16)
     if (yourDetails.dateOfBirth.year.isDefined) {
       val dob = new DateTime(yourDetails.dateOfBirth.year.get, yourDetails.dateOfBirth.month.get, yourDetails.dateOfBirth.day.get, 0, 0)
-      if (dob.isAfter(sixteenYearsAgo)) textLine(s"Customer Date of Birth ${yourDetails.dateOfBirth.`dd/MM/yyyy`} is < 16 years old. Potential disallowance, but need to check advisory additional notes.")
+      if (dob.isAfter(sixteenYearsAgo)) decisionElement(s"Customer Date of Birth ${yourDetails.dateOfBirth.`dd/MM/yyyy`} is < 16 years old.","Potential disallowance, but need to check advisory additional notes.")
       else NodeSeq.Empty
     } else NodeSeq.Empty
   }
 
   private def getAFIP(claim: Claim): NodeSeq = {
     val moreAboutThePerson = claim.questionGroup[MoreAboutThePerson].getOrElse(MoreAboutThePerson())
-    if (moreAboutThePerson.armedForcesPayment.toLowerCase == "yes") textLine("Person receives Armed Forces Independence Payment. Transfer to Armed Forces Independent Payments team.")
+    if (moreAboutThePerson.armedForcesPayment.toLowerCase == "yes") decisionElement("Person receives Armed Forces Independence Payment.","Transfer to Armed Forces Independent Payments team.")
     else NodeSeq.Empty
   }
 
   private def noEEABenefits(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.benefitsFromOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA pensions or benefits. Transfer to Exportability team.")
+    if (otherEEAStateOrSwitzerland.benefitsFromOtherEEAStateOrSwitzerland.toLowerCase == "yes") decisionElement("Claimant or partner dependent on EEA pensions or benefits.","Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
   private def noEEAWork(claim: Claim): NodeSeq = {
     val otherEEAStateOrSwitzerland = claim.questionGroup[OtherEEAStateOrSwitzerland].getOrElse(OtherEEAStateOrSwitzerland())
-    if (otherEEAStateOrSwitzerland.workingForOtherEEAStateOrSwitzerland.toLowerCase == "yes") textLine("Claimant or partner dependent on EEA insurance or work. Transfer to Exportability team.")
+    if (otherEEAStateOrSwitzerland.workingForOtherEEAStateOrSwitzerland.toLowerCase == "yes") decisionElement("Claimant or partner dependent on EEA insurance or work.","Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
@@ -109,30 +110,16 @@ object AssistedDecision {
     val claimDateAnswer = claim.questionGroup[ClaimDate].getOrElse(ClaimDate())
     val monthsFuture = DateTime.now().plusMonths(3).plusDays(1)
     val claimDate = new DateTime(claimDateAnswer.dateOfClaim.year.get, claimDateAnswer.dateOfClaim.month.get, claimDateAnswer.dateOfClaim.day.get, 0, 0)
-    if (claimDate.isAfter(monthsFuture)) textLine("Date of Claim too far in the future. Potential disallowance.")
+    if (claimDate.isAfter(monthsFuture)) decisionElement("Date of Claim too far in the future.","Potential disallowance.")
     else NodeSeq.Empty
   }
 
   private def inGBNow(claim: Claim): NodeSeq = {
     val isInGBNow = claim.questionGroup[NormalResidenceAndCurrentLocation].getOrElse(NormalResidenceAndCurrentLocation())
-    if (isInGBNow.inGBNow.toLowerCase != "yes") textLine("Person does not reside in GB now. Transfer to Exportability team.")
+    if (isInGBNow.inGBNow.toLowerCase != "yes") decisionElement("Person does not reside in GB now.","Transfer to Exportability team.")
     else NodeSeq.Empty
   }
 
-  // =========== Formatting Functions ===================
-
-  private def textSeparatorLine(title: String): NodeSeq = {
-    val lineWidth = 54
-    val padding = "=" * ((lineWidth - title.length) / 2)
-
-    <TextLine>
-      {s"$padding$title$padding"}
-    </TextLine>
-
-  }
-
-  private def textLine(text: String) = <TextLine>
-    {text}
-  </TextLine>
+  private def decisionElement(reason: String, decision:String) = <AssistedDecision><Reason>{reason}</Reason><RecommendedDecision>{decision}</RecommendedDecision></AssistedDecision>
 
 }
