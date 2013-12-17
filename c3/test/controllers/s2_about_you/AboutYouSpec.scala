@@ -183,7 +183,7 @@ class AboutYouSpec extends Specification with Tags {
       val request = FakeRequest().withSession(CachedClaim.key -> claimKey)
 
       val yourDetails = mockQuestionGroup[YourDetails](YourDetails)
-      yourDetails.alwaysLivedUK returns "no"
+      //yourDetails.alwaysLivedUK returns "no"
 
       val moreAboutYou = mockQuestionGroup[MoreAboutYou](MoreAboutYou)
       moreAboutYou.hadPartnerSinceClaimDate returns "yes"

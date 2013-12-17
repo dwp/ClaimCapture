@@ -37,7 +37,7 @@ object ClaimScenarioFactory {
     claim
   }
 
-  def s2AboutYouWithTimeOutside() = {
+  def   s2AboutYouWithTimeOutside() = {
     // Your details + outside UK
     val claim = yourDetailsEnablingTimeOutsideUK()
     // Your contact details

@@ -14,7 +14,7 @@ object Residency {
     val tripsOption = claim.questionGroup[Trips]
 
     <Residency>
-      <Nationality>{if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality}</Nationality>
+      <Nationality>{/*if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality*/ /*TODO: Fix this*/}</Nationality>
       <EUEEASwissNational>{NotAsked}</EUEEASwissNational>
       <CountryNormallyLive>{normalResidence.whereDoYouLive.text.getOrElse(NotAsked)}</CountryNormallyLive>
       <CountryNormallyLiveOther>{NotAsked}</CountryNormallyLiveOther>

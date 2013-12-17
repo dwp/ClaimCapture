@@ -12,7 +12,7 @@ object AboutYou extends Controller with CachedClaim with Navigable {
 
   def completedSubmit = claiming { implicit claim => implicit request =>
     val yourDetailsVisible = claim.questionGroup(YourDetails) match {
-      case Some(y: YourDetails) => y.alwaysLivedUK == no
+      case Some(y: YourDetails) => false /*TODO: Fix this*/
       case _ => true
     }
 

@@ -69,7 +69,7 @@ object EvidenceList {
     val timeOutsideUK = claim.questionGroup[TimeOutsideUK].getOrElse(TimeOutsideUK())
     val moreAboutYou = claim.questionGroup[MoreAboutYou].getOrElse(MoreAboutYou())
     var textLines = NodeSeq.Empty ++ textSeparatorLine("About You")
-    textLines ++= textLine("Have you always lived in the UK? = ", yourDetails.alwaysLivedUK) ++
+    textLines ++= textLine("Have you always lived in the UK? = ", ""/*TODO: Fix this*/ ) ++
       textLine("Mobile number = ", yourContactDetails.mobileNumber) ++
       textLine("Are you currently living in the UK? = ", timeOutsideUK.livingInUK.answer)
     if (timeOutsideUK.livingInUK.answer.toLowerCase == yes)
