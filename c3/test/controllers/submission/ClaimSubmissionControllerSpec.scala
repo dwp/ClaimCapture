@@ -13,14 +13,14 @@ import models.MultiLineAddress
 import models.domain.Claim
 import models.yesNo.YesNo
 import models.view.CachedClaim
-import play.api.mvc.{PlainResult, AnyContent, Request}
+import play.api.mvc.{SimpleResult, AnyContent, Request}
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import jmx.inspectors.{ClaimStatistics, GetClaimStatistics}
 
 class ClaimSubmissionControllerSpec extends Specification with Mockito with CachedClaim {
   val controller = new ClaimSubmissionController(new Submitter {
-    def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = Future(mock[PlainResult])
+    def submit(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = Future(mock[SimpleResult])
   })
 
   var claim = copyInstance(new Claim()

@@ -12,12 +12,13 @@ object ApplicationBuild extends Build {
   val appDependencies = Seq(
     // Add your project dependencies here,
     jdbc,
+    cache,
     "org.specs2" %% "specs2" % "1.14" % "test" withSources() withJavadoc(),
     "org.mockito" % "mockito-all" % "1.9.5" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka" %% "akka-testkit" % "2.2.1" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka" %% "akka-agent" % "2.2.1" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka" %% "akka-actor" % "2.2.1" % "test" withSources() withJavadoc(),
-    "com.typesafe.akka" %% "akka-remote" % "2.2.1" % "test" withSources() withJavadoc(),
+    "com.typesafe.akka" %% "akka-testkit" % "2.2.3" % "test" withSources() withJavadoc(),
+    "com.typesafe.akka" %% "akka-agent" % "2.2.3" % "test" withSources() withJavadoc(),
+    "com.typesafe.akka" %% "akka-actor" % "2.2.3" % "test" withSources() withJavadoc(),
+    "com.typesafe.akka" %% "akka-remote" % "2.2.3" % "test" withSources() withJavadoc(),
     "com.dwp.carers" %% "carerscommon" % "0.81" ,
     "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "me.moocar" % "logback-gelf" % "0.9.6p2",
@@ -28,7 +29,7 @@ object ApplicationBuild extends Build {
 
   var sO: Seq[Project.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
 
-  var sV: Seq[Project.Setting[_]] = Seq(scalaVersion := "2.10.2")
+  var sV: Seq[Project.Setting[_]] = Seq(scalaVersion := "2.10.3")
 
   var sR: Seq[Project.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
 
