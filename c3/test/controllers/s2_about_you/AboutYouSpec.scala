@@ -191,7 +191,6 @@ class AboutYouSpec extends Specification with Tags {
       val claim = Claim()
         .update(yourDetails)
         .update(mockQuestionGroup[ContactDetails](ContactDetails))
-        .update(mockQuestionGroup[TimeOutsideUK](TimeOutsideUK))
         .update(mockQuestionGroup[ClaimDate](ClaimDate))
         .update(moreAboutYou)
         .update(mockQuestionGroup[Employment](Employment))

@@ -25,18 +25,12 @@ class WebSearchSpec extends Specification with Tags{
       title.get mustEqual claim.AboutYouTitle
       val nino  = page readNino("#nationalInsuranceNumber")
       nino.get mustEqual claim.AboutYouNINO
-      val liveUk = page readYesNo("#alwaysLivedUK")
-      liveUk.get mustEqual claim.AboutYouHaveYouAlwaysLivedInTheUK.toLowerCase()
       val contactPage = page submitPage()
       contactPage fillPageWith claim
       val address = contactPage readAddress ("#address")
       address.get mustEqual claim.AboutYouAddress
       val postCode =  contactPage readInput ("#postcode")
       postCode.get mustEqual claim.AboutYouPostcode
-      val outsideUkPage  = contactPage.submitPage()
-      outsideUkPage fillPageWith claim
-      val arriveUk = outsideUkPage readDate("#livingInUK_arrivalDate")
-      arriveUk.get mustEqual claim.AboutYouWhenDidYouArriveInYheUK
     }
 
     "be able to read SortCode" in new WithBrowser with G1HowWePayYouPageContext {
@@ -86,7 +80,6 @@ class WebSearchSpec extends Specification with Tags{
       claimRead.AboutYouNINO mustEqual claimSource.AboutYouNINO
       claimRead.AboutYouAddress mustEqual claimSource.AboutYouAddress
       claimRead.AboutYouPostcode mustEqual claimSource.AboutYouPostcode
-      claimRead.AboutYouWhenDidYouArriveInYheUK mustEqual claimSource.AboutYouWhenDidYouArriveInYheUK
     }
   }section "integration"
 }

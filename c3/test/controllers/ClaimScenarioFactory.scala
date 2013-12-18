@@ -19,7 +19,6 @@ object ClaimScenarioFactory {
     claim.AboutYouTitle = "mr"
     claim.AboutYouFirstName = "John"
     claim.AboutYouSurname = "Appleseed"
-    claim.AboutYouNationality = "English"
     claim.AboutYouDateOfBirth = "03/04/1950"
     claim.AboutYouHaveYouAlwaysLivedInTheUK = "Yes"
     claim.AboutYouNINO = "AB123456C"

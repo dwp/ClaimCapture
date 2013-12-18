@@ -53,8 +53,11 @@ POST        /about-you/your-details                                             
 GET         /about-you/contact-details                                              controllers.s2_about_you.G2ContactDetails.present
 POST        /about-you/contact-details                                              controllers.s2_about_you.G2ContactDetails.submit
 
-GET         /about-you/time-outside-uk                                              controllers.s2_about_you.G3TimeOutsideUK.present
-POST        /about-you/time-outside-uk                                              controllers.s2_about_you.G3TimeOutsideUK.submit
+#GET         /about-you/time-outside-uk                                              controllers.s2_about_you.G3TimeOutsideUK.present
+#POST        /about-you/time-outside-uk                                              controllers.s2_about_you.G3TimeOutsideUK.submit
+
+GET         /about-you/nationality-and-residency                                    controllers.s2_about_you.G3NationalityAndResidency.present
+POST        /about-you/nationality-and-residency                                    controllers.s2_about_you.G3NationalityAndResidency.submit
 
 GET         /about-you/claim-date                                                   controllers.s2_about_you.G4ClaimDate.present
 POST        /about-you/claim-date                                                   controllers.s2_about_you.G4ClaimDate.submit

@@ -9,17 +9,10 @@ About You,Your Details,Surname or family name,AboutYouSurname,CaseThree
 About You,Your Details,All other surnames or family names you have used or have been know by,AboutYouOtherNames,Smithson
 About You,Your Details,National Insurance (NI) number,AboutYouNINO,JB486278C
 About You,Your Details,Date of birth,AboutYouDateOfBirth,01/01/1931
-About You,Your Details,Nationality,AboutYouNationality,British
-About You,Your Details,Have you always lived in the UK?,AboutYouHaveYouAlwaysLivedInTheUK,No
 About You,Your contact details,Address,AboutYouAddress,3 Preston Road&Preston&Lancashire
 About You,Your contact details,Postcode,AboutYouPostcode,PR1 2TH
 About You,Your contact details,Phone number,AboutYouPhoneNumber,01772 888901
 About You,Your contact details,Mobile number,AboutYouMobileNumber,0771 5419808
-About You,About your time outside the UK,Are you currently living in the UK?,AboutYouAreYouCurrentlyLivingintheUk,No
-About You,About your time outside the UK,When did you arrive in the UK?,AboutYouWhenDidYouArriveInYheUK,
-About You,About your time outside the UK,What country did you come from?,AboutYouWhatCountryDidYouComeFrom,
-About You,About your time outside the UK,Do you plan to go back to that country?,AboutYouDoYouPlantoGoBacktoThatCountry,
-About You,About your time outside the UK,When do you plan to go back?,AboutYouWhenDoYouPlantoGoBack,
 About You,Your claim date,When do you want your Carer's Allowance claim to start?,AboutYouWhenDoYouWantYourCarersAllowanceClaimtoStart,01/01/2010
 About You,More about you,What is your marital or civil partnership status?,AboutYouWhatIsYourMaritalOrCivilPartnershipStatus,m
 About You,More about you,Have you had a partner/spouse at any time since your claim date: <ddmmyyyy>?,AboutYouHaveYouHadaPartnerSpouseatAnyTime,Yes

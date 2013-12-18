@@ -1,7 +1,7 @@
 package models.view
 
 import org.specs2.mutable.Specification
-import models.domain.{TimeOutsideUK, ContactDetails, YourDetails}
+import models.domain.{ContactDetails, YourDetails}
 
 class NavigationSpec extends Specification {
   "Navigation" should {
@@ -52,7 +52,6 @@ class NavigationSpec extends Specification {
       navigation.routes.size shouldEqual 2
 
       navigation(ContactDetails) should beSome(Route(route2))
-      navigation(TimeOutsideUK) should beNone
     }
   }
 }

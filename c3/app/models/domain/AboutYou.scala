@@ -31,9 +31,11 @@ object ContactDetails extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g2"
 }
 
-case class TimeOutsideUK(livingInUK: LivingInUK = LivingInUK()) extends QuestionGroup(TimeOutsideUK)
+case class NationalityAndResidency(nationality: String = "",
+                                   resideInUK: String = "",
+                                   residence: Option[String] = None) extends QuestionGroup(NationalityAndResidency)
 
-object TimeOutsideUK extends QuestionGroup.Identifier {
+object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"
 }
 

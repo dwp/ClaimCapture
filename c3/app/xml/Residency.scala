@@ -14,7 +14,7 @@ object Residency {
     val tripsOption = claim.questionGroup[Trips]
 
     <Residency>
-      <Nationality>{/*if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality*/ /*TODO: Fix this*/}</Nationality>
+      <Nationality>{/*if (yourDetailsOption.isDefined)yourDetailsOption.get.nationality*/ /*TODO: Fix this*/}British</Nationality>
       <EUEEASwissNational>{NotAsked}</EUEEASwissNational>
       <CountryNormallyLive>{normalResidence.whereDoYouLive.text.getOrElse(NotAsked)}</CountryNormallyLive>
       <CountryNormallyLiveOther>{NotAsked}</CountryNormallyLiveOther>
@@ -22,7 +22,6 @@ object Residency {
       <InGreatBritain26Weeks>{NotAsked}</InGreatBritain26Weeks>
       {periodAbroadLastYear(tripsOption)}
       <BritishOverseasPassport>{NotAsked}</BritishOverseasPassport>
-      {otherNationality(claim)}
       <OutOfGreatBritain>{NotAsked}</OutOfGreatBritain>
       {periodAbroadDuringCare(tripsOption)}
     </Residency>
@@ -45,23 +44,24 @@ object Residency {
     {for {fourWeeksTrip <- trips.fourWeeksTrips} yield xml(fourWeeksTrip)}
   }
 
-  def otherNationality(claim:Claim) = {
-    val timeOutsideUKOption = claim.questionGroup[TimeOutsideUK]
-    val timeOutsideUK = timeOutsideUKOption.getOrElse(TimeOutsideUK())
-    val currentlyLivingInUK = timeOutsideUK.livingInUK.answer == yes
-    if(currentlyLivingInUK) {
-      val goBack = timeOutsideUK.livingInUK.goBack.getOrElse(YesNoWithDate("", None))
-      <OtherNationality>
-        <EUEEASwissNationalChildren/>
-        <DateArrivedInGreatBritain>{NotAsked}</DateArrivedInGreatBritain>
-        <CountryArrivedFrom>{timeOutsideUK.livingInUK.text.orNull}</CountryArrivedFrom>
-        <IntendToReturn>{goBack.answer}</IntendToReturn>
-        <DateReturn>{stringify(goBack.date)}</DateReturn>
-        <VisaReferenceNumber>{NotAsked}</VisaReferenceNumber>
-      </OtherNationality>
-
-    } else NodeSeq.Empty
-  }
+  // TODO: Will come back in later (modified)
+//  def otherNationality(claim:Claim) = {
+//    val timeOutsideUKOption = claim.questionGroup[TimeOutsideUK]
+//    val timeOutsideUK = timeOutsideUKOption.getOrElse(TimeOutsideUK())
+//    val currentlyLivingInUK = timeOutsideUK.livingInUK.answer == yes
+//    if(currentlyLivingInUK) {
+//      val goBack = timeOutsideUK.livingInUK.goBack.getOrElse(YesNoWithDate("", None))
+//      <OtherNationality>
+//        <EUEEASwissNationalChildren/>
+//        <DateArrivedInGreatBritain>{NotAsked}</DateArrivedInGreatBritain>
+//        <CountryArrivedFrom>{timeOutsideUK.livingInUK.text.orNull}</CountryArrivedFrom>
+//        <IntendToReturn>{goBack.answer}</IntendToReturn>
+//        <DateReturn>{stringify(goBack.date)}</DateReturn>
+//        <VisaReferenceNumber>{NotAsked}</VisaReferenceNumber>
+//      </OtherNationality>
+//
+//    } else NodeSeq.Empty
+//  }
 
   def periodAbroadDuringCare(tripsOption: Option[Trips]) = {
     val trips = tripsOption.getOrElse(Trips())

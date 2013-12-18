@@ -45,7 +45,7 @@ s1.g4 = Do you live in England, Scotland or Wales?
 
 s2.g1 = Your details
 s2.g2 = Your contact details
-s2.g3 = About your time outside the UK
+s2.g3 = Your nationality and residency
 s2.g4 = Your claim date: {0}
 s2.g5 = More about you
 s2.g6 = Employment
@@ -181,6 +181,9 @@ livingInUK_goBack_date = When do you plan to go back?
 livingInUK.goBack.date = When do you plan to go back?
 livingInUK_goBack_answer = Do you plan to go back to that country?
 livingInUK.goBack.answer = Do you plan to go back to that country?
+
+# Nationality and Residence
+nationalityAndResidency_resideInUK=Do you normally live in England, Scotland or Wales?
 
 # CLAIM DATE
 dateOfClaim = When do you want your Carer''s Allowance claim to start?

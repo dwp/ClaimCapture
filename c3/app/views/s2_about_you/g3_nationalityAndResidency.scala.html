@@ -1,0 +1,40 @@
+@(nationalityAndResidencyForm: Form[models.domain.NationalityAndResidency])(implicit claim: models.domain.Claim,request: Request[AnyContent])
+
+@import helper._
+@import utils.helpers.CarersTemplate._
+@import common._
+@import views.html.helper.dates._
+@import views.html.helper._
+@import views.html.helper.base._
+@import utils.helpers.CarersCrypto
+
+@main(Messages("s2.g3") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.NationalityAndResidency)) {
+    @errorsSummary(nationalityAndResidencyForm)
+
+
+    @form(action = controllers.s2_about_you.routes.G3NationalityAndResidency.submit) {
+        <fieldset class="form-elements">
+            <legend>@Messages("s2.g3")</legend>
+
+            <ul>
+                @yesNoRadioGroup(nationalityAndResidencyForm("nationalityAndResidency.resideInUK"))
+
+            </ul>
+
+        </fieldset>
+
+        <nav class="form-steps">
+            <a id="backButton" href="@claim.navigation.previous" class="button secondary" aria-label="Back button">Back</a>
+            <button type="submit" name="action" value="next" class="button" aria-label="Next button">Next</button>
+        </nav>
+    }
+}
+
+<script type="text/javascript" src='@routes.Assets.at("javascripts/s2_about_you/g3_nationalityAndResidency.js")'></script>
+
+<script type="text/javascript">
+    $(function(){
+        window.initEvents("@CarersCrypto.encryptAES("resideInUK_yes")",
+                          "@CarersCrypto.encryptAES("resideInUK_no")";
+    })
+</script>
