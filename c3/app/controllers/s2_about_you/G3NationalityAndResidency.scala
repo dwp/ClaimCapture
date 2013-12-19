@@ -8,12 +8,19 @@ import controllers.Mappings._
 import play.api.data.Form
 import models.domain.NationalityAndResidency
 import utils.helpers.CarersForm._
+import models.yesNo.YesNoWithText
 
 object G3NationalityAndResidency extends Controller with CachedClaim with Navigable {
+  val resideInUKMapping =
+    "resideInUK" -> mapping(
+      "answer" -> nonEmptyText.verifying(validYesNo),
+      "text" -> optional(carersNonEmptyText(maxLength = 35))
+    )(YesNoWithText.apply)(YesNoWithText.unapply)
+      .verifying("required", YesNoWithText.validateOnNo _)
+
   val form = Form(mapping(
-    "nationality" -> carersText(maxLength = 35),
-    "resideInUK" -> nonEmptyText.verifying(validYesNo),
-    "residence" -> optional(carersText(maxLength = 35))
+    "nationality" -> carersNonEmptyText(maxLength = 35),
+    resideInUKMapping
   )(NationalityAndResidency.apply)(NationalityAndResidency.unapply)
   )
 

@@ -1,6 +1,7 @@
 package models.domain
 
 import models.{LivingInUK, NationalInsuranceNumber, MultiLineAddress, DayMonthYear}
+import models.yesNo.YesNoWithText
 
 object AboutYou extends Section.Identifier {
   val id = "s2"
@@ -32,8 +33,7 @@ object ContactDetails extends QuestionGroup.Identifier {
 }
 
 case class NationalityAndResidency(nationality: String = "",
-                                   resideInUK: String = "",
-                                   residence: Option[String] = None) extends QuestionGroup(NationalityAndResidency)
+                                   resideInUK: YesNoWithText = YesNoWithText("", None)) extends QuestionGroup(NationalityAndResidency)
 
 object NationalityAndResidency extends QuestionGroup.Identifier {
   val id = s"${AboutYou.id}.g3"

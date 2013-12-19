@@ -7,6 +7,7 @@
 @import views.html.helper._
 @import views.html.helper.base._
 @import utils.helpers.CarersCrypto
+@import views.html.s2_about_you.main
 
 @main(Messages("s2.g3") + " - " + Messages("s2.longName"), claim.completedQuestionGroups(models.domain.NationalityAndResidency)) {
     @errorsSummary(nationalityAndResidencyForm)
@@ -17,8 +18,22 @@
             <legend>@Messages("s2.g3")</legend>
 
             <ul>
-                @yesNoRadioGroup(nationalityAndResidencyForm("nationalityAndResidency.resideInUK"))
+                @carersInputText(nationalityAndResidencyForm("nationality"),
+                    'helperBelow -> Messages("nationality.helper"),
+                    'maxLength -> 35)
 
+                @yesNoRadioGroup(nationalityAndResidencyForm("resideInUK.answer"),
+                    '_label -> Messages("resideInUK.label"))
+
+                @otherDetailPlaceHolder(
+                    inputDef = Seq(
+                        carersInputText(nationalityAndResidencyForm("resideInUK.text"),
+                            '_label -> Messages("resideInUK.text.label"),
+                            'maxLength -> 35)
+                    ),
+                    'id -> "residencyWrap",
+                    'display -> { if (nationalityAndResidencyForm("resideInUK.answer").value.getOrElse("yes") == "no") "yes" else "no" }
+                )
             </ul>
 
         </fieldset>
@@ -34,7 +49,8 @@
 
 <script type="text/javascript">
     $(function(){
-        window.initEvents("@CarersCrypto.encryptAES("resideInUK_yes")",
-                          "@CarersCrypto.encryptAES("resideInUK_no")";
-    })
+        window.initEvents("@CarersCrypto.encryptAES("resideInUK_answer_yes")",
+                          "@CarersCrypto.encryptAES("resideInUK_answer_no")",
+                          "@CarersCrypto.encryptAES("resideInUK_text")");
+    });
 </script>
