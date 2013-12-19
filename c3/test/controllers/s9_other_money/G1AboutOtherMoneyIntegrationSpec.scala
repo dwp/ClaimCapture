@@ -36,8 +36,6 @@ class G1AboutOtherMoneyIntegrationSpec extends Specification with Tags {
       browser.goTo("/other-money/about-other-money")
       browser.click("#yourBenefits_answer_no")
       browser.click("#anyPaymentsSinceClaimDate_answer_no")
-      browser.fill("#whoPaysYou") `with` "The Man"
-      browser.fill("#howMuch") `with` "12"
       browser.submit("button[type='submit']")
       titleMustEqual("Statutory Sick Pay - About Other Money")
     }

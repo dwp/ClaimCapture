@@ -420,7 +420,7 @@ object ClaimScenarioFactory {
     claim.SelfEmployedChildcareExpensesHowMuchYouPay = "123.45"
     claim.SelfEmployedChildcareExpensesHowOften = app.PensionPaymentFrequency.Other
     claim.SelfEmployedChildcareExpensesHowOftenOther = "Every day and twice on Sunday's"
-    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "father"
+    claim.SelfEmployedChildcareProviderWhatRelationIsToYou = "Father"
     claim.SelfEmployedChildcareProviderWhatRelationIsTothePersonYouCareFor = "Father"
     claim.SelfEmployedChildcareProviderWhatRelationIsToYourPartner = "Father"
 
@@ -431,7 +431,7 @@ object ClaimScenarioFactory {
     val claim = s9SelfEmploymentChildCareExpenses
 
     claim.SelfEmployedCareExpensesHowMuchYouPay = "900.9"
-    claim.SelfEmployedCareExpensesHowOften = app.PensionPaymentFrequency.Weekly
+    claim.SelfEmployedCareExpensesHowOften = app.PensionPaymentFrequency.Other
     claim.SelfEmployedCareExpensesHowOftenOther = "Every day and twice on Sunday's"
     claim.SelfEmployedCareExpensesNameOfPerson = "John"
     claim.SelfEmployedCareExpensesWhatRelationIsToYou = "Father"

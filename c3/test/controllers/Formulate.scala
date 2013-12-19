@@ -131,14 +131,14 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#separated_fromPartner_no]")
-    browser.click("#isPartnerPersonYouCareFor_yes]")
+    browser.click("#separated_fromPartner_no")
+    browser.click("#isPartnerPersonYouCareFor_yes")
     browser.submit("button[type='submit']")
   }
   
   def personYouCareForNotPartner(browser: TestBrowser) = {
     browser.goTo("/your-partner/person-you-care-for")
-    browser.click("#isPartnerPersonYouCareFor_no]")
+    browser.click("#isPartnerPersonYouCareFor_no")
     browser.submit("button[type='submit']")
   }
   
@@ -156,7 +156,7 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#liveAtSameAddressCareYouProvide_yes]")
+    browser.click("#liveAtSameAddressCareYouProvide_yes")
     browser.submit("button[type='submit']")
   }
 
@@ -168,7 +168,7 @@ object Formulate {
     browser.click("#dateOfBirth_day option[value='3']")
     browser.click("#dateOfBirth_month option[value='4']")
     browser.fill("#dateOfBirth_year") `with` "1950"
-    browser.click("#liveAtSameAddressCareYouProvide_no]")
+    browser.click("#liveAtSameAddressCareYouProvide_no")
     browser.submit("button[type='submit']")
   }
 

@@ -5,7 +5,7 @@ import java.util.UUID._
 import scala.language.implicitConversions
 import scala.reflect.ClassTag
 import play.api.Play.current
-import play.api.mvc.{Action, AnyContent, Request, Result}
+import play.api.mvc._
 import play.api.data.Form
 import play.api.cache.Cache
 import play.api.{Logger, Play}
@@ -17,6 +17,9 @@ import models.domain.Claim
 import scala.Some
 import scala.util.Try
 import net.sf.ehcache.CacheManager
+import scala.concurrent.Future
+import models.domain.Claim
+import scala.Some
 
 object CachedClaim {
   val missingRefererConfig = "Referer not set in config"
@@ -114,7 +117,7 @@ trait CachedClaim {
     }
   }
 
-  def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action { request =>
+  def claimingInJob(f: (JobID) => Claim => Request[AnyContent] => Either[Result, ClaimResult]) = Action.async { request =>
     claiming(f(request.body.asFormUrlEncoded.getOrElse(Map("" -> Seq(""))).get("jobID").getOrElse(Seq("Missing JobID at request"))(0)))(request)
   }
 
