@@ -2,7 +2,7 @@ package controllers.submission
 
 import play.api.mvc.Results.Redirect
 import scala.concurrent.{ExecutionContext, Future}
-import play.api.mvc.{AnyContent, Request, PlainResult}
+import play.api.mvc.{AnyContent, Request, SimpleResult}
 import play.api.{http, Logger}
 import com.google.inject.Inject
 import play.api.libs.ws.Response
@@ -22,7 +22,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
 
   lazy val xmlBuilder: XMLBuilder = ValidXMLBuilder()
 
-  override def submit(claim: Claim, request: Request[AnyContent]): Future[PlainResult] = {
+  override def submit(claim: Claim, request: Request[AnyContent]): Future[SimpleResult] = {
     val txnID = idService.generateId
     Logger.info(s"Retrieved Id : $txnID")
     registerId(claim, txnID, SUBMITTED)
@@ -44,7 +44,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     }
   }
 
-  private def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): PlainResult = {
+  private def processResponse(claim: Claim, txnId: String, response: Response, request: Request[AnyContent]): SimpleResult = {
     response.status match {
       case http.Status.OK =>
         val responseStr = response.body
@@ -74,7 +74,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     }
   }
 
-  private def respondWithSuccess(claim: Claim, txnId: String, code: String) : PlainResult = {
+  private def respondWithSuccess(claim: Claim, txnId: String, code: String) : SimpleResult = {
     Logger.info(s"Successful submission : ${claim.key} : $txnId")
     updateStatus(claim, txnId, code)
     claim.key match {
@@ -85,7 +85,7 @@ class WebServiceSubmitter @Inject()(idService: TransactionIdService, claimSubmis
     }
   }
 
-  private def errorAndRedirect(claim: Claim, txnId: String, code: String): PlainResult = {
+  private def errorAndRedirect(claim: Claim, txnId: String, code: String): SimpleResult = {
     Logger.error(s"errorAndCleanup : ${claim.key} : $txnId : $code")
     updateStatus(claim, txnId, code)
     claim.key match {
