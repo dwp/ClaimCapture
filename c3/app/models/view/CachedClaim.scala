@@ -111,8 +111,6 @@ trait CachedClaim {
   def ending(f: => Result): Action[AnyContent] = Action {
     request => {
       implicit val r = request
-      val sessionCount = Try(CacheManager.getInstance().getCache("play").getKeys.size()).getOrElse(0)
-      Logger.info(s"sessionCount : $sessionCount")
       originCheck(sameHostCheck, f).withNewSession
     }
   }
