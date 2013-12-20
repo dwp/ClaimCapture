@@ -1,8 +1,8 @@
-import com.typesafe.config.ConfigFactory
 import sbt._
 import sbt.Keys._
 import play.Project._
 import net.litola.SassPlugin
+import de.johoop.jacoco4sbt.JacocoPlugin._
 
 object ApplicationBuild extends Build {
   val appName         = "c3"
@@ -24,7 +24,9 @@ object ApplicationBuild extends Build {
     "me.moocar" % "logback-gelf" % "0.9.6p2",
     "com.google.inject" % "guice" % "3.0",
     "com.tzavellas" % "sse-guice" % "0.7.1",
-    "com.github.rjeschke" % "txtmark" % "0.10"
+    "com.github.rjeschke" % "txtmark" % "0.10",
+    "org.jacoco" % "org.jacoco.core" % "0.6.4.201312101107",
+    "org.jacoco" % "org.jacoco.report" % "0.6.4.201312101107"
   )
 
   var sO: Seq[Def.Setting[_]] = Seq(scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-Xlint", "-language:reflectiveCalls"))
@@ -50,7 +52,9 @@ object ApplicationBuild extends Build {
 
   var f: Seq[Def.Setting[_]] = Seq(sbt.Keys.fork in Test := false)
 
-  var appSettings: Seq[Def.Setting[_]] =  SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest ++ f ++ jO
+  var jcoco: Seq[Def.Setting[_]] = Seq(parallelExecution in jacoco.Config := false)
 
-  val main = play.Project(appName, appVersion, appDependencies).settings(appSettings: _*)
+  var appSettings: Seq[Def.Setting[_]] =  SassPlugin.sassSettings ++ sV ++ sO ++ sR ++ gS ++ sTest ++ jO ++ f ++ jcoco
+
+  val main = play.Project(appName, appVersion, appDependencies, settings = play.Project.playScalaSettings ++ jacoco.settings).settings(appSettings: _*)
 }
