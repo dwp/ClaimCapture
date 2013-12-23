@@ -14,7 +14,7 @@ class PublisherSpec extends Specification with Tags with NoTimeConversions with 
       val actor = system.actorOf(Props(classOf[Publisher], logger), name = "publisher")
       actor ! CacheCount
       Thread.sleep(1000)
-      there was one(logger).info("cacheCount : 0")
+      there was one(logger).info("Cache (Count : 0)")
     }
   } section("unit", "monitoring")
 }

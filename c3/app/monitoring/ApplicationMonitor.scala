@@ -20,6 +20,7 @@ object ApplicationMonitor {
   def begin = {
     actorSystem.scheduler.schedule(start, every) {
       publisher ! CacheCount
+      publisher ! HeapStats
     }
   }
 
